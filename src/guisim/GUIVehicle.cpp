@@ -716,7 +716,13 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
         Position pos = stop.lane->geometryPositionAtOffset(stopLanePos);
         GLHelper::setColor(col);
         GLHelper::drawBoxLines(stop.lane->getShape().getOrthogonal(pos, 10, true, stop.lane->getWidth()), 0.1);
-        std::string label = stop.pars.speed > 0 ? "waypoint" : (stop.reached ? "stopped" : "stop " + toString(stopIndex));
+        std::string label = (stop.pars.speed > 0
+            ? (stop.reached ? "passing waypoint" : "waypoint ")
+            : (stop.reached ? "stopped" : "stop "));
+        if (!stop.reached) {
+            label += toString(stopIndex);
+        }
+
         if (stop.isOpposite) {
             label += " (opposite)";
         }
