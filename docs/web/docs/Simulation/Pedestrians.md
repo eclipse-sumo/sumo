@@ -61,7 +61,7 @@ new sidewalk lane.
 ### Explicit specification of sidewalks
 
 Alternatively to the above method, the `<edge>`-attribute
-[sidewalkWidth may be used](../Networks/PlainXML.md#edge_descriptions).
+[sidewalkWidth may be used](../Networks/PlainXML.md#edge_descriptions) when loading edges from an *.edg.xml*-file.
 It will cause a sidewalk of the specified width to be added to that
 edge, connections to be remapped and pedestrian permissions to be
 removed from all other lanes.
