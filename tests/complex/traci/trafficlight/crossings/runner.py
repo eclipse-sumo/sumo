@@ -32,7 +32,8 @@ traci.start([sumolib.checkBinary('sumo'),
              "-n", "input_net3.net.xml",
              '--no-step-log',
              ]
-             + sys.argv[1:])
+            + sys.argv[1:])
+
 for step in range(3):
     print("step", step)
     traci.simulationStep()
@@ -52,6 +53,7 @@ def check():
     print("phaseName", traci.trafficlight.getPhaseName(tlsID))
     print("switch", traci.trafficlight.getNextSwitch(tlsID))
     print("duration", traci.trafficlight.getPhaseDuration(tlsID))
+
 
 traci.trafficlight.setPhase(tlsID, 4)
 traci.trafficlight.setPhaseName(tlsID, "setByTraCI")
