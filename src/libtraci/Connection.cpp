@@ -88,29 +88,29 @@ Connection::readOutput() {
 
 void
 Connection::close() {
+    if (mySocket.has_client_connection()) {
+        tcpip::Storage outMsg;
+        // command length
+        outMsg.writeUnsignedByte(1 + 1);
+        // command id
+        outMsg.writeUnsignedByte(libsumo::CMD_CLOSE);
+        mySocket.sendExact(outMsg);
+
+        tcpip::Storage inMsg;
+        std::string acknowledgement;
+        check_resultState(inMsg, libsumo::CMD_CLOSE, false, &acknowledgement);
+        mySocket.close();
+    }
     if (myProcessReader != nullptr) {
         myProcessReader->join();
         delete myProcessReader;
+        myProcessReader = nullptr;
 #ifdef WIN32
         _pclose(myProcessPipe);
 #else
         pclose(myProcessPipe);
 #endif
     }
-    if (!mySocket.has_client_connection()) {
-        return;
-    }
-    tcpip::Storage outMsg;
-    // command length
-    outMsg.writeUnsignedByte(1 + 1);
-    // command id
-    outMsg.writeUnsignedByte(libsumo::CMD_CLOSE);
-    mySocket.sendExact(outMsg);
-
-    tcpip::Storage inMsg;
-    std::string acknowledgement;
-    check_resultState(inMsg, libsumo::CMD_CLOSE, false, &acknowledgement);
-    mySocket.close();
     myConnections.erase(myLabel);
     delete myActive;
     myActive = nullptr;
