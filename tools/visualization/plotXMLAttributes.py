@@ -64,6 +64,8 @@ def getOptions(args=None):
     optParser.add_option("--label", help="plot label (default input file name")
     optParser.add_option("--invert-yaxis", dest="invertYAxis", action="store_true",
                          default=False, help="Invert the Y-Axis")
+    optParser.add_option("--scatterplot", action="store_true",
+                         default=False, help="Draw a scatterplot instead of lines")
     optParser.add_option("--legend", action="store_true", default=False, help="Add legend")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
 
@@ -104,7 +106,7 @@ def short_names(filenames):
 
 def onpick(event):
     mevent = event.mouseevent
-    print("veh=%s x=%d y=%d" % (event.label, mevent.xdata, mevent.ydata))
+    print("dataID=%s x=%d y=%d" % (event.artist.get_label(), mevent.xdata, mevent.ydata))
 
 def getDataStream(options):
     # determine elements and nesting for the given attributes
@@ -127,7 +129,7 @@ def getDataStream(options):
                         if oldTag != elem.tag:
                             if elem2level[oldTag] < level:
                                 attr2elem[attr] = elem.tag
-                            print("Warning: found %s '%s' in element %s (level %s) and element %s (level %s). Using %s" % (
+                            print("Warning: found %s '%s' in element '%s' (level %s) and element '%s' (level %s). Using '%s'" % (
                                 a, attr, oldTag, elem2level[oldTag], elem.tag, level, attr2elem[attr]))
                     else:
                         attr2elem[attr] = elem.tag
@@ -222,24 +224,6 @@ def main(options):
     if filteredIDs == 0:
         sys.exit()
 
-    def line_picker(line, mouseevent):
-        if mouseevent.xdata is None:
-            return False, dict()
-        # minxy = None
-        # mindist = 10000
-        for x, y in zip(line.get_xdata(), line.get_ydata()):
-            dist = math.sqrt((x - mouseevent.xdata) ** 2 + (y - mouseevent.ydata) ** 2)
-            if dist < options.pickDist:
-                return True, dict(label=line.get_label())
-            # else:
-            #    if dist < mindist:
-            #        print("   ", x,y, dist, (x - mouseevent.xdata) ** 2, (y - mouseevent.ydata) ** 2)
-            #        mindist = dist
-            #        minxy = (x, y)
-        # print(mouseevent.xdata, mouseevent.ydata, minxy, dist,
-        #        line.get_label())
-        return False, dict()
-
     minY = uMax
     maxY = uMin
     minX = uMax
@@ -252,7 +236,11 @@ def main(options):
         minX = min(minX, min(d[xdata]))
         maxX = max(maxX, max(d[xdata]))
 
-        plt.plot(d[xdata], d[ydata], picker=line_picker, label=dataID)
+        if options.scatterplot:
+            plt.scatter(d[xdata], d[ydata], picker=True, label=dataID)
+        else:
+            plt.plot(d[xdata], d[ydata], picker=True, label=dataID)
+
     if options.invertYAxis:
         plt.axis([minX, maxX, maxY, minY])
 
