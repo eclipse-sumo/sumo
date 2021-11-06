@@ -23,6 +23,7 @@ from __future__ import absolute_import
 import os
 import sys
 import time
+from scipy import misc
 sys.path.append(os.path.join(
     os.path.dirname(sys.argv[0]), "..", "..", "..", "..", "..", "tools"))
 import traci  # noqa
@@ -72,4 +73,6 @@ traci.gui.toggleSelection("2fi", "edge")
 print("veh selected:", traci.gui.isSelected("horiz"))
 print("edge selected:", traci.gui.isSelected("2fi", "edge"))
 traci.simulationStep()
+pic = misc.imread("out.png")
+print("screenshot dimensions", pic.shape)
 traci.close()
