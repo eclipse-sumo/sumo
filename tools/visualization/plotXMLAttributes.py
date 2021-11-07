@@ -51,7 +51,7 @@ def getOptions(args=None):
     optParser = OptionParser()
     optParser.add_option("-x", "--xattr",  help="attribute for x-axis")
     optParser.add_option("-y", "--yattr",  help="attribute for y-axis")
-    optParser.add_option("-i", "--idattr",  help="attribute for grouping data points into lines")
+    optParser.add_option("-i", "--idattr",  default="id", help="attribute for grouping data points into lines")
     optParser.add_option("--xelem",  help="element for x-axis")
     optParser.add_option("--yelem",  help="element for y-axis")
     optParser.add_option("--idelem",  help="element for grouping data points into lines")
@@ -62,6 +62,10 @@ def getOptions(args=None):
     optParser.add_option("-p", "--pick-distance", dest="pickDist", type="float", default=1,
                          help="pick lines within the given distance in interactive plot mode")
     optParser.add_option("--label", help="plot label (default input file name")
+    optParser.add_option("--xlabel", help="plot label (default xattr)")
+    optParser.add_option("--ylabel", help="plot label (default yattr)")
+    optParser.add_option("--xfactor", help="multiplier for x-data", type="float", default=1)
+    optParser.add_option("--yfactor", help="multiplier for y-data", type="float", default=1)
     optParser.add_option("--invert-yaxis", dest="invertYAxis", action="store_true",
                          default=False, help="Invert the Y-Axis")
     optParser.add_option("--scatterplot", action="store_true",
@@ -82,6 +86,11 @@ def getOptions(args=None):
     for a in options.attrOptions:
         if getattr(options, a) is None:
             sys.exit("mandatory argument --%s is missing" % a)
+
+    if options.xlabel is None:
+        options.xlabel = options.xattr
+    if options.ylabel is None:
+        options.ylabel = options.yattr
 
     return options
 
@@ -194,8 +203,8 @@ def main(options):
     fig.canvas.mpl_connect('pick_event', onpick)
 
     shortFileNames = short_names(options.files)
-    plt.xlabel(options.xattr)
-    plt.ylabel(options.yattr)
+    plt.xlabel(options.xlabel)
+    plt.ylabel(options.ylabel)
     plt.title(','.join(shortFileNames) if options.label is None else options.label)
     xdata = 0
     ydata = 1
@@ -214,8 +223,8 @@ def main(options):
                     dataID += "#" + suffix
             x = parseTime(x)
             y = parseTime(y)
-            data[dataID][xdata].append(x)
-            data[dataID][ydata].append(y)
+            data[dataID][xdata].append(x * options.xfactor)
+            data[dataID][ydata].append(y * options.yfactor)
             filteredIDs += 1
         if totalIDs == 0 or filteredIDs == 0 or options.verbose:
             print("Found %s datapoints in %s and kept %s" % (
