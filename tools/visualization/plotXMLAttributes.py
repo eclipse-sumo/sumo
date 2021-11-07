@@ -138,7 +138,7 @@ def getDataStream(options):
                         if oldTag != elem.tag:
                             if elem2level[oldTag] < level:
                                 attr2elem[attr] = elem.tag
-                            print("Warning: found %s '%s' in element '%s' (level %s) and element '%s' (level %s). Using '%s'" % (
+                            print("Warning: found %s '%s' in element '%s' (level %s) and element '%s' (level %s). Using '%s'." % (
                                 a, attr, oldTag, elem2level[oldTag], elem.tag, level, attr2elem[attr]))
                     else:
                         attr2elem[attr] = elem.tag
@@ -162,6 +162,7 @@ def getDataStream(options):
 
     if len(allElems) == 2:
         def datastream(xmlfile):
+            skippedLines = defaultdict(lambda : 0)
             elems = sorted(allElems, key=lambda e : elem2level[e])
             mE0 = "<%s " % elems[0]
             mE1 = "<%s " % elems[1]
@@ -176,9 +177,21 @@ def getDataStream(options):
                     for a, r in mAs0:
                         values[a] = r.search(line).groups()[0]
                 if mE1 in line:
+                    skip = False
                     for a, r in mAs1:
-                        values[a] = r.search(line).groups()[0]
-                    yield [values[a] for a in attrs]
+                        m = r.search(line)
+                        if m:
+                            values[a] = m.groups()[0]
+                        else:
+                            skip = True
+                            skippedLines[a] += 1
+                    if not skip:
+                        yield [values[a] for a in attrs]
+
+            for attr, count in skippedLines.items():
+                print("Warning: Skipped %s lines because of missing attributes '%s'." % (
+                    count, attr), file=sys.stderr)
+
         return datastream
 
     elif len(allElems) == 1:
