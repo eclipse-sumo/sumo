@@ -49,9 +49,9 @@ python  tools/visualization/plotXMLAttributes.py fcd.xml -x x -y y -s
 
 The above example draws the paths of all vehicles through the network based on fcd-output. (It is a special case that can also be accomplished with  #plot_trajectoriespy)
 
-### Examples
+Further examples are shown below
 
-#### Inductionloop Speed over Time
+### Inductionloop Speed over Time
 
 Input is [inductionloop-output](../Simulation/Output/Induction_Loops_Detectors_(E1).md) with 30s aggregation from 2 detectors (`<e1Detector id="e1Detector_-109_0_0" lane="-109_0" pos="54.06" freq="30.00" file="data.xml"/>`
 
@@ -59,7 +59,7 @@ Call: `python tools/visualization/plotXMLAttributes.py data.xml -x begin -y spee
 
 ![plotAttrs_detector.png](../images/plotAttrs_detector.png "plotAttrs_detector.png")
 
-#### boarding passengers vs delay for each station
+### boarding passengers vs delay for each station
 
 Input is [stop-output](../Simulation/Output/StopOutput.md)
 
@@ -67,7 +67,7 @@ Call: `python tools/visualization/plotXMLAttributes.py stopinfos.xml -i busStop 
 
 ![plotAttrs_boardingDelay.png](../images/plotAttrs_boardingDelay.png "plotAttrs_boardingDelay.png")
 
-#### Fundamental Diagram from edgeData
+### Fundamental Diagram from edgeData
 
 Input is [edgeData-output](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md) with 1-minute aggregation (`<edgeData id="example" file="data.xml" freq="60"/>`)
 
