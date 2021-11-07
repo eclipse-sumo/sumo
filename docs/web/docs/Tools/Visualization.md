@@ -71,7 +71,7 @@ Call: `python tools/visualization/plotXMLAttributes.py stopinfos.xml -i busStop 
 
 Input is [edgeData-output](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md) with 1-minute aggregation (`<edgeData id="example" file="data.xml" freq="60"/>`)
 
-Call: `python tools/visualization/plotXMLAttributes.py data.xml -i id -x density -y left -s  --scatterplot --yfactor 60 --ylabel vehs/hour`
+Call: `python tools/visualization/plotXMLAttributes.py data.xml -i id -x density -y left -s  --scatterplot --yfactor 60 --ylabel vehs per hour`
 
 Each color gives encodes a different edge-id
 
