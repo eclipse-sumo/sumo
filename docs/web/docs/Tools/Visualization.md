@@ -37,9 +37,49 @@ that [\#common options](#common_options) may be applied to
 all the scripts listed in the following sub-sections albeit few options
 may not work for certain scripts.
 
+## plotXMLAttributes.py
+
+Create multiple 2D-plots of 2 arbitrary attributes from an xml file aggregated by an third attribute (i.e. detector-id).
+
+Example use:
+
+```
+python  tools/visualization/plotXMLAttributes.py fcd.xml -x x -y y -s
+```
+
+The above example draws the paths of all vehicles through the network based on fcd-output. (It is a special case that can also be accomplished with  #plot_trajectoriespy)
+
+### Examples
+
+#### Inductionloop Speed over Time
+
+Input is [inductionloop-output](../Simulation/Output/Induction_Loops_Detectors_(E1).md) with 30s aggregation from 2 detectors (`<e1Detector id="e1Detector_-109_0_0" lane="-109_0" pos="54.06" freq="30.00" file="data.xml"/>`
+
+Call: `python tools/visualization/plotXMLAttributes.py data.xml -x begin -y speed -s`
+
+![plotAttrs_detector.png](../images/plotAttrs_detector.png "plotAttrs_detector.png")
+
+#### boarding passengers vs delay for each station
+
+Input is [stop-output](../Simulation/Output/StopOutput.md)
+
+Call: `python tools/visualization/plotXMLAttributes.py stopinfos.xml -i busStop -x loadedPersons -y delay -s --scatterplot --legend
+
+![plotAttrs_boardingDelay.png](../images/plotAttrs_boardingDelay.png "plotAttrs_boardingDelay.png")
+
+#### Fundamental Diagram from edgeData
+
+Input is [edgeData-output](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md) with 1-minute aggregation (`<edgeData id="example" file="data.xml" freq="60"/>`)
+
+Call: `python tools/visualization/plotXMLAttributes.py data.xml -i id -x density -y left -s  --scatterplot --yfactor 60 --ylabel vehs/hour`
+
+Each color gives encodes a different edge-id
+
+![plotAttrs_fundamental.png](../images/plotAttrs_fundamental.png "plotAttrs_fundamental.png")
+
 ## plot_trajectories.py
 
-Show plots for all trajectories in a given **--fcd-output** file. This tool in particular is located in {{SUMO}}/tools.
+Create plot of all trajectories in a given **--fcd-output** file. This tool in particular is located in {{SUMO}}/tools.
 
 Example use:
 
