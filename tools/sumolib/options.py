@@ -27,6 +27,8 @@ from xml.sax import parse, handler, saxutils
 import argparse
 import io
 
+from argparse import RawDescriptionHelpFormatter
+
 _OPTIONS = [None]
 
 

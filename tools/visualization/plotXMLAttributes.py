@@ -45,11 +45,19 @@ except ImportError as e:
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 from sumolib.xml import _open  # noqa
 from sumolib.miscutils import uMin, uMax, parseTime  # noqa
-from sumolib.options import ArgumentParser  # noqa
-
+from sumolib.options import ArgumentParser, RawDescriptionHelpFormatter  # noqa
 
 def getOptions(args=None):
-    optParser = ArgumentParser()
+    optParser = ArgumentParser(
+      description='Plot arbitrary attributes from xml files',
+      epilog='Individual trajectories can be clicked in interactive mode to print the data Id on the console\n'
+             'selects two attributs for x and y axis and optionally a third (id-attribute)\n'
+             'for grouping of data points into lines\n\n'
+             'Example\n'
+             '  plotXMLAttributes.py -x started -y initialPersons -s stopout.xml\n'
+             '    plots passengers over time for vehicles from SUMO stop output'
+             , formatter_class=RawDescriptionHelpFormatter)
+
     optParser.add_option("-x", "--xattr",  help="attribute for x-axis")
     optParser.add_option("-y", "--yattr",  help="attribute for y-axis")
     optParser.add_option("-i", "--idattr",  default="id", help="attribute for grouping data points into lines")
@@ -73,11 +81,9 @@ def getOptions(args=None):
                          default=False, help="Draw a scatterplot instead of lines")
     optParser.add_option("--legend", action="store_true", default=False, help="Add legend")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
+    optParser.add_argument("files", nargs='+', help="List of XML files to plot")
 
-    options, args = optParser.parse_known_args(args=args)
-    if len(args) < 1:
-        sys.exit("mandatory argument XML_FILE missing")
-    options.files = args
+    options = optParser.parse_args(args=args)
 
     options.attrOptions = ['idattr', 'xattr', 'yattr']
 
@@ -140,9 +146,10 @@ def getDataStream(options):
                         if oldTag != elem.tag:
                             if elem2level[oldTag] < level:
                                 attr2elem[attr] = elem.tag
-                            print("Warning: found %s '%s' in element '%s' (level %s) and element '%s' (level %s)." %
-                                  (a, attr, oldTag, elem2level[oldTag], elem.tag, level))
-                            print(" Using '%s'." % attr2elem[attr])
+                            print("Warning: found %s '%s' in element '%s' (level %s) and element '%s' (level %s)."
+                                  " Using '%s'." % (
+                                      a, attr, oldTag, elem2level[oldTag],
+                                      elem.tag, level, attr2elem[attr]))
                     else:
                         attr2elem[attr] = elem.tag
             if len(attr2elem) == 3:
