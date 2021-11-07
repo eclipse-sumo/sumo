@@ -30,7 +30,6 @@ import re
 import sys
 sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 from collections import defaultdict
-from optparse import OptionParser
 import matplotlib
 if 'matplotlib.backends' not in sys.modules:
     if 'TEXTTEST_SANDBOX' in os.environ or (os.name == 'posix' and 'DISPLAY' not in os.environ):
@@ -46,9 +45,10 @@ except ImportError as e:
 
 from sumolib.xml import parse_fast, parse_fast_nested, _open  # noqa
 from sumolib.miscutils import uMin, uMax, parseTime  # noqa
+from sumolib.options import ArgumentParser
 
 def getOptions(args=None):
-    optParser = OptionParser()
+    optParser = ArgumentParser()
     optParser.add_option("-x", "--xattr",  help="attribute for x-axis")
     optParser.add_option("-y", "--yattr",  help="attribute for y-axis")
     optParser.add_option("-i", "--idattr",  default="id", help="attribute for grouping data points into lines")
@@ -59,13 +59,13 @@ def getOptions(args=None):
     optParser.add_option("-o", "--output", help="outputfile for saving plots", default="plot.png")
     optParser.add_option("--csv-output", dest="csv_output", help="write plot as csv", metavar="FILE")
     optParser.add_option("--filter-ids", dest="filterIDs", help="only plot data points from the given list of ids")
-    optParser.add_option("-p", "--pick-distance", dest="pickDist", type="float", default=1,
+    optParser.add_option("-p", "--pick-distance", dest="pickDist", type=float, default=1,
                          help="pick lines within the given distance in interactive plot mode")
     optParser.add_option("--label", help="plot label (default input file name")
     optParser.add_option("--xlabel", help="plot label (default xattr)")
     optParser.add_option("--ylabel", help="plot label (default yattr)")
-    optParser.add_option("--xfactor", help="multiplier for x-data", type="float", default=1)
-    optParser.add_option("--yfactor", help="multiplier for y-data", type="float", default=1)
+    optParser.add_option("--xfactor", help="multiplier for x-data", type=float, default=1)
+    optParser.add_option("--yfactor", help="multiplier for y-data", type=float, default=1)
     optParser.add_option("--invert-yaxis", dest="invertYAxis", action="store_true",
                          default=False, help="Invert the Y-Axis")
     optParser.add_option("--scatterplot", action="store_true",
@@ -73,7 +73,7 @@ def getOptions(args=None):
     optParser.add_option("--legend", action="store_true", default=False, help="Add legend")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
 
-    options, args = optParser.parse_args(args=args)
+    options, args = optParser.parse_known_args(args=args)
     if len(args) < 1:
         sys.exit("mandatory argument XML_FILE missing")
     options.files = args
