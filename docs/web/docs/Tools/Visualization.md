@@ -47,23 +47,44 @@ Example use:
 python tools/plot_trajectories.py fcd.xml -t td -o plot.png -s
 ```
 
-The option **-t (--trajectory-type)** supports different plot styles:
+The option **-t (--trajectory-type)** supports different attributes that can be plotted against each other. The argument is a two-letter code with each letter encoding an attribute that is derived from the fcd input.
 
-- td: time vs distance
-- ts: time vs speed
-- ta: time vs acceleration
-- ds: distance vs speed
-- da: distance vs acceleration
-- kt: kilometrage vs time (requires **--fcd-output.distance**)
+### Available Attributes
+
+- **t**: Time in s
+- **d**: Distance driven (starts with 0 at the first fcd datapoint for each vehicle). Distance is computed based on speed using Euler-integration. Set optin **--ballistic** for [ballistic integration](../Simulation/Basic_Definition.md#defining_the_integration_method).
+- **a**: Acceleration
+- **s**: Speed (m/s)
+- **i**: Vehicle angle (navigational degrees)
+- **x**: X-Position in m
+- **y**: Y-Position in m
+- **k**: [Kilometrage](../Simulation/Railways.md#kilometrage_mileage_chainage) (requires **--fcd-output.distance**)
+
+### Examples Trajectory Types
+
+- **td**: time vs distance
+- **ts**: time vs speed
+- **ta**: time vs acceleration
+- **ds**: distance vs speed
+- **da**: distance vs acceleration
+- **xy**: Spatial plot of driving path
+- **kt**: kilometrage vs time (combine with option **--invert-yaxis** to get a classic railway diagram).
+
+![plot_trajectories.png](../images/Plot_trajectories.png "plot_trajectories.png")
+
+### Interactive Plot
 
 When option **-s** is set, a interactive plot is opened that allows
 identifying vehicles by clicking on the respective line (vehicle ids is
 printed in the console).
 
+### Filtering
+
 Option **--filter-route EDGE1,EDGE2,...** allows restricting the plot to all trajectories that contain the
 given set of edges.
 
-![plot_trajectories.png](../images/Plot_trajectories.png "plot_trajectories.png")
+Option **--filter-ids ID1,ID2,...** allows restricting the plot to the given vehicle ids
+
 
 ## plot_net_dump.py
 
