@@ -28,7 +28,6 @@ from __future__ import print_function
 import os
 import sys
 from collections import defaultdict
-from optparse import OptionParser
 import matplotlib
 if 'matplotlib.backends' not in sys.modules:
     if 'TEXTTEST_SANDBOX' in os.environ or (os.name == 'posix' and 'DISPLAY' not in os.environ):
@@ -38,10 +37,11 @@ import math  # noqa
 
 from sumolib.xml import parse_fast_nested  # noqa
 from sumolib.miscutils import uMin, uMax, parseTime  # noqa
+from sumolib.options import ArgumentParser
 
 
 def getOptions(args=None):
-    optParser = OptionParser()
+    optParser = ArgumentParser()
     optParser.add_option("-t", "--trajectory-type", dest="ttype", default="ds",
                          help="select two letters from [t, s, d, a, i, x, y, k] to plot"
                          + " Time, Speed, Distance, Acceleration, Angle, x-Position, y-Position, Kilometrage."
@@ -58,9 +58,9 @@ def getOptions(args=None):
                          help="only consider data for the given list of edges")
     optParser.add_option("--filter-ids", dest="filterIDs",
                          help="only consider data for the given list of vehicle (or person) ids")
-    optParser.add_option("-p", "--pick-distance", dest="pickDist", type="float", default=1,
+    optParser.add_option("-p", "--pick-distance", dest="pickDist", type=float, default=1,
                          help="pick lines within the given distance in interactive plot mode")
-    optParser.add_option("-i", "--invert-distance-angle", dest="invertDistanceAngle", type="float",
+    optParser.add_option("-i", "--invert-distance-angle", dest="invertDistanceAngle", type=float,
                          help="invert distance for trajectories with a average angle near FLOAT")
     optParser.add_option("--label", help="plot label (default input file name")
     optParser.add_option("--invert-yaxis", dest="invertYAxis", action="store_true",
@@ -68,7 +68,7 @@ def getOptions(args=None):
     optParser.add_option("--legend", action="store_true", default=False, help="Add legend")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
 
-    options, args = optParser.parse_args(args=args)
+    options, args = optParser.parse_known_args(args=args)
     if len(args) < 1:
         sys.exit("mandatory argument FCD_FILE missing")
     options.fcdfiles = args
