@@ -49,7 +49,11 @@ python  tools/visualization/plotXMLAttributes.py fcd.xml -x x -y y -s
 
 The above example draws the paths of all vehicles through the network based on fcd-output. (It is a special case that can also be accomplished with  #plot_trajectoriespy)
 
-Further examples are shown below
+When option **-s** is set, a interactive plot is opened that allows identifying data points vehicles by clicking on the plot (dataID is printed on the console)
+
+Option **--filter-ids ID1,ID2,...** allows restricting the plot to the given data element ids
+
+Further examples are shown below...
 
 ### Inductionloop Speed over Time
 
@@ -76,6 +80,7 @@ Call: `python tools/visualization/plotXMLAttributes.py data.xml -i id -x density
 Each color gives encodes a different edge-id
 
 ![plotAttrs_fundamental.png](../images/plotAttrs_fundamental.png "plotAttrs_fundamental.png")
+
 
 ## plot_trajectories.py
 
