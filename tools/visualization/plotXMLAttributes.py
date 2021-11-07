@@ -28,7 +28,6 @@ from __future__ import print_function
 import os
 import re
 import sys
-sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 from collections import defaultdict
 import matplotlib
 if 'matplotlib.backends' not in sys.modules:
@@ -43,9 +42,11 @@ except ImportError as e:
     print("recovering from ImportError '%s'" % e)
     import xml.etree.ElementTree as ET
 
-from sumolib.xml import parse_fast, parse_fast_nested, _open  # noqa
+sys.path.append(os.path.join(os.path.dirname(sys.argv[0]), '..'))
+from sumolib.xml import _open  # noqa
 from sumolib.miscutils import uMin, uMax, parseTime  # noqa
-from sumolib.options import ArgumentParser
+from sumolib.options import ArgumentParser  # noqa
+
 
 def getOptions(args=None):
     optParser = ArgumentParser()
@@ -117,12 +118,13 @@ def onpick(event):
     mevent = event.mouseevent
     print("dataID=%s x=%d y=%d" % (event.artist.get_label(), mevent.xdata, mevent.ydata))
 
+
 def getDataStream(options):
     # determine elements and nesting for the given attributes
     # by reading from the first file
 
     attrOptions = options.attrOptions
-    attr2elem = {} 
+    attr2elem = {}
     elem2level = {}
 
     level = 0
@@ -138,8 +140,9 @@ def getDataStream(options):
                         if oldTag != elem.tag:
                             if elem2level[oldTag] < level:
                                 attr2elem[attr] = elem.tag
-                            print("Warning: found %s '%s' in element '%s' (level %s) and element '%s' (level %s). Using '%s'." % (
-                                a, attr, oldTag, elem2level[oldTag], elem.tag, level, attr2elem[attr]))
+                            print("Warning: found %s '%s' in element '%s' (level %s) and element '%s' (level %s)." %
+                                  (a, attr, oldTag, elem2level[oldTag], elem.tag, level))
+                            print(" Using '%s'." % attr2elem[attr])
                     else:
                         attr2elem[attr] = elem.tag
             if len(attr2elem) == 3:
@@ -147,13 +150,12 @@ def getDataStream(options):
                 break
         elif event == "end":
             level -= 1
-        
+
     if len(attr2elem) != 3:
         for a in attrOptions:
             attr = getattr(options, a)
-            if not attr in attr2elem:
+            if attr not in attr2elem:
                 sys.exit("%s '%s' not found in %s" % (a, attr, options.files[0]))
-
 
     allElems = list(set(attr2elem.values()))
     attrs = [getattr(options, a) for a in attrOptions]
@@ -162,8 +164,8 @@ def getDataStream(options):
 
     if len(allElems) == 2:
         def datastream(xmlfile):
-            skippedLines = defaultdict(lambda : 0)
-            elems = sorted(allElems, key=lambda e : elem2level[e])
+            skippedLines = defaultdict(int)
+            elems = sorted(allElems, key=lambda e: elem2level[e])
             mE0 = "<%s " % elems[0]
             mE1 = "<%s " % elems[1]
             attrs0 = [a for a in attrs if attr2elem[a] == elems[0]]
@@ -171,7 +173,7 @@ def getDataStream(options):
             mAs0 = [(a, re.compile('%s="([^"]*)"' % a)) for a in attrs0]
             mAs1 = [(a, re.compile('%s="([^"]*)"' % a)) for a in attrs1]
 
-            values = {} # attr -> value
+            values = {}  # attr -> value
             for line in _open(xmlfile):
                 if mE0 in line:
                     for a, r in mAs0:
@@ -206,7 +208,8 @@ def getDataStream(options):
         return datastream
 
     else:
-        sys.exit("Found attributes at elements %s but at most 2 elements are supported" % elems)
+        sys.exit("Found attributes at elements %s but at most 2 elements are supported" % allElems)
+
 
 def main(options):
 
