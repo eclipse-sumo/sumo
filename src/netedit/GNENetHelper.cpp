@@ -24,6 +24,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/elements/additional/GNEPoly.h>
+#include <netedit/elements/additional/GNEPOI.h>
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/demand/GNEVehicleType.h>
@@ -210,7 +211,7 @@ GNENetHelper::AttributeCarriers::isNetworkElementAroundShape(GNEAttributeCarrier
             return shape.overlapsWith(dynamic_cast<GNEPoly*>(AC)->getShape());
         } else {
             // POI
-            return shape.around(dynamic_cast<GNEPoly*>(AC)->getPositionInView());
+            return shape.around(dynamic_cast<GNEPOI*>(AC)->getPositionInView());
         }
     } else if (AC->getTagProperty().getTag() == SUMO_TAG_TAZ) {
         // TAZ
