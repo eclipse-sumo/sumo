@@ -1403,7 +1403,7 @@ MSLCM_LC2013::_wantsChange(
     // check for overriding TraCI requests
 #ifdef DEBUG_WANTS_CHANGE
     if (DEBUG_COND) {
-        std::cout << STEPS2TIME(currentTime) << " veh=" << myVehicle.getID() << " ret=" << ret;
+        std::cout << STEPS2TIME(currentTime) << " veh=" << myVehicle.getID() << " ret=" << toString((LaneChangeAction)ret);
     }
 #endif
     // store state before canceling
@@ -1415,11 +1415,13 @@ MSLCM_LC2013::_wantsChange(
     }
 #ifdef DEBUG_WANTS_CHANGE
     if (DEBUG_COND) {
-        std::cout << " retAfterInfluence=" << ret << "\n";
+        std::cout << " retAfterInfluence=" << toString((LaneChangeAction)ret) << "\n";
     }
 #endif
 
     if ((ret & LCA_STAY) != 0) {
+        // remove TraCI flags because it should not be included in "state-without-traci"
+        ret = getCanceledState(laneOffset);
         return ret;
     }
     if ((ret & LCA_URGENT) != 0) {
@@ -1468,6 +1470,8 @@ MSLCM_LC2013::_wantsChange(
         }
 #endif
 
+        // remove TraCI flags because it should not be included in "state-without-traci"
+        ret = getCanceledState(laneOffset);
         return ret;
     }
     // a high inconvenience prevents cooperative changes.
