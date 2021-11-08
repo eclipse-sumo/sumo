@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:37 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2021-11-08 21:49:41 by Eclipse SUMO netconvert Version v1_10_0+1805-e7d391bd92f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -393,7 +393,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="270683728#2" to="270683743#3" fromLane="0" toLane="0" via=":2756928018_1_0" dir="s" state="M"/>
     <connection from="270683737" to="313088548" fromLane="0" toLane="0" via=":2756927608_0_0" dir="s" state="M"/>
     <connection from="270683743#0" to="270683733" fromLane="0" toLane="0" via=":2756927630_0_0" dir="s" state="M"/>
-    <connection from="270683743#0" to="270683743#1" fromLane="0" toLane="0" via=":2756927630_1_0" dir="L" state="M"/>
+    <connection from="270683743#0" to="270683743#1" fromLane="0" toLane="0" via=":2756927630_1_0" dir="s" state="M"/>
     <connection from="270683743#1" to="270683743#2" fromLane="0" toLane="0" via=":2756927639_0_0" dir="R" state="M"/>
     <connection from="270683743#1" to="270683728#0" fromLane="0" toLane="0" via=":2756927639_1_0" dir="s" state="M"/>
     <connection from="270683743#2" to="270683743#3" fromLane="0" toLane="0" via=":2756928018_0_0" dir="s" state="M"/>
@@ -420,7 +420,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from=":2756927490_0" to="254150073#2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":2756927608_0" to="313088548" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":2756927630_0" to="270683733" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":2756927630_1" to="270683743#1" fromLane="0" toLane="0" dir="L" state="M"/>
+    <connection from=":2756927630_1" to="270683743#1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":2756927639_0" to="270683743#2" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from=":2756927639_1" to="270683728#0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":2756927642_0" to="270683728#1" fromLane="0" toLane="0" dir="s" state="M"/>
