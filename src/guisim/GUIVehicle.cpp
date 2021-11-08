@@ -863,6 +863,9 @@ GUIVehicle::getStopInfo() const {
     } else {
         result += ", duration=" + time2string(myStops.front().duration);
     }
+    if (myStops.front().pars.actType != "") {
+        result += ", actType=" + myStops.front().pars.actType;
+    }
     return result;
 }
 
