@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:33:03 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2021-11-08 22:38:57 by Eclipse SUMO netconvert Version v1_10_0+1805-e7d391bd92f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -90,8 +90,8 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1865620718_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="11.11" length="4.09" shape="154.32,484.49 155.89,486.30 156.73,487.77"/>
     </edge>
     <edge id=":1865620718_1" function="internal">
-        <lane id=":1865620718_1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="11.11" length="8.09" shape="154.32,484.49 156.03,486.11 157.16,487.25 158.25,488.44 159.80,490.21"/>
-        <lane id=":1865620718_1_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="11.11" length="8.09" shape="152.12,486.81 153.89,488.50 155.07,489.70 156.19,490.94 157.80,492.78"/>
+        <lane id=":1865620718_1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="11.11" length="7.93" shape="154.32,484.49 156.03,486.11 157.16,487.25 158.25,488.44 159.80,490.21"/>
+        <lane id=":1865620718_1_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="11.11" length="8.25" shape="152.12,486.81 153.89,488.50 155.07,489.70 156.19,490.94 157.80,492.78"/>
     </edge>
     <edge id=":1865620718_3" function="internal">
         <lane id=":1865620718_3_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="11.11" length="4.04" shape="156.73,487.77 157.61,489.18 159.34,490.81"/>
@@ -595,8 +595,8 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="181738145#0" to="175999132#2" fromLane="1" toLane="1" via=":cluster_1865620626_3314305185_2_0" dir="r" state="="/>
     <connection from="181738145#1" to="176906141#1" fromLane="1" toLane="2" via=":1921719395_2_0" dir="s" state="m"/>
     <connection from="181961188" to="175999152" fromLane="1" toLane="1" via=":1865620718_0_0" dir="R" state="M"/>
-    <connection from="181961188" to="175999132#0" fromLane="1" toLane="1" via=":1865620718_1_0" dir="s" state="M"/>
-    <connection from="181961188" to="175999132#0" fromLane="2" toLane="2" via=":1865620718_1_1" dir="s" state="M"/>
+    <connection from="181961188" to="175999132#0" fromLane="1" toLane="1" via=":1865620718_1_0" dir="L" state="M"/>
+    <connection from="181961188" to="175999132#0" fromLane="2" toLane="2" via=":1865620718_1_1" dir="L" state="M"/>
     <connection from="182175776" to="324751734#1" fromLane="1" toLane="1" via=":3526736114_0_0" dir="s" state="M"/>
     <connection from="182175776" to="-324751734#0" fromLane="1" toLane="1" via=":3526736114_1_0" dir="t" state="m"/>
     <connection from="182175776" to="175999143#1" fromLane="1" toLane="2" via=":3526736114_2_0" dir="r" state="m"/>
@@ -617,8 +617,8 @@ SPDX-License-Identifier: EPL-2.0
     <connection from=":1553017429_6" to="182175776" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from=":1865620718_0" to="175999152" fromLane="0" toLane="1" via=":1865620718_3_0" dir="R" state="m"/>
     <connection from=":1865620718_3" to="175999152" fromLane="0" toLane="1" dir="R" state="M"/>
-    <connection from=":1865620718_1" to="175999132#0" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":1865620718_1" to="175999132#0" fromLane="1" toLane="2" dir="s" state="M"/>
+    <connection from=":1865620718_1" to="175999132#0" fromLane="0" toLane="1" dir="L" state="M"/>
+    <connection from=":1865620718_1" to="175999132#0" fromLane="1" toLane="2" dir="L" state="M"/>
     <connection from=":1865620843_0" to="181961196" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":1865620843_1" to="181961196" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":1865620843_2" to="-324751734#2" fromLane="0" toLane="1" dir="s" state="M"/>
