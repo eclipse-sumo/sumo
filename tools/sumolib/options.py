@@ -26,8 +26,7 @@ import re
 from xml.sax import parse, handler, saxutils
 import argparse
 import io
-
-from argparse import RawDescriptionHelpFormatter
+from argparse import RawDescriptionHelpFormatter  # noqa
 
 _OPTIONS = [None]
 

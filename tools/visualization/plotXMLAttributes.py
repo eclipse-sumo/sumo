@@ -47,6 +47,7 @@ from sumolib.xml import _open  # noqa
 from sumolib.miscutils import uMin, uMax, parseTime  # noqa
 from sumolib.options import ArgumentParser, RawDescriptionHelpFormatter  # noqa
 
+
 def getOptions(args=None):
     optParser = ArgumentParser(
       description='Plot arbitrary attributes from xml files',
@@ -55,8 +56,8 @@ def getOptions(args=None):
              'for grouping of data points into lines\n\n'
              'Example\n'
              '  plotXMLAttributes.py -x started -y initialPersons -s stopout.xml\n'
-             '    plots passengers over time for vehicles from SUMO stop output'
-             , formatter_class=RawDescriptionHelpFormatter)
+             '    plots passengers over time for vehicles from SUMO stop output',
+             formatter_class=RawDescriptionHelpFormatter)
 
     optParser.add_option("-x", "--xattr",  help="attribute for x-axis")
     optParser.add_option("-y", "--yattr",  help="attribute for y-axis")

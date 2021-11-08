@@ -37,7 +37,7 @@ import math  # noqa
 
 from sumolib.xml import parse_fast_nested  # noqa
 from sumolib.miscutils import uMin, uMax, parseTime  # noqa
-from sumolib.options import ArgumentParser
+from sumolib.options import ArgumentParser  # noqa
 
 
 def getOptions(args=None):
