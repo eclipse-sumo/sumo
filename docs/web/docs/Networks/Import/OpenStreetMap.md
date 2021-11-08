@@ -559,6 +559,28 @@ Public transport schedules which are needed to make use of the above data
 are generated with a user-defined service period based on a simulation
 of the lines.
 
+# Importing Sidewalks
+
+By default (osmNetconvert.typ.xml), only dedicated edges for pedestrians will be built and all other roads (except motorway) will permit pedestrians on all lanes.
+For a [pedestrian simulation](../../Simulation/Pedestrians.md#building_a_network_for_pedestrian_simulation), sidewalks are needed and pedestrians should be forbidden on most road lanes.
+
+OSM data coverage and definition style for sidewalks varies by region which may require different import options to achieve adequate sidewalk coverage.
+
+## Sidewalks from typemap
+
+By adding a typemap such as {{SUMO_HOME}}/data/osmNetconvertPedestrians.typ.xml, sidewalks of a pre-configured width a added to a specific set of road types and all non-sidewalk lanes are forbidden for pedestrians.
+
+OSM-sidewalk data will only be considered if it explicitly disables sidewalks on an edge.
+This ensures good sidewalk coverage but may lead to double-sidewalks if OSM modellers have added the "sidewalks" as parallel foot paths edges.
+
+### Sidwalks from OSM
+
+By setting option **--osm.sidewalks**, all sidewalk data from OSM will be loaded. When combined with a typemap such as {{SUMO_HOME}}/data/osmNetconvertPedestrians.typ.xml, the typemap will only be used to configure sidewalk widths but no extra sidewalks will be added.
+
+This definition style prevents double-sidewalks but may lead to missing sidewalks wherever OSM modellers did not add sidewalk information.
+
+[osmWebWizard](../../Tutorials/OSMWebWizard.md) uses this style beginning with version 1.11.0. 
+
 # Importing OSM Data via Python/ Overpass API
 
 Another way to get OSM data is to query via the Overpass API, e.g. with
