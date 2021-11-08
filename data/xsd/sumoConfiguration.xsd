@@ -306,6 +306,7 @@
             <xsd:element name="device.ssm.file" type="strOptionType" minOccurs="0"/>
             <xsd:element name="device.ssm.geo" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="device.ssm.write-positions" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="device.ssm.write-lane-positions" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

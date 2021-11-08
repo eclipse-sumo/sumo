@@ -505,9 +505,10 @@ private:
      * @param extraTime Extra time in seconds to be logged after a conflict is over
      * @param useGeoCoords Whether coordinates should be written out in the original coordinate reference system or as sumo's x,y values
      * @param writePositions Whether positions (coordinates) should be written for each timestep
+     * @param writeLanesPositions Whether lanes and their positions should be written for each timestep and each conflict
      */
     MSDevice_SSM(SUMOVehicle& holder, const std::string& id, std::string outputFilename, std::map<std::string, double> thresholds,
-                 bool trajectories, double range, double extraTime, bool useGeoCoords, bool writePositions);
+                 bool trajectories, double range, double extraTime, bool useGeoCoords, bool writePositions, bool writeLanesPositions);
 
     /** @brief Finds encounters for which the foe vehicle has disappeared from range.
      *         remainingExtraTime is decreased until it reaches zero, which triggers closing the encounter.
@@ -693,6 +694,7 @@ private:
     static double getExtraTime(const SUMOVehicle& v);
     static bool useGeoCoords(const SUMOVehicle& v);
     static bool writePositions(const SUMOVehicle& v);
+    static bool writeLanesPositions(const SUMOVehicle& v);
     static bool requestsTrajectories(const SUMOVehicle& v);
     static bool getMeasuresAndThresholds(const SUMOVehicle& v, std::string deviceID,
                                          std::map<std::string, double>& thresholds);
@@ -719,6 +721,8 @@ private:
     bool myUseGeoCoords;
     /// Wether to print the positions for all timesteps
     bool myWritePositions;
+    /// Wether to print the lanes and positions for all timesteps and conflicts
+    bool myWriteLanesPositions;
     /// Flags for switching on / off comutation of different SSMs, derived from myMeasures
     bool myComputeTTC, myComputeDRAC, myComputePET, myComputeBR, myComputeSGAP, myComputeTGAP;
     MSVehicle* myHolderMS;
@@ -742,6 +746,10 @@ private:
     std::vector<double> myGlobalMeasuresTimeSpan;
     /// @brief All values for positions (coordinates)
     PositionVector myGlobalMeasuresPositions;
+    /// @brief All values for lanes
+    std::vector<std::string> myGlobalMeasuresLaneIDs;
+    /// @brief All values for positions on the lanes
+    std::vector<double> myGlobalMeasuresLanesPositions;
     /// @brief All values for brake rate
     std::vector<double> myBRspan;
     /// @brief All values for space gap
@@ -778,7 +786,8 @@ private:
         SSM_WARN_EXTRATIME = 1 << 4,
         SSM_WARN_FILE = 1 << 5,
         SSM_WARN_GEO = 1 << 6,
-        SSM_WARN_POS = 1 << 7
+        SSM_WARN_POS = 1 << 7,
+        SSM_WARN_LANEPOS = 1 << 8
     };
 
 
