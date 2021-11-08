@@ -38,6 +38,7 @@ title: ChangeLog
   - Fixed invalid warning in railway simulation. Issue #9398
   - Fixed bug where frontal collision between fast vehicleds was not detected. Issue #9402
   - Fixed deadlock when using lcSigma without sublane model. Issue #9395
+  - Fcd-output no longer includes persons in vehicle when peson-device.fcd is disabled. Issue #9469
   
 - netedit
   - Fixed probability statistics and coloring in taz mode. Issue #9107 (regression in 1.7.0)
@@ -77,6 +78,7 @@ title: ChangeLog
   - Fixed lost window focus. Issue #9274, #9275
   - Fixed invalid roundabout when using function 'convert to roundabout' before first network computation. Issue #9348
   - Fixed invalid e3detector position when placing entry/exit detectors close to junction. Issue #9421
+  - Fixed crash related to convert-to-roundabout and undo. Issue #9449
   
 - sumo-gui
   - Fixed invalid person angle in output. Issue #9014
@@ -88,6 +90,9 @@ title: ChangeLog
   - Fixed invalid error when defining step-length with human readable time. Issue #9196
   - Coloring by edgedata is now working in meso. Issue #9215
   - Edge color value is now correct when coloring 'by angle'. Issue #9431
+  - Color values for 'color by edge data' are now loaded from settings file. Issue #9462
+  - Small text placement fixes. Issue #9477, #9476, #9467
+  - Fixed freezing in person simulation. Issue #9468
   
 - netconvert
   - Connection attribute visibility is now working if the connection has an internal junction. Issue #8953
@@ -100,6 +105,12 @@ title: ChangeLog
   - Fixed invalid network when importing OSM with 'nan' values for maxspeed. Issue #9302
   - Fixed crash when loading joined traffic lights togher with option **--tls.join**. Issue #9299
   - Fixed errors and invalid shape when converting short roads with arc-geometry from OpenDRIVE. Issue #9332
+  - Option **--flatten** now works for OpenDRIVE input. Issue #9447
+  - Option **--geometry.min-dist** no longer changes OpenDRIVE topology. Issue #9448
+  - When importing OSM, footpaths with bike access now default to two-way edges. Issue #9459
+  - Option **--speed.factor** now works with lane-specific speeds. Issue #9466
+  - Fixed invalid permissions for sime bicycle and pedestrian lanes in OSM import. Issue #9483
+  - Fixed invalid walkingarea shapes that overlap with vehicular movements. Issue #9485
 
 - duarouter
   - Fixed bug where some input flows where ignored when preceded by non-flow elements. Issue #8995
@@ -110,6 +121,9 @@ title: ChangeLog
   - Fixed crash when loading transport outside a container #9008
   - Fixed invalid treatment of loaded routeDistribution input. Issue #9229
   - Person params are no longer lost. Issue #9320
+  - Fixed bug where vehicles change their route despite option **--keep-route-probability**. Issue #9487
+  - Fixed crash when using **--keep-route-probability** with lower-than-previous **--max-alternatives**. Issue #9488
+  - Fixed inconsistent railway routing results when using option **--weights.priority-factor** compared to sumo results. Issue #9397
 
 - marouter
   - Fixed invalid route-not-found error. Issue #9193
@@ -130,7 +144,11 @@ title: ChangeLog
   - Fixed invalid departedIDList after reloading a libsumo simulation. Issue #6239
   - Subscription filter "turn" now includes foe on junction. Issue #9330
   - Fixed warning "splitting vector close to end" when using subscription filter. Issue #9404
-
+  - Fixed invalid expected vehicle number after failed vehicle.add. Issue #9456
+  - Fixed crash when using libtraci repeatedly. Issue #9478
+  - 'traci.vehicle.getLaneChangeState' now longer inclues 'TraCI' in the 'state-without-traci' component. Issue #9492
+  - Fixeds bug where command 'traci.vehicle.changeLane' was ignored in sublane simulation. Issue #9147, #9493
+  
 - tools
   - cutRoutes.py: Fixed mixed usage of trainStop and busStop. Issue #8982
   - cutRoutes.py: Handles flows without end time
@@ -141,6 +159,7 @@ title: ChangeLog
   - generateContinousRerouters.py: fixed infinite loop. Issue #9167  
   - GTFS import no longer ignores trips with routes not starting in the simulation area. Issue #9224
   - GTFS import now works when crossing day boundaries. Issue #9002
+  - plot_trajectories.py no longer crashes when trying to plot kilometrage with missing input distance. Issue #9472
 
 - Miscellaneous
   - Xsd schema now permit trips in additional files. Issue #9110
@@ -163,6 +182,7 @@ title: ChangeLog
   - Option **--vehroute-output.route-length** now also applies to unfinished routes. Issue #9373
   - Option **--vehroute-output.route-length** is now written for all routes of a vehicle. Issue #9375
   - Taxi simulation now supports the use of multiple taxi fleets and customer choice of fleet. Issue #7818
+  - Added ssm device output option **--device.ssm.write-positions** for writing global measures. Issue #9230
 
 - sumo-gui
   - An index value is now drawn for each train reversal in 'show route' mode. Issue #8967
@@ -212,9 +232,12 @@ title: ChangeLog
   - Parent e3 detector now remains selected after creating detEntry/detExit. Issue #9420
   - Newly created reverse-direction edges now receive an id based on the forward direction edge and a '-' sign. Issue #9396
   - Local lane angle is now shown in context menu. Issue #9432
+  - Intervals and child-elements of rerouters and VSS can now be inspected. Issue #9369
+  - `<DEL>`-key can now be used in inspect mode to delete the currently inspected element. Issue #9352
 
 - netconvert
   - Public transport line colors are now imported from OSM. Issue #7845
+  - Added option **--osm.sidewalks**. This permits to import complete sidewalk data from OSM. Issue #9393
 
 - netgenerate
   - Added options **--grid.x-attach-length --grid.y-attach-length** to configure attachments separately by direction. Issue #8991
@@ -237,6 +260,8 @@ title: ChangeLog
   - Added function 'traci.simulation.getEndTime' to retrieve the **--end** value that was set when starting sumo. Issue #2764
   - addSubscriptionFilterTurn can now be combined (additively) with addSubscriptionFilterLateralDistance and with addSubscriptionFilterLanes. Issue #9177
   - Added function 'traci.person.remove. Issue #9351
+  - Improved warning messages when 'traci.vehicle.replaceStop', or 'changeTarget' fails. Issue #9453
+  - Function 'traci.vehicle.replaceStop' no longer fails while on junction. Issue #9467
 
 - tools
   - cutRoutes.py: Can now handle multiple additional and public transport files in input. Issue #8997
@@ -244,6 +269,7 @@ title: ChangeLog
   - Added tool [addTAZ.py](Tools/Routes.md#addtazpy) for adding taz information to route files. Issue #8884
   - osmWebWizard.py now imports all bicycle lane data when building scenario with bicycle traffic. Issue #9071
   - osmWebWizard.py uses improved pedestrian routing on shared space. Issue #9100
+  - osmWebWizard.py now [avoids duplicate sidewalks](Networks/Import/OpenStreetMap.md#sidwalks_from_osm) when building a simulation with persons. Rebuild network with **osm.sidewalks False** to replicate the old behavior (for areas that lack OSM sidewalk data). Issue #9444
   - [gridDistricts.py](Tools/District.md#griddistrictspy) now supports option **--vclass** for filtering taz edges in multi-modal networks. Issue #9127
   - Added tool [route2OD.py](Tools/Routes.md#route2odpy) which generates a [tazRelation-file (OD-Matrix)](Demand/Importing_O/D_Matrices.md#tazrelation_format) from a taz-file and route-file. Issue #9117
   - Major speedup in GTFS import with [gtfs2pt](Tools/Import/GTFS.md). Issue #9136
@@ -259,13 +285,15 @@ title: ChangeLog
     - generateParkingAreaReroutes.py: searching vehicles no longer drive past an avilable parkingArea. Issue #9371
     - now runs much faster. Issue #9379
   - routeSampler.py: added option **--min-count** to set mininum number of counting locations for each used route. Issue #9415
+  - Added new [plotXMLAttributes.py](Tools/Visualization.md#plotxmlattributespy) to generated 2D-plots from arbitrary attribute of XML files. Issue #9403
 
 ### Other
 
 - Miscellaneous: Renamed the "master" branch in git to "main". Issue #8591  
 - Simulation: Default efficiency of chargingStation is now 0.95 (previously 0). Issue #9414
 - Traci: Parameter 'upstreamDist' of function 'traci.vehicle.addSubscriptionFilterTurn' was renamed to upstreamDist. Issue #9141
-- Netedit
+- netconvert: opendrive-output now includes header comment with netconvert version and options. Issue #9454
+- netedit
   - Some Undo-Redo operations are now restricted to the supermode of the operation. Issue #9097
   - TAZ and Polygons can now longer have the same id. Issue #9165
 - polyconvert: When no network is loaded, output will now be in lon,lat by default (if the input is geo-referenced) in order to be useful with any network. The old behavior of writing raw utm values in this case can be restored by setting option **--proj.plain-geo false**.
