@@ -298,7 +298,12 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
         bool carUsed = false;
         std::vector<MSNet::MSIntermodalRouter::TripItem> result;
         int stageIndex = 1;
-        if (net->getIntermodalRouter(0).compute(myOrigin, myDestination, previous->getArrivalPos(), myArrivalPos, myDestinationStop == nullptr ? "" : myDestinationStop->getID(),
+        double departPos = previous->getArrivalPos();
+        MSStoppingPlace* const prevStop = previous->getDestinationStop();
+        if (MSGlobals::gUseMesoSim && prevStop != nullptr) {
+            departPos = (prevStop->getBeginLanePosition() + prevStop->getEndLanePosition()) / 2.;
+        }
+        if (net->getIntermodalRouter(0).compute(myOrigin, myDestination, departPos, myArrivalPos, myDestinationStop == nullptr ? "" : myDestinationStop->getID(),
                                                 transportable->getMaxSpeed() * myWalkFactor, vehicle, myModeSet, time, result)) {
             for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = result.begin(); it != result.end(); ++it) {
                 if (!it->edges.empty()) {
