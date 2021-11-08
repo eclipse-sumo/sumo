@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_10_0+1843-634b139
+Eclipse SUMO sumo Version v1_10_0+2040-2621588d960
  Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -500,8 +500,10 @@ SSM Device Options:
   --device.ssm.geo                     Whether to use coordinates of the
                                         original reference system in output
                                         (default is false).
-  --device.ssm.write-positions         Whether to use write positions
-                                        (coordinates) for each timestep.
+  --device.ssm.write-positions         Whether to write positions (coordinates)
+                                        for each timestep.
+  --device.ssm.write-lane-positions    Whether to write lanes and their
+                                        positions for each timestep.
 
 ToC Device Options:
   --device.toc.probability FLOAT       The probability for a vehicle to have a
@@ -753,6 +755,8 @@ GUI Only Options:
                                         position
   --tracker-interval TIME              The aggregation period for value tracker
                                         windows
+  --osg-view                           Start with an OpenSceneGraph view
+                                        instead of the regular 2D view
   --gui-testing                        Enable overlay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                         GUI-Testing

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-02 14:24:51 by Eclipse SUMO sumo Version v1_10_0+1843-634b139
+<!-- generated on 2021-11-09 14:59:09 by Eclipse SUMO sumo Version v1_10_0+2040-2621588d960
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -714,8 +714,11 @@
         <!-- Whether to use coordinates of the original reference system in output (default is false). -->
         <device.ssm.geo value="" type="BOOL"/>
 
-        <!-- Whether to use write positions (coordinates) for each timestep. -->
+        <!-- Whether to write positions (coordinates) for each timestep. -->
         <device.ssm.write-positions value="" type="BOOL"/>
+
+        <!-- Whether to write lanes and their positions for each timestep. -->
+        <device.ssm.write-lane-positions value="" type="BOOL"/>
 
     </ssm_device>
 
@@ -1073,6 +1076,9 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="TIME"/>
+
+        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
+        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable overlay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>

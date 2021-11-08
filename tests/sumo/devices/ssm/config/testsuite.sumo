@@ -48,3 +48,6 @@ filter_edges_with_conflict
 
 # default with option --device.ssm.write-positions
 writePositions_to_globalMeasures
+
+# default with option --device.ssm.write-lane-positions
+writeLanePositions_to_globalMeasures

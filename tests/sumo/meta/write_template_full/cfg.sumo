@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-02 14:24:51 by Eclipse SUMO sumo Version v1_10_0+1843-634b139
+<!-- generated on 2021-11-09 14:59:09 by Eclipse SUMO sumo Version v1_10_0+2040-2621588d960
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -264,7 +264,8 @@
         <device.ssm.extratime value="" type="FLOAT" help="Specifies the time in seconds to be logged after a conflict is over (default is 5.00secs.). Required &gt;0 if PET is to be calculated for crossing conflicts."/>
         <device.ssm.file value="" type="STR" help="Give a global default filename for the SSM output."/>
         <device.ssm.geo value="" type="BOOL" help="Whether to use coordinates of the original reference system in output (default is false)."/>
-        <device.ssm.write-positions value="" type="BOOL" help="Whether to use write positions (coordinates) for each timestep."/>
+        <device.ssm.write-positions value="" type="BOOL" help="Whether to write positions (coordinates) for each timestep."/>
+        <device.ssm.write-lane-positions value="" type="BOOL" help="Whether to write lanes and their positions for each timestep."/>
     </ssm_device>
 
     <toc_device>
@@ -410,6 +411,7 @@
         <window-size value="" type="STR[]" help="Create initial window with the given x,y size"/>
         <window-pos value="" type="STR[]" help="Create initial window at the given x,y position"/>
         <tracker-interval value="1" type="TIME" help="The aggregation period for value tracker windows"/>
+        <osg-view value="false" type="BOOL" help="Start with an OpenSceneGraph view instead of the regular 2D view"/>
         <gui-testing value="false" type="BOOL" help="Enable overlay for screen recognition"/>
         <gui-testing-debug value="false" type="BOOL" help="Enable output messages during GUI-Testing"/>
         <gui-testing.setting-output value="" type="FILE" help="Save gui settings in the given settings output file"/>

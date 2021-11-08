@@ -3583,7 +3583,7 @@ MSDevice_SSM::writeLanesPositions(const SUMOVehicle& v) {
     else {
         writeLanesPos = oc.getBool("device.ssm.write-lane-positions");
         if (!oc.isSet("device.ssm.write-lane-positions") && (issuedParameterWarnFlags & SSM_WARN_LANEPOS) == 0) {
-            std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'device.ssm.write-lane-positions'. Using default of '" << ::toString(writeLanesPos) << "'\n";
+            WRITE_MESSAGE("vehicle '" + v.getID() + "' does not supply vehicle parameter 'device.ssm.write-positions'. Using default of '" + toString(writeLanesPos) + "'");
             issuedParameterWarnFlags |= SSM_WARN_LANEPOS;
         }
     }
