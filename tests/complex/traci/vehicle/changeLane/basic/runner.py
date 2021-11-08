@@ -32,6 +32,14 @@ traci.start([sumoBinary,
              "--lanechange-output", "lanechanges.xml",
              "--no-step-log",
              ])
+
+def reportState(vehID, direction):
+    print("t=%s laneIndex=%s state(%s)=%s" % (
+        traci.simulation.getTime(),
+        traci.vehicle.getLaneIndex(vehID),
+        direction,
+        traci.vehicle.getLaneChangeStatePretty(vehID, direction)))
+
 vehID = "v0"
 traci.vehicle.add(vehID, "r0")
 traci.vehicle.setLaneChangeMode(vehID, 0)
@@ -40,10 +48,12 @@ for i in range(5):
 traci.vehicle.setParameter(vehID, "lcReason", " relativeRight")
 traci.vehicle.changeLaneRelative(vehID, 1, 0)
 for i in range(5):
+    reportState(vehID, 1)
     traci.simulationStep()
 traci.vehicle.setParameter(vehID, "lcReason", " relativeLeft")
 traci.vehicle.changeLaneRelative(vehID, -1, 0)
 for i in range(5):
+    reportState(vehID, -1)
     traci.simulationStep()
 traci.vehicle.setParameter(vehID, "lcReason", " absolute2")
 traci.vehicle.changeLane(vehID, 2, 5)
