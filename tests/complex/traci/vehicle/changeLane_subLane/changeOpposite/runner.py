@@ -38,10 +38,10 @@ traci.vehicle.add(vehID, "r0")
 traci.vehicle.setLaneChangeMode(vehID, 0)
 for i in range(5):
     traci.simulationStep()
-traci.vehicle.changeLaneRelative(vehID, 1, 0)
+traci.vehicle.changeLaneRelative(vehID, 1, 5)
 for i in range(5):
     traci.simulationStep()
-traci.vehicle.changeLaneRelative(vehID, -1, 0)
+traci.vehicle.changeLaneRelative(vehID, -1, 3)
 for i in range(5):
     traci.simulationStep()
 
