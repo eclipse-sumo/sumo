@@ -25,7 +25,7 @@ sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
 import traci  # noqa
 import sumolib  # noqa
 
-sumoBinary = sumolib.checkBinary('sumo-gui')
+sumoBinary = sumolib.checkBinary('sumo')
 traci.start([sumoBinary,
              "-n", "input_net.net.xml",
              "-r", "input_routes.rou.xml",
@@ -35,10 +35,10 @@ traci.start([sumoBinary,
 vehID = "v0"
 traci.vehicle.add(vehID, "r0")
 traci.vehicle.setLaneChangeMode(vehID, 0)
-for i in range(1):
+for i in range(3):
     traci.simulationStep()
 traci.vehicle.changeLaneRelative(vehID, 1, 0)
-for i in range(1):
+for i in range(3):
     traci.simulationStep()
 traci.vehicle.changeLaneRelative(vehID, -1, 0)
 for i in range(2):
