@@ -42,7 +42,7 @@ netedit.leftClick(referencePosition, 275, 250)
 
 # select Access detector
 netedit.changeElement("access")
-netedit.selectAdditionalChild(7, 0)
+netedit.selectAdditionalChild(5, 0)
 
 # set invalid lenght
 netedit.changeDefaultValue(2, "dummyLenght")
