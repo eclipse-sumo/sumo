@@ -400,10 +400,7 @@ public:
         return 0;
     }
 
-    std::string getStageDescription(const bool isPerson) const {
-        UNUSED_PARAMETER(isPerson);
-        return "waiting (" + myActType + ")";
-    }
+    std::string getStageDescription(const bool isPerson) const;
 
     std::string getStageSummary(const bool isPerson) const;
 

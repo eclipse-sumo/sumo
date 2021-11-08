@@ -1199,7 +1199,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                                   + "' (stop range " + toString(start) + "-" + toString(end) + " does not cover previous arrival position " + toString(prevAr) +  + ").");
                 }
             }
-            std::string actType = attrs.getOpt<std::string>(SUMO_ATTR_ACTTYPE, nullptr, ok, "waiting");
+            std::string actType = attrs.getOpt<std::string>(SUMO_ATTR_ACTTYPE, nullptr, ok, "");
             double pos = (stop.startPos + stop.endPos) / 2.;
             if (!myActiveTransportablePlan->empty()) {
                 pos = myActiveTransportablePlan->back()->getArrivalPos();

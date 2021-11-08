@@ -482,11 +482,11 @@ MSStageWaiting::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now
 void
 MSStageWaiting::tripInfoOutput(OutputDevice& os, const MSTransportable* const) const {
     if (myType != MSStageType::WAITING_FOR_DEPART) {
-        os.openTag("stop");
+        os.openTag(SUMO_TAG_STOP);
         os.writeAttr("duration", time2string(myArrived - myDeparted));
         os.writeAttr("arrival", time2string(myArrived));
         os.writeAttr("arrivalPos", toString(myArrivalPos));
-        os.writeAttr("actType", toString(myActType));
+        os.writeAttr("actType", myActType == "" ? "waiting" : myActType);
         os.closeTag();
     }
 }
@@ -495,7 +495,7 @@ MSStageWaiting::tripInfoOutput(OutputDevice& os, const MSTransportable* const) c
 void
 MSStageWaiting::routeOutput(const bool /* isPerson */, OutputDevice& os, const bool, const MSStage* const /* previous */) const {
     if (myType != MSStageType::WAITING_FOR_DEPART) {
-        os.openTag("stop");
+        os.openTag(SUMO_TAG_STOP);
         std::string comment = "";
         if (myDestinationStop != nullptr) {
             os.writeAttr(toString(myDestinationStop->getElement()), myDestinationStop->getID());
@@ -517,6 +517,9 @@ MSStageWaiting::routeOutput(const bool /* isPerson */, OutputDevice& os, const b
             os.writeAttr(SUMO_ATTR_STARTED, myDeparted >= 0 ? time2string(myDeparted) : "-1");
             os.writeAttr(SUMO_ATTR_ENDED, myArrived >= 0 ? time2string(myArrived) : "-1");
         }
+        if (myActType != "") {
+            os.writeAttr(SUMO_ATTR_ACTTYPE, myActType);
+        }
         os.closeTag(comment);
     }
 }
@@ -530,6 +533,15 @@ MSStageWaiting::abort(MSTransportable* t) {
     tc.abortWaiting(t);
 }
 
+std::string
+MSStageWaiting::getStageDescription(const bool isPerson) const {
+    UNUSED_PARAMETER(isPerson);
+    if (myActType != "" ) {
+        return "waiting (" + myActType + ")";
+    } else {
+        return "waiting";
+    }
+}
 
 std::string
 MSStageWaiting::getStageSummary(const bool /* isPerson */) const {
