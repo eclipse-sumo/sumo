@@ -182,17 +182,21 @@ MSLaneChangerSublane::change() {
 #endif
 
     const bool stopOpposite = hasOppositeStop(vehicle);
+    const int traciState = vehicle->influenceChangeDecision(0);
+    const bool traciRequestOpposite = !mayChange(1) && (traciState & LCA_LEFT) != 0;
+
     if (myChangeToOpposite && (
                 // cannot overtake since there is only one usable lane (or emergency)
                 ((!mayChange(-1) && !mayChange(1)) || vehicle->getVClass() == SVC_EMERGENCY)
+                || traciRequestOpposite
                 || stopOpposite
                 // can alway come back from the opposite side
                 || isOpposite)) {
         const MSLeaderDistanceInfo& leaders = myCandi->aheadNext;
-        if (leaders.hasVehicles() || isOpposite || stopOpposite) {
+        if (leaders.hasVehicles() || isOpposite || stopOpposite || traciRequestOpposite) {
             std::pair<MSVehicle*, double> leader = findClosestLeader(leaders, vehicle);
             myCheckedChangeOpposite = false;
-            if ((leader.first != nullptr || isOpposite || stopOpposite)
+            if ((leader.first != nullptr || isOpposite || stopOpposite || traciRequestOpposite)
                     && changeOpposite(vehicle, leader)) {
                 return true;
             } else if (myCheckedChangeOpposite) {
