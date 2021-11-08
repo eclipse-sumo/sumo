@@ -131,10 +131,20 @@ GNENetHelper::AttributeCarriers::~AttributeCarriers() {
         for (const auto& demandElement : demandElementTag.second) {
             // decrease reference manually (because it was increased manually in GNERouteHandler)
             demandElement->decRef();
-            // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + demandElement->getTagStr() + " '" + demandElement->getID() + "' in AttributeCarriers destructor");
+            // show extra information for tests (except for default IDs)
+            if ((demandElement->getID() != DEFAULT_VTYPE_ID) && (demandElement->getID() != DEFAULT_BIKETYPE_ID) && (demandElement->getID() != DEFAULT_PEDTYPE_ID)) {
+                WRITE_DEBUG("Deleting unreferenced " + demandElement->getTagStr() + " '" + demandElement->getID() + "' in AttributeCarriers destructor");
+            }
             delete demandElement;
         }
+    }
+    // Drop dataSets (Only used for TAZElements that were inserted without using GNEChange_DataSets)
+    for (const auto& dataSet : myDataSets) {
+        // decrease reference manually (because it was increased manually in GNEDataHandler)
+        dataSet->decRef();
+        // show extra information for tests
+        WRITE_DEBUG("Deleting unreferenced " + dataSet->getTagStr() + " '" + dataSet->getID() + "' in AttributeCarriers destructor");
+        delete dataSet;
     }
 }
 
