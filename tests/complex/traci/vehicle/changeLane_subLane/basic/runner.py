@@ -58,7 +58,8 @@ for i in range(5):
     traci.simulationStep()
 traci.vehicle.setParameter(vehID, "lcReason", " absolute2")
 traci.vehicle.changeLane(vehID, 2, 7)
-for i in range(5):
+for i in range(10):
+    reportState(vehID, 1)
     traci.simulationStep()
 
 traci.close()

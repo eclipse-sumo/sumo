@@ -42,7 +42,7 @@ def reportState(vehID, direction):
         traci.vehicle.getLaneChangeStatePretty(vehID, direction)))
 
 vehID = "v0"
-traci.vehicle.add(vehID, "r0", arrivalLane="2")
+traci.vehicle.add(vehID, "r0", arrivalLane="2", arrivalPos="200")
 traci.simulationStep()
 traci.vehicle.changeLaneRelative(vehID, 0, 8)
 for i in range(10):
