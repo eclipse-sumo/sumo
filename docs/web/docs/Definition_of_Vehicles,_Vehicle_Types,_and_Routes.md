@@ -1061,9 +1061,9 @@ Stops can be childs of vehicles, routes, persons or containers.
 | expectedContainers | string            | list of container IDs                                                                        |                    | list of containers that must be loaded onto the vehicle before it may continue (only takes effect for triggered stops) |
 | permitted | string            | list of person and container IDs                                                                        |                    | list of transportables that are permitted to enter the vehicle at this stop |
 | parking            | bool              | true,false                                                                                   | value of triggered | whether the vehicle stops on the road or beside                                                                        |
-| actType            | string            | arbitrary                                                                                    | 'waiting'          | activity displayed for stopped person in GUI and output files (only applies to person simulation)                      |
-| tripId             | string            | arbitrary                                                                                    |                    | parameter to be applied to the vehicle to track the trip id within a cyclical public transport route                   |
-| line               | string            | arbitrary                                                                                    |                    | new line attribute to be set on the vehicle when reaching this stop (for cyclical public transport route)  |
+| actType            | string            | arbitrary |  | activity description in GUI and output files  |
+| tripId             | string            | arbitrary |  | parameter to be applied to the vehicle to track the trip id within a cyclical public transport route  |
+| line               | string            | arbitrary |  | new line attribute to be set on the vehicle when reaching this stop (for cyclical public transport route)  |
 | speed              | float            | positive | - | speed to be kept while driving between startPos and endPos. This turns the stop into a waypoint. |
 
 - If "duration" *and* "until" are given, the vehicle will stop for at least "duration" seconds.
