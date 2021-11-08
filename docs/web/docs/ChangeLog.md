@@ -36,7 +36,7 @@ title: ChangeLog
   - Fixed invalid collision warning during opposite direction driving. Issue #9388
   - Fix bug where simulation with waypoints at stopping place freezes. Issue #9399
   - Fixed invalid warning in railway simulation. Issue #9398
-  - Fixed bug where frontal collision between fast vehicleds was not detected. Issue #9402
+  - Fixed bug where frontal collision between fast vehicles was not detected. Issue #9402
   - Fixed deadlock when using lcSigma without sublane model. Issue #9395
   - Fcd-output no longer includes persons in vehicle when peson-device.fcd is disabled. Issue #9469
   
