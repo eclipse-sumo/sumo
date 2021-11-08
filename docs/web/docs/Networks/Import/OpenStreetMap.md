@@ -573,7 +573,7 @@ By adding a typemap such as {{SUMO_HOME}}/data/osmNetconvertPedestrians.typ.xml,
 OSM-sidewalk data will only be considered if it explicitly disables sidewalks on an edge.
 This ensures good sidewalk coverage but may lead to double-sidewalks if OSM modellers have added the "sidewalks" as parallel foot paths edges.
 
-### Sidwalks from OSM
+## Sidwalks from OSM
 
 By setting option **--osm.sidewalks**, all sidewalk data from OSM will be loaded. When combined with a typemap such as {{SUMO_HOME}}/data/osmNetconvertPedestrians.typ.xml, the typemap will only be used to configure sidewalk widths but no extra sidewalks will be added.
 
