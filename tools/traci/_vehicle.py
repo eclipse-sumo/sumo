@@ -938,13 +938,19 @@ class VehicleDomain(Domain):
 
     def getLaneChangeState(self, vehID, direction):
         """getLaneChangeState(string, int) -> (int, int)
-        Return the lane change state for the vehicle
+        Return the lane change state for the vehicle. The first value returns
+        the state as computed by the lane change model and the second value
+        returns the state after incorporation TraCI requests.
+        See getLaneChangeStatePretty for an interpretation of the integer/bitset
+        results
         """
         return self._getUniversal(tc.CMD_CHANGELANE, vehID, "i", direction)
 
     def getLaneChangeStatePretty(self, vehID, direction):
         """getLaneChangeState(string, int) -> ([string, ...], [string, ...])
-        Return the lane change state for the vehicle as a list of string constants
+        Return the lane change state for the vehicle as two lists of string
+        constants. The first list returns the state as computed by the lane change
+        model and the second list returns the state after incorporation TraCI requests.
         """
         constants = {
             0: 'stay',
