@@ -1601,12 +1601,22 @@ MSVehicle::processNextStop(double currentVelocity) {
                 }
 #endif
             }
-            if (MSGlobals::gSemiImplicitEulerUpdate || stop.pars.speed > 0) {
-                // euler
-                return stop.pars.speed;
+            if (stop.pars.speed > 0) {
+                //waypoint mode
+                if (stop.duration == 0) {
+                    return stop.pars.speed;
+                } else {
+                    // stop for 'until' (computed in planMove)
+                    return currentVelocity;
+                }
             } else {
-                // ballistic:
-                return getSpeed() - getCarFollowModel().getMaxDecel();
+                // brake
+                if (MSGlobals::gSemiImplicitEulerUpdate || stop.pars.speed > 0) {
+                    return 0;
+                } else {
+                    // ballistic:
+                    return getSpeed() - getCarFollowModel().getMaxDecel();
+                }
             }
         }
     } else {
@@ -1689,8 +1699,12 @@ MSVehicle::processNextStop(double currentVelocity) {
                 }
                 stop.endBoarding = stop.pars.extension >= 0 ? time + stop.duration + stop.pars.extension : SUMOTime_MAX;
                 if (stop.pars.speed > 0) {
-                    // ignore duration and until in waypoint mode
-                    stop.duration = 0;
+                    // ignore duration parameter in waypoint mode
+                    if (stop.pars.until > time) {
+                        stop.duration = stop.pars.until - time;
+                    } else {
+                        stop.duration = 0;
+                    }
                 }
                 if (stop.busstop != nullptr) {
                     // let the bus stop know the vehicle
@@ -2214,15 +2228,41 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             }
 #endif
             // regular stops are not emergencies
-            double stopSpeed;
+            double stopSpeed = laneMaxV;
             if (isWaypoint) {
+                bool waypointWithStop = false;
+                if (stop.pars.until > t) {
+                    // check if we have to slow down or even stop
+                    SUMOTime time2end = 0;
+                    if (stop.reached) {
+                        time2end = TIME2STEPS(stop.pars.endPos - myState.myPos) / stop.pars.speed;
+                    } else {
+                        time2end = TIME2STEPS(
+                            // time to reach waypoint start
+                            newStopDist / ((getSpeed() + stop.pars.speed) / 2)
+                            // time to reach waypoint end
+                            + (stop.pars.endPos - stop.pars.startPos) / stop.pars.speed);
+                    }
+                    if (stop.pars.until > t + time2end) {
+                        // we need to stop
+                        double distToEnd = newStopDist;
+                        if (!stop.reached) {
+                            distToEnd += stop.pars.endPos - stop.pars.startPos;
+                        }
+                        stopSpeed = MAX2(cfModel.stopSpeed(this, getSpeed(), distToEnd), vMinComfortable);
+                        waypointWithStop = true;
+                    }
+                }
                 if (stop.reached) {
-                    stopSpeed = stop.pars.speed;
-                    if (myState.myPos >= stop.pars.endPos) {
+                    stopSpeed = MIN2(stop.pars.speed, stopSpeed);
+                    if (myState.myPos >= stop.pars.endPos && !waypointWithStop) {
                         newStopDist = std::numeric_limits<double>::max();
                     }
                 } else {
-                    stopSpeed = MAX2(cfModel.freeSpeed(this, getSpeed(), newStopDist, stop.pars.speed), vMinComfortable);
+                    stopSpeed = MIN2(MAX2(cfModel.freeSpeed(this, getSpeed(), newStopDist, stop.pars.speed), vMinComfortable), stopSpeed);
+                    if (!stop.reached) {
+                        newStopDist += stop.pars.endPos - stop.pars.startPos;
+                    }
                     if (lastLink != nullptr) {
                         lastLink->adaptLeaveSpeed(cfModel.freeSpeed(this, vLinkPass, endPos, stop.pars.speed));
                     }
