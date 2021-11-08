@@ -139,6 +139,8 @@ private:
      */
     MSDevice_Bluelight(SUMOVehicle& holder, const std::string& id, double reactionDist);
 
+    /// @brief restore type of influenced vehicle
+    void resetVehicle(MSVehicle* veh2, const std::string& targetTypeID);
 
 
 private:

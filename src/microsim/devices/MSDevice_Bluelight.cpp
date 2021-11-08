@@ -24,6 +24,7 @@
 #include <config.h>
 
 #include <utils/common/StringUtils.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/vehicle/SUMOVehicle.h>
@@ -39,6 +40,8 @@
 
 //#define DEBUG_BLUELIGHT
 //#define DEBUG_BLUELIGHT_RESCUELANE
+
+#define INFLUENCED_BY "rescueLane"
 
 // ===========================================================================
 // method definitions
@@ -138,16 +141,7 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
         MSVehicle* veh2 = dynamic_cast<MSVehicle*>(vc.getVehicle(elem));
         if (veh2 != nullptr && it != influencedTypes.end()) {
             // The vehicle gets back its old VehicleType after the emergency vehicle have passed them
-            MSVehicleType* targetType = MSNet::getInstance()->getVehicleControl().getVType(it->second);
-            //targetType is nullptr if the vehicle type has already changed to its old vehicleType
-            if (targetType != nullptr) {
-#ifdef DEBUG_BLUELIGHT_RESCUELANE
-                std::cout << SIMTIME << " device=" << getID() << " reset(1) " << veh2->getID() << "\n";
-#endif
-                veh2->replaceVehicleType(targetType);
-                veh2->getLaneChangeModel().setParameter(toString(SUMO_ATTR_LCA_STRATEGIC_PARAM),
-                                                        targetType->getParameter().getLCParamString(SUMO_ATTR_LCA_STRATEGIC_PARAM, "1"));
-            }
+            resetVehicle(veh2, it->second);
         }
     }
 
@@ -221,6 +215,11 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
 #ifdef DEBUG_BLUELIGHT_RESCUELANE
                     std::cout << SIMTIME << " device=" << getID() << " createRescueLane " << veh2->getID() << "\n";
 #endif
+                    std::vector<std::string> influencedBy = StringTokenizer(veh2->getParameter().getParameter(INFLUENCED_BY, "")).getVector();
+                    if (std::find(influencedBy.begin(), influencedBy.end(), myHolder.getID()) == influencedBy.end()) {
+                        influencedBy.push_back(myHolder.getID());
+                        const_cast<SUMOVehicleParameter&>(veh2->getParameter()).setParameter(INFLUENCED_BY, toString(influencedBy));
+                    }
                     veh2->getLaneChangeModel().setParameter(toString(SUMO_ATTR_LCA_STRATEGIC_PARAM), "-1");
                 }
             }
@@ -233,16 +232,7 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
                     std::map<std::string, std::string>::iterator it = influencedTypes.find(veh2->getID());
                     if (it != influencedTypes.end()) {
                         // The vehicle gets back its old VehicleType after the emergency vehicle have passed them
-                        MSVehicleType* targetType = MSNet::getInstance()->getVehicleControl().getVType(it->second);
-                        //targetType is nullptr if the vehicle type has already changed to its old vehicleType
-                        if (targetType != nullptr) {
-#ifdef DEBUG_BLUELIGHT_RESCUELANE
-                            std::cout << SIMTIME << " device=" << getID() << " reset(2) " << veh2->getID() << "\n";
-#endif
-                            veh2->replaceVehicleType(targetType);
-                            veh2->getLaneChangeModel().setParameter(toString(SUMO_ATTR_LCA_STRATEGIC_PARAM),
-                                                                    targetType->getParameter().getLCParamString(SUMO_ATTR_LCA_STRATEGIC_PARAM, "1"));
-                        }
+                        resetVehicle(veh2, it->second);
                     }
                 }
             }
@@ -292,6 +282,31 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
     }
     return true; // keep the device
 }
+
+
+void
+MSDevice_Bluelight::resetVehicle(MSVehicle* veh2, const std::string& targetTypeID) {
+    MSVehicleType* targetType = MSNet::getInstance()->getVehicleControl().getVType(targetTypeID);
+    //targetType is nullptr if the vehicle type has already changed to its old vehicleType
+    if (targetType != nullptr) {
+#ifdef DEBUG_BLUELIGHT_RESCUELANE
+        std::cout << SIMTIME << " device=" << getID() << " reset " << veh2->getID() << "\n";
+#endif
+
+        std::vector<std::string> influencedBy = StringTokenizer(veh2->getParameter().getParameter(INFLUENCED_BY, "")).getVector();
+        auto it = std::find(influencedBy.begin(), influencedBy.end(), myHolder.getID());
+        if (it != influencedBy.end()) {
+            influencedBy.erase(it);
+            const_cast<SUMOVehicleParameter&>(veh2->getParameter()).setParameter(INFLUENCED_BY, toString(influencedBy));
+        }
+        if (influencedBy.size() == 0) {
+            veh2->replaceVehicleType(targetType);
+            veh2->getLaneChangeModel().setParameter(toString(SUMO_ATTR_LCA_STRATEGIC_PARAM),
+                    targetType->getParameter().getLCParamString(SUMO_ATTR_LCA_STRATEGIC_PARAM, "1"));
+        }
+    }
+}
+
 
 
 bool
