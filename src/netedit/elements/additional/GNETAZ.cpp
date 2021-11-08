@@ -51,7 +51,7 @@ GNETAZ::GNETAZ(const std::string& id, GNENet* net, const PositionVector &shape, 
     GNETAZElement(id, net, GLO_TAZ, SUMO_TAG_TAZ,
         {}, {}, {}, {}, {}, {}, {}, {},
     parameters),
-    SUMOPolygon(id, name, color, shape, false, fill, 1),
+    SUMOPolygon(id, "", color, shape, false, fill, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, name),
     myTAZCenter(center),
     myMaxWeightSource(0),
     myMinWeightSource(0),
@@ -153,6 +153,9 @@ GNETAZ::writeTAZElement(OutputDevice& device) const {
     }
     if (myFill) {
         device.writeAttr(SUMO_ATTR_FILL, true);
+    }
+    if (getShapeName().size() > 0) {
+        device.writeAttr(SUMO_ATTR_NAME, getShapeName());
     }
     device.writeAttr(SUMO_ATTR_COLOR, getShapeColor());
     // write all TAZ Source/sinks
