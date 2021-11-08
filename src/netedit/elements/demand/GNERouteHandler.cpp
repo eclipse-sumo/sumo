@@ -1348,8 +1348,6 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
     GNERouteHandler routeHandler("", net, true);
     // obtain vehicle parameters
     SUMOVehicleParameter vehicleParameters = *originalVehicle;
-    // obtain vClass
-    const auto vClass = originalVehicle->getVClass();
     // get route
     GNEDemandElement* route = nullptr;
     // declare edges
