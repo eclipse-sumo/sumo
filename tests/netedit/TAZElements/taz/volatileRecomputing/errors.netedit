@@ -5,18 +5,24 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding taz 'TAZ_0' into viewNet
-GLDebug: 	Inserted taz:TAZ_0 into SUMORTree with boundary -20.00,-10.00,30.00,40.00
+GLDebug: 	Inserted taz:TAZ_0 into SUMORTree with boundary -40.00,-30.00,50.00,60.00
 Debug: Adding taz 'TAZ_1' into viewNet
-GLDebug: 	Inserted taz:TAZ_1 into SUMORTree with boundary 0.00,-10.00,50.00,40.00
+GLDebug: 	Inserted taz:TAZ_1 into SUMORTree with boundary -20.00,-30.00,70.00,60.00
 Debug: Adding taz 'TAZ_2' into viewNet
-GLDebug: 	Inserted taz:TAZ_2 into SUMORTree with boundary 20.00,-10.00,70.00,40.00
+GLDebug: 	Inserted taz:TAZ_2 into SUMORTree with boundary 0.00,-30.00,90.00,60.00
 Debug: Adding taz 'TAZ_3' into viewNet
-GLDebug: 	Inserted taz:TAZ_3 into SUMORTree with boundary -20.00,-40.00,30.00,10.00
+GLDebug: 	Inserted taz:TAZ_3 into SUMORTree with boundary -40.00,-60.00,50.00,30.00
 Debug: Adding taz 'TAZ_4' into viewNet
-GLDebug: 	Inserted taz:TAZ_4 into SUMORTree with boundary 0.00,-40.00,50.00,10.00
+GLDebug: 	Inserted taz:TAZ_4 into SUMORTree with boundary -20.00,-60.00,70.00,30.00
 Debug: Adding taz 'TAZ_5' into viewNet
-GLDebug: 	Inserted taz:TAZ_5 into SUMORTree with boundary 20.00,-40.00,70.00,10.00
+GLDebug: 	Inserted taz:TAZ_5 into SUMORTree with boundary 0.00,-60.00,90.00,30.00
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
@@ -27,22 +33,22 @@ GLDebug: Removing edges during recomputing
 GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Removing taz 'TAZ_5' from net in ~GNEChange_TAZElement()
-GLDebug: 	Removed object taz:TAZ_5 from SUMORTree with boundary 20.00,-40.00,70.00,10.00
+GLDebug: 	Removed object taz:TAZ_5 from SUMORTree with boundary 0.00,-60.00,90.00,30.00
 Debug: delete taz 'TAZ_5' in ~GNEChange_TAZElement()
 Debug: Removing taz 'TAZ_4' from net in ~GNEChange_TAZElement()
-GLDebug: 	Removed object taz:TAZ_4 from SUMORTree with boundary 0.00,-40.00,50.00,10.00
+GLDebug: 	Removed object taz:TAZ_4 from SUMORTree with boundary -20.00,-60.00,70.00,30.00
 Debug: delete taz 'TAZ_4' in ~GNEChange_TAZElement()
 Debug: Removing taz 'TAZ_3' from net in ~GNEChange_TAZElement()
-GLDebug: 	Removed object taz:TAZ_3 from SUMORTree with boundary -20.00,-40.00,30.00,10.00
+GLDebug: 	Removed object taz:TAZ_3 from SUMORTree with boundary -40.00,-60.00,50.00,30.00
 Debug: delete taz 'TAZ_3' in ~GNEChange_TAZElement()
 Debug: Removing taz 'TAZ_2' from net in ~GNEChange_TAZElement()
-GLDebug: 	Removed object taz:TAZ_2 from SUMORTree with boundary 20.00,-10.00,70.00,40.00
+GLDebug: 	Removed object taz:TAZ_2 from SUMORTree with boundary 0.00,-30.00,90.00,60.00
 Debug: delete taz 'TAZ_2' in ~GNEChange_TAZElement()
 Debug: Removing taz 'TAZ_1' from net in ~GNEChange_TAZElement()
-GLDebug: 	Removed object taz:TAZ_1 from SUMORTree with boundary 0.00,-10.00,50.00,40.00
+GLDebug: 	Removed object taz:TAZ_1 from SUMORTree with boundary -20.00,-30.00,70.00,60.00
 Debug: delete taz 'TAZ_1' in ~GNEChange_TAZElement()
 Debug: Removing taz 'TAZ_0' from net in ~GNEChange_TAZElement()
-GLDebug: 	Removed object taz:TAZ_0 from SUMORTree with boundary -20.00,-10.00,30.00,40.00
+GLDebug: 	Removed object taz:TAZ_0 from SUMORTree with boundary -40.00,-30.00,50.00,60.00
 Debug: delete taz 'TAZ_0' in ~GNEChange_TAZElement()
 GLDebug: initJunctionsAndEdges function called in computeAndUpdate(...) due recomputing with volatile options
 GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -10.00,-15.20,10.00,15.20
@@ -74,8 +80,8 @@ Debug: Deleting unreferenced lane 'gneE1_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE1_1togneE0_1' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 4

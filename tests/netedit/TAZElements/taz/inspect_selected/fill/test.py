@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.selectMode()
 
 # select first TAZ
-netedit.leftClick(referencePosition, 105, 70)
+netedit.leftClick(referencePosition, 115, 70)
 
 # select second TAZ
 netedit.leftClick(referencePosition, 300, 70)
@@ -41,10 +41,13 @@ netedit.leftClick(referencePosition, 300, 70)
 netedit.inspectMode()
 
 # inspect first TAZ
-netedit.leftClick(referencePosition, 105, 70)
+netedit.leftClick(referencePosition, 115, 70)
 
 # Change boolean parameter 2
-netedit.modifyBoolAttribute(2, False)
+netedit.modifyAttribute(1, "dummyFill", False)
+
+# Change boolean parameter 2
+netedit.modifyAttribute(1, "true", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

@@ -32,19 +32,19 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.TAZMode()
 
 # change color using dialog
-netedit.changeColorUsingDialog(0, 5)
+netedit.changeColorUsingDialog(2, 5)
 
 # create TAZ
 netedit.createSquaredTAZ(referencePosition, 182, 130, 200, True)
 
 # change color manually (invalid)
-netedit.changeDefaultValue(1, "Vlue")
+netedit.changeDefaultValue(3, "Vlue")
 
 # try to create TAZ
 netedit.createSquaredTAZ(referencePosition, 282, 130, 200, True)
 
 # change color manually (valid)
-netedit.changeDefaultValue(1, "red")
+netedit.changeDefaultValue(3, "red")
 
 # create TAZ
 netedit.createSquaredTAZ(referencePosition, 382, 130, 200, True)

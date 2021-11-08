@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.selectMode()
 
 # select first TAZ
-netedit.leftClick(referencePosition, 105, 70)
+netedit.leftClick(referencePosition, 115, 70)
 
 # select second TAZ
 netedit.leftClick(referencePosition, 300, 70)
@@ -41,19 +41,19 @@ netedit.leftClick(referencePosition, 300, 70)
 netedit.inspectMode()
 
 # inspect first TAZ
-netedit.leftClick(referencePosition, 105, 70)
+netedit.leftClick(referencePosition, 115, 70)
 
 # Change parameter 2 with a non valid value (dummy)
-netedit.modifyAttribute(1, "dummyColor", False)
+netedit.modifyAttribute(3, "dummyColor", False)
 
 # Change parameter 2 with a non valid value (invalid format)
-netedit.modifyAttribute(1, "255,255,500", False)
+netedit.modifyAttribute(3, "255,255,500", False)
 
 # Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(1, "blue", False)
+netedit.modifyAttribute(3, "blue", False)
 
 # Change parameter 2 with a valid value (valid format)
-netedit.modifyAttribute(1, "125,60,200", False)
+netedit.modifyAttribute(3, "125,60,200", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

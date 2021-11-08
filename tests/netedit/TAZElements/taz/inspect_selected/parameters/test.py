@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.selectMode()
 
 # select first TAZ
-netedit.leftClick(referencePosition, 105, 70)
+netedit.leftClick(referencePosition, 115, 70)
 
 # select second TAZ
 netedit.leftClick(referencePosition, 300, 70)
@@ -41,10 +41,10 @@ netedit.leftClick(referencePosition, 300, 70)
 netedit.inspectMode()
 
 # inspect first TAZ
-netedit.leftClick(referencePosition, 105, 70)
+netedit.leftClick(referencePosition, 115, 70)
 
 # check parameters
-netedit.checkParameters(referencePosition, 5, False)
+netedit.checkParameters(referencePosition, 6, False)
 
 # save TAZs
 netedit.saveAdditionals(referencePosition)

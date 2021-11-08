@@ -2,8 +2,14 @@ default
 
 id
 
+center
+
+fill
+
 color
 
 shape
+
+name
 
 parameters

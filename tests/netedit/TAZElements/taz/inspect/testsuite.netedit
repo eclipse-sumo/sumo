@@ -5,11 +5,17 @@ id
 # edit TAZ shape
 shape
 
-# edit TAZ color
-color
+# edit center
+center
 
 # edit TAZ fill
 fill
+
+# edit TAZ color
+color
+
+# edit name
+name
 
 # edit TAZ parameters
 parameters
