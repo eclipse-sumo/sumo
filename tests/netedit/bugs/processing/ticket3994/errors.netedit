@@ -1,5 +1,11 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from-gneE3_0togneE7_0' in retrieveGNEConnection()
 Debug: Created connection 'from-gneE4_0to-gneE3_0' in retrieveGNEConnection()
@@ -24,8 +30,8 @@ Debug: Created connection 'fromgneE9_1togneE10_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_2togneE10_2' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_2to-gneE4_0' in retrieveGNEConnection()
 Debug: Key F7 (Join junctions) pressed
-Debug: Adding junction 'gneJ16' into net
-Debug: Setting new attribute type 'priority' into junction 'gneJ16'
+Debug: Adding junction 'J0' into net
+Debug: Setting new attribute type 'priority' into junction 'J0'
 Debug: Removing connection '-gneE4_0->gneE12_2' from edge '-gneE4'
 Debug: Deleting unreferenced connection 'from-gneE4_0togneE12_2' in removeConnection()
 Debug: Removing connection '-gneE4_0->-gneE3_0' from edge '-gneE4'
@@ -76,21 +82,21 @@ Debug: Deleting unreferenced connection 'fromgneE4_0togneE5_0' in removeConnecti
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
 Debug: invalidating (removing) connections of edge 'gneE4' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
-Debug: Setting new attribute to 'gneJ16' into edge '-gneE4'
-Debug: Setting new attribute to 'gneJ16' into edge 'gneE3'
-Debug: Setting new attribute to 'gneJ16' into edge 'gneE11'
-Debug: Setting new attribute to 'gneJ16' into edge '-gneE5'
-Debug: Setting new attribute to 'gneJ16' into edge 'gneE9'
-Debug: Setting new attribute to 'gneJ16' into edge 'gneE4'
+Debug: Setting new attribute to 'J0' into edge '-gneE4'
+Debug: Setting new attribute to 'J0' into edge 'gneE3'
+Debug: Setting new attribute to 'J0' into edge 'gneE11'
+Debug: Setting new attribute to 'J0' into edge '-gneE5'
+Debug: Setting new attribute to 'J0' into edge 'gneE9'
+Debug: Setting new attribute to 'J0' into edge 'gneE4'
 Debug: Removing edge 'gneE4' from net
-Debug: Setting new attribute from 'gneJ16' into edge 'gneE12'
-Debug: Setting new attribute from 'gneJ16' into edge '-gneE3'
-Debug: Setting new attribute from 'gneJ16' into edge 'gneE5'
+Debug: Setting new attribute from 'J0' into edge 'gneE12'
+Debug: Setting new attribute from 'J0' into edge '-gneE3'
+Debug: Setting new attribute from 'J0' into edge 'gneE5'
 Debug: Removing edge '-gneE4' from net
-Debug: Setting new attribute from 'gneJ16' into edge 'gneE10'
+Debug: Setting new attribute from 'J0' into edge 'gneE10'
 Debug: Removing junction 'B' from net
 Debug: Removing junction 'C' from net
-Debug: Setting new attribute id 'cluster_B_C' into junction 'gneJ16'
+Debug: Setting new attribute id 'cluster_B_C' into junction 'J0'
 Debug: Created connection 'from-gneE5_0togneE10_0' in retrieveGNEConnection()
 Debug: Created connection 'from-gneE5_0to-gneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'from-gneE5_0togneE12_2' in retrieveGNEConnection()
@@ -181,7 +187,4 @@ Debug: Deleting unreferenced junction 'gneJ14' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ15' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ8' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ9' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor

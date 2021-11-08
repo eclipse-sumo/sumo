@@ -1,11 +1,2 @@
-Error: Could not build busStop in netedit; lane doesn't exist.
-Error: Could not build busStop in netedit; lane doesn't exist.
-Error: Could not build busStop in netedit; lane doesn't exist.
-Error: Could not build busStop in netedit; lane doesn't exist.
-Error: Could not build busStop in netedit; lane doesn't exist.
-Error: Could not build busStop in netedit; lane doesn't exist.
-Error: Could not build busStop in netedit; lane doesn't exist.
-Error: Could not build busStop in netedit; lane doesn't exist.
-Error: Could not build busStop in netedit; lane doesn't exist.
-Error: Could not build busStop in netedit; lane doesn't exist.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Jun114656.2916\netedit.gui\bugs\processing\ticket3071\input_additionals.add.xml failed.
+Error: Error occurred: invalid map<K, T> key while parsing 'C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Nov132507.26812\netedit.gui\bugs\processing\ticket3071\input_additionals.add.xml'
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Nov132507.26812\netedit.gui\bugs\processing\ticket3071\input_additionals.add.xml failed.

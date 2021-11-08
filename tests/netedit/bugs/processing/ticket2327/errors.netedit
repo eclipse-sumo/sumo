@@ -1,5 +1,11 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding busStop 'busStop_-gneE3_0_1' in GNEChange_Additional
 Debug: Adding busStop 'busStop_-gneE4_0_2' in GNEChange_Additional
 Debug: Adding busStop 'busStop_-gneE5_0_3' in GNEChange_Additional
@@ -95,23 +101,23 @@ Debug: Created crossing ':gneJ7_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ8_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ9_c0' in retrieveGNECrossing()
 Debug: Key F7 (Join junctions) pressed
-Debug: Adding junction 'gneJ20' into net
-Debug: Setting new attribute type 'dead_end' into junction 'gneJ20'
+Debug: Adding junction 'J0' into net
+Debug: Setting new attribute type 'dead_end' into junction 'J0'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
-Debug: Setting new attribute to 'gneJ20' into edge 'gneE0'
+Debug: Setting new attribute to 'J0' into edge 'gneE0'
 Debug: Removing edge 'gneE0' from net
 Debug: Setting new attribute type 'priority' into junction 'gneJ0'
 Debug: Removing junction 'gneJ0' from net
 Debug: Setting new attribute type 'priority' into junction 'gneJ1'
 Debug: Removing junction 'gneJ1' from net
-Debug: Setting new attribute id 'cluster_gneJ0_gneJ1' into junction 'gneJ20'
+Debug: Setting new attribute id 'cluster_gneJ0_gneJ1' into junction 'J0'
 Debug: Key F5 (Compute) pressed
 Debug: Key F7 (Join junctions) pressed
-Debug: Adding junction 'gneJ21' into net
-Debug: Setting new attribute type 'priority' into junction 'gneJ21'
+Debug: Adding junction 'J0' into net
+Debug: Setting new attribute type 'priority' into junction 'J0'
 Debug: Removing connection 'gneE2_1->gneE1_1' from edge 'gneE2'
 Debug: Deleting unreferenced connection 'fromgneE2_1togneE1_1' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
@@ -122,18 +128,18 @@ Debug: Deleting unreferenced connection 'fromgneE1_1togneE2_1' in removeConnecti
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
 Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
-Debug: Setting new attribute to 'gneJ21' into edge 'gneE2'
-Debug: Setting new attribute to 'gneJ21' into edge 'gneE1'
+Debug: Setting new attribute to 'J0' into edge 'gneE2'
+Debug: Setting new attribute to 'J0' into edge 'gneE1'
 Debug: Removing edge 'gneE1' from net
 Debug: Removing busStop 'busStop_gneE2_0_0' in GNEChange_Additional
 Debug: Removing edge 'gneE2' from net
 Debug: Removing junction 'gneJ2' from net
 Debug: Removing junction 'gneJ3' from net
-Debug: Setting new attribute id 'cluster_gneJ2_gneJ3' into junction 'gneJ21'
+Debug: Setting new attribute id 'cluster_gneJ2_gneJ3' into junction 'J0'
 Debug: Key F5 (Compute) pressed
 Debug: Key F7 (Join junctions) pressed
-Debug: Adding junction 'gneJ22' into net
-Debug: Setting new attribute type 'priority' into junction 'gneJ22'
+Debug: Adding junction 'J0' into net
+Debug: Setting new attribute type 'priority' into junction 'J0'
 Debug: Removing crossing from junction 'gneJ6'
 Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Removing crossing from junction 'gneJ7'
@@ -156,27 +162,27 @@ Debug: Deleting unreferenced connection 'fromgneE4_1togneE5_1' in removeConnecti
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
 Debug: invalidating (removing) connections of edge 'gneE4' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ7'
-Debug: Setting new attribute to 'gneJ22' into edge '-gneE4'
-Debug: Setting new attribute to 'gneJ22' into edge 'gneE7'
-Debug: Setting new attribute to 'gneJ22' into edge '-gneE5'
-Debug: Setting new attribute to 'gneJ22' into edge 'gneE4'
+Debug: Setting new attribute to 'J0' into edge '-gneE4'
+Debug: Setting new attribute to 'J0' into edge 'gneE7'
+Debug: Setting new attribute to 'J0' into edge '-gneE5'
+Debug: Setting new attribute to 'J0' into edge 'gneE4'
 Debug: Removing busStop 'busStop_gneE4_0_7' in GNEChange_Additional
 Debug: Removing edge 'gneE4' from net
-Debug: Setting new attribute from 'gneJ22' into edge '-gneE7'
-Debug: Setting new attribute from 'gneJ22' into edge 'gneE5'
+Debug: Setting new attribute from 'J0' into edge '-gneE7'
+Debug: Setting new attribute from 'J0' into edge 'gneE5'
 Debug: Removing busStop 'busStop_-gneE4_0_2' in GNEChange_Additional
 Debug: Removing edge '-gneE4' from net
-Debug: Adding crossing into junction 'gneJ22'
-Debug: Created crossing ':gneJ22_c0' in retrieveGNECrossing()
+Debug: Adding crossing into junction 'J0'
+Debug: Created crossing ':J0_c0' in retrieveGNECrossing()
 Debug: Removing junction 'gneJ6' from net
 Debug: Removing junction 'gneJ7' from net
-Debug: Setting new attribute id 'cluster_gneJ6_gneJ7' into junction 'gneJ22'
+Debug: Setting new attribute id 'cluster_gneJ6_gneJ7' into junction 'J0'
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from-gneE5_1to-gneE7_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE7_1togneE5_1' in retrieveGNEConnection()
 Debug: Key F7 (Join junctions) pressed
-Debug: Adding junction 'gneJ23' into net
-Debug: Setting new attribute type 'priority' into junction 'gneJ23'
+Debug: Adding junction 'J0' into net
+Debug: Setting new attribute type 'priority' into junction 'J0'
 Debug: Removing crossing from junction 'gneJ11'
 Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Removing crossing from junction 'gneJ11'
@@ -362,30 +368,30 @@ Debug: Deleting unreferenced connection 'from-gneE19_1togneE18_1' in removeConne
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE19'
 Debug: invalidating (removing) connections of edge '-gneE19' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
-Debug: Setting new attribute to 'gneJ23' into edge '-gneE8'
-Debug: Setting new attribute to 'gneJ23' into edge 'gneE16'
-Debug: Setting new attribute to 'gneJ23' into edge 'gneE15'
-Debug: Setting new attribute to 'gneJ23' into edge '-gneE9'
-Debug: Setting new attribute to 'gneJ23' into edge 'gneE8'
-Debug: Setting new attribute to 'gneJ23' into edge 'gneE9'
-Debug: Setting new attribute to 'gneJ23' into edge '-gneE10'
-Debug: Setting new attribute to 'gneJ23' into edge 'gneE17'
-Debug: Setting new attribute to 'gneJ23' into edge 'gneE10'
-Debug: Setting new attribute to 'gneJ23' into edge '-gneE11'
-Debug: Setting new attribute to 'gneJ23' into edge 'gneE18'
-Debug: Setting new attribute to 'gneJ23' into edge 'gneE11'
-Debug: Setting new attribute to 'gneJ23' into edge '-gneE12'
-Debug: Setting new attribute to 'gneJ23' into edge '-gneE13'
-Debug: Setting new attribute to 'gneJ23' into edge 'gneE12'
-Debug: Setting new attribute to 'gneJ23' into edge '-gneE14'
-Debug: Setting new attribute to 'gneJ23' into edge 'gneE19'
-Debug: Setting new attribute to 'gneJ23' into edge 'gneE13'
-Debug: Setting new attribute to 'gneJ23' into edge '-gneE15'
-Debug: Setting new attribute to 'gneJ23' into edge 'gneE14'
-Debug: Setting new attribute to 'gneJ23' into edge '-gneE16'
-Debug: Setting new attribute to 'gneJ23' into edge '-gneE17'
-Debug: Setting new attribute to 'gneJ23' into edge '-gneE18'
-Debug: Setting new attribute to 'gneJ23' into edge '-gneE19'
+Debug: Setting new attribute to 'J0' into edge '-gneE8'
+Debug: Setting new attribute to 'J0' into edge 'gneE16'
+Debug: Setting new attribute to 'J0' into edge 'gneE15'
+Debug: Setting new attribute to 'J0' into edge '-gneE9'
+Debug: Setting new attribute to 'J0' into edge 'gneE8'
+Debug: Setting new attribute to 'J0' into edge 'gneE9'
+Debug: Setting new attribute to 'J0' into edge '-gneE10'
+Debug: Setting new attribute to 'J0' into edge 'gneE17'
+Debug: Setting new attribute to 'J0' into edge 'gneE10'
+Debug: Setting new attribute to 'J0' into edge '-gneE11'
+Debug: Setting new attribute to 'J0' into edge 'gneE18'
+Debug: Setting new attribute to 'J0' into edge 'gneE11'
+Debug: Setting new attribute to 'J0' into edge '-gneE12'
+Debug: Setting new attribute to 'J0' into edge '-gneE13'
+Debug: Setting new attribute to 'J0' into edge 'gneE12'
+Debug: Setting new attribute to 'J0' into edge '-gneE14'
+Debug: Setting new attribute to 'J0' into edge 'gneE19'
+Debug: Setting new attribute to 'J0' into edge 'gneE13'
+Debug: Setting new attribute to 'J0' into edge '-gneE15'
+Debug: Setting new attribute to 'J0' into edge 'gneE14'
+Debug: Setting new attribute to 'J0' into edge '-gneE16'
+Debug: Setting new attribute to 'J0' into edge '-gneE17'
+Debug: Setting new attribute to 'J0' into edge '-gneE18'
+Debug: Setting new attribute to 'J0' into edge '-gneE19'
 Debug: Removing edge 'gneE8' from net
 Debug: Removing edge '-gneE16' from net
 Debug: Removing edge '-gneE15' from net
@@ -421,13 +427,13 @@ Debug: Removing junction 'gneJ16' from net
 Debug: Removing junction 'gneJ17' from net
 Debug: Removing junction 'gneJ18' from net
 Debug: Removing junction 'gneJ19' from net
-Debug: Setting new attribute id 'cluster_gneJ11_gneJ12_gneJ13_gneJ14_gneJ15_gneJ16_gneJ17_gneJ18_gneJ19' into junction 'gneJ23'
+Debug: Setting new attribute id 'cluster_gneJ11_gneJ12_gneJ13_gneJ14_gneJ15_gneJ16_gneJ17_gneJ18_gneJ19' into junction 'J0'
 Debug: Setting new attribute pos '70.00,20.00' into junction 'cluster_gneJ11_gneJ12_gneJ13_gneJ14_gneJ15_gneJ16_gneJ17_gneJ18_gneJ19'
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute pos '70.10,20.10' into junction 'cluster_gneJ11_gneJ12_gneJ13_gneJ14_gneJ15_gneJ16_gneJ17_gneJ18_gneJ19'
-Debug: Setting previous attribute id 'gneJ23' into junction 'cluster_gneJ11_gneJ12_gneJ13_gneJ14_gneJ15_gneJ16_gneJ17_gneJ18_gneJ19'
+Debug: Setting previous attribute id 'J0' into junction 'cluster_gneJ11_gneJ12_gneJ13_gneJ14_gneJ15_gneJ16_gneJ17_gneJ18_gneJ19'
 Debug: Adding junction 'gneJ19' into net
 Debug: Adding junction 'gneJ18' into net
 Debug: Adding junction 'gneJ17' into net
@@ -672,14 +678,14 @@ Debug: Adding crossing into junction 'gneJ11'
 Debug: Created crossing ':gneJ11_c1' in retrieveGNECrossing()
 Debug: Adding crossing into junction 'gneJ11'
 Debug: Created crossing ':gneJ11_c2' in retrieveGNECrossing()
-Debug: Setting previous attribute type 'unknown' into junction 'gneJ23'
-Debug: Removing junction 'gneJ23' from net
+Debug: Setting previous attribute type 'unknown' into junction 'J0'
+Debug: Removing junction 'J0' from net
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute id 'gneJ22' into junction 'cluster_gneJ6_gneJ7'
+Debug: Setting previous attribute id 'J0' into junction 'cluster_gneJ6_gneJ7'
 Debug: Adding junction 'gneJ7' into net
 Debug: Adding junction 'gneJ6' into net
-Debug: removing crossing from junction 'gneJ22'
+Debug: removing crossing from junction 'J0'
 Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Adding edge '-gneE4' from net
 Debug: Adding busStop 'busStop_-gneE4_0_2' in GNEChange_Additional
@@ -715,11 +721,11 @@ Debug: Adding crossing into junction 'gneJ7'
 Debug: Created crossing ':gneJ7_c0' in retrieveGNECrossing()
 Debug: Adding crossing into junction 'gneJ6'
 Debug: Created crossing ':gneJ6_c0' in retrieveGNECrossing()
-Debug: Setting previous attribute type 'unknown' into junction 'gneJ22'
-Debug: Removing junction 'gneJ22' from net
+Debug: Setting previous attribute type 'unknown' into junction 'J0'
+Debug: Removing junction 'J0' from net
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute id 'gneJ21' into junction 'cluster_gneJ2_gneJ3'
+Debug: Setting previous attribute id 'J0' into junction 'cluster_gneJ2_gneJ3'
 Debug: Adding junction 'gneJ3' into net
 Debug: Adding junction 'gneJ2' into net
 Debug: Adding edge 'gneE2' from net
@@ -737,11 +743,11 @@ Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into
 Debug: declaring connections of edge 'gneE2' as loaded (It will not be removed)
 Debug: Adding connection 'gneE2_1->gneE1_1' into edge 'gneE2'
 Debug: Created connection 'fromgneE2_1togneE1_1' in retrieveGNEConnection()
-Debug: Setting previous attribute type 'unknown' into junction 'gneJ21'
-Debug: Removing junction 'gneJ21' from net
+Debug: Setting previous attribute type 'unknown' into junction 'J0'
+Debug: Removing junction 'J0' from net
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute id 'gneJ20' into junction 'cluster_gneJ0_gneJ1'
+Debug: Setting previous attribute id 'J0' into junction 'cluster_gneJ0_gneJ1'
 Debug: Adding junction 'gneJ1' into net
 Debug: Setting previous attribute type 'dead_end' into junction 'gneJ1'
 Debug: Adding junction 'gneJ0' into net
@@ -752,28 +758,28 @@ Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE0'
 Debug: declaring connections of edge 'gneE0' as loaded (It will not be removed)
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ0'
-Debug: Setting previous attribute type 'unknown' into junction 'gneJ20'
-Debug: Removing junction 'gneJ20' from net
+Debug: Setting previous attribute type 'unknown' into junction 'J0'
+Debug: Removing junction 'J0' from net
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding junction 'gneJ20' into net
-Debug: Setting new attribute type 'dead_end' into junction 'gneJ20'
+Debug: Adding junction 'J0' into net
+Debug: Setting new attribute type 'dead_end' into junction 'J0'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
-Debug: Setting new attribute to 'gneJ20' into edge 'gneE0'
+Debug: Setting new attribute to 'J0' into edge 'gneE0'
 Debug: Removing edge 'gneE0' from net
 Debug: Setting new attribute type 'priority' into junction 'gneJ0'
 Debug: Removing junction 'gneJ0' from net
 Debug: Setting new attribute type 'priority' into junction 'gneJ1'
 Debug: Removing junction 'gneJ1' from net
-Debug: Setting new attribute id 'cluster_gneJ0_gneJ1' into junction 'gneJ20'
+Debug: Setting new attribute id 'cluster_gneJ0_gneJ1' into junction 'J0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding junction 'gneJ21' into net
-Debug: Setting new attribute type 'priority' into junction 'gneJ21'
+Debug: Adding junction 'J0' into net
+Debug: Setting new attribute type 'priority' into junction 'J0'
 Debug: Removing connection 'gneE2_1->gneE1_1' from edge 'gneE2'
 Debug: Deleting unreferenced connection 'fromgneE2_1togneE1_1' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
@@ -784,18 +790,18 @@ Debug: Deleting unreferenced connection 'fromgneE1_1togneE2_1' in removeConnecti
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
 Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
-Debug: Setting new attribute to 'gneJ21' into edge 'gneE2'
-Debug: Setting new attribute to 'gneJ21' into edge 'gneE1'
+Debug: Setting new attribute to 'J0' into edge 'gneE2'
+Debug: Setting new attribute to 'J0' into edge 'gneE1'
 Debug: Removing edge 'gneE1' from net
 Debug: Removing busStop 'busStop_gneE2_0_0' in GNEChange_Additional
 Debug: Removing edge 'gneE2' from net
 Debug: Removing junction 'gneJ2' from net
 Debug: Removing junction 'gneJ3' from net
-Debug: Setting new attribute id 'cluster_gneJ2_gneJ3' into junction 'gneJ21'
+Debug: Setting new attribute id 'cluster_gneJ2_gneJ3' into junction 'J0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding junction 'gneJ22' into net
-Debug: Setting new attribute type 'priority' into junction 'gneJ22'
+Debug: Adding junction 'J0' into net
+Debug: Setting new attribute type 'priority' into junction 'J0'
 Debug: Removing crossing from junction 'gneJ6'
 Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Removing crossing from junction 'gneJ7'
@@ -818,25 +824,25 @@ Debug: Deleting unreferenced connection 'fromgneE4_1togneE5_1' in removeConnecti
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
 Debug: invalidating (removing) connections of edge 'gneE4' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ7'
-Debug: Setting new attribute to 'gneJ22' into edge '-gneE4'
-Debug: Setting new attribute to 'gneJ22' into edge 'gneE7'
-Debug: Setting new attribute to 'gneJ22' into edge '-gneE5'
-Debug: Setting new attribute to 'gneJ22' into edge 'gneE4'
+Debug: Setting new attribute to 'J0' into edge '-gneE4'
+Debug: Setting new attribute to 'J0' into edge 'gneE7'
+Debug: Setting new attribute to 'J0' into edge '-gneE5'
+Debug: Setting new attribute to 'J0' into edge 'gneE4'
 Debug: Removing busStop 'busStop_gneE4_0_7' in GNEChange_Additional
 Debug: Removing edge 'gneE4' from net
-Debug: Setting new attribute from 'gneJ22' into edge '-gneE7'
-Debug: Setting new attribute from 'gneJ22' into edge 'gneE5'
+Debug: Setting new attribute from 'J0' into edge '-gneE7'
+Debug: Setting new attribute from 'J0' into edge 'gneE5'
 Debug: Removing busStop 'busStop_-gneE4_0_2' in GNEChange_Additional
 Debug: Removing edge '-gneE4' from net
-Debug: Adding crossing into junction 'gneJ22'
-Debug: Created crossing ':gneJ22_c0' in retrieveGNECrossing()
+Debug: Adding crossing into junction 'J0'
+Debug: Created crossing ':J0_c0' in retrieveGNECrossing()
 Debug: Removing junction 'gneJ6' from net
 Debug: Removing junction 'gneJ7' from net
-Debug: Setting new attribute id 'cluster_gneJ6_gneJ7' into junction 'gneJ22'
+Debug: Setting new attribute id 'cluster_gneJ6_gneJ7' into junction 'J0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding junction 'gneJ23' into net
-Debug: Setting new attribute type 'priority' into junction 'gneJ23'
+Debug: Adding junction 'J0' into net
+Debug: Setting new attribute type 'priority' into junction 'J0'
 Debug: Removing crossing from junction 'gneJ11'
 Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Removing crossing from junction 'gneJ11'
@@ -1022,30 +1028,30 @@ Debug: Deleting unreferenced connection 'from-gneE19_1togneE18_1' in removeConne
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE19'
 Debug: invalidating (removing) connections of edge '-gneE19' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
-Debug: Setting new attribute to 'gneJ23' into edge '-gneE8'
-Debug: Setting new attribute to 'gneJ23' into edge 'gneE16'
-Debug: Setting new attribute to 'gneJ23' into edge 'gneE15'
-Debug: Setting new attribute to 'gneJ23' into edge '-gneE9'
-Debug: Setting new attribute to 'gneJ23' into edge 'gneE8'
-Debug: Setting new attribute to 'gneJ23' into edge 'gneE9'
-Debug: Setting new attribute to 'gneJ23' into edge '-gneE10'
-Debug: Setting new attribute to 'gneJ23' into edge 'gneE17'
-Debug: Setting new attribute to 'gneJ23' into edge 'gneE10'
-Debug: Setting new attribute to 'gneJ23' into edge '-gneE11'
-Debug: Setting new attribute to 'gneJ23' into edge 'gneE18'
-Debug: Setting new attribute to 'gneJ23' into edge 'gneE11'
-Debug: Setting new attribute to 'gneJ23' into edge '-gneE12'
-Debug: Setting new attribute to 'gneJ23' into edge '-gneE13'
-Debug: Setting new attribute to 'gneJ23' into edge 'gneE12'
-Debug: Setting new attribute to 'gneJ23' into edge '-gneE14'
-Debug: Setting new attribute to 'gneJ23' into edge 'gneE19'
-Debug: Setting new attribute to 'gneJ23' into edge 'gneE13'
-Debug: Setting new attribute to 'gneJ23' into edge '-gneE15'
-Debug: Setting new attribute to 'gneJ23' into edge 'gneE14'
-Debug: Setting new attribute to 'gneJ23' into edge '-gneE16'
-Debug: Setting new attribute to 'gneJ23' into edge '-gneE17'
-Debug: Setting new attribute to 'gneJ23' into edge '-gneE18'
-Debug: Setting new attribute to 'gneJ23' into edge '-gneE19'
+Debug: Setting new attribute to 'J0' into edge '-gneE8'
+Debug: Setting new attribute to 'J0' into edge 'gneE16'
+Debug: Setting new attribute to 'J0' into edge 'gneE15'
+Debug: Setting new attribute to 'J0' into edge '-gneE9'
+Debug: Setting new attribute to 'J0' into edge 'gneE8'
+Debug: Setting new attribute to 'J0' into edge 'gneE9'
+Debug: Setting new attribute to 'J0' into edge '-gneE10'
+Debug: Setting new attribute to 'J0' into edge 'gneE17'
+Debug: Setting new attribute to 'J0' into edge 'gneE10'
+Debug: Setting new attribute to 'J0' into edge '-gneE11'
+Debug: Setting new attribute to 'J0' into edge 'gneE18'
+Debug: Setting new attribute to 'J0' into edge 'gneE11'
+Debug: Setting new attribute to 'J0' into edge '-gneE12'
+Debug: Setting new attribute to 'J0' into edge '-gneE13'
+Debug: Setting new attribute to 'J0' into edge 'gneE12'
+Debug: Setting new attribute to 'J0' into edge '-gneE14'
+Debug: Setting new attribute to 'J0' into edge 'gneE19'
+Debug: Setting new attribute to 'J0' into edge 'gneE13'
+Debug: Setting new attribute to 'J0' into edge '-gneE15'
+Debug: Setting new attribute to 'J0' into edge 'gneE14'
+Debug: Setting new attribute to 'J0' into edge '-gneE16'
+Debug: Setting new attribute to 'J0' into edge '-gneE17'
+Debug: Setting new attribute to 'J0' into edge '-gneE18'
+Debug: Setting new attribute to 'J0' into edge '-gneE19'
 Debug: Removing edge 'gneE8' from net
 Debug: Removing edge '-gneE16' from net
 Debug: Removing edge '-gneE15' from net
@@ -1081,7 +1087,7 @@ Debug: Removing junction 'gneJ16' from net
 Debug: Removing junction 'gneJ17' from net
 Debug: Removing junction 'gneJ18' from net
 Debug: Removing junction 'gneJ19' from net
-Debug: Setting new attribute id 'cluster_gneJ11_gneJ12_gneJ13_gneJ14_gneJ15_gneJ16_gneJ17_gneJ18_gneJ19' into junction 'gneJ23'
+Debug: Setting new attribute id 'cluster_gneJ11_gneJ12_gneJ13_gneJ14_gneJ15_gneJ16_gneJ17_gneJ18_gneJ19' into junction 'J0'
 Debug: Setting new attribute pos '70.00,20.00' into junction 'cluster_gneJ11_gneJ12_gneJ13_gneJ14_gneJ15_gneJ16_gneJ17_gneJ18_gneJ19'
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from-gneE5_1to-gneE7_1' in retrieveGNEConnection()
@@ -1253,14 +1259,11 @@ Debug: Deleting unreferenced junction 'cluster_gneJ0_gneJ1' in AttributeCarriers
 Debug: Deleting unreferenced junction 'cluster_gneJ11_gneJ12_gneJ13_gneJ14_gneJ15_gneJ16_gneJ17_gneJ18_gneJ19' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'cluster_gneJ2_gneJ3' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'cluster_gneJ6_gneJ7' in AttributeCarriers destructor
-Debug: Deleting unreferenced crossing ':gneJ22_c0' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':J0_c0' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ4' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ5' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ8' in AttributeCarriers destructor
 Debug: Deleting unreferenced crossing ':gneJ8_c0' in GNEJunction destructor
 Debug: Deleting unreferenced junction 'gneJ9' in AttributeCarriers destructor
 Debug: Deleting unreferenced crossing ':gneJ9_c0' in GNEJunction destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
