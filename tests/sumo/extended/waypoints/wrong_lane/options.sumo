@@ -1,5 +1,5 @@
 --no-step-log --no-duration-log --net-file=net2.net.xml --routes=input_routes.rou.xml --vehroute-output vehroutes.xml
 --lanechange-output lanechanges.xml
 --tripinfo-output tripinfos.xml
---stop-output stopinfoss.xml
+--stop-output stopinfos.xml
 --fcd-output fcd.xml
