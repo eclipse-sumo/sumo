@@ -2168,7 +2168,7 @@ NBNode::getNextCompatibleOutgoing(const NBEdge* incoming, SVCPermissions vehPerm
 
 
 bool
-NBNode::isStraighter(const NBEdge* const incoming, const double angle, const int carLanes, const NBEdge* const candidate) const {
+NBNode::isStraighter(const NBEdge* const incoming, const double angle, const SVCPermissions vehPerm, const int carLanes, const NBEdge* const candidate) const {
     if (candidate != nullptr) {
         const double candAngle = NBHelpers::normRelAngle(incoming->getAngleAtNode(this), candidate->getAngleAtNode(this));
         // either the other edge is at least 5 degree straighter or it has a more similar lane count or it would become a left turn
@@ -2179,7 +2179,7 @@ NBNode::isStraighter(const NBEdge* const incoming, const double angle, const int
             return false;
         }
         if (fabs(candAngle) < 44.) {
-            const int candCarLanes = candidate->getNumLanesThatAllow(SVC_PASSENGER);
+            const int candCarLanes = candidate->getNumLanesThatAllow(vehPerm);
             if (candCarLanes > carLanes) {
                 return true;
             }
@@ -2216,16 +2216,16 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
     // ok, should be a straight connection
     EdgeVector::const_iterator itOut = std::find(myAllEdges.begin(), myAllEdges.end(), outgoing);
     SVCPermissions vehPerm = incoming->getPermissions() & outgoing->getPermissions();
-    const int carLanes = outgoing->getNumLanesThatAllow(SVC_PASSENGER);
+    const int modeLanes = outgoing->getNumLanesThatAllow(vehPerm);
     if (vehPerm != SVC_PEDESTRIAN) {
         vehPerm &= ~SVC_PEDESTRIAN;
     }
     if (fabs(angle) < 44.) {
         if (fabs(angle) > 5.) {
-            if (isStraighter(incoming, angle, carLanes, getNextCompatibleOutgoing(incoming, vehPerm, itOut, true))) {
+            if (isStraighter(incoming, angle, vehPerm, modeLanes, getNextCompatibleOutgoing(incoming, vehPerm, itOut, true))) {
                 return angle > 0 ? LinkDirection::PARTRIGHT : LinkDirection::PARTLEFT;
             }
-            if (isStraighter(incoming, angle, carLanes, getNextCompatibleOutgoing(incoming, vehPerm, itOut, false))) {
+            if (isStraighter(incoming, angle, vehPerm, modeLanes, getNextCompatibleOutgoing(incoming, vehPerm, itOut, false))) {
                 return angle > 0 ? LinkDirection::PARTRIGHT : LinkDirection::PARTLEFT;
             }
         }

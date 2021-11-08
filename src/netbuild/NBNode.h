@@ -848,7 +848,7 @@ private:
     int addedLanesRight(NBEdge* out, int addedLanes) const;
 
     /// @brief check whether the candidate edge is more likely to be the straight continuation
-    bool isStraighter(const NBEdge* const incoming, const double angle, const int carLanes, const NBEdge* const candidate) const;
+    bool isStraighter(const NBEdge* const incoming, const double angle, const SVCPermissions vehPerm, const int carLanes, const NBEdge* const candidate) const;
 
 private:
     /// @brief The position the node lies at
