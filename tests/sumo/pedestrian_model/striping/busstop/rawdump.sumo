@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-06-30 13:06:19 by Eclipse SUMO sumo Version v1_9_2+0763-fdcd89e
+<!-- generated on 2021-11-08 23:07:16 by Eclipse SUMO sumo Version v1_10_0+2043-670c914
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -82,7 +82,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="SC">
             <person id="visitor4" pos="4.32" angle="4.46" stage="walking"/>
             <person id="visitor3" pos="4.78" angle="0.00" stage="walking"/>
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="5.00">
@@ -90,8 +90,8 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="85.01" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
             <person id="visitor3" pos="6.17" angle="0.00" stage="walking"/>
         </edge>
     </timestep>
@@ -100,9 +100,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="83.62" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="7.00">
@@ -110,9 +110,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="82.23" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="8.00">
@@ -120,9 +120,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="80.84" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="9.00">
@@ -130,9 +130,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="79.45" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="10.00">
@@ -140,9 +140,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="78.06" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="11.00">
@@ -150,9 +150,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="76.67" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="12.00">
@@ -160,9 +160,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="75.28" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="13.00">
@@ -170,9 +170,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="73.89" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="14.00">
@@ -180,9 +180,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="72.51" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="15.00">
@@ -190,9 +190,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="71.12" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="16.00">
@@ -200,9 +200,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="69.73" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="17.00">
@@ -210,9 +210,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="68.34" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="18.00">
@@ -220,9 +220,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="66.95" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="19.00">
@@ -230,9 +230,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="65.56" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="20.00">
@@ -240,9 +240,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="64.17" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="21.00">
@@ -250,9 +250,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="62.78" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="22.00">
@@ -260,9 +260,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="61.39" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="23.00">
@@ -270,9 +270,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="60.01" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="24.00">
@@ -280,9 +280,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="58.62" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="25.00">
@@ -290,9 +290,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="57.23" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="26.00">
@@ -300,9 +300,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="55.84" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="27.00">
@@ -310,9 +310,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="54.45" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="28.00">
@@ -320,9 +320,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="53.06" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="29.00">
@@ -330,9 +330,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="51.67" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="30.00">
@@ -340,9 +340,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="50.28" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="31.00">
@@ -350,9 +350,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="48.89" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="32.00">
@@ -360,9 +360,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="47.51" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="33.00">
@@ -370,9 +370,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="46.12" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="34.00">
@@ -380,9 +380,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="44.73" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="35.00">
@@ -390,9 +390,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="43.34" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="36.00">
@@ -400,9 +400,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="41.95" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="37.00">
@@ -410,9 +410,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="40.56" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="38.00">
@@ -420,9 +420,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="39.17" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="39.00">
@@ -430,9 +430,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="37.78" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="40.00">
@@ -440,9 +440,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="36.39" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="41.00">
@@ -450,9 +450,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="35.01" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="42.00">
@@ -460,9 +460,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="33.62" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="43.00">
@@ -470,9 +470,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="32.23" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="44.00">
@@ -480,9 +480,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="30.84" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="45.00">
@@ -490,9 +490,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="29.45" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="46.00">
@@ -500,9 +500,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="28.06" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="47.00">
@@ -510,9 +510,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="26.67" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="48.00">
@@ -520,9 +520,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="25.28" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="49.00">
@@ -530,9 +530,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="23.89" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="50.00">
@@ -540,9 +540,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="22.51" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="51.00">
@@ -550,9 +550,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="21.12" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="52.00">
@@ -560,9 +560,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="19.73" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="53.00">
@@ -570,9 +570,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="18.34" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="54.00">
@@ -580,9 +580,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="16.95" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="55.00">
@@ -590,9 +590,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="15.56" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="56.00">
@@ -600,9 +600,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="14.17" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="57.00">
@@ -610,9 +610,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="12.78" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="58.00">
@@ -620,9 +620,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="11.39" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="59.00">
@@ -630,9 +630,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="10.01" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="60.00">
@@ -640,9 +640,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="8.62" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="61.00">
@@ -650,9 +650,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="7.23" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="62.00">
@@ -660,9 +660,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="5.84" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="63.00">
@@ -670,9 +670,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="4.45" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="64.00">
@@ -680,9 +680,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="3.06" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="65.00">
@@ -690,9 +690,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="1.67" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="66.00">
@@ -700,9 +700,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="0.28" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="67.00">
@@ -710,9 +710,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="0.00" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="68.00">
@@ -720,9 +720,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="0.00" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="69.00">
@@ -730,9 +730,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="0.00" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="70.00">
@@ -740,9 +740,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="0.00" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="71.00">
@@ -750,9 +750,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="0.00" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="72.00">
@@ -760,9 +760,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="0.00" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="73.00">
@@ -770,9 +770,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="0.00" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="74.00">
@@ -780,9 +780,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="0.00" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="75.00">
@@ -790,9 +790,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="0.00" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="76.00">
@@ -800,9 +800,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="0.00" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="77.00">
@@ -810,9 +810,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="0.00" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="78.00">
@@ -820,9 +820,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="0.00" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="79.00">
@@ -830,9 +830,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="0.00" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="80.00">
@@ -840,9 +840,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="0.00" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="81.00">
@@ -850,9 +850,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="0.00" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="82.00">
@@ -860,9 +860,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="0.00" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="83.00">
@@ -870,9 +870,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="0.00" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="84.00">
@@ -880,9 +880,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="0.00" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="85.00">
@@ -890,9 +890,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="0.00" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="86.00">
@@ -900,9 +900,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="0.00" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="87.00">
@@ -910,9 +910,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="0.00" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="88.00">
@@ -920,9 +920,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="0.00" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="89.00">
@@ -930,9 +930,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="0.00" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="90.00">
@@ -940,9 +940,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="14.71" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="91.00">
@@ -950,9 +950,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="13.32" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="92.00">
@@ -960,9 +960,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="11.94" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="93.00">
@@ -970,9 +970,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="10.55" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="94.00">
@@ -980,9 +980,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="9.16" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="95.00">
@@ -990,9 +990,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="7.77" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="96.00">
@@ -1000,9 +1000,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="6.38" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="97.00">
@@ -1010,9 +1010,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="4.99" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="98.00">
@@ -1020,9 +1020,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="3.60" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="99.00">
@@ -1030,9 +1030,9 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="2.21" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="100.00">
@@ -1040,45 +1040,45 @@ SPDX-License-Identifier: EPL-2.0
             <person id="visitor1" pos="0.82" angle="180.00" stage="walking"/>
         </edge>
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="101.00">
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
             <person id="visitor1" pos="91.39" angle="180.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="102.00">
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
             <person id="visitor1" pos="90.00" angle="180.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="103.00">
         <edge id="SC">
-            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor2" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
             <person id="visitor1" pos="88.61" angle="180.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="104.00">
         <edge id="SC">
-            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor4" pos="5.00" angle="270.00" stage="waiting"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
             <person id="visitor1" pos="87.22" angle="180.00" stage="walking"/>
         </edge>
     </timestep>
     <timestep time="105.00">
         <edge id="SC">
-            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor3" pos="7.00" angle="270.00" stage="waiting"/>
             <person id="visitor1" pos="85.83" angle="180.00" stage="walking"/>
         </edge>
     </timestep>
@@ -1374,502 +1374,502 @@ SPDX-License-Identifier: EPL-2.0
     </timestep>
     <timestep time="164.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="165.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="166.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="167.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="168.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="169.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="170.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="171.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="172.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="173.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="174.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="175.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="176.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="177.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="178.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="179.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="180.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="181.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="182.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="183.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="184.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="185.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="186.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="187.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="188.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="189.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="190.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="191.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="192.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="193.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="194.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="195.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="196.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="197.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="198.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="199.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="200.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="201.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="202.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="203.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="204.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="205.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="206.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="207.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="208.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="209.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="210.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="211.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="212.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="213.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="214.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="215.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="216.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="217.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="218.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="219.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="220.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="221.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="222.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="223.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="224.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="225.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="226.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="227.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="228.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="229.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="230.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="231.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="232.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="233.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="234.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="235.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="236.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="237.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="238.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="239.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="240.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="241.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="242.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="243.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="244.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="245.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="246.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="247.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="248.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="249.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="250.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="251.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="252.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="253.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="254.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="255.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="256.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="257.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="258.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="259.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="260.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="261.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="262.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="263.00">
         <edge id="SC">
-            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting (waiting)"/>
+            <person id="visitor1" pos="5.00" angle="270.00" stage="waiting"/>
         </edge>
     </timestep>
     <timestep time="264.00"/>
