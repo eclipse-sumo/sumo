@@ -2171,7 +2171,11 @@ bool
 NBNode::isStraighter(const NBEdge* const incoming, const double angle, const SVCPermissions vehPerm, const int carLanes, const NBEdge* const candidate) const {
     if (candidate != nullptr) {
         const double candAngle = NBHelpers::normRelAngle(incoming->getAngleAtNode(this), candidate->getAngleAtNode(this));
-        // either the other edge is at least 5 degree straighter or it has a more similar lane count or it would become a left turn
+        // they are too similar it does not matter
+        if (fabs(angle - candAngle) < 5.) {
+            return false;
+        }
+        // the other edge is at least 5 degree straighter
         if (fabs(candAngle) < fabs(angle) - 5.) {
             return true;
         }
@@ -2179,6 +2183,7 @@ NBNode::isStraighter(const NBEdge* const incoming, const double angle, const SVC
             return false;
         }
         if (fabs(candAngle) < 44.) {
+            // the lane count for the same modes is larger
             const int candCarLanes = candidate->getNumLanesThatAllow(vehPerm);
             if (candCarLanes > carLanes) {
                 return true;
@@ -2186,6 +2191,7 @@ NBNode::isStraighter(const NBEdge* const incoming, const double angle, const SVC
             if (candCarLanes < carLanes) {
                 return false;
             }
+            // we would create a left turn
             if (candAngle < 0 && angle > 0) {
                 return true;
             }
