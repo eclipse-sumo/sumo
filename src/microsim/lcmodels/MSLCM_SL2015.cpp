@@ -83,11 +83,11 @@
 // ===========================================================================
 // Debug flags
 // ===========================================================================
-//#define DEBUG_MANEUVER
-//#define DEBUG_WANTSCHANGE
+#define DEBUG_MANEUVER
+#define DEBUG_WANTSCHANGE
 //#define DEBUG_STRATEGIC_CHANGE
 //#define DEBUG_KEEP_LATGAP
-//#define DEBUG_STATE
+#define DEBUG_STATE
 //#define DEBUG_ACTIONSTEPS
 //#define DEBUG_SURROUNDING
 //#define DEBUG_COMMITTED_SPEED
@@ -1246,6 +1246,8 @@ MSLCM_SL2015::_wantsChangeSublane(
         const double neighRight = getNeighRight(neighLane);
         updateGaps(neighLeaders, neighRight, center, 1.0, mySafeLatDistRight, mySafeLatDistLeft);
         updateGaps(neighFollowers, neighRight, center, 1.0, mySafeLatDistRight, mySafeLatDistLeft);
+        // remove TraCI flags because it should not be included in "state-without-traci"
+        ret = getCanceledState(laneOffset);
         return ret;
     }
     if ((ret & LCA_URGENT) != 0) {
@@ -1307,6 +1309,8 @@ MSLCM_SL2015::_wantsChangeSublane(
                       << "\n";
         }
 #endif
+        // remove TraCI flags because it should not be included in "state-without-traci"
+        ret = getCanceledState(laneOffset);
         return ret;
     }
     // VARIANT_15
@@ -2614,6 +2618,15 @@ MSLCM_SL2015::decideDirection(StateAndDist sd1, StateAndDist sd2) const {
                         return sd1.latDist <= sd2.latDist ? sd1 : sd2;
                     }
                 } else {
+                    if (can1) {
+                        if (can2) {
+                            return fabs(sd1.latDist) > fabs(sd2.latDist) ? sd1 : sd2;
+                        } else {
+                            return sd1;
+                        }
+                    } else {
+                        return sd2;
+                    }
                     // see which one is allowed
                     return can1 ? sd1 : sd2;
                 }
