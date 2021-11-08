@@ -9,6 +9,9 @@ moveToXY
 moveTo
 changeLane
 
+# same tests as in changeLane suite but with sublane model
+changeLane_subLane
+
 # Tests the openGap() method.
 openGap
 replaceStop
