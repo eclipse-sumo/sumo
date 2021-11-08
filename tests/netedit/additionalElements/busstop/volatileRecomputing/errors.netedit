@@ -9,6 +9,12 @@ GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,10.00,60.00,44
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary -10.00,8.40,60.00,30.00
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding busStop 'busStop_gneE0_0_0' in GNEChange_Additional
 Debug: Adding busStop 'busStop_gneE1_0_1' in GNEChange_Additional
 Debug: Adding busStop 'busStop_gneE2_0_7' in GNEChange_Additional
@@ -96,16 +102,13 @@ Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ2' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ3' in AttributeCarriers destructor
-Debug: Deleting unreferenced busStop 'busStop_gneE0_0_0' in AttributeCarriers destructor
 Debug: Deleting unreferenced busStop 'busStop_gneE1_0_1' in AttributeCarriers destructor
 Debug: Deleting unreferenced busStop 'busStop_gneE2_0_7' in AttributeCarriers destructor
+Debug: Deleting unreferenced busStop 'busStop_gneE0_0_0' in AttributeCarriers destructor
 Debug: Deleting unreferenced busStop 'busStop_gneE2_1_6' in AttributeCarriers destructor
-Debug: Deleting unreferenced busStop 'busStop_gneE2_2_5' in AttributeCarriers destructor
 Debug: Deleting unreferenced busStop 'busStop_gneE2_3_4' in AttributeCarriers destructor
 Debug: Deleting unreferenced busStop 'busStop_gneE2_4_3' in AttributeCarriers destructor
 Debug: Deleting unreferenced busStop 'busStop_gneE4_0_2' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced busStop 'busStop_gneE2_2_5' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 8
