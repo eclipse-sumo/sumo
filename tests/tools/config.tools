@@ -211,6 +211,7 @@ output:Written configuration to .*{REPLACE Written configuration to <PATH>}
 output:Warning: Module 'rtree' not available.
 output:2147483647{REPLACE 9223372036854775807}
 output:Simulation.*started with{REPLACE Simulation started with}
+output:Could not connect to TraCI server
 output:Retrying in
 output:00000 *${REPLACE 00000}
 output:Cache: hits
