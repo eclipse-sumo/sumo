@@ -1062,7 +1062,11 @@ Vehicle::changeLaneRelative(const std::string& vehID, int indexOffset, double du
     std::vector<std::pair<SUMOTime, int> > laneTimeLine;
     int laneIndex = veh->getLaneIndex() + indexOffset;
     if (laneIndex < 0 && !veh->getLaneChangeModel().isOpposite()) {
-        WRITE_WARNING("Ignoring indexOffset -1 for vehicle '" + vehID + "' which is already on laneIndex 0");
+        if (veh->getLaneIndex() == -1) {
+            WRITE_WARNING("Ignoring changeLaneRelative for vehicle '" + vehID + "' that isn't on the road");
+        } else {
+            WRITE_WARNING("Ignoring indexOffset " + toString(indexOffset) + " for vehicle '" + vehID + "' on laneIndex " + toString(veh->getLaneIndex()));
+        }
     } else {
         laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), laneIndex));
         laneTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(duration), laneIndex));
