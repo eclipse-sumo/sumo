@@ -1,6 +1,9 @@
 tls
 tls_right_on_red
 priority_junction
+
+# priority junction with custom prohibitions
+priority_custom
 priority_stop
 right_before_left
 zipper
