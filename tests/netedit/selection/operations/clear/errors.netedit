@@ -1,5 +1,11 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding e1Detector 'detector1' in GNEChange_Additional
 Debug: Adding e1Detector 'detector2' in GNEChange_Additional
 Debug: Adding e1Detector 'detector3' in GNEChange_Additional
@@ -66,14 +72,14 @@ Debug: Setting new attribute selected 'true' into e1Detector 'detector1'
 Debug: Setting new attribute selected 'true' into e1Detector 'detector2'
 Debug: Setting new attribute selected 'true' into e1Detector 'detector3'
 Debug: Setting new attribute selected 'true' into e1Detector 'detector4'
-Debug: Setting new attribute selected 'true' into e1Detector 'detector5'
-Debug: Setting new attribute selected 'true' into e1Detector 'detector6'
 Debug: Setting new attribute selected 'true' into e1Detector 'detector7'
 Debug: Setting new attribute selected 'true' into e1Detector 'detector8'
+Debug: Setting new attribute selected 'true' into e1Detector 'detector6'
+Debug: Setting new attribute selected 'true' into e1Detector 'detector5'
 Debug: Setting new attribute selected 'true' into poly 'poly_0'
 Debug: Setting new attribute selected 'true' into taz 'TAZ'
-Debug: Setting new attribute selected 'true' into poi 'POI_0'
 Debug: Setting new attribute selected 'true' into poi 'POI_1'
+Debug: Setting new attribute selected 'true' into poi 'POI_0'
 Debug: Setting new attribute selected 'true' into poi 'POI_2'
 Debug: Setting new attribute selected 'true' into poi 'POI_3'
 Debug: Setting new attribute selected 'true' into poiLane 'POI_4'
@@ -111,14 +117,14 @@ Debug: Setting new attribute selected 'false' into e1Detector 'detector1'
 Debug: Setting new attribute selected 'false' into e1Detector 'detector2'
 Debug: Setting new attribute selected 'false' into e1Detector 'detector3'
 Debug: Setting new attribute selected 'false' into e1Detector 'detector4'
-Debug: Setting new attribute selected 'false' into e1Detector 'detector5'
-Debug: Setting new attribute selected 'false' into e1Detector 'detector6'
 Debug: Setting new attribute selected 'false' into e1Detector 'detector7'
 Debug: Setting new attribute selected 'false' into e1Detector 'detector8'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector6'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector5'
 Debug: Setting new attribute selected 'false' into poly 'poly_0'
 Debug: Setting new attribute selected 'false' into taz 'TAZ'
-Debug: Setting new attribute selected 'false' into poi 'POI_0'
 Debug: Setting new attribute selected 'false' into poi 'POI_1'
+Debug: Setting new attribute selected 'false' into poi 'POI_0'
 Debug: Setting new attribute selected 'false' into poi 'POI_2'
 Debug: Setting new attribute selected 'false' into poi 'POI_3'
 Debug: Setting new attribute selected 'false' into poiLane 'POI_4'
@@ -202,7 +208,4 @@ Debug: Deleting unreferenced junction 'B' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'C' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'Center' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'D' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
