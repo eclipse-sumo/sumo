@@ -2168,7 +2168,7 @@ NBNode::getNextCompatibleOutgoing(const NBEdge* incoming, SVCPermissions vehPerm
 
 
 bool
-NBNode::isStraighter(const NBEdge* const incoming, const double angle, const SVCPermissions vehPerm, const int carLanes, const NBEdge* const candidate) const {
+NBNode::isStraighter(const NBEdge* const incoming, const double angle, const SVCPermissions vehPerm, const int modeLanes, const NBEdge* const candidate) const {
     if (candidate != nullptr) {
         const double candAngle = NBHelpers::normRelAngle(incoming->getAngleAtNode(this), candidate->getAngleAtNode(this));
         // they are too similar it does not matter
@@ -2184,11 +2184,11 @@ NBNode::isStraighter(const NBEdge* const incoming, const double angle, const SVC
         }
         if (fabs(candAngle) < 44.) {
             // the lane count for the same modes is larger
-            const int candCarLanes = candidate->getNumLanesThatAllow(vehPerm);
-            if (candCarLanes > carLanes) {
+            const int candModeLanes = candidate->getNumLanesThatAllow(vehPerm);
+            if (candModeLanes > modeLanes) {
                 return true;
             }
-            if (candCarLanes < carLanes) {
+            if (candModeLanes < modeLanes) {
                 return false;
             }
             // we would create a left turn
