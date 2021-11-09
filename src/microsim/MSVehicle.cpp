@@ -2235,7 +2235,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                     // check if we have to slow down or even stop
                     SUMOTime time2end = 0;
                     if (stop.reached) {
-                        time2end = TIME2STEPS(stop.pars.endPos - myState.myPos) / stop.pars.speed;
+                        time2end = TIME2STEPS((stop.pars.endPos - myState.myPos) / stop.pars.speed);
                     } else {
                         time2end = TIME2STEPS(
                             // time to reach waypoint start
