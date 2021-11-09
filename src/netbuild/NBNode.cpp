@@ -2227,7 +2227,7 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
         vehPerm &= ~SVC_PEDESTRIAN;
     }
     if (fabs(angle) < 44.) {
-        if (fabs(angle) > 5.) {
+        if (fabs(angle) > 6.) {
             if (isStraighter(incoming, angle, vehPerm, modeLanes, getNextCompatibleOutgoing(incoming, vehPerm, itOut, true))) {
                 return angle > 0 ? LinkDirection::PARTRIGHT : LinkDirection::PARTLEFT;
             }
