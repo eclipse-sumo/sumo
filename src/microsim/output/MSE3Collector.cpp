@@ -307,8 +307,10 @@ MSE3Collector::MSE3Collector(const std::string& id,
     myEntries(entries),
     myExits(exits),
     myHaltingTimeThreshold(haltingTimeThreshold), myHaltingSpeedThreshold(haltingSpeedThreshold),
-    myCurrentMeanSpeed(0), myCurrentHaltingsNumber(0), myLastResetTime(-1),
-    myOpenEntry(openEntry) {
+    myCurrentMeanSpeed(0), myCurrentHaltingsNumber(0),
+    myLastMeanTravelTime(0), myLastMeanHaltsPerVehicle(0), myLastMeanTimeLoss(0), myLastVehicleSum(0),
+    myLastResetTime(-1), myOpenEntry(openEntry)
+{
     // Set MoveReminders to entries and exits
     for (CrossSectionVectorConstIt crossSec1 = entries.begin(); crossSec1 != entries.end(); ++crossSec1) {
         myEntryReminders.push_back(new MSE3EntryReminder(*crossSec1, *this));
@@ -460,25 +462,25 @@ MSE3Collector::writeXMLOutput(OutputDevice& dev,
                               SUMOTime startTime, SUMOTime stopTime) {
     dev << "   <interval begin=\"" << time2string(startTime) << "\" end=\"" << time2string(stopTime) << "\" " << "id=\"" << myID << "\" ";
     // collect values about vehicles that have left the area
-    const int vehicleSum = (int) myLeftContainer.size();
-    double meanTravelTime = 0.;
+    myLastVehicleSum = (int) myLeftContainer.size();
+    myLastMeanTravelTime = 0;
     double meanOverlapTravelTime = 0.;
     double meanSpeed = 0.;
-    double meanHaltsPerVehicle = 0.;
-    double meanTimeLoss = 0.;
+    myLastMeanHaltsPerVehicle = 0;
+    myLastMeanTimeLoss = 0.;
     for (const E3Values& values : myLeftContainer) {
-        meanHaltsPerVehicle += (double)values.haltings;
-        meanTravelTime += values.frontLeaveTime - values.entryTime;
+        myLastMeanHaltsPerVehicle += (double)values.haltings;
+        myLastMeanTravelTime += values.frontLeaveTime - values.entryTime;
         const double steps = values.backLeaveTime - values.entryTime;
         meanOverlapTravelTime += steps;
         meanSpeed += (values.speedSum / steps);
-        meanTimeLoss += STEPS2TIME(values.timeLoss);
+        myLastMeanTimeLoss += STEPS2TIME(values.timeLoss);
     }
-    meanTravelTime = vehicleSum != 0 ? meanTravelTime / (double)vehicleSum : -1;
-    meanOverlapTravelTime = vehicleSum != 0 ? meanOverlapTravelTime / (double)vehicleSum : -1;
-    meanSpeed = vehicleSum != 0 ? meanSpeed / (double)vehicleSum : -1;
-    meanHaltsPerVehicle = vehicleSum != 0 ? meanHaltsPerVehicle / (double) vehicleSum : -1;
-    meanTimeLoss = vehicleSum != 0 ? meanTimeLoss / (double) vehicleSum : -1;
+    myLastMeanTravelTime = myLastVehicleSum != 0 ? myLastMeanTravelTime / (double)myLastVehicleSum : -1;
+    meanOverlapTravelTime = myLastVehicleSum != 0 ? meanOverlapTravelTime / (double)myLastVehicleSum : -1;
+    meanSpeed = myLastVehicleSum != 0 ? meanSpeed / (double)myLastVehicleSum : -1;
+    myLastMeanHaltsPerVehicle = myLastVehicleSum != 0 ? myLastMeanHaltsPerVehicle / (double) myLastVehicleSum : -1;
+    myLastMeanTimeLoss = myLastVehicleSum != 0 ? myLastMeanTimeLoss / (double) myLastVehicleSum : -1;
     // clear container
     myLeftContainer.clear();
 
@@ -525,12 +527,12 @@ MSE3Collector::writeXMLOutput(OutputDevice& dev,
     meanTimeLossWithin = vehicleSumWithin != 0 ? meanTimeLossWithin / (double) vehicleSumWithin : -1;
 
     // write values
-    dev << "meanTravelTime=\"" << meanTravelTime
+    dev << "meanTravelTime=\"" << myLastMeanTravelTime
         << "\" meanOverlapTravelTime=\"" << meanOverlapTravelTime
         << "\" meanSpeed=\"" << meanSpeed
-        << "\" meanHaltsPerVehicle=\"" << meanHaltsPerVehicle
-        << "\" meanTimeLoss=\"" << meanTimeLoss
-        << "\" vehicleSum=\"" << vehicleSum
+        << "\" meanHaltsPerVehicle=\"" << myLastMeanHaltsPerVehicle
+        << "\" meanTimeLoss=\"" << myLastMeanTimeLoss
+        << "\" vehicleSum=\"" << myLastVehicleSum
         << "\" meanSpeedWithin=\"" << meanSpeedWithin
         << "\" meanHaltsPerVehicleWithin=\"" << meanHaltsPerVehicleWithin
         << "\" meanDurationWithin=\"" << meanDurationWithin

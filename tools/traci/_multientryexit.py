@@ -59,3 +59,35 @@ class MultiEntryExitDomain(Domain):
         Returns the number of vehicles which were halting during the last time step.
         """
         return self._getUniversal(tc.LAST_STEP_VEHICLE_HALTING_NUMBER, detID)
+
+    def getLastIntervalMeanTravelTime(self, detID):
+        """getLastIntervalMeanTravelTime(string) -> double
+
+        Returns the average travel time of vehicles that passed the detector in
+        the previous measurement interval
+        """
+        return self._getUniversal(tc.VAR_LAST_INTERVAL_TRAVELTIME, detID)
+
+    def getLastIntervalMeanHaltsPerVehicle(self, detID):
+        """getLastIntervalMeanHaltsPerVehicle(string) -> double
+
+        Returns the average number of halts of vehicles that passed the detector in
+        the previous measurement interval
+        """
+        return self._getUniversal(tc.VAR_LAST_INTERVAL_MEAN_HALTING_NUMBER, detID)
+
+    def getLastIntervalMeanTimeLoss(self, detID):
+        """getLastIntervalMeanTimeLoss(string) -> double
+
+        Returns the average time loss of vehicles that passed the detector in
+        the previous measurement interval
+        """
+        return self._getUniversal(tc.VAR_TIMELOSS, detID)
+
+    def getLastIntervalVehicleSum(self, detID):
+        """getLastIntervalVehicleSum(string) -> integer
+
+        Returns the number of vehicles that passed the detector in
+        the previous measurement interval
+        """
+        return self._getUniversal(tc.VAR_LAST_INTERVAL_VEHICLE_NUMBER, detID)

@@ -717,6 +717,15 @@ TRACI_CONST int JAM_LENGTH_VEHICLE = 0x18;
 // last step jam length in meters
 TRACI_CONST int JAM_LENGTH_METERS = 0x19;
 
+// last interval travel time (get: e3)
+TRACI_CONST int VAR_LAST_INTERVAL_TRAVELTIME = 0x58;
+
+// last step vehicle halting number (get: multi-entry/multi-exit detector)
+TRACI_CONST int VAR_LAST_INTERVAL_MEAN_HALTING_NUMBER = 0x20;
+
+// last interval vehicle count(get: e3)
+TRACI_CONST int VAR_LAST_INTERVAL_VEHICLE_NUMBER = 0x21;
+
 // last step person list (get: edges, vehicles)
 TRACI_CONST int LAST_STEP_PERSON_ID_LIST = 0x1a;
 
@@ -738,7 +747,7 @@ TRACI_CONST int VAR_STOP_DELAY = 0x1f;
 // estimated arrival delay for next stop (get: vehicle)
 TRACI_CONST int VAR_STOP_ARRIVALDELAY = 0x22;
 
-// collected timeLoss since departure (get: vehicle)
+// collected timeLoss since departure (get: vehicle, e3)
 TRACI_CONST int VAR_TIMELOSS = 0x8c;
 
 //  begin time(get: calibrator)
@@ -957,7 +966,7 @@ TRACI_CONST int VAR_EDGE_TRAVELTIME = 0x58;
 // effort information (get&set: vehicle)
 TRACI_CONST int VAR_EDGE_EFFORT = 0x59;
 
-// last step travel time (get: edge, lane)
+// last step travel time (get: edge, lane, e3)
 TRACI_CONST int VAR_CURRENT_TRAVELTIME = 0x5a;
 
 // signals state (get/set: vehicle)

@@ -72,6 +72,30 @@ MultiEntryExit::getLastStepHaltingNumber(const std::string& detID) {
 }
 
 
+double
+MultiEntryExit::getLastIntervalMeanTravelTime(const std::string& detID) {
+    return Dom::getDouble(libsumo::VAR_LAST_INTERVAL_TRAVELTIME, detID);
+}
+
+
+double
+MultiEntryExit::getLastIntervalMeanHaltsPerVehicle(const std::string& detID) {
+    return Dom::getDouble(libsumo::VAR_LAST_INTERVAL_MEAN_HALTING_NUMBER, detID);
+}
+
+
+double
+MultiEntryExit::getLastIntervalMeanTimeLoss(const std::string& detID) {
+    return Dom::getDouble(libsumo::VAR_TIMELOSS, detID);
+}
+
+
+int
+MultiEntryExit::getLastIntervalVehicleSum(const std::string& detID) {
+    return Dom::getInt(libsumo::VAR_LAST_INTERVAL_VEHICLE_NUMBER, detID);
+}
+
+
 LIBTRACI_PARAMETER_IMPLEMENTATION(MultiEntryExit, MULTIENTRYEXIT)
 LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(MultiEntryExit, MULTIENTRYEXIT)
 

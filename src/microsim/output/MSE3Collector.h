@@ -309,6 +309,25 @@ public:
     std::vector<std::string> getCurrentVehicleIDs() const;
     /// @}
 
+    /// @name Methods returning values from the previous interval
+    /// @{
+
+    double getLastIntervalMeanTravelTime() const {
+        return myLastMeanTravelTime;
+    }
+
+    double getLastIntervalMeanHaltsPerVehicle() const {
+        return myLastMeanHaltsPerVehicle;
+    }
+
+    double getLastIntervalMeanTimeLoss() const {
+        return myLastMeanTimeLoss;
+    }
+
+    int getLastIntervalVehicleSum() const {
+        return myLastVehicleSum;
+    }
+    /// @}
 
     /// @name Methods inherited from MSDetectorFileOutput.
     /// @{
@@ -428,6 +447,13 @@ protected:
     int myCurrentHaltingsNumber;
     /// @}
 
+    /// @name Storages for last written values
+    /// @{
+    double myLastMeanTravelTime;
+    double myLastMeanHaltsPerVehicle;
+    double myLastMeanTimeLoss;
+    int myLastVehicleSum;
+    /// @}
 
     /// @brief Information when the last reset has been done
     SUMOTime myLastResetTime;

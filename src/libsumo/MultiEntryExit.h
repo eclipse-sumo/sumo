@@ -45,6 +45,11 @@ public:
     static std::vector<std::string> getLastStepVehicleIDs(const std::string& detID);
     static int getLastStepHaltingNumber(const std::string& detID);
 
+    static double getLastIntervalMeanTravelTime(const std::string& detID);
+    static double getLastIntervalMeanHaltsPerVehicle(const std::string& detID);
+    static double getLastIntervalMeanTimeLoss(const std::string& detID);
+    static int getLastIntervalVehicleSum(const std::string& detID);
+
     LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
 

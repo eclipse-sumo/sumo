@@ -79,6 +79,30 @@ MultiEntryExit::getLastStepHaltingNumber(const std::string& detID) {
 }
 
 
+double
+MultiEntryExit::getLastIntervalMeanTravelTime(const std::string& detID) {
+    return getDetector(detID)->getLastIntervalMeanTravelTime();
+}
+
+
+double 
+MultiEntryExit::getLastIntervalMeanHaltsPerVehicle(const std::string& detID) {
+    return getDetector(detID)->getLastIntervalMeanHaltsPerVehicle();
+}
+
+
+double 
+MultiEntryExit::getLastIntervalMeanTimeLoss(const std::string& detID) {
+    return getDetector(detID)->getLastIntervalMeanTimeLoss();
+}
+
+
+int 
+MultiEntryExit::getLastIntervalVehicleSum(const std::string& detID) {
+    return getDetector(detID)->getLastIntervalVehicleSum();
+}
+
+
 std::string
 MultiEntryExit::getParameter(const std::string& detID, const std::string& param) {
     return getDetector(detID)->getParameter(param, "");
@@ -128,6 +152,14 @@ MultiEntryExit::handleVariable(const std::string& objID, const int variable, Var
             return wrapper->wrapStringList(objID, variable, getLastStepVehicleIDs(objID));
         case LAST_STEP_VEHICLE_HALTING_NUMBER:
             return wrapper->wrapInt(objID, variable, getLastStepHaltingNumber(objID));
+        case VAR_LAST_INTERVAL_TRAVELTIME:
+            return wrapper->wrapDouble(objID, variable, getLastIntervalMeanTravelTime(objID));
+        case VAR_LAST_INTERVAL_MEAN_HALTING_NUMBER:
+            return wrapper->wrapDouble(objID, variable, getLastIntervalMeanHaltsPerVehicle(objID));
+        case VAR_TIMELOSS:
+            return wrapper->wrapDouble(objID, variable, getLastIntervalMeanTimeLoss(objID));
+        case VAR_LAST_INTERVAL_VEHICLE_NUMBER:
+            return wrapper->wrapInt(objID, variable, getLastIntervalVehicleSum(objID));
         case libsumo::VAR_PARAMETER:
             paramData->readUnsignedByte();
             return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));
