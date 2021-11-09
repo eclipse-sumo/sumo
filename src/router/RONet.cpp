@@ -488,11 +488,11 @@ RONet::checkFlows(SUMOTime time, MsgHandler* errorHandler) {
     for (const auto& i : myFlows) {
         SUMOVehicleParameter* pars = i.second;
         if (pars->repetitionProbability > 0) {
-            if (pars->repetitionEnd > pars->depart) {
+            if (pars->repetitionEnd > pars->depart && pars->repetitionsDone < pars->repetitionNumber) {
                 myHaveActiveFlows = true;
             }
             const SUMOTime origDepart = pars->depart;
-            while (pars->depart < time) {
+            while (pars->depart < time && pars->repetitionsDone < pars->repetitionNumber) {
                 if (pars->repetitionEnd <= pars->depart) {
                     break;
                 }
