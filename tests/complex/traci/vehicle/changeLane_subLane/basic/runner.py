@@ -34,12 +34,14 @@ traci.start([sumoBinary,
              "--no-step-log",
              ])
 
+
 def reportState(vehID, direction):
     print("t=%s laneIndex=%s state(%s)=%s" % (
         traci.simulation.getTime(),
         traci.vehicle.getLaneIndex(vehID),
         direction,
         traci.vehicle.getLaneChangeStatePretty(vehID, direction)))
+
 
 vehID = "v0"
 traci.vehicle.add(vehID, "r0")
