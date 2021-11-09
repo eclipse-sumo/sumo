@@ -28,12 +28,12 @@ Debug: Setting new attribute selected 'true' into junction 'gneJ0'
 Debug: Setting new attribute selected 'true' into edge 'gneE1'
 Debug: Setting new attribute selected 'true' into junction 'gneJ1'
 Debug: Setting new attribute selected 'true' into edge 'gneE0'
-Debug: Setting new attribute selected 'true' into e3Detector 'e3Detector_A'
 Debug: Setting new attribute selected 'true' into e3Detector 'e3Detector_B'
-Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_A'
+Debug: Setting new attribute selected 'true' into e3Detector 'e3Detector_A'
 Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_B'
-Debug: Setting new attribute selected 'true' into detExit 'e3Detector_B'
+Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_A'
 Debug: Setting new attribute selected 'true' into detExit 'e3Detector_A'
+Debug: Setting new attribute selected 'true' into detExit 'e3Detector_B'
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into e3Detector 'e3Detector_A'
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into e3Detector 'e3Detector_B'
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into e3Detector 'e3Detector_A'
@@ -78,12 +78,12 @@ Debug: Setting previous attribute genericParameter 'keyB1=valueB1|keyB2=valueB2|
 Debug: Setting previous attribute genericParameter 'keyA1=valueA1|keyA2=valueA2|keyA3=valueA3' into e3Detector 'e3Detector_A'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute selected '0' into detExit 'e3Detector_A'
 Debug: Setting previous attribute selected '0' into detExit 'e3Detector_B'
-Debug: Setting previous attribute selected '0' into detEntry 'e3Detector_B'
+Debug: Setting previous attribute selected '0' into detExit 'e3Detector_A'
 Debug: Setting previous attribute selected '0' into detEntry 'e3Detector_A'
-Debug: Setting previous attribute selected '0' into e3Detector 'e3Detector_B'
+Debug: Setting previous attribute selected '0' into detEntry 'e3Detector_B'
 Debug: Setting previous attribute selected '0' into e3Detector 'e3Detector_A'
+Debug: Setting previous attribute selected '0' into e3Detector 'e3Detector_B'
 Debug: Setting previous attribute selected '0' into edge 'gneE0'
 Debug: Setting previous attribute selected '0' into junction 'gneJ1'
 Debug: Setting previous attribute selected '0' into edge 'gneE1'
@@ -111,12 +111,12 @@ Debug: Setting new attribute selected 'true' into junction 'gneJ0'
 Debug: Setting new attribute selected 'true' into edge 'gneE1'
 Debug: Setting new attribute selected 'true' into junction 'gneJ1'
 Debug: Setting new attribute selected 'true' into edge 'gneE0'
-Debug: Setting new attribute selected 'true' into e3Detector 'e3Detector_A'
 Debug: Setting new attribute selected 'true' into e3Detector 'e3Detector_B'
-Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_A'
+Debug: Setting new attribute selected 'true' into e3Detector 'e3Detector_A'
 Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_B'
-Debug: Setting new attribute selected 'true' into detExit 'e3Detector_B'
+Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_A'
 Debug: Setting new attribute selected 'true' into detExit 'e3Detector_A'
+Debug: Setting new attribute selected 'true' into detExit 'e3Detector_B'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into e3Detector 'e3Detector_A'
@@ -163,7 +163,4 @@ Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor

@@ -28,10 +28,10 @@ Debug: Setting new attribute selected 'true' into junction 'gneJ0'
 Debug: Setting new attribute selected 'true' into edge 'gneE1'
 Debug: Setting new attribute selected 'true' into junction 'gneJ1'
 Debug: Setting new attribute selected 'true' into edge 'gneE0'
-Debug: Setting new attribute selected 'true' into e3Detector 'e3Detector_B'
 Debug: Setting new attribute selected 'true' into e3Detector 'e3Detector_A'
-Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_B'
+Debug: Setting new attribute selected 'true' into e3Detector 'e3Detector_B'
 Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_A'
+Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_B'
 Debug: Setting new attribute selected 'true' into detExit 'e3Detector_A'
 Debug: Setting new attribute selected 'true' into detExit 'e3Detector_B'
 Debug: Value 'Typ**e%%%%%1 T;;yp$2 Type3' for attribute vTypes of e3Detector isn't valid
@@ -45,10 +45,10 @@ Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute selected '0' into detExit 'e3Detector_B'
 Debug: Setting previous attribute selected '0' into detExit 'e3Detector_A'
-Debug: Setting previous attribute selected '0' into detEntry 'e3Detector_A'
 Debug: Setting previous attribute selected '0' into detEntry 'e3Detector_B'
-Debug: Setting previous attribute selected '0' into e3Detector 'e3Detector_A'
+Debug: Setting previous attribute selected '0' into detEntry 'e3Detector_A'
 Debug: Setting previous attribute selected '0' into e3Detector 'e3Detector_B'
+Debug: Setting previous attribute selected '0' into e3Detector 'e3Detector_A'
 Debug: Setting previous attribute selected '0' into edge 'gneE0'
 Debug: Setting previous attribute selected '0' into junction 'gneJ1'
 Debug: Setting previous attribute selected '0' into edge 'gneE1'
@@ -76,10 +76,10 @@ Debug: Setting new attribute selected 'true' into junction 'gneJ0'
 Debug: Setting new attribute selected 'true' into edge 'gneE1'
 Debug: Setting new attribute selected 'true' into junction 'gneJ1'
 Debug: Setting new attribute selected 'true' into edge 'gneE0'
-Debug: Setting new attribute selected 'true' into e3Detector 'e3Detector_B'
 Debug: Setting new attribute selected 'true' into e3Detector 'e3Detector_A'
-Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_B'
+Debug: Setting new attribute selected 'true' into e3Detector 'e3Detector_B'
 Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_A'
+Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_B'
 Debug: Setting new attribute selected 'true' into detExit 'e3Detector_A'
 Debug: Setting new attribute selected 'true' into detExit 'e3Detector_B'
 Debug: Keys Ctrl+Y (Redo) pressed
@@ -104,7 +104,4 @@ Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
