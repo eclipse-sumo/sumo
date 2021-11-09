@@ -1,1 +1,3 @@
 --device.taxi.dispatch-algorithm greedyShared
+--vehroute-output vehroutes.xml
+--vehroute-output.write-unfinished
