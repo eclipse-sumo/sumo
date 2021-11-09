@@ -28,6 +28,17 @@ sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
 import traci  # noqa
 import sumolib  # noqa
 
+
+def printAggregated():
+    print("lastTravelTime",
+            traci.multientryexit.getLastIntervalMeanTravelTime(detID))
+    print("lastHaltsPerVehicle",
+            traci.multientryexit.getLastIntervalMeanHaltsPerVehicle(detID))
+    print("lastTimeLoss",
+            traci.multientryexit.getLastIntervalMeanTimeLoss(detID))
+    print("lastVehicleSum",
+            traci.multientryexit.getLastIntervalVehicleSum(detID))
+
 traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
 for step in range(4):
     print("step", step)
@@ -40,6 +51,7 @@ print("vehNum", traci.multientryexit.getLastStepVehicleNumber(detID))
 print("meanSpeed", traci.multientryexit.getLastStepMeanSpeed(detID))
 print("vehIDs", traci.multientryexit.getLastStepVehicleIDs(detID))
 print("haltNum", traci.multientryexit.getLastStepHaltingNumber(detID))
+printAggregated()
 
 traci.multientryexit.setParameter(detID, "foo", "42")
 print("parameter", traci.multientryexit.getParameter(detID, "foo"))
@@ -49,4 +61,8 @@ for step in range(3, 6):
     print("step", step)
     traci.simulationStep()
     print(traci.multientryexit.getSubscriptionResults(detID))
+
+traci.simulationStep(110)
+printAggregated()
+
 traci.close()

@@ -11,6 +11,10 @@ vehNum 1
 meanSpeed 6.20637786887
 vehIDs ('horiz',)
 haltNum 0
+lastTravelTime 0.0
+lastHaltsPerVehicle 0.0
+lastTimeLoss 0.0
+lastVehicleSum 0
 parameter 42
 {16: 1}
 step 3
@@ -19,3 +23,7 @@ step 4
 {16: 0}
 step 5
 {16: 0}
+lastTravelTime 2.57124014762
+lastHaltsPerVehicle 0.0
+lastTimeLoss 0.834
+lastVehicleSum 1
