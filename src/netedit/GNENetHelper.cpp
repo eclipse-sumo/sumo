@@ -755,7 +755,7 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedEdges() const {
 GNELane*
 GNENetHelper::AttributeCarriers::retrieveLane(const std::string& id, bool hardFail, bool checkVolatileChange) const {
     const std::string edge_id = SUMOXMLDefinitions::getEdgeIDFromLane(id);
-    const GNEEdge* edge = myEdges.at(edge_id);
+    const GNEEdge* edge = retrieveEdge(edge_id, false);
     if (edge != nullptr) {
         GNELane* lane = nullptr;
         // search  lane in lane's edges
