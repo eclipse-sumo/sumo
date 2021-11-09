@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectMode()
 
 # select all edges with allow = "pedestrian" and remove it
-netedit.selectItems("network element", "edge", "allow", "pedestrian")
+netedit.selectItems("Network", "edge", "allow", "pedestrian")
 netedit.deleteSelectedItems()
 
 # recompute

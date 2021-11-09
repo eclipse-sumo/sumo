@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectMode()
 
 # select all edges with allow = "ship" and remove it
-netedit.selectItems("network element", "edge", "allow", "ship")
+netedit.selectItems("Network", "edge", "allow", "ship")
 netedit.deleteSelectedItems()
 
 # recompute
