@@ -158,8 +158,11 @@ public:
         /// @brief The number of vehicles that left this lane within the sample interval
         int nVehLeft;
 
-        /// @brief The number of vehicles that left this lane within the sample interval
+        /// @brief The number of vehicles that left this lane via vaporization within the sample interval
         int nVehVaporized;
+
+        /// @brief The number of vehicles that left this lane via teleporting within the sample interval
+        int nVehTeleported;
 
         /// @brief The number of vehicle probes with small speed
         double waitSeconds;

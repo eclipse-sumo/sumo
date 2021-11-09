@@ -603,7 +603,7 @@ MSCalibrator::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime sto
     updateMeanData();
     const int p = passed();
     // meandata will be off if vehicles are removed on the next edge instead of this one
-    const int discrepancy = myEdgeMeanData.nVehEntered + myEdgeMeanData.nVehDeparted - myEdgeMeanData.nVehVaporized - passed();
+    const int discrepancy = myEdgeMeanData.nVehEntered + myEdgeMeanData.nVehDeparted - myEdgeMeanData.nVehVaporized - myEdgeMeanData.nVehTeleported - passed();
     //assert(discrepancy >= 0); may go negative for lane calibrator when vehicles change lane before removal
     const std::string ds = (discrepancy > 0 ? "\" vaporizedOnNextEdge=\"" + toString(discrepancy) : "");
     const double durationSeconds = STEPS2TIME(stopTime - startTime);

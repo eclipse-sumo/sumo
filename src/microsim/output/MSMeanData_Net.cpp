@@ -56,7 +56,7 @@ MSMeanData_Net::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane* const lane,
         const MSMeanData_Net* parent)
     : MSMeanData::MeanDataValues(lane, length, doAdd, parent),
       nVehDeparted(0), nVehArrived(0), nVehEntered(0), nVehLeft(0),
-      nVehVaporized(0), waitSeconds(0), timeLoss(0),
+      nVehVaporized(0), nVehTeleported(0), waitSeconds(0), timeLoss(0),
       nVehLaneChangeFrom(0), nVehLaneChangeTo(0),
       frontSampleSeconds(0), frontTravelledDistance(0),
       vehLengthSum(0), occupationSum(0),
@@ -75,6 +75,7 @@ MSMeanData_Net::MSLaneMeanDataValues::reset(bool) {
     nVehEntered = 0;
     nVehLeft = 0;
     nVehVaporized = 0;
+    nVehTeleported = 0;
     nVehLaneChangeFrom = 0;
     nVehLaneChangeTo = 0;
     sampleSeconds = 0.;
@@ -97,6 +98,7 @@ MSMeanData_Net::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& val) con
     v.nVehEntered += nVehEntered;
     v.nVehLeft += nVehLeft;
     v.nVehVaporized += nVehVaporized;
+    v.nVehTeleported += nVehTeleported;
     v.nVehLaneChangeFrom += nVehLaneChangeFrom;
     v.nVehLaneChangeTo += nVehLaneChangeTo;
     v.sampleSeconds += sampleSeconds;
@@ -190,7 +192,9 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOTrafficObject& veh, double
             ++nVehLaneChangeFrom;
         } else if (myParent == nullptr || reason != MSMoveReminder::NOTIFICATION_SEGMENT) {
             ++nVehLeft;
-            if (reason > MSMoveReminder::NOTIFICATION_ARRIVED) {
+            if (reason == MSMoveReminder::NOTIFICATION_TELEPORT || reason == MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED) {
+                ++nVehTeleported;
+            } else if (reason >= MSMoveReminder::NOTIFICATION_VAPORIZED_CALIBRATOR) {
                 ++nVehVaporized;
             }
         }
@@ -231,7 +235,7 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyEnter(SUMOTrafficObject& veh, MSMove
 bool
 MSMeanData_Net::MSLaneMeanDataValues::isEmpty() const {
     return sampleSeconds == 0 && nVehDeparted == 0 && nVehArrived == 0 && nVehEntered == 0
-           && nVehLeft == 0 && nVehVaporized == 0 && nVehLaneChangeFrom == 0 && nVehLaneChangeTo == 0;
+           && nVehLeft == 0 && nVehVaporized == 0 && nVehTeleported == 0 && nVehLaneChangeFrom == 0 && nVehLaneChangeTo == 0;
 }
 
 
@@ -270,6 +274,9 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, long long int att
         dev.writeOptionalAttr(SUMO_ATTR_LEFT, nVehLeft, attributeMask);
         if (nVehVaporized > 0) {
             dev.writeOptionalAttr(SUMO_ATTR_VAPORIZED, nVehVaporized, attributeMask);
+        }
+        if (nVehTeleported > 0) {
+            dev.writeOptionalAttr(SUMO_ATTR_TELEPORTED, nVehTeleported, attributeMask);
         }
         dev.closeTag();
         return;
@@ -314,6 +321,9 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, long long int att
     dev.writeOptionalAttr(SUMO_ATTR_LANECHANGEDTO, nVehLaneChangeTo, attributeMask);
     if (nVehVaporized > 0) {
         dev.writeOptionalAttr(SUMO_ATTR_VAPORIZED, nVehVaporized, attributeMask);
+    }
+    if (nVehTeleported > 0) {
+        dev.writeOptionalAttr(SUMO_ATTR_TELEPORTED, nVehTeleported, attributeMask);
     }
     dev.closeTag();
 }

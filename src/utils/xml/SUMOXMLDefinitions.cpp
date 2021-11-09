@@ -297,6 +297,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "entered",                SUMO_ATTR_ENTERED },
     { "left",                   SUMO_ATTR_LEFT },
     { "vaporized",              SUMO_ATTR_VAPORIZED },
+    { "teleported",             SUMO_ATTR_TELEPORTED },
     { "traveltime",             SUMO_ATTR_TRAVELTIME },
     { "laneChangedFrom",        SUMO_ATTR_LANECHANGEDFROM },
     { "laneChangedTo",          SUMO_ATTR_LANECHANGEDTO },
