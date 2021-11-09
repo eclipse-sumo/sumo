@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-08-26 16:40:56 by Eclipse SUMO sumo Version v1_10_0+0256-6767f51
+<!-- generated on 2021-11-09 08:51:49 by Eclipse SUMO sumo Version v1_10_0+2052-a8d9b5e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -57,7 +57,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id=":C_5" sampledSeconds="16.17" traveltime="3.75" overlapTraveltime="4.04" density="0.43" laneDensity="0.21" occupancy="0.03" waitingTime="0.00" timeLoss="0.04" speed="5.54" departed="0" arrived="0" entered="4" left="4" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id=":C_8" sampledSeconds="7.41" traveltime="1.63" overlapTraveltime="1.91" density="0.45" laneDensity="0.45" occupancy="0.06" waitingTime="0.00" timeLoss="0.00" speed="5.56" departed="0" arrived="0" entered="4" left="4" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id=":C_9" sampledSeconds="56.65" traveltime="3.76" overlapTraveltime="4.05" density="1.50" laneDensity="1.50" occupancy="0.22" waitingTime="0.00" timeLoss="0.20" speed="5.54" departed="0" arrived="0" entered="14" left="14" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id=":C_10" sampledSeconds="9862.45" traveltime="365.09" overlapTraveltime="370.03" density="301.22" laneDensity="301.22" occupancy="48.14" waitingTime="9661.00" timeLoss="9768.42" speed="0.05" departed="0" arrived="0" entered="27" left="27" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id=":C_10" sampledSeconds="9862.45" traveltime="365.09" overlapTraveltime="370.03" density="301.22" laneDensity="301.22" occupancy="48.14" waitingTime="9661.00" timeLoss="9768.42" speed="0.05" departed="0" arrived="0" entered="27" left="27" laneChangedFrom="0" laneChangedTo="0" teleported="4"/>
         <edge id=":C_11" sampledSeconds="1518.74" traveltime="3.75" overlapTraveltime="4.04" density="40.14" laneDensity="40.14" occupancy="5.96" waitingTime="0.00" timeLoss="2.70" speed="5.55" departed="0" arrived="0" entered="376" left="376" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id=":C_18" sampledSeconds="100.48" traveltime="4.08" overlapTraveltime="4.37" density="2.87" laneDensity="2.87" occupancy="0.41" waitingTime="0.00" timeLoss="14.16" speed="4.77" departed="0" arrived="0" entered="23" left="23" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id=":E_0" sampledSeconds="4.51" traveltime="0.84" overlapTraveltime="1.13" density="0.53" laneDensity="0.53" occupancy="0.06" waitingTime="0.00" timeLoss="0.00" speed="5.56" departed="0" arrived="0" entered="4" left="4" laneChangedFrom="0" laneChangedTo="0"/>
