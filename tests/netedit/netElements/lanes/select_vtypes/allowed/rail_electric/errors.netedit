@@ -1,13 +1,13 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Setting new attribute selected 'true' into lane '-gneE19_0'
 Debug: Key DEL (delete) pressed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE19'
-Debug: invalidating (removing) connections of edge 'gneE19' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ12'
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE19'
-Debug: invalidating (removing) connections of edge '-gneE19' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ11'
 Debug: Removing edge '-gneE19' from net
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'fromgneE12_0togneE13_0' in retrieveGNEConnection()
@@ -15,23 +15,11 @@ Debug: Created connection 'fromgneE13_0togneE12_0' in retrieveGNEConnection()
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Adding edge '-gneE19' from net
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ11'
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '-gneE19'
-Debug: declaring connections of edge '-gneE19' as loaded (It will not be removed)
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ12'
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE19'
-Debug: declaring connections of edge 'gneE19' as loaded (It will not be removed)
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE19'
-Debug: invalidating (removing) connections of edge 'gneE19' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ12'
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE19'
-Debug: invalidating (removing) connections of edge '-gneE19' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ11'
 Debug: Removing edge '-gneE19' from net
-Debug: Deleting unreferenced edge '-gneE19' in GNEChange_Attribute
+Debug: Deleting unreferenced edge '-gneE19' GNEChange_Edge
 Debug: Deleting unreferenced lane '-gneE19_0' in GNEChange_Attribute
 Debug: Deleting unreferenced edge '-gneE14' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE14_0' in GNEEdge destructor
@@ -111,7 +99,4 @@ Debug: Deleting unreferenced junction 'gneJ5' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ7' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ8' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ9' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor

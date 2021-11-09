@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectMode()
 
 # select all lanes with allow = "rail" and remove it
-netedit.selectItems("network element", "lane", "allow", "=rail")
+netedit.selectItems("Network", "lane", "allow", "=rail")
 netedit.deleteSelectedItems()
 
 # recompute
