@@ -12,3 +12,6 @@ wrong_lane
 
 # using waypoint with attribute 'until' should trigger stopping if the vehicle arrives too early
 until
+
+# no stopping necessary if the train passes after the until-time
+until_late
