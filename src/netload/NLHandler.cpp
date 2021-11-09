@@ -875,7 +875,7 @@ NLHandler::addE1Detector(const SUMOSAXAttributes& attrs) {
         if (SUMOXMLDefinitions::PersonModeValues.hasString(mode)) {
             detectPersons |= (int)SUMOXMLDefinitions::PersonModeValues.get(mode);
         } else {
-            WRITE_ERROR("Invalid person mode '" + mode + "' in edgeData definition '" + id + "'");
+            WRITE_ERROR("Invalid person mode '" + mode + "' in E1 detector definition '" + id + "'");
             return;
         }
     }
@@ -996,7 +996,7 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
         if (SUMOXMLDefinitions::PersonModeValues.hasString(mode)) {
             detectPersons |= (int)SUMOXMLDefinitions::PersonModeValues.get(mode);
         } else {
-            WRITE_ERROR("Invalid person mode '" + mode + "' in edgeData definition '" + id + "'");
+            WRITE_ERROR("Invalid person mode '" + mode + "' in E2 detector definition '" + id + "'");
             return;
         }
     }
@@ -1174,7 +1174,7 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes& attrs) {
         if (SUMOXMLDefinitions::PersonModeValues.hasString(mode)) {
             detectPersons |= (int)SUMOXMLDefinitions::PersonModeValues.get(mode);
         } else {
-            WRITE_ERROR("Invalid person mode '" + mode + "' in edgeData definition '" + id + "'");
+            WRITE_ERROR("Invalid person mode '" + mode + "' in E3 detector definition '" + id + "'");
             return;
         }
     }
