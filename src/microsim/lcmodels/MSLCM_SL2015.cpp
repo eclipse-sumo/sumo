@@ -83,11 +83,11 @@
 // ===========================================================================
 // Debug flags
 // ===========================================================================
-#define DEBUG_MANEUVER
-#define DEBUG_WANTSCHANGE
+//#define DEBUG_MANEUVER
+//#define DEBUG_WANTSCHANGE
 //#define DEBUG_STRATEGIC_CHANGE
 //#define DEBUG_KEEP_LATGAP
-#define DEBUG_STATE
+//#define DEBUG_STATE
 //#define DEBUG_ACTIONSTEPS
 //#define DEBUG_SURROUNDING
 //#define DEBUG_COMMITTED_SPEED
@@ -2627,8 +2627,6 @@ MSLCM_SL2015::decideDirection(StateAndDist sd1, StateAndDist sd2) const {
                     } else {
                         return sd2;
                     }
-                    // see which one is allowed
-                    return can1 ? sd1 : sd2;
                 }
             }
         } else {
