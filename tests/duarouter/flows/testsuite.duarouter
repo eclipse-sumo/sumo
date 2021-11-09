@@ -1,3 +1,6 @@
+# Additional tests for distributing vehicles over time
+distribution_tests
+
 # Test with 10 vehicles having one departure time
 1s_interval
 
@@ -6,6 +9,9 @@
 
 # define flow without end time
 period_number
+
+# define flow without end time
+probability_number
 
 # define flow without end time
 period_default_end
@@ -46,9 +52,6 @@ routeDistribution_skipNew
 
 # let flows sample from a route distribution with default probabilties
 routeDistribution_defProb_skipNew
-
-# Additional tests for distributing vehicles over time
-distribution_tests
 
 # Tests whether vehicle type attributes are parsed
 vtypecheck
