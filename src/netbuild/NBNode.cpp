@@ -2167,6 +2167,43 @@ NBNode::getNextCompatibleOutgoing(const NBEdge* incoming, SVCPermissions vehPerm
 }
 
 
+bool
+NBNode::isStraighter(const NBEdge* const incoming, const double angle, const SVCPermissions vehPerm, const int modeLanes, const NBEdge* const candidate) const {
+    if (candidate != nullptr) {
+        const double candAngle = NBHelpers::normRelAngle(incoming->getAngleAtNode(this), candidate->getAngleAtNode(this));
+        // they are too similar it does not matter
+        if (fabs(angle - candAngle) < 5.) {
+            return false;
+        }
+        // the other edge is at least 5 degree straighter
+        if (fabs(candAngle) < fabs(angle) - 5.) {
+            return true;
+        }
+        if (fabs(angle) < fabs(candAngle) - 5.) {
+            return false;
+        }
+        if (fabs(candAngle) < 44.) {
+            // the lane count for the same modes is larger
+            const int candModeLanes = candidate->getNumLanesThatAllow(vehPerm);
+            if (candModeLanes > modeLanes) {
+                return true;
+            }
+            if (candModeLanes < modeLanes) {
+                return false;
+            }
+            // we would create a left turn
+            if (candAngle < 0 && angle > 0) {
+                return true;
+            }
+            if (angle < 0 && candAngle > 0) {
+                return false;
+            }
+        }
+    }
+    return false;
+}
+
+
 LinkDirection
 NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing, bool leftHand) const {
     // ok, no connection at all -> dead end
@@ -2185,35 +2222,17 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
     // ok, should be a straight connection
     EdgeVector::const_iterator itOut = std::find(myAllEdges.begin(), myAllEdges.end(), outgoing);
     SVCPermissions vehPerm = incoming->getPermissions() & outgoing->getPermissions();
+    const int modeLanes = outgoing->getNumLanesThatAllow(vehPerm);
     if (vehPerm != SVC_PEDESTRIAN) {
         vehPerm &= ~SVC_PEDESTRIAN;
     }
-    if (abs((int) angle) + 1 < 45) {
-        // check whether there is a straighter edge
-        NBEdge* outCW = getNextCompatibleOutgoing(incoming, vehPerm, itOut, true);
-        if (outCW != nullptr) {
-            const double angle2 = NBHelpers::normRelAngle(incoming->getAngleAtNode(this), outCW->getAngleAtNode(this));
-            if (fabs(angle2) < fabs(angle)) {
-                if (fabs(angle2 - angle) > 5) {
-                    if (angle2 > angle) {
-                        return LinkDirection::PARTLEFT;
-                    } else {
-                        return LinkDirection::PARTRIGHT;
-                    }
-                }
+    if (fabs(angle) < 44.) {
+        if (fabs(angle) > 6.) {
+            if (isStraighter(incoming, angle, vehPerm, modeLanes, getNextCompatibleOutgoing(incoming, vehPerm, itOut, true))) {
+                return angle > 0 ? LinkDirection::PARTRIGHT : LinkDirection::PARTLEFT;
             }
-        }
-        NBEdge* outCCW = getNextCompatibleOutgoing(incoming, vehPerm, itOut, false);
-        if (outCCW != nullptr) {
-            const double angle2 = NBHelpers::normRelAngle(incoming->getAngleAtNode(this), outCCW->getAngleAtNode(this));
-            if (fabs(angle2) < fabs(angle)) {
-                if (fabs(angle2 - angle) > 5) {
-                    if (angle2 > angle) {
-                        return LinkDirection::PARTLEFT;
-                    } else {
-                        return LinkDirection::PARTRIGHT;
-                    }
-                }
+            if (isStraighter(incoming, angle, vehPerm, modeLanes, getNextCompatibleOutgoing(incoming, vehPerm, itOut, false))) {
+                return angle > 0 ? LinkDirection::PARTRIGHT : LinkDirection::PARTLEFT;
             }
         }
         return LinkDirection::STRAIGHT;
