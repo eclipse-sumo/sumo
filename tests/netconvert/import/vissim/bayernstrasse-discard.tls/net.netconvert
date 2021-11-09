@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:29 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2021-11-09 13:41:46 by Eclipse SUMO netconvert Version v1_10_0+1808-f54501a53b3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -902,12 +902,12 @@ SPDX-License-Identifier: EPL-2.0
         <request index="17" response="101000000000000000001000000" foes="101000000000000000001000000"/>
         <request index="18" response="000000000000000000000000000" foes="111000000001111111111000011"/>
         <request index="19" response="000000000000000000000000000" foes="111000000001111111111000011"/>
-        <request index="20" response="101000000000011000000001100" foes="111110000000011000000001111"/>
-        <request index="21" response="101000000000011000000001100" foes="111110000000011000000001111"/>
+        <request index="20" response="111000000000011000000001100" foes="111110000000011000000001111"/>
+        <request index="21" response="111000000000011000000001100" foes="111110000000011000000001111"/>
         <request index="22" response="000001100000000000000110000" foes="000001100001100000000110000"/>
         <request index="23" response="000001100000000000000110000" foes="000001100001100000000110000"/>
         <request index="24" response="000000011000000000001110000" foes="000001111111100000001110000"/>
-        <request index="25" response="100001111000000000001110000" foes="100001111001100000001110000"/>
+        <request index="25" response="000000011000000000001110000" foes="100001111001100000001110000"/>
         <request index="26" response="000000011000000000001110000" foes="010001111111100000001110000"/>
     </junction>
     <junction id="3-begin" type="dead_end" x="1780.18" y="2334.07" incLanes="" intLanes="" shape="1782.97,2332.50 1777.39,2335.63"/>
@@ -1276,7 +1276,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="26[1][1][1][0]" to="26[1][1][1][1]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="26[1][1][1][0]" to="26[1][1][1][1]" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="26[1][1][1][0]" to="11[1]" fromLane="1" toLane="0" dir="s" state="M"/>
-    <connection from="30001[0]" to="102" fromLane="0" toLane="0" dir="L" state="M"/>
+    <connection from="30001[0]" to="102" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="30001[0]" to="30001[1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="30001[0]" to="30001[1][0]" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="30001[1][0]" to="30001[1][1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
@@ -1356,7 +1356,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="30026" to="30023" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="31[0]" to="31[1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="31[0]" to="31[1][0]" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from="31[1][0]" to="20003" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from="31[1][0]" to="20003" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="31[1][0]" to="31[1][1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="31[1][0]" to="31[1][1][0]" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="31[1][1][0]" to="31[1][1][1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
@@ -1378,7 +1378,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="3[1][0]" to="68" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="3[1][0]" to="68" fromLane="0" toLane="1" dir="r" state="m"/>
     <connection from="3[1][0]" to="3[1][1][0]" fromLane="0" toLane="0" dir="s" state="m"/>
-    <connection from="3[1][0]" to="20004" fromLane="0" toLane="0" dir="L" state="m"/>
+    <connection from="3[1][0]" to="20004" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="3[1][0]" to="3[1][1][0]" fromLane="1" toLane="1" dir="s" state="m"/>
     <connection from="3[1][1][0]" to="3[1][1][1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="3[1][1][0]" to="3[1][1][1][0]" fromLane="1" toLane="1" dir="s" state="M"/>
@@ -1446,7 +1446,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="6[0]" to="26[0]" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="6[1][0]" to="6[1][1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="6[1][0]" to="6[1][1][0]" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from="6[1][1][0]" to="20002" fromLane="0" toLane="0" dir="L" state="M"/>
+    <connection from="6[1][1][0]" to="20002" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="6[1][1][0]" to="6[1][1][1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="6[1][1][0]" to="6[1][1][1][0]" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="6[1][1][1][0]" to="6[1][1][1][1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
@@ -1457,8 +1457,8 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="6[1][1][1][1][1][0]" to="6[1][1][1][1][1][1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="6[1][1][1][1][1][0]" to="6[1][1][1][1][1][1][0]" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="6[1][1][1][1][1][1][0]" to="73" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="6[1][1][1][1][1][1][0]" to="70" fromLane="0" toLane="0" dir="R" state="M"/>
-    <connection from="6[1][1][1][1][1][1][0]" to="70" fromLane="0" toLane="1" dir="R" state="M"/>
+    <connection from="6[1][1][1][1][1][1][0]" to="70" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="6[1][1][1][1][1][1][0]" to="70" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from="6[1][1][1][1][1][1][0]" to="6[1][1][1][1][1][1][1][0]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="6[1][1][1][1][1][1][0]" to="6[1][1][1][1][1][1][1][0]" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="6[1][1][1][1][1][1][0]" to="72" fromLane="1" toLane="0" dir="s" state="M"/>
