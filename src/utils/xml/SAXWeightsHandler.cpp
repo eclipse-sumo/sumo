@@ -83,6 +83,10 @@ SAXWeightsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             myCurrentID = attrs.getOpt<std::string>(SUMO_ATTR_ID, nullptr, ok, "");
             myCurrentTimeBeg = STEPS2TIME(attrs.getSUMOTimeReporting(SUMO_ATTR_BEGIN, nullptr, ok));
             myCurrentTimeEnd = STEPS2TIME(attrs.getSUMOTimeReporting(SUMO_ATTR_END, nullptr, ok));
+            if (myCurrentTimeEnd < myCurrentTimeBeg) {
+                WRITE_ERROR("Interval end time " + toString(myCurrentTimeEnd) + " is lower than interval begin time " + toString(myCurrentTimeBeg));
+                myCurrentTimeEnd = myCurrentTimeBeg;
+            }
         }
         break;
         case SUMO_TAG_EDGE: {
