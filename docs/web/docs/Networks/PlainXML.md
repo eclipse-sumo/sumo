@@ -816,6 +816,11 @@ speed limit.
 !!! note
     vClass-specific speed limit restrictions can also be loaded directly into [sumo](../sumo.md) from an additional file (only type attribute 'id' is needed)
 
+## speed on junction
+
+If a vclass-specific speed restriction exists for the edge type before and after a junction, the speed restriction is also applied to the (junction-)internal edge. By default, the average value of the restricted speeds before and after the junction will be used.
+If the network was built with option **--junctions.higher-speed**, the maximum of both speeds is used on the junction instead.
+
 # Connection Descriptions
 
 | **Connection Descriptions** | |
