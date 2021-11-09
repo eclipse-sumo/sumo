@@ -125,7 +125,7 @@ def main(args=None):
     colorMeasure = options.measures.split(",")[0]
     if colorDump:
         if options.verbose:
-            print("Reading colors from '%s'" % colorDump)
+            print("Reading colors from '%s' (attribute:%s)" % (colorDump, colorMeasure))
         hc = WeightsReader(colorMeasure)
         sumolib.output.parse_sax(colorDump, hc)
         times = hc._edge2value
@@ -135,7 +135,7 @@ def main(args=None):
         widthDump = dumps[1]
         widthMeasure = options.measures.split(",")[1]
         if options.verbose:
-            print("Reading widths from '%s'" % widthDump)
+            print("Reading width attribute from '%s' (attribute:%s)" % (widthDump, widthMeasure))
         hw = WeightsReader(widthMeasure)
         sumolib.output.parse_sax(widthDump, hw)
         times = hw._edge2value
