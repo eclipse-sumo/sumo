@@ -158,8 +158,5 @@ Debug: Deleting unreferenced junction 'E' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'N' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'S' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'W' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 13
