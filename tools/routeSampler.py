@@ -329,7 +329,7 @@ def optimize(options, countData, routes, usedRoutes, routeUsage):
 
     priorRouteCounts = getRouteCounts(routes, usedRoutes)
 
-    relevantRoutes = [i for i in range(routes.number) if routeUsage[i]]
+    relevantRoutes = [i for i in range(routes.number) if len(routeUsage[i]) >= options.minCount]
     priorRelevantRouteCounts = [priorRouteCounts[r] for r in relevantRoutes]
     k = len(relevantRoutes)
 
