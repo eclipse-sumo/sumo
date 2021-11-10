@@ -1,27 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-10 11:53:22 by Eclipse SUMO netconvert Version v1_10_0+2103-45bb762
-This data file and the accompanying materials
-are made available under the terms of the Eclipse Public License v2.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+<!-- generated on 2021-11-10 12:14:09 by Eclipse SUMO netedit Version v1_10_0+2105-f243766
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="input_plain.nod.xml"/>
-        <edge-files value="input_plain.edg.xml"/>
-        <connection-files value="input_plain.con.xml"/>
+        <sumo-net-file value="input_net.net.xml"/>
     </input>
 
     <output>
-        <write-license value="true"/>
-        <output-file value="net.net.xml"/>
-        <plain-output-prefix value="plain"/>
+        <output-file value="input_net.net.xml"/>
     </output>
 
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
     <report>
-        <xml-validation value="never"/>
         <aggregate-warnings value="5"/>
     </report>
 
@@ -51,7 +59,7 @@ SPDX-License-Identifier: EPL-2.0
     <edge id=":C_6" function="internal">
         <lane id=":C_6_0" index="0" allow="passenger" speed="10.03" length="5.92" shape="98.40,113.40 99.75,108.07 100.00,107.73"/>
     </edge>
-    <edge id=":C_28" function="internal">
+    <edge id=":C_28" function="internal" type="customType2">
         <lane id=":C_28_0" index="0" allow="bicycle" speed="11.43" length="15.27" width="1.00" shape="100.00,99.85 106.48,95.02 113.40,93.10"/>
     </edge>
     <edge id=":C_29" function="internal">
@@ -79,7 +87,7 @@ SPDX-License-Identifier: EPL-2.0
     <edge id=":C_13" function="internal">
         <lane id=":C_13_0" index="0" allow="passenger" speed="10.03" length="5.92" shape="113.40,101.60 108.07,100.25 107.73,100.00"/>
     </edge>
-    <edge id=":C_31" function="internal">
+    <edge id=":C_31" function="internal" type="customType">
         <lane id=":C_31_0" index="0" allow="bicycle" speed="11.43" length="24.46" width="1.00" shape="107.35,105.22 106.48,104.98 99.92,100.08 95.02,93.52 93.10,86.60"/>
     </edge>
     <edge id=":C_32" function="internal">
@@ -291,7 +299,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="WC" to="CN" fromLane="0" toLane="0" via=":C_23_0" tl="C" linkIndex="23" dir="l" state="o"/>
     <connection from="WC" to="CS" fromLane="1" toLane="1" via=":C_24_0" tl="C" linkIndex="24" dir="r" state="o"/>
     <connection from="WC" to="CE" fromLane="1" toLane="1" via=":C_25_0" tl="C" linkIndex="25" dir="s" state="O"/>
-    <connection from="WC" to="CE" fromLane="2" toLane="2" via=":C_25_1" tl="C" linkIndex="26" dir="s" state="O"/>
+    <connection from="WC" to="CE" fromLane="2" toLane="2" type="bla" via=":C_25_1" tl="C" linkIndex="26" dir="s" state="O"/>
     <connection from="WC" to="CN" fromLane="2" toLane="2" via=":C_27_0" tl="C" linkIndex="27" dir="l" state="o"/>
 
     <connection from=":C_0" to="CW" fromLane="0" toLane="0" dir="r" state="M"/>
