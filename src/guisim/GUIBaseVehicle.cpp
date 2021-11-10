@@ -854,7 +854,7 @@ GUIBaseVehicle::drawStopLabels(const GUIVisualizationSettings& s, bool noLoop, c
             label += " (opposite)";
         }
 #ifdef _DEBUG
-        label += " (" + toString(stop.edge - myVehicle.getEdge()) + "e)";
+        label += " (" + toString(stop.edge - myVehicle.getCurrentRouteEdge()) + "e)";
 #endif
         if (myVehicle.isStoppedTriggered()) {
             label += " triggered:";
