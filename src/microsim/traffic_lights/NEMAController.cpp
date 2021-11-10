@@ -545,6 +545,7 @@ bool NEMALogic::isDetectorActivated(int phaseIndex) {
 }
 
 std::string NEMALogic::NEMA_control() {
+    std::string outputState = "";
     //controller starts
     SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
     double currentTimeInSecond = STEPS2TIME(now);
