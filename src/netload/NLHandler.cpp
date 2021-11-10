@@ -745,7 +745,7 @@ NLHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs) {
         } else {
             WRITE_ERROR("Traffic light '" + id + "' has unknown type '" + typeS + "'.");
         }
-        if (MSGlobals::gUseMesoSim && type == TrafficLightType::ACTUATED) {
+        if (MSGlobals::gUseMesoSim && type == TrafficLightType::ACTUATED || type == TrafficLightType::NEMA)) {
             if (!myHaveWarnedAboutInvalidTLType) {
                 WRITE_WARNING("Traffic light type '" + toString(type) + "' cannot be used in mesoscopic simulation. Using '" + toString(TrafficLightType::STATIC) + "' as fallback.");
                 myHaveWarnedAboutInvalidTLType = true;
@@ -790,6 +790,15 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
     const std::vector<int> nextPhases = attrs.getOptIntVector(SUMO_ATTR_NEXT, nullptr, ok);
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, nullptr, ok, "");
 
+    SUMOTime vehextTime = attrs.getOptSUMOTimeReporting(
+                                    SUMO_ATTR_VEHICLEEXTENSION, myJunctionControlBuilder.getActiveKey().c_str(), ok, string2time("999")); 
+    SUMOTime yellowTime = attrs.getOptSUMOTimeReporting(
+                                    SUMO_ATTR_YELLOW, myJunctionControlBuilder.getActiveKey().c_str(), ok, string2time("999")); 
+    SUMOTime redTime = attrs.getOptSUMOTimeReporting(
+                                    SUMO_ATTR_RED, myJunctionControlBuilder.getActiveKey().c_str(), ok, string2time("999")); 
+    if (vehextTime != string2time("999")) {
+        myJunctionControlBuilder.addPhase(duration, state, nextPhases, minDuration, maxDuration, name, vehextTime, yellowTime, redTime);
+    } else {
     //SOTL attributes
     //If the type attribute is not present, the parsed phase is of type "undefined" (MSPhaseDefinition constructor),
     //in this way SOTL traffic light logic can recognize the phase as unsuitable or decides other
@@ -851,6 +860,7 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
     } else {
         //Adding the standard parsed phase to have a new MSPhaseDefinition
         myJunctionControlBuilder.addPhase(duration, state, nextPhases, minDuration, maxDuration, name);
+    }
     }
 }
 
