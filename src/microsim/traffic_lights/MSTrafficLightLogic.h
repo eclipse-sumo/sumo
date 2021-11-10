@@ -33,6 +33,7 @@
 #include <microsim/MSLink.h>
 #include "MSPhaseDefinition.h"
 
+#include "microsim/output/MSE2Collector.h"
 
 // ===========================================================================
 // class declarations
@@ -164,6 +165,8 @@ public:
      */
     bool setTrafficLightSignals(SUMOTime t) const;
     /// @}
+
+    bool setTrafficLightSignalsCustomized(SUMOTime t, std::string newState);
 
 
 

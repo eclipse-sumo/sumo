@@ -170,11 +170,13 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                                 || (LinkState)state1[j] == LINKSTATE_TL_GREEN_MINOR)) {
                         for (LaneVector::const_iterator it = myLanes[j].begin(); it != myLanes[j].end(); ++it) {
                             if ((*it)->getPermissions() != SVC_PEDESTRIAN) {
+                                if (getProgramID() != "NEMA") {
                                 WRITE_WARNING("Missing yellow phase in tlLogic '" + getID()
                                               + "', program '" + getProgramID() + "' for tl-index " + toString(j)
                                               + " when switching" + optionalFrom + " to phase " + toString(iNext));
                                 // one warning per program is enough
                                 haveWarned = true;
+                                }
                                 break;
                             }
                         }
@@ -191,8 +193,10 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
         }
         for (int j = 0; j < (int)foundGreen.size(); ++j) {
             if (!foundGreen[j]) {
+                if (getProgramID() != "NEMA") {
                 WRITE_WARNING("Missing green phase in tlLogic '" + getID()
                               + "', program '" + getProgramID() + "' for tl-index " + toString(j));
+                }
                 break;
             }
         }
@@ -335,6 +339,18 @@ MSTrafficLightLogic::setTrafficLightSignals(SUMOTime t) const {
     return true;
 }
 
+bool
+MSTrafficLightLogic::setTrafficLightSignalsCustomized(SUMOTime t, std::string newState) {
+    const std::string& state = newState;
+    for (int i = 0; i < (int)myLinks.size(); i++) {
+        const LinkVector& currGroup = myLinks[i];
+        LinkState ls = (LinkState) state[i];
+        for (LinkVector::const_iterator j = currGroup.begin(); j != currGroup.end(); j++) {
+            (*j)->setTLState(ls, t);
+        }
+    }
+    return true;
+}
 
 void
 MSTrafficLightLogic::resetLinkStates(const std::map<MSLink*, LinkState>& vals) const {
