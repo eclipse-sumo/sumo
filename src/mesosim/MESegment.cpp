@@ -384,7 +384,7 @@ MSLink*
 MESegment::getLink(const MEVehicle* veh, bool penalty) const {
     if (myJunctionControl || penalty) {
         const MSEdge* const nextEdge = veh->succEdge(1);
-        if (nextEdge == nullptr) {
+        if (nextEdge == nullptr || veh->getQueIndex() == PARKING_QUEUE) {
             return nullptr;
         }
         // try to find any link leading to our next edge, start with the lane pointed to by the que index
