@@ -28,6 +28,9 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
+# go to demand mode (For undo-redo)
+netedit.supermodeDemand()
+
 # force save demand elements
 netedit.forceSaveDemandElements()
 
