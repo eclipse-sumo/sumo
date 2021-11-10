@@ -818,6 +818,8 @@ speed limit.
 
 ## speed on junction
 
+If a connection defines the 'type' attribute, this can be used to load restrictions directly. Otherwise, the type and restrictions are inferred from the edge types before and after the intersection as follows:
+
 If a vclass-specific speed restriction exists for the edge type before and after a junction, the speed restriction is also applied to the (junction-)internal edge. By default, the average value of the restricted speeds before and after the junction will be used.
 If the network was built with option **--junctions.higher-speed**, the maximum of both speeds is used on the junction instead.
 
@@ -889,6 +891,7 @@ Here, a connection from the edge's "*<FROM_EDGE_ID\>*" lane with the number *<IN
 | changeRight       | list of vehicle classes | List of vehicle classes that may change right from this lane |
 | length  | float    |    | set a [custom length](../Simulation/Distances.md#length-geometry-mismatch) for this connection |
 | indirect | bool    | false | declare an indirect (two-step) turning movement (affects geometry and right-of-way) |
+| type | string    |  | set custom edgeType for applying [vClass-specific speed limits](#vehicle-class_specific_speed_limits) |
 
 If you only wish to **remove** a connection it may be convenient to use
 the following xml definition: `<delete from="<FROM_EDGE_ID>" to="<T0_EDGE_ID>"/>`. The attributes are the same as for the
