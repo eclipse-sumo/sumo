@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 22/10/2020 15:40:06 by Eclipse SUMO netedit Version v1_7_0+0659-2ea3cbf21a
+<!-- generated on 2021-11-10 13:06:47 by Eclipse SUMO netedit Version v1_10_0+2095-bb366145914
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\palva\.texttest\tmp\netedit.gui.22Oct153657.12200\netedit.gui\additionalElements\parkingspace\inspect\angle\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Nov111853.5008\netedit.gui\additionalElements\parkingspace\inspect\angle\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\palva\.texttest\tmp\netedit.gui.22Oct153657.12200\netedit.gui\additionalElements\parkingspace\inspect\angle\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Nov111853.5008\netedit.gui\additionalElements\parkingspace\inspect\angle\net.net.xml"/>
     </output>
 
     <processing>
@@ -19,6 +19,7 @@
     </processing>
 
     <junctions>
+        <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
         <junctions.limit-turn-speed value="5.5"/>
@@ -30,35 +31,33 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\palva\.texttest\tmp\netedit.gui.22Oct153657.12200\netedit.gui\additionalElements\parkingspace\inspect\angle\additionals.xml"/>
-        <additionals-output value="C:\Users\palva\.texttest\tmp\netedit.gui.22Oct153657.12200\netedit.gui\additionalElements\parkingspace\inspect\angle\additionals.xml"/>
-        <route-files value="C:\Users\palva\.texttest\tmp\netedit.gui.22Oct153657.12200\netedit.gui\additionalElements\parkingspace\inspect\angle\routes.xml"/>
-        <demandelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.22Oct153657.12200\netedit.gui\additionalElements\parkingspace\inspect\angle\routes.xml"/>
-        <data-files value="C:\Users\palva\.texttest\tmp\netedit.gui.22Oct153657.12200\netedit.gui\additionalElements\parkingspace\inspect\angle\datas.xml"/>
-        <dataelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.22Oct153657.12200\netedit.gui\additionalElements\parkingspace\inspect\angle\datas.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Nov111853.5008\netedit.gui\additionalElements\parkingspace\inspect\angle\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Nov111853.5008\netedit.gui\additionalElements\parkingspace\inspect\angle\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Nov111853.5008\netedit.gui\additionalElements\parkingspace\inspect\angle\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Nov111853.5008\netedit.gui\additionalElements\parkingspace\inspect\angle\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Nov111853.5008\netedit.gui\additionalElements\parkingspace\inspect\angle\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Nov111853.5008\netedit.gui\additionalElements\parkingspace\inspect\angle\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\palva\.texttest\tmp\netedit.gui.22Oct153657.12200\netedit.gui\additionalElements\parkingspace\inspect\angle\gui-settings.xml"/>
-        <window-size value="700,500"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Nov111853.5008\netedit.gui\additionalElements\parkingspace\inspect\angle\gui-settings.xml"/>
+        <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\palva\.texttest\tmp\netedit.gui.22Oct153657.12200\netedit.gui\additionalElements\parkingspace\inspect\angle\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Nov111853.5008\netedit.gui\additionalElements\parkingspace\inspect\angle\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\palva\.texttest\tmp\netedit.gui.22Oct153657.12200\netedit.gui\additionalElements\parkingspace\inspect\angle\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Nov111853.5008\netedit.gui\additionalElements\parkingspace\inspect\angle\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <parkingArea id="parkingArea_gneE2_0_0" lane="gneE2_0" startPos="15.00" endPos="25.00">
-        <space x="15.00" y="5.00" angle="32.50"/>
-    </parkingArea>
+    <parkingArea id="parkingArea_gneE2_0_0" lane="gneE2_0" startPos="15.00" endPos="25.00"/>
 </additional>
