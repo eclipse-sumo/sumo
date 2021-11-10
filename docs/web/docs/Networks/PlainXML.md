@@ -188,7 +188,7 @@ error and will yield in a program stop:
 - `unregulated`: The junction is completely
   unregulated - all vehicles may pass without braking; Collision
   detection on the intersection is disabled but collisions beyond the
-  intersection will detected and are likely to occur.
+  intersection will be detected and are likely to occur.
 - `traffic_light_unregulated`: The
   junction is controlled by a traffic light without any further rules.
   This may cause collision if unsafe signal plans are used. Note, that
