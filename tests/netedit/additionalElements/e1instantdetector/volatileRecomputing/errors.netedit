@@ -5,6 +5,12 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding instantInductionLoop 'instantInductionLoop_gneE0_0_7' in GNEChange_Additional
 Debug: Adding instantInductionLoop 'instantInductionLoop_gneE1_0_6' in GNEChange_Additional
 Error: Could not build inductionLoop in netedit; lane doesn't exist.
@@ -13,7 +19,7 @@ Error: Could not build inductionLoop in netedit; lane doesn't exist.
 Error: Could not build inductionLoop in netedit; lane doesn't exist.
 Error: Could not build inductionLoop in netedit; lane doesn't exist.
 Error: Could not build inductionLoop in netedit; lane doesn't exist.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul100952.17416\netedit.gui\additionalElements\e1instantdetector\volatileRecomputing\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Nov082457.2564\netedit.gui\additionalElements\e1instantdetector\volatileRecomputing\input_additionals.add.xml failed.
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
@@ -58,8 +64,5 @@ Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting unreferenced instantInductionLoop 'instantInductionLoop_gneE0_0_7' in AttributeCarriers destructor
 Debug: Deleting unreferenced instantInductionLoop 'instantInductionLoop_gneE1_0_6' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 4
