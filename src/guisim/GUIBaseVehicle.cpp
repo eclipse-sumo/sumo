@@ -46,6 +46,7 @@
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/MSVehicleControl.h>
+#include <microsim/MSStop.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
 #include <microsim/devices/MSDevice_Transportable.h>
@@ -820,6 +821,87 @@ GUIBaseVehicle::drawRoute(const GUIVisualizationSettings& s, int routeNo, double
     const MSRoute* route = myRoutes->getRoute(routeNo - 1); // only prior routes are stored
     if (route != nullptr) {
         drawRouteHelper(s, *route, future, noLoop, darker);
+    }
+}
+
+
+void
+GUIBaseVehicle::drawStopLabels(const GUIVisualizationSettings& s, bool noLoop, const RGBColor& col) const {
+    // (vertical shift for repeated stops at the same position
+    std::map<std::pair<const MSLane*, double>, int> repeat; // count repeated occurrences of the same position
+    int stopIndex = 0;
+    for (const MSStop& stop : myVehicle.getStops()) {
+        double stopLanePos;
+        if (stop.pars.speed > 0) {
+            stopLanePos = stop.reached ? stop.pars.endPos : stop.pars.startPos;
+        } else {
+            stopLanePos = stop.reached ? myVehicle.getPositionOnLane() : MAX2(0.0, stop.getEndPos(myVehicle));
+        }
+        if (stop.isOpposite && !stop.reached) {
+            stopLanePos = stop.lane->getLength() - stopLanePos;
+        }
+        Position pos = stop.lane->geometryPositionAtOffset(stopLanePos);
+        GLHelper::setColor(col);
+        GLHelper::drawBoxLines(stop.lane->getShape().getOrthogonal(pos, 10, true, stop.lane->getWidth()), 0.1);
+        std::string label = (stop.pars.speed > 0
+            ? (stop.reached ? "passing waypoint" : "waypoint ")
+            : (stop.reached ? "stopped" : "stop "));
+        if (!stop.reached) {
+            label += toString(stopIndex);
+        }
+
+        if (stop.isOpposite) {
+            label += " (opposite)";
+        }
+#ifdef _DEBUG
+        label += " (" + toString(stop.edge - myVehicle.getEdge()) + "e)";
+#endif
+        if (myVehicle.isStoppedTriggered()) {
+            label += " triggered:";
+            if (stop.triggered) {
+                label += "person";
+                if (stop.numExpectedPerson > 0) {
+                    label += "(" + toString(stop.numExpectedPerson) + ")";
+                }
+            }
+            if (stop.containerTriggered) {
+                label += "container";
+                if (stop.numExpectedContainer > 0) {
+                    label += "(" + toString(stop.numExpectedContainer) + ")";
+                }
+            }
+            if (stop.joinTriggered) {
+                label += "join";
+                if (stop.pars.join != "") {
+                    label += "(" + stop.pars.join + ")";
+                }
+            }
+        }
+        if (stop.pars.until >= 0) {
+            label += " until:" + time2string(stop.pars.until);
+        }
+        if (stop.duration >= 0 || stop.pars.duration > 0) {
+            if (STEPS2TIME(stop.duration) > 3600 * 24) {
+                label += " duration:1day+";
+            } else {
+                label += " duration:" + time2string(stop.duration);
+            }
+        }
+        if (stop.pars.speed > 0) {
+            label += " speed:" + toString(stop.pars.speed);
+        }
+        if (stop.pars.actType != "") {
+            label += " actType:" + stop.pars.actType;
+        }
+        std::pair<const MSLane*, double> stopPos = std::make_pair(stop.lane, stopLanePos);
+        const double nameSize = s.vehicleName.size / s.scale;
+        Position pos2 = pos - Position(0, nameSize * repeat[stopPos]);
+        if (noLoop && repeat[stopPos] > 0) {
+            break;
+        }
+        GLHelper::drawTextSettings(s.vehicleText, label, pos2, s.scale, s.angle, 1.0);
+        repeat[stopPos]++;
+        stopIndex++;
     }
 }
 

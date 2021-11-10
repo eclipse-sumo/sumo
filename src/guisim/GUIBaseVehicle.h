@@ -332,6 +332,7 @@ public:
      */
     void drawRoute(const GUIVisualizationSettings& s, int routeNo, double darken, bool future = false, bool noLoop = false) const;
 
+    void drawStopLabels(const GUIVisualizationSettings& s, bool noLoop, const RGBColor& col) const;
 
     /// @}
 
