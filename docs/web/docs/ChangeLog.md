@@ -39,6 +39,8 @@ title: ChangeLog
   - Fixed bug where frontal collision between fast vehicles was not detected. Issue #9402
   - Fixed deadlock when using lcSigma without sublane model. Issue #9395
   - Fcd-output no longer includes persons in vehicle when peson-device.fcd is disabled. Issue #9469
+  - Fix bug where rescue lane briefly closes when two rescue vehicles follow each other. Issue #9494
+  - Stop attribute 'actType' is now preserved in vehroute-output. Issue #9495
   
 - netedit
   - Fixed probability statistics and coloring in taz mode. Issue #9107 (regression in 1.7.0)
@@ -93,6 +95,7 @@ title: ChangeLog
   - Color values for 'color by edge data' are now loaded from settings file. Issue #9462
   - Small text placement fixes. Issue #9477, #9476, #9467
   - Fixed freezing in person simulation. Issue #9468
+  - Fixed crash when loading edgeData with inconsisten interval times. Issue #9502
   
 - netconvert
   - Connection attribute visibility is now working if the connection has an internal junction. Issue #8953
@@ -124,6 +127,9 @@ title: ChangeLog
   - Fixed bug where vehicles change their route despite option **--keep-route-probability**. Issue #9487
   - Fixed crash when using **--keep-route-probability** with lower-than-previous **--max-alternatives**. Issue #9488
   - Fixed inconsistent railway routing results when using option **--weights.priority-factor** compared to sumo results. Issue #9397
+  - Stop attribute 'actType' is now preserved. Issue #9495
+  - Fixed infinite loop when loading flow with probability and number but without end attribute. Issue #9504
+  - Fixed crash when ignoring missing vType for probabilistic flow. Issue #9503
 
 - marouter
   - Fixed invalid route-not-found error. Issue #9193
@@ -148,6 +154,7 @@ title: ChangeLog
   - Fixed crash when using libtraci repeatedly. Issue #9478
   - 'traci.vehicle.getLaneChangeState' now longer inclues 'TraCI' in the 'state-without-traci' component. Issue #9492
   - Fixeds bug where command 'traci.vehicle.changeLane' was ignored in sublane simulation. Issue #9147, #9493
+  - Function 'traci.vehicle.replaceStop' no longer fails while on junction. Issue #9467
   
 - tools
   - cutRoutes.py: Fixed mixed usage of trainStop and busStop. Issue #8982
@@ -183,6 +190,9 @@ title: ChangeLog
   - Option **--vehroute-output.route-length** is now written for all routes of a vehicle. Issue #9375
   - Taxi simulation now supports the use of multiple taxi fleets and customer choice of fleet. Issue #7818
   - Added ssm device output option **--device.ssm.write-positions** for writing global measures. Issue #9230
+  - Waypoints can now be used together with the 'until' attribute to force stopping on early arrival. Issue #9489
+  - edgeData output now includes optional attribute 'teleported' to count the number of vehicles that teleported from an edge. Issue #5939
+  - Added opption **--time-to-teleport.remove** for removing vehicles instead of teleporting and re-inserting them along their route after waiting for too long. Issue #9377
 
 - sumo-gui
   - An index value is now drawn for each train reversal in 'show route' mode. Issue #8967
@@ -234,6 +244,7 @@ title: ChangeLog
   - Local lane angle is now shown in context menu. Issue #9432
   - Intervals and child-elements of rerouters and VSS can now be inspected. Issue #9369
   - `<DEL>`-key can now be used in inspect mode to delete the currently inspected element. Issue #9352
+  - Selection mode can now filter for attributes that have/haven't an empty value using '=' and '^' operators. Issue #9507
 
 - netconvert
   - Public transport line colors are now imported from OSM. Issue #7845
@@ -261,7 +272,8 @@ title: ChangeLog
   - addSubscriptionFilterTurn can now be combined (additively) with addSubscriptionFilterLateralDistance and with addSubscriptionFilterLanes. Issue #9177
   - Added function 'traci.person.remove. Issue #9351
   - Improved warning messages when 'traci.vehicle.replaceStop', or 'changeTarget' fails. Issue #9453
-  - Function 'traci.vehicle.replaceStop' no longer fails while on junction. Issue #9467
+  - Added functions retrieve aggregated traffic measures from E3-detector. Issue #9501
+  
 
 - tools
   - cutRoutes.py: Can now handle multiple additional and public transport files in input. Issue #8997
@@ -285,7 +297,8 @@ title: ChangeLog
     - generateParkingAreaReroutes.py: searching vehicles no longer drive past an avilable parkingArea. Issue #9371
     - now runs much faster. Issue #9379
   - routeSampler.py: added option **--min-count** to set mininum number of counting locations for each used route. Issue #9415
-  - Added new [plotXMLAttributes.py](Tools/Visualization.md#plotxmlattributespy) to generated 2D-plots from arbitrary attribute of XML files. Issue #9403
+  - Added tool [scheduleStats](Tools/Railways.md#schedulestatspy) to analyze deviations between loaded public transport schedules and simulation timing. Issue #8420
+  - Added tool [plotXMLAttributes.py](Tools/Visualization.md#plotxmlattributespy) to generated 2D-plots from arbitrary attribute of XML files. Issue #9403
 
 ### Other
 
