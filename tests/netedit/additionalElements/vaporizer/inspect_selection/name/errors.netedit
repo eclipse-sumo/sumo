@@ -1,5 +1,11 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding vaporizer 'gneE0' in GNEChange_Additional
 Debug: Adding vaporizer 'gneE1' in GNEChange_Additional
 Debug: Key F5 (Compute) pressed
@@ -11,8 +17,8 @@ Debug: Setting new attribute selected 'true' into connection 'fromgneE1_0togneE0
 Debug: Setting new attribute selected 'true' into junction 'gneJ1'
 Debug: Setting new attribute selected 'true' into edge 'gneE0'
 Debug: Setting new attribute selected 'true' into connection 'fromgneE0_0togneE1_0'
-Debug: Setting new attribute selected 'true' into vaporizer 'gneE0'
 Debug: Setting new attribute selected 'true' into vaporizer 'gneE1'
+Debug: Setting new attribute selected 'true' into vaporizer 'gneE0'
 Debug: Value '%%%$$' for attribute name of vaporizer isn't valid
 Debug: Setting new attribute name 'customName' into vaporizer 'gneE0'
 Debug: Setting new attribute name 'customName' into vaporizer 'gneE1'
@@ -22,8 +28,8 @@ Debug: Setting previous attribute name '' into vaporizer 'gneE1'
 Debug: Setting previous attribute name '' into vaporizer 'gneE0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute selected '0' into vaporizer 'gneE1'
 Debug: Setting previous attribute selected '0' into vaporizer 'gneE0'
+Debug: Setting previous attribute selected '0' into vaporizer 'gneE1'
 Debug: Setting previous attribute selected '0' into connection 'fromgneE0_0togneE1_0'
 Debug: Setting previous attribute selected '0' into edge 'gneE0'
 Debug: Setting previous attribute selected '0' into junction 'gneJ1'
@@ -38,8 +44,8 @@ Debug: Setting new attribute selected 'true' into connection 'fromgneE1_0togneE0
 Debug: Setting new attribute selected 'true' into junction 'gneJ1'
 Debug: Setting new attribute selected 'true' into edge 'gneE0'
 Debug: Setting new attribute selected 'true' into connection 'fromgneE0_0togneE1_0'
-Debug: Setting new attribute selected 'true' into vaporizer 'gneE0'
 Debug: Setting new attribute selected 'true' into vaporizer 'gneE1'
+Debug: Setting new attribute selected 'true' into vaporizer 'gneE0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute name 'customName' into vaporizer 'gneE0'
@@ -55,7 +61,4 @@ Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor

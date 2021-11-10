@@ -9,6 +9,12 @@ GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,10.00,60.00,44
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary -10.00,8.40,60.00,30.00
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding routeProbe 'routeProbe_01' in GNEChange_Additional
 Debug: Adding routeProbe 'routeProbe_02' in GNEChange_Additional
 Debug: Adding routeProbe 'routeProbe_03' in GNEChange_Additional
@@ -25,7 +31,7 @@ Debug: Adding routeProbe 'routeProbe_14' in GNEChange_Additional
 Debug: Adding routeProbe 'routeProbe_15' in GNEChange_Additional
 Debug: Adding routeProbe 'routeProbe_16' in GNEChange_Additional
 Debug: Adding routeProbe 'routeProbe_17' in GNEChange_Additional
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Jun142428.2364\netedit.gui\additionalElements\routeprobe\volatileRecomputing\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Nov111853.5008\netedit.gui\additionalElements\routeprobe\volatileRecomputing\input_additionals.add.xml failed.
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
@@ -114,17 +120,14 @@ Debug: Deleting unreferenced routeProbe 'routeProbe_01' in AttributeCarriers des
 Debug: Deleting unreferenced routeProbe 'routeProbe_02' in AttributeCarriers destructor
 Debug: Deleting unreferenced routeProbe 'routeProbe_03' in AttributeCarriers destructor
 Debug: Deleting unreferenced routeProbe 'routeProbe_05' in AttributeCarriers destructor
-Debug: Deleting unreferenced routeProbe 'routeProbe_06' in AttributeCarriers destructor
-Debug: Deleting unreferenced routeProbe 'routeProbe_07' in AttributeCarriers destructor
+Debug: Deleting unreferenced routeProbe 'routeProbe_17' in AttributeCarriers destructor
 Debug: Deleting unreferenced routeProbe 'routeProbe_08' in AttributeCarriers destructor
+Debug: Deleting unreferenced routeProbe 'routeProbe_15' in AttributeCarriers destructor
+Debug: Deleting unreferenced routeProbe 'routeProbe_07' in AttributeCarriers destructor
+Debug: Deleting unreferenced routeProbe 'routeProbe_16' in AttributeCarriers destructor
 Debug: Deleting unreferenced routeProbe 'routeProbe_09' in AttributeCarriers destructor
 Debug: Deleting unreferenced routeProbe 'routeProbe_13' in AttributeCarriers destructor
+Debug: Deleting unreferenced routeProbe 'routeProbe_06' in AttributeCarriers destructor
 Debug: Deleting unreferenced routeProbe 'routeProbe_14' in AttributeCarriers destructor
-Debug: Deleting unreferenced routeProbe 'routeProbe_15' in AttributeCarriers destructor
-Debug: Deleting unreferenced routeProbe 'routeProbe_16' in AttributeCarriers destructor
-Debug: Deleting unreferenced routeProbe 'routeProbe_17' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 8
