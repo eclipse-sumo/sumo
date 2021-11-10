@@ -138,14 +138,14 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                                            string2time(oc.getString("weight-period")) :
                                            SUMOTime_MAX);
             router = new CHRouter<ROEdge, ROVehicle>(
-                ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, SVC_IGNORING, weightPeriod, net.hasPermissions(), oc.isSet("restriction-params"));
+                ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttFunction, SVC_IGNORING, weightPeriod, net.hasPermissions(), oc.isSet("restriction-params"));
         } else if (routingAlgorithm == "CHWrapper" || routingAlgorithm == "CH") {
             // use CHWrapper instead of CH if the net has permissions
             const SUMOTime weightPeriod = (oc.isSet("weight-files") ?
                                            string2time(oc.getString("weight-period")) :
                                            SUMOTime_MAX);
             router = new CHRouterWrapper<ROEdge, ROVehicle>(
-                ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic,
+                ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttFunction,
                 begin, end, weightPeriod, net.hasPermissions(), oc.getInt("routing-threads"));
         } else {
             throw ProcessError("Unknown routing Algorithm '" + routingAlgorithm + "'!");
