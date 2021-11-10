@@ -18,7 +18,7 @@ By default, the length of a straight edge corresponds to the euclidean distance
 between its start and end positions (x,y). 
 
 However, lengths of edges and lanes can be different from the euclidean
-distance (referred to as a **length-geometry-mismtach**) are there are several reasons why this occurs.
+distance (referred to as a **length-geometry-mismtach**) and there are several reasons why this occurs.
 
 
 [sumo-gui](../sumo-gui.md/#edgelane_visualisation_settings) and [netedit](../Netedit/index.md) can be configured to color lanes by ''by given length/geometrical length'' which highlights the mismatch between both distance values.
