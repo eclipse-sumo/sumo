@@ -745,7 +745,7 @@ NLHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs) {
         } else {
             WRITE_ERROR("Traffic light '" + id + "' has unknown type '" + typeS + "'.");
         }
-        if (MSGlobals::gUseMesoSim && type == TrafficLightType::ACTUATED || type == TrafficLightType::NEMA)) {
+        if (MSGlobals::gUseMesoSim && (type == TrafficLightType::ACTUATED || type == TrafficLightType::NEMA)) {
             if (!myHaveWarnedAboutInvalidTLType) {
                 WRITE_WARNING("Traffic light type '" + toString(type) + "' cannot be used in mesoscopic simulation. Using '" + toString(TrafficLightType::STATIC) + "' as fallback.");
                 myHaveWarnedAboutInvalidTLType = true;
