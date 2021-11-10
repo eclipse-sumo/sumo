@@ -2222,10 +2222,10 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
     // ok, should be a straight connection
     EdgeVector::const_iterator itOut = std::find(myAllEdges.begin(), myAllEdges.end(), outgoing);
     SVCPermissions vehPerm = incoming->getPermissions() & outgoing->getPermissions();
-    const int modeLanes = outgoing->getNumLanesThatAllow(vehPerm);
     if (vehPerm != SVC_PEDESTRIAN) {
         vehPerm &= ~SVC_PEDESTRIAN;
     }
+    const int modeLanes = outgoing->getNumLanesThatAllow(vehPerm);
     if (fabs(angle) < 44.) {
         if (fabs(angle) > 6.) {
             if (isStraighter(incoming, angle, vehPerm, modeLanes, getNextCompatibleOutgoing(incoming, vehPerm, itOut, true))) {
