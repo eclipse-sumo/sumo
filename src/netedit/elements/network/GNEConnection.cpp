@@ -477,6 +477,8 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
             return toString(nbCon.mayDefinitelyPass);
         case SUMO_ATTR_INDIRECT:
             return toString(nbCon.indirectLeft);
+        case SUMO_ATTR_TYPE:
+            return toString(nbCon.edgeType);
         case SUMO_ATTR_KEEP_CLEAR:
             return toString(nbCon.keepClear);
         case SUMO_ATTR_CONTPOS:
@@ -561,6 +563,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_SPEED:
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_CUSTOMSHAPE:
+        case SUMO_ATTR_TYPE:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             // no special handling
@@ -651,6 +654,8 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<bool>(value);
         case SUMO_ATTR_INDIRECT:
             return canParse<bool>(value);
+        case SUMO_ATTR_TYPE:
+            return true;
         case SUMO_ATTR_KEEP_CLEAR:
             return canParse<bool>(value);
         case SUMO_ATTR_CONTPOS:
@@ -818,6 +823,10 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
             nbCon.customShape = parse<PositionVector>(value);
             // update centering boundary
             updateCenteringBoundary(false);
+            break;
+        }
+        case SUMO_ATTR_TYPE: {
+            nbCon.edgeType = value;
             break;
         }
         case GNE_ATTR_SELECTED:

@@ -1446,6 +1446,11 @@ GNEAttributeCarrier::fillNetworkElements() {
                                               "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUESTATIC,
+                                              "set a custom edge type (for applying vClass-specific speed restrictions)");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_DIR,
                                               GNEAttributeProperties::STRING,
