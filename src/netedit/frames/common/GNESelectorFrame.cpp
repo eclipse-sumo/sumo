@@ -1150,7 +1150,7 @@ GNESelectorFrame::getMatches(const SumoXMLTag ACTag, const SumoXMLAttr ACAttr, c
     const auto& tagValue = GNEAttributeCarrier::getTagProperties(ACTag);
     // iterate over all ACs
     for (const auto& AC : allACbyTag) {
-        if (expr == "") {
+        if (expr == "" && compOp == '@') {
             result.push_back(AC);
         } else if (tagValue.hasAttribute(ACAttr) && tagValue.getAttributeProperties(ACAttr).isNumerical()) {
             double acVal;
@@ -1209,7 +1209,7 @@ GNESelectorFrame::getGenericMatches(const std::vector<GNEGenericData*>& genericD
     std::vector<GNEAttributeCarrier*> result;
     // iterate over generic datas
     for (const auto& genericData : genericDatas) {
-        if (expr == "") {
+        if (expr == "" && compOp == '@') {
             result.push_back(genericData);
         } else if (attr != toString(GNE_ATTR_PARENT)) {
             double acVal;
