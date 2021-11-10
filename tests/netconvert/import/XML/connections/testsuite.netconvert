@@ -103,3 +103,6 @@ indirect_left
 
 # indirect left turn for bicycles at uncontrolled intersection
 indirect_left_priority
+
+# set custom edgeType for connection
+edgeType

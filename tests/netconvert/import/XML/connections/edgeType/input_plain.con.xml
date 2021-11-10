@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-06-20 10:59:21 by Eclipse SUMO netedit Version v1_9_2+0602-bbab201
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net3.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net3.net.xml"/>
+        <plain-output-prefix value="/home/erdm_ja/scr1/sumo/tests/netconvert/import/XML/connections/indirect_left/input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<connections version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+
+    <connection from="EC" to="CN" fromLane="0" toLane="0"/>
+    <connection from="EC" to="CW" fromLane="0" toLane="0"/>
+    <connection from="EC" to="CS" fromLane="0" toLane="0" type="customType"/>
+    <connection from="EC" to="CN" fromLane="1" toLane="1"/>
+    <connection from="EC" to="CW" fromLane="1" toLane="1"/>
+    <connection from="EC" to="CW" fromLane="2" toLane="2"/>
+    <connection from="EC" to="CS" fromLane="2" toLane="2"/>
+
+    <connection from="NC" to="CW" fromLane="0" toLane="0"/>
+    <connection from="NC" to="CS" fromLane="0" toLane="0"/>
+    <connection from="NC" to="CE" fromLane="0" toLane="0" type="customType2"/>
+    <connection from="NC" to="CW" fromLane="1" toLane="1"/>
+    <connection from="NC" to="CS" fromLane="1" toLane="1"/>
+    <connection from="NC" to="CS" fromLane="2" toLane="2"/>
+    <connection from="NC" to="CE" fromLane="2" toLane="2"/>
+
+    <connection from="SC" to="CE" fromLane="0" toLane="0"/>
+    <connection from="SC" to="CN" fromLane="0" toLane="0"/>
+    <connection from="SC" to="CW" fromLane="0" toLane="0"/>
+    <connection from="SC" to="CE" fromLane="1" toLane="1"/>
+    <connection from="SC" to="CN" fromLane="1" toLane="1"/>
+    <connection from="SC" to="CN" fromLane="2" toLane="2"/>
+    <connection from="SC" to="CW" fromLane="2" toLane="2"/>
+
+    <connection from="WC" to="CS" fromLane="0" toLane="0"/>
+    <connection from="WC" to="CE" fromLane="0" toLane="0"/>
+    <connection from="WC" to="CN" fromLane="0" toLane="0"/>
+    <connection from="WC" to="CS" fromLane="1" toLane="1"/>
+    <connection from="WC" to="CE" fromLane="1" toLane="1"/>
+    <connection from="WC" to="CE" fromLane="2" toLane="2"/>
+    <connection from="WC" to="CN" fromLane="2" toLane="2"/>
+
+</connections>
