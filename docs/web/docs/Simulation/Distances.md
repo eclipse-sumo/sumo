@@ -43,7 +43,7 @@ When the network was built with [netconvert option](../netconvert.md) **--no-int
 ## Abstract networks
 In some types of simulation it is beneficial to define edges with
 length-geometry-mismatch. For example, railway networks with switches and parallel tracks are much easier to understand when the
-geometrical lengths are reduced. To keep the driving-lengths at their realistic values, each edge is given a custom length value the mismatch.
+geometrical lengths are reduced. To keep the driving-lengths at their realistic values, each edge is given a custom length value.
 
 # Vehicle lengths in sumo-gui
 By default, vehicle lengths are scaled according to length-geometry mismatch. This corresponds to visual shortening when looking from above at a vehicle that is driving on a step include (the visual horizontal length is shorter than total road length). To prevent scaling, the vehicle gui option 'scale length with geometry' can be disabled.
