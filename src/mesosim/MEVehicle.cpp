@@ -245,12 +245,13 @@ MEVehicle::checkStop(SUMOTime time) {
         }
         if (stop.triggered || stop.containerTriggered || stop.joinTriggered) {
             bool wait = true;
-            if (net->hasPersons()) {
+            if (stop.triggered && net->hasPersons()) {
                 wait = !net->getPersonControl().boardAnyWaiting(&mySegment->getEdge(), this, dummy, dummy);
             }
-            if (net->hasContainers()) {
+            if (stop.containerTriggered && net->hasContainers()) {
                 wait = !net->getContainerControl().loadAnyWaiting(&mySegment->getEdge(), this, dummy, dummy);
             }
+            /// @todo handle stop.joinTriggered
             if (wait) {
                 net->getVehicleControl().registerOneWaiting();
             } else {
