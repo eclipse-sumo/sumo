@@ -32,6 +32,9 @@ vclass_specific_speed_limit_from_additional
 # infer edgeType of internal edge from successor and predecessor type and then apply restrictions on junction
 vclass_specific_speed_limit_internal
 
+# load edgeType of internal edge and then apply restrictions on junction
+vclass_specific_speed_limit_internal_type
+
 # infer vClass-specific speed restriction of internal edge from successor and predecessor type and then apply restrictions on junction
 vclass_specific_speed_limit_internal_2types
 
