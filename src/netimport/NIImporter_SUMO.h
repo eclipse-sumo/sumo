@@ -208,6 +208,8 @@ private:
         bool uncontrolled;
         /// @brief Whether this connection is an indirect left turn
         bool indirectLeft;
+        /// @brief optional edge type
+        std::string edgeType;
     };
 
 

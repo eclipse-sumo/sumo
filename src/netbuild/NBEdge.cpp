@@ -119,7 +119,8 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_) :
 
 NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool mayDefinitelyPass_, KeepClear keepClear_, double contPos_,
                                double visibility_, double speed_, double length_, bool haveVia_, bool uncontrolled_, const PositionVector& customShape_,
-                               SVCPermissions permissions_, SVCPermissions changeLeft_, SVCPermissions changeRight_) :
+                               SVCPermissions permissions_, bool indirectLeft_, const std::string& edgeType_,
+                               SVCPermissions changeLeft_, SVCPermissions changeRight_) :
     fromLane(fromLane_),
     toEdge(toEdge_),
     toLane(toLane_),
@@ -135,7 +136,8 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool
     permissions(permissions_),
     changeLeft(changeLeft_),
     changeRight(changeRight_),
-    indirectLeft(false),
+    indirectLeft(indirectLeft_),
+    edgeType(edgeType_),
     id(toEdge_ == nullptr ? "" : toEdge->getFromNode()->getID()),
     vmax(UNSPECIFIED_SPEED),
     haveVia(haveVia_),
@@ -1051,6 +1053,7 @@ NBEdge::addLane2LaneConnection(int from, NBEdge* dest,
                                bool uncontrolled,
                                SVCPermissions permissions,
                                bool indirectLeft,
+                               const std::string& edgeType,
                                SVCPermissions changeLeft,
                                SVCPermissions changeRight,
                                bool postProcess) {
@@ -1067,7 +1070,7 @@ NBEdge::addLane2LaneConnection(int from, NBEdge* dest,
         return false;
     }
     return setConnection(from, dest, toLane, type, mayUseSameDestination, mayDefinitelyPass, keepClear, contPos, visibility, speed, length,
-                         customShape, uncontrolled, permissions, indirectLeft, changeLeft, changeRight, postProcess);
+                         customShape, uncontrolled, permissions, indirectLeft, edgeType, changeLeft, changeRight, postProcess);
 }
 
 
@@ -1102,6 +1105,7 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
                       bool uncontrolled,
                       SVCPermissions permissions,
                       bool indirectLeft,
+                      const std::string& edgeType,
                       SVCPermissions changeLeft,
                       SVCPermissions changeRight,
                       bool postProcess) {
@@ -1144,6 +1148,7 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
     myConnections.back().visibility = visibility;
     myConnections.back().permissions = permissions;
     myConnections.back().indirectLeft = indirectLeft;
+    myConnections.back().edgeType = edgeType;
     myConnections.back().changeLeft = changeLeft;
     myConnections.back().changeRight = changeRight;
     myConnections.back().speed = speed;

@@ -335,6 +335,9 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                     into.openTag(SUMO_TAG_EDGE);
                     into.writeAttr(SUMO_ATTR_ID, edgeID);
                     into.writeAttr(SUMO_ATTR_FUNCTION, SumoXMLEdgeFunc::INTERNAL);
+                    if (k.edgeType != "") {
+                        into.writeAttr(SUMO_ATTR_TYPE, k.edgeType);
+                    }
                     if (e->isBidiRail() && k.toEdge->isBidiRail() &&
                             e != k.toEdge->getTurnDestination(true)) {
                         try {
@@ -379,6 +382,9 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                     into.openTag(SUMO_TAG_EDGE);
                     into.writeAttr(SUMO_ATTR_ID, k.viaID);
                     into.writeAttr(SUMO_ATTR_FUNCTION, SumoXMLEdgeFunc::INTERNAL);
+                    if (k.edgeType != "") {
+                        into.writeAttr(SUMO_ATTR_TYPE, k.edgeType);
+                    }
                     SVCPermissions permissions = (k.permissions != SVC_UNSPECIFIED) ? k.permissions : (
                                                      successor.permissions & e->getPermissions(k.fromLane));
                     writeLane(into, k.viaID + "_0", k.vmax, permissions, successor.preferred,
@@ -739,6 +745,9 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
         }
         if (c.indirectLeft != false) {
             into.writeAttr(SUMO_ATTR_INDIRECT, c.indirectLeft);
+        }
+        if (c.edgeType != "") {
+            into.writeAttr(SUMO_ATTR_TYPE, c.edgeType);
         }
     }
     if (style != PLAIN) {

@@ -210,6 +210,8 @@ public:
                    bool uncontrolled_ = false,
                    const PositionVector& customShape_ = PositionVector::EMPTY,
                    SVCPermissions permissions = SVC_UNSPECIFIED,
+                   bool indirectLeft = false,
+                   const std::string& edgeType = "",
                    SVCPermissions changeLeft_ = SVC_UNSPECIFIED,
                    SVCPermissions changeRight_ = SVC_UNSPECIFIED);
 
@@ -263,6 +265,9 @@ public:
 
         /// @brief Whether this connection is an indirect left turn
         bool indirectLeft;
+
+        /// @brief optional type of Connection
+        std::string edgeType;
 
         /// @brief id of Connection
         std::string id;
@@ -888,6 +893,7 @@ public:
                                 const bool uncontrolled = UNSPECIFIED_CONNECTION_UNCONTROLLED,
                                 SVCPermissions permissions = SVC_UNSPECIFIED,
                                 const bool indirectLeft = false,
+                                const std::string& edgeType = "",
                                 SVCPermissions changeLeft = SVC_UNSPECIFIED,
                                 SVCPermissions changeRight = SVC_UNSPECIFIED,
                                 bool postProcess = false);
@@ -938,6 +944,7 @@ public:
                        const bool uncontrolled = UNSPECIFIED_CONNECTION_UNCONTROLLED,
                        SVCPermissions permissions = SVC_UNSPECIFIED,
                        bool indirectLeft = false,
+                       const std::string& edgeType = "",
                        SVCPermissions changeLeft = SVC_UNSPECIFIED,
                        SVCPermissions changeRight = SVC_UNSPECIFIED,
                        bool postProcess = false);

@@ -544,6 +544,7 @@ public:
                                   bool warnOnly,
                                   SVCPermissions permissions = SVC_UNSPECIFIED,
                                   bool indirectLeft = false,
+                                  const std::string& edgeType = "",
                                   SVCPermissions changeLeft = SVC_UNSPECIFIED,
                                   SVCPermissions changeRight = SVC_UNSPECIFIED);
 
@@ -653,6 +654,7 @@ private:
                               bool warnOnly_,
                               SVCPermissions permissions_,
                               bool indirectLeft_,
+                              const std::string& edgeType_,
                               SVCPermissions changeLeft_,
                               SVCPermissions changeRight_) :
             from(from_), fromLane(fromLane_), to(to_), toLane(toLane_), mayDefinitelyPass(mayDefinitelyPass_), keepClear(keepClear_), contPos(contPos_),
@@ -663,6 +665,7 @@ private:
             uncontrolled(uncontrolled_),
             permissions(permissions_),
             indirectLeft(indirectLeft_),
+            edgeType(edgeType_),
             changeLeft(changeLeft_),
             changeRight(changeRight_),
             warnOnly(warnOnly_)
@@ -695,6 +698,8 @@ private:
         SVCPermissions permissions;
         /// @brief whether this connection is an indirect left turn
         bool indirectLeft;
+        /// @brief custom edge type
+        std::string edgeType;
         /// @brief custom lane changing permissions for connection
         SVCPermissions changeLeft;
         /// @brief custom lane changing permissions for connection
