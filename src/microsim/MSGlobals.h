@@ -62,6 +62,9 @@ public:
     /** The time to wait for teleport on disconected routes */
     static SUMOTime gTimeToTeleportDisconnected;
 
+    /** Whether gridlocked vehicles shall be removed instead of teleporting */
+    static bool gRemoveGridlocked;
+
     /** Information how long a vehicle must wait for impatience to grow from 0 to 1 */
     static SUMOTime gTimeToImpatience;
 

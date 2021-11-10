@@ -1911,7 +1911,12 @@ MSLane::executeMovements(const SUMOTime t) {
                     } else {
                         MSNet::getInstance()->getVehicleControl().registerTeleportJam();
                     }
-                    MSVehicleTransfer::getInstance()->add(t, veh);
+                    if (MSGlobals::gRemoveGridlocked) {
+                        veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED);
+                        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
+                    } else {
+                        MSVehicleTransfer::getInstance()->add(t, veh);
+                    }
                 }
             } // else look for a (waiting) vehicle that isn't stopped?
         }

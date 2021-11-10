@@ -35,6 +35,8 @@ SUMOTime MSGlobals::gIgnoreJunctionBlocker;
 SUMOTime MSGlobals::gTimeToGridlock;
 SUMOTime MSGlobals::gTimeToGridlockHighways;
 SUMOTime MSGlobals::gTimeToTeleportDisconnected;
+bool MSGlobals::gRemoveGridlocked;
+
 SUMOTime MSGlobals::gTimeToImpatience;
 
 bool MSGlobals::gCheck4Accidents;
