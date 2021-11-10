@@ -30,7 +30,7 @@ traci.start([sumoBinary,
              "-n", "input_net.net.xml",
              "-r", "input_routes.rou.xml",
              "--fcd-output", "fcd.xml",
-             "--lateral-resolution" ,"0.8",
+             "--lateral-resolution", "0.8",
              "--no-step-log",
              ])
 vehID = "v0"

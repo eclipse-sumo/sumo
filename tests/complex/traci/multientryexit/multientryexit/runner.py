@@ -31,13 +31,14 @@ import sumolib  # noqa
 
 def printAggregated():
     print("lastTravelTime",
-            traci.multientryexit.getLastIntervalMeanTravelTime(detID))
+            traci.multientryexit.getLastIntervalMeanTravelTime(detID))  # noqua
     print("lastHaltsPerVehicle",
-            traci.multientryexit.getLastIntervalMeanHaltsPerVehicle(detID))
+            traci.multientryexit.getLastIntervalMeanHaltsPerVehicle(detID))  # noqua
     print("lastTimeLoss",
-            traci.multientryexit.getLastIntervalMeanTimeLoss(detID))
+            traci.multientryexit.getLastIntervalMeanTimeLoss(detID))  # noqua
     print("lastVehicleSum",
-            traci.multientryexit.getLastIntervalVehicleSum(detID))
+            traci.multientryexit.getLastIntervalVehicleSum(detID))  # noqua
+
 
 traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
 for step in range(4):
