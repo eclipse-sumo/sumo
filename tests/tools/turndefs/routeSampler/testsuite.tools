@@ -68,4 +68,7 @@ turn-max-gap
 
 # set minimum number of visited counting locations per route
 min_count
+
+# set minimum number of visited counting locations per route
+min_count_optimize
 errors
