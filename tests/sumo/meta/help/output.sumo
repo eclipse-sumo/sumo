@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_10_0+2040-2621588d960
+Eclipse SUMO sumo Version v1_10_0+2099-1400597
  Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -220,6 +220,9 @@ Processing Options:
                                         with a disconnected route are
                                         teleported. Negative values disable
                                         teleporting
+  --time-to-teleport.remove            Whether vehicles shall be removed after
+                                        waiting too long instead of being
+                                        teleported
   --waiting-time-memory TIME           Length of time interval, over which
                                         accumulated waiting time is taken into
                                         account (default is 100s.)
@@ -755,8 +758,6 @@ GUI Only Options:
                                         position
   --tracker-interval TIME              The aggregation period for value tracker
                                         windows
-  --osg-view                           Start with an OpenSceneGraph view
-                                        instead of the regular 2D view
   --gui-testing                        Enable overlay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                         GUI-Testing
