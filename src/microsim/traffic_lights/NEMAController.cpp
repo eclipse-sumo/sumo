@@ -563,7 +563,6 @@ std::string NEMALogic::NEMA_control() {
         }
     }
 
-    //int R2Phase = activeRing2Phase;
     int R2Phase = R2State;
     int R2Index = R2Phase - 1;
     double durationR2 = currentTimeInSecond - phaseStartTime[R2Index];
@@ -586,7 +585,6 @@ std::string NEMALogic::NEMA_control() {
     if (EndCurrentPhaseR1 && (R1Phase == r1barrier)) {
         if (!(EndCurrentPhaseR2 && R2Phase == r2barrier)) {
             //update expectedDuration
-            // phaseExpectedDuration[R1Phase - 1] = durationR1+1;
             EndCurrentPhaseR1 = false;
         }
     }
@@ -600,7 +598,6 @@ std::string NEMALogic::NEMA_control() {
     if (EndCurrentPhaseR2 && (R2Phase == r2barrier)) {
         if (!EndCurrentPhaseR1 || R1Phase != r1barrier)
         {
-            // phaseExpectedDuration[R2Phase - 1] = durationR2+1;
             EndCurrentPhaseR2 = false;
         }
     }
@@ -623,17 +620,11 @@ std::string NEMALogic::NEMA_control() {
             R1RYG = -1; //red
             bool toUpdate= (currentTimeInSecond - phaseEndTimeR1) < yellowTime[R1Index] + 0.5;
             if (R1Phase == r1coordinatePhase && toUpdate) {
-                // update maxGreen for the next cycle
-                // std::cout << "Updating next cycle timing" << std::endl;
                 for (int i=0;i<8;i++)
                 {
                     maxGreen[i] = nextMaxGreen[i];
-                    // std::cout << maxGreen[i] << '\t';
                 }
                 offset=nextOffset;
-                // std::cout << std::endl;
-                // std::cout << offset;
-                // std::cout << std::endl << "Next cycle timing updated" << std::endl;
             }
         } else {
             //next phase
@@ -643,19 +634,12 @@ std::string NEMALogic::NEMA_control() {
             R1RYG = 1; //green
             //update phaseStartTime
             phaseStartTime[R1Phase - 1] = currentTimeInSecond;
-            //print to check
-            // for (auto i : phaseStartTime) {
-            //     std::cout << i << "; ";
-            // }
 
             R1State = R1Phase;
-            // std::cout << "R1State = " << R1State << " and R1Phase = " << R1Phase << std::endl;
             if (R1Phase == r1coordinatePhase) {
-                // std::cout << "cycleRefPoint = " << cycleRefPoint << std::endl;
                 if (coordinateMode) {
                     phaseExpectedDuration[R1Phase - 1] = ModeCycle(myCycleLength - (currentTimeInSecond - cycleRefPoint - offset) - yellowTime[R1Phase - 1] - redTime[R1Phase - 1], myCycleLength);
                 }
-                // std::cout << ""
             }
             wait4R1Green = false;
         }
@@ -677,7 +661,6 @@ std::string NEMALogic::NEMA_control() {
             //update phaseStartTime
             phaseStartTime[R2Phase - 1] = currentTimeInSecond;
             R2State = R2Phase;
-            // std::cout << "R2State = " << R2State << " and R2Phase = " << R2Phase << std::endl;
             if (R2Phase == r2coordinatePhase) {
                 if (coordinateMode) {
                     phaseExpectedDuration[R2Phase - 1] = ModeCycle(myCycleLength - (currentTimeInSecond - cycleRefPoint - offset) - yellowTime[R2Phase - 1] - redTime[R2Phase - 1], myCycleLength);
@@ -688,20 +671,6 @@ std::string NEMALogic::NEMA_control() {
         }
     }
 
-    // std::cout << "R1Phase = " << R1Phase << std::endl;
-    // std::cout << "R2Phase = " << R2Phase << std::endl;
-    // std::cout << "currentR1State = " << currentR1State << std::endl;
-    // if (isGreenPhase(currentR1State)) {
-    //     std::cout << "R1LastDuration = " << durationR1 << std::endl;
-    //     std::cout << "R1ExpectedDuration = " << phaseExpectedDuration[R1Phase-1] << std::endl;
-    // }
-    // std::cout << "currentR2State = " << currentR2State << std::endl;
-    // if (isGreenPhase(currentR2State)){
-    //     std::cout << "R2LastDuration = " << durationR2 << std::endl;
-    //     std::cout << "R2ExpectedDuration = " << phaseExpectedDuration[R2Phase - 1] << std::endl;
-    // }
-    //this step is not correct, we need to consider R1RYG/R2RYG
-    // std::cout << "R1State =" << R1State << std::endl;
 
     std::string state1 = "";
     for (auto p : myPhases) {
@@ -709,11 +678,8 @@ std::string NEMALogic::NEMA_control() {
             state1 = p->getState();
         }
     }
-    // std::string state1 = myPhases[R1State-1]->getState();
-    // std::cout << "original state1 = " << state1 << " and R1RYG = " << R1RYG << std::endl;
     state1 = transitionState(state1, R1RYG);
     currentR1State = state1;
-    // std::cout << "newState1 = " << state1 << std::endl;
 
     std::string state2 = "";
     for (auto p : myPhases) {
@@ -721,19 +687,11 @@ std::string NEMALogic::NEMA_control() {
             state2 = p->getState();
         }
     }
-    // std::cout << "R2State =" << R2State << std::endl;
-    // std::string state2 = myPhases[R2State-1]->getState();
-    // std::cout << "original state2 = " << state2 << " and R2RYG = " << R2RYG << std::endl;
     state2 = transitionState(state2, R2RYG);
     currentR2State = state2;
-    // std::cout << "newState2 = " << state2 << std::endl;
 
     outputState = combineStates(state1, state2);
 
-    //print to check
-    // std::cout << "state1 = " << state1 << " and state2 = " << state2 << std::endl;
-
-    // std::cout << "outputState = " << outputState << std::endl;
     if (currentState != outputState) {
         currentState = outputState;
         if (whetherOutputState) {
@@ -741,7 +699,6 @@ std::string NEMALogic::NEMA_control() {
             outputStateFile << currentTimeInSecond << "\t" << currentState << std::endl;
             outputStateFile.close();
         }
-        std::cout << "Time: " << currentTimeInSecond << ", currentState changes to " << currentState << std::endl;
 
     }
     return outputState;
@@ -764,7 +721,6 @@ int NEMALogic::nextPhase(std::vector<int> ring, int currentPhase) {
         if (ring[i] == currentPhase)
             flag = 1;
     }
-    // std::cout << "curPhase = " << currentPhase << " and nextP = " << nphase << std::endl;
     return nphase;
 
 }
@@ -780,7 +736,6 @@ double NEMALogic::ModeCycle(double a, double b) {
     {
         c += b;
     }
-    // std::cout << "a = " << a << " ;b = " << b << " ; c = " << c  << "; c1 = " << c1 << std::endl;
     return c;
 }
 
@@ -806,8 +761,6 @@ std::string NEMALogic::transitionState(std::string curState, int RYG) {
             }
         }
     }
-    // std::cout << "Calling transitionState() " << std::endl;
-    // std::cout << "Old state = " << curState << " and newState = " << newState << std::endl;
     return newState;
 
 }
@@ -824,12 +777,6 @@ std::set<std::string> NEMALogic::getLaneIDsFromNEMAState(std::string state) {
             }
         }
     }
-    //print to check
-    // std::cout << "For state: " << state << ": ";
-    // for (auto j : output) {
-    //     std::cout << j << " ";
-    // }
-    // std::cout << std::endl;
     return output;
 }
 
