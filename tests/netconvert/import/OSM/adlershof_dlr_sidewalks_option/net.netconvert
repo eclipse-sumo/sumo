@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-04 14:50:44 by Eclipse SUMO netconvert Version v1_10_0+1951-ba3663e
+<!-- generated on 2021-11-10 08:08:27 by Eclipse SUMO netconvert Version v1_10_0+2093-f0238c5e244
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -2827,7 +2827,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="148491631" type="priority" x="3349.50" y="134.06" incLanes="31763024#1_0" intLanes="" shape="3349.50,134.06 3348.10,136.93 3349.50,134.06">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="1510075989" type="priority" x="0.00" y="3531.77" incLanes="-183076346_0" intLanes="" shape="0.00,3531.77 1.62,3532.94 0.00,3531.77">
+    <junction id="1510075989" type="priority" x="0.00" y="3531.77" incLanes="-183076346_0" intLanes="" shape="0.00,3531.77 1.62,3532.94 -0.00,3531.77">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="1520039998" type="priority" x="3508.25" y="797.56" incLanes="138624421#4_0 -52460499#5_0 -52460499#5_1 52460499#4_0 52460499#4_1" intLanes="" shape="3513.22,803.73 3516.15,798.04 3514.92,797.16 3514.55,796.66 3514.33,796.12 3514.27,795.54 3514.36,794.91 3504.33,792.18 3503.45,795.16 3503.07,796.18 3502.63,797.18 3502.04,798.37 3501.24,799.97 3510.56,804.60 3511.25,803.71 3511.67,803.49 3512.14,803.42 3512.66,803.50">
@@ -4332,7 +4332,7 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction id="32266899" type="dead_end" x="4074.00" y="79.86" incLanes="22917250#1_0 22917250#1_1 22917250#1_2" intLanes="" shape="4069.21,79.45 4078.78,80.27"/>
     <junction id="32266901" type="dead_end" x="4087.65" y="76.59" incLanes="" intLanes="" shape="4082.87,76.12 4092.43,77.06"/>
-    <junction id="32266940" type="priority" x="4353.77" y="0.00" incLanes="46150481#1_0 46150481#1_1" intLanes="" shape="4353.77,0.00 4348.72,1.24 4353.77,0.00">
+    <junction id="32266940" type="priority" x="4353.77" y="0.00" incLanes="46150481#1_0 46150481#1_1" intLanes="" shape="4353.77,-0.00 4348.72,1.24 4353.77,0.00">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="35215927" type="priority" x="3406.21" y="224.77" incLanes="145586617#1_0 -31763024#0_0 -145586617#2_0" intLanes="" shape="3414.08,223.98 3410.91,218.42 3408.76,219.13 3407.81,219.02 3406.95,218.62 3406.16,217.90 3405.47,216.88 3399.88,220.01 3400.58,222.16 3400.47,223.10 3400.05,223.95 3399.34,224.72 3398.31,225.40 3401.35,231.03">
@@ -6395,8 +6395,8 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="143308700#0" to="143308700#1" fromLane="0" toLane="0" dir="s" state="="/>
     <connection from="143308700#0" to="-143308700#0" fromLane="0" toLane="0" dir="t" state="="/>
     <connection from="143308700#1" to="-143308700#1" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from="145586607#0" to="145586635" fromLane="0" toLane="0" dir="R" state="M"/>
-    <connection from="145586607#0" to="145586635" fromLane="0" toLane="1" dir="R" state="M"/>
+    <connection from="145586607#0" to="145586635" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="145586607#0" to="145586635" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from="145586607#0" to="145586607#1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="145586607#0" to="145586607#1" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="145586607#0" to="145586607#1" fromLane="2" toLane="2" dir="s" state="M"/>
@@ -6770,8 +6770,8 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="24791996#1" to="38574191" fromLane="0" toLane="0" dir="s" state="="/>
     <connection from="24791996#1" to="-72077947#1" fromLane="0" toLane="0" dir="l" state="="/>
     <connection from="24791996#1" to="-24791996#1" fromLane="0" toLane="0" dir="t" state="="/>
-    <connection from="25382187" to="146511467" fromLane="0" toLane="0" dir="R" state="M"/>
-    <connection from="25382187" to="146511467" fromLane="0" toLane="1" dir="R" state="M"/>
+    <connection from="25382187" to="146511467" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="25382187" to="146511467" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from="25382187" to="22762377#1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="25382187" to="22762377#1" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="25382187" to="22762377#1" fromLane="2" toLane="2" dir="s" state="M"/>
