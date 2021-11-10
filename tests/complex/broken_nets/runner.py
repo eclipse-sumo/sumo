@@ -23,8 +23,10 @@ import os
 import subprocess
 import sys
 import xml.dom.minidom as dom
-sys.path.append(
-    os.path.join(os.path.dirname(__file__), '..', '..', '..', "tools"))
+
+SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..")
+sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
+
 from sumolib import checkBinary  # noqa
 
 changes = [
