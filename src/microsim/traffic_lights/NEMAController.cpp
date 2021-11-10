@@ -834,7 +834,7 @@ std::set<std::string> NEMALogic::getLaneIDsFromNEMAState(std::string state) {
 }
 
 bool NEMALogic::isLeftTurnLane(MSLane* lane) {
-    const MSLinkCont links = lane->getLinkCont();
+    const std::__1::vector<MSLink *> links = lane->getLinkCont();
     if (links.size() == 1 && toString(links.front()->getDirection()) == "l") {
         return true;;
     }
