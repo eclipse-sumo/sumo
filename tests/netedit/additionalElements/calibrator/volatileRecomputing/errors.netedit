@@ -9,6 +9,12 @@ GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,10.00,60.00,44
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary -10.00,8.40,60.00,30.00
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding calibrator 'calibrator_gneE0_3' in GNEChange_Additional
 Debug: Adding calibrator 'calibrator_gneE1_2' in GNEChange_Additional
 Debug: Adding calibrator 'calibrator_gneE2_0' in GNEChange_Additional
@@ -88,12 +94,9 @@ Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ2' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ3' in AttributeCarriers destructor
+Debug: Deleting unreferenced calibrator 'calibrator_gneE4_1' in AttributeCarriers destructor
 Debug: Deleting unreferenced calibrator 'calibrator_gneE0_3' in AttributeCarriers destructor
 Debug: Deleting unreferenced calibrator 'calibrator_gneE1_2' in AttributeCarriers destructor
 Debug: Deleting unreferenced calibrator 'calibrator_gneE2_0' in AttributeCarriers destructor
-Debug: Deleting unreferenced calibrator 'calibrator_gneE4_1' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 8
