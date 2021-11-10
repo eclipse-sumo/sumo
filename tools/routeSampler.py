@@ -518,7 +518,7 @@ def main(options):
     mismatchf = None
     if options.mismatchOut:
         mismatchf = open(options.mismatchOut, 'w')
-        sumolib.writeXMLHeader(mismatchf, "$Id$")  # noqa
+        sumolib.writeXMLHeader(mismatchf, "$Id$", options=options)  # noqa
         mismatchf.write('<data>\n')
 
     underflowSummary = sumolib.miscutils.Statistics("all interval underflow")
@@ -526,7 +526,7 @@ def main(options):
     gehSummary = sumolib.miscutils.Statistics("all interval GEH%")
 
     with open(options.out, 'w') as outf:
-        sumolib.writeXMLHeader(outf, "$Id$", "routes")  # noqa
+        sumolib.writeXMLHeader(outf, "$Id$", "routes", options=options)  # noqa
         if options.threads > 1:
             # call the multiprocessing function
             results = multi_process(options.threads, options.seed, intervals,
