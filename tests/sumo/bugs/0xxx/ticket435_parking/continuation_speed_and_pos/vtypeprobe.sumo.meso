@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Nov 17 07:16:22 2020 by Eclipse SUMO sumo Version v1_7_0+1040-d9283c0be9
+<!-- generated on 2021-11-10 16:40:09 by Eclipse SUMO sumo Version v1_10_0+2130-d6d5b68
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,22 +41,22 @@ SPDX-License-Identifier: EPL-2.0
 <vehicle-type-probes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/vtypeprobe_file.xsd">
     <timestep time="0.00" id="test1" vType="DEFAULT_VEHTYPE"/>
     <timestep time="1.00" id="test1" vType="DEFAULT_VEHTYPE">
-        <vehicle id="veh_parking" pos="0.00" x="0.00" y="-1.65" speed="17.86"/>
+        <vehicle id="veh_parking" pos="0.00" x="0.00" y="-1.65" speed="50.00"/>
     </timestep>
     <timestep time="2.00" id="test1" vType="DEFAULT_VEHTYPE">
-        <vehicle id="veh_parking" pos="0.00" x="0.00" y="-1.65" speed="17.86"/>
+        <vehicle id="veh_parking" pos="0.00" x="0.00" y="-1.65" speed="50.00"/>
     </timestep>
     <timestep time="3.00" id="test1" vType="DEFAULT_VEHTYPE">
-        <vehicle id="veh_parking" pos="0.00" x="0.00" y="-1.65" speed="17.86"/>
+        <vehicle id="veh_parking" pos="0.00" x="0.00" y="-1.65" speed="27.78"/>
     </timestep>
     <timestep time="4.00" id="test1" vType="DEFAULT_VEHTYPE">
-        <vehicle id="veh_parking" pos="0.00" x="0.00" y="-1.65" speed="17.86"/>
+        <vehicle id="veh_parking" pos="0.00" x="0.00" y="-1.65" speed="27.78"/>
     </timestep>
     <timestep time="5.00" id="test1" vType="DEFAULT_VEHTYPE">
-        <vehicle id="veh_parking" pos="0.00" x="0.00" y="-1.65" speed="17.86"/>
+        <vehicle id="veh_parking" pos="0.00" x="0.00" y="-1.65" speed="27.78"/>
     </timestep>
     <timestep time="6.00" id="test1" vType="DEFAULT_VEHTYPE">
-        <vehicle id="veh_parking" pos="0.00" x="0.00" y="-1.65" speed="17.86"/>
+        <vehicle id="veh_parking" pos="0.00" x="0.00" y="-1.65" speed="27.78"/>
     </timestep>
     <timestep time="7.00" id="test1" vType="DEFAULT_VEHTYPE">
         <vehicle id="veh_parking" pos="0.00" x="100.00" y="-1.65" speed="13.91"/>

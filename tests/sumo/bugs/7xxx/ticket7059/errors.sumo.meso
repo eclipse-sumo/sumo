@@ -1,2 +1,1 @@
-Warning: Mesoscopic simulation does not support the taxi device yet.
-Warning: Person 'person_0' aborted waiting for taxi at edge 'gneE1'.
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
