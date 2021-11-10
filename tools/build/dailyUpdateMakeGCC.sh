@@ -26,6 +26,8 @@ TESTLOG=$PREFIX/${FILEPREFIX}test.log
 export SUMO_BATCH_RESULT=$PREFIX/${FILEPREFIX}batch_result
 export SUMO_REPORT=$PREFIX/${FILEPREFIX}report
 export SUMO_BINDIR=$PREFIX/sumo/bin
+# the following is only needed for the clang build but it does not hurt others
+export LSAN_OPTIONS=suppressions=$PREFIX/sumo/build/clang_memleak_suppressions.txt
 if test $# -ge 4; then
   CONFIGURE_OPT=$4
 fi
