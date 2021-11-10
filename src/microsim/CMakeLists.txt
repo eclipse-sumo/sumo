@@ -81,8 +81,6 @@ set(microsim_STAT_SRCS
    MSStateHandler.cpp
    MSDriverState.h
    MSDriverState.cpp
-   NEMAController.cpp
-   NEMAController.h
 )
 
 add_library(microsim STATIC ${microsim_STAT_SRCS})
