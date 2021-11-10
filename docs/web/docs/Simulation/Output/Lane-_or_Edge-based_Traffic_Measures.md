@@ -134,26 +134,27 @@ The meanings of the written values are given in the following table.
 
 | Name              | Type                 | Description                                      |
 | ----------------- | -------------------- | ------------------------------------------------ |
-| begin             | (simulation) seconds | The first time step the values were collected in                                                                                                                                                                              |
-| end               | (simulation) seconds | The last time step + DELTA_T in which the reported values were collected                                                                                                                                                     |
-| edge\@id           | (edge) id            | The name of the reported edge                                                                                                                                                                                                 |
-| lane\@id           | (lane) id            | The name of the reported lane                                                                                                                                                                                                 |
+| begin             | (simulation) seconds | The first time step the values were collected in     |
+| end               | (simulation) seconds | The last time step + DELTA_T in which the reported values were collected     |
+| edge\@id           | (edge) id            | The name of the reported edge           |
+| lane\@id           | (lane) id            | The name of the reported lane     |
 | sampledSeconds    | s                    | The number of vehicles that are present on the edge/lane in each second summed up over the measurement interval (may be subseconds if a vehicle enters/leaves the edge/lane).                                                 |
 | traveltime        | s                    | Time needed to pass the edge/lane, note that this is just an estimation based on the mean speed, not the exact time the vehicles needed. The value is based on the time needed for the front of the vehicle to pass the edge. |
 | overlapTraveltime | s                    | Time needed to pass the edge/lane completely, note that this is just an estimation based on the mean speed, not the exact time the vehicles needed. The value is based on the time any part of the vehicle was the edge.      |
-| density           | \#veh/km             | Vehicle density on the edge                                                                                                                                                                                              |
-| laneDensity           | \#veh/km/lane             | Vehicle density on the edge per lane                                                                                                                                                                                              |
+| density           | \#veh/km             | Vehicle density on the edge    |
+| laneDensity           | \#veh/km/lane             | Vehicle density on the edge per lane    |
 | occupancy         | %                    | Occupancy of the edge/lane in %. A value of 100 would indicate vehicles standing bumper to bumper on the whole edge (minGap=0).                                                                                               |
-| waitingTime       | s                    | The total number of seconds vehicles were considered halting (speed < speedThreshold). Summed up over all vehicles                                                                                                                                                                 |
-| timeLoss         | s                     | The total number of seconds vehicles lost due to driving slower than desired (summed up over all vehicles)                                                                                                                                                                 |
-| speed             | m/s                  | The mean speed on the edge/lane within the reported interval.<br><br>**Caution:** This is an average over time and space (space-mean-speed), rather than a local average over the vehicles (time-mean-speed). Since slow vehicles spend more time on the edge they will have a proportionally bigger influence on average speed.                                                                                                                                                                 |
-| departed          | \#veh                | The number of vehicles that have been emitted onto the edge/lane within the described interval                                                                                                                                |
-| arrived           | \#veh                | The number of vehicles that have finished their route on the edge lane                                                                                                                                                        |
-| entered           | \#veh                | The number of vehicles that have entered the edge/lane by moving from upstream                                                                                                                                                |
-| left              | \#veh                | The number of vehicles that have left the edge/lane by moving downstream                                                                                                                                                      |
-| laneChangedFrom   | \#veh                | The number of vehicles that changed away from this lane                                                                                                                                                                       |
-| laneChangedTo     | \#veh                | The number of vehicles that changed to this lane                                                                                                                                                                              |
-| vaporized         | \#veh                | The number of vehicles vaporized on this edge **(only present if \#veh \> 0)**                                                                                                                                                |
+| waitingTime       | s                    | The total number of seconds vehicles were considered halting (speed < speedThreshold). Summed up over all vehicles  |
+| timeLoss         | s                     | The total number of seconds vehicles lost due to driving slower than desired (summed up over all vehicles)    |
+| speed             | m/s                  | The mean speed on the edge/lane within the reported interval.<br><br>**Caution:** This is an average over time and space (space-mean-speed), rather than a local average over the vehicles (time-mean-speed). Since slow vehicles spend more time on the edge they will have a proportionally bigger influence on average speed.     |
+| departed          | \#veh                | The number of vehicles that have been emitted onto the edge/lane within the described interval    |
+| arrived           | \#veh                | The number of vehicles that have finished their route on the edge lane    |
+| entered           | \#veh                | The number of vehicles that have entered the edge/lane by moving from upstream      |
+| left              | \#veh                | The number of vehicles that have left the edge/lane by moving downstream    |
+| laneChangedFrom   | \#veh                | The number of vehicles that changed away from this lane   |
+| laneChangedTo     | \#veh                | The number of vehicles that changed to this lane   |
+| vaporized         | \#veh                | The number of vehicles vaporized on this edge **(only present if \#veh \> 0)**        |
+| teleported        | \#veh                | The number of vehicles teleported from this edge **(only present if \#veh \> 0)**      |
 
 Please note that in the case of *edge* meandata both laneChanged entries
 are equal to the total number of lane changes on the edge. Furthermore
