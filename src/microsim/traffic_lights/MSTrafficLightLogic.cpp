@@ -339,18 +339,6 @@ MSTrafficLightLogic::setTrafficLightSignals(SUMOTime t) const {
     return true;
 }
 
-bool
-MSTrafficLightLogic::setTrafficLightSignalsCustomized(SUMOTime t, std::string newState) {
-    const std::string& state = newState;
-    for (int i = 0; i < (int)myLinks.size(); i++) {
-        const LinkVector& currGroup = myLinks[i];
-        LinkState ls = (LinkState) state[i];
-        for (LinkVector::const_iterator j = currGroup.begin(); j != currGroup.end(); j++) {
-            (*j)->setTLState(ls, t);
-        }
-    }
-    return true;
-}
 
 void
 MSTrafficLightLogic::resetLinkStates(const std::map<MSLink*, LinkState>& vals) const {

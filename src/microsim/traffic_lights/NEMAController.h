@@ -70,9 +70,7 @@ public:
     ~NEMALogic();
 
 
-    SUMOTime trySwitch() {
-        return TIME2STEPS(1);
-    }
+    SUMOTime trySwitch();
 
     /// @brief called when switching programs
     void activateProgram();

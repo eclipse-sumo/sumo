@@ -117,8 +117,6 @@
 #include "MSNet.h"
 
 
-#include "microsim/traffic_lights/MSTLLogicControl.h"
-#include "microsim/traffic_lights/NEMAController.h"
 // ===========================================================================
 // debug constants
 // ===========================================================================
@@ -638,16 +636,6 @@ MSNet::simulationStep() {
     // check whether the tls programs need to be switched
     myLogics->check2Switch(myStep);
 
-    //call customized NEMA controller
-    for (std::string junctionID : this->getTLSControl().getAllTLIds()) {
-        std::string programID = "NEMA";
-        MSTLLogicControl::TLSLogicVariants& test_logic = this->getTLSControl().get(junctionID);
-        NEMALogic* target_logic = dynamic_cast<NEMALogic*>(test_logic.getLogic(programID));
-        if (target_logic != nullptr) {
-            std::string targetState = target_logic->NEMA_control();
-            test_logic.getActive()->setTrafficLightSignalsCustomized(myStep, targetState);
-        }
-    }
     if (MSGlobals::gUseMesoSim) {
         MSGlobals::gMesoNet->simulate(myStep);
         myVehicleControl->removePending();

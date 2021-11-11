@@ -561,7 +561,23 @@ bool NEMALogic::isDetectorActivated(int phaseIndex) {
     return false;
 }
 
-std::string NEMALogic::NEMA_control() {
+
+SUMOTime
+NEMALogic::trySwitch() {
+    std::string state = NEMA_control();
+    for (int i = 0; i < (int)myLinks.size(); i++) {
+        const LinkVector& currGroup = myLinks[i];
+        LinkState ls = (LinkState) state[i];
+        for (MSLink* link : currGroup) {
+            link->setTLState(ls, SIMSTEP);
+        }
+    }
+    return TIME2STEPS(1);
+}
+
+
+std::string
+NEMALogic::NEMA_control() {
     std::string outputState = "";
     //controller starts
     SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
