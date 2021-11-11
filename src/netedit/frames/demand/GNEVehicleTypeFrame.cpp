@@ -123,10 +123,12 @@ GNEVehicleTypeFrame::VehicleTypeSelector::refreshVehicleTypeSelector() {
         myTypeMatchBox->setNumVisible(20);
     }
     // make sure that tag is in myTypeMatchBox
-    for (int i = 0; i < (int)myTypeMatchBox->getNumItems(); i++) {
-        if (myTypeMatchBox->getItem(i).text() == myCurrentVehicleType->getID()) {
-            myTypeMatchBox->setCurrentItem(i);
-            valid = true;
+    if (myCurrentVehicleType) {
+        for (int i = 0; i < (int)myTypeMatchBox->getNumItems(); i++) {
+            if (myTypeMatchBox->getItem(i).text() == myCurrentVehicleType->getID()) {
+                myTypeMatchBox->setCurrentItem(i);
+                valid = true;
+            }
         }
     }
     // Check that give vType type is valid

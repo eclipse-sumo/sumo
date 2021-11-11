@@ -276,7 +276,10 @@ GNEVehicleFrame::tagSelected() {
         // show vehicle type selector modul
         myVTypeSelector->showDemandElementSelector();
         // show path creator modul
-        myPathCreator->showPathCreatorModul(myVehicleTagSelector->getCurrentTagProperties().getTag(), false, false);
+        if ((myVehicleTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_VEHICLE) && 
+            (myVehicleTagSelector->getCurrentTagProperties().getTag() != GNE_TAG_FLOW_ROUTE)) {
+            myPathCreator->showPathCreatorModul(myVehicleTagSelector->getCurrentTagProperties().getTag(), false, false);
+        }
     } else {
         // hide all moduls if vehicle isn't valid
         myVTypeSelector->hideDemandElementSelector();
@@ -293,11 +296,18 @@ GNEVehicleFrame::demandElementSelected() {
         myVehicleAttributes->showAttributesCreatorModul(myVehicleTagSelector->getCurrentTagProperties(), {});
         // set current VTypeClass in TripCreator
         myPathCreator->setVClass(myVTypeSelector->getCurrentDemandElement()->getVClass());
+        // show path creator modul
+        if ((myVehicleTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_VEHICLE) && 
+            (myVehicleTagSelector->getCurrentTagProperties().getTag() != GNE_TAG_FLOW_ROUTE)) {
+            myPathCreator->showPathCreatorModul(myVehicleTagSelector->getCurrentTagProperties().getTag(), false, false);
+        }
         // show help creation
         myHelpCreation->showHelpCreation();
     } else {
         // hide all moduls if selected item isn't valid
         myVehicleAttributes->hideAttributesCreatorModul();
+        myPathCreator->hidePathCreatorModul();
+        myHelpCreation->hideHelpCreation();
         // hide help creation
         myHelpCreation->hideHelpCreation();
 
