@@ -652,6 +652,9 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
 
     { "minDur",                 SUMO_ATTR_MINDURATION },
     { "maxDur",                 SUMO_ATTR_MAXDURATION },
+    { "vehext",                 SUMO_ATTR_VEHICLEEXTENSION },
+    { "yellow",                 SUMO_ATTR_YELLOW },
+    { "red",                    SUMO_ATTR_RED },
     { "next",                   SUMO_ATTR_NEXT },
     { "foes",                   SUMO_ATTR_FOES },
     { "constraints",            SUMO_ATTR_CONSTRAINTS },
@@ -1015,6 +1018,7 @@ StringBijection<TrafficLightType>::Entry SUMOXMLDefinitions::trafficLightTypesVa
     { "railSignal",     TrafficLightType::RAIL_SIGNAL },
     { "railCrossing",   TrafficLightType::RAIL_CROSSING },
     { "actuated",       TrafficLightType::ACTUATED },
+    { "NEMA",           TrafficLightType::NEMA },
     { "delay_based",    TrafficLightType::DELAYBASED },
     { "sotl_phase",     TrafficLightType::SOTL_PHASE },
     { "sotl_platoon",   TrafficLightType::SOTL_PLATOON },

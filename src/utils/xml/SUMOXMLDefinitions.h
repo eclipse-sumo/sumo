@@ -954,6 +954,12 @@ enum SumoXMLAttr {
     SUMO_ATTR_MINDURATION,
     /// @brief maximum duration of a phase
     SUMO_ATTR_MAXDURATION,
+    /// @brief vehicle extension time of a phase
+    SUMO_ATTR_VEHICLEEXTENSION,
+    /// @brief yellow duration of a phase
+    SUMO_ATTR_YELLOW,
+    /// @brief red duration of a phase
+    SUMO_ATTR_RED,
     /// @brief succesor phase index
     SUMO_ATTR_NEXT,
     /// @}
@@ -1460,6 +1466,7 @@ enum class TrafficLightType {
     RAIL_SIGNAL,
     RAIL_CROSSING,
     ACTUATED,
+    NEMA,
     DELAYBASED,
     SOTL_PHASE,
     SOTL_PLATOON,

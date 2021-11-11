@@ -39,6 +39,7 @@
 #include <libsumo/TraCIConstants.h>
 #include "Helper.h"
 #include "TrafficLight.h"
+#include "microsim/traffic_lights/NEMAController.h"
 
 //#define DEBUG_CONSTRAINT_DEADLOCK
 
@@ -656,6 +657,12 @@ TrafficLight::setProgramLogic(const std::string& tlsID, const TraCILogic& logic)
                         phases, step, nextSwitch,
                         logic.subParameter, basePath);
                 break;
+            case TrafficLightType::NEMA:
+                tlLogic = new NEMALogic(tlc,
+                        tlsID, logic.programID,
+                        phases, step, nextSwitch,
+                        logic.subParameter, basePath);
+                break;
             case TrafficLightType::DELAYBASED:
                 tlLogic = new MSDelayBasedTrafficLightLogic(tlc,
                         tlsID, logic.programID,
@@ -683,9 +690,77 @@ TrafficLight::setProgramLogic(const std::string& tlsID, const TraCILogic& logic)
 
 void
 TrafficLight::setParameter(const std::string& tlsID, const std::string& paramName, const std::string& value) {
+    if (paramName=="NEMA_timing"){
+        std::cout << "About to set new timing: " << value <<std::endl;
+        TrafficLight::setNEMATiming(tlsID,value);
+        std::cout << "New timing set: " << value <<std::endl;
+    }
+    else if (paramName=="offset")
+    {
+      TrafficLight::setNEMAOffset(tlsID,value);
+    }
+    else{
     return Helper::getTLS(tlsID).getActive()->setParameter(paramName, value);
+    }
 }
+//timing="2.0 3.0 4.0 5.0 2.0 3.0 4.0 5.0"
+bool TrafficLight::setNEMATiming(const std::string& tlsID,const std::string& timing){
+    try{
+        double newTiming[8];
+        std::string _timing = timing;
+        // convert string s to vector<string>
+        std::vector<std::string> split;
+        std::string delimiter = " ";
+        size_t pos = 0;
+        std::string token;
+        while ((pos = _timing.find(delimiter)) != std::string::npos) {
+            token = _timing.substr(0, pos);
+            split.push_back(token);
+            _timing.erase(0, pos + delimiter.length());
+        }
+        split.push_back(_timing);
+        //convert vector<string> to double[]
+        int i = 0;
+        std::cout << "The new timing is: " << std::endl;
+        for (auto s : split) {
+            double temp = std::stod(s);
+            newTiming[i] = temp;
+            i++;
+            std::cout << temp << '\t';
+        }
+        std::cout<< std::endl;
+        // send the new timing to the controller
+        std::string programID = "NEMA";
+        MSTLLogicControl::TLSLogicVariants& test_logic = MSNet::getInstance()->getTLSControl().get(tlsID);
+        NEMALogic* target_logic = dynamic_cast<NEMALogic*>(test_logic.getLogic(programID));
+        if (target_logic != nullptr) {
+            target_logic->setNewTiming(newTiming);
+        }
+        return true;
+    }
+    catch(ProcessError& e){
+        std::cout << "Something went wrong" << std::endl;
+        return false;
+    }
+}
+bool TrafficLight::setNEMAOffset(const std::string& tlsID,const std::string& offset){
+    try{
 
+        double d_offset = std::stod(offset);
+        // send the new offset to the controller
+        std::string programID = "NEMA";
+        MSTLLogicControl::TLSLogicVariants& test_logic = MSNet::getInstance()->getTLSControl().get(tlsID);
+        NEMALogic* target_logic = dynamic_cast<NEMALogic*>(test_logic.getLogic(programID));
+        if (target_logic != nullptr) {
+            target_logic->setNewOffset(d_offset);
+        }
+        return true;
+    }
+    catch(ProcessError& e){
+        std::cout << "Something went wrong" << std::endl;
+        return false;
+    }
+}
 
 LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(TrafficLight, TL)
 

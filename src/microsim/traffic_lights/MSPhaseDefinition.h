@@ -85,6 +85,14 @@ public:
     /// @brief Optional name or description for the current phase
     std::string name;
 
+    /// @brief for NEMA phase 
+    SUMOTime yellow;
+
+    /// @brief for NEMA phase
+    SUMOTime red;
+
+    /// @brief for NEMA phase
+    SUMOTime vehext;
 private:
     /// @brief The phase definition
     std::string state;
@@ -118,6 +126,19 @@ private:
         this->name = nameArg;
     }
 
+    void init(SUMOTime durationArg, const std::string& stateArg, SUMOTime minDurationArg, SUMOTime maxDurationArg,
+              SUMOTime vehext, SUMOTime yellow, SUMOTime red, const std::vector<int> nextPhasesArg, const std::string& nameArg) {
+        this->duration = durationArg;
+        this->state = stateArg;
+        this->minDuration = minDurationArg;
+        this->maxDuration = maxDurationArg;
+        this->myLastSwitch = string2time(OptionsCont::getOptions().getString("begin")); // SUMOTime-option
+        this->nextPhases = nextPhasesArg;
+        this->name = nameArg;
+        this->vehext = vehext;
+        this->yellow = yellow;
+        this->red = red;
+    }
     void init(SUMOTime durationArg, SUMOTime minDurationArg, SUMOTime maxDurationArg, const std::string& stateArg,
               const std::vector<int>& nextPhasesArg, const std::string& nameArg, LaneIdVector* targetLaneSetArg) {
         init(durationArg, stateArg, minDurationArg, maxDurationArg, nextPhasesArg, nameArg);
@@ -163,6 +184,25 @@ public:
         phaseType[TARGET_BIT] = 0;
         phaseType[COMMIT_BIT] = 0;
         init(durationArg, stateArg, minDurationArg, maxDurationArg, nextPhases, name);
+    }
+    
+    /** @brief Constructor
+     * In this phase the duration is constrained between min and max duration
+     * @param[in] durationArg The duration of the phase
+     * @param[in] stateArg The state in the phase
+     * @param[in] minDurationArg The minimum duration of the phase
+     * @param[in] maxDurationArg The maximum duration of the phase
+     */
+    MSPhaseDefinition(SUMOTime durationArg, const std::string& stateArg, SUMOTime minDurationArg, SUMOTime maxDurationArg,
+                      SUMOTime vehextTime, SUMOTime redTime, SUMOTime yellowTime, 
+                      const std::vector<int>& nextPhases = std::vector<int>(), const std::string& name = "") {
+        //PhaseType phaseType;
+        phaseType = PhaseType();
+        phaseType[UNDEFINED_BIT] = 1;
+        phaseType[TRANSIENT_NOTDECISIONAL_BIT] = 0;
+        phaseType[TARGET_BIT] = 0;
+        phaseType[COMMIT_BIT] = 0;
+        init(durationArg, stateArg, minDurationArg, maxDurationArg, vehextTime, yellowTime, redTime, nextPhases, name);
     }
 
     /*

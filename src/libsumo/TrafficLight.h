@@ -23,6 +23,7 @@
 #include <vector>
 #include <libsumo/TraCIDefs.h>
 #include <libsumo/TraCIConstants.h>
+#include <microsim/traffic_lights/NEMAController.h>
 
 // ===========================================================================
 // class declarations
@@ -70,6 +71,9 @@ public:
     static void setProgram(const std::string& tlsID, const std::string& programID);
     static void setPhaseDuration(const std::string& tlsID, const double phaseDuration);
     static void setProgramLogic(const std::string& tlsID, const libsumo::TraCILogic& logic);
+
+    static bool setNEMATiming(const std::string& tlsID,const std::string& timing);
+    static bool setNEMAOffset(const std::string& tlsID,const std::string& offset);
 
     static std::vector<libsumo::TraCISignalConstraint> swapConstraints(const std::string& tlsID, const std::string& tripId, const std::string& foeSignal, const std::string& foeId);
     static void removeConstraints(const std::string& tlsID, const std::string& tripId, const std::string& foeSignal, const std::string& foeId);

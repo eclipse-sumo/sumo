@@ -55,6 +55,7 @@
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include "NLBuilder.h"
 #include "NLJunctionControlBuilder.h"
+#include "microsim/traffic_lights/NEMAController.h"
 
 
 // ===========================================================================
@@ -297,6 +298,12 @@ NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
                     myActivePhases, step, (*i)->minDuration + myNet.getCurrentTimeStep(),
                     myAdditionalParameter, basePath);
             break;
+        case TrafficLightType::NEMA:
+            tlLogic = new NEMALogic(getTLLogicControlToUse(),
+                    myActiveKey, myActiveProgram,
+                    myActivePhases, step, (*i)->minDuration + myNet.getCurrentTimeStep(),
+                    myAdditionalParameter, basePath);
+            break;
         case TrafficLightType::DELAYBASED:
             tlLogic = new MSDelayBasedTrafficLightLogic(getTLLogicControlToUse(),
                     myActiveKey, myActiveProgram,
@@ -428,6 +435,15 @@ NLJunctionControlBuilder::addPhase(SUMOTime duration, const std::string& state, 
     myAbsDuration += duration;
 }
 
+void
+NLJunctionControlBuilder::addPhase(SUMOTime duration, const std::string& state, const std::vector<int>& nextPhases,
+                                   SUMOTime minDuration, SUMOTime maxDuration, const std::string& name,
+                                   SUMOTime vehextTime, SUMOTime yellowTime, SUMOTime redTime) {
+    // build and add the phase definition to the list
+    myActivePhases.push_back(new MSPhaseDefinition(duration, state, minDuration, maxDuration, vehextTime, redTime, yellowTime, nextPhases, name));
+    // add phase duration to the absolute duration
+    myAbsDuration += duration;
+}
 
 void
 NLJunctionControlBuilder::closeJunctionLogic() {
