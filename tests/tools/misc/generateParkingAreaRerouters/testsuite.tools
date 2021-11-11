@@ -1,2 +1,5 @@
 example
 opposite_visible
+
+# exclude low-capacity destinations
+minCapacity
