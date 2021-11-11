@@ -97,3 +97,9 @@ Each link is described by a string list with three entries: the lane
 which is incoming into the junction, the lane which is outgoing from the
 junction, and the lane across the junction (junction-internal). Empty
 strings indicate missing lanes.
+
+The method basically returns a list of lists of 3-tuples. The outer list has a length that corresponds to the length of the 'state' attribute of each phase.
+Each inner list (at position i of the outer list) describes the connections that are controlled by the state at index i.
+
+By default, each index of the state controls exactly one connection so the inner lists all have length 1. However, the inner lists may be longer if [signal-groups](../Simulation/Traffic_Lights.md#defining_signal_groups) are used to simplify the 'state' attribute.
+
