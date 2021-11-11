@@ -129,7 +129,9 @@ Further, the following additional safety-relevant output can be generated, which
 - [BR](#br) (brake rate)
 - [SGAP](#sgap) (spacing)
 - [TGAP](#tgap) (time headway)
-For the selection in the device's output, the abbreviations have to be used.
+
+!!! note
+    For the selection in the device's output, the abbreviations have to be used.
 
 Please note that some SSMs only apply to a specific encounter or are computed differently for different encounters.
 For crossing and merging situations, we consider "expected" entry and exit times with respect to the conflict zone. 
