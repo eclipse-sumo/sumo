@@ -51,3 +51,6 @@ writePositions_to_globalMeasures
 
 # default with option --device.ssm.write-lane-positions
 writeLanePositions_to_globalMeasures
+
+# default with options --device.ssm.trajectories and --device.ssm.write-lane-positions
+writeLanePositions
