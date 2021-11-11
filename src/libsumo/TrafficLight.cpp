@@ -692,7 +692,7 @@ void
 TrafficLight::setParameter(const std::string& tlsID, const std::string& paramName, const std::string& value) {
     if (paramName=="NEMA_timing"){
         TrafficLight::setNEMATiming(tlsID,value);
-    } else if (paramName=="offset") {
+    } else if (paramName=="NEMA_offset") {
         TrafficLight::setNEMAOffset(tlsID,value);
     } else{
         return Helper::getTLS(tlsID).getActive()->setParameter(paramName, value);
@@ -702,57 +702,49 @@ TrafficLight::setParameter(const std::string& tlsID, const std::string& paramNam
 LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(TrafficLight, TL)
 
 //timing="2.0 3.0 4.0 5.0 2.0 3.0 4.0 5.0"
-bool TrafficLight::setNEMATiming(const std::string& tlsID,const std::string& timing){
-    try{
-        double newTiming[8];
-        std::string _timing = timing;
-        // convert string s to vector<string>
-        std::vector<std::string> split;
-        std::string delimiter = " ";
-        size_t pos = 0;
-        std::string token;
-        while ((pos = _timing.find(delimiter)) != std::string::npos) {
-            token = _timing.substr(0, pos);
-            split.push_back(token);
-            _timing.erase(0, pos + delimiter.length());
-        }
-        split.push_back(_timing);
-        //convert vector<string> to double[]
-        int i = 0;
-        for (auto s : split) {
-            double temp = std::stod(s);
-            newTiming[i] = temp;
-            i++;
-        }
-        // send the new timing to the controller
-        std::string programID = "NEMA";
-        MSTLLogicControl::TLSLogicVariants& test_logic = MSNet::getInstance()->getTLSControl().get(tlsID);
-        NEMALogic* target_logic = dynamic_cast<NEMALogic*>(test_logic.getLogic(programID));
-        if (target_logic != nullptr) {
-            target_logic->setNewTiming(newTiming);
-        }
-        return true;
+void
+TrafficLight::setNEMATiming(const std::string& tlsID,const std::string& timing){
+    double newTiming[8];
+    std::string _timing = timing;
+    // convert string s to vector<string>
+    std::vector<std::string> split;
+    std::string delimiter = " ";
+    size_t pos = 0;
+    std::string token;
+    while ((pos = _timing.find(delimiter)) != std::string::npos) {
+        token = _timing.substr(0, pos);
+        split.push_back(token);
+        _timing.erase(0, pos + delimiter.length());
     }
-    catch(ProcessError& e){
-        return false;
+    split.push_back(_timing);
+    //convert vector<string> to double[]
+    int i = 0;
+    for (auto s : split) {
+        double temp = std::stod(s);
+        newTiming[i] = temp;
+        i++;
+    }
+    // send the new timing to the controller
+    MSTLLogicControl::TLSLogicVariants& test_logic = MSNet::getInstance()->getTLSControl().get(tlsID);
+    NEMALogic* target_logic = dynamic_cast<NEMALogic*>(test_logic.getActive());
+    if (target_logic != nullptr) {
+        target_logic->setNewTiming(newTiming);
+    } else {
+        throw TraCIException("'" + tlsID + "' is not a NEMA controller");
     }
 }
 
 
-bool TrafficLight::setNEMAOffset(const std::string& tlsID,const std::string& offset) {
-    try {
-        double d_offset = std::stod(offset);
-        // send the new offset to the controller
-        std::string programID = "NEMA";
-        MSTLLogicControl::TLSLogicVariants& test_logic = MSNet::getInstance()->getTLSControl().get(tlsID);
-        NEMALogic* target_logic = dynamic_cast<NEMALogic*>(test_logic.getLogic(programID));
-        if (target_logic != nullptr) {
-            target_logic->setNewOffset(d_offset);
-        }
-        return true;
-    }
-    catch (ProcessError& e) {
-        return false;
+void
+TrafficLight::setNEMAOffset(const std::string& tlsID,const std::string& offset) {
+    double d_offset = std::stod(offset);
+    // send the new offset to the controller
+    MSTLLogicControl::TLSLogicVariants& test_logic = MSNet::getInstance()->getTLSControl().get(tlsID);
+    NEMALogic* target_logic = dynamic_cast<NEMALogic*>(test_logic.getActive());
+    if (target_logic != nullptr) {
+        target_logic->setNewOffset(d_offset);
+    } else {
+        throw TraCIException("'" + tlsID + "' is not a NEMA controller");
     }
 }
 

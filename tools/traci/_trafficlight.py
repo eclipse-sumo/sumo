@@ -331,7 +331,7 @@ class TrafficLightDomain(Domain):
         self.setParameter(tlsID,"NEMA_timing",timing)
 
     def setNemaOffset(self, tlsID, offset):
-        self.setParameter(tlsID,"offset",offset)
+        self.setParameter(tlsID,"NEMA_offset",offset)
 
     def setPhaseDuration(self, tlsID, phaseDuration):
         """setPhaseDuration(string, double) -> None

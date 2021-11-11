@@ -94,8 +94,8 @@ private:
     static std::vector<libsumo::TraCISignalConstraint> findConstraintsDeadLocks(const std::string& foeId, const std::string& tripId, const std::string& foeSignal, const std::string& tlsID);
     static SUMOVehicle* getVehicleByTripId(const std::string tripOrVehID);
 
-    static bool setNEMATiming(const std::string& tlsID,const std::string& timing);
-    static bool setNEMAOffset(const std::string& tlsID,const std::string& offset);
+    static void setNEMATiming(const std::string& tlsID,const std::string& timing);
+    static void setNEMAOffset(const std::string& tlsID,const std::string& offset);
 
 
 private:
