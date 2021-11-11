@@ -13,6 +13,7 @@
 
 # @file    addStops2Routes.py
 # @author  Yun-Pang Floetteroed
+# @author  Jakob Erdmann
 # @date    2019-04-25
 
 """
@@ -22,15 +23,16 @@ from __future__ import absolute_import
 from __future__ import print_function
 import os
 import sys
-import optparse
+from collections import defaultdict
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from sumolib.output import parse, parse_fast  # noqa
+from sumolib.options import ArgumentParser  # noqa
 import sumolib  # noqa
 
 
 def get_options(args=None):
-    optParser = optparse.OptionParser()
+    optParser = ArgumentParser()
     optParser.add_option("-n", "--net-file", dest="netfile",
                          help="define the net filename")
     optParser.add_option("-r", "--route-files", dest="routefiles",
@@ -50,7 +52,7 @@ def get_options(args=None):
     optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
                          default=False, help="tell me what you are doing")
 
-    (options, args) = optParser.parse_args(args=args)
+    (options, args) = optParser.parse_known_args(args=args)
 
     if not options.routefiles or not options.netfile or not options.outfile or not options.typesfile:
         optParser.print_help()
@@ -70,6 +72,14 @@ def readTypes(options):
     # print(vtypes)
     return vtypes
 
+def getLastEdge(obj):
+    if obj.route:
+        edgesList = obj.route[0].edges.split()
+        return edgesList[-1]
+    elif obj.to:
+        return obj.to
+    else:
+        return None
 
 def main(options):
 
@@ -85,27 +95,32 @@ def main(options):
     with open(options.outfile, 'w') as outf:
         net = sumolib.net.readNet(options.netfile)
         vtypes = readTypes(options)
-        sumolib.writeXMLHeader(outf, "$Id: addStops2Routes.py v1_3_1+0411-36956f96df michael.behrisch@dlr.de 2019-09-21 21:10:12 +0200 $", "routes")  # noqa
-        numSkipped = 0
+        sumolib.writeXMLHeader(outf, "$Id$", "routes", options=options)  # noqa
+        numSkipped = defaultdict(lambda : 0)
         for file in options.routefiles.split(','):
-            for veh in sumolib.output.parse(file, 'vehicle'):
-                edgesList = veh.route[0].edges.split()
-                lastEdge = net.getEdge(edgesList[-1])
-                lanes = lastEdge.getLanes()
+            for obj in sumolib.xml.parse(file, ['vehicle', 'trip', 'flow', 'person']):
+                lastEdgeID = getLastEdge(obj)
+                if lastEdgeID is None:
+                    numSkipped[obj.name] += 1
+                    outf.write(obj.toXML(' '*4))
+                    continue
+
+                lastEdge = net.getEdge(lastEdgeID)
                 skip = False
                 stopAttrs = {}
                 if options.parkingareas:
-                    if lastEdge.getID() in edge2parking:
-                        stopAttrs["parkingArea"] = edge2parking[lastEdge.getID()]
+                    if lastEdgeID in edge2parking:
+                        stopAttrs["parkingArea"] = edge2parking[lastEdgeID]
                     else:
                         skip = True
-                        numSkipped += 1
+                        numSkipped[obj.name] += 1
                         print("Warning: no parkingArea found on edge '%s' for vehicle '%s'" % (
-                            lastEdge.getID(), veh.id), file=sys.stderr)
+                            lastEdgeID, obj.id), file=sys.stderr)
                 else:
                     # find usable lane
+                    lanes = lastEdge.getLanes()
                     for lane in lanes:
-                        if lane.allows(vtypes[veh.type]):
+                        if lane.allows(vtypes[obj.type]):
                             stopAttrs["lane"] = lane.getID()
                             break
 
@@ -116,14 +131,14 @@ def main(options):
                 if options.until:
                     stopAttrs["until"] = options.until
                 if not skip:
-                    veh.addChild("stop", attrs=stopAttrs)
+                    obj.addChild("stop", attrs=stopAttrs)
 
-                outf.write(veh.toXML(' '*4))
+                outf.write(obj.toXML(' '*4))
         outf.write('</routes>\n')
     outf.close()
 
-    if numSkipped > 0:
-        print("Warning: No stop added for %s vehicles" % numSkipped)
+    for objType, n in numSkipped.items():
+        print("Warning: No stop added for %s %ss" % (n, objType))
 
 
 if __name__ == "__main__":
