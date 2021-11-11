@@ -691,16 +691,11 @@ TrafficLight::setProgramLogic(const std::string& tlsID, const TraCILogic& logic)
 void
 TrafficLight::setParameter(const std::string& tlsID, const std::string& paramName, const std::string& value) {
     if (paramName=="NEMA_timing"){
-        std::cout << "About to set new timing: " << value <<std::endl;
         TrafficLight::setNEMATiming(tlsID,value);
-        std::cout << "New timing set: " << value <<std::endl;
-    }
-    else if (paramName=="offset")
-    {
-      TrafficLight::setNEMAOffset(tlsID,value);
-    }
-    else{
-    return Helper::getTLS(tlsID).getActive()->setParameter(paramName, value);
+    } else if (paramName=="offset") {
+        TrafficLight::setNEMAOffset(tlsID,value);
+    } else{
+        return Helper::getTLS(tlsID).getActive()->setParameter(paramName, value);
     }
 }
 
@@ -724,14 +719,11 @@ bool TrafficLight::setNEMATiming(const std::string& tlsID,const std::string& tim
         split.push_back(_timing);
         //convert vector<string> to double[]
         int i = 0;
-        std::cout << "The new timing is: " << std::endl;
         for (auto s : split) {
             double temp = std::stod(s);
             newTiming[i] = temp;
             i++;
-            std::cout << temp << '\t';
         }
-        std::cout<< std::endl;
         // send the new timing to the controller
         std::string programID = "NEMA";
         MSTLLogicControl::TLSLogicVariants& test_logic = MSNet::getInstance()->getTLSControl().get(tlsID);
@@ -742,15 +734,13 @@ bool TrafficLight::setNEMATiming(const std::string& tlsID,const std::string& tim
         return true;
     }
     catch(ProcessError& e){
-        std::cout << "Something went wrong" << std::endl;
         return false;
     }
 }
 
 
-bool TrafficLight::setNEMAOffset(const std::string& tlsID,const std::string& offset){
-    try{
-
+bool TrafficLight::setNEMAOffset(const std::string& tlsID,const std::string& offset) {
+    try {
         double d_offset = std::stod(offset);
         // send the new offset to the controller
         std::string programID = "NEMA";
@@ -761,8 +751,7 @@ bool TrafficLight::setNEMAOffset(const std::string& tlsID,const std::string& off
         }
         return true;
     }
-    catch(ProcessError& e){
-        std::cout << "Something went wrong" << std::endl;
+    catch (ProcessError& e) {
         return false;
     }
 }

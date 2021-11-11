@@ -52,6 +52,8 @@
 
 #define INVALID_POSITION std::numeric_limits<double>::max() // tl added
 
+//#define DEBUG_NEMA
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -79,6 +81,7 @@ NEMALogic::NEMALogic(MSTLLogicControl& tlcontrol,
     whetherOutputState = StringUtils::toBool(getParameter("whetherOutputState", "false"));
     coordinateMode = StringUtils::toBool(getParameter("coordinate-mode", "false"));
     //print to check
+#ifdef DEBUG_NEMA
     std::cout << "JunctionID = " << myID << std::endl;
     std::cout << "All parameters after calling constructor are: " << std::endl;
     std::cout << "myDetectorLength = " << myDetectorLength << std::endl;
@@ -92,6 +95,7 @@ NEMALogic::NEMALogic(MSTLLogicControl& tlcontrol,
     std::cout << "coordinateMode = " << coordinateMode << std::endl;
     std::cout << "You reach the end of constructor" << std::endl;
     std::cout << "****************************************\n";
+#endif
 }
 
 NEMALogic::~NEMALogic() { }
@@ -126,7 +130,9 @@ NEMALogic::init(NLDetectorBuilder& nb) {
         // std::stringstream ss(indexFromName);
         // int NEMAPhase = 0;
         // ss << NEMAPhase;
+#ifdef DEBUG_NEMA
         std::cout << "NEMAIndex = " << NEMAPhase << ": ";
+#endif
         minGreen[i] = STEPS2TIME(phase->minDuration);
         maxGreen[i] = STEPS2TIME(phase->maxDuration);
         nextMaxGreen[i] = maxGreen[i];
@@ -141,10 +147,12 @@ NEMALogic::init(NLDetectorBuilder& nb) {
             laneIDs_vector.push_back(laneID);
         }
         phase2ControllerLanesMap[NEMAPhase] = laneIDs_vector;
-        //print to check
+#ifdef DEBUG_NEMA
         std::cout << "minGreen = " << minGreen[i] << "; maxGreen = " << maxGreen[i] << "; vehext = " << vehExt[i] << "; yellow = " << yellowTime[i] << "; redTime = " << redTime[i] << std::endl;
+#endif
     }
 
+#ifdef DEBUG_NEMA
     //print to check the phase2ControllerLanesMap
     for (auto item : phase2ControllerLanesMap) {
         std::cout << "NEMA phase index = " << item.first << " have lanes: ";
@@ -153,6 +161,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
         }
         std::cout << std::endl;
     }
+#endif
 
 
     //init rings
@@ -160,6 +169,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
     rings.push_back(readParaFromString(ring2));
 
 
+#ifdef DEBUG_NEMA
     //print to check
     for (int i = 0; i < (int)rings.size(); i++) {
         int count = 0;
@@ -173,6 +183,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
         }
         std::cout << std::endl;
     }
+#endif
 
     //init barriers
     barrierPhaseIndecies = readParaFromString(barriers);
@@ -203,6 +214,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
         }
     }
 
+#ifdef DEBUG_NEMA
     //print to check the rings and barriers active phase
     std::cout << "After init, active ring1 phase is " << activeRing1Phase << std::endl;
     std::cout << "After init, active ring2 phase is " << activeRing2Phase << std::endl;
@@ -220,6 +232,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
         std::cout << "red = " << time2string(p->red) << "; ";
         std::cout << "state = " << p->getState() << std::endl;
     }
+#endif
 
     //init the traffic light
     MSTrafficLightLogic::init(nb);
@@ -306,6 +319,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
         }
         phase2DetectorMap[NEMAPhaseIndex] = detectors;
     }
+#ifdef DEBUG_NEMA
     // print to check phase2DetectorMap
     std::cout << "Print to check phase2DetectorMap" << std::endl;
     for (auto item : phase2DetectorMap) {
@@ -314,6 +328,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
             std::cout << '\t' << det->getID() << std::endl;
         }
     }
+#endif
 
     R1State = activeRing1Phase;
     R2State = activeRing2Phase;
@@ -332,8 +347,10 @@ NEMALogic::init(NLDetectorBuilder& nb) {
     r1coordinatePhase = coordinatePhaseIndecies[0];
     r2coordinatePhase = coordinatePhaseIndecies[1];
 
+#ifdef DEBUG_NEMA
     std::cout << "After init, r1/r2 barrier phase = " << r1barrier << " and " << r2barrier << std::endl;
     std::cout << "After init, r1/r2 coordinate phase = " << r1coordinatePhase << " and " << r2coordinatePhase << std::endl;
+#endif
 
     currentState = "";
     // currentR1State = myPhases[R1State - 1]->getState();
@@ -346,9 +363,10 @@ NEMALogic::init(NLDetectorBuilder& nb) {
             currentR2State = p->getState();
         }
     }
-    //print to check
+#ifdef DEBUG_NEMA
     std::cout << "R1State = " << R1State << " and its state = " << currentR1State << std::endl;
     std::cout << "R2State = " << R2State << " and its state = " << currentR2State << std::endl;
+#endif
 
     //Do not delete. SUMO traffic logic check.
     //SUMO check begin
@@ -464,9 +482,10 @@ NEMALogic::init(NLDetectorBuilder& nb) {
                 WRITE_WARNINGF("At NEMA tlLogic '%, linkIndex % has no controlling detector", getID(), toString(i));
         }
     }
-    //SUMO check end
 
+#ifdef DEBUG_NEMA
     std::cout << "reach the end of init()\n";
+#endif
 }
 
 void NEMALogic::setNewTiming(double newTiming[8]){
@@ -500,17 +519,19 @@ std::vector<std::string> NEMALogic::string2vector(std::string s) {
         std::getline(ss, substr, ',');
         output.push_back(substr);
     }
+#ifdef DEBUG_NEMA
     //print to check
     for (auto i : output) {
         std::cout << i << std::endl;
     }
+#endif
     return output;
 }
 
 std::string NEMALogic::combineStates(std::string state1, std::string state2) {
     std::string output = "";
     if (state1.size() != state2.size()) {
-        std::cout << "Different sizes of NEMA phase states. Please check the NEMA XML!!!" << std::endl;
+        throw ProcessError("Different sizes of NEMA phase states. Please check the NEMA XML");
     }
     for (int i = 0; i < (int)state1.size(); i++) {
         char ch1 = state1[i];
