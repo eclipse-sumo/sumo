@@ -103,12 +103,12 @@ Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ2' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ3' in AttributeCarriers destructor
 Debug: Deleting unreferenced busStop 'busStop_gneE1_0_1' in AttributeCarriers destructor
-Debug: Deleting unreferenced busStop 'busStop_gneE2_0_7' in AttributeCarriers destructor
-Debug: Deleting unreferenced busStop 'busStop_gneE0_0_0' in AttributeCarriers destructor
-Debug: Deleting unreferenced busStop 'busStop_gneE2_1_6' in AttributeCarriers destructor
 Debug: Deleting unreferenced busStop 'busStop_gneE2_3_4' in AttributeCarriers destructor
+Debug: Deleting unreferenced busStop 'busStop_gneE0_0_0' in AttributeCarriers destructor
+Debug: Deleting unreferenced busStop 'busStop_gneE2_0_7' in AttributeCarriers destructor
+Debug: Deleting unreferenced busStop 'busStop_gneE2_1_6' in AttributeCarriers destructor
 Debug: Deleting unreferenced busStop 'busStop_gneE2_4_3' in AttributeCarriers destructor
-Debug: Deleting unreferenced busStop 'busStop_gneE4_0_2' in AttributeCarriers destructor
 Debug: Deleting unreferenced busStop 'busStop_gneE2_2_5' in AttributeCarriers destructor
+Debug: Deleting unreferenced busStop 'busStop_gneE4_0_2' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 8
