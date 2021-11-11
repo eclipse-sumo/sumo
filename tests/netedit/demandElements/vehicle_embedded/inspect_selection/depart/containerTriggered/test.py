@@ -16,8 +16,8 @@
 # @date    2019-07-16
 
 # import common functions for netedit tests
-import sys
 import os
+import sys
 
 testRoot = os.path.join(os.environ.get('SUMO_HOME', '.'), 'tests')
 neteditTestRoot = os.path.join(
@@ -27,12 +27,6 @@ import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
-
-# apply zoom
-netedit.setZoom("14", "17", "12")
-
-# inspect vehicle
-netedit.leftClick(referencePosition, 330, 150)
 
 # go to demand mode
 netedit.supermodeDemand()
@@ -54,6 +48,9 @@ netedit.modifyAttribute(14, "", False)
 
 # change depart with an invalid value
 netedit.modifyAttribute(14, "dummyDepart", False)
+
+# change depart with an invalid value
+netedit.modifyAttribute(14, "-3", False)
 
 # change depart with an valid value
 netedit.modifyAttribute(14, "containerTriggered", False)
