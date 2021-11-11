@@ -287,7 +287,7 @@ MEVehicle::resumeFromStopping() {
         if (myEventTime > SIMSTEP) {
             // if this is an aborted stop we need to change the event time of the vehicle
             if (MSGlobals::gMesoNet->removeLeaderCar(this)) {
-                myEventTime = SIMSTEP;
+                myEventTime = SIMSTEP + 1;
                 MSGlobals::gMesoNet->addLeaderCar(this, nullptr);
             }
         }
