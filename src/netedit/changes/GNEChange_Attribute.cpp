@@ -71,7 +71,7 @@ GNEChange_Attribute::~GNEChange_Attribute() {
 void
 GNEChange_Attribute::undo() {
     // show extra information for tests
-    WRITE_DEBUG("Setting previous attribute " + toString(myKey) + " '" + myOrigValue + "' into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
+    WRITE_DEBUG("Restoring previous attribute"/* + toString(myKey)*/);
     // set original value
     myAC->setAttribute(myKey, myOrigValue);
     // certain attributes needs extra operations
@@ -105,7 +105,7 @@ GNEChange_Attribute::undo() {
 void
 GNEChange_Attribute::redo() {
     // show extra information for tests
-    WRITE_DEBUG("Setting new attribute " + toString(myKey) + " '" + myNewValue + "' into " + myAC->getTagStr() + " '" + myAC->getID() + "'");
+    WRITE_DEBUG("Setting new attribute"/* + toString(myKey)*/);
     // set new value
     myAC->setAttribute(myKey, myNewValue);
     // certain attributes needs extra operations
