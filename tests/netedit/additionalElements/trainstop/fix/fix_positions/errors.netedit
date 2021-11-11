@@ -19,8 +19,8 @@ Debug: Setting new attribute selected 'true' into junction 'gneJ0'
 Debug: Setting new attribute selected 'true' into edge 'gneE1'
 Debug: Setting new attribute selected 'true' into junction 'gneJ1'
 Debug: Setting new attribute selected 'true' into edge 'gneE0'
-Debug: Setting new attribute selected 'true' into trainStop 'trainStopA'
 Debug: Setting new attribute selected 'true' into trainStop 'trainStopB'
+Debug: Setting new attribute selected 'true' into trainStop 'trainStopA'
 Debug: Setting new attribute selected 'true' into trainStop 'trainStopC'
 Debug: Setting new attribute selected 'true' into trainStop 'trainStopD'
 Debug: Setting new attribute friendlyPos 'false' into trainStop 'trainStopA'
@@ -33,8 +33,8 @@ Debug: Setting new attribute selected 'false' into lane 'gneE1_0'
 Debug: Setting new attribute selected 'false' into junction 'gneJ1'
 Debug: Setting new attribute selected 'false' into edge 'gneE0'
 Debug: Setting new attribute selected 'false' into lane 'gneE0_0'
-Debug: Setting new attribute selected 'false' into trainStop 'trainStopA'
 Debug: Setting new attribute selected 'false' into trainStop 'trainStopB'
+Debug: Setting new attribute selected 'false' into trainStop 'trainStopA'
 Debug: Setting new attribute selected 'false' into trainStop 'trainStopC'
 Debug: Setting new attribute selected 'false' into trainStop 'trainStopD'
 GLDebug: Removing junctions during recomputing
@@ -51,8 +51,8 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Debug: Setting new attribute startPos '11.90' into trainStop 'trainStopA'
 Debug: Setting new attribute endPos '50.00' into trainStop 'trainStopB'
+Debug: Setting new attribute startPos '11.90' into trainStop 'trainStopA'
 Debug: Setting new attribute startPos '37.90' into trainStop 'trainStopD'
 Debug: Setting new attribute endPos '38.00' into trainStop 'trainStopD'
 Debug: Additionals saved after dialog
@@ -80,8 +80,5 @@ Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 4
