@@ -7,6 +7,9 @@ trafficlight
 # Tests the trafficlight API for an intersection with controlled pedestrian crossings
 crossings
 
+# Tests the trafficlight API for an intersection with controlled pedestrian crossings where each direction is controlled separately
+crossings_twoSided
+
 # test offset manipulation
 offset
 
