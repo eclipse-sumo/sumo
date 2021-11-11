@@ -294,7 +294,7 @@ title: ChangeLog
   - Added tool [computePassengercounts.py](Tools/Output.md#computepassengercountspy) to count passenger number in vehicle over time #9366
   - [generateParkingAreaRerouters.py](Tools/Misc.md#generateparkingarearerouterspy)
     - added option **--opposite-visible** to ensure that parking areas on the opposite direction road are visible. Issue #9379
-    - generateParkingAreaReroutes.py: searching vehicles no longer drive past an avilable parkingArea. Issue #9371
+    - generateParkingAreaReroutes.py: searching vehicles no longer drive past an available parkingArea. Issue #9371
     - now runs much faster. Issue #9379
   - routeSampler.py: added option **--min-count** to set mininum number of counting locations for each used route. Issue #9415
   - Added tool [scheduleStats](Tools/Railways.md#schedulestatspy) to analyze deviations between loaded public transport schedules and simulation timing. Issue #8420
