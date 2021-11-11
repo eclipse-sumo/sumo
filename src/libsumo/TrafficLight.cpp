@@ -32,6 +32,7 @@
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSActuatedTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSDelayBasedTrafficLightLogic.h>
+#include "microsim/traffic_lights/NEMAController.h"
 #include <microsim/traffic_lights/MSRailSignal.h>
 #include <microsim/traffic_lights/MSRailSignalConstraint.h>
 #include <microsim/traffic_lights/MSRailSignalControl.h>
@@ -39,7 +40,6 @@
 #include <libsumo/TraCIConstants.h>
 #include "Helper.h"
 #include "TrafficLight.h"
-#include "microsim/traffic_lights/NEMAController.h"
 
 //#define DEBUG_CONSTRAINT_DEADLOCK
 
@@ -703,6 +703,9 @@ TrafficLight::setParameter(const std::string& tlsID, const std::string& paramNam
     return Helper::getTLS(tlsID).getActive()->setParameter(paramName, value);
     }
 }
+
+LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(TrafficLight, TL)
+
 //timing="2.0 3.0 4.0 5.0 2.0 3.0 4.0 5.0"
 bool TrafficLight::setNEMATiming(const std::string& tlsID,const std::string& timing){
     try{
@@ -743,6 +746,8 @@ bool TrafficLight::setNEMATiming(const std::string& tlsID,const std::string& tim
         return false;
     }
 }
+
+
 bool TrafficLight::setNEMAOffset(const std::string& tlsID,const std::string& offset){
     try{
 
@@ -761,8 +766,6 @@ bool TrafficLight::setNEMAOffset(const std::string& tlsID,const std::string& off
         return false;
     }
 }
-
-LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(TrafficLight, TL)
 
 
 libsumo::TraCISignalConstraint

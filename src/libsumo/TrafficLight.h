@@ -72,9 +72,6 @@ public:
     static void setPhaseDuration(const std::string& tlsID, const double phaseDuration);
     static void setProgramLogic(const std::string& tlsID, const libsumo::TraCILogic& logic);
 
-    static bool setNEMATiming(const std::string& tlsID,const std::string& timing);
-    static bool setNEMAOffset(const std::string& tlsID,const std::string& offset);
-
     static std::vector<libsumo::TraCISignalConstraint> swapConstraints(const std::string& tlsID, const std::string& tripId, const std::string& foeSignal, const std::string& foeId);
     static void removeConstraints(const std::string& tlsID, const std::string& tripId, const std::string& foeSignal, const std::string& foeId);
 
@@ -96,6 +93,10 @@ private:
     /// @brief perform swapConstraints to resolve deadlocks and return the new constraints
     static std::vector<libsumo::TraCISignalConstraint> findConstraintsDeadLocks(const std::string& foeId, const std::string& tripId, const std::string& foeSignal, const std::string& tlsID);
     static SUMOVehicle* getVehicleByTripId(const std::string tripOrVehID);
+
+    static bool setNEMATiming(const std::string& tlsID,const std::string& timing);
+    static bool setNEMAOffset(const std::string& tlsID,const std::string& offset);
+
 
 private:
     static SubscriptionResults mySubscriptionResults;
