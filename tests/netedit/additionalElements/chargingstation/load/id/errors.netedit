@@ -15,7 +15,7 @@ Debug: Adding chargingStation 'chargingStation_0' in GNEChange_Additional
 Error: Attribute 'id' is missing in definition of a chargingStation.
 Error: Could not build chargingStation with ID 'id with spaces' in netedit; ID contains invalid characters.
 Error: Could not build chargingStation with ID 'chargingStation_0' in netedit; declared twice.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Nov090341.672\netedit.gui\additionalElements\chargingstation\load\id\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Nov133040.7476\netedit.gui\additionalElements\chargingstation\load\id\input_additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00
@@ -52,8 +52,5 @@ Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 4
