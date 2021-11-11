@@ -170,12 +170,12 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                                 || (LinkState)state1[j] == LINKSTATE_TL_GREEN_MINOR)) {
                         for (LaneVector::const_iterator it = myLanes[j].begin(); it != myLanes[j].end(); ++it) {
                             if ((*it)->getPermissions() != SVC_PEDESTRIAN) {
-                                if (getProgramID() != "NEMA") {
-                                WRITE_WARNING("Missing yellow phase in tlLogic '" + getID()
-                                              + "', program '" + getProgramID() + "' for tl-index " + toString(j)
-                                              + " when switching" + optionalFrom + " to phase " + toString(iNext));
-                                // one warning per program is enough
-                                haveWarned = true;
+                                if (getLogicType() != TrafficLightType::NEMA) {
+                                    WRITE_WARNING("Missing yellow phase in tlLogic '" + getID()
+                                            + "', program '" + getProgramID() + "' for tl-index " + toString(j)
+                                            + " when switching" + optionalFrom + " to phase " + toString(iNext));
+                                    // one warning per program is enough
+                                    haveWarned = true;
                                 }
                                 break;
                             }
@@ -193,9 +193,9 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
         }
         for (int j = 0; j < (int)foundGreen.size(); ++j) {
             if (!foundGreen[j]) {
-                if (getProgramID() != "NEMA") {
-                WRITE_WARNING("Missing green phase in tlLogic '" + getID()
-                              + "', program '" + getProgramID() + "' for tl-index " + toString(j));
+                if (getLogicType() != TrafficLightType::NEMA) {
+                    WRITE_WARNING("Missing green phase in tlLogic '" + getID()
+                            + "', program '" + getProgramID() + "' for tl-index " + toString(j));
                 }
                 break;
             }
