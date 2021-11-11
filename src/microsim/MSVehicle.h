@@ -893,6 +893,12 @@ public:
      */
     const std::vector<const MSLane*> getPastLanesUntil(double distance) const;
 
+    /** @brief Returns the sequence of opposite lanes corresponding to past lanes
+     * @return The myRoute-based past lanes (right-most on edge) up to getMaximumBrakeDist
+     * @note includes internal lanes if applicable
+     */
+    const std::vector<MSLane*> getUpstreamOppositeLanes() const;
+
     /* @brief returns the current signed offset from the lane that is most
      * suited for continuing the current route (in the strategic sense of reducing lane-changes)
      * - 0 if the vehicle is one it's best lane

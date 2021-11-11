@@ -2343,7 +2343,7 @@ MSLane::getMaximumBrakeDist() const {
     const MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     const double maxSpeed = getSpeedLimit() * vc.getMaxSpeedFactor();
     // NOTE: For the euler update this is an upper bound on the actual braking distance (see ticket #860)
-    // impose a hard bound due to visibiilty / common sense to avoid unnecessary computation if there are strange vehicles in the fleet
+    // impose a hard bound due to visibility / common sense to avoid unnecessary computation if there are strange vehicles in the fleet
     return MIN2(maxSpeed * maxSpeed * 0.5 / vc.getMinDeceleration(),
                 myPermissions == SVC_SHIP ? 10000.0 : 1000.0);
 }
@@ -3443,7 +3443,8 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
 
 void
 MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MSVehicle* ego,
-                                const std::vector<MSLane*>& bestLaneConts, MSLeaderDistanceInfo& result) const {
+                                const std::vector<MSLane*>& bestLaneConts, MSLeaderDistanceInfo& result,
+                                bool oppositeDirection) const {
     if (seen > dist) {
         return;
     }
@@ -3465,39 +3466,47 @@ MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MS
     // loop over following lanes
     while (seen < dist && result.numFreeSublanes() > 0) {
         // get the next link used
-        std::vector<MSLink*>::const_iterator link = succLinkSec(*ego, view, *nextLane, bestLaneConts);
-        if (nextLane->isLinkEnd(link)) {
-            break;
-        }
-        // check for link leaders
-        const MSLink::LinkLeaders linkLeaders = (*link)->getLeaderInfo(ego, seen);
-        if (linkLeaders.size() > 0) {
-            const MSLink::LinkLeader ll = linkLeaders[0];
-            MSVehicle* veh = ll.vehAndGap.first;
-            // in the context of lane changing all junction leader candidates must be respected
-            if (veh != 0 && (ego->isLeader(*link, veh)
-                        || (MSGlobals::gComputeLC
-                            && veh->getPosition().distanceTo2D(ego->getPosition()) - veh->getVehicleType().getMinGap() - ego->getVehicleType().getLength()
+        bool nextInternal = false;
+        if (oppositeDirection) {
+            if (view >= (int)bestLaneConts.size()) {
+                break;
+            }
+            nextLane = bestLaneConts[view];
+        } else {
+            std::vector<MSLink*>::const_iterator link = succLinkSec(*ego, view, *nextLane, bestLaneConts);
+            if (nextLane->isLinkEnd(link)) {
+                break;
+            }
+            // check for link leaders
+            const MSLink::LinkLeaders linkLeaders = (*link)->getLeaderInfo(ego, seen);
+            if (linkLeaders.size() > 0) {
+                const MSLink::LinkLeader ll = linkLeaders[0];
+                MSVehicle* veh = ll.vehAndGap.first;
+                // in the context of lane changing all junction leader candidates must be respected
+                if (veh != 0 && (ego->isLeader(*link, veh)
+                            || (MSGlobals::gComputeLC
+                                && veh->getPosition().distanceTo2D(ego->getPosition()) - veh->getVehicleType().getMinGap() - ego->getVehicleType().getLength()
                                 < veh->getCarFollowModel().brakeGap(veh->getSpeed())))) {
-                // add link leader to all sublanes and return
-                for (int i = 0; i < result.numSublanes(); ++i) {
+                    // add link leader to all sublanes and return
+                    for (int i = 0; i < result.numSublanes(); ++i) {
 #ifdef DEBUG_CONTEXT
-                    if (DEBUG_COND2(ego)) {
-                        std::cout << "   linkleader=" << veh->getID() << " gap=" << ll.vehAndGap.second << "\n";
+                        if (DEBUG_COND2(ego)) {
+                            std::cout << "   linkleader=" << veh->getID() << " gap=" << ll.vehAndGap.second << "\n";
+                        }
+#endif
+                        result.addLeader(veh, ll.vehAndGap.second, 0);
                     }
-#endif
-                    result.addLeader(veh, ll.vehAndGap.second, 0);
-                }
 #ifdef DEBUG_CONTEXT
-                gDebugFlag1 = false;
+                    gDebugFlag1 = false;
 #endif
-                return;
-            } // XXX else, deal with pedestrians
-        }
-        bool nextInternal = (*link)->getViaLane() != nullptr;
-        nextLane = (*link)->getViaLaneOrLane();
-        if (nextLane == nullptr) {
-            break;
+                    return;
+                } // XXX else, deal with pedestrians
+            }
+            nextInternal = (*link)->getViaLane() != nullptr;
+            nextLane = (*link)->getViaLaneOrLane();
+            if (nextLane == nullptr) {
+                break;
+            }
         }
 
         MSLeaderInfo leaders = nextLane->getLastVehicleInformation(nullptr, 0, 0, false);
@@ -3538,12 +3547,12 @@ MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MS
 
 
 void
-MSLane::addLeaders(const MSVehicle* vehicle, double vehPos, MSLeaderDistanceInfo& result) {
+MSLane::addLeaders(const MSVehicle* vehicle, double vehPos, MSLeaderDistanceInfo& result, bool opposite) {
     // if there are vehicles on the target lane with the same position as ego,
     // they may not have been added to 'ahead' yet
 #ifdef DEBUG_SURROUNDING
     if (DEBUG_COND || DEBUG_COND2(vehicle)) {
-        std::cout << " addLeaders lane=" << getID() << " veh=" << vehicle->getID() << " vehPos=" << vehPos << "\n";
+        std::cout << " addLeaders lane=" << getID() << " veh=" << vehicle->getID() << " vehPos=" << vehPos << " opposite=" << opposite << "\n";
     }
 #endif
     const MSLeaderInfo& aheadSamePos = getLastVehicleInformation(nullptr, 0, vehPos, false);
@@ -3573,13 +3582,23 @@ MSLane::addLeaders(const MSVehicle* vehicle, double vehPos, MSLeaderDistanceInfo
 #endif
             return;
         }
-        const std::vector<MSLane*>& bestLaneConts = vehicle->getBestLanesContinuation(this);
 #ifdef DEBUG_SURROUNDING
         if (DEBUG_COND || DEBUG_COND2(vehicle)) {
-            std::cout << " add consecutive before=" << result.toString() << " dist=" << dist;
+            std::cout << " add consecutive before=" << result.toString() << " seen=" << seen << " dist=" << dist;
         }
 #endif
-        getLeadersOnConsecutive(dist, seen, speed, vehicle, bestLaneConts, result);
+        if (opposite) {
+            const std::vector<MSLane*> bestLaneConts = vehicle->getUpstreamOppositeLanes();
+#ifdef DEBUG_SURROUNDING
+            if (DEBUG_COND || DEBUG_COND2(vehicle)) {
+                std::cout << " upstreamOpposite=" << toString(bestLaneConts);
+            }
+#endif
+            getLeadersOnConsecutive(dist, seen, speed, vehicle, bestLaneConts, result, opposite);
+        } else {
+            const std::vector<MSLane*>& bestLaneConts = vehicle->getBestLanesContinuation(this);
+            getLeadersOnConsecutive(dist, seen, speed, vehicle, bestLaneConts, result);
+        }
 #ifdef DEBUG_SURROUNDING
         if (DEBUG_COND || DEBUG_COND2(vehicle)) {
             std::cout << " after=" << result.toString() << "\n";

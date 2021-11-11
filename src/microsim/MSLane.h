@@ -902,11 +902,11 @@ public:
 
     /// @brief Returns the immediate leaders and the distance to them (as getLeaderOnConsecutive but for the sublane case)
     void getLeadersOnConsecutive(double dist, double seen, double speed, const MSVehicle* ego,
-                                 const std::vector<MSLane*>& bestLaneConts, MSLeaderDistanceInfo& result) const;
+                                 const std::vector<MSLane*>& bestLaneConts, MSLeaderDistanceInfo& result, bool oppositeDirection = false) const;
 
 
     /// @brief get leaders for ego on the given lane
-    void addLeaders(const MSVehicle* vehicle, double vehPos, MSLeaderDistanceInfo& result);
+    void addLeaders(const MSVehicle* vehicle, double vehPos, MSLeaderDistanceInfo& result, bool oppositeDirection = false);
 
 
     /** @brief Returns the most dangerous leader and the distance to him
@@ -1244,6 +1244,9 @@ public:
     /// @brief return the empty space up to the last standing vehicle or the empty space on the whole lane if no vehicle is standing
     double getSpaceTillLastStanding(const MSVehicle* ego, bool& foundStopped) const;
 
+    /// @brief compute maximum braking distance on this lane
+    double getMaximumBrakeDist() const;
+
     static void initCollisionOptions(const OptionsCont& oc);
 
     static CollisionAction getCollisionAction() {
@@ -1286,9 +1289,6 @@ protected:
                                 double gap, double latGap,
                                 std::set<const MSVehicle*, ComparatorNumericalIdLess>& toRemove,
                                 std::set<const MSVehicle*, ComparatorNumericalIdLess>& toTeleport) const;
-
-    /// @brief compute maximum braking distance on this lane
-    double getMaximumBrakeDist() const;
 
     /* @brief determine depart speed and whether it may be patched
      * @param[in] veh The departing vehicle

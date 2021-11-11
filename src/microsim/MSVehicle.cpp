@@ -5594,6 +5594,23 @@ MSVehicle::getPastLanesUntil(double distance) const {
     return lanes;
 }
 
+
+const std::vector<MSLane*>
+MSVehicle::getUpstreamOppositeLanes() const {
+    const std::vector<const MSLane*> routeLanes = getPastLanesUntil(myLane->getMaximumBrakeDist());
+    std::vector<MSLane*> result;
+    for (const MSLane* lane : routeLanes) {
+        MSLane* opposite = lane->getOpposite();
+        if (opposite != nullptr) {
+            result.push_back(opposite);
+        } else {
+            break;
+        }
+    }
+    return result;
+}
+
+
 int
 MSVehicle::getBestLaneOffset() const {
     if (myBestLanes.empty() || myBestLanes[0].empty()) {
