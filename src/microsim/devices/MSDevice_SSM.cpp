@@ -363,7 +363,8 @@ MSDevice_SSM::Encounter::~Encounter() {
 
 
 void
-MSDevice_SSM::Encounter::add(double time, const EncounterType type, Position egoX, Position egoV, Position foeX, Position foeV,
+MSDevice_SSM::Encounter::add(double time, const EncounterType type, Position egoX, std::string egoLane, double egoLanePos, Position egoV,
+                             Position foeX, std::string foeLane, double foeLanePos, Position foeV,
                              Position conflictPoint, double egoDistToConflict, double foeDistToConflict, double ttc, double drac, std::pair<double, double> pet) {
 #ifdef DEBUG_ENCOUNTER
     if (DEBUG_COND_ENCOUNTER(this))
@@ -380,8 +381,12 @@ MSDevice_SSM::Encounter::add(double time, const EncounterType type, Position ego
     timeSpan.push_back(time);
     typeSpan.push_back(type);
     egoTrajectory.x.push_back(egoX);
+    egoTrajectory.lane.push_back(egoLane);
+    egoTrajectory.lanePos.push_back(egoLanePos);
     egoTrajectory.v.push_back(egoV);
     foeTrajectory.x.push_back(foeX);
+    foeTrajectory.lane.push_back(foeLane);
+    foeTrajectory.lanePos.push_back(foeLanePos);
     foeTrajectory.v.push_back(foeV);
     conflictPointSpan.push_back(conflictPoint);
     egoDistsToConflict.push_back(egoDistToConflict);
@@ -870,7 +875,8 @@ MSDevice_SSM::updateEncounter(Encounter* e, FoeInfo* foeInfo) {
         e->currentType = eInfo.type;
     } else {
         // Add current states to trajectories and update type
-        e->add(SIMTIME, eInfo.type, e->ego->getPosition(), e->ego->getVelocityVector(), e->foe->getPosition(), e->foe->getVelocityVector(),
+        e->add(SIMTIME, eInfo.type, e->ego->getPosition(), e->ego->getLane()->getID(), e->ego->getPositionOnLane(), e->ego->getVelocityVector(),
+               e->foe->getPosition(), e->foe->getLane()->getID(), e->foe->getPositionOnLane(), e->foe->getVelocityVector(),
                eInfo.conflictPoint, eInfo.egoConflictEntryDist, eInfo.foeConflictEntryDist, eInfo.ttc, eInfo.drac, eInfo.pet);
     }
     // Keep encounter
@@ -2754,9 +2760,17 @@ MSDevice_SSM::writeOutConflict(Encounter* e) {
         }
 
         myOutputFile->openTag("egoPosition").writeAttr("values", ::toString(e->egoTrajectory.x, myUseGeoCoords ? gPrecisionGeo : gPrecision)).closeTag();
+        if (myWriteLanesPositions) {
+            myOutputFile->openTag("egoLane").writeAttr("values", ::toString(e->egoTrajectory.lane)).closeTag();
+            myOutputFile->openTag("egoLanePosition").writeAttr("values", ::toString(e->egoTrajectory.lanePos)).closeTag();
+        }
         myOutputFile->openTag("egoVelocity").writeAttr("values", ::toString(e->egoTrajectory.v)).closeTag();
-
+        
         myOutputFile->openTag("foePosition").writeAttr("values", ::toString(e->foeTrajectory.x, myUseGeoCoords ? gPrecisionGeo : gPrecision)).closeTag();
+        if (myWriteLanesPositions) {
+            myOutputFile->openTag("foeLane").writeAttr("values", ::toString(e->foeTrajectory.lane)).closeTag();
+            myOutputFile->openTag("foeLanePosition").writeAttr("values", ::toString(e->foeTrajectory.lanePos)).closeTag();
+        }
         myOutputFile->openTag("foeVelocity").writeAttr("values", ::toString(e->foeTrajectory.v)).closeTag();
 
         myOutputFile->openTag("conflictPoint").writeAttr("values", makeStringWithNAs(e->conflictPointSpan, myUseGeoCoords ? gPrecisionGeo : gPrecision)).closeTag();

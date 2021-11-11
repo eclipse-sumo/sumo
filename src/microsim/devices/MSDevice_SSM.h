@@ -176,6 +176,10 @@ private:
         struct Trajectory {
             // positions
             PositionVector x;
+            // lane IDs
+            std::vector<std::string> lane;
+            // lane positions
+            std::vector<double> lanePos;
             // momentary speeds
             PositionVector v;
         };
@@ -204,7 +208,8 @@ private:
         ~Encounter();
 
         /// @brief add a new data point and update encounter type
-        void add(double time, EncounterType type, Position egoX, Position egoV, Position foeX, Position foeV,
+        void add(double time, EncounterType type, Position egoX, std::string egoLane, double egoLanePos,
+                 Position egoV, Position foeX, std::string foeLane, double foeLanePos, Position foeV,
                  Position conflictPoint, double egoDistToConflict, double foeDistToConflict, double ttc, double drac, std::pair<double, double> pet);
 
         /// @brief Returns the number of trajectory points stored
