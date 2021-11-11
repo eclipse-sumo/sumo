@@ -1010,7 +1010,7 @@ GUIApplicationWindow::onCmdSaveConfig(FXObject*, FXSelector, void*) {
     }
     std::string file = MFXUtils::assureExtension(opendialog.getFilename(),
                        opendialog.getPatternText(opendialog.getCurrentPattern()).after('.').before(')')).text();
-    std::ofstream out(file);
+    std::ofstream out(StringUtils::transcodeToLocal(file));
     if (out.good()) {
         OptionsCont::getOptions().writeConfiguration(out, true, false, false);
         setStatusBarText("Configuration saved to " + file);
