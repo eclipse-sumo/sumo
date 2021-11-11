@@ -14,6 +14,9 @@ changeLane_subLane
 
 # Tests the openGap() method.
 openGap
+
+# add or update stops
+setStop
 replaceStop
 
 # test taxi API
