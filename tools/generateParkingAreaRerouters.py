@@ -67,6 +67,9 @@ def get_options(cmd_args=None):
         '--opposite-visible', action="store_true", dest='opposite_visible',
         default=False, help="ParkingArea on the opposite side of the road is always visible")
     parser.add_argument(
+        '--min-capacity', type=int, dest='min_capacity', default=1,
+        help='Do no reroute to parkingAreas with less than min-capacity')
+    parser.add_argument(
         '--processes', type=int, dest='processes', default=1,
         help='Number of processes spawned to compute the distance between parking areas.')
     parser.add_argument(
@@ -136,6 +139,10 @@ class ReroutersGeneration(object):
 
             self._parking_areas[child.attrib['id']]['edge'] = lane.getEdge().getID()
             self._parking_areas[child.attrib['id']]['pos'] = sumolib.geomhelper.positionAtShapeOffset(lane.getShape(), endPos)  # noqa
+            self._parking_areas[child.attrib['id']]['capacity'] = (
+                    int(child.get('roadsideCapacity', 0))
+                    + len(child.findall('space')))
+
 
 # ---------------------------------------------------------------------------------------- #
 #                                 Rerouter Generation                                      #
@@ -157,6 +164,7 @@ class ReroutersGeneration(object):
                 'dist_alternatives': self._opt.dist_alternatives,
                 'dist_threshold': self._opt.dist_threshold,
                 'capacity_threshold': self._opt.capacity_threshold,
+                'min_capacity': self._opt.min_capacity,
                 'opposite_visible': self._opt.opposite_visible,
             }
             list_parameters.append(parameters)
@@ -298,11 +306,16 @@ def generate_rerouters_process(parameters):
                     # target parkingArea might be observed as occupired and thus
                     # cannot dominate a candidate beyond
                     continue
+                if parameters['all_parking_areas'][alt2].get('capacity') < parameters['min_capacity']:
+                    # parking area should not be a target and therefore cannot dominate
+                    continue
                 if len(altRoute) < len(route) and altRoute == route[0:len(altRoute)]:
                     # print("origin", pid, "cand", parking, "route", [e.getID() for e in route], "dominated by", [e.getID() for e in altRoute])  # noqa
                     dominated = True
                     break
             if dominated:
+                continue
+            if parameters['all_parking_areas'][parking].get('capacity') < parameters['min_capacity']:
                 continue
             if len(temp_rerouters) > parameters['num_alternatives']:
                 break
