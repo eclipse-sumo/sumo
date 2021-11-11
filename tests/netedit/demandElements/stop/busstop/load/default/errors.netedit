@@ -5,11 +5,15 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,35.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding busStop 'busStop' in GNEChange_Additional
 Debug: Adding route 'route_0' in GNEChange_DemandElement
 Debug: Adding stopBusStop 'route_0' in GNEChange_DemandElement
-Debug: Disabled toggle show grid throught alt + 1
-Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 13.00,-12.00,37.00,12.00
@@ -24,6 +28,8 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,35.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Debug: Disabled toggle show grid throught alt + 1
+Debug: Key F5 (Compute) pressed
 Debug: demand elements saved
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
@@ -49,8 +55,5 @@ Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 4
