@@ -45,6 +45,8 @@ def get_options(args=None):
                          help="specify a time until the vehicle is parked")
     optParser.add_option("-p", "--parking", dest="parking", action="store_true",
                          default=False, help="where is the vehicle parking")
+    optParser.add_option("--parking-areas", dest="parkingareas",
+                         default=False, help="load parkingarea definitions and stop at parkingarea on the arrival edge if possible")
     optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
                          default=False, help="tell me what you are doing")
 
@@ -52,11 +54,11 @@ def get_options(args=None):
 
     if not options.routefiles or not options.netfile or not options.outfile or not options.typesfile:
         optParser.print_help()
-        sys.exit()
+        sys.exit("input file missing")
 
     if not options.duration and not options.until:
         optParser.print_help()
-        sys.exit()
+        sys.exit("stop duration or until missing")
     return options
 
 
@@ -70,32 +72,58 @@ def readTypes(options):
 
 
 def main(options):
+
+    edge2parking = {}
+    if options.parkingareas:
+        for pafile in options.parkingareas.split(','):
+            for pa in sumolib.xml.parse(pafile, "parkingArea"):
+                edge = '_'.join(pa.lane.split('_')[:-1])
+                edge2parking[edge] = pa.id
+
     # with io.open(options.outfile, 'w', encoding="utf8") as outf:
     # with open(options.outfile, 'w', encoding="utf8") as outf:
     with open(options.outfile, 'w') as outf:
         net = sumolib.net.readNet(options.netfile)
         vtypes = readTypes(options)
         sumolib.writeXMLHeader(outf, "$Id: addStops2Routes.py v1_3_1+0411-36956f96df michael.behrisch@dlr.de 2019-09-21 21:10:12 +0200 $", "routes")  # noqa
+        numSkipped = 0
         for file in options.routefiles.split(','):
             for veh in sumolib.output.parse(file, 'vehicle'):
                 edgesList = veh.route[0].edges.split()
                 lastEdge = net.getEdge(edgesList[-1])
                 lanes = lastEdge.getLanes()
-                for lane in lanes:
-                    if lane.allows(vtypes[veh.type]):
-                        stopAttrs = {"lane": lane.getID()}
-                        if options.parking:
-                            stopAttrs["parking"] = "true"
-                        if options.duration:
-                            stopAttrs["duration"] = options.duration
-                        if options.until:
-                            stopAttrs["until"] = options.until
-                        veh.addChild("stop", attrs=stopAttrs)
-                        break
+                skip = False
+                stopAttrs = {}
+                if options.parkingareas:
+                    if lastEdge.getID() in edge2parking:
+                        stopAttrs["parkingArea"] = edge2parking[lastEdge.getID()]
+                    else:
+                        skip = True
+                        numSkipped += 1
+                        print("Warning: no parkingArea found on edge '%s' for vehicle '%s'" % (
+                            lastEdge.getID(), veh.id), file=sys.stderr)
+                else:
+                    # find usable lane
+                    for lane in lanes:
+                        if lane.allows(vtypes[veh.type]):
+                            stopAttrs["lane"] = lane.getID()
+                            break
+
+                if options.parking:
+                    stopAttrs["parking"] = "true"
+                if options.duration:
+                    stopAttrs["duration"] = options.duration
+                if options.until:
+                    stopAttrs["until"] = options.until
+                if not skip:
+                    veh.addChild("stop", attrs=stopAttrs)
 
                 outf.write(veh.toXML(' '*4))
         outf.write('</routes>\n')
     outf.close()
+
+    if numSkipped > 0:
+        print("Warning: No stop added for %s vehicles" % numSkipped)
 
 
 if __name__ == "__main__":

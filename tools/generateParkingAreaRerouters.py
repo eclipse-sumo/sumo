@@ -109,8 +109,9 @@ class ReroutersGeneration(object):
 
         print('Loading SUMO network: {}'.format(options.sumo_net_definition))
         self._sumo_net = sumolib.net.readNet(options.sumo_net_definition)
-        print('Loading parking file: {}'.format(options.parking_area_definition))
-        self._load_parking_areas_from_file(options.parking_area_definition)
+        for pafile in options.parking_area_definition.split(','):
+            print('Loading parking file: {}'.format(pafile))
+            self._load_parking_areas_from_file(pafile)
 
         self._generate_rerouters()
         self._save_rerouters()
