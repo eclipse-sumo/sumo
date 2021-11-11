@@ -777,6 +777,7 @@ MSLaneChangerSublane::checkChangeOpposite(
             std::cout << SIMTIME << " veh '" << vehicle->getID() << "' performing sublane change latDist=" << latDist << " maneuverDist=" << maneuverDist << "\n";
         }
 #endif
+        vehicle->getLaneChangeModel().setOwnState(state);
         return startChangeSublane(vehicle, myCandi, latDist, maneuverDist);
     } else {
         vehicle->getLaneChangeModel().setSpeedLat(0);
