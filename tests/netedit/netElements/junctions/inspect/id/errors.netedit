@@ -41,17 +41,17 @@ Debug: Created connection 'from8_1to1_1' in retrieveGNEConnection()
 Debug: Created connection 'from8_1to4_1' in retrieveGNEConnection()
 Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
-Debug: Setting new attribute id 'gneJ1' into junction 'Center'
+Debug: Setting new attribute
 Debug: Value '' for attribute id of junction isn't valid
-Debug: Setting new attribute id 'OwnID' into junction 'gneJ1'
+Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute id 'gneJ1' into junction 'OwnID'
+Debug: Restoring previous attribute
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute id 'OwnID' into junction 'gneJ1'
+Debug: Setting new attribute
 Debug: Additionals saved
 Debug: Deleting unreferenced busStop 'busStop_8_0_4'
 Debug: Deleting unreferenced busStop 'busStop_7_0_1'

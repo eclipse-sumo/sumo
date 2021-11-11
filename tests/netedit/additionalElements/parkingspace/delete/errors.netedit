@@ -63,9 +63,9 @@ Debug: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
 Debug: Deleting TLS from junction 'gneJ1'
 Debug: Adding TLS into junction 'gneJ1'
 Debug: Deleting TLS from junction 'gneJ1'
-Debug: Setting new attribute type 'priority' into junction 'gneJ1'
+Debug: Setting new attribute
 Debug: Deleting TLS from junction 'gneJ0'
-Debug: Setting new attribute type 'priority' into junction 'gneJ0'
+Debug: Setting new attribute
 Debug: Removing edge 'gneE1' from net
 GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Key ENTER pressed

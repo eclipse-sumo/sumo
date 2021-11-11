@@ -78,27 +78,27 @@ Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'flow (over route)' in TagSelector
 Debug: Adding flowRoute 'flow_0' in GNEChange_DemandElement
 Debug: Value 'dummyPos' for attribute arrivalPos of flowRoute isn't valid
-Debug: Setting new attribute arrivalPos '500' into flowRoute 'flow_0'
-Debug: Setting new attribute arrivalPos '-10' into flowRoute 'flow_0'
-Debug: Setting new attribute arrivalPos '15.5' into flowRoute 'flow_0'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute arrivalPos '-10.00' into flowRoute 'flow_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute arrivalPos '500.00' into flowRoute 'flow_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute arrivalPos 'max' into flowRoute 'flow_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute arrivalPos '500' into flowRoute 'flow_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute arrivalPos '-10' into flowRoute 'flow_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute arrivalPos '15.5' into flowRoute 'flow_0'
+Debug: Setting new attribute
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary 0.00,6.80,20.00,33.20

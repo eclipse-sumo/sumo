@@ -86,23 +86,23 @@ Debug: Created connection 'fromgneE6_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
-Debug: Setting new attribute selected 'true' into routeEmbedded 'flowA'
-Debug: Setting new attribute selected 'true' into routeEmbedded 'flowB'
-Debug: Setting new attribute selected 'true' into flowWithRoute 'flowA'
-Debug: Setting new attribute selected 'true' into flowWithRoute 'flowB'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Current Viewport values: 14.00, 17.00, 12.00. Zoom = '723.33'
-Debug: Setting new attribute line 'custom Line' into flowWithRoute 'flowA'
-Debug: Setting new attribute line 'custom Line' into flowWithRoute 'flowB'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute line 'line B' into flowWithRoute 'flowB'
-Debug: Setting previous attribute line 'line A' into flowWithRoute 'flowA'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute selected '0' into flowWithRoute 'flowB'
-Debug: Setting previous attribute selected '0' into flowWithRoute 'flowA'
-Debug: Setting previous attribute selected '0' into routeEmbedded 'flowB'
-Debug: Setting previous attribute selected '0' into routeEmbedded 'flowA'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing routeEmbedded 'flowB' in GNEChange_DemandElement
@@ -119,14 +119,14 @@ Debug: Adding flowWithRoute 'flowB' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'flowB' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute selected 'true' into routeEmbedded 'flowA'
-Debug: Setting new attribute selected 'true' into routeEmbedded 'flowB'
-Debug: Setting new attribute selected 'true' into flowWithRoute 'flowA'
-Debug: Setting new attribute selected 'true' into flowWithRoute 'flowB'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute line 'custom Line' into flowWithRoute 'flowA'
-Debug: Setting new attribute line 'custom Line' into flowWithRoute 'flowB'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: demand elements saved

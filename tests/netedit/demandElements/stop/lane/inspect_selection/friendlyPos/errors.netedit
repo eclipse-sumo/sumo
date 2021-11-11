@@ -22,20 +22,20 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Debug: Setting new attribute selected 'true' into person 'person_0'
-Debug: Setting new attribute selected 'true' into personStopLane 'person_0personStopLane0'
-Debug: Setting new attribute selected 'true' into personStopLane 'person_0personStopLane2'
-Debug: Setting new attribute friendlyPos 'true' into personStopLane 'person_0personStopLane0'
-Debug: Setting new attribute friendlyPos 'true' into personStopLane 'person_0personStopLane2'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute friendlyPos '0' into personStopLane 'person_0personStopLane2'
-Debug: Setting previous attribute friendlyPos '1' into personStopLane 'person_0personStopLane0'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute selected '0' into personStopLane 'person_0personStopLane2'
-Debug: Setting previous attribute selected '0' into personStopLane 'person_0personStopLane0'
-Debug: Setting previous attribute selected '0' into person 'person_0'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing personStopLane 'person_0personStopLane2' in GNEChange_DemandElement
@@ -50,13 +50,13 @@ Debug: Adding walkEdges 'walkEdges_0' in GNEChange_DemandElement
 Debug: Adding personStopLane 'person_0personStopLane2' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute selected 'true' into person 'person_0'
-Debug: Setting new attribute selected 'true' into personStopLane 'person_0personStopLane0'
-Debug: Setting new attribute selected 'true' into personStopLane 'person_0personStopLane2'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute friendlyPos 'true' into personStopLane 'person_0personStopLane0'
-Debug: Setting new attribute friendlyPos 'true' into personStopLane 'person_0personStopLane2'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-13.20,10.00,13.20

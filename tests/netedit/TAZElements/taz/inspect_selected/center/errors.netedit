@@ -28,18 +28,18 @@ Debug: Inserting generic parameter 'keyB3|valueB3' into
 Debug: Adding taz 'TAZ_1' into viewNet
 GLDebug: 	Inserted taz:TAZ_1 into SUMORTree with boundary -18.00,-32.00,80.00,90.00
 Debug: Value 'dummyColor' for attribute center of taz isn't valid
-Debug: Setting new attribute center '23,24' into taz 'TAZ_0'
+Debug: Setting new attribute
 GLDebug: 	Removed object taz:TAZ_0 from SUMORTree with boundary -38.00,-32.00,60.00,70.00
 GLDebug: 	Inserted taz:TAZ_0 into SUMORTree with boundary -38.00,-32.00,63.00,64.00
-Debug: Setting new attribute center '23,24' into taz 'TAZ_1'
+Debug: Setting new attribute
 GLDebug: 	Removed object taz:TAZ_1 from SUMORTree with boundary -18.00,-32.00,80.00,90.00
 GLDebug: 	Inserted taz:TAZ_1 into SUMORTree with boundary -18.00,-32.00,72.00,64.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute center '40.00,50.00' into taz 'TAZ_1'
+Debug: Restoring previous attribute
 GLDebug: 	Removed object taz:TAZ_1 from SUMORTree with boundary -18.00,-32.00,72.00,64.00
 GLDebug: 	Inserted taz:TAZ_1 into SUMORTree with boundary -18.00,-32.00,80.00,90.00
-Debug: Setting previous attribute center '20.00,30.00' into taz 'TAZ_0'
+Debug: Restoring previous attribute
 GLDebug: 	Removed object taz:TAZ_0 from SUMORTree with boundary -38.00,-32.00,63.00,64.00
 GLDebug: 	Inserted taz:TAZ_0 into SUMORTree with boundary -38.00,-32.00,60.00,70.00
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -57,10 +57,10 @@ Debug: Adding taz 'TAZ_1' into viewNet
 GLDebug: 	Inserted taz:TAZ_1 into SUMORTree with boundary -18.00,-32.00,80.00,90.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute center '23,24' into taz 'TAZ_0'
+Debug: Setting new attribute
 GLDebug: 	Removed object taz:TAZ_0 from SUMORTree with boundary -38.00,-32.00,60.00,70.00
 GLDebug: 	Inserted taz:TAZ_0 into SUMORTree with boundary -38.00,-32.00,63.00,64.00
-Debug: Setting new attribute center '23,24' into taz 'TAZ_1'
+Debug: Setting new attribute
 GLDebug: 	Removed object taz:TAZ_1 from SUMORTree with boundary -18.00,-32.00,80.00,90.00
 GLDebug: 	Inserted taz:TAZ_1 into SUMORTree with boundary -18.00,-32.00,72.00,64.00
 Debug: Keys Ctrl+Y (Redo) pressed

@@ -35,73 +35,73 @@ Debug: Current Viewport values: 50.00, 50.00, 150.00. Zoom = '82.67'
 Debug: Adding junction 'J0' into net
 Debug: Adding junction 'J1' into net
 Debug: Adding edge 'E0' from net
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'J0'
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'E0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'E0' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'J1'
-Debug: Setting new attribute width '-1.00' into lane 'E0_0'
-Debug: Setting new attribute width '-1.00' into edge 'E0'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Adding edge '-E0' from net
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'E0'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'E0' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'J1'
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-E0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-E0' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'J0'
-Debug: Setting new attribute width '-1.00' into lane '-E0_0'
-Debug: Setting new attribute width '-1.00' into edge '-E0'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Adding edge 'E1' from net
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-E0'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-E0' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'J0'
+Debug: Setting new attribute
 Debug: Removing connection '2_1->6_1' from edge '2'
 Debug: Deleting unreferenced connection 'from2_1to6_1' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '2'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '2' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'E1'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'E1' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
-Debug: Setting new attribute width '-1.00' into lane 'E1_0'
-Debug: Setting new attribute width '-1.00' into edge 'E1'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Adding edge '-E1' from net
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '2'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '2' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'E1'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'E1' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-E0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-E0' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-E1'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-E1' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'J0'
-Debug: Setting new attribute width '-1.00' into lane '-E1_0'
-Debug: Setting new attribute width '-1.00' into edge '-E1'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Adding edge 'E2' from net
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'E0'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'E0' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'J1'
+Debug: Setting new attribute
 Debug: Removing connection '1_1->5_1' from edge '1'
 Debug: Deleting unreferenced connection 'from1_1to5_1' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '1'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '1' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'E2'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'E2' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
-Debug: Setting new attribute width '-1.00' into lane 'E2_0'
-Debug: Setting new attribute width '-1.00' into edge 'E2'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Adding edge '-E2' from net
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '1'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '1' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'E2'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'E2' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'E0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'E0' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-E2'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-E2' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'J1'
-Debug: Setting new attribute width '-1.00' into lane '-E2_0'
-Debug: Setting new attribute width '-1.00' into edge '-E2'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Created connection 'from-E0_0toE1_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E1_0toE0_0' in retrieveGNEConnection()
 Debug: Created connection 'from-E2_0to-E0_0' in retrieveGNEConnection()

@@ -14,18 +14,18 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'chargingStation' in TagSelector
 Debug: Adding chargingStation 'chargingStation_gneE0_0_0' in GNEChange_Additional
-Debug: Setting new attribute startPos '25.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting new attribute endPos '35.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting new attribute startPos '15.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting new attribute endPos '25.00' into chargingStation 'chargingStation_gneE0_0_0'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute endPos '35.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting previous attribute startPos '25.00' into chargingStation 'chargingStation_gneE0_0_0'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute endPos '20.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting previous attribute startPos '10.00' into chargingStation 'chargingStation_gneE0_0_0'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing chargingStation 'chargingStation_gneE0_0_0' in GNEChange_Additional
@@ -34,12 +34,12 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding chargingStation 'chargingStation_gneE0_0_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute startPos '25.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting new attribute endPos '35.00' into chargingStation 'chargingStation_gneE0_0_0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute startPos '15.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting new attribute endPos '25.00' into chargingStation 'chargingStation_gneE0_0_0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

@@ -10,21 +10,21 @@ Debug: Selected item 'poiGeo' in TagSelector
 Debug: Adding poiGeo 'poi_0' into viewNet
 GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -8.50,7.50,12.50,28.50
 Debug: Value 'dummyColor' for attribute color of poiGeo isn't valid
-Debug: Setting new attribute color '255,255,500' into poiGeo 'poi_0'
-Debug: Setting new attribute color 'blue' into poiGeo 'poi_0'
-Debug: Setting new attribute color '125,60,200' into poiGeo 'poi_0'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute color 'blue' into poiGeo 'poi_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute color '255,255,244' into poiGeo 'poi_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute color 'blue' into poiGeo 'poi_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute color '125,60,200' into poiGeo 'poi_0'
+Debug: Setting new attribute
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00

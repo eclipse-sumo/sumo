@@ -66,25 +66,25 @@ Debug: Created connection 'fromgneE6_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
-Debug: Setting new attribute selected 'true' into flow 'flowA'
-Debug: Setting new attribute selected 'true' into flow 'flowB'
-Debug: Setting new attribute departPosLat 'center' into flow 'flowA'
-Debug: Setting new attribute departPosLat 'center' into flow 'flowB'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Value 'dummyPosLat' for attribute departPosLat of flow isn't valid
-Debug: Setting new attribute departPosLat 'free' into flow 'flowA'
-Debug: Setting new attribute departPosLat 'free' into flow 'flowB'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute departPosLat 'center' into flow 'flowB'
-Debug: Setting previous attribute departPosLat 'center' into flow 'flowA'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute departPosLat 'random_free' into flow 'flowB'
-Debug: Setting previous attribute departPosLat '2.00' into flow 'flowA'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute selected '0' into flow 'flowB'
-Debug: Setting previous attribute selected '0' into flow 'flowA'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing flow 'flowB' in GNEChange_DemandElement
@@ -96,16 +96,16 @@ Debug: Adding flow 'flowA' in GNEChange_DemandElement
 Debug: Adding flow 'flowB' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute selected 'true' into flow 'flowA'
-Debug: Setting new attribute selected 'true' into flow 'flowB'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute departPosLat 'center' into flow 'flowA'
-Debug: Setting new attribute departPosLat 'center' into flow 'flowB'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute departPosLat 'free' into flow 'flowA'
-Debug: Setting new attribute departPosLat 'free' into flow 'flowB'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing

@@ -11,14 +11,14 @@ Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additiona
 Debug: Key ENTER pressed
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_1' in GNEChange_Additional
 Debug: Value 'e2MultilaneDetector_1' for attribute id of e2MultilaneDetector isn't valid
-Debug: Setting new attribute id 'Id with spaces' into e2MultilaneDetector 'e2MultilaneDetector_0'
-Debug: Setting new attribute id 'correctID' into e2MultilaneDetector 'Id with spaces'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute id 'Id with spaces' into e2MultilaneDetector 'correctID'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute id 'e2MultilaneDetector_0' into e2MultilaneDetector 'Id with spaces'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing e2MultilaneDetector 'e2MultilaneDetector_1' in GNEChange_Additional
@@ -27,10 +27,10 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_1' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute id 'Id with spaces' into e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute id 'correctID' into e2MultilaneDetector 'Id with spaces'
+Debug: Setting new attribute
 Debug: Additionals saved
 Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_1'
 Debug: Deleting unreferenced e2MultilaneDetector 'correctID'

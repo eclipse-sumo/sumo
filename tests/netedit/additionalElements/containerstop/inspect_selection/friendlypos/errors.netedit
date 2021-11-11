@@ -20,26 +20,26 @@ Debug: Inserting generic parameter 'KeyB3|valueB2' into
 Debug: Inserting generic parameter 'KeyB2|valueB3' into containerStop
 Debug: Inserting generic parameter 'KeyB2|valueB3' into 
 Debug: Adding containerStop 'containerStopB' in GNEChange_Additional
-Debug: Setting new attribute selected 'true' into junction 'gneJ0'
-Debug: Setting new attribute selected 'true' into edge 'gneE1'
-Debug: Setting new attribute selected 'true' into junction 'gneJ1'
-Debug: Setting new attribute selected 'true' into edge 'gneE0'
-Debug: Setting new attribute selected 'true' into containerStop 'containerStopB'
-Debug: Setting new attribute selected 'true' into containerStop 'containerStopA'
-Debug: Setting new attribute friendlyPos 'true' into containerStop 'containerStopA'
-Debug: Setting new attribute friendlyPos 'true' into containerStop 'containerStopB'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute friendlyPos '0' into containerStop 'containerStopB'
-Debug: Setting previous attribute friendlyPos '1' into containerStop 'containerStopA'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute selected '0' into containerStop 'containerStopA'
-Debug: Setting previous attribute selected '0' into containerStop 'containerStopB'
-Debug: Setting previous attribute selected '0' into edge 'gneE0'
-Debug: Setting previous attribute selected '0' into junction 'gneJ1'
-Debug: Setting previous attribute selected '0' into edge 'gneE1'
-Debug: Setting previous attribute selected '0' into junction 'gneJ0'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing containerStop 'containerStopB' in GNEChange_Additional
@@ -50,16 +50,16 @@ Debug: Adding containerStop 'containerStopA' in GNEChange_Additional
 Debug: Adding containerStop 'containerStopB' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute selected 'true' into junction 'gneJ0'
-Debug: Setting new attribute selected 'true' into edge 'gneE1'
-Debug: Setting new attribute selected 'true' into junction 'gneJ1'
-Debug: Setting new attribute selected 'true' into edge 'gneE0'
-Debug: Setting new attribute selected 'true' into containerStop 'containerStopB'
-Debug: Setting new attribute selected 'true' into containerStop 'containerStopA'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute friendlyPos 'true' into containerStop 'containerStopA'
-Debug: Setting new attribute friendlyPos 'true' into containerStop 'containerStopB'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Additionals saved

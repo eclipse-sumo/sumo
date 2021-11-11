@@ -23,10 +23,10 @@ Debug: Value '%$$%%%%%' for attribute imgFile of poly isn't valid
 Error: Could not load 'paris.ico'.
 Loading failed!
 Debug: Value 'paris.ico' for attribute imgFile of poly isn't valid
-Debug: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute imgFile '' into poly 'poly_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing poly 'poly_0' from viewNet
@@ -37,7 +37,7 @@ Debug: Adding poly 'poly_0' into viewNet
 GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary -10.00,0.00,20.00,30.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_0'
+Debug: Setting new attribute
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

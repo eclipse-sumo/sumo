@@ -63,62 +63,62 @@ Debug: Created connection 'fromgneE7_0togneE4_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0to-gneE17_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE10_0' in retrieveGNEConnection()
-Debug: Setting new attribute pos '0.00,70.00' into junction 'gneJ0'
-Debug: Setting new attribute pos '20.00,70.00' into junction 'gneJ1'
-Debug: Setting new attribute pos '40.00,70.00' into junction 'gneJ2'
-Debug: Setting new attribute pos '60.00,70.00' into junction 'gneJ3'
-Debug: Setting new attribute pos '10.00,0.00,1.40' into junction 'gneJ19'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '70.00,20.00,1.40' into junction 'gneJ19'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '60.00,60.00' into junction 'gneJ3'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '40.00,60.00' into junction 'gneJ2'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '20.00,60.00' into junction 'gneJ1'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '0.00,60.00' into junction 'gneJ0'
-Debug: Setting new attribute pos '0.00,70.00' into junction 'gneJ0'
-Debug: Setting new attribute pos '20.00,70.00' into junction 'gneJ1'
-Debug: Setting new attribute pos '40.00,70.00' into junction 'gneJ2'
-Debug: Setting new attribute pos '60.00,70.00' into junction 'gneJ3'
-Debug: Setting new attribute pos '10.00,0.00,1.40' into junction 'gneJ19'
+Debug: Restoring previous attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '70.00,20.00,1.40' into junction 'gneJ19'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '60.00,60.00' into junction 'gneJ3'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '40.00,60.00' into junction 'gneJ2'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '20.00,60.00' into junction 'gneJ1'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '0.00,60.00' into junction 'gneJ0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '0.00,70.00' into junction 'gneJ0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '20.00,70.00' into junction 'gneJ1'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '40.00,70.00' into junction 'gneJ2'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '60.00,70.00' into junction 'gneJ3'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '10.00,0.00,1.40' into junction 'gneJ19'
+Debug: Setting new attribute
 Debug: Deleting unreferenced edge '-gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE10_0to-gneE9_0' in GNEEdge destructor

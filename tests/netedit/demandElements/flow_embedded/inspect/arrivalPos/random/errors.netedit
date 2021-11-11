@@ -78,14 +78,14 @@ Debug: Key ENTER pressed
 Debug: Adding flowWithRoute 'flow_0' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'flow_0' in GNEChange_DemandElement
 Debug: Value 'dummyPos' for attribute arrivalPos of flowWithRoute isn't valid
-Debug: Setting new attribute arrivalPos '500' into flowWithRoute 'flow_0'
-Debug: Setting new attribute arrivalPos 'random' into flowWithRoute 'flow_0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute arrivalPos '500.00' into flowWithRoute 'flow_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute arrivalPos 'max' into flowWithRoute 'flow_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing routeEmbedded 'flow_0' in GNEChange_DemandElement
@@ -96,10 +96,10 @@ Debug: Adding flowWithRoute 'flow_0' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'flow_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute arrivalPos '500' into flowWithRoute 'flow_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute arrivalPos 'random' into flowWithRoute 'flow_0'
+Debug: Setting new attribute
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary 0.00,6.80,20.00,33.20

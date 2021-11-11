@@ -9,24 +9,24 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding poiLane 'POI_1' into viewNet
 Debug: Adding poiLane 'POI_2' into viewNet
 Debug: Value 'dummyAngle' for attribute angle of poiLane isn't valid
-Debug: Setting new attribute angle '-12.00' into poiLane 'POI_1'
-Debug: Setting new attribute angle '-12.00' into poiLane 'POI_2'
-Debug: Setting new attribute angle '140.00' into poiLane 'POI_1'
-Debug: Setting new attribute angle '140.00' into poiLane 'POI_2'
-Debug: Setting new attribute angle '30.00' into poiLane 'POI_1'
-Debug: Setting new attribute angle '30.00' into poiLane 'POI_2'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute angle '140.00' into poiLane 'POI_2'
-Debug: Setting previous attribute angle '140.00' into poiLane 'POI_1'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute angle '-12.00' into poiLane 'POI_2'
-Debug: Setting previous attribute angle '-12.00' into poiLane 'POI_1'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute angle '70.00' into poiLane 'POI_2'
-Debug: Setting previous attribute angle '20.00' into poiLane 'POI_1'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing poiLane 'POI_2' from viewNet
@@ -37,16 +37,16 @@ Debug: Adding poiLane 'POI_1' into viewNet
 Debug: Adding poiLane 'POI_2' into viewNet
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute angle '-12.00' into poiLane 'POI_1'
-Debug: Setting new attribute angle '-12.00' into poiLane 'POI_2'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute angle '140.00' into poiLane 'POI_1'
-Debug: Setting new attribute angle '140.00' into poiLane 'POI_2'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute angle '30.00' into poiLane 'POI_1'
-Debug: Setting new attribute angle '30.00' into poiLane 'POI_2'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Additionals saved

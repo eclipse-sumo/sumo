@@ -86,7 +86,7 @@ Debug: Created connection 'from8_1to4_1' in retrieveGNEConnection()
 Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: Value 'dummy position' for attribute pos of junction isn't valid
-Debug: Setting new attribute pos '40.00,40.00' into junction 'Center'
+Debug: Setting new attribute
 GLDebug: <-- Invalidating shape of junction 'B' -->
 GLDebug: 	Removed object junction:B from SUMORTree with boundary 33.60,90.00,66.40,110.00
 GLDebug: 	Inserted junction:B into SUMORTree with boundary 38.00,88.00,62.00,112.00
@@ -153,7 +153,7 @@ GLDebug: 	Inserted edge:7 into SUMORTree with boundary -10.00,30.00,60.00,60.00
 GLDebug: 	Inserted edge:8 into SUMORTree with boundary 30.00,30.00,110.00,64.80
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '50.00,50.00' into junction 'Center'
+Debug: Restoring previous attribute
 GLDebug: <-- Invalidating shape of junction 'B' -->
 GLDebug: 	Removed object junction:B from SUMORTree with boundary 33.69,88.95,66.31,111.05
 GLDebug: 	Inserted junction:B into SUMORTree with boundary 38.00,88.00,62.00,112.00
@@ -220,7 +220,7 @@ GLDebug: 	Inserted edge:7 into SUMORTree with boundary -10.00,35.20,60.00,60.00
 GLDebug: 	Inserted edge:8 into SUMORTree with boundary 40.00,40.00,110.00,64.80
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '40.00,40.00' into junction 'Center'
+Debug: Setting new attribute
 GLDebug: <-- Invalidating shape of junction 'B' -->
 GLDebug: 	Removed object junction:B from SUMORTree with boundary 33.60,90.00,66.40,110.00
 GLDebug: 	Inserted junction:B into SUMORTree with boundary 38.00,88.00,62.00,112.00
@@ -285,7 +285,7 @@ GLDebug: 	Inserted edge:5 into SUMORTree with boundary 30.00,-10.00,64.80,60.00
 GLDebug: 	Inserted edge:6 into SUMORTree with boundary 30.00,30.00,60.00,110.00
 GLDebug: 	Inserted edge:7 into SUMORTree with boundary -10.00,30.00,60.00,60.00
 GLDebug: 	Inserted edge:8 into SUMORTree with boundary 30.00,30.00,110.00,64.80
-Debug: Setting new attribute endPos '30.30' into busStop 'busStop_7_0_1'
+Debug: Setting new attribute
 Debug: Additionals saved after dialog
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:A from SUMORTree with boundary 33.79,-11.55,66.21,11.55

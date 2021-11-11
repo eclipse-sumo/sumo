@@ -10,14 +10,14 @@ Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'e2Detector' in TagSelector
 Debug: Adding e2Detector 'e2Detector_gneE2_1_0' in GNEChange_Additional
 Debug: Value '%;;%%&%%%&&' for attribute file of e2Detector isn't valid
-Debug: Setting new attribute file '' into e2Detector 'e2Detector_gneE2_1_0'
-Debug: Setting new attribute file 'myOwnOutput.txt' into e2Detector 'e2Detector_gneE2_1_0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute file '' into e2Detector 'e2Detector_gneE2_1_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute file 'e2Detector_gneE2_1_0.xml' into e2Detector 'e2Detector_gneE2_1_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing e2Detector 'e2Detector_gneE2_1_0' in GNEChange_Additional
@@ -26,10 +26,10 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding e2Detector 'e2Detector_gneE2_1_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute file '' into e2Detector 'e2Detector_gneE2_1_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute file 'myOwnOutput.txt' into e2Detector 'e2Detector_gneE2_1_0'
+Debug: Setting new attribute
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE2_1togneE3_1' in retrieveGNEConnection()

@@ -80,10 +80,10 @@ Debug: Adding flowWithRoute 'flow_0' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'flow_0' in GNEChange_DemandElement
 Debug: Value ';;;;' for attribute type of flowWithRoute isn't valid
 Debug: Value 'dummyVType' for attribute type of flowWithRoute isn't valid
-Debug: Setting new attribute type 'custom_vType' into flowWithRoute 'flow_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute type 'DEFAULT_VEHTYPE' into flowWithRoute 'flow_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing routeEmbedded 'flow_0' in GNEChange_DemandElement
@@ -100,7 +100,7 @@ Debug: Adding flowWithRoute 'flow_0' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'flow_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute type 'custom_vType' into flowWithRoute 'flow_0'
+Debug: Setting new attribute
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary 0.00,6.80,20.00,33.20

@@ -84,26 +84,26 @@ Debug: Created connection 'fromgneE6_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
-Debug: Setting new attribute selected 'true' into trip 'tripA'
-Debug: Setting new attribute selected 'true' into trip 'tripB'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Current Viewport values: 14.00, 17.00, 12.00. Zoom = '723.33'
-Debug: Setting new attribute arrivalPosLat 'center' into trip 'tripA'
-Debug: Setting new attribute arrivalPosLat 'center' into trip 'tripB'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Value 'dummyPosLat' for attribute arrivalPosLat of trip isn't valid
-Debug: Setting new attribute arrivalPosLat 'right' into trip 'tripA'
-Debug: Setting new attribute arrivalPosLat 'right' into trip 'tripB'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute arrivalPosLat 'center' into trip 'tripB'
-Debug: Setting previous attribute arrivalPosLat 'center' into trip 'tripA'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute arrivalPosLat 'right' into trip 'tripB'
-Debug: Setting previous attribute arrivalPosLat '3.00' into trip 'tripA'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute selected '0' into trip 'tripB'
-Debug: Setting previous attribute selected '0' into trip 'tripA'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing trip 'tripB' in GNEChange_DemandElement
@@ -115,16 +115,16 @@ Debug: Adding trip 'tripA' in GNEChange_DemandElement
 Debug: Adding trip 'tripB' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute selected 'true' into trip 'tripA'
-Debug: Setting new attribute selected 'true' into trip 'tripB'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute arrivalPosLat 'center' into trip 'tripA'
-Debug: Setting new attribute arrivalPosLat 'center' into trip 'tripB'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute arrivalPosLat 'right' into trip 'tripA'
-Debug: Setting new attribute arrivalPosLat 'right' into trip 'tripB'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing

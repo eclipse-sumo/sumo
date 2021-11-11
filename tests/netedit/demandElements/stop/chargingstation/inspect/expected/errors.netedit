@@ -25,42 +25,42 @@ Debug: Selected item 'flow' in DemandElementSelector
 Debug: Selected item 'stopLane' in TagSelector
 Debug: Selected item 'stopChargingStation' in TagSelector
 Debug: Adding stopChargingStation 'flow' in GNEChange_DemandElement
-Debug: Setting new attribute triggered 'true' into stopChargingStation 'flow'
-Debug: Setting new attribute expected 'dummyValue' into stopChargingStation 'flow'
-Debug: Setting new attribute expected '' into stopChargingStation 'flow'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Value ';;;;;' for attribute expected of stopChargingStation isn't valid
-Debug: Setting new attribute expected 'ID1' into stopChargingStation 'flow'
-Debug: Setting new attribute expected 'ID2' into stopChargingStation 'flow'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute expected 'ID1' into stopChargingStation 'flow'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute expected '' into stopChargingStation 'flow'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute expected 'dummyValue' into stopChargingStation 'flow'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute expected '' into stopChargingStation 'flow'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute triggered '0' into stopChargingStation 'flow'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute triggered 'true' into stopChargingStation 'flow'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute expected 'dummyValue' into stopChargingStation 'flow'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute expected '' into stopChargingStation 'flow'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute expected 'ID1' into stopChargingStation 'flow'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute expected 'ID2' into stopChargingStation 'flow'
+Debug: Setting new attribute
 Debug: Additionals saved
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing

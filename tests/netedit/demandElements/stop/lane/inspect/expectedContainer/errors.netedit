@@ -24,42 +24,42 @@ Debug: Selected item 'routeFlow' in DemandElementSelector
 Debug: Selected item 'stopLane' in TagSelector
 Debug: Selected item 'stopLane' in TagSelector
 Debug: Adding stopLane 'routeFlow' in GNEChange_DemandElement
-Debug: Setting new attribute containerTriggered 'true' into stopLane 'routeFlow'
-Debug: Setting new attribute expectedContainers 'dummyValue' into stopLane 'routeFlow'
-Debug: Setting new attribute expectedContainers '' into stopLane 'routeFlow'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Value ';;;;;' for attribute expectedContainers of stopLane isn't valid
-Debug: Setting new attribute expectedContainers 'ID1' into stopLane 'routeFlow'
-Debug: Setting new attribute expectedContainers 'ID2' into stopLane 'routeFlow'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute expectedContainers 'ID1' into stopLane 'routeFlow'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute expectedContainers '' into stopLane 'routeFlow'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute expectedContainers 'dummyValue' into stopLane 'routeFlow'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute expectedContainers '' into stopLane 'routeFlow'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute containerTriggered '0' into stopLane 'routeFlow'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute containerTriggered 'true' into stopLane 'routeFlow'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute expectedContainers 'dummyValue' into stopLane 'routeFlow'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute expectedContainers '' into stopLane 'routeFlow'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute expectedContainers 'ID1' into stopLane 'routeFlow'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute expectedContainers 'ID2' into stopLane 'routeFlow'
+Debug: Setting new attribute
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-13.20,10.00,13.20

@@ -14,21 +14,21 @@ Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'e2MultilaneDetector' in TagSelector
 Debug: Key ENTER pressed
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
-Debug: Setting new attribute tl 'dummyFrequency' into e2MultilaneDetector 'e2MultilaneDetector_0'
-Debug: Setting new attribute tl '-100' into e2MultilaneDetector 'e2MultilaneDetector_0'
-Debug: Setting new attribute tl '120' into e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute tl '-100' into e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute tl 'dummyFrequency' into e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute tl '-100' into e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute tl '120' into e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Setting new attribute
 Debug: Additionals saved
 Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Deleting unreferenced edge 'gneE2' in AttributeCarriers destructor

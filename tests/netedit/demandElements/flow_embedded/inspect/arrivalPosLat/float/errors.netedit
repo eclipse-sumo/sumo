@@ -78,14 +78,14 @@ Debug: Key ENTER pressed
 Debug: Adding flowWithRoute 'flow_0' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'flow_0' in GNEChange_DemandElement
 Debug: Value 'dummyPosLat' for attribute arrivalPosLat of flowWithRoute isn't valid
-Debug: Setting new attribute arrivalPosLat '-12' into flowWithRoute 'flow_0'
-Debug: Setting new attribute arrivalPosLat '4.2' into flowWithRoute 'flow_0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute arrivalPosLat '0.00' into flowWithRoute 'flow_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute arrivalPosLat 'center' into flowWithRoute 'flow_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing routeEmbedded 'flow_0' in GNEChange_DemandElement
@@ -96,10 +96,10 @@ Debug: Adding flowWithRoute 'flow_0' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'flow_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute arrivalPosLat '-12' into flowWithRoute 'flow_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute arrivalPosLat '4.2' into flowWithRoute 'flow_0'
+Debug: Setting new attribute
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary 0.00,6.80,20.00,33.20

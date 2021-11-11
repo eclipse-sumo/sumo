@@ -24,48 +24,48 @@ Debug: Selected item 'routeFlow' in DemandElementSelector
 Debug: Selected item 'stopLane' in TagSelector
 Debug: Selected item 'stopLane' in TagSelector
 Debug: Adding stopLane 'routeFlow' in GNEChange_DemandElement
-Debug: Setting new attribute into stopLane 'routeFlow'
-Debug: Setting new attribute until '0' into stopLane 'routeFlow'
-Debug: Setting new attribute into stopLane 'routeFlow'
-Debug: Setting new attribute into stopLane 'routeFlow'
-Debug: Setting new attribute until '0' into stopLane 'routeFlow'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Value 'dummyValue' for attribute until of stopLane isn't valid
-Debug: Setting new attribute until '0' into stopLane 'routeFlow'
+Debug: Setting new attribute
 Debug: Value '-5' for attribute until of stopLane isn't valid
-Debug: Setting new attribute until '0' into stopLane 'routeFlow'
-Debug: Setting new attribute until '3.5' into stopLane 'routeFlow'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute until '0.00' into stopLane 'routeFlow'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute until '0.00' into stopLane 'routeFlow'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute until '0.00' into stopLane 'routeFlow'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute until '0.00' into stopLane 'routeFlow'
-Debug: Setting previous attribute into stopLane 'routeFlow'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute into stopLane 'routeFlow'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute into stopLane 'routeFlow'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute into stopLane 'routeFlow'
-Debug: Setting new attribute until '0' into stopLane 'routeFlow'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute until '0' into stopLane 'routeFlow'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute until '0' into stopLane 'routeFlow'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute until '3.5' into stopLane 'routeFlow'
+Debug: Setting new attribute
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-13.20,10.00,13.20

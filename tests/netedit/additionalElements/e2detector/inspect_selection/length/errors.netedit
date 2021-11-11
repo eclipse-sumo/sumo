@@ -25,60 +25,60 @@ Debug: Inserting generic parameter 'KeyB3|valueB2' into
 Debug: Inserting generic parameter 'KeyB2|valueB3' into e2Detector
 Debug: Inserting generic parameter 'KeyB2|valueB3' into 
 Debug: Adding e2Detector 'E2_B' in GNEChange_Additional
-Debug: Setting new attribute selected 'true' into junction 'gneJ0'
-Debug: Setting new attribute selected 'true' into edge 'gneE1'
-Debug: Setting new attribute selected 'true' into junction 'gneJ1'
-Debug: Setting new attribute selected 'true' into edge 'gneE0'
-Debug: Setting new attribute selected 'true' into e2Detector 'E2_A'
-Debug: Setting new attribute selected 'true' into e2Detector 'E2_B'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Value 'dummyLength' for attribute length of e2Detector isn't valid
 Debug: Value '-5' for attribute length of e2Detector isn't valid
-Debug: Setting new attribute length '0' into e2Detector 'E2_A'
-Debug: Setting new attribute length '0' into e2Detector 'E2_B'
-Debug: Setting new attribute length '500' into e2Detector 'E2_A'
-Debug: Setting new attribute length '500' into e2Detector 'E2_B'
-Debug: Setting new attribute length '5' into e2Detector 'E2_A'
-Debug: Setting new attribute length '5' into e2Detector 'E2_B'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute length '500.00' into e2Detector 'E2_B'
-Debug: Setting previous attribute length '500.00' into e2Detector 'E2_A'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute length '0.00' into e2Detector 'E2_B'
-Debug: Setting previous attribute length '0.00' into e2Detector 'E2_A'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute length '5.00' into e2Detector 'E2_B'
-Debug: Setting previous attribute length '5.00' into e2Detector 'E2_A'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute selected '0' into e2Detector 'E2_B'
-Debug: Setting previous attribute selected '0' into e2Detector 'E2_A'
-Debug: Setting previous attribute selected '0' into edge 'gneE0'
-Debug: Setting previous attribute selected '0' into junction 'gneJ1'
-Debug: Setting previous attribute selected '0' into edge 'gneE1'
-Debug: Setting previous attribute selected '0' into junction 'gneJ0'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute selected 'true' into junction 'gneJ0'
-Debug: Setting new attribute selected 'true' into edge 'gneE1'
-Debug: Setting new attribute selected 'true' into junction 'gneJ1'
-Debug: Setting new attribute selected 'true' into edge 'gneE0'
-Debug: Setting new attribute selected 'true' into e2Detector 'E2_A'
-Debug: Setting new attribute selected 'true' into e2Detector 'E2_B'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute length '0' into e2Detector 'E2_A'
-Debug: Setting new attribute length '0' into e2Detector 'E2_B'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute length '500' into e2Detector 'E2_A'
-Debug: Setting new attribute length '500' into e2Detector 'E2_B'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute length '5' into e2Detector 'E2_A'
-Debug: Setting new attribute length '5' into e2Detector 'E2_B'
+Debug: Setting new attribute
+Debug: Setting new attribute
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

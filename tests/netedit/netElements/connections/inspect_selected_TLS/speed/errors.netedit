@@ -24,206 +24,206 @@ Debug: Created connection 'from8_0to3_0' in retrieveGNEConnection()
 Debug: Created connection 'from8_1to3_1' in retrieveGNEConnection()
 Debug: Created connection 'from8_1to1_1' in retrieveGNEConnection()
 Debug: Enabled show connections throught alt + 5
-Debug: Setting new attribute selected 'true' into junction 'A'
-Debug: Setting new attribute selected 'true' into edge '1'
-Debug: Setting new attribute selected 'true' into junction 'B'
-Debug: Setting new attribute selected 'true' into edge '2'
-Debug: Setting new attribute selected 'true' into junction 'C'
-Debug: Setting new attribute selected 'true' into edge '3'
-Debug: Setting new attribute selected 'true' into junction 'Center'
-Debug: Setting new attribute selected 'true' into edge '5'
-Debug: Setting new attribute selected 'true' into connection 'from5_0to4_0'
-Debug: Setting new attribute selected 'true' into connection 'from5_0to2_0'
-Debug: Setting new attribute selected 'true' into connection 'from5_1to2_1'
-Debug: Setting new attribute selected 'true' into connection 'from5_1to3_1'
-Debug: Setting new attribute selected 'true' into edge '6'
-Debug: Setting new attribute selected 'true' into connection 'from6_0to3_0'
-Debug: Setting new attribute selected 'true' into connection 'from6_0to1_0'
-Debug: Setting new attribute selected 'true' into connection 'from6_1to1_1'
-Debug: Setting new attribute selected 'true' into connection 'from6_1to4_1'
-Debug: Setting new attribute selected 'true' into edge '7'
-Debug: Setting new attribute selected 'true' into connection 'from7_0to1_0'
-Debug: Setting new attribute selected 'true' into connection 'from7_0to4_0'
-Debug: Setting new attribute selected 'true' into connection 'from7_1to4_1'
-Debug: Setting new attribute selected 'true' into connection 'from7_1to2_1'
-Debug: Setting new attribute selected 'true' into edge '8'
-Debug: Setting new attribute selected 'true' into connection 'from8_0to2_0'
-Debug: Setting new attribute selected 'true' into connection 'from8_0to3_0'
-Debug: Setting new attribute selected 'true' into connection 'from8_1to3_1'
-Debug: Setting new attribute selected 'true' into connection 'from8_1to1_1'
-Debug: Setting new attribute selected 'true' into junction 'D'
-Debug: Setting new attribute selected 'true' into edge '4'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Value 'dummySpeed' for attribute speed of connection isn't valid
 Debug: Value '-3' for attribute speed of connection isn't valid
-Debug: Setting new attribute speed '0' into connection 'from5_0to4_0'
-Debug: Setting new attribute speed '0' into connection 'from5_0to2_0'
-Debug: Setting new attribute speed '0' into connection 'from5_1to2_1'
-Debug: Setting new attribute speed '0' into connection 'from5_1to3_1'
-Debug: Setting new attribute speed '0' into connection 'from6_0to3_0'
-Debug: Setting new attribute speed '0' into connection 'from6_0to1_0'
-Debug: Setting new attribute speed '0' into connection 'from6_1to1_1'
-Debug: Setting new attribute speed '0' into connection 'from6_1to4_1'
-Debug: Setting new attribute speed '0' into connection 'from7_0to1_0'
-Debug: Setting new attribute speed '0' into connection 'from7_0to4_0'
-Debug: Setting new attribute speed '0' into connection 'from7_1to4_1'
-Debug: Setting new attribute speed '0' into connection 'from7_1to2_1'
-Debug: Setting new attribute speed '0' into connection 'from8_0to2_0'
-Debug: Setting new attribute speed '0' into connection 'from8_0to3_0'
-Debug: Setting new attribute speed '0' into connection 'from8_1to3_1'
-Debug: Setting new attribute speed '0' into connection 'from8_1to1_1'
-Debug: Setting new attribute speed '15.5' into connection 'from5_0to4_0'
-Debug: Setting new attribute speed '15.5' into connection 'from5_0to2_0'
-Debug: Setting new attribute speed '15.5' into connection 'from5_1to2_1'
-Debug: Setting new attribute speed '15.5' into connection 'from5_1to3_1'
-Debug: Setting new attribute speed '15.5' into connection 'from6_0to3_0'
-Debug: Setting new attribute speed '15.5' into connection 'from6_0to1_0'
-Debug: Setting new attribute speed '15.5' into connection 'from6_1to1_1'
-Debug: Setting new attribute speed '15.5' into connection 'from6_1to4_1'
-Debug: Setting new attribute speed '15.5' into connection 'from7_0to1_0'
-Debug: Setting new attribute speed '15.5' into connection 'from7_0to4_0'
-Debug: Setting new attribute speed '15.5' into connection 'from7_1to4_1'
-Debug: Setting new attribute speed '15.5' into connection 'from7_1to2_1'
-Debug: Setting new attribute speed '15.5' into connection 'from8_0to2_0'
-Debug: Setting new attribute speed '15.5' into connection 'from8_0to3_0'
-Debug: Setting new attribute speed '15.5' into connection 'from8_1to3_1'
-Debug: Setting new attribute speed '15.5' into connection 'from8_1to1_1'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute speed '0.00' into connection 'from8_1to1_1'
-Debug: Setting previous attribute speed '0.00' into connection 'from8_1to3_1'
-Debug: Setting previous attribute speed '0.00' into connection 'from8_0to3_0'
-Debug: Setting previous attribute speed '0.00' into connection 'from8_0to2_0'
-Debug: Setting previous attribute speed '0.00' into connection 'from7_1to2_1'
-Debug: Setting previous attribute speed '0.00' into connection 'from7_1to4_1'
-Debug: Setting previous attribute speed '0.00' into connection 'from7_0to4_0'
-Debug: Setting previous attribute speed '0.00' into connection 'from7_0to1_0'
-Debug: Setting previous attribute speed '0.00' into connection 'from6_1to4_1'
-Debug: Setting previous attribute speed '0.00' into connection 'from6_1to1_1'
-Debug: Setting previous attribute speed '0.00' into connection 'from6_0to1_0'
-Debug: Setting previous attribute speed '0.00' into connection 'from6_0to3_0'
-Debug: Setting previous attribute speed '0.00' into connection 'from5_1to3_1'
-Debug: Setting previous attribute speed '0.00' into connection 'from5_1to2_1'
-Debug: Setting previous attribute speed '0.00' into connection 'from5_0to2_0'
-Debug: Setting previous attribute speed '0.00' into connection 'from5_0to4_0'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute speed 'default' into connection 'from8_1to1_1'
-Debug: Setting previous attribute speed 'default' into connection 'from8_1to3_1'
-Debug: Setting previous attribute speed 'default' into connection 'from8_0to3_0'
-Debug: Setting previous attribute speed 'default' into connection 'from8_0to2_0'
-Debug: Setting previous attribute speed 'default' into connection 'from7_1to2_1'
-Debug: Setting previous attribute speed 'default' into connection 'from7_1to4_1'
-Debug: Setting previous attribute speed 'default' into connection 'from7_0to4_0'
-Debug: Setting previous attribute speed 'default' into connection 'from7_0to1_0'
-Debug: Setting previous attribute speed 'default' into connection 'from6_1to4_1'
-Debug: Setting previous attribute speed 'default' into connection 'from6_1to1_1'
-Debug: Setting previous attribute speed 'default' into connection 'from6_0to1_0'
-Debug: Setting previous attribute speed 'default' into connection 'from6_0to3_0'
-Debug: Setting previous attribute speed 'default' into connection 'from5_1to3_1'
-Debug: Setting previous attribute speed 'default' into connection 'from5_1to2_1'
-Debug: Setting previous attribute speed 'default' into connection 'from5_0to2_0'
-Debug: Setting previous attribute speed 'default' into connection 'from5_0to4_0'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute selected '0' into edge '4'
-Debug: Setting previous attribute selected '0' into junction 'D'
-Debug: Setting previous attribute selected '0' into connection 'from8_1to1_1'
-Debug: Setting previous attribute selected '0' into connection 'from8_1to3_1'
-Debug: Setting previous attribute selected '0' into connection 'from8_0to3_0'
-Debug: Setting previous attribute selected '0' into connection 'from8_0to2_0'
-Debug: Setting previous attribute selected '0' into edge '8'
-Debug: Setting previous attribute selected '0' into connection 'from7_1to2_1'
-Debug: Setting previous attribute selected '0' into connection 'from7_1to4_1'
-Debug: Setting previous attribute selected '0' into connection 'from7_0to4_0'
-Debug: Setting previous attribute selected '0' into connection 'from7_0to1_0'
-Debug: Setting previous attribute selected '0' into edge '7'
-Debug: Setting previous attribute selected '0' into connection 'from6_1to4_1'
-Debug: Setting previous attribute selected '0' into connection 'from6_1to1_1'
-Debug: Setting previous attribute selected '0' into connection 'from6_0to1_0'
-Debug: Setting previous attribute selected '0' into connection 'from6_0to3_0'
-Debug: Setting previous attribute selected '0' into edge '6'
-Debug: Setting previous attribute selected '0' into connection 'from5_1to3_1'
-Debug: Setting previous attribute selected '0' into connection 'from5_1to2_1'
-Debug: Setting previous attribute selected '0' into connection 'from5_0to2_0'
-Debug: Setting previous attribute selected '0' into connection 'from5_0to4_0'
-Debug: Setting previous attribute selected '0' into edge '5'
-Debug: Setting previous attribute selected '0' into junction 'Center'
-Debug: Setting previous attribute selected '0' into edge '3'
-Debug: Setting previous attribute selected '0' into junction 'C'
-Debug: Setting previous attribute selected '0' into edge '2'
-Debug: Setting previous attribute selected '0' into junction 'B'
-Debug: Setting previous attribute selected '0' into edge '1'
-Debug: Setting previous attribute selected '0' into junction 'A'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute selected 'true' into junction 'A'
-Debug: Setting new attribute selected 'true' into edge '1'
-Debug: Setting new attribute selected 'true' into junction 'B'
-Debug: Setting new attribute selected 'true' into edge '2'
-Debug: Setting new attribute selected 'true' into junction 'C'
-Debug: Setting new attribute selected 'true' into edge '3'
-Debug: Setting new attribute selected 'true' into junction 'Center'
-Debug: Setting new attribute selected 'true' into edge '5'
-Debug: Setting new attribute selected 'true' into connection 'from5_0to4_0'
-Debug: Setting new attribute selected 'true' into connection 'from5_0to2_0'
-Debug: Setting new attribute selected 'true' into connection 'from5_1to2_1'
-Debug: Setting new attribute selected 'true' into connection 'from5_1to3_1'
-Debug: Setting new attribute selected 'true' into edge '6'
-Debug: Setting new attribute selected 'true' into connection 'from6_0to3_0'
-Debug: Setting new attribute selected 'true' into connection 'from6_0to1_0'
-Debug: Setting new attribute selected 'true' into connection 'from6_1to1_1'
-Debug: Setting new attribute selected 'true' into connection 'from6_1to4_1'
-Debug: Setting new attribute selected 'true' into edge '7'
-Debug: Setting new attribute selected 'true' into connection 'from7_0to1_0'
-Debug: Setting new attribute selected 'true' into connection 'from7_0to4_0'
-Debug: Setting new attribute selected 'true' into connection 'from7_1to4_1'
-Debug: Setting new attribute selected 'true' into connection 'from7_1to2_1'
-Debug: Setting new attribute selected 'true' into edge '8'
-Debug: Setting new attribute selected 'true' into connection 'from8_0to2_0'
-Debug: Setting new attribute selected 'true' into connection 'from8_0to3_0'
-Debug: Setting new attribute selected 'true' into connection 'from8_1to3_1'
-Debug: Setting new attribute selected 'true' into connection 'from8_1to1_1'
-Debug: Setting new attribute selected 'true' into junction 'D'
-Debug: Setting new attribute selected 'true' into edge '4'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute speed '0' into connection 'from5_0to4_0'
-Debug: Setting new attribute speed '0' into connection 'from5_0to2_0'
-Debug: Setting new attribute speed '0' into connection 'from5_1to2_1'
-Debug: Setting new attribute speed '0' into connection 'from5_1to3_1'
-Debug: Setting new attribute speed '0' into connection 'from6_0to3_0'
-Debug: Setting new attribute speed '0' into connection 'from6_0to1_0'
-Debug: Setting new attribute speed '0' into connection 'from6_1to1_1'
-Debug: Setting new attribute speed '0' into connection 'from6_1to4_1'
-Debug: Setting new attribute speed '0' into connection 'from7_0to1_0'
-Debug: Setting new attribute speed '0' into connection 'from7_0to4_0'
-Debug: Setting new attribute speed '0' into connection 'from7_1to4_1'
-Debug: Setting new attribute speed '0' into connection 'from7_1to2_1'
-Debug: Setting new attribute speed '0' into connection 'from8_0to2_0'
-Debug: Setting new attribute speed '0' into connection 'from8_0to3_0'
-Debug: Setting new attribute speed '0' into connection 'from8_1to3_1'
-Debug: Setting new attribute speed '0' into connection 'from8_1to1_1'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute speed '15.5' into connection 'from5_0to4_0'
-Debug: Setting new attribute speed '15.5' into connection 'from5_0to2_0'
-Debug: Setting new attribute speed '15.5' into connection 'from5_1to2_1'
-Debug: Setting new attribute speed '15.5' into connection 'from5_1to3_1'
-Debug: Setting new attribute speed '15.5' into connection 'from6_0to3_0'
-Debug: Setting new attribute speed '15.5' into connection 'from6_0to1_0'
-Debug: Setting new attribute speed '15.5' into connection 'from6_1to1_1'
-Debug: Setting new attribute speed '15.5' into connection 'from6_1to4_1'
-Debug: Setting new attribute speed '15.5' into connection 'from7_0to1_0'
-Debug: Setting new attribute speed '15.5' into connection 'from7_0to4_0'
-Debug: Setting new attribute speed '15.5' into connection 'from7_1to4_1'
-Debug: Setting new attribute speed '15.5' into connection 'from7_1to2_1'
-Debug: Setting new attribute speed '15.5' into connection 'from8_0to2_0'
-Debug: Setting new attribute speed '15.5' into connection 'from8_0to3_0'
-Debug: Setting new attribute speed '15.5' into connection 'from8_1to3_1'
-Debug: Setting new attribute speed '15.5' into connection 'from8_1to1_1'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Deleting unreferenced edge '1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor

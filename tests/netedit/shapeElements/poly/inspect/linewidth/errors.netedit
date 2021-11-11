@@ -19,10 +19,10 @@ Debug: Adding poly 'poly_0' into viewNet
 GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary -10.00,0.00,20.00,30.00
 Debug: Value 'dummyLineWidth' for attribute lineWidth of poly isn't valid
 Debug: Value '-2' for attribute lineWidth of poly isn't valid
-Debug: Setting new attribute lineWidth '2.5' into poly 'poly_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute lineWidth '1.00' into poly 'poly_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing poly 'poly_0' from viewNet
@@ -33,7 +33,7 @@ Debug: Adding poly 'poly_0' into viewNet
 GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary -10.00,0.00,20.00,30.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute lineWidth '2.5' into poly 'poly_0'
+Debug: Setting new attribute
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

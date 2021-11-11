@@ -15,12 +15,12 @@ Debug: Key ENTER pressed
 Debug: Key ENTER pressed
 Debug: Adding taz 'taz_0' into viewNet
 GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -20.00,-30.00,70.00,60.00
-Debug: Setting new attribute shape '30.00,10.00 30.00,20.00 20.00,20.00 20.00,10.00 25.00,-10.00 30.00,10.00' into taz 'taz_0'
+Debug: Setting new attribute
 GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary -20.00,-30.00,70.00,60.00
 GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -20.00,-50.00,70.00,60.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute shape '30.00,10.00 30.00,20.00 20.00,20.00 20.00,10.00 30.00,10.00' into taz 'taz_0'
+Debug: Restoring previous attribute
 GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary -20.00,-50.00,70.00,60.00
 GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -20.00,-30.00,70.00,60.00
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -33,7 +33,7 @@ Debug: Adding taz 'taz_0' into viewNet
 GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -20.00,-30.00,70.00,60.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute shape '30.00,10.00 30.00,20.00 20.00,20.00 20.00,10.00 25.00,-10.00 30.00,10.00' into taz 'taz_0'
+Debug: Setting new attribute
 GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary -20.00,-30.00,70.00,60.00
 GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -20.00,-50.00,70.00,60.00
 GLDebug: Removing junctions during recomputing

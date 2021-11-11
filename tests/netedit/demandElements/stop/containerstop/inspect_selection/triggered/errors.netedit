@@ -23,22 +23,22 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,35.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Debug: Setting new attribute selected 'true' into trip 'trip'
-Debug: Setting new attribute selected 'true' into stopContainerStop 'trip'
-Debug: Setting new attribute selected 'true' into stopContainerStop 'trip'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Value 'dummy' for attribute triggered of stopContainerStop isn't valid
 Debug: Value '' for attribute triggered of stopContainerStop isn't valid
-Debug: Setting new attribute triggered 'true' into stopContainerStop 'trip'
-Debug: Setting new attribute triggered 'true' into stopContainerStop 'trip'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute triggered '0' into stopContainerStop 'trip'
-Debug: Setting previous attribute triggered '1' into stopContainerStop 'trip'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute selected '0' into stopContainerStop 'trip'
-Debug: Setting previous attribute selected '0' into stopContainerStop 'trip'
-Debug: Setting previous attribute selected '0' into trip 'trip'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing stopContainerStop 'trip' in GNEChange_DemandElement
@@ -51,13 +51,13 @@ Debug: Adding stopContainerStop 'trip' in GNEChange_DemandElement
 Debug: Adding stopContainerStop 'trip' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute selected 'true' into trip 'trip'
-Debug: Setting new attribute selected 'true' into stopContainerStop 'trip'
-Debug: Setting new attribute selected 'true' into stopContainerStop 'trip'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute triggered 'true' into stopContainerStop 'trip'
-Debug: Setting new attribute triggered 'true' into stopContainerStop 'trip'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Additionals saved
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing

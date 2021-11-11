@@ -39,84 +39,84 @@ Debug: Created connection 'from8_1to2_1' in retrieveGNEConnection()
 Debug: Created connection 'from8_1to3_1' in retrieveGNEConnection()
 Debug: Created connection 'from8_2to3_2' in retrieveGNEConnection()
 Debug: Created connection 'from8_2to1_2' in retrieveGNEConnection()
-Debug: Setting new attribute selected '1' into edge '1'
-Debug: Setting new attribute selected '1' into edge '2'
-Debug: Setting new attribute selected '1' into edge '3'
-Debug: Setting new attribute selected '1' into edge '4'
-Debug: Setting new attribute selected '1' into edge '5'
-Debug: Setting new attribute selected '1' into edge '6'
-Debug: Setting new attribute selected '1' into edge '7'
-Debug: Setting new attribute selected '1' into edge '8'
-Debug: Setting new attribute selected '1' into junction 'Center'
-Debug: Setting new attribute selected '1' into taz 'TAZ'
-Debug: Setting new attribute selected '1' into e1Detector 'detector2'
-Debug: Setting new attribute selected '1' into e1Detector 'detector6'
-Debug: Setting new attribute selected '1' into poly 'poly_0'
-Debug: Setting new attribute selected '1' into connection 'from5_1to4_1'
-Debug: Setting new attribute selected '1' into connection 'from5_1to2_1'
-Debug: Setting new attribute selected '1' into connection 'from5_2to2_2'
-Debug: Setting new attribute selected '1' into connection 'from5_2to3_2'
-Debug: Setting new attribute selected '1' into connection 'from6_1to3_1'
-Debug: Setting new attribute selected '1' into connection 'from6_1to1_1'
-Debug: Setting new attribute selected '1' into connection 'from6_2to1_2'
-Debug: Setting new attribute selected '1' into connection 'from6_2to4_2'
-Debug: Setting new attribute selected '1' into connection 'from7_1to1_1'
-Debug: Setting new attribute selected '1' into connection 'from7_1to4_1'
-Debug: Setting new attribute selected '1' into connection 'from7_2to4_2'
-Debug: Setting new attribute selected '1' into connection 'from7_2to2_2'
-Debug: Setting new attribute selected '1' into connection 'from8_1to2_1'
-Debug: Setting new attribute selected '1' into connection 'from8_1to3_1'
-Debug: Setting new attribute selected '1' into connection 'from8_2to3_2'
-Debug: Setting new attribute selected '1' into connection 'from8_2to1_2'
-Debug: Setting new attribute selected '1' into junction 'A'
-Debug: Setting new attribute selected '1' into junction 'B'
-Debug: Setting new attribute selected '1' into junction 'C'
-Debug: Setting new attribute selected '1' into junction 'D'
-Debug: Setting new attribute selected 'false' into junction 'A'
-Debug: Setting new attribute selected 'false' into edge '1'
-Debug: Setting new attribute selected 'false' into junction 'B'
-Debug: Setting new attribute selected 'false' into edge '2'
-Debug: Setting new attribute selected 'false' into junction 'C'
-Debug: Setting new attribute selected 'false' into edge '3'
-Debug: Setting new attribute selected 'false' into junction 'Center'
-Debug: Setting new attribute selected 'false' into edge '5'
-Debug: Setting new attribute selected 'false' into connection 'from5_1to4_1'
-Debug: Setting new attribute selected 'false' into connection 'from5_1to2_1'
-Debug: Setting new attribute selected 'false' into connection 'from5_2to2_2'
-Debug: Setting new attribute selected 'false' into connection 'from5_2to3_2'
-Debug: Setting new attribute selected 'false' into edge '6'
-Debug: Setting new attribute selected 'false' into connection 'from6_1to3_1'
-Debug: Setting new attribute selected 'false' into connection 'from6_1to1_1'
-Debug: Setting new attribute selected 'false' into connection 'from6_2to1_2'
-Debug: Setting new attribute selected 'false' into connection 'from6_2to4_2'
-Debug: Setting new attribute selected 'false' into edge '7'
-Debug: Setting new attribute selected 'false' into connection 'from7_1to1_1'
-Debug: Setting new attribute selected 'false' into connection 'from7_1to4_1'
-Debug: Setting new attribute selected 'false' into connection 'from7_2to4_2'
-Debug: Setting new attribute selected 'false' into connection 'from7_2to2_2'
-Debug: Setting new attribute selected 'false' into edge '8'
-Debug: Setting new attribute selected 'false' into connection 'from8_1to2_1'
-Debug: Setting new attribute selected 'false' into connection 'from8_1to3_1'
-Debug: Setting new attribute selected 'false' into connection 'from8_2to3_2'
-Debug: Setting new attribute selected 'false' into connection 'from8_2to1_2'
-Debug: Setting new attribute selected 'false' into junction 'D'
-Debug: Setting new attribute selected 'false' into edge '4'
-Debug: Setting new attribute selected 'false' into e1Detector 'detector2'
-Debug: Setting new attribute selected 'true' into e1Detector 'detector1'
-Debug: Setting new attribute selected 'true' into e1Detector 'detector5'
-Debug: Setting new attribute selected 'false' into e1Detector 'detector6'
-Debug: Setting new attribute selected 'true' into e1Detector 'detector4'
-Debug: Setting new attribute selected 'true' into e1Detector 'detector3'
-Debug: Setting new attribute selected 'true' into e1Detector 'detector8'
-Debug: Setting new attribute selected 'true' into e1Detector 'detector7'
-Debug: Setting new attribute selected 'false' into poly 'poly_0'
-Debug: Setting new attribute selected 'false' into taz 'TAZ'
-Debug: Setting new attribute selected 'true' into poi 'POI_0'
-Debug: Setting new attribute selected 'true' into poi 'POI_1'
-Debug: Setting new attribute selected 'true' into poi 'POI_2'
-Debug: Setting new attribute selected 'true' into poi 'POI_3'
-Debug: Setting new attribute selected 'true' into poiLane 'POI_4'
-Debug: Setting new attribute selected 'true' into poiLane 'POI_5'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Key DEL (delete) pressed
 Debug: Removing e1Detector 'detector1' in GNEChange_Additional
 Debug: Removing e1Detector 'detector3' in GNEChange_Additional

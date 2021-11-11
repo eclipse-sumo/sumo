@@ -30,17 +30,17 @@ Debug: Selected item 'vehicle_0' in DemandElementSelector
 Debug: Selected item 'stopLane' in TagSelector
 Debug: Selected item 'stopLane' in TagSelector
 Debug: Adding stopLane 'vehicle_0stopLane1' in GNEChange_DemandElement
-Debug: Setting new attribute tripId 'dummyValue' into stopLane 'vehicle_0stopLane1'
+Debug: Setting new attribute
 Debug: Value '' for attribute tripId of stopLane isn't valid
 Debug: Value ';;;;;' for attribute tripId of stopLane isn't valid
-Debug: Setting new attribute tripId 'ID1' into stopLane 'vehicle_0stopLane1'
-Debug: Setting new attribute tripId 'ID2' into stopLane 'vehicle_0stopLane1'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute tripId 'ID1' into stopLane 'vehicle_0stopLane1'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute tripId 'dummyValue' into stopLane 'vehicle_0stopLane1'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute tripId '' into stopLane 'vehicle_0stopLane1'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl + Z (Undo) pressed
 Debug: Removing stopLane 'vehicle_0stopLane1' in GNEChange_DemandElement
 Debug: Keys Ctrl + Z (Undo) pressed
@@ -52,11 +52,11 @@ Debug: Adding embeddedRoute 'embeddedRoute_0' in GNEChange_DemandElement
 Debug: Keys Ctrl + Y (Redo) pressed
 Debug: Adding stopLane 'vehicle_0stopLane1' in GNEChange_DemandElement
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute tripId 'dummyValue' into stopLane 'vehicle_0stopLane1'
+Debug: Setting new attribute
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute tripId 'ID1' into stopLane 'vehicle_0stopLane1'
+Debug: Setting new attribute
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute tripId 'ID2' into stopLane 'vehicle_0stopLane1'
+Debug: Setting new attribute
 Debug: Additionals saved
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing

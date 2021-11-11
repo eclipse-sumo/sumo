@@ -78,10 +78,10 @@ Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'flow (over route)' in TagSelector
 Debug: Adding flowRoute 'flow_0' in GNEChange_DemandElement
 Debug: Value 'dummyPos' for attribute departPos of flowRoute isn't valid
-Debug: Setting new attribute departPos 'last' into flowRoute 'flow_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute departPos 'base' into flowRoute 'flow_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing flowRoute 'flow_0' in GNEChange_DemandElement
@@ -96,7 +96,7 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding flowRoute 'flow_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute departPos 'last' into flowRoute 'flow_0'
+Debug: Setting new attribute
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary 0.00,6.80,20.00,33.20

@@ -11,25 +11,25 @@ Debug: Enabled auto opposite edge throught alt + 5
 Debug: Adding junction 'J0' into net
 Debug: Adding junction 'J1' into net
 Debug: Adding edge 'E0' from net
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'J0'
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'E0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'E0' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'J1'
-Debug: Setting new attribute width '-1.00' into lane 'E0_0'
-Debug: Setting new attribute width '-1.00' into edge 'E0'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Adding edge '-E0' from net
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'E0'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'E0' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'J1'
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-E0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-E0' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'J0'
-Debug: Setting new attribute width '-1.00' into lane '-E0_0'
-Debug: Setting new attribute width '-1.00' into edge '-E0'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Adding junction 'J2' into net
 Debug: Adding edge 'E0.39' from net
-Debug: Setting new attribute to 'J2' into edge 'E0'
-Debug: Setting new attribute shapeEnd '' into edge 'E0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Adding connection 'E0_0->E0.39_0' into edge 'E0'
 Debug: Created connection 'fromE0_0toE0.39_0' in retrieveGNEConnection()
 Debug: Key F5 (Compute) pressed
@@ -39,28 +39,28 @@ Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing connection 'E0_0->E0.39_0' from edge 'E0'
 Debug: Deleting unreferenced connection 'fromE0_0toE0.39_0' in removeConnection()
-Debug: Setting previous attribute shapeEnd '90.00,50.00' into edge 'E0'
-Debug: Setting previous attribute to 'J1' into edge 'E0'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Removing edge 'E0.39' from net
 Debug: Removing junction 'J2' from net
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute width 'default' into edge '-E0'
-Debug: Setting previous attribute width 'default' into lane '-E0_0'
-Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'J0'
-Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-E0'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge '-E0' due it were guessed
 Debug: Deleting unreferenced connection 'from-E0_0toE0_0' in clearGNEConnections()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'J1'
-Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'E0'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'E0' due it were guessed
 Debug: Removing edge '-E0' from net
-Debug: Setting previous attribute width 'default' into edge 'E0'
-Debug: Setting previous attribute width 'default' into lane 'E0_0'
-Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'J1'
-Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'E0'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'E0' due it were guessed
-Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'J0'
+Debug: Restoring previous attribute
 Debug: Removing edge 'E0' from net
 Debug: Removing junction 'J1' from net
 Debug: Removing junction 'J0' from net
@@ -69,27 +69,27 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding junction 'J0' into net
 Debug: Adding junction 'J1' into net
 Debug: Adding edge 'E0' from net
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'J0'
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'E0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'E0' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'J1'
-Debug: Setting new attribute width '-1.00' into lane 'E0_0'
-Debug: Setting new attribute width '-1.00' into edge 'E0'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Adding edge '-E0' from net
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'E0'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'E0' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'J1'
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-E0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-E0' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'J0'
-Debug: Setting new attribute width '-1.00' into lane '-E0_0'
-Debug: Setting new attribute width '-1.00' into edge '-E0'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding junction 'J2' into net
 Debug: Adding edge 'E0.39' from net
-Debug: Setting new attribute to 'J2' into edge 'E0'
-Debug: Setting new attribute shapeEnd '' into edge 'E0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Adding connection 'E0_0->E0.39_0' into edge 'E0'
 Debug: Created connection 'fromE0_0toE0.39_0' in retrieveGNEConnection()
 Debug: Key F5 (Compute) pressed

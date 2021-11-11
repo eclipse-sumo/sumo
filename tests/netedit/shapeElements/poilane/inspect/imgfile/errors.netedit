@@ -15,10 +15,10 @@ Debug: Value '%$$%%%%%' for attribute imgFile of poiLane isn't valid
 Error: Could not load 'paris.ico'.
 Loading failed!
 Debug: Value 'paris.ico' for attribute imgFile of poiLane isn't valid
-Debug: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'poi_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute imgFile '' into poiLane 'poi_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing poiLane 'poi_0' from viewNet
@@ -27,7 +27,7 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding poiLane 'poi_0' into viewNet
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute imgFile 'berlin_icon.ico' into poiLane 'poi_0'
+Debug: Setting new attribute
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Additionals saved

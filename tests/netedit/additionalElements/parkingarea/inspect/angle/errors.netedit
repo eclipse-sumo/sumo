@@ -10,18 +10,18 @@ Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'parkingArea' in TagSelector
 Debug: Adding parkingArea 'parkingArea_gneE2_1_0' in GNEChange_Additional
 Debug: Value 'dummyAngle' for attribute angle of parkingArea isn't valid
-Debug: Setting new attribute angle '-6.00' into parkingArea 'parkingArea_gneE2_1_0'
-Debug: Setting new attribute angle '140.00' into parkingArea 'parkingArea_gneE2_1_0'
-Debug: Setting new attribute angle '32.50' into parkingArea 'parkingArea_gneE2_1_0'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute angle '140.00' into parkingArea 'parkingArea_gneE2_1_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute angle '-6.00' into parkingArea 'parkingArea_gneE2_1_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute angle '0.00' into parkingArea 'parkingArea_gneE2_1_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing parkingArea 'parkingArea_gneE2_1_0' in GNEChange_Additional
@@ -30,13 +30,13 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding parkingArea 'parkingArea_gneE2_1_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute angle '-6.00' into parkingArea 'parkingArea_gneE2_1_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute angle '140.00' into parkingArea 'parkingArea_gneE2_1_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute angle '32.50' into parkingArea 'parkingArea_gneE2_1_0'
+Debug: Setting new attribute
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE2_1togneE3_1' in retrieveGNEConnection()

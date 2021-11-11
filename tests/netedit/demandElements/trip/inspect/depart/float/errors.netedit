@@ -76,10 +76,10 @@ Debug: Key ENTER pressed
 Debug: Adding trip 'vehicle_0' in GNEChange_DemandElement
 Debug: Value 'dummyDepart' for attribute depart of trip isn't valid
 Debug: Value '-3' for attribute depart of trip isn't valid
-Debug: Setting new attribute depart '10.2' into trip 'vehicle_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute depart '0.00' into trip 'vehicle_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing trip 'vehicle_0' in GNEChange_DemandElement
@@ -89,7 +89,7 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding trip 'vehicle_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute depart '10.2' into trip 'vehicle_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing

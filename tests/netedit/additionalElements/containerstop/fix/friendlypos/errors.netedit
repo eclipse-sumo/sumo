@@ -15,28 +15,28 @@ Debug: Adding containerStop 'containerStopA' in GNEChange_Additional
 Debug: Adding containerStop 'containerStopB' in GNEChange_Additional
 Debug: Adding containerStop 'containerStopC' in GNEChange_Additional
 Debug: Adding containerStop 'containerStopD' in GNEChange_Additional
-Debug: Setting new attribute selected 'true' into junction 'gneJ0'
-Debug: Setting new attribute selected 'true' into edge 'gneE1'
-Debug: Setting new attribute selected 'true' into junction 'gneJ1'
-Debug: Setting new attribute selected 'true' into edge 'gneE0'
-Debug: Setting new attribute selected 'true' into containerStop 'containerStopB'
-Debug: Setting new attribute selected 'true' into containerStop 'containerStopC'
-Debug: Setting new attribute selected 'true' into containerStop 'containerStopA'
-Debug: Setting new attribute selected 'true' into containerStop 'containerStopD'
-Debug: Setting new attribute friendlyPos 'false' into containerStop 'containerStopA'
-Debug: Setting new attribute friendlyPos 'false' into containerStop 'containerStopB'
-Debug: Setting new attribute friendlyPos 'false' into containerStop 'containerStopC'
-Debug: Setting new attribute friendlyPos 'false' into containerStop 'containerStopD'
-Debug: Setting new attribute selected 'false' into junction 'gneJ0'
-Debug: Setting new attribute selected 'false' into edge 'gneE1'
-Debug: Setting new attribute selected 'false' into lane 'gneE1_0'
-Debug: Setting new attribute selected 'false' into junction 'gneJ1'
-Debug: Setting new attribute selected 'false' into edge 'gneE0'
-Debug: Setting new attribute selected 'false' into lane 'gneE0_0'
-Debug: Setting new attribute selected 'false' into containerStop 'containerStopB'
-Debug: Setting new attribute selected 'false' into containerStop 'containerStopC'
-Debug: Setting new attribute selected 'false' into containerStop 'containerStopA'
-Debug: Setting new attribute selected 'false' into containerStop 'containerStopD'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00
@@ -51,9 +51,9 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Debug: Setting new attribute friendlyPos 'true' into containerStop 'containerStopB'
-Debug: Setting new attribute friendlyPos 'true' into containerStop 'containerStopA'
-Debug: Setting new attribute friendlyPos 'true' into containerStop 'containerStopD'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Additionals saved after dialog
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-13.20,10.00,13.20

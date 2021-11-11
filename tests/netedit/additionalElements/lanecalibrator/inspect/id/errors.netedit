@@ -19,15 +19,15 @@ Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'laneCalibrator' in TagSelector
 Debug: Adding laneCalibrator 'laneCalibrator_gneE3_1_0' in GNEChange_Additional
 Debug: Adding laneCalibrator 'laneCalibrator_gneE3_0_1' in GNEChange_Additional
-Debug: Setting new attribute id 'calibrator_gneE3_0' into laneCalibrator 'laneCalibrator_gneE3_1_0'
+Debug: Setting new attribute
 Debug: Value 'Id with spaces' for attribute id of laneCalibrator isn't valid
-Debug: Setting new attribute id 'correctID' into laneCalibrator 'calibrator_gneE3_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute id 'calibrator_gneE3_0' into laneCalibrator 'correctID'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute id 'laneCalibrator_gneE3_1_0' into laneCalibrator 'calibrator_gneE3_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing laneCalibrator 'laneCalibrator_gneE3_0_1' in GNEChange_Additional
@@ -36,10 +36,10 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding laneCalibrator 'laneCalibrator_gneE3_0_1' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute id 'calibrator_gneE3_0' into laneCalibrator 'laneCalibrator_gneE3_1_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute id 'correctID' into laneCalibrator 'calibrator_gneE3_0'
+Debug: Setting new attribute
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

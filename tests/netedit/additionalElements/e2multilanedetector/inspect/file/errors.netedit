@@ -15,14 +15,14 @@ Debug: Selected item 'e2MultilaneDetector' in TagSelector
 Debug: Key ENTER pressed
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
 Debug: Value '%;;%%&%%%&&' for attribute file of e2MultilaneDetector isn't valid
-Debug: Setting new attribute file '' into e2MultilaneDetector 'e2MultilaneDetector_0'
-Debug: Setting new attribute name 'myOwnOutput.txt' into e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute name '' into e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute file 'e2MultilaneDetector_0.xml' into e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
@@ -31,10 +31,10 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute file '' into e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute name 'myOwnOutput.txt' into e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Setting new attribute
 Debug: Additionals saved
 Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Deleting unreferenced edge 'gneE2' in AttributeCarriers destructor

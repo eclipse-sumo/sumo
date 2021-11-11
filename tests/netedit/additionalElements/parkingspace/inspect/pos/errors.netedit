@@ -23,26 +23,26 @@ GLDebug: 	Removed object parkingArea:parkingArea_gneE2_0_0 from SUMORTree with b
 GLDebug: 	Inserted parkingArea:parkingArea_gneE2_0_0 into SUMORTree with boundary -2.50,-12.50,38.20,22.50
 Debug: Value 'dummyPosition' for attribute pos of space isn't valid
 Debug: Value '' for attribute pos of space isn't valid
-Debug: Setting new attribute pos '-3.5,-3' into space 'parkingArea_gneE2_0_0'
+Debug: Setting new attribute
 GLDebug: 	Removed object parkingArea:parkingArea_gneE2_0_0 from SUMORTree with boundary -2.50,-12.50,38.20,22.50
 GLDebug: 	Inserted parkingArea:parkingArea_gneE2_0_0 into SUMORTree with boundary -21.00,-20.50,38.20,22.00
 GLDebug: 	Removed object parkingArea:parkingArea_gneE2_0_0 from SUMORTree with boundary -21.00,-20.50,38.20,22.00
 GLDebug: 	Inserted parkingArea:parkingArea_gneE2_0_0 into SUMORTree with boundary -21.00,-20.50,38.20,22.00
-Debug: Setting new attribute pos '3,2.5,15' into space 'parkingArea_gneE2_0_0'
+Debug: Setting new attribute
 GLDebug: 	Removed object parkingArea:parkingArea_gneE2_0_0 from SUMORTree with boundary -21.00,-20.50,38.20,22.00
 GLDebug: 	Inserted parkingArea:parkingArea_gneE2_0_0 into SUMORTree with boundary -14.50,-15.00,38.20,22.00
 GLDebug: 	Removed object parkingArea:parkingArea_gneE2_0_0 from SUMORTree with boundary -14.50,-15.00,38.20,22.00
 GLDebug: 	Inserted parkingArea:parkingArea_gneE2_0_0 into SUMORTree with boundary -14.50,-15.00,38.20,22.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '-3.50,-3.00' into space 'parkingArea_gneE2_0_0'
+Debug: Restoring previous attribute
 GLDebug: 	Removed object parkingArea:parkingArea_gneE2_0_0 from SUMORTree with boundary -14.50,-15.00,38.20,22.00
 GLDebug: 	Inserted parkingArea:parkingArea_gneE2_0_0 into SUMORTree with boundary -21.00,-20.50,38.20,22.00
 GLDebug: 	Removed object parkingArea:parkingArea_gneE2_0_0 from SUMORTree with boundary -21.00,-20.50,38.20,22.00
 GLDebug: 	Inserted parkingArea:parkingArea_gneE2_0_0 into SUMORTree with boundary -21.00,-20.50,38.20,22.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '15.00,5.00' into space 'parkingArea_gneE2_0_0'
+Debug: Restoring previous attribute
 GLDebug: 	Removed object parkingArea:parkingArea_gneE2_0_0 from SUMORTree with boundary -21.00,-20.50,38.20,22.00
 GLDebug: 	Inserted parkingArea:parkingArea_gneE2_0_0 into SUMORTree with boundary -2.50,-12.50,38.20,22.50
 GLDebug: 	Removed object parkingArea:parkingArea_gneE2_0_0 from SUMORTree with boundary -2.50,-12.50,38.20,22.50
@@ -65,14 +65,14 @@ GLDebug: 	Removed object parkingArea:parkingArea_gneE2_0_0 from SUMORTree with b
 GLDebug: 	Inserted parkingArea:parkingArea_gneE2_0_0 into SUMORTree with boundary 1.80,2.00,38.20,22.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '-3.5,-3' into space 'parkingArea_gneE2_0_0'
+Debug: Setting new attribute
 GLDebug: 	Removed object parkingArea:parkingArea_gneE2_0_0 from SUMORTree with boundary 1.80,2.00,38.20,22.00
 GLDebug: 	Inserted parkingArea:parkingArea_gneE2_0_0 into SUMORTree with boundary -21.00,-20.50,38.20,22.00
 GLDebug: 	Removed object parkingArea:parkingArea_gneE2_0_0 from SUMORTree with boundary -21.00,-20.50,38.20,22.00
 GLDebug: 	Inserted parkingArea:parkingArea_gneE2_0_0 into SUMORTree with boundary -21.00,-20.50,38.20,22.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '3,2.5,15' into space 'parkingArea_gneE2_0_0'
+Debug: Setting new attribute
 GLDebug: 	Removed object parkingArea:parkingArea_gneE2_0_0 from SUMORTree with boundary -21.00,-20.50,38.20,22.00
 GLDebug: 	Inserted parkingArea:parkingArea_gneE2_0_0 into SUMORTree with boundary -14.50,-15.00,38.20,22.00
 GLDebug: 	Removed object parkingArea:parkingArea_gneE2_0_0 from SUMORTree with boundary -14.50,-15.00,38.20,22.00

@@ -22,10 +22,10 @@ Debug: Selected item 'detExit' in TagSelector
 Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
 Debug: Value 'dummy position' for attribute pos of detEntry isn't valid
 Debug: Value '' for attribute pos of detEntry isn't valid
-Debug: Setting new attribute pos '25' into detEntry 'e3Detector_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '20.00' into detEntry 'e3Detector_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing detExit 'e3Detector_0' in GNEChange_Additional
@@ -48,7 +48,7 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '25' into detEntry 'e3Detector_0'
+Debug: Setting new attribute
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

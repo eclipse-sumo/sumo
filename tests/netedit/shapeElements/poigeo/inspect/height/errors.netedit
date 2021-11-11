@@ -11,12 +11,12 @@ Debug: Adding poiGeo 'poi_0' into viewNet
 GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -8.50,7.50,12.50,28.50
 Debug: Value 'dummyHeight' for attribute height of poiGeo isn't valid
 Debug: Value '-3' for attribute height of poiGeo isn't valid
-Debug: Setting new attribute height '5' into poiGeo 'poi_0'
+Debug: Setting new attribute
 GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -8.50,7.50,12.50,28.50
 GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -10.50,5.50,14.50,30.50
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute height '1.00' into poiGeo 'poi_0'
+Debug: Restoring previous attribute
 GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -10.50,5.50,14.50,30.50
 GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -8.50,7.50,12.50,28.50
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -29,7 +29,7 @@ Debug: Adding poiGeo 'poi_0' into viewNet
 GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -8.50,7.50,12.50,28.50
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute height '5' into poiGeo 'poi_0'
+Debug: Setting new attribute
 GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -8.50,7.50,12.50,28.50
 GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -10.50,5.50,14.50,30.50
 Debug: Additionals saved

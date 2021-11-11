@@ -58,7 +58,7 @@ Debug: Created crossing ':gneJ2_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ2_c1' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ3_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ3_c1' in retrieveGNECrossing()
-Debug: Setting new attribute allow 'bus' into lane 'gneE2_0'
+Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -13.20,-13.20,13.20,13.20
@@ -90,7 +90,7 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -11.60,-10.00,10.00,3
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,-10.00,11.60,30.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute allow 'all' into lane 'gneE2_0'
+Debug: Restoring previous attribute
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -13.20,-13.20,13.20,13.20
@@ -122,7 +122,7 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -11.60,-10.00,10.00,3
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,-10.00,11.60,30.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute allow 'bus' into lane 'gneE2_0'
+Debug: Setting new attribute
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -13.20,-13.20,13.20,13.20

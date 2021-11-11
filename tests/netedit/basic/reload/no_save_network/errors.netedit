@@ -9,12 +9,12 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding junction 'J0' into net
 Debug: Adding junction 'J1' into net
 Debug: Adding edge 'E0' from net
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'J0'
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'E0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'E0' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'J1'
-Debug: Setting new attribute width '-1.00' into lane 'E0_0'
-Debug: Setting new attribute width '-1.00' into edge 'E0'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'busStop' in TagSelector
 Debug: Adding busStop 'busStop_gneE0_0_0' in GNEChange_Additional

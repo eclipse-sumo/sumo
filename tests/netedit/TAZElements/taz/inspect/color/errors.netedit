@@ -16,27 +16,27 @@ Debug: Key ENTER pressed
 Debug: Adding taz 'taz_0' into viewNet
 GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -40.00,-30.00,50.00,60.00
 Debug: Value 'dummyColor' for attribute color of taz isn't valid
-Debug: Setting new attribute color '255,255,500' into taz 'taz_0'
-Debug: Setting new attribute color 'blue' into taz 'taz_0'
-Debug: Setting new attribute color '125,60,200' into taz 'taz_0'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute color 'blue' into taz 'taz_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute color '255,255,244' into taz 'taz_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute color 'blue' into taz 'taz_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute color '255,255,500' into taz 'taz_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute color 'blue' into taz 'taz_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute color '125,60,200' into taz 'taz_0'
+Debug: Setting new attribute
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

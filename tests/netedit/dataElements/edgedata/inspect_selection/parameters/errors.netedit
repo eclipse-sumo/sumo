@@ -24,36 +24,36 @@ Debug: Adding dataSet 'newDataSet' in GNEChange_DataSet
 Debug: adding dataInterval [0.00, 3600.00] in GNEChange_DataInterval
 Debug: Adding edgeData 'newDataSet' in GNEChange_GenericData
 Debug: Adding edgeData 'newDataSet' in GNEChange_GenericData
-Debug: Setting new attribute selected 'true' into edgeData 'newDataSet[0.00,3600.00]gneE13'
-Debug: Setting new attribute selected 'true' into edgeData 'newDataSet[0.00,3600.00]-gneE15'
-Debug: Setting new attribute genericParameter 'key1=1|key2=2|key3=3' into edgeData 'newDataSet[0.00,3600.00]gneE13'
-Debug: Setting new attribute genericParameter 'key1=1|key2=2|key3=3' into edgeData 'newDataSet[0.00,3600.00]-gneE15'
-Debug: Setting new attribute genericParameter '' into edgeData 'newDataSet[0.00,3600.00]gneE13'
-Debug: Setting new attribute genericParameter '' into edgeData 'newDataSet[0.00,3600.00]-gneE15'
-Debug: Setting new attribute genericParameter 'key1duplicated=2|key3=3' into edgeData 'newDataSet[0.00,3600.00]gneE13'
-Debug: Setting new attribute genericParameter 'key1duplicated=2|key3=3' into edgeData 'newDataSet[0.00,3600.00]-gneE15'
-Debug: Setting new attribute genericParameter 'keyFinal1=1|keyFinal2=2|keyFinal3=3' into edgeData 'newDataSet[0.00,3600.00]gneE13'
-Debug: Setting new attribute genericParameter 'keyFinal1=1|keyFinal2=2|keyFinal3=3' into edgeData 'newDataSet[0.00,3600.00]-gneE15'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter 'key1duplicated=2|key3=3' into edgeData 'newDataSet[0.00,3600.00]-gneE15'
-Debug: Setting previous attribute genericParameter 'key1duplicated=2|key3=3' into edgeData 'newDataSet[0.00,3600.00]gneE13'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter '' into edgeData 'newDataSet[0.00,3600.00]-gneE15'
-Debug: Setting previous attribute genericParameter '' into edgeData 'newDataSet[0.00,3600.00]gneE13'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter 'key1=1|key2=2|key3=3' into edgeData 'newDataSet[0.00,3600.00]-gneE15'
-Debug: Setting previous attribute genericParameter 'key1=1|key2=2|key3=3' into edgeData 'newDataSet[0.00,3600.00]gneE13'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter '' into edgeData 'newDataSet[0.00,3600.00]-gneE15'
-Debug: Setting previous attribute genericParameter '' into edgeData 'newDataSet[0.00,3600.00]gneE13'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute selected '0' into edgeData 'newDataSet[0.00,3600.00]-gneE15'
-Debug: Setting previous attribute selected '0' into edgeData 'newDataSet[0.00,3600.00]gneE13'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing edgeData 'newDataSet[0.00,3600.00]-gneE15' in GNEChange_GenericData
@@ -74,24 +74,24 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding edgeData 'newDataSet[0.00,3600.00]-gneE15' in GNEChange_GenericData
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute selected 'true' into edgeData 'newDataSet[0.00,3600.00]gneE13'
-Debug: Setting new attribute selected 'true' into edgeData 'newDataSet[0.00,3600.00]-gneE15'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter 'key1=1|key2=2|key3=3' into edgeData 'newDataSet[0.00,3600.00]gneE13'
-Debug: Setting new attribute genericParameter 'key1=1|key2=2|key3=3' into edgeData 'newDataSet[0.00,3600.00]-gneE15'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter '' into edgeData 'newDataSet[0.00,3600.00]gneE13'
-Debug: Setting new attribute genericParameter '' into edgeData 'newDataSet[0.00,3600.00]-gneE15'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter 'key1duplicated=2|key3=3' into edgeData 'newDataSet[0.00,3600.00]gneE13'
-Debug: Setting new attribute genericParameter 'key1duplicated=2|key3=3' into edgeData 'newDataSet[0.00,3600.00]-gneE15'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter 'keyFinal1=1|keyFinal2=2|keyFinal3=3' into edgeData 'newDataSet[0.00,3600.00]gneE13'
-Debug: Setting new attribute genericParameter 'keyFinal1=1|keyFinal2=2|keyFinal3=3' into edgeData 'newDataSet[0.00,3600.00]-gneE15'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: data sets saved
 Debug: Deleting unreferenced edgeData 'newDataSet[0.00,3600.00]-gneE15'
 Debug: Deleting unreferenced edgeData 'newDataSet[0.00,3600.00]gneE13'

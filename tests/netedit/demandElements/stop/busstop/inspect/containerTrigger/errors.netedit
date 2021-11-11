@@ -26,10 +26,10 @@ Debug: Selected item 'vehicle_0' in DemandElementSelector
 Debug: Selected item 'stopLane' in TagSelector
 Debug: Selected item 'stopBusStop' in TagSelector
 Debug: Adding stopBusStop 'vehicle_0' in GNEChange_DemandElement
-Debug: Setting new attribute containerTriggered 'true' into stopBusStop 'vehicle_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute containerTriggered '0' into stopBusStop 'vehicle_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing stopBusStop 'vehicle_0' in GNEChange_DemandElement
@@ -46,7 +46,7 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding stopBusStop 'vehicle_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute containerTriggered 'true' into stopBusStop 'vehicle_0'
+Debug: Setting new attribute
 Debug: Additionals saved
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing

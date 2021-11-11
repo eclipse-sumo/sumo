@@ -20,21 +20,21 @@ Debug: Selected item 'e2Detector' in TagSelector
 Debug: Adding e2Detector 'e2Detector_gneE2_1_0' in GNEChange_Additional
 Debug: Value 'dummyLength' for attribute length of e2Detector isn't valid
 Debug: Value '-5' for attribute length of e2Detector isn't valid
-Debug: Setting new attribute length '0' into e2Detector 'e2Detector_gneE2_1_0'
-Debug: Setting new attribute length '500' into e2Detector 'e2Detector_gneE2_1_0'
-Debug: Setting new attribute length '5' into e2Detector 'e2Detector_gneE2_1_0'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute length '500.00' into e2Detector 'e2Detector_gneE2_1_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute length '0.00' into e2Detector 'e2Detector_gneE2_1_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute length '500' into e2Detector 'e2Detector_gneE2_1_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute length '5' into e2Detector 'e2Detector_gneE2_1_0'
+Debug: Setting new attribute
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

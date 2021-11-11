@@ -15,12 +15,12 @@ Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'e1Detector' in TagSelector
 Debug: Adding e1Detector 'e1Detector_gneE1_0_0' in GNEChange_Additional
 Debug: Value 'dummy lane' for attribute lane of e1Detector isn't valid
-Debug: Setting new attribute lane 'gneE0_0' into e1Detector 'e1Detector_gneE1_0_0'
+Debug: Setting new attribute
 Debug: Value 'gneE2_1' for attribute lane of e1Detector isn't valid
 Debug: Value 'gneE2_0' for attribute lane of e1Detector isn't valid
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute lane 'gneE1_0' into e1Detector 'e1Detector_gneE1_0_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing e1Detector 'e1Detector_gneE1_0_0' in GNEChange_Additional
@@ -31,7 +31,7 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding e1Detector 'e1Detector_gneE1_0_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute lane 'gneE0_0' into e1Detector 'e1Detector_gneE1_0_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 GLDebug: Removing junctions during recomputing

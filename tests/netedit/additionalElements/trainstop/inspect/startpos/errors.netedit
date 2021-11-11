@@ -18,16 +18,16 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'trainStop' in TagSelector
 Debug: Adding trainStop 'trainStop_gneE2_1_0' in GNEChange_Additional
-Debug: Setting new attribute startPos '' into trainStop 'trainStop_gneE2_1_0'
+Debug: Setting new attribute
 Debug: Value '-5' for attribute startPos of trainStop isn't valid
 Debug: Value '400' for attribute startPos of trainStop isn't valid
-Debug: Setting new attribute startPos '20' into trainStop 'trainStop_gneE2_1_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute startPos '' into trainStop 'trainStop_gneE2_1_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute startPos '12.00' into trainStop 'trainStop_gneE2_1_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing trainStop 'trainStop_gneE2_1_0' in GNEChange_Additional
@@ -37,10 +37,10 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding trainStop 'trainStop_gneE2_1_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute startPos '' into trainStop 'trainStop_gneE2_1_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute startPos '20' into trainStop 'trainStop_gneE2_1_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00

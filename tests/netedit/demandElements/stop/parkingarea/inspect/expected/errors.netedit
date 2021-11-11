@@ -27,42 +27,42 @@ Debug: Selected item 'vehicle_0' in DemandElementSelector
 Debug: Selected item 'stopLane' in TagSelector
 Debug: Selected item 'stopParkingArea' in TagSelector
 Debug: Adding stopParkingArea 'vehicle_0' in GNEChange_DemandElement
-Debug: Setting new attribute triggered 'true' into stopParkingArea 'vehicle_0'
-Debug: Setting new attribute expected 'dummyValue' into stopParkingArea 'vehicle_0'
-Debug: Setting new attribute expected '' into stopParkingArea 'vehicle_0'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Value ';;;;;' for attribute expected of stopParkingArea isn't valid
-Debug: Setting new attribute expected 'ID1' into stopParkingArea 'vehicle_0'
-Debug: Setting new attribute expected 'ID2' into stopParkingArea 'vehicle_0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute expected 'ID1' into stopParkingArea 'vehicle_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute expected '' into stopParkingArea 'vehicle_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute expected 'dummyValue' into stopParkingArea 'vehicle_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute expected '' into stopParkingArea 'vehicle_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute triggered '0' into stopParkingArea 'vehicle_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute triggered 'true' into stopParkingArea 'vehicle_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute expected 'dummyValue' into stopParkingArea 'vehicle_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute expected '' into stopParkingArea 'vehicle_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute expected 'ID1' into stopParkingArea 'vehicle_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute expected 'ID2' into stopParkingArea 'vehicle_0'
+Debug: Setting new attribute
 Debug: Additionals saved
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing

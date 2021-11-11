@@ -16,12 +16,12 @@ Debug: Key ENTER pressed
 Debug: Adding taz 'taz_0' into viewNet
 GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -40.00,-30.00,50.00,60.00
 Debug: Value 'dummyTAZ' for attribute center of taz isn't valid
-Debug: Setting new attribute center '12.00,8.00' into taz 'taz_0'
+Debug: Setting new attribute
 GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary -40.00,-30.00,50.00,60.00
 GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -40.00,-32.00,52.00,60.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute center '' into taz 'taz_0'
+Debug: Restoring previous attribute
 GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary -40.00,-32.00,52.00,60.00
 GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -40.00,-30.00,50.00,60.00
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -34,7 +34,7 @@ Debug: Adding taz 'taz_0' into viewNet
 GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -40.00,-30.00,50.00,60.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute center '12.00,8.00' into taz 'taz_0'
+Debug: Setting new attribute
 GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary -40.00,-30.00,50.00,60.00
 GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -40.00,-32.00,52.00,60.00
 GLDebug: Removing junctions during recomputing

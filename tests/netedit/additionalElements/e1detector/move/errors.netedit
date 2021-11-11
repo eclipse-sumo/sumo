@@ -14,14 +14,14 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'e1Detector' in TagSelector
 Debug: Adding e1Detector 'e1Detector_gneE1_0_0' in GNEChange_Additional
-Debug: Setting new attribute pos '35.00' into e1Detector 'e1Detector_gneE1_0_0'
-Debug: Setting new attribute pos '15.00' into e1Detector 'e1Detector_gneE1_0_0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '35.00' into e1Detector 'e1Detector_gneE1_0_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '40.00' into e1Detector 'e1Detector_gneE1_0_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing e1Detector 'e1Detector_gneE1_0_0' in GNEChange_Additional
@@ -31,10 +31,10 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding e1Detector 'e1Detector_gneE1_0_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '35.00' into e1Detector 'e1Detector_gneE1_0_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '15.00' into e1Detector 'e1Detector_gneE1_0_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00

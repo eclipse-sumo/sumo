@@ -28,21 +28,21 @@ Debug: Created connection 'fromgneE8_0togneE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_1' in retrieveGNEConnection()
 Debug: Value 'dummyLegth' for attribute length of edge isn't valid
-Debug: Setting new attribute length '' into edge 'gneE2'
-Debug: Setting new attribute length '' into edge 'gneE3'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Value '-12' for attribute length of edge isn't valid
-Debug: Setting new attribute length '40.5' into edge 'gneE2'
-Debug: Setting new attribute length '40.5' into edge 'gneE3'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute length '35.60' into edge 'gneE3'
-Debug: Setting previous attribute length '35.60' into edge 'gneE2'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute length '40.5' into edge 'gneE2'
-Debug: Setting new attribute length '40.5' into edge 'gneE3'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Additionals saved
 Debug: Deleting unreferenced busStop 'busStop6'
 Debug: Deleting unreferenced busStop 'busStop5'

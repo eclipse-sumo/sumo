@@ -10,27 +10,27 @@ Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'instantInductionLoop' in TagSelector
 Debug: Adding instantInductionLoop 'instantInductionLoop_gneE1_0_0' in GNEChange_Additional
 Debug: Adding instantInductionLoop 'instantInductionLoop_gneE1_0_1' in GNEChange_Additional
-Debug: Setting new attribute id 'instantInductionLoop_gneE2_1_1' into instantInductionLoop 'instantInductionLoop_gneE1_0_0'
-Debug: Setting new attribute id 'Id with spaces' into instantInductionLoop 'instantInductionLoop_gneE2_1_1'
-Debug: Setting new attribute id 'correctID' into instantInductionLoop 'Id with spaces'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute id 'Id with spaces' into instantInductionLoop 'correctID'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute id 'instantInductionLoop_gneE2_1_1' into instantInductionLoop 'Id with spaces'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute id 'instantInductionLoop_gneE1_0_0' into instantInductionLoop 'instantInductionLoop_gneE2_1_1'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute id 'instantInductionLoop_gneE2_1_1' into instantInductionLoop 'instantInductionLoop_gneE1_0_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute id 'Id with spaces' into instantInductionLoop 'instantInductionLoop_gneE2_1_1'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute id 'correctID' into instantInductionLoop 'Id with spaces'
+Debug: Setting new attribute
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Additionals saved

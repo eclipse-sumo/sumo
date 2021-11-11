@@ -9,10 +9,10 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'poly' in TagSelector
 Debug: Selected item 'poiLane' in TagSelector
 Debug: Adding poiLane 'poi_0' into viewNet
-Debug: Setting new attribute type '<<myOwnType>>' into poiLane 'poi_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute type '' into poiLane 'poi_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing poiLane 'poi_0' from viewNet
@@ -21,7 +21,7 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding poiLane 'poi_0' into viewNet
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute type '<<myOwnType>>' into poiLane 'poi_0'
+Debug: Setting new attribute
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Additionals saved

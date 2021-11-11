@@ -86,24 +86,24 @@ Debug: Created connection 'fromgneE6_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
-Debug: Setting new attribute selected 'true' into route 'routeB'
-Debug: Setting new attribute selected 'true' into route 'routeA'
-Debug: Setting new attribute selected 'true' into vehicle 'vehicleB'
-Debug: Setting new attribute selected 'true' into vehicle 'vehicleA'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Current Viewport values: 14.00, 17.00, 12.00. Zoom = '723.33'
-Debug: Setting new attribute departPosLat 'center' into vehicle 'vehicleA'
-Debug: Setting new attribute departPosLat 'center' into vehicle 'vehicleB'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Value 'dummyPosLat' for attribute departPosLat of vehicle isn't valid
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute departPosLat 'random_free' into vehicle 'vehicleB'
-Debug: Setting previous attribute departPosLat '2.00' into vehicle 'vehicleA'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute selected '0' into vehicle 'vehicleA'
-Debug: Setting previous attribute selected '0' into vehicle 'vehicleB'
-Debug: Setting previous attribute selected '0' into route 'routeA'
-Debug: Setting previous attribute selected '0' into route 'routeB'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing vehicle 'vehicleB' in GNEChange_DemandElement
@@ -120,14 +120,14 @@ Debug: Adding vehicle 'vehicleA' in GNEChange_DemandElement
 Debug: Adding vehicle 'vehicleB' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute selected 'true' into route 'routeB'
-Debug: Setting new attribute selected 'true' into route 'routeA'
-Debug: Setting new attribute selected 'true' into vehicle 'vehicleB'
-Debug: Setting new attribute selected 'true' into vehicle 'vehicleA'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute departPosLat 'center' into vehicle 'vehicleA'
-Debug: Setting new attribute departPosLat 'center' into vehicle 'vehicleB'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: demand elements saved

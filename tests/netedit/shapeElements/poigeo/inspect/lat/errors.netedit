@@ -10,12 +10,12 @@ Debug: Selected item 'poiGeo' in TagSelector
 Debug: Adding poiGeo 'poi_0' into viewNet
 GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -8.50,7.50,12.50,28.50
 Debug: Value 'dummyLat' for attribute lat of poiGeo isn't valid
-Debug: Setting new attribute lat '7.50' into poiGeo 'poi_0'
+Debug: Setting new attribute
 GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -8.50,7.50,12.50,28.50
 GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary 4142.25,831552.22,4163.25,831573.22
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute lat '0.00' into poiGeo 'poi_0'
+Debug: Restoring previous attribute
 GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary 4142.25,831552.22,4163.25,831573.22
 GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -125.71,-10.50,-104.71,10.50
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -28,7 +28,7 @@ Debug: Adding poiGeo 'poi_0' into viewNet
 GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -125.71,-10.50,-104.71,10.50
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute lat '7.50' into poiGeo 'poi_0'
+Debug: Setting new attribute
 GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -125.71,-10.50,-104.71,10.50
 GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary 4142.25,831552.22,4163.25,831573.22
 Debug: Additionals saved

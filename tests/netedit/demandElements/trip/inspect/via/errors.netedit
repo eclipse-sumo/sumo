@@ -75,18 +75,18 @@ Debug: Selected item 'trip' in TagSelector
 Debug: Key ENTER pressed
 Debug: Adding trip 'vehicle_0' in GNEChange_DemandElement
 Debug: Value 'dummyEdge' for attribute via of trip isn't valid
-Debug: Setting new attribute via 'gneE8' into trip 'vehicle_0'
-Debug: Setting new attribute via 'gneE9' into trip 'vehicle_0'
-Debug: Setting new attribute via 'gneE8 gneE9' into trip 'vehicle_0'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute via 'gneE9' into trip 'vehicle_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute via 'gneE8' into trip 'vehicle_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute via '' into trip 'vehicle_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing trip 'vehicle_0' in GNEChange_DemandElement
@@ -96,13 +96,13 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding trip 'vehicle_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute via 'gneE8' into trip 'vehicle_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute via 'gneE9' into trip 'vehicle_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute via 'gneE8 gneE9' into trip 'vehicle_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing

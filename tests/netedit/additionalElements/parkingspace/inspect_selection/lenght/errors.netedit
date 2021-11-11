@@ -45,57 +45,57 @@ GLDebug: 	Removed object parkingArea:parkingArea_B from SUMORTree with boundary 
 GLDebug: 	Inserted parkingArea:parkingArea_B into SUMORTree with boundary 15.80,-14.80,52.20,5.20
 GLDebug: 	Removed object parkingArea:parkingArea_B from SUMORTree with boundary 15.80,-14.80,52.20,5.20
 GLDebug: 	Inserted parkingArea:parkingArea_B into SUMORTree with boundary 10.00,-17.00,58.00,31.00
-Debug: Setting new attribute selected 'true' into junction 'gneJ0'
-Debug: Setting new attribute selected 'true' into edge 'gneE1'
-Debug: Setting new attribute selected 'true' into junction 'gneJ1'
-Debug: Setting new attribute selected 'true' into edge 'gneE0'
-Debug: Setting new attribute selected 'true' into junction 'gneJ2'
-Debug: Setting new attribute selected 'true' into edge 'gneE3'
-Debug: Setting new attribute selected 'true' into junction 'gneJ3'
-Debug: Setting new attribute selected 'true' into edge 'gneE2'
-Debug: Setting new attribute selected 'true' into parkingArea 'parkingArea_A'
-Debug: Setting new attribute selected 'true' into parkingArea 'parkingArea_B'
-Debug: Setting new attribute selected 'true' into space 'parkingArea_B'
-Debug: Setting new attribute selected 'true' into space 'parkingArea_A'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Value 'dummyLenght' for attribute length of space isn't valid
 Debug: Value '-6' for attribute length of space isn't valid
 Debug: Value '0' for attribute length of space isn't valid
-Debug: Setting new attribute length '3.4' into space 'parkingArea_A'
+Debug: Setting new attribute
 GLDebug: 	Removed object parkingArea:parkingArea_A from SUMORTree with boundary -2.00,-14.80,36.00,26.00
 GLDebug: 	Inserted parkingArea:parkingArea_A into SUMORTree with boundary -1.20,-14.80,35.20,24.40
 GLDebug: 	Removed object parkingArea:parkingArea_A from SUMORTree with boundary -1.20,-14.80,35.20,24.40
 GLDebug: 	Inserted parkingArea:parkingArea_A into SUMORTree with boundary -1.20,-14.80,35.20,24.40
-Debug: Setting new attribute length '3.4' into space 'parkingArea_B'
+Debug: Setting new attribute
 GLDebug: 	Removed object parkingArea:parkingArea_B from SUMORTree with boundary 10.00,-17.00,58.00,31.00
 GLDebug: 	Inserted parkingArea:parkingArea_B into SUMORTree with boundary 15.80,-14.80,52.20,22.40
 GLDebug: 	Removed object parkingArea:parkingArea_B from SUMORTree with boundary 15.80,-14.80,52.20,22.40
 GLDebug: 	Inserted parkingArea:parkingArea_B into SUMORTree with boundary 15.80,-14.80,52.20,22.40
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute length '12.00' into space 'parkingArea_B'
+Debug: Restoring previous attribute
 GLDebug: 	Removed object parkingArea:parkingArea_B from SUMORTree with boundary 15.80,-14.80,52.20,22.40
 GLDebug: 	Inserted parkingArea:parkingArea_B into SUMORTree with boundary 10.00,-17.00,58.00,31.00
 GLDebug: 	Removed object parkingArea:parkingArea_B from SUMORTree with boundary 10.00,-17.00,58.00,31.00
 GLDebug: 	Inserted parkingArea:parkingArea_B into SUMORTree with boundary 10.00,-17.00,58.00,31.00
-Debug: Setting previous attribute length '5.00' into space 'parkingArea_A'
+Debug: Restoring previous attribute
 GLDebug: 	Removed object parkingArea:parkingArea_A from SUMORTree with boundary -1.20,-14.80,35.20,24.40
 GLDebug: 	Inserted parkingArea:parkingArea_A into SUMORTree with boundary -2.00,-14.80,36.00,26.00
 GLDebug: 	Removed object parkingArea:parkingArea_A from SUMORTree with boundary -2.00,-14.80,36.00,26.00
 GLDebug: 	Inserted parkingArea:parkingArea_A into SUMORTree with boundary -2.00,-14.80,36.00,26.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute selected '0' into space 'parkingArea_A'
-Debug: Setting previous attribute selected '0' into space 'parkingArea_B'
-Debug: Setting previous attribute selected '0' into parkingArea 'parkingArea_B'
-Debug: Setting previous attribute selected '0' into parkingArea 'parkingArea_A'
-Debug: Setting previous attribute selected '0' into edge 'gneE2'
-Debug: Setting previous attribute selected '0' into junction 'gneJ3'
-Debug: Setting previous attribute selected '0' into edge 'gneE3'
-Debug: Setting previous attribute selected '0' into junction 'gneJ2'
-Debug: Setting previous attribute selected '0' into edge 'gneE0'
-Debug: Setting previous attribute selected '0' into junction 'gneJ1'
-Debug: Setting previous attribute selected '0' into edge 'gneE1'
-Debug: Setting previous attribute selected '0' into junction 'gneJ0'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing space 'parkingArea_B' in GNEChange_Additional
@@ -120,26 +120,26 @@ GLDebug: 	Removed object parkingArea:parkingArea_B from SUMORTree with boundary 
 GLDebug: 	Inserted parkingArea:parkingArea_B into SUMORTree with boundary 15.80,-14.80,52.20,5.20
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute selected 'true' into junction 'gneJ0'
-Debug: Setting new attribute selected 'true' into edge 'gneE1'
-Debug: Setting new attribute selected 'true' into junction 'gneJ1'
-Debug: Setting new attribute selected 'true' into edge 'gneE0'
-Debug: Setting new attribute selected 'true' into junction 'gneJ2'
-Debug: Setting new attribute selected 'true' into edge 'gneE3'
-Debug: Setting new attribute selected 'true' into junction 'gneJ3'
-Debug: Setting new attribute selected 'true' into edge 'gneE2'
-Debug: Setting new attribute selected 'true' into parkingArea 'parkingArea_A'
-Debug: Setting new attribute selected 'true' into parkingArea 'parkingArea_B'
-Debug: Setting new attribute selected 'true' into space 'parkingArea_B'
-Debug: Setting new attribute selected 'true' into space 'parkingArea_A'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute length '3.4' into space 'parkingArea_A'
+Debug: Setting new attribute
 GLDebug: 	Removed object parkingArea:parkingArea_A from SUMORTree with boundary -1.20,-14.80,35.20,5.20
 GLDebug: 	Inserted parkingArea:parkingArea_A into SUMORTree with boundary -1.20,-14.80,35.20,24.40
 GLDebug: 	Removed object parkingArea:parkingArea_A from SUMORTree with boundary -1.20,-14.80,35.20,24.40
 GLDebug: 	Inserted parkingArea:parkingArea_A into SUMORTree with boundary -1.20,-14.80,35.20,24.40
-Debug: Setting new attribute length '3.4' into space 'parkingArea_B'
+Debug: Setting new attribute
 GLDebug: 	Removed object parkingArea:parkingArea_B from SUMORTree with boundary 15.80,-14.80,52.20,5.20
 GLDebug: 	Inserted parkingArea:parkingArea_B into SUMORTree with boundary 15.80,-14.80,52.20,22.40
 GLDebug: 	Removed object parkingArea:parkingArea_B from SUMORTree with boundary 15.80,-14.80,52.20,22.40

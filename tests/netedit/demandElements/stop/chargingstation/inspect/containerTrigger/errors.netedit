@@ -25,10 +25,10 @@ Debug: Selected item 'flow' in DemandElementSelector
 Debug: Selected item 'stopLane' in TagSelector
 Debug: Selected item 'stopChargingStation' in TagSelector
 Debug: Adding stopChargingStation 'flow' in GNEChange_DemandElement
-Debug: Setting new attribute containerTriggered 'true' into stopChargingStation 'flow'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute containerTriggered '0' into stopChargingStation 'flow'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing stopChargingStation 'flow' in GNEChange_DemandElement
@@ -43,7 +43,7 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding stopChargingStation 'flow' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute containerTriggered 'true' into stopChargingStation 'flow'
+Debug: Setting new attribute
 Debug: Additionals saved
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing

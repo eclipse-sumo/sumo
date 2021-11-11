@@ -77,17 +77,17 @@ Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'flow (from-to)' in TagSelector
 Debug: Key ENTER pressed
 Debug: Adding flow 'flow_0' in GNEChange_DemandElement
-Debug: Setting new attribute type 'bicycle' into flow 'flow_0'
+Debug: Setting new attribute
 Debug: Value '' for attribute to of flow isn't valid
 Debug: Value 'dummyEdge' for attribute to of flow isn't valid
 Debug: Value 'gneJ7' for attribute to of flow isn't valid
-Debug: Setting new attribute to 'gneE8' into flow 'flow_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute to 'gneE5' into flow 'flow_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute type 'DEFAULT_VEHTYPE' into flow 'flow_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing flow 'flow_0' in GNEChange_DemandElement
@@ -96,10 +96,10 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding flow 'flow_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute type 'bicycle' into flow 'flow_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute to 'gneE8' into flow 'flow_0'
+Debug: Setting new attribute
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary 0.00,6.80,20.00,33.20

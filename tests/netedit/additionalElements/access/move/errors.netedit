@@ -17,14 +17,14 @@ Debug: Selected item 'busStop' in TagSelector
 Debug: Adding busStop 'busStop_gneE0_0_0' in GNEChange_Additional
 Debug: Selected item 'access' in TagSelector
 Debug: Adding access 'busStop_gneE0_0_0' in GNEChange_Additional
-Debug: Setting new attribute pos '23.00' into access 'busStop_gneE0_0_0'
-Debug: Setting new attribute pos '29.00' into access 'busStop_gneE0_0_0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '23.00' into access 'busStop_gneE0_0_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '35.00' into access 'busStop_gneE0_0_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing access 'busStop_gneE0_0_0' in GNEChange_Additional
@@ -39,10 +39,10 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding access 'busStop_gneE0_0_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '23.00' into access 'busStop_gneE0_0_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '29.00' into access 'busStop_gneE0_0_0'
+Debug: Setting new attribute
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

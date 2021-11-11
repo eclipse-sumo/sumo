@@ -26,18 +26,18 @@ Debug: Created connection 'from8_2to1_2' in retrieveGNEConnection()
 Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: Current Viewport values: 50.00, 50.00, 50.00. Zoom = '248.00'
-Debug: Setting new attribute priority 'false' into crossing ':Center_c0'
-Debug: Setting new attribute priority 'false' into crossing ':Center_c1'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute priority 'true' into crossing ':Center_c1'
-Debug: Setting previous attribute priority 'true' into crossing ':Center_c0'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute priority 'false' into crossing ':Center_c0'
-Debug: Setting new attribute priority 'false' into crossing ':Center_c1'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Deleting unreferenced edge '1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '1_1' in GNEEdge destructor

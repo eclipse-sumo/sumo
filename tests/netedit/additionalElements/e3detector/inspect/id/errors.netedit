@@ -19,14 +19,14 @@ Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
 Debug: Adding detExit 'e3Detector_1' in GNEChange_Additional
 Debug: Value 'e3Detector_1' for attribute id of e3Detector isn't valid
 Debug: Value ';;;;;;;;;;;;;;;;;' for attribute id of e3Detector isn't valid
-Debug: Setting new attribute id 'Id with spaces' into e3Detector 'e3Detector_0'
-Debug: Setting new attribute id 'correctID' into e3Detector 'Id with spaces'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute id 'Id with spaces' into e3Detector 'correctID'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute id 'e3Detector_0' into e3Detector 'Id with spaces'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing detExit 'e3Detector_1' in GNEChange_Additional
@@ -65,10 +65,10 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding detExit 'e3Detector_1' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute id 'Id with spaces' into e3Detector 'e3Detector_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute id 'correctID' into e3Detector 'Id with spaces'
+Debug: Setting new attribute
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE2_1togneE3_1' in retrieveGNEConnection()

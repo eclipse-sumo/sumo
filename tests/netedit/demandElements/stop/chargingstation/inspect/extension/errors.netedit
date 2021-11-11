@@ -25,56 +25,56 @@ Debug: Selected item 'flow' in DemandElementSelector
 Debug: Selected item 'stopLane' in TagSelector
 Debug: Selected item 'stopChargingStation' in TagSelector
 Debug: Adding stopChargingStation 'flow' in GNEChange_DemandElement
-Debug: Setting new attribute into stopChargingStation 'flow'
-Debug: Setting new attribute extension '0' into stopChargingStation 'flow'
-Debug: Setting new attribute into stopChargingStation 'flow'
-Debug: Setting new attribute into stopChargingStation 'flow'
-Debug: Setting new attribute extension '0' into stopChargingStation 'flow'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Value 'dummyValue' for attribute extension of stopChargingStation isn't valid
-Debug: Setting new attribute extension '0' into stopChargingStation 'flow'
+Debug: Setting new attribute
 Debug: Value '-5' for attribute extension of stopChargingStation isn't valid
-Debug: Setting new attribute extension '0' into stopChargingStation 'flow'
-Debug: Setting new attribute extension '3.5' into stopChargingStation 'flow'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute extension '0.00' into stopChargingStation 'flow'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute extension '0.00' into stopChargingStation 'flow'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute extension '0.00' into stopChargingStation 'flow'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute extension '0.00' into stopChargingStation 'flow'
-Debug: Setting previous attribute into stopChargingStation 'flow'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute into stopChargingStation 'flow'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute extension '-0.00' into stopChargingStation 'flow'
-Debug: Setting previous attribute into stopChargingStation 'flow'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute into stopChargingStation 'flow'
-Debug: Setting new attribute extension '0' into stopChargingStation 'flow'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute into stopChargingStation 'flow'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute into stopChargingStation 'flow'
-Debug: Setting new attribute extension '0' into stopChargingStation 'flow'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute extension '0' into stopChargingStation 'flow'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute extension '0' into stopChargingStation 'flow'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute extension '3.5' into stopChargingStation 'flow'
+Debug: Setting new attribute
 Debug: Additionals saved
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing

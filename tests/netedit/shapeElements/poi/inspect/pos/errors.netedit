@@ -16,12 +16,12 @@ Debug: Selected item 'poi' in TagSelector
 Debug: Adding poi 'poi_0' into viewNet
 GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -8.50,7.50,12.50,28.50
 Debug: Value 'dummyPosition' for attribute pos of poi isn't valid
-Debug: Setting new attribute pos '20.40,7.50' into poi 'poi_0'
+Debug: Setting new attribute
 GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -8.50,7.50,12.50,28.50
 GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary 9.90,-3.00,30.90,18.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '2.00,18.00' into poi 'poi_0'
+Debug: Restoring previous attribute
 GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary 9.90,-3.00,30.90,18.00
 GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -8.50,7.50,12.50,28.50
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -34,7 +34,7 @@ Debug: Adding poi 'poi_0' into viewNet
 GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -8.50,7.50,12.50,28.50
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '20.40,7.50' into poi 'poi_0'
+Debug: Setting new attribute
 GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -8.50,7.50,12.50,28.50
 GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary 9.90,-3.00,30.90,18.00
 GLDebug: Removing junctions during recomputing

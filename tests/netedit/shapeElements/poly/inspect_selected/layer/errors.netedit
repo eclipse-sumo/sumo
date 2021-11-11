@@ -16,26 +16,26 @@ GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary -8.00,-2.00,22.00
 Debug: Adding poly 'poly_1' into viewNet
 GLDebug: 	Inserted polygon:poly_1 into SUMORTree with boundary 12.00,-2.00,42.00,28.00
 Debug: Value 'dummyLayer' for attribute layer of poly isn't valid
-Debug: Setting new attribute layer '-2' into poly 'poly_0'
-Debug: Setting new attribute layer '-2' into poly 'poly_1'
-Debug: Setting new attribute layer '2.5' into poly 'poly_0'
-Debug: Setting new attribute layer '2.5' into poly 'poly_1'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute layer '-2.00' into poly 'poly_1'
-Debug: Setting previous attribute layer '-2.00' into poly 'poly_0'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute layer '64.00' into poly 'poly_1'
-Debug: Setting previous attribute layer '128.00' into poly 'poly_0'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute layer '-2' into poly 'poly_0'
-Debug: Setting new attribute layer '-2' into poly 'poly_1'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute layer '2.5' into poly 'poly_0'
-Debug: Setting new attribute layer '2.5' into poly 'poly_1'
+Debug: Setting new attribute
+Debug: Setting new attribute
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

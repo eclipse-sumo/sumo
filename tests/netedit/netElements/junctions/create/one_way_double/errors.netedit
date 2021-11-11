@@ -13,26 +13,26 @@ Debug: Adding junction 'J1' into net
 GLDebug: 	Inserted junction:J1 into SUMORTree with boundary 8.00,78.00,32.00,102.00
 Debug: Adding edge 'E0' from net
 GLDebug: 	Inserted edge:E0 into SUMORTree with boundary -10.00,78.40,30.00,100.00
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'J0'
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'E0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'E0' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'J1'
-Debug: Setting new attribute width '-1.00' into lane 'E0_0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 GLDebug: 	Removed object edge:E0 from SUMORTree with boundary -10.00,78.40,30.00,100.00
 GLDebug: 	Inserted edge:E0 into SUMORTree with boundary -10.00,78.40,30.00,100.00
-Debug: Setting new attribute width '-1.00' into edge 'E0'
+Debug: Setting new attribute
 Debug: Adding edge '-E0' from net
 GLDebug: 	Inserted edge:-E0 into SUMORTree with boundary -10.00,80.00,30.00,101.60
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'E0'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'E0' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'J1'
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-E0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-E0' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'J0'
-Debug: Setting new attribute width '-1.00' into lane '-E0_0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 GLDebug: 	Removed object edge:-E0 from SUMORTree with boundary -10.00,80.00,30.00,101.60
 GLDebug: 	Inserted edge:-E0 into SUMORTree with boundary -10.00,80.00,30.00,101.60
-Debug: Setting new attribute width '-1.00' into edge '-E0'
+Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:J0 from SUMORTree with boundary -12.00,78.00,12.00,102.00
@@ -50,30 +50,30 @@ Debug: Created connection 'from-E0_0toE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE0_0to-E0_0' in retrieveGNEConnection()
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute width 'default' into edge '-E0'
-Debug: Setting previous attribute width 'default' into lane '-E0_0'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 GLDebug: 	Removed object edge:-E0 from SUMORTree with boundary -10.00,80.00,30.00,101.60
 GLDebug: 	Inserted edge:-E0 into SUMORTree with boundary -10.00,80.00,30.00,101.60
-Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'J0'
-Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-E0'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge '-E0' due it were guessed
 Debug: Deleting unreferenced connection 'from-E0_0toE0_0' in clearGNEConnections()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'J1'
-Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'E0'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'E0' due it were guessed
 Debug: Deleting unreferenced connection 'fromE0_0to-E0_0' in clearGNEConnections()
 Debug: Removing edge '-E0' from net
 GLDebug: 	Removed object edge:-E0 from SUMORTree with boundary -10.00,80.00,30.00,101.60
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute width 'default' into edge 'E0'
-Debug: Setting previous attribute width 'default' into lane 'E0_0'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 GLDebug: 	Removed object edge:E0 from SUMORTree with boundary -10.00,78.40,30.00,100.00
 GLDebug: 	Inserted edge:E0 into SUMORTree with boundary -10.00,78.40,30.00,100.00
-Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'J1'
-Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'E0'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'E0' due it were guessed
-Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'J0'
+Debug: Restoring previous attribute
 Debug: Removing edge 'E0' from net
 GLDebug: 	Removed object edge:E0 from SUMORTree with boundary -10.00,78.40,30.00,100.00
 Debug: Removing junction 'J1' from net
@@ -88,28 +88,28 @@ Debug: Adding junction 'J1' into net
 GLDebug: 	Inserted junction:J1 into SUMORTree with boundary 10.00,76.80,30.00,103.20
 Debug: Adding edge 'E0' from net
 GLDebug: 	Inserted edge:E0 into SUMORTree with boundary -10.00,78.40,30.00,100.00
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'J0'
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'E0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'E0' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'J1'
-Debug: Setting new attribute width '-1.00' into lane 'E0_0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 GLDebug: 	Removed object edge:E0 from SUMORTree with boundary -10.00,78.40,30.00,100.00
 GLDebug: 	Inserted edge:E0 into SUMORTree with boundary -10.00,78.40,30.00,100.00
-Debug: Setting new attribute width '-1.00' into edge 'E0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding edge '-E0' from net
 GLDebug: 	Inserted edge:-E0 into SUMORTree with boundary -10.00,80.00,30.00,101.60
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'E0'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'E0' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'J1'
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-E0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-E0' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'J0'
-Debug: Setting new attribute width '-1.00' into lane '-E0_0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 GLDebug: 	Removed object edge:-E0 from SUMORTree with boundary -10.00,80.00,30.00,101.60
 GLDebug: 	Inserted edge:-E0 into SUMORTree with boundary -10.00,80.00,30.00,101.60
-Debug: Setting new attribute width '-1.00' into edge '-E0'
+Debug: Setting new attribute
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:J0 from SUMORTree with boundary -10.00,76.80,10.00,103.20
 GLDebug: 	Removed object junction:J1 from SUMORTree with boundary 10.00,76.80,30.00,103.20

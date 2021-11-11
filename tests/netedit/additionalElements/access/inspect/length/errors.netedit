@@ -14,10 +14,10 @@ Debug: Selected item 'access' in TagSelector
 Debug: Adding access 'busStop_gneE2_1_0' in GNEChange_Additional
 Debug: Value 'dummyLenght' for attribute length of access isn't valid
 Debug: Value '-30' for attribute length of access isn't valid
-Debug: Setting new attribute length '5' into access 'busStop_gneE2_1_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute length '-1.00' into access 'busStop_gneE2_1_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing access 'busStop_gneE2_1_0' in GNEChange_Additional
@@ -32,7 +32,7 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding access 'busStop_gneE2_1_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute length '5' into access 'busStop_gneE2_1_0'
+Debug: Setting new attribute
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE2_1togneE3_1' in retrieveGNEConnection()

@@ -21,10 +21,10 @@ Debug: Adding calibrator 'calibrator_gneE3_0' in GNEChange_Additional
 Debug: Adding calibrator 'calibrator_gneE2_1' in GNEChange_Additional
 Debug: Value 'calibrator_gneE3_0' for attribute id of calibrator isn't valid
 Debug: Value 'Id with spaces' for attribute id of calibrator isn't valid
-Debug: Setting new attribute id 'correctID' into calibrator 'calibrator_gneE2_1'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute id 'calibrator_gneE2_1' into calibrator 'correctID'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing calibrator 'calibrator_gneE2_1' in GNEChange_Additional
@@ -39,7 +39,7 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding calibrator 'calibrator_gneE2_1' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute id 'correctID' into calibrator 'calibrator_gneE2_1'
+Debug: Setting new attribute
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

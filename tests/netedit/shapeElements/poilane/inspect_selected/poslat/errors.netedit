@@ -14,18 +14,18 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding poiLane 'POI_1' into viewNet
 Debug: Adding poiLane 'POI_2' into viewNet
 Debug: Value 'dummyLatPosition' for attribute posLat of poiLane isn't valid
-Debug: Setting new attribute posLat '-20' into poiLane 'POI_1'
-Debug: Setting new attribute posLat '-20' into poiLane 'POI_2'
-Debug: Setting new attribute posLat '15' into poiLane 'POI_1'
-Debug: Setting new attribute posLat '15' into poiLane 'POI_2'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute posLat '-20.00' into poiLane 'POI_2'
-Debug: Setting previous attribute posLat '-20.00' into poiLane 'POI_1'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute posLat '-0.20' into poiLane 'POI_2'
-Debug: Setting previous attribute posLat '0.20' into poiLane 'POI_1'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing poiLane 'POI_2' from viewNet
@@ -36,12 +36,12 @@ Debug: Adding poiLane 'POI_1' into viewNet
 Debug: Adding poiLane 'POI_2' into viewNet
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute posLat '-20' into poiLane 'POI_1'
-Debug: Setting new attribute posLat '-20' into poiLane 'POI_2'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute posLat '15' into poiLane 'POI_1'
-Debug: Setting new attribute posLat '15' into poiLane 'POI_2'
+Debug: Setting new attribute
+Debug: Setting new attribute
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

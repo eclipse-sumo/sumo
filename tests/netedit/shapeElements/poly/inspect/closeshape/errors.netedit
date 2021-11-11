@@ -17,12 +17,12 @@ Debug: Key ENTER pressed
 Debug: Key ENTER pressed
 Debug: Adding poly 'poly_0' into viewNet
 GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary -10.00,0.00,20.00,30.00
-Debug: Setting new attribute closedShape 'false' into poly 'poly_0'
+Debug: Setting new attribute
 GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary -10.00,0.00,20.00,30.00
 GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary -10.00,0.00,20.00,30.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute closedShape '1' into poly 'poly_0'
+Debug: Restoring previous attribute
 GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary -10.00,0.00,20.00,30.00
 GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary -10.00,0.00,20.00,30.00
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -35,7 +35,7 @@ Debug: Adding poly 'poly_0' into viewNet
 GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary -10.00,0.00,20.00,30.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute closedShape 'false' into poly 'poly_0'
+Debug: Setting new attribute
 GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary -10.00,0.00,20.00,30.00
 GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary -10.00,0.00,20.00,30.00
 GLDebug: Removing junctions during recomputing

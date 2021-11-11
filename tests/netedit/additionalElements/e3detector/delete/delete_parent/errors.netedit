@@ -50,18 +50,18 @@ Debug: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
 Debug: Deleting TLS from junction 'gneJ0'
 Debug: Adding TLS into junction 'gneJ0'
 Debug: Deleting TLS from junction 'gneJ0'
-Debug: Setting new attribute type 'priority' into junction 'gneJ0'
+Debug: Setting new attribute
 Debug: Deleting TLS from junction 'gneJ1'
-Debug: Setting new attribute type 'priority' into junction 'gneJ1'
+Debug: Setting new attribute
 Debug: Removing edge 'gneE0' from net
 GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,60.00,10.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Adding edge 'gneE0' from net
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
-Debug: Setting previous attribute type 'traffic_light' into junction 'gneJ1'
+Debug: Restoring previous attribute
 Debug: Adding TLS into junction 'gneJ1'
-Debug: Setting previous attribute type 'traffic_light' into junction 'gneJ0'
+Debug: Restoring previous attribute
 Debug: Adding TLS into junction 'gneJ0'
 Debug: Removing TLS from junction 'gneJ0'
 Debug: Adding TLS into junction 'gneJ0'
@@ -134,9 +134,9 @@ Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in removeConnecti
 Debug: Deleting TLS from junction 'gneJ0'
 Debug: Adding TLS into junction 'gneJ0'
 Debug: Deleting TLS from junction 'gneJ0'
-Debug: Setting new attribute type 'priority' into junction 'gneJ0'
+Debug: Setting new attribute
 Debug: Deleting TLS from junction 'gneJ1'
-Debug: Setting new attribute type 'priority' into junction 'gneJ1'
+Debug: Setting new attribute
 Debug: Removing edge 'gneE0' from net
 GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,60.00,10.00
 Debug: Key ENTER pressed

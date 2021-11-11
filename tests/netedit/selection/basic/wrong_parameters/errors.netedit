@@ -7,23 +7,23 @@ Debug: Adding poiLane 'POI_0' into viewNet
 Debug: Adding poiLane 'POI_1' into viewNet
 Debug: Adding poi 'POI_2' into viewNet
 Debug: Adding poi 'POI_3' into viewNet
-Debug: Setting new attribute selected 'true' into junction 'gneJ0'
+Debug: Setting new attribute
 Debug: Key DEL (delete) pressed
 Debug: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
+Debug: Setting new attribute
 Debug: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
+Debug: Setting new attribute
 Debug: Removing edge 'gneE0' from net
 Debug: Removing poiLane 'POI_0' from viewNet
 Debug: Removing poiLane 'POI_1' from viewNet
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
+Debug: Setting new attribute
 Debug: Removing edge 'gneE1' from net
 Debug: Removing junction 'gneJ0' from net
 Debug: Additionals saved

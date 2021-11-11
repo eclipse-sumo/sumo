@@ -26,46 +26,46 @@ Debug: Selected item 'vehicle_0' in DemandElementSelector
 Debug: Selected item 'stopLane' in TagSelector
 Debug: Selected item 'stopBusStop' in TagSelector
 Debug: Adding stopBusStop 'vehicle_0' in GNEChange_DemandElement
-Debug: Setting new attribute into stopBusStop 'vehicle_0'
-Debug: Setting new attribute into stopBusStop 'vehicle_0'
-Debug: Setting new attribute duration '60' into stopBusStop 'vehicle_0'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Value 'dummyValue' for attribute duration of stopBusStop isn't valid
-Debug: Setting new attribute duration '60' into stopBusStop 'vehicle_0'
+Debug: Setting new attribute
 Debug: Value '-5' for attribute duration of stopBusStop isn't valid
-Debug: Setting new attribute duration '0' into stopBusStop 'vehicle_0'
-Debug: Setting new attribute duration '3.5' into stopBusStop 'vehicle_0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute duration '0.00' into stopBusStop 'vehicle_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute duration '60.00' into stopBusStop 'vehicle_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute duration '60.00' into stopBusStop 'vehicle_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute duration '60.00' into stopBusStop 'vehicle_0'
-Debug: Setting previous attribute into stopBusStop 'vehicle_0'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute into stopBusStop 'vehicle_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute into stopBusStop 'vehicle_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute into stopBusStop 'vehicle_0'
-Debug: Setting new attribute duration '60' into stopBusStop 'vehicle_0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute duration '60' into stopBusStop 'vehicle_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute duration '0' into stopBusStop 'vehicle_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute duration '3.5' into stopBusStop 'vehicle_0'
+Debug: Setting new attribute
 Debug: Additionals saved
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing

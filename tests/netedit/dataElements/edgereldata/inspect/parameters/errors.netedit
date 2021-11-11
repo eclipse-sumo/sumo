@@ -24,22 +24,22 @@ Debug: Adding dataSet 'newDataSet' in GNEChange_DataSet
 Debug: adding dataInterval [0.00, 3600.00] in GNEChange_DataInterval
 Debug: Key ENTER pressed
 Debug: Adding edgeRelation 'newDataSet' in GNEChange_GenericData
-Debug: Setting new attribute genericParameter 'key1=1|key2=2|key3=3' into edgeRelation 'newDataSet[0.00,3600.00]gneE12->gneE15'
-Debug: Setting new attribute genericParameter '' into edgeRelation 'newDataSet[0.00,3600.00]gneE12->gneE15'
-Debug: Setting new attribute genericParameter 'key1duplicated=2|key3=3' into edgeRelation 'newDataSet[0.00,3600.00]gneE12->gneE15'
-Debug: Setting new attribute genericParameter 'keyFinal1=1|keyFinal2=2|keyFinal3=3' into edgeRelation 'newDataSet[0.00,3600.00]gneE12->gneE15'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter 'key1duplicated=2|key3=3' into edgeRelation 'newDataSet[0.00,3600.00]gneE12->gneE15'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter '' into edgeRelation 'newDataSet[0.00,3600.00]gneE12->gneE15'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter 'key1=1|key2=2|key3=3' into edgeRelation 'newDataSet[0.00,3600.00]gneE12->gneE15'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter '' into edgeRelation 'newDataSet[0.00,3600.00]gneE12->gneE15'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing edgeRelation 'newDataSet[0.00,3600.00]gneE12->gneE15' in GNEChange_GenericData
@@ -61,16 +61,16 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding edgeRelation 'newDataSet[0.00,3600.00]gneE12->gneE15' in GNEChange_GenericData
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter 'key1=1|key2=2|key3=3' into edgeRelation 'newDataSet[0.00,3600.00]gneE12->gneE15'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter '' into edgeRelation 'newDataSet[0.00,3600.00]gneE12->gneE15'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter 'key1duplicated=2|key3=3' into edgeRelation 'newDataSet[0.00,3600.00]gneE12->gneE15'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter 'keyFinal1=1|keyFinal2=2|keyFinal3=3' into edgeRelation 'newDataSet[0.00,3600.00]gneE12->gneE15'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: data sets saved
 Debug: Deleting unreferenced edgeRelation 'newDataSet[0.00,3600.00]gneE12->gneE15'

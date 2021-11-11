@@ -15,10 +15,10 @@ Debug: Selected item 'e2MultilaneDetector' in TagSelector
 Debug: Key ENTER pressed
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
 Debug: Value 'Type%%%%%1 T;;yp$2 Type3' for attribute vTypes of e2MultilaneDetector isn't valid
-Debug: Setting new attribute vTypes 'Type1 Type2 Type3' into e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute vTypes '' into e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
@@ -27,7 +27,7 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute vTypes 'Type1 Type2 Type3' into e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Setting new attribute
 Debug: Additionals saved
 Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Deleting unreferenced edge 'gneE2' in AttributeCarriers destructor

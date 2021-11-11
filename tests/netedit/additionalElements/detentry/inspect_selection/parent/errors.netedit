@@ -24,32 +24,32 @@ Debug: Inserting generic parameter 'KeyB2|valueB3' into
 Debug: Adding e3Detector 'E3_1' in GNEChange_Additional
 Debug: Adding detEntry 'E3_1' in GNEChange_Additional
 Debug: Adding detExit 'E3_1' in GNEChange_Additional
-Debug: Setting new attribute selected 'true' into junction 'gneJ0'
-Debug: Setting new attribute selected 'true' into edge 'gneE1'
-Debug: Setting new attribute selected 'true' into junction 'gneJ1'
-Debug: Setting new attribute selected 'true' into edge 'gneE0'
-Debug: Setting new attribute selected 'true' into e3Detector 'E3_1'
-Debug: Setting new attribute selected 'true' into e3Detector 'E3_0'
-Debug: Setting new attribute selected 'true' into detEntry 'E3_0'
-Debug: Setting new attribute selected 'true' into detEntry 'E3_1'
-Debug: Setting new attribute selected 'true' into detExit 'E3_0'
-Debug: Setting new attribute selected 'true' into detExit 'E3_1'
-Debug: Setting new attribute parentItem 'E3_1' into detEntry 'E3_0'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute parentItem 'E3_0' into detEntry 'E3_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute selected '0' into detExit 'E3_1'
-Debug: Setting previous attribute selected '0' into detExit 'E3_0'
-Debug: Setting previous attribute selected '0' into detEntry 'E3_1'
-Debug: Setting previous attribute selected '0' into detEntry 'E3_0'
-Debug: Setting previous attribute selected '0' into e3Detector 'E3_0'
-Debug: Setting previous attribute selected '0' into e3Detector 'E3_1'
-Debug: Setting previous attribute selected '0' into edge 'gneE0'
-Debug: Setting previous attribute selected '0' into junction 'gneJ1'
-Debug: Setting previous attribute selected '0' into edge 'gneE1'
-Debug: Setting previous attribute selected '0' into junction 'gneJ0'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing detExit 'E3_1' in GNEChange_Additional
@@ -68,19 +68,19 @@ Debug: Adding detEntry 'E3_1' in GNEChange_Additional
 Debug: Adding detExit 'E3_1' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute selected 'true' into junction 'gneJ0'
-Debug: Setting new attribute selected 'true' into edge 'gneE1'
-Debug: Setting new attribute selected 'true' into junction 'gneJ1'
-Debug: Setting new attribute selected 'true' into edge 'gneE0'
-Debug: Setting new attribute selected 'true' into e3Detector 'E3_1'
-Debug: Setting new attribute selected 'true' into e3Detector 'E3_0'
-Debug: Setting new attribute selected 'true' into detEntry 'E3_0'
-Debug: Setting new attribute selected 'true' into detEntry 'E3_1'
-Debug: Setting new attribute selected 'true' into detExit 'E3_0'
-Debug: Setting new attribute selected 'true' into detExit 'E3_1'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute parentItem 'E3_1' into detEntry 'E3_0'
+Debug: Setting new attribute
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Additionals saved

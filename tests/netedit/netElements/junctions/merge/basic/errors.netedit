@@ -15,25 +15,25 @@ Debug: Created connection 'fromgneE8_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE4_0' in retrieveGNEConnection()
 Debug: Opening FXMessageBox 'merge junctions'
 Debug: Closed FXMessageBox 'merge junctions' with 'Yes'
-Debug: Setting new attribute pos '40.00,50.00' into junction 'gneJ8'
-Debug: Setting new attribute to 'gneJ1' into edge 'gneE13'
-Debug: Setting new attribute from 'gneJ1' into edge 'gneE12'
-Debug: Setting new attribute type 'priority' into junction 'gneJ8'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Removing junction 'gneJ8' from net
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Adding junction 'gneJ8' into net
-Debug: Setting previous attribute type 'dead_end' into junction 'gneJ8'
-Debug: Setting previous attribute from 'gneJ8' into edge 'gneE12'
-Debug: Setting previous attribute to 'gneJ8' into edge 'gneE13'
-Debug: Setting previous attribute pos '10.00,50.00' into junction 'gneJ8'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '40.00,50.00' into junction 'gneJ8'
-Debug: Setting new attribute to 'gneJ1' into edge 'gneE13'
-Debug: Setting new attribute from 'gneJ1' into edge 'gneE12'
-Debug: Setting new attribute type 'priority' into junction 'gneJ8'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Removing junction 'gneJ8' from net
 Debug: Deleting unreferenced junction 'gneJ8' in GNEChange_Attribute
 Debug: Deleting NBNode of 'gneJ8' in GNEJunction destructor

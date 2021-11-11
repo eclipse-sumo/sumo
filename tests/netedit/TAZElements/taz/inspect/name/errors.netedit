@@ -15,10 +15,10 @@ Debug: Key ENTER pressed
 Debug: Key ENTER pressed
 Debug: Adding taz 'taz_0' into viewNet
 GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -40.00,-30.00,50.00,60.00
-Debug: Setting new attribute name 'customName' into taz 'taz_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute name '' into taz 'taz_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing taz 'taz_0' from viewNet
@@ -29,7 +29,7 @@ Debug: Adding taz 'taz_0' into viewNet
 GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -40.00,-30.00,50.00,60.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute name 'customName' into taz 'taz_0'
+Debug: Setting new attribute
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

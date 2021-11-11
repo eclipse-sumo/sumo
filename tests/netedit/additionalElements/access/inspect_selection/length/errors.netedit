@@ -28,38 +28,38 @@ Debug: Inserting generic parameter 'KeyB2|valueB3' into
 Debug: Adding busStop 'busStopB' in GNEChange_Additional
 Debug: Adding access 'busStopB' in GNEChange_Additional
 Debug: Current Viewport values: 20.00, 0.00, 17.00. Zoom = '435.29'
-Debug: Setting new attribute selected 'true' into junction 'gneJ0'
-Debug: Setting new attribute selected 'true' into edge 'gneE1'
-Debug: Setting new attribute selected 'true' into junction 'gneJ1'
-Debug: Setting new attribute selected 'true' into edge 'gneE0'
-Debug: Setting new attribute selected 'true' into busStop 'busStopA'
-Debug: Setting new attribute selected 'true' into busStop 'busStopB'
-Debug: Setting new attribute selected 'true' into access 'busStopA'
-Debug: Setting new attribute selected 'true' into access 'busStopB'
-Debug: Setting new attribute length '-1.00' into access 'busStopA'
-Debug: Setting new attribute length '-1.00' into access 'busStopB'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Value 'dummyLenght' for attribute length of access isn't valid
 Debug: Value '-7' for attribute length of access isn't valid
-Debug: Setting new attribute length '5.5' into access 'busStopA'
-Debug: Setting new attribute length '5.5' into access 'busStopB'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute length '-1.00' into access 'busStopB'
-Debug: Setting previous attribute length '-1.00' into access 'busStopA'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute length '20.00' into access 'busStopB'
-Debug: Setting previous attribute length '10.00' into access 'busStopA'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute selected '0' into access 'busStopB'
-Debug: Setting previous attribute selected '0' into access 'busStopA'
-Debug: Setting previous attribute selected '0' into busStop 'busStopB'
-Debug: Setting previous attribute selected '0' into busStop 'busStopA'
-Debug: Setting previous attribute selected '0' into edge 'gneE0'
-Debug: Setting previous attribute selected '0' into junction 'gneJ1'
-Debug: Setting previous attribute selected '0' into edge 'gneE1'
-Debug: Setting previous attribute selected '0' into junction 'gneJ0'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing access 'busStopB' in GNEChange_Additional
@@ -74,22 +74,22 @@ Debug: Adding busStop 'busStopB' in GNEChange_Additional
 Debug: Adding access 'busStopB' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute selected 'true' into junction 'gneJ0'
-Debug: Setting new attribute selected 'true' into edge 'gneE1'
-Debug: Setting new attribute selected 'true' into junction 'gneJ1'
-Debug: Setting new attribute selected 'true' into edge 'gneE0'
-Debug: Setting new attribute selected 'true' into busStop 'busStopA'
-Debug: Setting new attribute selected 'true' into busStop 'busStopB'
-Debug: Setting new attribute selected 'true' into access 'busStopA'
-Debug: Setting new attribute selected 'true' into access 'busStopB'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute length '-1.00' into access 'busStopA'
-Debug: Setting new attribute length '-1.00' into access 'busStopB'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute length '5.5' into access 'busStopA'
-Debug: Setting new attribute length '5.5' into access 'busStopB'
+Debug: Setting new attribute
+Debug: Setting new attribute
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

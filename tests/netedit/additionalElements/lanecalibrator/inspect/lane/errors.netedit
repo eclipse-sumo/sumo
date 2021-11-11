@@ -19,10 +19,10 @@ Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'laneCalibrator' in TagSelector
 Debug: Adding laneCalibrator 'laneCalibrator_gneE3_1_0' in GNEChange_Additional
 Debug: Value 'dummylane' for attribute lane of laneCalibrator isn't valid
-Debug: Setting new attribute lane 'gneE3_0' into laneCalibrator 'laneCalibrator_gneE3_1_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute lane 'gneE3_1' into laneCalibrator 'laneCalibrator_gneE3_1_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing laneCalibrator 'laneCalibrator_gneE3_1_0' in GNEChange_Additional
@@ -31,7 +31,7 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding laneCalibrator 'laneCalibrator_gneE3_1_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute lane 'gneE3_0' into laneCalibrator 'laneCalibrator_gneE3_1_0'
+Debug: Setting new attribute
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

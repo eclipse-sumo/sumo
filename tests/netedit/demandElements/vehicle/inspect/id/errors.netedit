@@ -82,10 +82,10 @@ Debug: Value '' for attribute id of vehicle isn't valid
 Debug: Value ';;;;;;;;' for attribute id of vehicle isn't valid
 Debug: Value 'id with spaces' for attribute id of vehicle isn't valid
 Debug: Value 'duplicatedVehicle' for attribute id of vehicle isn't valid
-Debug: Setting new attribute id 'customID' into vehicle 'vehicle_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute id 'vehicle_0' into vehicle 'customID'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing vehicle 'vehicle_0' in GNEChange_DemandElement
@@ -100,7 +100,7 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding vehicle 'vehicle_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute id 'customID' into vehicle 'vehicle_0'
+Debug: Setting new attribute
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary 0.00,6.80,20.00,33.20

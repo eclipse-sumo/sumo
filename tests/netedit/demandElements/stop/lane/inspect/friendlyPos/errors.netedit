@@ -24,10 +24,10 @@ Debug: Selected item 'routeFlow' in DemandElementSelector
 Debug: Selected item 'stopLane' in TagSelector
 Debug: Selected item 'stopLane' in TagSelector
 Debug: Adding stopLane 'routeFlow' in GNEChange_DemandElement
-Debug: Setting new attribute friendlyPos 'true' into stopLane 'routeFlow'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute friendlyPos '0' into stopLane 'routeFlow'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing stopLane 'routeFlow' in GNEChange_DemandElement
@@ -36,7 +36,7 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding stopLane 'routeFlow' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute friendlyPos 'true' into stopLane 'routeFlow'
+Debug: Setting new attribute
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-13.20,10.00,13.20

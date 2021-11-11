@@ -30,15 +30,15 @@ Debug: Created connection 'fromgneE9_0togneE2_1' in retrieveGNEConnection()
 Error: Shape of a(n) user-supplied shape is broken: the position is neither x,y nor x,y,z.
 Debug: Value 'dummyShape' for attribute shape of edge isn't valid
 Debug: Key F5 (Compute) pressed
-Debug: Setting new attribute shape '13.112,16.22 34.19,16.11' into edge 'gneE2'
+Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute shape '' into edge 'gneE2'
+Debug: Restoring previous attribute
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute shape '13.112,16.22 34.19,16.11' into edge 'gneE2'
+Debug: Setting new attribute
 Debug: Additionals saved
 Debug: Deleting unreferenced busStop 'busStop6'
 Debug: Deleting unreferenced busStop 'busStop5'

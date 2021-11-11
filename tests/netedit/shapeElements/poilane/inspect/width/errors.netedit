@@ -16,10 +16,10 @@ Debug: Selected item 'poiLane' in TagSelector
 Debug: Adding poiLane 'poi_0' into viewNet
 Debug: Value 'dummyWidth' for attribute width of poiLane isn't valid
 Debug: Value '-2' for attribute width of poiLane isn't valid
-Debug: Setting new attribute width '5.5' into poiLane 'poi_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute width '1.00' into poiLane 'poi_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing poiLane 'poi_0' from viewNet
@@ -28,7 +28,7 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding poiLane 'poi_0' into viewNet
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute width '5.5' into poiLane 'poi_0'
+Debug: Setting new attribute
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

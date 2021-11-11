@@ -21,10 +21,10 @@ Debug: Adding laneCalibrator 'laneCalibrator_gneE3_1_0' in GNEChange_Additional
 Debug: Value 'dummyPos' for attribute pos of laneCalibrator isn't valid
 Debug: Value '-12' for attribute pos of laneCalibrator isn't valid
 Debug: Value '5000' for attribute pos of laneCalibrator isn't valid
-Debug: Setting new attribute pos '10' into laneCalibrator 'laneCalibrator_gneE3_1_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '34.00' into laneCalibrator 'laneCalibrator_gneE3_1_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing laneCalibrator 'laneCalibrator_gneE3_1_0' in GNEChange_Additional
@@ -34,7 +34,7 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding laneCalibrator 'laneCalibrator_gneE3_1_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '10' into laneCalibrator 'laneCalibrator_gneE3_1_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00

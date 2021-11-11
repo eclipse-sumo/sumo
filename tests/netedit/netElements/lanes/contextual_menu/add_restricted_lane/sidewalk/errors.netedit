@@ -58,25 +58,25 @@ Debug: Created crossing ':gneJ2_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ2_c1' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ3_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ3_c1' in retrieveGNECrossing()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE2'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-gneE2' due it were guessed
 Debug: Removing connection 'gneE9_0->gneE2_0' from edge 'gneE9'
 Debug: Deleting unreferenced connection 'fromgneE9_0togneE2_0' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE2'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-gneE2' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
+Debug: Setting new attribute
 Debug: Adding lane 'gneE2_0' into edge
 GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.00,8.40,60.00,30.00
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,8.40,60.00,30.00
-Debug: Setting new attribute allow 'private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle moped bicycle evehicle tram rail_urban rail rail_electric rail_fast ship custom1 custom2' into lane 'gneE2_0'
-Debug: Setting new attribute allow 'private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle moped bicycle evehicle tram rail_urban rail rail_electric rail_fast ship custom1 custom2' into lane 'gneE2_1'
-Debug: Setting new attribute allow 'pedestrian' into lane 'gneE2_0'
-Debug: Setting new attribute width '2.00' into lane 'gneE2_0'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.00,8.40,60.00,30.00
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,8.40,60.00,30.00
 Debug: Key F5 (Compute) pressed
@@ -113,28 +113,28 @@ Debug: Created connection 'fromgneE2_1togneE4_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_1' in retrieveGNEConnection()
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute width '-1.00' into lane 'gneE2_0'
+Debug: Restoring previous attribute
 GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.00,8.40,60.00,30.00
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,8.40,60.00,30.00
-Debug: Setting previous attribute allow 'private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle moped bicycle evehicle tram rail_urban rail rail_electric rail_fast ship custom1 custom2' into lane 'gneE2_0'
-Debug: Setting previous attribute allow 'all' into lane 'gneE2_1'
-Debug: Setting previous attribute allow 'all' into lane 'gneE2_0'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Removing lane 'gneE2_0' from edge
 GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.00,8.40,60.00,30.00
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,8.40,60.00,30.00
-Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
-Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
 Debug: Deleting unreferenced connection 'fromgneE9_0togneE2_1' in clearGNEConnections()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE2'
+Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge '-gneE2' due it were guessed
 Debug: Deleting unreferenced connection 'from-gneE2_0togneE8_0' in clearGNEConnections()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ2'
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE9'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: declaring connections of edge 'gneE9' as loaded (It will not be removed)
 Debug: Adding connection 'gneE9_0->gneE2_0' into edge 'gneE9'
 Debug: Created connection 'fromgneE9_0togneE2_0' in retrieveGNEConnection()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '-gneE2'
+Debug: Restoring previous attribute
 Debug: declaring connections of edge '-gneE2' as loaded (It will not be removed)
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
@@ -167,26 +167,26 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -11.60,-10.00,10.00,3
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,-10.00,11.60,30.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE2'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-gneE2' due it were guessed
 Debug: Removing connection 'gneE9_0->gneE2_0' from edge 'gneE9'
 Debug: Deleting unreferenced connection 'fromgneE9_0togneE2_0' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE2'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-gneE2' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
+Debug: Setting new attribute
 Debug: Adding lane 'gneE2_0' into edge
 Debug: Deleting unreferenced connection 'fromgneE2_1togneE4_0' in rebuildGNEConnections()
 GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.00,8.40,60.00,30.00
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,8.40,60.00,30.00
-Debug: Setting new attribute allow 'private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle moped bicycle evehicle tram rail_urban rail rail_electric rail_fast ship custom1 custom2' into lane 'gneE2_0'
-Debug: Setting new attribute allow 'private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle moped bicycle evehicle tram rail_urban rail rail_electric rail_fast ship custom1 custom2' into lane 'gneE2_1'
-Debug: Setting new attribute allow 'pedestrian' into lane 'gneE2_0'
-Debug: Setting new attribute width '2.00' into lane 'gneE2_0'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.00,8.40,60.00,30.00
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,8.40,60.00,30.00
 Debug: Additionals saved

@@ -76,12 +76,12 @@ Debug: Key ENTER pressed
 Debug: Adding route 'route_1' in GNEChange_DemandElement
 Debug: Value 'dummyRepeat' for attribute repeat of route isn't valid
 Debug: Value '' for attribute repeat of route isn't valid
-Debug: Setting new attribute repeat '14' into route 'route_0'
-Debug: Setting new attribute repeat '14' into route 'route_1'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute repeat '0' into route 'route_1'
-Debug: Setting previous attribute repeat '0' into route 'route_0'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing route 'route_1' in GNEChange_DemandElement
@@ -97,8 +97,8 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding route 'route_1' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute repeat '14' into route 'route_0'
-Debug: Setting new attribute repeat '14' into route 'route_1'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing

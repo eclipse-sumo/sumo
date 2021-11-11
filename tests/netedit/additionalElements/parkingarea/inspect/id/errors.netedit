@@ -12,10 +12,10 @@ Debug: Adding parkingArea 'parkingArea_gneE2_1_0' in GNEChange_Additional
 Debug: Adding parkingArea 'parkingArea_gneE2_1_1' in GNEChange_Additional
 Debug: Value 'parkingArea_gneE2_1_1' for attribute id of parkingArea isn't valid
 Debug: Value 'Id with spaces' for attribute id of parkingArea isn't valid
-Debug: Setting new attribute id 'correctID' into parkingArea 'parkingArea_gneE2_1_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute id 'parkingArea_gneE2_1_0' into parkingArea 'correctID'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing parkingArea 'parkingArea_gneE2_1_1' in GNEChange_Additional
@@ -30,7 +30,7 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding parkingArea 'parkingArea_gneE2_1_1' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute id 'correctID' into parkingArea 'parkingArea_gneE2_1_0'
+Debug: Setting new attribute
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE2_1togneE3_1' in retrieveGNEConnection()

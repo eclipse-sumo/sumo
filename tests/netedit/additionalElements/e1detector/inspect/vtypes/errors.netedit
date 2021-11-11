@@ -10,10 +10,10 @@ Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'e1Detector' in TagSelector
 Debug: Adding e1Detector 'e1Detector_gneE1_0_0' in GNEChange_Additional
 Debug: Value 'Type%%%%%1 T;;yp$2 Type3' for attribute vTypes of e1Detector isn't valid
-Debug: Setting new attribute vTypes 'Type1 Type2 Type3' into e1Detector 'e1Detector_gneE1_0_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute vTypes '' into e1Detector 'e1Detector_gneE1_0_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing e1Detector 'e1Detector_gneE1_0_0' in GNEChange_Additional
@@ -22,7 +22,7 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding e1Detector 'e1Detector_gneE1_0_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute vTypes 'Type1 Type2 Type3' into e1Detector 'e1Detector_gneE1_0_0'
+Debug: Setting new attribute
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Additionals saved

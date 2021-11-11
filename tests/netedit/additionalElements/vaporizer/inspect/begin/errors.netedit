@@ -21,14 +21,14 @@ Debug: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
 Debug: Key F5 (Compute) pressed
 Debug: Value 'dummy' for attribute begin of vaporizer isn't valid
 Debug: Value '-10' for attribute begin of vaporizer isn't valid
-Debug: Setting new attribute begin '50' into vaporizer 'gneE3'
-Debug: Setting new attribute begin '5' into vaporizer 'gneE3'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute begin '50.00' into vaporizer 'gneE3'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute begin '0.00' into vaporizer 'gneE3'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing vaporizer 'gneE3' in GNEChange_Additional
@@ -37,10 +37,10 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding vaporizer 'gneE3' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute begin '50' into vaporizer 'gneE3'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute begin '5' into vaporizer 'gneE3'
+Debug: Setting new attribute
 Debug: Additionals saved
 Debug: Deleting unreferenced vaporizer 'gneE3'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor

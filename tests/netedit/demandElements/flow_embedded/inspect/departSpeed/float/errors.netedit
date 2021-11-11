@@ -80,10 +80,10 @@ Debug: Adding routeEmbedded 'flow_0' in GNEChange_DemandElement
 Debug: Value 'dummySpeed' for attribute departSpeed of flowWithRoute isn't valid
 Debug: Value '500' for attribute departSpeed of flowWithRoute isn't valid
 Debug: Value '-10' for attribute departSpeed of flowWithRoute isn't valid
-Debug: Setting new attribute departSpeed '20' into flowWithRoute 'flow_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute departSpeed '0.00' into flowWithRoute 'flow_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing routeEmbedded 'flow_0' in GNEChange_DemandElement
@@ -95,7 +95,7 @@ Debug: Adding flowWithRoute 'flow_0' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'flow_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute departSpeed '20' into flowWithRoute 'flow_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing

@@ -25,27 +25,27 @@ Debug: Selected item 'trip' in DemandElementSelector
 Debug: Selected item 'stopLane' in TagSelector
 Debug: Selected item 'stopContainerStop' in TagSelector
 Debug: Adding stopContainerStop 'trip' in GNEChange_DemandElement
-Debug: Setting new attribute actType 'dummy' into stopContainerStop 'trip'
-Debug: Setting new attribute actType 'waiting' into stopContainerStop 'trip'
-Debug: Setting new attribute actType 'singing' into stopContainerStop 'trip'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute actType 'waiting' into stopContainerStop 'trip'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute actType 'dummy' into stopContainerStop 'trip'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute actType '' into stopContainerStop 'trip'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute actType 'dummy' into stopContainerStop 'trip'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute actType 'waiting' into stopContainerStop 'trip'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute actType 'singing' into stopContainerStop 'trip'
+Debug: Setting new attribute
 Debug: Additionals saved
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing

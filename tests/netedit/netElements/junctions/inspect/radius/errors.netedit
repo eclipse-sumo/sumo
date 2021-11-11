@@ -43,15 +43,15 @@ Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: Value 'dummyRadius' for attribute radius of junction isn't valid
 Debug: Value '-7' for attribute radius of junction isn't valid
-Debug: Setting new attribute radius '2.3' into junction 'Center'
+Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute radius 'default' into junction 'Center'
+Debug: Restoring previous attribute
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute radius '2.3' into junction 'Center'
+Debug: Setting new attribute
 Debug: Additionals saved
 Debug: Deleting unreferenced busStop 'busStop_8_0_4'
 Debug: Deleting unreferenced busStop 'busStop_7_0_1'

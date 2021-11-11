@@ -11,14 +11,14 @@ Debug: Selected item 'busStop' in TagSelector
 Debug: Adding busStop 'busStop_gneE2_1_0' in GNEChange_Additional
 Debug: Value 'dummylenght' for attribute parkingLength of busStop isn't valid
 Debug: Value '-7' for attribute parkingLength of busStop isn't valid
-Debug: Setting new attribute parkingLength '2.5' into busStop 'busStop_gneE2_1_0'
-Debug: Setting new attribute parkingLength '10' into busStop 'busStop_gneE2_1_0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute parkingLength '2.50' into busStop 'busStop_gneE2_1_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute parkingLength '0.00' into busStop 'busStop_gneE2_1_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing busStop 'busStop_gneE2_1_0' in GNEChange_Additional
@@ -27,10 +27,10 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding busStop 'busStop_gneE2_1_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute parkingLength '2.5' into busStop 'busStop_gneE2_1_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute parkingLength '10' into busStop 'busStop_gneE2_1_0'
+Debug: Setting new attribute
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE2_1togneE3_1' in retrieveGNEConnection()

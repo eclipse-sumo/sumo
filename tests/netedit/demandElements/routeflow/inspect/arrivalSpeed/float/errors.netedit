@@ -78,15 +78,15 @@ Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'flow (over route)' in TagSelector
 Debug: Adding flowRoute 'flow_0' in GNEChange_DemandElement
 Debug: Value 'dummySpeed' for attribute arrivalSpeed of flowRoute isn't valid
-Debug: Setting new attribute arrivalSpeed '500' into flowRoute 'flow_0'
+Debug: Setting new attribute
 Debug: Value '-10' for attribute arrivalSpeed of flowRoute isn't valid
-Debug: Setting new attribute arrivalSpeed '15.5' into flowRoute 'flow_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute arrivalSpeed '500.00' into flowRoute 'flow_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute arrivalSpeed 'current' into flowRoute 'flow_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing flowRoute 'flow_0' in GNEChange_DemandElement
@@ -95,10 +95,10 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding flowRoute 'flow_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute arrivalSpeed '500' into flowRoute 'flow_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute arrivalSpeed '15.5' into flowRoute 'flow_0'
+Debug: Setting new attribute
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary 0.00,6.80,20.00,33.20

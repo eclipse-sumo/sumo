@@ -79,10 +79,10 @@ Debug: Adding flow 'flow_0' in GNEChange_DemandElement
 Debug: Value 'dummySpeed' for attribute departSpeed of flow isn't valid
 Debug: Value '500' for attribute departSpeed of flow isn't valid
 Debug: Value '-10' for attribute departSpeed of flow isn't valid
-Debug: Setting new attribute departSpeed '20' into flow 'flow_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute departSpeed '0.00' into flow 'flow_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing flow 'flow_0' in GNEChange_DemandElement
@@ -92,7 +92,7 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding flow 'flow_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute departSpeed '20' into flow 'flow_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing

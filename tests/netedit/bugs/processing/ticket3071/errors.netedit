@@ -75,7 +75,7 @@ Debug: Created crossing ':gneJ19_c2' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ19_c3' in retrieveGNECrossing()
 Debug: Key F7 (Join junctions) pressed
 Debug: Adding junction 'J0' into net
-Debug: Setting new attribute type 'priority' into junction 'J0'
+Debug: Setting new attribute
 Debug: Removing crossing from junction 'gneJ13'
 Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Removing crossing from junction 'gneJ13'
@@ -100,47 +100,47 @@ Debug: Removing connection 'gneE9_1->gneE10_1' from edge 'gneE9'
 Debug: Deleting unreferenced connection 'fromgneE9_1togneE10_1' in removeConnection()
 Debug: Removing connection 'gneE9_1->-gneE17_1' from edge 'gneE9'
 Debug: Deleting unreferenced connection 'fromgneE9_1to-gneE17_1' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
 Debug: Removing connection '-gneE10_1->-gneE17_1' from edge '-gneE10'
 Debug: Deleting unreferenced connection 'from-gneE10_1to-gneE17_1' in removeConnection()
 Debug: Removing connection '-gneE10_1->-gneE9_1' from edge '-gneE10'
 Debug: Deleting unreferenced connection 'from-gneE10_1to-gneE9_1' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE10'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-gneE10' due it were guessed
 Debug: Removing connection 'gneE17_1->-gneE9_1' from edge 'gneE17'
 Debug: Deleting unreferenced connection 'fromgneE17_1to-gneE9_1' in removeConnection()
 Debug: Removing connection 'gneE17_1->gneE10_1' from edge 'gneE17'
 Debug: Deleting unreferenced connection 'fromgneE17_1togneE10_1' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE17'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE17' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ13'
+Debug: Setting new attribute
 Debug: Removing connection '-gneE14_1->-gneE19_1' from edge '-gneE14'
 Debug: Deleting unreferenced connection 'from-gneE14_1to-gneE19_1' in removeConnection()
 Debug: Removing connection '-gneE14_1->-gneE13_1' from edge '-gneE14'
 Debug: Deleting unreferenced connection 'from-gneE14_1to-gneE13_1' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE14'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-gneE14' due it were guessed
 Debug: Removing connection 'gneE19_1->-gneE13_1' from edge 'gneE19'
 Debug: Deleting unreferenced connection 'fromgneE19_1to-gneE13_1' in removeConnection()
 Debug: Removing connection 'gneE19_1->gneE14_1' from edge 'gneE19'
 Debug: Deleting unreferenced connection 'fromgneE19_1togneE14_1' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE19'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE19' due it were guessed
 Debug: Removing connection 'gneE13_1->gneE14_1' from edge 'gneE13'
 Debug: Deleting unreferenced connection 'fromgneE13_1togneE14_1' in removeConnection()
 Debug: Removing connection 'gneE13_1->-gneE19_1' from edge 'gneE13'
 Debug: Deleting unreferenced connection 'fromgneE13_1to-gneE19_1' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE13'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE13' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ17'
+Debug: Setting new attribute
 Debug: Removing connection '-gneE16_1->gneE17_1' from edge '-gneE16'
 Debug: Deleting unreferenced connection 'from-gneE16_1togneE17_1' in removeConnection()
 Debug: Removing connection '-gneE16_1->gneE18_1' from edge '-gneE16'
 Debug: Deleting unreferenced connection 'from-gneE16_1togneE18_1' in removeConnection()
 Debug: Removing connection '-gneE16_1->gneE19_1' from edge '-gneE16'
 Debug: Deleting unreferenced connection 'from-gneE16_1togneE19_1' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE16'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-gneE16' due it were guessed
 Debug: Removing connection '-gneE17_1->gneE18_1' from edge '-gneE17'
 Debug: Deleting unreferenced connection 'from-gneE17_1togneE18_1' in removeConnection()
@@ -148,7 +148,7 @@ Debug: Removing connection '-gneE17_1->gneE19_1' from edge '-gneE17'
 Debug: Deleting unreferenced connection 'from-gneE17_1togneE19_1' in removeConnection()
 Debug: Removing connection '-gneE17_1->gneE16_1' from edge '-gneE17'
 Debug: Deleting unreferenced connection 'from-gneE17_1togneE16_1' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE17'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-gneE17' due it were guessed
 Debug: Removing connection '-gneE18_1->gneE19_1' from edge '-gneE18'
 Debug: Deleting unreferenced connection 'from-gneE18_1togneE19_1' in removeConnection()
@@ -156,7 +156,7 @@ Debug: Removing connection '-gneE18_1->gneE16_1' from edge '-gneE18'
 Debug: Deleting unreferenced connection 'from-gneE18_1togneE16_1' in removeConnection()
 Debug: Removing connection '-gneE18_1->gneE17_1' from edge '-gneE18'
 Debug: Deleting unreferenced connection 'from-gneE18_1togneE17_1' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE18'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-gneE18' due it were guessed
 Debug: Removing connection '-gneE19_1->gneE16_1' from edge '-gneE19'
 Debug: Deleting unreferenced connection 'from-gneE19_1togneE16_1' in removeConnection()
@@ -164,28 +164,28 @@ Debug: Removing connection '-gneE19_1->gneE17_1' from edge '-gneE19'
 Debug: Deleting unreferenced connection 'from-gneE19_1togneE17_1' in removeConnection()
 Debug: Removing connection '-gneE19_1->gneE18_1' from edge '-gneE19'
 Debug: Deleting unreferenced connection 'from-gneE19_1togneE18_1' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE19'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-gneE19' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
-Debug: Setting new attribute to 'J0' into edge 'gneE9'
-Debug: Setting new attribute to 'J0' into edge '-gneE10'
-Debug: Setting new attribute to 'J0' into edge 'gneE17'
-Debug: Setting new attribute to 'J0' into edge '-gneE14'
-Debug: Setting new attribute to 'J0' into edge 'gneE19'
-Debug: Setting new attribute to 'J0' into edge 'gneE13'
-Debug: Setting new attribute to 'J0' into edge '-gneE16'
-Debug: Setting new attribute to 'J0' into edge '-gneE17'
-Debug: Setting new attribute to 'J0' into edge '-gneE18'
-Debug: Setting new attribute to 'J0' into edge '-gneE19'
-Debug: Setting new attribute from 'J0' into edge '-gneE9'
-Debug: Setting new attribute from 'J0' into edge 'gneE10'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Removing edge '-gneE17' from net
-Debug: Setting new attribute from 'J0' into edge 'gneE14'
+Debug: Setting new attribute
 Debug: Removing edge '-gneE19' from net
-Debug: Setting new attribute from 'J0' into edge '-gneE13'
-Debug: Setting new attribute from 'J0' into edge 'gneE16'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Removing edge 'gneE17' from net
-Debug: Setting new attribute from 'J0' into edge 'gneE18'
+Debug: Setting new attribute
 Debug: Removing edge 'gneE19' from net
 Debug: Adding crossing into junction 'J0'
 Debug: Created crossing ':J0_c0' in retrieveGNECrossing()
@@ -202,8 +202,8 @@ Debug: Created crossing ':J0_c5' in retrieveGNECrossing()
 Debug: Removing junction 'gneJ13' from net
 Debug: Removing junction 'gneJ17' from net
 Debug: Removing junction 'gneJ19' from net
-Debug: Setting new attribute id 'cluster_gneJ13_gneJ17_gneJ19' into junction 'J0'
-Debug: Setting new attribute pos '20.00,20.00' into junction 'cluster_gneJ13_gneJ17_gneJ19'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from-gneE10_1to-gneE9_1' in retrieveGNEConnection()
 Debug: Created connection 'from-gneE10_1togneE16_1' in retrieveGNEConnection()
@@ -237,8 +237,8 @@ Debug: Created connection 'fromgneE9_1togneE18_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_1togneE10_1' in retrieveGNEConnection()
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '20.10,20.10' into junction 'cluster_gneJ13_gneJ17_gneJ19'
-Debug: Setting previous attribute id 'J0' into junction 'cluster_gneJ13_gneJ17_gneJ19'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Adding junction 'gneJ19' into net
 Debug: Adding junction 'gneJ17' into net
 Debug: Adding junction 'gneJ13' into net
@@ -255,26 +255,26 @@ Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: removing crossing from junction 'J0'
 Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Adding edge 'gneE19' from net
-Debug: Setting previous attribute from 'gneJ19' into edge 'gneE18'
+Debug: Restoring previous attribute
 Debug: Adding edge 'gneE17' from net
-Debug: Setting previous attribute from 'gneJ19' into edge 'gneE16'
-Debug: Setting previous attribute from 'gneJ17' into edge '-gneE13'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Adding edge '-gneE19' from net
-Debug: Setting previous attribute from 'gneJ17' into edge 'gneE14'
+Debug: Restoring previous attribute
 Debug: Adding edge '-gneE17' from net
-Debug: Setting previous attribute from 'gneJ13' into edge 'gneE10'
-Debug: Setting previous attribute from 'gneJ13' into edge '-gneE9'
-Debug: Setting previous attribute to 'gneJ19' into edge '-gneE19'
-Debug: Setting previous attribute to 'gneJ19' into edge '-gneE18'
-Debug: Setting previous attribute to 'gneJ19' into edge '-gneE17'
-Debug: Setting previous attribute to 'gneJ19' into edge '-gneE16'
-Debug: Setting previous attribute to 'gneJ17' into edge 'gneE13'
-Debug: Setting previous attribute to 'gneJ17' into edge 'gneE19'
-Debug: Setting previous attribute to 'gneJ17' into edge '-gneE14'
-Debug: Setting previous attribute to 'gneJ13' into edge 'gneE17'
-Debug: Setting previous attribute to 'gneJ13' into edge '-gneE10'
-Debug: Setting previous attribute to 'gneJ13' into edge 'gneE9'
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ19'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Deleting unreferenced connection 'from-gneE18_1togneE10_1' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-gneE18_1to-gneE9_1' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-gneE18_1togneE16_1' in clearGNEConnections()
@@ -285,7 +285,7 @@ Debug: Deleting unreferenced connection 'from-gneE16_1to-gneE13_1' in clearGNECo
 Debug: Deleting unreferenced connection 'from-gneE16_1togneE18_1' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-gneE16_1togneE10_1' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-gneE16_1to-gneE9_1' in clearGNEConnections()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '-gneE19'
+Debug: Restoring previous attribute
 Debug: declaring connections of edge '-gneE19' as loaded (It will not be removed)
 Debug: Adding connection '-gneE19_1->gneE18_1' into edge '-gneE19'
 Debug: Created connection 'from-gneE19_1togneE18_1' in retrieveGNEConnection()
@@ -293,7 +293,7 @@ Debug: Adding connection '-gneE19_1->gneE17_1' into edge '-gneE19'
 Debug: Created connection 'from-gneE19_1togneE17_1' in retrieveGNEConnection()
 Debug: Adding connection '-gneE19_1->gneE16_1' into edge '-gneE19'
 Debug: Created connection 'from-gneE19_1togneE16_1' in retrieveGNEConnection()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '-gneE18'
+Debug: Restoring previous attribute
 Debug: declaring connections of edge '-gneE18' as loaded (It will not be removed)
 Debug: Adding connection '-gneE18_1->gneE17_1' into edge '-gneE18'
 Debug: Created connection 'from-gneE18_1togneE17_1' in retrieveGNEConnection()
@@ -301,7 +301,7 @@ Debug: Adding connection '-gneE18_1->gneE16_1' into edge '-gneE18'
 Debug: Created connection 'from-gneE18_1togneE16_1' in retrieveGNEConnection()
 Debug: Adding connection '-gneE18_1->gneE19_1' into edge '-gneE18'
 Debug: Created connection 'from-gneE18_1togneE19_1' in retrieveGNEConnection()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '-gneE17'
+Debug: Restoring previous attribute
 Debug: declaring connections of edge '-gneE17' as loaded (It will not be removed)
 Debug: Adding connection '-gneE17_1->gneE16_1' into edge '-gneE17'
 Debug: Created connection 'from-gneE17_1togneE16_1' in retrieveGNEConnection()
@@ -309,7 +309,7 @@ Debug: Adding connection '-gneE17_1->gneE19_1' into edge '-gneE17'
 Debug: Created connection 'from-gneE17_1togneE19_1' in retrieveGNEConnection()
 Debug: Adding connection '-gneE17_1->gneE18_1' into edge '-gneE17'
 Debug: Created connection 'from-gneE17_1togneE18_1' in retrieveGNEConnection()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '-gneE16'
+Debug: Restoring previous attribute
 Debug: declaring connections of edge '-gneE16' as loaded (It will not be removed)
 Debug: Adding connection '-gneE16_1->gneE19_1' into edge '-gneE16'
 Debug: Created connection 'from-gneE16_1togneE19_1' in retrieveGNEConnection()
@@ -317,7 +317,7 @@ Debug: Adding connection '-gneE16_1->gneE18_1' into edge '-gneE16'
 Debug: Created connection 'from-gneE16_1togneE18_1' in retrieveGNEConnection()
 Debug: Adding connection '-gneE16_1->gneE17_1' into edge '-gneE16'
 Debug: Created connection 'from-gneE16_1togneE17_1' in retrieveGNEConnection()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ17'
+Debug: Restoring previous attribute
 Debug: Deleting unreferenced connection 'fromgneE13_1togneE18_1' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromgneE13_1togneE10_1' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromgneE13_1to-gneE9_1' in clearGNEConnections()
@@ -328,25 +328,25 @@ Debug: Deleting unreferenced connection 'from-gneE14_1togneE18_1' in clearGNECon
 Debug: Deleting unreferenced connection 'from-gneE14_1togneE10_1' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-gneE14_1to-gneE9_1' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-gneE14_1togneE16_1' in clearGNEConnections()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE13'
+Debug: Restoring previous attribute
 Debug: declaring connections of edge 'gneE13' as loaded (It will not be removed)
 Debug: Adding connection 'gneE13_1->-gneE19_1' into edge 'gneE13'
 Debug: Created connection 'fromgneE13_1to-gneE19_1' in retrieveGNEConnection()
 Debug: Adding connection 'gneE13_1->gneE14_1' into edge 'gneE13'
 Debug: Created connection 'fromgneE13_1togneE14_1' in retrieveGNEConnection()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE19'
+Debug: Restoring previous attribute
 Debug: declaring connections of edge 'gneE19' as loaded (It will not be removed)
 Debug: Adding connection 'gneE19_1->gneE14_1' into edge 'gneE19'
 Debug: Created connection 'fromgneE19_1togneE14_1' in retrieveGNEConnection()
 Debug: Adding connection 'gneE19_1->-gneE13_1' into edge 'gneE19'
 Debug: Created connection 'fromgneE19_1to-gneE13_1' in retrieveGNEConnection()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '-gneE14'
+Debug: Restoring previous attribute
 Debug: declaring connections of edge '-gneE14' as loaded (It will not be removed)
 Debug: Adding connection '-gneE14_1->-gneE13_1' into edge '-gneE14'
 Debug: Created connection 'from-gneE14_1to-gneE13_1' in retrieveGNEConnection()
 Debug: Adding connection '-gneE14_1->-gneE19_1' into edge '-gneE14'
 Debug: Created connection 'from-gneE14_1to-gneE19_1' in retrieveGNEConnection()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ13'
+Debug: Restoring previous attribute
 Debug: Deleting unreferenced connection 'from-gneE10_1to-gneE9_1' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-gneE10_1togneE16_1' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-gneE10_1togneE14_1' in clearGNEConnections()
@@ -357,19 +357,19 @@ Debug: Deleting unreferenced connection 'fromgneE9_1togneE14_1' in clearGNEConne
 Debug: Deleting unreferenced connection 'fromgneE9_1to-gneE13_1' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromgneE9_1togneE18_1' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromgneE9_1togneE10_1' in clearGNEConnections()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE17'
+Debug: Restoring previous attribute
 Debug: declaring connections of edge 'gneE17' as loaded (It will not be removed)
 Debug: Adding connection 'gneE17_1->gneE10_1' into edge 'gneE17'
 Debug: Created connection 'fromgneE17_1togneE10_1' in retrieveGNEConnection()
 Debug: Adding connection 'gneE17_1->-gneE9_1' into edge 'gneE17'
 Debug: Created connection 'fromgneE17_1to-gneE9_1' in retrieveGNEConnection()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '-gneE10'
+Debug: Restoring previous attribute
 Debug: declaring connections of edge '-gneE10' as loaded (It will not be removed)
 Debug: Adding connection '-gneE10_1->-gneE9_1' into edge '-gneE10'
 Debug: Created connection 'from-gneE10_1to-gneE9_1' in retrieveGNEConnection()
 Debug: Adding connection '-gneE10_1->-gneE17_1' into edge '-gneE10'
 Debug: Created connection 'from-gneE10_1to-gneE17_1' in retrieveGNEConnection()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE9'
+Debug: Restoring previous attribute
 Debug: declaring connections of edge 'gneE9' as loaded (It will not be removed)
 Debug: Adding connection 'gneE9_1->-gneE17_1' into edge 'gneE9'
 Debug: Created connection 'fromgneE9_1to-gneE17_1' in retrieveGNEConnection()
@@ -395,7 +395,7 @@ Debug: Adding crossing into junction 'gneJ13'
 Debug: Created crossing ':gneJ13_c1' in retrieveGNECrossing()
 Debug: Adding crossing into junction 'gneJ13'
 Debug: Created crossing ':gneJ13_c2' in retrieveGNECrossing()
-Debug: Setting previous attribute type 'unknown' into junction 'J0'
+Debug: Restoring previous attribute
 Debug: Removing junction 'J0' from net
 Debug: Key F5 (Compute) pressed
 Debug: Key F7 (Join junctions) pressed
@@ -406,9 +406,9 @@ Debug: Opening FXMessageBox 'Join non-selected junction'
 Debug: Closed FXMessageBox 'Join non-selected junction' with 'Yes'
 Debug: Deleting unreferenced junction 'J0' in GNEChange_Attribute
 Debug: Deleting NBNode of 'J0' in GNEJunction destructor
-Debug: Setting new attribute selected 'true' into junction 'gneJ19'
+Debug: Setting new attribute
 Debug: Adding junction 'J0' into net
-Debug: Setting new attribute type 'priority' into junction 'J0'
+Debug: Setting new attribute
 Debug: Removing crossing from junction 'gneJ13'
 Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Removing crossing from junction 'gneJ13'
@@ -433,47 +433,47 @@ Debug: Removing connection 'gneE9_1->gneE10_1' from edge 'gneE9'
 Debug: Deleting unreferenced connection 'fromgneE9_1togneE10_1' in removeConnection()
 Debug: Removing connection 'gneE9_1->-gneE17_1' from edge 'gneE9'
 Debug: Deleting unreferenced connection 'fromgneE9_1to-gneE17_1' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
 Debug: Removing connection '-gneE10_1->-gneE17_1' from edge '-gneE10'
 Debug: Deleting unreferenced connection 'from-gneE10_1to-gneE17_1' in removeConnection()
 Debug: Removing connection '-gneE10_1->-gneE9_1' from edge '-gneE10'
 Debug: Deleting unreferenced connection 'from-gneE10_1to-gneE9_1' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE10'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-gneE10' due it were guessed
 Debug: Removing connection 'gneE17_1->-gneE9_1' from edge 'gneE17'
 Debug: Deleting unreferenced connection 'fromgneE17_1to-gneE9_1' in removeConnection()
 Debug: Removing connection 'gneE17_1->gneE10_1' from edge 'gneE17'
 Debug: Deleting unreferenced connection 'fromgneE17_1togneE10_1' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE17'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE17' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ13'
+Debug: Setting new attribute
 Debug: Removing connection '-gneE14_1->-gneE19_1' from edge '-gneE14'
 Debug: Deleting unreferenced connection 'from-gneE14_1to-gneE19_1' in removeConnection()
 Debug: Removing connection '-gneE14_1->-gneE13_1' from edge '-gneE14'
 Debug: Deleting unreferenced connection 'from-gneE14_1to-gneE13_1' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE14'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-gneE14' due it were guessed
 Debug: Removing connection 'gneE19_1->-gneE13_1' from edge 'gneE19'
 Debug: Deleting unreferenced connection 'fromgneE19_1to-gneE13_1' in removeConnection()
 Debug: Removing connection 'gneE19_1->gneE14_1' from edge 'gneE19'
 Debug: Deleting unreferenced connection 'fromgneE19_1togneE14_1' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE19'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE19' due it were guessed
 Debug: Removing connection 'gneE13_1->gneE14_1' from edge 'gneE13'
 Debug: Deleting unreferenced connection 'fromgneE13_1togneE14_1' in removeConnection()
 Debug: Removing connection 'gneE13_1->-gneE19_1' from edge 'gneE13'
 Debug: Deleting unreferenced connection 'fromgneE13_1to-gneE19_1' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE13'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE13' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ17'
+Debug: Setting new attribute
 Debug: Removing connection '-gneE16_1->gneE17_1' from edge '-gneE16'
 Debug: Deleting unreferenced connection 'from-gneE16_1togneE17_1' in removeConnection()
 Debug: Removing connection '-gneE16_1->gneE18_1' from edge '-gneE16'
 Debug: Deleting unreferenced connection 'from-gneE16_1togneE18_1' in removeConnection()
 Debug: Removing connection '-gneE16_1->gneE19_1' from edge '-gneE16'
 Debug: Deleting unreferenced connection 'from-gneE16_1togneE19_1' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE16'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-gneE16' due it were guessed
 Debug: Removing connection '-gneE17_1->gneE18_1' from edge '-gneE17'
 Debug: Deleting unreferenced connection 'from-gneE17_1togneE18_1' in removeConnection()
@@ -481,7 +481,7 @@ Debug: Removing connection '-gneE17_1->gneE19_1' from edge '-gneE17'
 Debug: Deleting unreferenced connection 'from-gneE17_1togneE19_1' in removeConnection()
 Debug: Removing connection '-gneE17_1->gneE16_1' from edge '-gneE17'
 Debug: Deleting unreferenced connection 'from-gneE17_1togneE16_1' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE17'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-gneE17' due it were guessed
 Debug: Removing connection '-gneE18_1->gneE19_1' from edge '-gneE18'
 Debug: Deleting unreferenced connection 'from-gneE18_1togneE19_1' in removeConnection()
@@ -489,7 +489,7 @@ Debug: Removing connection '-gneE18_1->gneE16_1' from edge '-gneE18'
 Debug: Deleting unreferenced connection 'from-gneE18_1togneE16_1' in removeConnection()
 Debug: Removing connection '-gneE18_1->gneE17_1' from edge '-gneE18'
 Debug: Deleting unreferenced connection 'from-gneE18_1togneE17_1' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE18'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-gneE18' due it were guessed
 Debug: Removing connection '-gneE19_1->gneE16_1' from edge '-gneE19'
 Debug: Deleting unreferenced connection 'from-gneE19_1togneE16_1' in removeConnection()
@@ -497,28 +497,28 @@ Debug: Removing connection '-gneE19_1->gneE17_1' from edge '-gneE19'
 Debug: Deleting unreferenced connection 'from-gneE19_1togneE17_1' in removeConnection()
 Debug: Removing connection '-gneE19_1->gneE18_1' from edge '-gneE19'
 Debug: Deleting unreferenced connection 'from-gneE19_1togneE18_1' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE19'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-gneE19' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
-Debug: Setting new attribute to 'J0' into edge 'gneE9'
-Debug: Setting new attribute to 'J0' into edge '-gneE10'
-Debug: Setting new attribute to 'J0' into edge 'gneE17'
-Debug: Setting new attribute to 'J0' into edge '-gneE14'
-Debug: Setting new attribute to 'J0' into edge 'gneE19'
-Debug: Setting new attribute to 'J0' into edge 'gneE13'
-Debug: Setting new attribute to 'J0' into edge '-gneE16'
-Debug: Setting new attribute to 'J0' into edge '-gneE17'
-Debug: Setting new attribute to 'J0' into edge '-gneE18'
-Debug: Setting new attribute to 'J0' into edge '-gneE19'
-Debug: Setting new attribute from 'J0' into edge '-gneE9'
-Debug: Setting new attribute from 'J0' into edge 'gneE10'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Removing edge '-gneE17' from net
-Debug: Setting new attribute from 'J0' into edge 'gneE14'
+Debug: Setting new attribute
 Debug: Removing edge '-gneE19' from net
-Debug: Setting new attribute from 'J0' into edge '-gneE13'
-Debug: Setting new attribute from 'J0' into edge 'gneE16'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Removing edge 'gneE17' from net
-Debug: Setting new attribute from 'J0' into edge 'gneE18'
+Debug: Setting new attribute
 Debug: Removing edge 'gneE19' from net
 Debug: Adding crossing into junction 'J0'
 Debug: Created crossing ':J0_c0' in retrieveGNECrossing()
@@ -535,8 +535,8 @@ Debug: Created crossing ':J0_c5' in retrieveGNECrossing()
 Debug: Removing junction 'gneJ13' from net
 Debug: Removing junction 'gneJ17' from net
 Debug: Removing junction 'gneJ19' from net
-Debug: Setting new attribute id 'cluster_gneJ13_gneJ17_gneJ19' into junction 'J0'
-Debug: Setting new attribute pos '20.00,20.00' into junction 'cluster_gneJ13_gneJ17_gneJ19'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from-gneE10_1to-gneE9_1' in retrieveGNEConnection()
 Debug: Created connection 'from-gneE10_1togneE16_1' in retrieveGNEConnection()
@@ -570,8 +570,8 @@ Debug: Created connection 'fromgneE9_1togneE18_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_1togneE10_1' in retrieveGNEConnection()
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '20.10,20.10' into junction 'cluster_gneJ13_gneJ17_gneJ19'
-Debug: Setting previous attribute id 'J0' into junction 'cluster_gneJ13_gneJ17_gneJ19'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Adding junction 'gneJ19' into net
 Debug: Adding junction 'gneJ17' into net
 Debug: Adding junction 'gneJ13' into net
@@ -588,26 +588,26 @@ Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: removing crossing from junction 'J0'
 Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Adding edge 'gneE19' from net
-Debug: Setting previous attribute from 'gneJ19' into edge 'gneE18'
+Debug: Restoring previous attribute
 Debug: Adding edge 'gneE17' from net
-Debug: Setting previous attribute from 'gneJ19' into edge 'gneE16'
-Debug: Setting previous attribute from 'gneJ17' into edge '-gneE13'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Adding edge '-gneE19' from net
-Debug: Setting previous attribute from 'gneJ17' into edge 'gneE14'
+Debug: Restoring previous attribute
 Debug: Adding edge '-gneE17' from net
-Debug: Setting previous attribute from 'gneJ13' into edge 'gneE10'
-Debug: Setting previous attribute from 'gneJ13' into edge '-gneE9'
-Debug: Setting previous attribute to 'gneJ19' into edge '-gneE19'
-Debug: Setting previous attribute to 'gneJ19' into edge '-gneE18'
-Debug: Setting previous attribute to 'gneJ19' into edge '-gneE17'
-Debug: Setting previous attribute to 'gneJ19' into edge '-gneE16'
-Debug: Setting previous attribute to 'gneJ17' into edge 'gneE13'
-Debug: Setting previous attribute to 'gneJ17' into edge 'gneE19'
-Debug: Setting previous attribute to 'gneJ17' into edge '-gneE14'
-Debug: Setting previous attribute to 'gneJ13' into edge 'gneE17'
-Debug: Setting previous attribute to 'gneJ13' into edge '-gneE10'
-Debug: Setting previous attribute to 'gneJ13' into edge 'gneE9'
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ19'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Deleting unreferenced connection 'from-gneE18_1togneE10_1' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-gneE18_1to-gneE9_1' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-gneE18_1togneE16_1' in clearGNEConnections()
@@ -618,7 +618,7 @@ Debug: Deleting unreferenced connection 'from-gneE16_1to-gneE13_1' in clearGNECo
 Debug: Deleting unreferenced connection 'from-gneE16_1togneE18_1' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-gneE16_1togneE10_1' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-gneE16_1to-gneE9_1' in clearGNEConnections()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '-gneE19'
+Debug: Restoring previous attribute
 Debug: declaring connections of edge '-gneE19' as loaded (It will not be removed)
 Debug: Adding connection '-gneE19_1->gneE18_1' into edge '-gneE19'
 Debug: Created connection 'from-gneE19_1togneE18_1' in retrieveGNEConnection()
@@ -626,7 +626,7 @@ Debug: Adding connection '-gneE19_1->gneE17_1' into edge '-gneE19'
 Debug: Created connection 'from-gneE19_1togneE17_1' in retrieveGNEConnection()
 Debug: Adding connection '-gneE19_1->gneE16_1' into edge '-gneE19'
 Debug: Created connection 'from-gneE19_1togneE16_1' in retrieveGNEConnection()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '-gneE18'
+Debug: Restoring previous attribute
 Debug: declaring connections of edge '-gneE18' as loaded (It will not be removed)
 Debug: Adding connection '-gneE18_1->gneE17_1' into edge '-gneE18'
 Debug: Created connection 'from-gneE18_1togneE17_1' in retrieveGNEConnection()
@@ -634,7 +634,7 @@ Debug: Adding connection '-gneE18_1->gneE16_1' into edge '-gneE18'
 Debug: Created connection 'from-gneE18_1togneE16_1' in retrieveGNEConnection()
 Debug: Adding connection '-gneE18_1->gneE19_1' into edge '-gneE18'
 Debug: Created connection 'from-gneE18_1togneE19_1' in retrieveGNEConnection()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '-gneE17'
+Debug: Restoring previous attribute
 Debug: declaring connections of edge '-gneE17' as loaded (It will not be removed)
 Debug: Adding connection '-gneE17_1->gneE16_1' into edge '-gneE17'
 Debug: Created connection 'from-gneE17_1togneE16_1' in retrieveGNEConnection()
@@ -642,7 +642,7 @@ Debug: Adding connection '-gneE17_1->gneE19_1' into edge '-gneE17'
 Debug: Created connection 'from-gneE17_1togneE19_1' in retrieveGNEConnection()
 Debug: Adding connection '-gneE17_1->gneE18_1' into edge '-gneE17'
 Debug: Created connection 'from-gneE17_1togneE18_1' in retrieveGNEConnection()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '-gneE16'
+Debug: Restoring previous attribute
 Debug: declaring connections of edge '-gneE16' as loaded (It will not be removed)
 Debug: Adding connection '-gneE16_1->gneE19_1' into edge '-gneE16'
 Debug: Created connection 'from-gneE16_1togneE19_1' in retrieveGNEConnection()
@@ -650,7 +650,7 @@ Debug: Adding connection '-gneE16_1->gneE18_1' into edge '-gneE16'
 Debug: Created connection 'from-gneE16_1togneE18_1' in retrieveGNEConnection()
 Debug: Adding connection '-gneE16_1->gneE17_1' into edge '-gneE16'
 Debug: Created connection 'from-gneE16_1togneE17_1' in retrieveGNEConnection()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ17'
+Debug: Restoring previous attribute
 Debug: Deleting unreferenced connection 'fromgneE13_1togneE18_1' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromgneE13_1togneE10_1' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromgneE13_1to-gneE9_1' in clearGNEConnections()
@@ -661,25 +661,25 @@ Debug: Deleting unreferenced connection 'from-gneE14_1togneE18_1' in clearGNECon
 Debug: Deleting unreferenced connection 'from-gneE14_1togneE10_1' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-gneE14_1to-gneE9_1' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-gneE14_1togneE16_1' in clearGNEConnections()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE13'
+Debug: Restoring previous attribute
 Debug: declaring connections of edge 'gneE13' as loaded (It will not be removed)
 Debug: Adding connection 'gneE13_1->-gneE19_1' into edge 'gneE13'
 Debug: Created connection 'fromgneE13_1to-gneE19_1' in retrieveGNEConnection()
 Debug: Adding connection 'gneE13_1->gneE14_1' into edge 'gneE13'
 Debug: Created connection 'fromgneE13_1togneE14_1' in retrieveGNEConnection()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE19'
+Debug: Restoring previous attribute
 Debug: declaring connections of edge 'gneE19' as loaded (It will not be removed)
 Debug: Adding connection 'gneE19_1->gneE14_1' into edge 'gneE19'
 Debug: Created connection 'fromgneE19_1togneE14_1' in retrieveGNEConnection()
 Debug: Adding connection 'gneE19_1->-gneE13_1' into edge 'gneE19'
 Debug: Created connection 'fromgneE19_1to-gneE13_1' in retrieveGNEConnection()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '-gneE14'
+Debug: Restoring previous attribute
 Debug: declaring connections of edge '-gneE14' as loaded (It will not be removed)
 Debug: Adding connection '-gneE14_1->-gneE13_1' into edge '-gneE14'
 Debug: Created connection 'from-gneE14_1to-gneE13_1' in retrieveGNEConnection()
 Debug: Adding connection '-gneE14_1->-gneE19_1' into edge '-gneE14'
 Debug: Created connection 'from-gneE14_1to-gneE19_1' in retrieveGNEConnection()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ13'
+Debug: Restoring previous attribute
 Debug: Deleting unreferenced connection 'from-gneE10_1to-gneE9_1' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-gneE10_1togneE16_1' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from-gneE10_1togneE14_1' in clearGNEConnections()
@@ -690,19 +690,19 @@ Debug: Deleting unreferenced connection 'fromgneE9_1togneE14_1' in clearGNEConne
 Debug: Deleting unreferenced connection 'fromgneE9_1to-gneE13_1' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromgneE9_1togneE18_1' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'fromgneE9_1togneE10_1' in clearGNEConnections()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE17'
+Debug: Restoring previous attribute
 Debug: declaring connections of edge 'gneE17' as loaded (It will not be removed)
 Debug: Adding connection 'gneE17_1->gneE10_1' into edge 'gneE17'
 Debug: Created connection 'fromgneE17_1togneE10_1' in retrieveGNEConnection()
 Debug: Adding connection 'gneE17_1->-gneE9_1' into edge 'gneE17'
 Debug: Created connection 'fromgneE17_1to-gneE9_1' in retrieveGNEConnection()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '-gneE10'
+Debug: Restoring previous attribute
 Debug: declaring connections of edge '-gneE10' as loaded (It will not be removed)
 Debug: Adding connection '-gneE10_1->-gneE9_1' into edge '-gneE10'
 Debug: Created connection 'from-gneE10_1to-gneE9_1' in retrieveGNEConnection()
 Debug: Adding connection '-gneE10_1->-gneE17_1' into edge '-gneE10'
 Debug: Created connection 'from-gneE10_1to-gneE17_1' in retrieveGNEConnection()
-Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE9'
+Debug: Restoring previous attribute
 Debug: declaring connections of edge 'gneE9' as loaded (It will not be removed)
 Debug: Adding connection 'gneE9_1->-gneE17_1' into edge 'gneE9'
 Debug: Created connection 'fromgneE9_1to-gneE17_1' in retrieveGNEConnection()
@@ -728,13 +728,13 @@ Debug: Adding crossing into junction 'gneJ13'
 Debug: Created crossing ':gneJ13_c1' in retrieveGNECrossing()
 Debug: Adding crossing into junction 'gneJ13'
 Debug: Created crossing ':gneJ13_c2' in retrieveGNECrossing()
-Debug: Setting previous attribute type 'unknown' into junction 'J0'
+Debug: Restoring previous attribute
 Debug: Removing junction 'J0' from net
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding junction 'J0' into net
-Debug: Setting new attribute type 'priority' into junction 'J0'
+Debug: Setting new attribute
 Debug: Removing crossing from junction 'gneJ13'
 Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Removing crossing from junction 'gneJ13'
@@ -759,47 +759,47 @@ Debug: Removing connection 'gneE9_1->gneE10_1' from edge 'gneE9'
 Debug: Deleting unreferenced connection 'fromgneE9_1togneE10_1' in removeConnection()
 Debug: Removing connection 'gneE9_1->-gneE17_1' from edge 'gneE9'
 Debug: Deleting unreferenced connection 'fromgneE9_1to-gneE17_1' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE9'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
 Debug: Removing connection '-gneE10_1->-gneE17_1' from edge '-gneE10'
 Debug: Deleting unreferenced connection 'from-gneE10_1to-gneE17_1' in removeConnection()
 Debug: Removing connection '-gneE10_1->-gneE9_1' from edge '-gneE10'
 Debug: Deleting unreferenced connection 'from-gneE10_1to-gneE9_1' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE10'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-gneE10' due it were guessed
 Debug: Removing connection 'gneE17_1->-gneE9_1' from edge 'gneE17'
 Debug: Deleting unreferenced connection 'fromgneE17_1to-gneE9_1' in removeConnection()
 Debug: Removing connection 'gneE17_1->gneE10_1' from edge 'gneE17'
 Debug: Deleting unreferenced connection 'fromgneE17_1togneE10_1' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE17'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE17' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ13'
+Debug: Setting new attribute
 Debug: Removing connection '-gneE14_1->-gneE19_1' from edge '-gneE14'
 Debug: Deleting unreferenced connection 'from-gneE14_1to-gneE19_1' in removeConnection()
 Debug: Removing connection '-gneE14_1->-gneE13_1' from edge '-gneE14'
 Debug: Deleting unreferenced connection 'from-gneE14_1to-gneE13_1' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE14'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-gneE14' due it were guessed
 Debug: Removing connection 'gneE19_1->-gneE13_1' from edge 'gneE19'
 Debug: Deleting unreferenced connection 'fromgneE19_1to-gneE13_1' in removeConnection()
 Debug: Removing connection 'gneE19_1->gneE14_1' from edge 'gneE19'
 Debug: Deleting unreferenced connection 'fromgneE19_1togneE14_1' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE19'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE19' due it were guessed
 Debug: Removing connection 'gneE13_1->gneE14_1' from edge 'gneE13'
 Debug: Deleting unreferenced connection 'fromgneE13_1togneE14_1' in removeConnection()
 Debug: Removing connection 'gneE13_1->-gneE19_1' from edge 'gneE13'
 Debug: Deleting unreferenced connection 'fromgneE13_1to-gneE19_1' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE13'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE13' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ17'
+Debug: Setting new attribute
 Debug: Removing connection '-gneE16_1->gneE17_1' from edge '-gneE16'
 Debug: Deleting unreferenced connection 'from-gneE16_1togneE17_1' in removeConnection()
 Debug: Removing connection '-gneE16_1->gneE18_1' from edge '-gneE16'
 Debug: Deleting unreferenced connection 'from-gneE16_1togneE18_1' in removeConnection()
 Debug: Removing connection '-gneE16_1->gneE19_1' from edge '-gneE16'
 Debug: Deleting unreferenced connection 'from-gneE16_1togneE19_1' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE16'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-gneE16' due it were guessed
 Debug: Removing connection '-gneE17_1->gneE18_1' from edge '-gneE17'
 Debug: Deleting unreferenced connection 'from-gneE17_1togneE18_1' in removeConnection()
@@ -807,7 +807,7 @@ Debug: Removing connection '-gneE17_1->gneE19_1' from edge '-gneE17'
 Debug: Deleting unreferenced connection 'from-gneE17_1togneE19_1' in removeConnection()
 Debug: Removing connection '-gneE17_1->gneE16_1' from edge '-gneE17'
 Debug: Deleting unreferenced connection 'from-gneE17_1togneE16_1' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE17'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-gneE17' due it were guessed
 Debug: Removing connection '-gneE18_1->gneE19_1' from edge '-gneE18'
 Debug: Deleting unreferenced connection 'from-gneE18_1togneE19_1' in removeConnection()
@@ -815,7 +815,7 @@ Debug: Removing connection '-gneE18_1->gneE16_1' from edge '-gneE18'
 Debug: Deleting unreferenced connection 'from-gneE18_1togneE16_1' in removeConnection()
 Debug: Removing connection '-gneE18_1->gneE17_1' from edge '-gneE18'
 Debug: Deleting unreferenced connection 'from-gneE18_1togneE17_1' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE18'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-gneE18' due it were guessed
 Debug: Removing connection '-gneE19_1->gneE16_1' from edge '-gneE19'
 Debug: Deleting unreferenced connection 'from-gneE19_1togneE16_1' in removeConnection()
@@ -823,28 +823,28 @@ Debug: Removing connection '-gneE19_1->gneE17_1' from edge '-gneE19'
 Debug: Deleting unreferenced connection 'from-gneE19_1togneE17_1' in removeConnection()
 Debug: Removing connection '-gneE19_1->gneE18_1' from edge '-gneE19'
 Debug: Deleting unreferenced connection 'from-gneE19_1togneE18_1' in removeConnection()
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE19'
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge '-gneE19' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
-Debug: Setting new attribute to 'J0' into edge 'gneE9'
-Debug: Setting new attribute to 'J0' into edge '-gneE10'
-Debug: Setting new attribute to 'J0' into edge 'gneE17'
-Debug: Setting new attribute to 'J0' into edge '-gneE14'
-Debug: Setting new attribute to 'J0' into edge 'gneE19'
-Debug: Setting new attribute to 'J0' into edge 'gneE13'
-Debug: Setting new attribute to 'J0' into edge '-gneE16'
-Debug: Setting new attribute to 'J0' into edge '-gneE17'
-Debug: Setting new attribute to 'J0' into edge '-gneE18'
-Debug: Setting new attribute to 'J0' into edge '-gneE19'
-Debug: Setting new attribute from 'J0' into edge '-gneE9'
-Debug: Setting new attribute from 'J0' into edge 'gneE10'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Removing edge '-gneE17' from net
-Debug: Setting new attribute from 'J0' into edge 'gneE14'
+Debug: Setting new attribute
 Debug: Removing edge '-gneE19' from net
-Debug: Setting new attribute from 'J0' into edge '-gneE13'
-Debug: Setting new attribute from 'J0' into edge 'gneE16'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Removing edge 'gneE17' from net
-Debug: Setting new attribute from 'J0' into edge 'gneE18'
+Debug: Setting new attribute
 Debug: Removing edge 'gneE19' from net
 Debug: Adding crossing into junction 'J0'
 Debug: Created crossing ':J0_c0' in retrieveGNECrossing()
@@ -861,8 +861,8 @@ Debug: Created crossing ':J0_c5' in retrieveGNECrossing()
 Debug: Removing junction 'gneJ13' from net
 Debug: Removing junction 'gneJ17' from net
 Debug: Removing junction 'gneJ19' from net
-Debug: Setting new attribute id 'cluster_gneJ13_gneJ17_gneJ19' into junction 'J0'
-Debug: Setting new attribute pos '20.00,20.00' into junction 'cluster_gneJ13_gneJ17_gneJ19'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from-gneE10_1to-gneE9_1' in retrieveGNEConnection()
 Debug: Created connection 'from-gneE10_1togneE16_1' in retrieveGNEConnection()

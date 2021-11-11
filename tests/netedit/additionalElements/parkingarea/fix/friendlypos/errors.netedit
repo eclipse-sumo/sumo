@@ -19,28 +19,28 @@ Debug: Adding parkingArea 'parkingAreaC' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingAreaC into SUMORTree with boundary -11.20,-5.20,51.20,14.80
 Debug: Adding parkingArea 'parkingAreaD' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingAreaD into SUMORTree with boundary -11.20,-5.20,25.10,14.80
-Debug: Setting new attribute selected 'true' into junction 'gneJ0'
-Debug: Setting new attribute selected 'true' into edge 'gneE1'
-Debug: Setting new attribute selected 'true' into junction 'gneJ1'
-Debug: Setting new attribute selected 'true' into edge 'gneE0'
-Debug: Setting new attribute selected 'true' into parkingArea 'parkingAreaC'
-Debug: Setting new attribute selected 'true' into parkingArea 'parkingAreaB'
-Debug: Setting new attribute selected 'true' into parkingArea 'parkingAreaA'
-Debug: Setting new attribute selected 'true' into parkingArea 'parkingAreaD'
-Debug: Setting new attribute onRoad 'true' into parkingArea 'parkingAreaA'
-Debug: Setting new attribute onRoad 'true' into parkingArea 'parkingAreaB'
-Debug: Setting new attribute onRoad 'true' into parkingArea 'parkingAreaC'
-Debug: Setting new attribute onRoad 'true' into parkingArea 'parkingAreaD'
-Debug: Setting new attribute selected 'false' into junction 'gneJ0'
-Debug: Setting new attribute selected 'false' into edge 'gneE1'
-Debug: Setting new attribute selected 'false' into lane 'gneE1_0'
-Debug: Setting new attribute selected 'false' into junction 'gneJ1'
-Debug: Setting new attribute selected 'false' into edge 'gneE0'
-Debug: Setting new attribute selected 'false' into lane 'gneE0_0'
-Debug: Setting new attribute selected 'false' into parkingArea 'parkingAreaC'
-Debug: Setting new attribute selected 'false' into parkingArea 'parkingAreaB'
-Debug: Setting new attribute selected 'false' into parkingArea 'parkingAreaA'
-Debug: Setting new attribute selected 'false' into parkingArea 'parkingAreaD'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00
@@ -56,18 +56,18 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Additionals saved
-Debug: Setting new attribute selected 'false' into junction 'gneJ0'
-Debug: Setting new attribute selected 'false' into edge 'gneE1'
-Debug: Setting new attribute selected 'false' into lane 'gneE1_0'
-Debug: Setting new attribute selected 'false' into connection 'fromgneE1_0togneE0_0'
-Debug: Setting new attribute selected 'false' into junction 'gneJ1'
-Debug: Setting new attribute selected 'false' into edge 'gneE0'
-Debug: Setting new attribute selected 'false' into lane 'gneE0_0'
-Debug: Setting new attribute selected 'false' into connection 'fromgneE0_0togneE1_0'
-Debug: Setting new attribute selected 'false' into parkingArea 'parkingAreaC'
-Debug: Setting new attribute selected 'false' into parkingArea 'parkingAreaB'
-Debug: Setting new attribute selected 'false' into parkingArea 'parkingAreaA'
-Debug: Setting new attribute selected 'false' into parkingArea 'parkingAreaD'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-13.20,10.00,13.20
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 40.00,-13.20,60.00,13.20

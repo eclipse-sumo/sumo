@@ -77,14 +77,14 @@ Debug: Selected item 'flow (from-to)' in TagSelector
 Debug: Key ENTER pressed
 Debug: Adding flow 'flow_0' in GNEChange_DemandElement
 Debug: Value 'dummyPosLat' for attribute arrivalPosLat of flow isn't valid
-Debug: Setting new attribute arrivalPosLat '-12' into flow 'flow_0'
-Debug: Setting new attribute arrivalPosLat '4.2' into flow 'flow_0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute arrivalPosLat '0.00' into flow 'flow_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute arrivalPosLat 'center' into flow 'flow_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing flow 'flow_0' in GNEChange_DemandElement
@@ -93,10 +93,10 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding flow 'flow_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute arrivalPosLat '-12' into flow 'flow_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute arrivalPosLat '4.2' into flow 'flow_0'
+Debug: Setting new attribute
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary 0.00,6.80,20.00,33.20

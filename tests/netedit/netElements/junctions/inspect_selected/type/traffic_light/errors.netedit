@@ -43,17 +43,17 @@ Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: Value 'dummyType' for attribute type of junction isn't valid
 Debug: Adding TLS into junction 'C'
-Debug: Setting new attribute type 'traffic_light' into junction 'C'
+Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute type 'traffic_light' into junction 'C'
+Debug: Restoring previous attribute
 Debug: Removing TLS from junction 'C'
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding TLS into junction 'C'
-Debug: Setting new attribute type 'traffic_light' into junction 'C'
+Debug: Setting new attribute
 Debug: Additionals saved
 Debug: Deleting unreferenced busStop 'busStop_8_0_4'
 Debug: Deleting unreferenced busStop 'busStop_7_0_1'

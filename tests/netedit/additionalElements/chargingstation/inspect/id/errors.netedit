@@ -12,10 +12,10 @@ Debug: Adding chargingStation 'chargingStation_gneE2_1_0' in GNEChange_Additiona
 Debug: Adding chargingStation 'chargingStation_gneE2_1_1' in GNEChange_Additional
 Debug: Value 'chargingStation_gneE2_1_1' for attribute id of chargingStation isn't valid
 Debug: Value 'Id with spaces' for attribute id of chargingStation isn't valid
-Debug: Setting new attribute id 'correctID' into chargingStation 'chargingStation_gneE2_1_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute id 'chargingStation_gneE2_1_0' into chargingStation 'correctID'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing chargingStation 'chargingStation_gneE2_1_1' in GNEChange_Additional
@@ -30,7 +30,7 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding chargingStation 'chargingStation_gneE2_1_1' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute id 'correctID' into chargingStation 'chargingStation_gneE2_1_0'
+Debug: Setting new attribute
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE2_1togneE3_1' in retrieveGNEConnection()

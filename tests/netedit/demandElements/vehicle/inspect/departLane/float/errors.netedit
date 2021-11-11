@@ -80,10 +80,10 @@ Debug: Adding vehicle 'vehicle_0' in GNEChange_DemandElement
 Debug: Value 'dummyDepart' for attribute departLane of vehicle isn't valid
 Debug: Value '500' for attribute departLane of vehicle isn't valid
 Debug: Value '-10' for attribute departLane of vehicle isn't valid
-Debug: Setting new attribute departLane '0' into vehicle 'vehicle_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute departLane 'first' into vehicle 'vehicle_0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing vehicle 'vehicle_0' in GNEChange_DemandElement
@@ -98,7 +98,7 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding vehicle 'vehicle_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute departLane '0' into vehicle 'vehicle_0'
+Debug: Setting new attribute
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary 0.00,6.80,20.00,33.20

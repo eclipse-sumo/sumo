@@ -10,27 +10,27 @@ Debug: Current Viewport values: 100.00, 0.00, 200.00. Zoom = '50.00'
 Debug: Adding junction 'J0' into net
 Debug: Adding junction 'J1' into net
 Debug: Adding edge 'E0' from net
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'J0'
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'E0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'E0' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'J1'
-Debug: Setting new attribute width '-1.00' into lane 'E0_0'
-Debug: Setting new attribute width '-1.00' into edge 'E0'
-Debug: Setting new attribute shapeEnd '200.00,0.00' into edge 'E0'
-Debug: Setting new attribute shape '100.00,100.00' into edge 'E0'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute shape '' into edge 'E0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute shapeEnd '' into edge 'E0'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute shapeEnd '200.00,0.00' into edge 'E0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute shape '100.00,100.00' into edge 'E0'
+Debug: Setting new attribute
 Debug: Deleting unreferenced edge 'E0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'E0_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'J0' in AttributeCarriers destructor

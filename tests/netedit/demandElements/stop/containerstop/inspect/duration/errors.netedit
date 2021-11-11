@@ -25,46 +25,46 @@ Debug: Selected item 'trip' in DemandElementSelector
 Debug: Selected item 'stopLane' in TagSelector
 Debug: Selected item 'stopContainerStop' in TagSelector
 Debug: Adding stopContainerStop 'trip' in GNEChange_DemandElement
-Debug: Setting new attribute into stopContainerStop 'trip'
-Debug: Setting new attribute into stopContainerStop 'trip'
-Debug: Setting new attribute duration '60' into stopContainerStop 'trip'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Value 'dummyValue' for attribute duration of stopContainerStop isn't valid
-Debug: Setting new attribute duration '60' into stopContainerStop 'trip'
+Debug: Setting new attribute
 Debug: Value '-5' for attribute duration of stopContainerStop isn't valid
-Debug: Setting new attribute duration '0' into stopContainerStop 'trip'
-Debug: Setting new attribute duration '3.5' into stopContainerStop 'trip'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute duration '0.00' into stopContainerStop 'trip'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute duration '60.00' into stopContainerStop 'trip'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute duration '60.00' into stopContainerStop 'trip'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute duration '60.00' into stopContainerStop 'trip'
-Debug: Setting previous attribute into stopContainerStop 'trip'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute into stopContainerStop 'trip'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute into stopContainerStop 'trip'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute into stopContainerStop 'trip'
-Debug: Setting new attribute duration '60' into stopContainerStop 'trip'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute duration '60' into stopContainerStop 'trip'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute duration '0' into stopContainerStop 'trip'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute duration '3.5' into stopContainerStop 'trip'
+Debug: Setting new attribute
 Debug: Additionals saved
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing

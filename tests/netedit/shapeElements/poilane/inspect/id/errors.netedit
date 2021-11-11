@@ -10,16 +10,16 @@ Debug: Selected item 'poly' in TagSelector
 Debug: Selected item 'poiLane' in TagSelector
 Debug: Adding poiLane 'poi_0' into viewNet
 Debug: Adding poiLane 'poi_1' into viewNet
-Debug: Setting new attribute id 'POI_1' into poiLane 'poi_0'
+Debug: Setting new attribute
 Debug: Value '' for attribute id of poiLane isn't valid
 Debug: Value 'ID with spaces' for attribute id of poiLane isn't valid
-Debug: Setting new attribute id 'newID' into poiLane 'POI_1'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute id 'POI_1' into poiLane 'newID'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute id 'poi_0' into poiLane 'POI_1'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing poiLane 'poi_1' from viewNet
@@ -28,10 +28,10 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding poiLane 'poi_1' into viewNet
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute id 'POI_1' into poiLane 'poi_0'
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute id 'newID' into poiLane 'POI_1'
+Debug: Setting new attribute
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Additionals saved

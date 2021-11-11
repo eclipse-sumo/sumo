@@ -22,12 +22,12 @@ GLDebug: 	Inserted parkingArea:parkingArea_gneE2_1_0 into SUMORTree with boundar
 Debug: Value 'dummyWidth' for attribute width of parkingArea isn't valid
 Debug: Value '-5' for attribute width of parkingArea isn't valid
 Debug: Value '0' for attribute width of parkingArea isn't valid
-Debug: Setting new attribute width '2.3' into parkingArea 'parkingArea_gneE2_1_0'
+Debug: Setting new attribute
 GLDebug: 	Removed object parkingArea:parkingArea_gneE2_1_0 from SUMORTree with boundary -1.20,5.20,35.20,25.20
 GLDebug: 	Inserted parkingArea:parkingArea_gneE2_1_0 into SUMORTree with boundary -0.30,6.10,34.30,26.10
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute width '3.20' into parkingArea 'parkingArea_gneE2_1_0'
+Debug: Restoring previous attribute
 GLDebug: 	Removed object parkingArea:parkingArea_gneE2_1_0 from SUMORTree with boundary -0.30,6.10,34.30,26.10
 GLDebug: 	Inserted parkingArea:parkingArea_gneE2_1_0 into SUMORTree with boundary -1.20,5.20,35.20,25.20
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -40,7 +40,7 @@ Debug: Adding parkingArea 'parkingArea_gneE2_1_0' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingArea_gneE2_1_0 into SUMORTree with boundary -1.20,5.20,35.20,25.20
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute width '2.3' into parkingArea 'parkingArea_gneE2_1_0'
+Debug: Setting new attribute
 GLDebug: 	Removed object parkingArea:parkingArea_gneE2_1_0 from SUMORTree with boundary -1.20,5.20,35.20,25.20
 GLDebug: 	Inserted parkingArea:parkingArea_gneE2_1_0 into SUMORTree with boundary -0.30,6.10,34.30,26.10
 GLDebug: Removing junctions during recomputing

@@ -24,40 +24,40 @@ Debug: Key F5 (Compute) pressed
 Debug: Created connection 'fromgneE2_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE3_0togneE4_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE4_0togneE5_0' in retrieveGNEConnection()
-Debug: Setting new attribute selected 'true' into junction 'gneJ0'
-Debug: Setting new attribute selected 'true' into edge 'gneE5'
-Debug: Setting new attribute selected 'true' into junction 'gneJ1'
-Debug: Setting new attribute selected 'true' into edge 'gneE3'
-Debug: Setting new attribute selected 'true' into connection 'fromgneE3_0togneE4_0'
-Debug: Setting new attribute selected 'true' into junction 'gneJ2'
-Debug: Setting new attribute selected 'true' into edge 'gneE2'
-Debug: Setting new attribute selected 'true' into connection 'fromgneE2_0togneE3_0'
-Debug: Setting new attribute selected 'true' into edge 'gneE4'
-Debug: Setting new attribute selected 'true' into connection 'fromgneE4_0togneE5_0'
-Debug: Setting new attribute selected 'true' into e2MultilaneDetector 'e2MultilaneDetector_1'
-Debug: Setting new attribute selected 'true' into e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Value 'dummyTimeTreshold' for attribute timeThreshold of e2MultilaneDetector isn't valid
 Debug: Value '-5' for attribute timeThreshold of e2MultilaneDetector isn't valid
-Debug: Setting new attribute timeThreshold '4' into e2MultilaneDetector 'e2MultilaneDetector_0'
-Debug: Setting new attribute timeThreshold '4' into e2MultilaneDetector 'e2MultilaneDetector_1'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute timeThreshold '1.00' into e2MultilaneDetector 'e2MultilaneDetector_1'
-Debug: Setting previous attribute timeThreshold '1.00' into e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute selected '0' into e2MultilaneDetector 'e2MultilaneDetector_0'
-Debug: Setting previous attribute selected '0' into e2MultilaneDetector 'e2MultilaneDetector_1'
-Debug: Setting previous attribute selected '0' into connection 'fromgneE4_0togneE5_0'
-Debug: Setting previous attribute selected '0' into edge 'gneE4'
-Debug: Setting previous attribute selected '0' into connection 'fromgneE2_0togneE3_0'
-Debug: Setting previous attribute selected '0' into edge 'gneE2'
-Debug: Setting previous attribute selected '0' into junction 'gneJ2'
-Debug: Setting previous attribute selected '0' into connection 'fromgneE3_0togneE4_0'
-Debug: Setting previous attribute selected '0' into edge 'gneE3'
-Debug: Setting previous attribute selected '0' into junction 'gneJ1'
-Debug: Setting previous attribute selected '0' into edge 'gneE5'
-Debug: Setting previous attribute selected '0' into junction 'gneJ0'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing e2MultilaneDetector 'e2MultilaneDetector_1' in GNEChange_Additional
@@ -68,22 +68,22 @@ Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additiona
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_1' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute selected 'true' into junction 'gneJ0'
-Debug: Setting new attribute selected 'true' into edge 'gneE5'
-Debug: Setting new attribute selected 'true' into junction 'gneJ1'
-Debug: Setting new attribute selected 'true' into edge 'gneE3'
-Debug: Setting new attribute selected 'true' into connection 'fromgneE3_0togneE4_0'
-Debug: Setting new attribute selected 'true' into junction 'gneJ2'
-Debug: Setting new attribute selected 'true' into edge 'gneE2'
-Debug: Setting new attribute selected 'true' into connection 'fromgneE2_0togneE3_0'
-Debug: Setting new attribute selected 'true' into edge 'gneE4'
-Debug: Setting new attribute selected 'true' into connection 'fromgneE4_0togneE5_0'
-Debug: Setting new attribute selected 'true' into e2MultilaneDetector 'e2MultilaneDetector_1'
-Debug: Setting new attribute selected 'true' into e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute timeThreshold '4' into e2MultilaneDetector 'e2MultilaneDetector_0'
-Debug: Setting new attribute timeThreshold '4' into e2MultilaneDetector 'e2MultilaneDetector_1'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Additionals saved
 Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_1'
 Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_0'

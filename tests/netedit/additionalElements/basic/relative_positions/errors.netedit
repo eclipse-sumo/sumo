@@ -23,17 +23,17 @@ Debug: Adding routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
 Debug: Adding vaporizer 'gneE1' in GNEChange_Additional
 Debug: Adding variableSpeedSign 'variableSpeedSign_0' in GNEChange_Additional
 Debug: Adding variableSpeedSignSymbol 'variableSpeedSign_0' in GNEChange_Additional
-Debug: Setting new attribute length '25' into edge 'gneE1'
-Debug: Setting new attribute length '25' into edge 'gneE0'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'fromgneE0_2togneE1_2' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_2togneE0_2' in retrieveGNEConnection()
-Debug: Setting new attribute startPos '24.90' into busStop 'busStop_gneE1_0_0'
-Debug: Setting new attribute endPos '25.00' into busStop 'busStop_gneE1_0_0'
-Debug: Setting new attribute startPos '24.90' into containerStop 'containerStop_gneE1_1_0'
-Debug: Setting new attribute endPos '25.00' into containerStop 'containerStop_gneE1_1_0'
-Debug: Setting new attribute startPos '24.90' into chargingStation 'chargingStation_gneE1_2_0'
-Debug: Setting new attribute endPos '25.00' into chargingStation 'chargingStation_gneE1_2_0'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Additionals saved after dialog
 Debug: Deleting unreferenced variableSpeedSignSymbol 'variableSpeedSign_0'
 Debug: Deleting unreferenced variableSpeedSign 'variableSpeedSign_0'

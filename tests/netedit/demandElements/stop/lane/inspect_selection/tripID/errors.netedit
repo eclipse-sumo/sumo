@@ -34,51 +34,51 @@ GLDebug: 	Removed object lane:lane_gneE0_0_1 from SUMORTree with boundary 15.80,
 GLDebug: 	Inserted lane:lane_gneE0_0_1 into SUMORTree with boundary 15.80,-10.60,34.20,-2.20
 GLDebug: 	Removed object lane:lane_gneE1_0_0 from SUMORTree with boundary 15.80,2.20,34.20,10.60
 GLDebug: 	Inserted lane:lane_gneE1_0_0 into SUMORTree with boundary 15.80,2.20,34.20,10.60
-Debug: Setting new attribute selected 'true' into embeddedRoute 'embeddedRoute_0'
-Debug: Setting new attribute selected 'true' into vehicle 'vehicle_0'
-Debug: Setting new attribute selected 'true' into stopLane 'vehicle_0stopLane1'
-Debug: Setting new attribute selected 'true' into stopLane 'vehicle_0stopLane2'
-Debug: Setting new attribute selected 'false' into embeddedRoute 'embeddedRoute_0'
-Debug: Setting new attribute selected 'false' into vehicle 'vehicle_0'
-Debug: Setting new attribute selected 'false' into stopLane 'vehicle_0stopLane1'
-Debug: Setting new attribute selected 'false' into stopLane 'vehicle_0stopLane2'
-Debug: Setting new attribute tripId 'dummyValue' into stopLane 'vehicle_0stopLane2'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Value '' for attribute tripId of stopLane isn't valid
 Debug: Value ';;;;;' for attribute tripId of stopLane isn't valid
-Debug: Setting new attribute tripId 'ID1' into stopLane 'vehicle_0stopLane2'
-Debug: Setting new attribute tripId 'ID2' into stopLane 'vehicle_0stopLane2'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute tripId 'ID1' into stopLane 'vehicle_0stopLane2'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute tripId 'dummyValue' into stopLane 'vehicle_0stopLane2'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute tripId '' into stopLane 'vehicle_0stopLane2'
+Debug: Restoring previous attribute
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute selected '1' into stopLane 'vehicle_0stopLane2'
-Debug: Setting previous attribute selected '1' into stopLane 'vehicle_0stopLane1'
-Debug: Setting previous attribute selected '1' into vehicle 'vehicle_0'
-Debug: Setting previous attribute selected '1' into embeddedRoute 'embeddedRoute_0'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl + Z (Undo) pressed
-Debug: Setting previous attribute selected '0' into stopLane 'vehicle_0stopLane2'
-Debug: Setting previous attribute selected '0' into stopLane 'vehicle_0stopLane1'
-Debug: Setting previous attribute selected '0' into vehicle 'vehicle_0'
-Debug: Setting previous attribute selected '0' into embeddedRoute 'embeddedRoute_0'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute selected 'true' into embeddedRoute 'embeddedRoute_0'
-Debug: Setting new attribute selected 'true' into vehicle 'vehicle_0'
-Debug: Setting new attribute selected 'true' into stopLane 'vehicle_0stopLane1'
-Debug: Setting new attribute selected 'true' into stopLane 'vehicle_0stopLane2'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute selected 'false' into embeddedRoute 'embeddedRoute_0'
-Debug: Setting new attribute selected 'false' into vehicle 'vehicle_0'
-Debug: Setting new attribute selected 'false' into stopLane 'vehicle_0stopLane1'
-Debug: Setting new attribute selected 'false' into stopLane 'vehicle_0stopLane2'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute tripId 'dummyValue' into stopLane 'vehicle_0stopLane2'
+Debug: Setting new attribute
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute tripId 'ID1' into stopLane 'vehicle_0stopLane2'
+Debug: Setting new attribute
 Debug: Keys Ctrl + Y (Redo) pressed
-Debug: Setting new attribute tripId 'ID2' into stopLane 'vehicle_0stopLane2'
+Debug: Setting new attribute
 Debug: Additionals saved
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
