@@ -45,7 +45,6 @@
 #include "microsim/output/MSE2Collector.h"
 #include <sstream>
 #include <iostream>
-#include <unistd.h>
 // ===========================================================================
 // parameter defaults definitions
 // ===========================================================================
@@ -100,9 +99,6 @@ NEMALogic::~NEMALogic() { }
 void
 NEMALogic::init(NLDetectorBuilder& nb) {
     //init the base path for output state
-    char buf[BUFSIZ];
-    getcwd(buf, BUFSIZ);
-    outputStateFilePath = buf;
     outputStateFilePath = outputStateFilePath + "/" + myID + "_state_output";
     // std::cout << "outputStaetFilePath = " << outputStateFilePath << std::endl;
     //init cycleRefPoint
