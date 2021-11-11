@@ -21,6 +21,7 @@ from __future__ import print_function
 import os
 import sys
 import io
+import random
 import argparse
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib  # noqa
@@ -37,6 +38,8 @@ def parseArgs(args=None):
     argParser.add_argument("-o", "--output-file", help="write stopping places to the output FILE", metavar="FILE",
                            default="stopping_places.add.xml")
     argParser.add_argument("-f", "--fleet-file", help="write taxi fleet to the output FILE", metavar="FILE")
+    argParser.add_argument("--fleet-size", type=float, metavar="NUM",
+                           help="relative (0 < NUM < 1) or absolute number of vehicles (NUM >= 1) to generate")
     argParser.add_argument("-t", "--type", help="stopping place type", default="chargingStation")
     argParser.add_argument("-r", "--radius", type=float, help="radius for edge finding", default=20.)
     argParser.add_argument("-l", "--length", type=float, help="(minimum) length of the stopping place", default=20.)
@@ -53,6 +56,7 @@ def main(options):
     count = 0
     fleet_out = io.open(options.fleet_file, "w", encoding="UTF8") if options.fleet_file else None
     if fleet_out:
+        places = []
         sumolib.xml.writeHeader(fleet_out, root="additional")
         print(u"""     <vType id="taxi" vClass="taxi">
         <param key="has.taxi.device" value="true"/>
@@ -89,12 +93,18 @@ def main(options):
                           (options.type, stopID, nameAttr, bestLane.getID(), endPos - length, endPos),
                           file=output)
                     if fleet_out:
-                        for idx in range(int(length / VEHICLE_LENGTH)):
-                            print(u'    <trip id="taxi_%s_%s" type="taxi" depart="0.00"><stop busStop="%s" triggered="person"/></trip>' %  # noqa
-                                  (stopID, idx, stopID), file=fleet_out)
+                        places += int(length / VEHICLE_LENGTH) * [stopID]
                     count += 1
         print(u"</additional>", file=output)
     if fleet_out:
+        if options.fleet_size:
+            fleet_size = int(len(places) * options.fleet_size) if options.fleet_size < 1 else int(options.fleet_size)
+            random.seed(42)
+            random.shuffle(places)
+            places = places[:fleet_size]
+        for idx, stopID in enumerate(places):
+            print(u'    <trip id="taxi_%s_%s" type="taxi" depart="0.00"><stop busStop="%s" triggered="person"/></trip>' %  # noqa
+                    (stopID, idx, stopID), file=fleet_out)
         print(u"</additional>", file=fleet_out)
 
 
