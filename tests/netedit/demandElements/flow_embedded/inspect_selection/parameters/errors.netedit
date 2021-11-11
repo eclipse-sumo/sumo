@@ -17,8 +17,26 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.0
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Inserting generic parameter 'KeyA1|valueA1' into 
+Debug: Inserting generic parameter 'KeyA1|valueA1' into flow
+Debug: Inserting generic parameter 'KeyA3|valueA2' into 
+Debug: Inserting generic parameter 'KeyA3|valueA2' into flow
+Debug: Inserting generic parameter 'KeyA2|valueA3' into 
+Debug: Inserting generic parameter 'KeyA2|valueA3' into flow
 Debug: Adding flowWithRoute 'flowA' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'flowA' in GNEChange_DemandElement
+Debug: Inserting generic parameter 'KeyB1|valueB1' into 
+Debug: Inserting generic parameter 'KeyB1|valueB1' into flow
+Debug: Inserting generic parameter 'KeyB3|valueB2' into 
+Debug: Inserting generic parameter 'KeyB3|valueB2' into flow
+Debug: Inserting generic parameter 'KeyB2|valueB3' into 
+Debug: Inserting generic parameter 'KeyB2|valueB3' into flow
 Debug: Adding flowWithRoute 'flowB' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'flowB' in GNEChange_DemandElement
 GLDebug: Removing junctions during recomputing
@@ -68,8 +86,10 @@ Debug: Created connection 'fromgneE6_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
-Debug: Setting new attribute selected 'true' into flowWithRoute 'flowA'
+Debug: Setting new attribute selected 'true' into routeEmbedded 'flowB'
+Debug: Setting new attribute selected 'true' into routeEmbedded 'flowA'
 Debug: Setting new attribute selected 'true' into flowWithRoute 'flowB'
+Debug: Setting new attribute selected 'true' into flowWithRoute 'flowA'
 Debug: Current Viewport values: 14.00, 17.00, 12.00. Zoom = '723.33'
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into flowWithRoute 'flowA'
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into flowWithRoute 'flowB'
@@ -111,16 +131,33 @@ Debug: Setting previous attribute genericParameter 'key1=value1|key2=value2|key3
 Debug: Setting previous attribute genericParameter 'key1=value1|key2=value2|key3=value3' into flowWithRoute 'flowA'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter '' into flowWithRoute 'flowB'
-Debug: Setting previous attribute genericParameter '' into flowWithRoute 'flowA'
+Debug: Setting previous attribute genericParameter 'KeyB1=valueB1|KeyB2=valueB3|KeyB3=valueB2' into flowWithRoute 'flowB'
+Debug: Setting previous attribute genericParameter 'KeyA1=valueA1|KeyA2=valueA3|KeyA3=valueA2' into flowWithRoute 'flowA'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute selected '0' into flowWithRoute 'flowB'
 Debug: Setting previous attribute selected '0' into flowWithRoute 'flowA'
+Debug: Setting previous attribute selected '0' into flowWithRoute 'flowB'
+Debug: Setting previous attribute selected '0' into routeEmbedded 'flowA'
+Debug: Setting previous attribute selected '0' into routeEmbedded 'flowB'
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Removing routeEmbedded 'flowB' in GNEChange_DemandElement
+Debug: Removing flowWithRoute 'flowB' in GNEChange_DemandElement
+Debug: Removing routeEmbedded 'flowA' in GNEChange_DemandElement
+Debug: Removing flowWithRoute 'flowA' in GNEChange_DemandElement
+Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute selected 'true' into flowWithRoute 'flowA'
+Debug: Adding flowWithRoute 'flowA' in GNEChange_DemandElement
+Debug: Adding routeEmbedded 'flowA' in GNEChange_DemandElement
+Debug: Adding flowWithRoute 'flowB' in GNEChange_DemandElement
+Debug: Adding routeEmbedded 'flowB' in GNEChange_DemandElement
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute selected 'true' into routeEmbedded 'flowB'
+Debug: Setting new attribute selected 'true' into routeEmbedded 'flowA'
 Debug: Setting new attribute selected 'true' into flowWithRoute 'flowB'
+Debug: Setting new attribute selected 'true' into flowWithRoute 'flowA'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into flowWithRoute 'flowA'
@@ -149,6 +186,7 @@ Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into flowWithRoute 'flowA'
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into flowWithRoute 'flowB'
+Debug: Keys Ctrl+Y (Redo) pressed
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary 0.00,6.80,20.00,33.20
@@ -229,9 +267,5 @@ Debug: Deleting unreferenced junction 'gneJ6' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ7' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ8' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ9' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 16
-X connection to :27304.0 broken (explicit kill or server shutdown).
