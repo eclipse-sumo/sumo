@@ -485,9 +485,7 @@ Vehicle::getStops(const std::string& vehID, int limit) {
         for (const MSStop& stop : vehicle->getStops()) {
             if (!stop.collision) {
                 TraCINextStopData nsd = Helper::buildStopData(stop.pars);
-                if (stop.reached) {
-                    nsd.duration = STEPS2TIME(stop.duration);
-                }
+                nsd.duration = STEPS2TIME(stop.duration);
                 result.push_back(nsd);
                 if (limit > 0 && (int)result.size() >= limit) {
                     break;
