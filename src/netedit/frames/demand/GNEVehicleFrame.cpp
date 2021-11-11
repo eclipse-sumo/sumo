@@ -374,6 +374,8 @@ GNEVehicleFrame::createPath() {
                     routeEdges.push_back(edge->getID());
                 }
             }
+            // avoid consecutive duplicated edges
+            routeEdges.erase(std::unique(routeEdges.begin(), routeEdges.end()), routeEdges.end());
             // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
             SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myVehicleBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(vehicleTag));
             // obtain vehicle parameters

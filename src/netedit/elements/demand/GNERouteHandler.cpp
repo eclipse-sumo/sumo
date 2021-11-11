@@ -155,7 +155,8 @@ GNERouteHandler::buildEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* su
                 }
                 route->incRef("buildRoute");
             }
-
+            // compute path
+            vehicle->computePathElement();
         }
     }
 }
@@ -197,6 +198,8 @@ GNERouteHandler::buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject*
                 route->addChildElement(vehicle);
                 vehicle->incRef("buildVehicleOverRoute");
             }
+            // compute path
+            vehicle->computePathElement();
             // center view after creation
             if (!myNet->getViewNet()->getVisibleBoundary().around(vehicle->getPositionInView())) {
                 myNet->getViewNet()->centerTo(vehicle->getPositionInView(), false);
@@ -235,6 +238,8 @@ GNERouteHandler::buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* /*
                 route->addChildElement(flow);
                 flow->incRef("buildFlowOverRoute");
             }
+            // compute path
+            flow->computePathElement();
             // center view after creation
             if (!myNet->getViewNet()->getVisibleBoundary().around(flow->getPositionInView())) {
                 myNet->getViewNet()->centerTo(flow->getPositionInView(), false);
@@ -284,6 +289,8 @@ GNERouteHandler::buildTrip(const CommonXMLStructure::SumoBaseObject* /*sumoBaseO
                     viaEdge->addChildElement(trip);
                 }
             }
+            // compute path
+            trip->computePathElement();
             // center view after creation
             if (!myNet->getViewNet()->getVisibleBoundary().around(trip->getPositionInView())) {
                 myNet->getViewNet()->centerTo(trip->getPositionInView(), false);
@@ -333,6 +340,8 @@ GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* /*sumoBaseO
                     viaEdge->addChildElement(flow);
                 }
             }
+            // compute path
+            flow->computePathElement();
             // center view after creation
             if (!myNet->getViewNet()->getVisibleBoundary().around(flow->getPositionInView())) {
                 myNet->getViewNet()->centerTo(flow->getPositionInView(), false);
