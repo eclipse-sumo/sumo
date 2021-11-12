@@ -506,7 +506,8 @@ class Net:
         return minPath, minInternalCost
 
     def getShortestPath(self, fromEdge, toEdge, maxCost=1e400, vClass=None, reversalPenalty=0,
-                        includeFromToCost=True, withInternal=False, ignoreDirection=False):
+                        includeFromToCost=True, withInternal=False, ignoreDirection=False,
+                        fromPos=0, toPos=0):
         """
         Finds the shortest path from fromEdge to toEdge respecting vClass, using Dijkstra's algorithm.
         It returns a pair of a tuple of edges and the cost. If no path is found the first element is None.
@@ -516,6 +517,7 @@ class Net:
         when the start or end edge are internal edges.
         The search may be limited using the given threshold.
         """
+
         if self.hasInternal:
             appendix = ()
             appendixCost = 0.
@@ -524,6 +526,13 @@ class Net:
                 appendixCost += toEdge.getLength()
                 toEdge = list(toEdge.getIncoming().keys())[0]
         q = [(fromEdge.getLength() if includeFromToCost else 0, fromEdge.getID(), (fromEdge, ), ())]
+        if fromEdge == toEdge and fromPos > toPos and not ignoreDirection:
+            # start search on successors of fromEdge
+            q = []
+            startCost = fromEdge.getLength() - fromPos if includeFromToCost else 0
+            for e2, conn in fromEdge.getAllowedOutgoing(vClass).items():
+                q.append((startCost + e2.getLength(), e2.getID(), (fromEdge, e2), ()))
+
         seen = set()
         dist = {fromEdge: fromEdge.getLength()}
         while q:

@@ -238,9 +238,9 @@ def generate_rerouters_process(parameters):
     ret_rerouters = dict()
 
     @functools.lru_cache(maxsize=None)
-    def _cached_get_shortest_path(from_edge, to_edge):
+    def _cached_get_shortest_path(from_edge, to_edge, fromPos, toPos):
         """ Calls and caches sumolib: net.getShortestPath. """
-        return sumo_net.getShortestPath(from_edge, to_edge)
+        return sumo_net.getShortestPath(from_edge, to_edge, fromPos=fromPos, toPos=toPos)
 
     distances = collections.defaultdict(dict)
     routes = collections.defaultdict(dict)
@@ -254,6 +254,7 @@ def generate_rerouters_process(parameters):
     for parking_id in sequence:
         parking_a = parameters['all_parking_areas'][parking_id]
         from_edge = sumo_net.getEdge(parking_a['edge'])
+        fromPos = float(parking_a['endPos'])
         candidates = parameters['all_parking_areas'].values()
         if rtree is not None:
             allParkings = list(candidates)
@@ -266,10 +267,10 @@ def generate_rerouters_process(parameters):
         for parking_b in candidates:
             if parking_a['id'] == parking_b['id']:
                 continue
-            if parking_a['edge'] == parking_b['edge']:
-                continue
+            toPos = float(parking_b['endPos'])
             route, cost = _cached_get_shortest_path(from_edge,
-                                                    sumo_net.getEdge(parking_b['edge']))
+                                                    sumo_net.getEdge(parking_b['edge']),
+                                                    fromPos, toPos)
             if route:
                 distances[parking_a['id']][parking_b['id']] = cost
                 routes[parking_a['id']][parking_b['id']] = route
@@ -295,6 +296,7 @@ def generate_rerouters_process(parameters):
         temp_rerouters = [(pid, 0.0)]
         for distance, parking in list_of_dist:
             route = routes[pid][parking]
+            endPos = float(parameters['all_parking_areas'][parking]['endPos'])
             dominated = False
             for alt2, altRoute in routes[pid].items():
                 if isVisible(pid, alt2, distance, sumo_net,
@@ -308,10 +310,12 @@ def generate_rerouters_process(parameters):
                 if parameters['all_parking_areas'][alt2].get('capacity') < parameters['min_capacity']:
                     # parking area should not be a target and therefore cannot dominate
                     continue
-                if len(altRoute) < len(route) and altRoute == route[0:len(altRoute)]:
-                    # print("origin", pid, "cand", parking, "route", [e.getID() for e in route], "dominated by", [e.getID() for e in altRoute])  # noqa
-                    dominated = True
-                    break
+                if len(altRoute) <= len(route) and altRoute == route[0:len(altRoute)]:
+                    endPos2 = float(parameters['all_parking_areas'][alt2]['endPos'])
+                    if len(altRoute) < len(route) or endPos2 < endPos:
+                        # print("origin", pid, "cand", parking, "route", [e.getID() for e in route], "dominated by", [e.getID() for e in altRoute])  # noqa
+                        dominated = True
+                        break
             if dominated:
                 continue
             if parameters['all_parking_areas'][parking].get('capacity') < parameters['min_capacity']:
