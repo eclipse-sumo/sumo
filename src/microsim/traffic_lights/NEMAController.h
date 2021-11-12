@@ -83,6 +83,15 @@ public:
 
     SUMOTime trySwitch();
 
+    /// @name Dynamic Information Retrieval
+    /// @{
+
+    /** @brief Returns the definition of the current phase
+     * @return The current phase
+     */
+    const MSPhaseDefinition& getCurrentPhaseDef() const;
+    /// @}
+
     /// @brief called when switching programs
     void activateProgram();
     void deactivateProgram();
@@ -271,4 +280,7 @@ protected:
     std::string outputStateFilePath;
     std::ofstream outputStateFile;
     bool coordinateMode;
+
+    /// @brief virtual phase that holds the current state
+    MSPhaseDefinition myPhase;
 };
