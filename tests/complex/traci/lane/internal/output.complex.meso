@@ -1,0 +1,46 @@
+Loading configuration ... done.
+ Retrying in 1 seconds
+step 0
+step 1
+step 2
+lanes ('1fi_0', '1o_0', '1si_0', '1si_1', '1si_2', '2fi_0', '2o_0', '2si_0', '2si_1', '2si_2', '3fi_0', '3o_0', '3si_0', '3si_1', '3si_2', '4fi_0', '4o_0', '4si_0', '4si_1', '4si_2')
+lane count 20
+examining 2fi_0
+length 248.5
+maxSpeed 11.11
+width 3.2
+allowed ()
+disallowed ()
+linkNum 3
+links [('2si_0', True, True, False), ('2si_1', True, True, False), ('2si_2', True, True, False)]
+linksExtended [('2si_0', True, True, False, '', 'M', 's', 7.249827584156764), ('2si_1', True, True, False, '', 'M', 's', 4.45982062419556), ('2si_2', True, True, False, '', 'M', 's', 3.0)]
+shape ((1000.0, 501.65), (751.5, 501.65))
+edge 2fi
+CO2 0.0
+CO 0.0
+HC 0.0
+PMx 0.0
+NOx 0.0
+Fuel 0.0
+Noise 0.0
+Elec 0.0
+meanSpeed 11.11
+occupancy 0.0
+lastLength 0.0
+traveltime 22.3672367237
+numVeh 0
+haltVeh 0
+vehIds ()
+waiting time 0.0
+after setAllowed ('taxi',) ('private', 'emergency', 'authority', 'army', 'vip', 'pedestrian', 'passenger', 'hov', 'bus', 'coach', 'delivery', 'truck', 'trailer', 'motorcycle', 'moped', 'bicycle', 'evehicle', 'tram', 'rail_urban', 'rail', 'rail_electric', 'rail_fast', 'ship', 'custom1', 'custom2')
+after setDisallowed ('private', 'emergency', 'authority', 'army', 'vip', 'pedestrian', 'passenger', 'hov', 'taxi', 'coach', 'delivery', 'truck', 'trailer', 'motorcycle', 'moped', 'bicycle', 'evehicle', 'tram', 'rail_urban', 'rail', 'rail_electric', 'rail_fast', 'ship', 'custom1', 'custom2') ('bus',)
+after setMaxSpeed 42.0
+after setLength 123.0
+foes ('4si_1',)
+{16: 0}
+step 3
+{16: 0}
+step 4
+{16: 0}
+step 5
+{16: 0}
