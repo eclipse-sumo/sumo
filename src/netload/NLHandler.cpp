@@ -807,7 +807,7 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
         std::string phaseTypeString;
         bool transient_notdecisional_bit;
         bool commit_bit;
-        MSPhaseDefinition::LaneIdVector laneIdVector;
+        std::vector<std::string> laneIdVector;
         try {
             phaseTypeString = attrs.get<std::string>(SUMO_ATTR_TYPE, "phase", ok, false);
         } catch (EmptyData&) {
@@ -831,7 +831,7 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
                 /// @todo: the following should be moved to StringTok
                 std::string targetLanesString = attrs.getStringSecure(SUMO_ATTR_TARGETLANE, "");
                 //TOKENIZING
-                MSPhaseDefinition::LaneIdVector targetLanesVector;
+                std::vector<std::string> targetLanesVector;
                 //Skip delimiters at the beginning
                 std::string::size_type firstPos = targetLanesString.find_first_not_of(delimiter, 0);
                 //Find first "non-delimiter".

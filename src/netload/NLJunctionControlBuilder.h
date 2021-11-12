@@ -184,7 +184,7 @@ public:
      * @param[in] commit Specifies if this is a commit phase
      * @param[in] targetLanes A reference to the vector containing targeted sensor lanes for this phase, given by lane id
      */
-    void addPhase(SUMOTime duration, const std::string& state, const std::vector<int>& nextPhases, SUMOTime minDuration, SUMOTime maxDuration, const std::string& name, bool transient_notdecisional, bool commit, MSPhaseDefinition::LaneIdVector* targetLanes = nullptr);
+    void addPhase(SUMOTime duration, const std::string& state, const std::vector<int>& nextPhases, SUMOTime minDuration, SUMOTime maxDuration, const std::string& name, bool transient_notdecisional, bool commit, std::vector<std::string>* targetLanes = nullptr);
 
     //for NEMA compliant phase 
     void addPhase(SUMOTime duration, const std::string& state, const std::vector<int>& nextPhases, SUMOTime minDuration, SUMOTime maxDuration, const std::string& name, SUMOTime vehextTime, SUMOTime yellowTime, SUMOTime redTime);

@@ -732,7 +732,7 @@ NEMALogic::NEMA_control() {
 
 int NEMALogic::nextPhase(std::vector<int> ring, int currentPhase) {
 
-    int length = ring.size();
+    int length = (int)ring.size();
     int flag = 0;
     int nphase = 0; // next phase
     for (int i = 0; i < length * 2; i++)

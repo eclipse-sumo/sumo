@@ -264,18 +264,17 @@ MSSOTLTrafficLightLogic::countVehicles(MSPhaseDefinition phase) {
 
     int accumulator = 0;
     //Iterate over the target lanes for the current target phase to get the number of approaching vehicles
-    MSPhaseDefinition::LaneIdVector targetLanes = phase.getTargetLaneSet();
-    for (MSPhaseDefinition::LaneIdVector::const_iterator laneIterator = targetLanes.begin(); laneIterator != targetLanes.end(); laneIterator++) {
+    for (const std::string& lane : phase.getTargetLaneSet()) {
         //SWITCH between 3 counting vehicles function
         switch (getMode()) {
             case (0):
-                accumulator += mySensors->countVehicles((*laneIterator)); //SUMO
+                accumulator += mySensors->countVehicles(lane); //SUMO
                 break;
             case (1):
-                accumulator += ((MSSOTLE2Sensors*)mySensors)->estimateVehicles((*laneIterator));  //COMPLEX
+                accumulator += ((MSSOTLE2Sensors*)mySensors)->estimateVehicles(lane);  //COMPLEX
                 break;
             case (2):
-                accumulator = MAX2((int)((MSSOTLE2Sensors*)mySensors)->getEstimateQueueLength((*laneIterator)), accumulator);  //QUEUE
+                accumulator = MAX2((int)((MSSOTLE2Sensors*)mySensors)->getEstimateQueueLength(lane), accumulator);  //QUEUE
                 break;
             default:
                 WRITE_ERROR("Unrecognized traffic threshold calculation mode");
