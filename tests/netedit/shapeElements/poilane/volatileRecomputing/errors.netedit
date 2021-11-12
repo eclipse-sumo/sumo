@@ -29,7 +29,7 @@ Debug: Adding poiLane 'POI_6' into viewNet
 Debug: Adding poiLane 'POI_7' into viewNet
 Error: Could not build poi with ID 'POI_8' in netedit; attribute width cannot be negative.
 Debug: Adding poiLane 'POI_9' into viewNet
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Nov134812.2112\netedit.gui\shapeElements\poilane\volatileRecomputing\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.12Nov104109.7120\netedit.gui\shapeElements\poilane\volatileRecomputing\input_additionals.add.xml failed.
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
@@ -91,15 +91,15 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-14.20,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,14.20
 Debug: Created connection 'fromgneE0_1togneE1_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_1togneE0_1' in retrieveGNEConnection()
-Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
+Debug: Deleting unreferenced edge in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE0_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_1togneE1_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE1' in AttributeCarriers destructor
+Debug: Deleting unreferenced edge in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE1_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE1_1togneE0_1' in GNEEdge destructor
-Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
-Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction in AttributeCarriers destructor
+Debug: Deleting unreferenced junction in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 4
