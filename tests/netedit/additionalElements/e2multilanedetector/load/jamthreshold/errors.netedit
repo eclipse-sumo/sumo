@@ -19,7 +19,7 @@ Error: Attribute 'jamThreshold' in definition of e2Detector 'e2MultilaneDetector
 Error: Could not build e2Detector with ID 'e2MultilaneDetector_2' in netedit; attribute jamThreshold cannot be negative.
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_3' in GNEChange_Additional
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_4' in GNEChange_Additional
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Nov090341.672\netedit.gui\additionalElements\e2multilanedetector\load\jamthreshold\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.12Nov085848.7496\netedit.gui\additionalElements\e2multilanedetector\load\jamthreshold\input_additionals.add.xml failed.
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -88,8 +88,5 @@ Debug: Deleting unreferenced lane 'gneE5_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ2' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 7
