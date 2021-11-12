@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -11,18 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    NEMALogic.cpp
-/// @author  Daniel Krajzewicz
-/// @author  Julia Ringel
-/// @author  Jakob Erdmann
-/// @author  Michael Behrisch
-/// @author  Laura Bieker
-/// @date    Sept 2002
+/// @file    NEMAController.cpp
 /// @author  Tianxin Li
 /// @author  Qichao Wang
-/// @date Summer 2020
-/// @author  Qichao Wang
-/// @date December 2020
+/// @date    August 2020
+///
 // An actuated NEMA-phase-compliant traffic light logic
 /****************************************************************************/
 #include <config.h>

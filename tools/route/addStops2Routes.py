@@ -47,8 +47,8 @@ def get_options(args=None):
                          help="specify a time until the vehicle is parked")
     optParser.add_option("-p", "--parking", dest="parking", action="store_true",
                          default=False, help="where is the vehicle parking")
-    optParser.add_option("--parking-areas", dest="parkingareas",
-                         default=False, help="load parkingarea definitions and stop at parkingarea on the arrival edge if possible")
+    optParser.add_option("--parking-areas", dest="parkingareas", default=False,
+                         help="load parkingarea definitions and stop at parkingarea on the arrival edge if possible")
     optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
                          default=False, help="tell me what you are doing")
 
@@ -72,6 +72,7 @@ def readTypes(options):
     # print(vtypes)
     return vtypes
 
+
 def getLastEdge(obj):
     if obj.route:
         edgesList = obj.route[0].edges.split()
@@ -80,6 +81,7 @@ def getLastEdge(obj):
         return obj.to
     else:
         return None
+
 
 def main(options):
 
@@ -96,7 +98,7 @@ def main(options):
         net = sumolib.net.readNet(options.netfile)
         vtypes = readTypes(options)
         sumolib.writeXMLHeader(outf, "$Id$", "routes", options=options)  # noqa
-        numSkipped = defaultdict(lambda : 0)
+        numSkipped = defaultdict(lambda: 0)
         for file in options.routefiles.split(','):
             for obj in sumolib.xml.parse(file, ['vehicle', 'trip', 'flow', 'person']):
                 lastEdgeID = getLastEdge(obj)

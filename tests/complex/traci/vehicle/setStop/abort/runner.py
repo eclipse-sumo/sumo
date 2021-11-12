@@ -45,7 +45,7 @@ traci.start([sumoBinary,
 
 vehID = "ego"
 
-#traci.vehicle.setStop("ego", "SC", 40, duration=7)
+# traci.vehicle.setStop("ego", "SC", 40, duration=7)
 
 while traci.simulation.getMinExpectedNumber() > 0:
     if traci.vehicle.isStopped(vehID):

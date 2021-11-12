@@ -140,13 +140,12 @@ class ReroutersGeneration(object):
             self._parking_areas[child.attrib['id']]['edge'] = lane.getEdge().getID()
             self._parking_areas[child.attrib['id']]['pos'] = sumolib.geomhelper.positionAtShapeOffset(lane.getShape(), endPos)  # noqa
             self._parking_areas[child.attrib['id']]['capacity'] = (
-                    int(child.get('roadsideCapacity', 0))
-                    + len(child.findall('space')))
+                int(child.get('roadsideCapacity', 0))
+                + len(child.findall('space')))
 
-
-# ---------------------------------------------------------------------------------------- #
-#                                 Rerouter Generation                                      #
-# ---------------------------------------------------------------------------------------- #
+    # ---------------------------------------------------------------------------------------- #
+    #                                 Rerouter Generation                                      #
+    # ---------------------------------------------------------------------------------------- #
 
     def _generate_rerouters(self):
         """ Compute the rerouters for each parking lot for SUMO. """
