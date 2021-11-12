@@ -8,6 +8,13 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,10.00,60.00,44.40
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary -10.00,8.40,60.00,30.00
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding parkingArea 'parkingAreaA' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingAreaA into SUMORTree with boundary 6.55,-14.80,42.95,5.20
 Debug: Adding parkingArea 'parkingAreaB' in GNEChange_Additional
@@ -88,30 +95,14 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-14.20,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,14.20
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,10.00,60.00,47.00
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary -10.00,8.40,60.00,30.00
-Debug: Adding parkingArea 'parkingAreaA' in GNEChange_Additional
-GLDebug: 	Inserted parkingArea:parkingAreaA into SUMORTree with boundary 6.55,-14.80,42.95,5.20
-Debug: Adding parkingArea 'parkingAreaB' in GNEChange_Additional
-GLDebug: 	Inserted parkingArea:parkingAreaB into SUMORTree with boundary -1.61,-5.20,34.79,14.80
-Debug: Adding parkingArea 'parkingAreaC' in GNEChange_Additional
-GLDebug: 	Inserted parkingArea:parkingAreaC into SUMORTree with boundary 10.32,27.60,46.72,47.60
-Debug: Adding parkingArea 'parkingAreaD' in GNEChange_Additional
-GLDebug: 	Inserted parkingArea:parkingAreaD into SUMORTree with boundary 5.07,24.40,41.47,44.40
-Debug: Adding parkingArea 'parkingAreaE' in GNEChange_Additional
-GLDebug: 	Inserted parkingArea:parkingAreaE into SUMORTree with boundary 3.01,21.20,39.41,41.20
-Debug: Adding parkingArea 'parkingAreaF' in GNEChange_Additional
-GLDebug: 	Inserted parkingArea:parkingAreaF into SUMORTree with boundary -0.33,18.00,36.07,38.00
-Debug: Adding parkingArea 'parkingAreaG' in GNEChange_Additional
-GLDebug: 	Inserted parkingArea:parkingAreaG into SUMORTree with boundary -4.23,14.80,32.17,34.80
-Debug: Adding parkingArea 'parkingAreaH' in GNEChange_Additional
+GLDebug: 	Inserted parkingArea:parkingAreaA into SUMORTree with boundary 6.55,-17.40,42.95,2.60
+GLDebug: 	Inserted parkingArea:parkingAreaB into SUMORTree with boundary -1.61,-2.60,34.79,17.40
+GLDebug: 	Inserted parkingArea:parkingAreaC into SUMORTree with boundary 10.32,30.20,46.72,50.20
+GLDebug: 	Inserted parkingArea:parkingAreaD into SUMORTree with boundary 5.07,27.60,41.47,47.60
+GLDebug: 	Inserted parkingArea:parkingAreaE into SUMORTree with boundary 3.01,24.40,39.41,44.40
+GLDebug: 	Inserted parkingArea:parkingAreaF into SUMORTree with boundary -0.33,21.20,36.07,41.20
+GLDebug: 	Inserted parkingArea:parkingAreaG into SUMORTree with boundary -4.23,18.00,32.17,38.00
 GLDebug: 	Inserted parkingArea:parkingAreaH into SUMORTree with boundary 4.70,5.20,41.10,25.20
-Debug: Adding stopParkingArea 'vehicle_0' in GNEChange_DemandElement
-Debug: Adding stopParkingArea 'vehicle_0' in GNEChange_DemandElement
-Debug: Adding stopParkingArea 'vehicle_0' in GNEChange_DemandElement
-Debug: Adding stopParkingArea 'vehicle_0' in GNEChange_DemandElement
-Debug: Adding stopParkingArea 'vehicle_0' in GNEChange_DemandElement
-Debug: Adding stopParkingArea 'vehicle_0' in GNEChange_DemandElement
-Debug: Adding stopParkingArea 'vehicle_1' in GNEChange_DemandElement
-Debug: Adding stopParkingArea 'vehicle_1' in GNEChange_DemandElement
 Debug: demand elements saved
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
@@ -138,30 +129,6 @@ Debug: Created connection 'fromgneE0_1togneE1_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_1togneE0_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE2_5togneE4_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE4_0togneE2_5' in retrieveGNEConnection()
-Debug: Deleting unreferenced stopParkingArea 'vehicle_1'
-Debug: Deleting unreferenced stopParkingArea 'vehicle_1'
-Debug: Deleting unreferenced stopParkingArea 'vehicle_0'
-Debug: Deleting unreferenced stopParkingArea 'vehicle_0'
-Debug: Deleting unreferenced stopParkingArea 'vehicle_0'
-Debug: Deleting unreferenced stopParkingArea 'vehicle_0'
-Debug: Deleting unreferenced stopParkingArea 'vehicle_0'
-Debug: Deleting unreferenced stopParkingArea 'vehicle_0'
-Debug: Deleting unreferenced parkingArea 'parkingAreaH'
-GLDebug: 	Removed object parkingArea:parkingAreaH from SUMORTree with boundary 4.70,5.20,41.10,25.20
-Debug: Deleting unreferenced parkingArea 'parkingAreaG'
-GLDebug: 	Removed object parkingArea:parkingAreaG from SUMORTree with boundary -4.23,14.80,32.17,34.80
-Debug: Deleting unreferenced parkingArea 'parkingAreaF'
-GLDebug: 	Removed object parkingArea:parkingAreaF from SUMORTree with boundary -0.33,18.00,36.07,38.00
-Debug: Deleting unreferenced parkingArea 'parkingAreaE'
-GLDebug: 	Removed object parkingArea:parkingAreaE from SUMORTree with boundary 3.01,21.20,39.41,41.20
-Debug: Deleting unreferenced parkingArea 'parkingAreaD'
-GLDebug: 	Removed object parkingArea:parkingAreaD from SUMORTree with boundary 5.07,24.40,41.47,44.40
-Debug: Deleting unreferenced parkingArea 'parkingAreaC'
-GLDebug: 	Removed object parkingArea:parkingAreaC from SUMORTree with boundary 10.32,27.60,46.72,47.60
-Debug: Deleting unreferenced parkingArea 'parkingAreaB'
-GLDebug: 	Removed object parkingArea:parkingAreaB from SUMORTree with boundary -1.61,-5.20,34.79,14.80
-Debug: Deleting unreferenced parkingArea 'parkingAreaA'
-GLDebug: 	Removed object parkingArea:parkingAreaA from SUMORTree with boundary 6.55,-14.80,42.95,5.20
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE0_1' in GNEEdge destructor
@@ -185,10 +152,29 @@ Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ2' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ3' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced vehicleWithRoute 'vehicle_0' in AttributeCarriers destructor
-Debug: Deleting unreferenced vehicleWithRoute 'vehicle_1' in AttributeCarriers destructor
+Debug: Deleting unreferenced parkingArea in AttributeCarriers destructor
+Debug: Deleting unreferenced parkingArea in AttributeCarriers destructor
+Debug: Deleting unreferenced parkingArea in AttributeCarriers destructor
+Debug: Deleting unreferenced parkingArea in AttributeCarriers destructor
+Debug: Deleting unreferenced parkingArea in AttributeCarriers destructor
+Debug: Deleting unreferenced parkingArea in AttributeCarriers destructor
+Debug: Deleting unreferenced parkingArea in AttributeCarriers destructor
+Debug: Deleting unreferenced parkingArea in AttributeCarriers destructor
+Debug: Deleting unreferenced stopParkingArea in AttributeCarriers destructor
+Debug: Deleting unreferenced stopParkingArea in AttributeCarriers destructor
+Debug: Deleting unreferenced stopParkingArea in AttributeCarriers destructor
+Debug: Deleting unreferenced stopParkingArea in AttributeCarriers destructor
+Debug: Deleting unreferenced stopParkingArea in AttributeCarriers destructor
+Debug: Deleting unreferenced stopParkingArea in AttributeCarriers destructor
+Debug: Deleting unreferenced stopParkingArea in AttributeCarriers destructor
+Debug: Deleting unreferenced stopParkingArea in AttributeCarriers destructor
+Error: Attempt to decrement references below zero for instance of GNEReferenceCounter
+Debug: Deleting unreferenced vehicleWithRoute in AttributeCarriers destructor
+Error: Attempt to delete instance of GNEReferenceCounter with count -1
+Error: Attempt to decrement references below zero for instance of GNEReferenceCounter
+Debug: Deleting unreferenced vehicleWithRoute in AttributeCarriers destructor
+Error: Attempt to delete instance of GNEReferenceCounter with count -1
+Debug: Deleting unreferenced routeEmbedded in AttributeCarriers destructor
+Debug: Deleting unreferenced routeEmbedded in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call of the destructor: 8
+GLDebug: Number of objects in SUMORTree during call of the destructor: 16
