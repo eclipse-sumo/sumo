@@ -68,8 +68,8 @@ netedit.modifyAttribute(6, "ID1", False)
 netedit.modifyAttribute(6, "ID2", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

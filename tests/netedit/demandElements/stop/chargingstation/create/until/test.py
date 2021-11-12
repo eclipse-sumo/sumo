@@ -74,8 +74,8 @@ netedit.changeDefaultValue(7, "22.33")
 netedit.leftClick(referencePosition, 290, 215)
 
 # Check undo redo
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)
