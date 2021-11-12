@@ -65,8 +65,8 @@ netedit.changeDefaultValue(12, "ID1 ID2 ID3")
 netedit.leftClick(referencePosition, 290, 190)
 
 # Check undo redo
-netedit.undo(referencePosition, 6)
-netedit.redo(referencePosition, 6)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

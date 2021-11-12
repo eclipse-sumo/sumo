@@ -50,8 +50,8 @@ netedit.changeDefaultBoolValue(8)
 netedit.leftClick(referencePosition, 290, 190)
 
 # Check undo redo
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)
