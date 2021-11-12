@@ -33,6 +33,7 @@ import gzip
 from xml.sax import handler, parse
 from copy import copy
 from collections import defaultdict
+from itertools import chain
 
 import sumolib
 from . import lane, edge, netshiftadaptor, node, connection, roundabout  # noqa
@@ -505,7 +506,7 @@ class Net:
         return minPath, minInternalCost
 
     def getShortestPath(self, fromEdge, toEdge, maxCost=1e400, vClass=None, reversalPenalty=0,
-                        includeFromToCost=True, withInternal=False):
+                        includeFromToCost=True, withInternal=False, ignoreDirection=False):
         """
         Finds the shortest path from fromEdge to toEdge respecting vClass, using Dijkstra's algorithm.
         It returns a pair of a tuple of edges and the cost. If no path is found the first element is None.
@@ -541,7 +542,7 @@ class Net:
             if cost > maxCost:
                 return None, cost
 
-            for e2, conn in e1.getAllowedOutgoing(vClass).items():
+            for e2, conn in chain(e1.getAllowedOutgoing(vClass).items(), e1.getIncoming().items() if ignoreDirection else []):
                 # print(cost, e1.getID(), e2.getID(), e2 in seen)
                 if e2 not in seen:
                     newCost = cost + e2.getLength()
