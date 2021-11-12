@@ -80,21 +80,21 @@ GNENetHelper::AttributeCarriers::~AttributeCarriers() {
     for (const auto& edgeType : myEdgeTypes) {
         edgeType.second->decRef("GNENetHelper::~GNENet");
         // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + edgeType.second->getTagStr() + " in AttributeCarriers destructor");
+        WRITE_DEBUG("Deleting unreferenced " + edgeType.second->getTagStr() + " '" + edgeType.second->getID() + "' in AttributeCarriers destructor");
         delete edgeType.second;
     }
     // Drop Edges
     for (const auto& edge : myEdges) {
         edge.second->decRef("GNENetHelper::~GNENet");
         // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + edge.second->getTagStr() + " in AttributeCarriers destructor");
+        WRITE_DEBUG("Deleting unreferenced " + edge.second->getTagStr() + " '" + edge.second->getID() + "' in AttributeCarriers destructor");
         delete edge.second;
     }
     // Drop myJunctions
     for (const auto& junction : myJunctions) {
         junction.second->decRef("GNENetHelper::~GNENet");
         // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + junction.second->getTagStr() + " in AttributeCarriers destructor");
+        WRITE_DEBUG("Deleting unreferenced " + junction.second->getTagStr() + " '" + junction.second->getID() + "' in AttributeCarriers destructor");
         delete junction.second;
     }
     // Drop Additionals (Only used for additionals that were inserted without using GNEChange_Additional)
