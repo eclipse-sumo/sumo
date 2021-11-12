@@ -23,7 +23,6 @@
 #include <vector>
 #include <libsumo/TraCIDefs.h>
 #include <libsumo/TraCIConstants.h>
-#include <microsim/traffic_lights/NEMAController.h>
 
 // ===========================================================================
 // class declarations
