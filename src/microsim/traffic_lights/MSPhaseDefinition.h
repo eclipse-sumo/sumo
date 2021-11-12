@@ -179,7 +179,7 @@ public:
     MSPhaseDefinition(SUMOTime durationArg, const std::string& stateArg, SUMOTime minDurationArg, SUMOTime maxDurationArg,
                       const std::vector<int>& nextPhases, const std::string& name, bool transient_notdecisional, bool commit,
                       std::vector<std::string>* targetLaneSetArg = nullptr) :
-    myUndefined(false), myTransientNotDecisional(transient_notdecisional), myCommit(commit) {
+    myTransientNotDecisional(transient_notdecisional), myCommit(commit), myUndefined(false) {
         if (targetLaneSetArg != nullptr && targetLaneSetArg->size() == 0) {
             MsgHandler::getErrorInstance()->inform("MSPhaseDefinition::MSPhaseDefinition -> targetLaneSetArg cannot be empty for a target phase");
         }
