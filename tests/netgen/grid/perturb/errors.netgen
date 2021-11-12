@@ -1,9 +1,4 @@
-Warning: Edge 'A2B2' has a grade of 13.69%.
-Warning: Edge 'B2A2' has a grade of 13.69%.
-Warning: Edge 'B2C2' has a grade of 17.26%.
-Warning: Edge 'C1C2' has a grade of 10.38%.
-Warning: Edge 'C2B2' has a grade of 17.26%.
-Warning: Edge 'C2C1' has a grade of 10.38%.
-Warning: Edge 'C2C3' has a grade of 15.75%.
-Warning: Edge 'C3C2' has a grade of 15.75%.
-Warning: Connection 'E1E0_0->E0D0_0' has a grade of 12.18%.
+Warning: Edge 'A0A1' has a grade of 10.20%.
+Warning: Edge 'A1A0' has a grade of 10.18%.
+Warning: Edge 'B3B4' has a grade of 10.18%.
+Warning: Edge 'B4B3' has a grade of 10.18%.
