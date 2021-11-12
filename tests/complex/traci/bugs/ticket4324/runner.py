@@ -36,7 +36,7 @@ cmd = [
 tlsID = "C"
 
 traci.start(cmd)
-program = traci.trafficlight.getCompleteRedYellowGreenDefinition(tlsID)[0]
+program = traci.trafficlight.getAllProgramLogics(tlsID)[0]
 # make actuated
 green_index = 1
 for phase in program.getPhases():
@@ -49,9 +49,9 @@ for phase in program.getPhases():
         phase.name = "Transition"
 program.type = 3  # actuated
 program.programID = "custom_actuated"
-traci.trafficlight.setCompleteRedYellowGreenDefinition(tlsID, program)
+traci.trafficlight.setProgramLogic(tlsID, program)
 
-for program in traci.trafficlight.getCompleteRedYellowGreenDefinition(tlsID):
+for program in traci.trafficlight.getAllProgramLogics(tlsID):
     print("program", program)
 
 for i in range(120):
