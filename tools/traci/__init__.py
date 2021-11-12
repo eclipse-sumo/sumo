@@ -30,8 +30,12 @@ else:
     try:
         if 'LIBSUMO_AS_TRACI' in os.environ:
             from libsumo import *  # noqa
+            if os.environ['LIBSUMO_AS_TRACI'] != "quiet":
+                print("Using libsumo as traci as requested by environment variable.")
         else:
             from libtraci import *  # noqa
+            if os.environ['LIBTRACI_AS_TRACI'] != "quiet":
+                print("Using libtraci as traci as requested by environment variable.")
     except ImportError:
         if 'LIBSUMO_AS_TRACI' in os.environ:
             warnings.warn("Could not import libsumo, falling back to pure python traci.")
