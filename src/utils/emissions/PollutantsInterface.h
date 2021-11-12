@@ -21,7 +21,6 @@
 #pragma once
 #include <config.h>
 
-#include <cctype>  // defines std::tolower
 #include <vector>
 #include <limits>
 #include <cmath>

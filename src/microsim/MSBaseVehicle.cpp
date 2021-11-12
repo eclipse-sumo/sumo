@@ -44,6 +44,7 @@
 #include "devices/MSDevice.h"
 #include "devices/MSDevice_Routing.h"
 #include "devices/MSDevice_Battery.h"
+#include "devices/MSDevice_ElecHybrid.h"
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/devices/MSRoutingEngine.h>
 #include <microsim/devices/MSDevice_Transportable.h>
@@ -173,10 +174,20 @@ MSBaseVehicle::getParameter() const {
 const EnergyParams*
 MSBaseVehicle::getEmissionParameters() const {
     MSDevice_Battery* batteryDevice = static_cast<MSDevice_Battery*>(getDevice(typeid(MSDevice_Battery)));
+    MSDevice_ElecHybrid* elecHybridDevice = static_cast<MSDevice_ElecHybrid*>(getDevice(typeid(MSDevice_ElecHybrid)));
     if (batteryDevice != nullptr) {
+        if (elecHybridDevice != nullptr) {
+            WRITE_WARNING("MSBaseVehicle::getEmissionParameters(): both batteryDevice and elecHybridDevice defined, returning batteryDevice parameters.");
+        }
         return &batteryDevice->getEnergyParams();
-    } else {
-        return nullptr;
+    }
+    else {
+        if (elecHybridDevice != nullptr) {
+            return &elecHybridDevice->getEnergyParams();
+        }
+        else {
+            return nullptr;
+        }
     }
 }
 
@@ -1511,8 +1522,8 @@ MSBaseVehicle::getStateOfCharge() const {
 double
 MSBaseVehicle::getElecHybridCurrent() const {
     if (static_cast<MSDevice_ElecHybrid*>(getDevice(typeid(MSDevice_ElecHybrid))) != 0) {
-        MSDevice_ElecHybrid* batteryOfVehicle = dynamic_cast<MSDevice_ElecHybrid*>(getDevice(typeid(MSDevice_ElecHybrid)));
-        return batteryOfVehicle->getCurrentFromOverheadWire();
+        MSDevice_ElecHybrid* elecHybridDevice = dynamic_cast<MSDevice_ElecHybrid*>(getDevice(typeid(MSDevice_ElecHybrid)));
+        return elecHybridDevice->getCurrentFromOverheadWire();
     }
 
     return NAN;

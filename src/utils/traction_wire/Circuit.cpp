@@ -15,9 +15,12 @@
 /// @author  Jakub Sevcik (RICE)
 /// @author  Jan Prikryl (RICE)
 /// @date    2019-12-15
+/// @note    based on console-based C++ DC circuits simulator, 
+///          https://github.com/rka97/Circuits-Solver by 
+///          Ahmad Khaled, Ahmad Essam, Omnia Zakaria, Mary Nader
+///          and available under MIT license, see https://github.com/rka97/Circuits-Solver/blob/master/LICENSE
 ///
 // Representation of electric circuit of overhead wires
-/// @note    based on work 2017 Ahmad Khaled, Ahmad Essam, Omnia Zakaria, Mary Nader
 /****************************************************************************/
 #include <cfloat>
 #include <cstdlib>
@@ -26,6 +29,13 @@
 #include <mutex>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
+
+#include <microsim/MSGlobals.h>
+#ifdef HAVE_EIGEN
+#include "Eigen/Dense"
+#include "Eigen/Sparse"
+#include "Eigen/Geometry"
+#endif
 
 #include "Element.h"
 #include "Circuit.h"
@@ -147,6 +157,36 @@ Element* Circuit::getVoltageSource(int id) {
     return nullptr;
 }
 
+double Circuit::getTotalPowerOfCircuitSources() {
+    double power = 0;
+    for (auto & voltageSource : *voltageSources) {
+        power += voltageSource->getPower();
+    }
+    return power;
+}
+
+double Circuit::getTotalCurrentOfCircuitSources() {
+    double current = 0;
+    for (auto & voltageSource : *voltageSources) {
+        current += voltageSource->getCurrent();
+    }
+    return current;
+}
+
+// RICE_CHECK: Locking removed?
+std::string & Circuit::getCurrentsOfCircuitSource(std::string & currents) {
+    //circuit_lock.lock();
+    currents.clear();
+    for (auto & voltageSource : *voltageSources) {
+        currents += toString(voltageSource->getCurrent(), 4) + " ";
+    }
+    if (!currents.empty()) {
+        currents.pop_back();
+    }
+    //circuit_lock.unlock();
+    return currents;
+}
+
 vector<Element*>* Circuit::getCurrentSources() {
     vector<Element*>* vsources = new vector<Element*>(0);
     for (vector<Element*>::iterator it = this->elements->begin(); it != elements->end(); it++) {
@@ -183,78 +223,88 @@ bool Circuit::solveEquationsNRmethod(double* eqn, double* vals, std::vector<int>
     int numofcolumn = (int)voltageSources->size() + (int)nodes->size() - 1;
     int numofeqs = numofcolumn - (int)removable_ids->size();
 
+    // map equations into matrix A
     Eigen::MatrixXd A = Eigen::Map < Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor> >(eqn, numofeqs, numofcolumn);
 
     int id;
-    // removing removable columns
+    // remove removable columns of matrix A, i.e. remove equations corresponding to nodes with two resistors connected in series
+    // RICE_TODO auto for ?
     for (std::vector<int>::reverse_iterator it = removable_ids->rbegin(); it != removable_ids->rend(); ++it) {
         id = (*it >= 0 ? *it : -(*it));
         removeColumn(A, id);
     }
 
-    // detecting number of column for each node
-    // in other words: detecting elements of x to certain node
+    // detect number of column for each node
+    // in other words: detect elements of x to certain node
+    // in other words: assign number of column to the proper non removable node
     int j = 0;
     Element* tElem = nullptr;
     Node* tNode = nullptr;
     for (int i = 0; i < numofcolumn; i++) {
         tNode = getNode(i);
-        if (tNode != nullptr)
+        if (tNode != nullptr) {
             if (tNode->isRemovable()) {
                 tNode->setNumMatrixCol(-1);
                 continue;
             } else {
-                // TODO: is the numofeqs (defined above) still the same as the part below?
-                if (j > numofcolumn - (int) removable_ids->size()) {
-                    WRITE_ERROR("Number of column deployment during circuit evaluation was unsuccessfull.");
+                if (j > numofeqs) {
+                    WRITE_ERROR("Index of renumbered node exceeded the reduced number of equations.");
                     break;
                 }
                 tNode->setNumMatrixCol(j);
                 j++;
                 continue;
-            } else {
+            }
+        } else {
             tElem = getElement(i);
             if (tElem != nullptr) {
-                // TODO: is the numofeqs (defined above) still the same as the part below?
-                if (j > numofcolumn - (int) removable_ids->size()) {
-                    WRITE_ERROR("Number of column deployment deployment during circuit evaluation was unsuccessfull.");
+                if (j > numofeqs) {
+                    WRITE_ERROR("Index of renumbered element exceeded the reduced number of equations.");
                     break;
                 }
                 continue;
             }
         }
-        WRITE_ERROR("Number of column deployment during circuit evaluation was unsuccessfull.");
+        // tNode == nullptr && tElem == nullptr 
+        WRITE_ERROR("Structural error in reduced circuit matrix.");
     }
 
+    // map 'vals' into vector b and initialize solution x
     Eigen::Map<Eigen::VectorXd> b(vals, numofeqs);
     Eigen::VectorXd x = A.colPivHouseholderQr().solve(b);
-    // probably unused
-    // double relative_error = (A*x - b).norm() / b.norm();
 
+    // initialize Jacobian matrix J and vector dx
     Eigen::MatrixXd J = A;
     Eigen::VectorXd dx;
+    // initialize progressively increasing maximal number of Newton-Rhapson iterations
     int max_iter_of_NR = 10;
+    // number of tested values of alpha
     int attemps = 0;
+    // value of scaling parameter alpha
     double alpha = 1;
+    // the best (maximum) value of alpha that guarantees the existence of solution
     alphaBest = 0;
-    //TODORICE alphaBest private and function get and setAlphaBest
+    // reason why is alpha not 1
+    alphaReason = ALPHA_NOT_APPLIED;
+    // vector of alphas for that no solution has been found
     std::vector<double> alpha_notSolution;
+    // initialize progressively decreasing tolerance for alpha
     double alpha_res = 1e-2;
+
+    double currentSumActual = 0.0;
+    // solution x corresponding to the alphaBest
     double* x_best = new double[numofeqs];
+    bool x_best_exist = true;
     //init x_best
     for (int i = 0; i < numofeqs; i++) {
         x_best[i] = x[i];
     }
-    if (x.maxCoeff() > 10e6 || x.minCoeff() < -10e6) {
 
-        WRITE_ERROR("Here is the matrix A:\n" + toString(A));
-        WRITE_ERROR("Here is the vector b:\n" + toString(b));
-        WRITE_ERROR("Here is the vector x:\n" + toString(x));
-        for (int i = 0; i < numofeqs; i++) {
-            x_best[i] = 600;
-        }
+    if (x.maxCoeff() > 10e6 || x.minCoeff() < -10e6) {
+        WRITE_ERROR("Initial solution x used during solving DC circuit is out of bounds.\n");
     }
-    //search alpha
+
+    // Search for the suitable scaling value alpha
     while (true) {
 
         ++attemps;
@@ -262,6 +312,8 @@ bool Circuit::solveEquationsNRmethod(double* eqn, double* vals, std::vector<int>
         // run Newton-Raphson methods
         while (true) {
 
+            // update right-hand side vector vals and Jacobian matrix J
+            // node's right-hand side set to zero 
             for (int i = 0; i < numofeqs - (int) voltageSources->size(); i++) {
                 vals[i] = 0;
             }
@@ -276,36 +328,53 @@ bool Circuit::solveEquationsNRmethod(double* eqn, double* vals, std::vector<int>
                     WRITE_ERROR("wrongly assigned row of matrix A during solving the circuit");
                 }
                 // TODO: Range-based loop
+                // loop over all node's elements
                 for (auto it_element = node->getElements()->begin(); it_element != node->getElements()->end(); it_element++) {
                     if ((*it_element)->getType() == Element::ElementType::CURRENT_SOURCE_traction_wire) {
+                        // if the element is current source
                         if ((*it_element)->isEnabled()) {
                             double diff_voltage;
-                            if ((*it_element)->getPosNode()->getNumMatrixCol() == -1) {
-                                diff_voltage = -x[(*it_element)->getNegNode()->getNumMatrixCol()];
-                            } else if ((*it_element)->getNegNode()->getNumMatrixCol() == -1) {
-                                diff_voltage = x[(*it_element)->getPosNode()->getNumMatrixCol()];
+                            int PosNode_NumACol = (*it_element)->getPosNode()->getNumMatrixCol();
+                            int NegNode_NumACol = (*it_element)->getNegNode()->getNumMatrixCol();
+                            // compute voltage on current source
+                            if (PosNode_NumACol == -1) {
+                                // if the positive node is the ground => U = 0 - phi(NegNode)
+                                diff_voltage = -x[NegNode_NumACol];
+                            } else if (NegNode_NumACol == -1) {
+                                // if the negative node is the ground => U = phi(PosNode) - 0
+                                diff_voltage = x[PosNode_NumACol];
                             } else {
-                                diff_voltage = (x[(*it_element)->getPosNode()->getNumMatrixCol()] - x[(*it_element)->getNegNode()->getNumMatrixCol()]);
+                                // U = phi(PosNode) - phi(NegNode)
+                                diff_voltage = (x[PosNode_NumACol] - x[NegNode_NumACol]);
                             }
 
                             if ((*it_element)->getPosNode() == node) {
+                                // the positive current (the element is consuming energy if powerWanted > 0) is flowing from the positive node (sign minus)
                                 vals[i] -= alpha * (*it_element)->getPowerWanted() / diff_voltage;
                                 (*it_element)->setCurrent(-alpha * (*it_element)->getPowerWanted() / diff_voltage);
-                                if ((*it_element)->getPosNode()->getNumMatrixCol() != -1) {
-                                    J(i, (*it_element)->getPosNode()->getNumMatrixCol()) -= alpha * (*it_element)->getPowerWanted() / diff_voltage / diff_voltage;
+                                if (PosNode_NumACol != -1) {
+                                    // -1* d_b/d_phiPos = -1* d(-alpha*P/(phiPos-phiNeg) )/d_phiPos = -1* (--alpha*P/(phiPos-phiNeg)^2 )
+                                    J(i, PosNode_NumACol) -= alpha * (*it_element)->getPowerWanted() / diff_voltage / diff_voltage;
                                 }
-                                if ((*it_element)->getNegNode()->getNumMatrixCol() != -1) {
-                                    J(i, (*it_element)->getNegNode()->getNumMatrixCol()) += alpha * (*it_element)->getPowerWanted() / diff_voltage / diff_voltage;
+                                if (NegNode_NumACol != -1) {
+                                    // -1* d_b/d_phiNeg = -1* d(-alpha*P/(phiPos-phiNeg) )/d_phiNeg = -1* (---alpha*P/(phiPos-phiNeg)^2 )
+                                    J(i, NegNode_NumACol) += alpha * (*it_element)->getPowerWanted() / diff_voltage / diff_voltage;
                                 }
                             } else {
+                                // the positive current (the element is consuming energy if powerWanted > 0) is flowing to the negative node (sign plus)
                                 vals[i] += alpha * (*it_element)->getPowerWanted() / diff_voltage;
-                                //sign before alpha - or + during setting current?
-                                //(*it_element)->setCurrent(alpha * (*it_element)->getPowerWanted() / diff_voltage);
-                                if ((*it_element)->getPosNode()->getNumMatrixCol() != -1) {
-                                    J(i, (*it_element)->getPosNode()->getNumMatrixCol()) += alpha * (*it_element)->getPowerWanted() / diff_voltage / diff_voltage;
+                                //Question: sign before alpha - or + during setting current?
+                                //Answer: sign before alpha is minus since we assume positive powerWanted if the current element behaves as load 
+                                // (*it_element)->setCurrent(-alpha * (*it_element)->getPowerWanted() / diff_voltage);
+                                // Note: we should never reach this part of code since the authors assumes the negataive node of current source as the ground node
+                                WRITE_WARNING("The negative node of current source is not the groud.")
+                                if (PosNode_NumACol != -1) {
+                                    // -1* d_b/d_phiPos = -1* d(alpha*P/(phiPos-phiNeg) )/d_phiPos = -1* (-alpha*P/(phiPos-phiNeg)^2 )
+                                    J(i, PosNode_NumACol) += alpha * (*it_element)->getPowerWanted() / diff_voltage / diff_voltage;
                                 }
-                                if ((*it_element)->getNegNode()->getNumMatrixCol() != -1) {
-                                    J(i, (*it_element)->getNegNode()->getNumMatrixCol()) -= alpha * (*it_element)->getPowerWanted() / diff_voltage / diff_voltage;
+                                if (NegNode_NumACol != -1) {
+                                    // -1* d_b/d_phiNeg = -1* d(alpha*P/(phiPos-phiNeg) )/d_phiNeg = -1* (--alpha*P/(phiPos-phiNeg)^2 )
+                                    J(i, NegNode_NumACol) -= alpha * (*it_element)->getPowerWanted() / diff_voltage / diff_voltage;
                                 }
                             }
                         }
@@ -314,35 +383,72 @@ bool Circuit::solveEquationsNRmethod(double* eqn, double* vals, std::vector<int>
                 i++;
             }
 
-            // TODO: The variable below was declared as `b`, renamed to `bb`, check if the rename was consistent.
-            Eigen::Map<Eigen::VectorXd> bb(vals, numofeqs);
 
-            if ((A * x - bb).norm() < 1e-6) {
+            // RICE_CHECK @20210409 This had to be merged into the master/main manually.
+            // Sum of currents going through the all voltage sources
+            // the sum is over all nodes, but the nonzero nodes are only those neigboring with current sources, 
+            // so the sum is negative sum of currents through/from current sources representing trolleybusess
+            currentSumActual = 0;
+            for (i = 0; i < numofeqs - (int)voltageSources->size(); i++) currentSumActual -= vals[i];
+            // RICE_TODO @20210409 This epsilon should be specified somewhere as a constant. Or should be a parameter.
+            if ((A*x - b).norm() < 1e-6) {
+                //current limits
+                if (currentSumActual > getCurrentLimit() && MSGlobals::gOverheadWireCurrentLimits) {
+                    alphaReason = ALPHA_CURRENT_LIMITS;
+                    alpha_notSolution.push_back(alpha);
+                    if (x_best_exist) {
+                        for (int ii = 0; ii < numofeqs; ii++) x[ii] = x_best[ii];
+                    }
+                    break;
+                }
+                //voltage limits 70% - 120% of nominal voltage
+                // RICE_TODO @20210409 Again, these limits should be parametrised.
+                if (x.maxCoeff() > voltageSources->front()->getVoltage()*1.2 || x.minCoeff() < voltageSources->front()->getVoltage()*0.7) {
+                    alphaReason = ALPHA_VOLTAGE_LIMITS;
+                    alpha_notSolution.push_back(alpha);
+                    if (x_best_exist) {
+                        for (int ii = 0; ii < numofeqs; ii++) {
+                            x[ii] = x_best[ii];
+                        }
+                    }
+                    break;
+                }
+
                 alphaBest = alpha;
                 for (int ii = 0; ii < numofeqs; ii++) {
                     x_best[ii] = x[ii];
                 }
+                x_best_exist = true;
                 break;
             } else if (iterNR == max_iter_of_NR) {
+                alphaReason = ALPHA_NOT_CONVERGING;
                 alpha_notSolution.push_back(alpha);
-                for (int ii = 0; ii < numofeqs; ii++) {
-                    x[ii] = x_best[ii];
+                if (x_best_exist) {
+                    for (int ii = 0; ii < numofeqs; ii++) {
+                        x[ii] = x_best[ii];
+                    }
                 }
                 break;
             }
 
-            dx = -J.colPivHouseholderQr().solve(A * x - bb);
+            // Newton=Rhapson iteration
+            dx = -J.colPivHouseholderQr().solve(A * x - b);
             x = x + dx;
             ++iterNR;
         }
 
         if (alpha_notSolution.empty()) {
+            // no alpha without solution is in the alpha_notSolution, so the solving procedure is terminating
             break;
         }
 
         if ((alpha_notSolution.back() - alphaBest) < alpha_res) {
             max_iter_of_NR = 2 * max_iter_of_NR;
+            // RICE_TODO @20210409 Why division by 10?
+            // it follows Ševèík, Jakub, et al. "Solvability of the Power Flow Problem in DC Overhead Wire Circuit Modeling." Applications of Mathematics (2021): 1-19.
+            // see Alg 2 (progressive decrease of optimality tolerance)
             alpha_res = alpha_res / 10;
+            // RICE_TODO @20210409 This epsilon should be specified somewhere as a constant. Or should be a parameter.
             if (alpha_res < 5e-5) {
                 break;
             }
@@ -354,10 +460,13 @@ bool Circuit::solveEquationsNRmethod(double* eqn, double* vals, std::vector<int>
         alpha = alphaBest + 0.5 * (alpha_notSolution.back() - alphaBest);
     }
 
+    // vals is pointer to memory and we use it now for saving solution x_best instead of right-hand side b
     for (int i = 0; i < numofeqs; i++) {
         vals[i] = x_best[i];
     }
 
+    // RICE_TODO: Describe what is hapenning here.
+    // we take x_best and alphaBest and update current values in current sources in order to be in agreement with the solution
     int i = 0;
     for (auto& node : *nodes) {
         if (node->isGround() || node->isRemovable() || node->getNumMatrixRow() == -2) {
@@ -370,19 +479,24 @@ bool Circuit::solveEquationsNRmethod(double* eqn, double* vals, std::vector<int>
             if ((*it_element)->getType() == Element::ElementType::CURRENT_SOURCE_traction_wire) {
                 if ((*it_element)->isEnabled()) {
                     double diff_voltage;
-                    if ((*it_element)->getPosNode()->getNumMatrixCol() == -1) {
-                        diff_voltage = -x_best[(*it_element)->getNegNode()->getNumMatrixCol()];
-                    } else if ((*it_element)->getNegNode()->getNumMatrixCol() == -1) {
-                        diff_voltage = x_best[(*it_element)->getPosNode()->getNumMatrixCol()];
+                    int PosNode_NumACol = (*it_element)->getPosNode()->getNumMatrixCol();
+                    int NegNode_NumACol = (*it_element)->getNegNode()->getNumMatrixCol();
+                    if (PosNode_NumACol == -1) {
+                        diff_voltage = -x_best[NegNode_NumACol];
+                    } else if (NegNode_NumACol == -1) {
+                        diff_voltage = x_best[PosNode_NumACol];
                     } else {
-                        diff_voltage = (x_best[(*it_element)->getPosNode()->getNumMatrixCol()] - x_best[(*it_element)->getNegNode()->getNumMatrixCol()]);
+                        diff_voltage = (x_best[PosNode_NumACol] - x_best[NegNode_NumACol]);
                     }
 
                     if ((*it_element)->getPosNode() == node) {
                         (*it_element)->setCurrent(-alphaBest * (*it_element)->getPowerWanted() / diff_voltage);
                     } else {
-                        //sign before alpha - or + during setting current?
-                        //(*it_element)->setCurrent(alpha * (*it_element)->getPowerWanted() / diff_voltage);
+                        //Question: sign before alpha - or + during setting current?
+                        //Answer: sign before alpha is minus since we assume positive powerWanted if the current element behaves as load 
+                        // (*it_element)->setCurrent(-alphaBest * (*it_element)->getPowerWanted() / diff_voltage);
+                        // Note: we should never reach this part of code since the authors assumes the negataive node of current source as the ground node
+                        WRITE_WARNING("The negative node of current source is not the groud.")
                     }
                 }
             }
@@ -390,23 +504,28 @@ bool Circuit::solveEquationsNRmethod(double* eqn, double* vals, std::vector<int>
         i++;
     }
 
+    delete x_best;
     return true;
 }
 #endif
 
 void Circuit::deployResults(double* vals, std::vector<int>* removable_ids) {
-    int n = (int)(voltageSources->size() + nodes->size() - 1);
+    // vals are the solution x
+
+    int numofcolumn = (int)voltageSources->size() + (int)nodes->size() - 1;
+    int numofeqs = numofcolumn - (int)removable_ids->size();
+
+    //loop over non-removable nodes: we assign the computed voltage to the non-removables nodes
     int j = 0;
     Element* tElem = nullptr;
     Node* tNode = nullptr;
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < numofcolumn; i++) {
         tNode = getNode(i);
         if (tNode != nullptr)
             if (tNode->isRemovable()) {
                 continue;
             } else {
-                // TODO: Is the n - (int) removable_ids->size() constant?
-                if (j > n - (int) removable_ids->size()) {
+                if (j > numofeqs) {
                     WRITE_ERROR("Results deployment during circuit evaluation was unsuccessfull.");
                     break;
                 }
@@ -416,15 +535,12 @@ void Circuit::deployResults(double* vals, std::vector<int>* removable_ids) {
             } else {
             tElem = getElement(i);
             if (tElem != nullptr) {
-                // TODO: Is the n - (int) removable_ids->size() constant?
-                if (j > n - (int) removable_ids->size()) {
+                if (j > numofeqs) {
                     WRITE_ERROR("Results deployment during circuit evaluation was unsuccessfull.");
                     break;
                 }
-                //tElem->setCurrent(vals[j]);
-                //TODORICE dodelat vypocet proudu na zdroji z Kirchhofova zakona: proudy dovnitr = proudy ven
-                //tElem->setCurrent(-1000);
-                //j++;
+                // tElem should be voltage source - the current through voltage source is computed in a loop below
+                // if tElem is current source (JŠ thinks that no current source's id <= numofeqs), the current is already assign at the end of solveEquationsNRmethod method
                 continue;
             }
         }
@@ -469,20 +585,21 @@ void Circuit::deployResults(double* vals, std::vector<int>* removable_ids) {
         (*it)->setRemovability(false);
     }
 
-    /*
-    for (int i = 0; i < n; i++) {
-        Node* tNode = getNode(i);
-        if (tNode != nullptr)
-            tNode->setVoltage(vals[i]);
-        else
-        {
-            Element* tElem = getElement(i);
-            if (tElem != nullptr) {
-                tElem->setCurrent(vals[i]);
+    // Update the electric currents for voltage sources (based on Kirchhof's law: current out = current in)
+    for (vector<Element*>::iterator it = voltageSources->begin(); it != voltageSources->end(); it++) {
+        double currentSum = 0;
+        for (auto it_element = (*it)->getPosNode()->getElements()->begin(); it_element != (*it)->getPosNode()->getElements()->end(); it_element++) {
+            // loop over all elements on PosNode excluding the actual voltage source it
+            if ((*it_element) != (*it)) {
+                //currentSum += (*it_element)->getCurrent();
+                currentSum += ((*it)->getPosNode()->getVoltage() - (*it_element)->getTheOtherNode((*it)->getPosNode())->getVoltage())/ (*it_element)->getResistance();
+                if ((*it_element)->getType() == Element::ElementType::VOLTAGE_SOURCE_traction_wire) {
+                    WRITE_WARNING("Cannot assign unambigous electric current value to two voltage sources connected in parallel at the same node.");
+                }
             }
         }
+        (*it)->setCurrent(currentSum);
     }
-    */
 }
 
 Circuit::Circuit() {
@@ -491,6 +608,16 @@ Circuit::Circuit() {
     voltageSources = new vector<Element*>(0);
     lastId = 0;
     iscleaned = true;
+    circuitCurrentLimit = INFINITY;
+}
+
+Circuit::Circuit(double currentLimit) {
+    nodes = new vector<Node*>(0);
+    elements = new vector<Element*>(0);
+    voltageSources = new vector<Element*>(0);
+    lastId = 0;
+    iscleaned = true;
+    circuitCurrentLimit = currentLimit;
 }
 
 #ifdef HAVE_EIGEN
@@ -504,8 +631,11 @@ bool Circuit::_solveNRmethod() {
     if (!solveEquationsNRmethod(eqn, vals, &removable_ids)) {
         return false;
     }
+    // vals are now the solution x of the circuit
     deployResults(vals, &removable_ids);
 
+    delete eqn;
+    delete vals;
     return true;
 }
 
@@ -517,10 +647,16 @@ bool Circuit::solve() {
 }
 
 bool Circuit::createEquationsNRmethod(double*& eqs, double*& vals, std::vector<int>* removable_ids) {
-    // removable_ids does not include nodes with voltage source
+    // removable_ids does not include nodes with voltage source yet
+
+    // number of voltage sources + nodes without the ground node
     int n = (int)(voltageSources->size() + nodes->size() - 1);
-    int m = n - (int)(removable_ids->size() - voltageSources->size());
-    //cout << endl << endl << n << endl << endl;
+    // number of equations
+    // assumption: each voltage source has different positive node and common ground node,
+    //             i.e. any node excluding the ground node is connected to 0 or 1 voltage source
+    int m = n - (int)(removable_ids->size() + voltageSources->size());
+
+    // allocate and initialize zero matrix eqs and vector vals
     eqs = new double[m * n];
     vals = new double[m];
 
@@ -531,12 +667,16 @@ bool Circuit::createEquationsNRmethod(double*& eqs, double*& vals, std::vector<i
         }
     }
 
+    // loop over all nodes
     int i = 0;
     for (vector<Node*>::iterator it = nodes->begin(); it != nodes->end(); it++) {
         if ((*it)->isGround() || (*it)->isRemovable()) {
+            // if the node is grounded or is removable set the corresponding number of row in matrix to -1 (no equation in eqs)
             (*it)->setNumMatrixRow(-1);
             continue;
         }
+        assert(i < m);
+        // constitute the equation corresponding to node it, add all passed voltage source elements into removable_ids
         bool noVoltageSource = createEquationNRmethod((*it), (eqs + n * i), vals[i], removable_ids);
         // if the node it has element of type "voltage source" we do not use the equation, because some value of current throw the voltage source can be always find
         if (noVoltageSource) {
@@ -550,10 +690,13 @@ bool Circuit::createEquationsNRmethod(double*& eqs, double*& vals, std::vector<i
             }
         }
     }
+
     // removable_ids includes nodes with voltage source already
     std::sort(removable_ids->begin(), removable_ids->end(), std::less<int>());
 
+
     for (vector<Element*>::iterator it = voltageSources->begin(); it != voltageSources->end(); it++) {
+        assert(i < m);
         createEquation((*it), (eqs + n * i), vals[i]);
         i++;
     }
@@ -577,61 +720,74 @@ bool Circuit::createEquation(Element* vsource, double* eqn, double& val) {
 }
 
 bool Circuit::createEquationNRmethod(Node* node, double* eqn, double& val, std::vector<int>* removable_ids) {
+    // loop over all elements connected to the node 
     for (vector<Element*>::iterator it = node->getElements()->begin(); it != node->getElements()->end(); it++) {
         double x;
         switch ((*it)->getType()) {
-            case Element::ElementType::RESISTOR_traction_wire:
-                if ((*it)->isEnabled()) {
-                    x = (*it)->getResistance();
-                    Node* nextNONremovableNode = (*it)->getTheOtherNode(node);
-                    Element* nextSerialResistor = *it;
-                    while (nextNONremovableNode->isRemovable()) {
-                        nextSerialResistor = nextNONremovableNode->getAnOtherElement(nextSerialResistor);
-                        x += nextSerialResistor->getResistance();
-                        nextNONremovableNode = nextSerialResistor->getTheOtherNode(nextNONremovableNode);
-                    }
-                    x = 1 / x;
-                    eqn[node->getId()] += x;
-                    if (!nextNONremovableNode->isGround()) {
-                        eqn[nextNONremovableNode->getId()] -= x;
-                    }
-                    //if (!(*it)->getTheOtherNode(node)->isGround())
-                    //	eqn[(*it)->getTheOtherNode(node)->getId()] -= x;
+        case Element::ElementType::RESISTOR_traction_wire:
+            if ((*it)->isEnabled()) {
+                x = (*it)->getResistance();
+                // go through all neigboring removable nodes and sum resistance of resistors in the serial branch
+                Node* nextNONremovableNode = (*it)->getTheOtherNode(node);
+                Element* nextSerialResistor = *it;
+                while (nextNONremovableNode->isRemovable()) {
+                    nextSerialResistor = nextNONremovableNode->getAnOtherElement(nextSerialResistor);
+                    x += nextSerialResistor->getResistance();
+                    nextNONremovableNode = nextSerialResistor->getTheOtherNode(nextNONremovableNode);
                 }
-                break;
-            case Element::ElementType::CURRENT_SOURCE_traction_wire:
-                if ((*it)->isEnabled()) {
-                    if ((*it)->getPosNode() == node) {
-                        x = (*it)->getCurrent();
-                    } else {
-                        x = -(*it)->getCurrent();
-                    }
-                } else {
-                    x = 0;
+                // compute inverse value and place/add this value at proper places in eqn
+                x = 1 / x;
+                eqn[node->getId()] += x;
+
+                if (!nextNONremovableNode->isGround()) {
+                    eqn[nextNONremovableNode->getId()] -= x;
                 }
-                val += x;
-                break;
-            case Element::ElementType::VOLTAGE_SOURCE_traction_wire:
+            }
+            break;
+        case Element::ElementType::CURRENT_SOURCE_traction_wire:
+            if ((*it)->isEnabled()) {
+                // initialize current in current source
                 if ((*it)->getPosNode() == node) {
-                    x = -1;
+                    x = -(*it)->getPowerWanted() / voltageSources->front()->getVoltage();
                 } else {
-                    x = 1;
+                    x = (*it)->getPowerWanted() / voltageSources->front()->getVoltage();
                 }
-                eqn[(*it)->getId()] += x;
-                // equations with voltage source can be igored, because some value of current throw the voltage source can be always find
-                removable_ids->push_back((*it)->getId());
-                return false;
-            case Element::ElementType::ERROR_traction_wire:
-                return false;
+            } else {
+                x = 0;
+            }
+            val += x;
+            break;
+        case Element::ElementType::VOLTAGE_SOURCE_traction_wire:
+            if ((*it)->getPosNode() == node) {
+                x = -1;
+            } else {
+              x = 1;
+            }
+            eqn[(*it)->getId()] += x;
+            // equations with voltage source can be ignored, because some value of current throw the voltage source can be always find
+            removable_ids->push_back((*it)->getId());
+            return false;
+            break;
+        case Element::ElementType::ERROR_traction_wire:
+            return false;
+            break;
         }
     }
     return true;
 }
 #endif
 
+/**
+ * Select removable nodes, i.e. nodes that are NOT the ground of the circuit 
+ * and that have exactly two resistor elements connected. Ids of those 
+ * removable nodes are added into the internal vector `removable_ids`.
+ */
 void Circuit::detectRemovableNodes(std::vector<int>* removable_ids) {
+    // loop over all nodes in the circuit
     for (vector<Node*>::iterator it = nodes->begin(); it != nodes->end(); it++) {
+        // if the node is connected to two elements and is not the ground
         if ((*it)->getElements()->size() == 2 && !(*it)->isGround()) {
+            // set such node defaultly as removable. But check if the two elements are both resistors 
             (*it)->setRemovability(true);
             for (vector<Element*>::iterator it2 = (*it)->getElements()->begin(); it2 != (*it)->getElements()->end(); it2++) {
                 if ((*it2)->getType() != Element::ElementType::RESISTOR_traction_wire) {
@@ -640,19 +796,31 @@ void Circuit::detectRemovableNodes(std::vector<int>* removable_ids) {
                 }
             }
             if ((*it)->isRemovable()) {
+                //if the node is removeable add pointer into the vector of removeblas nodes
                 removable_ids->push_back((*it)->getId());
             }
         } else {
             (*it)->setRemovability(false);
         }
     }
+    // sort the vector of removable ids
     std::sort(removable_ids->begin(), removable_ids->end(), std::less<int>());
     return;
 }
 
 Element* Circuit::addElement(string name, double value, Node* pNode, Node* nNode, Element::ElementType et) {
-    if ((et == Element::ElementType::RESISTOR_traction_wire && value <= 0) || et == Element::ElementType::ERROR_traction_wire) {
-        return nullptr;
+    // RICE_CHECK: This seems to be a bit of work in progress, is it final?
+    // if ((et == Element::ElementType::RESISTOR_traction_wire && value <= 0) || et == Element::ElementType::ERROR_traction_wire) {
+    if (et == Element::ElementType::RESISTOR_traction_wire && value <= 1e-6) {
+        //due to numeric problems
+        // RICE_TODO @20210409 This epsilon should be specified somewhere as a constant. Or should be a parameter.
+        if (value > -1e-6) {
+            value = 1e-6;
+            WRITE_WARNING("Trying to add resistor element into the overhead wire circuit with resistance < 1e-6. ")
+        } else {
+            WRITE_ERROR("Trying to add resistor element into the overhead wire circuit with resistance < 0. ")
+            return nullptr;
+        }
     }
 
     Element* e = getElement(name);
@@ -685,8 +853,8 @@ Element* Circuit::addElement(string name, double value, Node* pNode, Node* nNode
 }
 
 void Circuit::eraseElement(Element* element) {
-    //element->getPosNode()->eraseElement(element);
-    //element->getNegNode()->eraseElement(element);
+    element->getPosNode()->eraseElement(element);
+    element->getNegNode()->eraseElement(element);
     circuit_lock.lock();
     this->elements->erase(std::remove(this->elements->begin(), this->elements->end(), element), this->elements->end());
     circuit_lock.unlock();

@@ -366,47 +366,7 @@ protected:
     * @param[in] net The net the traction substation belongs to
     * @param[in] id The id of the traction substation
     * @param[in] voltage The voltage level of the voltage source representing the traction substation
-    * @exception InvalidArgument If the over can not be added to the net (is duplicate according to the id)
-    */
-    void buildTractionSubstation(MSNet& net, std::string id, double voltage);
-
-    virtual void buildOverheadWireClamp(MSNet& net, const std::string& id, MSLane* lane_start, MSLane* lane_end);
-
-    /** @brief Builds an overhead wire segment
-    *
-    * Simply calls the MSOverheadWire constructor and adds the result to the network.
-    *
-    * @param[in] net The net the overhead wire segment belongs to
-    * @param[in] id The id of the overhead wire segment
-    * @param[in] lane The lane the overhead wire segment is placed on
-    * @param[in] frompos Begin position of the overhead wire segment on the lane
-    * @param[in] topos End position of the overhead wire segment  on the lane
-    * @param[in] voltageSource default voltage of overhead wire segment (unused) TODORICE
-    * @exception InvalidArgument If the overhead wire segment can not be added to the net (is duplicate according to the id)
-    */
-    virtual void buildOverheadWireSegment(MSNet& net, const std::string& id, MSLane* lane, double frompos, double topos, bool voltageSource);
-
-    /** @brief Builds an overhead wire inner segments
-    *
-    * Simply calls the buildOverheadWireSegment for inner edges connection, frontConnection and behindConnection if exists.
-    *
-    * @param[in] net The net the overhead wire inner segments belongs to
-    * @param[in] connection The inner lane that connects two regular lanes, or a regular lane with the inner "behindConnection" lane,
-                 or the inner "frontConnection" lane with a regular lane, or the inner "frontConnection" lane with the inner "behindConnection" lane
-    * @param[in] frontConnection The inner lane that connects a regular lane with the inner "connection" lane
-    * @param[in] behindConnection The inner lane that connects the inner "connection" lane with a regular lane
-    * @exception InvalidArgument If the over can not be added to the net (is duplicate according to the id)
-    */
-    void buildInnerOverheadWireSegments(MSNet& net, const MSLane* connection, const MSLane* frontConnection, const MSLane* behindConnection);
-
-    /** @brief Builds a traction substation
-    *
-    * Simply calls the MSTractionSubstaion cosnstructor and adds the substation to the list of substations in the net.
-    *
-    * @param[in] net The net the traction substation belongs to
-    * @param[in] id The id of the traction substation
-    * @param[in] voltage The voltage level of the voltage source representing the traction substation
-    * @param[in] currentLimit The electric current limit (max current flowing from (through) the traction substation)
+    * @param[in] currentLimit The electric current limit(max current flowing from(through) the traction substation)
     * @exception InvalidArgument If the over can not be added to the net (is duplicate according to the id)
     */
     void buildTractionSubstation(MSNet& net, std::string id, double voltage, double currentLimit);

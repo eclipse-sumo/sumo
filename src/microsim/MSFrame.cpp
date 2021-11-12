@@ -152,6 +152,8 @@ MSFrame::fillOptions() {
 
     oc.doRegister("substations-output", new Option_FileName());
     oc.addDescription("substations-output", "Output", "Write data of electrical substation stations");
+    oc.doRegister("substations-output.precision", new Option_Integer(2));
+    oc.addDescription("substations-output.precision", "Output", "Write substation values with the given precision (default 2)");
 
     oc.doRegister("fcd-output", new Option_FileName());
     oc.addDescription("fcd-output", "Output", "Save the Floating Car Data");
@@ -445,6 +447,12 @@ MSFrame::fillOptions() {
     oc.doRegister("overhead-wire-solver", new Option_Bool(true));
     oc.addDescription("overhead-wire-solver", "Processing", "Use Kirchhoff's laws for solving overhead wire circuit");
 
+    oc.doRegister("overhead-wire-recuperation", new Option_Bool(true));
+    oc.addDescription("overhead-wire-recuperation", "Processing", "Enable recuperation from the vehicle equipped with elecHybrid device into the ovrehead wire.");
+
+    oc.doRegister("overhead-wire-substation-current-limits", new Option_Bool(true));
+    oc.addDescription("overhead-wire-substation-current-limits", "Processing", "Enable current limits of traction substation during solving the overhead wire electrical circuit.");
+
     oc.doRegister("emergencydecel.warning-threshold", new Option_Float(1));
     oc.addDescription("emergencydecel.warning-threshold", "Processing", "Sets the fraction of emergency decel capability that must be used to trigger a warning.");
 
@@ -686,7 +694,8 @@ MSFrame::buildStreams() {
     OutputDevice::createDeviceByOption("emission-output", "emission-export", "emission_file.xsd");
     OutputDevice::createDeviceByOption("battery-output", "battery-export");
     if (OptionsCont::getOptions().getBool("elechybrid-output.aggregated")) {
-        OutputDevice::createDeviceByOption("elechybrid-output", "elecHybrid-export-aggregated");
+        // RICE_TODO: Add path to elechybrid-output.aggregated xsd file
+        OutputDevice::createDeviceByOption("elechybrid-output", "elecHybrid-export-aggregated", "\" recuperationEnabled=\"" + toString(MSGlobals::gOverheadWireRecuperation));
     }
     //OutputDevice::createDeviceByOption("elecHybrid-output", "elecHybrid-export");
     OutputDevice::createDeviceByOption("chargingstations-output", "chargingstations-export");
@@ -841,6 +850,9 @@ MSFrame::checkOptions() {
         if (oc.isDefault("elechybrid-output.precision")) {
             oc.set("elechybrid-output.precision", toString(oc.getInt("precision")));
         }
+        if (oc.isDefault("substations-output.precision")) {
+            oc.set("substations-output.precision", toString(oc.getInt("precision")));
+        }
     }
     if (!SUMOXMLDefinitions::CarFollowModels.hasString(oc.getString("carfollow.model"))) {
         WRITE_ERROR("Unknown model '" + oc.getString("carfollow.model")  + "' for option 'carfollow.model'.");
@@ -933,6 +945,14 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSGlobals::gWaitingTimeMemory = string2time(oc.getString("waiting-time-memory"));
     MSAbstractLaneChangeModel::initGlobalOptions(oc);
     MSGlobals::gOverheadWireSolver = oc.getBool("overhead-wire-solver");
+    MSGlobals::gOverheadWireRecuperation = oc.getBool("overhead-wire-recuperation");
+    MSGlobals::gOverheadWireCurrentLimits = oc.getBool("overhead-wire-substation-current-limits");
+#ifndef HAVE_EIGEN
+    if (MSGlobals::gOverheadWireSolver)
+    {
+        WRITE_WARNING("Overhead wire solver (Eigen) not compiled in, expect errors if you have overhead wires.")
+    }
+#endif // !HAVE_EIGEN
 
     MSLane::initCollisionOptions(oc);
 

@@ -2572,7 +2572,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                 //std::cout << "   blocker=" << Named::getIDSecure(blocker.first) << "\n";
             }
             if (n == 0) {
-                WRITE_WARNINGF("Suspicious right_before_left junction '%'.", lane->getEdge().getToJunction()->getID());
+                WRITE_WARNINGF("Suspicious right_before_left junction '%s'.", lane->getEdge().getToJunction()->getID());
             }
             //std::cout << "   blockerLink=" << blocker.second << " link=" << *link << "\n";
             if (blocker.second == *link) {
@@ -3979,12 +3979,18 @@ MSVehicle::executeMove() {
     // the acceleration of a vehicle equipped with the elecHybrid device is restricted by the maximal power of the electric drive as well
     MSDevice_ElecHybrid* elecHybridOfVehicle = dynamic_cast<MSDevice_ElecHybrid*>(getDevice(typeid(MSDevice_ElecHybrid)));
     if (elecHybridOfVehicle != nullptr) {
+    	// this is the consumption given by the car following model-computed acceleration
         elecHybridOfVehicle->setConsum(elecHybridOfVehicle->consumption(*this, (vNext - this->getSpeed()) / TS, vNext));
-        double maxPower = elecHybridOfVehicle->getParameterDouble(toString(SUMO_ATTR_MAXIMUMPOWER)) / 3600;
-        if (elecHybridOfVehicle->getConsum() > maxPower) {
+        // but the maximum power of the electric motor may be lower
+        // it needs to be converted from [W] to [Wh/s] (3600s / 1h) so that TS can be taken into account
+        double maxPower = elecHybridOfVehicle->getParameterDouble(toString(SUMO_ATTR_MAXIMUMPOWER))/3600;
+        if (elecHybridOfVehicle->getConsum()/TS > maxPower) {
+            // no, we cannot accelerate that fast, recompute the maximum possible acceleration
             double accel = elecHybridOfVehicle->acceleration(*this, maxPower, this->getSpeed());
+            // and update the speed of the vehicle
             vNext = MIN2(vNext, this->getSpeed() + accel * TS);
             vNext = MAX2(vNext, 0.);
+            // and set the vehicle consumption to reflect this
             elecHybridOfVehicle->setConsum(elecHybridOfVehicle->consumption(*this, (vNext - this->getSpeed()) / TS, vNext));
         }
     }

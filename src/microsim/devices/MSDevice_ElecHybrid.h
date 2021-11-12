@@ -14,7 +14,7 @@
 /// @file    MSDevice_ElecHybrid.h
 /// @author  Jakub Sevcik (RICE)
 /// @author  Jan Prikryl (RICE)
-/// @date    2019-11-25
+/// @date    2019-12-15
 ///
 // A device which stands as an implementation ElecHybrid and which outputs movereminder calls
 /****************************************************************************/
@@ -183,10 +183,21 @@ public:
     /// @brief Set actual vehicle's Battery Capacity in kWh
     void setActualBatteryCapacity(const double actualBatteryCapacity);
 
+    /// @brief Attempt to store energy into battery pack and return the energy that could not be accomodated due to SOC limits
+    double storeEnergyToBattery(const double energy);
+
+    /// @brief Add energyWasted to the total sum myTotalEnergyWasted
+    void updateTotalEnergyWasted(const double energyWasted);
+
     void setConsum(const double consumption);
 
     double acceleration(SUMOVehicle& veh, double power, double oldSpeed);
+
+    /// @brief return energy consumption in Wh (power multiplied by TS)
     double consumption(SUMOVehicle& veh, double a, double newSpeed);
+
+    /// @brief compute charged energy properly considering recuperation and propulsion efficiency during charging battery from overhead wire or discharing battery to recuperate into overhead wire
+    double computeChargedEnergy(double energyIn);
 
     MSOverheadWire* getActOverheadWireSegment() {
         return myActOverheadWireSegment;
@@ -194,6 +205,11 @@ public:
 
     Element* getVehElem() {
         return veh_elem;
+    }
+
+    /// @brief retrieve parameters for the energy consumption model
+    const EnergyParams& getEnergyParams() const {
+        return myParam;
     }
 
 private:
@@ -242,15 +258,15 @@ protected:
 
     /// @name Tripinfo statistics
     /// @{
-    double myMaxBatteryPower;
-    double myMinBatteryPower;
-    double myTotalPowerConsumed;
-    double myTotalPowerRegenerated;
-
+    double myMaxBatteryCharge;
+    double myMinBatteryCharge;
+    double myTotalEnergyConsumed;
+    double myTotalEnergyRegenerated;
+    
     /// @brief Energy that could not be stored back to the battery or traction station
     /// and was wasted on resistors. This is approximate, we ignore the use of classical
     /// brakes in lower speeds.
-    double myTotalPowerWasted;
+    double myTotalEnergyWasted;
     /// @}
 
     /// @name Power management parameters

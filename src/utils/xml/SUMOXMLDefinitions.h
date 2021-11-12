@@ -683,6 +683,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_VOLTAGEOFOVERHEADWIRE,
     // @brief Circuit solver alpha parameter
     SUMO_ATTR_ALPHACIRCUITSOLVER,
+    // @brief Recuperate the excess energy into overhead wires (0/1) 
+    SUMO_ATTR_RECUPERATIONENABLE,
     /// @}
 
     /// @name battery export parameters
