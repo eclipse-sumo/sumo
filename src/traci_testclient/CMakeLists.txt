@@ -31,4 +31,4 @@ set_target_properties(testlibtraci PROPERTIES OUTPUT_NAME testlibtraci${BINARY_S
 set_target_properties(testlibtraci PROPERTIES OUTPUT_NAME_DEBUG testlibtraci${BINARY_SUFFIX}D)
 set_property(TARGET testlibtraci PROPERTY FOLDER "test_exe")
 target_link_libraries(testlibtraci libtracicpp)
-add_test(libtracitest ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/testlibtraci -n ${CMAKE_SOURCE_DIR}/tests/sumo/net.net.xml)
+add_test(libtracitest ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/testlibtraci -c ${CMAKE_SOURCE_DIR}/docs/examples/sumo/hokkaido/test.sumocfg)
