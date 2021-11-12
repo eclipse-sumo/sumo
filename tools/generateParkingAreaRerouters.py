@@ -296,28 +296,6 @@ def generate_rerouters_process(parameters):
         temp_rerouters = [(pid, 0.0)]
         for distance, parking in list_of_dist:
             route = routes[pid][parking]
-            endPos = float(parameters['all_parking_areas'][parking]['endPos'])
-            dominated = False
-            for alt2, altRoute in routes[pid].items():
-                if isVisible(pid, alt2, distance, sumo_net,
-                             parameters['all_parking_areas'],
-                             parameters['dist_threshold'],
-                             parameters['capacity_threshold'],
-                             parameters['opposite_visible']):
-                    # target parkingArea might be observed as occupired and thus
-                    # cannot dominate a candidate beyond
-                    continue
-                if parameters['all_parking_areas'][alt2].get('capacity') < parameters['min_capacity']:
-                    # parking area should not be a target and therefore cannot dominate
-                    continue
-                if len(altRoute) <= len(route) and altRoute == route[0:len(altRoute)]:
-                    endPos2 = float(parameters['all_parking_areas'][alt2]['endPos'])
-                    if len(altRoute) < len(route) or endPos2 < endPos:
-                        # print("origin", pid, "cand", parking, "route", [e.getID() for e in route], "dominated by", [e.getID() for e in altRoute])  # noqa
-                        dominated = True
-                        break
-            if dominated:
-                continue
             if parameters['all_parking_areas'][parking].get('capacity') < parameters['min_capacity']:
                 continue
             if len(temp_rerouters) > parameters['num_alternatives']:
