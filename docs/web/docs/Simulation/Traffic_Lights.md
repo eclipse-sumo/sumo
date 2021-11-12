@@ -540,7 +540,7 @@ vector.
 [netconvert](../netconvert.md) supports automatic definition of signal groups by setting option **--tls.group-signals**.
 To replace existing signal groups with a 1-to-1 assignment of connections to indices, the option **--tls.ungroup-signals** can be used.
 
-[netedit](../netedit.md) also supports creation and removal of signal groups using the functions 'Group Signals' and 'Ungroup Signals' in traffic light mode frame.
+[netedit](../Netedit/index.md) also supports creation and removal of signal groups using the functions 'Group Signals' and 'Ungroup Signals' in traffic light mode frame.
 
 # Defining Program Switch Times and Procedure
 
