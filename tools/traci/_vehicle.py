@@ -26,7 +26,7 @@ from __future__ import absolute_import
 import warnings
 from .domain import Domain
 from . import constants as tc
-from .exceptions import TraCIException
+from .exceptions import TraCIException, deprecated
 
 
 _legacyGetLeader = True
@@ -827,6 +827,7 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_NEXT_TLS, vehID)
 
+    @deprecated()
     def getNextStops(self, vehID):
         """getNextStop(string) -> [(string, double, string, int, double, double)], ...
 
