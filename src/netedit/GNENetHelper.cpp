@@ -80,21 +80,21 @@ GNENetHelper::AttributeCarriers::~AttributeCarriers() {
     for (const auto& edgeType : myEdgeTypes) {
         edgeType.second->decRef("GNENetHelper::~GNENet");
         // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + edgeType.second->getTagStr() + " '" + edgeType.second->getID() + "' in AttributeCarriers destructor");
+        WRITE_DEBUG("Deleting unreferenced " + edgeType.second->getTagStr() + " in AttributeCarriers destructor");
         delete edgeType.second;
     }
     // Drop Edges
     for (const auto& edge : myEdges) {
         edge.second->decRef("GNENetHelper::~GNENet");
         // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + edge.second->getTagStr() + " '" + edge.second->getID() + "' in AttributeCarriers destructor");
+        WRITE_DEBUG("Deleting unreferenced " + edge.second->getTagStr() + " in AttributeCarriers destructor");
         delete edge.second;
     }
     // Drop myJunctions
     for (const auto& junction : myJunctions) {
         junction.second->decRef("GNENetHelper::~GNENet");
         // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + junction.second->getTagStr() + " '" + junction.second->getID() + "' in AttributeCarriers destructor");
+        WRITE_DEBUG("Deleting unreferenced " + junction.second->getTagStr() + " in AttributeCarriers destructor");
         delete junction.second;
     }
     // Drop Additionals (Only used for additionals that were inserted without using GNEChange_Additional)
@@ -103,7 +103,7 @@ GNENetHelper::AttributeCarriers::~AttributeCarriers() {
             // decrease reference manually (because it was increased manually in GNEAdditionalHandler)
             additional->decRef();
             // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + additional->getTagStr() + " '" + additional->getID() + "' in AttributeCarriers destructor");
+            WRITE_DEBUG("Deleting unreferenced " + additional->getTagStr() + " in AttributeCarriers destructor");
             delete additional;
         }
     }
@@ -113,7 +113,7 @@ GNENetHelper::AttributeCarriers::~AttributeCarriers() {
             // decrease reference manually (because it was increased manually in GNEShapeHandler)
             shape->decRef();
             // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + shape->getTagStr() + " '" + shape->getID() + "' in AttributeCarriers destructor");
+            WRITE_DEBUG("Deleting unreferenced " + shape->getTagStr() + " in AttributeCarriers destructor");
             delete shape;
         }
     }
@@ -123,7 +123,7 @@ GNENetHelper::AttributeCarriers::~AttributeCarriers() {
             // decrease reference manually (because it was increased manually in GNETAZElementHandler)
             TAZElement->decRef();
             // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + TAZElement->getTagStr() + " '" + TAZElement->getID() + "' in AttributeCarriers destructor");
+            WRITE_DEBUG("Deleting unreferenced " + TAZElement->getTagStr() + " in AttributeCarriers destructor");
             delete TAZElement;
         }
     }
@@ -134,7 +134,7 @@ GNENetHelper::AttributeCarriers::~AttributeCarriers() {
             demandElement->decRef();
             // show extra information for tests (except for default IDs)
             if ((demandElement->getID() != DEFAULT_VTYPE_ID) && (demandElement->getID() != DEFAULT_BIKETYPE_ID) && (demandElement->getID() != DEFAULT_PEDTYPE_ID)) {
-                WRITE_DEBUG("Deleting unreferenced " + demandElement->getTagStr() + " '" + demandElement->getID() + "' in AttributeCarriers destructor");
+                WRITE_DEBUG("Deleting unreferenced " + demandElement->getTagStr() + " in AttributeCarriers destructor");
             }
             delete demandElement;
         }
@@ -144,7 +144,7 @@ GNENetHelper::AttributeCarriers::~AttributeCarriers() {
         // decrease reference manually (because it was increased manually in GNEDataHandler)
         dataSet->decRef();
         // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + dataSet->getTagStr() + " '" + dataSet->getID() + "' in AttributeCarriers destructor");
+        WRITE_DEBUG("Deleting unreferenced " + dataSet->getTagStr() + " in AttributeCarriers destructor");
         delete dataSet;
     }
 }
@@ -2183,19 +2183,17 @@ GNENetHelper::AttributeCarriers::insertAdditional(GNEAdditional* additional) {
 
 void
 GNENetHelper::AttributeCarriers::deleteAdditional(GNEAdditional* additional) {
-    // get vector with this additional type
-    auto &additionalTag = myAdditionals.at(additional->getTagProperty().getTag());
     // find demanElement in additionalTag
-    auto itFind = std::find(additionalTag.begin(), additionalTag.end(), additional);
+    auto itFind = myAdditionals.at(additional->getTagProperty().getTag()).find(additional);
     // check if additional was previously inserted
-    if (itFind == additionalTag.end()) {
+    if (itFind == myAdditionals.at(additional->getTagProperty().getTag()).end()) {
         throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' wasn't previously inserted");
     }
     // remove it from inspected elements and HierarchicalElementTree
     myNet->getViewNet()->removeFromAttributeCarrierInspected(additional);
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(additional);
     // remove from container
-    additionalTag.erase(itFind);
+    myAdditionals.at(additional->getTagProperty().getTag()).erase(itFind);
     // remove element from grid
     if (additional->getTagProperty().isPlacedInRTree()) {
         myNet->removeGLObjectFromGrid(additional);
@@ -2240,19 +2238,17 @@ GNENetHelper::AttributeCarriers::insertShape(GNEShape* shape) {
 
 void
 GNENetHelper::AttributeCarriers::deleteShape(GNEShape* shape) {
-    // get vector with this shape type
-    auto &shapeTag = myShapes.at(shape->getTagProperty().getTag());
     // find demanElement in shapeTag
-    auto itFind = std::find(shapeTag.begin(), shapeTag.end(), shape);
+    auto itFind = myShapes.at(shape->getTagProperty().getTag()).find(shape);
     // check if shape was previously inserted
-    if (itFind == shapeTag.end()) {
+    if (itFind == myShapes.at(shape->getTagProperty().getTag()).end()) {
         throw ProcessError(shape->getTagStr() + " with ID='" + shape->getID() + "' wasn't previously inserted");
     }
     // remove it from inspected elements and HierarchicalElementTree
     myNet->getViewNet()->removeFromAttributeCarrierInspected(shape);
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(shape);
     // remove it from container
-    shapeTag.erase(itFind);
+    myShapes.at(shape->getTagProperty().getTag()).erase(itFind);
     // remove element from grid
     myNet->removeGLObjectFromGrid(shape);
     // shapes has to be saved
@@ -2279,19 +2275,17 @@ GNENetHelper::AttributeCarriers::insertTAZElement(GNETAZElement* TAZElement) {
 
 void
 GNENetHelper::AttributeCarriers::deleteTAZElement(GNETAZElement* TAZElement) {
-    // get vector with this TAZElement type
-    auto &TAZElementTag = myTAZElements.at(TAZElement->getTagProperty().getTag());
     // find demanElement in TAZElementTag
-    auto itFind = std::find(TAZElementTag.begin(), TAZElementTag.end(), TAZElement);
-    // check if TAZElement was previously inserted
-    if (itFind == TAZElementTag.end()) {
+    auto itFind = myTAZElements.at(TAZElement->getTagProperty().getTag()).find(TAZElement);
+    // check if myTAZElements.at(TAZElement->getTagProperty().getTag()) was previously inserted
+    if (itFind == myTAZElements.at(TAZElement->getTagProperty().getTag()).end()) {
         throw ProcessError(TAZElement->getTagStr() + " with ID='" + TAZElement->getID() + "' wasn't previously inserted");
     }
     // remove it from inspected elements and HierarchicalElementTree
     myNet->getViewNet()->removeFromAttributeCarrierInspected(TAZElement);
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(TAZElement);
     // remove it from container
-    TAZElementTag.erase(itFind);
+    myTAZElements.at(TAZElement->getTagProperty().getTag()).erase(itFind);
     // remove element from grid
     myNet->removeGLObjectFromGrid(TAZElement);
     // TAZElements has to be saved
@@ -2332,19 +2326,17 @@ GNENetHelper::AttributeCarriers::insertDemandElement(GNEDemandElement* demandEle
 
 void
 GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandElement) {
-    // get vector with this demand element type
-    auto &demandElementTag = myDemandElements.at(demandElement->getTagProperty().getTag());
     // find demanElement in demandElementTag
-    auto itFind = std::find(demandElementTag.begin(), demandElementTag.end(), demandElement);
+    auto itFind = myDemandElements.at(demandElement->getTagProperty().getTag()).find(demandElement);
     // check if demandElement was previously inserted
-    if (itFind == demandElementTag.end()) {
+    if (itFind == myDemandElements.at(demandElement->getTagProperty().getTag()).end()) {
         throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' wasn't previously inserted");
     }
     // remove it from inspected elements and HierarchicalElementTree
     myNet->getViewNet()->removeFromAttributeCarrierInspected(demandElement);
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(demandElement);
     // erase it from container
-    demandElementTag.erase(itFind);
+    myDemandElements.at(demandElement->getTagProperty().getTag()).erase(itFind);
     // remove element from grid
     myNet->removeGLObjectFromGrid(demandElement);
     // delete path element
