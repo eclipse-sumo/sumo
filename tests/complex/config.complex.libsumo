@@ -2,6 +2,9 @@
 errors:Error: Answered with error to command 0x[0-9a-f]*: {REPLACE Error: }
 errors:UserWarning{LINES 2}
 errors:Requested command not implemented
+errors:^Error: A network was not yet constructed.
+errors:raise FatalTraCIError("Connection already closed.")
+errors:traci.exceptions.FatalTraCIError: Connection already closed.{REPLACE libsumo.libsumo.FatalTraCIError: A network was not yet constructed.}
 output:***Starting server on port
 output:TraCI {REPLACE Libsumo }
 output:via Libsumo {REPLACE }

@@ -41,7 +41,7 @@ p = subprocess.Popen(
     [sumoBinary, "-c", "sumo.sumocfg", "-v", "-S", "-Q", "--remote-port", str(PORT)],
     stdout=sys.stdout, stderr=sys.stderr)
 traci.init(PORT)
-traci.simulationStep(200000)
+traci.simulationStep(200)
 for i in range(10):
     for j in range(10):
         traci.gui.screenshot('View #0', "test_%s_%s.png" % (i, j))
