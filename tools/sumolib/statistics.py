@@ -224,7 +224,7 @@ class Statistics:
                 ('' if self.max_label is None else ' (%s)' %
                  (self.max_label,)),
                 self.avg())
-            result += setPrecision(' Q1 %.2f, median %.2f, Q3 %.2f', precision, self.isArray) % self.quartiles()
+            result += setPrecision(', Q1 %.2f, median %.2f, Q3 %.2f', precision, self.isArray) % self.quartiles()
             if self.abs:
                 result += setPrecision(', mean_abs %.2f, median_abs %.2f', precision, self.isArray) % (
                     self.avg_abs(), self.median_abs())
