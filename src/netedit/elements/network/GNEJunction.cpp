@@ -49,15 +49,15 @@
 
 GNEJunction::GNEJunction(GNENet* net, NBNode* nbn, bool loaded) :
     GNENetworkElement(net, nbn->getID(), GLO_JUNCTION, SUMO_TAG_JUNCTION,
-{}, {}, {}, {}, {}, {}, {}, {}),
-myNBNode(nbn),
-myMaxDrawingSize(1),
-myAmCreateEdgeSource(false),
-myLogicStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
-myAmResponsible(false),
-myHasValidLogic(loaded),
-myAmTLSSelected(false),
-myColorForMissingConnections(false) {
+        {}, {}, {}, {}, {}, {}, {}, {}),
+    myNBNode(nbn),
+    myMaxDrawingSize(1),
+    myAmCreateEdgeSource(false),
+    myLogicStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
+    myAmResponsible(false),
+    myHasValidLogic(loaded),
+    myAmTLSSelected(false),
+    myColorForMissingConnections(false) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -68,12 +68,15 @@ GNEJunction::~GNEJunction() {
     for (const auto& crossing : myGNECrossings) {
         crossing->decRef();
         if (crossing->unreferenced()) {
+            // check if remove it from Attribute Carriers
+            if (myNet->getAttributeCarriers()->getCrossings().count(crossing) > 0) {
+                myNet->getAttributeCarriers()->deleteCrossing(crossing);
+            }
             // show extra information for tests
             WRITE_DEBUG("Deleting unreferenced " + crossing->getTagStr() + " '" + crossing->getID() + "' in GNEJunction destructor");
             delete crossing;
         }
     }
-
     if (myAmResponsible) {
         // show extra information for tests
         WRITE_DEBUG("Deleting NBNode of '" + getID() + "' in GNEJunction destructor");

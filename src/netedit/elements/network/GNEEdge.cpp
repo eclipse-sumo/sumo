@@ -86,6 +86,10 @@ GNEEdge::~GNEEdge() {
     for (const auto& lane : myLanes) {
         lane->decRef("GNEEdge::~GNEEdge");
         if (lane->unreferenced()) {
+            // check if remove it from Attribute Carriers
+            if (myNet->getAttributeCarriers()->getLanes().count(lane) > 0) {
+                myNet->getAttributeCarriers()->deleteLane(lane);
+            }
             // show extra information for tests
             WRITE_DEBUG("Deleting unreferenced " + lane->getTagStr() + " '" + lane->getID() + "' in GNEEdge destructor");
             delete lane;
@@ -95,6 +99,10 @@ GNEEdge::~GNEEdge() {
     for (const auto& connection : myGNEConnections) {
         connection->decRef("GNEEdge::~GNEEdge");
         if (connection->unreferenced()) {
+            // check if remove it from Attribute Carriers
+            if (myNet->getAttributeCarriers()->getConnections().count(connection) > 0) {
+                myNet->getAttributeCarriers()->deleteConnection(connection);
+            }
             // show extra information for tests
             WRITE_DEBUG("Deleting unreferenced " + connection->getTagStr() + " '" + connection->getID() + "' in GNEEdge destructor");
             delete connection;
