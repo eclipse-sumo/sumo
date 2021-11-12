@@ -1,12 +1,14 @@
 /* XPM */
 static const char *fileprint[] = {
-"    16    14        6            1",
+/* columns rows colors chars-per-pixel */
+"16 14 6 1",
 ". c #000000",
 "# c #848284",
 "a c #c6c3c6",
 "b c #ffff00",
 "c c #ffffff",
 "d c None",
+/* pixels */
 "ddddd.........dd",
 "dddd.cccccccc.dd",
 "dddd.c.....c.ddd",

@@ -1,5 +1,6 @@
 /* XPM */
 static const char * netedit_icon16_xpm[] = {
+/* columns rows colors chars-per-pixel */
 "16 16 124 2",
 "  	c None",
 ". 	c #000000",
@@ -125,6 +126,7 @@ static const char * netedit_icon16_xpm[] = {
 "1.	c #3C3B30",
 "2.	c #3E3C2B",
 "3.	c #5F551E",
+/* pixels */
 ". . . . . . . . . . . . . . . . ",
 ". + @ @ @ @ @ @ @ @ @ @ @ @ + . ",
 ". @ @ @ @ @ @ @ @ @ # $ % & * . ",
@@ -140,4 +142,5 @@ static const char * netedit_icon16_xpm[] = {
 ". ; '.).!.k ~.{.].^./.(._.@ @ . ",
 ". @ :.<.[.}.|.1.} @ @ @ @ @ @ . ",
 ". + @ 2.3.b @ @ @ @ @ @ @ @ + . ",
-". . . . . . . . . . . . . . . . "};
+". . . . . . . . . . . . . . . . "
+};

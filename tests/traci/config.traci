@@ -28,6 +28,7 @@ log:log.txt
 testclient_out:Date
 testclient_out:Socket
 testclient_out:send failed: Broken pipe
+testclient_out:getVersion: .* SUMO .*{REPLACE getVersion SUMO}
 tls_state:<!--{[->]}-->
 detector:<!--{[->]}-->
 vehroutes:<!--{[->]}-->

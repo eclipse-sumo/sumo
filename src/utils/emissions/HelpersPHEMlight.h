@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    HelpersPHEMlight.h
 /// @author  Daniel Krajzewicz
@@ -14,13 +18,7 @@
 ///
 // Helper methods for PHEMlight-based emission computation
 /****************************************************************************/
-#ifndef HelpersPHEMlight_h
-#define HelpersPHEMlight_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #define INTERNAL_PHEM
@@ -46,21 +44,19 @@
  * @brief Helper methods for PHEMlight-based emission computation
  */
 class HelpersPHEMlight : public PollutantsInterface::Helper {
+private:
+    static const int PHEMLIGHT_BASE = 3 << 16;
+
 public:
-    static const int PHEMLIGHT_BASE = 2 << 16;
-
-
     /** @brief Constructor
      */
     HelpersPHEMlight();
-
 
     /** @brief Checks whether the string describes a known vehicle class
      * @param[in] eClass The string describing the vehicle emission class
      * @return whether it describes a valid emission class
      */
     SUMOEmissionClass getClassByName(const std::string& eClass, const SUMOVehicleClass vc);
-
 
     /** @brief Returns the emission class described by the given parameters.
      * @param[in] base the base class giving the default
@@ -104,7 +100,7 @@ public:
      * @param[in] slope The road's slope at vehicle's position [deg]
      * @return The amount of the pollutant emitted by the given emission class when moving with the given velocity and acceleration [mg/s or ml/s]
      */
-    double compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const std::map<int, double>* param) const;
+    double compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const EnergyParams* param) const;
 
     /** @brief Returns the adapted acceleration value, useful for comparing with external PHEMlight references.
      * @param[in] c the emission class
@@ -131,9 +127,3 @@ private:
     mutable PHEMlightdll::Helpers myHelper;
     std::map<SUMOEmissionClass, PHEMlightdll::CEP*> myCEPs;
 };
-
-
-#endif
-
-/****************************************************************************/
-

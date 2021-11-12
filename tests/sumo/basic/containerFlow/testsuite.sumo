@@ -1,0 +1,11 @@
+# containers with a single transport
+transport
+tranship_containersPerHour
+tranship_probability
+tranship_departPos_random
+
+# test whether a chain of walks rides and stops works
+trip_chain
+
+# 2 containers starting in the same vehicle
+triggered

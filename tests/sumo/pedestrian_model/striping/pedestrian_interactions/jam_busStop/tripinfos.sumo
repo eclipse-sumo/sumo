@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Jan 25 14:29:01 2021 by Eclipse SUMO sumo Version v1_8_0+0721-8cb8dc6
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net3.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="striping"/>
+        <pedestrian.striping.stripe-width value="0.75"/>
+        <pedestrian.striping.dawdling value="0.2"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <personinfo id="pflow.0" depart="0.00" type="DEFAULT_PEDTYPE">
+        <walk depart="0.00" departPos="0.00" arrival="43.00" arrivalPos="52.50" duration="43.00" routeLength="52.50" timeLoss="5.20" maxSpeed="1.39"/>
+        <ride waitingTime="804.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="86.90" duration="-1" routeLength="-1.00" timeLoss="-1"/>
+    </personinfo>
+    <personinfo id="pflow.1" depart="1.00" type="DEFAULT_PEDTYPE">
+        <walk depart="1.00" departPos="0.00" arrival="44.00" arrivalPos="52.50" duration="43.00" routeLength="52.50" timeLoss="5.20" maxSpeed="1.39"/>
+        <ride waitingTime="803.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="86.90" duration="-1" routeLength="-1.00" timeLoss="-1"/>
+    </personinfo>
+    <personinfo id="pflow.2" depart="2.00" type="DEFAULT_PEDTYPE">
+        <walk depart="2.00" departPos="0.00" arrival="45.00" arrivalPos="52.50" duration="43.00" routeLength="52.50" timeLoss="5.20" maxSpeed="1.39"/>
+        <ride waitingTime="802.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="86.90" duration="-1" routeLength="-1.00" timeLoss="-1"/>
+    </personinfo>
+    <personinfo id="pflow.3" depart="3.00" type="DEFAULT_PEDTYPE">
+        <walk depart="3.00" departPos="0.00" arrival="46.00" arrivalPos="52.50" duration="43.00" routeLength="52.50" timeLoss="5.20" maxSpeed="1.39"/>
+        <ride waitingTime="801.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="86.90" duration="-1" routeLength="-1.00" timeLoss="-1"/>
+    </personinfo>
+    <personinfo id="pflow.4" depart="4.00" type="DEFAULT_PEDTYPE">
+        <walk depart="4.00" departPos="0.00" arrival="47.00" arrivalPos="52.50" duration="43.00" routeLength="52.50" timeLoss="5.20" maxSpeed="1.39"/>
+        <ride waitingTime="800.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="86.90" duration="-1" routeLength="-1.00" timeLoss="-1"/>
+    </personinfo>
+    <personinfo id="pflow.5" depart="5.00" type="DEFAULT_PEDTYPE">
+        <walk depart="5.00" departPos="0.00" arrival="350.00" arrivalPos="52.50" duration="345.00" routeLength="52.50" timeLoss="307.20" maxSpeed="1.39"/>
+        <ride waitingTime="497.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="86.90" duration="-1" routeLength="-1.00" timeLoss="-1"/>
+    </personinfo>
+    <personinfo id="pflow.6" depart="6.00" type="DEFAULT_PEDTYPE">
+        <walk depart="6.00" departPos="0.00" arrival="356.00" arrivalPos="52.50" duration="350.00" routeLength="52.50" timeLoss="312.20" maxSpeed="1.39"/>
+        <ride waitingTime="491.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="86.90" duration="-1" routeLength="-1.00" timeLoss="-1"/>
+    </personinfo>
+    <personinfo id="pflow.9" depart="9.00" type="DEFAULT_PEDTYPE">
+        <walk depart="9.00" departPos="0.00" arrival="358.00" arrivalPos="52.50" duration="349.00" routeLength="52.50" timeLoss="311.20" maxSpeed="1.39"/>
+        <ride waitingTime="489.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="86.90" duration="-1" routeLength="-1.00" timeLoss="-1"/>
+    </personinfo>
+    <personinfo id="pflow.7" depart="7.00" type="DEFAULT_PEDTYPE">
+        <walk depart="7.00" departPos="0.00" arrival="656.00" arrivalPos="52.50" duration="649.00" routeLength="52.50" timeLoss="611.20" maxSpeed="1.39"/>
+        <ride waitingTime="191.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="86.90" duration="-1" routeLength="-1.00" timeLoss="-1"/>
+    </personinfo>
+    <personinfo id="pflow.8" depart="8.00" type="DEFAULT_PEDTYPE">
+        <walk depart="8.00" departPos="0.00" arrival="846.00" arrivalPos="52.50" duration="838.00" routeLength="52.50" timeLoss="800.20" maxSpeed="1.39"/>
+        <ride waitingTime="1.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="86.90" duration="-1" routeLength="-1.00" timeLoss="-1"/>
+    </personinfo>
+</tripinfos>

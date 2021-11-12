@@ -1,11 +1,13 @@
 /* XPM */
 static const char * locate_tls_xpm[] = {
+/* columns rows colors chars-per-pixel */
 "16 16 5 1",
 " 	c None",
 ".	c #161616",
 "X	c Red",
 "o	c Black",
 "O	c Gray50",
+/* pixels */
 " .......   ...  ",
 " .XoooX.  .   . ",
 " .oOOOo.      . ",
@@ -21,4 +23,5 @@ static const char * locate_tls_xpm[] = {
 " .oOOOo.        ",
 " .XoooX.        ",
 " .XXXXX.        ",
-" .......        "};
+" .......        "
+};

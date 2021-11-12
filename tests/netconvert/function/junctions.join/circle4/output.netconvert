@@ -4,18 +4,17 @@ Parsing sumo-net from 'input_net.net.xml' ... done.
    36 types loaded.
    24 edges loaded.
 Removing self-loops ... done (0ms).
-Joining junction clusters ... 
-done (0ms).
+Joining junction clusters ... done (0ms).
  Joined 1 junction cluster(s).
 Removing empty nodes ... done (0ms).
    0 nodes removed.
 Computing turning directions ... done (0ms).
 Assigning nodes to traffic lights ... done (0ms).
-Sorting nodes' edges ... done (0ms).
-Computing node shapes ... done (1ms).
+Sorting nodes' edges ... done (1ms).
+Computing node shapes ... done (0ms).
 Computing edge shapes ... done (0ms).
 Computing node types ... done (0ms).
-Computing priorities ... done (0ms).
+Computing priorities ... done (1ms).
 Computing approached edges ... done (0ms).
 Guessing and setting roundabouts ... done (0ms).
 Computing approaching lanes ... done (0ms).
@@ -23,7 +22,7 @@ Dividing of lanes on approached lanes ... done (0ms).
 Processing turnarounds ... done (0ms).
 Rechecking of lane endings ... done (0ms).
 Computing traffic light control information ... done (0ms).
-Computing node logics ... done (1ms).
+Computing node logics ... done (0ms).
 Computing traffic light logics ... done (0ms).
  2 traffic light(s) computed.
 -----------------------------------------------------
@@ -39,5 +38,5 @@ Summary:
   Applied offset     : 0.00,0.00
   Converted boundary : 13518.72,13228.63,13825.56,13539.84
 -----------------------------------------------------
-Writing network ... done (4ms).
+Writing network ... done (3ms).
 Success.

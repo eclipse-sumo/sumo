@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Mar 13 09:04:54 2020 by Eclipse SUMO Version v1_5_0+0701-cdebade
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <railsignal-block-output value="railsignal_blocks.xml"/>
+        <stop-output value="stopinfos.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="t1" depart="30.00" departLane="d_0" departPos="50.10" departSpeed="0.00" departDelay="0.00" arrival="95.00" arrivalLane="b_0" arrivalPos="195.00" arrivalSpeed="0.00" duration="65.00" routeLength="370.42" waitingTime="1.00" waitingCount="1" stopTime="5.00" timeLoss="33.33" rerouteNo="1" devices="tripinfo_t1 routing_t1" vType="splitTrain" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="t0" depart="0.00" departLane="a_0" departPos="50.10" departSpeed="0.00" departDelay="0.00" arrival="166.00" arrivalLane="c_0" arrivalPos="191.72" arrivalSpeed="11.25" duration="166.00" routeLength="649.90" waitingTime="0.00" waitingCount="0" stopTime="60.00" timeLoss="58.45" rerouteNo="0" devices="tripinfo_t0 routing_t0" vType="splitTrain@t0" speedFactor="1.00" vaporized=""/>
+</tripinfos>

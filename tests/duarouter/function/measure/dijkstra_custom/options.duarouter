@@ -1,0 +1,2 @@
+--weight-attribute custom 
+--weight-files input_weights.dump.xml --net-file=input_net.net.xml --route-files=input_trips.trips.xml -o routes.rou.xml

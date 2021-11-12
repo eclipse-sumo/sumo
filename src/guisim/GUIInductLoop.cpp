@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIInductLoop.cpp
 /// @author  Daniel Krajzewicz
@@ -15,11 +19,6 @@
 ///
 // The gui-version of the MSInductLoop, together with the according
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/gui/globjects/GUIGlObject.h>
@@ -42,8 +41,9 @@
  * GUIInductLoop-methods
  * ----------------------------------------------------------------------- */
 GUIInductLoop::GUIInductLoop(const std::string& id, MSLane* const lane,
-                             double position, const std::string& vTypes, bool show) :
-    MSInductLoop(id, lane, position, vTypes),
+                             double position, const std::string& vTypes,
+                             int detectPersons, bool show) :
+    MSInductLoop(id, lane, position, vTypes, detectPersons, true),
     myWrapper(nullptr),
     myShow(show)
 {}
@@ -57,39 +57,6 @@ GUIInductLoop::buildDetectorGUIRepresentation() {
     // caller (GUINet) takes responsibility for pointer
     myWrapper = new MyWrapper(*this, myPosition);
     return myWrapper;
-}
-
-
-void
-GUIInductLoop::reset() {
-    FXMutexLock locker(myLock);
-    MSInductLoop::reset();
-}
-
-
-void
-GUIInductLoop::enterDetectorByMove(SUMOTrafficObject& veh, double entryTimestep) {
-    FXMutexLock locker(myLock);
-    MSInductLoop::enterDetectorByMove(veh, entryTimestep);
-}
-
-void
-GUIInductLoop::leaveDetectorByMove(SUMOTrafficObject& veh, double leaveTimestep) {
-    FXMutexLock locker(myLock);
-    MSInductLoop::leaveDetectorByMove(veh, leaveTimestep);
-}
-
-void
-GUIInductLoop::leaveDetectorByLaneChange(SUMOTrafficObject& veh, double lastPos) {
-    FXMutexLock locker(myLock);
-    MSInductLoop::leaveDetectorByLaneChange(veh, lastPos);
-}
-
-
-std::vector<MSInductLoop::VehicleData>
-GUIInductLoop::collectVehiclesOnDet(SUMOTime t, bool leaveTime) const {
-    FXMutexLock locker(myLock);
-    return MSInductLoop::collectVehiclesOnDet(t, leaveTime);
 }
 
 
@@ -119,6 +86,12 @@ GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop& detector, double pos) :
 GUIInductLoop::MyWrapper::~MyWrapper() {}
 
 
+double 
+GUIInductLoop::MyWrapper::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
+}
+
+
 Boundary
 GUIInductLoop::MyWrapper::getCenteringBoundary() const {
     Boundary b(myBoundary);
@@ -131,14 +104,14 @@ GUIInductLoop::MyWrapper::getCenteringBoundary() const {
 GUIParameterTableWindow*
 GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
         GUISUMOAbstractView& /*parent !!! recheck this - never needed?*/) {
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 7);
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     // parameter
     ret->mkItem("position [m]", false, myPosition);
     ret->mkItem("lane", false, myDetector.getLane()->getID());
     // values
-    ret->mkItem("passed vehicles [#]", true,
-                new FuncBinding_IntParam<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getPassedNumber, 0));
+    ret->mkItem("entered vehicles [#]", true,
+                new FuncBinding_IntParam<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getEnteredNumber, 0));
     ret->mkItem("speed [m/s]", true,
                 new FuncBinding_IntParam<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getSpeed, 0));
     ret->mkItem("occupancy [%]", true,
@@ -158,13 +131,13 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     if (!myDetector.isVisible()) {
         return;
     }
-    glPushName(getGlID());
+    GLHelper::pushName(getGlID());
     double width = (double) 2.0 * s.scale;
     glLineWidth(1.0);
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double exaggeration = getExaggeration(s);
     // shape
     glColor3d(1, 1, 0);
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glTranslated(0, 0, getType());
     glTranslated(myFGPosition.x(), myFGPosition.y(), 0);
     glRotated(myFGRotation, 0, 0, 1);
@@ -191,10 +164,10 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     if (width * exaggeration > 1) {
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glBegin(GL_QUADS);
-        glVertex2f(0 - 1.0, 2);
-        glVertex2f(-1.0, -2);
-        glVertex2f(1.0, -2);
-        glVertex2f(1.0, 2);
+        glVertex2d(0 - 1.0, 2);
+        glVertex2d(-1.0, -2);
+        glVertex2d(1.0, -2);
+        glVertex2d(1.0, 2);
         glEnd();
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
@@ -207,9 +180,9 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
         glVertex2d(0, -1.7);
         glEnd();
     }
-    glPopMatrix();
+    GLHelper::popMatrix();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-    glPopName();
+    GLHelper::popName();
 }
 
 

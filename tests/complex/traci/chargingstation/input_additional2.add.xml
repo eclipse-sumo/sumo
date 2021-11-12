@@ -1,0 +1,4 @@
+<add>
+    <chargingStation id="stop1" lane="WC_0" startPos="25" endPos="45" name="Downtown"/>
+    <chargingStation id="stop2" lane="CE_0" startPos="35" endPos="65" name="Main Station"/>
+</add>

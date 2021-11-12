@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    ShapeHandler.cpp
 /// @author  Jakob Erdmann
@@ -13,9 +17,6 @@
 ///
 // The XML-Handler for network loading
 /****************************************************************************/
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -83,14 +84,13 @@ ShapeHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                             WRITE_WARNING("Error parsing key from shape generic parameter. Key cannot be empty");
                         } else if (!SUMOXMLDefinitions::isValidParameterKey(key)) {
                             WRITE_WARNING("Error parsing key from shape generic parameter. Key contains invalid characters");
-                        } else if (!SUMOXMLDefinitions::isValidParameterValue(val)) {
-                            WRITE_WARNING("Error parsing value from shape generic parameter. Value contains invalid characters");
                         } else {
                             WRITE_DEBUG("Inserting generic parameter '" + key + "|" + val + "' into shape.");
                             myLastParameterised->setParameter(key, val);
                         }
                     }
                 }
+                break;
             default:
                 break;
         }
@@ -118,6 +118,7 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
     double lon = attrs.getOpt<double>(SUMO_ATTR_LON, id.c_str(), ok, INVALID_POSITION);
     double lat = attrs.getOpt<double>(SUMO_ATTR_LAT, id.c_str(), ok, INVALID_POSITION);
     const double lanePos = attrs.getOpt<double>(SUMO_ATTR_POSITION, id.c_str(), ok, 0);
+    const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
     const double lanePosLat = attrs.getOpt<double>(SUMO_ATTR_POSITION_LAT, id.c_str(), ok, 0);
     const double layer = attrs.getOpt<double>(SUMO_ATTR_LAYER, id.c_str(), ok, myDefaultLayer);
     const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");
@@ -160,7 +161,7 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
         if ((x == INVALID_POSITION) || (y == INVALID_POSITION)) {
             // try computing x,y from lane,pos
             if (laneID != "") {
-                pos = getLanePos(id, laneID, lanePos, lanePosLat);
+                pos = getLanePos(id, laneID, lanePos, friendlyPos, lanePosLat);
             } else {
                 // try computing x,y from lon,lat
                 if ((lat == INVALID_POSITION) || (lon == INVALID_POSITION)) {
@@ -184,7 +185,7 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
                 }
             }
         }
-        if (!myShapeContainer.addPOI(id, type, color, pos, useGeo, laneID, lanePos, lanePosLat, layer, angle, imgFile, relativePath, width, height, ignorePruning)) {
+        if (!myShapeContainer.addPOI(id, type, color, pos, useGeo, laneID, lanePos, friendlyPos, lanePosLat, layer, angle, imgFile, relativePath, width, height, ignorePruning)) {
             WRITE_ERROR("PoI '" + id + "' already exists.");
         }
         myLastParameterised = myShapeContainer.getPOIs().get(id);
@@ -251,7 +252,7 @@ ShapeHandler::addPoly(const SUMOSAXAttributes& attrs, const bool ignorePruning, 
         }
         // check that lineWidth is positive
         if (lineWidth <= 0) {
-            WRITE_ERROR("Polygon's lineWidth must be greather than 0.");
+            WRITE_ERROR("Polygon's lineWidth must be greater than 0.");
             return;
         }
         // create polygon, or show an error if polygon already exists
@@ -294,5 +295,6 @@ bool
 ShapeHandler::addLanePosParams() {
     return false;
 }
+
 
 /****************************************************************************/

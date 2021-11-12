@@ -1,6 +1,5 @@
 ---
-title: Models/Emissions/HBEFA-based
-permalink: /Models/Emissions/HBEFA-based/
+title: HBEFA-based
 ---
 
 *"The [Handbook Emission Factors for Road Transport

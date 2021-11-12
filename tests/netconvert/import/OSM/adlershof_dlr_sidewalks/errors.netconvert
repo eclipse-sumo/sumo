@@ -16,6 +16,11 @@ Warning: Found sharp turn with radius 4.30 at the start of edge '133858467#1'.
 Warning: Found sharp turn with radius 4.73 at the start of edge '143308685#1'.
 Warning: Found sharp turn with radius 6.42 at the start of edge '47765615#1'.
 Warning: Found sharp turn with radius 2.04 at the start of edge '70214888#3'.
+Warning: could not find edge for parkingArea '46039050#2s'
+Warning: could not find edge for parkingArea '46039050#3s'
+Warning: could not find edge for parkingArea '46039050#5s'
+Warning: could not find edge for parkingArea '46039050#6s'
+Warning: could not find edge for parkingArea '71028777#1s'
 Warning: Ignoring parking area on edge '142575693#3' due to insufficient space.
 Warning: Ignoring parking area on edge '142575693#4' due to insufficient space.
 Warning: Ignoring parking area on edge '142575693#6' due to insufficient space.
@@ -23,3 +28,4 @@ Warning: Ignoring parking area on edge '143308521#6' due to insufficient space.
 Warning: Ignoring parking area on edge '-143308521#6' due to insufficient space.
 Warning: 9 total messages of type: Discarding unknown compound '%' in type '%' (first occurence for edge '%').
 Warning: 10 total messages of type: Ignoring parking area on edge '%' due to insufficient space.
+Warning: 20 total messages of type: could not find edge for parkingArea '%s'

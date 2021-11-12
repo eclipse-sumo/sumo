@@ -1,3 +1,0 @@
-vehicle 'foe1' does not supply vehicle parameter 'device.ssm.extratime'. Using default of '5.00'
-vehicle 'foe1' does not supply vehicle parameter 'device.ssm.geo'. Using default of '0'
-vehicle 'ego' does not supply vehicle parameter 'device.ssm.file'. Using default of 'ssm_ego.xml'

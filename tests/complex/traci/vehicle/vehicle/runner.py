@@ -1,12 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    runner.py
 # @author  Michael Behrisch
@@ -77,6 +81,7 @@ def check(vehID):
     print("length", traci.vehicle.getLength(vehID))
     print("maxSpeed", traci.vehicle.getMaxSpeed(vehID))
     print("speedFactor", traci.vehicle.getSpeedFactor(vehID))
+    print("speedDeviation", traci.vehicle.getSpeedDeviation(vehID))
     print("allowedSpeed", traci.vehicle.getAllowedSpeed(vehID))
     print("accel", traci.vehicle.getAccel(vehID))
     print("decel", traci.vehicle.getDecel(vehID))
@@ -92,21 +97,30 @@ def check(vehID):
     print("MinGap", traci.vehicle.getMinGap(vehID))
     print("width", traci.vehicle.getWidth(vehID))
     print("height", traci.vehicle.getHeight(vehID))
-    print("lcStrategic", traci.vehicle.getParameter(vehID, "laneChangeModel.lcStrategic"))
-    print("lcCooperative", traci.vehicle.getParameter(vehID, "laneChangeModel.lcCooperative"))
-    print("lcSpeedGain", traci.vehicle.getParameter(vehID, "laneChangeModel.lcSpeedGain"))
+    print("stopDelay", traci.vehicle.getStopDelay(vehID))
+    print("stopArrivalDelay", traci.vehicle.getStopArrivalDelay(vehID))
+    print("timeLoss", traci.vehicle.getTimeLoss(vehID))
+    try:
+        print("lcStrategic", traci.vehicle.getParameter(vehID, "laneChangeModel.lcStrategic"))
+        print("lcCooperative", traci.vehicle.getParameter(vehID, "laneChangeModel.lcCooperative"))
+        print("lcSpeedGain", traci.vehicle.getParameter(vehID, "laneChangeModel.lcSpeedGain"))
+    except traci.TraCIException:
+        # meso
+        pass
     print("maxSpeedLat", traci.vehicle.getMaxSpeedLat(vehID))
     print("minGapLat", traci.vehicle.getMinGapLat(vehID))
     print("lateralAlignment", traci.vehicle.getLateralAlignment(vehID))
     print("lanePosLat", traci.vehicle.getLateralLanePosition(vehID))
     print("person number", traci.vehicle.getPersonNumber(vehID))
+    print("person IDs", traci.vehicle.getPersonIDList(vehID))
     print("personCapacity", traci.vehicle.getPersonCapacity(vehID))
     print("waiting time", traci.vehicle.getWaitingTime(vehID))
     print("accumulated waiting time", traci.vehicle.getAccumulatedWaitingTime(vehID))
     print("driving dist", traci.vehicle.getDrivingDistance(vehID, "4fi", 2.))
-    print("driving dist 2D", traci.vehicle.getDrivingDistance2D(vehID, 100., 100.))
+    print("driving dist 2D", traci.vehicle.getDrivingDistance2D(vehID, 99., 100.))
     print("line", traci.vehicle.getLine(vehID))
     print("via", traci.vehicle.getVia(vehID))
+    print("dist", traci.vehicle.getDistance(vehID))
     print("lane change state right", traci.vehicle.getLaneChangeState(vehID, -1))
     print("lane change state left", traci.vehicle.getLaneChangeState(vehID, 1))
     print("lane change able right", traci.vehicle.couldChangeLane(vehID, -1))
@@ -118,6 +132,7 @@ def check(vehID):
 def checkOffRoad(vehID):
     print(("veh", vehID,
            "speed", traci.vehicle.getSpeed(vehID),
+           "acceleration", traci.vehicle.getAcceleration(vehID),
            "pos", posToString(traci.vehicle.getPosition(vehID)),
            "pos3d", posToString(traci.vehicle.getPosition3D(vehID)),
            "angle", traci.vehicle.getAngle(vehID),
@@ -131,9 +146,14 @@ def checkOffRoad(vehID):
 traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg",
              '--ignore-route-errors',
              '--vehroute-output', 'vehroutes.xml',
+             '--tripinfo-output', 'tripinfo.xml',
+             '--tripinfo-output.write-undeparted',
              '--additional-files',
              'input_additional.add.xml,input_additional2.add.xml',
-             "--default.speeddev", "0"])
+             "--default.speeddev", "0"] + sys.argv[1:])
+
+useMeso = "--mesosim" in sys.argv
+
 for i in range(3):
     print("step", step())
 vehID = "horiz"
@@ -171,12 +191,15 @@ traci.vehicle.setLine(vehID, "S46")
 traci.vehicle.setVia(vehID, ["3o", "4o"])
 traci.vehicle.setAdaptedTraveltime(vehID, "1o", 55, 0, 1000)
 traci.vehicle.setEffort(vehID, "1o", 54, 0, 1000)
-if not traci.isLibsumo():
+if not traci.isLibsumo() and not traci.isLibtraci():
     # legacy API
     traci.vehicle.setAdaptedTraveltime(vehID, 0, 1000, "1o", 55)
     traci.vehicle.setEffort(vehID, 0, 1000, "1o", 54)
 traci.vehicle.setParameter(vehID, "foo", "bar")
-traci.vehicle.setParameter(vehID, "laneChangeModel.lcStrategic", "2.0")
+try:
+    traci.vehicle.setParameter(vehID, "laneChangeModel.lcStrategic", "2.0")
+except traci.TraCIException:
+    pass
 traci.vehicle.setSignals(vehID, 12)
 traci.vehicle.setRoutingMode(vehID, traci.constants.ROUTING_MODE_AGGREGATED)
 traci.vehicle.setStop(vehID, "2fi", pos=55.0, laneIndex=0, duration=2, flags=1)
@@ -193,14 +216,15 @@ print("set traveltime (default range)", traci.vehicle.getAdaptedTraveltime(vehID
 print("set effort (default range)", traci.vehicle.getEffort(vehID, 0, "1o"))
 try:
     check("bla")
-except traci.TraCIException as e:
-    if traci.isLibsumo():
-        print(e, file=sys.stderr)
-        sys.stderr.flush()
+except traci.TraCIException:
     print("recovering from exception after asking for unknown vehicle")
 traci.vehicle.addLegacy("1", "horizontal")
 traci.vehicle.setStop("1", "2fi", pos=50.0, laneIndex=0, duration=1, flags=1)
 check("1")
+try:
+    traci.vehicle.changeTarget("1", "disconnected")
+except traci.TraCIException:
+    pass
 traci.vehicle.changeTarget("1", "4fi")
 print("routeID", traci.vehicle.getRouteID(vehID))
 print("route", traci.vehicle.getRoute(vehID))
@@ -212,7 +236,8 @@ for i in range(6):
     if traci.vehicle.getSpeed("1") == 0:
         traci.vehicle.resume("1")
     print(traci.vehicle.getSubscriptionResults(vehID))
-    print(traci.vehicle.getNextStops(vehID))
+    print(traci.vehicle.getStops(vehID))
+    print("legacy getNextStops", traci.vehicle.getNextStops(vehID))
 check("2")
 print("nextTLS", traci.vehicle.getNextTLS("2"))
 traci.vehicle.setSpeedMode(vehID, 0)  # disable all checks
@@ -221,24 +246,41 @@ print("speedmode", traci.vehicle.getSpeedMode(vehID))
 print("lanechangemode", traci.vehicle.getLaneChangeMode(vehID))
 print("slope", traci.vehicle.getSlope(vehID))
 print("leader", traci.vehicle.getLeader("2"))
+
+if not useMeso:
+    leaderID, dist = traci.vehicle.getLeader("2")
+
+    print("followSpeed", traci.vehicle.getFollowSpeed("2",
+                                                      traci.vehicle.getSpeed("2"),
+                                                      dist,
+                                                      traci.vehicle.getSpeed(leaderID),
+                                                      traci.vehicle.getDecel(leaderID),
+                                                      leaderID))
+
+    print("secureGap", traci.vehicle.getSecureGap("2",
+                                                  traci.vehicle.getSpeed("2") * 3,  # return something other than 0
+                                                  traci.vehicle.getSpeed(leaderID),
+                                                  traci.vehicle.getDecel(leaderID),
+                                                  leaderID))
+
+    print("stopSpeed", traci.vehicle.getStopSpeed("2", 15, 20))
+
 traci.vehicle.subscribeLeader("2")
 for i in range(6):
     print("step", step())
     print(traci.vehicle.getSubscriptionResults("2"))
     print(traci.vehicle.getSubscriptionResults(vehID))
-    print(traci.vehicle.getNextStops(vehID))
+    print(traci.vehicle.getStops(vehID))
+    print("legacy getNextStops", traci.vehicle.getNextStops(vehID))
 traci.vehicle.remove("1")
 try:
     traci.vehicle.addLegacy("anotherOne", "horizontal", pos=-1)
-except traci.TraCIException as e:
-    if traci.isLibsumo():
-        print(e, file=sys.stderr)
+except traci.TraCIException:
+    pass
 try:
     check("anotherOne")
-except traci.TraCIException as e:
-    if traci.isLibsumo():
-        print(e, file=sys.stderr)
-        sys.stderr.flush()
+except traci.TraCIException:
+    pass
 traci.vehicle.moveTo(vehID, "1o_0", 40)
 print("step", step())
 print(traci.vehicle.getSubscriptionResults(vehID))
@@ -247,10 +289,13 @@ print(traci.vehicle.getSubscriptionResults(vehID))
 print("speed before moveToXY", traci.vehicle.getSpeed(vehID))
 traci.vehicle.moveToXY(vehID, "1o", 0, 482.49, 501.31, 0)
 print("step", step())
-print("speed after moveToVTD", traci.vehicle.getSpeed(vehID))
+print("speed after moveToXY", traci.vehicle.getSpeed(vehID))
 print(traci.vehicle.getSubscriptionResults(vehID))
 print("step", step())
 print(traci.vehicle.getSubscriptionResults(vehID))
+print("speed", traci.vehicle.getSpeed(vehID))
+traci.vehicle.setPreviousSpeed(vehID, 19)
+print("speed", traci.vehicle.getSpeed(vehID))
 # test different departure options
 traci.vehicle.addLegacy("departInThePast", "horizontal", depart=5)
 print("step", step())
@@ -260,6 +305,7 @@ for i in range(9):
     print("step", step())
     print("vehicles", traci.vehicle.getIDList())
 # XXX this doesn't work. see #1721
+print("added triggered vehicle at t=%s" % traci.simulation.getTime())
 traci.vehicle.addLegacy("departTriggered", "horizontal", "triggered")
 print("step", step())
 print("vehicles", traci.vehicle.getIDList())
@@ -309,7 +355,8 @@ parkingVeh = "parking"
 traci.vehicle.addLegacy(parkingVeh, "horizontal")
 traci.vehicle.setStop(parkingVeh, "2fi", pos=20.0, laneIndex=0, duration=10,
                       flags=traci.constants.STOP_PARKING)
-print("nextStop:", traci.vehicle.getNextStops(parkingVeh))
+print("nextStop:", traci.vehicle.getStops(parkingVeh))
+print("legacy getNextStops", traci.vehicle.getNextStops(parkingVeh))
 for i in range(20):
     print("step", step())
     checkOffRoad(parkingVeh)
@@ -425,26 +472,24 @@ traci.vehicle.setEmissionClass(electricVeh, "Energy/unknown")
 
 try:
     print(traci.vehicle.getParameter(electricVeh, "device.foo.bar"))
-except traci.TraCIException as e:
-    if traci.isLibsumo():
-        print(e, file=sys.stderr)
+except traci.TraCIException:
     print("recovering from exception after asking for unknown device")
 try:
     print(traci.vehicle.getParameter(electricVeh, "device.battery.foobar"))
-except traci.TraCIException as e:
-    if traci.isLibsumo():
-        print(e, file=sys.stderr)
+except traci.TraCIException:
     print("recovering from exception after asking for unknown device parameter")
 
 traci.vehicle.subscribe(electricVeh, [tc.VAR_POSITION, tc.VAR_POSITION3D])
 for i in range(10):
     step()
-    print(('%s speed="%s" consumed="%s" charged="%s" cap="%s" maxCap="%s" station="%s" mass=%s emissionClass=%s ' +
-           'electricityConsumption=%s') % (
+    print(('%s speed="%s" consumed="%s" charged="%s" totalConsumed="%s" totalRegenerated="%s" cap="%s" ' +
+           'maxCap="%s" station="%s" mass=%s emissionClass=%s electricityConsumption=%s') % (
         electricVeh,
         traci.vehicle.getSpeed(electricVeh),
         traci.vehicle.getParameter(electricVeh, "device.battery.energyConsumed"),
         traci.vehicle.getParameter(electricVeh, "device.battery.energyCharged"),
+        traci.vehicle.getParameter(electricVeh, "device.battery.totalEnergyConsumed"),
+        traci.vehicle.getParameter(electricVeh, "device.battery.totalEnergyRegenerated"),
         traci.vehicle.getParameter(electricVeh, "device.battery.actualBatteryCapacity"),
         traci.vehicle.getParameter(electricVeh, "device.battery.maximumBatteryCapacity"),
         traci.vehicle.getParameter(electricVeh, "device.battery.chargingStationId"),

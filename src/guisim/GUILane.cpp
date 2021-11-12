@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUILane.cpp
 /// @author  Daniel Krajzewicz
@@ -15,16 +19,11 @@
 ///
 // Representation of a lane in the micro simulation (gui-version)
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
 #include <utility>
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/Position.h>
 #include <microsim/logging/FunctionBinding.h>
@@ -40,6 +39,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSLink.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSInsertionControl.h>
 #include <microsim/MSVehicleTransfer.h>
@@ -52,10 +52,9 @@
 #include "GUIEdge.h"
 #include "GUIVehicle.h"
 #include "GUINet.h"
+#include <utils/gui/div/GUIDesigns.h>
 
-#ifdef HAVE_OSG
-#include <osg/Geometry>
-#endif
+#include <osgview/GUIOSGHeader.h>
 
 //#define GUILane_DEBUG_DRAW_WALKING_AREA_VERTICES
 //#define GUILane_DEBUG_DRAW_VERTICES
@@ -65,6 +64,7 @@
 // static member declaration
 // ===========================================================================
 const RGBColor GUILane::MESO_USE_LANE_COLOR(0, 0, 0, 0);
+const GUIVisualizationSettings* GUILane::myCachedGUISettings(nullptr);
 
 
 // ===========================================================================
@@ -73,9 +73,11 @@ const RGBColor GUILane::MESO_USE_LANE_COLOR(0, 0, 0, 0);
 GUILane::GUILane(const std::string& id, double maxSpeed, double length,
                  MSEdge* const edge, int numericalID,
                  const PositionVector& shape, double width,
-                 SVCPermissions permissions, int index, bool isRampAccel,
+                 SVCPermissions permissions,
+                 SVCPermissions changeLeft, SVCPermissions changeRight,
+                 int index, bool isRampAccel,
                  const std::string& type) :
-    MSLane(id, maxSpeed, length, edge, numericalID, shape, width, permissions, index, isRampAccel, type),
+    MSLane(id, maxSpeed, length, edge, numericalID, shape, width, permissions, changeLeft, changeRight, index, isRampAccel, type),
     GUIGlObject(GLO_LANE, id),
 #ifdef HAVE_OSG
     myGeom(0),
@@ -163,7 +165,7 @@ GUILane::removeVehicle(MSVehicle* remVehicle, MSMoveReminder::Notification notif
 
 
 void
-GUILane::removeParking(MSVehicle* remVehicle) {
+GUILane::removeParking(MSBaseVehicle* remVehicle) {
     FXMutexLock locker(myLock);
     return MSLane::removeParking(remVehicle);
 }
@@ -214,20 +216,19 @@ GUILane::drawLinkNo(const GUIVisualizationSettings& s) const {
     // draw all links
     if (getEdge().isCrossing()) {
         // draw indices at the start and end of the crossing
-        MSLink* link = MSLinkContHelper::getConnectingLink(*getLogicalPredecessorLane(), *this);
+        const MSLink* const link = getLogicalPredecessorLane()->getLinkTo(this);
         PositionVector shape = getShape();
         shape.extrapolate(0.5); // draw on top of the walking area
-        GLHelper::drawTextAtEnd(toString(link->getIndex()), shape, 0, s.drawLinkJunctionIndex.size, s.drawLinkJunctionIndex.color);
-        GLHelper::drawTextAtEnd(toString(link->getIndex()), shape.reverse(), 0, s.drawLinkJunctionIndex.size, s.drawLinkJunctionIndex.color);
+        GLHelper::drawTextAtEnd(toString(link->getIndex()), shape, 0, s.drawLinkJunctionIndex, s.scale);
+        GLHelper::drawTextAtEnd(toString(link->getIndex()), shape.reverse(), 0, s.drawLinkJunctionIndex, s.scale);
         return;
     }
     // draw all links
     double w = myWidth / (double) noLinks;
     double x1 = myHalfLaneWidth;
-    const bool lefthand = MSNet::getInstance()->lefthand();
     for (int i = noLinks; --i >= 0;) {
         double x2 = x1 - (double)(w / 2.);
-        GLHelper::drawTextAtEnd(toString(myLinks[lefthand ? noLinks - 1 - i : i]->getIndex()), getShape(), x2, s.drawLinkJunctionIndex.size, s.drawLinkJunctionIndex.color);
+        GLHelper::drawTextAtEnd(toString(myLinks[MSGlobals::gLefthand ? noLinks - 1 - i : i]->getIndex()), getShape(), x2, s.drawLinkJunctionIndex, s.scale);
         x1 -= w;
     }
 }
@@ -241,7 +242,7 @@ GUILane::drawTLSLinkNo(const GUIVisualizationSettings& s, const GUINet& net) con
     }
     if (getEdge().isCrossing()) {
         // draw indices at the start and end of the crossing
-        MSLink* link = MSLinkContHelper::getConnectingLink(*getLogicalPredecessorLane(), *this);
+        const MSLink* const link = getLogicalPredecessorLane()->getLinkTo(this);
         int linkNo = net.getLinkTLIndex(link);
         // maybe the reverse link is controlled separately
         int linkNo2 = net.getLinkTLIndex(myLinks.front());
@@ -252,22 +253,21 @@ GUILane::drawTLSLinkNo(const GUIVisualizationSettings& s, const GUINet& net) con
         if (linkNo >= 0) {
             PositionVector shape = getShape();
             shape.extrapolate(0.5); // draw on top of the walking area
-            GLHelper::drawTextAtEnd(toString(linkNo2), shape, 0, s.drawLinkTLIndex.size, s.drawLinkTLIndex.color);
-            GLHelper::drawTextAtEnd(toString(linkNo), shape.reverse(), 0, s.drawLinkTLIndex.size, s.drawLinkTLIndex.color);
+            GLHelper::drawTextAtEnd(toString(linkNo2), shape, 0, s.drawLinkTLIndex, s.scale);
+            GLHelper::drawTextAtEnd(toString(linkNo), shape.reverse(), 0, s.drawLinkTLIndex, s.scale);
         }
         return;
     }
     // draw all links
     double w = myWidth / (double) noLinks;
     double x1 = myHalfLaneWidth;
-    const bool lefthand = MSNet::getInstance()->lefthand();
     for (int i = noLinks; --i >= 0;) {
         double x2 = x1 - (double)(w / 2.);
-        int linkNo = net.getLinkTLIndex(myLinks[lefthand ? noLinks - 1 - i : i]);
+        int linkNo = net.getLinkTLIndex(myLinks[MSGlobals::gLefthand ? noLinks - 1 - i : i]);
         if (linkNo < 0) {
             continue;
         }
-        GLHelper::drawTextAtEnd(toString(linkNo), getShape(), x2, s.drawLinkTLIndex.size, s.drawLinkTLIndex.color);
+        GLHelper::drawTextAtEnd(toString(linkNo), getShape(), x2, s.drawLinkTLIndex, s.scale);
         x1 -= w;
     }
 }
@@ -282,8 +282,8 @@ GUILane::drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) con
     }
     if (getEdge().isCrossing()) {
         // draw rules at the start and end of the crossing
-        MSLink* link = MSLinkContHelper::getConnectingLink(*getLogicalPredecessorLane(), *this);
-        MSLink* link2 = myLinks.front();
+        const MSLink* const link = getLogicalPredecessorLane()->getLinkTo(this);
+        const MSLink* link2 = myLinks.front();
         if (link2->getTLLogic() == nullptr) {
             link2 = link;
         }
@@ -295,21 +295,20 @@ GUILane::drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) con
     }
     // draw all links
     const double w = myWidth / (double) noLinks;
-    double x1 = myEdge->getToJunction()->getType() == NODETYPE_RAIL_SIGNAL ? -myWidth * 0.5 : 0;
-    const bool lefthand = MSNet::getInstance()->lefthand();
+    double x1 = myEdge->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL ? -myWidth * 0.5 : 0;
     for (int i = 0; i < noLinks; ++i) {
         double x2 = x1 + w;
-        drawLinkRule(s, net, myLinks[lefthand ? noLinks - 1 - i : i], getShape(), x1, x2);
+        drawLinkRule(s, net, myLinks[MSGlobals::gLefthand ? noLinks - 1 - i : i], getShape(), x1, x2);
         x1 = x2;
     }
     // draw stopOffset for passenger cars
-    if (myStopOffsets.size() != 0 && (myStopOffsets.begin()->first & SVC_PASSENGER) != 0) {
-        const double stopOffsetPassenger = myStopOffsets.begin()->second;
+    if (myLaneStopOffset.isDefined() && (myLaneStopOffset.getPermissions() & SVC_PASSENGER) != 0) {
+        const double stopOffsetPassenger = myLaneStopOffset.getOffset();
         const Position& end = myShape.back();
         const Position& f = myShape[-2];
         const double rot = RAD2DEG(atan2((end.x() - f.x()), (f.y() - end.y())));
         GLHelper::setColor(s.getLinkColor(LINKSTATE_MAJOR));
-        glPushMatrix();
+        GLHelper::pushMatrix();
         glTranslated(end.x(), end.y(), 0);
         glRotated(rot, 0, 0, 1);
         glTranslated(0, stopOffsetPassenger, 0);
@@ -319,25 +318,23 @@ GUILane::drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) con
         glVertex2d(myHalfLaneWidth, 0.2);
         glVertex2d(myHalfLaneWidth, 0.0);
         glEnd();
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
 }
 
 
 void
-GUILane::drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, MSLink* link, const PositionVector& shape, double x1, double x2) const {
+GUILane::drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, const MSLink* link, const PositionVector& shape, double x1, double x2) const {
     const Position& end = shape.back();
     const Position& f = shape[-2];
     const double rot = RAD2DEG(atan2((end.x() - f.x()), (f.y() - end.y())));
     if (link == nullptr) {
-        if (myEdge->getNumSuccessors() == 0 && myEdge->getToJunction()->getOutgoing().size() > 0
-                && (myEdge->getToJunction()->getOutgoing().size() > 1 || 
-                    myEdge->getToJunction()->getOutgoing().front()->getToJunction() != myEdge->getFromJunction())) {
+        if (static_cast<GUIEdge*>(myEdge)->showDeadEnd()) {
             GLHelper::setColor(GUIVisualizationColorSettings::SUMO_color_DEADEND_SHOW);
         } else {
             GLHelper::setColor(GUIVisualizationSettings::getLinkColor(LINKSTATE_DEADEND));
         }
-        glPushMatrix();
+        GLHelper::pushMatrix();
         glTranslated(end.x(), end.y(), 0);
         glRotated(rot, 0, 0, 1);
         glBegin(GL_QUADS);
@@ -346,9 +343,9 @@ GUILane::drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, MSLi
         glVertex2d(myHalfLaneWidth, 0.5);
         glVertex2d(myHalfLaneWidth, 0.0);
         glEnd();
-        glPopMatrix();
+        GLHelper::popMatrix();
     } else {
-        glPushMatrix();
+        GLHelper::pushMatrix();
         glTranslated(end.x(), end.y(), 0);
         glRotated(rot, 0, 0, 1);
         // select glID
@@ -361,21 +358,21 @@ GUILane::drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, MSLi
             case LINKSTATE_TL_YELLOW_MINOR:
             case LINKSTATE_TL_OFF_BLINKING:
             case LINKSTATE_TL_OFF_NOSIGNAL:
-                glPushName(net.getLinkTLID(link));
+                GLHelper::pushName(net.getLinkTLID(link));
                 break;
             case LINKSTATE_MAJOR:
             case LINKSTATE_MINOR:
             case LINKSTATE_EQUAL:
             default:
-                glPushName(getGlID());
+                GLHelper::pushName(getGlID());
                 break;
         }
-        GLHelper::setColor(GUIVisualizationSettings::getLinkColor(link->getState()));
+        GLHelper::setColor(GUIVisualizationSettings::getLinkColor(link->getState(), s.realisticLinkRules));
         if (!(drawAsRailway(s) || drawAsWaterway(s)) || link->getState() != LINKSTATE_MAJOR) {
             // the white bar should be the default for most railway
             // links and looks ugly so we do not draw it
             double scale = isInternal() ? 0.5 : 1;
-            if (myEdge->getToJunction()->getType() == NODETYPE_RAIL_SIGNAL) {
+            if (myEdge->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
                 scale *= MAX2(s.laneWidthExaggeration, s.junctionSize.getExaggeration(s, this, 10));
             }
             glScaled(scale, scale, 1);
@@ -386,8 +383,8 @@ GUILane::drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, MSLi
             glVertex2d(x2 - myHalfLaneWidth, 0.0);
             glEnd();
         }
-        glPopName();
-        glPopMatrix();
+        GLHelper::popName();
+        GLHelper::popMatrix();
     }
 }
 
@@ -400,52 +397,52 @@ GUILane::drawArrows() const {
     const Position& end = getShape().back();
     const Position& f = getShape()[-2];
     const double rot = RAD2DEG(atan2((end.x() - f.x()), (f.y() - end.y())));
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glColor3d(1, 1, 1);
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
     if (myWidth < SUMO_const_laneWidth) {
         glScaled(myWidth / SUMO_const_laneWidth, 1, 1);
     }
-    for (std::vector<MSLink*>::const_iterator i = myLinks.begin(); i != myLinks.end(); ++i) {
-        LinkDirection dir = (*i)->getDirection();
-        LinkState state = (*i)->getState();
-        if (state == LINKSTATE_DEADEND || dir == LINKDIR_NODIR) {
+    for (const MSLink* const link : myLinks) {
+        LinkDirection dir = link->getDirection();
+        LinkState state = link->getState();
+        if (state == LINKSTATE_DEADEND || dir == LinkDirection::NODIR) {
             continue;
         }
         switch (dir) {
-            case LINKDIR_STRAIGHT:
+            case LinkDirection::STRAIGHT:
                 GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
                 GLHelper::drawTriangleAtEnd(Position(0, 4), Position(0, 1), (double) 1, (double) .25);
                 break;
-            case LINKDIR_TURN:
+            case LinkDirection::TURN:
                 GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
                 GLHelper::drawBoxLine(Position(0, 2.5), 90, .5, .05);
                 GLHelper::drawBoxLine(Position(0.5, 2.5), 180, 1, .05);
                 GLHelper::drawTriangleAtEnd(Position(0.5, 2.5), Position(0.5, 4), (double) 1, (double) .25);
                 break;
-            case LINKDIR_TURN_LEFTHAND:
+            case LinkDirection::TURN_LEFTHAND:
                 GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
                 GLHelper::drawBoxLine(Position(0, 2.5), -90, 1, .05);
                 GLHelper::drawBoxLine(Position(-0.5, 2.5), -180, 1, .05);
                 GLHelper::drawTriangleAtEnd(Position(-0.5, 2.5), Position(-0.5, 4), (double) 1, (double) .25);
                 break;
-            case LINKDIR_LEFT:
+            case LinkDirection::LEFT:
                 GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
                 GLHelper::drawBoxLine(Position(0, 2.5), 90, 1, .05);
                 GLHelper::drawTriangleAtEnd(Position(0, 2.5), Position(1.5, 2.5), (double) 1, (double) .25);
                 break;
-            case LINKDIR_RIGHT:
+            case LinkDirection::RIGHT:
                 GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
                 GLHelper::drawBoxLine(Position(0, 2.5), -90, 1, .05);
                 GLHelper::drawTriangleAtEnd(Position(0, 2.5), Position(-1.5, 2.5), (double) 1, (double) .25);
                 break;
-            case LINKDIR_PARTLEFT:
+            case LinkDirection::PARTLEFT:
                 GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
                 GLHelper::drawBoxLine(Position(0, 2.5), 45, .7, .05);
                 GLHelper::drawTriangleAtEnd(Position(0, 2.5), Position(1.2, 1.3), (double) 1, (double) .25);
                 break;
-            case LINKDIR_PARTRIGHT:
+            case LinkDirection::PARTRIGHT:
                 GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
                 GLHelper::drawBoxLine(Position(0, 2.5), -45, .7, .05);
                 GLHelper::drawTriangleAtEnd(Position(0, 2.5), Position(-1.2, 1.3), (double) 1, (double) .25);
@@ -454,7 +451,7 @@ GUILane::drawArrows() const {
                 break;
         }
     }
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 
@@ -464,12 +461,12 @@ GUILane::drawLane2LaneConnections(double exaggeration) const {
     if (exaggeration > 1) {
         centroid = myEdge->getToJunction()->getShape().getCentroid();
     }
-    for (std::vector<MSLink*>::const_iterator i = myLinks.begin(); i != myLinks.end(); ++i) {
-        const MSLane* connected = (*i)->getLane();
+    for (const MSLink* const link : myLinks) {
+        const MSLane* connected = link->getLane();
         if (connected == nullptr) {
             continue;
         }
-        GLHelper::setColor(GUIVisualizationSettings::getLinkColor((*i)->getState()));
+        GLHelper::setColor(GUIVisualizationSettings::getLinkColor(link->getState()));
         glBegin(GL_LINES);
         Position p1 = myEdge->isWalkingArea() ? getShape().getCentroid() : getShape()[-1];
         Position p2 = connected->getEdge().isWalkingArea() ? connected->getShape().getCentroid() : connected->getShape()[0];
@@ -487,8 +484,8 @@ GUILane::drawLane2LaneConnections(double exaggeration) const {
 
 void
 GUILane::drawGL(const GUIVisualizationSettings& s) const {
-    glPushMatrix();
-    glPushName(getGlID());
+    GLHelper::pushMatrix();
+    GLHelper::pushName(getGlID());
     const bool isCrossing = myEdge->isCrossing();
     const bool isWalkingArea = myEdge->isWalkingArea();
     const bool isInternal = isCrossing || isWalkingArea || myEdge->isInternal();
@@ -500,9 +497,9 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         exaggeration *= s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
     }
-    const bool hasRailSignal = myEdge->getToJunction()->getType() == NODETYPE_RAIL_SIGNAL;
+    const bool hasRailSignal = myEdge->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL;
     const bool detailZoom = s.scale * exaggeration > 5;
-    const bool drawDetails = (detailZoom || s.junctionSize.minSize == 0 || hasRailSignal) && !s.drawForRectangleSelection;
+    const bool drawDetails = (detailZoom || s.junctionSize.minSize == 0 || hasRailSignal) && !s.drawForPositionSelection;
     const bool drawRails = drawAsRailway(s);
     if (isCrossing || isWalkingArea) {
         // draw internal lanes on top of junctions
@@ -532,7 +529,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
         // scale tls-controlled lane2lane-arrows along with their junction shapes
         double junctionExaggeration = 1;
         if (!isInternal
-                && myEdge->getToJunction()->getType() <= NODETYPE_RAIL_CROSSING
+                && myEdge->getToJunction()->getType() <= SumoXMLNodeType::RAIL_CROSSING
                 && (s.junctionSize.constantSize || s.junctionSize.exaggeration > 1)) {
             junctionExaggeration = MAX2(1.001, s.junctionSize.getExaggeration(s, this, 4));
         }
@@ -546,7 +543,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                     GLHelper::drawLine(myShape);
                 }
             }
-            glPopMatrix();
+            GLHelper::popMatrix();
         } else {
             GUINet* net = (GUINet*) MSNet::getInstance();
             const bool spreadSuperposed = s.spreadSuperposed && myEdge->getBidiEdge() != nullptr && drawRails;
@@ -560,7 +557,9 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                 const double width = myWidth;
                 double halfGauge = 0.5 * (width == SUMO_const_laneWidth ?  1.4350 : width) * exaggeration;
                 if (spreadSuperposed) {
-                    shape.move2side(halfGauge * 0.8);
+                    try {
+                        shape.move2side(halfGauge * 0.8);
+                    } catch (InvalidArgument&) {}
                     halfGauge *= 0.4;
                 }
                 const double halfInnerFeetWidth = halfGauge - 0.039 * exaggeration;
@@ -577,12 +576,12 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                     glTranslated(0, 0, .1);
                     GLHelper::drawBoxLines(shape, myShapeRotations, myShapeLengths, halfInnerFeetWidth);
                     setColor(s);
-                    GLHelper::drawCrossTies(shape, myShapeRotations, myShapeLengths, 0.26 * exaggeration, 0.6 * exaggeration, halfCrossTieWidth, s.drawForRectangleSelection);
+                    GLHelper::drawCrossTies(shape, myShapeRotations, myShapeLengths, 0.26 * exaggeration, 0.6 * exaggeration, halfCrossTieWidth, s.drawForPositionSelection);
                 }
             } else if (isCrossing) {
                 if (s.drawCrossingsAndWalkingareas && (s.scale > 3.0 || s.junctionSize.minSize == 0)) {
                     glTranslated(0, 0, .2);
-                    GLHelper::drawCrossTies(myShape, myShapeRotations, myShapeLengths, 0.5, 1.0, getWidth() * 0.5, s.drawForRectangleSelection);
+                    GLHelper::drawCrossTies(myShape, myShapeRotations, myShapeLengths, 0.5, 1.0, getWidth() * 0.5, s.drawForPositionSelection);
                     glTranslated(0, 0, -.2);
                 }
             } else if (isWalkingArea) {
@@ -605,7 +604,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                 const double halfWidth = isInternal ? myQuarterLaneWidth : (myHalfLaneWidth - SUMO_const_laneMarkWidth / 2);
                 mustDrawMarkings = !isInternal && myPermissions != 0 && myPermissions != SVC_PEDESTRIAN && exaggeration == 1.0 && !isWaterway(myPermissions);
                 const int cornerDetail = drawDetails && !isInternal ? (int)(s.scale * exaggeration) : 0;
-                const double offset = halfWidth * MAX2(0., (exaggeration - 1));
+                const double offset = halfWidth * MAX2(0., (exaggeration - 1)) * (MSGlobals::gLefthand ? -1 : 1);
                 if (myShapeColors.size() > 0) {
                     GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myShapeColors, halfWidth * exaggeration, cornerDetail, offset);
                 } else {
@@ -620,10 +619,10 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                 debugDrawFoeIntersections();
             }
 #endif
-            glPopMatrix();
+            GLHelper::popMatrix();
             // draw details
-            if ((!isInternal || isCrossing || !s.drawJunctionShape) && (drawDetails || s.drawForRectangleSelection || junctionExaggeration > 1)) {
-                glPushMatrix();
+            if ((!isInternal || isCrossing || !s.drawJunctionShape) && (drawDetails || s.drawForPositionSelection || junctionExaggeration > 1)) {
+                GLHelper::pushMatrix();
                 glTranslated(0, 0, GLO_JUNCTION); // must draw on top of junction shape
                 glTranslated(0, 0, .5);
                 if (drawDetails) {
@@ -638,13 +637,26 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                             drawDirectionIndicators(exaggeration, spreadSuperposed);
                         }
                     }
-                    if ((!isInternal || isCrossing)) {
+                    if (!isInternal || isCrossing
+                            // controlled internal junction
+                            || (getLinkCont().size() != 0 && getLinkCont()[0]->isInternalJunctionLink() && getLinkCont()[0]->getTLLogic() != nullptr)) {
                         if (MSGlobals::gLateralResolution > 0 && s.showSublanes && !hiddenBidi && (myPermissions & ~(SVC_PEDESTRIAN | SVC_RAIL_CLASSES)) != 0) {
                             // draw sublane-borders
-                            const double offsetSign = MSNet::getInstance()->lefthand() ? -1 : 1;
+                            const double offsetSign = MSGlobals::gLefthand ? -1 : 1;
                             GLHelper::setColor(color.changedBrightness(51));
                             for (double offset = -myHalfLaneWidth; offset < myHalfLaneWidth; offset += MSGlobals::gLateralResolution) {
                                 GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, 0.01, 0, -offset * offsetSign);
+                            }
+                        }
+                        if (MSGlobals::gUseMesoSim && mySegmentStartIndex.size() > 0 && (myPermissions & ~SVC_PEDESTRIAN) != 0) {
+                            // draw segment borders
+                            GLHelper::setColor(color.changedBrightness(51));
+                            for (int i : mySegmentStartIndex) {
+                                if (myShapeColors.size() > 0) {
+                                    GLHelper::setColor(myShapeColors[i].changedBrightness(51));
+                                }
+                                GLHelper::drawBoxLine(myShape[i], myShapeRotations[i] +90, myWidth / 3, 0.2, 0);
+                                GLHelper::drawBoxLine(myShape[i], myShapeRotations[i] -90, myWidth / 3, 0.2, 0);
                             }
                         }
                         if (s.showLinkDecals && !drawRails && !drawAsWaterway(s) && myPermissions != SVC_PEDESTRIAN) {
@@ -662,16 +674,16 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                     glTranslated(0, 0, .1);
                 }
                 // make sure link rules are drawn so tls can be selected via right-click
-                if (s.showLinkRules && (drawDetails || s.drawForRectangleSelection)
+                if (s.showLinkRules && (drawDetails || s.drawForPositionSelection)
                         && !isWalkingArea
-                        && (!myEdge->isInternal() || getLinkCont()[0]->isInternalJunctionLink())) {
+                        && (!myEdge->isInternal() || (getLinkCont().size() > 0 && getLinkCont()[0]->isInternalJunctionLink()))) {
                     drawLinkRules(s, *net);
                 }
                 if ((drawDetails || junctionExaggeration > 1) && s.showLane2Lane) {
                     //  draw from end of first to the begin of second but respect junction scaling
                     drawLane2LaneConnections(junctionExaggeration);
                 }
-                glPopMatrix();
+                GLHelper::popMatrix();
             }
         }
         if (mustDrawMarkings && drawDetails && s.laneShowBorders && !hiddenBidi) { // needs matrix reset
@@ -680,8 +692,13 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
         if (drawDetails && isInternal && s.showBikeMarkings && myPermissions == SVC_BICYCLE && exaggeration == 1.0 && s.showLinkDecals && s.laneShowBorders && !hiddenBidi) {
             drawBikeMarkings();
         }
+        if (drawDetails && isInternal && exaggeration == 1.0 && s.showLinkDecals && s.laneShowBorders && !hiddenBidi && myIndex > 0
+                && !(myEdge->getLanes()[myIndex - 1]->allowsChangingLeft(SVC_PASSENGER) && allowsChangingRight(SVC_PASSENGER))) {
+            // draw lane changing prohibitions on junction
+            drawJunctionChangeProhibitions();
+        }
     } else {
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
     // draw vehicles
     if (s.scale * s.vehicleSize.getExaggeration(s, nullptr) > s.vehicleSize.minSize) {
@@ -689,48 +706,62 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
         const MSLane::VehCont& vehicles = getVehiclesSecure();
         for (MSLane::VehCont::const_iterator v = vehicles.begin(); v != vehicles.end(); ++v) {
             if ((*v)->getLane() == this) {
-                static_cast<const GUIVehicle* const>(*v)->drawGL(s);
+                static_cast<const GUIVehicle*>(*v)->drawGL(s);
             } // else: this is the shadow during a continuous lane change
         }
         // draw parking vehicles
-        for (std::set<const MSVehicle*>::const_iterator v = myParkingVehicles.begin(); v != myParkingVehicles.end(); ++v) {
-            static_cast<const GUIVehicle* const>(*v)->drawGL(s);
+        for (const MSBaseVehicle* const v : myParkingVehicles) {
+            dynamic_cast<const GUIBaseVehicle*>(v)->drawGL(s);
         }
         // allow lane simulation
         releaseVehicles();
     }
-    glPopName();
+    GLHelper::popName();
 }
 
 
 void
 GUILane::drawMarkings(const GUIVisualizationSettings& s, double scale) const {
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glTranslated(0, 0, GLO_EDGE);
     setColor(s);
     // optionally draw inverse markings
     if (myIndex > 0 && (myEdge->getLanes()[myIndex - 1]->getPermissions() & myPermissions) != 0) {
-        double mw = (myHalfLaneWidth + SUMO_const_laneMarkWidth) * scale;
-        double mw2 = (myHalfLaneWidth - SUMO_const_laneMarkWidth) * scale;
-        if (MSNet::getInstance()->lefthand()) {
-            mw *= -1;
-            mw2 *= -1;
-        }
-        int e = (int) getShape().size() - 1;
-        for (int i = 0; i < e; ++i) {
-            glPushMatrix();
-            glTranslated(getShape()[i].x(), getShape()[i].y(), 2.1);
-            glRotated(myShapeRotations[i], 0, 0, 1);
-            for (double t = 0; t < myShapeLengths[i]; t += 6) {
-                const double length = MIN2((double)3, myShapeLengths[i] - t);
-                glBegin(GL_QUADS);
-                glVertex2d(-mw, -t);
-                glVertex2d(-mw, -t - length);
-                glVertex2d(-mw2, -t - length);
-                glVertex2d(-mw2, -t);
-                glEnd();
+        const bool cl = myEdge->getLanes()[myIndex - 1]->allowsChangingLeft(SVC_PASSENGER);
+        const bool cr = allowsChangingRight(SVC_PASSENGER);
+        double mw = (myHalfLaneWidth + SUMO_const_laneMarkWidth * (cl ? 0.6 : 0.2)) * scale;
+        double mw2 = (myHalfLaneWidth - SUMO_const_laneMarkWidth * (cr ? 0.6 : 0.2)) * scale;
+        if (cl || cr) {
+            if (MSGlobals::gLefthand) {
+                mw *= -1;
+                mw2 *= -1;
             }
-            glPopMatrix();
+            int e = (int) getShape().size() - 1;
+            for (int i = 0; i < e; ++i) {
+                GLHelper::pushMatrix();
+                glTranslated(getShape()[i].x(), getShape()[i].y(), 2.1);
+                glRotated(myShapeRotations[i], 0, 0, 1);
+                for (double t = 0; t < myShapeLengths[i]; t += 6) {
+                    const double length = MIN2((double)3, myShapeLengths[i] - t);
+                    glBegin(GL_QUADS);
+                    glVertex2d(-mw, -t);
+                    glVertex2d(-mw, -t - length);
+                    glVertex2d(-mw2, -t - length);
+                    glVertex2d(-mw2, -t);
+                    glEnd();
+                    if (!cl || !cr) {
+                        // draw inverse marking between asymmetrical lane markings
+                        const double length2 = MIN2((double)6, myShapeLengths[i] - t);
+                        glBegin(GL_QUADS);
+                        glVertex2d(-myHalfLaneWidth + 0.02, -t - length2);
+                        glVertex2d(-myHalfLaneWidth + 0.02, -t - length);
+                        glVertex2d(-myHalfLaneWidth - 0.02, -t - length);
+                        glVertex2d(-myHalfLaneWidth - 0.02, -t - length2);
+                        glEnd();
+                    }
+                }
+                GLHelper::popMatrix();
+            }
         }
     }
     // draw white boundings and white markings
@@ -740,7 +771,7 @@ GUILane::drawMarkings(const GUIVisualizationSettings& s, double scale) const {
         getShapeRotations(),
         getShapeLengths(),
         (myHalfLaneWidth + SUMO_const_laneMarkWidth) * scale);
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 
@@ -752,7 +783,7 @@ GUILane::drawBikeMarkings() const {
     const double markWidth = 0.1;
     const double mw = myHalfLaneWidth;
     for (int i = 0; i < e; ++i) {
-        glPushMatrix();
+        GLHelper::pushMatrix();
         glTranslated(getShape()[i].x(), getShape()[i].y(), GLO_JUNCTION + 0.4);
         glRotated(myShapeRotations[i], 0, 0, 1);
         for (double t = 0; t < myShapeLengths[i]; t += 0.5) {
@@ -766,13 +797,77 @@ GUILane::drawBikeMarkings() const {
                 glEnd();
             }
         }
-        glPopMatrix();
+        GLHelper::popMatrix();
+    }
+}
+
+
+void
+GUILane::drawJunctionChangeProhibitions() const {
+    // draw white markings
+    if (myIndex > 0 && (myEdge->getLanes()[myIndex - 1]->getPermissions() & myPermissions) != 0) {
+        glColor3d(1, 1, 1);
+        const bool cl = myEdge->getLanes()[myIndex - 1]->allowsChangingLeft(SVC_PASSENGER);
+        const bool cr = allowsChangingRight(SVC_PASSENGER);
+        // solid line marking
+        double mw, mw2;
+        // optional broken line marking
+        double mw3, mw4;
+        if (!cl && !cr) {
+            // draw a single solid line
+            mw = myHalfLaneWidth + SUMO_const_laneMarkWidth * 0.4;
+            mw2 = myHalfLaneWidth - SUMO_const_laneMarkWidth * 0.4;
+            mw3 = myHalfLaneWidth;
+            mw4 = myHalfLaneWidth;
+        } else {
+            // draw one solid and one broken line
+            if (cl) {
+                mw = myHalfLaneWidth - SUMO_const_laneMarkWidth * 0.2;
+                mw2 = myHalfLaneWidth - SUMO_const_laneMarkWidth * 0.6;
+                mw3 = myHalfLaneWidth + SUMO_const_laneMarkWidth * 0.2;
+                mw4 = myHalfLaneWidth + SUMO_const_laneMarkWidth * 0.6;
+            } else {
+                mw = myHalfLaneWidth + SUMO_const_laneMarkWidth * 0.2;
+                mw2 = myHalfLaneWidth + SUMO_const_laneMarkWidth * 0.6;
+                mw3 = myHalfLaneWidth - SUMO_const_laneMarkWidth * 0.2;
+                mw4 = myHalfLaneWidth - SUMO_const_laneMarkWidth * 0.6;
+            }
+        }
+        if (MSGlobals::gLefthand) {
+            mw *= -1;
+            mw2 *= -1;
+        }
+        int e = (int) getShape().size() - 1;
+        for (int i = 0; i < e; ++i) {
+            GLHelper::pushMatrix();
+            glTranslated(getShape()[i].x(), getShape()[i].y(), GLO_JUNCTION + 0.4);
+            glRotated(myShapeRotations[i], 0, 0, 1);
+            for (double t = 0; t < myShapeLengths[i]; t += 6) {
+                const double lengthSolid = MIN2(6.0, myShapeLengths[i] - t);
+                glBegin(GL_QUADS);
+                glVertex2d(-mw, -t);
+                glVertex2d(-mw, -t - lengthSolid);
+                glVertex2d(-mw2, -t - lengthSolid);
+                glVertex2d(-mw2, -t);
+                glEnd();
+                if (cl || cr) {
+                    const double lengthBroken = MIN2(3.0, myShapeLengths[i] - t);
+                    glBegin(GL_QUADS);
+                    glVertex2d(-mw3, -t);
+                    glVertex2d(-mw3, -t - lengthBroken);
+                    glVertex2d(-mw4, -t - lengthBroken);
+                    glVertex2d(-mw4, -t);
+                    glEnd();
+                }
+            }
+            GLHelper::popMatrix();
+        }
     }
 }
 
 void
 GUILane::drawDirectionIndicators(double exaggeration, bool spreadSuperposed) const {
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glTranslated(0, 0, GLO_EDGE);
     int e = (int) getShape().size() - 1;
     const double widthFactor = spreadSuperposed ? 0.4 : 1;
@@ -781,7 +876,7 @@ GUILane::drawDirectionIndicators(double exaggeration, bool spreadSuperposed) con
     const double w4 = MAX2(POSITION_EPS, myQuarterLaneWidth * widthFactor);
     const double sideOffset = spreadSuperposed ? w * -0.5 : 0;
     for (int i = 0; i < e; ++i) {
-        glPushMatrix();
+        GLHelper::pushMatrix();
         glTranslated(getShape()[i].x(), getShape()[i].y(), 0.1);
         glRotated(myShapeRotations[i], 0, 0, 1);
         for (double t = 0; t < myShapeLengths[i]; t += w) {
@@ -792,15 +887,15 @@ GUILane::drawDirectionIndicators(double exaggeration, bool spreadSuperposed) con
             glVertex2d(sideOffset + w4 * exaggeration, -t);
             glEnd();
         }
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 
 void
 GUILane::debugDrawFoeIntersections() const {
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glColor3d(1.0, 0.3, 0.3);
     const double orthoLength = 0.5;
     const MSLink* link = getLinkCont().front();
@@ -818,7 +913,7 @@ GUILane::debugDrawFoeIntersections() const {
             //std::cout << "foe=" << l->getID() << " lanePos=" << l->getLength() - lengthsBehind[i].second << " pos=" << pos << "\n";
         }
     }
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 
@@ -829,45 +924,46 @@ GUILane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     //
-    new FXMenuCommand(ret, "Copy edge name to clipboard", nullptr, ret, MID_COPY_EDGE_NAME);
+    GUIDesigns::buildFXMenuCommand(ret, "Copy edge name to clipboard", nullptr, ret, MID_COPY_EDGE_NAME);
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
     //
     buildShowParamsPopupEntry(ret, false);
     const double pos = interpolateGeometryPosToLanePos(myShape.nearest_offset_to_point25D(parent.getPositionInformation()));
     const double height = myShape.positionAtOffset(pos).z();
-    new FXMenuCommand(ret, ("pos: " + toString(pos) + " height: " + toString(height)).c_str(), nullptr, nullptr, 0);
+    GUIDesigns::buildFXMenuCommand(ret, ("pos: " + toString(pos) + " height: " + toString(height)).c_str(), nullptr, nullptr, 0);
     new FXMenuSeparator(ret);
     buildPositionCopyEntry(ret, false);
     new FXMenuSeparator(ret);
     if (myAmClosed) {
         if (myPermissionChanges.empty()) {
-            new FXMenuCommand(ret, "Reopen lane", nullptr, &parent, MID_CLOSE_LANE);
-            new FXMenuCommand(ret, "Reopen edge", nullptr, &parent, MID_CLOSE_EDGE);
+            GUIDesigns::buildFXMenuCommand(ret, "Reopen lane", nullptr, &parent, MID_CLOSE_LANE);
+            GUIDesigns::buildFXMenuCommand(ret, "Reopen edge", nullptr, &parent, MID_CLOSE_EDGE);
         } else {
-            new FXMenuCommand(ret, "Reopen lane (override rerouter)", nullptr, &parent, MID_CLOSE_LANE);
-            new FXMenuCommand(ret, "Reopen edge (override rerouter)", nullptr, &parent, MID_CLOSE_EDGE);
+            GUIDesigns::buildFXMenuCommand(ret, "Reopen lane (override rerouter)", nullptr, &parent, MID_CLOSE_LANE);
+            GUIDesigns::buildFXMenuCommand(ret, "Reopen edge (override rerouter)", nullptr, &parent, MID_CLOSE_EDGE);
         }
     } else {
-        new FXMenuCommand(ret, "Close lane", nullptr, &parent, MID_CLOSE_LANE);
-        new FXMenuCommand(ret, "Close edge", nullptr, &parent, MID_CLOSE_EDGE);
+        GUIDesigns::buildFXMenuCommand(ret, "Close lane", nullptr, &parent, MID_CLOSE_LANE);
+        GUIDesigns::buildFXMenuCommand(ret, "Close edge", nullptr, &parent, MID_CLOSE_EDGE);
     }
-    new FXMenuCommand(ret, "Add rerouter", nullptr, &parent, MID_ADD_REROUTER);
+    GUIDesigns::buildFXMenuCommand(ret, "Add rerouter", nullptr, &parent, MID_ADD_REROUTER);
     new FXMenuSeparator(ret);
     // reachability menu
     FXMenuPane* reachableByClass = new FXMenuPane(ret);
     ret->insertMenuPaneChild(reachableByClass);
-    new FXMenuCascade(ret, "Select reachable", GUIIconSubSys::getIcon(ICON_FLAG), reachableByClass);
+    new FXMenuCascade(ret, "Select reachable", GUIIconSubSys::getIcon(GUIIcon::FLAG), reachableByClass);
     for (auto i : SumoVehicleClassStrings.getStrings()) {
-        new FXMenuCommand(reachableByClass, i.c_str(), nullptr, &parent, MID_REACHABILITY);
+        GUIDesigns::buildFXMenuCommand(reachableByClass, i.c_str(), nullptr, &parent, MID_REACHABILITY);
     }
     return ret;
 }
 
 
 GUIParameterTableWindow*
-GUILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 19 + (int)myEdge->getParametersMap().size());
+GUILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& view) {
+    myCachedGUISettings = &view.getVisualisationSettings();
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     ret->mkItem("maxspeed [m/s]", false, getSpeedLimit());
     ret->mkItem("length [m]", false, myLength);
@@ -886,14 +982,22 @@ GUILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     ret->mkItem("allowed vehicle class", false, getVehicleClassNames(myPermissions));
     ret->mkItem("disallowed vehicle class", false, getVehicleClassNames(~myPermissions));
     ret->mkItem("permission code", false, myPermissions);
+    ret->mkItem("color value", true, new FunctionBinding<GUILane, double>(this, &GUILane::getColorValueForTracker));
     if (myEdge->getBidiEdge() != nullptr) {
         ret->mkItem("bidi-edge", false, myEdge->getBidiEdge()->getID());
     }
     for (const auto& kv : myEdge->getParametersMap()) {
         ret->mkItem(("edgeParam:" + kv.first).c_str(), false, kv.second);
     }
+    ret->checkFont(myEdge->getStreetName());
     ret->closeBuilding();
     return ret;
+}
+
+
+double 
+GUILane::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
+    return 1;
 }
 
 
@@ -965,6 +1069,18 @@ GUILane::getLoadedEdgeWeight() const {
 }
 
 
+double
+GUILane::getColorValueWithFunctional(const GUIVisualizationSettings& s, int activeScheme) const {
+    switch (activeScheme) {
+        case 18: {
+            return GeomHelper::naviDegree(myShape.beginEndAngle()); // [0-360]
+        }
+        default: return getColorValue(s, activeScheme);
+    }
+
+}
+
+
 RGBColor
 GUILane::setColor(const GUIVisualizationSettings& s) const {
     // setting and retrieving the color does not work in OSGView so we return it explicitliy
@@ -991,7 +1107,7 @@ GUILane::setFunctionalColor(const GUIColorer& c, RGBColor& col, int activeScheme
         case 0:
             if (myEdge->isCrossing()) {
                 // determine priority to decide color
-                MSLink* link = MSLinkContHelper::getConnectingLink(*getLogicalPredecessorLane(), *this);
+                const MSLink* const link = getLogicalPredecessorLane()->getLinkTo(this);
                 if (link->havePriority() || link->getTLLogic() != nullptr) {
                     col = RGBColor(230, 230, 230);
                 } else {
@@ -1058,6 +1174,17 @@ GUILane::setMultiColor(const GUIVisualizationSettings& s, const GUIColorer& c, R
     }
 }
 
+double
+GUILane::getColorValueForTracker() const {
+    if (myCachedGUISettings != nullptr) {
+        const GUIVisualizationSettings& s = *myCachedGUISettings;
+        const GUIColorer& c = s.laneColorer;
+        return getColorValueWithFunctional(s, c.getActive());
+    } else {
+        return 0;
+    }
+}
+
 
 double
 GUILane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) const {
@@ -1070,22 +1197,30 @@ GUILane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
                     return 2;
                 case 0:
                     // forbidden road or green verge
-                    return myEdge->getPermissions() == 0 ? 9 : 3;
+                    return myEdge->getPermissions() == 0 ? 10 : 3;
                 case SVC_SHIP:
                     return 4;
                 case SVC_AUTHORITY:
-                    return 7;
+                    return 8;
                 default:
                     break;
             }
             if (myEdge->isTazConnector()) {
-                return 8;
+                return 9;
             } else if (isRailway(myPermissions)) {
-                return 5;
+                if ((myPermissions & SVC_BUS) != 0) {
+                    return 6;
+                } else {
+                    return 5;
+                }
             } else if ((myPermissions & SVC_PASSENGER) != 0) {
-                return 0;
+                if ((myPermissions & (SVC_RAIL_CLASSES & ~SVC_RAIL_FAST)) != 0 && (myPermissions & SVC_SHIP) == 0) {
+                    return 6;
+                } else {
+                    return 0;
+                }
             } else {
-                return 6;
+                return 7;
             }
         case 1:
             return isLaneOrEdgeSelected();
@@ -1279,13 +1414,13 @@ GUILane::getScaleValue(int activeScheme) const {
 
 bool
 GUILane::drawAsRailway(const GUIVisualizationSettings& s) const {
-    return isRailway(myPermissions) && s.showRails && (!s.drawForRectangleSelection || s.spreadSuperposed);
+    return isRailway(myPermissions) && ((myPermissions & SVC_BUS) == 0) && s.showRails && (!s.drawForPositionSelection || s.spreadSuperposed);
 }
 
 
 bool
 GUILane::drawAsWaterway(const GUIVisualizationSettings& s) const {
-    return isWaterway(myPermissions) && s.showRails && !s.drawForRectangleSelection; // reusing the showRails setting
+    return isWaterway(myPermissions) && s.showRails && !s.drawForPositionSelection; // reusing the showRails setting
 }
 
 
@@ -1316,9 +1451,6 @@ GUILane::closeTraffic(bool rebuildAllowed) {
     myAmClosed = !myAmClosed;
     if (rebuildAllowed) {
         getEdge().rebuildAllowedLanes();
-        for (MSEdge* const pred : getEdge().getPredecessors()) {
-            pred->rebuildAllowedTargets();
-        }
     }
 }
 
@@ -1336,6 +1468,9 @@ GUILane::splitAtSegments(const PositionVector& shape) {
         int index = result.indexOfClosest(pos);
         if (pos.distanceTo(result[index]) > POSITION_EPS) {
             index = result.insertAtClosest(pos, false);
+        }
+        if (i != no - 1) {
+            mySegmentStartIndex.push_back(index);
         }
         while ((int)myShapeSegments.size() < index) {
             myShapeSegments.push_back(i);

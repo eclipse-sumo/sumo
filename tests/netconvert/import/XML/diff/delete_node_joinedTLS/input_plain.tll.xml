@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tlLogics version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
+    <!-- Deleted Elements -->
+    <delete from="-gneE0" fromLane="0" to="CS" toLane="0" linkIndex="7" tl="joined"/>
+    <delete from="-gneE0" fromLane="0" to="CE" toLane="0" linkIndex="8" tl="joined"/>
+    <delete from="EC" fromLane="0" to="-gneE0" toLane="0" linkIndex="4" tl="joined"/>
+    <delete from="NC" fromLane="0" to="-gneE0" toLane="0" linkIndex="1" tl="joined"/>
+    <delete from="SC" fromLane="0" to="CE" toLane="0" linkIndex="9" tl="joined"/>
+    <delete from="SC" fromLane="0" to="gneE0" toLane="0" linkIndex="10" tl="joined"/>
+    <delete from="WC" fromLane="0" to="CS" toLane="0" linkIndex="11" tl="joined"/>
+    <delete from="WC" fromLane="0" to="CE" toLane="0" linkIndex="12" tl="joined"/>
+    <delete from="WC" fromLane="0" to="gneE0" toLane="0" linkIndex="13" tl="joined"/>
+    <delete from="gneE0" fromLane="0" to="CN" toLane="0" linkIndex="5" tl="joined"/>
+    <delete from="gneE0" fromLane="0" to="CW" toLane="0" linkIndex="6" tl="joined"/>
+    <!-- Created Elements -->
+    <!-- Changed Elements -->
+    <tlLogic id="joined" programID="0" >
+        <phase duration="42" state="GGr"/>
+        <phase duration="3" state="yyr"/>
+        <phase duration="42" state="rGG"/>
+        <phase duration="3" state="ryy"/>
+    </tlLogic>
+    <connection from="EC" fromLane="0" to="CN" toLane="0" linkIndex="1"/>
+    <connection from="EC" fromLane="0" to="CW" toLane="0" linkIndex="2"/>
+</tlLogics>

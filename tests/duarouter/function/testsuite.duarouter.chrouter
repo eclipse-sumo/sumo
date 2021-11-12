@@ -1,5 +1,9 @@
-# no calculation of new routes
-skip_new_routes
+# go on even if the route is defect
+ignore_errors
+ignore_errors_invalid_depart_edge
+
+# randomize edge weights
+random-factor
 
 # Testing loop removal
 remove_loops
@@ -10,5 +14,12 @@ defaults
 # Tests whether the end-option is used properly
 endstep
 
+# Tests whether using other measures works
+#measure
+
 # shortest path finding related tests
-routing
+#routing
+repair
+
+# keep some or all of the old routes
+keep_routes

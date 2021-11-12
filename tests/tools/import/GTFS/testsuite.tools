@@ -1,0 +1,18 @@
+# Test scenario based in the GTFS data from Brunswick
+# The stop_times file was reduced to 9 trips for a 
+# better analysis of the results
+
+# import bus lines of brunswick innenstadt
+import_bus_routes
+
+# import pt till 10am of the second day
+import_days
+
+# import part of a day, e.g. from 8am to 8pm
+import_begin28800_end72000
+
+# import from a day to the next one, e.g. from 8pm to 8am of the next day
+import_begin72000_end115200
+
+# import 3 days
+import_begin72000_end259200

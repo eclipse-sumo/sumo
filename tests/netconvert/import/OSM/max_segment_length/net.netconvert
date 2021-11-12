@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct 11 13:08:32 2019 by Eclipse SUMO netconvert Version v1_3_1+0580-e6dd46c
+<!-- generated on 2021-09-07 12:27:55 by Eclipse SUMO netconvert Version v1_10_0+0544-e2f47533c3f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,12 +30,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.3" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-399965.83,-5809427.92" convBoundary="0.00,0.00,405.92,52.39" origBoundary="13.528790,52.425976,13.534774,52.426395" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -47,7 +48,7 @@ SPDX-License-Identifier: EPL-2.0
     <type id="highway.living_street" priority="2" numLanes="1" speed="2.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.motorway" priority="14" numLanes="2" speed="39.44" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
     <type id="highway.motorway_link" priority="9" numLanes="1" speed="22.22" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
-    <type id="highway.path" priority="1" numLanes="1" speed="2.78" allow="pedestrian bicycle" oneway="1" width="2.00"/>
+    <type id="highway.path" priority="1" numLanes="1" speed="2.78" allow="pedestrian bicycle" oneway="0" width="2.00"/>
     <type id="highway.pedestrian" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.primary" priority="12" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.primary_link" priority="7" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
@@ -61,7 +62,7 @@ SPDX-License-Identifier: EPL-2.0
     <type id="highway.steps" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.tertiary" priority="10" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.tertiary_link" priority="5" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
-    <type id="highway.track" priority="1" numLanes="1" speed="5.56" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.track" priority="1" numLanes="1" speed="5.56" allow="pedestrian motorcycle moped bicycle" oneway="0"/>
     <type id="highway.trunk" priority="13" numLanes="2" speed="27.78" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.trunk_link" priority="8" numLanes="1" speed="22.22" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.unclassified" priority="4" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
@@ -102,33 +103,29 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="1560223301" type="priority" x="405.92" y="0.00" incLanes="190083608#1_0 190083608#1_1" intLanes="" shape="405.92,0.00 405.21,-6.36 405.92,0.00">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="1560223378" type="priority" x="0.00" y="52.39" incLanes="-190083608#0_0 -190083608#0_1" intLanes="" shape="0.00,52.39 0.62,58.76 -0.00,52.39">
+    <junction id="1560223378" type="priority" x="0.00" y="52.39" incLanes="-190083608#0_0 -190083608#0_1" intLanes="" shape="0.00,52.39 0.62,58.76 0.00,52.39">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="2627346845" type="priority" x="220.59" y="20.70" incLanes="257131025_0 -190083608#1_0 -190083608#1_1 190083608#0_0 190083608#0_1" intLanes="" shape="220.44,28.66 222.43,28.45 222.51,27.59 222.68,27.28 222.95,27.04 223.31,26.87 223.76,26.78 222.34,14.06 217.37,14.62 218.79,27.34 219.64,27.41 219.95,27.58 220.19,27.85 220.35,28.21">
-        <request index="0"  response="00000110000" foes="00000110000"/>
-        <request index="1"  response="01110110000" foes="01111110000"/>
-        <request index="2"  response="01000001000" foes="01000001000"/>
-        <request index="3"  response="00000000000" foes="01000000100"/>
-        <request index="4"  response="00000000000" foes="11000000011"/>
-        <request index="5"  response="00000000000" foes="11000000010"/>
-        <request index="6"  response="00110000010" foes="00110000010"/>
-        <request index="7"  response="00000000000" foes="00001000000"/>
-        <request index="8"  response="00000000000" foes="00001000010"/>
-        <request index="9"  response="00000111000" foes="00000111110"/>
-        <request index="10" response="00000110000" foes="00000110000"/>
+        <request index="0" response="000110000" foes="000110000"/>
+        <request index="1" response="111110000" foes="111110000"/>
+        <request index="2" response="100001000" foes="100001000"/>
+        <request index="3" response="000000000" foes="100000100"/>
+        <request index="4" response="000000000" foes="100000011"/>
+        <request index="5" response="000000000" foes="100000010"/>
+        <request index="6" response="000000000" foes="000000000"/>
+        <request index="7" response="000000000" foes="000000010"/>
+        <request index="8" response="000111000" foes="000111110"/>
     </junction>
 
     <connection from="-190083608#0" to="190083608#0" fromLane="1" toLane="1" dir="t" state="M"/>
     <connection from="-190083608#1" to="-257131025" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="-190083608#1" to="-190083608#0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-190083608#1" to="-190083608#0" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from="-190083608#1" to="190083608#1" fromLane="1" toLane="1" dir="t" state="m"/>
     <connection from="-257131025" to="257131025" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="190083608#0" to="190083608#1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="190083608#0" to="190083608#1" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="190083608#0" to="-257131025" fromLane="1" toLane="0" dir="l" state="m"/>
-    <connection from="190083608#0" to="-190083608#0" fromLane="1" toLane="1" dir="t" state="m"/>
     <connection from="190083608#1" to="-190083608#1" fromLane="1" toLane="1" dir="t" state="M"/>
     <connection from="257131025" to="-190083608#0" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="257131025" to="190083608#1" fromLane="0" toLane="1" dir="l" state="m"/>

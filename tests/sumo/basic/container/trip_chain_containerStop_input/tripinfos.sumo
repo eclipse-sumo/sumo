@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-10-01 21:41:29 by Eclipse SUMO sumo Version v1_10_0+1164-7d4c2ab
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="train0" depart="50.00" departLane="1/4to1/3_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="276.00" arrivalLane="1/4to1/3_0" arrivalPos="90.50" arrivalSpeed="13.90" duration="226.00" routeLength="467.98" waitingTime="0.00" waitingCount="0" stopTime="180.00" timeLoss="11.70" rerouteNo="0" devices="vehroute_train0 tripinfo_train0 container_train0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <containerinfo id="container0" depart="0.00" type="DEFAULT_CONTAINERTYPE">
+        <tranship depart="0.00" departPos="80.00" arrival="54.00" arrivalPos="55.00" duration="54.00" routeLength="75.00" maxSpeed="1.39"/>
+        <transport waitingTime="102.00" vehicle="train0" depart="156.00" arrival="175.00" arrivalPos="60.00" duration="19.00" routeLength="190.08" timeLoss="5.33"/>
+        <tranship depart="175.00" departPos="60.00" arrival="226.00" arrivalPos="30.00" duration="51.00" routeLength="70.83" maxSpeed="1.39"/>
+        <stop duration="20.00" arrival="246.00" arrivalPos="30.00" actType="waiting"/>
+        <transport waitingTime="0.00" vehicle="car0" depart="246.00" arrival="289.00" arrivalPos="92.00" duration="43.00" routeLength="252.00" timeLoss="4.76"/>
+    </containerinfo>
+    <tripinfo id="car0" depart="246.00" departLane="1/4to2/4_0" departPos="40.00" departSpeed="0.00" departDelay="0.00" arrival="289.00" arrivalLane="3/4to4/4_0" arrivalPos="92.00" arrivalSpeed="13.90" duration="43.00" routeLength="252.00" waitingTime="0.00" waitingCount="0" stopTime="20.00" timeLoss="4.76" rerouteNo="0" devices="vehroute_car0 tripinfo_car0 container_car0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+</tripinfos>

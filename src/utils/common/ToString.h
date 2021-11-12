@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    ToString.h
 /// @author  Christian Roessel
@@ -16,14 +20,8 @@
 ///
 // -------------------
 /****************************************************************************/
-#ifndef ToString_h
-#define ToString_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
+#pragma once
+#include <config.h>
 #include <sstream>
 #include <string>
 #include <iomanip>
@@ -33,6 +31,7 @@
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/Named.h>
 #include <utils/distribution/Distribution_Parameterized.h>
+#include <utils/vehicle/SUMOVTypeParameter.h>
 #include "StdDefs.h"
 
 
@@ -149,15 +148,39 @@ inline std::string toString<TrafficLightType>(const TrafficLightType& type, std:
 
 
 template <>
+inline std::string toString<TrafficLightLayout>(const TrafficLightLayout& layout, std::streamsize accuracy) {
+    UNUSED_PARAMETER(accuracy);
+    return SUMOXMLDefinitions::TrafficLightLayouts.getString(layout);
+}
+
+
+template <>
 inline std::string toString<LaneChangeModel>(const LaneChangeModel& model, std::streamsize accuracy) {
     UNUSED_PARAMETER(accuracy);
     return SUMOXMLDefinitions::LaneChangeModels.getString(model);
 }
 
 template <>
-inline std::string toString<LateralAlignment>(const LateralAlignment& latA, std::streamsize accuracy) {
+inline std::string toString<LatAlignmentDefinition>(const LatAlignmentDefinition& lad, std::streamsize accuracy) {
     UNUSED_PARAMETER(accuracy);
-    return SUMOXMLDefinitions::LateralAlignments.getString(latA);
+    switch (lad) {
+        case LatAlignmentDefinition::RIGHT:
+            return "right";
+        case LatAlignmentDefinition::CENTER:
+            return "center";
+        case LatAlignmentDefinition::ARBITRARY:
+            return "arbitrary";
+        case LatAlignmentDefinition::NICE:
+            return "nice";
+        case LatAlignmentDefinition::COMPACT:
+            return "compact";
+        case LatAlignmentDefinition::LEFT:
+            return "left";
+        case LatAlignmentDefinition::GIVEN:
+        case LatAlignmentDefinition::DEFAULT:
+        default:
+            return "";
+    }
 }
 
 template <>
@@ -363,9 +386,3 @@ template <>
 inline std::string toString(const std::map<std::string, std::string>& v, std::streamsize) {
     return joinToString(v, ", ", ":");
 }
-
-
-#endif
-
-/****************************************************************************/
-

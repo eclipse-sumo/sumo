@@ -1,6 +1,5 @@
 ---
-title: Developer/How To/Device
-permalink: /Developer/How_To/Device/
+title: Device
 ---
 
 This Page describes how to implement a new device.
@@ -73,7 +72,7 @@ This device serves as an implementation example for custom devices.
 The suggested way for creating a new device is to create a new class by
 copying the files *src/microsim/devices/MSDevice_Example.{h,cpp}*.
 
-In ordert to compile the new class it must be added to
+In order to compile the new class it must be added to
 **src/microsim/devices/Makefile.am** (on Linux) or added to project
 **z_libmicrosim_devices** (on Windows).
 
@@ -96,7 +95,7 @@ methods is demonstrated in *MSDevice_Example*.
 ### Adding your own functionality
 
 Devices work by updating their state periodically (i.e.
-*MSDevice_Routing*) or everytime the vehicle moves (i.e.
+*MSDevice_Routing*) or every time the vehicle moves (i.e.
 *MSDevice_Battery*). Many devices perform some kind of output either
 periodically (*MSDevice_Routing*) in response to computed events
 (*MSDevice_BTreceiver*) or at the time the vehicle leaves the

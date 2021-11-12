@@ -1,0 +1,28 @@
+phem
+omnet
+shawn
+ns2
+gpsdat
+
+# convert fcd traces to gpx
+gpx
+
+# convert fcd traces to pois
+poi
+
+# convert fcd traces to pois with gzipped input and output
+poi_gz
+
+# convert fcd traces to KML
+kml
+
+# convert fcd traces to IPG
+ipg
+
+# convert fcd traces to SSAM TRJ
+trj
+
+# Whether setting time constaints works
+time
+boundary
+persons

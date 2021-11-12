@@ -1,14 +1,9 @@
 ---
-title: Developer/Implementation Notes/Error Handling
-permalink: /Developer/Implementation_Notes/Error_Handling/
+title: Error Handling
 ---
 
-<center>
-
-<font color="red">**Please note that this page describes what is
-currently in work.**</font>
-
-</center>
+!!! caution
+    Please note that this page describes what is currently in work.
 
 ## Failure types (not academic)
 
@@ -53,7 +48,7 @@ feedback.
 
 *Programming bugs* should be catched in a way that allows to retrack
 them. The user shall not be confronted with any segfaults-popups or
-things like that. Rather, an error message about an improper behaviour
+things like that. Rather, an error message about an improper behavior
 shall be printed (currently: "Quitting (on unknown error).") and the
 application should quit correctly.
 
@@ -118,7 +113,7 @@ occurs, but print all errors and quit then, we have to insert a further
 error handling layer. In the current implementation, handler which parse
 the input data are reporting the errors to the error instance of the
 MsgHandler. As soon as reading a file ends, it is checked whether an
-error occured. In this case, a ProcessError is thrown. If the handler is
+error occurred. In this case, a ProcessError is thrown. If the handler is
 not parsing the data himself, but using other structures, these
 structures may throw an **InvalidArgument** which then has to be catched
 and reported to the error instance of the MsgHandler.
@@ -128,7 +123,7 @@ throwing a ProcessError.
 
 #### Implementation bugs
 
-The second catch block within the above snipplet is currently meant to
+The second catch block within the above snippet is currently meant to
 catch everything else. In fact, these may be both system failures and
 programming faults. So, we only catch this in the release-version so
 that an end-user will be informed about an error (though with no verbose
@@ -167,6 +162,6 @@ settings.
   - The programs are checked in a lazy way, the error is reported
     too late (see
     tests/sumo/errors/wauts/cross3ltl_error_unknown_to_prog)
-  - Undescribed behaviour for
+  - Undescribed behavior for
     cross3ltl_error_missing_junctiondef,
     cross3ltl_error_missing_reftime

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    RealisticEngineModel.h
 /// @author  Michele Segata, Antonio Saverio Valente
@@ -14,8 +18,8 @@
 // A detailed engine model
 /****************************************************************************/
 
-#ifndef ENGINEMODEL_H_
-#define ENGINEMODEL_H_
+#pragma once
+#include <config.h>
 
 #include "GenericEngineModel.h"
 
@@ -335,15 +339,6 @@ public:
     virtual double getRealAcceleration(double speed_mps, double accel_mps2, double reqAccel_mps2, SUMOTime timeStep = 0);
 
     /**
-     * Load model parameters. This method requires a map of strings to be as
-     * flexible as possible, independently from the actual model implementation
-     *
-     * @param[in] parameters a map of strings (from parameter name to parameter
-     * value) including configuration parameters
-     */
-    virtual void loadParameters(const ParMap& parameters);
-
-    /**
      * Load parameters from xml file
      */
     void loadParameters();
@@ -366,15 +361,5 @@ public:
      * @param[out] rpm engine's rpm
      */
     void getEngineData(double speed_mps, int& gear, double& rpm);
-
-#ifdef EE
-private:
-    //some things for the easter egg :)
-    bool               initee;
-    int                lastTimeStep;
-    struct sockaddr_in serv_addr;
-    int                socketfd;
-#endif
 };
 
-#endif /* ENGINEMODEL_H_ */

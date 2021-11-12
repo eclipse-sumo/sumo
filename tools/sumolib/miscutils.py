@@ -1,10 +1,14 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2012-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    miscutils.py
 # @author  Jakob Erdmann
@@ -13,6 +17,7 @@
 
 from __future__ import absolute_import
 from __future__ import print_function
+from __future__ import division
 import sys
 import time
 import os
@@ -20,58 +25,14 @@ import math
 import colorsys
 import socket
 import random
-from collections import defaultdict
-
-# append import path stanca:
-# THIS_DIR == os.path.basename(__file__)
-# sys.path.append(os.path.join(THIS_DIR, 'foo', 'bar'))
-
-# http://www.python.org/dev/peps/pep-0326/
-
-
-def round(value):  # to round in Python 3 like in Python 2
-    if value < 0:
-        return math.ceil(value - 0.5)
-    else:
-        return math.floor(value + 0.5)
-
-
-class _ExtremeType(object):
-
-    def __init__(self, isMax, rep):
-        object.__init__(self)
-        self._isMax = isMax
-        self._rep = rep
-
-    def __eq__(self, other):
-        return isinstance(other, self.__class__) and other._isMax == self._isMax
-
-    def __ne__(self, other):
-        return not self == other
-
-    def __gt__(self, other):
-        return self._isMax and not self == other
-
-    def __ge__(self, other):
-        return self._isMax
-
-    def __lt__(self, other):
-        return not self._isMax and not self == other
-
-    def __le__(self, other):
-        return not self._isMax
-
-    def __repr__(self):
-        return self._rep
-
-
-uMax = _ExtremeType(True, "uMax")
-uMin = _ExtremeType(False, "uMin")
-
-# decorator for timing a function
+# needed for backward compatibility
+from .statistics import Statistics, geh, uMax, uMin, round  # noqa
 
 
 def benchmark(func):
+    """
+    decorator for timing a function
+    """
     def benchmark_wrapper(*args, **kwargs):
         started = time.time()
         now = time.strftime("%a, %d %b %Y %H:%M:%S +0000", time.localtime())
@@ -85,161 +46,10 @@ def benchmark(func):
     return benchmark_wrapper
 
 
-class Statistics:
-
-    def __init__(self, label=None, abs=False, histogram=False, printMin=True, scale=1):
-        self.label = label
-        self.min = uMax
-        self.min_label = None
-        self.max = uMin
-        self.max_label = None
-        self.values = []
-        self.abs = abs
-        self.printMin = printMin
-        self.scale = scale
-        if histogram:
-            self.counts = defaultdict(int)
-        else:
-            self.counts = None
-
-    def add(self, v, label=None):
-        self.values.append(v)
-        if v < self.min:
-            self.min = v
-            self.min_label = label
-        if v > self.max:
-            self.max = v
-            self.max_label = label
-        if self.counts is not None:
-            self.counts[int(round(v / self.scale))] += 1
-
-    def update(self, other):
-        for v in other.values:
-            self.add(v)
-
-    def clear(self):
-        self.min = uMax
-        self.min_label = None
-        self.max = uMin
-        self.max_label = None
-        self.values = []
-        if self.counts:
-            self.counts.clear()
-
-    def count(self):
-        return len(self.values)
-
-    def avg(self):
-        """return the mean value"""
-        # XXX rename this method
-        if len(self.values) > 0:
-            return sum(self.values) / float(len(self.values))
-        else:
-            return None
-
-    def avg_abs(self):
-        """return the mean of absolute values"""
-        # XXX rename this method
-        if len(self.values) > 0:
-            return sum(map(abs, self.values)) / float(len(self.values))
-        else:
-            return None
-
-    def meanAndStdDev(self, limit=None):
-        """return the mean and the standard deviation optionally limited to the last limit values"""
-        if limit is None or len(self.values) < limit:
-            limit = len(self.values)
-        if limit > 0:
-            mean = sum(self.values[-limit:]) / float(limit)
-            sumSq = 0.
-            for v in self.values[-limit:]:
-                sumSq += (v - mean) * (v - mean)
-            return mean, math.sqrt(sumSq / limit)
-        else:
-            return None
-
-    def relStdDev(self, limit=None):
-        """return the relative standard deviation optionally limited to the last limit values"""
-        moments = self.meanAndStdDev(limit)
-        if moments is None:
-            return None
-        return moments[1] / moments[0]
-
-    def mean(self):
-        """return the median value"""
-        # XXX rename this method
-        if len(self.values) > 0:
-            return sorted(self.values)[len(self.values) / 2]
-        else:
-            return None
-
-    def mean_abs(self):
-        """return the median of absolute values"""
-        # XXX rename this method
-        if len(self.values) > 0:
-            return sorted(map(abs, self.values))[len(self.values) / 2]
-        else:
-            return None
-
-    def average_absolute_deviation_from_mean(self):
-        if len(self.values) > 0:
-            m = self.avg()
-            return sum([abs(v - m) for v in self.values]) / len(self.values)
-        else:
-            return None
-
-    def median(self):
-        return self.mean()
-
-    def median_abs(self):
-        return self.mean_abs()
-
-    def quartiles(self):
-        s = sorted(self.values)
-        return s[len(self.values) // 4], s[len(self.values) // 2], s[3 * len(self.values) // 4]
-
-    def rank(self, fraction):
-        if len(self.values) > 0:
-            return sorted(self.values)[int(round(len(self.values) * fraction + 0.5))]
-        else:
-            return None
-
-    def histogram(self):
-        return [(k * self.scale, self.counts[k]) for k in sorted(self.counts.keys())]
-
-    def __str__(self):
-        if len(self.values) > 0:
-            min = ''
-            if self.printMin:
-                min = 'min %.2f%s, ' % (self.min,
-                                        ('' if self.min_label is None else ' (%s)' % (self.min_label,)))
-            result = '%s: count %s, %smax %.2f%s, mean %.2f' % (
-                self.label, len(self.values), min,
-                self.max,
-                ('' if self.max_label is None else ' (%s)' %
-                 (self.max_label,)),
-                self.avg())
-            result += ' Q1 %.2f, median %.2f, Q3 %.2f' % self.quartiles()
-            if self.abs:
-                result += ', mean_abs %.2f, median_abs %.2f' % (
-                    self.avg_abs(), self.mean_abs())
-            if self.counts is not None:
-                result += '\n histogram: %s' % self.histogram()
-            return result
-        else:
-            return '%s: no values' % self.label
-
-
-def geh(m, c):
-    """Error function for hourly traffic flow measures after Geoffrey E. Havers"""
-    if m + c == 0:
-        return 0
-    else:
-        return math.sqrt(2 * (m - c) * (m - c) / (m + c))
-
-
-# temporarily change working directory using 'with' statement
 class working_dir:
+    """
+    temporarily change working directory using 'with' statement
+    """
 
     def __init__(self, dir):
         self.dir = dir
@@ -276,7 +86,7 @@ class Colorgen:
 
     def __init__(self, hsv, cycleLength=10.67):
         self.hsv = hsv
-        self.cycle = [random.randint(0, 255) for x in self.hsv]
+        self.cycle = [int(random.random() * 256) for x in self.hsv]
         self.cycleOffset = int(round(256 / cycleLength))
         self.distinctIndex = 0
 
@@ -311,8 +121,76 @@ class Colorgen:
         return ','.join(map(str, self.byteTuple()))
 
 
+class priorityDictionary(dict):
+
+    def __init__(self):
+        '''Initialize priorityDictionary by creating binary heap
+            of pairs (value,key).  Note that changing or removing a dict entry will
+            not remove the old pair from the heap until it is found by smallest() or
+            until the heap is rebuilt.'''
+        self.__heap = []
+        dict.__init__(self)
+
+    def smallest(self):
+        '''Find smallest item after removing deleted items from heap.'''
+        if len(self) == 0:
+            raise IndexError("smallest of empty priorityDictionary")
+        heap = self.__heap
+        while heap[0][1] not in self or self[heap[0][1]] != heap[0][0]:
+            lastItem = heap.pop()
+            insertionPoint = 0
+            while 1:
+                smallChild = 2 * insertionPoint + 1
+                if smallChild + 1 < len(heap) and \
+                        heap[smallChild][0] > heap[smallChild + 1][0]:
+                    smallChild += 1
+                if smallChild >= len(heap) or lastItem <= heap[smallChild]:
+                    heap[insertionPoint] = lastItem
+                    break
+                heap[insertionPoint] = heap[smallChild]
+                insertionPoint = smallChild
+        return heap[0][1]
+
+    def __iter__(self):
+        '''Create destructive sorted iterator of priorityDictionary.'''
+        def iterfn():
+            while len(self) > 0:
+                x = self.smallest()
+                yield x
+                del self[x]
+        return iterfn()
+
+    def __setitem__(self, key, val):
+        '''Change value stored in dictionary and add corresponding
+            pair to heap.  Rebuilds the heap if the number of deleted items grows
+            too large, to avoid memory leakage.'''
+        dict.__setitem__(self, key, val)
+        heap = self.__heap
+        if len(heap) > 2 * len(self):
+            self.__heap = [(v, k) for k, v in self.iteritems()]
+            self.__heap.sort()  # builtin sort likely faster than O(n) heapify
+        else:
+            newPair = (val, key)
+            insertionPoint = len(heap)
+            heap.append(None)
+            while insertionPoint > 0 and val < heap[(insertionPoint - 1) // 2][0]:
+                heap[insertionPoint] = heap[(insertionPoint - 1) // 2]
+                insertionPoint = (insertionPoint - 1) // 2
+            heap[insertionPoint] = newPair
+
+    def setdefault(self, key, val):
+        '''Reimplement setdefault to call our customized __setitem__.'''
+        if key not in self:
+            self[key] = val
+        return self[key]
+
+    def update(self, other):
+        for key in other.keys():
+            self[key] = other[key]
+
+
 def getFreeSocketPort(numTries=10):
-    for i in range(numTries):
+    for _ in range(numTries):
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             s.bind(('', 0))
@@ -328,7 +206,7 @@ def getSocketStream(port, mode='rb'):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind(("localhost", port))
     s.listen(1)
-    conn, addr = s.accept()
+    conn, _ = s.accept()
     return conn.makefile(mode)
 
 
@@ -337,11 +215,32 @@ def euclidean(a, b):
     return math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2)
 
 
-def parseTime(t):
+def humanReadableTime(seconds):
+    result = ""
+    ds = 3600 * 24
+    if seconds > ds:
+        result = "%s:" % int(seconds / ds)
+        seconds = seconds % ds
+    result += "%02i:" % int(seconds / 3600)
+    seconds = seconds % 3600
+    result += "%02i:" % int(seconds / 60)
+    seconds = seconds % 60
+    if seconds == int(seconds):
+        seconds = int(seconds)
+    result += "%02i" % seconds
+    return result
+
+
+def parseTime(t, factor=1):
     try:
-        return float(t)
+        return float(t) * factor
     except ValueError:
         pass
     # prepended zero is ignored if the date value already contains days
     days, hours, minutes, seconds = ([0] + list(map(float, t.split(':'))))[-4:]
     return 3600 * 24 * days + 3600 * hours + 60 * minutes + seconds
+
+
+def parseBool(val):
+    # see data/xsd/baseTypes:boolType
+    return val in ["true", "True", "x", "1", "yes", "on"]

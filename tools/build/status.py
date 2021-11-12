@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    status.py
 # @author  Michael Behrisch
@@ -16,10 +20,34 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import sys
+import subprocess
 import smtplib
 import re
+import io
 from os.path import basename, commonprefix
 from datetime import datetime
+import logging
+
+
+def killall(debugSuffix, binaries):
+    bins = set([name + suff + ".exe" for name in binaries for suff in debugSuffix])
+    for taskline in subprocess.check_output(["tasklist", "/nh"]).splitlines():
+        task = taskline.split()
+        if task and task[0] in bins:
+            subprocess.call(["taskkill", "/f", "/im", task[0]])
+            bins.remove(task[0])
+
+
+def log_subprocess_output(process):
+    with process.stdout:
+        for line in process.stdout:
+            logging.info(line)
+    process.wait()
+
+
+def printLog(msg, log):
+    print(u"%s: %s" % (datetime.now(), msg), file=log)
+    log.flush()
 
 
 def findErrors(line, warnings, errors, failed):
@@ -43,7 +71,7 @@ def printStatus(makeLog, makeAllLog, smtpServer="localhost", out=sys.stdout, toA
     warnings = 0
     errors = 0
     svnLocked = False
-    for l in open(makeLog):
+    for l in io.open(makeLog, errors="replace"):
         if ("svn: Working copy" in l and "locked" in l) or "svn: Failed" in l:
             svnLocked = True
             failed += l
@@ -58,7 +86,7 @@ def printStatus(makeLog, makeAllLog, smtpServer="localhost", out=sys.stdout, toA
     print(basename(makeAllLog), file=out)
     warnings = 0
     errors = 0
-    for l in open(makeAllLog):
+    for l in io.open(makeAllLog, errors="replace"):
         warnings, errors, failed = findErrors(l, warnings, errors, failed)
     print(warnings, "warnings", file=out)
     if errors:

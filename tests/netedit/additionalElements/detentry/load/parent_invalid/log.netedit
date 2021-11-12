@@ -1,3 +1,4 @@
-Warning: Essential unique string attribute 'id' of e3Detector is missing; e3Detector cannot be created
-Warning: e3Detector parent of detEntry was not loaded sucesfully.
-Warning: e3Detector parent of detExit was not loaded sucesfully.
+Error: Attribute 'id' is missing in definition of a e3Detector.
+Error: 'detEntry' must be defined within the definition of a 'e3Detector' (found '').
+Error: 'detExit' must be defined within the definition of a 'e3Detector' (found '').
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Nov082457.2564\netedit.gui\additionalElements\detentry\load\parent_invalid\input_additionals.add.xml failed.

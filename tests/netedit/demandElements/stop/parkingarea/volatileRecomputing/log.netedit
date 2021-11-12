@@ -1,0 +1,4 @@
+Error: Attempt to decrement references below zero for instance of GNEReferenceCounter
+Error: Attempt to delete instance of GNEReferenceCounter with count -1
+Error: Attempt to decrement references below zero for instance of GNEReferenceCounter
+Error: Attempt to delete instance of GNEReferenceCounter with count -1

@@ -1,6 +1,5 @@
 ---
-title: Simulation/Waterways
-permalink: /Simulation/Waterways/
+title: Waterways
 ---
 
 # Waterway Simulation

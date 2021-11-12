@@ -1,0 +1,7 @@
+<routes>
+    <route id="EW" edges="EC CW"/>
+
+    <vType id="car" vClass="passenger" sigma="0" guiShape="passenger"/>
+
+    <flow id="EW"  route="EW" type="car"        begin="0" end="20" probability="0.2" departLane="best"/>
+</routes>

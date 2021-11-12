@@ -1,10 +1,9 @@
 ---
-title: Tools/Visualization
-permalink: /Tools/Visualization/
+title: Visualization
 ---
 
-[SUMO](../SUMO.md) offers a wide range of
-[outputs](../Simulation/Output.md), but one may find it hard to
+[sumo](../sumo.md) offers a wide range of
+[outputs](../Simulation/Output/index.md), but one may find it hard to
 parse and visualize them. Below, you may find some tools that allow to
 visualize a simulation run's results for being included in a scientific
 paper. Additional tools read plain .csv-files and were added to the
@@ -15,7 +14,7 @@ All these tools are just wrappers around the wonderful
 Python, you must have a look.
 
 The tools share a set of [common options](#common_options) to
-fine-tune the appearence of the generated figures. These options' names
+fine-tune the appearance of the generated figures. These options' names
 where chosen similar to the [matplotlib](http://matplotlib.org/) calls.
 
 The tools are implemented in Python and need
@@ -25,7 +24,7 @@ found in {{SUMO}}/tools/visualization.
 # Current Tools
 
 Below, you will find the descriptions of tools that should work with the
-current outputs [SUMO](../SUMO.md)/[SUMO-GUI](../SUMO-GUI.md)
+current outputs [sumo](../sumo.md)/[sumo-gui](../sumo-gui.md)
 generate. To run them, you'll need:
 
 - to install Python
@@ -38,32 +37,99 @@ that [\#common options](#common_options) may be applied to
 all the scripts listed in the following sub-sections albeit few options
 may not work for certain scripts.
 
-## plot_trajectories.py
+## plotXMLAttributes.py
 
-Show plots for all trajectories in a given **--fcd-output** file.
+Create multiple 2D-plots of 2 arbitrary attributes from an xml file aggregated by an third attribute (i.e. detector-id).
 
 Example use:
 
 ```
-python plot_trajectories.py fcd.xml -t td -o plot.png -s
+python  tools/visualization/plotXMLAttributes.py fcd.xml -x x -y y -s
 ```
 
-The option **-t (--trajectory-type)** supports different plot styles:
+The above example draws the paths of all vehicles through the network based on fcd-output. (It is a special case that can also be accomplished with  #plot_trajectoriespy)
 
-- td: time vs distance
-- ts: time vs speed
-- ta: time vs acceleration
-- ds: distance vs speed
-- da: distance vs acceleration
+When option **-s** is set, a interactive plot is opened that allows identifying data points vehicles by clicking on the plot (dataID is printed on the console)
+
+Option **--filter-ids ID1,ID2,...** allows restricting the plot to the given data element ids
+
+Further examples are shown below...
+
+### Inductionloop Speed over Time
+
+Input is [inductionloop-output](../Simulation/Output/Induction_Loops_Detectors_(E1).md) with 30s aggregation from 2 detectors (`<e1Detector id="e1Detector_-109_0_0" lane="-109_0" pos="54.06" freq="30.00" file="data.xml"/>`
+
+Call: `python tools/visualization/plotXMLAttributes.py data.xml -x begin -y speed -s`
+
+![plotAttrs_detector.png](../images/plotAttrs_detector.png "plotAttrs_detector.png")
+
+### boarding passengers vs delay for each station
+
+Input is [stop-output](../Simulation/Output/StopOutput.md)
+
+Call: `python tools/visualization/plotXMLAttributes.py stopinfos.xml -i busStop -x loadedPersons -y delay -s --scatterplot --legend`
+
+![plotAttrs_boardingDelay.png](../images/plotAttrs_boardingDelay.png "plotAttrs_boardingDelay.png")
+
+### Fundamental Diagram from edgeData
+
+Input is [edgeData-output](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md) with 1-minute aggregation (`<edgeData id="example" file="data.xml" freq="60"/>`)
+
+Call: `python tools/visualization/plotXMLAttributes.py data.xml -i id -x density -y left -s  --scatterplot --yfactor 60 --ylabel vehs/hour`
+
+Each color gives encodes a different edge-id
+
+![plotAttrs_fundamental.png](../images/plotAttrs_fundamental.png "plotAttrs_fundamental.png")
+
+
+## plot_trajectories.py
+
+Create plot of all trajectories in a given **--fcd-output** file. This tool in particular is located in {{SUMO}}/tools.
+
+Example use:
+
+```
+python tools/plot_trajectories.py fcd.xml -t td -o plot.png -s
+```
+
+The option **-t (--trajectory-type)** supports different attributes that can be plotted against each other. The argument is a two-letter code with each letter encoding an attribute that is derived from the fcd input.
+
+### Available Attributes
+
+- **t**: Time in s
+- **d**: Distance driven (starts with 0 at the first fcd datapoint for each vehicle). Distance is computed based on speed using Euler-integration. Set optin **--ballistic** for [ballistic integration](../Simulation/Basic_Definition.md#defining_the_integration_method).
+- **a**: Acceleration
+- **s**: Speed (m/s)
+- **i**: Vehicle angle (navigational degrees)
+- **x**: X-Position in m
+- **y**: Y-Position in m
+- **k**: [Kilometrage](../Simulation/Railways.md#kilometrage_mileage_chainage) (requires **--fcd-output.distance**)
+
+### Examples Trajectory Types
+
+- **td**: time vs distance
+- **ts**: time vs speed
+- **ta**: time vs acceleration
+- **ds**: distance vs speed
+- **da**: distance vs acceleration
+- **xy**: Spatial plot of driving path
+- **kt**: kilometrage vs time (combine with option **--invert-yaxis** to get a classic railway diagram).
+
+![plot_trajectories.png](../images/Plot_trajectories.png "plot_trajectories.png")
+
+### Interactive Plot
 
 When option **-s** is set, a interactive plot is opened that allows
 identifying vehicles by clicking on the respective line (vehicle ids is
 printed in the console).
 
+### Filtering
+
 Option **--filter-route EDGE1,EDGE2,...** allows restricting the plot to all trajectories that contain the
 given set of edges.
 
-![plot_trajectories.png](../images/Plot_trajectories.png "plot_trajectories.png")
+Option **--filter-ids ID1,ID2,...** allows restricting the plot to the given vehicle ids
+
 
 ## plot_net_dump.py
 
@@ -115,6 +181,9 @@ noise](../Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md).
   you may simply skip one entry. Then, the default values are used.
 - dump-files cover usually more than one interval. To generate an extra output file for each interval, use the string '%s' as part of the output filename (this part will be replaced with the corresponding begin time).
 
+!!! caution
+    If two input files are given they must cover the same time intervals or no data will be plotted.
+
 **Options**
 
 | Option                                               | Description                                         |
@@ -137,7 +206,7 @@ noise](../Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md).
 ## plot_net_selection.py
 
 plot_net_selection.py reads a road network and a selection file as
-written by [SUMO-GUI](../SUMO-GUI.md). It plots the road network,
+written by [sumo-gui](../sumo-gui.md). It plots the road network,
 choosing a different color and width for the edges which are within the
 selection (all edge with at least one lane in the selection).
 
@@ -146,7 +215,7 @@ selection (all edge with at least one lane in the selection).
 <tr class="odd">
 <td><figure>
 <img src="../images/Plot_net_selection.png" title="plot_net_selection.png" width="500" alt="" /></figure></td>
-<td><p><code>python plot_selection.py -n bs.net.xml \</code><br />
+<td><p><code>python plot_net_selection.py -n bs.net.xml \</code><br />
 <code> --xlim 7000,14000 --ylim 9000,16000 \</code><br />
 <code> -i selection_environmental_zone.txt \</code><br />
 <code> --xlabel [m] --ylabel [m] \</code><br />
@@ -266,6 +335,7 @@ visualised as a time line along the simulation time.
 | **-i** {{DT_FILE}}\[,{{DT_FILE}}\]\*<br>**--summary-inputs** {{DT_FILE}}[,{{DT_FILE}}]* | Defines the [summary-file](../Simulation/Output/Summary.md)(s) to read            |
 | **-m** {{DT_STR}}<br>**--measure** {{DT_STR}}                        | Defines the measure to read from the summary file; default: *running* |
 | **-v**<br>**--verbose**                                          | If set, the progress is printed on the screen                       |
+| **--dpi** {{DT_FLOAT}}                                           | Define dpi resolution for figures; default: *None*                       |
 
 ## plot_tripinfo_distributions.py
 
@@ -273,7 +343,7 @@ plot_tripinfo_distributions.py reads one or multiple
 [tripinfo-files](../Simulation/Output/TripInfo.md) and plots a
 selected measure (attribute of the read
 [tripinfo-files](../Simulation/Output/TripInfo.md)). The measure is
-visualised as vertical bars that represent the numbers of occurences of
+visualised as vertical bars that represent the numbers of occurrences of
 the measure (vehicles) that fall into a bin.
 
 <table>
@@ -460,9 +530,9 @@ the figure (once known it is as it should be). In such cases, the option
 
 # Further Visualization Methods
 
-## Coloring edges in [SUMO-GUI](../SUMO-GUI.md) according to arbitrary data
+## Coloring edges in [sumo-gui](../sumo-gui.md) according to arbitrary data
 
-[SUMO-GUI](../SUMO-GUI.md) can load weight files and show their
+[sumo-gui](../sumo-gui.md) can load weight files and show their
 values when setting edge coloring mode to *by loaded weight*. When
 stepping through the simulation, different time intervals contained in
 the weight file can be shown.
@@ -482,12 +552,12 @@ The weight files generated by [randomTrips option **--weights-output-prefix**](.
 
 To visualize the flow on an intersection with line widths according to the amount of traffic, the tool [route2poly.py](../Tools/Routes.md#route2polypy) can be used.
 
-1. Use [NETEDIT](../NETEDIT.md) to select all edges at one or more intersection for which the flow shall be visualized and save the selection to a file (e.g. *sel.txt*)
+1. Use [netedit](../Netedit/index.md) to select all edges at one or more intersection for which the flow shall be visualized and save the selection to a file (e.g. *sel.txt*)
 2. generate polygons with widths according to the number of vehicles passing the selected edges. When setting **--scale-width to 0.01**, 100 vehicles using the same edge sequence will correspond to a polygon width of 1m. The option **--spread** is used to prevent overlapping of the generated polygons and should be adapted according the the polygon width.
 
         route2poly.py NET routes.rou.xml -o flows.poly.xml --filter-output.file sel.txt --scale-width 0.01 --internal --spread 1 --hue cycle
 
-3. visualize the flows in [SUMO-GUI](../SUMO-GUI.md)
+3. visualize the flows in [sumo-gui](../sumo-gui.md)
 
         sumo-gui -n NET -a flows.poly.xml
 

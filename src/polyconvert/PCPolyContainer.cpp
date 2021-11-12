@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2005-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2005-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    PCPolyContainer.cpp
 /// @author  Daniel Krajzewicz
@@ -16,11 +20,6 @@
 ///
 // A storage for loaded polygons and pois
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -94,8 +93,8 @@ PCPolyContainer::add(PointOfInterest* poi, bool ignorePruning) {
 
 
 void
-PCPolyContainer::addLanePos(const std::string& poiID, const std::string& laneID, double lanePos, double lanePosLat) {
-    myLanePosPois[poiID] = LanePos(laneID, lanePos, lanePosLat);
+PCPolyContainer::addLanePos(const std::string& poiID, const std::string& laneID, const double lanePos, const bool friendlyPos, const double lanePosLat) {
+    myLanePosPois[poiID] = LanePos(laneID, lanePos, friendlyPos, lanePosLat);
 }
 
 
@@ -119,12 +118,12 @@ PCPolyContainer::save(const std::string& file, bool useGeo) {
     }
     // write pois
     const double zOffset = OptionsCont::getOptions().getFloat("poi-layer-offset");
-    for (auto i : myPOIs) {
-        std::map<std::string, LanePos>::const_iterator it = myLanePosPois.find(i.first);
+    for (const auto& POI : myPOIs) {
+        std::map<std::string, LanePos>::const_iterator it = myLanePosPois.find(POI.first);
         if (it == myLanePosPois.end()) {
-            i.second->writeXML(out, useGeo, zOffset);
+            POI.second->writeXML(out, useGeo, zOffset);
         } else {
-            i.second->writeXML(out, useGeo, zOffset, it->second.laneID, it->second.pos, it->second.posLat);
+            POI.second->writeXML(out, useGeo, zOffset, it->second.laneID, it->second.pos, it->second.friendlyPos, it->second.posLat);
         }
     }
     out.close();
@@ -185,9 +184,7 @@ PCPolyContainer::saveDlrTDP(const std::string& prefix) {
         out2 << i.second->getShapeType() << "\t";
         out2 << i.first << "\t";
 
-        PositionVector shape(i.second->getShape());
-        for (int i = 0; i < (int) shape.size(); i++) {
-            Position pos = shape[i];
+        for (Position pos : i.second->getShape()) {
             gch.cartesian2geo(pos);
             pos.mul(geoScale);
             out2 << pos.x() << "\t";
@@ -205,6 +202,18 @@ PCPolyContainer::getEnumIDFor(const std::string& key) {
 }
 
 
+PCPolyContainer::LanePos::LanePos() :
+    pos(0),
+    friendlyPos(false),
+    posLat(0) {
+}
+
+
+PCPolyContainer::LanePos::LanePos(const std::string& _laneID, double _pos, bool _friendlyPos, double _posLat) :
+    laneID(_laneID),
+    pos(_pos),
+    friendlyPos(_friendlyPos),
+    posLat(_posLat) {
+}
 
 /****************************************************************************/
-

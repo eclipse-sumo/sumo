@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSNet.h
 /// @author  Christian Roessel
@@ -20,13 +24,7 @@
 ///
 // The simulated network and simulation performer
 /****************************************************************************/
-#ifndef MSNet_h
-#define MSNet_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <typeinfo>
@@ -43,8 +41,6 @@
 #include <utils/common/NamedObjectCont.h>
 #include <utils/common/NamedRTree.h>
 #include <utils/router/SUMOAbstractRouter.h>
-#include <microsim/trigger/MSChargingStation.h>
-#include <microsim/trigger/MSOverheadWire.h>
 #include "MSJunction.h"
 
 #ifdef HAVE_FOX
@@ -63,6 +59,7 @@ class MSJunctionControl;
 class MSInsertionControl;
 class SUMORouteLoaderControl;
 class MSTransportableControl;
+class MSTransportable;
 class MSVehicle;
 class MSRoute;
 class MSLane;
@@ -72,15 +69,16 @@ class MSDetectorControl;
 class ShapeContainer;
 class MSDynamicShapeUpdater;
 class PolygonDynamics;
-class BinaryInputDevice;
 class MSEdgeWeightsStorage;
 class SUMOVehicle;
+class SUMOTrafficObject;
 class MSTractionSubstation;
 class MSStoppingPlace;
 template<class E, class L, class N, class V>
 class IntermodalRouter;
 template<class E, class L, class N, class V>
 class PedestrianRouter;
+class OptionsCont;
 
 
 // ===========================================================================
@@ -90,7 +88,7 @@ class PedestrianRouter;
  * @class MSNet
  * @brief The simulated network and simulation perfomer
  */
-class MSNet {
+class MSNet : public Parameterised {
 public:
     /** @enum SimulationState
      * @brief Possible states of a simulation - running or stopped with different reasons
@@ -117,6 +115,34 @@ public:
     typedef PedestrianRouter<MSEdge, MSLane, MSJunction, MSVehicle> MSPedestrianRouter;
     typedef IntermodalRouter<MSEdge, MSLane, MSJunction, SUMOVehicle> MSIntermodalRouter;
 
+    /// @brief edge type specific meso parameters
+    struct MesoEdgeType {
+        SUMOTime tauff;
+        SUMOTime taufj;
+        SUMOTime taujf;
+        SUMOTime taujj;
+        double jamThreshold;
+        bool junctionControl;
+        double tlsPenalty;
+        double tlsFlowPenalty;
+        SUMOTime minorPenalty;
+        bool overtaking;
+    };
+
+    /// @brief collision tracking
+    struct Collision {
+        std::string victim;
+        std::string colliderType;
+        std::string victimType;
+        double colliderSpeed;
+        double victimSpeed;
+        std::string type;
+        const MSLane* lane;
+        double pos;
+        SUMOTime time;
+    };
+
+    typedef std::map<std::string, std::vector<Collision> > CollisionMap;
 
 public:
     /** @brief Returns the pointer to the unique instance of MSNet (singleton).
@@ -182,14 +208,15 @@ public:
      * @param[in] stateDumpTimes List of time steps at which state shall be written
      * @param[in] stateDumpFiles Filenames for states
      * @param[in] hasInternalLinks Whether the network actually contains internal links
-     * @param[in] lefthand Whether the network was built for left-hand traffic
+     * @param[in] junctionHigherSpeeds Whether the network was built with higher junction speeds
      * @param[in] version The network version
      * @todo Try to move all this to the constructor?
      */
     void closeBuilding(const OptionsCont& oc, MSEdgeControl* edges, MSJunctionControl* junctions,
                        SUMORouteLoaderControl* routeLoaders, MSTLLogicControl* tlc,
                        std::vector<SUMOTime> stateDumpTimes, std::vector<std::string> stateDumpFiles,
-                       bool hasInternalLinks, bool hasNeighs, bool lefthand,
+                       bool hasInternalLinks,
+                       bool junctionHigherSpeeds,
                        double version);
 
 
@@ -222,6 +249,16 @@ public:
      */
     const std::map<SUMOVehicleClass, double>* getRestrictions(const std::string& id) const;
 
+    /** @brief Adds edge type specific meso parameters
+     * @param[in] id The id of the type
+     * @param[in] edgeType The parameter object
+     */
+    void addMesoType(const std::string& typeID, const MesoEdgeType& edgeType);
+
+    /** @brief Returns edge type specific meso parameters
+     * if no type specific parameters have been loaded, default values are returned
+     */
+    const MesoEdgeType& getMesoType(const std::string& typeID);
 
     /** @brief Clears all dictionaries
      * @todo Try to move all this to the destructor
@@ -255,6 +292,11 @@ public:
      */
     const std::string generateStatistics(SUMOTime start);
 
+    /// @brief write collision output to (xml) file
+    void writeCollisions() const;
+
+    /// @brief write statistic output to (xml) file
+    void writeStatistics() const;
 
     /** @brief Closes the simulation (all files, connections, etc.)
      *
@@ -262,15 +304,23 @@ public:
      *
      * @param[in] start The step the simulation was started with
      */
-    void closeSimulation(SUMOTime start);
+    void closeSimulation(SUMOTime start, const std::string& reason = "");
 
 
-    /** @brief Called after a simulation step, this method returns the current simulation state
+    /** @brief This method returns the current simulation state. It should not modify status.
      * @param[in] stopTime The time the simulation shall stop at
      * @return The current simulation state
      * @see SimulationState
      */
     SimulationState simulationState(SUMOTime stopTime) const;
+
+
+    /** @brief Called after a simulation step, this method adapts the current simulation state if necessary
+     * @param[in] state The current simulation state
+     * @return The new simulation state
+     * @see SimulationState
+     */
+    SimulationState adaptToState(const SimulationState state) const;
 
 
     /** @brief Returns the message to show if a certain state occurs
@@ -294,6 +344,11 @@ public:
         myStep = step;
     }
 
+
+    /** @brief Resets events when quick-loading state
+     * @param step The new simulation step
+     */
+    void clearState(const SUMOTime step);
 
     /** @brief Write netstate, summary and detector output
      * @todo Which exceptions may occur?
@@ -353,7 +408,7 @@ public:
     /** @brief Returns whether persons are simulated
      */
     bool hasPersons() const {
-        return myPersonControl != 0;
+        return myPersonControl != nullptr;
     }
 
     /** @brief Returns the container control
@@ -369,7 +424,7 @@ public:
     /** @brief Returns whether containers are simulated
     */
     bool hasContainers() const {
-        return myContainerControl != 0;
+        return myContainerControl != nullptr;
     }
 
 
@@ -546,38 +601,40 @@ public:
     virtual bool isSelected(const MSTrafficLightLogic*) const {
         return false;
     }
+    /// @brief update view after simulation.loadState
+    virtual void updateGUI() const { }
 
     /// @name Notification about vehicle state changes
     /// @{
 
     /// @brief Definition of a vehicle state
-    enum VehicleState {
+    enum class VehicleState {
         /// @brief The vehicle was built, but has not yet departed
-        VEHICLE_STATE_BUILT,
+        BUILT,
         /// @brief The vehicle has departed (was inserted into the network)
-        VEHICLE_STATE_DEPARTED,
+        DEPARTED,
         /// @brief The vehicle started to teleport
-        VEHICLE_STATE_STARTING_TELEPORT,
+        STARTING_TELEPORT,
         /// @brief The vehicle ended being teleported
-        VEHICLE_STATE_ENDING_TELEPORT,
+        ENDING_TELEPORT,
         /// @brief The vehicle arrived at his destination (is deleted)
-        VEHICLE_STATE_ARRIVED,
+        ARRIVED,
         /// @brief The vehicle got a new route
-        VEHICLE_STATE_NEWROUTE,
+        NEWROUTE,
         /// @brief The vehicles starts to park
-        VEHICLE_STATE_STARTING_PARKING,
+        STARTING_PARKING,
         /// @brief The vehicle ends to park
-        VEHICLE_STATE_ENDING_PARKING,
+        ENDING_PARKING,
         /// @brief The vehicles starts to stop
-        VEHICLE_STATE_STARTING_STOP,
+        STARTING_STOP,
         /// @brief The vehicle ends to stop
-        VEHICLE_STATE_ENDING_STOP,
+        ENDING_STOP,
         /// @brief The vehicle is involved in a collision
-        VEHICLE_STATE_COLLISION,
+        COLLISION,
         /// @brief The vehicle had to brake harder than permitted
-        VEHICLE_STATE_EMERGENCYSTOP,
+        EMERGENCYSTOP,
         /// @brief Vehicle maneuvering either entering or exiting a parking space
-        VEHICLE_STATE_MANEUVERING
+        MANEUVERING
     };
 
 
@@ -624,6 +681,72 @@ public:
     /// @}
 
 
+    /// @name Notification about transportable state changes
+    /// @{
+
+    /// @brief Definition of a transportable state
+    enum class TransportableState {
+        /// @brief The transportable person has departed (was inserted into the network)
+        PERSON_DEPARTED,
+        /// @brief The transportable person arrived at his destination (is deleted)
+        PERSON_ARRIVED,
+        /// @brief The transportable container has departed (was inserted into the network)
+        CONTAINER_DEPARTED,
+        /// @brief The transportable container arrived at his destination (is deleted)
+        CONTAINER_ARRIVED
+    };
+
+
+    /** @class TransportableStateListener
+     * @brief Interface for objects listening to transportable state changes
+     */
+    class TransportableStateListener {
+    public:
+        /// @brief Constructor
+        TransportableStateListener() { }
+
+        /// @brief Destructor
+        virtual ~TransportableStateListener() { }
+
+        /** @brief Called if a transportable changes its state
+         * @param[in] transportable The transportable which changed its state
+         * @param[in] to The state the transportable has changed to
+         * @param[in] info Additional information on the state change
+         */
+        virtual void transportableStateChanged(const MSTransportable* const transportable, TransportableState to, const std::string& info = "") = 0;
+
+    };
+
+
+    /** @brief Adds a transportable states listener
+     * @param[in] listener The listener to add
+     */
+    void addTransportableStateListener(TransportableStateListener* listener);
+
+
+    /** @brief Removes a transportable states listener
+     * @param[in] listener The listener to remove
+     */
+    void removeTransportableStateListener(TransportableStateListener* listener);
+
+
+    /** @brief Informs all added listeners about a transportable's state change
+     * @param[in] transportable The transportable which changed its state
+     * @param[in] to The state the transportable has changed to
+     * @param[in] info Information regarding the replacement
+     * @see TransportableStateListener:TransportableStateChanged
+     */
+    void informTransportableStateListener(const MSTransportable* const transportable, TransportableState to, const std::string& info = "");
+    /// @}
+
+
+    /// @brief register collision and return whether it was the first one involving these vehicles
+    bool registerCollision(const SUMOTrafficObject* collider, const SUMOTrafficObject* victim, const std::string& collisionType, const MSLane* lane, double pos);
+
+    const CollisionMap& getCollisions() const {
+        return myCollisions;
+    }
+
 
     /** @brief Returns the travel time to pass an edge
      * @param[in] e The edge for which the travel time to be passed shall be returned
@@ -663,6 +786,11 @@ public:
         return myHasInternalLinks;
     }
 
+    /// @brief return whether the network was built with higher junction speeds
+    bool hasJunctionHigherSpeeds() const {
+        return myJunctionHigherSpeeds;
+    }
+
     /// @brief return whether the network contains elevation data
     bool hasElevation() const {
         return myHasElevation;
@@ -676,11 +804,6 @@ public:
     /// @brief return whether the network contains bidirectional rail edges
     bool hasBidiEdges() const {
         return myHasBidiEdges;
-    }
-
-    /// @brief return whether the network was built for lefthand traffic
-    bool lefthand() const {
-        return myLefthand;
     }
 
     /// @brief return the network version
@@ -705,6 +828,12 @@ public:
     /// @brief return whether given electrical substation exists in the network
     bool existTractionSubstation(const std::string& substationId);
 
+    /// @brief string constants for simstep stages
+    static const std::string STAGE_EVENTS;
+    static const std::string STAGE_MOVEMENTS;
+    static const std::string STAGE_LANECHANGE;
+    static const std::string STAGE_INSERTIONS;
+
 protected:
     /// @brief check all lanes for elevation data
     bool checkElevation();
@@ -714,6 +843,9 @@ protected:
 
     /// @brief check wether bidirectional edges occur in the network
     bool checkBidiEdges();
+
+    /// @brief remove collisions from the previous simulation step
+    void removeOutdatedCollisions();
 
 protected:
     /// @brief Unique instance of MSNet
@@ -774,12 +906,17 @@ protected:
 
     /// @brief Information whether the number of the simulation step shall be logged
     bool myLogStepNumber;
+    /// @brief Period between successive step-log outputs
+    int myLogStepPeriod;
 
     /// @brief The last simulation step duration
     long myTraCIStepDuration = 0, mySimStepDuration = 0;
 
     /// @brief The overall simulation duration
     long mySimBeginMillis;
+
+    /// @brief The overall time spent waiting for traci operations including
+    long myTraCIMillis;
 
     /// @brief The overall number of vehicle movements
     long long int myVehiclesMoved;
@@ -795,6 +932,8 @@ protected:
     std::vector<SUMOTime> myStateDumpTimes;
     /// @brief The names for the state files
     std::vector<std::string> myStateDumpFiles;
+    /// @brief The names of the last K periodic state files (only only K shall be kept)
+    std::vector<std::string> myPeriodicStateFiles;
     /// @brief The period for writing state
     SUMOTime myStateDumpPeriod;
     /// @brief name components for periodic state
@@ -810,8 +949,14 @@ protected:
     /// @brief The vehicle class specific speed restrictions
     std::map<std::string, std::map<SUMOVehicleClass, double> > myRestrictions;
 
+    /// @brief The edge type specific meso parameters
+    std::map<std::string, MesoEdgeType> myMesoEdgeTypes;
+
     /// @brief Whether the network contains internal links/lanes/edges
     bool myHasInternalLinks;
+
+    /// @brief Whether the network was built with higher speed on junctions
+    bool myJunctionHigherSpeeds;
 
     /// @brief Whether the network contains elevation data
     bool myHasElevation;
@@ -834,15 +979,24 @@ protected:
     /// @brief Dictionary of bus / container stops
     std::map<SumoXMLTag, NamedObjectCont<MSStoppingPlace*> > myStoppingPlaces;
 
-	/// @brief Dictionary of traction substations
-	std::vector<MSTractionSubstation*> myTractionSubstations;
+    /// @brief Dictionary of traction substations
+    std::vector<MSTractionSubstation*> myTractionSubstations;
 
     /// @brief Container for vehicle state listener
     std::vector<VehicleStateListener*> myVehicleStateListeners;
 
+    /// @brief Container for transportable state listener
+    std::vector<TransportableStateListener*> myTransportableStateListeners;
+
+    /// @brief collisions in the current time step
+    CollisionMap myCollisions;
+
 #ifdef HAVE_FOX
     /// @brief to avoid concurrent access to the state update function
-    FXMutex myStateListenerMutex;
+    FXMutex myVehicleStateListenerMutex;
+
+    /// @brief to avoid concurrent access to the state update function
+    FXMutex myTransportableStateListenerMutex;
 #endif
 
     /// @brief container to record warnings that shall only be issued once
@@ -866,13 +1020,6 @@ protected:
     /// @see utils/shapes/PolygonDynamics
     std::unique_ptr<MSDynamicShapeUpdater> myDynamicShapeUpdater;
 
-
-    /// @brief string constants for simstep stages
-    static const std::string STAGE_EVENTS;
-    static const std::string STAGE_MOVEMENTS;
-    static const std::string STAGE_LANECHANGE;
-    static const std::string STAGE_INSERTIONS;
-
 private:
     /// @brief Invalidated copy constructor.
     MSNet(const MSNet&);
@@ -882,9 +1029,3 @@ private:
 
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

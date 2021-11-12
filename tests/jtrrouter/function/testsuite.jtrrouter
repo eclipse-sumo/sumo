@@ -4,6 +4,9 @@ plain
 # Turn definitions tests
 turns
 
+# tests handling of overlapping flows
+flows
+
 # Tests for processing vehicle classes
 vclasses
 

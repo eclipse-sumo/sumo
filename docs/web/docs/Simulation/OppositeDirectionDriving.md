@@ -1,6 +1,5 @@
 ---
-title: Simulation/OppositeDirectionDriving
-permalink: /Simulation/OppositeDirectionDriving/
+title: Opposite Direction Driving
 ---
 
 # Opposite-Direction-Driving
@@ -18,7 +17,7 @@ options for including this information are described below.
 
 ## Heuristically
 
-By setting the [NETCONVERT](../NETCONVERT.md) option **--opposites.guess** {{DT_BOOL}}, opposite
+By setting the [netconvert](../netconvert.md) option **--opposites.guess** {{DT_BOOL}}, opposite
 edges are identified heuristically.
 
 ## Explicitly
@@ -47,11 +46,11 @@ to additional checks in regard to
 
 # Limitations
 
-- Opposite-direction-driving is not yet compatible with the [sublane
-  model](../Simulation/SublaneModel.md).
 - Visibility of oncoming traffic and the preceding vehicles due to
   road topology and occluding vehicles is not taken into account.
 - Neighboring lane information can only be set if both edges have the
   same length. As a workaround the length of the edges may be set to a
   custom value (which may be different from the geometrical length).
   This can be automated by setting the option **--opposites.guess.fix-lengths**.
+- Opposite-direction-driving is not compatible with the [sublane
+  model](../Simulation/SublaneModel.md). before version 1.9.0

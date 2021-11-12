@@ -1,0 +1,29 @@
+/* XPM */
+static const char *transportcontainerstop_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 7 1",
+"  c None",
+"o c cyan",
+"x c #63b8ff",
+"n c black",
+". c #007F46",
+"k c #FFD800",
+"r c red",
+/* pixels */
+" n     n     r  ",
+"n n    nn   rrr ",
+"n n nnnnnn rrrrr",
+"nnn    nn   rrr ",
+"n n    n     r  ",
+"                ",
+"nnnnnnnnnnn     ",
+"nxxxxxxxxxn     ",
+"nxxxxxxxxxn..o  ",
+"nxxxxxxxxxn..oo ",
+"nxxxxxxxxxn..oo ",
+"nnnnnnnnnnn.... ",
+"..............k ",
+"............... ",
+" nnn      nnn   ",
+" nnn      nnn   "
+};

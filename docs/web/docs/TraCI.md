@@ -1,13 +1,12 @@
 ---
 title: TraCI
-permalink: /TraCI/
 ---
 
 ## Introduction to TraCI
 
 TraCI is the short term for "**Tra**ffic **C**ontrol **I**nterface".
 Giving access to a running road traffic simulation, it allows to
-retrieve values of simulated objects and to manipulate their behaviour
+retrieve values of simulated objects and to manipulate their behavior
 "on-line".
 
 ## Using TraCI
@@ -15,26 +14,26 @@ retrieve values of simulated objects and to manipulate their behaviour
 ### SUMO startup
 
 TraCI uses a TCP based client/server architecture to provide access to
-[SUMO](SUMO.md). Thereby, [SUMO](SUMO.md) acts as server
+[sumo](sumo.md). Thereby, [sumo](sumo.md) acts as server
 that is started with additional command-line options: **--remote-port** {{DT_INT}} where {{DT_INT}} is the
-port [SUMO](SUMO.md) will listen on for incoming connections.
+port [sumo](sumo.md) will listen on for incoming connections.
 
-When started with the **--remote-port** {{DT_INT}} option, [SUMO](SUMO.md) only prepares the
+When started with the **--remote-port** {{DT_INT}} option, [sumo](sumo.md) only prepares the
 simulation and waits for all external applications to connect and take
 over the control. Please note, that the **--end** {{DT_TIME}} option is ignored when
-[SUMO](SUMO.md) runs as a TraCI server, [SUMO](SUMO.md)
+[sumo](sumo.md) runs as a TraCI server, [sumo](sumo.md)
 runs until the client demands a simulation end.
 
-When using [SUMO-GUI](SUMO-GUI.md) as a server, the simulation
+When using [sumo-gui](sumo-gui.md) as a server, the simulation
 must either be started by using the [*play*
-button](SUMO-GUI.md#usage_description) or by setting the option **--start**
+button](sumo-gui.md#usage_description) or by setting the option **--start**
 before TraCI commands will be processed.
 
 ### Multiple clients
 
 The number of clients which can connect can be given as an additional
 option **--num-clients** {{DT_INT}}, where 1 is the default. Please note that in multi client
-scenarios you must explicity specify the execution order of the clients
+scenarios you must explicitly specify the execution order of the clients
 using the
 [*SetOrder*-command](TraCI/Control-related_commands.md#command_0x03_setorder).
 
@@ -61,7 +60,7 @@ Types](TraCI/Protocol.md#data_types)).
   simulation step, close the connection, reload the simulation.
 
 For the following APIs, the ID is equal to the ID defined in
-[SUMO](SUMO.md)'s input files. Here, you find their [general
+[sumo](sumo.md)'s input files. Here, you find their [general
 structure](TraCI/SUMO_ID_Commands_Structure.md).
 
 - Value Retrieval
@@ -74,6 +73,9 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
   - [Multi-Entry-Exit Detectors Value
     Retrieval](TraCI/Multi-Entry-Exit_Detectors_Value_Retrieval.md)
     retrieve information about multi-entry/multi-exit detectors
+  - [Calibrator Value
+    Retrieval](TraCI/Calibrator.md)
+    retrieve information about calibrators
   - [Traffic Lights Value
     Retrieval](TraCI/Traffic_Lights_Value_Retrieval.md)
     retrieve information about traffic lights
@@ -95,6 +97,18 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
   - [Polygon Value
     Retrieval](TraCI/Polygon_Value_Retrieval.md) retrieve
     information about polygons
+  - [BusStop Value
+    Retrieval](TraCI/BusStop.md)
+    retrieve information about BusStops
+  - [Charging Station Value
+    Retrieval](TraCI/ChargingStation.md)
+    retrieve information about charging stations
+  - [Parking Area Value
+    Retrieval](TraCI/ParkingArea.md)
+    retrieve information about parking areas
+  - [Overhead Wire Value
+    Retrieval](TraCI/OverheadWire.md)
+    retrieve information about overhead wires
   - [Junction Value
     Retrieval](TraCI/Junction_Value_Retrieval.md) retrieve
     information about junctions
@@ -105,6 +119,10 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
     information about the simulation
   - [GUI Value Retrieval](TraCI/GUI_Value_Retrieval.md)
     retrieve information about the simulation visualization
+  - [Rerouter](TraCI/Rerouter.md)
+    retrieve information about the rerouter
+  - [RouteProbe](TraCI/RouteProbe.md)
+    retrieve information about the RouteProbe
 - State Changing
   - [Change Lane State](TraCI/Change_Lane_State.md) change a
     lane's state
@@ -114,7 +132,7 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
   - [Change Vehicle State](TraCI/Change_Vehicle_State.md)
     change a vehicle's state
   - [Change Person State](TraCI/Change_Person_State.md)
-    change a persons's state
+    change a persons state
   - [Change Vehicle Type
     State](TraCI/Change_VehicleType_State.md) change a
     vehicle type's state
@@ -140,7 +158,7 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
 
 ### Shutdown
 
-When using TraCI, the **--end** option of [SUMO](SUMO.md) is ignored.
+When using TraCI, the **--end** option of [sumo](sumo.md) is ignored.
 Instead the simulation is closed by issuing the [*close*
 command](TraCI/Control-related_commands.md#command_0x7f_close).
 To detect whether all route files have been exhausted and all vehicles
@@ -180,15 +198,16 @@ bindings are included when downloading a sumo-build.
 
 ### Interfaces by Programming Language
 
-- <span style="background: #ccffcc;"> Python: [the package
+- Python: [the package
   tools/traci](TraCI/Interfacing_TraCI_from_Python.md) allows
-  to interact with [SUMO](SUMO.md) using Python (This library
-  is tested daily and supports all TraCI commands)</span>
-- C++: [The C++ TraCIAPI](TraCI/C++TraCIAPI.md) is client
-  library that is part of the [SUMO](SUMO.md)-source tree (API
-  coverage is almost complete).
+  to interact with [sumo](sumo.md) using Python (This library
+  is tested daily and supports all TraCI commands).
+- C++: [libtraci](Libtraci.md) is a client library that is part of the [sumo](sumo.md)-source tree. It is fully API-compatible with [libsumo](Libsumo.md). 
+- C++: [The C++ TraCIAPI](TraCI/C++TraCIAPI.md) is a client
+  library that is part of the [sumo](sumo.md)-source tree. (API
+  coverage is almost complete but this client is no longer updated. Use libtraci instead)
 - C++: [The Veins project](http://veins.car2x.org) provides a
-  middle-ware for coupling [SUMO](SUMO.md) with
+  middle-ware for coupling [sumo](sumo.md) with
   [OMNET++](https://omnetpp.org/). As part of the infrastructure it
   provides a C++ client library for the TraCI API (API completeness is
   a bit behind the python client).
@@ -199,28 +218,24 @@ bindings are included when downloading a sumo-build.
   [TraCI4Matlab](http://www.mathworks.com/matlabcentral/fileexchange/44805-traci4matlab).
   The client is included as part of each SUMO release in
   {{SUMO}}*/tools/contributed/traci4matlab*
-  <span style="background: #ffcccc;">Not all TraCI commands have been
-  implemented</span>
+  Not all TraCI commands have been
+  implemented.
+- Java: [libtraci](Libtraci.md) is a client library that is part of the [sumo](sumo.md)-source tree. It is fully API-compatible with [libsumo](Libsumo.md) and a sumo release provides pro-compiled Java bindings (via SWIG).
 - Java: [TraaS](TraCI/TraaS.md#java_client) provides a client
-  library that is part of the [SUMO](SUMO.md)-source tree (API
-  coverage is almost complete)
-- Others: Any language that can access webservies using
-  [SOAP](https://en.wikipedia.org/wiki/SOAP) can access SUMO using the
-  [TraaS Webservice](TraCI/TraaS.md#webservice). A [Java
-  webservice client](TraCI/TraaS.md#webservice_client) is also
-  included with TraaS. <span style="background: #ffcccc;">API lags
-  behind the python client</span>
+  library that is part of the [sumo](sumo.md)-source tree (API
+  coverage is large but this client is no longer updated. Use libtraci instead)
+- Others: Any language that is supported by SWIG can in principle use the bindings provided by libsumo or libtraci
 
 ### V2X simulation
 
-TraCI allows to use [SUMO](SUMO.md) in combination with
-communication network simulators vor simulating [vehicular
+TraCI allows to use [sumo](sumo.md) in combination with
+communication network simulators for simulating [vehicular
 communication](Topics/V2X.md). See
 [Topics/V2X](Topics/V2X.md) for a list of available solutions.
 
 ### Other Resources
 
-- [SUMO](SUMO.md)'s TraCI Server is a part of the plain
+- [sumo](sumo.md)'s TraCI Server is a part of the plain
   distribution. The source code is located in the folder
   `src/traci-server`.
 
@@ -253,11 +268,11 @@ depends on many factors:
 As an example use-case consider retrieving the x,y position of each
 vehicle during every simulation step (using the python client):
 
-```
-   while traci.simulation.getMinExpectedNumber() > 0:
-       for veh_id in traci.vehicle.getIDList():
-            position = traci.vehicle.getPosition(veh_id)
-       traci.simulationStep()
+```py
+while traci.simulation.getMinExpectedNumber() > 0:
+    for veh_id in traci.vehicle.getIDList():
+         position = traci.vehicle.getPosition(veh_id)
+    traci.simulationStep()
 ```
 
 - This script is able to process about 25000 vehicles per second.
@@ -268,12 +283,12 @@ vehicle during every simulation step (using the python client):
   second by using
   [subscriptions](TraCI/Object_Variable_Subscription.md):
 
-```
-   while traci.simulation.getMinExpectedNumber() > 0: 
-       for veh_id in traci.simulation.getDepartedIDList():
-           traci.vehicle.subscribe(veh_id, [traci.constants.VAR_POSITION])
-       positions = traci.vehicle.getAllSubscriptionResults()
-       traci.simulationStep()
+```py
+while traci.simulation.getMinExpectedNumber() > 0: 
+    for veh_id in traci.simulation.getDepartedIDList():
+        traci.vehicle.subscribe(veh_id, [traci.constants.VAR_POSITION])
+    positions = traci.vehicle.getAllSubscriptionResults()
+    traci.simulationStep()
 ```
 
 When using this script on the [Bologna
@@ -291,25 +306,29 @@ The C++ client performance is higher:
 - plain position retrieval 80s
 - retrieval using subscriptions 28s
 
-## Future Development
+## Current and Future Development
 
-Currently TraCI uses a different (single byte) command IDs for every
+Historically TraCI used a different (single byte) command ID for every
 domain (induction loops, vehicle etc.) where the more significant half
 of the byte denotes the command (get, set, subscribe, ...) and the
-lesser significant the domain itself. This limits the number of domains
-to 16 which are almost used up. Although it may decrease readability of
-the constants in the future five bits will be used for the domain and
-only three for the command. Furthermore after the invention of libsumo
+lesser significant the domain itself. To allow more than the 16 domains
+resulting from this split, the most significant bit (which was unused
+until now because there were only 7 commands) is now used for the domain
+as well (and only three for the command). This allows for 28 domains 
+because four general commands (like SIMSTEP) block some available combinations.
+Currently there are only four possible domains left.
+
+Furthermore after the invention of libsumo
 some parts of the TraCI interface are so generic that it may be not so
-hard to invent a wrapper with protocal buffers which could in the long
-run replace the need for all the byte fiddling and the different hand
-crafted clients.
+hard to invent a wrapper with Apache Kafka or Google protocol buffers
+which could in the long run replace the need for all the byte fiddling 
+and the different hand crafted clients.
 
 ## Troubleshooting
 
 ### Output files are not closed.
 
-This problem occures if the client tries to access the output while
+This problem occurs if the client tries to access the output while
 the simulation is still closing down. This can be solved by letting
 the client wait for the simulation to shut down. The bug report was #524
 
@@ -317,11 +336,11 @@ the client wait for the simulation to shut down. The bug report was #524
 
 There used to be two "generations" of [TraCI](TraCI.md)
 commands. The first one mainly uses an internal mapping between the
-string-typed IDs used in [SUMO](SUMO.md) and an external
+string-typed IDs used in [sumo](sumo.md) and an external
 representation of these which is int-based. The mapping was done
 internally (within [TraCI](TraCI.md)).
 The second "generation", the current one uses string-IDs equal to
-those [SUMO](SUMO.md) reads. If you are bound to the first
+those [sumo](sumo.md) reads. If you are bound to the first
 generation API (for instance if you want to use TraNS) you can only
-use [SUMO](SUMO.md) up to version 0.12.3. See
+use [sumo](sumo.md) up to version 0.12.3. See
 [FAQ](FAQ.md) about obtaining an old version.

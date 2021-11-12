@@ -15,3 +15,6 @@ range_50_angle_0
 
 # Tries to apply lanes and field of vision filters. Should result in an incompatibility warning.
 incompatible_filter
+
+# detect and filter surrounding persons
+persons

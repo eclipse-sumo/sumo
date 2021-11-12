@@ -1,0 +1,41 @@
+# checks using the default departEdge (0)
+edge_default
+
+# checks using the explicit departEdge=0
+edge_0
+
+# checks using the explicit departEdge=2
+edge_2
+
+# checks using the explicit departEdge=5 which is the last in the route (6 edges total)
+edge_last
+
+# checks using a random depart edge along the route
+edge_random
+
+# checks using the explicit departEdge=-1
+edge_negative
+
+# checks using the explicit departEdge=10 which is beyond route size
+edge_invalid
+
+# checks using departEdge=1 with a trip
+edge_1_trip
+
+# checks using departEdge=2 with a trip
+edge_2_trip
+
+# checks using departEdge=random with a trip
+edge_random_trip
+
+# checks using departEdge=1 with a flow (from-to)
+edge_1_flow
+
+# checks using departEdge=random with a flow (from-to)
+edge_random_flow
+
+# checks using departEdge=random with a flow using a fixed route
+edge_random_routeFlow
+
+# checks using invalid departEdge with a flow using a fixed route	
+edge_invalid_routeFlow

@@ -1,12 +1,11 @@
 ---
-title: Developer/XML Validation
-permalink: /Developer/XML_Validation/
+title: XML Validation
 ---
 
 # Status Quo (2018-10-12)
 
 - The current build scripts for windows and linux execute
-[schemaCheck.py]({{Source}}tools/xml/schemaCheck.py)
+[schemaCheck.py]({{Source}}tools/build/schemaCheck.py)
 as part of the regular tool tests with results visible on the [daily
 build page](https://sumo.dlr.de/daily/) (see for instance the schema
 check tests on the very end of the [64bit linux tool tests
@@ -14,7 +13,7 @@ page](https://sumo.dlr.de/daily/gcc4_64report/tools/test_default.html)).
 - This script uses
 lxml (if
 available) or
-[Sax2Count](http://xerces.apache.org/xerces-c/sax2count-3.html) (on
+[Sax2Count](https://xerces.apache.org/xerces-c/sax2count-3.html) (on
 windows only). The latter comes together with the binary xerces
 windows distribution.
 - Only files which have a schema declaration in the root element and

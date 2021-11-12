@@ -1,24 +1,23 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    MSEmissionExport.cpp
+/// @file    MSElecHybridExport.cpp
 /// @author  Jakub Sevcik (RICE)
 /// @author  Jan Prikryl (RICE)
 /// @date    2019-11-25
 ///
 // Realises dumping Electric hybrid vehicle data
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <microsim/MSEdgeControl.h>
@@ -92,19 +91,18 @@ MSElecHybridExport::writeAggregated(OutputDevice& of, SUMOTime timestep, int pre
                 of.writeAttr(SUMO_ATTR_ACCELERATION, veh->getAcceleration());
                 // Write Distance
                 double distance = NAN;
-                MSLane* vehicleLane = veh->getLane();
+                const MSLane* vehicleLane = veh->getLane();
                 if (vehicleLane != nullptr) {
                     if (vehicleLane->isInternal()) {
                         // route edge still points to the edge before the intersection
                         const double normalEnd = (*veh->getCurrentRouteEdge())->getLength();
                         distance = (veh->getRoute().getDistanceBetween(veh->getDepartPos(), normalEnd,
-                            veh->getRoute().begin(), veh->getCurrentRouteEdge())
-                            + veh->getRoute().getDistanceBetween(normalEnd, veh->getPositionOnLane(),
-                                *veh->getCurrentRouteEdge(), &veh->getLane()->getEdge()));
-                    }
-                    else {
+                                    veh->getRoute().begin(), veh->getCurrentRouteEdge())
+                                    + veh->getRoute().getDistanceBetween(normalEnd, veh->getPositionOnLane(),
+                                            *veh->getCurrentRouteEdge(), &veh->getLane()->getEdge()));
+                    } else {
                         distance = veh->getRoute().getDistanceBetween(veh->getDepartPos(), veh->getPositionOnLane(),
-                            veh->getRoute().begin(), veh->getCurrentRouteEdge());
+                                   veh->getRoute().begin(), veh->getCurrentRouteEdge());
                     }
                 }
                 of.writeAttr(SUMO_ATTR_DISTANCE, distance);
@@ -158,7 +156,7 @@ MSElecHybridExport::write(OutputDevice& of, const SUMOVehicle* veh, SUMOTime tim
         of.writeAttr(SUMO_ATTR_OVERHEADWIREID, elecHybridToExport->getOverheadWireSegmentID());
         // Write Traction Substation ID
         of.writeAttr(SUMO_ATTR_TRACTIONSUBSTATIONID, elecHybridToExport->getTractionSubstationID());
-        
+
         // Write current from overheadwire
         of.writeAttr(SUMO_ATTR_CURRENTFROMOVERHEADWIRE, elecHybridToExport->getCurrentFromOverheadWire());
         // Write voltage of overheadwire
@@ -172,23 +170,20 @@ MSElecHybridExport::write(OutputDevice& of, const SUMOVehicle* veh, SUMOTime tim
         of.writeAttr(SUMO_ATTR_ACCELERATION, veh->getAcceleration());
         // Write Distance
         double distance;
-        const MSLane *vehLane = veh->getLane();
-        if (vehLane)
-        {
+        const MSLane* vehLane = veh->getLane();
+        if (vehLane) {
             if (vehLane->isInternal()) {
                 // route edge still points to the edge before the intersection
                 const double normalEnd = (*veh->getCurrentRouteEdge())->getLength();
                 distance = (veh->getRoute().getDistanceBetween(veh->getDepartPos(), normalEnd,
-                    veh->getRoute().begin(), veh->getCurrentRouteEdge())
-                    + veh->getRoute().getDistanceBetween(normalEnd, veh->getPositionOnLane(),
-                        *veh->getCurrentRouteEdge(), &vehLane->getEdge()));
-            }
-            else {
+                            veh->getRoute().begin(), veh->getCurrentRouteEdge())
+                            + veh->getRoute().getDistanceBetween(normalEnd, veh->getPositionOnLane(),
+                                    *veh->getCurrentRouteEdge(), &vehLane->getEdge()));
+            } else {
                 distance = veh->getRoute().getDistanceBetween(veh->getDepartPos(), veh->getPositionOnLane(),
-                    veh->getRoute().begin(), veh->getCurrentRouteEdge());
+                           veh->getRoute().begin(), veh->getCurrentRouteEdge());
             }
-        }
-        else {
+        } else {
             // typically a case of macroscopic simulation
             // @todo Probably we should interpolate the vehicle position here?
             // @todo Or write out something only in the case that the vehicle leaves the actual segment?

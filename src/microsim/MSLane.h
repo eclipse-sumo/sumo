@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSLane.h
 /// @author  Christian Roessel
@@ -20,13 +24,7 @@
 ///
 // Representation of a lane in the micro simulation
 /****************************************************************************/
-#ifndef MSLane_h
-#define MSLane_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <memory>
@@ -40,7 +38,7 @@
 #include <utils/vehicle/SUMOVehicle.h>
 #include <utils/common/NamedRTree.h>
 #include <utils/geom/PositionVector.h>
-#include "MSLinkCont.h"
+#include "MSGlobals.h"
 #include "MSLeaderInfo.h"
 #include "MSMoveReminder.h"
 #include <libsumo/Helper.h>
@@ -49,6 +47,7 @@
 #ifdef HAVE_FOX
 #include <utils/foxtools/FXWorkerThread.h>
 #endif
+#include <utils/common/StopWatch.h>
 
 
 // ===========================================================================
@@ -62,6 +61,7 @@ class MSVehicleTransfer;
 class MSVehicleControl;
 class OutputDevice;
 class MSLeaderInfo;
+
 
 // ===========================================================================
 // type definitions
@@ -90,13 +90,6 @@ public:
 
     /// Container for vehicles.
     typedef std::vector<MSVehicle*> VehCont;
-
-    /** Function-object in order to find the vehicle, that has just
-        passed the detector. */
-    struct VehPosition : public std::binary_function < const MSVehicle*, double, bool > {
-        /// compares vehicle position to the detector position
-        bool operator()(const MSVehicle* cmp, double pos) const;
-    };
 
     // TODO: Better documentation
     /// @brief AnyVehicleIterator is a structure, which manages the iteration through all vehicles on the lane,
@@ -201,25 +194,27 @@ public:
      */
     MSLane(const std::string& id, double maxSpeed, double length, MSEdge* const edge,
            int numericalID, const PositionVector& shape, double width,
-           SVCPermissions permissions, int index, bool isRampAccel,
+           SVCPermissions permissions,
+           SVCPermissions changeLeft, SVCPermissions changeRight,
+           int index, bool isRampAccel,
            const std::string& type);
 
 
     /// @brief Destructor
     virtual ~MSLane();
 
-    /// @brief sets the associated RNG index
-    void setRNGIndex(const int rngIndex) {
-        myRNGIndex = rngIndex;
+    /// @brief returns the associated thread index
+    inline int getThreadIndex() const {
+        return myRNGIndex % MSGlobals::gNumSimThreads;
     }
 
     /// @brief returns the associated RNG index
-    int getRNGIndex() const {
+    inline int getRNGIndex() const {
         return myRNGIndex;
     }
 
     /// @brief return the associated RNG
-    std::mt19937* getRNG() const {
+    SumoRNG* getRNG() const {
         return &myRNGs[myRNGIndex];
     }
 
@@ -227,6 +222,12 @@ public:
     static int getNumRNGs() {
         return (int)myRNGs.size();
     }
+
+    /// @brief save random number generator states to the given output device
+    static void saveRNGStates(OutputDevice& out);
+
+    /// @brief load random number generator state for the given rng index
+    static void loadRNGState(int index, const std::string& state);
 
     /// @name Additional initialisation
     /// @{
@@ -549,7 +550,6 @@ public:
         return myPermissions;
     }
 
-
     /** @brief Returns the lane's width
      * @return This lane's width
      */
@@ -634,17 +634,22 @@ public:
 
     /** Returns the information whether this lane may be used to continue
         the current route */
-    virtual bool appropriate(const MSVehicle* veh);
+    virtual bool appropriate(const MSVehicle* veh) const;
 
 
     /// returns the container with all links !!!
-    const MSLinkCont& getLinkCont() const;
+    const std::vector<MSLink*>& getLinkCont() const {
+        return myLinks;
+    }
 
-    /// returns the link to the given lane or 0, if it is not connected
-    MSLink* getLinkTo(const MSLane*) const;
+    /// returns the link to the given lane or nullptr, if it is not connected
+    const MSLink* getLinkTo(const MSLane* const) const;
 
-    /// Returns the entry link if this is an internal lane, else 0
-    MSLink* getEntryLink() const;
+    /// returns the internal lane leading to the given lane or nullptr, if there is none
+    const MSLane* getInternalFollowingLane(const MSLane* const) const;
+
+    /// Returns the entry link if this is an internal lane, else nullptr
+    const MSLink* getEntryLink() const;
 
 
     /// Returns true if there is not a single vehicle on the lane.
@@ -747,7 +752,7 @@ public:
         the succeeding link could not be found;
         Returns the myLinks.end() instead; Further, the number of edges to
         look forward may be given */
-    static MSLinkCont::const_iterator succLinkSec(const SUMOVehicle& veh,
+    static std::vector<MSLink*>::const_iterator succLinkSec(const SUMOVehicle& veh,
             int nRouteSuccs,
             const MSLane& succLinkSource,
             const std::vector<MSLane*>& conts);
@@ -755,24 +760,27 @@ public:
 
     /** Returns the information whether the given link shows at the end
         of the list of links (is not valid) */
-    bool isLinkEnd(MSLinkCont::const_iterator& i) const;
+    inline bool isLinkEnd(std::vector<MSLink*>::const_iterator& i) const {
+        return i == myLinks.end();
+    }
 
     /** Returns the information whether the given link shows at the end
         of the list of links (is not valid) */
-    bool isLinkEnd(MSLinkCont::iterator& i);
+    inline bool isLinkEnd(std::vector<MSLink*>::iterator& i) {
+        return i == myLinks.end();
+    }
 
     /** Returns the information whether the lane is has no vehicle and no
         partial occupation*/
-    bool isEmpty() const;
+    inline bool isEmpty() const {
+        return myVehicles.empty() && myPartialVehicles.empty();
+    }
 
     /** Returns whether the lane pertains to an internal edge*/
     bool isInternal() const;
 
     /// @brief returns the last vehicle for which this lane is responsible or 0
     MSVehicle* getLastFullVehicle() const;
-
-    /// @brief returns the first vehicle for which this lane is responsible or 0
-    MSVehicle* getFirstFullVehicle() const;
 
     /// @brief returns the last vehicle that is fully or partially on this lane
     MSVehicle* getLastAnyVehicle() const;
@@ -800,10 +808,21 @@ public:
      */
     void setPermissions(SVCPermissions permissions, long long transientID);
     void resetPermissions(long long transientID);
+    bool hadPermissionChanges() const;
 
 
     inline bool allowsVehicleClass(SUMOVehicleClass vclass) const {
         return (myPermissions & vclass) == vclass;
+    }
+
+    /** @brief Returns whether the given vehicle class may change left from this lane */
+    inline bool allowsChangingLeft(SUMOVehicleClass vclass) const {
+        return (myChangeLeft & vclass) == vclass;
+    }
+
+    /** @brief Returns whether the given vehicle class may change left from this lane */
+    inline bool allowsChangingRight(SUMOVehicleClass vclass) const {
+        return (myChangeRight & vclass) == vclass;
     }
 
     void addIncomingLane(MSLane* lane, MSLink* viaLink);
@@ -821,21 +840,19 @@ public:
 
 
     void addApproachingLane(MSLane* lane, bool warnMultiCon);
-    bool isApproachedFrom(MSEdge* const edge);
+    inline bool isApproachedFrom(MSEdge* const edge) {
+        return myApproachingLanes.find(edge) != myApproachingLanes.end();
+    }
     bool isApproachedFrom(MSEdge* const edge, MSLane* const lane);
 
     /// @brief Returns vehicle class specific stopOffset for the vehicle
-    double getStopOffset(const MSVehicle* veh) const;
+    double getVehicleStopOffset(const MSVehicle* veh) const;
 
     /// @brief Returns vehicle class specific stopOffsets
-    const std::map<SVCPermissions, double>& getStopOffsets() const {
-        return myStopOffsets;
-    };
+    const StopOffset& getLaneStopOffsets() const;
 
     /// @brief Set vehicle class specific stopOffsets
-    void setStopOffsets(std::map<SVCPermissions, double> stopOffsets) {
-        myStopOffsets = stopOffsets;
-    };
+    void setLaneStopOffset(const StopOffset &stopOffset);
 
     /// @brief return the sublane followers with the largest missing rear gap among all predecessor lanes (within dist)
     MSLeaderDistanceInfo getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
@@ -885,7 +902,12 @@ public:
 
     /// @brief Returns the immediate leaders and the distance to them (as getLeaderOnConsecutive but for the sublane case)
     void getLeadersOnConsecutive(double dist, double seen, double speed, const MSVehicle* ego,
-                                 const std::vector<MSLane*>& bestLaneConts, MSLeaderDistanceInfo& result) const;
+                                 const std::vector<MSLane*>& bestLaneConts, MSLeaderDistanceInfo& result, bool oppositeDirection = false) const;
+
+
+    /// @brief get leaders for ego on the given lane
+    void addLeaders(const MSVehicle* vehicle, double vehPos, MSLeaderDistanceInfo& result, bool oppositeDirection = false);
+
 
     /** @brief Returns the most dangerous leader and the distance to him
      *
@@ -913,11 +935,10 @@ public:
     /// @brief get all vehicles that are inlapping from consecutive edges
     MSLeaderInfo getPartialBeyond() const;
 
-    /// @brief Returns all vehicles closer than downstreamDist along the along the road network starting on the given
-    ///        position. Predecessor lanes are searched upstream for the given upstreamDistance
+    /// @brief Returns all vehicles closer than downstreamDist along the road network starting on the given
+    ///        position. Predecessor lanes are searched upstream for the given upstreamDistance.
     /// @note  Re-implementation of the corresponding method in MSDevice_SSM, which cannot be easily adapted, as it gathers
     ///        additional information for conflict lanes, etc.
-    /// @param[in] lanes - sequence of lanes to search along
     /// @param[in] startPos - start position of the search on the first lane
     /// @param[in] downstreamDist - distance to search downstream
     /// @param[in] upstreamDist - distance to search upstream
@@ -933,7 +954,7 @@ public:
 
     /// @brief Returns all upcoming junctions within given range along the given (non-internal) continuation lanes measured from given position
     std::vector<const MSJunction*> getUpcomingJunctions(double pos, double range, const std::vector<MSLane*>& contLanes) const;
-    /// @brief Returns all upcoming junctions within given range along the given (non-internal) continuation lanes measured from given position
+    /// @brief Returns all upcoming links within given range along the given (non-internal) continuation lanes measured from given position
     std::vector<const MSLink*> getUpcomingLinks(double pos, double range, const std::vector<MSLane*>& contLanes) const;
 
     /** @brief get the most likely precedecessor lane (sorted using by_connections_to_sorter).
@@ -982,6 +1003,9 @@ public:
      * @return The average speed of vehicles during the last step; default speed if no vehicle was on this lane
      */
     double getMeanSpeed() const;
+
+    /// @brief get the mean speed of all bicycles on this lane
+    double getMeanSpeedBike() const;
 
     /** @brief Returns the overall waiting time on this lane
     * @return The sum of the waiting time of all vehicles during the last step;
@@ -1085,8 +1109,11 @@ public:
     /// @brief sorts myManeuverReservations
     void sortManeuverReservations();
 
-    /// @brief return the opposite direction lane for lane changing or 0
+    /// @brief return the neighboring opposite direction lane for lane changing or nullptr
     MSLane* getOpposite() const;
+
+    /// @brief return the opposite direction lane of this lanes edge or nullptr
+    MSLane* getParallelOpposite() const;
 
     /// @brief return the corresponding position on the opposite lane
     double getOppositePos(double pos) const;
@@ -1117,13 +1144,13 @@ public:
 
 
     ///@brief add parking vehicle. This should only used during state loading
-    void addParking(MSVehicle* veh);
+    void addParking(MSBaseVehicle* veh);
 
     ///@brief remove parking vehicle. This must be syncrhonized when running with GUI
-    virtual void removeParking(MSVehicle* veh);
+    virtual void removeParking(MSBaseVehicle* veh);
 
     /// @brief retrieve the parking vehicles (see GUIParkingArea)
-    const std::set<const MSVehicle*>& getParkingVehicles() const {
+    const std::set<const MSBaseVehicle*>& getParkingVehicles() const {
         return myParkingVehicles;
     }
 
@@ -1155,6 +1182,10 @@ public:
     }
 #endif
 
+    std::vector<StopWatch<std::chrono::nanoseconds> >& getStopWatch() {
+        return myStopWatch;
+    }
+
     void changeLanes(const SUMOTime time);
 
     /// @name State saving/loading
@@ -1169,6 +1200,9 @@ public:
      */
     void saveState(OutputDevice& out);
 
+    /** @brief Remove all vehicles before quick-loading state */
+    void clearState();
+
     /** @brief Loads the state of this segment with the given parameters
      *
      * This method is called for every internal que the segment has.
@@ -1181,6 +1215,12 @@ public:
      * @todo What about throwing an error if something else fails (a vehicle can not be referenced)?
      */
     void loadState(const std::vector<std::string>& vehIDs, MSVehicleControl& vc);
+
+
+    /* @brief helper function for state saving: checks whether any outgoing
+     * links are being approached */
+    bool hasApproaching() const;
+
     /// @}
 
 
@@ -1195,11 +1235,19 @@ public:
         cont.add(this);
     }
 
-    static void initCollisionOptions(const OptionsCont& oc);
+    /// @brief whether the lane has pedestrians on it
+    bool hasPedestrians() const;
 
-    static bool teleportOnCollision() {
-        return myCollisionAction == COLLISION_ACTION_TELEPORT;
-    }
+    /// This is just a wrapper around MSPModel::nextBlocking. You should always check using hasPedestrians before calling this method.
+    std::pair<const MSPerson*, double> nextBlocking(double minPos, double minRight, double maxLeft, double stopTime = 0) const;
+
+    /// @brief return the empty space up to the last standing vehicle or the empty space on the whole lane if no vehicle is standing
+    double getSpaceTillLastStanding(const MSVehicle* ego, bool& foundStopped) const;
+
+    /// @brief compute maximum braking distance on this lane
+    double getMaximumBrakeDist() const;
+
+    static void initCollisionOptions(const OptionsCont& oc);
 
     static CollisionAction getCollisionAction() {
         return myCollisionAction;
@@ -1237,13 +1285,10 @@ protected:
                                 std::set<const MSVehicle*, ComparatorNumericalIdLess>& toTeleport) const;
 
     /// @brief take action upon collision
-    void handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVehicle* collider, MSVehicle* victim,
+    void handleCollisionBetween(SUMOTime timestep, const std::string& stage, const MSVehicle* collider, const MSVehicle* victim,
                                 double gap, double latGap,
                                 std::set<const MSVehicle*, ComparatorNumericalIdLess>& toRemove,
                                 std::set<const MSVehicle*, ComparatorNumericalIdLess>& toTeleport) const;
-
-    /// @brief compute maximum braking distance on this lane
-    double getMaximumBrakeDist() const;
 
     /* @brief determine depart speed and whether it may be patched
      * @param[in] veh The departing vehicle
@@ -1264,6 +1309,9 @@ protected:
 
     /// @brief check whether pedestrians on this lane interfere with vehicle insertion
     bool checkForPedestrians(const MSVehicle* aVehicle, double& speed, double& dist, double pos, bool patchSpeed) const;
+
+    /// @brief check whether any of the outgoing links are being approached
+    bool hasApproaching(const std::vector<MSLink*>& links) const;
 
     /// Unique numerical ID (set on reading by netload)
     int myNumericalID;
@@ -1318,7 +1366,7 @@ protected:
     /* @brief list of vehicles that are parking near this lane
      * (not necessarily on the road but having reached their stop on this lane)
      * */
-    std::set<const MSVehicle*> myParkingVehicles;
+    std::set<const MSBaseVehicle*> myParkingVehicles;
 
     /// Lane length [m]
     double myLength;
@@ -1329,7 +1377,7 @@ protected:
     /// Lane's vClass specific stop offset [m]. The map is either of length 0, which means no
     /// special stopOffset was set, or of length 1, where the key is a bitset representing a subset
     /// of the SUMOVehicleClass Enum and the value is the offset in meters.
-    std::map<SVCPermissions, double> myStopOffsets;
+    StopOffset myLaneStopOffset;
 
     /// The lane's edge, for routing only.
     MSEdge* const myEdge;
@@ -1339,6 +1387,10 @@ protected:
 
     /// The vClass permissions for this lane
     SVCPermissions myPermissions;
+
+    /// The vClass permissions for changing from this lane
+    SVCPermissions myChangeLeft;
+    SVCPermissions myChangeRight;
 
     /// The original vClass permissions for this lane (before temporary modifications)
     SVCPermissions myOriginalPermissions;
@@ -1372,7 +1424,7 @@ protected:
 
     /** The lane's Links to it's succeeding lanes and the default
         right-of-way rule, i.e. blocked or not blocked. */
-    MSLinkCont myLinks;
+    std::vector<MSLink*> myLinks;
 
     /// All direct internal and direct (disregarding internal predecessors) non-internal predecessor lanes of this lane
     std::map<MSEdge*, std::vector<MSLane*> > myApproachingLanes;
@@ -1419,7 +1471,7 @@ protected:
     /// Static dictionary to associate string-ids with objects.
     static DictType myDict;
 
-    static std::vector<std::mt19937> myRNGs;
+    static std::vector<SumoRNG> myRNGs;
 
 private:
     /// @brief This lane's move reminder
@@ -1428,8 +1480,10 @@ private:
     /// @brief the action to take on collisions
     static CollisionAction myCollisionAction;
     static bool myCheckJunctionCollisions;
+    static double myCheckJunctionCollisionMinGap;
     static SUMOTime myCollisionStopTime;
     static double myCollisionMinGapFactor;
+    static bool myExtrapolateSubstepDepart;
 
     /**
      * @class vehicle_position_sorter
@@ -1490,7 +1544,7 @@ private:
         int operator()(const MSEdge* const e1, const MSEdge* const e2) const;
 
     private:
-        by_connections_to_sorter& operator=(const by_connections_to_sorter&); // just to avoid a compiler warning
+        by_connections_to_sorter& operator=(const by_connections_to_sorter&) = delete; // just to avoid a compiler warning
     private:
         const MSEdge* const myEdge;
         double myLaneDir;
@@ -1511,7 +1565,7 @@ private:
         int operator()(const IncomingLaneInfo& lane1, const IncomingLaneInfo& lane2) const;
 
     private:
-        incoming_lane_priority_sorter& operator=(const incoming_lane_priority_sorter&); // just to avoid a compiler warning
+        incoming_lane_priority_sorter& operator=(const incoming_lane_priority_sorter&) = delete; // just to avoid a compiler warning
     private:
         const MSLane* const myLane;
         double myLaneDir;
@@ -1531,9 +1585,8 @@ private:
         int operator()(const MSLink* link1, const MSLink* link2) const;
 
     private:
-        outgoing_lane_priority_sorter& operator=(const outgoing_lane_priority_sorter&); // just to avoid a compiler warning
+        outgoing_lane_priority_sorter& operator=(const outgoing_lane_priority_sorter&) = delete; // just to avoid a compiler warning
     private:
-        const MSLane* const myLane;
         double myLaneDir;
     };
 
@@ -1547,7 +1600,7 @@ private:
             return &(ili.lane->getEdge()) == myEdge;
         }
     private:
-        edge_finder& operator=(const edge_finder&); // just to avoid a compiler warning
+        edge_finder& operator=(const edge_finder&) = delete; // just to avoid a compiler warning
     private:
         const MSEdge* const myEdge;
     };
@@ -1592,18 +1645,14 @@ private:
     /// @brief Mutex for access to the cached follower info value
     mutable FXMutex myPartialOccupatorMutex;
 #endif
+    std::vector<StopWatch<std::chrono::nanoseconds> > myStopWatch;
+
 private:
     /// @brief invalidated copy constructor
-    MSLane(const MSLane&);
+    MSLane(const MSLane&) = delete;
 
     /// @brief invalidated assignment operator
-    MSLane& operator=(const MSLane&);
+    MSLane& operator=(const MSLane&) = delete;
 
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

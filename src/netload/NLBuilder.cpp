@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NLBuilder.cpp
 /// @author  Daniel Krajzewicz
@@ -15,11 +19,6 @@
 ///
 // The main interface for loading a microsim
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <iostream>
@@ -30,7 +29,6 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/SystemFrame.h>
-#include <utils/iodevices/BinaryInputDevice.h>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
@@ -49,6 +47,7 @@
 #include <microsim/MSVehicleTransfer.h>
 #include <microsim/MSNet.h>
 #include <microsim/devices/MSDevice.h>
+#include <microsim/devices/MSDevice_ToC.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/output/MSDetectorControl.h>
@@ -56,6 +55,7 @@
 #include <microsim/MSEdgeWeightsStorage.h>
 #include <microsim/MSStateHandler.h>
 #include <microsim/MSDriverState.h>
+#include <microsim/trigger/MSTriggeredRerouter.h>
 #include <traci-server/TraCIServer.h>
 
 #include "NLHandler.h"
@@ -126,13 +126,30 @@ NLBuilder::build() {
         throw ProcessError("Invalid network, no network version declared.");
     }
     // check whether the loaded net agrees with the simulation options
-    if (myOptions.getBool("no-internal-links") && myXMLHandler.haveSeenInternalEdge()) {
-        WRITE_WARNING("Network contains internal links but option --no-internal-links is set. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.");
+    if ((myOptions.getBool("no-internal-links") || myOptions.getBool("mesosim")) && myXMLHandler.haveSeenInternalEdge() && myXMLHandler.haveSeenDefaultLength()) {
+        WRITE_WARNING("Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.");
     }
     buildNet();
     // @note on loading order constraints:
     // - additional-files before route-files and state-files due to referencing
     // - additional-files before weight-files since the latter might contain intermodal edge data and the intermodal net depends on the stops and public transport from the additionals
+
+    bool stateBeginMismatch = false;
+    if (myOptions.isSet("load-state")) {
+        // first, load only the time
+        const SUMOTime stateTime = MSStateHandler::MSStateTimeHandler::getTime(myOptions.getString("load-state"));
+        if (myOptions.isDefault("begin")) {
+            myOptions.set("begin", time2string(stateTime));
+            if (TraCIServer::getInstance() != nullptr) {
+                TraCIServer::getInstance()->stateLoaded(stateTime);
+            }
+        } else {
+            if (stateTime != string2time(myOptions.getString("begin"))) {
+                WRITE_WARNING("State was written at a different time " + time2string(stateTime) + " than the begin time " + myOptions.getString("begin") + "!");
+                stateBeginMismatch = true;
+            }
+        }
+    }
 
     // load additional net elements (sources, detectors, ...)
     if (myOptions.isSet("additional-files")) {
@@ -146,6 +163,49 @@ NLBuilder::build() {
         }
         if (myXMLHandler.haveSeenAdditionalSpeedRestrictions()) {
             myNet.getEdgeControl().setAdditionalRestrictions();
+        }
+        if (MSGlobals::gUseMesoSim && myXMLHandler.haveSeenMesoEdgeType()) {
+            myNet.getEdgeControl().setMesoTypes();
+            for (MSTrafficLightLogic* tll : myNet.getTLSControl().getAllLogics()) {
+                tll->initMesoTLSPenalties();
+            }
+        }
+        MSTriggeredRerouter::checkParkingRerouteConsistency();
+    }
+    if (stateBeginMismatch && myNet.getVehicleControl().getLoadedVehicleNo() > 0) {
+        throw ProcessError("Loading vehicles ahead of a state file is not supported. Correct --begin option or load vehicles with option --route-files");
+    }
+
+    if (myOptions.getBool("junction-taz")) {
+        // create a TAZ for every junction
+        const MSJunctionControl& junctions = myNet.getJunctionControl();
+        for (auto it = junctions.begin(); it != junctions.end(); it++) {
+            const std::string sinkID = it->first + "-sink";
+            const std::string sourceID = it->first + "-source";
+            if (MSEdge::dictionary(sinkID) == nullptr && MSEdge::dictionary(sourceID) == nullptr) {
+                // sink must be built and addd before source
+                MSEdge* sink = myEdgeBuilder.buildEdge(sinkID, SumoXMLEdgeFunc::CONNECTOR, "", "", -1, 0);
+                MSEdge* source = myEdgeBuilder.buildEdge(sourceID, SumoXMLEdgeFunc::CONNECTOR, "", "", -1, 0);
+                sink->setOtherTazConnector(source);
+                source->setOtherTazConnector(sink);
+                MSEdge::dictionary(sinkID, sink);
+                MSEdge::dictionary(sourceID, source);
+                sink->initialize(new std::vector<MSLane*>());
+                source->initialize(new std::vector<MSLane*>());
+                const MSJunction* junction = it->second;
+                for (const MSEdge* edge : junction->getIncoming()) {
+                    if (!edge->isInternal()) {
+                        const_cast<MSEdge*>(edge)->addSuccessor(sink);
+                    }
+                }
+                for (const MSEdge* edge : junction->getOutgoing()) {
+                    if (!edge->isInternal()) {
+                        source->addSuccessor(const_cast<MSEdge*>(edge));
+                    }
+                }
+            } else {
+                WRITE_WARNINGF("A TAZ with id '%' already exists. Not building junction TAZ.", it->first)
+            }
         }
     }
     // load weights if wished
@@ -186,17 +246,8 @@ NLBuilder::build() {
         long before = PROGRESS_BEGIN_TIME_MESSAGE("Loading state from '" + f + "'");
         MSStateHandler h(f, string2time(myOptions.getString("load-state.offset")));
         XMLSubSys::runParser(h, f);
-        if (myOptions.isDefault("begin")) {
-            myOptions.set("begin", time2string(h.getTime()));
-            if (TraCIServer::getInstance() != nullptr) {
-                TraCIServer::getInstance()->setTargetTime(h.getTime());
-            }
-        }
         if (MsgHandler::getErrorInstance()->wasInformed()) {
             return false;
-        }
-        if (h.getTime() != string2time(myOptions.getString("begin"))) {
-            WRITE_WARNING("State was written at a different time " + time2string(h.getTime()) + " than the begin time " + myOptions.getString("begin") + "!");
         }
         PROGRESS_TIME_MESSAGE(before);
     }
@@ -216,7 +267,7 @@ NLBuilder::build() {
 
 
 MSNet*
-NLBuilder::init() {
+NLBuilder::init(const bool isLibsumo) {
     OptionsCont& oc = OptionsCont::getOptions();
     oc.clear();
     MSFrame::fillOptions();
@@ -225,7 +276,8 @@ NLBuilder::init() {
         SystemFrame::close();
         return nullptr;
     }
-    XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"));
+    SystemFrame::checkOptions();
+    XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"), oc.getString("xml-validation.routes"));
     if (!MSFrame::checkOptions()) {
         throw ProcessError();
     }
@@ -245,8 +297,11 @@ NLBuilder::init() {
         vc = new MSVehicleControl();
     }
     MSNet* net = new MSNet(vc, new MSEventControl(), new MSEventControl(), new MSEventControl());
-    // need to init TraCI-Server before loading routes to catch VEHICLE_STATE_BUILT
+    // need to init TraCI-Server before loading routes to catch VehicleState::BUILT
     TraCIServer::openSocket(std::map<int, TraCIServer::CmdExecutor>());
+    if (isLibsumo) {
+        libsumo::Helper::registerVehicleStateListener();
+    }
 
     NLEdgeControlBuilder eb;
     NLDetectorBuilder db(*net);
@@ -273,6 +328,7 @@ NLBuilder::initRandomness() {
     RandHelper::initRandGlobal(MSRouteHandler::getParsingRNG());
     RandHelper::initRandGlobal(MSDevice::getEquipmentRNG());
     RandHelper::initRandGlobal(OUProcess::getRNG());
+    RandHelper::initRandGlobal(MSDevice_ToC::getResponseTimeRNG());
     MSLane::initRNGs(OptionsCont::getOptions());
 }
 
@@ -291,20 +347,21 @@ NLBuilder::buildNet() {
         junctions->postloadInitContainer();
         routeLoaders = buildRouteLoaderControl(myOptions);
         tlc = myJunctionBuilder.buildTLLogics();
-        const std::vector<int> times = myOptions.getIntVector("save-state.times");
-        for (std::vector<int>::const_iterator i = times.begin(); i != times.end(); ++i) {
-            stateDumpTimes.push_back(TIME2STEPS(*i));
+        for (std::string timeStr : myOptions.getStringVector("save-state.times")) {
+            stateDumpTimes.push_back(string2time(timeStr));
         }
         if (myOptions.isSet("save-state.files")) {
             stateDumpFiles = myOptions.getStringVector("save-state.files");
             if (stateDumpFiles.size() != stateDumpTimes.size()) {
-                WRITE_ERROR("Wrong number of state file names!");
+                throw ProcessError("Wrong number of state file names!");
             }
         } else {
             const std::string prefix = myOptions.getString("save-state.prefix");
             const std::string suffix = myOptions.getString("save-state.suffix");
             for (std::vector<SUMOTime>::iterator i = stateDumpTimes.begin(); i != stateDumpTimes.end(); ++i) {
-                stateDumpFiles.push_back(prefix + "_" + time2string(*i) + suffix);
+                std::string timeStamp = time2string(*i);
+                std::replace(timeStamp.begin(), timeStamp.end(), ':', '-');
+                stateDumpFiles.push_back(prefix + "_" + timeStamp + suffix);
             }
         }
     } catch (IOError& e) {
@@ -323,8 +380,7 @@ NLBuilder::buildNet() {
     // if anthing goes wrong after this point, the net is responsible for cleaning up
     myNet.closeBuilding(myOptions, edges, junctions, routeLoaders, tlc, stateDumpTimes, stateDumpFiles,
                         myXMLHandler.haveSeenInternalEdge(),
-                        myXMLHandler.haveSeenNeighs(),
-                        myXMLHandler.lefthand(),
+                        myXMLHandler.hasJunctionHigherSpeeds(),
                         myXMLHandler.networkVersion());
 }
 

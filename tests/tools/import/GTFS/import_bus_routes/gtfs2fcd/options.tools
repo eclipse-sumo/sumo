@@ -1,0 +1,1 @@
+--gtfs gtfs.zip --date 20201111 --modes bus --fcd output --vtype-output vehtypes.xml --gpsdat output tools/import/gtfs/gtfs2fcd.py

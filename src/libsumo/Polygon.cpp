@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    Polygon.cpp
 /// @author  Gregor L\"ammel
@@ -13,15 +17,10 @@
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <microsim/MSNet.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSVehicleControl.h>
-#include <microsim/MSTransportableControl.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/MSDynamicShapeUpdater.h>
 #include <libsumo/TraCIConstants.h>
 #include <utils/shapes/SUMOPolygon.h>
@@ -39,6 +38,7 @@ namespace libsumo {
 // ===========================================================================
 SubscriptionResults Polygon::mySubscriptionResults;
 ContextSubscriptionResults Polygon::myContextSubscriptionResults;
+NamedRTree* Polygon::myTree(nullptr);
 
 
 // ===========================================================================
@@ -95,6 +95,9 @@ Polygon::getParameter(const std::string& polygonID, const std::string& key) {
 }
 
 
+LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(Polygon)
+
+
 void
 Polygon::setType(const std::string& polygonID, const std::string& setType) {
     SUMOPolygon* p = getPolygon(polygonID);
@@ -125,6 +128,13 @@ Polygon::add(const std::string& polygonID, const TraCIPositionVector& shape, con
     if (!shapeCont.addPolygon(polygonID, polygonType, col, (double)layer, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, pShape, false, fill, lineWidth)) {
         throw TraCIException("Could not add polygon '" + polygonID + "'");
     }
+    if (myTree != nullptr) {
+        SUMOPolygon* p = shapeCont.getPolygons().get(polygonID);
+        Boundary b = p->getShape().getBoxBoundary();
+        const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
+        const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
+        myTree->Insert(cmin, cmax, p);
+    }
 }
 
 
@@ -136,9 +146,9 @@ Polygon::addHighlightPolygon(const std::string& objectID, const int type, const 
 
 
 void
-Polygon::addDynamics(const std::string& polygonID, const std::string& trackedID, const std::vector<double>& timeSpan, const std::vector<double>& alphaSpan, bool looped, bool rotate) {
+Polygon::addDynamics(const std::string& polygonID, const std::string& trackedObjectID, const std::vector<double>& timeSpan, const std::vector<double>& alphaSpan, bool looped, bool rotate) {
     if (timeSpan.empty()) {
-        if (trackedID == "") {
+        if (trackedObjectID == "") {
             throw TraCIException("Could not add polygon dynamics for polygon '" + polygonID + "': dynamics underspecified (either a tracked object ID or a time span have to be provided).");
         }
         if (looped) {
@@ -161,7 +171,7 @@ Polygon::addDynamics(const std::string& polygonID, const std::string& trackedID,
         }
     }
 
-    SUMOTrafficObject* obj = getTrafficObject(trackedID);
+    SUMOTrafficObject* obj = getTrafficObject(trackedObjectID);
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
     PolygonDynamics* pd = shapeCont.addPolygonDynamics(SIMTIME, polygonID, obj, timeSpan, alphaSpan, looped, rotate);
     if (pd == nullptr) {
@@ -184,6 +194,15 @@ void
 Polygon::remove(const std::string& polygonID, int /* layer */) {
     // !!! layer not used yet (shouldn't the id be enough?)
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
+    if (myTree != nullptr) {
+        SUMOPolygon* p = shapeCont.getPolygons().get(polygonID);
+        if (p != nullptr) {
+            Boundary b = p->getShape().getBoxBoundary();
+            const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
+            const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
+            myTree->Remove(cmin, cmax, p);
+        }
+    }
     if (!shapeCont.removePolygon(polygonID)) {
         throw TraCIException("Could not remove polygon '" + polygonID + "'");
     }
@@ -245,17 +264,24 @@ LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Polygon, POLYGON)
 
 NamedRTree*
 Polygon::getTree() {
-    NamedRTree* t = new NamedRTree();
-    ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    for (const auto& i : shapeCont.getPolygons()) {
-        Boundary b = i.second->getShape().getBoxBoundary();
-        const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
-        const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
-        t->Insert(cmin, cmax, i.second);
+    if (myTree == nullptr) {
+        myTree = new NamedRTree();
+        ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
+        for (const auto& i : shapeCont.getPolygons()) {
+            Boundary b = i.second->getShape().getBoxBoundary();
+            const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
+            const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
+            myTree->Insert(cmin, cmax, i.second);
+        }
     }
-    return t;
+    return myTree;
 }
 
+void
+Polygon::cleanup() {
+    delete myTree;
+    myTree = nullptr;
+}
 
 void
 Polygon::storeShape(const std::string& id, PositionVector& shape) {
@@ -270,7 +296,7 @@ Polygon::makeWrapper() {
 
 
 bool
-Polygon::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+Polygon::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData) {
     switch (variable) {
         case TRACI_ID_LIST:
             return wrapper->wrapStringList(objID, variable, getIDList());
@@ -284,6 +310,14 @@ Polygon::handleVariable(const std::string& objID, const int variable, VariableWr
             return wrapper->wrapInt(objID, variable, getFilled(objID));
         case VAR_WIDTH:
             return wrapper->wrapDouble(objID, variable, getLineWidth(objID));
+        case VAR_SHAPE:
+            return wrapper->wrapPositionVector(objID, variable, getShape(objID));
+        case libsumo::VAR_PARAMETER:
+            paramData->readUnsignedByte();
+            return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));
+        case libsumo::VAR_PARAMETER_WITH_KEY:
+            paramData->readUnsignedByte();
+            return wrapper->wrapStringPair(objID, variable, getParameterWithKey(objID, paramData->readString()));
         default:
             return false;
     }
@@ -295,7 +329,6 @@ Polygon::exists(std::string polyID) {
     SUMOPolygon* p = MSNet::getInstance()->getShapeContainer().getPolygons().get(polyID);
     return p != nullptr;
 }
-
 }
 
 

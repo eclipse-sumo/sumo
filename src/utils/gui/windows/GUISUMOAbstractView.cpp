@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUISUMOAbstractView.cpp
 /// @author  Daniel Krajzewicz
@@ -17,11 +21,6 @@
 ///
 // The base class for a view
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <iostream>
@@ -124,7 +123,7 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite* p, GUIMainWindow& app, GUI
     FXGLCanvas(p, glVis, share, p, MID_GLCANVAS, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0),
     myApp(&app),
     myParent(parent),
-    myGrid(&((SUMORTree&)grid)),
+    myGrid(&grid),
     myChanger(nullptr),
     myMouseHotspotX(app.getDefaultCursor()->getHotX()),
     myMouseHotspotY(app.getDefaultCursor()->getHotY()),
@@ -135,7 +134,8 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite* p, GUIMainWindow& app, GUI
     myViewportChooser(nullptr),
     myWindowCursorPositionX(getWidth() / 2),
     myWindowCursorPositionY(getHeight() / 2),
-    myVisualizationChanger(nullptr) {
+    myVisualizationChanger(nullptr),
+    myFrameDrawTime(0) {
     setTarget(this);
     enable();
     flags |= FLAG_ENABLED;
@@ -232,12 +232,6 @@ GUISUMOAbstractView::addDecals(const std::vector<Decal>& decals) {
 }
 
 
-GUIVisualizationSettings*
-GUISUMOAbstractView::getVisualisationSettings() {
-    return myVisualizationSettings;
-}
-
-
 void
 GUISUMOAbstractView::updatePositionInformation() const {
     Position pos = getPositionInformation();
@@ -305,12 +299,9 @@ GUISUMOAbstractView::paintGL() {
 
     Boundary bound = applyGLTransform();
     doPaintGL(GL_RENDER, bound);
-    if (myVisualizationSettings->showSizeLegend) {
-        displayLegend();
-    }
-    if (myVisualizationSettings->showColorLegend) {
-        displayColorLegend();
-    }
+    GLHelper::checkCounterMatrix();
+    GLHelper::checkCounterName();
+    displayLegends();
     const long end = SysUtils::getCurrentMillis();
     myFrameDrawTime = end - start;
     if (myVisualizationSettings->fps) {
@@ -338,18 +329,14 @@ GUISUMOAbstractView::getObjectsUnderCursor() {
 
 
 std::vector<GUIGlObject*>
-GUISUMOAbstractView::getGUIGlObjectsUnderGrippedCursor() {
-    if (myVisualizationSettings->showGrid) {
-        return getGUIGlObjectsAtPosition(snapToActiveGrid(getPositionInformation()), SENSITIVITY);
-    } else {
-        return getGUIGlObjectsAtPosition(getPositionInformation(), SENSITIVITY);
-    }
+GUISUMOAbstractView::getGUIGlObjectsUnderCursor() {
+    return getGUIGlObjectsAtPosition(getPositionInformation(), SENSITIVITY);
 }
 
 
 std::vector<GUIGlObject*>
-GUISUMOAbstractView::getGUIGlObjectsUnderCursor() {
-    return getGUIGlObjectsAtPosition(getPositionInformation(), SENSITIVITY);
+GUISUMOAbstractView::getGUIGlObjectsUnderSnappedCursor() {
+    return getGUIGlObjectsAtPosition(snapToActiveGrid(getPositionInformation()), SENSITIVITY);
 }
 
 
@@ -488,12 +475,9 @@ GUISUMOAbstractView::getObjectsInBoundary(Boundary bound, bool singlePosition) {
         myVisualizationSettings->drawForRectangleSelection = true;
     }
     int hits2 = doPaintGL(GL_SELECT, bound);
-    // disable draw for selecting (to draw objects with less details)
-    if (singlePosition) {
-        myVisualizationSettings->drawForPositionSelection = false;
-    } else {
-        myVisualizationSettings->drawForRectangleSelection = false;
-    }
+    // reset flags
+    myVisualizationSettings->drawForPositionSelection = false;
+    myVisualizationSettings->drawForRectangleSelection = false;
     // Get the results
     nb_hits = glRenderMode(GL_RENDER);
     if (nb_hits == -1) {
@@ -539,38 +523,38 @@ GUISUMOAbstractView::showToolTipFor(const GUIGlID id) {
 void
 GUISUMOAbstractView::paintGLGrid() {
     // obtain minimum grid
-    double minimumSizeGrid = (myVisualizationSettings->gridXSize < myVisualizationSettings->gridYSize) ? myVisualizationSettings->gridXSize : myVisualizationSettings->gridYSize;
+    const double minimumSizeGrid = (myVisualizationSettings->gridXSize < myVisualizationSettings->gridYSize) ? myVisualizationSettings->gridXSize : myVisualizationSettings->gridYSize;
     // Check if the distance is enought to draw grid
     if (myVisualizationSettings->scale * myVisualizationSettings->addSize.getExaggeration(*myVisualizationSettings, nullptr) >= (25 / minimumSizeGrid)) {
         glEnable(GL_DEPTH_TEST);
         glLineWidth(1);
         // get multiplication values (2 is the marging)
-        int multXmin = (int)(myChanger->getViewport().xmin() / myVisualizationSettings->gridXSize) - 2;
-        int multYmin = (int)(myChanger->getViewport().ymin() / myVisualizationSettings->gridYSize) - 2;
-        int multXmax = (int)(myChanger->getViewport().xmax() / myVisualizationSettings->gridXSize) + 2;
-        int multYmax = (int)(myChanger->getViewport().ymax() / myVisualizationSettings->gridYSize) + 2;
+        const int multXmin = (int)(myChanger->getViewport().xmin() / myVisualizationSettings->gridXSize) - 2;
+        const int multYmin = (int)(myChanger->getViewport().ymin() / myVisualizationSettings->gridYSize) - 2;
+        const int multXmax = (int)(myChanger->getViewport().xmax() / myVisualizationSettings->gridXSize) + 2;
+        const int multYmax = (int)(myChanger->getViewport().ymax() / myVisualizationSettings->gridYSize) + 2;
         // obtain references
-        double xmin = myVisualizationSettings->gridXSize * multXmin;
-        double ymin = myVisualizationSettings->gridYSize * multYmin;
-        double xmax = myVisualizationSettings->gridXSize * multXmax;
-        double ymax = myVisualizationSettings->gridYSize * multYmax;
-        double xpos = xmin;
-        double ypos = ymin;
+        const double xmin = myVisualizationSettings->gridXSize * multXmin;
+        const double ymin = myVisualizationSettings->gridYSize * multYmin;
+        const double xmax = myVisualizationSettings->gridXSize * multXmax;
+        const double ymax = myVisualizationSettings->gridYSize * multYmax;
+        double xp = xmin;
+        double yp = ymin;
         // move drawing matrix
         glTranslated(0, 0, .55);
         glColor3d(0.5, 0.5, 0.5);
         // draw horizontal lines
         glBegin(GL_LINES);
-        while (ypos <= ymax) {
-            glVertex2d(xmin, ypos);
-            glVertex2d(xmax, ypos);
-            ypos += myVisualizationSettings->gridYSize;
+        while (yp <= ymax) {
+            glVertex2d(xmin, yp);
+            glVertex2d(xmax, yp);
+            yp += myVisualizationSettings->gridYSize;
         }
         // draw vertical lines
-        while (xpos <= xmax) {
-            glVertex2d(xpos, ymin);
-            glVertex2d(xpos, ymax);
-            xpos += myVisualizationSettings->gridXSize;
+        while (xp <= xmax) {
+            glVertex2d(xp, ymin);
+            glVertex2d(xp, ymax);
+            xp += myVisualizationSettings->gridXSize;
         }
         glEnd();
         glTranslated(0, 0, -.55);
@@ -596,10 +580,10 @@ GUISUMOAbstractView::displayLegend() {
     glLineWidth(1.0);
 
     glMatrixMode(GL_PROJECTION);
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glLoadIdentity();
     glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glLoadIdentity();
 
     // draw the scale bar
@@ -608,7 +592,7 @@ GUISUMOAbstractView::displayLegend() {
     glDisable(GL_ALPHA_TEST);
     glDisable(GL_BLEND);
     glEnable(GL_DEPTH_TEST);
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glTranslated(0, 0, z);
 
     double len = (double) pixelSize / (double)(getWidth() - 1) * (double) 2.0;
@@ -627,7 +611,7 @@ GUISUMOAbstractView::displayLegend() {
     glVertex2d(-.98 + len, -1. + o);
     glVertex2d(-.98 + len, -1. + o2);
     glEnd();
-    glPopMatrix();
+    GLHelper::popMatrix();
 
     const double fontHeight = 0.1 * 300. / getHeight();
     const double fontWidth = 0.1 * 300. / getWidth();
@@ -639,39 +623,63 @@ GUISUMOAbstractView::displayLegend() {
 
     // restore matrices
     glMatrixMode(GL_PROJECTION);
-    glPopMatrix();
+    GLHelper::popMatrix();
     glMatrixMode(GL_MODELVIEW);
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 void
-GUISUMOAbstractView::displayColorLegend() {
+GUISUMOAbstractView::displayLegends() {
+    if (myVisualizationSettings->showSizeLegend) {
+        displayLegend();
+    }
+    if (myVisualizationSettings->showColorLegend) {
+        displayColorLegend(myVisualizationSettings->getLaneEdgeScheme(), false);
+    }
+    if (myVisualizationSettings->showVehicleColorLegend) {
+        displayColorLegend(myVisualizationSettings->vehicleColorer.getScheme(), true);
+    }
+}
+
+void
+GUISUMOAbstractView::displayColorLegend(const GUIColorScheme& scheme, bool leftSide) {
     // compute the scale bar length
     glLineWidth(1.0);
     glMatrixMode(GL_PROJECTION);
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glLoadIdentity();
     glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glLoadIdentity();
 
     const double z = -1;
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glTranslated(0, 0, z);
 
-    GUIColorScheme& scheme = myVisualizationSettings->getLaneEdgeScheme();
     const bool fixed = scheme.isFixed();
     const int numColors = (int)scheme.getColors().size();
 
     // vertical
-    const double right = 0.98;
-    const double left = 0.95;
+    double right = 0.98;
+    double left = 0.95;
+    double textX = left - 0.01;
+    FONSalign textAlign = FONS_ALIGN_RIGHT;
     const double top = -0.8;
     const double bot = 0.8;
     const double dy = (top - bot) / numColors;
     const double bot2 = fixed ? bot : bot + dy / 2;
+    // legend placement
+    if (leftSide) {
+        right = -right;
+        left = -left;
+        std::swap(right, left);
+        textX = right + 0.01;
+        textAlign = FONS_ALIGN_LEFT;
+    }
+    // draw black boundary around legend colors
+    glColor3d(0, 0, 0);
     glBegin(GL_LINES);
     glVertex2d(right, top);
     glVertex2d(right, bot2);
@@ -717,7 +725,7 @@ GUISUMOAbstractView::displayColorLegend() {
 
         const double threshold = scheme.getThresholds()[i];
         std::string name = scheme.getNames()[i];
-        std::string text = fixed ? name : toString(threshold);
+        std::string text = fixed || threshold == GUIVisualizationSettings::MISSING_DATA ? name : toString(threshold);
 
         const double bgShift = 0.0;
         const double textShift = 0.02;
@@ -731,14 +739,14 @@ GUISUMOAbstractView::displayColorLegend() {
         glVertex2d(left, topi + fontHeight * (1 + bgShift));
         glEnd();
         glTranslated(0, 0, -0.1);
-        GLHelper::drawText(text, Position(left - 0.01, topi + textShift), 0, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_RIGHT, fontWidth);
+        GLHelper::drawText(text, Position(textX, topi + textShift), 0, fontHeight, RGBColor::BLACK, 0, textAlign, fontWidth);
     }
-    glPopMatrix();
+    GLHelper::popMatrix();
     // restore matrices
     glMatrixMode(GL_PROJECTION);
-    glPopMatrix();
+    GLHelper::popMatrix();
     glMatrixMode(GL_MODELVIEW);
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 
@@ -750,10 +758,10 @@ GUISUMOAbstractView::getFPS() const {
 void
 GUISUMOAbstractView::drawFPS() {
     glMatrixMode(GL_PROJECTION);
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glLoadIdentity();
     glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glLoadIdentity();
     const double fontHeight = 0.2 * 300. / getHeight();
     const double fontWidth = 0.2 * 300. / getWidth();
@@ -761,9 +769,9 @@ GUISUMOAbstractView::drawFPS() {
 
     // restore matrices
     glMatrixMode(GL_PROJECTION);
-    glPopMatrix();
+    GLHelper::popMatrix();
     glMatrixMode(GL_MODELVIEW);
-    glPopMatrix();
+    GLHelper::popMatrix();
 }
 
 
@@ -891,10 +899,10 @@ GUISUMOAbstractView::destroyPopup() {
 
 
 long
-GUISUMOAbstractView::onLeftBtnPress(FXObject*, FXSelector, void* data) {
+GUISUMOAbstractView::onLeftBtnPress(FXObject*, FXSelector, void* ptr) {
     destroyPopup();
     setFocus();
-    FXEvent* e = (FXEvent*) data;
+    FXEvent* e = (FXEvent*) ptr;
     // check whether the selection-mode is activated
     if ((e->state & CONTROLMASK) != 0) {
         // toggle selection of object under cursor
@@ -921,7 +929,7 @@ GUISUMOAbstractView::onLeftBtnPress(FXObject*, FXSelector, void* data) {
                     if (o->getType() == GLO_VEHICLE || o->getType() == GLO_PERSON) {
                         startTrack(id);
                     } else if (o->getType() == GLO_REROUTER_EDGE) {
-                        o->onLeftBtnPress(data);
+                        o->onLeftBtnPress(ptr);
                         update();
                     }
                 }
@@ -929,20 +937,20 @@ GUISUMOAbstractView::onLeftBtnPress(FXObject*, FXSelector, void* data) {
             makeNonCurrent();
         }
     }
-    myChanger->onLeftBtnPress(data);
+    myChanger->onLeftBtnPress(ptr);
     grab();
     // Check there are double click
     if (e->click_count == 2) {
-        handle(this, FXSEL(SEL_DOUBLECLICKED, 0), data);
+        handle(this, FXSEL(SEL_DOUBLECLICKED, 0), ptr);
     }
     return 1;
 }
 
 
 long
-GUISUMOAbstractView::onLeftBtnRelease(FXObject*, FXSelector, void* data) {
+GUISUMOAbstractView::onLeftBtnRelease(FXObject*, FXSelector, void* ptr) {
     destroyPopup();
-    myChanger->onLeftBtnRelease(data);
+    myChanger->onLeftBtnRelease(ptr);
     if (myApp->isGaming()) {
         onGamingClick(getPositionInformation());
     }
@@ -964,20 +972,20 @@ GUISUMOAbstractView::onMiddleBtnRelease(FXObject*, FXSelector, void*) {
 
 
 long
-GUISUMOAbstractView::onRightBtnPress(FXObject*, FXSelector, void* data) {
+GUISUMOAbstractView::onRightBtnPress(FXObject*, FXSelector, void* ptr) {
     destroyPopup();
-    myChanger->onRightBtnPress(data);
+    myChanger->onRightBtnPress(ptr);
     grab();
     return 1;
 }
 
 
 long
-GUISUMOAbstractView::onRightBtnRelease(FXObject* o, FXSelector sel, void* data) {
+GUISUMOAbstractView::onRightBtnRelease(FXObject* o, FXSelector sel, void* ptr) {
     destroyPopup();
-    onMouseMove(o, sel, data);
-    if (!myChanger->onRightBtnRelease(data) && !myApp->isGaming()) {
-        openObjectDialog();
+    onMouseMove(o, sel, ptr);
+    if (!myChanger->onRightBtnRelease(ptr) && !myApp->isGaming()) {
+        openObjectDialogAtCursor();
     }
     if (myApp->isGaming()) {
         onGamingRightClick(getPositionInformation());
@@ -994,9 +1002,9 @@ GUISUMOAbstractView::onDoubleClicked(FXObject*, FXSelector, void*) {
 
 
 long
-GUISUMOAbstractView::onMouseWheel(FXObject*, FXSelector, void* data) {
+GUISUMOAbstractView::onMouseWheel(FXObject*, FXSelector, void* ptr) {
     if (!myApp->isGaming()) {
-        myChanger->onMouseWheel(data);
+        myChanger->onMouseWheel(ptr);
         // upddate viewport
         if (myViewportChooser != nullptr) {
             myViewportChooser->setValues(myChanger->getZoom(),
@@ -1010,14 +1018,14 @@ GUISUMOAbstractView::onMouseWheel(FXObject*, FXSelector, void* data) {
 
 
 long
-GUISUMOAbstractView::onMouseMove(FXObject*, FXSelector, void* data) {
+GUISUMOAbstractView::onMouseMove(FXObject*, FXSelector, void* ptr) {
     // if popup exist but isn't shown, destroy it first
     if (myPopup && (myPopup->shown() == false)) {
         destroyPopup();
     }
     if (myPopup == nullptr) {
         if (myViewportChooser == nullptr || !myViewportChooser->haveGrabbed()) {
-            myChanger->onMouseMove(data);
+            myChanger->onMouseMove(ptr);
         }
         if (myViewportChooser != nullptr) {
             myViewportChooser->setValues(myChanger->getZoom(),
@@ -1037,7 +1045,7 @@ GUISUMOAbstractView::onMouseLeft(FXObject*, FXSelector, void* /*data*/) {
 
 
 void
-GUISUMOAbstractView::openObjectDialog() {
+GUISUMOAbstractView::openObjectDialogAtCursor() {
     ungrab();
     if (!isEnabled() || !myAmInitialised) {
         return;
@@ -1051,43 +1059,74 @@ GUISUMOAbstractView::openObjectDialog() {
         } else {
             o = GUIGlObjectStorage::gIDStorage.getNetObject();
         }
-        if (o != nullptr) {
-            myPopup = o->getPopUpMenu(*myApp, *this);
-            int x, y;
-            FXuint b;
-            myApp->getCursorPosition(x, y, b);
-            myPopup->setX(x + myApp->getX());
-            myPopup->setY(y + myApp->getY());
-            myPopup->create();
-            myPopup->show();
-            myPopupPosition = getPositionInformation();
-            myChanger->onRightBtnRelease(nullptr);
-            GUIGlObjectStorage::gIDStorage.unblockObject(id);
-            setFocus();
-        }
+        openObjectDialog(o);
         makeNonCurrent();
     }
 }
 
-
-long
-GUISUMOAbstractView::onKeyPress(FXObject* o, FXSelector sel, void* data) {
-    if (myPopup != nullptr) {
-        return myPopup->onKeyPress(o, sel, data);
-    } else {
-        FXGLCanvas::onKeyPress(o, sel, data);
-        return myChanger->onKeyPress(data);
+void
+GUISUMOAbstractView::openObjectDialog(GUIGlObject* o) {
+    if (o != nullptr) {
+        myPopup = o->getPopUpMenu(*myApp, *this);
+        int x, y;
+        FXuint b;
+        myApp->getCursorPosition(x, y, b);
+        int popX = x + myApp->getX();
+        int popY = y + myApp->getY();
+        myPopup->setX(popX);
+        myPopup->setY(popY);
+        myPopup->create();
+        myPopup->show();
+        // try to stay on screen unless click appears to come from a multi-screen setup
+        const int rootWidth = getApp()->getRootWindow()->getWidth();
+        const int rootHeight = getApp()->getRootWindow()->getHeight();
+        if (popX <= rootWidth) {
+            popX = MAX2(0, MIN2(popX, rootWidth - myPopup->getWidth() - 10));
+        }
+        if (popY <= rootHeight) {
+            popY = MAX2(0, MIN2(popY, rootHeight - myPopup->getHeight() - 50));
+        }
+        myPopup->move(popX, popY);
+        myPopupPosition = getPositionInformation();
+        myChanger->onRightBtnRelease(nullptr);
+        GUIGlObjectStorage::gIDStorage.unblockObject(o->getGlID());
+        setFocus();
     }
 }
 
 
 long
-GUISUMOAbstractView::onKeyRelease(FXObject* o, FXSelector sel, void* data) {
+GUISUMOAbstractView::onKeyPress(FXObject* o, FXSelector sel, void* ptr) {
     if (myPopup != nullptr) {
-        return myPopup->onKeyRelease(o, sel, data);
+        return myPopup->onKeyPress(o, sel, ptr);
     } else {
-        FXGLCanvas::onKeyRelease(o, sel, data);
-        return myChanger->onKeyRelease(data);
+        FXEvent* e = (FXEvent*) ptr;
+        if (e->state & CONTROLMASK) {
+            if (e->code == FX::KEY_Page_Up) {
+                myVisualizationSettings->gridXSize *= 2;
+                myVisualizationSettings->gridYSize *= 2;
+                update();
+                return 1;
+            } else if (e->code == FX::KEY_Page_Down) {
+                myVisualizationSettings->gridXSize /= 2;
+                myVisualizationSettings->gridYSize /= 2;
+                update();
+                return 1;
+            }
+        }
+        FXGLCanvas::onKeyPress(o, sel, ptr);
+        return myChanger->onKeyPress(ptr);
+    }
+}
+
+
+long
+GUISUMOAbstractView::onKeyRelease(FXObject* o, FXSelector sel, void* ptr) {
+    if (myPopup != nullptr) {
+        return myPopup->onKeyRelease(o, sel, ptr);
+    } else {
+        FXGLCanvas::onKeyRelease(o, sel, ptr);
+        return myChanger->onKeyRelease(ptr);
     }
 }
 
@@ -1113,7 +1152,7 @@ GUISUMOAbstractView::makeSnapshot(const std::string& destFile, const int w, cons
     FXString ext = FXPath::extension(destFile.c_str());
     const bool useGL2PS = ext == "ps" || ext == "eps" || ext == "pdf" || ext == "svg" || ext == "tex" || ext == "pgf";
 #ifdef HAVE_FFMPEG
-    const bool useVideo = destFile == "" || ext == "h264" || ext == "hevc";
+    const bool useVideo = destFile == "" || ext == "h264" || ext == "hevc" || ext == "mp4";
 #endif
     for (int i = 0; i < 10 && !makeCurrent(); ++i) {
         FXSingleEventThread::sleep(100);
@@ -1169,18 +1208,18 @@ GUISUMOAbstractView::makeSnapshot(const std::string& destFile, const int w, cons
                            GL2PS_DRAW_BACKGROUND | GL2PS_USE_CURRENT_VIEWPORT,
                            GL_RGBA, 0, NULL, 0, 0, 0, buffsize, fp, "out.eps");
             glMatrixMode(GL_MODELVIEW);
-            glPushMatrix();
+            GLHelper::pushMatrix();
             glDisable(GL_TEXTURE_2D);
             glDisable(GL_ALPHA_TEST);
             glDisable(GL_BLEND);
             glEnable(GL_DEPTH_TEST);
             // draw decals (if not in grabbing mode)
-            if (!myUseToolTips) {
-                drawDecals();
-                if (myVisualizationSettings->showGrid) {
-                    paintGLGrid();
-                }
+
+            drawDecals();
+            if (myVisualizationSettings->showGrid) {
+                paintGLGrid();
             }
+
             glLineWidth(1);
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
             Boundary viewPort = myChanger->getViewport();
@@ -1191,12 +1230,7 @@ GUISUMOAbstractView::makeSnapshot(const std::string& destFile, const int w, cons
             glEnable(GL_POLYGON_OFFSET_LINE);
             myGrid->Search(minB, maxB, *myVisualizationSettings);
 
-            if (myVisualizationSettings->showSizeLegend) {
-                displayLegend();
-            }
-            if (myVisualizationSettings->showColorLegend) {
-                displayColorLegend();
-            }
+            displayLegends();
             state = gl2psEndPage();
             glFinish();
         }
@@ -1207,12 +1241,7 @@ GUISUMOAbstractView::makeSnapshot(const std::string& destFile, const int w, cons
 #endif
     } else {
         doPaintGL(GL_RENDER, myChanger->getViewport());
-        if (myVisualizationSettings->showSizeLegend) {
-            displayLegend();
-        }
-        if (myVisualizationSettings->showColorLegend) {
-            displayColorLegend();
-        }
+        displayLegends();
         swapBuffers();
         glFinish();
         FXColor* buf;
@@ -1391,9 +1420,9 @@ GUISUMOAbstractView::setColorScheme(const std::string&) {
 }
 
 
-GUIVisualizationSettings*
+GUIVisualizationSettings&
 GUISUMOAbstractView::getVisualisationSettings() const {
-    return myVisualizationSettings;
+    return *myVisualizationSettings;
 }
 
 
@@ -1511,7 +1540,6 @@ GUISUMOAbstractView::checkGDALImage(Decal& d) {
         } else if (poBand->GetColorInterpretation() == GCI_AlphaBand) {
             shift = 3;
         } else {
-            WRITE_MESSAGE("Unknown color band in " + d.filename + ", maybe fox can parse it.");
             valid = false;
             break;
         }
@@ -1533,7 +1561,7 @@ GUISUMOAbstractView::checkGDALImage(Decal& d) {
 
 void
 GUISUMOAbstractView::drawDecals() {
-    glPushName(0);
+    GLHelper::pushName(0);
     myDecalsLock.lock();
     for (std::vector<GUISUMOAbstractView::Decal>::iterator l = myDecals.begin(); l != myDecals.end(); ++l) {
         GUISUMOAbstractView::Decal& d = *l;
@@ -1555,7 +1583,7 @@ GUISUMOAbstractView::drawDecals() {
                 d.skip2D = true;
             }
         }
-        glPushMatrix();
+        GLHelper::pushMatrix();
         if (d.screenRelative) {
             Position center = screenPos2NetPos((int)d.centerX, (int)d.centerY);
             glTranslated(center.x(), center.y(), d.layer);
@@ -1571,10 +1599,10 @@ GUISUMOAbstractView::drawDecals() {
             halfHeight = p2m(halfHeight);
         }
         GUITexturesHelper::drawTexturedBox(d.glID, -halfWidth, -halfHeight, halfWidth, halfHeight);
-        glPopMatrix();
+        GLHelper::popMatrix();
     }
     myDecalsLock.unlock();
-    glPopName();
+    GLHelper::popName();
 }
 
 

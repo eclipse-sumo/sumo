@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-11-02 14:13:24 by Eclipse SUMO netconvert Version v1_10_0+1830-e3cc5b2
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-dist value="5"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-603032.65,-5790563.89" convBoundary="0.00,0.00,30.24,8.50" origBoundary="602291.55,5789955.49,605400.62,5792990.09" projParameter="!"/>
+
+    <edge id="4136" from="3768" to="3800" priority="-1" shape="0.00,0.00 7.45,2.40 13.09,4.04 18.75,5.57 24.43,7.04 30.24,8.50">
+        <lane id="4136_0" index="0" speed="13.89" length="31.60" width="2.93" customShape="1" shape="-0.42,1.34 3.89,2.82 9.22,4.42 14.34,5.85 19.48,7.20 24.93,8.57 29.92,9.80"/>
+        <lane id="4136_1" index="1" speed="13.89" length="31.60" width="3.01" customShape="1" shape="-1.32,4.26 8.34,7.26 13.51,8.71 18.67,10.05 24.17,11.40 29.24,12.61"/>
+    </edge>
+
+    <junction id="3768" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="-1.77,5.70 0.02,-0.06"/>
+    <junction id="3800" type="dead_end" x="30.24" y="8.50" incLanes="4136_0 4136_1" intLanes="" shape="30.27,8.38 28.87,14.07"/>
+
+</net>

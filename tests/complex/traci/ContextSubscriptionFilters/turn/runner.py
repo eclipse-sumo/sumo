@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    runner.py
 # @author  Daniel Krajzewicz
@@ -35,7 +39,7 @@ else:
 egoID = "ego"
 
 
-def runSingle(traciEndTime, downstreamDist, upstreamDist):
+def runSingle(traciEndTime, downstreamDist, foeDistToJunction):
     step = 0
     traci.start(sumoCall + ["-n", "input_net.net.xml", "-r", "input_routes.rou.xml", "--no-step-log", "true"])
     subscribed = False
@@ -54,9 +58,10 @@ def runSingle(traciEndTime, downstreamDist, upstreamDist):
             print("Subscribing to context of vehicle '%s'" % (egoID))
             traci.vehicle.subscribeContext(egoID, traci.constants.CMD_GET_VEHICLE_VARIABLE, 0.0,
                                            [traci.constants.VAR_POSITION])
-            print("Adding turn filter ... \n(downstreamDist=%s, upstreamDist=%s)" % (downstreamDist, upstreamDist))
+            print("Adding turn filter ... \n(downstreamDist=%s, foeDistToJunction=%s)" %
+                  (downstreamDist, foeDistToJunction))
             sys.stdout.flush()
-            traci.vehicle.addSubscriptionFilterTurn(downstreamDist, upstreamDist)
+            traci.vehicle.addSubscriptionFilterTurn(downstreamDist, foeDistToJunction)
             subscribed = True
         step += 1
 
@@ -73,7 +78,7 @@ def runSingle(traciEndTime, downstreamDist, upstreamDist):
 
 
 if len(sys.argv) < 4:
-    print("Usage: runner <sumo/sumo-gui> <downstreamDist> <upstreamDist>")
+    print("Usage: runner <sumo/sumo-gui> <downstreamDist> <foeDistToJunction>")
     sys.exit("")
 sys.stdout.flush()
 runSingle(100, float(sys.argv[2]), float(sys.argv[3]))

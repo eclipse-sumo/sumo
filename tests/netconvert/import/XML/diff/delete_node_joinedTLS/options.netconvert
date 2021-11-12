@@ -1,0 +1,1 @@
+--sumo-net-file input_net.net.xml --node-files input_plain.nod.xml --edge-files input_plain.edg.xml --connection-files input_plain.con.xml --tllogic-files input_plain.tll.xml -o net.net.xml 

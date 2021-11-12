@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2019-09-28 21:17:06.174306 by cutRoutes.py
+<!-- generated on 2020-06-30 21:29:37.653955 by cutRoutes.py v1_6_0+1057-828541e1b9
   options: input_net.net.xml input_routes.rou.xml -a input_additional.add.xml <doubleminus>routes-output out.rou.xml <doubleminus>stops-output out.add.xml <doubleminus>orig-net three_split.net.xml
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <route edges="middle end" id="r0"/>
     <route edges="middle end" id="r1">
-        <stop busStop="busstop1" duration="10" until="172.185251799"/>
+        <stop busStop="busstop1" duration="10" until="100.0"/>
     </route>
     <vehicle depart="27.81" id="v1" route="r0">
         <stop busStop="busstop1" duration="10"/>
     </vehicle>
     <vehicle depart="37.81" id="v2" route="r0"/>
-    <vehicle depart="47.81" id="v3" route="r1"/>
-    <vehicle depart="57.81" id="v4" route="r1"/>
+    <vehicle depart="130.00" id="v3" route="r1"/>
+    <vehicle depart="140.00" id="v4" route="r1"/>
 </routes>

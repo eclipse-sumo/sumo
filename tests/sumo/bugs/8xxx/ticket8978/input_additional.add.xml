@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2021-08-02 10:23:16.183690 by cutRoutes.py v1_9_2+0938-5f20f6e761e
+  options: <doubleminus>subnet-file scenario_workdir/mitte2017/mitte.net.xml <doubleminus>net-file scenario_workdir/mitte2017/net.net.xml.gz <doubleminus>iteration-dir scenario_workdir/mitte2017/iteration000/
+-->
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <edgeData id="ed" file="aggregated_60.xml" freq="60"/>
+
+    <tlLogic id="C" type="static" programID="1" offset="0">
+        <phase duration="33" state="GGGggrrrrrGGGggrrrrr"/>
+        <phase duration="6"  state="rrrGGrrrrrrrrGGrrrrr"/>
+        <phase duration="3"  state="rrryyrrrrrrrryyrrrrr"/>
+        <phase duration="33" state="rrrrrGGGggrrrrrGGGgg"/>
+        <phase duration="6"  state="rrrrrrrrGGrrrrrrrrGG"/>
+        <phase duration="3"  state="rrrrrrrryyrrrrrrrryy"/>
+    </tlLogic>
+</additional>

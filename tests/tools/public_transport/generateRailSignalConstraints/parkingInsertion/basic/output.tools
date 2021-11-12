@@ -1,0 +1,8 @@
+read 2 busStops on 2 edges
+read 2 routes (1 unique) and 4 stops at 2 busStops
+Shifted stop times by up to 70.0
+Found 1 parking insertion conflicts
+processed 1 routes across 2 edges with 0 merging switches
+Found 0 stops after merging switches and 0 signals that guard switches
+Found 0 conflicts
+Found 0 insertion conflicts

@@ -24,6 +24,9 @@ imprecise_geometry
 # import and export elevation
 elevation_roundtrip
 
+# import and export elevation
+elevation_flatten
+
 # convert sumo network to xodr
 sumo_to_xodr
 
@@ -47,6 +50,9 @@ pRange
 
 # resample line geometry for smooth z-data
 ticket5314
+
+# interaction of --geometry.min-dist, --roundabouts.guess and --junctions.join
+ticket9448
 
 # tests for importin connectivity
 connections

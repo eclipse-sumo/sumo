@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    test.py
 # @author  Leonhard Luecken
@@ -14,7 +18,6 @@
 import unittest as ut
 import os
 import sys
-import subprocess
 
 # Put tools into PYTHONPATH
 if 'SUMO_HOME' in os.environ:
@@ -98,20 +101,18 @@ catchup="catchupVTypeID" catchupFollower="catchupFollowerVTypeID" />
                 <vTypeMap original="connected" leader="connected_pLeader" follower="connected_pFollower" \
 catchup="connected_pCatchup" catchupFollower="connected_pCatchupFollower" />
             """
+
+        self.cfg_body4 =\
+            """
+                <vTypeMap original="connected" leader="connected_pLeader" follower="connected_pFollower"/>
+            """
         # template still needs to insert definite values for placeholders
         self.SUMO_CFG_TEMPLATE = os.path.join(testDir, "sumo.sumocfg")
         self.SUMO_CFG = os.path.join(testDir, "test.sumocfg")
         self.patchSumoConfig()  # write default routes file and net file into config
 
     def connectToSumo(self, sumo_cfg):
-        # Set up a running sumo instance
-        SUMO_BINARY = sumolib.checkBinary('sumo')
-        PORT = sumolib.miscutils.getFreeSocketPort()
-        sumoCall = "%s -c %s --remote-port %s" % (SUMO_BINARY, sumo_cfg, PORT)
-        # print("sumoCall = '%s'"%sumoCall)
-        self.SUMO_PROCESS = subprocess.Popen(sumoCall, shell=True, stdout=sys.stdout)
-        # Connect
-        traci.init(PORT, numRetries=2)
+        traci.start([sumolib.checkBinary('sumo'), "-c", sumo_cfg])
 
     def patchSumoConfig(self, routes_fn="input_routes.rou.xml", net_fn="input_net.net.xml",
                         vtypes_fn="input_types.typ.xml"):
@@ -134,8 +135,6 @@ catchup="connected_pCatchup" catchupFollower="connected_pCatchupFollower" />
         simpla.stop()
         # close TraCI connection
         traci.close()
-        # wait for sumo to terminate
-        self.SUMO_PROCESS.wait()
         # reset simpla
         rp.initDefaults()
         cfg.initDefaults()
@@ -176,6 +175,13 @@ catchup="connected_pCatchup" catchupFollower="connected_pCatchupFollower" />
         expectedVTypes.sort()
         registeredPlatoonVTypes.sort()
         self.assertListEqual(expectedVTypes, registeredPlatoonVTypes)
+
+    def test_init_vtypemap_fallback(self):
+        print("Testing specification per vtypemap xml-element with missing modes...")
+        self.patchSumoConfig()
+        self.connectToSumo(self.SUMO_CFG)
+        self.patchConfigFile(self.cfg_body4)
+        simpla.load(self.CFG1)
 
     def test_init_warn(self):
         print("Testing Warnings...")

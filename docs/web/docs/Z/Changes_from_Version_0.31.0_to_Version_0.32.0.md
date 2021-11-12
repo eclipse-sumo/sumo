@@ -1,9 +1,8 @@
 ---
-title: Z/Changes from Version 0.31.0 to Version 0.32.0
-permalink: /Z/Changes_from_Version_0.31.0_to_Version_0.32.0/
+title: Changes from Version 0.31.0 to Version 0.32.0
 ---
 
-## Version 0.32.0 (19.12.2017)
+**Release date: 19.12.2017**
 
 ### Bugfixes
 
@@ -36,7 +35,7 @@ permalink: /Z/Changes_from_Version_0.31.0_to_Version_0.32.0/
   - Fixed collision of a vehicle with itself. #3584
   - Several fixes in regard to intermodal routing. #3613, #3622, #3560, #3561, #3562
 
-- SUMO-GUI
+- sumo-gui
   - Fixed crash when simulating pedestrians. #3484
   - Coloring *by selection* is now working for pedestrian crossings. #3396
   - Options **--window-size** and **--window-pos** are now working when set in a configuration file. #3406
@@ -50,11 +49,11 @@ permalink: /Z/Changes_from_Version_0.31.0_to_Version_0.32.0/
   - Fixed invalid *duration factor* in network parameters for
     sub-second simulation. #3600
 
-- POLYCONVERT
+- polyconvert
   - Fixed handling of XML special characters when exporting
     arbitrary text via option **--all-attributes**. #3447
 
-- NETCONVERT
+- netconvert
   - Fixed crash when importing Vissim networks.
   - Fixed bug that was causing invalid signal plans when loading a
     .net.xml file and removing edges from an intersection with
@@ -86,17 +85,17 @@ permalink: /Z/Changes_from_Version_0.31.0_to_Version_0.32.0/
     networks. #3678
   - Fixed invalid road markings in opendrive-output.
 
-- NETEDIT
+- netedit
   - Fixed bug that was causing pedestrian crossings to remain
     uncontrolled at traffic light controlled intersections. #3472
 
     !!! caution
-        Regression in 0.31.0. As a workaround, networks that were saved with netedit 0.31.0 can be repaired by calling *netconvert -s bugged.net.xml -o fixed.net.xml* or simply reopened and saved with a fresh nightly build of NETEDIT.
+        Regression in 0.31.0. As a workaround, networks that were saved with netedit 0.31.0 can be repaired by calling *netconvert -s bugged.net.xml -o fixed.net.xml* or simply reopened and saved with a fresh nightly build of netedit.
 
   - Options **--window-size** and **--window-pos** are now working when set in a configuration file. #3406
   - Fixed crash when setting linkIndex. #3642
 
-- DUAROUTER
+- duarouter
   - Fixed invalid public transport routing if the last vehicle
     departs before the person enters the simulation. #3493
 
@@ -157,7 +156,7 @@ permalink: /Z/Changes_from_Version_0.31.0_to_Version_0.32.0/
     for emission-model (electricity) output by setting `emissionClass="Energy/unknown"`
   - Tripinfo-output for pedestrians now includes *routeLength,
     duration* and *timeLoss*. #3305
-  - [duration-log.statistics](../Simulation/Output.md#aggregated_traffic_measures)-output
+  - [duration-log.statistics](../Simulation/Output/index.md#aggregated_traffic_measures)-output
     now informs about person rides. #3620
   - Vehicles that end their route with a stop on a parkingArea
     (arrivalPos is within the parkingArea bounds) will be assigned a
@@ -173,13 +172,13 @@ permalink: /Z/Changes_from_Version_0.31.0_to_Version_0.32.0/
     '--default.action-step-length', or per vehicle via the parameter
     'actionStepLength'.
 
-- SUMO-GUI
+- sumo-gui
   - Transparency is now working for all objects.
   - Junction parameters can now be inspected.
   - Upcoming stops are now shown in the vehicle parameter window and
     also in the network when selecting *show current route*. #3679
 
-- NETCONVERT
+- netconvert
   - When using option **--numerical-ids** together with option **--output.original-names**, the original IDs of
     all renamed nodes and edges are written to `<param>` elements with key
     *origId*. #3246
@@ -199,7 +198,7 @@ permalink: /Z/Changes_from_Version_0.31.0_to_Version_0.32.0/
   - Parallel lanes of connecting roads are now written as a single
     road in opendrive-output. #2700
 
-- NETEDIT
+- netedit
   - Additional objects (i.e. detectors) as well as POIs and Polygons
     can now be located based on their ID. #3069
   - Connection and Crossing shapes can now be edited visually. #3464
@@ -210,7 +209,7 @@ permalink: /Z/Changes_from_Version_0.31.0_to_Version_0.32.0/
   - Added button to traffic light mode for cleaning up unused states
     from a traffic light plan.
 
-- DUAROUTER
+- duarouter
   - Vehicles and flows which are considered public transport (have
     the line attribute) are now only routed if an additional option **--ptline-routing**
     is given. #2824
@@ -254,9 +253,9 @@ permalink: /Z/Changes_from_Version_0.31.0_to_Version_0.32.0/
 - The SUMO build process now supports CMake. It is likely that version
 0.32.0 will be the last one shipping Visual Studio solutions. Please
 have a look at
-[Installing/Windows_CMake](../Installing/Windows_CMake.md) for
+[Windows CMake](../Installing/Windows_Build.md#manual_cmake_configuration) for
 information on how to build SUMO on Windows with CMake. There are
-also helper scripts in preparation at [{{SUMO}}/tools/build]({{Source}}tools/build) for instance [{{SUMO}}/tools/build/buildMSVS15Project.py]({{Source}}tools/build/buildMSVS15Project.py).
+also helper scripts in preparation at [{{SUMO}}/tools/build]({{Source}}tools/build) for instance `tools/build/buildMSVS15Project.py`.
 
 - Simulation
   - **chargingstations-output** now writes times as seconds rather
@@ -268,12 +267,12 @@ also helper scripts in preparation at [{{SUMO}}/tools/build]({{Source}}tools/bui
     available for experimental building of your own apps using SUMO
     as a "library" (calling its functions directly without TraCI)
 
-- SUMO-GUI
+- sumo-gui
   - default font changed to [Roboto](https://fonts.google.com/specimen/Roboto)
   - Removed OpenGL visualisation option *Antialias*
   - E3-Entry and -Exit detectors are now drawn in darker color to better distinguish them from traffic lights. #3378
 
-- NETCONVERT
+- netconvert
   - The element `<customShape>` is no longer supported. Instead `<connection>` and `<crossing>` support the
     *shape* attribute. To set a custom shape for walkingAreas, the
     new element `<walkingArea>` may be used.
@@ -282,5 +281,5 @@ also helper scripts in preparation at [{{SUMO}}/tools/build]({{Source}}tools/bui
   - TraCI version is now 17
 
 - Documentation
-  - Documented [simulation object right-click menus](../SUMO-GUI.md#object_properties_right-click-functions)
-  - Described [visualization of edgeData files](../SUMO-GUI.md#visualizing_edge-related_data)
+  - Documented [simulation object right-click menus](../sumo-gui.md#object_properties_right-click-functions)
+  - Described [visualization of edgeData files](../sumo-gui.md#visualizing_edge-related_data)

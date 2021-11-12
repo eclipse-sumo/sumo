@@ -1,6 +1,5 @@
 ---
 title: Libraries Licenses
-permalink: /Libraries_Licenses/
 ---
 
 This page lists all licenses of code SUMO depends on directly for
@@ -70,8 +69,8 @@ license files but we strive to list them here as well:
 
 ### [FOX toolkit](http://fox-toolkit.org/) - GUI Widget Toolkit
 
-can be omitted, but [SUMO-GUI](SUMO-GUI.md),
-[NETEDIT](NETEDIT.md) and multithreading won't work
+can be omitted, but [sumo-gui](sumo-gui.md),
+[netedit](Netedit/index.md) and multithreading won't work
 
 - [GNU Lesser General Public
   License](https://www.gnu.org/copyleft/lesser.html) with static
@@ -84,12 +83,12 @@ can be omitted, but [SUMO-GUI](SUMO-GUI.md),
     binary
     distribution](https://github.com/winlibs/libjpeg/blob/master/README)
 
-### [PROJ.4](http://proj.osgeo.org) - Cartographic Projections Library
+### [PROJ.4](https://proj.org/) - Cartographic Projections Library
 
 can be omitted, but import of geo referenced networks like OpenStreetMap
 won't work
 
-- [MIT derived license](https://proj4.org/about.html#license)
+- [MIT derived license](https://proj.org/about.html#license)
 
 ## Optional
 

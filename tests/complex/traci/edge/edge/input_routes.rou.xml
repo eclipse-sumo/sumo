@@ -8,4 +8,7 @@
    <vehicle id="veh2" type="slow" depart="6" departSpeed="max">
        <route edges="3si"/>
    </vehicle>
+   <vehicle id="veh3" type="slow" depart="6" departSpeed="max">
+       <route edges="3si"/>
+   </vehicle>
 </routes>

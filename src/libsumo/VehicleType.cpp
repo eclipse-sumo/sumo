@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    VehicleType.cpp
 /// @author  Gregor Laemmel
@@ -13,11 +17,6 @@
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <microsim/MSNet.h>
@@ -177,7 +176,11 @@ VehicleType::getMaxSpeedLat(const std::string& typeID) {
 
 std::string
 VehicleType::getLateralAlignment(const std::string& typeID) {
-    return toString(getVType(typeID)->getPreferredLateralAlignment());
+    if (getVType(typeID)->getPreferredLateralAlignment() != LatAlignmentDefinition::GIVEN) {
+        return toString(getVType(typeID)->getPreferredLateralAlignment());
+    } else {
+        return toString(getVType(typeID)->getPreferredLateralAlignmentOffset());
+    }
 }
 
 
@@ -185,6 +188,8 @@ std::string
 VehicleType::getParameter(const std::string& typeID, const std::string& key) {
     return getVType(typeID)->getParameter().getParameter(key, "");
 }
+
+LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(VehicleType)
 
 int
 VehicleType::getPersonCapacity(const std::string& typeID) {
@@ -326,7 +331,13 @@ VehicleType::setMaxSpeedLat(const std::string& typeID, double speed)  {
 
 void
 VehicleType::setLateralAlignment(const std::string& typeID, const std::string& latAlignment)  {
-    getVType(typeID)->setPreferredLateralAlignment(SUMOXMLDefinitions::LateralAlignments.get(latAlignment));
+    double lao;
+    LatAlignmentDefinition lad;
+    if (SUMOVTypeParameter::parseLatAlignment(latAlignment, lao, lad)) {
+        getVType(typeID)->setPreferredLateralAlignment(lad, lao);
+    } else {
+        throw TraCIException("Unknown value '" + latAlignment + "' when setting latAlignment for vType '" + typeID + "';\n must be one of (\"right\", \"center\", \"arbitrary\", \"nice\", \"compact\", \"left\" or a float)");
+    }
 }
 
 
@@ -362,61 +373,72 @@ VehicleType::makeWrapper() {
 
 
 bool
-VehicleType::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+VehicleType::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData) {
+    return handleVariableWithID(objID, objID, variable, wrapper, paramData);
+}
+
+
+bool
+VehicleType::handleVariableWithID(const std::string& objID, const std::string& typeID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData) {
     switch (variable) {
         case TRACI_ID_LIST:
             return wrapper->wrapStringList(objID, variable, getIDList());
         case ID_COUNT:
             return wrapper->wrapInt(objID, variable, getIDCount());
         case VAR_LENGTH:
-            return wrapper->wrapDouble(objID, variable, getLength(objID));
+            return wrapper->wrapDouble(objID, variable, getLength(typeID));
         case VAR_HEIGHT:
-            return wrapper->wrapDouble(objID, variable, getHeight(objID));
+            return wrapper->wrapDouble(objID, variable, getHeight(typeID));
         case VAR_MINGAP:
-            return wrapper->wrapDouble(objID, variable, getMinGap(objID));
+            return wrapper->wrapDouble(objID, variable, getMinGap(typeID));
         case VAR_MAXSPEED:
-            return wrapper->wrapDouble(objID, variable, getMaxSpeed(objID));
+            return wrapper->wrapDouble(objID, variable, getMaxSpeed(typeID));
         case VAR_ACCEL:
-            return wrapper->wrapDouble(objID, variable, getAccel(objID));
+            return wrapper->wrapDouble(objID, variable, getAccel(typeID));
         case VAR_DECEL:
-            return wrapper->wrapDouble(objID, variable, getDecel(objID));
+            return wrapper->wrapDouble(objID, variable, getDecel(typeID));
         case VAR_EMERGENCY_DECEL:
-            return wrapper->wrapDouble(objID, variable, getEmergencyDecel(objID));
+            return wrapper->wrapDouble(objID, variable, getEmergencyDecel(typeID));
         case VAR_APPARENT_DECEL:
-            return wrapper->wrapDouble(objID, variable, getApparentDecel(objID));
+            return wrapper->wrapDouble(objID, variable, getApparentDecel(typeID));
         case VAR_ACTIONSTEPLENGTH:
-            return wrapper->wrapDouble(objID, variable, getActionStepLength(objID));
+            return wrapper->wrapDouble(objID, variable, getActionStepLength(typeID));
         case VAR_IMPERFECTION:
-            return wrapper->wrapDouble(objID, variable, getImperfection(objID));
+            return wrapper->wrapDouble(objID, variable, getImperfection(typeID));
         case VAR_TAU:
-            return wrapper->wrapDouble(objID, variable, getTau(objID));
+            return wrapper->wrapDouble(objID, variable, getTau(typeID));
         case VAR_SPEED_FACTOR:
-            return wrapper->wrapDouble(objID, variable, getSpeedFactor(objID));
+            return wrapper->wrapDouble(objID, variable, getSpeedFactor(typeID));
         case VAR_SPEED_DEVIATION:
-            return wrapper->wrapDouble(objID, variable, getSpeedDeviation(objID));
+            return wrapper->wrapDouble(objID, variable, getSpeedDeviation(typeID));
         case VAR_VEHICLECLASS:
-            return wrapper->wrapString(objID, variable, getVehicleClass(objID));
+            return wrapper->wrapString(objID, variable, getVehicleClass(typeID));
         case VAR_EMISSIONCLASS:
-            return wrapper->wrapString(objID, variable, getEmissionClass(objID));
+            return wrapper->wrapString(objID, variable, getEmissionClass(typeID));
         case VAR_SHAPECLASS:
-            return wrapper->wrapString(objID, variable, getShapeClass(objID));
+            return wrapper->wrapString(objID, variable, getShapeClass(typeID));
         case VAR_WIDTH:
-            return wrapper->wrapDouble(objID, variable, getWidth(objID));
+            return wrapper->wrapDouble(objID, variable, getWidth(typeID));
         case VAR_COLOR:
-            return wrapper->wrapColor(objID, variable, getColor(objID));
+            return wrapper->wrapColor(objID, variable, getColor(typeID));
         case VAR_MINGAP_LAT:
-            return wrapper->wrapDouble(objID, variable, getMinGapLat(objID));
+            return wrapper->wrapDouble(objID, variable, getMinGapLat(typeID));
         case VAR_MAXSPEED_LAT:
-            return wrapper->wrapDouble(objID, variable, getMaxSpeedLat(objID));
+            return wrapper->wrapDouble(objID, variable, getMaxSpeedLat(typeID));
         case VAR_LATALIGNMENT:
-            return wrapper->wrapString(objID, variable, getLateralAlignment(objID));
+            return wrapper->wrapString(objID, variable, getLateralAlignment(typeID));
         case VAR_PERSON_CAPACITY:
-            return wrapper->wrapInt(objID, variable, getPersonCapacity(objID));
+            return wrapper->wrapInt(objID, variable, getPersonCapacity(typeID));
+        case libsumo::VAR_PARAMETER:
+            paramData->readUnsignedByte();
+            return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));
+        case libsumo::VAR_PARAMETER_WITH_KEY:
+            paramData->readUnsignedByte();
+            return wrapper->wrapStringPair(objID, variable, getParameterWithKey(objID, paramData->readString()));
         default:
             return false;
     }
 }
-
 
 }
 

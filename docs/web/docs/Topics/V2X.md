@@ -1,6 +1,5 @@
 ---
-title: Topics/V2X
-permalink: /Topics/V2X/
+title: V2X
 ---
 
 # V2X simulations in SUMO
@@ -20,7 +19,7 @@ middleware.
 | ------------------------------ | ---------------------------------------------------------------------------------------------------------------- | ----------------- |
 | [Veins](#veins)     | Focused on OMNeT++/MiXiM with an extendable, modular framework (ports exist for INET, INETMANET, and JiST/SWANS) | yes               |
 | [iCS](#ics)         | ns3                                                                                                              | yes               |
-| [VSimRTI](#vsimrti) | ns3, JiST/SWANS or OMNeT++ (extendable)                                                                          | yes               |
+| [MOSAIC](#eclipse_mosaic) | ns3, JiST/SWANS or OMNeT++ (extendable)                                                                          | yes               |
 
 
 ### Veins
@@ -36,16 +35,17 @@ iCS is the "iTETRIS Control System", a middleware developed in the
 V2X application simulators. It is currently used and extended within the
 [TransAID](https://www.transaid.eu/) project.
 
-### VSimRTI
+### Eclipse MOSAIC
 
-The V2X Simulation Runtime Infrastructure (VSimRTI) is a framework which
+Eclipse MOSAIC (formerly known as the V2X Simulation Runtime
+Infrastructure, VSimRTI) is a framework which
 enables the preparation and execution of V2X simulations. The easy
 integration and exchange of simulators enables the substitution of the
 most relevant simulators for a realistic presentation of vehicle
 traffic, emissions, wireless communication, and the execution of V2X
 applications. For immediate use, a set of simulators is already coupled
-with VSimRTI. For example, the traffic simulators VISSIM and SUMO, the
+with MOSAIC. For example, the traffic simulators VISSIM and SUMO, the
 communication simulators ns3, JiST/SWANS and OMNeT++, the application
 simulator VSimRTI_App, and several visualization and analysis tools are
-prepared for VSimRTI. For more information see [VSimRTI
-Homepage](http://www.dcaiti.tu-berlin.de/research/simulation/).
+prepared for MOSAIC. For more information see [MOSAIC
+Homepage](https://www.dcaiti.tu-berlin.de/research/simulation/).

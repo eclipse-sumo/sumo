@@ -30,3 +30,6 @@ components
 
 # keep 2 largest components
 components2
+
+# keep small rail components if they have stops
+components_railstops

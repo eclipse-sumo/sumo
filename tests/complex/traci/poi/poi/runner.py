@@ -1,12 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    runner.py
 # @author  Michael Behrisch
@@ -32,6 +36,9 @@ def check(poiID):
     print("pos", traci.poi.getPosition(poiID))
     print("type", traci.poi.getType(poiID))
     print("color", traci.poi.getColor(poiID))
+    print("width", traci.poi.getWidth(poiID))
+    print("height", traci.poi.getHeight(poiID))
+    print("angle", traci.poi.getAngle(poiID))
 
 
 traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
@@ -52,7 +59,15 @@ for step in range(3, 6):
 traci.poi.setPosition(poiID, 5, 5)
 traci.poi.setType(poiID, "blub")
 traci.poi.setColor(poiID, (222, 111, 221, 0))
+traci.poi.setWidth(poiID, 2.0)
+traci.poi.setHeight(poiID, 2.0)
+traci.poi.setAngle(poiID, 2.0)
+traci.poi.setImageFile(poiID, "testImage.png")
+
 check(poiID)
+print("ImageFile: ", traci.poi.getImageFile(poiID))
+traci.poi.highlight(poiID, (255, 0, 0, 255), -1, 1, 30, 0)
+
 traci.poi.add("p2", 2, 2, (11, 21, 31, 41), "ptest")
 check("p2")
 traci.poi.remove(poiID)
@@ -62,4 +77,6 @@ print("poi2 pos", traci.poi.getPosition("poi2"))
 print("poi2 key='lane'", traci.poi.getParameter("poi2", "lane"))
 print("poi2 key='pos'", traci.poi.getParameter("poi2", "pos"))
 print("poi2 key='posLat'", traci.poi.getParameter("poi2", "posLat"))
+
+
 traci.close()

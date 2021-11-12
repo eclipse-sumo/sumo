@@ -1,0 +1,12 @@
+<routes>
+
+
+    <vType id="ped" vClass="pedestrian" length="0.21" width="0.48" height="1.72" minGap="0.25" jmCrossingGap="0" jmIgnoreFoeProb="1" jmIgnoreFoeSpeed="50" maxSpeed="0.00001"/>
+    <route id="pedestrian1" edges=" -gneE1  gneE0"/>
+
+    <person id="p0" type="ped" depart="0">
+        <walk route="pedestrian1"/>
+    </person>
+
+
+</routes>

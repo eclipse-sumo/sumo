@@ -1,13 +1,13 @@
 <add>
     <tlLogic id="C" offset="0" programID="1" type="actuated">
-        <phase duration="99" maxDur="60" minDur="5" name="1+5" next="10 8 9" state="rrrrrGrrrrrG"/>
-        <phase duration="99" maxDur="60" minDur="5" name="1+6" next="11" state="rrrGGGrrrrrr"/>
-        <phase duration="99" maxDur="60" minDur="5" name="2+5" next="12" state="rrrrrrrrrGGG"/>
-        <phase duration="99" maxDur="60" minDur="5" name="2+6" next="13" state="rrrGGrrrrGGr"/>
-        <phase duration="99" maxDur="60" minDur="5" name="3+7" next="16 14 15" state="rrGrrrrrGrrr"/>
-        <phase duration="99" maxDur="60" minDur="5" name="3+8" next="17" state="rrrrrrGGGrrr"/>
-        <phase duration="99" maxDur="60" minDur="5" name="4+7" next="18" state="GGGrrrrrrrrr"/>
-        <phase duration="99" maxDur="60" minDur="5" name="4+8" next="19" state="GGrrrrGGrrrr"/>
+        <phase duration="60" maxDur="60" minDur="5" name="1+5" next="10 8 9" state="rrrrrGrrrrrG"/>
+        <phase duration="60" maxDur="60" minDur="5" name="1+6" next="11" state="rrrGGGrrrrrr"/>
+        <phase duration="60" maxDur="60" minDur="5" name="2+5" next="12" state="rrrrrrrrrGGG"/>
+        <phase duration="60" maxDur="60" minDur="5" name="2+6" next="13" state="rrrGGrrrrGGr"/>
+        <phase duration="60" maxDur="60" minDur="5" name="3+7" next="16 14 15" state="rrGrrrrrGrrr"/>
+        <phase duration="60" maxDur="60" minDur="5" name="3+8" next="17" state="rrrrrrGGGrrr"/>
+        <phase duration="60" maxDur="60" minDur="5" name="4+7" next="18" state="GGGrrrrrrrrr"/>
+        <phase duration="60" maxDur="60" minDur="5" name="4+8" next="19" state="GGrrrrGGrrrr"/>
         <phase duration="3" name="1+5-1+6" next="1" state="rrrrrGrrrrry"/>
         <phase duration="3" name="1+5-2+5" next="2" state="rrrrryrrrrrG"/>
         <phase duration="3" name="1+5-2+6" next="3" state="rrrrryrrrrry"/>

@@ -1,0 +1,6 @@
+Warning: Discarding unknown compound 'cycleway.opposite' in type 'cycleway.opposite|highway.residential' (first occurence for edge '4839228').
+Warning: Discarding unknown compound 'cycleway.crossing' in type 'cycleway.crossing|highway.cycleway' (first occurence for edge '337455368').
+Warning: Not joining junctions 2663214240,4002570893 (only 1 exit node).
+Warning: Ambiguity in turnarounds computation at junction 'cluster_273542494_3445436416_3445436418_5458979046_5458979047_5458979049_5458979054_5458979056'.
+Warning: Ambiguity in turnarounds computation at junction 'cluster_31130912_8943896893'.
+Warning: Found sharp turn with radius 8.35 at the end of edge '337455349#4'.

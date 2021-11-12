@@ -1,5 +1,11 @@
 # Copy of example
 example
 
+# abort search for junction when searching in a circle
+no_junctions
+
+# build rerouters for a particular vclass in multimodal network
+vclass
+
 # create overlapping routes for better anticipation of intersections
 long_routes

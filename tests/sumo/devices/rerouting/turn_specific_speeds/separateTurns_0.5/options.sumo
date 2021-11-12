@@ -1,0 +1,6 @@
+--no-step-log 
+--duration-log.statistics 
+--net-file=net.net.xml 
+-r input_routes.rou.xml 
+-a input_additional.add.xml
+--weights.separate-turns 0.5

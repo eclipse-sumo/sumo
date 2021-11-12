@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Nov 19 15:53:54 2014 by SUMO Version dev-SVN-r17350ID
+<!-- generated on Tue Mar 31 12:21:38 2020 by Eclipse SUMO Version v1_5_0+1025-83bc0d0af0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -13,15 +13,24 @@ SPDX-License-Identifier: EPL-2.0
         <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
     </input>
 
+    <output>
+        <write-license value="true"/>
+    </output>
+
     <time>
         <begin value="0"/>
         <end value="150"/>
         <step-length value="0.1"/>
     </time>
 
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -29,13 +38,17 @@ SPDX-License-Identifier: EPL-2.0
         <mesosim value="true"/>
     </mesoscopic>
 
+    <gui_only>
+        <tracker-interval value="0.1"/>
+    </gui_only>
+
 </configuration>
 -->
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="1.00" id="dump_1"/>
     <interval begin="1.00" end="2.00" id="dump_1">
-        <edge id="4/1to3/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
+        <edge id="4/1to3/1" sampledSeconds="0.90" noise="0.00" traveltime="40.00"/>
     </interval>
     <interval begin="2.00" end="3.00" id="dump_1">
         <edge id="4/1to3/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
@@ -62,10 +75,10 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="4/1to3/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
     </interval>
     <interval begin="10.00" end="11.00" id="dump_1">
-        <edge id="4/1to3/1" sampledSeconds="1.00" noise="51.77" traveltime="40.00"/>
+        <edge id="4/1to3/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
     </interval>
     <interval begin="11.00" end="12.00" id="dump_1">
-        <edge id="4/1to3/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
+        <edge id="4/1to3/1" sampledSeconds="1.00" noise="51.77" traveltime="40.00"/>
     </interval>
     <interval begin="12.00" end="13.00" id="dump_1">
         <edge id="4/1to3/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
@@ -92,10 +105,10 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="4/1to3/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
     </interval>
     <interval begin="20.00" end="21.00" id="dump_1">
-        <edge id="4/1to3/1" sampledSeconds="1.00" noise="51.77" traveltime="40.00"/>
+        <edge id="4/1to3/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
     </interval>
     <interval begin="21.00" end="22.00" id="dump_1">
-        <edge id="4/1to3/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
+        <edge id="4/1to3/1" sampledSeconds="1.00" noise="51.77" traveltime="40.00"/>
     </interval>
     <interval begin="22.00" end="23.00" id="dump_1">
         <edge id="4/1to3/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
@@ -122,10 +135,10 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="4/1to3/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
     </interval>
     <interval begin="30.00" end="31.00" id="dump_1">
-        <edge id="4/1to3/1" sampledSeconds="1.00" noise="51.77" traveltime="40.00"/>
+        <edge id="4/1to3/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
     </interval>
     <interval begin="31.00" end="32.00" id="dump_1">
-        <edge id="4/1to3/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
+        <edge id="4/1to3/1" sampledSeconds="1.00" noise="51.77" traveltime="40.00"/>
     </interval>
     <interval begin="32.00" end="33.00" id="dump_1">
         <edge id="4/1to3/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
@@ -152,10 +165,11 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="4/1to3/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
     </interval>
     <interval begin="40.00" end="41.00" id="dump_1">
-        <edge id="4/1to3/1" sampledSeconds="1.00" noise="51.77" traveltime="40.00"/>
+        <edge id="4/1to3/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
     </interval>
     <interval begin="41.00" end="42.00" id="dump_1">
-        <edge id="3/1to2/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
+        <edge id="3/1to2/1" sampledSeconds="0.90" noise="0.00" traveltime="40.00"/>
+        <edge id="4/1to3/1" sampledSeconds="0.10" noise="51.77" traveltime="40.00"/>
     </interval>
     <interval begin="42.00" end="43.00" id="dump_1">
         <edge id="3/1to2/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
@@ -182,10 +196,10 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="3/1to2/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
     </interval>
     <interval begin="50.00" end="51.00" id="dump_1">
-        <edge id="3/1to2/1" sampledSeconds="1.00" noise="51.77" traveltime="40.00"/>
+        <edge id="3/1to2/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
     </interval>
     <interval begin="51.00" end="52.00" id="dump_1">
-        <edge id="3/1to2/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
+        <edge id="3/1to2/1" sampledSeconds="1.00" noise="51.77" traveltime="40.00"/>
     </interval>
     <interval begin="52.00" end="53.00" id="dump_1">
         <edge id="3/1to2/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
@@ -212,10 +226,10 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="3/1to2/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
     </interval>
     <interval begin="60.00" end="61.00" id="dump_1">
-        <edge id="3/1to2/1" sampledSeconds="1.00" noise="51.77" traveltime="40.00"/>
+        <edge id="3/1to2/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
     </interval>
     <interval begin="61.00" end="62.00" id="dump_1">
-        <edge id="3/1to2/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
+        <edge id="3/1to2/1" sampledSeconds="1.00" noise="51.77" traveltime="40.00"/>
     </interval>
     <interval begin="62.00" end="63.00" id="dump_1">
         <edge id="3/1to2/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
@@ -242,10 +256,10 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="3/1to2/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
     </interval>
     <interval begin="70.00" end="71.00" id="dump_1">
-        <edge id="3/1to2/1" sampledSeconds="1.00" noise="51.77" traveltime="40.00"/>
+        <edge id="3/1to2/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
     </interval>
     <interval begin="71.00" end="72.00" id="dump_1">
-        <edge id="3/1to2/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
+        <edge id="3/1to2/1" sampledSeconds="1.00" noise="51.77" traveltime="40.00"/>
     </interval>
     <interval begin="72.00" end="73.00" id="dump_1">
         <edge id="3/1to2/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
@@ -272,10 +286,11 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="3/1to2/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
     </interval>
     <interval begin="80.00" end="81.00" id="dump_1">
-        <edge id="3/1to2/1" sampledSeconds="1.00" noise="51.77" traveltime="40.00"/>
+        <edge id="3/1to2/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
     </interval>
     <interval begin="81.00" end="82.00" id="dump_1">
-        <edge id="2/1to1/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
+        <edge id="2/1to1/1" sampledSeconds="0.90" noise="0.00" traveltime="40.00"/>
+        <edge id="3/1to2/1" sampledSeconds="0.10" noise="51.77" traveltime="40.00"/>
     </interval>
     <interval begin="82.00" end="83.00" id="dump_1">
         <edge id="2/1to1/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
@@ -302,10 +317,10 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="2/1to1/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
     </interval>
     <interval begin="90.00" end="91.00" id="dump_1">
-        <edge id="2/1to1/1" sampledSeconds="1.00" noise="51.77" traveltime="40.00"/>
+        <edge id="2/1to1/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
     </interval>
     <interval begin="91.00" end="92.00" id="dump_1">
-        <edge id="2/1to1/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
+        <edge id="2/1to1/1" sampledSeconds="1.00" noise="51.77" traveltime="40.00"/>
     </interval>
     <interval begin="92.00" end="93.00" id="dump_1">
         <edge id="2/1to1/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
@@ -332,10 +347,10 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="2/1to1/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
     </interval>
     <interval begin="100.00" end="101.00" id="dump_1">
-        <edge id="2/1to1/1" sampledSeconds="1.00" noise="51.77" traveltime="40.00"/>
+        <edge id="2/1to1/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
     </interval>
     <interval begin="101.00" end="102.00" id="dump_1">
-        <edge id="2/1to1/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
+        <edge id="2/1to1/1" sampledSeconds="1.00" noise="51.77" traveltime="40.00"/>
     </interval>
     <interval begin="102.00" end="103.00" id="dump_1">
         <edge id="2/1to1/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
@@ -362,10 +377,10 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="2/1to1/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
     </interval>
     <interval begin="110.00" end="111.00" id="dump_1">
-        <edge id="2/1to1/1" sampledSeconds="1.00" noise="51.77" traveltime="40.00"/>
+        <edge id="2/1to1/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
     </interval>
     <interval begin="111.00" end="112.00" id="dump_1">
-        <edge id="2/1to1/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
+        <edge id="2/1to1/1" sampledSeconds="1.00" noise="51.77" traveltime="40.00"/>
     </interval>
     <interval begin="112.00" end="113.00" id="dump_1">
         <edge id="2/1to1/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
@@ -392,10 +407,11 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="2/1to1/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
     </interval>
     <interval begin="120.00" end="121.00" id="dump_1">
-        <edge id="2/1to1/1" sampledSeconds="1.00" noise="51.77" traveltime="40.00"/>
+        <edge id="2/1to1/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
     </interval>
     <interval begin="121.00" end="122.00" id="dump_1">
-        <edge id="1/1to0/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
+        <edge id="1/1to0/1" sampledSeconds="0.90" noise="0.00" traveltime="40.00"/>
+        <edge id="2/1to1/1" sampledSeconds="0.10" noise="51.77" traveltime="40.00"/>
     </interval>
     <interval begin="122.00" end="123.00" id="dump_1">
         <edge id="1/1to0/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
@@ -422,10 +438,10 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="1/1to0/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
     </interval>
     <interval begin="130.00" end="131.00" id="dump_1">
-        <edge id="1/1to0/1" sampledSeconds="1.00" noise="51.77" traveltime="40.00"/>
+        <edge id="1/1to0/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
     </interval>
     <interval begin="131.00" end="132.00" id="dump_1">
-        <edge id="1/1to0/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
+        <edge id="1/1to0/1" sampledSeconds="1.00" noise="51.77" traveltime="40.00"/>
     </interval>
     <interval begin="132.00" end="133.00" id="dump_1">
         <edge id="1/1to0/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
@@ -452,10 +468,10 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="1/1to0/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
     </interval>
     <interval begin="140.00" end="141.00" id="dump_1">
-        <edge id="1/1to0/1" sampledSeconds="1.00" noise="51.77" traveltime="40.00"/>
+        <edge id="1/1to0/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
     </interval>
     <interval begin="141.00" end="142.00" id="dump_1">
-        <edge id="1/1to0/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>
+        <edge id="1/1to0/1" sampledSeconds="1.00" noise="51.77" traveltime="40.00"/>
     </interval>
     <interval begin="142.00" end="143.00" id="dump_1">
         <edge id="1/1to0/1" sampledSeconds="1.00" noise="0.00" traveltime="40.00"/>

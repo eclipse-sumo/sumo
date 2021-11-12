@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-08-23 12:17:11 by Eclipse SUMO sumo Version v1_10_0+0129-6ada7b0
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <processing>
+        <step-method.ballistic value="true"/>
+        <lateral-resolution value="0.64"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="f0.10" depart="50.00" departLane="beg_1" departPos="6.60" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="159.00" arrivalLane="end_0" arrivalPos="200.00" arrivalPosLat="1.40" arrivalSpeed="10.94" duration="109.00" routeLength="993.40" waitingTime="8.00" waitingCount="2" stopTime="0.00" timeLoss="25.14" rerouteNo="0" devices="tripinfo_f0.10 bluelight_f0.10" vType="emg" speedFactor="0.85" vaporized="">
+        <bluelight/>
+    </tripinfo>
+    <tripinfo id="f0.16" depart="80.00" departLane="beg_0" departPos="6.60" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="199.00" arrivalLane="end_0" arrivalPos="200.00" arrivalPosLat="1.40" arrivalSpeed="9.55" duration="119.00" routeLength="993.40" waitingTime="7.00" waitingCount="2" stopTime="0.00" timeLoss="26.02" rerouteNo="0" devices="tripinfo_f0.16 bluelight_f0.16" vType="emg" speedFactor="0.78" vaporized="">
+        <bluelight/>
+    </tripinfo>
+</tripinfos>

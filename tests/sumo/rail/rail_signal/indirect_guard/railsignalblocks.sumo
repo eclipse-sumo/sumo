@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May 22 20:22:56 2019 by Eclipse SUMO Version v1_2_0+0112-7d384bbd43
+<!-- generated on Wed Sep  2 09:53:20 2020 by Eclipse SUMO sumo Version v1_6_0+1904-84cb2799ee
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,6 +30,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -44,6 +45,7 @@ SPDX-License-Identifier: EPL-2.0
                 <forward lanes=":A_0_0 T9_0 :W1_1_0 T10_0 :B_1_0 T11_0"/>
                 <bidi lanes="-T10_0 :B_0_0 -T11_0 :C_0_0 -T12_0 :D_0_0 -T13_0 :W2_1_0 -T4_0 :F_0_0 -T5_0"/>
                 <flank lanes=":W2_0_0 -T14_0 :E_0_0"/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals="E_0"/>
             </driveWay>
         </link>
@@ -54,6 +56,7 @@ SPDX-License-Identifier: EPL-2.0
                 <forward lanes=":B_0_0 -T10_0 :W1_0_0 T3_0"/>
                 <bidi lanes=":B_1_0 T10_0"/>
                 <flank lanes=":W1_1_0 T9_0 :A_0_0"/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals="A_0"/>
             </driveWay>
         </link>
@@ -64,6 +67,7 @@ SPDX-License-Identifier: EPL-2.0
                 <forward lanes=":C_0_0 -T11_0"/>
                 <bidi lanes=":C_1_0 T11_0 :B_1_0 T10_0"/>
                 <flank lanes=":W1_1_0 T9_0 :A_0_0"/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals="A_0"/>
             </driveWay>
         </link>
@@ -72,6 +76,7 @@ SPDX-License-Identifier: EPL-2.0
                 <forward lanes=":C_1_0 T12_0"/>
                 <bidi lanes=":C_0_0 -T12_0 :D_0_0 -T13_0 :W2_1_0 -T4_0 :F_0_0 -T5_0"/>
                 <flank lanes=":W2_0_0 -T14_0 :E_0_0"/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals="E_0"/>
             </driveWay>
         </link>
@@ -82,6 +87,7 @@ SPDX-License-Identifier: EPL-2.0
                 <forward lanes=":D_1_0 T13_0 :W2_2_0 T4_0"/>
                 <bidi lanes=":D_0_0 -T13_0 :W2_1_0 -T4_0 :F_0_0 -T5_0"/>
                 <flank lanes=":W2_0_0 -T14_0 :E_0_0"/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals="E_0"/>
             </driveWay>
         </link>
@@ -92,6 +98,7 @@ SPDX-License-Identifier: EPL-2.0
                 <forward lanes=":E_0_0 -T14_0 :W2_0_0 -T13_0 :D_0_0 -T12_0"/>
                 <bidi lanes=":E_1_0 T14_0 :W2_3_0 T13_0 :D_1_0 T12_0 :C_1_0 T11_0 :B_1_0 T10_0"/>
                 <flank lanes=":W2_1_0 -T4_0 :F_0_0 :W1_1_0 T9_0 :A_0_0"/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals="F_0 A_0"/>
             </driveWay>
         </link>
@@ -100,6 +107,7 @@ SPDX-License-Identifier: EPL-2.0
                 <forward lanes=":E_1_0 T15_0"/>
                 <bidi lanes=":E_0_0 -T15_0"/>
                 <flank lanes=""/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
             </driveWay>
         </link>
@@ -110,6 +118,7 @@ SPDX-License-Identifier: EPL-2.0
                 <forward lanes=":F_0_0 -T4_0 :W2_1_0 -T13_0 :D_0_0 -T12_0"/>
                 <bidi lanes=":F_1_0 T4_0 :W2_2_0 T13_0 :D_1_0 T12_0 :C_1_0 T11_0 :B_1_0 T10_0"/>
                 <flank lanes=":W2_0_0 -T14_0 :E_0_0 :W1_1_0 T9_0 :A_0_0"/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals="E_0 A_0"/>
             </driveWay>
         </link>
@@ -118,6 +127,7 @@ SPDX-License-Identifier: EPL-2.0
                 <forward lanes=":F_1_0 T5_0"/>
                 <bidi lanes=":F_0_0 -T5_0"/>
                 <flank lanes=""/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
             </driveWay>
         </link>

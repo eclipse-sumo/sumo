@@ -7,6 +7,18 @@ set_internalShape
 reset_internalShape
 set_lane_shape
 
+# set lane shape that consists of only one geometry point
+set_lane_shape_1point
+
+# custom lane shapes must be shifted along with everything else
+set_lane_shape_offset
+
+# custom lane shapes must be joined when removing geometry-nodes
+set_lane_shape_removeGeometry
+
+# custom lane shapes must affected when using option --geometry.min-dist
+set_lane_shape_minDist
+
 # load a sumo net with custom lane shapes and define additional customization
 set_lane_shape_sumo_net
 

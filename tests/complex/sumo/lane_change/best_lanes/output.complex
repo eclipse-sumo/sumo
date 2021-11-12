@@ -92,12 +92,12 @@ lane 1_0:
   allowsContinuation: False
   over: ('1_0',)
 lane 1_1:
-  length: 3437.58
+  length: 3447.58
   offset: 0
   allowsContinuation: True
   over: ('1_1', '2_0', '3_1', '4_0', '5_0', '6_0', '7o_0')
 lane 1_2:
-  length: 2947.68
+  length: 2955.18
   offset: -1
   allowsContinuation: True
   over: ('1_2', '2_1', '3_2', '4_1', '5_2', '6_2')

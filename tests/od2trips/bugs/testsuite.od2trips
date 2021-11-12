@@ -10,5 +10,3 @@ ticket68
 # Tests for #148 (od2trips breaks on matrices without comments)
 ticket148_Vmatrix
 ticket148_Omatrix
-
-

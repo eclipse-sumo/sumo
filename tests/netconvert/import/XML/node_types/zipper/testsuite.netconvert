@@ -7,3 +7,9 @@ merge_intersection
 
 # three edges merging into one
 merge_intersection_4arm
+
+# two edges merging into one
+merge_intersection_difficult_angles
+
+# two edges merging into one
+merge_intersection_difficult_angles_pass

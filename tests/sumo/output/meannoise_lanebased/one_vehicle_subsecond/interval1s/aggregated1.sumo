@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  3 10:28:58 2014 by SUMO sumo Version dev-SVN-r15793
+<!-- generated on Mon Mar 30 15:08:39 2020 by Eclipse SUMO Version v1_5_0+1011-3e02c63d25
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -13,17 +13,29 @@ SPDX-License-Identifier: EPL-2.0
         <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
     </input>
 
+    <output>
+        <write-license value="true"/>
+    </output>
+
     <time>
         <begin value="0"/>
         <end value="150"/>
         <step-length value="0.1"/>
     </time>
 
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
+
+    <gui_only>
+        <tracker-interval value="0.1"/>
+    </gui_only>
 
 </configuration>
 -->
@@ -32,7 +44,7 @@ SPDX-License-Identifier: EPL-2.0
     <interval begin="0.00" end="1.00" id="dump_1"/>
     <interval begin="1.00" end="2.00" id="dump_1">
         <edge id="4/1to3/1">
-            <lane id="4/1to3/1_0" sampledSeconds="1.00" noise="61.77" traveltime="40.00"/>
+            <lane id="4/1to3/1_0" sampledSeconds="0.90" noise="61.32" traveltime="40.00"/>
         </edge>
     </interval>
     <interval begin="2.00" end="3.00" id="dump_1">
@@ -182,10 +194,10 @@ SPDX-License-Identifier: EPL-2.0
     </interval>
     <interval begin="31.00" end="32.00" id="dump_1">
         <edge id="3/1to2/1">
-            <lane id="3/1to2/1_0" sampledSeconds="1.00" noise="61.77" traveltime="40.00"/>
+            <lane id="3/1to2/1_0" sampledSeconds="0.90" noise="61.32" traveltime="40.00"/>
         </edge>
         <edge id="4/1to3/1">
-            <lane id="4/1to3/1_0" sampledSeconds="0.30" noise="56.55" traveltime="40.00"/>
+            <lane id="4/1to3/1_0" sampledSeconds="0.40" noise="57.80" traveltime="40.00"/>
         </edge>
     </interval>
     <interval begin="32.00" end="33.00" id="dump_1">
@@ -385,10 +397,10 @@ SPDX-License-Identifier: EPL-2.0
     </interval>
     <interval begin="71.00" end="72.00" id="dump_1">
         <edge id="2/1to1/1">
-            <lane id="2/1to1/1_0" sampledSeconds="1.00" noise="61.77" traveltime="40.00"/>
+            <lane id="2/1to1/1_0" sampledSeconds="0.90" noise="61.32" traveltime="40.00"/>
         </edge>
         <edge id="3/1to2/1">
-            <lane id="3/1to2/1_0" sampledSeconds="0.30" noise="56.55" traveltime="40.00"/>
+            <lane id="3/1to2/1_0" sampledSeconds="0.40" noise="57.80" traveltime="40.00"/>
         </edge>
     </interval>
     <interval begin="72.00" end="73.00" id="dump_1">
@@ -588,10 +600,10 @@ SPDX-License-Identifier: EPL-2.0
     </interval>
     <interval begin="111.00" end="112.00" id="dump_1">
         <edge id="1/1to0/1">
-            <lane id="1/1to0/1_0" sampledSeconds="1.00" noise="61.77" traveltime="40.00"/>
+            <lane id="1/1to0/1_0" sampledSeconds="0.90" noise="61.32" traveltime="40.00"/>
         </edge>
         <edge id="2/1to1/1">
-            <lane id="2/1to1/1_0" sampledSeconds="0.30" noise="56.55" traveltime="40.00"/>
+            <lane id="2/1to1/1_0" sampledSeconds="0.40" noise="57.80" traveltime="40.00"/>
         </edge>
     </interval>
     <interval begin="112.00" end="113.00" id="dump_1">

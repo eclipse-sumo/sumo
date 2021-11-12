@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIInductLoop.h
 /// @author  Daniel Krajzewicz
@@ -16,16 +20,10 @@
 ///
 // The gui-version of the MSInductLoop, together with the according
 /****************************************************************************/
-#ifndef GUIInductLoop_h
-#define GUIInductLoop_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <microsim/output/MSInductLoop.h>
 #include <utils/geom/Position.h>
 #include "GUIDetectorWrapper.h"
@@ -53,39 +51,18 @@ public:
      * @param[in] position Position of the detector within the lane
      * @param[in] vTypes which vehicle types are considered
      */
-    GUIInductLoop(const std::string& id, MSLane* const lane, double position, const std::string& vTypes, bool show);
+    GUIInductLoop(const std::string& id, MSLane* const lane, double position, const std::string& vTypes,
+            int detectPersons, bool show);
 
 
     /// @brief Destructor
     ~GUIInductLoop();
 
 
-    /** @brief Resets all generated values to allow computation of next interval
-     *
-     * Locks the internal mutex before calling MSInductLoop::reset()
-     * @see MSInductLoop::reset()
-     */
-    void reset();
-
-
     /** @brief Returns this detector's visualisation-wrapper
      * @return The wrapper representing the detector
      */
     virtual GUIDetectorWrapper* buildDetectorGUIRepresentation();
-
-
-    /** @brief Returns vehicle data for vehicles that have been on the detector starting at the given time
-     *
-     * This method uses a mutex to prevent parallel read/write access to the vehicle buffer
-     *
-     * @param[in] t The time from which vehicles shall be counted
-     * @param[in] leaveTime Whether entryTime or leaveTime shall be compared against t
-     *            (the latter gives a more complete picture but may include vehicles in multiple steps even if they did not stay on the detector)
-     * @return The list of vehicles
-     * @see MSInductLoop::collectVehiclesOnDet()
-     */
-    std::vector<VehicleData> collectVehiclesOnDet(SUMOTime t, bool leaveTime = false) const;
-
 
     /// @brief sets special caller for myWrapper
     void setSpecialColor(const RGBColor* color);
@@ -100,45 +77,6 @@ public:
         myShow = show;
     }
 
-protected:
-    /// @name Methods that add and remove vehicles from internal container
-    /// @{
-
-    /** @brief Introduces a vehicle to the detector's map myVehiclesOnDet.
-     *
-     * Locks the internal mutex before calling MSInductLoop::enterDetectorByMove()
-     * @see MSInductLoop::enterDetectorByMove()
-     * @param veh The entering vehicle.
-     * @param entryTimestep Timestep (not necessary integer) of entrance.
-     * @see MSInductLoop::enterDetectorByMove()
-     */
-    void enterDetectorByMove(SUMOTrafficObject& veh, double entryTimestep);
-
-
-    /** @brief Processes a vehicle that leaves the detector
-     *
-     * Locks the internal mutex before calling MSInductLoop::leaveDetectorByMove()
-     * @see MSInductLoop::leaveDetectorByMove()
-     * @param veh The leaving vehicle.
-     * @param leaveTimestep Timestep (not necessary integer) of leaving.
-     * @see MSInductLoop::leaveDetectorByMove()
-     */
-    void leaveDetectorByMove(SUMOTrafficObject& veh, double leaveTimestep);
-
-
-    /** @brief Removes a vehicle from the detector's map myVehiclesOnDet.
-     *
-     * Locks the internal mutex before calling MSInductLoop::leaveDetectorByLaneChange()
-     * @see MSInductLoop::leaveDetectorByLaneChange()
-     * @param veh The leaving vehicle.
-     * @param lastPos The last position of the leaving vehicle.
-     */
-    void leaveDetectorByLaneChange(SUMOTrafficObject& veh, double lastPos);
-    /// @}
-
-
-
-
 public:
     /**
      * @class GUIInductLoop::MyWrapper
@@ -151,7 +89,6 @@ public:
 
         /// @brief Destructor
         ~MyWrapper();
-
 
         /// @name inherited from GUIGlObject
         //@{
@@ -166,6 +103,8 @@ public:
         GUIParameterTableWindow* getParameterWindow(
             GUIMainWindow& app, GUISUMOAbstractView& parent);
 
+        /// @brief return exaggeration asociated with this GLObject
+        double getExaggeration(const GUIVisualizationSettings& s) const;
 
         /** @brief Returns the boundary to which the view shall be centered in order to show the object
          *
@@ -174,14 +113,12 @@ public:
          */
         Boundary getCenteringBoundary() const;
 
-
         /** @brief Draws the object
          * @param[in] s The settings for the current view (may influence drawing)
          * @see GUIGlObject::drawGL
          */
         void drawGL(const GUIVisualizationSettings& s) const;
         //@}
-
 
         /// @brief set (outline) color for extra visualiaztion
         void setSpecialColor(const RGBColor* color) {
@@ -224,13 +161,4 @@ private:
     /// @brief whether this induction loop shall be visible in the gui
     bool myShow;
 
-    /// @brief Mutex preventing parallel read/write access to internal MSInductLoop state
-    mutable FXMutex myLock;
-
 };
-
-
-#endif
-
-/****************************************************************************/
-

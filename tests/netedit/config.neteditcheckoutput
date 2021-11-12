@@ -1,9 +1,11 @@
 import_config_file:../config_all
+kill_timeout:600
 binary:$SUMO_BINARY
 
 copy_test_path:net.netedit
 copy_test_path:additionals.netedit
 copy_test_path:routes.netedit
+copy_test_path:datas.netedit
 copy_test_path:shapes.netedit
 copy_test_path:sumo.sumocfg
 copy_test_path_merge:myOwnFilenameRerouter.txt

@@ -1,0 +1,6 @@
+--tls.guess-signals
+--tls.discard-simple
+--osm-files osm.xml
+-R
+--keep-edges.by-vclass passenger
+--type-files $SUMO_HOME/data/typemap/osmNetconvert.typ.xml,$SUMO_HOME/data/typemap/osmNetconvertPedestrians.typ.xml

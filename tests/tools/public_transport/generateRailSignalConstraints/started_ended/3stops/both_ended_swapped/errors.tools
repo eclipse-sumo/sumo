@@ -1,0 +1,2 @@
+Vehicle t0 (00:03:20, 00:03:50, 00:20:00, 00:20:30) overtaken by t2_follow (00:19:10, 00:19:40, 00:19:10, 00:19:40) at stop stop_2c (index 1)
+Vehicle t0 was overtaken and starts to ignore schedule at stop stop_3c (index 2)

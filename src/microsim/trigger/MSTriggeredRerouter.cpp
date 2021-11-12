@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSTriggeredRerouter.cpp
 /// @author  Daniel Krajzewicz
@@ -16,11 +20,6 @@
 ///
 // Reroutes vehicles passing an edge
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -46,7 +45,8 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSParkingArea.h>
-#include <microsim/MSTransportable.h>
+#include <microsim/MSStop.h>
+#include <microsim/transportables/MSTransportable.h>
 #include <microsim/devices/MSDevice_Routing.h>
 #include <microsim/devices/MSRoutingEngine.h>
 #include "MSTriggeredRerouter.h"
@@ -62,8 +62,9 @@
 // ===========================================================================
 // static member defintion
 // ===========================================================================
-MSEdge MSTriggeredRerouter::mySpecialDest_keepDestination("MSTriggeredRerouter_keepDestination", -1, EDGEFUNC_UNKNOWN, "", "", -1, 0);
-MSEdge MSTriggeredRerouter::mySpecialDest_terminateRoute("MSTriggeredRerouter_terminateRoute", -1, EDGEFUNC_UNKNOWN, "", "", -1, 0);
+MSEdge MSTriggeredRerouter::mySpecialDest_keepDestination("MSTriggeredRerouter_keepDestination", -1, SumoXMLEdgeFunc::UNKNOWN, "", "", -1, 0);
+MSEdge MSTriggeredRerouter::mySpecialDest_terminateRoute("MSTriggeredRerouter_terminateRoute", -1, SumoXMLEdgeFunc::UNKNOWN, "", "", -1, 0);
+std::map<std::string, MSTriggeredRerouter*> MSTriggeredRerouter::myInstances;
 
 // ===========================================================================
 // method definitions
@@ -76,10 +77,12 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
     MSTrigger(id),
     MSMoveReminder(id),
     SUMOSAXHandler(file),
+    myEdges(edges),
     myProbability(prob),
     myUserProbability(prob),
     myAmInUserMode(false),
     myTimeThreshold(timeThreshold) {
+    myInstances[id] = this;
     // build actors
     for (MSEdgeVector::const_iterator j = edges.begin(); j != edges.end(); ++j) {
         if (MSGlobals::gUseMesoSim) {
@@ -102,6 +105,7 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
 
 
 MSTriggeredRerouter::~MSTriggeredRerouter() {
+    myInstances.erase(getID());
 }
 
 // ------------ loading begin
@@ -203,7 +207,7 @@ MSTriggeredRerouter::myStartElement(int element,
         myCurrentRouteProb.add(route, prob);
     }
 
-    if (element == SUMO_TAG_PARKING_ZONE_REROUTE) {
+    if (element == SUMO_TAG_PARKING_AREA_REROUTE) {
         // by giving probabilities of new destinations
         // get the destination edge
         std::string parkingarea = attrs.getStringSecure(SUMO_ATTR_ID, "");
@@ -255,6 +259,13 @@ MSTriggeredRerouter::myEndElement(int element) {
             }
             ri.closedLanesAffected.insert(ri.closedLanesAffected.begin(), affected.begin(), affected.end());
         }
+        SUMOTime closingBegin = ri.begin;
+        SUMOTime simBegin = string2time(OptionsCont::getOptions().getString("begin"));
+        if (closingBegin < simBegin && ri.end > simBegin) {
+            // interval started before simulation begin but is still active at
+            // the start of the simulation
+            ri.begin = simBegin;
+        }
         myCurrentClosed.clear();
         myCurrentClosedLanes.clear();
         myCurrentEdgeProb.clear();
@@ -275,34 +286,46 @@ MSTriggeredRerouter::myEndElement(int element) {
 
 SUMOTime
 MSTriggeredRerouter::setPermissions(const SUMOTime currentTime) {
-    for (std::vector<RerouteInterval>::iterator i = myIntervals.begin(); i != myIntervals.end(); ++i) {
-        if (i->begin == currentTime && !(i->closed.empty() && i->closedLanes.empty()) && i->permissions != SVCAll) {
-            for (MSEdgeVector::iterator e = i->closed.begin(); e != i->closed.end(); ++e) {
-                for (std::vector<MSLane*>::const_iterator l = (*e)->getLanes().begin(); l != (*e)->getLanes().end(); ++l) {
-                    //std::cout << SIMTIME << " closing: intervalID=" << i->id << " lane=" << (*l)->getID() << " prevPerm=" << getVehicleClassNames((*l)->getPermissions()) << " new=" << getVehicleClassNames(i->permissions) << "\n";
-                    (*l)->setPermissions(i->permissions, i->id);
+    bool updateVehicles = false;
+    for (const RerouteInterval& i : myIntervals) {
+        if (i.begin == currentTime && !(i.closed.empty() && i.closedLanes.empty()) && i.permissions != SVCAll) {
+            for (MSEdge* e : i.closed) {
+                for (MSLane* lane : e->getLanes()) {
+                    //std::cout << SIMTIME << " closing: intervalID=" << i.id << " lane=" << (*l)->getID() << " prevPerm=" << getVehicleClassNames((*l)->getPermissions()) << " new=" << getVehicleClassNames(i.permissions) << "\n";
+                    lane->setPermissions(i.permissions, i.id);
                 }
-                (*e)->rebuildAllowedLanes();
+                e->rebuildAllowedLanes();
+                updateVehicles = true;
             }
-            for (std::vector<MSLane*>::iterator l = i->closedLanes.begin(); l != i->closedLanes.end(); ++l) {
-                (*l)->setPermissions(i->permissions, i->id);
-                (*l)->getEdge().rebuildAllowedLanes();
+            for (MSLane* lane : i.closedLanes) {
+                lane->setPermissions(i.permissions, i.id);
+                lane->getEdge().rebuildAllowedLanes();
+                updateVehicles = true;
             }
             MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(
-                new WrappingCommand<MSTriggeredRerouter>(this, &MSTriggeredRerouter::setPermissions), i->end);
+                new WrappingCommand<MSTriggeredRerouter>(this, &MSTriggeredRerouter::setPermissions), i.end);
         }
-        if (i->end == currentTime && !(i->closed.empty() && i->closedLanes.empty()) && i->permissions != SVCAll) {
-            for (MSEdgeVector::iterator e = i->closed.begin(); e != i->closed.end(); ++e) {
-                for (std::vector<MSLane*>::const_iterator l = (*e)->getLanes().begin(); l != (*e)->getLanes().end(); ++l) {
-                    (*l)->resetPermissions(i->id);
-                    //std::cout << SIMTIME << " opening: intervalID=" << i->id << " lane=" << (*l)->getID() << " restore prevPerm=" << getVehicleClassNames((*l)->getPermissions()) << "\n";
+        if (i.end == currentTime && !(i.closed.empty() && i.closedLanes.empty()) && i.permissions != SVCAll) {
+            for (MSEdge* e : i.closed) {
+                for (MSLane* lane : e->getLanes()) {
+                    lane->resetPermissions(i.id);
+                    //std::cout << SIMTIME << " opening: intervalID=" << i.id << " lane=" << (*l)->getID() << " restore prevPerm=" << getVehicleClassNames((*l)->getPermissions()) << "\n";
                 }
-                (*e)->rebuildAllowedLanes();
+                e->rebuildAllowedLanes();
+                updateVehicles = true;
             }
-            for (std::vector<MSLane*>::iterator l = i->closedLanes.begin(); l != i->closedLanes.end(); ++l) {
-                (*l)->resetPermissions(i->id);
-                (*l)->getEdge().rebuildAllowedLanes();
+            for (MSLane* lane : i.closedLanes) {
+                lane->resetPermissions(i.id);
+                lane->getEdge().rebuildAllowedLanes();
+                updateVehicles = true;
             }
+        }
+    }
+    if (updateVehicles) {
+        // only vehicles on the affected lanes had their bestlanes updated so far
+        for (MSEdge* e : myEdges) {
+            // also updates vehicles
+            e->rebuildAllowedTargets();
         }
     }
     return 0;
@@ -412,20 +435,20 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
                 // update arrival parameters
                 SUMOVehicleParameter* newParameter = new SUMOVehicleParameter();
                 *newParameter = veh.getParameter();
-                newParameter->arrivalPosProcedure = ARRIVAL_POS_GIVEN;
+                newParameter->arrivalPosProcedure = ArrivalPosDefinition::GIVEN;
                 newParameter->arrivalPos = newParkingArea->getEndLanePosition();
                 veh.replaceParameter(newParameter);
             }
 
             SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = hasReroutingDevice
-                    ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), rerouteDef->closed)
+                    ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), veh.getVClass(), rerouteDef->closed)
                     : MSNet::getInstance()->getRouterTT(veh.getRNGIndex(), rerouteDef->closed);
             const double routeCost = router.recomputeCosts(newRoute, &veh, MSNet::getInstance()->getCurrentTimeStep());
             ConstMSEdgeVector prevEdges(veh.getCurrentRouteEdge(), veh.getRoute().end());
             const double previousCost = router.recomputeCosts(prevEdges, &veh, MSNet::getInstance()->getCurrentTimeStep());
             const double savings = previousCost - routeCost;
             hasReroutingDevice
-            ? MSRoutingEngine::getRouterTT(veh.getRNGIndex())
+            ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), veh.getVClass())
             : MSNet::getInstance()->getRouterTT(veh.getRNGIndex()); // reset closed edges
             //if (getID() == "ego") std::cout << SIMTIME << " pCost=" << previousCost << " cost=" << routeCost
             //        << " prevEdges=" << toString(prevEdges)
@@ -434,7 +457,7 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
 
             std::string errorMsg;
             if (veh.replaceParkingArea(newParkingArea, errorMsg)) {
-                veh.replaceRouteEdges(newRoute, routeCost, savings, getID() + ":" + toString(SUMO_TAG_PARKING_ZONE_REROUTE), false, false, false);
+                veh.replaceRouteEdges(newRoute, routeCost, savings, getID() + ":" + toString(SUMO_TAG_PARKING_AREA_REROUTE), false, false, false);
             } else {
                 WRITE_WARNING("Vehicle '" + veh.getID() + "' at rerouter '" + getID()
                               + "' could not reroute to new parkingArea '" + newParkingArea->getID()
@@ -493,7 +516,7 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
     if (rerouteDef->closed.size() == 0 || destUnreachable || veh.getRoute().containsAnyOf(rerouteDef->closed)) {
         ConstMSEdgeVector edges;
         SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = hasReroutingDevice
-                ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), rerouteDef->closed)
+                ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), veh.getVClass(), rerouteDef->closed)
                 : MSNet::getInstance()->getRouterTT(veh.getRNGIndex(), rerouteDef->closed);
         router.compute(veh.getEdge(), newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
         if (edges.size() == 0 && !keepDestination && rerouteDef->edgeProbs.getOverallProb() > 0) {
@@ -518,7 +541,7 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
         }
         const double routeCost = router.recomputeCosts(edges, &veh, MSNet::getInstance()->getCurrentTimeStep());
         hasReroutingDevice
-        ? MSRoutingEngine::getRouterTT(veh.getRNGIndex())
+        ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), veh.getVClass())
         : MSNet::getInstance()->getRouterTT(veh.getRNGIndex()); // reset closed edges
         const bool useNewRoute = veh.replaceRouteEdges(edges, routeCost, 0, getID());
 #ifdef DEBUG_REROUTER
@@ -624,6 +647,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
         return nullptr;
     }
     if (destParkArea->getLastStepOccupancy() == destParkArea->getCapacity()) {
+        veh.rememberBlockedParkingArea(destParkArea);
         // if the current route ends at the parking area, the new route will
         // also and at the new area
         newDestination = (&destParkArea->getLane().getEdge() == route.getLastEdge()
@@ -632,7 +656,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
 
 #ifdef DEBUG_PARKING
         if (DEBUGCOND) {
-            std::cout << SIMTIME << " veh=" << veh.getID()
+            std::cout << SIMTIME << " rerouter=" << getID() << " veh=" << veh.getID()
                       << " rerouteParkingArea dest=" << destParkArea->getID()
                       << " onDestEdge=" << (&(destParkArea->getLane().getEdge()) == veh.getEdge())
                       << " newDest=" << newDestination
@@ -641,10 +665,11 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
 #endif
 
         typedef std::map<std::string, double> ParkingParamMap_t;
-        typedef std::map<MSParkingArea*, ParkingParamMap_t> MSParkingAreaMap_t;
+        typedef std::map<MSParkingArea*, ParkingParamMap_t, ComparatorIdLess> MSParkingAreaMap_t;
 
         ParkingParamMap_t weights;
         std::map<MSParkingArea*, ConstMSEdgeVector> newRoutes;
+        std::map<MSParkingArea*, ConstMSEdgeVector> parkApproaches;
 
         // The probability of choosing this area inside the zone
         weights["probability"] = getWeight(veh, "parking.probability.weight", 0.0);
@@ -696,7 +721,21 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
             const double prob = probs[i];
             // alternative occupancy is randomized (but never full) if invisible
             // current destination must be visible at this point
-            int paOccupancy = parks[i].second || pa == destParkArea ? pa->getOccupancy() : RandHelper::rand(pa->getCapacity());
+            const bool visible = parks[i].second || pa == destParkArea;
+            int paOccupancy = visible ? pa->getOccupancy() : RandHelper::rand(pa->getCapacity());
+            if (!visible) {
+                // previously visited?
+                SUMOTime blockedTime = veh.sawBlockedParkingArea(pa);
+                if (blockedTime >= 0 && SIMSTEP - blockedTime < TIME2STEPS(getWeight(veh, "parking.memory", 600))) {
+                    // assume it's still occupied
+                    paOccupancy = pa->getCapacity();
+#ifdef DEBUG_PARKING
+                    if (DEBUGCOND) {
+                        std::cout << "    altPA=" << pa->getID() << " was blocked at " << time2string(blockedTime) << "\n";
+                    }
+#endif
+                }
+            }
             if (paOccupancy < pa->getCapacity()) {
 
                 // a map stores the parking values
@@ -709,7 +748,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
 
                 // Compute the route from the current edge to the parking area edge
                 ConstMSEdgeVector edgesToPark;
-                if (veh.getEdge() == parkEdge && pa->getEndLanePosition() < veh.getPositionOnLane()) {
+                if (veh.getEdge() == parkEdge && pa->getLastFreePos(veh) < veh.getPositionOnLane()) {
                     router.computeLooped(veh.getEdge(), parkEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edgesToPark, true);
                 } else {
                     router.compute(veh.getEdge(), parkEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edgesToPark, true);
@@ -718,6 +757,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
                 if (edgesToPark.size() > 0) {
                     // Compute the route from the parking area edge to the end of the route
                     ConstMSEdgeVector edgesFromPark;
+                    parkApproaches[pa] = edgesToPark;
 
                     const MSEdge* nextDestination = route.getLastEdge();
                     double nextPos = veh.getArrivalPos();
@@ -730,7 +770,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
                             nextPos = stopIndices[1].second;
 
                         }
-                        if (parkEdge == nextDestination && nextPos < pa->getEndLanePosition()) {
+                        if (parkEdge == nextDestination && nextPos < pa->getLastFreePos(veh)) {
                             router.computeLooped(parkEdge, nextDestination, &veh, MSNet::getInstance()->getCurrentTimeStep(), edgesFromPark, true);
                         } else {
                             router.compute(parkEdge, nextDestination, &veh, MSNet::getInstance()->getCurrentTimeStep(), edgesFromPark, true);
@@ -828,6 +868,10 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
 #endif
                     }
                 }
+            } else if (visible) {
+                // might only be visible now (i.e. because it's on the other
+                // side of the street), so we should remember this for later.
+                veh.rememberBlockedParkingArea(pa);
             }
         }
         MSNet::getInstance()->getRouterTT(veh.getRNGIndex()); // reset closed edges
@@ -845,8 +889,41 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
             // get the parking values
             ParkingParamMap_t parkValues = it->second;
 
-            // normalizing parking values with maximum values (we want to maximize some parameters then we reverse the value)
-            parkValues["probability"] = maxValues["probability"] > 0.0 ? 1.0 - parkValues["probability"] / maxValues["probability"] : 0.0;
+            if (weights["probability"] > 0 && maxValues["probability"] > 0.0) {
+                // random search should not drive past a usable parking area
+                bool dominated = false;
+                double endPos = it->first->getEndLanePosition();
+                const ConstMSEdgeVector& to1 = parkApproaches[it->first];
+                assert(to1.size() > 0);
+                for (auto altPa : parkAreas) {
+                    if (altPa.first == it->first) {
+                        continue;
+                    }
+                    const ConstMSEdgeVector& to2 = parkApproaches[altPa.first];
+                    assert(to2.size() > 0);
+                    if (to1.size() > to2.size()) {
+                        if (std::equal(to2.begin(), to2.end(), to1.begin())) {
+                            // other target lies on the route to the current candidate
+                            dominated = true;
+                            //std::cout << SIMTIME << " rrP veh=" << veh.getID() << " full=" << destParkArea->getID() << " cand=" << it->first->getID() << " onTheWay=" << altPa.first->getID() << "\n";
+                            break;
+                        }
+                    } else if (to1 == to2 && endPos > altPa.first->getEndLanePosition()) {
+                        // other target is on the same edge but ahead of the current candidate
+                        dominated = true;
+                        //std::cout << SIMTIME << " rrP veh=" << veh.getID() << " full=" << destParkArea->getID() << " cand=" << it->first->getID() << " sameEdge=" << altPa.first->getID() << "\n";
+                        break;
+                    }
+                }
+                double prob = 0;
+                if (!dominated) {
+                    prob = RandHelper::rand(parkValues["probability"], veh.getRNG());
+                }
+                parkValues["probability"] = 1.0 - prob / maxValues["probability"];
+            } else {
+                parkValues["probability"] = 0;
+            }
+            // normalizing with maximum values (we want to maximize some parameters then we reverse the value)
             parkValues["capacity"] = maxValues["capacity"] > 0.0 ? 1.0 - parkValues["capacity"] / maxValues["capacity"] : 0.0;
             parkValues["absfreespace"] = maxValues["absfreespace"] > 0.0 ? 1.0 - parkValues["absfreespace"] / maxValues["absfreespace"] : 0.0;
             parkValues["relfreespace"] = maxValues["relfreespace"] > 0.0 ? 1.0 - parkValues["relfreespace"] / maxValues["relfreespace"] : 0.0;
@@ -878,6 +955,12 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
             }
 #endif
         }
+    } else {
+#ifdef DEBUG_PARKING
+        if (DEBUGCOND) {
+            std::cout << SIMTIME << " rerouter=" << getID() << " veh=" << veh.getID() << " rerouteParkingArea dest=" << destParkArea->getID() << " sufficient space\n";
+        }
+#endif
     }
 
 #ifdef DEBUG_PARKING
@@ -906,5 +989,32 @@ MSTriggeredRerouter::vehicleApplies(const SUMOVehicle& veh) const {
 }
 
 
+void
+MSTriggeredRerouter::checkParkingRerouteConsistency() {
+    // if a parkingArea is a rerouting target, it should generally have a
+    // rerouter on it's edge or vehicles will be stuck there once it's full.
+    // The user should receive a Warning in this case
+    std::set<MSEdge*> parkingRerouterEdges;
+    std::map<MSParkingArea*, std::string, ComparatorIdLess> targetedParkingArea; // paID -> targetingRerouter
+    for (const auto& rr : myInstances) {
+        bool hasParkingReroute = false;
+        for (const RerouteInterval& interval : rr.second->myIntervals) {
+            if (interval.parkProbs.getOverallProb() > 0) {
+                hasParkingReroute = true;
+                for (const ParkingAreaVisible& pav : interval.parkProbs.getVals()) {
+                    targetedParkingArea[pav.first] = rr.first;
+                }
+            }
+        }
+        if (hasParkingReroute) {
+            parkingRerouterEdges.insert(rr.second->myEdges.begin(), rr.second->myEdges.end());
+        }
+    }
+    for (const auto& item : targetedParkingArea) {
+        if (parkingRerouterEdges.count(&item.first->getLane().getEdge()) == 0) {
+            WRITE_WARNINGF("ParkingArea '%' is targeted by rerouter '%' but doesn't have it's own rerouter. This may cause parking search to abort.",
+                    item.first->getID(), item.second);
+        }
+    }
+}
 /****************************************************************************/
-

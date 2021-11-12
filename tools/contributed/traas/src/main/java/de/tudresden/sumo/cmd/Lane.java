@@ -1,13 +1,17 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
 // TraaS module
 // Copyright (C) 2016-2017 Dresden University of Technology
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    Lane.java
 /// @author  Mario Krumnow
@@ -18,14 +22,14 @@
 /****************************************************************************/
 package de.tudresden.sumo.cmd;
 import de.tudresden.sumo.config.Constants;
+import de.tudresden.sumo.objects.SumoStringList;
 import de.tudresden.sumo.util.SumoCommand;
-import de.tudresden.ws.container.SumoStringList;
 
 /**
+ * The Class Lane.
  *
  * @author Mario Krumnow
  * @author Evamarie Wiessner
- *
  */
 
 public class Lane {
@@ -118,12 +122,10 @@ public class Lane {
 
 
     /**
-     * Returns the ids of incoming lanes that have right of way over the connection from laneID to toLaneID
+     * Returns the ids of incoming lanes that have right of way over the connection from laneID to toLaneID.
      *
-     * @param laneID
-     *            a string identifying a lane
-     * @param toLane
-     *            a string identifying the target lane
+     * @param laneID            a string identifying a lane
+     * @param toLane            a string identifying the target lane
      * @return the energy consumption
      */
 
@@ -133,10 +135,9 @@ public class Lane {
     }
 
     /**
-     * Returns the ids of internal lanes that are in conflict with the given internal lane id
+     * Returns the ids of internal lanes that are in conflict with the given internal lane id.
      *
-     * @param laneID
-     *            a string identifying a lane
+     * @param laneID            a string identifying a lane
      * @return the energy consumption
      */
 
@@ -334,11 +335,10 @@ public class Lane {
     }
 
     /**
-     * Returns the chosen parameter
+     * Returns the chosen parameter.
      *
-     *  @param laneID a string identifying the edge
-     *  @param param a string identifying the parameter
-     *
+     * @param laneID a string identifying the edge
+     * @param param a string identifying the parameter
      * @return the specific parameter
      */
 
@@ -348,12 +348,11 @@ public class Lane {
     }
 
     /**
-     * Sets the chosen parameter
+     * Sets the chosen parameter.
      *
-     *  @param vehID a string identifying the vehicle
-     *  @param param a string identifying the parameter
-     *  @param value a string identifying the new value
-     *
+     * @param laneID the lane ID
+     * @param param a string identifying the parameter
+     * @param value a string identifying the new value
      * @return SumoCommand
      */
 
@@ -413,9 +412,9 @@ public class Lane {
     }
 
     /**
-     * getWaitingTime
-      * @param laneID
-     *            a string identifying a lane
+     * getWaitingTime.
+     *
+     * @param laneID            a string identifying a lane
      * @return the waiting time of the lane (in s)
      */
 

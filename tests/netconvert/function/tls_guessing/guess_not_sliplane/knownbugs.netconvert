@@ -1,0 +1,6 @@
+
+[Reported by erdm_ja at 31Jan10:30:48]
+search_string:id="gneJ0" type="traffic_light"
+search_file:net
+full_description:invalid tls
+brief_description:see #6513

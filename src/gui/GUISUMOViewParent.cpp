@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUISUMOViewParent.cpp
 /// @author  Daniel Krajzewicz
@@ -17,11 +21,6 @@
 ///
 // A single child window which contains a view of the simulation area
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -52,6 +51,7 @@
 #include <guisim/GUITransportableControl.h>
 #include <microsim/MSJunction.h>
 #include <microsim/MSGlobals.h>
+
 #include "GUIGlobals.h"
 #include "GUIViewTraffic.h"
 #include "GUIApplicationWindow.h"
@@ -59,9 +59,7 @@
 
 #include <mesogui/GUIMEVehicleControl.h>
 
-#ifdef HAVE_OSG
 #include <osgview/GUIOSGView.h>
-#endif
 
 #define SPEEDFACTOR_SCALE 100.0
 
@@ -75,6 +73,7 @@ FXDEFMAP(GUISUMOViewParent) GUISUMOViewParentMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEEDGE,     GUISUMOViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEVEHICLE,  GUISUMOViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPERSON,   GUISUMOViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATECONTAINER, GUISUMOViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATETLS,      GUISUMOViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEADD,      GUISUMOViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPOI,      GUISUMOViewParent::onCmdLocate),
@@ -116,7 +115,7 @@ GUISUMOViewParent::init(FXGLCanvas* share, GUINet& net, GUISUMOViewParent::ViewT
             break;
 #endif
     }
-    myView->buildViewToolBars(*this);
+    myView->buildViewToolBars(this);
     if (myParent->isGaming()) {
         myStaticNavigationToolBar->hide();
     }
@@ -139,6 +138,12 @@ GUISUMOViewParent::setToolBarVisibility(const bool value) {
 }
 
 
+void
+GUISUMOViewParent::eraseGLObjChooser(GUIDialog_GLObjChooser* GLObjChooser) {
+    myGLObjChooser[GLObjChooser->getMessageId()] = nullptr;
+}
+
+
 long
 GUISUMOViewParent::onCmdMakeSnapshot(FXObject* sender, FXSelector, void*) {
     MFXCheckableButton* button = dynamic_cast<MFXCheckableButton*>(sender);
@@ -151,11 +156,11 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject* sender, FXSelector, void*) {
         }
         // get the new file name
         FXFileDialog opendialog(this, "Save Snapshot");
-        opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
+        opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::CAMERA));
         opendialog.setSelectMode(SELECTFILE_ANY);
 #ifdef HAVE_FFMPEG
-        opendialog.setPatternList("All Image and Video Files (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*.png,*.jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf,*.h264,*.hevc)\n"
-                                  "All Video Files (*.h264,*.hevc)\n"
+        opendialog.setPatternList("All Image and Video Files (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*.png,*.jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf,*.h264,*.hevc,*.mp4)\n"
+                                  "All Video Files (*.h264,*.hevc,*.mp4)\n"
 #else
         opendialog.setPatternList("All Image Files (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*.png,*.jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf)\n"
 #endif
@@ -184,64 +189,104 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject* sender, FXSelector, void*) {
 }
 
 
-long
-GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
-    std::vector<GUIGlID> ids;
-    GUIIcon icon;
-    std::string chooserTitle;
-    switch (FXSELID(sel)) {
+std::vector<GUIGlID>
+GUISUMOViewParent::getObjectIDs(int messageId) const {
+    switch (messageId) {
         case MID_LOCATEJUNCTION:
-            ids = static_cast<GUINet*>(GUINet::getInstance())->getJunctionIDs(myParent->listInternal());
-            icon = ICON_LOCATEJUNCTION;
-            chooserTitle = "Junction Chooser";
-            break;
+            return static_cast<GUINet*>(GUINet::getInstance())->getJunctionIDs(myParent->listInternal());
         case MID_LOCATEEDGE:
-            ids = GUIEdge::getIDs(myParent->listInternal());
-            icon = ICON_LOCATEEDGE;
-            chooserTitle = "Edge Chooser";
-            break;
-        case MID_LOCATEVEHICLE:
+            return GUIEdge::getIDs(myParent->listInternal());
+        case MID_LOCATEVEHICLE: {
+            std::vector<GUIGlID> vehicles;
             if (MSGlobals::gUseMesoSim) {
-                static_cast<GUIMEVehicleControl*>(static_cast<GUINet*>(MSNet::getInstance())->getGUIMEVehicleControl())->insertVehicleIDs(ids);
+                static_cast<GUIMEVehicleControl*>(static_cast<GUINet*>(MSNet::getInstance())->getGUIMEVehicleControl())->insertVehicleIDs(vehicles);
             } else {
                 static_cast<GUIVehicleControl&>(MSNet::getInstance()->getVehicleControl()).insertVehicleIDs(
-                    ids, myParent->listParking(), myParent->listTeleporting());
+                    vehicles, myParent->listParking(), myParent->listTeleporting());
             }
-            icon = ICON_LOCATEVEHICLE;
-            chooserTitle = "Vehicle Chooser";
-            break;
-        case MID_LOCATEPERSON:
-            static_cast<GUITransportableControl&>(MSNet::getInstance()->getPersonControl()).insertPersonIDs(ids);
-            icon = ICON_LOCATEPERSON;
-            chooserTitle = "Person Chooser";
-            break;
+            return vehicles;
+        }
+        case MID_LOCATEPERSON: {
+            std::vector<GUIGlID> persons;
+            static_cast<GUITransportableControl&>(MSNet::getInstance()->getPersonControl()).insertIDs(persons);
+            return persons;
+        }
+        case MID_LOCATECONTAINER: {
+            // get containers
+            std::vector<GUIGlID> containers;
+            static_cast<GUITransportableControl&>(MSNet::getInstance()->getContainerControl()).insertIDs(containers);
+            return containers;
+        }
         case MID_LOCATETLS:
-            ids = static_cast<GUINet*>(GUINet::getInstance())->getTLSIDs();
-            icon = ICON_LOCATETLS;
-            chooserTitle = "Traffic Lights Chooser";
-            break;
+            return static_cast<GUINet*>(GUINet::getInstance())->getTLSIDs();
         case MID_LOCATEADD:
-            ids = GUIGlObject_AbstractAdd::getIDList(GLO_ADDITIONAL);
-            icon = ICON_LOCATEADD;
-            chooserTitle = "Additional Objects Chooser";
-            break;
+            return GUIGlObject_AbstractAdd::getIDList(GLO_ADDITIONALELEMENT);
         case MID_LOCATEPOI:
-            ids = static_cast<GUIShapeContainer&>(GUINet::getInstance()->getShapeContainer()).getPOIIds();
-            icon = ICON_LOCATEPOI;
-            chooserTitle = "POI Chooser";
-            break;
+            return static_cast<GUIShapeContainer&>(GUINet::getInstance()->getShapeContainer()).getPOIIds();
         case MID_LOCATEPOLY:
-            ids = static_cast<GUIShapeContainer&>(GUINet::getInstance()->getShapeContainer()).getPolygonIDs();
-            icon = ICON_LOCATEPOLY;
-            chooserTitle = "Polygon Chooser";
-            break;
+            return static_cast<GUIShapeContainer&>(GUINet::getInstance()->getShapeContainer()).getPolygonIDs();
         default:
             throw ProcessError("Unknown Message ID in onCmdLocate");
+    }
+}
+
+
+long
+GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
+    int messageId = FXSELID(sel);
+    if (myGLObjChooser.count(messageId) == 0 || myGLObjChooser[messageId] == nullptr) {
+        FXIcon* icon = nullptr;
+        std::string titleString = "";
+        switch (messageId) {
+            case MID_LOCATEJUNCTION:
+                icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION);
+                titleString = "Junction Chooser";
+                break;
+            case MID_LOCATEEDGE:
+                icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE);
+                titleString = "Edge Chooser";
+                break;
+            case MID_LOCATEVEHICLE:
+                icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE);
+                titleString = "Vehicle Chooser";
+                break;
+            case MID_LOCATEPERSON:
+                icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON);
+                titleString = "Person Chooser";
+                break;
+            case MID_LOCATECONTAINER:
+                icon = GUIIconSubSys::getIcon(GUIIcon::LOCATECONTAINER);
+                titleString = "Container Chooser";
+                break;
+            case MID_LOCATETLS:
+                icon = GUIIconSubSys::getIcon(GUIIcon::LOCATETLS);
+                titleString = "Traffic Lights Chooser";
+                break;
+            case MID_LOCATEADD:
+                icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEADD);
+                titleString = "Additional Objects Chooser";
+                break;
+            case MID_LOCATEPOI:
+                icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI);
+                titleString = "POI Chooser";
+                break;
+            case MID_LOCATEPOLY:
+                icon = GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY);
+                titleString = "Polygon Chooser";
+                break;
+            default:
+                throw ProcessError("Unknown Message ID in onCmdLocate");
+        }
+
+        myGLObjChooser[messageId] = new GUIDialog_GLObjChooser(this, messageId, icon, titleString.c_str(), getObjectIDs(messageId), GUIGlObjectStorage::gIDStorage);
+
+    } else {
+        myGLObjChooser[messageId]->restore();
+        myGLObjChooser[messageId]->setFocus();
     }
     myLocatorPopup->popdown();
     myLocatorButton->killFocus();
     myLocatorPopup->update();
-    new GUIDialog_GLObjChooser(this, GUIIconSubSys::getIcon(icon), chooserTitle.c_str(), ids, GUIGlObjectStorage::gIDStorage);
     return 1;
 }
 
@@ -347,11 +392,14 @@ GUISUMOViewParent::onUpdSpeedFactor(FXObject* sender, FXSelector, void* ptr) {
                 MSPerson* person = dynamic_cast<MSPerson*>(o);
                 mySpeedFactorSlider->setValue((int)(person->getChosenSpeedFactor() * SPEEDFACTOR_SCALE));
             }
+            mySpeedFactorSlider->show();
+        } else {
+            myView->stopTrack();
+            mySpeedFactorSlider->hide();
         }
-
-        mySpeedFactorSlider->show();
     }
     return 1;
 }
+
 
 /****************************************************************************/

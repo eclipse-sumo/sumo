@@ -1,7 +1,7 @@
 /* XPM */
 static const char *modestop_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"16 16 4 1 ",
+"16 16 4 1",
 "  c red",
 ". c #FFA3A3",
 "X c gray100",

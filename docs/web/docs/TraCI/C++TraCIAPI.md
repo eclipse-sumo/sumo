@@ -1,7 +1,9 @@
 ---
-title: TraCI/C++TraCIAPI
-permalink: /TraCI/C++TraCIAPI/
+title: C++TraCIAPI
 ---
+
+!!! caution
+    This library is no longer maintained. Please use [libtraci](../Libtraci.md) or [libsumo](../Libsumo.md).
 
 # C++ TraCIAPI client library
 
@@ -12,9 +14,6 @@ that uses the library is at
 {{SUMO}}*/src/traci_testclient/TraCITestClient.cpp*. Doxygen-generated
 documentation can be found
 [here](http://sumo.dlr.de/daily/doxygen/d8/d1c/class_tra_c_i_a_p_i.html)
-
-!!! note
-    Due to not being the main client library for use by the core developers, this client library is sometimes tailing behind in API converage
 
 ## Building the Library
 
@@ -28,7 +27,7 @@ src/foreign/tcpip/socket.h
 src/foreign/tcpip/socket.cpp
 src/foreign/tcpip/storage.h
 src/foreign/tcpip/storage.cpp
-src/traci-server/TraCIConstants.h
+src/libsumo/TraCIConstants.h
 src/libsumo/TraCIDefs.h
 ```
 
@@ -98,16 +97,10 @@ int main(int argc, char* argv[]) {
 }
 ```
 
-### compiling when sumo is already built
+### compiling (make sure SUMO_HOME is set)
 
 ```
-g++ -std=c++0x -o test TraCIAPITest.cpp utils/traci/libtraci.a foreign/tcpip/storage.o foreign/tcpip/socket.o -I .
-```
-
-### compiling with all files in the same directory
-
-```
-g++ -std=c++0x -o test TraCIAPITest.cpp TraCIAPI.cpp socket.cpp storage.cpp
+g++ -o test -I$SUMO_HOME/src TraCIAPITest.cpp $SUMO_HOME/src/utils/traci/TraCIAPI.cpp $SUMO_HOME/src/foreign/tcpip/socket.cpp $SUMO_HOME/src/foreign/tcpip/storage.cpp
 ```
 
 ### running

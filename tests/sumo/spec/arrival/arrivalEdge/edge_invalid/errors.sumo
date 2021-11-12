@@ -1,0 +1,2 @@
+Error: Vehicle 'v0' has invalid arrivalEdge index 10 for route with 6 edges.
+Quitting (on error).

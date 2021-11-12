@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue May 26 11:37:03 2020 by Eclipse SUMO netconvert Version v1_6_0+0374-18f3eb07c8
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+        <ptstop-files value="stops.add.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net2.net.xml"/>
+        <ptstop-output value="input_additional.add.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="busStop_gneE0_1_1" lane="gneE0_1" startPos="8.97" endPos="88.97" friendlyPos="true"/>
+    <busStop id="busStop_gneE3_0_0" lane="gneE3_0" startPos="10.00" endPos="90.00" friendlyPos="true">
+        <access lane="gneE6_0" pos="50.00" length="73.50" friendlyPos="1"/>
+    </busStop>
+</additional>

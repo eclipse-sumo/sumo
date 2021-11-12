@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2011-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2011-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSCFModel_W99.cpp
 /// @author  Jakob Erdmann
@@ -16,11 +20,6 @@
 // code adapted from https://github.com/glgh/w99-demo
 // (MIT License, Copyright (c) 2016 glgh)
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cmath>
@@ -77,7 +76,7 @@ MSCFModel_W99::computeThresholds(double speed, double predSpeed, double leaderAc
 
     const double dv = predSpeed - speed;
     sdxc = myType->getMinGap(); // cc0
-    if (speed > 0) {
+    if (predSpeed > 0) {
         const double v_slower = (dv >= 0 || leaderAccel < 1) ? speed : predSpeed + dv * rndVal;
         sdxc += myCC1 * MAX2(0.0, v_slower);
     }
@@ -185,10 +184,9 @@ MSCFModel_W99::followSpeed(const MSVehicle* const veh, double speed, double gap2
 
 
 double
-MSCFModel_W99::stopSpeed(const MSVehicle* const veh, const double speed, double gap) const {
-    // W99 doesn't stop on point so we add some slack
-    const double vFollow = followSpeed(veh, speed, gap + sqrt(gap) + 2, 0, 4.5, 0);
-    return MIN3(vFollow, maximumSafeStopSpeed(gap, speed, false, veh->getActionStepLengthSecs()), maxNextSpeed(speed, veh));
+MSCFModel_W99::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel) const {
+    // see reasoning in MSCFModel_Wiedemann::stopSpeed
+    return MIN2(maximumSafeStopSpeed(gap, decel, speed, false, veh->getActionStepLengthSecs()), maxNextSpeed(speed, veh));
 }
 
 
@@ -203,13 +201,4 @@ MSCFModel*
 MSCFModel_W99::duplicate(const MSVehicleType* vtype) const {
     return new MSCFModel_W99(vtype);
 }
-
-
-double
-MSCFModel_W99::getSecureGap(const MSVehicle* const veh, const MSVehicle* const pred, const double speed, const double leaderSpeed, const double leaderMaxDecel) const {
-    double sdxc, sdxo, sdxv;
-    computeThresholds(speed, leaderSpeed, 0, 0.5, sdxc, sdxo, sdxv);
-    return MAX2(sdxv, MSCFModel::getSecureGap(veh, pred, speed, leaderSpeed, leaderMaxDecel));
-}
-
 

@@ -1,0 +1,26 @@
+<edgedata>
+    <interval begin="0.0" end="200.0" id="routeStats">
+        <edge id="CE" departed="0" arrived="5" delta="5"/>
+        <edge id="CS" departed="0" arrived="2" delta="2"/>
+        <edge id="EC" departed="2" arrived="0" delta="-2"/>
+        <edge id="NC" departed="2" arrived="0" delta="-2"/>
+        <edge id="SC" departed="2" arrived="0" delta="-2"/>
+        <edge id="WC" departed="1" arrived="0" delta="-1"/>
+    </interval>
+    <interval begin="200.0" end="400.0" id="routeStats">
+        <edge id="CE" departed="0" arrived="3" delta="3"/>
+        <edge id="CN" departed="0" arrived="1" delta="1"/>
+        <edge id="CS" departed="0" arrived="3" delta="3"/>
+        <edge id="EC" departed="2" arrived="0" delta="-2"/>
+        <edge id="NC" departed="1" arrived="0" delta="-1"/>
+        <edge id="SC" departed="1" arrived="0" delta="-1"/>
+        <edge id="WC" departed="3" arrived="0" delta="-3"/>
+    </interval>
+    <interval begin="400.0" end="570.0" id="routeStats">
+        <edge id="CS" departed="0" arrived="5" delta="5"/>
+        <edge id="CW" departed="0" arrived="1" delta="1"/>
+        <edge id="NC" departed="1" arrived="0" delta="-1"/>
+        <edge id="SC" departed="1" arrived="0" delta="-1"/>
+        <edge id="WC" departed="4" arrived="0" delta="-4"/>
+    </interval>
+</edgedata>

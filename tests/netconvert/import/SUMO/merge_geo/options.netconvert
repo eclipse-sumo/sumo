@@ -1,2 +1,1 @@
 --sumo-net-file=input_net.net.xml,input_net2.net.xml --output=net.net.xml
---ignore-errors

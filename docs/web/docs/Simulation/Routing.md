@@ -1,6 +1,5 @@
 ---
-title: Simulation/Routing
-permalink: /Simulation/Routing/
+title: Routing
 ---
 
 # Features that cause rerouting
@@ -51,7 +50,7 @@ from a list of potential destinations.
 # Travel-time values for routing
 
 By default, the route with the least travel time is chosen. The travel
-time depends on the current routinng mode (configurable via
+time depends on the current routing mode (configurable via
 *traci.vehicle.setRoutingMode*) or via the explicit *routingMode*
 argument to *traci.simulation.findRoute*.
 
@@ -74,7 +73,16 @@ The following order of steps is taken to retrieve the travel time for each edge.
 ## Routing Mode *traci.constants.ROUTING_MODE_AGGREGATED*
 
 The [smoothed travel times](../Demand/Automatic_Routing.md#edge_weights) computed for
-the *rerouting device* are used.
+the *rerouting device* are used. Note, that these can also be modified via TraCI.
+
+## Randomimzed travel times
+
+[Sumo](../sumo.md) and [duarouter](../duarouter.md) support option **--weights.random-factor FLOAT**. When this option is set, edge weights (i.e. traveltimes) for routing are dynamically disturbed by a random factor drawn uniformly from `[1,FLOAT)`. The value of FLOAT thereby sets an upper bound on the difference in travel time between the actual fastest path and the routing result. With a value of `2`. The result will have twice the travel time / cost of the optimal path in the worst case (In the unlikely event where all edges of the fastest path happen to get a disturbance factor of 2). 
+
+Randomized edge weights can be useful in grid networks where there are many paths have the same (or almost the same) travel cost and the default routing algorithm would send all vehicles on the same path. It can also be used to model imperfection in travel time estimation.
+
+!!! caution
+    By default, runs with the same inputs will still yield the same outcome. To vary the randomness between runs, options [--seed or --random](Randomness.md#random_number_generation_rng) must be used.
 
 ## Special cases
 
@@ -85,14 +93,51 @@ the *rerouting device* are used.
 - When using the TraCI method rerouteTraveltime from the [python TraCI library](../TraCI/Interfacing_TraCI_from_Python.md), the
   command supports an additional boolean parameter *currentTravelTime*
   (default *True*). When this parameter is set to *True*, the global
-  edge weights are replaced by to the currently measured travel times
+  edge weights are replaced by the currently measured travel times
   before rerouting. To replicate this behavior with other TraCI
   clients, all edges in the network must be called with *change global
   travel time information* using the value of *current travel time*.
   Note that the travel time values which are set in this way are used
   for the full duration of the simulation unless updated again.
 
+# Routing by Traveltime and Edge Priority
+Sometimes it is useful to guide route search with additional information while still taking travel times into account.
+For this use case the option **--weights.priority-factor FLOAT** can be used with [sumo](../sumo.md) and [duarouter](../duarouter.md).
+
+When this option is set, the priority value of each edge is factored into the routing decision so that low-priority edges receive a penalty (they appear to be slower) whereas high-priority edges receive little or no penalty. For the option value `PriorityFactor`, the penalty is computed thus:
+```
+  MinEdgePriority : minimum priority value of all edges
+  MaxEdgePriority : maximum priority value of all edges
+  EdgePriorityRange = MaxEdgePriority - MinEdgePriority
+
+  relativeInversePrio = 1 - ((edgePriority - MinEdgePriority) / EdgePriorityRange)
+  effort =  traveltime * (1 + relativeInversePrio * PriorityFactor)
+```
+As a consequence:
+
+- the highest priority edge will get no penalty
+- the traveltime of the lowest priority edge is multiplied with 1+PriorityFactor, 
+- edges with in-between priorities will get a scaled penalty
+
 # Routing by *effort*
+
+By default, the objective of the routing algorithms is to minimize the travel time between origin and destination.
+The traveltime can either be computed from the speed limits and vehicle maximum speed, it can be estimated at runtime from the simulation state or it can be loaded from a data file. The latter option allows defining travel times for the future.
+An example for the relevance of future travel times would be this:
+- a vehicle departs for a long trip at a time where there is no jamming
+- it is known that parts of the network will be jammed later
+- the route of the vehicle computed at departure time can circumvent the jam because the routing algorithm is aware that by the time those edges are reached they will be jammed.
+
+It may be useful to compute routes which minimize some other criteria (called **effort**) besides travel time (distance, emissions, price, ...).
+When these quantities are meant to change over time, the routing algorithm needs two kinds of values for each edge:
+
+- the **effort** that shall be minimized
+- the **travel time** for the edge.
+
+The travel time is needed to compute at which time a certain edge is reached so that effors which change over time can be used correctly.
+
+!!! note
+    When the effort values do not change over time, routing by effort can be achieved by loading weight-files with a modified `traveltime` attribute (the effort value is written into the traveltime attribute) and the option **--weight-attribute** can be omitted.
 
 When setting the options **--weight-file** and **--weight-attribute**, additional routing efforts are read
 according to the specified attribute. These are only used when calling
@@ -102,7 +147,10 @@ computed based on the travel time values described above. The effort can
 also be set using *traci.edge.setEffort*.
 
 !!! caution
-    The default effort value is -1 which causes detour routes to be preferred when not loading sensible effort values.
+    The default effort value is 0 which causes detour routes to be preferred when not loading sensible effort values.
+    
+The applications [duarouter](../duarouter.md) and [marouter](../marouter.md) also support the options **--weight-file** and **--weight-attribute** but they can only be used with one of the weight attributes "CO", "CO2", "PMx", "HC", "NOx", "fuel", "electricity", "noise". However, the will still work as expected when the user loads custom effort values for these attributes.
+
 
 # Routing by *distance*
 
@@ -130,9 +178,9 @@ shortestDistance = stage.length
 
 # Routing Algorithms
 
-Applications that perform routing ([SUMO](../SUMO.md),
-[SUMO-GUI](../SUMO-GUI.md), [DUAROUTER](../DUAROUTER.md),
-[MAROUTER](../MAROUTER.md)) support the option **--routing.algorithm** for selecting among
+Applications that perform routing ([sumo](../sumo.md),
+[sumo-gui](../sumo-gui.md), [duarouter](../duarouter.md),
+[marouter](../marouter.md)) support the option **--routing-algorithm** for selecting among
 the following values:
 
 - *dijkstra*: (default)
@@ -155,11 +203,15 @@ search and is often faster than dijkstra. Here, the metric *euclidean distance /
     allow for blazing fast search.
 - *CH*: [Contraction Hierarchies](https://en.wikipedia.org/wiki/Contraction_hierarchies)
 is preprocessing-based routing algorithm. This is very efficient
-when a large number of queries is expected. The algorithm does
+when a large number of queries is expected. The algorithm does not
 consider time-dependent weights. Instead, new preprocessing can be
-performed for time-slices of fixed size by setting the option **--weight-period** {{DT_TIME}}. The
-preprocessing is done without restrictions on vehicle class which
-reduces efficiency in multi-modal networks.
-- *CHWrapper*: This works like *CH* but performs separate
-preprocessing for every vehicle class that is encountered, thereby
-increasing routing efficiency.
+performed for time-slices of fixed size by setting the option **--weight-period** {{DT_TIME}}. 
+  - When used with [duarouter](../duarouter.md), edge permissions are ignored so this should only be used in unimodal networks
+  - When used with [sumo](../sumo.md), the computed routes are only valid for the default 'passenger' class.
+- *CHWrapper*: This works like *CH* but performs separate preprocessing for every vehicle class that is encountered, thereby
+enabling routing in multi modal scenarios
+
+# Further Options that affect routing
+
+- **--weights.minor-penalty FLOAT** : set a fixed time penalty for passing junctions without having right-of-way (default 1.5s)
+- **--persontrip.walk-opposite-factor FLOAT** : set penality speed factor for walking against the flow of vehicular traffic (see [pedestrian routing](Pedestrians.md#pedestrian_routing)) (default 1)

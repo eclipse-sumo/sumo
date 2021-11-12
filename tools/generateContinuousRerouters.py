@@ -1,18 +1,22 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2010-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    generateContinuousRerouters.py
 # @author  Jakob Erdmann
 # @date    2019-11-23
 
 """
-This script generates rerrouters ahead of every intersection with routes to each of
+This script generates rerouters ahead of every intersection with routes to each of
 the downstream intersections.
 """
 from __future__ import print_function
@@ -40,6 +44,8 @@ def get_options(args=None):
     parser.add_option("-l", "--long-routes", action="store_true", dest="longRoutes", default=False,
                       help="place rerouters further upstream (after the previous decision point) to increase " +
                            "overlap of routes when rerouting and thereby improve anticipation of intersections")
+    parser.add_option("--vclass",
+                      help="only create routes which permit the given vehicle class")
     parser.add_option("-b", "--begin",  default=0, help="begin time")
     parser.add_option("-e", "--end",  default=3600, help="end time (default 3600)")
     (options, args) = parser.parse_args(args=args)
@@ -56,11 +62,20 @@ def get_options(args=None):
     return options
 
 
-def getEdgesToIntersection(edge):
+def getEdgesToIntersection(edge, vclass):
     result = [edge]
+    seen = set()
+    seen.add(edge)
     while len(edge.getOutgoing().keys()) == 1:
-        edge = edge.getOutgoing().keys()[0]
-        result.append(edge)
+        edge = list(edge.getOutgoing().keys())[0]
+        if edge in seen:
+            break
+        elif vclass is not None and not edge.allows(vclass):
+            break
+        else:
+            seen.add(edge)
+            result.append(edge)
+
     return result
 
 
@@ -78,7 +93,7 @@ def getTurnIndex(fromEdge, toEdge):
         return 3
 
 
-def getNumAlterantives(edge, routes):
+def getNumAlternatives(edge, routes):
     numAlternatives = 0
     for edges in routes:
         if edges[0] in edge.getOutgoing().keys():
@@ -88,7 +103,7 @@ def getNumAlterantives(edge, routes):
 
 def getNumSiblings(edge):
     """return number of outgoing edges at the fromNode of this edge that can be
-    reached from a common predecessor of the give nedge"""
+    reached from a common predecessor of the given edge"""
     siblings = set()
     for cons in edge.getIncoming().values():
         for con in cons:
@@ -108,25 +123,26 @@ def main(options):
             if len(junction.getOutgoing()) > 1 or isEntry:
                 for edge in junction.getOutgoing():
                     if isEntry or getNumSiblings(edge) > 1:
-                        edges = getEdgesToIntersection(edge)
+                        edges = getEdgesToIntersection(edge, options.vclass)
                         edgeIDs = tuple([e.getID() for e in edges])
                         incomingRoutes[edges[-1]].add(edgeIDs)
 
     with open(options.outfile, 'w') as outf:
-        sumolib.writeXMLHeader(outf, "$Id$", "additional")  # noqa
+        sumolib.xml.writeHeader(outf, root="additional")
         for junction in net.getNodes():
             if len(junction.getOutgoing()) > 1:
                 routes = []
                 for edge in junction.getOutgoing():
-                    routes.append(getEdgesToIntersection(edge))
+                    if options.vclass is None or edge.allows(options.vclass):
+                        routes.append(getEdgesToIntersection(edge, options.vclass))
 
                 for edge in junction.getIncoming():
                     if options.longRoutes:
                         # overlapping routes: start behind an intersection and
                         # route across the next intersection to the entry of the
                         # 2nd intersetion (more rerouters and overlapping routes)
-                        if getNumAlterantives(edge, routes) > 1:
-                            for incomingRoute in incomingRoutes[edge]:
+                        if getNumAlternatives(edge, routes) > 1:
+                            for incomingRoute in sorted(incomingRoutes[edge]):
                                 assert(incomingRoute[-1] == edge.getID())
                                 firstEdgeID = incomingRoute[0]
                                 routeIDs = []
@@ -171,5 +187,4 @@ def main(options):
 
 
 if __name__ == "__main__":
-    if not main(get_options()):
-        sys.exit(1)
+    main(get_options())

@@ -1,0 +1,7 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="p0" depart="0">
+        <personTrip from="SC" to="CN" modes="car"/>
+        <!-- must not be a trip-like walk to trigger #7357 -->
+        <walk edges="CN CW"/>
+    </person>
+</routes>

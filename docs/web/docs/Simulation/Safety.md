@@ -1,11 +1,10 @@
 ---
-title: Simulation/Safety
-permalink: /Simulation/Safety/
+title: Safety
 ---
 
 # Collisions
 
-[SUMO](../SUMO.md) tracks gaps between vehicles that are on the
+[sumo](../sumo.md) tracks gaps between vehicles that are on the
 same edge either fully or partially. By default, whenever these gaps are
 reduced to below a vehicles *minGap* a collision is registered (default
 2.5m). This (potentially) surprising behavior is used to detect issues
@@ -27,7 +26,7 @@ of the following keywords:
 - **teleport**: (the default): the follower vehicle is moved
   (teleported) to the next edge on its route
 - **warn**: a warning is issued
-- **none**: no action is take
+- **none**: no action is taken
 - **remove**: both vehicles are removed from the simulation
 
 Additionally there is the possibility of stopping vehicles for a fixed
@@ -45,19 +44,42 @@ the speed, it is also necessary to disable safety checks using [the
 commands speedMode and
 laneChangeMode](../TraCI/Change_Vehicle_State.md).
 
-To create rear-end collisions with some probability one can configure
-vehicles with a value of *tau* that is lower than the simulation step
-size (default 1s) and use the default Krauss model.
+### Collisions during car-following
+Rear-end collisiosn during normal driving may be caused by any of the following:
 
+- vehicles with a value of *tau* that is lower than the simulation step
+size (default 1s) when using the default Krauss model.
+- vehicles with a value of *tau* that is lower than their *actionStepLength*
+- vehicles with an *apparentDecel* parameter that is lower than their *decel* parameter (causing other drivers to misjudge their deceleration capabilities)
+- [driver imperfection modelled with the
+  *driverstate*-device](../Driver_State.md)
+
+### Collisions related to lane-changing
+Collisions from lane-changing can be caused by unsafe lateral movements (side collisions) and by changing lanes in a way that creates unsafe following situations (rear-end collisions).
+
+Side collosions can be caused by
+- configuring lateral imperfection with vType parameter *lcSigma*
+- allowing lateral encroachment with vType parameter *lcPushy* (but this parameter itself will not cause collisions, only reduce lateral gaps in some situations, requires the sublane model)
+- *lcImpatience* (growing impatience permits lower lateral gaps when using the sublane model)
+
+Unsafe changing can be caused by configuringlower gap acceptance with parameter
+- *lcAssertive* (the acceptable gap is computed by dividing the safe gap by lcAssertive)
+
+### Collisions at Intersections
 Collisions at intersections may be caused by any of the following:
 
 - Unsafe [junction model
 parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#junction_model_parameters)
   - *jmDriveAfterRedTime* \> 0 (ignoring a red light)
-  - *jmIgnoreFoeProb* and *jmIgnoreFoeSpeed* (ignore foes below the
+  - *jmIgnoreFoeProb* and *jmIgnoreFoeSpeed* (ignore foes that are approaching the junction below the
     given speed with the given probability)
   - *jmTimegapMinor* < 1 (safety time gap when passing an
     intersection without priority)
+  - *jmIgnoreJunctionFoeProb* > 0: allows ignoring foes that are already on the junction (with given probability)
+    - vehicular foes as long as they are not in the way
+    - any pedestrian foes
+  - *junctionModel.ignoreIDs*: ignores all foes with the given ids  (set via [generic parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#transient_parameters))
+  - *junctionModel.ignoreTypess*: ignores all foes with the given types (set via [generic parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#transient_parameters))    
 - yellow phases which are too short in relation to the vehicle speed
 (giving insufficient time to come to a stop). By default this causes
 strong braking (*Warning: emergency braking*) potentially followed
@@ -66,11 +88,6 @@ by rear-end collisions
 time. Collision beyond the intersection due to this are always
 detected but collisions on the intersection are only registered when
 setting the option **--collision.check-junctions**.
-- [Double
-connections](../Networks/PlainXML.md#multiple_connections_from_the_same_edge_to_the_same_target_lane)
-from a traffic-light-controlled edge: If two lanes from the same
-edge with the same target lane get the green light at the same time,
-collisions are likely
 - If all [Double
 connections](../Networks/PlainXML.md#multiple_connections_from_the_same_edge_to_the_same_target_lane)
 at an edge are configured with `pass="true"`
@@ -107,12 +124,12 @@ ahead.
 ## Action Step Length
 
 By default, vehicles recompute their speed and lane-changing decisions
-every simulation step. When running with sub-second time resultion (i.e.
+every simulation step. When running with sub-second time resolution (i.e.
 **--step-length 0.1**), this also gives very low effective reaction times.
 
 To decouple the decision interval from the simulation step length, the
 vehicle *action-step-length* can be defined as the duration between
-subsequent vehicle decisions. Decision-making starts direclty after
+subsequent vehicle decisions. Decision-making starts directly after
 insertion which means vehicles inserted at different times may take
 decisions during different simulation steps. During simulation steps
 without decision-making, vehicle positions are updated according to the
@@ -164,9 +181,11 @@ are safety related:
 - lcPushy: setting this to values between 0 and 1 causes aggressive
   lateral encroachment (only when using the [Sublane
   Model](../Simulation/SublaneModel.md))
+- lcImpatience: Repeated failure to change lanes causes lower lateral gaps to be accepted when using the sublane model
 - lcAssertive: setting this values above 1 cause acceptance of smaller
   longitudinal gaps in proportion to driver impatience(only when using
   the [Sublane Model](../Simulation/SublaneModel.md))
+- lcSigma: models random lateral variations (lane keeping imperfection)
 
 ## Junction Model
 
@@ -195,7 +214,7 @@ behavior. For a description see
 
 # Safety-Related Outputs
 
-- [Surrogate Safety Measures](../Simulation/Output/SSM_Device.md)
+- [Surrogate Safety Measures (SSM)](../Simulation/Output/SSM_Device.md)
   (headway, brake rates, time to collision etc.)
 - The [Instant Induction
   Loop](../Simulation/Output/Instantaneous_Induction_Loops_Detectors.md)
@@ -210,3 +229,4 @@ behavior. For a description see
   model](../Simulation/SublaneModel.md), the attribute *latGap*
   records the lateral gap to the neighboring vehicle in the direction
   of the change if such a vehicle exists.
+- The [collision output](Output/Collisions.md) holds an xml record of each vehicle/vehicle and vehicle/person collision.

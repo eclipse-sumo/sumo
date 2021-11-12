@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-09-17 10:22:05 by Eclipse SUMO netconvert Version v1_10_0+0759-0b3a782ef3e
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <railway>
+        <railway.topology.repair value="true"/>
+        <railway.topology.repair.minimal value="true"/>
+        <railway.topology.repair.stop-turn value="true"/>
+    </railway>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
+    <ptLine id="102308" name="Bus 420: Braunschweig Rathaus =&gt; Wolfenbüttel Bahnhof" line="420" type="bus" vClass="bus" period="900" color="112,111,111" completeness="0.05">
+        <route edges="320432221#0 320432221#1 320432218 316779262 316779263#0 316779263#1 316779264#0 316779264#1 316779264#2 316779264#3 316779264#4 315207578 23198871 33289080 61793945"/>
+        <busStop id="302112841" name="Bürgerpark"/>
+    </ptLine>
+    <ptLine id="2752852" name="Tram 2: Siegfriedviertel =&gt; Hauptbahnhof =&gt; Heidberg" line="2" type="tram" vClass="tram" color="148,193,26" completeness="0.12">
+        <route edges="310003023 310144569#0 310144569#1 310144569#2 310264604 393236369"/>
+        <busStop id="3153581348" name="Heinrich-Büssing-Ring"/>
+        <busStop id="3156641197" name="Bürgerpark"/>
+        <busStop id="3156641198" name="Jahnplatz"/>
+    </ptLine>
+    <ptLine id="2770412" name="Tram 2: Heidberg =&gt; Leisewitzstraße =&gt; Siegfriedviertel" line="2" type="tram" vClass="tram" period="900" color="148,193,26" completeness="0.14">
+        <route edges="393236370 26811659 -310143561#3 -310143561#2 -310143561#1 -310143561#0 25290479 25290481"/>
+        <busStop id="3372476419" name="Jahnplatz"/>
+        <busStop id="51519930" name="Bürgerpark"/>
+        <busStop id="2161757200" name="Leisewitzstraße"/>
+    </ptLine>
+    <ptLine id="2770413" name="Tram 2: Heidberg =&gt; Hauptbahnhof =&gt; Siegfriedviertel" line="2" type="tram" vClass="tram" color="148,193,26" completeness="0.12">
+        <route edges="393236370 26811659 310144577 310144574"/>
+        <busStop id="3372476419" name="Jahnplatz"/>
+        <busStop id="51519930" name="Bürgerpark"/>
+        <busStop id="3153581347" name="Heinrich-Büssing-Ring"/>
+    </ptLine>
+    <ptLine id="2777015" name="Tram 1: Wenden =&gt; Stöckheim" line="1" type="tram" vClass="tram" period="600" color="227,0,11" completeness="0.09">
+        <route edges="310003023 310144569#0 310144569#1 310144569#2 310264604 393236369"/>
+        <busStop id="3153581348" name="Heinrich-Büssing-Ring"/>
+        <busStop id="3156641197" name="Bürgerpark"/>
+        <busStop id="3156641198" name="Jahnplatz"/>
+    </ptLine>
+    <ptLine id="31366" name="Tram 1: Stöckheim =&gt; Wenden" line="1" type="tram" vClass="tram" period="600" color="227,0,11" completeness="0.09">
+        <route edges="393236370 26811659 310144577 310144574"/>
+        <busStop id="3372476419" name="Jahnplatz"/>
+        <busStop id="51519930" name="Bürgerpark"/>
+        <busStop id="3153581347" name="Heinrich-Büssing-Ring"/>
+    </ptLine>
+    <ptLine id="31478" name="Tram 2: Siegfriedviertel =&gt; Leisewitzstraße =&gt; Heidberg" line="2" type="tram" vClass="tram" period="900" color="148,193,26" completeness="0.14">
+        <route edges="310143560 310143559 310144576#0 310144576#1 310264604 393236369"/>
+        <busStop id="3155095015" name="Leisewitzstraße"/>
+        <busStop id="3156641197" name="Bürgerpark"/>
+        <busStop id="3156641198" name="Jahnplatz"/>
+    </ptLine>
+    <ptLine id="4599998" name="Tram 1: Stöckheim =&gt; Anklamstraße =&gt; Wenden" line="1" type="tram" vClass="tram" color="227,0,11" completeness="0.08">
+        <route edges="393236370 26811659 310144577 310144574"/>
+        <busStop id="3372476419" name="Jahnplatz"/>
+        <busStop id="51519930" name="Bürgerpark"/>
+        <busStop id="3153581347" name="Heinrich-Büssing-Ring"/>
+    </ptLine>
+    <ptLine id="4599999" name="Tram 1: Wenden =&gt; Anklamstraße =&gt; Stöckheim" line="1" type="tram" vClass="tram" color="227,0,11" completeness="0.08">
+        <route edges="310003023 310144569#0 310144569#1 310144569#2 310264604 393236369"/>
+        <busStop id="3153581348" name="Heinrich-Büssing-Ring"/>
+        <busStop id="3156641197" name="Bürgerpark"/>
+        <busStop id="3156641198" name="Jahnplatz"/>
+    </ptLine>
+    <ptLine id="6086282" name="Bus 420: Wolfenbüttel Bahnhof =&gt; Braunschweig Rathaus" line="420" type="bus" vClass="bus" period="900" color="112,111,111" completeness="0.05">
+        <route edges="591178594 316779260 316779261#0 316779261#1 32353230 320432219#0 320432219#1 61793942"/>
+        <busStop id="309922823" name="Bürgerpark"/>
+    </ptLine>
+    <ptLine id="6996668" name="Bus 420: Braunschweig Hauptbahnhof =&gt; Wolfenbüttel Bahnhof" line="420" type="bus" vClass="bus" color="112,111,111" completeness="0.06">
+        <route edges="320432221#0 320432221#1 320432218 316779262 316779263#0 316779263#1 316779264#0 316779264#1 316779264#2 316779264#3 316779264#4 315207578 23198871 33289080 61793945"/>
+        <busStop id="302112841" name="Bürgerpark"/>
+    </ptLine>
+    <ptLine id="6996669" name="Bus 420: Braunschweig Rathaus =&gt; Wolfenbüttel Kornmarkt" line="420" type="bus" vClass="bus" color="112,111,111" completeness="0.05">
+        <route edges="320432221#0 320432221#1 320432218 316779262 316779263#0 316779263#1 316779264#0 316779264#1 316779264#2 316779264#3 316779264#4 315207578 23198871 33289080 61793945"/>
+        <busStop id="302112841" name="Bürgerpark"/>
+    </ptLine>
+    <ptLine id="6996670" name="Bus 420: Wolfenbüttel Kornmarkt =&gt; Braunschweig Rathaus" line="420" type="bus" vClass="bus" color="112,111,111" completeness="0.05">
+        <route edges="591178594 316779260 316779261#0 316779261#1 32353230 320432219#0 320432219#1 61793942"/>
+        <busStop id="309922823" name="Bürgerpark"/>
+    </ptLine>
+    <ptLine id="7090403" name="Tram 1: Hauptbahnhof =&gt; Stöckheim" line="1" type="tram" vClass="tram" color="227,0,11" completeness="0.21">
+        <route edges="310003023 310144569#0 310144569#1 310144569#2 310264604 393236369"/>
+        <busStop id="3153581348" name="Heinrich-Büssing-Ring"/>
+        <busStop id="3156641197" name="Bürgerpark"/>
+        <busStop id="3156641198" name="Jahnplatz"/>
+    </ptLine>
+    <ptLine id="7090405" name="Tram 1: Stöckheim =&gt; Hauptbahnhof" line="1" type="tram" vClass="tram" color="227,0,11" completeness="0.21">
+        <route edges="393236370 26811659 310144577 310144574"/>
+        <busStop id="3372476419" name="Jahnplatz"/>
+        <busStop id="51519930" name="Bürgerpark"/>
+        <busStop id="3153581347" name="Heinrich-Büssing-Ring"/>
+    </ptLine>
+    <ptLine id="7090528" name="Tram 2: Hauptbahnhof =&gt; Heidberg" line="2" type="tram" vClass="tram" color="148,193,26" completeness="0.33">
+        <route edges="310003023 310144569#0 310144569#1 310144569#2 310264604 393236369"/>
+        <busStop id="3153581348" name="Heinrich-Büssing-Ring"/>
+        <busStop id="3156641197" name="Bürgerpark"/>
+        <busStop id="3156641198" name="Jahnplatz"/>
+    </ptLine>
+    <ptLine id="7090529" name="Tram 2: Heidberg =&gt; Hauptbahnhof" line="2" type="tram" vClass="tram" color="148,193,26" completeness="0.33">
+        <route edges="393236370 26811659 310144577 310144574"/>
+        <busStop id="3372476419" name="Jahnplatz"/>
+        <busStop id="51519930" name="Bürgerpark"/>
+        <busStop id="3153581347" name="Heinrich-Büssing-Ring"/>
+    </ptLine>
+    <ptLine id="7090530" name="Tram 2: Heidberg =&gt; Hauptbahnhof =&gt; Rathaus" line="2" type="tram" vClass="tram" color="148,193,26" completeness="0.25">
+        <route edges="393236370 26811659 310144577 310144574"/>
+        <busStop id="3372476419" name="Jahnplatz"/>
+        <busStop id="51519930" name="Bürgerpark"/>
+        <busStop id="3153581347" name="Heinrich-Büssing-Ring"/>
+    </ptLine>
+</ptLines>

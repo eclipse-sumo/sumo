@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2003-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2003-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSGlobals.h
 /// @author  Daniel Krajzewicz
@@ -16,13 +20,7 @@
 ///
 // Some static variables for faster access
 /****************************************************************************/
-#ifndef MSGlobals_h
-#define MSGlobals_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <map>
@@ -61,6 +59,12 @@ public:
     /** The time to detect grid locks on highways */
     static SUMOTime gTimeToGridlockHighways;
 
+    /** The time to wait for teleport on disconected routes */
+    static SUMOTime gTimeToTeleportDisconnected;
+
+    /** Whether gridlocked vehicles shall be removed instead of teleporting */
+    static bool gRemoveGridlocked;
+
     /** Information how long a vehicle must wait for impatience to grow from 0 to 1 */
     static SUMOTime gTimeToImpatience;
 
@@ -92,15 +96,6 @@ public:
     /** Information whether limited junction control shall be used */
     static bool gMesoLimitedJunctionControl;
 
-    /** Information whether overtaking is enabled in the mesoscopic simulation */
-    static bool gMesoOvertaking;
-
-    /** scaling factor for macroscopic time penalty when passing tls controlled intersection */
-    static double gMesoTLSPenalty;
-
-    /** penalty time for passing a minor link */
-    static SUMOTime gMesoMinorPenalty;
-
     /// mesoscopic simulation infrastructure
     static MELoop* gMesoNet;
 
@@ -116,11 +111,17 @@ public:
     /// encoding of the string-option default.emergencydecel
     static double gDefaultEmergencyDecel;
 
+    /// whether the simulation should replay previous stop times
+    static bool gUseStopEnded;
+
     /// whether unit tests are being run
     static bool gUnitTests;
 
     /// whether the simulationLoop is in the lane changing phase
     static bool gComputeLC;
+
+    /// whether the simulation is in the process of clearing state (MSNet::clearState)
+    static bool gClearState;
 
     /// how many threads to use for simulation
     static int gNumSimThreads;
@@ -142,10 +143,13 @@ public:
 
     /// @brief The tolerance to apply when matching waiting persons and vehicles
     static double gStopTolerance;
+
+    /// @brief The minimum deceleration at a yellow traffic light (only overruled by emergencyDecel)
+    static double gTLSYellowMinDecel;
+
+    /// @brief Whether lefthand-drive is being simulated
+    static bool gLefthand;
+
+    /// @brief Whether turning specific weights are estimated (and how much)
+    static double gWeightsSeparateTurns;
 };
-
-
-#endif
-
-/****************************************************************************/
-

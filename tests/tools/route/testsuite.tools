@@ -7,6 +7,9 @@ routecheck
 # Tests for <SUMO_DIST>/tools/route_tools/route2alts.py
 route2alts
 
+# Tests for <SUMO_DIST>/tools/findAllRoutes.py
+findAllRoutes
+
 # test generating edge selections from a route file
 route2sel
 
@@ -18,13 +21,21 @@ sort
 
 # Cut down routes from a large scenario to a sub-scenario
 cut_routes
+
+# Cut down trips from a large scenario to a sub-scenario
+cutTrips
+
+# test route statistics
 routeStats
 
 # tests for modifying departure times
 departOffset
 
 # test for generating edge traffic counts
-showDepartsAndArrivalsPerEdge
+countEdgeUsage
+
+# generated traces for use with tracemapper
+tracegenerator
 
 # simple route reconstruction from gps trace
 tracemapper
@@ -35,4 +46,33 @@ implausibleRoutes
 # test generating polygons from route input
 route2poly
 analyzePersonPlans
+
+# add delay to stops (increase duration)
+addStopDelay
+
+# test tool for validation public transport schedule in route file 
+checkStopOrder
+
+# transform vehicles to flow definitions
+vehicle2flow
+
+# tests for adding stops at parking areas
 addStops2Routes
+
+# tests for stopping vehicle at end of the route
+addParkingAreaStops2Routes
+
+# tests for add stopping over parking in trip
+addParkingAreaStops2Trips
+
+# test for split random trips
+splitRandom
+
+# test for split route files trips
+splitRouteFiles
+
+# add taz information to route file
+addTAZ
+
+# extract OD matrix from vehicles
+route2OD

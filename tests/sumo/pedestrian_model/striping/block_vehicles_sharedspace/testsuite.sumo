@@ -1,4 +1,10 @@
 walking_forward
+
+# pedestrian is forbidden on that road but walks anyway
+walking_forward_illegal
+
+# pedestrian is forbidden on that road but walks there anyway instead of using the sidewalk
+walking_forward_sidewalk_onRoad
 walking_forward_2edges
 walking_forward_2lanes
 walking_forward_insertion
@@ -16,3 +22,12 @@ walkingarea_exit
 
 # walkingarea shared by pedestrians and vehicles moving in all directions
 walkingarea_shared
+
+# stress test with lots of vehicle and pedestrian traffic on a 2-lane road
+complex
+
+# stress test with lots of vehicle and pedestrian traffic on a 2-lane road
+complex_sublane
+
+# warn if the stripe width is lower than the pedestrian width
+stripe-width

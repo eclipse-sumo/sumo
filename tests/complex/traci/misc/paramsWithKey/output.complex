@@ -1,0 +1,18 @@
+Loading configuration ... done.
+ Retrying in 1 seconds
+step 0.0
+vehicle (bar, )
+vehicle (bar, 42)
+person (bar, )
+person (bar, 42)
+edge (bar, )
+edge (bar, 42)
+lane (bar, )
+lane (bar, 42)
+vType (bar, )
+vType (bar, 42)
+route (bar, )
+route (bar, 42)
+trafficlight (bar, )
+trafficlight (bar, 42)
+step 1.0

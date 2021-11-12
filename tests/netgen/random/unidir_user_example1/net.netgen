@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 25 14:49:45 2019 by Eclipse SUMO netgenerate Version v1_2_0+0026-b74d136
+<!-- generated on 2021-11-08 07:59:23 by Eclipse SUMO netgenerate Version v1_10_0+1801-9e5348d01a4
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ SPDX-License-Identifier: EPL-2.0
     <random_network>
         <rand value="true"/>
         <rand.iterations value="200"/>
-        <rand.bidi-probability value="0"/>
+        <bidi-probability value="0"/>
     </random_network>
 
     <output>
@@ -26,7 +26,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.3" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="1263.68,1880.98" convBoundary="0.00,0.00,2463.28,3477.43" origBoundary="-1263.68,-1880.98,1199.60,1596.45" projParameter="!"/>
 
@@ -3052,8 +3052,8 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="837" to="2285" fromLane="0" toLane="0" via=":673_0_0" dir="s" state="m"/>
     <connection from="846" to="2714" fromLane="0" toLane="0" via=":845_0_0" dir="s" state="M"/>
     <connection from="848" to="3252" fromLane="0" toLane="0" via=":847_0_0" dir="r" state="M"/>
-    <connection from="848" to="3162" fromLane="0" toLane="0" via=":847_1_0" dir="s" state="M"/>
-    <connection from="848" to="3166" fromLane="0" toLane="0" via=":847_2_0" dir="L" state="M"/>
+    <connection from="848" to="3162" fromLane="0" toLane="0" via=":847_1_0" dir="R" state="M"/>
+    <connection from="848" to="3166" fromLane="0" toLane="0" via=":847_2_0" dir="s" state="M"/>
     <connection from="848" to="3328" fromLane="0" toLane="0" via=":847_3_0" dir="l" state="M"/>
     <connection from="867" to="2158" fromLane="0" toLane="0" via=":866_0_0" dir="r" state="M"/>
     <connection from="867" to="1919" fromLane="0" toLane="0" via=":866_1_0" dir="l" state="M"/>
@@ -3428,8 +3428,8 @@ SPDX-License-Identifier: EPL-2.0
     <connection from=":8_2" to="25" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":845_0" to="2714" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":847_0" to="3252" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from=":847_1" to="3162" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":847_2" to="3166" fromLane="0" toLane="0" dir="L" state="M"/>
+    <connection from=":847_1" to="3162" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from=":847_2" to="3166" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":847_3" to="3328" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":866_0" to="2158" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":866_1" to="1919" fromLane="0" toLane="0" dir="l" state="M"/>

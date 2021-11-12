@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MELoop.h
 /// @author  Daniel Krajzewicz
@@ -13,17 +17,12 @@
 ///
 // The main mesocopic simulation loop
 /****************************************************************************/
-#ifndef MELoop_h
-#define MELoop_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <vector>
 #include <map>
+#include <utils/common/SUMOTime.h>
 
 
 // ===========================================================================
@@ -34,7 +33,6 @@ class MEVehicle;
 class MSEdge;
 class MSLink;
 class MSVehicleControl;
-class BinaryInputDevice;
 class OptionsCont;
 
 
@@ -71,10 +69,13 @@ public:
      *
      * @param[in] v the car which was a leading one
      */
-    void removeLeaderCar(MEVehicle* v);
+    bool removeLeaderCar(MEVehicle* v);
 
     /** @brief remove the given car and clean up the relevant data structures */
-    void vaporizeCar(MEVehicle* v);
+    void vaporizeCar(MEVehicle* v, MSMoveReminder::Notification reason);
+
+    /// @brief whether the given edge is entering a roundabout
+    static bool isEnteringRoundabout(const MSEdge& e);
 
     /** @brief Compute number of segments per edge (best value stay close to the configured segment length) */
     static int numSegmentsFor(const double length, const double slength);
@@ -84,6 +85,12 @@ public:
      * @param[in] e the edge to build for
      */
     void buildSegmentsFor(const MSEdge& e, const OptionsCont& oc);
+
+    /** @brief Update segments after loading meso edge type parameters from
+     * additional file
+     * @param[in] e the edge to update
+     */
+    void updateSegementsForEdge(const MSEdge& e);
 
     /** @brief Get the segment for a given edge at a given position
      *
@@ -97,15 +104,11 @@ public:
      * this handles combinations of the following cases:
      * (ending / continuing route) and (leaving segment / finishing teleport)
      */
-    bool changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSegment, const bool ignoreLink = false);
+    SUMOTime changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSegment,
+                           MSMoveReminder::Notification reason, const bool ignoreLink = false) const;
 
-    /** @brief registers vehicle with the given link
-     *
-     * @param[in] veh the car to register
-     * @param[in] link the link on which the car shall register its approach
-     */
-    static void setApproaching(MEVehicle* veh, MSLink* link);
-
+    /** @brief Remove all vehicles before quick-loading state */
+    void clearState();
 
 private:
     /** @brief Check whether the vehicle may move
@@ -137,9 +140,6 @@ private:
      */
     void teleportVehicle(MEVehicle* veh, MESegment* const toSegment);
 
-    /// @brief whether the given edge is entering a roundabout
-    static bool isEnteringRoundabout(const MSEdge& e);
-
 private:
     /// @brief leader cars in the segments sorted by exit time
     std::map<SUMOTime, std::vector<MEVehicle*> > myLeaderCars;
@@ -160,9 +160,3 @@ private:
     /// @brief Invalidated assignment operator.
     MELoop& operator=(const MELoop&);
 };
-
-
-#endif
-
-/****************************************************************************/
-

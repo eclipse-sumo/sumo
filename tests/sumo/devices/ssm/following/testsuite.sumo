@@ -42,3 +42,6 @@ foe_follows_both_turning_left_major
 
 # Joint right turn of both vehicles, foe passings internal junction while ego is still before the intersection
 ego_follows_both_turning_right_ped_crossing
+
+# test sgap and tgap computation for correct use of minGap
+minGap

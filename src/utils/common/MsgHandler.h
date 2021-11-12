@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2003-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2003-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MsgHandler.h
 /// @author  Daniel Krajzewicz
@@ -15,13 +19,8 @@
 ///
 // Retrieves messages about the process and gives them further to output
 /****************************************************************************/
-#ifndef MsgHandler_h
-#define MsgHandler_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
+#include <config.h>
 #include <string>
 #include <vector>
 #include <map>
@@ -42,16 +41,16 @@ public:
      * An enumeration to differ between different types of messages
      * (errors, warning and information)
      */
-    enum MsgType {
+    enum class MsgType {
         /// The message is only something to show
         MT_MESSAGE,
         /// The message is a warning
         MT_WARNING,
         /// The message is an error
         MT_ERROR,
-        /// The message is an debug
+        /// The message is debug output
         MT_DEBUG,
-        /// The message is an debug
+        /// The message is GL debug output
         MT_GLDEBUG
     };
 
@@ -113,13 +112,12 @@ public:
     // variadic function
     template<typename T, typename... Targs>
     void informf(const std::string& format, T value, Targs... Fargs) {
-        if (myAggregationThreshold >= 0) {
-            if (myAggregationCount[format]++ >= myAggregationThreshold) {
-                return;
-            }
+        if (!aggregationThresholdReached(format)) {
+            std::ostringstream os;
+            os << std::fixed << std::setprecision(gPrecision);
+            _informf(format.c_str(), os, value, Fargs...);
+            inform(os.str(), true);
         }
-        (*this) << build("", true);
-        _informf(format.c_str(), value, Fargs...);
     }
 
     /** @brief Begins a process information
@@ -134,8 +132,8 @@ public:
     /// @brief Ends a process information
     virtual void endProcessMsg(std::string msg);
 
-    /// @brief Clears information whether an error occurred previously
-    virtual void clear();
+    /// @brief Clears information whether an error occurred previously and print aggregated message summary
+    virtual void clear(bool resetInformed = true);
 
     /// @brief Adds a further retriever to the instance responsible for a certain msg type
     virtual void addRetriever(OutputDevice* retriever);
@@ -166,18 +164,18 @@ protected:
     inline std::string build(const std::string& msg, bool addType) {
         if (addType) {
             switch (myType) {
-                case MT_MESSAGE:
+                case MsgType::MT_MESSAGE:
                     break;
-                case MT_WARNING:
+                case MsgType::MT_WARNING:
                     return "Warning: " + msg;
                     break;
-                case MT_ERROR:
+                case MsgType::MT_ERROR:
                     return "Error: " + msg;
                     break;
-                case MT_DEBUG:
+                case MsgType::MT_DEBUG:
                     return "Debug: " + msg;
                     break;
-                case MT_GLDEBUG:
+                case MsgType::MT_GLDEBUG:
                     return "GLDebug: " + msg;
                     break;
                 default:
@@ -187,21 +185,25 @@ protected:
         return msg;
     }
 
-    void _informf(const char* format) {
-        inform(format, false);
+    virtual bool aggregationThresholdReached(const std::string& format) {
+        return myAggregationThreshold >= 0 && myAggregationCount[format]++ >= myAggregationThreshold;
+    }
+
+    void _informf(const char* format, std::ostringstream& os) {
+        os << format;
     }
 
     /// @brief adds a new formatted message
     // variadic function
     template<typename T, typename... Targs>
-    void _informf(const char* format, T value, Targs... Fargs) {
+    void _informf(const char* format, std::ostringstream& os, T value, Targs... Fargs) {
         for (; *format != '\0'; format++) {
             if (*format == '%') {
-                (*this) << value;
-                _informf(format + 1, Fargs...); // recursive call
+                os << value;
+                _informf(format + 1, os, Fargs...); // recursive call
                 return;
             }
-            (*this) << *format;
+            os << *format;
         }
     }
 
@@ -253,6 +255,9 @@ private:
     /// @brief The list of retrievers that shall be informed about new messages or errors
     std::vector<OutputDevice*> myRetrievers;
 
+    /// @brief storage for initial messages
+    std::vector<std::string> myInitialMessages;
+
 private:
     /// @brief invalid copy constructor
     MsgHandler(const MsgHandler& s) = delete;
@@ -281,9 +286,6 @@ private:
 #define PROGRESS_TIME_MESSAGE(before) MsgHandler::getMessageInstance()->endProcessMsg("done (" + toString(SysUtils::getCurrentMillis() - before) + "ms).");
 #define PROGRESS_FAILED_MESSAGE() MsgHandler::getMessageInstance()->endProcessMsg("failed.");
 #define WRITE_ERROR(msg) MsgHandler::getErrorInstance()->inform(msg);
+#define WRITE_ERRORF(...) MsgHandler::getErrorInstance()->informf(__VA_ARGS__);
 #define WRITE_DEBUG(msg) if(MsgHandler::writeDebugMessages()){MsgHandler::getDebugInstance()->inform(msg);};
 #define WRITE_GLDEBUG(msg) if(MsgHandler::writeDebugGLMessages()){MsgHandler::getGLDebugInstance()->inform(msg);};
-
-#endif
-
-/****************************************************************************/

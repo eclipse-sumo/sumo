@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan 21 21:59:15 2019 by Eclipse SUMO Version v1_1_0+0258-169157deea
+<!-- generated on Wed Mar 11 22:22:11 2020 by Eclipse SUMO Version v1_5_0+0662-a598ecae47
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -37,6 +37,6 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="v0" depart="0.00" departLane="gneE0_0" departPos="50.00" departSpeed="0.00" departDelay="0.00" arrival="111.00" arrivalLane="gneE2_0" arrivalPos="278.05" arrivalSpeed="13.67" duration="111.00" routeLength="834.99" waitingTime="0.00" waitingCount="0" stopTime="31.00" timeLoss="19.06" rerouteNo="0" devices="tripinfo_v0" vType="busShort" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="v1" depart="0.00" departLane="gneE0_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="152.00" arrivalLane="gneE2_0" arrivalPos="278.05" arrivalSpeed="13.70" duration="152.00" routeLength="884.99" waitingTime="30.00" waitingCount="1" stopTime="31.00" timeLoss="56.89" rerouteNo="0" devices="tripinfo_v1" vType="bus" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="v0" depart="0.00" departLane="gneE0_0" departPos="50.00" departSpeed="0.00" departDelay="0.00" arrival="110.00" arrivalLane="gneE2_0" arrivalPos="278.05" arrivalSpeed="13.67" duration="110.00" routeLength="834.99" waitingTime="0.00" waitingCount="0" stopTime="30.00" timeLoss="19.27" rerouteNo="0" devices="tripinfo_v0" vType="busShort" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="v1" depart="0.00" departLane="gneE0_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="150.00" arrivalLane="gneE2_0" arrivalPos="278.05" arrivalSpeed="13.70" duration="150.00" routeLength="884.99" waitingTime="29.00" waitingCount="1" stopTime="30.00" timeLoss="55.93" rerouteNo="0" devices="tripinfo_v1" vType="bus" speedFactor="1.00" vaporized=""/>
 </tripinfos>

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    SUMOVehicleClass.cpp
 /// @author  Daniel Krajzewicz
@@ -17,11 +21,6 @@
 ///
 // Definitions of SUMO vehicle classes and helper functions
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -39,7 +38,7 @@
 // static members
 // ===========================================================================
 
-StringBijection<SUMOVehicleClass>::Entry sumoVehicleClassStringInitializer[] = {
+static StringBijection<SUMOVehicleClass>::Entry sumoVehicleClassStringInitializer[] = {
     {"ignoring",          SVC_IGNORING},
     {"private",           SVC_PRIVATE},
     {"public_emergency",  SVC_EMERGENCY}, // !!! deprecated
@@ -77,6 +76,7 @@ StringBijection<SUMOVehicleClass>::Entry sumoVehicleClassStringInitializer[] = {
     {"custom2",           SVC_CUSTOM2}
 };
 
+
 StringBijection<SUMOVehicleClass> SumoVehicleClassStrings(
     sumoVehicleClassStringInitializer, SVC_CUSTOM2, false);
 
@@ -84,7 +84,7 @@ StringBijection<SUMOVehicleClass> SumoVehicleClassStrings(
 std::set<std::string> deprecatedVehicleClassesSeen;
 
 
-StringBijection<SUMOVehicleShape>::Entry sumoVehicleShapeStringInitializer[] = {
+static StringBijection<SUMOVehicleShape>::Entry sumoVehicleShapeStringInitializer[] = {
     {"pedestrian",            SVS_PEDESTRIAN},
     {"bicycle",               SVS_BICYCLE},
     {"moped",                 SVS_MOPED},
@@ -121,6 +121,7 @@ StringBijection<SUMOVehicleShape>::Entry sumoVehicleShapeStringInitializer[] = {
     {"firebrigade",           SVS_FIREBRIGADE},
     {"police",                SVS_POLICE},
     {"rickshaw",              SVS_RICKSHAW },
+    {"scooter",               SVS_SCOOTER},
     {"",                      SVS_UNKNOWN}
 };
 
@@ -153,6 +154,10 @@ const std::string DEFAULT_PEDTYPE_ID("DEFAULT_PEDTYPE");
 
 const std::string DEFAULT_BIKETYPE_ID("DEFAULT_BIKETYPE");
 
+const std::string DEFAULT_CONTAINERTYPE_ID("DEFAULT_CONTAINERTYPE");
+
+const std::string DEFAULT_TAXITYPE_ID("DEFAULT_TAXITYPE");
+
 const double DEFAULT_VEH_PROB(1.);
 
 const double DEFAULT_PEDESTRIAN_SPEED(5. / 3.6);
@@ -162,7 +167,107 @@ const double DEFAULT_CONTAINER_TRANSHIP_SPEED(5. / 3.6);
 // ===========================================================================
 // method definitions
 // ===========================================================================
-// ------------ Conversion of SUMOVehicleClass
+
+// Stop Offset
+
+StopOffset::StopOffset() :
+    myPermissions(SVCAll),
+    myOffset(0) {
+}
+
+
+StopOffset::StopOffset(const SUMOSAXAttributes& attrs, bool& ok) :
+    myPermissions(SVC_IGNORING),
+    myOffset(0) {
+    // first check conditions
+    if (attrs.hasAttribute(SUMO_ATTR_VCLASSES) && attrs.hasAttribute(SUMO_ATTR_EXCEPTIONS)) {
+        WRITE_ERROR("Simultaneous specification of vClasses and exceptions is not allowed");
+        ok = false;
+    }
+    if (!attrs.hasAttribute(SUMO_ATTR_VALUE)) {
+        WRITE_ERROR("StopOffset requires an offset value");
+        ok = false;
+    }
+    // parse elements
+    const std::string vClasses = attrs.getOpt<std::string>(SUMO_ATTR_VCLASSES, nullptr, ok, "");
+    const std::string exceptions = attrs.getOpt<std::string>(SUMO_ATTR_EXCEPTIONS, nullptr, ok, "");
+    // parse permissions
+    if (attrs.hasAttribute(SUMO_ATTR_VCLASSES)) {
+        myPermissions = parseVehicleClasses(vClasses);
+    } else if (attrs.hasAttribute(SUMO_ATTR_EXCEPTIONS)) {
+        myPermissions = ~parseVehicleClasses(exceptions);
+    } else {
+        // no vClasses specified, thus apply to all
+        myPermissions = parseVehicleClasses("all");
+    }
+    // parse offset
+    myOffset = attrs.getOpt<double>(SUMO_ATTR_VALUE, nullptr, ok, 0);
+}
+
+
+bool 
+StopOffset::isDefined() const {
+    return myOffset != 0;
+}
+
+
+void 
+StopOffset::reset() {
+    myPermissions = SVC_IGNORING;
+    myOffset = 0;
+}
+
+
+SVCPermissions 
+StopOffset::getPermissions() const {
+    return myPermissions;
+}
+
+
+std::string
+StopOffset::getExceptions() const {
+    return getVehicleClassNames(~myPermissions);
+}
+
+
+double 
+StopOffset::getOffset() const {
+    return myOffset;
+}
+
+
+void
+StopOffset::setPermissions(const SVCPermissions permissions) {
+    myPermissions = permissions;
+}
+
+
+void 
+StopOffset::setExceptions(const std::string permissions) {
+    myPermissions = ~parseVehicleClasses(permissions);
+}
+
+
+void 
+StopOffset::setOffset(const double offset) {
+    myOffset = offset;
+}
+
+
+bool 
+StopOffset::operator==(StopOffset const& other) const {
+    return ((myPermissions == other.myPermissions) && 
+            (myOffset == other.myOffset));
+}
+
+
+bool 
+StopOffset::operator!=(StopOffset const& other) const {
+    return ((myPermissions != other.myPermissions) || 
+            (myOffset != other.myOffset));
+}
+
+// Conversion of SUMOVehicleClass
 
 const std::string&
 getVehicleClassNames(SVCPermissions permissions, bool expand) {
@@ -364,6 +469,14 @@ bool isRailway(SVCPermissions permissions) {
     return (permissions & SVC_RAIL_CLASSES) > 0 && (permissions & SVC_PASSENGER) == 0;
 }
 
+bool isTram(SVCPermissions permissions) {
+    return (permissions & SVC_RAIL_CLASSES) == SVC_TRAM && (permissions & SVC_PASSENGER) == 0;
+}
+
+bool isBikepath(SVCPermissions permissions) {
+    return (permissions & SVC_BICYCLE) == SVC_BICYCLE && (permissions & SVC_PASSENGER) == 0;
+}
+
 
 bool
 isWaterway(SVCPermissions permissions) {
@@ -389,30 +502,44 @@ noVehicles(SVCPermissions permissions) {
 }
 
 
-std::map<SVCPermissions, double> parseStopOffsets(const SUMOSAXAttributes& attrs, bool& ok) {
-    const std::string vClasses = attrs.getOpt<std::string>(SUMO_ATTR_VCLASSES, nullptr, ok, "");
-    const std::string exceptions = attrs.getOpt<std::string>(SUMO_ATTR_EXCEPTIONS, nullptr, ok, "");
-    if (attrs.hasAttribute(SUMO_ATTR_VCLASSES) && attrs.hasAttribute(SUMO_ATTR_EXCEPTIONS)) {
-        WRITE_ERROR("Simultaneous specification of vClasses and exceptions is not allowed!");
-        ok = false;
-        return std::map<SVCPermissions, double>();
+double
+getDefaultVehicleLength(const SUMOVehicleClass vc) {
+    switch (vc) {
+        case SVC_PEDESTRIAN:
+            return 0.215;
+        case SVC_BICYCLE:
+            return 1.6;
+        case SVC_MOPED:
+            return 2.1;
+        case SVC_MOTORCYCLE:
+            return 2.2;
+        case SVC_TRUCK:
+            return 7.1;
+        case SVC_TRAILER:
+            return 16.5;
+        case SVC_BUS:
+            return 12.;
+        case SVC_COACH:
+            return 14.;
+        case SVC_TRAM:
+            return 22.;
+        case SVC_RAIL_URBAN:
+            return 36.5 * 3;
+        case SVC_RAIL:
+            return 67.5 * 2;
+        case SVC_RAIL_ELECTRIC:
+        case SVC_RAIL_FAST:
+            return 25. * 8;
+        case SVC_DELIVERY:
+        case SVC_EMERGENCY:
+            return 6.5;
+        case SVC_SHIP:
+            return 17;
+        default:
+            return 5; /*4.3*/
     }
-    const double value = attrs.get<double>(SUMO_ATTR_VALUE, nullptr, ok);
-
-    int vClassBitset;
-    if (attrs.hasAttribute(SUMO_ATTR_VCLASSES)) {
-        vClassBitset = parseVehicleClasses(vClasses);
-    } else if (attrs.hasAttribute(SUMO_ATTR_EXCEPTIONS)) {
-        vClassBitset = ~parseVehicleClasses(exceptions);
-    } else {
-        // no vClasses specified, thus apply to all
-        vClassBitset = parseVehicleClasses("all");
-    }
-
-    std::map<SVCPermissions, double> offsets;
-    offsets[vClassBitset] = value;
-    return offsets;
 }
 
-/****************************************************************************/
 
+
+/****************************************************************************/

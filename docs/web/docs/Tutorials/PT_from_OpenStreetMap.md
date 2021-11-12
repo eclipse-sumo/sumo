@@ -1,6 +1,5 @@
 ---
-title: Tutorials/PT from OpenStreetMap
-permalink: /Tutorials/PT_from_OpenStreetMap/
+title: PT from OpenStreetMap
 ---
 
 # Introduction
@@ -57,7 +56,7 @@ beyond the scope of this tutorial. The steps are performed by invoking
 the *ptlines2flows.py* script as follows
 
 ```
-tools/ptlines2flows.py -n net.net.xml -s additional.xml -l ptlines.xml 
+python tools/ptlines2flows.py -n net.net.xml -s additional.xml -l ptlines.xml 
     -o flows.rou.xml -p 600 --use-osm-routes
 ```
 

@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    test.py
 # @author  Pablo Alvarez Lopez
@@ -31,31 +35,31 @@ netedit.shapeMode()
 netedit.changeElement("poiLane")
 
 # create poi
-netedit.leftClick(referencePosition, 150, 215)
+netedit.leftClick(referencePosition, 150, 210)
 
 # enable ID
 netedit.changeDefaultBoolValue(2)
 
 # create poi
-netedit.leftClick(referencePosition, 170, 215)
+netedit.leftClick(referencePosition, 170, 210)
 
 # set invalid ID
 netedit.changeDefaultValue(3, ";;;;;;")
 
 # try to create poi
-netedit.leftClick(referencePosition, 190, 215)
+netedit.leftClick(referencePosition, 190, 210)
 
 # set invalid ID
 netedit.changeDefaultValue(3, "POI_0")
 
 # try to create poi
-netedit.leftClick(referencePosition, 220, 215)
+netedit.leftClick(referencePosition, 220, 210)
 
 # set invalid ID
 netedit.changeDefaultValue(3, "customID")
 
 # create POI
-netedit.leftClick(referencePosition, 240, 215)
+netedit.leftClick(referencePosition, 240, 210)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

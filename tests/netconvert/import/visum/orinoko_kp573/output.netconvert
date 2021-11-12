@@ -1,22 +1,22 @@
-Found: $VSYS: at 15982
-Found: $PUNKT: at 19683
-Found: $KANTE: at 20102
-Found: $TEILFLAECHENELEMENT: at 24559
-Found: $FLAECHENELEMENT: at 24959
-Found: $KNOTEN: at 25571
-Found: $BEZIRK: at 29629
-Found: $STRECKENTYP: at 32824
-Found: $STRECKE: at 71543
-Found: $STRECKENPOLY: at 102721
-Found: $ABBIEGER: at 104994
-Found: $ANBINDUNG: at 121401
-Found: $SIGNALANLAGE: at 222347
-Found: $SIGNALANLAGEZUKNOTEN: at 222516
-Found: $SIGNALGRUPPE: at 222600
-Found: $SIGNALGRUPPEZUABBIEGER: at 222895
-Found: $PHASE: at 223300
-Found: $FAHRSTREIFEN: at 224389
-Found: $FAHRSTREIFENABBIEGER: at 225179
+Found: $VSYS: at line 165
+Found: $PUNKT: at line 297
+Found: $KANTE: at line 313
+Found: $TEILFLAECHENELEMENT: at line 462
+Found: $FLAECHENELEMENT: at line 498
+Found: $KNOTEN: at line 521
+Found: $BEZIRK: at line 559
+Found: $STRECKENTYP: at line 585
+Found: $STRECKE: at line 690
+Found: $STRECKENPOLY: at line 749
+Found: $ABBIEGER: at line 804
+Found: $ANBINDUNG: at line 937
+Found: $SIGNALANLAGE: at line 4033
+Found: $SIGNALANLAGEZUKNOTEN: at line 4039
+Found: $SIGNALGRUPPE: at line 4045
+Found: $SIGNALGRUPPEZUABBIEGER: at line 4058
+Found: $PHASE: at line 4075
+Found: $FAHRSTREIFEN: at line 4135
+Found: $FAHRSTREIFENABBIEGER: at line 4161
 Parsing VSYS ... done.
 Parsing STRECKENTYP ... 
 done.
@@ -45,23 +45,23 @@ Parsing FAHRSTREIFENABBIEGER ... done.
 Removing self-loops ... done (0ms).
 Removing empty nodes ... done (0ms).
    0 nodes removed.
-Moving network to origin ... done (0ms).
-Computing turning directions ... done (0ms).
+Moving network to origin ... done (2ms).
+Computing turning directions ... done (1ms).
 Assigning nodes to traffic lights ... done (0ms).
 Sorting nodes' edges ... done (0ms).
-Computing node shapes ... done (2ms).
-Computing edge shapes ... done (1ms).
+Computing node shapes ... done (10ms).
+Computing edge shapes ... done (4ms).
 Computing node types ... done (0ms).
-Computing priorities ... done (0ms).
+Computing priorities ... done (1ms).
 Computing approached edges ... done (0ms).
 Guessing and setting roundabouts ... done (0ms).
-Computing approaching lanes ... done (1ms).
-Dividing of lanes on approached lanes ... done (0ms).
+Computing approaching lanes ... done (2ms).
+Dividing of lanes on approached lanes ... done (1ms).
 Processing turnarounds ... done (0ms).
-Rechecking of lane endings ... done (0ms).
-Computing traffic light control information ... done (0ms).
-Computing node logics ... done (1ms).
-Computing traffic light logics ... done (2ms).
+Rechecking of lane endings ... done (1ms).
+Computing traffic light control information ... done (1ms).
+Computing node logics ... done (5ms).
+Computing traffic light logics ... done (9ms).
  1 traffic light(s) computed.
 -----------------------------------------------------
 Summary:
@@ -76,5 +76,5 @@ Summary:
   Converted boundary : 0.00,0.00,3286.00,4143.50
 -----------------------------------------------------
 Writing network ... 
-done (8ms).
+done (25ms).
 Success.

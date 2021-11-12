@@ -1,1 +1,1 @@
--n net.net.xml -o image.png,image.svg tools/visualization/plot_net_speeds.py 
+-b -n net.net.xml -o image.png,image.svg tools/visualization/plot_net_speeds.py 

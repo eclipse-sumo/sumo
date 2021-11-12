@@ -1,6 +1,5 @@
 ---
-title: Contributed/SUMOPy/Installation/Linux
-permalink: /Contributed/SUMOPy/Installation/Linux/
+title: Linux
 ---
 
 Python 2.7 comes with most Linux operating systems. Python 3.x is not

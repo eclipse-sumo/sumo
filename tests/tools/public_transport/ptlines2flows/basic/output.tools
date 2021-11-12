@@ -1,6 +1,6 @@
 generating trips...
-Skipping line '4' because because it only drives at night
-Skipping line '5' because because it only drives at night
+Skipping line '4' because it only drives at night
+Skipping line '5' because it only drives at night
 Imported 4 lines with 10 stops and skipped 2 lines
    bus: 4
 done.

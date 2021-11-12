@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2019-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2019-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSDynamicShapeUpdater.cpp
 /// @author  Leonhard Luecken
@@ -13,10 +17,6 @@
 ///
 //
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include "MSDynamicShapeUpdater.h"
 #include "utils/vehicle/SUMOVehicle.h"
 
@@ -28,7 +28,7 @@ MSDynamicShapeUpdater::vehicleStateChanged(const SUMOVehicle* const vehicle, MSN
     /// @brief Definition of a vehicle state
     switch (to) {
         /// @brief The vehicle arrived at his destination (is deleted)
-        case MSNet::VEHICLE_STATE_ARRIVED: {
+        case MSNet::VehicleState::ARRIVED: {
 #ifdef DEBUG_DYNAMIC_SHAPES
             std::cout << "MSDynamicShapeUpdater: Vehicle '" << vehicle->getID() << "' has arrived. Informing ShapeContainer." << std::endl;
 #endif
@@ -36,7 +36,7 @@ MSDynamicShapeUpdater::vehicleStateChanged(const SUMOVehicle* const vehicle, MSN
         }
         break;
         /// @brief The vehicle is involved in a collision
-        case MSNet::VEHICLE_STATE_COLLISION:
+        case MSNet::VehicleState::COLLISION:
             // TODO: can this lead to removal without calling arrived?
             break;
         default:

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIDialog_ViewSettings.cpp
 /// @author  Daniel Krajzewicz
@@ -16,11 +20,6 @@
 ///
 // The dialog to change the view (gui) settings.
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <fstream>
@@ -66,7 +65,7 @@ FXDEFMAP(GUIDialog_ViewSettings) GUIDialog_ViewSettingsMap[] = {
 
     FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_LOAD_DECALS,    GUIDialog_ViewSettings::onCmdLoadDecals),
     FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_SAVE_DECALS,    GUIDialog_ViewSettings::onCmdSaveDecals),
-
+    FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_CLEAR_DECALS,   GUIDialog_ViewSettings::onCmdClearDecals),
 };
 
 
@@ -78,479 +77,54 @@ FXIMPLEMENT(GUIDialog_ViewSettings, FXDialogBox, GUIDialog_ViewSettingsMap, ARRA
 // ===========================================================================
 GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIVisualizationSettings* settings, std::vector<GUISUMOAbstractView::Decal>* decals, FXMutex* decalsLock) :
     FXDialogBox(parent, "View Settings", GUIDesignViewSettingsMainDialog),
-    myParent(parent), mySettings(settings),
-    myDecals(decals), myDecalsLock(decalsLock),
-    myDecalsTable(nullptr) {
-    myBackup = (*mySettings);
-
+    myParent(parent), mySettings(settings), myBackup(*settings),
+    myDecals(decals), myDecalsLock(decalsLock), myDecalsTable(nullptr),
+    myDataValuePanel(nullptr) {
+    // create content frame
     FXVerticalFrame* contentFrame = new FXVerticalFrame(this, GUIDesignViewSettingsVerticalFrame1);
-    //
-    {
-        FXHorizontalFrame* frame0 = new FXHorizontalFrame(contentFrame, GUIDesignViewSettingsHorizontalFrame1);
-        mySchemeName = new FXComboBox(frame0, 20, this, MID_SIMPLE_VIEW_NAMECHANGE, GUIDesignViewSettingsComboBox1);
-        const std::vector<std::string>& names = gSchemeStorage.getNames();
-        for (std::vector<std::string>::const_iterator i = names.begin(); i != names.end(); ++i) {
-            int index = mySchemeName->appendItem((*i).c_str());
-            if ((*i) == mySettings->name) {
-                mySchemeName->setCurrentItem((FXint) index);
-            }
-        }
-        mySchemeName->setNumVisible(5);
-
-        new FXButton(frame0, "\t\tSave the setting to registry", GUIIconSubSys::getIcon(ICON_SAVEDB), this, MID_SIMPLE_VIEW_SAVE, GUIDesignButtonToolbar);
-        new FXButton(frame0, "\t\tRemove the setting from registry", GUIIconSubSys::getIcon(ICON_REMOVEDB), this, MID_SIMPLE_VIEW_DELETE, GUIDesignButtonToolbar);
-        new FXButton(frame0, "\t\tExport setting to file", GUIIconSubSys::getIcon(ICON_SAVE), this, MID_SIMPLE_VIEW_EXPORT, GUIDesignButtonToolbar);
-        new FXButton(frame0, "\t\tLoad setting from file", GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_SIMPLE_VIEW_IMPORT, GUIDesignButtonToolbar);
-
-        new FXVerticalSeparator(frame0);
-        new FXLabel(frame0, "Export includes:", nullptr, GUIDesignViewSettingsLabel1);
-        mySaveViewPort = new FXCheckButton(frame0, "Viewport");
-        mySaveDelay = new FXCheckButton(frame0, "Delay");
-        mySaveDecals = new FXCheckButton(frame0, "Decals");
-        mySaveBreakpoints = new FXCheckButton(frame0, "Breakpoints");
-        if (settings->netedit) {
-            mySaveBreakpoints->disable();
-        }
-    }
-    //
+    // build header
+    buildHeader(contentFrame);
+    // create tabbook for every section
     FXTabBook* tabbook = new FXTabBook(contentFrame, nullptr, 0, GUIDesignViewSettingsTabBook1);
-    {
-        // tab for the background
-        new FXTabItem(tabbook, "Background", nullptr, GUIDesignViewSettingsTabItemBook1);
-        FXScrollWindow* genScroll = new FXScrollWindow(tabbook);
-        FXVerticalFrame* frame1 = new FXVerticalFrame(genScroll, GUIDesignViewSettingsVerticalFrame2);
-
-        FXMatrix* m11 = new FXMatrix(frame1, 2, GUIDesignMatrixViewSettings);
-        new FXLabel(m11, "Color", nullptr, GUIDesignViewSettingsLabel1);
-        myBackgroundColor = new FXColorWell(m11, MFXUtils::getFXColor(settings->backgroundColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
-
-        new FXHorizontalSeparator(frame1, GUIDesignHorizontalSeparator);
-
-        FXVerticalFrame* frame11 = new FXVerticalFrame(frame1, GUIDesignViewSettingsVerticalFrame3);
-        new FXLabel(frame11, "Decals:");
-        myDecalsFrame = new FXVerticalFrame(frame11);
-        FXHorizontalFrame* frame111 = new FXHorizontalFrame(frame11, GUIDesignViewSettingsHorizontalFrame2);
-        new FXButton(frame111, "&Load Decals", nullptr, this, MID_SIMPLE_VIEW_LOAD_DECALS, GUIDesignViewSettingsButton1);
-        new FXButton(frame111, "&Save Decals", nullptr, this, MID_SIMPLE_VIEW_SAVE_DECALS, GUIDesignViewSettingsButton1);
-
-        new FXHorizontalSeparator(frame1, GUIDesignHorizontalSeparator);
-
-        FXMatrix* m12 = new FXMatrix(frame1, 2, GUIDesignViewSettingsMatrix1);
-        myShowGrid = new FXCheckButton(m12, "Show grid", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
-        myShowGrid->setCheck(mySettings->showGrid);
-        new FXLabel(m12, "");
-        FXMatrix* m121 = new FXMatrix(m12, 2, GUIDesignViewSettingsMatrix2);
-        new FXLabel(m121, "x-spacing", nullptr, GUIDesignViewSettingsLabel1);
-        myGridXSizeDialer = new FXRealSpinner(m121, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
-        myGridXSizeDialer->setRange(1, 10000);
-        myGridXSizeDialer->setValue(mySettings->gridXSize);
-        FXMatrix* m122 = new FXMatrix(m12, 2, GUIDesignViewSettingsMatrix2);
-        new FXLabel(m122, "y-spacing", nullptr, GUIDesignViewSettingsLabel1);
-        myGridYSizeDialer = new FXRealSpinner(m122, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
-        myGridYSizeDialer->setRange(1, 10000);
-        myGridYSizeDialer->setValue(mySettings->gridXSize);
+    // build background frame
+    buildBackgroundFrame(tabbook);
+    // build streets frame
+    buildStreetsFrame(tabbook);
+    // build vehicles frame
+    buildVehiclesFrame(tabbook);
+    // build persons frame
+    buildPersonsFrame(tabbook);
+    // build containers frame
+    buildContainersFrame(tabbook);
+    // build junctions frame
+    buildJunctionsFrame(tabbook);
+    // build additionals frame
+    buildAdditionalsFrame(tabbook);
+    // build demand frame
+    if (mySettings->netedit) {
+        buildDemandFrame(tabbook);
     }
-    {
-        // tab for the streets
-        new FXTabItem(tabbook, "Streets", nullptr, GUIDesignViewSettingsTabItemBook1);
-        FXScrollWindow* genScroll = new FXScrollWindow(tabbook);
-        FXVerticalFrame* frame2 = new FXVerticalFrame(genScroll, GUIDesignViewSettingsVerticalFrame2);
-        //  ... color settings
-        FXVerticalFrame* frame22 = new FXVerticalFrame(frame2, GUIDesignViewSettingsVerticalFrame6);
-        FXMatrix* m21 = new FXMatrix(frame22, 4, GUIDesignViewSettingsMatrix3);
-        new FXLabel(m21, "Color", nullptr, GUIDesignViewSettingsLabel1);
-        myLaneEdgeColorMode = new MFXIconComboBox(m21, 30, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
-        myLaneColorInterpolation = new FXCheckButton(m21, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
-        myLaneColorSettingFrame = new FXVerticalFrame(frame22, GUIDesignViewSettingsVerticalFrame4);
-        myParamKey = new FXComboBox(m21, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
-        myParamKey->disable();
-        myParamKey->setEditable(true);
-
-        // rainbow settings
-        FXMatrix* m24 = new FXMatrix(frame22, 3, GUIDesignViewSettingsMatrix3);
-        myLaneColorRainbow = new FXButton(m24, "Recalibrate Rainbow", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                                          (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
-        myLaneColorRainbowCheck = new FXCheckButton(m24, "hide below threshold", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
-        myLaneColorRainbowThreshold = new FXRealSpinner(m24, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
-
-        new FXHorizontalSeparator(frame2, GUIDesignHorizontalSeparator);
-        //  ... scale settings
-        FXVerticalFrame* frame23 = new FXVerticalFrame(frame2, GUIDesignViewSettingsVerticalFrame6);
-        FXMatrix* m23 = new FXMatrix(frame23, 3, GUIDesignViewSettingsMatrix3);
-        new FXLabel(m23, "Scale width", nullptr, GUIDesignViewSettingsLabel1);
-        myLaneEdgeScaleMode = new MFXIconComboBox(m23, 30, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
-        myLaneScaleInterpolation = new FXCheckButton(m23, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
-        myLaneScaleSettingFrame = new FXVerticalFrame(frame23, GUIDesignViewSettingsVerticalFrame4);
-
-        if (GUIVisualizationSettings::UseMesoSim) {
-            mySettings->edgeColorer.fill(*myLaneEdgeColorMode);
-            mySettings->edgeScaler.fill(*myLaneEdgeScaleMode);
-            myLaneEdgeColorMode->setNumVisible((int)mySettings->edgeColorer.size());
-            myLaneEdgeScaleMode->setNumVisible((int)mySettings->edgeScaler.size());
-        } else {
-            mySettings->laneColorer.fill(*myLaneEdgeColorMode);
-            mySettings->laneScaler.fill(*myLaneEdgeScaleMode);
-            myLaneEdgeColorMode->setNumVisible((int)mySettings->laneColorer.size());
-            myLaneEdgeScaleMode->setNumVisible((int)mySettings->laneScaler.size());
-        }
-
-        new FXHorizontalSeparator(frame2, GUIDesignHorizontalSeparator);
-        FXMatrix* m22 = new FXMatrix(frame2, 2, GUIDesignViewSettingsMatrix1);
-        myShowLaneBorders = new FXCheckButton(m22, "Show lane borders", this, MID_SIMPLE_VIEW_COLORCHANGE);
-        myShowLaneBorders->setCheck(mySettings->laneShowBorders);
-        myShowBikeMarkings = new FXCheckButton(m22, "Show bike markings", this, MID_SIMPLE_VIEW_COLORCHANGE);
-        myShowBikeMarkings->setCheck(mySettings->showBikeMarkings);
-        myShowLaneDecals = new FXCheckButton(m22, "Show turning arrows", this, MID_SIMPLE_VIEW_COLORCHANGE);
-        myShowLaneDecals->setCheck(mySettings->showLinkDecals);
-        new FXLabel(m22, " ", nullptr, GUIDesignViewSettingsLabel1);
-        myShowLinkRules = new FXCheckButton(m22, "Show right-of-way rules", this, MID_SIMPLE_VIEW_COLORCHANGE);
-        myShowLinkRules->setCheck(mySettings->showLinkRules);
-        new FXLabel(m22, " ", nullptr, GUIDesignViewSettingsLabel1);
-        myShowRails = new FXCheckButton(m22, "Show rails", this, MID_SIMPLE_VIEW_COLORCHANGE);
-        myShowRails->setCheck(mySettings->showRails);
-        new FXLabel(m22, " ", nullptr, GUIDesignViewSettingsLabel1);
-        myHideMacroConnectors = new FXCheckButton(m22, "Hide macro connectors", this, MID_SIMPLE_VIEW_COLORCHANGE);
-        myHideMacroConnectors->setCheck(mySettings->hideConnectors);
-        new FXLabel(m22, " ", nullptr, GUIDesignViewSettingsLabel1);
-        myShowLaneDirection = new FXCheckButton(m22, "Show lane direction", this, MID_SIMPLE_VIEW_COLORCHANGE);
-        myShowLaneDirection->setCheck(mySettings->showLaneDirection);
-        new FXLabel(m22, " ", nullptr, GUIDesignViewSettingsLabel1);
-        myShowSublanes = new FXCheckButton(m22, "Show sublanes", this, MID_SIMPLE_VIEW_COLORCHANGE);
-        myShowSublanes->setCheck(mySettings->showSublanes);
-        mySpreadSuperposed = new FXCheckButton(m22, "Spread bidirectional railway\t\tMake both directional edges for a bidirectional railway visible", this, MID_SIMPLE_VIEW_COLORCHANGE);
-        mySpreadSuperposed->setCheck(mySettings->spreadSuperposed);
-        new FXLabel(m22, "Exaggerate width by", nullptr, GUIDesignViewSettingsLabel1);
-        myLaneWidthUpscaleDialer = new FXRealSpinner(m22, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
-        myLaneWidthUpscaleDialer->setRange(0, 10000);
-        myLaneWidthUpscaleDialer->setValue(mySettings->laneWidthExaggeration);
-
-        new FXLabel(m22, "Minimum size", nullptr, GUIDesignViewSettingsLabel1);
-        myLaneMinWidthDialer = new FXRealSpinner(m22, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
-        myLaneMinWidthDialer->setRange(0, 10000);
-        myLaneMinWidthDialer->setValue(mySettings->laneMinSize);
-
-        // edge name
-        myEdgeNamePanel = new NamePanel(m22, this, "Show edge name", mySettings->edgeName);
-        myStreetNamePanel = new NamePanel(m22, this, "Show street name", mySettings->streetName);
-        myEdgeValuePanel = new NamePanel(m22, this, "Show edge color value", mySettings->edgeValue);
+    // build POIs frame
+    buildPOIsFrame(tabbook);
+    // build polygons frame
+    buildPolygonsFrame(tabbook);
+    // build selection frame (only in NETEDIT)
+    if (mySettings->netedit) {
+        buildSelectionFrame(tabbook);
     }
-    {
-        // vehicles
-        new FXTabItem(tabbook, "Vehicles", nullptr, GUIDesignViewSettingsTabItemBook1);
-        FXScrollWindow* genScroll = new FXScrollWindow(tabbook);
-        FXVerticalFrame* frame3 = new FXVerticalFrame(genScroll, GUIDesignViewSettingsVerticalFrame2);
-
-        FXMatrix* m31 = new FXMatrix(frame3, 2, GUIDesignViewSettingsMatrix3);
-        new FXLabel(m31, "Show As", nullptr, GUIDesignViewSettingsLabel1);
-        myVehicleShapeDetail = new MFXIconComboBox(m31, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
-        myVehicleShapeDetail->appendItem("'triangles'");
-        myVehicleShapeDetail->appendItem("'boxes'");
-        myVehicleShapeDetail->appendItem("'simple shapes'");
-        myVehicleShapeDetail->appendItem("'raster images'");
-        myVehicleShapeDetail->setNumVisible(4);
-        myVehicleShapeDetail->setCurrentItem(settings->vehicleQuality);
-
-        new FXHorizontalSeparator(frame3, GUIDesignHorizontalSeparator);
-
-        FXMatrix* m32 = new FXMatrix(frame3, 4, GUIDesignViewSettingsMatrix3);
-        new FXLabel(m32, "Color", nullptr, GUIDesignViewSettingsLabel1);
-        myVehicleColorMode = new MFXIconComboBox(m32, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
-        mySettings->vehicleColorer.fill(*myVehicleColorMode);
-        myVehicleColorMode->setNumVisible((int)mySettings->vehicleColorer.size());
-        myVehicleColorInterpolation = new FXCheckButton(m32, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
-        myVehicleParamKey = new FXComboBox(m32, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
-        myVehicleParamKey->setEditable(true);
-        myVehicleParamKey->disable();
-
-        myVehicleColorSettingFrame = new FXVerticalFrame(frame3, GUIDesignViewSettingsVerticalFrame4);
-
-        new FXHorizontalSeparator(frame3, GUIDesignHorizontalSeparator);
-
-        FXMatrix* m35 = new FXMatrix(frame3, 2, GUIDesignMatrixViewSettings);
-        myVehicleNamePanel = new NamePanel(m35, this, "Show vehicle name", mySettings->vehicleName);
-        myVehicleValuePanel = new NamePanel(m35, this, "Show vehicle color value", mySettings->vehicleValue);
-        myVehicleTextPanel = new NamePanel(m35, this, "Show vehicle text param", mySettings->vehicleText);
-        myVehicleTextParamKey = new FXComboBox(myVehicleTextPanel->myMatrix0, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
-        myVehicleTextParamKey->setEditable(true);
-
-        //new FXHorizontalSeparator(frame3, GUIDesignHorizontalSeparator);
-
-        FXMatrix* m33 = new FXMatrix(frame3, 2, GUIDesignMatrixViewSettings);
-        myShowBlinker = new FXCheckButton(m33, "Show blinker / brake lights", this, MID_SIMPLE_VIEW_COLORCHANGE);
-        myShowBlinker->setCheck(mySettings->showBlinker);
-        myShowMinGap = new FXCheckButton(m33, "Show minimum gap", this, MID_SIMPLE_VIEW_COLORCHANGE);
-        myShowMinGap->setCheck(mySettings->drawMinGap);
-        myShowBrakeGap = new FXCheckButton(m33, "Show brake gap", this, MID_SIMPLE_VIEW_COLORCHANGE);
-        myShowBrakeGap->setCheck(mySettings->drawBrakeGap);
-        myShowBTRange = new FXCheckButton(m33, "Show Bluetooth range", this, MID_SIMPLE_VIEW_COLORCHANGE);
-        myShowBTRange->setCheck(mySettings->showBTRange);
-        myShowRouteIndex = new FXCheckButton(m33, "Show route index", this, MID_SIMPLE_VIEW_COLORCHANGE);
-        myShowRouteIndex->setCheck(mySettings->showRouteIndex);
-        new FXLabel(m33, " ", nullptr, GUIDesignViewSettingsLabel1);
-        //myShowLaneChangePreference = new FXCheckButton(m33, "Show lane change preference", this, MID_SIMPLE_VIEW_COLORCHANGE);
-        //myShowLaneChangePreference->setCheck(mySettings->drawLaneChangePreference);
-        //tmpc = new FXCheckButton(m33, "Show needed headway", 0 ,0);
-        //tmpc->disable();
-
-        //new FXHorizontalSeparator(frame3, GUIDesignHorizontalSeparator);
-
-        FXMatrix* m34 = new FXMatrix(frame3, 2, GUIDesignViewSettingsMatrix1);
-        myVehicleSizePanel = new SizePanel(m34, this, mySettings->vehicleSize);
-
+    // build data frame (only in NETEDIT)
+    if (mySettings->netedit) {
+        buildDataFrame(tabbook);
     }
-    {
-        // persons
-        new FXTabItem(tabbook, "Persons", nullptr, GUIDesignViewSettingsTabItemBook1);
-        FXScrollWindow* genScroll = new FXScrollWindow(tabbook);
-        FXVerticalFrame* frame3 = new FXVerticalFrame(genScroll, GUIDesignViewSettingsVerticalFrame2);
-
-        FXMatrix* m101 = new FXMatrix(frame3, 2, GUIDesignViewSettingsMatrix3);
-        new FXLabel(m101, "Show As", nullptr, GUIDesignViewSettingsLabel1);
-        myPersonShapeDetail = new MFXIconComboBox(m101, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
-        myPersonShapeDetail->appendItem("'triangles'");
-        myPersonShapeDetail->appendItem("'circles'");
-        myPersonShapeDetail->appendItem("'simple shapes'");
-        myPersonShapeDetail->appendItem("'raster images'");
-        myPersonShapeDetail->setNumVisible(4);
-        myPersonShapeDetail->setCurrentItem(settings->personQuality);
-
-        new FXHorizontalSeparator(frame3, GUIDesignHorizontalSeparator);
-
-        FXMatrix* m102 = new FXMatrix(frame3, 3, GUIDesignViewSettingsMatrix3);
-        new FXLabel(m102, "Color", nullptr, GUIDesignViewSettingsLabel1);
-        myPersonColorMode = new MFXIconComboBox(m102, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
-        mySettings->personColorer.fill(*myPersonColorMode);
-        myPersonColorMode->setNumVisible(10);
-        myPersonColorInterpolation = new FXCheckButton(m102, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
-
-        myPersonColorSettingFrame = new FXVerticalFrame(frame3, GUIDesignViewSettingsVerticalFrame4);
-
-        new FXHorizontalSeparator(frame3, GUIDesignHorizontalSeparator);
-
-        FXMatrix* m103 = new FXMatrix(frame3, 2, GUIDesignMatrixViewSettings);
-        myPersonNamePanel = new NamePanel(m103, this, "Show person name", mySettings->personName);
-        myPersonValuePanel = new NamePanel(m103, this, "Show person color value", mySettings->personValue);
-
-        new FXHorizontalSeparator(frame3, GUIDesignHorizontalSeparator);
-
-        FXMatrix* m104 = new FXMatrix(frame3, 2, GUIDesignViewSettingsMatrix1);
-        myPersonSizePanel = new SizePanel(m104, this, mySettings->personSize);
-    }
-    {
-        // containers
-        new FXTabItem(tabbook, "Containers", nullptr, GUIDesignViewSettingsTabItemBook1);
-        FXScrollWindow* genScroll = new FXScrollWindow(tabbook);
-        FXVerticalFrame* frame3 = new FXVerticalFrame(genScroll, GUIDesignViewSettingsVerticalFrame2);
-
-        FXMatrix* m101 = new FXMatrix(frame3, 2, GUIDesignViewSettingsMatrix3);
-        new FXLabel(m101, "Show As", nullptr, GUIDesignViewSettingsLabel1);
-        myContainerShapeDetail = new MFXIconComboBox(m101, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
-        myContainerShapeDetail->appendItem("'triangles'");
-        myContainerShapeDetail->appendItem("'boxes'");
-        myContainerShapeDetail->appendItem("'simple shapes'");
-        myContainerShapeDetail->appendItem("'raster images'");
-        myContainerShapeDetail->setNumVisible(4);
-        myContainerShapeDetail->setCurrentItem(settings->containerQuality);
-
-        new FXHorizontalSeparator(frame3, GUIDesignHorizontalSeparator);
-
-        FXMatrix* m102 = new FXMatrix(frame3, 3, GUIDesignViewSettingsMatrix3);
-        new FXLabel(m102, "Color", nullptr, GUIDesignViewSettingsLabel1);
-        myContainerColorMode = new MFXIconComboBox(m102, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
-        mySettings->containerColorer.fill(*myContainerColorMode);
-        myContainerColorMode->setNumVisible(9);
-        myContainerColorInterpolation = new FXCheckButton(m102, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
-
-        myContainerColorSettingFrame = new FXVerticalFrame(frame3, GUIDesignViewSettingsVerticalFrame4);
-
-        new FXHorizontalSeparator(frame3, GUIDesignHorizontalSeparator);
-
-        FXMatrix* m103 = new FXMatrix(frame3, 2, GUIDesignMatrixViewSettings);
-        myContainerNamePanel = new NamePanel(m103, this, "Show container name", mySettings->containerName);
-
-        new FXHorizontalSeparator(frame3, GUIDesignHorizontalSeparator);
-
-        FXMatrix* m104 = new FXMatrix(frame3, 2, GUIDesignViewSettingsMatrix1);
-        myContainerSizePanel = new SizePanel(m104, this, mySettings->containerSize);
-    }
-    {
-        // nodes
-        new FXTabItem(tabbook, "Junctions", nullptr, GUIDesignViewSettingsTabItemBook1);
-        FXScrollWindow* genScroll = new FXScrollWindow(tabbook);
-        FXVerticalFrame* frame4 = new FXVerticalFrame(genScroll, GUIDesignViewSettingsVerticalFrame2);
-        FXMatrix* m41 = new FXMatrix(frame4, 3, GUIDesignViewSettingsMatrix3);
-        new FXLabel(m41, "Color", nullptr, GUIDesignViewSettingsLabel1);
-        myJunctionColorMode = new MFXIconComboBox(m41, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
-        mySettings->junctionColorer.fill(*myJunctionColorMode);
-        myJunctionColorMode->setNumVisible(4);
-        myJunctionColorInterpolation = new FXCheckButton(m41, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
-
-        myJunctionColorSettingFrame = new FXVerticalFrame(frame4, GUIDesignViewSettingsVerticalFrame4);
-        myJunctionColorRainbow = new FXButton(frame4, "Recalibrate Rainbow", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                                              (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
-
-        new FXHorizontalSeparator(frame4, GUIDesignHorizontalSeparator);
-        FXMatrix* m42 = new FXMatrix(frame4, 2, GUIDesignMatrixViewSettings);
-        myJunctionSizePanel = new SizePanel(m42, this, mySettings->junctionSize);
-        myDrawJunctionShape = new FXCheckButton(m42, "Draw junction shape", this, MID_SIMPLE_VIEW_COLORCHANGE);
-        myDrawJunctionShape->setCheck(mySettings->drawJunctionShape);
-        myDrawCrossingsAndWalkingAreas = new FXCheckButton(m42, "Draw crossings/walkingareas", this, MID_SIMPLE_VIEW_COLORCHANGE);
-        myDrawCrossingsAndWalkingAreas->setCheck(mySettings->drawCrossingsAndWalkingareas);
-        myShowLane2Lane = new FXCheckButton(m42, "Show lane to lane connections", this, MID_SIMPLE_VIEW_COLORCHANGE);
-        myShowLane2Lane->setCheck(mySettings->showLane2Lane);
-        new FXLabel(m42, " ", nullptr, GUIDesignViewSettingsLabel1);
-
-        myTLIndexPanel = new NamePanel(m42, this, "Show link tls index", mySettings->drawLinkTLIndex);
-        myJunctionIndexPanel = new NamePanel(m42, this, "Show link junction index", mySettings->drawLinkJunctionIndex);
-        myJunctionNamePanel = new NamePanel(m42, this, "Show junction name", mySettings->junctionName);
-        myInternalJunctionNamePanel = new NamePanel(m42, this, "Show internal junction name", mySettings->internalJunctionName);
-        myInternalEdgeNamePanel = new NamePanel(m42, this, "Show internal edge name", mySettings->internalEdgeName);
-        myCwaEdgeNamePanel = new NamePanel(m42, this, "Show crossing and walkingarea name", mySettings->cwaEdgeName);
-        myTLSPhaseIndexPanel = new NamePanel(m42, this, "Show traffic light phase", mySettings->tlsPhaseIndex);
-    }
-    {
-        // detectors / triggers
-        new FXTabItem(tabbook, "Additional", nullptr, GUIDesignViewSettingsTabItemBook1);
-        FXScrollWindow* genScroll = new FXScrollWindow(tabbook);
-        FXVerticalFrame* frame5 = new FXVerticalFrame(genScroll, GUIDesignViewSettingsVerticalFrame2);
-
-        FXMatrix* m51 = new FXMatrix(frame5, 2, GUIDesignMatrixViewSettings);
-        myAddNamePanel = new NamePanel(m51, this, "Show object name", mySettings->addName);
-        myAddFullNamePanel = new NamePanel(m51, this, "Show full name", mySettings->addFullName);
-        new FXHorizontalSeparator(frame5, GUIDesignHorizontalSeparator);
-
-        FXMatrix* m52 = new FXMatrix(frame5, 2, GUIDesignMatrixViewSettings);
-        myAddSizePanel = new SizePanel(m52, this, mySettings->addSize);
-
-        /*
-        new FXLabel(m522, "Color", 0, GUIDesignViewSettingsLabel1);
-        myDetectorNameColor = new FXColorWell(m522, MFXUtils::getFXColor(settings->addNameColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell3);
-        */
-    }
-    {
-        // POIs
-        new FXTabItem(tabbook, "POIs", nullptr, GUIDesignViewSettingsTabItemBook1);
-        FXScrollWindow* genScroll = new FXScrollWindow(tabbook);
-        FXVerticalFrame* frame6 = new FXVerticalFrame(genScroll, GUIDesignViewSettingsVerticalFrame2);
-
-        FXMatrix* m63 = new FXMatrix(frame6, 3, GUIDesignViewSettingsMatrix3);
-        new FXLabel(m63, "Color", nullptr, GUIDesignViewSettingsLabel1);
-        myPOIColorMode = new MFXIconComboBox(m63, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
-        mySettings->poiColorer.fill(*myPOIColorMode);
-        myPOIColorMode->setNumVisible(3);
-        myPOIColorInterpolation = new FXCheckButton(m63, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
-        myPOIColorSettingFrame = new FXVerticalFrame(frame6, GUIDesignViewSettingsVerticalFrame4);
-
-        new FXHorizontalSeparator(frame6, GUIDesignHorizontalSeparator);
-
-        FXMatrix* m61 = new FXMatrix(frame6, 2, GUIDesignMatrixViewSettings);
-        myPOINamePanel = new NamePanel(m61, this, "Show poi names", mySettings->poiName);
-        myPOITypePanel = new NamePanel(m61, this, "Show poi types", mySettings->poiType);
-        new FXHorizontalSeparator(frame6, GUIDesignHorizontalSeparator);
-
-        FXMatrix* m62 = new FXMatrix(frame6, 2, GUIDesignMatrixViewSettings);
-        myPOISizePanel = new SizePanel(m62, this, mySettings->poiSize);
-
-    }
-    {
-        // Polygons
-        new FXTabItem(tabbook, "Polygons", nullptr, GUIDesignViewSettingsTabItemBook1);
-        FXScrollWindow* genScroll = new FXScrollWindow(tabbook);
-        FXVerticalFrame* frame9 = new FXVerticalFrame(genScroll, GUIDesignViewSettingsVerticalFrame2);
-
-        FXMatrix* m63 = new FXMatrix(frame9, 3, GUIDesignViewSettingsMatrix3);
-        new FXLabel(m63, "Color", nullptr, GUIDesignViewSettingsLabel1);
-        myPolyColorMode = new MFXIconComboBox(m63, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
-        mySettings->polyColorer.fill(*myPolyColorMode);
-        myPolyColorMode->setNumVisible(3);
-        myPolyColorInterpolation = new FXCheckButton(m63, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
-        myPolyColorSettingFrame = new FXVerticalFrame(frame9, GUIDesignViewSettingsVerticalFrame4);
-
-        new FXHorizontalSeparator(frame9, GUIDesignHorizontalSeparator);
-
-        FXMatrix* m91 = new FXMatrix(frame9, 2, GUIDesignMatrixViewSettings);
-        myPolyNamePanel = new NamePanel(m91, this, "Show polygon name", mySettings->polyName);
-        myPolyTypePanel = new NamePanel(m91, this, "Show polygon types", mySettings->polyType);
-        new FXHorizontalSeparator(frame9, GUIDesignHorizontalSeparator);
-
-        myPolySizePanel = new SizePanel(m91, this, mySettings->polySize);
-    }
-    if (settings->netedit) {
-        // Selection
-        new FXTabItem(tabbook, "Selection", nullptr, GUIDesignViewSettingsTabItemBook1);
-        FXScrollWindow* genScroll = new FXScrollWindow(tabbook);
-        FXVerticalFrame* frame10 = new FXVerticalFrame(genScroll, GUIDesignViewSettingsVerticalFrame2);
-
-        FXMatrix* m102 = new FXMatrix(frame10, 2, GUIDesignMatrixViewSettings);
-        new FXLabel(m102, "Default Selection Color", nullptr, GUIDesignViewSettingsLabel1);
-        new FXLabel(m102, "", nullptr, GUIDesignViewSettingsLabel1);
-
-        new FXLabel(m102, "Miscellaneous", nullptr, GUIDesignViewSettingsLabel1);
-        mySelectionColor = new FXColorWell(m102, MFXUtils::getFXColor(settings->colorSettings.selectionColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
-        new FXLabel(m102, "Edge", nullptr, GUIDesignViewSettingsLabel1);
-        mySelectedEdgeColor = new FXColorWell(m102, MFXUtils::getFXColor(settings->colorSettings.selectedEdgeColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
-        new FXLabel(m102, "Lane Edge", nullptr, GUIDesignViewSettingsLabel1);
-        mySelectedLaneColor = new FXColorWell(m102, MFXUtils::getFXColor(settings->colorSettings.selectedLaneColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
-        new FXLabel(m102, "Connection", nullptr, GUIDesignViewSettingsLabel1);
-        mySelectedConnectionColor = new FXColorWell(m102, MFXUtils::getFXColor(settings->colorSettings.selectedConnectionColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
-        new FXLabel(m102, "Prohibition", nullptr, GUIDesignViewSettingsLabel1);
-        mySelectedProhibitionColor = new FXColorWell(m102, MFXUtils::getFXColor(settings->colorSettings.selectedProhibitionColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
-        new FXLabel(m102, "Crossing", nullptr, GUIDesignViewSettingsLabel1);
-        mySelectedCrossingColor = new FXColorWell(m102, MFXUtils::getFXColor(settings->colorSettings.selectedCrossingColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
-        new FXLabel(m102, "Additional", nullptr, GUIDesignViewSettingsLabel1);
-        mySelectedAdditionalColor = new FXColorWell(m102, MFXUtils::getFXColor(settings->colorSettings.selectedAdditionalColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
-        new FXLabel(m102, "Route", nullptr, GUIDesignViewSettingsLabel1);
-        mySelectedRouteColor = new FXColorWell(m102, MFXUtils::getFXColor(settings->colorSettings.selectedRouteColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
-        new FXLabel(m102, "Vehicle", nullptr, GUIDesignViewSettingsLabel1);
-        mySelectedVehicleColor = new FXColorWell(m102, MFXUtils::getFXColor(settings->colorSettings.selectedVehicleColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
-        new FXLabel(m102, "Person", nullptr, GUIDesignViewSettingsLabel1);
-        mySelectedPersonColor = new FXColorWell(m102, MFXUtils::getFXColor(settings->colorSettings.selectedPersonColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
-        new FXLabel(m102, "PersonPlan", nullptr, GUIDesignViewSettingsLabel1);
-        mySelectedPersonPlanColor = new FXColorWell(m102, MFXUtils::getFXColor(settings->colorSettings.selectedPersonPlanColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
-    }
-    {
-        // Legend
-        new FXTabItem(tabbook, "Legend", nullptr, GUIDesignViewSettingsTabItemBook1);
-        FXScrollWindow* genScroll = new FXScrollWindow(tabbook);
-        FXVerticalFrame* frame7 = new FXVerticalFrame(genScroll, GUIDesignViewSettingsVerticalFrame2);
-
-        FXMatrix* m72 = new FXMatrix(frame7, 2, GUIDesignMatrixViewSettings);
-        myShowSizeLegend = new FXCheckButton(m72, "Show Size Legend", this, MID_SIMPLE_VIEW_COLORCHANGE);
-        myShowSizeLegend->setCheck(mySettings->showSizeLegend);
-        new FXLabel(m72, "");
-        myShowColorLegend = new FXCheckButton(m72, "Show Color Legend", this, MID_SIMPLE_VIEW_COLORCHANGE);
-        myShowColorLegend->setCheck(mySettings->showColorLegend);
-        new FXLabel(m72, "");
-    }
-    {
-        // openGL
-        new FXTabItem(tabbook, "openGL", nullptr, GUIDesignViewSettingsTabItemBook1);
-        FXScrollWindow* genScroll = new FXScrollWindow(tabbook);
-        FXVerticalFrame* frame8 = new FXVerticalFrame(genScroll, GUIDesignViewSettingsVerticalFrame2);
-
-        FXMatrix* m82 = new FXMatrix(frame8, 1, GUIDesignMatrixViewSettings);
-        myDither = new FXCheckButton(m82, "Dither", this, MID_SIMPLE_VIEW_COLORCHANGE);
-        myDither->setCheck(mySettings->dither);
-        FXMatrix* m83 = new FXMatrix(frame8, 1, GUIDesignMatrixViewSettings);
-        myFPS = new FXCheckButton(m83, "FPS", this, MID_SIMPLE_VIEW_COLORCHANGE);
-        myFPS->setCheck(mySettings->fps);
-        FXMatrix* m84 = new FXMatrix(frame8, 1, GUIDesignMatrixViewSettings);
-        myDrawBoundaries = new FXCheckButton(m84, "Draw boundaries", this, MID_SIMPLE_VIEW_COLORCHANGE);
-        myDrawBoundaries->setCheck(mySettings->drawBoundaries);
-        FXMatrix* m85 = new FXMatrix(frame8, 1, GUIDesignMatrixViewSettings);
-        myForceDrawForPositionSelection = new FXCheckButton(m85, "Force draw for position selection", this, MID_SIMPLE_VIEW_COLORCHANGE);
-        myForceDrawForPositionSelection->setCheck(mySettings->forceDrawForPositionSelection);
-        FXMatrix* m86 = new FXMatrix(frame8, 1, GUIDesignMatrixViewSettings);
-        myForceDrawForRectangleSelection = new FXCheckButton(m86, "Force draw for rectangle selection", this, MID_SIMPLE_VIEW_COLORCHANGE);
-        myForceDrawForRectangleSelection->setCheck(mySettings->forceDrawForRectangleSelection);
-    }
-    FXHorizontalFrame* f2 = new FXHorizontalFrame(contentFrame, GUIDesignViewSettingsHorizontalFrame2);
-    FXButton* initial = new FXButton(f2, "&OK", nullptr, this, MID_SETTINGS_OK, GUIDesignViewSettingsButton2);
-    new FXButton(f2, "&Cancel", nullptr, this, MID_SETTINGS_CANCEL, GUIDesignViewSettingsButton3);
-    initial->setFocus();
-
+    // build legend frame
+    buildLegendFrame(tabbook);
+    // build openGL frame
+    buildOpenGLFrame(tabbook);
+    // build buttons
+    buildButtons(contentFrame);
+    // rebuild color matrix
     rebuildColorMatrices(false);
-    setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
+    setIcon(GUIIconSubSys::getIcon(GUIIcon::EMPTY));
     loadWindowSize();
 }
 
@@ -561,11 +135,13 @@ GUIDialog_ViewSettings::~GUIDialog_ViewSettings() {
     delete myInternalJunctionNamePanel;
     delete myInternalEdgeNamePanel;
     delete myTLSPhaseIndexPanel;
+    delete myTLSPhaseNamePanel;
     delete myCwaEdgeNamePanel;
     delete myStreetNamePanel;
     delete myEdgeValuePanel;
     delete myJunctionIndexPanel;
     delete myTLIndexPanel;
+    delete myJunctionIDPanel;
     delete myJunctionNamePanel;
     delete myVehicleNamePanel;
     delete myVehicleValuePanel;
@@ -576,9 +152,11 @@ GUIDialog_ViewSettings::~GUIDialog_ViewSettings() {
     delete myAddFullNamePanel;
     delete myPOINamePanel;
     delete myPOITypePanel;
+    delete myPOITextPanel;
     delete myPolyNamePanel;
     delete myPolyTypePanel;
     delete myEdgeNamePanel;
+    delete myDataValuePanel;
     // delete size panels
     delete myVehicleSizePanel;
     delete myPersonSizePanel;
@@ -623,9 +201,9 @@ GUIDialog_ViewSettings::onCmdCancel(FXObject*, FXSelector, void*) {
 
 
 long
-GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
-    if (data != nullptr) {
-        FXString dataS = (char*) data; // !!!unicode
+GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
+    if (ptr != nullptr) {
+        FXString dataS = (char*) ptr; // !!!unicode
         // check whether this item has been added twice
         if (dataS == mySchemeName->getItemText(mySchemeName->getNumItems() - 1)) {
             for (int i = 0; i < mySchemeName->getNumItems() - 1; ++i) {
@@ -640,7 +218,33 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     rebuildColorMatrices(true);
 
     myBackgroundColor->setRGBA(MFXUtils::getFXColor(mySettings->backgroundColor));
+
+    myBusStopColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.busStopColor));
+    myBusStopColorSign->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.busStopColorSign));
+    myTrainStopColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.trainStopColor));
+    myTrainStopColorSign->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.trainStopColorSign));
+    myContainerStopColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.containerStopColor));
+    myContainerStopColorSign->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.containerStopColorSign));
+    myChargingStationColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.chargingStationColor));
+    myChargingStationColorSign->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.chargingStationColorSign));
     if (mySettings->netedit) {
+        myStopsColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.stopColor));
+        myVehicleTripsColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.vehicleTripColor));
+        myStopPersonsColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.stopPersonColor));
+        myPersonTripColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.personTripColor));
+        myWalkColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.walkColor));
+        myRideColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.rideColor));
+        myStopContainersColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.stopContainerColor));
+        myTransportColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.transportColor));
+        myTranshipColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.transhipColor));
+
+        myTripWidth->setValue(mySettings->widthSettings.tripWidth);
+        myPersonTripWidth->setValue(mySettings->widthSettings.personTripWidth);
+        myWalkWidth->setValue(mySettings->widthSettings.walkWidth);
+        myRideWidth->setValue(mySettings->widthSettings.rideWidth);
+        myTransportWidth->setValue(mySettings->widthSettings.transportWidth);
+        myTranshipWidth->setValue(mySettings->widthSettings.transhipWidth);
+
         mySelectionColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.selectionColor));
         mySelectedEdgeColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.selectedEdgeColor));
         mySelectedLaneColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.selectedLaneColor));
@@ -652,6 +256,14 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
         mySelectedVehicleColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.selectedVehicleColor));
         mySelectedPersonColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.selectedPersonColor));
         mySelectedPersonPlanColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.selectedPersonPlanColor));
+        mySelectedEdgeDataColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.selectedEdgeDataColor));
+
+        myDataValuePanel->update(mySettings->dataValue);
+        myDataColorMode->setCurrentItem((FXint) mySettings->dataColorer.getActive());
+        myEdgeRelationUpscaleDialer->setValue(mySettings->edgeRelWidthExaggeration);
+        myTazRelationUpscaleDialer->setValue(mySettings->tazRelWidthExaggeration);
+        myDataColorRainbowCheck->setCheck(mySettings->dataValueHideCheck);
+        myDataColorRainbowThreshold->setValue(mySettings->dataValueHideThreshold);
     }
 
     myLaneEdgeColorMode->setCurrentItem((FXint) mySettings->getLaneEdgeMode());
@@ -659,6 +271,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     myShowLaneBorders->setCheck(mySettings->laneShowBorders);
     myShowBikeMarkings->setCheck(mySettings->showBikeMarkings);
     myShowLaneDecals->setCheck(mySettings->showLinkDecals);
+    myRealisticLinkRules->setCheck(mySettings->realisticLinkRules);
     myShowLinkRules->setCheck(mySettings->showLinkRules);
     myShowRails->setCheck(mySettings->showRails);
     myEdgeNamePanel->update(mySettings->edgeName);
@@ -670,6 +283,8 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     myShowLaneDirection->setCheck(mySettings->showLaneDirection);
     myShowSublanes->setCheck(mySettings->showSublanes);
     mySpreadSuperposed->setCheck(mySettings->spreadSuperposed);
+    myLaneColorRainbowCheck->setCheck(mySettings->edgeValueHideCheck);
+    myLaneColorRainbowThreshold->setValue(mySettings->edgeValueHideThreshold);
     myLaneWidthUpscaleDialer->setValue(mySettings->laneWidthExaggeration);
     myLaneMinWidthDialer->setValue(mySettings->laneMinSize);
 
@@ -680,6 +295,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     myShowBrakeGap->setCheck(mySettings->drawBrakeGap);
     myShowBTRange->setCheck(mySettings->showBTRange);
     myShowRouteIndex->setCheck(mySettings->showRouteIndex);
+    myScaleLength->setCheck(mySettings->scaleLength);
     /*
     myShowLaneChangePreference->setCheck(mySettings->drawLaneChangePreference);
     */
@@ -702,17 +318,21 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     myJunctionColorMode->setCurrentItem((FXint) mySettings->junctionColorer.getActive());
     myTLIndexPanel->update(mySettings->drawLinkTLIndex);
     myJunctionIndexPanel->update(mySettings->drawLinkJunctionIndex);
+    myJunctionIDPanel->update(mySettings->junctionID);
     myJunctionNamePanel->update(mySettings->junctionName);
     myInternalJunctionNamePanel->update(mySettings->internalJunctionName);
     myTLSPhaseIndexPanel->update(mySettings->tlsPhaseIndex);
+    myTLSPhaseNamePanel->update(mySettings->tlsPhaseName);
     myJunctionSizePanel->update(mySettings->junctionSize);
 
     myAddNamePanel->update(mySettings->addName);
     myAddFullNamePanel->update(mySettings->addFullName);
     myAddSizePanel->update(mySettings->addSize);
 
+    myPoiDetail->setValue(mySettings->poiDetail);
     myPOINamePanel->update(mySettings->poiName);
     myPOITypePanel->update(mySettings->poiType);
+    myPOITextPanel->update(mySettings->poiText);
     myPOISizePanel->update(mySettings->poiSize);
 
     myPolyNamePanel->update(mySettings->polyName);
@@ -729,6 +349,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     myForceDrawForRectangleSelection->setCheck(mySettings->forceDrawForRectangleSelection);
     myShowSizeLegend->setCheck(mySettings->showSizeLegend);
     myShowColorLegend->setCheck(mySettings->showColorLegend);
+    myShowVehicleColorLegend->setCheck(mySettings->showVehicleColorLegend);
 
     myParent->setColorScheme(mySettings->name);
     update();
@@ -744,6 +365,7 @@ GUIDialog_ViewSettings::updateColorRanges(FXObject* sender, std::vector<FXColorW
         std::vector<FXRealSpinner*>::const_iterator threshEnd,
         std::vector<FXButton*>::const_iterator buttonIt,
         GUIColorScheme& scheme) {
+    UNUSED_PARAMETER(threshEnd);
     int pos = 0;
     while (colIt != colEnd) {
         if (scheme.isFixed()) {
@@ -753,18 +375,6 @@ GUIDialog_ViewSettings::updateColorRanges(FXObject* sender, std::vector<FXColorW
         } else {
             if (sender == *threshIt) {
                 const double val = (*threshIt)->getValue();
-                double lo, hi;
-                if (pos != 0) {
-                    threshIt--;
-                    (*threshIt)->getRange(lo, hi);
-                    (*threshIt)->setRange(lo, val);
-                    threshIt++;
-                }
-                threshIt++;
-                if (threshIt != threshEnd) {
-                    (*threshIt)->getRange(lo, hi);
-                    (*threshIt)->setRange(val, hi);
-                }
                 scheme.setThreshold(pos, val);
                 return false;
             }
@@ -853,11 +463,39 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     int prevJunctionMode = mySettings->junctionColorer.getActive();
     int prevPOIMode = mySettings->poiColorer.getActive();
     int prevPolyMode = mySettings->polyColorer.getActive();
+    int prevDataMode = mySettings->dataColorer.getActive();
     bool doRebuildColorMatrices = false;
 
     tmpSettings.name = mySettings->name;
     tmpSettings.backgroundColor = MFXUtils::getRGBColor(myBackgroundColor->getRGBA());
+
+    // additionals
+    tmpSettings.colorSettings.busStopColor = MFXUtils::getRGBColor(myBusStopColor->getRGBA());
+    tmpSettings.colorSettings.busStopColorSign = MFXUtils::getRGBColor(myBusStopColorSign->getRGBA());
+    tmpSettings.colorSettings.trainStopColor = MFXUtils::getRGBColor(myTrainStopColor->getRGBA());
+    tmpSettings.colorSettings.trainStopColorSign = MFXUtils::getRGBColor(myTrainStopColorSign->getRGBA());
+    tmpSettings.colorSettings.containerStopColor = MFXUtils::getRGBColor(myContainerStopColor->getRGBA());
+    tmpSettings.colorSettings.containerStopColorSign = MFXUtils::getRGBColor(myContainerStopColorSign->getRGBA());
+    tmpSettings.colorSettings.chargingStationColor = MFXUtils::getRGBColor(myChargingStationColor->getRGBA());
+    tmpSettings.colorSettings.chargingStationColorSign = MFXUtils::getRGBColor(myChargingStationColorSign->getRGBA());
     if (mySettings->netedit) {
+        tmpSettings.colorSettings.stopColor = MFXUtils::getRGBColor(myStopsColor->getRGBA());
+        tmpSettings.colorSettings.vehicleTripColor = MFXUtils::getRGBColor(myVehicleTripsColor->getRGBA());
+        tmpSettings.colorSettings.stopPersonColor = MFXUtils::getRGBColor(myStopPersonsColor->getRGBA());
+        tmpSettings.colorSettings.personTripColor = MFXUtils::getRGBColor(myPersonTripColor->getRGBA());
+        tmpSettings.colorSettings.walkColor = MFXUtils::getRGBColor(myWalkColor->getRGBA());
+        tmpSettings.colorSettings.rideColor = MFXUtils::getRGBColor(myRideColor->getRGBA());
+        tmpSettings.colorSettings.stopContainerColor = MFXUtils::getRGBColor(myStopContainersColor->getRGBA());
+        tmpSettings.colorSettings.transportColor = MFXUtils::getRGBColor(myTransportColor->getRGBA());
+        tmpSettings.colorSettings.transhipColor = MFXUtils::getRGBColor(myTranshipColor->getRGBA());
+
+        tmpSettings.widthSettings.tripWidth = myTripWidth->getValue();
+        tmpSettings.widthSettings.personTripWidth = myPersonTripWidth->getValue();
+        tmpSettings.widthSettings.walkWidth = myWalkWidth->getValue();
+        tmpSettings.widthSettings.rideWidth = myRideWidth->getValue();
+        tmpSettings.widthSettings.transportWidth = myTransportWidth->getValue();
+        tmpSettings.widthSettings.transhipWidth = myTranshipWidth->getValue();
+
         tmpSettings.colorSettings.selectionColor = MFXUtils::getRGBColor(mySelectionColor->getRGBA());
         tmpSettings.colorSettings.selectedEdgeColor = MFXUtils::getRGBColor(mySelectedEdgeColor->getRGBA());
         tmpSettings.colorSettings.selectedLaneColor = MFXUtils::getRGBColor(mySelectedLaneColor->getRGBA());
@@ -869,7 +507,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         tmpSettings.colorSettings.selectedVehicleColor = MFXUtils::getRGBColor(mySelectedVehicleColor->getRGBA());
         tmpSettings.colorSettings.selectedPersonColor = MFXUtils::getRGBColor(mySelectedPersonColor->getRGBA());
         tmpSettings.colorSettings.selectedPersonPlanColor = MFXUtils::getRGBColor(mySelectedPersonPlanColor->getRGBA());
-
+        tmpSettings.colorSettings.selectedEdgeDataColor = MFXUtils::getRGBColor(mySelectedEdgeDataColor->getRGBA());
     }
 
     tmpSettings.showGrid = (myShowGrid->getCheck() != FALSE);
@@ -886,6 +524,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.laneShowBorders = (myShowLaneBorders->getCheck() != FALSE);
     tmpSettings.showBikeMarkings = (myShowBikeMarkings->getCheck() != FALSE);
     tmpSettings.showLinkDecals = (myShowLaneDecals->getCheck() != FALSE);
+    tmpSettings.realisticLinkRules = (myRealisticLinkRules->getCheck() != FALSE);
     tmpSettings.showLinkRules = (myShowLinkRules->getCheck() != FALSE);
     tmpSettings.showRails = (myShowRails->getCheck() != FALSE);
     tmpSettings.edgeName = myEdgeNamePanel->getSettings();
@@ -898,24 +537,34 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.showSublanes = (myShowSublanes->getCheck() != FALSE);
     tmpSettings.spreadSuperposed = (mySpreadSuperposed->getCheck() != FALSE);
     if (sender == myParamKey) {
-        if (tmpSettings.laneColorer.getScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_EDGE_PARAM_NUMERICAL) {
+        if (tmpSettings.getLaneEdgeScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_EDGE_PARAM_NUMERICAL) {
             tmpSettings.edgeParam = myParamKey->getText().text();
-        } else if (tmpSettings.laneColorer.getScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_LANE_PARAM_NUMERICAL) {
+        } else if (tmpSettings.getLaneEdgeScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_LANE_PARAM_NUMERICAL) {
             tmpSettings.laneParam = myParamKey->getText().text();
-        } else if (tmpSettings.laneColorer.getScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_NUMERICAL) {
+        } else if (tmpSettings.getLaneEdgeScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_NUMERICAL) {
             tmpSettings.edgeData = myParamKey->getText().text();
         }
     } else if (sender == myVehicleParamKey) {
         if (tmpSettings.vehicleColorer.getScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_PARAM_NUMERICAL) {
             tmpSettings.vehicleParam = myVehicleParamKey->getText().text();
         }
+    } else if (sender == myDataParamKey) {
+        if (tmpSettings.dataColorer.getScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL) {
+            tmpSettings.relDataAttr = myDataParamKey->getText().text();
+        }
     } else if (sender == myVehicleTextPanel->myCheck) {
         updateVehicleParams();
     } else if (sender == myVehicleTextParamKey) {
         tmpSettings.vehicleTextParam = myVehicleTextParamKey->getText().text();
+    } else if (sender == myPOITextPanel->myCheck) {
+        updatePOIParams();
+    } else if (sender == myPOITextParamKey) {
+        tmpSettings.poiTextParam = myPOITextParamKey->getText().text();
     }
-    tmpSettings.laneWidthExaggeration = (double) myLaneWidthUpscaleDialer->getValue();
-    tmpSettings.laneMinSize = (double) myLaneMinWidthDialer->getValue();
+    tmpSettings.edgeValueHideCheck = (myLaneColorRainbowCheck->getCheck() != FALSE);
+    tmpSettings.edgeValueHideThreshold = myLaneColorRainbowThreshold->getValue();
+    tmpSettings.laneWidthExaggeration = myLaneWidthUpscaleDialer->getValue();
+    tmpSettings.laneMinSize = myLaneMinWidthDialer->getValue();
 
     tmpSettings.vehicleColorer.setActive(myVehicleColorMode->getCurrentItem());
     tmpSettings.vehicleQuality = myVehicleShapeDetail->getCurrentItem();
@@ -924,6 +573,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.drawBrakeGap = (myShowBrakeGap->getCheck() != FALSE);
     tmpSettings.showBTRange = (myShowBTRange->getCheck() != FALSE);
     tmpSettings.showRouteIndex = (myShowRouteIndex->getCheck() != FALSE);
+    tmpSettings.scaleLength = (myScaleLength->getCheck() != FALSE);
     /*
     tmpSettings.drawLaneChangePreference = (myShowLaneChangePreference->getCheck() != FALSE);
     */
@@ -946,9 +596,11 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.junctionColorer.setActive(myJunctionColorMode->getCurrentItem());
     tmpSettings.drawLinkTLIndex = myTLIndexPanel->getSettings();
     tmpSettings.drawLinkJunctionIndex = myJunctionIndexPanel->getSettings();
+    tmpSettings.junctionID = myJunctionIDPanel->getSettings();
     tmpSettings.junctionName = myJunctionNamePanel->getSettings();
     tmpSettings.internalJunctionName = myInternalJunctionNamePanel->getSettings();
     tmpSettings.tlsPhaseIndex = myTLSPhaseIndexPanel->getSettings();
+    tmpSettings.tlsPhaseName = myTLSPhaseNamePanel->getSettings();
     tmpSettings.junctionSize = myJunctionSizePanel->getSettings();
 
     tmpSettings.addName = myAddNamePanel->getSettings();
@@ -956,14 +608,26 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.addSize = myAddSizePanel->getSettings();
 
     tmpSettings.poiColorer.setActive(myPOIColorMode->getCurrentItem());
+    tmpSettings.poiDetail = myPoiDetail->getValue();
     tmpSettings.poiName = myPOINamePanel->getSettings();
     tmpSettings.poiType = myPOITypePanel->getSettings();
+    tmpSettings.poiText = myPOITextPanel->getSettings();
     tmpSettings.poiSize = myPOISizePanel->getSettings();
 
     tmpSettings.polyColorer.setActive(myPolyColorMode->getCurrentItem());
     tmpSettings.polyName = myPolyNamePanel->getSettings();
     tmpSettings.polyType = myPolyTypePanel->getSettings();
     tmpSettings.polySize = myPolySizePanel->getSettings();
+
+    if (mySettings->netedit) {
+        tmpSettings.dataValue = myDataValuePanel->getSettings();
+        tmpSettings.dataColorer.setActive(myDataColorMode->getCurrentItem());
+        tmpSettings.dataValue = myDataValuePanel->getSettings();
+        tmpSettings.tazRelWidthExaggeration = myTazRelationUpscaleDialer->getValue();
+        tmpSettings.edgeRelWidthExaggeration = myEdgeRelationUpscaleDialer->getValue();
+        tmpSettings.dataValueHideCheck = (myDataColorRainbowCheck->getCheck() != FALSE);
+        tmpSettings.dataValueHideThreshold = myDataColorRainbowThreshold->getValue();
+    }
 
     tmpSettings.showLane2Lane = (myShowLane2Lane->getCheck() != FALSE);
     tmpSettings.drawJunctionShape = (myDrawJunctionShape->getCheck() != FALSE);
@@ -975,15 +639,19 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.forceDrawForRectangleSelection = (myForceDrawForRectangleSelection->getCheck() != FALSE);
     tmpSettings.showSizeLegend = (myShowSizeLegend->getCheck() != FALSE);
     tmpSettings.showColorLegend = (myShowColorLegend->getCheck() != FALSE);
+    tmpSettings.showVehicleColorLegend = (myShowVehicleColorLegend->getCheck() != FALSE);
 
     // lanes (colors)
     if (sender == myLaneColorRainbow) {
         myParent->buildColorRainbow(tmpSettings, tmpSettings.getLaneEdgeScheme(), tmpSettings.getLaneEdgeMode(), GLO_LANE,
                                     myLaneColorRainbowCheck->getCheck() != FALSE, myLaneColorRainbowThreshold->getValue());
         doRebuildColorMatrices = true;
-    }
-    if (sender == myJunctionColorRainbow) {
+    } else if (sender == myJunctionColorRainbow) {
         myParent->buildColorRainbow(tmpSettings, tmpSettings.junctionColorer.getScheme(), tmpSettings.junctionColorer.getActive(), GLO_JUNCTION);
+        doRebuildColorMatrices = true;
+    } else if (sender == myDataColorRainbow) {
+        myParent->buildColorRainbow(tmpSettings, tmpSettings.dataColorer.getScheme(), tmpSettings.dataColorer.getActive(), GLO_TAZRELDATA,
+                                    myDataColorRainbowCheck->getCheck() != FALSE, myDataColorRainbowThreshold->getValue());
         doRebuildColorMatrices = true;
     }
     if (tmpSettings.getLaneEdgeMode() == prevLaneMode) {
@@ -1097,6 +765,26 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     } else {
         doRebuildColorMatrices = true;
     }
+    // data
+    if (tmpSettings.netedit) {
+        if (tmpSettings.dataColorer.getActive() == prevDataMode) {
+            if (updateColorRanges(sender, myDataColors.begin(), myDataColors.end(),
+                myDataThresholds.begin(), myDataThresholds.end(), myDataButtons.begin(),
+                tmpSettings.dataColorer.getScheme())) {
+                doRebuildColorMatrices = true;
+            }
+            if (sender == myDataColorInterpolation) {
+                tmpSettings.dataColorer.getScheme().setInterpolated(myDataColorInterpolation->getCheck() != FALSE);
+                doRebuildColorMatrices = true;
+            }
+        } else {
+            doRebuildColorMatrices = true;
+        }
+    }
+    // openGL
+    if (sender == myRecalculateBoundaries) {
+        myParent->recalculateBoundaries();
+    }
 
     if (tmpSettings == *mySettings) {
         return 1;
@@ -1137,8 +825,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
 void
 GUIDialog_ViewSettings::loadSettings(const std::string& file) {
     GUISettingsHandler handler(file, true, mySettings->netedit);
-    std::string settingsName = handler.addSettings(myParent);
-    if (settingsName != "") {
+    for (std::string settingsName : handler.addSettings(myParent)) {
         FXint index = mySchemeName->appendItem(settingsName.c_str());
         mySchemeName->setCurrentItem(index);
         mySettings = &gSchemeStorage.get(settingsName);
@@ -1146,7 +833,7 @@ GUIDialog_ViewSettings::loadSettings(const std::string& file) {
     if (handler.hasDecals()) {
         myDecalsLock->lock();
         (*myDecals) = handler.getDecals();
-        rebuildList();
+        rebuildDecalsTable();
         myParent->update();
         myDecalsLock->unlock();
     }
@@ -1167,7 +854,7 @@ GUIDialog_ViewSettings::saveDecals(OutputDevice& dev) const {
     for (j = myDecals->begin(); j != myDecals->end(); ++j) {
         GUISUMOAbstractView::Decal& d = *j;
         dev.openTag(SUMO_TAG_VIEWSETTINGS_DECAL);
-        dev.writeAttr("filename", d.filename);
+        dev.writeAttr("file", d.filename);
         dev.writeAttr(SUMO_ATTR_CENTER_X, d.centerX);
         dev.writeAttr(SUMO_ATTR_CENTER_Y, d.centerY);
         dev.writeAttr(SUMO_ATTR_CENTER_Z, d.centerZ);
@@ -1191,7 +878,7 @@ GUIDialog_ViewSettings::loadDecals(const std::string& file) {
     if (handler.hasDecals()) {
         (*myDecals) = handler.getDecals();
     }
-    rebuildList();
+    rebuildDecalsTable();
     myParent->update();
     myDecalsLock->unlock();
 }
@@ -1278,7 +965,7 @@ GUIDialog_ViewSettings::onUpdDeleteSetting(FXObject* sender, FXSelector, void* p
 
 long
 GUIDialog_ViewSettings::onCmdExportSetting(FXObject*, FXSelector, void* /*data*/) {
-    FXString file = MFXUtils::getFilename2Write(this, "Export view settings", ".xml", GUIIconSubSys::getIcon(ICON_EMPTY), gCurrentFolder);
+    FXString file = MFXUtils::getFilename2Write(this, "Export view settings", ".xml", GUIIconSubSys::getIcon(GUIIcon::SAVE), gCurrentFolder);
     if (file == "") {
         return 1;
     }
@@ -1327,7 +1014,7 @@ GUIDialog_ViewSettings::onUpdExportSetting(FXObject* sender, FXSelector, void* p
 long
 GUIDialog_ViewSettings::onCmdImportSetting(FXObject*, FXSelector, void* /*data*/) {
     FXFileDialog opendialog(this, "Import view settings");
-    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG));
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("*.xml");
     if (gCurrentFolder.length() != 0) {
@@ -1344,7 +1031,7 @@ GUIDialog_ViewSettings::onCmdImportSetting(FXObject*, FXSelector, void* /*data*/
 long
 GUIDialog_ViewSettings::onCmdLoadDecals(FXObject*, FXSelector, void* /*data*/) {
     FXFileDialog opendialog(this, "Load Decals");
-    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("*.xml");
     if (gCurrentFolder.length() != 0) {
@@ -1360,7 +1047,7 @@ GUIDialog_ViewSettings::onCmdLoadDecals(FXObject*, FXSelector, void* /*data*/) {
 
 long
 GUIDialog_ViewSettings::onCmdSaveDecals(FXObject*, FXSelector, void* /*data*/) {
-    FXString file = MFXUtils::getFilename2Write(this, "Save Decals", ".xml", GUIIconSubSys::getIcon(ICON_EMPTY), gCurrentFolder);
+    FXString file = MFXUtils::getFilename2Write(this, "Save Decals", ".xml", GUIIconSubSys::getIcon(GUIIcon::EMPTY), gCurrentFolder);
     if (file == "") {
         return 1;
     }
@@ -1377,6 +1064,20 @@ GUIDialog_ViewSettings::onCmdSaveDecals(FXObject*, FXSelector, void* /*data*/) {
 }
 
 
+long
+GUIDialog_ViewSettings::onCmdClearDecals(FXObject*, FXSelector, void* /*data*/) {
+    // lock decals mutex
+    myDecalsLock->lock();
+    // clear decals
+    myDecals->clear();
+    // rebuild list
+    rebuildDecalsTable();
+    // update view
+    myParent->update();
+    // unlock decals mutex
+    myDecalsLock->unlock();
+    return 1;
+}
 
 
 long
@@ -1387,15 +1088,15 @@ GUIDialog_ViewSettings::onUpdImportSetting(FXObject* sender, FXSelector, void* p
 
 
 void
-GUIDialog_ViewSettings::rebuildList() {
+GUIDialog_ViewSettings::rebuildDecalsTable() {
     myDecalsTable->clearItems();
     const int cols = 8;
     // set table attributes
     const int numRows = MAX2((int)10, (int)myDecals->size() + 1);
     myDecalsTable->setTableSize(numRows, cols);
-    myDecalsTable->setColumnText(0, "picture file");
-    myDecalsTable->setColumnText(1, "center x");
-    myDecalsTable->setColumnText(2, "center y");
+    myDecalsTable->setColumnText(0, "file");
+    myDecalsTable->setColumnText(1, "centerX");
+    myDecalsTable->setColumnText(2, "centerY");
     myDecalsTable->setColumnText(3, "width");
     myDecalsTable->setColumnText(4, "height");
     myDecalsTable->setColumnText(5, "rotation");
@@ -1455,11 +1156,20 @@ GUIDialog_ViewSettings::rebuildColorMatrix(FXVerticalFrame* frame,
             new FXLabel(m, "");
         } else {
             const int dialerOptions = scheme.allowsNegativeValues() ? SPIN_NOMIN : 0;
-            FXRealSpinner* threshDialer = new FXRealSpinner(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignSpinDial | SPIN_NOMAX | dialerOptions);
+            FXRealSpinner* threshDialer = new FXRealSpinner(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_THICK | FRAME_SUNKEN | LAYOUT_TOP | LAYOUT_CENTER_Y | SPIN_NOMAX | dialerOptions);
             threshDialer->setValue(*threshIt);
             thresholds.push_back(threshDialer);
-            buttons.push_back(new FXButton(m, "Add", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
-            buttons.push_back(new FXButton(m, "Remove", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
+            if (*threshIt == GUIVisualizationSettings::MISSING_DATA) {
+                threshDialer->disable();
+                threshDialer->hide();
+                buttons.push_back(new FXButton(m, "", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
+                buttons.back()->hide();
+                buttons.push_back(new FXButton(m, "No Data", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
+                buttons.back()->disable();
+            } else {
+                buttons.push_back(new FXButton(m, "Add", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
+                buttons.push_back(new FXButton(m, "Remove", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
+            }
         }
         colIt++;
         threshIt++;
@@ -1502,7 +1212,7 @@ GUIDialog_ViewSettings::rebuildScaleMatrix(FXVerticalFrame* frame,
     std::vector<double>::const_iterator threshIt = scheme.getThresholds().begin();
     std::vector<std::string>::const_iterator nameIt = scheme.getNames().begin();
     while (scaleIt != scheme.getColors().end()) {
-        FXRealSpinner* scaleDialer = new FXRealSpinner(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignSpinDial | SPIN_NOMAX);
+        FXRealSpinner* scaleDialer = new FXRealSpinner(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_THICK | FRAME_SUNKEN | LAYOUT_TOP | LAYOUT_CENTER_Y | SPIN_NOMAX);
         scaleDialer->setValue(*scaleIt);
         scales.push_back(scaleDialer);
         if (fixed) {
@@ -1511,7 +1221,7 @@ GUIDialog_ViewSettings::rebuildScaleMatrix(FXVerticalFrame* frame,
             new FXLabel(m, "");
         } else {
             const int dialerOptions = scheme.allowsNegativeValues() ? SPIN_NOMIN : 0;
-            FXRealSpinner* threshDialer = new FXRealSpinner(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignSpinDial | SPIN_NOMAX | dialerOptions);
+            FXRealSpinner* threshDialer = new FXRealSpinner(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_THICK | FRAME_SUNKEN | LAYOUT_TOP | LAYOUT_CENTER_Y | SPIN_NOMAX | dialerOptions);
             threshDialer->setValue(*threshIt);
             thresholds.push_back(threshDialer);
             buttons.push_back(new FXButton(m, "Add", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
@@ -1555,7 +1265,7 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
         myDecalsTable->setCellType(i, CT_REAL);
         myDecalsTable->setNumberCellParams(i, -10000000, 10000000, 1, 10, 100, "%.2f");
     }
-    rebuildList();
+    rebuildDecalsTable();
     if (doCreate) {
         myDecalsTable->create();
     }
@@ -1654,6 +1364,29 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
     }
     myPolyColorSettingFrame->getParent()->recalc();
 
+    // data
+    if (mySettings->netedit) {
+        m = rebuildColorMatrix(myDataColorSettingFrame, myDataColors, myDataThresholds, myDataButtons, myDataColorInterpolation, mySettings->dataColorer.getScheme());
+        if (doCreate) {
+            m->create();
+        }
+        activeSchemeName = myDataColorMode->getText().text();
+        myDataParamKey->setEditable(true);
+        if (activeSchemeName == GUIVisualizationSettings::SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL) {
+            myDataParamKey->clearItems();
+            myDataParamKey->appendItem(mySettings->relDataAttr.c_str());
+            for (const std::string& attr : myParent->getRelDataAttrs()) {
+                if (attr != mySettings->relDataAttr) {
+                    myDataParamKey->appendItem(attr.c_str());
+                }
+            }
+            myDataParamKey->enable();
+        } else {
+            myDataParamKey->disable();
+        }
+        myDataColorSettingFrame->getParent()->recalc();
+    }
+
     layout();
     update();
 }
@@ -1663,21 +1396,29 @@ void
 GUIDialog_ViewSettings::updateVehicleParams() {
     myVehicleParamKey->clearItems();
     myVehicleTextParamKey->clearItems();
+    myVehicleParamKey->appendItem(mySettings->vehicleParam.c_str());
+    myVehicleTextParamKey->appendItem(mySettings->vehicleTextParam.c_str());
     for (const std::string& attr : myParent->getVehicleParamKeys(false)) {
         myVehicleParamKey->appendItem(attr.c_str());
         myVehicleTextParamKey->appendItem(attr.c_str());
-    }
-    if (myVehicleTextParamKey->getNumItems() == 0) {
-        myVehicleParamKey->appendItem(mySettings->vehicleParam.c_str());
-        myVehicleTextParamKey->appendItem(mySettings->vehicleTextParam.c_str());
     }
     myVehicleParamKey->setNumVisible(myVehicleParamKey->getNumItems());
     myVehicleTextParamKey->setNumVisible(myVehicleTextParamKey->getNumItems());
 }
 
+void
+GUIDialog_ViewSettings::updatePOIParams() {
+    myPOITextParamKey->clearItems();
+    myPOITextParamKey->appendItem(mySettings->poiTextParam.c_str());
+    for (const std::string& attr : myParent->getPOIParamKeys()) {
+        myPOITextParamKey->appendItem(attr.c_str());
+    }
+    myPOITextParamKey->setNumVisible(myPOITextParamKey->getNumItems());
+}
+
 long
-GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* data) {
-    MFXEditedTableItem* i = (MFXEditedTableItem*) data;
+GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* ptr) {
+    MFXEditedTableItem* i = (MFXEditedTableItem*) ptr;
     std::string value = i->item->getText().text();
     // check whether the inserted value is empty
     if (value.find_first_not_of(" ") == std::string::npos) {
@@ -1711,7 +1452,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* data) {
             if (d.initialised && d.filename != value) {
                 d.initialised = false;
             }
-            d.filename = value;
+            d.filename = StringUtils::trim(value);
             break;
         case 1:
             try {
@@ -1774,7 +1515,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*, FXSelector, void* data) {
     }
     (*myDecals)[row] = d;
     if (!i->updateOnly) {
-        rebuildList();
+        rebuildDecalsTable();
     }
     myParent->update();
     return 1;
@@ -1814,7 +1555,7 @@ GUIDialog_ViewSettings::NamePanel::NamePanel(
     FXMatrix* m1 = new FXMatrix(parent, 2, GUIDesignViewSettingsMatrix5);
     new FXLabel(m1, "Size", nullptr, GUIDesignViewSettingsLabel1);
     mySizeDial = new FXRealSpinner(m1, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
-    mySizeDial->setRange(10, 1000);
+    mySizeDial->setRange(5, 1000);
     mySizeDial->setValue(settings.size);
     FXMatrix* m2 = new FXMatrix(parent, 4, GUIDesignViewSettingsMatrix5);
     new FXLabel(m2, "Color", nullptr, GUIDesignViewSettingsLabel1);
@@ -1904,5 +1645,625 @@ GUIDialog_ViewSettings::loadWindowSize() {
     setHeight(MAX2(getApp()->reg().readIntEntry("VIEWSETTINGS", "height", 500), minSize));
 }
 
-/****************************************************************************/
 
+void 
+GUIDialog_ViewSettings::buildHeader(FXVerticalFrame* contentFrame) {
+    FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(contentFrame, GUIDesignViewSettingsHorizontalFrame1);
+    mySchemeName = new FXComboBox(horizontalFrame, 20, this, MID_SIMPLE_VIEW_NAMECHANGE, GUIDesignViewSettingsComboBox1);
+    for (const auto &name : gSchemeStorage.getNames()) {
+        const int index = mySchemeName->appendItem(name.c_str());
+        if (name == mySettings->name) {
+            mySchemeName->setCurrentItem((FXint)index);
+        }
+    }
+    mySchemeName->setNumVisible(5);
+
+    new FXButton(horizontalFrame, "\t\tSave the setting to registry", GUIIconSubSys::getIcon(GUIIcon::SAVEDB), this, MID_SIMPLE_VIEW_SAVE, GUIDesignButtonToolbar);
+    new FXButton(horizontalFrame, "\t\tRemove the setting from registry", GUIIconSubSys::getIcon(GUIIcon::REMOVEDB), this, MID_SIMPLE_VIEW_DELETE, GUIDesignButtonToolbar);
+    new FXButton(horizontalFrame, "\t\tExport setting to file", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_SIMPLE_VIEW_EXPORT, GUIDesignButtonToolbar);
+    new FXButton(horizontalFrame, "\t\tLoad setting from file", GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_SIMPLE_VIEW_IMPORT, GUIDesignButtonToolbar);
+
+    new FXVerticalSeparator(horizontalFrame);
+    new FXLabel(horizontalFrame, "Export includes:", nullptr, GUIDesignViewSettingsLabel1);
+    mySaveViewPort = new FXCheckButton(horizontalFrame, "Viewport");
+    mySaveDelay = new FXCheckButton(horizontalFrame, "Delay");
+    mySaveDecals = new FXCheckButton(horizontalFrame, "Decals");
+    mySaveBreakpoints = new FXCheckButton(horizontalFrame, "Breakpoints");
+    if (mySettings->netedit) {
+        mySaveBreakpoints->disable();
+    }
+}
+
+
+void 
+GUIDialog_ViewSettings::buildBackgroundFrame(FXTabBook* tabbook) {
+    // tab for the background
+    new FXTabItem(tabbook, "Background", nullptr, GUIDesignViewSettingsTabItemBook1);
+    FXScrollWindow* scrollWindow = new FXScrollWindow(tabbook);
+    FXVerticalFrame* verticalFrame = new FXVerticalFrame(scrollWindow, GUIDesignViewSettingsVerticalFrame2);
+
+    FXMatrix* matrixColor = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
+    new FXLabel(matrixColor, "Color", nullptr, GUIDesignViewSettingsLabel1);
+    myBackgroundColor = new FXColorWell(matrixColor, MFXUtils::getFXColor(mySettings->backgroundColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+
+    FXVerticalFrame* verticalFrameDecals = new FXVerticalFrame(verticalFrame, GUIDesignViewSettingsVerticalFrame3);
+    new FXLabel(verticalFrameDecals, "Decals:");
+    myDecalsFrame = new FXVerticalFrame(verticalFrameDecals);
+    FXHorizontalFrame* horizontalFrameButtonsDecals = new FXHorizontalFrame(verticalFrameDecals, GUIDesignViewSettingsHorizontalFrame2);
+    new FXButton(horizontalFrameButtonsDecals, "&Load Decals", nullptr, this, MID_SIMPLE_VIEW_LOAD_DECALS, GUIDesignViewSettingsButton1);
+    new FXButton(horizontalFrameButtonsDecals, "&Save Decals", nullptr, this, MID_SIMPLE_VIEW_SAVE_DECALS, GUIDesignViewSettingsButton1);
+    new FXButton(horizontalFrameButtonsDecals, "&Clear Decals", nullptr, this, MID_SIMPLE_VIEW_CLEAR_DECALS, GUIDesignViewSettingsButton1);
+
+    new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
+
+    FXMatrix* matrixGrid = new FXMatrix(verticalFrame, 2, GUIDesignViewSettingsMatrix1);
+    myShowGrid = new FXCheckButton(matrixGrid, "Toggle grid", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    myShowGrid->setCheck(mySettings->showGrid);
+    new FXLabel(matrixGrid, "");
+    FXMatrix* matrixGridX = new FXMatrix(matrixGrid, 2, GUIDesignViewSettingsMatrix2);
+    new FXLabel(matrixGridX, "x-spacing", nullptr, GUIDesignViewSettingsLabel1);
+    myGridXSizeDialer = new FXRealSpinner(matrixGridX, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
+    myGridXSizeDialer->setRange(1, 10000);
+    myGridXSizeDialer->setValue(mySettings->gridXSize);
+    FXMatrix* matrixGridY = new FXMatrix(matrixGrid, 2, GUIDesignViewSettingsMatrix2);
+    new FXLabel(matrixGridY, "y-spacing", nullptr, GUIDesignViewSettingsLabel1);
+    myGridYSizeDialer = new FXRealSpinner(matrixGridY, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
+    myGridYSizeDialer->setRange(1, 10000);
+    myGridYSizeDialer->setValue(mySettings->gridXSize);
+}
+
+
+void 
+GUIDialog_ViewSettings::buildStreetsFrame(FXTabBook* tabbook) {
+    new FXTabItem(tabbook, "Streets", nullptr, GUIDesignViewSettingsTabItemBook1);
+    FXScrollWindow* scrollWindow = new FXScrollWindow(tabbook);
+    FXVerticalFrame* verticalFrame = new FXVerticalFrame(scrollWindow, GUIDesignViewSettingsVerticalFrame2);
+    //  ... color settings
+    FXVerticalFrame* verticalFrameColor = new FXVerticalFrame(verticalFrame, GUIDesignViewSettingsVerticalFrame6);
+    FXMatrix* matrixColor = new FXMatrix(verticalFrameColor, 4, GUIDesignViewSettingsMatrix3);
+    new FXLabel(matrixColor, "Color", nullptr, GUIDesignViewSettingsLabel1);
+    myLaneEdgeColorMode = new MFXIconComboBox(matrixColor, 30, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    myLaneColorInterpolation = new FXCheckButton(matrixColor, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    myLaneColorSettingFrame = new FXVerticalFrame(verticalFrameColor, GUIDesignViewSettingsVerticalFrame4);
+    myParamKey = new FXComboBox(matrixColor, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    myParamKey->disable();
+    myParamKey->setEditable(true);
+
+    // rainbow settings
+    FXMatrix* matrixRainbow = new FXMatrix(verticalFrameColor, 3, GUIDesignViewSettingsMatrix3);
+    myLaneColorRainbow = new FXButton(matrixRainbow, "Recalibrate Rainbow", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                        (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
+    myLaneColorRainbowCheck = new FXCheckButton(matrixRainbow, "hide below threshold", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    myLaneColorRainbowThreshold = new FXRealSpinner(matrixRainbow, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
+    myLaneColorRainbowThreshold->setRange(-100000, 100000);
+
+    new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
+    //  ... scale settings
+    FXVerticalFrame* verticalFrameScale = new FXVerticalFrame(verticalFrame, GUIDesignViewSettingsVerticalFrame6);
+    FXMatrix* matrixScale = new FXMatrix(verticalFrameScale, 3, GUIDesignViewSettingsMatrix3);
+    new FXLabel(matrixScale, "Scale width", nullptr, GUIDesignViewSettingsLabel1);
+    myLaneEdgeScaleMode = new MFXIconComboBox(matrixScale, 30, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    myLaneScaleInterpolation = new FXCheckButton(matrixScale, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    myLaneScaleSettingFrame = new FXVerticalFrame(verticalFrameScale, GUIDesignViewSettingsVerticalFrame4);
+
+    if (GUIVisualizationSettings::UseMesoSim) {
+        mySettings->edgeColorer.fill(*myLaneEdgeColorMode);
+        mySettings->edgeScaler.fill(*myLaneEdgeScaleMode);
+        myLaneEdgeColorMode->setNumVisible((int)mySettings->edgeColorer.size());
+        myLaneEdgeScaleMode->setNumVisible((int)mySettings->edgeScaler.size());
+    } else {
+        mySettings->laneColorer.fill(*myLaneEdgeColorMode);
+        mySettings->laneScaler.fill(*myLaneEdgeScaleMode);
+        myLaneEdgeColorMode->setNumVisible((int)mySettings->laneColorer.size());
+        myLaneEdgeScaleMode->setNumVisible((int)mySettings->laneScaler.size());
+    }
+
+    new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
+    FXMatrix* matrixLanes = new FXMatrix(verticalFrame, 2, GUIDesignViewSettingsMatrix1);
+
+    myShowLaneBorders = new FXCheckButton(matrixLanes, "Show lane borders", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShowLaneBorders->setCheck(mySettings->laneShowBorders);
+    myShowBikeMarkings = new FXCheckButton(matrixLanes, "Show bike markings", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShowBikeMarkings->setCheck(mySettings->showBikeMarkings);
+
+    myShowLaneDecals = new FXCheckButton(matrixLanes, "Show turning arrows", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShowLaneDecals->setCheck(mySettings->showLinkDecals);
+    new FXLabel(matrixLanes, " ", nullptr, GUIDesignViewSettingsLabel1);
+
+    myShowLinkRules = new FXCheckButton(matrixLanes, "Show right-of-way rules", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShowLinkRules->setCheck(mySettings->showLinkRules);
+    myRealisticLinkRules = new FXCheckButton(matrixLanes, "Realistic stop line colors", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myRealisticLinkRules->setCheck(mySettings->realisticLinkRules);
+
+    myShowRails = new FXCheckButton(matrixLanes, "Show rails", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShowRails->setCheck(mySettings->showRails);
+    new FXLabel(matrixLanes, " ", nullptr, GUIDesignViewSettingsLabel1);
+    myHideMacroConnectors = new FXCheckButton(matrixLanes, "Hide macro connectors", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myHideMacroConnectors->setCheck(mySettings->hideConnectors);
+    new FXLabel(matrixLanes, " ", nullptr, GUIDesignViewSettingsLabel1);
+    myShowLaneDirection = new FXCheckButton(matrixLanes, "Show lane direction", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShowLaneDirection->setCheck(mySettings->showLaneDirection);
+    new FXLabel(matrixLanes, " ", nullptr, GUIDesignViewSettingsLabel1);
+    myShowSublanes = new FXCheckButton(matrixLanes, "Show sublanes", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShowSublanes->setCheck(mySettings->showSublanes);
+    mySpreadSuperposed = new FXCheckButton(matrixLanes, "Spread bidirectional railway\t\tMake both directional edges for a bidirectional railway visible", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    mySpreadSuperposed->setCheck(mySettings->spreadSuperposed);
+    new FXLabel(matrixLanes, "Exaggerate width by", nullptr, GUIDesignViewSettingsLabel1);
+    myLaneWidthUpscaleDialer = new FXRealSpinner(matrixLanes, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
+    myLaneWidthUpscaleDialer->setRange(0, 1000000);
+    myLaneWidthUpscaleDialer->setValue(mySettings->laneWidthExaggeration);
+
+    new FXLabel(matrixLanes, "Minimum size", nullptr, GUIDesignViewSettingsLabel1);
+    myLaneMinWidthDialer = new FXRealSpinner(matrixLanes, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
+    myLaneMinWidthDialer->setRange(0, 1000000);
+    myLaneMinWidthDialer->setValue(mySettings->laneMinSize);
+
+    // edge name
+    myEdgeNamePanel = new NamePanel(matrixLanes, this, "Show edge id", mySettings->edgeName);
+    myStreetNamePanel = new NamePanel(matrixLanes, this, "Show street name", mySettings->streetName);
+    myEdgeValuePanel = new NamePanel(matrixLanes, this, "Show edge color value", mySettings->edgeValue);
+}
+
+
+void
+GUIDialog_ViewSettings::buildVehiclesFrame(FXTabBook* tabbook) {
+    new FXTabItem(tabbook, "Vehicles", nullptr, GUIDesignViewSettingsTabItemBook1);
+    FXScrollWindow* scrollWindow = new FXScrollWindow(tabbook);
+    FXVerticalFrame* verticalframe = new FXVerticalFrame(scrollWindow, GUIDesignViewSettingsVerticalFrame2);
+
+    FXMatrix* matrixShowAs = new FXMatrix(verticalframe, 2, GUIDesignViewSettingsMatrix3);
+    new FXLabel(matrixShowAs, "Show As", nullptr, GUIDesignViewSettingsLabel1);
+    myVehicleShapeDetail = new MFXIconComboBox(matrixShowAs, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    myVehicleShapeDetail->appendIconItem("'triangles'");
+    myVehicleShapeDetail->appendIconItem("'boxes'");
+    myVehicleShapeDetail->appendIconItem("'simple shapes'");
+    myVehicleShapeDetail->appendIconItem("'raster images'");
+    myVehicleShapeDetail->appendIconItem("'circles'");
+    myVehicleShapeDetail->setNumVisible(5);
+    myVehicleShapeDetail->setCurrentItem(mySettings->vehicleQuality);
+
+    new FXHorizontalSeparator(verticalframe, GUIDesignHorizontalSeparator);
+
+    FXMatrix* matrixColor = new FXMatrix(verticalframe, 4, GUIDesignViewSettingsMatrix3);
+    new FXLabel(matrixColor, "Color", nullptr, GUIDesignViewSettingsLabel1);
+    myVehicleColorMode = new MFXIconComboBox(matrixColor, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    mySettings->vehicleColorer.fill(*myVehicleColorMode);
+    myVehicleColorMode->setNumVisible((int)mySettings->vehicleColorer.size());
+    myVehicleColorInterpolation = new FXCheckButton(matrixColor, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    myVehicleParamKey = new FXComboBox(matrixColor, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    myVehicleParamKey->setEditable(true);
+    myVehicleParamKey->disable();
+
+    myVehicleColorSettingFrame = new FXVerticalFrame(verticalframe, GUIDesignViewSettingsVerticalFrame4);
+
+    new FXHorizontalSeparator(verticalframe, GUIDesignHorizontalSeparator);
+
+    FXMatrix* matrixVehicle = new FXMatrix(verticalframe, 2, GUIDesignMatrixViewSettings);
+    myVehicleNamePanel = new NamePanel(matrixVehicle, this, "Show vehicle id", mySettings->vehicleName);
+    myVehicleValuePanel = new NamePanel(matrixVehicle, this, "Show vehicle color value", mySettings->vehicleValue);
+    myVehicleTextPanel = new NamePanel(matrixVehicle, this, "Show vehicle text param", mySettings->vehicleText);
+    myVehicleTextParamKey = new FXComboBox(myVehicleTextPanel->myMatrix0, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    myVehicleTextParamKey->setEditable(true);
+
+    //new FXHorizontalSeparator(verticalframe, GUIDesignHorizontalSeparator);
+
+    FXMatrix* matrixShow = new FXMatrix(verticalframe, 2, GUIDesignMatrixViewSettings);
+    myShowBlinker = new FXCheckButton(matrixShow, "Show blinker / brake lights", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShowBlinker->setCheck(mySettings->showBlinker);
+    myShowMinGap = new FXCheckButton(matrixShow, "Show minimum gap", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShowMinGap->setCheck(mySettings->drawMinGap);
+    myShowBrakeGap = new FXCheckButton(matrixShow, "Show brake gap", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShowBrakeGap->setCheck(mySettings->drawBrakeGap);
+    myShowBTRange = new FXCheckButton(matrixShow, "Show Bluetooth range", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShowBTRange->setCheck(mySettings->showBTRange);
+    myShowRouteIndex = new FXCheckButton(matrixShow, "Show route index", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShowRouteIndex->setCheck(mySettings->showRouteIndex);
+    myScaleLength = new FXCheckButton(matrixShow, "Scale length with geometry", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myScaleLength->setCheck(mySettings->scaleLength);
+    //new FXLabel(matrixShow, " ", nullptr, GUIDesignViewSettingsLabel1);
+    //myShowLaneChangePreference = new FXCheckButton(matrixShow, "Show lane change preference", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    //myShowLaneChangePreference->setCheck(mySettings->drawLaneChangePreference);
+    //tmpc = new FXCheckButton(matrixShow, "Show needed headway", 0 ,0);
+    //tmpc->disable();
+
+    //new FXHorizontalSeparator(frame3, GUIDesignHorizontalSeparator);
+
+    FXMatrix* matrixSize = new FXMatrix(verticalframe, 2, GUIDesignViewSettingsMatrix1);
+    myVehicleSizePanel = new SizePanel(matrixSize, this, mySettings->vehicleSize);
+}
+
+
+void 
+GUIDialog_ViewSettings::buildPersonsFrame(FXTabBook* tabbook) {
+    new FXTabItem(tabbook, "Persons", nullptr, GUIDesignViewSettingsTabItemBook1);
+    FXScrollWindow* scrollWindow = new FXScrollWindow(tabbook);
+    FXVerticalFrame* verticalFrame = new FXVerticalFrame(scrollWindow, GUIDesignViewSettingsVerticalFrame2);
+
+    FXMatrix* m101 = new FXMatrix(verticalFrame, 2, GUIDesignViewSettingsMatrix3);
+    new FXLabel(m101, "Show As", nullptr, GUIDesignViewSettingsLabel1);
+    myPersonShapeDetail = new MFXIconComboBox(m101, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    myPersonShapeDetail->appendIconItem("'triangles'");
+    myPersonShapeDetail->appendIconItem("'circles'");
+    myPersonShapeDetail->appendIconItem("'simple shapes'");
+    myPersonShapeDetail->appendIconItem("'raster images'");
+    myPersonShapeDetail->setNumVisible(4);
+    myPersonShapeDetail->setCurrentItem(mySettings->personQuality);
+
+    new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
+
+    FXMatrix* m102 = new FXMatrix(verticalFrame, 3, GUIDesignViewSettingsMatrix3);
+    new FXLabel(m102, "Color", nullptr, GUIDesignViewSettingsLabel1);
+    myPersonColorMode = new MFXIconComboBox(m102, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    mySettings->personColorer.fill(*myPersonColorMode);
+    myPersonColorMode->setNumVisible(mySettings->personColorer.size());
+    myPersonColorInterpolation = new FXCheckButton(m102, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+
+    myPersonColorSettingFrame = new FXVerticalFrame(verticalFrame, GUIDesignViewSettingsVerticalFrame4);
+
+    new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
+
+    FXMatrix* m103 = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
+    myPersonNamePanel = new NamePanel(m103, this, "Show person id", mySettings->personName);
+    myPersonValuePanel = new NamePanel(m103, this, "Show person color value", mySettings->personValue);
+
+    new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
+
+    FXMatrix* m104 = new FXMatrix(verticalFrame, 2, GUIDesignViewSettingsMatrix1);
+    myPersonSizePanel = new SizePanel(m104, this, mySettings->personSize);
+}
+
+
+void 
+GUIDialog_ViewSettings::buildContainersFrame(FXTabBook* tabbook) {
+    new FXTabItem(tabbook, "Containers", nullptr, GUIDesignViewSettingsTabItemBook1);
+    FXScrollWindow* scrollWindow = new FXScrollWindow(tabbook);
+    FXVerticalFrame* verticalFrame = new FXVerticalFrame(scrollWindow, GUIDesignViewSettingsVerticalFrame2);
+
+    FXMatrix* m101 = new FXMatrix(verticalFrame, 2, GUIDesignViewSettingsMatrix3);
+    new FXLabel(m101, "Show As", nullptr, GUIDesignViewSettingsLabel1);
+    myContainerShapeDetail = new MFXIconComboBox(m101, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    myContainerShapeDetail->appendIconItem("'triangles'");
+    myContainerShapeDetail->appendIconItem("'boxes'");
+    myContainerShapeDetail->appendIconItem("'simple shapes'");
+    myContainerShapeDetail->appendIconItem("'raster images'");
+    myContainerShapeDetail->setNumVisible(4);
+    myContainerShapeDetail->setCurrentItem(mySettings->containerQuality);
+
+    new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
+
+    FXMatrix* m102 = new FXMatrix(verticalFrame, 3, GUIDesignViewSettingsMatrix3);
+    new FXLabel(m102, "Color", nullptr, GUIDesignViewSettingsLabel1);
+    myContainerColorMode = new MFXIconComboBox(m102, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    mySettings->containerColorer.fill(*myContainerColorMode);
+    myContainerColorMode->setNumVisible(10);
+    myContainerColorInterpolation = new FXCheckButton(m102, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+
+    myContainerColorSettingFrame = new FXVerticalFrame(verticalFrame, GUIDesignViewSettingsVerticalFrame4);
+
+    new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
+
+    FXMatrix* m103 = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
+    myContainerNamePanel = new NamePanel(m103, this, "Show container id", mySettings->containerName);
+
+    new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
+
+    FXMatrix* m104 = new FXMatrix(verticalFrame, 2, GUIDesignViewSettingsMatrix1);
+    myContainerSizePanel = new SizePanel(m104, this, mySettings->containerSize);
+}
+
+
+void 
+GUIDialog_ViewSettings::buildJunctionsFrame(FXTabBook* tabbook) {
+    new FXTabItem(tabbook, "Junctions", nullptr, GUIDesignViewSettingsTabItemBook1);
+    FXScrollWindow* scrollWindow = new FXScrollWindow(tabbook);
+    FXVerticalFrame* verticalFrame = new FXVerticalFrame(scrollWindow, GUIDesignViewSettingsVerticalFrame2);
+    FXMatrix* m41 = new FXMatrix(verticalFrame, 3, GUIDesignViewSettingsMatrix3);
+    new FXLabel(m41, "Color", nullptr, GUIDesignViewSettingsLabel1);
+    myJunctionColorMode = new MFXIconComboBox(m41, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    mySettings->junctionColorer.fill(*myJunctionColorMode);
+    myJunctionColorMode->setNumVisible(4);
+    myJunctionColorInterpolation = new FXCheckButton(m41, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+
+    myJunctionColorSettingFrame = new FXVerticalFrame(verticalFrame, GUIDesignViewSettingsVerticalFrame4);
+    myJunctionColorRainbow = new FXButton(verticalFrame, "Recalibrate Rainbow", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                            (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
+
+    new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
+    FXMatrix* m42 = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
+    myJunctionSizePanel = new SizePanel(m42, this, mySettings->junctionSize);
+    myDrawJunctionShape = new FXCheckButton(m42, "Draw junction shape", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myDrawJunctionShape->setCheck(mySettings->drawJunctionShape);
+    myDrawCrossingsAndWalkingAreas = new FXCheckButton(m42, "Draw crossings/walkingareas", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myDrawCrossingsAndWalkingAreas->setCheck(mySettings->drawCrossingsAndWalkingareas);
+    myShowLane2Lane = new FXCheckButton(m42, "Show lane to lane connections", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShowLane2Lane->setCheck(mySettings->showLane2Lane);
+    new FXLabel(m42, " ", nullptr, GUIDesignViewSettingsLabel1);
+
+    myTLIndexPanel = new NamePanel(m42, this, "Show link tls index", mySettings->drawLinkTLIndex);
+    myJunctionIndexPanel = new NamePanel(m42, this, "Show link junction index", mySettings->drawLinkJunctionIndex);
+    myJunctionIDPanel = new NamePanel(m42, this, "Show junction id", mySettings->junctionID);
+    myInternalJunctionNamePanel = new NamePanel(m42, this, "Show internal junction id", mySettings->internalJunctionName);
+    myInternalEdgeNamePanel = new NamePanel(m42, this, "Show internal edge id", mySettings->internalEdgeName);
+    myCwaEdgeNamePanel = new NamePanel(m42, this, "Show crossing and walkingarea id", mySettings->cwaEdgeName);
+    myTLSPhaseIndexPanel = new NamePanel(m42, this, "Show traffic light phase index", mySettings->tlsPhaseIndex);
+    myTLSPhaseNamePanel = new NamePanel(m42, this, "Show traffic light phase name", mySettings->tlsPhaseName);
+    myJunctionNamePanel = new NamePanel(m42, this, "Show junction name", mySettings->junctionName);
+}
+
+
+void 
+GUIDialog_ViewSettings::buildAdditionalsFrame(FXTabBook* tabbook) {
+    new FXTabItem(tabbook, "Additional", nullptr, GUIDesignViewSettingsTabItemBook1);
+    FXScrollWindow* scrollWindow = new FXScrollWindow(tabbook);
+    FXVerticalFrame* verticalFrame = new FXVerticalFrame(scrollWindow, GUIDesignViewSettingsVerticalFrame2);
+    // IDs
+    FXMatrix* matrixIDs = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
+    myAddNamePanel = new NamePanel(matrixIDs, this, "Show object id", mySettings->addName);
+    myAddFullNamePanel = new NamePanel(matrixIDs, this, "Show full name", mySettings->addFullName);
+    new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
+    //Sizes
+    FXMatrix* matrixSizes = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
+    myAddSizePanel = new SizePanel(matrixSizes, this, mySettings->addSize);
+    // color
+    FXMatrix* matrixColor = new FXMatrix(verticalFrame, 3, GUIDesignMatrixViewSettings);
+    new FXLabel(matrixColor, "StoppingPlace", nullptr, GUIDesignViewSettingsLabel1);
+    new FXLabel(matrixColor, "body", nullptr, GUIDesignViewSettingsLabel1);
+    new FXLabel(matrixColor, "sign", nullptr, GUIDesignViewSettingsLabel1);
+    new FXLabel(matrixColor, "busStops", nullptr, GUIDesignViewSettingsLabel1);
+    myBusStopColor = new FXColorWell(matrixColor, MFXUtils::getFXColor(mySettings->colorSettings.busStopColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    myBusStopColorSign = new FXColorWell(matrixColor, MFXUtils::getFXColor(mySettings->colorSettings.busStopColorSign), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    new FXLabel(matrixColor, "trainStops", nullptr, GUIDesignViewSettingsLabel1);
+    myTrainStopColor = new FXColorWell(matrixColor, MFXUtils::getFXColor(mySettings->colorSettings.trainStopColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    myTrainStopColorSign = new FXColorWell(matrixColor, MFXUtils::getFXColor(mySettings->colorSettings.trainStopColorSign), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    new FXLabel(matrixColor, "containerStops", nullptr, GUIDesignViewSettingsLabel1);
+    myContainerStopColor = new FXColorWell(matrixColor, MFXUtils::getFXColor(mySettings->colorSettings.containerStopColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    myContainerStopColorSign = new FXColorWell(matrixColor, MFXUtils::getFXColor(mySettings->colorSettings.containerStopColorSign), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    new FXLabel(matrixColor, "chargingStations", nullptr, GUIDesignViewSettingsLabel1);
+    myChargingStationColor = new FXColorWell(matrixColor, MFXUtils::getFXColor(mySettings->colorSettings.chargingStationColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    myChargingStationColorSign = new FXColorWell(matrixColor, MFXUtils::getFXColor(mySettings->colorSettings.chargingStationColorSign), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+}
+
+
+void 
+GUIDialog_ViewSettings::buildDemandFrame(FXTabBook* tabbook) {
+    new FXTabItem(tabbook, "Demand", nullptr, GUIDesignViewSettingsTabItemBook1);
+    FXScrollWindow* scrollWindow = new FXScrollWindow(tabbook);
+    FXVerticalFrame* verticalFrame = new FXVerticalFrame(scrollWindow, GUIDesignViewSettingsVerticalFrame2);
+    // elements
+    FXMatrix* demandMatrix = new FXMatrix(verticalFrame, 3, GUIDesignMatrixViewSettings);
+    new FXLabel(demandMatrix, "element", nullptr, GUIDesignViewSettingsLabel1);
+    new FXLabel(demandMatrix, "color", nullptr, GUIDesignViewSettingsLabel1);
+    new FXLabel(demandMatrix, "width", nullptr, GUIDesignViewSettingsLabel1);
+    new FXLabel(demandMatrix, "trips", nullptr, GUIDesignViewSettingsLabel1);
+    myVehicleTripsColor = new FXColorWell(demandMatrix, MFXUtils::getFXColor(mySettings->colorSettings.vehicleTripColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    myTripWidth = new FXRealSpinner(demandMatrix, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
+    myTripWidth->setValue(mySettings->widthSettings.personTripWidth);
+    new FXLabel(demandMatrix, "personTrips", nullptr, GUIDesignViewSettingsLabel1);
+    myPersonTripColor = new FXColorWell(demandMatrix, MFXUtils::getFXColor(mySettings->colorSettings.personTripColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    myPersonTripWidth = new FXRealSpinner(demandMatrix, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
+    myPersonTripWidth->setValue(mySettings->widthSettings.personTripWidth);
+    new FXLabel(demandMatrix, "walks", nullptr, GUIDesignViewSettingsLabel1);
+    myWalkColor = new FXColorWell(demandMatrix, MFXUtils::getFXColor(mySettings->colorSettings.walkColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    myWalkWidth = new FXRealSpinner(demandMatrix, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
+    myWalkWidth->setValue(mySettings->widthSettings.walkWidth);
+    new FXLabel(demandMatrix, "rides", nullptr, GUIDesignViewSettingsLabel1);
+    myRideColor = new FXColorWell(demandMatrix, MFXUtils::getFXColor(mySettings->colorSettings.rideColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    myRideWidth = new FXRealSpinner(demandMatrix, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
+    myRideWidth->setValue(mySettings->widthSettings.rideWidth);
+    new FXLabel(demandMatrix, "transport", nullptr, GUIDesignViewSettingsLabel1);
+    myTransportColor = new FXColorWell(demandMatrix, MFXUtils::getFXColor(mySettings->colorSettings.transportColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    myTransportWidth = new FXRealSpinner(demandMatrix, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
+    myTransportWidth->setValue(mySettings->widthSettings.transportWidth);
+    new FXLabel(demandMatrix, "tranship", nullptr, GUIDesignViewSettingsLabel1);
+    myTranshipColor = new FXColorWell(demandMatrix, MFXUtils::getFXColor(mySettings->colorSettings.transhipColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    myTranshipWidth = new FXRealSpinner(demandMatrix, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
+    myTranshipWidth->setValue(mySettings->widthSettings.transhipWidth);
+    // stops
+    FXMatrix* stopMatrix = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
+    new FXLabel(stopMatrix, "stop", nullptr, GUIDesignViewSettingsLabel1);
+    new FXLabel(stopMatrix, "color", nullptr, GUIDesignViewSettingsLabel1);
+    new FXLabel(stopMatrix, "vehicles", nullptr, GUIDesignViewSettingsLabel1);
+    myStopsColor = new FXColorWell(stopMatrix, MFXUtils::getFXColor(mySettings->colorSettings.stopColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    new FXLabel(stopMatrix, "persons", nullptr, GUIDesignViewSettingsLabel1);
+    myStopPersonsColor = new FXColorWell(stopMatrix, MFXUtils::getFXColor(mySettings->colorSettings.stopPersonColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    new FXLabel(stopMatrix, "containers", nullptr, GUIDesignViewSettingsLabel1);
+    myStopContainersColor = new FXColorWell(stopMatrix, MFXUtils::getFXColor(mySettings->colorSettings.stopContainerColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+}
+
+
+void 
+GUIDialog_ViewSettings::buildPOIsFrame(FXTabBook* tabbook) {
+    new FXTabItem(tabbook, "POIs", nullptr, GUIDesignViewSettingsTabItemBook1);
+    FXScrollWindow* scrollWindow = new FXScrollWindow(tabbook);
+    FXVerticalFrame* verticalFrame = new FXVerticalFrame(scrollWindow, GUIDesignViewSettingsVerticalFrame2);
+
+    FXMatrix* m63 = new FXMatrix(verticalFrame, 3, GUIDesignViewSettingsMatrix3);
+    new FXLabel(m63, "Color", nullptr, GUIDesignViewSettingsLabel1);
+    myPOIColorMode = new MFXIconComboBox(m63, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    mySettings->poiColorer.fill(*myPOIColorMode);
+    myPOIColorMode->setNumVisible(3);
+    myPOIColorInterpolation = new FXCheckButton(m63, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    myPOIColorSettingFrame = new FXVerticalFrame(verticalFrame, GUIDesignViewSettingsVerticalFrame4);
+
+    new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
+
+    FXMatrix* m61 = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
+
+    new FXLabel(m61, "POI detail", nullptr, GUIDesignViewSettingsLabel1);
+    myPoiDetail = new FXSpinner(m61, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
+    myPoiDetail->setRange(3, 100);
+    myPoiDetail->setValue(mySettings->poiDetail);
+
+    myPOINamePanel = new NamePanel(m61, this, "Show poi id", mySettings->poiName);
+    myPOITypePanel = new NamePanel(m61, this, "Show poi type", mySettings->poiType);
+    myPOITextPanel = new NamePanel(m61, this, "Show poi text param", mySettings->poiText);
+    myPOITextParamKey = new FXComboBox(myPOITextPanel->myMatrix0, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    myPOITextParamKey->setEditable(true);
+    new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
+
+    FXMatrix* m62 = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
+    myPOISizePanel = new SizePanel(m62, this, mySettings->poiSize);
+}
+
+
+void 
+GUIDialog_ViewSettings::buildPolygonsFrame(FXTabBook* tabbook) {
+    new FXTabItem(tabbook, "Polygons", nullptr, GUIDesignViewSettingsTabItemBook1);
+    FXScrollWindow* scrollWindow = new FXScrollWindow(tabbook);
+    FXVerticalFrame* verticalFrame = new FXVerticalFrame(scrollWindow, GUIDesignViewSettingsVerticalFrame2);
+
+    FXMatrix* m63 = new FXMatrix(verticalFrame, 3, GUIDesignViewSettingsMatrix3);
+    new FXLabel(m63, "Color", nullptr, GUIDesignViewSettingsLabel1);
+    myPolyColorMode = new MFXIconComboBox(m63, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    mySettings->polyColorer.fill(*myPolyColorMode);
+    myPolyColorMode->setNumVisible(3);
+    myPolyColorInterpolation = new FXCheckButton(m63, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    myPolyColorSettingFrame = new FXVerticalFrame(verticalFrame, GUIDesignViewSettingsVerticalFrame4);
+
+    new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
+
+    FXMatrix* m91 = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
+    myPolyNamePanel = new NamePanel(m91, this, "Show polygon id", mySettings->polyName);
+    myPolyTypePanel = new NamePanel(m91, this, "Show polygon types", mySettings->polyType);
+    new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
+
+    myPolySizePanel = new SizePanel(m91, this, mySettings->polySize);
+}
+
+
+void
+GUIDialog_ViewSettings::buildSelectionFrame(FXTabBook* tabbook) {
+    new FXTabItem(tabbook, "Selection", nullptr, GUIDesignViewSettingsTabItemBook1);
+    FXScrollWindow* scrollWindow = new FXScrollWindow(tabbook);
+    FXVerticalFrame* verticalFrame = new FXVerticalFrame(scrollWindow, GUIDesignViewSettingsVerticalFrame2);
+
+    FXMatrix* m102 = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
+    new FXLabel(m102, "Default Selection Color", nullptr, GUIDesignViewSettingsLabel1);
+    new FXLabel(m102, "", nullptr, GUIDesignViewSettingsLabel1);
+
+    new FXLabel(m102, "Miscellaneous", nullptr, GUIDesignViewSettingsLabel1);
+    mySelectionColor = new FXColorWell(m102, MFXUtils::getFXColor(mySettings->colorSettings.selectionColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    new FXLabel(m102, "Edge", nullptr, GUIDesignViewSettingsLabel1);
+    mySelectedEdgeColor = new FXColorWell(m102, MFXUtils::getFXColor(mySettings->colorSettings.selectedEdgeColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    new FXLabel(m102, "Lane Edge", nullptr, GUIDesignViewSettingsLabel1);
+    mySelectedLaneColor = new FXColorWell(m102, MFXUtils::getFXColor(mySettings->colorSettings.selectedLaneColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    new FXLabel(m102, "Connection", nullptr, GUIDesignViewSettingsLabel1);
+    mySelectedConnectionColor = new FXColorWell(m102, MFXUtils::getFXColor(mySettings->colorSettings.selectedConnectionColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    new FXLabel(m102, "Prohibition", nullptr, GUIDesignViewSettingsLabel1);
+    mySelectedProhibitionColor = new FXColorWell(m102, MFXUtils::getFXColor(mySettings->colorSettings.selectedProhibitionColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    new FXLabel(m102, "Crossing", nullptr, GUIDesignViewSettingsLabel1);
+    mySelectedCrossingColor = new FXColorWell(m102, MFXUtils::getFXColor(mySettings->colorSettings.selectedCrossingColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    new FXLabel(m102, "Additional", nullptr, GUIDesignViewSettingsLabel1);
+    mySelectedAdditionalColor = new FXColorWell(m102, MFXUtils::getFXColor(mySettings->colorSettings.selectedAdditionalColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    new FXLabel(m102, "Route", nullptr, GUIDesignViewSettingsLabel1);
+    mySelectedRouteColor = new FXColorWell(m102, MFXUtils::getFXColor(mySettings->colorSettings.selectedRouteColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    new FXLabel(m102, "Vehicle", nullptr, GUIDesignViewSettingsLabel1);
+    mySelectedVehicleColor = new FXColorWell(m102, MFXUtils::getFXColor(mySettings->colorSettings.selectedVehicleColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    new FXLabel(m102, "Person", nullptr, GUIDesignViewSettingsLabel1);
+    mySelectedPersonColor = new FXColorWell(m102, MFXUtils::getFXColor(mySettings->colorSettings.selectedPersonColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    new FXLabel(m102, "PersonPlan", nullptr, GUIDesignViewSettingsLabel1);
+    mySelectedPersonPlanColor = new FXColorWell(m102, MFXUtils::getFXColor(mySettings->colorSettings.selectedPersonPlanColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+    new FXLabel(m102, "edgeData", nullptr, GUIDesignViewSettingsLabel1);
+    mySelectedEdgeDataColor = new FXColorWell(m102, MFXUtils::getFXColor(mySettings->colorSettings.selectedEdgeDataColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+}
+
+
+void
+GUIDialog_ViewSettings::buildDataFrame(FXTabBook* tabbook) {
+    new FXTabItem(tabbook, "Data", nullptr, GUIDesignViewSettingsTabItemBook1);
+    FXScrollWindow* scrollWindow = new FXScrollWindow(tabbook);
+    FXVerticalFrame* verticalFrame = new FXVerticalFrame(scrollWindow, GUIDesignViewSettingsVerticalFrame2);
+    //  ... color settings
+    FXVerticalFrame* verticalFrame2 = new FXVerticalFrame(verticalFrame, GUIDesignViewSettingsVerticalFrame6);
+    FXMatrix* m111 = new FXMatrix(verticalFrame2, 4, GUIDesignViewSettingsMatrix3);
+    new FXLabel(m111, "Color", nullptr, GUIDesignViewSettingsLabel1);
+    myDataColorMode = new MFXIconComboBox(m111, 30, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    myDataColorInterpolation = new FXCheckButton(m111, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    myDataColorSettingFrame = new FXVerticalFrame(verticalFrame2, GUIDesignViewSettingsVerticalFrame4);
+    myDataParamKey = new FXComboBox(m111, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    myDataParamKey->disable();
+    myDataParamKey->setEditable(true);
+    mySettings->dataColorer.fill(*myDataColorMode);
+    myDataColorMode->setNumVisible((int)mySettings->dataColorer.size());
+
+    // rainbow settings
+    FXMatrix* m113 = new FXMatrix(verticalFrame2, 3, GUIDesignViewSettingsMatrix3);
+    myDataColorRainbow = new FXButton(m113, "Recalibrate Rainbow", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
+            (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
+    myDataColorRainbowCheck = new FXCheckButton(m113, "hide below threshold", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    myDataColorRainbowThreshold = new FXRealSpinner(m113, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
+    myDataColorRainbowThreshold->setRange(-100000000, 100000000);
+
+    new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
+    FXMatrix* m112 = new FXMatrix(verticalFrame, 2, GUIDesignViewSettingsMatrix1);
+
+    new FXLabel(m112, "Exaggerate edgeRelation width by", nullptr, GUIDesignViewSettingsLabel1);
+    myEdgeRelationUpscaleDialer = new FXRealSpinner(m112, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
+    myEdgeRelationUpscaleDialer->setRange(0, 1000000);
+    myEdgeRelationUpscaleDialer->setValue(mySettings->edgeRelWidthExaggeration);
+
+    new FXLabel(m112, "Exaggerate tazRelation width by", nullptr, GUIDesignViewSettingsLabel1);
+    myTazRelationUpscaleDialer = new FXRealSpinner(m112, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
+    myTazRelationUpscaleDialer->setRange(0, 1000000);
+    myTazRelationUpscaleDialer->setValue(mySettings->tazRelWidthExaggeration);
+
+    // text decoration
+    myDataValuePanel = new NamePanel(m112, this, "Show data color value", mySettings->dataValue);
+}
+
+
+void 
+GUIDialog_ViewSettings::buildLegendFrame(FXTabBook* tabbook) {
+    new FXTabItem(tabbook, "Legend", nullptr, GUIDesignViewSettingsTabItemBook1);
+    FXScrollWindow* scrollWindow = new FXScrollWindow(tabbook);
+    FXVerticalFrame* verticalFrame = new FXVerticalFrame(scrollWindow, GUIDesignViewSettingsVerticalFrame2);
+
+    FXMatrix* m72 = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
+    myShowSizeLegend = new FXCheckButton(m72, "Show Size Legend", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShowSizeLegend->setCheck(mySettings->showSizeLegend);
+    new FXLabel(m72, "");
+    myShowColorLegend = new FXCheckButton(m72, "Show Edge Color Legend", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShowColorLegend->setCheck(mySettings->showColorLegend);
+    new FXLabel(m72, "");
+    myShowVehicleColorLegend = new FXCheckButton(m72, "Show Vehicle Color Legend", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShowVehicleColorLegend->setCheck(mySettings->showVehicleColorLegend);
+    new FXLabel(m72, "");
+}
+
+
+void 
+GUIDialog_ViewSettings::buildOpenGLFrame(FXTabBook* tabbook) {
+    new FXTabItem(tabbook, "openGL", nullptr, GUIDesignViewSettingsTabItemBook1);
+    FXScrollWindow* scrollWindow = new FXScrollWindow(tabbook);
+    FXVerticalFrame* verticalFrame = new FXVerticalFrame(scrollWindow, GUIDesignViewSettingsVerticalFrame2);
+
+    FXMatrix* m82 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
+    myDither = new FXCheckButton(m82, "Dither", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myDither->setCheck(mySettings->dither);
+    FXMatrix* m83 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
+    myFPS = new FXCheckButton(m83, "FPS", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myFPS->setCheck(mySettings->fps);
+    FXMatrix* m84 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
+    myDrawBoundaries = new FXCheckButton(m84, "Draw boundaries", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myDrawBoundaries->setCheck(mySettings->drawBoundaries);
+    FXMatrix* m85 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
+    myForceDrawForPositionSelection = new FXCheckButton(m85, "Force draw for position selection", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myForceDrawForPositionSelection->setCheck(mySettings->forceDrawForPositionSelection);
+    FXMatrix* m86 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
+    myForceDrawForRectangleSelection = new FXCheckButton(m86, "Force draw for rectangle selection", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myForceDrawForRectangleSelection->setCheck(mySettings->forceDrawForRectangleSelection);
+    FXMatrix* m87 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
+    myRecalculateBoundaries = new FXButton(m87, "Recalcule boundaries", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                                (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
+}
+
+
+void 
+GUIDialog_ViewSettings::buildButtons(FXVerticalFrame* contentFrame) {
+    FXHorizontalFrame* horizontalFrameButtons = new FXHorizontalFrame(contentFrame, GUIDesignViewSettingsHorizontalFrame2);
+    FXButton* OK = new FXButton(horizontalFrameButtons, "&OK", nullptr, this, MID_SETTINGS_OK, GUIDesignViewSettingsButton2);
+    new FXButton(horizontalFrameButtons, "&Cancel", nullptr, this, MID_SETTINGS_CANCEL, GUIDesignViewSettingsButton3);
+    OK->setFocus();
+}
+
+/****************************************************************************/

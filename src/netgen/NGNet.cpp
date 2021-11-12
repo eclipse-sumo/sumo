@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2003-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2003-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NGNet.cpp
 /// @author  Markus Hartinger
@@ -16,11 +20,6 @@
 ///
 // The class storing the generated network
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <iostream>
@@ -91,53 +90,59 @@ NGNet::alphabeticalCode(int i, int iMax) {
 }
 
 void
-NGNet::createChequerBoard(int numX, int numY, double spaceX, double spaceY, double attachLength) {
+NGNet::createChequerBoard(int numX, int numY, double spaceX, double spaceY, double xAttachLength, double yAttachLength) {
 
     for (int ix = 0; ix < numX; ix++) {
         const std::string nodeIDStart = (myAlphaIDs ? alphabeticalCode(ix, numX) : toString<int>(ix) + "/");
         for (int iy = 0; iy < numY; iy++) {
             // create Node
             NGNode* node = new NGNode(nodeIDStart + toString(iy), ix, iy);
-            node->setX(ix * spaceX + attachLength);
-            node->setY(iy * spaceY + attachLength);
+            node->setX(ix * spaceX + xAttachLength);
+            node->setY(iy * spaceY + yAttachLength);
             myNodeList.push_back(node);
             // create Links
             if (ix > 0) {
-                connect(node, findNode(ix - 1, iy));
+                connect(findNode(ix - 1, iy), node);
             }
             if (iy > 0) {
-                connect(node, findNode(ix, iy - 1));
+                connect(findNode(ix, iy - 1), node);
             }
         }
     }
-    if (attachLength > 0.0) {
+    if (yAttachLength > 0.0) {
         for (int ix = 0; ix < numX; ix++) {
             // create nodes
             NGNode* topNode = new NGNode("top" + toString<int>(ix), ix, numY);
             NGNode* bottomNode = new NGNode("bottom" + toString<int>(ix), ix, numY + 1);
-            topNode->setX(ix * spaceX + attachLength);
-            bottomNode->setX(ix * spaceX + attachLength);
-            topNode->setY((numY - 1) * spaceY + 2 * attachLength);
+            topNode->setX(ix * spaceX + xAttachLength);
+            bottomNode->setX(ix * spaceX + xAttachLength);
+            topNode->setY((numY - 1) * spaceY + 2 * yAttachLength);
             bottomNode->setY(0);
+            topNode->setFringe();
+            bottomNode->setFringe();
             myNodeList.push_back(topNode);
             myNodeList.push_back(bottomNode);
             // create links
-            connect(topNode, findNode(ix, numY - 1));
+            connect(findNode(ix, numY - 1), topNode);
             connect(bottomNode, findNode(ix, 0));
         }
+    }
+    if (xAttachLength > 0.0) {
         for (int iy = 0; iy < numY; iy++) {
             // create nodes
             NGNode* leftNode = new NGNode("left" + toString<int>(iy), numX, iy);
             NGNode* rightNode = new NGNode("right" + toString<int>(iy), numX + 1, iy);
             leftNode->setX(0);
-            rightNode->setX((numX - 1) * spaceX + 2 * attachLength);
-            leftNode->setY(iy * spaceY + attachLength);
-            rightNode->setY(iy * spaceY + attachLength);
+            rightNode->setX((numX - 1) * spaceX + 2 * xAttachLength);
+            leftNode->setY(iy * spaceY + yAttachLength);
+            rightNode->setY(iy * spaceY + yAttachLength);
+            leftNode->setFringe();
+            rightNode->setFringe();
             myNodeList.push_back(leftNode);
             myNodeList.push_back(rightNode);
             // create links
             connect(leftNode, findNode(0, iy));
-            connect(rightNode, findNode(numX - 1, iy));
+            connect(findNode(numX - 1, iy), rightNode);
         }
     }
 }
@@ -166,7 +171,7 @@ NGNet::createSpiderWeb(int numRadDiv, int numCircles, double spaceRad, bool hasC
 
     int ir, ic;
     double angle = (double)(2 * M_PI / numRadDiv); // angle between radial divisions
-    NGNode* Node;
+    NGNode* node;
     for (ic = 1; ic < numCircles + 1; ic++) {
         const std::string nodeIDStart = alphabeticalCode(ic, numCircles);
         for (ir = 1; ir < numRadDiv + 1; ir++) {
@@ -174,31 +179,31 @@ NGNet::createSpiderWeb(int numRadDiv, int numCircles, double spaceRad, bool hasC
             const std::string nodeID = (myAlphaIDs ?
                                         nodeIDStart + toString<int>(ir) :
                                         toString<int>(ir) + "/" + toString<int>(ic));
-            Node = new NGNode(nodeID, ir, ic);
-            Node->setX(radialToX((ic) * spaceRad, (ir - 1) * angle));
-            Node->setY(radialToY((ic) * spaceRad, (ir - 1) * angle));
-            myNodeList.push_back(Node);
+            node = new NGNode(nodeID, ir, ic);
+            node->setX(radialToX((ic) * spaceRad, (ir - 1) * angle));
+            node->setY(radialToY((ic) * spaceRad, (ir - 1) * angle));
+            myNodeList.push_back(node);
             // create Links
             if (ir > 1) {
-                connect(Node, findNode(ir - 1, ic));
+                connect(findNode(ir - 1, ic), node);
             }
             if (ic > 1) {
-                connect(Node, findNode(ir, ic - 1));
+                connect(findNode(ir, ic - 1), node);
             }
             if (ir == numRadDiv) {
-                connect(Node, findNode(1, ic));
+                connect(node, findNode(1, ic));
             }
         }
     }
     if (hasCenter) {
         // node
-        Node = new NGNode(myAlphaIDs ? "A1" : "1", 0, 0, true);
-        Node->setX(0);
-        Node->setY(0);
-        myNodeList.push_back(Node);
+        node = new NGNode(myAlphaIDs ? "A1" : "1", 0, 0, true);
+        node->setX(0);
+        node->setY(0);
+        myNodeList.push_back(node);
         // links
         for (ir = 1; ir < numRadDiv + 1; ir++) {
-            connect(Node, findNode(ir, 1));
+            connect(node, findNode(ir, 1));
         }
     }
 }
@@ -208,10 +213,8 @@ void
 NGNet::connect(NGNode* node1, NGNode* node2) {
     std::string id1 = node1->getID() + (myAlphaIDs ? "" : "to") + node2->getID();
     std::string id2 = node2->getID() + (myAlphaIDs ? "" : "to") + node1->getID();
-    NGEdge* link1 = new NGEdge(id1, node1, node2);
-    NGEdge* link2 = new NGEdge(id2, node2, node1);
+    NGEdge* link1 = new NGEdge(id1, node1, node2, id2);
     myEdgeList.push_back(link1);
-    myEdgeList.push_back(link2);
 }
 
 Distribution_Parameterized
@@ -219,12 +222,13 @@ NGNet::getDistribution(const std::string& option) {
     std::string val = OptionsCont::getOptions().getString(option);
     try {
         return Distribution_Parameterized("peturb", 0, StringUtils::toDouble(val));
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException&) {
         Distribution_Parameterized result("perturb", 0, 0);
         result.parse(val, true);
         return result;
     }
 }
+
 
 void
 NGNet::toNB() const {
@@ -242,23 +246,12 @@ NGNet::toNB() const {
         myNetBuilder.getNodeCont().insert(node);
     }
     const std::string type = OptionsCont::getOptions().getString("default.type");
-    for (NGEdgeList::const_iterator i2 = myEdgeList.begin(); i2 != myEdgeList.end(); i2++) {
-        NBEdge* edge = (*i2)->buildNBEdge(myNetBuilder, type);
-        myNetBuilder.getEdgeCont().insert(edge);
-    }
-    // now, let's append the reverse directions...
-    double bidiProb = OptionsCont::getOptions().getFloat("rand.bidi-probability");
-    for (std::vector<NBNode*>::const_iterator i = nodes.begin(); i != nodes.end(); ++i) {
-        NBNode* node = *i;
-        for (NBEdge* e : node->getIncomingEdges()) {
-            if (node->getConnectionTo(e->getFromNode()) == nullptr && RandHelper::rand() <= bidiProb) {
-                NBEdge* back = new NBEdge("-" + e->getID(), node, e->getFromNode(),
-                                          "", myNetBuilder.getTypeCont().getSpeed(""),
-                                          e->getNumLanes(),
-                                          e->getPriority(),
-                                          myNetBuilder.getTypeCont().getWidth(""), NBEdge::UNSPECIFIED_OFFSET);
-                myNetBuilder.getEdgeCont().insert(back);
-            }
+    const double bidiProb = OptionsCont::getOptions().getFloat("rand.bidi-probability");
+    for (const NGEdge* const ngEdge : myEdgeList) {
+        myNetBuilder.getEdgeCont().insert(ngEdge->buildNBEdge(myNetBuilder, type));
+        // now, let's append the reverse directions...
+        if (!ngEdge->getEndNode()->connected(ngEdge->getStartNode(), true) && RandHelper::rand() <= bidiProb) {
+            myNetBuilder.getEdgeCont().insert(ngEdge->buildNBEdge(myNetBuilder, type, true));
         }
     }
     // add splits depending on turn-lane options
@@ -332,4 +325,3 @@ NGNet::nodeNo() const {
 
 
 /****************************************************************************/
-

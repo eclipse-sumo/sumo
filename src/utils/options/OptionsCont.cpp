@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    OptionsCont.cpp
 /// @author  Daniel Krajzewicz
@@ -16,9 +20,6 @@
 ///
 // A storage for options (typed value containers)
 /****************************************************************************/
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <map>
@@ -61,7 +62,7 @@ OptionsCont::getOptions() {
 
 OptionsCont::OptionsCont()
     : myAddresses(), myValues(), myDeprecatedSynonymes() {
-    myCopyrightNotices.push_back("Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de");
+    myCopyrightNotices.push_back("Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de");
 }
 
 
@@ -194,6 +195,13 @@ OptionsCont::getSecure(const std::string& name) const {
         s->second = true;
     }
     return k->second;
+}
+
+
+std::string
+OptionsCont::getValueString(const std::string& name) const {
+    Option* o = getSecure(name);
+    return o->getValueString();
 }
 
 
@@ -337,7 +345,12 @@ OptionsCont::relocateFiles(const std::string& configuration) const {
         if (option->isFileName() && option->isSet()) {
             StringVector fileList = StringVector(option->getStringVector());
             for (std::string& f : fileList) {
-                f = StringUtils::urlDecode(FileHelpers::checkForRelativity(f, configuration));
+                f = FileHelpers::checkForRelativity(f, configuration);
+                try {
+                    f = StringUtils::urlDecode(f);
+                } catch (NumberFormatException& e) {
+                    WRITE_WARNING(toString(e.what()) + " when trying to decode filename '" + f + "'.");
+                }
             }
             const std::string conv = joinToString(fileList, ',');
             if (conv != joinToString(option->getStringVector(), ',')) {
@@ -535,7 +548,7 @@ OptionsCont::splitLines(std::ostream& os, std::string what,
             }
             if (splitPos != std::string::npos) {
                 os << what.substr(0, splitPos) << std::endl;
-                what = what.substr(splitPos);
+                what = what.substr(splitPos + 1);
                 for (int r = 0; r < nextOffset + 1; ++r) {
                     os << ' ';
                 }
@@ -592,7 +605,12 @@ OptionsCont::processMetaOptions(bool missingOptions) {
         std::cout << "are made available under the terms of the Eclipse Public License v2.0\n";
         std::cout << "which accompanies this distribution, and is available at\n";
         std::cout << "http://www.eclipse.org/legal/epl-v20.html\n";
-        std::cout << "SPDX-License-Identifier: EPL-2.0" << std::endl;
+        std::cout << "This program may also be made available under the following Secondary\n";
+        std::cout << "Licenses when the conditions for such availability set forth in the Eclipse\n";
+        std::cout << "Public License 2.0 are satisfied: GNU General Public License, version 2\n";
+        std::cout << "or later which is available at\n";
+        std::cout << "https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html\n";
+        std::cout << "SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later" << std::endl;
         return true;
     }
     // check whether the settings shall be printed
@@ -606,7 +624,7 @@ OptionsCont::processMetaOptions(bool missingOptions) {
             writeConfiguration(std::cout, true, false, getBool("save-commented"));
             return true;
         }
-        std::ofstream out(getString("save-configuration").c_str());
+        std::ofstream out(StringUtils::transcodeToLocal(getString("save-configuration")).c_str());
         if (!out.good()) {
             throw ProcessError("Could not save configuration to '" + getString("save-configuration") + "'");
         } else {
@@ -623,7 +641,7 @@ OptionsCont::processMetaOptions(bool missingOptions) {
             writeConfiguration(std::cout, false, true, getBool("save-commented"));
             return true;
         }
-        std::ofstream out(getString("save-template").c_str());
+        std::ofstream out(StringUtils::transcodeToLocal(getString("save-template")).c_str());
         if (!out.good()) {
             throw ProcessError("Could not save template to '" + getString("save-template") + "'");
         } else {
@@ -639,7 +657,7 @@ OptionsCont::processMetaOptions(bool missingOptions) {
             writeSchema(std::cout);
             return true;
         }
-        std::ofstream out(getString("save-schema").c_str());
+        std::ofstream out(StringUtils::transcodeToLocal(getString("save-schema")).c_str());
         if (!out.good()) {
             throw ProcessError("Could not save schema to '" + getString("save-schema") + "'");
         } else {
@@ -793,13 +811,16 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
             continue;
         }
         std::replace(subtopic.begin(), subtopic.end(), ' ', '_');
-        std::transform(subtopic.begin(), subtopic.end(), subtopic.begin(), tolower);
+        subtopic = StringUtils::to_lower_case(subtopic);
         const std::vector<std::string>& entries = mySubTopicEntries.find(*i)->second;
         bool hadOne = false;
-        for (std::vector<std::string>::const_iterator j = entries.begin(); j != entries.end(); ++j) {
-            Option* o = getSecure(*j);
+        for (const std::string& name : entries) {
+            Option* o = getSecure(name);
             bool write = complete || (filled && !o->isDefault());
             if (!write) {
+                continue;
+            }
+            if (name == "registry-viewport" && !complete) {
                 continue;
             }
             if (!hadOne) {
@@ -810,12 +831,12 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
                 os << "        <!-- " << StringUtils::escapeXML(o->getDescription(), inComment) << " -->" << std::endl;
             }
             // write the option and the value (if given)
-            os << "        <" << *j << " value=\"";
+            os << "        <" << name << " value=\"";
             if (o->isSet() && (filled || o->isDefault())) {
                 os << StringUtils::escapeXML(o->getValueString(), inComment);
             }
             if (complete) {
-                std::vector<std::string> synonymes = getSynonymes(*j);
+                std::vector<std::string> synonymes = getSynonymes(name);
                 if (!synonymes.empty()) {
                     os << "\" synonymes=\"";
                     for (std::vector<std::string>::const_iterator s = synonymes.begin(); s != synonymes.end(); ++s) {
@@ -859,7 +880,7 @@ OptionsCont::writeSchema(std::ostream& os) {
             continue;
         }
         std::replace(subtopic.begin(), subtopic.end(), ' ', '_');
-        std::transform(subtopic.begin(), subtopic.end(), subtopic.begin(), tolower);
+        subtopic = StringUtils::to_lower_case(subtopic);
         os << "            <xsd:element name=\"" << subtopic << "\" type=\"" << subtopic << "TopicType\" minOccurs=\"0\"/>\n";
     }
     os << "        </xsd:all>\n";
@@ -870,14 +891,14 @@ OptionsCont::writeSchema(std::ostream& os) {
             continue;
         }
         std::replace(subtopic.begin(), subtopic.end(), ' ', '_');
-        std::transform(subtopic.begin(), subtopic.end(), subtopic.begin(), tolower);
+        subtopic = StringUtils::to_lower_case(subtopic);
         os << "    <xsd:complexType name=\"" << subtopic << "TopicType\">\n";
         os << "        <xsd:all>\n";
         const std::vector<std::string>& entries = mySubTopicEntries[*i];
         for (std::vector<std::string>::const_iterator j = entries.begin(); j != entries.end(); ++j) {
             Option* o = getSecure(*j);
             std::string type = o->getTypeName();
-            std::transform(type.begin(), type.end(), type.begin(), tolower);
+            type = StringUtils::to_lower_case(type);
             if (type == "int[]") {
                 type = "intArray";
             }
@@ -900,7 +921,7 @@ OptionsCont::writeXMLHeader(std::ostream& os, const bool includeConfig) const {
 
     os << "<?xml version=\"1.0\"" << SUMOSAXAttributes::ENCODING << "?>\n\n";
     time(&rawtime);
-    strftime(buffer, 80, "<!-- generated on %c by ", localtime(&rawtime));
+    strftime(buffer, 80, "<!-- generated on %F %T by ", localtime(&rawtime));
     os << buffer << myFullName << "\n";
     if (myWriteLicense) {
         os << "This data file and the accompanying materials\n";

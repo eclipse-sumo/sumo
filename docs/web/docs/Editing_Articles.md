@@ -5,6 +5,8 @@ title: Help on editing Articles
 This documentation is written using Markdown syntax. Every page or "article" is a Markdown (.md) file located [here]({{Source}}docs/web/docs) in the official SUMO GitHub repository.
 The static html pages are then generated using [Mkdocs](https://www.mkdocs.org/).
 
+Feel free to contribute and improve the SUMO Documentation. All changes need to be via Pull requests. You can click on the "Edit on GitHub" button in the top right corner of every page, or just simply press the `e` key on your keyboard.
+
 !!! note
     Although HTML can be written within Markdown, please avoid using it and keep everything in native Markdown as much as possible.
 
@@ -12,7 +14,7 @@ The static html pages are then generated using [Mkdocs](https://www.mkdocs.org/)
 <br><br>
 # **Creating an article**
 
-To creat a new article (or page) just create a Markdown (.md) file in the [documentation directory]({{Source}}docs/web/docs).
+To create a new article (or page) just create a Markdown (.md) file in the [documentation directory]({{Source}}docs/web/docs).
 
 !!! note
     Please capitalize the very first letter of the name and use `_` (underscores) instead of leaving a ` ` (space) between words in the filename.
@@ -106,7 +108,7 @@ Here are some expressions that need an escape character:
 # **Images**
 
 All images must be saved in the [images directory]({{Source}}docs/web/docs/images).
-To insert an image, just use the usual Markdown sytax: 
+To insert an image, just use the usual Markdown syntax: 
 
 ```
 ![<alt>](images/Wikicommons_rail_fast.jpg "<title>")
@@ -238,7 +240,7 @@ Linking to a section within the same page is as easy as this: [Read about Math](
 !!! caution
     All texts in internal links are in lower case.
 
-To reference a section on another page, do not forget to put the absolute path and the `.md` extension, like this: [Read about SUMO input](SUMO.md#input) `[Read about SUMO input](SUMO.md#input)`
+To reference a section on another page, do not forget to put the absolute path and the `.md` extension, like this: [Read about SUMO input](sumo.md#input) `[Read about SUMO input](sumo.md#input)`
 
 Some characters are being ignored (deleted) or replaced when generating an internal link:
 
@@ -266,7 +268,7 @@ Here are some practical examples:
 
 ## Example
 ```
-Go to [SUMO-GUI](SUMO-GUI.md), [NETCONVERT options](NETCONVERT.md#options) or [Notation](Basics/Notation.md)
+Go to [sumo-gui](sumo-gui.md), [netconvert options](netconvert.md#options) or [Notation](Basics/Notation.md)
 
 <https://www.dlr.de> or [DLR](https://www.dlr.de)
 ```
@@ -275,7 +277,7 @@ Go to [SUMO-GUI](SUMO-GUI.md), [NETCONVERT options](NETCONVERT.md#options) or [N
 
 ***will display:***
 
-Go to [SUMO-GUI](SUMO-GUI.md), [NETCONVERT options](NETCONVERT.md#options) or [Notation](Basics/Notation.md)
+Go to [sumo-gui](sumo-gui.md), [netconvert options](netconvert.md#options) or [Notation](Basics/Notation.md)
 
 <https://www.dlr.de> or [DLR](https://www.dlr.de)
 

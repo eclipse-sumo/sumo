@@ -1,0 +1,17 @@
+# trip with fromJunction (but no taz is defined and junction-taz is not set)
+fromJunction_missing
+
+# trip with fromJunction
+fromJunction
+
+# trip with toJunction
+toJunction
+
+# trip with viaJunctions
+viaJunctions
+
+# trip with fromJunctoin and toJunction using loaded taz
+load_taz
+
+# trip with fromJunction and toJunction using option --junction-taz and  loaded taz
+load_some_taz

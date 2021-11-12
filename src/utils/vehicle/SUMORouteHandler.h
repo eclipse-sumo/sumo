@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    SUMORouteHandler.h
 /// @author  Daniel Krajzewicz
@@ -15,13 +19,7 @@
 ///
 // Parser for routes during their loading
 /****************************************************************************/
-#ifndef SUMORouteHandler_h
-#define SUMORouteHandler_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <utils/common/IDSupplier.h>
@@ -114,6 +112,9 @@ protected:
     /// @brief opens a flow for reading
     virtual void openFlow(const SUMOSAXAttributes& attrs) = 0;
 
+    /// @brief opens a route flow for reading
+    virtual void openRouteFlow(const SUMOSAXAttributes& attrs) = 0;
+
     /// @brief opens a trip for reading
     virtual void openTrip(const SUMOSAXAttributes& attrs) = 0;
     //@}
@@ -144,11 +145,14 @@ protected:
     /// @brief Ends the processing of a person
     virtual void closePerson() = 0;
 
-    /// @brief Ends the processing of a person
+    /// @brief Ends the processing of a person flow
     virtual void closePersonFlow() = 0;
 
     /// @brief Ends the processing of a container
     virtual void closeContainer() = 0;
+
+    /// @brief Ends the processing of a container flow
+    virtual void closeContainerFlow() = 0;
 
     /// @brief Ends the processing of a flow
     virtual void closeFlow() = 0;
@@ -172,11 +176,11 @@ protected:
     /// @brief Processing of a person
     virtual void addPerson(const SUMOSAXAttributes& attrs) = 0;
 
-    /// @brief Processing of a container
-    virtual void addContainer(const SUMOSAXAttributes& attrs) = 0;
-
     /// @brief Processing of a ride
     virtual void addRide(const SUMOSAXAttributes& attrs) = 0;
+
+    /// @brief Processing of a container
+    virtual void addContainer(const SUMOSAXAttributes& attrs) = 0;
 
     /// @brief Processing of a transport
     virtual void addTransport(const SUMOSAXAttributes& attrs) = 0;
@@ -254,8 +258,3 @@ private:
     /// @brief Invalidated assignment operator
     SUMORouteHandler& operator=(const SUMORouteHandler& s) = delete;
 };
-
-
-#endif
-
-/****************************************************************************/

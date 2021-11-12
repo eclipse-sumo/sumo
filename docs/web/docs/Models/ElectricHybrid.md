@@ -1,19 +1,18 @@
 ---
-title: Models/ElectricHybrid
-permalink: /Models/ElectricHybrid/
+title: ElectricHybrid
 ---
 
 # Overview
 
-Since version 1.4.0 SUMO extends the original [electric](Electric.md) vehicle model with a model that simulates
+Since version 1.5.0 SUMO extends the original [electric](Electric.md) vehicle model with a model that simulates
 also internal electric parameters of an partial trolleybus, i.e. a vehicle that is being powered by overhead wires and
 has also a battery pack installed, that is being charged from the overhead wires. The model allows not only for vehicle 
-simulation, but the simulation may also include detialed electrical simulation of the overhead wire circuit behaviour.
+simulation, but the simulation may also include detailed electrical simulation of the overhead wire circuit behavior.
 It was implemented by Jakub Ševčík and Jan Přikryl from the [RICE FEL UWB Pilen](https://rice.zcu.cz/en). 
-The core of the model is implemented in the [vehicle device](../Developer/How_To/Device.md) *device.elecHybrid*. Additional
+The core of the model is implemented in the [vehicle device](../Developer/How_To/Device.md) *device.elechybrid*. Additional
 features are a set of overhead wires (which can be placed on any lane in the
 network) including wire clamps, a traction substation powering these wires, and a new output options
-**--elecHybrid-output** {{DT_FILE}}, **--overheadWireSegments-output** {{DT_FILE}} and **--substations-output** {{DT_FILE}}.
+**--elechybrid-output** {{DT_FILE}}, **--overheadwiresegments-output** {{DT_FILE}} and **--substations-output** {{DT_FILE}}.
 
 You can find a test case for these implementations at
 [\[1\]](?????)
@@ -21,8 +20,8 @@ You can find a test case for these implementations at
 ## Defining Partial Trolleybuses
 
 To define an electric vehicle with in-motion charging system, it must be equipped with a hybrid electric device.
-This may be done using the option **--device.elecHybrid.explicit <vehID1,vehID2,...\>** or simply setting
-**--device.elecHybrid.probability 1** to equip all vehicles. Alternatively, the device may be specified using
+This may be done using the option **--device.elechybrid.explicit <vehID1,vehID2,...\>** or simply setting
+**--device.elechybrid.probability 1** to equip all vehicles. Alternatively, the device may be specified using
 [Generic vehicle parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices).
 
 Additional properties of the vehicle and its electrical components must then be defined via
@@ -114,7 +113,7 @@ vehicles moving in opposite directions on the same street) and that improve elec
 circuit when it is under higher load (TODO: feeder wires from the substation to more than a single
 place in the circuit).
 
-In SUMO, the overehad wire circuit consists of segments that are defined on lanes of the SUMO network.
+In SUMO, the overhead wire circuit consists of segments that are defined on lanes of the SUMO network.
 Each segment may be shorten than the lane length, and a beginning or ending offset may be specified (this
 is typically used in trolleybus network to start or end the overhead wire at bus stops where the KLACKY
 are put on/off the overhead wire). At least one of the segments that will form a circuit has to be
@@ -122,7 +121,7 @@ connected to a substation.
 
 !!! note
     Segments are automatically created for internal lanes of an intersection, unless the lane is 
-    explicitly porohibited using forbiddenInnerLanes in overhead circuit/section definition (see below).
+    explicitly prohibited using forbiddenInnerLanes in overhead circuit/section definition (see below).
 
 | key                 | Value Type | Value range           | Default     | Description                                                               |
 | ------------------- | ---------- | --------------------- | ----------- | ------------------------------------------------------------------------- |
@@ -185,11 +184,11 @@ The overhead wire powering/charging system is represented in the graphical user 
 ![](../images/overheadWire_gui_labeled.png "Representation of the ovrehead wire in GUI")
 Representation of the overhead wire in GUI
 
-If a vehicle equipped with ElectricHybrid device drives under the wire, the colour of the *circuit or section (?)* changes
-according to the power consumed *(the colourmap is currently hardcoded)*
+If a vehicle equipped with ElectricHybrid device drives under the wire, the color of the *circuit or section (?)* changes
+according to the power consumed *(the colormap is currently hardcoded)*
 
 ![](../images/overheadWire_withElecHybrid_gui_labeled.png "Color change of an overhead wire")
-Color of overehad wire in case that some power is supplied to a vehicle
+Color of overhead wire in case that some power is supplied to a vehicle
 
 ### Electric Substation output
 
@@ -309,7 +308,7 @@ Vehicle parameters:
 | energyCharged          | float  | Charge received in the current time step from a charging station (Only \!= 0 if vehicle is exactly at a charging station) |
 | power                  | float  | Power demand requested from the overhead wire in **W**                                                                    |
 | overheadWireId         | string | The id of an overhead wire that is currently powering the vehicle, empty if not under a wire                              |
-| tractionSubstationId   | string | The substation that is feeding the current overhead wirde, emptyu if not under a wire                                     |
+| tractionSubstationId   | string | The substation that is feeding the current overhead wire, empty if not under a wire                                       |
 | current                | float  | Current drawn from the overhead wire in **A**                                                                             |
 | circuitVoltage         | float  | The actual voltage at the connection point of the pantograph / trolley poles in **V**                                                                             |
 | alphaCircuitSolver     | float  | Circuit solver stabilisation parameter, `0 <= alpha <= 1`, 1 in case that the substation is not overloaded and all power demands were satistifed, NaN if not applicable. |
@@ -351,7 +350,7 @@ Timestep parameters:
 | energyCharged          | float  | Charge received in the current time step from a charging station (Only \!= 0 if vehicle is exactly at a charging station) |
 | power                  | float  | Power demand requested from the overhead wire in **W**                                                                    |
 | overheadWireId         | string | The id of an overhead wire that is currently powering the vehicle, empty if not under a wire                              |
-| tractionSubstationId   | string | The substation that is feeding the current overhead wirde, emptyu if not under a wire                                     |
+| tractionSubstationId   | string | The substation that is feeding the current overhead wire, empty if not under a wire                                       |
 | current                | float  | Current drawn from the overhead wire in **A**                                                                             |
 | circuitVoltage         | float  | The actual voltage at the connection point of the pantograph / trolley poles in **V**                                                                             |
 | alphaCircuitSolver     | float  | Circuit solver stabilisation parameter, `0 <= alpha <= 1`, 1 in case that the substation is not overloaded and all power demands were satistifed, NaN if not applicable. |
@@ -379,7 +378,7 @@ All information about the implemented device can be found in our SUMO 2019 paper
 ### Charging Stations
 
 As the ElectricHybrid device is based on Battery, standard chargers may be in theory used for opportunity charging the vehicle internal
-energy storage. This funcitonality is howerver not yet supported.
+energy storage. This functionality is however not yet supported.
 
 ### Saving and Loading Simulation State
 
@@ -393,7 +392,7 @@ TraCI connection has not been tested yet and it is probably not functional.
 
 As of SUMO 1.4.0 we are aware of the following:
 
-* current limits are ignore by the traction substaions
+* current limits are ignore by the traction substations
 * colormap for coloring the overhead wire voltage is hardcoded
 * mesoscopic mode has not been thoroughly tested
 * placing more than one overhead wire segment on the specific lane has not been thoroughly tested and is not supported yet

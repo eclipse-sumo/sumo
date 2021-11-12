@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Mar 19 15:33:26 2021 by Eclipse SUMO netconvert Version v1_8_0+1731-3cee3c3
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+        <ignore-errors.edge-type value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-400661.23,-5810285.98" convBoundary="0.00,0.00,65.39,75.27" origBoundary="13.453860,52.423355,13.575739,52.459757" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="-142575672#2" from="1652675093" to="cluster_1652675097_1652675099_1704693785_2697454318_2697454319_3246050928_3246050929_3246050930_3246050932_3366620136_583899005" name="Franz-Ehrlich-Straße" priority="4" type="highway.unclassified" shape="29.66,38.43 10.92,60.05">
+        <lane id="-142575672#2_0" index="0" allow="pedestrian" speed="13.89" length="48.98" width="2.00" shape="30.76,48.45 4.29,78.99">
+            <param key="origId" value="142575672"/>
+        </lane>
+        <lane id="-142575672#2_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="48.98" shape="28.80,46.75 2.33,77.29" changeLeft="authority">
+            <param key="origId" value="142575672"/>
+        </lane>
+        <lane id="-142575672#2_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="48.98" shape="26.38,44.66 -0.09,75.19">
+            <param key="origId" value="142575672"/>
+        </lane>
+        <param key="origTo" value="3366620136"/>
+    </edge>
+    <edge id="-142575695#0" from="4854982237" to="1652675093" name="Moriz-Seeler-Straße" priority="4" type="highway.unclassified">
+        <lane id="-142575695#0_0" index="0" allow="pedestrian" speed="13.89" length="37.39" width="2.00" shape="6.13,9.06 27.39,30.24">
+            <param key="origId" value="142575695"/>
+        </lane>
+        <lane id="-142575695#0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="37.39" shape="4.30,10.91 25.56,32.09">
+            <param key="origId" value="142575695"/>
+        </lane>
+    </edge>
+    <edge id="-318210373#0" from="5543923995" to="1652675093" name="Franz-Ehrlich-Straße" priority="4" type="highway.unclassified" shape="65.39,0.00 62.04,3.60 45.67,21.21 29.66,38.43">
+        <lane id="-318210373#0_0" index="0" allow="pedestrian" speed="13.89" length="52.47" width="2.00" shape="68.46,2.86 65.12,6.46 48.75,24.07 37.76,35.88">
+            <param key="origId" value="318210373"/>
+        </lane>
+        <lane id="-318210373#0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="52.47" shape="66.56,1.09 63.21,4.69 46.84,22.30 35.86,34.11">
+            <param key="origId" value="318210373"/>
+        </lane>
+    </edge>
+    <edge id="142575672#2" from="cluster_1652675097_1652675099_1704693785_2697454318_2697454319_3246050928_3246050929_3246050930_3246050932_3366620136_583899005" to="1652675093" name="Franz-Ehrlich-Straße" priority="4" type="highway.unclassified" shape="10.92,60.05 29.66,38.43">
+        <lane id="142575672#2_0" index="0" allow="pedestrian" speed="13.89" length="48.98" width="2.00" shape="-4.47,71.39 22.00,40.86" changeLeft="authority">
+            <param key="origId" value="142575672"/>
+        </lane>
+        <lane id="142575672#2_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="48.98" shape="-2.51,73.10 23.96,42.56" changeLeft="authority">
+            <param key="origId" value="142575672"/>
+        </lane>
+        <param key="origFrom" value="3366620136"/>
+    </edge>
+    <edge id="142575695#0" from="1652675093" to="4854982237" name="Moriz-Seeler-Straße" priority="4" type="highway.unclassified">
+        <lane id="142575695#0_0" index="0" allow="pedestrian" speed="13.89" length="37.39" width="2.00" shape="21.47,36.20 0.21,15.02">
+            <param key="origId" value="142575695"/>
+        </lane>
+        <lane id="142575695#0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="37.39" shape="23.30,34.35 2.04,13.17">
+            <param key="origId" value="142575695"/>
+        </lane>
+    </edge>
+    <edge id="318210373#0" from="1652675093" to="5543923995" name="Franz-Ehrlich-Straße" priority="4" type="highway.unclassified" shape="29.66,38.43 45.67,21.21 62.04,3.60 65.39,0.00">
+        <lane id="318210373#0_0" index="0" allow="pedestrian" speed="13.89" length="52.47" width="2.00" shape="31.61,30.16 42.59,18.35 58.96,0.74 62.32,-2.86">
+            <param key="origId" value="318210373"/>
+        </lane>
+        <lane id="318210373#0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="52.47" shape="33.52,31.93 44.50,20.12 60.87,2.51 64.22,-1.09">
+            <param key="origId" value="318210373"/>
+        </lane>
+    </edge>
+
+    <junction id="1652675093" type="priority" x="29.66" y="38.43" incLanes="-318210373#0_0 -318210373#0_1 -142575695#0_0 -142575695#0_1 142575672#2_0 142575672#2_1" intLanes="" shape="38.50,36.56 30.88,29.48 29.96,30.14 29.50,30.23 29.04,30.16 28.57,29.93 28.10,29.54 20.76,36.90 21.61,38.06 21.78,38.62 21.77,39.16 21.59,39.69 21.24,40.20 31.52,49.11 33.33,46.66 34.33,44.61 34.94,42.77 35.56,40.95 36.61,38.94">
+        <request index="0" response="00000000" foes="00110000"/>
+        <request index="1" response="00000000" foes="00110000"/>
+        <request index="2" response="11000000" foes="11110000"/>
+        <request index="3" response="10000000" foes="10000000"/>
+        <request index="4" response="10000111" foes="10000111"/>
+        <request index="5" response="10000111" foes="10000111"/>
+        <request index="6" response="00000000" foes="00000100"/>
+        <request index="7" response="00000000" foes="00111100"/>
+    </junction>
+    <junction id="4854982237" type="dead_end" x="3.17" y="12.04" incLanes="142575695#0_0 142575695#0_1" intLanes="" shape="3.17,12.04 -0.50,15.72 3.17,12.04"/>
+    <junction id="5543923995" type="dead_end" x="65.39" y="0.00" incLanes="318210373#0_0 318210373#0_1" intLanes="" shape="65.39,0.00 61.58,-3.54 65.39,0.00"/>
+    <junction id="cluster_1652675097_1652675099_1704693785_2697454318_2697454319_3246050928_3246050929_3246050930_3246050932_3366620136_583899005" type="dead_end" x="0.00" y="75.27" incLanes="-142575672#2_0 -142575672#2_1 -142575672#2_2" intLanes="" shape="-1.30,74.15 5.05,79.65 -1.30,74.15"/>
+
+    <connection from="-142575695#0" to="318210373#0" fromLane="1" toLane="1" dir="r" state="m"/>
+    <connection from="-142575695#0" to="-142575672#2" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="-142575695#0" to="-142575672#2" fromLane="1" toLane="2" dir="l" state="m"/>
+    <connection from="-318210373#0" to="-142575672#2" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="-318210373#0" to="-142575672#2" fromLane="1" toLane="2" dir="s" state="M"/>
+    <connection from="-318210373#0" to="142575695#0" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="142575672#2" to="142575695#0" fromLane="1" toLane="1" dir="r" state="M"/>
+    <connection from="142575672#2" to="318210373#0" fromLane="1" toLane="1" dir="s" state="M"/>
+
+</net>

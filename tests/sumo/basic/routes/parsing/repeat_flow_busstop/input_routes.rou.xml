@@ -1,0 +1,11 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="r0" edges="SC CN NC CS" repeat="3" cycleTime="300">
+        <stop busStop="A_up" until="20"/>
+        <stop busStop="B_up" until="65"/>
+        <stop busStop="C_up" until="100"/>
+        <stop busStop="C_down" until="135"/>
+        <stop busStop="B_down" until="170"/>
+        <stop busStop="A_down" until="205"/>
+    </route>
+    <flow id="0" route="r0" begin="10" number="2" period="100"/>
+</routes>

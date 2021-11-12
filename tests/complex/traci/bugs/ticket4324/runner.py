@@ -1,12 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    runner.py
 # @author  Jakob Erdmann
@@ -32,7 +36,7 @@ cmd = [
 tlsID = "C"
 
 traci.start(cmd)
-program = traci.trafficlight.getCompleteRedYellowGreenDefinition(tlsID)[0]
+program = traci.trafficlight.getAllProgramLogics(tlsID)[0]
 # make actuated
 green_index = 1
 for phase in program.getPhases():
@@ -45,9 +49,9 @@ for phase in program.getPhases():
         phase.name = "Transition"
 program.type = 3  # actuated
 program.programID = "custom_actuated"
-traci.trafficlight.setCompleteRedYellowGreenDefinition(tlsID, program)
+traci.trafficlight.setProgramLogic(tlsID, program)
 
-for program in traci.trafficlight.getCompleteRedYellowGreenDefinition(tlsID):
+for program in traci.trafficlight.getAllProgramLogics(tlsID):
     print("program", program)
 
 for i in range(120):

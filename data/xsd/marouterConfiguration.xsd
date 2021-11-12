@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec  9 19:02:57 2019 by Eclipse SUMO marouter Version v1_3_1+1345-8af262fa61
+<!-- generated on 2021-08-16 22:19:49 by Eclipse SUMO marouter Version v1_9_2+1043-00786e9d9f4
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -32,21 +32,23 @@
             <xsd:element name="weight-attribute" type="strOptionType" minOccurs="0"/>
             <xsd:element name="weight-adaption" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="taz-param" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="junction-taz" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="ignore-taz" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
     <xsd:complexType name="outputTopicType">
         <xsd:all>
-            <xsd:element name="write-license" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="output-prefix" type="strOptionType" minOccurs="0"/>
-            <xsd:element name="precision" type="intOptionType" minOccurs="0"/>
-            <xsd:element name="precision.geo" type="intOptionType" minOccurs="0"/>
-            <xsd:element name="human-readable-time" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="output-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="vtype-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="ignore-vehicle-type" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="netload-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="all-pairs-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="write-license" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="output-prefix" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="precision" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="precision.geo" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="human-readable-time" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="exit-times" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
@@ -55,8 +57,10 @@
         <xsd:all>
             <xsd:element name="aggregation-interval" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="max-alternatives" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="capacities.default" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="weights.interpolate" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="weights.expand" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="weights.priority-factor" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="routing-algorithm" type="strOptionType" minOccurs="0"/>
             <xsd:element name="bulk-routing.vtypes" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="routing-threads" type="intOptionType" minOccurs="0"/>
@@ -113,6 +117,7 @@
             <xsd:element name="version" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="xml-validation" type="strOptionType" minOccurs="0"/>
             <xsd:element name="xml-validation.net" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="xml-validation.routes" type="strOptionType" minOccurs="0"/>
             <xsd:element name="no-warnings" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="aggregate-warnings" type="intOptionType" minOccurs="0"/>
             <xsd:element name="log" type="fileOptionType" minOccurs="0"/>

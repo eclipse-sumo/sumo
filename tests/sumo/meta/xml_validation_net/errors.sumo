@@ -1,0 +1,5 @@
+Error: attribute 'blub' is not declared for element 'additional'
+ In file 'input_additional.add.xml'
+ At line/column 2/152.
+
+Quitting (on error).

@@ -1,0 +1,3 @@
+-n net.net.xml -s 42 --fringe-factor 10
+--weights-output-prefix weights
+--length

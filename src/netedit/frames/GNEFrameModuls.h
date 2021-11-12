@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNEFrameModuls.h
 /// @author  Pablo Alvarez Lopez
@@ -13,22 +17,21 @@
 ///
 // Auxiliar class for GNEFrame Moduls
 /****************************************************************************/
-#ifndef GNEFrameModuls_h
-#define GNEFrameModuls_h
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
-#include <netedit/GNEAttributeCarrier.h>
 #include <netedit/GNEViewNetHelper.h>
+#include <netedit/elements/GNEAttributeCarrier.h>
+#include <utils/foxtools/FXTreeListDinamic.h>
+#include <utils/foxtools/MFXIconComboBox.h>
 
 // ===========================================================================
 // class declaration
 // ===========================================================================
 
 class GNEFrame;
+class GNEDataSet;
+class GNEDataInterval;
 
 // ===========================================================================
 // class definitions
@@ -47,7 +50,7 @@ public:
 
     public:
         /// @brief constructor
-        TagSelector(GNEFrame* frameParent, GNEAttributeCarrier::TagType type, bool onlyDrawables = true);
+        TagSelector(GNEFrame* frameParent, GNETagProperties::TagType type, bool onlyDrawables = true);
 
         /// @brief destructor
         ~TagSelector();
@@ -59,10 +62,10 @@ public:
         void hideTagSelector();
 
         /// @brief get current type tag
-        const GNEAttributeCarrier::TagProperties& getCurrentTagProperties() const;
+        const GNETagProperties& getCurrentTagProperties() const;
 
         /// @brief set current type manually
-        void setCurrentTagType(GNEAttributeCarrier::TagType tagType);
+        void setCurrentTagType(GNETagProperties::TagType tagType);
 
         /// @brief set current type manually
         void setCurrentTag(SumoXMLTag newTag);
@@ -80,29 +83,44 @@ public:
         /// @}
 
     protected:
+        /// @brief FOX need this
         FOX_CONSTRUCTOR(TagSelector)
 
     private:
+        struct TagType {
+            /// @brief constructor
+            TagType(std::string _tag, GNETagProperties::TagType _tagType, GUIIcon _icon);
+
+            // @brief tag in string format
+            const std::string tag;
+
+            /// @brief tag type
+            const GNETagProperties::TagType tagType;
+
+            /// @brief icon
+            const GUIIcon icon;
+        };
+
         /// @brief pointer to Frame Parent
         GNEFrame* myFrameParent;
 
         /// @brief comboBox with tag type
-        FXComboBox* myTagTypesMatchBox;
+        MFXIconComboBox* myTagTypesMatchBox;
 
         /// @brief comboBox with the list of tags
-        FXComboBox* myTagsMatchBox;
+        MFXIconComboBox* myTagsMatchBox;
 
         /// @brief current tag properties
-        GNEAttributeCarrier::TagProperties myCurrentTagProperties;
+        GNETagProperties myCurrentTagProperties;
 
         /// @brief list of tags types that will be shown in Match Box
-        std::vector<std::pair<std::string, GNEAttributeCarrier::TagType> > myListOfTagTypes;
+        std::vector<TagType> myTagTypes;
 
         /// @brief list of tags that will be shown in Match Box
-        std::vector<SumoXMLTag> myListOfTags;
+        std::vector<std::pair<GNETagProperties, std::string> > myTagPropertiesString;
 
         /// @brief dummy tag properties used if user select an invalid tag
-        GNEAttributeCarrier::TagProperties myInvalidTagProperty;
+        GNETagProperties myInvalidTagProperty;
     };
 
     // ===========================================================================
@@ -118,7 +136,7 @@ public:
         DemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag);
 
         /// @brief constructor with tag type
-        DemandElementSelector(GNEFrame* frameParent, const std::vector<GNEAttributeCarrier::TagType>& tagTypes);
+        DemandElementSelector(GNEFrame* frameParent, const std::vector<GNETagProperties::TagType>& tagTypes);
 
         /// @brief destructor
         ~DemandElementSelector();
@@ -144,6 +162,12 @@ public:
         /// @brief refresh demand element selector
         void refreshDemandElementSelector();
 
+        /// @brief get previous edge for the current person plan
+        GNEEdge* getPersonPlanPreviousEdge() const;
+
+        /// @brief get previous edge for the current container plan
+        GNEEdge* getContainerPlanPreviousEdge() const;
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user select another demand elementelement in ComboBox
@@ -158,7 +182,7 @@ public:
         GNEFrame* myFrameParent;
 
         /// @brief comboBox with the list of elements type
-        FXComboBox* myDemandElementsMatchBox;
+        MFXIconComboBox* myDemandElementsMatchBox;
 
         /// @brief current demand element
         GNEDemandElement* myCurrentDemandElement;
@@ -168,141 +192,31 @@ public:
     };
 
     // ===========================================================================
-    // class EdgePathCreator
+    // class HierarchicalElementTree
     // ===========================================================================
 
-    class EdgePathCreator : protected FXGroupBox {
+    class HierarchicalElementTree : private FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameModuls::EdgePathCreator)
-
-    public:
-
-        /// @brief list of the edge path creator modes
-        enum EdgePathCreatorModes {
-            GNE_EDGEPATHCREATOR_CONSECUTIVE =   1 << 0,     // Path must be consecutive
-            GNE_EDGEPATHCREATOR_FROM_TO_VIA =   1 << 1,     // Path requires a from-via-to edges
-            GNE_EDGEPATHCREATOR_FROM_BUSSTOP =  1 << 2,     // Path start in a BusStop
-            GNE_EDGEPATHCREATOR_TO_BUSSTOP =    1 << 3,     // Path ends in a BusStop
-        };
-
-        /// @brief default constructor
-        EdgePathCreator(GNEFrame* frameParent, int edgePathCreatorModes);
-
-        /// @brief destructor
-        ~EdgePathCreator();
-
-        /// @brief update EdgePathCreator name
-        void edgePathCreatorName(const std::string& name);
-
-        /// @brief show EdgePathCreator
-        void showEdgePathCreator();
-
-        /// @brief show EdgePathCreator
-        void hideEdgePathCreator();
-
-        /// @brief set SUMOVehicleClass
-        void setVClass(SUMOVehicleClass vClass);
-
-        /// @brief set EdgePathCreatorModes
-        void setEdgePathCreatorModes(int edgePathCreatorModes);
-
-        /// @brief get current clicked edges
-        std::vector<GNEEdge*> getClickedEdges() const;
-
-        /// @brief get current clicked edges
-        GNEAdditional* getClickedBusStop() const;
-
-        /// @brief add edge to route
-        bool addEdge(GNEEdge* edge);
-
-        /// @brief add busStop to route
-        bool addBusStop(GNEAdditional* busStop);
-
-        /// @brief clear edges (and restore colors)
-        void clearEdges();
-
-        /// @brief draw temporal route
-        void drawTemporalRoute() const;
-
-        /// @brief abort edge path creation
-        void abortEdgePathCreation();
-
-        /// @brief finish edge path creation
-        void finishEdgePathCreation();
-
-        /// @brief remove last added element (either a BusStop or an edge)
-        void removeLastInsertedElement();
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when the user click over button "Abort route creation"
-        long onCmdAbortRouteCreation(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user click over button "Finish route creation"
-        long onCmdFinishRouteCreation(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user click over button "Remove las inserted edge/busStop"
-        long onCmdRemoveLastInsertedElement(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        FOX_CONSTRUCTOR(EdgePathCreator)
-
-    private:
-        /// @brief pointer to GNEFrame Parent
-        GNEFrame* myFrameParent;
-
-        /// @brief button for finish route creation
-        FXButton* myFinishCreationButton;
-
-        /// @brief button for abort route creation
-        FXButton* myAbortCreationButton;
-
-        /// @brief button for removing last inserted edge
-        FXButton* myRemoveLastInsertedEdge;
-
-        /// @brief VClass used for this trip
-        SUMOVehicleClass myVClass;
-
-        /// @brief current clicked edges
-        std::vector<GNEEdge*> myClickedEdges;
-
-        /// @brief pointer to selected busStop
-        GNEAdditional* mySelectedBusStop;
-
-        /// @brief vector with temporal route edges
-        std::vector<GNEEdge*> myTemporalRoute;
-
-        /// @brief current edge path creator modes
-        int myEdgePathCreatorModes;
-
-        /// @brief restore colors of given edge
-        void restoreEdgeColor(const GNEEdge* edge);
-    };
-
-    // ===========================================================================
-    // class AttributeCarrierHierarchy
-    // ===========================================================================
-
-    class AttributeCarrierHierarchy : private FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEFrameModuls::AttributeCarrierHierarchy)
+        FXDECLARE(GNEFrameModuls::HierarchicalElementTree)
 
     public:
         /// @brief constructor
-        AttributeCarrierHierarchy(GNEFrame* frameParent);
+        HierarchicalElementTree(GNEFrame* frameParent);
 
         /// @brief destructor
-        ~AttributeCarrierHierarchy();
+        ~HierarchicalElementTree();
 
-        /// @brief show AttributeCarrierHierarchy
-        void showAttributeCarrierHierarchy(GNEAttributeCarrier* AC);
+        /// @brief show HierarchicalElementTree
+        void showHierarchicalElementTree(GNEAttributeCarrier* AC);
 
-        /// @brief hide AttributeCarrierHierarchy
-        void hideAttributeCarrierHierarchy();
+        /// @brief hide HierarchicalElementTree
+        void hideHierarchicalElementTree();
 
-        /// @brief refresh AttributeCarrierHierarchy
-        void refreshAttributeCarrierHierarchy();
+        /// @brief refresh HierarchicalElementTree
+        void refreshHierarchicalElementTree();
+
+        /// @brief if given AttributeCarrier is the same of myHE, set it as nullptr
+        void removeCurrentEditedAttributeCarrier(const GNEAttributeCarrier* HE);
 
         /// @name FOX-callbacks
         /// @{
@@ -326,7 +240,7 @@ public:
         /// @}
 
     protected:
-        FOX_CONSTRUCTOR(AttributeCarrierHierarchy)
+        FOX_CONSTRUCTOR(HierarchicalElementTree)
 
         // @brief create pop-up menu in the positions X-Y for the clicked attribute carrier
         void createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC);
@@ -334,20 +248,21 @@ public:
         /// @brief show child of current attributeCarrier
         FXTreeItem* showAttributeCarrierParents();
 
-        /// @brief show child of current attributeCarrier
-        void showAttributeCarrierChildren(GNEAttributeCarrier* AC, FXTreeItem* itemParent);
+        /// @brief show children of given hierarchical element
+        void showHierarchicalElementChildren(GNEHierarchicalElement* HE, FXTreeItem* itemParent);
 
         /// @brief add item into list
         FXTreeItem* addListItem(GNEAttributeCarrier* AC, FXTreeItem* itemParent = nullptr, std::string prefix = "", std::string sufix = "");
 
         /// @brief add item into list
         FXTreeItem* addListItem(FXTreeItem* itemParent, const std::string& text, FXIcon* icon, bool expanded);
+
     private:
-        /// @brief Frame Parent
+        /// @brief frame Parent
         GNEFrame* myFrameParent;
 
-        /// @brief Attribute carrier
-        GNEAttributeCarrier* myAC;
+        /// @brief hierarchical element
+        GNEHierarchicalElement* myHE;
 
         /// @brief pointer to current clicked Attribute Carrier
         GNEAttributeCarrier* myClickedAC;
@@ -370,16 +285,28 @@ public:
         /// @brief shape (casted from myClickedAC)
         GNEShape* myClickedShape;
 
+        /// @brief TAZElement (casted from myClickedAC)
+        GNETAZElement* myClickedTAZElement;
+
         /// @brief additional (casted from myClickedAC)
         GNEAdditional* myClickedAdditional;
 
         /// @brief demand element (casted from myClickedAC)
         GNEDemandElement* myClickedDemandElement;
 
-        /// @brief tree list to show the children of the element to erase
-        FXTreeList* myTreelist;
+        /// @brief data set element (casted from myClickedAC)
+        GNEDataSet* myClickedDataSet;
 
-        /// @brief map used to save the Tree items with their AC
+        /// @brief data interval element (casted from myClickedAC)
+        GNEDataInterval* myClickedDataInterval;
+
+        /// @brief generic data element (casted from myClickedAC)
+        GNEGenericData* myClickedGenericData;
+
+        /// @brief tree list dinamic to show the children of the element to erase
+        FXTreeListDinamic* myTreeListDinamic = nullptr;
+
+        /// @brief map used to save the FXTreeItems items with their vinculated AC
         std::map<FXTreeItem*, GNEAttributeCarrier*> myTreeItemToACMap;
 
         /// @brief set used to save tree items without AC assigned, the Incoming/Outcoming connections
@@ -457,7 +384,7 @@ public:
         bool myDeleteLastCreatedPoint;
 
         /// @brief current drawed shape
-        PositionVector myTemporalShapeShape;
+        PositionVector myTemporalShape;
 
         /// @brief button for start drawing
         FXButton* myStartDrawingButton;
@@ -491,7 +418,7 @@ public:
         void setIDSelected(const std::string& id);
 
         /// @brief Show list of SelectorParent Modul
-        bool showSelectorParentModul(SumoXMLTag additionalTypeParent);
+        bool showSelectorParentModul(const std::vector<SumoXMLTag>& additionalTypeParents);
 
         /// @brief hide SelectorParent Modul
         void hideSelectorParentModul();
@@ -504,7 +431,7 @@ public:
         GNEFrame* myFrameParent;
 
         /// @brief current parent additional tag
-        SumoXMLTag myParentTag;
+        std::vector<SumoXMLTag> myParentTags;
 
         /// @brief Label with parent name
         FXLabel* myParentsLabel;
@@ -609,9 +536,246 @@ public:
         /// @brief saved clicked position
         Position mySavedClickedPosition;
     };
+
+    // ===========================================================================
+    // class PathCreator
+    // ===========================================================================
+
+    class PathCreator : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEFrameModuls::PathCreator)
+
+    public:
+        /// @brief class for path
+        class Path {
+
+        public:
+            /// @brief constructor for single edge
+            Path(const SUMOVehicleClass vClass, GNEEdge* edge);
+
+            /// @brief constructor for multiple edges
+            Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEEdge* edgeFrom, GNEEdge* edgeTo);
+
+            /// @brief get sub path
+            const std::vector<GNEEdge*>& getSubPath() const;
+
+            /// @brief get from additional
+            GNEAdditional* getFromBusStop() const;
+
+            /// @brief to additional
+            GNEAdditional* getToBusStop() const;
+
+            /// @brief check if current path is conflict due vClass
+            bool isConflictVClass() const;
+
+            /// @brief check if current path is conflict due is disconnected
+            bool isConflictDisconnected() const;
+
+        protected:
+            /// @brief sub path
+            std::vector<GNEEdge*> mySubPath;
+
+            /// @brief from additional (usually a busStop)
+            GNEAdditional* myFromBusStop;
+
+            /// @brief to additional (usually a busStop)
+            GNEAdditional* myToBusStop;
+
+            /// @brief flag to mark this path as conflicted
+            bool myConflictVClass;
+
+            /// @brief flag to mark this path as disconnected
+            bool myConflictDisconnected;
+
+        private:
+            /// @brief default constructor
+            Path();
+
+            /// @brief Invalidated copy constructor.
+            Path(Path*) = delete;
+
+            /// @brief Invalidated assignment operator.
+            Path& operator=(Path*) = delete;
+        };
+
+        /// @brief default constructor
+        PathCreator(GNEFrame* frameParent);
+
+        /// @brief destructor
+        ~PathCreator();
+
+        /// @brief show PathCreator for the given tag
+        void showPathCreatorModul(SumoXMLTag element, const bool firstElement, const bool consecutives);
+
+        /// @brief show PathCreator
+        void hidePathCreatorModul();
+
+        /// @brief get vClass
+        SUMOVehicleClass getVClass() const;
+
+        /// @brief set vClass
+        void setVClass(SUMOVehicleClass vClass);
+
+        /// @brief add edge
+        bool addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool controlKeyPressed);
+
+        /// @brief get current selected additionals
+        std::vector<GNEEdge*> getSelectedEdges() const;
+
+        /// @brief add stoppingPlace
+        bool addStoppingPlace(GNEAdditional* stoppingPlace, const bool shiftKeyPressed, const bool controlKeyPressed);
+
+        /// @brief get to stoppingPlace
+        GNEAdditional* getToStoppingPlace(SumoXMLTag expectedTag) const;
+
+        /// @brief add route
+        bool addRoute(GNEDemandElement* route, const bool shiftKeyPressed, const bool controlKeyPressed);
+
+        /// @brief get route
+        GNEDemandElement* getRoute() const;
+
+        /// @brief get path route
+        const std::vector<Path>& getPath() const;
+
+        /// @brief draw candidate edges with special color (Only for candidates, special and conflicted)
+        bool drawCandidateEdgesWithSpecialColor() const;
+
+        /// @brief update edge colors
+        void updateEdgeColors();
+
+        /// @brief draw temporal route
+        void drawTemporalRoute(const GUIVisualizationSettings& s) const;
+
+        /// @brief create path
+        void createPath();
+
+        /// @brief abort path creation
+        void abortPathCreation();
+
+        /// @brief remove path element
+        void removeLastElement();
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user click over button "Finish route creation"
+        long onCmdCreatePath(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user click over button "Abort route creation"
+        long onCmdAbortPathCreation(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user click over button "Remove las inserted edge"
+        long onCmdRemoveLastElement(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user click over check button "show candidate edges"
+        long onCmdShowCandidateEdges(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        FOX_CONSTRUCTOR(PathCreator)
+
+        // @brief creation mode
+        enum Mode {
+            CONSECUTIVE_EDGES       = 1 << 0,   // Path's edges are consecutives
+            NONCONSECUTIVE_EDGES    = 1 << 1,   // Path's edges aren't consecutives
+            START_EDGE              = 1 << 2,   // Path begins in an edge
+            END_EDGE                = 1 << 3,   // Path ends in an edge
+            SINGLE_ELEMENT          = 1 << 4,   // Path only had one element
+            ONLY_FROMTO             = 1 << 5,   // Path only had two elements (first and last)
+            END_BUSSTOP             = 1 << 6,   // Path ends in a busStop
+            ROUTE                   = 1 << 7,   // Path uses a route
+            REQUIERE_FIRSTELEMENT   = 1 << 8,   // Path start always in a previous element
+            SHOW_CANDIDATE_EDGES    = 1 << 9,   // disable candidate edges
+        };
+
+        /// @brief update InfoRouteLabel
+        void updateInfoRouteLabel();
+
+        /// @brief clear edges (and restore colors)
+        void clearPath();
+
+        /// @brief recalculate path
+        void recalculatePath();
+
+        /// @brief set special candidates (This function will be called recursively)
+        void setSpecialCandidates(GNEEdge* originEdge);
+
+        /// @brief set edgereachability (This function will be called recursively)
+        void setPossibleCandidates(GNEEdge* originEdge, const SUMOVehicleClass vClass);
+
+        /// @brief current frame parent
+        GNEFrame* myFrameParent;
+
+        /// @brief current vClass
+        SUMOVehicleClass myVClass;
+
+        /// @brief current creation mode
+        int myCreationMode;
+
+        /// @brief vector with selected edges
+        std::vector<GNEEdge*> mySelectedEdges;
+
+        /// @brief to additional (usually a busStop)
+        GNEAdditional* myToStoppingPlace;
+
+        /// @brief route (usually a busStop)
+        GNEDemandElement* myRoute;
+
+        /// @brief vector with current path
+        std::vector<Path> myPath;
+
+        /// @brief label with route info
+        FXLabel* myInfoRouteLabel;
+
+        /// @brief button for finish route creation
+        FXButton* myFinishCreationButton;
+
+        /// @brief button for abort route creation
+        FXButton* myAbortCreationButton;
+
+        /// @brief button for removing last inserted element
+        FXButton* myRemoveLastInsertedElement;
+
+        /// @brief CheckBox for show candidate edges
+        FXCheckButton* myShowCandidateEdges;
+
+        /// @brief label for shift information
+        FXLabel* myShiftLabel;
+
+        /// @brief label for control information
+        FXLabel* myControlLabel;
+
+    private:
+        /// @brief Invalidated copy constructor.
+        PathCreator(PathCreator*) = delete;
+
+        /// @brief Invalidated assignment operator.
+        PathCreator& operator=(PathCreator*) = delete;
+    };
+
+    // ===========================================================================
+    // class PathLegend
+    // ===========================================================================
+
+    class PathLegend : protected FXGroupBox {
+
+    public:
+        /// @brief constructor
+        PathLegend(GNEFrame* frameParent);
+
+        /// @brief destructor
+        ~PathLegend();
+
+        /// @brief show Legend modul
+        void showPathLegendModul();
+
+        /// @brief hide Legend modul
+        void hidePathLegendModul();
+    };
+
+    // ===========================================================================
+    // Functions
+    // ===========================================================================
+
+    /// @brief build rainbow in frame modul
+    static FXLabel* buildRainbow(FXComposite* parent);
 };
-
-
-#endif
-
-/****************************************************************************/

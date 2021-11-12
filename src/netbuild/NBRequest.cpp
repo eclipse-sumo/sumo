@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NBRequest.cpp
 /// @author  Daniel Krajzewicz
@@ -16,11 +20,6 @@
 ///
 // This class computes the logic of a junction
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -42,7 +41,7 @@
 
 //#define DEBUG_RESPONSE
 //#define DEBUG_SETBLOCKING
-#define DEBUGCOND (myJunction->getID() == "F")
+#define DEBUGCOND (myJunction->getID() == "C")
 
 // ===========================================================================
 // static member variables
@@ -216,7 +215,7 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
     myDone[idx1][idx2] = true;
     myDone[idx2][idx1] = true;
     // special case all-way stop
-    if (myJunction->getType() == NODETYPE_ALLWAY_STOP) {
+    if (myJunction->getType() == SumoXMLNodeType::ALLWAY_STOP) {
         // all ways forbid each other. Conflict resolution happens via arrival time
         myForbids[idx1][idx2] = true;
         myForbids[idx2][idx1] = true;
@@ -251,19 +250,19 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
         }
     }
 #ifdef DEBUG_SETBLOCKING
-    if (DEBUGCOND) std::cout << "setBlocking"
+    if (DEBUGCOND) std::cout << "setBlocking type=" << toString(myJunction->getType())
+                                 << " bentPrio=" << myJunction->isBentPriority()
                                  << " 1:" << from1->getID() << "->" << to1->getID()
                                  << " 2:" << from2->getID() << "->" << to2->getID() << "\n";
 #endif
     // check the priorities if required by node type
-    if (myJunction->getType() != NODETYPE_RIGHT_BEFORE_LEFT) {
+    if (myJunction->getType() != SumoXMLNodeType::RIGHT_BEFORE_LEFT) {
         int from1p = from1->getJunctionPriority(myJunction);
         int from2p = from2->getJunctionPriority(myJunction);
 #ifdef DEBUG_SETBLOCKING
-        if (DEBUGCOND) std::cout << "setBlocking"
-                                     << " 1:" << from1->getID() << "->" << to1->getID()
-                                     << " 2:" << from2->getID() << "->" << to2->getID()
-                                     << " p1=" << from1p << " p2=" << from2p << "\n";
+        if (DEBUGCOND) {
+            std::cout << "     p1=" << from1p << " p2=" << from2p << "\n";
+        }
 #endif
         // check if one of the connections is higher priorised when incoming into
         //  the junction, the connection road will yield
@@ -278,7 +277,7 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
     }
     // straight connections prohibit turning connections if the priorities are equal
     // (unless the junction is a bent priority junction)
-    if (myJunction->getType() != NODETYPE_RIGHT_BEFORE_LEFT && !myJunction->isBentPriority()) {
+    if (myJunction->getType() != SumoXMLNodeType::RIGHT_BEFORE_LEFT && !myJunction->isBentPriority()) {
         LinkDirection ld1 = myJunction->getDirection(from1, to1);
         LinkDirection ld2 = myJunction->getDirection(from2, to2);
 #ifdef DEBUG_SETBLOCKING
@@ -287,14 +286,14 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
                                      << " 2:" << from2->getID() << "->" << to2->getID()
                                      << " dir1=" << toString(ld1) << " dir2=" << toString(ld2) << "\n";
 #endif
-        if (ld1 == LINKDIR_STRAIGHT) {
-            if (ld2 != LINKDIR_STRAIGHT) {
+        if (ld1 == LinkDirection::STRAIGHT) {
+            if (ld2 != LinkDirection::STRAIGHT) {
                 myForbids[idx1][idx2] = true;
                 myForbids[idx2][idx1] = false;
                 return;
             }
         } else {
-            if (ld2 == LINKDIR_STRAIGHT) {
+            if (ld2 == LinkDirection::STRAIGHT) {
                 myForbids[idx1][idx2] = false;
                 myForbids[idx2][idx1] = true;
                 return;
@@ -308,7 +307,7 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
     // should be valid for priority junctions only
     /*
     if (from1p > 0 && from2p > 0) {
-        assert(myJunction->getType() != NODETYPE_RIGHT_BEFORE_LEFT);
+        assert(myJunction->getType() != SumoXMLNodeType::RIGHT_BEFORE_LEFT);
         int to1p = to1->getJunctionPriority(myJunction);
         int to2p = to2->getJunctionPriority(myJunction);
         if (to1p > to2p) {
@@ -419,7 +418,7 @@ NBRequest::computeLogic(const bool checkLaneFoes) {
     for (i = myIncoming.begin(); i != myIncoming.end(); i++) {
         int noLanes = (*i)->getNumLanes();
         for (int k = 0; k < noLanes; k++) {
-            pos = computeLaneResponse(*i, k, pos, checkLaneFoes || myJunction->getType() == NODETYPE_ZIPPER);
+            pos = computeLaneResponse(*i, k, pos, checkLaneFoes || myJunction->getType() == SumoXMLNodeType::ZIPPER);
         }
     }
     // crossings
@@ -564,7 +563,7 @@ NBRequest::computeLaneResponse(NBEdge* from, int fromLane, int pos, const bool c
         assert(c.toEdge != 0);
         pos++;
         const std::string foes = getFoesString(from, c.toEdge, fromLane, c.toLane, checkLaneFoes);
-        const std::string response = myJunction->getType() == NODETYPE_ZIPPER ? foes : getResponseString(from, c, checkLaneFoes);
+        const std::string response = getResponseString(from, c, checkLaneFoes);
         myFoes.push_back(foes);
         myResponse.push_back(response);
         myHaveVia.push_back(c.haveVia);
@@ -609,7 +608,6 @@ NBRequest::computeCrossingResponse(const NBNode::Crossing& crossing, int pos) {
 
 std::string
 NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection& c, const bool checkLaneFoes) const {
-    const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
     const NBEdge* const to = c.toEdge;
     const int fromLane = c.fromLane;
     const int toLane = c.toLane;
@@ -618,6 +616,7 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
         idx = getIndex(from, to);
     }
     std::string result;
+    const bool zipper = myJunction->getType() == SumoXMLNodeType::ZIPPER;
     // crossings
     auto crossings = myJunction->getCrossings();
     for (std::vector<NBNode::Crossing*>::const_reverse_iterator i = crossings.rbegin(); i != crossings.rend(); i++) {
@@ -634,9 +633,26 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
             for (int k = size; k-- > 0;) {
                 if (c.mayDefinitelyPass) {
                     result += '0';
+#ifdef DEBUG_RESPONSE
+                    if (DEBUGCOND) {
+                        std::cout << " c=" << queryCon.getDescription(from) << " pass\n";
+                    }
+#endif
                 } else if ((*i) == from && fromLane == j) {
                     // do not prohibit a connection by others from same lane
-                    result += '0';
+                    // except for indirect turns
+#ifdef DEBUG_RESPONSE
+                    if (DEBUGCOND) {
+                        std::cout << " c=" << queryCon.getDescription(from) << " prohibitC=" << connected[k].getDescription(*i)
+                                  << " itc=" <<  indirectLeftTurnConflict(from, queryCon, *i, connected[k], false)
+                                  << "\n";
+                    }
+#endif
+                    if (indirectLeftTurnConflict(from, queryCon, *i, connected[k], false)) {
+                        result += '1';
+                    } else {
+                        result += '0';
+                    }
                 } else {
                     assert(connected[k].toEdge != 0);
                     const int idx2 = getIndex(*i, connected[k].toEdge);
@@ -652,9 +668,11 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
                                   << " clfbc=" << checkLaneFoesByClass(queryCon, *i, connected[k])
                                   << " clfbcoop=" << checkLaneFoesByCooperation(from, queryCon, *i, connected[k])
                                   << " lc=" << laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane)
-                                  << " rtc=" << NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)
+                                  << " rtc=" << NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane)
+                                  << " rtc2=" << rightTurnConflict(from, queryCon, *i, connected[k])
                                   << " mc=" << mergeConflict(from, queryCon, *i, connected[k], false)
                                   << " oltc=" << oppositeLeftTurnConflict(from, queryCon, *i, connected[k], false)
+                                  << " itc=" <<  indirectLeftTurnConflict(from, queryCon, *i, connected[k], zipper)
                                   << " rorc=" << myJunction->rightOnRedConflict(c.tlLinkIndex, connected[k].tlLinkIndex)
                                   << " tlscc=" << myJunction->tlsContConflict(from, c, *i, connected[k])
                                   << "\n";
@@ -663,10 +681,11 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
                     const bool hasLaneConflict = (!(checkLaneFoes || checkLaneFoesByClass(queryCon, *i, connected[k])
                                                     || checkLaneFoesByCooperation(from, queryCon, *i, connected[k]))
                                                   || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane));
-                    if ((myForbids[idx2][idx] && hasLaneConflict)
-                            || NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)
-                            || mergeConflict(from, queryCon, *i, connected[k], false)
-                            || oppositeLeftTurnConflict(from, queryCon, *i, connected[k], false)
+                    if (((myForbids[idx2][idx] || (zipper && myForbids[idx][idx2])) && hasLaneConflict)
+                            || rightTurnConflict(from, queryCon, *i, connected[k])
+                            || mergeConflict(from, queryCon, *i, connected[k], zipper)
+                            || oppositeLeftTurnConflict(from, queryCon, *i, connected[k], zipper)
+                            || indirectLeftTurnConflict(from, queryCon, *i, connected[k], zipper)
                             || myJunction->rightOnRedConflict(c.tlLinkIndex, connected[k].tlLinkIndex)
                             || (myJunction->tlsContConflict(from, c, *i, connected[k]) && hasLaneConflict
                                 && !OptionsCont::getOptions().getBool("tls.ignore-internal-junction-jam"))
@@ -716,10 +735,11 @@ NBRequest::getFoesString(NBEdge* from, NBEdge* to, int fromLane, int toLane, con
                                                 || checkLaneFoesByCooperation(from, queryCon, *i, connected[k]))
                                               || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane));
                 if ((foes(from, to, (*i), connected[k].toEdge) && hasLaneConflict)
-                        || NBNode::rightTurnConflict(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)
+                        || rightTurnConflict(from, queryCon, *i, connected[k])
                         || myJunction->turnFoes(from, to, fromLane, *i, connected[k].toEdge, connected[k].fromLane, lefthand)
                         || mergeConflict(from, queryCon, *i, connected[k], true)
                         || oppositeLeftTurnConflict(from, queryCon, *i, connected[k], true)
+                        || indirectLeftTurnConflict(from, queryCon, *i, connected[k], true)
                    ) {
                     result += '1';
                 } else {
@@ -729,6 +749,19 @@ NBRequest::getFoesString(NBEdge* from, NBEdge* to, int fromLane, int toLane, con
         }
     }
     return result;
+}
+
+
+bool
+NBRequest::rightTurnConflict(const NBEdge* from, const NBEdge::Connection& con,
+                             const NBEdge* prohibitorFrom, const NBEdge::Connection& prohibitorCon) const {
+    return (!con.mayDefinitelyPass &&
+            (NBNode::rightTurnConflict(from, con.toEdge, con.fromLane, prohibitorFrom, prohibitorCon.toEdge, prohibitorCon.fromLane)
+             // reverse conflicht (override)
+             || (prohibitorCon.mayDefinitelyPass &&
+                 NBNode::rightTurnConflict(prohibitorFrom, prohibitorCon.toEdge, prohibitorCon.fromLane, from, con.toEdge, con.fromLane))));
+
+
 }
 
 
@@ -754,18 +787,20 @@ NBRequest::mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
         if (myOutgoing.size() == 1) {
             // at on-ramp like situations, right lane should yield
             return bike || (con.fromLane < prohibitorCon.fromLane && !prohibitorBike);
-        } else if (myIncoming.size() == 1) {
-            // at off-ramp like situations, right lane should pass unless it's a bicycle lane
-            return bike || (con.fromLane > prohibitorCon.fromLane && !prohibitorBike);
         } else {
             // priority depends on direction:
             // for right turns the rightmost lane gets priority
             // otherwise the left lane
             LinkDirection dir = myJunction->getDirection(from, con.toEdge);
-            if (dir == LINKDIR_RIGHT || dir == LINKDIR_PARTRIGHT) {
+            if (dir == LinkDirection::RIGHT || dir == LinkDirection::PARTRIGHT) {
                 return con.fromLane > prohibitorCon.fromLane;
             } else {
-                return con.fromLane < prohibitorCon.fromLane;
+                if (myIncoming.size() == 1) {
+                    // at off-ramp like situations, right lane should pass unless it's a bicycle lane
+                    return bike || (con.fromLane > prohibitorCon.fromLane && !prohibitorBike);
+                } else {
+                    return con.fromLane < prohibitorCon.fromLane;
+                }
             }
         }
 
@@ -780,11 +815,11 @@ NBRequest::oppositeLeftTurnConflict(const NBEdge* from, const NBEdge::Connection
                                     const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const {
     LinkDirection dir = myJunction->getDirection(from, con.toEdge);
     // XXX lefthand issue (solve via #4256)
-    if (dir != LINKDIR_LEFT && dir != LINKDIR_PARTLEFT) {
+    if (dir != LinkDirection::LEFT && dir != LinkDirection::PARTLEFT) {
         return false;
     }
     dir = myJunction->getDirection(prohibitorFrom, prohibitorCon.toEdge);
-    if (dir != LINKDIR_LEFT && dir != LINKDIR_PARTLEFT) {
+    if (dir != LinkDirection::LEFT && dir != LinkDirection::PARTLEFT) {
         return false;
     }
     if (from == prohibitorFrom || NBRequest::foes(from, con.toEdge, prohibitorFrom, prohibitorCon.toEdge)) {
@@ -808,6 +843,21 @@ NBRequest::oppositeLeftTurnConflict(const NBEdge* from, const NBEdge::Connection
     } else {
         return false;
     }
+}
+
+bool
+NBRequest::indirectLeftTurnConflict(const NBEdge* from, const NBEdge::Connection& con,
+                                    const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const {
+    if (from == prohibitorFrom) {
+        if (con.indirectLeft) {
+            LinkDirection dir = myJunction->getDirection(prohibitorFrom, prohibitorCon.toEdge);
+            return (dir == LinkDirection::STRAIGHT);
+        } else if (foes && prohibitorCon.indirectLeft) {
+            LinkDirection dir = myJunction->getDirection(from, con.toEdge);
+            return (dir == LinkDirection::STRAIGHT);
+        }
+    }
+    return false;
 }
 
 bool
@@ -913,7 +963,9 @@ NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromL
         }
         if (response.find_first_of("1") == std::string::npos) {
             return false;
-        };
+        } else if (!myJunction->isTLControlled()) {
+            return true;
+        }
         // if the link must respond it could also be due to a tlsConflict. This
         // must not carry over the the off-state response so we continue with
         // the regular check
@@ -943,18 +995,16 @@ NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromL
     }
     // maybe we need to brake due to a right-turn conflict with straight-going
     // bicycles
+    NBEdge::Connection queryCon = from->getConnection(fromLane, to, toLane);
     LinkDirection dir = myJunction->getDirection(from, to);
-    if (dir == LINKDIR_RIGHT || dir == LINKDIR_PARTRIGHT) {
-        const std::vector<NBEdge::Connection>& cons = from->getConnections();
-        for (std::vector<NBEdge::Connection>::const_iterator i = cons.begin(); i != cons.end(); i++) {
-            if (NBNode::rightTurnConflict(from, to, fromLane,
-                                          from, (*i).toEdge, (*i).fromLane)) {
+    if (dir == LinkDirection::RIGHT || dir == LinkDirection::PARTRIGHT) {
+        for (const NBEdge::Connection& fromCon : from->getConnections()) {
+            if (rightTurnConflict(from, queryCon, from, fromCon)) {
                 return true;
             }
         }
     }
     // maybe we need to brake due to a merge conflict
-    NBEdge::Connection queryCon = from->getConnection(fromLane, to, toLane);
     for (EdgeVector::const_reverse_iterator i = myIncoming.rbegin(); i != myIncoming.rend(); i++) {
         int noLanes = (*i)->getNumLanes();
         for (int j = noLanes; j-- > 0;) {
@@ -962,14 +1012,14 @@ NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromL
             const int size = (int) connected.size();
             for (int k = size; k-- > 0;) {
                 if ((*i) == from && fromLane != j
-                        && mergeConflict(from, queryCon, *i, connected[k], myJunction->getType() == NODETYPE_ZIPPER)) {
+                        && mergeConflict(from, queryCon, *i, connected[k], myJunction->getType() == SumoXMLNodeType::ZIPPER)) {
                     return true;
                 }
             }
         }
     }
     // maybe we need to brake due to a zipper conflict
-    if (myJunction->getType() == NODETYPE_ZIPPER) {
+    if (myJunction->getType() == SumoXMLNodeType::ZIPPER) {
         for (int idx1 = 0; idx1 < numLinks(); idx1++) {
             //assert(myDone[idx1][idx2]);
             if (myDone[idx1][idx2] && myForbids[idx2][idx1]) {
@@ -984,7 +1034,7 @@ NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromL
 bool
 NBRequest::mustBrakeForCrossing(const NBNode* node, const NBEdge* const from, const NBEdge* const to, const NBNode::Crossing& crossing) {
     const LinkDirection dir = node->getDirection(from, to);
-    const bool mustYield = dir == LINKDIR_LEFT || dir == LINKDIR_RIGHT;
+    const bool mustYield = dir == LinkDirection::LEFT || dir == LinkDirection::RIGHT;
     if (crossing.priority || mustYield) {
         for (EdgeVector::const_iterator it_e = crossing.edges.begin(); it_e != crossing.edges.end(); ++it_e) {
             // left and right turns must yield to unprioritized crossings only on their destination edge
@@ -1047,10 +1097,26 @@ NBRequest::resetCooperating() {
     }
 }
 
+
+bool
+NBRequest::hasConflict() const {
+    for (int i = 0; i < (int)myFoes.size(); i++) {
+        if (hasConflictAtLink(i)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool
+NBRequest::hasConflictAtLink(int linkIndex) const {
+    return myFoes[linkIndex].find_first_of("1") != std::string::npos;
+}
+
 int
 NBRequest::numLinks() const {
     return (int)(myIncoming.size() * myOutgoing.size() + myJunction->getCrossings().size());
 }
 
-/****************************************************************************/
 
+/****************************************************************************/

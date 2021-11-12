@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed May  6 09:52:06 2020 by Eclipse SUMO GUI Version v1_6_0+0102-8e2def9dd7
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="webster_tls.add.xml"/>
+        <route-files value="background.trips.xml,eastwest.trips.xml"/>
+    </input>
+
+    <processing>
+        <time-to-teleport value="600"/>
+    </processing>
+
+</configuration>

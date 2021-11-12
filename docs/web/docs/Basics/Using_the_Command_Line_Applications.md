@@ -1,10 +1,9 @@
 ---
-title: Basics/Using the Command Line Applications
-permalink: /Basics/Using_the_Command_Line_Applications/
+title: Using the Command Line Applications
 ---
 
 Most of the applications from the SUMO package are command line tools.
-Currently, only [SUMO-GUI](../SUMO-GUI.md) is not. If you do not
+Currently, only [sumo-gui](../sumo-gui.md) and [netedit](../Netedit/index.md) are not. If you do not
 know what a "command line" is, we refer you to the page about [basic computer skills](../Basics/Basic_Computer_Skills.md#running_programs_from_the_command_line).
 
 The following presents some peculiarities of the SUMO-suite
@@ -14,7 +13,7 @@ applications.
 
 SUMO applications are plain executables. You just start them by typing
 their name from the command line; for example
-[NETGENERATE](../NETGENERATE.md) is called by
+[netgenerate](../netgenerate.md) is called by
 
 ```
 netgenerate.exe
@@ -29,22 +28,22 @@ netgenerate
 under Linux.
 
 This simply starts the application
-([NETGENERATE](../NETGENERATE.md) in this case). As no parameter
+([netgenerate](../netgenerate.md) in this case). As no parameter
 has been given, the application does not know what to do and prints only
 an information about itself:
 
 ```
-SUMO netgenerate Version {{Version}}
+Eclipse SUMO netgenerate Version {{Version}}
  Build features: Linux-4.1.39-56-default Proj GDAL GUI
- Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
- License EPLv2: Eclipse Public License Version 2 <https://eclipse.org/legal/epl-v20.html>
+ Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
+ License EPL-2.0: Eclipse Public License Version 2 <https://eclipse.org/legal/epl-v20.html>
  Use --help to get the list of options.
 ```
 
 # Options
 
 Each application has a set of options which define which files shall be
-processed or generated, or which define the application's behaviour.
+processed or generated, or which define the application's behavior.
 Normally, an application needs at least two parameter - an input file
 and an output file - but almost always more parameter are used for a
 fine-grained control. Each application's options are described within
@@ -89,7 +88,7 @@ Please note that an abbreviation is indicated using a single '-'.
 ## Option Value Types
 
 The SUMO applications know what kind of a value they expect to be set.
-For example, [NETGENERATE](../NETGENERATE.md) allows you to set the
+For example, [netgenerate](../netgenerate.md) allows you to set the
 default number of lanes, which of course must be an integer value. In
 the case, a string or something else is given, this is recognized and
 the application answers with an error message on startup. Please note
@@ -120,26 +119,30 @@ configuration file. For the boolean options the value should be either
 For the example above, the configuration file (let's save it under
 "test.sumocfg", see below) would look like:
 
-    <configuration>
-        <input>
-            <net-file value="test.net.xml"/>
-            <route-files value="test.rou.xml"/>
-            <additional-files value="test.add.xml"/>
-        </input>
-    </configuration>
+```xml
+<configuration>
+    <input>
+        <net-file value="test.net.xml"/>
+        <route-files value="test.rou.xml"/>
+        <additional-files value="test.add.xml"/>
+    </input>
+</configuration>
+```
 
 The section `input` given above has only
 documentation purposes and no functional meaning.
 
 A less verbose but equivalent version would look like:
 
-    <configuration>
-        <n v="test.net.xml"/>
-        <r v="test.rou.xml"/>
-        <a v="test.add.xml"/>
-    </configuration>
+```xml
+<configuration>
+    <n v="test.net.xml"/>
+    <r v="test.rou.xml"/>
+    <a v="test.add.xml"/>
+</configuration>
+```
 
-The according [SUMO](../SUMO.md) execution call - working with both
+The according [sumo](../sumo.md) execution call - working with both
 configuration versions - would be:
 
 ```
@@ -157,11 +160,11 @@ sumo.exe test.sumocfg
 
 ## Naming Conventions for Configuration Files
 
-Depending on the targetted application, the configuration files have
+Depending on the targeted application, the configuration files have
 different extensions. It is highly recommended to follow this
 convention. For using simulation configurations with
-[SUMO-GUI](../SUMO-GUI.md) this is even required -
-[SUMO-GUI](../SUMO-GUI.md) can only read simulation configurations
+[sumo-gui](../sumo-gui.md) this is even required -
+[sumo-gui](../sumo-gui.md) can only read simulation configurations
 named "\*.sumocfg".
 
 All conventions for configuration extensions can be found on the page on
@@ -205,11 +208,13 @@ are generated.
 
 It is possible to refer to environment variables in configuration files. The syntax to refer to an environment variable is **${VARNAME}**. For example, your configuration file may reference a variable called **NETFILENAME**, containing the name of a network file, with the following configuration settings.
 
-    <configuration >
-        <input>
-            <net-file value="${NETFILENAME}.net.xml"/>
-        </input>
-    </configuration>
+```
+<configuration>
+    <input>
+        <net-file value="${NETFILENAME}.net.xml"/>
+    </input>
+</configuration>
+```
 
 # Common Options
 
@@ -320,11 +325,21 @@ application.
 !!! note
     Multiple date sources (i.e. detector definitions) are permitted to write to the same output file.
 
+# Time values
+
+## Output
+By default, all time values written by sumo are in seconds. All applications and some python tools support the option **--human-readable-time** (short **-H**) which causes times in the output to be written as "HH:MM:SS" (hours, minutes second). Subsecond times will be written as "HH:MM:SS.SS". If the written time exceeds 24 hours, it will be written as "DD:HH:MM:SS" where DD is the number of days.
+
+Setting the option **--human-readable-time** also affects how some time values are formatted in sumo-gui dialogs (i.e. breakpoints).
+
+## Input
+All time values in options and xml input may always be given as seconds or in "HH:MM:SS" or "DD:HH:MM:SS" format.
+
 # Using Python tools from the Command Line
 
-Many [tools](../Tools.md) that are distributed by SUMO (in the
+Many [tools](../Tools/index.md) that are distributed by SUMO (in the
 {{SUMO}}/tools folder are written in the [python](https://www.python.org/)
-programming language. To use them, **python 2.7** must be [installed on your computer](https://www.python.org/downloads/).
+programming language. To use them, **Python 3.7 or later** must be [installed on your computer](https://www.python.org/downloads/).
 
 Then you need to make sure that the [environment variable *SUMO_HOME*](#additional_environment_variables) is set. The
 easiest way is to open the command-line window using

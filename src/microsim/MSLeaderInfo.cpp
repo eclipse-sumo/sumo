@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSLeaderInfo.cpp
 /// @author  Jakob Erdmann
@@ -14,11 +18,6 @@
 // Information about vehicles ahead (may be multiple vehicles if
 // lateral-resolution is active)
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cassert>
@@ -28,6 +27,7 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSLane.h>
 #include "MSLeaderInfo.h"
 
 
@@ -112,8 +112,8 @@ MSLeaderInfo::getSubLanes(const MSVehicle* veh, double latOffset, int& rightmost
     // map center-line based coordinates into [0, myWidth] coordinates
     const double vehCenter = veh->getLateralPositionOnLane() + 0.5 * myWidth + latOffset;
     const double vehHalfWidth = 0.5 * veh->getVehicleType().getWidth();
-    double rightVehSide = MAX2(0.,  vehCenter - vehHalfWidth);
-    double leftVehSide = MIN2(myWidth, vehCenter + vehHalfWidth);
+    double rightVehSide = vehCenter - vehHalfWidth;
+    double leftVehSide = vehCenter + vehHalfWidth;
     // Reserve some additional space if the vehicle is performing a maneuver continuation.
     if (veh->getActionStepLength() != DELTA_T) {
         if (veh->getLaneChangeModel().getManeuverDist() < 0. || veh->getLaneChangeModel().getSpeedLat() < 0.) {
@@ -125,13 +125,21 @@ MSLeaderInfo::getSubLanes(const MSVehicle* veh, double latOffset, int& rightmost
             leftVehSide += maneuverDist;
         }
     }
-
-    rightmost = MAX2(0, (int)floor((rightVehSide + NUMERICAL_EPS) / MSGlobals::gLateralResolution));
-    leftmost = MIN2((int)myVehicles.size() - 1, (int)floor((leftVehSide - NUMERICAL_EPS) / MSGlobals::gLateralResolution));
-    //if (veh->getID() == "Pepoli_11_41") std::cout << SIMTIME << " veh=" << veh->getID()
+    if (rightVehSide > myWidth || leftVehSide < 0) {
+        // vehicle does not touch this lane
+        // set the values so that an iteration
+        // for (i = rightmost; i  <= leftmost; i++) stops immediately
+        rightmost = -1000;
+        leftmost = -2000;
+    } else {
+        rightmost = MAX2(0, (int)floor((rightVehSide + NUMERICAL_EPS) / MSGlobals::gLateralResolution));
+        leftmost = MIN2((int)myVehicles.size() - 1, (int)floor((leftVehSide - NUMERICAL_EPS) / MSGlobals::gLateralResolution));
+    }
+    //if (veh->getID() == "flow_0.33" && SIMTIME == 264) std::cout << SIMTIME << " veh=" << veh->getID()
     //    << std::setprecision(10)
     //    << " posLat=" << veh->getLateralPositionOnLane()
     //    << " latOffset=" << latOffset
+    //    << " vehCenter=" << vehCenter
     //    << " rightVehSide=" << rightVehSide
     //    << " leftVehSide=" << leftVehSide
     //    << " rightmost=" << rightmost
@@ -181,11 +189,23 @@ MSLeaderInfo::hasStoppedVehicle() const {
         return false;
     }
     for (int i = 0; i < (int)myVehicles.size(); ++i) {
-        if (myVehicles[0] != 0 && myVehicles[0]->isStopped()) {
+        if (myVehicles[i] != 0 && myVehicles[i]->isStopped()) {
             return true;
         }
     }
     return false;
+}
+
+void
+MSLeaderInfo::removeOpposite(const MSLane* lane) {
+    for (int i = 0; i < (int)myVehicles.size(); ++i) {
+        const MSVehicle* veh = myVehicles[i];
+        if (veh != 0 &&
+                (veh->getLaneChangeModel().isOpposite()
+                || &lane->getEdge() != &veh->getLane()->getEdge())) {
+            myVehicles[i] = nullptr;
+        }
+    }
 }
 
 // ===========================================================================
@@ -236,14 +256,14 @@ MSLeaderDistanceInfo::addLeader(const MSVehicle* veh, double gap, double latOffs
     }
     int rightmost, leftmost;
     getSubLanes(veh, latOffset, rightmost, leftmost);
-    for (int sublane = rightmost; sublane <= leftmost; ++sublane) {
-        if ((egoRightMost < 0 || (egoRightMost <= sublane && sublane <= egoLeftMost))
-                && gap < myDistances[sublane]) {
-            if (myVehicles[sublane] == 0) {
+    for (int sublaneIdx = rightmost; sublaneIdx <= leftmost; ++sublaneIdx) {
+        if ((egoRightMost < 0 || (egoRightMost <= sublaneIdx && sublaneIdx <= egoLeftMost))
+                && gap < myDistances[sublaneIdx]) {
+            if (myVehicles[sublaneIdx] == 0) {
                 myFreeSublanes--;
             }
-            myVehicles[sublane] = veh;
-            myDistances[sublane] = gap;
+            myVehicles[sublaneIdx] = veh;
+            myDistances[sublaneIdx] = gap;
             myHasVehicles = true;
         }
     }
@@ -286,16 +306,47 @@ MSLeaderDistanceInfo::toString() const {
     return oss.str();
 }
 
+void
+MSLeaderDistanceInfo::fixOppositeGaps(bool isFollower) {
+    for (int i = 0; i < (int)myVehicles.size(); ++i) {
+        if (myVehicles[i] != nullptr) {
+            if (myVehicles[i]->getLaneChangeModel().isOpposite()) {
+                myDistances[i] -= myVehicles[i]->getVehicleType().getLength();
+            } else if (isFollower && myDistances[i] > POSITION_EPS) {
+                // can ignore oncoming followers once they are past
+                myVehicles[i] = nullptr;
+                myDistances[i] = -1;
+            }
+        }
+    }
+}
+
+CLeaderDist
+MSLeaderDistanceInfo::getClosest() const {
+    double minGap = -1;
+    const MSVehicle* veh = nullptr;
+    if (hasVehicles()) {
+        minGap = std::numeric_limits<double>::max();
+        for (int i = 0; i < (int)myVehicles.size(); ++i) {
+            if (myVehicles[i] != nullptr && myDistances[i] < minGap) {
+                minGap = myDistances[i];
+                veh = myVehicles[i];
+            }
+        }
+    }
+    return std::make_pair(veh, minGap);
+}
 
 // ===========================================================================
 // MSCriticalFollowerDistanceInfo member method definitions
 // ===========================================================================
 
 
-MSCriticalFollowerDistanceInfo::MSCriticalFollowerDistanceInfo(const MSLane* lane, const MSVehicle* ego, double latOffset) :
+MSCriticalFollowerDistanceInfo::MSCriticalFollowerDistanceInfo(const MSLane* lane, const MSVehicle* ego, double latOffset, bool haveOppositeLeaders) :
     MSLeaderDistanceInfo(lane, ego, latOffset),
-    myMissingGaps(myVehicles.size(), -std::numeric_limits<double>::max()) {
-}
+    myMissingGaps(myVehicles.size(), -std::numeric_limits<double>::max()),
+    myHaveOppositeLeaders(haveOppositeLeaders)
+{ }
 
 
 MSCriticalFollowerDistanceInfo::~MSCriticalFollowerDistanceInfo() { }
@@ -306,7 +357,8 @@ MSCriticalFollowerDistanceInfo::addFollower(const MSVehicle* veh, const MSVehicl
     if (veh == nullptr) {
         return myFreeSublanes;
     }
-    const double requiredGap = veh->getCarFollowModel().getSecureGap(veh, ego, veh->getSpeed(), ego->getSpeed(), ego->getCarFollowModel().getMaxDecel());
+    const double requiredGap = (myHaveOppositeLeaders ? 0
+                                : veh->getCarFollowModel().getSecureGap(veh, ego, veh->getSpeed(), ego->getSpeed(), ego->getCarFollowModel().getMaxDecel()));
     const double missingGap = requiredGap - gap;
     /*
     if (ego->getID() == "disabled" || gDebugFlag1) {
@@ -354,22 +406,22 @@ MSCriticalFollowerDistanceInfo::addFollower(const MSVehicle* veh, const MSVehicl
     }
     int rightmost, leftmost;
     getSubLanes(veh, latOffset, rightmost, leftmost);
-    for (int sublane = rightmost; sublane <= leftmost; ++sublane) {
-        if ((egoRightMost < 0 || (egoRightMost <= sublane && sublane <= egoLeftMost))
+    for (int sublaneIdx = rightmost; sublaneIdx <= leftmost; ++sublaneIdx) {
+        if ((egoRightMost < 0 || (egoRightMost <= sublaneIdx && sublaneIdx <= egoLeftMost))
                 // overlapping vehicles are stored preferably
                 // among those vehicles with missing gap, closer ones are preferred
-                && (missingGap > myMissingGaps[sublane]
-                    || (missingGap > 0 && gap < myDistances[sublane])
-                    || (gap < 0 && myDistances[sublane] > 0))
-                && !(gap > 0 && myDistances[sublane] < 0)
-                && !(myMissingGaps[sublane] > 0 && myDistances[sublane] < gap)
+                && (missingGap > myMissingGaps[sublaneIdx]
+                    || (missingGap > 0 && gap < myDistances[sublaneIdx])
+                    || (gap < 0 && myDistances[sublaneIdx] > 0))
+                && !(gap > 0 && myDistances[sublaneIdx] < 0)
+                && !(myMissingGaps[sublaneIdx] > 0 && myDistances[sublaneIdx] < gap)
            ) {
-            if (myVehicles[sublane] == 0) {
+            if (myVehicles[sublaneIdx] == 0) {
                 myFreeSublanes--;
             }
-            myVehicles[sublane] = veh;
-            myDistances[sublane] = gap;
-            myMissingGaps[sublane] = missingGap;
+            myVehicles[sublaneIdx] = veh;
+            myDistances[sublaneIdx] = gap;
+            myMissingGaps[sublaneIdx] = missingGap;
             myHasVehicles = true;
         }
     }
@@ -403,5 +455,6 @@ MSCriticalFollowerDistanceInfo::toString() const {
     oss << " free=" << myFreeSublanes;
     return oss.str();
 }
-/****************************************************************************/
 
+
+/****************************************************************************/

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIPerson.h
 /// @author  Daniel Krajzewicz
@@ -16,24 +20,19 @@
 ///
 // A MSVehicle extended by some values for usage within the gui
 /****************************************************************************/
-#ifndef GUIPerson_h
-#define GUIPerson_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <vector>
 #include <set>
 #include <string>
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/common/RGBColor.h>
-#include <microsim/pedestrians/MSPerson.h>
+#include <microsim/transportables/MSPerson.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/settings/GUIPropertySchemeStorage.h>
+#include "GUIBaseVehicle.h"
 
 
 // ===========================================================================
@@ -68,7 +67,7 @@ public:
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
     /** @brief Returns an own parameter window
      *
@@ -77,7 +76,7 @@ public:
      * @return The built parameter window
      * @see GUIGlObject::getParameterWindow
      */
-    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
+    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
     /** @brief Returns an own type parameter window
      *
@@ -85,52 +84,65 @@ public:
      * @param[in] parent The parent window needed to build the parameter window
      * @return The built parameter window
      */
-    GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
+    GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
+
+    /// @brief return exaggeration asociated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const override;
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
      * @return The boundary the object is within
      * @see GUIGlObject::getCenteringBoundary
      */
-    Boundary getCenteringBoundary() const;
+    Boundary getCenteringBoundary() const override;
 
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings& s) const;
+    void drawGL(const GUIVisualizationSettings& s) const override;
 
     /** @brief Draws additionally triggered visualisations
      * @param[in] parent The view
      * @param[in] s The settings for the current view (may influence drawing)
      */
-    virtual void drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const;
+    virtual void drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const override;
     //* @}
+
+    /* @brief proceeds to the next step of the route,
+     * @return Whether the transportables plan continues  */
+    bool proceed(MSNet* net, SUMOTime time, const bool vehicleArrived = false) override;
 
     /* @brief set the position of a person while riding in a vehicle
      * @note This must be called by the vehicle before the call to drawGl */
-    void setPositionInVehicle(const Position& pos);
+    void setPositionInVehicle(const GUIBaseVehicle::Seat& pos);
 
     /// @name inherited from MSPerson with added locking
     /// @{
     /// @brief return the offset from the start of the current edge
-    double getEdgePos() const;
+    double getEdgePos() const override;
+
+    /// @brief Return the movement directon on the edge
+    int getDirection() const override;
 
     /// @brief return the Network coordinate of the person
     // @note overrides the base method and returns myPositionInVehicle while in driving stage
-    Position getPosition() const;
+    Position getPosition() const override;
 
     /// @brief return the Network coordinate of the person (only for drawing centering and tracking)
-    Position getGUIPosition() const;
+    Position getGUIPosition(const GUIVisualizationSettings* s = nullptr) const;
+
+    /// @brief return the angle of the person (only for drawing centering and tracking)
+    double getGUIAngle() const;
 
     /// @brief return the current angle of the person
     double getNaviDegree() const;
 
     /// @brief the time this person spent waiting in seconds
-    double getWaitingSeconds() const;
+    double getWaitingSeconds() const override;
 
     /// @brief the current speed of the person
-    double getSpeed() const;
+    double getSpeed() const override;
 
     /// @brief get stage index description
     std::string getStageIndexDescription() const;
@@ -150,7 +162,7 @@ public:
     //@}
 
     /// @brief whether this person is selected in the GUI
-    bool isSelected() const;
+    bool isSelected() const override;
 
     /**
      * @class GUIPersonPopupMenu
@@ -232,7 +244,7 @@ public:
      * @param[in] which The visualisation feature to enable
      * @see GUISUMOAbstractView::removeAdditionalGLVisualisation
      */
-    void removeActiveAddVisualisation(GUISUMOAbstractView* const parent, int which);
+    void removeActiveAddVisualisation(GUISUMOAbstractView* const parent, int which) override;
 
     /// @}
 
@@ -241,7 +253,7 @@ private:
     void setColor(const GUIVisualizationSettings& s) const;
 
     /// @brief gets the color value according to the current scheme index
-    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
+    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const override;
 
     /// @brief sets the color according to the current scheme index and some vehicle function
     bool setFunctionalColor(int activeScheme) const;
@@ -249,18 +261,15 @@ private:
     /// @brief draw walking area path
     void drawAction_drawWalkingareaPath(const GUIVisualizationSettings& s) const;
 
+    /// @brief whether the person is jammed as defined by the current pedestrian model
+    bool isJammed() const;
+
     /// The mutex used to avoid concurrent updates of the vehicle buffer
     mutable FXMutex myLock;
 
     /// The position of a person while riding a vehicle
-    Position myPositionInVehicle;
+    GUIBaseVehicle::Seat myPositionInVehicle;
 
     /// @brief Enabled visualisations, per view
     std::map<GUISUMOAbstractView*, int> myAdditionalVisualizations;
 };
-
-
-#endif
-
-/****************************************************************************/
-

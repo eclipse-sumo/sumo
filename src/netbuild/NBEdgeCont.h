@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NBEdgeCont.h
 /// @author  Daniel Krajzewicz
@@ -15,13 +19,7 @@
 ///
 // Storage for edges, including some functionality operating on multiple edges
 /****************************************************************************/
-#ifndef NBEdgeCont_h
-#define NBEdgeCont_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <map>
@@ -48,6 +46,7 @@ class NBNode;
 class NBDistrictCont;
 class NBTrafficLightLogicCont;
 class NBPTStopCont;
+class NBPTLineCont;
 
 
 // ===========================================================================
@@ -411,11 +410,13 @@ public:
      * Calls "NBEdge::appendTurnaround" for all edges within the container.
      *
      * @param[in] noTLSControlled Whether the turnaround shall not be connected if the edge is controlled by a tls
-     * @param[in] exceptDeadends Whether the turnaround shall only be built at deadends
-     * @todo Recheck whether a visitor-pattern should be used herefor
+     * @param[in] noFringe Whether the turnaround shall not be connected if the junction is at the (outer) fringe
+     * @param[in] onlyDeadends Whether the turnaround shall only be built at deadends
+     * @param[in] onlyTurnlane Whether the turnaround shall only be built when there is an exclusive (left) turn lane
+     * @param[in] noGeometryLike Whether the turnaround shall be built at geometry-like nodes
      * @see NBEdge::appendTurnaround
      */
-    void appendTurnarounds(bool noTLSControlled, bool onlyDeadends, bool noGeometryLike);
+    void appendTurnarounds(bool noTLSControlled, bool noFringe, bool onlyDeadends, bool onlyTurnlane, bool noGeometryLike);
 
 
     /** @brief Appends turnarounds to all edges stored in the container
@@ -536,11 +537,16 @@ public:
      * @param[in] warnOnly Whether a failure to set this connection should only result in a warning
      */
     void addPostProcessConnection(const std::string& from, int fromLane, const std::string& to, int toLane, bool mayDefinitelyPass,
-                                  bool keepClear, double contPos, double visibility, double speed,
+                                  KeepClear keepClear, double contPos, double visibility,
+                                  double speed, double length,
                                   const PositionVector& customShape,
                                   bool uncontrolled,
                                   bool warnOnly,
-                                  SVCPermissions permissions = SVC_UNSPECIFIED);
+                                  SVCPermissions permissions = SVC_UNSPECIFIED,
+                                  bool indirectLeft = false,
+                                  const std::string& edgeType = "",
+                                  SVCPermissions changeLeft = SVC_UNSPECIFIED,
+                                  SVCPermissions changeRight = SVC_UNSPECIFIED);
 
     bool hasPostProcessConnection(const std::string& from, const std::string& to = "");
 
@@ -554,7 +560,8 @@ public:
     void generateStreetSigns();
 
     /// @brief add sidwalks to edges within the given limits or permissions and return the number of edges affected
-    int guessSpecialLanes(SUMOVehicleClass svc, double width, double minSpeed, double maxSpeed, bool fromPermissions, const std::string& excludeOpt);
+    int guessSpecialLanes(SUMOVehicleClass svc, double width, double minSpeed, double maxSpeed, bool fromPermissions, const std::string& excludeOpt,
+            NBTrafficLightLogicCont& tlc);
 
 
     /** @brief Returns the determined roundabouts
@@ -562,11 +569,17 @@ public:
      */
     const std::set<EdgeSet> getRoundabouts() const;
 
+    bool hasGuessedRoundabouts() const {
+        return myGuessedRoundabouts.size() > 0;
+    }
+
     /// @brief add user specified roundabout
     void addRoundabout(const EdgeSet& roundabout);
 
     /// @brief remove roundabout that contains the given node
     void removeRoundabout(const NBNode* node);
+    /// @brief remove edges from all stored roundabouts
+    void removeRoundaboutEdges(const EdgeSet& toRemove);
 
     /// @brief mark edge priorities and prohibit turn-arounds for all roundabout edges
     void markRoundabouts();
@@ -598,13 +611,24 @@ public:
     /// @brief join adjacent lanes with the given permissions
     int joinLanes(SVCPermissions perms);
 
+    /// @brief join tram edges into adjacent lanes
+    int joinTramEdges(NBDistrictCont& dc, NBPTStopCont& sc, NBPTLineCont& lc, double maxDist);
+
     /// @brief return all edges
     EdgeVector getAllEdges() const;
     RouterEdgeVector getAllRouterEdges() const;
 
+    /// @brief ensure that all edges have valid nodes
+    bool checkConsistency(const NBNodeCont& nc);
+
+    /// @brief modify all restrictions on lane changing for edges and connections
+    void updateAllChangeRestrictions(SVCPermissions ignoring);
+
 private:
     /// @brief compute the form factor for a loop of edges
     static double formFactor(const EdgeVector& loopEdges);
+
+    void removeRoundaboutEdges(const EdgeSet& toRemove, std::set<EdgeSet>& roundabouts);
 
 private:
     /// @brief The network builder; used to obtain type information
@@ -623,16 +647,27 @@ private:
          * @param[in] mayDefinitelyPass Whether the connection may be passed without braking
          */
         PostProcessConnection(const std::string& from_, int fromLane_, const std::string& to_, int toLane_,
-                              bool mayDefinitelyPass_, bool keepClear_, double contPos_, double visibility_, double speed_,
+                              bool mayDefinitelyPass_, KeepClear keepClear_, double contPos_, double visibility_, double speed_,
+                              double length_,
                               const PositionVector& customShape_,
                               bool uncontrolled_,
-                              bool warnOnly_, SVCPermissions permissions_) :
+                              bool warnOnly_,
+                              SVCPermissions permissions_,
+                              bool indirectLeft_,
+                              const std::string& edgeType_,
+                              SVCPermissions changeLeft_,
+                              SVCPermissions changeRight_) :
             from(from_), fromLane(fromLane_), to(to_), toLane(toLane_), mayDefinitelyPass(mayDefinitelyPass_), keepClear(keepClear_), contPos(contPos_),
             visibility(visibility_),
             speed(speed_),
+            customLength(length_),
             customShape(customShape_),
             uncontrolled(uncontrolled_),
             permissions(permissions_),
+            indirectLeft(indirectLeft_),
+            edgeType(edgeType_),
+            changeLeft(changeLeft_),
+            changeRight(changeRight_),
             warnOnly(warnOnly_)
         {}
         /// @brief The id of the edge the connection starts at
@@ -646,19 +681,29 @@ private:
         /// @brief Whether the connection may be passed without braking
         bool mayDefinitelyPass;
         /// @brief Whether the connection may be passed without braking
-        bool keepClear;
+        KeepClear keepClear;
         /// @brief custom position for internal junction on this connection
         double contPos;
         /// @brief custom foe visiblity for connection
         double visibility;
         /// @brief custom speed for connection
         double speed;
+        /// @brief custom length for connection
+        double customLength;
         /// @brief custom shape for connection
         PositionVector customShape;
         /// @brief whether this connection shall not be controlled by a traffic light
         bool uncontrolled;
         /// @brief custom permissions for connection
         SVCPermissions permissions;
+        /// @brief whether this connection is an indirect left turn
+        bool indirectLeft;
+        /// @brief custom edge type
+        std::string edgeType;
+        /// @brief custom lane changing permissions for connection
+        SVCPermissions changeLeft;
+        /// @brief custom lane changing permissions for connection
+        SVCPermissions changeRight;
         /// @brief whether a failure to set this connection is a warning or an error
         bool warnOnly;
     };
@@ -744,9 +789,3 @@ private:
     NBEdgeCont& operator=(const NBEdgeCont& s);
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

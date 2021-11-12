@@ -1,0 +1,7 @@
+<routes>
+    <vType id="fast" maxSpeed="50"/>
+    <trip id="left" type="fast" depart="0" from="beg" to="left"/>
+    <vType id="slow" maxSpeed="5"/>
+    <trip id="middle" type="slow" depart="0" from="middle" to="end"/>
+    <trip id="end" type="slow" depart="0" from="beg" to="end"/>
+</routes>

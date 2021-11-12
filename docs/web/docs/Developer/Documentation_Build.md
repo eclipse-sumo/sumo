@@ -1,6 +1,5 @@
 ---
-title: Developer/Documentation Build
-permalink: /Developer/Documentation_Build/
+title: Documentation Build
 ---
 
 You can read the SUMO Documentation online at: <https://sumo.dlr.de/docs/>
@@ -11,6 +10,16 @@ In summary, the documentation works as follows:
 
 - The documentation is being "developed" or "written" as Markdown files, located in the [SUMO GitHub repository](https://github.com/eclipse/sumo/tree/master/docs/web)
 - The static HTML sites are being generated using MkDocs and certain MkDocs-plugins
+
+# Requirements
+Building the documentation requires the python3-version of mkdocs along with several plugins. The complete plugins list is contained in the `requirements.txt` file in the `docs/web/` directory. These can be installed with pip using:
+```
+ pip install -r requirements.txt
+```
+You also need to install the plantuml package
+```
+ sudo apt install plantuml
+```
 
 # Documentation Parts
 
@@ -34,8 +43,10 @@ The necessary files are as follows:
 
 ## Static HTML pages
 
-The HTML pages are being build using the Markdown files. The final pages are available to read at the [online Documentation](https://sumo.dlr.de/docs/). Altough the Documentation [Source files](#source_files) are included in the repository, the final Static HTML pages are not. In order to get a local copy of this pages, follow the [static HTML site generation](#static_html_site_generation) instructions.
+The HTML pages are being build using the Markdown files. The final pages are available to read at the [online Documentation](https://sumo.dlr.de/docs/). Although the Documentation [Source files](#source_files) are included in the repository, the final Static HTML pages are not. In order to get a local copy of this pages, follow the [static HTML site generation](#static_html_site_generation) instructions.
 
 # Static HTML site generation
 
 The static HTML site generation is explained here: <https://github.com/eclipse/sumo/blob/master/docs/web/README.md>
+
+It can be triggered (from within the DLR network) via <https://sumo.dlr.de/generate-documentation.php> (or for a complete rebuild, via <https://sumo.dlr.de/generate-documentation.php?type=complete>).

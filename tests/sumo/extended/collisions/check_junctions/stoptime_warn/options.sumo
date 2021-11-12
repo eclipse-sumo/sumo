@@ -1,0 +1,8 @@
+--no-step-log -t --net-file=net2.net.xml 
+--route-files input_routes.rou.xml 
+--collision.check-junctions
+--collision.action warn
+--collision.stoptime 10
+--step-length 0.5
+-e 1000
+

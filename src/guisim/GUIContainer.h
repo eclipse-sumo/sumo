@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIContainer.h
 /// @author  Melanie Weber
@@ -14,24 +18,19 @@
 ///
 // A MSVehicle extended by some values for usage within the gui
 /****************************************************************************/
-#ifndef GUIContainer_h
-#define GUIContainer_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <vector>
 #include <set>
 #include <string>
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/common/RGBColor.h>
-#include <microsim/MSContainer.h>
+#include <microsim/transportables/MSTransportable.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/settings/GUIPropertySchemeStorage.h>
+#include "GUIBaseVehicle.h"
 
 
 // ===========================================================================
@@ -48,16 +47,14 @@ class MSDevice_Vehroutes;
 /**
  * @class GUIContainer
  */
-class GUIContainer : public MSContainer, public GUIGlObject {
+class GUIContainer : public MSTransportable, public GUIGlObject {
 public:
     /** @brief Constructor
      */
     GUIContainer(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan);
 
-
     /// @brief destructor
     ~GUIContainer();
-
 
     /// @name inherited from GUIGlObject
     //@{
@@ -69,8 +66,7 @@ public:
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
-
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
     /** @brief Returns an own parameter window
      *
@@ -79,7 +75,7 @@ public:
      * @return The built parameter window
      * @see GUIGlObject::getParameterWindow
      */
-    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
+    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
     /** @brief Returns an own type parameter window
      *
@@ -87,34 +83,34 @@ public:
      * @param[in] parent The parent window needed to build the parameter window
      * @return The built parameter window
      */
-    GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
+    GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
+
+    /// @brief return exaggeration asociated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const override;
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
      * @return The boundary the object is within
      * @see GUIGlObject::getCenteringBoundary
      */
-    Boundary getCenteringBoundary() const;
-
+    Boundary getCenteringBoundary() const override;
 
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings& s) const;
-
-
+    void drawGL(const GUIVisualizationSettings& s) const override;
 
     /** @brief Draws additionally triggered visualisations
      * @param[in] parent The view
      * @param[in] s The settings for the current view (may influence drawing)
      */
-    virtual void drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const;
+    virtual void drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const override;
     //@}
 
     /* @brief set the position of a container while being transported by a vehicle
      * @note This must be called by the vehicle before the call to drawGl */
-    void setPositionInVehicle(const Position& pos) {
+    void setPositionInVehicle(const GUIBaseVehicle::Seat& pos) {
         myPositionInVehicle = pos;
     }
 
@@ -122,23 +118,28 @@ public:
     //@{
 
     /// @brief return the offset from the start of the current edge
-    double getEdgePos() const;
+    double getEdgePos() const override;
+
+    /// @brief Return the movement directon on the edge
+    int getDirection() const override;
 
     /// @brief return the Network coordinate of the container
     // @note overrides the base method and returns myPositionInVehicle while in driving stage
-    Position getPosition() const;
+    Position getPosition() const override;
 
     /// @brief return the current angle of the container
-    double getAngle() const;
+    double getAngle() const override;
 
     /// @brief the time this container spent waiting in seconds
-    double getWaitingSeconds() const;
+    double getWaitingSeconds() const override;
 
     /// @brief the current speed of the container
-    double getSpeed() const;
+    double getSpeed() const override;
 
     //@}
 
+    /// @brief whether this container is selected in the GUI
+    bool isSelected() const override;
 
     /**
      * @class GUIContainerPopupMenu
@@ -185,13 +186,13 @@ private:
     mutable FXMutex myLock;
 
     /// The position of a container while riding a vehicle
-    Position myPositionInVehicle;
+    GUIBaseVehicle::Seat myPositionInVehicle;
 
     /// @brief sets the color according to the currente settings
     void setColor(const GUIVisualizationSettings& s) const;
 
     /// @brief gets the color value according to the current scheme index
-    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
+    double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const override;
 
     /// @brief sets the color according to the current scheme index and some vehicle function
     bool setFunctionalColor(int activeScheme) const;
@@ -202,9 +203,3 @@ private:
     void drawAction_drawAsImage(const GUIVisualizationSettings& s) const;
     /// @}
 };
-
-
-#endif
-
-/****************************************************************************/
-

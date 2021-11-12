@@ -1,0 +1,3 @@
+Error: Disconnected route 'r0' when repeating.
+Error: Vehicle '0' has no valid route. No connection between edge 'NC' and edge 'SC'.
+Quitting (on error).

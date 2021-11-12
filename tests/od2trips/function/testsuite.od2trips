@@ -24,3 +24,6 @@ default_arrivalpos
 
 # Default arrivalspeed
 default_arrivalspeed
+
+# define trips between junctions instead of edges
+junctionTrips

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 14 Apr 2021 08:28:11 AM CEST by Eclipse SUMO netedit Version v1_9_0+0035-808056e
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <new value="true"/>
+    </input>
+
+    <output>
+        <output-file value="/localdata2/debug/8466_small/net.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <netedit>
+        <route-files value="/localdata2/debug/8466_small/input_routes.rou.xml"/>
+    </netedit>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="t0" speedDev="0.2" tau="0.8" accel="3" decel="2.5"/>
+    <route edges="gneE0" color="yellow" id="r0"/>
+    <flow id="a" type="t0" begin="0.00" departSpeed="max" route="r0" end="100000.00" probability="0.5" departLane="random"/>
+</routes>

@@ -1,7 +1,8 @@
 ---
-title: Z/Changes from version 0.8.x to version 0.9.0
-permalink: /Z/Changes_from_version_0.8.x_to_version_0.9.0/
+title: Changes from version 0.8.x to version 0.9.0
 ---
+
+**Release date: 07.10.2005**
 
 User-relevant changes:
 
@@ -32,7 +33,7 @@ User-relevant changes:
     - Errors on default value usage patched
 - Documentation
   - trying to separate XML-code (green) from command line options (red)
-- Netconvert
+- netconvert
   - \--map-output <FILE\> builds a mapping that shows which edges have been removed while joining
   - guess-tls - options added
   - extended the FastLane-import by the -l parameter for the number of lanes

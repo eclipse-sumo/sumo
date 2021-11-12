@@ -39,3 +39,12 @@ taz
 
 # cutting person plans
 person
+flows
+heterogeneous
+
+# parsing vehroute output
+vehroutes
+
+# Use vehicle attributes departEdge and arrivalEdge
+departEdge
+pt

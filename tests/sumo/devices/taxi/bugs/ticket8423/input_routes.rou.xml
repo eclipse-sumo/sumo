@@ -1,0 +1,54 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+
+  <vType id="ridepooling-car" vClass="taxi" accel="2.6" decel="4.5" sigma="0.5"  length="7" maxSpeed="30" personCapacity="5" boardingDuration="2.5" color="1,0,0">
+      <param key="has.taxi.device" value="true"/>
+      <param key="device.taxi.idle-algorithm" value="randomCircling"/>
+  </vType>
+
+  <vehicle id="rc_0" type="ridepooling-car" depart="5" line="taxi">
+      <route edges="gneE8" />
+  </vehicle>
+
+  <person id="p_0" depart='10'>
+      <walk from="gneE10" busStop="busStop_gneE10_0_1"/>
+      <ride busStop='busStop_gneE36_0_0' lines='taxi'/>
+  </person>
+  
+    <person id="p_1" depart='150'>
+      <walk from="gneE10" busStop="busStop_gneE10_0_1"/>
+      <ride busStop='busStop_gneE36_0_0' lines='taxi'/>
+  </person>
+    <person id="p_2" depart='290'>
+      <walk from="gneE10" busStop="busStop_gneE10_0_1"/>
+      <ride busStop='busStop_gneE36_0_0' lines='taxi'/>
+  </person>
+    <person id="p_3" depart='430'>
+      <walk from="gneE10" busStop="busStop_gneE10_0_1"/>
+      <ride busStop='busStop_gneE36_0_0' lines='taxi'/>
+  </person>
+    <person id="p_4" depart='570'>
+      <walk from="gneE10" busStop="busStop_gneE10_0_1"/>
+      <ride busStop='busStop_gneE36_0_0' lines='taxi'/>
+  </person>
+    <person id="p_5" depart='710'>
+      <walk from="gneE10" busStop="busStop_gneE10_0_1"/>
+      <ride busStop='busStop_gneE36_0_0' lines='taxi'/>
+  </person>
+    <person id="p_6" depart='850'>
+      <walk from="gneE10" busStop="busStop_gneE10_0_1"/>
+      <ride busStop='busStop_gneE36_0_0' lines='taxi'/>
+  </person>
+    <person id="p_7" depart='960'>
+      <walk from="gneE10" busStop="busStop_gneE10_0_1"/>
+      <ride busStop='busStop_gneE36_0_0' lines='taxi'/>
+  </person>
+    <person id="p_8" depart='1100'>
+      <walk from="gneE10" busStop="busStop_gneE10_0_1"/>
+      <ride busStop='busStop_gneE36_0_0' lines='taxi'/>
+  </person>
+    <person id="p_9" depart='1240'>
+      <walk from="gneE10" busStop="busStop_gneE10_0_1"/>
+      <ride busStop='busStop_gneE36_0_0' lines='taxi'/>
+  </person>
+
+</routes>

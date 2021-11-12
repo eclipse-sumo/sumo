@@ -1,0 +1,20 @@
+# all options at their default values
+defaults
+
+# do not compute node shapes
+default-1
+
+# set a non-default node-radius
+radius0
+
+# set a non-default node-radius
+radius5
+
+# set a non-default node-radius
+default1
+
+# set a non-default node-radius
+default10
+
+# default radius lower than configure small-radius
+default1_error

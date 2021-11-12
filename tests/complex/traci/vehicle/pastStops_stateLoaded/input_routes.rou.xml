@@ -1,0 +1,8 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="bus" vClass="bus"/>
+    <route id="r1" edges="CN NC CS SC" repeat="5" cycleTime="120">
+        <stop lane="NC_0" until="20" duration="10"/>
+        <stop lane="SC_0" until="80" duration="8"/>
+    </route>
+    <vehicle id="bus" type="bus" line="B7" depart="0" route="r1"/>
+</routes>

@@ -1,0 +1,7 @@
+default
+
+# follower vehicle far away as to have no impact
+follower_far_away
+speedFactor_0.5
+speedFactor_1.5
+maxSpeed

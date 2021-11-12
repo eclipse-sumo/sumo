@@ -1,0 +1,6 @@
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.secondary' (first occurence for edge '142944424').
+Warning: Discarding unknown compound 'cycleway.use_sidepath' in type 'cycleway.use_sidepath|highway.secondary' (first occurence for edge '188015326').
+Warning: No way found for reference '23138735' in relation '2459156'
+Warning: Ignoring restriction relation '2459156' with unknown to-way.
+Warning: The traffic light '583485655' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '583485655'

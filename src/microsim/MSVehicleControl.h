@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSVehicleControl.h
 /// @author  Daniel Krajzewicz
@@ -15,13 +19,7 @@
 ///
 // The class responsible for building and deletion of vehicles
 /****************************************************************************/
-#ifndef MSVehicleControl_h
-#define MSVehicleControl_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <cmath>
@@ -29,7 +27,7 @@
 #include <map>
 #include <set>
 #ifdef HAVE_FOX
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <utils/foxtools/FXSynchQue.h>
 #endif
 #include <utils/distribution/RandomDistributor.h>
@@ -43,6 +41,7 @@
 // ===========================================================================
 class SUMOVehicle;
 class SUMOVehicleParameter;
+class MSBaseVehicle;
 class MSVehicle;
 class MSRoute;
 class MSVehicleType;
@@ -81,6 +80,8 @@ public:
     /// @brief Destructor
     virtual ~MSVehicleControl();
 
+    /// @brief create default types
+    void initDefaultTypes();
 
     /// @name Vehicle creation
     /// @{
@@ -142,6 +143,11 @@ public:
      */
     virtual void deleteVehicle(SUMOVehicle* v, bool discard = false);
 
+    void fixVehicleCounts() {
+        myLoadedVehNo++;
+        myEndedVehNo++;
+        myDiscarded++;
+    }
 
     /** @brief Removes a vehicle after it has ended
      *
@@ -271,9 +277,10 @@ public:
      * considering that "frac" of all vehicles shall be emitted overall
      * if a negative fraction is given the demand scaling factor is used
      * (--scale)
+     * if a negative loaded number is is given, myLoadedVehNo is used
      * @return the number of vehicles to create (something between 0 and ceil(frac))
      */
-    int getQuota(double frac = -1) const;
+    int getQuota(double frac = -1, int loaded = -1) const;
 
 
     /** @brief Returns the number of build vehicles that have not been removed or
@@ -281,13 +288,18 @@ public:
      * @return Number of active vehicles
      */
     int getActiveVehicleCount() const {
-        return myLoadedVehNo - (myWaitingForPerson + myWaitingForContainer + myEndedVehNo);
+        return myLoadedVehNo - (myWaitingForTransportable + myEndedVehNo);
     }
 
 
     /// @brief return the number of collisions
     int getCollisionCount() const {
         return myCollisions;
+    }
+
+    /// @brief return the number of collisions
+    int getTeleportsCollisions() const {
+        return myTeleportsCollision;
     }
 
     /// @brief return the number of teleports due to jamming
@@ -311,6 +323,11 @@ public:
     /// @brief return the number of emergency stops
     int getEmergencyStops() const {
         return myEmergencyStops;
+    }
+
+    /// @brief return the number of vehicles that are currently stopped
+    int getStoppedVehiclesCount() const {
+        return myStoppedVehicles;
     }
 
     /** @brief Returns the total departure delay
@@ -395,7 +412,7 @@ public:
      * @param[in] id The id of the vehicle type to return. If left out, the default type is returned.
      * @return The named vehicle type, or nullptr if no such type exists
      */
-    MSVehicleType* getVType(const std::string& id = DEFAULT_VTYPE_ID, std::mt19937* rng = nullptr);
+    MSVehicleType* getVType(const std::string& id = DEFAULT_VTYPE_ID, SumoRNG* rng = nullptr, bool readOnly = false);
 
 
     /** @brief Inserts ids of all known vehicle types and vehicle type distributions to the given vector
@@ -409,31 +426,29 @@ public:
     */
     const std::set<std::string> getVTypeDistributionMembership(const std::string& id) const;
 
+    /// @brief return the vehicle type distribution with the given id
+    const RandomDistributor<MSVehicleType*>* getVTypeDistribution(const std::string& typeDistID) const;
+
     /// @}
 
     /** @brief increases the count of vehicles waiting for a transport to allow recognition of person / container related deadlocks
      */
-    void registerOneWaiting(const bool isPerson) {
-        if (isPerson) {
-            myWaitingForPerson++;
-        } else {
-            myWaitingForContainer++;
-        }
+    void registerOneWaiting() {
+        myWaitingForTransportable++;
     }
 
     /** @brief decreases the count of vehicles waiting for a transport to allow recognition of person / container related deadlocks
      */
-    void unregisterOneWaiting(const bool isPerson) {
-        if (isPerson) {
-            myWaitingForPerson--;
-        } else {
-            myWaitingForContainer--;
-        }
+    void unregisterOneWaiting() {
+        myWaitingForTransportable--;
     }
 
     /// @brief registers one collision-related teleport
-    void registerCollision() {
+    void registerCollision(bool teleport) {
         myCollisions++;
+        if (teleport) {
+            myTeleportsCollision++;
+        }
     }
 
     /// @brief register one non-collision-related teleport
@@ -456,6 +471,16 @@ public:
         myEmergencyStops++;
     }
 
+    /// @brief register emergency stop
+    void registerStopStarted() {
+        myStoppedVehicles++;
+    }
+
+    /// @brief register emergency stop
+    void registerStopEnded() {
+        myStoppedVehicles--;
+    }
+
     /// @name State I/O
     /// @{
 
@@ -466,17 +491,16 @@ public:
     /** @brief Saves the current state into the given stream
      */
     void saveState(OutputDevice& out);
+
+    /** @brief Remove all vehicles before quick-loading state */
+    void clearState();
     /// @}
 
-    /// @brief avoid counting a vehicle twice if it was loaded from state and route input
-    void discountStateLoaded(bool removed = false) {
-        if (removed) {
-            myRunningVehNo--;
-            myDiscarded++;
-            myEndedVehNo++;
-        } else {
-            myLoadedVehNo--;
-        }
+    /// @brief discount vehicles that were removed during state loading
+    void discountStateRemoved(int n) {
+        myRunningVehNo -= n;
+        myDiscarded += n;
+        myEndedVehNo += n;
     }
 
 
@@ -501,6 +525,11 @@ public:
         myScale = scale;
     }
 
+    /// @brief sets the demand scaling factor
+    double getScale() const {
+        return myScale;
+    }
+
 private:
     /** @brief Checks whether the vehicle type (distribution) may be added
      *
@@ -514,13 +543,15 @@ private:
     bool isPendingRemoval(SUMOVehicle* veh);
 
 protected:
+    void initVehicle(MSBaseVehicle* built, const bool ignoreStopErrors);
+
+private:
     /// @name Vehicle statistics (always accessible)
     /// @{
 
     /// @brief The number of build vehicles
     int myLoadedVehNo;
 
-private:
     /// @brief The number of vehicles within the network (build and inserted but not removed)
     int myRunningVehNo;
 
@@ -532,6 +563,9 @@ private:
 
     /// @brief The number of collisions
     int myCollisions;
+
+    /// @brief The number of teleports due to collision
+    int myTeleportsCollision;
 
     /// @brief The number of teleports due to jam
     int myTeleportsJam;
@@ -545,6 +579,8 @@ private:
     /// @brief The number of emergency stops
     int myEmergencyStops;
 
+    /// @brief The number of stopped vehicles
+    int myStoppedVehicles;
     /// @}
 
 
@@ -593,14 +629,17 @@ private:
     /// @brief Whether the default pedestrian type was already used or can still be replaced
     bool myDefaultPedTypeMayBeDeleted;
 
+    /// @brief Whether the default container type was already used or can still be replaced
+    bool myDefaultContainerTypeMayBeDeleted;
+
     /// @brief Whether the default bicycle type was already used or can still be replaced
     bool myDefaultBikeTypeMayBeDeleted;
 
-    /// the number of vehicles wainting for persons contained in myWaiting which can only continue by being triggered
-    int myWaitingForPerson;
+    /// @brief Whether the default taxi type was already used or can still be replaced
+    bool myDefaultTaxiTypeMayBeDeleted;
 
-    /// the number of vehicles wainting for containers contained in myWaiting which can only continue by being triggered
-    int myWaitingForContainer;
+    /// the number of vehicles waiting for persons or containers contained in myWaiting which can only continue by being triggered
+    int myWaitingForTransportable;
 
     /// @brief The scaling factor (especially for inc-dua)
     double myScale;
@@ -630,9 +669,3 @@ private:
 
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

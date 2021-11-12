@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIMEInductLoop.cpp
 /// @author  Daniel Krajzewicz
@@ -13,11 +17,6 @@
 ///
 // The gui-version of the MEInductLoop
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 
@@ -41,8 +40,11 @@
  * GUIMEInductLoop-methods
  * ----------------------------------------------------------------------- */
 GUIMEInductLoop::GUIMEInductLoop(const std::string& id, MESegment* s,
-                                 double position, const std::string& vTypes)
-    : MEInductLoop(id, s, position, vTypes) {}
+                                 double position, const std::string& vTypes,
+                                 int detectPersons,
+                                 bool /*show*/):
+    MEInductLoop(id, s, position, vTypes, detectPersons) 
+{}
 
 
 GUIMEInductLoop::~GUIMEInductLoop() {}
@@ -71,6 +73,12 @@ GUIMEInductLoop::MyWrapper::MyWrapper(GUIMEInductLoop& detector, double pos)
 GUIMEInductLoop::MyWrapper::~MyWrapper() {}
 
 
+double
+GUIMEInductLoop::MyWrapper::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
+}
+
+
 Boundary
 GUIMEInductLoop::MyWrapper::getCenteringBoundary() const {
     Boundary b(myBoundary);
@@ -83,8 +91,7 @@ GUIMEInductLoop::MyWrapper::getCenteringBoundary() const {
 GUIParameterTableWindow*
 GUIMEInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
         GUISUMOAbstractView& /* parent */) {
-    GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 2);
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     /*
     ret->mkItem("flow [veh/h]", true,
@@ -114,14 +121,14 @@ GUIMEInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
 
 void
 GUIMEInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
-    glPushName(getGlID());
+    GLHelper::pushName(getGlID());
     glPolygonOffset(0, -2);
     double width = (double) 2.0 * s.scale;
     glLineWidth(1.0);
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double exaggeration = getExaggeration(s);
     // shape
     glColor3d(1, 1, 0);
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glTranslated(myFGPosition.x(), myFGPosition.y(), getType());
     glRotated(myFGRotation, 0, 0, 1);
     glScaled(exaggeration, exaggeration, exaggeration);
@@ -143,10 +150,10 @@ GUIMEInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
         glColor3d(1, 1, 1);
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glBegin(GL_QUADS);
-        glVertex2f(0 - 1.0, 2);
-        glVertex2f(-1.0, -2);
-        glVertex2f(1.0, -2);
-        glVertex2f(1.0, 2);
+        glVertex2d(0 - 1.0, 2);
+        glVertex2d(-1.0, -2);
+        glVertex2d(1.0, -2);
+        glVertex2d(1.0, 2);
         glEnd();
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
@@ -160,9 +167,9 @@ GUIMEInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
         glVertex2d(0, -1.7);
         glEnd();
     }
-    glPopMatrix();
+    GLHelper::popMatrix();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-    glPopName();
+    GLHelper::popName();
 }
 
 
@@ -173,4 +180,3 @@ GUIMEInductLoop::MyWrapper::getLoop() {
 
 
 /****************************************************************************/
-

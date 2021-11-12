@@ -1,7 +1,7 @@
 /* XPM */
 static const char *dlr_xpm[] = {
 /* width height num_colors chars_per_pixel */
-"    64    64      256            2",
+"64 64 256 2",
 /* colors */
 "`` c #231f20",
 "`. c #242021",

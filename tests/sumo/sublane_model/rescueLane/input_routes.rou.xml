@@ -9,8 +9,8 @@
     <route id="r0" edges="SC CN"/>
     <route id="r" edges="SC CE"/>
     <route id="l" edges="SC CW"/>
-    <vehicle id="left1"   type="left"   route="r" depart="35" departLane="1" departPos="0"/>
-    <vehicle id="right1"  type="right"  route="l" depart="35" departLane="0" departPos="0"/>
+    <vehicle id="left1"   type="left"   route="l" depart="35" departLane="1" departPos="0"/>
+    <vehicle id="right1"  type="right"  route="r" depart="35" departLane="0" departPos="0"/>
     <vehicle id="left2"   type="left"   route="l" depart="37" departLane="1" departPos="0"/>
     <vehicle id="right2"  type="right"  route="r" depart="37" departLane="0" departPos="0"/>
     <vehicle id="left3"   type="left"   route="l" depart="39" departLane="1" departPos="0"/>

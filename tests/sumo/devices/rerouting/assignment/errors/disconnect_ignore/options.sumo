@@ -1,1 +1,5 @@
---device.rerouting.probability 1 --no-step-log -b 0 --no-duration-log --net-file=net.net.xml -a=input_districts.taz.xml,input_trips.trips.xml --vehroute-output=vehroutes.xml --device.rerouting.with-taz --device.rerouting.adaptation-weight 0.4 --ignore-route-errors
+--no-step-log --no-duration-log 
+--net-file=net.net.xml
+--r input_trips.trips.xml
+--vehroute-output=vehroutes.xml 
+--ignore-route-errors

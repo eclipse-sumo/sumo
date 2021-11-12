@@ -1,6 +1,5 @@
 ---
-title: Contributed/SmallMaps
-permalink: /Contributed/SmallMaps/
+title: SmallMaps
 ---
 
 The functionality of this tool was superseded by netconvert

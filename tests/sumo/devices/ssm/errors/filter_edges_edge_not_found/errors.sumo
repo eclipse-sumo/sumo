@@ -1,0 +1,2 @@
+Warning: No measures specified for ssm device of vehicle 'ego'. Registering all available SSMs.
+Warning: Unknown edge ID 'CC' in SSM device edge filter (input_selection.txt): edge:CC

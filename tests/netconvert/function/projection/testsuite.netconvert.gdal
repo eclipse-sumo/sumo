@@ -1,2 +1,8 @@
 # utm projection with zone guessing and heightmap
 utm_heightmap
+
+# utm projection with zone guessing and heightmap of doubles
+utm_heightmap32
+
+# heightmap applied to cartesian data with geo-reference
+heightmap

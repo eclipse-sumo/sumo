@@ -6,7 +6,8 @@ Warning: Found sharp turn with radius 4.73 at the start of edge '143308685#1'.
 Warning: Found angle of 178.89 degrees at edge '156071615#4', segment 0.
 Warning: Found sharp turn with radius 0.04 at the start of edge '156071615#4'.
 Warning: Found sharp turn with radius 6.42 at the start of edge '47765615#1'.
-Warning: Speed of straight connection '-143308521#0_1->38915289_1' reduced by 5.83 due to turning radius of 48.83 (length=17.85, angle=36.30).
-Warning: Speed of straight connection '-142575679#0_1->38915289_1' reduced by 5.41 due to turning radius of 51.35 (length=19.91, angle=37.57).
+Warning: Speed of straight connection '-143308521#0_1->38915289_1' reduced by 6.06 due to turning radius of 47.50 (length=17.36, angle=36.30).
+Warning: Speed of straight connection '-142575679#0_1->38915289_1' reduced by 5.62 due to turning radius of 50.10 (length=19.42, angle=37.57).
+Warning: Speed of straight connection '-38915289_1->143308521#0_1' reduced by 5.14 due to turning radius of 53.02 (length=19.41, angle=36.30).
 Warning: Speed of straight connection '-73058506#1_1->-73058506#0_1' reduced by 5.06 due to turning radius of 14.19 (length=5.80, angle=39.82).
 Warning: 6 total messages of type: Found sharp turn with radius % at the start of edge '%'.

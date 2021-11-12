@@ -1,0 +1,11 @@
+{CLEAR}
+--no-step-log 
+--duration-log.statistics 
+--net-file=net.net.xml 
+-r input_trips.trips.xml 
+--vehroute-output=vehroutes.xml
+--vehroute-output.cost
+--vehroute-output.exit-times
+--device.rerouting.period 120
+--device.rerouting.adaptation-steps 60
+--device.rerouting.adaptation-interval 3

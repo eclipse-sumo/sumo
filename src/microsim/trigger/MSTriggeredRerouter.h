@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSTriggeredRerouter.h
 /// @author  Daniel Krajzewicz
@@ -16,13 +20,7 @@
 ///
 // Reroutes vehicles passing an edge
 /****************************************************************************/
-#ifndef MSTriggeredRerouter_h
-#define MSTriggeredRerouter_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -179,6 +177,13 @@ public:
     MSParkingArea* rerouteParkingArea(const MSTriggeredRerouter::RerouteInterval* rerouteDef,
                                       SUMOVehicle& veh, bool& newDestination, ConstMSEdgeVector& newRoute) const;
 
+    /// @brief return all rerouter instances
+    static const std::map<std::string, MSTriggeredRerouter*>& getInstances() {
+        return myInstances;
+    }
+
+    /// @brief issues warning for incomplete parkingReroute relationships
+    static void checkParkingRerouteConsistency();
 
 protected:
     /// @name inherited from GenericSAXHandler
@@ -213,6 +218,9 @@ protected:
 
 
 protected:
+    /// @brief edges where vehicles are notified
+    const MSEdgeVector myEdges;
+
     /// List of rerouting definition intervals
     std::vector<RerouteInterval> myIntervals;
 
@@ -252,6 +260,8 @@ protected:
     static MSEdge mySpecialDest_keepDestination;
     static MSEdge mySpecialDest_terminateRoute;
 
+    static std::map<std::string, MSTriggeredRerouter*> myInstances;
+
 private:
     /// @brief Invalidated copy constructor.
     MSTriggeredRerouter(const MSTriggeredRerouter&);
@@ -261,9 +271,3 @@ private:
 
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

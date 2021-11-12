@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2006-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2006-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    ODMatrix.h
 /// @author  Daniel Krajzewicz
@@ -15,13 +19,7 @@
 ///
 // An O/D (origin/destination) matrix
 /****************************************************************************/
-#ifndef ODMatrix_h
-#define ODMatrix_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <iostream>
@@ -39,6 +37,7 @@
 #include <utils/distribution/Distribution_Points.h>
 #include <utils/importio/LineReader.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/xml/SAXWeightsHandler.h>
 
 // ===========================================================================
 // class declarations
@@ -66,7 +65,8 @@ class SUMOSAXHandler;
  * In addition of being a storage, the matrix is also responsible for writing
  *  the results and contains methods for splitting the entries over time.
  */
-class ODMatrix {
+class ODMatrix : public SAXWeightsHandler::EdgeFloatTimeLineRetriever {
+
 public:
     /** @brief Constructor
      *
@@ -163,7 +163,8 @@ public:
                OutputDevice& dev, const bool uniform,
                const bool differSourceSink, const bool noVtype,
                const std::string& prefix, const bool stepLog,
-               bool pedestrians, bool persontrips);
+               bool pedestrians, bool persontrips,
+               const std::string& modes);
 
 
     /** @brief Writes the flows stored in the matrix
@@ -180,7 +181,8 @@ public:
     void writeFlows(const SUMOTime begin, const SUMOTime end,
                     OutputDevice& dev, const bool noVtype,
                     const std::string& prefix,
-                    bool asProbability = false, bool pedestrians = false, bool persontrips = false);
+                    bool asProbability = false, bool pedestrians = false, bool persontrips = false,
+                    const std::string& modes = "");
 
 
     /** @brief Returns the number of loaded vehicles
@@ -256,6 +258,9 @@ public:
     SUMOTime getEnd() const {
         return myEnd;
     }
+
+    void addTazRelWeight(const std::string intervalID, const std::string& from, const std::string& to,
+            double val, double beg, double end);
 
 protected:
     /**
@@ -374,6 +379,9 @@ private:
     /// @brief parsed time bounds
     SUMOTime myBegin, myEnd;
 
+    /// @brief user-defined vType
+    std::string myVType;
+
     /**
      * @class cell_by_begin_comparator
      * @brief Used for sorting the cells by the begin time they describe
@@ -445,8 +453,3 @@ private:
     ODMatrix& operator=(const ODMatrix& s) = delete;
 
 };
-
-
-#endif
-
-/****************************************************************************/

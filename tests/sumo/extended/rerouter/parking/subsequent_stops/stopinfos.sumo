@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov 21 13:53:18 2019 by Eclipse SUMO Version v1_3_1+0960-7b06a594ed
+<!-- generated on Thu Mar 12 08:40:58 2020 by Eclipse SUMO Version v1_5_0+0668-3019609
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -33,7 +33,7 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="blocker" type="DEFAULT_VEHTYPE" lane="C0C1_0" pos="55.00" parking="1" started="8.00" ended="30.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkC0C1"/>
-    <stopinfo id="ego" type="DEFAULT_VEHTYPE" lane="A1A2_0" pos="55.00" parking="1" started="37.00" ended="49.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkA1A2"/>
-    <stopinfo id="ego" type="DEFAULT_VEHTYPE" lane="A2A3_0" pos="55.00" parking="1" started="60.00" ended="72.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkA2A3"/>
+    <stopinfo id="blocker" type="DEFAULT_VEHTYPE" lane="C0C1_0" pos="55.00" parking="1" started="8.00" ended="28.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkC0C1"/>
+    <stopinfo id="ego" type="DEFAULT_VEHTYPE" lane="A1A2_0" pos="55.00" parking="1" started="37.00" ended="47.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkA1A2"/>
+    <stopinfo id="ego" type="DEFAULT_VEHTYPE" lane="A2A3_0" pos="55.00" parking="1" started="58.00" ended="68.00" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkA2A3"/>
 </stops>

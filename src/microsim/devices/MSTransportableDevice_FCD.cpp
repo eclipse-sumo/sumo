@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSTransportableDevice_FCD.cpp
 /// @author  Daniel Krajzewicz
@@ -15,10 +19,6 @@
 ///
 // A device which stands as an implementation FCD and which outputs movereminder calls
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/common/StringUtils.h>
@@ -27,7 +27,8 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
-#include <microsim/MSTransportable.h>
+#include <microsim/transportables/MSTransportable.h>
+#include "MSDevice_FCD.h"
 #include "MSTransportableDevice_FCD.h"
 
 // ===========================================================================
@@ -55,6 +56,7 @@ MSTransportableDevice_FCD::buildDevices(MSTransportable& t, std::vector<MSTransp
     if (equippedByDefaultAssignmentOptions(oc, "fcd", t, oc.isSet("fcd-output"), true)) {
         MSTransportableDevice_FCD* device = new MSTransportableDevice_FCD(t, "fcd_" + t.getID());
         into.push_back(device);
+        MSDevice_FCD::initOnce();
     }
 }
 
@@ -75,5 +77,5 @@ void
 MSTransportableDevice_FCD::cleanup() {
 }
 
-/****************************************************************************/
 
+/****************************************************************************/

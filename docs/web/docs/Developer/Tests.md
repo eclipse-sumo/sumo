@@ -1,6 +1,5 @@
 ---
-title: Developer/Tests
-permalink: /Developer/Tests/
+title: Tests
 ---
 
 # Introduction
@@ -18,86 +17,33 @@ files you are comparing the current outputs to *are* right - you have to
 prepare them once and update/verify them again every time the expected
 results change.
 
-At the moment all our \[Developer/Nightly_Build tests run each night\]
+At the moment all our tests run [each night](Nightly_Build.md)
 with the results on this [summary webpage](https://sumo.dlr.de/daily/).
 
 # Setup
 
-We use [TextTest](http://texttest.org/) as our testing environment which
-is Python based and currently available for Python 2 only. To install
-it, you can open a terminal / Windows console and type:
+We use [TextTest](http://texttest.org/) 4.x as our testing environment which
+is Python based and currently available for Python 3. To install
+it on Linux / MacOS, you can open a terminal and type:
 
 ```
-pip install texttest
+pip3 install texttest
 ```
+For Windows you should download and run the installer from the
+[SourceForge project page](https://sourceforge.net/projects/texttest/).
 
-on all platforms, but it will not pull in the dependencies, so you need
+It might not pull in all the dependencies, so in some cases you need
 to follow the [TextTest installation
-instructions](http://texttest.org/index.php?page=documentation_trunk&n=install_texttest)
-and the additional info here.
+instructions](http://texttest.sourceforge.net/index.php?page=documentation_trunk&n=install_texttest)
+and the additional info there.
 
-## Windows Setup
+For MacOS the following command should install all dependencies:
+   `brew install python py3cairo pygobject3 gtk+3 adwaita-icon-theme`
 
-You will need the following software (at least for a setup with GUI)
+If the installation was successful, this window will appear after execution of `runAllTests.bat`
 
-- [Python 2.7](http://www.python.org/download/)
-- [GTK and PyGTK for Windows](http://www.gtk.org/download/)
-  - If you are using the 32 bit version of Python you can use [the
-    all in one
-    installer](http://ftp.gnome.org/pub/GNOME/binaries/win32/pygtk/2.24/pygtk-all-in-one-2.24.0.win32-py2.7.msi)
-  - For 64 bit this
-    <http://stackoverflow.com/questions/14567921/python-pygtk-windows-7-64-bit>
-    answer still applies except that the unofficial python packages
-    now need pip to be installed
-- [TKDiff](http://tkdiff.sourceforge.net/) (you can choose another
-compatible diff tool if you like)
-- python and diff should also appear in your PATH.
+![](../images/TestInstall8.png "If Installation was successfully, this window will appear after execution of `runAllTests.bat`")
 
-Visual guide:
-
-![](../images/TestInstall1.png "Python path shouldn't include whitespaces")
-Python path shouldn't include whitespaces
-
-![](../images/TestInstall2.png "Python requieres a full installation")
-Python requieres a full installation
-
-![](../images/TestInstall3.png "PyGTK must be installed in the same folder of Python")
-PyGTK must be installed in the same folder of Python
-
-
-![](../images/TestInstall6.png "TkDiff path shouldn't include whitespaces")
-TkDiff path shouldn't include whitespaces
-
-![](../images/TestInstall4.png "Check that python works typing "Python" in CMD.")
-Check that python works typing "Python" in CMD.
-
-Type "quit()" to exit
-![](../images/TestInstall5.png "Type *pip install texttest* to install TextTest automatically from Python repository")
-Type *pip install texttest* to install TextTest automatically from Python repository
-
-
-![](../images/TestInstall7.png "Every value of environment variable "PATH" must be separated with ";"")
-Every value of environment variable "PATH" must be separated with ";"
-
-![](../images/TestInstall8.png "If Installation was successfully, this window will appear after execution of "runAllTests.bat"")
-If Installation was successfully, this window will appear after execution of "runAllTests.bat"
-
-## Linux setup
-
-This is much easier because at least with recent distributions there is
-probably everything included. With openSUSE 10.2 you need python-gtk and
-python-cairo as well as tkdiff before installing TextTest. If you don't
-need the GUI you can probably even skip these.
-
-## MacOS setup
-
-1.  Follow the steps
-    [here](https://texttest.readthedocs.io/en/latest/installation.html#mac)
-2.  If you have multiple python versions (2.x/3.x) installed (see
-    [here](https://docs.brew.sh/Homebrew-and-Python)), make sure that
-    your `pip` points to version 2.x
-3.  Install TextTest via pip:
-    `pip install texttest`
 
 ## Customize configuration
 
@@ -113,11 +59,11 @@ to collapse the static test suites on program start. E.g.:
 
 # Running the Tests
 
-Within the  {{SUMO}}*/tests* - folder you can find batch-files which start
-[TextTest](http://texttest.org/) with our test suites. "runAllTests.bat"
+Within the  `$SUMO_HOME/tests` folder you can find batch files for Windows and shell files for Linux & macOS which start
+[TextTest](http://texttest.org/) with our test suites. `runAllTests.bat` (Windows) or `runTests.sh` (Linux, macOS)
 starts TextTest for testing all applications located in the folder,
-"runNetconvertTests.bat" will only show tests for NETCONVERT,
-"runDuarouterTests.bat" only those for DUAROUTER etc.
+`runNetconvertTests.bat` (Windows) will only show tests for netconvert,
+`runDuarouterTests.bat`(Windows) only those for duarouter etc.
 
 # Adding a Test to an existing Application
 
@@ -167,7 +113,7 @@ set POLYCONVERT_BINARY=%~dp0\..\bin\polyconvert%1.exe
 - build a configuration file; its name is "config", the extension is
   the application's to test name, so in our case it's
   **config.polyconvert**. Please consult
-  [TextTest](https://texttest.org/) documentation about the content,
+  [TextTest](http://texttest.org/) documentation about the content,
   nonetheless, here are some notes
   - do not forget the import of the main config file (config_all)
   - name the binary correct
@@ -259,8 +205,8 @@ Our TextTest tests can be grouped into the categories described below
 ## Application Tests
 
 These tests are for the executable files in the *bin* folder such as
-[NETCONVERT](../NETCONVERT.md), [DUAROUTER](../DUAROUTER.md)
-and [SUMO](../SUMO.md). They work by running their application once
+[netconvert](../netconvert.md), [duarouter](../duarouter.md)
+and [sumo](../sumo.md). They work by running their application once
 with a predefined set of input files and compare against expected output
 files. The tests for sumo run once with the GUI version and once without
 GUI..
@@ -287,7 +233,7 @@ the traci python client (runner.py is a traci script in this case).
 
 ## Interactive GUI Tests
 
-These tests are currently only active for [NETEDIT](../NETEDIT.md)
+These tests are currently only active for [netedit](../Netedit/index.md)
 and are described in more detail on the page
 [Developer/GUI_Testing](../Developer/GUI_Testing.md).
 
@@ -301,3 +247,15 @@ on Linux). On Windows you will need to add it by copying the existing
 python.exe in your python3 installation to python3.exe (in the same
 directory) and adding that directory to the end of your PATH (if it is
 not already there).
+
+# Running tests outside TextTest
+Different methods to extract TextTest tests (offline and online) are explained [here](../Tutorials/index.md#using_examples_from_the_test_suite).
+
+## Developing for Python2 and Python3
+
+SUMO is downwards compatible, hence contributed code should be able to 
+run with both Python 2.7 and Python 3.5 and above. On Windows you can either use python launcher
+to have access to both Python versions, or use free online tools
+like [paiza.io](https://paiza.io/en/languages/python) to check for compatibility.
+If you cannot support both Python versions because for instance your library is not
+available you should of course prefer Python3.

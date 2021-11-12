@@ -1,0 +1,4 @@
+--fcd-output=fcd.xml --no-step-log --no-duration-log 
+--net-file=motorway.net.xml 
+--fcd-output.params tripId,foo
+-a input_routes.rou.xml

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUISUMOAbstractView.h
 /// @author  Daniel Krajzewicz
@@ -16,19 +20,13 @@
 ///
 // The base class for a view
 /****************************************************************************/
-#ifndef GUISUMOAbstractView_h
-#define GUISUMOAbstractView_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
 #include <vector>
 #include <map>
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 // fx3d includes windows.h so we need to guard against macro pollution
 #ifdef WIN32
 #define NOMINMAX
@@ -79,8 +77,11 @@ public:
     /// @brief destructor
     virtual ~GUISUMOAbstractView();
 
+    /// @brief recalculate boundaries
+    virtual void recalculateBoundaries() = 0;
+
     /// @brief builds the view toolbars
-    virtual void buildViewToolBars(GUIGlChildWindow&) { }
+    virtual void buildViewToolBars(GUIGlChildWindow*) { }
 
     /// @brief recenters the view
     virtual void recenterView();
@@ -160,8 +161,11 @@ public:
     virtual long onKeyRelease(FXObject* o, FXSelector sel, void* data);
     //@}
 
-    //@brief open object dialog
-    virtual void openObjectDialog();
+    /// @brief open object dialog at the cursor position
+    virtual void openObjectDialogAtCursor();
+
+    /// @brief open object dialog for the given object
+    void openObjectDialog(GUIGlObject* o);
 
     /// @brief A method that updates the tooltip
     void updateToolTip();
@@ -216,8 +220,8 @@ public:
     /// @brief set color scheme
     virtual bool setColorScheme(const std::string&);
 
-    /// @brief get visualitation settings
-    GUIVisualizationSettings* getVisualisationSettings() const;
+    /// @brief get visualization settings
+    GUIVisualizationSettings& getVisualisationSettings() const;
 
     /// @brief recalibrate color scheme according to the current value range
     virtual void buildColorRainbow(const GUIVisualizationSettings& /*s*/, GUIColorScheme& /*scheme*/, int /*active*/, GUIGlObjectType /*objectType*/,
@@ -231,6 +235,11 @@ public:
         return std::vector<std::string>();
     }
 
+    /// @brief return list of loaded edgeRelation and tazRelation attributes
+    virtual std::vector<std::string> getRelDataAttrs() const {
+        return std::vector<std::string>();
+    }
+
     /// @brief return list of available edge parameters
     virtual std::vector<std::string> getEdgeLaneParamKeys(bool /*edgeKeys*/) const {
         return std::vector<std::string>();
@@ -238,6 +247,11 @@ public:
 
     /// @brief return list of available vehicle parameters
     virtual std::vector<std::string> getVehicleParamKeys(bool /*vTypeKeys*/) const {
+        return std::vector<std::string>();
+    }
+
+    /// @brief return list of available vehicle parameters
+    virtual std::vector<std::string> getPOIParamKeys() const {
         return std::vector<std::string>();
     }
 
@@ -356,9 +370,6 @@ public:
     /// @brief add decals
     void addDecals(const std::vector<Decal>& decals);
 
-    /// @brief get visualisation settings
-    GUIVisualizationSettings* getVisualisationSettings();
-
     /// @brief Returns the delay of the parent application
     double getDelay() const;
 
@@ -395,8 +406,11 @@ protected:
     /// @brief Draws a line with ticks, and the length information.
     void displayLegend();
 
-    /// @brief Draws a legend for the current edge coloring scheme
-    void displayColorLegend();
+    /// @brief Draws the configured legends
+    void displayLegends();
+
+    /// @brief Draws a legend for the given scheme
+    void displayColorLegend(const GUIColorScheme& scheme, bool leftSide);
 
     /// @brief Draws frames-per-second indicator
     void drawFPS();
@@ -411,7 +425,7 @@ protected:
     std::vector<GUIGlObject*> getGUIGlObjectsUnderCursor();
 
     /// @brief returns the GUIGlObject under the gripped cursor using GL_SELECT (including overlapped objects)
-    std::vector<GUIGlObject*> getGUIGlObjectsUnderGrippedCursor();
+    std::vector<GUIGlObject*> getGUIGlObjectsUnderSnappedCursor();
 
     /// @brief returns the id of the object at position using GL_SELECT
     GUIGlID getObjectAtPosition(Position pos);
@@ -450,7 +464,7 @@ protected:
     GUIGlChildWindow* myParent;
 
     /// @brief The visualization speed-up
-    SUMORTree* myGrid;
+    const SUMORTree* myGrid;
 
     /// @brief The perspective changer
     GUIPerspectiveChanger* myChanger;
@@ -516,9 +530,3 @@ private:
     // @brief sensitivity for "<>AtPosition(...) functions
     static const double SENSITIVITY;
 };
-
-
-#endif
-
-/****************************************************************************/
-

@@ -1,0 +1,59 @@
+ Retrying in 1 seconds
+Subscribing to context of vehicle 'ego' (range=50.0)
+Adding lateral distance subscription filter ... (lateralDistance=50.0, downstreamDistance=50.0, upstreamDistance=50.0)
+[01s] Context results for veh 'ego':
+ego
+v10
+v8
+v9
+[02s] Context results for veh 'ego':
+ego
+v10
+v8
+v9
+[03s] Context results for veh 'ego':
+ego
+v10
+v8
+v9
+[04s] Context results for veh 'ego':
+ego
+v10
+v8
+v9
+[05s] Context results for veh 'ego':
+ego
+v10
+v9
+[06s] Context results for veh 'ego':
+ego
+v10
+v9
+[07s] Context results for veh 'ego':
+ego
+v10
+v9
+[08s] Context results for veh 'ego':
+ego
+v9
+[09s] Context results for veh 'ego':
+ego
+v9
+[10s] Context results for veh 'ego':
+ego
+v9
+[11s] Context results for veh 'ego':
+ego
+[12s] Context results for veh 'ego':
+ego
+[13s] Context results for veh 'ego':
+ego
+v2
+[14s] Context results for veh 'ego':
+ego
+v2
+[15s] Context results for veh 'ego':
+ego
+v2
+Ok: Unsubscribe successful
+Print ended at step 17.0

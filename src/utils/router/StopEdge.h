@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    StopEdge.h
 /// @author  Michael Behrisch
@@ -13,13 +17,7 @@
 ///
 // The StopEdge is a special intermodal edge representing bus and train stops
 /****************************************************************************/
-#ifndef StopEdge_h
-#define StopEdge_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include "IntermodalEdge.h"
@@ -32,15 +30,26 @@
 template<class E, class L, class N, class V>
 class StopEdge : public IntermodalEdge<E, L, N, V> {
 public:
-    StopEdge(const std::string id, int numericalID, const E* edge) :
-        IntermodalEdge<E, L, N, V>(id, numericalID, edge, "!stop") { }
+    StopEdge(const std::string id, int numericalID, const E* edge, const double startPos, const double endPos) :
+        IntermodalEdge<E, L, N, V>(id, numericalID, edge, "!stop", 0), myStartPos(startPos), myEndPos(endPos) { }
 
     bool includeInRoute(bool /* allEdges */) const {
         return true;
     }
+
+    double getStartPos() const {
+        return myStartPos;
+    }
+
+    double getEndPos() const {
+        return myEndPos;
+    }
+
+private:
+    /// @brief start position
+    const double myStartPos;
+
+    /// @brief end position
+    const double myEndPos;
+
 };
-
-
-#endif
-
-/****************************************************************************/

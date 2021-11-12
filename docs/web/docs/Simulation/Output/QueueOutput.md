@@ -1,6 +1,5 @@
 ---
-title: Simulation/Output/QueueOutput
-permalink: /Simulation/Output/QueueOutput/
+title: QueueOutput
 ---
 
 The idea behind this output option is to detect the queue in front of
@@ -17,7 +16,7 @@ this name will be overwritten, the destination folder must exist.
 
 The generated XML file looks like this:
 
-```
+```xml
 <queue-export>
 
   <data timestep="<TIME_STEP>">

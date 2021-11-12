@@ -1,0 +1,28 @@
+# This is a docker container image to build SUMO 
+# on the Jenkins CI infrastructure at Eclipse
+# (see https://ci.eclipse.org)
+#
+# It is necessary to build a custom ubuntu image
+# since the containers at Eclipse are run without
+# root privilege, so we cannot install any packages
+# at build time.
+
+# The docker image should be uploaded to ghcr.io
+# in order to be used by the Jenkinsfile build.
+# This can be achieved with a Personal Access Token from GitHub
+
+# (See following for the developer with username USERNAME on GitHub)
+# > echo $GITHUB_PAT | docker login ghcr.io --username USERNAME --password-stdin
+# > docker tag LOCALIMAGEID ghcr.io/eclipse/eclipse-sumo-build-ubuntu:latest
+# > docker push ghcr.io/eclipse/eclipse-sumo-build-ubuntu:latest
+
+FROM ubuntu:20.04
+
+# Install a compiler, then all requirements and remove the compiler afterwards
+ENV DEBIAN_FRONTEND=noninteractive 
+RUN apt-get update && \
+    apt-get install -y git cmake libeigen3-dev libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgtest-dev libgoogle-perftools-dev libgl2ps-dev python3-dev python3-setuptools swig openjdk-8-jdk maven && \
+    apt-get autoremove -y && \
+    apt-get clean -y && \
+    rm -r /var/cache/apt /var/lib/apt/lists/*
+

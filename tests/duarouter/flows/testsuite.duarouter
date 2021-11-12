@@ -1,8 +1,20 @@
+# Additional tests for distributing vehicles over time
+distribution_tests
+
 # Test with 10 vehicles having one departure time
 1s_interval
 
 # Test with 10 vehicles being divided on 100s
 100s_interval
+
+# define flow without end time
+period_number
+
+# define flow without end time
+probability_number
+
+# define flow without end time
+period_default_end
 
 # Same as 100s_interval, but the interval is defined as being enclosing
 100s_interval_ext
@@ -35,8 +47,11 @@
 100s_interval_withtype_withclass
 100s_interval_repair_edges
 
-# Additional tests for distributing vehicles over time
-distribution_tests
+# let flows sample from a route distribution
+routeDistribution_skipNew
+
+# let flows sample from a route distribution with default probabilties
+routeDistribution_defProb_skipNew
 
 # Tests whether vehicle type attributes are parsed
 vtypecheck

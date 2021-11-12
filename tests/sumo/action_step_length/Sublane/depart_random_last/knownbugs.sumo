@@ -3,6 +3,7 @@
 search_string:.*
 search_file:errors
 ignore_other_errors:1
+trigger_on_success:1
 bug_id:#3701
 full_description:#3701
 brief_description:#3701

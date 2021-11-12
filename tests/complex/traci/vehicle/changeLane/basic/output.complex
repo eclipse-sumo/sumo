@@ -1,0 +1,11 @@
+ Retrying in 1 seconds
+t=5.0 laneIndex=0 state(1)=([], [])
+t=6.0 laneIndex=1 state(1)=([], ['left', 'TraCI', 'urgent'])
+t=7.0 laneIndex=1 state(1)=([], [])
+t=8.0 laneIndex=1 state(1)=([], [])
+t=9.0 laneIndex=1 state(1)=([], [])
+t=10.0 laneIndex=1 state(-1)=([], [])
+t=11.0 laneIndex=0 state(-1)=([], ['right', 'TraCI', 'urgent'])
+t=12.0 laneIndex=0 state(-1)=([], [])
+t=13.0 laneIndex=0 state(-1)=([], [])
+t=14.0 laneIndex=0 state(-1)=([], [])

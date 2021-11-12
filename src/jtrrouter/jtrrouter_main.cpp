@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    jtrrouter_main.cpp
 /// @author  Daniel Krajzewicz
@@ -15,11 +19,6 @@
 ///
 // Main for JTRROUTER
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #ifdef HAVE_VERSION_H
@@ -55,9 +54,17 @@
 #include "ROJTRTurnDefLoader.h"
 #include "ROJTRFrame.h"
 
+// ===========================================================================
+// method declaration
+// ===========================================================================
+
+void initNet(RONet& net, ROLoader& loader, const std::vector<double>& turnDefs);
+std::vector<double> getTurningDefaults(OptionsCont& oc);
+void loadJTRDefinitions(RONet& net, OptionsCont& oc);
+void computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc);
 
 // ===========================================================================
-// functions
+// method implementation
 // ===========================================================================
 /* -------------------------------------------------------------------------
  * data processing methods
@@ -110,6 +117,20 @@ loadJTRDefinitions(RONet& net, OptionsCont& oc) {
             }
         }
     }
+    if (oc.getBool("sources-are-sinks") || oc.getBool("discount-sources")) {
+        // load all route-files and additional files to discover sink edges and flow discount values
+        ROJTRTurnDefLoader loader(net);
+        for (std::string fileOption : {
+                    "route-files", "additional-files"
+                }) {
+            for (std::string file : oc.getStringVector(fileOption)) {
+                if (!XMLSubSys::runParser(loader, file)) {
+                    throw ProcessError();
+                }
+            }
+        }
+    }
+
     if (MsgHandler::getErrorInstance()->wasInformed() && oc.getBool("ignore-errors")) {
         MsgHandler::getErrorInstance()->clear();
     }
@@ -139,19 +160,22 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     // build the router
     ROJTRRouter* router = new ROJTRRouter(oc.getBool("ignore-errors"), oc.getBool("accept-all-destinations"),
                                           (int)(((double) net.getEdgeNumber()) * OptionsCont::getOptions().getFloat("max-edges-factor")),
-                                          oc.getBool("ignore-vclasses"), oc.getBool("allow-loops"));
+                                          oc.getBool("ignore-vclasses"),
+                                          oc.getBool("allow-loops"),
+                                          oc.getBool("discount-sources"));
     RORouteDef::setUsingJTRR();
     RORouterProvider provider(router, new PedestrianRouter<ROEdge, ROLane, RONode, ROVehicle>(),
-                              new ROIntermodalRouter(RONet::adaptIntermodalRouter, 0, "dijkstra"));
-    loader.processRoutes(string2time(oc.getString("begin")), string2time(oc.getString("end")),
+                              new ROIntermodalRouter(RONet::adaptIntermodalRouter, 0, 0, "dijkstra"), nullptr);
+    const SUMOTime end = oc.isDefault("end") ? SUMOTime_MAX : string2time(oc.getString("end"));
+    loader.processRoutes(string2time(oc.getString("begin")), end,
                          string2time(oc.getString("route-steps")), net, provider);
     net.cleanup();
 }
 
+// -----------------------------------------------------------------------
+// main
+// -----------------------------------------------------------------------
 
-/* -------------------------------------------------------------------------
- * main
- * ----------------------------------------------------------------------- */
 int
 main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
@@ -170,9 +194,10 @@ main(int argc, char** argv) {
             SystemFrame::close();
             return 0;
         }
-        XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"));
+        SystemFrame::checkOptions();
+        XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"), oc.getString("xml-validation.routes"));
         MsgHandler::initOutputOptions();
-        if (!(ROJTRFrame::checkOptions() && SystemFrame::checkOptions())) {
+        if (!ROJTRFrame::checkOptions()) {
             throw ProcessError();
         }
         RandHelper::initRandGlobal();

@@ -1,0 +1,9 @@
+--net-file net.net.xml --route-files input_routes.rou.xml 
+--no-step-log
+--tripinfo-output tripinfos.xml
+--pedestrian.striping.mingap-to-vehicle 0
+--step-length 0.1
+--step-method.ballistic
+--default.speeddev 0
+-e 60
+

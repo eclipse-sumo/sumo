@@ -1,0 +1,17 @@
+Warning: Vehicle 'v.21' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=28.00.
+Warning: Vehicle 'v.23' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=30.00.
+Warning: Vehicle 'v.27' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=33.00.
+Warning: Vehicle 'v.30' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=34.00.
+Warning: Vehicle 'v.30' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=36.00.
+Warning: Vehicle 'v.31' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=36.00.
+Warning: Vehicle 'v.32' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=37.00.
+Warning: Teleporting vehicle 'v.32'; collision with vehicle 'v.31', lane='beg_0', gap=-3.90', latGap=-1.80, time=37.00 stage=move.
+Warning: Teleporting vehicle 'v.31'; collision with vehicle 'v.27', lane='beg_0', gap=-2.67', latGap=-1.70, time=37.00 stage=move.
+Warning: Vehicle 'v.31' teleports beyond arrival edge 'beg', time 37.00.
+Warning: Vehicle 'v.32' teleports beyond arrival edge 'beg', time 37.00.
+Warning: Vehicle 'v.38' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=50.00.
+Warning: Vehicle 'v.147' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=280.00.
+Warning: Vehicle 'v.154' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=281.00.
+Warning: Vehicle 'v.192' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=365.00.
+Warning: Vehicle 'v.292' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=535.00.
+Warning: Vehicle 'v.288' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=536.00.

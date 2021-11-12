@@ -1,12 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    runner.py
 # @author  Michael Behrisch
@@ -23,7 +27,7 @@ sys.path.append(os.path.join(
 import traci  # noqa
 import sumolib  # noqa
 
-traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"] + sys.argv[1:])
 for step in range(3):
     print("step", step)
     traci.simulationStep()
@@ -48,6 +52,9 @@ print("shape", traci.vehicletype.getShapeClass(typeID))
 print("MinGap", traci.vehicletype.getMinGap(typeID))
 print("width", traci.vehicletype.getWidth(typeID))
 print("color", traci.vehicletype.getColor(typeID))
+print("maxSpeedLat", traci.vehicletype.getMaxSpeedLat(typeID))
+print("latAlign", traci.vehicletype.getLateralAlignment(typeID))
+print("minGapLat", traci.vehicletype.getMinGapLat(typeID))
 print("personCapacity", traci.vehicletype.getPersonCapacity(typeID))
 traci.vehicletype.subscribe(typeID)
 print(traci.vehicletype.getSubscriptionResults(typeID))
@@ -85,11 +92,17 @@ traci.vehicletype.setShapeClass(typeID, "bicycle")
 print("shape", traci.vehicletype.getShapeClass(typeID))
 traci.vehicletype.setMinGap(typeID, 1.1)
 print("MinGap", traci.vehicletype.getMinGap(typeID))
+traci.vehicletype.setMinGapLat(typeID, 0.6)
+print("MinGapLat", traci.vehicletype.getMinGapLat(typeID))
+traci.vehicletype.setMaxSpeedLat(typeID, 1.0)
+print("MaxSpeedLat", traci.vehicletype.getMaxSpeedLat(typeID))
+traci.vehicletype.setLateralAlignment(typeID, "center")
+print("LateralAlignment", traci.vehicletype.getLateralAlignment(typeID))
 traci.vehicletype.setWidth(typeID, 1.1)
 print("width", traci.vehicletype.getWidth(typeID))
 traci.vehicletype.setHeight(typeID, 1.9)
 print("height", traci.vehicletype.getHeight(typeID))
-traci.vehicletype.setColor(typeID, (1, 0, 0, 1))
+traci.vehicletype.setColor(typeID, (255, 0, 0, 255))
 print("color", traci.vehicletype.getColor(typeID))
 copyID = typeID + "_copy"
 print("Copying vType '%s' to '%s'" % (typeID, copyID))

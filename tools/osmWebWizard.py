@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2014-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2014-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    osmWebWizard.py
 # @author  Jakob Stigloher
@@ -34,6 +38,7 @@ import osmGet
 import osmBuild
 import randomTrips
 import ptlines2flows
+import tileGet
 import sumolib  # noqa
 from webWizard.SimpleWebSocketServer import SimpleWebSocketServer, WebSocket
 
@@ -105,8 +110,6 @@ vehicleNames = {
 }
 
 
-RANDOMSEED = "42"
-
 # all can read and execute, only user can read batch files
 BATCH_MODE = stat.S_IRUSR | stat.S_IRGRP | stat.S_IROTH
 BATCH_MODE |= stat.S_IWUSR
@@ -119,10 +122,7 @@ def quoted_str(s):
     elif type(s) != str:
         return str(s)
     elif '"' in s or ' ' in s:
-        if os.name == "nt":
-            return '"' + s.replace('"', '\\"') + '"'
-        else:
-            return "'%s'" % s
+        return '"' + s.replace('"', '\\"') + '"'
     else:
         return s
 
@@ -137,7 +137,7 @@ class Builder(object):
 
         self.tmp = None
         if local:
-            now = data.get("testOutputDir",
+            now = data.get("outputDir",
                            datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
             for base in ['', os.path.expanduser('~/Sumo')]:
                 try:
@@ -186,32 +186,38 @@ class Builder(object):
             shutil.copy(data['osm'], self.files["osm"])
         else:
             self.report("Downloading map data")
-            osmGet.get(
-                ["-b", ",".join(map(str, self.data["coords"])), "-p", self.prefix, "-d", self.tmp])
+            osmArgs = ["-b=" + (",".join(map(str, self.data["coords"]))), "-p", self.prefix, "-d", self.tmp]
+            if 'osmMirror' in self.data:
+                osmArgs += ["-u", self.data["osmMirror"]]
+            osmGet.get(osmArgs)
 
         options = ["-f", self.files["osm"], "-p", self.prefix, "-d", self.tmp]
         self.additionalFiles = []
         self.routenames = []
 
         if self.data["poly"]:
-            # output name for the poly file, will be used by osmBuild and
-            # sumo-gui
+            # output name for the poly file, will be used by osmBuild and sumo-gui
             self.filename("poly", ".poly.xml")
             options += ["-m", typemaps["poly"]]
             self.additionalFiles.append(self.files["poly"])
 
         typefiles = [typemaps["net"]]
-        netconvertOptions = osmBuild.DEFAULT_NETCONVERT_OPTS
+        # leading space ensures that arguments starting with -- are not
+        # misinterpreted as options
+        netconvertOptions = " " + osmBuild.DEFAULT_NETCONVERT_OPTS
         netconvertOptions += ",--tls.default-type,actuated"
+        # netconvertOptions += ",--default.spreadtype,roadCenter"
         if "pedestrian" in self.data["vehicles"]:
             # sidewalks are already included via typefile
             netconvertOptions += ",--crossings.guess"
+            netconvertOptions += ",--osm.sidewalks"
             typefiles.append(typemaps["urban"])
             typefiles.append(typemaps["pedestrians"])
         if "ship" in self.data["vehicles"]:
             typefiles.append(typemaps["ships"])
         if "bicycle" in self.data["vehicles"]:
             typefiles.append(typemaps["bicycles"])
+            netconvertOptions += ",--osm.bike-access"
         # special treatment for public transport
         if self.data["publicTransport"]:
             self.filename("stops", "_stops.add.xml")
@@ -224,6 +230,11 @@ class Builder(object):
             netconvertOptions += ",--railway.topology.repair"
         if self.data["leftHand"]:
             netconvertOptions += ",--lefthand"
+        if self.data["carOnlyNetwork"]:
+            if self.data["publicTransport"]:
+                options += ["--vehicle-classes", "publicTransport"]
+            else:
+                options += ["--vehicle-classes", "passenger"]
 
         options += ["--netconvert-typemap", ','.join(typefiles)]
         options += ["--netconvert-options", netconvertOptions]
@@ -257,6 +268,26 @@ class Builder(object):
             ]
             ptlines2flows.main(ptlines2flows.get_options(ptOptions))
 
+        if self.data["decal"]:
+            self.report("Downloading background images")
+            tileOptions = [
+                "-n", self.files["net"],
+                "-t", "100",
+                "-d", "background_images",
+                "-l", "-300",
+            ]
+            try:
+                os.chdir(self.tmp)
+                os.mkdir("background_images")
+                tileGet.get(tileOptions)
+                self.report("Success.")
+                self.decalError = False
+            except Exception:
+                os.chdir(self.tmp)
+                shutil.rmtree("background_images", ignore_errors=True)
+                self.report("Error while downloading background images")
+                self.decalError = True
+
         if self.data["vehicles"] or ptOptions:
             # routenames stores all routefiles and will join the items later, will
             # be used by sumo-gui
@@ -277,6 +308,7 @@ class Builder(object):
 
                 if vehicle == "pedestrian" and self.data["publicTransport"]:
                     options += ["--additional-files", ",".join([self.files["stops"], self.files["ptroutes"]])]
+                    options += ["--persontrip.walk-opposite-factor", "0.8"]
 
                 randomTrips.main(randomTrips.get_options(options))
                 randomTripsCalls.append(options)
@@ -304,10 +336,10 @@ class Builder(object):
                 if os.name == "posix":
                     f.write("#!/bin/bash\n")
                 if ptOptions is not None:
-                    f.write("python \"%s\" %s\n" %
+                    f.write('python "%s" %s\n' %
                             (ptlines2flowsPath, " ".join(map(quoted_str, self.getRelative(ptOptions)))))
                 for opts in sorted(randomTripsCalls):
-                    f.write("python \"%s\" %s\n" %
+                    f.write('python "%s" %s\n' %
                             (randomTripsPath, " ".join(map(quoted_str, self.getRelative(opts)))))
 
     def parseTripOpts(self, vehicle, options, publicTransport):
@@ -321,7 +353,7 @@ class Builder(object):
 
         period = 3600 / (length / 1000) / options["count"]
 
-        opts = ["-n", self.files["net"], "--seed", RANDOMSEED, "--fringe-factor", options["fringeFactor"],
+        opts = ["-n", self.files["net"], "--fringe-factor", options["fringeFactor"],
                 "-p", period, "-o", self.files["trips"], "-e", self.data["duration"]]
         if "--validate" not in vehicleParameters[vehicle]:
             opts += ["-r", self.files["route"]]
@@ -339,7 +371,16 @@ class Builder(object):
 
         self.filename("guisettings", ".view.xml")
         with open(self.files["guisettings"], 'w') as f:
-            f.write("""
+            if self.data["decal"] and not self.decalError:
+                f.write("""
+<viewsettings>
+    <scheme name="real world"/>
+    <delay value="20"/>
+    <include href="background_images/settings.xml"/>
+</viewsettings>
+""")
+            else:
+                f.write("""
 <viewsettings>
     <scheme name="real world"/>
     <delay value="20"/>
@@ -350,7 +391,8 @@ class Builder(object):
         self.filename("config", ".sumocfg")
         opts = [sumo, "-n", self.files_relative["net"], "--gui-settings-file", self.files_relative["guisettings"],
                 "--duration-log.statistics",
-                "--device.rerouting.adaptation-steps", "180",
+                "--device.rerouting.adaptation-interval", "10",
+                "--device.rerouting.adaptation-steps", "18",
                 "-v", "--no-step-log", "--save-configuration", self.files_relative["config"], "--ignore-route-errors"]
 
         if self.routenames:
@@ -418,6 +460,7 @@ class Builder(object):
 class OSMImporterWebSocket(WebSocket):
 
     local = False
+    outputDir = None
 
     def report(self, message):
         print(message)
@@ -432,6 +475,8 @@ class OSMImporterWebSocket(WebSocket):
         thread.start()
 
     def build(self, data):
+        if self.outputDir is not None:
+            data['outputDir'] = self.outputDir
         builder = Builder(data, self.local)
         builder.report = self.report
 
@@ -467,6 +512,8 @@ parser.add_argument("--osm-file", default="osm_bbox.osm.xml", dest="osmFile", he
 parser.add_argument("--test-output", default=None, dest="testOutputDir",
                     help="Run with pre-defined options on file 'osm_bbox.osm.xml' and " +
                     "write output to the given directory.")
+parser.add_argument("-o", "--output", default=None, dest="outputDir",
+                    help="Write output to the given folder rather than creating a name based on the timestamp")
 parser.add_argument("--address", default="", help="Address for the Websocket.")
 parser.add_argument("--port", type=int, default=8010,
                     help="Port for the Websocket. Please edit script.js when using an other port than 8010.")
@@ -474,6 +521,7 @@ parser.add_argument("--port", type=int, default=8010,
 if __name__ == "__main__":
     args = parser.parse_args()
     OSMImporterWebSocket.local = args.testOutputDir is not None or not args.remote
+    OSMImporterWebSocket.outputDir = args.outputDir
     if args.testOutputDir is not None:
         data = {u'duration': 900,
                 u'vehicles': {u'passenger': {u'count': 6, u'fringeFactor': 5},
@@ -484,7 +532,9 @@ if __name__ == "__main__":
                 u'poly': True,
                 u'publicTransport': True,
                 u'leftHand': False,
-                u'testOutputDir': args.testOutputDir,
+                u'decal': False,
+                u'carOnlyNetwork': False,
+                u'outputDir': args.testOutputDir,
                 }
         builder = Builder(data, True)
         builder.build()

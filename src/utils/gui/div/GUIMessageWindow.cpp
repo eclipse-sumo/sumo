@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2003-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2003-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIMessageWindow.cpp
 /// @author  Daniel Krajzewicz
@@ -15,11 +19,6 @@
 ///
 // A logging window for the gui
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cassert>
@@ -36,13 +35,15 @@
 // static members
 // ===========================================================================
 bool GUIMessageWindow::myLocateLinks = true;
+SUMOTime GUIMessageWindow::myBreakPointOffset = TIME2STEPS(-5);
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIMessageWindow::GUIMessageWindow(FXComposite* parent) :
+GUIMessageWindow::GUIMessageWindow(FXComposite* parent, GUIMainWindow* mainWindow) :
     FXText(parent, nullptr, 0, 0, 0, 0, 0, 50),
+    myMainWindow(mainWindow),
     myStyles(new FXHiliteStyle[8]),
     myErrorRetriever(nullptr),
     myMessageRetriever(nullptr),
@@ -108,8 +109,11 @@ GUIMessageWindow::getActiveStringObject(const FXString& text, const FXint pos, c
     const FXint idS = MAX2(text.rfind(" '", pos), text.rfind("='", pos));
     const FXint idE = text.find("'", pos);
     if (idS >= 0 && idE >= 0 && idS >= lineS && idE <= lineE) {
-        const FXint typeS = text.rfind(" ", idS - 1);
+        FXint typeS = text.rfind(" ", idS - 1);
         if (typeS >= 0) {
+            if (text.at(typeS + 1) == '(') {
+                typeS++;
+            }
             std::string type(text.mid(typeS + 1, idS - typeS - 1).lower().text());
             if (type == "tllogic") {
                 type = "tlLogic"; // see GUIGlObject.cpp
@@ -131,6 +135,42 @@ GUIMessageWindow::getActiveStringObject(const FXString& text, const FXint pos, c
     return nullptr;
 }
 
+SUMOTime
+GUIMessageWindow::getTimeString(const FXString& text, const FXint pos, const FXint /*lineS*/, const FXint /*lineE*/) const {
+    const FXint end = text.find(" ", pos + 1);
+    std::string time;
+    if (end >= 0) {
+        time = text.mid(pos, end - pos).text();
+    } else {
+        time = text.mid(pos, text.length() - pos).text();
+        if (time.empty()) {
+            return -1;
+        }
+        if (time.back() == '\n') {
+            time.pop_back();
+        }
+        if (time.empty()) {
+            return -1;
+        }
+        if (time.back() == '.') {
+            time.pop_back();
+        }
+    }
+    if (time.empty()) {
+        return -1;
+    }
+    if (time.front() == ' ') {
+        time = time.substr(1);
+    }
+    //std::cout << "text='" << text.text() << "' pos=" << pos << " time='" << time << "'\n";
+    try {
+        //std::cout << "  SUMOTime=" << string2time(time) << "\n";
+        return string2time(time);
+    } catch (...) {
+        return -1;
+    }
+}
+
 
 void
 GUIMessageWindow::setCursorPos(FXint pos, FXbool notify) {
@@ -149,6 +189,24 @@ GUIMessageWindow::setCursorPos(FXint pos, FXbool notify) {
             GUIGlObjectStorage::gIDStorage.unblockObject(glObj->getGlID());
             if (getApp()->getKeyState(KEY_Control_L)) {
                 gSelected.toggleSelection(glObj->getGlID());
+            }
+        } else {
+            const int lookback = MIN2(pos, 10);
+            const int start = MAX2(lineStart(pos), pos - lookback);
+            const FXString candidate = text.mid(start, lineEnd(pos) - start);
+            FXint timePos = candidate.find(" time");
+            SUMOTime t = -1;
+            if (pos >= 0) {
+                t = getTimeString(candidate, timePos + 6, 0, candidate.length());
+                if (t >= 0) {
+                    t += myBreakPointOffset;
+                    std::vector<SUMOTime> breakpoints = myMainWindow->retrieveBreakpoints();
+                    if (std::find(breakpoints.begin(), breakpoints.end(), t) == breakpoints.end()) {
+                        breakpoints.push_back(t);
+                        std::sort(breakpoints.begin(), breakpoints.end());
+                        myMainWindow->setBreakpoints(breakpoints);
+                    }
+                }
             }
         }
     }
@@ -202,6 +260,24 @@ GUIMessageWindow::appendMsg(GUIEventType eType, const std::string& msg) {
                 text.erase(0, pos);
             }
             pos = text.find("'", pos + 1);
+        }
+        // find time links
+        pos = text.find(" time");
+        SUMOTime t = -1;
+        if (pos >= 0) {
+            t = getTimeString(text, pos + 6, 0, text.length());
+        }
+        if (t >= 0) {
+            FXString insText = text.left(pos + 6);
+            FXText::appendStyledText(insText, style + 1);
+            text.erase(0, pos + 6);
+            pos = text.find(" ");
+            if (pos < 0) {
+                pos = text.rfind(".");
+            }
+            insText = text.left(pos);
+            FXText::appendStyledText(insText, style + 4);
+            text.erase(0, pos);
         }
     }
     // insert rest of the message
@@ -270,4 +346,3 @@ GUIMessageWindow::unregisterMsgHandlers() {
 
 
 /****************************************************************************/
-

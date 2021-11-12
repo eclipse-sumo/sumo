@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    tracemapper.py
 # @author  Michael Behrisch
@@ -79,8 +83,8 @@ if __name__ == "__main__":
                          help="generate polygon output for the mapped edges", metavar="FILE")
     optParser.add_option("--geo", action="store_true",
                          default=False, help="read trace with geo-coordinates")
-    optParser.add_option("--fill-gaps", action="store_true",
-                         default=False, help="use internal dijkstra to repair disconnected routes")
+    optParser.add_option("--fill-gaps", default=0, type=int,
+                         help="repair disconnected routes bridging gaps of up to x meters")
     optParser.add_option("-g", "--gap-penalty", default=-1, type="float",
                          help="penalty to add for disconnected routes " +
                               "(default of -1 adds the distance between the two endpoints as penalty)")

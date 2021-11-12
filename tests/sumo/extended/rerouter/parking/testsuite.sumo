@@ -1,6 +1,9 @@
 # test for rerouting ahead of an occupied parkingArea
 visibility
 
+# tests for determining the destination parkingArea from a list of alternatives when there is no prior knowledge of capacity, (iteratively until a space is found)
+parkingSearch
+
 # tests for rerouting persons along with the vehicles
 riders
 
@@ -57,3 +60,12 @@ subsequent_stop_requires_loop
 
 # check reroute handling with parking.meneuver and vtype configuration of maneuverAngleTimes
 maneuver_reroute
+
+# parkingReroute is triggered on the insertion edge, insertion is delayed. Should not crash (#6705)
+reroute_insertion_delayed
+
+# test slope for parking vehicles 
+roadside_slope
+
+# reroute full parking (see #8338)
+reroute_fullparking

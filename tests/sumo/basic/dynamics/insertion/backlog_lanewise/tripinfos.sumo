@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu May  2 22:11:19 2019 by Eclipse SUMO Version v1_2_0+0149-6b40db9d1b
+<!-- generated on Wed Mar 11 22:22:02 2020 by Eclipse SUMO Version v1_5_0+0662-a598ecae47
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,6 +43,6 @@ SPDX-License-Identifier: EPL-2.0
     <tripinfo id="unblocked.7" depart="70.00" departLane="end_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="82.00" arrivalLane="end_0" arrivalPos="192.00" arrivalSpeed="31.20" duration="12.00" routeLength="186.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="6.37" rerouteNo="0" devices="tripinfo_unblocked.7" vType="t0" speedFactor="1.00" vaporized=""/>
     <tripinfo id="unblocked.8" depart="80.00" departLane="end_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="92.00" arrivalLane="end_0" arrivalPos="192.00" arrivalSpeed="31.20" duration="12.00" routeLength="186.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="6.37" rerouteNo="0" devices="tripinfo_unblocked.8" vType="t0" speedFactor="1.00" vaporized=""/>
     <tripinfo id="unblocked.9" depart="90.00" departLane="end_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="102.00" arrivalLane="end_0" arrivalPos="192.00" arrivalSpeed="31.20" duration="12.00" routeLength="186.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="6.37" rerouteNo="0" devices="tripinfo_unblocked.9" vType="t0" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="blocker" depart="0.00" departLane="end_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="114.00" arrivalLane="end_1" arrivalPos="192.00" arrivalSpeed="31.20" duration="114.00" routeLength="186.90" waitingTime="0.00" waitingCount="0" stopTime="101.00" timeLoss="7.34" rerouteNo="0" devices="tripinfo_blocker" vType="t0" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="backlogged" depart="104.00" departLane="end_1" departPos="5.10" departSpeed="0.00" departDelay="104.00" arrival="116.00" arrivalLane="end_1" arrivalPos="192.00" arrivalSpeed="30.50" duration="12.00" routeLength="186.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="6.60" rerouteNo="0" devices="tripinfo_backlogged" vType="t0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="blocker" depart="0.00" departLane="end_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="113.00" arrivalLane="end_1" arrivalPos="192.00" arrivalSpeed="31.20" duration="113.00" routeLength="186.90" waitingTime="0.00" waitingCount="0" stopTime="100.00" timeLoss="7.34" rerouteNo="0" devices="tripinfo_blocker" vType="t0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="backlogged" depart="103.00" departLane="end_1" departPos="5.10" departSpeed="0.00" departDelay="103.00" arrival="115.00" arrivalLane="end_1" arrivalPos="192.00" arrivalSpeed="30.50" duration="12.00" routeLength="186.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="6.60" rerouteNo="0" devices="tripinfo_backlogged" vType="t0" speedFactor="1.00" vaporized=""/>
 </tripinfos>

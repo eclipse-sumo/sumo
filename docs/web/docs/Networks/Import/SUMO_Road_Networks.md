@@ -1,14 +1,13 @@
 ---
-title: Networks/Import/SUMO Road Networks
-permalink: /Networks/Import/SUMO_Road_Networks/
+title: SUMO Road Networks
 ---
 
-[NETCONVERT](../../NETCONVERT.md) allows a round-trip reimport of
+[netconvert](../../netconvert.md) allows a round-trip reimport of
 generated SUMO road networks. Use the option **--sumo-net-file** {{DT_FILE}} for reading a SUMO road
 network, the shorter options **--sumo-net** {{DT_FILE}} and **--sumo** {{DT_FILE}} are synonymes. An example call:
 
 ```
-netconvert --sumo mySUMOnet.net.xml -o mySUMOnet2.net.xml
+netconvert --sumo-net-file mySUMOnet.net.xml -o mySUMOnet2.net.xml
 ```
 
 Note that in this case, both the read network ("mySUMOnet.net.xml") and

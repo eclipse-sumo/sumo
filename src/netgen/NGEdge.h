@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NGEdge.h
 /// @author  Markus Hartinger
@@ -15,13 +19,7 @@
 ///
 // A netgen-representation of an edge
 /****************************************************************************/
-#ifndef NGNetElements_h
-#define NGNetElements_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <list>
@@ -61,7 +59,7 @@ public:
      * @param[in] StarNGNode The begin node
      * @param[in] EndNode The end node
      */
-    NGEdge(const std::string& id, NGNode* startNode, NGNode* endNode);
+    NGEdge(const std::string& id, NGNode* startNode, NGNode* endNode, const std::string& reverseID = "");
 
 
     /** @brief Destructor
@@ -75,18 +73,18 @@ public:
      *
      * @return The start node of the link
      */
-    NGNode* getStartNode() {
+    NGNode* getStartNode() const {
         return myStartNode;
-    };
+    }
 
 
     /** @brief Returns this link's end node
      *
      * @return The end node of the link
      */
-    NGNode* getEndNode() {
+    NGNode* getEndNode() const {
         return myEndNode;
-    };
+    }
 
 
     /** @brief Builds and returns this link's netbuild-representation
@@ -98,7 +96,7 @@ public:
      * @param[in] nb The netbuilder to retrieve the referenced nodes from
      * @return The built edge
      */
-    NBEdge* buildNBEdge(NBNetBuilder& nb, const std::string& type) const;
+    NBEdge* buildNBEdge(NBNetBuilder& nb, const std::string& type, const bool reversed = false) const;
 
 
 private:
@@ -108,6 +106,8 @@ private:
     /// @brief The node the edge ends at
     NGNode* myEndNode;
 
+    /// @brief The id when building the reverse edge
+    const std::string myReverseID;
 };
 
 
@@ -116,8 +116,3 @@ private:
  * @brief A list of edges (edge pointers)
  */
 typedef std::list<NGEdge*> NGEdgeList;
-
-#endif
-
-/****************************************************************************/
-

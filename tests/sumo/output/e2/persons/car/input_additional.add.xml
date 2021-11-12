@@ -1,0 +1,6 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+   <e2Detector id="det0" lane="SC_0" pos="50" length="10" freq="100" detectPersons="car" file="detector.xml"/>
+   <e2Detector id="det3" lane="SC_3" pos="50" length="10" freq="100" detectPersons="car" file="detector2.xml"/>
+
+</additional>

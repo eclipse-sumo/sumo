@@ -1,0 +1,5 @@
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Warning: No connection between edge 'a' and edge '-a3' found.
+Warning: No route for vehicle 't0' found.
+Error: Vehicle 't0' has no valid route.
+Quitting (on error).

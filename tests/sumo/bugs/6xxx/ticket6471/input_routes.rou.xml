@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+
+    <vehicle id="639" depart="0.03">
+        <route edges="-35586894#4 35586885#1"/>
+    </vehicle>
+    <vehicle id="746" depart="0.03">
+        <route edges="35586894#0 35586894#2"/>
+    </vehicle>
+    <vehicle id="8337" depart="0.33">
+        <route edges="-35586885#1 -35586894#1"/>
+    </vehicle>
+    <vehicle id="17373" depart="0.69">
+        <route edges="-35586887 -35586894#1"/>
+    </vehicle>
+</routes>

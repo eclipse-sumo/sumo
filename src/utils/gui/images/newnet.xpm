@@ -1,0 +1,27 @@
+/* XPM */
+static const char *newnet_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 5 1",
+"  c black",
+"4 c #5AA02C",
+"v c #D7F4D7",
+"B c white",
+"V c None",
+/* pixels */
+"VV         VVVVV",
+"VV BBBBBB B VVVV",
+"VV BBBBBB BB VVV",
+"VV BBBBBB BBB VV",
+"VV BBBBBB     VV",
+"VV BBBBBBBBBB VV",
+"VV BBBBBBBBBB VV",
+"VV BBBB444444444",
+"VV BBBB4vvvvvvv4",
+"VV BBBB4vvv4vvv4",
+"VV BBBB4vvv4vvv4",
+"VV BBBB4v44444v4",
+"VV BBBB4vvv4vvv4",
+"VV BBBB4vvv4vvv4",
+"VV BBBB4vvvvvvv4",
+"VV     444444444"
+};

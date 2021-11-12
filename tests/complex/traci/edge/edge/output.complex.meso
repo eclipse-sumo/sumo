@@ -1,0 +1,58 @@
+Loading configuration ... done.
+ Retrying in 1 seconds
+step 0
+step 1
+step 2
+edges ('1fi', '1o', '1si', '2fi', '2o', '2si', '3fi', '3o', '3si', '4fi', '4o', '4si', 'taz12-sink', 'taz12-source', 'taz34-sink', 'taz34-source')
+edge count 16
+examining 2fi
+laneNumber 1
+streetName exampleStreetName1
+adaptedTraveltime -1.0
+effort -1.0
+CO2 0.0
+CO 0.0
+HC 0.0
+PMx 0.0
+NOx 0.0
+Fuel 0.0
+Noise 0.0
+Elec 0.0
+meanSpeed 11.109620887
+occupancy 0.0201207243461
+lastLength 5.0
+traveltime 22.368
+numVeh 1
+haltVeh 0
+vehIds ('horiz',)
+personIds ('p0',)
+waiting time 0.0
+checking occupancy with unicode id 0.0201207243461
+traveltime after adaption 22.368
+adaptedTraveltime after adaption 42.0
+adaptedTraveltime after adaption in interval (check time 0) 42.0
+adaptedTraveltime after adaption in interval (check time 15) 24.0
+adaptedTraveltime after adaption in interval (check time 25) 42.0
+effort after adaption 1234.0
+effort after adaption in interval (check time 0) 1234.0
+effort after adaption in interval (check time 15) 2468.0
+effort after adaption in interval (check time 25) 1234.0
+max speed after adaption 23.0
+{16: 1}
+step 3
+{16: 1}
+step 4
+{16: 1}
+step 5
+{16: 1}
+{'2fi': {16: 1}}
+3si count=1 meanSpeed=3.0 travelTime=79.05
+3si count=1 meanSpeed=3.0 travelTime=79.05
+3si count=1 meanSpeed=3.0 travelTime=79.05
+3si count=1 meanSpeed=3.0 travelTime=79.05
+3si count=1 meanSpeed=3.0 travelTime=79.05
+3si count=1 meanSpeed=3.0 travelTime=79.05
+3si count=1 meanSpeed=3.0 travelTime=79.05
+3si count=1 meanSpeed=3.0 travelTime=79.05
+3si count=1 meanSpeed=3.0 travelTime=79.05
+3si count=1 meanSpeed=3.0 travelTime=79.05

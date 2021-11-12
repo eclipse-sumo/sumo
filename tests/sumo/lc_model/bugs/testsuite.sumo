@@ -13,3 +13,12 @@ ticket4108
 
 # approaching roundabout with an invalid route
 ticket5097
+
+# delayed lane change when trying to avoid counter-lane-change deadlock for IDM model
+ticket5124
+
+# lane change decision should be independent of step length
+ticket8804
+
+# lcSigma should not cause deadlock
+ticket9395

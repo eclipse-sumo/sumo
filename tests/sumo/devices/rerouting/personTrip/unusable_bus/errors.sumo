@@ -1,4 +1,1 @@
-Warning: Ignoring stop at '' until 10.00  for vehicle 'bus'.
-Warning: Ignoring stop at '' until 110.00  for vehicle 'bus'.
-Warning: Ignoring stop at '' until 210.00  for vehicle 'bus'.
 Warning: Not using public transport line 'bus' for routing persons. It has less than two usable stops.

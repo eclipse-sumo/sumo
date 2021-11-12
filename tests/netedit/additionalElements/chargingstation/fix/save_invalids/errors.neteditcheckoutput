@@ -1,0 +1,3 @@
+Error: Invalid position for charging station 'chargingStationA'.
+Error: Could not end a stopping place that is not opened.
+Quitting (on error).

@@ -1,0 +1,3 @@
+--device.taxi.dispatch-algorithm greedyShared
+--fcd-output fcd.xml
+--fcd-output.params device.taxi.state

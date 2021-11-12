@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    version.py
 # @author  Michael Behrisch
@@ -31,39 +35,58 @@ sys.path.append(dirname(dirname(abspath(__file__))))
 import sumolib  # noqa
 
 
-GITFILE = "index"
+SUMO_ROOT = abspath(join(dirname(__file__), '..', '..'))
 
 
-def create_version_file(versionFile, revision, vcsFile):
-    print('generating %s from revision in %s' % (versionFile, vcsFile))
+def get_version(padZero=True):
+    return sumolib.version.gitDescribe(gitDir=join(SUMO_ROOT, ".git"), padZero=padZero)
+
+
+def get_pep440_version():
+    v = get_version(padZero=False).replace("_", ".").replace("+", ".post")
+    v = v[1:v.rfind("-")]
+    vs = v.split(".")
+    if len(vs) == 4 and vs[3] == "post0":
+        return v[:-6]
+    return v
+
+
+def create_version_file(versionFile, revision):
     with open(versionFile, 'w') as f:
         print('#define VERSION_STRING "%s"' % revision, file=f)
 
 
 def main():
-    sumoRoot = join(dirname(__file__), '..', '..')
     # determine output file
     if len(sys.argv) > 1:
         versionDir = sys.argv[1]
         if sys.argv[1] == "-":
-            sys.stdout.write(sumolib.version.gitDescribe())
+            sys.stdout.write(get_version())
             return
     else:
-        versionDir = join(sumoRoot, "src")
+        versionDir = join(SUMO_ROOT, "src")
     versionFile = join(versionDir, 'version.h')
 
-    vcsFile = join(sumolib.version.GITDIR, GITFILE)
-    if exists(vcsFile):
-        if not exists(versionFile) or getmtime(versionFile) < getmtime(vcsFile):
-            # vcsFile is newer. lets update the revision number
-            try:
-                create_version_file(versionFile, sumolib.version.gitDescribe(), vcsFile)
-            except Exception as e:
-                print("Error creating", versionFile, e)
-    else:
-        print("unknown revision - version control file '%s' not found" % vcsFile)
-    if not exists(versionFile):
-        create_version_file(versionFile, sumolib.version.UNKNOWN_REVISION, "<None>")
+    vcsFile = join(SUMO_ROOT, ".git", "index")
+    try:
+        if exists(vcsFile):
+            if not exists(versionFile) or getmtime(versionFile) < getmtime(vcsFile):
+                # vcsFile is newer. lets update the revision number
+                print('generating %s from revision in %s' % (versionFile, vcsFile))
+                create_version_file(versionFile, get_version())
+        else:
+            print("version control file '%s' not found" % vcsFile)
+        if not exists(versionFile):
+            print('trying to generate version file %s from existing header' % versionFile)
+            create_version_file(versionFile, sumolib.version.fromVersionHeader())
+    except Exception as e:
+        print("Error creating", versionFile, e)
+        try:
+            # try at least to create something
+            create_version_file(versionFile, "UNKNOWN")
+        except Exception as ee:
+            print("Error creating", versionFile, ee)
+            pass
 
 
 if __name__ == "__main__":

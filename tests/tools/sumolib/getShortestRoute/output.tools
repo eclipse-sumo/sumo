@@ -1,3 +1,12 @@
-((<edge id="SC" from="S" to="C"/>, <edge id="CE" from="C" to="E"/>), 188.23)
-((<edge id="SC" from="S" to="C"/>, <edge id="CW" from="C" to="W"/>, <edge id="WC" from="W" to="C"/>, <edge id="CE" from="C" to="E"/>), 390.83)
-((<edge id="SC" from="S" to="C"/>, <edge id="CE" from="C" to="E"/>), 188.23)
+(<edge id="SC" from="S" to="C"/>, <edge id="CE" from="C" to="E"/>) 188.23
+(<edge id="SC" from="S" to="C"/>, <edge id="CW" from="C" to="W"/>, <edge id="WC" from="W" to="C"/>, <edge id="CE" from="C" to="E"/>) 403.23
+(<edge id="SC" from="S" to="C"/>, <edge id="CE" from="C" to="E"/>) 188.23
+(<edge id="SC" from="S" to="C"/>, <edge id=":C_9" function="internal"/>, <edge id="CE" from="C" to="E"/>) 188.23
+(<edge id="SC" from="S" to="C"/>, <edge id=":C_12" function="internal"/>, <edge id=":C_22" function="internal"/>, <edge id="CW" from="C" to="W"/>, <edge id=":W_0" function="internal"/>, <edge id="WC" from="W" to="C"/>, <edge id=":C_15" function="internal"/>, <edge id="CE" from="C" to="E"/>) 403.23
+(<edge id="SC" from="S" to="C"/>, <edge id=":C_12" function="internal"/>, <edge id=":C_22" function="internal"/>, <edge id="CW" from="C" to="W"/>, <edge id=":W_0" function="internal"/>, <edge id="WC" from="W" to="C"/>, <edge id=":C_15" function="internal"/>, <edge id="CE" from="C" to="E"/>) True
+(<edge id=":C_12" function="internal"/>, <edge id="CW" from="C" to="W"/>, <edge id="WC" from="W" to="C"/>, <edge id="CE" from="C" to="E"/>) 313.63
+(<edge id=":C_22" function="internal"/>, <edge id="CW" from="C" to="W"/>, <edge id="WC" from="W" to="C"/>, <edge id="CE" from="C" to="E"/>) 306.67
+(<edge id="SC" from="S" to="C"/>, <edge id="CW" from="C" to="W"/>, <edge id="WC" from="W" to="C"/>, <edge id=":C_15" function="internal"/>) 313.63
+(<edge id=":C_12" function="internal"/>, <edge id="CW" from="C" to="W"/>, <edge id="WC" from="W" to="C"/>, <edge id=":C_15" function="internal"/>) 224.03
+(<edge id="CE" from="C" to="E"/>, <edge id="EC" from="E" to="C"/>, <edge id="CS" from="C" to="S"/>, <edge id="SC" from="S" to="C"/>) 387.10
+(<edge id="CE" from="C" to="E"/>, <edge id="SC" from="S" to="C"/>) 188.23

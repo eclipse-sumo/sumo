@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<connections version="0.13">
+    <crossing node="C" edges="EC" width="4.5"/>
+    <crossing node="C" edges="CE" width="4.5"/>
+    <crossing node="C" edges="SC" width="4.5"/>
+    <crossing node="C" edges="CS" width="4.5"/>
+    <crossing node="C" edges="WC" width="4.5"/>
+    <crossing node="C" edges="CW" width="4.5"/>
+
+    <walkingArea node="C" edges="SC" width="5"/>
+    <walkingArea node="C" edges="WC CW" shape="86.91,106.71 70.07,99.68 86.28,91.38"/>
+</connections>

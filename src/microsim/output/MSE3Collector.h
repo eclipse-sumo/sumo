@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2003-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2003-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSE3Collector.h
 /// @author  Christian Roessel
@@ -16,13 +20,7 @@
 ///
 // A detector of vehicles passing an area between entry/exit points
 /****************************************************************************/
-#ifndef MSE3Collector_h
-#define MSE3Collector_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -34,7 +32,7 @@
 #include <microsim/output/MSCrossSection.h>
 #include <utils/common/UtilExceptions.h>
 #ifdef HAVE_FOX
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #endif
 
 
@@ -43,6 +41,7 @@
 // ===========================================================================
 class SUMOTrafficObject;
 class OutputDevice;
+class MSTransportable;
 
 
 // ===========================================================================
@@ -57,7 +56,7 @@ class OutputDevice;
  *  out-cross-section. Vehicles passing the out-cross-section without having
  *  passed the in-cross-section are not detected.
  */
-class MSE3Collector : public MSDetectorFileOutput {
+class MSE3Collector : public MSDetectorFileOutput, public Parameterised {
 public:
     /**
      * @class MSE3EntryReminder
@@ -118,6 +117,10 @@ public:
         bool notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
         /// @}
 
+
+        double getPosition() const {
+            return myPosition;
+        }
 
     private:
         /// @brief The parent collector
@@ -194,6 +197,10 @@ public:
         bool notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
         //@}
 
+        double getPosition() const {
+            return myPosition;
+        }
+
 
     private:
         /// @brief The parent collector
@@ -226,7 +233,7 @@ public:
                   const CrossSectionVector& entries, const CrossSectionVector& exits,
                   double haltingSpeedThreshold,
                   SUMOTime haltingTimeThreshold,
-                  const std::string& vTypes, bool openEntry);
+                  const std::string& vTypes, int detectPersons, bool openEntry);
 
 
     /// @brief Destructor
@@ -246,7 +253,7 @@ public:
      *  @param[in] entryTimestep The time in seconds the vehicle entered the area
      *  @param[in] fractionTimeOnDet The interpolated time in seconds the vehicle already spent on the detector
      */
-    void enter(const SUMOTrafficObject& veh, const double entryTimestep, const double fractionTimeOnDet, MSE3EntryReminder* entryReminder);
+    void enter(const SUMOTrafficObject& veh, const double entryTimestep, const double fractionTimeOnDet, MSE3EntryReminder* entryReminder, bool isBackward = false);
 
 
     /** @brief Called if a vehicle front passes a leave-cross-section.
@@ -265,7 +272,7 @@ public:
     *  @param[in] leaveTimestep The time in seconds the vehicle left the area
     *  @param[in] fractionTimeOnDet The interpolated time in seconds the vehicle still spent on the detector
     */
-    void leave(const SUMOTrafficObject& veh, const double leaveTimestep, const double fractionTimeOnDet);
+    void leave(const SUMOTrafficObject& veh, const double leaveTimestep, const double fractionTimeOnDet, bool isBackward = false);
 
 
     /// @name Methods returning current values
@@ -302,6 +309,25 @@ public:
     std::vector<std::string> getCurrentVehicleIDs() const;
     /// @}
 
+    /// @name Methods returning values from the previous interval
+    /// @{
+
+    double getLastIntervalMeanTravelTime() const {
+        return myLastMeanTravelTime;
+    }
+
+    double getLastIntervalMeanHaltsPerVehicle() const {
+        return myLastMeanHaltsPerVehicle;
+    }
+
+    double getLastIntervalMeanTimeLoss() const {
+        return myLastMeanTimeLoss;
+    }
+
+    int getLastIntervalVehicleSum() const {
+        return myLastVehicleSum;
+    }
+    /// @}
 
     /// @name Methods inherited from MSDetectorFileOutput.
     /// @{
@@ -340,9 +366,13 @@ public:
      */
     void detectorUpdate(const SUMOTime step);
 
+    /** @brief Remove all vehicles before quick-loading state */
+    virtual void clearState();
 
 protected:
-    /// @brief The detector's entries
+    void notifyMovePerson(MSTransportable* p, MSMoveReminder* rem, double detPos, int dir, double pos);
+
+protected:
     CrossSectionVector myEntries;
 
     /// @brief The detector's exits
@@ -417,6 +447,13 @@ protected:
     int myCurrentHaltingsNumber;
     /// @}
 
+    /// @name Storages for last written values
+    /// @{
+    double myLastMeanTravelTime;
+    double myLastMeanHaltsPerVehicle;
+    double myLastMeanTimeLoss;
+    int myLastVehicleSum;
+    /// @}
 
     /// @brief Information when the last reset has been done
     SUMOTime myLastResetTime;
@@ -433,9 +470,3 @@ private:
 
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

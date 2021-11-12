@@ -1,0 +1,5 @@
+[run_dependent_text]
+errors:UserWarning{LINES 2}
+output:tcpip::Socket::recvAndCheck @ recv: Socket reset by peer{REPLACE connection closed by SUMO}
+output:legacy getNextStops
+output:Using libtraci as traci as requested by environment variable.

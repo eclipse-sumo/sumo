@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2007-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    SUMOSAXAttributes.h
 /// @author  Daniel Krajzewicz
@@ -15,13 +19,7 @@
 ///
 // Encapsulated SAX-Attributes
 /****************************************************************************/
-#ifndef SUMOSAXAttributes_h
-#define SUMOSAXAttributes_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -37,6 +35,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class Position;
 class PositionVector;
 class Boundary;
 class RGBColor;
@@ -330,6 +329,12 @@ public:
      */
     virtual RGBColor getColor() const = 0;
 
+    /** @brief Tries to read given attribute assuming it is a Position
+     *
+     * @param[in] attr The id of the attribute to read
+     * @return The read value if given and not empty; empty position if an error occurred
+     */
+    virtual Position getPosition(int attr) const = 0;
 
     /** @brief Tries to read given attribute assuming it is a PositionVector
      *
@@ -415,10 +420,10 @@ protected:
 
 private:
     /// @brief Invalidated copy constructor.
-    SUMOSAXAttributes(const SUMOSAXAttributes& src);
+    SUMOSAXAttributes(const SUMOSAXAttributes& src) = delete;
 
     /// @brief Invalidated assignment operator.
-    SUMOSAXAttributes& operator=(const SUMOSAXAttributes& src);
+    SUMOSAXAttributes& operator=(const SUMOSAXAttributes& src) = delete;
 
     /// @brief the object type to use in error reporting
     std::string myObjectType;
@@ -464,6 +469,11 @@ template<> struct invalid_return<std::string> {
 
 template<> struct invalid_return<RGBColor> {
     static const RGBColor value;
+    static const std::string type;
+};
+
+template<> struct invalid_return<Position> {
+    static const Position value;
     static const std::string type;
 };
 
@@ -534,9 +544,3 @@ T SUMOSAXAttributes::getOpt(int attr, const char* objectid,
     ok = false;
     return invalid_return<T>::value;
 }
-
-
-#endif
-
-/****************************************************************************/
-

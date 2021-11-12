@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov 21 22:13:52 2019 by Eclipse SUMO netgenerate Version v1_3_1+0985-d8cef81c9e
+<!-- generated on 2021-08-25 10:32:01 by Eclipse SUMO netgenerate Version v1_10_0+0213-4059ee3
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -48,6 +48,12 @@
         <!-- The length of streets attached at the boundary; 0 means no streets are attached -->
         <grid.attach-length value="0" synonymes="attach-length" type="FLOAT"/>
 
+        <!-- The length of streets attached at the boundary in x direction; 0 means no streets are attached -->
+        <grid.x-attach-length value="0" type="FLOAT"/>
+
+        <!-- The length of streets attached at the boundary in y direction; 0 means no streets are attached -->
+        <grid.y-attach-length value="0" type="FLOAT"/>
+
     </grid_network>
 
     <spider_network>
@@ -76,7 +82,7 @@
         <rand.iterations value="2000" synonymes="iterations rand-iterations" type="INT"/>
 
         <!-- Defines the probability to build a reverse edge -->
-        <rand.bidi-probability value="1" synonymes="bidi rand-bidi-probability" type="FLOAT"/>
+        <bidi-probability value="1" synonymes="bidi rand-bidi-probability rand.bidi-probability" type="FLOAT"/>
 
         <!-- The maximum distance for each edge -->
         <rand.max-distance value="250" synonymes="max-dist rand-max-distance" type="FLOAT"/>
@@ -141,7 +147,7 @@
         <!-- Defines the number of digits after the comma for lon,lat output -->
         <precision.geo value="6" type="INT"/>
 
-        <!-- Write time values as hour:minute:second or day:hour:minute:second rathern than seconds -->
+        <!-- Write time values as hour:minute:second or day:hour:minute:second rather than seconds -->
         <human-readable-time value="false" synonymes="H" type="BOOL"/>
 
         <!-- The Ids of generated nodes use an alphanumerical code for easier readability when possible -->
@@ -195,19 +201,25 @@
         <!-- Set the length of generated turning lanes to FLOAT -->
         <turn-lanes.length value="20" type="FLOAT"/>
 
-        <!-- Apply random spatial pertubation in x direction according the the given distribution -->
+        <!-- Apply random spatial perturbation in x direction according the the given distribution -->
         <perturb-x value="0" type="STR"/>
 
-        <!-- Apply random spatial pertubation in y direction according the the given distribution -->
+        <!-- Apply random spatial perturbation in y direction according the the given distribution -->
         <perturb-y value="0" type="STR"/>
 
-        <!-- Apply random spatial pertubation in z direction according the the given distribution -->
+        <!-- Apply random spatial perturbation in z direction according the the given distribution -->
         <perturb-z value="0" type="STR"/>
 
         <!-- Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers -->
         <numerical-ids value="false" type="BOOL"/>
 
-        <!-- Ensures that generated ids do not included any of the typed IDs from FILE (SUMO-GUI selection file format) -->
+        <!-- Remaps IDs of nodes to integers starting at INT -->
+        <numerical-ids.node-start value="2147483647" type="INT"/>
+
+        <!-- Remaps IDs of edges to integers starting at INT -->
+        <numerical-ids.edge-start value="2147483647" type="INT"/>
+
+        <!-- Ensures that generated ids do not included any of the typed IDs from FILE (sumo-gui selection file format) -->
         <reserved-ids value="" type="FILE"/>
 
         <!-- Warn about edge geometries with a grade in % above FLOAT. -->
@@ -234,11 +246,17 @@
         <!-- Enable roundabout-guessing -->
         <roundabouts.guess value="true" synonymes="guess-roundabouts" type="BOOL"/>
 
+        <!-- Default visibility when approaching a roundabout -->
+        <roundabouts.visibility-distance value="9" type="FLOAT"/>
+
         <!-- Enable guessing of opposite direction lanes usable for overtaking -->
         <opposites.guess value="false" type="BOOL"/>
 
         <!-- Ensure that opposite edges have the same length -->
         <opposites.guess.fix-lengths value="false" type="BOOL"/>
+
+        <!-- Enable guessing of network fringe nodes -->
+        <fringe.guess value="false" type="BOOL"/>
 
         <!-- Assumes left-hand traffic on the network -->
         <lefthand value="false" type="BOOL"/>
@@ -254,6 +272,9 @@
 
         <!-- The default width of lanes -->
         <default.lanewidth value="-1" synonymes="lanewidth" type="FLOAT"/>
+
+        <!-- The default method for computing lane shapes from edge shapes -->
+        <default.spreadtype value="right" type="STR"/>
 
         <!-- The default speed on an edge (in m/s) -->
         <default.speed value="13.89" synonymes="S speed" type="FLOAT"/>
@@ -273,6 +294,9 @@
         <!-- The default width of a pedestrian crossing -->
         <default.crossing-width value="4" type="FLOAT"/>
 
+        <!-- The default for allowed vehicle classes -->
+        <default.allow value="" type="STR"/>
+
         <!-- The default for disallowed vehicle classes -->
         <default.disallow value="" type="STR"/>
 
@@ -281,6 +305,9 @@
 
         <!-- The default turning radius of intersections -->
         <default.junctions.radius value="4" type="FLOAT"/>
+
+        <!-- The default length when overriding connection lengths -->
+        <default.connection-length value="-1" type="FLOAT"/>
 
         <!-- The default algorithm for computing right of way rules (&apos;default&apos;, &apos;edgePriority&apos;) -->
         <default.right-of-way value="default" type="STR"/>
@@ -366,11 +393,20 @@
         <!-- Set phase layout four grouping opposite directions or grouping all movements for one incoming edge [&apos;opposites&apos;, &apos;incoming&apos;] -->
         <tls.layout value="opposites" type="STR"/>
 
+        <!-- Avoid phases with green and red signals for different connections from the same lane -->
+        <tls.no-mixed value="false" type="BOOL"/>
+
         <!-- Default minimum phase duration for traffic lights with variable phase length -->
         <tls.min-dur value="5" type="INT"/>
 
         <!-- Default maximum phase duration for traffic lights with variable phase length -->
         <tls.max-dur value="50" type="INT"/>
+
+        <!-- Assign the same tls link index to connections that share the same states -->
+        <tls.group-signals value="false" type="BOOL"/>
+
+        <!-- Assign a distinct tls link index to every connection -->
+        <tls.ungroup-signals value="false" type="BOOL"/>
 
     </tls_building>
 
@@ -384,10 +420,10 @@
         <!-- Only keep edges in STR[] or those which are kept due to other keep-edges or remove-edges options -->
         <keep-edges.explicit value="" synonymes="keep-edges" type="STR[]"/>
 
-        <!-- Only keep edges in FILE (Each id on a single line. Selection files from SUMO-GUI are also supported) or those which are kept due to other keep-edges or remove-edges options -->
+        <!-- Only keep edges in FILE (Each id on a single line. Selection files from sumo-gui are also supported) or those which are kept due to other keep-edges or remove-edges options -->
         <keep-edges.input-file value="" type="FILE"/>
 
-        <!-- Remove edges in FILE. (Each id on a single line. Selection files from SUMO-GUI are also supported) -->
+        <!-- Remove edges in FILE. (Each id on a single line. Selection files from sumo-gui are also supported) -->
         <remove-edges.input-file value="" type="FILE"/>
 
         <!-- Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates &lt;xmin,ymin,xmax,ymax&gt; or as polygon &lt;x0,y0,x1,y1,...&gt;) -->
@@ -429,6 +465,12 @@
         <!-- Disables building turnarounds except at dead end junctions -->
         <no-turnarounds.except-deadend value="false" type="BOOL"/>
 
+        <!-- Disables building turnarounds except at at junctions with a dedicated turning lane -->
+        <no-turnarounds.except-turnlane value="false" type="BOOL"/>
+
+        <!-- Disables building turnarounds at fringe junctions -->
+        <no-turnarounds.fringe value="false" type="BOOL"/>
+
         <!-- Disables building connections to left -->
         <no-left-connections value="false" type="BOOL"/>
 
@@ -468,6 +510,9 @@
         <!-- Default radius for junctions that do not require wide vehicle turns -->
         <junctions.small-radius value="1.5" type="FLOAT"/>
 
+        <!-- Use maximum value of incoming and outgoing edge speed on junction instead of average -->
+        <junctions.higher-speed value="false" type="BOOL"/>
+
         <!-- Forces rectangular cuts between lanes and intersections -->
         <rectangular-lane-cut value="false" type="BOOL"/>
 
@@ -504,6 +549,9 @@
         <!-- Always build walking areas even if there are no crossings -->
         <walkingareas value="false" type="BOOL"/>
 
+        <!-- Do not create a walkingarea between sidewalks that are connected by a pedestrian junction within FLOAT -->
+        <walkingareas.join-dist value="15" type="FLOAT"/>
+
     </pedestrian>
 
     <bicycle>
@@ -539,9 +587,6 @@
 
         <!-- Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
         <xml-validation value="auto" synonymes="X" type="STR"/>
-
-        <!-- Set schema validation scheme of SUMO network inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
-        <xml-validation.net value="never" type="STR"/>
 
         <!-- Disables output of warnings -->
         <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL"/>

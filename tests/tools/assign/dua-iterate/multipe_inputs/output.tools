@@ -1,0 +1,96 @@
+> Executing step 0
+>> Running router on input_trips.trips_bar.xml
+>>> Begin time: 2021-03-24 13:21:40.473691
+>>> End time: 2021-03-24 13:21:40.568680
+>>> Duration: 0:00:00.094989
+<<
+>> Running router on input_trips.trips_foo.xml
+>>> Begin time: 2021-03-24 13:21:40.568755
+>>> End time: 2021-03-24 13:21:40.631971
+>>> Duration: 0:00:00.063216
+<<
+>> Running simulation
+>>> Begin time: 2021-03-24 13:21:40.632058
+>>> End time: 2021-03-24 13:21:40.772166
+>>> Duration: 0:00:00.140108
+<<
+< Step 0 ended (duration: 0:00:00.298622)
+------------------
+
+> Executing step 1
+>> Running router on 0/input_trips.trips_bar_000.rou.alt.xml
+>>> Begin time: 2021-03-24 13:21:40.776486
+>>> End time: 2021-03-24 13:21:40.892447
+>>> Duration: 0:00:00.115961
+<<
+>> Running router on 0/input_trips.trips_foo_000.rou.alt.xml
+>>> Begin time: 2021-03-24 13:21:40.892523
+>>> End time: 2021-03-24 13:21:40.999962
+>>> Duration: 0:00:00.107439
+<<
+>> Running simulation
+>>> Begin time: 2021-03-24 13:21:41.000039
+>>> End time: 2021-03-24 13:21:41.127681
+>>> Duration: 0:00:00.127642
+<<
+< Step 1 ended (duration: 0:00:00.351322)
+------------------
+
+> Executing step 2
+>> Running router on 1/input_trips.trips_bar_001.rou.alt.xml
+>>> Begin time: 2021-03-24 13:21:41.132467
+>>> End time: 2021-03-24 13:21:41.235752
+>>> Duration: 0:00:00.103285
+<<
+>> Running router on 1/input_trips.trips_foo_001.rou.alt.xml
+>>> Begin time: 2021-03-24 13:21:41.235826
+>>> End time: 2021-03-24 13:21:41.374330
+>>> Duration: 0:00:00.138504
+<<
+>> Running simulation
+>>> Begin time: 2021-03-24 13:21:41.374410
+>>> End time: 2021-03-24 13:21:41.496541
+>>> Duration: 0:00:00.122131
+<<
+< Step 2 ended (duration: 0:00:00.364209)
+------------------
+
+> Executing step 3
+>> Running router on 2/input_trips.trips_bar_002.rou.alt.xml
+>>> Begin time: 2021-03-24 13:21:41.500803
+>>> End time: 2021-03-24 13:21:41.607081
+>>> Duration: 0:00:00.106278
+<<
+>> Running router on 2/input_trips.trips_foo_002.rou.alt.xml
+>>> Begin time: 2021-03-24 13:21:41.607165
+>>> End time: 2021-03-24 13:21:41.702188
+>>> Duration: 0:00:00.095023
+<<
+>> Running simulation
+>>> Begin time: 2021-03-24 13:21:41.702275
+>>> End time: 2021-03-24 13:21:41.807991
+>>> Duration: 0:00:00.105716
+<<
+< Step 3 ended (duration: 0:00:00.307325)
+------------------
+
+> Executing step 4
+>> Running router on 3/input_trips.trips_bar_003.rou.alt.xml
+>>> Begin time: 2021-03-24 13:21:41.812463
+>>> End time: 2021-03-24 13:21:41.885881
+>>> Duration: 0:00:00.073418
+<<
+>> Running router on 3/input_trips.trips_foo_003.rou.alt.xml
+>>> Begin time: 2021-03-24 13:21:41.885961
+>>> End time: 2021-03-24 13:21:41.943668
+>>> Duration: 0:00:00.057707
+<<
+>> Running simulation
+>>> Begin time: 2021-03-24 13:21:41.943741
+>>> End time: 2021-03-24 13:21:42.014275
+>>> Duration: 0:00:00.070534
+<<
+< Step 4 ended (duration: 0:00:00.201924)
+------------------
+
+dua-iterate ended (duration: 0:00:01.543796)

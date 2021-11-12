@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Feb 10 13:46:09 2021 by Eclipse SUMO sumo Version v1_8_0+1085-cd6c121
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <lanechange-output value="lanechanges.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<lanechanges>
+    <change id="mustChangeRight" type="DEFAULT_VEHTYPE" time="1.00" from=":gneJ1_0_2" to=":gneJ1_0_1" dir="-1" speed="13.80" pos="3.80" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="mustChangeRight" type="DEFAULT_VEHTYPE" time="3.00" from=":gneJ1_0_1" to=":gneJ1_0_0" dir="-1" speed="13.69" pos="31.37" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="3.12" followerSecureGap="0.00" followerSpeed="7.74" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="mustChangeLeft" type="DEFAULT_VEHTYPE" time="3.00" from=":gneJ1_0_0" to=":gneJ1_0_1" dir="1" speed="7.74" pos="23.25" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="3.12" origLeaderSecureGap="0.00" origLeaderSpeed="13.69"/>
+    <change id="mustChangeLeft" type="DEFAULT_VEHTYPE" time="4.00" from=":gneJ1_0_1" to=":gneJ1_0_2" dir="1" speed="9.42" pos="32.68" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+</lanechanges>

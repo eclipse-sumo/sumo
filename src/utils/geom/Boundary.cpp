@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    Boundary.cpp
 /// @author  Daniel Krajzewicz
@@ -15,11 +19,6 @@
 ///
 // A class that stores the 2D geometrical boundary
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 #include <utility>
 
@@ -305,6 +304,15 @@ Boundary::grow(double by) {
     return *this;
 }
 
+
+Boundary&
+Boundary::scale(double by) {
+    growWidth (by * (myXmax - myXmin));
+    growHeight (by * (myYmax - myYmin));
+    return *this;
+}
+
+
 void
 Boundary::growWidth(double by) {
     myXmin -= by;
@@ -375,6 +383,17 @@ Boundary::moveby(double x, double y, double z) {
 }
 
 
+PositionVector 
+Boundary::getShape(const bool closeShape) const {
+    PositionVector shape;
+    shape.push_back(Position(myXmin, myYmin));
+    shape.push_back(Position(myXmin, myYmax));
+    shape.push_back(Position(myXmax, myYmax));
+    shape.push_back(Position(myXmax, myYmin));
+    if (closeShape) {
+        shape.push_back(Position(myXmin, myYmin));
+    }
+    return shape;
+}
 
 /****************************************************************************/
-

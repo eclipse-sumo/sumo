@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIPolygon.h
 /// @author  Daniel Krajzewicz
@@ -15,13 +19,7 @@
 ///
 // The GUI-version of a polygon
 /****************************************************************************/
-#ifndef GUIPolygon_h
-#define GUIPolygon_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -39,6 +37,7 @@
  * @brief The GUI-version of a polygon
  */
 class GUIPolygon : public SUMOPolygon, public GUIGlObject_AbstractAdd {
+
 public:
     /** @brief Constructor
      * @param[in] id The name of the polygon
@@ -53,13 +52,12 @@ public:
      * @param[in] fill Whether the polygon shall be filled
      * @param[in] lineWidth Line width when drawing unfilled polygon
      */
-    GUIPolygon(const std::string& id, const std::string& type,
-               const RGBColor& color, const PositionVector& shape, bool geo, bool fill, double lineWidth,
-               double layer = 0, double angle = 0, const std::string& imgFile = "", bool relativePath = false);
+    GUIPolygon(const std::string& id, const std::string& type, const RGBColor& color, const PositionVector& shape, 
+               bool geo, bool fill, double lineWidth, double layer = 0, double angle = 0, const std::string& imgFile = "", 
+               bool relativePath = false, const std::string& name = DEFAULT_NAME);
 
     /// @brief Destructor
     ~GUIPolygon();
-
 
     /// @name inherited from GUIGlObject
     //@{
@@ -74,7 +72,6 @@ public:
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
                                        GUISUMOAbstractView& parent);
 
-
     /** @brief Returns an own parameter window
      *
      * @param[in] app The application needed to build the parameter window
@@ -85,6 +82,8 @@ public:
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
             GUISUMOAbstractView& parent);
 
+    /// @brief return exaggeration asociated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
@@ -93,14 +92,12 @@ public:
      */
     Boundary getCenteringBoundary() const;
 
-
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
     virtual void drawGL(const GUIVisualizationSettings& s) const;
     //@}
-
 
     /// @brief set a new shape and update the tesselation
     virtual void setShape(const PositionVector& shape);
@@ -115,15 +112,15 @@ public:
         }
     }
 
-protected:
     /// @brief set color
-    void setColor(const GUIVisualizationSettings& s, bool disableSelectionColor) const;
+    static void setColor(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o, bool disableSelectionColor, int alphaOverride);
 
     /// @brief check if Polygon can be drawn
-    bool checkDraw(const GUIVisualizationSettings& s) const;
+    static bool checkDraw(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o);
 
     /// @brief draw inner Polygon (before pushName() )
-    void drawInnerPolygon(const GUIVisualizationSettings& s, bool disableSelectionColor) const;
+    static void drawInnerPolygon(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o,
+            const PositionVector shape, const bool drawFill, double layer, bool disableSelectionColor, int alphaOverride = -1);
 
 private:
     /// The mutex used to avoid concurrent updates of the shape
@@ -136,15 +133,9 @@ private:
     PositionVector* myRotatedShape;
 
     /// @brief store the drawing commands in a display list
-    void storeTesselation(double lineWidth) const;
+    void storeTesselation(const bool fill, const PositionVector& shape, double lineWidth) const;
 
     // @brief perform the tesselation / drawing
-    void performTesselation(double lineWidth) const;
+    static void performTesselation(const bool fill, const PositionVector& shape, const double lineWidth);
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

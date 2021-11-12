@@ -1,3 +1,6 @@
+# Tests for lateral distance filtering
+lateralDistance
+
 # Tests for field of vision (circular sector) filtering
 fieldOfVision
 

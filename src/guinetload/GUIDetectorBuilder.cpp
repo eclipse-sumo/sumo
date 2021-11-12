@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIDetectorBuilder.cpp
 /// @author  Daniel Krajzewicz
@@ -14,11 +18,6 @@
 ///
 // Builds detectors for guisim
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -50,11 +49,11 @@ GUIDetectorBuilder::~GUIDetectorBuilder() {}
 
 MSDetectorFileOutput*
 GUIDetectorBuilder::createInductLoop(const std::string& id,
-                                     MSLane* lane, double pos, const std::string& vTypes, bool show) {
+                                     MSLane* lane, double pos, const std::string& vTypes, int detectPersons, bool show) {
     if (MSGlobals::gUseMesoSim) {
-        return new GUIMEInductLoop(id, MSGlobals::gMesoNet->getSegmentForEdge(lane->getEdge(), pos), pos, vTypes);
+        return new GUIMEInductLoop(id, MSGlobals::gMesoNet->getSegmentForEdge(lane->getEdge(), pos), pos, vTypes, detectPersons, show);
     } else {
-        return new GUIInductLoop(id, lane, pos, vTypes, show);
+        return new GUIInductLoop(id, lane, pos, vTypes, detectPersons, show);
     }
 }
 
@@ -70,16 +69,16 @@ MSE2Collector*
 GUIDetectorBuilder::createE2Detector(const std::string& id,
                                      DetectorUsage usage, MSLane* lane, double pos, double endPos, double length,
                                      SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                                     const std::string& vTypes, bool showDetector) {
-    return new GUIE2Collector(id, usage, lane, pos, endPos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, showDetector);
+                                     const std::string& vTypes, int detectPersons, bool showDetector) {
+    return new GUIE2Collector(id, usage, lane, pos, endPos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, detectPersons, showDetector);
 }
 
 MSE2Collector*
 GUIDetectorBuilder::createE2Detector(const std::string& id,
                                      DetectorUsage usage, std::vector<MSLane*> lanes, double pos, double endPos,
                                      SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                                     const std::string& vTypes, bool showDetector) {
-    return new GUIE2Collector(id, usage, lanes, pos, endPos, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, showDetector);
+                                     const std::string& vTypes, int detectPersons, bool showDetector) {
+    return new GUIE2Collector(id, usage, lanes, pos, endPos, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, detectPersons, showDetector);
 }
 
 MSDetectorFileOutput*
@@ -87,11 +86,9 @@ GUIDetectorBuilder::createE3Detector(const std::string& id,
                                      const CrossSectionVector& entries,
                                      const CrossSectionVector& exits,
                                      double haltingSpeedThreshold,
-                                     SUMOTime haltingTimeThreshold, const std::string& vTypes, bool openEntry) {
-    return new GUIE3Collector(id, entries, exits, haltingSpeedThreshold, haltingTimeThreshold, vTypes, openEntry);
+                                     SUMOTime haltingTimeThreshold, const std::string& vTypes, int detectPersons, bool openEntry) {
+    return new GUIE3Collector(id, entries, exits, haltingSpeedThreshold, haltingTimeThreshold, vTypes, detectPersons,  openEntry);
 }
 
 
-
 /****************************************************************************/
-

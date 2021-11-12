@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUITriggeredRerouter.cpp
 /// @author  Daniel Krajzewicz
@@ -15,11 +19,6 @@
 ///
 // Reroutes vehicles passing an edge (gui version)
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -337,6 +336,11 @@ GUITriggeredRerouter::getCenteringBoundary() const {
 }
 
 
+double
+GUITriggeredRerouter::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
+}
+
 
 GUIManipulator*
 GUITriggeredRerouter::openManipulator(GUIMainWindow& app,
@@ -417,9 +421,9 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::getParameterWindow(GUIMainWindow
 
 void
 GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSettings& s) const {
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    const double exaggeration = getExaggeration(s);
     if (s.scale * exaggeration >= 3) {
-        glPushName(getGlID());
+        GLHelper::pushName(getGlID());
         const double prob = myParent->getProbability();
         if (myEdgeType == REROUTER_CLOSED_EDGE) {
             // draw closing symbol onto all lanes
@@ -432,7 +436,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
                     for (int j = 0; j < noLanes; ++j) {
                         Position pos = myFGPositions[j];
                         double rot = myFGRotations[j];
-                        glPushMatrix();
+                        GLHelper::pushMatrix();
                         glTranslated(pos.x(), pos.y(), 0);
                         glRotated(rot, 0, 0, 1);
                         glTranslated(0, -1.5, 0);
@@ -461,7 +465,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
                         glVertex2d(0 - .3, -1.);
                         glVertex2d(0 + .3, 1.);
                         glEnd();
-                        glPopMatrix();
+                        GLHelper::popMatrix();
                     }
                 }
             }
@@ -471,7 +475,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
             for (int i = 0; i < (int)myFGPositions.size(); ++i) {
                 const Position& pos = myFGPositions[i];
                 double rot = myFGRotations[i];
-                glPushMatrix();
+                GLHelper::pushMatrix();
                 glTranslated(pos.x(), pos.y(), 0);
                 glRotated(rot, 0, 0, 1);
                 glTranslated(0, 0, getType());
@@ -495,7 +499,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
                 // draw Probability
                 GLHelper::drawText((toString((int)(prob * 100)) + "%").c_str(), Position(0, 4), .1, 0.7, RGBColor::BLACK, 180);
 
-                glPopMatrix();
+                GLHelper::popMatrix();
             }
         } else if (myEdgeType == REROUTER_SWITCH_EDGE) {
             const RerouteInterval* const ri =
@@ -505,7 +509,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
                 for (int i = 0; i < (int)myFGPositions.size(); ++i) {
                     const Position& pos = myFGPositions[i];
                     double rot = myFGRotations[i];
-                    glPushMatrix();
+                    GLHelper::pushMatrix();
                     glTranslated(pos.x(), pos.y(), 0);
                     glRotated(rot, 0, 0, 1);
                     glTranslated(0, 0, getType());
@@ -528,12 +532,18 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
                     // draw Probability for this target edge
                     GLHelper::drawText((toString((int)(routeProb * 100)) + "%").c_str(), Position(0, 5), .1, 0.7, RGBColor::BLACK, 180);
 
-                    glPopMatrix();
+                    GLHelper::popMatrix();
                 }
             }
         }
-        glPopName();
+        GLHelper::popName();
     }
+}
+
+
+double 
+GUITriggeredRerouter::GUITriggeredRerouterEdge::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
 }
 
 
@@ -552,4 +562,3 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::onLeftBtnPress(void* /*data*/) {
 
 
 /****************************************************************************/
-

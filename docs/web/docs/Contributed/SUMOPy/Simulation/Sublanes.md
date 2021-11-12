@@ -1,6 +1,5 @@
 ---
-title: Contributed/SUMOPy/Simulation/Sublanes
-permalink: /Contributed/SUMOPy/Simulation/Sublanes/
+title: Sublanes
 ---
 
 Sublanes is a new feature in SUMO since 2015. The simulation with

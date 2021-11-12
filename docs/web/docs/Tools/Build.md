@@ -1,6 +1,5 @@
 ---
-title: Tools/Build
-permalink: /Tools/Build/
+title: Build
 ---
 
 # Build Tools
@@ -13,7 +12,7 @@ creation. Depends on a successful Linux build to pick up the docs.
 
 ## dailyUpdateMakeGCC.sh
 
-The build script for the nightly Linux and MacOS build. Calls cmake and
+The build script for the nightly Linux and macOS build. Calls cmake and
 triggers release and debug build as well as the tests and the zips.
 
 # Code Cleaning Tools
@@ -47,7 +46,7 @@ navigation and adds user doc navigation while keeping the contents
 intact. This script is called by the main Makefile if "make docs" is
 called. If the script is called with an argument, it tries to fetch the
 wiki site with the given name, if not it retrieves all sites listed in
-the [table of contents](../SUMO_User_Documentation.md). Call
+the [table of contents](../index.md). Call
 "buildHTMLDocs.py --help" for a complete list of options.
 
 Call:

@@ -1,0 +1,15 @@
+Error: Answered with error to command 0xc4: Could not interpret reservations for vehicle 'taxi_0' (Re-dispatch did not mention pickup for existing customer 'a').
+Traceback (most recent call last):
+  File "/scr1/sumo/tests/../tests/complex/traci/vehicle/taxi/case3_redispatch_before_pickup/runner.py", line 70, in <module>
+    while traci.simulation.getMinExpectedNumber() > 0:
+  File "/scr1/sumo/tools/traci/_simulation.py", line 351, in getMinExpectedNumber
+    return self._getUniversal(tc.VAR_MIN_EXPECTED_VEHICLES)
+  File "/scr1/sumo/tools/traci/domain.py", line 168, in _getUniversal
+    return _parse(self._retValFunc, varID, self._getCmd(varID, objectID, format, *values))
+  File "/scr1/sumo/tools/traci/domain.py", line 173, in _getCmd
+    r = self._connection._sendCmd(self._cmdGetID, varID, objID, format, *values)
+  File "/scr1/sumo/tools/traci/connection.py", line 180, in _sendCmd
+    return self._sendExact()
+  File "/scr1/sumo/tools/traci/connection.py", line 82, in _sendExact
+    raise FatalTraCIError("Connection already closed.")
+traci.exceptions.FatalTraCIError: Connection already closed.

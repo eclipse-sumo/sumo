@@ -1,0 +1,2 @@
+Warning: Pedestrian vType 'pType' width 0.50 is larger than pedestrian.striping.stripe-width and this may cause collisions with vehicles.
+Warning: Pedestrian vType 'DEFAULT_PEDTYPE' width 0.48 is larger than pedestrian.striping.stripe-width and this may cause collisions with vehicles.

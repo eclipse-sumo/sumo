@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    ROMAAssignments.h
 /// @author  Yun-Pang Floetteroed
@@ -15,13 +19,7 @@
 ///
 // Assignment methods
 /****************************************************************************/
-#ifndef ROMAAssignments_h
-#define ROMAAssignments_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <utils/router/SUMOAbstractRouter.h>
@@ -51,18 +49,18 @@ class ROMAAssignments {
 public:
     /// Constructor
     ROMAAssignments(const SUMOTime begin, const SUMOTime end, const bool additiveTraffic,
-                    const double adaptionFactor, const int maxAlternatives,
+                    const double adaptionFactor, const int maxAlternatives, const bool defaultCapacities,
                     RONet& net, ODMatrix& matrix, SUMOAbstractRouter<ROEdge, ROVehicle>& router);
 
     /// Destructor
     ~ROMAAssignments();
 
-    ROVehicle* getDefaultVehicle() {
+    ROVehicle* getDefaultVehicle() const {
         return myDefaultVehicle;
     }
 
     // @brief calculate edge capacity for the given edge
-    static double getCapacity(const ROEdge* edge);
+    double getCapacity(const ROEdge* edge) const;
 
     // @brief calculate edge travel time for the given edge and number of vehicles per hour
     double capacityConstraintFunction(const ROEdge* edge, const double flow) const;
@@ -122,7 +120,7 @@ private:
     /// @brief add a route and check for duplicates
     bool addRoute(const ConstROEdgeVector& edges, std::vector<RORoute*>& paths, std::string routeId, double prob);
 
-    const ConstROEdgeVector computePath(ODCell* cell, const SUMOTime time = 0, const double probability = 0., SUMOAbstractRouter<ROEdge, ROVehicle>* router = nullptr);
+    const ConstROEdgeVector computePath(ODCell* cell, const SUMOTime time = 0, const double probability = 0., SUMOAbstractRouter<ROEdge, ROVehicle>* router = nullptr, bool setBulkMode = false);
 
     /// @brief get the k shortest paths
     void getKPaths(const int kPaths, const double penalty);
@@ -133,6 +131,7 @@ private:
     const bool myAdditiveTraffic;
     const double myAdaptionFactor;
     const int myMaxAlternatives;
+    const bool myUseDefaultCapacities;
     RONet& myNet;
     ODMatrix& myMatrix;
     SUMOAbstractRouter<ROEdge, ROVehicle>& myRouter;
@@ -143,25 +142,25 @@ private:
 private:
     class RoutingTask : public FXWorkerThread::Task {
     public:
-        RoutingTask(ROMAAssignments& assign, ODCell* c, const SUMOTime begin, const double linkFlow)
-            : myAssign(assign), myCell(c), myBegin(begin), myLinkFlow(linkFlow) {}
+        RoutingTask(ROMAAssignments& assign, ODCell* c, const SUMOTime begin, const double linkFlow, const bool setBulkMode = false)
+            : myAssign(assign), myCell(c), myBegin(begin), myLinkFlow(linkFlow), mySetBulkMode(setBulkMode) {}
         void run(FXWorkerThread* context);
     private:
         ROMAAssignments& myAssign;
         ODCell* const myCell;
         const SUMOTime myBegin;
         const double myLinkFlow;
+        const bool mySetBulkMode;
     private:
         /// @brief Invalidated assignment operator.
-        RoutingTask& operator=(const RoutingTask&);
+        RoutingTask& operator=(const RoutingTask&) = delete;
     };
 #endif
 
 
 private:
     /// @brief Invalidated assignment operator
-    ROMAAssignments& operator=(const ROMAAssignments& src);
+    ROMAAssignments& operator=(const ROMAAssignments& src) = delete;
 
 };
 
-#endif

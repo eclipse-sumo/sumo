@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSMeanData_Amitran.h
 /// @author  Daniel Krajzewicz
@@ -15,13 +19,7 @@
 ///
 // Network state mean data collector for edges/lanes
 /****************************************************************************/
-#ifndef MSMeanData_Amitran_h
-#define MSMeanData_Amitran_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <vector>
@@ -111,7 +109,7 @@ public:
          * @param[in] numLanes The total number of lanes for which the data was collected
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
-        void write(OutputDevice& dev, const SUMOTime period,
+        void write(OutputDevice& dev, long long int attributeMask, const SUMOTime period,
                    const double numLanes, const double defaultTravelTime,
                    const int numVehicles = -1) const;
 
@@ -162,7 +160,8 @@ public:
                        const bool useLanes, const bool withEmpty, const bool printDefaults,
                        const bool withInternal, const bool trackVehicles, const int detectPersons,
                        const double maxTravelTime, const double minSamples,
-                       const double haltSpeed, const std::string& vTypes);
+                       const double haltSpeed, const std::string& vTypes,
+                       const std::string& writeAttributes);
 
 
     /// @brief Destructor
@@ -232,9 +231,3 @@ private:
     MSMeanData_Amitran& operator=(const MSMeanData_Amitran&);
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

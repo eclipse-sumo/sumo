@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fr 08 Dez 2017 14:38:48 CET by SUMO gui Version UNKNOWN
+<!-- generated on Mon Feb  8 17:15:20 2021 by Eclipse SUMO sumo Version v1_8_0+1040-a3e414f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <fcd-output value="fcd.xml"/>
     </output>
 
@@ -26,12 +27,12 @@ SPDX-License-Identifier: EPL-2.0
         <step-method.ballistic value="true"/>
         <lateral-resolution value="0.8"/>
         <default.action-step-length value="1"/>
+        <default.speeddev value="0"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <message-log value="stdout"/>
-        <error-log value="stderr"/>
+        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -48,23 +49,23 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="neigh" x="98.75" y="-1.65" angle="90.00" type="tWide" speed="0.00" pos="100.78" lane="beg_0" slope="0.00"/>
     </timestep>
     <timestep time="0.10">
-        <vehicle id="ego" x="98.76" y="1.64" angle="90.11" type="tEgo" speed="0.26" pos="100.79" lane="beg_1" slope="0.00"/>
+        <vehicle id="ego" x="98.76" y="1.64" angle="91.09" type="tEgo" speed="0.26" pos="100.79" lane="beg_1" slope="0.00"/>
         <vehicle id="neigh" x="98.76" y="-1.65" angle="90.00" type="tWide" speed="0.26" pos="100.79" lane="beg_0" slope="0.00"/>
     </timestep>
     <timestep time="0.20">
-        <vehicle id="ego" x="98.80" y="1.62" angle="90.23" type="tEgo" speed="0.52" pos="100.83" lane="beg_1" slope="0.00"/>
+        <vehicle id="ego" x="98.80" y="1.62" angle="92.08" type="tEgo" speed="0.52" pos="100.83" lane="beg_1" slope="0.00"/>
         <vehicle id="neigh" x="98.80" y="-1.65" angle="90.00" type="tWide" speed="0.52" pos="100.83" lane="beg_0" slope="0.00"/>
     </timestep>
     <timestep time="0.30">
-        <vehicle id="ego" x="98.87" y="1.59" angle="90.34" type="tEgo" speed="0.78" pos="100.90" lane="beg_1" slope="0.00"/>
+        <vehicle id="ego" x="98.87" y="1.59" angle="92.97" type="tEgo" speed="0.78" pos="100.90" lane="beg_1" slope="0.00"/>
         <vehicle id="neigh" x="98.87" y="-1.65" angle="90.00" type="tWide" speed="0.78" pos="100.90" lane="beg_0" slope="0.00"/>
     </timestep>
     <timestep time="0.40">
-        <vehicle id="ego" x="98.95" y="1.57" angle="90.22" type="tEgo" speed="1.04" pos="100.99" lane="beg_1" slope="0.00"/>
+        <vehicle id="ego" x="98.95" y="1.57" angle="91.90" type="tEgo" speed="1.04" pos="100.99" lane="beg_1" slope="0.00"/>
         <vehicle id="neigh" x="98.95" y="-1.65" angle="90.00" type="tWide" speed="1.04" pos="100.99" lane="beg_0" slope="0.00"/>
     </timestep>
     <timestep time="0.50">
-        <vehicle id="ego" x="99.07" y="1.56" angle="90.11" type="tEgo" speed="1.30" pos="101.11" lane="beg_1" slope="0.00"/>
+        <vehicle id="ego" x="99.07" y="1.56" angle="90.91" type="tEgo" speed="1.30" pos="101.11" lane="beg_1" slope="0.00"/>
         <vehicle id="neigh" x="99.07" y="-1.65" angle="90.00" type="tWide" speed="1.30" pos="101.11" lane="beg_0" slope="0.00"/>
     </timestep>
     <timestep time="0.60">
@@ -72,7 +73,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="neigh" x="99.21" y="-1.65" angle="90.00" type="tWide" speed="1.56" pos="101.25" lane="beg_0" slope="0.00"/>
     </timestep>
     <timestep time="0.70">
-        <vehicle id="ego" x="99.38" y="1.55" angle="90.09" type="tEgo" speed="1.82" pos="101.42" lane="beg_1" slope="0.00"/>
+        <vehicle id="ego" x="99.38" y="1.55" angle="90.71" type="tEgo" speed="1.82" pos="101.42" lane="beg_1" slope="0.00"/>
         <vehicle id="neigh" x="99.38" y="-1.65" angle="90.00" type="tWide" speed="1.82" pos="101.42" lane="beg_0" slope="0.00"/>
     </timestep>
     <timestep time="0.80">

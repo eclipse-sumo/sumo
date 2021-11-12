@@ -1,0 +1,7 @@
+--no-step-log -v --net-file=net.net.xml --additional-files
+input_additional.add.xml --route-files input_routes.rou.xml
+--collision.check-junctions
+--collision.stoptime 5
+--vehroute-output vehroutes.xml
+--step-length 0.5
+

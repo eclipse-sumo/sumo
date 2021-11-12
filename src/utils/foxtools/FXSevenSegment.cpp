@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2004-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    FXSevenSegment.cpp
 /// @author  Mathew Robertson
@@ -22,12 +26,9 @@
  * ======================================================================= */
 #include <config.h>
 
-#include <fxver.h>
 #define NOMINMAX
-#include <xincs.h>
 #undef NOMINMAX
-#include <fxdefs.h>
-#include <fx.h>
+#include "fxheader.h"
 /*
 #include <FXStream.h>
 #include <FXString.h>
@@ -126,9 +127,9 @@ void FXSevenSegment::setVertical(const FXint len) {
 }
 
 // set segment thickness
-void FXSevenSegment::setThickness(const FXint width) {
-    if (width != st) {
-        st = (FXshort)width;
+void FXSevenSegment::setThickness(const FXint w) {
+    if (w != st) {
+        st = (FXshort)w;
         checkSize();
         recalc();
         update();
@@ -136,9 +137,9 @@ void FXSevenSegment::setThickness(const FXint width) {
 }
 
 // set groove thickness
-void FXSevenSegment::setGroove(const FXint width) {
-    if (width != groove) {
-        groove = (FXshort)width;
+void FXSevenSegment::setGroove(const FXint w) {
+    if (w != groove) {
+        groove = (FXshort)w;
         checkSize();
         recalc();
         update();

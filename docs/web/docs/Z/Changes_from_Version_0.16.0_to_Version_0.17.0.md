@@ -1,9 +1,8 @@
 ---
-title: Z/Changes from Version 0.16.0 to Version 0.17.0
-permalink: /Z/Changes_from_Version_0.16.0_to_Version_0.17.0/
+title: Changes from Version 0.16.0 to Version 0.17.0
 ---
 
-## Version 0.17.0 (03.05.2013)
+**Release date: 03.05.2013**
 
 ### Bugfixes
 
@@ -14,7 +13,7 @@ permalink: /Z/Changes_from_Version_0.16.0_to_Version_0.17.0/
   - fixed collision bug for simulations that were running with
     option **--no-internal-links**
   - fixed bug that caused vehicles to sometimes use the wrong lane
-    and occasonaly lead to collisions
+    and occasionally lead to collisions
     ([\#586](https://sourceforge.net/apps/trac/sumo/ticket/586),
     [\#836](https://sourceforge.net/apps/trac/sumo/ticket/836))
   - fixed bug in the default car-following model which lead to
@@ -35,12 +34,12 @@ permalink: /Z/Changes_from_Version_0.16.0_to_Version_0.17.0/
     vehicles leaving without entering
   - fixed bug where inductionLoops and instantInductionLoops
     sometimes failed to detect vehicles
-- SUMO-GUI
+- sumo-gui
   - fixed occasional crash when additional vehicle visualizations
     are active
   - fixed bug where the simulation control buttons (start,step)
     sometimes remained gray when tracking a vehicle
-- NETCONVERT
+- netconvert
   - fixed bug that caused right-of-way computations to fail
     (resulting in collision) at left-turning connections
   - fixed bug where networks imported from
@@ -54,7 +53,7 @@ permalink: /Z/Changes_from_Version_0.16.0_to_Version_0.17.0/
     using option **--ramps.guess**
   - deleted nodes are no longer included in the final network
     boundary
-- POLYCONVERT
+- polyconvert
   - Removed dependency on key/value ordering when importing from
     OSM. Instead, now elements which match multiple typemap entries
     are exported multiple times.
@@ -98,7 +97,7 @@ permalink: /Z/Changes_from_Version_0.16.0_to_Version_0.17.0/
     mean data outputs.
   - added a car following model which respects slope (kraussPS),
     your network needs z-coordinates then
-- SUMO-GUI
+- sumo-gui
   - added optional POI attributes 'lon' and 'lat' for specifying
     position in geo-referenced networks.
   - added options for showing polygon names and changing their line
@@ -110,7 +109,7 @@ permalink: /Z/Changes_from_Version_0.16.0_to_Version_0.17.0/
   - human readable color representations for red, green, blue, cyan,
     magenta, yellow, black, white, and grey
   - junction coloring
-- NETCONVERT
+- netconvert
   - added support for traffic-actuated traffic lights (see
     [Networks/PlainXML\#Node_Descriptions](../Networks/PlainXML.md#node_descriptions))
   - in plain connection files the element **delete** now also works

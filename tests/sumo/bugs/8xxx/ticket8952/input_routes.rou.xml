@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+
+    <vType id="cars" jmTimegapMinor="2.5" speedDev="0.1"/>
+
+    <flow id="WN" begin="0" end= "18000" probability="0.05" type="cars" departPos="0" departSpeed="max">
+        <route edges="iW oN"/>
+    </flow>
+    <flow id="EW" begin="0" end= "18000" probability="0.1" type="cars" departPos="0" departSpeed="max">
+        <route edges="iE oW"/>
+    </flow>
+</routes>

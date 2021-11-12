@@ -1,21 +1,34 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2013-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    geomhelper.py
 # @author  Daniel Krajzewicz
 # @author  Jakob Erdmann
 # @author  Michael Behrisch
+# @author  Matthias Schwamborn
 # @date    2013-02-25
 
 from __future__ import absolute_import
 import math
+import sys
 
 INVALID_DISTANCE = -1
+
+# back-ported from python 3 for backward compatibility
+# https://www.python.org/dev/peps/pep-0485/#proposed-implementation
+
+
+def isclose(a, b, rel_tol=1e-09, abs_tol=0.0):
+    return abs(a-b) <= max(rel_tol * max(abs(a), abs(b)), abs_tol)
 
 
 def distance(p1, p2):
@@ -26,6 +39,22 @@ def distance(p1, p2):
 
 def polyLength(polygon):
     return sum([distance(a, b) for a, b in zip(polygon[:-1], polygon[1:])])
+
+
+def addToBoundingBox(coordList, bbox=None):
+    if bbox is None:
+        minX = 1e400
+        minY = 1e400
+        maxX = -1e400
+        maxY = -1e400
+    else:
+        minX, minY, maxX, maxY = bbox
+    for x, y in coordList:
+        minX = min(x, minX)
+        minY = min(y, minY)
+        maxX = max(x, maxX)
+        maxY = max(y, maxY)
+    return minX, minY, maxX, maxY
 
 
 def lineOffsetWithMinimumDistanceToPoint(point, line_start, line_end, perpendicular=False):
@@ -116,11 +145,17 @@ def distancePointToPolygon(point, polygon, perpendicular=False):
 
 
 def positionAtOffset(p1, p2, offset):
-    if offset == 0.:  # for pathological cases with dist == 0 and offset == 0
+    if isclose(offset, 0.):  # for pathological cases with dist == 0 and offset == 0
         return p1
+
     dist = distance(p1, p2)
-    if dist < offset:
+
+    if isclose(dist, offset):
+        return p2
+
+    if offset > dist:
         return None
+
     return (p1[0] + (p2[0] - p1[0]) * (offset / dist), p1[1] + (p2[1] - p1[1]) * (offset / dist))
 
 
@@ -272,3 +307,222 @@ def move2side(shape, amount):
     # print(result)
     # print()
     return result
+
+
+def isClosedPolygon(polygon):
+    return (len(polygon) >= 2) and (polygon[0] == polygon[-1])
+
+
+def splitPolygonAtLengths2D(polygon, lengths):
+    """
+    Returns the polygon segments split at the given 2D-lengths.
+    """
+    if (len(polygon) <= 1 or len(lengths) == 0):
+        return [polygon]
+    offsets = [offset for offset in sorted(lengths) if offset > 0.0 and offset < polyLength(polygon)]
+    ret = []
+    seenLength = 0
+    curr = polygon[0]
+    polygonIndex = 0
+    for offset in offsets:
+        currSlice = [curr]
+        while polygonIndex < len(polygon) - 1:
+            next = polygon[polygonIndex + 1]
+            if offset < seenLength + distance(curr, next):
+                splitPos = positionAtOffset(curr, next, offset - seenLength)
+                if not isclose(distance(currSlice[-1], splitPos), 0):
+                    currSlice.append(splitPos)
+                seenLength += distance(curr, splitPos)
+                curr = splitPos
+                break
+            else:
+                if not isclose(distance(currSlice[-1], next), 0):
+                    currSlice.append(next)
+                seenLength += distance(curr, next)
+                curr = next
+                polygonIndex += 1
+        ret.append(currSlice)
+    if polygonIndex < len(polygon) - 1:
+        finalSlice = [curr] + polygon[polygonIndex + 1:]
+        ret.append(finalSlice)
+    return ret
+
+
+def intersectsAtLengths2D(polygon1, polygon2):
+    """
+    Returns the 2D-length from polygon1's start to all intersections between polygon1 and polygon2.
+    """
+    ret = []
+    if (len(polygon1) == 0 or len(polygon2) == 0):
+        return ret
+    polygon1Length = polyLength(polygon1)
+    for j in range(len(polygon2) - 1):
+        p21 = polygon2[j]
+        p22 = polygon2[j + 1]
+        pos = 0.0
+        for i in range(len(polygon1) - 1):
+            p11 = polygon1[i]
+            p12 = polygon1[i + 1]
+            pIntersection = [0.0, 0.0]
+            if (intersectsLineSegment(p11, p12, p21, p22, 0.0, pIntersection, True)):
+                for k in range(0, len(pIntersection), 2):
+                    length = pos + distance(p11, (pIntersection[k], pIntersection[k + 1]))
+                    # special case for closed polygons
+                    if isClosedPolygon(polygon1) and isclose(length, polygon1Length):
+                        length = 0.0
+                    # check for duplicate
+                    isDuplicate = False
+                    for result in ret:
+                        if isclose(length, result):
+                            isDuplicate = True
+                            break
+                    if not isDuplicate:
+                        ret.append(length)
+            pos += distance(p11, p12)
+    return ret
+
+
+def intersectsPolygon(polygon1, polygon2):
+    """
+    Returns whether the polygons intersect on at least one of their segments.
+    """
+    if (len(polygon1) < 2 or len(polygon2) < 2):
+        return False
+    for i in range(len(polygon1) - 1):
+        p11 = polygon1[i]
+        p12 = polygon1[i + 1]
+        for j in range(len(polygon2) - 1):
+            p21 = polygon2[j]
+            p22 = polygon2[j + 1]
+            if (intersectsLineSegment(p11, p12, p21, p22)):
+                return True
+    return False
+
+
+# @see src/utils/geom/PositionVector::intersects(p11, p12, p21, p22 ...)
+def intersectsLineSegment(p11, p12, p21, p22, withinDist=0.0, pIntersection=None, storeEndPointsIfCoincident=False):
+    """
+    Returns whether the line segments defined by Line p11,p12 and Line p21,p22 intersect.
+    If not set to 'None', 'pIntersection' serves as a storage for the intersection point(s).
+    Parameter 'storeEndPointsIfCoincident' is an option for storing the endpoints of the
+    line segment defined by the intersecting set of line1 and line2 if applicable.
+    """
+    eps = sys.float_info.epsilon
+    # dy2 * dx1 - dx2 * dy1
+    denominator = (p22[1] - p21[1]) * (p12[0] - p11[0]) - (p22[0] - p21[0]) * (p12[1] - p11[1])
+    # dx2 * (p11.y - p21.y) - dy2 * (p11.x - p21.x)
+    numera = (p22[0] - p21[0]) * (p11[1] - p21[1]) - (p22[1] - p21[1]) * (p11[0] - p21[0])
+    # dx1 * (p11.y - p21.y) - dy1 * (p11.x - p21.x)
+    numerb = (p12[0] - p11[0]) * (p11[1] - p21[1]) - (p12[1] - p11[1]) * (p11[0] - p21[0])
+    # Are the lines coincident?
+    if (math.fabs(numera) < eps and math.fabs(numerb) < eps and math.fabs(denominator) < eps):
+        a1 = 0.0
+        a2 = 0.0
+        a3 = 0.0
+        a4 = 0.0
+        a = -1e12
+        isVertical = (p11[0] == p12[0])
+        if (not isVertical):
+            # line1 and line2 are not vertical
+            a1 = p11[0] if p11[0] < p12[0] else p12[0]
+            a2 = p12[0] if p11[0] < p12[0] else p11[0]
+            a3 = p21[0] if p21[0] < p22[0] else p22[0]
+            a4 = p22[0] if p21[0] < p22[0] else p21[0]
+        else:
+            # line1 and line2 are vertical
+            a1 = p11[1] if p11[1] < p12[1] else p12[1]
+            a2 = p12[1] if p11[1] < p12[1] else p11[1]
+            a3 = p21[1] if p21[1] < p22[1] else p22[1]
+            a4 = p22[1] if p21[1] < p22[1] else p21[1]
+        if (a1 <= a3 and a3 <= a2):
+            # one endpoint of line2 lies on line1
+            if (a4 <= a2):
+                # line2 is a subset of line1
+                a = (a3 + a4) / 2.0
+                if (storeEndPointsIfCoincident and pIntersection is not None):
+                    pIntersection[0] = p21[0]
+                    pIntersection[1] = p21[1]
+                    pIntersection.append(p22[0])
+                    pIntersection.append(p22[1])
+                    return True
+            else:
+                # the other endpoint of line2 lies beyond line1
+                a = (a3 + a2) / 2.0
+                if (storeEndPointsIfCoincident and pIntersection is not None):
+                    if (not isVertical):
+                        pIntersection[0] = a3
+                        pIntersection[1] = p21[1] if p21[0] < p22[0] else p22[1]
+                        pIntersection.append(a2)
+                        pIntersection.append(p12[1] if p11[0] < p12[0] else p11[1])
+                    else:
+                        pIntersection[0] = p21[0] if p21[1] < p22[1] else p22[0]
+                        pIntersection[1] = a3
+                        pIntersection.append(p12[0] if p11[1] < p12[1] else p11[0])
+                        pIntersection.append(a2)
+                    return True
+        if (a3 <= a1 and a1 <= a4):
+            # one endpoint of line1 lies on line2
+            if (a2 <= a4):
+                # line1 is a subset of line2
+                a = (a1 + a2) / 2.0
+                if (storeEndPointsIfCoincident and pIntersection is not None):
+                    pIntersection[0] = p11[0]
+                    pIntersection[1] = p11[1]
+                    pIntersection.append(p12[0])
+                    pIntersection.append(p12[1])
+                    return True
+            else:
+                # the other endpoint of line1 lies beyond line2
+                a = (a1 + a4) / 2.0
+                if (storeEndPointsIfCoincident and pIntersection is not None):
+                    if (not isVertical):
+                        pIntersection[0] = a1
+                        pIntersection[1] = p11[1] if p11[0] < p12[0] else p12[1]
+                        pIntersection.append(a4)
+                        pIntersection.append(p22[1] if p21[0] < p22[0] else p21[1])
+                    else:
+                        pIntersection[0] = p11[0] if p11[1] < p12[1] else p12[0]
+                        pIntersection[1] = a1
+                        pIntersection.append(p22[0] if p21[1] < p22[1] else p21[0])
+                        pIntersection.append(a4)
+                    return True
+        if (a != -1e12):
+            if (pIntersection is not None):
+                if (not isVertical):
+                    # line1 and line2 are not vertical
+                    mu = (a - p11[0]) / (p12[0] - p11[0])
+                    x = a
+                    y = p11[1] + mu * (p12[1] - p11[1])
+                else:
+                    # line1 and line2 are vertical
+                    x = p11[0]
+                    y = a
+                    if (p12[1] == p11[1]):
+                        mu = 0
+                    else:
+                        mu = (a - p11[1]) / (p12[1] - p11[1])
+                pIntersection[0] = x
+                pIntersection[1] = y
+            return True
+        return False
+    # Are the lines parallel?
+    if (math.fabs(denominator) < eps):
+        return False
+    # Is the intersection along the segments?
+    mua = numera / denominator
+    # Reduce rounding errors for lines ending in the same point
+    if (math.fabs(p12[0] - p22[0]) < eps and math.fabs(p12[1] - p22[1]) < eps):
+        mua = 1.0
+    else:
+        offseta = withinDist / distance(p11, p12)
+        offsetb = withinDist / distance(p21, p22)
+        mub = numerb / denominator
+        if (mua < -offseta or mua > 1 + offseta or mub < -offsetb or mub > 1 + offsetb):
+            return False
+    if (pIntersection is not None):
+        x = p11[0] + mua * (p12[0] - p11[0])
+        y = p11[1] + mua * (p12[1] - p11[1])
+        mu = mua
+        pIntersection[0] = x
+        pIntersection[1] = y
+    return True

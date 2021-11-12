@@ -1,6 +1,5 @@
 ---
-title: TraCI/Change GUI State
-permalink: /TraCI/Change_GUI_State/
+title: Change GUI State
 ---
 
 # Command 0xcc: Change GUI State
@@ -13,7 +12,7 @@ Changes the simulation visualization. The view id that must be supplied
 is usually something like "View \#0", where the last digit counts the
 open (sub-)windows in the simulation GUI. The id is shown in the view
 title-bar when un-maximizing the view subwindow (this happens
-automatically when [opening a new view](../SUMO-GUI.md#multiple_views)).
+automatically when [opening a new view](../sumo-gui.md#multiple_views)).
 
 Because it is possible to change different values, the number of
 parameter to supply and their types differ between commands. The
@@ -44,7 +43,7 @@ The message contents are as following:
 
 |          ubyte          |    double    |    double    |
 | :---------------------: | :----------: | :----------: |
-| value type *position2D* | x-coordinate | y-ccordinate |
+| value type *position2D* | x-coordinate | y-coordinate |
 
 ### schema (0xa2)
 

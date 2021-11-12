@@ -1,10 +1,12 @@
 /* XPM */
 static const char * recenter_view_xpm[] = {
+/* columns rows colors chars-per-pixel */
 "17 17 4 1",
 " 	c None",
 ".	c Black",
 "X	c #f9f9f8",
 "o	c Gray100",
+/* pixels */
 "       ...       ",
 "       .X.       ",
 "     ...X...     ",
@@ -21,4 +23,5 @@ static const char * recenter_view_xpm[] = {
 "     .o.X.o.     ",
 "     ...X...     ",
 "       .X.       ",
-"       ...       "};
+"       ...       "
+};

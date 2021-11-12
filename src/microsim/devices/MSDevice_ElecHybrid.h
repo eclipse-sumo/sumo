@@ -1,33 +1,31 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSDevice_ElecHybrid.h
 /// @author  Jakub Sevcik (RICE)
 /// @author  Jan Prikryl (RICE)
 /// @date    2019-11-25
-/// @version $Id$
 ///
 // A device which stands as an implementation ElecHybrid and which outputs movereminder calls
 /****************************************************************************/
-#ifndef MSDevice_ElecHybrid_h
-#define MSDevice_ElecHybrid_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <microsim/devices/MSVehicleDevice.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/trigger/MSOverheadWire.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/emissions/EnergyParams.h>
 
 // ===========================================================================
 // class declarations
@@ -134,12 +132,12 @@ public:
     void setParameter(const std::string& key, const std::string& value);
 
     /** @brief Called on writing tripinfo output
-    *
-    * @param[in] os The stream to write the information into
-    * @exception IOError not yet implemented
-    * @see MSDevice::generateOutput
-    */
-    void generateOutput() const;
+     *
+     * @param[in] tripinfoOut The output device to write the information into
+     * @exception IOError not yet implemented
+     * @see MSDevice::tripInfoOutput
+     */
+    void generateOutput(OutputDevice* tripinfoOut) const;
 
     /// @brief Get the actual vehicle's Battery Capacity in kWh
     double getActualBatteryCapacity() const;
@@ -190,7 +188,9 @@ public:
     double acceleration(SUMOVehicle& veh, double power, double oldSpeed);
     double consumption(SUMOVehicle& veh, double a, double newSpeed);
 
-    MSOverheadWire* getActOverheadWireSegment() {return myActOverheadWireSegment;};
+    MSOverheadWire* getActOverheadWireSegment() {
+        return myActOverheadWireSegment;
+    };
 
     Element* getVehElem() {
         return veh_elem;
@@ -203,7 +203,7 @@ private:
     * @param[in] id The ID of the device
     */
     MSDevice_ElecHybrid(SUMOVehicle& holder, const std::string& id,
-        const double actualBatteryCapacity, const double maximumBatteryCapacity, const double overheadWireChargingPower, const std::map<int, double>& param);
+                        const double actualBatteryCapacity, const double maximumBatteryCapacity, const double overheadWireChargingPower, const EnergyParams& param);
 
     void checkParam(const SumoXMLAttr paramKey, const double lower = 0., const double upper = std::numeric_limits<double>::infinity());
 
@@ -218,7 +218,7 @@ protected:
     double myOverheadWireChargingPower;
 
     /// @brief Parameter collection
-    std::map<int, double> myParam;
+    EnergyParams myParam;
 
     /// @brief Parameter, Vehicle's last angle
     double myLastAngle;
@@ -232,13 +232,35 @@ protected:
     /// @brief Parameter, Flag: Vehicle is charging (by default is false)
     bool myCharging;
 
-    /// @brief Parameter, Energy charged in each timestep
+    /// @brief Energy flowing into (+) or from (-) the battery pack in the given timestep
     double myEnergyCharged;
 
     /// @brief Parameter, Current wanted at overhead wire in next timestep
     double myCircuitCurrent;
 
     double myCircuitVoltage;
+
+    /// @name Tripinfo statistics
+    /// @{
+    double myMaxBatteryPower;
+    double myMinBatteryPower;
+    double myTotalPowerConsumed;
+    double myTotalPowerRegenerated;
+
+    /// @brief Energy that could not be stored back to the battery or traction station
+    /// and was wasted on resistors. This is approximate, we ignore the use of classical
+    /// brakes in lower speeds.
+    double myTotalPowerWasted;
+    /// @}
+
+    /// @name Power management parameters
+    /// @{
+    /// @brief Minimal SOC of the battery pack, below this value the battery is assumed discharged
+    double mySOCMin;
+    /// @brief Maximal SOC of the battery pack, battery will not be charged above this level.
+    /// (But the buffer may still be used for regenerative braking).
+    double mySOCMax;
+    /// @}
 
     /// @brief Parameter, Pointer to the actual overhead wire segment in which vehicle is placed (by default is nullptr)
     MSOverheadWire* myActOverheadWireSegment;
@@ -272,9 +294,3 @@ private:
 
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

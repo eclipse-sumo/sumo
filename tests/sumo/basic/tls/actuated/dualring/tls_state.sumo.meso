@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Nov 27 09:34:52 2019 by Eclipse SUMO Version v1_3_1+1129-34e3c4d
+<!-- generated on 2021-09-02 14:20:10 by Eclipse SUMO sumo Version v1_10_0+0462-e5698a887e3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -26,6 +26,7 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.statistics value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -40,14 +41,22 @@ SPDX-License-Identifier: EPL-2.0
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <tlLogic id="C" type="static" programID="dualring">
-        <phase duration="99.00" state="rrrGGrrrrGGr"/>
-        <phase duration="4.00"  state="rrryyrrrryyr"/>
-        <phase duration="99.00" state="rrrrrGrrrrrG"/>
-        <phase duration="4.00"  state="rrrrryrrrrry"/>
-        <phase duration="99.00" state="GGrrrrGGrrrr"/>
-        <phase duration="4.00"  state="yyrrrryyrrrr"/>
-        <phase duration="99.00" state="rrGrrrrrGrrr"/>
-        <phase duration="4.00"  state="rryrrrrryrrr"/>
-        <phase duration="28.00" state="rrrGGrrrrGGr"/>
+        <phase duration="50.00" state="rrrGGrrrrGGr" name="2+6"/>
+        <phase duration="4.00"  state="rrryyrrrryyr" name="2+6-1+5"/>
+        <phase duration="50.00" state="rrrrrGrrrrrG" name="1+5"/>
+        <phase duration="4.00"  state="rrrrryrrrrry" name="1+5-4+8"/>
+        <phase duration="50.00" state="GGrrrrGGrrrr" name="4+8"/>
+        <phase duration="4.00"  state="yyrrrryyrrrr" name="4+8-3+7"/>
+        <phase duration="50.00" state="rrGrrrrrGrrr" name="3+7"/>
+        <phase duration="4.00"  state="rryrrrrryrrr" name="3+7-2+6"/>
+        <phase duration="50.00" state="rrrGGrrrrGGr" name="2+6"/>
+        <phase duration="4.00"  state="rrryyrrrryyr" name="2+6-1+5"/>
+        <phase duration="50.00" state="rrrrrGrrrrrG" name="1+5"/>
+        <phase duration="4.00"  state="rrrrryrrrrry" name="1+5-4+8"/>
+        <phase duration="50.00" state="GGrrrrGGrrrr" name="4+8"/>
+        <phase duration="4.00"  state="yyrrrryyrrrr" name="4+8-3+7"/>
+        <phase duration="50.00" state="rrGrrrrrGrrr" name="3+7"/>
+        <phase duration="4.00"  state="rryrrrrryrrr" name="3+7-2+6"/>
+        <phase duration="27.00" state="rrrGGrrrrGGr" name="2+6"/>
     </tlLogic>
 </additional>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-05-06 15:35:13 by Eclipse SUMO duarouter Version v1_9_1+0251-ca0a15b
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <output-file value="routes.rou.xml"/>
+        <write-license value="true"/>
+        <alternatives-output value="routes.rou.alt.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="p1" depart="0.00">
+        <ride from="beg" to="end" busStop="bs" lines="ANY"/>
+    </person>
+    <person id="p2" depart="0.00">
+        <ride from="beg" to="end" trainStop="ts" lines="ANY"/>
+    </person>
+    <person id="p3" depart="0.00">
+        <ride from="beg" to="end" containerStop="cs" lines="ANY"/>
+    </person>
+    <person id="p4" depart="0.00">
+        <ride from="beg" to="end" parkingArea="pa" lines="ANY"/>
+    </person>
+    <person id="p5" depart="0.00">
+        <ride from="beg" to="end" chargingStation="cc" lines="ANY"/>
+    </person>
+    <person id="p11" depart="0.00">
+        <personTrip from="beg" to="end" arrivalPos="15.00" busStop="bs" walkFactor="0.75" costs="1454.40"/>
+    </person>
+    <person id="p12" depart="0.00">
+        <personTrip from="beg" to="end" arrivalPos="80.00" busStop="ts" walkFactor="0.75" costs="1516.80"/>
+    </person>
+    <person id="p13" depart="0.00">
+        <personTrip from="beg" to="end" arrivalPos="145.00" busStop="cs" walkFactor="0.75" costs="1579.20"/>
+    </person>
+    <person id="p14" depart="0.00">
+        <personTrip from="beg" to="end" arrivalPos="205.00" busStop="pa" walkFactor="0.75" costs="1636.80"/>
+    </person>
+    <person id="p15" depart="0.00">
+        <personTrip from="beg" to="end" arrivalPos="265.00" busStop="cc" walkFactor="0.75" costs="1694.40"/>
+    </person>
+    <person id="p21" depart="0.00">
+        <walk edges="beg middle end" busStop="bs"/>
+    </person>
+    <person id="p22" depart="0.00">
+        <walk edges="beg middle end" trainStop="ts"/>
+    </person>
+    <person id="p23" depart="0.00">
+        <walk edges="beg middle end" containerStop="cs"/>
+    </person>
+    <person id="p24" depart="0.00">
+        <walk edges="beg middle end" parkingArea="pa"/>
+    </person>
+    <person id="p25" depart="0.00">
+        <walk edges="beg middle end" chargingStation="cc"/>
+    </person>
+    <person id="p31" depart="0.00">
+        <stop busStop="bs" duration="10.00"/>
+    </person>
+    <person id="p32" depart="0.00">
+        <stop busStop="ts" duration="10.00"/>
+    </person>
+    <person id="p33" depart="0.00">
+        <stop containerStop="cs" duration="10.00"/>
+    </person>
+    <person id="p34" depart="0.00">
+        <stop parkingArea="pa" duration="10.00"/>
+    </person>
+    <person id="p35" depart="0.00">
+        <stop chargingStation="cc" duration="10.00"/>
+    </person>
+    <person id="p41" depart="0.00">
+        <personTrip from="beg" to="end" arrivalPos="15.00" busStop="bs" walkFactor="0.75" costs="1454.40"/>
+    </person>
+    <person id="p42" depart="0.00">
+        <personTrip from="beg" to="end" arrivalPos="80.00" busStop="ts" walkFactor="0.75" costs="1516.80"/>
+    </person>
+    <person id="p43" depart="0.00">
+        <personTrip from="beg" to="end" arrivalPos="145.00" busStop="cs" walkFactor="0.75" costs="1579.20"/>
+    </person>
+    <person id="p44" depart="0.00">
+        <personTrip from="beg" to="end" arrivalPos="205.00" busStop="pa" walkFactor="0.75" costs="1636.80"/>
+    </person>
+    <person id="p45" depart="0.00">
+        <personTrip from="beg" to="end" arrivalPos="265.00" busStop="cc" walkFactor="0.75" costs="1694.40"/>
+    </person>
+</routes>

@@ -1,6 +1,5 @@
 ---
-title: Tools/Trip
-permalink: /Tools/Trip/
+title: Trip
 ---
 
 # randomTrips.py
@@ -9,7 +8,7 @@ permalink: /Tools/Trip/
 (option **-n**). It does so by choosing source and destination edge either
 uniformly at random or with a modified distribution as described below.
 The resulting trips are stored in an XML file (option **-o**, default
-trips.trips.xml) suitable for [DUAROUTER](../DUAROUTER.md) which is
+trips.trips.xml) suitable for [duarouter](../duarouter.md) which is
 called automatically if the  option (with a filename for the resulting
 route file) is given. The trips are distributed evenly in an interval
 defined by begin (option **-b**, default 0) and end time (option **-e**, default
@@ -18,7 +17,7 @@ defined by begin (option **-b**, default 0) and end time (option **-e**, default
 prefix (option **--prefix**, default "") and a running number. Example call:
 
 ```
-<SUMO_HOME>/tools/randomTrips.py -n input_net.net.xml -e 50
+python tools/randomTrips.py -n <net-file> -e 50
 ```
 
 The script does not check whether the chosen destination may be reached
@@ -31,9 +30,10 @@ edge distribution until enough trips with sufficient distance are found.
 
 ## Randomization
 
-When running *randomTrips.py* twice with the same parameters, different
-output files will be created due to randomness. The option **--seed** {{DT_INT}} can be used
-to get repeatable pseudo-randomness.
+When running *randomTrips.py* twice with the same parameters, the same results will be created
+because the random number generator is initialized with the same value. To get "true" randomness
+(always a different output) use the option **--random**. The option **--seed** {{DT_INT}} can be used
+to set an initial value and get different but still repeatable pseudo-randomness.
 
 ## Edge Probabilities
 
@@ -55,10 +55,10 @@ The probabilities for selecting an edge may also be weighted by
 For additional ways to influence edge probabilities call
 
 ```
-<SUMO_HOME>/tools/randomTrips.py --help
+python tools/randomTrips.py --help
 ```
 
-## Arrival rate
+## Traffic Volume / Arrival rate
 
 The arrival rate is controlled by option **--period** {{DT_FLOAT}} (*default 1*). By default this
 generates vehicles with a constant period and arrival rate of (1/period)
@@ -79,13 +79,13 @@ To let *n* vehicles depart between times *t0* and *t1* set the options
 ```
 
 !!! note
-    The actual number of departures may be lower if the road capacity is insufficient to accommodate that number of vehicles or if the network is not fully connected (in this case some of the generated trips will be invalid).
+    The actual number of departures may be lower if the road capacity is [insufficient to accommodate that number of vehicles](../Simulation/VehicleInsertion.md#delayed_departure) or if the network is not fully connected (in this case some of the generated trips will be invalid).
 
 ## Validated routes and trips
 
 When using the option **--route-file**, an output file with valid vehicle routes will be
 generated. This works by automatically calling
-[DUAROUTER](../DUAROUTER.md) in the background to turn the random
+[duarouter](../duarouter.md) in the background to turn the random
 trips into routes and automatically discard disconnected trips. It may
 be necessary to increase the number of generated random trips to account
 for a fraction disconnected, discarded trips.
@@ -106,7 +106,7 @@ With the option **--trip-attributes** {{DT_STR}}, additional parameters can be g
 vehicles (note, usage of the quoting characters).
 
 ```
-<SUMO_HOME>/tools/randomTrips.py -n input_net.net.xml 
+python tools/randomTrips.py -n <net-file> 
   --trip-attributes="departLane=\"best\" departSpeed=\"max\" departPos=\"random\""
 ```
 
@@ -114,7 +114,7 @@ This would make the random vehicles be distributed randomly on their
 starting edges and inserted with high speed on a reasonable lane.
 
 !!! caution
-    Quoting of trip attributes on Linux must use the style **--trip-attributes departLane="best" departSpeed="max" departPos="random"'**
+    Quoting of trip attributes on Linux must use the style **--trip-attributes 'departLane="best" departSpeed="max" departPos="random"'**
 
 ### Setting a vehicle type from an external file
 
@@ -131,7 +131,7 @@ Then load this file (assume it was saved as *type.add.xml*) with the
 option --additional-file
 
 ```
-<SUMO_HOME>/tools/randomTrips.py -n input_net.net.xml --trip-attributes="type=\"myType\"" --additional-file type.add.xml
+python tools/randomTrips.py -n <net-file> --trip-attributes="type=\"myType\"" --additional-file <add-file>
    --edge-permission passenger
 ```
 
@@ -154,7 +154,7 @@ By setting the option **--vehicle-class** a vehicle type definition that specifi
 class will be added to the output files. I.e.
 
 ```
-randomTrips.py --vehicle-class bus ...
+python tools/randomTrips.py --vehicle-class bus ...
 ```
 
 will add
@@ -167,7 +167,7 @@ Any **--trip-attributes** that are applicable to a vehicle type rather than a ve
 placed in the generated `vType` definition automatically:
 
 ```
-randomTrips.py --vehicle-class bus --trip-attributes="maxSpeed=\"27.8\""
+python tools/randomTrips.py --vehicle-class bus --trip-attributes="maxSpeed=\"27.8\""
 ```
 
 will add
@@ -188,7 +188,7 @@ allows to specify the available traffic modes and thus use
 [IntermodalRouting](../IntermodalRouting.md) to decided whether
 they use public transport, a personal car or walking.
   - walking or public transport: **--trip-attributes "modes=\"public\""**
-  - walking, public transport or car **--trip-attributes "modes=\"public,car\""**
+  - walking, public transport or car **--trip-attributes "modes=\"public car\""**
 
 !!! caution
     Quoting of trip attributes on Linux must use the style **--trip-attributes 'modes="public"'**
@@ -214,8 +214,8 @@ which contain the used edge probabilities.
 
 ### Visualization
 
-Any of these files can be loaded in [SUMO-GUI for
-visualization](../SUMO-GUI.md#visualizing_edge-related_data)
+Any of these files can be loaded in [sumo-gui for
+visualization](../sumo-gui.md#visualizing_edge-related_data)
 
 ### Loading
 
@@ -242,7 +242,7 @@ To obtain trips from two specific locations (edges *a*, and *b*) to
 random destinations, use
 
 ```
-randomTrips.py --weights-prefix example  ...<other options>...
+python tools/randomTrips.py --weights-prefix example  ...<other options>...
 ```
 
 and define only the file *example.src.xml* as follows:
@@ -256,13 +256,3 @@ and define only the file *example.src.xml* as follows:
 </edgedata>
 ```
 
-# route2trips.py
-
-This script generates a trip file from a route file by stripping all
-route information except for start and end edge. It has a single
-parameter which is the route file and prints the trip file to stdout.
-Example:
-
-```
-<SUMO_HOME>/tools/route2trips.py input_routes.rou.xml
-```

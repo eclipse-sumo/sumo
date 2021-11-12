@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-04-22 13:54:45 by Eclipse SUMO netedit Version v1_9_0+0169-8942512
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <new value="true"/>
+    </input>
+
+    <output>
+        <output-file value="/localdata2/debug/8420/net.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <netedit>
+        <additional-files value="/localdata2/debug/8420/input_additional.add.xml"/>
+        <route-files value="/localdata2/debug/8420/input_routes.rou.xml"/>
+    </netedit>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="t0" vClass="bus"/>
+    <vType id="t1" vClass="bus"/>
+
+    <trip id="v0" type="t1" depart="0.00" from="a" to="e">
+        <stop busStop="stop_a"  until="100" duration="60.00" tripId="t0"/>
+        <stop busStop="stop_c"  until="200" duration="60.00"/>
+        <stop busStop="stop_c2" until="300" duration="60.00" tripId="t1"/>
+        <stop busStop="stop_e"  until="400" duration="60.00"/>
+    </trip>
+    <trip id="v1" type="t1" depart="0.00" from="f" to="i">
+        <stop busStop="stop_f"  until="100" duration="60.00" tripId="t2"/>
+        <stop busStop="stop_c"  until="160" duration="60.00"/>
+        <stop busStop="stop_c2" until="220" duration="60.00" tripId="t3"/>
+        <stop busStop="stop_i"  until="280" duration="60.00"/>
+    </trip>
+</routes>

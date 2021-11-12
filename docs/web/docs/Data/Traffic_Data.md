@@ -1,6 +1,5 @@
 ---
-title: Data/Traffic Data
-permalink: /Data/Traffic_Data/
+title: Traffic Data
 ---
 
 # Traffic Data

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSRoute.cpp
 /// @author  Daniel Krajzewicz
@@ -16,11 +20,6 @@
 ///
 // A vehicle route
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cassert>
@@ -28,7 +27,6 @@
 #include <limits>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/RGBColor.h>
-#include <utils/iodevices/BinaryInputDevice.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "MSEdge.h"
 #include "MSLane.h"
@@ -55,8 +53,10 @@ MSRoute::MSRoute(const std::string& id,
     Named(id), myEdges(edges), myAmPermanent(isPermanent),
     myReferenceCounter(isPermanent ? 1 : 0),
     myColor(c),
+    myPeriod(0),
     myCosts(-1),
     mySavings(0),
+    myReroute(false),
     myStops(stops) {}
 
 
@@ -86,7 +86,7 @@ MSRoute::size() const {
 const MSEdge*
 MSRoute::getLastEdge() const {
     assert(myEdges.size() > 0);
-    return myEdges[myEdges.size() - 1];
+    return myEdges.back();
 }
 
 
@@ -136,7 +136,7 @@ MSRoute::dictionary(const std::string& id, RandomDistributor<const MSRoute*>* co
 
 
 const MSRoute*
-MSRoute::dictionary(const std::string& id, std::mt19937* rng) {
+MSRoute::dictionary(const std::string& id, SumoRNG* rng) {
 #ifdef HAVE_FOX
     FXMutexLock f(myDictMutex);
 #endif
@@ -149,6 +149,15 @@ MSRoute::dictionary(const std::string& id, std::mt19937* rng) {
         return it2->second.first->get(rng);
     }
     return it->second;
+}
+
+
+bool
+MSRoute::hasRoute(const std::string& id) {
+#ifdef HAVE_FOX
+    FXMutexLock f(myDictMutex);
+#endif
+    return myDict.find(id) != myDict.end();
 }
 
 
@@ -214,23 +223,15 @@ MSRoute::insertIDs(std::vector<std::string>& into) {
 
 
 int
-MSRoute::writeEdgeIDs(OutputDevice& os, const MSEdge* const from, const MSEdge* const upTo) const {
-    int numWritten = 0;
-    ConstMSEdgeVector::const_iterator i = myEdges.begin();
-    if (from != nullptr) {
-        i = std::find(myEdges.begin(), myEdges.end(), from);
+MSRoute::writeEdgeIDs(OutputDevice& os, int firstIndex, int lastIndex) const {
+    //std::cout << SIMTIME << " writeEdgeIDs " << getID() << " first=" << firstIndex << " lastIndex=" << lastIndex << " edges=" << toString(myEdges) << "\n";
+    if (lastIndex < 0) {
+        lastIndex = (int)myEdges.size();
     }
-    for (; i != myEdges.end(); ++i) {
-        if ((*i) == upTo) {
-            return numWritten;
-        }
-        os << (*i)->getID();
-        numWritten++;
-        if (upTo || i != myEdges.end() - 1) {
-            os << ' ';
-        }
+    for (int i = firstIndex; i < lastIndex; i++) {
+        os << myEdges[i]->getID() << ' ';
     }
-    return numWritten;
+    return lastIndex - firstIndex;
 }
 
 
@@ -271,6 +272,18 @@ MSRoute::dict_saveState(OutputDevice& out) {
             out.closeTag();
         }
     }
+}
+
+void
+MSRoute::dict_clearState() {
+#ifdef HAVE_FOX
+    FXMutexLock f(myDictMutex);
+#endif
+    for (auto item : myDict) {
+        delete item.second;
+    }
+    myDistDict.clear();
+    myDict.clear();
 }
 
 
@@ -379,4 +392,3 @@ MSRoute::getStops() const {
 
 
 /****************************************************************************/
-

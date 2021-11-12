@@ -1,3 +1,7 @@
 Error: Attribute 'key' is missing in definition of a param.
 Error: Attribute 'key' is missing in definition of a param.
-Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.04Sep135114.3396/netedit.gui/demandElements/vehicletype/load/parameters\input_routes.rou.xml failed.
+Warning: Error parsing key from  generic parameter. Key contains invalid characters.
+Warning: Error parsing key from route generic parameter. Key contains invalid characters
+Error: Attribute 'key' is missing in definition of a param.
+Error: Attribute 'key' is missing in definition of a param.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Nov152742.6512\netedit.gui\demandElements\vehicletype\load\parameters\input_routes.rou.xml failed.

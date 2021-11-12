@@ -1,0 +1,4 @@
+-n net.net.xml -o out.add.xml 
+-b 10 -e 2500
+--vclass passenger
+tools/generateContinuousRerouters.py

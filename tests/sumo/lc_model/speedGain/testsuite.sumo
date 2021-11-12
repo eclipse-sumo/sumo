@@ -9,3 +9,9 @@ speedGain2
 
 # symmetrical speedGain threshold for left and right
 lcSpeedGainRight1
+
+# test different lookahead values
+keepRight0_speedGainLookahead0
+
+# test different lookahead values
+keepRight0_speedGainLookahead5

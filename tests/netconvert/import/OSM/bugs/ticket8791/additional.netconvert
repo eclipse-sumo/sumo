@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-09-16 21:09:21 by Eclipse SUMO netconvert Version v1_10_0+0751-9e8cba3d7fc
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+        <ptline-clean-up value="true"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="-1711953915" name="Ahrensburg, Klaus-Groth-Straße" lane="-11646390_0" startPos="0.00" endPos="14.89" friendlyPos="true" lines="474 569 8110"/>
+    <busStop id="-1711953916" name="Ahrensburg, Klaus-Groth-Straße" lane="-11646390_0" startPos="0.00" endPos="12.83" friendlyPos="true" lines="476 769"/>
+    <busStop id="-1792502642" name="Ahrensburg, Reesenbüttler Graben" lane="-76424358_0" startPos="63.94" endPos="78.94" friendlyPos="true" lines="669 769"/>
+    <busStop id="-2705494849" name="Ahrensburg, Fritz-Reuter-Straße" lane="-39546438_0" startPos="46.27" endPos="61.27" friendlyPos="true" lines="576"/>
+    <busStop id="-8341032348" name="Ahrensburg, Grauer Esel" lane="-19431426#9_0" startPos="86.54" endPos="101.54" friendlyPos="true" lines="576"/>
+    <busStop id="1711953915" name="Ahrensburg, Klaus-Groth-Straße" lane="11646390_0" startPos="39.16" endPos="54.04" friendlyPos="true" lines="476"/>
+    <busStop id="1711953916" name="Ahrensburg, Klaus-Groth-Straße" lane="11646390_0" startPos="41.24" endPos="54.04" friendlyPos="true" lines="569 474 8110 769"/>
+    <busStop id="1711974496" name="Ahrensburg, Rathaus" lane="206357901#0_0" startPos="19.79" endPos="31.78" friendlyPos="true" lines="576 476 569 474"/>
+    <busStop id="1711974498" name="Ahrensburg, Rathaus" lane="297003189#5_0" startPos="6.28" endPos="13.78" friendlyPos="true" lines="476 474 569 576 8110 769"/>
+    <busStop id="2705494849" name="Ahrensburg, Fritz-Reuter-Straße" lane="39546438_0" startPos="99.93" endPos="114.93" friendlyPos="true" lines="576 369 776"/>
+    <busStop id="69420884" name="Ahrensburg, Reesenbüttler Graben" lane="76424358_0" startPos="13.36" endPos="28.36" friendlyPos="true" lines="369 769 776"/>
+    <busStop id="8341032348" name="Ahrensburg, Grauer Esel" lane="19431426#9_0" startPos="7.06" endPos="22.06" friendlyPos="true" lines="576 769"/>
+</additional>

@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='windows-1252'?>
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
-  <Product Name='SUMO' Id='A63B306E-2B15-11E1-88C8-028037EC0200' UpgradeCode='A764BC4F-2B15-11E1-9E7E-028037EC0200'
-    Language='1033' Codepage='1252' Version='1.4.0' Manufacturer='Eclipse'>
+  <Product Name='SUMO' Id='*' UpgradeCode='A764BC4F-2B15-11E1-9E7E-028037EC0200'
+    Language='1033' Codepage='1252' Version='{version}' Manufacturer='Eclipse'>
 
-    <Package Id='*' Description="SUMO 1.4.0 Installer"
+    <Package Id='*' Description="SUMO {version} Installer"
       Comments='Simulation of Urban Mobility' Manufacturer='[Manufacturer]'
       InstallerVersion='300' Compressed='yes' />
 
@@ -14,14 +14,14 @@
         <Directory Id='Eclipse' Name='Eclipse'>
           <Directory Id='INSTALLDIR' Name='Sumo'>
             <Component Id='SumoHome' Guid='67D3110C-F900-461F-B836-177A7AE88BB9'>
-    		  <Condition>MODIFYENV</Condition>
+              <Condition>MODIFYENV</Condition>
               <CreateFolder/>
-              <Environment Id="SUMO_HOME" Name="SUMO_HOME" Value="[INSTALLDIR]" Permanent="no" Part="last" Action="set" System="yes" />
+              <Environment Id="SUMO_HOME" Name="SUMO_HOME" Value="[INSTALLDIR]" Permanent="no" Part="all" Action="set" System="yes" />
             </Component>
             <Directory Id='BINDIR' Name='bin'>
               <Component Id='MainExecutables' Guid='BD1FC8EE-2B15-11E1-BA48-028037EC0200'>
-                <File Id='sumoGuiEXE' Name='sumo-gui.exe' Source='O:\Daten\Sumo\Nightly\sumo-gui.exe' KeyPath='yes'>
-                  <Shortcut Id="startmenuSumoGui" Directory="ProgramMenuDir" Name="SumoGui" WorkingDirectory='INSTALLDIR' Icon="sumogui.exe" IconIndex="0" Advertise="yes" />
+                <File Id='sumoGuiEXE' Name='sumo-gui.exe' Source='{bindir}\sumo-gui.exe' KeyPath='yes'>
+                  <Shortcut Id="startmenuSumoGui" Directory="ProgramMenuDir" Name="sumo-gui" WorkingDirectory='INSTALLDIR' Icon="sumogui.exe" IconIndex="0" Advertise="yes" />
                 </File>
     <!-- Section copied from http://stackoverflow.com/questions/2772452/how-to-associate-application-with-existing-file-types-using-wix-installer -->
     <!-- Capabilities keys for Vista/7 "Set Program Access and Defaults" -->
@@ -53,14 +53,14 @@
     <!-- End of copy -->
               </Component>
               <Component Id='NetEditExecutable' Guid='210F26F3-6040-4A1F-8513-4C75AB016B8B'>
-                <File Id='neteditEXE' Name='netedit.exe' Source='O:\Daten\Sumo\Nightly\netedit.exe' KeyPath='yes'>
-                  <Shortcut Id="startmenuNetEdit" Directory="ProgramMenuDir" Name="NetEdit" WorkingDirectory='INSTALLDIR' Icon="netedit.exe" IconIndex="0" Advertise="yes" />
+                <File Id='neteditEXE' Name='netedit.exe' Source='{bindir}\netedit.exe' KeyPath='yes'>
+                  <Shortcut Id="startmenuNetEdit" Directory="ProgramMenuDir" Name="netedit" WorkingDirectory='INSTALLDIR' Icon="netedit.exe" IconIndex="0" Advertise="yes" />
                 </File>
               </Component>
 
               <Component Id='EnvironmentBatch' Guid='0F045CF0-2B14-11E1-9943-028037EC0200'>
-                <File Id='EnvBat' Name='start-command-line.bat' Source='O:\Daten\Sumo\Nightly\start-command-line.bat' KeyPath='yes'>
-                  <Shortcut Id="startmenuBat" Directory="ProgramMenuDir" Name="SUMO Command Line" Advertise="yes" />
+                <File Id='EnvBat' Name='start-command-line.bat' Source='{bindir}\start-command-line.bat' KeyPath='yes'>
+                  <Shortcut Id="startmenuBat" Directory="ProgramMenuDir" Name="sumo (Command Line)" Advertise="yes" />
                 </File>
               </Component>
             </Directory>
@@ -68,22 +68,22 @@
             <Directory Id='DOCDIR' Name='doc' />
             <Directory Id='TOOLDIR' Name='tools'>
               <Component Id='OSMWebWizard' Guid='020B4F21-0E79-41C8-A745-28CA9B426126'>
-                <File Id='WebWizPy' Name='osmWebWizard.py' Source='O:\Daten\Sumo\Nightly\..\tools\osmWebWizard.py' KeyPath='yes'>
-                  <Shortcut Id="startWebWizPy" Directory="ProgramMenuDir" Name="OSM Web Wizard" Icon="sumogui.exe" IconIndex="0" Advertise="yes" />
+                <File Id='WebWizPy' Name='osmWebWizard.py' Source='{bindir}\..\tools\osmWebWizard.py' KeyPath='yes'>
+                  <Shortcut Id="startWebWizPy" Directory="ProgramMenuDir" Name="OSM Web Wizard" Icon="webwiz.exe" IconIndex="0" Advertise="yes" />
                 </File>
               </Component>
             </Directory>
-			
-  	        <Component Id='Path' Guid='17359CBF-8C61-4C3D-B5A7-4407AFF096AA'>
-    		  <Condition>MODIFYENV</Condition>
+
+            <Component Id='Path' Guid='17359CBF-8C61-4C3D-B5A7-4407AFF096AA'>
+              <Condition>MODIFYENV</Condition>
               <CreateFolder/>
-			  <Environment Id="PATH" Name="PATH" Value="[BINDIR];[TOOLDIR]" Permanent="no" Part="last" Action="set" System="yes" />
-		    </Component>
-  	        <Component Id='PythonPath' Guid='3C6E4C8E-C4D3-483D-93C0-546A04D360F0'>
-    		  <Condition>MODIFYENV</Condition>
+              <Environment Id="PATH" Name="PATH" Value="[BINDIR];[TOOLDIR]" Permanent="no" Part="last" Action="set" System="yes" />
+            </Component>
+            <Component Id='PythonPath' Guid='3C6E4C8E-C4D3-483D-93C0-546A04D360F0'>
+              <Condition>MODIFYENV</Condition>
               <CreateFolder/>
-			  <Environment Id="PYTHONPATH" Name="PYTHONPATH" Value="[TOOLDIR]" Permanent="no" Part="last" Action="set" System="yes" />
-		    </Component>
+              <Environment Id="PYTHONPATH" Name="PYTHONPATH" Value="[TOOLDIR]" Permanent="no" Part="last" Action="set" System="yes" />
+            </Component>
           </Directory>
         </Directory>
       </Directory>
@@ -127,21 +127,26 @@
         <ComponentGroupRef Id='data' />
       </Feature>
 
+      <Feature Id='Share' Title='Share' Description='External data like Proj data.' Level='1'>
+        <ComponentGroupRef Id='share' />
+      </Feature>
+
       <Feature Id='Includes' Title='Includes' Description='Include files for libsumo.' Level='1'>
         <ComponentGroupRef Id='include' />
       </Feature>
     </Feature>
 
-    <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
-	<WixVariable Id="WixUIBannerBmp" Value="bannrbmp.bmp" />
-	<WixVariable Id="WixUIDialogBmp" Value="dlgbmp.bmp" />
+    <WixVariable Id="WixUILicenseRtf" Value="{license}" />
+    <WixVariable Id="WixUIBannerBmp" Value="{banner}" />
+    <WixVariable Id="WixUIDialogBmp" Value="{dialogbg}" />
 
-	<Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
-	<Property Id="MODIFYENV" Value="1" />
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
+    <Property Id="MODIFYENV" Value="1" />
     <UIRef Id="SUMOWixUI_InstallDir" />
 
-    <Icon Id="sumogui.exe" SourceFile="O:\Daten\Sumo\Nightly\sumo-gui.exe" />
-    <Icon Id="netedit.exe" SourceFile="O:\Daten\Sumo\Nightly\netedit.exe" />
+    <Icon Id="sumogui.exe" SourceFile="{bindir}\sumo-gui.exe" />
+    <Icon Id="netedit.exe" SourceFile="{bindir}\netedit.exe" />
+    <Icon Id="webwiz.exe" SourceFile="{webwizico}" />
     <Property Id="ARPPRODUCTICON" Value="sumogui.exe" />
   </Product>
 </Wix>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-08-23 12:17:06 by Eclipse SUMO sumo Version v1_10_0+0129-6ada7b0
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <precision value="3"/>
+        <netstate-dump.precision value="3"/>
+        <emission-output.precision value="3"/>
+        <battery-output.precision value="3"/>
+        <elechybrid-output.precision value="3"/>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <time>
+        <end value="200"/>
+    </time>
+
+    <processing>
+        <step-method.ballistic value="true"/>
+        <collision.action value="warn"/>
+        <collision.stoptime value="10"/>
+        <default.speeddev value="0"/>
+        <default.emergencydecel value="decel"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="horizontal.0" type="SUMO_DEFAULT_TYPE" depart="0.000" arrival="92.000">
+        <route edges="1si 2o"/>
+        <stop lane="2o_0" startPos="19.416" endPos="19.416" duration="10.000"/>
+    </vehicle>
+
+    <vehicle id="always_right.0" type="SUMO_DEFAULT_TYPE" depart="0.000" arrival="108.000">
+        <route edges="3si 2o"/>
+        <stop lane="2o_0" startPos="17.166" endPos="17.166" duration="10.000"/>
+    </vehicle>
+
+    <vehicle id="horizontal.1" type="SUMO_DEFAULT_TYPE" depart="4.000" arrival="112.000">
+        <route edges="1si 2o"/>
+        <stop lane="2o_0" startPos="11.550" endPos="11.550" duration="10.000"/>
+        <stop lane="2o_0" startPos="12.165" endPos="12.165" duration="10.000"/>
+    </vehicle>
+
+    <vehicle id="always_right.1" type="SUMO_DEFAULT_TYPE" depart="4.000" arrival="129.000">
+        <route edges="3si 2o"/>
+        <stop lane="2o_0" startPos="9.300" endPos="9.300" duration="10.000"/>
+    </vehicle>
+
+    <vehicle id="horizontal.2" type="SUMO_DEFAULT_TYPE" depart="8.000" arrival="134.000">
+        <route edges="1si 2o"/>
+        <stop lane="2o_0" startPos="3.318" endPos="3.318" duration="10.000"/>
+        <stop lane="2o_0" startPos="3.318" endPos="3.318" duration="10.000"/>
+        <stop lane="2o_0" startPos="4.299" endPos="4.299" duration="10.000"/>
+    </vehicle>
+
+    <vehicle id="always_right.2" type="SUMO_DEFAULT_TYPE" depart="8.000" arrival="137.000">
+        <route edges="3si 2o"/>
+        <stop lane="2o_0" startPos="1.941" endPos="1.941" duration="10.000"/>
+        <stop lane="2o_0" startPos="1.941" endPos="1.941" duration="10.000"/>
+        <stop lane="2o_0" startPos="1.941" endPos="1.941" duration="10.000"/>
+    </vehicle>
+
+    <vehicle id="horizontal.3" type="SUMO_DEFAULT_TYPE" depart="12.000" arrival="169.000">
+        <route edges="1si 2o"/>
+        <stop lane="2o_0" startPos="0.700" endPos="0.700" duration="10.000"/>
+    </vehicle>
+
+    <vehicle id="always_right.3" type="SUMO_DEFAULT_TYPE" depart="12.000" arrival="173.000">
+        <route edges="3si 2o"/>
+        <stop lane="2o_0" startPos="0.000" endPos="0.000" duration="10.000"/>
+        <stop lane="2o_0" startPos="0.000" endPos="0.000" duration="10.000"/>
+    </vehicle>
+
+</routes>

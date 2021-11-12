@@ -1,6 +1,5 @@
 ---
-title: Tutorials/OSMActivityGen/eichstaett.net.xml
-permalink: /Tutorials/OSMActivityGen/eichstaett.net.xml/
+title: eichstaett.net.xml
 ---
 
 [{{SUMO}}/tests/complex/tutorial/osm_activitygen/eichstaett.net.xml]({{Source}}tests/complex/tutorial/osm_activitygen/eichstaett.net.xml)

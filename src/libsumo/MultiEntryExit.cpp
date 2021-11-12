@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MultiEntryExit.cpp
 /// @author  Daniel Krajzewicz
@@ -16,11 +20,6 @@
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <microsim/output/MSDetectorControl.h>
@@ -80,6 +79,45 @@ MultiEntryExit::getLastStepHaltingNumber(const std::string& detID) {
 }
 
 
+double
+MultiEntryExit::getLastIntervalMeanTravelTime(const std::string& detID) {
+    return getDetector(detID)->getLastIntervalMeanTravelTime();
+}
+
+
+double 
+MultiEntryExit::getLastIntervalMeanHaltsPerVehicle(const std::string& detID) {
+    return getDetector(detID)->getLastIntervalMeanHaltsPerVehicle();
+}
+
+
+double 
+MultiEntryExit::getLastIntervalMeanTimeLoss(const std::string& detID) {
+    return getDetector(detID)->getLastIntervalMeanTimeLoss();
+}
+
+
+int 
+MultiEntryExit::getLastIntervalVehicleSum(const std::string& detID) {
+    return getDetector(detID)->getLastIntervalVehicleSum();
+}
+
+
+std::string
+MultiEntryExit::getParameter(const std::string& detID, const std::string& param) {
+    return getDetector(detID)->getParameter(param, "");
+}
+
+
+LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(MultiEntryExit)
+
+
+void
+MultiEntryExit::setParameter(const std::string& detID, const std::string& name, const std::string& value) {
+    getDetector(detID)->setParameter(name, value);
+}
+
+
 LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(MultiEntryExit, MULTIENTRYEXIT)
 
 
@@ -100,7 +138,7 @@ MultiEntryExit::makeWrapper() {
 
 
 bool
-MultiEntryExit::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+MultiEntryExit::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData) {
     switch (variable) {
         case TRACI_ID_LIST:
             return wrapper->wrapStringList(objID, variable, getIDList());
@@ -114,6 +152,20 @@ MultiEntryExit::handleVariable(const std::string& objID, const int variable, Var
             return wrapper->wrapStringList(objID, variable, getLastStepVehicleIDs(objID));
         case LAST_STEP_VEHICLE_HALTING_NUMBER:
             return wrapper->wrapInt(objID, variable, getLastStepHaltingNumber(objID));
+        case VAR_LAST_INTERVAL_TRAVELTIME:
+            return wrapper->wrapDouble(objID, variable, getLastIntervalMeanTravelTime(objID));
+        case VAR_LAST_INTERVAL_MEAN_HALTING_NUMBER:
+            return wrapper->wrapDouble(objID, variable, getLastIntervalMeanHaltsPerVehicle(objID));
+        case VAR_TIMELOSS:
+            return wrapper->wrapDouble(objID, variable, getLastIntervalMeanTimeLoss(objID));
+        case VAR_LAST_INTERVAL_VEHICLE_NUMBER:
+            return wrapper->wrapInt(objID, variable, getLastIntervalVehicleSum(objID));
+        case libsumo::VAR_PARAMETER:
+            paramData->readUnsignedByte();
+            return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));
+        case libsumo::VAR_PARAMETER_WITH_KEY:
+            paramData->readUnsignedByte();
+            return wrapper->wrapStringPair(objID, variable, getParameterWithKey(objID, paramData->readString()));
         default:
             return false;
     }

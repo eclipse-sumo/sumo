@@ -472,6 +472,13 @@ int main(int arg, char **argv)
 extern "C" {
 #endif
 
+// avoid warnings in clang
+#ifdef _MSC_VER
+    #ifdef __clang__
+        #pragma clang system_header
+    #endif
+#endif
+
 // private structure
 typedef struct
 {

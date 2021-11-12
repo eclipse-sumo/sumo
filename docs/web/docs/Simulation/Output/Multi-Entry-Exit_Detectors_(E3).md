@@ -1,6 +1,5 @@
 ---
-title: Simulation/Output/Multi-Entry-Exit Detectors (E3)
-permalink: /Simulation/Output/Multi-Entry-Exit_Detectors_(E3)/
+title: Multi-Entry-Exit Detectors (E3)
 ---
 
 ## Instantiating within the Simulation
@@ -25,7 +24,7 @@ description consists of the following parts:
 
 The definition:
 
-```
+```xml
 <additional>
    <entryExitDetector id="<ID>" freq="<AGGREGATION_TIME>" file="<OUTPUT_XMLFILE>" 
    timeThreshold="<FLOAT>" speedThreshold="<FLOAT>">
@@ -55,11 +54,12 @@ The complete list of attributes is:
 | -------------- | ----------- | ---------------------------------------------------- |
 | **id**         | id (string) | A string holding the id of the detector              |
 | **file**       | filename    | The path to the output file. The path may be relative.    |
-| freq           | int         | The aggregation period the values the detector collects shall be summed up.     |
+| **freq**       | int         | The aggregation period the values the detector collects shall be summed up.     |
 | timeThreshold  | float       | The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting; *in s, default: 1s*.    |
 | speedThreshold | float       | The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting; *in m/s, default: 5/3.6m/s*.    |
 | openEntry      | bool        | If set to *true*, no error will be reported if vehicles leave the detector without first entering it. This can be useful when tracking vehicles for a particular combination of entry and exit lane at an intersection and other vehicles may also use the exit lane. *default: false*. |
 | vTypes         | string      | space separated list of vehicle type ids to consider, "" means all; default "".       |
+| detectPersons   | string            | [detect persons instead of vehicles (pedestrians or passengers)](../Pedestrians.md#detectors_for_pedestrians)       |
 
 ## Generated Output
 

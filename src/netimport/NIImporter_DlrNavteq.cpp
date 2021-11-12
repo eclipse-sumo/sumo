@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NIImporter_DlrNavteq.cpp
 /// @author  Daniel Krajzewicz
@@ -15,11 +19,6 @@
 ///
 // Importer for networks stored in Elmar's format
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -53,6 +52,7 @@
 const std::string NIImporter_DlrNavteq::GEO_SCALE("1e-5");
 const int NIImporter_DlrNavteq::EdgesHandler::MISSING_COLUMN = std::numeric_limits<int>::max();
 const std::string NIImporter_DlrNavteq::UNDEFINED("-1");
+bool NIImporter_DlrNavteq::keepLength = false;
 
 // ===========================================================================
 // method definitions
@@ -68,6 +68,7 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     }
     time_t csTime;
     time(&csTime);
+    keepLength = oc.getBool("dlr-navteq.keep-length");
     // parse file(s)
     LineReader lr;
     // load nodes
@@ -146,6 +147,7 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         handler5.printSummary();
         PROGRESS_DONE_MESSAGE();
     }
+
 }
 
 double
@@ -366,7 +368,7 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
     const std::string interID = getColumn(st, BETWEEN_NODE_ID);
     if (interID == "-1") {
         e = new NBEdge(id, from, to, myTypeCont.knows(navTeqTypeId) ? navTeqTypeId : "", speed, numLanes, priority,
-                       NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, streetName);
+                       NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, LaneSpreadFunction::RIGHT, streetName);
     } else {
         PositionVector geoms = myGeoms[interID];
         if (getColumn(st, CONNECTION, "0") == "1") {
@@ -376,21 +378,26 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
         geoms.push_back(to->getPosition());
         const std::string origID = OptionsCont::getOptions().getBool("output.original-names") ? id : "";
         e = new NBEdge(id, from, to, myTypeCont.knows(navTeqTypeId) ? navTeqTypeId : "", speed, numLanes, priority,
-                       NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geoms, streetName, origID, LANESPREAD_CENTER);
+                       NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geoms, LaneSpreadFunction::CENTER, streetName, origID);
+    }
+
+    //Import length or edges from input file
+    if (keepLength) {
+        const double length = StringUtils::toDouble(getColumn(st, LENGTH));
+        e->setLoadedLength(length);
     }
 
     // NavTeq imports can be done with a typemap (if supplied), if not, the old defaults are used
     if (myTypeCont.knows(navTeqTypeId)) {
-        e->setPermissions(myTypeCont.getPermissions(navTeqTypeId));
+        e->setPermissions(myTypeCont.getEdgeTypePermissions(navTeqTypeId));
     } else {
         // add vehicle type information to the edge
+        const SVCPermissions allPermissions = myTypeCont.getEdgeTypePermissions("");
+        const SVCPermissions defaultPermissions = OptionsCont::getOptions().getBool("dlr-navteq.tolerant-permissions") ? allPermissions : 0;
         if (myVersion < 6.0) {
-            NINavTeqHelper::addVehicleClasses(*e, getColumn(st, VEHICLE_TYPE));
+            NINavTeqHelper::addVehicleClasses(*e, getColumn(st, VEHICLE_TYPE), allPermissions, defaultPermissions);
         } else {
-            NINavTeqHelper::addVehicleClassesV6(*e, getColumn(st, VEHICLE_TYPE));
-        }
-        if (e->getPermissions() == SVCAll) {
-            e->setPermissions(myTypeCont.getPermissions(""));
+            NINavTeqHelper::addVehicleClassesV6(*e, getColumn(st, VEHICLE_TYPE), allPermissions, defaultPermissions);
         }
         // permission modifications based on form_of_way
         if (form_of_way == 14) { // pedestrian area (fussgaengerzone)
@@ -488,8 +495,8 @@ NIImporter_DlrNavteq::TrafficlightsHandler::report(const std::string& result) {
         WRITE_WARNINGF("The traffic light edge '%' could not be found.", edgeID);
     } else {
         NBNode* node = edge->getToNode();
-        if (node->getType() != NODETYPE_TRAFFIC_LIGHT) {
-            node->reinit(node->getPosition(), NODETYPE_TRAFFIC_LIGHT);
+        if (node->getType() != SumoXMLNodeType::TRAFFIC_LIGHT) {
+            node->reinit(node->getPosition(), SumoXMLNodeType::TRAFFIC_LIGHT);
             // @note. There may be additional information somewhere in the GDF files about traffic light type ...
             TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(OptionsCont::getOptions().getString("tls.default-type"));
             // @note actually we could use the navteq node ID here
@@ -804,16 +811,16 @@ NIImporter_DlrNavteq::ConnectedLanesHandler::report(const std::string& result) {
         WRITE_WARNINGF("Ignoring invalid lane index '%' in connection to edge '%' with % lanes", toLaneS, endEdge, to->getNumLanes());
         return true;
     }
-    if (!from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER, true)) {
+    if (!from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::Lane2LaneInfoType::USER, true)) {
         if (OptionsCont::getOptions().getBool("show-errors.connections-first-try")) {
             WRITE_WARNINGF("Could not set loaded connection from '%' to '%'.", from->getLaneID(fromLane), to->getLaneID(toLane));
         }
         // set as to be re-applied after network processing
         // if this connection runs across a node cluster it may not be possible to set this
         const bool warnOnly = st.size() > 7;
-        myEdgeCont.addPostProcessConnection(from->getID(), fromLane, to->getID(), toLane, false, true,
+        myEdgeCont.addPostProcessConnection(from->getID(), fromLane, to->getID(), toLane, false, KEEPCLEAR_UNSPECIFIED,
                                             NBEdge::UNSPECIFIED_CONTPOS, NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE,
-                                            NBEdge::UNSPECIFIED_SPEED, PositionVector::EMPTY, false, warnOnly);
+                                            NBEdge::UNSPECIFIED_SPEED, NBEdge::UNSPECIFIED_LOADED_LENGTH, PositionVector::EMPTY, false, warnOnly);
     }
     // ensure that connections for other lanes are guessed if not specified
     from->declareConnectionsAsLoaded(NBEdge::EdgeBuildingStep::INIT);

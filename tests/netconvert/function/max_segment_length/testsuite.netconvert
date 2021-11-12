@@ -6,3 +6,9 @@ sumonet
 
 # test max-segment-length on geo-referenced network
 geo
+
+# test modifying segements when loading .edg.xml with shape attribute
+plain
+
+# test modifying segements when loading .edg.xml without shape attribute
+plain_noshape

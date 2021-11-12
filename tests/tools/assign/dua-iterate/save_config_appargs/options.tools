@@ -1,0 +1,4 @@
+-n input_net.net.xml -t input_trips.trips.xml -l 5
+-C config.xml
+sumo--lanechange.duration 3
+sumo--time-to-teleport=-1

@@ -1,11 +1,11 @@
 set(utils_xml_STAT_SRCS
+   CommonXMLStructure.h
+   CommonXMLStructure.cpp
    GenericSAXHandler.h
    GenericSAXHandler.cpp
    IStreamInputSource.h
    SUMOSAXAttributes.cpp
    SUMOSAXAttributes.h
-   SUMOSAXAttributesImpl_Binary.cpp
-   SUMOSAXAttributesImpl_Binary.h
    SUMOSAXAttributesImpl_Xerces.cpp
    SUMOSAXAttributesImpl_Xerces.h
    SUMOSAXAttributesImpl_Cached.cpp

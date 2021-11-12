@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NIXMLTypesHandler.h
 /// @author  Daniel Krajzewicz
@@ -15,13 +19,7 @@
 ///
 // Importer for edge type information stored in XML
 /****************************************************************************/
-#ifndef NIXMLTypesHandler_h
-#define NIXMLTypesHandler_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <utils/xml/SUMOSAXHandler.h>
@@ -31,7 +29,6 @@
 // class declarations
 // ===========================================================================
 class NBTypeCont;
-
 
 // ===========================================================================
 // class definitions
@@ -68,10 +65,9 @@ public:
      * @exception ProcessError If something fails (not used herein)
      * @note policy is to throw no exception in order to allow further processing
      */
-    void myStartElement(int element,
-                        const SUMOSAXAttributes& attrs);
-    //@}
+    void myStartElement(int element, const SUMOSAXAttributes& attrs);
 
+    //@}
 
 private:
     /// @brief The type container to fill
@@ -80,19 +76,10 @@ private:
     /// @brief The currently parsed type
     std::string myCurrentTypeID;
 
-
 private:
-    /** @brief invalid copy constructor */
-    NIXMLTypesHandler(const NIXMLTypesHandler& s);
+    /// @brief invalid copy constructor
+    NIXMLTypesHandler(const NIXMLTypesHandler& s) = delete;
 
-    /** @brief invalid assignment operator */
-    NIXMLTypesHandler& operator=(const NIXMLTypesHandler& s);
-
-
+    /// @brief invalid assignment operator
+    NIXMLTypesHandler& operator=(const NIXMLTypesHandler& s) = delete;
 };
-
-
-#endif
-
-/****************************************************************************/
-

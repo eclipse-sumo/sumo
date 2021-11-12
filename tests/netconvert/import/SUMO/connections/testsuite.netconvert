@@ -69,3 +69,6 @@ attributes
 
 # preserve connection customshape when shifting network
 customShape_shifted
+
+# set custom edgeType for connection
+edgeType

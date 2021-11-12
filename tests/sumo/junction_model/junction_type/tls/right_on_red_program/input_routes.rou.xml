@@ -1,0 +1,12 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <flow id="SW" begin="0" end="20" period="2">
+        <route edges="SC CW"/>
+    </flow>
+    <flow id="NS" begin="0" end="100" period="7.4">
+        <route edges="NC CS"/>
+    </flow>
+    <flow id="NW" begin="0" end="100" period="3.4" departLane="1">
+        <route edges="NC CW"/>
+    </flow>
+</routes>

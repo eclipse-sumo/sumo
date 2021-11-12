@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="bike" sigma="0" vClass="bicycle"/>
+    <vType id="car" sigma="0" vClass="passenger"/>
+    <flow id="bWE" type="bike" begin="0.00" end="1000" period="5" from="WC" to="CE" departSpeed="max"/>
+    <flow id="cSN" type="car" begin="1.00" end="1000" period="7" from="SC" to="CN" departSpeed="max"/>
+    <flow id="cNS" type="car" begin="2.00" end="1000" period="7" from="NC" to="CS" departSpeed="max"/>
+</routes>

@@ -1,7 +1,8 @@
 ---
-title: Z/Changes from version 0.9.9 to version 0.9.10
-permalink: /Z/Changes_from_version_0.9.9_to_version_0.9.10/
+title: Changes from version 0.9.9 to version 0.9.10
 ---
+
+**Release date: 16.09.2008**
 
 - Building
   - debugged [bug 2042630 --enable-traci disables traci?](http://sourceforge.net/tracker/index.php?func=detail&aid=2050900&group_id=45607&atid=443421)
@@ -30,6 +31,6 @@ permalink: /Z/Changes_from_version_0.9.9_to_version_0.9.10/
   - patched dua-iterate.py - **--move-on-short** does no longer
       exist
 
-- DUAROUTER
-  - patched behaviour on missing files
+- duarouter
+  - patched behavior on missing files
   - debugged [bug 2042630 remove-loops breaks application](http://sourceforge.net/tracker/index.php?func=detail&aid=2042630&group_id=45607&atid=443421)

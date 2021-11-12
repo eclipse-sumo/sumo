@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov  8 13:16:06 2019 by Eclipse SUMO dfrouter Version v1_3_1+0801-355be15e4b
+<!-- generated on Thu Mar 25 09:47:03 2021 by Eclipse SUMO dfrouter Version v1_8_0+1823-4a64b80d86
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd">
@@ -24,9 +24,9 @@
         <output-prefix value="" type="STR" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
         <precision value="2" type="INT" help="Defines the number of digits after the comma for floating point output"/>
         <precision.geo value="6" type="INT" help="Defines the number of digits after the comma for lon,lat output"/>
-        <human-readable-time value="false" synonymes="H" type="BOOL" help="Write time values as hour:minute:second or day:hour:minute:second rathern than seconds"/>
+        <human-readable-time value="false" synonymes="H" type="BOOL" help="Write time values as hour:minute:second or day:hour:minute:second rather than seconds"/>
         <routes-output value="" synonymes="o" type="FILE" help="Saves computed routes to FILE"/>
-        <routes-for-all value="false" type="BOOL" help="Forces DFROUTER to compute routes for in-between detectors"/>
+        <routes-for-all value="false" type="BOOL" help="Forces dfrouter to compute routes for in-between detectors"/>
         <detector-output value="" synonymes="detectors-output" type="FILE" help="Saves typed detectors to FILE"/>
         <detectors-poi-output value="" type="FILE" help="Saves detector positions as pois to FILE"/>
         <emitters-output value="" type="FILE" help="Saves emitter definitions for source detectors to FILE"/>
@@ -50,6 +50,7 @@
         <max-search-depth value="30" synonymes="max-nodet-follower" type="INT" help="Number of edges to follow a route without passing a detector"/>
         <emissions-only value="false" type="BOOL" help="Writes only emission times"/>
         <disallowed-edges value="" type="STR[]" help="Do not route on these edges"/>
+        <vclass value="ignoring" type="STR" help="Only route on edges allowing the given vclass"/>
         <keep-turnarounds value="false" type="BOOL" help="Allow turnarounds as route continuations"/>
         <min-route-length value="-1" synonymes="min-dist min-distance" type="FLOAT" help="Minimum distance in meters between start and end node of every route"/>
         <randomize-flows value="false" type="BOOL" help="generate random departure times for emitted vehicles"/>

@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 16.07.2019 15:35:11 by Eclipse SUMO netedit Version v1_2_0+1252-d79f2c5318
+<!-- generated on 13.05.2020 21:04:22 by Eclipse SUMO netedit Version v1_6_0+0225-03ba47aed8
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Jul153501.8924/netedit.gui/demandElements/route/create/non_consecutive\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\route\create_consecutive\non_consecutive\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Jul153501.8924/netedit.gui/demandElements/route/create/non_consecutive\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\route\create_consecutive\non_consecutive\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -29,28 +30,33 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Jul153501.8924/netedit.gui/demandElements/route/create/non_consecutive\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Jul153501.8924/netedit.gui/demandElements/route/create/non_consecutive\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Jul153501.8924/netedit.gui/demandElements/route/create/non_consecutive\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Jul153501.8924/netedit.gui/demandElements/route/create/non_consecutive\routes.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\route\create_consecutive\non_consecutive\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\route\create_consecutive\non_consecutive\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\route\create_consecutive\non_consecutive\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\route\create_consecutive\non_consecutive\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\route\create_consecutive\non_consecutive\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\route\create_consecutive\non_consecutive\datas.xml"/>
     </netedit>
 
     <visualisation>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\route\create_consecutive\non_consecutive\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\route\create_consecutive\non_consecutive\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Jul153501.8924/netedit.gui/demandElements/route/create/non_consecutive\log.txt"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\route\create_consecutive\non_consecutive\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route edges="gneE2" color="yellow" id="route_0"/>
+    <route edges="gneE2 gneE4 gneE5" color="yellow" id="route_0"/>
 </routes>

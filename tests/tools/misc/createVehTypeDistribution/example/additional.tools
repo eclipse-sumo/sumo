@@ -1,14 +1,15 @@
+<?xml version="1.0" ?>
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <vTypeDistribution id="exampleDist">
-        <vType carFollowModel="Krauss" class="passenger" id="exampleDist0" length="4.801" sigma="0.751" tau="0.825"/>
-        <vType carFollowModel="Krauss" class="passenger" id="exampleDist1" length="4.705" sigma="0.613" tau="0.786"/>
-        <vType carFollowModel="Krauss" class="passenger" id="exampleDist2" length="5.248" sigma="0.435" tau="0.683"/>
-        <vType carFollowModel="Krauss" class="passenger" id="exampleDist3" length="5.201" sigma="0.890" tau="0.918"/>
-        <vType carFollowModel="Krauss" class="passenger" id="exampleDist4" length="4.807" sigma="0.796" tau="1.031"/>
-        <vType carFollowModel="Krauss" class="passenger" id="exampleDist5" length="4.974" sigma="0.369" tau="0.947"/>
-        <vType carFollowModel="Krauss" class="passenger" id="exampleDist6" length="4.710" sigma="0.573" tau="0.706"/>
-        <vType carFollowModel="Krauss" class="passenger" id="exampleDist7" length="5.030" sigma="0.083" tau="0.772"/>
-        <vType carFollowModel="Krauss" class="passenger" id="exampleDist8" length="4.962" sigma="0.414" tau="0.707"/>
-        <vType carFollowModel="Krauss" class="passenger" id="exampleDist9" length="4.988" sigma="0.763" tau="0.894"/>
-    </vTypeDistribution>
+   <vTypeDistribution id="exampleDist">
+      <vType id="exampleDist0" tau="0.825" sigma="0.401" length="5.151" class="passenger" carFollowModel="Krauss"/>
+      <vType id="exampleDist1" tau="0.786" sigma="0.305" length="5.013" class="passenger" carFollowModel="Krauss"/>
+      <vType id="exampleDist2" tau="0.683" sigma="0.848" length="4.835" class="passenger" carFollowModel="Krauss"/>
+      <vType id="exampleDist3" tau="0.918" sigma="0.801" length="5.290" class="passenger" carFollowModel="Krauss"/>
+      <vType id="exampleDist4" tau="1.031" sigma="0.407" length="5.196" class="passenger" carFollowModel="Krauss"/>
+      <vType id="exampleDist5" tau="0.947" sigma="0.574" length="4.769" class="passenger" carFollowModel="Krauss"/>
+      <vType id="exampleDist6" tau="0.706" sigma="0.310" length="4.973" class="passenger" carFollowModel="Krauss"/>
+      <vType id="exampleDist7" tau="0.772" sigma="0.630" length="4.483" class="passenger" carFollowModel="Krauss"/>
+      <vType id="exampleDist8" tau="0.707" sigma="0.562" length="4.814" class="passenger" carFollowModel="Krauss"/>
+      <vType id="exampleDist9" tau="0.894" sigma="0.588" length="5.163" class="passenger" carFollowModel="Krauss"/>
+   </vTypeDistribution>
 </additional>

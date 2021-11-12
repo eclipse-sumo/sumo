@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NLEdgeControlBuilder.cpp
 /// @author  Daniel Krajzewicz
@@ -16,11 +20,6 @@
 ///
 // Interface for building edges
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <vector>
@@ -79,9 +78,11 @@ MSLane*
 NLEdgeControlBuilder::addLane(const std::string& id,
                               double maxSpeed, double length,
                               const PositionVector& shape, double width,
-                              SVCPermissions permissions, int index, bool isRampAccel,
+                              SVCPermissions permissions,
+                              SVCPermissions changeLeft, SVCPermissions changeRight,
+                              int index, bool isRampAccel,
                               const std::string& type) {
-    MSLane* lane = new MSLane(id, maxSpeed, length, myActiveEdge, myCurrentNumericalLaneID++, shape, width, permissions, index, isRampAccel, type);
+    MSLane* lane = new MSLane(id, maxSpeed, length, myActiveEdge, myCurrentNumericalLaneID++, shape, width, permissions, changeLeft, changeRight, index, isRampAccel, type);
     myLaneStorage->push_back(lane);
     myCurrentLaneIndex = index;
     return lane;
@@ -89,15 +90,13 @@ NLEdgeControlBuilder::addLane(const std::string& id,
 
 
 void
-NLEdgeControlBuilder::addStopOffsets(const std::map<SVCPermissions, double>& stopOffsets) {
-
+NLEdgeControlBuilder::addStopOffsets(const StopOffset& stopOffset) {
     if (myCurrentLaneIndex == -1) {
-        setDefaultStopOffsets(stopOffsets);
+        setDefaultStopOffset(stopOffset);
     } else {
-        updateCurrentLaneStopOffsets(stopOffsets);
+        updateCurrentLaneStopOffset(stopOffset);
     }
 }
-
 
 
 std::string
@@ -112,42 +111,41 @@ NLEdgeControlBuilder::reportCurrentEdgeOrLane() const {
 
 
 void
-NLEdgeControlBuilder::updateCurrentLaneStopOffsets(const std::map<SVCPermissions, double>& stopOffsets) {
-    assert(myLaneStorage->size() != 0);
-    if (stopOffsets.size() == 0) {
-        return;
+NLEdgeControlBuilder::updateCurrentLaneStopOffset(const StopOffset& stopOffset) {
+    if(myLaneStorage->size() == 0) {
+        throw ProcessError("myLaneStorage cannot be empty");
     }
-    if (myLaneStorage->back()->getStopOffsets().size() != 0) {
-        std::stringstream ss;
-        ss << "Duplicate stopOffset definition for lane " << myLaneStorage->back()->getIndex() << " on edge " << myActiveEdge->getID() << "!";
-        WRITE_WARNING(ss.str())
-    } else {
-        myLaneStorage->back()->setStopOffsets(stopOffsets);
+    if (stopOffset.isDefined()) {
+        if (myLaneStorage->back()->getLaneStopOffsets().isDefined()) {
+            WRITE_WARNING("Duplicate stopOffset definition for lane " + toString(myLaneStorage->back()->getIndex()) + 
+                          " on edge " + myActiveEdge->getID() + "!")
+        } else {
+            myLaneStorage->back()->setLaneStopOffset(stopOffset);
+        }
     }
 }
 
 
 void
-NLEdgeControlBuilder::setDefaultStopOffsets(std::map<SVCPermissions, double> stopOffsets) {
-    if (myCurrentDefaultStopOffsets.size() != 0) {
-        std::stringstream ss;
-        ss << "Duplicate stopOffset definition for edge " << myActiveEdge->getID() << ". Ignoring duplicate specification.";
-        WRITE_WARNING(ss.str())
+NLEdgeControlBuilder::setDefaultStopOffset(const StopOffset &stopOffsets) {
+    if (myCurrentDefaultStopOffset.isDefined()) {
+        WRITE_WARNING("Duplicate stopOffset definition for edge " + myActiveEdge->getID() + ". Ignoring duplicate specification.")
     } else {
-        myCurrentDefaultStopOffsets = stopOffsets;
+        myCurrentDefaultStopOffset = stopOffsets;
     }
 }
 
 
 void
 NLEdgeControlBuilder::applyDefaultStopOffsetsToLanes() {
-    assert(myActiveEdge != 0);
-    if (myCurrentDefaultStopOffsets.size() == 0) {
-        return;
+    if (myActiveEdge == nullptr) {
+        throw ProcessError("myActiveEdge cannot be nullptr");
     }
-    for (MSLane* l : *myLaneStorage) {
-        if (l->getStopOffsets().size() == 0) {
-            l->setStopOffsets(myCurrentDefaultStopOffsets);
+    if (myCurrentDefaultStopOffset.isDefined()) {
+        for (const auto &l : *myLaneStorage) {
+            if (!l->getLaneStopOffsets().isDefined()) {
+                l->setLaneStopOffset(myCurrentDefaultStopOffset);
+            }
         }
     }
 }
@@ -167,7 +165,7 @@ NLEdgeControlBuilder::closeEdge() {
     copy(myLaneStorage->begin(), myLaneStorage->end(), back_inserter(*lanes));
     myLaneStorage->clear();
     myActiveEdge->initialize(lanes);
-    myCurrentDefaultStopOffsets.clear();
+    myCurrentDefaultStopOffset.reset();
     return myActiveEdge;
 }
 
@@ -230,5 +228,5 @@ void NLEdgeControlBuilder::addCrossingEdges(const std::vector<std::string>& cros
     myActiveEdge->setCrossingEdges(crossingEdges);
 }
 
-/****************************************************************************/
 
+/****************************************************************************/

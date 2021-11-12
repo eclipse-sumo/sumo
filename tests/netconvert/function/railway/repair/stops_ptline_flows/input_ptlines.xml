@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<additional>
+    <route id="light_rail_S46:0" edges="c a" >
+        <stop busStop="stopC" duration="30.00" until="32.0"/> <!-- Kolonnenbrücke -->
+        <stop busStop="stopA" duration="30.00" until="372.0"/> <!-- Dudenstraße -->
+    </route>
+    <flow id="light_rail_S46:0" type="light_rail" route="light_rail_S46:0" begin="0.0" end="3600.0" period="600" line="S46:0" >
+        <param key="name" value="Testline"/>
+        <param key="completeness" value="0.5"/>
+    </flow>
+</additional>

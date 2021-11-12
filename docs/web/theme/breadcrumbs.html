@@ -1,0 +1,21 @@
+<ul class="breadcrumbs">
+    <script>
+        var pagePath = "{{ page.abs_url }}";
+        var splitUrl = pagePath.split("/");
+        splitUrl.pop();
+        splitUrl.shift();
+        if (splitUrl[0] == 'docs') splitUrl.shift();
+        var homeLink = "{{ 'index.html'|url }}";
+        document.write('<li class="breadcrumb-item"><a href="' + homeLink + '"><i class="fa fa-home"></i></a></li>');
+        var prev = '';
+        
+        var dirLink = splitUrl.map(function (el) {
+        el = prev + el; prev = el + '/'; return el;
+        });
+
+        for (i = 0; i < splitUrl.length; i++) {
+            document.write("<li class=\"breadcrumb-item\"><a class=\"no-arrow-link\" href=\"{{ '" + dirLink[i] + "'|url }}\">" + splitUrl[i] + "</a></li>");
+        }
+    </script>
+    {% if page and not page.is_index %}<li class="breadcrumb-item active">{{ page.title }}</li>{% endif %}
+</ul>

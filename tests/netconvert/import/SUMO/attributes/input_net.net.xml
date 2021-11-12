@@ -47,9 +47,9 @@
     </edge>
 
     <edge id="edge_with_shape" from="node_right" to="node_left" priority="-1" type="testType" shape="40.00,0.00 20.00,20.00 0.00,0.00">
-        <lane id="edge_with_shape_0" index="0" allow="bus" speed="13.90" length="66.17" shape="45.66,5.66 20.00,31.31 -5.66,5.66"/>
-        <lane id="edge_with_shape_1" index="1" disallow="bicycle" speed="13.90" length="66.17" shape="43.39,3.39 20.00,26.79 -3.39,3.39"/>
-        <lane id="edge_with_shape_2" index="2" speed="13.90" length="66.17" shape="41.13,1.13 20.00,22.26 -1.13,1.13"/>
+        <lane id="edge_with_shape_0" index="0" allow="bus" speed="13.90" length="66.17" shape="45.66,5.66 20.00,31.31 -5.66,5.66" changeLeft="authority"/>
+        <lane id="edge_with_shape_1" index="1" disallow="bicycle" speed="13.90" length="66.17" shape="43.39,3.39 20.00,26.79 -3.39,3.39" changeLeft="authority emergency" changeRight="authority bicycle"/>
+        <lane id="edge_with_shape_2" index="2" speed="13.90" length="66.17" shape="41.13,1.13 20.00,22.26 -1.13,1.13" changeRight="authority"/>
     </edge>
     <edge id="reverse_edge" from="node_left" to="node_right" priority="-1" distance="42.00">
         <lane id="reverse_edge_0" index="0" speed="13.90" length="39.00" shape="0.00,-8.00 40.00,-8.00"/>
@@ -68,7 +68,7 @@
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
 
-    <connection from="edge_with_shape" to="reverse_edge" fromLane="0" toLane="0" via=":node_left_0_0" dir="t" state="M"/>
+    <connection from="edge_with_shape" to="reverse_edge" fromLane="0" toLane="0" via=":node_left_0_0" dir="t" state="M" changeLeft="authority"/>
     <connection from="edge_with_shape" to="reverse_edge" fromLane="1" toLane="1" via=":node_left_0_1" dir="t" state="M"/>
     <connection from="edge_with_shape" to="reverse_edge" fromLane="2" toLane="2" via=":node_left_0_2" dir="t" state="M"/>
     <connection from="reverse_edge" to="edge_with_shape" fromLane="0" toLane="0" via=":node_right_0_0" dir="t" state="M"/>

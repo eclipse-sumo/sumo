@@ -1,4 +1,6 @@
 100vehs
+100vehs_scale_0.25
+100vehs_scale_1.25
 100vehs_begin_end
 100vehs_max_alternatives1
 multiTaz
@@ -6,3 +8,12 @@ multiTaz
 # single trips without taz
 noTaz
 ignoreUnknown
+
+# use trip attributes from,to directly
+ignore_taz
+
+# single trips without taz and fromJunction/toJunction
+fromToJunctions
+
+# use trip attributes fromJunction,toJunction directly
+ignore_taz_fromToJunctions

@@ -19,6 +19,12 @@ user_example1_2nodes
 # attaching streets at the border
 attach
 
+# attaching streets at the horizontal border
+attach_x
+
+# attaching streets at the vertical border
+attach_y
+
 # no internal lanes
 nointernal
 alphanumerical-ids
@@ -46,6 +52,18 @@ default_type
 
 # option --default.type
 default_type2
+
+# only a single stretch of road without arms
+flat
+
+# a single node with attachments
+cross
+
+# removing an edge from the grid
+remove_edge
+
+# bidi-probability=0
+oneway
 
 # Tests processing of errors in input
 errors

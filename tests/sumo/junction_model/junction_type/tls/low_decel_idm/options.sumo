@@ -1,0 +1,5 @@
+--no-step-log --no-duration-log --net-file=net2.net.xml -r input_routes.rou.xml
+--step-length 0.2
+-b 29
+--fcd-output fcd.xml
+--fcd-output.acceleration

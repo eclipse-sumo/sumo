@@ -1,6 +1,5 @@
 ---
-title: Developer/How To/Extend Vehicles
-permalink: /Developer/How_To/Extend_Vehicles/
+title: Extend Vehicles
 ---
 
 This brief document describes how the vehicle class can be extended. We
@@ -93,5 +92,3 @@ if (attrs.hasAttribute(SUMO_ATTR_PERSON_CAPACITY)) {
  ret->personCapacity = attrs.getIntReporting(SUMO_ATTR_PERSON_CAPACITY, 0, ok);
 }
 ```
-
-# Usage

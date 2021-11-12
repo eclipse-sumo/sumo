@@ -1,7 +1,5 @@
 Error: On processing option '--no-duration-log':
  No option with the name 'no-duration-log' exists.
-Error: On processing option '--net-file=net.net.xml':
- No option with the name 'net-file' exists.
 Error: On processing option '--routes=routes.rou.xml':
  No option with the name 'routes' exists.
 Error: On processing option '--test_this_funky_but_not_exitsing_option':

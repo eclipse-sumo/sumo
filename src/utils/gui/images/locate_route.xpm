@@ -1,9 +1,11 @@
 /* XPM */
 static const char *locate_route_xpm[] = {
+/* columns rows colors chars-per-pixel */
 "16 16 3 1",
 " 	c None",
 ".	c Black",
 "o	c Red",
+/* pixels */
 "           ...  ",
 "          .   . ",
 "              . ",
@@ -19,4 +21,5 @@ static const char *locate_route_xpm[] = {
 "  .........ooo. ",
 "          .oo.  ",
 "          .o.   ",
-"          ..    "};
+"          ..    "
+};

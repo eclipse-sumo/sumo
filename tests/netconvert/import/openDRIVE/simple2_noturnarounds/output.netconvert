@@ -1,6 +1,5 @@
-Parsing types from '/home/micha/sumo/data/typemap/opendriveNetconvert.typ.xml' ... done.
-Parsing opendrive from 'opendrive.xodr' ... 
-done.
+Parsing types from '/home/kobo/dlr/sumo/data/typemap/opendriveNetconvert.typ.xml' ... done.
+Parsing opendrive from 'opendrive.xodr' ... done.
  Import done:
    2 nodes loaded.
    21 types loaded.
@@ -39,5 +38,5 @@ Summary:
   Applied offset     : 0.00,0.00
   Converted boundary : 0.00,0.00,50.00,0.00
 -----------------------------------------------------
-Writing network ... done (1ms).
+Writing network ... done (2ms).
 Success.

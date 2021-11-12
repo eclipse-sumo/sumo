@@ -1,6 +1,7 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="pType" maxSpeed="7"/>
     <vType id="pType2" maxSpeed="1.4"/>
+    <vType id="pType3" maxSpeed="1.4" vClass="pedestrian"/>
     <person id="horiz" depart="0" departPos="-10">
         <walk edges="2fi 2si 1o" arrivalPos="-0.01"/>
     </person>

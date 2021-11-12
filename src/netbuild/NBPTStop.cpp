@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NBPTStop.cpp
 /// @author  Gregor Laemmel
@@ -13,11 +17,6 @@
 ///
 // The representation of a single pt stop
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/iodevices/OutputDevice.h>
@@ -31,23 +30,31 @@
 // method definitions
 // ===========================================================================
 NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, std::string origEdgeId, double length,
-                   std::string name, SVCPermissions svcPermissions) :
+                   std::string name, SVCPermissions svcPermissions, double parkingLength, const RGBColor color) :
     myPTStopId(ptStopId),
     myPosition(position),
     myEdgeId(edgeId),
     myOrigEdgeId(origEdgeId),
     myPTStopLength(length),
     myName(name),
+    myParkingLength(parkingLength),
+    myColor(color),
     myPermissions(svcPermissions),
+    myStartPos(0),
+    myEndPos(0),
     myBidiStop(nullptr),
     myIsLoose(origEdgeId == ""),
-    myIsMultipleStopPositions(false) {
+    myIsPlatform(false),
+    myIsMultipleStopPositions(false),
+    myAreaID(-1) {
 }
+
 
 std::string
 NBPTStop::getID() const {
     return myPTStopId;
 }
+
 
 const std::string
 NBPTStop::getOrigEdgeId() const {
@@ -70,6 +77,12 @@ NBPTStop::getName() const {
 const Position&
 NBPTStop::getPosition() const {
     return myPosition;
+}
+
+
+void
+NBPTStop::mirrorX() {
+    myPosition.mul(1, -1);
 }
 
 
@@ -103,6 +116,12 @@ NBPTStop::write(OutputDevice& device) {
     if (myLines.size() > 0) {
         device.writeAttr(SUMO_ATTR_LINES, toString(myLines));
     }
+    if (myParkingLength > 0) {
+        device.writeAttr(SUMO_ATTR_PARKING_LENGTH, myParkingLength);
+    }
+    if (myColor.isValid()) {
+        device.writeAttr(SUMO_ATTR_COLOR, myColor);
+    }
     if (!myAccesses.empty()) {
         std::sort(myAccesses.begin(), myAccesses.end());
         for (auto tuple : myAccesses) {
@@ -114,6 +133,7 @@ NBPTStop::write(OutputDevice& device) {
             device.closeTag();
         }
     }
+    writeParams(device);
     device.closeTag();
 }
 
@@ -152,8 +172,9 @@ NBPTStop::getIsMultipleStopPositions() const {
 
 
 void
-NBPTStop::setIsMultipleStopPositions(bool multipleStopPositions) {
+NBPTStop::setIsMultipleStopPositions(bool multipleStopPositions, long long int areaID) {
     myIsMultipleStopPositions = multipleStopPositions;
+    myAreaID = areaID;
 }
 
 
@@ -176,28 +197,16 @@ NBPTStop::registerAdditionalEdge(std::string wayId, std::string edgeId) {
 }
 
 
-const std::map<std::string, std::string>&
-NBPTStop::getMyAdditionalEdgeCandidates() const {
-    return myAdditionalEdgeCandidates;
-}
-
-
-void
-NBPTStop::setMyOrigEdgeId(const std::string& myOrigEdgeId) {
-    NBPTStop::myOrigEdgeId = myOrigEdgeId;
-}
-
-
-void
-NBPTStop::setMyPTStopLength(double myPTStopLength) {
-    NBPTStop::myPTStopLength = myPTStopLength;
-}
-
-
 bool
 NBPTStop::findLaneAndComputeBusStopExtent(const NBEdgeCont& ec) {
     NBEdge* edge = ec.getByID(myEdgeId);
+    return findLaneAndComputeBusStopExtent(edge);
+}
+
+bool
+NBPTStop::findLaneAndComputeBusStopExtent(const NBEdge* edge) {
     if (edge != nullptr) {
+        myEdgeId = edge->getID();
         int laneNr = -1;
         for (const auto& it : edge->getLanes()) {
             if ((it.permissions & getPermissions()) == getPermissions()) {
@@ -220,11 +229,6 @@ NBPTStop::findLaneAndComputeBusStopExtent(const NBEdgeCont& ec) {
 
 
 void
-NBPTStop::setMyPTStopId(std::string id) {
-    myPTStopId = id;
-}
-
-void
 NBPTStop::clearAccess() {
     myAccesses.clear();
 }
@@ -243,5 +247,31 @@ NBPTStop::addAccess(std::string laneID, double offset, double length) {
     myAccesses.push_back(std::make_tuple(laneID, offset, length));
 }
 
+
+bool
+NBPTStop::replaceEdge(const std::string& edgeID, const EdgeVector& replacement) {
+    if (myEdgeId == edgeID) {
+        // find best edge among replacement edges
+        double bestDist = std::numeric_limits<double>::max();
+        NBEdge* bestEdge = nullptr;
+        for (NBEdge* cand : replacement) {
+            double dist = cand->getGeometry().distance2D(myPosition);
+            if (dist < bestDist) {
+                bestDist = dist;
+                bestEdge = cand;
+            }
+        }
+        if (bestDist != std::numeric_limits<double>::max()) {
+            if ((bestEdge->getPermissions() & SVC_PEDESTRIAN) != 0) {
+                // no need for access
+                clearAccess();
+            }
+            return findLaneAndComputeBusStopExtent(bestEdge);
+        } else {
+            return false;
+        }
+    }
+    return true;
+}
 
 /****************************************************************************/

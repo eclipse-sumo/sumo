@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUINet.h
 /// @author  Daniel Krajzewicz
@@ -15,13 +19,7 @@
 ///
 // A MSNet extended by some values for usage within the gui
 /****************************************************************************/
-#ifndef GUINet_h
-#define GUINet_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -51,6 +49,7 @@ class MSTrafficLightLogic;
 class MSLink;
 class GUIJunctionWrapper;
 class GUIDetectorWrapper;
+class GUICalibrator;
 class GUITrafficLightLogicWrapper;
 class RGBColor;
 class GUIEdge;
@@ -120,7 +119,6 @@ public:
      */
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
-
     /** @brief Returns an own parameter window
      *
      * @param[in] app The application needed to build the parameter window
@@ -130,7 +128,6 @@ public:
      */
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
-
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
      * @return The boundary the object is within
@@ -138,6 +135,8 @@ public:
      */
     Boundary getCenteringBoundary() const override;
 
+    /// @brief return exaggeration asociated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const override;
 
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
@@ -258,11 +257,11 @@ public:
 
     /** Returns the gl-id of the traffic light that controls the given link
      * valid only if the link is controlled by a tls */
-    int getLinkTLID(MSLink* link) const;
+    int getLinkTLID(const MSLink* const link) const;
 
     /** Returns the index of the link within the junction that controls the given link;
      * Returns -1 if the link is not controlled by a tls */
-    int getLinkTLIndex(MSLink* link) const;
+    int getLinkTLIndex(const MSLink* const link) const;
 
 
     /// @name locator-methods
@@ -343,6 +342,9 @@ public:
     /// @brief return wheter the given logic (or rather it's wrapper) is selected in the GUI
     bool isSelected(const MSTrafficLightLogic* tll) const override;
 
+    /// @brief update view after simulation.loadState
+    void updateGUI() const override;
+
 private:
     /// @brief Initialises the tl-logic map and wrappers
     void initTLMap();
@@ -365,9 +367,11 @@ protected:
     /// @brief A detector dictionary
     std::vector<GUIDetectorWrapper*> myDetectorWrapper;
 
+    /// @brief A calibrator dictionary
+    std::vector<GUICalibrator*> myCalibratorWrapper;
 
     /// @brief Definition of a link-to-logic-id map
-    typedef std::map<MSLink*, std::string> Links2LogicMap;
+    typedef std::map<const MSLink*, std::string> Links2LogicMap;
     /// @brief The link-to-logic-id map
     Links2LogicMap myLinks2Logic;
 
@@ -391,11 +395,13 @@ protected:
     class DiscoverAttributes : public SUMOSAXHandler {
     public:
         DiscoverAttributes(const std::string& file):
-            SUMOSAXHandler(file), lastIntervalEnd(0) {};
+            SUMOSAXHandler(file), firstIntervalBegin(SUMOTime_MAX), lastIntervalEnd(0), numIntervals(0) {};
         ~DiscoverAttributes() {};
         void myStartElement(int element, const SUMOSAXAttributes& attrs);
         std::vector<std::string> getEdgeAttrs();
+        SUMOTime firstIntervalBegin;
         SUMOTime lastIntervalEnd;
+        int numIntervals;
     private:
         std::set<std::string> edgeAttrs;
     };
@@ -417,6 +423,7 @@ protected:
          * @see SAXWeightsHandler::EdgeFloatTimeLineRetriever::addEdgeWeight
          */
         void addEdgeWeight(const std::string& id, double val, double beg, double end) const;
+        void addEdgeRelWeight(const std::string& from, const std::string& to, double val, double beg, double end) const;
 
     private:
         /// @brief The storage that  edges shall be added to
@@ -429,9 +436,3 @@ private:
     mutable FXMutex myLock;
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

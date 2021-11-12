@@ -1,0 +1,3 @@
+Error: No additional connection attributes are permitted in connection from edge 'SC' unless 'fromLane' and 'toLane' are set.
+Error: No additional connection attributes are permitted in connection from edge 'WC' unless 'fromLane' and 'toLane' are set.
+Quitting (on error).

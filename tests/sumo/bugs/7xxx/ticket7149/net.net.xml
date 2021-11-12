@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 11 Jun 2020 11:55:13 PM CEST by Eclipse SUMO netedit Version v1_6_0+0689-a191f7215a
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="osm.rail.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/home/kobo/dlr/debug/7149/net.net.xml"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="true"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.6" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-610903.92,-5970851.85" convBoundary="11106.99,7776.08,11270.80,7831.16" origBoundary="10.686905,53.874270,25.223249,60.220037" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <type id="highway.bridleway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.bus_guideway" priority="1" numLanes="1" speed="13.89" allow="bus" oneway="1"/>
+    <type id="highway.cycleway" priority="1" numLanes="1" speed="8.33" allow="bicycle" oneway="0" width="1.00"/>
+    <type id="highway.footway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.ford" priority="1" numLanes="1" speed="2.78" allow="army" oneway="0"/>
+    <type id="highway.living_street" priority="2" numLanes="1" speed="2.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.motorway" priority="14" numLanes="2" speed="27.78" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
+    <type id="highway.motorway_link" priority="9" numLanes="1" speed="16.67" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
+    <type id="highway.path" priority="1" numLanes="1" speed="2.78" allow="pedestrian bicycle" oneway="1" width="2.00"/>
+    <type id="highway.pedestrian" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.primary" priority="12" numLanes="2" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" oneway="0" sidewalkWidth="3.00"/>
+    <type id="highway.primary_link" priority="7" numLanes="1" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" oneway="0" sidewalkWidth="3.00"/>
+    <type id="highway.raceway" priority="15" numLanes="2" speed="83.33" allow="vip" oneway="0"/>
+    <type id="highway.residential" priority="3" numLanes="1" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" oneway="0" sidewalkWidth="2.00"/>
+    <type id="highway.secondary" priority="11" numLanes="1" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" oneway="0" sidewalkWidth="3.00"/>
+    <type id="highway.secondary_link" priority="6" numLanes="1" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" oneway="0" sidewalkWidth="3.00"/>
+    <type id="highway.service" priority="1" numLanes="1" speed="5.56" allow="pedestrian delivery bicycle" oneway="0"/>
+    <type id="highway.stairs" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.step" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.steps" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.tertiary" priority="10" numLanes="1" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" oneway="0" sidewalkWidth="3.00"/>
+    <type id="highway.tertiary_link" priority="5" numLanes="1" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" oneway="0" sidewalkWidth="2.00"/>
+    <type id="highway.track" priority="1" numLanes="1" speed="5.56" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.trunk" priority="13" numLanes="2" speed="13.89" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.trunk_link" priority="8" numLanes="1" speed="13.89" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.unclassified" priority="4" numLanes="1" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" oneway="0" sidewalkWidth="2.00"/>
+    <type id="highway.unsurfaced" priority="1" numLanes="1" speed="8.33" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="railway.highspeed" priority="21" numLanes="1" speed="69.44" allow="rail_fast" oneway="1"/>
+    <type id="railway.light_rail" priority="19" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
+    <type id="railway.preserved" priority="16" numLanes="1" speed="27.78" allow="rail" oneway="1"/>
+    <type id="railway.rail" priority="20" numLanes="1" speed="44.44" allow="rail" oneway="1"/>
+    <type id="railway.subway" priority="18" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
+    <type id="railway.tram" priority="17" numLanes="1" speed="13.89" allow="tram" oneway="1"/>
+    <type id="route.ferry" priority="2" numLanes="1" speed="10.00" allow="ship" oneway="0" width="5.00"/>
+    <type id="waterway.canal" priority="1" numLanes="1" speed="10.00" allow="ship" oneway="0" width="5.00"/>
+    <type id="waterway.river" priority="1" numLanes="1" speed="10.00" allow="ship" oneway="0" width="7.00"/>
+
+    <edge id=":1415854311_0" function="internal">
+        <lane id=":1415854311_0_0" index="0" allow="ship" speed="4.56" length="7.30" width="5.00" shape="11175.47,7833.65 11173.59,7832.41 11172.96,7831.16 11173.58,7829.91 11175.46,7828.65"/>
+    </edge>
+    <edge id=":1415854311_1" function="internal">
+        <lane id=":1415854311_1_0" index="0" allow="pedestrian bus delivery truck bicycle" speed="3.65" length="4.67" shape="11170.48,7827.93 11170.87,7829.31 11170.66,7830.18 11169.84,7830.53 11168.40,7830.37"/>
+    </edge>
+    <edge id=":1415854311_w0" function="walkingarea">
+        <lane id=":1415854311_w0_0" index="0" allow="pedestrian" speed="1.00" length="8.40" width="3.20" shape="11172.81,7825.18 11171.51,7826.71 11171.51,7826.71 11169.44,7829.15 11169.44,7829.15 11167.37,7831.58 11167.37,7831.58 11166.07,7833.11"/>
+    </edge>
+    <edge id=":1528117648_w0" function="walkingarea">
+        <lane id=":1528117648_w0_0" index="0" allow="pedestrian" speed="1.00" length="8.40" width="3.20" shape="11106.99,7776.08 11109.06,7773.64 11109.06,7773.64 11110.36,7772.12 11103.62,7780.04 11104.92,7778.52 11104.92,7778.52 11106.99,7776.08"/>
+    </edge>
+
+    <edge id="-127071510" from="gneJ5" to="1415854311" name="Travemünde - Malmö" priority="2" type="route.ferry">
+        <lane id="-127071510_0" index="0" allow="ship" speed="10.00" length="95.34" width="5.00" shape="11270.81,7833.42 11175.47,7833.65">
+            <param key="origId" value="127071510"/>
+        </lane>
+    </edge>
+    <edge id="-128042010" from="1528117648" to="1415854311" priority="4" type="highway.unclassified">
+        <lane id="-128042010_0" index="0" allow="pedestrian bus delivery truck bicycle" speed="13.89" length="81.95" width="2.00" shape="11109.71,7772.88 11172.16,7825.95">
+            <param key="origId" value="128042010"/>
+        </lane>
+        <lane id="-128042010_1" index="1" allow="pedestrian bus delivery truck bicycle" speed="13.89" length="81.95" shape="11108.03,7774.86 11170.48,7827.93">
+            <param key="origId" value="128042010"/>
+        </lane>
+    </edge>
+    <edge id="127071510" from="1415854311" to="gneJ5" name="Travemünde - Malmö" priority="2" type="route.ferry">
+        <lane id="127071510_0" index="0" allow="ship" speed="10.00" length="95.34" width="5.00" shape="11175.46,7828.65 11270.79,7828.42">
+            <param key="origId" value="127071510"/>
+        </lane>
+    </edge>
+    <edge id="128042010" from="1415854311" to="1528117648" priority="4" type="highway.unclassified">
+        <lane id="128042010_0" index="0" allow="pedestrian bus delivery truck bicycle" speed="13.89" length="81.95" width="2.00" shape="11166.72,7832.35 11104.27,7779.28">
+            <param key="origId" value="128042010"/>
+        </lane>
+        <lane id="128042010_1" index="1" allow="pedestrian bus delivery truck bicycle" speed="13.89" length="81.95" shape="11168.40,7830.37 11105.95,7777.30">
+            <param key="origId" value="128042010"/>
+        </lane>
+    </edge>
+
+    <junction id="1415854311" type="priority" x="11171.81" y="7831.16" incLanes="-127071510_0 -128042010_0 -128042010_1" intLanes=":1415854311_0_0 :1415854311_1_0" shape="11175.47,7836.15 11175.45,7826.15 11174.38,7826.10 11174.00,7826.01 11173.66,7825.84 11173.28,7825.57 11172.81,7825.18 11166.07,7833.11 11167.73,7834.45 11169.09,7835.32 11170.33,7835.83 11171.68,7836.08 11173.32,7836.15">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="1528117648" type="dead_end" x="11106.99" y="7776.08" incLanes="128042010_0 128042010_1" intLanes="" shape="11106.99,7776.08 11103.62,7780.04 11106.99,7776.08"/>
+    <junction id="gneJ5" type="unregulated" x="11270.80" y="7830.92" incLanes="127071510_0" intLanes="" shape="11270.80,7830.92 11270.79,7825.92 11270.80,7830.92"/>
+
+    <connection from="-127071510" to="127071510" fromLane="0" toLane="0" via=":1415854311_0_0" dir="t" state="M"/>
+    <connection from="-128042010" to="128042010" fromLane="1" toLane="1" via=":1415854311_1_0" dir="t" state="M"/>
+
+    <connection from=":1415854311_0" to="127071510" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":1415854311_1" to="128042010" fromLane="0" toLane="1" dir="t" state="M"/>
+
+    <connection from=":1415854311_w0" to="128042010" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="-128042010" to=":1415854311_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1528117648_w0" to="-128042010" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="128042010" to=":1528117648_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+</net>

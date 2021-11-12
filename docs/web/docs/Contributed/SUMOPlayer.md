@@ -1,6 +1,5 @@
 ---
-title: Contributed/SUMOPlayer
-permalink: /Contributed/SUMOPlayer/
+title: SUMOPlayer
 ---
 
 !!! note

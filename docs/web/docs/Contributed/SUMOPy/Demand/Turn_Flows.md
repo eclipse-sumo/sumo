@@ -1,6 +1,5 @@
 ---
-title: Contributed/SUMOPy/Demand/Turn Flows
-permalink: /Contributed/SUMOPy/Demand/Turn_Flows/
+title: Turn Flows
 ---
 
 Trip generation with turnflows allows to model traffic flows in a
@@ -122,7 +121,7 @@ selecting menu item
 
 `Demand>Turnflows>Turnflows to routes`
 
-This process is using SUMO’s JTROUTER and will generate both trips and
+This process is using SUMO’s jtrrouter and will generate both trips and
 routes. The scenario is now ready to be simulated by selecting
 
 `Simulation>Sumo>export routes and simulate...`

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <flow id="p" begin="0.00" from="gneE0" to="gneE1.290" end="600.00" number="1200"/>
+    <vType id="truck" vClass="truck"/>
+    <trip id="truck0" type="truck" depart="1000.00" from="gneE0" to="gneE1.290"/>
+</routes>

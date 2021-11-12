@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIContainer.cpp
 /// @author  Melanie Weber
@@ -14,20 +18,14 @@
 ///
 // A MSContainer extended by some values for usage within the gui
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cmath>
 #include <vector>
 #include <string>
-#include <microsim/MSContainer.h>
-#include <microsim/MSCModel_NonInteracting.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
+#include <microsim/MSLane.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
@@ -44,10 +42,12 @@
 #include <utils/geom/PositionVector.h>
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUIGlobals.h>
+#include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/div/GUIDesigns.h>
+
 #include "GUIContainer.h"
 #include "GUINet.h"
 #include "GUIEdge.h"
-#include <utils/gui/globjects/GLIncludes.h>
 
 //#define GUIContainer_DEBUG_DRAW_WALKING_AREA_SHAPE
 
@@ -86,7 +86,7 @@ GUIContainer::GUIContainerPopupMenu::onCmdShowPlan(FXObject*, FXSelector, void*)
     if (p == nullptr) {
         return 1;
     }
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(*myApplication, *p, p->getNumStages());
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(*myApplication, *p);
     // add items
     for (int stage = 1; stage < p->getNumStages(); stage++) {
         ret->mkItem(toString(stage).c_str(), false, p->getStageSummary(stage));
@@ -121,7 +121,7 @@ GUIContainer::GUIContainerPopupMenu::onCmdStopTrack(FXObject*, FXSelector, void*
  * GUIContainer - methods
  * ----------------------------------------------------------------------- */
 GUIContainer::GUIContainer(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) :
-    MSContainer(pars, vtype, plan),
+    MSTransportable(pars, vtype, plan, false),
     GUIGlObject(GLO_CONTAINER, pars->id) {
 }
 
@@ -140,15 +140,15 @@ GUIContainer::getPopUpMenu(GUIMainWindow& app,
     buildSelectionPopupEntry(ret);
     new FXMenuSeparator(ret);
     if (parent.getTrackedID() != getGlID()) {
-        new FXMenuCommand(ret, "Start Tracking", nullptr, ret, MID_START_TRACK);
+        GUIDesigns::buildFXMenuCommand(ret, "Start Tracking", nullptr, ret, MID_START_TRACK);
     } else {
-        new FXMenuCommand(ret, "Stop Tracking", nullptr, ret, MID_STOP_TRACK);
+        GUIDesigns::buildFXMenuCommand(ret, "Stop Tracking", nullptr, ret, MID_STOP_TRACK);
     }
     //
 
     buildShowParamsPopupEntry(ret);
     buildShowTypeParamsPopupEntry(ret);
-    new FXMenuCommand(ret, "Show Plan", GUIIconSubSys::getIcon(ICON_APP_TABLE), ret, MID_SHOWPLAN);
+    GUIDesigns::buildFXMenuCommand(ret, "Show Plan", GUIIconSubSys::getIcon(GUIIcon::APP_TABLE), ret, MID_SHOWPLAN);
     new FXMenuSeparator(ret);
     buildPositionCopyEntry(ret, false);
     return ret;
@@ -158,8 +158,7 @@ GUIContainer::getPopUpMenu(GUIMainWindow& app,
 GUIParameterTableWindow*
 GUIContainer::getParameterWindow(GUIMainWindow& app,
                                  GUISUMOAbstractView&) {
-    GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 12 + (int)getParameter().getParametersMap().size());
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     ret->mkItem("stage", false, getCurrentStageDescription());
     // there is always the "start" stage which we do not count here because it is not strictly part of the plan
@@ -183,8 +182,7 @@ GUIContainer::getParameterWindow(GUIMainWindow& app,
 GUIParameterTableWindow*
 GUIContainer::getTypeParameterWindow(GUIMainWindow& app,
                                      GUISUMOAbstractView&) {
-    GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 8 + (int)myVType->getParameter().getParametersMap().size());
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     ret->mkItem("Type Information:", false, "");
     ret->mkItem("type [id]", false, myVType->getID());
@@ -196,6 +194,12 @@ GUIContainer::getTypeParameterWindow(GUIMainWindow& app,
     // close building
     ret->closeBuilding(&(myVType->getParameter()));
     return ret;
+}
+
+
+double 
+GUIContainer::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.containerSize.getExaggeration(s, this);
 }
 
 
@@ -211,18 +215,20 @@ GUIContainer::getCenteringBoundary() const {
 
 void
 GUIContainer::drawGL(const GUIVisualizationSettings& s) const {
-    glPushName(getGlID());
-    glPushMatrix();
+    GLHelper::pushName(getGlID());
+    GLHelper::pushMatrix();
     Position p1 = getPosition();
-    if (getCurrentStageType() == DRIVING && !isWaiting4Vehicle()) {
-        p1 = myPositionInVehicle;
+    double angle = getAngle();
+    if (getCurrentStageType() == MSStageType::DRIVING && !isWaiting4Vehicle()) {
+        p1 = myPositionInVehicle.pos;
+        angle = myPositionInVehicle.angle;
     }
     glTranslated(p1.x(), p1.y(), getType());
-    glRotated(90, 0, 0, 1);
+    glRotated(RAD2DEG(angle), 0, 0, 1);
     // set container color
     setColor(s);
     // scale
-    const double upscale = s.containerSize.getExaggeration(s, this);
+    const double upscale = getExaggeration(s);
     glScaled(upscale, upscale, 1);
     switch (s.containerQuality) {
         case 0:
@@ -235,17 +241,17 @@ GUIContainer::drawGL(const GUIVisualizationSettings& s) const {
             drawAction_drawAsImage(s);
             break;
     }
-    glPopMatrix();
+    GLHelper::popMatrix();
 
     drawName(p1, s.scale, s.containerName, s.angle);
-    glPopName();
+    GLHelper::popName();
 }
 
 
 void
 GUIContainer::drawGLAdditional(GUISUMOAbstractView* const /* parent */, const GUIVisualizationSettings& /* s */) const {
-    glPushName(getGlID());
-    glPushMatrix();
+    GLHelper::pushName(getGlID());
+    GLHelper::pushMatrix();
     /*
     glTranslated(0, 0, getType() - .1); // don't draw on top of other cars
     if (hasActiveAddVisualisation(parent, VO_SHOW_BEST_LANES)) {
@@ -289,8 +295,8 @@ GUIContainer::drawGLAdditional(GUISUMOAbstractView* const /* parent */, const GU
         }
     }
     */
-    glPopMatrix();
-    glPopName();
+    GLHelper::popMatrix();
+    GLHelper::popName();
 }
 
 
@@ -333,9 +339,15 @@ GUIContainer::setFunctionalColor(int activeScheme) const {
             }
             return false;
         }
-        case 8: {
+        case 8: { // color by angle
             double hue = GeomHelper::naviDegree(getAngle());
             GLHelper::setColor(RGBColor::fromHSV(hue, 1., 1.));
+            return true;
+        }
+        case 9: { // color randomly (by pointer)
+            const double hue = (double)((long long int)this % 360); // [0-360]
+            const double sat = (((long long int)this / 360) % 67) / 100.0 + 0.33; // [0.33-1]
+            GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
             return true;
         }
         default:
@@ -367,47 +379,52 @@ GUIContainer::getColorValue(const GUIVisualizationSettings& /* s */, int activeS
 double
 GUIContainer::getEdgePos() const {
     FXMutexLock locker(myLock);
-    return MSContainer::getEdgePos();
+    return MSTransportable::getEdgePos();
+}
+
+int
+GUIContainer::getDirection() const {
+    FXMutexLock locker(myLock);
+    return MSTransportable::getDirection();
 }
 
 
 Position
 GUIContainer::getPosition() const {
     FXMutexLock locker(myLock);
-    if (getCurrentStageType() == WAITING && getEdge()->getPermissions() == SVC_SHIP) {
+    if (getCurrentStageType() == MSStageType::WAITING && getEdge()->getPermissions() == SVC_SHIP) {
         MSLane* lane = getEdge()->getLanes().front();   //the most right lane of the water way
         PositionVector laneShape = lane->getShape();
         return laneShape.positionAtOffset2D(getEdgePos(), WATER_WAY_OFFSET);
     }
-    return MSContainer::getPosition();
+    return MSTransportable::getPosition();
 }
 
 
 double
 GUIContainer::getAngle() const {
     FXMutexLock locker(myLock);
-    return MSContainer::getAngle();
+    return MSTransportable::getAngle();
 }
 
 
 double
 GUIContainer::getWaitingSeconds() const {
     FXMutexLock locker(myLock);
-    return MSContainer::getWaitingSeconds();
+    return MSTransportable::getWaitingSeconds();
 }
 
 
 double
 GUIContainer::getSpeed() const {
     FXMutexLock locker(myLock);
-    return MSContainer::getSpeed();
+    return MSTransportable::getSpeed();
 }
 
 
 void
 GUIContainer::drawAction_drawAsPoly(const GUIVisualizationSettings& /* s */) const {
     // draw pedestrian shape
-    glRotated(RAD2DEG(getAngle() + M_PI / 2.), 0, 0, 1);
     glScaled(getVehicleType().getLength(), getVehicleType().getWidth(), 1);
     glBegin(GL_QUADS);
     glVertex2d(0, 0.5);
@@ -446,5 +463,10 @@ GUIContainer::drawAction_drawAsImage(const GUIVisualizationSettings& s) const {
         drawAction_drawAsPoly(s);
     }
 }
-/****************************************************************************/
 
+bool
+GUIContainer::isSelected() const {
+    return gSelected.isSelected(GLO_CONTAINER, getGlID());
+}
+
+/****************************************************************************/

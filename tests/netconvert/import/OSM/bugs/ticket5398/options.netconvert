@@ -1,0 +1,10 @@
+--osm-files osm.xml
+--keep-edges.components 1 
+--keep-edges.by-vclass passenger 
+--junctions.join
+--tls.guess-signals
+--tls.discard-simple
+--tls.guess
+--tls.guess.threshold 97
+--tls.join
+-R

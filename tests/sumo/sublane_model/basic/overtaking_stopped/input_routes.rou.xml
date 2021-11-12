@@ -1,0 +1,14 @@
+<routes>
+    <vType id="stopped" vClass="passenger" latAlignment="right"/>
+    <vType id="car" vClass="passenger" latAlignment="arbitrary"/>
+    <vType id="car2" vClass="passenger" latAlignment="right"/>
+
+    <route id="r0" edges="beg"/>
+
+    <vehicle id="stopped" type="stopped" route="r0" departPos="20" departPosLat="right" depart="0">
+        <stop edge="beg" endPos="25" duration="30" posLat="-2"/>
+    </vehicle>
+    <vehicle id="car"  type="car"  route="r0" departPos="0"  departPosLat="left" depart="0" arrivalPosLat="right"/>
+    <vehicle id="car2"  type="car2"  route="r0" departPos="0"  departPosLat="right" depart="2"/>
+
+</routes>

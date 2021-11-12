@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon Jul 01 13:29:15 2013
+TraCITestClient output file. Date: Thu Feb 11 07:27:24 2021
 
 
 -> Command sent: <SimulationStep>:
@@ -12,7 +12,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:29:15 2013
 
 -> Command sent: <SetValue>:
   domID=195 varID=53 objID=2/1to2/0_0
-.. Answered with error to command (195), [description: Not allowed classes must be given as a list of strings.]
+.. Answered with error to command (195), [description: Not allowed vehicle classes must be given as a list of strings.]
 
 -> Command sent: <GetVariable>:
   domID=163 varID=53 objID=2/1to2/0_0

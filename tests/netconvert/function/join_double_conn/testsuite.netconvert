@@ -6,3 +6,6 @@ diff_geom
 
 # no join because of differing length
 diff_length
+
+# merging with different priorities
+diff_prio

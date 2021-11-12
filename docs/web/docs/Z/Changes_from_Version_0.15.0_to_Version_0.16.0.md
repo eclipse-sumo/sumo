@@ -1,9 +1,8 @@
 ---
-title: Z/Changes from Version 0.15.0 to Version 0.16.0
-permalink: /Z/Changes_from_Version_0.15.0_to_Version_0.16.0/
+title: Changes from Version 0.15.0 to Version 0.16.0
 ---
 
-## Version 0.16.0 (04.12.2012)
+**Release date: 04.12.2012**
 
 ### Bugfixes
 
@@ -22,10 +21,10 @@ permalink: /Z/Changes_from_Version_0.15.0_to_Version_0.16.0/
   - Fixed bug that lead to unnecessarily low departure speeds under
     some conditions
   - Fixed bug which sometimes caused vehicles to use the wrong lanes
-- SUMO-GUI
+- sumo-gui
   - Fixed loading of breakpoints, reported by Anderson Rocha,
     thanks\!
-- NETCONVERT
+- netconvert
   - reading tls offset from VISUM files corrected
   - OSM-ids are now read as *long long*s (*long long int* under
     Linux)
@@ -65,7 +64,7 @@ permalink: /Z/Changes_from_Version_0.15.0_to_Version_0.16.0/
     manifested in collisions.
 - NETGEN
   - Options **--offset.x** and **--offset.y** are no longer ignored
-  - Renamed to [NETGENERATE](../NETGENERATE.md) due to naming
+  - Renamed to [netgenerate](../netgenerate.md) due to naming
     conflicts in Debian, was
     [ticket717](http://sourceforge.net/apps/trac/sumo/ticket/717),
     and [Debian-ticket 673931](http://bugs.debian.org/673931)
@@ -138,7 +137,7 @@ permalink: /Z/Changes_from_Version_0.15.0_to_Version_0.16.0/
   - Added python interface to convert cartesian to geo coordinates
     and vice versa
 
-- SUMO-GUI
+- sumo-gui
   - the gui can be started with multiple views by supplying a list
     of files to option **--gui-settings-file**
   - street coloring by selection now colors all lanes for selected
@@ -158,7 +157,7 @@ permalink: /Z/Changes_from_Version_0.15.0_to_Version_0.16.0/
   - Vehicles can now be renderd with bitmaps using the new vType
     attribute *imgFile*. This should be a grayscale image with alpha
     channel to allow full recoloring functionality.
-  - Persons can now be rendered with bitmaps when specifing a vType
+  - Persons can now be rendered with bitmaps when specifying a vType
     with attribute *imgFile* just like vehicles (persons bitmaps
     will not be rotated, however).
   - POIs can now be rendered with bitmaps using the new attributes
@@ -171,7 +170,7 @@ permalink: /Z/Changes_from_Version_0.15.0_to_Version_0.16.0/
   - The vehicle parameter dialog now includes the vehicle specific
     *speed factor* if speed distributions are used.
 
-- DFROUTER
+- dfrouter
   - the speed column in flow input files is now optional
 
 - TOOLS
@@ -190,7 +189,7 @@ permalink: /Z/Changes_from_Version_0.15.0_to_Version_0.16.0/
     polygons in the sumo-gui
 
 - Documentation
-  - Added schema definition for [JTRROUTER](../JTRROUTER.md)'s
+  - Added schema definition for [jtrrouter](../jtrrouter.md)'s
     turns and sink definition files
 
 ### Other
@@ -200,7 +199,7 @@ permalink: /Z/Changes_from_Version_0.15.0_to_Version_0.16.0/
     errors or ignored attributes
   - added **--xml-validation** to all executables which enables Xerces-C schema
     validation for input files having a schema defined
-- NETCONVERT
+- netconvert
   - replaced the option **--plain.keep-edge-shape** with the inverted option **--plain.extend-edge-shape**. The new default
     is to keep given edge shapes and only extend them if this option
     is set. Extending edge shapes inadvertently can lead to invalid

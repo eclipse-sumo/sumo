@@ -29,5 +29,18 @@ vclass_specific_speed_limit
 # load the vclass-specific speed limit from an additional file rather than from the .net.xml
 vclass_specific_speed_limit_from_additional
 
+# infer edgeType of internal edge from successor and predecessor type and then apply restrictions on junction
+vclass_specific_speed_limit_internal
+
+# load edgeType of internal edge and then apply restrictions on junction
+vclass_specific_speed_limit_internal_type
+
+# infer vClass-specific speed restriction of internal edge from successor and predecessor type and then apply restrictions on junction
+vclass_specific_speed_limit_internal_2types
+
+# infer vClass-specific speed restriction of internal edge from successor and predecessor type and then apply restrictions on junction.
+# Network was built with option --junctions.higher-speed
+vclass_specific_speed_limit_internal_2types_higherSpeed
+
 # The vehicles are defined with an invalid type
 invalid_type

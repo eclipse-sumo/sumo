@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    test.py
 # @author  Pablo Alvarez Lopez
@@ -31,41 +35,23 @@ netedit.additionalMode()
 netedit.changeElement("busStop")
 
 # change reference to center
-netedit.changeDefaultValue(8, "reference center")
+netedit.changeDefaultValue(11, "reference center")
 
 # create busStop in mode "reference center"
-netedit.leftClick(referencePosition, 250, 255)
+netedit.leftClick(referencePosition, 233, 235)
 
 # change to move mode
 netedit.moveMode()
 
-# move busStop to left
-netedit.moveElement(referencePosition, 150, 275, 50, 275)
-
-# move back
-netedit.moveElement(referencePosition, 50, 275, 150, 275)
-
 # move busStop to right
-netedit.moveElement(referencePosition, 150, 275, 250, 275)
+netedit.moveElement(referencePosition, 233, 250, 371, 250)
 
-# move back
-netedit.moveElement(referencePosition, 250, 275, 150, 275)
-
-# move busStop to left overpassing lane
-netedit.moveElement(referencePosition, 150, 275, -100, 275)
-
-# move back
-netedit.moveElement(referencePosition, -90, 275, 150, 275)
-
-# move busStop to right overpassing lane
-netedit.moveElement(referencePosition, 150, 275, 550, 275)
-
-# move back to another different position of initial
-netedit.moveElement(referencePosition, 500, 275, 300, 275)
+# move busStop back
+netedit.moveElement(referencePosition, 371, 250, 277, 250)
 
 # Check undos and redos
-netedit.undo(referencePosition, 10)
-netedit.redo(referencePosition, 10)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

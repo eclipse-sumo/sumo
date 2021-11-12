@@ -67,3 +67,9 @@ loaded_crossing_invalidated
 # load a net.xml with crossing which gets invalidated due to patched lane permissions
 loaded_crossing_invalidated2
 path_across_railroad
+
+# avoid some walkingareas
+paths_around
+
+# create walkingareas that usually should be avoided
+paths_around_joinAnyway

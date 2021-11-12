@@ -5,8 +5,7 @@
             <span class="fa fa-angle-down"></span>
         </button>
     </div>
-
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary toc-scroll" style="background-color: #f6f6f6 !important;">
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary toc-scroll toc">
         <ul class="nav flex-column bs-sidenav">
             <p style="margin-top:5px; color:#777777;" class="text-center">Contents</p>
         {%- for toc_item in page.toc %}
@@ -19,11 +18,15 @@
                 <li class="nav-item" style="text-indent: 25px;">
                     <a href="{{ toc_item.url }}" class="nav-link{% if toc_item.active %} active{% endif %}">&rarr; {{ toc_item.title }}</a>
                 </li>
-            {%- endfor %}
+                {%- endfor %}
             {%- endfor %}
         {%- endfor %}
         </ul>
     </div>
+
+    <div class="admonition conference" style="position: sticky; margin-top: 20px; margin-bottom:10px;">
+        <p>visit <a href="https://eclipse.org/sumo">eclipse.org/sumo</a></p>
+        </div>
+
 </div>
-{%- else %}
 {%- endif %}

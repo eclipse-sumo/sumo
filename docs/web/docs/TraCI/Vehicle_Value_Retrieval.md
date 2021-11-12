@@ -1,6 +1,5 @@
 ---
-title: TraCI/Vehicle Value Retrieval
-permalink: /TraCI/Vehicle_Value_Retrieval/
+title: Vehicle Value Retrieval
 ---
 
 ## Command 0xa4: Get Vehicle Variable
@@ -152,6 +151,12 @@ value is also shown in the table.
 <td><p>int</p></td>
 <td><p>An integer encoding the <a href="../Simulation/Routing.html#travel-time_values_for_routing" title="wikilink">current routing mode</a> (0: default, 1: aggregated)</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getRoutingMode">getRoutingMode</a></p></td>
+</tr>
+<tr class="even">
+<td><p>TaxiFleet (0x20)</p></td>
+<td><p>stringList</p></td>
+<td><p>Return the list of all taxis with the given mode:(-1: all, 0 : empty, 1 : pickup,2 : occupied, 3: pickup+occupied). Note: vehicles that are in state pickup+occupied (due to ride sharing) will also be returned when requesting mode 1 or 2</p></td>
+<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getTaxiFleet">getTaxiFleet</a></p></td>
 </tr>
 <tr class="odd">
 <td><p>CO2 emissions<br />
@@ -318,7 +323,7 @@ value is also shown in the table.
 <tr class="odd">
 <td><p>waiting time (0x7a)</p></td>
 <td><p>double</p></td>
-<td><p>Returns the waiting time [s]</p></td>
+<td><p>Returns the consecutive time in where this vehicle was standing [s] (voluntary stopping is excluded) </p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getWaitingTime">getWaitingTime</a></p></td>
 </tr>
 <tr class="even">
@@ -336,7 +341,7 @@ value is also shown in the table.
 <tr class="even">
 <td><p>next stops (0x73)</p></td>
 <td><p>complex</p></td>
-<td><p>Returns the list of upcoming stops, each as compound (laneID, endPos, ID, flags, duration, until). If flag 1 is set (stop rached), duration encodes the remaining duration. Negative values indicate being blocked from re-entering traffic after a parking stop.</p></td>
+<td><p>Returns the list of upcoming stops, each as compound (laneID, endPos, ID, flags, duration, until). If flag 1 is set (stop reached), duration encodes the remaining duration. Negative values indicate being blocked from re-entering traffic after a parking stop.</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getNextStops">getNextStops</a></p></td>
 </tr>
 <tr class="odd">
@@ -426,7 +431,7 @@ value is also shown in the table.
 <tr class="odd">
 <td><p>parameter (0x7e)</p></td>
 <td><p>string</p></td>
-<td><p><a href="#Device_and_LaneChangeModel_Parameter_Retrieval_0x7e" title="wikilink">Returns the value for the given string parameter</a></p></td>
+<td><p><a href="#device_and_lanechangemodel_parameter_retrieval_0x7e" title="wikilink">Returns the value for the given string parameter</a></p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getParameter">getParameter</a></p></td>
 </tr>
 <tr class="even">
@@ -442,6 +447,12 @@ value is also shown in the table.
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getLastActionTime">getLastActionTime</a></p></td>
 </tr>
 <tr class="even">
+<td><p>stops (0x74)</p></td>
+<td><p>complex</p></td>
+<td><p>Returns the list of the next or last n stops as StopData objects.</p></td>
+<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getStops">getStops</a></p></td>
+</tr>
+<tr class="odd">
 <td></td>
 <td></td>
 <td></td>
@@ -519,13 +530,13 @@ Some further messages require additional parameters.
 <td><p>leader (0x68)</p></td>
 <td><p>double, see below</p></td>
 <td><p>compound (string, double)</p></td>
-<td><p>Returns the id of the leading vehicle and its distance, if the string is empty, no leader was found. Only vehicles ahead on the currently list of <em>best lanes</em> are considered (see above). This means, the leader is only valid until the next lane-change maneuver. The returned distance is measured from the ego vehicle front bumper + minGap to the back bumper of the leader vehicle.</p></td>
+<td><p>Returns the id of the leading vehicle and its distance, if the string is empty, no leader was found within the given range. Only vehicles ahead on the currently list of <em>best lanes</em> are considered (see above). This means, the leader is only valid until the next lane-change maneuver. The returned distance is measured from the ego vehicle front bumper + minGap to the back bumper of the leader vehicle.</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getLeader">getLeader</a></p></td>
 </tr>
 <tr class="even">
 <td><p>distance request (0x83)</p></td>
+<td><p>compound (see <a href="https://sumo.dlr.de/docs/TraCI/Simulation_Value_Retrieval.html#command_0x83_distance_request">Command 0x83: Distance Request</a>)</p></td>
 <td><p>double, see below</p></td>
-<td><p>compound (see <a href="http://sumo.dlr.de/wiki/TraCI/Simulation_Value_Retrieval#Command_0x83:_Distance_Request">Command 0x83: Distance Request</a>)</p></td>
 <td><p>Returns the distance between the current vehicle position and the specified position (for the given distance type)</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getDrivingDistance">getDrivingDistance</a> <a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getDrivingDistance2D">getDrivingDistance2D</a></p></td>
 </tr>
@@ -538,11 +549,32 @@ Return the lane change state for the vehicle.</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getLaneChangeState">getLaneChangeState</a> <a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-couldChangeLane">couldChangeLane</a> <a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-wantsAndCouldChangeLane">wantsAndCouldChangeLane</a></p></td>
 </tr>
 <tr class="even">
-<td><p>neighboring vehicles (0x13)</p></td>
-<td><p>byte , <a href="#change_lane_information_0x13" title="wikilink">see below</a></p></td>
-<td><p>stringList <a href="#change_lane_information_0x13" title="wikilink">see below</a></p></td>
+<td><p>neighboring vehicles (0xbf)</p></td>
+<td><p>byte , <a href="#neighboring_vehicles_0xbf" title="wikilink">see below</a></p></td>
+<td><p>stringList <a href="#neighboring_vehicles_0xbf" title="wikilink">see below</a></p></td>
 <td><p>Returns a list of IDs for neighboring vehicle relevant to lane changing (&gt;1 elements only possible for <a href="../Simulation/SublaneModel.html" title="wikilink">sublane model</a>)</p></td>
 <td><p><a href="https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-getNeighbors">getNeighbors</a>, <a href="https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-getLeftFollowers">getLeftFollowers</a>, <a href="https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-getLeftLeaders">getLeftLeaders</a>, <a href="https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-getRightFollowers">getRightFollowers</a>, <a href="https://sumo.dlr.de/daily/pydoc/traci._vehicle.html#VehicleDomain-getRightLeaders">getRightLeaders</a></p></td>
+</tr>
+<tr class="odd">
+<td><p>followSpeed (0x1c)</p></td>
+<td><p>compound, <a href="#followspeed_0x1c" title="wikilink">see below</a></p></td>
+<td><p>double</p></td>
+<td><p>Return the follow speed computed by the carFollowModel of vehicle</p></td>
+<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getFollowSpeed">getFollowSpeed</a></p></td>
+</tr>
+<tr class="even">
+<td><p>secureGap (0x1e)</p></td>
+<td><p>compound, <a href="#secureGap_0x1c" title="wikilink">see below</a></p></td>
+<td><p>double</p></td>
+<td><p>Return the secure gap computed by the carFollowModel of vehicle</p></td>
+<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getSecureGap">getSecureGap</a></p></td>
+</tr>
+<tr class="odd">
+<td><p>stopSpeed (0x1e)</p></td>
+<td><p>compound, <a href="#stopspeed_0x1c" title="wikilink">see below</a></p></td>
+<td><p>double</p></td>
+<td><p>Return the safe speed for stopping at gap computed by the carFollowModel of vehicle</p></td>
+<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getStopSpeed">getStopSpeed</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -565,7 +597,7 @@ The request message contents are as following:
 
 |        byte         |               double               |
 | :-----------------: | :--------------------------------: |
-| value type *double* | maximum look ahead distance (in m) |
+| value type *double* | minimum look ahead distance (in m) |
 
 ### next TLS (0x70)
 
@@ -601,7 +633,7 @@ Each value is a bitset with the following meaning:
 - 2^9: blocked by left leader
 - 2^10: blocked by left follower
 - 2^11: blocked by right leader
-- 2^12: bloecked by right follower
+- 2^12: blocked by right follower
 - 2^13: overlapping
 - 2^14: insufficient space
 - 2^15: sublane
@@ -621,6 +653,33 @@ The mode's bits specify which neighboring vehicles should be returned:
 The returned string list contains the IDs of all corresponding
 neighboring vehicles.
 
+### followSpeed (0x1c)
+
+|         byte          | int   | double | double | double      | double         | string   |
+| :-------------------: | :---: | :----: | :----: | :---------: | :------------: | :------: |
+| value type *compound* | 5     | speed  | gap    | leaderSpeed | leaderMaxDecel | leaderID |
+
+The leaderID is optional. Only a few car follow models such as CACC may require the identity of the leader to return the correct value
+The returned value is the safe follow speed in m/s
+
+### secureGap (0x1e)
+
+|         byte          | int   | double | double      | double         | string   |
+| :-------------------: | :---: | :----: | :---------: | :------------: | :------: |
+| value type *compound* | 4     | speed  | leaderSpeed | leaderMaxDecel | leaderID |
+
+The leaderID is optional. Only a few car follow models such as CACC may require the identity of the leader to return the correct value
+The returned value is the safe gap for following the given leader in m.
+
+### stopSpeed (0x1d)
+
+|         byte          | int   | double | double |
+| :-------------------: | :---: | :----: | :----: |
+| value type *compound* | 2     | speed  | gap    |
+
+The returned value is the safe speed in m/s for stopping after gap when braking
+from the given speed.
+
 ## Device and LaneChangeModel Parameter Retrieval 0x7e
 
 Vehicles supports retrieval of device parameters using the [generic
@@ -635,12 +694,34 @@ call](../TraCI/GenericParameters.md#get_parameter).
 - device.battery.maximumBatteryCapacity
 - device.battery.chargingStationId
 - device.battery.vehicleMass
+- device.battery.totalEnergyConsumed
+- device.battery.totalEnergyRegenerated
 - device.person.IDList
 - device.container.IDList
 - device.rerouting.period (returns individual rerouting period in
   seconds)
 - device.rerouting.edge:EDGE_ID (returns assumed travel time for
   rerouting where EDGE_ID is the id of a network edge)
+- device.driverstate.awareness
+- device.driverstate.errorState
+- device.driverstate.errorTimeScale
+- device.driverstate.errorNoiseIntensity
+- device.driverstate.minAwareness
+- device.driverstate.initialAwareness
+- device.driverstate.errorTimeScaleCoefficient
+- device.driverstate.errorNoiseIntensityCoefficient
+- device.driverstate.speedDifferenceErrorCoefficient
+- device.driverstate.headwayErrorCoefficient
+- device.driverstate.speedDifferenceChangePerceptionThreshold
+- device.driverstate.headwayChangePerceptionThreshold
+- device.driverstate.maximalReactionTime
+- device.driverstate.originalReactionTime
+- device.driverstate.actionStepLength
+- device.taxi.state
+- device.taxi.customers
+- device.taxi.occupiedTime
+- device.taxi.occupiedDistance
+- device.taxi.currentCustomers
 - device.example.customValue1 (return the value of option **--device.example.parameter**)
 - device.example.customValue2 (return the value of vehicle parameter
   *example*)
@@ -649,7 +730,7 @@ call](../TraCI/GenericParameters.md#get_parameter).
   whether a device with DEVICENAME is equipped)
 
 !!! caution
-    If the vehicles does not carry the respective device an error is returned when retrieving parameters with the **device**. prefix. This happens when requestion *device.person.IDList* for a vehicle that has not carried any persons up to that point. Either check for existence or handle the error (i.e. by catching TraCIException in the python client).
+    If the vehicles does not carry the respective device an error is returned when retrieving parameters with the **device**. prefix. This happens when requesting *device.person.IDList* for a vehicle that has not carried any persons up to that point. Either check for existence or handle the error (i.e. by catching TraCIException in the python client).
 
 ### Supported LaneChangeModel Parameters
 

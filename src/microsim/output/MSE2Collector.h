@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSE2Collector.h
 /// @author  Christian Roessel
@@ -19,13 +23,7 @@
 ///
 // An areal detector covering to a sequence of consecutive lanes
 /****************************************************************************/
-#ifndef MSE2Collector_h
-#define MSE2Collector_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <vector>
@@ -78,7 +76,7 @@ class SUMOTrafficObject;
  */
 
 
-class MSE2Collector : public MSMoveReminder, public MSDetectorFileOutput {
+class MSE2Collector : public MSMoveReminder, public MSDetectorFileOutput, public Parameterised {
 public:
     /** @brief A VehicleInfo stores values that are tracked for the individual vehicles on the detector,
      *         e.g., accumulated timeloss. These infos are stored in myVehicles. If a vehicle leaves the detector
@@ -234,7 +232,7 @@ public:
     MSE2Collector(const std::string& id,
                   DetectorUsage usage, MSLane* lane, double startPos, double endPos, double length,
                   SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                  const std::string& vTypes);
+                  const std::string& vTypes, int detectPersons);
 
 
     /** @brief Constructor with a sequence of lanes and given start and end position on the first and last lanes
@@ -252,7 +250,7 @@ public:
     MSE2Collector(const std::string& id,
                   DetectorUsage usage, std::vector<MSLane*> lanes, double startPos, double endPos,
                   SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                  const std::string& vTypes);
+                  const std::string& vTypes, int detectPersons);
 
 
     /// @brief Destructor
@@ -514,6 +512,10 @@ public:
     /// @}
 
 
+    virtual void setVisible(bool /*show*/) {};
+
+    /** @brief Remove all vehicles before quick-loading state */
+    virtual void clearState();
 
 private:
 
@@ -552,7 +554,7 @@ private:
      * @param[in/out] timeOnDetector Total time spent on the detector during the last step
      * @param[in/out] timeLoss Total time loss suffered during the last integration step
      */
-    void calculateTimeLossAndTimeOnDetector(const SUMOVehicle& veh, double oldPos, double newPos, const VehicleInfo& vi, double& timeOnDetector, double& timeLoss) const;
+    void calculateTimeLossAndTimeOnDetector(const SUMOTrafficObject& veh, double oldPos, double newPos, const VehicleInfo& vi, double& timeOnDetector, double& timeLoss) const;
 
     /** @brief Checks integrity of myLanes, adds internal-lane information, inits myLength, myFirstLane, myLastLane, myOffsets
      *         Called once at construction.
@@ -614,7 +616,7 @@ private:
      * @param vehInfo Info on the detector's memory of the vehicle
      * @return A MoveNotificationInfo containing quantities of interest for the detector
      */
-    MoveNotificationInfo* makeMoveNotification(const SUMOVehicle& veh, double oldPos, double newPos, double newSpeed, const VehicleInfo& vehInfo) const;
+    MoveNotificationInfo* makeMoveNotification(const SUMOTrafficObject& veh, double oldPos, double newPos, double newSpeed, const VehicleInfo& vehInfo) const;
 
     /** @brief Creates and returns a VehicleInfo (called at the vehicle's entry)
      *
@@ -622,7 +624,7 @@ private:
      * @param enteredLane The entry lane
      * @return A vehicle info which can be used to store information about the vehicle's stay on the detector
      */
-    VehicleInfo* makeVehicleInfo(const SUMOVehicle& veh, const MSLane* enteredLane) const;
+    VehicleInfo* makeVehicleInfo(const SUMOTrafficObject& veh, const MSLane* enteredLane) const;
 
     /** @brief Calculates the time loss for a segment with constant vmax
      *
@@ -640,6 +642,7 @@ private:
         return mni1->distToDetectorEnd < mni2->distToDetectorEnd;
     }
 
+    void notifyMovePerson(MSTransportable* p, int dir, double pos);
 
 private:
 
@@ -745,6 +748,8 @@ private:
     /// @brief The maximal number of vehicles located on the detector simultaneously since the last reset
     int myMaxVehicleNumber;
 
+    /// @brief The current vehicle samples
+    double myCurrentVehicleSamples;
     /// @brief The current occupancy
     double myCurrentOccupancy;
     /// @brief The current mean speed
@@ -775,9 +780,3 @@ private:
     /// @brief Invalidated assignment operator.
     MSE2Collector& operator=(const MSE2Collector&);
 };
-
-
-#endif
-
-/****************************************************************************/
-

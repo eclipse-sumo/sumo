@@ -1,0 +1,13 @@
+<add>
+    <route id="WE" edges="WC CE"/>
+    <route id="SN" edges="SC CN"/>
+    <route id="WS" edges="WC CS"/>
+
+    <calibrator id="cali_WE" edge="WC" pos="25" output="detector.xml">
+        <flow route="WE" begin="0" end="100" vehsPerHour="450" speed="10" departSpeed="max"/>
+    </calibrator>
+
+    <calibrator id="cali_SN" lane="SC_0" pos="30" vTypes="foo bar" output="detector.xml">
+        <flow route="SN" begin="0" end="200" vehsPerHour="900" departSpeed="max" type="DEFAULT_BIKETYPE"/>
+    </calibrator>
+</add>

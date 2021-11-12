@@ -1,0 +1,602 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Jun  5 15:43:30 2020 by Eclipse SUMO Version v1_6_0+0558-287ab5e744
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="C:\Users\behr_mi\Projekte\sumo\repos\sumo\tests\_devices_rerouting_reroute_congestions_exit_times\net.net.xml"/>
+        <route-files value="C:\Users\behr_mi\Projekte\sumo\repos\sumo\tests\_devices_rerouting_reroute_congestions_exit_times\input_trips.trips.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="C:\Users\behr_mi\Projekte\sumo\repos\sumo\tests\_devices_rerouting_reroute_congestions_exit_times\vehroutes.xml"/>
+        <vehroute-output.exit-times value="true"/>
+        <vehroute-output.cost value="true"/>
+    </output>
+
+    <routing>
+        <device.rerouting.period value="120"/>
+        <device.rerouting.adaptation-steps value="60"/>
+        <device.rerouting.adaptation-interval value="3"/>
+    </routing>
+
+    <report>
+        <verbose value="true"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="6" depart="24.00" arrival="286.00">
+        <route cost="219.03" savings="0.00" edges="-2669 -1780 -1627 -814 -658 -278 -262 264 493 1338 1575 1623" exitTimes="56.00 74.00 83.00 93.00 104.00 144.00 183.00 201.00 237.00 251.00 269.00 286.00"/>
+    </vehicle>
+
+    <vehicle id="17" depart="68.00" arrival="345.00">
+        <route cost="159.44" savings="0.00" edges="-1892 -829 833 2386 -2370 1903 2058" exitTimes="111.00 139.00 183.00 203.00 274.00 326.00 345.00"/>
+    </vehicle>
+
+    <vehicle id="10" depart="40.00" arrival="357.00">
+        <route cost="178.91" savings="0.00" edges="-1784 1784 -1892 -829 833 2386 -2370 1903 2058 2438" exitTimes="91.00 101.00 135.00 146.00 188.00 206.00 278.00 330.00 347.00 357.00"/>
+    </vehicle>
+
+    <vehicle id="4" depart="16.00" arrival="361.00">
+        <route cost="258.91" savings="0.00" edges="-222 222 240 254 278 652 662 833 2386 -2370 1903 2058 2438" exitTimes="38.00 57.00 85.00 112.00 123.00 160.00 170.00 191.00 208.00 280.00 332.00 350.00 361.00"/>
+    </vehicle>
+
+    <vehicle id="13" depart="52.00" arrival="361.00">
+        <route cost="244.26" savings="0.00" edges="-2440 -2438 -2058 2066 -2175 -1605 1611 -1613 -1575 -1314 1312 1342" exitTimes="94.00 106.00 124.00 139.00 185.00 223.00 248.00 280.00 304.00 336.00 346.00 361.00"/>
+    </vehicle>
+
+    <vehicle id="11" depart="44.00" arrival="387.00">
+        <route cost="217.48" savings="0.00" edges="-1780 1784 -1892 -829 833 2386 -2370 1903 2072 -2440" exitTimes="66.00 75.00 113.00 141.00 186.00 204.00 276.00 328.00 357.00 387.00"/>
+    </vehicle>
+
+    <vehicle id="0" depart="0.00" arrival="396.00">
+        <route cost="299.55" savings="0.00" edges="1617 -1617 -1575 -1338 -493 -264 -250 -232 -222 36 1329 -1458" exitTimes="46.00 82.00 102.00 114.00 184.00 202.00 219.00 246.00 267.00 304.00 363.00 396.00"/>
+    </vehicle>
+
+    <vehicle id="2" depart="8.00" arrival="399.00">
+        <route cost="245.98" savings="0.00" edges="-21 5 222 240 254 278 652 662 833 2386 -2370 1903" exitTimes="39.00 48.00 66.00 95.00 122.00 134.00 171.00 232.00 276.00 296.00 365.00 399.00"/>
+    </vehicle>
+
+    <vehicle id="18" depart="72.00" arrival="404.00">
+        <route cost="260.49" savings="0.00" edges="2450 -2450 -2072 2066 -2175 -1605 1611 -1613 1623 1917 2196" exitTimes="95.00 119.00 148.00 160.00 201.00 226.00 256.00 278.00 298.00 366.00 404.00"/>
+    </vehicle>
+
+    <vehicle id="19" depart="76.00" arrival="417.00">
+        <routeDistribution>
+            <route cost="274.30" savings="0.00" replacedOnEdge="652" reason="device.rerouting" replacedAtTime="316.00" probability="0" edges="-51 45 -3 5 222 240 254 278 652 662 833 1454 1586 2427"/>
+            <route cost="129.08" savings="2.51" edges="-51 45 -3 5 222 240 254 278 652 662 831 1579 1586 2427" exitTimes="111.00 135.00 182.00 191.00 206.00 231.00 277.00 289.00 330.00 348.00 372.00 381.00 400.00 417.00"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="44" depart="176.00" arrival="426.00">
+        <route cost="210.36" savings="0.00" edges="-2194 -2187 2188 -1931 -1650 -1342 -1316 -274 262 278 658 814 1627" exitTimes="213.00 252.00 261.00 279.00 290.00 308.00 321.00 353.00 388.00 398.00 410.00 420.00 426.00"/>
+    </vehicle>
+
+    <vehicle id="35" depart="140.00" arrival="434.00">
+        <route cost="203.55" savings="0.00" edges="-814 -658 -278 -254 -240 -228 -197 205 320" exitTimes="154.00 166.00 177.00 205.00 232.00 320.00 349.00 409.00 434.00"/>
+    </vehicle>
+
+    <vehicle id="27" depart="108.00" arrival="436.00">
+        <routeDistribution>
+            <route cost="259.21" savings="0.00" replacedOnEdge="-278" reason="device.rerouting" replacedAtTime="228.00" probability="0" edges="664 -664 -652 -278 -254 -240 -222 -5 9 39 51 330"/>
+            <route cost="203.52" savings="0.00" edges="664 -664 -652 -278 -254 -240 -222 -5 3 -45 51 330" exitTimes="121.00 133.00 173.00 234.00 264.00 294.00 312.00 323.00 333.00 363.00 404.00 436.00"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="22" depart="88.00" arrival="443.00">
+        <route cost="259.47" savings="0.00" edges="212 -205 197 228 240 254 278 658 814 1627 1782 2472" exitTimes="121.00 150.00 229.00 271.00 300.00 362.00 373.00 385.00 396.00 405.00 435.00 443.00"/>
+    </vehicle>
+
+    <vehicle id="30" depart="120.00" arrival="447.00">
+        <route cost="241.31" savings="0.00" edges="-1329 -36 222 240 254 278 652 662 833 2386 2411 2454" exitTimes="131.00 162.00 179.00 203.00 275.00 287.00 328.00 346.00 375.00 396.00 438.00 447.00"/>
+    </vehicle>
+
+    <vehicle id="62" depart="248.00" arrival="450.00">
+        <route cost="190.21" savings="0.00" edges="-1892 -664 -540 301 493 1338 1575 1617" exitTimes="289.00 298.00 315.00 343.00 380.00 394.00 415.00 450.00"/>
+    </vehicle>
+
+    <vehicle id="16" depart="64.00" arrival="456.00">
+        <route cost="246.25" savings="0.00" edges="-2472 -1782 1784 -1892 -829 833 2386 -2370 2319 2321 2365 -2405" exitTimes="78.00 110.00 119.00 162.00 229.00 274.00 294.00 365.00 379.00 410.00 442.00 456.00"/>
+    </vehicle>
+
+    <vehicle id="56" depart="224.00" arrival="456.00">
+        <route cost="215.22" savings="0.00" edges="1458 1466 2403 2436 -1941 -828 -658 652 664" exitTimes="268.00 288.00 308.00 332.00 355.00 395.00 405.00 447.00 456.00"/>
+    </vehicle>
+
+    <vehicle id="3" depart="12.00" arrival="465.00">
+        <route cost="301.47" savings="0.00" edges="-1586 -1454 -833 -662 -652 -278 -254 -240 -228 -197 205 320 -320" exitTimes="32.00 93.00 102.00 139.00 175.00 236.00 266.00 295.00 330.00 358.00 412.00 439.00 465.00"/>
+    </vehicle>
+
+    <vehicle id="1" depart="4.00" arrival="471.00">
+        <route cost="338.52" savings="0.00" edges="-2614 2588 -2454 -2411 -2386 -833 -662 -652 -278 -254 -240 -222 -5 9 802 951" exitTimes="54.00 93.00 105.00 146.00 168.00 184.00 228.00 269.00 323.00 353.00 383.00 402.00 411.00 441.00 461.00 471.00"/>
+    </vehicle>
+
+    <vehicle id="52" depart="208.00" arrival="473.00">
+        <route cost="218.60" savings="0.00" edges="-1941 -828 -658 652 662 833 2386 2411 2454 -2588" exitTimes="231.00 267.00 276.00 321.00 342.00 371.00 390.00 428.00 438.00 473.00"/>
+    </vehicle>
+
+    <vehicle id="21" depart="84.00" arrival="474.00">
+        <route cost="252.31" savings="0.00" edges="240 254 278 652 662 833 2386 -2370 1903 2072 -2440" exitTimes="115.00 182.00 193.00 231.00 241.00 280.00 298.00 367.00 413.00 443.00 474.00"/>
+    </vehicle>
+
+    <vehicle id="28" depart="112.00" arrival="479.00">
+        <route cost="261.50" savings="0.00" edges="1579 -1579 -831 -662 -652 -278 -254 -240 -228 -215 214" exitTimes="125.00 135.00 187.00 231.00 271.00 327.00 355.00 384.00 419.00 447.00 479.00"/>
+    </vehicle>
+
+    <vehicle id="29" depart="116.00" arrival="483.00">
+        <route cost="289.75" savings="0.00" edges="-339 -320 -205 197 228 240 254 278 652 662 833 2386" exitTimes="140.00 169.00 199.00 233.00 287.00 318.00 370.00 383.00 424.00 435.00 464.00 483.00"/>
+    </vehicle>
+
+    <vehicle id="32" depart="128.00" arrival="483.00">
+        <route cost="271.89" savings="0.00" edges="2326 -2194 -2187 2188 -1931 -1650 -1342 -1316 -274 262 278 658 828 1941 -2436" exitTimes="145.00 211.00 250.00 259.00 277.00 287.00 305.00 319.00 351.00 385.00 395.00 405.00 443.00 462.00 483.00"/>
+    </vehicle>
+
+    <vehicle id="36" depart="144.00" arrival="486.00">
+        <routeDistribution>
+            <route cost="227.78" savings="0.00" replacedOnEdge="-2403" reason="device.rerouting" replacedAtTime="264.00" probability="0" edges="-1887 1941 -2436 -2403 -1466 -1329 55 -47 51 330"/>
+            <route cost="172.74" savings="2.46" edges="-1887 1941 -2436 -2403 -1466 -1458 937 -792 330" exitTimes="168.00 187.00 210.00 274.00 294.00 333.00 371.00 455.00 486.00"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="37" depart="148.00" arrival="486.00">
+        <route cost="243.86" savings="0.00" edges="-67 -3 5 222 240 254 278 652 662 833 2386 -2370 2319 -2183" exitTimes="162.00 184.00 193.00 208.00 232.00 279.00 292.00 332.00 350.00 378.00 398.00 454.00 465.00 486.00"/>
+    </vehicle>
+
+    <vehicle id="9" depart="36.00" arrival="487.00">
+        <route cost="328.68" savings="0.00" edges="-2335 -2194 -2187 2188 -1931 -1650 -1342 -1316 -274 -250 -232 -222 36 1329 1468" exitTimes="94.00 122.00 167.00 178.00 199.00 211.00 232.00 248.00 323.00 345.00 378.00 401.00 445.00 456.00 487.00"/>
+    </vehicle>
+
+    <vehicle id="68" depart="272.00" arrival="487.00">
+        <route cost="201.69" savings="0.00" edges="-2192 -2187 2188 -1931 -1650 -1342 -1316 -274 262 278 658 -658" exitTimes="283.00 321.00 330.00 347.00 357.00 374.00 387.00 423.00 456.00 466.00 477.00 487.00"/>
+    </vehicle>
+
+    <vehicle id="31" depart="124.00" arrival="515.00">
+        <route cost="262.45" savings="0.00" edges="-1617 -1575 -1338 -493 -264 -250 -232 -222 -5 9 39 47 -47" exitTimes="158.00 177.00 188.00 274.00 290.00 305.00 331.00 347.00 405.00 430.00 439.00 498.00 515.00"/>
+    </vehicle>
+
+    <vehicle id="33" depart="132.00" arrival="521.00">
+        <route cost="288.76" savings="0.00" edges="-2322 2322 -2196 -1917 -1623 1613 -1611 1605 2175 -2066 2058 2438 2442" exitTimes="162.00 189.00 246.00 272.00 288.00 305.00 363.00 372.00 453.00 462.00 478.00 499.00 521.00"/>
+    </vehicle>
+
+    <vehicle id="42" depart="168.00" arrival="534.00">
+        <route cost="275.20" savings="0.00" edges="-1579 -831 -662 -652 -278 -254 -240 -228 -197 205 320 333" exitTimes="181.00 209.00 233.00 274.00 329.00 357.00 386.00 421.00 449.00 500.00 526.00 534.00"/>
+    </vehicle>
+
+    <vehicle id="15" depart="60.00" arrival="541.00">
+        <route cost="332.97" savings="0.00" edges="-39 -9 5 222 240 254 278 652 662 833 2386 2411 2454 -2588 2588" exitTimes="92.00 134.00 144.00 164.00 195.00 272.00 285.00 326.00 344.00 373.00 394.00 435.00 446.00 501.00 541.00"/>
+    </vehicle>
+
+    <vehicle id="73" depart="292.00" arrival="543.00">
+        <route cost="214.26" savings="0.00" edges="1935 -814 -658 -278 -262 264 493 1338 1575 1617 1667" exitTimes="310.00 320.00 331.00 342.00 373.00 391.00 427.00 441.00 499.00 535.00 543.00"/>
+    </vehicle>
+
+    <vehicle id="5" depart="20.00" arrival="545.00">
+        <route cost="409.58" savings="0.00" edges="212 -205 197 228 240 254 278 652 662 833 2386 -2370 1903 2058 2405" exitTimes="94.00 128.00 164.00 212.00 247.00 283.00 296.00 342.00 353.00 380.00 402.00 460.00 510.00 532.00 545.00"/>
+    </vehicle>
+
+    <vehicle id="12" depart="48.00" arrival="552.00">
+        <route cost="300.46" savings="0.00" edges="-2688 -2442 -2438 -2058 -1903 2370 -2386 -833 -662 -652 658 828 1941 -2436 2436" exitTimes="61.00 139.00 152.00 185.00 230.00 256.00 324.00 364.00 409.00 445.00 453.00 490.00 508.00 531.00 552.00"/>
+    </vehicle>
+
+    <vehicle id="50" depart="200.00" arrival="570.00">
+        <route cost="240.00" savings="0.00" edges="-831 833 1320 -1309 1338 1575 1623 1917 2194 -2326" exitTimes="273.00 286.00 330.00 374.00 390.00 413.00 454.00 544.00 557.00 570.00"/>
+    </vehicle>
+
+    <vehicle id="51" depart="204.00" arrival="571.00">
+        <route cost="228.78" savings="0.00" edges="2408 -2438 -2058 -1903 2370 -2386 -833 -662 -540 301 -264 -250" exitTimes="272.00 285.00 304.00 335.00 358.00 414.00 456.00 499.00 516.00 540.00 556.00 571.00"/>
+    </vehicle>
+
+    <vehicle id="55" depart="220.00" arrival="572.00">
+        <route cost="267.78" savings="0.00" edges="2440 -2072 2066 -2175 -1605 1611 -1613 1623 1915 2188 -2342 2342" exitTimes="256.00 324.00 336.00 375.00 409.00 437.00 457.00 477.00 504.00 514.00 544.00 572.00"/>
+    </vehicle>
+
+    <vehicle id="23" depart="92.00" arrival="574.00">
+        <route cost="344.00" savings="0.00" edges="-2403 2403 2436 -1941 -828 -658 652 662 833 2386 -2370 1903 2072 -2440" exitTimes="116.00 139.00 163.00 186.00 227.00 237.00 319.00 330.00 365.00 386.00 456.00 506.00 539.00 574.00"/>
+    </vehicle>
+
+    <vehicle id="41" depart="164.00" arrival="575.00">
+        <route cost="296.90" savings="0.00" edges="-2691 -2614 2588 -2454 -2411 -2386 -833 -662 -540 301 460 481 1312 1342" exitTimes="202.00 236.00 274.00 286.00 326.00 347.00 376.00 422.00 442.00 507.00 535.00 545.00 557.00 575.00"/>
+    </vehicle>
+
+    <vehicle id="45" depart="180.00" arrival="582.00">
+        <route cost="359.60" savings="0.00" edges="2454 -2454 -2411 -2386 -833 -662 -652 658 828 1941 -2436 -2403 -1466 -1458 937 -937" exitTimes="194.00 207.00 243.00 262.00 276.00 321.00 359.00 367.00 403.00 421.00 442.00 458.00 477.00 512.00 547.00 582.00"/>
+    </vehicle>
+
+    <vehicle id="43" depart="172.00" arrival="590.00">
+        <routeDistribution>
+            <route cost="282.35" savings="0.00" replacedOnEdge="-1575" reason="device.rerouting" replacedAtTime="292.00" probability="0" edges="-1649 -1613 -1575 -1338 -493 -264 -250 -232 -222 36 -36"/>
+            <route cost="239.21" savings="8.37" edges="-1649 -1613 -1575 -1338 -469 -460 -264 -250 -232 -222 36 -36" exitTimes="210.00 275.00 301.00 314.00 342.00 408.00 454.00 471.00 498.00 517.00 554.00 590.00"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="8" depart="32.00" arrival="593.00">
+        <route cost="425.20" savings="0.00" edges="214 -205 197 228 240 254 278 652 662 833 2386 2411 2454 -2588 2614 -2614" exitTimes="97.00 130.00 166.00 215.00 249.00 286.00 299.00 344.00 355.00 382.00 404.00 445.00 456.00 506.00 536.00 593.00"/>
+    </vehicle>
+
+    <vehicle id="40" depart="160.00" arrival="599.00">
+        <route cost="300.96" savings="0.00" edges="-1090 -951 -802 -9 5 222 240 254 278 652 662 833 2386 -2370 2319 2321 -2066" exitTimes="174.00 185.00 229.00 256.00 264.00 282.00 309.00 367.00 380.00 421.00 432.00 461.00 481.00 546.00 558.00 591.00 599.00"/>
+    </vehicle>
+
+    <vehicle id="14" depart="56.00" arrival="612.00">
+        <routeDistribution>
+            <route cost="291.38" savings="0.00" replacedOnEdge="222" reason="device.rerouting" replacedAtTime="296.00" probability="0" edges="-792 -51 45 -3 5 222 240 254 278 652 662 833 2386 2411"/>
+            <route cost="207.08" savings="11.35" edges="-792 -51 45 -3 5 222 232 250 264 -301 540 662 833 2386 2411" exitTimes="93.00 184.00 212.00 273.00 283.00 303.00 330.00 348.00 367.00 396.00 458.00 506.00 553.00 574.00 612.00"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="76" depart="304.00" arrival="613.00">
+        <route cost="246.29" savings="0.00" edges="-1941 -828 -658 652 662 833 2386 -2370 2319 2321 -2321" exitTimes="327.00 362.00 370.00 407.00 422.00 456.00 474.00 544.00 556.00 587.00 613.00"/>
+    </vehicle>
+
+    <vehicle id="90" depart="360.00" arrival="615.00">
+        <route cost="241.34" savings="0.00" edges="2194 -2194 -2187 2188 -1931 -1625 -481 -460 -301 540 664 1892 1935" exitTimes="373.00 392.00 430.00 439.00 458.00 478.00 487.00 514.00 540.00 558.00 568.00 605.00 615.00"/>
+    </vehicle>
+
+    <vehicle id="39" depart="156.00" arrival="618.00">
+        <route cost="269.04" savings="0.00" edges="-262 264 -301 540 662 833 2386 -2370 1903 2058 2438 2442" exitTimes="194.00 216.00 247.00 273.00 319.00 363.00 384.00 454.00 504.00 524.00 590.00 618.00"/>
+    </vehicle>
+
+    <vehicle id="77" depart="308.00" arrival="618.00">
+        <route cost="215.74" savings="0.00" edges="2405 -2365 -2321 -2319 2370 -2386 -833 829 1892 1935 1627" exitTimes="326.00 364.00 393.00 454.00 482.00 519.00 544.00 558.00 595.00 610.00 618.00"/>
+    </vehicle>
+
+    <vehicle id="47" depart="188.00" arrival="620.00">
+        <route cost="269.10" savings="0.00" edges="2472 -2472 -1782 1784 -1892 -829 833 2386 -2370 1903 2058 2438 2442" exitTimes="203.00 216.00 273.00 283.00 325.00 338.00 367.00 388.00 458.00 508.00 529.00 592.00 620.00"/>
+    </vehicle>
+
+    <vehicle id="88" depart="352.00" arrival="623.00">
+        <route cost="209.06" savings="0.00" edges="-1935 -1892 -829 833 2386 -2370 1903 2058 2405" exitTimes="369.00 406.00 418.00 454.00 472.00 545.00 593.00 612.00 623.00"/>
+    </vehicle>
+
+    <vehicle id="24" depart="96.00" arrival="625.00">
+        <route cost="333.97" savings="0.00" edges="2408 -2438 -2058 -1903 2370 -2386 -833 -662 -652 -278 -254 -240 -222 -5 3" exitTimes="121.00 137.00 184.00 228.00 262.00 328.00 368.00 413.00 459.00 506.00 541.00 575.00 597.00 615.00 625.00"/>
+    </vehicle>
+
+    <vehicle id="34" depart="136.00" arrival="626.00">
+        <routeDistribution>
+            <route cost="294.88" savings="0.00" replacedOnEdge="-662" reason="device.rerouting" replacedAtTime="376.00" probability="0" edges="2614 -2614 2588 -2454 -2411 -2386 -833 -662 -652 -278 -254 -240 -222"/>
+            <route cost="138.82" savings="1.93" edges="2614 -2614 2588 -2454 -2411 -2386 -833 -662 -540 301 -264 -250 -232 -222" exitTimes="167.00 234.00 271.00 282.00 321.00 342.00 374.00 419.00 438.00 504.00 552.00 570.00 609.00 626.00"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="60" depart="240.00" arrival="630.00">
+        <routeDistribution>
+            <route cost="256.24" savings="0.00" replacedOnEdge="-2187" reason="device.rerouting" replacedAtTime="360.00" probability="0" edges="-2196 -2187 2188 -1931 -1650 -1342 -1316 -274 262 278 658 814 1627 1780"/>
+            <route cost="227.47" savings="1.85" edges="-2196 -2187 2188 -1931 -1625 -481 -460 -264 262 278 658 814 1627 1780" exitTimes="336.00 374.00 382.00 401.00 420.00 428.00 498.00 544.00 576.00 586.00 597.00 606.00 614.00 630.00"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="71" depart="284.00" arrival="635.00">
+        <route cost="232.81" savings="0.00" edges="-2194 -1917 -1623 1613 -1611 1605 2175 -2066 2058 2438 2442 2688" exitTimes="301.00 364.00 383.00 403.00 454.00 464.00 549.00 560.00 579.00 594.00 625.00 635.00"/>
+    </vehicle>
+
+    <vehicle id="53" depart="212.00" arrival="636.00">
+        <route cost="274.26" savings="0.00" edges="-1613 -1575 -1338 -493 -264 -250 -232 -222 -5 9 39 47 -55" exitTimes="277.00 303.00 316.00 364.00 381.00 397.00 424.00 440.00 495.00 521.00 585.00 603.00 636.00"/>
+    </vehicle>
+
+    <vehicle id="103" depart="412.00" arrival="637.00">
+        <route cost="227.83" savings="0.00" edges="-1649 -1613 -1575 -1338 -493 -264 -250 -232 -222" exitTimes="453.00 476.00 498.00 511.00 551.00 570.00 589.00 619.00 637.00"/>
+    </vehicle>
+
+    <vehicle id="57" depart="228.00" arrival="638.00">
+        <routeDistribution>
+            <route cost="258.09" savings="0.00" replacedOnEdge="-833" reason="device.rerouting" replacedAtTime="348.00" probability="0" edges="2066 -2321 -2319 2370 -2386 -833 -662 -652 -278 -254 -240 -222 222"/>
+            <route cost="168.41" savings="3.72" edges="2066 -2321 -2319 2370 -2386 -833 -662 -540 301 -264 -250 -232 -222 222" exitTimes="242.00 267.00 278.00 301.00 335.00 372.00 417.00 435.00 501.00 550.00 568.00 599.00 622.00 638.00"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="46" depart="187.00" arrival="656.00">
+        <routeDistribution>
+            <route cost="285.02" savings="0.00" replacedOnEdge="-2386" reason="device.rerouting" replacedAtTime="307.00" probability="0" edges="-1903 2370 -2386 -833 -662 -652 -278 -254 -240 -222 -5 9 802 951 1090"/>
+            <route cost="245.58" savings="1.91" replacedOnEdge="-540" reason="device.rerouting" replacedAtTime="427.00" probability="0" edges="-1903 2370 -2386 -833 -662 -540 301 -264 -250 -232 -222 -5 9 802 951 1090"/>
+            <route cost="199.52" savings="3.35" edges="-1903 2370 -2386 -833 -662 -540 -290 -254 -240 -222 -5 9 802 951 1090" exitTimes="232.00 259.00 327.00 366.00 410.00 431.00 504.00 533.00 561.00 579.00 588.00 615.00 634.00 645.00 656.00"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="81" depart="324.00" arrival="657.00">
+        <route cost="245.41" savings="0.00" edges="-51 -39 -9 5 222 232 250 264 -301 540 664 -829" exitTimes="366.00 376.00 407.00 416.00 437.00 464.00 506.00 545.00 573.00 634.00 646.00 657.00"/>
+    </vehicle>
+
+    <vehicle id="82" depart="328.00" arrival="670.00">
+        <route cost="206.57" savings="0.00" edges="-662 -540 301 493 1338 1575 1623 1917 2194 2341" exitTimes="340.00 359.00 409.00 446.00 460.00 501.00 544.00 633.00 644.00 670.00"/>
+    </vehicle>
+
+    <vehicle id="49" depart="196.00" arrival="673.00">
+        <route cost="349.74" savings="0.00" edges="1623 -1623 -1575 -1338 -493 -264 -250 -232 -222 -5 9 39 47 790 1458" exitTimes="220.00 273.00 298.00 313.00 366.00 388.00 409.00 443.00 464.00 496.00 530.00 587.00 609.00 631.00 673.00"/>
+    </vehicle>
+
+    <vehicle id="66" depart="264.00" arrival="673.00">
+        <route cost="348.89" savings="0.00" edges="-2663 -2333 -2194 -2187 2188 -1931 -1650 -1342 -1316 -274 262 278 658 828 1943 2424" exitTimes="288.00 310.00 321.00 364.00 374.00 394.00 405.00 426.00 441.00 509.00 548.00 558.00 569.00 610.00 643.00 673.00"/>
+    </vehicle>
+
+    <vehicle id="70" depart="280.00" arrival="683.00">
+        <routeDistribution>
+            <route cost="324.71" savings="0.00" replacedOnEdge="-1617" reason="device.rerouting" replacedAtTime="400.00" probability="0" edges="1907 -1675 -1617 -1575 -1314 1312 -1316 -274 -250 -232 -222 36 1329 1466 1595"/>
+            <route cost="286.25" savings="6.66" edges="1907 -1675 -1617 -1575 -1338 -493 -264 -250 -232 -222 36 1329 1466 1595" exitTimes="310.00 338.00 409.00 429.00 442.00 478.00 544.00 561.00 589.00 608.00 646.00 656.00 674.00 683.00"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="96" depart="384.00" arrival="689.00">
+        <routeDistribution>
+            <route cost="252.94" savings="0.00" replacedOnEdge="1458" reason="device.rerouting" replacedAtTime="504.00" probability="0" edges="-937 1458 -1329 -36 222 232 250 264 -301 540"/>
+            <route cost="191.42" savings="6.97" edges="-937 1458 -1329 -36 222 240 254 290 540" exitTimes="425.00 504.00 513.00 550.00 569.00 597.00 634.00 671.00 689.00"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="87" depart="348.00" arrival="700.00">
+        <route cost="251.49" savings="0.00" edges="-2691 -2614 2588 -2454 -2427 -1586 -1454 -833 -662 -652 -278" exitTimes="384.00 413.00 448.00 458.00 478.00 497.00 544.00 562.00 606.00 651.00 700.00"/>
+    </vehicle>
+
+    <vehicle id="7" depart="28.00" arrival="706.00">
+        <routeDistribution>
+            <route cost="405.72" savings="0.00" replacedOnEdge="-3" reason="device.rerouting" replacedAtTime="268.00" probability="0" edges="792 -792 -51 45 -3 5 222 240 254 278 652 662 833 2386 -2370 1903 2058"/>
+            <route cost="301.78" savings="0.89" edges="792 -792 -51 45 -3 5 222 232 250 264 -301 540 662 833 2386 -2370 1903 2058" exitTimes="64.00 98.00 184.00 216.00 275.00 286.00 308.00 338.00 359.00 380.00 412.00 461.00 508.00 555.00 576.00 636.00 686.00 706.00"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="101" depart="404.00" arrival="709.00">
+        <route cost="289.59" savings="0.00" edges="1458 1466 2403 2436 -1941 -828 -658 652 662 831 1579 1586 2427" exitTimes="447.00 466.00 485.00 508.00 530.00 568.00 578.00 617.00 627.00 656.00 667.00 689.00 709.00"/>
+    </vehicle>
+
+    <vehicle id="93" depart="372.00" arrival="710.00">
+        <route cost="249.05" savings="0.00" edges="-2669 -1780 1784 -1892 -829 833 2386 2411 2454 -2588 -2450" exitTimes="408.00 429.00 439.00 479.00 499.00 547.00 568.00 610.00 621.00 691.00 710.00"/>
+    </vehicle>
+
+    <vehicle id="74" depart="296.00" arrival="711.00">
+        <route cost="267.78" savings="0.00" edges="-2326 -2192 -1917 -1623 1613 -1611 1599 2370 2411 2454 -2588" exitTimes="314.00 364.00 393.00 453.00 474.00 544.00 592.00 623.00 663.00 674.00 711.00"/>
+    </vehicle>
+
+    <vehicle id="20" depart="80.00" arrival="715.00">
+        <routeDistribution>
+            <route cost="351.01" savings="0.00" replacedOnEdge="-652" reason="device.rerouting" replacedAtTime="320.00" probability="0" edges="-2656 2588 -2454 -2411 -2386 -833 -662 -652 -278 -254 -240 -228 -197 205 320 333"/>
+            <route cost="244.06" savings="1.21" replacedOnEdge="-254" reason="device.rerouting" replacedAtTime="440.00" probability="0" edges="-2656 2588 -2454 -2411 -2386 -833 -662 -652 -278 -254 -240 -222 -5 9 189 205 320 333"/>
+            <route cost="167.21" savings="2.25" edges="-2656 2588 -2454 -2411 -2386 -833 -662 -652 -278 -254 -240 -222 -5 9 39 51 330 333" exitTimes="93.00 129.00 140.00 178.00 234.00 274.00 319.00 357.00 413.00 441.00 469.00 486.00 498.00 533.00 589.00 675.00 707.00 715.00"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="67" depart="268.00" arrival="717.00">
+        <route cost="328.27" savings="0.00" edges="2403 2436 -1941 -828 -658 -278 -262 264 493 1338 1575 1617 -1617" exitTimes="290.00 313.00 336.00 376.00 387.00 416.00 452.00 473.00 514.00 530.00 589.00 677.00 717.00"/>
+    </vehicle>
+
+    <vehicle id="58" depart="232.00" arrival="718.00">
+        <routeDistribution>
+            <route cost="302.69" savings="0.00" replacedOnEdge="-833" reason="device.rerouting" replacedAtTime="352.00" probability="0" edges="-2411 -2386 -833 -662 -652 -278 -254 -240 -222 -5 9 39 47 -55"/>
+            <route cost="249.08" savings="3.31" replacedOnEdge="-232" reason="device.rerouting" replacedAtTime="592.00" probability="0" edges="-2411 -2386 -833 -662 -540 301 -264 -250 -232 -222 -5 9 39 47 -55"/>
+            <route cost="155.79" savings="0.92" edges="-2411 -2386 -833 -662 -540 301 -264 -250 -232 -222 -5 3 -45 47 -55" exitTimes="272.00 331.00 370.00 415.00 433.00 498.00 548.00 567.00 597.00 614.00 624.00 634.00 664.00 683.00 718.00"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="59" depart="236.00" arrival="722.00">
+        <routeDistribution>
+            <route cost="357.91" savings="0.00" replacedOnEdge="-222" reason="device.rerouting" replacedAtTime="596.00" probability="0" edges="1649 -1659 -1617 -1575 -1338 -493 -264 -250 -232 -222 -5 9 39 47 790 -790"/>
+            <route cost="128.82" savings="4.30" edges="1649 -1659 -1617 -1575 -1338 -493 -264 -250 -232 -222 36 1329 -1458 -790" exitTimes="320.00 364.00 412.00 433.00 446.00 485.00 546.00 565.00 595.00 615.00 655.00 665.00 704.00 722.00"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="25" depart="100.00" arrival="723.00">
+        <route cost="400.96" savings="0.00" edges="-937 -790 -47 -39 -9 5 222 232 250 264 493 1309 1337 1605 1905" exitTimes="147.00 169.00 225.00 272.00 314.00 325.00 348.00 379.00 418.00 457.00 501.00 545.00 590.00 638.00 723.00"/>
+    </vehicle>
+
+    <vehicle id="61" depart="244.00" arrival="726.00">
+        <route cost="304.34" savings="0.00" edges="228 232 250 264 -301 540 662 833 2386 2411 2454 -2588 2614 2695" exitTimes="289.00 314.00 330.00 365.00 390.00 456.00 504.00 551.00 572.00 612.00 623.00 693.00 718.00 726.00"/>
+    </vehicle>
+
+    <vehicle id="84" depart="336.00" arrival="726.00">
+        <routeDistribution>
+            <route cost="291.82" savings="0.00" replacedOnEdge="-662" reason="device.rerouting" replacedAtTime="456.00" probability="0" edges="1586 -1586 -1454 -833 -662 -540 301 -264 -250 -232 -222 -5 9 189 205"/>
+            <route cost="224.92" savings="10.46" edges="1586 -1586 -1454 -833 -662 -652 -278 -254 -240 -228 -197 205" exitTimes="357.00 375.00 400.00 454.00 499.00 532.00 594.00 619.00 643.00 677.00 704.00 726.00"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="99" depart="396.00" arrival="726.00">
+        <route cost="285.33" savings="0.00" edges="1659 -1659 -1617 -1575 -1338 -493 -264 -250 -232 -222 -5 9" exitTimes="452.00 474.00 508.00 526.00 538.00 572.00 634.00 651.00 678.00 695.00 703.00 726.00"/>
+    </vehicle>
+
+    <vehicle id="98" depart="392.00" arrival="729.00">
+        <route cost="193.04" savings="0.00" edges="-2058 -1903 2370 -2386 -833 -662 -540 -290" exitTimes="454.00 500.00 525.00 594.00 636.00 679.00 698.00 729.00"/>
+    </vehicle>
+
+    <vehicle id="26" depart="104.00" arrival="731.00">
+        <route cost="420.69" savings="0.00" edges="205 -205 197 228 240 254 278 652 662 833 2386 -2370 1903 2058 2438 2442 2686" exitTimes="137.00 169.00 231.00 275.00 306.00 365.00 377.00 419.00 430.00 459.00 479.00 547.00 596.00 616.00 680.00 710.00 731.00"/>
+    </vehicle>
+
+    <vehicle id="48" depart="192.00" arrival="731.00">
+        <routeDistribution>
+            <route cost="371.60" savings="0.00" replacedOnEdge="197" reason="device.rerouting" replacedAtTime="312.00" probability="0" edges="-333 -320 -205 197 228 240 254 278 652 662 833 2386 2411 2454 -2454"/>
+            <route cost="318.59" savings="6.95" edges="-333 -320 -205 197 228 232 250 264 -301 540 662 833 2386 2411 2454 -2454" exitTimes="207.00 239.00 271.00 319.00 365.00 396.00 420.00 458.00 489.00 543.00 589.00 637.00 659.00 702.00 719.00 731.00"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="78" depart="312.00" arrival="735.00">
+        <route cost="255.56" savings="0.00" edges="1605 -1605 -1337 -1320 -833 -662 -652 658 828 1941 -2436 -2403" exitTimes="361.00 405.00 443.00 503.00 547.00 591.00 630.00 639.00 677.00 696.00 719.00 735.00"/>
+    </vehicle>
+
+    <vehicle id="80" depart="320.00" arrival="735.00">
+        <route cost="277.99" savings="0.00" edges="-2175 -1605 -1337 -1320 -833 -662 -652 658 828 1943 2424" exitTimes="364.00 407.00 446.00 505.00 548.00 593.00 632.00 641.00 679.00 708.00 735.00"/>
+    </vehicle>
+
+    <vehicle id="54" depart="216.00" arrival="748.00">
+        <routeDistribution>
+            <route cost="313.22" savings="0.00" replacedOnEdge="232" reason="device.rerouting" replacedAtTime="336.00" probability="0" edges="21 228 232 250 264 -301 540 662 833 2386 -2370 1903 2058 2438 -2438"/>
+            <route cost="265.85" savings="6.73" replacedOnEdge="1337" reason="device.rerouting" replacedAtTime="576.00" probability="0" edges="21 228 232 250 264 493 1309 1337 1605 2175 -2066 2058 2438 -2438"/>
+            <route cost="156.02" savings="14.44" edges="21 228 232 250 264 493 1309 1337 1605 2183 2321 2365 2408 -2438" exitTimes="273.00 318.00 345.00 416.00 454.00 493.00 531.00 586.00 633.00 661.00 689.00 717.00 736.00 748.00"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="109" depart="436.00" arrival="749.00">
+        <route cost="190.82" savings="0.00" edges="-831 833 1320 1337 1605 1905 1907" exitTimes="468.00 485.00 525.00 584.00 634.00 724.00 749.00"/>
+    </vehicle>
+
+    <vehicle id="95" depart="380.00" arrival="760.00">
+        <route cost="248.61" savings="0.00" edges="254 -262 274 1316 1342 1650 1931 -2188 2187 2194 2333 -2333" exitTimes="454.00 487.00 515.00 527.00 545.00 555.00 572.00 582.00 661.00 723.00 742.00 760.00"/>
+    </vehicle>
+
+    <vehicle id="69" depart="276.00" arrival="768.00">
+        <route cost="310.92" savings="0.00" edges="-47 -39 -9 5 222 232 250 264 493 1309 1337 1605 2175 -2066" exitTimes="315.00 362.00 405.00 414.00 433.00 460.00 504.00 545.00 583.00 621.00 675.00 724.00 760.00 768.00"/>
+    </vehicle>
+
+    <vehicle id="63" depart="252.00" arrival="770.00">
+        <routeDistribution>
+            <route cost="304.24" savings="0.00" replacedOnEdge="250" reason="device.rerouting" replacedAtTime="372.00" probability="0" edges="-36 222 232 250 264 -301 540 662 833 2386 -2370 1903 -1903"/>
+            <route cost="238.91" savings="13.87" edges="-36 222 232 250 264 493 1309 1337 1605 2175 -2066 -1903" exitTimes="293.00 314.00 341.00 414.00 455.00 496.00 535.00 589.00 637.00 724.00 734.00 770.00"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="91" depart="364.00" arrival="770.00">
+        <route cost="305.65" savings="0.00" edges="222 232 250 264 493 1309 1337 1605 2175 -2066 2058 2438" exitTimes="389.00 419.00 439.00 461.00 504.00 548.00 592.00 636.00 724.00 735.00 756.00 770.00"/>
+    </vehicle>
+
+    <vehicle id="72" depart="288.00" arrival="787.00">
+        <route cost="317.70" savings="0.00" edges="-2440 -2438 -2058 -1903 2370 -2386 -833 -662 -652 -278 -254 -240 -222 -5" exitTimes="364.00 378.00 400.00 439.00 467.00 517.00 558.00 603.00 647.00 698.00 729.00 759.00 778.00 787.00"/>
+    </vehicle>
+
+    <vehicle id="119" depart="476.00" arrival="790.00">
+        <route cost="287.35" savings="0.00" edges="-2669 -1780 -1627 -814 -658 -278 -262 274 1316 1342 1650 1931 -2188 2187 -1917" exitTimes="507.00 526.00 534.00 544.00 555.00 596.00 635.00 663.00 675.00 692.00 701.00 718.00 729.00 765.00 790.00"/>
+    </vehicle>
+
+    <vehicle id="122" depart="488.00" arrival="799.00">
+        <route cost="243.43" savings="0.00" edges="1675 -1675 -1617 -1575 -1338 -493 -264 -250 248" exitTimes="519.00 589.00 625.00 644.00 657.00 724.00 744.00 763.00 799.00"/>
+    </vehicle>
+
+    <vehicle id="94" depart="377.00" arrival="802.00">
+        <routeDistribution>
+            <route cost="245.45" savings="0.00" replacedOnEdge="-1903" reason="device.rerouting" replacedAtTime="497.00" probability="0" edges="2438 -2438 -2058 -1903 2370 -2386 -833 -662 -540 -290 -254"/>
+            <route cost="204.51" savings="8.16" edges="2438 -2438 -2058 -1903 2370 -2386 -833 -662 -652 -278 -254" exitTimes="412.00 426.00 466.00 504.00 532.00 598.00 639.00 685.00 724.00 778.00 802.00"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="64" depart="256.00" arrival="811.00">
+        <route cost="371.22" savings="0.00" edges="-802 -9 5 222 240 254 278 652 662 833 2386 -2370 1903 2058 2438 2442 2688" exitTimes="319.00 348.00 358.00 377.00 408.00 452.00 464.00 504.00 515.00 558.00 578.00 638.00 688.00 708.00 771.00 801.00 811.00"/>
+    </vehicle>
+
+    <vehicle id="38" depart="152.00" arrival="812.00">
+        <routeDistribution>
+            <route cost="360.92" savings="0.00" replacedOnEdge="222" reason="device.rerouting" replacedAtTime="272.00" probability="0" edges="802 -802 -9 5 222 240 254 278 652 662 833 2386 -2370 1903 2058 2438 2442 2686"/>
+            <route cost="311.82" savings="7.20" edges="802 -802 -9 5 222 232 250 264 -301 540 662 833 2386 -2370 1903 2058 2438 2442 2686" exitTimes="173.00 229.00 254.00 262.00 281.00 306.00 322.00 362.00 388.00 454.00 502.00 549.00 569.00 634.00 683.00 700.00 769.00 795.00 812.00"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="108" depart="432.00" arrival="815.00">
+        <routeDistribution>
+            <route cost="324.27" savings="0.00" replacedOnEdge="-1623" reason="device.rerouting" replacedAtTime="552.00" probability="0" edges="2333 -2333 -2194 -1917 -1623 1613 -1611 1605 2175 -2066 2058 2438 2442 2686 -2691"/>
+            <route cost="264.80" savings="12.14" replacedOnEdge="2321" reason="device.rerouting" replacedAtTime="672.00" probability="0" edges="2333 -2333 -2194 -1917 -1623 1613 -1611 1605 2183 2321 -2066 2058 2438 2442 2686 -2691"/>
+            <route cost="147.37" savings="8.56" edges="2333 -2333 -2194 -1917 -1623 1613 -1611 1605 2183 2321 2365 2408 2442 2686 -2691" exitTimes="454.00 487.00 498.00 544.00 561.00 580.00 633.00 643.00 669.00 695.00 721.00 741.00 767.00 786.00 815.00"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="89" depart="357.00" arrival="821.00">
+        <routeDistribution>
+            <route cost="321.06" savings="0.00" replacedOnEdge="-2386" reason="device.rerouting" replacedAtTime="477.00" probability="0" edges="-2438 -2058 -1903 2370 -2386 -833 -662 -540 301 -264 -250 -232 -222 -5 3 -45"/>
+            <route cost="236.35" savings="10.59" edges="-2438 -2058 -1903 2370 -2386 -833 -662 -652 -278 -254 -240 -222 -5 3 -45" exitTimes="373.00 394.00 430.00 457.00 514.00 556.00 601.00 645.00 695.00 726.00 757.00 775.00 785.00 795.00 821.00"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="106" depart="424.00" arrival="821.00">
+        <route cost="272.16" savings="0.00" edges="-790 -47 45 -3 5 222 232 250 274 1316 1342 1650 1931 -2188 -1915" exitTimes="495.00 514.00 542.00 552.00 562.00 581.00 611.00 686.00 718.00 732.00 753.00 764.00 785.00 796.00 821.00"/>
+    </vehicle>
+
+    <vehicle id="114" depart="456.00" arrival="821.00">
+        <route cost="334.35" savings="0.00" edges="951 -951 -802 -9 5 222 232 250 264 493 1338 1575 1617 1675 -1675" exitTimes="470.00 483.00 500.00 524.00 532.00 550.00 575.00 602.00 637.00 671.00 684.00 701.00 769.00 795.00 821.00"/>
+    </vehicle>
+
+    <vehicle id="141" depart="564.00" arrival="826.00">
+        <route cost="195.10" savings="0.00" edges="1887 -1782 1784 -1892 -829 833 2386 -2370 2319" exitTimes="587.00 634.00 641.00 673.00 684.00 730.00 748.00 816.00 826.00"/>
+    </vehicle>
+
+    <vehicle id="102" depart="408.00" arrival="827.00">
+        <route cost="305.59" savings="0.00" edges="1329 -1329 -36 222 232 250 264 493 1338 1575 1617 1675 -1907" exitTimes="452.00 464.00 502.00 524.00 552.00 598.00 635.00 674.00 689.00 709.00 771.00 800.00 827.00"/>
+    </vehicle>
+
+    <vehicle id="75" depart="300.00" arrival="830.00">
+        <routeDistribution>
+            <route cost="338.73" savings="0.00" replacedOnEdge="-2427" reason="device.rerouting" replacedAtTime="420.00" probability="0" edges="2450 2588 -2454 -2427 -1586 -1454 -833 -662 -540 301 -264 -250 -232 -222 -5 9 39 47"/>
+            <route cost="284.18" savings="3.02" replacedOnEdge="-278" reason="device.rerouting" replacedAtTime="660.00" probability="0" edges="2450 2588 -2454 -2427 -1586 -1454 -833 -662 -652 -278 -254 -240 -222 -5 9 39 47"/>
+            <route cost="155.52" savings="1.72" edges="2450 2588 -2454 -2427 -1586 -1454 -833 -662 -652 -278 -254 -240 -222 -5 3 -45 47" exitTimes="364.00 400.00 411.00 432.00 452.00 481.00 544.00 589.00 628.00 683.00 712.00 741.00 759.00 769.00 780.00 813.00 830.00"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="97" depart="388.00" arrival="836.00">
+        <route cost="326.05" savings="0.00" edges="-1649 -1611 -1337 -1320 -833 -662 -652 658 828 1941 -2436 -2403" exitTimes="432.00 464.00 506.00 593.00 634.00 679.00 720.00 730.00 772.00 793.00 817.00 836.00"/>
+    </vehicle>
+
+    <vehicle id="125" depart="500.00" arrival="848.00">
+        <routeDistribution>
+            <route cost="276.17" savings="0.00" replacedOnEdge="-1309" reason="device.rerouting" replacedAtTime="620.00" probability="0" edges="1586 -1586 -1454 1320 -1309 1338 1575 1623 1917 2194 2333 -2333"/>
+            <route cost="202.71" savings="6.19" edges="1586 -1586 -1454 1320 -1309 -469 481 1625 1931 -2188 2187 2194 2333 -2333" exitTimes="521.00 539.00 562.00 594.00 628.00 652.00 663.00 680.00 697.00 707.00 752.00 813.00 832.00 848.00"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="83" depart="332.00" arrival="853.00">
+        <route cost="337.65" savings="0.00" edges="201 215 228 232 250 264 -301 540 662 833 2386 -2370 2319 2321" exitTimes="364.00 399.00 441.00 470.00 508.00 548.00 576.00 633.00 679.00 728.00 746.00 814.00 827.00 853.00"/>
+    </vehicle>
+
+    <vehicle id="111" depart="444.00" arrival="854.00">
+        <route cost="373.31" savings="0.00" edges="-2691 -2614 2588 -2454 -2427 -1586 -1454 -833 -662 -652 658 828 1941 -2436 -2403" exitTimes="485.00 519.00 561.00 573.00 598.00 621.00 654.00 665.00 691.00 733.00 744.00 788.00 809.00 835.00 854.00"/>
+    </vehicle>
+
+    <vehicle id="115" depart="460.00" arrival="861.00">
+        <route cost="244.21" savings="0.00" edges="-2365 -2321 -2319 2370 -2386 -833 -662 -652 658 828" exitTimes="545.00 575.00 634.00 664.00 688.00 728.00 773.00 813.00 823.00 861.00"/>
+    </vehicle>
+
+    <vehicle id="65" depart="260.00" arrival="866.00">
+        <route cost="417.47" savings="0.00" edges="-2688 -2442 -2438 -2058 -1903 2370 -2386 -833 -662 -652 -278 -254 -240 -228 -197 197" exitTimes="275.00 319.00 333.00 363.00 411.00 442.00 512.00 554.00 599.00 642.00 692.00 724.00 756.00 799.00 833.00 866.00"/>
+    </vehicle>
+
+    <vehicle id="133" depart="532.00" arrival="873.00">
+        <route cost="324.18" savings="0.00" edges="215 228 240 254 278 652 662 833 2386 2411 2454 -2588 2656" exitTimes="568.00 606.00 634.00 661.00 673.00 710.00 719.00 736.00 755.00 793.00 803.00 864.00 873.00"/>
+    </vehicle>
+
+    <vehicle id="117" depart="468.00" arrival="876.00">
+        <routeDistribution>
+            <route cost="259.60" savings="0.00" replacedOnEdge="1623" reason="device.rerouting" replacedAtTime="708.00" probability="0" edges="-2427 -1586 -1454 1320 -1309 1338 1575 1623 1917 2196"/>
+            <route cost="128.38" savings="1.08" edges="-2427 -1586 -1454 1320 -1309 1338 1575 1623 1915 2187 2196" exitTimes="493.00 513.00 542.00 579.00 617.00 631.00 682.00 724.00 752.00 841.00 876.00"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="130" depart="520.00" arrival="879.00">
+        <route cost="290.95" savings="0.00" edges="1675 -1675 -1617 -1575 -1338 -493 -264 -250 -232 -222 -5 3 67" exitTimes="550.00 591.00 627.00 646.00 659.00 724.00 742.00 759.00 787.00 804.00 860.00 871.00 879.00"/>
+    </vehicle>
+
+    <vehicle id="135" depart="540.00" arrival="884.00">
+        <routeDistribution>
+            <route cost="284.31" savings="0.00" replacedOnEdge="-1611" reason="device.rerouting" replacedAtTime="660.00" probability="0" edges="-1650 1650 1931 -2188 -1915 -1623 1613 -1611 1605 2183 2321 -2066 2072 -2440"/>
+            <route cost="175.06" savings="9.21" edges="-1650 1650 1931 -2188 -1915 -1623 1613 -1611 1605 2175 -2066 2072 -2440" exitTimes="554.00 565.00 583.00 592.00 619.00 638.00 658.00 723.00 733.00 814.00 824.00 853.00 884.00"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="79" depart="316.00" arrival="885.00">
+        <routeDistribution>
+            <route cost="377.92" savings="0.00" replacedOnEdge="-2386" reason="device.rerouting" replacedAtTime="436.00" probability="0" edges="-2072 -1903 2370 -2386 -833 -662 -540 301 -264 -250 -232 -222 -5 9 189 205 320"/>
+            <route cost="299.17" savings="5.44" replacedOnEdge="-662" reason="device.rerouting" replacedAtTime="556.00" probability="0" edges="-2072 -1903 2370 -2386 -833 -662 -540 -290 -254 -240 -228 -197 205 320"/>
+            <route cost="254.81" savings="10.35" edges="-2072 -1903 2370 -2386 -833 -662 -652 -278 -254 -240 -228 -197 205 320" exitTimes="345.00 409.00 434.00 511.00 552.00 597.00 636.00 689.00 717.00 744.00 779.00 807.00 862.00 885.00"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="137" depart="548.00" arrival="889.00">
+        <route cost="216.03" savings="0.00" edges="-2405 -2058 2066 -2175 -1605 1611 -1613 -1575 -1314 1312 -1316" exitTimes="563.00 632.00 679.00 725.00 763.00 791.00 813.00 832.00 867.00 877.00 889.00"/>
+    </vehicle>
+
+    <vehicle id="116" depart="464.00" arrival="900.00">
+        <route cost="319.70" savings="0.00" edges="-1320 -833 -662 -652 -278 -254 -240 -228 -197 205 320 339" exitTimes="507.00 550.00 595.00 634.00 687.00 714.00 742.00 775.00 801.00 860.00 885.00 900.00"/>
+    </vehicle>
+
+    <vehicle id="85" depart="340.00" arrival="901.00">
+        <routeDistribution>
+            <route cost="390.86" savings="0.00" replacedOnEdge="-1903" reason="device.rerouting" replacedAtTime="460.00" probability="0" edges="-2690 -2442 -2438 -2058 -1903 2370 -2386 -833 -662 -540 301 -264 -250 -232 -222 -5 3 -45"/>
+            <route cost="301.74" savings="6.94" edges="-2690 -2442 -2438 -2058 -1903 2370 -2386 -833 -662 -652 -278 -254 -240 -222 -5 3 -45" exitTimes="382.00 410.00 423.00 456.00 502.00 530.00 596.00 638.00 683.00 722.00 776.00 805.00 833.00 852.00 863.00 874.00 901.00"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="112" depart="448.00" arrival="901.00">
+        <route cost="367.91" savings="0.00" edges="2614 -2614 2588 -2454 -2427 -1586 -1454 -833 -662 -652 -278 -254 -240 -222 -5 3 -45" exitTimes="478.00 506.00 543.00 552.00 572.00 590.00 634.00 643.00 687.00 727.00 781.00 807.00 835.00 853.00 866.00 876.00 901.00"/>
+    </vehicle>
+
+    <vehicle id="121" depart="484.00" arrival="910.00">
+        <route cost="312.11" savings="0.00" edges="2472 -2472 -1782 1784 -1892 -829 833 2386 -2370 1903 2058 2438 2442 -2442" exitTimes="498.00 509.00 544.00 552.00 586.00 597.00 645.00 662.00 724.00 776.00 793.00 859.00 885.00 910.00"/>
+    </vehicle>
+</routes>

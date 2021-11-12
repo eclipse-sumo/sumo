@@ -1,6 +1,5 @@
 ---
-title: Networks/SUMO Road Networks
-permalink: /Networks/SUMO_Road_Networks/
+title: SUMO Road Networks
 ---
 
 ![eichstaett.net.png](../images/Eichstaett.net.png "Screenshot of a SUMO net file opened in sumo-gui. It shows the map of the German city Eichstätt.")
@@ -37,18 +36,18 @@ one can also find
 not meant to be edited by hand.** Rather you should use [SUMO XML
 description
 files](../Networks/PlainXML.md)
-together with [NETCONVERT](../NETCONVERT.md). You can also convert
+together with [netconvert](../netconvert.md). You can also convert
 an existing map from various formats using
-[NETCONVERT](../NETCONVERT.md) or generate geometrically simple,
-abstract road maps with [NETGENERATE](../NETGENERATE.md). To modify
-an existing *.net.xml*-file you may [load it with NETCONVERT along with
+[netconvert](../netconvert.md) or generate geometrically simple,
+abstract road maps with [netgenerate](../netgenerate.md). To modify
+an existing *.net.xml*-file you may [load it with netconvert along with
 patch files](../Networks/Import/SUMO_Road_Networks.md) You may also
-use [NETEDIT](../NETEDIT.md) for building own road networks or for
-reworking the ones obtained from [NETCONVERT](../NETCONVERT.md) or
-[NETGENERATE](../NETGENERATE.md).
+use [netedit](../Netedit/index.md) for building own road networks or for
+reworking the ones obtained from [netconvert](../netconvert.md) or
+[netgenerate](../netgenerate.md).
 
 !!! caution
-    When creating SUMO networks from custom input data, the recommended approach is to create/generate [plain-xml-files](../Networks/PlainXML.md) and use [NETCONVERT](../NETCONVERT.md) to turn these into a *.net.xml file.* Trying to [generate the .net.xml file directly is fraught with dangers](../FAQ.md#i_made_changes_to_the_netxml-file_but_it_did_not_work_as_expected_why).
+    When creating SUMO networks from custom input data, the recommended approach is to create/generate [plain-xml-files](../Networks/PlainXML.md) and use [netconvert](../netconvert.md) to turn these into a *.net.xml file.* Trying to [generate the .net.xml file directly is fraught with dangers](../FAQ.md#i_made_changes_to_the_netxml-file_but_it_did_not_work_as_expected_why).
 
 ## Network Format
 
@@ -68,8 +67,8 @@ the instances in the following order:
 
 The networks are using cartesian, metric coordinates where the leftmost
 node is at x=0 and the node being most at the bottom is at y=0. This
-means that when being imported, [NETCONVERT](../NETCONVERT.md) and
-[NETGENERATE](../NETGENERATE.md) are projecting the network, first,
+means that when being imported, [netconvert](../netconvert.md) and
+[netgenerate](../netgenerate.md) are projecting the network, first,
 if the original network was not using cartesian and/or metric
 coordinates. Then, they move the road network to the origin at (0,0).
 
@@ -172,7 +171,7 @@ assignment. The following purposes are defined:
 - `connector`: The edge is a macroscopic
   connector - not a part of the real world road network. Still, within
   the simulation, no distinction is made between "connector" roads and
-  "normal" nodes. Only [SUMO-GUI](../SUMO-GUI.md) allows to hide
+  "normal" nodes. Only [sumo-gui](../sumo-gui.md) allows to hide
   connector edges.
 - `internal`: The edge is a part of an
   intersection (is located within the intersection), see above.
@@ -207,11 +206,11 @@ The attributes of a lane are:
 | **index**  | running number (unsigned int) | A running number, starting with zero at the right-most lane   |
 | **speed**  | float                         | The maximum speed allowed on this lane \[m/s\]                |
 | **length** | float                         | The length of this lane \[m\]                                 |
-| **shape**  | position vector               | The geometry of the lane, given by a polyline that describes the lane's centre line; must not be empty or have less than two positions |
+| **shape**  | position vector               | The geometry of the lane, given by a polyline that describes the lane's center line; must not be empty or have less than two positions |
 
 It should be noted, that currently all lanes of an edge have the same
 length, even if it differs from the geometrical length of the shape.
-[NETCONVERT](../NETCONVERT.md) even explicitly allows to override
+[netconvert](../netconvert.md) even explicitly allows to override
 the geometrical lengths. Additionally, even though the network is
 shifted to start at (0,0), it is not guaranteed that all of the
 network's parts have positive coordinates.
@@ -252,34 +251,8 @@ The attributes are given in the following table.
 #### Stop Offsets
 
 Each edge or lane may carry a `stopOffset` child element to specify an additional
-stopping offset for vehicles of certain classes:
-
-```
-<edge id="<ID>">
-    <stopOffset value="<distance in m.>" vClasses="<space-separated list of vClasses>" />
-    <lane id="<ID>" index="<INDEX>" ... >
-        <stopOffset value="<distance in m.>" exceptions="<space-separated list of vClasses>" />
-    </lane>
-    ...
-</edge>
-```
-
-Defining this element for an edge will affect all lanes of the edge that
-do not hold an own `stopOffset` element. Note that there is the possibility to
-define either all vehicle classes, that are affected by the stop offset
-(attribute `vClasses`), or those, which are not affected (attribute `exceptions`). You may not
-use both attributes in conjunction. The distance at which the specified
-vehicle classes are required to stop from the lane end is specified by
-the `value`-attribute.
-
-| Name           | Type             | Description                                                         |
-| -------------- | ---------------- | ------------------------------------------------------------------- |
-| **value**      | value (double)   | The stop offset as positive value in meters.                        |
-| **vClasses**   | list of vClasses | Specifies, for which vehicle classes the stopOffset applies.        |
-| **exceptions** | list of vClasses | Specifies, for which vehicle classes the stopOffset does not apply. |
-
-For specification of vehicle classes see
-[here](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#abstract_vehicle_class).
+stopping offset for vehicles of certain classes. This can be used to define a [bike box](https://en.wikipedia.org/wiki/Advanced_stop_line).
+The exact syntax is explained at [stopOffset](../Networks/PlainXML.md#stop_offsets).
 
 ### Traffic Light Programs
 
@@ -325,14 +298,14 @@ The junction itself is described by the following attributes:
 | **incLanes** | id list           | The ids of the lanes that end at the intersection; sorted by direction, clockwise, with direction up = 0                                                               |
 | **intLanes** | id list           | The IDs of the lanes within the intersection                                                                                                                           |
 | **shape**    | position list     | A polygon describing the road boundaries of the intersection                                                                                                           |
-| customShape  | bool              | Whether the shape was customized by the user (and should thus not be rebuilt by [NETCONVERT](../NETCONVERT.md) or [NETEDIT](../NETEDIT.md)), default *False* |
+| customShape  | bool              | Whether the shape was customized by the user (and should thus not be rebuilt by [netconvert](../netconvert.md) or [netedit](../Netedit/index.md)), default *False* |
 
 Please note, that the x/y-positions of the junction describe the given,
-not the computed centre of the junction. It is allowed for two nodes to
+not the computed center of the junction. It is allowed for two nodes to
 have the same position.
 
 !!! caution
-    The maximum number of connections (links) per junction is limited to 256 since version 0.25.0. In earlier versions of sumoe the limit was 64.
+    The maximum number of connections (links) per junction is limited to 256 since version 0.25.0. In earlier versions of sumo the limit was 64.
 
 #### Requests
 
@@ -453,7 +426,7 @@ The attributes are:
 | **dir**       | enum ("s" = straight, "t" = turn, "l" = left, "r" = right, "L" = partially left, R = partially right, "invalid" = no direction)     | The direction of the connection     |
 | **state**     | enum ("-" = dead end, "=" = equal, "m" = minor link, "M" = major link, traffic light only: "O" = controller off, "o" = yellow flashing, "y" = yellow minor link, "Y" = yellow major link, "r" = red, "g" = green minor, "G" green major) | The state of the connection  |
 
-When creating these connections without Netconvert (not recommended) it
+When creating these connections without netconvert (not recommended) it
 should be taken into account that a connection with an internal lane
 follows a special pattern. For example when lane 1_f_0 needs to be
 connected to 1_t_0 through 1_v_0, the following connection entries
@@ -465,7 +438,7 @@ It will also not load if next to the necessary connections a connection
 #### Indices of a connection
 
 Each connection has associated indices which can be shown in
-[SUMO-GUI](../SUMO-GUI.md) by customizing gui settings and
+[sumo-gui](../sumo-gui.md) by customizing gui settings and
 activating *Junctions-\>Show ... index*. These indices are usually
 identical but may be configured independently of each other.
 
@@ -495,7 +468,7 @@ during network building). Their presence in the network file has two
 reasons:
 
 - It facillitates re-importing a *.net.xml*-file with
-  [NETCONVERT](../NETCONVERT.md)
+  [netconvert](../netconvert.md)
 - lane-changing models may take roundabouts into account
 
 Each roundabout is defined (somewhat redundantly) by its nodes and
@@ -507,36 +480,36 @@ edges:
 
 ## Software for Viewing, Editing and Processing
 
-To create a SUMO network file, [NETCONVERT](../NETCONVERT.md) helps
+To create a SUMO network file, [netconvert](../netconvert.md) helps
 to generate it from maps in other formats and
-[NETGENERATE](../NETGENERATE.md) constructs a new map with simple
-geometries. [SUMO](../SUMO.md) performs its simulation directly in
+[netgenerate](../netgenerate.md) constructs a new map with simple
+geometries. [sumo](../sumo.md) performs its simulation directly in
 the map of this file. Most other SUMO tools read such files to generate
 or import information that must be the mapped onto a road network.
 
 Networks can be created and edited graphically using
-[NETEDIT](../NETEDIT.md).
+[netedit](../Netedit/index.md).
 
 The SUMO net file is not meant for manual editing. Convert it to the
 [SUMO native XML
 descriptions](../Networks/PlainXML.md)
-with [NETCONVERT](../NETCONVERT.md) instead. You can then process
+with [netconvert](../netconvert.md) instead. You can then process
 these files by hand and rebuild the network with
-[NETCONVERT](../NETCONVERT.md).
+[netconvert](../netconvert.md).
 
 ## Further Documentation
 
 - Network Import
-  -  - [Defining own networks using XML and NETCONVERT](../Networks/PlainXML.md)
-    - [Importing networks from other applications using NETCONVERT](../Networks/Import.md)
-  - [NETCONVERT](../NETCONVERT.md) manual
+  -  - [Defining own networks using XML and netconvert](../Networks/PlainXML.md)
+    - [Importing networks from other applications using netconvert](../Networks/Import.md)
+  - [netconvert](../netconvert.md) manual
 - Generation of abstract road networks
   - [Generating abstract networks using
-      NETGENERATE](../Networks/Abstract_Network_Generation.md)
-  - [NETGENERATE](../NETGENERATE.md) manual
-- [NETEDIT](../NETEDIT.md) manual
+      netgenerate](../Networks/Abstract_Network_Generation.md)
+  - [netgenerate](../netgenerate.md) manual
+- [netedit](../Netedit/index.md) manual
 - [Developer/Network Building
   Process](../Developer/Network_Building_Process.md)
 
 !!! note
-    Please see the [ChangeLog](../ChangeLog.md) when dealing with networks generated by old versions of [NETCONVERT](../NETCONVERT.md) / [NETGENERATE](../NETGENERATE.md).
+    Please see the [ChangeLog](../ChangeLog.md) when dealing with networks generated by old versions of [netconvert](../netconvert.md) / [netgenerate](../netgenerate.md).

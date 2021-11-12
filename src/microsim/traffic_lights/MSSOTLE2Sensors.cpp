@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2010-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2010-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSSOTLE2Sensors.cpp
 /// @author  Gianfilippo Slager
@@ -150,7 +154,7 @@ void MSSOTLE2Sensors::buildCountSensorForLane(MSLane* lane, NLDetectorBuilder& n
                         "SOTL_E2_lane:" + lane->getID() + "_tl:" + tlLogicID,
                         DU_TL_CONTROL, lane,
                         (lane->getLength() - sensorPos - lensorLength), INVALID_POSITION, lensorLength,
-                        HALTING_TIME_THRS, HALTING_SPEED_THRS, DIST_THRS, "");
+                        HALTING_TIME_THRS, HALTING_SPEED_THRS, DIST_THRS, "", (int)PersonMode::NONE);
 
         MSNet::getInstance()->getDetectorControl().add(
             SUMO_TAG_LANE_AREA_DETECTOR, newSensor);
@@ -194,7 +198,7 @@ void MSSOTLE2Sensors::buildCountSensorForOutLane(MSLane* lane, NLDetectorBuilder
                         "SOTL_E2_lane:" + lane->getID() + "_tl:" + tlLogicID,
                         DU_TL_CONTROL, lane,
                         (lane->getLength() - sensorPos - lensorLength), INVALID_POSITION, lensorLength,
-                        HALTING_TIME_THRS, HALTING_SPEED_THRS, DIST_THRS, "");
+                        HALTING_TIME_THRS, HALTING_SPEED_THRS, DIST_THRS, "", (int)PersonMode::NONE);
 
         MSNet::getInstance()->getDetectorControl().add(
             SUMO_TAG_LANE_AREA_DETECTOR, newSensor);
@@ -273,7 +277,7 @@ void MSSOTLE2Sensors::buildSensorForLane(MSLane* lane, NLDetectorBuilder& nb, do
                         "SOTL_E2_lane:" + lane->getID() + "_tl:" + tlLogicID,
                         DU_TL_CONTROL, lane,
                         (lane->getLength() - sensorPos - lensorLength), INVALID_POSITION, lensorLength,
-                        HALTING_TIME_THRS, HALTING_SPEED_THRS, DIST_THRS, "");
+                        HALTING_TIME_THRS, HALTING_SPEED_THRS, DIST_THRS, "", (int)PersonMode::NONE);
 
         MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, newSensor);
 
@@ -284,10 +288,10 @@ void MSSOTLE2Sensors::buildSensorForLane(MSLane* lane, NLDetectorBuilder& nb, do
             std::ostringstream oss;
             oss << "Sensor on lane " << lane->getID() << " is long " << lensorLength << ", while it should be " << sensorLength << ". Continuing it on the other lanes if possible";
             WRITE_MESSAGE(oss.str())
-            for (std::vector<MSLane::IncomingLaneInfo>::const_iterator it = lane->getIncomingLanes().begin(); it != lane->getIncomingLanes().end(); ++it) {
-                const MSEdge* edge = &it->lane->getEdge();
-                if (!edge->isInternal() && !edge->isWalkingArea() && !edge->isCrossing()) {
-                    buildContinueSensior(lane, nb, sensorLength, it->lane, lensorLength);
+            for (const MSLane::IncomingLaneInfo& it : lane->getIncomingLanes()) {
+                const MSEdge& inEdge = it.lane->getEdge();
+                if (!inEdge.isInternal() && !inEdge.isWalkingArea() && !inEdge.isCrossing()) {
+                    buildContinueSensior(lane, nb, sensorLength, it.lane, lensorLength);
                 }
             }
         }
@@ -302,7 +306,7 @@ void MSSOTLE2Sensors::buildContinueSensior(MSLane* lane, NLDetectorBuilder& nb, 
                                        "SOTL_E2_lane:" + continueOnLane->getID() + "_tl:" + tlLogicID,
                                        DU_TL_CONTROL, continueOnLane,
                                        (continueOnLane->getLength() - length), INVALID_POSITION, length,
-                                       HALTING_TIME_THRS, HALTING_SPEED_THRS, DIST_THRS, "");
+                                       HALTING_TIME_THRS, HALTING_SPEED_THRS, DIST_THRS, "", (int)PersonMode::NONE);
         MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, newSensor);
         m_sensorMap.insert(MSLaneID_MSE2Collector(continueOnLane->getID(), newSensor));
         m_continueSensorOnLanes[lane->getID()].push_back(continueOnLane->getID());
@@ -361,7 +365,7 @@ void MSSOTLE2Sensors::buildSensorForOutLane(MSLane* lane,
                         "SOTL_E2_lane:" + lane->getID() + "_tl:" + tlLogicID,
                         DU_TL_CONTROL, lane,
                         (lane->getLength() - sensorPos - lensorLength), INVALID_POSITION, lensorLength,
-                        HALTING_TIME_THRS, HALTING_SPEED_THRS, DIST_THRS, "");
+                        HALTING_TIME_THRS, HALTING_SPEED_THRS, DIST_THRS, "", (int)PersonMode::NONE);
 
         MSNet::getInstance()->getDetectorControl().add(
             SUMO_TAG_LANE_AREA_DETECTOR, newSensor);

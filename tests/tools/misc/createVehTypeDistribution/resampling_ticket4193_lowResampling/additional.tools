@@ -1,14 +1,15 @@
+<?xml version="1.0" ?>
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <vTypeDistribution id="exampleDist">
-        <vType foo="1.000" id="exampleDist0"/>
-        <vType foo="1.000" id="exampleDist1"/>
-        <vType foo="1.000" id="exampleDist2"/>
-        <vType foo="1.000" id="exampleDist3"/>
-        <vType foo="1.000" id="exampleDist4"/>
-        <vType foo="1.000" id="exampleDist5"/>
-        <vType foo="1.000" id="exampleDist6"/>
-        <vType foo="1.000" id="exampleDist7"/>
-        <vType foo="1.000" id="exampleDist8"/>
-        <vType foo="1.000" id="exampleDist9"/>
-    </vTypeDistribution>
+   <vTypeDistribution id="exampleDist">
+      <vType id="exampleDist0" foo="1.000"/>
+      <vType id="exampleDist1" foo="1.000"/>
+      <vType id="exampleDist2" foo="1.000"/>
+      <vType id="exampleDist3" foo="1.000"/>
+      <vType id="exampleDist4" foo="1.000"/>
+      <vType id="exampleDist5" foo="1.000"/>
+      <vType id="exampleDist6" foo="1.000"/>
+      <vType id="exampleDist7" foo="1.000"/>
+      <vType id="exampleDist8" foo="1.000"/>
+      <vType id="exampleDist9" foo="1.000"/>
+   </vTypeDistribution>
 </additional>

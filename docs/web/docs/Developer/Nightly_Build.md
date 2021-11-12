@@ -1,6 +1,5 @@
 ---
-title: Developer/Nightly Build
-permalink: /Developer/Nightly_Build/
+title: Nightly Build
 ---
 
 There are two main scripts responsible for the nightly build process
@@ -50,7 +49,7 @@ for the build in question.
 The AppVeyor build also provides the binaries as download (currently
 for about six months after the commit). To download choose details 
 using the marker (as above) for the commit from 
-https://github.com/eclipse/sumo/commits/master and then choose the 
+https://github.com/eclipse/sumo/commits/main and then choose the 
 Visual Studio version in question (when in doubt use the latest version)
 and click on artifacts where a bin.zip should be available.
 
@@ -72,7 +71,7 @@ and click on artifacts where a bin.zip should be available.
 | extra   | ubuntu64 gcc        | 07:00         | 1h                 |
 | sumo    | ubuntu64 clang      | 03:00         | 4h                 |
 | extra   | ubuntu64 clang      | 08:00         | 1.5h               |
-| sumo    | MacOS clang         | 00:00         | 1h                 |
+| sumo    | macOS clang         | 00:00         | 1h                 |
 
 ## Scenario tests
 

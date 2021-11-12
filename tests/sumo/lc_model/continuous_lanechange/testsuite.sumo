@@ -1,10 +1,22 @@
 basic
 
+# lefthand network
+lefthand
+
 # use configured lateral speed
 maxSpeedLat
 
+# use configured lateral speed that greatly differs from the default (implied by lanechange.duration)
+maxSpeedLat2
+
 # use configured maximum lateral speed when standing
 maxSpeedLatStanding
+
+# a vehicle urgently needs to change lanes but is configured to with lcMaxSpeedLatStanding=0
+ramp_end_maxSpeedLatStanding_0
+
+# a vehicle urgently needs to change lanes but is configured to with lcMaxSpeedLatStanding=0
+leaderStopped_maxSpeedLatStanding_0
 
 # verify that both lanes are blocked during a lane change maneuver
 block_both_lanes

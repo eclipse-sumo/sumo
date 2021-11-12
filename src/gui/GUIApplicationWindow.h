@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIApplicationWindow.h
 /// @author  Daniel Krajzewicz
@@ -16,23 +20,18 @@
 ///
 // The main window of the SUMO-gui.
 /****************************************************************************/
-#ifndef GUIApplicationWindow_h
-#define GUIApplicationWindow_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
 #include <vector>
 #include <iostream>
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <utils/foxtools/FXSynchQue.h>
 #include <utils/foxtools/FXThreadEvent.h>
 #include <utils/foxtools/MFXInterThreadEventClient.h>
 #include <utils/foxtools/FXLCDLabel.h>
+#include <utils/foxtools/FXRecentNetworks.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/common/ValueRetriever.h>
 #include <utils/common/ValueSource.h>
@@ -96,7 +95,7 @@ public:
 
     void setStatusBarText(const std::string& text);
 
-    void addRecentFile(const FX::FXString& f, const bool isNet);
+    void addRecentFile(const FX::FXString& f);
 
     FXGLCanvas* getBuildGLCanvas() const;
     SUMOTime getCurrentSimTime() const;
@@ -121,6 +120,9 @@ public:
 
     /// @name FOX-callbacks
     /// @{
+
+    /// @brief Called on menu File->New Window
+    long onCmdNewWindow(FXObject*, FXSelector, void*);
 
     /// @brief Called on menu File->Open Configuration
     long onCmdOpenConfiguration(FXObject*, FXSelector, void*);
@@ -189,6 +191,9 @@ public:
 
     /// @brief Shows the about dialog
     long onCmdAbout(FXObject*, FXSelector, void*);
+
+    /// @brief Shows the Hall of Fame dialog
+    long onCmdHallOfFame(FXObject*, FXSelector, void*);
 
     /// @brief Called on "play"
     long onCmdStart(FXObject*, FXSelector, void*);
@@ -300,7 +305,7 @@ protected:
 
 private:
     /** starts to load a simulation */
-    void loadConfigOrNet(const std::string& file, bool isNet);
+    void loadConfigOrNet(const std::string& file);
 
     /** this method closes all windows and deletes the current simulation */
     void closeAllWindows();
@@ -399,11 +404,8 @@ protected:
     /// @brief io-event with the run-thread
     FXEX::FXThreadEvent myRunThreadEvent;
 
-    /// @brief List of recent config files
-    FXRecentFiles myRecentConfigs;
-
-    /// @brief List of recent nets
-    FXRecentFiles myRecentNets;
+    /// @brief List of recent networks and configs
+    FXRecentNetworks myRecentNetworksAndConfigs;
 
     /// @brief Input file pattern
     std::string myConfigPattern;
@@ -421,6 +423,9 @@ protected:
 
     /// @brief the semaphore when waiting for event completion
     FXCondition myEventCondition;
+
+    /// @brief menu checkbox to activate game mode
+    FXMenuCheck* myGamingModeCheckbox;
 
     /// @name game related things
     /// {
@@ -447,10 +452,7 @@ protected:
     FXToolBarShell* myToolBarDrag6 = nullptr, *myToolBarDrag7 = nullptr, *myToolBarDrag9 = nullptr, *myToolBarDrag10 = nullptr;
     ////}
 
+    /// last time the simulation view was redrawn due to a simStep
+    long myLastStepEventMillis;
+
 };
-
-
-#endif
-
-/****************************************************************************/
-

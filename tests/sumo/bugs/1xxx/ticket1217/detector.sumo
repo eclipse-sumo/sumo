@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu May  2 22:12:54 2019 by Eclipse SUMO Version v1_2_0+0149-6b40db9d1b
+<!-- generated on Mon Mar 30 15:10:23 2020 by Eclipse SUMO Version v1_5_0+1011-3e02c63d25
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -33,8 +33,8 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1_file.xsd">
-    <interval begin="0.00" end="900.00" id="beg2_0" nVehContrib="337" flow="1348.00" occupancy="9.47" speed="19.95" harmonicMeanSpeed="19.78" length="5.00" nVehEntered="450"/>
-    <interval begin="0.00" end="900.00" id="beg2_1" nVehContrib="337" flow="1348.00" occupancy="9.47" speed="19.95" harmonicMeanSpeed="19.78" length="5.00" nVehEntered="450"/>
-    <interval begin="900.00" end="1054.00" id="beg2_0" nVehContrib="68" flow="1589.61" occupancy="11.04" speed="20.00" harmonicMeanSpeed="20.00" length="5.00" nVehEntered="88"/>
-    <interval begin="900.00" end="1054.00" id="beg2_1" nVehContrib="68" flow="1589.61" occupancy="11.04" speed="20.00" harmonicMeanSpeed="20.00" length="5.00" nVehEntered="88"/>
+    <interval begin="0.00" end="900.00" id="beg2_0" nVehContrib="370" flow="1480.00" occupancy="11.67" speed="19.96" harmonicMeanSpeed="19.80" length="5.00" nVehEntered="495"/>
+    <interval begin="0.00" end="900.00" id="beg2_1" nVehContrib="367" flow="1468.00" occupancy="11.50" speed="20.00" harmonicMeanSpeed="20.00" length="5.00" nVehEntered="493"/>
+    <interval begin="900.00" end="1052.00" id="beg2_0" nVehContrib="69" flow="1634.21" occupancy="12.83" speed="20.00" harmonicMeanSpeed="20.00" length="5.00" nVehEntered="94"/>
+    <interval begin="900.00" end="1052.00" id="beg2_1" nVehContrib="69" flow="1634.21" occupancy="12.88" speed="20.00" harmonicMeanSpeed="20.00" length="5.00" nVehEntered="95"/>
 </detector>

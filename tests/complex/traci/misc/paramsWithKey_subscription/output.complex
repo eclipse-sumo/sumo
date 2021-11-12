@@ -1,0 +1,26 @@
+Loading configuration ... done.
+ Retrying in 1 seconds
+step 0.0
+subscribing to vehicle param 'simTime'
+subscribing to person param 'simTime'
+subscribing to edge param 'simTime'
+subscribing to lane param 'simTime'
+subscribing to vType param 'simTime'
+subscribing to route param 'simTime'
+subscribing to trafficlight param 'simTime'
+step 1.0
+vehicle result: ('simTime', '1.0')
+person result: ('simTime', '1.0')
+edge result: ('simTime', '1.0')
+lane result: ('simTime', '1.0')
+vType result: ('simTime', '1.0')
+route result: ('simTime', '1.0')
+trafficlight result: ('simTime', '1.0')
+step 2.0
+vehicle result: ('simTime', '2.0')
+person result: ('simTime', '2.0')
+edge result: ('simTime', '2.0')
+lane result: ('simTime', '2.0')
+vType result: ('simTime', '2.0')
+route result: ('simTime', '2.0')
+trafficlight result: ('simTime', '2.0')

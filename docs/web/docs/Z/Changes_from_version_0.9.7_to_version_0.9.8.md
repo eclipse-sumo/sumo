@@ -1,7 +1,8 @@
 ---
-title: Z/Changes from version 0.9.7 to version 0.9.8
-permalink: /Z/Changes_from_version_0.9.7_to_version_0.9.8/
+title: Changes from version 0.9.7 to version 0.9.8
 ---
+
+**Release date: 07.02.2008**
 
 - Building
   - MSVC8: extracted properties for build configurations into
@@ -14,7 +15,7 @@ permalink: /Z/Changes_from_version_0.9.7_to_version_0.9.8/
   - microsim/traffic_lights - project was named properly
   - netbuild/nodes, microsim/lanechanging, and all netimport classes
     but vissim import were moved one folder up
-  - SUMOFrame was moved to microsim (renamed to MSFrame\!)
+  - SUMOFrame was moved to microsim (renamed to MSFrame!)
   - utils/helpers and utils/router were moved to utils/common
 
 - all
@@ -27,8 +28,7 @@ permalink: /Z/Changes_from_version_0.9.7_to_version_0.9.8/
     see comment; thanks to Helcio Bezerra de Mello for the bug
     report
   - further work on detectors
-    - values revalidated and described <font color="orange">output
-      has changed</font>
+    - values revalidated and described output has changed
     - marked "measures" and "style" as deprecated
   - while looking for next links to use, the vehicle is now aware of
     his best lanes
@@ -57,7 +57,7 @@ permalink: /Z/Changes_from_version_0.9.7_to_version_0.9.8/
 - removed MSUnit - the usage was bogus, often same functions were
   defined twice. Rather confusing. Added
   utils/common/PhysicalTypeDefs.h instead, as a new begin.
-- Removed MSNet's deltaT - was falsly used and duplicate with
+- Removed MSNet's deltaT - was falsely used and duplicate with
   utils/common/SUMOTime
 
 - guisim
@@ -78,7 +78,7 @@ permalink: /Z/Changes_from_version_0.9.7_to_version_0.9.8/
     shapefile](http://sourceforge.net/tracker/index.php?func=detail&aid=1886198&group_id=45607&atid=443421);
     see comment; thanks to Maxim Raya for the bug report
 
-- DFROUTER
+- dfrouter
   - trying to make it more usable for inner-city scenarios with many
     connections
 - spell checking
@@ -87,7 +87,7 @@ permalink: /Z/Changes_from_version_0.9.7_to_version_0.9.8/
   - false left closure of leftmost lane shown in "real world" scheme
     debugged
 - removed utils/importio/CSVHelpers (was used once and contained a
-  two-lines-method (sic\!))
+  two-lines-method (sic!))
 - working on doxygen documentation (and adding throw-declarations)
   - utils/options
   - utils/iodevices
@@ -100,7 +100,7 @@ permalink: /Z/Changes_from_version_0.9.7_to_version_0.9.8/
 - fixed vehicle decelerations when being on a higher priorised road
   (bug
   [1830266](http://sourceforge.net/tracker/index.php?func=detail&aid=1830266&group_id=45607&atid=443421))
-- fixed NETCONVERTER bugs occuring when connected nodes are too close
+- fixed netconvert bugs occuring when connected nodes are too close
   together (bugs
   [1639460](http://sourceforge.net/tracker/index.php?func=detail&aid=1639460&group_id=45607&atid=443421),
   [1639436](http://sourceforge.net/tracker/index.php?func=detail&aid=1639436&group_id=45607&atid=443421))
@@ -109,7 +109,7 @@ permalink: /Z/Changes_from_version_0.9.7_to_version_0.9.8/
 - consolidated XML-definitions
   - vehicle type is now called "type" in all cases
   - removed unneeded elements and attributes
-- (almost complete) rework of the microsimulation loop<br>
+- (almost complete) rework of the microsimulation loop   
 What was done, basically is to change the way vehicles move over
 junctions and how other vehicles get informed about vehicles
 approaching on incoming lanes. Quite heavy changes, in fact, I hope
@@ -129,5 +129,4 @@ lanes](http://sourceforge.net/tracker/index.php?func=detail&aid=1840944&group_id
     state](http://sourceforge.net/tracker/index.php?func=detail&aid=1840950&group_id=45607&atid=443421)
 - speeding up simulation by not touching empty lanes
 - C2C was made optional (using defines) in order to reduce memory
-  footprint; was: [feature 1843267: make extensions
-  optional](http://sourceforge.net/tracker/index.php?func=detail&aid=1843267&group_id=45607&atid=443421)
+  footprint; was: feature 1843267: make extensions optional

@@ -1,0 +1,23 @@
+<configuration>
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <time>
+        <step-length value="0.25" />
+    </time>
+    
+    <processing>
+        <lateral-resolution value="0.64"/>
+        <step-method.ballistic value="true"/>
+    </processing>
+
+    <report>
+        <log value="sumo_log.txt"/>
+        <no-step-log value="true"/>
+    </report>
+
+
+</configuration>

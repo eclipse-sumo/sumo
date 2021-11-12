@@ -1,0 +1,1 @@
+Warning: ParkingArea 'parkingArea_gneE28_0_3' is targeted by rerouter 'gneE27_0_1' but doesn't have it's own rerouter. This may cause parking search to abort.

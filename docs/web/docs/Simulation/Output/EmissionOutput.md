@@ -1,6 +1,5 @@
 ---
-title: Simulation/Output/EmissionOutput
-permalink: /Simulation/Output/EmissionOutput/
+title: EmissionOutput
 ---
 
 The reason for this output option is the possibility of SUMO to
@@ -16,6 +15,13 @@ To force SUMO to build a file that contains the emission output, extend
 your command line (or configuration) parameter by **--emission-output** {{DT_FILE}}. {{DT_FILE}} is the name of the
 file the output will be written to. Any other file with this name will
 be overwritten, the destination folder must exist.
+
+By default, emission-output is enabled for all vehicles in the
+simulation with output in each simulation step. Using [device assignment
+options or
+parameters](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices)
+(i.e. **--device.emissions.probability 0.25**) the set of vehicles which generate emission output can be reduced.
+The output period can be set by using option **--device.emissions.period** {{DT_TIME}}.
 
 ## Generated Output
 
@@ -61,7 +67,7 @@ The meanings of the written values are given in the following table.
 | waiting     | seconds              | The time the vehicle is waiting                                                                |
 | lane        | id                   | The name of the lane where the vehicle is moving                                               |
 | pos         | meters               | The vehicle position measured from the start of the current lane                               |
-| speed       | km/h                 | The speed of the vehicle                                                                       |
+| speed       | m/s                  | The speed of the vehicle                                                                       |
 | angle       | degree               | The angle of the vehicle                                                                       |
 | pos_x      | \---                 | The absolut X coordinate of the vehicle. The value depends on the given geographic projection. |
 | pos_y      | \---                 | The absolut Y coordinate of the vehicle. The value depends on the given geographic projection. |

@@ -1,0 +1,6 @@
+<?xml version= "1.0" encoding="UTF-8"?>
+
+<stoppingPlace>
+    <step time="15.0" number="1"/>
+    <step time="35.0" number="0"/>
+</stoppingPlace>

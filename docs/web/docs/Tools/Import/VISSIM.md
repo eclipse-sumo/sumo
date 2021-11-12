@@ -1,6 +1,5 @@
 ---
-title: Tools/Import/VISSIM
-permalink: /Tools/Import/VISSIM/
+title: VISSIM
 ---
 
 # Extension tools to import features from VISSIM \*.inpx files
@@ -11,8 +10,6 @@ permalink: /Tools/Import/VISSIM/
 **TODO:**
 
 - translation to english
-
-<img src="http://latex.codecogs.com/gif.latex?\sqrt{\pi} +4" border="0" style="margin:0;"/>
 
 # Erweiterung der SUMO Netzkonversion
 
@@ -42,7 +39,7 @@ ermöglichen.
 Der Aufruf von `netconvert` für VISSIM-Netze erfolgt über:
 
 ```
-netconvert –vissim-file=<VISSIM_FILE –output-file=MySUMOFile.net.xml
+netconvert --vissim-file=<VISSIM_FILE –-output-file=MySUMOFile.net.xml
 ```
 
 Die Unterscheidung, ob es sich um ein VISSIM-Netz im neuen `inpx`- oder

@@ -16,6 +16,8 @@ set(utils_gui_windows_STAT_SRCS
    GUIPerspectiveChanger.h
    GUISUMOAbstractView.cpp
    GUISUMOAbstractView.h
+   GUIDialog_ChooserAbstract.cpp
+   GUIDialog_ChooserAbstract.h
    GUIDialog_GLObjChooser.cpp
    GUIDialog_GLObjChooser.h
 )

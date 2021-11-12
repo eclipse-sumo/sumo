@@ -1,6 +1,5 @@
 ---
-title: Z/Changes from version 0.8.0 to version 0.8.0.1
-permalink: /Z/Changes_from_version_0.8.0_to_version_0.8.0.1/
+title: Changes from version 0.8.0 to version 0.8.0.1
 ---
 
 - GUI
@@ -8,7 +7,7 @@ permalink: /Z/Changes_from_version_0.8.0_to_version_0.8.0.1/
   - The gui now remembers his
   - The instance chooser was reworked and shows now which items are selected
   - An selected-items dialog with the ability to save the names of the selected items was implemented
-  - New colours for aggregated view (aggregated views are still a prototype)
+  - New colors for aggregated view (aggregated views are still a prototype)
   - Fixed a bug at optional texture disabling
   - Update of trackers and tables on simulation steps added
   - About-dialog debugged
@@ -20,7 +19,7 @@ permalink: /Z/Changes_from_version_0.8.0_to_version_0.8.0.1/
   - Bug on repeatedly emitted vehicles patched
 - Simulation
   - Bug on repeatedly emitted vehicles patched
-- Netconvert
+- netconvert
   - Made the geometry of junctions pretty again
   - Too conservative right-of-way rules on importing vissim-networks was reworked
 - general implementation issues

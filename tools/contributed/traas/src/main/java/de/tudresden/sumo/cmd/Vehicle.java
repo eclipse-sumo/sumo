@@ -1,13 +1,17 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2021 German Aerospace Center (DLR) and others.
 // TraaS module
 // Copyright (C) 2016-2017 Dresden University of Technology
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    Vehicle.java
 /// @author  Mario Krumnow
@@ -18,16 +22,16 @@
 /****************************************************************************/
 package de.tudresden.sumo.cmd;
 import de.tudresden.sumo.config.Constants;
+import de.tudresden.sumo.objects.SumoColor;
+import de.tudresden.sumo.objects.SumoStopFlags;
+import de.tudresden.sumo.objects.SumoStringList;
 import de.tudresden.sumo.util.SumoCommand;
-import de.tudresden.ws.container.SumoColor;
-import de.tudresden.ws.container.SumoStopFlags;
-import de.tudresden.ws.container.SumoStringList;
 
 /**
+ * The Class Vehicle.
  *
  * @author Mario Krumnow
  * @author Evamarie Wiessner
- *
  */
 
 public class Vehicle {
@@ -108,7 +112,8 @@ public class Vehicle {
 
 
     /**
-     * Returns The desired lateral gap of this vehicle at 50km/h in m
+     * Returns The desired lateral gap of this vehicle at 50km/h in m.
+     *
      * @param vehID id of the vehicle
      * @return angle
      */
@@ -183,7 +188,8 @@ public class Vehicle {
 
 
     /**
-     * Returns The preferred lateral alignment of the vehicle
+     * Returns The preferred lateral alignment of the vehicle.
+     *
      * @param vehID id of the vehicle
      * @return the leading vehicle
      */
@@ -218,7 +224,8 @@ public class Vehicle {
 
 
     /**
-     * getPersonNumber
+     * getPersonNumber.
+     *
      * @param vehID id of the vehicle
      * @return person number
      */
@@ -229,7 +236,8 @@ public class Vehicle {
 
 
     /**
-     * getBestLanes
+     * getBestLanes.
+     *
      * @param vehID id of the vehicle
      * @return list of the best lanes
      */
@@ -292,7 +300,8 @@ public class Vehicle {
     }
 
     /**
-     * getDrivingDistance2D
+     * getDrivingDistance2D.
+     *
      * @param vehID id of the vehicle
      * @param x x
      * @param y y
@@ -304,7 +313,8 @@ public class Vehicle {
     }
 
     /**
-     * Get the distance to the starting point acts as a odometer
+     * Get the distance to the starting point acts as a odometer.
+     *
      * @param vehID id of the vehicle
      * @return the current distance of the vehicle (odometer)
      */
@@ -376,9 +386,10 @@ public class Vehicle {
     }
 
     /**
-     * getImperfection
+     * getImperfection.
+     *
      * @param vehID id of the vehicle
-     *  @return value for imperfection
+     * @return value for imperfection
      */
 
     public static SumoCommand getImperfection(String vehID) {
@@ -509,11 +520,10 @@ public class Vehicle {
     }
 
     /**
-     * Returns the chosen parameter
+     * Returns the chosen parameter.
      *
-     *  @param vehID a string identifying the vehicle
-     *  @param param a string identifying the parameter
-     *
+     * @param vehID a string identifying the vehicle
+     * @param param a string identifying the parameter
      * @return SumoCommand (String)
      */
 
@@ -523,12 +533,11 @@ public class Vehicle {
     }
 
     /**
-     * Sets the chosen parameter
+     * Sets the chosen parameter.
      *
-     *  @param vehID a string identifying the vehicle
-     *  @param param a string identifying the parameter
-     *  @param value a string identifying the new value
-     *
+     * @param vehID a string identifying the vehicle
+     * @param param a string identifying the parameter
+     * @param value a string identifying the new value
      * @return SumoCommand
      */
 
@@ -600,7 +609,8 @@ public class Vehicle {
     }
 
     /**
-     *  Returns the index of the current edge within the vehicles route or -1 if the vehicle has not yet departed
+     *  Returns the index of the current edge within the vehicles route or -1 if the vehicle has not yet departed.
+     *
      * @param vehID id of the vehicle
      * @return route index
      */
@@ -622,7 +632,8 @@ public class Vehicle {
     }
 
     /**
-     * getShapeClass
+     * getShapeClass.
+     *
      * @param vehID id of the vehicle
      * @return shape class
      */
@@ -632,7 +643,8 @@ public class Vehicle {
     }
 
     /**
-     * getSignals
+     * getSignals.
+     *
      * @param vehID id of the vehicle
      * @return the signal state of the vehicle
      */
@@ -642,7 +654,8 @@ public class Vehicle {
     }
 
     /**
-     * getSlope
+     * getSlope.
+     *
      * @param vehID id of the vehicle
      * @return  the slope at the current position of the vehicle in degrees
      */
@@ -683,7 +696,8 @@ public class Vehicle {
     }
 
     /**
-     * Returns the speed mode of a vehicle
+     * Returns the speed mode of a vehicle.
+     *
      * @param vehID id of the vehicle
      * @return speed mode
      */
@@ -694,7 +708,8 @@ public class Vehicle {
 
 
     /**
-     * getSpeedWithoutTraCI
+     * getSpeedWithoutTraCI.
+     *
      * @param vehID id of the vehicle
      * @return speed in m/s
      */
@@ -704,7 +719,8 @@ public class Vehicle {
     }
 
     /**
-     *  Returns information in regard to stopping: The returned integer is defined as 1 * stopped + 2 * parking + 4 * personTriggered + 8 * containerTriggered + 16 * isBusStop + 32 * isContainerStop with each of these flags defined as 0 or 1
+     *  Returns information in regard to stopping: The returned integer is defined as 1 * stopped + 2 * parking + 4 * personTriggered + 8 * containerTriggered + 16 * isBusStop + 32 * isContainerStop with each of these flags defined as 0 or 1.
+     *
      * @param vehID id of the vehicle
      * @return speed in m/s
      */
@@ -715,7 +731,8 @@ public class Vehicle {
 
 
     /**
-     * getTau
+     * getTau.
+     *
      * @param vehID id of the vehicle
      * @return tau
      */
@@ -725,7 +742,8 @@ public class Vehicle {
     }
 
     /**
-     * Returns the ids of via edges for this vehicle
+     * Returns the ids of via edges for this vehicle.
+     *
      * @param vehID id of the vehicle
      * @return ids of via edges for this vehicle
      */
@@ -757,7 +775,7 @@ public class Vehicle {
 
     /**
      * Returns the list of persons which includes those defined using attribute 'personNumber'
-        as well as <person>-objects which are riding in this vehicle.
+        as well as person-objects which are riding in this vehicle.
      * @param vehID id of the vehicle
      * @return vehicle class
      */
@@ -800,7 +818,8 @@ public class Vehicle {
 
 
     /**
-     * isStopped
+     * isStopped.
+     *
      * @param vehID id of the vehicle
      * @return stop
      */
@@ -810,7 +829,8 @@ public class Vehicle {
     }
 
     /**
-     * Return whether the vehicle is stopped and waiting for a person or container
+     * Return whether the vehicle is stopped and waiting for a person or container.
+     *
      * @param vehID id of the vehicle
      * @return stop
      */
@@ -820,7 +840,8 @@ public class Vehicle {
     }
 
     /**
-     * Return whether the vehicle is stopped at a container stop
+     * Return whether the vehicle is stopped at a container stop.
+     *
      * @param vehID id of the vehicle
      * @return stop
      */
@@ -830,7 +851,8 @@ public class Vehicle {
     }
 
     /**
-     * isStoppedParking
+     * isStoppedParking.
+     *
      * @param vehID id of the vehicle
      * @return stop
      */
@@ -840,7 +862,8 @@ public class Vehicle {
     }
 
     /**
-     * isAtBusStop
+     * isAtBusStop.
+     *
      * @param vehID id of the vehicle
      * @return stop
      */
@@ -897,7 +920,22 @@ public class Vehicle {
 
     /**
      * Add a new vehicle.
-
+     *
+     * @param vehID the veh ID
+     * @param routeID the route ID
+     * @param typeID the type ID
+     * @param depart the depart
+     * @param departLane the depart lane
+     * @param departPosition the depart position
+     * @param departSpeed the depart speed
+     * @param arrivalLane the arrival lane
+     * @param arrivalPosition the arrival position
+     * @param arrivalSpeed the arrival speed
+     * @param fromTAZ the from TAZ
+     * @param toTAZ the to TAZ
+     * @param line the line
+     * @param person_capacity the person capacity
+     * @param person_number the person number
      * @return SumoCommand
      */
     public static SumoCommand addFull(String vehID, String routeID, String typeID, String depart, String departLane, String departPosition,
@@ -964,20 +1002,20 @@ public class Vehicle {
 
     /**
      * Place vehicle at the given x,y coordinates and force it's angle to
-        the given value (for drawing). If keepRoute is set to 1, the closest position
-        within the existing route is taken. If keepRoute is set to 0, the vehicle may move to
-        any edge in the network but it's route then only consists of that edge.
-        If keepRoute is set to 2 the vehicle has all the freedom of keepRoute=1
-        but in addition to that may even move outside the road network.
-        edgeID and lane are optional placement hints to resolve ambiguities
-
+     *         the given value (for drawing). If keepRoute is set to 1, the closest position
+     *         within the existing route is taken. If keepRoute is set to 0, the vehicle may move to
+     *         any edge in the network but it's route then only consists of that edge.
+     *         If keepRoute is set to 2 the vehicle has all the freedom of keepRoute=1
+     *         but in addition to that may even move outside the road network.
+     *         edgeID and lane are optional placement hints to resolve ambiguities
+     *
      * @param vehID vehicle id
      * @param edgeID edge id
      * @param lane lane
      * @param x x
      * @param y y
      * @param angle angle
-     * @param  keepRoute keepRoute
+     * @param keepRoute the keep route
      * @return SumoCommand
      */
     public static SumoCommand moveToXY(String vehID, String edgeID, int lane, double x, double y, double angle, byte keepRoute) {
@@ -1071,7 +1109,8 @@ public class Vehicle {
     }
 
     /**
-     * Sets the minimum lateral gap of the vehicle at 50km/h in m
+     * Sets the minimum lateral gap of the vehicle at 50km/h in m.
+     *
      * @param vehID id of the vehicle
      * @param minGapLat minGapLat
      * @return SumoCommand
@@ -1198,7 +1237,8 @@ public class Vehicle {
     }
 
     /**
-     * setImperfection
+     * setImperfection.
+     *
      * @param vehID vehicle id
      * @param imperfection imperfection
      * @return SumoCommand
@@ -1304,7 +1344,8 @@ public class Vehicle {
     }
 
     /**
-     * setShapeClass
+     * setShapeClass.
+     *
      * @param vehID vehicle id
      * @param clazz shape class
      * @return SumoCommand
@@ -1314,7 +1355,8 @@ public class Vehicle {
     }
 
     /**
-     * setSignals
+     * setSignals.
+     *
      * @param vehID vehicle id
      * @param signals signals
      * @return SumoCommand
@@ -1368,12 +1410,15 @@ public class Vehicle {
 
     /**
      * Lets the vehicle stop at the given edge, at the given position and lane. The vehicle will stop for the given duration. Re-issuing a stop command with the same lane and position allows changing the duration.
+     *
      * @param vehID vehicle id
      * @param edgeID edge id
      * @param pos positon
      * @param laneIndex lane index
      * @param duration duration
      * @param sf stop flags
+     * @param startPos the start pos
+     * @param until the until
      * @return SumoCommand
      */
     public static SumoCommand setStop(String vehID, String edgeID, double pos, byte laneIndex, double duration, SumoStopFlags sf, double startPos, double until) {
@@ -1384,10 +1429,11 @@ public class Vehicle {
 
     /**
      *  Adds or modifies a stop at a chargingStation with the given parameters. The duration and the until attribute are in seconds.
-     * @param vehID
-     * @param stopID
-     * @param duration
-     * @param until
+     *
+     * @param vehID the veh ID
+     * @param stopID the stop ID
+     * @param duration the duration
+     * @param until the until
      * @return SumoCommand
      */
 
@@ -1399,10 +1445,11 @@ public class Vehicle {
 
     /**
      * Adds or modifies a bus stop with the given parameters. The duration and the until attribute are in seconds.
+     *
      * @param vehID id of the vehicle
-     * @param stopID
-     * @param duration
-     * @param until
+     * @param stopID the stop ID
+     * @param duration the duration
+     * @param until the until
      * @return SumoCommand
      */
     public static SumoCommand setBusStop(String vehID, String stopID, double duration, double until) {
@@ -1413,11 +1460,11 @@ public class Vehicle {
 
     /**
      *  Adds or modifies a container stop with the given parameters. The duration and the until attribute are in seconds.
-
+     *
      * @param vehID id of the vehicle
-     * @param stopID
-     * @param duration
-     * @param until
+     * @param stopID the stop ID
+     * @param duration the duration
+     * @param until the until
      * @return SumoCommand
      */
     public static SumoCommand setContainerStop(String vehID, String stopID, double duration, double until) {
@@ -1428,9 +1475,11 @@ public class Vehicle {
 
     /**
      *  Adds or modifies a stop at a parkingArea with the given parameters. The duration and the until attribute are in seconds.
+     *
      * @param vehID vehicle id
      * @param stopID stopID
      * @param duration duration
+     * @param until the until
      * @return SumoCommand
      */
     public static SumoCommand setParkingAreaStop(String vehID, String stopID, double duration, double until) {
@@ -1440,7 +1489,8 @@ public class Vehicle {
 
 
     /**
-     * Continue after a stop
+     * Continue after a stop.
+     *
      * @param vehID vehicle id
      * @return SumoCommand
      */
@@ -1450,7 +1500,8 @@ public class Vehicle {
     }
 
     /**
-     * setTau
+     * setTau.
+     *
      * @param vehID vehicle id
      * @param tau tau
      * @return SumoCommand

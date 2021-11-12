@@ -1,0 +1,7 @@
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.primary' (first occurence for edge '4380937').
+Warning: Discarding unknown compound 'cycleway.opposite' in type 'cycleway.opposite|highway.residential' (first occurence for edge '154755108').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.secondary' (first occurence for edge '167324659').
+Warning: No way found for reference '150031205' in relation '1967696'
+Warning: Ignoring restriction relation '1967696' with unknown from-way.
+Warning: No way found for reference '219098055' in relation '2661670'
+Warning: Ignoring restriction relation '2661670' with unknown from-way.

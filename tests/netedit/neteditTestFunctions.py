@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2009-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    neteditTestFunctions.py
 # @author  Pablo Alvarez Lopez
@@ -24,12 +28,13 @@ import time
 import pyperclip
 
 # define delay before every operation
-DELAY_KEY = 0.2
-DELAY_KEY_TAB = 0.01
-DELAY_MOUSE = 0.5
+DELAY_KEY = 0.5         # 0.2 0.3
+DELAY_KEY_TAB = 0.5     # 0.1 0.2
+DELAY_MOUSE_MOVE = 0.5  # 0.1
+DELAY_MOUSE_CLICK = 1  # 0.5 0.7
 DELAY_QUESTION = 3
 DELAY_RELOAD = 5
-DELAY_REFERENCE = 30
+DELAY_START_NETEDIT = 3
 DELAY_QUIT_NETEDIT = 5
 DELAY_QUIT_SUMOGUI = 3
 DELAY_UNDOREDO = 1
@@ -38,6 +43,7 @@ DELAY_RECOMPUTE = 3
 DELAY_RECOMPUTE_VOLATILE = 5
 DELAY_REMOVESELECTION = 2
 DELAY_CHANGEMODE = 1
+DELAY_REFERENCE = 15
 
 _NETEDIT_APP = os.environ.get("NETEDIT_BINARY", "netedit")
 _TEXTTEST_SANDBOX = os.environ.get("TEXTTEST_SANDBOX", os.getcwd())
@@ -46,6 +52,26 @@ _REFERENCE_PNG = os.path.join(os.path.dirname(__file__), "reference.png")
 #################################################
 # interaction functions
 #################################################
+
+
+def typeKeyUp(key):
+    """
+    @brief type single key up
+    """
+    # Leave key up
+    pyautogui.keyUp(key)
+    # wait after key up
+    time.sleep(DELAY_KEY)
+
+
+def typeKeyDown(key):
+    """
+    @brief type single key down
+    """
+    # Leave key down
+    pyautogui.keyDown(key)
+    # wait after key down
+    time.sleep(DELAY_KEY)
 
 
 def typeEscape():
@@ -106,30 +132,34 @@ def typeKey(key):
     """
     @brief type single key
     """
-    # wait before every operation
-    time.sleep(DELAY_KEY)
     # type keys
     pyautogui.hotkey(key)
+    # wait before every operation
+    time.sleep(DELAY_KEY)
 
 
 def typeTwoKeys(key1, key2):
     """
     @brief type two keys at the same time (key1 -> key2)
     """
-    # wait before every operation
-    time.sleep(DELAY_KEY)
-    # type two keys at the same time
-    pyautogui.hotkey(key1, key2)
+    # press key 1
+    typeKeyDown(key1)
+    # type key 2
+    typeKey(key2)
+    # leave key 1
+    typeKeyUp(key1)
 
 
 def typeThreeKeys(key1, key2, key3):
     """
     @brief type three keys at the same time (key1 -> key2 -> key3)
     """
-    # wait before every operation
-    time.sleep(DELAY_KEY)
-    # type two keys at the same time
-    pyautogui.hotkey(key1, key2, key3)
+    # press key 1
+    typeKeyDown(key1)
+    # type key 2 and 3
+    typeTwoKeys(key2, key3)
+    # leave key 1
+    typeKeyUp(key1)
 
 
 def translateKeys(value, layout="de"):
@@ -153,7 +183,6 @@ def pasteIntoTextField(value, removePreviousContents=True, useClipboard=True, la
     # remove previous content
     if removePreviousContents:
         typeTwoKeys('ctrl', 'a')
-        time.sleep(DELAY_KEY)
     if useClipboard:
         # use copy & paste (due problems with certain characters, for example '|')
         pyperclip.copy(value)
@@ -166,14 +195,16 @@ def leftClick(referencePosition, positionx, positiony):
     """
     @brief do left click over a position relative to referencePosition (pink square)
     """
-    # wait before every operation
-    time.sleep(DELAY_MOUSE)
     # obtain clicked position
     clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
-    # click relative to offset
-    pyautogui.click(clickedPosition)
+    # move mouse to position
+    pyautogui.moveTo(clickedPosition)
+    # wait after move
+    time.sleep(DELAY_MOUSE_MOVE)
+    # click over position
+    pyautogui.click(button='left')
     # wait after every operation
-    time.sleep(DELAY_MOUSE)
+    time.sleep(DELAY_MOUSE_CLICK)
     print("TestFunctions: Clicked over position", clickedPosition[0], '-', clickedPosition[1])
 
 
@@ -182,37 +213,70 @@ def leftClickShift(referencePosition, positionx, positiony):
     @brief do left click over a position relative to referencePosition (pink square) while shift key is pressed
     """
     # Leave Shift key pressed
-    pyautogui.keyDown('shift')
-    # wait before every operation
-    time.sleep(DELAY_MOUSE)
+    typeKeyDown('shift')
     # obtain clicked position
     clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
-    # click relative to offset
-    pyautogui.click(clickedPosition)
+    # move mouse to position
+    pyautogui.moveTo(clickedPosition)
+    # wait after move
+    time.sleep(DELAY_MOUSE_MOVE)
+    # click over position
+    pyautogui.click(button='left')
+    # wait after every operation
+    time.sleep(DELAY_MOUSE_CLICK)
+    # show debug
     print("TestFunctions: Clicked with Shift key pressed over position", clickedPosition[0], '-', clickedPosition[1])
     # Release Shift key
-    pyautogui.keyUp('shift')
-    # wait after key up
-    time.sleep(DELAY_KEY)
+    typeKeyUp('shift')
 
 
 def leftClickControl(referencePosition, positionx, positiony):
     """
     @brief do left click over a position relative to referencePosition (pink square) while control key is pressed
     """
-    # Leave Shift key pressed
-    pyautogui.keyDown('ctrl')
-    # wait before every operation
-    time.sleep(DELAY_MOUSE)
+    # Leave Control key pressed
+    typeKeyDown('ctrl')
     # obtain clicked position
     clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
-    # click relative to offset
-    pyautogui.click(clickedPosition)
+    # move mouse to position
+    pyautogui.moveTo(clickedPosition)
+    # wait after move
+    time.sleep(DELAY_MOUSE_MOVE)
+    # click over position
+    pyautogui.click(button='left')
+    # wait after every operation
+    time.sleep(DELAY_MOUSE_CLICK)
+    # show debug
     print("TestFunctions: Clicked with Control key pressed over position", clickedPosition[0], '-', clickedPosition[1])
-    # Release Shift key
-    pyautogui.keyUp('ctrl')
-    # wait after key up
-    time.sleep(DELAY_KEY)
+    # Release Control key
+    typeKeyUp('ctrl')
+
+
+def leftClickAltShift(referencePosition, positionx, positiony):
+    """
+    @brief do left click over a position relative to referencePosition (pink square) while alt key is pressed
+    """
+    # Leave alt key pressed
+    typeKeyDown('alt')
+    # Leave shift key pressed
+    typeKeyDown('shift')
+    # obtain clicked position
+    clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
+    # move mouse to position
+    pyautogui.moveTo(clickedPosition)
+    # wait after move
+    time.sleep(DELAY_MOUSE_MOVE)
+    # click over position
+    pyautogui.click(button='left')
+    # wait after every operation
+    time.sleep(DELAY_MOUSE_CLICK)
+    # show debug
+    print("TestFunctions: Clicked with alt and shift key pressed over position",
+          clickedPosition[0], '-', clickedPosition[1])
+    # Release alt key
+    typeKeyUp('alt')
+    # Release shift key
+    typeKeyUp('shift')
 
 
 def dragDrop(referencePosition, x1, y1, x2, y2):
@@ -244,7 +308,7 @@ def Popen(extraParameters, debugInformation):
     """
     # set the default parameters of Netedit
     neteditCall = [_NETEDIT_APP, '--gui-testing', '--window-pos', '50,50',
-                   '--window-size', '700,500', '--no-warnings',
+                   '--window-size', '936, 697', '--no-warnings',
                    '--error-log', os.path.join(_TEXTTEST_SANDBOX, 'log.txt')]
 
     # check if debug output information has to be enabled
@@ -261,10 +325,19 @@ def Popen(extraParameters, debugInformation):
         neteditCall += ['-a',
                         os.path.join(_TEXTTEST_SANDBOX, "input_additionals.add.xml")]
 
-    # Check if routes must be loaded
-    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_routes.rou.xml")):
+    # Check if vTypes must be loaded
+    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_vtypes.rou.xml")):
+        neteditCall += ['-r',
+                        os.path.join(_TEXTTEST_SANDBOX, "input_vtypes.rou.xml,input_routes.rou.xml")]
+
+    elif os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_routes.rou.xml")):
         neteditCall += ['-r',
                         os.path.join(_TEXTTEST_SANDBOX, "input_routes.rou.xml")]
+
+    # Check if datas must be loaded
+    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_datas.dat.xml")):
+        neteditCall += ['-d',
+                        os.path.join(_TEXTTEST_SANDBOX, "input_datas.dat.xml")]
 
     # check if a gui settings file has to be load
     if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "gui-settings.xml")):
@@ -283,6 +356,10 @@ def Popen(extraParameters, debugInformation):
     neteditCall += ['--demandelements-output',
                     os.path.join(_TEXTTEST_SANDBOX, "routes.xml")]
 
+    # set output for datas
+    neteditCall += ['--dataelements-output',
+                    os.path.join(_TEXTTEST_SANDBOX, "datas.xml")]
+
     # set output for gui
     neteditCall += ['--gui-testing.setting-output',
                     os.path.join(_TEXTTEST_SANDBOX, "guisettingsoutput.xml")]
@@ -294,15 +371,17 @@ def Popen(extraParameters, debugInformation):
     return subprocess.Popen(neteditCall, env=os.environ, stdout=sys.stdout, stderr=sys.stderr)
 
 
-def getReferenceMatch(neProcess, waitTime):
+def getReferenceMatch(neProcess):
     """
     @brief obtain reference referencePosition (pink square)
     """
     # show information
     print("Finding reference")
     try:
+        # wait for reference
+        time.sleep(DELAY_REFERENCE)
         # capture screen and search reference
-        positionOnScreen = pyautogui.locateOnScreen(_REFERENCE_PNG, waitTime)
+        positionOnScreen = pyautogui.locateOnScreen(_REFERENCE_PNG, 1)
     except Exception as e:
         # we cannot specify the exception here because some versions of pyautogui use one and some don't
         print(e)
@@ -318,6 +397,17 @@ def getReferenceMatch(neProcess, waitTime):
         if referencePosition != (304, 168):
             print("TestFunctions: Position of 'reference.png' isn't consistent. Check that interface scaling " +
                   "is 100% (See #3746)")
+        # click over position
+        pyautogui.moveTo(referencePosition)
+        # wait
+        time.sleep(DELAY_MOUSE_MOVE)
+        # press i for inspect mode
+        typeKey("i")
+        # click over position (used to center view in window)
+        pyautogui.click(button='left')
+        # wait after every operation
+        time.sleep(DELAY_MOUSE_CLICK)
+        # return reference position
         return referencePosition
     # reference not found, then kill netedit process
     neProcess.kill()
@@ -325,7 +415,7 @@ def getReferenceMatch(neProcess, waitTime):
     sys.exit("TestFunctions: Killed Netedit process. 'reference.png' not found")
 
 
-def setupAndStart(testRoot, extraParameters=[], debugInformation=True, waitTime=DELAY_REFERENCE):
+def setupAndStart(testRoot, extraParameters=[], debugInformation=True):
     """
     @brief setup and start netedit
     """
@@ -337,20 +427,33 @@ def setupAndStart(testRoot, extraParameters=[], debugInformation=True, waitTime=
     # atexit.register(quit, neteditProcess, False, False)
     # print debug information
     print("TestFunctions: Netedit opened successfully")
+    # all keys up
+    typeKeyUp("shift")
+    typeKeyUp("control")
+    typeKeyUp("alt")
     # Wait for Netedit reference
-    return neteditProcess, getReferenceMatch(neteditProcess, waitTime)
+    return neteditProcess, getReferenceMatch(neteditProcess)
 
 
 def supermodeNetwork():
     """
-    @brief select Network Supermode
+    @brief select supermode Network
     """
-    typeKey('F3')
+    typeKey('F2')
 
 
 def supermodeDemand():
     """
-    @brief select Demand Supermode
+    @brief select supermode Demand
+    """
+    typeKey('F3')
+    # wait for output
+    time.sleep(DELAY_RECOMPUTE)
+
+
+def supermodeData():
+    """
+    @brief select supermode Data
     """
     typeKey('F4')
     # wait for output
@@ -398,34 +501,39 @@ def focusOnFrame():
     """
     @brief select focus on upper element of current frame
     """
-    typeKey('F12')
+    typeTwoKeys('shift', 'F12')
+    time.sleep(1)
 
 
-def undo(referencePosition, number):
+def undo(referencePosition, number, posX=0, posY=0):
     """
     @brief undo last operation
     """
     # first wait
     time.sleep(DELAY_UNDOREDO)
+    # focus current frame
+    focusOnFrame()
     # needed to avoid errors with undo/redo (Provisionally)
     typeKey('i')
     # click over referencePosition
-    leftClick(referencePosition, 0, 0)
+    leftClick(referencePosition, posX, posY)
     for _ in range(number):
         typeTwoKeys('ctrl', 'z')
         time.sleep(DELAY_UNDOREDO)
 
 
-def redo(referencePosition, number):
+def redo(referencePosition, number, posX=0, posY=0):
     """
     @brief undo last operation
     """
     # first wait
     time.sleep(DELAY_UNDOREDO)
+    # focus current frame
+    focusOnFrame()
     # needed to avoid errors with undo/redo (Provisionally)
     typeKey('i')
     # click over referencePosition
-    leftClick(referencePosition, 0, 0)
+    leftClick(referencePosition, posX, posY)
     for _ in range(number):
         typeTwoKeys('ctrl', 'y')
         time.sleep(DELAY_UNDOREDO)
@@ -466,7 +574,8 @@ def waitQuestion(answer):
 
 def reload(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
            openAdditionalsNonSavedDialog=False, saveAdditionals=False,
-           openDemandNonSavedDialog=False, saveDemandElements=False):
+           openDemandNonSavedDialog=False, saveDemandElements=False,
+           openDataNonSavedDialog=False, saveDataElements=False):
     """
     @brief reload Netedit
     """
@@ -500,6 +609,14 @@ def reload(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
             waitQuestion('s')
         else:
             waitQuestion('q')
+    # Check if data elements must be saved
+    if openDataNonSavedDialog:
+        # Wait some seconds
+        time.sleep(DELAY_QUESTION)
+        if saveDataElements:
+            waitQuestion('s')
+        else:
+            waitQuestion('q')
     # Wait some seconds
     time.sleep(DELAY_RELOAD)
     # check if Netedit was crashed during reloading
@@ -509,7 +626,8 @@ def reload(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
 
 def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
          openAdditionalsNonSavedDialog=False, saveAdditionals=False,
-         openDemandNonSavedDialog=False, saveDemandElements=False):
+         openDemandNonSavedDialog=False, saveDemandElements=False,
+         openDataNonSavedDialog=False, saveDataElements=False):
     """
     @brief quit Netedit
     """
@@ -548,11 +666,24 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
                 waitQuestion('s')
             else:
                 waitQuestion('q')
+        # Check if data elements must be saved
+        if openDataNonSavedDialog:
+            # Wait some seconds
+            time.sleep(DELAY_QUESTION)
+            if saveDataElements:
+                waitQuestion('s')
+            else:
+                waitQuestion('q')
         # wait some seconds for netedit to quit
         if hasattr(subprocess, "TimeoutExpired"):
             try:
                 NeteditProcess.wait(DELAY_QUIT_NETEDIT)
                 print("TestFunctions: Netedit closed successfully")
+                # all keys up
+                typeKeyUp("shift")
+                typeKeyUp("control")
+                typeKeyUp("alt")
+                # exit
                 return
             except subprocess.TimeoutExpired:
                 pass
@@ -560,9 +691,20 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
             time.sleep(DELAY_QUIT_NETEDIT)
             if NeteditProcess.poll() is not None:
                 print("TestFunctions: Netedit closed successfully")
+                # all keys up
+                typeKeyUp("shift")
+                typeKeyUp("control")
+                typeKeyUp("alt")
+                # exit
                 return
         NeteditProcess.kill()
         print("TestFunctions: Error closing Netedit")
+        # all keys up
+        typeKeyUp("shift")
+        typeKeyUp("control")
+        typeKeyUp("alt")
+        # exit
+        return
 
 
 def openNetworkAs(waitTime=2):
@@ -581,14 +723,14 @@ def openNetworkAs(waitTime=2):
     time.sleep(waitTime)
 
 
-def saveNetwork(referencePosition, clickOverReference=False):
+def saveNetwork(referencePosition, clickOverReference=False, posX=0, posY=0):
     """
     @brief save network
     """
     # check if clickOverReference is enabled
     if clickOverReference:
         # click over reference (to avoid problem with undo-redo)
-        leftClick(referencePosition, 0, 0)
+        leftClick(referencePosition, posX, posY)
     # save network using hotkey
     typeTwoKeys('ctrl', 's')
     # wait for debug (due recomputing)
@@ -613,6 +755,38 @@ def saveNetworkAs(waitTime=2):
     time.sleep(DELAY_RECOMPUTE)
 
 
+def forceSaveNetwork():
+    """
+    @brief force save network
+    """
+    # change network save flag using hotkey
+    typeThreeKeys('ctrl', 'shift', 't')
+
+
+def forceSaveAdditionals():
+    """
+    @brief force save additionals
+    """
+    # change additional save flag using hotkey
+    typeThreeKeys('ctrl', 'shift', 'u')
+
+
+def forceSaveDemandElements():
+    """
+    @brief force save demand elements
+    """
+    # change demand elements save flag using hotkey
+    typeThreeKeys('ctrl', 'shift', 'v')
+
+
+def forceSaveDataElements():
+    """
+    @brief force save data elements
+    """
+    # change data elements save flag using hotkey
+    typeThreeKeys('ctrl', 'shift', 'w')
+
+
 def saveAdditionals(referencePosition, clickOverReference=False):
     """
     @brief save additionals
@@ -635,6 +809,18 @@ def saveRoutes(referencePosition, clickOverReference=True):
         leftClick(referencePosition, 0, 0)
     # save routes using hotkey
     typeThreeKeys('ctrl', 'shift', 'd')
+
+
+def saveDatas(referencePosition, clickOverReference=True, posX=0, posY=0):
+    """
+    @brief save datas
+    """
+    # check if clickOverReference is enabled
+    if clickOverReference:
+        # click over reference (to avoid problem with undo-redo)
+        leftClick(referencePosition, posX, posY)
+    # save datas using hotkey
+    typeThreeKeys('ctrl', 'shift', 'b')
 
 
 def fixDemandElements(solution):
@@ -677,8 +863,8 @@ def openAboutDialog(waitingTime=DELAY_QUESTION):
     """
     @brief open and close about dialog
     """
-    # type F2 to open about dialog
-    typeKey('F2')
+    # type F12 to open about dialog
+    typeKey('F12')
     # wait before closing
     time.sleep(waitingTime)
     # press enter to close dialog (Ok must be focused)
@@ -818,6 +1004,36 @@ def checkParameters(referencePosition, attributeNumber, overlapped):
     modifyAttribute(attributeNumber, "key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3", overlapped)
     # Change generic parameters with a valid value
     modifyAttribute(attributeNumber, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3", overlapped)
+    # Check undo
+    undo(referencePosition, 10)
+    # Check redo
+    redo(referencePosition, 10)
+
+
+def checkDoubleParameters(referencePosition, attributeNumber, overlapped, posX=0, posY=0):
+    """
+    @brief Check generic parameters
+    """
+    # Change generic parameters with an invalid value (dummy)
+    modifyAttribute(attributeNumber, "dummyGenericParameters", overlapped)
+    # Change generic parameters with an invalid value (invalid format)
+    modifyAttribute(attributeNumber, "key1|key2|key3", overlapped)
+    # Change generic parameters with a valid value
+    modifyAttribute(attributeNumber, "key1=1|key2=2|key3=3", overlapped)
+    # Change generic parameters with a valid value (empty values)
+    modifyAttribute(attributeNumber, "key1=|key2=|key3=", overlapped)
+    # Change generic parameters with a valid value (clear parameters)
+    modifyAttribute(attributeNumber, "", overlapped)
+    # Change generic parameters with an valid value (duplicated keys)
+    modifyAttribute(attributeNumber, "key1duplicated=1|key1duplicated=2|key3=3", overlapped)
+    # Change generic parameters with a valid value (duplicated values)
+    modifyAttribute(attributeNumber, "key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated", overlapped)
+    # Change generic parameters with an invalid value (invalid key characters)
+    modifyAttribute(attributeNumber, "keyInvalid.;%>%$$=1|key2=2|key3=3", overlapped)
+    # Change generic parameters with a invalid value (invalid value characters)
+    modifyAttribute(attributeNumber, "key1=valueInvalid%;%$<>$$%|key2=2|key3=3", overlapped)
+    # Change generic parameters with a valid value
+    modifyAttribute(attributeNumber, "keyFinal1=1|keyFinal2=2|keyFinal3=3", overlapped)
     # Check undo (including load/creation)
     undo(referencePosition, 8)
     # Check redo
@@ -959,18 +1175,18 @@ def createConnection(referencePosition, fromLanePositionX, fromLanePositionY,
     """
     # check if connection has to be created in certain mode
     if mode == "conflict":
-        pyautogui.keyDown('ctrl')
+        typeKeyDown('ctrl')
     elif mode == "yield":
-        pyautogui.keyDown('shift')
+        typeKeyDown('shift')
     # select first lane
     leftClick(referencePosition, fromLanePositionX, fromLanePositionY)
     # select another lane for create a connection
     leftClick(referencePosition, toLanePositionX, toLanePositionY)
     # check if connection has to be created in certain mode
     if mode == "conflict":
-        pyautogui.keyUp('ctrl')
+        typeKeyUp('ctrl')
     elif mode == "yield":
-        pyautogui.keyUp('shift')
+        typeKeyUp('shift')
 
 
 def saveConnectionEdit():
@@ -1328,14 +1544,53 @@ def deleteUsingSuprKey():
     time.sleep(DELAY_REMOVESELECTION)
 
 
+def changeRemoveOnlyGeometryPoint(referencePosition):
+    """
+    @brief Enable or disable 'Remove only geometry point'
+    """
+    # select delete mode again to set mode
+    deleteMode()
+    # jump to checkbox
+    typeTab()
+    # type SPACE to change value
+    typeSpace()
+
+
 def changeAutomaticallyDeleteAdditionals(referencePosition):
     """
     @brief Enable or disable 'automatically delete Additionals'
     """
     # select delete mode again to set mode
     deleteMode()
-    # use TAB to go to check box
-    typeTab()
+    # jump to checkbox
+    for _ in range(2):
+        typeTab()
+    # type SPACE to change value
+    typeSpace()
+
+
+def changeProtectTAZElements(referencePosition):
+    """
+    @brief Enable or disable 'protect TAZ elements'
+    """
+    # select delete mode again to set mode
+    deleteMode()
+    # jump to checkbox
+    for _ in range(3):
+        typeTab()
+    # type SPACE to change value
+    typeSpace()
+
+
+def changeProtectShapeElements(referencePosition):
+    """
+    @brief Enable or disable 'protect shape elements'
+    """
+    # select delete mode again to set mode
+    deleteMode()
+    # jump to checkbox
+    for _ in range(4):
+        typeTab()
     # type SPACE to change value
     typeSpace()
 
@@ -1347,7 +1602,20 @@ def changeProtectDemandElements(referencePosition):
     # select delete mode again to set mode
     deleteMode()
     # jump to checkbox
-    for _ in range(3):
+    for _ in range(5):
+        typeTab()
+    # type SPACE to change value
+    typeSpace()
+
+
+def changeProtectDataElements(referencePosition):
+    """
+    @brief Enable or disable 'protect data elements'
+    """
+    # select delete mode again to set mode
+    deleteMode()
+    # jump to checkbox
+    for _ in range(6):
         typeTab()
     # type SPACE to change value
     typeSpace()
@@ -1403,7 +1671,7 @@ def selectDefault():
     """
     # focus current frame
     focusOnFrame()
-    for _ in range(19):
+    for _ in range(20):
         typeTab()
     # type enter to select it
     typeEnter()
@@ -1417,7 +1685,7 @@ def saveSelection():
     """
     focusOnFrame()
     # jump to save
-    for _ in range(24):
+    for _ in range(16):
         typeTab()
     typeSpace()
     # jump to filename TextField
@@ -1433,7 +1701,7 @@ def loadSelection():
     """
     focusOnFrame()
     # jump to save
-    for _ in range(25):
+    for _ in range(19):
         typeTab()
     typeSpace()
     # jump to filename TextField
@@ -1452,7 +1720,7 @@ def selectItems(elementClass, elementType, attribute, value):
     # focus current frame
     focusOnFrame()
     # jump to elementClass
-    for _ in range(13):
+    for _ in range(5):
         typeTab()
     # paste the new elementClass
     pasteIntoTextField(elementClass)
@@ -1493,7 +1761,7 @@ def modificationModeAdd():
     # focus current frame
     focusOnFrame()
     # jump to mode "add"
-    for _ in range(9):
+    for _ in range(1):
         typeTab()
     # select it
     typeSpace()
@@ -1506,7 +1774,7 @@ def modificationModeRemove():
     # focus current frame
     focusOnFrame()
     # jump to mode "remove"
-    for _ in range(10):
+    for _ in range(2):
         typeTab()
     # select it
     typeSpace()
@@ -1519,7 +1787,7 @@ def modificationModeKeep():
     # focus current frame
     focusOnFrame()
     # jump to mode "keep"
-    for _ in range(11):
+    for _ in range(3):
         typeTab()
     # select it
     typeSpace()
@@ -1532,7 +1800,7 @@ def modificationModeReplace():
     # focus current frame
     focusOnFrame()
     # jump to mode "replace"
-    for _ in range(12):
+    for _ in range(4):
         typeTab()
     # select it
     typeSpace()
@@ -1543,26 +1811,38 @@ def selectionRectangle(referencePosition, startX, startY, endX, endY):
     @brief select using an rectangle
     """
     # Leave Shift key pressedX
-    pyautogui.keyDown('shift')
-    # wait after key up
-    time.sleep(DELAY_KEY)
+    typeKeyDown('shift')
     # move element
     dragDrop(referencePosition, startX, startY, endX, endY)
     # wait after key up
     time.sleep(DELAY_KEY)
     # Release Shift key
-    pyautogui.keyUp('shift')
+    typeKeyUp('shift')
     # wait for gl debug
     time.sleep(DELAY_SELECT)
 
 
-def selectionClear(previouslyInserted=False):
+def selectionApply():
+    """
+    @brief apply selection
+    """
+    # focus current frame
+    focusOnFrame()
+    for _ in range(12):
+        typeTab()
+    # type space to select clear option
+    typeSpace()
+    # wait for gl debug
+    time.sleep(DELAY_SELECT)
+
+
+def selectionClear():
     """
     @brief clear selection
     """
     # focus current frame
     focusOnFrame()
-    for _ in range(22):
+    for _ in range(15):
         typeTab()
     # type space to select clear option
     typeSpace()
@@ -1576,26 +1856,13 @@ def selectionInvert():
     """
     # focus current frame
     focusOnFrame()
-    for _ in range(23):
+    for _ in range(18):
         typeTab()
     # type space to select invert operation
     typeSpace()
     # wait for gl debug
     time.sleep(DELAY_SELECT)
 
-
-def selectionInvertDemand():
-    """
-    @brief invert selection (demand mode)
-    """
-    # focus current frame
-    focusOnFrame()
-    for _ in range(28):
-        typeTab()
-    # type space to select invert operation
-    typeSpace()
-    # wait for gl debug
-    time.sleep(DELAY_SELECT)
 
 #################################################
 # traffic light
@@ -1617,8 +1884,8 @@ def createTLS():
     """
     # focus current frame
     focusOnFrame()
-    # type tab 3 times to jump to create TLS button
-    for _ in range(3):
+    # type tab 2 times to jump to create TLS button
+    for _ in range(2):
         typeTab()
     # create TLS
     typeSpace()
@@ -1752,6 +2019,146 @@ def GEOPOILatLon():
     for _ in range(17):
         typeTab()
     # Change current value
+    typeSpace()
+
+
+#################################################
+# TAZs
+#################################################
+
+
+def TAZMode():
+    """
+    @brief change to TAZ mode
+    """
+    typeKey('z')
+    # wait for gl debug
+    time.sleep(DELAY_CHANGEMODE)
+
+
+def createSquaredTAZ(referencePosition, positionx, positiony, size, close):
+    """
+    @brief Create squared TAZ in position with a certain size
+    """
+    # focus current frame
+    focusOnFrame()
+    # start draw
+    typeEnter()
+    # create TAZ
+    leftClick(referencePosition, positionx, positiony)
+    leftClick(referencePosition, positionx, positiony - (size / 2))
+    leftClick(referencePosition, positionx - (size / 2), positiony - (size / 2))
+    leftClick(referencePosition, positionx - (size / 2), positiony)
+    # check if TAZ has to be closed
+    if (close is True):
+        leftClick(referencePosition, positionx, positiony)
+    # finish draw
+    typeEnter()
+
+
+def createRectangledTAZ(referencePosition, positionx, positiony, sizex, sizey, close):
+    """
+    @brief Create rectangle TAZ in position with a certain size
+    """
+    # focus current frame
+    focusOnFrame()
+    # start draw
+    typeEnter()
+    # create TAZ
+    leftClick(referencePosition, positionx, positiony)
+    leftClick(referencePosition, positionx, positiony - (sizey / 2))
+    leftClick(referencePosition, positionx - (sizex / 2), positiony - (sizey / 2))
+    leftClick(referencePosition, positionx - (sizex / 2), positiony)
+    # check if TAZ has to be closed
+    if (close is True):
+        leftClick(referencePosition, positionx, positiony)
+    # finish draw
+    typeEnter()
+
+
+def createLineTAZ(referencePosition, positionx, positiony, sizex, sizey, close):
+    """
+    @brief Create line TAZ in position with a certain size
+    """
+    # focus current frame
+    focusOnFrame()
+    # start draw
+    typeEnter()
+    # create TAZ
+    leftClick(referencePosition, positionx, positiony)
+    leftClick(referencePosition, positionx - (sizex / 2), positiony - (sizey / 2))
+    # check if TAZ has to be closed
+    if (close is True):
+        leftClick(referencePosition, positionx, positiony)
+    # finish draw
+    typeEnter()
+
+#################################################
+# datas
+#################################################
+
+
+def edgeData():
+    """
+    @brief change to edgeData mode
+    """
+    typeKey('e')
+    # wait for gl debug
+    time.sleep(DELAY_CHANGEMODE)
+
+
+def edgeRelData():
+    """
+    @brief change to edgeRelData mode
+    """
+    typeKey('r')
+    # wait for gl debug
+    time.sleep(DELAY_CHANGEMODE)
+
+
+def createDataSet(dataSetID="newDataSet"):
+    """
+    @brief create dataSet
+    """
+    # focus current frame
+    focusOnFrame()
+    # go to create new dataSet
+    typeTab()
+    # enable create dataSet
+    typeSpace()
+    # go to create new dataSet
+    typeTab()
+    # create new ID
+    pasteIntoTextField(dataSetID)
+    # go to create new dataSet button
+    typeTab()
+    # create dataSet
+    typeSpace()
+
+
+def createDataInterval(begin="0", end="3600"):
+    """
+    @brief create dataInterval
+    """
+    # focus current frame
+    focusOnFrame()
+    # go to create new dataInterval
+    for _ in range(3):
+        typeTab()
+    typeTab()
+    # enable create dataInterval
+    typeSpace()
+    # go to create new dataInterval begin
+    typeTab()
+    # set begin
+    pasteIntoTextField(begin)
+    # go to end
+    typeTab()
+    # set end
+    pasteIntoTextField(end)
+    # go to create new dataSet button
+    typeTab()
+    # create dataSet
     typeSpace()
 
 #################################################

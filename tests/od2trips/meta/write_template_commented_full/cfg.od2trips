@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov  8 13:16:08 2019 by Eclipse SUMO od2trips Version v1_3_1+0801-355be15e4b
+<!-- generated on 2021-09-30 11:26:30 by Eclipse SUMO od2trips Version v1_10_0+1103-00b9b6a4ecb
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/od2tripsConfiguration.xsd">
@@ -33,6 +33,12 @@
         <!-- Loads O/D-matrix in Amitran format from FILE(s) -->
         <od-amitran-files value="" synonymes="amitran amitran-files" type="FILE"/>
 
+        <!-- Loads O/D-matrix in tazRelation format from FILE(s) -->
+        <tazrelation-files value="" synonymes="z" type="FILE"/>
+
+        <!-- Define data attribute for loading counts (default &apos;count&apos;) -->
+        <tazrelation-attribute value="count" synonymes="attribute" type="STR"/>
+
     </input>
 
     <output>
@@ -48,7 +54,7 @@
         <!-- Defines the number of digits after the comma for lon,lat output -->
         <precision.geo value="6" type="INT"/>
 
-        <!-- Write time values as hour:minute:second or day:hour:minute:second rathern than seconds -->
+        <!-- Write time values as hour:minute:second or day:hour:minute:second rather than seconds -->
         <human-readable-time value="false" synonymes="H" type="BOOL"/>
 
         <!-- Writes trip definitions into FILE -->
@@ -66,8 +72,14 @@
         <!-- Writes persontrips instead of vehicles -->
         <persontrips value="false" type="BOOL"/>
 
+        <!-- Add modes attribute to personTrips -->
+        <persontrips.modes value="" type="STR[]"/>
+
         <!-- Does not save vtype information -->
         <ignore-vehicle-type value="false" synonymes="no-vtype" type="BOOL"/>
+
+        <!-- Writes trips between junctions -->
+        <junctions value="false" type="BOOL"/>
 
     </output>
 
@@ -76,7 +88,7 @@
         <begin value="0" synonymes="b" type="TIME"/>
 
         <!-- Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent -->
-        <end value="9223372036854774" synonymes="e" type="TIME"/>
+        <end value="-1" synonymes="e" type="TIME"/>
 
     </time>
 
@@ -143,9 +155,6 @@
 
         <!-- Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
         <xml-validation value="auto" synonymes="X" type="STR"/>
-
-        <!-- Set schema validation scheme of SUMO network inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
-        <xml-validation.net value="never" type="STR"/>
 
         <!-- Disables output of warnings -->
         <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL"/>

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    ROMAFrame.cpp
 /// @author  Daniel Krajzewicz
@@ -16,11 +20,6 @@
 ///
 // Sets and checks options for ma-routing
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <iostream>
@@ -53,7 +52,6 @@ ROMAFrame::fillOptions() {
     oc.addOptionSubTopic("Processing");
     oc.addOptionSubTopic("Defaults");
     oc.addOptionSubTopic("Time");
-    SystemFrame::addReportOptions(oc); // fill this subtopic, too
 
     // insert options
     addImportOptions();
@@ -103,6 +101,13 @@ ROMAFrame::addImportOptions() {
     oc.addSynonyme("od-amitran-files", "amitran");
     oc.addDescription("od-amitran-files", "Input", "Loads O/D-matrix in Amitran format from FILE(s)");
 
+    oc.doRegister("tazrelation-files", 'z', new Option_FileName());
+    oc.addDescription("tazrelation-files", "Input", "Loads O/D-matrix in tazRelation format from FILE(s)");
+
+    oc.doRegister("tazrelation-attribute", new Option_String("count"));
+    oc.addSynonyme("tazrelation-attribute", "attribute");
+    oc.addDescription("tazrelation-attribute", "Input", "Define data attribute for loading counts (default 'count')");
+
     oc.doRegister("route-files", 'r', new Option_FileName());
     oc.addSynonyme("route-files", "routes");
     oc.addSynonyme("route-files", "trips");
@@ -126,11 +131,20 @@ ROMAFrame::addImportOptions() {
     oc.doRegister("taz-param", new Option_StringVector());
     oc.addDescription("taz-param", "Input", "Parameter key(s) defining source (and sink) taz");
 
+    oc.doRegister("junction-taz", new Option_Bool(false));
+    oc.addDescription("junction-taz", "Input", "Initialize a TAZ for every junction to use attributes toJunction and fromJunction");
+
+    oc.doRegister("ignore-taz", new Option_Bool(false));
+    oc.addDescription("ignore-taz", "Input", "Ignore attributes 'fromTaz' and 'toTaz'");
+
+    // need to do this here to be able to check for network and route input options
+    SystemFrame::addReportOptions(oc);
+
     // register the time settings
     oc.doRegister("begin", 'b', new Option_String("0", "TIME"));
     oc.addDescription("begin", "Time", "Defines the begin time; Previous trips will be discarded");
 
-    oc.doRegister("end", 'e', new Option_String(SUMOTIME_MAXSTRING, "TIME"));
+    oc.doRegister("end", 'e', new Option_String("-1", "TIME"));
     oc.addDescription("end", "Time", "Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent");
 
     // register the processing options
@@ -145,6 +159,9 @@ ROMAFrame::addImportOptions() {
     oc.doRegister("max-alternatives", new Option_Integer(5));
     oc.addDescription("max-alternatives", "Processing", "Prune the number of alternatives to INT");
 
+    oc.doRegister("capacities.default", new Option_Bool(false));
+    oc.addDescription("capacities.default", "Processing", "Ignore edge priorities when calculating capacities and restraints");
+
     oc.doRegister("weights.interpolate", new Option_Bool(false));
     oc.addSynonyme("weights.interpolate", "interpolate", true);
     oc.addDescription("weights.interpolate", "Processing", "Interpolate edge weights at interval boundaries");
@@ -152,6 +169,9 @@ ROMAFrame::addImportOptions() {
     oc.doRegister("weights.expand", new Option_Bool(false));
     oc.addSynonyme("weights.expand", "expand-weights", true);
     oc.addDescription("weights.expand", "Processing", "Expand weights behind the simulation's end");
+
+    oc.doRegister("weights.priority-factor", new Option_Float(0));
+    oc.addDescription("weights.priority-factor", "Processing", "Consider edge priorities in addition to travel times, weighted by factor");
 
     oc.doRegister("routing-algorithm", new Option_String("dijkstra"));
     oc.addDescription("routing-algorithm", "Processing", "Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']");
@@ -243,7 +263,7 @@ ROMAFrame::addAssignmentOptions() {
     oc.addDescription("max-iterations", "Processing", "maximal number of iterations for new route searching in incremental and stochastic user assignment");
 
     oc.doRegister("max-inner-iterations", new Option_Integer(1000));
-    oc.addDescription("max-inner-iterations", "Processing", "maximal number of inner iterations for user equilibrium calcuation in the stochastic user assignment");
+    oc.addDescription("max-inner-iterations", "Processing", "maximal number of inner iterations for user equilibrium calculation in the stochastic user assignment");
 
     // register route choice settings
     oc.doRegister("route-choice-method", new Option_String("logit"));
@@ -295,6 +315,4 @@ ROMAFrame::checkOptions() {
 }
 
 
-
 /****************************************************************************/
-

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 13 Sep 2019 10:25:37 AM CEST by Eclipse SUMO netedit Version v1_3_1+0290-d9b3819
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <new value="true"/>
+    </input>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <netedit>
+        <additional-files value="/scr2/debug/4042/input_routes.rou.xml"/>
+        <route-files value="/scr2/debug/4042/input_routes.rou.xml"/>
+    </netedit>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <personFlow id="p" begin="0" end="1" number="10">
+        <walk from="beg" busStop="A"/>
+        <walk to="end"/>
+    </personFlow>
+</routes>

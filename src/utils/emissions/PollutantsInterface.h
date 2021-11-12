@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    PollutantsInterface.h
 /// @author  Daniel Krajzewicz
@@ -14,13 +18,7 @@
 ///
 // Interface to capsulate different emission models
 /****************************************************************************/
-#ifndef PollutantsInterface_h
-#define PollutantsInterface_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <cctype>  // defines std::tolower
@@ -36,6 +34,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class EnergyParams;
 class HelpersHBEFA;
 class HelpersHBEFA3;
 class HelpersPHEMlight;
@@ -60,14 +59,6 @@ public:
      * @brief Storage for collected values of all emission types
      */
     struct Emissions {
-        double CO2;
-        double CO;
-        double HC;
-        double fuel;
-        double NOx;
-        double PMx;
-        double electricity;
-
         /** @brief Constructor, intializes all members
          * @param[in] co2 initial value for CO2, defaults to 0
          * @param[in] co  initial value for CO, defaults to 0
@@ -77,42 +68,41 @@ public:
          * @param[in] pmx initial value for PMx, defaults to 0
          * @param[in] elec initial value for electricity, defaults to 0
          */
-        Emissions(double co2 = 0, double co = 0, double hc = 0, double f = 0, double nox = 0, double pmx = 0, double elec = 0)
-            : CO2(co2), CO(co), HC(hc), fuel(f), NOx(nox), PMx(pmx), electricity(elec) {
-        }
+        Emissions(double co2 = 0, double co = 0, double hc = 0, double f = 0, double nox = 0, double pmx = 0, double elec = 0);
 
         /** @brief Add the values of the other struct to this one, scaling the values if needed
          * @param[in] a the other emission valuess
          * @param[in] scale scaling factor, defaulting to 1 (no scaling)
          */
-        void addScaled(const Emissions& a, const double scale = 1.) {
-            CO2 += scale * a.CO2;
-            CO += scale * a.CO;
-            HC += scale * a.HC;
-            fuel += scale * a.fuel;
-            NOx += scale * a.NOx;
-            PMx += scale * a.PMx;
-            electricity += scale * a.electricity;
-        }
+        void addScaled(const Emissions& a, const double scale = 1.);
+
+        /// @brief emission types
+        /// @{
+        double CO2;
+        double CO;
+        double HC;
+        double fuel;
+        double NOx;
+        double PMx;
+        double electricity;
+        /// @}
     };
 
     /**
     * @class Helper
-    * @brief abstract superclass for the model helpers
+    * @brief zero emission model, used as superclass for the other model helpers
     */
     class Helper {
     public:
         /** @brief Constructor, intializes the name
          * @param[in] name the name of the model (string before the '/' in the emission class attribute)
          */
-        Helper(std::string name) : myName(name) {}
+        Helper(std::string name, const int baseIndex, const int defaultClass);
 
         /** @brief Returns the name of the model
          * @return the name of the model (string before the '/' in the emission class attribute)
          */
-        const std::string& getName() const {
-            return myName;
-        }
+        const std::string& getName() const;
 
         /** @brief Returns the emission class associated with the given name, aliases are possible
          * If this method is asked for the "unknown" class it should return the default
@@ -123,47 +113,20 @@ public:
          * @param[in] vc the vehicle class to use when determining default class
          * @return the name of the model (string before the '/' in the emission class)
          */
-        virtual SUMOEmissionClass getClassByName(const std::string& eClass, const SUMOVehicleClass vc) {
-            UNUSED_PARAMETER(vc);
-            if (myEmissionClassStrings.hasString(eClass)) {
-                return myEmissionClassStrings.get(eClass);
-            }
-            std::string eclower = eClass;
-            /*
-               For some compilers, std::tolower cannot be resolved correctly, resulting in error messages
-               like "No matching function found ... unresolved overloaded function type.", see e.g.
-               https://stackoverflow.com/questions/5539249. The problem may be fixed by specifying ::tolower,
-               the global namespace version of the function that has no overloads.
-
-               Similarly, https://en.cppreference.com/w/cpp/string/byte/tolower suggests that one should not
-               use any of the functions defined in <cctype> with standard algorithms (like `transform`) when
-               the iterator type is `char` or `signed char` -- we shall convert the value to `unsigned char`
-               first:
-
-               std::transform(s.begin(), s.end(), s.begin(), [](unsigned char c){ return std::tolower(c); });
-
-               This, however, still generates an ugly warning in VS2017. Go figure ...
-            */
-            std::transform(eclower.begin(), eclower.end(), eclower.begin(), [](unsigned char c) { return std::tolower(c); });
-            return myEmissionClassStrings.get(eclower);
-        }
+        virtual SUMOEmissionClass getClassByName(const std::string& eClass, const SUMOVehicleClass vc);
 
         /** @brief Returns the complete name of the emission class including the model
          * @param[in] c the emission class
          * @return the name of the class (the complete emission class attribute)
          */
-        const std::string getClassName(const SUMOEmissionClass c) const {
-            return myName + "/" + myEmissionClassStrings.getString(c);
-        }
+        const std::string getClassName(const SUMOEmissionClass c) const;
 
         /** @brief Returns whether the class denotes a silent vehicle for interfacing with the noise model.
          * By default the first class in each model is the silent class.
          * @param[in] c the emission class
          * @return whether the class denotes a silent vehicle
          */
-        virtual bool isSilent(const SUMOEmissionClass c) {
-            return (c & 0xffffffff & ~HEAVY_BIT) == 0;
-        }
+        virtual bool isSilent(const SUMOEmissionClass c);
 
         /// @name Methods for Amitran interfaces
         /// @{
@@ -178,44 +141,29 @@ public:
          * @param[in] weight the vehicle weight in kg as described in the Amitran interface
          * @return the class described by the parameters
          */
-        virtual SUMOEmissionClass getClass(const SUMOEmissionClass base, const std::string& vClass,
-                                           const std::string& fuel, const std::string& eClass, const double weight) const {
-            UNUSED_PARAMETER(vClass);
-            UNUSED_PARAMETER(fuel);
-            UNUSED_PARAMETER(eClass);
-            UNUSED_PARAMETER(weight);
-            return base;
-        }
+        virtual SUMOEmissionClass getClass(const SUMOEmissionClass base, const std::string& vClass, const std::string& fuel,
+                                           const std::string& eClass, const double weight) const;
 
         /** @brief Returns the vehicle class described by this emission class as described in the Amitran interface (Passenger, ...)
          * Default implementation returns always "Passenger".
          * @param[in] c the emission class
          * @return the name of the vehicle class
          */
-        virtual std::string getAmitranVehicleClass(const SUMOEmissionClass c) const {
-            UNUSED_PARAMETER(c);
-            return "Passenger";
-        }
+        virtual std::string getAmitranVehicleClass(const SUMOEmissionClass c) const;
 
         /** @brief Returns the fuel type described by this emission class as described in the Amitran interface (Gasoline, Diesel, ...)
          * Default implementation returns always "Gasoline".
          * @param[in] c the emission class
          * @return the fuel type
          */
-        virtual std::string getFuel(const SUMOEmissionClass c) const {
-            UNUSED_PARAMETER(c);
-            return "Gasoline";
-        }
+        virtual std::string getFuel(const SUMOEmissionClass c) const;
 
         /** @brief Returns the Euro emission class described by this emission class as described in the Amitran interface (0, ..., 6)
          * Default implementation returns always 0.
          * @param[in] c the emission class
          * @return the Euro class
          */
-        virtual int getEuroClass(const SUMOEmissionClass c) const {
-            UNUSED_PARAMETER(c);
-            return 0;
-        }
+        virtual int getEuroClass(const SUMOEmissionClass c) const;
 
         /** @brief Returns a reference weight in kg described by this emission class as described in the Amitran interface
         * It might return -1, if the weight is not important to distinguish different emission classes.
@@ -223,10 +171,7 @@ public:
         * @param[in] c the emission class
         * @return a reference weight
         */
-        virtual double getWeight(const SUMOEmissionClass c) const {
-            UNUSED_PARAMETER(c);
-            return -1.;
-        }
+        virtual double getWeight(const SUMOEmissionClass c) const;
         /// @}
 
         /** @brief Returns the amount of the emitted pollutant given the vehicle type and state (in mg/s or ml/s for fuel)
@@ -237,7 +182,7 @@ public:
          * @param[in] slope The road's slope at vehicle's position [deg]
          * @return The amount emitted by the given emission class when moving with the given velocity and acceleration [mg/s or ml/s]
          */
-        virtual double compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const std::map<int, double>* param) const = 0;
+        virtual double compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const EnergyParams* param) const;
 
         /** @brief Returns the adapted acceleration value, useful for comparing with external PHEMlight references.
          * Default implementation returns always the input accel.
@@ -247,23 +192,21 @@ public:
          * @param[in] slope The road's slope at vehicle's position [deg]
          * @return the modified acceleration
          */
-        virtual double getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope) const {
-            UNUSED_PARAMETER(c);
-            UNUSED_PARAMETER(v);
-            UNUSED_PARAMETER(slope);
-            return a;
-        }
+        virtual double getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope) const;
 
         /** @brief Add all known emission classes of this model to the given container
          * @param[in] list the vector to add to
          */
-        void addAllClassesInto(std::vector<SUMOEmissionClass>& list) const {
-            myEmissionClassStrings.addKeysInto(list);
-        }
+        void addAllClassesInto(std::vector<SUMOEmissionClass>& list) const;
+
+        bool includesClass(const SUMOEmissionClass c) const;
 
     protected:
         /// @brief the name of the model
         const std::string myName;
+
+        /// @brief the starting index for classes of this model
+        const int myBaseIndex;
 
         /// @brief Mapping between emission class names and integer representations
         StringBijection<SUMOEmissionClass> myEmissionClassStrings;
@@ -299,6 +242,9 @@ public:
      * @return whether it describes a valid emission class
      */
     static std::string getName(const SUMOEmissionClass c);
+
+    /// @brief return the name for the given emission type
+    static std::string getPollutantName(const EmissionType e);
 
     /** @brief Checks whether the emission class describes a bus, truck or similar vehicle
      * @param[in] c The vehicle emission class
@@ -355,7 +301,7 @@ public:
      * @param[in] slope The road's slope at vehicle's position [deg]
      * @return The amount emitted by the given vehicle class when moving with the given velocity and acceleration [mg/s]
      */
-    static double compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const std::map<int, double>* param = 0);
+    static double compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const EnergyParams* param = 0);
 
     /** @brief Returns the amount of all emitted pollutants given the vehicle type and state (in mg/s or ml/s for fuel)
      * @param[in] c The vehicle emission class
@@ -364,7 +310,7 @@ public:
      * @param[in] slope The road's slope at vehicle's position [deg]
      * @return The amount emitted by the given vehicle class when moving with the given velocity and acceleration [mg/s]
      */
-    static Emissions computeAll(const SUMOEmissionClass c, const double v, const double a, const double slope, const std::map<int, double>* param = 0);
+    static Emissions computeAll(const SUMOEmissionClass c, const double v, const double a, const double slope, const EnergyParams* param = 0);
 
     /** @brief Returns the amount of emitted pollutant given the vehicle type and default values for the state (in mg)
      * @param[in] c The vehicle emission class
@@ -375,7 +321,7 @@ public:
      * @param{in] tt the time the vehicle travels
      * @return The amount emitted by the given vehicle class [mg]
      */
-    static double computeDefault(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const double tt, const std::map<int, double>* param = 0);
+    static double computeDefault(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const double tt, const EnergyParams* param = 0);
 
     /** @brief Returns the adapted acceleration value, useful for comparing with external PHEMlight references.
      * @param[in] c the emission class
@@ -387,11 +333,12 @@ public:
     static double getModifiedAccel(const SUMOEmissionClass c, const double v, const double a, const double slope);
 
     /// @brief get energy helper
-    static const HelpersEnergy& getEnergyHelper() {
-        return myEnergyHelper;
-    }
+    static const HelpersEnergy& getEnergyHelper();
 
 private:
+    /// @brief Instance of Helper which gets cleaned up automatically
+    static Helper myZeroHelper;
+
     /// @brief Instance of HBEFA2Helper which gets cleaned up automatically
     static HelpersHBEFA myHBEFA2Helper;
 
@@ -407,11 +354,6 @@ private:
     /// @brief the known model helpers
     static Helper* myHelpers[];
 
-    /// @brief get all emission classes in strin format
+    /// @brief get all emission classes in string format
     static std::vector<std::string> myAllClassesStr;
 };
-
-
-#endif
-
-/****************************************************************************/

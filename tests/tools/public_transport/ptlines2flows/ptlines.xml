@@ -35,7 +35,7 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <ptLine id="0" name="Buslinie 104: Neu-Westend, Brixplatz => Stralau, Tunnelstraße &quot;(test some quotes&quot;" line="104" type="bus" completeness="1.00">
+    <ptLine id="0" name="Buslinie 104: Neu-Westend, Brixplatz => Stralau, Tunnelstraße &quot;(test some quotes&quot;" line="104" type="bus" completeness="1.00" color="red">
         <route edges=" 110450334#1 110450334#2 338412122 391493949 391493947 391493950#0 391493950#1 391493952#0 391493952#1 391493952#2 391493954#0 391493954#1 391493954#2 391493954#3"/>
         <busStop id="3959807221" name="Kolonnenbrücke"/>
         <busStop id="3959807200" name="Dudenstraße/Katzbachstraße"/>

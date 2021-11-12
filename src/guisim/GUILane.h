@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUILane.h
 /// @author  Daniel Krajzewicz
@@ -15,16 +19,10 @@
 ///
 // Representation of a lane in the micro simulation (gui-version)
 /****************************************************************************/
-#ifndef GUILane_h
-#define GUILane_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <string>
 #include <utility>
 #include <microsim/MSLane.h>
@@ -76,7 +74,9 @@ public:
     GUILane(const std::string& id, double maxSpeed,
             double length, MSEdge* const edge, int numericalID,
             const PositionVector& shape, double width,
-            SVCPermissions permissions, int index, bool isRampAccel,
+            SVCPermissions permissions,
+            SVCPermissions changeLeft, SVCPermissions changeRight,
+            int index, bool isRampAccel,
             const std::string& type);
 
 
@@ -148,7 +148,7 @@ public:
     MSVehicle* removeVehicle(MSVehicle* remVehicle, MSMoveReminder::Notification notification, bool notify);
 
     /// @brief remove parking vehicle
-    void removeParking(MSVehicle* veh);
+    void removeParking(MSBaseVehicle* veh);
 
     /** @brief Sets the information about a vehicle lapping into this lane
      *
@@ -189,6 +189,10 @@ public:
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
             GUISUMOAbstractView& parent);
 
+    
+    /// @brief return exaggeration asociated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
+
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
@@ -218,6 +222,9 @@ public:
 
     /// @brief bike lane markings on top of an intersection
     void drawBikeMarkings() const;
+
+    /// @brief bike lane markings on top of an intersection
+    void drawJunctionChangeProhibitions() const;
 
     /// @brief direction indicators for lanes
     void drawDirectionIndicators(double exaggeration, bool spreadSuperposed) const;
@@ -262,6 +269,12 @@ public:
     /// @brief gets the color value according to the current scheme index
     double getColorValue(const GUIVisualizationSettings& s, int activeScheme) const;
 
+    /// @brief gets the color value according to the current scheme index including values for things that set the color indirectly
+    double getColorValueWithFunctional(const GUIVisualizationSettings& s, int activeScheme) const;
+
+    /// @brief return color value based on cached settings
+    double getColorValueForTracker() const;
+
     /// @brief whether this lane is selected in the GUI
     bool isSelected() const;
 
@@ -299,7 +312,7 @@ private:
     void drawLinkNo(const GUIVisualizationSettings& s) const;
     void drawTLSLinkNo(const GUIVisualizationSettings& s, const GUINet& net) const;
     void drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) const;
-    void drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, MSLink* link, const PositionVector& shape, double x1, double x2) const;
+    void drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, const MSLink* link, const PositionVector& shape, double x1, double x2) const;
     void drawArrows() const;
     void drawLane2LaneConnections(double exaggeration) const;
 
@@ -338,6 +351,8 @@ private:
 
     /// @brief the meso segment index for each geometry segment
     std::vector<int> myShapeSegments;
+    /// @brief the shape indices where the meso segment changes (for segmentsIndex > 0)
+    std::vector<int> mySegmentStartIndex;
 
     /// @brief Half of lane width, for speed-up
     double myHalfLaneWidth;
@@ -355,6 +370,9 @@ private:
     /// @brief state for dynamic lane closings
     bool myAmClosed;
 
+    /// @brief cached for tracking color value
+    static const GUIVisualizationSettings* myCachedGUISettings;
+
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
     mutable FXMutex myLock;
@@ -364,9 +382,3 @@ private:
 
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

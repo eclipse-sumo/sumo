@@ -1,10 +1,13 @@
-# tests tools\net\netextract.py
-netextract
-
-# tests tools\net\0103to0110.py
-0103to0110
-
 # tests tools\net\netcheck.py
 netcheck
 netdiff
 netmatch
+
+# convert net to kml
+net2kml
+
+# convert net to geojson
+net2geojson
+
+# convert net to jupedsim geometry
+net2jpsgeometry

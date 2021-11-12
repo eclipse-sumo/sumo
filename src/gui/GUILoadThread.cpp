@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUILoadThread.cpp
 /// @author  Daniel Krajzewicz
@@ -15,11 +19,6 @@
 ///
 // Class describing the thread that performs the loading of a simulation
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <iostream>
@@ -67,9 +66,9 @@ GUILoadThread::GUILoadThread(FXApp* app, GUIApplicationWindow* mw,
                              FXSynchQue<GUIEvent*>& eq, FXEX::FXThreadEvent& ev)
     : FXSingleEventThread(app, mw), myParent(mw), myEventQue(eq),
       myEventThrow(ev) {
-    myErrorRetriever = new MsgRetrievingFunction<GUILoadThread>(this, &GUILoadThread::retrieveMessage, MsgHandler::MT_ERROR);
-    myMessageRetriever = new MsgRetrievingFunction<GUILoadThread>(this, &GUILoadThread::retrieveMessage, MsgHandler::MT_MESSAGE);
-    myWarningRetriever = new MsgRetrievingFunction<GUILoadThread>(this, &GUILoadThread::retrieveMessage, MsgHandler::MT_WARNING);
+    myErrorRetriever = new MsgRetrievingFunction<GUILoadThread>(this, &GUILoadThread::retrieveMessage, MsgHandler::MsgType::MT_ERROR);
+    myMessageRetriever = new MsgRetrievingFunction<GUILoadThread>(this, &GUILoadThread::retrieveMessage, MsgHandler::MsgType::MT_MESSAGE);
+    myWarningRetriever = new MsgRetrievingFunction<GUILoadThread>(this, &GUILoadThread::retrieveMessage, MsgHandler::MsgType::MT_WARNING);
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
 }
 
@@ -86,34 +85,31 @@ GUILoadThread::run() {
     // register message callbacks
     MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
-    MsgHandler::getWarningInstance()->addRetriever(myWarningRetriever);
+    if (!OptionsCont::getOptions().getBool("no-warnings")) {
+        MsgHandler::getWarningInstance()->addRetriever(myWarningRetriever);
+    }
 
     // try to load the given configuration
     OptionsCont& oc = OptionsCont::getOptions();
     try {
-        oc.clear();
-        MSFrame::fillOptions();
         if (myFile != "") {
             // triggered by menu option or reload
-            if (myLoadNet) {
-                oc.set("net-file", myFile);
-            } else {
-                oc.set("configuration-file", myFile);
-            }
+            oc.clear();
+            MSFrame::fillOptions();
+            oc.setByRootElement(OptionsIO::getRoot(myFile), myFile);
             oc.resetWritable(); // there may be command line options
             OptionsIO::getOptions();
         } else {
             // triggered at application start
-            OptionsIO::getOptions();
+            OptionsIO::loadConfiguration();
             if (oc.isSet("configuration-file")) {
                 myFile = oc.getString("configuration-file");
             } else if (oc.isSet("net-file")) {
                 myFile = oc.getString("net-file");
-                myLoadNet = true;
             }
             myEventQue.push_back(new GUIEvent_Message("Loading '" + myFile + "'."));
             myEventThrow.signal();
-            myParent->addRecentFile(FXPath::absolute(myFile.c_str()), myLoadNet);
+            myParent->addRecentFile(FXPath::absolute(myFile.c_str()));
         }
         myTitle = myFile;
         // within gui-based applications, nothing is reported to the console
@@ -130,11 +126,11 @@ GUILoadThread::run() {
         if (!MSFrame::checkOptions()) {
             throw ProcessError();
         }
-        XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"));
+        XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"), oc.getString("xml-validation.routes"));
         GUIGlobals::gRunAfterLoad = oc.getBool("start");
         GUIGlobals::gQuitOnEnd = oc.getBool("quit-on-end");
         GUIGlobals::gDemoAutoReload = oc.getBool("demo");
-        GUIGlobals::gTrackerInterval = oc.getFloat("tracker-interval");
+        GUIGlobals::gTrackerInterval = STEPS2TIME(string2time(oc.getString("tracker-interval")));
     } catch (ProcessError& e) {
         if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());
@@ -171,7 +167,7 @@ GUILoadThread::run() {
             new GUIEventControl(),
             new GUIEventControl(),
             new GUIEventControl());
-        // need to init TraCI-Server before loading routes to catch VEHICLE_STATE_BUILT
+        // need to init TraCI-Server before loading routes to catch VehicleState::BUILT
         std::map<int, TraCIServer::CmdExecutor> execs;
         execs[libsumo::CMD_GET_GUI_VARIABLE] = &TraCIServerAPI_GUI::processGet;
         execs[libsumo::CMD_SET_GUI_VARIABLE] = &TraCIServerAPI_GUI::processSet;
@@ -250,9 +246,8 @@ GUILoadThread::submitEndAndCleanup(GUINet* net,
 
 
 void
-GUILoadThread::loadConfigOrNet(const std::string& file, bool isNet) {
+GUILoadThread::loadConfigOrNet(const std::string& file) {
     myFile = file;
-    myLoadNet = isNet;
     if (myFile != "") {
         OptionsIO::setArgs(0, nullptr);
     }

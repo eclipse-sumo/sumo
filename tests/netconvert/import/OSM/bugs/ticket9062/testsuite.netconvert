@@ -1,0 +1,7 @@
+typemap_default
+
+# with sidewalks (via pedestrian typemap)
+typemap_pedestrians
+
+# with sidewalks and bicycle lanes
+typemap_ped_bike

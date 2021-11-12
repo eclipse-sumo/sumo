@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Dec 14 11:32:50 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <edges.join value="true"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="500.00,0.00" convBoundary="0.00,0.00,1800.00,0.00" origBoundary="-500.00,0.00,1300.00,0.00" projParameter="!"/>
+
+    <edge id="1to21" from="1" to="2" priority="1">
+        <lane id="1to21_0" index="0" speed="13.89" length="1000.00" shape="501.50,-1.60 1498.50,-1.60"/>
+    </edge>
+    <edge id="1to22" from="1" to="2" priority="2">
+        <lane id="1to22_0" index="0" speed="13.89" length="1000.00" shape="501.50,-1.60 1498.50,-1.60"/>
+    </edge>
+    <edge id="91to1" from="91" to="1" priority="-1">
+        <lane id="91to1_0" index="0" speed="13.89" length="500.00" shape="0.00,-1.60 498.50,-1.60"/>
+    </edge>
+    <edge id="out" from="2" to="3" priority="-1">
+        <lane id="out_0" index="0" speed="13.89" length="300.00" shape="1501.50,-1.60 1800.00,-1.60"/>
+    </edge>
+
+    <tlLogic id="2" type="static" programID="0" offset="0">
+        <phase duration="42" state="Gr"/>
+        <phase duration="3"  state="yr"/>
+        <phase duration="42" state="rG"/>
+        <phase duration="3"  state="ry"/>
+    </tlLogic>
+
+    <junction id="1" type="priority" x="500.00" y="0.00" incLanes="91to1_0" intLanes="" shape="501.50,0.00 501.50,-3.20 498.50,-3.20 498.50,0.00">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="2" type="traffic_light" x="1500.00" y="0.00" incLanes="1to21_0 1to22_0" intLanes="" shape="1501.50,0.00 1501.50,-3.20 1498.50,-3.20 1498.50,0.00">
+        <request index="0" response="10" foes="10"/>
+        <request index="1" response="00" foes="01"/>
+    </junction>
+    <junction id="3" type="dead_end" x="1800.00" y="0.00" incLanes="out_0" intLanes="" shape="1800.00,-3.20 1800.00,0.00"/>
+    <junction id="91" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-3.20"/>
+
+    <connection from="1to21" to="out" fromLane="0" toLane="0" tl="2" linkIndex="0" dir="s" state="o"/>
+    <connection from="1to22" to="out" fromLane="0" toLane="0" tl="2" linkIndex="1" dir="s" state="O"/>
+    <connection from="91to1" to="1to22" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="91to1" to="1to21" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

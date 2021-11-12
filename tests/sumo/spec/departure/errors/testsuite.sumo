@@ -21,3 +21,15 @@ speed_given100
 
 # checks using a to high given speed
 speed_given100_ignore
+
+# checks using a to high given speed (too high for the edge)
+speed_given50
+
+# checks using a to high given speed (too high for the edge)
+speed_given50_ignore
+
+# checks using fast insertion before a slow lane
+slow_lane_ahead
+
+# checks using fast insertion before a slow lane
+slow_lane_ahead_ignore

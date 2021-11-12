@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIGlObject.h
 /// @author  Daniel Krajzewicz
@@ -16,13 +20,7 @@
 ///
 // Base class for all objects that may be displayed within the openGL-gui
 /****************************************************************************/
-#ifndef GUIGlObject_h
-#define GUIGlObject_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -95,6 +93,7 @@ public:
     /// @brief Returns the numerical id of the object
     /// @return This object's gl-id
     GUIGlID getGlID() const;
+
     /// @}
 
     /// @name interfaces to be implemented by derived classes
@@ -139,6 +138,9 @@ public:
     /// @brief Returns the type of the object as coded in GUIGlObjectType
     /// @see GUIGlObjectType
     GUIGlObjectType getType() const;
+
+    /// @brief return exaggeration asociated with this GLObject
+    virtual double getExaggeration(const GUIVisualizationSettings& s) const = 0;
 
     //// @brief Returns the boundary to which the view shall be centered in order to show the object
     virtual Boundary getCenteringBoundary() const = 0;
@@ -283,7 +285,3 @@ private:
     /// @brief Invalidated assignment operator.
     GUIGlObject& operator=(const GUIGlObject&) = delete;
 };
-#endif
-
-/****************************************************************************/
-

@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 12 Nov 2020 04:41:08 PM CET by Eclipse SUMO netedit Version v1_7_0+0989-f6f8d12697
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="miv.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/home/kobo/dlr/dlr-ts-scenarios/brunswick/miv/part2.net.xml"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-598668.09,-5783261.49" convBoundary="5629.50,7116.55,6317.67,7612.80" origBoundary="10.393336,52.146541,10.787296,52.408126" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <type id="highway.bridleway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.bus_guideway" priority="1" numLanes="1" speed="27.78" allow="bus" oneway="1"/>
+    <type id="highway.cycleway" priority="1" numLanes="1" speed="8.33" allow="bicycle" oneway="0" width="1.00"/>
+    <type id="highway.footway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.ford" priority="1" numLanes="1" speed="2.78" allow="army" oneway="0"/>
+    <type id="highway.living_street" priority="2" numLanes="1" speed="2.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.motorway" priority="14" numLanes="2" speed="39.44" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
+    <type id="highway.motorway_link" priority="9" numLanes="1" speed="16.66" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
+    <type id="highway.path" priority="1" numLanes="1" speed="2.78" allow="pedestrian bicycle" oneway="1" width="2.00"/>
+    <type id="highway.pedestrian" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.primary" priority="12" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.primary_link" priority="7" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.raceway" priority="15" numLanes="2" speed="83.33" allow="vip" oneway="0"/>
+    <type id="highway.residential" priority="3" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.secondary" priority="11" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.secondary_link" priority="6" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.service" priority="1" numLanes="1" speed="5.56" allow="pedestrian bus delivery bicycle" oneway="0"/>
+    <type id="highway.service|railway.tram" priority="17" numLanes="1" speed="13.89" allow="pedestrian bus delivery bicycle tram" oneway="0"/>
+    <type id="highway.stairs" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.step" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.steps" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.tertiary" priority="10" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.tertiary_link" priority="5" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.tertiary|railway.tram" priority="17" numLanes="1" speed="22.22" disallow="rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.track" priority="1" numLanes="1" speed="5.56" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.trunk" priority="13" numLanes="2" speed="27.78" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.trunk_link" priority="8" numLanes="1" speed="22.22" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.unclassified" priority="4" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.unsurfaced" priority="1" numLanes="1" speed="8.33" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="railway.light_rail" priority="19" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
+    <type id="railway.preserved" priority="16" numLanes="1" speed="27.78" allow="rail" oneway="1"/>
+    <type id="railway.rail" priority="20" numLanes="1" speed="83.33" allow="rail rail_electric" oneway="1"/>
+    <type id="railway.subway" priority="18" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
+    <type id="railway.tram" priority="17" numLanes="1" speed="13.89" allow="tram" oneway="1"/>
+
+    <edge id=":Campestr_0" function="internal">
+        <lane id=":Campestr_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="37.14" shape="6027.80,7449.95 6019.87,7450.91 6011.91,7454.06 6003.92,7459.39 5995.91,7466.91"/>
+    </edge>
+    <edge id=":Campestr_1" function="internal">
+        <lane id=":Campestr_1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="11.11" length="54.02" shape="6027.61,7446.74 6015.68,7445.78 5998.84,7443.64 5983.04,7441.12 5974.22,7438.98"/>
+    </edge>
+    <edge id=":Campestr_2" function="internal">
+        <lane id=":Campestr_2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="11.56" length="21.03" shape="6027.61,7446.74 6013.80,7444.04 6008.12,7440.02"/>
+    </edge>
+    <edge id=":Campestr_3" function="internal">
+        <lane id=":Campestr_3_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="4.43" length="3.86" shape="6027.61,7446.74 6025.55,7445.54 6024.81,7444.26"/>
+    </edge>
+    <edge id=":Campestr_20" function="internal">
+        <lane id=":Campestr_20_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="11.56" length="26.87" shape="6008.12,7440.02 6004.26,7437.30 6001.11,7427.82 6006.48,7416.91"/>
+    </edge>
+    <edge id=":Campestr_21" function="internal">
+        <lane id=":Campestr_21_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="4.43" length="3.86" shape="6024.81,7444.26 6025.40,7442.90 6027.30,7441.46"/>
+    </edge>
+    <edge id=":Campestr_4" function="internal">
+        <lane id=":Campestr_4_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="43.87" shape="6025.15,7434.21 5995.91,7466.91"/>
+        <lane id=":Campestr_4_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="43.87" shape="6022.81,7432.03 5993.57,7464.73"/>
+    </edge>
+    <edge id=":Campestr_6" function="internal">
+        <lane id=":Campestr_6_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="11.11" length="35.94" shape="6020.46,7429.86 6011.95,7434.51 5998.09,7438.23 5986.30,7439.74"/>
+    </edge>
+    <edge id=":Campestr_7" function="internal">
+        <lane id=":Campestr_7_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="7.62" length="25.06" shape="6020.46,7429.86 6012.11,7431.86 6006.99,7430.37 6005.12,7425.38 6006.04,7419.64"/>
+    </edge>
+    <edge id=":Campestr_22" function="internal">
+        <lane id=":Campestr_22_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="11.11" length="12.16" shape="5986.30,7439.74 5983.85,7440.05 5974.22,7438.98"/>
+    </edge>
+    <edge id=":Campestr_23" function="internal">
+        <lane id=":Campestr_23_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="7.62" length="2.76" shape="6006.04,7419.64 6006.48,7416.91"/>
+    </edge>
+    <edge id=":Campestr_8" function="internal">
+        <lane id=":Campestr_8_0" index="0" allow="tram" speed="13.89" length="44.01" shape="6015.34,7425.11 5988.41,7459.92"/>
+    </edge>
+    <edge id=":Campestr_9" function="internal">
+        <lane id=":Campestr_9_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="11.11" length="36.53" shape="5975.66,7436.12 5979.67,7435.91 5985.75,7432.27 5993.91,7425.21 6004.14,7414.73"/>
+    </edge>
+    <edge id=":Campestr_10" function="internal">
+        <lane id=":Campestr_10_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="11.11" length="51.58" shape="5975.66,7436.12 5984.18,7437.50 5999.32,7438.29 6015.49,7438.53 6027.11,7438.27"/>
+    </edge>
+    <edge id=":Campestr_11" function="internal">
+        <lane id=":Campestr_11_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="11.11" length="5.47" shape="5975.66,7436.12 5980.41,7438.83"/>
+    </edge>
+    <edge id=":Campestr_24" function="internal">
+        <lane id=":Campestr_24_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="11.11" length="34.65" shape="5980.41,7438.83 5986.98,7442.59 5994.78,7449.42 5997.49,7456.76 5993.57,7464.73"/>
+    </edge>
+    <edge id=":Campestr_12" function="internal">
+        <lane id=":Campestr_12_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="5.82" length="8.28" shape="5973.44,7445.97 5975.13,7443.59 5975.82,7441.63 5975.52,7440.09 5974.22,7438.98"/>
+    </edge>
+    <edge id=":Campestr_13" function="internal">
+        <lane id=":Campestr_13_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="43.80" shape="5973.44,7445.97 6004.14,7414.73"/>
+        <lane id=":Campestr_13_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="43.80" shape="5975.78,7448.16 6006.48,7416.91"/>
+    </edge>
+    <edge id=":Campestr_15" function="internal">
+        <lane id=":Campestr_15_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="36.08" shape="5978.13,7450.34 5985.41,7447.50 6000.07,7443.60 6012.86,7440.76"/>
+    </edge>
+    <edge id=":Campestr_16" function="internal">
+        <lane id=":Campestr_16_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="30.04" shape="5980.47,7452.52 5987.37,7449.90 6001.30,7446.34 6009.40,7444.62"/>
+    </edge>
+    <edge id=":Campestr_17" function="internal">
+        <lane id=":Campestr_17_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="7.43" length="23.17" shape="5980.47,7452.52 5988.32,7450.66 5993.12,7452.08 5994.87,7456.77 5994.05,7461.79"/>
+    </edge>
+    <edge id=":Campestr_25" function="internal">
+        <lane id=":Campestr_25_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="14.47" shape="6012.86,7440.76 6016.00,7440.06 6027.11,7438.27"/>
+    </edge>
+    <edge id=":Campestr_26" function="internal">
+        <lane id=":Campestr_26_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="18.18" shape="6009.40,7444.62 6016.52,7443.11 6027.30,7441.46"/>
+    </edge>
+    <edge id=":Campestr_27" function="internal">
+        <lane id=":Campestr_27_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="7.43" length="2.98" shape="5994.05,7461.79 5993.57,7464.73"/>
+    </edge>
+    <edge id=":Campestr_18" function="internal">
+        <lane id=":Campestr_18_0" index="0" allow="pedestrian" speed="18.05" length="44.90" shape="5983.71,7455.55 5989.00,7447.29 5994.94,7436.09 6000.96,7424.96 6006.48,7416.91"/>
+    </edge>
+    <edge id=":Campestr_19" function="internal">
+        <lane id=":Campestr_19_0" index="0" disallow="all" speed="18.05" length="43.83" shape="5983.71,7455.55 6012.64,7422.61"/>
+    </edge>
+
+    <edge id="-38685533#8" from="Campestr" to="28449314" name="Campestraße" priority="3" type="highway.residential" shape="5982.09,7441.15 5974.11,7437.13 5971.59,7435.31 5969.93,7434.05 5960.08,7425.92 5942.71,7409.94 5915.65,7385.06 5907.41,7377.48">
+        <lane id="-38685533#8_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="90.89" shape="5974.22,7438.98 5973.28,7438.50 5970.64,7436.60 5968.94,7435.30 5959.03,7427.13 5941.63,7411.12 5914.57,7386.24 5906.33,7378.66"/>
+    </edge>
+    <edge id="206614455#5" from="5416200806" to="Campestr" priority="17" type="railway.tram" spreadType="center" shape="6317.67,7119.57 6316.03,7121.21 6310.93,7126.70 6298.37,7140.39 6291.52,7147.38 6284.55,7153.69 6266.30,7168.66 6247.96,7183.58 6216.20,7210.76 6206.34,7219.81 6196.76,7228.83 6177.92,7247.01 6163.34,7261.58 6149.15,7276.36 6134.57,7291.84 6120.48,7307.31 6105.17,7324.43 6090.23,7341.29 6059.78,7375.16 6051.31,7384.54 6043.07,7393.41 6029.31,7409.20 6024.24,7414.78 6021.42,7417.98 6020.27,7419.34 6013.55,7427.21 6002.00,7442.90">
+        <lane id="206614455#5_0" index="0" allow="tram" speed="13.89" length="430.55" shape="6317.67,7119.57 6316.03,7121.21 6310.93,7126.70 6298.37,7140.39 6291.52,7147.38 6284.55,7153.69 6266.30,7168.66 6247.96,7183.58 6216.20,7210.76 6206.34,7219.81 6196.76,7228.83 6177.92,7247.01 6163.34,7261.58 6149.15,7276.36 6134.57,7291.84 6120.48,7307.31 6105.17,7324.43 6090.23,7341.29 6059.78,7375.16 6051.31,7384.54 6043.07,7393.41 6029.31,7409.20 6024.24,7414.78 6021.42,7417.98 6020.27,7419.34 6015.34,7425.11"/>
+    </edge>
+    <edge id="206893436#2" from="Campestr" to="5416395131" name="Kurt-Schumacher-Straße" priority="11" type="highway.secondary" spreadType="center" shape="5994.74,7465.82 5992.69,7468.02">
+        <lane id="206893436#2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="3.01" shape="5995.91,7466.91 5993.86,7469.11"/>
+        <lane id="206893436#2_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="3.01" shape="5993.57,7464.73 5991.52,7466.93"/>
+    </edge>
+    <edge id="23295225#5" from="Campestr" to="cluster_3144373924_3360650652_3843771996_3843771997_3843772001_3843772003_5416395265" priority="17" type="railway.tram" spreadType="center" shape="5999.45,7446.25 5993.85,7453.44 5989.02,7459.22 5987.89,7460.53 5984.60,7464.34 5977.17,7472.90 5945.00,7508.80 5936.62,7518.72 5927.79,7528.23 5918.86,7537.77 5909.68,7547.07 5900.47,7555.44 5895.69,7559.56 5890.76,7563.55 5882.51,7569.67 5876.48,7574.32 5870.48,7578.75 5848.62,7591.94 5831.18,7600.17 5822.91,7603.31 5816.59,7605.42 5809.05,7607.63 5803.11,7609.03 5795.95,7610.37 5788.86,7611.40 5782.87,7612.14 5778.63,7612.35 5772.80,7612.65 5768.20,7612.80 5759.57,7612.43 5749.95,7611.82 5740.49,7610.73 5729.74,7609.27 5719.15,7607.42 5702.97,7604.42 5652.38,7595.20 5642.77,7593.47 5639.86,7592.94">
+        <lane id="23295225#5_0" index="0" allow="tram" speed="13.89" length="418.16" shape="5988.41,7459.92 5987.89,7460.53 5984.60,7464.34 5977.17,7472.90 5945.00,7508.80 5936.62,7518.72 5927.79,7528.23 5918.86,7537.77 5909.68,7547.07 5900.47,7555.44 5895.69,7559.56 5890.76,7563.55 5882.51,7569.67 5876.48,7574.32 5870.48,7578.75 5848.62,7591.94 5831.18,7600.17 5822.91,7603.31 5816.59,7605.42 5809.05,7607.63 5803.11,7609.03 5795.95,7610.37 5788.86,7611.40 5782.87,7612.14 5778.63,7612.35 5772.80,7612.65 5768.20,7612.80 5759.57,7612.43 5749.95,7611.82 5740.49,7610.73 5729.74,7609.27 5719.15,7607.42 5702.97,7604.42 5652.38,7595.20 5642.77,7593.47 5629.24,7591.01"/>
+    </edge>
+    <edge id="316934737#0" from="1756846730" to="Campestr" name="Kurt-Schumacher-Straße" priority="11" type="highway.secondary" spreadType="center" shape="6074.31,7373.71 6035.85,7417.02 6032.12,7421.31 6015.31,7440.66">
+        <lane id="316934737#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="77.81" shape="6076.70,7375.83 6038.24,7419.14 6034.54,7423.41 6025.15,7434.21"/>
+        <lane id="316934737#0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="77.81" shape="6074.31,7373.71 6035.85,7417.02 6032.12,7421.31 6022.81,7432.03"/>
+        <lane id="316934737#0_2" index="2" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="77.81" shape="6071.92,7371.59 6033.46,7414.90 6029.70,7419.21 6020.46,7429.86"/>
+    </edge>
+    <edge id="32353722" from="27708366" to="Campestr" name="Kurt-Schumacher-Straße" priority="11" type="highway.secondary" spreadType="center" shape="5920.33,7516.35 5966.17,7462.03">
+        <lane id="32353722_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="87.80" shape="5916.66,7513.25 5973.44,7445.97"/>
+        <lane id="32353722_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="87.80" shape="5919.11,7515.32 5975.78,7448.16"/>
+        <lane id="32353722_2" index="2" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="87.80" shape="5921.55,7517.38 5978.13,7450.34"/>
+        <lane id="32353722_3" index="3" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="87.80" shape="5924.00,7519.45 5980.47,7452.52"/>
+    </edge>
+    <edge id="32353723#1" from="Campestr" to="269187593" name="Kurt-Schumacher-Straße" priority="11" type="highway.secondary" spreadType="center" shape="6001.14,7420.32 6004.67,7416.51 6008.66,7412.19 6021.35,7398.47">
+        <lane id="32353723#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="23.63" shape="6004.14,7414.73 6007.49,7411.10 6020.18,7397.38"/>
+        <lane id="32353723#1_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="23.63" shape="6006.48,7416.91 6009.83,7413.28 6022.52,7399.56"/>
+    </edge>
+    <edge id="346600388#0" from="50917783" to="Campestr" name="Kurt-Schumacher-Straße" priority="17" type="highway.tertiary|railway.tram" spreadType="center" shape="5941.41,7505.52 5957.07,7487.97 5974.07,7468.83 5980.27,7461.82 5983.43,7458.26 5984.68,7456.89 5989.70,7450.81 5994.59,7444.31">
+        <lane id="346600388#0_0" index="0" allow="pedestrian" speed="22.22" length="65.43" width="2.00" shape="5940.21,7504.46 5955.87,7486.91 5972.87,7467.77 5979.07,7460.76 5982.24,7457.19 5983.47,7455.84 5983.71,7455.55"/>
+        <lane id="346600388#0_1" index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="22.22" length="65.43" shape="5942.15,7506.19 5957.82,7488.63 5974.82,7469.49 5981.02,7462.48 5984.18,7458.93 5985.44,7457.55 5985.62,7457.32"/>
+    </edge>
+    <edge id="380570394#0" from="Campestr" to="3838936007" name="Ottmerstraße" priority="10" type="highway.tertiary" spreadType="center" shape="6015.31,7440.66 6033.17,7439.47 6039.01,7439.41 6081.38,7437.11 6102.44,7437.13">
+        <lane id="380570394#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="74.83" shape="6027.11,7438.27 6033.11,7437.87 6038.96,7437.81 6081.34,7435.51 6101.95,7435.53"/>
+        <lane id="380570394#0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="74.83" shape="6027.30,7441.46 6033.23,7441.07 6039.06,7441.01 6081.42,7438.71 6101.95,7438.73"/>
+    </edge>
+    <edge id="38685533#4" from="28449314" to="Campestr" name="Campestraße" priority="3" type="highway.residential" shape="5907.41,7377.48 5915.65,7385.06 5942.71,7409.94 5960.08,7425.92 5969.93,7434.05 5971.59,7435.31 5974.11,7437.13 5982.09,7441.15">
+        <lane id="38685533#4_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="90.01" shape="5908.49,7376.30 5916.73,7383.88 5943.79,7408.76 5961.13,7424.71 5970.94,7432.81 5972.54,7434.02 5974.94,7435.76 5975.66,7436.12"/>
+    </edge>
+    <edge id="590189516#0" from="3838936007" to="Campestr" name="Ottmerstraße" priority="10" type="highway.tertiary" spreadType="center" shape="6102.73,7443.40 6084.57,7444.67 6044.06,7447.94 6033.61,7448.44 6023.08,7448.27 6009.80,7447.02">
+        <lane id="590189516#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="74.65" shape="6102.28,7445.04 6084.69,7446.27 6044.16,7449.54 6033.64,7450.04 6027.80,7449.95"/>
+        <lane id="590189516#0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="74.65" shape="6102.06,7441.85 6084.45,7443.07 6043.96,7446.34 6033.58,7446.84 6027.61,7446.74"/>
+    </edge>
+    <edge id="6148695#2" from="Campestr" to="5416200807" priority="17" type="railway.tram" spreadType="center" shape="5996.36,7443.60 6002.60,7435.15 6010.86,7424.66 6016.16,7418.58 6020.03,7414.15 6026.58,7406.61 6040.84,7390.76 6054.84,7375.02 6075.16,7352.16 6085.82,7340.41 6095.57,7329.43 6119.58,7302.75 6131.79,7289.52 6144.05,7276.12 6174.79,7244.73 6193.78,7226.56 6203.43,7217.41 6214.06,7207.74 6248.13,7178.62 6265.55,7164.26 6282.82,7149.93 6289.52,7143.84 6296.15,7137.36 6302.70,7130.55 6309.13,7123.35 6314.34,7117.82 6315.72,7116.55">
+        <lane id="6148695#2_0" index="0" allow="tram" speed="13.89" length="431.42" shape="6012.64,7422.61 6016.16,7418.58 6020.03,7414.15 6026.58,7406.61 6040.84,7390.76 6054.84,7375.02 6075.16,7352.16 6085.82,7340.41 6095.57,7329.43 6119.58,7302.75 6131.79,7289.52 6144.05,7276.12 6174.79,7244.73 6193.78,7226.56 6203.43,7217.41 6214.06,7207.74 6248.13,7178.62 6265.55,7164.26 6282.82,7149.93 6289.52,7143.84 6296.15,7137.36 6302.70,7130.55 6309.13,7123.35 6314.34,7117.82 6315.72,7116.55"/>
+    </edge>
+
+    <tlLogic id="Campestr" type="actuated" programID="0" offset="0">
+        <phase duration="20" state="GrrGrrrrGrrrGrrrrrGG" minDur="10" maxDur="50"/>
+        <phase duration="5"  state="yrryrrrryrrryrrrrryy"/>
+        <phase duration="22" state="rrrrGGggrrrrGGGgggrr" minDur="5" maxDur="50"/>
+        <phase duration="5"  state="rrrryyggrrrryyygggrr"/>
+        <phase duration="6"  state="rrrrrrGGrrrrrrrGGGrr" minDur="5" maxDur="50"/>
+        <phase duration="5"  state="rrrrrryyrrrrrrryyyrr"/>
+        <phase duration="22" state="GGggrrrrrGGgrrrrrrrr" minDur="5" maxDur="50"/>
+        <phase duration="5"  state="yyyyrrrrryyyrrrrrrrr"/>
+    </tlLogic>
+
+    <junction id="1756846730" type="dead_end" x="6074.31" y="7373.71" incLanes="" intLanes="" shape="6070.72,7370.52 6077.90,7376.90"/>
+    <junction id="269187593" type="dead_end" x="6021.35" y="7398.47" incLanes="32353723#1_0 32353723#1_1" intLanes="" shape="6019.00,7396.30 6023.70,7400.64"/>
+    <junction id="27708366" type="dead_end" x="5920.33" y="7516.35" incLanes="" intLanes="" shape="5925.22,7520.48 5915.44,7512.22"/>
+    <junction id="28449314" type="dead_end" x="5907.41" y="7377.48" incLanes="-38685533#8_0" intLanes="" shape="5907.41,7377.48 5905.24,7379.84 5907.41,7377.48"/>
+    <junction id="3838936007" type="dead_end" x="6101.95" y="7440.30" incLanes="380570394#0_0 380570394#0_1" intLanes="" shape="6101.95,7440.25 6102.39,7446.63 6101.96,7433.93 6101.95,7440.33"/>
+    <junction id="50917783" type="dead_end" x="5942.15" y="7506.19" incLanes="" intLanes="" shape="5943.35,7507.26 5939.47,7503.79"/>
+    <junction id="5416200806" type="dead_end" x="6317.67" y="7119.57" incLanes="" intLanes="" shape="6316.54,7118.44 6318.80,7120.70"/>
+    <junction id="5416200807" type="dead_end" x="6315.72" y="7116.55" incLanes="6148695#2_0" intLanes="" shape="6314.64,7115.37 6316.80,7117.73"/>
+    <junction id="5416395131" type="dead_end" x="5992.69" y="7468.02" incLanes="206893436#2_0 206893436#2_1" intLanes="" shape="5995.03,7470.20 5990.35,7465.84"/>
+    <junction id="Campestr" type="traffic_light" x="5992.20" y="7447.80" incLanes="590189516#0_0 590189516#0_1 316934737#0_0 316934737#0_1 316934737#0_2 206614455#5_0 38685533#4_0 32353722_0 32353722_1 32353722_2 32353722_3 346600388#0_0 346600388#0_1" intLanes=":Campestr_0_0 :Campestr_1_0 :Campestr_20_0 :Campestr_21_0 :Campestr_4_0 :Campestr_4_1 :Campestr_22_0 :Campestr_23_0 :Campestr_8_0 :Campestr_9_0 :Campestr_10_0 :Campestr_24_0 :Campestr_12_0 :Campestr_13_0 :Campestr_13_1 :Campestr_25_0 :Campestr_26_0 :Campestr_27_0 :Campestr_18_0 :Campestr_19_0" shape="6027.90,7451.55 6027.01,7436.67 6026.05,7436.58 6025.84,7436.40 6025.82,7436.12 6025.98,7435.75 6026.33,7435.30 6002.96,7413.64 5996.19,7420.76 5990.36,7426.43 5985.46,7430.66 5981.50,7433.44 5978.47,7434.79 5976.38,7434.69 5973.50,7440.41 5974.16,7441.30 5974.08,7441.97 5973.75,7442.79 5973.14,7443.76 5972.27,7444.88 5997.08,7468.00 6002.26,7462.91 6007.42,7458.75 6012.57,7455.54 6017.69,7453.27 6022.80,7451.94">
+        <request index="0"  response="00000000000000110000" foes="00000000000000110000" cont="0"/>
+        <request index="1"  response="11011110000101000000" foes="11011111100101110000" cont="0"/>
+        <request index="2"  response="11011110010101110000" foes="11011110010111110000" cont="1"/>
+        <request index="3"  response="00011000000000000000" foes="00011000000000000000" cont="1"/>
+        <request index="4"  response="00000000100000000110" foes="00111000110000000111" cont="0"/>
+        <request index="5"  response="00000000100000000110" foes="00111000110000000111" cont="0"/>
+        <request index="6"  response="11000111110100000110" foes="11000111110100000110" cont="1"/>
+        <request index="7"  response="11000110000100000100" foes="11000110000100000100" cont="1"/>
+        <request index="8"  response="00011000100001000100" foes="00111000110011000110" cont="0"/>
+        <request index="9"  response="00000110000000000000" foes="00000110000000000000" cont="0"/>
+        <request index="10" response="11011000000101110000" foes="11011110000101110100" cont="0"/>
+        <request index="11" response="11011110000101110010" foes="11111110000101110010" cont="1"/>
+        <request index="12" response="00000000000000000010" foes="00000000000001000010" cont="0"/>
+        <request index="13" response="00000000110000000100" foes="00000000111011000110" cont="0"/>
+        <request index="14" response="01000000110000000100" foes="01000000111011000110" cont="0"/>
+        <request index="15" response="11000000110100110110" foes="11000000110100111110" cont="1"/>
+        <request index="16" response="11000000110100110110" foes="11000000110100111110" cont="1"/>
+        <request index="17" response="11000000100100110000" foes="11000000100100110000" cont="1"/>
+        <request index="18" response="00011000100001000100" foes="00111110110011000110" cont="0"/>
+        <request index="19" response="00011000100001000100" foes="00111000110011000110" cont="0"/>
+    </junction>
+    <junction id="cluster_3144373924_3360650652_3843771996_3843771997_3843772001_3843772003_5416395265" type="dead_end" x="5629.50" y="7589.60" incLanes="23295225#5_0" intLanes="" shape="5628.96,7592.58 5629.53,7589.43"/>
+
+    <junction id=":Campestr_20_0" type="internal" x="6008.12" y="7440.02" incLanes=":Campestr_2_0 38685533#4_0" intLanes=":Campestr_4_0 :Campestr_4_1 :Campestr_6_0 :Campestr_7_0 :Campestr_8_0 :Campestr_9_0 :Campestr_10_0 :Campestr_13_0 :Campestr_13_1 :Campestr_15_0 :Campestr_16_0 :Campestr_18_0 :Campestr_19_0"/>
+    <junction id=":Campestr_21_0" type="internal" x="6024.81" y="7444.26" incLanes=":Campestr_3_0 32353722_2 32353722_3 38685533#4_0" intLanes=":Campestr_10_0 :Campestr_15_0 :Campestr_16_0"/>
+    <junction id=":Campestr_22_0" type="internal" x="5986.30" y="7439.74" incLanes=":Campestr_6_0 32353722_0 32353722_1" intLanes=":Campestr_1_0 :Campestr_2_0 :Campestr_8_0 :Campestr_10_0 :Campestr_11_0 :Campestr_12_0 :Campestr_13_0 :Campestr_13_1 :Campestr_18_0 :Campestr_19_0"/>
+    <junction id=":Campestr_23_0" type="internal" x="6006.04" y="7419.64" incLanes=":Campestr_7_0 206614455#5_0 32353722_0 32353722_1 346600388#0_0 38685533#4_0 590189516#0_1" intLanes=":Campestr_2_0 :Campestr_8_0 :Campestr_9_0 :Campestr_13_0 :Campestr_13_1 :Campestr_18_0 :Campestr_19_0"/>
+    <junction id=":Campestr_24_0" type="internal" x="5980.41" y="7438.83" incLanes=":Campestr_11_0 590189516#0_0 590189516#0_1" intLanes=":Campestr_0_0 :Campestr_1_0 :Campestr_4_0 :Campestr_4_1 :Campestr_6_0 :Campestr_8_0 :Campestr_13_0 :Campestr_13_1 :Campestr_15_0 :Campestr_16_0 :Campestr_17_0 :Campestr_18_0 :Campestr_19_0"/>
+    <junction id=":Campestr_25_0" type="internal" x="6012.86" y="7440.76" incLanes=":Campestr_15_0 316934737#0_0 316934737#0_1" intLanes=":Campestr_1_0 :Campestr_2_0 :Campestr_3_0 :Campestr_4_0 :Campestr_4_1 :Campestr_8_0 :Campestr_10_0 :Campestr_11_0 :Campestr_18_0 :Campestr_19_0"/>
+    <junction id=":Campestr_26_0" type="internal" x="6009.40" y="7444.62" incLanes=":Campestr_16_0 316934737#0_0 316934737#0_1" intLanes=":Campestr_1_0 :Campestr_2_0 :Campestr_3_0 :Campestr_4_0 :Campestr_4_1 :Campestr_8_0 :Campestr_10_0 :Campestr_11_0 :Campestr_18_0 :Campestr_19_0"/>
+    <junction id=":Campestr_27_0" type="internal" x="5994.05" y="7461.79" incLanes=":Campestr_17_0 206614455#5_0 316934737#0_0 316934737#0_1 346600388#0_0 38685533#4_0 590189516#0_0" intLanes=":Campestr_0_0 :Campestr_4_0 :Campestr_4_1 :Campestr_8_0 :Campestr_11_0 :Campestr_18_0 :Campestr_19_0"/>
+
+    <connection from="206614455#5" to="23295225#5" fromLane="0" toLane="0" via=":Campestr_8_0" tl="Campestr" linkIndex="8" dir="s" state="O"/>
+    <connection from="316934737#0" to="206893436#2" fromLane="0" toLane="0" via=":Campestr_4_0" tl="Campestr" linkIndex="4" dir="s" state="o"/>
+    <connection from="316934737#0" to="206893436#2" fromLane="1" toLane="1" via=":Campestr_4_1" tl="Campestr" linkIndex="5" dir="s" state="o"/>
+    <connection from="316934737#0" to="-38685533#8" fromLane="2" toLane="0" via=":Campestr_6_0" tl="Campestr" linkIndex="6" dir="l" state="o"/>
+    <connection from="316934737#0" to="32353723#1" fromLane="2" toLane="1" via=":Campestr_7_0" tl="Campestr" linkIndex="7" dir="t" state="o"/>
+    <connection from="32353722" to="-38685533#8" fromLane="0" toLane="0" via=":Campestr_12_0" tl="Campestr" linkIndex="12" dir="r" state="o"/>
+    <connection from="32353722" to="32353723#1" fromLane="0" toLane="0" via=":Campestr_13_0" tl="Campestr" linkIndex="13" dir="s" state="o"/>
+    <connection from="32353722" to="32353723#1" fromLane="1" toLane="1" via=":Campestr_13_1" tl="Campestr" linkIndex="14" dir="s" state="o"/>
+    <connection from="32353722" to="380570394#0" fromLane="2" toLane="0" via=":Campestr_15_0" tl="Campestr" linkIndex="15" dir="l" state="o"/>
+    <connection from="32353722" to="380570394#0" fromLane="3" toLane="1" via=":Campestr_16_0" tl="Campestr" linkIndex="16" dir="l" state="o"/>
+    <connection from="32353722" to="206893436#2" fromLane="3" toLane="1" via=":Campestr_17_0" tl="Campestr" linkIndex="17" dir="t" state="o"/>
+    <connection from="346600388#0" to="32353723#1" fromLane="0" toLane="1" via=":Campestr_18_0" tl="Campestr" linkIndex="18" dir="s" state="O"/>
+    <connection from="346600388#0" to="6148695#2" fromLane="0" toLane="0" via=":Campestr_19_0" tl="Campestr" linkIndex="19" dir="s" state="O"/>
+    <connection from="38685533#4" to="32353723#1" fromLane="0" toLane="0" via=":Campestr_9_0" tl="Campestr" linkIndex="9" dir="r" state="o"/>
+    <connection from="38685533#4" to="380570394#0" fromLane="0" toLane="0" via=":Campestr_10_0" tl="Campestr" linkIndex="10" dir="s" state="o"/>
+    <connection from="38685533#4" to="206893436#2" fromLane="0" toLane="1" via=":Campestr_11_0" tl="Campestr" linkIndex="11" dir="l" state="o"/>
+    <connection from="590189516#0" to="206893436#2" fromLane="0" toLane="0" via=":Campestr_0_0" tl="Campestr" linkIndex="0" dir="r" state="o"/>
+    <connection from="590189516#0" to="-38685533#8" fromLane="1" toLane="0" via=":Campestr_1_0" tl="Campestr" linkIndex="1" dir="s" state="o"/>
+    <connection from="590189516#0" to="32353723#1" fromLane="1" toLane="1" via=":Campestr_2_0" tl="Campestr" linkIndex="2" dir="l" state="o"/>
+    <connection from="590189516#0" to="380570394#0" fromLane="1" toLane="1" via=":Campestr_3_0" tl="Campestr" linkIndex="3" dir="t" state="o"/>
+
+    <connection from=":Campestr_0" to="206893436#2" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":Campestr_1" to="-38685533#8" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":Campestr_2" to="32353723#1" fromLane="0" toLane="1" via=":Campestr_20_0" dir="l" state="m"/>
+    <connection from=":Campestr_20" to="32353723#1" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":Campestr_3" to="380570394#0" fromLane="0" toLane="1" via=":Campestr_21_0" dir="t" state="m"/>
+    <connection from=":Campestr_21" to="380570394#0" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from=":Campestr_4" to="206893436#2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":Campestr_4" to="206893436#2" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":Campestr_6" to="-38685533#8" fromLane="0" toLane="0" via=":Campestr_22_0" dir="l" state="m"/>
+    <connection from=":Campestr_22" to="-38685533#8" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":Campestr_7" to="32353723#1" fromLane="0" toLane="1" via=":Campestr_23_0" dir="t" state="m"/>
+    <connection from=":Campestr_23" to="32353723#1" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from=":Campestr_8" to="23295225#5" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":Campestr_9" to="32353723#1" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":Campestr_10" to="380570394#0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":Campestr_11" to="206893436#2" fromLane="0" toLane="1" via=":Campestr_24_0" dir="l" state="m"/>
+    <connection from=":Campestr_24" to="206893436#2" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":Campestr_12" to="-38685533#8" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":Campestr_13" to="32353723#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":Campestr_13" to="32353723#1" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":Campestr_15" to="380570394#0" fromLane="0" toLane="0" via=":Campestr_25_0" dir="l" state="m"/>
+    <connection from=":Campestr_25" to="380570394#0" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":Campestr_16" to="380570394#0" fromLane="0" toLane="1" via=":Campestr_26_0" dir="l" state="m"/>
+    <connection from=":Campestr_26" to="380570394#0" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":Campestr_17" to="206893436#2" fromLane="0" toLane="1" via=":Campestr_27_0" dir="t" state="m"/>
+    <connection from=":Campestr_27" to="206893436#2" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from=":Campestr_18" to="32353723#1" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":Campestr_19" to="6148695#2" fromLane="0" toLane="0" dir="s" state="M"/>
+
+
+</net>

@@ -1,0 +1,10 @@
+-e input_plain.edg.xml 
+-n input_plain.nod.xml 
+-x input_plain.con.xml 
+--ptstop-files input_ptstops.xml
+--ptline-files input_ptlines.xml
+--railway.topology.output topology.xml 
+--railway.topology.repair
+--ptstop-output additional.xml
+--ptline-output ptlines.xml
+-v

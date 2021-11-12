@@ -20,3 +20,18 @@ patch_network
 
 # finding routes
 getShortestRoute
+
+# finding routes in a railway network
+getShortestRoute_rail
+
+# parsing XML and accessing objects
+xml
+
+# parsing nested XML
+xml.parse_nested
+
+# parsing nested XML with ignored lines
+xml.parse_nested2
+
+# testing statistics 
+statistics

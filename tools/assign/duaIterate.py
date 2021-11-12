@@ -1,38 +1,45 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    duaIterate.py
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
 # @author  Yun-Pang Floetteroed
+# @author  Behzad Bamdad Mehrabani
 # @date    2008-02-13
 
 """
-Run duarouter and sumo alternating to perform a dynamic user assignment.
-Based on the Perl script dua_iterate.pl.
+Run duarouter and sumo alternating to perform a dynamic user assignment or a dynamic system optimal assignment
 """
 from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
 import subprocess
-import shutil
 import glob
 import argparse
+import xml.etree.ElementTree as ET
 from datetime import datetime
+
 from costMemory import CostMemory
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 import sumolib  # noqa
 from sumolib.options import get_long_option_names  # noqa
+
+DEBUGLOG = None
 
 
 def addGenericOptions(argParser):
@@ -43,9 +50,9 @@ def addGenericOptions(argParser):
                            help="SUMO network (mandatory)", metavar="FILE")
     argParser.add_argument("-+", "--additional", default="", help="Additional files")
     argParser.add_argument("-b", "--begin",
-                           type=int, default=0, help="Set simulation/routing begin")
+                           type=float, default=0, help="Set simulation/routing begin")
     argParser.add_argument("-e", "--end",
-                           type=int, help="Set simulation/routing end")
+                           type=float, help="Set simulation/routing end")
     argParser.add_argument("-R", "--route-steps", type=int, default=200, help="Set simulation route steps")
     argParser.add_argument("-a", "--aggregation",
                            type=int, default=900, help="Set main weights aggregation period")
@@ -78,19 +85,21 @@ def addGenericOptions(argParser):
                            help="Delay before blocked vehicles are teleported (negative value disables teleporting)")
     argParser.add_argument("--time-to-teleport.highways", dest="timetoteleport_highways", type=float, default=0,
                            help="Delay before blocked vehicles are teleported on wrong highway lanes")
+    argParser.add_argument("--measure-vtypes", dest="measureVTypes",
+                           help="Restrict edgeData measurements to the given vehicle types")
     argParser.add_argument("-7", "--zip", action="store_true",
                            default=False, help="zip old iterations using 7zip")
 
 
 def initOptions():
-    argParser = argparse.ArgumentParser(
+    argParser = sumolib.options.ArgumentParser(
         description=""" Any options of the form sumo--long-option-name will be passed to sumo.
         These must be given after all the other options
         example: sumo--step-length 0.5 will add the option --step-length 0.5 to sumo.""",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     addGenericOptions(argParser)
 
-    argParser.add_argument("-C", "--continue-on-unbuild", action="store_true", dest="continueOnUnbuild",
+    argParser.add_argument("--continue-on-unbuild", action="store_true", dest="continueOnUnbuild",
                            default=False, help="continues on unbuild routes")
     argParser.add_argument("-t", "--trips",
                            help="trips in step 0 (either trips, flows, or routes have to be supplied)", metavar="FILE")
@@ -138,31 +147,35 @@ def initOptions():
     argParser.add_argument("--max-alternatives", default=5, help="prune the number of alternatives to INT")
     argParser.add_argument("--skip-first-routing", action="store_true", dest="skipFirstRouting",
                            default=False, help="run simulation with demands before first routing")
-    argParser.add_argument("--logit", action="store_true", dest="logit",
-                           default=False, help="use the logit model for route choice")
-    argParser.add_argument("-g", "--logitbeta", type=float, dest="logitbeta",
+    argParser.add_argument("--logit", action="store_true", default=False, help="use the logit model for route choice")
+    argParser.add_argument("-g", "--logitbeta", type=float,
                            default=0.15, help="use the c-logit model for route choice; logit model when beta = 0")
-    argParser.add_argument("-i", "--logitgamma", type=float, dest="logitgamma",
-                           default=1., help="use the c-logit model for route choice")
-    argParser.add_argument("-G", "--logittheta", type=float, dest="logittheta",
-                           help="parameter to adapt the cost unit")
-    argParser.add_argument("-J", "--addweights", dest="addweights",
-                           help="Additional weightes for duarouter")
+    argParser.add_argument("-i", "--logitgamma", type=float, default=1., help="use the c-logit model for route choice")
+    argParser.add_argument("-G", "--logittheta", type=float, help="parameter to adapt the cost unit")
+    argParser.add_argument("-J", "--addweights", help="Additional weightes for duarouter")
+    argParser.add_argument("--convergence-steps", dest="convergenceSteps", type=int,
+                           help="Given x, if x > 0 Reduce probability to change route by 1/x per step. " +
+                                "If x < 0 set probability of rerouting to 1/step after step |x|")
+    argParser.add_argument("--addweights.once", dest="addweightsOnce", action="store_true",
+                           default=False, help="use added weights only on the first iteration")
     argParser.add_argument("--router-verbose", action="store_true",
                            default=False, help="let duarouter print some statistics")
-    argParser.add_argument("-M", "--external-gawron", action="store_true", dest="externalgawron",
-                           default=False, help="use the external gawron calculation")
-    argParser.add_argument("-N", "--calculate-oldprob", action="store_true", dest="caloldprob",
-                           default=False, help="calculate the old route probabilities with the free-flow " +
-                                               "travel times when using the external gawron calculation")
     argParser.add_argument("--weight-memory", action="store_true", default=False, dest="weightmemory",
                            help="smooth edge weights across iterations")
     argParser.add_argument("--pessimism", default=1, type=float,
                            help="give traffic jams a higher weight when using option --weight-memory")
     argParser.add_argument("--clean-alt", action="store_true", dest="clean_alt",
                            default=False, help="Whether old rou.alt.xml files shall be removed")
-    argParser.add_argument("--binary", action="store_true",
-                           default=False, help="Use binary format for intermediate and resulting route files")
+    argParser.add_argument("--binary", dest="gzip", action="store_true", default=False,
+                           help="alias for --gzip")
+    argParser.add_argument("--gzip", action="store_true", default=False,
+                           help="writing intermediate and resulting route files in gzipped format")
+    argParser.add_argument("--dualog", default="dua.log", help="log file path (default 'dua.log')")
+    argParser.add_argument("--log", default="stdout.log", help="log file path (default 'dua.log')")
+    argParser.add_argument("--marginal-cost", action="store_true", default=False,
+                           help="use marginal cost to perform system optimal traffic assignment")
+    argParser.add_argument("--marginal-cost.exp", type=float, default=0, dest="mcExp",
+                           help="apply the given exponent on the current traffic count when computing marginal cost")
     argParser.add_argument("remaining_args", nargs='*')
     return argParser
 
@@ -179,78 +192,72 @@ def call(command, log):
         sys.exit(retCode)
 
 
+def prepend_relative(prefix, path):
+    if os.path.isabs(path):
+        return path
+    else:
+        return "%s/%s" % (prefix, path)
+
+
 def writeRouteConf(duarouterBinary, step, options, dua_args, file,
                    output, routesInfo):
     filename = os.path.basename(file)
     filename = filename.split('.')[0]
-    cfgname = "iteration_%03i_%s.duarcfg" % (step, filename)
-
-    withExitTimes = False
-    if routesInfo == "detailed":
-        withExitTimes = True
-    fd = open(cfgname, "w")
-    print("""<configuration>
-    <input>
-        <net-file value="%s"/>""" % options.net, file=fd)
+    cfgname = "%s/iteration_%03i_%s.duarcfg" % (step, step, filename)
+    args = [
+        '--net-file', prepend_relative("..", options.net),
+        '--route-files', prepend_relative("..", file),
+        '--output-file', output,
+        '--exit-times', str(routesInfo == "detailed"),
+        '--ignore-errors', str(options.continueOnUnbuild),
+        '--with-taz', str(options.districts is not None),
+        '--gawron.beta', str(options.gBeta),
+        '--gawron.a', str(options.gA),
+        '--keep-all-routes', str(options.allroutes),
+        '--routing-algorithm', options.routing_algorithm,
+        '--max-alternatives', str(options.max_alternatives),
+        '--weights.expand',
+        '--logit.beta', str(options.logitbeta),
+        '--logit.gamma', str(options.logitgamma),
+        '--random', str(options.absrand),
+        '--begin', str(options.begin),
+        '--verbose', str(options.router_verbose),
+        '--no-step-log',
+        '--no-warnings', str(options.noWarnings),
+    ]
     if options.districts:
-        print('        <additional-files value="%s"/>' %
-              options.districts, file=fd)
-    print('        <route-files value="%s"/>' % file, file=fd)
-    if step > 0:
-        print('        <weights value="%s"/>' %
-              get_weightfilename(options, step - 1, "dump"), file=fd)
-    if options.eco_measure:
-        print('        <weight-attribute value="%s"/>' %
-              options.eco_measure, file=fd)
-    print("""    </input>
-    <output>
-        <output-file value="%s"/>
-        <exit-times value="%s"/>
-    </output>""" % (output, withExitTimes), file=fd)
-    print("""    <processing>
-        <ignore-errors value="%s"/>
-        <with-taz value="%s"/>
-        <gawron.beta value="%s"/>
-        <gawron.a value="%s"/>
-        <keep-all-routes value="%s"/>
-        <routing-algorithm value="%s"/>%s
-        <max-alternatives value="%s"/>
-        <weights.expand value="true"/>
-        <logit value="%s"/>
-        <logit.beta value="%s"/>
-        <logit.gamma value="%s"/>""" % (
-        options.continueOnUnbuild,
-        bool(options.districts),
-        options.gBeta,
-        options.gA,
-        options.allroutes,
-        options.routing_algorithm,
-        ("" if 'CH' not in options.routing_algorithm else '\n<weight-period value="%s"/>\n' %
-         options.aggregation),
-        options.max_alternatives,
-        options.logit,
-        options.logitbeta,
-        options.logitgamma), file=fd)
-    if options.logittheta:
-        print('        <logit.theta value="%s"/>' %
-              options.logittheta, file=fd)
-    print('    </processing>', file=fd)
+        args += ['--additional-files', options.districts]
+    if options.logit:
+        args += ['--route-choice-method', 'logit']
+        if options.convergenceSteps:
+            if options.convergenceSteps > 0:
+                probKeepRoute = max(0, min(step / float(options.convergenceSteps), 1))
+            else:
+                startStep = -options.convergenceSteps
+                probKeepRoute = 0 if step > startStep else 1 - 1.0 / (step - startStep)
+            args += ['--keep-route-probability', str(probKeepRoute)]
 
-    print('    <random_number><random value="%s"/></random_number>' %
-          options.absrand, file=fd)
-    print('    <time><begin value="%s"/>' % options.begin, end=' ', file=fd)
+    if step > 0 or options.addweights:
+        weightpath = ""
+        if step > 0:
+            weightpath = os.path.join('..', str(step-1), get_weightfilename(options, step - 1, "dump"))
+        if options.addweights and (step == 0 or not options.addweightsOnce):
+            if step > 0:
+                weightpath += ","
+            weightpath += os.path.join('..', options.addweights)
+        args += ['--weight-files', weightpath]
+    if options.eco_measure:
+        args += ['--weight-attribute', options.eco_measure]
+    if 'CH' in options.routing_algorithm:
+        args += ['--weight-period', str(options.aggregation)]
+    if options.logittheta:
+        args += ['--logit.theta', str(options.logittheta)]
     if options.end:
-        print('<end value="%s"/>' % options.end, end=' ', file=fd)
-    print("""</time>
-    <report>
-        <verbose value="%s"/>
-        <no-step-log value="True"/>
-        <no-warnings value="%s"/>
-    </report>
-</configuration>""" % (options.router_verbose, options.noWarnings), file=fd)
-    fd.close()
-    subprocess.call(
-        [duarouterBinary, "-c", cfgname, "--save-configuration", cfgname] + dua_args)
+        args += ['--end', str(options.end)]
+
+    args += ["--save-configuration", cfgname]
+
+    subprocess.call([duarouterBinary] + args + dua_args)
     return cfgname
 
 
@@ -274,8 +281,6 @@ def get_weightfilename(options, step, prefix):
     # this defaults to the dumpfile writen by the simulation but may be
     # different if one of the options --addweights, --memory-weights or
     # --cost-modifier is used
-    if options.addweights:
-        prefix = "%s,%s" % (options.addweights, prefix)
     if options.weightmemory:
         prefix = "memory_" + prefix
     return get_dumpfilename(options, step, prefix)
@@ -283,14 +288,16 @@ def get_weightfilename(options, step, prefix):
 
 def writeSUMOConf(sumoBinary, step, options, additional_args, route_files):
     detectorfile = "dua_dump_%03i.add.xml" % step
-    comma = (',' if options.additional != "" else '')
+    add = [detectorfile]
+    if options.additional != '':
+        add += [prepend_relative("..", f) for f in options.additional.split(',')]
+
     sumoCmd = [sumoBinary,
-               '--save-configuration', "iteration_%03i.sumocfg" % step,
+               '--save-configuration', "%s/iteration_%03i.sumocfg" % (step, step),
                '--log', "iteration_%03i.sumo.log" % step,
-               '--net-file', options.net,
+               '--net-file', prepend_relative("..", options.net),
                '--route-files', route_files,
-               '--additional-files', "%s%s%s" % (
-                   detectorfile, comma, options.additional),
+               '--additional-files', ",".join(add),
                '--no-step-log',
                '--random', options.absrand,
                '--begin', options.begin,
@@ -346,21 +353,23 @@ def writeSUMOConf(sumoBinary, step, options, additional_args, route_files):
     subprocess.call(sumoCmd, stdout=subprocess.PIPE)
 
     # write detectorfile
-    with open(detectorfile, 'w') as fd:
+    with open(os.path.join(str(step), detectorfile), 'w') as fd:
+        vTypes = ' vTypes="%s"' % ' '.join(options.measureVTypes.split(',')) if options.measureVTypes else ""
         suffix = "_%03i_%s" % (step, options.aggregation)
         print("<a>", file=fd)
-        print('    <edgeData id="dump%s" freq="%s" file="%s" excludeEmpty="true" minSamples="1"/>' % (
-            suffix, options.aggregation, get_dumpfilename(options, step, "dump")), file=fd)
+        print('    <edgeData id="dump%s" freq="%s" file="%s" excludeEmpty="true" minSamples="1"%s/>' % (
+            suffix, options.aggregation, get_dumpfilename(options, step, "dump"), vTypes), file=fd)
         if options.eco_measure:
             print(('    <edgeData id="eco%s" type="hbefa" freq="%s" file="dump%s.xml" ' +
-                   'excludeEmpty="true" minSamples="1"/>') %
-                  (suffix, options.aggregation, suffix), file=fd)
+                   'excludeEmpty="true" minSamples="1"%s/>') %
+                  (suffix, options.aggregation, suffix, vTypes), file=fd)
         print("</a>", file=fd)
 
 
 def filterTripinfo(step, attrs):
-    attrs.add("id")
-    inFile = "tripinfo_%03i.xml" % step
+    if "id" not in attrs:
+        attrs = ["id"] + attrs
+    inFile = "%s%stripinfo_%03i.xml" % (step, os.sep, step)
     if os.path.exists(inFile):
         out = open(inFile + ".filtered", 'w')
         print("<tripinfos>", file=out)
@@ -403,7 +412,10 @@ def assign_remaining_args(application, prefix, args):
         if "--" in arg:
             if item is not None:
                 items.append(item)
-            item = [arg]
+            if "=" in arg:
+                item = arg.split("=")
+            else:
+                item = [arg]
         else:
             if item is None:
                 sys.exit(
@@ -430,12 +442,56 @@ def assign_remaining_args(application, prefix, args):
 
 def get_basename(demand_file):
     basename = os.path.basename(demand_file)
-    if 'alt' in basename:
-        return basename[:-12]
-    elif 'trips' in basename:
-        return basename[:-10]
-    else:
-        return basename[:basename.find(".")]
+    # note this will still cause problems if multiple input file have the same
+    # prefix and only differ in suffix
+    for suffix in ['.rou.xml', '.rou.alt.xml', '.trips.xml', '.xml']:
+        if basename.endswith(suffix):
+            basename = basename[:-len(suffix)]
+            break
+    return basename
+
+
+def calcMarginalCost(step, options):
+    if step > 1:
+        if DEBUGLOG:
+            log = open("marginal_cost2.log", "w" if step == 2 else "a")
+        tree_sumo_cur = ET.parse(os.path.join(str(step - 1), get_weightfilename(options, step - 1, "dump")))
+        tree_sumo_prv = ET.parse(os.path.join(str(step - 2), get_weightfilename(options, step - 2, "dump")))
+        for interval_cur in tree_sumo_cur.getroot():
+            begin_cur = interval_cur.attrib.get("begin")
+            for interval_prv in tree_sumo_prv.getroot():
+                begin_prv = interval_prv.attrib.get("begin")
+                for edge_cur in interval_cur.iter('edge'):
+                    for edge_prv in interval_prv.iter('edge'):
+                        if begin_cur == begin_prv and edge_cur.get("id") == edge_prv.get("id"):
+                            if edge_cur.get("traveltime") is not None and edge_prv.get(
+                                    "traveltime") is not None:
+                                veh_cur = float(edge_cur.get("left")) + float(edge_cur.get("arrived"))
+                                veh_prv = float(edge_prv.get("left")) + float(edge_prv.get("arrived"))
+                                tt_cur = float(edge_cur.get("traveltime"))
+                                tt_prv = float(edge_prv.get("overlapTraveltime"))
+                                mc_prv = float(edge_prv.get("traveltime"))
+                                dif_tt = abs(tt_cur - tt_prv)
+                                dif_veh = veh_cur - veh_prv
+                                if dif_veh > 0:
+                                    mc_cur = (dif_tt / dif_veh) * (veh_cur ** options.mcExp) + tt_cur
+                                else:
+                                    # previous marginal cost
+                                    mc_cur = mc_prv
+
+                                edge_cur.set("traveltime", str(mc_cur))
+                                edge_cur.set("overlapTraveltime", str(tt_cur))
+                                edgeID = edge_cur.get("id")
+                                if DEBUGLOG:
+                                    if begin_cur == "1800.00":
+                                        print("step=%s beg=%s e=%s tt=%s ttprev=%s n=%s nPrev=%s mC=%s mCPrev=%s" %
+                                              (step, begin_cur, edgeID, tt_cur, tt_prv, veh_cur, veh_prv,
+                                               mc_cur, mc_prv), file=log)
+        tree_sumo_cur.write(
+            os.path.join(str(step - 1), get_weightfilename(options, step - 1, "dump")))
+
+        if DEBUGLOG:
+            log.close()
 
 
 def main(args=None):
@@ -451,8 +507,9 @@ def main(args=None):
     duaBinary = sumolib.checkBinary("duarouter", options.path)
     sumoBinary = sumolib.checkBinary("sumo", options.path)
     if options.addweights and options.weightmemory:
-        argParser.error(
-            "Options --addweights and --weight-memory are mutually exclusive.")
+        argParser.error("Options --addweights and --weight-memory are mutually exclusive.")
+    if options.marginal_cost and not options.logit:
+        print("Warning! --marginal-cost works best with --logit.", file=sys.stderr)
 
     # make sure BOTH binaries are callable before we start
     try:
@@ -472,18 +529,21 @@ def main(args=None):
         sumoBinary, 'sumo', options.remaining_args)
     dua_args = assign_remaining_args(
         duaBinary, 'duarouter', options.remaining_args)
-
-    sys.stdout = sumolib.TeeFile(sys.stdout, open("stdout.log", "w+"))
-    log = open("dua.log", "w+")
+    index = -1
+    for i in range(len(dua_args)):
+        if dua_args[i] == '--additional-files':
+            index = i
+    if index > -1:
+        dua_args[index+1] = ','.join([prepend_relative("..", f) for f in dua_args[index+1].split(',')])
+    sys.stdout = sumolib.TeeFile(sys.stdout, open(options.log, "w+"))
+    log = open(options.dualog, "w+")
     if options.zip:
         if options.clean_alt:
-            sys.exit(
-                "Error: Please use either --zip or --clean-alt but not both.")
+            sys.exit("Error: Please use either --zip or --clean-alt but not both.")
         try:
             subprocess.call("7z", stdout=open(os.devnull, 'wb'))
         except Exception:
-            sys.exit(
-                "Error: Could not locate 7z, please make sure its on the search path.")
+            sys.exit("Error: Could not locate 7z, please make sure its on the search path.")
         zipProcesses = {}
         zipLog = open("7zip.log", "w+")
     starttime = datetime.now()
@@ -493,17 +553,12 @@ def main(args=None):
         input_demands = options.flows.split(",")
     else:
         input_demands = options.routes.split(",")
-    if options.externalgawron:
-        # avoid dependency on numpy for normal duaIterate
-        from routeChoices import getRouteChoices, calFirstRouteProbs
-        print('use externalgawron')
-        edgesMap = {}
     if options.weightmemory:
         costmemory = CostMemory('traveltime', pessimism=options.pessimism, network_file=options.net
                                 )
     routesSuffix = ".xml"
-    if options.binary:
-        routesSuffix = ".sbx"
+    if options.gzip:
+        routesSuffix = ".gz"
 
     if options.weightmemory and options.firstStep != 0:
         # load previous dump files when continuing a run
@@ -515,6 +570,10 @@ def main(args=None):
 
     avgTT = sumolib.miscutils.Statistics()
     for step in range(options.firstStep, options.lastStep):
+        current_directory = os.getcwd()
+        final_directory = os.path.join(current_directory, str(step))
+        if not os.path.exists(final_directory):
+            os.makedirs(final_directory)
         btimeA = datetime.now()
         print("> Executing step %s" % step)
 
@@ -525,7 +584,7 @@ def main(args=None):
             simulation_demands = [
                 get_basename(f) + "_%03i.rou%s" % (step, routesSuffix) for f in input_demands]
         if not ((options.skipFirstRouting and step == 1) or step == 0):
-            router_demands = [get_basename(
+            router_demands = [str(step-1) + os.sep + get_basename(
                 f) + "_%03i.rou.alt%s" % (step - 1, routesSuffix) for f in input_demands]
 
         if not (options.skipFirstRouting and step == options.firstStep):
@@ -538,6 +597,9 @@ def main(args=None):
                                          output, options.routefile)
                 log.flush()
                 sys.stdout.flush()
+                if options.marginal_cost:
+                    calcMarginalCost(step, options)
+
                 call([duaBinary, "-c", cfgname], log)
                 if options.clean_alt and router_input not in input_demands:
                     os.remove(router_input)
@@ -545,39 +607,6 @@ def main(args=None):
                 print(">>> End time: %s" % etime)
                 print(">>> Duration: %s" % (etime - btime))
                 print("<<")
-                # use the external gawron
-                if options.externalgawron:
-                    basename = get_basename(router_input)
-                    if ((step > 0 and not options.skipFirstRouting) or step > 1):
-                        basename = basename[:-4]
-                    print('basename', basename)
-                    ecomeasure = None
-                    if options.eco_measure:
-                        ecomeasure = options.eco_measure
-                    if step == options.firstStep + 1 and options.skipFirstRouting:
-                        if options.caloldprob:
-                            calFirstRouteProbs("dump_000_%s.xml" % (
-                                options.aggregation), basename + "_001.rou.alt.xml", options.addweights,
-                                ecomeasure)
-                        else:
-                            shutil.copy(
-                                basename + "_001.rou.alt.xml", basename + "_001.rou.galt.xml")
-                            shutil.copy(
-                                basename + "_001.rou.xml", basename + "_001.grou.xml")
-                    if step == options.firstStep and not options.skipFirstRouting:
-                        shutil.copy(
-                            basename + "_000.rou.alt.xml", basename + "_000.rou.galt.xml")
-                        shutil.copy(
-                            basename + "_000.rou.xml", basename + "_000.grou.xml")
-                    else:
-                        print('step:', step)
-                        print('get externalgawron')
-                        dumpfile = "dump_%03i_%s.xml" % (
-                            step - 1, options.aggregation)
-                        if (not options.skipFirstRouting) or (options.skipFirstRouting and step > 1):
-                            output, edgesMap = getRouteChoices(
-                                edgesMap, dumpfile, basename + "_%03i.rou.alt.xml" % step, options.net,
-                                options.addweights, options.gA, options.gBeta, step, ecomeasure)
 
         # simulation
         print(">> Running simulation")
@@ -587,9 +616,9 @@ def main(args=None):
                       ",".join(simulation_demands))  # todo: change 'grou.xml'
         log.flush()
         sys.stdout.flush()
-        call([sumoBinary, "-c", "iteration_%03i.sumocfg" % step], log)
+        call([sumoBinary, "-c", "%s%siteration_%03i.sumocfg" % (step, os.sep, step)], log)
         if options.tripinfoFilter:
-            filterTripinfo(step, set(options.tripinfoFilter.split(",")))
+            filterTripinfo(step, options.tripinfoFilter.split(","))
         etime = datetime.now()
         print(">>> End time: %s" % etime)
         print(">>> Duration: %s" % (etime - btime))
@@ -598,8 +627,8 @@ def main(args=None):
         if options.weightmemory:
             print(">> Smoothing edge weights")
             costmemory.load_costs(
-                get_dumpfilename(options, step, "dump"), step, get_scale(options, step))
-            costmemory.write_costs(get_weightfilename(options, step, "dump"))
+                str(step) + os.sep + get_dumpfilename(options, step, "dump"), step, get_scale(options, step))
+            costmemory.write_costs(str(step) + os.sep + get_weightfilename(options, step, "dump"))
             print(">>> Updated %s edges" % costmemory.loaded())
             print(">>> Decayed %s unseen edges" % costmemory.decayed())
             print(">>> Error avg:%.12g mean:%.12g" %
@@ -628,7 +657,8 @@ def main(args=None):
         if options.convDev:
             sum = 0.
             count = 0
-            for t in sumolib.output.parse_fast("tripinfo_%03i.xml" % step, 'tripinfo', ['duration']):
+            for t in sumolib.output.parse_fast(str(step) + os.sep + "tripinfo_%03i.xml" % step,
+                                               'tripinfo', ['duration']):
                 sum += float(t.duration)
                 count += 1
             avgTT.add(sum / count)

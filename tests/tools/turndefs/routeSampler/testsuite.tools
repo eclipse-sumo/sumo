@@ -1,0 +1,74 @@
+# test output style options
+# 
+output-styles
+
+# 
+# 
+output-styles_pedestrians
+
+# test loading data with multiple intervals
+intervals
+
+# sample routes by probabilites or counts
+weighted
+verbose
+
+# save configuration file
+save_config
+
+# save configuration file template
+save_template
+
+# using edgedata as input
+edgedata
+
+# using another GEH threshold
+geh
+
+# test option --od-files
+od_files
+
+# test additional vehicle attributes
+attrs
+mismatch-output
+
+# use linear programming to optimize route usage
+optimize_full
+
+# use linear programming to optimize route usage (limit 1)
+optimize_1
+
+# use linear programming to optimize route usage (limit 2)
+optimize_2
+
+# read routes that do not cover all detectors
+# use linear programming to optimize route usage 
+small_input_optimize
+
+# read routes that do not cover all detectors.
+# Skip the sampling step and direclty optimize input routes
+# use linear programming to optimize route usage
+small_input_noSampling_optimize
+
+# input contains duplicate routes. optimize it.
+small_input_duplicates_noSampling
+
+# use linear programming to optimize route usage
+# Many routes do not pass any counting locations and should not appear in the result
+optimize_few_detectors
+
+# use linear programming to optimize route usage , prefer fewer vehicles
+optimize_minimize-vehs
+
+# define multi-edge sequence restrictions
+via
+
+# define sequence restriction with gap
+turn-max-gap
+
+# set minimum number of visited counting locations per route
+min_count
+
+# set minimum number of visited counting locations per route
+min_count_optimize
+errors

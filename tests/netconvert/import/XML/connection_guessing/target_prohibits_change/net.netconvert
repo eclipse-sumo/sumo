@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Mar 19 15:33:26 2021 by Eclipse SUMO netconvert Version v1_8_0+1731-3cee3c3
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+        <ignore-errors.edge-type value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.9" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-400661.23,-5810285.98" convBoundary="0.00,0.00,65.39,75.27" origBoundary="13.453860,52.423355,13.575739,52.459757" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="-a" from="C" to="5543923995" name="Franz-Ehrlich-Straße" priority="4" type="highway.unclassified" shape="29.66,38.43 45.67,21.21 62.04,3.60 65.39,0.00">
+        <lane id="-a_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="52.47" shape="33.47,31.99 44.50,20.12 60.87,2.51 64.22,-1.09">
+            <param key="origId" value="318210373"/>
+        </lane>
+    </edge>
+    <edge id="-b" from="cluster_1652675097_1652675099_1704693785_2697454318_2697454319_3246050928_3246050929_3246050930_3246050932_3366620136_583899005" to="C" name="Franz-Ehrlich-Straße" priority="4" type="highway.unclassified" shape="10.92,60.05 29.66,38.43">
+        <lane id="-b_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="48.98" shape="-2.51,73.10 23.88,42.66" changeLeft="authority">
+            <param key="origId" value="142575672"/>
+        </lane>
+        <param key="origFrom" value="3366620136"/>
+    </edge>
+    <edge id="-c" from="C" to="4854982237" name="Moriz-Seeler-Straße" priority="4" type="highway.unclassified">
+        <lane id="-c_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="37.39" shape="23.35,34.40 2.04,13.17">
+            <param key="origId" value="142575695"/>
+        </lane>
+    </edge>
+    <edge id="a" from="5543923995" to="C" name="Franz-Ehrlich-Straße" priority="4" type="highway.unclassified" shape="65.39,0.00 62.04,3.60 45.67,21.21 29.66,38.43">
+        <lane id="a_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="52.47" shape="66.56,1.09 63.21,4.69 46.84,22.30 35.81,34.16">
+            <param key="origId" value="318210373"/>
+        </lane>
+    </edge>
+    <edge id="b" from="C" to="cluster_1652675097_1652675099_1704693785_2697454318_2697454319_3246050928_3246050929_3246050930_3246050932_3366620136_583899005" name="Franz-Ehrlich-Straße" priority="4" type="highway.unclassified" shape="29.66,38.43 10.92,60.05">
+        <lane id="b_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="48.98" shape="28.71,46.85 2.33,77.29" changeLeft="authority">
+            <param key="origId" value="142575672"/>
+        </lane>
+        <lane id="b_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="48.98" shape="26.29,44.76 -0.09,75.19">
+            <param key="origId" value="142575672"/>
+        </lane>
+        <param key="origTo" value="3366620136"/>
+    </edge>
+    <edge id="c" from="4854982237" to="C" name="Moriz-Seeler-Straße" priority="4" type="highway.unclassified">
+        <lane id="c_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="37.39" shape="4.30,10.91 25.61,32.14">
+            <param key="origId" value="142575695"/>
+        </lane>
+    </edge>
+
+    <junction id="4854982237" type="dead_end" x="3.17" y="12.04" incLanes="-c_0" intLanes="" shape="3.17,12.04 0.91,14.31 3.17,12.04"/>
+    <junction id="5543923995" type="dead_end" x="65.39" y="0.00" incLanes="-a_0" intLanes="" shape="65.39,0.00 63.05,-2.18 65.39,0.00"/>
+    <junction id="C" type="priority" x="29.66" y="38.43" incLanes="a_0 c_0 -b_0" intLanes="" shape="36.98,35.25 32.30,30.90 30.47,32.21 29.54,32.39 28.62,32.25 27.68,31.78 26.74,31.00 22.22,35.54 23.63,37.57 23.87,38.58 23.78,39.59 23.38,40.60 22.67,41.61 29.92,47.90 31.75,45.43 32.76,43.37 33.38,41.51 34.01,39.67 35.08,37.65">
+        <request index="0" response="00000000" foes="00110000"/>
+        <request index="1" response="00000000" foes="00110000"/>
+        <request index="2" response="11000000" foes="11110000"/>
+        <request index="3" response="10000000" foes="10000000"/>
+        <request index="4" response="10000111" foes="10000111"/>
+        <request index="5" response="10000111" foes="10000111"/>
+        <request index="6" response="00000000" foes="00000100"/>
+        <request index="7" response="00000000" foes="00111100"/>
+    </junction>
+    <junction id="cluster_1652675097_1652675099_1704693785_2697454318_2697454319_3246050928_3246050929_3246050930_3246050932_3366620136_583899005" type="dead_end" x="0.00" y="75.27" incLanes="b_0 b_1" intLanes="" shape="-1.30,74.15 3.54,78.34 -1.30,74.15"/>
+
+    <connection from="-b" to="-c" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="-b" to="-a" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="a" to="b" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="a" to="b" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from="a" to="-c" fromLane="0" toLane="0" dir="l" state="m"/>
+    <connection from="c" to="-a" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="c" to="b" fromLane="0" toLane="0" dir="l" state="m"/>
+    <connection from="c" to="b" fromLane="0" toLane="1" dir="l" state="m"/>
+
+</net>

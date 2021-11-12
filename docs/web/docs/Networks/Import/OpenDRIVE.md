@@ -1,16 +1,15 @@
 ---
-title: Networks/Import/OpenDRIVE
-permalink: /Networks/Import/OpenDRIVE/
+title: OpenDRIVE
 ---
 
 For reading [OpenDRIVE networks](http://www.opendrive.org/), give
-[NETCONVERT](../../NETCONVERT.md) the option **--opendrive-files** {{DT_FILE}}\[,{{DT_FILE}}\]\* or **--opendrive** {{DT_FILE}}\[,{{DT_FILE}}\]\* for short.
+[netconvert](../../netconvert.md) the option **--opendrive-files** {{DT_FILE}}\[,{{DT_FILE}}\]\* or **--opendrive** {{DT_FILE}}\[,{{DT_FILE}}\]\* for short.
 
 ```
 netconvert --opendrive myOpenDriveNetwork.xodr -o mySUMOnetwork.net.xml
 ```
 
-[NETCONVERT](../../NETCONVERT.md) can also [write OpenDrive
+[netconvert](../../netconvert.md) can also [write OpenDrive
 networks](../../Networks/Further_Outputs.md#opendrive_road_networks).
 
 # User Options
@@ -20,7 +19,7 @@ networks](../../Networks/Further_Outputs.md#opendrive_road_networks).
 OpenDRIVE allows to assign a lane to an abstract (not pre-defined)
 class. Some of the lanes can be used by vehicles, some represent
 non-usable building structures, such as curbs. When reading OpenDRIVE
-files, [NETCONVERT](../../NETCONVERT.md) determines whether and how a
+files, [netconvert](../../netconvert.md) determines whether and how a
 lane shall be imported by looking into pre-defined and/or loaded [edge
 types](../../Networks/PlainXML.md#type_descriptions).
 Several known lane types are pre-defined, and shown in the following
@@ -36,7 +35,7 @@ if not set explicitly by the lane within the read OpenDRIVE file:
 
 <center>
 
-**Lane types [NETCONVERT](../../NETCONVERT.md) interprets as driving
+**Lane types [netconvert](../../netconvert.md) interprets as driving
 lanes**
 
 </center>
@@ -70,6 +69,14 @@ file like this:
 
 </types>
 ```
+
+## Pre-Defined type maps
+
+The following edge-type files are available in {{SUMO_HOME}}/data/typemap for OpenDRIVE import:
+
+- **opendriveNetconvert.typ.xml**: default typemap for importing automotive networks. This will be used if option **--type-files** is not set.
+- **opendriveNetconvertBicycle.typ.xml**: can be combined with default typemap to also import bicycle lanes
+- **opendriveNetconvertPedestrians.typ.xml**: can be combined with default typemap to also import sidewalks
 
 # Import Process
 

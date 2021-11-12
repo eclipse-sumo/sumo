@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIVideoEncoder.h
 /// @author  Michael Behrisch
@@ -17,13 +21,7 @@
 // https://github.com/leixiaohua1020/simplest_ffmpeg_video_encoder and
 // https://github.com/codefromabove/FFmpegRGBAToYUV
 /****************************************************************************/
-#ifndef GUIVideoEncoder_h
-#define GUIVideoEncoder_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <stdio.h>
@@ -70,7 +68,7 @@ extern "C"
 class GUIVideoEncoder {
 public:
     GUIVideoEncoder(const char* const out_file, const int width, const int height, double frameDelay) {
-        av_register_all();
+        //av_register_all();
         avformat_alloc_output_context2(&myFormatContext, NULL, NULL, out_file);
         if (myFormatContext == nullptr) {
             throw ProcessError("Unknown format!");
@@ -88,7 +86,11 @@ public:
         video_st->time_base.num = 1;
         video_st->time_base.den = framerate;
 
-        const AVCodec* const codec = avcodec_find_encoder(myFormatContext->oformat->video_codec);
+        const AVCodec* codec = avcodec_find_encoder(myFormatContext->oformat->video_codec);
+        if (codec == nullptr) {
+            WRITE_WARNING("Unknown codec, falling back to HEVC!");
+            codec = avcodec_find_encoder_by_name("libx265");
+        }
         if (codec == nullptr) {
             throw ProcessError("Unknown codec!");
         }
@@ -116,7 +118,7 @@ public:
         //pmyCodecCtx->qcompress = 0.6;
         //myCodecCtx->qmin = 10; // example does not set this
         //myCodecCtx->qmax = 51; // example does not set this
-        myCodecCtx->max_b_frames = 1; // example has 1
+        //myCodecCtx->max_b_frames = 1; // example has 1
 
         // Set codec specific options
         //H.264
@@ -133,6 +135,7 @@ public:
         if (avcodec_open2(myCodecCtx, codec, nullptr) < 0) {
             throw ProcessError("Could not open codec!");
         }
+        avcodec_parameters_from_context(video_st->codecpar, myCodecCtx);
 
         myFrame = av_frame_alloc();
         if (myFrame == nullptr) {
@@ -236,8 +239,3 @@ private:
     int myFrameIndex;
 
 };
-
-
-#endif
-
-/****************************************************************************/

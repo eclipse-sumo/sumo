@@ -1,0 +1,57 @@
+# join traffic lights within the default distance
+basic
+
+# join traffic lights within the default distance, select unique id
+id_exists
+
+# set a lower maxdist and test that nothing is joined
+option_join-dist
+
+# guess the joined tls
+guess
+
+# avoid joining a large dense cluster of junctions
+guess_large
+
+# activate option for including clusters into guess
+guess.joining
+
+# activate option for including clusters into guess, real-world example
+guess.joining_rw1
+
+# activate option for including clusters into guess, real-world example
+guess.joining_rw2
+
+# activate option for including clusters into guess
+guess.joining_join
+
+# test that edge lengths are used instead of junction positions for clustering
+# (important for big junction shapes)
+edge_length
+
+# test explit specification of joined tls in plain xml input
+specified
+
+# test explit specification of joined tls in plain xml input with controlledInner
+specified_controlledInner
+
+# test heuristic for interpreting tls-nodes as signal locations
+guess-signals
+
+# test heuristic for interpreting tls-nodes as signal locations in a multimodal network
+guess-signals_multimodal
+
+# exclude nodes from receiving a traffic light via tls.unset
+guess-signals_unset
+
+# close nodes are set as traffic_light but are acutally unregulated
+with_unregulated
+
+# keep inner edges uncontrolled
+legacy_mode
+
+# tls should not be guess due to lack of conflicts
+guess_not_no_conflict
+
+# tls should not be guessed at slip-lane end
+guess_not_sliplane

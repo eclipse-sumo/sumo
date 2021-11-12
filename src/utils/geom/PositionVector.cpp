@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    PositionVector.cpp
 /// @author  Daniel Krajzewicz
@@ -16,11 +20,6 @@
 ///
 // A list of positions
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <queue>
@@ -292,7 +291,7 @@ PositionVector::positionAtOffset2D(double pos, double lateralOffset) const {
 
 double
 PositionVector::rotationAtOffset(double pos) const {
-    if (size() == 0) {
+    if ((size() == 0) || (size() == 1)) {
         return INVALID_DOUBLE;
     }
     if (pos < 0) {
@@ -414,11 +413,19 @@ Position
 PositionVector::getCentroid() const {
     if (size() == 0) {
         return Position::INVALID;
+    } else if (size() == 1) {
+        return (*this)[0];
+    } else if (size() == 2) {
+        return ((*this)[0] + (*this)[1]) * 0.5;
     }
     PositionVector tmp = *this;
     if (!isClosed()) { // make sure its closed
         tmp.push_back(tmp[0]);
     }
+    // shift to origin to increase numerical stability
+    Position offset = tmp[0];
+    Position result;
+    tmp.sub(offset);
     const int endIndex = (int)tmp.size() - 1;
     double div = 0; // 6 * area including sign
     double x = 0;
@@ -432,7 +439,7 @@ PositionVector::getCentroid() const {
             y += (tmp[i].y() + tmp[i + 1].y()) * z;
         }
         div *= 3; //  6 / 2, the 2 comes from the area formula
-        return Position(x / div, y / div);
+        result = Position(x / div, y / div);
     } else {
         // compute by decomposing into line segments
         // http://en.wikipedia.org/wiki/Centroid#By_geometric_decomposition
@@ -445,10 +452,11 @@ PositionVector::getCentroid() const {
         }
         if (lengthSum == 0) {
             // it is probably only one point
-            return tmp[0];
+            result = tmp[0];
         }
-        return Position(x / lengthSum, y / lengthSum);
+        result = Position(x / lengthSum, y / lengthSum) + offset;
     }
+    return result + offset;
 }
 
 
@@ -533,7 +541,7 @@ PositionVector::partialWithin(const AbstractPoly& poly, double offset) const {
     if (size() < 2) {
         return false;
     }
-    for (const_iterator i = begin(); i != end() - 1; i++) {
+    for (const_iterator i = begin(); i != end(); i++) {
         if (poly.around(*i, offset)) {
             return true;
         }
@@ -558,7 +566,7 @@ PositionVector::splitAt(double where, bool use2D) const {
         throw InvalidArgument("Invalid split position " + toString(where) + " for vector of length " + toString(len));
     }
     if (where <= POSITION_EPS || where >= len - POSITION_EPS) {
-        WRITE_WARNING("Splitting vector close to end (pos: " + toString(where) + ", length: " + toString(len) + ")");
+        WRITE_WARNINGF("Splitting vector close to end (pos: %, length: %)", toString(where), toString(len));
     }
     PositionVector first, second;
     first.push_back((*this)[0]);
@@ -937,7 +945,7 @@ PositionVector::transformToVectorCoordinates(const Position& p, bool extend) con
 
 
 int
-PositionVector::indexOfClosest(const Position& p) const {
+PositionVector::indexOfClosest(const Position& p, bool twoD) const {
     if (size() == 0) {
         return -1;
     }
@@ -945,7 +953,8 @@ PositionVector::indexOfClosest(const Position& p) const {
     double dist;
     int closest = 0;
     for (int i = 0; i < (int)size(); i++) {
-        dist = p.distanceTo((*this)[i]);
+        const Position& p2 = (*this)[i];
+        dist = twoD ? p.distanceTo2D(p2) : p.distanceTo(p2);
         if (dist < minDist) {
             closest = i;
             minDist = dist;
@@ -1134,9 +1143,9 @@ PositionVector::move2side(double amount, double maxExtension) {
                 shape.push_back(me - sideOffset(from, to, amount));
             } else if (fabs(extrapolateDev - 2 * me.distanceTo2D(to)) < POSITION_EPS) {
                 // counterparallel case, just shift the middle point
-                PositionVector fromMe(from, me);
-                fromMe.extrapolate2D(amount);
-                shape.push_back(fromMe[1]);
+                PositionVector fromMe2(from, me);
+                fromMe2.extrapolate2D(amount);
+                shape.push_back(fromMe2[1]);
             } else {
                 Position offsets = sideOffset(from, me, amount);
                 Position offsets2 = sideOffset(me, to, amount);
@@ -1195,9 +1204,9 @@ PositionVector::move2side(std::vector<double> amount, double maxExtension) {
                 shape.push_back(me - sideOffset(from, to, amount[i]));
             } else if (fabs(extrapolateDev - 2 * me.distanceTo2D(to)) < POSITION_EPS) {
                 // counterparallel case, just shift the middle point
-                PositionVector fromMe(from, me);
-                fromMe.extrapolate2D(amount[i]);
-                shape.push_back(fromMe[1]);
+                PositionVector fromMe2(from, me);
+                fromMe2.extrapolate2D(amount[i]);
+                shape.push_back(fromMe2[1]);
             } else {
                 Position offsets = sideOffset(from, me, amount[i]);
                 Position offsets2 = sideOffset(me, to, amount[i]);
@@ -1341,18 +1350,20 @@ PositionVector::isNAN() const {
 
 
 void
-PositionVector::removeDoublePoints(double minDist, bool assertLength) {
-    if (size() > 1) {
-        iterator last = begin();
-        for (iterator i = begin() + 1; i != end() && (!assertLength || size() > 2);) {
+PositionVector::removeDoublePoints(double minDist, bool assertLength, int beginOffset, int endOffset) {
+    int curSize = (int)size() - beginOffset - endOffset;
+    if (curSize > 1) {
+        iterator last = begin() + beginOffset;
+        for (iterator i = last + 1; i != (end() - endOffset) && (!assertLength || curSize > 2);) {
             if (last->almostSame(*i, minDist)) {
-                if (i + 1 == end()) {
+                if (i + 1 == end() - endOffset) {
                     // special case: keep the last point and remove the next-to-last
                     erase(last);
-                    i = end();
+                    i = end() - endOffset;
                 } else {
                     i = erase(i);
                 }
+                curSize--;
             } else {
                 last = i;
                 ++i;
@@ -1540,7 +1551,7 @@ PositionVector::simplified() const {
 
 
 PositionVector
-PositionVector::getOrthogonal(const Position& p, double extend, bool before, double length) const {
+PositionVector::getOrthogonal(const Position& p, double extend, bool before, double length, double deg) const {
     PositionVector result;
     PositionVector tmp = *this;
     tmp.extrapolate2D(extend);
@@ -1551,15 +1562,20 @@ PositionVector::getOrthogonal(const Position& p, double extend, bool before, dou
     }
     Position base = tmp.positionAtOffset2D(baseOffset);
     const int closestIndex = tmp.indexOfClosest(base);
+    const double closestOffset = tmp.offsetAtIndex2D(closestIndex);
     result.push_back(base);
-    if (fabs(baseOffset - tmp.offsetAtIndex2D(closestIndex)) > NUMERICAL_EPS) {
+    if (fabs(baseOffset - closestOffset) > NUMERICAL_EPS) {
         result.push_back(tmp[closestIndex]);
+        if ((closestOffset < baseOffset) != before) {
+            deg *= -1;
+        }
     } else if (before) {
         // take the segment before closestIndex if possible
         if (closestIndex > 0) {
             result.push_back(tmp[closestIndex - 1]);
         } else {
             result.push_back(tmp[1]);
+            deg *= -1;
         }
     } else {
         // take the segment after closestIndex if possible
@@ -1567,12 +1583,13 @@ PositionVector::getOrthogonal(const Position& p, double extend, bool before, dou
             result.push_back(tmp[closestIndex + 1]);
         } else {
             result.push_back(tmp[-1]);
+            deg *= -1;
         }
     }
     result = result.getSubpart2D(0, length);
     // rotate around base
     result.add(base * -1);
-    result.rotate2D(DEG2RAD(90));
+    result.rotate2D(DEG2RAD(deg));
     result.add(base);
     return result;
 }
@@ -1630,7 +1647,7 @@ PositionVector::interpolateZ(double zStart, double zEnd) const {
 
 
 PositionVector
-PositionVector::resample(double maxLength) const {
+PositionVector::resample(double maxLength, const bool adjustEnd) const {
     PositionVector result;
     if (maxLength == 0) {
         return result;
@@ -1642,6 +1659,11 @@ PositionVector::resample(double maxLength) const {
     maxLength = length / ceil(length / maxLength);
     for (double pos = 0; pos <= length; pos += maxLength) {
         result.push_back(positionAtOffset2D(pos));
+    }
+    // check if we have to adjust last element
+    if (adjustEnd && !result.empty() && (result.back() != back())) {
+        // add last element
+        result.push_back(back());
     }
     return result;
 }

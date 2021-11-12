@@ -1,6 +1,9 @@
 # trafficlight.setCompleteRedYellowGreenDefinition
 ticket1010
 
+# Defect vehicle after loading a state in which it is added but not inserted
+ticket1433
+
 # distance calculation from/to internal edges
 ticket2321
 
@@ -51,9 +54,6 @@ ticket4141
 # crash on first call to simulationStep(time)
 ticket4214
 
-# add trip
-ticket4307
-
 # traffic light type
 ticket4324
 ticket4418
@@ -102,3 +102,21 @@ ticket5932
 
 # use changeLaneRelative to change to the right
 ticket5990
+
+# reset object lists (doesn't happen with libsumo)
+ticket6239
+
+# handle invalid departSpeed without crashing
+ticket6626
+
+# update rtree when adding/removing polygons and POIs
+ticket7057
+
+# crash when switching to cfmodel with vehicle variables
+ticket7949
+
+# crash during lane-changing after calling moveTo with an internal lane
+ticket8714
+
+# crash when calling libsumo twice
+ticket8945

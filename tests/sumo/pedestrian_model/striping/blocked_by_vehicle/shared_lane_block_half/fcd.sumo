@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Oct 24 17:14:10 2017 by SUMO Version dev-SVN-r26708
+<!-- generated on 2021-06-30 13:06:16 by Eclipse SUMO sumo Version v1_9_2+0763-fdcd89e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,16 +14,19 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <fcd-output value="fcd.xml"/>
     </output>
 
     <processing>
+        <default.speeddev value="0"/>
         <pedestrian.model value="striping"/>
         <pedestrian.striping.dawdling value="0"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -101,19 +104,19 @@ SPDX-License-Identifier: EPL-2.0
     </timestep>
     <timestep time="17.00">
         <vehicle id="v0" x="105.65" y="50.00" angle="0.00" type="car" speed="0.00" pos="50.00" lane="SC_0" slope="0.00"/>
-        <person id="p0" x="105.67" y="43.61" angle="0.00" speed="1.39" pos="43.61" edge="SC" slope="0.00"/>
+        <person id="p0" x="105.67" y="43.61" angle="338.20" speed="1.39" pos="43.61" edge="SC" slope="0.00"/>
     </timestep>
     <timestep time="18.00">
         <vehicle id="v0" x="105.65" y="50.00" angle="0.00" type="car" speed="0.00" pos="50.00" lane="SC_0" slope="0.00"/>
-        <person id="p0" x="105.03" y="44.00" angle="0.00" speed="0.39" pos="44.00" edge="SC" slope="0.00"/>
+        <person id="p0" x="105.03" y="44.00" angle="301.22" speed="0.39" pos="44.00" edge="SC" slope="0.00"/>
     </timestep>
     <timestep time="19.00">
         <vehicle id="v0" x="105.65" y="50.00" angle="0.00" type="car" speed="0.00" pos="50.00" lane="SC_0" slope="0.00"/>
-        <person id="p0" x="104.39" y="44.00" angle="0.00" speed="0.00" pos="44.00" edge="SC" slope="0.00"/>
+        <person id="p0" x="104.39" y="44.00" angle="270.09" speed="0.00" pos="44.00" edge="SC" slope="0.00"/>
     </timestep>
     <timestep time="20.00">
         <vehicle id="v0" x="105.65" y="50.00" angle="0.00" type="car" speed="0.00" pos="50.00" lane="SC_0" slope="0.00"/>
-        <person id="p0" x="104.31" y="45.39" angle="0.00" speed="1.39" pos="45.39" edge="SC" slope="0.00"/>
+        <person id="p0" x="104.31" y="45.39" angle="356.52" speed="1.39" pos="45.39" edge="SC" slope="0.00"/>
     </timestep>
     <timestep time="21.00">
         <vehicle id="v0" x="105.65" y="50.00" angle="0.00" type="car" speed="0.00" pos="50.00" lane="SC_0" slope="0.00"/>
@@ -389,22 +392,19 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="v0" x="105.65" y="50.00" angle="0.00" type="car" speed="0.00" pos="50.00" lane="SC_0" slope="0.00"/>
     </timestep>
     <timestep time="101.00">
-        <vehicle id="v0" x="105.65" y="50.00" angle="0.00" type="car" speed="0.00" pos="50.00" lane="SC_0" slope="0.00"/>
-    </timestep>
-    <timestep time="102.00">
         <vehicle id="v0" x="105.65" y="52.60" angle="0.00" type="car" speed="2.60" pos="52.60" lane="SC_0" slope="0.00"/>
     </timestep>
-    <timestep time="103.00">
+    <timestep time="102.00">
         <vehicle id="v0" x="105.65" y="57.80" angle="0.00" type="car" speed="5.20" pos="57.80" lane="SC_0" slope="0.00"/>
     </timestep>
-    <timestep time="104.00">
+    <timestep time="103.00">
         <vehicle id="v0" x="105.65" y="65.60" angle="0.00" type="car" speed="7.80" pos="65.60" lane="SC_0" slope="0.00"/>
     </timestep>
-    <timestep time="105.00">
+    <timestep time="104.00">
         <vehicle id="v0" x="105.65" y="76.00" angle="0.00" type="car" speed="10.40" pos="76.00" lane="SC_0" slope="0.00"/>
     </timestep>
-    <timestep time="106.00">
+    <timestep time="105.00">
         <vehicle id="v0" x="105.65" y="89.00" angle="0.00" type="car" speed="13.00" pos="89.00" lane="SC_0" slope="0.00"/>
     </timestep>
-    <timestep time="107.00"/>
+    <timestep time="106.00"/>
 </fcd-export>

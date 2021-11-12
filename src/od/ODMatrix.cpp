@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2006-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2006-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    ODMatrix.cpp
 /// @author  Daniel Krajzewicz
@@ -16,11 +20,6 @@
 ///
 // An O/D (origin/destination) matrix
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <iostream>
@@ -28,6 +27,7 @@
 #include <list>
 #include <iterator>
 #include <utils/options/OptionsCont.h>
+#include <utils/common/FileHelpers.h>
 #include <utils/common/StdDefs.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
@@ -40,6 +40,7 @@
 #include <utils/importio/LineReader.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/XMLSubSys.h>
+#include <router/RORoute.h>
 #include "ODAmitranHandler.h"
 #include "ODMatrix.h"
 
@@ -52,8 +53,11 @@ ODMatrix::ODMatrix(const ODDistrictCont& dc)
 
 
 ODMatrix::~ODMatrix() {
-    for (std::vector<ODCell*>::iterator i = myContainer.begin(); i != myContainer.end(); ++i) {
-        delete *i;
+    for (ODCell* const cell : myContainer) {
+        for (RORoute* const r : cell->pathsVector) {
+            delete r;
+        }
+        delete cell;
     }
     myContainer.clear();
 }
@@ -213,7 +217,8 @@ ODMatrix::write(SUMOTime begin, const SUMOTime end,
                 OutputDevice& dev, const bool uniform,
                 const bool differSourceSink, const bool noVtype,
                 const std::string& prefix, const bool stepLog,
-                bool pedestrians, bool persontrips) {
+                bool pedestrians, bool persontrips,
+                const std::string& modes) {
     if (myContainer.size() == 0) {
         return;
     }
@@ -225,6 +230,13 @@ ODMatrix::write(SUMOTime begin, const SUMOTime end,
     std::vector<ODCell*>::iterator next = myContainer.begin();
     std::vector<ODVehicle> vehicles;
     SUMOTime lastOut = -DELTA_T;
+
+    const OptionsCont& oc = OptionsCont::getOptions();
+    std::string personDepartPos = oc.isSet("departpos") ? oc.getString("departpos") : "random";
+    std::string personArrivalPos = oc.isSet("arrivalpos") ? oc.getString("arrivalpos") : "random";
+    SumoXMLAttr fromAttr = oc.getBool("junctions") ? SUMO_ATTR_FROMJUNCTION : SUMO_ATTR_FROM;
+    SumoXMLAttr toAttr = oc.getBool("junctions") ? SUMO_ATTR_TOJUNCTION : SUMO_ATTR_TO;
+
     // go through the time steps
     for (SUMOTime t = begin; t < end;) {
         if (stepLog && t - lastOut >= DELTA_T) {
@@ -254,28 +266,37 @@ ODMatrix::write(SUMOTime begin, const SUMOTime end,
         if (changed) {
             sort(vehicles.begin(), vehicles.end(), descending_departure_comperator());
         }
+
         for (std::vector<ODVehicle>::reverse_iterator i = vehicles.rbegin(); i != vehicles.rend() && (*i).depart == t; ++i) {
             if (t >= begin) {
                 myNumWritten++;
                 if (pedestrians) {
                     dev.openTag(SUMO_TAG_PERSON).writeAttr(SUMO_ATTR_ID, (*i).id).writeAttr(SUMO_ATTR_DEPART, time2string(t));
-                    dev.writeAttr(SUMO_ATTR_DEPARTPOS, "random");
+                    dev.writeAttr(SUMO_ATTR_DEPARTPOS, personDepartPos);
                     dev.openTag(SUMO_TAG_WALK);
-                    dev.writeAttr(SUMO_ATTR_FROM, (*i).from).writeAttr(SUMO_ATTR_TO, (*i).to);
-                    dev.writeAttr(SUMO_ATTR_ARRIVALPOS, "random");
+                    dev.writeAttr(fromAttr, (*i).from);
+                    dev.writeAttr(toAttr, (*i).to);
+                    dev.writeAttr(SUMO_ATTR_FROM_TAZ, (*i).cell->origin).writeAttr(SUMO_ATTR_TO_TAZ, (*i).cell->destination);
+                    dev.writeAttr(SUMO_ATTR_ARRIVALPOS, personArrivalPos);
                     dev.closeTag();
                     dev.closeTag();
                 } else if (persontrips) {
                     dev.openTag(SUMO_TAG_PERSON).writeAttr(SUMO_ATTR_ID, (*i).id).writeAttr(SUMO_ATTR_DEPART, time2string(t));
-                    dev.writeAttr(SUMO_ATTR_DEPARTPOS, "random");
+                    dev.writeAttr(SUMO_ATTR_DEPARTPOS, personDepartPos);
                     dev.openTag(SUMO_TAG_PERSONTRIP);
-                    dev.writeAttr(SUMO_ATTR_FROM, (*i).from).writeAttr(SUMO_ATTR_TO, (*i).to);
-                    dev.writeAttr(SUMO_ATTR_ARRIVALPOS, "random");
+                    dev.writeAttr(fromAttr, (*i).from);
+                    dev.writeAttr(toAttr, (*i).to);
+                    dev.writeAttr(SUMO_ATTR_FROM_TAZ, (*i).cell->origin).writeAttr(SUMO_ATTR_TO_TAZ, (*i).cell->destination);
+                    dev.writeAttr(SUMO_ATTR_ARRIVALPOS, personArrivalPos);
+                    if (modes != "") {
+                        dev.writeAttr(SUMO_ATTR_MODES, modes);
+                    }
                     dev.closeTag();
                     dev.closeTag();
                 } else {
                     dev.openTag(SUMO_TAG_TRIP).writeAttr(SUMO_ATTR_ID, (*i).id).writeAttr(SUMO_ATTR_DEPART, time2string(t));
-                    dev.writeAttr(SUMO_ATTR_FROM, (*i).from).writeAttr(SUMO_ATTR_TO, (*i).to);
+                    dev.writeAttr(fromAttr, (*i).from);
+                    dev.writeAttr(toAttr, (*i).to);
                     writeDefaultAttrs(dev, noVtype, i->cell);
                     dev.closeTag();
                 }
@@ -301,7 +322,8 @@ void
 ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
                      OutputDevice& dev, bool noVtype,
                      const std::string& prefix,
-                     bool asProbability, bool pedestrians, bool persontrips) {
+                     bool asProbability, bool pedestrians, bool persontrips,
+                     const std::string& modes) {
     if (myContainer.size() == 0) {
         return;
     }
@@ -318,7 +340,7 @@ ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
             //Person flows
             if (pedestrians) {
                 dev.openTag(SUMO_TAG_PERSONFLOW).writeAttr(SUMO_ATTR_ID, prefix + toString(flowName++));
-                dev.writeAttr(SUMO_ATTR_BEGIN, c->begin).writeAttr(SUMO_ATTR_END, c->end);
+                dev.writeAttr(SUMO_ATTR_BEGIN, time2string(c->begin)).writeAttr(SUMO_ATTR_END, time2string(c->end));
                 if (!asProbability) {
                     dev.writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
                 } else {
@@ -332,13 +354,13 @@ ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
                     }
                 }
                 dev.openTag(SUMO_TAG_WALK);
-                dev.writeAttr(SUMO_ATTR_FROM, c->origin).writeAttr(SUMO_ATTR_TO, c->destination);
+                dev.writeAttr(SUMO_ATTR_FROM_TAZ, c->origin).writeAttr(SUMO_ATTR_TO_TAZ, c->destination);
                 dev.writeAttr(SUMO_ATTR_ARRIVALPOS, "random");
                 dev.closeTag();
                 dev.closeTag();
             } else if (persontrips) {
                 dev.openTag(SUMO_TAG_PERSONFLOW).writeAttr(SUMO_ATTR_ID, prefix + toString(flowName++));
-                dev.writeAttr(SUMO_ATTR_BEGIN, c->begin).writeAttr(SUMO_ATTR_END, c->end);
+                dev.writeAttr(SUMO_ATTR_BEGIN, time2string(c->begin)).writeAttr(SUMO_ATTR_END, time2string(c->end));
                 if (!asProbability) {
                     dev.writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
                 } else {
@@ -352,8 +374,11 @@ ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
                     }
                 }
                 dev.openTag(SUMO_TAG_PERSONTRIP);
-                dev.writeAttr(SUMO_ATTR_FROM, c->origin).writeAttr(SUMO_ATTR_TO, c->destination);
+                dev.writeAttr(SUMO_ATTR_FROM_TAZ, c->origin).writeAttr(SUMO_ATTR_TO_TAZ, c->destination);
                 dev.writeAttr(SUMO_ATTR_ARRIVALPOS, "random");
+                if (modes != "") {
+                    dev.writeAttr(SUMO_ATTR_MODES, modes);
+                }
                 dev.closeTag();
                 dev.closeTag();
             } else {
@@ -462,20 +487,26 @@ ODMatrix::readV(LineReader& lr, double scale,
     const int numDistricts = StringUtils::toInt(StringUtils::prune(line));
     // parse district names (normally ints)
     std::vector<std::string> names;
-    while ((int)names.size() != numDistricts) {
+    while ((int)names.size() != numDistricts && lr.hasMore()) {
         line = getNextNonCommentLine(lr);
         StringTokenizer st2(line, StringTokenizer::WHITECHARS);
         while (st2.hasNext()) {
             names.push_back(st2.next());
         }
     }
+    if (!lr.hasMore()) {
+        throw ProcessError("Missing line with " + toString(numDistricts) + " district names.");
+    }
 
     // parse the cells
     for (std::vector<std::string>::iterator si = names.begin(); si != names.end(); ++si) {
         std::vector<std::string>::iterator di = names.begin();
-        //
         do {
-            line = getNextNonCommentLine(lr);
+            try {
+                line = getNextNonCommentLine(lr);
+            } catch (ProcessError&) {
+                throw ProcessError("Missing line for district " + (*si) + ".");
+            }
             if (line.length() == 0) {
                 continue;
             }
@@ -644,6 +675,28 @@ ODMatrix::loadMatrix(OptionsCont& oc) {
             PROGRESS_DONE_MESSAGE();
         }
     }
+    myVType = oc.getString("vtype");
+    for (std::string file : oc.getStringVector("tazrelation-files")) {
+        if (!FileHelpers::isReadable(file)) {
+            throw ProcessError("Could not access matrix file '" + file + "' to load.");
+        }
+        PROGRESS_BEGIN_MESSAGE("Loading matrix in tazRelation format from '" + file + "'");
+
+        std::vector<SAXWeightsHandler::ToRetrieveDefinition*> retrieverDefs;
+        retrieverDefs.push_back(new SAXWeightsHandler::ToRetrieveDefinition(oc.getString("tazrelation-attribute"), true, *this));
+        SAXWeightsHandler handler(retrieverDefs, "");
+        if (!XMLSubSys::runParser(handler, file)) {
+            PROGRESS_FAILED_MESSAGE();
+        } else {
+            PROGRESS_DONE_MESSAGE();
+        }
+    }
+}
+
+void
+ODMatrix::addTazRelWeight(const std::string intervalID, const std::string& from, const std::string& to,
+        double val, double beg, double end) {
+    add(val, TIME2STEPS(beg), TIME2STEPS(end), from, to, myVType == "" ? intervalID : myVType);
 }
 
 

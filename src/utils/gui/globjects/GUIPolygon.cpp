@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIPolygon.cpp
 /// @author  Daniel Krajzewicz
@@ -16,10 +20,6 @@
 ///
 // The GUI-version of a polygon
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -31,7 +31,13 @@
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GUIDesigns.h>
+
 #include "GUIPolygon.h"
+
+#ifndef CALLBACK
+#define CALLBACK
+#endif
 
 //#define GUIPolygon_DEBUG_DRAW_VERTICES
 
@@ -39,12 +45,12 @@
 // callbacks definitions
 // ===========================================================================
 
-void APIENTRY beginCallback(GLenum which) {
+void CALLBACK beginCallback(GLenum which) {
     glBegin(which);
 }
 
 
-void APIENTRY errorCallback(GLenum errorCode) {
+void CALLBACK errorCallback(GLenum errorCode) {
     const GLubyte* estring;
 
     estring = gluErrorString(errorCode);
@@ -53,17 +59,17 @@ void APIENTRY errorCallback(GLenum errorCode) {
 }
 
 
-void APIENTRY endCallback(void) {
+void CALLBACK endCallback(void) {
     glEnd();
 }
 
 
-void APIENTRY vertexCallback(GLvoid* vertex) {
+void CALLBACK vertexCallback(GLvoid* vertex) {
     glVertex3dv((GLdouble*) vertex);
 }
 
 
-void APIENTRY combineCallback(GLdouble coords[3],
+void CALLBACK combineCallback(GLdouble coords[3],
                               GLdouble* vertex_data[4],
                               GLfloat weight[4], GLdouble** dataOut) {
     UNUSED_PARAMETER(weight);
@@ -78,19 +84,19 @@ void APIENTRY combineCallback(GLdouble coords[3],
     *dataOut = vertex;
 }
 
-GLfloat INV_POLY_TEX_DIM = 1.0 / 256.0;
-GLfloat xPlane[] = {INV_POLY_TEX_DIM, 0.0, 0.0, 0.0};
-GLfloat yPlane[] = {0.0, INV_POLY_TEX_DIM, 0.0, 0.0};
+static const GLdouble INV_POLY_TEX_DIM = 1.0 / 256.0;
+static const GLdouble xPlane[] = {INV_POLY_TEX_DIM, 0.0, 0.0, 0.0};
+static const GLdouble yPlane[] = {0.0, INV_POLY_TEX_DIM, 0.0, 0.0};
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-GUIPolygon::GUIPolygon(const std::string& id, const std::string& type,
-                       const RGBColor& color, const PositionVector& shape, bool geo,
-                       bool fill, double lineWidth, double layer, double angle, const std::string& imgFile,
-                       bool relativePath):
-    SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath),
+GUIPolygon::GUIPolygon(const std::string& id, const std::string& type, const RGBColor& color, 
+        const PositionVector& shape, bool geo, bool fill, 
+        double lineWidth, double layer, double angle, const std::string& imgFile,
+        bool relativePath, const std::string& name):
+    SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name),
     GUIGlObject_AbstractAdd(GLO_POLYGON, id),
     myDisplayList(0),
     myRotatedShape(nullptr) {
@@ -105,14 +111,12 @@ GUIPolygon::~GUIPolygon() {
 }
 
 
-
 GUIGLObjectPopupMenu*
 GUIPolygon::getPopUpMenu(GUIMainWindow& app,
                          GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app, false);
-    FXString t(getShapeType().c_str());
-    new FXMenuCommand(ret, "(" + t + ")", nullptr, nullptr, 0);
+    GUIDesigns::buildFXMenuCommand(ret, "(" + getShapeType() + ")", nullptr, nullptr, 0);
     new FXMenuSeparator(ret);
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
@@ -126,13 +130,19 @@ GUIPolygon::getPopUpMenu(GUIMainWindow& app,
 GUIParameterTableWindow*
 GUIPolygon::getParameterWindow(GUIMainWindow& app,
                                GUISUMOAbstractView&) {
-    GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 3 + (int)getParametersMap().size());
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     ret->mkItem("type", false, getShapeType());
     ret->mkItem("layer", false, toString(getShapeLayer()));
+    ret->mkItem("name", false, toString(getShapeName()));
     ret->closeBuilding(this);
     return ret;
+}
+
+
+double 
+GUIPolygon::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.polySize.getExaggeration(s, this);
 }
 
 
@@ -149,17 +159,21 @@ GUIPolygon::getCenteringBoundary() const {
 void
 GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
     // first check if polygon can be drawn
-    if (checkDraw(s)) {
+    if (checkDraw(s, this, this)) {
         FXMutexLock locker(myLock);
-        //if (myDisplayList == 0 || (!getFill() && myLineWidth != s.polySize.getExaggeration(s))) {
-        //    storeTesselation(s.polySize.getExaggeration(s));
+        //if (myDisplayList == 0 || (!getFill() && myLineWidth != getExaggeration(s))) {
+        //    storeTesselation(getExaggeration(s));
         //}
         // push name (needed for getGUIGlObjectsUnderCursor(...)
-        glPushName(getGlID());
+        GLHelper::pushName(getGlID());
         // draw inner polygon
-        drawInnerPolygon(s, false);
+        if (myRotatedShape) {
+            drawInnerPolygon(s, this, this, *myRotatedShape, getFill(), getShapeLayer(), false);
+        } else {
+            drawInnerPolygon(s, this, this, myShape, getFill(), getShapeLayer(), false);
+        }
         // pop name
-        glPopName();
+        GLHelper::popName();
     }
 }
 
@@ -186,17 +200,23 @@ GUIPolygon::setShape(const PositionVector& shape) {
 
 
 void
-GUIPolygon::performTesselation(double lineWidth) const {
-    const PositionVector& shape = myRotatedShape != nullptr ? *myRotatedShape : myShape;
-    if (getFill()) {
+GUIPolygon::performTesselation(const bool fill, const PositionVector& shape, const double lineWidth) {
+    if (fill) {
         // draw the tesselated shape
         double* points = new double[shape.size() * 3];
         GLUtesselator* tobj = gluNewTess();
-        gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid(APIENTRY*)()) &glVertex3dv);
-        gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid(APIENTRY*)()) &beginCallback);
-        gluTessCallback(tobj, GLU_TESS_END, (GLvoid(APIENTRY*)()) &endCallback);
-        //gluTessCallback(tobj, GLU_TESS_ERROR, (GLvoid (APIENTRY*) ()) &errorCallback);
-        gluTessCallback(tobj, GLU_TESS_COMBINE, (GLvoid(APIENTRY*)()) &combineCallback);
+#if defined(__GNUC__) && __GNUC__ >= 8
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wcast-function-type"
+#endif
+        gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid(CALLBACK*)()) &glVertex3dv);
+        gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid(CALLBACK*)()) &beginCallback);
+        gluTessCallback(tobj, GLU_TESS_END, (GLvoid(CALLBACK*)()) &endCallback);
+        //gluTessCallback(tobj, GLU_TESS_ERROR, (GLvoid (CALLBACK*) ()) &errorCallback);
+        gluTessCallback(tobj, GLU_TESS_COMBINE, (GLvoid(CALLBACK*)()) &combineCallback);
+#if defined(__GNUC__) && __GNUC__ >= 8
+#pragma GCC diagnostic pop
+#endif
         gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
         gluTessBeginPolygon(tobj, nullptr);
         gluTessBeginContour(tobj);
@@ -216,12 +236,11 @@ GUIPolygon::performTesselation(double lineWidth) const {
         GLHelper::drawLine(shape);
         GLHelper::drawBoxLines(shape, lineWidth);
     }
-    //std::cout << "OpenGL says: '" << gluErrorString(glGetError()) << "'\n";
 }
 
 
 void
-GUIPolygon::storeTesselation(double lineWidth) const {
+GUIPolygon::storeTesselation(const bool fill, const PositionVector& shape, double lineWidth) const {
     if (myDisplayList > 0) {
         glDeleteLists(myDisplayList, 1);
     }
@@ -230,43 +249,48 @@ GUIPolygon::storeTesselation(double lineWidth) const {
         throw ProcessError("GUIPolygon::storeTesselation() could not create display list");
     }
     glNewList(myDisplayList, GL_COMPILE);
-    performTesselation(lineWidth);
+    performTesselation(fill, shape, lineWidth);
     glEndList();
 }
 
 
 void
-GUIPolygon::setColor(const GUIVisualizationSettings& s, bool disableSelectionColor) const {
+GUIPolygon::setColor(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o, bool disableSelectionColor, int alphaOverride) {
     const GUIColorer& c = s.polyColorer;
     const int active = c.getActive();
-    if (s.netedit && active != 1 && gSelected.isSelected(GLO_POLYGON, getGlID()) && disableSelectionColor) {
+    RGBColor color;
+    if (s.netedit && active != 1 && gSelected.isSelected(GLO_POLYGON, o->getGlID()) && disableSelectionColor) {
         // override with special selection colors (unless the color scheme is based on selection)
-        GLHelper::setColor(RGBColor(0, 0, 204));
+        color = RGBColor(0, 0, 204);
     } else if (active == 0) {
-        GLHelper::setColor(getShapeColor());
+        color = polygon->getShapeColor();
     } else if (active == 1) {
-        GLHelper::setColor(c.getScheme().getColor(gSelected.isSelected(GLO_POLYGON, getGlID())));
+        color = c.getScheme().getColor(gSelected.isSelected(GLO_POLYGON, o->getGlID()));
     } else {
-        GLHelper::setColor(c.getScheme().getColor(0));
+        color = c.getScheme().getColor(0);
     }
+    if (alphaOverride >= 0 && alphaOverride <= 255 ) {
+        color.setAlpha((unsigned char)alphaOverride);
+    }
+    GLHelper::setColor(color);
 }
 
 
 bool
-GUIPolygon::checkDraw(const GUIVisualizationSettings& s) const {
-    if (s.polySize.getExaggeration(s, this) == 0) {
+GUIPolygon::checkDraw(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o) {
+    if (o->getExaggeration(s) == 0) {
         return false;
     }
-    Boundary boundary = myShape.getBoxBoundary();
+    Boundary boundary = polygon->getShape().getBoxBoundary();
     if (s.scale * MAX2(boundary.getWidth(), boundary.getHeight()) < s.polySize.minSize) {
         return false;
     }
-    if (getFill()) {
-        if (myShape.size() < 3) {
+    if (polygon->getFill()) {
+        if (polygon->getShape().size() < 3) {
             return false;
         }
     } else {
-        if (myShape.size() < 2) {
+        if (polygon->getShape().size() < 2) {
             return false;
         }
     }
@@ -275,14 +299,14 @@ GUIPolygon::checkDraw(const GUIVisualizationSettings& s) const {
 
 
 void
-GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, bool disableSelectionColor) const {
-    glPushMatrix();
-    glTranslated(0, 0, getShapeLayer());
-    setColor(s, disableSelectionColor);
-
+GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o,
+                             const PositionVector shape, const bool drawFill, double layer, bool disableSelectionColor, int alphaOverride) {
+    GLHelper::pushMatrix();
+    glTranslated(0, 0, layer);
+    setColor(s, polygon, o, disableSelectionColor, alphaOverride);
     int textureID = -1;
-    if (getFill()) {
-        const std::string& file = getShapeImgFile();
+    if (drawFill) {
+        const std::string& file = polygon->getShapeImgFile();
         if (file != "") {
             textureID = GUITexturesHelper::getTextureID(file, true);
         }
@@ -306,13 +330,13 @@ GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, bool disableSele
         glEnable(GL_TEXTURE_GEN_S);
         glEnable(GL_TEXTURE_GEN_T);
         glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
-        glTexGenfv(GL_S, GL_OBJECT_PLANE, xPlane);
+        glTexGendv(GL_S, GL_OBJECT_PLANE, xPlane);
         glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
-        glTexGenfv(GL_T, GL_OBJECT_PLANE, yPlane);
+        glTexGendv(GL_T, GL_OBJECT_PLANE, yPlane);
     }
     // recall tesselation
     //glCallList(myDisplayList);
-    performTesselation(myLineWidth * s.polySize.getExaggeration(s, this));
+    performTesselation(drawFill, shape, polygon->getLineWidth() * o->getExaggeration(s));
     // de-init generation of texture coordinates
     if (textureID >= 0) {
         glEnable(GL_DEPTH_TEST);
@@ -321,16 +345,15 @@ GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, bool disableSele
         glDisable(GL_TEXTURE_GEN_S);
         glDisable(GL_TEXTURE_GEN_T);
     }
-    const PositionVector& shape = myRotatedShape != nullptr ? *myRotatedShape : myShape;
 #ifdef GUIPolygon_DEBUG_DRAW_VERTICES
     GLHelper::debugVertices(shape, 80 / s.scale);
 #endif
-    glPopMatrix();
+    GLHelper::popMatrix();
     const Position& namePos = shape.getPolygonCenter();
-    drawName(namePos, s.scale, s.polyName, s.angle);
+    o->drawName(namePos, s.scale, s.polyName, s.angle);
     if (s.polyType.show) {
         const Position p = namePos + Position(0, -0.6 * s.polyType.size / s.scale);
-        GLHelper::drawTextSettings(s.polyType, getShapeType(), p, s.scale, s.angle);
+        GLHelper::drawTextSettings(s.polyType, polygon->getShapeType(), p, s.scale, s.angle);
     }
 }
 

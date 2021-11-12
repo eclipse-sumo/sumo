@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    netgen_main.cpp
 /// @author  Markus Hartinger
@@ -16,11 +20,6 @@
 ///
 // Main for NETGENERATE
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #ifdef HAVE_VERSION_H
@@ -52,10 +51,18 @@
 #include <utils/xml/XMLSubSys.h>
 #include <utils/iodevices/OutputDevice.h>
 
+// ===========================================================================
+// method declaration
+// ===========================================================================
+
+void fillOptions();
+bool checkOptions();
+NGNet* buildNetwork(NBNetBuilder& nb);
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
 void
 fillOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
@@ -107,6 +114,8 @@ NGNet*
 buildNetwork(NBNetBuilder& nb) {
     OptionsCont& oc = OptionsCont::getOptions();
 
+    const double laneWidth = oc.isDefault("default.lanewidth") ? SUMO_const_laneWidth : oc.getFloat("default.lanewidth");
+    double minLength = (oc.getInt("default.lanenumber") + oc.getInt("turn-lanes")) * 2 * laneWidth + oc.getFloat("default.junctions.radius") * 2 + POSITION_EPS;
     // spider-net
     if (oc.getBool("spider")) {
         // check values
@@ -115,13 +124,19 @@ buildNetwork(NBNetBuilder& nb) {
             WRITE_ERROR("Spider networks need at least 3 arms.");
             hadError = true;
         }
+        if (oc.getInt("spider.arm-number") > 4 && oc.isDefault("spider.omit-center")) {
+            WRITE_WARNING("Spider networks with many arms should use option ommit-center");
+        }
         if (oc.getInt("spider.circle-number") < 1) {
             WRITE_ERROR("Spider networks need at least one circle.");
             hadError = true;
         }
-        if (oc.getFloat("spider.space-radius") < 10) {
-            WRITE_ERROR("The radius of spider networks must be at least 10m.");
+        minLength = MAX2(minLength, laneWidth * 2 * MAX2(oc.getInt("spider.arm-number"), 3) / (2 * M_PI));
+        if (oc.getFloat("spider.space-radius") < POSITION_EPS) {
+            WRITE_ERROR("The radius of spider networks must be at least "  + toString(POSITION_EPS));
             hadError = true;
+        } else if (oc.getFloat("spider.space-radius") < minLength) {
+            WRITE_WARNING("The radius of spider networks should be at least " + toString(minLength) + " for the given lanenumber, lanewidth and junction radius");
         }
         if (hadError) {
             throw ProcessError();
@@ -139,7 +154,8 @@ buildNetwork(NBNetBuilder& nb) {
         int yNo = oc.getInt("grid.y-number");
         double xLength = oc.getFloat("grid.x-length");
         double yLength = oc.getFloat("grid.y-length");
-        double attachLength = oc.getFloat("grid.attach-length");
+        double xAttachLength = oc.getFloat("grid.x-attach-length");
+        double yAttachLength = oc.getFloat("grid.y-attach-length");
         if (oc.isDefault("grid.x-number") && !oc.isDefault("grid.number")) {
             xNo = oc.getInt("grid.number");
         }
@@ -152,26 +168,42 @@ buildNetwork(NBNetBuilder& nb) {
         if (oc.isDefault("grid.y-length") && !oc.isDefault("grid.length")) {
             yLength = oc.getFloat("grid.length");
         }
+        if (oc.isDefault("grid.x-attach-length") && !oc.isDefault("grid.attach-length")) {
+            xAttachLength = oc.getFloat("grid.attach-length");
+        }
+        if (oc.isDefault("grid.y-attach-length") && !oc.isDefault("grid.attach-length")) {
+            yAttachLength = oc.getFloat("grid.attach-length");
+        }
         // check values
         bool hadError = false;
-        if (attachLength == 0 && (xNo < 2 || yNo < 2)) {
-            WRITE_ERROR("The number of nodes must be at least 2 in both directions.");
+        if (xNo < 1 || yNo < 1 || (xAttachLength == 0 && yAttachLength == 0 && (xNo < 2 && yNo < 2))) {
+            WRITE_ERROR("The number of nodes must be positive and at least 2 in one direction if there are no attachments.");
             hadError = true;
         }
-        if (xLength < 10. || yLength < 10.) {
-            WRITE_ERROR("The distance between nodes must be at least 10m in both directions.");
+        const double minAttachLength = minLength / 2 + POSITION_EPS / 2;
+        if (xLength < POSITION_EPS || yLength < POSITION_EPS) {
+            WRITE_ERROR("The distance between nodes must be at least " + toString(POSITION_EPS));
             hadError = true;
+        } else if (xLength < minLength || yLength < minLength) {
+            WRITE_WARNING("The distance between nodes should be at least " + toString(minLength) + " for the given lanenumber, lanewidth and junction radius");
         }
-        if (attachLength != 0.0 && attachLength < 10.) {
-            WRITE_ERROR("The length of attached streets must be at least 10m.");
+        if (xAttachLength != 0.0 && xAttachLength < POSITION_EPS) {
+            WRITE_ERROR("The length of attached streets must be at least " + toString(POSITION_EPS));
             hadError = true;
+        } else if (xAttachLength != 0.0 && xAttachLength < minAttachLength) {
+            WRITE_WARNING("The length of attached streets should be at least " + toString(minAttachLength) + " for the given lanenumber, lanewidth and junction radius");
+        } else if (yAttachLength != 0.0 && yAttachLength < POSITION_EPS) {
+            WRITE_ERROR("The length of attached streets must be at least " + toString(POSITION_EPS));
+            hadError = true;
+        } else if (yAttachLength != 0.0 && yAttachLength < minAttachLength) {
+            WRITE_WARNING("The length of attached streets should be at least " + toString(minAttachLength) + " for the given lanenumber, lanewidth and junction radius");
         }
         if (hadError) {
             throw ProcessError();
         }
         // build if everything's ok
         NGNet* net = new NGNet(nb);
-        net->createChequerBoard(xNo, yNo, xLength, yLength, attachLength);
+        net->createChequerBoard(xNo, yNo, xLength, yLength, xAttachLength, yAttachLength);
         return net;
     }
     // random net
@@ -213,7 +245,7 @@ main(int argc, char** argv) {
             SystemFrame::close();
             return 0;
         }
-        XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"));
+        XMLSubSys::setValidation(oc.getString("xml-validation"), "never", "never");
         MsgHandler::initOutputOptions();
         if (!checkOptions()) {
             throw ProcessError();
@@ -240,6 +272,7 @@ main(int argc, char** argv) {
         WRITE_MESSAGE("   " + toString<int>(nb.getNodeCont().size()) + " nodes generated.");
         WRITE_MESSAGE("   " + toString<int>(nb.getEdgeCont().size()) + " edges generated.");
         nb.compute(oc);
+        nb.getNodeCont().printBuiltNodesStatistics();
         NWFrame::writeNetwork(oc, nb);
     } catch (const ProcessError& e) {
         if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
@@ -267,6 +300,4 @@ main(int argc, char** argv) {
 }
 
 
-
 /****************************************************************************/
-

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSLaneChanger.h
 /// @author  Christian Roessel
@@ -16,13 +20,7 @@
 ///
 // Performs lane changing of vehicles
 /****************************************************************************/
-#ifndef MSLaneChanger_h
-#define MSLaneChanger_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include "MSLane.h"
@@ -90,10 +88,10 @@ public:
 
         /// @name Members which are used only by MSLaneChangerSublane
         /// @{
-        // the vehicles in from of the current vehicle (only on the current edge, continously updated during change() )
+        // the vehicles in front of the current vehicle (only on the current edge, continously updated during change() )
         MSLeaderInfo ahead;
 
-        // the vehicles in from of the current vehicle (including those on the next edge, contiously update during change() ))
+        // the vehicles in front of the current vehicle (including those on the next edge, contiously update during change() ))
         MSLeaderDistanceInfo aheadNext;
         ///@}
 
@@ -109,6 +107,12 @@ public:
 
     /// the iterator moving over the ChangeElems
     typedef Changer::const_iterator ConstChangerIt;
+
+    /// @brief return changer (only to be used by MSLaneChangerSublane from another instance)
+    Changer& getChanger() {
+        return myChanger;
+    }
+
 
 protected:
     /// Initialize the changer before looping over all vehicles.
@@ -144,7 +148,9 @@ protected:
 
 
     /** try changing to the opposite direction edge. */
-    virtual bool changeOpposite(std::pair<MSVehicle*, double> leader);
+    bool changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> leader);
+    std::pair<MSVehicle* const, double> getOncomingVehicle(const MSLane* opposite, std::pair<MSVehicle*,
+            double> neighOncoming, double searchDist, double& vMax, const MSVehicle* overtaken = nullptr);
 
     /** Update changer for vehicles that did not change */
     void registerUnchanged(MSVehicle* vehicle);
@@ -183,9 +189,22 @@ protected:
         int laneOffset,
         const MSLane* targetLane,
         const std::pair<MSVehicle* const, double>& leader,
+        const std::pair<MSVehicle* const, double>& follower,
         const std::pair<MSVehicle* const, double>& neighLead,
         const std::pair<MSVehicle* const, double>& neighFollow,
         const std::vector<MSVehicle::LaneQ>& preb) const;
+
+    /* @brief call lanechange model to check the merits of an opposite-direction
+     * change and update state accordingly */
+    virtual bool checkChangeOpposite(
+        MSVehicle* vehicle,
+        int laneOffset,
+        MSLane* targetLane,
+        const std::pair<MSVehicle* const, double>& leader,
+        const std::pair<MSVehicle* const, double>& neighLead,
+        const std::pair<MSVehicle* const, double>& neighFollow,
+        const std::vector<MSVehicle::LaneQ>& preb);
+
 
     /*  @brief start the lane change maneuver (and finish it instantly if gLaneChangeDuration == 0)
      *  @return False when aborting the change due to being remote controlled*/
@@ -211,13 +230,22 @@ protected:
      * @param[out] timeToOvertake The time for overtaking
      * @param[out] spaceToOvertake The space for overtaking
      */
-    static void computeOvertakingTime(const MSVehicle* vehicle, const MSVehicle* leader, double gap, double& timeToOvertake, double& spaceToOvertake);
+    static void computeOvertakingTime(const MSVehicle* vehicle, double vMax, const MSVehicle* leader, double gap, double& timeToOvertake, double& spaceToOvertake);
 
     // @brief return leader vehicle that is to be overtaken
     static std::pair<MSVehicle*, double> getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double> leader, double maxLookAhead = std::numeric_limits<double>::max());
 
     /// @brief return the next lane in conts beyond lane or nullptr
-    static MSLane* getLaneAfter(MSLane* lane, const std::vector<MSLane*>& conts);
+    static MSLane* getLaneAfter(const MSLane* lane, const std::vector<MSLane*>& conts);
+
+    /// @brief whether vehicle has an opposite-direction stop within relevant range
+    static bool hasOppositeStop(MSVehicle* vehicle);
+
+    // @brief compute distance that can safely be driven on the opposite side
+    static double computeSurplusGap(const MSVehicle* vehicle, const MSLane* opposite, std::pair<MSVehicle*, double> oncoming, double timeToOvertake, double spaceToOvertake, double& oncomingSpeed);
+
+    /// @brief add LaneQ for opposite lanes
+    static std::vector<MSVehicle::LaneQ> getBestLanesOpposite(MSVehicle* vehicle, const MSLane* stopLane, double oppositeLength);
 
 protected:
     /// Container for ChangeElemements, one for every lane in the edge.
@@ -245,9 +273,3 @@ private:
     /// Assignment operator.
     MSLaneChanger& operator=(const MSLaneChanger&);
 };
-
-
-#endif
-
-/****************************************************************************/
-

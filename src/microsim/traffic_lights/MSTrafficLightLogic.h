@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSTrafficLightLogic.h
 /// @author  Daniel Krajzewicz
@@ -17,13 +21,7 @@
 ///
 // The parent class for traffic light logics
 /****************************************************************************/
-#ifndef MSTrafficLightLogic_h
-#define MSTrafficLightLogic_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <map>
@@ -71,6 +69,9 @@ public:
 
     /// @brief Definition of a list that holds lists of lanes that do have the same attribute
     typedef std::vector<LaneVector> LaneVectorVector;
+
+    /// @brief list of vehicles
+    typedef std::vector<const SUMOVehicle*> VehicleVector;
     /// @}
 
 
@@ -93,11 +94,12 @@ public:
 
     /** @brief Initialises the tls with information about incoming lanes
      * @param[in] nb The detector builder
-     * @param[in] edgeContinuations Information about edge predecessors/successors
      * @exception ProcessError If something fails on initialisation
      */
     virtual void init(NLDetectorBuilder& nb);
 
+    /// @brief initialize optional meso penalties
+    void initMesoTLSPenalties();
 
     /// @brief Destructor
     virtual ~MSTrafficLightLogic();
@@ -162,7 +164,6 @@ public:
      */
     bool setTrafficLightSignals(SUMOTime t) const;
     /// @}
-
 
 
     /// @name Static Information Retrieval
@@ -271,6 +272,10 @@ public:
         return myDefaultCycleTime;
     }
 
+    /// @brief return the number of controlled link indices
+    int getNumLinks() const {
+        return myNumLinks;
+    }
 
     /** @brief Returns the assumed next switch time
      *
@@ -284,7 +289,7 @@ public:
      *
      * @return The time spent in the current phase
      */
-    SUMOTime getSpentDuration() const;
+    SUMOTime getSpentDuration(SUMOTime simStep = -1) const;
     /// @}
 
 
@@ -348,6 +353,32 @@ public:
         return myAmActive;
     }
 
+    /// @brief whether the given link index ever turns 'G'
+    virtual bool getsMajorGreen(int linkIndex) const;
+
+    /// @brief return vehicles that block the intersection/rail signal for vehicles that wish to pass the given linkIndex
+    virtual VehicleVector getBlockingVehicles(int linkIndex) {
+        UNUSED_PARAMETER(linkIndex);
+        return VehicleVector();
+    }
+
+    /// @brief return vehicles that approach the intersection/rail signal and are in conflict with vehicles that wish to pass the given linkIndex
+    virtual VehicleVector getRivalVehicles(int linkIndex) {
+        UNUSED_PARAMETER(linkIndex);
+        return VehicleVector();
+    }
+
+    /// @brief return vehicles that approach the intersection/rail signal and have priority over vehicles that wish to pass the given linkIndex
+    virtual VehicleVector getPriorityVehicles(int linkIndex) {
+        UNUSED_PARAMETER(linkIndex);
+        return VehicleVector();
+    }
+
+    /** @brief Saves the current tls states into the given stream
+        */
+    virtual void saveState(OutputDevice& /*out*/) const {};
+
+
 protected:
     /**
      * @class SwitchCommand
@@ -387,6 +418,18 @@ protected:
             return myAssumedNextSwitch;
         }
 
+        /** @brief Reschedule or deschedule the command when quick-loading state
+         *
+         * The implementations should return -1 if the command shall not be re-scheduled,
+         *  or a value >= 0 that describe the new time at which the command
+         *  shall be executed again.
+         *
+         * @param[in] currentTime The current simulation time
+         * @param[in] execTime The time at which the command would have been executed
+         * @param[in] newTime The simulation time at which the simulation is restarted
+         * @return The time at which the command shall be executed again
+         */
+        SUMOTime shiftTime(SUMOTime currentTime, SUMOTime execTime, SUMOTime newTime);
 
     private:
         /// @brief The responsible traffic lights control
@@ -424,6 +467,9 @@ protected:
     /// @brief The list of LaneVectors; each vector contains the incoming lanes that belong to the same link index
     LaneVectorVector myLanes;
 
+    /// @brief number of controlled links
+    int myNumLinks;
+
     /// @brief A list of duration overrides
     std::vector<SUMOTime> myOverridingTimes;
 
@@ -446,11 +492,6 @@ protected:
     bool myAmActive;
 
 private:
-    /// @brief initialize optional meso penalties
-    void initMesoTLSPenalties();
-
-
-private:
     /// @brief invalidated copy constructor
     MSTrafficLightLogic(const MSTrafficLightLogic& s);
 
@@ -458,9 +499,3 @@ private:
     MSTrafficLightLogic& operator=(const MSTrafficLightLogic& s);
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

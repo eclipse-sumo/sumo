@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov  8 13:16:06 2019 by Eclipse SUMO dfrouter Version v1_3_1+0801-355be15e4b
+<!-- generated on Thu Mar 25 09:47:03 2021 by Eclipse SUMO dfrouter Version v1_8_0+1823-4a64b80d86
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd">
@@ -48,13 +48,13 @@
         <!-- Defines the number of digits after the comma for lon,lat output -->
         <precision.geo value="6" type="INT"/>
 
-        <!-- Write time values as hour:minute:second or day:hour:minute:second rathern than seconds -->
+        <!-- Write time values as hour:minute:second or day:hour:minute:second rather than seconds -->
         <human-readable-time value="false" synonymes="H" type="BOOL"/>
 
         <!-- Saves computed routes to FILE -->
         <routes-output value="" synonymes="o" type="FILE"/>
 
-        <!-- Forces DFROUTER to compute routes for in-between detectors -->
+        <!-- Forces dfrouter to compute routes for in-between detectors -->
         <routes-for-all value="false" type="BOOL"/>
 
         <!-- Saves typed detectors to FILE -->
@@ -119,6 +119,9 @@
 
         <!-- Do not route on these edges -->
         <disallowed-edges value="" type="STR[]"/>
+
+        <!-- Only route on edges allowing the given vclass -->
+        <vclass value="ignoring" type="STR"/>
 
         <!-- Allow turnarounds as route continuations -->
         <keep-turnarounds value="false" type="BOOL"/>

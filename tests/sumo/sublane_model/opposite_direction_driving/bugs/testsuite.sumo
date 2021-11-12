@@ -1,0 +1,19 @@
+ticket2316_maxSpeedLat
+
+# vehicle collides on opposite direction overtaking
+ticket3718
+
+# invalid leader vehicle on the opposite side
+ticket4610
+
+# lcOpposite=0
+ticket5238
+
+# using E2 detector with opposite direction driving
+ticket5860
+
+# crash on invalid Changer iterator
+ticket8889
+
+# crash on invalid Changer iterator
+ticket8890

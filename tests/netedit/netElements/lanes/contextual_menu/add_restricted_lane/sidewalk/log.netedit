@@ -4,10 +4,7 @@ Warning: Lane 'gneE4_0' is not connected from any incoming edge at junction 'gne
 Warning: Lane 'gneE8_0' is not connected from any incoming edge at junction 'gneJ2'.
 Warning: Invalid pedestrian topology: crossing ':gneJ2_c1' across [gneE8 gneE9] has no target.
 Warning: Discarding invalid crossing ':gneJ3_c0' at junction 'gneJ3' with edges [gneE4 gneE5] (no walkingarea found).
-Warning: Splitting vector close to end (pos: 39.59, length: 39.60)
-Warning: Splitting vector close to end (pos: 39.59, length: 39.60)
 Warning: Edge '-gneE2' is not connected to outgoing edges at junction 'gneJ2'.
 Warning: Lane 'gneE8_0' is not connected from any incoming edge at junction 'gneJ2'.
 Warning: Invalid pedestrian topology: crossing ':gneJ2_c1' across [gneE8 gneE9] has no target.
 Warning: Discarding invalid crossing ':gneJ3_c0' at junction 'gneJ3' with edges [gneE4 gneE5] (no walkingarea found).
-Warning: Splitting vector close to end (pos: 39.59, length: 39.60)

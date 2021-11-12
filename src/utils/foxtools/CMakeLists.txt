@@ -1,36 +1,46 @@
 set(utils_foxtools_STAT_SRCS
+   fxheader.h
+   fxexdefs.h
    FXBaseObject.cpp
    FXBaseObject.h
    FXConditionalLock.h
-   fxexdefs.h
-   MFXImageHelper.cpp
-   MFXImageHelper.h
    FXLCDLabel.cpp
    FXLCDLabel.h
    FXLinkLabel.cpp
    FXLinkLabel.h
+   FXMenuCheckIcon.cpp
+   FXMenuCheckIcon.h
+   FXRecentNetworks.cpp
+   FXRecentNetworks.h
    FXSevenSegment.cpp
    FXSevenSegment.h
    FXSingleEventThread.cpp
    FXSingleEventThread.h
    FXSynchQue.h
+   FXSynchSet.h
    FXThreadEvent.cpp
    FXThreadEvent.h
+   FXTreeListDinamic.cpp
+   FXTreeListDinamic.h
    FXWorkerThread.h
-   MsgHandlerSynchronized.h
-   MFXCheckableButton.cpp
-   MFXCheckableButton.h
-   MFXInterThreadEventClient.h
    MFXAddEditTypedTable.cpp
    MFXAddEditTypedTable.h
+   MFXCheckableButton.cpp
+   MFXCheckableButton.h
    MFXEditableTable.cpp
    MFXEditableTable.h
-   MFXMenuHeader.cpp
-   MFXMenuHeader.h
    MFXIconComboBox.cpp
    MFXIconComboBox.h
+   MFXImageHelper.cpp
+   MFXImageHelper.h
+   MFXInterThreadEventClient.h
+   MFXMenuHeader.cpp
+   MFXMenuHeader.h
+   MFXTextFieldIcon.cpp
+   MFXTextFieldIcon.h
    MFXUtils.cpp
    MFXUtils.h
+   MsgHandlerSynchronized.h
 )
 
 add_library(utils_foxtools STATIC ${utils_foxtools_STAT_SRCS})

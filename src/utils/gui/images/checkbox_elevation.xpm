@@ -1,0 +1,25 @@
+/* XPM */
+static const char *checkbox_elevation_xpm[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 3 1",
+"  c black",
+"; c #CC0000",
+"a c None",
+/* pixels */
+"aaa;aaaaaaaaaaaa",
+"aa;;;aaaaaaaaaaa",
+"a;;;;;aaaaaaaaa ",
+";;;;;;;aaaaaaa  ",
+"aa;;;aaaaaaaa   ",
+"aa;;;aaaaaaa    ",
+"aa;;;aaaaaa     ",
+"aa;;;aaaaa      ",
+"aa;;;aaaa       ",
+"aa;;aaaa        ",
+"aa;aaaa         ",
+"aaaaaa          ",
+"aaaaa           ",
+"aaaa            ",
+"aaa             ",
+"aa              "
+};

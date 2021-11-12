@@ -23,18 +23,6 @@
       "ctestCommandArgs": "",
       "inheritEnvironments": [ "msvc_x64_x64" ],
       "variables": []
-    },
-    {
-      "name": "VisualStudio2019-x64",
-      "generator": "Visual Studio 16 2019 Win64",
-      "configurationType": "",
-      "inheritEnvironments": [ "msvc_x64_x64" ],
-      "buildRoot": "${projectDir}\\out\\${name}",
-      "installRoot": "${projectDir}\\out\\install\\${name}",
-      "cmakeCommandArgs": "",
-      "buildCommandArgs": "",
-      "ctestCommandArgs": "",
-      "variables": []
     }
   ]
 }

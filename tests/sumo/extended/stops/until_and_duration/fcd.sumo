@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Mar  7 12:17:15 2017 by SUMO Version dev-SVN-r23230
+<!-- generated on Wed Mar 11 22:22:47 2020 by Eclipse SUMO Version v1_5_0+0662-a598ecae47
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,8 +14,13 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <fcd-output value="fcd.xml"/>
     </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
 
     <report>
         <xml-validation value="never"/>
@@ -61,22 +66,19 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="veh0" x="104.95" y="50.00" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="50.00" lane="SC_0" slope="0.00"/>
     </timestep>
     <timestep time="11.00">
-        <vehicle id="veh0" x="104.95" y="50.00" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="50.00" lane="SC_0" slope="0.00"/>
-    </timestep>
-    <timestep time="12.00">
         <vehicle id="veh0" x="104.95" y="52.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="2.60" pos="52.60" lane="SC_0" slope="0.00"/>
     </timestep>
-    <timestep time="13.00">
+    <timestep time="12.00">
         <vehicle id="veh0" x="104.95" y="57.80" angle="0.00" type="DEFAULT_VEHTYPE" speed="5.20" pos="57.80" lane="SC_0" slope="0.00"/>
     </timestep>
-    <timestep time="14.00">
+    <timestep time="13.00">
         <vehicle id="veh0" x="104.95" y="65.60" angle="0.00" type="DEFAULT_VEHTYPE" speed="7.80" pos="65.60" lane="SC_0" slope="0.00"/>
     </timestep>
-    <timestep time="15.00">
+    <timestep time="14.00">
         <vehicle id="veh0" x="104.95" y="76.00" angle="0.00" type="DEFAULT_VEHTYPE" speed="10.40" pos="76.00" lane="SC_0" slope="0.00"/>
     </timestep>
-    <timestep time="16.00">
+    <timestep time="15.00">
         <vehicle id="veh0" x="104.95" y="89.00" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.00" pos="89.00" lane="SC_0" slope="0.00"/>
     </timestep>
-    <timestep time="17.00"/>
+    <timestep time="16.00"/>
 </fcd-export>

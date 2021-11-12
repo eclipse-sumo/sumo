@@ -1,0 +1,46 @@
+Parsing from GeoTIFF 'heightmap.tif' ... 
+Read geotiff heightmap with size 84,180 for geo boundary [12.00,48.00,12.07,48.15] with elevation range [470.00,623.00].
+ done (parsed 15120 features, Boundary: 10000000000.00,10000000000.00,-10000000000.00,-10000000000.00).
+Parsing nodes from 'input_plain.nod.xml' ... 
+done.
+Parsing edges from 'input_plain.edg.xml' ... done.
+ Import done:
+   600 nodes loaded.
+   2290 edges loaded.
+Removing self-loops ... done (1ms).
+Removing empty nodes ... done (2ms).
+   0 nodes removed.
+Moving network to origin ... done (4ms).
+Computing turning directions ... done (2ms).
+Assigning nodes to traffic lights ... done (0ms).
+Sorting nodes' edges ... done (2ms).
+Computing node shapes ... done (34ms).
+Computing edge shapes ... done (53ms).
+Computing node types ... done (2ms).
+Computing priorities ... done (5ms).
+Computing approached edges ... done (4ms).
+Guessing and setting roundabouts ... done (0ms).
+Computing approaching lanes ... done (2ms).
+Dividing of lanes on approached lanes ... done (3ms).
+Processing turnarounds ... done (0ms).
+Rechecking of lane endings ... done (0ms).
+Computing traffic light control information ... done (0ms).
+Computing node logics ... done (1ms).
+Computing traffic light logics ... done (0ms).
+ 0 traffic light(s) computed.
+Checking edge grade ... 
+done (1ms).
+-----------------------------------------------------
+Summary:
+ Node type statistics:
+  Unregulated junctions       : 0
+  Dead-end junctions          : 600
+  Priority junctions          : 0
+  Right-before-left junctions : 0
+ Network boundaries:
+  Original boundary  : 0.00,0.00,7000.00,19500.00
+  Applied offset     : 0.00,0.00
+  Converted boundary : 0.00,0.00,7000.00,19500.00
+-----------------------------------------------------
+Writing network ... done (121ms).
+Success.

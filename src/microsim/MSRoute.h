@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSRoute.h
 /// @author  Daniel Krajzewicz
@@ -17,13 +21,7 @@
 ///
 // A vehicle route
 /****************************************************************************/
-#ifndef MSRoute_h
-#define MSRoute_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -36,7 +34,7 @@
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/common/Parameterised.h>
 #ifdef HAVE_FOX
-#include <fx.h>
+#include <utils/foxtools/fxheader.h>
 #include <FXThread.h>
 #endif
 
@@ -45,7 +43,6 @@
 // class declarations
 // ===========================================================================
 class MSEdge;
-class BinaryInputDevice;
 class OutputDevice;
 
 
@@ -93,11 +90,11 @@ public:
 
     /** @brief Output the edge ids up to but not including the id of the given edge
      * @param[in] os The stream to write the routes into (binary)
-     * @param[in] from The first edge to be written
-     * @param[in] upTo The first edge that shall not be written
+     * @param[in] firstIndex index of the first edge to be written
+     * @param[in] lastIndex index of the first edge that shall not be written (-1 writes all remaining)
      * @return The number of edges written
      */
-    int writeEdgeIDs(OutputDevice& os, const MSEdge* const from, const MSEdge* const upTo = 0) const;
+    int writeEdgeIDs(OutputDevice& os, int firstIndex = 0, int lastIndex = -1) const;
 
     bool contains(const MSEdge* const edge) const {
         return std::find(myEdges.begin(), myEdges.end(), edge) != myEdges.end();
@@ -107,7 +104,7 @@ public:
 
     const MSEdge* operator[](int index) const;
 
-    /// @name State I/O (mesosim only)
+    /// @name State I/O
     /// @{
 
     /** @brief Saves all known routes into the given stream
@@ -115,6 +112,9 @@ public:
      * @param[in] os The stream to write the routes into (binary)
      */
     static void dict_saveState(OutputDevice& out);
+
+    /** @brief Decrement  all route references before quick-loading state */
+    static void dict_clearState();
     /// @}
 
     const ConstMSEdgeVector& getEdges() const {
@@ -149,8 +149,13 @@ public:
      */
     double getDistanceBetween(double fromPos, double toPos, const MSRouteIterator& fromEdge, const MSRouteIterator& toEdge, bool includeInternal = true) const;
 
-    /// Returns the color
+    /// @brief Returns the color
     const RGBColor& getColor() const;
+
+    /// @brief returns the period
+    SUMOTime getPeriod() const {
+        return myPeriod;
+    }
 
     /** @brief Returns the costs of the route
      *
@@ -168,6 +173,11 @@ public:
         return mySavings;
     }
 
+    /// @brief sets the period
+    void setPeriod(SUMOTime period) {
+        myPeriod = period;
+    }
+
     /** @brief Sets the costs of the route
      *
      * @param[in] costs The new route costs
@@ -181,6 +191,14 @@ public:
      */
     void setSavings(double savings) {
         mySavings = savings;
+    }
+
+    bool mustReroute() const {
+        return myReroute;
+    }
+
+    void setReroute(bool reroute = true) {
+        myReroute = reroute;
     }
 
     /// Returns the stops
@@ -218,7 +236,10 @@ public:
      * @param[in] id    the id of the route or the distribution
      * @return          the route (sample)
      */
-    static const MSRoute* dictionary(const std::string& id, std::mt19937* rng = 0);
+    static const MSRoute* dictionary(const std::string& id, SumoRNG* rng = 0);
+
+    /// @brief returns whether a route with the given id exists
+    static bool hasRoute(const std::string& id);
 
     /** @brief Returns the named route distribution.
      *
@@ -250,11 +271,17 @@ private:
     /// The color
     const RGBColor* const myColor;
 
+    /// The period when repeating this route
+    SUMOTime myPeriod;
+
     /// @brief The assigned or calculated costs
     double myCosts;
 
     /// @brief The estimated savings when rerouting
     double mySavings;
+
+    /// @brief Whether this route is incomplete and requires rerouting
+    bool myReroute;
 
     /// @brief List of the stops on the parsed route
     std::vector<SUMOVehicleParameter::Stop> myStops;
@@ -281,9 +308,3 @@ private:
     MSRoute& operator=(const MSRoute& s);
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

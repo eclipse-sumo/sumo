@@ -17,3 +17,9 @@ tls_penalty_routing
 # minor_penalty should affect empty-network travel times
 minor_penalty_routing
 bugs
+
+# test edge type specific meso parameters
+edge_type
+
+# tests for lane queues in meso 
+lane_queue

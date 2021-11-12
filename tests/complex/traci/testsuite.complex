@@ -1,7 +1,8 @@
-bugs
+gui
 
 # test connection between client and server
 connection
+bugs
 misc
 
 # Tests for context subscriptions
@@ -21,4 +22,20 @@ multientryexit
 poi
 polygon
 simulation
-gui
+calibrator
+busstop
+parkingarea
+
+# Copy of parkingarea
+chargingstation
+overheadwire
+
+# rerouter tests
+rerouter
+
+# meandata
+meandata
+
+# variablespeedsign
+variablespeedsign
+routeprobe

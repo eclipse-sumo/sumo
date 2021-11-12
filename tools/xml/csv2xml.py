@@ -1,12 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2013-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2013-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    csv2xml.py
 # @author  Jakob Erdmann
@@ -58,7 +62,7 @@ def get_options():
 
 def row2xml(row, tag, close="/>\n", depth=1):
     attrString = ' '.join(['%s="%s"' % (a[len(tag) + 1:], v)
-                           for a, v in row.items() if v != "" and a.startswith(tag)])
+                           for a, v in row.items() if v != "" and a.startswith(tag + "_")])
     return (u'%s<%s %s%s' % ((depth * '    '), tag, attrString, close))
 
 
@@ -79,8 +83,10 @@ def write_xml(toptag, tag, options, printer=row2xml):
             inputf = xml2csv.getSocketStream(int(options.source))
         else:
             inputf = io.open(options.source, encoding="utf8")
-        for row in csv.DictReader(inputf, delimiter=options.delimiter):
-            outputf.write(printer(row, tag))
+        reader = csv.DictReader(inputf, delimiter=options.delimiter)
+        for row in reader:
+            orderedRow = OrderedDict([(key, row[key]) for key in reader.fieldnames])
+            outputf.write(printer(orderedRow, tag))
         outputf.write(u'</%s>\n' % toptag)
 
 

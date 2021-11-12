@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUITLLogicPhasesTrackerWindow.cpp
 /// @author  Daniel Krajzewicz
@@ -15,11 +19,6 @@
 ///
 // A window displaying the phase diagram of a tl-logic
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <vector>
@@ -162,7 +161,6 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     new FXLabel(myToolBar, "(s)", nullptr, LAYOUT_CENTER_Y);
     //
     myConnector = new GLObjectValuePassConnector<std::pair<SUMOTime, MSPhaseDefinition> >(wrapper, src, this);
-    FXint height = (FXint)(myTLLogic->getLinks().size() * 20 + 30 + 8 + 30);
     app.addChild(this);
     for (int i = 0; i < (int)myTLLogic->getLinks().size(); ++i) {
         myLinkNames.push_back(toString<int>(i));
@@ -174,8 +172,8 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     myPanel = new
     GUITLLogicPhasesTrackerPanel(glcanvasFrame, *myApplication, *this);
     setTitle((logic.getID() + " - " + logic.getProgramID() + " - tracker").c_str());
-    setIcon(GUIIconSubSys::getIcon(ICON_APP_TLSTRACKER));
-    setHeight(height);
+    setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TLSTRACKER));
+    setHeight((FXint)(myTLLogic->getLinks().size() * 20 + 30 + 8 + 30));
     setWidth(700);
 }
 
@@ -189,7 +187,6 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
       myApplication(&app), myTLLogic(&logic), myAmInTrackingMode(false),
       myToolBarDrag(nullptr), myBeginOffset(nullptr) {
     myConnector = nullptr;
-    FXint height = (FXint)(myTLLogic->getLinks().size() * 20 + 30 + 8);
     setTitle("TLS-Tracker");
     app.addChild(this);
     for (int i = 0; i < (int)myTLLogic->getLinks().size(); ++i) {
@@ -202,8 +199,8 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     myPanel = new
     GUITLLogicPhasesTrackerPanel(glcanvasFrame, *myApplication, *this);
     setTitle((logic.getID() + " - " + logic.getProgramID() + " - tracker").c_str());
-    setIcon(GUIIconSubSys::getIcon(ICON_APP_TLSTRACKER));
-    setHeight(height);
+    setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TLSTRACKER));
+    setHeight((FXint)(myTLLogic->getLinks().size() * 20 + 30 + 8));
     setWidth(700);
 }
 
@@ -294,24 +291,24 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     // draw the horizontal lines dividing the signal groups
     glColor3d(1, 1, 1);
     // compute some values needed more than once
-    const double height = (double) caller.getHeight();
-    const double width = (double) caller.getWidth();
-    const double barWidth = MAX2(1.0, width - 31);
-    const double fontHeight = 0.08 * 300. / height;
-    const double fontWidth = 0.08 * 300. / width;
-    const double h9 = ((double) 9 / height);
-    const double h10 = ((double) 10 / height);
-    const double h11 = ((double) 11 / height);
-    const double h16 = ((double) 16 / height);
-    const double h20 = ((double) 20 / height);
+    const double panelHeight = (double) caller.getHeight();
+    const double panelWidth = (double) caller.getWidth();
+    const double barWidth = MAX2(1.0, panelWidth - 31);
+    const double fontHeight = 0.08 * 300. / panelHeight;
+    const double fontWidth = 0.08 * 300. / panelWidth;
+    const double h9 = 9. / panelHeight;
+    const double h10 = 10. / panelHeight;
+    const double h11 = 11. / panelHeight;
+    const double h16 = 16. / panelHeight;
+    const double h20 = 20. / panelHeight;
     // draw the link names and the lines dividing them
-    double h = (double)(1.0 - h10);
-    double h2 = 12;
+    double h = 1. - h10;
+    double h2 = 12.;
     for (int i = 0; i < (int)myTLLogic->getLinks().size() + 1; ++i) {
         // draw the bar
         glBegin(GL_LINES);
         glVertex2d(0, h);
-        glVertex2d((double)(30. / width), h);
+        glVertex2d((double)(30. / panelWidth), h);
         glEnd();
         // draw the name
         if (i < (int)myTLLogic->getLinks().size()) {
@@ -328,11 +325,11 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     glEnd();
 
     // draw the names closure (vertical line)
-    h += (double) 20 / height;
+    h += 20. / panelHeight;
     glColor3d(1, 1, 1);
     glBegin(GL_LINES);
-    glVertex2d((double) 30 / width, 1.0);
-    glVertex2d((double) 30 / width, h);
+    glVertex2d(30. / panelWidth, 1.);
+    glVertex2d(30. / panelWidth, h);
     glEnd();
 
 
@@ -340,9 +337,9 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     // disable value addition while drawing
     myLock.lock();
     // determine the initial offset
-    double x = ((double) 31. / width);
-    double ta = (double) leftOffset / width;
-    ta *= (double)((barWidth / ((double)(myLastTime - myBeginTime))));
+    double x = 31. / panelWidth;
+    double ta = (double) leftOffset / panelWidth;
+    ta *= barWidth / ((double)(myLastTime - myBeginTime));
     x += ta;
 
     // and the initial phase information
@@ -355,10 +352,10 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         SUMOTime i = 30;
         // the first phase may be drawn incompletely
         SUMOTime duration = *pd - fpo;
-        // compute the heigh and the width of the phase
-        h = (double)(1.0 - h10);
-        double a = (double) duration / width;
-        a *= (double)((barWidth / ((double)(myLastTime - myBeginTime))));
+        // compute the height and the width of the phase
+        h = 1. - h10;
+        double a = (double) duration / panelWidth;
+        a *= barWidth / ((double)(myLastTime - myBeginTime));
         const double x2 = x + a;
 
         // go through the links
@@ -405,10 +402,10 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     if (myPhases.size() != 0) {
         SUMOTime tickDist = TIME2STEPS(10);
         // patch distances - hack
-        double t = myBeginOffset != nullptr ? (double) myBeginOffset->getValue() : STEPS2TIME(myLastTime - myBeginTime);
+        double t = myBeginOffset != nullptr ? myBeginOffset->getValue() : STEPS2TIME(myLastTime - myBeginTime);
         while (t > barWidth / 4.) {
             tickDist += TIME2STEPS(10);
-            t -= (double)(barWidth / 4.);
+            t -= barWidth / 4.;
         }
         // draw time information
         //h = (double)(myTLLogic->getLinks().size() * 20 + 12);
@@ -417,13 +414,13 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         // time ticks
         SUMOTime currTime = myFirstTime2Show;
         int pos = 31;// + /*!!!currTime*/ - myFirstTime2Show;
-        double glpos = (double) pos / width;
-        const double ticSize = 4 / height;
-        while (pos < width + 50) {
+        double glpos = (double) pos / panelWidth;
+        const double ticSize = 4. / panelHeight;
+        while (pos < panelWidth + 50.) {
             const std::string timeStr = (gHumanReadableTime
                                          ? time2string(currTime % 3600000).substr(3) // only write mn:ss
                                          : toString((int)STEPS2TIME(currTime)));
-            const double w = 50 / width;
+            const double w = 50. / panelWidth;
             glTranslated(glpos - w / 2., glh - h20, 0);
             GLHelper::drawText(timeStr, Position(0, 0), 1, fontHeight, RGBColor::WHITE, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
             glTranslated(-glpos + w / 2., -glh + h20, 0);
@@ -435,7 +432,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
 
             const double a = STEPS2TIME(tickDist) * barWidth / STEPS2TIME(myLastTime - myBeginTime);
             pos += (int) a;
-            glpos += a / width;
+            glpos += a / panelWidth;
             currTime += tickDist;
         }
     }
@@ -465,24 +462,21 @@ GUITLLogicPhasesTrackerWindow::addValue(std::pair<SUMOTime, MSPhaseDefinition> d
 
 
 long
-GUITLLogicPhasesTrackerWindow::onConfigure(FXObject* sender,
-        FXSelector sel, void* data) {
-    myPanel->onConfigure(sender, sel, data);
-    return FXMainWindow::onConfigure(sender, sel, data);
+GUITLLogicPhasesTrackerWindow::onConfigure(FXObject* sender, FXSelector sel, void* ptr) {
+    myPanel->onConfigure(sender, sel, ptr);
+    return FXMainWindow::onConfigure(sender, sel, ptr);
 }
 
 
 long
-GUITLLogicPhasesTrackerWindow::onPaint(FXObject* sender,
-                                       FXSelector sel, void* data) {
-    myPanel->onPaint(sender, sel, data);
-    return FXMainWindow::onPaint(sender, sel, data);
+GUITLLogicPhasesTrackerWindow::onPaint(FXObject* sender, FXSelector sel, void* ptr) {
+    myPanel->onPaint(sender, sel, ptr);
+    return FXMainWindow::onPaint(sender, sel, ptr);
 }
 
 
 long
-GUITLLogicPhasesTrackerWindow::onSimStep(FXObject*,
-        FXSelector, void*) {
+GUITLLogicPhasesTrackerWindow::onSimStep(FXObject*, FXSelector, void*) {
     update();
     return 1;
 }
@@ -495,4 +489,3 @@ GUITLLogicPhasesTrackerWindow::setBeginTime(SUMOTime time) {
 
 
 /****************************************************************************/
-

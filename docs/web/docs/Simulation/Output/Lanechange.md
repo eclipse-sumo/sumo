@@ -1,6 +1,5 @@
 ---
-title: Simulation/Output/Lanechange
-permalink: /Simulation/Output/Lanechange/
+title: Lanechange
 ---
 
 The lanechange-output tracks all events where a vehicle changes
@@ -18,7 +17,7 @@ this name will be overwritten, the destination folder must exist.
 
 The generated XML file looks like this:
 
-```
+```xml
 <lanechanges>
   <change id="<VEHICLE_ID>" time="<TIME_STAMP>" from="<SOURCE_LANE>" to="<DESTINATION_LANE>" reason="<CHANGE_REASON>" ... />
   ...
@@ -43,7 +42,7 @@ The generated XML file looks like this:
 | followerSecureGap   | double  | The required longitudinal gap to the nearest follower to fulfill deceleration constraints or 'None' if there was no follower.     |
 | origLeaderGap       | double  | The longitudinal gap to the nearest leader on the vehicle's original lane (bumper to bumper) or 'None' if there was no leader.    |
 | origLeaderSecureGap | double  | The required longitudinal gap to the nearest leader to fulfill deceleration constraints or 'None' if there was no leader.      |
-| latGap              | double  | The lateral gap to the nearest neighbour on the target lane or 'None' if there was no neighbor. (only when using the [sublane-model](../../Simulation/SublaneModel.md)) |
+| latGap              | double  | The lateral gap to the nearest neighbor on the target lane or 'None' if there was no neighbor. (only when using the [sublane-model](../../Simulation/SublaneModel.md)) |
 
 ### Lane Changing Reasons
 
@@ -59,13 +58,15 @@ The reason may be one of
 A reason may be further qualified by the addition of the string
 **|urgent**.
 
+If a vehicle has the [generic parameter](../GenericParameters.md) "lcReason", that value will be added to the 'reason' attribute in the output. This can be used to further qualify the change reason when influencing vehicles via [TraCI](../../TraCI/Change_Vehicle_State.md).
+
 ### Continuous Lane Changes
 
 If the simulation is performed with the
 [sublane-model](../../Simulation/SublaneModel.md), the options **--lanechange-output.ended** and **--lanechange-output.started**
 can be used to obtain additional output elements:
 
-```
+```xml
 <lanechanges>
   <changeStarted id="<VEHICLE_ID>" time="<TIME_STAMP>" from="<SOURCE_LANE>" to="<DESTINATION_LANE>" reason="<CHANGE_REASON>" ... />
   <change id="<VEHICLE_ID>" time="<TIME_STAMP>" from="<SOURCE_LANE>" to="<DESTINATION_LANE>" reason="<CHANGE_REASON>" ... />

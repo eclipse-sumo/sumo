@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2005-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2005-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    polyconvert_main.cpp
 /// @author  Daniel Krajzewicz
@@ -17,11 +21,6 @@
 ///
 // Main for POLYCONVERT
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #ifdef HAVE_VERSION_H
@@ -72,7 +71,6 @@ fillOptions() {
     oc.addOptionSubTopic("Pruning");
     oc.addOptionSubTopic("Processing");
     oc.addOptionSubTopic("Building Defaults");
-    SystemFrame::addReportOptions(oc); // fill this subtopic, too
 
 
     // register options
@@ -92,6 +90,9 @@ fillOptions() {
     oc.doRegister("visum-files", new Option_FileName());
     oc.addSynonyme("visum-files", "visum");
     oc.addDescription("visum-files", "Input", "Reads polygons from FILE assuming it's a Visum-net");
+
+    oc.doRegister("visum.language-file", new Option_FileName());
+    oc.addDescription("visum.language-file", "Input", "Load language mappings from FILE");
 
     // xml import
     oc.doRegister("xml-files", new Option_FileName());
@@ -120,6 +121,9 @@ fillOptions() {
     oc.addSynonyme("shapefile.guess-projection", "arcview.guess-projection", true);
     oc.addDescription("shapefile.guess-projection", "Input", "Guesses the shapefile's projection");
 
+    oc.doRegister("shapefile.traditional-axis-mapping", new Option_Bool(false));
+    oc.addDescription("shapefile.traditional-axis-mapping", "Input", "Use traditional axis order (lon, lat)");
+
     oc.doRegister("shapefile.id-column", new Option_String());
     oc.addSynonyme("shapefile.id-column", "shapefile.id-name", true);
     oc.addSynonyme("shapefile.id-column", "shape-files.id-name", true);
@@ -143,6 +147,8 @@ fillOptions() {
     oc.addSynonyme("type-file", "typemap", true);
     oc.addDescription("type-file", "Input", "Reads types from FILE");
 
+    // need to do this here to be able to check for network and route input options
+    SystemFrame::addReportOptions(oc);
 
     // output
     oc.doRegister("output-file", 'o', new Option_FileName());
@@ -236,7 +242,8 @@ main(int argc, char** argv) {
             SystemFrame::close();
             return 0;
         }
-        XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"));
+        SystemFrame::checkOptions();
+        XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"), "never");
         MsgHandler::initOutputOptions();
         // build the projection
         double scale = 1.0;
@@ -246,9 +253,14 @@ main(int argc, char** argv) {
         if (!oc.isSet("net")) {
             // from the given options
 #ifdef PROJ_API_FILE
-            unsigned numProjections = oc.getBool("simple-projection") + oc.getBool("proj.utm") + oc.getBool("proj.dhdn") + (oc.getString("proj").length() > 1);
-            if ((oc.isSet("osm-files") || oc.isSet("dlr-navteq-poly-files") || oc.isSet("dlr-navteq-poi-files")) && numProjections == 0) {
+            const int numProjections = oc.getBool("simple-projection") + oc.getBool("proj.utm") + oc.getBool("proj.dhdn") + (oc.getString("proj").length() > 1);
+            if ((oc.isSet("osm-files") || oc.isSet("dlr-navteq-poly-files") || oc.isSet("dlr-navteq-poi-files") || oc.isSet("shapefile-prefixes")) && numProjections == 0) {
+                // input is lon,lat and projecting it to UTM ensures accurate handling of geometry
                 oc.set("proj.utm", "true");
+                if (oc.isDefault("proj.plain-geo")) {
+                    // without reference to a network, raw UTM isn't helpful so we better write the data out as lon,lat
+                    oc.set("proj.plain-geo", "true");
+                }
             }
             if (oc.isDefault("proj.scale")) {
                 oc.set("proj.scale", toString(scale, 5));
@@ -330,7 +342,6 @@ main(int argc, char** argv) {
             }
             delete reader;
         }
-        SystemFrame::checkOptions();
         // read in the data
         PCLoaderXML::loadIfSet(oc, toFill, tm); // SUMO-XML
         PCLoaderOSM::loadIfSet(oc, toFill, tm); // OSM-XML
@@ -384,6 +395,4 @@ main(int argc, char** argv) {
 }
 
 
-
 /****************************************************************************/
-

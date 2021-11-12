@@ -1,5 +1,6 @@
 /* XPM */
 static const char * cont_xpm[] = {
+/* columns rows colors chars-per-pixel */
 "15 16 11 1",
 " 	c None",
 ".	c Black",
@@ -12,6 +13,7 @@ static const char * cont_xpm[] = {
 "$	c #5fc800",
 "%	c #5bc000",
 "&	c #56b600",
+/* pixels */
 "  ..           ",
 "   ...         ",
 "    .X.        ",
@@ -27,4 +29,5 @@ static const char * cont_xpm[] = {
 "    .%.        ",
 "   ...         ",
 "  ..           ",
-"               "};
+"               "
+};

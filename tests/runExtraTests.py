@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    runExtraTests.py
 # @author  Michael Behrisch
@@ -16,11 +20,6 @@ import optparse
 import os
 import subprocess
 import sys
-try:
-    import texttestlib  # noqa
-    haveTextTestLib = True
-except ImportError:
-    haveTextTestLib = False
 
 
 def run(suffix, args, out=sys.stdout, guiTests=False, console=False, chrouter=True):
@@ -31,51 +30,27 @@ def run(suffix, args, out=sys.stdout, guiTests=False, console=False, chrouter=Tr
     env = os.environ
     root = os.path.abspath(os.path.dirname(__file__))
     env["TEXTTEST_HOME"] = root
-    env["ACTIVITYGEN_BINARY"] = os.path.join(
-        root, "..", "bin", "activitygen" + suffix)
-    env["DFROUTER_BINARY"] = os.path.join(
-        root, "..", "bin", "dfrouter" + suffix)
-    env["DUAROUTER_BINARY"] = os.path.join(
-        root, "..", "bin", "duarouter" + suffix)
-    env["JTRROUTER_BINARY"] = os.path.join(
-        root, "..", "bin", "jtrrouter" + suffix)
-    env["NETCONVERT_BINARY"] = os.path.join(
-        root, "..", "bin", "netconvert" + suffix)
-    env["NETEDIT_BINARY"] = os.path.join(
-        root, "..", "bin", "netedit" + suffix)
-    env["NETGENERATE_BINARY"] = os.path.join(
-        root, "..", "bin", "netgenerate" + suffix)
-    env["OD2TRIPS_BINARY"] = os.path.join(
-        root, "..", "bin", "od2trips" + suffix)
-    env["SUMO_BINARY"] = os.path.join(root, "..", "bin", "sumo" + suffix)
-    env["POLYCONVERT_BINARY"] = os.path.join(
-        root, "..", "bin", "polyconvert" + suffix)
+    if "SUMO_HOME" not in env:
+        env["SUMO_HOME"] = os.path.join(root, "..")
+    for binary in ("activitygen", "emissionsDrivingCycle", "emissionsMap",
+                   "dfrouter", "duarouter", "jtrrouter", "marouter",
+                   "netconvert", "netedit", "netgenerate",
+                   "od2trips", "polyconvert", "sumo"):
+        env[binary.upper() + "_BINARY"] = os.path.join(root, "..", "bin", binary + suffix)
     env["GUISIM_BINARY"] = os.path.join(root, "..", "bin", "sumo-gui" + suffix)
-    env["MAROUTER_BINARY"] = os.path.join(
-        root, "..", "bin", "marouter" + suffix)
-    apps = "sumo.meso,sumo.ballistic,sumo.idm,sumo.sublanes,sumo.astar,sumo.parallel,netconvert.gdal,polyconvert.gdal"
-    apps += ",complex.meso,duarouter.astar"
+    apps = "sumo.extra,sumo.meso,sumo.ballistic,sumo.idm,sumo.sublanes,sumo.astar,sumo.parallel"
+    apps += ",netconvert.gdal,polyconvert.gdal,complex.meso,duarouter.astar"
     if chrouter:
         apps += ",duarouter.chrouter,duarouter.chwrapper"
-    ttBin = 'texttest.py'
-    if os.name == "posix":
-        if subprocess.call(['which', 'texttest']) == 0:
-            ttBin = 'texttest'
-    elif haveTextTestLib:
-        if console:
-            ttBin = 'texttestc.py'
-        else:
-            ttBin += "w"
-    if os.name == "nt" and subprocess.call(['where.exe', 'texttest.exe']) == 0:
-        ttBin = 'texttest.exe'
     try:
-        subprocess.call(['python3', '-V'])
-        apps += ',complex.python3,tools.python3,complex.libsumo.python3'
+        if os.name == "posix":
+            subprocess.call(['python3', '-V'], stdout=open(os.devnull, "w"))
+        apps += ',complex.python2,tools.python2,complex.libsumo,complex.libtraci'
     except Exception:
         pass
     if guiTests:
-        apps += ",sumo.meso.gui"
-    subprocess.call("%s %s -a %s" % (ttBin, args, apps), env=os.environ,
+        apps += ",sumo.meso.gui,sumo.gui.osg"
+    subprocess.call("%s %s -a %s" % ("texttest", args, apps), env=env,
                     stdout=out, stderr=out, shell=True)
 
 

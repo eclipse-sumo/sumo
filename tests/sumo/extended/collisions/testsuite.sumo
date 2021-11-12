@@ -16,6 +16,15 @@ remove
 # remove participants of a collision after some time
 stoptime_remove
 
+# let collision participants continue after stopping
+stoptime_warn
+
 # remove participants of a collision after some time
 stoptime_remove_highspeed
+
+# fix inlap into earlier lanes
+stop_inlap
+
+# the same pair of vehicles has multiple distinct collisions
+warn_repeated
 check_junctions

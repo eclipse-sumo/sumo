@@ -15,3 +15,9 @@ extra_wide_vehicle
 
 # vehicles overtaking a bicycle on a single-lane road with lateral imperfection
 overtaking_bicycle_lcSigma
+
+# vehicles overtaking a bicycle on a single-lane road with lateral imperfection
+overtaking_bicycle_lcSigma_subsecond
+
+# vehicles overtaking a stopped vehicle on a single lane
+overtaking_stopped

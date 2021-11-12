@@ -1,6 +1,5 @@
 ---
-title: Simulation/Output/Lanearea Detectors (E2)
-permalink: /Simulation/Output/Lanearea_Detectors_(E2)/
+title: Lanearea Detectors (E2)
 ---
 
 # Introduction
@@ -27,7 +26,7 @@ on which the detector resides and, optionally, a start position on the
 first lane and an end position on the last lane (these may be negative
 values to indicate a distance from the lane's end).
 
-```
+```xml
 <additional>
    <laneAreaDetector id="<ID>" lanes="<LANE_ID1> <LANE_ID2> ... <LANE_IDN>" 
    pos="<START_POSITION_ON_FIRST_LANE>" endPos="<END_POSITION_ON_LAST_LANE>" 
@@ -45,7 +44,7 @@ values to indicate a distance from the lane's end).
 Another possible specification allows to give a single anchoring lane
 plus two of the attributes `pos`, `endPos`, and `length` like this:
 
-```
+```xml
 <additional>
    <laneAreaDetector id="<ID>" lane="<LANE_ID>" 
    pos="<START_POSITION_ON_LANE>" endPos="<END_POSITION_ON_LANE>" length="<DETECTOR_LENGTH>"  // <- only two of those
@@ -75,7 +74,7 @@ The complete list of attributes is:
 | **lanes**      | referenced lane id list | A space-seperated list of lane-ids which are to be covered by the detector. All lanes must be a part of the network and form a continuous sequence. This argument excludes the arguments **lane** and **length**. |
 | **pos**        | float                   | The position on the first lane covered by the detector. See information about the same attribute within the detector loop description for further information. Per default, the start position is placed at the first lane's begin.   |
 | **endPos**     | float                   | The end position on the last lane covered by the detector. Per default the end position is placed at the last lane's end.    |
-| **length**     | float                   | The length of the detector in meters. If the detector reaches over the lane's end, it is extended to preceeding / consecutive lanes.   |
+| **length**     | float                   | The length of the detector in meters. If the detector reaches over the lane's end, it is extended to preceding / consecutive lanes.   |
 | **file**       | filename                | The path to the output file. The path may be relative.   |
 | freq           | int                     | The aggregation period the values the detector collects shall be summed up. Either *freq* or *tl* must be specified      |
 | tl             | id                      | The [traffic light that triggers aggregation when switching](../../Simulation/Output/Traffic_Lights.md#coupled_areal_detectors). Either *freq* or *tl* must be specified   |
@@ -85,13 +84,14 @@ The complete list of attributes is:
 | jamThreshold   | float                   | The minimum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam; *in m, default: 10m*.     |
 | friendlyPos    | bool                    | If set, no error will be reported if the detector is placed behind the lane. Instead, the detector will be placed 0.1 meters from the lane's end or at position 0.1, if the position was negative and larger than the lane's length after multiplication with -1; *default: false*. |
 | vTypes         | string                  | space separated list of vehicle type ids to consider, "" means all; default "".  |
+| detectPersons   | string            | [detect persons instead of vehicles (pedestrians or passengers)](../Pedestrians.md#detectors_for_pedestrians)       |
 
 # Generated Output
 
 A single data line within the output of a simulated lane area detector
 looks as following (the line is not broken within the output):
 
-```
+```xml
  <interval begin="<BEGIN_TIME>" end="<END_TIME>" id="<DETECTOR_ID>" sampledSeconds="<DATA_SAMPLES>" \
     nVehEntered="<VAL>" nVehLeft="<VAL>" nVehSeen="<VAL>" meanSpeed="<MEAN_SPEED>"  meanTimeLoss="<MEAN_TIMELOSS>" \
     meanOccupancy="<MEAN_OCCUPANCY>" maxOccupancy="<MAX_OCCUPANCY>" meanMaxJamLengthInVehicles="<VAL>" meanMaxJamLengthInMeters="<VAL>" \
@@ -101,7 +101,7 @@ looks as following (the line is not broken within the output):
 ```
 
 To explain this vast amount of measures, a short note about how a lane
-area detector works is needfull. A lane area detector takes note about
+area detector works is needful. A lane area detector takes note about
 each vehicle that enters the area. As long as the vehicle does not leave
 the area completely, its state is collected in each time step during the
 interval. Each vehicle state in this case is called a "data sample" and

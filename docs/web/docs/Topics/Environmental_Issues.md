@@ -1,6 +1,5 @@
 ---
-title: Topics/Environmental Issues
-permalink: /Topics/Environmental_Issues/
+title: Environmental Issues
 ---
 
 One of the major burdens traffic poses to society is its impact on the
@@ -9,20 +8,20 @@ consumption of non-renewable materials. Much work is put into the
 development of solutions that reduce these harms. A traffic simulation
 should support such development by allowing to measure the amount of
 generated pollution and the amount of consumed fuel.
-[SUMO](../SUMO.md) (used for both, [SUMO](../SUMO.md) and
-[SUMO-GUI](../SUMO-GUI.md) in the following) includes models and
+[sumo](../sumo.md) (used for both, [sumo](../sumo.md) and
+[sumo-gui](../sumo-gui.md) in the following) includes models and
 interfaces that fulfill these needs.
 
 In the following, the topic of "environmental issues" as seen from
-[SUMO](../SUMO.md) perspective is described in the following.
+[sumo](../sumo.md) perspective is described in the following.
 
 # User Interaction
 
 Pollutants/noise/consumption is computed only if the user asks for it or
 if it is used for visualisation. Pollutants emitted by the simulated
-vehicles can be visualised using [SUMO-GUI](../SUMO-GUI.md) or be
-written into output files, both by [SUMO](../SUMO.md) and
-[SUMO-GUI](../SUMO-GUI.md). The following output can be used:
+vehicles can be visualised using [sumo-gui](../sumo-gui.md) or be
+written into output files, both by [sumo](../sumo.md) and
+[sumo-gui](../sumo-gui.md). The following output can be used:
 
 - [trip information](../Simulation/Output/TripInfo.md): in
   combination with the emissions device, the tripinfo output contains
@@ -60,7 +59,7 @@ SUMO includes the following emission models:
   v2.1 emissions data base;
 - [PHEMlight](../Models/Emissions/PHEMlight.md), a derivation of
   the original
-  [PHEM](http://www.ivt.tugraz.at/de/forschung/emissionen.html)[\[2\]](#references)
+  [PHEM](https://www.ivt.tugraz.at/en/research/areas/em/)[\[2\]](#references)
   emission model.
 
 Both models implement different vehicle emission classes. These classes
@@ -117,7 +116,7 @@ The noise model is based on HARMONOISE.
 
 ## Emissions Modelling
 
-The emission models implemented in [SUMO](../SUMO.md) re-use
+The emission models implemented in [sumo](../sumo.md) re-use
 existing models and data bases. The first steps including an overview of
 fifteen reviewed models as well as the derivation of the [HBEFA
 v2.1-based](../Models/Emissions/HBEFA-based.md) model are given in
@@ -126,7 +125,7 @@ of the [iTETRIS](http://www.ict-itetris.eu/)[\[4\]](#references) project. The
 development of [PHEMlight](../Models/Emissions/PHEMlight.md) is
 described in the deliverable "*Deliverable 4.1 - Extended Simulation
 Tool PHEM coupled to SUMO with User Guide* (Draft)"[\[5\]](#references) of the
-[COLOMBO](http://colombo-fp7.eu/)[\[6\]](#references) project.
+[COLOMBO](https://verkehrsforschung.dlr.de/en/projects/colombo)[\[6\]](#references) project.
 
 ## Emission-optimal Routing
 
@@ -148,7 +147,7 @@ European Parliament and of the Council"[\[12\]](#references) to assure certain a
 quality. Traffic management, usually operated by local authorities, has
 the duty to perform corrective actions that reduce road traffic's
 impact, if needed.
-[MARLIS](http://www.bast.de/nn_42544/DE/Publikationen/Datenbanken/MARLIS/MARLIS.html)[\[13\]](#references)
+[MARLIS](https://web.archive.org/web/20070123154331/http://www.bast.de/nn_42544/DE/Publikationen/Datenbanken/MARLIS/MARLIS.html)[\[13\]](#references)
 is a database that lists such actions performed by traffic management
 authorities. A proof-of-concept for simulating such actions using SUMO
 is presented in [\[14\]](#references). Tomàs Josep Vergés used this approach to
@@ -161,7 +160,7 @@ simulate and evaluate some of such actions in his Master thesis[\[15\]](#referen
 - The tool [traceExporter.py](../Tools/TraceExporter.md) converts
   SUMO's [fcd-output](../Simulation/Output/FCDOutput.md) into
   files that can be directly read by the
-  [PHEM](http://www.ivt.tugraz.at/de/forschung/emissionen.html)[\[2\]](#references)
+  [PHEM](https://www.ivt.tugraz.at/en/research/areas/em/)[\[2\]](#references)
   application. A [tutorial on generating trace files (including PHEM
   input files)](../Tutorials/Trace_File_Generation.md) using this
   tool is available.
@@ -184,7 +183,7 @@ simulate and evaluate some of such actions in his Master thesis[\[15\]](#referen
     8th of January 2014.
 
 2.  [*Emissionen und Energieverbrauch von
-    Antriebskonzepten*](http://www.ivt.tugraz.at/de/forschung/emissionen.html)
+    Antriebskonzepten*](https://www.ivt.tugraz.at/en/research/areas/em/)
     (German). Institute for Internal Combustion Engines and
     Thermodynamics at Graz University of Technology. Last visited on 8th
     of January 2014.
@@ -202,7 +201,7 @@ simulate and evaluate some of such actions in his Master thesis[\[15\]](#referen
     (Draft). COLOMBO consortium, 2013
 
 6.  [*COLOMBO* - Cooperative Self-Organizing System for low Carbon
-    Mobility at low Penetration Rates](http://colombo-fp7.eu/). COLOMBO
+    Mobility at low Penetration Rates](https://verkehrsforschung.dlr.de/en/projects/colombo). COLOMBO
     web site. COLOMBO consortium. Last visited on 8th of January 2014.
 
 7.  D. Krajzewicz and L. Bieker. *Investigating Ecological Impacts on
@@ -231,7 +230,7 @@ simulate and evaluate some of such actions in his Master thesis[\[15\]](#referen
 
 13. [*MARLIS* - Datenbank mit Maßnahmen zur Reinhaltung der Luft in
     Bezug auf Immissionen an Straßen, Version
-    3.1](http://www.bast.de/nn_42544/DE/Publikationen/Datenbanken/MARLIS/MARLIS.html)
+    3.1](https://web.archive.org/web/20070123154331/http://www.bast.de/nn_42544/DE/Publikationen/Datenbanken/MARLIS/MARLIS.html)
     (German). BASt database index. Last visited on 8th of January 2014.
 
 14. D. Krajzewicz and Y.-P. Flötteröd. *Simulative Untersuchung
@@ -243,7 +242,7 @@ simulate and evaluate some of such actions in his Master thesis[\[15\]](#referen
     actions for traffic emission reduction*. TU Berlin. 2013.
 
 <div style="border:1px solid #909090; min-height: 35px;" align="right">
-<span style="float: right; margin-top: -5px;"><a href="http://cordis.europa.eu/fp7/home_en.html"><img src="../images/FP7-small.gif" alt="Seventh Framework Programme"></a>
-<a href="http://colombo-fp7.eu/"><img src="../images/COLOMBO-small.png" alt="COLOMBO project"></a></span>
+<span style="float: right; margin-top: -5px;"><a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm"><img src="../images/FP7-small.gif" alt="Seventh Framework Programme"></a>
+<a href="https://verkehrsforschung.dlr.de/en/projects/colombo"><img src="../images/COLOMBO-small.png" alt="COLOMBO project"></a></span>
 <span style="">This part of SUMO was developed, reworked, or extended within the project 
-<a href="http://colombo-fp7.eu/">"COLOMBO"</a>, co-funded by the European Commission within the <a href="http://cordis.europa.eu/fp7/home_en.html">Seventh Framework Programme</a>.</span></div>
+<a href="https://verkehrsforschung.dlr.de/en/projects/colombo">"COLOMBO"</a>, co-funded by the European Commission within the <a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm">Seventh Framework Programme</a>.</span></div>

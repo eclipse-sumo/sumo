@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2015-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2015-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSParkingArea.h
 /// @author  Mirco Sturari
@@ -13,13 +17,7 @@
 ///
 // A area where vehicles can park next to the road
 /****************************************************************************/
-#ifndef MSParkingArea_h
-#define MSParkingArea_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <vector>
@@ -28,6 +26,7 @@
 #include <string>
 #include <utils/geom/PositionVector.h>
 #include <utils/common/Named.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
 #include "MSStoppingPlace.h"
 
 
@@ -76,23 +75,17 @@ public:
                   const std::vector<std::string>& lines, MSLane& lane,
                   double begPos, double endPos, int capacity,
                   double width, double length, double angle, const std::string& name,
-                  bool onRoad);
+                  bool onRoad,
+                  const std::string& departPos);
 
     /// @brief Destructor
     virtual ~MSParkingArea();
 
-
-    /** @brief Returns the area capacity
-     *
-     * @return The capacity
-     */
+    /// @brief Returns the area capacity
     int getCapacity() const;
 
     /// @brief whether vehicles park on the road
-    bool parkOnRoad() const {
-        return myOnRoad;
-    }
-
+    bool parkOnRoad() const;
 
     /** @brief Returns the area occupancy
      *
@@ -102,20 +95,11 @@ public:
      */
     int getOccupancy() const;
 
-    /** @brief Returns the area occupancy
-     *
-     * @return The occupancy computed as number of vehicles in myEndPositions
-     */
+    /// @brief Returns the area occupancy
     int getOccupancyIncludingBlocked() const;
 
-    /** @brief Returns the area occupancy at the end of the last simulation step
-     *
-     * @return The occupancy computed as number of vehicles in myEndPositions
-     */
-    int getLastStepOccupancy() const {
-        return myLastStepOccupancy;
-    }
-
+    /// @brief Returns the area occupancy at the end of the last simulation step
+    int getLastStepOccupancy() const;
 
     /** @brief Called if a vehicle enters this stop
      *
@@ -124,12 +108,9 @@ public:
      * Recomputes the free space using "computeLastFreePos" then.
      *
      * @param[in] what The vehicle that enters the parking area
-     * @param[in] beg The begin halting position of the vehicle
-     * @param[in] end The end halting position of the vehicle
      * @see computeLastFreePos
      */
-    void enter(SUMOVehicle* what, double beg, double end);
-
+    void enter(SUMOVehicle* veh);
 
     /** @brief Called if a vehicle leaves this stop
      *
@@ -142,7 +123,6 @@ public:
      */
     void leaveFrom(SUMOVehicle* what);
 
-
     /** @brief Called at the end of the time step
      *
      * Stores the current occupancy.
@@ -152,13 +132,8 @@ public:
      */
     SUMOTime updateOccupancy(SUMOTime currentTime);
 
-
-    /** @brief Returns the last free position on this stop
-     *
-     * @return The last free position of this bus stop
-     */
+    /// @brief Returns the last free position on this stop
     double getLastFreePos(const SUMOVehicle& forVehicle) const;
-
 
     /** @brief Returns the last free position on this stop including
      * reservatiosn from the current lane and time step
@@ -167,25 +142,17 @@ public:
      */
     double getLastFreePosWithReservation(SUMOTime t, const SUMOVehicle& forVehicle);
 
-
-    /** @brief Returns the position of parked vehicle
-     *
-     * @return The position of parked vehicle
-     */
+    /// @brief Returns the position of parked vehicle
     Position getVehiclePosition(const SUMOVehicle& forVehicle) const;
 
-    /** @brief Returns the insertion position of a parked vehicle
-     *
-     * @return The nsertion position of a parked vehicle along the lane
-     */
+    /// @brief Returns the insertion position of a parked vehicle
     double getInsertionPosition(const SUMOVehicle& forVehicle) const;
 
-
-    /** @brief Returns the angle of parked vehicle
-     *
-     * @return The angle of parked vehicle
-     */
+    /// @brief Returns the angle of parked vehicle
     double getVehicleAngle(const SUMOVehicle& forVehicle) const;
+
+    /// @brief Returns the slope of parked vehicle
+    double getVehicleSlope(const SUMOVehicle& forVehicle) const;
 
     /** @brief Return the angle of myLastFreeLot - the next parking lot
      *         only expected to be called after we have established there is space in the parking area
@@ -193,6 +160,19 @@ public:
      * @return The angle of the lot in degrees
      */
     int getLastFreeLotAngle() const;
+
+    /** @brief Return the GUI angle of myLastFreeLot - the angle the GUI uses to rotate into the next parking lot
+     *         as above, only expected to be called after we have established there is space in the parking area
+     *
+     * @return The GUI angle, relative to the lane, in radians
+     */
+    double getLastFreeLotGUIAngle() const;
+
+    /// @brief Return the manoeuver angle of the lot where the vehicle is parked
+    int getManoeuverAngle(const SUMOVehicle& forVehicle) const;
+
+    /// @brief  Return the GUI angle of the lot where the vehicle is parked
+    double getGUIAngle(const SUMOVehicle& forVehicle) const;
 
     /** @brief Add a lot entry to parking area
      *
@@ -202,68 +182,75 @@ public:
      * @param[in] width Width of the lot rectangle
      * @param[in] length Length of the lot rectangle
      * @param[in] angle Angle of the lot rectangle
+     * @param[in] slope Slope of the lot rectangle
      * @return Whether the lot entry could be added
      */
     virtual void addLotEntry(double x, double y, double z,
-                             double width, double length, double angle);
+                             double width, double length,
+                             double angle, double slope);
 
-
-    /** @brief Returns the lot rectangle width
-     *
-     * @return The width
-     */
+    /// @brief Returns the lot rectangle width
     double getWidth() const;
 
-
-    /** @brief Returns the lot rectangle length
-     *
-     * @return The length
-     */
+    /// @brief Returns the lot rectangle length
     double getLength() const;
 
-
-    /** @brief Returns the lot rectangle angle
-     *
-     * @return The angle
-     */
+    /// @brief Returns the lot rectangle angle
     double getAngle() const;
-
 
     /// @brief update state so that vehicles wishing to enter cooperate with exiting vehicles
     void notifyEgressBlocked();
 
-    void setNumAlternatives(int alternatives) {
-        myNumAlternatives = MAX2(myNumAlternatives, alternatives);
-    }
+    /// @brief get number alternatives
+    int getNumAlternatives() const;
 
-    int getNumAlternatives() const {
-        return myNumAlternatives;
-    }
+    /// @brief set number alternatives
+    void setNumAlternatives(int alternatives);
 
 protected:
-
     /** @struct LotSpaceDefinition
-    * @brief Representation of a single lot space
-    */
+     * @brief Representation of a single lot space
+     */
     struct LotSpaceDefinition {
-        /// @brief the running index
-        int index;
-        /// @brief The last parked vehicle or 0
-        SUMOVehicle* vehicle;
-        /// @brief The position of the vehicle when parking in this space
-        Position myPosition;
-        /// @brief The rotation
-        double myRotation;
-        /// @brief The width
-        double myWidth;
-        /// @brief The length
-        double myLength;
-        /// @brief The position along the lane that the vehicle needs to reach for entering this lot
-        double myEndPos;
-        ///@brief The angle between lane and lot through which a vehicle must manoeuver to enter the lot
-        int myManoeuverAngle;
-    };
+        /// @brief default constructor
+        LotSpaceDefinition();
 
+        /// @brief parameter constructor
+        LotSpaceDefinition(int index, SUMOVehicle* vehicle, double x, double y, double z, double rotation, double slope, double width, double length);
+
+        /// @brief the running index
+        const int index;
+
+        /// @brief The last parked vehicle or 0
+        const SUMOVehicle* vehicle;
+
+        /// @brief The position of the vehicle when parking in this space
+        const Position position;
+
+        /// @brief The rotation
+        const double rotation;
+
+        /// @brief The slope
+        const double slope;
+
+        /// @brief The width
+        const double width;
+
+        /// @brief The length
+        const double length;
+
+        /// @brief The position along the lane that the vehicle needs to reach for entering this lot
+        double endPos;
+
+        ///@brief The angle between lane and lot through which a vehicle must manoeuver to enter the lot
+        double manoeuverAngle;
+
+        ///@brief Whether the lot is on the LHS of the lane relative to the lane direction
+        bool sideIsLHS;
+
+        /// @brief Invalidated assignment operator.
+        LotSpaceDefinition& operator=(const LotSpaceDefinition&) = delete;
+    };
 
     /** @brief Computes the last free position on this stop
      *
@@ -291,7 +278,6 @@ protected:
     /// @brief The default angle of each parking space
     double myAngle;
 
-
     /// @brief All the spaces in this parking area
     std::vector<LotSpaceDefinition> mySpaceOccupancies;
 
@@ -303,7 +289,11 @@ protected:
 
     /// @brief track parking reservations from the lane for the current time step
     SUMOTime myReservationTime;
+
+    /// @brief number of reservations
     int myReservations;
+
+    /// @brief reservation max length
     double myReservationMaxLength;
 
     /// @brief the number of alternative parkingAreas that are assigned to parkingAreaRerouter
@@ -312,20 +302,17 @@ protected:
     /// @brief Changes to the occupancy in the current time step
     int myLastStepOccupancy;
 
+    /// @brief custom departPos
+    double myDepartPos;
+    DepartPosDefinition myDepartPosDefinition;
+
     /// @brief Event for updating the occupancy
     Command* myUpdateEvent;
 
 private:
-
     /// @brief Invalidated copy constructor.
-    MSParkingArea(const MSParkingArea&);
+    MSParkingArea(const MSParkingArea&) = delete;
 
     /// @brief Invalidated assignment operator.
-    MSParkingArea& operator=(const MSParkingArea&);
-
+    MSParkingArea& operator=(const MSParkingArea&) = delete;
 };
-
-
-#endif
-
-/****************************************************************************/

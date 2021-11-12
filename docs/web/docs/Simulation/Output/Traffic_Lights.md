@@ -1,6 +1,5 @@
 ---
-title: Simulation/Output/Traffic Lights
-permalink: /Simulation/Output/Traffic_Lights/
+title: Traffic Lights
 ---
 
 SUMO offers some possibilities to save states of traffic lights during
@@ -12,7 +11,7 @@ algorithms. We will now describe these outputs.
 ### Instantiating within the Simulation
 
 To enable writing tls state information you have to add the following
-definition into one of your [*additional-files*](../../SUMO.md#format_of_additional_files):
+definition into one of your [*additional-files*](../../sumo.md#format_of_additional_files):
 
 `<timedEvent type="SaveTLSStates" source="<TLS_ID>" dest="<OUTPUT_FILE>"/>`
 
@@ -28,7 +27,7 @@ The attributes have herein the following meanings:
 
 The output looks like this:
 
-```
+```xml
 <tlsStates>
    <tlsState time="<SIM_STEP>" id="<TLS_ID>" programID="<TLS_SUBID>" phase="<PHASE_INDEX>" state="<STATE>"/>
    ... further states ...
@@ -59,7 +58,7 @@ This output contains information about the green light phases of links
 (lane-to-lane connections). Each green light phase is describes by its
 begin, end and duration. An entry is written into the file as soon a
 green phase of a link ends. To enable writing tls switch information you
-have to add the following definition into one of your [*additional-files*](../../SUMO.md#format_of_additional_files):
+have to add the following definition into one of your [*additional-files*](../../sumo.md#format_of_additional_files):
 
 `<timedEvent type="SaveTLSSwitchTimes" source="<TLS_ID>" dest="<OUTPUT_FILE>"/>`
 
@@ -75,7 +74,7 @@ The attributes have herein the following meanings:
 
 The output looks like this:
 
-```
+```xml
 <tlsSwitches>
    <tlsSwitch tls="<TLS_ID>" programID="<TLS_SUB_ID>" \
       fromLane="<LINKS_SOURCE_LANE>" toLane="<LINK_DESTINATION_LANE>" \
@@ -105,7 +104,7 @@ meanings:
 This output saves tls-states as the TLS States - output does but not
 every second but only at times the phases or the program (see also
 "Adding new Programs") change. The output is instantiated by adding the
-following definition into one of your [*additional-files*](../../SUMO.md#format_of_additional_files):
+following definition into one of your [*additional-files*](../../sumo.md#format_of_additional_files):
 
 `<timedEvent type="SaveTLSSwitchStates" source="<TLS_ID>" dest="<OUTPUT_FILE>"/>`
 
@@ -137,7 +136,7 @@ meaning as those in the
 ### Instantiating within the Simulation
 
 To enable writing tls state information you have to add the following
-definition into one of your [*additional-files*](../../SUMO.md#format_of_additional_files):
+definition into one of your [*additional-files*](../../sumo.md#format_of_additional_files):
 
 `<timedEvent type="SaveTLSProgram" source="<TLS_ID>" dest="<OUTPUT_FILE>"/>`
 
@@ -153,7 +152,7 @@ The attributes have herein the following meanings:
 
 The output is a loadable tlLogic element that records the complete state sequence of a traffic light:
 
-```
+```xml
 <tlsStates>
    <tlLogic id="<TLS_ID>" programID="<TLS_SUBID>" type="static/>
       <phase state="..." duration="..."

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    PositionVector.h
 /// @author  Daniel Krajzewicz
@@ -15,13 +19,7 @@
 ///
 // A list of positions
 /****************************************************************************/
-#ifndef PositionVector_h
-#define PositionVector_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <vector>
@@ -252,10 +250,10 @@ public:
     /// @brief get subpart of a position vector using index and a cout
     PositionVector getSubpartByIndex(int beginIndex, int count) const;
 
-    /// @brief short as polygon CV by angle
+    /// @brief sort as polygon CW by angle
     void sortAsPolyCWByAngle();
 
-    /// @brief shory by increasing X-Y Psitions
+    /// @brief sort by increasing X-Y Positions
     void sortByIncreasingXY();
 
     /// @brief extrapolate position vector
@@ -276,7 +274,7 @@ public:
     /// @brief move position vector to side using a custom offset for each geometry point
     void move2side(std::vector<double> amount, double maxExtension = 100);
 
-    /// @brief get angle  in certain position of position vector
+    /// @brief get angle in certain position of position vector
     double angleAt2D(int pos) const;
 
     /**@brief inserts p between the two closest positions
@@ -343,9 +341,11 @@ public:
      */
     Position transformToVectorCoordinates(const Position& p, bool extend = false) const;
 
-    /// @brief index of the closest position to p
-    /// @note: may only be called for a non-empty vector
-    int indexOfClosest(const Position& p) const;
+    /* @brief index of the closest position to p
+     * @in twoD whether all positions should be projected onto the plan
+       @note: may only be called for a non-empty vector
+    */
+    int indexOfClosest(const Position& p, bool twoD = false) const;
 
     /// @brief distances of all my points to s and all of s points to myself
     /// @note if perpendicular is set to true, only the perpendicular distances are returned
@@ -379,7 +379,7 @@ public:
      * @param[in] minDist The minimum accepted distance; default: POSITION_EPS
      * @param[in] assertLength Whether the result must at least contain two points (be a line); default: false, to ensure original behaviour
      */
-    void removeDoublePoints(double minDist = POSITION_EPS, bool assertLength = false);
+    void removeDoublePoints(double minDist = POSITION_EPS, bool assertLength = false, int beginOffset = 0, int endOffset = 0);
 
     /// @brief return whether two positions differ in z-coordinate
     bool hasElevation() const;
@@ -392,8 +392,9 @@ public:
      * @param[in] extend how long to extend this vector for finding an orthogonal
      * @param[in] front Whether to take the segment before or after the base point in case of ambiguity
      * @param[in] length the length of the orthogonal
+     * @param[in] deg the rotation angle relative to the shape direction
      */
-    PositionVector getOrthogonal(const Position& p, double extend, bool before, double length = 1.0) const;
+    PositionVector getOrthogonal(const Position& p, double extend, bool before, double length = 1.0, double deg = 90) const;
 
     /// @brief returned vector that is smoothed at the front (within dist)
     PositionVector smoothedZFront(double dist = std::numeric_limits<double>::max()) const;
@@ -401,8 +402,11 @@ public:
     /// @brief returned vector that varies z smoothly over its length
     PositionVector interpolateZ(double zStart, double zEnd) const;
 
-    /// @brief resample shape with the given number of points (equal spacing)
-    PositionVector resample(double maxLength) const;
+    /**@brief resample shape (i.e. transform to segments, equal spacing)
+     * @param[in] maxLength lenght of every segment
+     * @param[in] adjustEnd enable or disable adjust end (i.e. result has the same original lenght, last segment could be short)
+     */
+    PositionVector resample(double maxLength, const bool adjustEnd) const;
 
     /// @brief return the offset at the given index
     double offsetAtIndex2D(int index) const;
@@ -419,9 +423,3 @@ private:
     /// @brief return whether the line segments defined by Line p11,p12 and Line p21,p22 intersect
     static bool intersects(const Position& p11, const Position& p12, const Position& p21, const Position& p22, const double withinDist = 0., double* x = 0, double* y = 0, double* mu = 0);
 };
-
-
-#endif
-
-/****************************************************************************/
-

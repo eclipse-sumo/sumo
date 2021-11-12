@@ -1,13 +1,12 @@
 ---
-title: Developer/CodeStyle
-permalink: /Developer/CodeStyle/
+title: CodeStyle
 ---
 
 # C++ Code
 
 We try to have the code compatible to a wide range of C++11 compatible
 compilers and test every commit / pull request against [gcc and clang on
-MacOS and Linux](https://travis-ci.org/eclipse/sumo), and [Visual
+macOS and Linux](https://travis-ci.org/eclipse/sumo), and [Visual
 Studio 2013 - 2017 on
 Windows](https://ci.appveyor.com/project/eclipsewebmaster/sumo). For the
 C++ code we use [AStyle](http://astyle.sourceforge.net/) to keep
@@ -94,9 +93,9 @@ extended character information use TeX or HTML notation instead.
 
 - Avoid them whenever possible and especially **do not use "using
   namespace ..."-statements within the .h-files\!** It's possible that
-  an included library tries to use a different impementation - who
+  an included library tries to use a different implementation - who
   knows? Using a "using namespace ..."-statement within your .h-file
-  may yield in an unexpected behaviour.
+  may yield in an unexpected behavior.
 
 ## Throw-declarations
 
@@ -161,25 +160,25 @@ line:
 
 If your script needs Python 3 then state python3 there.
 
-## Python3 compatibility
+## Python2 / Python3 compatibility
 
-Our main development still focuses on Python 2.7 but we strive for
-Python 3 compatibility. When writing or editing scripts, keep the
+Our main development focuses on Python 3.5 and later but we strive for
+Python 2 compatibility. When writing or editing scripts, keep the
 following in mind:
 
 - use *print* as a function (`from __future__ import print_function`)
 - use *items* instead of iteritems, which will return a list under
-  Python 2.7 and an iterator in Python 3(`for item in dict.items()`)
+  Python 2.7 and an iterator in Python 3 (`for item in dict.items()`)
 - use *values* instead of *itervalues*, which will return a list under
-  Python 2.7 and an iterator in Python 3(`for val in dict.values()`)
+  Python 2.7 and an iterator in Python 3 (`for val in dict.values()`)
 - use *//* instead of */* for integer division because */* will do a
   floating point division under Python 3 (`4/3 = 1.3333333`)
 - the floating point division with */* can be included in Python 2 by (`from __future__ import division`)
 - while iterating over unsorted lists or iterators Python 2 and Python
   3 do not work in the same order. Therefore add a explicit *sorted*
   before iteration when you write e.g. a xml file (`for item in sorted(list)`)
-- use argparse library instead for optparse due to optparse wont be
-  updated for Python 3 anymore. The use of most functions stayed the
+- use the argparse library instead of optparse (which is deprecated).
+  The use of most functions stayed the
   same, only some names differ. For further information please check
   <https://docs.python.org/3/library/argparse.html>
 - if you want to use different code for Python 2 and Python 3, which
@@ -216,17 +215,5 @@ core.autocrlf settings of git) using [{{SUMO}}/.gitattributes](https://github.co
 - CRLF for Windows only files (".bat", ".props", ".vcxproj",
   ".filters", ...)
 
-Git has no equivalent to the svn:keywords property. We use a custom
-script to handle the $Id$ keyword like before but it has to be enabled
-manually by adding the following lines to your global .gitconfig
-(usually in your home directory)
-
-```
-  [filter "keywords"]
-      clean  = .git_filters/keywords.py clean
-      smudge = .git_filters/keywords.py %f
-```
-
-The filter is enabled for Python and C++ source files.
-
-For the current settings you can always look at [{{SUMO}}/.gitattributes]({{Source}}.gitattributes).
+Git has no equivalent to the svn:keywords property, so we do not use 
+the $Id$ keyword any longer.

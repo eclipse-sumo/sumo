@@ -1,10 +1,7 @@
 Warning: Person 'jam8' is jammed on edge 'EC', time=196.00.
 Warning: Person 'jam4' is jammed on edge 'EC', time=198.00.
-Warning: Person 'jam6' is jammed on edge 'EC', time=199.00.
 Warning: Person 'jam2' is jammed on edge 'EC', time=199.00.
-Warning: Person 'jam' is jammed on edge 'EC', time=210.00.
-Warning: Person 'fwd1' is jammed on edge 'EC', time=243.00.
-Warning: Person 'fwd15' is jammed on edge 'EC', time=257.00.
-Warning: Person 'jam8' is jammed on edge 'EC', time=368.00.
-Warning: Person 'jam8' is jammed on edge 'EC', time=371.00.
-Warning: Person 'jam8' is jammed on edge 'EC', time=375.00.
+Warning: Person 'jam5' is jammed on edge 'EC', time=202.00.
+Warning: Person 'jam8' is jammed on edge 'EC', time=202.00.
+Warning: Person 'jam2' is jammed on edge 'EC', time=207.00.
+Warning: Person 'jam3' is jammed on edge 'EC', time=208.00.

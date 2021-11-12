@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 16 Apr 2021 02:22:24 PM CEST by Eclipse SUMO netedit Version v1_9_0+0081-d468d72
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="input_net.net.xml"/>
+        <plain-output-prefix value="/localdata2/debug/_function_railway_repair_stops_ptline_flows/input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<edges version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-gneE0" from="gneJ38" to="gneJ50" priority="-1" numLanes="1" speed="13.89" allow="passenger"/>
+    <edge id="-gneE1" from="gneJ51" to="gneJ38" priority="-1" numLanes="1" speed="13.89" allow="passenger"/>
+    <edge id="a" from="gneJ40" to="gneJ38" priority="-1" numLanes="1" speed="27.78" spreadType="center" allow="rail_urban"/>
+    <edge id="b" from="gneJ38" to="gneJ39" priority="-1" numLanes="1" speed="27.78" spreadType="center" allow="rail_urban"/>
+    <edge id="c" from="gneJ39" to="gneJ43" priority="-1" numLanes="1" speed="27.78" spreadType="center" allow="rail_urban"/>
+    <edge id="gneE0" from="gneJ50" to="gneJ38" priority="-1" numLanes="1" speed="13.89" allow="passenger"/>
+    <edge id="gneE1" from="gneJ38" to="gneJ51" priority="-1" numLanes="1" speed="13.89" allow="passenger"/>
+    <edge id="gneE2" from="gneJ52" to="gneJ38" priority="-1" numLanes="1" speed="13.89"/>
+</edges>

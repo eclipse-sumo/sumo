@@ -1,6 +1,5 @@
 ---
-title: Simulation/Output/RawDump
-permalink: /Simulation/Output/RawDump/
+title: RawDump
 ---
 
 The network dump (also called *netstate output* or *netstate dump*) was
@@ -22,7 +21,7 @@ your command line (or configuration) parameter by **--netstate-dump** {{DT_FILE}
 file](../../Basics/Using_the_Command_Line_Applications.md#configuration_files),
 e.g.:
 
-```
+```xml
 <output>
    <netstate-dump value="<FILE>" />
 </output>
@@ -35,10 +34,10 @@ with this name will be overwritten, the destination folder must exist.
 
 The network dump is a xml-file containing for each time step every edge
 of the network with every lane of this edge with all vehicles on this
-lane. For each vehicle, its name, speed and position on its respecitve
+lane. For each vehicle, its name, speed and position on its respective
 lane are written. A raw dump-file looks like this:
 
-```
+```xml
 <netstate>
    <timestep time="<TIME_STEP>">
       <edge id="<EDGE_ID>">
@@ -101,5 +100,5 @@ made this. Another problem is that the simulation's execution speed of
 course breaks down when such an amount of data must be written.
 
 Normally, all lanes are written, even if there is no vehicle on them.
-You can change this behaviour using the boolean switch **--netstate-dump.empty-edges**. In this case,
+You can change this behavior using the boolean switch **--netstate-dump.empty-edges**. In this case,
 only those edges and lanes will be written that contain vehicles.

@@ -1,3 +1,3 @@
-Warning: Essential unique string attribute 'id' of e2Detector is missing; e2Detector cannot be created
-Warning: Essential unique string attribute 'lane' of e2Detector is missing; e2Detector cannot be created
-Warning: There is another e2Detector with the same ID='E2_01'.
+Error: Attribute 'id' is missing in definition of a e2Detector.
+Error: Could not build e2Detector with ID 'E2_01' in netedit; declared twice.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_09Jun145224.6916\netedit.gui\additionalElements\e2detector\load\id\input_additionals.add.xml failed.

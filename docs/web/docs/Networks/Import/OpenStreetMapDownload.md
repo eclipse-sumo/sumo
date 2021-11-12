@@ -1,6 +1,5 @@
 ---
-title: Networks/Import/OpenStreetMapDownload
-permalink: /Networks/Import/OpenStreetMapDownload/
+title: OpenStreetMapDownload
 ---
 
 From <http://www.openstreetmap.org/>:
@@ -222,13 +221,13 @@ to download or open a file containing the OSM-data for your city.
 A large amount of pre-packaged areas are available at
 <http://www.geofabrik.de/data/download.html>. Many of these are quite
 large and will probably require filtering before they can be reasonably
-processed. Importing the whole of Germany with \[NETCONVERT\] takes
+processed. Importing the whole of Germany with \[netconvert\] takes
 about 60GB of RAM\!
 
 ## Custom Areas
 
 The OpenStreetMap-API still limits the size of an area to extract. The
-help script *osmGet.py* located within {{SUMO}}/tools/import/osm allows to
+help script *osmGet.py* located within {{SUMO}}/tools allows to
 extract a larger area by splitting the requests. The call is:
 
 ```
@@ -243,7 +242,6 @@ The bounding box must be given as
 
 This script will extract OSM-data as *n* files with *n* =<TILES_NUMBER\>,
 named "<PREFIX\><INDEX\>_<TILES_NUMBER\>.osm.xml". These files can be
-imported by the scripts *osmBuild.Py* and *osmBuildPolys.py*, also
-located in {{SUMO}}/tools/import/osm. This is described in
+imported by the scripts *osmBuild.Py*, also located in {{SUMO}}/tools. This is described in
 [Networks/Import/OpenStreetMap\#Import
 Scripts](../../Networks/Import/OpenStreetMap.md#import_scripts).

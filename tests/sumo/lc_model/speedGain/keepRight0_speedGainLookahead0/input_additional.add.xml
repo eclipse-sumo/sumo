@@ -1,0 +1,4 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="ego" sigma="0" lcKeepRight="0" lcSpeedGainLookahead="0"/>
+   <vType id="slow" sigma="0" maxSpeed="8" lcKeepRight="0"/>
+</routes>

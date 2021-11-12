@@ -1,5 +1,29 @@
+# test accessing the ssm device
+ssm
+
+# Tests for lateral collisions
+lateralCollision
+
+# tests for vehicle mapping
+moveToXY
+moveTo
+changeLane
+
+# same tests as in changeLane suite but with sublane model
+changeLane_subLane
+
 # Tests the openGap() method.
 openGap
+
+# add or update stops
+setStop
+replaceStop
+
+# test taxi API
+taxi
+
+# test adding vehicles
+add
 
 # Tests the vehicle API
 vehicle
@@ -31,5 +55,46 @@ getNeighbors
 # Tests traci.vehicle.getNeighbors() method in presence of multiple leaders/followers
 getNeighborsSublane
 
-# use changeLaneRelative to change to the opposite side and back
-changeOpposite
+# Tests traci.vehicle.getNeighbors() method
+getNeighborsOpposite
+
+# test estimated public transport stop delay
+stopDelay
+
+# test estimated public transport stop delay when the stops are actually waypoints
+stopDelay_waypoint
+
+# test estimated public transport stop delay along a path with varying speeds
+stopDelay2
+
+# compare getFollowSpeed and actual speed
+getFollowSpeed
+
+# retrieve stops with limits
+getStops
+
+# retrieve stops from the past after loading state
+pastStops_stateLoaded
+
+# set rerouting device parameter period
+setReroutingPeriod
+
+# test timing of slowDown command
+slowDown
+
+# test timing of slowDown command
+slowDown_subsecond
+getFollower
+getLeader
+
+# test access to driverstate parameters
+driverstate
+
+# test setRoute with internal edges
+setRoute_internal
+
+# test ignoring specific foes ids and foe types
+junctionModel.ignore
+
+# test bit5 (ignore foes within junction)
+ignoreJunctionFoes

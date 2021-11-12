@@ -1,0 +1,16 @@
+# A vehicle with a triggered stop will not be teleported. To avoid the following vehicles from being deadlocked, triggered vehicles should be automatically set to 'parking'
+# (see ticket 420)
+triggered_defaults_to_parking
+
+# test behavior of a vehicle with triggered stop as well as stop duration
+triggered_duration
+
+# test behavior of a vehicle with triggered stop as well as stop duration, the person does not come and eventually the stop is aborted
+triggered_duration_abort
+
+# expecting persons
+simple_stop_expecting0
+simple_stop_expecting1
+
+# wait for 2 persons but also wait at least 250s
+simple_stop_expecting2_duration

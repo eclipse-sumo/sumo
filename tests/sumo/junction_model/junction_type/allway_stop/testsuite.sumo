@@ -6,3 +6,6 @@ two_queues
 
 # two vehicles arriving at the same time should not cause a deadlock
 arrival_same_time
+
+# 4 vehicles approach and depart in their order of arrival
+intermodal

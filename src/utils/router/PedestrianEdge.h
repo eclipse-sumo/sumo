@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    PedestrianEdge.h
 /// @author  Jakob Erdmann
@@ -15,13 +19,7 @@
 ///
 // The pedestrian accessible edges for the Intermodal Router
 /****************************************************************************/
-#ifndef PedestrianEdge_h
-#define PedestrianEdge_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #define TL_RED_PENALTY 20
@@ -40,7 +38,18 @@ public:
         IntermodalEdge<E, L, N, V>(edge->getID() + (edge->isWalkingArea() ? "" : (forward ? "_fwd" : "_bwd")) + toString(pos), numericalID, edge, "!ped"),
         myLane(lane),
         myForward(forward),
-        myStartPos(pos >= 0 ? pos : (forward ? 0. : edge->getLength())) { }
+        myStartPos(pos >= 0 ? pos : (forward ? 0. : edge->getLength())),
+        myIsOpposite(false) {
+        if (!forward && (
+                    edge->getFunction() == SumoXMLEdgeFunc::NORMAL
+                    || edge->getFunction() == SumoXMLEdgeFunc::INTERNAL)) {
+            const L* sidewalk = getSidewalk<E, L>(edge);
+            if (sidewalk != nullptr && sidewalk->getPermissions() != SVC_PEDESTRIAN) {
+                // some non-pedestrian traffic is allowed
+                myIsOpposite = true;
+            }
+        }
+    }
 
     bool includeInRoute(bool allEdges) const {
         return allEdges || (!this->getEdge()->isCrossing() && !this->getEdge()->isWalkingArea() && !this->getEdge()->isInternal());
@@ -57,7 +66,7 @@ public:
         }
     }
 
-    virtual double getTravelTime(const IntermodalTrip<E, N, V>* const trip, double time) const {
+    double getPartialLength(const IntermodalTrip<E, N, V>* const trip) const {
         double length = this->getLength();
         if (this->getEdge() == trip->from && !myForward && trip->departPos < myStartPos) {
             length = trip->departPos - (myStartPos - this->getLength());
@@ -73,6 +82,11 @@ public:
         }
         // ensure that 'normal' edges always have a higher weight than connector edges
         length = MAX2(length, NUMERICAL_EPS);
+        return length;
+    }
+
+    double getTravelTime(const IntermodalTrip<E, N, V>* const trip, double time) const {
+        const double length = getPartialLength(trip);
         double tlsDelay = 0;
         // @note pedestrian traffic lights should never have LINKSTATE_TL_REDYELLOW
         if (this->getEdge()->isCrossing() && myLane->getIncomingLinkState() == LINKSTATE_TL_RED) {
@@ -80,9 +94,9 @@ public:
             tlsDelay += MAX2(double(0), TL_RED_PENALTY - (time - STEPS2TIME(trip->departTime)));
         }
 #ifdef IntermodalRouter_DEBUG_EFFORTS
-        std::cout << " effort for " << trip->getID() << " at " << time << " edge=" << edge->getID() << " effort=" << length / trip->speed + tlsDelay << " l=" << length << " s=" << trip->speed << " tlsDelay=" << tlsDelay << "\n";
+        std::cout << " effort for " << trip->getID() << " at " << time << " edge=" << this->getID() << " effort=" << length / trip->speed + tlsDelay << " l=" << length << " fullLength=" << this->getLength() << " s=" << trip->speed << " tlsDelay=" << tlsDelay << "\n";
 #endif
-        return length / trip->speed + tlsDelay;
+        return length / (trip->speed * (myIsOpposite ? gWeightsWalkOppositeFactor : 1)) + tlsDelay;
     }
 
     double getStartPos() const {
@@ -103,9 +117,7 @@ private:
     /// @brief the starting position for split edges
     const double myStartPos;
 
+    /// @brief whether this edge goes against the flow of traffic
+    bool myIsOpposite;
+
 };
-
-
-#endif
-
-/****************************************************************************/

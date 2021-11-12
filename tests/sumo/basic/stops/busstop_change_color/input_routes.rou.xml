@@ -1,0 +1,11 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="bus" vClass="bus" minGap="20" length="100"/>
+    <vehicle id="v1" depart="0" departPos="0" type="bus">
+        <route edges="gneE0 gneE1 gneE2"/>
+        <stop busStop="busStop0" duration="30"/>
+    </vehicle>
+    <!--    <container id="c1" depart="0">
+        <transport from="beg" to="end" lines="v1"/>
+    </container>
+    -->
+</routes>

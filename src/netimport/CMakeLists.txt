@@ -19,8 +19,6 @@ set(netimport_STAT_SRCS
    NIImporter_OpenDrive.h
    NIImporter_OpenStreetMap.cpp
    NIImporter_OpenStreetMap.h
-   NIImporter_RobocupRescue.cpp
-   NIImporter_RobocupRescue.h
    NIImporter_SUMO.cpp
    NIImporter_SUMO.h
    NIImporter_VISUM.cpp

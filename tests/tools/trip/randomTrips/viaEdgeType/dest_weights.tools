@@ -1,0 +1,44 @@
+<edgedata>
+    <interval id="dst" begin="0" end="3600">
+        <edge id="6272827#1" value="100.00"/>
+        <edge id="6272827#0" value="100.00"/>
+        <edge id="6272822" value="100.00"/>
+        <edge id="6272817" value="100.00"/>
+        <edge id="6272816#1" value="100.00"/>
+        <edge id="60050859" value="100.00"/>
+        <edge id="38234638" value="100.00"/>
+        <edge id="314328627" value="100.00"/>
+        <edge id="314328626" value="100.00"/>
+        <edge id="28166859" value="100.00"/>
+        <edge id="27591354#1" value="100.00"/>
+        <edge id="27591354#0" value="100.00"/>
+        <edge id="246927399" value="100.00"/>
+        <edge id="11019967" value="100.00"/>
+        <edge id="-6272827#1" value="100.00"/>
+        <edge id="-6272827#0" value="100.00"/>
+        <edge id="-6272822" value="100.00"/>
+        <edge id="-60050859" value="100.00"/>
+        <edge id="-38234638" value="100.00"/>
+        <edge id="-314328627" value="100.00"/>
+        <edge id="-27591354#0" value="100.00"/>
+        <edge id="-11019967" value="100.00"/>
+        <edge id="6272816#0" value="0.00"/>
+        <edge id="314328613" value="0.00"/>
+        <edge id="314328577" value="0.00"/>
+        <edge id="28166858" value="0.00"/>
+        <edge id="255557637" value="0.00"/>
+        <edge id="255557635" value="0.00"/>
+        <edge id="255557634" value="0.00"/>
+        <edge id="255557632" value="0.00"/>
+        <edge id="19754375" value="0.00"/>
+        <edge id="19754374" value="0.00"/>
+        <edge id="152141480" value="0.00"/>
+        <edge id="152141468" value="0.00"/>
+        <edge id="151495006" value="0.00"/>
+        <edge id="11019966" value="0.00"/>
+        <edge id="10255693" value="0.00"/>
+        <edge id="-27591354#1" value="0.00"/>
+        <edge id="-152141468" value="0.00"/>
+        <edge id="-11019966" value="0.00"/>
+    </interval>
+</edgedata>

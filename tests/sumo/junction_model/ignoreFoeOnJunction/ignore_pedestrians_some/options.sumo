@@ -1,0 +1,3 @@
+--no-step-log --net-file=net3.net.xml -r input_routes.rou.xml
+--collision.check-junctions
+-t

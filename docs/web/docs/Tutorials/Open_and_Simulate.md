@@ -1,6 +1,5 @@
 ---
-title: Tutorials/Open and Simulate
-permalink: /Tutorials/Open_and_Simulate/
+title: Open and Simulate
 ---
 
 # Things to know first

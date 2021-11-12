@@ -1,0 +1,4 @@
+--osm-files osm.xml
+--keep-edges.by-vclass passenger
+--ramps.guess
+-R

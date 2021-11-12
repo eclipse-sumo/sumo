@@ -1,0 +1,23 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="HBEFA2/P_7_7" emissionClass="HBEFA2/P_7_7"/>
+    <vType id="HBEFA3/PC_G_EU4" emissionClass="HBEFA3/PC_G_EU4"/>
+    <vType id="PHEMlight/PC_G_EU4" emissionClass="PHEMlight/PC_G_EU4"/>
+    <route id="r1" edges="WC CE"/>
+
+    <!-- Independent vehicles. (tls is on a 90s cycle) -->
+    <vehicle id="0" depart="0" route="r1">
+        <stop lane="CE_0" endPos="50" duration="20"/>
+    </vehicle>
+
+    <vehicle id="1" depart="90" route="r1" type="HBEFA2/P_7_7">
+        <stop lane="CE_0" endPos="50" duration="20"/>
+    </vehicle>
+
+    <vehicle id="2" depart="180" route="r1" type="HBEFA3/PC_G_EU4">
+        <stop lane="CE_0" endPos="50" duration="20"/>
+    </vehicle>
+
+    <vehicle id="3" depart="270" route="r1" type="PHEMlight/PC_G_EU4">
+        <stop lane="CE_0" endPos="50" duration="20"/>
+    </vehicle>
+</routes>

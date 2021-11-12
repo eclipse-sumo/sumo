@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2020-09-21 23:36:02.745863 by generateRailSignalConstraints.py v1_7_0+0170-ce9ff7ea14
+  options: -n net.net.xml -a input_additional.add.xml -r input_routes.rou.xml -o out.add.xml
+-->
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+</additional>

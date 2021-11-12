@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIE3Collector.cpp
 /// @author  Daniel Krajzewicz
@@ -15,11 +19,6 @@
 ///
 // The gui-version of a MSE3Collector
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include "GUIE3Collector.h"
@@ -74,7 +73,7 @@ GUIParameterTableWindow*
 GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
         GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 3);
+        new GUIParameterTableWindow(app, *this);
     // add items
     // values
     ret->mkItem("vehicles within [#]", true,
@@ -91,23 +90,23 @@ GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
 
 void
 GUIE3Collector::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
-    glPushName(getGlID());
-    glPushMatrix();
+    GLHelper::pushName(getGlID());
+    GLHelper::pushMatrix();
     glTranslated(0, 0, GLO_JUNCTION + 0.4); // do not draw on top of linkRules
     typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
     CrossingDefinitions::const_iterator i;
-    GLHelper::setColor(s.colorSettings.E3Entry);
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    GLHelper::setColor(s.detectorSettings.E3EntryColor);
+    const double exaggeration = getExaggeration(s);
     for (i = myEntryDefinitions.begin(); i != myEntryDefinitions.end(); ++i) {
         drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation, exaggeration);
     }
-    GLHelper::setColor(s.colorSettings.E3Exit);
+    GLHelper::setColor(s.detectorSettings.E3ExitColor);
     for (i = myExitDefinitions.begin(); i != myExitDefinitions.end(); ++i) {
         drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation, exaggeration);
     }
-    glPopMatrix();
+    GLHelper::popMatrix();
     drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-    glPopName();
+    GLHelper::popName();
 }
 
 
@@ -115,7 +114,7 @@ void
 GUIE3Collector::MyWrapper::drawSingleCrossing(const Position& pos,
         double rot, double upscale) const {
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    glPushMatrix();
+    GLHelper::pushMatrix();
     glTranslated(pos.x(), pos.y(), 0);
     glRotated(rot, 0, 0, 1);
     glScaled(upscale, upscale, 1);
@@ -136,7 +135,13 @@ GUIE3Collector::MyWrapper::drawSingleCrossing(const Position& pos,
     glTranslated(-3, 0, 0);
     GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
     GLHelper::drawTriangleAtEnd(Position(0, 4), Position(0, 1), (double) 1, (double) .25);
-    glPopMatrix();
+    GLHelper::popMatrix();
+}
+
+
+double
+GUIE3Collector::MyWrapper::getExaggeration(const GUIVisualizationSettings& s) const {
+    return s.addSize.getExaggeration(s, this);
 }
 
 
@@ -160,8 +165,9 @@ GUIE3Collector::MyWrapper::getDetector() {
 GUIE3Collector::GUIE3Collector(const std::string& id,
                                const CrossSectionVector& entries,  const CrossSectionVector& exits,
                                double haltingSpeedThreshold,
-                               SUMOTime haltingTimeThreshold, const std::string& vTypes, bool openEntry)
-    : MSE3Collector(id, entries,  exits, haltingSpeedThreshold, haltingTimeThreshold, vTypes, openEntry) {}
+                               SUMOTime haltingTimeThreshold, const std::string& vTypes, int detectPersons, bool openEntry):
+    MSE3Collector(id, entries,  exits, haltingSpeedThreshold, haltingTimeThreshold, vTypes, detectPersons, openEntry)
+{}
 
 
 GUIE3Collector::~GUIE3Collector() {}
@@ -186,6 +192,4 @@ GUIE3Collector::buildDetectorGUIRepresentation() {
 }
 
 
-
 /****************************************************************************/
-

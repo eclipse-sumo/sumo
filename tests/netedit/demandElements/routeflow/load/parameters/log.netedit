@@ -1,6 +1,9 @@
-Warning: Essential unique string attribute 'to' of trip with ID 'flow_0' is missing; trip cannot be created
-Warning: Essential unique string attribute 'from' of trip with ID 'flow_0' is missing; trip cannot be created
+Error: Attribute 'key' is missing in definition of a param.
+Error: Attribute 'key' is missing in definition of a param.
 Error: Attribute 'key' is missing in definition of a param.
 Error: Attribute 'key' is missing in definition of a param.
 Error: Attribute 'key' in definition of a param is empty.
-Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Oct122958.9280/netedit.gui/demandElements/routeflow/load/parameters\input_routes.rou.xml failed.
+Error: Attribute 'key' in definition of a param is empty.
+Warning: Error parsing key from  generic parameter. Key contains invalid characters.
+Warning: Error parsing key from flow generic parameter. Key contains invalid characters
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Nov111153.3052\netedit.gui\demandElements\routeflow\load\parameters\input_routes.rou.xml failed.

@@ -1,6 +1,5 @@
 ---
-title: Z/Changes from version 0.8.0.1 to version 0.8.0.2
-permalink: /Z/Changes_from_version_0.8.0.1_to_version_0.8.0.2/
+title: Changes from version 0.8.0.1 to version 0.8.0.2
 ---
 
 User-relevant changes:
@@ -32,12 +31,12 @@ User-relevant changes:
     - Errors on default value usage patched
 - Documentation
   - trying to separate XML-code (green) from command line options (red)
-- Netconvert
+- netconvert
   - \--map-output <FILE\> builds a mapping that shows which edges have been removed while joining
   - guess-tls - options added
   - extended the FastLane-import by the -l parameter for the number of lanes
-  - \--explicite-junctions <JUNCTION_NAME_LIST\> allows to say which junctions shall be explicitely tls-controlled
-  - \--explicite-no-junctions <JUNCTION_NAME_LIST\> allows to say which junctions shall be explicitely non-tls-controlled
+  - \--explicite-junctions <JUNCTION_NAME_LIST\> allows to say which junctions shall be explicitly tls-controlled
+  - \--explicite-no-junctions <JUNCTION_NAME_LIST\> allows to say which junctions shall be explicitly non-tls-controlled
   - \--edges-min-speed <SPEED_MS\> allows to remove all edges from the input on which a lower speed than <SPEED_MS\> is allowed
   - \--elmar allows to import NavTech-GDF-files parsed using Elmar Brockfelds parser
   - \--tiger allows to import tiger files (preliminary, does not look THAAAAT good for an unknown reason, yet)

@@ -28,3 +28,4 @@ recurrent_net
 # test geo-coords output
 geo_coords
 bugs
+errors

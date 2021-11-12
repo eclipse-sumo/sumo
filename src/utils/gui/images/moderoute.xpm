@@ -1,7 +1,7 @@
 /* XPM */
 static const char *moderoute_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"16 16 12 1 ",
+"16 16 12 1",
 "  c black",
 ". c #090809",
 "X c #1E1D1F",

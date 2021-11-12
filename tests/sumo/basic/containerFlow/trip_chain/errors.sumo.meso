@@ -1,0 +1,4 @@
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Warning: Container 'container.1' aborted waiting for car0 at edge '1/4to2/4'.
+Warning: Container 'container.2' aborted waiting for car0 at edge '1/4to2/4'.
+Warning: Container 'container.3' aborted waiting for car0 at edge '1/4to2/4'.

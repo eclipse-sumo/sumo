@@ -1,6 +1,5 @@
 ---
-title: Developer/Unit Tests
-permalink: /Developer/Unit_Tests/
+title: Unit Tests
 ---
 
 # Introduction

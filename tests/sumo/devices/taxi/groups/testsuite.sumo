@@ -1,0 +1,29 @@
+# use a ride definition to call a taxi
+2persons
+
+# use a ride definition to call a taxi
+2persons_differentDepart
+
+# two persontrips with the same group
+2persontrips
+
+# two persontrips with the same group
+2persontrips_defaultgroup
+
+# 5 persons wish to share a taxi but only some taxis are applicable
+5persons_taxi_size
+
+# 5 persons wish to share a taxi but only some taxis are applicable
+5persons_taxi_size_greedyCloseset
+
+# 5 persons wish to share a taxi but maximum personCapacity is 4
+5persons_small_taxi
+
+# 5 persons that do not want to share a taxi
+5persons_ungrouped
+
+# use a transport definition to call a taxi
+2containers
+
+# use a transport definition to call a taxi
+2containers_capa1

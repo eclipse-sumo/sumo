@@ -1,8 +1,17 @@
 personTrip
+
+# test routing on shared roads
+opposite-factor
+
+# person with depart=triggered
+triggered
 basic
 
 # use edges instead of from and to
 edges
+
+# define stop on lane and edge
+stop
 
 # use routeID instead of edges
 routeID
@@ -14,5 +23,17 @@ unconnected_ignored
 
 # handle networks with pedestrian junction structures
 crossings_and_walkingareas
+
+# Copy of basic
+walk_write-trips
+
+# load person ride with option write-trips
+ride_write-trips
 unknown_from
 unknown_to
+
+# parsing an existing plan
+full_plan
+
+# test stages that end at a stopping place (busStop etc)
+stoppingPlace

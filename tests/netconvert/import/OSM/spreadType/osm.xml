@@ -1,0 +1,833 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.56.9 76e5016d">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2021-06-01T19:54:27Z"/>
+
+  <node id="35216021" lat="52.4197046" lon="13.5406305">
+    <tag k="ele" v="38.6"/>
+    <tag k="source:ele" v="Geoportal Berlin / K5"/>
+  </node>
+  <node id="64901635" lat="52.4193313" lon="13.5425412">
+    <tag k="ele" v="38.7"/>
+    <tag k="source:ele" v="Geoportal Berlin / K5"/>
+  </node>
+  <node id="64901636" lat="52.4188653" lon="13.5457912">
+    <tag k="bus" v="yes"/>
+    <tag k="name" v="Keltensteig"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="ref:BVG" v="106898"/>
+    <tag k="website" v="https://qr.bvg.de/h106898"/>
+  </node>
+  <node id="94487919" lat="52.4204929" lon="13.5387400">
+    <tag k="ele" v="36.8"/>
+    <tag k="source:ele" v="Geoportal Berlin / K5"/>
+  </node>
+  <node id="301332812" lat="52.4207572" lon="13.5389235"/>
+  <node id="721167526" lat="52.4205783" lon="13.5384298"/>
+  <node id="942862455" lat="52.4187746" lon="13.5465678">
+    <tag k="ele" v="37.3"/>
+    <tag k="source:ele" v="Geoportal Berlin / K5"/>
+  </node>
+  <node id="942862627" lat="52.4197672" lon="13.5404362">
+    <tag k="bus" v="yes"/>
+    <tag k="name" v="Normannenstraße"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="ref:BVG" v="106904"/>
+    <tag k="website" v="https://qr.bvg.de/h106904"/>
+  </node>
+  <node id="1583916807" lat="52.4205904" lon="13.5387175"/>
+  <node id="1583916811" lat="52.4206541" lon="13.5383185"/>
+  <node id="1583916813" lat="52.4208201" lon="13.5388491"/>
+  <node id="1583916815" lat="52.4209096" lon="13.5384566"/>
+  <node id="1652888268" lat="52.4191180" lon="13.5441619"/>
+  <node id="1652888276" lat="52.4194453" lon="13.5414813"/>
+  <node id="1673191310" lat="52.4203741" lon="13.5388192">
+    <tag k="contact:email" v="altglienicke@taleon.de"/>
+    <tag k="contact:phone" v="+493068327136"/>
+    <tag k="contact:website" v="http://www.taleon.de/1.html"/>
+    <tag k="name" v="Taleon Lernstudio"/>
+    <tag k="opening_hours" v="Mo-Fr 14:00-18:30; Sa 10:00-13:00"/>
+  </node>
+  <node id="1673191411" lat="52.4195091" lon="13.5411908">
+    <tag k="bus" v="yes"/>
+    <tag k="name" v="Normannenstraße"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="ref:BVG" v="106923"/>
+    <tag k="website" v="https://qr.bvg.de/h106923"/>
+  </node>
+  <node id="1673191423" lat="52.4188098" lon="13.5462746"/>
+  <node id="1673191430" lat="52.4201787" lon="13.5385217"/>
+  <node id="1673191431" lat="52.4204119" lon="13.5386901">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing_ref" v="pelican"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="tactile_paving" v="yes"/>
+    <tag k="traffic_signals:sound" v="yes"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="1673191432" lat="52.4204465" lon="13.5388708">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing_ref" v="pelican"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="mapillary" v="f6xfVxF2VzUv2vuqvPT4eA"/>
+    <tag k="survey:date" v="2020-07-31"/>
+    <tag k="tactile_paving" v="yes"/>
+    <tag k="traffic_signals:sound" v="yes"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="1673191433" lat="52.4205298" lon="13.5386031">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing_ref" v="pelican"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="mapillary" v="jQnU6jyscdiiePIBsrro0H"/>
+    <tag k="survey:date" v="2020-08-06"/>
+    <tag k="tactile_paving" v="yes"/>
+    <tag k="traffic_signals:sound" v="yes"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="1673191434" lat="52.4205588" lon="13.5387848">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="crossing_ref" v="pelican"/>
+    <tag k="highway" v="crossing"/>
+    <tag k="mapillary" v="YU321UBVVGOBq88ikI0WHH"/>
+    <tag k="survey:date" v="2020-07-31"/>
+    <tag k="tactile_paving" v="yes"/>
+    <tag k="traffic_signals:sound" v="yes"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="1673191435" lat="52.4205861" lon="13.5383924"/>
+  <node id="1673191436" lat="52.4206516" lon="13.5385988"/>
+  <node id="1673191437" lat="52.4207655" lon="13.5388172"/>
+  <node id="1673191438" lat="52.4208191" lon="13.5386944"/>
+  <node id="1673191439" lat="52.4208493" lon="13.5385531"/>
+  <node id="1683679641" lat="52.4199366" lon="13.5400020"/>
+  <node id="1882685509" lat="52.4207480" lon="13.5383674"/>
+  <node id="1882685516" lat="52.4208523" lon="13.5387047"/>
+  <node id="2007004810" lat="52.4202090" lon="13.5387621"/>
+  <node id="2007004813" lat="52.4202180" lon="13.5389429"/>
+  <node id="2007004816" lat="52.4202255" lon="13.5386867"/>
+  <node id="2007004822" lat="52.4202914" lon="13.5385030"/>
+  <node id="2007004828" lat="52.4202790" lon="13.5388077"/>
+  <node id="2007004830" lat="52.4202891" lon="13.5390436"/>
+  <node id="2007004833" lat="52.4203265" lon="13.5383553"/>
+  <node id="2007004836" lat="52.4203396" lon="13.5382170"/>
+  <node id="2007004839" lat="52.4203556" lon="13.5383695"/>
+  <node id="2007004842" lat="52.4203821" lon="13.5381589"/>
+  <node id="2007004845" lat="52.4203912" lon="13.5383160"/>
+  <node id="2007004848" lat="52.4203889" lon="13.5387943"/>
+  <node id="2007004854" lat="52.4203947" lon="13.5388332"/>
+  <node id="2007004857" lat="52.4204295" lon="13.5385893"/>
+  <node id="2007004862" lat="52.4204562" lon="13.5385713"/>
+  <node id="2007004874" lat="52.4204978" lon="13.5383818"/>
+  <node id="2007004876" lat="52.4205047" lon="13.5385330">
+    <tag k="man_made" v="street_cabinet"/>
+    <tag k="street_cabinet" v="power"/>
+  </node>
+  <node id="2007004879" lat="52.4205122" lon="13.5385015">
+    <tag k="man_made" v="street_cabinet"/>
+    <tag k="street_cabinet" v="power"/>
+  </node>
+  <node id="2007004886" lat="52.4205200" lon="13.5384696">
+    <tag k="man_made" v="street_cabinet"/>
+    <tag k="street_cabinet" v="power"/>
+  </node>
+  <node id="2007004889" lat="52.4205235" lon="13.5384633">
+    <tag k="amenity" v="waste_basket"/>
+  </node>
+  <node id="2008876955" lat="52.4200872" lon="13.5383739"/>
+  <node id="2008876957" lat="52.4201426" lon="13.5382098"/>
+  <node id="2008876958" lat="52.4202688" lon="13.5383190"/>
+  <node id="2008876959" lat="52.4202747" lon="13.5382933"/>
+  <node id="2008876960" lat="52.4204369" lon="13.5389944"/>
+  <node id="2008876961" lat="52.4204606" lon="13.5390305"/>
+  <node id="2008876969" lat="52.4204865" lon="13.5388899"/>
+  <node id="2008876975" lat="52.4206061" lon="13.5391129"/>
+  <node id="2008876977" lat="52.4206375" lon="13.5389779"/>
+  <node id="2008876984" lat="52.4207562" lon="13.5392015"/>
+  <node id="2008876987" lat="52.4207871" lon="13.5390600"/>
+  <node id="2820571918" lat="52.4203077" lon="13.5388408">
+    <tag k="addr:city" v="Berlin"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="37"/>
+    <tag k="addr:postcode" v="12524"/>
+    <tag k="addr:street" v="Köpenicker Straße"/>
+    <tag k="addr:suburb" v="Altglienicke"/>
+    <tag k="source" v="Geoportal Berlin / Hauskoordinaten"/>
+  </node>
+  <node id="3265111481" lat="52.4201620" lon="13.5390105"/>
+  <node id="3265111493" lat="52.4201767" lon="13.5388819"/>
+  <node id="3265111494" lat="52.4203737" lon="13.5392599"/>
+  <node id="3265111506" lat="52.4204246" lon="13.5392991"/>
+  <node id="3265111547" lat="52.4202666" lon="13.5390907"/>
+  <node id="3265111866" lat="52.4204485" lon="13.5390928"/>
+  <node id="3265111922" lat="52.4202827" lon="13.5393221"/>
+  <node id="3265111942" lat="52.4203914" lon="13.5394078"/>
+  <node id="3265111946" lat="52.4204136" lon="13.5390450"/>
+  <node id="3265404919" lat="52.4205784" lon="13.5386581"/>
+  <node id="4395815100" lat="52.4206108" lon="13.5387209">
+    <tag k="description" v="Brunnen"/>
+    <tag k="emergency" v="fire_hydrant"/>
+    <tag k="fire_hydrant:pressure" v="suction"/>
+    <tag k="fire_hydrant:type" v="pipe"/>
+    <tag k="survey:date" v="2016-09-11"/>
+    <tag k="water_source" v="groundwater"/>
+  </node>
+  <node id="4397271255" lat="52.4203259" lon="13.5389911">
+    <tag k="emergency" v="fire_hydrant"/>
+    <tag k="fire_hydrant:diameter" v="200"/>
+    <tag k="fire_hydrant:position" v="sidewalk"/>
+    <tag k="fire_hydrant:type" v="underground"/>
+    <tag k="survey:date" v="2016-09-12"/>
+  </node>
+  <node id="4417568105" lat="52.4205552" lon="13.5388014">
+    <tag k="emergency" v="fire_hydrant"/>
+    <tag k="fire_hydrant:diameter" v="300"/>
+    <tag k="fire_hydrant:position" v="lane"/>
+    <tag k="fire_hydrant:type" v="underground"/>
+    <tag k="survey:date" v="2016-09-25"/>
+  </node>
+  <node id="4417643599" lat="52.4205077" lon="13.5386834">
+    <tag k="emergency" v="fire_hydrant"/>
+    <tag k="fire_hydrant:position" v="lane"/>
+    <tag k="fire_hydrant:type" v="underground"/>
+    <tag k="survey:date" v="2016-09-25"/>
+  </node>
+  <node id="4417643956" lat="52.4203785" lon="13.5387558">
+    <tag k="emergency" v="fire_hydrant"/>
+    <tag k="fire_hydrant:diameter" v="125"/>
+    <tag k="fire_hydrant:position" v="sidewalk"/>
+    <tag k="fire_hydrant:type" v="underground"/>
+    <tag k="survey:date" v="2016-09-25"/>
+  </node>
+  <node id="4535972999" lat="52.4208742" lon="13.5384396"/>
+  <node id="4535973000" lat="52.4208225" lon="13.5384082"/>
+  <node id="4560078369" lat="52.4203793" lon="13.5385171">
+    <tag k="addr:city" v="Berlin"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="19"/>
+    <tag k="addr:postcode" v="12524"/>
+    <tag k="addr:street" v="Köpenicker Straße"/>
+    <tag k="addr:suburb" v="Altglienicke"/>
+  </node>
+  <node id="5408187320" lat="52.4201608" lon="13.5389517"/>
+  <node id="5408188921" lat="52.4201484" lon="13.5389864"/>
+  <node id="5408188922" lat="52.4201646" lon="13.5390023"/>
+  <node id="5408188923" lat="52.4201560" lon="13.5389473"/>
+  <node id="5408188924" lat="52.4201347" lon="13.5382397"/>
+  <node id="5408188925" lat="52.4201231" lon="13.5382318"/>
+  <node id="5408188990" lat="52.4206766" lon="13.5391822"/>
+  <node id="5408188991" lat="52.4206623" lon="13.5391742"/>
+  <node id="5408188992" lat="52.4206569" lon="13.5391609"/>
+  <node id="5408188993" lat="52.4206604" lon="13.5391437"/>
+  <node id="5408188994" lat="52.4206898" lon="13.5391609"/>
+  <node id="5408188995" lat="52.4206863" lon="13.5391791"/>
+  <node id="5408188996" lat="52.4205179" lon="13.5395113"/>
+  <node id="5408188997" lat="52.4205510" lon="13.5395365"/>
+  <node id="5408188998" lat="52.4206421" lon="13.5391341"/>
+  <node id="5408188999" lat="52.4205036" lon="13.5390911"/>
+  <node id="5408189000" lat="52.4204985" lon="13.5390704"/>
+  <node id="5408189001" lat="52.4204993" lon="13.5390540"/>
+  <node id="5408189002" lat="52.4205375" lon="13.5390752"/>
+  <node id="5408189003" lat="52.4205313" lon="13.5391048"/>
+  <node id="5547768686" lat="52.4189541" lon="13.5452188"/>
+  <node id="5548760411" lat="52.4199883" lon="13.5398880"/>
+  <node id="5548760414" lat="52.4197738" lon="13.5404194"/>
+  <node id="5548760418" lat="52.4198787" lon="13.5401504"/>
+  <node id="5548760521" lat="52.4200250" lon="13.5398072"/>
+  <node id="5548760535" lat="52.4194254" lon="13.5416667"/>
+  <node id="5548760554" lat="52.4189009" lon="13.5455617"/>
+  <node id="5548760562" lat="52.4187794" lon="13.5465277"/>
+  <node id="5548760565" lat="52.4187880" lon="13.5464558"/>
+  <node id="6586194713" lat="52.4215128" lon="13.5393366"/>
+  <node id="6586194714" lat="52.4212908" lon="13.5392526"/>
+  <node id="6586194715" lat="52.4207189" lon="13.5389105"/>
+  <node id="6586194716" lat="52.4206063" lon="13.5388318"/>
+  <node id="6586194717" lat="52.4204109" lon="13.5389114"/>
+  <node id="6586194718" lat="52.4199527" lon="13.5399329"/>
+  <node id="6586194719" lat="52.4198014" lon="13.5403155">
+    <tag k="abandoned:railway" v="tram_stop"/>
+    <tag k="name" v="Normannenstraße"/>
+  </node>
+  <node id="6586194720" lat="52.4195508" lon="13.5410164"/>
+  <node id="6586194721" lat="52.4194502" lon="13.5413830"/>
+  <node id="6586194722" lat="52.4193983" lon="13.5417626"/>
+  <node id="6586194723" lat="52.4192835" lon="13.5430095"/>
+  <node id="6586194724" lat="52.4191512" lon="13.5440077"/>
+  <node id="6586194725" lat="52.4189002" lon="13.5456213"/>
+  <node id="6586194726" lat="52.4187856" lon="13.5465903">
+    <tag k="abandoned:railway" v="tram_stop"/>
+    <tag k="name" v="Keltensteig"/>
+  </node>
+  <node id="6586194727" lat="52.4186111" lon="13.5485034"/>
+  <node id="6586194728" lat="52.4185762" lon="13.5487747"/>
+  <node id="6586194729" lat="52.4185423" lon="13.5489466"/>
+  <node id="6586194730" lat="52.4177614" lon="13.5526051"/>
+  <node id="6586194793" lat="52.4185984" lon="13.5486246"/>
+  <node id="6586194794" lat="52.4185885" lon="13.5486997"/>
+  <node id="6586194795" lat="52.4188600" lon="13.5459021"/>
+  <node id="6586194796" lat="52.4188811" lon="13.5457441"/>
+  <node id="6586194797" lat="52.4188694" lon="13.5458227"/>
+  <node id="6586194798" lat="52.4192507" lon="13.5433060"/>
+  <node id="6586194799" lat="52.4192047" lon="13.5436568"/>
+  <node id="6586194800" lat="52.4192682" lon="13.5431577"/>
+  <node id="6586194801" lat="52.4194209" lon="13.5415736"/>
+  <node id="6586194802" lat="52.4194995" lon="13.5411786"/>
+  <node id="6586194803" lat="52.4194737" lon="13.5412808"/>
+  <node id="6586194804" lat="52.4195251" lon="13.5410966"/>
+  <node id="6586194805" lat="52.4194337" lon="13.5414783"/>
+  <node id="6586194806" lat="52.4198765" lon="13.5401215"/>
+  <node id="6586194807" lat="52.4204819" lon="13.5388179"/>
+  <node id="6586194808" lat="52.4205266" lon="13.5388046"/>
+  <node id="6586194809" lat="52.4204478" lon="13.5388510"/>
+  <node id="6586194810" lat="52.4204283" lon="13.5388806"/>
+  <node id="6586194811" lat="52.4205498" lon="13.5388043"/>
+  <node id="6586194812" lat="52.4205718" lon="13.5388121"/>
+  <node id="6586194813" lat="52.4205037" lon="13.5388092"/>
+  <node id="6586194814" lat="52.4204641" lon="13.5388323"/>
+  <node id="6586194815" lat="52.4205899" lon="13.5388215"/>
+  <node id="6586194816" lat="52.4214684" lon="13.5393269"/>
+  <node id="6586194817" lat="52.4214150" lon="13.5393114"/>
+  <node id="6586194818" lat="52.4213525" lon="13.5392849"/>
+  <node id="6586194819" lat="52.4216563" lon="13.5393705"/>
+  <node id="6586194907" lat="52.4215723" lon="13.5393495">
+    <tag k="abandoned:railway" v="switch"/>
+    <tag k="railway:turnout_side" v="left"/>
+  </node>
+  <node id="6586194916" lat="52.4175022" lon="13.5537361">
+    <tag k="abandoned:railway" v="tram_stop"/>
+    <tag k="name" v="Altglienicke, Am Falkenberg"/>
+  </node>
+  <node id="6586194917" lat="52.4175067" lon="13.5537166"/>
+  <node id="6586194920" lat="52.4176808" lon="13.5529567"/>
+  <node id="6586194927" lat="52.4174782" lon="13.5538375"/>
+  <node id="6709640743" lat="52.4206170" lon="13.5388261">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="backward"/>
+  </node>
+  <node id="6709640744" lat="52.4203829" lon="13.5390180">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="backward"/>
+  </node>
+  <node id="6709640745" lat="52.4203330" lon="13.5386333">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+  </node>
+  <node id="6709640746" lat="52.4205567" lon="13.5385069">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+  </node>
+  <node id="7840536754" lat="52.4192359" lon="13.5433450"/>
+  <node id="8320248775" lat="52.4230772" lon="13.5261148"/>
+  <node id="8320248783" lat="52.4228957" lon="13.5260393"/>
+  <node id="8320248787" lat="52.4228365" lon="13.5267255"/>
+  <node id="8320248788" lat="52.4227654" lon="13.5272425"/>
+  <node id="8320248789" lat="52.4226320" lon="13.5284734"/>
+  <node id="8320248790" lat="52.4225744" lon="13.5289552"/>
+  <node id="8320248791" lat="52.4225127" lon="13.5293304"/>
+  <node id="8320248792" lat="52.4224510" lon="13.5296519"/>
+  <node id="8320248793" lat="52.4223387" lon="13.5301195"/>
+  <node id="8320248794" lat="52.4221068" lon="13.5311383"/>
+  <node id="8320248795" lat="52.4220360" lon="13.5314365"/>
+  <node id="8320248796" lat="52.4218968" lon="13.5320324"/>
+  <node id="8320248797" lat="52.4216751" lon="13.5329218"/>
+  <node id="8320248798" lat="52.4215105" lon="13.5335724"/>
+  <node id="8320248799" lat="52.4214022" lon="13.5341043"/>
+  <node id="8320248800" lat="52.4211953" lon="13.5352059"/>
+  <node id="8320248801" lat="52.4211734" lon="13.5353887"/>
+  <node id="8320248802" lat="52.4210813" lon="13.5359643"/>
+  <node id="8320248803" lat="52.4209615" lon="13.5365455"/>
+  <node id="8320248804" lat="52.4208620" lon="13.5369615"/>
+  <node id="8320248805" lat="52.4206938" lon="13.5377105"/>
+  <node id="8320248806" lat="52.4205416" lon="13.5383612"/>
+  <node id="8320248807" lat="52.4204820" lon="13.5385790"/>
+  <node id="8320248808" lat="52.4204321" lon="13.5386128"/>
+  <node id="8320248810" lat="52.4205654" lon="13.5386209"/>
+  <node id="8320248811" lat="52.4206147" lon="13.5384099"/>
+  <node id="8320248812" lat="52.4211207" lon="13.5361865"/>
+  <node id="8320248813" lat="52.4211739" lon="13.5358332"/>
+  <node id="8320248814" lat="52.4212481" lon="13.5354099"/>
+  <node id="8320248815" lat="52.4213187" lon="13.5350134"/>
+  <node id="8320248816" lat="52.4213535" lon="13.5349595"/>
+  <node id="8320284917" lat="52.4216063" lon="13.5336379"/>
+  <node id="8320284918" lat="52.4216908" lon="13.5332676"/>
+  <node id="8320284919" lat="52.4218620" lon="13.5325382"/>
+  <node id="8320284920" lat="52.4219486" lon="13.5322527"/>
+  <node id="8320284921" lat="52.4220461" lon="13.5319541"/>
+  <node id="8320284922" lat="52.4221545" lon="13.5315136"/>
+  <node id="8320284923" lat="52.4224013" lon="13.5304457"/>
+  <node id="8320284924" lat="52.4225167" lon="13.5299323"/>
+  <node id="8320284925" lat="52.4225506" lon="13.5297237"/>
+  <node id="8320284926" lat="52.4226889" lon="13.5290270"/>
+  <node id="8320284927" lat="52.4227276" lon="13.5286962"/>
+  <node id="8320284928" lat="52.4228088" lon="13.5280255"/>
+  <node id="8320284929" lat="52.4229197" lon="13.5271947"/>
+  <node id="8320284931" lat="52.4205861" lon="13.5386878"/>
+  <node id="8321910697" lat="52.4227907" lon="13.5270582"/>
+  <node id="8321910698" lat="52.4222451" lon="13.5305307"/>
+  <node id="8321910699" lat="52.4209020" lon="13.5367941"/>
+  <node id="8321910701" lat="52.4203915" lon="13.5387723"/>
+  <node id="8321910702" lat="52.4204024" lon="13.5388126"/>
+  <node id="8321910703" lat="52.4203974" lon="13.5388426"/>
+  <node id="8321910704" lat="52.4204782" lon="13.5388883"/>
+  <node id="8321910705" lat="52.4205018" lon="13.5388746"/>
+  <node id="8321910706" lat="52.4205275" lon="13.5388907"/>
+  <node id="8321910707" lat="52.4229094" lon="13.5261423"/>
+  <node id="8321910708" lat="52.4230617" lon="13.5261666"/>
+  <node id="8321910714" lat="52.4229042" lon="13.5273109"/>
+  <node id="8321910715" lat="52.4223964" lon="13.5298793"/>
+  <node id="8321910716" lat="52.4224582" lon="13.5301927"/>
+  <node id="8321947617" lat="52.4217594" lon="13.5329755"/>
+  <node id="8321947618" lat="52.4211077" lon="13.5357992"/>
+  <node id="8414705428" lat="52.4191694" lon="13.5438056"/>
+  <node id="8740064101" lat="52.4205905" lon="13.5387115">
+    <tag k="highway" v="street_lamp"/>
+    <tag k="lamp_mount" v="bent_mast"/>
+    <tag k="lamp_type" v="low_pressure_sodium"/>
+    <tag k="light:colour" v="orange"/>
+    <tag k="light:lit" v="dusk-dawn"/>
+    <tag k="light:tilt" v="-60"/>
+    <tag k="ref" v="50"/>
+  </node>
+  <node id="8740064104" lat="52.4204330" lon="13.5386231">
+    <tag k="highway" v="street_lamp"/>
+    <tag k="lamp_mount" v="bent_mast"/>
+    <tag k="lamp_type" v="low_pressure_sodium"/>
+    <tag k="light:colour" v="orange"/>
+    <tag k="light:lit" v="dusk-dawn"/>
+    <tag k="light:tilt" v="-60"/>
+    <tag k="ref" v="53"/>
+  </node>
+  <way id="144909691">
+    <nd ref="94487919"/>
+    <nd ref="1673191434"/>
+    <nd ref="6709640743"/>
+    <nd ref="301332812"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="lanes" v="3"/>
+    <tag k="lanes:backward" v="2"/>
+    <tag k="lanes:forward" v="1"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Köpenicker Straße"/>
+    <tag k="name:etymology:wikidata" v="Q521521"/>
+    <tag k="name:etymology:wikipedia" v="de:Berlin-Köpenick"/>
+    <tag k="note" v="Übergeordnete Straße, Stufe III"/>
+    <tag k="sidewalk" v="both"/>
+    <tag k="sidewalk:surface" v="paving_stones"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="turn:lanes:backward" v="left|through;right"/>
+  </way>
+  <way id="144909696">
+    <nd ref="1583916815"/>
+    <nd ref="4535972999"/>
+    <nd ref="4535973000"/>
+    <nd ref="1882685509"/>
+    <nd ref="1583916811"/>
+    <nd ref="3265404919"/>
+    <nd ref="1583916807"/>
+    <nd ref="1673191437"/>
+    <nd ref="1583916813"/>
+    <nd ref="1882685516"/>
+    <nd ref="1583916815"/>
+    <tag k="access" v="no"/>
+    <tag k="amenity" v="parking"/>
+    <tag k="fee" v="no"/>
+    <tag k="opening_hours" v="Mo-Fr 09:00-18:00; Sa 09:00-12:00"/>
+    <tag k="parking" v="surface"/>
+    <tag k="wheelchair" v="yes"/>
+  </way>
+  <way id="152466403">
+    <nd ref="94487919"/>
+    <nd ref="1673191432"/>
+    <nd ref="6709640744"/>
+    <nd ref="5548760521"/>
+    <nd ref="5548760411"/>
+    <nd ref="1683679641"/>
+    <nd ref="5548760418"/>
+    <nd ref="5548760414"/>
+    <nd ref="942862627"/>
+    <nd ref="35216021"/>
+    <nd ref="1673191411"/>
+    <nd ref="1652888276"/>
+    <nd ref="5548760535"/>
+    <nd ref="64901635"/>
+    <nd ref="7840536754"/>
+    <nd ref="8414705428"/>
+    <nd ref="1652888268"/>
+    <nd ref="5547768686"/>
+    <nd ref="5548760554"/>
+    <nd ref="64901636"/>
+    <nd ref="1673191423"/>
+    <nd ref="5548760565"/>
+    <nd ref="5548760562"/>
+    <nd ref="942862455"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="lanes" v="2"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Grünauer Straße"/>
+    <tag k="name:etymology:wikidata" v="Q643857"/>
+    <tag k="note" v="Übergeordnete Straße, Stufe III"/>
+    <tag k="oneway" v="no"/>
+    <tag k="postal_code" v="12524"/>
+    <tag k="sidewalk" v="both"/>
+    <tag k="sidewalk:surface" v="paving_stones"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="154850121">
+    <nd ref="1673191435"/>
+    <nd ref="8320248811"/>
+    <nd ref="1673191439"/>
+    <nd ref="1673191438"/>
+    <nd ref="1673191436"/>
+    <tag k="highway" v="service"/>
+    <tag k="service" v="parking_aisle"/>
+  </way>
+  <way id="190083606">
+    <nd ref="2007004822"/>
+    <nd ref="2007004833"/>
+    <nd ref="2007004839"/>
+    <nd ref="2007004845"/>
+    <nd ref="2007004836"/>
+    <nd ref="2007004842"/>
+    <nd ref="2007004874"/>
+    <nd ref="2007004862"/>
+    <nd ref="2007004857"/>
+    <nd ref="2007004822"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="190083611">
+    <nd ref="2007004816"/>
+    <nd ref="2007004848"/>
+    <nd ref="2007004854"/>
+    <nd ref="2007004830"/>
+    <nd ref="2007004813"/>
+    <nd ref="2007004828"/>
+    <nd ref="2007004810"/>
+    <nd ref="2007004816"/>
+    <tag k="addr:city" v="Berlin"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="1"/>
+    <tag k="addr:postcode" v="12524"/>
+    <tag k="addr:street" v="Grünauer Straße"/>
+    <tag k="addr:suburb" v="Altglienicke"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="190288734">
+    <nd ref="2008876960"/>
+    <nd ref="2008876969"/>
+    <nd ref="2008876977"/>
+    <nd ref="2008876975"/>
+    <nd ref="5408189002"/>
+    <nd ref="5408189003"/>
+    <nd ref="5408188999"/>
+    <nd ref="5408189000"/>
+    <nd ref="5408189001"/>
+    <nd ref="2008876961"/>
+    <nd ref="2008876960"/>
+    <tag k="addr:city" v="Berlin"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="38"/>
+    <tag k="addr:postcode" v="12524"/>
+    <tag k="addr:street" v="Köpenicker Straße"/>
+    <tag k="addr:suburb" v="Altglienicke"/>
+    <tag k="building" v="yes"/>
+    <tag k="contact:email" v="info@kueche-aktiv-berlin.de"/>
+    <tag k="contact:fax" v="+49 30 67899606"/>
+    <tag k="contact:phone" v="+49 30 6723019"/>
+    <tag k="contact:website" v="http://www.kueche-aktiv-berlin.de/"/>
+    <tag k="name" v="Das Küchen Studio"/>
+    <tag k="opening_hours" v="Mo-We 10:00-19:00; Th 10:00-20:00; Fr 10:00-19:00; Sa 10:00-14:00"/>
+    <tag k="operator" v="Küche Aktiv GmbH Berlin"/>
+    <tag k="shop" v="kitchen"/>
+  </way>
+  <way id="190288869">
+    <nd ref="2008876977"/>
+    <nd ref="2008876987"/>
+    <nd ref="2008876984"/>
+    <nd ref="5408188994"/>
+    <nd ref="5408188995"/>
+    <nd ref="5408188990"/>
+    <nd ref="5408188991"/>
+    <nd ref="5408188992"/>
+    <nd ref="5408188993"/>
+    <nd ref="5408188998"/>
+    <nd ref="2008876975"/>
+    <nd ref="2008876977"/>
+    <tag k="addr:city" v="Berlin"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="39"/>
+    <tag k="addr:postcode" v="12524"/>
+    <tag k="addr:street" v="Köpenicker Straße"/>
+    <tag k="addr:suburb" v="Altglienicke"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="190289125">
+    <nd ref="2007004833"/>
+    <nd ref="2008876958"/>
+    <nd ref="2008876959"/>
+    <nd ref="2008876957"/>
+    <nd ref="5408188924"/>
+    <nd ref="5408188925"/>
+    <nd ref="2008876955"/>
+    <nd ref="2007004822"/>
+    <nd ref="2007004833"/>
+    <tag k="addr:city" v="Berlin"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="20"/>
+    <tag k="addr:inclusion" v="actual"/>
+    <tag k="addr:postcode" v="12524"/>
+    <tag k="addr:street" v="Köpenicker Straße"/>
+    <tag k="addr:suburb" v="Altglienicke"/>
+    <tag k="building" v="yes"/>
+    <tag k="source" v="Geoportal Berlin / Hauskoordinaten"/>
+  </way>
+  <way id="266150543">
+    <nd ref="721167526"/>
+    <nd ref="6709640746"/>
+    <nd ref="1673191433"/>
+    <nd ref="94487919"/>
+    <tag k="access" v="destination"/>
+    <tag k="cycleway:both" v="no"/>
+    <tag k="foot" v="use_sidepath"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="lanes" v="2"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Rudower Straße"/>
+    <tag k="name:etymology:wikidata" v="Q614664"/>
+    <tag k="note" v="Übergeordnete Straße, Stufe III"/>
+    <tag k="postal_code" v="12524"/>
+    <tag k="sidewalk:both" v="separate"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="318210381">
+    <nd ref="1673191430"/>
+    <nd ref="6709640745"/>
+    <nd ref="1673191431"/>
+    <nd ref="94487919"/>
+    <tag k="cycleway:both" v="no"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="lanes" v="3"/>
+    <tag k="lanes:backward" v="1"/>
+    <tag k="lanes:forward" v="2"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:conditional" v="30 @ (Mo-Fr 07:00-17:00)"/>
+    <tag k="name" v="Köpenicker Straße"/>
+    <tag k="name:etymology:wikidata" v="Q521521"/>
+    <tag k="name:etymology:wikipedia" v="de:Berlin-Köpenick"/>
+    <tag k="note" v="Übergeordnete Straße, Stufe III"/>
+    <tag k="sidewalk" v="both"/>
+    <tag k="sidewalk:surface" v="paving_stones"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="turn:lanes:forward" v="left|through;right"/>
+  </way>
+  <way id="320005751">
+    <nd ref="3265111946"/>
+    <nd ref="3265111922"/>
+    <nd ref="3265111942"/>
+    <nd ref="3265111506"/>
+    <nd ref="3265111494"/>
+    <nd ref="3265111866"/>
+    <nd ref="3265111946"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="320005767">
+    <nd ref="2007004830"/>
+    <nd ref="3265111547"/>
+    <nd ref="3265111481"/>
+    <nd ref="5408188922"/>
+    <nd ref="5408188921"/>
+    <nd ref="5408187320"/>
+    <nd ref="5408188923"/>
+    <nd ref="3265111493"/>
+    <nd ref="2007004813"/>
+    <nd ref="2007004830"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="560811292">
+    <nd ref="5408188998"/>
+    <nd ref="5408188997"/>
+    <nd ref="5408188996"/>
+    <nd ref="2008876975"/>
+    <nd ref="5408188998"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="701285190">
+    <nd ref="6586194819"/>
+    <nd ref="6586194907"/>
+    <nd ref="6586194713"/>
+    <nd ref="6586194816"/>
+    <nd ref="6586194817"/>
+    <nd ref="6586194818"/>
+    <nd ref="6586194714"/>
+    <nd ref="6586194715"/>
+    <nd ref="6586194716"/>
+    <nd ref="6586194815"/>
+    <nd ref="6586194812"/>
+    <nd ref="6586194811"/>
+    <nd ref="6586194808"/>
+    <nd ref="6586194813"/>
+    <nd ref="6586194807"/>
+    <nd ref="6586194814"/>
+    <nd ref="6586194809"/>
+    <nd ref="6586194810"/>
+    <nd ref="6586194717"/>
+    <nd ref="6586194718"/>
+    <nd ref="6586194806"/>
+    <nd ref="6586194719"/>
+    <nd ref="6586194720"/>
+    <nd ref="6586194804"/>
+    <nd ref="6586194802"/>
+    <nd ref="6586194803"/>
+    <nd ref="6586194721"/>
+    <nd ref="6586194805"/>
+    <nd ref="6586194801"/>
+    <nd ref="6586194722"/>
+    <nd ref="6586194723"/>
+    <nd ref="6586194800"/>
+    <nd ref="6586194798"/>
+    <nd ref="6586194799"/>
+    <nd ref="6586194724"/>
+    <nd ref="6586194725"/>
+    <nd ref="6586194796"/>
+    <nd ref="6586194797"/>
+    <nd ref="6586194795"/>
+    <nd ref="6586194726"/>
+    <nd ref="6586194727"/>
+    <nd ref="6586194793"/>
+    <nd ref="6586194794"/>
+    <nd ref="6586194728"/>
+    <nd ref="6586194729"/>
+    <nd ref="6586194730"/>
+    <nd ref="6586194920"/>
+    <nd ref="6586194917"/>
+    <nd ref="6586194916"/>
+    <nd ref="6586194927"/>
+    <tag k="abandoned:electrified" v="contact_line"/>
+    <tag k="abandoned:railway" v="tram"/>
+    <tag k="abandoned:voltage" v="600"/>
+    <tag k="gauge" v="1435"/>
+    <tag k="name" v="Tram 1928-1992"/>
+    <tag k="railway" v="abandoned"/>
+  </way>
+  <way id="895114489">
+    <nd ref="8320248783"/>
+    <nd ref="8321910707"/>
+    <nd ref="8320248787"/>
+    <nd ref="8321910697"/>
+    <nd ref="8320248788"/>
+    <nd ref="8320248789"/>
+    <nd ref="8320248790"/>
+    <nd ref="8320248791"/>
+    <nd ref="8320248792"/>
+    <nd ref="8321910715"/>
+    <nd ref="8320248793"/>
+    <nd ref="8321910698"/>
+    <nd ref="8320248794"/>
+    <nd ref="8320248795"/>
+    <nd ref="8320248796"/>
+    <nd ref="8320248797"/>
+    <nd ref="8320248798"/>
+    <nd ref="8320248799"/>
+    <nd ref="8320248800"/>
+    <nd ref="8320248801"/>
+    <nd ref="8321947618"/>
+    <nd ref="8320248802"/>
+    <nd ref="8320248803"/>
+    <nd ref="8321910699"/>
+    <nd ref="8320248804"/>
+    <nd ref="8320248805"/>
+    <nd ref="8320248806"/>
+    <nd ref="8320248807"/>
+    <nd ref="8320248808"/>
+    <tag k="footway" v="sidewalk"/>
+    <tag k="highway" v="footway"/>
+    <tag k="surface" v="paving_stones"/>
+  </way>
+  <way id="895114490">
+    <nd ref="8320248810"/>
+    <nd ref="1673191433"/>
+    <nd ref="8320248807"/>
+    <tag k="footway" v="crossing"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="895114491">
+    <nd ref="8320248810"/>
+    <nd ref="8320248811"/>
+    <nd ref="8320248812"/>
+    <nd ref="8320248813"/>
+    <nd ref="8320248814"/>
+    <nd ref="8320248815"/>
+    <nd ref="8320248816"/>
+    <nd ref="8320284917"/>
+    <nd ref="8320284918"/>
+    <nd ref="8321947617"/>
+    <nd ref="8320284919"/>
+    <nd ref="8320284920"/>
+    <nd ref="8320284921"/>
+    <nd ref="8320284922"/>
+    <nd ref="8320284923"/>
+    <nd ref="8321910716"/>
+    <nd ref="8320284924"/>
+    <nd ref="8320284925"/>
+    <nd ref="8320284926"/>
+    <nd ref="8320284927"/>
+    <nd ref="8320284928"/>
+    <nd ref="8321910714"/>
+    <nd ref="8320284929"/>
+    <nd ref="8321910708"/>
+    <nd ref="8320248775"/>
+    <tag k="footway" v="sidewalk"/>
+    <tag k="highway" v="footway"/>
+    <tag k="surface" v="paving_stones"/>
+  </way>
+  <way id="895114492">
+    <nd ref="8321910701"/>
+    <nd ref="8321910702"/>
+    <nd ref="8321910703"/>
+    <tag k="footway" v="sidewalk"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="895285915">
+    <nd ref="8320248808"/>
+    <nd ref="1673191431"/>
+    <nd ref="8321910701"/>
+    <tag k="footway" v="crossing"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="895285916">
+    <nd ref="8320284931"/>
+    <nd ref="8320248810"/>
+    <tag k="footway" v="sidewalk"/>
+    <tag k="highway" v="footway"/>
+    <tag k="surface" v="paving_stones"/>
+  </way>
+  <way id="895285917">
+    <nd ref="8321910706"/>
+    <nd ref="1673191434"/>
+    <nd ref="8320284931"/>
+    <tag k="footway" v="crossing"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="895285918">
+    <nd ref="8321910704"/>
+    <nd ref="8321910705"/>
+    <nd ref="8321910706"/>
+    <tag k="footway" v="sidewalk"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="895285919">
+    <nd ref="8321910703"/>
+    <nd ref="1673191432"/>
+    <nd ref="8321910704"/>
+    <tag k="footway" v="crossing"/>
+    <tag k="highway" v="footway"/>
+  </way>
+
+</osm>

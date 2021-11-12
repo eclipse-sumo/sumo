@@ -1,8 +1,20 @@
+# test --lanechange.duration with opposite-direction driving
+continuous
+
+# tests for stopping on the opposite side
+stop_opposite
+
+# bugs specific to opposite-direction driving
+bugs
+
 # a stopped vehicle is overtaken
 overtaking_noconflict
 
 # a stopped vehicle cannot be overtaken because the neighboring lanes does not allow the vehicle in question
 overtaking_noconflict_forbidden
+
+# overtaking through the opposite direction is only permitted in one direction
+overtaking_noconflict_changeForbidden
 
 # overtaking by non-emergency vehicle on a multi-lane road if only 1 lane is usable in the forward direction
 overtaking_multilane_unusable
@@ -72,5 +84,8 @@ long_queue_emergency
 # emergency vehicle may overtake queue before red light
 emergency_redlight
 
-# bugs specific to opposite-direction driving
-bugs
+# emergency vehicle may overtake even when there is an overtaking lane
+2lanes_emergency
+
+# test usage of SL2015
+SL2015

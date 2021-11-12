@@ -1,6 +1,5 @@
 ---
-title: Models/Emissions/HBEFA3-based
-permalink: /Models/Emissions/HBEFA3-based/
+title: HBEFA3-based
 ---
 
 Since version 0.21.0, SUMO is able to simulate vehicular pollutant

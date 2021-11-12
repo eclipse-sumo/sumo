@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2019-12-17 15:32:50.720513 by randomTrips.py v1_4_0+0153-3c1468f
+  options: -n ../net.net.xml -o input_routes2.rou.xml -p 10 -e 100 <doubleminus>personrides taxi
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="0" depart="0.00">
+        <ride from="C1C2" to="B0C0" lines="taxi"/>
+    </person>
+    <person id="1" depart="10.00">
+        <ride from="B2B1" to="C2D2" lines="taxi"/>
+    </person>
+    <person id="2" depart="20.00">
+        <ride from="C2C1" to="E1E2" lines="taxi"/>
+    </person>
+    <person id="3" depart="30.00">
+        <ride from="B1A1" to="B2B1" lines="taxi"/>
+    </person>
+    <person id="4" depart="40.00">
+        <ride from="A1A0" to="E2E1" lines="taxi"/>
+    </person>
+    <person id="5" depart="50.00">
+        <ride from="D0D1" to="F1F0" lines="taxi"/>
+    </person>
+    <person id="6" depart="60.00">
+        <ride from="D2E2" to="C2D2" lines="taxi"/>
+    </person>
+    <person id="7" depart="70.00">
+        <ride from="D0D1" to="C0C1" lines="taxi"/>
+    </person>
+    <person id="8" depart="80.00">
+        <ride from="B0B1" to="B2B1" lines="taxi"/>
+    </person>
+    <person id="9" depart="90.00">
+        <ride from="C1B1" to="E0D0" lines="taxi"/>
+    </person>
+</routes>

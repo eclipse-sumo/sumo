@@ -1,6 +1,5 @@
 ---
-title: Data/Scenarios/TAPASCologne
-permalink: /Data/Scenarios/TAPASCologne/
+title: TAPASCologne
 ---
 
 # "TAPAS Cologne" Scenario
@@ -9,7 +8,7 @@ permalink: /Data/Scenarios/TAPASCologne/
 
 ![88x31.png](../../images/88x31.png "88x31.png") The data is available under the
 [Creative Commons](http://creativecommons.org/licenses/by-nc-sa/3.0/)
-licence. You **must tell where the data is from**, it is **not allowed
+license. You **must tell where the data is from**, it is **not allowed
 to use it for commercial** purposes, as soon as you use it **we want to
 be informed** about it (use the
 [sumo-user](https://dev.eclipse.org/mailman/listinfo/sumo-user).
@@ -49,8 +48,7 @@ The TAPASCologne scenario package includes:
 - Road networks imported from OSM
 - POIs and Polygons imported from OSM
 - The mapped trips for time between 6:00 and 8:00 (am)
-- The mapped trips for time between 00:00 and 24:00 (in a separate
-  file)
+- The mapped trips for time between 00:00 and 24:00 (in a separate file)
 - The SUMO-configuration file
 
 As OSM data contains information about streets, railways, ways for
@@ -79,7 +77,7 @@ choosing the proper network is a matter of personal interest.
 The supplied routes are given for the "passenger_\*"-network. Though
 not tested, yet, we assume that they can not be used directly with other
 networks from the package. Still, computing correct routes should be
-possible by starting [DUAROUTER](../../DUAROUTER.md) with the
+possible by starting [duarouter](../../duarouter.md) with the
 appropriate network and **--repair** option.
 
 The following images show the scenario area with polygons and points of
@@ -90,7 +88,7 @@ network type (passenger, roadvehicles, all), a shape file is included.
 ![](../../images/Tapas_0_0_2_shapes3.gif)
 
 
-### Change Log
+### ChangeLog
 
 **Version 0.0.1 to version 0.0.2**
 
@@ -122,10 +120,10 @@ overall simulation quality.
       (automatic joining failed)
   - ![Image:level16px_-3.gif](../../images/Level16px_-3.gif "Image:level16px_-3.gif") Lane Number Information
     - The information about lane numbers is stored via types,
-      mainly. For several roads, an explicite lane number is
+      mainly. For several roads, an explicit lane number is
       given. It can be safely assumed that many turning-lanes are
       missing.
-    - **todo:** evaluate how much information is given explicitely
+    - **todo:** evaluate how much information is given explicitly
     - **todo:** compare to images, write down lane number per
       street
   - ![Image:level16px_-2.gif](../../images/Level16px_-2.gif "Image:level16px_-2.gif") Maximum Speed Information
@@ -158,8 +156,8 @@ overall simulation quality.
       "Image:level16px_+5.gif") No Start/End Position Aggregation
   - ![Image:level16px_-2.gif](../../images/Level16px_-2.gif "Image:level16px_-2.gif") unverified
   - ![Image:level16px_-1.gif](../../images/Level16px_-1.gif "Image:level16px_-1.gif") starts partially at highways
-  - ![Image:level16px_-2.gif](../../images/Level16px_-2.gif "Image:level16px_-2.gif") ad-hoc, errorneous mapping to OSM
-  - ![Image:level16px_-2.gif](../../images/Level16px_-2.gif "Image:level16px_-2.gif") shortest path routing, no [DUE](../../DUAROUTER.md) as of release 0.0.3
+  - ![Image:level16px_-2.gif](../../images/Level16px_-2.gif "Image:level16px_-2.gif") ad-hoc, erroneous mapping to OSM
+  - ![Image:level16px_-2.gif](../../images/Level16px_-2.gif "Image:level16px_-2.gif") shortest path routing, no [DUE](../../duarouter.md) as of release 0.0.3
 
 The below images show the structure of demand data over 24 hour period.
 This shows normal behavior of mobility. Peak hours like \~8-9am ,
@@ -168,7 +166,7 @@ information of the city of cologne can be found in the link
 [\[1\]](http://www.stadt-koeln.de/mediaasset/content/pdf15/stadtkoeln_zahlenspiegel_e_bfrei.pdf).
 The total number of trips (made by cars) over 24h is very close to the
 number of registered cars\*3 (3 trips per registered car). There are
-around \~420415\*3 (\~1.2 million) trips which matchs the number in the
+around \~420415\*3 (\~1.2 million) trips which matches the number in the
 plots.
 
 ![](../../images/Average_24h.jpg) ![](../../images/Per_second_dep.jpg)
@@ -193,4 +191,4 @@ make the scenario realistic and complete.
 | Check whether all traffic lights are given |             | high      | \-          |
 | Compute Assignment                         |             | high      | \-          |
 | Add Public Transport                       |             | low       | \-          |
-| Help on Visualisation of POIs/Polygons     |             | low       | \-          |
+| Help on Visualization of POIs/Polygons     |             | low       | \-          |

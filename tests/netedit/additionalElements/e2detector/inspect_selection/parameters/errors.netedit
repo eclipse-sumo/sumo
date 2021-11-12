@@ -1,131 +1,138 @@
-Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Inserting generic parameter 'KeyA1|valueA1' into e2Detector
+Debug: Inserting generic parameter 'KeyA1|valueA1' into 
+Debug: Inserting generic parameter 'KeyA3|valueA2' into e2Detector
+Debug: Inserting generic parameter 'KeyA3|valueA2' into 
+Debug: Inserting generic parameter 'KeyA2|valueA3' into e2Detector
+Debug: Inserting generic parameter 'KeyA2|valueA3' into 
 Debug: Adding e2Detector 'E2_A' in GNEChange_Additional
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
-Debug: Inserting parameter 'KeyA1|valueA1' into additional e2Detector.
-Debug: Inserting parameter 'KeyA3|valueA2' into additional e2Detector.
-Debug: Inserting parameter 'KeyA2|valueA3' into additional e2Detector.
+Debug: Inserting generic parameter 'KeyB1|valueB1' into e2Detector
+Debug: Inserting generic parameter 'KeyB1|valueB1' into 
+Debug: Inserting generic parameter 'KeyB3|valueB2' into e2Detector
+Debug: Inserting generic parameter 'KeyB3|valueB2' into 
+Debug: Inserting generic parameter 'KeyB2|valueB3' into e2Detector
+Debug: Inserting generic parameter 'KeyB2|valueB3' into 
 Debug: Adding e2Detector 'E2_B' in GNEChange_Additional
-Debug: Inserting parameter 'KeyB1|valueB1' into additional e2Detector.
-Debug: Inserting parameter 'KeyB3|valueB2' into additional e2Detector.
-Debug: Inserting parameter 'KeyB2|valueB3' into additional e2Detector.
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
-Debug: Setting new attribute selected 'true' into junction 'gneJ0'
-Debug: Setting new attribute selected 'true' into edge 'gneE1'
-Debug: Setting new attribute selected 'true' into junction 'gneJ1'
-Debug: Setting new attribute selected 'true' into edge 'gneE0'
-Debug: Setting new attribute selected 'true' into e2Detector 'E2_A'
-Debug: Setting new attribute selected 'true' into e2Detector 'E2_B'
-Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into e2Detector 'E2_A'
-Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into e2Detector 'E2_B'
-Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into e2Detector 'E2_A'
-Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into e2Detector 'E2_B'
-Debug: Setting new attribute genericParameter '' into e2Detector 'E2_A'
-Debug: Setting new attribute genericParameter '' into e2Detector 'E2_B'
-Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into e2Detector 'E2_A'
-Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into e2Detector 'E2_B'
-Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into e2Detector 'E2_A'
-Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into e2Detector 'E2_B'
-Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into e2Detector 'E2_A'
-Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into e2Detector 'E2_B'
-Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into e2Detector 'E2_A'
-Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into e2Detector 'E2_B'
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into e2Detector 'E2_B'
-Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into e2Detector 'E2_A'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into e2Detector 'E2_B'
-Debug: Setting previous attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into e2Detector 'E2_A'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter 'key1duplicated=value2|key3=value3' into e2Detector 'E2_B'
-Debug: Setting previous attribute genericParameter 'key1duplicated=value2|key3=value3' into e2Detector 'E2_A'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter '' into e2Detector 'E2_B'
-Debug: Setting previous attribute genericParameter '' into e2Detector 'E2_A'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter 'key1=|key2=|key3=' into e2Detector 'E2_B'
-Debug: Setting previous attribute genericParameter 'key1=|key2=|key3=' into e2Detector 'E2_A'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter 'key1=value1|key2=value2|key3=value3' into e2Detector 'E2_B'
-Debug: Setting previous attribute genericParameter 'key1=value1|key2=value2|key3=value3' into e2Detector 'E2_A'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter 'KeyB1=valueB1|KeyB2=valueB3|KeyB3=valueB2' into e2Detector 'E2_B'
-Debug: Setting previous attribute genericParameter 'KeyA1=valueA1|KeyA2=valueA3|KeyA3=valueA2' into e2Detector 'E2_A'
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute selected '0' into e2Detector 'E2_B'
-Debug: Setting previous attribute selected '0' into e2Detector 'E2_A'
-Debug: Setting previous attribute selected '0' into edge 'gneE0'
-Debug: Setting previous attribute selected '0' into junction 'gneJ1'
-Debug: Setting previous attribute selected '0' into edge 'gneE1'
-Debug: Setting previous attribute selected '0' into junction 'gneJ0'
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Removing e2Detector 'E2_B' in GNEChange_Additional
+Debug: Removing e2Detector 'E2_A' in GNEChange_Additional
+Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute selected 'true' into junction 'gneJ0'
-Debug: Setting new attribute selected 'true' into edge 'gneE1'
-Debug: Setting new attribute selected 'true' into junction 'gneJ1'
-Debug: Setting new attribute selected 'true' into edge 'gneE0'
-Debug: Setting new attribute selected 'true' into e2Detector 'E2_A'
-Debug: Setting new attribute selected 'true' into e2Detector 'E2_B'
+Debug: Adding e2Detector 'E2_A' in GNEChange_Additional
+Debug: Adding e2Detector 'E2_B' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into e2Detector 'E2_A'
-Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into e2Detector 'E2_B'
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into e2Detector 'E2_A'
-Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into e2Detector 'E2_B'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter '' into e2Detector 'E2_A'
-Debug: Setting new attribute genericParameter '' into e2Detector 'E2_B'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into e2Detector 'E2_A'
-Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into e2Detector 'E2_B'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into e2Detector 'E2_A'
-Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into e2Detector 'E2_B'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into e2Detector 'E2_A'
-Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into e2Detector 'E2_B'
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into e2Detector 'E2_A'
-Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into e2Detector 'E2_B'
-Debug: Additionals saved
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Debug: Additionals saved
 Debug: Deleting unreferenced e2Detector 'E2_B'
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
 Debug: Deleting unreferenced e2Detector 'E2_A'
-Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
-Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor

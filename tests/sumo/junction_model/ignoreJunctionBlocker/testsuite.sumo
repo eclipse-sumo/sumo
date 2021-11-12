@@ -1,0 +1,5 @@
+# junction is blocked
+default
+
+# junction blockage is resolved after 30s
+ignore_after_30

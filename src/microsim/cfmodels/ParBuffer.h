@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    ParBuffer.h
 /// @author  Michele Segata
@@ -14,8 +18,8 @@
 // Class for the string serialization and deserialization of parameters
 /****************************************************************************/
 
-#ifndef PARBUFFER_H_
-#define PARBUFFER_H_
+#pragma once
+#include <config.h>
 
 #include <cstddef>
 #include <string>
@@ -100,13 +104,13 @@ public:
             return "";
         }
 
-        int sep = -1;
+        size_t sep = std::string::npos;
         do {
-            sep = (int)inBuffer.find(SEP, sep + 1);
-        } while (!(sep == (int)std::string::npos || sep == 0 || inBuffer.c_str()[sep - 1] != ESC));
+            sep = inBuffer.find(SEP, sep + 1);
+        } while (!(sep == std::string::npos || sep == 0 || inBuffer.c_str()[sep - 1] != ESC));
 
         std::string value;
-        if (sep == (int)std::string::npos) {
+        if (sep == std::string::npos) {
             value = unescape(inBuffer);
             inBuffer = "";
         } else {
@@ -155,4 +159,3 @@ private:
 
 };
 
-#endif

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec  9 19:02:56 2019 by Eclipse SUMO dfrouter Version v1_3_1+1345-8af262fa61
+<!-- generated on Mon Apr 12 21:15:30 2021 by Eclipse SUMO dfrouter Version v1_8_0+1985-b3699bc617
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -62,6 +62,7 @@
             <xsd:element name="max-search-depth" type="intOptionType" minOccurs="0"/>
             <xsd:element name="emissions-only" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="disallowed-edges" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="vclass" type="strOptionType" minOccurs="0"/>
             <xsd:element name="keep-turnarounds" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="min-route-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="randomize-flows" type="boolOptionType" minOccurs="0"/>

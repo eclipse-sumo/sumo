@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSLeaderInfo.h
 /// @author  Jakob Erdmann
@@ -14,18 +18,12 @@
 // Information about vehicles ahead (may be multiple vehicles if
 // lateral-resolution is active)
 /****************************************************************************/
-#ifndef MSLeaderInfo_h
-#define MSLeaderInfo_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
 #include <vector>
-
+#include <utils/common/StdDefs.h>
 
 // ===========================================================================
 // class declarations
@@ -103,6 +101,9 @@ public:
     /// @brief whether a stopped vehicle is leader
     bool hasStoppedVehicle() const;
 
+    /// @brief remove vehicles that are driving in the opposite direction (fully or partially) on the given lane
+    void removeOpposite(const MSLane* lane);
+
     /// @brief print a debugging representation
     virtual std::string toString() const;
 
@@ -170,6 +171,12 @@ public:
         return myDistances;
     }
 
+    /// @brief subtract vehicle length from all gaps if the leader vehicle is driving in the opposite direction
+    void fixOppositeGaps(bool isFollower);
+
+    /// @brief return vehicle with the smalles gap
+    CLeaderDist getClosest() const;
+
 protected:
 
     std::vector<double> myDistances;
@@ -183,7 +190,7 @@ protected:
 class MSCriticalFollowerDistanceInfo : public MSLeaderDistanceInfo {
 public:
     /// Constructor
-    MSCriticalFollowerDistanceInfo(const MSLane* lane, const MSVehicle* ego, double latOffset);
+    MSCriticalFollowerDistanceInfo(const MSLane* lane, const MSVehicle* ego, double latOffset, bool haveOppositeLeaders = false);
 
     /// Destructor
     virtual ~MSCriticalFollowerDistanceInfo();
@@ -224,9 +231,7 @@ protected:
     // @brief the differences between requriedGap and actual gap for each of the followers
     std::vector<double> myMissingGaps;
 
+    // @brief whether this Info objects tracks leaders instead of followers
+    bool myHaveOppositeLeaders;
+
 };
-
-#endif
-
-/****************************************************************************/
-

@@ -1,24 +1,24 @@
 site_name: SUMO Documentation
 site_url: https://sumo.dlr.de/docs/
-site_favicon: favicon.ico
 repo_url: https://github.com/eclipse/sumo/
-edit_uri: edit/master/docs/web/docs/
+edit_uri: edit/main/docs/web/docs/
 site_description: SUMO Documentation
 use_directory_urls: false
 dev_addr: 127.0.0.1:8000
 #docs_dir: docs
 #site_dir: site
-copyright: "Copyright &copy; 2001 - 2019 German Aerospace Center (DLR) and others."
+copyright: "Copyright &copy; 2001-2021 German Aerospace Center (DLR) and others."
 
 nav:
-  - Home: index.md
-  - Documentation: SUMO_User_Documentation.md
-  - Downloads: Downloads.md
+  - Documentation: index.md
+  - Tutorials: Tutorials/index.md
   - FAQ: FAQ.md
-  - Contact: Contact.md
+  - Downloads: Downloads.md
+  - Publications: Publications.md
+  - Developer: Developer/index.md
   - ChangeLog: ChangeLog.md
-  - Developer: Developer/Main.md
-  - Recent Changes: https://github.com/eclipse/sumo/commits/master/docs/web
+  - Recent Changes: https://github.com/eclipse/sumo/commits/main/docs/web
+  - Contact: https://eclipse.org/sumo/contact/
 
 theme:
   name: mkdocs
@@ -32,9 +32,6 @@ plugins:
   - git-revision-date:
       as_datetime: true
   - macros
-
-extra_css: 
-  - extra.css
 
 markdown_extensions:
   - admonition
@@ -56,13 +53,15 @@ markdown_extensions:
   - mdx_gh_links:
       user: eclipse
       repo: sumo
+  - plantuml_markdown
+  - codehilite
 
 extra:
-    Version: 1.4.0
-    ReleaseDate: 10.12.2019
+    Version: 1.10.0
+    ReleaseDate: 17.08.2021
 
-    AdditionalFile: '[*additional-file*](/docs/SUMO.html#format_of_additional_files)'
-    AdditionalFiles: '[*additional-files*](/docs/SUMO.html#format_of_additional_files)'
+    AdditionalFile: '[*additional-file*](/docs/sumo.html#format_of_additional_files)'
+    AdditionalFiles: '[*additional-files*](/docs/sumo.html#format_of_additional_files)'
     DT_2DBoundingBox: '[*&lt;2D-BOUNDING_BOX&gt;*](/docs/Basics/Notation.html#referenced_data_types)'
     DT_2DPosition: '[*&lt;2D-POSITION&gt;*](/docs/Basics/Notation.html#referenced_data_types)'
     DT_BOOL: '[*&lt;BOOL&gt;*](/docs/Basics/Notation.html#referenced_data_types)'
@@ -78,6 +77,6 @@ extra:
     DT_STR: '[*&lt;STRING&gt;*](/docs/Basics/Notation.html#referenced_data_types)'
     DT_TIME: '[*&lt;TIME&gt;*](/docs/Basics/Notation.html#referenced_data_types)'
     Outdated: '<div style="background: #801010; padding: .5em; border: 1px dashed #ffcc44; margin-right:10px; margin-left:10px; color: #ffffff">This information is outdated.</div>'
-    Source: 'https://github.com/eclipse/sumo/blob/master/'
+    Source: 'https://github.com/eclipse/sumo/blob/main/'
     SUMO: '***&lt;SUMO_HOME&gt;***'
-    SUMOUSERConference: '[SUMO User Conference](https://www.dlr.de/ts/en/desktopdefault.aspx/tabid-3930/20125_read-47741)'
+    SUMOUSERConference: '[SUMO User Conference](https://eclipse.org/sumo/conference)'

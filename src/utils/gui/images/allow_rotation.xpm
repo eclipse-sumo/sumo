@@ -1,5 +1,6 @@
 /* XPM */
 static const char * allow_rotation_xpm[] = {
+/* columns rows colors chars-per-pixel */
 "20 20 130 2",
 "  	c None",
 ". 	c #7b7b7b",
@@ -150,4 +151,5 @@ static const char * allow_rotation_xpm[] = {
 "      % 9 s 9 e.r.t.y.9 9 s 9           ",
 "      9 s 9 u.i.p.$ & t l 9 9           ",
 "      9 s 9 7.                          ",
-"    9 9 9                               "};
+"    9 9 9                               "
+};

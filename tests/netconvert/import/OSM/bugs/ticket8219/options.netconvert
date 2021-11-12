@@ -1,0 +1,7 @@
+--tls.guess-signals
+--tls.discard-simple
+--osm-files osm.xml
+--keep-edges.by-vclass passenger,bus,tram,rail_urban,rail,bicycle
+--remove-edges.by-type highway.track,highway.unsurfaced,highway.service,highway.path,highway.footway
+--junctions.join
+--edges.join-tram-dist 1.6

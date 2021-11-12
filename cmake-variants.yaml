@@ -1,0 +1,73 @@
+buildType:
+  default: debug
+  description: Switch between debug and release build type
+  choices:
+    debug:
+      short: Debug
+      long: Debug
+      buildType: Debug
+      settings:
+        CMAKE_BUILD_TYPE: Debug
+    release:
+      short: Release
+      long: Release
+      buildType: Release
+      settings:
+        CMAKE_BUILD_TYPE: Release
+
+useFMI:
+  default: 'no'
+  description: Enable building of FMUs for SUMO
+  choices:
+    'yes':
+      short: FMI
+      long: FMI
+      settings:
+        FMI: 'yes'
+    'no':
+      short: 'noFMI'
+      long: 'noFMI'
+      settings:
+        FMI: 'no'
+
+pythonBindings:
+  default: 'default'
+  description: Enable Python bindings?
+  choices:
+    'default':
+      short: Python (def.)
+      long: Python (default)
+      settings:
+        ENABLE_PYTHON_BINDINGS: 'yes'
+    'brew-3.8':
+      short: Python 3.8 (brew)
+      long: macOS homebrew Python 3.8
+      settings:
+        ENABLE_PYTHON_BINDINGS: 'yes'
+        PYTHON_EXECUTABLE: "/usr/local/bin/python3.8"
+    'brew-3.9':
+      short: Python 3.9 (brew)
+      long: macOS homebrew Python 3.9
+      settings:
+        ENABLE_PYTHON_BINDINGS: 'yes'
+        PYTHON_EXECUTABLE: "/usr/local/bin/python3.9"
+    'no':
+      short: 'noPython'
+      long: noPython
+      settings:
+        ENABLE_PYTHON_BINDINGS: 'no'
+
+javaBindings:
+  default: 'no'
+  description: Enable Java bindings?
+  choices:
+    'no':
+      short: 'noJava'
+      long: noJava
+      settings:
+        ENABLE_JAVA_BINDINGS: 0
+    'default':
+      short: Java (def.)
+      long: Java default installation 
+      settings:
+        ENABLE_JAVA_BINDINGS: 'yes'

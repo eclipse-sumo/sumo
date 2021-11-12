@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSAbstractLaneChangeModel.h
 /// @author  Daniel Krajzewicz
@@ -18,22 +22,19 @@
 ///
 // Interface for lane-change models
 /****************************************************************************/
-#ifndef MSAbstractLaneChangeModel_h
-#define MSAbstractLaneChangeModel_h
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <microsim/MSGlobals.h>
+#include <microsim/MSLeaderInfo.h>
 #include <microsim/MSVehicle.h>
 
-class MSLane;
 
 // ===========================================================================
-// used enumeration
+// class declarations
 // ===========================================================================
+class MSLane;
+
 
 // ===========================================================================
 // class definitions
@@ -136,11 +137,6 @@ public:
      * @param[in] vehicle The vehicle for which this model shall be built
      */
     static MSAbstractLaneChangeModel* build(LaneChangeModel lcm, MSVehicle& vehicle);
-
-    /// @brief whether any kind of lateral dynamics is active
-    inline static bool haveLateralDynamics() {
-        return MSGlobals::gLateralResolution > 0 || MSGlobals::gLaneChangeDuration > 0;
-    }
 
     /** @brief Returns the model's ID;
      * @return The model's ID
@@ -259,6 +255,7 @@ public:
         int laneOffset,
         MSAbstractLaneChangeModel::MSLCMessager& msgPass, int blocked,
         const std::pair<MSVehicle*, double>& leader,
+        const std::pair<MSVehicle*, double>& follower,
         const std::pair<MSVehicle*, double>& neighLead,
         const std::pair<MSVehicle*, double>& neighFollow,
         const MSLane& neighLane,
@@ -269,6 +266,7 @@ public:
         UNUSED_PARAMETER(&msgPass);
         UNUSED_PARAMETER(blocked);
         UNUSED_PARAMETER(&leader);
+        UNUSED_PARAMETER(&follower);
         UNUSED_PARAMETER(&neighLead);
         UNUSED_PARAMETER(&neighFollow);
         UNUSED_PARAMETER(&neighLane);
@@ -387,11 +385,6 @@ public:
     /// @brief return the shadow lane for the given lane and lateral offset
     MSLane* getShadowLane(const MSLane* lane, double posLat) const;
 
-    /// @brief set the shadow lane
-    void setShadowLane(MSLane* lane) {
-        myShadowLane = lane;
-    }
-
     const std::vector<MSLane*>& getShadowFurtherLanes() const {
         return myShadowFurtherLanes;
     }
@@ -435,7 +428,7 @@ public:
     ///       If lcMaxSpeedStanding==0 the completion may be impossible, and -1 is returned.
     ///       2) In case that no maxSpeedLat is used to control lane changing, this is only called prior to a lane change,
     ///          and the duration is MSGlobals::gLaneChangeDuration.
-    virtual double estimateLCDuration(const double speed, const double remainingManeuverDist, const double decel) const;
+    virtual double estimateLCDuration(const double speed, const double remainingManeuverDist, const double decel, bool urgent) const;
 
     /// @brief return true if the vehicle currently performs a lane change maneuver
     inline bool isChangingLanes() const {
@@ -536,6 +529,9 @@ public:
         return myAmOpposite;
     }
 
+    /// brief return lane index that treats opposite lanes like normal lanes to the left of the forward lanes
+    int getNormalizedLaneIndex();
+
     double getCommittedSpeed() const {
         return myCommittedSpeed;
     }
@@ -545,13 +541,17 @@ public:
         return mySpeedLat;
     }
 
-    void setSpeedLat(double speedLat) {
-        mySpeedLat = speedLat;
+    /// @brief return the lateral speed of the current lane change maneuver
+    double getAccelerationLat() const {
+        return myAccelerationLat;
     }
+
+    /// @brief set the lateral speed and update lateral acceleraton
+    void setSpeedLat(double speedLat);
 
     /// @brief decides the next lateral speed depending on the remaining lane change distance to be covered
     ///        and updates maneuverDist according to lateral safety constraints.
-    virtual double computeSpeedLat(double latDist, double& maneuverDist);
+    virtual double computeSpeedLat(double latDist, double& maneuverDist, bool urgent) const;
 
     /// @brief Returns a deceleration value which is used for the estimation of the duration of a lane change.
     /// @note  Effective only for continuous lane-changing when using attributes myMaxSpeedLatFactor and myMaxSpeedLatStanding. See #3771
@@ -573,6 +573,9 @@ public:
     ///        For the sublane case, this includes setting a new maneuver distance if appropriate.
     void checkTraCICommands();
 
+    /// @brief get vehicle position relative to the forward direction lane
+    double getForwardPos() const;
+
     static const double NO_NEIGHBOR;
 
 protected:
@@ -583,6 +586,8 @@ protected:
     /// @brief whether the influencer cancels the given request
     bool cancelRequest(int state, int laneOffset);
 
+    /// @brief return the max of maxSpeedLat and lcMaxSpeedLatStanding
+    double getMaxSpeedLat2() const;
 
 protected:
     /// @brief The vehicle this lane-changer belongs to
@@ -613,6 +618,9 @@ protected:
     /// @brief the current lateral speed
     double mySpeedLat;
 
+    /// @brief the current lateral acceleration
+    double myAccelerationLat;
+
     /// @brief the speed when committing to a change maneuver
     double myCommittedSpeed;
 
@@ -621,13 +629,6 @@ protected:
 
     /// @brief direction of the lane change maneuver -1 means right, 1 means left
     int myLaneChangeDirection;
-
-    /// @brief The complete lateral distance the vehicle wants to travel to finish its maneuver
-    ///        Only used by sublane model, currently.
-    double myManeuverDist;
-
-    /// @brief Maneuver distance from the previous simulation step
-    double myPreviousManeuverDist;
 
     /// @brief whether the vehicle has already moved this step
     bool myAlreadyChanged;
@@ -658,7 +659,9 @@ protected:
     std::vector<MSLane*> myFurtherTargetLanes;
 
     /// @brief The vehicle's car following model
-    const MSCFModel& myCarFollowModel;
+    inline const MSCFModel& getCarFollowModel() const {
+        return myVehicle.getCarFollowModel();
+    }
 
     /// @brief the type of this model
     const LaneChangeModel myModel;
@@ -692,10 +695,12 @@ protected:
     ///        in the case of continuous LC.
     bool myDontResetLCGaps;
 
-    // @brief the maximum lateral speed when standing
+    // @brief the maximum lateral speed for non-strategic changes when standing
     double myMaxSpeedLatStanding;
-    // @brief the factor of maximum lateral speed to longitudinal speed
+    // @brief the factor of maximum lateral speed to longitudinal speed for non-strategic changes
     double myMaxSpeedLatFactor;
+    // @brief the maximum lateral maneuver distance when standing
+    double myMaxDistLatStanding;
     // @brief factor for lane keeping imperfection
     double mySigma;
 
@@ -710,6 +715,7 @@ protected:
     static bool myLCOutput;
     static bool myLCStartedOutput;
     static bool myLCEndedOutput;
+    static bool myLCXYOutput;
 
 
 private:
@@ -724,14 +730,15 @@ private:
     /// @brief whether the vehicle is driving in the opposite direction
     bool myAmOpposite;
 
+    /// @brief The complete lateral distance the vehicle wants to travel to finish its maneuver
+    ///        Only used by sublane model, currently.
+    double myManeuverDist;
+
+    /// @brief Maneuver distance from the previous simulation step
+    double myPreviousManeuverDist;
+
 
 private:
     /// @brief Invalidated assignment operator
     MSAbstractLaneChangeModel& operator=(const MSAbstractLaneChangeModel& s);
 };
-
-
-#endif
-
-/****************************************************************************/
-

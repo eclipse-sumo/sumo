@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNEVehicleTypeDialog.h
 /// @author  Pablo Alvarez Lopez
@@ -13,13 +17,7 @@
 ///
 // Dialog for edit vehicleTypes
 /****************************************************************************/
-#ifndef GNEVehicleTypeDialog_h
-#define GNEVehicleTypeDialog_h
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
+#pragma once
 #include <config.h>
 
 #include <utils/common/SUMOVehicleClass.h>
@@ -114,7 +112,8 @@ public:
                 ROWTYPE_STRING,
                 ROWTYPE_COLOR,
                 ROWTYPE_FILENAME,
-                ROWTYPE_COMBOBOX
+                ROWTYPE_COMBOBOX,
+                ROWTYPE_PARAMETERS
             };
 
             /// @brief constructor
@@ -144,6 +143,15 @@ public:
             /// @brief open OSG file dialog
             void openOSGFileDialog();
 
+            /// @brief get parameters as string
+            std::string getParametersStr() const;
+
+            /// @brief get parameters as vector of strings
+            std::vector<std::pair<std::string, std::string> > getParametersVectorStr() const;
+
+            /// @brief set parameters
+            void setParameters(const std::vector<std::pair<std::string, std::string> >& parameters);
+
         private:
             /// @brief pointer to VTypeAttributeParameters parent
             VTypeAtributes* myVTypeAtributesParent;
@@ -162,6 +170,9 @@ public:
 
             /// @brief ComboBox for attributes with limited values
             FXComboBox* myComboBox;
+
+            /// @brief pointer to current parameter map
+            std::map<std::string, std::string> myParameters;
 
             /// @brief filter attribute name
             FXString filterAttributeName(const SumoXMLAttr attr) const;
@@ -194,7 +205,10 @@ public:
         long onCmdSetAttribute(FXObject*, FXSelector, void*);
 
         /// @event called after press a button dialog
-        long onCmdSetAttributeDialog(FXObject* obj, FXSelector, void*);
+        long onCmdOpenAttributeDialog(FXObject* obj, FXSelector, void*);
+
+        /// @event called after press a button dialog
+        long onCmdOpenParametersEditor(FXObject* obj, FXSelector, void*);
 
         /// @}
 
@@ -224,9 +238,6 @@ public:
 
         /// @brief VTypeAttributeRow for SpeedFactor
         VTypeAttributeRow* mySpeedFactor;
-
-        /// @brief VTypeAttributeRow for SpeedDev
-        VTypeAttributeRow* mySpeedDev;
 
         /// @brief VTypeAttributeRow for EmissionClass
         VTypeAttributeRow* myEmissionClass;
@@ -284,6 +295,9 @@ public:
 
         /// @brief VTypeAttributeRow for Probability
         VTypeAttributeRow* myProbability;
+
+        /// @brief VTypeAttributeRow for parameters
+        VTypeAttributeRow* myParameters;
 
         /// @}
 
@@ -519,6 +533,51 @@ public:
         /// @brief Row for Adapt Time
         CarFollowingModelRow* myAdaptTimeRow;
 
+        /// @brief Row for Look ahead/preview Time
+        CarFollowingModelRow* myTpreviewRow;
+
+        /// @brief Row for Reaction Time
+        CarFollowingModelRow* myTreactionRow;
+
+        /// @brief Row for Wiener Process Driving Error
+        CarFollowingModelRow* myTPersDriveRow;
+
+        /// @brief Row for Wiener Process Estimation Error
+        CarFollowingModelRow* myTPersEstimateRow;
+
+        /// @brief Row for Coolness parameter
+        CarFollowingModelRow* myCcoolnessRow;
+
+        /// @brief Row for leader speed estimation error
+        CarFollowingModelRow* mySigmaleaderRow;
+
+        /// @brief Row for Gap estimation error
+        CarFollowingModelRow* mySigmagapRow;
+
+        /// @brief Row for Driving Error
+        CarFollowingModelRow* mySigmaerrorRow;
+
+        /// @brief Row for max jerk
+        CarFollowingModelRow* myJerkmaxRow;
+
+        /// @brief Row for AP Driver Update threshold
+        CarFollowingModelRow* myEpsilonaccRow;
+
+        /// @brief Row for Startup Time to acc_max
+        CarFollowingModelRow* myTaccmaxRow;
+
+        /// @brief Row for Startup M flatness
+        CarFollowingModelRow* myMflatnessRow;
+
+        /// @brief Row for Startup M begin
+        CarFollowingModelRow* myMbeginRow;
+
+        /// @brief Row for Using vehicle dynamics
+        CarFollowingModelRow* myUseVehDynamicsRow;
+
+        /// @brief Row for Using vehicle preview
+        CarFollowingModelRow* myMaxVehPreviewRow;
+
         /// @brief temporal label for incomplete attributes
         FXLabel* myLabelIncompleteAttribute;
     };
@@ -564,4 +623,3 @@ private:
     GNEVehicleTypeDialog& operator=(const GNEVehicleTypeDialog&) = delete;
 };
 
-#endif

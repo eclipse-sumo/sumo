@@ -1,33 +1,33 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIBusStop.h
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
+/// @author  Johannes Rummel
 /// @date    Wed, 07.12.2005
 ///
 // A lane area vehicles can halt at (gui-version)
 /****************************************************************************/
-#ifndef GUIBusStop_h
-#define GUIBusStop_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <vector>
 #include <string>
 #include <utils/common/Command.h>
 #include <utils/common/VectorHelper.h>
+#include <utils/common/RGBColor.h>
 #include <utils/geom/PositionVector.h>
 #include <microsim/MSStoppingPlace.h>
 #include <utils/gui/globjects/GUIGlObject.h>
@@ -70,8 +70,10 @@ public:
      * @param[in] endPos End position of the bus stop on the lane
      */
     GUIBusStop(const std::string& id,
+               SumoXMLTag element,
                const std::vector<std::string>& lines, MSLane& lane,
-               double frompos, double topos, const std::string name, int personCapacity);
+               double frompos, double topos, const std::string name,
+               int personCapacity, double parkingLength, const RGBColor& color);
 
 
     /// @brief Destructor
@@ -79,7 +81,7 @@ public:
 
 
     /// @brief adds an access point to this stop
-    bool addAccess(MSLane* lane, const double pos, const double length);
+    bool addAccess(MSLane* lane, const double pos, double length);
 
     /// @name inherited from GUIGlObject
     //@{
@@ -94,7 +96,6 @@ public:
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
                                        GUISUMOAbstractView& parent);
 
-
     /** @brief Returns an own parameter window
      *
      * Bus stops have no parameter windows (yet).
@@ -107,6 +108,8 @@ public:
     GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
             GUISUMOAbstractView& parent);
 
+    /// @brief return exaggeration asociated with this GLObject
+    double getExaggeration(const GUIVisualizationSettings& s) const;
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
@@ -124,10 +127,6 @@ public:
      */
     void drawGL(const GUIVisualizationSettings& s) const;
 
-    /** @brief Returns the next free waiting place for pedestrians / containers
-     * @return The next free waiting place for pedestrians / containers
-     */
-    Position getWaitPosition(MSTransportable* person) const;
     //@}
 
 
@@ -153,14 +152,5 @@ private:
     /// @brief The coordinates of access points
     PositionVector myAccessCoords;
 
-    /// @brief The current person exaggeration
-    mutable double myPersonExaggeration;
-
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

@@ -1,7 +1,7 @@
 # Format matches Extraction version: V6.5 
 # <?xml version="1.0" encoding="UTF-8"?>
 # 
-# <!-- generated on 01/22/18 12:27:35 by SUMO polyconvert Version v0_31_0+1647-6d8dc768ae
+# <!-- generated on 2021-08-18 16:19:54 by Eclipse SUMO polyconvert Version v1_10_0+0066-c7c9156
 # This data file and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -24,6 +24,7 @@
 #     <projection>
 #         <proj.scale value="1"/>
 #         <proj.utm value="true"/>
+#         <proj.plain-geo value="true"/>
 #     </projection>
 # 
 #     <processing>

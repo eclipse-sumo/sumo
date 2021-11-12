@@ -1,10 +1,12 @@
 /* XPM */
 static const char * ext_xpm[] = {
+/* columns rows colors chars-per-pixel */
 "16 15 4 1",
 " 	c None",
 ".	c Black",
 "X	c Gray50",
 "o	c Red",
+/* pixels */
 " ....       ....",
 " ...         ...",
 " ...         ...",
@@ -19,4 +21,5 @@ static const char * ext_xpm[] = {
 " .  .       .  .",
 " ...         ...",
 " ...         ...",
-" ....       ...."};
+" ....       ...."
+};

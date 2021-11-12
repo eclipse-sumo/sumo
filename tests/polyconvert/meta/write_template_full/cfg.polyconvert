@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Nov 19 08:43:00 2019 by Eclipse SUMO polyconvert Version v1_3_1+0935-6627874
+<!-- generated on Wed Mar 24 21:07:20 2021 by Eclipse SUMO polyconvert Version v1_8_0+1803-fe50666
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
@@ -18,6 +18,7 @@
         <dlr-navteq-poly-files value="" type="FILE" help="Reads polygons from FILE assuming they&apos;re coded in DLR-Navteq (Elmar)-format"/>
         <dlr-navteq-poi-files value="" type="FILE" help="Reads pois from FILE+ assuming they&apos;re coded in DLR-Navteq (Elmar)-format"/>
         <visum-files value="" synonymes="visum" type="FILE" help="Reads polygons from FILE assuming it&apos;s a Visum-net"/>
+        <visum.language-file value="" type="FILE" help="Load language mappings from FILE"/>
         <xml-files value="" synonymes="xml" type="FILE" help="Reads pois and shapes from FILE assuming they&apos;re coded in XML"/>
         <osm-files value="" synonymes="osm" type="FILE" help="Reads pois from FILE+ assuming they&apos;re coded in OSM"/>
         <osm.keep-full-type value="false" type="BOOL" help="The type will be made of the key-value - pair"/>
@@ -25,6 +26,7 @@
         <osm.merge-relations value="-1" type="FLOAT" help="If FLOAT &gt;= 0, assemble one polygon from all ways of a relation if they all connect with gaps below FLOAT"/>
         <shapefile-prefixes value="" synonymes="shape-files shapefile shapefile-prefix" type="FILE" help="Reads shapes from shapefiles FILE+"/>
         <shapefile.guess-projection value="false" synonymes="arcview.guess-projection" type="BOOL" help="Guesses the shapefile&apos;s projection"/>
+        <shapefile.traditional-axis-mapping value="false" type="BOOL" help="Use traditional axis order (lon, lat)"/>
         <shapefile.id-column value="" synonymes="shape-files.id-name shapefile.id-name" type="STR" help="Defines in which column the id can be found"/>
         <shapefile.type-columns value="" synonymes="shapefile.type-column" type="STR[]" help="Defines which columns form the type id (comma separated list)"/>
         <shapefile.use-running-id value="false" type="BOOL" help="A running number will be used as id"/>
@@ -38,7 +40,7 @@
         <output-prefix value="" type="STR" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
         <precision value="2" type="INT" help="Defines the number of digits after the comma for floating point output"/>
         <precision.geo value="6" type="INT" help="Defines the number of digits after the comma for lon,lat output"/>
-        <human-readable-time value="false" synonymes="H" type="BOOL" help="Write time values as hour:minute:second or day:hour:minute:second rathern than seconds"/>
+        <human-readable-time value="false" synonymes="H" type="BOOL" help="Write time values as hour:minute:second or day:hour:minute:second rather than seconds"/>
         <output-file value="" synonymes="o output" type="FILE" help="Write generated polygons/pois to FILE"/>
         <dlr-tdp-output value="" type="FILE" help="Write generated polygons/pois to a dlr-tdp file with the given prefix"/>
     </output>

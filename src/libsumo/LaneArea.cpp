@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    LaneArea.cpp
 /// @author  Daniel Krajzewicz
@@ -16,11 +20,6 @@
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <microsim/output/MSDetectorControl.h>
@@ -117,6 +116,21 @@ LaneArea::getLastStepHaltingNumber(const std::string& detID) {
 }
 
 
+std::string
+LaneArea::getParameter(const std::string& detID, const std::string& param) {
+    return getDetector(detID)->getParameter(param, "");
+}
+
+
+LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(LaneArea)
+
+
+void
+LaneArea::setParameter(const std::string& detID, const std::string& name, const std::string& value) {
+    getDetector(detID)->setParameter(name, value);
+}
+
+
 LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(LaneArea, LANEAREA)
 
 
@@ -137,7 +151,7 @@ LaneArea::makeWrapper() {
 
 
 bool
-LaneArea::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper) {
+LaneArea::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData) {
     switch (variable) {
         case TRACI_ID_LIST:
             return wrapper->wrapStringList(objID, variable, getIDList());
@@ -163,6 +177,12 @@ LaneArea::handleVariable(const std::string& objID, const int variable, VariableW
             return wrapper->wrapString(objID, variable, getLaneID(objID));
         case VAR_LENGTH:
             return wrapper->wrapDouble(objID, variable, getLength(objID));
+        case libsumo::VAR_PARAMETER:
+            paramData->readUnsignedByte();
+            return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));
+        case libsumo::VAR_PARAMETER_WITH_KEY:
+            paramData->readUnsignedByte();
+            return wrapper->wrapStringPair(objID, variable, getParameterWithKey(objID, paramData->readString()));
         default:
             return false;
     }

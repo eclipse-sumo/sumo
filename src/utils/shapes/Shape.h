@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2012-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    Shape.h
 /// @author  Jakob Erdmann
@@ -14,16 +18,11 @@
 ///
 // A 2D- or 3D-Shape
 /****************************************************************************/
-#ifndef Shape_h
-#define Shape_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
+#include <map>
 #include <utils/common/Named.h>
 #include <utils/common/RGBColor.h>
 
@@ -48,6 +47,8 @@ public:
     static const bool DEFAULT_RELATIVEPATH;
     static const double DEFAULT_IMG_WIDTH;
     static const double DEFAULT_IMG_HEIGHT;
+    static const std::string DEFAULT_NAME;
+    static const std::map<std::string, std::string> DEFAULT_PARAMETERS;
     /// @}
 
     /** @brief Constructor
@@ -57,11 +58,11 @@ public:
      * @param[in] layer The layer of the shape
      * @param[in] angle The rotation of the shape in navigational degrees
      * @param[in] imgFile The raster image of the shape
+     * @param[in] name shape name
      * @param[in] relativePath set image file as relative path
      */
-    Shape(const std::string& id, const std::string& type,
-          const RGBColor& color, double layer,
-          double angle, const std::string& imgFile, bool relativePath);
+    Shape(const std::string& id, const std::string& type, const RGBColor& color, double layer,
+          double angle, const std::string& imgFile, const std::string& name, bool relativePath);
 
     /// @brief Destructor
     virtual ~Shape();
@@ -104,9 +105,14 @@ public:
         return myImgFile;
     }
 
+    /// @brief Returns the name of the Shape
+    inline const std::string getShapeName() const {
+        return myName;
+    }
+
     /** @brief Returns the relativePath of the Shape
-    * @return The Shape's relativePath
-    */
+     * @return The Shape's relativePath
+     */
     inline bool getShapeRelativePath() const {
         return myRelativePath;
     }
@@ -158,9 +164,14 @@ public:
         myImgFile = imgFile;
     }
 
+    /// @brief Sets a new shape name
+    inline void setShapeName(const std::string& name) {
+        myName = name;
+    }
+
     /** @brief Sets a new relativePath value
-    * @param[in] relativePath The new relative path to set
-    */
+     * @param[in] relativePath The new relative path to set
+     */
     inline void setShapeRelativePath(bool relativePath) {
         myRelativePath = relativePath;
     }
@@ -182,12 +193,9 @@ private:
     /// @brief The img file (include path)
     std::string myImgFile;
 
+    /// @brief shape name
+    std::string myName;
+
     /// @brief Enable or disable save imgFile as relative path
     bool myRelativePath;
 };
-
-
-#endif
-
-/****************************************************************************/
-

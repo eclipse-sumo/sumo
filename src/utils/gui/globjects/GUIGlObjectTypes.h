@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIGlObjectTypes.h
 /// @author  Daniel Krajzewicz
@@ -17,13 +21,7 @@
 // each type has an associated string which will be prefefixed to an object id
 // when constructing the full name
 /****************************************************************************/
-#ifndef GUIGlObjectTypes_h
-#define GUIGlObjectTypes_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 
@@ -40,23 +38,36 @@ enum GUIGlObjectType {
     /// @brief The network - empty
     GLO_NETWORK = 0,
 
-    /// @brief reserved GLO type to pack all netElements
-    GLO_NETELEMENT = 1,
+    /// @name nettork elements
+    /// @{
+
+    /// @brief reserved GLO type to pack all network elements
+    GLO_NETWORKELEMENT = 1,
     /// @brief an edge
     GLO_EDGE = 2,
     /// @brief a lane
     GLO_LANE = 3,
     /// @brief a junction
     GLO_JUNCTION = 4,
-    /// @brief a tl-logic
-    GLO_CROSSING = 5,
     /// @brief a connection
-    GLO_CONNECTION = 6,
+    GLO_CONNECTION = 5,
     /// @brief a tl-logic
-    GLO_TLLOGIC = 8,
+    GLO_CROSSING = 6,
+    /// @brief a tl-logic
+    GLO_TLLOGIC = 7,
+    /// @brief an edge_type
+    GLO_TYPE = 8,
 
-    /// @brief reserved GLO type to pack all additionals
-    GLO_ADDITIONAL = 100,
+    /// @}
+
+    /// @brief line between parent and childrens
+    GLO_PARENTCHILDLINE = 90,
+
+    /// @name additional elements
+    /// @{
+
+    /// @brief reserved GLO type to pack all additionals elements
+    GLO_ADDITIONALELEMENT = 100,
     /// @brief a busStop
     GLO_BUS_STOP = 101,
     /// @brief a containerStop
@@ -83,22 +94,39 @@ enum GUIGlObjectType {
     GLO_DET_EXIT = 112,
     /// @brief a Rerouter
     GLO_REROUTER = 113,
-    /// @brief a Rerouter
-    GLO_REROUTER_EDGE = 114,
+    /// @brief a rerouter interval
+    GLO_REROUTER_INTERVAL = 114,
+    /// @brief a closing reroute
+    GLO_REROUTER_CLOSINGREROUTE = 115,
+    /// @brief a closing lane reroute
+    GLO_REROUTER_CLOSINGLANEREROUTE = 116,
+    /// @brief a parking area reroute
+    GLO_REROUTER_PARKINGAREAREROUTE = 117,
+    /// @brief a destiny probability reroute
+    GLO_REROUTER_DESTPROBREROUTE = 118,
+    /// @brief a route probability reroute
+    GLO_REROUTER_ROUTEPROBREROUTE = 119,
+    /// @brief a Rerouter over edge
+    GLO_REROUTER_EDGE = 120,
     /// @brief a Variable Speed Sign
-    GLO_VSS = 115,
+    GLO_VSS = 121,
+    /// @brief a Variable Speed Sign step
+    GLO_VSS_STEP = 122,
     /// @brief a Calibrator
-    GLO_CALIBRATOR = 116,
+    GLO_CALIBRATOR = 123,
     /// @brief a RouteProbe
-    GLO_ROUTEPROBE = 117,
+    GLO_ROUTEPROBE = 124,
     /// @brief a Vaporizer
-    GLO_VAPORIZER = 118,
+    GLO_VAPORIZER = 125,
     /// @brief a Acces
-    GLO_ACCESS = 119,
-    /// @brief a TAZ
-    GLO_TAZ = 120,
+    GLO_ACCESS = 126,
     /// @brief a segment of an overhead line
-    GLO_OVERHEAD_WIRE_SEGMENT = 121,
+    GLO_OVERHEAD_WIRE_SEGMENT = 127,
+
+    /// @}
+
+    /// @name shape elements
+    /// @{
 
     /// @brief reserved GLO type to pack shapes
     GLO_SHAPE = 200,
@@ -107,38 +135,57 @@ enum GUIGlObjectType {
     /// @brief a poi
     GLO_POI = 202,
 
+    /// @}
+
+    /// @name demand elements
+    /// @{
+
     /// @brief reserved GLO type to pack all RouteElements (note: In this case the sorting of GLO_<element> is important!)
     GLO_ROUTEELEMENT = 300,
+    /// @bief vTypes
     GLO_VTYPE = 301,
+
+    /// @}
 
     /// @name routes
     /// @{
+
     /// @brief a route
     GLO_ROUTE = 310,
-    /// @brief a embedded route
-    GLO_EMBEDDEDROUTE = 311,
+
     /// @}
 
     /// @name Person plans
     /// @{
+
     /// @brief a ride
     GLO_RIDE = 320,
     /// @brief a walk
     GLO_WALK = 321,
     /// @brief a person trip
     GLO_PERSONTRIP = 322,
+    /// @brief a container transport
+    GLO_TRANSPORT = 323,
+    /// @brief a container tranship
+    GLO_TRANSHIP = 324,
+
     /// @}
 
     /// @name stops
     /// @{
+
     /// @brief a stop
     GLO_STOP = 330,
     /// @brief a person stop
-    GLO_PERSONSTOP = 331,
+    GLO_STOP_PERSON = 331,
+    /// @brief a container stop
+    GLO_STOP_CONTAINER = 332,
+
     /// @}
 
     /// @name vehicles
     /// @{
+
     /// @brief a vehicle
     GLO_VEHICLE = 340,
     /// @brief a trip
@@ -147,26 +194,70 @@ enum GUIGlObjectType {
     GLO_FLOW = 342,
     /// @brief a routeFlow
     GLO_ROUTEFLOW = 343,
+
     /// @}
 
     /// @name containers (carried by vehicles)
     /// @{
+
     /// @brief a container
     GLO_CONTAINER = 350,
+    /// @brief a person flow
+    GLO_CONTAINERFLOW = 351,
+
     /// @}
 
     /// @name persons
     /// @{
+
     /// @brief a person
     GLO_PERSON = 360,
     /// @brief a person flow
     GLO_PERSONFLOW = 361,
+
+    /// @}
+
+    /// @brief Traffic Assignment Zones (TAZs)
+    GLO_TAZ = 400,
+
+    /// @name data elements
+    /// @{
+
+    /// @brief edge data
+    GLO_EDGEDATA = 500,
+    /// @brief edge relation data
+    GLO_EDGERELDATA = 501,
+    /// @brief TAZ relation data
+    GLO_TAZRELDATA = 502,
+
+    /// @}
+
+    /// @name other
+    /// @{
+
+    /// @brief Lock icon (used in NETEDIT)
+    GLO_LOCKICON = 1000,
+
+    /// @brief text element (used in NETEDIT)
+    GLO_TEXTNAME = 1010,
+
+    /// @brief dotted contour front element (used in NETEDIT)
+    GLO_DOTTEDCONTOUR_FRONT = 1020,
+
+    /// @brief dotted contour inspected element (used in NETEDIT)
+    GLO_DOTTEDCONTOUR_INSPECTED = 1030,
+
+    /// @brief temporal shape (used in NETEDIT)
+    GLO_TEMPORALSHAPE = 1040,
+
+    /// @brief rectangle selection shape (used in NETEDIT)
+    GLO_RECTANGLESELECTION = 1050,
+
+    /// @brief test element (used in NETEDIT)
+    GLO_TESTELEMENT = 1060,
+
     /// @}
 
     /// @brief empty max
     GLO_MAX = 2048
 };
-
-#endif
-
-/****************************************************************************/

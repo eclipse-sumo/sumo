@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-09-06 08:45:28 by Eclipse SUMO netedit Version v1_10_0+0501-f324373
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.netconvert"/>
+    </input>
+
+    <output>
+        <output-file value="net.netconvert"/>
+        <plain-output-prefix value="/home/erdm_ja/scr1/sumo/tests/netconvert/function/turnarounds/default_bike_lane/input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<nodes version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="100.00,0.00" convBoundary="0.00,0.00,500.00,400.00" origBoundary="0.00,0.00,300.00,300.00" projParameter="!"/>
+
+    <node id="A0" x="200.00" y="100.00" type="priority"/>
+    <node id="A1" x="200.00" y="200.00" type="traffic_light" tl="A1"/>
+    <node id="B0" x="300.00" y="100.00" type="priority"/>
+    <node id="B1" x="300.00" y="200.00" type="traffic_light" tl="B1"/>
+    <node id="bottom0" x="200.00" y="0.00" type="priority" fringe="outer"/>
+    <node id="gneJ0" x="400.00" y="0.00" type="priority"/>
+    <node id="gneJ1" x="0.00" y="100.00" type="priority"/>
+    <node id="gneJ2" x="200.00" y="400.00" type="dead_end"/>
+    <node id="gneJ3" x="300.00" y="400.00" type="dead_end"/>
+    <node id="gneJ4" x="500.00" y="100.00" type="dead_end"/>
+    <node id="left0" x="100.00" y="100.00" type="priority" fringe="outer"/>
+    <node id="left1" x="100.00" y="200.00" type="priority" fringe="outer"/>
+    <node id="right0" x="400.00" y="100.00" type="priority" fringe="outer"/>
+    <node id="right1" x="400.00" y="200.00" type="priority" fringe="outer"/>
+    <node id="top0" x="200.00" y="300.00" type="priority" fringe="outer"/>
+    <node id="top1" x="300.00" y="300.00" type="priority" fringe="outer"/>
+</nodes>

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2010-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2010-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSPushButton.cpp
 /// @author  Federico Caselli
@@ -14,15 +18,24 @@
 // The class for a PushButton
 /****************************************************************************/
 
-#define SWARM_DEBUG
-#include <utils/common/SwarmDebug.h>
+#include <microsim/MSEdge.h>
+#include <microsim/MSLane.h>
+#include <microsim/MSVehicle.h>
+#include <microsim/transportables/MSPerson.h>
 #include "MSPushButton.h"
 #include "MSPhaseDefinition.h"
-#include "../MSEdge.h"
-#include "../MSLane.h"
-#include "../MSVehicle.h"
-#include <microsim/pedestrians/MSPerson.h>
+//#define SWARM_DEBUG
 
+
+// ===========================================================================
+// static members
+// ===========================================================================
+std::map<std::string, std::vector<std::string> > MSPedestrianPushButton::m_crossingEdgeMap;
+bool MSPedestrianPushButton::m_crossingEdgeMapLoaded = false;
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
 MSPushButton::MSPushButton(const MSEdge* edge, const MSEdge* crossingEdge) {
     m_edge = edge;
     m_crossingEdge = crossingEdge;
@@ -41,8 +54,6 @@ bool MSPushButton::anyActive(const std::vector<MSPushButton*>& pushButtons) {
     return false;
 }
 
-std::map<std::string, std::vector<std::string> > MSPedestrianPushButton::m_crossingEdgeMap;
-bool MSPedestrianPushButton::m_crossingEdgeMapLoaded = false;
 
 MSPedestrianPushButton::MSPedestrianPushButton(const MSEdge* walkingEdge, const MSEdge* crossingEdge)
     : MSPushButton(walkingEdge, crossingEdge) {
@@ -63,12 +74,12 @@ bool MSPedestrianPushButton::isActiveForEdge(const MSEdge* walkingEdge, const MS
             ///TODO keep using >= 1 or switch to ==1. Should change return value from always active to active only when pressed?
             ///TODO If changed the swarm logic must be changed since it relies on this behavior that keeps it active
             if (person->getWaitingSeconds() >= 1 && nextEdge && nextEdge->getID() == crossing->getID()) {
-                DBG(
-                    std::ostringstream oss;
-                    oss << "MSPedestrianPushButton::isActiveForEdge Pushbutton active for edge " << walkingEdge->getID() << " crossing " << crossing->getID()
+#ifdef SWARM_DEBUG
+                std::ostringstream oss;
+                oss << "MSPedestrianPushButton::isActiveForEdge Pushbutton active for edge " << walkingEdge->getID() << " crossing " << crossing->getID()
                     << " for " << person->getID() << " wait " << person->getWaitingSeconds();
-                    WRITE_MESSAGE(oss.str());
-                );
+                WRITE_MESSAGE(oss.str());
+#endif
                 return true;
             }
         }
@@ -90,10 +101,12 @@ bool MSPedestrianPushButton::isActiveForEdge(const MSEdge* walkingEdge, const MS
                                 && std::find(crossing->getSuccessors().begin(), crossing->getSuccessors().end(), nextEdge) != crossing->getSuccessors().end())
                                 || (std::find(crossing->getSuccessors().begin(), crossing->getSuccessors().end(), walkingEdge) != crossing->getSuccessors().end()
                                     && std::find(crossing->getPredecessors().begin(), crossing->getPredecessors().end(), nextEdge) != crossing->getPredecessors().end())) {
-                            DBG(
-                                std::ostringstream oss;
-                                oss << "MSPedestrianPushButton::isActiveForEdge Pushbutton active for edge " << walkingEdge->getID() << " crossing " << crossing->getID()
-                                << " for " << vehicle->getID() << " wait " << vehicle->getWaitingSeconds(); WRITE_MESSAGE(oss.str()););
+#ifdef SWARM_DEBUG
+                            std::ostringstream oss;
+                            oss << "MSPedestrianPushButton::isActiveForEdge Pushbutton active for edge " << walkingEdge->getID() << " crossing " << crossing->getID()
+                                << " for " << vehicle->getID() << " wait " << vehicle->getWaitingSeconds();
+                            WRITE_MESSAGE(oss.str());
+#endif
                             // Also release the vehicles here
                             lane->releaseVehicles();
                             return true;
@@ -104,12 +117,12 @@ bool MSPedestrianPushButton::isActiveForEdge(const MSEdge* walkingEdge, const MS
             lane->releaseVehicles();
         }
     }
-    DBG(
-        std::ostringstream oss;
-        oss << "MSPedestrianPushButton::isActiveForEdge Pushbutton not active for edge " << walkingEdge->getID() << " crossing " << crossing->getID()
+#ifdef SWARM_DEBUG
+    std::ostringstream oss;
+    oss << "MSPedestrianPushButton::isActiveForEdge Pushbutton not active for edge " << walkingEdge->getID() << " crossing " << crossing->getID()
         << " num Persons " << persons.size();
-        WRITE_MESSAGE(oss.str());
-    );
+    WRITE_MESSAGE(oss.str());
+#endif
     return false;
 }
 
@@ -138,7 +151,9 @@ bool MSPedestrianPushButton::isActiveOnAnySideOfTheRoad(const MSEdge* crossing) 
     for (std::vector<MSEdge*>::const_iterator wIt = walkingList.begin(); wIt != walkingList.end(); ++wIt) {
         MSEdge* walking = *wIt;
         if (isActiveForEdge(walking, crossing)) {
-            DBG(WRITE_MESSAGE("MSPedestrianPushButton::isActiveOnAnySideOfTheRoad crossing edge " + crossing->getID() + " walking edge" + walking->getID()););
+#ifdef SWARM_DEBUG
+            WRITE_MESSAGE("MSPedestrianPushButton::isActiveOnAnySideOfTheRoad crossing edge " + crossing->getID() + " walking edge" + walking->getID());
+#endif
             return true;
         }
     }
@@ -167,8 +182,10 @@ std::vector<MSPushButton*> MSPedestrianPushButton::loadPushButtons(const MSPhase
                     const std::vector<MSEdge*> walkingList = getWalkingAreas(crossing);
                     for (std::vector<MSEdge*>::const_iterator wIt = walkingList.begin(); wIt != walkingList.end(); ++wIt) {
                         MSEdge* walking = *wIt;
-                        DBG(WRITE_MESSAGE("MSPedestrianPushButton::loadPushButtons Added pushButton for walking edge " + walking->getID() + " crossing edge "
-                                          + crossing->getID() + " crossed edge " + laneEdge->getID() + ". Phase state " + phase->getState()););
+#ifdef SWARM_DEBUG
+                        WRITE_MESSAGE("MSPedestrianPushButton::loadPushButtons Added pushButton for walking edge " + walking->getID() + " crossing edge "
+                                      + crossing->getID() + " crossed edge " + laneEdge->getID() + ". Phase state " + phase->getState());
+#endif
                         pushButtons.push_back(new MSPedestrianPushButton(walking, crossing));
                     }
                 }

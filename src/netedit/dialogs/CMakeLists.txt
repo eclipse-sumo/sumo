@@ -5,8 +5,10 @@ set(netedit_dialogs_SRCS
    GNEAbout.cpp
    GNEAllowDisallow.h
    GNEAllowDisallow.cpp
-   GNEParametersDialog.h
-   GNEParametersDialog.cpp
+   GNESingleParametersDialog.h
+   GNESingleParametersDialog.cpp
+   GNEMultipleParametersDialog.h
+   GNEMultipleParametersDialog.cpp
    GNEFixAdditionalElements.h
    GNEFixAdditionalElements.cpp
    GNEFixDemandElements.h
@@ -29,6 +31,10 @@ set(netedit_dialogs_SRCS
    GNEVehicleTypeDialog.cpp
    GNEDialogACChooser.h
    GNEDialogACChooser.cpp
+   GNEGeometryPointDialog.h
+   GNEGeometryPointDialog.cpp
+   GNEUndoListDialog.h
+   GNEUndoListDialog.cpp
    )
 
 add_library(netedit_dialogs STATIC ${netedit_dialogs_SRCS})

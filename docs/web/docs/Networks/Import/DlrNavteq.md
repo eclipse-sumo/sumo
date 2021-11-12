@@ -1,6 +1,5 @@
 ---
-title: Networks/Import/DlrNavteq
-permalink: /Networks/Import/DlrNavteq/
+title: DlrNavteq
 ---
 
 The DLR-Navteq importer reads Navteq's GDF databases converted using

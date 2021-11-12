@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NIImporter_OpenStreetMap.h
 /// @author  Daniel Krajzewicz
@@ -17,13 +21,7 @@
 ///
 // Importer for networks stored in OpenStreetMap format
 /****************************************************************************/
-#ifndef NIImporter_OpenStreetMap_h
-#define NIImporter_OpenStreetMap_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -153,25 +151,37 @@ protected:
         PARKING_DIAGONAL = 32
     };
 
+    enum ChangeType {
+        CHANGE_YES = 0,
+        CHANGE_NO_LEFT = 1,
+        CHANGE_NO_RIGHT = 2,
+        CHANGE_NO = 3
+    };
 
     /** @brief An internal definition of a loaded edge
      */
-    struct Edge : public Parameterised {
-
-        explicit Edge(long long int _id)
-            :
-            id(_id), myNoLanes(-1), myNoLanesForward(0), myMaxSpeed(MAXSPEED_UNGIVEN),
+    class Edge : public Parameterised {
+    public:
+        explicit Edge(long long int _id) :
+            id(_id), myNoLanes(-1), myNoLanesForward(0),
+            myMaxSpeed(MAXSPEED_UNGIVEN),
+            myMaxSpeedBackward(MAXSPEED_UNGIVEN),
+            myExtraAllowed(0),
+            myExtraDisallowed(0),
             myCyclewayType(WAY_UNKNOWN), // building of extra lane depends on bikelaneWidth of loaded typemap
             myBuswayType(WAY_NONE), // buslanes are always built when declared
             mySidewalkType(WAY_UNKNOWN), // building of extra lanes depends on sidewalkWidth of loaded typemap
             myRailDirection(WAY_UNKNOWN), // store direction(s) of railway usage
             myParkingType(PARKING_NONE), // parking areas exported optionally
+            myChangeForward(CHANGE_YES),
+            myChangeBackward(CHANGE_YES),
             myLayer(0), // layer is non-zero only in conflict areas
             myCurrentIsRoad(false),
             myCurrentIsPlatform(false),
             myCurrentIsElectrified(false)
         { }
 
+        virtual ~Edge() {}
 
         /// @brief The edge's id
         const long long int id;
@@ -185,6 +195,12 @@ protected:
         int myNoLanesForward;
         /// @brief maximum speed in km/h, or MAXSPEED_UNGIVEN
         double myMaxSpeed;
+        /// @brief maximum speed in km/h, or MAXSPEED_UNGIVEN
+        double myMaxSpeedBackward;
+        /// @brief Extra permissions added from tags instead of highway type
+        SVCPermissions myExtraAllowed;
+        /// @brief Extra permissions prohibited from tags instead of highway type
+        SVCPermissions myExtraDisallowed;
         /// @brief The type, stored in "highway" key
         std::string myHighWayType;
         /// @brief Information whether this is an one-way road
@@ -199,6 +215,13 @@ protected:
         WayType myRailDirection;
         /// @brief Information about road-side parking
         int myParkingType;
+        /// @brief Information about change prohibitions (forward direction
+        int myChangeForward;
+        /// @brief Information about change prohibitions (backward direction
+        int myChangeBackward;
+        /// @brief (optional) information about the permitted vehicle classes on each lane
+        std::vector<SVCPermissions> myLaneUseForward;
+        std::vector<SVCPermissions> myLaneUseBackward;
         /// @brief Information about the relative z-ordering of ways
         int myLayer;
         /// @brief The list of nodes this edge is made of
@@ -213,8 +236,6 @@ protected:
     private:
         /// invalidated assignment operator
         Edge& operator=(const Edge& s) = delete;
-
-
     };
 
 
@@ -261,6 +282,13 @@ private:
 
     /// @brief The compound types that have already been mapped to other known types
     std::map<std::string, std::string> myKnownCompoundTypes;
+
+    /// @brief import lane specific access restrictions
+    bool myImportLaneAccess;
+
+    /// @brief import sidewalks
+    bool myImportSidewalks;
+
 
     /** @brief Builds an NBNode
      *
@@ -314,11 +342,13 @@ protected:
     static const double MAXSPEED_UNGIVEN;
     static const long long int INVALID_ID;
 
+    static void applyChangeProhibition(NBEdge* e, int changeProhibition);
+    void applyLaneUseInformation(NBEdge* e, const std::vector<SVCPermissions>& laneUse);
+
     /**
      * @class NodesHandler
      * @brief A class which extracts OSM-nodes from a parsed OSM-file
      */
-    friend class NodesHandler;
     class NodesHandler : public SUMOSAXHandler {
     public:
         /** @brief Contructor
@@ -334,6 +364,9 @@ protected:
         /// @brief Destructor
         ~NodesHandler() override;
 
+        int getDuplicateNodes() const {
+            return myDuplicateNodes;
+        }
 
     protected:
         /// @name inherited from GenericSAXHandler
@@ -379,9 +412,11 @@ protected:
         /// @brief whether elevation data should be imported
         const bool myImportElevation;
 
+        /// @brief number of diplicate nodes
+        int myDuplicateNodes;
+
         /// @brief the options
         const OptionsCont& myOptionsCont;
-
 
     private:
         /** @brief invalidated copy constructor */
@@ -435,6 +470,11 @@ protected:
         void myEndElement(int element) override;
         //@}
 
+        double interpretSpeed(const std::string& key, std::string value);
+
+        int interpretChangeType(const std::string& value) const;
+
+        void interpretLaneUse(const std::string& value, SUMOVehicleClass svc, std::vector<SVCPermissions>& result) const;
 
     private:
         /// @brief The previously parsed nodes
@@ -457,6 +497,11 @@ protected:
 
         /// @brief whether additional way attributes shall be added to the edge
         bool myAllAttributes;
+        /// @brief extra attributes to import
+        std::set<std::string> myExtraAttributes;
+
+        /// @brief import bike path specific permissions and directions
+        bool myImportBikeAccess;
 
     private:
         /** @brief invalidated copy constructor */
@@ -487,7 +532,6 @@ protected:
 
         /// @brief Destructor
         ~RelationHandler() override;
-
 
     protected:
         /// @name inherited from GenericSAXHandler
@@ -555,13 +599,13 @@ protected:
         /** @enum RestrictionType
          * @brief whether the only allowed or the only forbidden connection is defined
          */
-        enum RestrictionType {
+        enum class RestrictionType {
             /// @brief The only valid connection is declared
-            RESTRICTION_ONLY,
+            ONLY,
             /// @brief The only invalid connection is declared
-            RESTRICTION_NO,
+            NO,
             /// @brief The relation tag was missing
-            RESTRICTION_UNKNOWN
+            UNKNOWN
         };
         RestrictionType myRestrictionType;
 
@@ -587,6 +631,9 @@ protected:
         /// @brief bus stop references
         std::vector<long long int> myStops;
 
+        /// @brief myStops which are actually platforms (in case there is no stop_position)
+        std::set<long long int> myPlatformStops;
+
 
         struct NIIPTPlatform {
             long long int ref;
@@ -608,6 +655,9 @@ protected:
         /// @brief indicates whether current relation is a pt route
         std::string myPTRouteType;
 
+        /// @brief official route color
+        RGBColor myRouteColor;
+
         /// @brief name of the relation
         std::string myName;
 
@@ -619,12 +669,10 @@ protected:
 
         /// @brief night service information of the pt line
         std::string myNightService;
+
+        /** @brief the map from stop area member to stop_area id */
+        std::map<long long int, long long int > myStopAreas;
+
     };
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

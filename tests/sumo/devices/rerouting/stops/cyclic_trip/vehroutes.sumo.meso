@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Nov 27 10:01:33 2019 by Eclipse SUMO Version v1_3_1+1134-4107d93
+<!-- generated on Tue Oct 13 13:26:00 2020 by Eclipse SUMO sumo Version v1_7_0+0594-1f29e2c600
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,6 +31,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -43,7 +44,7 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="bus" type="bus" depart="0.00" departPos="0.00" arrival="370.00">
+    <vehicle id="bus" type="bus" depart="0.00" departPos="0.00" arrival="250.00">
         <route edges="a b c -c -b -a a b c -c -b -a a b c -c -b -a"/>
         <stop busStop="busStop_a" duration="10.00"/>
         <stop busStop="busStop_c" duration="10.00"/>

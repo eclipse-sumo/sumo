@@ -1,5 +1,6 @@
 /* XPM */
 static const char *magnify_xpm[] = {
+/* columns rows colors chars-per-pixel */
 "16 16 6 1",
 " 	c None",
 ".	c #6bcfe7",
@@ -7,6 +8,7 @@ static const char *magnify_xpm[] = {
 "o	c #9b9b9b",
 "O	c Gray100",
 "+	c #cbcbcb",
+/* pixels */
 "   .....        ",
 " ..XXXXXXX      ",
 " .XX   XXX      ",
@@ -22,4 +24,5 @@ static const char *magnify_xpm[] = {
 "           XX.. ",
 "            XX..",
 "             XXX",
-"              X "};
+"              X "
+};

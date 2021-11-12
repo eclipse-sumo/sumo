@@ -1,0 +1,2 @@
+<         <stop lane="3/1to2/1_0" duration="10.00" started="134.00" ended="144.00"/>
+>         <stop lane="3/1to2/1_0" startPos="399.80" endPos="400.00" duration="10.00" started="134.00" ended="144.00"/>

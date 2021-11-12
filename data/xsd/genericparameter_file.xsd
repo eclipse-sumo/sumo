@@ -6,7 +6,7 @@
     <xsd:complexType name="genericParameterType">
         <xsd:choice maxOccurs="unbounded">
             <xsd:element name="param" type="ParameterType" minOccurs="0"/>
-		</xsd:choice>
+        </xsd:choice>
     </xsd:complexType>
     
     <xsd:complexType name="ParameterType">
