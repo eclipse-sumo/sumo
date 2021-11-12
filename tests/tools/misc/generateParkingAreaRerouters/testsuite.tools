@@ -3,3 +3,6 @@ opposite_visible
 
 # exclude low-capacity destinations
 minCapacity
+
+# handle multiple parkingAreas on the same edge
+sameEdge
