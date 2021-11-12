@@ -33,7 +33,7 @@ def main(net, routes):
         if not vehicle.arrival:
             print("Warning! Vehicle '%s' did not arrive." % vehicle.id)
             continue
-        if vehicle.routeDistribution:
+        if vehicle.routeDistribution and vehicle.stop:
             replace_index = None
             for r in vehicle.routeDistribution[0].route:
                 if replace_index is None and r.replacedOnEdge:
@@ -42,7 +42,7 @@ def main(net, routes):
             extra_route = r.edges.split()[replace_index:]
             length = sum([net.getEdge(e).getLength() for e in extra_route])
             dist.add(length, vehicle.id)
-            time.add(sumolib.miscutils.parseTime(vehicle.arrival) - sumolib.miscutils.parseTime(replace_time), vehicle.id)
+            time.add(sumolib.miscutils.parseTime(vehicle.stop[0].started) - sumolib.miscutils.parseTime(replace_time), vehicle.id)
             walk, _ = net.getShortestPath(net.getEdge(extra_route[-1]), net.getEdge(extra_route[0]), ignoreDirection=True)
             walk_length = sum([e.getLength() for e in walk])
             walk_dist.add(walk_length, vehicle.id)
