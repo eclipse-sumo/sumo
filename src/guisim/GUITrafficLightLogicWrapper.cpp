@@ -37,6 +37,7 @@
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/traffic_lights/MSActuatedTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSDelayBasedTrafficLightLogic.h>
+#include <microsim/traffic_lights/NEMAController.h>
 #include <microsim/traffic_lights/MSRailSignal.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/logging/FuncBinding_StringParam.h>
@@ -104,12 +105,18 @@ GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdShowDete
     assert(myObject->getType() == GLO_TLLOGIC);
     GUITrafficLightLogicWrapper* w = static_cast<GUITrafficLightLogicWrapper*>(myObject);
     MSActuatedTrafficLightLogic* act = dynamic_cast<MSActuatedTrafficLightLogic*>(&w->getTLLogic());
-    if (act == nullptr) {
-        MSDelayBasedTrafficLightLogic* db = dynamic_cast<MSDelayBasedTrafficLightLogic*>(&w->getTLLogic());
-        assert(db != 0);
-        db->setShowDetectors(!db->showDetectors());
-    } else {
+    if (act != nullptr) {
         act->setShowDetectors(!act->showDetectors());
+    } else {
+        MSDelayBasedTrafficLightLogic* db = dynamic_cast<MSDelayBasedTrafficLightLogic*>(&w->getTLLogic());
+        if (db != nullptr) {
+            db->setShowDetectors(!db->showDetectors());
+        } else {
+            NEMALogic* nema = dynamic_cast<NEMALogic*>(&w->getTLLogic());
+            if (nema != nullptr) {
+                nema->setShowDetectors(!nema->showDetectors());
+            }
+        }
     }
     return 1;
 }
@@ -176,6 +183,10 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow& app,
     MSDelayBasedTrafficLightLogic* db = dynamic_cast<MSDelayBasedTrafficLightLogic*>(&myTLLogic);
     if (db != nullptr) {
         GUIDesigns::buildFXMenuCommand(ret, db->showDetectors() ? "Hide Detectors" : "Show Detectors", nullptr, ret, MID_SHOW_DETECTORS);
+    }
+    NEMALogic* nema = dynamic_cast<NEMALogic*>(&myTLLogic);
+    if (nema != nullptr) {
+        GUIDesigns::buildFXMenuCommand(ret, nema->showDetectors() ? "Hide Detectors" : "Show Detectors", nullptr, ret, MID_SHOW_DETECTORS);
     }
     new FXMenuSeparator(ret);
     MSTrafficLightLogic* tll = getActiveTLLogic();
