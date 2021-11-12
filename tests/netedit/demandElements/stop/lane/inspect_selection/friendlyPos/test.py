@@ -47,8 +47,8 @@ netedit.leftClick(referencePosition, 244, 220)
 netedit.modifyAttribute(0, "true", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

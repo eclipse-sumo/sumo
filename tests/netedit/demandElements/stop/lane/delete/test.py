@@ -56,7 +56,7 @@ netedit.deleteMode()
 netedit.leftClick(referencePosition, 229, 215)
 
 # check undo
-netedit.undo(referencePosition, 1)
+netedit.undo(referencePosition, 2)
 
 # compute demand
 netedit.rebuildNetwork
@@ -68,7 +68,7 @@ netedit.deleteMode()
 netedit.leftClick(referencePosition, 303, 255)
 
 # check undo
-netedit.undo(referencePosition, 1)
+netedit.undo(referencePosition, 2)
 
 # compute demand
 netedit.rebuildNetwork

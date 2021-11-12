@@ -59,8 +59,8 @@ netedit.moveElement(referencePosition, 86, 208, 230, 208)
 netedit.moveElement(referencePosition, 235, 208, 60, 208)
 
 # Check undo redo
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save routes
 netedit.saveRoutes(referencePosition)
