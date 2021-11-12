@@ -65,8 +65,8 @@ netedit.changeDefaultValue(12, "singing")
 netedit.leftClick(referencePosition, 290, 145)
 
 # Check undo redo
-netedit.undo(referencePosition, 6)
-netedit.redo(referencePosition, 6)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

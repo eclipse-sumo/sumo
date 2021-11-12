@@ -50,7 +50,7 @@ netedit.deleteMode()
 netedit.leftClick(referencePosition, 290, 145)
 
 # check undo
-netedit.undo(referencePosition, 1)
+netedit.undo(referencePosition, 2)
 
 # go to delete mode
 netedit.deleteMode()
@@ -59,7 +59,7 @@ netedit.deleteMode()
 netedit.leftClick(referencePosition, 327, 225)
 
 # check undo
-netedit.undo(referencePosition, 1)
+netedit.undo(referencePosition, 2)
 
 # go to delete mode
 netedit.deleteMode()
@@ -68,8 +68,8 @@ netedit.deleteMode()
 netedit.leftClick(referencePosition, 290, 145)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

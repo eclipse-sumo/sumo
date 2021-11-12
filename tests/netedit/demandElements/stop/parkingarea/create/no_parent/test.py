@@ -44,8 +44,8 @@ netedit.changeStopType("stopParkingArea")
 netedit.leftClick(referencePosition, 327, 240)
 
 # Check undo redo
-netedit.undo(referencePosition, 1)
-netedit.redo(referencePosition, 1)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)
