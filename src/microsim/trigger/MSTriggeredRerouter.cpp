@@ -669,6 +669,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
 
         ParkingParamMap_t weights;
         std::map<MSParkingArea*, ConstMSEdgeVector> newRoutes;
+        std::map<MSParkingArea*, ConstMSEdgeVector> parkApproaches;
 
         // The probability of choosing this area inside the zone
         weights["probability"] = getWeight(veh, "parking.probability.weight", 0.0);
@@ -756,6 +757,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
                 if (edgesToPark.size() > 0) {
                     // Compute the route from the parking area edge to the end of the route
                     ConstMSEdgeVector edgesFromPark;
+                    parkApproaches[pa] = edgesToPark;
 
                     const MSEdge* nextDestination = route.getLastEdge();
                     double nextPos = veh.getArrivalPos();
@@ -888,7 +890,35 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
             ParkingParamMap_t parkValues = it->second;
 
             if (weights["probability"] > 0 && maxValues["probability"] > 0.0) {
-                const double prob = RandHelper::rand(parkValues["probability"], veh.getRNG());
+                // random search should not drive past a usable parking area
+                bool dominated = false;
+                double endPos = it->first->getEndLanePosition();
+                const ConstMSEdgeVector& to1 = parkApproaches[it->first];
+                assert(to1.size() > 0);
+                for (auto altPa : parkAreas) {
+                    if (altPa.first == it->first) {
+                        continue;
+                    }
+                    const ConstMSEdgeVector& to2 = parkApproaches[altPa.first];
+                    assert(to2.size() > 0);
+                    if (to1.size() > to2.size()) {
+                        if (std::equal(to2.begin(), to2.end(), to1.begin())) {
+                            // other target lies on the route to the current candidate
+                            dominated = true;
+                            //std::cout << SIMTIME << " rrP veh=" << veh.getID() << " full=" << destParkArea->getID() << " cand=" << it->first->getID() << " onTheWay=" << altPa.first->getID() << "\n";
+                            break;
+                        }
+                    } else if (to1 == to2 && endPos > altPa.first->getEndLanePosition()) {
+                        // other target is on the same edge but ahead of the current candidate
+                        dominated = true;
+                        //std::cout << SIMTIME << " rrP veh=" << veh.getID() << " full=" << destParkArea->getID() << " cand=" << it->first->getID() << " sameEdge=" << altPa.first->getID() << "\n";
+                        break;
+                    }
+                }
+                double prob = 0;
+                if (!dominated) {
+                    prob = RandHelper::rand(parkValues["probability"], veh.getRNG());
+                }
                 parkValues["probability"] = 1.0 - prob / maxValues["probability"];
             } else {
                 parkValues["probability"] = 0;
