@@ -78,4 +78,17 @@ RandHelper::initRandGlobal(SumoRNG* which) {
 }
 
 
+double
+RandHelper::randNorm(double mean, double variance, SumoRNG* rng) {
+    // Polar method to avoid cosine
+    double u, q;
+    do {
+        u = rand(2.0, rng) - 1;
+        const double v = rand(2.0, rng) - 1;
+        q = u * u + v * v;
+    } while (q == 0.0 || q >= 1.0);
+    return mean + variance * u * sqrt(-2 * log(q) / q);
+}
+
+
 /****************************************************************************/

@@ -200,16 +200,7 @@ public:
     }
 
     /// @brief Access to a random number from a normal distribution
-    static inline double randNorm(double mean, double variance, SumoRNG* rng = nullptr) {
-        // Polar method to avoid cosine
-        double u, q;
-        do {
-            u = rand(2.0, rng) - 1;
-            const double v = rand(2.0, rng) - 1;
-            q = u * u + v * v;
-        } while (q == 0.0 || q >= 1.0);
-        return (double)(mean + variance * u * sqrt(-2 * log(q) / q));
-    }
+    static double randNorm(double mean, double variance, SumoRNG* rng = nullptr);
 
     /// @brief Returns a random element from the given vector
     template<class T>
