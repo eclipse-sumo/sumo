@@ -18,7 +18,7 @@
 from __future__ import absolute_import
 from .domain import Domain
 from . import constants as tc
-from .exceptions import TraCIException
+from .exceptions import TraCIException, deprecated
 
 
 class Phase:
@@ -180,7 +180,7 @@ class TrafficLightDomain(Domain):
         """
         return self._getUniversal(tc.TL_COMPLETE_DEFINITION_RYG, tlsID)
 
-    getCompleteRedYellowGreenDefinition = getAllProgramLogics
+    getCompleteRedYellowGreenDefinition = deprecated("getCompleteRedYellowGreenDefinition")(getAllProgramLogics)
 
     def getControlledLanes(self, tlsID):
         """getControlledLanes(string) -> c
@@ -365,7 +365,7 @@ class TrafficLightDomain(Domain):
             values += [par]
         self._setCmd(tc.TL_COMPLETE_PROGRAM_RYG, tlsID, format, *values)
 
-    setCompleteRedYellowGreenDefinition = setProgramLogic
+    setCompleteRedYellowGreenDefinition = deprecated("setCompleteRedYellowGreenDefinition")(setProgramLogic)
 
     def swapConstraints(self, tlsID, tripId, foeSignal, foeId):
         """swapConstraints(string, string, string, string) -> list(Constraint)
