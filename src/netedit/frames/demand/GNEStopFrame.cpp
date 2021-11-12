@@ -286,9 +286,15 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
     // set parent tag and id
     myStopParentBaseObject->setTag(stopParent->getTagProperty().getTag());
     myStopParentBaseObject->addStringAttribute(SUMO_ATTR_ID, stopParent->getID());
-    // add route (if has)
+    // add route, from and to attributes
     if (stopParent->getTagProperty().hasAttribute(SUMO_ATTR_ROUTE)) {
         myStopParentBaseObject->addStringAttribute(SUMO_ATTR_ROUTE, stopParent->getAttribute(SUMO_ATTR_ROUTE));
+    }
+    if (stopParent->getTagProperty().hasAttribute(SUMO_ATTR_FROM)) {
+        myStopParentBaseObject->addStringAttribute(SUMO_ATTR_FROM, stopParent->getAttribute(SUMO_ATTR_FROM));
+    }
+    if (stopParent->getTagProperty().hasAttribute(SUMO_ATTR_TO)) {
+        myStopParentBaseObject->addStringAttribute(SUMO_ATTR_TO, stopParent->getAttribute(SUMO_ATTR_TO));
     }
     // create stop object
     CommonXMLStructure::SumoBaseObject* stopBaseObject = new CommonXMLStructure::SumoBaseObject(myStopParentBaseObject);

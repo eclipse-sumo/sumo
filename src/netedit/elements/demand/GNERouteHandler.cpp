@@ -735,10 +735,12 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
     const auto objParent = sumoBaseObject->getParentSumoBaseObject();
     // set tag
     SumoXMLTag tag = objParent->getTag();
-    if ((tag == SUMO_TAG_VEHICLE) && !objParent->hasStringAttribute(SUMO_ATTR_ROUTE)) {
-        tag = GNE_TAG_VEHICLE_WITHROUTE;
-    } else if ((tag == SUMO_TAG_FLOW) && !objParent->hasStringAttribute(SUMO_ATTR_ROUTE)) {
-        tag = GNE_TAG_FLOW_WITHROUTE;
+    if (!objParent->hasStringAttribute(SUMO_ATTR_ROUTE) && !objParent->hasStringAttribute(SUMO_ATTR_FROM) && !objParent->hasStringAttribute(SUMO_ATTR_TO)) {
+        if (tag == SUMO_TAG_VEHICLE) {
+            tag = GNE_TAG_VEHICLE_WITHROUTE;
+        } else if (tag == SUMO_TAG_FLOW) {
+            tag = GNE_TAG_FLOW_WITHROUTE;
+        }
     }
     // get stop parent
     GNEDemandElement *stopParent = myNet->getAttributeCarriers()->retrieveDemandElement(tag, objParent->getStringAttribute(SUMO_ATTR_ID), false);
