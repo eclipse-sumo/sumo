@@ -781,6 +781,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
         }
     } else if (stopParameters.parkingarea.size() > 0) {
         stoppingPlace = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_PARKING_AREA, stopParameters.parkingarea, false);
+        stopTagType = SUMO_TAG_STOP_PARKINGAREA;
         // check person and containers
         if (stopParent->getTagProperty().isPerson()) {
             WRITE_ERROR("Persons don't support stops at parkingAreas");
