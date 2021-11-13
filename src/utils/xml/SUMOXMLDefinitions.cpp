@@ -460,6 +460,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "current",                SUMO_ATTR_CURRENTFROMOVERHEADWIRE },
     { "circuitVoltage",         SUMO_ATTR_VOLTAGEOFOVERHEADWIRE },
     { "alphaCircuitSolver",     SUMO_ATTR_ALPHACIRCUITSOLVER },
+    { "recuperationEnabled",     SUMO_ATTR_RECUPERATIONENABLE },
     // MSBatteryExport
     { "energyConsumed",         SUMO_ATTR_ENERGYCONSUMED },
     { "totalEnergyConsumed",    SUMO_ATTR_TOTALENERGYCONSUMED },
@@ -685,8 +686,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "parkingArea",            SUMO_ATTR_PARKING_AREA },
     { "roadsideCapacity",       SUMO_ATTR_ROADSIDE_CAPACITY },
     { "onRoad",                 SUMO_ATTR_ONROAD },
-    { "chargingStation",        SUMO_ATTR_CHARGING_STATION},
-    { "group",                  SUMO_ATTR_GROUP},
+    { "chargingStation",        SUMO_ATTR_CHARGING_STATION },
+    { "group",                  SUMO_ATTR_GROUP },
     { "line",                   SUMO_ATTR_LINE },
     { "lines",                  SUMO_ATTR_LINES },
     { "tripId",                 SUMO_ATTR_TRIP_ID },

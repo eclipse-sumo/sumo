@@ -712,7 +712,8 @@ public:
     double getStateOfCharge() const;
 
     /** @brief Returns actual current (A) of ElecHybrid device
-    * RICE_CHECK: Is this the current consumed from the overhead wire or the current driving the poweertrain of the vehicle?
+    * RICE_CHECK: Is this the current consumed from the overhead wire or the current driving the powertrain of the vehicle?
+    * RICE_REV_JS: It is the current drawn from the overhead wire (value if the vehicle is not connected to overhead wire?)
     * @return The current of ElecHybrid device
     */
     double getElecHybridCurrent() const;

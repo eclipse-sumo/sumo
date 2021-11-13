@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_10_0+2099-1400597
+Eclipse SUMO sumo Version v1_10_0+2242-495a58c2d3d
  Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -65,6 +65,8 @@ Output Options:
   --overheadwiresegments-output FILE   Write data of overhead wire segments
   --substations-output FILE            Write data of electrical substation
                                         stations
+  --substations-output.precision INT   Write substation values with the given
+                                        precision (default 2)
   --fcd-output FILE                    Save the Floating Car Data
   --fcd-output.geo                     Save the Floating Car Data using
                                         geo-coordinates (lon/lat)
@@ -275,6 +277,12 @@ Processing Options:
                                         m/s^2
   --overhead-wire-solver               Use Kirchhoff's laws for solving
                                         overhead wire circuit
+  --overhead-wire-recuperation         Enable recuperation from the vehicle
+                                        equipped with elecHybrid device into the
+                                        ovrehead wire.
+  --overhead-wire-substation-current-limits  Enable current limits of traction
+                                        substation during solving the overhead
+                                        wire electrical circuit.
   --emergencydecel.warning-threshold FLOAT  Sets the fraction of emergency
                                         decel capability that must be used to
                                         trigger a warning.
@@ -758,6 +766,8 @@ GUI Only Options:
                                         position
   --tracker-interval TIME              The aggregation period for value tracker
                                         windows
+  --osg-view                           Start with an OpenSceneGraph view
+                                        instead of the regular 2D view
   --gui-testing                        Enable overlay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                         GUI-Testing

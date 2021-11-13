@@ -42,7 +42,6 @@ if (FOX_FOUND)
     add_subdirectory(netedit)
 endif ()
 
-
 add_executable(sumo sumo_main.cpp)
 set_target_properties(sumo PROPERTIES OUTPUT_NAME sumo${BINARY_SUFFIX})
 set_target_properties(sumo PROPERTIES OUTPUT_NAME_DEBUG sumo${BINARY_SUFFIX}D)

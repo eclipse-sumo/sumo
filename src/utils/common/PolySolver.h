@@ -14,7 +14,7 @@
 /// @file    PolySolver.h
 /// @author  Jakub Sevcik (RICE)
 /// @author  Jan Prikryl (RICE)
-/// @date    Fri, 06.12.2019
+/// @date    2019-12-06
 ///
 //
 /****************************************************************************/
