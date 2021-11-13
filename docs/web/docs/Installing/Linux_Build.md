@@ -197,6 +197,17 @@ dir and use
 CXX=clang++ cmake -DCMAKE_BUILD_TYPE=Debug ../..
 ```
 
+The clang-debug-build will detect memory leaks (among other things)
+If the errors are reported as
+
+```
+Indirect leak of 72 byte(s) in 1 object(s) allocated from:
+    #0 0xa4ee2d  (.../sumo/bin/netconvertD+0xa4ee2d) 
+```
+
+Set, the following environment variable to pinot at the llvm-symoblizer executable:
+`export ASAN_SYMBOLIZER_PATH=/usr/bin/llvm-symbolizer` before running the executable.
+
 ## Installing the SUMO binaries
 
 This (optional) step will copy the SUMO binaries to another path, so
