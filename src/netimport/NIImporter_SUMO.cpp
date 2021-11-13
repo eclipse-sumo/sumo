@@ -99,7 +99,6 @@ NIImporter_SUMO::~NIImporter_SUMO() {
         delete ed;
     }
     delete myLocation;
-
 }
 
 
@@ -481,6 +480,7 @@ NIImporter_SUMO::myStartElement(int element,
             addPhase(attrs, myCurrentTL);
             break;
         case SUMO_TAG_LOCATION:
+            delete myLocation;
             myLocation = loadLocation(attrs);
             break;
         case SUMO_TAG_PROHIBITION:
