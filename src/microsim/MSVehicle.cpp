@@ -93,7 +93,7 @@
 //#define DEBUG_STOPS
 //#define DEBUG_BESTLANES
 //#define DEBUG_IGNORE_RED
-#define DEBUG_ACTIONSTEPS
+//#define DEBUG_ACTIONSTEPS
 //#define DEBUG_NEXT_TURN
 //#define DEBUG_TRACI
 //#define DEBUG_REVERSE_BIDI
