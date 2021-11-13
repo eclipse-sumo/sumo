@@ -42,8 +42,10 @@ def main(net, routes):
             extra_route = r.edges.split()[replace_index:]
             length = sum([net.getEdge(e).getLength() for e in extra_route])
             dist.add(length, vehicle.id)
-            time.add(sumolib.miscutils.parseTime(vehicle.stop[0].started) - sumolib.miscutils.parseTime(replace_time), vehicle.id)
-            walk, _ = net.getShortestPath(net.getEdge(extra_route[-1]), net.getEdge(extra_route[0]), ignoreDirection=True)
+            time.add(sumolib.miscutils.parseTime(vehicle.stop[0].started) -
+                     sumolib.miscutils.parseTime(replace_time), vehicle.id)
+            walk, _ = net.getShortestPath(net.getEdge(extra_route[-1]), net.getEdge(extra_route[0]),
+                                          ignoreDirection=True)
             walk_length = sum([e.getLength() for e in walk])
             walk_dist.add(walk_length, vehicle.id)
         else:

@@ -551,7 +551,8 @@ class Net:
             if cost > maxCost:
                 return None, cost
 
-            for e2, conn in chain(e1.getAllowedOutgoing(vClass).items(), e1.getIncoming().items() if ignoreDirection else []):
+            for e2, conn in chain(e1.getAllowedOutgoing(vClass).items(),
+                                  e1.getIncoming().items() if ignoreDirection else []):
                 # print(cost, e1.getID(), e2.getID(), e2 in seen)
                 if e2 not in seen:
                     newCost = cost + e2.getLength()

@@ -31,7 +31,7 @@ def main(args):
     if args is None or len(args) < 2:
         print("Error: An xml file must be given as input")
         sys.exit(1)
-        
+
     df = pdx.read_xml(sys.argv[1], ['meandata'])
 
     df = pdx.flatten(df)
@@ -49,150 +49,138 @@ def main(args):
     df["density"] = df["density"].astype(float)
     df["laneDensity"] = df["laneDensity"].astype(float)
     df["speed"] = df["speed"].astype(float)
-    df=df.replace(np.NaN,0)
+    df = df.replace(np.NaN, 0)
     df['begin'] = df['begin'].astype(int)
-    
-    #calculation time interval
-    bft=df.begin.iloc[0]
-    eft=df.end.iloc[0]
+
+    # calculation time interval
+    bft = df.begin.iloc[0]
+    eft = df.end.iloc[0]
     time_interval = eft - bft
     time_interval = int(time_interval)
 
-    
-    # The end time of the last interval 
-    _lastsimulationperiod_=  (df.end.iat[-1]).astype(int)
+    # The end time of the last interval
+    _lastsimulationperiod_ = (df.end.iat[-1]).astype(int)
     type(_lastsimulationperiod_)
 
-
-    # The begin time of the last interval 
-    _blastsimulationperiod_=  df.begin.iat[-1].astype(int)
+    # The begin time of the last interval
+    _blastsimulationperiod_ = df.begin.iat[-1].astype(int)
     type(_blastsimulationperiod_)
 
-
     # creating a list of all begin time intervals
-    _beginvalues_=list(range(0,_blastsimulationperiod_+time_interval,time_interval))
-
+    _beginvalues_ = list(range(0, _blastsimulationperiod_+time_interval, time_interval))
 
     # creating a list of all end time intervals
-    _beginvalues_=list(range(time_interval,_lastsimulationperiod_+time_interval,time_interval))
+    _beginvalues_ = list(range(time_interval, _lastsimulationperiod_+time_interval, time_interval))
 
-
-    #detecting number of segments 
+    # detecting number of segments
     from collections import Counter
-    counter1= Counter(df.begin)
+    counter1 = Counter(df.begin)
     _seg = counter1[0]
 
-
     # calculating total lenght of network
-    Length = df.iloc[:,6] / (df.iloc[:,3]-df.iloc[:,2]) / df.iloc[:,9]
-    Length=Length.replace(np.NaN,0)
-    Length=Length.replace(np.inf,0)
+    Length = df.iloc[:, 6] / (df.iloc[:, 3]-df.iloc[:, 2]) / df.iloc[:, 9]
+    Length = Length.replace(np.NaN, 0)
+    Length = Length.replace(np.inf, 0)
     df['Length'] = Length
-    i=0
-    j=0
-    __net=[]
-    while _beginvalues_[i]<(_lastsimulationperiod_):
+    i = 0
+    j = 0
+    __net = []
+    while _beginvalues_[i] < (_lastsimulationperiod_):
 
-        _net= sum(df.Length.iloc[j:j+_seg])
+        _net = sum(df.Length.iloc[j:j+_seg])
         __net.append(_net)
-        f_net = max(__net)
-        i=i+1
-        j=j+_seg
+        i = i+1
+        j = j+_seg
 
-    #calculating meandensity,meanflow,meanspeed (density=density)
-    i=0
-    j=0
-    MD=[]
-    MS=[]
-    MF=[]
-    while _beginvalues_[i]<(_lastsimulationperiod_):
+    # calculating meandensity,meanflow,meanspeed (density=density)
+    i = 0
+    j = 0
+    MD = []
+    MS = []
+    MF = []
+    while _beginvalues_[i] < (_lastsimulationperiod_):
 
         numofveh = (1/time_interval)*(sum(df.sampledSeconds.iloc[j:j+_seg]))
         speedznumofveh = (1/time_interval)*(sum(df.sampledSeconds.iloc[j:j+_seg]*df.speed.iloc[j:j+_seg]))
         if numofveh > 0:
-            meanspeed_=3.6*speedznumofveh/numofveh
+            meanspeed_ = 3.6*speedznumofveh/numofveh
         else:
-            meanspeed_=0
+            meanspeed_ = 0
         meandensity_ = (sum(df.density.iloc[j:j+_seg]*df.Length.iloc[j:j+_seg]))/_net
         meanflow_ = (sum(df.density.iloc[j:j+_seg]*df.Length.iloc[j:j+_seg]*df.speed.iloc[j:j+_seg]*3.6))/_net
         MD.append(meandensity_)
         MS.append(meanspeed_)
         MF.append(meanflow_)
-        i=i+1
-        j=j+_seg
+        i = i+1
+        j = j+_seg
 
-
-    #plot
-    plt.scatter(MD,MS)
+    # plot
+    plt.scatter(MD, MS)
     plt.xlabel("Density (Veh/km)")
     plt.ylabel("Speed (Km/hr)")
     plt.show()
-    plt.scatter(MD,MF)
+    plt.scatter(MD, MF)
     plt.xlabel("Density (Veh/km)")
     plt.ylabel("Flow (Veh/hr)")
     plt.show()
-    plt.scatter(MS,MF)
+    plt.scatter(MS, MF)
     plt.xlabel("Speed (Km/hr)")
     plt.ylabel("Flow (Veh/hr)")
     plt.show()
 
-
-    #calculating meandensity,meanflow,meanspeed (density=laneDensity)
-    i=0
-    j=0
-    lMD=[]
-    lMS=[]
-    lMF=[]
-    while _beginvalues_[i]<=(_lastsimulationperiod_ - time_interval):
+    # calculating meandensity,meanflow,meanspeed (density=laneDensity)
+    i = 0
+    j = 0
+    lMD = []
+    lMS = []
+    lMF = []
+    while _beginvalues_[i] <= (_lastsimulationperiod_ - time_interval):
 
         numofveh = (1/time_interval)*(sum(df.sampledSeconds.iloc[j:j+_seg]))
         speedznumofveh = (1/time_interval)*(sum(df.sampledSeconds.iloc[j:j+_seg]*df.speed.iloc[j:j+_seg]))
         if numofveh > 0:
-            meanspeed_=3.6*speedznumofveh/numofveh
+            meanspeed_ = 3.6*speedznumofveh/numofveh
         else:
-            meanspeed_=0
+            meanspeed_ = 0
         meandensity_ = (sum(df.laneDensity.iloc[j:j+_seg]*df.Length.iloc[j:j+_seg]))/_net
         meanflow_ = (sum(df.laneDensity.iloc[j:j+_seg]*df.Length.iloc[j:j+_seg]*df.speed.iloc[j:j+_seg]*3.6))/_net
         lMD.append(meandensity_)
         lMS.append(meanspeed_)
         lMF.append(meanflow_)
-        i=i+1
-        j=j+_seg
+        i = i+1
+        j = j+_seg
 
-    #plot
-    plt.scatter(lMD,lMS)
+    # plot
+    plt.scatter(lMD, lMS)
     plt.xlabel("Density (Veh/km)")
     plt.ylabel("Speed (Km/hr)")
     plt.show()
-    plt.scatter(lMD,lMF)
+    plt.scatter(lMD, lMF)
     plt.xlabel("Density (Veh/km)")
     plt.ylabel("Flow (Veh/hr)")
     plt.show()
-    plt.scatter(lMS,lMF)
+    plt.scatter(lMS, lMF)
     plt.xlabel("Speed (Km/hr)")
     plt.ylabel("Flow (Veh/hr)")
     plt.show()
-    
 
-
-    #Build a csv file 
+    # Build a csv file
     Macro_Features = {'Density': MD,
-            'Speed': MS,
-            'Flow': MF,
-            }
-    df = pd.DataFrame(Macro_Features, columns= ['Density', 'Speed','Flow'])
+                      'Speed': MS,
+                      'Flow': MF,
+                      }
+    df = pd.DataFrame(Macro_Features, columns=['Density', 'Speed', 'Flow'])
 
     df.to_csv('Macro_density.csv')
-    
-    #Build a csv file 
+
+    # Build a csv file
     Macro_Features = {'Density': lMD,
-            'Speed': lMS,
-            'Flow': lMF,
-            }
-    df = pd.DataFrame(Macro_Features, columns= ['Density', 'Speed','Flow'])
+                      'Speed': lMS,
+                      'Flow': lMF,
+                      }
+    df = pd.DataFrame(Macro_Features, columns=['Density', 'Speed', 'Flow'])
 
     df.to_csv('Macro_lanedensity.csv')
-
 
 
 if __name__ == "__main__":
