@@ -11,7 +11,7 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 #
-# Bash script for the test run.
+# Bash script for the test run of the debug version.
 # Sets environment variables respecting SUMO_HOME and starts texttest.
 
 if test `uname` = "Darwin"; then #macOS specific exports
@@ -27,18 +27,21 @@ if test x"$SUMO_HOME" = x; then
   export SUMO_HOME="$PWD"
 fi
 cd $OLDDIR
-export ACTIVITYGEN_BINARY="$SUMO_HOME/bin/activitygen"
-export DFROUTER_BINARY="$SUMO_HOME/bin/dfrouter"
-export DUAROUTER_BINARY="$SUMO_HOME/bin/duarouter"
-export JTRROUTER_BINARY="$SUMO_HOME/bin/jtrrouter"
-export NETCONVERT_BINARY="$SUMO_HOME/bin/netconvert"
-export NETEDIT_BINARY="$SUMO_HOME/bin/netedit"
-export NETGENERATE_BINARY="$SUMO_HOME/bin/netgenerate"
-export OD2TRIPS_BINARY="$SUMO_HOME/bin/od2trips"
-export POLYCONVERT_BINARY="$SUMO_HOME/bin/polyconvert"
-export SUMO_BINARY="$SUMO_HOME/bin/sumo"
-export GUISIM_BINARY="$SUMO_HOME/bin/sumo-gui"
-export MAROUTER_BINARY="$SUMO_HOME/bin/marouter"
+# for clang sanitizer tests
+export LSAN_OPTIONS=suppressions=$SUMO_HOME/build/clang_memleak_suppressions.txt
+
+export ACTIVITYGEN_BINARY="$SUMO_HOME/bin/activitygenD"
+export DFROUTER_BINARY="$SUMO_HOME/bin/dfrouterD"
+export DUAROUTER_BINARY="$SUMO_HOME/bin/duarouterD"
+export JTRROUTER_BINARY="$SUMO_HOME/bin/jtrrouterD"
+export NETCONVERT_BINARY="$SUMO_HOME/bin/netconvertD"
+export NETEDIT_BINARY="$SUMO_HOME/bin/neteditD"
+export NETGENERATE_BINARY="$SUMO_HOME/bin/netgenerateD"
+export OD2TRIPS_BINARY="$SUMO_HOME/bin/od2tripsD"
+export POLYCONVERT_BINARY="$SUMO_HOME/bin/polyconvertD"
+export SUMO_BINARY="$SUMO_HOME/bin/sumoD"
+export GUISIM_BINARY="$SUMO_HOME/bin/sumo-guiD"
+export MAROUTER_BINARY="$SUMO_HOME/bin/marouterD"
 export PYTHON="python"
 
-texttest "$@"
+texttest "$@" -v debug
