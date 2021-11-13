@@ -308,15 +308,12 @@ public:
     void writeTractionSubstationOutput(OutputDevice& output);
 
 protected:
-    /// @brief Check if in the current TimeStep substation (overhead wire section) is charging a vehicle
-    bool myChargingVehicle;
-    int myElecHybridCount;
-
     /// @brief struct to save information for the traction substation output
     struct chargeTS {
         /// @brief constructor
-        chargeTS(SUMOTime _timeStep, std::string _substationID, std::string _vehicleIDs, double _energy, double _current, std::string _currentsString, double _voltage, std::string _status,
-            int _numVehicle, int _numVoltageSources, double _alpha, Circuit::alphaFlag _alphaReason) :
+        chargeTS(SUMOTime _timeStep, std::string _substationID, std::string _vehicleIDs, double _energy,
+                 double _current, std::string _currentsString, double _voltage, std::string _status,
+                 int _numVehicle, int _numVoltageSources, double _alpha, Circuit::alphaFlag _alphaReason) :
             timeStep(_timeStep),
             substationID(_substationID),
             vehicleIDs(_vehicleIDs),
@@ -336,14 +333,14 @@ protected:
         std::string substationID;
         // @brief vehicle IDs
         std::string vehicleIDs;
-        // @brief list of all voltage currents
-        std::string currentsString;
         // @brief total power from voltage sources
         double energy;
-        //@brief voltage of voltage sources
-        double voltage;
         //@brief total current through voltage sources
         double current;
+        // @brief list of all voltage currents
+        std::string currentsString;
+        //@brief voltage of voltage sources
+        double voltage;
         /// @brief status
         std::string status;
         //@brief number of vehicles connected to the circuit
@@ -385,15 +382,22 @@ public:
     OverheadWireClamp* findClamp(std::string id);
 
 private:
-    void addOverheadWireInnerSegmentToCircuit(MSOverheadWire* incomingSegment, MSOverheadWire* outgoingSegment, const MSLane* connection, const MSLane* frontConnection, const MSLane* behindConnection);
+    void addOverheadWireInnerSegmentToCircuit(MSOverheadWire* incomingSegment, MSOverheadWire* outgoingSegment,
+                                              const MSLane* connection, const MSLane* frontConnection, const MSLane* behindConnection);
 
-    double myTotalEnergy;
+protected:
+    /// @brief Check if in the current TimeStep substation (overhead wire section) is charging a vehicle
+    bool myChargingVehicle;
+    int myElecHybridCount;
+
+private:
     double mySubstationVoltage;
+    Circuit* myCircuit;
     std::vector<MSOverheadWire*> myOverheadWireSegments;
     std::vector<MSDevice_ElecHybrid*> myElecHybrid;
-    Circuit* myCircuit;
     std::vector<MSLane*> myForbiddenLanes;
     static Command* myCommandForSolvingCircuit;
+    double myTotalEnergy;
 
     // RICE_TODO: Does this cause the "'MSTractionSubstation::overheadWireClamp' : no appropriate default 
     // constructor available" error in MSVC2013?

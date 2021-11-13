@@ -231,14 +231,9 @@ NEMALogic::init(NLDetectorBuilder& nb) {
     //init the traffic light
     MSTrafficLightLogic::init(nb);
     assert(myLanes.size() > 0);
-    //iterate through the lanes and build one detector for each lane associated with the traffic light control junction
-    LaneVectorVector::const_iterator it;
-    LaneVector::const_iterator i;
-    //build E2 detector
-    for (it = myLanes.begin(); it != myLanes.end(); ++it) {
-        const LaneVector& lanes = *it;
-        for (i = lanes.begin(); i != lanes.end(); i++) {
-            MSLane* lane = (*i);
+    //iterate through the lanes and build one E2 detector for each lane associated with the traffic light control junction
+    for (const LaneVector& lanes : myLanes) {
+        for (MSLane* const lane : lanes) {
             //decide the detector length
             double detector_length = 0;
             if (isLeftTurnLane(lane)) {
@@ -349,7 +344,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
     currentState = "";
     // currentR1State = myPhases[R1State - 1]->getState();
     // currentR2State = myPhases[R2State - 1]->getState();
-    for (auto p : myPhases) {
+    for (const MSPhaseDefinition* const p : myPhases) {
         if (R1State == string2int(p->getName())) {
             currentR1State = p->getState();
         }
@@ -811,9 +806,9 @@ std::set<std::string> NEMALogic::getLaneIDsFromNEMAState(std::string state) {
     return output;
 }
 
-bool NEMALogic::isLeftTurnLane(MSLane* lane) {
+bool NEMALogic::isLeftTurnLane(const MSLane* const lane) const {
     const std::vector<MSLink *> links = lane->getLinkCont();
-    if (links.size() == 1 && toString(links.front()->getDirection()) == "l") {
+    if (links.size() == 1 && links.front()->getDirection() == LinkDirection::LEFT) {
         return true;;
     }
     return false;

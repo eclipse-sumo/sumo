@@ -310,14 +310,10 @@ MSOverheadWire::writeVehicle(OutputDevice& out, const std::vector<Charge>& charg
 
 MSTractionSubstation::MSTractionSubstation(const std::string& substationId, double voltage, double currentLimit) :
     Named(substationId),
-    mySubstationVoltage(voltage),
     myChargingVehicle(false),
     myElecHybridCount(0),
-    myOverheadWireSegments({}),
-    myElecHybrid({}),
+    mySubstationVoltage(voltage),
     myCircuit(new Circuit(currentLimit)),
-    myForbiddenLanes({}),
-    myOverheadWireClamps({}),
     myTotalEnergy(0)
 {}
 
