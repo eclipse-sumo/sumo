@@ -687,7 +687,7 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
     patchRoundabouts(edge, one, two, myRoundabouts);
     patchRoundabouts(edge, one, two, myGuessedRoundabouts);
     const std::string oldID = edge->getID();
-    extract(dc, edge);
+    extract(dc, edge, true);
     if (!insert(one, true)) {
         WRITE_ERROR("Could not insert edge '" + one->getID() + "' before split of edge '" + oldID + "'");
     };
@@ -1853,7 +1853,7 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTStopCont& sc, NBPTLineCont& lc
 #ifdef DEBUG_JOIN_TRAM
                     std::cout << "    erased tramEdge=" << tramEdge->getID() << "\n";
 #endif
-                    extract(dc, tramEdge);
+                    extract(dc, tramEdge, true);
                     erasedLast = true;
                 }
                 road->setPermissions(road->getPermissions(laneIndex) | SVC_TRAM, laneIndex);
@@ -1862,7 +1862,7 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTStopCont& sc, NBPTLineCont& lc
                         if (in->getFromNode() != road->getFromNode()) {
                             in->reinitNodes(in->getFromNode(), road->getFromNode());
                         } else {
-                            extract(dc, in);
+                            extract(dc, in, true);
 #ifdef DEBUG_JOIN_TRAM
                             std::cout << "    erased incoming tramEdge=" << in->getID() << "\n";
 #endif
@@ -1880,7 +1880,7 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTStopCont& sc, NBPTLineCont& lc
                         if (lastRoad->getToNode() != out->getToNode()) {
                             out->reinitNodes(lastRoad->getToNode(), out->getToNode());
                         } else {
-                            extract(dc, out);
+                            extract(dc, out, true);
 #ifdef DEBUG_JOIN_TRAM
                             std::cout << "    erased outgoing tramEdge=" << out->getID() << "\n";
 #endif
