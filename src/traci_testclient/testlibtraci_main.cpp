@@ -30,11 +30,6 @@ main(int argc, char** argv) {
     for (int i = 1; i < argc; i++) {
         options.push_back(argv[i]);
     }
-#ifdef _DEBUG
-    options.insert(options.begin(), "sumoD");
-#else
-    options.insert(options.begin(), "sumo");
-#endif
     try {
         libtraci::Simulation::start(options);
         // libtraci::Simulation::start(options, -1, libsumo::DEFAULT_NUM_RETRIES, "default", true);
