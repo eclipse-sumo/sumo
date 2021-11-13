@@ -137,11 +137,7 @@ NBTypeCont::NBTypeCont() :
 
 
 NBTypeCont::~NBTypeCont() {
-    // remove edge types
-    for (const auto& edgeType : myEdgeTypes) {
-        delete edgeType.second;
-    }
-    // delete default type
+    clearTypes();
     delete myDefaultType;
 }
 
@@ -187,6 +183,7 @@ NBTypeCont::insertEdgeType(const std::string& id, int numLanes, double maxSpeed,
     if (old != myEdgeTypes.end()) {
         newType->restrictions.insert(old->second->restrictions.begin(), old->second->restrictions.end());
         newType->attrs.insert(old->second->attrs.begin(), old->second->attrs.end());
+        delete old->second;
     }
     // insert it in types
     myEdgeTypes[id] = newType;
@@ -203,6 +200,7 @@ NBTypeCont::insertEdgeType(const std::string& id, const EdgeTypeDefinition* edge
     if (old != myEdgeTypes.end()) {
         newType->restrictions.insert(old->second->restrictions.begin(), old->second->restrictions.end());
         newType->attrs.insert(old->second->attrs.begin(), old->second->attrs.end());
+        delete old->second;
     }
     // insert it in types
     myEdgeTypes[id] = newType;
@@ -235,6 +233,7 @@ NBTypeCont::removeEdgeType(const std::string& id) {
     // if exists, then remove it
     if (it != myEdgeTypes.end()) {
         // remove it from map
+        delete it->second;
         myEdgeTypes.erase(it);
     }
 }
