@@ -7,9 +7,6 @@ battery
 # Tests for per-vehicle emissions tracking
 emissions
 
-# Tests for electric vehicle powered from overhead wires
-elechybrid
-
 # tests functions of the bluelight device
 bluelight
 
