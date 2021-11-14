@@ -12,7 +12,7 @@ The model allows not only for vehicle
 simulation, but the simulation may also include detailed electrical simulation of the overhead wire circuit behavior.
 It was implemented by Jakub Ševčík and Jan Přikryl from the [RICE FEE UWB Pilsen](https://rice.zcu.cz/en). 
 The core of the model is implemented in the [vehicle device](../Developer/How_To/Device.md) *device.elechybrid*.
-The model is defined as a set of [*additional features*](https://sumo.dlr.de/docs/#additional_features).
+The model is defined as a set of [*additional features*](../index.md#additional_features).
 The features provided and used by the model are traction substations that provide power to the overhead wire
 network, a set of overhead wires (which can be placed over any lane in the network) representing a contact line
 providing energy to ElecHybrid vehicles, including wire clamps/links, and a new output options
@@ -47,8 +47,9 @@ the following meanings:
 | recuperationEfficiency        | float      | 0.8             | Recuperation efficiency (constant) *η<sub>recup</sub>*           |
 | recuperationEfficiencyByDecel | float      | 0.0             | Recuperation efficiency (by deceleration)                        |
 
-**Note:** In contrast with the battery device, the `maximumPower` parameter defines the maximum power of vehicle electric 
-motor. The rest of the parameters in the table are common for model of electric energy consumption and have the same meaning.
+!!! note
+    In contrast with the battery device, the `maximumPower` parameter defines the maximum power of vehicle electric 
+    motor. The rest of the parameters in the table are common for model of electric energy consumption and have the same meaning.
 
 An example of a vehicle with hybrid electric attribute is almost identical with that of an electric vehicle:
 
@@ -104,13 +105,14 @@ that can be drawn from the feeder (this imposes a maximum power limit on that su
 </additionals>
 ```
 
-**Note:** The **currentLimit** parameter of the substation is silently ignored and does not trigger 
-a power limit of the feeder in SUMO 1.10.
+!!! note
+    The `currentLimit` parameter of the substation is silently ignored and does not trigger 
+    a power limit of the feeder in SUMO 1.10.0
 
 ## Overhead Wires
 
 An overhead wire circuit is a set of overhead wires that are connected to a certain traction substation.
-The circuit may contain clamps/links that interconnect diferent parts of the circuit and that improve its
+The circuit may contain clamps/links that interconnect different parts of the circuit and that improve its
 electric parameters of the circuit when it is under higher load (a pair of clamps/links typically 
 interconnects two positive and two negative overhead wires for both travel directions at some 
 point on the same street).
@@ -118,7 +120,7 @@ point on the same street).
 We also allow the substation feeder line to be connected to more than a single place in the circuit, which 
 is another measure to ensure more uniform distribution of power in the circuit.
 
-The overhead wire network is part of [*additional features*](https://sumo.dlr.de/docs/#additional_features)
+The overhead wire network is part of [*additional features*](../index.md#additional_features)
 provided by SUMO. It is constructed by specifying one or more `<overheadWire>` elements, representing 
 a continuous section of traction wire. Each of this sections consists of `<overheadWireSegment>` elements
 that are defined on lanes of the SUMO network.
@@ -126,12 +128,14 @@ Each segment may be shorter than the lane length, and a beginning or ending offs
 is typically used in trolleybus network to start or end the overhead wire at a bus stop where the trolley poles
 are put on/off the overhead wire. At least one such segment has to be connected to a substation to form a circuit.
 
-**Note #1:** Additional segments are automatically created for internal lanes of an intersection, unless the lane is explicitly
-ignored using `forbiddenInnerLanes` attribute in the definition of the `<overheadWire>` element (see below).
+!!! note "Note \#1"
+    Additional segments are automatically created for internal lanes of an intersection, unless the lane is explicitly
+    ignored using `forbiddenInnerLanes` attribute in the definition of the `<overheadWire>` element (see below).
 
-**Note #2:** The current implementation does not allow users to specify the exact point in a segment where
-the substation is connected. This is a simplification that in our experience causes a negligible error
-in circuit simulation results.
+!!! note "Note \#2"
+    The current implementation does not allow users to specify the exact point in a segment where
+    the substation is connected. This is a simplification that in our experience causes a negligible error
+    in circuit simulation results.
 
 | key                 | Value Type | Value range            | Default     | Description                                                               |
 | ------------------- | ---------- | ---------------------- | ----------- | ------------------------------------------------------------------------- |
@@ -194,7 +198,7 @@ using the `<overheadWire>` element with the following attributes:
 
 The overhead wire powering/charging system is represented in the graphical user interface as a two-wire system:
 
-![](../images/overheadWire_gui_labeled.png "Representation of the ovrehead wire in GUI")
+![](../images/overheadWire_gui_labeled.png "Representation of the overhead wire in GUI")
 Representation of the overhead wire in GUI
 
 If a vehicle equipped with *device.elechybrid* drives under the wire, the overhead wire segment colors
@@ -206,7 +210,7 @@ Color of overhead wire in case that some power is supplied to a vehicle
 
 ## Simulation setting
 
-It is possible to activate or deactivate overhead wire solver, enable or disable the recuperation of energy from vehicles to overhead wire, and apply or ignore substation's electric current limits in the overhead wire solver. The above mentioned properties are set in configuration file using the follwing format. 
+It is possible to activate or deactivate overhead wire solver, enable or disable the recuperation of energy from vehicles to overhead wire, and apply or ignore substation's electric current limits in the overhead wire solver. The above mentioned properties are set in configuration file using the following format. 
 
 ```
 <configuration>
@@ -326,13 +330,14 @@ For the `<tractionSubstation>` entry representing a traction substation:
 | **totalEnergyCharged**  | float  | Wh    | Sum of energy charged by all voltage sources into overhead wires during the entire simulation  |
 | **length**              | float  | m     | The length of the section powered by the substation                         |
 | **numVoltageSources**   | int    |       | Number of voltage sources (i.e., number of connections of the substation to the circuit) |
-| **numClamps**           | int    |       | Number of overhead wire clamps in the section powerd by the substation     |
+| **numClamps**           | int    |       | Number of overhead wire clamps in the section powered by the substation     |
 | **chargingSteps**       | int    |       | Number of simulation steps in which the substation provided energy                |
 
-**Note:** The `totalEnergyCharged` attribute denotes the energy is supplied *from* the substation *to* a vehicle and
-therefore it is typically negative.The value would be positive only in case that regenerative
-braking into a hypothetical substation battery back is allowed and the vehicles regenerate more energy than the substation
-provided to them.
+!!! note
+    The `totalEnergyCharged` attribute denotes the energy is supplied *from* the substation *to* a vehicle and
+    therefore it is typically negative.The value would be positive only in case that regenerative
+    braking into a hypothetical substation battery back is allowed and the vehicles regenerate more energy than the substation
+    provided to them.
 
 Every time step in which the substation is active is represented by the `<step>` element with the following attributes:
 
@@ -348,7 +353,8 @@ Every time step in which the substation is active is represented by the `<step>`
 | **alphaCircuitSolver** | float    |       | Value of parameter *&alpha;* used in the circuit solver                    |
 | **alphaFlag**          | int (enum)  | | Value of the internal flag giving the reason why *&alpha;* has to be used  |
 
-**Note:** Also in this case the energyCharged is negative as it flow _from_ the substation in most cases?
+!!! note
+    Also in this case the `energyCharged` is negative as it flow _from_ the substation in most cases
 
 ## ElectricHybrid output
 
@@ -405,7 +411,7 @@ Vehicle parameters:
 | **tractionSubstationId**   | string |       | The ID of an substation that is feeding the current overhead wire, empty if not under a wire                                       |
 | **current**                | float  | A     | Current drawn from the overhead wire                                                                             |
 | **circuitVoltage**         | float  | V     | The actual voltage at the connection point of the pantograph / trolley poles                                                                             |
-| **alphaCircuitSolver**     | float  |       | Circuit solver stabilisation parameter *&alpha;*, 0 <= *&alpha;* <= 1, 1 in case that the substation is not overloaded and all power demands were satistifed, NaN if not applicable. |
+| **alphaCircuitSolver**     | float  |       | Circuit solver stabilization parameter *&alpha;*, 0 <= *&alpha;* <= 1, 1 in case that the substation is not overloaded and all power demands were satisfied, NaN if not applicable. |
 | **speed**                  | float  | m/s   | Speed of vehicle in this timestep                                                                                         |
 | **acceleration**           | float  | m/s<sup>2</sup> | Acceleration of vehicle in this timestep                                                                                  |
 | **distance**               | float  | m     | The distance covered by the vehicle from the start of simulation                                                          |
@@ -416,7 +422,7 @@ Vehicle parameters:
 | **lane**                   | string |       | ID of the lane that the vehicle is currently on                                                                           |
 | **posOnLane**              | float  | m     | Position of vehicle on its current lane                                                                                   |                                             |
 
-If a detailed output of the vehicles has been requiested using `<elecHybrid-output.aggregated value="false"/>`, 
+If a detailed output of the vehicles has been requested using `<elecHybrid-output.aggregated value="false"/>`, 
 the ElectricHybrid output generates the number of files, corresponding to the number of vehicles equipped with 
 *device.elechybrid*. The file names follow the rule: 
 ```
@@ -442,7 +448,7 @@ Vehicle parameters:
 | **maximumBatteryCapacity** | float  | Wh    | Maximum battery capacity of the vehicle                                         |
 | **recuperationEnabled**     | bool  | | 1 if the regenerative braking into the overhead wire is allowed, 0 in the opposite case |
 
-The user can enable/disable the regenerative braking into the overhead wire using `overhead-wire-recuperation` tag in SUMO configuration file (see section [Simulation setting](../Models/ElecHybrid.md#Simulation_setting) above).
+The user can enable/disable the regenerative braking into the overhead wire using `overhead-wire-recuperation` tag in SUMO configuration file (see section [Simulation setting](#simulation_setting) above).
 
 Timestep parameters:
 
@@ -457,7 +463,7 @@ Timestep parameters:
 | **tractionSubstationId**   | string |       | The ID of an substation that is feeding the current overhead wire, empty if not under a wire                                       |
 | **current**                | float  | A     | Current drawn from the overhead wire                                                                             |
 | **circuitVoltage**         | float  | V     | The actual voltage at the connection point of the pantograph / trolley poles                                                                             |
-| **alphaCircuitSolver**     | float  |       | Circuit solver stabilisation parameter *&alpha;*, 0 <= *&alpha;* <= 1, 1 in case that the substation is not overloaded and all power demands were satistifed, NaN if not applicable. |
+| **alphaCircuitSolver**     | float  |       | Circuit solver stabilization parameter *&alpha;*, 0 <= *&alpha;* <= 1, 1 in case that the substation is not overloaded and all power demands were satisfied, NaN if not applicable. |
 | **speed**                  | float  | m/s   | Speed of vehicle in this timestep                                                                                         |
 | **acceleration**           | float  | m/s<sup>2</sup> | Acceleration of vehicle in this timestep                                                                                  |
 | **distance**               | float  | m     | The distance covered by the vehicle from the start of simulation                                                          |
