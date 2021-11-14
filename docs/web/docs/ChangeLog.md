@@ -166,6 +166,7 @@ title: ChangeLog
   - generateContinousRerouters.py: fixed infinite loop. Issue #9167  
   - GTFS import no longer ignores trips with routes not starting in the simulation area. Issue #9224
   - GTFS import now works when crossing day boundaries. Issue #9002
+  - GTFS import no longer fails when the optional 'shapes.txt' is missing.
   - plot_trajectories.py no longer crashes when trying to plot kilometrage with missing input distance. Issue #9472
 
 - Miscellaneous
