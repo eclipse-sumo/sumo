@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-13 10:13:59 by Eclipse SUMO sumo Version v1_10_0+2242-495a58c2d3d
+<!-- generated on 2021-11-14 16:54:28 by Eclipse SUMO sumo Version v1_10_0+2269-cf425462595
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -90,6 +90,8 @@
         <stop-output.write-unfinished value="false" type="BOOL" help="Write stop output for stops which have not ended at simulation end"/>
         <collision-output value="" type="FILE" help="Write collision information into FILE"/>
         <statistic-output value="" synonymes="statistics-output" type="FILE" help="Write overall statistics into FILE"/>
+        <movereminder-output value="" type="FILE" help="Save movereminder states of selected vehicles into FILE"/>
+        <movereminder-output.vehicles value="" type="STR[]" help="List of vehicle ids which shall save their movereminder states"/>
         <save-state.times value="" type="STR[]" help="Use TIME[] as times at which a network state written"/>
         <save-state.period value="-1" type="TIME" help="save state repeatedly after TIME period"/>
         <save-state.period.keep value="0" type="INT" help="Keep only the last INT periodic state files"/>
@@ -148,9 +150,9 @@
         <default.carfollowmodel value="Krauss" synonymes="carfollow.model" type="STR" help="Select default car following model (Krauss, IDM, ...)"/>
         <default.speeddev value="-1" type="FLOAT" help="Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class"/>
         <default.emergencydecel value="default" type="STR" help="Select default emergencyDecel value among (&apos;decel&apos;, &apos;default&apos;, FLOAT) which sets the value either to the same as the deceleration value, a vClass-class specific default or the given FLOAT in m/s^2"/>
-        <overhead-wire-solver value="true" type="BOOL" help="Use Kirchhoff&apos;s laws for solving overhead wire circuit"/>
-        <overhead-wire-recuperation value="true" type="BOOL" help="Enable recuperation from the vehicle equipped with elecHybrid device into the ovrehead wire."/>
-        <overhead-wire-substation-current-limits value="true" type="BOOL" help="Enable current limits of traction substation during solving the overhead wire electrical circuit."/>
+        <overhead-wire.solver value="true" type="BOOL" help="Use Kirchhoff&apos;s laws for solving overhead wire circuit"/>
+        <overhead-wire.recuperation value="true" type="BOOL" help="Enable recuperation from the vehicle equipped with elecHybrid device into the ovrehead wire."/>
+        <overhead-wire.substation-current-limits value="true" type="BOOL" help="Enable current limits of traction substation during solving the overhead wire electrical circuit."/>
         <emergencydecel.warning-threshold value="1" type="FLOAT" help="Sets the fraction of emergency decel capability that must be used to trigger a warning."/>
         <parking.maneuver value="false" type="BOOL" help="Whether parking simulation includes manoeuvering time and associated lane blocking"/>
         <use-stop-ended value="false" type="BOOL" help="Override stop until times with stop ended times when given"/>
@@ -415,7 +417,6 @@
         <window-size value="" type="STR[]" help="Create initial window with the given x,y size"/>
         <window-pos value="" type="STR[]" help="Create initial window at the given x,y position"/>
         <tracker-interval value="1" type="TIME" help="The aggregation period for value tracker windows"/>
-        <osg-view value="false" type="BOOL" help="Start with an OpenSceneGraph view instead of the regular 2D view"/>
         <gui-testing value="false" type="BOOL" help="Enable overlay for screen recognition"/>
         <gui-testing-debug value="false" type="BOOL" help="Enable output messages during GUI-Testing"/>
         <gui-testing.setting-output value="" type="FILE" help="Save gui settings in the given settings output file"/>
