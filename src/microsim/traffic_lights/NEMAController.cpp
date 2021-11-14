@@ -744,7 +744,7 @@ int NEMALogic::nextPhase(std::vector<int> ring, int currentPhase) {
                 break;
             }
         }
-        if (ring[i] == currentPhase)
+        if (ring[i%length] == currentPhase)
             flag = 1;
     }
     return nphase;
