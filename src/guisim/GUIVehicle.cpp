@@ -529,6 +529,9 @@ double
 GUIVehicle::getColorValue(const GUIVisualizationSettings& s, int activeScheme) const {
     switch (activeScheme) {
         case 8:
+            if (isStopped()) {
+                return isParking() ? -2 : -1;
+            }
             return getSpeed();
         case 9:
             // color by action step

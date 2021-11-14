@@ -833,6 +833,9 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::CYAN, (double)(80 / 3.6));
     scheme.addColor(RGBColor::BLUE, (double)(120 / 3.6));
     scheme.addColor(RGBColor::MAGENTA, (double)(150 / 3.6));
+    scheme.setAllowsNegativeValues(true); // negative speed indicates stopped
+    scheme.addColor(RGBColor::RED, -1); // stopped on road
+    scheme.addColor(RGBColor::GREY, -2); // stopped off-road (parking)
     vehicleColorer.addScheme(scheme);
     scheme = GUIColorScheme("by action step", RGBColor::GREY, "no action", true, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor(0, 255, 0, 255), 1., "action in next step");
