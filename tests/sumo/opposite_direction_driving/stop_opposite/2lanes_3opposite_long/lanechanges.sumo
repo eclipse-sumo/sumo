@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-14 10:59:11 by Eclipse SUMO sumo Version v1_10_0+2264-031ba87
+<!-- generated on 2021-11-14 11:36:43 by Eclipse SUMO sumo Version v1_10_0+2265-a31469b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,8 +39,8 @@ SPDX-License-Identifier: EPL-2.0
     <change id="ego" type="DEFAULT_VEHTYPE" time="3.00" from="a_1" to="-a_2" dir="1" speed="7.80" pos="15.60" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
     <change id="ego" type="DEFAULT_VEHTYPE" time="4.00" from="-a_2" to="-a_1" dir="1" speed="10.40" pos="774.00" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
     <change id="ego" type="DEFAULT_VEHTYPE" time="5.00" from="-a_1" to="-a_0" dir="1" speed="13.00" pos="761.00" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
-    <change id="ego" type="DEFAULT_VEHTYPE" time="26.00" from="-a_0" to="-a_1" dir="-1" speed="13.89" pos="653.22" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
-    <change id="ego" type="DEFAULT_VEHTYPE" time="35.00" from="-a_1" to="-a_2" dir="-1" speed="13.89" pos="528.21" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
-    <change id="ego" type="DEFAULT_VEHTYPE" time="44.00" from="-a_2" to="a_1" dir="-1" speed="13.89" pos="403.20" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
-    <change id="ego" type="DEFAULT_VEHTYPE" time="53.00" from="a_1" to="a_0" dir="-1" speed="13.89" pos="521.81" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="ego" type="DEFAULT_VEHTYPE" time="20.00" from="-a_0" to="-a_1" dir="-1" speed="2.60" pos="717.40" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="ego" type="DEFAULT_VEHTYPE" time="21.00" from="-a_1" to="-a_2" dir="-1" speed="5.20" pos="712.20" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="ego" type="DEFAULT_VEHTYPE" time="22.00" from="-a_2" to="a_1" dir="-1" speed="7.80" pos="704.40" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="ego" type="DEFAULT_VEHTYPE" time="31.00" from="a_1" to="a_0" dir="-1" speed="13.89" pos="216.23" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
 </lanechanges>
