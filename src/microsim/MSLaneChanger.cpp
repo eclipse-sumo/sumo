@@ -1088,7 +1088,7 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
 #ifdef DEBUG_CHANGE_OPPOSITE
     gDebugFlag5 = DEBUG_COND;
     if (DEBUG_COND) {
-        std::cout << SIMTIME << " veh=" << vehicle->getID() << " considerChangeOpposite source=" << source->getID() << " opposite=" << Named::getIDSecure(source->getOpposite()) << " lead=" << Named::getIDSecure(leader.first) << "\n";
+        std::cout << SIMTIME << " veh=" << vehicle->getID() << " considerChangeOpposite source=" << source->getID() << " opposite=" << Named::getIDSecure(opposite) << " lead=" << Named::getIDSecure(leader.first) << "\n";
     }
 #endif
     //There is no lane for opposite driving
@@ -1488,6 +1488,26 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
                                   << "\n";
                     }
 #endif
+                }
+            }
+        } else {
+            if (overtaken.first == nullptr) {
+                // there is no reason to stay on the opposite side
+                std::pair<MSVehicle* const, double> neighFollow = opposite->getOppositeFollower(vehicle);
+                if (neighFollow.first == nullptr) {
+                    oppositeLength = forwardPos;
+                } else {
+                    const double secureGap = neighFollow.first->getCarFollowModel().getSecureGap(
+                            neighFollow.first, vehicle, neighFollow.first->getSpeed(), vehicle->getSpeed(), vehicle->getCarFollowModel().getMaxDecel());
+#ifdef DEBUG_CHANGE_OPPOSITE
+                    if (DEBUG_COND) {
+                        std::cout << SIMTIME << " ego=" << vehicle->getID() << " neighFollow=" << neighFollow.first->getID() << " gap=" << neighFollow.second << " secureGap=" << secureGap << "\n";
+                    }
+#endif
+                    if (neighFollow.second > secureGap) {
+                        // back gap is safe for immidiate return
+                        oppositeLength = forwardPos;
+                    }
                 }
             }
         }
