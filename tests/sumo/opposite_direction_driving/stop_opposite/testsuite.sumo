@@ -18,6 +18,10 @@ noconflict_parking
 
 # stopping on the opposite side without other traffic,
 # need to cross 3 opposite lanes.
+2lanes_3opposite_long
+
+# stopping on the opposite side without other traffic,
+# need to cross 3 opposite lanes.
 2edges
 
 # stopping on the opposite side without other traffic,
