@@ -444,14 +444,14 @@ MSFrame::fillOptions() {
     oc.doRegister("default.emergencydecel", new Option_String("default"));
     oc.addDescription("default.emergencydecel", "Processing", "Select default emergencyDecel value among ('decel', 'default', FLOAT) which sets the value either to the same as the deceleration value, a vClass-class specific default or the given FLOAT in m/s^2");
 
-    oc.doRegister("overhead-wire-solver", new Option_Bool(true));
-    oc.addDescription("overhead-wire-solver", "Processing", "Use Kirchhoff's laws for solving overhead wire circuit");
+    oc.doRegister("overhead-wire.solver", new Option_Bool(true));
+    oc.addDescription("overhead-wire.solver", "Processing", "Use Kirchhoff's laws for solving overhead wire circuit");
 
-    oc.doRegister("overhead-wire-recuperation", new Option_Bool(true));
-    oc.addDescription("overhead-wire-recuperation", "Processing", "Enable recuperation from the vehicle equipped with elecHybrid device into the ovrehead wire.");
+    oc.doRegister("overhead-wire.recuperation", new Option_Bool(true));
+    oc.addDescription("overhead-wire.recuperation", "Processing", "Enable recuperation from the vehicle equipped with elecHybrid device into the ovrehead wire.");
 
-    oc.doRegister("overhead-wire-substation-current-limits", new Option_Bool(true));
-    oc.addDescription("overhead-wire-substation-current-limits", "Processing", "Enable current limits of traction substation during solving the overhead wire electrical circuit.");
+    oc.doRegister("overhead-wire.substation-current-limits", new Option_Bool(true));
+    oc.addDescription("overhead-wire.substation-current-limits", "Processing", "Enable current limits of traction substation during solving the overhead wire electrical circuit.");
 
     oc.doRegister("emergencydecel.warning-threshold", new Option_Float(1));
     oc.addDescription("emergencydecel.warning-threshold", "Processing", "Sets the fraction of emergency decel capability that must be used to trigger a warning.");
@@ -944,23 +944,16 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     }
     MSGlobals::gWaitingTimeMemory = string2time(oc.getString("waiting-time-memory"));
     MSAbstractLaneChangeModel::initGlobalOptions(oc);
-    MSGlobals::gOverheadWireSolver = oc.getBool("overhead-wire-solver");
-    MSGlobals::gOverheadWireRecuperation = oc.getBool("overhead-wire-recuperation");
-    MSGlobals::gOverheadWireCurrentLimits = oc.getBool("overhead-wire-substation-current-limits");
-#ifndef HAVE_EIGEN
-    if (MSGlobals::gOverheadWireSolver)
-    {
-        WRITE_WARNING("Overhead wire solver (Eigen) not compiled in, expect errors if you have overhead wires.")
-    }
-#endif // !HAVE_EIGEN
+    MSGlobals::gOverheadWireSolver = oc.getBool("overhead-wire.solver");
+    MSGlobals::gOverheadWireRecuperation = oc.getBool("overhead-wire.recuperation");
+    MSGlobals::gOverheadWireCurrentLimits = oc.getBool("overhead-wire.substation-current-limits");
 
     MSLane::initCollisionOptions(oc);
 
     DELTA_T = string2time(oc.getString("step-length"));
 
-
-    bool integrationMethodSet = !oc.isDefault("step-method.ballistic");
-    bool actionStepLengthSet  = !oc.isDefault("default.action-step-length");
+    const bool integrationMethodSet = !oc.isDefault("step-method.ballistic");
+    const bool actionStepLengthSet  = !oc.isDefault("default.action-step-length");
     MSGlobals::gSemiImplicitEulerUpdate = !oc.getBool("step-method.ballistic");
     // Init default value for gActionStepLength
     if (MSGlobals::gSemiImplicitEulerUpdate && actionStepLengthSet && !integrationMethodSet) {
