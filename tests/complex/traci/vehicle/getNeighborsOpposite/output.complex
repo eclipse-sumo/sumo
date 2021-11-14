@@ -329,7 +329,7 @@ Neigh infos for ego:
   rightFollowers:
   ()
   rightLeaders:
-  (('stopped', 5.5989999999999895),)
+  ()
   leftFollowers:
   ()
   leftLeaders:
@@ -337,7 +337,7 @@ Neigh infos for ego:
   rightFollowers (only blocking):
   ()
   rightLeaders (only blocking):
-  (('stopped', 5.5989999999999895),)
+  ()
   leftFollowers (only blocking):
   ()
   leftLeaders (only blocking):
@@ -347,7 +347,7 @@ Neigh infos for ego:
   rightFollowers:
   ()
   rightLeaders:
-  (('stopped', 15.998999999999995),)
+  ()
   leftFollowers:
   ()
   leftLeaders:
@@ -355,7 +355,7 @@ Neigh infos for ego:
   rightFollowers (only blocking):
   ()
   rightLeaders (only blocking):
-  (('stopped', 15.998999999999995),)
+  ()
   leftFollowers (only blocking):
   ()
   leftLeaders (only blocking):

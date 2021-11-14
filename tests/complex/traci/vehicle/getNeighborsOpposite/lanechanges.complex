@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jan 26 13:59:05 2021 by Eclipse SUMO sumo Version v1_8_0+0751-ea278b5
+<!-- generated on 2021-11-14 14:25:02 by Eclipse SUMO sumo Version v1_10_0+2268-922e066
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -22,7 +22,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="46941"/>
+        <remote-port value="48356"/>
     </traci_server>
 
     <gui_only>
@@ -35,5 +35,5 @@
 
 <lanechanges>
     <change id="ego" type="DEFAULT_VEHTYPE" time="15.00" from="VODUGES_beg_0" to="-VODUGES_beg_0" dir="1" speed="0.00" pos="42.50" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="2.50" origLeaderSecureGap="0.00" origLeaderSpeed="0.00"/>
-    <change id="ego" type="DEFAULT_VEHTYPE" time="20.00" from="-VODUGES_beg_0" to="VODUGES_beg_0" dir="-1" speed="13.00" pos="118.50" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="26.50" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="ego" type="DEFAULT_VEHTYPE" time="18.00" from="-VODUGES_beg_0" to="VODUGES_beg_0" dir="-1" speed="7.80" pos="141.90" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="3.10" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
 </lanechanges>
