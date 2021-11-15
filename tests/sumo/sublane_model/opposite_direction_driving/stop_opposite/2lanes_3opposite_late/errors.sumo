@@ -1,0 +1,3 @@
+Warning: Teleporting vehicle 'ego'; waited too long (wrong lane), lane='-a_0', time=316.00.
+Warning: Vehicle 'ego' teleports beyond arrival edge 'a', time 316.00.
+Warning: Vehicle 'ego' skips stop on lane '-a_0' time=316.00.
