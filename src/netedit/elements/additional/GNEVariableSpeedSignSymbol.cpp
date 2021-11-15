@@ -91,7 +91,8 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double VSSExaggeration = s.addSize.getExaggeration(s, getParentAdditionals().front());
     // first check if additional has to be drawn
-    if (s.drawAdditionals(VSSExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+    if (s.drawAdditionals(VSSExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals() && 
+        (myAdditionalGeometry.getShape().size() > 0) && (myAdditionalGeometry.getShapeRotations().size() > 0)) {
         // draw parent and child lines
         drawParentChildLines(s, s.additionalSettings.connectionColor);
         // Start drawing adding an gl identificator (except in Move mode)
