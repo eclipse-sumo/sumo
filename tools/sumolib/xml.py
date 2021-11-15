@@ -327,7 +327,6 @@ def _createRecordAndPattern(element_name, attrnames, warn, optional):
     reprog = re.compile(pattern)
     return Record, reprog
 
-
 def _open(xmlfile, encoding="utf8"):
     if isinstance(xmlfile, str):
         if xmlfile.endswith(".gz"):
@@ -336,6 +335,21 @@ def _open(xmlfile, encoding="utf8"):
             return io.open(xmlfile, encoding=encoding)
     return xmlfile
 
+def _commentFilter(line, in_comment):
+    """
+    Filters given string for comments. Is used by parse_fast and parse_fast_nested
+    """
+    if "<!--" in line or in_comment:
+            if "-->" in line and not in_comment:
+                data = re.sub("(<!--.*-->)", "", str(line))
+                return (data, in_comment)
+            elif "-->" in line and in_comment:
+                data = re.sub("(.*-->)", "", str(line))
+                return (data, False)
+            else:
+                return ("", True)
+    else:
+        return (line, in_comment)
 
 def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False, encoding="utf8"):
     """
@@ -346,17 +360,11 @@ def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False, enc
     """
     Record, reprog = _createRecordAndPattern(
         element_name, attrnames, warn, optional)
-    linebool=False
+    in_comment = False
     for line in _open(xmlfile, encoding):
-        if "<!--" in line or linebool:
-            warnings.warn("Multible comments found in file.", SyntaxWarning, stacklevel=2)
-            if "-->" in line:
-                if linebool:
-                    linebool=False
-                continue
-            else:
-                linebool = True
-                continue
+        line, in_comment = _commentFilter(line, in_comment)
+        if in_comment:
+            continue
         m = reprog.search(line)
         if m:
             if optional:
@@ -378,17 +386,11 @@ def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames
     Record2, reprog2 = _createRecordAndPattern(
         element_name2, attrnames2, warn, optional)
     record = None
-    linebool=False
+    in_comment = False
     for line in _open(xmlfile, encoding):
-        if "<!--" in line or linebool:
-            warnings.warn("Multible comments found in file.", SyntaxWarning, stacklevel=2)
-            if "-->" in line:
-                if linebool:
-                    linebool=False
-                continue
-            else:
-                linebool = True
-                continue
+        line, in_comment = _commentFilter(line, in_comment)
+        if in_comment:
+            continue
         m2 = reprog2.search(line)
         if record and m2:
             if optional:
