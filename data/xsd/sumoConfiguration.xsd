@@ -175,7 +175,7 @@
             <xsd:element name="default.carfollowmodel" type="strOptionType" minOccurs="0"/>
             <xsd:element name="default.speeddev" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.emergencydecel" type="strOptionType" minOccurs="0"/>
-            <xsd:element name="overhead-wire-solver" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="overhead-wire.solver" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="emergencydecel.warning-threshold" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="parking.maneuver" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="use-stop-ended" type="boolOptionType" minOccurs="0"/>
