@@ -47,7 +47,10 @@ netedit.leftClick(referencePosition, 355, 230)
 netedit.modifyAttribute(5, "///;;", True)
 
 # Change parameter id with valid value
-netedit.modifyAttribute(5, "customRouteProbeName", True)
+netedit.modifyAttribute(5, "nonExistentRouteProbe", True)
+
+# Change parameter id with valid value
+netedit.modifyAttribute(5, "routeProbe_0", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

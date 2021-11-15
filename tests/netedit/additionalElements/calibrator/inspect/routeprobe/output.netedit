@@ -5,7 +5,8 @@ calibrator
 TestFunctions: Clicked over position 549 - 348
 TestFunctions: Clicked over position 659 - 398
 ///;;
-customRouteProbeName
+nonExistentRouteProbe
+routeProbe_0
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully
