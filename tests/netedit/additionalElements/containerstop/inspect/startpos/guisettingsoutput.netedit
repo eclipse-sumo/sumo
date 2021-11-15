@@ -124,13 +124,13 @@
                 <entry color="yellow"/>
             </colorScheme>
         </vehicles>
-        <persons personMode="0" personQuality="0" person_minSize="1.00" person_exaggeration="1.00" person_constantSize="0" person_constantSizeSelected="0"
-                 personName_show="0" personName_size="60.00" personName_color="0,153,204" personName_bgColor="128,0,0,0" personName_constantSize="1"
-                  personValue_show="0" personValue_size="80.00" personValue_color="cyan" personValue_bgColor="128,0,0,0" personValue_constantSize="1">
+        <containers containerMode="0" containerQuality="0" container_minSize="1.00" container_exaggeration="1.00" container_constantSize="0" container_constantSizeSelected="0"
+                 containerName_show="0" containerName_size="60.00" containerName_color="0,153,204" containerName_bgColor="128,0,0,0" containerName_constantSize="1"
+                  containerValue_show="0" containerValue_size="80.00" containerValue_color="cyan" containerValue_bgColor="128,0,0,0" containerValue_constantSize="1">
             <colorScheme name="uniform">
                 <entry color="yellow"/>
             </colorScheme>
-        </persons>
+        </containers>
         <containers containerMode="0" containerQuality="0" container_minSize="1.00" container_exaggeration="1.00" container_constantSize="0" container_constantSizeSelected="0"
                  containerName_show="0" containerName_size="60.00" containerName_color="0,153,204" containerName_bgColor="128,0,0,0" containerName_constantSize="1">
             <colorScheme name="uniform">

@@ -40,7 +40,7 @@ netedit.inspectMode()
 # inspect containerstops
 netedit.leftClick(referencePosition, 160, 270)
 
-# Set person capacity
+# Set container capacity
 netedit.modifyAttribute(3, "50", False)
 
 # Check undo redo

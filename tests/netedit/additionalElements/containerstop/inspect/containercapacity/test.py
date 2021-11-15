@@ -46,16 +46,16 @@ netedit.inspectMode()
 # inspect first containerStop
 netedit.leftClick(referencePosition, 250, 190)
 
-# Change parameter personCapacity with a non valid value (throw warning)
-netedit.modifyAttribute(7, "dummyPersonCapacity", True)
+# Change parameter containerCapacity with a non valid value (throw warning)
+netedit.modifyAttribute(7, "dummycontainerCapacity", True)
 
-# Change parameter personCapacity with a valid value
+# Change parameter containerCapacity with a valid value
 netedit.modifyAttribute(7, "-7", True)
 
-# Change parameter personCapacity with a valid value
+# Change parameter containerCapacity with a valid value
 netedit.modifyAttribute(7, "2.5", True)
 
-# Change parameter personCapacity with a valid value
+# Change parameter containerCapacity with a valid value
 netedit.modifyAttribute(7, "10", True)
 
 # Check undos and redos

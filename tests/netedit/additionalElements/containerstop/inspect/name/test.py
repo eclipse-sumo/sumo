@@ -47,7 +47,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 190)
 
 # Change parameter name with a valid value
-netedit.modifyAttribute(4, "Container Stop Name", True)
+netedit.modifyAttribute(4, "container Stop Name", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)
