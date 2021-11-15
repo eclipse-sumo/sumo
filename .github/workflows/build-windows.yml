@@ -136,7 +136,7 @@ jobs:
         python -m pip install pyproj Rtree ezdxf pulp pandas matplotlib scipy
         cd sumo/build_msvc
         cmake --build . --config Release --target examples
-        ctest --config Release --verbose
+        ctest --build-config Release --verbose
 
     - name: Building FMU Compliance Checker
       if: matrix.build-type == 'extra'
