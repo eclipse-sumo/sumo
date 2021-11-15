@@ -44,10 +44,10 @@ netedit.leftClick(referencePosition, 233, 235)
 netedit.moveMode()
 
 # move trainStop to right
-netedit.moveElement(referencePosition, 233, 260, 371, 260)
+netedit.moveElement(referencePosition, 233, 255, 371, 255)
 
 # move trainStop back
-netedit.moveElement(referencePosition, 371, 260, 277, 260)
+netedit.moveElement(referencePosition, 371, 255, 277, 255)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

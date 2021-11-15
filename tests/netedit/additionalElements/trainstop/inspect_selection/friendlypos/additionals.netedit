@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-11 13:49:36 by Eclipse SUMO netedit Version v1_10_0+2158-87261770815
+<!-- generated on 2021-08-30 15:04:20 by Eclipse SUMO netedit Version v1_10_0+0381-df20e58b5b
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Nov132514.2792\netedit.gui\additionalElements\trainstop\inspect_selection\friendlypos\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.3_from_30Aug124629.1056\netedit.gui\additionalElements\trainstop\inspect_selection\friendlypos\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Nov132514.2792\netedit.gui\additionalElements\trainstop\inspect_selection\friendlypos\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.3_from_30Aug124629.1056\netedit.gui\additionalElements\trainstop\inspect_selection\friendlypos\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,27 +30,27 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Nov132514.2792\netedit.gui\additionalElements\trainstop\inspect_selection\friendlypos\additionals.xml"/>
-        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Nov132514.2792\netedit.gui\additionalElements\trainstop\inspect_selection\friendlypos\additionals.xml"/>
-        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Nov132514.2792\netedit.gui\additionalElements\trainstop\inspect_selection\friendlypos\routes.xml"/>
-        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Nov132514.2792\netedit.gui\additionalElements\trainstop\inspect_selection\friendlypos\routes.xml"/>
-        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Nov132514.2792\netedit.gui\additionalElements\trainstop\inspect_selection\friendlypos\datas.xml"/>
-        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Nov132514.2792\netedit.gui\additionalElements\trainstop\inspect_selection\friendlypos\datas.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.3_from_30Aug124629.1056\netedit.gui\additionalElements\trainstop\inspect_selection\friendlypos\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.3_from_30Aug124629.1056\netedit.gui\additionalElements\trainstop\inspect_selection\friendlypos\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.3_from_30Aug124629.1056\netedit.gui\additionalElements\trainstop\inspect_selection\friendlypos\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.3_from_30Aug124629.1056\netedit.gui\additionalElements\trainstop\inspect_selection\friendlypos\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.3_from_30Aug124629.1056\netedit.gui\additionalElements\trainstop\inspect_selection\friendlypos\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.3_from_30Aug124629.1056\netedit.gui\additionalElements\trainstop\inspect_selection\friendlypos\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Nov132514.2792\netedit.gui\additionalElements\trainstop\inspect_selection\friendlypos\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.3_from_30Aug124629.1056\netedit.gui\additionalElements\trainstop\inspect_selection\friendlypos\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Nov132514.2792\netedit.gui\additionalElements\trainstop\inspect_selection\friendlypos\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.3_from_30Aug124629.1056\netedit.gui\additionalElements\trainstop\inspect_selection\friendlypos\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Nov132514.2792\netedit.gui\additionalElements\trainstop\inspect_selection\friendlypos\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.3_from_30Aug124629.1056\netedit.gui\additionalElements\trainstop\inspect_selection\friendlypos\log.txt"/>
     </report>
 
 </configuration>

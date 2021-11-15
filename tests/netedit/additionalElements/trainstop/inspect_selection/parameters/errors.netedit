@@ -26,15 +26,48 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Value 'dummyGenericParameters' for attribute color of trainStop isn't valid
-Debug: Value 'key1|key2|key3' for attribute color of trainStop isn't valid
-Debug: Value 'key1=value1|key2=value2|key3=value3' for attribute color of trainStop isn't valid
-Debug: Value 'key1=|key2=|key3=' for attribute color of trainStop isn't valid
-Debug: Value 'key1duplicated=value1|key1duplicated=value2|key3=value3' for attribute color of trainStop isn't valid
-Debug: Value 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' for attribute color of trainStop isn't valid
-Debug: Value 'keyInvalid.;%>%$$=value1|key2=value2|key3=value3' for attribute color of trainStop isn't valid
-Debug: Value 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' for attribute color of trainStop isn't valid
-Debug: Value 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' for attribute color of trainStop isn't valid
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
@@ -47,13 +80,6 @@ Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing trainStop 'trainStopB' in GNEChange_Additional
 Debug: Removing trainStop 'trainStopA' in GNEChange_Additional
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
@@ -68,12 +94,33 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute
+Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

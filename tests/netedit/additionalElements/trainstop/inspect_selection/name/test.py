@@ -41,7 +41,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 160, 270)
 
 # Set name
-netedit.modifyAttribute(0, "common TrainStop Name", False)
+netedit.modifyAttribute(0, "common trainStop Name", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

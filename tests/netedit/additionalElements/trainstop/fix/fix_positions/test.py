@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect trainstops
-netedit.leftClick(referencePosition, 278, 190)
+netedit.leftClick(referencePosition, 278, 195)
 
 # disable friendlyPos
 netedit.modifyBoolAttribute(1, False)
