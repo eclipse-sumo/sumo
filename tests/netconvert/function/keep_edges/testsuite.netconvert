@@ -1,3 +1,5 @@
+components
+
 # bug [ 1993928 ] --keep-edges.input-file does not remove empty
 # When importing a large network and trying to reduce it by giving a list of
 # edges to keep, the resulting network only contains the given edges. Ok, but
@@ -24,12 +26,3 @@ by-vclass2
 
 # Only keep edges with the given type and *all* that are named explicitly
 by-type_and_explicit
-
-# remove isolated components
-components
-
-# keep 2 largest components
-components2
-
-# keep small rail components if they have stops
-components_railstops
