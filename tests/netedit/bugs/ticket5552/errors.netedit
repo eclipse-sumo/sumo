@@ -157,32 +157,6 @@ Debug: invalidating (removing) connections of edge 'E0' due it were guessed
 Debug: Setting new attribute
 Debug: Removing lane 'E0_1' from edge
 Debug: Setting new attribute
-Debug: Adding edge 'E1' from net
-Debug: Setting new attribute
-Debug: invalidating (removing) connections of edge 'gneE12' due it were guessed
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: invalidating (removing) connections of edge 'E1' due it were guessed
-Debug: Setting new attribute
-Debug: Adding edge 'E2' from net
-Debug: Setting new attribute
-Debug: invalidating (removing) connections of edge 'gneE11' due it were guessed
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
-Debug: Setting new attribute
-Debug: invalidating (removing) connections of edge 'E2' due it were guessed
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: invalidating (removing) connections of edge 'gneE11' due it were guessed
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
-Debug: Setting new attribute
-Debug: invalidating (removing) connections of edge 'E2' due it were guessed
-Debug: Setting new attribute
-Debug: Removing lane 'E2_1' from edge
-Debug: Setting new attribute
 Debug: Adding edge '-E0' from net
 Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE8' due it were guessed
@@ -206,71 +180,125 @@ Debug: invalidating (removing) connections of edge '-E0' due it were guessed
 Debug: Setting new attribute
 Debug: Removing lane '-E0_1' from edge
 Debug: Setting new attribute
-Debug: Adding edge '-E2' from net
-Debug: Setting new attribute
-Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
-Debug: Setting new attribute
-Debug: invalidating (removing) connections of edge 'E2' due it were guessed
-Debug: Setting new attribute
+Debug: Adding edge 'E1' from net
 Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE11' due it were guessed
-Debug: Setting new attribute
-Debug: invalidating (removing) connections of edge '-E2' due it were guessed
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
 Debug: Setting new attribute
-Debug: invalidating (removing) connections of edge 'E2' due it were guessed
+Debug: invalidating (removing) connections of edge 'E1' due it were guessed
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE11' due it were guessed
 Debug: Setting new attribute
-Debug: invalidating (removing) connections of edge '-E2' due it were guessed
 Debug: Setting new attribute
-Debug: Removing lane '-E2_1' from edge
+Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
+Debug: Setting new attribute
+Debug: invalidating (removing) connections of edge 'E1' due it were guessed
+Debug: Setting new attribute
+Debug: Removing lane 'E1_1' from edge
+Debug: Setting new attribute
+Debug: Adding edge 'E2' from net
+Debug: Setting new attribute
+Debug: invalidating (removing) connections of edge 'gneE12' due it were guessed
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: invalidating (removing) connections of edge 'E2' due it were guessed
+Debug: Setting new attribute
+Debug: Adding edge '-E1' from net
+Debug: Setting new attribute
+Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
+Debug: Setting new attribute
+Debug: invalidating (removing) connections of edge 'E1' due it were guessed
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: invalidating (removing) connections of edge 'gneE11' due it were guessed
+Debug: Setting new attribute
+Debug: invalidating (removing) connections of edge '-E1' due it were guessed
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
+Debug: Setting new attribute
+Debug: invalidating (removing) connections of edge 'E1' due it were guessed
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: invalidating (removing) connections of edge 'gneE11' due it were guessed
+Debug: Setting new attribute
+Debug: invalidating (removing) connections of edge '-E1' due it were guessed
+Debug: Setting new attribute
+Debug: Removing lane '-E1_1' from edge
 Debug: Setting new attribute
 Debug: Removing junction 'cluster_gneJ10_gneJ11_gneJ14_gneJ16_gneJ17_gneJ8' from net
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from-E0_0togneE10_1' in retrieveGNEConnection()
-Debug: Created connection 'from-E2_0to-gneE11_1' in retrieveGNEConnection()
+Debug: Created connection 'from-E1_0to-gneE11_1' in retrieveGNEConnection()
 Debug: Created connection 'from-gneE10_1toE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE0_0to-gneE8_1' in retrieveGNEConnection()
-Debug: Created connection 'fromE1_0togneE13_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE2_0to-gneE9_1' in retrieveGNEConnection()
-Debug: Created connection 'fromgneE11_1toE2_0' in retrieveGNEConnection()
-Debug: Created connection 'fromgneE12_0toE1_0' in retrieveGNEConnection()
+Debug: Created connection 'fromE1_0to-gneE9_1' in retrieveGNEConnection()
+Debug: Created connection 'fromE2_0togneE13_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE11_1toE1_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE12_0toE2_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_1to-E0_0' in retrieveGNEConnection()
-Debug: Created connection 'fromgneE9_1to-E2_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE9_1to-E1_0' in retrieveGNEConnection()
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Adding junction 'cluster_gneJ10_gneJ11_gneJ14_gneJ16_gneJ17_gneJ8' into net
 Debug: Restoring previous attribute
-Debug: Adding lane '-E2_1' into edge
+Debug: Adding lane '-E1_1' into edge
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
-Debug: invalidating (removing) connections of edge '-E2' due it were guessed
-Debug: Deleting unreferenced connection 'from-E2_0to-gneE11_1' in clearGNEConnections()
+Debug: invalidating (removing) connections of edge '-E1' due it were guessed
+Debug: Deleting unreferenced connection 'from-E1_0to-gneE11_1' in clearGNEConnections()
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'gneE11' due it were guessed
-Debug: Deleting unreferenced connection 'fromgneE11_1toE2_0' in clearGNEConnections()
+Debug: Deleting unreferenced connection 'fromgneE11_1toE1_0' in clearGNEConnections()
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: invalidating (removing) connections of edge 'E1' due it were guessed
+Debug: Deleting unreferenced connection 'fromE1_0to-gneE9_1' in clearGNEConnections()
+Debug: Restoring previous attribute
+Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
+Debug: Deleting unreferenced connection 'fromgneE9_1to-E1_0' in clearGNEConnections()
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: invalidating (removing) connections of edge '-E1' due it were guessed
+Debug: Restoring previous attribute
+Debug: invalidating (removing) connections of edge 'gneE11' due it were guessed
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: invalidating (removing) connections of edge 'E1' due it were guessed
+Debug: Restoring previous attribute
+Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
+Debug: Removing edge '-E1' from net
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'E2' due it were guessed
-Debug: Deleting unreferenced connection 'fromE2_0to-gneE9_1' in clearGNEConnections()
+Debug: Deleting unreferenced connection 'fromE2_0togneE13_0' in clearGNEConnections()
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: invalidating (removing) connections of edge 'gneE12' due it were guessed
+Debug: Deleting unreferenced connection 'fromgneE12_0toE2_0' in clearGNEConnections()
+Debug: Removing edge 'E2' from net
+Debug: Restoring previous attribute
+Debug: Adding lane 'E1_1' into edge
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: invalidating (removing) connections of edge 'E1' due it were guessed
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
-Debug: Deleting unreferenced connection 'fromgneE9_1to-E2_0' in clearGNEConnections()
 Debug: Restoring previous attribute
-Debug: Restoring previous attribute
-Debug: invalidating (removing) connections of edge '-E2' due it were guessed
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'gneE11' due it were guessed
 Debug: Restoring previous attribute
 Debug: Restoring previous attribute
-Debug: invalidating (removing) connections of edge 'E2' due it were guessed
+Debug: invalidating (removing) connections of edge 'E1' due it were guessed
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
-Debug: Removing edge '-E2' from net
+Debug: Restoring previous attribute
+Debug: Restoring previous attribute
+Debug: invalidating (removing) connections of edge 'gneE11' due it were guessed
+Debug: Removing edge 'E1' from net
 Debug: Restoring previous attribute
 Debug: Adding lane '-E0_1' into edge
 Debug: Restoring previous attribute
@@ -298,34 +326,6 @@ Debug: invalidating (removing) connections of edge 'E0' due it were guessed
 Debug: Restoring previous attribute
 Debug: invalidating (removing) connections of edge 'gneE8' due it were guessed
 Debug: Removing edge '-E0' from net
-Debug: Restoring previous attribute
-Debug: Adding lane 'E2_1' into edge
-Debug: Restoring previous attribute
-Debug: Restoring previous attribute
-Debug: invalidating (removing) connections of edge 'E2' due it were guessed
-Debug: Restoring previous attribute
-Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
-Debug: Restoring previous attribute
-Debug: Restoring previous attribute
-Debug: invalidating (removing) connections of edge 'gneE11' due it were guessed
-Debug: Restoring previous attribute
-Debug: Restoring previous attribute
-Debug: invalidating (removing) connections of edge 'E2' due it were guessed
-Debug: Restoring previous attribute
-Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
-Debug: Restoring previous attribute
-Debug: Restoring previous attribute
-Debug: invalidating (removing) connections of edge 'gneE11' due it were guessed
-Debug: Removing edge 'E2' from net
-Debug: Restoring previous attribute
-Debug: Restoring previous attribute
-Debug: invalidating (removing) connections of edge 'E1' due it were guessed
-Debug: Deleting unreferenced connection 'fromE1_0togneE13_0' in clearGNEConnections()
-Debug: Restoring previous attribute
-Debug: Restoring previous attribute
-Debug: invalidating (removing) connections of edge 'gneE12' due it were guessed
-Debug: Deleting unreferenced connection 'fromgneE12_0toE1_0' in clearGNEConnections()
-Debug: Removing edge 'E1' from net
 Debug: Restoring previous attribute
 Debug: Adding lane 'E0_1' into edge
 Debug: Restoring previous attribute
@@ -589,32 +589,6 @@ Debug: invalidating (removing) connections of edge 'E0' due it were guessed
 Debug: Setting new attribute
 Debug: Removing lane 'E0_1' from edge
 Debug: Setting new attribute
-Debug: Adding edge 'E1' from net
-Debug: Setting new attribute
-Debug: invalidating (removing) connections of edge 'gneE12' due it were guessed
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: invalidating (removing) connections of edge 'E1' due it were guessed
-Debug: Setting new attribute
-Debug: Adding edge 'E2' from net
-Debug: Setting new attribute
-Debug: invalidating (removing) connections of edge 'gneE11' due it were guessed
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
-Debug: Setting new attribute
-Debug: invalidating (removing) connections of edge 'E2' due it were guessed
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: invalidating (removing) connections of edge 'gneE11' due it were guessed
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
-Debug: Setting new attribute
-Debug: invalidating (removing) connections of edge 'E2' due it were guessed
-Debug: Setting new attribute
-Debug: Removing lane 'E2_1' from edge
-Debug: Setting new attribute
 Debug: Adding edge '-E0' from net
 Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE8' due it were guessed
@@ -638,43 +612,69 @@ Debug: invalidating (removing) connections of edge '-E0' due it were guessed
 Debug: Setting new attribute
 Debug: Removing lane '-E0_1' from edge
 Debug: Setting new attribute
-Debug: Adding edge '-E2' from net
-Debug: Setting new attribute
-Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
-Debug: Setting new attribute
-Debug: invalidating (removing) connections of edge 'E2' due it were guessed
-Debug: Setting new attribute
+Debug: Adding edge 'E1' from net
 Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE11' due it were guessed
-Debug: Setting new attribute
-Debug: invalidating (removing) connections of edge '-E2' due it were guessed
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
 Debug: Setting new attribute
-Debug: invalidating (removing) connections of edge 'E2' due it were guessed
+Debug: invalidating (removing) connections of edge 'E1' due it were guessed
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE11' due it were guessed
 Debug: Setting new attribute
-Debug: invalidating (removing) connections of edge '-E2' due it were guessed
 Debug: Setting new attribute
-Debug: Removing lane '-E2_1' from edge
+Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
+Debug: Setting new attribute
+Debug: invalidating (removing) connections of edge 'E1' due it were guessed
+Debug: Setting new attribute
+Debug: Removing lane 'E1_1' from edge
+Debug: Setting new attribute
+Debug: Adding edge 'E2' from net
+Debug: Setting new attribute
+Debug: invalidating (removing) connections of edge 'gneE12' due it were guessed
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: invalidating (removing) connections of edge 'E2' due it were guessed
+Debug: Setting new attribute
+Debug: Adding edge '-E1' from net
+Debug: Setting new attribute
+Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
+Debug: Setting new attribute
+Debug: invalidating (removing) connections of edge 'E1' due it were guessed
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: invalidating (removing) connections of edge 'gneE11' due it were guessed
+Debug: Setting new attribute
+Debug: invalidating (removing) connections of edge '-E1' due it were guessed
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: invalidating (removing) connections of edge 'gneE9' due it were guessed
+Debug: Setting new attribute
+Debug: invalidating (removing) connections of edge 'E1' due it were guessed
+Debug: Setting new attribute
+Debug: Setting new attribute
+Debug: invalidating (removing) connections of edge 'gneE11' due it were guessed
+Debug: Setting new attribute
+Debug: invalidating (removing) connections of edge '-E1' due it were guessed
+Debug: Setting new attribute
+Debug: Removing lane '-E1_1' from edge
 Debug: Setting new attribute
 Debug: Removing junction 'cluster_gneJ10_gneJ11_gneJ14_gneJ16_gneJ17_gneJ8' from net
 Debug: Created connection 'from-E0_0togneE10_1' in retrieveGNEConnection()
-Debug: Created connection 'from-E2_0to-gneE11_1' in retrieveGNEConnection()
+Debug: Created connection 'from-E1_0to-gneE11_1' in retrieveGNEConnection()
 Debug: Created connection 'from-gneE10_1toE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromE0_0to-gneE8_1' in retrieveGNEConnection()
-Debug: Created connection 'fromE1_0togneE13_0' in retrieveGNEConnection()
-Debug: Created connection 'fromE2_0to-gneE9_1' in retrieveGNEConnection()
-Debug: Created connection 'fromgneE11_1toE2_0' in retrieveGNEConnection()
-Debug: Created connection 'fromgneE12_0toE1_0' in retrieveGNEConnection()
+Debug: Created connection 'fromE1_0to-gneE9_1' in retrieveGNEConnection()
+Debug: Created connection 'fromE2_0togneE13_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE11_1toE1_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE12_0toE2_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_1to-E0_0' in retrieveGNEConnection()
-Debug: Created connection 'fromgneE9_1to-E2_0' in retrieveGNEConnection()
-Debug: Deleting unreferenced lane '-E2_1' in GNEChange_Lane
+Debug: Created connection 'fromgneE9_1to-E1_0' in retrieveGNEConnection()
+Debug: Deleting unreferenced lane '-E1_1' in GNEChange_Lane
+Debug: Deleting unreferenced lane 'E1_1' in GNEChange_Lane
 Debug: Deleting unreferenced lane '-E0_1' in GNEChange_Lane
-Debug: Deleting unreferenced lane 'E2_1' in GNEChange_Lane
 Debug: Deleting unreferenced lane 'E0_1' in GNEChange_Lane
 Debug: Deleting unreferenced junction 'gneJ8' in GNEChange_Attribute
 Debug: Deleting NBNode of 'gneJ8' in GNEJunction destructor
@@ -693,9 +693,9 @@ Debug: Deleting NBNode of 'cluster_gneJ10_gneJ11_gneJ14_gneJ16_gneJ17_gneJ8' in 
 Debug: Deleting unreferenced edge '-E0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-E0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-E0_0togneE10_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge '-E2' in AttributeCarriers destructor
-Debug: Deleting unreferenced lane '-E2_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'from-E2_0to-gneE11_1' in GNEEdge destructor
+Debug: Deleting unreferenced edge '-E1' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane '-E1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from-E1_0to-gneE11_1' in GNEEdge destructor
 Debug: Deleting unreferenced edge '-gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '-gneE10_1' in GNEEdge destructor
@@ -714,20 +714,20 @@ Debug: Deleting unreferenced lane 'E0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromE0_0to-gneE8_1' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'E1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'E1_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromE1_0togneE13_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromE1_0to-gneE9_1' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'E2' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'E2_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromE2_0to-gneE9_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromE2_0togneE13_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE10_1' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'gneE11' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE11_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE11_1' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromgneE11_1toE2_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE11_1toE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'gneE12' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE12_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromgneE12_0toE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE12_0toE2_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'gneE13' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE13_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'gneE8' in AttributeCarriers destructor
@@ -737,7 +737,7 @@ Debug: Deleting unreferenced connection 'fromgneE8_1to-E0_0' in GNEEdge destruct
 Debug: Deleting unreferenced edge 'gneE9' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE9_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE9_1' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromgneE9_1to-E2_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE9_1to-E1_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'J0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'J1' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'J2' in AttributeCarriers destructor

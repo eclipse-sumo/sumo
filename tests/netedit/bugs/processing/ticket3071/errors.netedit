@@ -6,8 +6,20 @@ Debug: Selected item 'personTrip: edge->edge' in TagSelector
 Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
 Debug: Selected item 'personTrip: edge->edge' in TagSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Error: Error occurred: invalid map<K, T> key while parsing 'C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Nov132507.26812\netedit.gui\bugs\processing\ticket3071\input_additionals.add.xml'
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Nov132507.26812\netedit.gui\bugs\processing\ticket3071\input_additionals.add.xml failed.
+Error: Could not build busStop in netedit; lane doesn't exist.
+Error: Could not build busStop in netedit; lane doesn't exist.
+Error: Could not build busStop in netedit; lane doesn't exist.
+Error: Could not build busStop in netedit; lane doesn't exist.
+Error: Could not build busStop in netedit; lane doesn't exist.
+Error: Could not build busStop in netedit; lane doesn't exist.
+Error: Could not build busStop in netedit; lane doesn't exist.
+Error: Could not build busStop in netedit; lane doesn't exist.
+Error: Could not build busStop in netedit; lane doesn't exist.
+Error: Could not build busStop in netedit; lane doesn't exist.
+Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Nov152253.15048\netedit.gui\bugs\processing\ticket3071\input_additionals.add.xml failed.
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from-gneE10_1to-gneE9_1' in retrieveGNEConnection()
 Debug: Created connection 'from-gneE10_1to-gneE17_1' in retrieveGNEConnection()
@@ -912,6 +924,9 @@ Debug: Deleting unreferenced lane 'gneE17_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE17_1' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ19' in GNEChange_Attribute
 Debug: Deleting NBNode of 'gneJ19' in GNEJunction destructor
+Debug: Deleting unreferenced detExit 'e3Detector_0'
+Debug: Deleting unreferenced detEntry 'e3Detector_0'
+Debug: Deleting unreferenced e3Detector 'e3Detector_0'
 Debug: Deleting unreferenced edge '-gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '-gneE10_1' in GNEEdge destructor
