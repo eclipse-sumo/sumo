@@ -124,13 +124,9 @@ jobs:
       if: matrix.build-type == 'plain' && matrix.python == '3.8'
       run: |
         cd sumo/build_msvc
-        $env:TEXTTEST_CI_APPS = "-a activitygen,dfrouter,duarouter,jtrrouter"
+        $env:TEXTTEST_CI_APPS = "-a activitygen,dfrouter,duarouter,jtrrouter,sumo"
         ctest -R texttest --verbose
-        $env:TEXTTEST_CI_APPS = "-a marouter,netgen,od2trips,polyconvert"
-        ctest -R texttest --verbose
-        $env:TEXTTEST_CI_APPS = "-a netconvert"
-        ctest -R texttest --verbose
-        $env:TEXTTEST_CI_APPS = "-a sumo"
+        $env:TEXTTEST_CI_APPS = "-a marouter,netgen,od2trips,polyconvert,netconvert"
         ctest -R texttest --verbose
 
     - name: Examples and extra tests
@@ -140,7 +136,7 @@ jobs:
         python -m pip install pyproj Rtree ezdxf pulp pandas matplotlib scipy
         cd sumo/build_msvc
         cmake --build . --config Release --target examples
-        ctest --verbose
+        ctest --config Release --verbose
 
     - name: Building FMU Compliance Checker
       if: matrix.build-type == 'extra'
