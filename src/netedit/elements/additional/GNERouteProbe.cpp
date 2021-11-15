@@ -51,6 +51,27 @@ GNERouteProbe::~GNERouteProbe() {
 }
 
 
+void 
+GNERouteProbe::writeAdditional(OutputDevice& device) const {
+    // open tag
+    device.openTag(SUMO_TAG_ROUTEPROBE);
+    // write parameters
+    device.writeAttr(SUMO_ATTR_ID, getID());
+    device.writeAttr(SUMO_ATTR_BEGIN, time2string(myBegin));
+    device.writeAttr(SUMO_ATTR_FREQUENCY, time2string(myFrequency));
+    device.writeAttr(SUMO_ATTR_EDGE, getParentEdges().front()->getID());
+    if (!myAdditionalName.empty()) {
+        device.writeAttr(SUMO_ATTR_NAME, myAdditionalName);
+    }
+    if (!myFilename.empty()) {
+        device.writeAttr(SUMO_ATTR_FILE, myFilename.empty());
+    }
+    // write parameters (Always after children to avoid problems with additionals.xsd)
+    writeParams(device);
+    device.closeTag();
+}
+
+
 void
 GNERouteProbe::updateGeometry() {
     // calculate perpendicular line

@@ -97,6 +97,47 @@ GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNELane* lane, 
 GNECalibrator::~GNECalibrator() {}
 
 
+void
+GNECalibrator::writeAdditional(OutputDevice& device) const {
+    // open tag
+    device.openTag(SUMO_TAG_CALIBRATOR);
+    // write parameters
+    device.writeAttr(SUMO_ATTR_ID, getID());
+    if (getParentEdges().size() > 0) {
+        device.writeAttr(SUMO_ATTR_EDGE, getParentEdges().front()->getID());
+    }
+    if (getParentLanes().size() > 0) {
+        device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
+    }
+    device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane);
+    device.writeAttr(SUMO_ATTR_FREQUENCY, time2string(myFrequency));
+    if (!myAdditionalName.empty()) {
+        device.writeAttr(SUMO_ATTR_NAME, myAdditionalName);
+    }
+    if (!myOutput.empty()) {
+        device.writeAttr(SUMO_ATTR_OUTPUT, myOutput);
+    }
+    if (getParentAdditionals().size() > 0) {
+        device.writeAttr(SUMO_ATTR_ROUTEPROBE, getParentAdditionals().front()->getID());
+    }
+    if (myJamThreshold != 0) {
+        device.writeAttr(SUMO_ATTR_JAM_DIST_THRESHOLD, myJamThreshold);
+    }
+    if (myVTypes.size() > 0) {
+        device.writeAttr(SUMO_ATTR_VTYPES, myVTypes);
+    }
+    // write calibrator flows
+    for (const auto &calibratorFlow : getChildAdditionals()) {
+        if (calibratorFlow->getTagProperty().getTag() == GNE_TAG_FLOW_CALIBRATOR) {
+            calibratorFlow->writeAdditional(device);
+        }
+    }
+    // write parameters (Always after children to avoid problems with additionals.xsd)
+    writeParams(device);
+    device.closeTag();
+}
+
+
 GNEMoveOperation*
 GNECalibrator::getMoveOperation() {
     // calibrators cannot be moved
