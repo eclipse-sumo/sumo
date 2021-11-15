@@ -40,18 +40,13 @@ netedit.changeElement("e3Detector")
 # create E3
 netedit.leftClick(referencePosition, 250, 250)
 
-# select entry detector
-netedit.changeElement("detEntry")
-
 # Create Entry detector (for saving)
-netedit.selectAdditionalChild(6, 0)
+netedit.changeElement("detEntry")
+netedit.selectAdditionalChild(4, 0)
 netedit.leftClick(referencePosition, 400, 250)
 
-# select entry detector
-netedit.changeElement("detExit")
-
 # Create detExit detector (for saving)
-netedit.selectAdditionalChild(6, 0)
+netedit.changeElement("detExit")
 netedit.leftClick(referencePosition, 600, 250)
 
 # change to move mode

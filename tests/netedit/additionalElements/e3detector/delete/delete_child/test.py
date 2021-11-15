@@ -40,18 +40,13 @@ netedit.changeElement("e3Detector")
 # create E3
 netedit.leftClick(referencePosition, 100, 50)
 
-# select entry detector
-netedit.changeElement("detEntry")
-
 # Create Entry detector for E3
-netedit.selectAdditionalChild(6, 3)
+netedit.changeElement("detEntry")
+netedit.selectAdditionalChild(4, 2)
 netedit.leftClick(referencePosition, 100, 200)
 
-# select Exit detector
-netedit.changeElement("detExit")
-
 # Create Exit detector for E3
-netedit.selectAdditionalChild(6, 3)
+netedit.changeElement("detExit")
 netedit.leftClick(referencePosition, 250, 200)
 
 # Undo creation of E3, Entry and Exit
@@ -67,18 +62,13 @@ netedit.changeElement("e3Detector")
 # create E3
 netedit.leftClick(referencePosition, 100, 50)
 
-# select entry detector
-netedit.changeElement("detEntry")
-
 # Create Entry detector for E3
-netedit.selectAdditionalChild(6, 3)
+netedit.changeElement("detEntry")
+netedit.selectAdditionalChild(4, 2)
 netedit.leftClick(referencePosition, 100, 200)
 
-# select Exit detector
-netedit.changeElement("detExit")
-
 # Create Exit detector for E3
-netedit.selectAdditionalChild(6, 3)
+netedit.changeElement("detExit")
 netedit.leftClick(referencePosition, 250, 200)
 
 # Undo creation of Entry and Exit
@@ -88,18 +78,12 @@ netedit.undo(referencePosition, 2)
 # go to additional mode
 netedit.additionalMode()
 
-# select entry detector
-netedit.changeElement("detEntry")
-
 # Create Entry detector for E3
-netedit.selectAdditionalChild(6, 3)
+netedit.changeElement("detEntry")
 netedit.leftClick(referencePosition, 100, 200)
 
-# select Exit detector
-netedit.changeElement("detExit")
-
 # Create Exit detector for E3
-netedit.selectAdditionalChild(6, 3)
+netedit.changeElement("detExit")
 netedit.leftClick(referencePosition, 250, 200)
 
 # Change to delete

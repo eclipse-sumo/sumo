@@ -43,15 +43,14 @@ netedit.leftClick(referencePosition, 100, 50)
 # create E3 2
 netedit.leftClick(referencePosition, 200, 50)
 
-# select entry detector
-netedit.changeElement("detEntry")
-
-# Create Entry detector for E3 3
-netedit.selectAdditionalChild(6, 2)
+# Create Exit detector for E3 3
+netedit.changeElement("detExit")
+netedit.selectAdditionalChild(4, 2)
 netedit.leftClick(referencePosition, 75, 200)
 
-# Create Entry detectors for E3 4
-netedit.selectAdditionalChild(6, 3)
+# Create Exit detectors for E3 4
+netedit.changeElement("detExit")
+netedit.selectAdditionalChild(4, 3)
 netedit.leftClick(referencePosition, 250, 200)
 
 # Change to delete
@@ -63,13 +62,13 @@ netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
 # delete created E3 1
 netedit.leftClick(referencePosition, 100, 50)
 
-# delete Entry detector of E3 2 (E3 will not be removed)
+# delete Exit detector of E3 2 (E3 will not be removed)
 netedit.leftClick(referencePosition, 250, 200)
 
 # delete loaded E3 1
 netedit.leftClick(referencePosition, 400, 50)
 
-# delete Entry detector of loaded E3 2 (E3 will not be removed)
+# delete Exit detector of loaded E3 2 (E3 will not be removed)
 netedit.leftClick(referencePosition, 550, 200)
 
 # delete lane with the last loaded entry
@@ -81,7 +80,7 @@ netedit.undo(referencePosition, 5)
 # Change to delete
 netedit.deleteMode()
 
-# enable 'Automatically delete additionals'
+# disable 'Automatically delete additionals'
 netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
 
 # try to delete lane with the second loaded entry (doesn't allowed)
