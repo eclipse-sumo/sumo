@@ -15,6 +15,7 @@
 /// @author  Jakub Sevcik (RICE)
 /// @author  Jan Prikryl (RICE)
 /// @date    2019-12-15
+///
 /// @note    based on work 2017 Ahmad Khaled, Ahmad Essam, Omnia Zakaria, Mary Nader
 ///
 // Representation of electric circuit nodes, i.e. wire junctions and connection points.
@@ -105,7 +106,6 @@ void Node::setRemovability(bool newIsRemovable) {
 }
 
 Element* Node::getAnOtherElement(Element* element) {
-    // for (vector<Element*>::iterator it = this->getElements()->begin(); it != this->getElements()->end(); it++) {
     for (Element* it : *this->getElements()) {
         if (it != element) {
             return it;

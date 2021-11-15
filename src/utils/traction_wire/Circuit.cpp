@@ -15,6 +15,7 @@
 /// @author  Jakub Sevcik (RICE)
 /// @author  Jan Prikryl (RICE)
 /// @date    2019-12-15
+///
 /// @note    based on console-based C++ DC circuits simulator, 
 ///          https://github.com/rka97/Circuits-Solver by 
 ///          Ahmad Khaled, Ahmad Essam, Omnia Zakaria, Mary Nader
@@ -38,16 +39,14 @@
 #endif
 
 #include "Element.h"
+#include "Node.h"
 #include "Circuit.h"
-
-using namespace std;
 
 static std::mutex circuit_lock;
 
-Node* Circuit::addNode(string name) {
+Node* Circuit::addNode(std::string name) {
     if (getNode(name) != nullptr) {
-        //WRITE_ERROR("The node: '" + name + "' already exists.");
-        std::cout << "The node '" + name + "' already exists." << std::endl;
+        WRITE_ERROR("The node: '" + name + "' already exists.");
         return nullptr;
     }
 
@@ -71,7 +70,7 @@ void Circuit::eraseNode(Node* node) {
     circuit_lock.unlock();
 }
 
-double Circuit::getCurrent(string name) {
+double Circuit::getCurrent(std::string name) {
     Element* tElement = getElement(name);
     if (tElement == nullptr) {
         return DBL_MAX;
@@ -79,7 +78,7 @@ double Circuit::getCurrent(string name) {
     return tElement->getCurrent();
 }
 
-double Circuit::getVoltage(string name) {
+double Circuit::getVoltage(std::string name) {
     Element* tElement = getElement(name);
     if (tElement == nullptr) {
         Node* node = getNode(name);
@@ -93,7 +92,7 @@ double Circuit::getVoltage(string name) {
     }
 }
 
-double Circuit::getResistance(string name) {
+double Circuit::getResistance(std::string name) {
     Element* tElement = getElement(name);
     if (tElement == nullptr) {
         return -1;
@@ -101,57 +100,51 @@ double Circuit::getResistance(string name) {
     return tElement->getResistance();
 }
 
-Node* Circuit::getNode(string name) {
-    // for (vector<Node*>::iterator it = this->nodes->begin(); it != nodes->end(); it++) {
-    for (auto&& it : *this->nodes) {
-        if (it->getName() == name) {
-            return it;
+Node* Circuit::getNode(std::string name) {
+    for (Node* const node : *nodes) {
+        if (node->getName() == name) {
+            return node;
         }
     }
     return nullptr;
 }
 
 Node* Circuit::getNode(int id) {
-    for (vector<Node*>::iterator it = this->nodes->begin(); it != nodes->end(); it++) {
-        if ((*it)->getId() == id) {
-            return (*it);
+    for (Node* const node : *nodes) {
+        if (node->getId() == id) {
+            return node;
         }
     }
     return nullptr;
 }
 
-Element* Circuit::getElement(string name) {
-    for (vector<Element*>::iterator it = this->elements->begin(); it != elements->end(); it++) {
-        if ((*it)->getName() == name) {
-            return (*it);
+Element* Circuit::getElement(std::string name) {
+    for (Element* const el : *elements) {
+        if (el->getName() == name) {
+            return el;
         }
     }
-    for (vector<Element*>::iterator it = this->voltageSources->begin(); it != voltageSources->end(); it++) {
-        if ((*it)->getName() == name) {
-            return (*it);
+    for (Element* const voltageSource : *voltageSources) {
+        if (voltageSource->getName() == name) {
+            return voltageSource;
         }
     }
     return nullptr;
 }
 
 Element* Circuit::getElement(int id) {
-    for (vector<Element*>::iterator it = this->elements->begin(); it != elements->end(); it++) {
-        if ((*it)->getId() == id) {
-            return (*it);
+    for (Element* const el : *elements) {
+        if (el->getId() == id) {
+            return el;
         }
     }
-    for (vector<Element*>::iterator it = this->voltageSources->begin(); it != voltageSources->end(); it++) {
-        if ((*it)->getId() == id) {
-            return (*it);
-        }
-    }
-    return nullptr;
+    return getVoltageSource(id);
 }
 
 Element* Circuit::getVoltageSource(int id) {
-    for (vector<Element*>::iterator it = this->voltageSources->begin(); it != voltageSources->end(); it++) {
-        if ((*it)->getId() == id) {
-            return (*it);
+    for (Element* const voltageSource : *voltageSources) {
+        if (voltageSource->getId() == id) {
+            return voltageSource;
         }
     }
     return nullptr;
@@ -159,7 +152,7 @@ Element* Circuit::getVoltageSource(int id) {
 
 double Circuit::getTotalPowerOfCircuitSources() {
     double power = 0;
-    for (auto & voltageSource : *voltageSources) {
+    for (Element* const voltageSource : *voltageSources) {
         power += voltageSource->getPower();
     }
     return power;
@@ -167,7 +160,7 @@ double Circuit::getTotalPowerOfCircuitSources() {
 
 double Circuit::getTotalCurrentOfCircuitSources() {
     double current = 0;
-    for (auto & voltageSource : *voltageSources) {
+    for (Element* const voltageSource : *voltageSources) {
         current += voltageSource->getCurrent();
     }
     return current;
@@ -177,7 +170,7 @@ double Circuit::getTotalCurrentOfCircuitSources() {
 std::string & Circuit::getCurrentsOfCircuitSource(std::string & currents) {
     //circuit_lock.lock();
     currents.clear();
-    for (auto & voltageSource : *voltageSources) {
+    for (Element* const voltageSource : *voltageSources) {
         currents += toString(voltageSource->getCurrent(), 4) + " ";
     }
     if (!currents.empty()) {
@@ -187,12 +180,12 @@ std::string & Circuit::getCurrentsOfCircuitSource(std::string & currents) {
     return currents;
 }
 
-vector<Element*>* Circuit::getCurrentSources() {
-    vector<Element*>* vsources = new vector<Element*>(0);
-    for (vector<Element*>::iterator it = this->elements->begin(); it != elements->end(); it++) {
-        if ((*it)->getType() == Element::ElementType::CURRENT_SOURCE_traction_wire) {
+std::vector<Element*>* Circuit::getCurrentSources() {
+    std::vector<Element*>* vsources = new std::vector<Element*>(0);
+    for (Element* const el : *elements) {
+        if (el->getType() == Element::ElementType::CURRENT_SOURCE_traction_wire) {
             //if ((*it)->getType() == Element::ElementType::CURRENT_SOURCE_traction_wire && !isnan((*it)->getPowerWanted())) {
-            vsources->push_back(*it);
+            vsources->push_back(el);
         }
     }
     return vsources;
@@ -445,7 +438,7 @@ bool Circuit::solveEquationsNRmethod(double* eqn, double* vals, std::vector<int>
         if ((alpha_notSolution.back() - alphaBest) < alpha_res) {
             max_iter_of_NR = 2 * max_iter_of_NR;
             // RICE_TODO @20210409 Why division by 10?
-            // it follows Ševèík, Jakub, et al. "Solvability of the Power Flow Problem in DC Overhead Wire Circuit Modeling." Applications of Mathematics (2021): 1-19.
+            // it follows Sevcik, Jakub, et al. "Solvability of the Power Flow Problem in DC Overhead Wire Circuit Modeling." Applications of Mathematics (2021): 1-19.
             // see Alg 2 (progressive decrease of optimality tolerance)
             alpha_res = alpha_res / 10;
             // RICE_TODO @20210409 This epsilon should be specified somewhere as a constant. Or should be a parameter.
@@ -540,7 +533,7 @@ void Circuit::deployResults(double* vals, std::vector<int>* removable_ids) {
                     break;
                 }
                 // tElem should be voltage source - the current through voltage source is computed in a loop below
-                // if tElem is current source (JŠ thinks that no current source's id <= numofeqs), the current is already assign at the end of solveEquationsNRmethod method
+                // if tElem is current source (JS thinks that no current source's id <= numofeqs), the current is already assign at the end of solveEquationsNRmethod method
                 continue;
             }
         }
@@ -552,18 +545,18 @@ void Circuit::deployResults(double* vals, std::vector<int>* removable_ids) {
     Node* nextNONremovableNode1 = nullptr;
     Node* nextNONremovableNode2 = nullptr;
     // interpolate result of voltage to removable nodes
-    for (vector<Node*>::iterator it = nodes->begin(); it != nodes->end(); it++) {
-        if (!(*it)->isRemovable()) {
+    for (Node* const node : *nodes) {
+        if (!node->isRemovable()) {
             continue;
         }
-        if ((*it)->getElements()->size() != 2) {
+        if (node->getElements()->size() != 2) {
             continue;
         }
 
-        el1 = (*it)->getElements()->front();
-        el2 = (*it)->getElements()->back();
-        nextNONremovableNode1 = el1->getTheOtherNode(*it);
-        nextNONremovableNode2 = el2->getTheOtherNode(*it);
+        el1 = node->getElements()->front();
+        el2 = node->getElements()->back();
+        nextNONremovableNode1 = el1->getTheOtherNode(node);
+        nextNONremovableNode2 = el2->getTheOtherNode(node);
         double x = el1->getResistance();
         double y = el2->getResistance();
 
@@ -581,40 +574,40 @@ void Circuit::deployResults(double* vals, std::vector<int>* removable_ids) {
 
         x = x / (x + y);
         y = ((1 - x) * nextNONremovableNode1->getVoltage()) + (x * nextNONremovableNode2->getVoltage());
-        (*it)->setVoltage(((1 - x)*nextNONremovableNode1->getVoltage()) + (x * nextNONremovableNode2->getVoltage()));
-        (*it)->setRemovability(false);
+        node->setVoltage(((1 - x)*nextNONremovableNode1->getVoltage()) + (x * nextNONremovableNode2->getVoltage()));
+        node->setRemovability(false);
     }
 
     // Update the electric currents for voltage sources (based on Kirchhof's law: current out = current in)
-    for (vector<Element*>::iterator it = voltageSources->begin(); it != voltageSources->end(); it++) {
+    for (Element* const voltageSource : *voltageSources) {
         double currentSum = 0;
-        for (auto it_element = (*it)->getPosNode()->getElements()->begin(); it_element != (*it)->getPosNode()->getElements()->end(); it_element++) {
+        for (Element* const el : *voltageSource->getPosNode()->getElements()) {
             // loop over all elements on PosNode excluding the actual voltage source it
-            if ((*it_element) != (*it)) {
-                //currentSum += (*it_element)->getCurrent();
-                currentSum += ((*it)->getPosNode()->getVoltage() - (*it_element)->getTheOtherNode((*it)->getPosNode())->getVoltage())/ (*it_element)->getResistance();
-                if ((*it_element)->getType() == Element::ElementType::VOLTAGE_SOURCE_traction_wire) {
+            if (el != voltageSource) {
+                //currentSum += el->getCurrent();
+                currentSum += (voltageSource->getPosNode()->getVoltage() - el->getTheOtherNode(voltageSource->getPosNode())->getVoltage()) / el->getResistance();
+                if (el->getType() == Element::ElementType::VOLTAGE_SOURCE_traction_wire) {
                     WRITE_WARNING("Cannot assign unambigous electric current value to two voltage sources connected in parallel at the same node.");
                 }
             }
         }
-        (*it)->setCurrent(currentSum);
+        voltageSource->setCurrent(currentSum);
     }
 }
 
 Circuit::Circuit() {
-    nodes = new vector<Node*>(0);
-    elements = new vector<Element*>(0);
-    voltageSources = new vector<Element*>(0);
+    nodes = new std::vector<Node*>(0);
+    elements = new std::vector<Element*>(0);
+    voltageSources = new std::vector<Element*>(0);
     lastId = 0;
     iscleaned = true;
     circuitCurrentLimit = INFINITY;
 }
 
 Circuit::Circuit(double currentLimit) {
-    nodes = new vector<Node*>(0);
-    elements = new vector<Element*>(0);
-    voltageSources = new vector<Element*>(0);
+    nodes = new std::vector<Node*>(0);
+    elements = new std::vector<Element*>(0);
+    voltageSources = new std::vector<Element*>(0);
     lastId = 0;
     iscleaned = true;
     circuitCurrentLimit = currentLimit;
@@ -669,7 +662,7 @@ bool Circuit::createEquationsNRmethod(double*& eqs, double*& vals, std::vector<i
 
     // loop over all nodes
     int i = 0;
-    for (vector<Node*>::iterator it = nodes->begin(); it != nodes->end(); it++) {
+    for (std::vector<Node*>::iterator it = nodes->begin(); it != nodes->end(); it++) {
         if ((*it)->isGround() || (*it)->isRemovable()) {
             // if the node is grounded or is removable set the corresponding number of row in matrix to -1 (no equation in eqs)
             (*it)->setNumMatrixRow(-1);
@@ -695,7 +688,7 @@ bool Circuit::createEquationsNRmethod(double*& eqs, double*& vals, std::vector<i
     std::sort(removable_ids->begin(), removable_ids->end(), std::less<int>());
 
 
-    for (vector<Element*>::iterator it = voltageSources->begin(); it != voltageSources->end(); it++) {
+    for (std::vector<Element*>::iterator it = voltageSources->begin(); it != voltageSources->end(); it++) {
         assert(i < m);
         createEquation((*it), (eqs + n * i), vals[i]);
         i++;
@@ -721,7 +714,7 @@ bool Circuit::createEquation(Element* vsource, double* eqn, double& val) {
 
 bool Circuit::createEquationNRmethod(Node* node, double* eqn, double& val, std::vector<int>* removable_ids) {
     // loop over all elements connected to the node 
-    for (vector<Element*>::iterator it = node->getElements()->begin(); it != node->getElements()->end(); it++) {
+    for (std::vector<Element*>::iterator it = node->getElements()->begin(); it != node->getElements()->end(); it++) {
         double x;
         switch ((*it)->getType()) {
         case Element::ElementType::RESISTOR_traction_wire:
@@ -784,12 +777,12 @@ bool Circuit::createEquationNRmethod(Node* node, double* eqn, double& val, std::
  */
 void Circuit::detectRemovableNodes(std::vector<int>* removable_ids) {
     // loop over all nodes in the circuit
-    for (vector<Node*>::iterator it = nodes->begin(); it != nodes->end(); it++) {
+    for (std::vector<Node*>::iterator it = nodes->begin(); it != nodes->end(); it++) {
         // if the node is connected to two elements and is not the ground
         if ((*it)->getElements()->size() == 2 && !(*it)->isGround()) {
             // set such node defaultly as removable. But check if the two elements are both resistors 
             (*it)->setRemovability(true);
-            for (vector<Element*>::iterator it2 = (*it)->getElements()->begin(); it2 != (*it)->getElements()->end(); it2++) {
+            for (std::vector<Element*>::iterator it2 = (*it)->getElements()->begin(); it2 != (*it)->getElements()->end(); it2++) {
                 if ((*it2)->getType() != Element::ElementType::RESISTOR_traction_wire) {
                     (*it)->setRemovability(false);
                     break;
@@ -808,7 +801,7 @@ void Circuit::detectRemovableNodes(std::vector<int>* removable_ids) {
     return;
 }
 
-Element* Circuit::addElement(string name, double value, Node* pNode, Node* nNode, Element::ElementType et) {
+Element* Circuit::addElement(std::string name, double value, Node* pNode, Node* nNode, Element::ElementType et) {
     // RICE_CHECK: This seems to be a bit of work in progress, is it final?
     // if ((et == Element::ElementType::RESISTOR_traction_wire && value <= 0) || et == Element::ElementType::ERROR_traction_wire) {
     if (et == Element::ElementType::RESISTOR_traction_wire && value <= 1e-6) {
@@ -911,13 +904,13 @@ void Circuit::replaceAndDeleteNode(Node* unusedNode, Node* newNode) {
 }
 
 void Circuit::cleanUpSP() {
-    for (vector<Element*>::iterator it = elements->begin(); it != elements->end(); it++) {
+    for (std::vector<Element*>::iterator it = elements->begin(); it != elements->end(); it++) {
         if ((*it)->getType() != Element::ElementType::RESISTOR_traction_wire) {
             (*it)->setEnabled(true);
         }
     }
 
-    for (vector<Element*>::iterator it = voltageSources->begin(); it != voltageSources->end(); it++) {
+    for (std::vector<Element*>::iterator it = voltageSources->begin(); it != voltageSources->end(); it++) {
         (*it)->setEnabled(true);
     }
     this->iscleaned = true;
@@ -925,7 +918,7 @@ void Circuit::cleanUpSP() {
 
 bool Circuit::checkCircuit(std::string substationId) {
     // check empty nodes
-    for (vector<Node*>::iterator it = nodes->begin(); it != nodes->end(); it++) {
+    for (std::vector<Node*>::iterator it = nodes->begin(); it != nodes->end(); it++) {
         if ((*it)->getNumOfElements() < 2) {
             //cout << "WARNING: Node [" << (*it)->getName() << "] is connected to less than two elements, please enter other elements.\n";
             if ((*it)->getNumOfElements() < 1) {
@@ -934,7 +927,7 @@ bool Circuit::checkCircuit(std::string substationId) {
         }
     }
     // check voltage sources
-    for (vector<Element*>::iterator it = voltageSources->begin(); it != voltageSources->end(); it++) {
+    for (std::vector<Element*>::iterator it = voltageSources->begin(); it != voltageSources->end(); it++) {
         if ((*it)->getPosNode() == nullptr || (*it)->getNegNode() == nullptr) {
             //cout << "ERROR: Voltage Source [" << (*it)->getName() << "] is connected to less than two nodes, please enter the other end.\n";
             WRITE_ERROR("Circuit Voltage Source '" + (*it)->getName() + "' is connected to less than two nodes, please adjust the definition of the section (with substation '" + substationId + "').");
@@ -942,7 +935,7 @@ bool Circuit::checkCircuit(std::string substationId) {
         }
     }
     // check other elements
-    for (vector<Element*>::iterator it = elements->begin(); it != elements->end(); it++) {
+    for (std::vector<Element*>::iterator it = elements->begin(); it != elements->end(); it++) {
         if ((*it)->getPosNode() == nullptr || (*it)->getNegNode() == nullptr) {
             //cout << "ERROR: Element [" << (*it)->getName() << "] is connected to less than two nodes, please enter the other end.\n";
             WRITE_ERROR("Circuit Element '" + (*it)->getName() + "' is connected to less than two nodes, please adjust the definition of the section (with substation '" + substationId + "').");
@@ -962,7 +955,7 @@ bool Circuit::checkCircuit(std::string substationId) {
         //cout << "ERROR: Node id -1 is not the ground \n";
         WRITE_ERROR("Circuit Node with id '-1' is not the grounded, please adjust the definition of the section (with substation '" + substationId + "').");
     }
-    vector<Node*>* queue = new vector<Node*>(0);
+    std::vector<Node*>* queue = new std::vector<Node*>(0);
     Node* node = nullptr;
     Node* neigboringNode = nullptr;
     //start with (voltageSources->front()->getPosNode())

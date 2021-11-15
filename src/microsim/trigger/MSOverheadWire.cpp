@@ -43,6 +43,7 @@
 #include <utils/common/WrappingCommand.h>
 #include <microsim/MSEventControl.h>
 
+#include <utils/traction_wire/Node.h>
 #include "MSOverheadWire.h"
 #include "MSTrigger.h"
 

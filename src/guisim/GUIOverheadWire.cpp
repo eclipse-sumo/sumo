@@ -24,15 +24,13 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/geom/Boundary.h>
+#include <utils/geom/GeomHelper.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/common/ToString.h>
+#include <utils/traction_wire/Node.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
-#include "GUINet.h"
-#include "GUIEdge.h"
-#include "GUIPerson.h"
-#include "GUIOverheadWire.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <gui/GUIGlobals.h>
@@ -41,10 +39,13 @@
 #include <microsim/logging/FunctionBinding.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <foreign/fontstash/fontstash.h>
-#include <utils/geom/GeomHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/vehicle/SUMOVehicle.h>
 #include <microsim/MSVehicleType.h>
+#include "GUINet.h"
+#include "GUIEdge.h"
+#include "GUIPerson.h"
+#include "GUIOverheadWire.h"
 
 
 // ===========================================================================

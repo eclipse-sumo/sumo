@@ -23,12 +23,15 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <string.h> //due to strncmp
+#include <ctime> //due to clock()
 #include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/vehicle/SUMOVehicle.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/emissions/HelpersEnergy.h>
+#include <utils/traction_wire/Node.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
@@ -39,11 +42,6 @@
 #include "MSDevice_Tripinfo.h"
 #include "MSDevice_ElecHybrid.h"
 
-//due to strncmp
-#include <string.h>
-
-//due to clock()
-#include <ctime>
 
 // ===========================================================================
 // method definitions

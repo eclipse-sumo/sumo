@@ -15,6 +15,7 @@
 /// @author  Jakub Sevcik (RICE)
 /// @author  Jan Prikryl (RICE)
 /// @date    2019-12-15
+///
 /// @note    based on work 2017 Ahmad Khaled, Ahmad Essam, Omnia Zakaria, Mary Nader
 ///
 // Representation of electric circuit elements: resistors, voltage and current sources
@@ -24,10 +25,17 @@
 
 #include <string>
 #include <iostream>
-using namespace std;
 
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class Node;
 
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * An element is any component in the circuit (resistor, current source, voltage source)
  * Every element has two terminals pNode (positive terminal) and nNode (negative terminal)
@@ -39,7 +47,6 @@ class Node;
  *   1 - in case of a current source, "value" represents the current going from nNode to pNode,
  *   2 - in case of a voltage source, "value" represents the voltage difference of pNode - nNode.
  */
-
 class Element {
 
 public:
@@ -58,13 +65,13 @@ private:
     double resistance;
     double powerWanted;
     ElementType type;
-    string name;  // unique property, each object has distinctive and unique name
+    std::string name;  // unique property, each object has distinctive and unique name
     int id;  // a sequential ID number, might be useful when making the equation
     bool isenabled;
 
 public:
     // a constructor. same functionality as init functions in the last project
-    Element(string name, ElementType type, double value);
+    Element(std::string name, ElementType type, double value);
 
     //getters and setters
     double getVoltage();        // get the voltage across the element
@@ -76,7 +83,7 @@ public:
     Node* getPosNode();
     Node* getNegNode();
     ElementType getType();
-    string getName();
+    std::string getName();
     bool isEnabled();
 
     void setPosNode(Node* node);

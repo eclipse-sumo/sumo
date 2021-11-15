@@ -15,6 +15,7 @@
 /// @author  Jakub Sevcik (RICE)
 /// @author  Jan Prikryl (RICE)
 /// @date    2019-12-15
+///
 /// @note    based on console-based C++ DC circuits simulator, 
 ///          https://github.com/rka97/Circuits-Solver by 
 ///          Ahmad Khaled, Ahmad Essam, Omnia Zakaria, Mary Nader
@@ -41,22 +42,29 @@
 #pragma warning(pop)
 #endif
 #endif
-#include "Node.h"
+
 #include "Element.h"
 
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class Node;
+
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * All interactions will be through this class, the user will know nothing about the other classes,
  * and will interact only through the names of the elements/nodes.
  */
-
-
 class Circuit {
 
 private:
 
-    vector<Node*>* nodes;
-    vector<Element*>* elements;
-    vector<Element*>* voltageSources;
+    std::vector<Node*>* nodes;
+    std::vector<Element*>* elements;
+    std::vector<Element*>* voltageSources;
 
     int lastId;
     bool iscleaned;
@@ -98,11 +106,11 @@ private:
     alphaFlag alphaReason;
 
 public:
-    Node* getNode(string name);
-    Element* getElement(string name);
+    Node* getNode(std::string name);
+    Element* getElement(std::string name);
     Node* getNode(int id);
     Element* getVoltageSource(int id);
-    vector<Element*>* getCurrentSources();
+    std::vector<Element*>* getCurrentSources();
 
     /// @brief The sum of voltage source powers in the circuit
     double getTotalPowerOfCircuitSources();
@@ -191,24 +199,24 @@ public:
     Circuit(double currentLimit);
 
     // adds an element with name "name", type "type" and value "value" to positive node "pNode" and negative node "nNode""
-    Element* addElement(string name, double value, Node* pNode, Node* nNode, Element::ElementType et);
+    Element* addElement(std::string name, double value, Node* pNode, Node* nNode, Element::ElementType et);
 
     void eraseElement(Element* element);
 
     // adds a node with name "name"
-    Node* addNode(string name);
+    Node* addNode(std::string name);
 
     // erases a node with name "name"
     void eraseNode(Node* node);
 
     // gets current through element "name"
-    double getCurrent(string name);
+    double getCurrent(std::string name);
 
     // gets voltage across element or node "name"
-    double getVoltage(string name);
+    double getVoltage(std::string name);
 
     // gets the resistance of an element.
-    double getResistance(string name);
+    double getResistance(std::string name);
 
     // gets the number of voltage sources in the circuit.
     int getNumVoltageSources();

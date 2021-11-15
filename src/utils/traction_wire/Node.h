@@ -15,6 +15,7 @@
 /// @author  Jakub Sevcik (RICE)
 /// @author  Jan Prikryl (RICE)
 /// @date    2019-12-15
+///
 /// @note    based on work 2017 Ahmad Khaled, Ahmad Essam, Omnia Zakaria, Mary Nader
 ///
 // Representation of electric circuit nodes, i.e. wire junctions and connection points.
@@ -25,26 +26,32 @@
 #include <vector>
 #include <string>
 
-using namespace std;
 
+// ===========================================================================
+// class declarations
+// ===========================================================================
 class Element;
 
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
 class Node {
 
 private:
     bool isground;
     bool isremovable;
-    string name;        // unique property, each object has distinctive and unique name
+    std::string name;        // unique property, each object has distinctive and unique name
     int id;                // a sequential ID number, might be useful when making the equation
     int num_matrixRow;    // number of matrix row during solving the equations
     int num_matrixCol;    // number of matrix column during solving the equations
     double voltage;
-    vector<Element*>* elements; // too lazy to implement a linked list
+    std::vector<Element*>* elements; // too lazy to implement a linked list
     // each node is connected to one or more element, an element is a resistor or voltage/current source
 
 public:
     // A constructor, same functionality as "init" functions
-    Node(string name, int id);
+    Node(std::string name, int id);
 
     // connects an element to the node
     void addElement(Element* element);
@@ -56,11 +63,11 @@ public:
     int getNumOfElements();
     // iterates through the vector of the node's elements and returns the first, which is not equal to "element" in the argument of the function
     Element* getAnOtherElement(Element* element);
-    string& getName();
+    std::string& getName();
     bool isGround();
-    bool isRemovable() {
+    bool isRemovable() const {
         return isremovable;
-    };
+    }
     void setGround(bool isground);
     int getId();
     void setNumMatrixRow(int num);
@@ -68,7 +75,7 @@ public:
     void setNumMatrixCol(int num);
     int getNumMatrixCol();
     void setId(int id);
-    vector<Element*>* getElements();
+    std::vector<Element*>* getElements();
     void setRemovability(bool isremovable);
 };
 

@@ -15,16 +15,22 @@
 /// @author  Jakub Sevcik (RICE)
 /// @author  Jan Prikryl (RICE)
 /// @date    2019-12-15
+///
 /// @note    based on work 2017 Ahmad Khaled, Ahmad Essam, Omnia Zakaria, Mary Nader
 ///
 // Representation of electric circuit elements: resistors, voltage and current sources
 /****************************************************************************/
 #include <cfloat>
 #include <cmath>
+#include <utils/common/MsgHandler.h>
 #include "Element.h"
 #include "Node.h"
 
-Element::Element(string name, ElementType type, double value) {
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
+Element::Element(std::string name, ElementType type, double value) {
     this->id = -2;
     this->name = name;
     this->type = type;
@@ -44,7 +50,7 @@ Element::Element(string name, ElementType type, double value) {
             this->resistance = value;
             break;
         default:
-            cout << "ERROR: TYPE UNDEFINED.\n";
+            WRITE_ERROR("Undefined element type for '" + name + "'.");
             break;
     }
     this->pNode = nullptr;
@@ -113,7 +119,7 @@ Node* Element::getNegNode() {
 Element::ElementType Element::getType() {
     return this->type;
 }
-string Element::getName() {
+std::string Element::getName() {
     return this->name;
 }
 
