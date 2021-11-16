@@ -81,7 +81,7 @@ title: ChangeLog
     - Fixed lost window focus. Issue #9274, #9275
     - Fixed invalid roundabout when using function 'convert to roundabout' before first network computation. Issue #9348    
     - Fixed crash related to convert-to-roundabout and undo. Issue #9449
-- demand mode
+  - demand mode
     - Multi-parameter speedFactor value can now be set. Issue #8263
     - Flows with embedded route can now be loaded. Issue #8966
     - Fixed lost elements when loading personFlow. Issue #7732
