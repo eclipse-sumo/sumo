@@ -17,9 +17,17 @@ For instance, a single vehicle can be equipped (with a device parametrized by de
 </routes>
 ```
 
-The SSM device generates an output file (one for each vehicle named `ssm_<vehicleID>.xml` per default, but several vehicles may write to the same file). The top level elements of the generated file are 
+## Output File
+
+The SSM device generates an output file (one for each vehicle named `ssm_<vehicleID>.xml` per default, but several vehicles may write to the same file).
+To set a custom file name, define `<param key="device.ssm.file" value="FILE"/>` either for the `<vehicle>` or its `<vType>` element. 
+Alternatively, set option **--device.ssm.file** to let all vehicles write into the same file.
+
+The top level elements of the generated file are 
 
 `<conflict begin="<log-begin-time>" end="<log-end-time>" ego="<equipped-vehicleID>" foe="<opponent-vehicleID>"> ... </conflict>`.
+
+## Output Content Configuration
 
 The detail of information given for each conflict and the criteria to qualify an encounter as a conflict (i.e., produce a corresponding `conflict` element in the output) can be customized by a number of generic parameters to the vehicle or device, resp.. A full parametrization (redundantly assigning the default values, here) could look as follows:
 
