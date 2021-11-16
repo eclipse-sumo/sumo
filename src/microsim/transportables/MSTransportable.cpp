@@ -346,6 +346,7 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
         assert(stage->getVehicle() != 0);
         // adapt plan
         stage->setDestination(&replacement->getLane().getEdge(), replacement);
+        stage->setArrivalPos((replacement->getBeginLanePosition() + replacement->getEndLanePosition()) / 2);
 #ifdef DEBUG_PARKING
         std::cout << " set ride destination\n";
 #endif
@@ -366,6 +367,14 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
             MSStageTrip* newStage = new MSStageTrip(stage->getDestination(), nullptr, nextStage->getDestination(),
                                                     nextStage->getDestinationStop(), -1, 0, "", -1, 1, getID(), 0, true, nextStage->getArrivalPos());
             removeStage(1);
+            appendStage(newStage, 1);
+        } else if (nextStage->getStageType() == MSStageType::WAITING) {
+#ifdef DEBUG_PARKING
+            std::cout << " add subsequent walk to reach stop\n";
+            std::cout << "   arrivalPos=" << nextStage->getArrivalPos() << "\n";
+#endif
+            MSStageTrip* newStage = new MSStageTrip(stage->getDestination(), nullptr, nextStage->getDestination(),
+                    nextStage->getDestinationStop(), -1, 0, "", -1, 1, getID(), 0, true, nextStage->getArrivalPos());
             appendStage(newStage, 1);
         }
         // if the plan contains another ride with the same vehicle from the same
