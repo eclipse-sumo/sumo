@@ -6,3 +6,6 @@ withPersons
 
 # assign parkingArea on the destination edge
 parkingArea
+
+# generated vehicles that start at the destination stop
+stationary
