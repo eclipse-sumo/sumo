@@ -41,37 +41,37 @@ netedit.stopMode()
 netedit.changeStopType("stopContainerStop")
 
 # create stop
-netedit.leftClick(referencePosition, 290, 190)
+netedit.leftClick(referencePosition, 290, 175)
 
 # enable until
 netedit.changeDefaultBoolValue(7)
 
 # create stop
-netedit.leftClick(referencePosition, 290, 190)
+netedit.leftClick(referencePosition, 290, 175)
 
 # set invalid value
 netedit.changeDefaultValue(8, "dummyValue")
 
 # try to create stop
-netedit.leftClick(referencePosition, 290, 190)
+netedit.leftClick(referencePosition, 290, 175)
 
 # set invalid value
 netedit.changeDefaultValue(8, "-20")
 
 # try to create stop
-netedit.leftClick(referencePosition, 290, 190)
+netedit.leftClick(referencePosition, 290, 175)
 
 # set valid value
 netedit.changeDefaultValue(8, "0")
 
 # try to create stop
-netedit.leftClick(referencePosition, 290, 190)
+netedit.leftClick(referencePosition, 290, 175)
 
 # set valid value
 netedit.changeDefaultValue(8, "22.33")
 
 # try to create stop
-netedit.leftClick(referencePosition, 290, 190)
+netedit.leftClick(referencePosition, 290, 175)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)
