@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-08 11:05:32 by Eclipse SUMO netedit Version v1_10_0+2008-14d07097406
+<!-- generated on 2021-11-16 08:47:18 by Eclipse SUMO netedit Version v1_10_0+2297-bf5805bd9ba
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Nov110311.23920\netedit.gui\additionalElements\basic\relative_positions\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Nov084637.7792\netedit.gui\additionalElements\basic\relative_positions\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Nov110311.23920\netedit.gui\additionalElements\basic\relative_positions\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Nov084637.7792\netedit.gui\additionalElements\basic\relative_positions\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,47 +30,47 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Nov110311.23920\netedit.gui\additionalElements\basic\relative_positions\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Nov110311.23920\netedit.gui\additionalElements\basic\relative_positions\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Nov110311.23920\netedit.gui\additionalElements\basic\relative_positions\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Nov110311.23920\netedit.gui\additionalElements\basic\relative_positions\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Nov110311.23920\netedit.gui\additionalElements\basic\relative_positions\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Nov110311.23920\netedit.gui\additionalElements\basic\relative_positions\datas.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Nov084637.7792\netedit.gui\additionalElements\basic\relative_positions\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Nov084637.7792\netedit.gui\additionalElements\basic\relative_positions\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Nov084637.7792\netedit.gui\additionalElements\basic\relative_positions\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Nov084637.7792\netedit.gui\additionalElements\basic\relative_positions\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Nov084637.7792\netedit.gui\additionalElements\basic\relative_positions\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Nov084637.7792\netedit.gui\additionalElements\basic\relative_positions\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Nov110311.23920\netedit.gui\additionalElements\basic\relative_positions\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Nov084637.7792\netedit.gui\additionalElements\basic\relative_positions\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Nov110311.23920\netedit.gui\additionalElements\basic\relative_positions\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Nov084637.7792\netedit.gui\additionalElements\basic\relative_positions\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Nov110311.23920\netedit.gui\additionalElements\basic\relative_positions\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Nov084637.7792\netedit.gui\additionalElements\basic\relative_positions\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <routeProbe id="routeProbe_gneE1_0" edge="gneE1" freq="100.00" file="routeProbe_gneE1_0.txt" begin="0.00"/>
+    <routeProbe id="routeProbe_gneE1_0" begin="0.00" freq="100.00" edge="gneE1" file="0"/>
+    <calibrator id="calibrator_gneE1_0_0" lane="gneE1_0" pos="5.00" freq="100.00" output="calibrator_gneE1_0_0.txt"/>
+    <calibrator id="calibrator_gneE1_1" edge="gneE1" pos="10.00" freq="100.00" output="calibrator_gneE1_1_1.txt"/>
     <busStop id="busStop_gneE1_0_0" lane="gneE1_0" startPos="24.90" endPos="25.00"/>
-    <chargingStation id="chargingStation_gneE1_2_0" lane="gneE1_2" startPos="24.90" endPos="25.00"/>
     <containerStop id="containerStop_gneE1_1_0" lane="gneE1_1" startPos="24.90" endPos="25.00"/>
+    <chargingStation id="chargingStation_gneE1_2_0" lane="gneE1_2" startPos="24.90" endPos="25.00"/>
     <e1Detector id="e1Detector_gneE0_2_0" lane="gneE0_2" pos="10.00" freq="100.00" file="e1Detector_gneE0_2_0.txt" vTypes="bus taxi private"/>
+    <instantInductionLoop id="instantInductionLoop_1" lane="gneE0_2" pos="12.00" file="instantInductionLoop_1.txt"/>
     <e2Detector id="e2Detector_gneE0_1_0" lane="gneE0_1" pos="5.00" length="10.00" freq="100.00" file="e2Detector_gneE0_1_0.txt"/>
     <e3Detector id="e3Detector_0" pos="10.00,-15.00" freq="100.00" file="e3Detector_0.txt">
         <detEntry lane="gneE0_0" pos="5.00"/>
         <detExit lane="gneE0_0" pos="15.00"/>
     </e3Detector>
-    <instantInductionLoop id="instantInductionLoop_1" lane="gneE0_2" pos="12.00" file="instantInductionLoop_1.txt"/>
-    <calibrator id="calibrator_gneE1_0_0" lane="gneE1_0" pos="5.00" freq="100.00" output="calibrator_gneE1_0_0.txt"/>
-    <calibrator id="calibrator_gneE1_1" edge="gneE1" pos="10.00" freq="100.00" output="calibrator_gneE1_1_1.txt"/>
-    <vaporizer id="gneE1" begin="0.00" end="10.00"/>
     <rerouter id="rerouter_0" edges="gneE1" pos="15.15,-14.96"/>
     <variableSpeedSign id="variableSpeedSign_0" pos="19.52,-14.87" lanes="gneE1_0"/>
+    <vaporizer id="gneE1" begin="0.00" end="10.00"/>
 </additional>

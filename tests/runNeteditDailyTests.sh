@@ -43,6 +43,7 @@ if which texttest &> /dev/null; then
   texttest -a netedit.daily.additional.basic "$@" &
   texttest -a netedit.daily.additional.busstop "$@" &
   texttest -a netedit.daily.additional.calibrator "$@" &
+  texttest -a netedit.daily.additional.calibratorflow "$@" &
   texttest -a netedit.daily.additional.chargingstation "$@" &
   texttest -a netedit.daily.additional.containerstop "$@" &
   texttest -a netedit.daily.additional.detentry "$@" &

@@ -43,6 +43,9 @@ calibrator
 # lanecalibrator
 lanecalibrator
 
+# calibratorflow
+calibratorflow
+
 # parking areas
 parkingarea
 
@@ -56,7 +59,7 @@ routeprobe
 vaporizer
 
 # rerouter
-#rerouter
+rerouter
 
 # variable speed sign
-#variablespeedsign
+variablespeedsign
