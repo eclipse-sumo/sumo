@@ -114,9 +114,9 @@ def main(options):
                             or options.pUntil is not None):
                         stopAttrs = {}
                         if options.pDuration:
-                            stopAttrs["duration"] = options.duration
+                            stopAttrs["duration"] = options.pDuration
                         if options.pUntil:
-                            stopAttrs["until"] = options.until
+                            stopAttrs["until"] = options.pUntil
                         # stop location is derived automatically from previous plan element
                         obj.addChild("stop", attrs=stopAttrs)
                     else:
