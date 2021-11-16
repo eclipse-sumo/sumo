@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-16 15:12:44 by Eclipse SUMO sumo Version v1_10_0+2327-7f6f829
+<!-- generated on 2021-11-16 15:39:15 by Eclipse SUMO sumo Version v1_10_0+2328-8bad6b1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -36,11 +36,6 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <person id="ego" depart="0.00" arrival="39.00">
-        <ride from="C0C1" to="D1D2" parkingArea="parkD1D2" lines="egoVeh"/>
-        <stop lane="C0C1_0" endPos="90.60" duration="10.00"/>
-    </person>
-
     <vehicle id="blocker" depart="0.00" arrival="47.00">
         <route edges="C0C1 C1C2 C2C3"/>
         <stop parkingArea="parkC0C1" duration="20.00"/>
@@ -54,5 +49,11 @@ SPDX-License-Identifier: EPL-2.0
         <stop parkingArea="parkD1D2" duration="10.00"/>
         <param key="parking.distancefrom.weight" value="1"/>
     </vehicle>
+
+    <person id="ego" depart="0.00" arrival="168.00">
+        <ride from="C0C1" to="D1D2" parkingArea="parkD1D2" lines="egoVeh"/>
+        <walk edges="D1D2 D1C1 C0C1"/>
+        <stop lane="C0C1_0" endPos="60.00" duration="10.00"/>
+    </person>
 
 </routes>

@@ -5,7 +5,7 @@
     </trip>
 
     <person id="ego" depart="0">
-        <ride from="C0C1" to="C0C1" lines="egoVeh"/>
+        <ride from="C0C1" to="C0C1" lines="egoVeh" arrivalPos="60"/>
         <stop edge="C0C1" duration="10"/>
     </person>
 
