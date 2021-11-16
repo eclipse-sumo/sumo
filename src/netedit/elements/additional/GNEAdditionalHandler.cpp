@@ -808,9 +808,9 @@ GNEAdditionalHandler::buildCalibratorFlow(const CommonXMLStructure::SumoBaseObje
     // get vType
     GNEDemandElement* vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameter.vtypeid, false);
     // get route
-    GNEDemandElement* route = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vehicleParameter.routeid, false);
+    GNEDemandElement* route = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, vehicleParameter.routeid, false);
     // get calibrator parent
-    GNEAdditional* calibrator = myNet->getAttributeCarriers()->retrieveAdditional(sumoBaseObject->getTag(), sumoBaseObject->getStringAttribute(SUMO_ATTR_ID), false);
+    GNEAdditional* calibrator = myNet->getAttributeCarriers()->retrieveAdditional(sumoBaseObject->getParentSumoBaseObject()->getTag(), sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
     // check parents
     if (vType == nullptr) {
         writeErrorInvalidParent(SUMO_TAG_FLOW, SUMO_TAG_VTYPE);

@@ -53,12 +53,13 @@ std::set<SumoXMLAttr> SUMOVehicleParserHelper::allowedJMAttrs;
 // ===========================================================================
 
 SUMOVehicleParameter*
-SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attrs, const bool hardFail, const SUMOTime beginDefault, const SUMOTime endDefault) {
+SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attrs, const bool hardFail, const bool needID, 
+    const SUMOTime beginDefault, const SUMOTime endDefault) {
     // first parse ID
     std::string id = parseID(attrs, tag);
     // check if ID is valid
-    if (!id.empty()) {
-        if (!SUMOXMLDefinitions::isValidVehicleID(id)) {
+    if (!needID || !id.empty()) {
+        if (needID && !SUMOXMLDefinitions::isValidVehicleID(id)) {
             return handleVehicleError(hardFail, nullptr, "Invalid flow id '" + id + "'.");
         }
         // declare flags

@@ -55,6 +55,8 @@ GNECalibratorFlow::~GNECalibratorFlow() {}
 
 void 
 GNECalibratorFlow::writeAdditional(OutputDevice& device) const {
+    // open tag
+    device.openTag(SUMO_TAG_FLOW);
     // attribute VType musn't be written if is DEFAULT_VTYPE_ID
     if (getParentDemandElements().at(0)->getID() == DEFAULT_VTYPE_ID) {
         // unset VType parameter

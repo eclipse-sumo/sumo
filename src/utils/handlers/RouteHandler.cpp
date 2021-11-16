@@ -441,7 +441,7 @@ RouteHandler::parseVehicle(const SUMOSAXAttributes& attrs) {
 void
 RouteHandler::parseFlow(const SUMOSAXAttributes& attrs) {
     // first parse flow
-    SUMOVehicleParameter* flowParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_FLOW, attrs, myHardFail, myFlowBeginDefault, myFlowEndDefault);
+    SUMOVehicleParameter* flowParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_FLOW, attrs, myHardFail, true, myFlowBeginDefault, myFlowEndDefault);
     if (flowParameter) {
         // declare Ok Flag
         bool parsedOk = true;
@@ -507,7 +507,7 @@ RouteHandler::parsePerson(const SUMOSAXAttributes& attrs) {
 void
 RouteHandler::parsePersonFlow(const SUMOSAXAttributes& attrs) {
     // first parse flow
-    SUMOVehicleParameter* personFlowParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_PERSONFLOW, attrs, myHardFail, myFlowBeginDefault, myFlowEndDefault);
+    SUMOVehicleParameter* personFlowParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_PERSONFLOW, attrs, myHardFail, true, myFlowBeginDefault, myFlowEndDefault);
     if (personFlowParameter) {
         // set tag
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_PERSONFLOW);
@@ -622,7 +622,7 @@ RouteHandler::parseContainer(const SUMOSAXAttributes& attrs) {
 void
 RouteHandler::parseContainerFlow(const SUMOSAXAttributes& attrs) {
     // first parse flow
-    SUMOVehicleParameter* containerFlowParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_CONTAINERFLOW, attrs, myHardFail, myFlowBeginDefault, myFlowEndDefault);
+    SUMOVehicleParameter* containerFlowParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_CONTAINERFLOW, attrs, myHardFail, true, myFlowBeginDefault, myFlowEndDefault);
     if (containerFlowParameter) {
         // set tag
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_CONTAINERFLOW);

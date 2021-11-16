@@ -115,7 +115,7 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 delete myVehicleParameter;
             }
             // parse vehicle parameters
-            myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_FLOW, attrs, myHardFail, myBeginDefault, myEndDefault);
+            myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_FLOW, attrs, myHardFail, true, myBeginDefault, myEndDefault);
             // check if myVehicleParameter was sucesfully created
             if (myVehicleParameter) {
                 // check tag
@@ -134,7 +134,7 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 delete myVehicleParameter;
             }
             // create a new flow
-            myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_PERSONFLOW, attrs, myHardFail, myBeginDefault, myEndDefault);
+            myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_PERSONFLOW, attrs, myHardFail, true, myBeginDefault, myEndDefault);
             break;
         case SUMO_TAG_CONTAINERFLOW:
             // delete if myVehicleParameter isn't null
@@ -142,7 +142,7 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 delete myVehicleParameter;
             }
             // create a new flow
-            myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_CONTAINERFLOW, attrs, myHardFail, myBeginDefault, myEndDefault);
+            myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_CONTAINERFLOW, attrs, myHardFail, true, myBeginDefault, myEndDefault);
             break;
         case SUMO_TAG_VTYPE:
             // delete if myCurrentVType isn't null

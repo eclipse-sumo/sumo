@@ -330,7 +330,7 @@ GNEPersonFrame::buildPerson() {
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myPersonBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(personTag));
         // obtain personFlow parameters
-        SUMOVehicleParameter* personFlowParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_PERSONFLOW, SUMOSAXAttrs, false, 0, SUMOTime_MAX);
+        SUMOVehicleParameter* personFlowParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_PERSONFLOW, SUMOSAXAttrs, false, true, 0, SUMOTime_MAX);
         // check personParameters
         if (personFlowParameters) {
             myPersonBaseObject->setVehicleParameter(personFlowParameters);

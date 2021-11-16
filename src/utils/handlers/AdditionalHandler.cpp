@@ -1234,7 +1234,7 @@ AdditionalHandler::parseCalibratorFlowAttributes(const SUMOSAXAttributes& attrs)
             WRITE_ERROR("CalibratorFlows need either the attribute vehsPerHour or speed or type (or any combination of these)");
         }
         // first parse flow
-        SUMOVehicleParameter* flowParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_FLOW, attrs, false, 
+        SUMOVehicleParameter* flowParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_FLOW, attrs, false, false, 
             string2time(OptionsCont::getOptions().getString("begin")), 
             string2time(OptionsCont::getOptions().getString("end")));
         if (flowParameter) {

@@ -326,7 +326,7 @@ GNEContainerFrame::buildContainer() {
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myContainerBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(containerTag));
         // obtain containerFlow parameters
-        SUMOVehicleParameter* containerFlowParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_CONTAINERFLOW, SUMOSAXAttrs, false, 0, SUMOTime_MAX);
+        SUMOVehicleParameter* containerFlowParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_CONTAINERFLOW, SUMOSAXAttrs, false, true, 0, SUMOTime_MAX);
         // check personParameters
         if (containerFlowParameters) {
             myContainerBaseObject->setVehicleParameter(containerFlowParameters);

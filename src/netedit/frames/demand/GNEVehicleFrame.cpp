@@ -233,7 +233,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
                 // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
                 SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myVehicleBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(vehicleTag));
                 // obtain routeFlow parameters in routeFlowParameters
-                SUMOVehicleParameter* routeFlowParameters = SUMOVehicleParserHelper::parseFlowAttributes(vehicleTag, SUMOSAXAttrs, false, 0, SUMOTime_MAX);
+                SUMOVehicleParameter* routeFlowParameters = SUMOVehicleParserHelper::parseFlowAttributes(vehicleTag, SUMOSAXAttrs, false, true, 0, SUMOTime_MAX);
                 // check if flow was sucesfully created)
                 if (routeFlowParameters) {
                     routeFlowParameters->routeid = route->getID();
@@ -409,7 +409,7 @@ GNEVehicleFrame::createPath() {
             // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
             SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myVehicleBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(vehicleTag));
             // obtain flow parameters
-            SUMOVehicleParameter* flowParameters = SUMOVehicleParserHelper::parseFlowAttributes(vehicleTag, SUMOSAXAttrs, false, 0, SUMOTime_MAX);
+            SUMOVehicleParameter* flowParameters = SUMOVehicleParserHelper::parseFlowAttributes(vehicleTag, SUMOSAXAttrs, false, true, 0, SUMOTime_MAX);
             // check flowParameters
             if (flowParameters) {
                 myVehicleBaseObject->setVehicleParameter(flowParameters);
@@ -441,7 +441,7 @@ GNEVehicleFrame::createPath() {
             // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
             SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(myVehicleBaseObject->getAllAttributes(), getPredefinedTagsMML(), toString(vehicleTag));
             // obtain flow parameters
-            SUMOVehicleParameter* flowParameters = SUMOVehicleParserHelper::parseFlowAttributes(vehicleTag, SUMOSAXAttrs, false, 0, SUMOTime_MAX);
+            SUMOVehicleParameter* flowParameters = SUMOVehicleParserHelper::parseFlowAttributes(vehicleTag, SUMOSAXAttrs, false, true, 0, SUMOTime_MAX);
             // continue depending of vehicleParameters
             if (flowParameters) {
                 myVehicleBaseObject->setVehicleParameter(flowParameters);
