@@ -188,10 +188,10 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
         }
         // create stop base object
         getStopParameter(myStopTagSelector->getCurrentTagProperties().getTag(),
-            objectsUnderCursor.getLaneFront(), objectsUnderCursor.getAdditionalFront());
+                         objectsUnderCursor.getLaneFront(), objectsUnderCursor.getAdditionalFront());
         if (myStopParentBaseObject->getTag() != SUMO_TAG_NOTHING) {
-            myRouteHandler.buildStop(myStopParentBaseObject->getSumoBaseObjectChildren().front(), 
-                myStopParentBaseObject->getSumoBaseObjectChildren().front()->getStopParameter());
+            myRouteHandler.buildStop(myStopParentBaseObject->getSumoBaseObjectChildren().front(),
+                                     myStopParentBaseObject->getSumoBaseObjectChildren().front()->getStopParameter());
             // stop sucesfully created, then return true
             return true;
         } else {
@@ -281,7 +281,7 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
         myStopAttributes->showWarningMessage();
         return false;
     }
-     // get parent
+    // get parent
     const GNEDemandElement* stopParent = myStopParentSelector->getCurrentDemandElement();
     // set parent tag and id
     myStopParentBaseObject->setTag(stopParent->getTagProperty().getTag());
@@ -355,14 +355,14 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
     }
     if (stopBaseObject->hasStringListAttribute(SUMO_ATTR_EXPECTED)) {
         const auto expected = stopBaseObject->getStringListAttribute(SUMO_ATTR_EXPECTED);
-        for (const auto &id : expected) {
+        for (const auto& id : expected) {
             stop.awaitedPersons.insert(id);
         }
         stop.parametersSet |= STOP_EXPECTED_SET;
     }
     if (stopBaseObject->hasStringListAttribute(SUMO_ATTR_EXPECTED_CONTAINERS)) {
         const auto expected = stopBaseObject->getStringListAttribute(SUMO_ATTR_EXPECTED_CONTAINERS);
-        for (const auto &id : expected) {
+        for (const auto& id : expected) {
             stop.awaitedPersons.insert(id);
         }
         stop.parametersSet |= STOP_EXPECTED_CONTAINERS_SET;

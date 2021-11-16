@@ -36,7 +36,7 @@ public:
     friend class GNEUndoList;
 
     /// @brief Construct initially empty undo command group
-    GNEChangeGroup(Supermode groupSupermode, GUIIcon icon, const std::string &description);
+    GNEChangeGroup(Supermode groupSupermode, GUIIcon icon, const std::string& description);
 
     /// @brief Delete undo command and sub-commands
     ~GNEChangeGroup();
@@ -93,7 +93,7 @@ private:
 
     /// @brief invalidate copy constructor
     GNEChangeGroup(const GNEChangeGroup&);
-    
+
     /// @brief invalidate assignment operator
-    GNEChangeGroup &operator=(const GNEChangeGroup&) = delete;
+    GNEChangeGroup& operator=(const GNEChangeGroup&) = delete;
 };

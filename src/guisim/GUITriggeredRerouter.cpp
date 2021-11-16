@@ -541,7 +541,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
 }
 
 
-double 
+double
 GUITriggeredRerouter::GUITriggeredRerouterEdge::getExaggeration(const GUIVisualizationSettings& s) const {
     return s.addSize.getExaggeration(s, this);
 }

@@ -85,7 +85,7 @@ public:
     const GNEViewNetHelper::ObjectsUnderCursor& getObjectsUnderCursor() const;
 
     /// @brief get move multiple element values
-    const GNEViewNetHelper::MoveMultipleElementValues &getMoveMultipleElementValues() const;
+    const GNEViewNetHelper::MoveMultipleElementValues& getMoveMultipleElementValues() const;
 
     /** @brief Builds an entry which allows to (de)select the object
      * @param ret The popup menu to add the entry to
@@ -107,7 +107,7 @@ public:
     std::vector<std::string> getEdgeDataAttrs() const;
 
     /// @brief return list of loaded edgeRelation and tazRelation attributes
-    std::vector<std::string> getRelDataAttrs() const; 
+    std::vector<std::string> getRelDataAttrs() const;
 
     /// @brief open object dialog
     void openObjectDialogAtCursor();
@@ -484,7 +484,7 @@ public:
     bool mergeJunctions(GNEJunction* movedJunction, GNEJunction* targetJunction);
 
     /// @brief ask about change supermode
-    bool aksChangeSupermode(const std::string &operation, Supermode expectedSupermode);
+    bool aksChangeSupermode(const std::string& operation, Supermode expectedSupermode);
 
 protected:
     /// @brief FOX needs this

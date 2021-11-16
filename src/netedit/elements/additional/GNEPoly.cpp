@@ -43,8 +43,8 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
                  const std::map<std::string, std::string>& parameters) :
     SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name, parameters),
     GNEShape(id, net, GLO_POLYGON, SUMO_TAG_POLY,
-    {}, {}, {}, {}, {}, {}, {}, {}),
-    mySimplifiedShape(false) {
+{}, {}, {}, {}, {}, {}, {}, {}),
+mySimplifiedShape(false) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
     // check if imgFile is valid
@@ -72,7 +72,7 @@ GNEPoly::getMoveOperation() {
         return new GNEMoveOperation(this, myShape);
     } else {
         // calculate move shape operation
-        return calculateMoveShapeOperation(myShape, myNet->getViewNet()->getPositionInformation(), 
+        return calculateMoveShapeOperation(myShape, myNet->getViewNet()->getPositionInformation(),
                                            myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius, true);
     }
 }
@@ -234,7 +234,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             GUIPolygon::checkDraw(s, this, this)) {
         // check if draw start und end
         const bool drawExtremeSymbols = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-                                    myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE;
+                                        myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE;
         // Obtain constants
         const double polyExaggeration = getExaggeration(s);
         const Position mousePosition = myNet->getViewNet()->getPositionInformation();
@@ -295,12 +295,12 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                 // check move mode flag
                 const bool moveMode = (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE);
                 // draw geometry points
-                GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myPolygonGeometry.getShape(), darkerColor, invertedColor, 
-                                                s.neteditSizeSettings.polygonGeometryPointRadius * (moveMode? 1 : 0.5), polyExaggeration,
+                GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myPolygonGeometry.getShape(), darkerColor, invertedColor,
+                                                s.neteditSizeSettings.polygonGeometryPointRadius * (moveMode ? 1 : 0.5), polyExaggeration,
                                                 myNet->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
                 // draw moving hint points
                 if (!myNet->getViewNet()->getLockManager().isObjectLocked(GLO_POLYGON, isAttributeCarrierSelected()) && moveMode) {
-                    GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), myPolygonGeometry.getShape(), invertedColor, 
+                    GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), myPolygonGeometry.getShape(), invertedColor,
                                                 s.neteditSizeSettings.polygonGeometryPointRadius, polyExaggeration);
                 }
             }
@@ -311,8 +311,8 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             if (getFill() || myPolygonGeometry.getShape().isClosed()) {
                 GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myPolygonGeometry.getShape(), 1);
             } else {
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
-                                                    polyExaggeration, 1, 1);
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
+                        polyExaggeration, 1, 1);
             }
         }
         // check if front dotted contour has to be drawn
@@ -321,8 +321,8 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             if (getFill() || myPolygonGeometry.getShape().isClosed()) {
                 GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::FRONT, s, myPolygonGeometry.getShape(), 1);
             } else {
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
-                                                    polyExaggeration, 1, 1);
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myPolygonGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
+                        polyExaggeration, 1, 1);
             }
         }
         // draw lock icon

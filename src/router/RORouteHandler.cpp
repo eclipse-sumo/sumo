@@ -916,7 +916,7 @@ RORouteHandler::addRide(const SUMOSAXAttributes& attrs) {
         }
     }
     double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, myVehicleParameter->id.c_str(), ok,
-            stop == nullptr ? std::numeric_limits<double>::infinity() : stop->endPos);
+                        stop == nullptr ? std::numeric_limits<double>::infinity() : stop->endPos);
     const std::string desc = attrs.get<std::string>(SUMO_ATTR_LINES, pid.c_str(), ok);
     const std::string group = attrs.getOpt<std::string>(SUMO_ATTR_GROUP, pid.c_str(), ok, "");
 

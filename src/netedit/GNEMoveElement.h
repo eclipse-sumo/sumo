@@ -256,26 +256,26 @@ private:
     virtual void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) = 0;
 
     /// @brief calculate lane offset
-    static double calculateLaneOffset(const GNEViewNet* viewNet, const GNELane *lane, const double firstPosition, const double secondPosition, 
-                                      const GNEMoveOffset &offset, const double extremFrom, const double extremTo);
+    static double calculateLaneOffset(const GNEViewNet* viewNet, const GNELane* lane, const double firstPosition, const double secondPosition,
+                                      const GNEMoveOffset& offset, const double extremFrom, const double extremTo);
 
     /// @brief calculate single movement over one lane
-    static void calculateMoveResult(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* lane, const double pos, 
-                                                   const GNEMoveOffset& offset, const double extremFrom, const double extremTo);
+    static void calculateMoveResult(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* lane, const double pos,
+                                    const GNEMoveOffset& offset, const double extremFrom, const double extremTo);
 
     /// @brief calculate double movement over one lane
     static void calculateMoveResult(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* lane, const double firstPos,
-                                                   const double secondPos, const GNEMoveOffset& offset);
+                                    const double secondPos, const GNEMoveOffset& offset);
 
     /// @brief calculate double movement over two lanes
-    static void calculateMoveResult(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* firstLane, const double firstPos, 
-                                                    const GNELane* secondLane, const double secondPos, const GNEMoveOffset& offset);
+    static void calculateMoveResult(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* firstLane, const double firstPos,
+                                    const GNELane* secondLane, const double secondPos, const GNEMoveOffset& offset);
 
     /// @brief calculate new lane
     static void calculateNewLane(const GNEViewNet* viewNet, const GNELane* originalLane, const GNELane*& newLane, double& laneOffset);
 
     /// @brief calculate width/height shape
-    static PositionVector calculateExtrapolatedVector(const GNEMoveOperation* moveOperation, const GNEMoveResult &moveResult);
+    static PositionVector calculateExtrapolatedVector(const GNEMoveOperation* moveOperation, const GNEMoveResult& moveResult);
 
     /// @brief Invalidated copy constructor.
     GNEMoveElement(const GNEMoveElement&) = delete;

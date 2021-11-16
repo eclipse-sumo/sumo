@@ -78,7 +78,7 @@ GNESelectorFrame::SelectionInformation::SelectionInformation(GNESelectorFrame* s
 GNESelectorFrame::SelectionInformation::~SelectionInformation() {}
 
 
-void 
+void
 GNESelectorFrame::SelectionInformation::updateInformationLabel() {
     // first clear information
     myInformation.clear();
@@ -123,8 +123,8 @@ GNESelectorFrame::SelectionInformation::updateInformationLabel() {
 }
 
 
-void 
-GNESelectorFrame::SelectionInformation::updateInformationLabel(const std::string &element, int number) {
+void
+GNESelectorFrame::SelectionInformation::updateInformationLabel(const std::string& element, int number) {
     // check number
     if (number > 0) {
         myInformation.append(element + ": " + toString(number) + "\n");
@@ -343,8 +343,8 @@ GNESelectorFrame::SelectionOperation::onCmdClear(FXObject*, FXSelector, void*) {
     bool ignoreLocking = false;
     // only continue if there is element for selecting
     if ((mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork() && processNetworkElementSelection(true, false, ignoreLocking)) ||
-        (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeDemand() &&  processDemandElementSelection(true, false, ignoreLocking)) || 
-        (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeData() && processDataElementSelection(true, false, ignoreLocking))) {
+            (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeDemand() &&  processDemandElementSelection(true, false, ignoreLocking)) ||
+            (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeData() && processDataElementSelection(true, false, ignoreLocking))) {
         // for invert selection, first clean current selection and next select elements of set "unselectedElements"
         mySelectorFrameParent->myViewNet->getUndoList()->begin(GUIIcon::MODESELECT, "invert selection");
         // invert selection of elements depending of current supermode
@@ -374,8 +374,8 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
     bool ignoreLocking = false;
     // only continue if there is element for selecting
     if ((mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork() && processNetworkElementSelection(true, false, ignoreLocking)) ||
-        (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeDemand() &&  processDemandElementSelection(true, false, ignoreLocking)) || 
-        (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeData() && processDataElementSelection(true, false, ignoreLocking))) {
+            (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeDemand() &&  processDemandElementSelection(true, false, ignoreLocking)) ||
+            (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeData() && processDataElementSelection(true, false, ignoreLocking))) {
         // for invert selection, first clean current selection and next select elements of set "unselectedElements"
         mySelectorFrameParent->myViewNet->getUndoList()->begin(GUIIcon::MODESELECT, "invert selection");
         // invert selection of elements depending of current supermode
@@ -396,12 +396,12 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
 }
 
 
-bool 
-GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool onlyCount, const bool onlyUnselect, bool &ignoreLocking) {
+bool
+GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool onlyCount, const bool onlyUnselect, bool& ignoreLocking) {
     // obtan locks (only for improve code legibly)
     const auto& locks = mySelectorFrameParent->getViewNet()->getLockManager();
     // get attribute carriers (only for improve code legibly)
-    const auto & ACs = mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers();
+    const auto& ACs = mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers();
     // obtain undoList (only for improve code legibly)
     GNEUndoList* undoList = mySelectorFrameParent->myViewNet->getUndoList();
     // iterate over junctions
@@ -583,14 +583,14 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
 }
 
 
-bool 
-GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool onlyCount, const bool onlyUnselect, bool &ignoreLocking) {
+bool
+GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool onlyCount, const bool onlyUnselect, bool& ignoreLocking) {
     // obtan locks (only for improve code legibly)
     const auto& locks = mySelectorFrameParent->getViewNet()->getLockManager();
     // obtain undoList (only for improve code legibly)
     GNEUndoList* undoList = mySelectorFrameParent->myViewNet->getUndoList();
     // get demand elements
-    const auto &demandElements = mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements();
+    const auto& demandElements = mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements();
     // invert routes
     if (ignoreLocking || !locks.isObjectLocked(GLO_ROUTE, false)) {
         for (const auto& route : demandElements.at(SUMO_TAG_ROUTE)) {
@@ -712,7 +712,7 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
     // invert person trip
     if (ignoreLocking || !locks.isObjectLocked(GLO_PERSONTRIP, false)) {
         for (const auto& person : demandElements.at(SUMO_TAG_PERSON)) {
-            for (const auto &personPlan : person->getChildDemandElements()) {
+            for (const auto& personPlan : person->getChildDemandElements()) {
                 if (onlyCount) {
                     return true;
                 } else if (personPlan->getTagProperty().isPersonTrip()) {
@@ -725,7 +725,7 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
             }
         }
         for (const auto& personFlow : demandElements.at(SUMO_TAG_PERSONFLOW)) {
-            for (const auto &personPlan : personFlow->getChildDemandElements()) {
+            for (const auto& personPlan : personFlow->getChildDemandElements()) {
                 if (onlyCount) {
                     return true;
                 } else if (personPlan->getTagProperty().isPersonTrip()) {
@@ -744,7 +744,7 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
     // invert ride
     if (ignoreLocking || !locks.isObjectLocked(GLO_PERSONTRIP, false)) {
         for (const auto& person : demandElements.at(SUMO_TAG_PERSON)) {
-            for (const auto &personPlan : person->getChildDemandElements()) {
+            for (const auto& personPlan : person->getChildDemandElements()) {
                 if (personPlan->getTagProperty().isRide()) {
                     if (onlyCount) {
                         return true;
@@ -757,7 +757,7 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
             }
         }
         for (const auto& personFlow : demandElements.at(SUMO_TAG_PERSONFLOW)) {
-            for (const auto &personPlan : personFlow->getChildDemandElements()) {
+            for (const auto& personPlan : personFlow->getChildDemandElements()) {
                 if (personPlan->getTagProperty().isRide()) {
                     if (onlyCount) {
                         return true;
@@ -776,7 +776,7 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
     // invert walks
     if (ignoreLocking || !locks.isObjectLocked(GLO_PERSONTRIP, false)) {
         for (const auto& person : demandElements.at(SUMO_TAG_PERSON)) {
-            for (const auto &personPlan : person->getChildDemandElements()) {
+            for (const auto& personPlan : person->getChildDemandElements()) {
                 if (personPlan->getTagProperty().isWalk()) {
                     if (onlyCount) {
                         return true;
@@ -789,7 +789,7 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
             }
         }
         for (const auto& personFlow : demandElements.at(SUMO_TAG_PERSONFLOW)) {
-            for (const auto &personPlan : personFlow->getChildDemandElements()) {
+            for (const auto& personPlan : personFlow->getChildDemandElements()) {
                 if (personPlan->getTagProperty().isWalk()) {
                     if (onlyCount) {
                         return true;
@@ -832,7 +832,7 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
     // invert container
     if (ignoreLocking || !locks.isObjectLocked(GLO_TRANSPORT, false)) {
         for (const auto& container : demandElements.at(SUMO_TAG_CONTAINER)) {
-            for (const auto &containerPlan : container->getChildDemandElements()) {
+            for (const auto& containerPlan : container->getChildDemandElements()) {
                 if (containerPlan->getTagProperty().isTransportPlan()) {
                     if (onlyCount) {
                         return true;
@@ -845,7 +845,7 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
             }
         }
         for (const auto& containerFlow : demandElements.at(SUMO_TAG_CONTAINERFLOW)) {
-            for (const auto &containerPlan : containerFlow->getChildDemandElements()) {
+            for (const auto& containerPlan : containerFlow->getChildDemandElements()) {
                 if (containerPlan->getTagProperty().isTransportPlan()) {
                     if (onlyCount) {
                         return true;
@@ -864,7 +864,7 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
     // invert ride
     if (ignoreLocking || !locks.isObjectLocked(GLO_TRANSHIP, false)) {
         for (const auto& container : demandElements.at(SUMO_TAG_CONTAINER)) {
-            for (const auto &containerPlan : container->getChildDemandElements()) {
+            for (const auto& containerPlan : container->getChildDemandElements()) {
                 if (containerPlan->getTagProperty().isTranshipPlan()) {
                     if (onlyCount) {
                         return true;
@@ -877,7 +877,7 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
             }
         }
         for (const auto& containerFlow : demandElements.at(SUMO_TAG_CONTAINERFLOW)) {
-            for (const auto &containerPlan : containerFlow->getChildDemandElements()) {
+            for (const auto& containerPlan : containerFlow->getChildDemandElements()) {
                 if (containerPlan->getTagProperty().isTranshipPlan()) {
                     if (onlyCount) {
                         return true;
@@ -912,9 +912,9 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
                         } else {
                             // special case for embedded routes
                             for (const auto& stopEmbeddedRoute : stop->getChildDemandElements()) {
-                                if (stopEmbeddedRoute->getTagProperty().isStop() || 
-                                    stopEmbeddedRoute->getTagProperty().isStopPerson() || 
-                                    stopEmbeddedRoute->getTagProperty().isStopContainer()) {
+                                if (stopEmbeddedRoute->getTagProperty().isStop() ||
+                                        stopEmbeddedRoute->getTagProperty().isStopPerson() ||
+                                        stopEmbeddedRoute->getTagProperty().isStopContainer()) {
                                     if (onlyCount) {
                                         return true;
                                     } else if (onlyUnselect || stopEmbeddedRoute->isAttributeCarrierSelected()) {
@@ -937,8 +937,8 @@ GNESelectorFrame::SelectionOperation::processDemandElementSelection(const bool o
 }
 
 
-bool 
-GNESelectorFrame::SelectionOperation::processDataElementSelection(const bool onlyCount, const bool onlyUnselect, bool &ignoreLocking) {
+bool
+GNESelectorFrame::SelectionOperation::processDataElementSelection(const bool onlyCount, const bool onlyUnselect, bool& ignoreLocking) {
     // obtan locks (only for improve code legibly)
     const auto& locks = mySelectorFrameParent->getViewNet()->getLockManager();
     // invert dataSets
@@ -964,12 +964,12 @@ GNESelectorFrame::SelectionOperation::processDataElementSelection(const bool onl
 }
 
 
-bool 
+bool
 GNESelectorFrame::SelectionOperation::askContinueIfLock() const {
     WRITE_DEBUG("Opening FXMessageBox 'merge junctions'");
     // open question box
-    const FXuint answer = FXMessageBox::question(mySelectorFrameParent->getViewNet()->getApp(), 
-        MBOX_YES_NO, "Confirm selection operation", "There are locked elements in currentselection.\nApply operation to locked elements?");
+    const FXuint answer = FXMessageBox::question(mySelectorFrameParent->getViewNet()->getApp(),
+                          MBOX_YES_NO, "Confirm selection operation", "There are locked elements in currentselection.\nApply operation to locked elements?");
     if (answer != 1) { //1:yes, 2:no, 4:esc
         // write warning if netedit is running in testing mode
         if (answer == 2) {
@@ -1047,7 +1047,7 @@ GNESelectorFrame::hide() {
 }
 
 
- void
+void
 GNESelectorFrame::updateFrameAfterUndoRedo() {
     // update information label
     mySelectionInformation->updateInformationLabel();
@@ -1275,7 +1275,7 @@ GNESelectorFrame::getModificationModeModul() const {
 }
 
 
-GNESelectorFrame::SelectionInformation* 
+GNESelectorFrame::SelectionInformation*
 GNESelectorFrame::getSelectionInformation() const {
     return mySelectionInformation;
 }

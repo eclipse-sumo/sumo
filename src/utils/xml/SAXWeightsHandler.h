@@ -95,7 +95,7 @@ public:
 
         /// @note: note sure why the other functions are const
         virtual void addTazRelWeight(const std::string intervalID, const std::string& from, const std::string& to,
-                                      double val, double beg, double end) {
+                                     double val, double beg, double end) {
             UNUSED_PARAMETER(intervalID);
             UNUSED_PARAMETER(from);
             UNUSED_PARAMETER(to);

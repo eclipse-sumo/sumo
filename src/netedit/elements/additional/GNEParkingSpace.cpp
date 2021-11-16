@@ -35,13 +35,13 @@ GNEParkingSpace::GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, 
                                  const std::string& width, const std::string& length, const std::string& angle, double slope,
                                  const std::string& name, const std::map<std::string, std::string>& parameters) :
     GNEAdditional(net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, name,
-        {}, {}, {}, {parkingAreaParent}, {}, {}, {}, {},
-    parameters),
-    myPosition(pos),
-    myWidth(width),
-    myLength(length),
-    myAngle(angle),
-    mySlope(slope) {
+{}, {}, {}, {parkingAreaParent}, {}, {}, {}, {},
+parameters),
+myPosition(pos),
+myWidth(width),
+myLength(length),
+myAngle(angle),
+mySlope(slope) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -53,8 +53,8 @@ GNEParkingSpace::~GNEParkingSpace() {}
 GNEMoveOperation*
 GNEParkingSpace::getMoveOperation() {
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-        (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
-        myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
+            (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
+            myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
         // get snap radius
         const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
         // get mouse position
@@ -82,8 +82,8 @@ GNEParkingSpace::getMoveOperation() {
 void
 GNEParkingSpace::updateGeometry() {
     // get width an lenght
-    const double width = getAttributeDouble(SUMO_ATTR_WIDTH) <= 0? POSITION_EPS : getAttributeDouble(SUMO_ATTR_WIDTH);
-    const double lenght = getAttributeDouble(SUMO_ATTR_LENGTH) <= 0? POSITION_EPS : getAttributeDouble(SUMO_ATTR_LENGTH);
+    const double width = getAttributeDouble(SUMO_ATTR_WIDTH) <= 0 ? POSITION_EPS : getAttributeDouble(SUMO_ATTR_WIDTH);
+    const double lenght = getAttributeDouble(SUMO_ATTR_LENGTH) <= 0 ? POSITION_EPS : getAttributeDouble(SUMO_ATTR_LENGTH);
     // calculate shape lenght
     myShapeLength.clear();
     myShapeLength.push_back(Position(0, 0));
@@ -147,8 +147,8 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         const double width = myShapeWidth.length2D() * 0.5 + (parkingAreaExaggeration * 0.1);
         const double angle = getAttributeDouble(SUMO_ATTR_ANGLE);
         // get colors
-        const RGBColor baseColor = drawUsingSelectColor()? s.colorSettings.selectedAdditionalColor : s.colorSettings.parkingSpaceColor;
-        const RGBColor contourColor = drawUsingSelectColor()? s.colorSettings.selectedAdditionalColor : s.colorSettings.parkingSpaceColorContour;
+        const RGBColor baseColor = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.colorSettings.parkingSpaceColor;
+        const RGBColor contourColor = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.colorSettings.parkingSpaceColorContour;
         // draw parent and child lines
         drawParentChildLines(s, s.additionalSettings.connectionColor);
         // push name

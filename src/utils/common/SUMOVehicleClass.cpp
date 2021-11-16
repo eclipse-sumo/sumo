@@ -205,20 +205,20 @@ StopOffset::StopOffset(const SUMOSAXAttributes& attrs, bool& ok) :
 }
 
 
-bool 
+bool
 StopOffset::isDefined() const {
     return myOffset != 0;
 }
 
 
-void 
+void
 StopOffset::reset() {
     myPermissions = SVC_IGNORING;
     myOffset = 0;
 }
 
 
-SVCPermissions 
+SVCPermissions
 StopOffset::getPermissions() const {
     return myPermissions;
 }
@@ -230,7 +230,7 @@ StopOffset::getExceptions() const {
 }
 
 
-double 
+double
 StopOffset::getOffset() const {
     return myOffset;
 }
@@ -242,28 +242,28 @@ StopOffset::setPermissions(const SVCPermissions permissions) {
 }
 
 
-void 
+void
 StopOffset::setExceptions(const std::string permissions) {
     myPermissions = ~parseVehicleClasses(permissions);
 }
 
 
-void 
+void
 StopOffset::setOffset(const double offset) {
     myOffset = offset;
 }
 
 
-bool 
+bool
 StopOffset::operator==(StopOffset const& other) const {
-    return ((myPermissions == other.myPermissions) && 
+    return ((myPermissions == other.myPermissions) &&
             (myOffset == other.myOffset));
 }
 
 
-bool 
+bool
 StopOffset::operator!=(StopOffset const& other) const {
-    return ((myPermissions != other.myPermissions) || 
+    return ((myPermissions != other.myPermissions) ||
             (myOffset != other.myOffset));
 }
 

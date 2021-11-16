@@ -186,7 +186,7 @@ GUIOverheadWire::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::setColor(scheme.getColor(MAX2(0.0, voltage - 400)));
     }
 
-    Circuit * circuit = getCircuit();
+    Circuit* circuit = getCircuit();
     // loop over charging vehicles under the overhead wire segment to color the wire segment parts according to the voltage level
     // lock access to myChargingVehicles
     lock();
@@ -262,7 +262,7 @@ GUIOverheadWire::drawGL(const GUIVisualizationSettings& s) const {
     //coloring of left-side overhead wire segment in case of
     // * a vehicle is under the segment
     // * a vehicle is at least under the traction substation of the segment
-    // * no vehicle is connected to the traction substation of the segment 
+    // * no vehicle is connected to the traction substation of the segment
     if (getElecHybridCount() > 0) {
         GLHelper::setColor(redChargeOverheadWire);
     } else if (myTractionSubstation != NULL && myTractionSubstation->getElecHybridCount() > 0) {
@@ -341,7 +341,7 @@ GUIOverheadWireClamp::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& pare
 }
 
 
-double 
+double
 GUIOverheadWireClamp::getExaggeration(const GUIVisualizationSettings& s) const {
     return s.addSize.getExaggeration(s, this);
 }

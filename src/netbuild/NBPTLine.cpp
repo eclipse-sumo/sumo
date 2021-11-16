@@ -74,7 +74,7 @@ void NBPTLine::write(OutputDevice& device) {
     if (myNightService != "") {
         device.writeAttr("nightService", myNightService);
     }
-    
+
     if (myColor.isValid()) {
         device.writeAttr(SUMO_ATTR_COLOR, myColor);
     }

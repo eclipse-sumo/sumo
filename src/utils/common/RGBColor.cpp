@@ -82,13 +82,13 @@ RGBColor::green() const {
 }
 
 
-unsigned char 
+unsigned char
 RGBColor::blue() const {
     return myBlue;
 }
 
 
-unsigned char 
+unsigned char
 RGBColor::alpha() const {
     return myAlpha;
 }
@@ -104,7 +104,7 @@ RGBColor::set(unsigned char r, unsigned char g, unsigned char b, unsigned char a
 }
 
 
-void 
+void
 RGBColor::setAlpha(unsigned char alpha) {
     myAlpha = alpha;
 }
@@ -116,7 +116,7 @@ RGBColor::setValid(const bool value) {
 }
 
 
-bool 
+bool
 RGBColor::isValid() const {
     return myValid;
 }
@@ -187,7 +187,7 @@ RGBColor::invertedColor() const {
 }
 
 
-SumoRNG* 
+SumoRNG*
 RGBColor::getColorRNG() {
     return &myRNG;
 }

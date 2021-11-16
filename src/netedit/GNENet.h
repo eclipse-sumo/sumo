@@ -114,7 +114,7 @@ public:
     SUMORTree& getGrid();
 
     /// @brief et edges and number of lanes
-    const std::map<std::string, int> &getEdgesAndNumberOfLanes() const;
+    const std::map<std::string, int>& getEdgesAndNumberOfLanes() const;
 
     /**@brief creates a new junction
      * @param[in] position The position of the new junction

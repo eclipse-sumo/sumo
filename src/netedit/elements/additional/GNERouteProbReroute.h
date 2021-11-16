@@ -41,7 +41,7 @@ class GNERouteProbReroute : public GNEAdditional {
 
 public:
     /// @brief constructor
-    GNERouteProbReroute(GNEAdditional* rerouterIntervalParent, GNEDemandElement *route, double probability);
+    GNERouteProbReroute(GNEAdditional* rerouterIntervalParent, GNEDemandElement* route, double probability);
 
     /// @brief destructor
     ~GNERouteProbReroute();

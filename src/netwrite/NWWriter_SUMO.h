@@ -142,7 +142,7 @@ private:
                           double speed, SVCPermissions permissions, SVCPermissions preferred,
                           SVCPermissions changeLeft, SVCPermissions changeRight,
                           double startOffset, double endOffset,
-                          const StopOffset &stopOffset, double width, PositionVector shape,
+                          const StopOffset& stopOffset, double width, PositionVector shape,
                           const Parameterised* params, double length, int index,
                           const std::string& oppositeID, const std::string& type,
                           bool accelRamp = false,

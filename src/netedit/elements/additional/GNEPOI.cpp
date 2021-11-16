@@ -46,8 +46,8 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
                const std::map<std::string, std::string>& parameters) :
     PointOfInterest(id, type, color, Position(xLon, yLat), geo, "", 0, false, 0, layer, angle, imgFile, relativePath, width, height, name, parameters),
     GNEShape(id, net, GLO_POI, geo ? GNE_TAG_POIGEO : SUMO_TAG_POI,
-    {}, {}, {}, {}, {}, {}, {}, {}
-    ) {
+{}, {}, {}, {}, {}, {}, {}, {}
+        ) {
     // update position depending of GEO
     if (geo) {
         Position cartesian(x(), y());
@@ -64,8 +64,8 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
                const double height, const std::string& name, const std::map<std::string, std::string>& parameters) :
     PointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, friendlyPos, posLat, layer, angle, imgFile, relativePath, width, height, name, parameters),
     GNEShape(id, net, GLO_POI, GNE_TAG_POILANE,
-    {}, {}, {lane}, {}, {}, {}, {}, {}
-    ) {
+{}, {}, {lane}, {}, {}, {}, {}, {}
+        ) {
     // update geometry (needed for POILanes)
     updateGeometry();
     // update centering boundary without updating grid
@@ -79,8 +79,8 @@ GNEPOI::~GNEPOI() {}
 GNEMoveOperation*
 GNEPOI::getMoveOperation() {
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-        (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
-        myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
+            (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
+            myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
         // get snap radius
         const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
         // get mouse position
@@ -132,7 +132,7 @@ GNEPOI::setParameter(const std::string& key, const std::string& value) {
 }
 
 
-CommonXMLStructure::SumoBaseObject* 
+CommonXMLStructure::SumoBaseObject*
 GNEPOI::getSumoBaseObject() const {
     CommonXMLStructure::SumoBaseObject* POIBaseObject = new CommonXMLStructure::SumoBaseObject(nullptr);
     POIBaseObject->setTag(SUMO_TAG_POI);
@@ -191,7 +191,7 @@ GNEPOI::updateGeometry() {
 }
 
 
-Position 
+Position
 GNEPOI::getPositionInView() const {
     return *this;
 }
@@ -287,7 +287,7 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::pushName(getGlID());
             // draw inner polygon
             if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GUIPointOfInterest::drawInnerPOI(s, this, this, drawUsingSelectColor(), GLO_DOTTEDCONTOUR_FRONT, 
+                GUIPointOfInterest::drawInnerPOI(s, this, this, drawUsingSelectColor(), GLO_DOTTEDCONTOUR_FRONT,
                                                  myShapeWidth.length2D(), myShapeHeight.length2D());
             } else {
                 GUIPointOfInterest::drawInnerPOI(s, this, this, drawUsingSelectColor(), getShapeLayer(),
@@ -434,16 +434,16 @@ GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
             if (SUMOXMLDefinitions::isValidTypeID(value)) {
                 if (myTagProperty.getTag() == SUMO_TAG_POI) {
                     // POI
-                   return (myNet->getAttributeCarriers()->retrieveShape(GNE_TAG_POILANE, value, false) == nullptr) &&
-                          (myNet->getAttributeCarriers()->retrieveShape(GNE_TAG_POIGEO, value, false) == nullptr);
+                    return (myNet->getAttributeCarriers()->retrieveShape(GNE_TAG_POILANE, value, false) == nullptr) &&
+                           (myNet->getAttributeCarriers()->retrieveShape(GNE_TAG_POIGEO, value, false) == nullptr);
                 } else if (myTagProperty.getTag() == GNE_TAG_POILANE) {
                     // POILane
-                   return (myNet->getAttributeCarriers()->retrieveShape(SUMO_TAG_POI, value, false) == nullptr) &&
-                          (myNet->getAttributeCarriers()->retrieveShape(GNE_TAG_POIGEO, value, false) == nullptr);
+                    return (myNet->getAttributeCarriers()->retrieveShape(SUMO_TAG_POI, value, false) == nullptr) &&
+                           (myNet->getAttributeCarriers()->retrieveShape(GNE_TAG_POIGEO, value, false) == nullptr);
                 } else if (myTagProperty.getTag() == GNE_TAG_POIGEO) {
                     // POI Geo
-                   return (myNet->getAttributeCarriers()->retrieveShape(SUMO_TAG_POI, value, false) == nullptr) &&
-                          (myNet->getAttributeCarriers()->retrieveShape(GNE_TAG_POILANE, value, false) == nullptr);
+                    return (myNet->getAttributeCarriers()->retrieveShape(SUMO_TAG_POI, value, false) == nullptr) &&
+                           (myNet->getAttributeCarriers()->retrieveShape(GNE_TAG_POILANE, value, false) == nullptr);
                 } else {
                     // invalid POI tag
                     return false;

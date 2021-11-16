@@ -127,7 +127,7 @@ public:
         SUMOTime getOffset() const;
 
         /// @brief set new offset
-        void setOffset(const SUMOTime &offset);
+        void setOffset(const SUMOTime& offset);
 
         /// @brief is current offset valid
         bool isValidOffset();
@@ -136,7 +136,7 @@ public:
         std::string getParameters() const;
 
         /// @brief set new parameters
-        void setParameters(const std::string &parameters);
+        void setParameters(const std::string& parameters);
 
         /// @brief are current parameter valid
         bool isValidParameters();

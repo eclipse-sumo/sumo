@@ -85,19 +85,19 @@ MultiEntryExit::getLastIntervalMeanTravelTime(const std::string& detID) {
 }
 
 
-double 
+double
 MultiEntryExit::getLastIntervalMeanHaltsPerVehicle(const std::string& detID) {
     return getDetector(detID)->getLastIntervalMeanHaltsPerVehicle();
 }
 
 
-double 
+double
 MultiEntryExit::getLastIntervalMeanTimeLoss(const std::string& detID) {
     return getDetector(detID)->getLastIntervalMeanTimeLoss();
 }
 
 
-int 
+int
 MultiEntryExit::getLastIntervalVehicleSum(const std::string& detID) {
     return getDetector(detID)->getLastIntervalVehicleSum();
 }

@@ -52,7 +52,7 @@ public:
      * @param[in] vTypes which vehicle types are considered
      */
     GUIInductLoop(const std::string& id, MSLane* const lane, double position, const std::string& vTypes,
-            int detectPersons, bool show);
+                  int detectPersons, bool show);
 
 
     /// @brief Destructor

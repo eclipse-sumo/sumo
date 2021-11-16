@@ -48,7 +48,7 @@ class GLHelper {
 
 public:
     /// @brief Storage for precomputed sin/cos-values describing a circle
-    static const std::vector<std::pair<double, double> > &getCircleCoords();
+    static const std::vector<std::pair<double, double> >& getCircleCoords();
 
     /// @brief normalize angle for lookup in myCircleCoords
     static int angleLookup(double angleDeg);
@@ -294,7 +294,7 @@ public:
      * @param[in] tWidth The width of the triangle
      * @param[in] extraOffset extra offset at end
      */
-    static void drawTriangleAtEnd(const Position& p1, const Position& p2, double tLength, 
+    static void drawTriangleAtEnd(const Position& p1, const Position& p2, double tLength,
                                   double tWidth, const double extraOffset = 0);
 
     /// @brief Sets the gl-color to this value

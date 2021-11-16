@@ -53,8 +53,8 @@ std::set<SumoXMLAttr> SUMOVehicleParserHelper::allowedJMAttrs;
 // ===========================================================================
 
 SUMOVehicleParameter*
-SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attrs, const bool hardFail, const bool needID, 
-    const SUMOTime beginDefault, const SUMOTime endDefault) {
+SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attrs, const bool hardFail, const bool needID,
+        const SUMOTime beginDefault, const SUMOTime endDefault) {
     // first parse ID
     std::string id = parseID(attrs, tag);
     // check if ID is valid
@@ -1041,7 +1041,7 @@ SUMOVehicleParserHelper::parseAngleTimesMap(SUMOVTypeParameter* vtype, const std
     }
     if (angleTimesMap.size() > 0) {
         vtype->myManoeuverAngleTimes.clear();
-        for (const auto &angleTime : angleTimesMap) {
+        for (const auto& angleTime : angleTimesMap) {
             vtype->myManoeuverAngleTimes.insert(angleTime);
         }
         angleTimesMap.clear();
@@ -1082,7 +1082,7 @@ SUMOVehicleParserHelper::parseCFMParams(SUMOVTypeParameter* into, const SumoXMLT
             } else if (it == SUMO_ATTR_TRAIN_TYPE) {
                 // check if train value is valid
                 if (!SUMOXMLDefinitions::TrainTypes.hasString(parsedCFMAttribute)) {
-                WRITE_ERROR("Invalid train type '" + parsedCFMAttribute + "' used in Car-Following-Attribute " + toString(it));
+                    WRITE_ERROR("Invalid train type '" + parsedCFMAttribute + "' used in Car-Following-Attribute " + toString(it));
                     return false;
                 }
                 // add parsedCFMAttribute to cfParameter
@@ -1144,7 +1144,7 @@ SUMOVehicleParserHelper::parseCFMParams(SUMOVTypeParameter* into, const SumoXMLT
                     // check tau in time format
                     if ((string2time(parsedCFMAttribute) < DELTA_T) && gSimulation) {
                         WRITE_WARNING("Value of tau=" + parsedCFMAttribute + " in car following model '" +
-                                        toString(into->cfModel) + "' lower than simulation step size may cause collisions");
+                                      toString(into->cfModel) + "' lower than simulation step size may cause collisions");
                     }
                 }
                 // add parsedCFMAttribute to cfParameter
@@ -1261,7 +1261,7 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
         eidmParams.insert(SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW);
         allowedCFModelAttrs[SUMO_TAG_CF_EIDM] = eidmParams;
         allParams.insert(eidmParams.begin(), eidmParams.end());
-        // IDMM 
+        // IDMM
         std::set<SumoXMLAttr> idmmParams;
         idmmParams.insert(SUMO_ATTR_ACCEL);
         idmmParams.insert(SUMO_ATTR_DECEL);
@@ -1615,7 +1615,7 @@ SUMOVehicleParserHelper::parseWalkPos(SumoXMLAttr attr, const bool hardFail, con
 
 SUMOTime
 SUMOVehicleParserHelper::processActionStepLength(double given) {
-    const std::string defaultError= "The parameter action-step-length must be a non-negative multiple of the simulation step-length. ";
+    const std::string defaultError = "The parameter action-step-length must be a non-negative multiple of the simulation step-length. ";
     SUMOTime result = TIME2STEPS(given);
     if (result <= 0) {
         if (result < 0) {

@@ -1013,7 +1013,7 @@ MSTriggeredRerouter::checkParkingRerouteConsistency() {
     for (const auto& item : targetedParkingArea) {
         if (parkingRerouterEdges.count(&item.first->getLane().getEdge()) == 0) {
             WRITE_WARNINGF("ParkingArea '%' is targeted by rerouter '%' but doesn't have it's own rerouter. This may cause parking search to abort.",
-                    item.first->getID(), item.second);
+                           item.first->getID(), item.second);
         }
     }
 }

@@ -267,7 +267,7 @@ public:
     /// @brief set exceptions (used in NETEDIT)
     void setExceptions(const std::string permissions);
 
-    /// @brief set offset 
+    /// @brief set offset
     void setOffset(const double offset);
 
     /// @brief comparator

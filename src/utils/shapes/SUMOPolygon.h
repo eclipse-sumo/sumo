@@ -62,12 +62,12 @@ public:
      * @param[in] name Polygon name
      * @param[in] parameters generic parameters
      */
-    SUMOPolygon(const std::string& id, const std::string& type, const RGBColor& color, 
-                const PositionVector& shape, bool geo, bool fill, double lineWidth, 
+    SUMOPolygon(const std::string& id, const std::string& type, const RGBColor& color,
+                const PositionVector& shape, bool geo, bool fill, double lineWidth,
                 double layer = DEFAULT_LAYER,
-                double angle = DEFAULT_ANGLE, 
+                double angle = DEFAULT_ANGLE,
                 const std::string& imgFile = DEFAULT_IMG_FILE,
-                bool relativePath = DEFAULT_RELATIVEPATH, 
+                bool relativePath = DEFAULT_RELATIVEPATH,
                 const std::string& name = DEFAULT_NAME,
                 const std::map<std::string, std::string>& parameters = DEFAULT_PARAMETERS);
 

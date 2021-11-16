@@ -79,7 +79,7 @@ GNEBusStop::writeAdditional(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_COLOR, myColor);
     }
     // write all access
-    for (const auto &access : getChildAdditionals()) {
+    for (const auto& access : getChildAdditionals()) {
         access->writeAdditional(device);
     }
     // write parameters (Always after children to avoid problems with additionals.xsd)
@@ -126,7 +126,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             } else if (drawUsingSelectColor()) {
                 baseColor = s.colorSettings.selectedAdditionalColor;
                 signColor = baseColor.changedBrightness(-32);
-            } else if (myColor.isValid()){
+            } else if (myColor.isValid()) {
                 baseColor = myColor;
                 signColor = s.colorSettings.busStopColorSign;
             } else if (myTagProperty.getTag() == SUMO_TAG_TRAIN_STOP) {
@@ -170,12 +170,12 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), busStopExaggeration, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? 0.5 : 0.25);
             // check if dotted contours has to be drawn
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), stopWidth, 
-                                                    busStopExaggeration, true, true);
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), stopWidth,
+                        busStopExaggeration, true, true);
             }
             if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), stopWidth, 
-                                                    busStopExaggeration, true, true);
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), stopWidth,
+                        busStopExaggeration, true, true);
             }
             // draw child demand elements
             for (const auto& demandElement : getChildDemandElements()) {

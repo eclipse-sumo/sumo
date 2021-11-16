@@ -169,7 +169,7 @@ public:
      * @param[in] disregardOppositeDirection Whether vehicles on opposite lanes shall be taken into account.
      */
     static void applySubscriptionFilterLanes(const Subscription& s, std::set<const SUMOTrafficObject*>& vehs, std::vector<int>& filterLanes,
-                                             double downstreamDist, double upstreamDist, bool disregardOppositeDirection);
+            double downstreamDist, double upstreamDist, bool disregardOppositeDirection);
 
     /**
      * @brief Apply the subscription filter "turn": Gather upcoming junctions and vialanes within downstream
@@ -192,7 +192,7 @@ public:
      * @param[in] lateralDist Lateral distance.
      */
     static void applySubscriptionFilterLateralDistance(const Subscription& s, std::set<const SUMOTrafficObject*>& vehs, double downstreamDist,
-                                                       double upstreamDist, double lateralDist);
+            double upstreamDist, double lateralDist);
 
     static void applySubscriptionFilterLateralDistanceSinglePass(const Subscription& s,
             std::set<std::string>& objIDs,

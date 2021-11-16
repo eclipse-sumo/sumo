@@ -857,7 +857,7 @@ GNEApplicationWindow::onCmdRunNetDiff(FXObject*, FXSelector, void*) {
 #ifdef WIN32
     // check that python folder is defined in PATH
     const char* path = getenv("PATH");
-    if((strstr(path, "Python") == nullptr) && (strstr(path, "python") == nullptr)) {
+    if ((strstr(path, "Python") == nullptr) && (strstr(path, "python") == nullptr)) {
         WRITE_ERROR("Python folder must be defined in PATH");
         return 0;
     }
@@ -901,10 +901,10 @@ GNEApplicationWindow::onCmdRunNetDiff(FXObject*, FXSelector, void*) {
         const std::string secondNetFolder = getFolder(secondNet).text();
         // declare python command
         std::string cmd = "cd " + secondNetFolder + "&" +  // folder to save diff files (the same of second net)
-            "python " + netDiff +                           // netdiff.py
-            " " + oc.getString("output-file") +             // netA (current)
-            " " + secondNet +                               // net B
-            " diff";                                        // netdiff options
+                          "python " + netDiff +                           // netdiff.py
+                          " " + oc.getString("output-file") +             // netA (current)
+                          " " + secondNet +                               // net B
+                          " diff";                                        // netdiff options
         // start in background
 #ifndef WIN32
         cmd = cmd + " &";
@@ -1309,7 +1309,7 @@ GNEApplicationWindow::getUndoList() {
 }
 
 
-GNEUndoListDialog* 
+GNEUndoListDialog*
 GNEApplicationWindow::getUndoListDialog() {
     return myUndoListDialog;
 }
@@ -1474,7 +1474,7 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
             myMessageWindow->addSeparator();
             getApp()->endWaitCursor();
             // restore focus
-        setFocus();
+            setFocus();
         } else {
             // clear additional path
             additionalsSavePath = "";
@@ -1536,7 +1536,7 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
             myMessageWindow->addSeparator();
             getApp()->endWaitCursor();
             // restore focus
-        setFocus();
+            setFocus();
         } else {
             // clear demand element path
             demandElementsSavePath = "";
@@ -1598,7 +1598,7 @@ GNEApplicationWindow::computeJunctionWithVolatileOptions() {
             myMessageWindow->addSeparator();
             getApp()->endWaitCursor();
             // restore focus
-        setFocus();
+            setFocus();
         } else {
             // clear data element path
             dataElementsSavePath = "";
@@ -1688,7 +1688,7 @@ GNEApplicationWindow::onCmdLockElements(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEApplicationWindow::onCmdLockAllElements(FXObject*, FXSelector, void*) {
     // lock all
     myLockMenuCommands.lockAll();
@@ -1697,7 +1697,7 @@ GNEApplicationWindow::onCmdLockAllElements(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEApplicationWindow::onCmdUnlockAllElements(FXObject*, FXSelector, void*) {
     // unlock all
     myLockMenuCommands.unlockAll();
@@ -1706,7 +1706,7 @@ GNEApplicationWindow::onCmdUnlockAllElements(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEApplicationWindow::onCmdLockSelectElements(FXObject*, FXSelector, void*) {
     if (myViewNet) {
         myViewNet->update();
@@ -2182,7 +2182,7 @@ GNEApplicationWindow::onCmdUndo(FXObject*, FXSelector, void*) {
     } else {
         // check supermode (currently ignore supermode data)
         if ((myViewNet->getUndoList()->getUndoSupermode() != Supermode::DATA) &&
-            (myViewNet->getUndoList()->getUndoSupermode() != myViewNet->getEditModes().currentSupermode)) {
+                (myViewNet->getUndoList()->getUndoSupermode() != myViewNet->getEditModes().currentSupermode)) {
             // abort if user doesn't press "yes"
             if (!myViewNet->aksChangeSupermode("Undo", myViewNet->getUndoList()->getUndoSupermode())) {
                 return 0;
@@ -2218,9 +2218,9 @@ GNEApplicationWindow::onCmdRedo(FXObject*, FXSelector, void*) {
     } else {
         // check supermode (currently ignore supermode data)
         if ((myViewNet->getUndoList()->getRedoSupermode() != Supermode::DATA) &&
-            (myViewNet->getUndoList()->getRedoSupermode() != myViewNet->getEditModes().currentSupermode)) {
+                (myViewNet->getUndoList()->getRedoSupermode() != myViewNet->getEditModes().currentSupermode)) {
             // abort if user doesn't press "yes"
-            if(!myViewNet->aksChangeSupermode("Redo", myViewNet->getUndoList()->getRedoSupermode())) {
+            if (!myViewNet->aksChangeSupermode("Redo", myViewNet->getUndoList()->getRedoSupermode())) {
                 return 0;
             }
         }
@@ -2243,7 +2243,7 @@ GNEApplicationWindow::onCmdRedo(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEApplicationWindow::onCmdOpenUndoListDialog(FXObject*, FXSelector, void*) {
     // avoid open two dialogs
     if (myUndoListDialog->shown()) {
@@ -2255,7 +2255,7 @@ GNEApplicationWindow::onCmdOpenUndoListDialog(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEApplicationWindow::onUpdOpenUndoListDialog(FXObject* sender, FXSelector, void*) {
     // check if net exist
     if (myNet) {
@@ -3676,9 +3676,9 @@ GNEApplicationWindow::continueWithUnsavedChanges(const std::string& operation) {
         if (answer == MBOX_CLICKED_QUIT) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'Confirm " + operation + " network' with 'Quit'");
-            if (continueWithUnsavedAdditionalChanges(operation) && 
-                continueWithUnsavedDemandElementChanges(operation) &&
-                continueWithUnsavedDataElementChanges(operation)) {
+            if (continueWithUnsavedAdditionalChanges(operation) &&
+                    continueWithUnsavedDemandElementChanges(operation) &&
+                    continueWithUnsavedDataElementChanges(operation)) {
                 // clear undo list
                 clearUndoList();
                 return true;
@@ -3688,10 +3688,10 @@ GNEApplicationWindow::continueWithUnsavedChanges(const std::string& operation) {
         } else if (answer == MBOX_CLICKED_SAVE) {
             // save network
             onCmdSaveNetwork(nullptr, 0, nullptr);
-            // check 
-            if (continueWithUnsavedAdditionalChanges(operation) && 
-                continueWithUnsavedDemandElementChanges(operation) &&
-                continueWithUnsavedDataElementChanges(operation)) {
+            // check
+            if (continueWithUnsavedAdditionalChanges(operation) &&
+                    continueWithUnsavedDemandElementChanges(operation) &&
+                    continueWithUnsavedDataElementChanges(operation)) {
                 // clear undo list
                 clearUndoList();
                 return true;
@@ -3709,9 +3709,9 @@ GNEApplicationWindow::continueWithUnsavedChanges(const std::string& operation) {
             return false;
         }
     } else {
-        if (continueWithUnsavedAdditionalChanges(operation) && 
-            continueWithUnsavedDemandElementChanges(operation) &&
-            continueWithUnsavedDataElementChanges(operation)) {
+        if (continueWithUnsavedAdditionalChanges(operation) &&
+                continueWithUnsavedDemandElementChanges(operation) &&
+                continueWithUnsavedDataElementChanges(operation)) {
             // clear undo list
             clearUndoList();
             return true;
@@ -3863,7 +3863,7 @@ GNEApplicationWindow::getFolder(const std::string& folder) const {
         if (newFolder.empty()) {
             // new folder empty, then stop
             stop = true;
-        } else if ((newFolder.back() == '\'') || (newFolder.back() == '\\') || 
+        } else if ((newFolder.back() == '\'') || (newFolder.back() == '\\') ||
                    (newFolder.back() == '/') /* || (newFolder.back() == '//') */) {
             // removed file, then stop
             stop = true;

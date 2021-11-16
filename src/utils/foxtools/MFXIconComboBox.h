@@ -38,7 +38,7 @@ public:
     void draw(const FXList* list, FXDC& dc, FXint x, FXint y, FXint w, FXint h);
 
     /// @brief get background color
-    const FXColor &getBackGroundColor() const;
+    const FXColor& getBackGroundColor() const;
 
 protected:
     /// @brief fox need this
@@ -63,7 +63,7 @@ public:
     };
 
     /// Construct a Combo Box widget with room to display cols columns of text
-    MFXIconComboBox(FXComposite *p,FXint cols,FXObject* tgt=NULL,FXSelector sel=0,FXuint opts=COMBOBOX_NORMAL,FXint x=0,FXint y=0,FXint w=0,FXint h=0,FXint pl=DEFAULT_PAD,FXint pr=DEFAULT_PAD,FXint pt=DEFAULT_PAD,FXint pb=DEFAULT_PAD);
+    MFXIconComboBox(FXComposite* p, FXint cols, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = COMBOBOX_NORMAL, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
 
     /// Destructor
     virtual ~MFXIconComboBox();
@@ -96,7 +96,7 @@ public:
     FXbool isEditable() const;
 
     /// Set editable state
-    void setEditable(FXbool edit=TRUE);
+    void setEditable(FXbool edit = TRUE);
 
     /// Get the text
     FXString getText() const;
@@ -126,7 +126,7 @@ public:
     FXbool isItemCurrent(FXint index) const;
 
     /// Set the current item (index is zero-based)
-    void setCurrentItem(FXint index, FXbool notify=FALSE);
+    void setCurrentItem(FXint index, FXbool notify = FALSE);
 
     /// Get the current item's index
     FXint getCurrentItem() const;
@@ -135,10 +135,10 @@ public:
     FXString getItem(FXint index) const;
 
     /// Replace the item at index
-    FXint setIconItem(FXint index, const FXString& text, FXIcon* icon = nullptr, FXColor bgColor = FXRGB(255, 255, 255), void* ptr=nullptr);
+    FXint setIconItem(FXint index, const FXString& text, FXIcon* icon = nullptr, FXColor bgColor = FXRGB(255, 255, 255), void* ptr = nullptr);
 
     /// Insert a new item at index
-    FXint insertIconItem(FXint index, const FXString& text, FXIcon* icon = nullptr,  FXColor bgColor = FXRGB(255, 255, 255),  void* ptr=nullptr);
+    FXint insertIconItem(FXint index, const FXString& text, FXIcon* icon = nullptr,  FXColor bgColor = FXRGB(255, 255, 255),  void* ptr = nullptr);
 
     /// @brief append icon
     FXint appendIconItem(const FXString& text, FXIcon* icon = nullptr, FXColor bgColor = FXRGB(255, 255, 255), void* ptr = nullptr);
@@ -147,7 +147,7 @@ public:
     bool setItem(const FXString& text, FXIcon* icon);
 
     /// Prepend an item to the list
-    FXint prependItem(const FXString& text, void* ptr=NULL);
+    FXint prependItem(const FXString& text, void* ptr = NULL);
 
     /// Move item from oldindex to newindex
     FXint moveItem(FXint newindex, FXint oldindex);
@@ -164,11 +164,11 @@ public:
     * may be SEARCH_FORWARD or SEARCH_BACKWARD to control the search
     * direction; this can be combined with SEARCH_NOWRAP or SEARCH_WRAP
     * to control whether the search wraps at the start or end of the list.
-    * The option SEARCH_IGNORECASE causes a case-insensitive match.  Finally, 
+    * The option SEARCH_IGNORECASE causes a case-insensitive match.  Finally,
     * passing SEARCH_PREFIX causes searching for a prefix of the item name.
     * Return -1 if no matching item is found.
     */
-    FXint findItem(const FXString& text, FXint start=-1, FXuint flags=SEARCH_FORWARD|SEARCH_WRAP) const;
+    FXint findItem(const FXString& text, FXint start = -1, FXuint flags = SEARCH_FORWARD | SEARCH_WRAP) const;
 
     /**
     * Search items by associated user data,  beginning from item start. If the
@@ -177,7 +177,7 @@ public:
     * search direction; this can be combined with SEARCH_NOWRAP or SEARCH_WRAP
     * to control whether the search wraps at the start or end of the list.
     */
-    FXint findItemByData(const void *ptr, FXint start=-1, FXuint flags=SEARCH_FORWARD|SEARCH_WRAP) const;
+    FXint findItemByData(const void* ptr, FXint start = -1, FXuint flags = SEARCH_FORWARD | SEARCH_WRAP) const;
 
     /// Get text for specified item
     FXString getItemText(FXint index) const;
@@ -277,11 +277,11 @@ protected:
 
     /// @brief popup
     FXPopup* myPane = nullptr;
-    
+
 private:
     /// @brief invalidate copy constructor
     MFXIconComboBox(const MFXIconComboBox&);
 
     /// @brief invalidate assignment operator
-    MFXIconComboBox &operator=(const MFXIconComboBox&) = delete;
+    MFXIconComboBox& operator=(const MFXIconComboBox&) = delete;
 };

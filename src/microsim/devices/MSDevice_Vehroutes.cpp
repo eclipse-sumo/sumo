@@ -261,7 +261,7 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
             const bool includeInternalLengths = MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks();
             const MSRoute* route = myReplacedRoutes[index].route;
             const double routeLength = route->getDistanceBetween(myHolder.getDepartPos(), route->getEdges().back()->getLength(),
-                    route->begin(), route->end(), includeInternalLengths);
+                                       route->begin(), route->end(), includeInternalLengths);
             os.writeAttr("routeLength", routeLength);
         }
     } else {
@@ -350,7 +350,7 @@ MSDevice_Vehroutes::writeOutput(const bool hasArrived) const {
         const bool includeInternalLengths = MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks();
         const double finalPos = hasArrived ? myHolder.getArrivalPos() : myHolder.getPositionOnLane();
         const double routeLength = myHolder.getRoute().getDistanceBetween(myHolder.getDepartPos(), finalPos,
-                myHolder.getRoute().begin(), myHolder.getCurrentRouteEdge(), includeInternalLengths);
+                                   myHolder.getRoute().begin(), myHolder.getCurrentRouteEdge(), includeInternalLengths);
         od.writeAttr("routeLength", routeLength);
     }
     if (myDUAStyle) {
@@ -435,10 +435,10 @@ MSDevice_Vehroutes::addRoute(const std::string& info) {
     if (myMaxRoutes > 0) {
         //std::cout << SIMTIME << " " << getID() << " departed=" << myHolder.hasDeparted() << " lastIndex=" << myLastRouteIndex << " start=" << myHolder.getRoutePosition() << "\n";
         myReplacedRoutes.push_back(RouteReplaceInfo(
-                    myHolder.hasDeparted() ?  myHolder.getEdge() : nullptr,
-                    MSNet::getInstance()->getCurrentTimeStep(), myCurrentRoute, info,
-                    myLastRouteIndex,
-                    myHolder.hasDeparted() ? myHolder.getRoutePosition() : 0));
+                                       myHolder.hasDeparted() ?  myHolder.getEdge() : nullptr,
+                                       MSNet::getInstance()->getCurrentTimeStep(), myCurrentRoute, info,
+                                       myLastRouteIndex,
+                                       myHolder.hasDeparted() ? myHolder.getRoutePosition() : 0));
         if ((int)myReplacedRoutes.size() > myMaxRoutes) {
             myReplacedRoutes.front().route->release();
             myReplacedRoutes.erase(myReplacedRoutes.begin());

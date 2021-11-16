@@ -106,7 +106,7 @@ NIXMLPTHandler::myStartElement(int element,
                 myCurrentStop->setParameter(key, val);
             }
         }
-            break;
+        break;
         default:
             break;
     }

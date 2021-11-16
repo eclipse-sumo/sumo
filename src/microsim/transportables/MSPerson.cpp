@@ -277,12 +277,12 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSTransportable* person, SUMOTim
     if (lane != nullptr) {
         const double tl = person->getVehicleType().getLength();
         const double lastPos = (arrived
-                ? (prevDir == MSPModel::FORWARD
-                    ? getArrivalPos() + tl
-                    : getArrivalPos() - tl)
-                : (prevDir == MSPModel::FORWARD
-                    ? lane->getLength() + tl
-                    : -tl));
+                                ? (prevDir == MSPModel::FORWARD
+                                   ? getArrivalPos() + tl
+                                   : getArrivalPos() - tl)
+                                : (prevDir == MSPModel::FORWARD
+                                   ? lane->getLength() + tl
+                                   : -tl));
         for (MSMoveReminder* rem : myMoveReminders) {
             rem->updateDetector(*person, 0.0, lane->getLength(), myLastEdgeEntryTime, currentTime, currentTime, true);
             rem->notifyLeave(*person, lastPos, arrived ? MSMoveReminder::NOTIFICATION_ARRIVED : MSMoveReminder::NOTIFICATION_JUNCTION);

@@ -59,8 +59,7 @@ MSRouteHandler::MSRouteHandler(const std::string& file, bool addVehiclesDirectly
     myCurrentVTypeDistribution(nullptr),
     myCurrentRouteDistribution(nullptr),
     myAmLoadingState(false),
-    myScaleSuffix(OptionsCont::getOptions().getString("scale-suffix"))
-{
+    myScaleSuffix(OptionsCont::getOptions().getString("scale-suffix")) {
     myActiveRoute.reserve(100);
 }
 
@@ -911,7 +910,7 @@ MSRouteHandler::closeFlow() {
                 myVehicleParameter->arrivalEdgeProcedure == RouteIndexDefinition::GIVEN &&
                 myVehicleParameter->arrivalEdge >= (int)route->getEdges().size()) {
             throw ProcessError("Flow '" + myVehicleParameter->id + "' has invalid arrivalEdge index "
-                    + toString(myVehicleParameter->arrivalEdge) + " for route with " + toString(route->getEdges().size()) + " edges.");
+                               + toString(myVehicleParameter->arrivalEdge) + " for route with " + toString(route->getEdges().size()) + " edges.");
         }
     }
     myActiveRouteID = "";

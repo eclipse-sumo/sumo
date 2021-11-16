@@ -672,7 +672,7 @@ struct GNEApplicationWindowHelper {
         void unlockAll();
 
         /// @brief lock or unlock object based in a tag property
-        void editLocking(const GNEAttributeCarrier *AC, const FXbool value);
+        void editLocking(const GNEAttributeCarrier* AC, const FXbool value);
 
         /// @name Processing FXMenuCommands for Network mode
         /// @{

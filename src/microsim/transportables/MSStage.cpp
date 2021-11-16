@@ -536,7 +536,7 @@ MSStageWaiting::abort(MSTransportable* t) {
 std::string
 MSStageWaiting::getStageDescription(const bool isPerson) const {
     UNUSED_PARAMETER(isPerson);
-    if (myActType != "" ) {
+    if (myActType != "") {
         return "waiting (" + myActType + ")";
     } else {
         return "waiting";

@@ -1142,7 +1142,7 @@ GNETAZFrame::TAZParameters::getAttributesAndValues() const {
     // set tag
     myTAZFrameParent->myBaseTAZ->setTag(SUMO_TAG_TAZ);
     // get attributes
-    myTAZFrameParent->myBaseTAZ->addPositionAttribute(SUMO_ATTR_CENTER, myTextFieldCenter->getText().empty()? Position::INVALID : GNEAttributeCarrier::parse<Position>(myTextFieldCenter->getText().text()));
+    myTAZFrameParent->myBaseTAZ->addPositionAttribute(SUMO_ATTR_CENTER, myTextFieldCenter->getText().empty() ? Position::INVALID : GNEAttributeCarrier::parse<Position>(myTextFieldCenter->getText().text()));
     myTAZFrameParent->myBaseTAZ->addBoolAttribute(SUMO_ATTR_FILL, (myCheckButtonFill->getCheck() == TRUE));
     myTAZFrameParent->myBaseTAZ->addColorAttribute(SUMO_ATTR_COLOR, GNEAttributeCarrier::parse<RGBColor>(myTextFieldColor->getText().text()));
     myTAZFrameParent->myBaseTAZ->addStringAttribute(SUMO_ATTR_NAME, myTextFieldName->getText().text());
@@ -1266,7 +1266,7 @@ void
 GNETAZFrame::TAZEdgesGraphic::hideTAZEdgesGraphicModul() {
     // iterate over all edges and restore color
     for (const auto& edge : myTAZFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
-        for (const auto &lane : edge.second->getLanes()) {
+        for (const auto& lane : edge.second->getLanes()) {
             lane->setSpecialColor(nullptr);
         }
     }
@@ -1290,7 +1290,7 @@ GNETAZFrame::TAZEdgesGraphic::updateEdgeColors() {
     for (const auto& TAZEdgeColor : myTAZFrameParent->myCurrentTAZ->getTAZEdges()) {
         if (!TAZEdgeColor.edge->isAttributeCarrierSelected()) {
             // set candidate color (in this case,
-            for (const auto &lane : TAZEdgeColor.edge->getLanes()) {
+            for (const auto& lane : TAZEdgeColor.edge->getLanes()) {
                 // check what will be painted (source, sink or both)
                 if (myColorBySourceWeight->getCheck() == TRUE) {
                     lane->setSpecialColor(&scaledColors.at(TAZEdgeColor.sourceColor), TAZEdgeColor.source->getDepartWeight());
@@ -1462,7 +1462,7 @@ GNETAZFrame::processEdgeSelection(const std::vector<GNEEdge*>& edges) {
         // if "toggle Membership" is enabled, create new TAZSources/sinks. In other case simply select edges
         if (myTAZChildDefaultParameters->getToggleMembership()) {
             // iterate over edges
-            for (const auto &edge : edges) {
+            for (const auto& edge : edges) {
                 // first check if edge owns a TAZEge
                 if (myCurrentTAZ->isTAZEdge(edge) == false) {
                     // create new TAZ Sources/Sinks
@@ -1471,7 +1471,7 @@ GNETAZFrame::processEdgeSelection(const std::vector<GNEEdge*>& edges) {
             }
         } else {
             // iterate over edges
-            for (const auto &edge : edges) {
+            for (const auto& edge : edges) {
                 // first check that selected edge isn't already selected
                 if (!myTAZSelectionStatistics->isEdgeSelected(edge)) {
                     // iterate over TAZEdges saved in CurrentTAZ (it contains the Edge and Source/sinks)
@@ -1541,7 +1541,7 @@ GNETAZFrame::shapeDrawed() {
             // get only edges with geometry around shape
             for (const auto& AC : ACsInBoundary) {
                 if ((AC.second->getTagProperty().getTag() == SUMO_TAG_EDGE) &&
-                    myViewNet->getNet()->getAttributeCarriers()->isNetworkElementAroundShape(AC.second, shape)) {
+                        myViewNet->getNet()->getAttributeCarriers()->isNetworkElementAroundShape(AC.second, shape)) {
                     edgeIDs.push_back(AC.first);
                 }
             }

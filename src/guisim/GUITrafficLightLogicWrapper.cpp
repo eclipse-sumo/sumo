@@ -251,7 +251,7 @@ GUITrafficLightLogicWrapper::getParameterWindow(GUIMainWindow& app,
     return ret;
 }
 
-double 
+double
 GUITrafficLightLogicWrapper::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
     return 1;
 }

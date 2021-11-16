@@ -21,14 +21,14 @@
 #include "MFXTextFieldIcon.h"
 
 // Map
-FXDEFMAP(MFXTextFieldIcon) MFXTextFieldIconMap[]={
-  FXMAPFUNC(SEL_PAINT,  0,  MFXTextFieldIcon::onPaint),
- 
+FXDEFMAP(MFXTextFieldIcon) MFXTextFieldIconMap[] = {
+    FXMAPFUNC(SEL_PAINT,  0,  MFXTextFieldIcon::onPaint),
+
 };
 
 
 // Object implementation
-FXIMPLEMENT(MFXTextFieldIcon, FXTextField, MFXTextFieldIconMap,ARRAYNUMBER(MFXTextFieldIconMap))
+FXIMPLEMENT(MFXTextFieldIcon, FXTextField, MFXTextFieldIconMap, ARRAYNUMBER(MFXTextFieldIconMap))
 
 
 MFXTextFieldIcon::MFXTextFieldIcon(FXComposite* p, FXint ncols, FXObject* tgt, FXSelector sel, FXuint opt, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
@@ -37,13 +37,13 @@ MFXTextFieldIcon::MFXTextFieldIcon(FXComposite* p, FXint ncols, FXObject* tgt, F
 }
 
 
-void 
-MFXTextFieldIcon::setIcon(FXIcon *icon) {
+void
+MFXTextFieldIcon::setIcon(FXIcon* icon) {
     myIcon = icon;
 }
 
 
-void 
+void
 MFXTextFieldIcon::resetTextField() {
     setText("");
     setBackColor(FXRGB(255, 255, 255));
@@ -51,15 +51,15 @@ MFXTextFieldIcon::resetTextField() {
 }
 
 
-long 
+long
 MFXTextFieldIcon::onPaint(FXObject*, FXSelector, void* ptr) {
-    FXEvent *ev = (FXEvent*)ptr;
+    FXEvent* ev = (FXEvent*)ptr;
     FXDCWindow dc(this, ev);
-    const FXint iconWidth = myIcon? myIcon->getWidth() + 4 : 0;
+    const FXint iconWidth = myIcon ? myIcon->getWidth() + 4 : 0;
     // Draw frame
     drawFrame(dc, 0, 0, width, height);
     // Gray background if disabled
-    if(isEnabled()) {
+    if (isEnabled()) {
         dc.setForeground(backColor);
     } else {
         dc.setForeground(baseColor);
@@ -71,7 +71,7 @@ MFXTextFieldIcon::onPaint(FXObject*, FXSelector, void* ptr) {
     // draw text depending of icon
     drawIconTextRange(dc, iconWidth, 0, contents.length());
     // Draw caret
-    if(flags & FLAG_CARET){
+    if (flags & FLAG_CARET) {
         const int xx = coord(cursor) - 1;
         dc.setForeground(cursorColor);
         dc.fillRectangle(xx, padtop + border, 1, height - padbottom - padtop - (border << 1));
@@ -87,12 +87,12 @@ MFXTextFieldIcon::MFXTextFieldIcon() :
 }
 
 
-void 
+void
 MFXTextFieldIcon::drawIconTextRange(FXDCWindow& dc, const FXint iconWidth, FXint fm, FXint to) {
     FXint sx, ex, xx, yy, cw, hh, ww, si, ei, lx, rx, t;
     const FXint rr = width - border - padright;
     const FXint ll = border + padleft;
-    const FXint mm = (ll + rr)/2;
+    const FXint mm = (ll + rr) / 2;
     if (to <= fm) {
         return;
     }
@@ -122,16 +122,16 @@ MFXTextFieldIcon::drawIconTextRange(FXDCWindow& dc, const FXint iconWidth, FXint
     // Password mode
     if (options & TEXTFIELD_PASSWD) {
         cw = font->getTextWidth("*", 1);
-        ww = cw*contents.count();
+        ww = cw * contents.count();
         // Text sticks to right of field
         if (options & JUSTIFY_RIGHT) {
             xx = shift + rr - ww + iconWidth;
         } else if (options & JUSTIFY_LEFT) {
             // Text sticks on left of field
             xx = shift + ll + iconWidth;
-        } else{
+        } else {
             // Text centered in field
-            xx = shift + mm - ww/2 + iconWidth;
+            xx = shift + mm - ww / 2 + iconWidth;
         }
         // Reduce to avoid drawing excessive amounts of text
         lx = xx + cw * contents.index(fm);
@@ -144,7 +144,7 @@ MFXTextFieldIcon::drawIconTextRange(FXDCWindow& dc, const FXint iconWidth, FXint
             fm = contents.inc(fm);
         }
         while (fm < to) {
-            if (rx - cw<width) {
+            if (rx - cw < width) {
                 break;
             }
             rx -= cw;
@@ -167,12 +167,12 @@ MFXTextFieldIcon::drawIconTextRange(FXDCWindow& dc, const FXint iconWidth, FXint
             } else {
                 si = fm;
             }
-            if (ei<to) {
+            if (ei < to) {
                 drawPWDTextFragment(dc, xx, yy, ei, to);
             } else {
                 ei = to;
             }
-            if (si<ei) {
+            if (si < ei) {
                 sx = xx + cw * contents.index(si);
                 ex = xx + cw * contents.index(ei);
                 if (hasFocus()) {
@@ -180,7 +180,7 @@ MFXTextFieldIcon::drawIconTextRange(FXDCWindow& dc, const FXint iconWidth, FXint
                     dc.fillRectangle(sx, padtop + border, ex - sx, height - padtop - padbottom - (border << 1));
                     dc.setForeground(seltextColor);
                     drawPWDTextFragment(dc, xx, yy, si, ei);
-                } else{
+                } else {
                     dc.setForeground(baseColor);
                     dc.fillRectangle(sx, padtop + border, ex - sx, height - padtop - padbottom - (border << 1));
                     dc.setForeground(textColor);
@@ -197,9 +197,9 @@ MFXTextFieldIcon::drawIconTextRange(FXDCWindow& dc, const FXint iconWidth, FXint
         } else if (options & JUSTIFY_LEFT) {
             // Text sticks on left of field
             xx = shift + ll + iconWidth;
-        } else{
+        } else {
             // Text centered in field
-            xx = shift + mm - ww/2 + iconWidth;
+            xx = shift + mm - ww / 2 + iconWidth;
         }
         // Reduce to avoid drawing excessive amounts of text
         lx = xx + font->getTextWidth(&contents[0], fm);
@@ -211,7 +211,7 @@ MFXTextFieldIcon::drawIconTextRange(FXDCWindow& dc, const FXint iconWidth, FXint
                 break;
             }
             lx += cw;
-            fm=t;
+            fm = t;
         }
         while (fm < to) {
             t = contents.dec(to);
@@ -226,7 +226,7 @@ MFXTextFieldIcon::drawIconTextRange(FXDCWindow& dc, const FXint iconWidth, FXint
         if (si < fm) {
             si = fm;
         }
-        if (ei > to) { 
+        if (ei > to) {
             ei = to;
         }
         // Nothing selected
@@ -249,12 +249,12 @@ MFXTextFieldIcon::drawIconTextRange(FXDCWindow& dc, const FXint iconWidth, FXint
                 ex = xx + font->getTextWidth(contents.text(), ei);
                 if (hasFocus()) {
                     dc.setForeground(selbackColor);
-                    dc.fillRectangle(sx, padtop + border, ex - sx, height - padtop - padbottom - (border<<1));
+                    dc.fillRectangle(sx, padtop + border, ex - sx, height - padtop - padbottom - (border << 1));
                     dc.setForeground(seltextColor);
                     drawTextFragment(dc, xx, yy, si, ei);
-                } else{
+                } else {
                     dc.setForeground(baseColor);
-                    dc.fillRectangle(sx, padtop + border, ex - sx, height - padtop - padbottom - (border<<1));
+                    dc.fillRectangle(sx, padtop + border, ex - sx, height - padtop - padbottom - (border << 1));
                     dc.setForeground(textColor);
                     drawTextFragment(dc, xx, yy, si, ei);
                 }

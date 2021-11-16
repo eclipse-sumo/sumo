@@ -153,11 +153,11 @@ GNEMoveOperation*
 GNEConnection::getMoveOperation() {
     // edit depending if shape is being edited
     if (isShapeEdited()) {
-            // get connection
+        // get connection
         const auto& connection = getNBEdgeConnection();
         // calculate move shape operation
-        return calculateMoveShapeOperation(connection.customShape.size() > 0 ? connection.customShape : myConnectionGeometry.getShape(), 
-                                           myNet->getViewNet()->getPositionInformation(), 
+        return calculateMoveShapeOperation(connection.customShape.size() > 0 ? connection.customShape : myConnectionGeometry.getShape(),
+                                           myNet->getViewNet()->getPositionInformation(),
                                            myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.connectionGeometryPointRadius, true);
     } else {
         return nullptr;
@@ -300,7 +300,7 @@ GNEConnection::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 }
 
 
-double 
+double
 GNEConnection::getExaggeration(const GUIVisualizationSettings& s) const {
     return s.addSize.getExaggeration(s, this);
 }
@@ -334,8 +334,8 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
     // declare flag to check if push glID
     bool pushGLID = true;
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
-        myNet->getViewNet()->getNetworkViewOptions().showConnections() &&
-        s.drawDetail(s.detailSettings.connectionsDemandMode, getExaggeration(s))) {
+            myNet->getViewNet()->getNetworkViewOptions().showConnections() &&
+            s.drawDetail(s.detailSettings.connectionsDemandMode, getExaggeration(s))) {
         drawConnection = !myShapeDeprecated;
     } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
                myNet->getViewNet()->getNetworkViewOptions().showConnections()) {
@@ -406,12 +406,12 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                 // color
                 const RGBColor darkerColor = connectionColor.changedBrightness(-32);
                 // draw geometry points
-                GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myConnectionGeometry.getShape(), darkerColor, RGBColor::BLACK, 
-                                                s.neteditSizeSettings.connectionGeometryPointRadius, 1, 
+                GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myConnectionGeometry.getShape(), darkerColor, RGBColor::BLACK,
+                                                s.neteditSizeSettings.connectionGeometryPointRadius, 1,
                                                 myNet->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
                 // draw moving hint
                 if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
-                    GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), myConnectionGeometry.getShape(), darkerColor, 
+                    GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), myConnectionGeometry.getShape(), darkerColor,
                                                 s.neteditSizeSettings.connectionGeometryPointRadius, 1);
                 }
             }

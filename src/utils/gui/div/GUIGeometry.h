@@ -78,7 +78,7 @@ public:
     static double calculateLength(const Position& first, const Position& second);
 
     /// @brief adjust start and end positions in geometric path
-    static void adjustStartPosGeometricPath(double& startPos, const PositionVector &startLaneShape, double& endPos, const PositionVector &endLaneShape);
+    static void adjustStartPosGeometricPath(double& startPos, const PositionVector& startLaneShape, double& endPos, const PositionVector& endLaneShape);
 
     /// @}
 
@@ -86,29 +86,29 @@ public:
     /// @{
 
     /// @brief draw lane geometry (use their own function due colors)
-    static void drawLaneGeometry(const GUIVisualizationSettings& s, const Position &mousePos, const PositionVector& shape, const std::vector<double>& rotations,
+    static void drawLaneGeometry(const GUIVisualizationSettings& s, const Position& mousePos, const PositionVector& shape, const std::vector<double>& rotations,
                                  const std::vector<double>& lengths, const std::vector<RGBColor>& colors, double width, const bool onlyContour = false);
 
     /// @brief draw geometry
-    static void drawGeometry(const GUIVisualizationSettings& s, const Position &mousePos, const GUIGeometry& geometry, const double width);
+    static void drawGeometry(const GUIVisualizationSettings& s, const Position& mousePos, const GUIGeometry& geometry, const double width);
 
     /// @brief draw contour geometry
     static void drawContourGeometry(const GUIGeometry& geometry, const double width, const bool drawExtremes = false);
 
     /// @brief draw geometry points
-    static void drawGeometryPoints(const GUIVisualizationSettings& s, const Position &mousePos, const PositionVector& shape,
-                                   const RGBColor& geometryPointColor, const RGBColor& textColor, const double radius, 
+    static void drawGeometryPoints(const GUIVisualizationSettings& s, const Position& mousePos, const PositionVector& shape,
+                                   const RGBColor& geometryPointColor, const RGBColor& textColor, const double radius,
                                    const double exaggeration, const bool editingElevation, const bool drawExtremeSymbols);
 
     /// @brief draw moving hint
-    static void drawMovingHint(const GUIVisualizationSettings& s, const Position &mousePos, const PositionVector& shape,
+    static void drawMovingHint(const GUIVisualizationSettings& s, const Position& mousePos, const PositionVector& shape,
                                const RGBColor& hintColor, const double radius, const double exaggeration);
 
     /// @brief draw line between parent and children (used in NETEDIT)
-    static void drawParentLine(const GUIVisualizationSettings& s, const Position &parent, const Position& child, const RGBColor &color, const bool drawEntire);
-    
+    static void drawParentLine(const GUIVisualizationSettings& s, const Position& parent, const Position& child, const RGBColor& color, const bool drawEntire);
+
     /// @brief draw line between child and parent (used in NETEDIT)
-    static void drawChildLine(const GUIVisualizationSettings& s, const Position &child, const Position& parent, const RGBColor &color, const bool drawEntire);
+    static void drawChildLine(const GUIVisualizationSettings& s, const Position& child, const Position& parent, const RGBColor& color, const bool drawEntire);
 
     /// @brief get a circle around the given position
     static PositionVector getVertexCircleAroundPosition(const Position& pos, const double width, const int steps = 8);

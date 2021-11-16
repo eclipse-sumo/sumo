@@ -356,7 +356,7 @@ GNEDataSet::isAttributeEnabled(SumoXMLAttr /*key*/) const {
 }
 
 
-bool 
+bool
 GNEDataSet::isAttributeComputed(SumoXMLAttr /*key*/) const {
     return false;
 }

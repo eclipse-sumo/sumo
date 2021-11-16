@@ -366,7 +366,7 @@ GNERerouterIntervalDialog::onCmdAddDestProbReroute(FXObject*, FXSelector, void*)
 long
 GNERerouterIntervalDialog::onCmdAddRouteProbReroute(FXObject*, FXSelector, void*) {
     // get routes
-    const auto &routes = myEditedAdditional->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE);
+    const auto& routes = myEditedAdditional->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE);
     // check if there is at least one route
     if (routes.size() > 0) {
         // create route Prob Reroute

@@ -54,8 +54,7 @@ GUIDialog_AppSettings::GUIDialog_AppSettings(FXMainWindow* parent)
       myAppAutoStart(GUIGlobals::gRunAfterLoad),
       myAppDemo(GUIGlobals::gDemoAutoReload),
       myAllowTextures(GUITexturesHelper::texturesAllowed()),
-      myLocateLinks(GUIMessageWindow::locateLinksEnabled())
-{
+      myLocateLinks(GUIMessageWindow::locateLinksEnabled()) {
     FXCheckButton* b = nullptr;
     FXVerticalFrame* f1 = new FXVerticalFrame(this, LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0, 0, 0, 0, 0);
     b = new FXCheckButton(f1, "Quit on Simulation End", this, MID_QUITONSIMEND);

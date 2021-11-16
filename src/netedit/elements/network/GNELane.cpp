@@ -155,11 +155,11 @@ GNELane::updateGeometry() {
     // update connections
     myLane2laneConnections.updateLane2laneConnection();
     // update dotted lane geometry
-/*
-    if (myNet->getViewNet()) {
-        myDottedLaneGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(), this);
-    }
-*/
+    /*
+        if (myNet->getViewNet()) {
+            myDottedLaneGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(), this);
+        }
+    */
     // update shapes parents associated with this lane
     for (const auto& shape : getParentShapes()) {
         shape->updateGeometry();
@@ -533,7 +533,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             myParentEdge->drawEdgeGeometryPoints(s, this);
         }
         // draw stopOffsets
-        const auto &laneStopOffset = myParentEdge->getNBEdge()->getLaneStruct(myIndex).laneStopOffset;
+        const auto& laneStopOffset = myParentEdge->getNBEdge()->getLaneStruct(myIndex).laneStopOffset;
         if (laneStopOffset.isDefined() && (laneStopOffset.getPermissions() & SVC_PASSENGER) != 0) {
             drawLaneStopOffset(s, laneStopOffset.getOffset());
         }
@@ -727,13 +727,13 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         if (editMode != NetworkEditMode::NETWORK_TLS) {
             new FXMenuSeparator(ret);
             // get lane shape
-            const auto &laneShape = myLaneGeometry.getShape();
+            const auto& laneShape = myLaneGeometry.getShape();
             // get variables
             const double pos = laneShape.nearest_offset_to_point2D(mousePosition);
             const Position firstAnglePos = laneShape.positionAtOffset2D(pos - 0.001);
             const Position secondAnglePos = laneShape.positionAtOffset2D(pos);
             const double angle = firstAnglePos.angleTo2D(secondAnglePos);
-            
+
             // build menu commands
             GUIDesigns::buildFXMenuCommand(ret, "Shape pos: " + toString(pos), nullptr, nullptr, 0);
             GUIDesigns::buildFXMenuCommand(ret, "Length pos: " + toString(pos * getLaneParametricLength() / getLaneShapeLength()), nullptr, nullptr, 0);
@@ -745,7 +745,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 }
 
 
-double 
+double
 GNELane::getExaggeration(const GUIVisualizationSettings& s) const {
     return s.addSize.getExaggeration(s, this);
 }
@@ -1342,12 +1342,12 @@ GNELane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
 bool
 GNELane::drawAsRailway(const GUIVisualizationSettings& s) const {
     return isRailway(myParentEdge->getNBEdge()->getPermissions(myIndex))
-        && (myParentEdge->getNBEdge()->getPermissions(myIndex) & SVC_BUS) == 0
-        && s.showRails && (!s.drawForRectangleSelection || s.spreadSuperposed);
+           && (myParentEdge->getNBEdge()->getPermissions(myIndex) & SVC_BUS) == 0
+           && s.showRails && (!s.drawForRectangleSelection || s.spreadSuperposed);
 }
 
 
-void 
+void
 GNELane::drawOverlappedRoutes(const int numRoutes) const {
     // get middle point and angle
     const Position center = myLaneGeometry.getShape().positionAtOffset2D(myLaneGeometry.getShape().length2D() * 0.5);
@@ -1364,7 +1364,7 @@ GNELane::drawOverlappedRoutes(const int numRoutes) const {
 }
 
 
-void 
+void
 GNELane::drawLaneStopOffset(const GUIVisualizationSettings& s, const double offset) const {
     GNELane::LaneDrawingConstants laneDrawingConstants(s, this);
     const Position& end = getLaneShape().back();
@@ -1677,7 +1677,7 @@ void
 GNELane::buildEdgeOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* ret) {
     // Create basic commands
     std::string edgeDescPossibleMulti = toString(SUMO_TAG_EDGE);
-    const int edgeSelSize = myParentEdge->isAttributeCarrierSelected()? myNet->getAttributeCarriers()->getNumberOfSelectedEdges() : 0;
+    const int edgeSelSize = myParentEdge->isAttributeCarrierSelected() ? myNet->getAttributeCarriers()->getNumberOfSelectedEdges() : 0;
     if (edgeSelSize && myParentEdge->isAttributeCarrierSelected() && (edgeSelSize > 1)) {
         edgeDescPossibleMulti = toString(edgeSelSize) + " " + toString(SUMO_TAG_EDGE) + "s";
     }

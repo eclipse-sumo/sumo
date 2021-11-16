@@ -319,7 +319,7 @@ public:
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] vehicleParameter calibratorFlow parameter
      */
-    void buildCalibratorFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter &vehicleParameter) ;
+    void buildCalibratorFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameter) ;
 
     /**@brief builds a rerouter
      * @param[in] sumoBaseObject sumo base object used for build
@@ -430,8 +430,8 @@ public:
      * @param[in] name Vaporizer name
      * @param[in] parameters generic parameters
      */
-    void buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape, 
-                  const Position &center, const bool fill, const RGBColor& color, const std::vector<std::string>& edgeIDs, 
+    void buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+                  const Position& center, const bool fill, const RGBColor& color, const std::vector<std::string>& edgeIDs,
                   const std::string& name, const std::map<std::string, std::string>& parameters);
 
     /**@brief Builds a TAZSource (Traffic Assignment Zone)
@@ -632,13 +632,13 @@ protected:
     bool checkListOfVehicleTypes(const std::vector<std::string>& vTypeIDs) const;
 
     /// @brief get additional parent
-    GNEAdditional *getAdditionalParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SumoXMLTag tag) const;
+    GNEAdditional* getAdditionalParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SumoXMLTag tag) const;
 
     /// @brief get rerouter interval parent
-    GNEAdditional *getRerouterIntervalParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
+    GNEAdditional* getRerouterIntervalParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
 
     /// @brief get TAZ parent
-    GNETAZElement *getTAZParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
+    GNETAZElement* getTAZParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
 
     /// @brief parse edges
     std::vector<GNEEdge*> parseEdges(const SumoXMLTag tag, const std::vector<std::string>& edgeIDs) const;
@@ -680,7 +680,7 @@ protected:
 private:
     /// @brief invalidate default constructo
     GNEAdditionalHandler();
-    
+
     /// @brief invalidate copy constructor
     GNEAdditionalHandler(const GNEAdditionalHandler& s) = delete;
 

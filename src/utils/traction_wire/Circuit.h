@@ -16,8 +16,8 @@
 /// @author  Jan Prikryl (RICE)
 /// @date    2019-12-15
 ///
-/// @note    based on console-based C++ DC circuits simulator, 
-///          https://github.com/rka97/Circuits-Solver by 
+/// @note    based on console-based C++ DC circuits simulator,
+///          https://github.com/rka97/Circuits-Solver by
 ///          Ahmad Khaled, Ahmad Essam, Omnia Zakaria, Mary Nader
 ///          and available under MIT license, see https://github.com/rka97/Circuits-Solver/blob/master/LICENSE
 ///
@@ -94,7 +94,7 @@ public:
      */
     enum alphaFlag {
         /// @brief The scaling alpha is not applied (is one)
-        ALPHA_NOT_APPLIED=0,
+        ALPHA_NOT_APPLIED = 0,
         /// @brief The scaling alpha is applied (is not one) due to current limits
         ALPHA_CURRENT_LIMITS,
         /// @brief The scaling alpha is applied (is not one] due to voltage limits
@@ -117,7 +117,7 @@ public:
     /// @brief The sum of voltage source currents in the circuit
     double getTotalCurrentOfCircuitSources();
     /// @brief List of currents of voltage sources as a string
-    std::string& getCurrentsOfCircuitSource(std::string & currents);
+    std::string& getCurrentsOfCircuitSource(std::string& currents);
 
     void lock();
     void unlock();

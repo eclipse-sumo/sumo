@@ -97,7 +97,7 @@ GUIE2Collector::MyWrapper::MyWrapper(GUIE2Collector& detector) :
 GUIE2Collector::MyWrapper::~MyWrapper() {}
 
 
-double 
+double
 GUIE2Collector::MyWrapper::getExaggeration(const GUIVisualizationSettings& s) const {
     return s.addSize.getExaggeration(s, this);
 }

@@ -432,7 +432,7 @@ GNEFrameModuls::DemandElementSelector::isDemandElementSelectorShown() const {
 void
 GNEFrameModuls::DemandElementSelector::refreshDemandElementSelector() {
     // get demand elemenst container
-    const auto &demandElements = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements();
+    const auto& demandElements = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements();
     // clear demand elements comboBox
     myDemandElementsMatchBox->clearItems();
     // fill myTypeMatchBox with list of demand elements
@@ -857,7 +857,7 @@ GNEFrameModuls::HierarchicalElementTree::onCmdMoveItemDown(FXObject*, FXSelector
 void
 GNEFrameModuls::HierarchicalElementTree::createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC) {
     // get attributeCarrirs
-    const auto &attributeCarriers = myFrameParent->myViewNet->getNet()->getAttributeCarriers();
+    const auto& attributeCarriers = myFrameParent->myViewNet->getNet()->getAttributeCarriers();
     // first check that AC exist
     if (clickedAC) {
         // set current clicked AC
@@ -955,7 +955,7 @@ GNEFrameModuls::HierarchicalElementTree::createPopUpMenu(int X, int Y, GNEAttrib
 FXTreeItem*
 GNEFrameModuls::HierarchicalElementTree::showAttributeCarrierParents() {
     // get attributeCarrirs
-    const auto &attributeCarriers = myFrameParent->myViewNet->getNet()->getAttributeCarriers();
+    const auto& attributeCarriers = myFrameParent->myViewNet->getNet()->getAttributeCarriers();
     // check tags
     if (myHE->getTagProperty().isNetworkElement()) {
         // check demand element type
@@ -1188,7 +1188,7 @@ GNEFrameModuls::HierarchicalElementTree::showAttributeCarrierParents() {
         // return last inserted list item
         return root;
     } else if (myHE->getTagProperty().isDemandElement()) {
-        // Obtain DemandElement 
+        // Obtain DemandElement
         GNEDemandElement* demandElement = myFrameParent->myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(myHE);
         // declare auxiliar FXTreeItem, due a demand element can have multiple "roots"
         FXTreeItem* root = nullptr;
@@ -1352,11 +1352,11 @@ GNEFrameModuls::HierarchicalElementTree::showHierarchicalElementChildren(GNEHier
                     // insert junction item
                     FXTreeItem* junctionItem = addListItem(HE, itemParent);
                     // insert edges
-                    for (const auto &edge : junction->getChildEdges()) {
+                    for (const auto& edge : junction->getChildEdges()) {
                         showHierarchicalElementChildren(edge, junctionItem);
                     }
                     // insert crossings
-                    for (const auto &crossing : junction->getGNECrossings()) {
+                    for (const auto& crossing : junction->getGNECrossings()) {
                         showHierarchicalElementChildren(crossing, junctionItem);
                     }
                 }
@@ -1439,7 +1439,7 @@ GNEFrameModuls::HierarchicalElementTree::showHierarchicalElementChildren(GNEHier
                         // insert intermediate list item
                         FXTreeItem* incomingConnections = addListItem(laneItem, "Incomings", incomingLaneConnections.front()->getIcon(), false);
                         // insert incoming connections
-                        for (const auto &connection : incomingLaneConnections) {
+                        for (const auto& connection : incomingLaneConnections) {
                             showHierarchicalElementChildren(connection, incomingConnections);
                         }
                     }
@@ -1449,7 +1449,7 @@ GNEFrameModuls::HierarchicalElementTree::showHierarchicalElementChildren(GNEHier
                         // insert intermediate list item
                         FXTreeItem* outgoingConnections = addListItem(laneItem, "Outgoing", outcomingLaneConnections.front()->getIcon(), false);
                         // insert outcoming connections
-                        for (const auto &connection : outcomingLaneConnections) {
+                        for (const auto& connection : outcomingLaneConnections) {
                             showHierarchicalElementChildren(connection, outgoingConnections);
                         }
                     }
@@ -1486,11 +1486,11 @@ GNEFrameModuls::HierarchicalElementTree::showHierarchicalElementChildren(GNEHier
         if (symbols.size() > 0) {
             // insert intermediate list item
             const auto additionalParent = symbols.front()->getParentAdditionals().front();
-            const std::string symbolType = additionalParent->getTagProperty().hasAttribute(SUMO_ATTR_EDGES)? "Edges" : "Lanes";
-            GUIIcon symbolIcon = additionalParent->getTagProperty().hasAttribute(SUMO_ATTR_EDGES)? GUIIcon::EDGE : GUIIcon::LANE;
+            const std::string symbolType = additionalParent->getTagProperty().hasAttribute(SUMO_ATTR_EDGES) ? "Edges" : "Lanes";
+            GUIIcon symbolIcon = additionalParent->getTagProperty().hasAttribute(SUMO_ATTR_EDGES) ? GUIIcon::EDGE : GUIIcon::LANE;
             FXTreeItem* symbolListItem = addListItem(treeItem, symbolType, GUIIconSubSys::getIcon(symbolIcon), false);
             // insert symbols
-            for (const auto &symbol : symbols) {
+            for (const auto& symbol : symbols) {
                 showHierarchicalElementChildren(symbol, symbolListItem);
             }
         }

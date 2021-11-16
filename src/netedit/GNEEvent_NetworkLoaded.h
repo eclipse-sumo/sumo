@@ -42,7 +42,7 @@ class GNEEvent_NetworkLoaded : public GUIEvent {
 public:
     /// @brief constructor
     GNEEvent_NetworkLoaded(GNENet* _net, const bool _newNet, const std::string& _file,
-        const std::string& _settingsFile, const bool _viewportFromRegistry) : 
+                           const std::string& _settingsFile, const bool _viewportFromRegistry) :
         GUIEvent(EVENT_SIMULATION_LOADED),
         net(_net),
         isNewNet(_newNet),

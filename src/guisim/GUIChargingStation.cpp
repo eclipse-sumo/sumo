@@ -119,7 +119,7 @@ GUIChargingStation::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent
 }
 
 
-double 
+double
 GUIChargingStation::getExaggeration(const GUIVisualizationSettings& s) const {
     return s.addSize.getExaggeration(s, this);
 }

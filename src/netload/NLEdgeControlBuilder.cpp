@@ -112,12 +112,12 @@ NLEdgeControlBuilder::reportCurrentEdgeOrLane() const {
 
 void
 NLEdgeControlBuilder::updateCurrentLaneStopOffset(const StopOffset& stopOffset) {
-    if(myLaneStorage->size() == 0) {
+    if (myLaneStorage->size() == 0) {
         throw ProcessError("myLaneStorage cannot be empty");
     }
     if (stopOffset.isDefined()) {
         if (myLaneStorage->back()->getLaneStopOffsets().isDefined()) {
-            WRITE_WARNING("Duplicate stopOffset definition for lane " + toString(myLaneStorage->back()->getIndex()) + 
+            WRITE_WARNING("Duplicate stopOffset definition for lane " + toString(myLaneStorage->back()->getIndex()) +
                           " on edge " + myActiveEdge->getID() + "!")
         } else {
             myLaneStorage->back()->setLaneStopOffset(stopOffset);
@@ -127,7 +127,7 @@ NLEdgeControlBuilder::updateCurrentLaneStopOffset(const StopOffset& stopOffset) 
 
 
 void
-NLEdgeControlBuilder::setDefaultStopOffset(const StopOffset &stopOffsets) {
+NLEdgeControlBuilder::setDefaultStopOffset(const StopOffset& stopOffsets) {
     if (myCurrentDefaultStopOffset.isDefined()) {
         WRITE_WARNING("Duplicate stopOffset definition for edge " + myActiveEdge->getID() + ". Ignoring duplicate specification.")
     } else {
@@ -142,7 +142,7 @@ NLEdgeControlBuilder::applyDefaultStopOffsetsToLanes() {
         throw ProcessError("myActiveEdge cannot be nullptr");
     }
     if (myCurrentDefaultStopOffset.isDefined()) {
-        for (const auto &l : *myLaneStorage) {
+        for (const auto& l : *myLaneStorage) {
             if (!l->getLaneStopOffsets().isDefined()) {
                 l->setLaneStopOffset(myCurrentDefaultStopOffset);
             }

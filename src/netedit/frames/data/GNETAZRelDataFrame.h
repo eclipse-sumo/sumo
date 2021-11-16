@@ -47,7 +47,7 @@ public:
         ~TAZRelLegend();
 
         /// @brief set labels
-        void setLabels(const GNETAZElement *fromTAZ, const GNETAZElement *toTAZ);
+        void setLabels(const GNETAZElement* fromTAZ, const GNETAZElement* toTAZ);
 
     private:
         /// @brief from TAZ label

@@ -57,7 +57,7 @@ public:
 
     /// @brief shown
     bool shown() const;
-      
+
     /// @brief Move the focus to this window
     void setFocus();
 

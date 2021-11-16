@@ -899,7 +899,7 @@ MSNet::writeOutput() {
         std::string output = OptionsCont::getOptions().getString("elechybrid-output");
 
         if (oc.getBool("elechybrid-output.aggregated")) {
-            // build a xml file with aggregated device.elechybrid output 
+            // build a xml file with aggregated device.elechybrid output
             MSElecHybridExport::writeAggregated(OutputDevice::getDeviceByOption("elechybrid-output"), myStep,
                                                 oc.getInt("elechybrid-output.precision"));
         } else {
@@ -1316,7 +1316,7 @@ MSNet::writeSubstationOutput() const {
     if (myTractionSubstations.size() > 0) {
         OutputDevice& output = OutputDevice::getDeviceByOption("substations-output");
         output.setPrecision(OptionsCont::getOptions().getInt("substations-output.precision"));
-        for (auto & it : myTractionSubstations) {
+        for (auto& it : myTractionSubstations) {
             it->writeTractionSubstationOutput(output);
         }
     }

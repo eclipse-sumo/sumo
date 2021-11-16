@@ -193,7 +193,7 @@ public:
     }
 
     /// @brief return edges that shall be written in the route definition
-    ConstROEdgeVector getNormalEdges() const; 
+    ConstROEdgeVector getNormalEdges() const;
 
 private:
     /// @brief The costs of the route

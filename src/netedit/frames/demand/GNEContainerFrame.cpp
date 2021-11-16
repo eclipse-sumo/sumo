@@ -255,29 +255,29 @@ GNEContainerFrame::createPath() {
     } else if (!myContainerPlanAttributes->areValuesValid()) {
         myViewNet->setStatusBarText("Invalid " + myContainerPlanTagSelector->getCurrentTagProperties().getTagStr() + " parameters.");
     } else {
-/*
-        // begin undo-redo operation
-        myViewNet->getUndoList()->begin("create " + myContainerTagSelector->getCurrentTagProperties().getTagStr() + " and " + myContainerPlanTagSelector->getCurrentTagProperties().getTagStr());
-        // create container
-        GNEDemandElement* container = buildContainer();
-        // check if container and container plan can be created
-        if (GNERouteHandler::buildContainerPlan(
-                    myContainerPlanTagSelector->getCurrentTagProperties().getTag(),
-                    container, myContainerPlanAttributes, myPathCreator)) {
-            // end undo-redo operation
-            myViewNet->getUndoList()->end();
-            // abort path creation
-            myPathCreator->abortPathCreation();
-            // refresh container and containerPlan attributes
-            myContainerAttributes->refreshRows();
-            myContainerPlanAttributes->refreshRows();
-            // compute container
-            container->computePathElement();
-        } else {
-            // abort container creation
-            myViewNet->getUndoList()->p_abort();
-        }
-*/
+        /*
+                // begin undo-redo operation
+                myViewNet->getUndoList()->begin("create " + myContainerTagSelector->getCurrentTagProperties().getTagStr() + " and " + myContainerPlanTagSelector->getCurrentTagProperties().getTagStr());
+                // create container
+                GNEDemandElement* container = buildContainer();
+                // check if container and container plan can be created
+                if (GNERouteHandler::buildContainerPlan(
+                            myContainerPlanTagSelector->getCurrentTagProperties().getTag(),
+                            container, myContainerPlanAttributes, myPathCreator)) {
+                    // end undo-redo operation
+                    myViewNet->getUndoList()->end();
+                    // abort path creation
+                    myPathCreator->abortPathCreation();
+                    // refresh container and containerPlan attributes
+                    myContainerAttributes->refreshRows();
+                    myContainerPlanAttributes->refreshRows();
+                    // compute container
+                    container->computePathElement();
+                } else {
+                    // abort container creation
+                    myViewNet->getUndoList()->p_abort();
+                }
+        */
     }
 }
 

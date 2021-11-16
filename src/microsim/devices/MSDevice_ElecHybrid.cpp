@@ -16,10 +16,10 @@
 /// @author  Jan Prikryl (RICE)
 /// @date    2019-12-15
 ///
-// The ElecHybrid device simulates internal electric parameters of an 
-// battery-assisted electric vehicle (typically a trolleybus), i.e. a vehicle 
-// that is being powered by overhead wires and has also a battery pack 
-// installed, that is being charged from the overhead wires. 
+// The ElecHybrid device simulates internal electric parameters of an
+// battery-assisted electric vehicle (typically a trolleybus), i.e. a vehicle
+// that is being powered by overhead wires and has also a battery pack
+// installed, that is being charged from the overhead wires.
 /****************************************************************************/
 #include <config.h>
 
@@ -335,7 +335,7 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
                    The decision rule is based on the resistance value:
                      * from the vehicle position to the end of lane,
                      * sum of resistance of elements (going from the end of ovehead line section in the contrary direction).
-                
+
                    The original solution runs into problems when a vehicle is going on a neigboring lane and the two lanes have different lengths:
                    while (resistance < (veh.getLane()->getLength() - veh.getPositionOnLane())*WIRE_RESISTIVITY) {
                    Improvement: take the relative distance of the vehicle to the end of its lane and map it to the segment's lane length. (This works also in case that the segment's lane and the vehicle's lane are identical.)
@@ -376,7 +376,7 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
 
 
                 // Set the power requirement to the consumption + charging power.
-                // RICE_TODO: The charging power could be different when moving and when not. Add a parameter. 
+                // RICE_TODO: The charging power could be different when moving and when not. Add a parameter.
                 // Note that according to PMDP data, the charging power seems to be the same in both situations,
                 // ignoreing the potential benefits of using a higher charging power when the vehicle is moving.
                 if (myActualBatteryCapacity < mySOCMax * myMaximumBatteryCapacity) {
@@ -395,8 +395,8 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
                 // RICE_TODO: The voltage in the solver should never exceed or drop below some limits. Maximum allowed voltage is typicallty 800 V.
                 // The numerical solver that computes the circuit state needs initial values of electric currents and
                 // voltages from which it will start the iterative solving process. We prefer to reuse the "old" values
-                // as it is likely that the new values will not be far away from the old ones. The safety limits of 
-                // 10 and 1500 Volts that are used below are chosen fairly arbitrarily to keep the initial values within 
+                // as it is likely that the new values will not be far away from the old ones. The safety limits of
+                // 10 and 1500 Volts that are used below are chosen fairly arbitrarily to keep the initial values within
                 // reasonable limits.
                 double voltage = myCircuitVoltage;
                 if (voltage < 10.0 || voltage > 1500.0 || ISNAN(voltage)) {
@@ -417,7 +417,7 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
                 /*
                     No substation on this wire ...
                 */
-                // RICE_TODO myCharging = false; current 0 or nan, voltage 0 or nan, maybe write warning that the overhead wire is not connected to any substation, 
+                // RICE_TODO myCharging = false; current 0 or nan, voltage 0 or nan, maybe write warning that the overhead wire is not connected to any substation,
 
                 // Energy flowing to/from the battery pack [Wh] has to completely cover vehicle consumption.
                 myEnergyCharged = -myConsum;
@@ -490,7 +490,7 @@ MSDevice_ElecHybrid::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
                 /*
                     Overhead wire without a connected substation
                 */
-                // RICE_TODO myCharging = false; current 0 or nan, voltage 0 or nan, maybe write warning that the overhead wire is not connected to any substation, 
+                // RICE_TODO myCharging = false; current 0 or nan, voltage 0 or nan, maybe write warning that the overhead wire is not connected to any substation,
 
                 // Energy for the powertrain is provided by the battery pack
                 myEnergyCharged = -myConsum;
@@ -788,8 +788,7 @@ double
 MSDevice_ElecHybrid::getParameterDouble(const std::string& key) const {
     if (key == toString(SUMO_ATTR_MAXIMUMPOWER)) {
         return myParam.getDouble(SUMO_ATTR_MAXIMUMPOWER);
-    }
-    else if (key == toString(SUMO_ATTR_RECUPERATIONEFFICIENCY)) {
+    } else if (key == toString(SUMO_ATTR_RECUPERATIONEFFICIENCY)) {
         return myParam.getDouble(SUMO_ATTR_RECUPERATIONEFFICIENCY);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
@@ -809,17 +808,14 @@ double MSDevice_ElecHybrid::computeChargedEnergy(double energyIn) {
         // the vehicle is charging battery from overhead wire
         if (myConsum >= 0) {
             energyCharged *= myParam.getDouble(SUMO_ATTR_RECUPERATIONEFFICIENCY);
+        } else {
+            energyCharged = myParam.getDouble(SUMO_ATTR_RECUPERATIONEFFICIENCY) * energyIn - myConsum;
         }
-        else {
-            energyCharged = myParam.getDouble(SUMO_ATTR_RECUPERATIONEFFICIENCY)*energyIn - myConsum;
-        }
-    }
-    else if (energyIn < 0.0 && energyCharged < 0.0) {
+    } else if (energyIn < 0.0 && energyCharged < 0.0) {
         // the vehicle is recuperating energy into the overhead wire and discharging batterypack at the same time
         if (myConsum >= 0) {
             energyCharged *= energyIn / myParam.getDouble(SUMO_ATTR_PROPULSIONEFFICIENCY) - myConsum;
-        }
-        else {
+        } else {
             energyCharged /= myParam.getDouble(SUMO_ATTR_PROPULSIONEFFICIENCY);
         }
     }
@@ -836,7 +832,7 @@ MSDevice_ElecHybrid::setConsum(const double consumption) {
     myConsum = consumption;
 }
 
-void 
+void
 MSDevice_ElecHybrid::updateTotalEnergyWasted(const double energyWasted) {
     myTotalEnergyWasted += energyWasted;
 }

@@ -37,10 +37,10 @@
 GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNENet* net, const Position& pos, const std::string& name,
         const std::vector<std::string>& vTypes, const std::map<std::string, std::string>& parameters) :
     GNEAdditional(id, net, GLO_VSS, SUMO_TAG_VSS, name,
-        {}, {}, {}, {}, {}, {}, {}, {},
-    parameters),
-    myPosition(pos),
-    myVehicleTypes(vTypes) {
+{}, {}, {}, {}, {}, {}, {}, {},
+parameters),
+myPosition(pos),
+myVehicleTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -125,12 +125,12 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
     // draw VSS
     drawSquaredAdditional(s, myPosition, s.additionalSettings.VSSSize, GUITexture::VARIABLESPEEDSIGN, GUITexture::VARIABLESPEEDSIGN_SELECTED);
     // iterate over additionals and check if drawn
-    for (const auto &step : getChildAdditionals()) {
+    for (const auto& step : getChildAdditionals()) {
         // if rerouter or their intevals are selected, then draw
         if (myNet->getViewNet()->getNetworkViewOptions().showSubAdditionals() ||
-            isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(this) ||           
-            step->isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(step) || 
-            (myNet->getViewNet()->getFrontAttributeCarrier() == step)) {
+                isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(this) ||
+                step->isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(step) ||
+                (myNet->getViewNet()->getFrontAttributeCarrier() == step)) {
             step->drawGL(s);
         }
     }

@@ -47,8 +47,7 @@
 // NGEdge-definitions
 // ---------------------------------------------------------------------------
 NGEdge::NGEdge(const std::string& id, NGNode* startNode, NGNode* endNode, const std::string& reverseID) :
-    Named(id), myStartNode(startNode), myEndNode(endNode), myReverseID(reverseID == "" ? "-" + id : reverseID)
-{
+    Named(id), myStartNode(startNode), myEndNode(endNode), myReverseID(reverseID == "" ? "-" + id : reverseID) {
     myStartNode->addLink(this);
     myEndNode->addLink(this);
 }

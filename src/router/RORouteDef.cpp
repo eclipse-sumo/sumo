@@ -329,7 +329,7 @@ RORouteDef::addAlternative(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
             return a->getProbability() > b->getProbability();
         });
         if (keepRoute) {
-            for (int i = 0; i < (int)myAlternatives.size(); i++) { 
+            for (int i = 0; i < (int)myAlternatives.size(); i++) {
                 if (myAlternatives[i] == last) {
                     myLastUsed = i;
                     break;

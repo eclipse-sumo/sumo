@@ -179,7 +179,7 @@ protected:
 
     /** @brief set the stopOffset for the last added lane.
      */
-    void setDefaultStopOffset(const StopOffset &stopOffset);
+    void setDefaultStopOffset(const StopOffset& stopOffset);
 
     /** @brief
      */

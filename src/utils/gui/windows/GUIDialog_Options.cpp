@@ -79,17 +79,17 @@ GUIDialog_Options::GUIDialog_Options(FXWindow* parent,  const char* titleName, i
     // create tabbook
     FXTabBook* tabbook = new FXTabBook(contentFrame, nullptr, 0, GUIDesignTabBook);
     // iterate over all topics
-    for (const auto &topic : oc.getSubTopics()) {
+    for (const auto& topic : oc.getSubTopics()) {
         // ignore configuration
         if (topic != "Configuration") {
             new FXTabItem(tabbook, topic.c_str(), nullptr, TAB_LEFT_NORMAL);
             FXScrollWindow* scrollTab = new FXScrollWindow(tabbook, LAYOUT_FILL_X | LAYOUT_FILL_Y);
             FXVerticalFrame* tabContent = new FXVerticalFrame(scrollTab, FRAME_THICK | FRAME_RAISED | LAYOUT_FILL_X | LAYOUT_FILL_Y);
             const std::vector<std::string> entries = oc.getSubTopicsEntries(topic);
-            for (const auto &entry : entries) {
+            for (const auto& entry : entries) {
                 if (entry != "geometry.remove" && entry != "edges.join" && entry != "geometry.split" && entry != "ramps.guess" && entry != "ramps.set") {
                     const std::string type = oc.getTypeName(entry);
-                    if (type == "STR"){
+                    if (type == "STR") {
                         new InputString(tabContent, entry);
                     } else if (type == "FILE") {
                         new InputFilename(tabContent, entry);
@@ -217,7 +217,7 @@ GUIDialog_Options::InputIntVector::onCmdSetOption(FXObject*, FXSelector, void*) 
     try {
         // check that int vector can be parsed
         const auto intVector = StringTokenizer(myTextField->getText().text()).getVector();
-        for (const auto &intValue : intVector) {
+        for (const auto& intValue : intVector) {
             StringUtils::toInt(intValue);
         }
         OptionsCont& oc = OptionsCont::getOptions();

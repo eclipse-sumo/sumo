@@ -93,7 +93,7 @@ public:
     /// @brief redo action/operation
     virtual void redo() = 0;
 
-     /// @brief return undoName
+    /// @brief return undoName
     virtual std::string undoName() const = 0;
 
     /// @brief return rendoName
@@ -254,7 +254,7 @@ protected:
 
 private:
     // @brief next GNEChange (can be access by GNEChangeGroup and GNEUndoList)
-    GNEChange *next;
+    GNEChange* next;
 
     /// @brief Invalidated copy constructor.
     GNEChange(const GNEChange&) = delete;

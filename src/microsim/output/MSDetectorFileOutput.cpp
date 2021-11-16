@@ -37,8 +37,7 @@
 
 MSDetectorFileOutput::MSDetectorFileOutput(const std::string& id, const std::string& vTypes, const int detectPersons) :
     Named(id),
-    myDetectPersons(detectPersons)
-{
+    myDetectPersons(detectPersons) {
     const std::vector<std::string> vt = StringTokenizer(vTypes).getVector();
     myVehicleTypes.insert(vt.begin(), vt.end());
 }

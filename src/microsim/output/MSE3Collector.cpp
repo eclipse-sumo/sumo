@@ -109,8 +109,8 @@ MSE3Collector::MSE3EntryReminder::notifyMove(SUMOTrafficObject& veh, double oldP
 #ifdef HAVE_FOX
     FXConditionalLock lock(myCollector.myContainerMutex, MSGlobals::gNumSimThreads > 1);
 #endif
-    if ((myCollector.myEnteredContainer.find(&veh) == myCollector.myEnteredContainer.end() || 
-                (veh.isPerson() && dynamic_cast<const MSTransportable&>(veh).getDirection() != MSPModel::FORWARD))
+    if ((myCollector.myEnteredContainer.find(&veh) == myCollector.myEnteredContainer.end() ||
+            (veh.isPerson() && dynamic_cast<const MSTransportable&>(veh).getDirection() != MSPModel::FORWARD))
             && newPos > myPosition) {
         if (oldPos > myPosition) {
             // was behind the detector already in the last step
@@ -309,8 +309,7 @@ MSE3Collector::MSE3Collector(const std::string& id,
     myHaltingTimeThreshold(haltingTimeThreshold), myHaltingSpeedThreshold(haltingSpeedThreshold),
     myCurrentMeanSpeed(0), myCurrentHaltingsNumber(0),
     myLastMeanTravelTime(0), myLastMeanHaltsPerVehicle(0), myLastMeanTimeLoss(0), myLastVehicleSum(0),
-    myLastResetTime(-1), myOpenEntry(openEntry)
-{
+    myLastResetTime(-1), myOpenEntry(openEntry) {
     // Set MoveReminders to entries and exits
     for (CrossSectionVectorConstIt crossSec1 = entries.begin(); crossSec1 != entries.end(); ++crossSec1) {
         myEntryReminders.push_back(new MSE3EntryReminder(*crossSec1, *this));
@@ -556,9 +555,9 @@ MSE3Collector::notifyMovePerson(MSTransportable* p, MSMoveReminder* rem, double 
     if (personApplies(*p, dir)) {
         const double newSpeed = p->getSpeed();
         const double newPos = (dir == MSPModel::FORWARD
-                ? pos
-                // position relative to detector end position
-                : detPos - (pos - detPos));
+                               ? pos
+                               // position relative to detector end position
+                               : detPos - (pos - detPos));
         const double oldPos = newPos - SPEED2DIST(newSpeed);
         if (oldPos - p->getVehicleType().getLength() <= detPos) {
             rem->notifyMove(*p, oldPos, newPos, newSpeed);

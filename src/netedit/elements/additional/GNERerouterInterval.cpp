@@ -33,10 +33,10 @@
 
 GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
     GNEAdditional(rerouterDialog->getEditedAdditional()->getNet(), GLO_REROUTER_INTERVAL, SUMO_TAG_INTERVAL, "",
-    {}, {}, {}, {rerouterDialog->getEditedAdditional()}, {}, {}, {}, {},
-    std::map<std::string, std::string>()),
+{}, {}, {}, {rerouterDialog->getEditedAdditional()}, {}, {}, {}, {},
+std::map<std::string, std::string>()),
     myBegin(0),
-    myEnd(0) {
+myEnd(0) {
     // fill reroute interval with default values
     setDefaultValues();
     // update boundary of rerouter parent
@@ -46,10 +46,10 @@ GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
 
 GNERerouterInterval::GNERerouterInterval(GNEAdditional* rerouterParent, SUMOTime begin, SUMOTime end) :
     GNEAdditional(rerouterParent->getNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "",
-    {}, {}, {}, {rerouterParent}, {}, {}, {}, {},
-    std::map<std::string, std::string>()),
-    myBegin(begin),
-    myEnd(end) {
+{}, {}, {}, {rerouterParent}, {}, {}, {}, {},
+std::map<std::string, std::string>()),
+myBegin(begin),
+myEnd(end) {
     // update boundary of rerouter parent
     rerouterParent->updateCenteringBoundary(true);
 }
@@ -111,14 +111,14 @@ void
 GNERerouterInterval::drawGL(const GUIVisualizationSettings& s) const {
     // draw rerouter interval as listed attribute
     drawListedAddtional(s, getParentAdditionals().front()->getPositionInView(),
-                        0, 0, RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_INTERVAL, 
+                        0, 0, RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_INTERVAL,
                         getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END));
     // iterate over additionals and check if drawn
-    for (const auto &rerouterElement : getChildAdditionals()) {
+    for (const auto& rerouterElement : getChildAdditionals()) {
         // if rerouter or their child is selected, then draw
-        if (isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(this) || 
-            rerouterElement->isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(rerouterElement) ||
-            (myNet->getViewNet()->getFrontAttributeCarrier() == rerouterElement)) {
+        if (isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(this) ||
+                rerouterElement->isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(rerouterElement) ||
+                (myNet->getViewNet()->getFrontAttributeCarrier() == rerouterElement)) {
             rerouterElement->drawGL(s);
         }
     }
@@ -232,13 +232,13 @@ GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNERerouterInterval::setMoveShape(const GNEMoveResult& /*moveResult*/) {
     // nothing to do
 }
 
 
-void 
+void
 GNERerouterInterval::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
     // nothing to do
 }

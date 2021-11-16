@@ -154,8 +154,8 @@ MSDevice_Taxi::initDispatch() {
 bool
 MSDevice_Taxi::isReservation(const std::set<std::string>& lines) {
     return lines.size() == 1 && (
-            *lines.begin() == TAXI_SERVICE
-            || StringUtils::startsWith(*lines.begin(), TAXI_SERVICE_PREFIX));
+               *lines.begin() == TAXI_SERVICE
+               || StringUtils::startsWith(*lines.begin(), TAXI_SERVICE_PREFIX));
 }
 
 void

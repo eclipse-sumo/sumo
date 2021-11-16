@@ -34,11 +34,11 @@ GNEDetectorE3::GNEDetectorE3(const std::string& id, GNENet* net, const Position 
     GNEAdditional(id, net, GLO_E3DETECTOR, SUMO_TAG_E3DETECTOR, name,
 {}, {}, {}, {}, {}, {}, {}, {},
 parameters),
-            myPosition(pos),
-            myFreq(freq),
-            myFilename(filename),
-            myVehicleTypes(vehicleTypes),
-            myTimeThreshold(timeThreshold),
+myPosition(pos),
+myFreq(freq),
+myFilename(filename),
+myVehicleTypes(vehicleTypes),
+myTimeThreshold(timeThreshold),
 mySpeedThreshold(speedThreshold) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);

@@ -206,7 +206,7 @@ GNEInternalLane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 }
 
 
-double 
+double
 GNEInternalLane::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
     return 1;
 }

@@ -142,19 +142,19 @@ HelpersEnergy::acceleration(const SUMOEmissionClass /* c */, const PollutantsInt
     // Inverse formula for the function compute()
 
     // Computes the achievable acceleration using the given speed and drive power in [Wh/s]
-    // It does not consider friction losses by radial force and the acceleration-dependent 
+    // It does not consider friction losses by radial force and the acceleration-dependent
     // recuperation efficiency (eta_recuperation is considered constant)
     //
     // The power `Prest` used for acceleration is given by a cubic polynomial in acceleration,
     // i.e.the equation
-    // 
+    //
     //   Prest = const1*a + const2*a^2 + const3*a^3
     //
     // and we need to find `a` given `Prest`.
-    // 
+    //
     // The solutions of `a(P)` is stored in variables `x1`, `x2`, and `x3` returned by
     // the method `PolySolver::cubicSolve()`, see below.
-    // 
+    //
     // Power used for accelerating, `Prest`, is the total used power minus power wasted by running resistances.
 
     const double mass = param->getDouble(SUMO_ATTR_VEHICLEMASS);
@@ -174,13 +174,13 @@ HelpersEnergy::acceleration(const SUMOEmissionClass /* c */, const PollutantsInt
 
     // calculate power drop due to a potential energy difference
     // in inverse original formula:      power = mass * GRAVITY * sin(DEG2RAD(slope)) * v;
-    // i.e. in terms of 'lastV' and 'a': power = mass * GRAVITY * sin(DEG2RAD(slope)) * (lastV +  TS * a);    
+    // i.e. in terms of 'lastV' and 'a': power = mass * GRAVITY * sin(DEG2RAD(slope)) * (lastV +  TS * a);
     Prest -= mass * GRAVITY * sin(DEG2RAD(slope)) * (v);
     const1 = mass * GRAVITY * sin(DEG2RAD(slope)) * (TS);
 
     // update coefficients of a(P) equation considering power loss through Roll resistance
     // in inverse original formula:      power += param->getDouble(SUMO_ATTR_ROLLDRAGCOEFFICIENT) * GRAVITY * mass * v;
-    // i.e. in terms of 'lastV' and 'a': power += param->getDouble(SUMO_ATTR_ROLLDRAGCOEFFICIENT) * GRAVITY * mass * (lastV +  TS * a);                        
+    // i.e. in terms of 'lastV' and 'a': power += param->getDouble(SUMO_ATTR_ROLLDRAGCOEFFICIENT) * GRAVITY * mass * (lastV +  TS * a);
     Prest -= param->getDouble(SUMO_ATTR_ROLLDRAGCOEFFICIENT) * GRAVITY * mass * v;
     const1 += param->getDouble(SUMO_ATTR_ROLLDRAGCOEFFICIENT) * GRAVITY * mass * (TS);
 
@@ -190,26 +190,26 @@ HelpersEnergy::acceleration(const SUMOEmissionClass /* c */, const PollutantsInt
 
     // update coefficients of a(P) equation considering kinetic energy difference of vehicle
     // in inverse original formula:      power += 0.5 * mass * (v * v - lastV * lastV) / TS;
-    // i.e. in terms of 'lastV' and 'a': power += 0.5 * mass * (2 * lastV * a + TS * a * a);      
+    // i.e. in terms of 'lastV' and 'a': power += 0.5 * mass * (2 * lastV * a + TS * a * a);
     const1 += 0.5 * mass * (2 * v);
     const2 = 0.5 * mass * (TS);
 
     // update coefficients of a(P) equation considering rotational energy diff of internal rotating elements
     // in inverse original formula:      power += 0.5 * param->getDouble(SUMO_ATTR_INTERNALMOMENTOFINERTIA) * (v * v - lastV * lastV) / TS;
-    // i.e. in terms of 'lastV' and 'a': power += 0.5 * param->getDouble(SUMO_ATTR_INTERNALMOMENTOFINERTIA) * (2 * lastV * a + TS * a * a);  
+    // i.e. in terms of 'lastV' and 'a': power += 0.5 * param->getDouble(SUMO_ATTR_INTERNALMOMENTOFINERTIA) * (2 * lastV * a + TS * a * a);
     const1 += 0.5 * param->getDouble(SUMO_ATTR_INTERNALMOMENTOFINERTIA) * (2 * v);
     const2 += 0.5 * param->getDouble(SUMO_ATTR_INTERNALMOMENTOFINERTIA) * (TS);
 
     // update coefficients of a(P) equation considering energy loss through Air resistance
     // in inverse original formula:      power += 0.5 * 1.2041 * param->getDouble(SUMO_ATTR_FRONTSURFACEAREA) * param->getDouble(SUMO_ATTR_AIRDRAGCOEFFICIENT) * v * v * v;
-    // i.e. in terms of 'lastV' and 'a': power += 0.5 * param->getDouble(SUMO_ATTR_INTERNALMOMENTOFINERTIA) * (lastV^3 + 3* lastV^2 * TS * a +  3* lastV * TS^2 *a^2 + TS^3 * a^3);  
+    // i.e. in terms of 'lastV' and 'a': power += 0.5 * param->getDouble(SUMO_ATTR_INTERNALMOMENTOFINERTIA) * (lastV^3 + 3* lastV^2 * TS * a +  3* lastV * TS^2 *a^2 + TS^3 * a^3);
     Prest -= 0.5 * 1.2041 * param->getDouble(SUMO_ATTR_FRONTSURFACEAREA) * param->getDouble(SUMO_ATTR_AIRDRAGCOEFFICIENT) * (v * v * v);
     const1 += 0.5 * 1.2041 * param->getDouble(SUMO_ATTR_FRONTSURFACEAREA) * param->getDouble(SUMO_ATTR_AIRDRAGCOEFFICIENT) * (3 * v * v * TS);
     const2 += 0.5 * 1.2041 * param->getDouble(SUMO_ATTR_FRONTSURFACEAREA) * param->getDouble(SUMO_ATTR_AIRDRAGCOEFFICIENT) * (3 * v * TS * TS);
     const3 = 0.5 * 1.2041 * param->getDouble(SUMO_ATTR_FRONTSURFACEAREA) * param->getDouble(SUMO_ATTR_AIRDRAGCOEFFICIENT) * (TS * TS * TS);
 
     // Prest = const1*a + const2*a^2 + const3*a^3
-    // Solve cubic equation in `a` for real roots, and return the number of roots in `numX` 
+    // Solve cubic equation in `a` for real roots, and return the number of roots in `numX`
     // and the roots in `x1`, `x2`, and `x3`.
     std::tie(numX, x1, x2, x3) = PolySolver::cubicSolve(const3, const2, const1, -Prest);
 

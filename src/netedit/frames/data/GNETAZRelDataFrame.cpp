@@ -54,7 +54,7 @@ GNETAZRelDataFrame::TAZRelLegend::~TAZRelLegend() {}
 
 
 void
-GNETAZRelDataFrame::TAZRelLegend::setLabels(const GNETAZElement *fromTAZ, const GNETAZElement *toTAZ) {
+GNETAZRelDataFrame::TAZRelLegend::setLabels(const GNETAZElement* fromTAZ, const GNETAZElement* toTAZ) {
     // from TAZ
     if (fromTAZ) {
         myFromTAZLabel->setText(("From TAZ: " + fromTAZ->getID()).c_str());
@@ -77,8 +77,7 @@ GNETAZRelDataFrame::GNETAZRelDataFrame(FXHorizontalFrame* horizontalFrameParent,
     GNEGenericDataFrame(horizontalFrameParent, viewNet, SUMO_TAG_TAZREL, false),
     myFirstTAZ(nullptr),
     mySecondTAZ(nullptr),
-    myTAZRelLegend(nullptr)
-{
+    myTAZRelLegend(nullptr) {
     // create legend
     myTAZRelLegend = new TAZRelLegend(this);
 }
@@ -109,7 +108,7 @@ GNETAZRelDataFrame::setTAZ(const GNEViewNetHelper::ObjectsUnderCursor& objectsUn
 }
 
 
-void 
+void
 GNETAZRelDataFrame::buildTAZRelationData() {
     // check conditions
     if (myFirstTAZ && mySecondTAZ) {
@@ -141,13 +140,13 @@ GNETAZRelDataFrame::buildTAZRelationData() {
 }
 
 
-GNETAZElement* 
+GNETAZElement*
 GNETAZRelDataFrame::getFirstTAZ() const {
     return myFirstTAZ;
 }
 
 
-GNETAZElement* 
+GNETAZElement*
 GNETAZRelDataFrame::getSecondTAZ() const {
     return mySecondTAZ;
 }

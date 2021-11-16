@@ -294,7 +294,7 @@ GNETLSEditorFrame::onCmdDefCreate(FXObject*, FXSelector, void*) {
             if (junction->getNBNode()->isTLControlled()) {
                 // use existing traffic light as template for type, signal groups, controlled nodes etc
                 NBTrafficLightDefinition* tpl = nullptr;
-                for (const auto &TLS : junction->getNBNode()->getControllingTLS()) {
+                for (const auto& TLS : junction->getNBNode()->getControllingTLS()) {
                     if (TLS->getProgramID() == currentTLS) {
                         tpl = TLS;
                     }
@@ -907,7 +907,7 @@ GNETLSEditorFrame::handleMultiChange(GNELane* lane, FXObject* obj, FXSelector se
             // if the edge is selected, apply changes to all lanes of all selected edges
             if (lane->getParentEdge()->isAttributeCarrierSelected()) {
                 const auto selectedEdge = myViewNet->getNet()->getAttributeCarriers()->getSelectedEdges();
-                for (const auto &edge : selectedEdge) {
+                for (const auto& edge : selectedEdge) {
                     for (auto it_lane : edge->getLanes()) {
                         fromIDs.insert(it_lane->getMicrosimID());
                     }
@@ -1101,7 +1101,7 @@ GNETLSEditorFrame::TLSAttributes::getOffset() const {
 
 
 void
-GNETLSEditorFrame::TLSAttributes::setOffset(const SUMOTime &offset) {
+GNETLSEditorFrame::TLSAttributes::setOffset(const SUMOTime& offset) {
     myOffsetTextField->setText(toString(STEPS2TIME(offset)).c_str());
     myOffsetTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
 }
@@ -1126,7 +1126,7 @@ GNETLSEditorFrame::TLSAttributes::getParameters() const {
 
 
 void
-GNETLSEditorFrame::TLSAttributes::setParameters(const std::string &parameters) {
+GNETLSEditorFrame::TLSAttributes::setParameters(const std::string& parameters) {
     myParametersTextField->setText(parameters.c_str());
     myParametersTextField->setTextColor(MFXUtils::getFXColor(RGBColor::BLACK));
 }

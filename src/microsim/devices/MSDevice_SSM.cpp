@@ -2765,7 +2765,7 @@ MSDevice_SSM::writeOutConflict(Encounter* e) {
             myOutputFile->openTag("egoLanePosition").writeAttr("values", ::toString(e->egoTrajectory.lanePos)).closeTag();
         }
         myOutputFile->openTag("egoVelocity").writeAttr("values", ::toString(e->egoTrajectory.v)).closeTag();
-        
+
         myOutputFile->openTag("foePosition").writeAttr("values", ::toString(e->foeTrajectory.x, myUseGeoCoords ? gPrecisionGeo : gPrecision)).closeTag();
         if (myWriteLanesPositions) {
             myOutputFile->openTag("foeLane").writeAttr("values", ::toString(e->foeTrajectory.lane)).closeTag();
@@ -3550,20 +3550,16 @@ MSDevice_SSM::writePositions(const SUMOVehicle& v) {
     if (v.getParameter().knowsParameter("device.ssm.write-positions")) {
         try {
             writePos = StringUtils::toBool(v.getParameter().getParameter("device.ssm.write-positions", "no"));
-        }
-        catch (...) {
+        } catch (...) {
             WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.ssm.write-positions", "no") + "'for vehicle parameter 'ssm.write-positions'");
         }
-    }
-    else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.write-positions")) {
+    } else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.write-positions")) {
         try {
             writePos = StringUtils::toBool(v.getVehicleType().getParameter().getParameter("device.ssm.write-positions", "no"));
-        }
-        catch (...) {
+        } catch (...) {
             WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.ssm.write-positions", "no") + "'for vType parameter 'ssm.write-positions'");
         }
-    }
-    else {
+    } else {
         writePos = oc.getBool("device.ssm.write-positions");
         if (!oc.isSet("device.ssm.write-positions") && (issuedParameterWarnFlags & SSM_WARN_POS) == 0) {
             WRITE_MESSAGE("vehicle '" + v.getID() + "' does not supply vehicle parameter 'device.ssm.write-positions'. Using default of '" + toString(writePos) + "'");
@@ -3581,20 +3577,16 @@ MSDevice_SSM::writeLanesPositions(const SUMOVehicle& v) {
     if (v.getParameter().knowsParameter("device.ssm.write-lane-positions")) {
         try {
             writeLanesPos = StringUtils::toBool(v.getParameter().getParameter("device.ssm.write-lane-positions", "no"));
-        }
-        catch (...) {
+        } catch (...) {
             WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("device.ssm.write-lane-positions", "no") + "'for vehicle parameter 'ssm.write-lane-positions'");
         }
-    }
-    else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.write-lane-positions")) {
+    } else if (v.getVehicleType().getParameter().knowsParameter("device.ssm.write-lane-positions")) {
         try {
             writeLanesPos = StringUtils::toBool(v.getVehicleType().getParameter().getParameter("device.ssm.write-lane-positions", "no"));
-        }
-        catch (...) {
+        } catch (...) {
             WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("device.ssm.write-lane-positions", "no") + "'for vType parameter 'ssm.write-lane-positions'");
         }
-    }
-    else {
+    } else {
         writeLanesPos = oc.getBool("device.ssm.write-lane-positions");
         if (!oc.isSet("device.ssm.write-lane-positions") && (issuedParameterWarnFlags & SSM_WARN_LANEPOS) == 0) {
             WRITE_MESSAGE("vehicle '" + v.getID() + "' does not supply vehicle parameter 'device.ssm.write-positions'. Using default of '" + toString(writeLanesPos) + "'");

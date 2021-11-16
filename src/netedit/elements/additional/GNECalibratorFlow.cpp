@@ -32,9 +32,9 @@
 
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route) :
     GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_FLOW_CALIBRATOR, "",
-        {}, {}, {}, {calibratorParent}, {}, {}, {vehicleType, route}, {},
-    std::map<std::string, std::string>()),
-    SUMOVehicleParameter() {
+{}, {}, {}, {calibratorParent}, {}, {}, {vehicleType, route}, {},
+std::map<std::string, std::string>()),
+SUMOVehicleParameter() {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -42,9 +42,9 @@ GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandE
 
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters) :
     GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_FLOW_CALIBRATOR, "",
-        {}, {}, {}, {calibratorParent}, {}, {}, {vehicleType, route}, {},
-    std::map<std::string, std::string>()),
-    SUMOVehicleParameter(vehicleParameters) {
+{}, {}, {}, {calibratorParent}, {}, {}, {vehicleType, route}, {},
+std::map<std::string, std::string>()),
+SUMOVehicleParameter(vehicleParameters) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -53,7 +53,7 @@ GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandE
 GNECalibratorFlow::~GNECalibratorFlow() {}
 
 
-void 
+void
 GNECalibratorFlow::writeAdditional(OutputDevice& device) const {
     // open tag
     device.openTag(SUMO_TAG_FLOW);

@@ -507,7 +507,7 @@ GNEMultipleParametersDialog::~GNEMultipleParametersDialog() {}
 
 long
 GNEMultipleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    const auto &ACs = myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers();
+    const auto& ACs = myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers();
     if (ACs.size() > 0) {
         // get undo list
         GNEUndoList* undoList = myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList();

@@ -1662,10 +1662,10 @@ MSVehicle::processNextStop(double currentVelocity) {
 #ifdef DEBUG_STOPS
             if (DEBUG_COND) {
                 std::cout <<  "   pos=" << myState.pos() << " speed=" << currentVelocity << " targetPos=" << targetPos << " fits=" << fitsOnStoppingPlace
-                    << " reachedThresh=" << reachedThreshold
-                    << " myLane=" << Named::getIDSecure(myLane)
-                    << " stopLane=" << Named::getIDSecure(stop.lane)
-                    << "\n";
+                          << " reachedThresh=" << reachedThreshold
+                          << " myLane=" << Named::getIDSecure(myLane)
+                          << " stopLane=" << Named::getIDSecure(stop.lane)
+                          << "\n";
             }
 #endif
             if (myState.pos() >= reachedThreshold && fitsOnStoppingPlace && currentVelocity <= stop.pars.speed + SUMO_const_haltingSpeed && myLane == stop.lane
@@ -2118,7 +2118,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 #ifdef DEBUG_PLAN_MOVE
             if (DEBUG_COND) {
                 std::cout <<  " leaderLane=" << leaderLane->getID() << " gapOffset=" << gapOffset << " minTimeToLeaveLane=" << minTimeToLeaveLane
-                    << " cands=" << cands.toString() << " oppositeLeaders=" <<  oppositeLeaders.toString() << "\n";
+                          << " cands=" << cands.toString() << " oppositeLeaders=" <<  oppositeLeaders.toString() << "\n";
             }
 #endif
             adaptToLeaderDistance(oppositeLeaders, 0, seen, lastLink, myLane, v, vLinkPass);
@@ -2238,10 +2238,10 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                         time2end = TIME2STEPS((stop.pars.endPos - myState.myPos) / stop.pars.speed);
                     } else {
                         time2end = TIME2STEPS(
-                            // time to reach waypoint start
-                            newStopDist / ((getSpeed() + stop.pars.speed) / 2)
-                            // time to reach waypoint end
-                            + (stop.pars.endPos - stop.pars.startPos) / stop.pars.speed);
+                                       // time to reach waypoint start
+                                       newStopDist / ((getSpeed() + stop.pars.speed) / 2)
+                                       // time to reach waypoint end
+                                       + (stop.pars.endPos - stop.pars.startPos) / stop.pars.speed);
                     }
                     if (stop.pars.until > t + time2end) {
                         // we need to stop
@@ -3979,12 +3979,12 @@ MSVehicle::executeMove() {
     // the acceleration of a vehicle equipped with the elecHybrid device is restricted by the maximal power of the electric drive as well
     MSDevice_ElecHybrid* elecHybridOfVehicle = dynamic_cast<MSDevice_ElecHybrid*>(getDevice(typeid(MSDevice_ElecHybrid)));
     if (elecHybridOfVehicle != nullptr) {
-    	// this is the consumption given by the car following model-computed acceleration
+        // this is the consumption given by the car following model-computed acceleration
         elecHybridOfVehicle->setConsum(elecHybridOfVehicle->consumption(*this, (vNext - this->getSpeed()) / TS, vNext));
         // but the maximum power of the electric motor may be lower
         // it needs to be converted from [W] to [Wh/s] (3600s / 1h) so that TS can be taken into account
-        double maxPower = elecHybridOfVehicle->getParameterDouble(toString(SUMO_ATTR_MAXIMUMPOWER))/3600;
-        if (elecHybridOfVehicle->getConsum()/TS > maxPower) {
+        double maxPower = elecHybridOfVehicle->getParameterDouble(toString(SUMO_ATTR_MAXIMUMPOWER)) / 3600;
+        if (elecHybridOfVehicle->getConsum() / TS > maxPower) {
             // no, we cannot accelerate that fast, recompute the maximum possible acceleration
             double accel = elecHybridOfVehicle->acceleration(*this, maxPower, this->getSpeed());
             // and update the speed of the vehicle

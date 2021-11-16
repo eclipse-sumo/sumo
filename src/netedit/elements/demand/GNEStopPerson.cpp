@@ -39,15 +39,15 @@
 
 GNEStopPerson::GNEStopPerson(GNENet* net, GNEDemandElement* personParent, GNEAdditional* stoppingPlace, const SUMOVehicleParameter::Stop& stopParameter) :
     GNEDemandElement(personParent, net, GLO_STOP_PERSON, GNE_TAG_STOPPERSON_BUSSTOP, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {}, {}, {stoppingPlace}, {}, {}, {personParent}, {}),
-    SUMOVehicleParameter::Stop(stopParameter) {
+{}, {}, {}, {stoppingPlace}, {}, {}, {personParent}, {}),
+SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
 GNEStopPerson::GNEStopPerson(GNENet* net, GNEDemandElement* personParent, GNEEdge* edge, const SUMOVehicleParameter::Stop& stopParameter) :
     GNEDemandElement(personParent, net, GLO_STOP_PERSON, GNE_TAG_STOPPERSON_EDGE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {edge}, {}, {}, {}, {}, {personParent}, {}),
-    SUMOVehicleParameter::Stop(stopParameter) {
+{}, {edge}, {}, {}, {}, {}, {personParent}, {}),
+SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
@@ -203,7 +203,7 @@ GNEStopPerson::getParentName() const {
 }
 
 
-double 
+double
 GNEStopPerson::getExaggeration(const GUIVisualizationSettings& s) const {
     return s.addSize.getExaggeration(s, this);
 }
@@ -257,12 +257,12 @@ GNEStopPerson::drawGL(const GUIVisualizationSettings& s) const {
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
         // check if dotted contours has to be drawn
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myDemandElementGeometry.getShape(), 0.3, 
-                                                exaggeration, 1, 1);
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myDemandElementGeometry.getShape(), 0.3,
+                    exaggeration, 1, 1);
         }
         if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myDemandElementGeometry.getShape(), 0.3, 
-                                                exaggeration, 1, 1);
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myDemandElementGeometry.getShape(), 0.3,
+                    exaggeration, 1, 1);
         }
         // draw person parent if this stop if their first person plan child
         if ((getParentDemandElements().size() == 1) && getParentDemandElements().front()->getChildDemandElements().front() == this) {

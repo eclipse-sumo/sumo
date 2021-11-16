@@ -180,12 +180,10 @@ MSBaseVehicle::getEmissionParameters() const {
             WRITE_WARNING("MSBaseVehicle::getEmissionParameters(): both batteryDevice and elecHybridDevice defined, returning batteryDevice parameters.");
         }
         return &batteryDevice->getEnergyParams();
-    }
-    else {
+    } else {
         if (elecHybridDevice != nullptr) {
             return &elecHybridDevice->getEnergyParams();
-        }
-        else {
+        } else {
             return nullptr;
         }
     }
@@ -426,9 +424,9 @@ MSBaseVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bo
                 }
                 return false;
             } else if (getPositionOnLane() > getLane()->getLength()
-                    && (myCurrEdge + 1) != myRoute->end()
-                    && (newCurrEdge + 1) != edges.end()
-                    && *(myCurrEdge + 1) != *(newCurrEdge + 1)) {
+                       && (myCurrEdge + 1) != myRoute->end()
+                       && (newCurrEdge + 1) != edges.end()
+                       && *(myCurrEdge + 1) != *(newCurrEdge + 1)) {
                 if (msgReturn != nullptr) {
                     *msgReturn = "Vehicle is moving past junction and committed to move to another successor edge";
                 }

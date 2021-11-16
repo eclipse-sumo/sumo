@@ -53,7 +53,7 @@ GNEUndoListDialog::GNEUndoListDialog(GNEApplicationWindow* GNEApp) :
     myGNEApp(GNEApp) {
     // create main frame
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
-    // create treelist dinamic 
+    // create treelist dinamic
     myTreeListDinamic = new FXTreeListDinamic(mainFrame, this, MID_GNE_UNDOLIST_UPDATE, GUIDesignTreeListDinamicExpandHeight);
     // create buttons centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
@@ -66,7 +66,7 @@ GNEUndoListDialog::GNEUndoListDialog(GNEApplicationWindow* GNEApp) :
 GNEUndoListDialog::~GNEUndoListDialog() {}
 
 
-void 
+void
 GNEUndoListDialog::open() {
     // update table
     updateList();
@@ -75,13 +75,13 @@ GNEUndoListDialog::open() {
 }
 
 
-void 
+void
 GNEUndoListDialog::hide() {
     FXTopWindow::hide();
 }
 
 
-bool 
+bool
 GNEUndoListDialog::shown() const {
     return FXWindow::shown();
 }

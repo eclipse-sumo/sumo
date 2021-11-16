@@ -32,14 +32,14 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
                                    const Position _originalPosition) :
     moveElement(_moveElement),
     originalShape({_originalPosition}),
-    shapeToMove({_originalPosition}),
-    allowChangeLane(false),
-    firstGeometryPoint(false),
-    operationType(OperationType::POSITION) {
+              shapeToMove({_originalPosition}),
+              allowChangeLane(false),
+              firstGeometryPoint(false),
+operationType(OperationType::POSITION) {
 }
 
 
-GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement, 
+GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
                                    const PositionVector _originalShape) :
     moveElement(_moveElement),
     originalShape(_originalShape),
@@ -187,7 +187,7 @@ GNEMoveElement::GNEMoveElement() :
 }
 
 
-GNEMoveOperation* 
+GNEMoveOperation*
 GNEMoveElement::calculateMoveShapeOperation(const PositionVector originalShape, const Position mousePosition, const double snapRadius, const bool onlyContour) {
     // calculate squared snapRadius
     const double squaredSnapRadius = (snapRadius * snapRadius);
@@ -242,7 +242,7 @@ GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOpe
                                     0, moveOperation->secondLane->getLaneShapeLength());
             } else {
                 // move both first and second positions
-                calculateMoveResult(moveResult, viewNet, moveOperation->firstLane, moveOperation->firstPosition, 
+                calculateMoveResult(moveResult, viewNet, moveOperation->firstLane, moveOperation->firstPosition,
                                     moveOperation->secondLane, moveOperation->secondPosition, offset);
             }
             // calculate new lane
@@ -267,7 +267,7 @@ GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOpe
                                     moveOperation->firstPosition, moveOperation->firstLane->getLaneShapeLength());
             } else {
                 // move both first and second positions
-                calculateMoveResult(moveResult, viewNet, moveOperation->firstLane, moveOperation->firstPosition, 
+                calculateMoveResult(moveResult, viewNet, moveOperation->firstLane, moveOperation->firstPosition,
                                     moveOperation->secondPosition, offset);
             }
             // calculate new lane
@@ -307,8 +307,8 @@ GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOpe
         }
         // check if we're adjusting width or height
         if ((moveOperation->operationType == GNEMoveOperation::OperationType::WIDTH) ||
-            (moveOperation->operationType == GNEMoveOperation::OperationType::HEIGHT) ||
-            (moveOperation->operationType == GNEMoveOperation::OperationType::LENGTH)) {
+                (moveOperation->operationType == GNEMoveOperation::OperationType::HEIGHT) ||
+                (moveOperation->operationType == GNEMoveOperation::OperationType::LENGTH)) {
             // calculate extrapolate vector
             moveResult.shapeToUpdate = calculateExtrapolatedVector(moveOperation, moveResult);
         }
@@ -343,7 +343,7 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
                                     0, moveOperation->secondLane->getLaneShapeLength());
             } else {
                 // move both first and second positions
-                calculateMoveResult(moveResult, viewNet, moveOperation->firstLane, moveOperation->firstPosition, 
+                calculateMoveResult(moveResult, viewNet, moveOperation->firstLane, moveOperation->firstPosition,
                                     moveOperation->secondLane, moveOperation->secondPosition, offset);
             }
             // calculate new lane
@@ -368,14 +368,14 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
             } else if (moveOperation->operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVEFIRST) {
                 // move first position around [0, secondPosition]
                 calculateMoveResult(moveResult, viewNet, moveOperation->firstLane, moveOperation->firstPosition, offset,
-                                                   0, moveOperation->secondPosition);
-                } else if (moveOperation->operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) {
+                                    0, moveOperation->secondPosition);
+            } else if (moveOperation->operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) {
                 // move first position around [firstPosition, laneLenght]
                 calculateMoveResult(moveResult, viewNet, moveOperation->firstLane, moveOperation->secondPosition, offset,
-                                                   moveOperation->firstPosition, moveOperation->firstLane->getLaneShapeLength());
+                                    moveOperation->firstPosition, moveOperation->firstLane->getLaneShapeLength());
             } else {
                 // move both first and second positions
-                calculateMoveResult(moveResult, viewNet, moveOperation->firstLane, moveOperation->firstPosition, 
+                calculateMoveResult(moveResult, viewNet, moveOperation->firstLane, moveOperation->firstPosition,
                                     moveOperation->secondPosition, offset);
             }
             // calculate new lane
@@ -433,8 +433,8 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
             }
             // check if we're adjusting width or height
             if ((moveOperation->operationType == GNEMoveOperation::OperationType::WIDTH) ||
-                (moveOperation->operationType == GNEMoveOperation::OperationType::HEIGHT) ||
-                (moveOperation->operationType == GNEMoveOperation::OperationType::LENGTH)) {
+                    (moveOperation->operationType == GNEMoveOperation::OperationType::HEIGHT) ||
+                    (moveOperation->operationType == GNEMoveOperation::OperationType::LENGTH)) {
                 // calculate extrapolate vector
                 moveResult.shapeToUpdate = calculateExtrapolatedVector(moveOperation, moveResult);
             }
@@ -445,9 +445,9 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
 }
 
 
- double 
- GNEMoveElement::calculateLaneOffset(const GNEViewNet* viewNet, const GNELane *lane, const double firstPosition, const double secondPosition, 
-                                     const GNEMoveOffset &offset, const double extremFrom, const double extremTo) {
+double
+GNEMoveElement::calculateLaneOffset(const GNEViewNet* viewNet, const GNELane* lane, const double firstPosition, const double secondPosition,
+                                    const GNEMoveOffset& offset, const double extremFrom, const double extremTo) {
     // declare laneOffset
     double laneOffset = 0;
     // calculate central position between two given positions
@@ -483,12 +483,12 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
         }
     }
     return laneOffset;
- }
+}
 
 
 void
-GNEMoveElement::calculateMoveResult(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* lane, 
-        const double pos, const GNEMoveOffset& offset, const double extremFrom, const double extremTo) {
+GNEMoveElement::calculateMoveResult(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* lane,
+                                    const double pos, const GNEMoveOffset& offset, const double extremFrom, const double extremTo) {
     // get lane offset
     const double laneOffset = calculateLaneOffset(viewNet, lane, pos, pos, offset, extremFrom, extremTo);
     // update moveResult
@@ -498,8 +498,8 @@ GNEMoveElement::calculateMoveResult(GNEMoveResult& moveResult, const GNEViewNet*
 
 
 void
-GNEMoveElement::calculateMoveResult(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* lane, 
-        const double firstPos, const double secondPos, const GNEMoveOffset& offset) {
+GNEMoveElement::calculateMoveResult(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* lane,
+                                    const double firstPos, const double secondPos, const GNEMoveOffset& offset) {
     // get lane offset
     const double laneOffset = calculateLaneOffset(viewNet, lane, firstPos, secondPos, offset, 0, lane->getLaneShape().length2D());
     // update moveResult
@@ -509,8 +509,8 @@ GNEMoveElement::calculateMoveResult(GNEMoveResult& moveResult, const GNEViewNet*
 
 
 void
-GNEMoveElement::calculateMoveResult(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* firstLane, 
-        const double firstPos, const GNELane* secondLane, const double secondPos, const GNEMoveOffset& offset) {
+GNEMoveElement::calculateMoveResult(GNEMoveResult& moveResult, const GNEViewNet* viewNet, const GNELane* firstLane,
+                                    const double firstPos, const GNELane* secondLane, const double secondPos, const GNEMoveOffset& offset) {
     // get lane offset of the first lane
     const double laneOffset = calculateLaneOffset(viewNet, firstLane, firstPos, firstPos, offset, secondLane->getLaneShape().length2D() - firstPos, firstLane->getLaneShape().length2D());
     // update moveResult
@@ -551,25 +551,25 @@ GNEMoveElement::calculateNewLane(const GNEViewNet* viewNet, const GNELane* origi
 }
 
 
-PositionVector 
-GNEMoveElement::calculateExtrapolatedVector(const GNEMoveOperation* moveOperation, const GNEMoveResult &moveResult) {
+PositionVector
+GNEMoveElement::calculateExtrapolatedVector(const GNEMoveOperation* moveOperation, const GNEMoveResult& moveResult) {
     // get original shape half lenght
     const double halfLenght = moveOperation->originalShape.length2D() * -0.5;
     // get original shape and extrapolate
     PositionVector extendedShape = moveOperation->originalShape;
     extendedShape.extrapolate2D(10e5);
     // get geometry point
-    const Position geometryPoint = moveOperation->firstGeometryPoint? moveResult.shapeToUpdate.front() : moveResult.shapeToUpdate.back();
+    const Position geometryPoint = moveOperation->firstGeometryPoint ? moveResult.shapeToUpdate.front() : moveResult.shapeToUpdate.back();
     // calculate offsets to first and last positions
     const double offset = extendedShape.nearest_offset_to_point2D(geometryPoint, false);
     // calculate extrapolate value
     double extrapolateValue = (10e5 - offset);
     // adjust extrapolation
-    if (moveOperation->firstGeometryPoint) { 
+    if (moveOperation->firstGeometryPoint) {
         if (extrapolateValue < halfLenght) {
             extrapolateValue = (halfLenght - POSITION_EPS);
         }
-    } else { 
+    } else {
         if (extrapolateValue > halfLenght) {
             extrapolateValue = (halfLenght - POSITION_EPS);
         }

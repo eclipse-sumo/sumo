@@ -786,11 +786,11 @@ GNEPathManager::drawJunctionPathElements(const GUIVisualizationSettings& s, cons
 void
 GNEPathManager::forceDrawPath(const GUIVisualizationSettings& s, const PathElement* pathElement) const {
     // draw all lane segments
-    for (const auto &laneSegment : myLaneSegments) {
-        for (const auto &segment : laneSegment.second) {
+    for (const auto& laneSegment : myLaneSegments) {
+        for (const auto& segment : laneSegment.second) {
             if (segment->getPathElement() == pathElement) {
                 pathElement->drawPartialGL(s, laneSegment.first, segment, 0);
-            }   
+            }
         }
     }
 }

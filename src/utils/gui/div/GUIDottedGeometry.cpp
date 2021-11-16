@@ -146,8 +146,8 @@ GUIDottedGeometry::GUIDottedGeometry(const GUIVisualizationSettings& s, Position
 
 
 GUIDottedGeometry::GUIDottedGeometry(const GUIVisualizationSettings& s,
-        const GUIDottedGeometry& topDottedGeometry, const bool drawFirstExtrem,
-        const GUIDottedGeometry& botDottedGeometry, const bool drawLastExtrem) :
+                                     const GUIDottedGeometry& topDottedGeometry, const bool drawFirstExtrem,
+                                     const GUIDottedGeometry& botDottedGeometry, const bool drawLastExtrem) :
     myWidth(s.dottedContourSettings.segmentWidth) {
     // check size of both geometries
     if ((topDottedGeometry.myDottedGeometrySegments.size() > 0) &&
@@ -182,7 +182,7 @@ GUIDottedGeometry::GUIDottedGeometry(const GUIVisualizationSettings& s,
 
 
 void
-GUIDottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector &laneShape) {
+GUIDottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector& laneShape) {
     // update settings and width
     myWidth = s.dottedContourSettings.segmentWidth;
     // reset segments
@@ -226,10 +226,10 @@ GUIDottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, Posit
 
 
 void
-GUIDottedGeometry::drawDottedGeometry(DottedGeometryColor& dottedGeometryColor, 
-        GUIDottedGeometry::DottedContourType type, const double customWidth) const {
+GUIDottedGeometry::drawDottedGeometry(DottedGeometryColor& dottedGeometryColor,
+                                      GUIDottedGeometry::DottedContourType type, const double customWidth) const {
     // get width
-    const double width = (customWidth > 0)? customWidth : myWidth;
+    const double width = (customWidth > 0) ? customWidth : myWidth;
     // iterate over all segments
     for (auto& segment : myDottedGeometrySegments) {
         // iterate over shape
@@ -274,7 +274,7 @@ GUIDottedGeometry::invertOffset() {
 
 
 void
-GUIDottedGeometry::drawDottedContourClosedShape(const DottedContourType type, const GUIVisualizationSettings& s, 
+GUIDottedGeometry::drawDottedContourClosedShape(const DottedContourType type, const GUIVisualizationSettings& s,
         const PositionVector& shape, const double exaggeration, const double lineWidth) {
     if (s.drawDottedContour(exaggeration)) {
         // declare DottedGeometryColor
@@ -304,8 +304,8 @@ GUIDottedGeometry::drawDottedContourClosedShape(const DottedContourType type, co
 
 
 void
-GUIDottedGeometry::drawDottedContourShape(const DottedContourType type, const GUIVisualizationSettings& s, 
-        const PositionVector& shape, const double width, const double exaggeration, const bool drawFirstExtrem, 
+GUIDottedGeometry::drawDottedContourShape(const DottedContourType type, const GUIVisualizationSettings& s,
+        const PositionVector& shape, const double width, const double exaggeration, const bool drawFirstExtrem,
         const bool drawLastExtrem, const double lineWidth) {
     if (s.drawDottedContour(exaggeration)) {
         // declare DottedGeometryColor
@@ -317,7 +317,7 @@ GUIDottedGeometry::drawDottedContourShape(const DottedContourType type, const GU
         GUIDottedGeometry botDottedGeometry = dottedGeometry;
         // move geometries top and bot
         topDottedGeometry.moveShapeToSide(width * exaggeration);
-        botDottedGeometry.moveShapeToSide(width * exaggeration* -1);
+        botDottedGeometry.moveShapeToSide(width * exaggeration * -1);
         // invert offset of top dotted geometry
         topDottedGeometry.invertOffset();
         // calculate extremes
@@ -349,7 +349,7 @@ GUIDottedGeometry::drawDottedContourShape(const DottedContourType type, const GU
 
 
 void
-GUIDottedGeometry::drawDottedContourCircle(const DottedContourType type, const GUIVisualizationSettings& s, 
+GUIDottedGeometry::drawDottedContourCircle(const DottedContourType type, const GUIVisualizationSettings& s,
         const Position& pos, const double radius, const double exaggeration) {
     // continue depending of exaggeratedRadio
     if ((radius * exaggeration) < 2) {

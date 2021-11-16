@@ -55,7 +55,7 @@ public:
      */
     bool writeXMLHeader(std::ostream& into, const std::string& rootElement,
                         const std::map<SumoXMLAttr, std::string>& attrs,
-                        bool includeConfig = true );
+                        bool includeConfig = true);
 
 
     /** @brief Writes an XML header with optional configuration

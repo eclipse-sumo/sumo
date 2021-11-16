@@ -1063,7 +1063,7 @@ Helper::applySubscriptionFilterLanes(const Subscription& s, std::set<const SUMOT
             lane = opposite->getLanes()[ix_opposite];
             // Search vehs along opposite lanes (swap upstream and downstream distance)
             const std::set<MSVehicle*> new_vehs = lane->getSurroundingVehicles(lane->getLength() - v->getPositionOnLane(), upstreamDist + v->getLength(),
-                                                                               downstreamDist, std::make_shared<LaneCoverageInfo>());
+                                                  downstreamDist, std::make_shared<LaneCoverageInfo>());
             vehs.insert(new_vehs.begin(), new_vehs.end());
         }
 #ifdef DEBUG_SURROUNDING
@@ -1207,7 +1207,7 @@ Helper::applySubscriptionFilterFieldOfVision(const Subscription& s, std::set<std
 
 void
 Helper::applySubscriptionFilterLateralDistance(const Subscription& s, std::set<const SUMOTrafficObject*>& vehs, double downstreamDist, double upstreamDist,
-                                               double lateralDist) {
+        double lateralDist) {
     // collect all vehicles within maximum range of interest to get an upper bound
     PositionVector vehShape;
     findObjectShape(s.commandId, s.id, vehShape);
@@ -1234,7 +1234,7 @@ Helper::applySubscriptionFilterLateralDistance(const Subscription& s, std::set<c
     // 1st pass: downstream (make sure that the whole length of the vehicle is included in the match)
     const double backPosOnLane = MAX2(0.0, frontPosOnLane - v->getVehicleType().getLength());
     applySubscriptionFilterLateralDistanceSinglePass(s, objIDs, vehs, v->getUpcomingLanesUntil(downstreamDist), backPosOnLane, v->getLateralPositionOnLane(),
-                                                     true);
+            true);
     // 2nd pass: upstream
     applySubscriptionFilterLateralDistanceSinglePass(s, objIDs, vehs, v->getPastLanesUntil(upstreamDist), frontPosOnLane, v->getLateralPositionOnLane(), false);
 }

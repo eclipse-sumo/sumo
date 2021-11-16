@@ -114,6 +114,6 @@ public:
     static void setColor(const GUIVisualizationSettings& s, const PointOfInterest* POI, const GUIGlObject* o, bool forceSelectionColor);
 
     /// @brief draw inner POI (before pushName() )
-    static void drawInnerPOI(const GUIVisualizationSettings& s, const PointOfInterest* POI, const GUIGlObject* o, const bool disableSelectionColor, 
+    static void drawInnerPOI(const GUIVisualizationSettings& s, const PointOfInterest* POI, const GUIGlObject* o, const bool disableSelectionColor,
                              const double layer, const double width, const double height);
 };

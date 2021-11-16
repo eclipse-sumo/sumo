@@ -86,7 +86,7 @@ GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop& detector, double pos) :
 GUIInductLoop::MyWrapper::~MyWrapper() {}
 
 
-double 
+double
 GUIInductLoop::MyWrapper::getExaggeration(const GUIVisualizationSettings& s) const {
     return s.addSize.getExaggeration(s, this);
 }

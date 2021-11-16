@@ -49,11 +49,11 @@ GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObje
                                    GNELane* lane, const double startPos, const double endPos, const std::string& name,
                                    bool friendlyPosition, const std::map<std::string, std::string>& parameters) :
     GNEAdditional(id, net, type, tag, name,
-    {}, {}, {lane}, {}, {}, {}, {}, {},
-    parameters),
-    myStartPosition(startPos),
-    myEndPosition(endPos),
-    myFriendlyPosition(friendlyPosition) {
+{}, {}, {lane}, {}, {}, {}, {}, {},
+parameters),
+myStartPosition(startPos),
+myEndPosition(endPos),
+myFriendlyPosition(friendlyPosition) {
 }
 
 
@@ -66,8 +66,8 @@ GNEStoppingPlace::getMoveOperation() {
     const bool allowChangeLane = myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane();
     // fist check if we're moving only extremes
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-        (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
-        myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
+            (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
+            myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
         // get snap radius
         const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
         // get mouse position

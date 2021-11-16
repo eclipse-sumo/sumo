@@ -413,7 +413,7 @@ GUISettingsHandler::myEndElement(int element) {
 
 
 RGBColor
-GUISettingsHandler::parseColor(const SUMOSAXAttributes& attrs, const std::string attribute, const RGBColor &defaultValue) const {
+GUISettingsHandler::parseColor(const SUMOSAXAttributes& attrs, const std::string attribute, const RGBColor& defaultValue) const {
     bool ok = true;
     return RGBColor::parseColorReporting(attrs.getStringSecure(attribute, toString(defaultValue)), attribute.c_str(), nullptr, true, ok);
 }

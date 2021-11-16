@@ -52,8 +52,8 @@ public:
      * @param[in] fill Whether the polygon shall be filled
      * @param[in] lineWidth Line width when drawing unfilled polygon
      */
-    GUIPolygon(const std::string& id, const std::string& type, const RGBColor& color, const PositionVector& shape, 
-               bool geo, bool fill, double lineWidth, double layer = 0, double angle = 0, const std::string& imgFile = "", 
+    GUIPolygon(const std::string& id, const std::string& type, const RGBColor& color, const PositionVector& shape,
+               bool geo, bool fill, double lineWidth, double layer = 0, double angle = 0, const std::string& imgFile = "",
                bool relativePath = false, const std::string& name = DEFAULT_NAME);
 
     /// @brief Destructor
@@ -120,7 +120,7 @@ public:
 
     /// @brief draw inner Polygon (before pushName() )
     static void drawInnerPolygon(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o,
-            const PositionVector shape, const bool drawFill, double layer, bool disableSelectionColor, int alphaOverride = -1);
+                                 const PositionVector shape, const bool drawFill, double layer, bool disableSelectionColor, int alphaOverride = -1);
 
 private:
     /// The mutex used to avoid concurrent updates of the shape

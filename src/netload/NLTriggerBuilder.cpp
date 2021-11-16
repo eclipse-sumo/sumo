@@ -865,7 +865,7 @@ NLTriggerBuilder::buildInnerOverheadWireSegments(MSNet& net, const MSLane* conne
 
 void
 NLTriggerBuilder::buildTractionSubstation(MSNet& net, std::string id, double voltage, double currentLimit) {
-    MSTractionSubstation * myTractionSubstation = new MSTractionSubstation(id, voltage, currentLimit);
+    MSTractionSubstation* myTractionSubstation = new MSTractionSubstation(id, voltage, currentLimit);
     if (!net.addTractionSubstation(myTractionSubstation)) {
         delete myTractionSubstation;
         throw InvalidArgument("Could not build traction substation '" + id + "'; probably declared twice.");

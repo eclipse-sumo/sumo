@@ -31,10 +31,10 @@
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, SUMOTime time, const std::string& speed) :
     GNEAdditional(variableSpeedSignParent->getNet(), GLO_VSS_STEP, SUMO_TAG_STEP, "",
-    {}, {}, {}, {variableSpeedSignParent}, {}, {}, {}, {},
-    std::map<std::string, std::string>()),
+{}, {}, {}, {variableSpeedSignParent}, {}, {}, {}, {},
+std::map<std::string, std::string>()),
     myTime(time),
-    mySpeed(speed) {
+mySpeed(speed) {
     // update boundary of rerouter parent
     variableSpeedSignParent->updateCenteringBoundary(true);
 }
@@ -97,8 +97,8 @@ GNEVariableSpeedSignStep::getParentName() const {
 void
 GNEVariableSpeedSignStep::drawGL(const GUIVisualizationSettings& s) const {
     // draw rerouter interval as listed attribute
-    drawListedAddtional(s, getParentAdditionals().front()->getPositionInView(), 
-                        0, 0, RGBColor::WHITE, RGBColor::BLACK, GUITexture::VARIABLESPEEDSIGN_STEP, 
+    drawListedAddtional(s, getParentAdditionals().front()->getPositionInView(),
+                        0, 0, RGBColor::WHITE, RGBColor::BLACK, GUITexture::VARIABLESPEEDSIGN_STEP,
                         getAttribute(SUMO_ATTR_TIME) + ": " + getAttribute(SUMO_ATTR_SPEED) + "km/h");
 }
 

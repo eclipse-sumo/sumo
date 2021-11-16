@@ -374,7 +374,7 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
             std::cout << "   arrivalPos=" << nextStage->getArrivalPos() << "\n";
 #endif
             MSStageTrip* newStage = new MSStageTrip(stage->getDestination(), nullptr, nextStage->getDestination(),
-                    nextStage->getDestinationStop(), -1, 0, "", -1, 1, getID(), 0, true, nextStage->getArrivalPos());
+                                                    nextStage->getDestinationStop(), -1, 0, "", -1, 1, getID(), 0, true, nextStage->getArrivalPos());
             appendStage(newStage, 1);
         }
         // if the plan contains another ride with the same vehicle from the same

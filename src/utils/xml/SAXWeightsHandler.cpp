@@ -178,8 +178,8 @@ SAXWeightsHandler::tryParseTazRel(const SUMOSAXAttributes& attrs) {
         for (ToRetrieveDefinition* ret : myDefinitions) {
             if (attrs.hasAttribute(ret->myAttributeName)) {
                 ret->myDestination.addTazRelWeight(myCurrentID, from, to,
-                                                    attrs.getFloat(ret->myAttributeName),
-                                                    myCurrentTimeBeg, myCurrentTimeEnd);
+                                                   attrs.getFloat(ret->myAttributeName),
+                                                   myCurrentTimeBeg, myCurrentTimeEnd);
             }
         }
     }

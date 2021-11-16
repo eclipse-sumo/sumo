@@ -659,9 +659,9 @@ TrafficLight::setProgramLogic(const std::string& tlsID, const TraCILogic& logic)
                 break;
             case TrafficLightType::NEMA:
                 tlLogic = new NEMALogic(tlc,
-                        tlsID, logic.programID,
-                        phases, step, nextSwitch,
-                        logic.subParameter, basePath);
+                                        tlsID, logic.programID,
+                                        phases, step, nextSwitch,
+                                        logic.subParameter, basePath);
                 break;
             case TrafficLightType::DELAYBASED:
                 tlLogic = new MSDelayBasedTrafficLightLogic(tlc,
@@ -690,11 +690,11 @@ TrafficLight::setProgramLogic(const std::string& tlsID, const TraCILogic& logic)
 
 void
 TrafficLight::setParameter(const std::string& tlsID, const std::string& paramName, const std::string& value) {
-    if (paramName=="NEMA_timing"){
-        TrafficLight::setNEMATiming(tlsID,value);
-    } else if (paramName=="NEMA_offset") {
-        TrafficLight::setNEMAOffset(tlsID,value);
-    } else{
+    if (paramName == "NEMA_timing") {
+        TrafficLight::setNEMATiming(tlsID, value);
+    } else if (paramName == "NEMA_offset") {
+        TrafficLight::setNEMAOffset(tlsID, value);
+    } else {
         return Helper::getTLS(tlsID).getActive()->setParameter(paramName, value);
     }
 }
@@ -703,7 +703,7 @@ LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(TrafficLight, TL)
 
 //timing="2.0 3.0 4.0 5.0 2.0 3.0 4.0 5.0"
 void
-TrafficLight::setNEMATiming(const std::string& tlsID,const std::string& timing){
+TrafficLight::setNEMATiming(const std::string& tlsID, const std::string& timing) {
     double newTiming[8];
     std::string _timing = timing;
     // convert string s to vector<string>
@@ -736,7 +736,7 @@ TrafficLight::setNEMATiming(const std::string& tlsID,const std::string& timing){
 
 
 void
-TrafficLight::setNEMAOffset(const std::string& tlsID,const std::string& offset) {
+TrafficLight::setNEMAOffset(const std::string& tlsID, const std::string& offset) {
     double d_offset = std::stod(offset);
     // send the new offset to the controller
     MSTLLogicControl::TLSLogicVariants& test_logic = MSNet::getInstance()->getTLSControl().get(tlsID);

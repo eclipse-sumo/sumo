@@ -43,9 +43,8 @@ GNEChange::GNEChange(Supermode supermode, GNEHierarchicalElement* hierarchicalEl
     mySupermode(supermode),
     myForward(forward),
     mySelectedElement(selectedElement),
-    myOriginalHierarchicalContainer(hierarchicalElement->getHierarchicalContainer()), 
-    next(nullptr)
-{
+    myOriginalHierarchicalContainer(hierarchicalElement->getHierarchicalContainer()),
+    next(nullptr) {
     // get all hierarchical elements (Parents and children)
     const auto hierarchicalElements = hierarchicalElement->getAllHierarchicalElements();
     // save all hierarchical containers
@@ -58,28 +57,28 @@ GNEChange::GNEChange(Supermode supermode, GNEHierarchicalElement* hierarchicalEl
 GNEChange::~GNEChange() {}
 
 
-int 
+int
 GNEChange::size() const {
     // by default, 1
     return 1;
 }
 
 
-Supermode 
+Supermode
 GNEChange::getSupermode() const {
     return mySupermode;
 }
 
 
-bool 
-GNEChange::canMerge() const { 
-    return false; 
+bool
+GNEChange::canMerge() const {
+    return false;
 }
 
 
-bool 
+bool
 GNEChange::mergeWith(GNEChange*) {
-    return false; 
+    return false;
 }
 
 
