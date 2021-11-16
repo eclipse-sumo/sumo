@@ -107,7 +107,7 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& /*tObject*/, double /*oldP
     } else {
         if (veh.isStopped()) {
             myStopped = true;
-            SUMOTime currentTime =  MSNet::getInstance()->getCurrentTimeStep();
+            const SUMOTime currentTime =  MSNet::getInstance()->getCurrentTimeStep();
             MSStop& stop = veh.getNextStop();
             const SUMOTime boardingDuration = myAmContainer ? veh.getVehicleType().getLoadingDuration() : veh.getVehicleType().getBoardingDuration();
             for (std::vector<MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end();) {
@@ -115,7 +115,7 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& /*tObject*/, double /*oldP
                 MSStageDriving* const stage = dynamic_cast<MSStageDriving*>(transportable->getCurrentStage());
                 if (stage->canLeaveVehicle(transportable, myHolder)) {
                     if (stop.timeToBoardNextPerson - DELTA_T > currentTime) {
-                        // try debording again in the next step;
+                        // try deboarding again in the next step
                         myStopped = false;
                         break;
                     }
@@ -123,12 +123,15 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& /*tObject*/, double /*oldP
                         stage->getDestinationStop()->addTransportable(transportable);
                     }
 
-                    if (stop.timeToBoardNextPerson > currentTime - DELTA_T) {
-                        stop.timeToBoardNextPerson += boardingDuration;
-                    } else {
-                        stop.timeToBoardNextPerson = currentTime + boardingDuration;
+                    if (!MSGlobals::gUseMesoSim) {
+                        // no boarding / unboarding time in meso
+                        if (stop.timeToBoardNextPerson > currentTime - DELTA_T) {
+                            stop.timeToBoardNextPerson += boardingDuration;
+                        } else {
+                            stop.timeToBoardNextPerson = currentTime + boardingDuration;
+                        }
                     }
-                    //ensure that vehicle stops long enough for debording
+                    //ensure that vehicle stops long enough for deboarding
                     stop.duration = MAX2(stop.duration, stop.timeToBoardNextPerson - currentTime);
 
                     i = myTransportables.erase(i); // erase first in case proceed throws an exception
