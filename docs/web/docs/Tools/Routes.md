@@ -434,6 +434,10 @@ The implausibility score is a weighted sum of individual measures of implausibil
 The tool reports routes with an implausibility score above a given threshold.
 It can also be used to generated restrictions for [flowrouter](Detector.md#flowrouterpy).
 
+!!! caution
+    When using a route file with named routes (i.e. flowrouter **--routes-output**), the option **--standalone** must be set.
+    
+
 # addStopDelay.py
 
 This tool adds a random delay to some or all stops that have a 'duration' value by increasing the duration
