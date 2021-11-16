@@ -1,5 +1,8 @@
 # tests for adding stops at the end of a route
 basic
 
+# preserve persons in input
+withPersons
+
 # assign parkingArea on the destination edge
 parkingArea
