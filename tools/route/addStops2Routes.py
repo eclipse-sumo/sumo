@@ -49,6 +49,8 @@ def get_options(args=None):
                          default=False, help="where is the vehicle parking")
     optParser.add_option("--parking-areas", dest="parkingareas", default=False,
                          help="load parkingarea definitions and stop at parkingarea on the arrival edge if possible")
+    optParser.add_option("--start-at-stop", dest="startAtStop", action="store_true",
+                         default=False, help="shorten route so it starts at stop")
     optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
                          default=False, help="tell me what you are doing")
 
@@ -134,6 +136,13 @@ def main(options):
                     stopAttrs["until"] = options.until
                 if not skip:
                     obj.addChild("stop", attrs=stopAttrs)
+                    if options.startAtStop:
+                        obj.setAttribute("departPos", "stop")
+                        if obj.route:
+                            obj.route[0].setAttribute("edges", lastEdgeID)
+                        elif obj.attr_from:
+                            obj.attr_from = obj.to
+
 
                 outf.write(obj.toXML(' '*4))
         outf.write('</routes>\n')
