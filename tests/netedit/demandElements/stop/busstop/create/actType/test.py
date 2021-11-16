@@ -44,25 +44,25 @@ netedit.changeStopType("stopBusStop")
 netedit.changeDefaultValue(13, ";;;;;;;;;;")
 
 # try to create stop
-netedit.leftClick(referencePosition, 290, 190)
+netedit.leftClick(referencePosition, 290, 175)
 
 # set invalid value
 netedit.changeDefaultValue(13, "")
 
 # try to create stop
-netedit.leftClick(referencePosition, 290, 190)
+netedit.leftClick(referencePosition, 290, 175)
 
 # set valid value
 netedit.changeDefaultValue(13, "dummy Act")
 
 # create stop
-netedit.leftClick(referencePosition, 290, 190)
+netedit.leftClick(referencePosition, 290, 175)
 
 # set valid value
 netedit.changeDefaultValue(13, "singing")
 
 # create stop
-netedit.leftClick(referencePosition, 290, 190)
+netedit.leftClick(referencePosition, 290, 175)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)
