@@ -47,10 +47,10 @@ netedit.deleteMode()
 netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
 
 # delete loaded routeProbe
-netedit.leftClick(referencePosition, 310, 215)
+netedit.leftClick(referencePosition, 326, 205)
 
 # delete created routeProbe (using stack)
-netedit.leftClick(referencePosition, 310, 215)
+netedit.leftClick(referencePosition, 326, 205)
 
 # delete lane with the second loaded routeProbe
 netedit.leftClick(referencePosition, 280, 265)
