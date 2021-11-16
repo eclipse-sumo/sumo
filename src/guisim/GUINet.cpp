@@ -454,6 +454,8 @@ GUINet::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<MSVehicleControl, int>(&getVehicleControl(), &MSVehicleControl::getTeleportCount));
     ret->mkItem("halting [#]", true,
                 new FunctionBinding<MSVehicleControl, int>(&getVehicleControl(), &MSVehicleControl::getHaltingVehicleNo));
+    ret->mkItem("stopped [#]", true,
+                new FunctionBinding<MSVehicleControl, int>(&getVehicleControl(), &MSVehicleControl::getStoppedVehiclesCount));
     ret->mkItem("avg. speed [m/s]", true,
                 new FunctionBinding<MSVehicleControl, double>(&getVehicleControl(), &MSVehicleControl::getVehicleMeanSpeed));
     ret->mkItem("avg. relative speed", true,
