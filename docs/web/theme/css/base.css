@@ -630,10 +630,15 @@ list-style-position: outside;
 table {
 border: 1px solid #dee2e6; /* for incompatible Browsers  */
 border: 1px solid var(--table-border-color);
+table-layout: fixed !important;
 }
 
 td {
 border: 1px solid #dee2e6;
+}
+
+td:nth-child(1) {  
+word-break: keep-all !important;
 }
 
 thead th {
@@ -641,6 +646,7 @@ vertical-align: center;
 text-align: center;
 background: #dfd; /* for incompatible Browsers  */
 background: var(--thead-color);
+word-break: keep-all !important;
 }
 
 .table th, .table td {
