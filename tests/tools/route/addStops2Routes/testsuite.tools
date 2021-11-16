@@ -1,0 +1,5 @@
+# tests for adding stops at the end of a route
+basic
+
+# assign parkingArea on the destination edge
+parkingArea
