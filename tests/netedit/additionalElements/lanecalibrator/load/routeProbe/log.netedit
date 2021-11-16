@@ -1,2 +1,5 @@
+Error: Attribute 'edge' is missing in definition of routeProbe 'myRouteProbe'.
+Error: Could not build calibrator in netedit; routeProbe doesn't exist.
 Error: Attribute 'routeProbe' in definition of calibrator 'calibrator02' is empty.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.23Jun083905.7828\netedit.gui\additionalElements\lanecalibrator\load\routeProbe\input_additionals.add.xml failed.
+Error: Could not build calibrator in netedit; routeProbe doesn't exist.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Nov122609.7216\netedit.gui\additionalElements\lanecalibrator\load\routeProbe\input_additionals.add.xml failed.

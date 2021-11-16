@@ -35,19 +35,22 @@ netedit.additionalMode()
 netedit.changeElement("laneCalibrator")
 
 # create calibrator
-netedit.leftClick(referencePosition, 245, 140)
+netedit.leftClick(referencePosition, 245, 180)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect calibrator
-netedit.leftClick(referencePosition, 287, 225)
+netedit.leftClick(referencePosition, 355, 230)
 
 # Change parameter id with a non valid value (invalid characters)
 netedit.modifyAttribute(5, "///;;", True)
 
 # Change parameter id with valid value
-netedit.modifyAttribute(5, "customRouteProbeName", True)
+netedit.modifyAttribute(5, "nonExistentRouteProbe", True)
+
+# Change parameter id with valid value
+netedit.modifyAttribute(5, "routeProbe_0", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

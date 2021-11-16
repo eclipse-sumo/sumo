@@ -18,7 +18,7 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'laneCalibrator' in TagSelector
 Debug: Adding laneCalibrator 'laneCalibrator_gneE3_1_0' in GNEChange_Additional
-Debug: Adding laneCalibrator 'laneCalibrator_gneE3_0_1' in GNEChange_Additional
+Debug: Adding laneCalibrator 'laneCalibrator_gneE2_0_1' in GNEChange_Additional
 Debug: Setting new attribute
 Debug: Value 'Id with spaces' for attribute id of laneCalibrator isn't valid
 Debug: Setting new attribute
@@ -30,10 +30,10 @@ Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing laneCalibrator 'laneCalibrator_gneE3_0_1' in GNEChange_Additional
+Debug: Removing laneCalibrator 'laneCalibrator_gneE2_0_1' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding laneCalibrator 'laneCalibrator_gneE3_0_1' in GNEChange_Additional
+Debug: Adding laneCalibrator 'laneCalibrator_gneE2_0_1' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
@@ -89,8 +89,8 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,5.20,60.00,30.00
 GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary -10.00,10.00,60.00,34.80
-Debug: Deleting unreferenced laneCalibrator 'laneCalibrator_gneE3_0_1'
 Debug: Deleting unreferenced laneCalibrator 'correctID'
+Debug: Deleting unreferenced laneCalibrator 'laneCalibrator_gneE3_1_0'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

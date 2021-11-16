@@ -35,16 +35,16 @@ netedit.additionalMode()
 netedit.changeElement("laneCalibrator")
 
 # create calibrator
-netedit.leftClick(referencePosition, 245, 140)
+netedit.leftClick(referencePosition, 245, 180)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect calibrator
-netedit.leftClick(referencePosition, 287, 225)
+netedit.leftClick(referencePosition, 355, 230)
 
 # check parameters
-netedit.checkParameters(referencePosition, 8, True)
+netedit.checkParameters(referencePosition, 10, True)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

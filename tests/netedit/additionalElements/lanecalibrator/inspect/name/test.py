@@ -35,13 +35,13 @@ netedit.additionalMode()
 netedit.changeElement("laneCalibrator")
 
 # create calibrator
-netedit.leftClick(referencePosition, 245, 140)
+netedit.leftClick(referencePosition, 245, 180)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect calibrator
-netedit.leftClick(referencePosition, 287, 225)
+netedit.leftClick(referencePosition, 355, 230)
 
 # Change parameter id with a non valid value (invalid characters)
 netedit.modifyAttribute(4, "///", True)

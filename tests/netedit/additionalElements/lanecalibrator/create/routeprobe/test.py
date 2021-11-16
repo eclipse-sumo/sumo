@@ -34,6 +34,9 @@ netedit.additionalMode()
 # select calibrator
 netedit.changeElement("laneCalibrator")
 
+# disable center view
+netedit.changeDefaultBoolValue(11)
+
 # change routeprobe with a invalid routeProbe ID
 netedit.changeDefaultValue(6, ";;;;;%%;;;;")
 
@@ -44,10 +47,10 @@ netedit.leftClick(referencePosition, 240, 250)
 netedit.changeDefaultValue(6, "")
 
 # create calibrator with a valid parameter in other lane
-netedit.leftClick(referencePosition, 240, 250)
+netedit.leftClick(referencePosition, 240, 230)
 
 # change routeprobe with a different routeProbe
-netedit.changeDefaultValue(6, "routeProbe")
+netedit.changeDefaultValue(6, "routeProbe_0")
 
 # Check undo redo
 netedit.undo(referencePosition, 2)
