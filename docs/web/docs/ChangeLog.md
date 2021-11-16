@@ -7,84 +7,92 @@ title: ChangeLog
 ### Bugfixes
 
 - simulation
-  - Fixed crash in parallel simulation. Issue #9359 (regression in 1.10.0)
-  - Fixed freezing in parallel simulation. Issue #9385
-  - Fixed invalid approach information with step-method.ballistic that could cause collision. Issue #8955
-  - Fixed rare collision on junction when the outbound lane is jammed. Issue #6415
-  - Fixed invalid error after emergency braking at red light with ballistic update. Issue #8978
-  - Fixed bug where a vehicle never starts with startPos="stop" departSpeed="max" and ballistic update. Issue #8988
-  - Fixed crash when using flow with invalid departEdge. Issue #8993
-  - Fixed invalid use of busStop instead of containerStop in vehroute-output. Issue #8989
-  - Fixed invalid behavior after using stop posLat in non-sublane simulation. Issue #9013
-  - Fixed miscounted teleports in vehicle-person collisions. Issue #9018
-  - Fixed collision after unsafe lane changing ahead of junction. Issue #8950
-  - Fixed emergency braking in sublane simulation. Issue #9051
-  - ArrivalEdge is no longer ignored in meso. Issue #8994
-  - Fixed non-deterministic parkingReroute. Issue #9066
-  - Fixed unsafe sublane changing on junction. Issue #9180
-  - Fixed emergency braking during opposite-direction overtaking. Issue #9183, #9184, #9185, #9297, #9530  
-  - Fixed crash caused by rerouters on short edges. Issue #9186
-  - Fixed departSpeed related errors when using vehrouter-output as simulation input. Issue #9199, #9205
-  - Fixed invalid departSpeed error in meso #9201
-  - Fixed bug where simulation did not terminate after a departSpeed related error. Issue #9211
-  - Fixed invalid duplicate ids when using option **--scale**. Added option **--scale-suffix** to deal with unavoidable id collisions. Issue #9055
-  - Attribute personCapacity is no longer ignored for trainStop. Issue #9262
-  - Fixed lower-than-configured boardingTime when many persons are entering. Issue #9263
-  - Railway routing now longer creates routes where a train gets stuck on very short reversal edges. Issue #9323
-  - Parking search is no longer deterministic when param 'parking.probability.weight' is set. Issue #9364
-  - Parking search doesn't drive past an available parkingArea if 'parking.probability.weight' is set. Issue #9371
-  - Fixed invalid edges and exitTimes in **vehroute-output** when using rerouting and looped routes. Issue #9374
-  - Fixed invalid collision warning during opposite direction driving. Issue #9388
-  - Fix bug where simulation with waypoints at stopping place freezes. Issue #9399
-  - Fixed invalid warning in railway simulation. Issue #9398
-  - Fixed bug where frontal collision between fast vehicles was not detected. Issue #9402
-  - Fixed deadlock when using lcSigma without sublane model. Issue #9395
-  - Fcd-output no longer includes persons in vehicle when peson-device.fcd is disabled. Issue #9469
-  - Fix bug where rescue lane briefly closes when two rescue vehicles follow each other. Issue #9494
-  - Stop attribute 'actType' is now preserved in vehroute-output. Issue #9495
-  - Fixed bug wehre vehicles stay on the opposite side for too long in sublane simulation. Issue #9548
-  
+  - crashing
+    - Fixed crash in parallel simulation. Issue #9359 (regression in 1.10.0)
+    - Fixed freezing in parallel simulation. Issue #9385
+    - Fixed crash when using flow with invalid departEdge. Issue #8993
+    - Fixed crash caused by rerouters on short edges. Issue #9186
+    - Fixed bug where simulation did not terminate after a departSpeed related error. Issue #9211
+    - Fix bug where simulation with waypoints at stopping place freezes. Issue #9399
+  - safety
+    - Fixed invalid approach information with step-method.ballistic that could cause collision. Issue #8955
+    - Fixed rare collision on junction when the outbound lane is jammed. Issue #6415
+    - Fixed miscounted teleports in vehicle-person collisions. Issue #9018
+    - Fixed collision after unsafe lane changing ahead of junction. Issue #8950
+    - Fixed emergency braking in sublane simulation. Issue #9051
+    - Fixed invalid error after emergency braking at red light with ballistic update. Issue #8978
+    - Fixed unsafe sublane changing on junction. Issue #9180
+    - Fixed emergency braking during opposite-direction overtaking. Issue #9183, #9184, #9185, #9297, #9530
+    - Fixed invalid collision warning during opposite direction driving. Issue #9388  
+    - Fixed bug where frontal collision between fast vehicles was not detected. Issue #9402
+  - sublane
+    - Fixed invalid behavior after using stop posLat in non-sublane simulation. Issue #9013
+    - Fixed deadlock when using lcSigma without sublane model. Issue #9395
+    - Fix bug where rescue lane briefly closes when two rescue vehicles follow each other. Issue #9494
+    - Fixed bug where vehicles stay on the opposite side for too long in sublane simulation. Issue #9548
+  - output
+    - Fixed invalid edges and exitTimes in **vehroute-output** when using rerouting and looped routes. Issue #9374
+    - Fcd-output no longer includes persons in vehicle when peson-device.fcd is disabled. Issue #9469  
+    - Stop attribute 'actType' is now preserved in vehroute-output. Issue #9495
+    - Fixed invalid use of busStop instead of containerStop in vehroute-output. Issue #8989
+  - parking / stopping
+    - Fixed non-deterministic parkingReroute. Issue #9066
+    - Parking search is no longer deterministic when param 'parking.probability.weight' is set. Issue #9364
+    - Parking search doesn't drive past an available parkingArea if 'parking.probability.weight' is set. Issue #9371
+    - Attribute personCapacity is no longer ignored for trainStop. Issue #9262
+    - Fixed lower-than-configured boardingTime when many persons are entering. Issue #9263
+  - misc
+    - Fixed bug where a vehicle never starts with startPos="stop" departSpeed="max" and ballistic update. Issue #8988  
+    - Fixed departSpeed related errors when using vehrouter-output as simulation input. Issue #9199, #9205    
+    - Fixed invalid duplicate ids when using option **--scale**. Added option **--scale-suffix** to deal with unavoidable id collisions. Issue #9055
+    - Railway routing now longer creates routes where a train gets stuck on very short reversal edges. Issue #9323
+    - Fixed invalid warning in railway simulation. Issue #9398  
+    
 - netedit
-  - Fixed probability statistics and coloring in taz mode. Issue #9107 (regression in 1.7.0)
-  - Fixed crash when creating reverse edge with "both directions" active. Issue #9408 (regression in 1.8.0)
-  - Inverting selection of shapes now works even when no edges are loaded. Issue #8951 (regresssion in 1.9.2)
-  - BusStops with '/' in their name can now be loaded gain. Issue #9064 (regression in 1.10.0)
-  - Fixed disappearance of connecting lines between E3 detector and its entry/exit elements. Issue #8916
-  - Multi-parameter speedFactor value can now be set. Issue #8263
-  - trainStops with access can now be loaded. Issue #8969
-  - Flows with embedded route can now be loaded. Issue #8966
-  - Fixed lost elements when loading personFlow. Issue #7732
-  - Vehicles with embedded routes can now load parameters. Issue #7509
-  - Copying one of several traffic light programs now copies the correct one. Issue #7963
-  - Adding a bicycle lane via lane context menu now respects option **--default.bikelane-width** Issue #9073
-  - Fixed missung turnaround after adding bike lane. Issue #9079
-  - Fixed invalid drawing style for lane that allows tram and bus. Issue #9089
-  - Fixed various usability issues related to tazRelation editing. Issue #9059, #9086, #9109, #9123, #9114, #9122, #9120, #9121, #9126, #9113, #9152
-  - Demand mode now respects "show connections" settings. Issue #9087
-  - Fixed long delay when switching between editing modes while in demand super-mode. Issue #9088
-  - Fixed invalid edge type attributes in saved network. Issue #9070
-  - Fixed invalid linkIndex2 for indirect left turn after modifying an existing turn. Issue #9102
-  - Fixed crash after selecting edges in taz mode. Issue #9128
-  - Fixed undo-redo issues after selecting edges in taz mode. Issue #9132
-  - Fixed invalid warning about missing color of POI. Issue #9125
-  - Loading taz without shape is now supported. Issue #9140
-  - Taz are now drawn below roads. Issue #9146
-  - Fixed bug where additional objects could not be loaded via command line option. Issue #9166
-  - Fixed slow operation when inspecting large objects. Issue #9106
-  - Fixed slow loading of large traffic demand files. Issue #9191
-  - Fixed slow loading of large networks. Issue #9207
-  - Dotted contour now matches junction shape at reduced size. Issue #9204
-  - When creating a new TAZ, edges are now assigned based on the polygon shape rather than it's bounding box. Issue #9225
-  - Fixed invalid error when loading program in tls frame. Issue #9270
-  - Attribute 'opposite' is now updated when changing lane count. Issue #9283
-  - Attribute 'opposite' is now preserved when splitting edges. Issue #9316
-  - Minor fixes to save-load tls-program dialog. Issue #9269
-  - Fixed lost window focus. Issue #9274, #9275
-  - Fixed invalid roundabout when using function 'convert to roundabout' before first network computation. Issue #9348
-  - Fixed invalid e3detector position when placing entry/exit detectors close to junction. Issue #9421
-  - Fixed crash related to convert-to-roundabout and undo. Issue #9449
-  - Fixed crash when entering non-existing vtype in current vtype field. Issue #9509
-  
+  - network mode: additionals
+    - Fixed probability statistics and coloring in taz mode. Issue #9107 (regression in 1.7.0)
+    - Fixed crash when creating reverse edge with "both directions" active. Issue #9408 (regression in 1.8.0)
+    - Inverting selection of shapes now works even when no edges are loaded. Issue #8951 (regresssion in 1.9.2)
+    - BusStops with '/' in their name can now be loaded gain. Issue #9064 (regression in 1.10.0)
+    - Fixed disappearance of connecting lines between E3 detector and its entry/exit elements. Issue #8916
+    - trainStops with access can now be loaded. Issue #8969
+    - Fixed crash after selecting edges in taz mode. Issue #9128
+    - Fixed undo-redo issues after selecting edges in taz mode. Issue #9132
+    - Fixed invalid warning about missing color of POI. Issue #9125
+    - Loading taz without shape is now supported. Issue #9140
+    - Taz are now drawn below roads. Issue #9146
+    - Fixed bug where additional objects could not be loaded via command line option. Issue #9166
+    - When creating a new TAZ, edges are now assigned based on the polygon shape rather than it's bounding box. Issue #9225
+    - Fixed invalid e3detector position when placing entry/exit detectors close to junction. Issue #9421
+  - network mode: other    
+    - Copying one of several traffic light programs now copies the correct one. Issue #7963
+    - Adding a bicycle lane via lane context menu now respects option **--default.bikelane-width** Issue #9073
+    - Fixed missung turnaround after adding bike lane. Issue #9079
+    - Fixed invalid drawing style for lane that allows tram and bus. Issue #9089
+    - Fixed invalid edge type attributes in saved network. Issue #9070
+    - Fixed invalid linkIndex2 for indirect left turn after modifying an existing turn. Issue #9102    
+    - Fixed slow operation when inspecting large objects. Issue #9106
+    - Fixed slow loading of large networks. Issue #9207
+    - Dotted contour now matches junction shape at reduced size. Issue #9204    
+    - Fixed invalid error when loading program in tls frame. Issue #9270
+    - Attribute 'opposite' is now updated when changing lane count. Issue #9283
+    - Attribute 'opposite' is now preserved when splitting edges. Issue #9316
+    - Minor fixes to save-load tls-program dialog. Issue #9269
+    - Fixed lost window focus. Issue #9274, #9275
+    - Fixed invalid roundabout when using function 'convert to roundabout' before first network computation. Issue #9348    
+    - Fixed crash related to convert-to-roundabout and undo. Issue #9449
+- demand mode
+    - Multi-parameter speedFactor value can now be set. Issue #8263
+    - Flows with embedded route can now be loaded. Issue #8966
+    - Fixed lost elements when loading personFlow. Issue #7732
+    - Vehicles with embedded routes can now load parameters. Issue #7509
+    - Demand mode now respects "show connections" settings. Issue #9087
+    - Fixed long delay when switching between editing modes while in demand super-mode. Issue #9088
+    - Fixed slow loading of large traffic demand files. Issue #9191
+    - Fixed crash when entering non-existing vtype in current vtype field. Issue #9509
+  - data mode
+    - Fixed various usability issues related to tazRelation editing. Issue #9059, #9086, #9109, #9123, #9114, #9122, #9120, #9121, #9126, #9113, #9152
+   
 - sumo-gui
   - Fixed invalid person angle in output. Issue #9014
   - Fixed slow stepping on windows when the simulation has little to do. Issue #6371
@@ -139,6 +147,8 @@ title: ChangeLog
 - meso
   - fixed crash when using taxi device #9208 (regression in 1.9.2)
   - Fixed bug where not all passengers unboard. Issue #9556
+  - ArrivalEdge is no longer ignored. Issue #8994
+  - Fixed invalid departSpeed error. Issue #9201
 
 - marouter
   - Fixed invalid route-not-found error. Issue #9193
