@@ -42,15 +42,19 @@ def get_options(args=None):
     optParser.add_option("-t", "--typesfile", dest="typesfile",
                          help="Give a typesfile")
     optParser.add_option("-d", "--duration",
-                         help="Give a time, how long the vehicle stands")
+                         help="Define duration of vehicle stop")
     optParser.add_option("-u", "--until",
-                         help="specify a time until the vehicle is parked")
+                         help="Define end time of vehicle stop")
     optParser.add_option("-p", "--parking", dest="parking", action="store_true",
                          default=False, help="where is the vehicle parking")
     optParser.add_option("--parking-areas", dest="parkingareas", default=False,
                          help="load parkingarea definitions and stop at parkingarea on the arrival edge if possible")
     optParser.add_option("--start-at-stop", dest="startAtStop", action="store_true",
                          default=False, help="shorten route so it starts at stop")
+    optParser.add_option("-D", "--person-duration", dest="pDuration",
+                         help="Define duration of person stop")
+    optParser.add_option("-U", "--person-until", dest="pUntil",
+                         help="Define end time of person stop")
     optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
                          default=False, help="tell me what you are doing")
 
@@ -105,7 +109,18 @@ def main(options):
             for obj in sumolib.xml.parse(file, ['vehicle', 'trip', 'flow', 'person']):
                 lastEdgeID = getLastEdge(obj)
                 if lastEdgeID is None:
-                    numSkipped[obj.name] += 1
+                    if obj.name == 'person' and (
+                            options.pDuration is not None
+                            or options.pUntil is not None):
+                        stopAttrs = {}
+                        if options.pDuration:
+                            stopAttrs["duration"] = options.duration
+                        if options.pUntil:
+                            stopAttrs["until"] = options.until
+                        # stop location is derived automatically from previous plan element
+                        obj.addChild("stop", attrs=stopAttrs)
+                    else:
+                        numSkipped[obj.name] += 1
                     outf.write(obj.toXML(' '*4))
                     continue
 
