@@ -40,11 +40,4 @@
     <parkingArea id="parkD2D3" lane="D2D3_0" startPos="35" endPos="55" roadsideCapacity="2" width="2.00" length="5"/>
     -->
 
-    <rerouter id="rr1" edges="C0C1">
-        <interval begin="0.0" end="86400">
-            <parkingAreaReroute id="parkC0C1" visible="true"/>
-            <parkingAreaReroute id="parkD1D2" visible="true"/>
-            <parkingAreaReroute id="parkA1A2" visible="true"/>
-        </interval>
-    </rerouter>
 </additional>

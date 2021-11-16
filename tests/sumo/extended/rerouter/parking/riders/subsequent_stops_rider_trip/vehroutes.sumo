@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-11-16 14:50:34 by Eclipse SUMO sumo Version v1_10_0+2325-f0a137e
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="blocker" depart="0.00" arrival="47.00">
+        <route edges="C0C1 C1C2 C2C3"/>
+        <stop parkingArea="parkC0C1" duration="20.00"/>
+    </vehicle>
+
+    <person id="ego" depart="0.00" arrival="464.00">
+        <ride from="C0C1" to="A1A2" parkingArea="parkA1A2" lines="egoVeh"/>
+        <walk edges="A1A2 A1B1 B1C1 C1D1"/>
+        <stop lane="C1D1_0" endPos="45.30" duration="10.00"/>
+        <walk edges="C1D1 B1C1 B1A1 A1A2"/>
+        <ride from="A1A2" to="A2A3" arrivalPos="55.00" lines="egoVeh"/>
+    </person>
+
+    <vehicle id="egoVeh" depart="triggered" arrival="508.00">
+        <routeDistribution>
+            <route replacedOnEdge="C0C1" reason="rr1:parkingAreaReroute" replacedAtTime="9.00" probability="0" edges="C0C1 C1C2 C2B2 B2A2 A2A3 A3B3 B3C3 C3C2 C2C3"/>
+            <route edges="C0C1 C1B1 B1A1 A1A2 A2A3 A3B3 B3C3 C3C2 C2C3"/>
+        </routeDistribution>
+        <stop parkingArea="parkA1A2" duration="10.00" triggered="person"/>
+        <stop parkingArea="parkA2A3" duration="10.00"/>
+        <param key="parking.distancefrom.weight" value="1"/>
+    </vehicle>
+
+</routes>
