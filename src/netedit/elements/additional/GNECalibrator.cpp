@@ -110,7 +110,9 @@ GNECalibrator::writeAdditional(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
     }
     device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane);
-    device.writeAttr(SUMO_ATTR_FREQUENCY, time2string(myFrequency));
+    if (time2string(myFrequency) != "1.00") {
+        device.writeAttr(SUMO_ATTR_FREQUENCY, time2string(myFrequency));
+    }
     if (!myAdditionalName.empty()) {
         device.writeAttr(SUMO_ATTR_NAME, myAdditionalName);
     }
