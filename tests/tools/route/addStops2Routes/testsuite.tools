@@ -4,6 +4,9 @@ basic
 # preserve persons in input
 withPersons
 
+# add stops to person plans
+withPersons_stops
+
 # assign parkingArea on the destination edge
 parkingArea
 
