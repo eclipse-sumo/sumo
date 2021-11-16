@@ -53,16 +53,16 @@ netedit.leftClick(referencePosition, 600, 250)
 netedit.moveMode()
 
 # move E3 to up
-netedit.moveElement(referencePosition, 250, 250, 120, 50)
+netedit.moveElement(referencePosition, 250, 250, 101, 57)
 
 # move E3 to down
-netedit.moveElement(referencePosition, 120, 50, 120, 300)
+netedit.moveElement(referencePosition, 101, 57, 73, 365)
 
 # move E3 to left
-netedit.moveElement(referencePosition, 120, 300, 0, 300)
+netedit.moveElement(referencePosition, 73, 365, 353, 393)
 
 # move E3 to right
-netedit.moveElement(referencePosition, 0, 300, 450, 300)
+netedit.moveElement(referencePosition, 353, 393, 353, 86)
 
 # Check undos and redos
 netedit.undo(referencePosition, 7)
