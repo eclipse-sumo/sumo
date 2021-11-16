@@ -38,6 +38,8 @@
 #include <microsim/transportables/MSTransportable.h>
 
 
+//#define DEBUG_PARKING
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -330,6 +332,9 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
     // check whether the transportable was riding to the orignal stop
     // @note: parkingArea can currently not be set as myDestinationStop so we
     // check for stops on the edge instead
+#ifdef DEBUG_PARKING
+    std::cout << SIMTIME << " person=" << getID() << " rerouteParkingArea orig=" << orig->getID() << " replacement=" << replacement->getID() << "\n";
+#endif
     assert(getCurrentStageType() == MSStageType::DRIVING);
     if (!myAmPerson) {
         WRITE_WARNING("parkingAreaReroute not support for containers");
@@ -341,6 +346,9 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
         assert(stage->getVehicle() != 0);
         // adapt plan
         stage->setDestination(&replacement->getLane().getEdge(), replacement);
+#ifdef DEBUG_PARKING
+        std::cout << " set ride destination\n";
+#endif
         if (myStep + 1 == myPlan->end()) {
             return;
         }
@@ -348,7 +356,13 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
         MSStage* nextStage = *(myStep + 1);
         if (nextStage->getStageType() == MSStageType::TRIP) {
             dynamic_cast<MSStageTrip*>(nextStage)->setOrigin(stage->getDestination());
+#ifdef DEBUG_PARKING
+            std::cout << " set subsequent trip origin\n";
+#endif
         } else if (nextStage->getStageType() == MSStageType::WALKING) {
+#ifdef DEBUG_PARKING
+            std::cout << " replace subsequent walk with a trip\n";
+#endif
             MSStageTrip* newStage = new MSStageTrip(stage->getDestination(), nullptr, nextStage->getDestination(),
                                                     nextStage->getDestinationStop(), -1, 0, "", -1, 1, getID(), 0, true, nextStage->getArrivalPos());
             removeStage(1);
@@ -367,7 +381,13 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
                         && prevStage->getDestination() == &orig->getLane().getEdge()) {
                     if (prevStage->getStageType() == MSStageType::TRIP) {
                         dynamic_cast<MSStageTrip*>(prevStage)->setDestination(stage->getDestination(), replacement);
+#ifdef DEBUG_PARKING
+                        std::cout << " replace later trip before ride (" << (it - myPlan->begin()) << ")\n";
+#endif
                     } else if (prevStage->getStageType() == MSStageType::WALKING) {
+#ifdef DEBUG_PARKING
+                        std::cout << " replace later walk before ride (" << (it - myPlan->begin()) << ")\n";
+#endif
                         MSStageTrip* newStage = new MSStageTrip(prevStage->getFromEdge(), nullptr, stage->getDestination(),
                                                                 replacement, -1, 0, "", -1, 1, getID(), 0, true, stage->getArrivalPos());
                         int prevStageRelIndex = (int)(it - 1 - myStep);
@@ -380,6 +400,7 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
         }
     }
 }
+
 
 MSTransportableDevice*
 MSTransportable::getDevice(const std::type_info& type) const {
