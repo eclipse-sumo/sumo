@@ -120,7 +120,7 @@ GNECalibrator::writeAdditional(OutputDevice& device) const {
     if (getParentAdditionals().size() > 0) {
         device.writeAttr(SUMO_ATTR_ROUTEPROBE, getParentAdditionals().front()->getID());
     }
-    if (myJamThreshold != 0) {
+    if (myJamThreshold != 0.5) {
         device.writeAttr(SUMO_ATTR_JAM_DIST_THRESHOLD, myJamThreshold);
     }
     if (myVTypes.size() > 0) {
