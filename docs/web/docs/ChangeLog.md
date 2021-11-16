@@ -22,7 +22,7 @@ title: ChangeLog
   - ArrivalEdge is no longer ignored in meso. Issue #8994
   - Fixed non-deterministic parkingReroute. Issue #9066
   - Fixed unsafe sublane changing on junction. Issue #9180
-  - Fixed emergency braking during opposite-direction overtaking. Issue #9183, #9184, #9185, #9297  
+  - Fixed emergency braking during opposite-direction overtaking. Issue #9183, #9184, #9185, #9297, #9530  
   - Fixed crash caused by rerouters on short edges. Issue #9186
   - Fixed departSpeed related errors when using vehrouter-output as simulation input. Issue #9199, #9205
   - Fixed invalid departSpeed error in meso #9201
@@ -32,6 +32,7 @@ title: ChangeLog
   - Fixed lower-than-configured boardingTime when many persons are entering. Issue #9263
   - Railway routing now longer creates routes where a train gets stuck on very short reversal edges. Issue #9323
   - Parking search is no longer deterministic when param 'parking.probability.weight' is set. Issue #9364
+  - Parking search doesn't drive past an available parkingArea if 'parking.probability.weight' is set. Issue #9371
   - Fixed invalid edges and exitTimes in **vehroute-output** when using rerouting and looped routes. Issue #9374
   - Fixed invalid collision warning during opposite direction driving. Issue #9388
   - Fix bug where simulation with waypoints at stopping place freezes. Issue #9399
@@ -41,6 +42,7 @@ title: ChangeLog
   - Fcd-output no longer includes persons in vehicle when peson-device.fcd is disabled. Issue #9469
   - Fix bug where rescue lane briefly closes when two rescue vehicles follow each other. Issue #9494
   - Stop attribute 'actType' is now preserved in vehroute-output. Issue #9495
+  - Fixed bug wehre vehicles stay on the opposite side for too long in sublane simulation. Issue #9548
   
 - netedit
   - Fixed probability statistics and coloring in taz mode. Issue #9107 (regression in 1.7.0)
@@ -81,6 +83,7 @@ title: ChangeLog
   - Fixed invalid roundabout when using function 'convert to roundabout' before first network computation. Issue #9348
   - Fixed invalid e3detector position when placing entry/exit detectors close to junction. Issue #9421
   - Fixed crash related to convert-to-roundabout and undo. Issue #9449
+  - Fixed crash when entering non-existing vtype in current vtype field. Issue #9509
   
 - sumo-gui
   - Fixed invalid person angle in output. Issue #9014
@@ -96,7 +99,7 @@ title: ChangeLog
   - Small text placement fixes. Issue #9477, #9476, #9467
   - Fixed freezing in person simulation. Issue #9468
   - Fixed crash when loading edgeData with inconsisten interval times. Issue #9502
-  
+    
 - netconvert
   - Connection attribute visibility is now working if the connection has an internal junction. Issue #8953
   - Fixed crash when importing OpenDrive with internal lane shapes when the input defines no width. Issue #9009
@@ -114,6 +117,7 @@ title: ChangeLog
   - Option **--speed.factor** now works with lane-specific speeds. Issue #9466
   - Fixed invalid permissions for sime bicycle and pedestrian lanes in OSM import. Issue #9483
   - Fixed invalid walkingarea shapes that overlap with vehicular movements. Issue #9485
+  - Fixed inconsistencies in assignment of connection directional arrows. Issue #9430
 
 - duarouter
   - Fixed bug where some input flows where ignored when preceded by non-flow elements. Issue #8995
@@ -130,6 +134,11 @@ title: ChangeLog
   - Stop attribute 'actType' is now preserved. Issue #9495
   - Fixed infinite loop when loading flow with probability and number but without end attribute. Issue #9504
   - Fixed crash when ignoring missing vType for probabilistic flow. Issue #9503
+  - Option **--weights.random-factor** now influences routing results when using **--routing-algorithm** CH or CHWrapper. Issue #9515
+
+- meso
+  - fixed crash when using taxi device #9208 (regression in 1.9.2)
+  - Fixed bug where not all passengers unboard. Issue #9556
 
 - marouter
   - Fixed invalid route-not-found error. Issue #9193
@@ -155,6 +164,7 @@ title: ChangeLog
   - 'traci.vehicle.getLaneChangeState' now longer inclues 'TraCI' in the 'state-without-traci' component. Issue #9492
   - Fixeds bug where command 'traci.vehicle.changeLane' was ignored in sublane simulation. Issue #9147, #9493
   - Function 'traci.vehicle.replaceStop' no longer fails while on junction. Issue #9467
+  - Fixed invalid stop duration reported after updating duration with setStop. Issue #9522
   
 - tools
   - cutRoutes.py: Fixed mixed usage of trainStop and busStop. Issue #8982
@@ -168,6 +178,7 @@ title: ChangeLog
   - GTFS import now works when crossing day boundaries. Issue #9002
   - GTFS import no longer fails when the optional 'shapes.txt' is missing.
   - plot_trajectories.py no longer crashes when trying to plot kilometrage with missing input distance. Issue #9472
+  - generateParkingAreaRerouters.py Fixed problem when there are 2 parkingAreas on the same edge. Issue #9537
 
 - Miscellaneous
   - Xsd schema now permit trips in additional files. Issue #9110
@@ -193,7 +204,8 @@ title: ChangeLog
   - Added ssm device output option **--device.ssm.write-positions** for writing global measures. Issue #9230
   - Waypoints can now be used together with the 'until' attribute to force stopping on early arrival. Issue #9489
   - edgeData output now includes optional attribute 'teleported' to count the number of vehicles that teleported from an edge. Issue #5939
-  - Added opption **--time-to-teleport.remove** for removing vehicles instead of teleporting and re-inserting them along their route after waiting for too long. Issue #9377
+  - Added option **--time-to-teleport.remove** for removing vehicles instead of teleporting and re-inserting them along their route after waiting for too long. Issue #9377
+  - Added option **--device.ssm.write-lane-positions** to add lane id and lane-pos to all outputs. Issue #9231
 
 - sumo-gui
   - An index value is now drawn for each train reversal in 'show route' mode. Issue #8967
@@ -214,6 +226,9 @@ title: ChangeLog
   - Clicking on timestamps in message window now creates breakpoints with a configurable offset. Issue #7617
   - Lane params and street names are now shown in meso edge parameter dialog. Issue #9300
   - Coloring of stop lines can now be switched to "realistic" mode. Issue #9358
+  - in meso, stops are now indicated when 'show route' is active. Issue #9514
+  - Added extra colors for 'stopped' in vehicle coloring scheme 'by speed' #9547
+  - Added number of stopped vehicles to network parameters. Issue #9558
   
 - netedit
   - Added context menu function to reset opposite-lane information for a selection of lanes. Issue #8888
@@ -294,12 +309,14 @@ title: ChangeLog
   - duaIterate.py: Now supports options **--save-configuration** (**-C**) and **--configuration-file** (**-c**) to save and load configurations. Issue #9314
   - Added tool [computePassengercounts.py](Tools/Output.md#computepassengercountspy) to count passenger number in vehicle over time #9366
   - [generateParkingAreaRerouters.py](Tools/Misc.md#generateparkingarearerouterspy)
-    - added option **--opposite-visible** to ensure that parking areas on the opposite direction road are visible. Issue #9379
-    - generateParkingAreaReroutes.py: searching vehicles no longer drive past an available parkingArea. Issue #9371
+    - added option **--opposite-visible** to ensure that parking areas on the opposite direction road are visible. Issue #9379   
     - now runs much faster. Issue #9379
+    - added option **-min-count** to set the minimum number of counting locations visited by eligible rouets. Issue #9526
   - routeSampler.py: added option **--min-count** to set mininum number of counting locations for each used route. Issue #9415
   - Added tool [scheduleStats](Tools/Railways.md#schedulestatspy) to analyze deviations between loaded public transport schedules and simulation timing. Issue #8420
   - Added tool [plotXMLAttributes.py](Tools/Visualization.md#plotxmlattributespy) to generated 2D-plots from arbitrary attribute of XML files. Issue #9403
+  - osmTaxiStop.py: added option **--fleet-size** to generated a taxi fleet along with the stops. Issue #9116
+  - sumolib.net.getShortest path now allows using edges in both direcions for pedestrian route search (`ignoreDirection="true"`). Issue #9533 
 
 ### Other
 
