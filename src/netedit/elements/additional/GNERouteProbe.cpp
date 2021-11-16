@@ -64,7 +64,7 @@ GNERouteProbe::writeAdditional(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_NAME, myAdditionalName);
     }
     if (!myFilename.empty()) {
-        device.writeAttr(SUMO_ATTR_FILE, myFilename.empty());
+        device.writeAttr(SUMO_ATTR_FILE, myFilename);
     }
     // write parameters (Always after children to avoid problems with additionals.xsd)
     writeParams(device);
