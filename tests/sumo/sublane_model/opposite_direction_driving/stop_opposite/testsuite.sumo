@@ -19,6 +19,9 @@ noconflict_parking
 # stop close to edge end
 2lanes_3opposite_late
 
+# stop close to edge end
+2lanes_3opposite_late_arrivalLane
+
 # stopping on the opposite side without other traffic,
 # need to cross 3 opposite lanes.
 2lanes_3opposite_long
