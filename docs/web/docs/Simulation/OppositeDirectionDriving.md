@@ -44,6 +44,8 @@ to additional checks in regard to
 - The required safety-buffers can be calibrated using the vehicle type
   attribute *lcOpposite*
 
+Vehicles may also stop on the opposite side by defining a `<stop>` with a lane index that lies to the left of the leftmost forward direction lane (i.e. index 3  if the forward lane has lane indices 0,1,2.
+
 # Limitations
 
 - Visibility of oncoming traffic and the preceding vehicles due to
