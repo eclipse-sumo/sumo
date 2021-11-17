@@ -48,8 +48,8 @@
 GNETAZRelData::GNETAZRelData(GNEDataInterval* dataIntervalParent, GNETAZElement* fromTAZ, GNETAZElement* toTAZ,
                              const std::map<std::string, std::string>& parameters) :
     GNEGenericData(SUMO_TAG_TAZREL, GLO_TAZRELDATA, dataIntervalParent, parameters,
-        {}, {}, {}, {}, {}, {fromTAZ, toTAZ}, {}, {}),
-    myLastWidth(0) {
+{}, {}, {}, {}, {}, {fromTAZ, toTAZ}, {}, {}),
+myLastWidth(0) {
     // update geometry
     updateGeometry();
 }
@@ -58,8 +58,8 @@ GNETAZRelData::GNETAZRelData(GNEDataInterval* dataIntervalParent, GNETAZElement*
 GNETAZRelData::GNETAZRelData(GNEDataInterval* dataIntervalParent, GNETAZElement* TAZ,
                              const std::map<std::string, std::string>& parameters) :
     GNEGenericData(SUMO_TAG_TAZREL, GLO_TAZRELDATA, dataIntervalParent, parameters,
-        {}, {}, {}, {}, {}, {TAZ}, {}, {}),
-    myLastWidth(0) {
+{}, {}, {}, {}, {}, {TAZ}, {}, {}),
+myLastWidth(0) {
     // update geometry
     updateGeometry();
 }
@@ -253,11 +253,11 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
         myColor = s.dataColorer.getScheme().getColor(val);
         GLHelper::setColor(myColor);
         // check if update lastWidth
-        const double width = onlyDrawContour ? 0.1:  0.5 * s.tazRelWidthExaggeration;
+        const double width = onlyDrawContour ? 0.1 :  0.5 * s.tazRelWidthExaggeration;
         if (width != myLastWidth) {
             myLastWidth = width;
             // cast object (check this, is ugly)
-            GNETAZRelData *TAZRelData = const_cast<GNETAZRelData*>(this);
+            GNETAZRelData* TAZRelData = const_cast<GNETAZRelData*>(this);
             myNet->removeGLObjectFromGrid(TAZRelData);
             TAZRelData->updateGeometry();
             myNet->addGLObjectIntoGrid(TAZRelData);
@@ -273,12 +273,12 @@ GNETAZRelData::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             // draw depending of TAZRelDrawing
             const GUIGeometry& geom = (myNet->getViewNet()->getDataViewOptions().TAZRelDrawing()
-                ? myTAZRelGeometryCenter : myTAZRelGeometry);
+                                       ? myTAZRelGeometryCenter : myTAZRelGeometry);
             GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), geom, width);
             GLHelper::drawTriangleAtEnd(
-                    *(geom.getShape().end() - 2),
-                    *(geom.getShape().end() - 1),
-                    1.5 + width, 1.5 + width, 0.5 + width);
+                *(geom.getShape().end() - 2),
+                *(geom.getShape().end() - 1),
+                1.5 + width, 1.5 + width, 0.5 + width);
         }
         // pop matrix
         GLHelper::popMatrix();
@@ -335,7 +335,7 @@ GNETAZRelData::getLastPathLane() const {
 }
 
 
-double 
+double
 GNETAZRelData::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
     return 1;
 }
@@ -402,7 +402,7 @@ GNETAZRelData::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
-            return SUMOXMLDefinitions::isValidNetID(value) && 
+            return SUMOXMLDefinitions::isValidNetID(value) &&
                    (myNet->getAttributeCarriers()->retrieveTAZElement(SUMO_TAG_TAZ, value, false) != nullptr);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
@@ -466,17 +466,17 @@ GNETAZRelData::drawTAZRel() const {
     }
     // check if we're inspecting a TAZ
     if ((myNet->getViewNet()->getEditModes().dataEditMode == DataEditMode::DATA_INSPECT) &&
-        (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) &&
-        (myNet->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().getTag() == SUMO_TAG_TAZ)) {
+            (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) &&
+            (myNet->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().getTag() == SUMO_TAG_TAZ)) {
         // get TAZ
         const auto TAZ = myNet->getViewNet()->getInspectedAttributeCarriers().front();
         // ignore TAZRels with one TAZParent
         if (getParentTAZElements().size() == 2) {
             if ((getParentTAZElements().front() == TAZ)  &&
-                myNet->getViewNet()->getDataViewOptions().TAZRelOnlyFrom()) {
+                    myNet->getViewNet()->getDataViewOptions().TAZRelOnlyFrom()) {
                 return true;
             } else if ((getParentTAZElements().back() == TAZ)  &&
-                myNet->getViewNet()->getDataViewOptions().TAZRelOnlyTo()) {
+                       myNet->getViewNet()->getDataViewOptions().TAZRelOnlyTo()) {
                 return true;
             } else {
                 return false;
@@ -495,7 +495,7 @@ GNETAZRelData::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNet->removeGLObjectFromGrid(this);
             // check number of parent TAZ elements
             if ((getParentTAZElements().size() > 1) &&
-                (value == getParentTAZElements().at(1)->getID())) {
+                    (value == getParentTAZElements().at(1)->getID())) {
                 // reset second TAZ
                 replaceSecondParentTAZElement(SUMO_TAG_TAZ, "");
             }

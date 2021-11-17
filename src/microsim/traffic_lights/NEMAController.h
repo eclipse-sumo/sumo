@@ -64,11 +64,11 @@ public:
      * @param[in] parameter The parameter to use for tls set-up
      */
     NEMALogic(MSTLLogicControl& tlcontrol,
-                                const std::string& id, const std::string& programID,
-                                const MSSimpleTrafficLightLogic::Phases& phases,
-                                int step, SUMOTime delay,
-                                const std::map<std::string, std::string>& parameter,
-                                const std::string& basePath);
+              const std::string& id, const std::string& programID,
+              const MSSimpleTrafficLightLogic::Phases& phases,
+              int step, SUMOTime delay,
+              const std::map<std::string, std::string>& parameter,
+              const std::string& basePath);
 
 
     /** @brief Initialises the tls with information about incoming lanes
@@ -251,14 +251,14 @@ protected:
     */
     std::map<int, std::vector<MSE2Collector*>> phase2DetectorMap;
 
-    double minGreen[8]{};
-    double maxGreen[8]{};
-    double nextMaxGreen[8]{};
-    double vehExt[8]{};
-    double yellowTime[8]{};
-    double redTime[8]{};
-    double phaseStartTime[8]{};
-    double phaseExpectedDuration[8]{};
+    double minGreen[8] {};
+    double maxGreen[8] {};
+    double nextMaxGreen[8] {};
+    double vehExt[8] {};
+    double yellowTime[8] {};
+    double redTime[8] {};
+    double phaseStartTime[8] {};
+    double phaseExpectedDuration[8] {};
 
     double phaseEndTimeR1, phaseEndTimeR2;
     bool wait4R1Green, wait4R2Green;
@@ -269,7 +269,7 @@ protected:
     double offset;
     double nextOffset;
     int r1barrier, r2barrier;
-    int r1coordinatePhase,r2coordinatePhase;
+    int r1coordinatePhase, r2coordinatePhase;
 
     std::map<int, std::vector<std::string>> phase2ControllerLanesMap;
 

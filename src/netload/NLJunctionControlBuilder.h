@@ -186,9 +186,9 @@ public:
      */
     void addPhase(SUMOTime duration, const std::string& state, const std::vector<int>& nextPhases, SUMOTime minDuration, SUMOTime maxDuration, const std::string& name, bool transient_notdecisional, bool commit, std::vector<std::string>* targetLanes = nullptr);
 
-    //for NEMA compliant phase 
+    //for NEMA compliant phase
     void addPhase(SUMOTime duration, const std::string& state, const std::vector<int>& nextPhases, SUMOTime minDuration, SUMOTime maxDuration, const std::string& name, SUMOTime vehextTime, SUMOTime yellowTime, SUMOTime redTime);
-    
+
     /** @brief Returns a previously build tls logic
      *
      * @param[in] id The ID of the tls logic to return

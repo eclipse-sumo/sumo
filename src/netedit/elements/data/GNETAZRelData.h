@@ -195,7 +195,7 @@ protected:
 
     /// @brief Geometry for TAZRel data (center)
     GUIGeometry myTAZRelGeometryCenter;
-    
+
     /// @brief TAZRel data color
     mutable RGBColor myColor;
 

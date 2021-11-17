@@ -361,7 +361,7 @@ GNEAdditionalFrame::SelectorChildEdges::showSelectorChildEdgesModul(std::string 
     // clear list of egdge ids
     myList->clearItems();
     // iterate over edges of net
-    for (const auto &edge : myAdditionalFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
+    for (const auto& edge : myAdditionalFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
         // If search criterium is correct, then append ittem
         if (edge.second->getID().find(search) != std::string::npos) {
             myList->appendItem(edge.second->getID().c_str());
@@ -512,7 +512,7 @@ void
 GNEAdditionalFrame::SelectorChildLanes::showSelectorChildLanesModul(std::string search) {
     myList->clearItems();
     // add all network lanes
-    for (const auto &lane : myAdditionalFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getLanes()) {
+    for (const auto& lane : myAdditionalFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getLanes()) {
         if (lane->getID().find(search) != std::string::npos) {
             myList->appendItem(lane->getID().c_str());
         }
@@ -812,8 +812,8 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::drawTemporalE2Multilane(const GUIVi
         const Position firstPosition = myLanePath.front().first->getLaneShape().positionAtOffset2D(myLanePath.front().second);
         const Position secondPosition = myLanePath.back().first->getLaneShape().positionAtOffset2D(myLanePath.back().second);
         // draw geometry points
-        GUIGeometry::drawGeometryPoints(s, myAdditionalFrameParent->getViewNet()->getPositionInformation(), {firstPosition, secondPosition}, 
-                                        pointColor, darkerColor, s.neteditSizeSettings.polylineWidth, 1, 
+        GUIGeometry::drawGeometryPoints(s, myAdditionalFrameParent->getViewNet()->getPositionInformation(), {firstPosition, secondPosition},
+                                        pointColor, darkerColor, s.neteditSizeSettings.polylineWidth, 1,
                                         myAdditionalFrameParent->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
         // Pop last matrix
         GLHelper::popMatrix();
@@ -1228,7 +1228,7 @@ GNEAdditionalFrame::generateID(GNENetworkElement* networkElement) const {
     // obtain tag Properties (only for improve code legilibility
     const auto& tagProperties = myAdditionalTagSelector->getCurrentTagProperties();
     // get attribute carriers
-    const auto &attributeCarriers = myViewNet->getNet()->getAttributeCarriers();
+    const auto& attributeCarriers = myViewNet->getNet()->getAttributeCarriers();
     if (networkElement) {
         // special case for vaporizers
         if (tagProperties.getTag() == SUMO_TAG_VAPORIZER) {
@@ -1394,11 +1394,11 @@ GNEAdditionalFrame::buildAdditionalOverView(const GNETagProperties& tagPropertie
     // special case for VSS Steps
     if (myBaseAdditional->getTag() == SUMO_TAG_STEP) {
         // get VSS parent
-        const auto VSSParent = myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_VSS, 
-            myBaseAdditional->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
+        const auto VSSParent = myViewNet->getNet()->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_VSS,
+                               myBaseAdditional->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
         // get last step
-        GNEAdditional *step = nullptr;
-        for (const auto &additionalChild : VSSParent->getChildAdditionals()) {
+        GNEAdditional* step = nullptr;
+        for (const auto& additionalChild : VSSParent->getChildAdditionals()) {
             if (!additionalChild->getTagProperty().isSymbol()) {
                 step = additionalChild;
             }

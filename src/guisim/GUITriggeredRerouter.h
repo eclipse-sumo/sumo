@@ -159,7 +159,7 @@ public:
          */
         GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
                 GUISUMOAbstractView& parent);
-        
+
         /// @brief return exaggeration asociated with this GLObject
         double getExaggeration(const GUIVisualizationSettings& s) const;
 

@@ -100,7 +100,7 @@ public:
      */
     std::string redoName() const;
 
-    /**@brief Begin undo command sub-group with current supermode. 
+    /**@brief Begin undo command sub-group with current supermode.
      * This begins a new group of commands that
      * are treated as a single command.  Must eventually be followed by a
      * matching end() after recording the sub-commands. The new sub-group
@@ -108,7 +108,7 @@ public:
      */
     void begin(GUIIcon icon, const std::string& description);
 
-    /**@brief Begin undo command sub-group specifing supermode. 
+    /**@brief Begin undo command sub-group specifing supermode.
      * This begins a new group of commands that
      * are treated as a single command.  Must eventually be followed by a
      * matching end() after recording the sub-commands. The new sub-group
@@ -131,7 +131,7 @@ public:
      * all redo commands will be deleted since it is no longer possible to redo
      * from this point.
      */
-    void add(GNEChange* command, bool doit=false, bool merge=true);
+    void add(GNEChange* command, bool doit = false, bool merge = true);
 
     /// @brief special method for change attributes, avoid empty changes, always execute
     void changeAttribute(GNEChange_Attribute* change);
@@ -168,16 +168,16 @@ public:
     /// @name FOX-callbacks
     /// @{
     /// @brief undo change
-    long onCmdUndo(FXObject*,FXSelector,void*);
+    long onCmdUndo(FXObject*, FXSelector, void*);
 
     /// @brief event after Undo
-    long onUpdUndo(FXObject*,FXSelector,void*);
+    long onUpdUndo(FXObject*, FXSelector, void*);
 
     /// @brief redo change
-    long onCmdRedo(FXObject*,FXSelector,void*);
+    long onCmdRedo(FXObject*, FXSelector, void*);
 
     /// @brief event after Redo
-    long onUpdRedo(FXObject*,FXSelector,void*);
+    long onUpdRedo(FXObject*, FXSelector, void*);
     /// @}
 
 protected:
@@ -200,7 +200,7 @@ protected:
 
 private:
     /// @brief  Currently busy with undo or redo
-    bool myWorking;    
+    bool myWorking;
 
     // @brief the stack of currently active change groups
     std::stack<GNEChangeGroup*> myChangeGroups;

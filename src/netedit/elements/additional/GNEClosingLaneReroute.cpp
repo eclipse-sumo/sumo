@@ -32,10 +32,10 @@
 
 GNEClosingLaneReroute::GNEClosingLaneReroute(GNEAdditional* rerouterIntervalParent, GNELane* closedLane, SVCPermissions permissions) :
     GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER_CLOSINGLANEREROUTE, SUMO_TAG_CLOSING_LANE_REROUTE, "",
-    {}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {},
-    std::map<std::string, std::string>()),
+{}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {},
+std::map<std::string, std::string>()),
     myClosedLane(closedLane),
-    myPermissions(permissions) {
+myPermissions(permissions) {
     // update boundary of rerouter parent
     rerouterIntervalParent->getParentAdditionals().front()->updateCenteringBoundary(true);
 }
@@ -94,7 +94,7 @@ GNEClosingLaneReroute::drawGL(const GUIVisualizationSettings& s) const {
     // draw closing lane reroute as listed attribute
     drawListedAddtional(s, getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(),
                         1, getParentAdditionals().front()->getDrawPositionIndex(),
-                        RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_CLOSINGLANEREROUTE, 
+                        RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_CLOSINGLANEREROUTE,
                         getAttribute(SUMO_ATTR_LANE));
 }
 

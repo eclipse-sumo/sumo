@@ -55,16 +55,17 @@ const double GNEEdge::SNAP_RADIUS_SQUARED = (SUMO_const_halfLaneWidth* SUMO_cons
 // ===========================================================================
 
 GNEEdge::GNEEdge(GNENet* net, NBEdge* nbe, bool wasSplit, bool loaded):
-    GNENetworkElement(net, nbe->getID(), GLO_EDGE, SUMO_TAG_EDGE, 
-        {net->getAttributeCarriers()->retrieveJunction(nbe->getFromNode()->getID()), 
-         net->getAttributeCarriers()->retrieveJunction(nbe->getToNode()->getID())},
-    {}, {}, {}, {}, {}, {}, {}),
-    myNBEdge(nbe),
-    myLanes(0),
-    myAmResponsible(false),
-    myWasSplit(wasSplit),
-    myConnectionStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
-    myUpdateGeometry(true) {
+    GNENetworkElement(net, nbe->getID(), GLO_EDGE, SUMO_TAG_EDGE, {
+    net->getAttributeCarriers()->retrieveJunction(nbe->getFromNode()->getID()),
+        net->getAttributeCarriers()->retrieveJunction(nbe->getToNode()->getID())
+},
+{}, {}, {}, {}, {}, {}, {}),
+myNBEdge(nbe),
+myLanes(0),
+myAmResponsible(false),
+myWasSplit(wasSplit),
+myConnectionStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
+myUpdateGeometry(true) {
     // Create lanes
     int numLanes = myNBEdge->getNumLanes();
     myLanes.reserve(numLanes);
@@ -314,7 +315,7 @@ GNEEdge::updateJunctionPosition(GNEJunction* junction, const Position& origPos) 
 }
 
 
-double 
+double
 GNEEdge::getExaggeration(const GUIVisualizationSettings& s) const {
     return s.addSize.getExaggeration(s, this);
 }
@@ -624,7 +625,7 @@ GNEEdge::remakeGNEConnections() {
 void
 GNEEdge::clearGNEConnections() {
     // Drop all existents connections that aren't referenced anymore
-    for (const auto &connection : myGNEConnections) {
+    for (const auto& connection : myGNEConnections) {
         // check if connection is selected
         if (connection->isAttributeCarrierSelected()) {
             connection->unselectAttributeCarrier();
@@ -1399,7 +1400,7 @@ GNEEdge::drawDottedContourEdge(const GUIDottedGeometry::DottedContourType type, 
 }
 
 
-bool 
+bool
 GNEEdge::isConvexAngle() const {
     // calculate angle between both junction positions
     double edgeAngle = RAD2DEG(getFromJunction()->getPositionInView().angleTo2D(getToJunction()->getPositionInView()));
@@ -1808,11 +1809,11 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
     // Remake connections of this edge
     remakeGNEConnections();
     // remake connections of all edges of junction source and destiny
-    for (const auto &fromEdge : getFromJunction()->getChildEdges()) {
+    for (const auto& fromEdge : getFromJunction()->getChildEdges()) {
         fromEdge->remakeGNEConnections();
     }
     // remake connections of all edges of junction source and destiny
-    for (const auto &toEdge : getToJunction()->getChildEdges()) {
+    for (const auto& toEdge : getToJunction()->getChildEdges()) {
         toEdge->remakeGNEConnections();
     }
     // Update element
@@ -1879,7 +1880,7 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
 
 GNEConnection*
 GNEEdge::retrieveGNEConnection(int fromLane, NBEdge* to, int toLane, bool createIfNoExist) {
-    for (const auto &connection : myGNEConnections) {
+    for (const auto& connection : myGNEConnections) {
         if ((connection->getFromLaneIndex() == fromLane) && (connection->getEdgeTo()->getNBEdge() == to) && (connection->getToLaneIndex() == toLane)) {
             return connection;
         }
@@ -1903,7 +1904,7 @@ GNEEdge::retrieveGNEConnection(int fromLane, NBEdge* to, int toLane, bool create
 void
 GNEEdge::setMicrosimID(const std::string& newID) {
     GUIGlObject::setMicrosimID(newID);
-    for (const auto &lane : myLanes) {
+    for (const auto& lane : myLanes) {
         lane->setMicrosimID(getNBEdge()->getLaneID(lane->getIndex()));
     }
 }
@@ -1911,7 +1912,7 @@ GNEEdge::setMicrosimID(const std::string& newID) {
 
 bool
 GNEEdge::hasRestrictedLane(SUMOVehicleClass vclass) const {
-    for (const auto &lane : myLanes) {
+    for (const auto& lane : myLanes) {
         if (lane->isRestricted(vclass)) {
             return true;
         }
@@ -1923,7 +1924,7 @@ GNEEdge::hasRestrictedLane(SUMOVehicleClass vclass) const {
 void
 GNEEdge::removeEdgeFromCrossings(GNEJunction* junction, GNEUndoList* undoList) {
     // Remove all crossings that contain this edge in parameter "edges"
-    for (const auto &crossing : junction->getGNECrossings()) {
+    for (const auto& crossing : junction->getGNECrossings()) {
         if (crossing->checkEdgeBelong(this)) {
             myNet->deleteCrossing(crossing, undoList);
         }
@@ -2197,7 +2198,7 @@ GNEEdge::drawLaneStopOffset(const GUIVisualizationSettings& s) const {
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_LANE);
     }
     if (myNBEdge->myEdgeStopOffset.isDefined() && (myNBEdge->myEdgeStopOffset.getPermissions() & SVC_PASSENGER) != 0) {
-        for (const auto &lane : getLanes()) {
+        for (const auto& lane : getLanes()) {
             lane->drawLaneStopOffset(s, myNBEdge->myEdgeStopOffset.getOffset());
         }
     }
@@ -2222,7 +2223,7 @@ GNEEdge::areStackPositionOverlapped(const GNEEdge::StackPosition& vehicleA, cons
 }
 
 
-GNEMoveOperation* 
+GNEMoveOperation*
 GNEEdge::processMoveFromJunctionSelected(const PositionVector originalShape, const Position mousePosition, const double snapRadius) {
     // calculate squared snapRadius
     const double squaredSnapRadius = (snapRadius * snapRadius);
@@ -2310,7 +2311,7 @@ GNEEdge::processMoveToJunctionSelected(const PositionVector originalShape, const
 }
 
 
-GNEMoveOperation* 
+GNEMoveOperation*
 GNEEdge::processMoveBothJunctionSelected() {
     // declare a vector for saving geometry points to move (all except extremes)
     std::vector<int> geometryPointsToMove;
@@ -2322,10 +2323,10 @@ GNEEdge::processMoveBothJunctionSelected() {
 }
 
 
-GNEMoveOperation* 
+GNEMoveOperation*
 GNEEdge::processNoneJunctionSelected(const double snapRadius) {
     // get move multiple element values
-    const auto &moveMultipleElementValues = myNet->getViewNet()->getMoveMultipleElementValues();
+    const auto& moveMultipleElementValues = myNet->getViewNet()->getMoveMultipleElementValues();
     // declare shape to move
     PositionVector shapeToMove = myNBEdge->getGeometry();
     // first check if keeped offset is larger than geometry

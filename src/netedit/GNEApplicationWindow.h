@@ -460,18 +460,18 @@ protected:
     /// @brief the submenus
     FXMenuPane* myFileMenu = nullptr,
                 *myFileMenuTLS = nullptr,
-                *myFileMenuEdgeTypes = nullptr,
-                *myFileMenuAdditionals = nullptr,
-                *myFileMenuDemandElements = nullptr,
-                *myFileMenuDataElements = nullptr,
-                *myModesMenu = nullptr,
-                *myEditMenu = nullptr,
-                *myLockMenu = nullptr,
-                *myProcessingMenu = nullptr,
-                *myLocatorMenu = nullptr,
-                *myToolsMenu = nullptr,
-                *myWindowsMenu = nullptr,
-                *myHelpMenu = nullptr;
+                 *myFileMenuEdgeTypes = nullptr,
+                  *myFileMenuAdditionals = nullptr,
+                   *myFileMenuDemandElements = nullptr,
+                    *myFileMenuDataElements = nullptr,
+                     *myModesMenu = nullptr,
+                      *myEditMenu = nullptr,
+                       *myLockMenu = nullptr,
+                        *myProcessingMenu = nullptr,
+                         *myLocatorMenu = nullptr,
+                          *myToolsMenu = nullptr,
+                           *myWindowsMenu = nullptr,
+                            *myHelpMenu = nullptr;
 
     /// @brief menu title for modes
     FXMenuTitle* myModesMenuTitle = nullptr;

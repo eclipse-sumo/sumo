@@ -169,7 +169,7 @@ GNEMoveFrame::ShiftEdgeSelectedGeometry::ShiftEdgeSelectedGeometry(GNEMoveFrame*
     myShiftValueTextField->setText("0");
     // create apply button
     myApplyZValue = new FXButton(this, "Apply shift value\t\tShift edge geometry orthogonally to driving direction for all selected edges",
-                                GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), this, MID_GNE_APPLY, GUIDesignButton);
+                                 GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), this, MID_GNE_APPLY, GUIDesignButton);
 }
 
 
@@ -562,7 +562,7 @@ GNEMoveFrame::ShiftShapeGeometry::onCmdShiftShapeGeometry(FXObject*, FXSelector,
     // get selected polygons and POIs
     const auto selectedShapes = myMoveFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getSelectedShapes();
     std::vector<GNEShape*> polygons, POIs;
-    for (const auto &shape : selectedShapes) {
+    for (const auto& shape : selectedShapes) {
         if (shape->getTagProperty().getTag() == SUMO_TAG_POLY) {
             polygons.push_back(shape);
         } else {

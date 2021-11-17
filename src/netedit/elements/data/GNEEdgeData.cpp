@@ -159,7 +159,7 @@ GNEEdgeData::drawGL(const GUIVisualizationSettings& /*s*/) const {
 }
 
 
-double 
+double
 GNEEdgeData::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
     return 1;
 }

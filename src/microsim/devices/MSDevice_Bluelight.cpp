@@ -302,7 +302,7 @@ MSDevice_Bluelight::resetVehicle(MSVehicle* veh2, const std::string& targetTypeI
         if (influencedBy.size() == 0) {
             veh2->replaceVehicleType(targetType);
             veh2->getLaneChangeModel().setParameter(toString(SUMO_ATTR_LCA_STRATEGIC_PARAM),
-                    targetType->getParameter().getLCParamString(SUMO_ATTR_LCA_STRATEGIC_PARAM, "1"));
+                                                    targetType->getParameter().getLCParamString(SUMO_ATTR_LCA_STRATEGIC_PARAM, "1"));
         }
     }
 }
@@ -310,7 +310,7 @@ MSDevice_Bluelight::resetVehicle(MSVehicle* veh2, const std::string& targetTypeI
 
 
 bool
-MSDevice_Bluelight::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane ) {
+MSDevice_Bluelight::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
     UNUSED_PARAMETER(veh);
 #ifdef DEBUG_BLUELIGHT
     std::cout << SIMTIME << " device '" << getID() << "' notifyEnter: reason=" << toString(reason) << " enteredLane=" << Named::getIDSecure(enteredLane)  << "\n";

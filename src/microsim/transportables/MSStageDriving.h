@@ -82,9 +82,9 @@ public:
     double getEdgePos(SUMOTime now) const;
 
     /// @brief Return the movement directon on the edge
-    int getDirection() const; 
+    int getDirection() const;
 
-    const MSLane* getLane() const; 
+    const MSLane* getLane() const;
 
     MSStoppingPlace* getOriginStop() const {
         return myOriginStop;

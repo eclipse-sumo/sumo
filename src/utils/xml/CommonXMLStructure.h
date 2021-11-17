@@ -93,13 +93,13 @@ public:
         SUMOVehicleClass getVClass() const;
 
         /// @brief get current vType
-        const SUMOVTypeParameter &getVehicleTypeParameter() const;
+        const SUMOVTypeParameter& getVehicleTypeParameter() const;
 
         /// @brief get vehicle parameters
-        const SUMOVehicleParameter &getVehicleParameter() const;
+        const SUMOVehicleParameter& getVehicleParameter() const;
 
         /// @brief get stop parameters
-        const SUMOVehicleParameter::Stop &getStopParameter() const;
+        const SUMOVehicleParameter::Stop& getStopParameter() const;
 
         /// @brief get parameters
         const std::map<std::string, std::string>& getParameters() const;
@@ -179,7 +179,7 @@ public:
         void setVehicleParameter(const SUMOVehicleParameter* vehicleParameter);
 
         /// @brief add stop parameters
-        void setStopParameter(const SUMOVehicleParameter::Stop &stopParameter);
+        void setStopParameter(const SUMOVehicleParameter::Stop& stopParameter);
 
         /// @brief add parameter into current SumoBaseObject node
         void addParameter(const std::string& key, const std::string& value);
@@ -254,7 +254,7 @@ public:
         bool myDefinedStopParameter;
 
         /// @brief handle attribute error
-        void handleAttributeError(const SumoXMLAttr attr, const std::string &type) const;
+        void handleAttributeError(const SumoXMLAttr attr, const std::string& type) const;
 
         /// @brief invalidate copy constructor
         SumoBaseObject(const SumoBaseObject& s) = delete;

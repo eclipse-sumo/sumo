@@ -41,11 +41,11 @@ GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType typ
                          const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name,
                          const bool friendlyPos, const std::map<std::string, std::string>& parameters) :
     GNEAdditional(id, net, type, tag, name, {}, {}, parentLanes, {}, {}, {}, {}, {}, parameters),
-    myPositionOverLane(pos),
-    myFreq(freq),
-    myFilename(filename),
-    myVehicleTypes(vehicleTypes),
-    myFriendlyPosition(friendlyPos) {
+              myPositionOverLane(pos),
+              myFreq(freq),
+              myFilename(filename),
+              myVehicleTypes(vehicleTypes),
+myFriendlyPosition(friendlyPos) {
 }
 
 
@@ -53,11 +53,11 @@ GNEDetector::GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObje
                          const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::string& name, const bool friendlyPos,
                          const std::map<std::string, std::string>& parameters) :
     GNEAdditional(net, type, tag, name, {}, {}, parentLanes, {additionalParent}, {}, {}, {}, {},
-    parameters),
-    myPositionOverLane(pos),
-    myFreq(freq),
-    myFilename(filename),
-    myFriendlyPosition(friendlyPos) {
+parameters),
+myPositionOverLane(pos),
+myFreq(freq),
+myFilename(filename),
+myFriendlyPosition(friendlyPos) {
 }
 
 
@@ -252,14 +252,14 @@ GNEDetector::drawDetectorLogo(const GUIVisualizationSettings& s, const double ex
 }
 
 
-GNEMoveOperation* 
+GNEMoveOperation*
 GNEDetector::getMoveOperationE2SingleLane() {
     // get allow change lane
     const bool allowChangeLane = myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane();
     // fist check if we're moving only extremes
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-        (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
-        myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
+            (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
+            myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
         // get snap radius
         const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
         // get mouse position
@@ -284,12 +284,12 @@ GNEDetector::getMoveOperationE2SingleLane() {
 }
 
 
-GNEMoveOperation* 
+GNEMoveOperation*
 GNEDetector::getMoveOperationE2MultiLane() {
     // fist check if we're moving only extremes
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-        (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
-        myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
+            (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
+            myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
         // get snap radius
         const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
         // get mouse position
@@ -301,12 +301,12 @@ GNEDetector::getMoveOperationE2MultiLane() {
         // check if we clicked over start or end position
         if (fromGeometry.getShape().front().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
             // move only start position
-            return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane, 
+            return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane,
                                         getParentLanes().back(), getAttributeDouble(SUMO_ATTR_ENDPOS),
                                         false, GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST);
         } else if (toGeometry.getShape().back().distanceSquaredTo2D(mousePosition) <= (snap_radius * snap_radius)) {
             // move only end position
-            return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane, 
+            return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane,
                                         getParentLanes().back(), getAttributeDouble(SUMO_ATTR_ENDPOS),
                                         false, GNEMoveOperation::OperationType::TWO_LANES_MOVESECOND);
         } else {
@@ -315,7 +315,7 @@ GNEDetector::getMoveOperationE2MultiLane() {
     } else {
         // move both start and end positions
         return new GNEMoveOperation(this, getParentLanes().front(), myPositionOverLane, getParentLanes().back(), getAttributeDouble(SUMO_ATTR_ENDPOS),
-                                   false, GNEMoveOperation::OperationType::TWO_LANES_MOVEBOTH);
+                                    false, GNEMoveOperation::OperationType::TWO_LANES_MOVEBOTH);
     }
 }
 

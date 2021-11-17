@@ -51,14 +51,13 @@
 // method definitions
 // ===========================================================================
 NEMALogic::NEMALogic(MSTLLogicControl& tlcontrol,
-        const std::string& id, const std::string& programID,
-        const Phases& phases,
-        int step, SUMOTime delay,
-        const std::map<std::string, std::string>& parameter,
-        const std::string& basePath) :
+                     const std::string& id, const std::string& programID,
+                     const Phases& phases,
+                     int step, SUMOTime delay,
+                     const std::map<std::string, std::string>& parameter,
+                     const std::string& basePath) :
     MSSimpleTrafficLightLogic(tlcontrol, id, programID, TrafficLightType::NEMA, phases, step, delay, parameter),
-    myPhase(phases[0]->duration, phases[0]->getState())
-{
+    myPhase(phases[0]->duration, phases[0]->getState()) {
     myDetectorLength = StringUtils::toDouble(getParameter("detector-length", "20"));
     myDetectorLengthLeftTurnLane = StringUtils::toDouble(getParameter("detector-length-leftTurnLane", "20"));
     myCycleLength = (StringUtils::toDouble(getParameter("total-cycle-length", "60")));
@@ -71,7 +70,7 @@ NEMALogic::NEMALogic(MSTLLogicControl& tlcontrol,
     barriers = getParameter("barrierPhases", "");
     coordinates = getParameter("coordinatePhases", "");
     offset = (StringUtils::toDouble(getParameter("offset", "0")));
-    nextOffset=offset;
+    nextOffset = offset;
     whetherOutputState = StringUtils::toBool(getParameter("whetherOutputState", "false"));
     coordinateMode = StringUtils::toBool(getParameter("coordinate-mode", "false"));
     //print to check
@@ -110,7 +109,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
     }
     //init phaseStartTime and phaseExpectedDuration
     int phaseNumber = 8;
-    for (int i = 0; i < phaseNumber; i++){
+    for (int i = 0; i < phaseNumber; i++) {
         phaseStartTime[i] = 0;
         phaseExpectedDuration[i] = 0;
     }
@@ -168,7 +167,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
     //print to check
     for (int i = 0; i < (int)rings.size(); i++) {
         int count = 0;
-        std::cout << "Ring" << i+1 << " includes phases: \t";
+        std::cout << "Ring" << i + 1 << " includes phases: \t";
         for (auto j : rings[i]) {
             count++;
             std::cout << j << " ";
@@ -266,23 +265,23 @@ NEMALogic::init(NLDetectorBuilder& nb) {
                     // det = nb.createE2Detector(id, DU_TL_CONTROL, lane, INVALID_POSITION, lane->getLength(), myDetectorLength, 0, 0, 0, myVehicleTypes, myShowDetectors);
                     // MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det, myFile, myFreq);
                     nb.buildE2Detector(id, //detectorID
-                        lane, //lane to build this detector
-                        INVALID_POSITION, // set the detector location by end point and length, so this one is set to invalue value so this parameter can be passed
-                        lane->getLength(), // set the end position of the detector at the end of the lane, which is right at the position of stop bar of a junction
-                        detector_length, //detector length
-                        myFile, // detector information output file
-                        myFreq, // detector reading interval
-                        0, // time-based threshold that decribes how much time has to pass until a vehicle is considerred as halting
-                        0, // speed threshold as halting
-                        0, // minimum dist to the next standing vehicle to make this vehicle count as a participant to the jam
-                        myVehicleTypes, //vehicle types to consider, if it is empty, meaning consider all types of vehicles
-                        false, // detector position check. More details could be found on SUMO web
-                        myShowDetectors, // whether to show detectors in sumo-gui
-                        0, //traffic light that triggers aggregation when swithing
-                        0); // outgoing lane that associated with the traffic light
+                                       lane, //lane to build this detector
+                                       INVALID_POSITION, // set the detector location by end point and length, so this one is set to invalue value so this parameter can be passed
+                                       lane->getLength(), // set the end position of the detector at the end of the lane, which is right at the position of stop bar of a junction
+                                       detector_length, //detector length
+                                       myFile, // detector information output file
+                                       myFreq, // detector reading interval
+                                       0, // time-based threshold that decribes how much time has to pass until a vehicle is considerred as halting
+                                       0, // speed threshold as halting
+                                       0, // minimum dist to the next standing vehicle to make this vehicle count as a participant to the jam
+                                       myVehicleTypes, //vehicle types to consider, if it is empty, meaning consider all types of vehicles
+                                       false, // detector position check. More details could be found on SUMO web
+                                       myShowDetectors, // whether to show detectors in sumo-gui
+                                       0, //traffic light that triggers aggregation when swithing
+                                       0); // outgoing lane that associated with the traffic light
 
-                        //get the detector to be used in the lane detector map loading
-                        det = dynamic_cast<MSE2Collector*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_LANE_AREA_DETECTOR).get(id));
+                    //get the detector to be used in the lane detector map loading
+                    det = dynamic_cast<MSE2Collector*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_LANE_AREA_DETECTOR).get(id));
                 }
                 // print to check
                 // std::cout << "E2Detector " << det->getID() << " is built on laneID = " << lane->getID() << std::endl;
@@ -468,8 +467,8 @@ NEMALogic::init(NLDetectorBuilder& nb) {
 
     for (int i : actuatedLinks) {
         if (linkToDetectors[i].size() == 0 && myLinks[i].size() > 0
-            && (myLinks[i].front()->getLaneBefore()->getPermissions() & motorized) != 0) {
-                WRITE_WARNINGF("At NEMA tlLogic '%, linkIndex % has no controlling detector", getID(), toString(i));
+                && (myLinks[i].front()->getLaneBefore()->getPermissions() & motorized) != 0) {
+            WRITE_WARNINGF("At NEMA tlLogic '%, linkIndex % has no controlling detector", getID(), toString(i));
         }
     }
 
@@ -478,13 +477,13 @@ NEMALogic::init(NLDetectorBuilder& nb) {
 #endif
 }
 
-void NEMALogic::setNewTiming(double newTiming[8]){
-    for (int i =0;i<8;i++){
-        nextMaxGreen[i]=newTiming[i];
+void NEMALogic::setNewTiming(double newTiming[8]) {
+    for (int i = 0; i < 8; i++) {
+        nextMaxGreen[i] = newTiming[i];
     }
 }
-void NEMALogic::setNewOffset(double NewOffset){
-  nextOffset=NewOffset;
+void NEMALogic::setNewOffset(double NewOffset) {
+    nextOffset = NewOffset;
 }
 
 
@@ -595,7 +594,7 @@ NEMALogic::NEMA_control() {
     phaseExpectedDuration[R2Index] = MAX2(phaseExpectedDuration[R2Index], minGreen[R2Index]);
     if (R2Phase != r2coordinatePhase && R2Phase >= 5) {
         if (isDetectorActivated(R2Phase)) {
-            phaseExpectedDuration[R2Index] = MAX2(phaseExpectedDuration[R2Index], durationR2+vehExt[R2Index]);
+            phaseExpectedDuration[R2Index] = MAX2(phaseExpectedDuration[R2Index], durationR2 + vehExt[R2Index]);
             phaseExpectedDuration[R2Index] = MIN2(phaseExpectedDuration[R2Index], maxGreen[R2Index]);
         }
     }
@@ -614,22 +613,18 @@ NEMALogic::NEMA_control() {
             EndCurrentPhaseR1 = false;
         }
     }
-    if (EndCurrentPhaseR1 && (R1Phase == r1coordinatePhase))
-    {
-        if (!EndCurrentPhaseR2 || R2Phase != r2coordinatePhase)
-        {
+    if (EndCurrentPhaseR1 && (R1Phase == r1coordinatePhase)) {
+        if (!EndCurrentPhaseR2 || R2Phase != r2coordinatePhase) {
             EndCurrentPhaseR1 = false;
         }
     }
     if (EndCurrentPhaseR2 && (R2Phase == r2barrier)) {
-        if (!EndCurrentPhaseR1 || R1Phase != r1barrier)
-        {
+        if (!EndCurrentPhaseR1 || R1Phase != r1barrier) {
             EndCurrentPhaseR2 = false;
         }
     }
     if (EndCurrentPhaseR2 && (R2Phase == r2coordinatePhase)) {
-        if (!EndCurrentPhaseR1 || R1Phase != r1coordinatePhase)
-        {
+        if (!EndCurrentPhaseR1 || R1Phase != r1coordinatePhase) {
             EndCurrentPhaseR2 = false;
         }
     }
@@ -644,13 +639,12 @@ NEMALogic::NEMA_control() {
             R1RYG = 0; //yellow
         } else if (currentTimeInSecond - phaseEndTimeR1 < (yellowTime[R1Index] + redTime[R1Index])) {
             R1RYG = -1; //red
-            bool toUpdate= (currentTimeInSecond - phaseEndTimeR1) < yellowTime[R1Index] + 0.5;
+            bool toUpdate = (currentTimeInSecond - phaseEndTimeR1) < yellowTime[R1Index] + 0.5;
             if (R1Phase == r1coordinatePhase && toUpdate) {
-                for (int i=0;i<8;i++)
-                {
+                for (int i = 0; i < 8; i++) {
                     maxGreen[i] = nextMaxGreen[i];
                 }
-                offset=nextOffset;
+                offset = nextOffset;
             }
         } else {
             //next phase
@@ -679,7 +673,7 @@ NEMALogic::NEMA_control() {
     if (wait4R2Green) {
         if ((currentTimeInSecond - phaseEndTimeR2) < yellowTime[R2Index]) {
             R2RYG = 0;
-        } else if ((currentTimeInSecond - phaseEndTimeR2) < (yellowTime[R2Index]+redTime[R2Index])) {
+        } else if ((currentTimeInSecond - phaseEndTimeR2) < (yellowTime[R2Index] + redTime[R2Index])) {
             R2RYG = -1;
         } else {
             R2Phase = nextPhase(rings[1], R2Phase);
@@ -741,17 +735,16 @@ int NEMALogic::nextPhase(std::vector<int> ring, int currentPhase) {
     int length = (int)ring.size();
     int flag = 0;
     int nphase = 0; // next phase
-    for (int i = 0; i < length * 2; i++)
-    {
+    for (int i = 0; i < length * 2; i++) {
         if (flag == 1) {
-            if (ring[i%length] != 0)
-            {
-                nphase = ring[i%length];
+            if (ring[i % length] != 0) {
+                nphase = ring[i % length];
                 break;
             }
         }
-        if (ring[i%length] == currentPhase)
+        if (ring[i % length] == currentPhase) {
             flag = 1;
+        }
     }
     return nphase;
 
@@ -760,12 +753,10 @@ int NEMALogic::nextPhase(std::vector<int> ring, int currentPhase) {
 //b should be the base of mode
 double NEMALogic::ModeCycle(double a, double b) {
     double c = a - b;
-    while (c > b)
-    {
+    while (c > b) {
         c = c - b;
     }
-    while (c < 0)//should be minimum green (or may be  not)
-    {
+    while (c < 0) { //should be minimum green (or may be  not)
         c += b;
     }
     return c;
@@ -813,7 +804,7 @@ std::set<std::string> NEMALogic::getLaneIDsFromNEMAState(std::string state) {
 }
 
 bool NEMALogic::isLeftTurnLane(const MSLane* const lane) const {
-    const std::vector<MSLink *> links = lane->getLinkCont();
+    const std::vector<MSLink*> links = lane->getLinkCont();
     if (links.size() == 1 && links.front()->getDirection() == LinkDirection::LEFT) {
         return true;;
     }

@@ -47,8 +47,8 @@ public:
      * @param[in] name TAZ's name
      * @param[in] parameters generic parameters
      */
-    GNETAZ(const std::string& id, GNENet* net, const PositionVector &shape, const Position &TAZ, const bool fill, 
-           const RGBColor &color, const std::string& name, const std::map<std::string, std::string>& parameters);
+    GNETAZ(const std::string& id, GNENet* net, const PositionVector& shape, const Position& TAZ, const bool fill,
+           const RGBColor& color, const std::string& name, const std::map<std::string, std::string>& parameters);
 
     /// @brief GNETAZ Destructor
     ~GNETAZ();
@@ -83,7 +83,7 @@ public:
 
     /// @brief Returns position of additional in view
     Position getPositionInView() const;
-    
+
     /// @brief return exaggeration asociated with this GLObject
     double getExaggeration(const GUIVisualizationSettings& s) const;
 

@@ -253,7 +253,7 @@ private:
          * @param[in] route_ The prior route
          */
         RouteReplaceInfo(const MSEdge* const edge_, const SUMOTime time_, const MSRoute* const route_,
-                const std::string& info_, int lastRouteIndex_, int newRouteIndex_) :
+                         const std::string& info_, int lastRouteIndex_, int newRouteIndex_) :
             edge(edge_), time(time_), route(route_), info(info_),
             lastRouteIndex(lastRouteIndex_),
             newRouteIndex(newRouteIndex_)

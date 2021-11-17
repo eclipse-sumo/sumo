@@ -100,7 +100,7 @@ GUIViewTraffic::~GUIViewTraffic() {
 }
 
 
-void 
+void
 GUIViewTraffic::recalculateBoundaries() {
     //
 }

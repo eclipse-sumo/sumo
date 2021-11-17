@@ -202,7 +202,7 @@ MSLeaderInfo::removeOpposite(const MSLane* lane) {
         const MSVehicle* veh = myVehicles[i];
         if (veh != 0 &&
                 (veh->getLaneChangeModel().isOpposite()
-                || &lane->getEdge() != &veh->getLane()->getEdge())) {
+                 || &lane->getEdge() != &veh->getLane()->getEdge())) {
             myVehicles[i] = nullptr;
         }
     }

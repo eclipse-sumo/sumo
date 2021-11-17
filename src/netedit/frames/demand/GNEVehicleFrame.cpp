@@ -184,7 +184,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
         if (route && (route->getTagProperty().isRoute())) {
             // check if departLane is valid
             if ((route->getTagProperty().getTag() == SUMO_TAG_ROUTE) && myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_DEPARTLANE) &&
-                GNEAttributeCarrier::canParse<double>(myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPARTLANE))) {
+                    GNEAttributeCarrier::canParse<double>(myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPARTLANE))) {
                 double departLane = GNEAttributeCarrier::parse<double>(myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPARTLANE));
                 if (departLane >= route->getParentEdges().front()->getLanes().size()) {
                     myViewNet->setStatusBarText("Invalid " + toString(SUMO_ATTR_DEPARTLANE));
@@ -276,8 +276,8 @@ GNEVehicleFrame::tagSelected() {
         // show vehicle type selector modul
         myVTypeSelector->showDemandElementSelector();
         // show path creator modul
-        if ((myVehicleTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_VEHICLE) && 
-            (myVehicleTagSelector->getCurrentTagProperties().getTag() != GNE_TAG_FLOW_ROUTE)) {
+        if ((myVehicleTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_VEHICLE) &&
+                (myVehicleTagSelector->getCurrentTagProperties().getTag() != GNE_TAG_FLOW_ROUTE)) {
             myPathCreator->showPathCreatorModul(myVehicleTagSelector->getCurrentTagProperties().getTag(), false, false);
         }
     } else {
@@ -297,8 +297,8 @@ GNEVehicleFrame::demandElementSelected() {
         // set current VTypeClass in TripCreator
         myPathCreator->setVClass(myVTypeSelector->getCurrentDemandElement()->getVClass());
         // show path creator modul
-        if ((myVehicleTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_VEHICLE) && 
-            (myVehicleTagSelector->getCurrentTagProperties().getTag() != GNE_TAG_FLOW_ROUTE)) {
+        if ((myVehicleTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_VEHICLE) &&
+                (myVehicleTagSelector->getCurrentTagProperties().getTag() != GNE_TAG_FLOW_ROUTE)) {
             myPathCreator->showPathCreatorModul(myVehicleTagSelector->getCurrentTagProperties().getTag(), false, false);
         }
         // show help creation
@@ -389,10 +389,10 @@ GNEVehicleFrame::createPath() {
                 embeddedRouteObject->addStringAttribute(SUMO_ATTR_ID, "");
                 embeddedRouteObject->addStringListAttribute(SUMO_ATTR_EDGES, routeEdges);
                 embeddedRouteObject->addColorAttribute(SUMO_ATTR_COLOR, RGBColor::CYAN),
-                embeddedRouteObject->addIntAttribute(SUMO_ATTR_REPEAT, 0),
-                embeddedRouteObject->addTimeAttribute(SUMO_ATTR_CYCLETIME, 0),
-                // parse route
-                myRouteHandler.parseSumoBaseObject(embeddedRouteObject);
+                                    embeddedRouteObject->addIntAttribute(SUMO_ATTR_REPEAT, 0),
+                                    embeddedRouteObject->addTimeAttribute(SUMO_ATTR_CYCLETIME, 0),
+                                    // parse route
+                                    myRouteHandler.parseSumoBaseObject(embeddedRouteObject);
                 // delete vehicleParamters
                 delete vehicleParameters;
             }
@@ -451,10 +451,10 @@ GNEVehicleFrame::createPath() {
                 embeddedRouteObject->addStringAttribute(SUMO_ATTR_ID, "");
                 embeddedRouteObject->addStringListAttribute(SUMO_ATTR_EDGES, routeEdges);
                 embeddedRouteObject->addColorAttribute(SUMO_ATTR_COLOR, RGBColor::CYAN),
-                embeddedRouteObject->addIntAttribute(SUMO_ATTR_REPEAT, 0),
-                embeddedRouteObject->addTimeAttribute(SUMO_ATTR_CYCLETIME, 0),
-                // parse route
-                myRouteHandler.parseSumoBaseObject(embeddedRouteObject);
+                                    embeddedRouteObject->addIntAttribute(SUMO_ATTR_REPEAT, 0),
+                                    embeddedRouteObject->addTimeAttribute(SUMO_ATTR_CYCLETIME, 0),
+                                    // parse route
+                                    myRouteHandler.parseSumoBaseObject(embeddedRouteObject);
                 // delete vehicleParamters
                 delete flowParameters;
             }

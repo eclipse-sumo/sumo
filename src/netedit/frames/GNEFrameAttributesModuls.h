@@ -306,7 +306,7 @@ public:
 
     public:
         /// @brief constructor
-        AttributesEditorRow(AttributesEditor* attributeEditorParent, const GNEAttributeProperties& ACAttr, const std::string& value, 
+        AttributesEditorRow(AttributesEditor* attributeEditorParent, const GNEAttributeProperties& ACAttr, const std::string& value,
                             const bool attributeEnabled, const bool computed);
 
         /// @brief destroy AttributesCreatorRow (but don't delete)

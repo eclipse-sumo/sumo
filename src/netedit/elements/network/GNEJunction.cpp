@@ -49,15 +49,15 @@
 
 GNEJunction::GNEJunction(GNENet* net, NBNode* nbn, bool loaded) :
     GNENetworkElement(net, nbn->getID(), GLO_JUNCTION, SUMO_TAG_JUNCTION,
-        {}, {}, {}, {}, {}, {}, {}, {}),
-    myNBNode(nbn),
-    myMaxDrawingSize(1),
-    myAmCreateEdgeSource(false),
-    myLogicStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
-    myAmResponsible(false),
-    myHasValidLogic(loaded),
-    myAmTLSSelected(false),
-    myColorForMissingConnections(false) {
+{}, {}, {}, {}, {}, {}, {}, {}),
+myNBNode(nbn),
+myMaxDrawingSize(1),
+myAmCreateEdgeSource(false),
+myLogicStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
+myAmResponsible(false),
+myHasValidLogic(loaded),
+myAmTLSSelected(false),
+myColorForMissingConnections(false) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -117,7 +117,7 @@ GNEJunction::getMoveOperation() {
     // edit depending if shape is being edited
     if (isShapeEdited()) {
         // calculate move shape operation
-        return calculateMoveShapeOperation(myNBNode->getShape(), myNet->getViewNet()->getPositionInformation(), 
+        return calculateMoveShapeOperation(myNBNode->getShape(), myNet->getViewNet()->getPositionInformation(),
                                            myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius, true);
     } else {
         // return move junction position
@@ -306,7 +306,7 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 }
 
 
-double 
+double
 GNEJunction::getExaggeration(const GUIVisualizationSettings& s) const {
     return s.junctionSize.getExaggeration(s, this, 4);
 }
@@ -441,12 +441,12 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                         // draw shape
                         GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), junctionGeometry, s.neteditSizeSettings.junctionGeometryPointRadius * 0.5);
                         // draw geometry points
-                        GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), junctionOpenShape, darkerColor, RGBColor::BLACK, 
+                        GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), junctionOpenShape, darkerColor, RGBColor::BLACK,
                                                         s.neteditSizeSettings.junctionGeometryPointRadius, junctionExaggeration,
                                                         myNet->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
                         // draw moving hint
                         if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
-                            GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), junctionOpenShape, darkerColor, 
+                            GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), junctionOpenShape, darkerColor,
                                                         s.neteditSizeSettings.junctionGeometryPointRadius, junctionExaggeration);
                         }
                     }
@@ -506,23 +506,23 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             // check if dotted contour has to be drawn
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 if (drawShape) {
-                    GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myNBNode->getShape(), 
-                                                              (junctionExaggeration >= 1)? junctionExaggeration : 1);
+                    GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myNBNode->getShape(),
+                            (junctionExaggeration >= 1) ? junctionExaggeration : 1);
                 }
                 if (drawBubble) {
-                    GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::INSPECT, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, 
-                                                         (junctionExaggeration >= 1)? junctionExaggeration : 1);
+                    GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::INSPECT, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
+                            (junctionExaggeration >= 1) ? junctionExaggeration : 1);
                 }
             }
             // check if dotted contour has to be drawn
             if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
                 if (drawShape) {
-                    GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::FRONT, s, myNBNode->getShape(), 
-                                                              (junctionExaggeration >= 1)? junctionExaggeration : 1);
+                    GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::FRONT, s, myNBNode->getShape(),
+                            (junctionExaggeration >= 1) ? junctionExaggeration : 1);
                 }
                 if (drawBubble) {
-                    GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::FRONT, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, 
-                                                         (junctionExaggeration >= 1)? junctionExaggeration : 1);
+                    GUIDottedGeometry::drawDottedContourCircle(GUIDottedGeometry::DottedContourType::FRONT, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius,
+                            (junctionExaggeration >= 1) ? junctionExaggeration : 1);
                 }
             }
         }
@@ -884,7 +884,7 @@ GNEJunction::removeEdgeFromCrossings(GNEEdge* edge, GNEUndoList* undoList) {
     // obtain a copy of GNECrossing of junctions
     const auto copyOfGNECrossings = myGNECrossings;
     // iterate over copy of GNECrossings
-    for (const auto &crossing : copyOfGNECrossings) {
+    for (const auto& crossing : copyOfGNECrossings) {
         // obtain the set of edges vinculated with the crossing (due it works as ID)
         EdgeSet edgeSet(crossing->getCrossingEdges().begin(), crossing->getCrossingEdges().end());
         // If this edge is part of the set of edges of crossing
@@ -1252,7 +1252,7 @@ GNEJunction::isAttributeEnabled(SumoXMLAttr key) const {
 }
 
 
-bool 
+bool
 GNEJunction::isAttributeComputed(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_SHAPE:

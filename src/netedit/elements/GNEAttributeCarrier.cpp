@@ -979,8 +979,8 @@ GNEAttributeCarrier::fillNetworkElements() {
                                               "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-    /* */
-        
+        /* */
+
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ONEWAY,
                                               GNEAttributeProperties::BOOL,
                                               "Whether one-way traffic is mostly common for this edgeType");
@@ -1019,7 +1019,7 @@ GNEAttributeCarrier::fillNetworkElements() {
                                               "The width of the bike lane that should be added as an additional lane");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-    /* */
+        /* */
 
     }
     currentTag = SUMO_TAG_LANETYPE;
@@ -3221,7 +3221,7 @@ GNEAttributeCarrier::fillDemandElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::VTYPE, 
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::VTYPE,
                                       GNETagProperties::NOTDRAWABLE | GNETagProperties::NOTSELECTABLE,
                                       GUIIcon::VTYPE, currentTag);
 

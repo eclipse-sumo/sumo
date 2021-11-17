@@ -79,7 +79,7 @@ GNEShape::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
 }
 
 
-bool 
+bool
 GNEShape::isAttributeComputed(SumoXMLAttr /*key*/) const {
     return false;
 }
@@ -103,7 +103,7 @@ GNEShape::replaceShapeParentLanes(const std::string& value) {
 }
 
 
-void 
+void
 GNEShape::shiftLaneIndex() {
     // get new lane parent vector
     std::vector<GNELane*> newLane = {getParentLanes().front()->getParentEdge()->getLanes().at(getParentLanes().front()->getIndex() + 1)};

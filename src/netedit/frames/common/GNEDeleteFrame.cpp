@@ -158,7 +158,7 @@ GNEDeleteFrame::hide() {
 void
 GNEDeleteFrame::removeSelectedAttributeCarriers() {
     // get attribute carriers
-    const auto &attributeCarriers = myViewNet->getNet()->getAttributeCarriers();
+    const auto& attributeCarriers = myViewNet->getNet()->getAttributeCarriers();
     // first check if there is additional to remove
     if (selectedACsToDelete()) {
         // remove all selected attribute carrier susing the following parent-child sequence
@@ -545,8 +545,8 @@ GNEDeleteFrame::selectedACsToDelete() const {
         }
     } else if (myViewNet->getEditModes().isCurrentSupermodeData()) {
         // iterate over all generic datas
-        for (const auto &genericDataTag : myViewNet->getNet()->getAttributeCarriers()->getGenericDatas()) {
-            for (const auto &genericData : genericDataTag.second) {
+        for (const auto& genericDataTag : myViewNet->getNet()->getAttributeCarriers()->getGenericDatas()) {
+            for (const auto& genericData : genericDataTag.second) {
                 if (genericData->isAttributeCarrierSelected()) {
                     return true;
                 }

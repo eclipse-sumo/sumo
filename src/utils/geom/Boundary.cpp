@@ -307,8 +307,8 @@ Boundary::grow(double by) {
 
 Boundary&
 Boundary::scale(double by) {
-    growWidth (by * (myXmax - myXmin));
-    growHeight (by * (myYmax - myYmin));
+    growWidth(by * (myXmax - myXmin));
+    growHeight(by * (myYmax - myYmin));
     return *this;
 }
 
@@ -383,7 +383,7 @@ Boundary::moveby(double x, double y, double z) {
 }
 
 
-PositionVector 
+PositionVector
 Boundary::getShape(const bool closeShape) const {
     PositionVector shape;
     shape.push_back(Position(myXmin, myYmin));

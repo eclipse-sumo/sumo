@@ -304,20 +304,20 @@ public:
     const std::map<std::string, std::string>& getACParametersMap() const;
 
     /// @brief draw parent and child lines
-    void drawParentChildLines(const GUIVisualizationSettings& s, const RGBColor &color, const bool onlySymbols = false) const;
+    void drawParentChildLines(const GUIVisualizationSettings& s, const RGBColor& color, const bool onlySymbols = false) const;
 
     /// @brief draw up geometry point
-    static void drawUpGeometryPoint(const GNEViewNet* viewNet, const Position &pos, const double rot, const RGBColor& baseColor);
+    static void drawUpGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor);
 
     /// @brief draw down geometry point
-    static void drawDownGeometryPoint(const GNEViewNet* viewNet, const Position &pos, const double rot, const RGBColor& baseColor);
+    static void drawDownGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor);
 
     /// @brief draw left geometry point
-    static void drawLeftGeometryPoint(const GNEViewNet* viewNet, const Position &pos, const double rot, const RGBColor& baseColor);
+    static void drawLeftGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor);
 
     /// @brief draw right geometry point
-    static void drawRightGeometryPoint(const GNEViewNet* viewNet, const Position &pos, const double rot, const RGBColor& baseColor);
-    
+    static void drawRightGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor);
+
     /// @brief get draw position index (used in rerouters and VSS)
     int getDrawPositionIndex() const;
 
@@ -382,7 +382,7 @@ protected:
     void drawSquaredAdditional(const GUIVisualizationSettings& s, const Position& pos, const double size, GUITexture texture, GUITexture selectedTexture) const;
 
     /// @brief draw listed additional
-    void drawListedAddtional(const GUIVisualizationSettings& s, const Position& parentPosition, const int offsetX, const int extraOffsetY, 
+    void drawListedAddtional(const GUIVisualizationSettings& s, const Position& parentPosition, const int offsetX, const int extraOffsetY,
                              const RGBColor baseCol, const RGBColor textCol, GUITexture texture, const std::string text) const;
 
 private:
@@ -404,11 +404,11 @@ private:
     void setEnabledAttribute(const int enabledAttributes);
 
     /// @brief draw geometry point
-    static void drawSemiCircleGeometryPoint(const GNEViewNet* viewNet, const Position &pos, const double rot, const RGBColor& baseColor, 
+    static void drawSemiCircleGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor,
                                             const double fromAngle, const double toAngle);
-    
+
     /// @brief adjust listed addtitional text
-    std::string adjustListedAdditionalText(const std::string &text) const;
+    std::string adjustListedAdditionalText(const std::string& text) const;
 
     /// @brief Invalidated copy constructor.
     GNEAdditional(const GNEAdditional&) = delete;

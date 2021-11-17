@@ -162,10 +162,10 @@ GNEContainer::GNESelectedContainersPopupMenu::onCmdTransform(FXObject* obj, FXSe
 
 GNEContainer::GNEContainer(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType, const SUMOVehicleParameter& containerparameters) :
     GNEDemandElement(containerparameters.id, net, (tag == SUMO_TAG_CONTAINERFLOW) ? GLO_CONTAINERFLOW : GLO_CONTAINER, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {}, {}, {}, {}, {}, {pType}, {}),
-    SUMOVehicleParameter(containerparameters) {
-        // set manually vtypeID (needed for saving)
-        vtypeid = pType->getID();
+{}, {}, {}, {}, {}, {}, {pType}, {}),
+SUMOVehicleParameter(containerparameters) {
+    // set manually vtypeID (needed for saving)
+    vtypeid = pType->getID();
 }
 
 
@@ -314,7 +314,7 @@ GNEContainer::getParentName() const {
 }
 
 
-double 
+double
 GNEContainer::getExaggeration(const GUIVisualizationSettings& s) const {
     return s.containerSize.getExaggeration(s, this, 80);
 }

@@ -1044,8 +1044,8 @@ MSLCM_LC2013::prepareStep() {
         } else {
             // random drift
             double deltaPosLat = OUProcess::step(oldPosLat,
-                                   myVehicle.getActionStepLengthSecs(),
-                                   MAX2(NUMERICAL_EPS, (1 - mySigma) * 100), mySigma) - oldPosLat;
+                                                 myVehicle.getActionStepLengthSecs(),
+                                                 MAX2(NUMERICAL_EPS, (1 - mySigma) * 100), mySigma) - oldPosLat;
             deltaPosLat = MAX2(MIN2(deltaPosLat, maxDist), -maxDist);
             scaledDelta = deltaPosLat * myVehicle.getSpeed() / myVehicle.getLane()->getSpeedLimit();
         }

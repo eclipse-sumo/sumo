@@ -873,9 +873,9 @@ MSE2Collector::notifyMovePerson(MSTransportable* p, int dir, double pos) {
     if (personApplies(*p, dir)) {
         const double newSpeed = p->getSpeed();
         const double newPos = (dir == MSPModel::FORWARD
-                ? pos
-                // position relative to detector end position
-                : myEndPos - (pos - myEndPos));
+                               ? pos
+                               // position relative to detector end position
+                               : myEndPos - (pos - myEndPos));
         const double oldPos = newPos - SPEED2DIST(newSpeed);
         if (oldPos - p->getVehicleType().getLength() <= myEndPos) {
             notifyMove(*p, oldPos, newPos, newSpeed);

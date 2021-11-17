@@ -31,10 +31,10 @@
 
 GNEDestProbReroute::GNEDestProbReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* newEdgeDestination, double probability):
     GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER_DESTPROBREROUTE, SUMO_TAG_DEST_PROB_REROUTE, "",
-        {}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {},
-    std::map<std::string, std::string>()),
+{}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {},
+std::map<std::string, std::string>()),
     myNewEdgeDestination(newEdgeDestination),
-    myProbability(probability) {
+myProbability(probability) {
     // update boundary of rerouter parent
     rerouterIntervalParent->getParentAdditionals().front()->updateCenteringBoundary(true);
 }
@@ -93,7 +93,7 @@ GNEDestProbReroute::drawGL(const GUIVisualizationSettings& s) const {
     // draw dest prob reroute as listed attribute
     drawListedAddtional(s, getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(),
                         1, getParentAdditionals().front()->getDrawPositionIndex(),
-                        RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_DESTPROBREROUTE, 
+                        RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_DESTPROBREROUTE,
                         getAttribute(SUMO_ATTR_EDGE) + ": " + getAttribute(SUMO_ATTR_PROB));
 }
 

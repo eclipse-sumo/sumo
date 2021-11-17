@@ -39,8 +39,8 @@
 // method definitions
 // ===========================================================================
 MSRailCrossing::MSRailCrossing(MSTLLogicControl& tlcontrol,
-    const std::string& id, const std::string& programID, SUMOTime delay,
-    const std::map<std::string, std::string>& parameters) :
+                               const std::string& id, const std::string& programID, SUMOTime delay,
+                               const std::map<std::string, std::string>& parameters) :
     MSSimpleTrafficLightLogic(tlcontrol, id, programID, TrafficLightType::RAIL_CROSSING, Phases(), 0, delay, parameters) {
     // dummy phase, used to avoid crashing in MSTrafficLightLogic::setTrafficLightSignals()
     myPhases.push_back(new MSPhaseDefinition(1, std::string(SUMO_MAX_CONNECTIONS, 'X')));
@@ -80,20 +80,15 @@ MSRailCrossing::setParameter(const std::string& key, const std::string& value) {
     // some pre-defined parameters can be updated at runtime
     if (key == "time-gap") {
         myTimeGap = string2time(value);
-    }
-    else if (key == "space-gap") {
+    } else if (key == "space-gap") {
         mySpaceGap = StringUtils::toDouble(value);
-    }
-    else if (key == "min-green") {
+    } else if (key == "min-green") {
         myMinGreenTime = string2time(value);
-    }
-    else if (key == "opening-delay") {
+    } else if (key == "opening-delay") {
         myOpeningDelay = string2time(value);
-    }
-    else if (key == "opening-time") {
+    } else if (key == "opening-time") {
         myOpeningTime = string2time(value); // TODO update phases
-    }
-    else if (key == "yellow-time") {
+    } else if (key == "yellow-time") {
         myYellowTime = string2time(value); // TODO update phases
     }
     Parameterised::setParameter(key, value);
@@ -197,8 +192,7 @@ void
 MSRailCrossing::addLink(MSLink* link, MSLane* lane, int pos) {
     if (pos >= 0) {
         MSTrafficLightLogic::addLink(link, lane, pos);
-    }
-    else {
+    } else {
         myIncomingRailLinks.push_back(link);
     }
 }

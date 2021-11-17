@@ -362,7 +362,7 @@ MSDevice_Tripinfo::generateOutput(OutputDevice* tripinfoOut) const {
             break;
         default:
             if (myHolder.getEdge() == myHolder.getRoute().getLastEdge() ||
-                (param.arrivalEdge >= 0 && myHolder.getRoutePosition() >= param.arrivalEdge)) {
+                    (param.arrivalEdge >= 0 && myHolder.getRoutePosition() >= param.arrivalEdge)) {
                 vaporized = "";
             } else {
                 vaporized = "end";

@@ -40,7 +40,7 @@ class SUMOVTypeParameter;
 class EnergyParams {
 
 public:
-    /// @brief Default constructor 
+    /// @brief Default constructor
     EnergyParams(const SUMOVTypeParameter* typeParams = nullptr);
 
     /// @brief Destructor

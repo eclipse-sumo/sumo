@@ -193,7 +193,7 @@ GNEGenericData::getPathElementArrivalPos() const {
 }
 
 
-bool 
+bool
 GNEGenericData::isAttributeComputed(SumoXMLAttr /*key*/) const {
     return false;
 }

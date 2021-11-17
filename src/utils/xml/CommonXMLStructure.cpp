@@ -110,31 +110,31 @@ CommonXMLStructure::SumoBaseObject::getParentSumoBaseObject() const {
 std::map<std::string, std::string>
 CommonXMLStructure::SumoBaseObject::getAllAttributes() const {
     std::map<std::string, std::string> result;
-    for (const auto &attr : myStringAttributes) {
+    for (const auto& attr : myStringAttributes) {
         result[toString(attr.first)] = attr.second;
     }
-    for (const auto &attr : myIntAttributes) {
+    for (const auto& attr : myIntAttributes) {
         result[toString(attr.first)] = toString(attr.second);
     }
-    for (const auto &attr : myDoubleAttributes) {
+    for (const auto& attr : myDoubleAttributes) {
         result[toString(attr.first)] = toString(attr.second);
     }
-    for (const auto &attr : myBoolAttributes) {
+    for (const auto& attr : myBoolAttributes) {
         result[toString(attr.first)] = toString(attr.second);
     }
-    for (const auto &attr : myPositionAttributes) {
+    for (const auto& attr : myPositionAttributes) {
         result[toString(attr.first)] = toString(attr.second);
     }
-    for (const auto &attr : myTimeAttributes) {
+    for (const auto& attr : myTimeAttributes) {
         result[toString(attr.first)] = time2string(attr.second);
     }
-    for (const auto &attr : myColorAttributes) {
+    for (const auto& attr : myColorAttributes) {
         result[toString(attr.first)] = toString(attr.second);
     }
-    for (const auto &attr : myStringListAttributes) {
+    for (const auto& attr : myStringListAttributes) {
         result[toString(attr.first)] = toString(attr.second);
     }
-    for (const auto &attr : myPositionVectorAttributes) {
+    for (const auto& attr : myPositionVectorAttributes) {
         result[toString(attr.first)] = toString(attr.second);
     }
     return result;
@@ -240,7 +240,7 @@ CommonXMLStructure::SumoBaseObject::getPositionVectorAttribute(const SumoXMLAttr
 }
 
 
-SUMOVehicleClass 
+SUMOVehicleClass
 CommonXMLStructure::SumoBaseObject::getVClass() const {
     return myVClass;
 }
@@ -403,7 +403,7 @@ CommonXMLStructure::SumoBaseObject::setVClass(SUMOVehicleClass vClass) {
 }
 
 
-void 
+void
 CommonXMLStructure::SumoBaseObject::setVehicleTypeParameter(const SUMOVTypeParameter* vehicleTypeParameter) {
     myVehicleTypeParameter = *vehicleTypeParameter;
     myDefinedVehicleTypeParameter = true;
@@ -428,7 +428,7 @@ CommonXMLStructure::SumoBaseObject::setVehicleParameter(const SUMOVehicleParamet
 
 
 void
-CommonXMLStructure::SumoBaseObject::setStopParameter(const SUMOVehicleParameter::Stop &stopParameter) {
+CommonXMLStructure::SumoBaseObject::setStopParameter(const SUMOVehicleParameter::Stop& stopParameter) {
     myStopParameter = stopParameter;
     myDefinedStopParameter = true;
     // set attribute edge
@@ -492,7 +492,7 @@ CommonXMLStructure::SumoBaseObject::removeSumoBaseObjectChild(SumoBaseObject* su
 
 
 void
-CommonXMLStructure::SumoBaseObject::handleAttributeError(const SumoXMLAttr attr, const std::string &type) const {
+CommonXMLStructure::SumoBaseObject::handleAttributeError(const SumoXMLAttr attr, const std::string& type) const {
     WRITE_ERROR("Trying to get undefined " + type + " attribute '" + toString(attr) + "' in SUMOBaseObject '" + toString(myTag) + "'");
 }
 

@@ -51,7 +51,7 @@ GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net
 GNEParkingArea::~GNEParkingArea() {}
 
 
-void 
+void
 GNEParkingArea::writeAdditional(OutputDevice& device) const {
     // use write additional of gneAdditional
     GNEAdditional::writeAdditional(device);
@@ -151,12 +151,12 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), parkingAreaExaggeration);
             // check if dotted contours has to be drawn
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), myWidth * 0.5, 
-                                                    parkingAreaExaggeration, true, true);
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), myWidth * 0.5,
+                        parkingAreaExaggeration, true, true);
             }
             if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), myWidth * 0.5, 
-                                                    parkingAreaExaggeration, true, true);
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), myWidth * 0.5,
+                        parkingAreaExaggeration, true, true);
             }
             // draw child spaces
             for (const auto& parkingSpace : getChildAdditionals()) {

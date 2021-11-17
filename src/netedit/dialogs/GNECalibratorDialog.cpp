@@ -225,7 +225,7 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
 long
 GNECalibratorDialog::onCmdAddFlow(FXObject*, FXSelector, void*) {
     // get routes and vTypes
-    const auto &routes = myEditedAdditional->getNet()->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE);
+    const auto& routes = myEditedAdditional->getNet()->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE);
     GNEDemandElement* defaultVType = myEditedAdditional->getNet()->getViewNet()->getNet()->getAttributeCarriers()->getDefaultVType();
     // only add flow if there is at least a GNERoute (There is always a Vehicle Type)
     if (routes.size() > 0) {
@@ -362,7 +362,7 @@ GNECalibratorDialog::updateRouteTable() {
     int indexRow = 0;
     FXTableItem* item = nullptr;
     // iterate over routes
-    for (const auto &route : myEditedAdditional->getNet()->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
+    for (const auto& route : myEditedAdditional->getNet()->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
         // Set ID
         item = new FXTableItem(toString(route->getAttribute(SUMO_ATTR_ID)).c_str());
         myRouteList->setItem(indexRow, 0, item);
@@ -440,7 +440,7 @@ GNECalibratorDialog::updateVehicleTypeTable() {
     int indexRow = 0;
     FXTableItem* item = nullptr;
     // iterate over vehicle types
-    for (const auto &vType : myEditedAdditional->getNet()->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
+    for (const auto& vType : myEditedAdditional->getNet()->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
         // Set id
         item = new FXTableItem(vType->getAttribute(SUMO_ATTR_ID).c_str());
         myVehicleTypeList->setItem(indexRow, 0, item);

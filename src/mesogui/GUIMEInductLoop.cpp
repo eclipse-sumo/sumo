@@ -43,7 +43,7 @@ GUIMEInductLoop::GUIMEInductLoop(const std::string& id, MESegment* s,
                                  double position, const std::string& vTypes,
                                  int detectPersons,
                                  bool /*show*/):
-    MEInductLoop(id, s, position, vTypes, detectPersons) 
+    MEInductLoop(id, s, position, vTypes, detectPersons)
 {}
 
 

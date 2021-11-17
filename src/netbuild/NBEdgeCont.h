@@ -561,7 +561,7 @@ public:
 
     /// @brief add sidwalks to edges within the given limits or permissions and return the number of edges affected
     int guessSpecialLanes(SUMOVehicleClass svc, double width, double minSpeed, double maxSpeed, bool fromPermissions, const std::string& excludeOpt,
-            NBTrafficLightLogicCont& tlc);
+                          NBTrafficLightLogicCont& tlc);
 
 
     /** @brief Returns the determined roundabouts

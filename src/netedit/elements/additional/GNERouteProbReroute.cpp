@@ -29,11 +29,11 @@
 // member method definitions
 // ===========================================================================
 
-GNERouteProbReroute::GNERouteProbReroute(GNEAdditional* rerouterIntervalParent, GNEDemandElement *route, double probability) :
+GNERouteProbReroute::GNERouteProbReroute(GNEAdditional* rerouterIntervalParent, GNEDemandElement* route, double probability) :
     GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER_ROUTEPROBREROUTE, SUMO_TAG_ROUTE_PROB_REROUTE, "",
-        {}, {}, {}, {rerouterIntervalParent}, {}, {}, {route}, {},
-    std::map<std::string, std::string>()),
-    myProbability(probability) {
+{}, {}, {}, {rerouterIntervalParent}, {}, {}, {route}, {},
+std::map<std::string, std::string>()),
+myProbability(probability) {
     // update boundary of rerouter parent
     rerouterIntervalParent->getParentAdditionals().front()->updateCenteringBoundary(true);
 }
@@ -92,7 +92,7 @@ GNERouteProbReroute::drawGL(const GUIVisualizationSettings& s) const {
     // draw route prob reroute as listed attribute
     drawListedAddtional(s, getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(),
                         1, getParentAdditionals().front()->getDrawPositionIndex(),
-                        RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_ROUTEPROBREROUTE, 
+                        RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_ROUTEPROBREROUTE,
                         getAttribute(SUMO_ATTR_ROUTE) + ": " + getAttribute(SUMO_ATTR_PROB));
 }
 

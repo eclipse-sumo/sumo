@@ -187,7 +187,7 @@ MSLane::MSLane(const std::string& id, double maxSpeed, double length, MSEdge* co
                const std::string& type) :
     Named(id),
     myNumericalID(numericalID), myShape(shape), myIndex(index),
-    myVehicles(), myLength(length), myWidth(width), 
+    myVehicles(), myLength(length), myWidth(width),
     myEdge(edge), myMaxSpeed(maxSpeed),
     myPermissions(permissions),
     myChangeLeft(changeLeft),
@@ -2442,7 +2442,9 @@ MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSV
         }
     }
 #ifdef DEBUG_CONTEXT
-        if (DEBUG_COND2(&veh)) gDebugFlag1 = true;
+    if (DEBUG_COND2(&veh)) {
+        gDebugFlag1 = true;
+    }
 #endif
     const MSLane* nextLane = this;
     do {
@@ -3241,14 +3243,14 @@ MSLane::getVehicleStopOffset(const MSVehicle* veh) const {
 }
 
 
-const StopOffset& 
+const StopOffset&
 MSLane::getLaneStopOffsets() const {
     return myLaneStopOffset;
 }
 
 
-void 
-MSLane::setLaneStopOffset(const StopOffset &stopOffset) {
+void
+MSLane::setLaneStopOffset(const StopOffset& stopOffset) {
     myLaneStopOffset = stopOffset;
 }
 
@@ -3261,7 +3263,7 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
     const double egoPos = backOffset + ego->getVehicleType().getLength();
     const double egoLatDist = ego->getLane()->getRightSideOnEdge() - getRightSideOnEdge();
     const bool getOppositeLeaders = ((ego->getLaneChangeModel().isOpposite() && ego->getLane() == this)
-            || (!ego->getLaneChangeModel().isOpposite() && &ego->getLane()->getEdge() != &getEdge()));
+                                     || (!ego->getLaneChangeModel().isOpposite() && &ego->getLane()->getEdge() != &getEdge()));
 #ifdef DEBUG_CONTEXT
     if (DEBUG_COND2(ego)) {
         std::cout << SIMTIME << " getFollowers lane=" << getID() << " ego=" << ego->getID()
@@ -3459,7 +3461,9 @@ MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MS
         }
     }
 #ifdef DEBUG_CONTEXT
-    if (DEBUG_COND2(ego)) gDebugFlag1 = true;
+    if (DEBUG_COND2(ego)) {
+        gDebugFlag1 = true;
+    }
 #endif
     const MSLane* nextLane = this;
     int view = 1;
@@ -3484,9 +3488,9 @@ MSLane::getLeadersOnConsecutive(double dist, double seen, double speed, const MS
                 MSVehicle* veh = ll.vehAndGap.first;
                 // in the context of lane changing all junction leader candidates must be respected
                 if (veh != 0 && (ego->isLeader(*link, veh)
-                            || (MSGlobals::gComputeLC
-                                && veh->getPosition().distanceTo2D(ego->getPosition()) - veh->getVehicleType().getMinGap() - ego->getVehicleType().getLength()
-                                < veh->getCarFollowModel().brakeGap(veh->getSpeed())))) {
+                                 || (MSGlobals::gComputeLC
+                                     && veh->getPosition().distanceTo2D(ego->getPosition()) - veh->getVehicleType().getMinGap() - ego->getVehicleType().getLength()
+                                     < veh->getCarFollowModel().brakeGap(veh->getSpeed())))) {
                     // add link leader to all sublanes and return
                     for (int i = 0; i < result.numSublanes(); ++i) {
 #ifdef DEBUG_CONTEXT

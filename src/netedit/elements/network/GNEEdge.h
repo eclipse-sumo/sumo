@@ -188,7 +188,7 @@ public:
      * @param[in] key The attribute key
      */
     bool isAttributeEnabled(SumoXMLAttr key) const;
-    
+
     /* @brief method for check if the value for certain attribute is computed (for example, due a network recomputing)
      * @param[in] key The attribute key
      */
@@ -297,7 +297,7 @@ public:
     void drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane* lane) const;
 
     /// @brief draw dotted contour for the given dottedGeometries
-    static void drawDottedContourEdge(const GUIDottedGeometry::DottedContourType type, const GUIVisualizationSettings& s, const GNEEdge* edge, 
+    static void drawDottedContourEdge(const GUIDottedGeometry::DottedContourType type, const GUIVisualizationSettings& s, const GNEEdge* edge,
                                       const bool drawFrontExtreme, const bool drawBackExtreme);
 
     /// @brief check if edge makes a convex angle [0 - 180) degrees

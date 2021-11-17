@@ -185,7 +185,7 @@ private:
 
 private:
     /// @brief parse color attribute
-    RGBColor parseColor(const SUMOSAXAttributes& attrs, const std::string attribute, const RGBColor &defaultValue) const;
+    RGBColor parseColor(const SUMOSAXAttributes& attrs, const std::string attribute, const RGBColor& defaultValue) const;
 
     /// @brief parse attributes for textSettings
     GUIVisualizationTextSettings parseTextSettings(

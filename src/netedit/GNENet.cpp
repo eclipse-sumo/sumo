@@ -241,7 +241,7 @@ GNENet::createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, G
         }
     }
     // check if exist opposite edge
-    const GNEEdge *oppositeEdge = myAttributeCarriers->retrieveEdge(dest, src, false);
+    const GNEEdge* oppositeEdge = myAttributeCarriers->retrieveEdge(dest, src, false);
     // declare edge id
     std::string edgeID;
     // update id
@@ -940,7 +940,7 @@ GNENet::splitEdgesBidi(GNEEdge* edge, GNEEdge* oppositeEdge, const Position& pos
     splitEdge(oppositeEdge, pos, undoList, newJunction);
     if (edge->getLanes().back()->getAttribute(GNE_ATTR_OPPOSITE) != "") {
         // restore opposit lane information
-        for (const auto &nbEdge : newJunction->getNBNode()->getEdges()) {
+        for (const auto& nbEdge : newJunction->getNBNode()->getEdges()) {
             GNEEdge* e = myAttributeCarriers->retrieveEdge(nbEdge->getID());
             // store old attribute before it's changed by guess opposite
             e->getLanes().back()->setAttribute(GNE_ATTR_OPPOSITE, "", undoList);
@@ -1040,7 +1040,7 @@ GNENet::selectRoundabout(GNEJunction* junction, GNEUndoList* undoList) {
         for (NBEdge* edge : roundabout) {
             if (edge->getFromNode() == junction->getNBNode()) {
                 undoList->begin(GUIIcon::JUNCTION, "select roundabout");
-                for (const auto &roundaboutEdge : roundabout) {
+                for (const auto& roundaboutEdge : roundabout) {
                     GNEEdge* e = myAttributeCarriers->retrieveEdge(roundaboutEdge->getID());
                     e->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                     e->getToJunction()->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
@@ -1063,7 +1063,7 @@ GNENet::createRoundabout(GNEJunction* junction, GNEUndoList* undoList) {
     }
     std::vector<GNEEdge*> edges;
     // use clockwise sorting
-    for (const auto &nbEdge : junction->getNBNode()->getEdges()) {
+    for (const auto& nbEdge : junction->getNBNode()->getEdges()) {
         edges.push_back(myAttributeCarriers->retrieveEdge(nbEdge->getID()));
     }
     const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
@@ -1277,8 +1277,8 @@ void
 GNENet::computeDemandElements(GNEApplicationWindow* window) {
     window->setStatusBarText("Computing demand elements ...");
     // if we aren't in Demand mode, update path calculator
-    if (!myViewNet->getEditModes().isCurrentSupermodeDemand() && 
-        !myPathManager->getPathCalculator()->isPathCalculatorUpdated())  {
+    if (!myViewNet->getEditModes().isCurrentSupermodeDemand() &&
+            !myPathManager->getPathCalculator()->isPathCalculatorUpdated())  {
         myPathManager->getPathCalculator()->updatePathCalculator();
     }
     // clear demand paths
@@ -2181,7 +2181,7 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
             sortedRoutes[route->getID()] = route;
         }
     }
-    for (const auto &route : sortedRoutes) {
+    for (const auto& route : sortedRoutes) {
         route.second->writeDemandElement(device);
     }
     // routeProbes
@@ -2264,8 +2264,8 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
         sortedAdditionals.back()[vaporizer->getID()] = vaporizer;
     }
     // now write additionals
-    for (const auto &additionalTag : sortedAdditionals) {
-        for (const auto &additional : additionalTag) {
+    for (const auto& additionalTag : sortedAdditionals) {
+        for (const auto& additional : additionalTag) {
             additional.second->writeAdditional(device);
         }
     }
@@ -2274,7 +2274,7 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     for (const auto& TAZ : myAttributeCarriers->getTAZElements().at(SUMO_TAG_TAZ)) {
         sortedTAZs[TAZ->getID()] = TAZ;
     }
-    for (const auto &TAZElement : sortedTAZs) {
+    for (const auto& TAZElement : sortedTAZs) {
         TAZElement.second->writeTAZElement(device);
     }
     // write Polygons
@@ -2282,7 +2282,7 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     for (const auto& poly : myAttributeCarriers->getShapes().at(SUMO_TAG_POLY)) {
         sortedShapes[poly->getID()] = poly;
     }
-    for (const auto &shape : sortedShapes) {
+    for (const auto& shape : sortedShapes) {
         shape.second->writeShape(device);
     }
     sortedShapes.clear();
@@ -2296,7 +2296,7 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     for (const auto& POIGEO : myAttributeCarriers->getShapes().at(GNE_TAG_POIGEO)) {
         sortedShapes[POIGEO->getID()] = POIGEO;
     }
-    for (const auto &shape : sortedShapes) {
+    for (const auto& shape : sortedShapes) {
         shape.second->writeShape(device);
     }
     device.close();
@@ -2313,7 +2313,7 @@ GNENet::saveDemandElementsConfirmed(const std::string& filename) {
     for (const auto& vType : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE)) {
         sortedDemandElements[vType->getID()] = vType;
     }
-    for (const auto &demandElement : sortedDemandElements) {
+    for (const auto& demandElement : sortedDemandElements) {
         demandElement.second->writeDemandElement(device);
     }
     sortedDemandElements.clear();
@@ -2321,7 +2321,7 @@ GNENet::saveDemandElementsConfirmed(const std::string& filename) {
     for (const auto& pType : myAttributeCarriers->getDemandElements().at(SUMO_TAG_PTYPE)) {
         sortedDemandElements[pType->getID()] = pType;
     }
-    for (const auto &demandElement : sortedDemandElements) {
+    for (const auto& demandElement : sortedDemandElements) {
         demandElement.second->writeDemandElement(device);
     }
     sortedDemandElements.clear();
@@ -2331,7 +2331,7 @@ GNENet::saveDemandElementsConfirmed(const std::string& filename) {
             sortedDemandElements[route->getID()] = route;
         }
     }
-    for (const auto &demandElement : sortedDemandElements) {
+    for (const auto& demandElement : sortedDemandElements) {
         demandElement.second->writeDemandElement(device);
     }
     // sort vehicles/persons by depart

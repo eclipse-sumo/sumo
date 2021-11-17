@@ -68,8 +68,7 @@ GUIDialog_ChooserAbstract::GUIDialog_ChooserAbstract(GUIGlChildWindow* windowsPa
     myWindowsParent(windowsParent),
     myMessageId(messageId),
     myLocateByName(false),
-    myHaveFilteredSubstring(false)
-{
+    myHaveFilteredSubstring(false) {
     FXHorizontalFrame* hbox = new FXHorizontalFrame(this, GUIDesignAuxiliarFrame);
     // build the list
     FXVerticalFrame* layoutLeft = new FXVerticalFrame(hbox, GUIDesignChooserLayoutLeft);
@@ -95,7 +94,7 @@ GUIDialog_ChooserAbstract::GUIDialog_ChooserAbstract(GUIGlChildWindow* windowsPa
     new FXButton(layoutRight, "&Update\t\tReload all ids", GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_UPDATE, GUIDesignChooserButtons);
     new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);
     new FXButton(layoutRight, "&Close\t\t", GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_CANCEL, GUIDesignChooserButtons);
-    myCountLabel = new FXLabel(layoutRight, "placeholder", nullptr, LAYOUT_BOTTOM|LAYOUT_FILL_X|JUSTIFY_LEFT);
+    myCountLabel = new FXLabel(layoutRight, "placeholder", nullptr, LAYOUT_BOTTOM | LAYOUT_FILL_X | JUSTIFY_LEFT);
     refreshList(ids);
     // add child in windowsParent
     myWindowsParent->getParent()->addChild(this);

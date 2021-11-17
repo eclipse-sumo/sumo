@@ -50,7 +50,7 @@ GeneralHandler::parse() {
 void
 GeneralHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     // obtain tag
-    const SumoXMLTag tag = (element == 0)? SUMO_TAG_ROOTFILE : static_cast<SumoXMLTag>(element);
+    const SumoXMLTag tag = (element == 0) ? SUMO_TAG_ROOTFILE : static_cast<SumoXMLTag>(element);
     // begin tag
     beginTag(tag, attrs);
 }

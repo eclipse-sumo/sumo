@@ -88,7 +88,7 @@ enum class GUIIcon {
 
     /// @name locate objects icons
     /// @{
-    TOOL_NETDIFF,    
+    TOOL_NETDIFF,
     /// @}
 
     /// @name green and yellow objects icons

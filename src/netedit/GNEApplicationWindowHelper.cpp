@@ -678,7 +678,7 @@ GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::hideNetworkVie
 }
 
 
-void 
+void
 GNEApplicationWindowHelper::EditMenuCommands::NetworkViewOptions::updateAltLabels() {
     /* currently this function doesn't work
     // declare index
@@ -806,9 +806,9 @@ GNEApplicationWindowHelper::EditMenuCommands::DemandViewOptions::buildDemandView
                              myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_LOCKCONTAINER);
 
     menuCheckHideNonInspectedDemandElements = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
-                                              "Toggle show non-inspected demand elements", "Alt+7", "",
-                                              GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_HIDENONINSPECTEDDEMANDELEMENTS),
-                                              myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED);
+            "Toggle show non-inspected demand elements", "Alt+7", "",
+            GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_HIDENONINSPECTEDDEMANDELEMENTS),
+            myGNEApp, MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED);
 
     menuCheckShowOverlappedRoutes = GUIDesigns::buildFXMenuCheckboxIcon(editMenu,
                                     "Toggle show number of overlapped routes", "Alt+8", "",
@@ -1123,7 +1123,7 @@ GNEApplicationWindowHelper::LockMenuCommands::buildLockMenuCommands(FXMenuPane* 
                                "Lock edge&TAZRel", "", "",
                                GUIIconSubSys::getIcon(GUIIcon::TAZRELDATA),
                                myGNEApp, MID_GNE_LOCK_ELEMENT);
-        
+
     // separator
     new FXMenuSeparator(fileMenu);
 
@@ -1135,16 +1135,16 @@ GNEApplicationWindowHelper::LockMenuCommands::buildLockMenuCommands(FXMenuPane* 
     new FXMenuSeparator(fileMenu);
 
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-        "Lock all elements", "", "Lock all elements",
-        GUIIconSubSys::getIcon(GUIIcon::LOCK), myGNEApp, MID_GNE_LOCK_ALLELEMENTS);
+                                           "Lock all elements", "", "Lock all elements",
+                                           GUIIconSubSys::getIcon(GUIIcon::LOCK), myGNEApp, MID_GNE_LOCK_ALLELEMENTS);
 
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
-        "Unlock all elements", "", "Unlock all elements",
-        GUIIconSubSys::getIcon(GUIIcon::UNLOCK), myGNEApp, MID_GNE_UNLOCK_ALLELEMENTS);
+                                           "Unlock all elements", "", "Unlock all elements",
+                                           GUIIconSubSys::getIcon(GUIIcon::UNLOCK), myGNEApp, MID_GNE_UNLOCK_ALLELEMENTS);
 }
 
 
-void 
+void
 GNEApplicationWindowHelper::LockMenuCommands::removeHotkeys() {
     // network
     menuCheckLockJunction->remHotKey(parseHotKey('j'));
@@ -1328,7 +1328,7 @@ GNEApplicationWindowHelper::LockMenuCommands::hideDataLockMenuCommands() {
 }
 
 
-void 
+void
 GNEApplicationWindowHelper::LockMenuCommands::lockAll() {
     menuCheckLockJunction->setCheck(TRUE);
     menuCheckLockEdges->setCheck(TRUE);
@@ -1382,8 +1382,8 @@ GNEApplicationWindowHelper::LockMenuCommands::unlockAll() {
 }
 
 
-void 
-GNEApplicationWindowHelper::LockMenuCommands::editLocking(const GNEAttributeCarrier *AC, const FXbool value) {
+void
+GNEApplicationWindowHelper::LockMenuCommands::editLocking(const GNEAttributeCarrier* AC, const FXbool value) {
     // check elements
     if (AC->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
         menuCheckLockJunction->setCheck(value);
@@ -1433,7 +1433,7 @@ GNEApplicationWindowHelper::LockMenuCommands::editLocking(const GNEAttributeCarr
 }
 
 
-FXHotKey 
+FXHotKey
 GNEApplicationWindowHelper::LockMenuCommands::parseHotKey(const FXwchar character) {
     FXuint code = 0, mods = 0;
     if (Unicode::isAlphaNumeric(character)) {

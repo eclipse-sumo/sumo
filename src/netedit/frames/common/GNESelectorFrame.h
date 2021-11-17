@@ -61,14 +61,14 @@ public:
 
     protected:
         /// @brief update information label
-        void updateInformationLabel(const std::string &element, int number);
+        void updateInformationLabel(const std::string& element, int number);
 
     private:
         /// @brief  string for keep information
         std::string myInformation;
 
         /// @brief information label
-        FXLabel *myInformationLabel;
+        FXLabel* myInformationLabel;
 
         /// @brief pointer to Selector Frame Parent
         GNESelectorFrame* mySelectorFrameParent;
@@ -233,13 +233,13 @@ public:
         FOX_CONSTRUCTOR(SelectionOperation)
 
         /// @brief process network element selection
-        bool processNetworkElementSelection(const bool onlyCount, const bool onlyUnselect, bool &ignoreLocking);
+        bool processNetworkElementSelection(const bool onlyCount, const bool onlyUnselect, bool& ignoreLocking);
 
         /// @brief process demand element selection
-        bool processDemandElementSelection(const bool onlyCount, const bool onlyUnselect, bool &ignoreLocking);
+        bool processDemandElementSelection(const bool onlyCount, const bool onlyUnselect, bool& ignoreLocking);
 
         /// @brief process data element selection
-        bool processDataElementSelection(const bool onlyCount, const bool onlyUnselect, bool &ignoreLocking);
+        bool processDataElementSelection(const bool onlyCount, const bool onlyUnselect, bool& ignoreLocking);
 
         /// @brief ask if continue due locking
         bool askContinueIfLock() const;

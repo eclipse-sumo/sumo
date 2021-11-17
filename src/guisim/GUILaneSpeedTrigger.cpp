@@ -375,7 +375,7 @@ GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings& s) const {
 }
 
 
-double 
+double
 GUILaneSpeedTrigger::getExaggeration(const GUIVisualizationSettings& s) const {
     return s.addSize.getExaggeration(s, this);
 }

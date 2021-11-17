@@ -308,7 +308,7 @@ GNEDetectorE1Instant::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNEDetectorE1Instant::setMoveShape(const GNEMoveResult& moveResult) {
     // change position
     myPositionOverLane = moveResult.newFirstPos;
@@ -319,7 +319,7 @@ GNEDetectorE1Instant::setMoveShape(const GNEMoveResult& moveResult) {
 }
 
 
-void 
+void
 GNEDetectorE1Instant::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // reset lateral offset
     myMoveElementLateralOffset = 0;

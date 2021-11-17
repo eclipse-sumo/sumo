@@ -202,7 +202,7 @@ GNEInspectorFrame::NeteditAttributesEditor::hideNeteditAttributesEditor() {
 void
 GNEInspectorFrame::NeteditAttributesEditor::refreshNeteditAttributesEditor(bool forceRefresh) {
     // get inspected Attribute carriers
-    const auto &ACs  = myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
+    const auto& ACs  = myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
     if (ACs.size() > 0) {
         // enable or disable mark front element button
         if (myInspectorFrameParent->getViewNet()->getFrontAttributeCarrier() == ACs.front()) {
@@ -238,7 +238,7 @@ GNEInspectorFrame::NeteditAttributesEditor::refreshNeteditAttributesEditor(bool 
 
 long
 GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute(FXObject* obj, FXSelector, void*) {
-    const auto &ACs = myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
+    const auto& ACs = myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
     // make sure that ACs has elements
     if (ACs.size() > 0) {
         // check if we're changing multiple attributes
@@ -727,7 +727,7 @@ void
 GNEInspectorFrame::ParametersEditorInspector::showParametersEditorInspector() {
     // firt check if there is
     if ((myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) &&
-        myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().hasParameters()) {
+            myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().hasParameters()) {
         // refresh ParametersEditorInspector
         refreshParametersEditorInspector();
         // show groupbox
@@ -829,7 +829,7 @@ GNEInspectorFrame::ParametersEditorInspector::onCmdEditParameters(FXObject*, FXS
 
 long
 GNEInspectorFrame::ParametersEditorInspector::onCmdSetParameters(FXObject*, FXSelector, void*) {
-    const auto &ACs = myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
+    const auto& ACs = myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
     // get front AC
     GNEAttributeCarrier* frontAC = ACs.size() > 0 ? ACs.front() : nullptr;
     // continue depending of frontAC

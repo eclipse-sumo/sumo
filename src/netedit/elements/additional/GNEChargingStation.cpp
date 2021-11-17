@@ -130,12 +130,12 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), myAdditionalGeometry.getShape().getCentroid(), chargingStationExaggeration);
             // check if dotted contours has to be drawn
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth, 
-                                                    chargingStationExaggeration, true, true);
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth,
+                        chargingStationExaggeration, true, true);
             }
             if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth, 
-                                                    chargingStationExaggeration, true, true);
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth,
+                        chargingStationExaggeration, true, true);
             }
             // draw child demand elements
             for (const auto& demandElement : getChildDemandElements()) {

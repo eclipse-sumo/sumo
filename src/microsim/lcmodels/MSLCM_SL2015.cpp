@@ -3521,7 +3521,7 @@ MSLCM_SL2015::getParameter(const std::string& key) const {
         return toString(myRoundaboutBonus);
     } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_SPEED)) {
         return toString(myCooperativeSpeed);
-    // access to internal state for debugging in sumo-gui (not documented since it may change at any time)
+        // access to internal state for debugging in sumo-gui (not documented since it may change at any time)
     } else if (key == "speedGainProbabilityRight") {
         return toString(mySpeedGainProbabilityRight);
     } else if (key == "speedGainProbabilityLeft") {
@@ -3532,7 +3532,7 @@ MSLCM_SL2015::getParameter(const std::string& key) const {
         return toString(myLookAheadSpeed);
     } else if (key == "sigmaState") {
         return toString(mySigmaState);
-    // motivaiton relative to threshold
+        // motivaiton relative to threshold
     } else if (key == "speedGainRP") {
         return toString(mySpeedGainProbabilityRight / myChangeProbThresholdRight);
     } else if (key == "speedGainLP") {
@@ -3717,7 +3717,7 @@ MSLCM_SL2015::preventSliding(double maneuverDist) const {
 #ifdef DEBUG_SLIDING
         if (gDebugFlag2) {
             std::cout << SIMTIME << " veh=" << myVehicle.getID() << " bgap=" << brakeGap << " maneuverDist=" << maneuverDist
-                << " mds=" << myMaxDistLatStanding << " isSlide=" << isSlide << "\n";
+                      << " mds=" << myMaxDistLatStanding << " isSlide=" << isSlide << "\n";
         }
 #endif
         return isSlide;

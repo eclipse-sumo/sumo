@@ -346,8 +346,8 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
 #ifdef DEBUG_MANEUVER
     if (DEBUG_COND) {
         std::cout << SIMTIME << " vehicle '" << vehicle->getID() << "' latDist=" << latDist << "  maneuverDist=" << maneuverDist
-            << " distRight=" << distToRightLaneBorder << " distLeft=" << distToLeftLaneBorder
-            << " dir=" << direction << " cDir=" << changerDirection << " mayChange=" << mayChange(changerDirection) << "\n";
+                  << " distRight=" << distToRightLaneBorder << " distLeft=" << distToLeftLaneBorder
+                  << " dir=" << direction << " cDir=" << changerDirection << " mayChange=" << mayChange(changerDirection) << "\n";
     }
 #endif
     if (mayChange(changerDirection)) {

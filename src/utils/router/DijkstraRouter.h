@@ -129,14 +129,14 @@ public:
 #ifdef DijkstraRouter_DEBUG_BULKMODE
             if (query != myLastQuery) {
                 std::cout << " invalid bulk mode. myLastQuery="
-                    << std::get<0>(myLastQuery)->getID() << ","
-                    << std::get<1>(myLastQuery)->getID() << ","
-                    << time2string(std::get<2>(myLastQuery))
-                    << " query="
-                    << std::get<0>(query)->getID() << ","
-                    << std::get<1>(query)->getID() << ","
-                    << time2string(std::get<2>(query))
-                    << "\n";
+                          << std::get<0>(myLastQuery)->getID() << ","
+                          << std::get<1>(myLastQuery)->getID() << ","
+                          << time2string(std::get<2>(myLastQuery))
+                          << " query="
+                          << std::get<0>(query)->getID() << ","
+                          << std::get<1>(query)->getID() << ","
+                          << time2string(std::get<2>(query))
+                          << "\n";
             }
 #endif
             const auto& toInfo = this->myEdgeInfos[to->getNumericalID()];

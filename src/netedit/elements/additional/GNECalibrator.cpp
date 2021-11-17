@@ -33,62 +33,62 @@
 // ===========================================================================
 
 GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name,
-        const std::string& output, const double jamThreshold, const std::vector<std::string>& vTypes, const std::map<std::string, std::string>& parameters) :
+                             const std::string& output, const double jamThreshold, const std::vector<std::string>& vTypes, const std::map<std::string, std::string>& parameters) :
     GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name,
-        {}, {edge}, {}, {}, {}, {}, {}, {},
-    parameters),
-    myPositionOverLane(pos),
-    myFrequency(frequency),
-    myOutput(output),
-    myJamThreshold(jamThreshold),
-    myVTypes(vTypes) {
+{}, {edge}, {}, {}, {}, {}, {}, {},
+parameters),
+myPositionOverLane(pos),
+myFrequency(frequency),
+myOutput(output),
+myJamThreshold(jamThreshold),
+myVTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
 
 
 GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name,
-        const std::string& output, GNEAdditional* routeProbe, const double jamThreshold, const std::vector<std::string>& vTypes,
-        const std::map<std::string, std::string>& parameters) :
+                             const std::string& output, GNEAdditional* routeProbe, const double jamThreshold, const std::vector<std::string>& vTypes,
+                             const std::map<std::string, std::string>& parameters) :
     GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name,
-        {}, {edge}, {}, {routeProbe}, {}, {}, {}, {},
-    parameters),
-    myPositionOverLane(pos),
-    myFrequency(frequency),
-    myOutput(output),
-    myJamThreshold(jamThreshold),
-    myVTypes(vTypes) {
+{}, {edge}, {}, {routeProbe}, {}, {}, {}, {},
+parameters),
+myPositionOverLane(pos),
+myFrequency(frequency),
+myOutput(output),
+myJamThreshold(jamThreshold),
+myVTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
 
 
 GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNELane* lane, double pos, SUMOTime frequency, const std::string& name,
-        const std::string& output, const double jamThreshold, const std::vector<std::string>& vTypes, const std::map<std::string, std::string>& parameters) :
+                             const std::string& output, const double jamThreshold, const std::vector<std::string>& vTypes, const std::map<std::string, std::string>& parameters) :
     GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_LANECALIBRATOR, name,
-        {}, {}, {lane}, {}, {}, {}, {}, {},
-    parameters),
-    myPositionOverLane(pos),
-    myFrequency(frequency),
-    myOutput(output),
-    myJamThreshold(jamThreshold),
-    myVTypes(vTypes) {
+{}, {}, {lane}, {}, {}, {}, {}, {},
+parameters),
+myPositionOverLane(pos),
+myFrequency(frequency),
+myOutput(output),
+myJamThreshold(jamThreshold),
+myVTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
 
 
 GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNELane* lane, double pos, SUMOTime frequency, const std::string& name,
-        const std::string& output, GNEAdditional* routeProbe, const double jamThreshold, const std::vector<std::string>& vTypes,
-        const std::map<std::string, std::string>& parameters) :
+                             const std::string& output, GNEAdditional* routeProbe, const double jamThreshold, const std::vector<std::string>& vTypes,
+                             const std::map<std::string, std::string>& parameters) :
     GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_LANECALIBRATOR, name,
-        {}, {}, {lane}, {routeProbe}, {}, {}, {}, {},
-    parameters),
-    myPositionOverLane(pos),
-    myFrequency(frequency),
-    myOutput(output),
-    myJamThreshold(jamThreshold),
-    myVTypes(vTypes) {
+{}, {}, {lane}, {routeProbe}, {}, {}, {}, {},
+parameters),
+myPositionOverLane(pos),
+myFrequency(frequency),
+myOutput(output),
+myJamThreshold(jamThreshold),
+myVTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -129,7 +129,7 @@ GNECalibrator::writeAdditional(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_VTYPES, myVTypes);
     }
     // write calibrator flows
-    for (const auto &calibratorFlow : getChildAdditionals()) {
+    for (const auto& calibratorFlow : getChildAdditionals()) {
         if (calibratorFlow->getTagProperty().getTag() == GNE_TAG_FLOW_CALIBRATOR) {
             calibratorFlow->writeAdditional(device);
         }
@@ -446,16 +446,16 @@ void GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, cons
     GLHelper::popMatrix();
     // check if dotted contours has to be drawn
     if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-        GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, pos, 
-            s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight * 0.5, 
-            0, s.additionalSettings.calibratorHeight * -0.5, 
-            rot + 90, exaggeration);
+        GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, pos,
+                s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight * 0.5,
+                0, s.additionalSettings.calibratorHeight * -0.5,
+                rot + 90, exaggeration);
     }
     if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-        GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, pos, 
-            s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight * 0.5, 
-            0, s.additionalSettings.calibratorHeight * -0.5, 
-            rot + 90, exaggeration);
+        GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, pos,
+                s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight * 0.5,
+                0, s.additionalSettings.calibratorHeight * -0.5,
+                rot + 90, exaggeration);
     }
 }
 

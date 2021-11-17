@@ -604,7 +604,7 @@ MSEdge::validateDepartSpeed(SUMOVehicle& v) const {
                         if (v.getChosenSpeedFactor() > speedFactorParams[0] + 2 * speedFactorParams[1]) {
                             // only warn for significant deviation
                             WRITE_WARNINGF("Choosing new speed factor % for vehicle '%' to match departure speed % (max %).",
-                                    toString(v.getChosenSpeedFactor()), pars.id, pars.departSpeed, vMax);
+                                           toString(v.getChosenSpeedFactor()), pars.id, pars.departSpeed, vMax);
                         }
                     } else {
                         return false;

@@ -388,7 +388,7 @@ GUICalibrator::drawGL(const GUIVisualizationSettings& s) const {
 }
 
 
-double 
+double
 GUICalibrator::getExaggeration(const GUIVisualizationSettings& s) const {
     return s.addSize.getExaggeration(s, this);
 }

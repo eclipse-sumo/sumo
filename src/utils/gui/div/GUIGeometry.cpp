@@ -46,8 +46,8 @@ GUIGeometry::GUIGeometry(const PositionVector& shape) :
 }
 
 
-GUIGeometry::GUIGeometry(const PositionVector& shape, const std::vector<double>& shapeRotations, 
-        const std::vector<double>& shapeLengths) :
+GUIGeometry::GUIGeometry(const PositionVector& shape, const std::vector<double>& shapeRotations,
+                         const std::vector<double>& shapeLengths) :
     myShape(shape),
     myShapeRotations(shapeRotations),
     myShapeLengths(shapeLengths) {
@@ -66,8 +66,8 @@ GUIGeometry::updateGeometry(const PositionVector& shape) {
 
 
 void
-GUIGeometry::updateGeometry(const PositionVector& shape, const double posOverShape, 
-        const double lateralOffset) {
+GUIGeometry::updateGeometry(const PositionVector& shape, const double posOverShape,
+                            const double lateralOffset) {
     // first clear geometry
     clearGeometry();
     // get shape length
@@ -87,8 +87,8 @@ GUIGeometry::updateGeometry(const PositionVector& shape, const double posOverSha
 
 
 void
-GUIGeometry::updateGeometry(const PositionVector& shape, double starPosOverShape, 
-        double endPosOverShape, const double lateralOffset) {
+GUIGeometry::updateGeometry(const PositionVector& shape, double starPosOverShape,
+                            double endPosOverShape, const double lateralOffset) {
     // first clear geometry
     clearGeometry();
     // set new shape
@@ -126,7 +126,7 @@ GUIGeometry::updateGeometry(const PositionVector& shape, double starPosOverShape
 
 void
 GUIGeometry::updateGeometry(const PositionVector& shape, double beginTrimPosition, double endTrimPosition,
-        const Position& extraFirstPosition, const Position& extraLastPosition) {
+                            const Position& extraFirstPosition, const Position& extraLastPosition) {
     // first clear geometry
     clearGeometry();
     // set new shape
@@ -224,14 +224,14 @@ GUIGeometry::calculateLength(const Position& first, const Position& second) {
 
 
 void
-GUIGeometry::adjustStartPosGeometricPath(double& startPos, const PositionVector &startLaneShape, 
-        double& endPos, const PositionVector &endLaneShape) {
+GUIGeometry::adjustStartPosGeometricPath(double& startPos, const PositionVector& startLaneShape,
+        double& endPos, const PositionVector& endLaneShape) {
     // adjust both, if start and end lane are the same
-    if ((startLaneShape.size() > 0) && 
-        (endLaneShape.size() > 0) && 
-        (startLaneShape == endLaneShape) &&
-        (startPos != -1) && 
-        (endPos != -1)) {
+    if ((startLaneShape.size() > 0) &&
+            (endLaneShape.size() > 0) &&
+            (startLaneShape == endLaneShape) &&
+            (startPos != -1) &&
+            (endPos != -1)) {
         if (startPos >= endPos) {
             endPos = (startPos + POSITION_EPS);
         }
@@ -258,8 +258,8 @@ GUIGeometry::adjustStartPosGeometricPath(double& startPos, const PositionVector 
 
 
 void
-GUIGeometry::drawGeometry(const GUIVisualizationSettings& s, const Position &mousePos, 
-        const GUIGeometry& geometry, const double width) {
+GUIGeometry::drawGeometry(const GUIVisualizationSettings& s, const Position& mousePos,
+                          const GUIGeometry& geometry, const double width) {
     // continue depending of draw for position selection
     if (s.drawForPositionSelection) {
         // obtain position over lane relative to mouse position
@@ -312,9 +312,9 @@ GUIGeometry::drawContourGeometry(const GUIGeometry& geometry, const double width
 
 
 void
-GUIGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const Position &mousePos, const PositionVector& shape,
-        const RGBColor& geometryPointColor, const RGBColor& textColor, const double radius, const double exaggeration, 
-        const bool editingElevation, const bool drawExtremeSymbols) {
+GUIGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const Position& mousePos, const PositionVector& shape,
+                                const RGBColor& geometryPointColor, const RGBColor& textColor, const double radius, const double exaggeration,
+                                const bool editingElevation, const bool drawExtremeSymbols) {
     // get exaggeratedRadio
     const double exaggeratedRadio = (radius * exaggeration);
     // get radius squared
@@ -367,8 +367,8 @@ GUIGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const Positio
 
 
 void
-GUIGeometry::drawMovingHint(const GUIVisualizationSettings& s, const Position &mousePos, const PositionVector& shape,
-        const RGBColor& hintColor, const double radius, const double exaggeration) {
+GUIGeometry::drawMovingHint(const GUIVisualizationSettings& s, const Position& mousePos, const PositionVector& shape,
+                            const RGBColor& hintColor, const double radius, const double exaggeration) {
     // get exaggeratedRadio
     const double exaggeratedRadio = (radius * exaggeration);
     // obtain distance to shape
@@ -405,9 +405,9 @@ GUIGeometry::drawMovingHint(const GUIVisualizationSettings& s, const Position &m
 
 
 void
-GUIGeometry::drawLaneGeometry(const GUIVisualizationSettings& s, const Position &mousePos, const PositionVector& shape, 
-        const std::vector<double>& rotations, const std::vector<double>& lengths, const std::vector<RGBColor>& colors, 
-        double width, const bool onlyContour) {
+GUIGeometry::drawLaneGeometry(const GUIVisualizationSettings& s, const Position& mousePos, const PositionVector& shape,
+                              const std::vector<double>& rotations, const std::vector<double>& lengths, const std::vector<RGBColor>& colors,
+                              double width, const bool onlyContour) {
     // first check if we're in draw a contour or for selecting cliking mode
     if (onlyContour) {
         // get shapes
@@ -448,9 +448,9 @@ GUIGeometry::drawLaneGeometry(const GUIVisualizationSettings& s, const Position 
 }
 
 
-void 
-GUIGeometry::drawParentLine(const GUIVisualizationSettings& s, const Position &parent, const Position& child, 
-        const RGBColor &color, const bool drawEntire) {
+void
+GUIGeometry::drawParentLine(const GUIVisualizationSettings& s, const Position& parent, const Position& child,
+                            const RGBColor& color, const bool drawEntire) {
     if (!s.drawForPositionSelection && !s.drawForRectangleSelection) {
         // calculate rotation
         const double rot = RAD2DEG(parent.angleTo2D(child)) + 90;
@@ -484,20 +484,20 @@ GUIGeometry::drawParentLine(const GUIVisualizationSettings& s, const Position &p
                 const PositionVector vector = {parent, child};
                 // draw first arrow at end
                 GLHelper::setColor(color.changedBrightness(-50));
-                GLHelper::drawTriangleAtEnd(parent, 
-                    vector.positionAtOffset2D(5), 
-                    s.additionalSettings.arrowWidth, 
-                    s.additionalSettings.arrowLength, 
-                    s.additionalSettings.arrowOffset);
+                GLHelper::drawTriangleAtEnd(parent,
+                                            vector.positionAtOffset2D(5),
+                                            s.additionalSettings.arrowWidth,
+                                            s.additionalSettings.arrowLength,
+                                            s.additionalSettings.arrowOffset);
                 // move front
                 glTranslated(0, 0, 0.1);
                 // draw second arrow at end
                 GLHelper::setColor(color);
-                GLHelper::drawTriangleAtEnd(parent, 
-                    vector.positionAtOffset2D(5), 
-                    s.additionalSettings.arrowWidth - 0.01, 
-                    s.additionalSettings.arrowLength - 0.01, 
-                    s.additionalSettings.arrowOffset - 0.01);
+                GLHelper::drawTriangleAtEnd(parent,
+                                            vector.positionAtOffset2D(5),
+                                            s.additionalSettings.arrowWidth - 0.01,
+                                            s.additionalSettings.arrowLength - 0.01,
+                                            s.additionalSettings.arrowOffset - 0.01);
             }
         }
         // pop draw matrix
@@ -506,9 +506,9 @@ GUIGeometry::drawParentLine(const GUIVisualizationSettings& s, const Position &p
 }
 
 
-void 
-GUIGeometry::drawChildLine(const GUIVisualizationSettings& s, const Position &child, const Position& parent, 
-        const RGBColor &color, const bool drawEntire) {
+void
+GUIGeometry::drawChildLine(const GUIVisualizationSettings& s, const Position& child, const Position& parent,
+                           const RGBColor& color, const bool drawEntire) {
     if (!s.drawForPositionSelection && !s.drawForRectangleSelection) {
         // calculate distance between origin and destiny
         const double distanceSquared = child.distanceSquaredTo2D(parent);
@@ -537,7 +537,7 @@ GUIGeometry::drawChildLine(const GUIVisualizationSettings& s, const Position &ch
             GLHelper::setColor(color.changedBrightness(-50));
             GLHelper::drawBoxLine(child, rot, 4.9, .05);
             glTranslated(0, 0, 0.1);
-            // draw second box line with lenght 
+            // draw second box line with lenght
             GLHelper::setColor(color);
             GLHelper::drawBoxLine(child, rot, 4.9, .04);
             // draw arrow depending of distanceSquared (10*10)
@@ -546,20 +546,20 @@ GUIGeometry::drawChildLine(const GUIVisualizationSettings& s, const Position &ch
                 const PositionVector vector = {child, parent};
                 // draw first arrow at end
                 GLHelper::setColor(color.changedBrightness(-50));
-                GLHelper::drawTriangleAtEnd(child, 
-                    vector.positionAtOffset2D(5), 
-                    s.additionalSettings.arrowWidth, 
-                    s.additionalSettings.arrowLength, 
-                    s.additionalSettings.arrowOffset);
+                GLHelper::drawTriangleAtEnd(child,
+                                            vector.positionAtOffset2D(5),
+                                            s.additionalSettings.arrowWidth,
+                                            s.additionalSettings.arrowLength,
+                                            s.additionalSettings.arrowOffset);
                 // move front
                 glTranslated(0, 0, 0.1);
                 // draw second arrow at end
                 GLHelper::setColor(color);
-                GLHelper::drawTriangleAtEnd(child, 
-                    vector.positionAtOffset2D(5), 
-                    s.additionalSettings.arrowWidth - 0.01, 
-                    s.additionalSettings.arrowLength - 0.01, 
-                    s.additionalSettings.arrowOffset - 0.01);
+                GLHelper::drawTriangleAtEnd(child,
+                                            vector.positionAtOffset2D(5),
+                                            s.additionalSettings.arrowWidth - 0.01,
+                                            s.additionalSettings.arrowLength - 0.01,
+                                            s.additionalSettings.arrowOffset - 0.01);
             }
         }
         // pop draw matrix

@@ -317,7 +317,7 @@ public:
      * @param[in] sumoBaseObject sumo base object used for build
      * @param[in] vehicleParameter calibratorFlow parameter
      */
-    virtual void buildCalibratorFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter &vehicleParameter) = 0;
+    virtual void buildCalibratorFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameter) = 0;
 
     /**@brief builds a rerouter
      * @param[in] sumoBaseObject sumo base object used for build
@@ -428,8 +428,8 @@ public:
      * @param[in] name Vaporizer name
      * @param[in] parameters generic parameters
      */
-    virtual void buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape, 
-                          const Position &center, const bool fill, const RGBColor& color, const std::vector<std::string>& edgeIDs, 
+    virtual void buildTAZ(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const PositionVector& shape,
+                          const Position& center, const bool fill, const RGBColor& color, const std::vector<std::string>& edgeIDs,
                           const std::string& name, const std::map<std::string, std::string>& parameters) = 0;
 
     /**@brief Builds a TAZSource (Traffic Assignment Zone)
@@ -539,7 +539,7 @@ public:
 private:
     /// @brief common XML Structure
     CommonXMLStructure myCommonXMLStructure;
-    
+
     /// @name parse additional attributes
     /// @{
     /// @brief parse busStop attributes

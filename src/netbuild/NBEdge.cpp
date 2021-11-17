@@ -2322,7 +2322,7 @@ NBEdge::hasLaneSpecificEndOffset() const {
 
 bool
 NBEdge::hasLaneSpecificStopOffsets() const {
-    for (const auto &lane : myLanes) {
+    for (const auto& lane : myLanes) {
         if (lane.laneStopOffset.isDefined()) {
             if (myEdgeStopOffset.isDefined() || (myEdgeStopOffset != lane.laneStopOffset)) {
                 return true;
@@ -3115,10 +3115,10 @@ NBEdge::appendTurnaround(bool noTLSControlled, bool noFringe, bool onlyDeadends,
     if (noGeometryLike && !isDeadEnd) {
         // ignore paths and service entrances if this edge is for passenger traffic
         if (myTo->geometryLike() || ((getPermissions() & SVC_PASSENGER) != 0
-                    && !onlyTurnlane
-                    && myTo->geometryLike(
-                        NBEdge::filterByPermissions(myTo->getIncomingEdges(), ~(SVC_BICYCLE|SVC_PEDESTRIAN|SVC_DELIVERY)),
-                        NBEdge::filterByPermissions(myTo->getOutgoingEdges(), ~(SVC_BICYCLE|SVC_PEDESTRIAN|SVC_DELIVERY))))) {
+                                     && !onlyTurnlane
+                                     && myTo->geometryLike(
+                                         NBEdge::filterByPermissions(myTo->getIncomingEdges(), ~(SVC_BICYCLE | SVC_PEDESTRIAN | SVC_DELIVERY)),
+                                         NBEdge::filterByPermissions(myTo->getOutgoingEdges(), ~(SVC_BICYCLE | SVC_PEDESTRIAN | SVC_DELIVERY))))) {
             // make sure the turnDestination has other incoming edges
             EdgeVector turnIncoming = myTurnDestination->getIncomingEdges();
             if (turnIncoming.size() > 1) {
@@ -3668,7 +3668,7 @@ NBEdge::getEndOffset(int lane) const {
 }
 
 
-const StopOffset& 
+const StopOffset&
 NBEdge::getEdgeStopOffset() const {
     return myEdgeStopOffset;
 }
@@ -3701,7 +3701,7 @@ NBEdge::setEndOffset(int lane, double offset) {
 
 
 bool
-NBEdge::setEdgeStopOffset(int lane, const StopOffset &offset, bool overwrite) {
+NBEdge::setEdgeStopOffset(int lane, const StopOffset& offset, bool overwrite) {
     if (lane < 0) {
         if (!overwrite && myEdgeStopOffset.isDefined()) {
             return false;

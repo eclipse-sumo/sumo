@@ -1507,7 +1507,7 @@ NBEdgeCont::generateStreetSigns() {
 
 int
 NBEdgeCont::guessSpecialLanes(SUMOVehicleClass svc, double width, double minSpeed, double maxSpeed, bool fromPermissions, const std::string& excludeOpt,
-        NBTrafficLightLogicCont& tlc) {
+                              NBTrafficLightLogicCont& tlc) {
     int lanesCreated = 0;
     std::vector<std::string> edges;
     if (excludeOpt != "") {

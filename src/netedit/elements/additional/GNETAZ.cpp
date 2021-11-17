@@ -46,19 +46,19 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 // member method definitions
 // ===========================================================================
 
-GNETAZ::GNETAZ(const std::string& id, GNENet* net, const PositionVector &shape, const Position &center, const bool fill, 
-               const RGBColor &color, const std::string& name, const std::map<std::string, std::string>& parameters) :
+GNETAZ::GNETAZ(const std::string& id, GNENet* net, const PositionVector& shape, const Position& center, const bool fill,
+               const RGBColor& color, const std::string& name, const std::map<std::string, std::string>& parameters) :
     GNETAZElement(id, net, GLO_TAZ, SUMO_TAG_TAZ,
-        {}, {}, {}, {}, {}, {}, {}, {},
-    parameters),
-    SUMOPolygon(id, "", color, shape, false, fill, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, name),
-    myTAZCenter(center),
-    myMaxWeightSource(0),
-    myMinWeightSource(0),
-    myAverageWeightSource(0),
-    myMaxWeightSink(0),
-    myMinWeightSink(0),
-    myAverageWeightSink(0) {
+{}, {}, {}, {}, {}, {}, {}, {},
+parameters),
+SUMOPolygon(id, "", color, shape, false, fill, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, name),
+myTAZCenter(center),
+myMaxWeightSource(0),
+myMinWeightSource(0),
+myAverageWeightSource(0),
+myMaxWeightSink(0),
+myMinWeightSink(0),
+myAverageWeightSink(0) {
     // update geometry
     updateGeometry();
 }
@@ -72,7 +72,7 @@ GNETAZ::getMoveOperation() {
     // get snap radius
     const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius;
     // check if we're moving center or shape
-    if (myTAZCenter.distanceSquaredTo2D(myNet->getViewNet()->getPositionInformation()) < (snap_radius*snap_radius)) {
+    if (myTAZCenter.distanceSquaredTo2D(myNet->getViewNet()->getPositionInformation()) < (snap_radius * snap_radius)) {
         // move entire shape
         return new GNEMoveOperation(this, myTAZCenter);
     } else if (myNet->getViewNet()->getViewParent()->getMoveFrame()->getNetworkModeOptions()->getMoveWholePolygons()) {
@@ -174,7 +174,7 @@ GNETAZ::updateGeometry() {
     // just update geometry
     myTAZGeometry.updateGeometry(myShape);
     // update geometry of TAZRelDatas
-    for (const auto &TAZRelData : getChildGenericDatas()) {
+    for (const auto& TAZRelData : getChildGenericDatas()) {
         TAZRelData->updateGeometry();
     }
 }
@@ -186,7 +186,7 @@ GNETAZ::getPositionInView() const {
 }
 
 
-double 
+double
 GNETAZ::getExaggeration(const GUIVisualizationSettings& s) const {
     return s.polySize.getExaggeration(s, this);
 }
@@ -308,12 +308,12 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                 // check move mode flag
                 const bool moveMode = (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE);
                 // draw geometry points
-                GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myTAZGeometry.getShape(), darkerColor, invertedColor, 
-                                                s.neteditSizeSettings.polygonGeometryPointRadius * (moveMode? 1 : 0.5), TAZExaggeration,
+                GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myTAZGeometry.getShape(), darkerColor, invertedColor,
+                                                s.neteditSizeSettings.polygonGeometryPointRadius * (moveMode ? 1 : 0.5), TAZExaggeration,
                                                 myNet->getViewNet()->getNetworkViewOptions().editingElevation(), drawExtremeSymbols);
                 // draw moving hint points
                 if (!myNet->getViewNet()->getLockManager().isObjectLocked(GLO_TAZ, isAttributeCarrierSelected()) && moveMode) {
-                    GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), myTAZGeometry.getShape(), invertedColor, 
+                    GUIGeometry::drawMovingHint(s, myNet->getViewNet()->getPositionInformation(), myTAZGeometry.getShape(), invertedColor,
                                                 s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration);
                 }
             }
@@ -378,7 +378,7 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
             return toString(myFill);
         case SUMO_ATTR_EDGES: {
             std::vector<std::string> edgeIDs;
-            for (const auto &TAZChild : getChildAdditionals()) {
+            for (const auto& TAZChild : getChildAdditionals()) {
                 edgeIDs.push_back(TAZChild->getAttribute(SUMO_ATTR_EDGE));
             }
             return toString(edgeIDs);
@@ -610,8 +610,8 @@ GNETAZ::drawDottedContours(const GUIVisualizationSettings& s, const double TAZEx
         if (drawFill) {
             GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myTAZGeometry.getShape(), 1);
         } else {
-            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
-                                                TAZExaggeration, 1, 1);
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
+                    TAZExaggeration, 1, 1);
         }
     }
     // dotted contour for front
@@ -620,18 +620,18 @@ GNETAZ::drawDottedContours(const GUIVisualizationSettings& s, const double TAZEx
         if (drawFill) {
             GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::FRONT, s, myTAZGeometry.getShape(), 1);
         } else {
-            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
-                                                TAZExaggeration, 1, 1);
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
+                    TAZExaggeration, 1, 1);
         }
     }
-    // dotted contour for first TAZ 
+    // dotted contour for first TAZ
     if ((myNet->getViewNet()->getViewParent()->getTAZRelDataFrame()->getFirstTAZ() == this)) {
         // draw depending if is closed
         if (drawFill) {
             GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::GREEN, s, myTAZGeometry.getShape(), 1, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
         } else {
-            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::GREEN, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
-                                                TAZExaggeration, 1, 1);
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::GREEN, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
+                    TAZExaggeration, 1, 1);
         }
     }
     // dotted contour for second TAZ
@@ -640,8 +640,8 @@ GNETAZ::drawDottedContours(const GUIVisualizationSettings& s, const double TAZEx
         if (drawFill) {
             GUIDottedGeometry::drawDottedContourClosedShape(GUIDottedGeometry::DottedContourType::MAGENTA, s, myTAZGeometry.getShape(), 1, s.neteditSizeSettings.polylineWidth * TAZExaggeration);
         } else {
-            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::MAGENTA, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth, 
-                                                TAZExaggeration, 1, 1);
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::MAGENTA, s, myTAZGeometry.getShape(), s.neteditSizeSettings.polylineWidth,
+                    TAZExaggeration, 1, 1);
         }
     }
 }
@@ -658,7 +658,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
             const bool updateCenter = (myTAZCenter == myShape.getCentroid());
             // remove TAZ and TAZRelDatas
             myNet->removeGLObjectFromGrid(this);
-            for (const auto &TAZRelData : getChildGenericDatas()) {
+            for (const auto& TAZRelData : getChildGenericDatas()) {
                 myNet->removeGLObjectFromGrid(TAZRelData);
             }
             myShape = parse<PositionVector>(value);
@@ -674,7 +674,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             // add TAZ and TAZRelDatas
             myNet->addGLObjectIntoGrid(this);
-            for (const auto &TAZRelData : getChildGenericDatas()) {
+            for (const auto& TAZRelData : getChildGenericDatas()) {
                 TAZRelData->updateGeometry();
                 myNet->addGLObjectIntoGrid(TAZRelData);
             }
@@ -683,7 +683,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CENTER:
             // remove TAZ and TAZRelDatas
             myNet->removeGLObjectFromGrid(this);
-            for (const auto &TAZRelData : getChildGenericDatas()) {
+            for (const auto& TAZRelData : getChildGenericDatas()) {
                 myNet->removeGLObjectFromGrid(TAZRelData);
             }
             if (value.empty()) {
@@ -693,7 +693,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             // add TAZ and TAZRelDatas
             myNet->addGLObjectIntoGrid(this);
-            for (const auto &TAZRelData : getChildGenericDatas()) {
+            for (const auto& TAZRelData : getChildGenericDatas()) {
                 TAZRelData->updateGeometry();
                 myNet->addGLObjectIntoGrid(TAZRelData);
             }

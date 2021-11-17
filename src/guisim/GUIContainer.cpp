@@ -197,7 +197,7 @@ GUIContainer::getTypeParameterWindow(GUIMainWindow& app,
 }
 
 
-double 
+double
 GUIContainer::getExaggeration(const GUIVisualizationSettings& s) const {
     return s.containerSize.getExaggeration(s, this);
 }

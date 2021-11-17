@@ -291,8 +291,8 @@ long
 GNEMatchGenericDataAttribute::onCmdSelectAttribute(FXObject*, FXSelector, void*) {
     // obtain all Generic Data attributes for current generic tag
     auto attributes = myElementSet->getSelectorFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->retrieveGenericDataParameters(
-                                           toString(myCurrentTag), GNEAttributeCarrier::parse<double>(myBegin->getText().text()),
-                                           GNEAttributeCarrier::parse<double>(myEnd->getText().text()));
+                          toString(myCurrentTag), GNEAttributeCarrier::parse<double>(myBegin->getText().text()),
+                          GNEAttributeCarrier::parse<double>(myEnd->getText().text()));
     // add extra data set parent attribute
     attributes.insert(toString(GNE_ATTR_DATASET));
     // clear current attribute

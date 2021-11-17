@@ -769,8 +769,8 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     if (tmpSettings.netedit) {
         if (tmpSettings.dataColorer.getActive() == prevDataMode) {
             if (updateColorRanges(sender, myDataColors.begin(), myDataColors.end(),
-                myDataThresholds.begin(), myDataThresholds.end(), myDataButtons.begin(),
-                tmpSettings.dataColorer.getScheme())) {
+                                  myDataThresholds.begin(), myDataThresholds.end(), myDataButtons.begin(),
+                                  tmpSettings.dataColorer.getScheme())) {
                 doRebuildColorMatrices = true;
             }
             if (sender == myDataColorInterpolation) {
@@ -1646,11 +1646,11 @@ GUIDialog_ViewSettings::loadWindowSize() {
 }
 
 
-void 
+void
 GUIDialog_ViewSettings::buildHeader(FXVerticalFrame* contentFrame) {
     FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(contentFrame, GUIDesignViewSettingsHorizontalFrame1);
     mySchemeName = new FXComboBox(horizontalFrame, 20, this, MID_SIMPLE_VIEW_NAMECHANGE, GUIDesignViewSettingsComboBox1);
-    for (const auto &name : gSchemeStorage.getNames()) {
+    for (const auto& name : gSchemeStorage.getNames()) {
         const int index = mySchemeName->appendItem(name.c_str());
         if (name == mySettings->name) {
             mySchemeName->setCurrentItem((FXint)index);
@@ -1675,7 +1675,7 @@ GUIDialog_ViewSettings::buildHeader(FXVerticalFrame* contentFrame) {
 }
 
 
-void 
+void
 GUIDialog_ViewSettings::buildBackgroundFrame(FXTabBook* tabbook) {
     // tab for the background
     new FXTabItem(tabbook, "Background", nullptr, GUIDesignViewSettingsTabItemBook1);
@@ -1713,7 +1713,7 @@ GUIDialog_ViewSettings::buildBackgroundFrame(FXTabBook* tabbook) {
 }
 
 
-void 
+void
 GUIDialog_ViewSettings::buildStreetsFrame(FXTabBook* tabbook) {
     new FXTabItem(tabbook, "Streets", nullptr, GUIDesignViewSettingsTabItemBook1);
     FXScrollWindow* scrollWindow = new FXScrollWindow(tabbook);
@@ -1732,7 +1732,7 @@ GUIDialog_ViewSettings::buildStreetsFrame(FXTabBook* tabbook) {
     // rainbow settings
     FXMatrix* matrixRainbow = new FXMatrix(verticalFrameColor, 3, GUIDesignViewSettingsMatrix3);
     myLaneColorRainbow = new FXButton(matrixRainbow, "Recalibrate Rainbow", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                                        (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
+                                      (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
     myLaneColorRainbowCheck = new FXCheckButton(matrixRainbow, "hide below threshold", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
     myLaneColorRainbowThreshold = new FXRealSpinner(matrixRainbow, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
     myLaneColorRainbowThreshold->setRange(-100000, 100000);
@@ -1873,7 +1873,7 @@ GUIDialog_ViewSettings::buildVehiclesFrame(FXTabBook* tabbook) {
 }
 
 
-void 
+void
 GUIDialog_ViewSettings::buildPersonsFrame(FXTabBook* tabbook) {
     new FXTabItem(tabbook, "Persons", nullptr, GUIDesignViewSettingsTabItemBook1);
     FXScrollWindow* scrollWindow = new FXScrollWindow(tabbook);
@@ -1913,7 +1913,7 @@ GUIDialog_ViewSettings::buildPersonsFrame(FXTabBook* tabbook) {
 }
 
 
-void 
+void
 GUIDialog_ViewSettings::buildContainersFrame(FXTabBook* tabbook) {
     new FXTabItem(tabbook, "Containers", nullptr, GUIDesignViewSettingsTabItemBook1);
     FXScrollWindow* scrollWindow = new FXScrollWindow(tabbook);
@@ -1952,7 +1952,7 @@ GUIDialog_ViewSettings::buildContainersFrame(FXTabBook* tabbook) {
 }
 
 
-void 
+void
 GUIDialog_ViewSettings::buildJunctionsFrame(FXTabBook* tabbook) {
     new FXTabItem(tabbook, "Junctions", nullptr, GUIDesignViewSettingsTabItemBook1);
     FXScrollWindow* scrollWindow = new FXScrollWindow(tabbook);
@@ -1966,7 +1966,7 @@ GUIDialog_ViewSettings::buildJunctionsFrame(FXTabBook* tabbook) {
 
     myJunctionColorSettingFrame = new FXVerticalFrame(verticalFrame, GUIDesignViewSettingsVerticalFrame4);
     myJunctionColorRainbow = new FXButton(verticalFrame, "Recalibrate Rainbow", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                                            (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
+                                          (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
 
     new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
     FXMatrix* m42 = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);
@@ -1991,7 +1991,7 @@ GUIDialog_ViewSettings::buildJunctionsFrame(FXTabBook* tabbook) {
 }
 
 
-void 
+void
 GUIDialog_ViewSettings::buildAdditionalsFrame(FXTabBook* tabbook) {
     new FXTabItem(tabbook, "Additional", nullptr, GUIDesignViewSettingsTabItemBook1);
     FXScrollWindow* scrollWindow = new FXScrollWindow(tabbook);
@@ -2024,7 +2024,7 @@ GUIDialog_ViewSettings::buildAdditionalsFrame(FXTabBook* tabbook) {
 }
 
 
-void 
+void
 GUIDialog_ViewSettings::buildDemandFrame(FXTabBook* tabbook) {
     new FXTabItem(tabbook, "Demand", nullptr, GUIDesignViewSettingsTabItemBook1);
     FXScrollWindow* scrollWindow = new FXScrollWindow(tabbook);
@@ -2071,7 +2071,7 @@ GUIDialog_ViewSettings::buildDemandFrame(FXTabBook* tabbook) {
 }
 
 
-void 
+void
 GUIDialog_ViewSettings::buildPOIsFrame(FXTabBook* tabbook) {
     new FXTabItem(tabbook, "POIs", nullptr, GUIDesignViewSettingsTabItemBook1);
     FXScrollWindow* scrollWindow = new FXScrollWindow(tabbook);
@@ -2106,7 +2106,7 @@ GUIDialog_ViewSettings::buildPOIsFrame(FXTabBook* tabbook) {
 }
 
 
-void 
+void
 GUIDialog_ViewSettings::buildPolygonsFrame(FXTabBook* tabbook) {
     new FXTabItem(tabbook, "Polygons", nullptr, GUIDesignViewSettingsTabItemBook1);
     FXScrollWindow* scrollWindow = new FXScrollWindow(tabbook);
@@ -2189,7 +2189,7 @@ GUIDialog_ViewSettings::buildDataFrame(FXTabBook* tabbook) {
     // rainbow settings
     FXMatrix* m113 = new FXMatrix(verticalFrame2, 3, GUIDesignViewSettingsMatrix3);
     myDataColorRainbow = new FXButton(m113, "Recalibrate Rainbow", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
-            (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
+                                      (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
     myDataColorRainbowCheck = new FXCheckButton(m113, "hide below threshold", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
     myDataColorRainbowThreshold = new FXRealSpinner(m113, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
     myDataColorRainbowThreshold->setRange(-100000000, 100000000);
@@ -2212,7 +2212,7 @@ GUIDialog_ViewSettings::buildDataFrame(FXTabBook* tabbook) {
 }
 
 
-void 
+void
 GUIDialog_ViewSettings::buildLegendFrame(FXTabBook* tabbook) {
     new FXTabItem(tabbook, "Legend", nullptr, GUIDesignViewSettingsTabItemBook1);
     FXScrollWindow* scrollWindow = new FXScrollWindow(tabbook);
@@ -2231,7 +2231,7 @@ GUIDialog_ViewSettings::buildLegendFrame(FXTabBook* tabbook) {
 }
 
 
-void 
+void
 GUIDialog_ViewSettings::buildOpenGLFrame(FXTabBook* tabbook) {
     new FXTabItem(tabbook, "openGL", nullptr, GUIDesignViewSettingsTabItemBook1);
     FXScrollWindow* scrollWindow = new FXScrollWindow(tabbook);
@@ -2254,11 +2254,11 @@ GUIDialog_ViewSettings::buildOpenGLFrame(FXTabBook* tabbook) {
     myForceDrawForRectangleSelection->setCheck(mySettings->forceDrawForRectangleSelection);
     FXMatrix* m87 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
     myRecalculateBoundaries = new FXButton(m87, "Recalcule boundaries", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                                (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
+                                           (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
 }
 
 
-void 
+void
 GUIDialog_ViewSettings::buildButtons(FXVerticalFrame* contentFrame) {
     FXHorizontalFrame* horizontalFrameButtons = new FXHorizontalFrame(contentFrame, GUIDesignViewSettingsHorizontalFrame2);
     FXButton* OK = new FXButton(horizontalFrameButtons, "&OK", nullptr, this, MID_SETTINGS_OK, GUIDesignViewSettingsButton2);

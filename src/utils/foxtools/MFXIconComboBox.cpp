@@ -25,9 +25,9 @@
 #include <config.h>
 
 #ifdef WIN32
-    #define NOMINMAX
-    #include <windows.h>
-    #undef NOMINMAX
+#define NOMINMAX
+#include <windows.h>
+#undef NOMINMAX
 #endif
 
 #include "MFXIconComboBox.h"
@@ -223,7 +223,7 @@ MFXIconComboBox::layout() {
 }
 
 
-FXbool 
+FXbool
 MFXIconComboBox::isEditable() const {
     return myTextFieldIcon->isEditable();
 }
@@ -235,13 +235,13 @@ MFXIconComboBox::setEditable(FXbool edit) {
 }
 
 
-FXString 
+FXString
 MFXIconComboBox::getText() const {
     return myTextFieldIcon->getText();
 }
 
 
-void 
+void
 MFXIconComboBox::setNumColumns(FXint cols) {
     myTextFieldIcon->setNumColumns(cols);
 }
@@ -265,13 +265,13 @@ MFXIconComboBox::getNumVisible() const {
 }
 
 
-void 
+void
 MFXIconComboBox::setNumVisible(FXint nvis) {
     myList->setNumVisible(nvis);
 }
 
 
-FXbool 
+FXbool
 MFXIconComboBox::isItemCurrent(FXint index) const {
     return myList->isItemCurrent(index);
 }
@@ -304,19 +304,19 @@ MFXIconComboBox::setCurrentItem(FXint index, FXbool notify) {
 }
 
 
-FXint 
+FXint
 MFXIconComboBox::getCurrentItem() const {
     return myList->getCurrentItem();
 }
 
 
-FXString 
+FXString
 MFXIconComboBox::getItem(FXint index) const {
     return myList->getItem(index)->getText();
 }
 
 
-FXint 
+FXint
 MFXIconComboBox::setIconItem(FXint index, const FXString& text, FXIcon* icon, FXColor bgColor, void* ptr) {
     if (index < 0 || myList->getNumItems() <= index) {
         fxerror("%s::setItem: index out of range.\n", getClassName());
@@ -332,7 +332,7 @@ MFXIconComboBox::setIconItem(FXint index, const FXString& text, FXIcon* icon, FX
 }
 
 
-FXint 
+FXint
 MFXIconComboBox::insertIconItem(FXint index, const FXString& text, FXIcon* icon, FXColor bgColor, void* ptr) {
     if (index < 0 || myList->getNumItems() < index) {
         fxerror("%s::insertItem: index out of range.\n", getClassName());
@@ -361,7 +361,7 @@ MFXIconComboBox::appendIconItem(const FXString& text, FXIcon* icon, FXColor bgCo
 }
 
 
-bool 
+bool
 MFXIconComboBox::setItem(const FXString& text, FXIcon* icon) {
     for (int i = 0; i < myList->getNumItems(); i++) {
         // cast MFXListItem
@@ -376,7 +376,7 @@ MFXIconComboBox::setItem(const FXString& text, FXIcon* icon) {
 }
 
 
-FXint 
+FXint
 MFXIconComboBox::prependItem(const FXString& text, void* ptr) {
     FXint index = myList->prependItem(text, NULL, ptr);
     if (isItemCurrent(0)) {
@@ -387,7 +387,7 @@ MFXIconComboBox::prependItem(const FXString& text, void* ptr) {
 }
 
 
-FXint 
+FXint
 MFXIconComboBox::moveItem(FXint newindex, FXint oldindex) {
     if (newindex < 0 || myList->getNumItems() <= newindex || oldindex < 0 || myList->getNumItems() <= oldindex) {
         fxerror("%s::moveItem: index out of range.\n", getClassName());
@@ -407,7 +407,7 @@ MFXIconComboBox::moveItem(FXint newindex, FXint oldindex) {
 }
 
 
-void 
+void
 MFXIconComboBox::removeItem(FXint index) {
     FXint current = myList->getCurrentItem();
     myList->removeItem(index);
@@ -443,25 +443,25 @@ MFXIconComboBox::findItemByData(const void* ptr, FXint start, FXuint flgs) const
 }
 
 
-FXString 
+FXString
 MFXIconComboBox::getItemText(FXint index) const {
     return myList->getItemText(index);
 }
 
 
-void 
+void
 MFXIconComboBox::setItemData(FXint index, void* ptr) const {
     myList->setItemData(index, ptr);
 }
 
 
-void* 
+void*
 MFXIconComboBox::getItemData(FXint index) const {
     return myList->getItemData(index);
 }
 
 
-FXbool 
+FXbool
 MFXIconComboBox::isPaneShown() const {
     return myPane->shown();
 }
@@ -484,7 +484,7 @@ MFXIconComboBox::getFont() const {
 }
 
 
-void 
+void
 MFXIconComboBox::setComboStyle(FXuint mode) {
     FXuint opts = (options & ~COMBOBOX_MASK) | (mode & COMBOBOX_MASK);
     if (opts != options) {
@@ -513,39 +513,39 @@ MFXIconComboBox::setJustify(FXuint style) {
 }
 
 
-FXuint 
+FXuint
 MFXIconComboBox::getJustify() const {
     return myTextFieldIcon->getJustify();
 }
 
 
-void 
+void
 MFXIconComboBox::setBackColor(FXColor clr) {
     myTextFieldIcon->setBackColor(clr);
     myList->setBackColor(clr);
 }
 
 
-FXColor 
+FXColor
 MFXIconComboBox::getBackColor() const {
     return myTextFieldIcon->getBackColor();
 }
 
 
-void 
+void
 MFXIconComboBox::setTextColor(FXColor clr) {
     myTextFieldIcon->setTextColor(clr);
     myList->setTextColor(clr);
 }
 
 
-FXColor 
+FXColor
 MFXIconComboBox::getTextColor() const {
     return myTextFieldIcon->getTextColor();
 }
 
 
-void 
+void
 MFXIconComboBox::setSelBackColor(FXColor clr) {
     myTextFieldIcon->setSelBackColor(clr);
     myList->setSelBackColor(clr);
@@ -558,14 +558,14 @@ MFXIconComboBox::getSelBackColor() const {
 }
 
 
-void 
+void
 MFXIconComboBox::setSelTextColor(FXColor clr) {
     myTextFieldIcon->setSelTextColor(clr);
     myList->setSelTextColor(clr);
 }
 
 
-FXColor 
+FXColor
 MFXIconComboBox::getSelTextColor() const {
     return myTextFieldIcon->getSelTextColor();
 }
@@ -583,13 +583,13 @@ MFXIconComboBox::getSortFunc() const {
 }
 
 
-void 
+void
 MFXIconComboBox::setSortFunc(FXListSortFunc func) {
     myList->setSortFunc(func);
 }
 
 
-void 
+void
 MFXIconComboBox::setHelpText(const FXString& txt) {
     myTextFieldIcon->setHelpText(txt);
 }

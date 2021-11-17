@@ -493,16 +493,16 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
         // update pathGeometry depending of first and last segment
         if (segment->isFirstSegment() && segment->isLastSegment()) {
             personPlanGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                                getPathElementDepartValue(), getPathElementArrivalValue(),    // extrem positions
-                                                getPathElementDepartPos(), getPathElementArrivalPos());       // extra positions
+                                              getPathElementDepartValue(), getPathElementArrivalValue(),    // extrem positions
+                                              getPathElementDepartPos(), getPathElementArrivalPos());       // extra positions
         } else if (segment->isFirstSegment()) {
             personPlanGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                                getPathElementDepartValue(), -1,                 // extrem positions
-                                                getPathElementDepartPos(), Position::INVALID);   // extra positions
+                                              getPathElementDepartValue(), -1,                 // extrem positions
+                                              getPathElementDepartPos(), Position::INVALID);   // extra positions
         } else if (segment->isLastSegment()) {
             personPlanGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                                -1, getPathElementArrivalValue(),                // extrem positions
-                                                Position::INVALID, getPathElementArrivalPos());  // extra positions
+                                              -1, getPathElementArrivalValue(),                // extrem positions
+                                              Position::INVALID, getPathElementArrivalPos());  // extra positions
         } else {
             personPlanGeometry = lane->getLaneGeometry();
         }
@@ -652,12 +652,12 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
             // draw lane2lane inspected dotted geometry
             if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
-                                                    pathWidth, 1, false, false);
+                        pathWidth, 1, false, false);
             }
             // draw lane2lane front dotted geometry
             if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), 
-                                                    pathWidth, 1, false, false);
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
+                        pathWidth, 1, false, false);
             }
         }
     }

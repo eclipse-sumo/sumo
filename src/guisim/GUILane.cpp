@@ -655,8 +655,8 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                                 if (myShapeColors.size() > 0) {
                                     GLHelper::setColor(myShapeColors[i].changedBrightness(51));
                                 }
-                                GLHelper::drawBoxLine(myShape[i], myShapeRotations[i] +90, myWidth / 3, 0.2, 0);
-                                GLHelper::drawBoxLine(myShape[i], myShapeRotations[i] -90, myWidth / 3, 0.2, 0);
+                                GLHelper::drawBoxLine(myShape[i], myShapeRotations[i] + 90, myWidth / 3, 0.2, 0);
+                                GLHelper::drawBoxLine(myShape[i], myShapeRotations[i] - 90, myWidth / 3, 0.2, 0);
                             }
                         }
                         if (s.showLinkDecals && !drawRails && !drawAsWaterway(s) && myPermissions != SVC_PEDESTRIAN) {
@@ -995,7 +995,7 @@ GUILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& view) {
 }
 
 
-double 
+double
 GUILane::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
     return 1;
 }
@@ -1075,7 +1075,8 @@ GUILane::getColorValueWithFunctional(const GUIVisualizationSettings& s, int acti
         case 18: {
             return GeomHelper::naviDegree(myShape.beginEndAngle()); // [0-360]
         }
-        default: return getColorValue(s, activeScheme);
+        default:
+            return getColorValue(s, activeScheme);
     }
 
 }

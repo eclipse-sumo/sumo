@@ -172,8 +172,8 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                             if ((*it)->getPermissions() != SVC_PEDESTRIAN) {
                                 if (getLogicType() != TrafficLightType::NEMA) {
                                     WRITE_WARNING("Missing yellow phase in tlLogic '" + getID()
-                                            + "', program '" + getProgramID() + "' for tl-index " + toString(j)
-                                            + " when switching" + optionalFrom + " to phase " + toString(iNext));
+                                                  + "', program '" + getProgramID() + "' for tl-index " + toString(j)
+                                                  + " when switching" + optionalFrom + " to phase " + toString(iNext));
                                     // one warning per program is enough
                                     haveWarned = true;
                                 }
@@ -195,7 +195,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
             if (!foundGreen[j]) {
                 if (getLogicType() != TrafficLightType::NEMA) {
                     WRITE_WARNING("Missing green phase in tlLogic '" + getID()
-                            + "', program '" + getProgramID() + "' for tl-index " + toString(j));
+                                  + "', program '" + getProgramID() + "' for tl-index " + toString(j));
                 }
                 break;
             }

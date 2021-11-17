@@ -304,9 +304,9 @@ MSInductLoop::notifyMovePerson(MSTransportable* p, int dir, double pos) {
     if (personApplies(*p, dir)) {
         const double newSpeed = p->getSpeed();
         const double newPos = (dir == MSPModel::FORWARD
-                ? pos
-                // position relative to detector
-                : myPosition - (pos - myPosition));
+                               ? pos
+                               // position relative to detector
+                               : myPosition - (pos - myPosition));
         const double oldPos = newPos - SPEED2DIST(newSpeed);
         if (oldPos - p->getVehicleType().getLength() <= myPosition) {
             notifyMove(*p, oldPos, newPos, newSpeed);

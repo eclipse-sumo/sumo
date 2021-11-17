@@ -254,8 +254,8 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelect
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route) :
     GNEDemandElement(vehicleID, net, (tag == GNE_TAG_FLOW_ROUTE) ? GLO_ROUTEFLOW : GLO_VEHICLE, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {}, {}, {}, {}, {}, {vehicleType, route}, {}),
-    SUMOVehicleParameter() {
+{}, {}, {}, {}, {}, {}, {vehicleType, route}, {}),
+SUMOVehicleParameter() {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleID;
     // set manually vtypeID (needed for saving)
@@ -265,8 +265,8 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, net, (tag == GNE_TAG_FLOW_ROUTE) ? GLO_ROUTEFLOW : GLO_VEHICLE, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {}, {}, {}, {}, {}, {vehicleType, route}, {}),
-    SUMOVehicleParameter(vehicleParameters) {
+{}, {}, {}, {}, {}, {}, {vehicleType, route}, {}),
+SUMOVehicleParameter(vehicleParameters) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleParameters.id;
     // set manually vtypeID (needed for saving)
@@ -276,8 +276,8 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleTyp
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleType, const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, net, (tag == GNE_TAG_VEHICLE_WITHROUTE) ? GLO_VEHICLE : GLO_ROUTEFLOW, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {}, {}, {}, {}, {}, {vehicleType}, {}),
-    SUMOVehicleParameter(vehicleParameters) {
+{}, {}, {}, {}, {}, {}, {vehicleType}, {}),
+SUMOVehicleParameter(vehicleParameters) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleParameters.id;
     // reset routeid
@@ -290,8 +290,8 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleTyp
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge,
                        const std::vector<GNEEdge*>& via) :
     GNEDemandElement(vehicleID, net, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {fromEdge, toEdge}, {}, {}, {}, {}, {vehicleType}, {}),
-    SUMOVehicleParameter() {
+{}, {fromEdge, toEdge}, {}, {}, {}, {}, {vehicleType}, {}),
+SUMOVehicleParameter() {
     // set via parameter without updating references
     replaceMiddleParentEdges(toString(via), false);
 }
@@ -300,8 +300,8 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via,
                        const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, net, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {fromEdge, toEdge}, {}, {}, {}, {}, {vehicleType}, {}),
-    SUMOVehicleParameter(vehicleParameters) {
+{}, {fromEdge, toEdge}, {}, {}, {}, {}, {vehicleType}, {}),
+SUMOVehicleParameter(vehicleParameters) {
     // set via parameter without updating references
     replaceMiddleParentEdges(toString(via), false);
 }
@@ -338,7 +338,7 @@ GNEVehicle::getMoveOperation() {
 std::string
 GNEVehicle::getBegin() const {
     // obtain depart
-    std::string departStr = depart < 0? "0.00" : time2string(depart);
+    std::string departStr = depart < 0 ? "0.00" : time2string(depart);
     // we need to handle depart as a tuple of 20 numbers (format: 000000...00<departTime>)
     departStr.reserve(20 - departStr.size());
     // add 0s at the beginning of departStr until we have 20 numbers
@@ -555,7 +555,7 @@ GNEVehicle::getParentName() const {
 }
 
 
-double 
+double
 GNEVehicle::getExaggeration(const GUIVisualizationSettings& s) const {
     return s.vehicleSize.getExaggeration(s, this);
 }
@@ -780,16 +780,16 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         // update pathGeometry depending of first and last segment
         if (segment->isFirstSegment() && segment->isLastSegment()) {
             vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                            geometryDepartPos, geometryEndPos,      // extrem positions
-                                            Position::INVALID, Position::INVALID);  // extra positions
+                                           geometryDepartPos, geometryEndPos,      // extrem positions
+                                           Position::INVALID, Position::INVALID);  // extra positions
         } else if (segment->isFirstSegment()) {
             vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                            geometryDepartPos, -1,                  // extrem positions
-                                            Position::INVALID, Position::INVALID);  // extra positions
+                                           geometryDepartPos, -1,                  // extrem positions
+                                           Position::INVALID, Position::INVALID);  // extra positions
         } else if (segment->isLastSegment()) {
             vehicleGeometry.updateGeometry(lane->getLaneGeometry().getShape(),
-                                            -1, geometryEndPos,                     // extrem positions
-                                            Position::INVALID, Position::INVALID);  // extra positions
+                                           -1, geometryEndPos,                     // extrem positions
+                                           Position::INVALID, Position::INVALID);  // extra positions
         } else {
             vehicleGeometry = lane->getLaneGeometry();
         }
@@ -909,13 +909,13 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* from
             if (fromLane->getLane2laneConnections().exist(toLane)) {
                 // draw inspected dotted contour
                 if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                    GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), 
-                                                        width, 1, false, false, 0.1);
+                    GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
+                            width, 1, false, false, 0.1);
                 }
                 // draw front dotted contour
                 if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-                    GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), 
-                                                        width, 1, false, false, 0.1);
+                    GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
+                            width, 1, false, false, 0.1);
                 }
             }
         }
@@ -1974,14 +1974,14 @@ GNEVehicle::setEnabledAttribute(const int enabledAttributes) {
 
 void
 GNEVehicle::setMoveShape(const GNEMoveResult& moveResult) {
-    if ((moveResult.newFirstPos != INVALID_DOUBLE) && 
-        (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST)) {
+    if ((moveResult.newFirstPos != INVALID_DOUBLE) &&
+            (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVEFIRST)) {
         // change depart
         departPosProcedure = DepartPosDefinition::GIVEN;
         departPos = moveResult.newFirstPos;
-    }     
+    }
     if ((moveResult.operationType == GNEMoveOperation::OperationType::ONE_LANE_MOVESECOND) ||
-               (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVESECOND)) {
+            (moveResult.operationType == GNEMoveOperation::OperationType::TWO_LANES_MOVESECOND)) {
         // change arrival
         arrivalPosProcedure = ArrivalPosDefinition::GIVEN;
         arrivalPos = moveResult.newFirstPos;

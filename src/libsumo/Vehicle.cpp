@@ -296,7 +296,7 @@ Vehicle::getLeader(const std::string& vehID, double dist) {
                 && (!veh->getLane()->isInternal()
                     || (veh->getLane()->getLinkCont().front()->getIndex() != leaderInfo.first->getLane()->getLinkCont().front()->getIndex()))) {
             // leader is a linkLeader (see MSLink::getLeaderInfo)
-            // avoid internal gap values which may be negative (or -inf) 
+            // avoid internal gap values which may be negative (or -inf)
             gap = MAX2(0.0, gap);
         }
         return std::make_pair(leaderID, gap);
@@ -1629,7 +1629,7 @@ Vehicle::moveTo(const std::string& vehID, const std::string& laneID, double posi
     if (!veh->isOnRoad() && veh->getParameter().wasSet(VEHPARS_FORCE_REROUTE) && veh->getRoute().getEdges().size() == 2) {
         // it's a trip that wasn't routeted yet (likely because the vehicle was added in this step. Find a route now
         veh->reroute(MSNet::getInstance()->getCurrentTimeStep(), "traci:moveTo-tripInsertion",
-                veh->getBaseInfluencer().getRouterTT(veh->getRNGIndex(), veh->getVClass()), true);
+                     veh->getBaseInfluencer().getRouterTT(veh->getRNGIndex(), veh->getVClass()), true);
     }
     // find edge in the remaining route
     MSRouteIterator it = std::find(veh->getCurrentRouteEdge(), veh->getRoute().end(), destinationRouteEdge);

@@ -424,7 +424,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
         // check if attribute can be parsed in a list of Ids
         std::vector<std::string> vehicleIDs = GNEAttributeCarrier::parse<std::vector<std::string> >(myValueTextField->getText().text());
         // check every ID
-        for (const auto &vehicleID : vehicleIDs) {
+        for (const auto& vehicleID : vehicleIDs) {
             if (!SUMOXMLDefinitions::isValidVehicleID(vehicleID)) {
                 myInvalidValue = "invalid id used in " + myAttrProperties.getAttrStr();
             }
@@ -567,7 +567,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::checkComplexAttribute(const std:
 std::string
 GNEFrameAttributesModuls::AttributesCreatorRow::generateID() const {
     // get attribute carriers
-    const auto &GNEAttributeCarriers = myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers();
+    const auto& GNEAttributeCarriers = myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers();
     // continue depending of type
     if (myAttrProperties.getTagPropertyParent().isShape()) {
         return GNEAttributeCarriers->generateShapeID(myAttrProperties.getTagPropertyParent().getXMLTag());
@@ -612,7 +612,7 @@ GNEFrameAttributesModuls::AttributesCreator::showAttributesCreatorModul(const GN
     // set current tag Properties
     myTagProperties = tagProperties;
     // first destroy all rows
-    for (auto &row : myAttributesCreatorRows) {
+    for (auto& row : myAttributesCreatorRows) {
         // destroy and delete all rows
         if (row != nullptr) {
             row->destroy();
@@ -623,7 +623,7 @@ GNEFrameAttributesModuls::AttributesCreator::showAttributesCreatorModul(const GN
     // now declare a flag to show Flow editor
     bool showFlowEditor = false;
     // iterate over tag attributes and create AttributesCreatorRows for every attribute
-    for (const auto &attribute : myTagProperties) {
+    for (const auto& attribute : myTagProperties) {
         // declare falg to check conditions for show attribute
         bool showAttribute = true;
         // check that only non-unique attributes (except ID) are created (And depending of includeExtendedAttributes)
@@ -645,7 +645,7 @@ GNEFrameAttributesModuls::AttributesCreator::showAttributesCreatorModul(const GN
         }
         // check special case for VType IDs in vehicle Frame
         if ((attribute.getAttr() == SUMO_ATTR_TYPE) && (myFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) &&
-            (myFrameParent->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_VEHICLE)) {
+                (myFrameParent->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_VEHICLE)) {
             showAttribute = false;
         }
         // show attribute depending of showAttribute flag
@@ -686,9 +686,9 @@ GNEFrameAttributesModuls::AttributesCreator::getFrameParent() const {
 void
 GNEFrameAttributesModuls::AttributesCreator::getAttributesAndValues(CommonXMLStructure::SumoBaseObject* baseObject, bool includeAll) const {
     // get standard parameters
-    for (const auto &row : myAttributesCreatorRows) {
+    for (const auto& row : myAttributesCreatorRows) {
         if (row && row->getAttrProperties().getAttr() != SUMO_ATTR_NOTHING) {
-            const auto &attrProperties = row->getAttrProperties();
+            const auto& attrProperties = row->getAttrProperties();
             // flag for row enabled
             bool rowEnabled = row->isAttributesCreatorRowEnabled();
             // flag for default attributes
@@ -739,7 +739,7 @@ void
 GNEFrameAttributesModuls::AttributesCreator::showWarningMessage(std::string extra) const {
     std::string errorMessage;
     // iterate over standar parameters
-    for (const auto &attribute : myTagProperties) {
+    for (const auto& attribute : myTagProperties) {
         if (errorMessage.empty() && myAttributesCreatorRows.at(attribute.getPositionListed())) {
             // Return string with the error if at least one of the parameter isn't valid
             std::string attributeValue = myAttributesCreatorRows.at(attribute.getPositionListed())->isAttributeValid();
@@ -765,7 +765,7 @@ GNEFrameAttributesModuls::AttributesCreator::showWarningMessage(std::string extr
 bool
 GNEFrameAttributesModuls::AttributesCreator::areValuesValid() const {
     // iterate over standar parameters
-    for (const auto &attribute : myTagProperties) {
+    for (const auto& attribute : myTagProperties) {
         // Return false if error message of attriuve isn't empty
         if (myAttributesCreatorRows.at(attribute.getPositionListed()) && myAttributesCreatorRows.at(attribute.getPositionListed())->isAttributeValid().size() != 0) {
             return false;
@@ -1054,7 +1054,7 @@ GNEFrameAttributesModuls::AttributesCreatorFlow::onCmdSelectFlowRadioButton(FXOb
 // GNEFrameAttributesModuls::AttributesEditorRow - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttributesModuls::AttributesEditor* attributeEditorParent, const GNEAttributeProperties& ACAttr, 
+GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttributesModuls::AttributesEditor* attributeEditorParent, const GNEAttributeProperties& ACAttr,
         const std::string& value, const bool attributeEnabled, const bool computed) :
     FXHorizontalFrame(attributeEditorParent, GUIDesignAuxiliarHorizontalFrame),
     myAttributesEditorParent(attributeEditorParent),
@@ -1151,7 +1151,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 booleanVector = GNEAttributeCarrier::parse<std::vector<bool> >(value);
             }
             // iterate over pased booleans comparing all element with the first
-            for (const auto &booleanValue : booleanVector) {
+            for (const auto& booleanValue : booleanVector) {
                 if (booleanValue != booleanVector.front()) {
                     allBooleanValuesEqual = false;
                 }
@@ -1199,7 +1199,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
             } else if (!myMultiple) {
                 // fill comboBox
                 myValueComboBoxChoices->clearItems();
-                for (const auto &discreteValue : myACAttr.getDiscreteValues()) {
+                for (const auto& discreteValue : myACAttr.getDiscreteValues()) {
                     myValueComboBoxChoices->appendItem(discreteValue.c_str());
                 }
                 // show combo box with values
@@ -1250,7 +1250,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::destroy() {
 
 
 void
-GNEFrameAttributesModuls::AttributesEditorRow::refreshAttributesEditorRow(const std::string& value, 
+GNEFrameAttributesModuls::AttributesEditorRow::refreshAttributesEditorRow(const std::string& value,
         const bool forceRefresh, const bool attributeEnabled, const bool computed) {
     // start enabling all elements, depending if attribute is enabled
     if (attributeEnabled == false) {
@@ -1295,7 +1295,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::refreshAttributesEditorRow(const 
     } else if (myValueComboBoxChoices->shown()) {
         // fill comboBox again
         myValueComboBoxChoices->clearItems();
-        for (const auto &discreteValue : myACAttr.getDiscreteValues()) {
+        for (const auto& discreteValue : myACAttr.getDiscreteValues()) {
             myValueComboBoxChoices->appendItem(discreteValue.c_str());
         }
         // show combo box with values
@@ -1320,14 +1320,14 @@ GNEFrameAttributesModuls::AttributesEditorRow::refreshAttributesEditorRow(const 
 
 bool
 GNEFrameAttributesModuls::AttributesEditorRow::isAttributesEditorRowValid() const {
-    return ((myValueTextField->getTextColor() == FXRGB(0, 0, 0)) || (myValueTextField->getTextColor() == FXRGB(0, 0, 255))) && 
+    return ((myValueTextField->getTextColor() == FXRGB(0, 0, 0)) || (myValueTextField->getTextColor() == FXRGB(0, 0, 255))) &&
            ((myValueComboBoxChoices->getTextColor() == FXRGB(0, 0, 0)) || (myValueComboBoxChoices->getTextColor() == FXRGB(0, 0, 255)));
 }
 
 
 long
 GNEFrameAttributesModuls::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject* obj, FXSelector, void*) {
-    const auto &ACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
+    const auto& ACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
     if (obj == myAttributeColorButton) {
         // create FXColorDialog
         FXColorDialog colordialog(this, tr("Color Dialog"));
@@ -1350,7 +1350,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
                     myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->begin(ACs.front()->getTagProperty().getGUIIcon(), "Change multiple attributes");
                 }
                 // Set new value of attribute in all selected ACs
-                for (const auto &inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
+                for (const auto& inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
                     inspectedAC->setAttribute(myACAttr.getAttr(), newValue, myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList());
                 }
                 // If previously value was incorrect, change font color to black
@@ -1374,7 +1374,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
         if (acceptChanges) {
             std::string allowed = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getAttribute(modifiedAttr);
             // Set new value of attribute in all selected ACs
-            for (const auto &inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
+            for (const auto& inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
                 inspectedAC->setAttribute(modifiedAttr, allowed, myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList());
             }
             // finish change multiple attributes
@@ -1458,7 +1458,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
         newVal = stripWhitespaceAfterComma(newVal);
     }
     // get inspected ACs (for code cleaning)
-    const auto &inspectedACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
+    const auto& inspectedACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
     // Check if attribute must be changed
     if ((inspectedACs.size() > 0) && inspectedACs.front()->isValid(myACAttr.getAttr(), newVal)) {
         // check if we're merging junction
@@ -1471,7 +1471,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
                 myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->begin(inspectedACs.front()->getTagProperty().getGUIIcon(), "change " + myACAttr.getTagPropertyParent().getTagStr() + " attribute");
             }
             // Set new value of attribute in all selected ACs
-            for (const auto &inspectedAC : inspectedACs) {
+            for (const auto& inspectedAC : inspectedACs) {
                 inspectedAC->setAttribute(myACAttr.getAttr(), newVal, myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList());
             }
             // finish change multiple attributes or ID Attributes
@@ -1516,7 +1516,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
 
 long
 GNEFrameAttributesModuls::AttributesEditorRow::onCmdSelectCheckButton(FXObject*, FXSelector, void*) {
-    const auto &ACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
+    const auto& ACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
     // obtain undoList (To improve code legibly)
     GNEUndoList* undoList = myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList();
     // check if we have to enable or disable
@@ -1565,7 +1565,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::mergeJunction(SumoXMLAttr attr, c
         // parse position
         const Position newPosition = GNEAttributeCarrier::parse<Position>(newVal);
         // iterate over network junction
-        for (const auto &junction : myAttributesEditorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->getJunctions()) {
+        for (const auto& junction : myAttributesEditorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->getJunctions()) {
             // check distance position
             if ((junction.second->getPositionInView().distanceTo2D(newPosition) < POSITION_EPS) &&
                     myAttributesEditorParent->getFrameParent()->getViewNet()->mergeJunctions(movedJunction, junction.second)) {
@@ -1600,7 +1600,7 @@ void
 GNEFrameAttributesModuls::AttributesEditor::showAttributeEditorModul(bool includeExtended, bool forceAttributeEnabled) {
     myIncludeExtended = includeExtended;
     // first remove all rows
-    for (auto &row : myAttributesEditorRows) {
+    for (auto& row : myAttributesEditorRows) {
         // destroy and delete all rows
         if (row != nullptr) {
             row->destroy();
@@ -1609,12 +1609,12 @@ GNEFrameAttributesModuls::AttributesEditor::showAttributeEditorModul(bool includ
         }
     }
     // get inspected ACs
-    const auto &ACs = myFrameParent->getViewNet()->getInspectedAttributeCarriers();
+    const auto& ACs = myFrameParent->getViewNet()->getInspectedAttributeCarriers();
     // declare flag to check if flow editor has to be shown
     bool showFlowEditor = false;
     if (ACs.size() > 0) {
         // Iterate over attributes
-        for (const auto &attrProperty : ACs.front()->getTagProperty()) {
+        for (const auto& attrProperty : ACs.front()->getTagProperty()) {
             // declare flag to show/hidde atribute
             bool editAttribute = true;
             // disable editing for unique attributes in case of multi-selection
@@ -1635,7 +1635,7 @@ GNEFrameAttributesModuls::AttributesEditor::showAttributeEditorModul(bool includ
                 // Declare a set of occuring values and insert attribute's values of item (note: We use a set to avoid repeated values)
                 std::set<std::string> occuringValues;
                 // iterate over edited attributes
-                for (const auto &inspectedAC : ACs) {
+                for (const auto& inspectedAC : ACs) {
                     occuringValues.insert(inspectedAC->getAttribute(attrProperty.getAttr()));
                 }
                 // get current value
@@ -1667,7 +1667,7 @@ GNEFrameAttributesModuls::AttributesEditor::showAttributeEditorModul(bool includ
                     attributeEnabled = true;
                 }
                 // check if this attribute is computed
-                const bool computed = (ACs.size() > 1)? false : ACs.front()->isAttributeComputed(attrProperty.getAttr());
+                const bool computed = (ACs.size() > 1) ? false : ACs.front()->isAttributeComputed(attrProperty.getAttr());
                 // create attribute editor row
                 myAttributesEditorRows[attrProperty.getPositionListed()] = new AttributesEditorRow(this, attrProperty, value, attributeEnabled, computed);
             }
@@ -1700,11 +1700,11 @@ GNEFrameAttributesModuls::AttributesEditor::hideAttributesEditorModul() {
 void
 GNEFrameAttributesModuls::AttributesEditor::refreshAttributeEditor(bool forceRefreshShape, bool forceRefreshPosition) {
     // get inspected ACs
-    const auto &ACs = myFrameParent->getViewNet()->getInspectedAttributeCarriers();
+    const auto& ACs = myFrameParent->getViewNet()->getInspectedAttributeCarriers();
     // first check if there is inspected attribute carriers
     if (ACs.size() > 0) {
         // Iterate over inspected attribute carriers
-        for (const auto &attrProperty : ACs.front()->getTagProperty()) {
+        for (const auto& attrProperty : ACs.front()->getTagProperty()) {
             // declare flag to show/hidde atribute
             bool editAttribute = true;
             // disable editing for unique attributes in case of multi-selection
@@ -1724,7 +1724,7 @@ GNEFrameAttributesModuls::AttributesEditor::refreshAttributeEditor(bool forceRef
                 // Declare a set of occuring values and insert attribute's values of item (note: We use a set to avoid repeated values)
                 std::set<std::string> occuringValues;
                 // iterate over edited attributes
-                for (const auto &inspectedAC : ACs) {
+                for (const auto& inspectedAC : ACs) {
                     occuringValues.insert(inspectedAC->getAttribute(attrProperty.getAttr()));
                 }
                 // get current value
@@ -1752,7 +1752,7 @@ GNEFrameAttributesModuls::AttributesEditor::refreshAttributeEditor(bool forceRef
                     }
                 }
                 // check if this attribute is computed
-                const bool computed = (ACs.size() > 1)? false : ACs.front()->isAttributeComputed(attrProperty.getAttr());
+                const bool computed = (ACs.size() > 1) ? false : ACs.front()->isAttributeComputed(attrProperty.getAttr());
                 // Check if Position or Shape refresh has to be forced
                 if ((attrProperty.getAttr() == SUMO_ATTR_SHAPE) && forceRefreshShape) {
                     myAttributesEditorRows[attrProperty.getPositionListed()]->refreshAttributesEditorRow(value, true, attributeEnabled, computed);
@@ -1862,7 +1862,7 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshAttributeEditorFlow() {
 
 long
 GNEFrameAttributesModuls::AttributesEditorFlow::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
-    const auto &ACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
+    const auto& ACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
     // obtain undoList (To improve code legibly)
     GNEUndoList* undoList = myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList();
     SumoXMLAttr attr = SUMO_ATTR_NOTHING;
@@ -1898,7 +1898,7 @@ GNEFrameAttributesModuls::AttributesEditorFlow::onCmdSetFlowAttribute(FXObject* 
         undoList->begin(ACs.front()->getTagProperty().getGUIIcon(), "Change multiple " + toString(attr) + " attributes");
     }
     // enable attribute with undo/redo
-    for (const auto &inspectedAC : ACs) {
+    for (const auto& inspectedAC : ACs) {
         inspectedAC->setAttribute(attr, value, undoList);
     }
     // check if we're editing multiple attributes
@@ -1913,7 +1913,7 @@ GNEFrameAttributesModuls::AttributesEditorFlow::onCmdSetFlowAttribute(FXObject* 
 
 long
 GNEFrameAttributesModuls::AttributesEditorFlow::onCmdSelectFlowRadioButton(FXObject* obj, FXSelector, void*) {
-    const auto &ACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
+    const auto& ACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
     // obtain undoList (To improve code legibly)
     GNEUndoList* undoList = myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList();
     SumoXMLAttr attr = SUMO_ATTR_NOTHING;
@@ -1940,7 +1940,7 @@ GNEFrameAttributesModuls::AttributesEditorFlow::onCmdSelectFlowRadioButton(FXObj
         undoList->begin(ACs.front()->getTagProperty().getGUIIcon(), "enable attribute '" + toString(attr) + "'");
     }
     // enable attribute with undo/redo
-    for (const auto &inspectedAC : ACs) {
+    for (const auto& inspectedAC : ACs) {
         inspectedAC->enableAttribute(attr, undoList);
     }
     // end undoList
@@ -1955,18 +1955,18 @@ void
 GNEFrameAttributesModuls::AttributesEditorFlow::refreshEnd() {
     // first we need to check if all attributes are enabled or disabled
     int allAttributesEnabledOrDisabled = 0;
-    for (const auto &inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
+    for (const auto& inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
         allAttributesEnabledOrDisabled += inspectedAC->isAttributeEnabled(SUMO_ATTR_END);
     }
     if (allAttributesEnabledOrDisabled == (int)myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size()) {
         // Declare a set of occuring values and insert attribute's values of item
         std::set<std::string> occuringValues;
-        for (const auto &values : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
+        for (const auto& values : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
             occuringValues.insert(values->getAttribute(SUMO_ATTR_END));
         }
         // get current value
         std::ostringstream endValue;
-        for (const auto &occuringValue : occuringValues) {
+        for (const auto& occuringValue : occuringValues) {
             if (occuringValue != *occuringValues.begin()) {
                 endValue << " ";
             }
@@ -1996,18 +1996,18 @@ void
 GNEFrameAttributesModuls::AttributesEditorFlow::refreshNumber() {
     // first we need to check if all attributes are enabled or disabled
     int allAttributesEnabledOrDisabled = 0;
-    for (const auto &inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
+    for (const auto& inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
         allAttributesEnabledOrDisabled += inspectedAC->isAttributeEnabled(SUMO_ATTR_NUMBER);
     }
     if (allAttributesEnabledOrDisabled == (int)myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size()) {
         // Declare a set of occuring values and insert attribute's values of item
         std::set<std::string> occuringValues;
-        for (const auto &inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
+        for (const auto& inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
             occuringValues.insert(inspectedAC->getAttribute(SUMO_ATTR_NUMBER));
         }
         // get current value
         std::ostringstream numberValues;
-        for (const auto &occuringValue : occuringValues) {
+        for (const auto& occuringValue : occuringValues) {
             if (occuringValue != *occuringValues.begin()) {
                 numberValues << " ";
             }
@@ -2045,18 +2045,18 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshVehsPerHour() {
     myAttributeVehsPerHourRadioButton->setText(toString(attr).c_str());
     // we need to check if all attributes are enabled or disabled
     int allAttributesEnabledOrDisabled = 0;
-    for (const auto &inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
+    for (const auto& inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
         allAttributesEnabledOrDisabled += inspectedAC->isAttributeEnabled(attr);
     }
     if (allAttributesEnabledOrDisabled == (int)myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size()) {
         // Declare a set of occuring values and insert attribute's values of item
         std::set<std::string> occuringValues;
-        for (const auto &inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
+        for (const auto& inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
             occuringValues.insert(inspectedAC->getAttribute(attr));
         }
         // get current value
         std::ostringstream vehsPerHourValues;
-        for (const auto &occuringValue : occuringValues) {
+        for (const auto& occuringValue : occuringValues) {
             if (occuringValue != *occuringValues.begin()) {
                 vehsPerHourValues << " ";
             }
@@ -2086,18 +2086,18 @@ void
 GNEFrameAttributesModuls::AttributesEditorFlow::refreshPeriod() {
     // first we need to check if all attributes are enabled or disabled
     int allAttributesEnabledOrDisabled = 0;
-    for (const auto &inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
+    for (const auto& inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
         allAttributesEnabledOrDisabled += inspectedAC->isAttributeEnabled(SUMO_ATTR_PERIOD);
     }
     if (allAttributesEnabledOrDisabled == (int)myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size()) {
         // Declare a set of occuring values and insert attribute's values of item
         std::set<std::string> occuringValues;
-        for (const auto &inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
+        for (const auto& inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
             occuringValues.insert(inspectedAC->getAttribute(SUMO_ATTR_PERIOD));
         }
         // get current value
         std::ostringstream periodValues;
-        for (const auto &occuringValue : occuringValues) {
+        for (const auto& occuringValue : occuringValues) {
             if (occuringValue != *occuringValues.begin()) {
                 periodValues << " ";
             }
@@ -2127,18 +2127,18 @@ void
 GNEFrameAttributesModuls::AttributesEditorFlow::refreshProbability() {
     // first we need to check if all attributes are enabled or disabled
     int allAttributesEnabledOrDisabled = 0;
-    for (const auto &inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
+    for (const auto& inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
         allAttributesEnabledOrDisabled += inspectedAC->isAttributeEnabled(SUMO_ATTR_PROB);
     }
     if (allAttributesEnabledOrDisabled == (int)myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size()) {
         // Declare a set of occuring values and insert attribute's values of item
         std::set<std::string> occuringValues;
-        for (const auto &inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
+        for (const auto& inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
             occuringValues.insert(inspectedAC->getAttribute(SUMO_ATTR_PROB));
         }
         // get current value
         std::ostringstream probabilityValues;
-        for (const auto &occuringValue : occuringValues) {
+        for (const auto& occuringValue : occuringValues) {
             if (occuringValue != *occuringValues.begin()) {
                 probabilityValues << " ";
             }
@@ -2247,7 +2247,7 @@ std::string
 GNEFrameAttributesModuls::ParametersEditorCreator::getParametersStr() const {
     std::string result;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
-    for (const auto &parameter : myParameters) {
+    for (const auto& parameter : myParameters) {
         result += parameter.first + "=" + parameter.second + "|";
     }
     // remove the last "|"
@@ -2262,7 +2262,7 @@ std::vector<std::pair<std::string, std::string> >
 GNEFrameAttributesModuls::ParametersEditorCreator::getParameters() const {
     std::vector<std::pair<std::string, std::string> > result;
     // Generate a vector string using the following structure: "<key1,value1>, <key2, value2>,...
-    for (const auto &parameter : myParameters) {
+    for (const auto& parameter : myParameters) {
         result.push_back(std::make_pair(parameter.first, parameter.second));
     }
     return result;
@@ -2274,7 +2274,7 @@ GNEFrameAttributesModuls::ParametersEditorCreator::setParameters(const std::vect
     // declare result string
     std::string result;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
-    for (const auto &parameter : parameters) {
+    for (const auto& parameter : parameters) {
         result += parameter.first + "=" + parameter.second + "|";
     }
     // remove the last "|"
@@ -2321,7 +2321,7 @@ GNEFrameAttributesModuls::ParametersEditorCreator::onCmdSetParameters(FXObject*,
         // obtain parameters "key=value"
         std::vector<std::string> parameters = StringTokenizer(myTextFieldParameters->getText().text(), "|", true).getVector();
         // iterate over parameters
-        for (const auto &parameter : parameters) {
+        for (const auto& parameter : parameters) {
             // obtain key, value
             std::vector<std::string> keyParam = StringTokenizer(parameter, "=", true).getVector();
             // save it in myParameters

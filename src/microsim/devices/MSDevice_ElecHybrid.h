@@ -262,7 +262,7 @@ protected:
     double myMinBatteryCharge;
     double myTotalEnergyConsumed;
     double myTotalEnergyRegenerated;
-    
+
     /// @brief Energy that could not be stored back to the battery or traction station
     /// and was wasted on resistors. This is approximate, we ignore the use of classical
     /// brakes in lower speeds.

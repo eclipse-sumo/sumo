@@ -71,7 +71,7 @@ GUIPointOfInterest::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&)
 }
 
 
-double 
+double
 GUIPointOfInterest::getExaggeration(const GUIVisualizationSettings& s) const {
     return s.poiSize.getExaggeration(s, this);
 }

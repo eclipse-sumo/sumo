@@ -99,7 +99,7 @@ struct GNENetHelper {
         void remapJunctionAndEdgeIds();
 
         /// @brief check if shape of given AC (network element) is around the given shape
-        bool isNetworkElementAroundShape(GNEAttributeCarrier* AC, const PositionVector &shape) const;
+        bool isNetworkElementAroundShape(GNEAttributeCarrier* AC, const PositionVector& shape) const;
 
         /// @name function for attribute carriers
         /// @{
@@ -134,7 +134,7 @@ struct GNENetHelper {
         GNEJunction* retrieveJunction(const std::string& id, bool hardFail = true) const;
 
         /// @brief get junctions
-        const std::map<std::string, GNEJunction*> &getJunctions() const;
+        const std::map<std::string, GNEJunction*>& getJunctions() const;
 
         /// @brief return selected junctions
         std::vector<GNEJunction*> getSelectedJunctions() const;
@@ -163,7 +163,7 @@ struct GNENetHelper {
         GNECrossing* retrieveCrossing(GNEAttributeCarrier* AC, bool hardFail = true) const;
 
         /// @brief get crossings
-        const std::set<GNECrossing*> &getCrossings() const;
+        const std::set<GNECrossing*>& getCrossings() const;
 
         /// @brief return all selected crossings
         std::vector<GNECrossing*> getSelectedCrossings() const;
@@ -220,7 +220,7 @@ struct GNENetHelper {
          * @throws UnknownElement
          */
         GNEEdge* retrieveEdge(GNEJunction* from, GNEJunction* to, bool hardFail = true) const;
-        
+
         /// @brief map with the ID and pointer to edges of net
         const std::map<std::string, GNEEdge*>& getEdges() const;
 
@@ -236,7 +236,7 @@ struct GNENetHelper {
         void clearEdges();
 
         /// @brief update edge ID in container
-        void updateEdgeID(GNEEdge *edge, const std::string& newID);
+        void updateEdgeID(GNEEdge* edge, const std::string& newID);
 
         /// @brief get number of selected edges
         int getNumberOfSelectedEdges() const;
@@ -256,7 +256,7 @@ struct GNENetHelper {
          * @param[in] hardFail Whether attempts to retrieve a nonexisting lane should result in an exception
          * @throws UnknownElement
          */
-        GNELane* retrieveLane(GNEAttributeCarrier *AC, bool hardFail = true) const;
+        GNELane* retrieveLane(GNEAttributeCarrier* AC, bool hardFail = true) const;
 
         /// @brief get lanes
         const std::set<GNELane*>& getLanes() const;
@@ -289,7 +289,7 @@ struct GNENetHelper {
          * @param[in] hardFail Whether attempts to retrieve a nonexisting connection should result in an exception
          * @throws UnknownElement
          */
-        GNEConnection* retrieveConnection(GNEAttributeCarrier *AC, bool hardFail = true) const;
+        GNEConnection* retrieveConnection(GNEAttributeCarrier* AC, bool hardFail = true) const;
 
         /// @brief get connections
         const std::set<GNEConnection*>& getConnections() const;
@@ -506,7 +506,7 @@ struct GNENetHelper {
 
         /// @name function for data sets
         /// @{
-        
+
         /**@brief Returns the named data set
          * @param[in] id The id of the data set to return.
          * @param[in] hardFail Whether attempts to retrieve a nonexisting data set should result in an exception
@@ -521,7 +521,7 @@ struct GNENetHelper {
 
         /// @brief get demand elements
         const std::set<GNEDataSet*>& getDataSets() const;
-        
+
         /// @brief generate data set id
         std::string generateDataSetID(const std::string& prefix) const;
 
@@ -536,7 +536,7 @@ struct GNENetHelper {
         GNEDataInterval* retrieveDataInterval(GNEAttributeCarrier* AC, bool hardFail = true) const;
 
         /// @brief get all data intervals of network
-        const std::set<GNEDataInterval*> &getDataIntervals() const;
+        const std::set<GNEDataInterval*>& getDataIntervals() const;
 
         /// @brief insert data interval
         void insertDataInterval(GNEDataInterval* dataInterval);
@@ -544,7 +544,7 @@ struct GNENetHelper {
         /// @brief delete data interval
         void deleteDataInterval(GNEDataInterval* dataInterval);
 
-         /// @}
+        /// @}
 
         /// @name function for generic datas
         /// @{
@@ -558,7 +558,7 @@ struct GNENetHelper {
         std::vector<GNEGenericData*> getSelectedGenericDatas() const;
 
         /// @brief get all generic datas
-        const std::map<SumoXMLTag, std::set<GNEGenericData*> > &getGenericDatas() const;
+        const std::map<SumoXMLTag, std::set<GNEGenericData*> >& getGenericDatas() const;
 
         /// @brief retrieve generic datas within the given interval
         std::vector<GNEGenericData*> retrieveGenericDatas(const SumoXMLTag genericDataTag, const double begin, const double end);

@@ -31,10 +31,10 @@
 
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNEAdditional* rerouterIntervalParent, GNEAdditional* newParkingArea, double probability, bool visible):
     GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER, SUMO_TAG_PARKING_AREA_REROUTE, "",
-    {}, {}, {}, {rerouterIntervalParent, newParkingArea}, {}, {}, {}, {},
-    std::map<std::string, std::string>()),
+{}, {}, {}, {rerouterIntervalParent, newParkingArea}, {}, {}, {}, {},
+std::map<std::string, std::string>()),
     myProbability(probability),
-    myVisible(visible) {
+myVisible(visible) {
     // update boundary of rerouter parent
     rerouterIntervalParent->getParentAdditionals().front()->updateCenteringBoundary(true);
 }
@@ -93,7 +93,7 @@ GNEParkingAreaReroute::drawGL(const GUIVisualizationSettings& s) const {
     // draw route prob reroute as listed attribute
     drawListedAddtional(s, getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(),
                         1, getParentAdditionals().front()->getDrawPositionIndex(),
-                        RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_PARKINGAREAREROUTE, 
+                        RGBColor::RED, RGBColor::YELLOW, GUITexture::REROUTER_PARKINGAREAREROUTE,
                         getAttribute(SUMO_ATTR_PARKING) + ": " + getAttribute(SUMO_ATTR_PROB));
 }
 

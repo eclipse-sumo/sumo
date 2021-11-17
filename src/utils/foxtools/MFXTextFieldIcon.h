@@ -33,13 +33,13 @@ public:
     MFXTextFieldIcon(FXComposite* p, FXint ncols, FXObject* tgt = NULL, FXSelector sel = 0, FXuint opts = TEXTFIELD_NORMAL, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, FXint pl = DEFAULT_PAD, FXint pr = DEFAULT_PAD, FXint pt = DEFAULT_PAD, FXint pb = DEFAULT_PAD);
 
     /// @brief set icon
-    void setIcon(FXIcon *icon);
+    void setIcon(FXIcon* icon);
 
     /// @brief reset textField
     void resetTextField();
 
     /// @brief paint
-    long onPaint(FXObject*, FXSelector,void* ptr); 
+    long onPaint(FXObject*, FXSelector, void* ptr);
 
 protected:
     /// @brief FOX need this
@@ -49,5 +49,5 @@ protected:
     void drawIconTextRange(FXDCWindow& dc, const FXint iconWidth, FXint fm, FXint to);
 
     /// @brief icon
-    FXIcon *myIcon;
+    FXIcon* myIcon;
 };

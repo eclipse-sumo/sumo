@@ -471,15 +471,15 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* f
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // draw lane2lane dotted geometry
             if (fromLane->getLane2laneConnections().exist(toLane)) {
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), 
-                                                    E2DetectorWidth, 1, false, false);
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
+                        E2DetectorWidth, 1, false, false);
             }
         }
-            if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+        if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
             // draw lane2lane dotted geometry
             if (fromLane->getLane2laneConnections().exist(toLane)) {
-                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), 
-                                                    E2DetectorWidth, 1, false, false);
+                GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
+                        E2DetectorWidth, 1, false, false);
             }
         }
     }
@@ -608,7 +608,7 @@ GNEAdditional::replaceDemandElementParent(SumoXMLTag tag, const std::string& val
 }
 
 
-void 
+void
 GNEAdditional::shiftLaneIndex() {
     // get new lane parent vector
     std::vector<GNELane*> newLane = {getParentLanes().front()->getParentEdge()->getLanes().at(getParentLanes().front()->getIndex() + 1)};
@@ -690,8 +690,8 @@ GNEAdditional::drawSquaredAdditional(const GUIVisualizationSettings& s, const Po
 }
 
 
-void 
-GNEAdditional::drawListedAddtional(const GUIVisualizationSettings& s, const Position& parentPosition, const int offsetX, const int extraOffsetY, 
+void
+GNEAdditional::drawListedAddtional(const GUIVisualizationSettings& s, const Position& parentPosition, const int offsetX, const int extraOffsetY,
                                    const RGBColor baseCol, const RGBColor textCol, GUITexture texture, const std::string text) const {
     // first check if additional has to be drawn
     if (s.drawAdditionals(getExaggeration(s)) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
@@ -708,7 +708,7 @@ GNEAdditional::drawListedAddtional(const GUIVisualizationSettings& s, const Posi
         positionLineA.add(1 + lineOffset + (baseOffsetX * offsetX), positionLineA_Y, 0);
         // calculate lineC position (From middle until current listenAdditional
         Position positionLineB = parentPosition;
-        const double positionLineB_Y= ((drawPositionIndex * -1) - extraOffsetY + baseOffsetY);
+        const double positionLineB_Y = ((drawPositionIndex * -1) - extraOffsetY + baseOffsetY);
         // set position depending of indexes
         positionLineB.add(1 + lineOffset + (baseOffsetX * offsetX) + (2 * lineOffset), positionLineB_Y, 0);
         // calculate signPosition position
@@ -722,9 +722,9 @@ GNEAdditional::drawListedAddtional(const GUIVisualizationSettings& s, const Posi
         // Start drawing adding an gl identificator
         GLHelper::pushName(getGlID());
         // calculate colors
-        const RGBColor baseColor = isAttributeCarrierSelected()? s.colorSettings.selectedAdditionalColor : baseCol;
+        const RGBColor baseColor = isAttributeCarrierSelected() ? s.colorSettings.selectedAdditionalColor : baseCol;
         const RGBColor secondColor = baseColor.changedBrightness(-30);
-        const RGBColor textColor = isAttributeCarrierSelected()? s.colorSettings.selectedAdditionalColor.changedBrightness(30) : textCol;
+        const RGBColor textColor = isAttributeCarrierSelected() ? s.colorSettings.selectedAdditionalColor.changedBrightness(30) : textCol;
         // Add layer matrix
         GLHelper::pushMatrix();
         // translate to front
@@ -745,13 +745,13 @@ GNEAdditional::drawListedAddtional(const GUIVisualizationSettings& s, const Posi
             glRotated(90, 0, 0, 1);
             glTranslated((lenght * -0.5), 0, 0);
             // draw line
-            GLHelper::drawBoxLine(Position(0,0), 0, 0.1, lenght * 0.5);
+            GLHelper::drawBoxLine(Position(0, 0), 0, 0.1, lenght * 0.5);
             // pop middle lane matrix
             GLHelper::popMatrix();
         }
         // draw extern rectangle
         GLHelper::setColor(secondColor);
-        GLHelper::drawBoxLine(signPosition, 0, 0.96, 2.75);    
+        GLHelper::drawBoxLine(signPosition, 0, 0.96, 2.75);
         // move to front
         glTranslated(0, -0.06, 0.1);
         // draw intern rectangle
@@ -808,7 +808,7 @@ GNEAdditional::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) 
 }
 
 
-bool 
+bool
 GNEAdditional::isAttributeComputed(SumoXMLAttr /*key*/) const {
     return false;
 }
@@ -857,56 +857,56 @@ GNEAdditional::getACParametersMap() const {
 
 
 void
-GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGBColor &color, const bool onlySymbols) const {
+GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGBColor& color, const bool onlySymbols) const {
     // check if current additional is inspected, front or selected
     const bool currentDrawEntire = myNet->getViewNet()->isAttributeCarrierInspected(this) ||
-        (myNet->getViewNet()->getFrontAttributeCarrier() == this) || isAttributeCarrierSelected();
+                                   (myNet->getViewNet()->getFrontAttributeCarrier() == this) || isAttributeCarrierSelected();
     // push layer matrix
     GLHelper::pushMatrix();
     // translate to parentChildLine layer
     glTranslated(0, 0, GLO_PARENTCHILDLINE);
     // iterate over parent additionals
-    for (const auto &parent : getParentAdditionals()) {
+    for (const auto& parent : getParentAdditionals()) {
         // get inspected flag
         const bool inspected = myNet->getViewNet()->isAttributeCarrierInspected(parent);
         // draw parent lines
-        GUIGeometry::drawParentLine(s, getPositionInView(), parent->getPositionInView(), 
-            (isAttributeCarrierSelected() || parent->isAttributeCarrierSelected())? s.additionalSettings.connectionColorSelected : color, 
-            currentDrawEntire || inspected || parent->isAttributeCarrierSelected());
+        GUIGeometry::drawParentLine(s, getPositionInView(), parent->getPositionInView(),
+                                    (isAttributeCarrierSelected() || parent->isAttributeCarrierSelected()) ? s.additionalSettings.connectionColorSelected : color,
+                                    currentDrawEntire || inspected || parent->isAttributeCarrierSelected());
     }
     // special case for Parking area reroutes
     if (getTagProperty().getTag() == SUMO_TAG_REROUTER) {
         // iterate over rerouter elements
-        for (const auto &rerouterInterval : getChildAdditionals()) {
-            for (const auto &rerouterElement : rerouterInterval->getChildAdditionals()) {
+        for (const auto& rerouterInterval : getChildAdditionals()) {
+            for (const auto& rerouterElement : rerouterInterval->getChildAdditionals()) {
                 if (rerouterElement->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA_REROUTE) {
                     // get parking area
                     const auto parkingArea = rerouterElement->getParentAdditionals().at(1);
                     // get inspected flag
                     const bool inspected = myNet->getViewNet()->isAttributeCarrierInspected(parkingArea);
                     // draw parent lines
-                    GUIGeometry::drawParentLine(s, getPositionInView(), parkingArea->getPositionInView(), 
-                        (isAttributeCarrierSelected() || parkingArea->isAttributeCarrierSelected())? s.additionalSettings.connectionColorSelected : color, 
-                        currentDrawEntire || inspected || parkingArea->isAttributeCarrierSelected());
+                    GUIGeometry::drawParentLine(s, getPositionInView(), parkingArea->getPositionInView(),
+                                                (isAttributeCarrierSelected() || parkingArea->isAttributeCarrierSelected()) ? s.additionalSettings.connectionColorSelected : color,
+                                                currentDrawEntire || inspected || parkingArea->isAttributeCarrierSelected());
                 }
             }
         }
     }
     // iterate over child additionals
-    for (const auto &child : getChildAdditionals()) {
+    for (const auto& child : getChildAdditionals()) {
         // get inspected flag
         const bool inspected = myNet->getViewNet()->isAttributeCarrierInspected(child);
         // special case for parking zone reroute
         if (child->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA_REROUTE) {
             // draw child line between parking area and rerouter
-            GUIGeometry::drawChildLine(s, getPositionInView(), child->getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(), 
-                (isAttributeCarrierSelected() || child->isAttributeCarrierSelected())? s.additionalSettings.connectionColorSelected : color, 
-                currentDrawEntire || inspected || child->isAttributeCarrierSelected());
+            GUIGeometry::drawChildLine(s, getPositionInView(), child->getParentAdditionals().front()->getParentAdditionals().front()->getPositionInView(),
+                                       (isAttributeCarrierSelected() || child->isAttributeCarrierSelected()) ? s.additionalSettings.connectionColorSelected : color,
+                                       currentDrawEntire || inspected || child->isAttributeCarrierSelected());
         } else if (!onlySymbols || child->getTagProperty().isSymbol()) {
             // draw child line
-            GUIGeometry::drawChildLine(s, getPositionInView(), child->getPositionInView(), 
-                (isAttributeCarrierSelected() || child->isAttributeCarrierSelected())? s.additionalSettings.connectionColorSelected : color, 
-                currentDrawEntire || inspected || child->isAttributeCarrierSelected());
+            GUIGeometry::drawChildLine(s, getPositionInView(), child->getPositionInView(),
+                                       (isAttributeCarrierSelected() || child->isAttributeCarrierSelected()) ? s.additionalSettings.connectionColorSelected : color,
+                                       currentDrawEntire || inspected || child->isAttributeCarrierSelected());
         }
     }
     // pop layer matrix
@@ -914,35 +914,35 @@ GNEAdditional::drawParentChildLines(const GUIVisualizationSettings& s, const RGB
 }
 
 
-void 
-GNEAdditional::drawUpGeometryPoint(const GNEViewNet* viewNet, const Position &pos, const double rot, const RGBColor& baseColor) {
+void
+GNEAdditional::drawUpGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor) {
     drawSemiCircleGeometryPoint(viewNet, pos, rot, baseColor, -90, 90);
 }
 
 
-void 
-GNEAdditional::drawDownGeometryPoint(const GNEViewNet* viewNet, const Position &pos, const double rot, const RGBColor& baseColor) {
+void
+GNEAdditional::drawDownGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor) {
     drawSemiCircleGeometryPoint(viewNet, pos, rot, baseColor, 90, 270);
 }
 
 
-void 
-GNEAdditional::drawLeftGeometryPoint(const GNEViewNet* viewNet, const Position &pos, const double rot, const RGBColor& baseColor) {
+void
+GNEAdditional::drawLeftGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor) {
     drawSemiCircleGeometryPoint(viewNet, pos, rot, baseColor, -90, 90);
 }
 
 
-void 
-GNEAdditional::drawRightGeometryPoint(const GNEViewNet* viewNet, const Position &pos, const double rot, const RGBColor& baseColor) {
+void
+GNEAdditional::drawRightGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor) {
     drawSemiCircleGeometryPoint(viewNet, pos, rot, baseColor, 270, 90);
 }
 
 
-int 
+int
 GNEAdditional::getDrawPositionIndex() const {
     // filter symbols
     std::vector<GNEAdditional*> children;
-    for (const auto &child : getParentAdditionals().front()->getChildAdditionals()) {
+    for (const auto& child : getParentAdditionals().front()->getChildAdditionals()) {
         if (!child->getTagProperty().isSymbol()) {
             children.push_back(child);
         }
@@ -970,12 +970,12 @@ GNEAdditional::setEnabledAttribute(const int /*enabledAttributes*/) {
 }
 
 
-void 
-GNEAdditional::drawSemiCircleGeometryPoint(const GNEViewNet* viewNet, const Position &pos, const double rot, const RGBColor& baseColor, 
+void
+GNEAdditional::drawSemiCircleGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor,
         const double fromAngle, const double toAngle) {
     // first check that we're in move mode and shift key is pressed
     if (viewNet->getEditModes().isCurrentSupermodeNetwork() && (viewNet->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) &&
-        viewNet->getMouseButtonKeyPressed().shiftKeyPressed()) {
+            viewNet->getMouseButtonKeyPressed().shiftKeyPressed()) {
         // calculate new color
         const RGBColor color = baseColor.changedBrightness(-50);
         // push matrix
@@ -990,7 +990,7 @@ GNEAdditional::drawSemiCircleGeometryPoint(const GNEViewNet* viewNet, const Posi
         glTranslated(pos.x(), pos.y(), 0.1);
         glRotated(rot, 0, 0, 1);
         // draw geometry point
-        GLHelper::drawFilledCircle(viewNet->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius, 
+        GLHelper::drawFilledCircle(viewNet->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius,
                                    viewNet->getVisualisationSettings().getCircleResolution(), fromAngle, toAngle);
         // pop geometry point matrix
         GLHelper::popMatrix();
@@ -1000,8 +1000,8 @@ GNEAdditional::drawSemiCircleGeometryPoint(const GNEViewNet* viewNet, const Posi
 }
 
 
-std::string 
-GNEAdditional::adjustListedAdditionalText(const std::string &text) const {
+std::string
+GNEAdditional::adjustListedAdditionalText(const std::string& text) const {
     // 10 + 3 + 10
     if (text.size() <= 23) {
         return text;
@@ -1013,7 +1013,7 @@ GNEAdditional::adjustListedAdditionalText(const std::string &text) const {
         // resize
         partA.reserve(10);
         partB.reserve(10);
-        // fill both 
+        // fill both
         for (int i = 0; i < 10; i++) {
             partA.push_back(text.at(i));
             partB.push_back(text.at(textPosition + i));

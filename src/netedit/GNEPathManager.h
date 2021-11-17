@@ -168,7 +168,7 @@ public:
 
         /// @brief check if pathElement is a data element
         bool isDataElement() const;
-        
+
         /// @brief check if pathElement is a route
         bool isRoute() const;
 
@@ -325,7 +325,7 @@ public:
 
     /// @brief draw junction path elements
     void drawJunctionPathElements(const GUIVisualizationSettings& s, const GNEJunction* junction);
-    
+
     /// @brief force draw path (used carefully, ONLY when we're inspecting a path element, due slowdowns)
     void forceDrawPath(const GUIVisualizationSettings& s, const PathElement* pathElement) const;
 

@@ -275,7 +275,7 @@ GUIMEVehicle::selectBlockingFoes() const {
 }
 
 
-double 
+double
 GUIMEVehicle::getExaggeration(const GUIVisualizationSettings& s) const {
     return s.vehicleSize.getExaggeration(s, this);
 }

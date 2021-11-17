@@ -69,7 +69,7 @@ public:
     /// @brief Optional name or description for the current phase
     std::string name;
 
-    /// @brief for NEMA phase 
+    /// @brief for NEMA phase
     SUMOTime yellow;
 
     /// @brief for NEMA phase
@@ -155,7 +155,7 @@ public:
                       const std::vector<int>& nextPhases = std::vector<int>(), const std::string& name = "") {
         init(durationArg, stateArg, minDurationArg, maxDurationArg, nextPhases, name);
     }
-    
+
     /** @brief Constructor
      * In this phase the duration is constrained between min and max duration
      * @param[in] durationArg The duration of the phase
@@ -164,7 +164,7 @@ public:
      * @param[in] maxDurationArg The maximum duration of the phase
      */
     MSPhaseDefinition(SUMOTime durationArg, const std::string& stateArg, SUMOTime minDurationArg, SUMOTime maxDurationArg,
-                      SUMOTime vehextTime, SUMOTime redTime, SUMOTime yellowTime, 
+                      SUMOTime vehextTime, SUMOTime redTime, SUMOTime yellowTime,
                       const std::vector<int>& nextPhases = std::vector<int>(), const std::string& name = "") {
         init(durationArg, stateArg, minDurationArg, maxDurationArg, vehextTime, yellowTime, redTime, nextPhases, name);
     }
@@ -179,7 +179,7 @@ public:
     MSPhaseDefinition(SUMOTime durationArg, const std::string& stateArg, SUMOTime minDurationArg, SUMOTime maxDurationArg,
                       const std::vector<int>& nextPhases, const std::string& name, bool transient_notdecisional, bool commit,
                       std::vector<std::string>* targetLaneSetArg = nullptr) :
-    myTransientNotDecisional(transient_notdecisional), myCommit(commit), myUndefined(false) {
+        myTransientNotDecisional(transient_notdecisional), myCommit(commit), myUndefined(false) {
         if (targetLaneSetArg != nullptr && targetLaneSetArg->size() == 0) {
             MsgHandler::getErrorInstance()->inform("MSPhaseDefinition::MSPhaseDefinition -> targetLaneSetArg cannot be empty for a target phase");
         }

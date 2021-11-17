@@ -228,11 +228,11 @@ MSRoutingEngine::adaptEdgeEfforts(SUMOTime currentTime) {
 #ifdef DEBUG_SEPARATE_TURNS
                 if (DEBUG_COND((*i)->getLanes()[0])) {
                     std::cout << SIMTIME << " edge=" << (*i)->getID()
-                        << " meanSpeed=" << (*i)->getMeanSpeed()
-                        << " currSpeed=" << currSpeed
-                        << " oldestSpeed=" << myPastEdgeSpeeds[id][myAdaptationStepsIndex]
-                        << " oldAvg=" << myEdgeSpeeds[id]
-                        << "\n";
+                              << " meanSpeed=" << (*i)->getMeanSpeed()
+                              << " currSpeed=" << currSpeed
+                              << " oldestSpeed=" << myPastEdgeSpeeds[id][myAdaptationStepsIndex]
+                              << " oldAvg=" << myEdgeSpeeds[id]
+                              << "\n";
                 }
 #endif
                 myEdgeSpeeds[id] += (currSpeed - myPastEdgeSpeeds[id][myAdaptationStepsIndex]) / myAdaptationSteps;
@@ -335,15 +335,15 @@ MSRoutingEngine::patchSpeedForTurns(const MSEdge* edge, double currSpeed) {
 #ifdef DEBUG_SEPARATE_TURNS
                     if (DEBUG_COND(pair.second->getLanes()[0])) {
                         std::cout << SIMTIME << " edge=" << edge->getID() << " to=" << pair.first->getID() << " via=" << pair.second->getID()
-                            << " origSpeed=" << currSpeed
-                            << " maxSpeed=" << maxSpeed
-                            << " correctedSpeed=" << correctedSpeed
-                            << " avgSpeed=" << avgSpeed
-                            << " internalTT=" << internalTT
-                            << " internalSpeed=" << origInternalSpeed
-                            << " newInternalSpeed=" << newInternalSpeed
-                            << " virtualSpeed=" << virtualSpeed
-                            << "\n";
+                                  << " origSpeed=" << currSpeed
+                                  << " maxSpeed=" << maxSpeed
+                                  << " correctedSpeed=" << correctedSpeed
+                                  << " avgSpeed=" << avgSpeed
+                                  << " internalTT=" << internalTT
+                                  << " internalSpeed=" << origInternalSpeed
+                                  << " newInternalSpeed=" << newInternalSpeed
+                                  << " virtualSpeed=" << virtualSpeed
+                                  << "\n";
                     }
 #endif
                 }

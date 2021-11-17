@@ -260,7 +260,7 @@ public:
     }
 
     void addTazRelWeight(const std::string intervalID, const std::string& from, const std::string& to,
-            double val, double beg, double end);
+                         double val, double beg, double end);
 
 protected:
     /**

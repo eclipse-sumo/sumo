@@ -37,15 +37,15 @@
 
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, const SUMOVehicleParameter::Stop& stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent) :
     GNEDemandElement(stopParent, net, GLO_STOP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {}, {}, {stoppingPlace}, {}, {}, {stopParent}, {}),
-    SUMOVehicleParameter::Stop(stopParameter) {
+{}, {}, {}, {stoppingPlace}, {}, {}, {stopParent}, {}),
+SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
 GNEStop::GNEStop(GNENet* net, const SUMOVehicleParameter::Stop& stopParameter, GNELane* lane, GNEDemandElement* stopParent) :
     GNEDemandElement(stopParent, net, GLO_STOP, SUMO_TAG_STOP_LANE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {}, {lane}, {}, {}, {}, {stopParent}, {}),
-    SUMOVehicleParameter::Stop(stopParameter) {
+{}, {}, {lane}, {}, {}, {}, {stopParent}, {}),
+SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
@@ -59,8 +59,8 @@ GNEStop::getMoveOperation() {
         const bool allowChangeLane = myNet->getViewNet()->getViewParent()->getMoveFrame()->getCommonModeOptions()->getAllowChangeLane();
         // fist check if we're moving only extremes
         if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
-            (myNet->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_MOVE) &&
-            myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
+                (myNet->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_MOVE) &&
+                myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
             // get snap radius
             const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
             // get mouse position
@@ -295,9 +295,9 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             stopColor = s.colorSettings.stopColor;
         }
         // get lane
-        const auto &stopLane = getParentLanes().size() > 0? getParentLanes().front() : nullptr;
+        const auto& stopLane = getParentLanes().size() > 0 ? getParentLanes().front() : nullptr;
         // get lane width
-        const double width = stopLane? stopLane->getParentEdge()->getNBEdge()->getLaneWidth(stopLane->getIndex()) * 0.5 : exaggeration * 0.8;
+        const double width = stopLane ? stopLane->getParentEdge()->getNBEdge()->getLaneWidth(stopLane->getIndex()) * 0.5 : exaggeration * 0.8;
         // Start drawing adding an gl identificator
         GLHelper::pushName(getGlID());
         // Add a layer matrix
@@ -309,13 +309,13 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         // draw depending of details
         if (s.drawDetail(s.detailSettings.stopsDetails, exaggeration) && stopLane) {
             // Draw top and bot lines using shape, shapeRotations, shapeLengths and value of exaggeration
-            GLHelper::drawBoxLines(myDemandElementGeometry.getShape(), 
-                                   myDemandElementGeometry.getShapeRotations(), 
-                                   myDemandElementGeometry.getShapeLengths(), 
+            GLHelper::drawBoxLines(myDemandElementGeometry.getShape(),
+                                   myDemandElementGeometry.getShapeRotations(),
+                                   myDemandElementGeometry.getShapeLengths(),
                                    exaggeration * 0.1, 0, width);
-            GLHelper::drawBoxLines(myDemandElementGeometry.getShape(), 
-                                   myDemandElementGeometry.getShapeRotations(), 
-                                   myDemandElementGeometry.getShapeLengths(), 
+            GLHelper::drawBoxLines(myDemandElementGeometry.getShape(),
+                                   myDemandElementGeometry.getShapeRotations(),
+                                   myDemandElementGeometry.getShapeLengths(),
                                    exaggeration * 0.1, 0, width * -1);
             // Add a detail matrix
             GLHelper::pushMatrix();
@@ -361,12 +361,12 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
         // check if dotted contour has to be drawn
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myDemandElementGeometry.getShape(), 
-                                                      width, exaggeration, true, true);
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myDemandElementGeometry.getShape(),
+                    width, exaggeration, true, true);
         }
         if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myDemandElementGeometry.getShape(), 
-                                                      width, exaggeration, true, true);
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myDemandElementGeometry.getShape(),
+                    width, exaggeration, true, true);
         }
         // draw person parent if this stop if their first person plan child
         if ((getParentDemandElements().size() == 1) && getParentDemandElements().front()->getChildDemandElements().front() == this) {
@@ -982,8 +982,8 @@ void
 GNEStop::drawGeometryPoints(const GUIVisualizationSettings& s, const RGBColor& baseColor) const {
     // first check that we're in move mode and shift key is pressed
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
-        (myNet->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_MOVE) &&
-        myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
+            (myNet->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_MOVE) &&
+            myNet->getViewNet()->getMouseButtonKeyPressed().shiftKeyPressed()) {
         // calculate new color
         const RGBColor color = baseColor.changedBrightness(-50);
         // push matrix

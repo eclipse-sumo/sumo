@@ -852,7 +852,7 @@ public:
     const StopOffset& getLaneStopOffsets() const;
 
     /// @brief Set vehicle class specific stopOffsets
-    void setLaneStopOffset(const StopOffset &stopOffset);
+    void setLaneStopOffset(const StopOffset& stopOffset);
 
     /// @brief return the sublane followers with the largest missing rear gap among all predecessor lanes (within dist)
     MSLeaderDistanceInfo getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,

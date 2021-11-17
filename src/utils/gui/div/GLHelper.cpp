@@ -482,7 +482,7 @@ GLHelper::drawOutlineCircle(double width, double iwidth, int steps,
 
 
 void
-GLHelper::drawTriangleAtEnd(const Position& p1, const Position& p2, double tLength, 
+GLHelper::drawTriangleAtEnd(const Position& p1, const Position& p2, double tLength,
                             double tWidth, const double extraOffset) {
     const double length = p1.distanceTo(p2);
     if (length < tLength) {

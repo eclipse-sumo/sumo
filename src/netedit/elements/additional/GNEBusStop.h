@@ -54,7 +54,7 @@ public:
 
     /// @brief Destructor
     ~GNEBusStop();
-    
+
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      */

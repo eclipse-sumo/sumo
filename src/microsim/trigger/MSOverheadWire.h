@@ -383,7 +383,7 @@ public:
 
 private:
     void addOverheadWireInnerSegmentToCircuit(MSOverheadWire* incomingSegment, MSOverheadWire* outgoingSegment,
-                                              const MSLane* connection, const MSLane* frontConnection, const MSLane* behindConnection);
+            const MSLane* connection, const MSLane* frontConnection, const MSLane* behindConnection);
 
 protected:
     /// @brief Check if in the current TimeStep substation (overhead wire section) is charging a vehicle
@@ -399,7 +399,7 @@ private:
     static Command* myCommandForSolvingCircuit;
     double myTotalEnergy;
 
-    // RICE_TODO: Does this cause the "'MSTractionSubstation::overheadWireClamp' : no appropriate default 
+    // RICE_TODO: Does this cause the "'MSTractionSubstation::overheadWireClamp' : no appropriate default
     // constructor available" error in MSVC2013?
     // This is probably an issue with gitHub build chain
     std::vector<OverheadWireClamp> myOverheadWireClamps;

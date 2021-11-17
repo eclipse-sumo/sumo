@@ -35,10 +35,10 @@
 GNEVaporizer::GNEVaporizer(GNENet* net, GNEEdge* edge, SUMOTime from, SUMOTime end, const std::string& name,
                            const std::map<std::string, std::string>& parameters) :
     GNEAdditional(edge->getID(), net, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name,
-    {}, {edge}, {}, {}, {}, {}, {}, {},
-    parameters),
-    myBegin(from),
-    myEnd(end) {
+{}, {edge}, {}, {}, {}, {}, {}, {},
+parameters),
+myBegin(from),
+myEnd(end) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -154,12 +154,12 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
         drawAdditionalName(s);
         // check if dotted contours has to be drawn
         if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), 0.5, 
-                                                      vaporizerExaggeration, 1, 1);
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape(), 0.5,
+                    vaporizerExaggeration, 1, 1);
         }
         if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), 0.5, 
-                                                      vaporizerExaggeration, 1, 1);
+            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape(), 0.5,
+                    vaporizerExaggeration, 1, 1);
         }
     }
 }

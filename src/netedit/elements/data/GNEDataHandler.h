@@ -99,7 +99,7 @@ protected:
     void writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent) const;
 
     /// @brief write error "invalid parent element" giving ID
-    void writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent, const std::string &ID) const;
+    void writeErrorInvalidParent(const SumoXMLTag tag, const SumoXMLTag parent, const std::string& ID) const;
 
 private:
     /// @brief invalidate copy constructor

@@ -225,8 +225,7 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a, const std::string& configPa
     myTimeLoss(0),
     myEmergencyVehicleCount(0),
     myTotalDistance(0),
-    myLastStepEventMillis(SysUtils::getCurrentMillis() - MIN_DRAW_DELAY)
-{
+    myLastStepEventMillis(SysUtils::getCurrentMillis() - MIN_DRAW_DELAY) {
     // init icons
     GUIIconSubSys::initIcons(a);
     // init cursors

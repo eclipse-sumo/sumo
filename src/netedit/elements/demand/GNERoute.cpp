@@ -72,51 +72,51 @@ GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
 
 GNERoute::GNERoute(GNENet* net) :
     GNEDemandElement(net->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_ROUTE), net, GLO_ROUTE, SUMO_TAG_ROUTE,
-        GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
-        {}, {}, {}, {}, {}, {}, {}, {}),
-    Parameterised(),
-    myColor(RGBColor::YELLOW),
-    myRepeat(0),
-    myCycleTime(0),
-    myVClass(SVC_PASSENGER) {
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
+{}, {}, {}, {}, {}, {}, {}, {}),
+Parameterised(),
+myColor(RGBColor::YELLOW),
+myRepeat(0),
+myCycleTime(0),
+myVClass(SVC_PASSENGER) {
 }
 
 
-GNERoute::GNERoute(GNENet* net, const std::string &id, SUMOVehicleClass vClass, const std::vector<GNEEdge*> &edges, 
-    const RGBColor &color, const int repeat, const SUMOTime cycleTime, const std::map<std::string, std::string> &parameters) :
+GNERoute::GNERoute(GNENet* net, const std::string& id, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges,
+                   const RGBColor& color, const int repeat, const SUMOTime cycleTime, const std::map<std::string, std::string>& parameters) :
     GNEDemandElement(id, net, GLO_ROUTE, SUMO_TAG_ROUTE,
-        GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
-        {}, edges, {}, {}, {}, {}, {}, {}),
-    Parameterised(parameters),
-    myColor(color),
-    myRepeat(repeat),
-    myCycleTime(cycleTime),
-    myVClass(vClass) {
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
+{}, edges, {}, {}, {}, {}, {}, {}),
+Parameterised(parameters),
+myColor(color),
+myRepeat(repeat),
+myCycleTime(cycleTime),
+myVClass(vClass) {
 }
 
 
-GNERoute::GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const std::vector<GNEEdge*> &edges, 
-    const RGBColor &color, const int repeat, const SUMOTime cycleTime, const std::map<std::string, std::string> &parameters) :
+GNERoute::GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>& edges,
+                   const RGBColor& color, const int repeat, const SUMOTime cycleTime, const std::map<std::string, std::string>& parameters) :
     GNEDemandElement(vehicleParent, net, GLO_ROUTE, GNE_TAG_ROUTE_EMBEDDED,
-        GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
-        {}, edges, {}, {}, {}, {}, {vehicleParent}, {}),
-    Parameterised(parameters),
-    myColor(color),
-    myRepeat(repeat),
-    myCycleTime(cycleTime),
-    myVClass(vehicleParent->getVClass()) {
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
+{}, edges, {}, {}, {}, {}, {vehicleParent}, {}),
+Parameterised(parameters),
+myColor(color),
+myRepeat(repeat),
+myCycleTime(cycleTime),
+myVClass(vehicleParent->getVClass()) {
 }
 
 
 GNERoute::GNERoute(GNEDemandElement* route) :
     GNEDemandElement(route, route->getNet(), GLO_ROUTE, SUMO_TAG_ROUTE,
-        GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
-        {}, route->getParentEdges(), {}, {}, {}, {}, {}, {}),
-    Parameterised(),
-    myColor(route->getColor()),
-    myRepeat(parse<int>(route->getAttribute(SUMO_ATTR_REPEAT))),
-    myCycleTime(parse<SUMOTime>(route->getAttribute(SUMO_ATTR_CYCLETIME))),
-    myVClass(route->getVClass()) {
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
+{}, route->getParentEdges(), {}, {}, {}, {}, {}, {}),
+Parameterised(),
+myColor(route->getColor()),
+myRepeat(parse<int>(route->getAttribute(SUMO_ATTR_REPEAT))),
+myCycleTime(parse<SUMOTime>(route->getAttribute(SUMO_ATTR_CYCLETIME))),
+myVClass(route->getVClass()) {
 }
 
 
@@ -248,7 +248,7 @@ GNERoute::getParentName() const {
 }
 
 
-double 
+double
 GNERoute::getExaggeration(const GUIVisualizationSettings& s) const {
     return s.vehicleSize.getExaggeration(s, this);
 }
@@ -453,13 +453,13 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLa
             if (fromLane->getLane2laneConnections().exist(toLane)) {
                 // draw inspected dotted contour
                 if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-                    GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), 
-                                                        routeWidth, 1, false, false);
+                    GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
+                            routeWidth, 1, false, false);
                 }
                 // draw front dotted contour
                 if ((myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-                    GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(), 
-                                                        routeWidth, 1, false, false);
+                    GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, fromLane->getLane2laneConnections().getLane2laneGeometry(toLane).getShape(),
+                            routeWidth, 1, false, false);
                 }
             }
         }
