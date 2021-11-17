@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 15.07.2019 14:37:33 by Eclipse SUMO netedit Version v1_2_0+1249-23730de910
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="D:\sumo\tests\netedit\demandElements\routes\create\net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="D:\sumo\tests\netedit\demandElements\routes\create\net.net.xml"/>
+        <plain-output-prefix value="D:\sumo\tests\netedit\demandElements\routes\create\net"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<nodes version="1.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="0.00,0.00" convBoundary="10.00,20.00,70.00,60.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <node id="gneJ4" x="10.00" y="20.00" type="dead_end"/>
+    <node id="gneJ5" x="70.00" y="20.00" type="priority"/>
+    <node id="gneJ6" x="70.00" y="60.00" type="priority"/>
+    <node id="gneJ7" x="10.00" y="60.00" type="priority"/>
+    <node id="gneJ8" x="10.00" y="40.00" type="priority"/>
+    <node id="gneJ9" x="40.00" y="40.00" type="priority"/>
+</nodes>
