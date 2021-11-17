@@ -315,6 +315,11 @@ def Popen(extraParameters, debugInformation):
     if debugInformation:
         neteditCall += ['--gui-testing-debug']
 
+    # check if a gui settings file has to be load
+    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "gui-settings.xml")):
+        neteditCall += ['--gui-settings-file',
+                        os.path.join(_TEXTTEST_SANDBOX, "gui-settings.xml")]
+
     # check if an existent net must be loaded
     if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_net.net.xml")):
         neteditCall += ['--sumo-net-file',
@@ -338,11 +343,6 @@ def Popen(extraParameters, debugInformation):
     if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_datas.dat.xml")):
         neteditCall += ['-d',
                         os.path.join(_TEXTTEST_SANDBOX, "input_datas.dat.xml")]
-
-    # check if a gui settings file has to be load
-    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "gui-settings.xml")):
-        neteditCall += ['--gui-settings-file',
-                        os.path.join(_TEXTTEST_SANDBOX, "gui-settings.xml")]
 
     # set output for net
     neteditCall += ['--output-file',

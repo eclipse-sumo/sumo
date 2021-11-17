@@ -200,10 +200,6 @@ GNERouteHandler::buildVehicleOverRoute(const CommonXMLStructure::SumoBaseObject*
             }
             // compute path
             vehicle->computePathElement();
-            // center view after creation
-            if (!myNet->getViewNet()->getVisibleBoundary().around(vehicle->getPositionInView())) {
-                myNet->getViewNet()->centerTo(vehicle->getPositionInView(), false);
-            }
         }
     }
 }
@@ -240,10 +236,6 @@ GNERouteHandler::buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* /*
             }
             // compute path
             flow->computePathElement();
-            // center view after creation
-            if (!myNet->getViewNet()->getVisibleBoundary().around(flow->getPositionInView())) {
-                myNet->getViewNet()->centerTo(flow->getPositionInView(), false);
-            }
         }
     }
 }
@@ -291,10 +283,6 @@ GNERouteHandler::buildTrip(const CommonXMLStructure::SumoBaseObject* /*sumoBaseO
             }
             // compute path
             trip->computePathElement();
-            // center view after creation
-            if (!myNet->getViewNet()->getVisibleBoundary().around(trip->getPositionInView())) {
-                myNet->getViewNet()->centerTo(trip->getPositionInView(), false);
-            }
         }
     }
 }
@@ -342,10 +330,6 @@ GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* /*sumoBaseO
             }
             // compute path
             flow->computePathElement();
-            // center view after creation
-            if (!myNet->getViewNet()->getVisibleBoundary().around(flow->getPositionInView())) {
-                myNet->getViewNet()->centerTo(flow->getPositionInView(), false);
-            }
         }
     }
 }

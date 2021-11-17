@@ -244,6 +244,11 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
                     delete routeFlowParameters;
                 }
             }
+            // center view after creation
+            const auto *vehicle = myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(myVehicleBaseObject->getTag(), myVehicleBaseObject->getStringAttribute(SUMO_ATTR_ID), false);
+            if (vehicle && !myViewNet->getVisibleBoundary().around(vehicle->getPositionInView())) {
+                myViewNet->centerTo(vehicle->getPositionInView(), false);
+            }
             // refresh myVehicleAttributes
             myVehicleAttributes->refreshRows();
             // all ok, then return true;
