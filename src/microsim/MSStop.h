@@ -94,6 +94,9 @@ public:
     /// @brief return halting position for upcoming stop;
     double getEndPos(const SUMOVehicle& veh) const;
 
+    /// @brief return startPos taking into account opposite stopping
+    double getReachedThreshold() const;
+
     /// @brief get a short description for showing in the gui
     std::string getDescription() const;
 

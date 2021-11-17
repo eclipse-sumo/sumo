@@ -46,6 +46,11 @@ MSStop::getEndPos(const SUMOVehicle& veh) const {
 }
 
 
+double
+MSStop::getReachedThreshold() const {
+    return isOpposite ? lane->getOppositePos(pars.endPos) - (pars.endPos - pars.startPos) : pars.startPos;
+}
+
 std::string
 MSStop::getDescription() const {
     std::string result;
