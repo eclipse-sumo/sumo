@@ -15,7 +15,7 @@ network) and a new output option **--battery-output** {{DT_FILE}}.
 You can find a test case for these implementations at
 [\[1\]](http://sumo.dlr.de/trac.wsgi/browser/trunk/sumo/tests/sumo/extended/electric/braunschweig)
 
-## Defining Electric Vehicles
+# Defining Electric Vehicles
 
 To define an electric vehicle, it must be equipped with a battery
 device. This may be done using the option **--device.battery.explicit <vehID1,vehID2,...\>** or simply setting **--device.battery.probability 1** to equip
@@ -77,11 +77,11 @@ be set in the vehicle definitions
 </routes>
 ```
 
-## Vehicle behavior
+# Vehicle behavior
 
 Vehicle behavior will not be affected by battery level. Car will keep driving even when their battery capacity is at 0. To avoid this [TraCI](#traci) must be used to change speed or route based on the current battery level.
 
-## Charging Stations
+# Charging Stations
 
 A charging station is a surface defined on a lane in which the vehicles
 equipped with a battery are charged. The basic structure and parameters
@@ -115,7 +115,7 @@ Representation of chargingStation in GUI
 ![](../images/ChargingStationCharging.png "Color of chargingStation during charge")
 Color of chargingStation during charge
 
-### Stopping at a Charging Station
+## Stopping at a Charging Station
 
 A stop at a charging station may occur due to traffic conditions,
 stopping at a defined location or stopping at an explicit
@@ -129,7 +129,7 @@ chargingStation as defined below:
 </routes>
 ```
 
-### Charging Station output
+## Charging Station output
 
 Option --chargingstations-output "nameOfFile.xml" generates a full
 report of energy charged by charging stations:
@@ -194,7 +194,7 @@ For every charging timeStep:
 | actualBatteryCapacity  | string | Current battery capacity of vehicle                                         |
 | maximumBatteryCapacity | string | Current maximum battery capacity of vehicle                                 |
 
-## battery-output
+# battery-output
 
 There are three output parameters to be set in the SUMO configuration to
 use the battery device:
@@ -254,17 +254,17 @@ The battery-output generates a file with this structure:
 | posOnLane              | double | Position of vehicle on its current lane                                                                                   |
 | timeStopped            | int    | Counter with the number of timesteps that the vehicle has remained standing                                               |
 
-## Emission Output
+# Emission Output
 
 The [Emission model](../Models/Emissions.md#outputs)-outputs of
 SUMO can be used together with the battery device when setting the
 `<vType>`-parameter `emissionClass="Energy/unknown"`.
 
-## Tracking fuel consumption for non-electrical vehicles
+# Tracking fuel consumption for non-electrical vehicles
 
 By setting option **--device.battery.track-fuel**, equipped vehicles with a convential drive train (emissionClass other than `Energy`) will monitor their fuel level based on the fuel consumption of their respective emission class. All capacity values are then interpreted as ml instead of Wh. Also, the chargingStation power is re-interpreted as ml/s when charging fuel.
 
-## TraCI
+# TraCI
 
 The internal state of the battery device can be accessed directly using
 [*traci.vehicle.getParameter*](../TraCI/Vehicle_Value_Retrieval.md#supported_device_parameters)
@@ -276,7 +276,7 @@ Furthermore, the function
 can be used to access the consumption of the vehicle if the `emissionClass="Energy/unknown"` [is
 declared](#emission_output).
 
-### Calculating the remaining Range:
+## Calculating the remaining Range:
 
 After the vehicle has been driving for a while, the remaining range can be computed based on previous consumption and distance:
 ```
@@ -285,13 +285,13 @@ remainingRange = float(traci.vehicle.getParameter(vehID, "device.battery.actualB
 ```
 To compute the remaining range on departure, the value of `mWh` (meters per Watt-hour) should be calibrated from a prior simulation.
 
-## Model Details
+# Model Details
 
 All information about the implemented device (including details on the
 vehicle energy consumption and charging model) can be found in the
 following publication.
 
-### Publications
+## Publications
 
 - [Kurczveil, T., López, P.A., Schnieder, E., Implementation of an
 Energy Model and a Charging Infrastructure in SUMO. In: Behrisch,
@@ -299,3 +299,31 @@ M., Krajzewicz, D., Weber, M. (eds.) Simulation of Urban Mobility.
 Lecture Notes in Computer Science, vol. 8594 , pp. 33--43. Springer,
 Heidelberg
 (2014)](http://elib.dlr.de/93885/1/Proceeding_SUMO2013_15-17May%202013_Berlin-Adlershof.pdf)
+
+# Example Configurations
+
+## Kia Soul EV 2020
+
+The values are provided by courtesy of Jim Div based on his own calibration.
+
+```
+<vType id="soulEV65" minGap="2.50" maxSpeed="29.06" color="white" accel="1.0" decel="1.0" sigma="0.0" emissionClass="Energy/unknown">
+        <param key="has.battery.device" value="true"/>
+        <param key="airDragCoefficient" value="0.35"/> <!-- https://www.evspecifications.com/en/model/e94fa0  -->
+        <param key="constantPowerIntake" value="100"/> <!-- observed summer levels -->
+        <param key="frontSurfaceArea" value="2.6"/>    <!-- computed (ht-clearance) * width -->    
+        <param key="internalMomentOfInertia" value="0.01"/>  <!-- guesstimate -->
+        <param key="maximumBatteryCapacity" value="64000"/>
+        <param key="maximumPower" value="150000"/>      <!-- website as above -->
+        <param key="propulsionEfficiency" value=".98"/> <!-- guesstimate value providing closest match to observed -->
+        <param key="radialDragCoefficient" value="0.1"/>   <!-- as above -->
+        <param key="recuperationEfficiency" value=".96"/>  <!-- as above -->
+        <param key="rollDragCoefficient" value="0.01"/>    <!-- as above -->
+        <param key="stoppingTreshold" value="0.1"/>        <!-- as above -->
+        <param key="vehicleMass" value="1830"/>            <!-- 1682kg curb wt + average 2 passengers / bags -->
+ </vType>
+ ```
+
+Observations:
+- Simulation efficiencies of 6.3 - 6.7 km driven per kWh consumed agree with measured efficiences of 6.4 - 6.8 (stddev 0.4 - 0.8) in short and medium range simulations with realistic traffic
+- abstract scenarios without junctions and other cars overestimate the efficency by a large factor (~ twice as many km/kWh)
