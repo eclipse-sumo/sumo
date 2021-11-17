@@ -216,6 +216,7 @@ title: ChangeLog
   - edgeData output now includes optional attribute 'teleported' to count the number of vehicles that teleported from an edge. Issue #5939
   - Added option **--time-to-teleport.remove** for removing vehicles instead of teleporting and re-inserting them along their route after waiting for too long. Issue #9377
   - Added option **--device.ssm.write-lane-positions** to add lane id and lane-pos to all outputs. Issue #9231
+  - In simulations with [opposite-direction-driving](Simulation/OppositeDirectionDriving.md) stops on the opposite direction edge may be defined by setting a lane index beyond the leftmost forward lane. Issue #8876
 
 - sumo-gui
   - An index value is now drawn for each train reversal in 'show route' mode. Issue #8967
@@ -296,9 +297,10 @@ title: ChangeLog
 - traci
   - Added function 'traci.simulation.getEndTime' to retrieve the **--end** value that was set when starting sumo. Issue #2764
   - addSubscriptionFilterTurn can now be combined (additively) with addSubscriptionFilterLateralDistance and with addSubscriptionFilterLanes. Issue #9177
-  - Added function 'traci.person.remove. Issue #9351
+  - Added function 'traci.person.remove' Issue #9351
   - Improved warning messages when 'traci.vehicle.replaceStop', or 'changeTarget' fails. Issue #9453
   - Added functions retrieve aggregated traffic measures from E3-detector. Issue #9501
+  - Libtraci now supports 'Simulation::start'. Issue #6466
   
 
 - tools
@@ -325,7 +327,9 @@ title: ChangeLog
   - Added tool [scheduleStats](Tools/Railways.md#schedulestatspy) to analyze deviations between loaded public transport schedules and simulation timing. Issue #8420
   - Added tool [plotXMLAttributes.py](Tools/Visualization.md#plotxmlattributespy) to generated 2D-plots from arbitrary attribute of XML files. Issue #9403
   - osmTaxiStop.py: added option **--fleet-size** to generated a taxi fleet along with the stops. Issue #9116
-  - sumolib.net.getShortest path now allows using edges in both direcions for pedestrian route search (`ignoreDirection="true"`). Issue #9533 
+  - sumolib.net.getShortest path now allows using edges in both direcions for pedestrian route search (`ignoreDirection="true"`). Issue #9533
+  - [addStops2Routes.py](Tools/Routes.md#addstops2routespy) received new options to define stops at parkingAreas, add stops to persons and to define stationary (parkig) traffic. Issue #3607, #9561, #9562
+  - library functions 'sumolib.xml.parse_fast' and 'parse_fast_nested' can now handle XML-comments. Issue #8565
 
 ### Other
 
