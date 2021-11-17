@@ -158,7 +158,6 @@ def main(options):
                         elif obj.attr_from:
                             obj.attr_from = obj.to
 
-
                 outf.write(obj.toXML(' '*4))
         outf.write('</routes>\n')
     outf.close()
