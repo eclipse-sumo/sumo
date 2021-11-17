@@ -750,7 +750,7 @@ public:
      * @param[in] onTeleporting Whether the lane was entered while being teleported
      * @return Whether the vehicle's route has ended (due to vaporization, or because the destination was reached)
      */
-    bool enterLaneAtMove(MSLane* enteredLane, bool onTeleporting = false);
+    void enterLaneAtMove(MSLane* enteredLane, bool onTeleporting = false);
 
 
 

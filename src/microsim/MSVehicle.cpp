@@ -4729,7 +4729,7 @@ MSVehicle::activateReminders(const MSMoveReminder::Notification reason, const MS
 }
 
 
-bool
+void
 MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
     myAmOnNet = !onTeleporting;
     // vaporizing edge?
@@ -4778,7 +4778,6 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
     if (myParameter->via.size() > 0 &&  myLane->getEdge().getID() == myParameter->via.front()) {
         myParameter->via.erase(myParameter->via.begin());
     }
-    return hasArrived();
 }
 
 
