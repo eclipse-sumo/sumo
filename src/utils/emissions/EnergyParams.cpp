@@ -46,12 +46,31 @@ EnergyParams::EnergyParams(const SUMOVTypeParameter* typeParams) {
     myMap[SUMO_ATTR_ANGLE] = 0.;  // actually angleDiff in the last step
     // @todo set myVecMap defaults as needed
 
+    // Default values for the MMPEVEM
+    myMap[SUMO_ATTR_WHEELRADIUS] = 0.3588;                // [m]
+    myMap[SUMO_ATTR_MAXIMUMTORQUE] = 310.0;               // [Nm]
+    // @todo SUMO_ATTR_MAXIMUMPOWER predates the MMPEVEM emission model. Do you want to set this somewhere else or to another value?
+    myMap[SUMO_ATTR_MAXIMUMPOWER] = 107000.0;             // [W]
+    myMap[SUMO_ATTR_GEAREFFICIENCY] = 0.96;               // [1]
+    myMap[SUMO_ATTR_GEARRATIO] = 10.0;                    // [1]
+    myMap[SUMO_ATTR_MAXIMUMRECUPERATIONTORQUE] = 95.5;    // [Nm]
+    myMap[SUMO_ATTR_MAXIMUMRECUPERATIONPOWER] = 42800.0;  // [W]
+    myMap[SUMO_ATTR_INTERNALBATTERYRESISTANCE] = 0.1142;  // [Ohm]
+    myMap[SUMO_ATTR_NOMINALBATTERYVOLTAGE] = 396.0;       // [V]
+    myCharacteristicMapMap.insert(std::pair<SumoXMLAttr, CharacteristicMap>(SUMO_ATTR_POWERLOSSMAP, CharacteristicMap("2,1|-1e9,1e9;-1e9,1e9|0,0,0,0")));  // P_loss_EM = 0 W for all operating points in the default EV power loss map
+
     if (typeParams != nullptr) {
         for (auto item : myMap) {
             myMap[item.first] = typeParams->getDouble(toString(item.first), item.second);
         }
         for (auto item : myVecMap) {
             myVecMap[item.first] = typeParams->getDoubles(toString(item.first), item.second);
+        }
+        for (auto item : myCharacteristicMapMap) {
+            std::string characteristicMapString = typeParams->getParameter(toString(item.first), "");
+            if (characteristicMapString != "") {
+                myCharacteristicMapMap.at(item.first) = CharacteristicMap(typeParams->getParameter(toString(item.first)));
+            }
         }
     }
 }
@@ -87,10 +106,22 @@ EnergyParams::getDoubles(SumoXMLAttr attr) const {
     }
 }
 
+const CharacteristicMap&
+EnergyParams::getCharacteristicMap(SumoXMLAttr attr) const {
+    auto it = myCharacteristicMapMap.find(attr);
+    if (it != myCharacteristicMapMap.end()) {
+        return it->second;
+    }
+    else {
+        throw UnknownElement("Unknown Energy Model parameter: " + toString(attr));
+    }
+}
 
 bool
 EnergyParams::knowsParameter(SumoXMLAttr attr) const {
-    return myMap.find(attr) != myMap.end();
+    return myMap.find(attr) != myMap.end()
+        || myVecMap.find(attr) != myVecMap.end()
+        || myCharacteristicMapMap.find(attr) != myCharacteristicMapMap.end();
 }
 
 /****************************************************************************/
