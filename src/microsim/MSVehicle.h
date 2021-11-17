@@ -2049,6 +2049,13 @@ protected:
      * result can be used directly by getPositionOnLane(...) */
     double getBackPositionOnLane(const MSLane* lane, bool calledByGetPosition) const;
 
+    /** @brief Returns whether this vehicle has already arived
+     * (reached the arrivalPosition on its final edge)
+     * method is called in the context of excecuteMove where opposite-direction
+     * vehicles are transformed temporarily to their forward lane and additional
+     * opposite-direction driving checks do not apply
+     */
+    bool hasArrivedInternal(bool oppositeTransformed = true) const;
 
 private:
     /// @brief The per vehicle variables of the car following model

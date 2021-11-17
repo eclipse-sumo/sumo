@@ -1030,9 +1030,15 @@ MSVehicle::hasValidRouteStart(std::string& msg) {
 
 bool
 MSVehicle::hasArrived() const {
+    return hasArrivedInternal(false);
+}
+
+
+bool
+MSVehicle::hasArrivedInternal(bool oppositeTransformed) const {
     return ((myCurrEdge == myRoute->end() - 1 || (myParameter->arrivalEdge >= 0 && getRoutePosition() >= myParameter->arrivalEdge))
             && (myStops.empty() || myStops.front().edge != myCurrEdge)
-            && (myLaneChangeModel->isOpposite() ? myLane->getLength() - myState.myPos : myState.myPos) > myArrivalPos - POSITION_EPS
+            && ((myLaneChangeModel->isOpposite() && !oppositeTransformed) ? myLane->getLength() - myState.myPos : myState.myPos) > myArrivalPos - POSITION_EPS
             && !isRemoteControlled());
 }
 
@@ -3842,7 +3848,7 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, std::string& e
                                   << "\n";
                     }
 #endif
-                    if (hasArrived()) {
+                    if (hasArrivedInternal()) {
                         break;
                     }
                     if (myLaneChangeModel->isChangingLanes()) {
@@ -3875,7 +3881,7 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, std::string& e
                 }
             }
 #endif
-        } else if (!hasArrived() && myState.myPos < myLane->getLength() + NUMERICAL_EPS) {
+        } else if (!hasArrivedInternal() && myState.myPos < myLane->getLength() + NUMERICAL_EPS) {
             // avoid warning due to numerical instability when stopping at the end of the route
             myState.myPos = myLane->getLength();
         }
@@ -4019,7 +4025,7 @@ MSVehicle::executeMove() {
     updateTimeLoss(vNext);
     myCollisionImmunity = MAX2((SUMOTime) - 1, myCollisionImmunity - DELTA_T);
 
-    if (!hasArrived() && !myLane->getEdge().isVaporizing()) {
+    if (!hasArrivedInternal() && !myLane->getEdge().isVaporizing()) {
         if (myState.myPos > myLane->getLength()) {
             WRITE_WARNING("Vehicle '" + getID() + "' performs emergency stop at the end of lane '" + myLane->getID()
                           + "'" + emergencyReason
