@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-15 15:31:41 by Eclipse SUMO netedit Version v1_10_0+2291-095a96e062a
+<!-- generated on 2021-11-17 16:09:31 by Eclipse SUMO netedit Version v1_10_0+2369-be805626ae7
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Nov153103.5876\netedit.gui\bugs\additionals\ticket3322\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov160856.31232\netedit.gui\bugs\additionals\ticket3322\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Nov153103.5876\netedit.gui\bugs\additionals\ticket3322\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov160856.31232\netedit.gui\bugs\additionals\ticket3322\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,37 +30,37 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Nov153103.5876\netedit.gui\bugs\additionals\ticket3322\additionals.xml"/>
-        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Nov153103.5876\netedit.gui\bugs\additionals\ticket3322\additionals.xml"/>
-        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Nov153103.5876\netedit.gui\bugs\additionals\ticket3322\routes.xml"/>
-        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Nov153103.5876\netedit.gui\bugs\additionals\ticket3322\routes.xml"/>
-        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Nov153103.5876\netedit.gui\bugs\additionals\ticket3322\datas.xml"/>
-        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Nov153103.5876\netedit.gui\bugs\additionals\ticket3322\datas.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov160856.31232\netedit.gui\bugs\additionals\ticket3322\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov160856.31232\netedit.gui\bugs\additionals\ticket3322\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov160856.31232\netedit.gui\bugs\additionals\ticket3322\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov160856.31232\netedit.gui\bugs\additionals\ticket3322\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov160856.31232\netedit.gui\bugs\additionals\ticket3322\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov160856.31232\netedit.gui\bugs\additionals\ticket3322\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Nov153103.5876\netedit.gui\bugs\additionals\ticket3322\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov160856.31232\netedit.gui\bugs\additionals\ticket3322\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Nov153103.5876\netedit.gui\bugs\additionals\ticket3322\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov160856.31232\netedit.gui\bugs\additionals\ticket3322\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Nov153103.5876\netedit.gui\bugs\additionals\ticket3322\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov160856.31232\netedit.gui\bugs\additionals\ticket3322\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <routeProbe id="routeProbe_gneE1_0" begin="0.00" freq="100.00" edge="gneE1" file="0"/>
-    <calibrator id="calibrator_gneE1_0_0" lane="gneE1_0" pos="0.00" freq="100.00" output="calibrator_gneE1_0_0.txt" jamThreshold="0.50"/>
-    <calibrator id="calibrator_gneE1_1_1" lane="gneE1_1" pos="5.00" freq="100.00" output="calibrator_gneE1_1_1.txt" jamThreshold="0.50"/>
-    <calibrator id="calibrator_gneE1_2" edge="gneE1" pos="10.00" freq="100.00" output="calibrator_gneE1_2_2.txt" jamThreshold="0.50"/>
+    <routeProbe id="routeProbe_gneE1_0" begin="0.00" freq="100.00" edge="gneE1" file="routeProbe_gneE1_0.txt"/>
+    <calibrator id="calibrator_gneE1_0_0" lane="gneE1_0" pos="0.00" freq="100.00" output="calibrator_gneE1_0_0.txt"/>
+    <calibrator id="calibrator_gneE1_1_1" lane="gneE1_1" pos="5.00" freq="100.00" output="calibrator_gneE1_1_1.txt"/>
+    <calibrator id="calibrator_gneE1_2" edge="gneE1" pos="10.00" freq="100.00" output="calibrator_gneE1_2_2.txt"/>
     <busStop id="busStop_gneE1_0_0" lane="gneE1_0" startPos="35.00" endPos="45.00"/>
     <containerStop id="containerStop_gneE1_1_0" lane="gneE1_1" startPos="35.00" endPos="45.00"/>
     <chargingStation id="chargingStation_gneE1_2_0" lane="gneE1_2" startPos="35.00" endPos="45.00"/>
@@ -72,6 +72,6 @@
         <detExit lane="gneE0_0" pos="15.00"/>
     </e3Detector>
     <rerouter id="rerouter_0" edges="gneE1" pos="15.15,-14.96"/>
-    <variableSpeedSign id="variableSpeedSign_0" pos="19.52,-14.87" lanes="gneE1_0 gneE1_1"/>
+    <variableSpeedSign id="variableSpeedSign_0" lanes="gneE1_0 gneE1_1" pos="19.52,-14.87"/>
     <vaporizer id="gneE1" begin="0.00" end="10.00"/>
 </additional>
