@@ -216,6 +216,17 @@ protected:
     */
     bool vehicleApplies(const SUMOVehicle& veh) const;
 
+    typedef std::map<std::string, double> ParkingParamMap_t;
+    typedef std::map<MSParkingArea*, ParkingParamMap_t, ComparatorIdLess> MSParkingAreaMap_t;
+
+    /// determine attributes of candiate parking area for scoring
+    void addParkValues(const SUMOVehicle& veh, double brakeGap, bool newDestination,
+            MSParkingArea* pa, int paOccupancy, double prob,
+            SUMOAbstractRouter<MSEdge, SUMOVehicle>& router,
+            MSParkingAreaMap_t& parkAreas,
+            std::map<MSParkingArea*, ConstMSEdgeVector>& newRoutes,
+            std::map<MSParkingArea*, ConstMSEdgeVector>& parkApproaches,
+            ParkingParamMap_t& maxValues) const;
 
 protected:
     /// @brief edges where vehicles are notified
