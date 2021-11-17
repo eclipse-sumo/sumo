@@ -50,6 +50,7 @@ python path you should be able to use them as described below.
 
 ## Python
 
+Under Linux, it is needed to add export PYTHONPATH="(your SUMO_HOME path)/tools:PYTHONPATH" either in .profile or -bashrc, so that python can find the respective library.
 ```py
 import libsumo
 libsumo.start(["sumo", "-c", "test.sumocfg"])
