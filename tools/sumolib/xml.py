@@ -335,6 +335,23 @@ def _open(xmlfile, encoding="utf8"):
     return xmlfile
 
 
+def _comment_filter(stream):
+    """
+    Filters given stream for comments. Is used by parse_fast and parse_fast_nested
+    """
+    in_comment = False
+    for line in stream:
+        if "<!--" in line or in_comment:
+            if "-->" in line:
+                yield re.sub(".*-->" if in_comment else "<!--.*-->", "", line)
+                in_comment = False
+            elif not in_comment:
+                yield re.sub("<!--.*", "", line)
+                in_comment = True
+        else:
+            yield line
+
+
 def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False, encoding="utf8"):
     """
     Parses the given attrnames from all elements with element_name
@@ -343,7 +360,7 @@ def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False, enc
     @Example: parse_fast('plain.edg.xml', 'edge', ['id', 'speed'])
     """
     Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional)
-    for line in _open(xmlfile, encoding):
+    for line in _comment_filter(_open(xmlfile, encoding)):
         m = reprog.search(line)
         if m:
             if optional:
@@ -364,7 +381,7 @@ def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames
     Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional)
     Record2, reprog2 = _createRecordAndPattern(element_name2, attrnames2, warn, optional)
     record = None
-    for line in _open(xmlfile, encoding):
+    for line in _comment_filter(_open(xmlfile, encoding)):
         m2 = reprog2.search(line)
         if record and m2:
             if optional:
