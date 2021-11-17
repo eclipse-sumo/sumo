@@ -197,8 +197,19 @@ class ReroutersGeneration(object):
             ordered_rerouters = sorted(self._sumo_rerouters.keys())
             for rerouter_id in ordered_rerouters:
                 rerouter = self._sumo_rerouters[rerouter_id]
+                opposite = None
+                if self._opt.opposite_visible:
+                    rrEdge = self._sumo_net.getEdge(rerouter['edge'])
+                    for e in rrEdge.getToNode().getOutgoing():
+                        if e.getToNode() == rrEdge.getFromNode():
+                            opposite = e
+                            break
+
                 alternatives = ''
                 for alt, dist in rerouter['rerouters']:
+                    altEdge = self._sumo_net.getEdge(self._parking_areas[alt]['edge'])
+                    if altEdge == opposite:
+                        opposite = None
                     _visibility = isVisible(rerouter_id, alt, dist,
                                             self._sumo_net,
                                             self._parking_areas,
@@ -207,8 +218,15 @@ class ReroutersGeneration(object):
                                             self._opt.opposite_visible)
                     _visibility = str(_visibility).lower()
                     alternatives += self._RR_PARKING.format(pid=alt, visible=_visibility, dist=dist)
+
+                edges = [rerouter['edge']]
+                if opposite is not None:
+                    # there is no rerouter on the opposite edge but the current
+                    # parkingArea should be visible from there
+                    edges.append(opposite.getID())
+
                 outfile.write(self._REROUTER.format(
-                    rid=rerouter['rid'], edges=rerouter['edge'], parkings=alternatives))
+                    rid=rerouter['rid'], edges=' '.join(edges), parkings=alternatives))
             outfile.write("</additional>\n")
         print("{} created.".format(self._opt.output))
 
