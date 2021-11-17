@@ -349,6 +349,12 @@ python tools/route/addStops2Routes.py -n <net-file> -r <route-file> -t <vTyp
 </routes>
 ```
 
+## Further Options
+
+- **--parking-areas FILE**: Load additional file with parking area definitions. If the final edge of a vehicle has a parkingArea, this will be used as the destination
+- **--person-duration**, **--person-until**: if set, any persons in the input will receive a `<stop>` as the last element of their plan
+- **--start-at-stop**: if set, vehicle routes will be shortened so they start at the final edge. This can be used to define stationary traffic which fills up parkingAreas without driving around.
+
 # vehicle2flow.py
 
 This tool transforms every vehicle definition to a flow definition with the configured end time and period (depart is used as begin time).
