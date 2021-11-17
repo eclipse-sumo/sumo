@@ -725,11 +725,6 @@ NEMALogic::NEMA_control() {
 
     }
     myPhase.setName(toString(R1Phase) + "+" + toString(R2Phase));
-
-    // Update the ring phases
-    activeRing1Phase = R1Phase;
-    activeRing2Phase = R2Phase;
-
     return outputState;
 }
 
@@ -860,10 +855,4 @@ int NEMALogic::string2int(std::string s) {
     int ret = 0;
     ss >> ret;
     return ret;
-}
-
-//sudo phase index, as the parent's definition isn't helpful for this algorithm
-int
-NEMALogic::getCurrentPhaseIndex() const {
-    return activeRing1Phase * 10 + activeRing2Phase;
 }
