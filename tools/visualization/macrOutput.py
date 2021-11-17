@@ -20,6 +20,8 @@
 from __future__ import absolute_import
 from __future__ import print_function
 import sys
+from collections import Counter
+
 import numpy as np
 import pandas as pd
 import pandas_read_xml as pdx
@@ -60,28 +62,17 @@ def main(args):
 
     # The end time of the last interval
     _lastsimulationperiod_ = (df.end.iat[-1]).astype(int)
-    type(_lastsimulationperiod_)
-
-    # The begin time of the last interval
-    _blastsimulationperiod_ = df.begin.iat[-1].astype(int)
-    type(_blastsimulationperiod_)
-
-    # creating a list of all begin time intervals
-    _beginvalues_ = list(range(0, _blastsimulationperiod_+time_interval, time_interval))
 
     # creating a list of all end time intervals
     _beginvalues_ = list(range(time_interval, _lastsimulationperiod_+time_interval, time_interval))
 
     # detecting number of segments
-    from collections import Counter
     counter1 = Counter(df.begin)
     _seg = counter1[0]
 
     # calculating total lenght of network
-    Length = df.iloc[:, 6] / (df.iloc[:, 3]-df.iloc[:, 2]) / df.iloc[:, 9]
-    Length = Length.replace(np.NaN, 0)
-    Length = Length.replace(np.inf, 0)
-    df['Length'] = Length
+    length = df['sampledSeconds'] / (df['end']-df['begin']) / df['density']
+    df['Length'] = length.replace(np.NaN, 0).replace(np.inf, 0)
     i = 0
     j = 0
     __net = []
