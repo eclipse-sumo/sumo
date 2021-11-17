@@ -90,14 +90,6 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
-Debug: Value 'dummyDepart' for attribute depart of vehicleWithRoute isn't valid
-Debug: Value '-3' for attribute depart of vehicleWithRoute isn't valid
-Debug: Setting new attribute
-Debug: Setting new attribute
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
-Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
@@ -110,6 +102,7 @@ Debug: Removing routeEmbedded 'vehicle_embeddedB' in GNEChange_DemandElement
 Debug: Removing vehicleWithRoute 'vehicle_embeddedB' in GNEChange_DemandElement
 Debug: Removing routeEmbedded 'vehicle_embeddedA' in GNEChange_DemandElement
 Debug: Removing vehicleWithRoute 'vehicle_embeddedA' in GNEChange_DemandElement
+Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
@@ -125,9 +118,6 @@ Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
-Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: demand elements saved
