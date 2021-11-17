@@ -245,9 +245,15 @@ GUIDialog_EditViewport::writeXML(OutputDevice& dev) {
     dev.writeAttr(SUMO_ATTR_Y, myYOff->getValue());
     dev.writeAttr(SUMO_ATTR_ANGLE, myRotation->getValue());
 #ifdef HAVE_OSG
-    dev.writeAttr(SUMO_ATTR_CENTER_X, myLookAtX->getValue());
-    dev.writeAttr(SUMO_ATTR_CENTER_Y, myLookAtY->getValue());
-    dev.writeAttr(SUMO_ATTR_CENTER_Z, myLookAtZ->getValue());
+    if (myLookAtX->getValue() != Position::INVALID.x()) {
+        dev.writeAttr(SUMO_ATTR_CENTER_X, myLookAtX->getValue());
+    }
+    if (myLookAtY->getValue() != Position::INVALID.y()) {
+        dev.writeAttr(SUMO_ATTR_CENTER_Y, myLookAtY->getValue());
+    }
+    if (myLookAtZ->getValue() != Position::INVALID.z()) {
+        dev.writeAttr(SUMO_ATTR_CENTER_Z, myLookAtZ->getValue());
+    }
 #endif
     dev.closeTag();
 }
