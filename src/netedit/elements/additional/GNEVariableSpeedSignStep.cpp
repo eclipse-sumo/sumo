@@ -31,16 +31,25 @@
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, SUMOTime time, const std::string& speed) :
     GNEAdditional(variableSpeedSignParent->getNet(), GLO_VSS_STEP, SUMO_TAG_STEP, "",
-{}, {}, {}, {variableSpeedSignParent}, {}, {}, {}, {},
-std::map<std::string, std::string>()),
+        {}, {}, {}, {variableSpeedSignParent}, {}, {}, {}, {},
+    std::map<std::string, std::string>()),
     myTime(time),
-mySpeed(speed) {
+    mySpeed(speed) {
     // update boundary of rerouter parent
     variableSpeedSignParent->updateCenteringBoundary(true);
 }
 
 
 GNEVariableSpeedSignStep::~GNEVariableSpeedSignStep() {}
+
+
+void
+GNEVariableSpeedSignStep::writeAdditional(OutputDevice& device) const {
+    device.openTag(SUMO_TAG_STEP);
+    device.writeAttr(SUMO_ATTR_TIME, time2string(myTime));
+    device.writeAttr(SUMO_ATTR_SPEED, mySpeed);
+    device.closeTag();
+}
 
 
 GNEMoveOperation*
