@@ -49,6 +49,8 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **-n** {{DT_FILE}}<br> **--taz-files** {{DT_FILE}} | Loads TAZ (districts; also from networks) from FILE(s) |
 | **-d** {{DT_FILE}}<br> **--od-matrix-files** {{DT_FILE}} | Loads O/D-files from FILE(s) |
 | **--od-amitran-files** {{DT_FILE}} | Loads O/D-matrix in Amitran format from FILE(s) |
+| **-z** {{DT_FILE}}<br> **--tazrelation-files** {{DT_FILE}} | Loads O/D-matrix in tazRelation format from FILE(s) |
+| **--tazrelation-attribute** {{DT_STR}} | Define data attribute for loading counts (default 'count'); *default:* **count** |
 
 ### Output
 
@@ -73,7 +75,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | Option | Description |
 |--------|-------------|
 | **-b** {{DT_TIME}}<br> **--begin** {{DT_TIME}} | Defines the begin time; Previous trips will be discarded; *default:* **0** |
-| **-e** {{DT_TIME}}<br> **--end** {{DT_TIME}} | Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent; *default:* **9223372036854774** |
+| **-e** {{DT_TIME}}<br> **--end** {{DT_TIME}} | Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent; *default:* **-1** |
 
 ### Processing
 

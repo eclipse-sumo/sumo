@@ -72,6 +72,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **-o** {{DT_FILE}}<br> **--output-file** {{DT_FILE}} | Write generated routes to FILE |
 | **--vtype-output** {{DT_FILE}} | Write used vehicle types into separate FILE |
 | **--keep-vtype-distributions** {{DT_BOOL}} | Keep vTypeDistribution ids when writing vehicles and their types; *default:* **false** |
+| **--named-routes** {{DT_BOOL}} | Write vehicles that reference routes by their id; *default:* **false** |
 | **--write-license** {{DT_BOOL}} | Include license info into every output file; *default:* **false** |
 | **--output-prefix** {{DT_STR}} | Prefix which is applied to all output files. The special string 'TIME' is replaced by the current time. |
 | **--precision** {{DT_INT}} | Defines the number of digits after the comma for floating point output; *default:* **2** |
@@ -126,7 +127,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | Option | Description |
 |--------|-------------|
 | **-b** {{DT_TIME}}<br> **--begin** {{DT_TIME}} | Defines the begin time; Previous trips will be discarded; *default:* **0** |
-| **-e** {{DT_TIME}}<br> **--end** {{DT_TIME}} | Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent; *default:* **9223372036854774** |
+| **-e** {{DT_TIME}}<br> **--end** {{DT_TIME}} | Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent; *default:* **-1** |
 
 ### Report
 

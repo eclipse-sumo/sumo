@@ -52,6 +52,8 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--grid.x-length** {{DT_FLOAT}} | The length of horizontal streets; Overrides --grid-length; *default:* **100** |
 | **--grid.y-length** {{DT_FLOAT}} | The length of vertical streets; Overrides --grid-length; *default:* **100** |
 | **--grid.attach-length** {{DT_FLOAT}} | The length of streets attached at the boundary; 0 means no streets are attached; *default:* **0** |
+| **--grid.x-attach-length** {{DT_FLOAT}} | The length of streets attached at the boundary in x direction; 0 means no streets are attached; *default:* **0** |
+| **--grid.y-attach-length** {{DT_FLOAT}} | The length of streets attached at the boundary in y direction; 0 means no streets are attached; *default:* **0** |
 
 ### Spider Network
 
@@ -72,7 +74,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 |--------|-------------|
 | **-r** {{DT_BOOL}}<br> **--rand** {{DT_BOOL}} | Forces NETGEN to build a random network; *default:* **false** |
 | **--rand.iterations** {{DT_INT}} | Describes how many times an edge shall be added to the net; *default:* **2000** |
-| **--rand.bidi-probability** {{DT_FLOAT}} | Defines the probability to build a reverse edge; *default:* **1** |
+| **--bidi-probability** {{DT_FLOAT}} | Defines the probability to build a reverse edge; *default:* **1** |
 | **--rand.max-distance** {{DT_FLOAT}} | The maximum distance for each edge; *default:* **250** |
 | **--rand.min-distance** {{DT_FLOAT}} | The minimum distance for each edge; *default:* **100** |
 | **--rand.min-angle** {{DT_FLOAT}} | The minimum angle for each pair of (bidirectional) roads in DEGREES; *default:* **45** |

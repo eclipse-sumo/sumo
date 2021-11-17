@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-05-03 14:38:58 by Eclipse SUMO netgenerate Version v1_9_0+0293-06752a0afd
+<!-- generated on 2021-11-17 21:30:04 by Eclipse SUMO netgenerate Version v1_10_0+2298-58e4f3bc8d3
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -38,6 +38,8 @@
             <xsd:element name="grid.x-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="grid.y-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="grid.attach-length" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="grid.x-attach-length" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="grid.y-attach-length" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -55,7 +57,7 @@
         <xsd:all>
             <xsd:element name="rand" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="rand.iterations" type="intOptionType" minOccurs="0"/>
-            <xsd:element name="rand.bidi-probability" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="bidi-probability" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="rand.max-distance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="rand.min-distance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="rand.min-angle" type="floatOptionType" minOccurs="0"/>

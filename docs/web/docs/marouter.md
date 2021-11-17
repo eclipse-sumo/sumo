@@ -96,6 +96,8 @@ configuration:
 | **-d** {{DT_FILE}}<br> **--additional-files** {{DT_FILE}} | Read additional network data (districts, bus stops) from FILE |
 | **-m** {{DT_FILE}}<br> **--od-matrix-files** {{DT_FILE}} | Loads O/D-files from FILE(s) |
 | **--od-amitran-files** {{DT_FILE}} | Loads O/D-matrix in Amitran format from FILE(s) |
+| **-z** {{DT_FILE}}<br> **--tazrelation-files** {{DT_FILE}} | Loads O/D-matrix in tazRelation format from FILE(s) |
+| **--tazrelation-attribute** {{DT_STR}} | Define data attribute for loading counts (default 'count'); *default:* **count** |
 | **-r** {{DT_FILE}}<br> **--route-files** {{DT_FILE}} | Read sumo-routes or trips from FILE(s) |
 | **-w** {{DT_FILE}}<br> **--weight-files** {{DT_FILE}} | Read network weights from FILE(s) |
 | **--lane-weight-files** {{DT_FILE}} | Read lane-based network weights from FILE(s) |
@@ -175,7 +177,7 @@ configuration:
 | Option | Description |
 |--------|-------------|
 | **-b** {{DT_TIME}}<br> **--begin** {{DT_TIME}} | Defines the begin time; Previous trips will be discarded; *default:* **0** |
-| **-e** {{DT_TIME}}<br> **--end** {{DT_TIME}} | Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent; *default:* **9223372036854774** |
+| **-e** {{DT_TIME}}<br> **--end** {{DT_TIME}} | Defines the end time; Later trips will be discarded; Defaults to the maximum time that SUMO can represent; *default:* **-1** |
 
 ### Report
 

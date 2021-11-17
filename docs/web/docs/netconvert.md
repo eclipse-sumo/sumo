@@ -458,6 +458,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--osm.oneway-spread-right** {{DT_BOOL}} | Whether one-way roads should be spread to the side instead of centered; *default:* **false** |
 | **--osm.lane-access** {{DT_BOOL}} | Import lane-specific access restrictions; *default:* **false** |
 | **--osm.bike-access** {{DT_BOOL}} | Check additional attributes to fix directions and permissions on bike paths; *default:* **false** |
+| **--osm.sidewalks** {{DT_BOOL}} | Import sidewalks; *default:* **false** |
 | **--osm.stop-output.length** {{DT_FLOAT}} | The default length of a public transport stop in FLOAT m; *default:* **25** |
 | **--osm.stop-output.length.bus** {{DT_FLOAT}} | The default length of a bus stop in FLOAT m; *default:* **15** |
 | **--osm.stop-output.length.tram** {{DT_FLOAT}} | The default length of a tram stop in FLOAT m; *default:* **25** |

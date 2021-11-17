@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-08-16 22:19:49 by Eclipse SUMO sumo Version v1_9_2+1043-00786e9d9f4
+<!-- generated on 2021-11-17 21:30:05 by Eclipse SUMO sumo Version v1_10_0+2298-58e4f3bc8d3
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -20,7 +20,6 @@
             <xsd:element name="communication" type="communicationTopicType" minOccurs="0"/>
             <xsd:element name="battery" type="batteryTopicType" minOccurs="0"/>
             <xsd:element name="example_device" type="example_deviceTopicType" minOccurs="0"/>
-            <xsd:element name="elecHybrid_device" type="elecHybrid_deviceTopicType" minOccurs="0"/>
             <xsd:element name="ssm_device" type="ssm_deviceTopicType" minOccurs="0"/>
             <xsd:element name="toc_device" type="toc_deviceTopicType" minOccurs="0"/>
             <xsd:element name="driver_state_device" type="driver_state_deviceTopicType" minOccurs="0"/>
@@ -73,6 +72,7 @@
             <xsd:element name="chargingstations-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="overheadwiresegments-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="substations-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="substations-output.precision" type="intOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output.geo" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output.signals" type="boolOptionType" minOccurs="0"/>
@@ -85,6 +85,7 @@
             <xsd:element name="device.ssm.filter-edges.input-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="full-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="queue-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="queue-output.period" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="vtk-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="amitran-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="summary-output" type="fileOptionType" minOccurs="0"/>
@@ -104,6 +105,7 @@
             <xsd:element name="vehroute-output.skip-ptlines" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="vehroute-output.incomplete" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="vehroute-output.stop-edges" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="vehroute-output.speedfactor" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="link-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="railsignal-block-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="bt-output" type="fileOptionType" minOccurs="0"/>
@@ -155,9 +157,11 @@
             <xsd:element name="max-num-vehicles" type="intOptionType" minOccurs="0"/>
             <xsd:element name="max-num-teleports" type="intOptionType" minOccurs="0"/>
             <xsd:element name="scale" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="scale-suffix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="time-to-teleport" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="time-to-teleport.highways" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="time-to-teleport.disconnected" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="time-to-teleport.remove" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="waiting-time-memory" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="max-depart-delay" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="sloppy-insert" type="boolOptionType" minOccurs="0"/>
@@ -176,13 +180,15 @@
             <xsd:element name="default.speeddev" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.emergencydecel" type="strOptionType" minOccurs="0"/>
             <xsd:element name="overhead-wire.solver" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="overhead-wire.recuperation" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="overhead-wire.substation-current-limits" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="emergencydecel.warning-threshold" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="parking.maneuver" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="use-stop-ended" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.model" type="strOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.stripe-width" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.dawdling" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="pedestrian.striping.mingap-to-vehicle" type="floatOptionType" minOccurs="0" />
+            <xsd:element name="pedestrian.striping.mingap-to-vehicle" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.jamtime" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.jamtime.crossing" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.jamtime.narrow" type="timeOptionType" minOccurs="0"/>
@@ -200,6 +206,7 @@
             <xsd:element name="weights.random-factor" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="weights.minor-penalty" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="weights.priority-factor" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="weights.separate-turns" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="astar.all-distances" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="astar.landmark-distances" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="persontrip.walkfactor" type="floatOptionType" minOccurs="0"/>
@@ -486,8 +493,8 @@
             <xsd:element name="registry-viewport" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="window-size" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="window-pos" type="strArrayOptionType" minOccurs="0"/>
-	    <xsd:element name="tracker-interval" type="floatOptionType" minOccurs="0"/>
-	    <xsd:element name="osg-view" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="tracker-interval" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="osg-view" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing-debug" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing.setting-output" type="fileOptionType" minOccurs="0"/>

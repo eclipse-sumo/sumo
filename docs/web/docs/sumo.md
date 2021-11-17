@@ -90,6 +90,7 @@ configuration:
 | **--chargingstations-output** {{DT_FILE}} | Write data of charging stations |
 | **--overheadwiresegments-output** {{DT_FILE}} | Write data of overhead wire segments |
 | **--substations-output** {{DT_FILE}} | Write data of electrical substation stations |
+| **--substations-output.precision** {{DT_INT}} | Write substation values with the given precision (default 2); *default:* **2** |
 | **--fcd-output** {{DT_FILE}} | Save the Floating Car Data |
 | **--fcd-output.geo** {{DT_BOOL}} | Save the Floating Car Data using geo-coordinates (lon/lat); *default:* **false** |
 | **--fcd-output.signals** {{DT_BOOL}} | Add the vehicle signal state to the FCD output (brake lights etc.); *default:* **false** |
@@ -102,6 +103,7 @@ configuration:
 | **--device.ssm.filter-edges.input-file** {{DT_FILE}} | Restrict SSM device output to the edge selection from the given input file |
 | **--full-output** {{DT_FILE}} | Save a lot of information for each timestep (very redundant) |
 | **--queue-output** {{DT_FILE}} | Save the vehicle queues at the junctions (experimental) |
+| **--queue-output.period** {{DT_TIME}} | Save vehicle queues with the given period; *default:* **-1** |
 | **--vtk-output** {{DT_FILE}} | Save complete vehicle positions inclusive speed values in the VTK Format (usage: /path/out will produce /path/out_$TIMESTEP$.vtp files) |
 | **--amitran-output** {{DT_FILE}} | Save the vehicle trajectories in the Amitran format |
 | **--summary-output** {{DT_FILE}} | Save aggregated vehicle departure info into FILE |
@@ -121,6 +123,7 @@ configuration:
 | **--vehroute-output.skip-ptlines** {{DT_BOOL}} | Skip vehroute output for public transport vehicles; *default:* **false** |
 | **--vehroute-output.incomplete** {{DT_BOOL}} | Include invalid routes and route stubs in vehroute output; *default:* **false** |
 | **--vehroute-output.stop-edges** {{DT_BOOL}} | Include information about edges between stops; *default:* **false** |
+| **--vehroute-output.speedfactor** {{DT_BOOL}} | Write the vehicle speedFactor (defaults to 'true' if departSpeed is written); *default:* **false** |
 | **--link-output** {{DT_FILE}} | Save links states into FILE |
 | **--railsignal-block-output** {{DT_FILE}} | Save railsignal-blocks into FILE |
 | **--bt-output** {{DT_FILE}} | Save bluetooth visibilities into FILE (in conjunction with device.btreceiver and device.btsender) |
@@ -132,6 +135,8 @@ configuration:
 | **--stop-output.write-unfinished** {{DT_BOOL}} | Write stop output for stops which have not ended at simulation end; *default:* **false** |
 | **--collision-output** {{DT_FILE}} | Write collision information into FILE |
 | **--statistic-output** {{DT_FILE}} | Write overall statistics into FILE |
+| **--movereminder-output** {{DT_FILE}} | Save movereminder states of selected vehicles into FILE |
+| **--movereminder-output.vehicles** {{DT_STR[]}} | List of vehicle ids which shall save their movereminder states |
 | **--save-state.times** {{DT_STR[]}} | Use TIME[] as times at which a network state written |
 | **--save-state.period** {{DT_TIME}} | save state repeatedly after TIME period; *default:* **-1** |
 | **--save-state.period.keep** {{DT_INT}} | Keep only the last INT periodic state files; *default:* **0** |
@@ -172,9 +177,11 @@ configuration:
 | **--max-num-vehicles** {{DT_INT}} | Delay vehicle insertion to stay within the given maximum number; *default:* **-1** |
 | **--max-num-teleports** {{DT_INT}} | Abort the simulation if the given maximum number of teleports is exceeded; *default:* **-1** |
 | **--scale** {{DT_FLOAT}} | Scale demand by the given factor (by discarding or duplicating vehicles); *default:* **1** |
+| **--scale-suffix** {{DT_STR}} | Suffix to be added when creating ids for cloned vehicles; *default:* **.** |
 | **--time-to-teleport** {{DT_TIME}} | Specify how long a vehicle may wait until being teleported, defaults to 300, non-positive values disable teleporting; *default:* **300** |
 | **--time-to-teleport.highways** {{DT_TIME}} | The waiting time after which vehicles on a fast road (speed > 69km/h) are teleported if they are on a non-continuing lane; *default:* **0** |
 | **--time-to-teleport.disconnected** {{DT_TIME}} | The waiting time after which vehicles with a disconnected route are teleported. Negative values disable teleporting; *default:* **-1** |
+| **--time-to-teleport.remove** {{DT_BOOL}} | Whether vehicles shall be removed after waiting too long instead of being teleported; *default:* **false** |
 | **--waiting-time-memory** {{DT_TIME}} | Length of time interval, over which accumulated waiting time is taken into account (default is 100s.); *default:* **100** |
 | **--max-depart-delay** {{DT_TIME}} | How long vehicles wait for departure before being skipped, defaults to -1 which means vehicles are never skipped; *default:* **-1** |
 | **--sloppy-insert** {{DT_BOOL}} | Whether insertion on an edge shall not be repeated in same step once failed; *default:* **false** |
@@ -192,7 +199,9 @@ configuration:
 | **--default.carfollowmodel** {{DT_STR}} | Select default car following model (Krauss, IDM, ...); *default:* **Krauss** |
 | **--default.speeddev** {{DT_FLOAT}} | Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class; *default:* **-1** |
 | **--default.emergencydecel** {{DT_STR}} | Select default emergencyDecel value among ('decel', 'default', FLOAT) which sets the value either to the same as the deceleration value, a vClass-class specific default or the given FLOAT in m/s^2; *default:* **default** |
-| **--overhead-wire-solver** {{DT_BOOL}} | Use Kirchhoff's laws for solving overhead wire circuit; *default:* **true** |
+| **--overhead-wire.solver** {{DT_BOOL}} | Use Kirchhoff's laws for solving overhead wire circuit; *default:* **true** |
+| **--overhead-wire.recuperation** {{DT_BOOL}} | Enable recuperation from the vehicle equipped with elecHybrid device into the ovrehead wire.; *default:* **true** |
+| **--overhead-wire.substation-current-limits** {{DT_BOOL}} | Enable current limits of traction substation during solving the overhead wire electrical circuit.; *default:* **true** |
 | **--emergencydecel.warning-threshold** {{DT_FLOAT}} | Sets the fraction of emergency decel capability that must be used to trigger a warning.; *default:* **1** |
 | **--parking.maneuver** {{DT_BOOL}} | Whether parking simulation includes manoeuvering time and associated lane blocking; *default:* **false** |
 | **--use-stop-ended** {{DT_BOOL}} | Override stop until times with stop ended times when given; *default:* **false** |
@@ -217,6 +226,7 @@ configuration:
 | **--weights.random-factor** {{DT_FLOAT}} | Edge weights for routing are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT); *default:* **1** |
 | **--weights.minor-penalty** {{DT_FLOAT}} | Apply the given time penalty when computing minimum routing costs for minor-link internal lanes; *default:* **1.5** |
 | **--weights.priority-factor** {{DT_FLOAT}} | Consider edge priorities in addition to travel times, weighted by factor; *default:* **0** |
+| **--weights.separate-turns** {{DT_FLOAT}} | Distinguish travel time by turn direction and shift a fraction of the estimated time loss ahead of the intersection onto the internal edges; *default:* **0** |
 | **--astar.all-distances** {{DT_FILE}} | Initialize lookup table for astar from the given file (generated by marouter --all-pairs-output) |
 | **--astar.landmark-distances** {{DT_FILE}} | Initialize lookup table for astar ALT-variant from the given file |
 | **--persontrip.walkfactor** {{DT_FLOAT}} | Use FLOAT as a factor on pedestrian maximum speed during intermodal routing; *default:* **0.75** |
@@ -323,6 +333,8 @@ configuration:
 | **--device.ssm.extratime** {{DT_FLOAT}} | Specifies the time in seconds to be logged after a conflict is over (default is 5.00secs.). Required >0 if PET is to be calculated for crossing conflicts. |
 | **--device.ssm.file** {{DT_STR}} | Give a global default filename for the SSM output. |
 | **--device.ssm.geo** {{DT_BOOL}} | Whether to use coordinates of the original reference system in output (default is false). |
+| **--device.ssm.write-positions** {{DT_BOOL}} | Whether to write positions (coordinates) for each timestep. |
+| **--device.ssm.write-lane-positions** {{DT_BOOL}} | Whether to write lanes and their positions for each timestep. |
 
 ### Toc Device
 
@@ -487,7 +499,7 @@ configuration:
 | **--registry-viewport** {{DT_BOOL}} | Load current viewport from registry; *default:* **false** |
 | **--window-size** {{DT_STR[]}} | Create initial window with the given x,y size |
 | **--window-pos** {{DT_STR[]}} | Create initial window at the given x,y position |
-| **--tracker-interval** {{DT_FLOAT}} | The aggregation period for value tracker windows; *default:* **1** |
+| **--tracker-interval** {{DT_TIME}} | The aggregation period for value tracker windows; *default:* **1** |
 | **--osg-view** {{DT_BOOL}} | Start with an OpenSceneGraph view instead of the regular 2D view; *default:* **false** |
 | **--gui-testing** {{DT_BOOL}} | Enable overlay for screen recognition; *default:* **false** |
 | **--gui-testing-debug** {{DT_BOOL}} | Enable output messages during GUI-Testing; *default:* **false** |
