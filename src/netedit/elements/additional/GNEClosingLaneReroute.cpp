@@ -44,6 +44,20 @@ myPermissions(permissions) {
 GNEClosingLaneReroute::~GNEClosingLaneReroute() {}
 
 
+void 
+GNEClosingLaneReroute::writeAdditional(OutputDevice& device) const {
+    device.openTag(SUMO_TAG_CLOSING_LANE_REROUTE);
+    device.writeAttr(SUMO_ATTR_LANE, getAttribute(SUMO_ATTR_LANE));
+    if (!getAttribute(SUMO_ATTR_ALLOW).empty()) {
+        device.writeAttr(SUMO_ATTR_ALLOW, getAttribute(SUMO_ATTR_ALLOW));
+    }
+    if (!getAttribute(SUMO_ATTR_DISALLOW).empty()) {
+        device.writeAttr(SUMO_ATTR_DISALLOW, getAttribute(SUMO_ATTR_DISALLOW));
+    }
+    device.closeTag();
+}
+
+
 GNEMoveOperation*
 GNEClosingLaneReroute::getMoveOperation() {
     // GNEClosingLaneReroute cannot be moved

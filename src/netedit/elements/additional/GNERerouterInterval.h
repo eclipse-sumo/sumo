@@ -52,6 +52,11 @@ public:
     /// @brief destructor
     ~GNERerouterInterval();
 
+    /**@brief writte additional element into a xml file
+     * @param[in] device device in which write parameters of additional element
+     */
+    void writeAdditional(OutputDevice& device) const;
+
     /**@brief get move operation
     * @note returned GNEMoveOperation can be nullptr
     */

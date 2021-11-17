@@ -43,6 +43,16 @@ myVisible(visible) {
 GNEParkingAreaReroute::~GNEParkingAreaReroute() {}
 
 
+void 
+GNEParkingAreaReroute::writeAdditional(OutputDevice& device) const {
+    device.openTag(SUMO_TAG_PARKING_AREA_REROUTE);
+    device.writeAttr(SUMO_ATTR_PARKING, getAttribute(SUMO_ATTR_PARKING));
+    device.writeAttr(SUMO_ATTR_PROB, myProbability);
+    device.writeAttr(SUMO_ATTR_VISIBLE, myVisible);
+    device.closeTag();
+}
+
+
 GNEMoveOperation*
 GNEParkingAreaReroute::getMoveOperation() {
     // GNEParkingAreaReroutes cannot be moved

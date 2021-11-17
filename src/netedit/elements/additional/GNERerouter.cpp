@@ -36,20 +36,54 @@ GNERerouter::GNERerouter(const std::string& id, GNENet* net, const Position& pos
                          const std::string& filename, double probability, bool off, SUMOTime timeThreshold, const std::vector<std::string>& vTypes,
                          const std::map<std::string, std::string>& parameters) :
     GNEAdditional(id, net, GLO_REROUTER, SUMO_TAG_REROUTER, name,
-{}, {}, {}, {}, {}, {}, {}, {},
-parameters),
-myPosition(pos),
-myFilename(filename),
-myProbability(probability),
-myOff(off),
-myTimeThreshold(timeThreshold),
-myVTypes(vTypes) {
+        {}, {}, {}, {}, {}, {}, {}, {},
+    parameters),
+    myPosition(pos),
+    myFilename(filename),
+    myProbability(probability),
+    myOff(off),
+    myTimeThreshold(timeThreshold),
+    myVTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
 
 
 GNERerouter::~GNERerouter() {
+}
+
+
+void
+GNERerouter::writeAdditional(OutputDevice& device) const {
+    device.openTag(SUMO_TAG_REROUTER);
+    device.writeAttr(SUMO_ATTR_ID, getID());
+    device.writeAttr(SUMO_ATTR_EDGES, getAttribute(SUMO_ATTR_EDGES));
+    device.writeAttr(SUMO_ATTR_POSITION, myPosition);
+    if (!myAdditionalName.empty()) {
+        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
+    }
+    if (!myFilename.empty()) {
+        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myFilename));
+    }
+    if (myProbability != 1.0) {
+        device.writeAttr(SUMO_ATTR_PROB, myProbability);
+    }
+    if (myTimeThreshold != 0.0) {
+        device.writeAttr(SUMO_ATTR_HALTING_TIME_THRESHOLD, myTimeThreshold);
+    }
+    if (!myVTypes.empty()) {
+        device.writeAttr(SUMO_ATTR_VTYPES, myVTypes);
+    }
+    if (myOff) {
+        device.writeAttr(SUMO_ATTR_OFF, myOff);
+    }
+    // write all rerouter interval
+    for (const auto& rerouterInterval : getChildAdditionals()) {
+        rerouterInterval->writeAdditional(device);
+    }
+    // write parameters (Always after children to avoid problems with additionals.xsd)
+    writeParams(device);
+    device.closeTag();
 }
 
 

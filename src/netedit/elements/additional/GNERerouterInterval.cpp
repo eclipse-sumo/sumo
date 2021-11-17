@@ -33,10 +33,10 @@
 
 GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
     GNEAdditional(rerouterDialog->getEditedAdditional()->getNet(), GLO_REROUTER_INTERVAL, SUMO_TAG_INTERVAL, "",
-{}, {}, {}, {rerouterDialog->getEditedAdditional()}, {}, {}, {}, {},
-std::map<std::string, std::string>()),
+        {}, {}, {}, {rerouterDialog->getEditedAdditional()}, {}, {}, {}, {},
+    std::map<std::string, std::string>()),
     myBegin(0),
-myEnd(0) {
+    myEnd(0) {
     // fill reroute interval with default values
     setDefaultValues();
     // update boundary of rerouter parent
@@ -46,16 +46,29 @@ myEnd(0) {
 
 GNERerouterInterval::GNERerouterInterval(GNEAdditional* rerouterParent, SUMOTime begin, SUMOTime end) :
     GNEAdditional(rerouterParent->getNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "",
-{}, {}, {}, {rerouterParent}, {}, {}, {}, {},
-std::map<std::string, std::string>()),
-myBegin(begin),
-myEnd(end) {
+        {}, {}, {}, {rerouterParent}, {}, {}, {}, {},
+    std::map<std::string, std::string>()),
+    myBegin(begin),
+    myEnd(end) {
     // update boundary of rerouter parent
     rerouterParent->updateCenteringBoundary(true);
 }
 
 
 GNERerouterInterval::~GNERerouterInterval() {}
+
+
+void
+GNERerouterInterval::writeAdditional(OutputDevice& device) const {
+    device.openTag(SUMO_TAG_INTERVAL);
+    device.writeAttr(SUMO_ATTR_BEGIN, getAttribute(SUMO_ATTR_BEGIN));
+    device.writeAttr(SUMO_ATTR_END, getAttribute(SUMO_ATTR_END));
+    // write all rerouter interval
+    for (const auto& rerouterElement : getChildAdditionals()) {
+        rerouterElement->writeAdditional(device);
+    }
+    device.closeTag();
+}
 
 
 GNEMoveOperation*

@@ -44,6 +44,20 @@ myPermissions(permissions) {
 GNEClosingReroute::~GNEClosingReroute() {}
 
 
+void
+GNEClosingReroute::writeAdditional(OutputDevice& device) const {
+    device.openTag(SUMO_TAG_CLOSING_REROUTE);
+    device.writeAttr(SUMO_ATTR_EDGE, getAttribute(SUMO_ATTR_EDGE));
+    if (!getAttribute(SUMO_ATTR_ALLOW).empty()) {
+        device.writeAttr(SUMO_ATTR_ALLOW, getAttribute(SUMO_ATTR_ALLOW));
+    }
+    if (!getAttribute(SUMO_ATTR_DISALLOW).empty()) {
+        device.writeAttr(SUMO_ATTR_DISALLOW, getAttribute(SUMO_ATTR_DISALLOW));
+    }
+    device.closeTag();
+}
+
+
 GNEMoveOperation*
 GNEClosingReroute::getMoveOperation() {
     // GNEClosingReroutes cannot be moved
