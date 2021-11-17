@@ -23,7 +23,7 @@
 #include <string>
 #include <vector>
 #include <utils/xml/SUMOXMLDefinitions.h>
-#include <utils/emissions/MMPEVEM/CharacteristicMap.h>
+#include <utils/emissions/CharacteristicMap.h>
 
 
 // ===========================================================================

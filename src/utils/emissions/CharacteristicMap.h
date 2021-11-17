@@ -1,5 +1,5 @@
 /**
- * \file utils/emissions/MMPEVEM/CharacteristicMap.h
+ * \file utils/emissions/CharacteristicMap.h
  * \author Kevin Badalian (badalian_k@mmp.rwth-aachen.de)
  *         Teaching and Research Area Mechatronics in Mobile Propulsion (MMP)
  *         RWTH Aachen University

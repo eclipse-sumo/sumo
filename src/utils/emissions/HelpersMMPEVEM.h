@@ -6,15 +6,15 @@
  * \copyright Eclipse Public License v2.0
  *            (https://www.eclipse.org/legal/epl-2.0/)
  * \date 2021-10
- * \brief This file contains a helper class for MMPEVEMs.
+ * \brief This file contains MMP's emission model for electric vehicles.
  */
 
 
 #pragma once
 
 
-#include <utils/emissions/MMPEVEM/MMPEVEM.h>
 #include <utils/emissions/PollutantsInterface.h>
+#include <utils/emissions/EnergyParams.h>
 
 #include <map>
 
@@ -30,8 +30,6 @@ class HelpersMMPEVEM : public PollutantsInterface::Helper
 {
 private:
   static const int MMPEVEM_BASE = 5 << 16;
-  int myIndex;
-  std::map<int, MMPEVEM> myModels;
 
 
 public:
@@ -39,15 +37,6 @@ public:
    * \brief Constructor
    */
   HelpersMMPEVEM();
-
-  /**
-   * \brief Get the emission class that is associated with a name.
-   *
-   * \param[in] ref_eClass Name of an emission class
-   * \param[in] vc The vehicle class to use when determining the default class
-   */
-  SUMOEmissionClass getClassByName(const std::string& ref_eClass,
-        const SUMOVehicleClass vc);
 
   /**
    * \brief Compute the amount of emitted pollutants for an emission class in a
@@ -68,6 +57,6 @@ public:
   double compute(const SUMOEmissionClass c,
         const PollutantsInterface::EmissionType e, const double v,
         const double a, const double slope,
-        const EnergyParams* /* ptr_energyParams */) const;
+        const EnergyParams* ptr_energyParams) const;
 };
 
