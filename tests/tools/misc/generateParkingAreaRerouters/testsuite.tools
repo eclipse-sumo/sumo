@@ -1,6 +1,9 @@
 example
 opposite_visible
 
+# parkingAreas are only on one side but vehicles driving past should still see them
+opposite_visible_oneSided
+
 # exclude low-capacity destinations
 minCapacity
 
