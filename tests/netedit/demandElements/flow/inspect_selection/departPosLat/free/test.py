@@ -37,9 +37,6 @@ netedit.selectMode()
 # select all using invert
 netedit.selectionInvert()
 
-# apply zoom
-netedit.setZoom("14", "17", "12")
-
 # inspect vehicle
 netedit.leftClick(referencePosition, 330, 150)
 
