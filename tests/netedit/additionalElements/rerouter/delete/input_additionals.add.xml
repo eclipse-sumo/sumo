@@ -1,4 +1,0 @@
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <rerouter id="rerouter_1" edges="gneE1" probability="0.30" off = "1" pos="24.07,4.46"/>
-    <rerouter id="rerouter_2" edges="gneE1" probability="0.30" off = "0" pos="27.64,4.46"/>
-</additional>
