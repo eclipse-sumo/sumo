@@ -63,12 +63,12 @@ GNERerouter::writeAdditional(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
     }
     if (!myFilename.empty()) {
-        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myFilename));
+        device.writeAttr(SUMO_ATTR_FILE, StringUtils::escapeXML(myFilename));
     }
     if (myProbability != 1.0) {
         device.writeAttr(SUMO_ATTR_PROB, myProbability);
     }
-    if (time2string(myTimeThreshold) != "0.0") {
+    if (time2string(myTimeThreshold) != "0.00") {
         device.writeAttr(SUMO_ATTR_HALTING_TIME_THRESHOLD, time2string(myTimeThreshold));
     }
     if (!myVTypes.empty()) {
