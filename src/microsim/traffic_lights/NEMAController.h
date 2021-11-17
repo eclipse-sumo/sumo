@@ -142,6 +142,8 @@ public:
         return false;
     }
 
+    int getCurrentPhaseIndex() const;
+
 protected:
     // create a small datatype for mapping detector to phase index
     // This is the one copied from MSActuatedTrafficLightLogic
