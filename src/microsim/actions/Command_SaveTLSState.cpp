@@ -46,11 +46,21 @@ Command_SaveTLSState::~Command_SaveTLSState() {
 
 SUMOTime
 Command_SaveTLSState::execute(SUMOTime currentTime) {
-    myOutputDevice << "    <tlsState time=\"" << time2string(currentTime)
-                   << "\" id=\"" << myLogics.getActive()->getID()
-                   << "\" programID=\"" << myLogics.getActive()->getProgramID()
-                   << "\" phase=\"" << myLogics.getActive()->getCurrentPhaseIndex()
-                   << "\" state=\"" << myLogics.getActive()->getCurrentPhaseDef().getState() << "\"/>\n";
+
+    myLogics.getActive()->getCurrentPhaseDef().getName().empty() ?
+        myOutputDevice << "    <tlsState time=\"" << time2string(currentTime)
+                       << "\" id=\"" << myLogics.getActive()->getID()
+                       << "\" programID=\"" << myLogics.getActive()->getProgramID()
+                       << "\" phase=\"" << myLogics.getActive()->getCurrentPhaseIndex()
+                       << "\" state=\"" << myLogics.getActive()->getCurrentPhaseDef().getState() << "\"/>\n" :
+                       
+        myOutputDevice << "    <tlsState time=\"" << time2string(currentTime)
+                       << "\" id=\"" << myLogics.getActive()->getID()
+                       << "\" programID=\"" << myLogics.getActive()->getProgramID()
+                       << "\" phase=\"" << myLogics.getActive()->getCurrentPhaseIndex()
+                       << "\" phaseName=\"" << myLogics.getActive()->getCurrentPhaseDef().getName()
+                       << "\" state=\"" << myLogics.getActive()->getCurrentPhaseDef().getState() << "\"/>\n" ;
+        
     return DELTA_T;
 }
 
