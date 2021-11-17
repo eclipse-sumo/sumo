@@ -68,8 +68,8 @@ GNERerouter::writeAdditional(OutputDevice& device) const {
     if (myProbability != 1.0) {
         device.writeAttr(SUMO_ATTR_PROB, myProbability);
     }
-    if (myTimeThreshold != 0.0) {
-        device.writeAttr(SUMO_ATTR_HALTING_TIME_THRESHOLD, myTimeThreshold);
+    if (time2string(myTimeThreshold) != "0.0") {
+        device.writeAttr(SUMO_ATTR_HALTING_TIME_THRESHOLD, time2string(myTimeThreshold));
     }
     if (!myVTypes.empty()) {
         device.writeAttr(SUMO_ATTR_VTYPES, myVTypes);
