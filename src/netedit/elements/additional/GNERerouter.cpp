@@ -79,7 +79,9 @@ GNERerouter::writeAdditional(OutputDevice& device) const {
     }
     // write all rerouter interval
     for (const auto& rerouterInterval : getChildAdditionals()) {
-        rerouterInterval->writeAdditional(device);
+        if (!rerouterInterval->getTagProperty().isSymbol()) {
+            rerouterInterval->writeAdditional(device);
+        }
     }
     // write parameters (Always after children to avoid problems with additionals.xsd)
     writeParams(device);
