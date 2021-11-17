@@ -27,6 +27,9 @@ getShortestRoute_rail
 # parsing XML and accessing objects
 xml
 
+# parsing XML with comments
+xml.comments
+
 # parsing nested XML
 xml.parse_nested
 
