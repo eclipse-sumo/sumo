@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-15 16:36:27 by Eclipse SUMO sumo Version v1_10_0+2283-0264766
+<!-- generated on 2021-11-17 09:22:11 by Eclipse SUMO sumo Version v1_10_0+2350-1bc0e0c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -40,4 +40,6 @@ SPDX-License-Identifier: EPL-2.0
     <change id="ego" type="DEFAULT_VEHTYPE" time="7.00" from="a_1" to="-a_2" dir="1" speed="13.89" pos="66.78" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
     <change id="ego" type="DEFAULT_VEHTYPE" time="11.00" from="-a_2" to="-a_1" dir="1" speed="13.89" pos="77.66" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
     <change id="ego" type="DEFAULT_VEHTYPE" time="14.00" from="-a_1" to="-a_0" dir="1" speed="4.67" pos="50.16" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+    <change id="ego" type="DEFAULT_VEHTYPE" time="26.00" from="-a_0" to="-a_1" dir="-1" speed="2.60" pos="47.40" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+    <change id="ego" type="DEFAULT_VEHTYPE" time="29.00" from="-a_1" to="-a_2" dir="-1" speed="10.40" pos="24.00" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
 </lanechanges>
