@@ -173,7 +173,7 @@ bool calcPowerConsumption(double m, double r_wheel, double Theta, double c_rr,
  * \brief Constructor
  */
 HelpersMMPEVEM::HelpersMMPEVEM()
- : PollutantsInterface::Helper("MMPEVEM", MMPEVEM_BASE, 0)
+ : PollutantsInterface::Helper("MMPEVEM", MMPEVEM_BASE, MMPEVEM_BASE + 1)
 { }
 
 
@@ -196,7 +196,7 @@ HelpersMMPEVEM::HelpersMMPEVEM()
  * \returns The electric power consumption [Wh/s] or 0 for all other emission
  *          types
  */
-double HelpersMMPEVEM::compute(const SUMOEmissionClass c,
+double HelpersMMPEVEM::compute(const SUMOEmissionClass /* c */,
     const PollutantsInterface::EmissionType e, const double v, const double a,
     const double slope, const EnergyParams* ptr_energyParams) const
 {
