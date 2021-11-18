@@ -1017,6 +1017,9 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::YELLOW, (double)(2.5 / 3.6));
     scheme.addColor(RGBColor::GREEN, (double)(5 / 3.6));
     scheme.addColor(RGBColor::BLUE, (double)(10 / 3.6));
+    scheme.setAllowsNegativeValues(true); // negative speed indicates stopped
+    scheme.addColor(RGBColor::GREY, -1); // stop stage
+    scheme.addColor(RGBColor::GREY, -2); // stop stage (departure)
     personColorer.addScheme(scheme);
     scheme = GUIColorScheme("by mode", RGBColor::GREY, "waiting for insertion", true, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor::RED, (double)(1), "stopped");

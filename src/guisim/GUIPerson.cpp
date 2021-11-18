@@ -438,7 +438,14 @@ double
 GUIPerson::getColorValue(const GUIVisualizationSettings& /* s */, int activeScheme) const {
     switch (activeScheme) {
         case 4:
-            return getSpeed();
+            switch (getCurrentStageType()) {
+                case MSStageType::WAITING:
+                    return -1;
+                case MSStageType::WAITING_FOR_DEPART:
+                    return -2;
+                default:
+                    return getSpeed();
+            }
         case 5:
             if (isWaiting4Vehicle()) {
                 return 5;
