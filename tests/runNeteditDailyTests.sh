@@ -57,6 +57,7 @@ if which texttest &> /dev/null; then
   texttest -a netedit.daily.additional.parkingarea "$@" &
   texttest -a netedit.daily.additional.parkingspace "$@" &
   texttest -a netedit.daily.additional.rerouter "$@" &
+  texttest -a netedit.daily.additional.rerouterelements "$@" &
   texttest -a netedit.daily.additional.routeprobe "$@" &
   texttest -a netedit.daily.additional.trainstop "$@" &
   texttest -a netedit.daily.additional.vaporizer "$@" &
