@@ -1790,13 +1790,19 @@ GNEFrameModuls::SelectorParent::refreshSelectorParentModul() {
     }
     myParentsList->clearItems();
     if (myParentTags.size() > 0) {
+        // insert additionals sorted
+        std::set<std::string> IDs;
         // fill list with IDs of additionals
         for (const auto& parentTag : myParentTags) {
             for (const auto& additional : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getAdditionals().at(parentTag)) {
-                const int item = myParentsList->appendItem(additional->getID().c_str());
-                if (selectedItems.find(additional->getID()) != selectedItems.end()) {
-                    myParentsList->selectItem(item);
-                }
+                IDs.insert(additional->getID().c_str());
+            }
+        }
+        // fill list with IDs of additionals
+        for (const auto& ID : IDs) {
+            const int item = myParentsList->appendItem(ID.c_str());
+            if (selectedItems.find(ID) != selectedItems.end()) {
+                myParentsList->selectItem(item);
             }
         }
     }
