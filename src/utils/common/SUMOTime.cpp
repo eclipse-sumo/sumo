@@ -94,8 +94,9 @@ time2string(SUMOTime t) {
         oss << std::setw(2) << t / second;
         t %= second;
         if (t != 0 || TS < 1.) {
+            oss << ".";
             oss << std::setw(MIN2(3, gPrecision));
-            oss << "." << t;
+            oss << t;
         }
     } else {
         oss << t / second << ".";
