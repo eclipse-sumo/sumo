@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-18 15:22:11 by Eclipse SUMO netedit Version v1_10_0+2416-cc47fd0c297
+<!-- generated on 2021-11-18 16:05:04 by Eclipse SUMO netedit Version v1_10_0+2418-91f9be6116e
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_18Nov151727.18936\netedit.gui\additionalElements\rerouterelements\parkingareareroute\load\visible\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov155542.10932\netedit.gui\additionalElements\rerouterelements\parkingareareroute\load\visible\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_18Nov151727.18936\netedit.gui\additionalElements\rerouterelements\parkingareareroute\load\visible\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov155542.10932\netedit.gui\additionalElements\rerouterelements\parkingareareroute\load\visible\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,28 +30,28 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_18Nov151727.18936\netedit.gui\additionalElements\rerouterelements\parkingareareroute\load\visible\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_18Nov151727.18936\netedit.gui\additionalElements\rerouterelements\parkingareareroute\load\visible\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_18Nov151727.18936\netedit.gui\additionalElements\rerouterelements\parkingareareroute\load\visible\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_18Nov151727.18936\netedit.gui\additionalElements\rerouterelements\parkingareareroute\load\visible\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_18Nov151727.18936\netedit.gui\additionalElements\rerouterelements\parkingareareroute\load\visible\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_18Nov151727.18936\netedit.gui\additionalElements\rerouterelements\parkingareareroute\load\visible\datas.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov155542.10932\netedit.gui\additionalElements\rerouterelements\parkingareareroute\load\visible\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov155542.10932\netedit.gui\additionalElements\rerouterelements\parkingareareroute\load\visible\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov155542.10932\netedit.gui\additionalElements\rerouterelements\parkingareareroute\load\visible\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov155542.10932\netedit.gui\additionalElements\rerouterelements\parkingareareroute\load\visible\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov155542.10932\netedit.gui\additionalElements\rerouterelements\parkingareareroute\load\visible\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov155542.10932\netedit.gui\additionalElements\rerouterelements\parkingareareroute\load\visible\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_18Nov151727.18936\netedit.gui\additionalElements\rerouterelements\parkingareareroute\load\visible\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov155542.10932\netedit.gui\additionalElements\rerouterelements\parkingareareroute\load\visible\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_18Nov151727.18936\netedit.gui\additionalElements\rerouterelements\parkingareareroute\load\visible\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov155542.10932\netedit.gui\additionalElements\rerouterelements\parkingareareroute\load\visible\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_18Nov151727.18936\netedit.gui\additionalElements\rerouterelements\parkingareareroute\load\visible\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov155542.10932\netedit.gui\additionalElements\rerouterelements\parkingareareroute\load\visible\log.txt"/>
     </report>
 
 </configuration>
@@ -61,9 +61,9 @@
     <parkingArea id="parkingArea" lane="gneE1_0" startPos="25.00" endPos="35.00"/>
     <rerouter id="rerouter_0" edges="gneE0 gneE1" pos="0.00,10.00">
         <interval begin="0.00" end="3600.00">
-            <parkingAreaReroute id="parkingArea" probability="1.00" visible="1"/>
-            <parkingAreaReroute id="parkingArea" probability="1.00" visible="0"/>
-            <parkingAreaReroute id="parkingArea" probability="1.00" visible="1"/>
+            <parkingAreaReroute id="parkingArea"/>
+            <parkingAreaReroute id="parkingArea"/>
+            <parkingAreaReroute id="parkingArea" visible="1"/>
         </interval>
     </rerouter>
 </additional>

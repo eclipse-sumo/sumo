@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-18 14:48:43 by Eclipse SUMO netedit Version v1_10_0+2414-d1d1b7d72a2
+<!-- generated on 2021-11-18 16:02:46 by Eclipse SUMO netedit Version v1_10_0+2418-91f9be6116e
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov144823.19084\netedit.gui\additionalElements\rerouterelements\destprobreroute\load\default\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov155542.10932\netedit.gui\additionalElements\rerouterelements\destprobreroute\load\default\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov144823.19084\netedit.gui\additionalElements\rerouterelements\destprobreroute\load\default\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov155542.10932\netedit.gui\additionalElements\rerouterelements\destprobreroute\load\default\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,28 +30,28 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov144823.19084\netedit.gui\additionalElements\rerouterelements\destprobreroute\load\default\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov144823.19084\netedit.gui\additionalElements\rerouterelements\destprobreroute\load\default\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov144823.19084\netedit.gui\additionalElements\rerouterelements\destprobreroute\load\default\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov144823.19084\netedit.gui\additionalElements\rerouterelements\destprobreroute\load\default\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov144823.19084\netedit.gui\additionalElements\rerouterelements\destprobreroute\load\default\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov144823.19084\netedit.gui\additionalElements\rerouterelements\destprobreroute\load\default\datas.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov155542.10932\netedit.gui\additionalElements\rerouterelements\destprobreroute\load\default\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov155542.10932\netedit.gui\additionalElements\rerouterelements\destprobreroute\load\default\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov155542.10932\netedit.gui\additionalElements\rerouterelements\destprobreroute\load\default\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov155542.10932\netedit.gui\additionalElements\rerouterelements\destprobreroute\load\default\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov155542.10932\netedit.gui\additionalElements\rerouterelements\destprobreroute\load\default\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov155542.10932\netedit.gui\additionalElements\rerouterelements\destprobreroute\load\default\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov144823.19084\netedit.gui\additionalElements\rerouterelements\destprobreroute\load\default\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov155542.10932\netedit.gui\additionalElements\rerouterelements\destprobreroute\load\default\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov144823.19084\netedit.gui\additionalElements\rerouterelements\destprobreroute\load\default\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov155542.10932\netedit.gui\additionalElements\rerouterelements\destprobreroute\load\default\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov144823.19084\netedit.gui\additionalElements\rerouterelements\destprobreroute\load\default\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov155542.10932\netedit.gui\additionalElements\rerouterelements\destprobreroute\load\default\log.txt"/>
     </report>
 
 </configuration>
@@ -60,7 +60,7 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <rerouter id="rerouter_0" edges="gneE0 gneE1" pos="0.00,10.00">
         <interval begin="0.00" end="3600.00">
-            <destProbReroute id="gneE0" probability="1.00"/>
+            <destProbReroute id="gneE0"/>
         </interval>
     </rerouter>
 </additional>

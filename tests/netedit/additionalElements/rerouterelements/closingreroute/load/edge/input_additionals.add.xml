@@ -2,11 +2,11 @@
     <rerouter id="rerouter_0" edges="gneE0 gneE1" pos="0.00,10.00">
         <interval begin="0.00" end="3600.00">
 		
-            <closingReroute allow="all"/>
+            <closingReroute/>
 			
-			<closingReroute id="dummyLane" allow="all"/>
+			<closingReroute id="dummyLane"/>
 			
-			<closingReroute id="gneE0" allow="all"/>
+			<closingReroute id="gneE0"/>
 			
         </interval>
     </rerouter>

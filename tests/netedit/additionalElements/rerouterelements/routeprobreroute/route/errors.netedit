@@ -13,8 +13,11 @@ Debug: Selected item 'personTrip: edge->edge' in TagSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding route 'route_0' in GNEChange_DemandElement
 Error: Attribute 'id' is missing in definition of a destProbReroute.
+Error: Attribute 'probability' is missing in definition of a destProbReroute.
 Error: Attribute 'id' is missing in definition of a destProbReroute.
+Error: Attribute 'probability' is missing in definition of a destProbReroute.
 Error: Attribute 'id' is missing in definition of a destProbReroute.
+Error: Attribute 'probability' is missing in definition of a destProbReroute.
 Debug: Adding rerouter 'rerouter_0' in GNEChange_Additional
 GLDebug: 	Inserted rerouter:rerouter_0 into SUMORTree with boundary -10.00,0.00,10.00,20.00
 Debug: Adding rerouterSymbol 'rerouter_0' in GNEChange_Additional
@@ -22,7 +25,7 @@ Debug: Adding rerouterSymbol 'rerouter_0' in GNEChange_Additional
 GLDebug: 	Removed object rerouter:rerouter_0 from SUMORTree with boundary -10.00,0.00,10.00,20.00
 GLDebug: 	Inserted rerouter:rerouter_0 into SUMORTree with boundary -10.00,-11.60,54.00,20.00
 Debug: Adding interval 'rerouter_0' in GNEChange_Additional
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov145821.18864\netedit.gui\additionalElements\rerouterelements\routeprobreroute\route\input_additionals.add.xml failed.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Nov153453.14780\netedit.gui\additionalElements\rerouterelements\routeprobreroute\route\input_additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00
