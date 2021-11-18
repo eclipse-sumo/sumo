@@ -707,7 +707,7 @@ GNEViewNet::aksChangeSupermode(const std::string& operation, Supermode expectedS
     // open question box
     const auto answer = FXMessageBox::question(myApp, MBOX_YES_NO,
                         "Confirm change supermode", "%s",
-                        (operation + " requiere to change to " + supermode + " mode. Continue?").c_str());
+                        (operation + " require to change to " + supermode + " mode. Continue?").c_str());
     // restore focus to view net
     setFocus();
     // return answer

@@ -90,7 +90,7 @@ GNEChange_GenericData::undo() {
         // restore container
         restoreHierarchicalContainers();
     }
-    // Requiere always save elements
+    // require always save elements
     myGenericData->getNet()->requireSaveDataElements(true);
 }
 
@@ -120,7 +120,7 @@ GNEChange_GenericData::redo() {
         // remove genericData from parents and children
         removeElementFromParentsAndChildren(myGenericData);
     }
-    // Requiere always save elements
+    // require always save elements
     myGenericData->getNet()->requireSaveDataElements(true);
 }
 

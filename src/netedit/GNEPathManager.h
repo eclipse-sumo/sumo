@@ -305,10 +305,10 @@ public:
     /// @brief get first lane associated with path element
     const GNELane* getFirstLane(const PathElement* pathElement) const;
 
-    /// @brief calculate path edges (using dijkstra, requiere path calculator updated)
+    /// @brief calculate path edges (using dijkstra, require path calculator updated)
     void calculatePathEdges(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*> edges);
 
-    /// @brief calculate path lanes (using dijkstra, requiere path calculator updated)
+    /// @brief calculate path lanes (using dijkstra, require path calculator updated)
     void calculatePathLanes(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNELane*> lanes);
 
     /// @brief calculate consecutive path edges

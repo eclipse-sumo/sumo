@@ -90,7 +90,7 @@ GNEChange_DemandElement::undo() {
     if (myOriginalHierarchicalContainer.getParents<std::vector<GNEEdge*> >().size() > 0) {
         myOriginalHierarchicalContainer.getParents<std::vector<GNEEdge*> >().front()->updateVehicleStackLabels();
     }
-    // Requiere always save elements
+    // require always save elements
     myDemandElement->getNet()->requireSaveDemandElements(true);
 }
 
@@ -128,7 +128,7 @@ GNEChange_DemandElement::redo() {
     if (myOriginalHierarchicalContainer.getParents<std::vector<GNEEdge*> >().size() > 0) {
         myOriginalHierarchicalContainer.getParents<std::vector<GNEEdge*> >().front()->updateVehicleStackLabels();
     }
-    // Requiere always save elements
+    // require always save elements
     myDemandElement->getNet()->requireSaveDemandElements(true);
 }
 

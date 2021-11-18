@@ -2208,7 +2208,7 @@ GNEFrameModuls::PathCreator::showPathCreatorModul(SumoXMLTag element, const bool
     myCreationMode = 0;
     // set first element
     if (firstElement) {
-        myCreationMode |= REQUIERE_FIRSTELEMENT;
+        myCreationMode |= REQUIRE_FIRSTELEMENT;
     }
     // set consecutive or non consecuives
     if (consecutives) {

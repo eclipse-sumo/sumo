@@ -344,7 +344,7 @@ public:
     long onCmdFocusFrame(FXObject* sender, FXSelector sel, void* ptr);
 
     /// @brief enable or disable sender object depending if viewNet exist
-    long onUpdRequiereViewNet(FXObject* sender, FXSelector sel, void* ptr);
+    long onUpdRequireViewNet(FXObject* sender, FXSelector sel, void* ptr);
 
     /// @brief called if the user press key combination Ctrl + G to toggle grid
     long onCmdToggleGrid(FXObject*, FXSelector, void*);

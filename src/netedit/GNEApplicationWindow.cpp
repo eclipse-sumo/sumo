@@ -365,7 +365,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,              MID_HOTKEY_CTRL_SHIFT_V_FORCESAVEDEMANDELEMENTS,    GNEApplicationWindow::onCmdForceSaveDemandElements),
     FXMAPFUNC(SEL_COMMAND,              MID_HOTKEY_CTRL_SHIFT_W_FORCESAVEDATAELEMENTS,      GNEApplicationWindow::onCmdForceSaveDataElements),
     FXMAPFUNC(SEL_COMMAND,              MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT,             GNEApplicationWindow::onCmdFocusFrame),
-    FXMAPFUNC(SEL_UPDATE,               MID_GNE_MODESMENUTITLE,                             GNEApplicationWindow::onUpdRequiereViewNet),
+    FXMAPFUNC(SEL_UPDATE,               MID_GNE_MODESMENUTITLE,                             GNEApplicationWindow::onUpdRequireViewNet),
 };
 
 // Object implementation
@@ -2046,7 +2046,7 @@ GNEApplicationWindow::onCmdFocusFrame(FXObject*, FXSelector, void*) {
 
 
 long
-GNEApplicationWindow::onUpdRequiereViewNet(FXObject* sender, FXSelector, void*) {
+GNEApplicationWindow::onUpdRequireViewNet(FXObject* sender, FXSelector, void*) {
     // enable or disable sender element depending of viewNet
     sender->handle(this, myViewNet ? FXSEL(SEL_COMMAND, ID_ENABLE) : FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
     return 1;

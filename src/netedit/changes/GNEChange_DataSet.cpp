@@ -72,7 +72,7 @@ GNEChange_DataSet::undo() {
     }
     // update toolbar
     myDataSet->getNet()->getViewNet()->getIntervalBar().updateIntervalBar();
-    // Requiere always save elements
+    // require always save elements
     myDataSet->getNet()->requireSaveDataElements(true);
 }
 
@@ -92,7 +92,7 @@ GNEChange_DataSet::redo() {
     }
     // update toolbar
     myDataSet->getNet()->getViewNet()->getIntervalBar().updateIntervalBar();
-    // Requiere always save elements
+    // require always save elements
     myDataSet->getNet()->requireSaveDataElements(true);
 }
 

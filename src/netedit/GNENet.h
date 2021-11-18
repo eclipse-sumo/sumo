@@ -415,7 +415,7 @@ public:
     /// @brief inform the net about the need for recomputation
     void requireRecompute();
 
-    /// @brief check if net requiere recomputing
+    /// @brief check if net require recomputing
     bool isNetRecomputed() const;
 
     /// @brief get pointer to the main App

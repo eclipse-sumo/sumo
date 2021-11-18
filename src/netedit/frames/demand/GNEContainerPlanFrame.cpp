@@ -116,7 +116,7 @@ GNEContainerPlanFrame::addContainerPlanElement(const GNEViewNetHelper::ObjectsUn
     }
     // Obtain current container plan tag (only for improve code legibility)
     SumoXMLTag containerPlanTag = myContainerPlanTagSelector->getCurrentTagProperties().getTag();
-    // declare flags for requierements
+    // declare flags for requirements
     const bool requireContainerStop = ((containerPlanTag == GNE_TAG_TRANSPORT_CONTAINERSTOP) || (containerPlanTag == GNE_TAG_TRANSHIP_CONTAINERSTOP) ||
                                        (containerPlanTag == GNE_TAG_STOPCONTAINER_CONTAINERSTOP));
     const bool requireEdge = ((containerPlanTag == GNE_TAG_TRANSPORT_EDGE) || (containerPlanTag == GNE_TAG_TRANSHIP_EDGE) ||
