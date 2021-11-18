@@ -52,6 +52,9 @@ Command_SaveTLSState::execute(SUMOTime currentTime) {
     myOutputDevice.writeAttr(SUMO_ATTR_PROGRAMID, myLogics.getActive()->getProgramID());
     myOutputDevice.writeAttr(SUMO_ATTR_PHASE, myLogics.getActive()->getCurrentPhaseIndex());
     myOutputDevice.writeAttr(SUMO_ATTR_STATE, myLogics.getActive()->getCurrentPhaseDef().getState());
+    if (!myLogics.getActive()->getCurrentPhaseDef().getName().empty()) {
+        myOutputDevice.writeAttr(SUMO_ATTR_NAME, myLogics.getActive()->getCurrentPhaseDef().getName());
+    }
     myOutputDevice.closeTag();
     return DELTA_T;
 }

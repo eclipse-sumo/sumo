@@ -470,9 +470,10 @@ NEMALogic::init(NLDetectorBuilder& nb) {
             WRITE_WARNINGF("At NEMA tlLogic '%, linkIndex % has no controlling detector", getID(), toString(i));
         }
     }
+    myPhase.setName(toString(activeRing1Phase) + "+" + toString(activeRing2Phase));
 
 #ifdef DEBUG_NEMA
-    std::cout << "reach the end of init()\n";
+    //std::cout << "reach the end of init()\n";
 #endif
 }
 
