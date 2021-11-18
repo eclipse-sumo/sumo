@@ -46,11 +46,13 @@ Command_SaveTLSState::~Command_SaveTLSState() {
 
 SUMOTime
 Command_SaveTLSState::execute(SUMOTime currentTime) {
-    myOutputDevice << "    <tlsState time=\"" << time2string(currentTime)
-                   << "\" id=\"" << myLogics.getActive()->getID()
-                   << "\" programID=\"" << myLogics.getActive()->getProgramID()
-                   << "\" phase=\"" << myLogics.getActive()->getCurrentPhaseIndex()
-                   << "\" state=\"" << myLogics.getActive()->getCurrentPhaseDef().getState() << "\"/>\n";
+    myOutputDevice.openTag("tlsState");
+    myOutputDevice.writeAttr(SUMO_ATTR_TIME, time2string(currentTime));
+    myOutputDevice.writeAttr(SUMO_ATTR_ID, myLogics.getActive()->getID());
+    myOutputDevice.writeAttr(SUMO_ATTR_PROGRAMID, myLogics.getActive()->getProgramID());
+    myOutputDevice.writeAttr(SUMO_ATTR_PHASE, myLogics.getActive()->getCurrentPhaseIndex());
+    myOutputDevice.writeAttr(SUMO_ATTR_STATE, myLogics.getActive()->getCurrentPhaseDef().getState());
+    myOutputDevice.closeTag();
     return DELTA_T;
 }
 
