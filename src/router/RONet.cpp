@@ -405,6 +405,7 @@ RONet::addVTypeDistribution(const std::string& id, RandomDistributor<SUMOVTypePa
         myVTypeDistDict[id] = vehTypeDistribution;
         return true;
     }
+    delete vehTypeDistribution;
     return false;
 }
 
@@ -426,6 +427,7 @@ RONet::addVehicle(const std::string& id, ROVehicle* veh) {
         return true;
     }
     WRITE_ERROR("Another vehicle with the id '" + id + "' exists.");
+    delete veh;
     return false;
 }
 
@@ -695,8 +697,9 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& pr
                 } else {
                     myDiscardedRouteNo++;
                 }
-                // delete routes and the vehicle
+                // we need to keep individual public transport vehicles but not the flows
                 if (!r->isPublicTransport() || r->isPartOfFlow()) {
+                    // delete routes and the vehicle
                     const ROVehicle* const veh = dynamic_cast<const ROVehicle*>(r);
                     if (veh != nullptr && veh->getRouteDefinition()->getID()[0] == '!') {
                         if (!myRoutes.remove(veh->getRouteDefinition()->getID())) {
