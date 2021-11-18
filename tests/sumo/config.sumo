@@ -49,6 +49,7 @@ vehroutes_ignore_arrival:vehroutes_ignore_arrival.xml
 tls_state:tls_state.xml
 tls_switch:tls_switch.xml
 tls_state_switch:tls_state_switch.xml
+tls_program:tls_program.xml
 physstates:physstates.xml
 cfg:config.cfg
 fcd:fcd.xml
@@ -154,6 +155,7 @@ state_12:<snapshot (.*) version="[^"]*"{REPLACE <snapshot \1 version="<version>"
 tls_state:<!--{[->]}-->
 tls_switch:<!--{[->]}-->
 tls_state_switch:<!--{[->]}-->
+tls_program:<!--{[->]}-->
 physstates:<!--{[->]}-->
 c2x_cluster_info:<!--{[->]}-->
 c2x_saved_info:<!--{[->]}-->
