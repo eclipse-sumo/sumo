@@ -286,12 +286,8 @@ bool Circuit::solveEquationsNRmethod(double* eqn, double* vals, std::vector<int>
 
     double currentSumActual = 0.0;
     // solution x corresponding to the alphaBest
-    double* x_best = new double[numofeqs];
+    Eigen::VectorXd x_best = x;
     bool x_best_exist = true;
-    //init x_best
-    for (int i = 0; i < numofeqs; i++) {
-        x_best[i] = x[i];
-    }
 
     if (x.maxCoeff() > 10e6 || x.minCoeff() < -10e6) {
         WRITE_ERROR("Initial solution x used during solving DC circuit is out of bounds.\n");
@@ -392,9 +388,7 @@ bool Circuit::solveEquationsNRmethod(double* eqn, double* vals, std::vector<int>
                     alphaReason = ALPHA_CURRENT_LIMITS;
                     alpha_notSolution.push_back(alpha);
                     if (x_best_exist) {
-                        for (int ii = 0; ii < numofeqs; ii++) {
-                            x[ii] = x_best[ii];
-                        }
+                        x = x_best;
                     }
                     break;
                 }
@@ -404,26 +398,20 @@ bool Circuit::solveEquationsNRmethod(double* eqn, double* vals, std::vector<int>
                     alphaReason = ALPHA_VOLTAGE_LIMITS;
                     alpha_notSolution.push_back(alpha);
                     if (x_best_exist) {
-                        for (int ii = 0; ii < numofeqs; ii++) {
-                            x[ii] = x_best[ii];
-                        }
+                        x = x_best;
                     }
                     break;
                 }
 
                 alphaBest = alpha;
-                for (int ii = 0; ii < numofeqs; ii++) {
-                    x_best[ii] = x[ii];
-                }
+                x_best = x;
                 x_best_exist = true;
                 break;
             } else if (iterNR == max_iter_of_NR) {
                 alphaReason = ALPHA_NOT_CONVERGING;
                 alpha_notSolution.push_back(alpha);
                 if (x_best_exist) {
-                    for (int ii = 0; ii < numofeqs; ii++) {
-                        x[ii] = x_best[ii];
-                    }
+                    x = x_best;
                 }
                 break;
             }
@@ -501,7 +489,6 @@ bool Circuit::solveEquationsNRmethod(double* eqn, double* vals, std::vector<int>
         i++;
     }
 
-    delete x_best;
     return true;
 }
 #endif
