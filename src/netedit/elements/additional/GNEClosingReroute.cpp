@@ -47,7 +47,7 @@ GNEClosingReroute::~GNEClosingReroute() {}
 void
 GNEClosingReroute::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_CLOSING_REROUTE);
-    device.writeAttr(SUMO_ATTR_EDGE, getAttribute(SUMO_ATTR_EDGE));
+    device.writeAttr(SUMO_ATTR_ID, getAttribute(SUMO_ATTR_EDGE));
     if (!getAttribute(SUMO_ATTR_ALLOW).empty()) {
         device.writeAttr(SUMO_ATTR_ALLOW, getAttribute(SUMO_ATTR_ALLOW));
     }

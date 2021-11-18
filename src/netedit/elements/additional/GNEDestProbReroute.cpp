@@ -46,7 +46,7 @@ GNEDestProbReroute::~GNEDestProbReroute() {}
 void
 GNEDestProbReroute::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_DEST_PROB_REROUTE);
-    device.writeAttr(SUMO_ATTR_EDGE, getAttribute(SUMO_ATTR_EDGE));
+    device.writeAttr(SUMO_ATTR_ID, getAttribute(SUMO_ATTR_EDGE));
     device.writeAttr(SUMO_ATTR_PROB, myProbability);
     device.closeTag();
 }
