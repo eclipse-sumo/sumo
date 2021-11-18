@@ -46,7 +46,9 @@ void
 GNERouteProbReroute::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_DEST_PROB_REROUTE);
     device.writeAttr(SUMO_ATTR_ID, getAttribute(SUMO_ATTR_ROUTE));
-    device.writeAttr(SUMO_ATTR_PROB, myProbability);
+    if (myProbability != 1.0) {
+        device.writeAttr(SUMO_ATTR_PROB, myProbability);
+    }
     device.closeTag();
 }
 

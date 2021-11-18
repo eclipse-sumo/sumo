@@ -32,10 +32,10 @@
 
 GNEClosingReroute::GNEClosingReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* closedEdge, SVCPermissions permissions) :
     GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER_CLOSINGREROUTE, SUMO_TAG_CLOSING_REROUTE, "",
-{}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {},
-std::map<std::string, std::string>()),
+        {}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {},
+    std::map<std::string, std::string>()),
     myClosedEdge(closedEdge),
-myPermissions(permissions) {
+    myPermissions(permissions) {
     // update boundary of rerouter parent
     rerouterIntervalParent->getParentAdditionals().front()->updateCenteringBoundary(true);
 }
@@ -50,8 +50,7 @@ GNEClosingReroute::writeAdditional(OutputDevice& device) const {
     device.writeAttr(SUMO_ATTR_ID, getAttribute(SUMO_ATTR_EDGE));
     if (!getAttribute(SUMO_ATTR_ALLOW).empty()) {
         device.writeAttr(SUMO_ATTR_ALLOW, getAttribute(SUMO_ATTR_ALLOW));
-    }
-    if (!getAttribute(SUMO_ATTR_DISALLOW).empty()) {
+    } else {
         device.writeAttr(SUMO_ATTR_DISALLOW, getAttribute(SUMO_ATTR_DISALLOW));
     }
     device.closeTag();

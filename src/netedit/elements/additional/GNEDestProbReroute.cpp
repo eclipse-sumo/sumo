@@ -31,10 +31,10 @@
 
 GNEDestProbReroute::GNEDestProbReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* newEdgeDestination, double probability):
     GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER_DESTPROBREROUTE, SUMO_TAG_DEST_PROB_REROUTE, "",
-{}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {},
-std::map<std::string, std::string>()),
+        {}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {},
+    std::map<std::string, std::string>()),
     myNewEdgeDestination(newEdgeDestination),
-myProbability(probability) {
+    myProbability(probability) {
     // update boundary of rerouter parent
     rerouterIntervalParent->getParentAdditionals().front()->updateCenteringBoundary(true);
 }
@@ -47,7 +47,9 @@ void
 GNEDestProbReroute::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_DEST_PROB_REROUTE);
     device.writeAttr(SUMO_ATTR_ID, getAttribute(SUMO_ATTR_EDGE));
-    device.writeAttr(SUMO_ATTR_PROB, myProbability);
+    if (myProbability != 1.0) {
+        device.writeAttr(SUMO_ATTR_PROB, myProbability);
+    }
     device.closeTag();
 }
 

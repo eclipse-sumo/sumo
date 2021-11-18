@@ -1309,7 +1309,7 @@ AdditionalHandler::parseClosingLaneRerouteAttributes(const SUMOSAXAttributes& at
     // needed attributes
     const std::string laneID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
     // optional attributes
-    const std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, "", parsedOk, "");
+    const std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, "", parsedOk, "authority");
     const std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, "", parsedOk, "");
     // check parent
     checkParent(SUMO_TAG_CLOSING_LANE_REROUTE, {SUMO_TAG_INTERVAL}, parsedOk);
@@ -1332,7 +1332,7 @@ AdditionalHandler::parseClosingRerouteAttributes(const SUMOSAXAttributes& attrs)
     // needed attributes
     const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
     // optional attributes
-    const std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, "", parsedOk, "");
+    const std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, "", parsedOk, "authority");
     const std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, "", parsedOk, "");
     // check parent
     checkParent(SUMO_TAG_CLOSING_REROUTE, {SUMO_TAG_INTERVAL}, parsedOk);

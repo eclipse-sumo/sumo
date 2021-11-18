@@ -47,8 +47,12 @@ void
 GNEParkingAreaReroute::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_PARKING_AREA_REROUTE);
     device.writeAttr(SUMO_ATTR_ID, getAttribute(SUMO_ATTR_PARKING));
-    device.writeAttr(SUMO_ATTR_PROB, myProbability);
-    device.writeAttr(SUMO_ATTR_VISIBLE, myVisible);
+    if (myProbability != 1.0) {
+        device.writeAttr(SUMO_ATTR_PROB, myProbability);
+    }
+    if (myVisible) {
+        device.writeAttr(SUMO_ATTR_VISIBLE, true);
+    }
     device.closeTag();
 }
 
