@@ -60,14 +60,17 @@ GNERerouterInterval::~GNERerouterInterval() {}
 
 void
 GNERerouterInterval::writeAdditional(OutputDevice& device) const {
-    device.openTag(SUMO_TAG_INTERVAL);
-    device.writeAttr(SUMO_ATTR_BEGIN, getAttribute(SUMO_ATTR_BEGIN));
-    device.writeAttr(SUMO_ATTR_END, getAttribute(SUMO_ATTR_END));
-    // write all rerouter interval
-    for (const auto& rerouterElement : getChildAdditionals()) {
-        rerouterElement->writeAdditional(device);
+    // avoid write empty intervals
+    if (getChildAdditionals().size() > 0) {
+        device.openTag(SUMO_TAG_INTERVAL);
+        device.writeAttr(SUMO_ATTR_BEGIN, getAttribute(SUMO_ATTR_BEGIN));
+        device.writeAttr(SUMO_ATTR_END, getAttribute(SUMO_ATTR_END));
+        // write all rerouter interval
+        for (const auto& rerouterElement : getChildAdditionals()) {
+            rerouterElement->writeAdditional(device);
+        }
+        device.closeTag();
     }
-    device.closeTag();
 }
 
 
