@@ -18,6 +18,7 @@
             <xsd:attribute name="programID" use="required" type="xsd:string"/>
             <xsd:attribute name="phase" use="required" type="xsd:int"/>
             <xsd:attribute name="state" use="required" type="xsd:string"/>
+            <xsd:attribute name="name" use="optional" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
 
