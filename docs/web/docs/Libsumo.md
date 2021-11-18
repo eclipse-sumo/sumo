@@ -46,11 +46,13 @@ For the python bindings you will get a libsumo.py and a
 _libsumo.so (or .pyd on Windows). If you place them somewhere on your
 python path you should be able to use them as described below.
 
+!!! note
+    Make sure to add `"/your/path/to/sumo/tools"` to the `PYTHONPATH` environment variable.
+
 # Using libsumo
 
 ## Python
 
-Under Linux, it is needed to add export PYTHONPATH="(your SUMO_HOME path)/tools:PYTHONPATH" either in .profile or -bashrc, so that python can find the respective library.
 ```py
 import libsumo
 libsumo.start(["sumo", "-c", "test.sumocfg"])
