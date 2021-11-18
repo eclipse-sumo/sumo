@@ -1880,10 +1880,14 @@ GNEAdditionalHandler::getAdditionalParent(const CommonXMLStructure::SumoBaseObje
 GNEAdditional*
 GNEAdditionalHandler::getRerouterIntervalParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const {
     if (sumoBaseObject->getParentSumoBaseObject() == nullptr) {
+        // parent interval doesn't exist
         return nullptr;
-    } else if (!sumoBaseObject->getParentSumoBaseObject()->hasStringAttribute(SUMO_ATTR_ID) ||
-               !sumoBaseObject->getParentSumoBaseObject()->hasTimeAttribute(SUMO_ATTR_BEGIN) ||
-               !sumoBaseObject->getParentSumoBaseObject()->hasTimeAttribute(SUMO_ATTR_END)) {
+    } else if (sumoBaseObject->getParentSumoBaseObject()->getParentSumoBaseObject() == nullptr) {
+        // rerouter parent doesn't exist
+        return nullptr;
+    } else if (!sumoBaseObject->getParentSumoBaseObject()->getParentSumoBaseObject()->hasStringAttribute(SUMO_ATTR_ID) ||   // rerouter ID
+               !sumoBaseObject->getParentSumoBaseObject()->hasTimeAttribute(SUMO_ATTR_BEGIN) || // interval begin
+               !sumoBaseObject->getParentSumoBaseObject()->hasTimeAttribute(SUMO_ATTR_END)) {   // interval end
         return nullptr;
     } else {
         return myNet->getAttributeCarriers()->retrieveRerouterInterval(
