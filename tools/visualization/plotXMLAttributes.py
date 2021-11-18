@@ -87,6 +87,7 @@ def getOptions(args=None):
     options = optParser.parse_args(args=args)
 
     options.attrOptions = ['idattr', 'xattr', 'yattr']
+    options.attrElems = [options.idelem, options.xelem, options.yelem]
 
     if options.filterIDs is not None:
         options.filterIDs = set(options.filterIDs.split(','))
@@ -138,9 +139,12 @@ def getDataStream(options):
     for event, elem in ET.iterparse(_open(options.files[0]), ("start", "end")):
         if event == "start":
             level += 1
-            for a in attrOptions:
+            for a, e in zip(attrOptions, options.attrElems):
                 attr = getattr(options, a)
                 if attr in elem.keys():
+                    if e is not None and e != elem.tag:
+                        #print("skipping attribute '%s' in element '%s' (required elem '%s'" % (attr, elem.tag, e))
+                        continue
                     elem2level[elem.tag] = level
                     if attr in attr2elem:
                         oldTag = attr2elem[attr]
