@@ -48,10 +48,12 @@ void
 GNEClosingReroute::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_CLOSING_REROUTE);
     device.writeAttr(SUMO_ATTR_ID, getAttribute(SUMO_ATTR_EDGE));
-    if (!getAttribute(SUMO_ATTR_ALLOW).empty()) {
-        device.writeAttr(SUMO_ATTR_ALLOW, getAttribute(SUMO_ATTR_ALLOW));
-    } else {
-        device.writeAttr(SUMO_ATTR_DISALLOW, getAttribute(SUMO_ATTR_DISALLOW));
+    if (getAttribute(SUMO_ATTR_ALLOW) != "authority") {
+        if (!getAttribute(SUMO_ATTR_ALLOW).empty()) {
+            device.writeAttr(SUMO_ATTR_ALLOW, getAttribute(SUMO_ATTR_ALLOW));
+        } else {
+            device.writeAttr(SUMO_ATTR_DISALLOW, getAttribute(SUMO_ATTR_DISALLOW));
+        }
     }
     device.closeTag();
 }
