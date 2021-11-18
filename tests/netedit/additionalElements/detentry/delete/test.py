@@ -43,12 +43,12 @@ netedit.leftClick(referencePosition, 100, 50)
 # create E3 2
 netedit.leftClick(referencePosition, 200, 50)
 
-# Create Entry detector for E3 3
+# Create Exit detector for E3 3
 netedit.changeElement("detEntry")
 netedit.selectAdditionalChild(4, 2)
 netedit.leftClick(referencePosition, 75, 200)
 
-# Create Entry detectors for E3 4
+# Create Exit detectors for E3 4
 netedit.changeElement("detEntry")
 netedit.selectAdditionalChild(4, 3)
 netedit.leftClick(referencePosition, 250, 200)
@@ -62,13 +62,13 @@ netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
 # delete created E3 1
 netedit.leftClick(referencePosition, 100, 50)
 
-# delete Entry detector of E3 2 (E3 will not be removed)
+# delete Exit detector of E3 2 (E3 will not be removed)
 netedit.leftClick(referencePosition, 250, 200)
 
 # delete loaded E3 1
 netedit.leftClick(referencePosition, 400, 50)
 
-# delete Entry detector of loaded E3 2 (E3 will not be removed)
+# delete Exit detector of loaded E3 2 (E3 will not be removed)
 netedit.leftClick(referencePosition, 550, 200)
 
 # delete lane with the last loaded entry
