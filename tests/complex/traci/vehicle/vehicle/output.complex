@@ -497,33 +497,47 @@ vehicle routeTest2 lane 2fi_0 lanePos 37.2186303396 stopped False
 step 63.0
 vehicle routeTest2 lane 2fi_0 lanePos 43.5909553958 stopped False
 step 64.0
-vehicle bus lane 2fi_0 lanePos 0.0 stopped False
+vehicle bus lane 2fi_0 lanePos 0.0 stopped False 
+ stoppedParking False stoppeTriggered False stoppeBusStop False stoppeContainerStop False
 step 65.0
-vehicle bus lane 2fi_0 lanePos 1.79524137946 stopped False
+vehicle bus lane 2fi_0 lanePos 1.79524137946 stopped False 
+ stoppedParking False stoppeTriggered False stoppeBusStop False stoppeContainerStop False
 step 66.0
-vehicle bus lane 2fi_0 lanePos 5.28278279703 stopped False
+vehicle bus lane 2fi_0 lanePos 5.28278279703 stopped False 
+ stoppedParking False stoppeTriggered False stoppeBusStop False stoppeContainerStop False
 step 67.0
-vehicle bus lane 2fi_0 lanePos 10.4234407521 stopped False
+vehicle bus lane 2fi_0 lanePos 10.4234407521 stopped False 
+ stoppedParking False stoppeTriggered False stoppeBusStop False stoppeContainerStop False
 step 68.0
-vehicle bus lane 2fi_0 lanePos 16.8963232893 stopped False
+vehicle bus lane 2fi_0 lanePos 16.8963232893 stopped False 
+ stoppedParking False stoppeTriggered False stoppeBusStop False stoppeContainerStop False
 step 69.0
-vehicle bus lane 2fi_0 lanePos 24.7724462527 stopped False
+vehicle bus lane 2fi_0 lanePos 24.7724462527 stopped False 
+ stoppedParking False stoppeTriggered False stoppeBusStop False stoppeContainerStop False
 step 70.0
-vehicle bus lane 2fi_0 lanePos 29.5798743677 stopped False
+vehicle bus lane 2fi_0 lanePos 29.5798743677 stopped False 
+ stoppedParking False stoppeTriggered False stoppeBusStop False stoppeContainerStop False
 step 71.0
-vehicle bus lane 2fi_0 lanePos 29.8873024827 stopped False
+vehicle bus lane 2fi_0 lanePos 29.8873024827 stopped False 
+ stoppedParking False stoppeTriggered False stoppeBusStop False stoppeContainerStop False
 step 72.0
-vehicle bus lane 2fi_0 lanePos 29.9682601436 stopped False
+vehicle bus lane 2fi_0 lanePos 29.9682601436 stopped False 
+ stoppedParking False stoppeTriggered False stoppeBusStop False stoppeContainerStop False
 step 73.0
-vehicle bus lane 2fi_0 lanePos 29.9956563383 stopped True
+vehicle bus lane 2fi_0 lanePos 29.9956563383 stopped True 
+ stoppedParking False stoppeTriggered False stoppeBusStop True stoppeContainerStop False
 step 74.0
-vehicle bus lane 2fi_0 lanePos 29.9956563383 stopped True
+vehicle bus lane 2fi_0 lanePos 29.9956563383 stopped True 
+ stoppedParking False stoppeTriggered False stoppeBusStop True stoppeContainerStop False
 step 75.0
-vehicle bus lane 2fi_0 lanePos 31.6223854505 stopped False
+vehicle bus lane 2fi_0 lanePos 31.6223854505 stopped False 
+ stoppedParking False stoppeTriggered False stoppeBusStop False stoppeContainerStop False
 step 76.0
-vehicle bus lane 2fi_0 lanePos 34.6049954724 stopped False
+vehicle bus lane 2fi_0 lanePos 34.6049954724 stopped False 
+ stoppedParking False stoppeTriggered False stoppeBusStop False stoppeContainerStop False
 step 77.0
-vehicle bus lane 2fi_0 lanePos 39.1875516336 stopped False
+vehicle bus lane 2fi_0 lanePos 39.1875516336 stopped False 
+ stoppedParking False stoppeTriggered False stoppeBusStop False stoppeContainerStop False
 triptest route: ('3si', '2o', '2fi', '2si', '4o', '4fi', '4si')
 nextStop: (StopData(lane=2fi_0, startPos=19.9, endPos=20.0, stopFlags=1, duration=10.0),)
 legacy getNextStops (('2fi_0', 20.0, '', 2, 10.0, -1073741824.0),)

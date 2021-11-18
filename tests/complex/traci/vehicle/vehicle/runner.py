@@ -343,7 +343,11 @@ for i in range(14):
     print("vehicle", busVeh,
           "lane", traci.vehicle.getLaneID(busVeh),
           "lanePos", traci.vehicle.getLanePosition(busVeh),
-          "stopped", traci.vehicle.isStopped(busVeh))
+          "stopped", traci.vehicle.isStopped(busVeh),
+          "\n stoppedParking", traci.vehicle.isStoppedParking(busVeh),
+          "stoppeTriggered", traci.vehicle.isStoppedTriggered(busVeh),
+          "stoppeBusStop", traci.vehicle.isAtBusStop(busVeh),
+          "stoppeContainerStop", traci.vehicle.isAtContainerStop(busVeh))
 # test for adding a trip
 traci.route.add("trip", ["3si"])
 traci.vehicle.addLegacy("triptest", "trip")
