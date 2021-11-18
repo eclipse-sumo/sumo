@@ -173,7 +173,7 @@ bool calcPowerConsumption(double m, double r_wheel, double Theta, double c_rr,
  * \brief Constructor
  */
 HelpersMMPEVEM::HelpersMMPEVEM()
- : PollutantsInterface::Helper("MMPEVEM", MMPEVEM_BASE, -1)
+ : PollutantsInterface::Helper("MMPEVEM", MMPEVEM_BASE, 0)
 { }
 
 
