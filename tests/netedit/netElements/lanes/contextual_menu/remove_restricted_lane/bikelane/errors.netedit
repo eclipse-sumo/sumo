@@ -13,6 +13,12 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -11.60,-10.00,10.00,3
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,-10.00,11.60,30.00
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
+Debug: Selected item 'personTrip: edge->edge' in TagSelector
+Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding busStop 'busStop1' in GNEChange_Additional
 Debug: Adding busStop 'busStop2' in GNEChange_Additional
 Debug: Adding busStop 'busStop3' in GNEChange_Additional
@@ -50,6 +56,7 @@ Debug: Created connection 'fromgneE0_0togneE5_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE2_0togneE4_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE4_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE5_0to-gneE2_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE0_0' in retrieveGNEConnection()
@@ -66,6 +73,8 @@ Debug: Removing connection 'gneE5_0->-gneE2_0' from edge 'gneE5'
 Debug: Deleting unreferenced connection 'fromgneE5_0to-gneE2_0' in removeConnection()
 Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE5' due it were guessed
+Debug: Removing connection 'gneE2_0->gneE4_0' from edge 'gneE2'
+Debug: Deleting unreferenced connection 'fromgneE2_0togneE4_0' in removeConnection()
 Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE2' due it were guessed
 Debug: Setting new attribute
@@ -108,6 +117,8 @@ Debug: Restoring previous attribute
 Debug: Deleting unreferenced connection 'fromgneE5_0to-gneE2_0' in clearGNEConnections()
 Debug: Restoring previous attribute
 Debug: declaring connections of edge 'gneE2' as loaded (It will not be removed)
+Debug: Adding connection 'gneE2_0->gneE4_0' into edge 'gneE2'
+Debug: Created connection 'fromgneE2_0togneE4_0' in retrieveGNEConnection()
 Debug: Restoring previous attribute
 Debug: declaring connections of edge 'gneE5' as loaded (It will not be removed)
 Debug: Adding connection 'gneE5_0->-gneE2_0' into edge 'gneE5'
@@ -164,6 +175,8 @@ Debug: Removing connection 'gneE5_0->-gneE2_0' from edge 'gneE5'
 Debug: Deleting unreferenced connection 'fromgneE5_0to-gneE2_0' in removeConnection()
 Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE5' due it were guessed
+Debug: Removing connection 'gneE2_0->gneE4_0' from edge 'gneE2'
+Debug: Deleting unreferenced connection 'fromgneE2_0togneE4_0' in removeConnection()
 Debug: Setting new attribute
 Debug: invalidating (removing) connections of edge 'gneE2' due it were guessed
 Debug: Setting new attribute
@@ -230,8 +243,5 @@ Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ2' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ3' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 11
