@@ -5,11 +5,11 @@
     <rerouter id="rerouter_0" edges="gneE0 gneE1" pos="0.00,10.00">
         <interval begin="0.00" end="3600.00">
 		
-			<parkingAreaReroute/>
+			<parkingAreaReroute probability="1.00"/>
 			
-			<parkingAreaReroute id="dummyParkingArea"/>
+			<parkingAreaReroute id="dummyParkingArea" probability="1.00"/>
 			
-			<parkingAreaReroute id="parkingArea"/>
+			<parkingAreaReroute id="parkingArea" probability="1.00"/>
 			
         </interval>
     </rerouter>

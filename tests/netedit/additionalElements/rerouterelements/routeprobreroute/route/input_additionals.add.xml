@@ -5,11 +5,11 @@
 	<rerouter id="rerouter_0" edges="gneE0 gneE1" pos="0.00,10.00">
         <interval begin="0.00" end="3600.00">
 		
-            <destProbReroute/>
+            <routeProbReroute probability="1.0"/>
 			
-			<destProbReroute route="dummyProbability"/>
+			<routeProbReroute id="dummyRoute" probability="1.0"/>
 
-			<destProbReroute route="route_0"/>
+			<routeProbReroute id="route_0" probability="1.0"/>
 			
         </interval>
     </rerouter>
