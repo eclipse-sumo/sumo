@@ -55,8 +55,10 @@ while traci.simulation.getTime() < 4:
     traci.simulationStep()
     check()
 
-traci.lanearea.setParameter("det0", "foo", "42")
-print("parameter", traci.lanearea.getParameter("det0", "foo"))
+detID = "det0"
+traci.lanearea.setParameter(detID, "foo", "42")
+print("parameter", traci.lanearea.getParameter(detID, "foo"))
+print("parameter from XML", traci.lanearea.getParameter(detID, "loadedFromXML"))
 
 print("laneareas", traci.lanearea.getIDList())
 print("lanearea count", traci.lanearea.getIDCount())

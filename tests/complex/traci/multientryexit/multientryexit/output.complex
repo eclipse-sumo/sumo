@@ -16,6 +16,7 @@ lastHaltsPerVehicle 0.0
 lastTimeLoss 0.0
 lastVehicleSum 0
 parameter 42
+parameter from XML 
 {16: 1}
 step 3
 {16: 1}

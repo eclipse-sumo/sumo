@@ -1,5 +1,7 @@
 <additional>
-    <e1Detector id="0" lane="2fi_0" pos="10" freq="30" file="NUL"/>
+    <e1Detector id="0" lane="2fi_0" pos="10" freq="30" file="NUL">
+        <param key="loadedFromXML" value="1337"/>
+    </e1Detector>
     <!-- the instant loop should not show up when calling getIDList() (see #1148) -->
     <instantInductionLoop id="instant" lane="2fi_0" pos="10" freq="30" file="NUL"/>
 </additional>
