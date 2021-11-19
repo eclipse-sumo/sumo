@@ -327,10 +327,26 @@ class TrafficLightDomain(Domain):
         """
         self._setCmd(tc.TL_PROGRAM, tlsID, "s", programID)
 
-    def setNemaSplits(self, tlsID, timing):
-        self.setParameter(tlsID, "NEMA_timing", timing)
+    def setNemaSplits(self, tlsID, splits):
+        """setNemaSplits(string, string) -> None
+        Set a new set of splits to the given NEMA-controller.
+        This function is only effective for NEMA type of controllers.
+        The new splits will be implemented in the next cycle of the control.
+        The value must be a space-separated list of 8 numbers with each number
+        being the time in seconds for NEMA-phases 1 to 8.
+        Time 0 must be used of the phase does not exists.
+        Example: “11.0 34.0 15.0 20.0 11.0 34.0 15.0 20.0" (gives total cycle length of 80s)
+        """
+        self.setParameter(tlsID, "NEMA_splits", splits)
 
     def setNemaOffset(self, tlsID, offset):
+        """setNemaOffset(string, string) -> None
+        Set a new offset to the given NEMA-controller.
+        This function is only effective for NEMA type controllers when operating under coordinated mode.
+        The new offset will be implemented in the next cycle of the control by adjusting the actual green time of the coordinated phase.
+        There is no transition implemented in the NEMA-controller for changing the offset.
+        It’s expected that the users will control the change of the offset in each cycle to implement their own transition algorithm.
+        """
         self.setParameter(tlsID, "NEMA_offset", offset)
 
     def setPhaseDuration(self, tlsID, phaseDuration):

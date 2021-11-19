@@ -81,6 +81,10 @@ public:
     inline static void setCompleteRedYellowGreenDefinition(const std::string& tlsID, const libsumo::TraCILogic& logic) {
         setProgramLogic(tlsID, logic);
     }
+
+    static void setNemaSplits(const std::string& tlsID, const std::string& splits);
+    static void setNemaOffset(const std::string& tlsID, const std::string& offset);
+
 #ifndef LIBTRACI
 #ifndef SWIG
     static std::shared_ptr<VariableWrapper> makeWrapper();
@@ -92,10 +96,6 @@ private:
     /// @brief perform swapConstraints to resolve deadlocks and return the new constraints
     static std::vector<libsumo::TraCISignalConstraint> findConstraintsDeadLocks(const std::string& foeId, const std::string& tripId, const std::string& foeSignal, const std::string& tlsID);
     static SUMOVehicle* getVehicleByTripId(const std::string tripOrVehID);
-
-    static void setNEMATiming(const std::string& tlsID, const std::string& timing);
-    static void setNEMAOffset(const std::string& tlsID, const std::string& offset);
-
 
 private:
     static SubscriptionResults mySubscriptionResults;

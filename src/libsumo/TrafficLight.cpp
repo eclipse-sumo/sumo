@@ -690,10 +690,10 @@ TrafficLight::setProgramLogic(const std::string& tlsID, const TraCILogic& logic)
 
 void
 TrafficLight::setParameter(const std::string& tlsID, const std::string& paramName, const std::string& value) {
-    if (paramName == "NEMA_timing") {
-        TrafficLight::setNEMATiming(tlsID, value);
+    if (paramName == "NEMA_splits") {
+        TrafficLight::setNemaSplits(tlsID, value);
     } else if (paramName == "NEMA_offset") {
-        TrafficLight::setNEMAOffset(tlsID, value);
+        TrafficLight::setNemaOffset(tlsID, value);
     } else {
         return Helper::getTLS(tlsID).getActive()->setParameter(paramName, value);
     }
@@ -701,11 +701,11 @@ TrafficLight::setParameter(const std::string& tlsID, const std::string& paramNam
 
 LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(TrafficLight, TL)
 
-//timing="2.0 3.0 4.0 5.0 2.0 3.0 4.0 5.0"
+//splits="2.0 3.0 4.0 5.0 2.0 3.0 4.0 5.0"
 void
-TrafficLight::setNEMATiming(const std::string& tlsID, const std::string& timing) {
+TrafficLight::setNemaSplits(const std::string& tlsID, const std::string& splits) {
     double newTiming[8];
-    std::string _timing = timing;
+    std::string _timing = splits;
     // convert string s to vector<string>
     std::vector<std::string> split;
     std::string delimiter = " ";
@@ -736,7 +736,7 @@ TrafficLight::setNEMATiming(const std::string& tlsID, const std::string& timing)
 
 
 void
-TrafficLight::setNEMAOffset(const std::string& tlsID, const std::string& offset) {
+TrafficLight::setNemaOffset(const std::string& tlsID, const std::string& offset) {
     double d_offset = std::stod(offset);
     // send the new offset to the controller
     MSTLLogicControl::TLSLogicVariants& test_logic = MSNet::getInstance()->getTLSControl().get(tlsID);

@@ -338,6 +338,16 @@ TrafficLight::removeConstraints(const std::string& tlsID, const std::string& tri
     Dom::set(libsumo::TL_CONSTRAINT_REMOVE, tlsID, &content);
 }
 
+void
+TrafficLight::setNemaSplits(const std::string& tlsID, const std::string& splits) {
+    setParameter(tlsID, "NEMA_splits", splits);
+}
+
+void
+TrafficLight::setNemaOffset(const std::string& tlsID, const std::string& offset) {
+    setParameter(tlsID, "NEMA_offset", offset);
+}
+
 
 LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(TrafficLight, TL)
 
