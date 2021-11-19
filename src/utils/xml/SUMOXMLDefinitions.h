@@ -711,6 +711,30 @@ enum SumoXMLAttr {
     SUMO_ATTR_TIMESTOPPED,
     /// @}
 
+    /// @name MMPEVEM parameters
+    /// @{
+    /// @brief Wheel radius
+    SUMO_ATTR_WHEELRADIUS,
+    /// @brief Maximum torque
+    SUMO_ATTR_MAXIMUMTORQUE,
+    /// @brief Maximum speed
+    SUMO_ATTR_MAXIMUMSPEED,
+    /// @brief Gear efficiency
+    SUMO_ATTR_GEAREFFICIENCY,
+    /// @brief Gear ratio
+    SUMO_ATTR_GEARRATIO,
+    /// @brief Maximum recuperation torque
+    SUMO_ATTR_MAXIMUMRECUPERATIONTORQUE,
+    /// @brief Maximum recuperation power
+    SUMO_ATTR_MAXIMUMRECUPERATIONPOWER,
+    /// @brief Internal battery resistance
+    SUMO_ATTR_INTERNALBATTERYRESISTANCE,
+    /// @brief Nominal battery voltage
+    SUMO_ATTR_NOMINALBATTERYVOLTAGE,
+    /// @brief A string encoding the power loss map
+    SUMO_ATTR_POWERLOSSMAP,
+    /// @}
+
     /// @name chargingStations export parameters
     /// @{
     /// @brief total energy charged by charging station

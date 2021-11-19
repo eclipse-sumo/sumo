@@ -23,6 +23,7 @@
 #include <string>
 #include <vector>
 #include <utils/xml/SUMOXMLDefinitions.h>
+#include <utils/emissions/CharacteristicMap.h>
 
 
 // ===========================================================================
@@ -60,6 +61,14 @@ public:
      */
     const std::vector<double>& getDoubles(SumoXMLAttr attr) const;
 
+    /**
+     * @brief Return the CharacteristicMap that belongs to a given attribute.
+     *
+     * @param[in] attr Name of an attribute
+     * @return A CharacteristicMap
+     */
+    const CharacteristicMap& getCharacteristicMap(SumoXMLAttr attr) const;
+
     bool knowsParameter(SumoXMLAttr attr) const;
 
 private:
@@ -67,4 +76,5 @@ private:
     /// @brief The key->value maps
     std::map<SumoXMLAttr, double> myMap;
     std::map<SumoXMLAttr, std::vector<double> > myVecMap;
+    std::map<SumoXMLAttr, CharacteristicMap> myCharacteristicMapMap;
 };

@@ -30,6 +30,7 @@
 #include "HelpersHBEFA3.h"
 #include "HelpersPHEMlight.h"
 #include "HelpersEnergy.h"
+#include "HelpersMMPEVEM.h"
 #include "PollutantsInterface.h"
 
 
@@ -42,10 +43,12 @@ HelpersHBEFA PollutantsInterface::myHBEFA2Helper;
 HelpersHBEFA3 PollutantsInterface::myHBEFA3Helper;
 HelpersPHEMlight PollutantsInterface::myPHEMlightHelper;
 HelpersEnergy PollutantsInterface::myEnergyHelper;
+HelpersMMPEVEM PollutantsInterface::myMMPEVEMHelper;
 PollutantsInterface::Helper* PollutantsInterface::myHelpers[] = {
     &PollutantsInterface::myZeroHelper,
     &PollutantsInterface::myHBEFA2Helper, &PollutantsInterface::myHBEFA3Helper,
-    &PollutantsInterface::myPHEMlightHelper, &PollutantsInterface::myEnergyHelper
+    &PollutantsInterface::myPHEMlightHelper, &PollutantsInterface::myEnergyHelper,
+    &PollutantsInterface::myMMPEVEMHelper
 };
 std::vector<std::string> PollutantsInterface::myAllClassesStr;
 
@@ -198,7 +201,7 @@ SUMOEmissionClass
 PollutantsInterface::getClassByName(const std::string& eClass, const SUMOVehicleClass vc) {
     const std::string::size_type sep = eClass.find("/");
     const std::string model = eClass.substr(0, sep); // this includes the case of no separator
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 6; i++) {
         if (myHelpers[i]->getName() == model) {
             if (sep != std::string::npos) {
                 const std::string subClass = eClass.substr(sep + 1);
@@ -224,7 +227,7 @@ PollutantsInterface::getClassByName(const std::string& eClass, const SUMOVehicle
 const std::vector<SUMOEmissionClass>
 PollutantsInterface::getAllClasses() {
     std::vector<SUMOEmissionClass> result;
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 6; i++) {
         myHelpers[i]->addAllClassesInto(result);
     }
     return result;
@@ -237,7 +240,7 @@ PollutantsInterface::getAllClassesStr() {
     if (myAllClassesStr.empty()) {
         // first obtain all emissionClasses
         std::vector<SUMOEmissionClass> emissionClasses;
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             myHelpers[i]->addAllClassesInto(emissionClasses);
         }
         // now write all emissionClasses in myAllClassesStr

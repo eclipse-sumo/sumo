@@ -1,4 +1,6 @@
 set(utils_emissions_STAT_SRCS
+   CharacteristicMap.cpp
+   CharacteristicMap.h
    EnergyParams.cpp
    EnergyParams.h
    HelpersEnergy.cpp
@@ -9,6 +11,8 @@ set(utils_emissions_STAT_SRCS
    HelpersHBEFA.h
    HelpersHBEFA3.cpp
    HelpersHBEFA3.h
+   HelpersMMPEVEM.cpp
+   HelpersMMPEVEM.h
    HelpersPHEMlight.cpp
    HelpersPHEMlight.h
    PHEMCEP.h
