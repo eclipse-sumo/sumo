@@ -878,6 +878,18 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
     const double arrivalPos = personPlanObject->hasDoubleAttribute(SUMO_ATTR_ARRIVALPOS) ? personPlanObject->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS) : 0;
     // get stop parameters
     SUMOVehicleParameter::Stop stopParameters;
+    // fill stops parameters
+    if ((tag == GNE_TAG_STOPPERSON_BUSSTOP) || (tag == GNE_TAG_STOPPERSON_EDGE)) {
+        stopParameters.actType = personPlanObject->getStringAttribute(SUMO_ATTR_ACTTYPE);
+        if (personPlanObject->hasTimeAttribute(SUMO_ATTR_DURATION)) {
+            stopParameters.duration = personPlanObject->getTimeAttribute(SUMO_ATTR_DURATION);
+            stopParameters.parametersSet |= STOP_DURATION_SET;
+        }
+        if (personPlanObject->hasTimeAttribute(SUMO_ATTR_UNTIL)) {
+            stopParameters.until = personPlanObject->getTimeAttribute(SUMO_ATTR_UNTIL);
+            stopParameters.parametersSet |= STOP_UNTIL_SET;
+        }
+    }
     // get edges
     GNEEdge* fromEdge = (pathCreator->getSelectedEdges().size() > 0) ? pathCreator->getSelectedEdges().front() : nullptr;
     GNEEdge* toEdge = (pathCreator->getSelectedEdges().size() > 0) ? pathCreator->getSelectedEdges().back() : nullptr;
@@ -982,6 +994,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
             // check if ride busStop->busStop can be created
             if (fromEdge) {
                 stopParameters.edge = fromEdge->getID();
+                stopParameters.endPos = fromEdge->getLanes().front()->getLaneShape().nearest_offset_to_point2D(myNet->getViewNet()->getPositionInformation());
                 buildStop(personPlanObject, stopParameters);
             } else {
                 myNet->getViewNet()->setStatusBarText("A stop has to be placed over an edge");
