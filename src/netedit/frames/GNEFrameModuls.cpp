@@ -2471,6 +2471,17 @@ GNEFrameModuls::PathCreator::addRoute(GNEDemandElement* route, const bool /*shif
 }
 
 
+void
+GNEFrameModuls::PathCreator::removeRoute() {
+    // set route
+    myRoute = nullptr;
+    // recalculate path
+    recalculatePath();
+    updateInfoRouteLabel();
+    updateEdgeColors();
+}
+
+
 GNEDemandElement*
 GNEFrameModuls::PathCreator::getRoute() const {
     return myRoute;

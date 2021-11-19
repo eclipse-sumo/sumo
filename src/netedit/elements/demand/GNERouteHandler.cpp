@@ -443,7 +443,7 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
     GNEDemandElement* route = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, routeID, false);
     std::vector<GNEEdge*> edges = parseEdges(SUMO_TAG_WALK, edgeIDs);
     // check conditions
-    if (personParent && fromEdge) {
+    if (personParent) {
         if (edges.size() > 0) {
             // create walk edges
             GNEDemandElement* walk = new GNEWalk(myNet, personParent, edges, arrivalPos);
@@ -474,7 +474,7 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 route->addChildElement(walk);
                 walk->incRef("buildWalkRoute");
             }
-        } else if (toEdge) {
+        } else if (fromEdge && toEdge) {
             // create walk from->to
             GNEDemandElement* walk = new GNEWalk(myNet, personParent, fromEdge, toEdge, arrivalPos);
             if (myUndoDemandElements) {
@@ -489,7 +489,7 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 toEdge->addChildElement(walk);
                 walk->incRef("buildWalkFromTo");
             }
-        } else if (toBusStop) {
+        } else if (fromEdge && toBusStop) {
             // create walk from->busStop
             GNEDemandElement* walk = new GNEWalk(myNet, personParent, fromEdge, toBusStop, arrivalPos);
             if (myUndoDemandElements) {
@@ -998,6 +998,12 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
         }
         default:
             throw InvalidArgument("Invalid person plan tag");
+    }
+    // center view after creation
+    const auto person = myNet->getAttributeCarriers()->retrieveDemandElement(personPlanObject->getParentSumoBaseObject()->getTag(), 
+        personPlanObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
+    if (person && !myNet->getViewNet()->getVisibleBoundary().around(person->getPositionInView())) {
+        myNet->getViewNet()->centerTo(person->getPositionInView(), false);
     }
     return true;
 }

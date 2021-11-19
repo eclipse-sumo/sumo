@@ -634,6 +634,9 @@ public:
         /// @brief get route
         GNEDemandElement* getRoute() const;
 
+        /// @brief remove route
+        void removeRoute();
+
         /// @brief get path route
         const std::vector<Path>& getPath() const;
 
