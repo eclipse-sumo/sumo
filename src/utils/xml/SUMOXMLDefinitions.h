@@ -708,7 +708,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_TIMESTOPPED,
     /// @}
 
-    /// @name EV powertrain device parameters
+    /// @name MMPEVEM parameters
     /// @{
     /// @brief Wheel radius
     SUMO_ATTR_WHEELRADIUS,
@@ -730,16 +730,6 @@ enum SumoXMLAttr {
     SUMO_ATTR_NOMINALBATTERYVOLTAGE,
     /// @brief A string encoding the power loss map
     SUMO_ATTR_POWERLOSSMAP,
-    /// @}
-
-    /// @name EV powertrain export parameters
-    /// @{
-    /// @brief Power consumption
-    SUMO_ATTR_POWERCONSUMPTION,
-    /// @brief Energy consumption
-    SUMO_ATTR_ENERGYCONSUMPTION,
-    /// @brief State valid
-    SUMO_ATTR_STATEVALID,
     /// @}
 
     /// @name chargingStations export parameters
