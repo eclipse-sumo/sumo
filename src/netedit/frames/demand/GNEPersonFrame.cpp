@@ -275,7 +275,7 @@ GNEPersonFrame::createPath() {
         // check if person and person plan can be created
         if (myRouteHandler.buildPersonPlan(
                     myPersonPlanTagSelector->getCurrentTagProperties().getTag(),
-                    person, myPersonPlanAttributes, myPathCreator)) {
+                    person, myPersonPlanAttributes, myPathCreator, true)) {
             // end undo-redo operation
             myViewNet->getUndoList()->end();
             // abort path creation

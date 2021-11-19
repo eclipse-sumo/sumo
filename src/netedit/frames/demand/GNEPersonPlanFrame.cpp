@@ -124,7 +124,13 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCur
                               (personPlanTag == GNE_TAG_RIDE_EDGE) || (personPlanTag == GNE_TAG_WALK_EDGES));
     // continue depending of tag
     if ((personPlanTag == GNE_TAG_WALK_ROUTE) && objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
-        return myPathCreator->addRoute(objectsUnderCursor.getDemandElementFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
+        if (myPathCreator->addRoute(objectsUnderCursor.getDemandElementFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed())) {
+            createPath();
+            myPathCreator->removeRoute();
+            return true;
+        } else {
+            return false;
+        }
     } else if (requireBusStop && objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP)) {
         return myPathCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
     } else if (requireEdge && objectsUnderCursor.getEdgeFront()) {
@@ -163,6 +169,19 @@ GNEPersonPlanFrame::tagSelected() {
         } else {
             // set path creator mode
             myPathCreator->showPathCreatorModul(personPlanTag, false, false);
+        }
+        // show path creator depending of tag
+        if (myPersonPlanTagSelector->getCurrentTagProperties().getTag() == GNE_TAG_WALK_ROUTE) {
+            myPathCreator->hidePathCreatorModul();
+        } else {
+            // update VClass of myPathCreator depending if person is a ride
+            if (myPersonPlanTagSelector->getCurrentTagProperties().isRide()) {
+                myPathCreator->setVClass(SVC_PASSENGER);
+            } else {
+                myPathCreator->setVClass(SVC_PEDESTRIAN);
+            }
+            // show edge path creator modul
+            myPathCreator->showPathCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties().getTag(), false, false);
         }
         // show person hierarchy
         myPersonHierarchy->showHierarchicalElementTree(myPersonSelector->getCurrentDemandElement());
@@ -210,8 +229,7 @@ GNEPersonPlanFrame::createPath() {
         if (myRouteHandler.buildPersonPlan(
                     myPersonPlanTagSelector->getCurrentTagProperties().getTag(),
                     myPersonSelector->getCurrentDemandElement(),
-                    myPersonPlanAttributes,
-                    myPathCreator)) {
+                    myPersonPlanAttributes, myPathCreator, false)) {
             // refresh HierarchicalElementTree
             myPersonHierarchy->refreshHierarchicalElementTree();
             // abort path creation

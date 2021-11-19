@@ -857,7 +857,8 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
 
 
 bool
-GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent, GNEFrameAttributesModuls::AttributesCreator* personPlanAttributes, GNEFrameModuls::PathCreator* pathCreator) {
+GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent, GNEFrameAttributesModuls::AttributesCreator* personPlanAttributes, 
+        GNEFrameModuls::PathCreator* pathCreator, const bool centerAfterCreation) {
     // clear and set person object
     myPlanObject->clear();
     myPlanObject->setTag(personParent->getTagProperty().getTag());
@@ -999,11 +1000,16 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
         default:
             throw InvalidArgument("Invalid person plan tag");
     }
-    // center view after creation
+    // get person
     const auto person = myNet->getAttributeCarriers()->retrieveDemandElement(personPlanObject->getParentSumoBaseObject()->getTag(), 
         personPlanObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
-    if (person && !myNet->getViewNet()->getVisibleBoundary().around(person->getPositionInView())) {
-        myNet->getViewNet()->centerTo(person->getPositionInView(), false);
+    if (person) {
+        // compute person (and all person plans)
+        person->computePathElement();
+        // center view after creation
+        if (centerAfterCreation && !myNet->getViewNet()->getVisibleBoundary().around(person->getPositionInView())) {
+            myNet->getViewNet()->centerTo(person->getPositionInView(), false);
+        }
     }
     return true;
 }
