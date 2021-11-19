@@ -659,6 +659,7 @@ The following shapes are known:
 
 - "pedestrian"
 - "bicycle"
+- "moped"
 - "motorcycle"
 - "passenger"
 - "passenger/sedan"
@@ -667,20 +668,23 @@ The following shapes are known:
 - "passenger/van"
 - "delivery"
 - "truck"
-- "truck/semitrailer"
-- "truck/trailer"
+- "truck/semitrailer" (13.5)
+- "truck/trailer" (6.75)
 - "bus"
-- "bus/city"
 - "bus/flexible" (8.25)
-- "bus/overland" (8.25)
+- "bus/coach" (8.25)
+- "bus/trolley"
 - "rail" (24.5)
-- "rail/light" (16.85)
-- "rail/city" (5.71)
-- "rail/slow" (9.44)
-- "rail/fast" (24.775)
+- "rail/railcar" (16.85)
 - "rail/cargo" (13.86)
 - "evehicle"
+- "ant"
 - "ship"
+- "emergency"
+- "firebrigade"
+- "police"
+- "rickshaw"
+- "scooter"
 
 Some of these classes are drawn as a sequence of carriages. The length
 of a single carriage is indicated in parentheses after the type. For
@@ -700,7 +704,7 @@ buses) have different lengths. Passenger vehicles with more than 10m
 length look quite odd, buses with 2m length, too.
 
 !!! caution
-    Not all of these named shapes are implemented.
+    Not all of these named shapes have a distinct visualization.
     
 Further parameters can be used to achieve visualization of individual rail carriages
 ```xml
