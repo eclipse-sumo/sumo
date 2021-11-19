@@ -148,44 +148,13 @@ GNEWalk::writeDemandElement(OutputDevice& device) const {
 
 bool
 GNEWalk::isDemandElementValid() const {
-    if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
-        // check if route parent is valid
-        return getParentDemandElements().at(1)->isDemandElementValid();
-    } else if (getParentEdges().size() == 2) {
-        if (getParentEdges().at(0) == getParentEdges().at(1)) {
-            // from and to are the same edges, then path is valid
-            return true;
-        } else {
-            // check if exist a route between parent edges
-            return (myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getParentDemandElements().at(0)->getVClass(), getParentEdges()).size() > 0);
-        }
-        /*
-            } else if (getPath().size() > 0) {
-                // if path edges isn't empty, then there is a valid route
-                return true;
-        */
-    } else {
-        return false;
-    }
+    return isPersonPlanValid();
 }
 
 
 std::string
 GNEWalk::getDemandElementProblem() const {
-    if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
-        return "";
-    } else if (getParentEdges().size() == 0) {
-        return ("A walk need at least one edge");
-    } else {
-        // check if exist at least a connection between every edge
-        for (int i = 1; i < (int)getParentEdges().size(); i++) {
-            if (myNet->getPathManager()->getPathCalculator()->consecutiveEdgesConnected(getParentDemandElements().front()->getVClass(), getParentEdges().at((int)i - 1), getParentEdges().at(i)) == false) {
-                return ("Edge '" + getParentEdges().at((int)i - 1)->getID() + "' and edge '" + getParentEdges().at(i)->getID() + "' aren't consecutives");
-            }
-        }
-        // there is connections bewteen all edges, then all ok
-        return "";
-    }
+    return getPersonPlanProblem();
 }
 
 
@@ -342,9 +311,17 @@ GNEWalk::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getParentDemandElements().front()->getID();
         case SUMO_ATTR_FROM:
-            return getParentEdges().front()->getID();
+            if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
+                return getParentDemandElements().at(1)->getParentEdges().front()->getID();
+            } else {
+                return getParentEdges().front()->getID();
+            }
         case SUMO_ATTR_TO:
-            return getParentEdges().back()->getID();
+            if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
+                return getParentDemandElements().at(1)->getParentEdges().back()->getID();
+            } else {
+                return getParentEdges().back()->getID();
+            }
         case GNE_ATTR_TO_BUSSTOP:
             return getParentAdditionals().back()->getID();
         case SUMO_ATTR_EDGES:
@@ -408,12 +385,13 @@ GNEWalk::getAttributePosition(SumoXMLAttr key) const {
 
 void
 GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    if (value == getAttribute(key)) {
-        return; //avoid needless changes, later logic relies on the fact that attributes have changed
-    }
     switch (key) {
         // Common person plan attributes
         case SUMO_ATTR_FROM:
+            if (myTagProperty.getTag() != GNE_TAG_WALK_ROUTE) {
+                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+            }
+        break;
         case SUMO_ATTR_ARRIVALPOS:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
@@ -421,16 +399,18 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             break;
         // special case for "to" attributes
         case SUMO_ATTR_TO: {
-            // get next personPlan
-            GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
-            // continue depending of nextPersonPlan
-            if (nextPersonPlan) {
-                undoList->begin(myTagProperty.getGUIIcon(), "Change from attribute of next personPlan");
-                nextPersonPlan->setAttribute(SUMO_ATTR_FROM, value, undoList);
-                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
-                undoList->end();
-            } else {
-                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+            if (myTagProperty.getTag() != GNE_TAG_WALK_ROUTE) {
+                // get next personPlan
+                GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
+                // continue depending of nextPersonPlan
+                if (nextPersonPlan) {
+                    undoList->begin(myTagProperty.getGUIIcon(), "Change from attribute of next personPlan");
+                    nextPersonPlan->setAttribute(SUMO_ATTR_FROM, value, undoList);
+                    undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                    undoList->end();
+                } else {
+                    undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                }
             }
             break;
         }
@@ -497,7 +477,11 @@ GNEWalk::isValid(SumoXMLAttr key, const std::string& value) {
         // Common person plan attributes
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
-            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr);
+            if (myTagProperty.getTag() != GNE_TAG_WALK_ROUTE) {
+                return SUMOXMLDefinitions::isValidNetID(value) && (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr);
+            } else {
+                return false;
+            }
         case GNE_ATTR_TO_BUSSTOP:
             return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
         case SUMO_ATTR_EDGES:
