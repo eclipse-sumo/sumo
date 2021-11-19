@@ -84,17 +84,21 @@ GNEStopPerson::isDemandElementValid() const {
     const GNELane* firstLane = getFirstAllowedLane();
     // only Stops placed over lanes can be invalid
     if (myTagProperty.getTag() != SUMO_TAG_STOP_LANE) {
-        return true;
+        return isPersonPlanValid();
     } else if (friendlyPos) {
         // with friendly position enabled position are "always fixed"
-        return true;
+        return isPersonPlanValid();;
     } else if (firstLane != nullptr) {
         // obtain lane length
         const double laneLength = getParentEdges().front()->getNBEdge()->getFinalLength() * firstLane->getLengthGeometryFactor();
         // declare end pos fixed
         const double endPosFixed = (endPos < 0) ? (endPos + laneLength) : endPos;
         // check values
-        return (endPosFixed <= getParentEdges().front()->getNBEdge()->getFinalLength()) && (endPosFixed > 0);
+        if ((endPosFixed <= getParentEdges().front()->getNBEdge()->getFinalLength()) && (endPosFixed > 0)) {
+            return isPersonPlanValid();
+        } else {
+            return false;
+        }
     } else {
         return false;
     }
@@ -104,7 +108,7 @@ GNEStopPerson::isDemandElementValid() const {
 std::string
 GNEStopPerson::getDemandElementProblem() const {
     if (friendlyPos) {
-        return "";
+        return getPersonPlanProblem();
     } else {
         // obtain lane length
         const double laneLength = getParentEdges().front()->getNBEdge()->getFinalLength();
@@ -116,7 +120,7 @@ GNEStopPerson::getDemandElementProblem() const {
         } else if (endPosFixed > getParentEdges().front()->getNBEdge()->getFinalLength()) {
             return (toString(SUMO_ATTR_ENDPOS) + " > lanes's length");
         } else {
-            return "";
+            return getPersonPlanProblem();
         }
     }
 }
