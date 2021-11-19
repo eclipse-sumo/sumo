@@ -296,6 +296,8 @@ GNEPersonFrame::createPath() {
             myPersonPlanAttributes->refreshRows();
             // compute person
             person->computePathElement();
+            // enable show all person plans
+            myViewNet->getDemandViewOptions().menuCheckShowAllPersonPlans->setChecked(TRUE);
         } else {
             // abort person creation
             myViewNet->getUndoList()->abortAllChangeGroups();
