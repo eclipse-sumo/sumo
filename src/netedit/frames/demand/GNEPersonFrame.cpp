@@ -131,17 +131,27 @@ GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnd
     }
     // add elements to path creator
     if (clickedACTag == SUMO_TAG_LANE) {
-        return myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
+        const bool result = myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
+        // if we're creating a stop, create it immediately
+        if (result && myPersonPlanTagSelector->getCurrentTagProperties().isStopPerson()) {
+            createPath();
+        }
+        return result;
     } else if (clickedACTag == SUMO_TAG_BUS_STOP) {
-        return myPathCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
+        const bool result = myPathCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
+        // if we're creating a stop, create it immediately
+        if (result && myPersonPlanTagSelector->getCurrentTagProperties().isStopPerson()) {
+            createPath();
+        }
+        return result;
     } else if (clickedACTag == SUMO_TAG_ROUTE) {
-        if (myPathCreator->addRoute(objectsUnderCursor.getDemandElementFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed())) {
+        const bool result = myPathCreator->addRoute(objectsUnderCursor.getDemandElementFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
+        // if we're creating a walk route, create it immediately
+        if (result && (myPersonPlanTagSelector->getCurrentTagProperties().getTag() == GNE_TAG_WALK_ROUTE)) {
             createPath();
             myPathCreator->removeRoute();
-            return true;
-        } else {
-            return false;
         }
+        return result;
     } else {
         return false;
     }
@@ -180,7 +190,8 @@ GNEPersonFrame::tagSelected() {
                 // show Netedit attributes modul
                 myNeteditAttributes->showNeteditAttributesModul(myPersonPlanTagSelector->getCurrentTagProperties());
                 // show path creator depending of tag
-                if (myPersonPlanTagSelector->getCurrentTagProperties().getTag() == GNE_TAG_WALK_ROUTE) {
+                if (myPersonPlanTagSelector->getCurrentTagProperties().isStopPerson() || 
+                    (myPersonPlanTagSelector->getCurrentTagProperties().getTag() == GNE_TAG_WALK_ROUTE)) {
                     myPathCreator->hidePathCreatorModul();
                 } else {
                     // update VClass of myPathCreator depending if person is a ride
