@@ -77,11 +77,12 @@ If you want to use sumo-gui and/or netedit, you need to install XQuartz as a req
 ```
 brew install --cask xquartz
 ```
-You can then install the latest stable release of SUMO with the following commands:
+You can then install the latest stable release of SUMO (with minimal requirements: ```fox```, ```proj```, ```xerces-c```) with the following commands:
 ```
 brew tap dlr-ts/sumo
 brew install sumo
 ```
+If you need to compile SUMO with support for other libraries, such as GDAL, you need to provide further command line options [as described here](https://github.com/DLR-TS/homebrew-sumo#usage).
 To finalize your setup, please make sure to set the **SUMO_HOME** environment variable and have it point to the directory of your SUMO installation. Depending on your shell, you may set this variable either in `.bashrc` or `.zshrc`. To set this variable in `.bashrc` you can use the following commands. 
 ```
 touch ~/.bashrc; open ~/.bashrc
