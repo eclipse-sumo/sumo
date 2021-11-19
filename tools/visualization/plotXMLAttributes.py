@@ -143,7 +143,7 @@ def getDataStream(options):
                 attr = getattr(options, a)
                 if attr in elem.keys():
                     if e is not None and e != elem.tag:
-                        #print("skipping attribute '%s' in element '%s' (required elem '%s'" % (attr, elem.tag, e))
+                        # print("skipping attribute '%s' in element '%s' (required elem '%s'" % (attr, elem.tag, e))
                         continue
                     elem2level[elem.tag] = level
                     if attr in attr2elem:
