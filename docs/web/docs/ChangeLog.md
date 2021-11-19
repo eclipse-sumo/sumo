@@ -35,6 +35,7 @@ title: ChangeLog
     - Fcd-output no longer includes persons in vehicle when peson-device.fcd is disabled. Issue #9469  
     - Stop attribute 'actType' is now preserved in vehroute-output. Issue #9495
     - Fixed invalid use of busStop instead of containerStop in vehroute-output. Issue #8989
+    - Fixed invalid human readable times in tripinfo output (affecting sub-second values). Issue #9580
   - parking / stopping
     - Fixed non-deterministic parkingReroute. Issue #9066
     - Parking search is no longer deterministic when param 'parking.probability.weight' is set. Issue #9364
@@ -175,6 +176,7 @@ title: ChangeLog
   - Fixeds bug where command 'traci.vehicle.changeLane' was ignored in sublane simulation. Issue #9147, #9493
   - Function 'traci.vehicle.replaceStop' no longer fails while on junction. Issue #9467
   - Fixed invalid stop duration reported after updating duration with setStop. Issue #9522
+  - Added missing convenience functions in traci.vehicle (i.e. 'isAtBusstop' to libsumo and libtraci python bindings. Issue #9591
   
 - tools
   - cutRoutes.py: Fixed mixed usage of trainStop and busStop. Issue #8982
@@ -199,6 +201,7 @@ title: ChangeLog
 ### Enhancements
 
 - simulation
+  - Traffic light type "NEMA" is now supported and implements a NEMA compliant dual-ring controller. Issue #9520 (Thanks to Qichao Wang and NREL)
   - Detectortype (E1, E2, E3) now support [attribute 'detectPersons'](Simulation/Pedestrians.md#detectors_for_pedestrians) to detect pedestrians and passengesr. Issue #5252
   - When option **--vehroute-output.exit-times** is set, The output for walk,ride, transport and tranship now includes the values 'started' and 'ended.' Issue #9005
   - Added option **--weights.separate-turns FLOAT**. When this is set to values in ]0,1] routing in the simulation will distinguish travel times by turning direction (i.e. to prefer right turns over left truns where the latter are a cause of delay). Issue #2566
@@ -240,6 +243,7 @@ title: ChangeLog
   - in meso, stops are now indicated when 'show route' is active. Issue #9514
   - Added extra colors for 'stopped' in vehicle coloring scheme 'by speed' #9547
   - Added number of stopped vehicles to network parameters. Issue #9558
+  - Attribute guiShape now supports 'scooter'. Issue #9190
   
 - netedit
   - Added context menu function to reset opposite-lane information for a selection of lanes. Issue #8888
@@ -301,7 +305,7 @@ title: ChangeLog
   - Improved warning messages when 'traci.vehicle.replaceStop', or 'changeTarget' fails. Issue #9453
   - Added functions retrieve aggregated traffic measures from E3-detector. Issue #9501
   - Libtraci now supports 'Simulation::start'. Issue #6466
-  
+  - Added functions 'trafficlight.setNemaSplits' and 'setNemaOffset' to control the split and offset of NEMA-type controllers. Issue #9520  
 
 - tools
   - cutRoutes.py: Can now handle multiple additional and public transport files in input. Issue #8997
