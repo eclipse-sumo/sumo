@@ -1,0 +1,9 @@
+bike_bicycle: count 55, min 5.87 (bike53), max 188.74 (bike42), mean 63.96, Q1 31.03, median 57.70, Q3 85.86
+pt_bus: count 22, min 30.51 (pt_bus_265:0.0), max 335.15 (pt_bus_N40:1.0), mean 185.53, Q1 125.81, median 209.23, Q3 221.59
+pt_light_rail: count 23, min 31.50 (pt_light_rail_S25:1.0), max 389.94 (pt_light_rail_S9:0.0), mean 99.23, Q1 32.38, median 56.16, Q3 169.94
+pt_subway: count 13, min 45.64 (pt_subway_U6:0.0), max 65.07 (pt_subway_U2:1.0), mean 51.92, Q1 49.01, median 50.04, Q3 51.61
+pt_train: count 14, min 33.97 (pt_train_RB21:0.0), max 304.83 (pt_train_RB14:1.0), mean 118.14, Q1 38.77, median 104.83, Q3 178.33
+pt_tram: count 29, min 22.91 (pt_tram_M2:0.1), max 254.49 (pt_tram_M1:1.0), mean 85.11, Q1 44.57, median 71.96, Q3 115.51
+ride: count 53, min 1.00 (ped51), max 179.33 (ped70), mean 46.56, Q1 17.54, median 31.98, Q3 79.30
+veh_passenger: count 185, min 7.70 (veh73), max 253.37 (veh108), mean 94.83, Q1 52.14, median 86.85, Q3 126.34
+walk: count 152, min -37.98 (ped101), max 158.58 (ped29), mean 34.82, Q1 11.07, median 27.82, Q3 51.47
