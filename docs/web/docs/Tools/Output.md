@@ -185,6 +185,17 @@ Other attributes can be selected using option **--attribute** (e.g. 'routeLength
 Output is given as plain text on the command line or in xml format if
 option **--output** is set.
 
+## tripinfoByType.py
+
+Aggregates tripinfo data by vType and person stage type for the given attribute
+
+```
+python tripinfoByType.py -t tripinfos.xml -a timeLoss
+
+```
+
+Output is given as plain text on the command line or in xml format if option **--output** is set.
+
 ## attributeStats.py
 
 Computes statistics on an arbitrary numerical attribute in a flat xml
