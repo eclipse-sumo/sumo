@@ -1,6 +1,9 @@
 # rail signal constraint retrieval and modification
 constraints
 
+# tests for  tlLogic type 'NEMA'
+NEMA
+
 # Tests the trafficlight API
 trafficlight
 
