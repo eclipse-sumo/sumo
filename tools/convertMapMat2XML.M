@@ -1,5 +1,7 @@
 % File:      convertMapMat2XML.m
-% Author:    Lucas Koch (koch_luc@vka.rwth-aachen.de)
+% Author:    Lucas Koch (koch_luc@mmp.rwth-aachen.de)
+%            Teaching and Research Area Mechatronics in Mobile Propulsion (MMP)
+%            RWTH Aachen University
 % Copyright: Eclipse Public License v2.0
 %            (https://www.eclipse.org/legal/epl-2.0/)
 % MATLAB script for conversion of powerloss maps generated with the electric

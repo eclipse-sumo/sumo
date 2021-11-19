@@ -137,15 +137,6 @@ MSFrame::fillOptions() {
     oc.doRegister("battery-output.precision", new Option_Integer(2));
     oc.addDescription("battery-output.precision", "Output", "Write battery values with the given precision (default 2)");
 
-    oc.doRegister("ev_powertrain-output", new Option_FileName());
-    oc.addDescription("ev_powertrain-output", "Output",
-        "Save the power and energy consumption of vehicles with an EV"
-        " powertrain");
-
-    oc.doRegister("ev_powertrain-output.precision", new Option_Integer(2));
-    oc.addDescription("ev_powertrain-output.precision", "Output",
-        "Write EV powertrain values with the given precision (default 2)");
-
     oc.doRegister("elechybrid-output", new Option_FileName());
     oc.addDescription("elechybrid-output", "Output", "Save the elecHybrid values of each vehicle");
     oc.doRegister("elechybrid-output.precision", new Option_Integer(2));
