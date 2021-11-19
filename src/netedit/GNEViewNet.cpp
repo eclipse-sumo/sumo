@@ -1689,9 +1689,11 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_A_MODES_ADDITIONAL_STOP:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_STOP);
                 break;
+/*
             case MID_HOTKEY_W_MODES_PROHIBITION_PERSONTYPE:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_PERSONTYPES);
                 break;
+*/
             case MID_HOTKEY_P_MODES_POLYGON_PERSON:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_PERSON);
                 break;
@@ -4089,6 +4091,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myCurrentFrame = myViewParent->getPersonTypeFrame();
             // set checkable button
             myDemandCheckableButtons.personTypeButton->setChecked(true);
+            myDemandCheckableButtons.personTypeButton->disable();
             break;
         case DemandEditMode::DEMAND_PERSON:
             myViewParent->getPersonFrame()->show();

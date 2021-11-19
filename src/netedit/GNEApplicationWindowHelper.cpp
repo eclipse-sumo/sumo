@@ -472,6 +472,7 @@ GNEApplicationWindowHelper::ModesMenuCommands::DemandMenuCommands::buildDemandMe
     personTypeMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
                      "Person type mode", "W", "Create person types.",
                      GUIIconSubSys::getIcon(GUIIcon::MODEPERSONTYPE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_W_MODES_PROHIBITION_PERSONTYPE);
+    personTypeMode->disable();
     personMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
                  "Person mode", "P", "Create persons.",
                  GUIIconSubSys::getIcon(GUIIcon::MODEPERSON), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_P_MODES_POLYGON_PERSON);
