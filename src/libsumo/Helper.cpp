@@ -1222,11 +1222,11 @@ Helper::applySubscriptionFilterLateralDistance(const Subscription& s, std::set<c
     }
 #endif
 
+    MSVehicle* v = dynamic_cast<MSVehicle*>(getVehicle(s.id));
 #ifdef DEBUG_SURROUNDING
     std::cout << "FILTER_LATERAL_DIST: myLane is '" << v->getLane()->getID() << "', pos " << v->getPositionOnLane() << std::endl;
     std::cout << "FILTER_LATERAL_DIST: opposite lane is '" << v->getLane()->getParallelOpposite()->getID() << "'" << std::endl;
 #endif
-    MSVehicle* v = dynamic_cast<MSVehicle*>(getVehicle(s.id));
     double frontPosOnLane = v->getPositionOnLane();
     if (v->getLaneChangeModel().isOpposite()) {
         frontPosOnLane = v->getLane()->getOppositePos(frontPosOnLane);
@@ -1286,18 +1286,25 @@ Helper::applySubscriptionFilterLateralDistanceSinglePass(const Subscription& s, 
 #ifdef DEBUG_SURROUNDING
         std::cout << "   posLat=" << posLat << " laneShape=" << laneShape << "\n";
 #endif
-        combinedShape.append(laneShape);
+        if (isDownstream) {
+            combinedShape.append(laneShape);
+        } else {
+            combinedShape.prepend(laneShape);
+        }
         if (distRemaining <= POSITION_EPS) {
             break;
         }
     }
+#ifdef DEBUG_SURROUNDING
+    std::cout << " combinedShape=" << combinedShape << "\n";
+#endif
     // check remaining objects' distances to the combined shape
     auto i = objIDs.begin();
     while (i != objIDs.end()) {
         SUMOTrafficObject* obj = getTrafficObject(s.contextDomain, *i);
         double minPerpendicularDist = combinedShape.distance2D(obj->getPosition(), true);
 #ifdef DEBUG_SURROUNDING
-        std::cout << " obj " << obj->getID() << " dist=" << minPerpendicularDist << " filterDist=" << s.filterLateralDist << "\n";
+        std::cout << (isDownstream? "DOWN" : "UP") << " obj " << obj->getID() << " perpendicular dist=" << minPerpendicularDist << " filterLateralDist=" << s.filterLateralDist << "\n";
 #endif
         if ((minPerpendicularDist != GeomHelper::INVALID_OFFSET) && (minPerpendicularDist <= s.filterLateralDist)) {
             vehs.insert(obj);

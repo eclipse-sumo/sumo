@@ -710,6 +710,16 @@ PositionVector::append(const PositionVector& v, double sameThreshold) {
 }
 
 
+void
+PositionVector::prepend(const PositionVector& v, double sameThreshold) {
+    if ((size() > 0) && (v.size() > 0) && (front().distanceTo(v.back()) < sameThreshold)) {
+        insert(begin(), v.begin(), v.end() - 1);
+    } else {
+        insert(begin(), v.begin(), v.end());
+    }
+}
+
+
 PositionVector
 PositionVector::getSubpart(double beginOffset, double endOffset) const {
     PositionVector ret;

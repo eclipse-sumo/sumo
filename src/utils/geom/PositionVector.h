@@ -241,6 +241,9 @@ public:
     //// @brief append the given vector to this one
     void append(const PositionVector& v, double sameThreshold = 2.0);
 
+    //// @brief prepend the given vector to this one
+    void prepend(const PositionVector& v, double sameThreshold = 2.0);
+
     /// @brief get subpart of a position vector
     PositionVector getSubpart(double beginOffset, double endOffset) const;
 
