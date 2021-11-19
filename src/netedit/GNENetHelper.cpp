@@ -1392,8 +1392,8 @@ GNENetHelper::AttributeCarriers::generateDemandElementID(SumoXMLTag tag) const {
         // get person tag in string format
         const std::string tagStr = toString(tag);
         // special case for persons (person and personFlows share nameSpaces)
-        while ((retrieveDemandElement(SUMO_TAG_FLOW, tagStr + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(GNE_TAG_FLOW_WITHROUTE, tagStr + "_" + toString(counter), false) != nullptr)) {
+        while ((retrieveDemandElement(SUMO_TAG_PERSON, tagStr + "_" + toString(counter), false) != nullptr) ||
+                (retrieveDemandElement(SUMO_TAG_PERSONFLOW, tagStr + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
         // return new person ID
