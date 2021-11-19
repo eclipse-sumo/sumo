@@ -664,6 +664,144 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
 }
 
 
+bool 
+GNEDemandElement::isPersonPlanValid() const {
+    // get previous child
+    const auto previousChild = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
+    if (previousChild) {
+        // get previous edge
+        GNEEdge* previousEdge = nullptr;
+        if (previousChild->getParentLanes().size() == 1) {
+            previousEdge = previousChild->getParentLanes().front()->getParentEdge();
+        } else if (previousChild->getParentAdditionals().size() == 1) {
+            previousEdge = previousChild->getParentAdditionals().front()->getParentLanes().front()->getParentEdge();
+        } else if (previousChild->getParentEdges().size() > 0) {
+            previousEdge = previousChild->getParentEdges().back();
+        } else if (previousChild->getTagProperty().getTag() == GNE_TAG_WALK_ROUTE) {
+            previousEdge = previousChild->getParentDemandElements().at(1)->getParentEdges().back();
+        }
+        // get first edge
+        GNEEdge* firstEdge = nullptr;
+        // check edge 
+        if (getParentLanes().size() == 1) {
+            firstEdge = getParentLanes().front()->getParentEdge();
+        } else if (getParentEdges().size() > 0) {
+            firstEdge = getParentEdges().front();
+        } else if (getParentAdditionals().size() == 1) {
+            firstEdge = getParentAdditionals().front()->getParentLanes().front()->getParentEdge();
+        } else if (getTagProperty().getTag() == GNE_TAG_WALK_ROUTE) {
+            firstEdge = getParentDemandElements().at(1)->getParentEdges().front();
+        }
+        // compare both edges
+        if (previousEdge != firstEdge) {
+            return false;
+        }
+    }
+    // get next child
+    const auto nextChild = getParentDemandElements().at(0)->getNextChildDemandElement(this);
+    if (nextChild) {
+        // get previous edge
+        GNEEdge* nextEdge = nullptr;
+        if (nextChild->getParentLanes().size() == 1) {
+            nextEdge = nextChild->getParentLanes().front()->getParentEdge();
+        } else if (nextChild->getParentEdges().size() > 0) {
+            nextEdge = nextChild->getParentEdges().front();
+        } else if (nextChild->getParentAdditionals().size() == 1) {
+            nextEdge = nextChild->getParentAdditionals().front()->getParentLanes().front()->getParentEdge();
+        } else if (nextChild->getTagProperty().getTag() == GNE_TAG_WALK_ROUTE) {
+            nextEdge = nextChild->getParentDemandElements().at(1)->getParentEdges().front();
+        }
+        // get last edge
+        GNEEdge* lastEdge = nullptr;
+        // check edge 
+        if (getParentLanes().size() == 1) {
+            lastEdge = getParentLanes().front()->getParentEdge();
+        } else if (getParentAdditionals().size() == 1) {
+            lastEdge = getParentAdditionals().front()->getParentLanes().front()->getParentEdge();
+        } else if (getParentEdges().size() > 0) {
+            lastEdge = getParentEdges().back();
+        } else if (getTagProperty().getTag() == GNE_TAG_WALK_ROUTE) {
+            lastEdge = getParentDemandElements().at(1)->getParentEdges().back();
+        }
+        // compare both edges
+        if (nextEdge != lastEdge) {
+            return false;
+        }
+    }
+    // all ok, then return true
+    return true;
+}
+
+
+std::string 
+GNEDemandElement::getPersonPlanProblem() const {
+    // get previous child
+    const auto previousChild = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
+    if (previousChild) {
+        // get previous edge
+        GNEEdge* previousEdge = nullptr;
+        if (previousChild->getParentLanes().size() == 1) {
+            previousEdge = previousChild->getParentLanes().front()->getParentEdge();
+        } else if (previousChild->getParentAdditionals().size() == 1) {
+            previousEdge = previousChild->getParentAdditionals().front()->getParentLanes().front()->getParentEdge();
+        } else if (previousChild->getParentEdges().size() > 0) {
+            previousEdge = previousChild->getParentEdges().back();
+        } else if (previousChild->getTagProperty().getTag() == GNE_TAG_WALK_ROUTE) {
+            previousEdge = previousChild->getParentDemandElements().at(1)->getParentEdges().back();
+        }
+        // get first edge
+        GNEEdge* firstEdge = nullptr;
+        // check edge 
+        if (getParentLanes().size() == 1) {
+            firstEdge = getParentLanes().front()->getParentEdge();
+        } else if (getParentEdges().size() > 0) {
+            firstEdge = getParentEdges().front();
+        } else if (getParentAdditionals().size() == 1) {
+            firstEdge = getParentAdditionals().front()->getParentLanes().front()->getParentEdge();
+        } else if (getTagProperty().getTag() == GNE_TAG_WALK_ROUTE) {
+            firstEdge = getParentDemandElements().at(1)->getParentEdges().front();
+        }
+        // compare both edges
+        if (previousEdge != firstEdge) {
+            return "Edge '" + previousEdge->getID() + "' is not consecutive with edge '" + firstEdge->getID() + "'";
+        }
+    }
+    // get next child
+    const auto nextChild = getParentDemandElements().at(0)->getNextChildDemandElement(this);
+    if (nextChild) {
+        // get previous edge
+        GNEEdge* nextEdge = nullptr;
+        if (nextChild->getParentLanes().size() == 1) {
+            nextEdge = nextChild->getParentLanes().front()->getParentEdge();
+        } else if (nextChild->getParentAdditionals().size() == 1) {
+            nextEdge = nextChild->getParentAdditionals().front()->getParentLanes().front()->getParentEdge();
+        } else if (nextChild->getParentEdges().size() > 0) {
+            nextEdge = nextChild->getParentEdges().front();
+        } else if (nextChild->getTagProperty().getTag() == GNE_TAG_WALK_ROUTE) {
+            nextEdge = nextChild->getParentDemandElements().at(1)->getParentEdges().front();
+        }
+        // get last edge
+        GNEEdge* lastEdge = nullptr;
+        // check edge 
+        if (getParentLanes().size() == 1) {
+            lastEdge = getParentLanes().front()->getParentEdge();
+        } else if (getParentAdditionals().size() == 1) {
+            lastEdge = getParentAdditionals().front()->getParentLanes().front()->getParentEdge();
+        } else if (getParentEdges().size() > 0) {
+            lastEdge = getParentEdges().back();
+        } else if (getTagProperty().getTag() == GNE_TAG_WALK_ROUTE) {
+            lastEdge = getParentDemandElements().at(1)->getParentEdges().back();
+        }
+        // compare both edges
+        if (nextEdge != lastEdge) {
+            return "Edge '" + lastEdge->getID() + "' is not consecutive with edge '" + nextEdge->getID() + "'";
+        }
+    }
+    // undefined problem
+    return "undefined problem";
+}
+
+
 void
 GNEDemandElement::replaceDemandParentEdges(const std::string& value) {
     replaceParentElements(this, parse<std::vector<GNEEdge*> >(getNet(), value));

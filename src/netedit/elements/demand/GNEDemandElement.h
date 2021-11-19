@@ -369,6 +369,12 @@ protected:
     void drawPersonPlanPartial(const bool drawPlan, const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const GNEPathManager::Segment* segment,
                                const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const;
 
+    /// @brief check if person plan is valid
+    bool isPersonPlanValid() const;
+
+    /// @brief get person plan problem
+    std::string getPersonPlanProblem() const;
+
     /// @brief person plans arrival position radius
     static const double myPersonPlanArrivalPositionDiameter;
 
