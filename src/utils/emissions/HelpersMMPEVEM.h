@@ -7,6 +7,11 @@
  *            (https://www.eclipse.org/legal/epl-2.0/)
  * \date 2021-10
  * \brief This file contains MMP's emission model for electric vehicles.
+ *
+ * If you use this model for academic research, you are highly encouraged to
+ * cite our paper "Accurate physics-based modeling of electric vehicle energy
+ * consumption in the SUMO traffic microsimulator"
+ * (DOI: 10.1109/ITSC48978.2021.9564463).
  */
 
 

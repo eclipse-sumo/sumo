@@ -8,7 +8,9 @@
 % machine design tool developed by Kalt et. al. (DOI: 10.1109/EVER.2019.8813601)
 % into xml-format required for the electric vehicle model in SUMO.
 % If you use this model for academic research, you are highly encouraged to
-% cite our paper: [doi].
+% cite our paper "Accurate physics-based modeling of electric vehicle energy
+% consumption in the SUMO traffic microsimulator"
+% (DOI: 10.1109/ITSC48978.2021.9564463).
 
 % After execution of the TUM Tool GUI,
 % the results contains these three structs:

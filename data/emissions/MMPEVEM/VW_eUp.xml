@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   File:      VW_eUp.xml
-  Author:    Lucas Koch (koch_luc@vka.rwth-aachen.de)
+  Author:    Lucas Koch (koch_luc@mmp.rwth-aachen.de)
+             Teaching and Research Area Mechatronics in Mobile Propulsion (MMP)
+             RWTH Aachen University
   Copyright: Eclipse Public License v2.0
              (https://www.eclipse.org/legal/epl-2.0/)
 
-	Vehicle data for VW e-up! (A segment) used for the results in [doi].
+	Vehicle data for VW e-up! (A segment) used for the results in
+  (DOI: 10.1109/ITSC48978.2021.9564463).
 
 	All parameters were either obtained from publicly available sources or
   estimated.
 	The power loss map was created with the electric machine design tool
   developed by Kalt et. al. (DOI: 10.1109/EVER.2019.8813601).
 	
-	If you use this model for academic research, you are highly encouraged to
-  cite our paper: [doi].
+	If you use this model for academic research, you are highly encouraged to cite
+  our paper "Accurate physics-based modeling of electric vehicle energy
+  consumption in the SUMO traffic microsimulator"
+  (DOI: 10.1109/ITSC48978.2021.9564463).
 -->
 
 
