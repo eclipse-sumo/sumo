@@ -20,6 +20,10 @@ SUMO includes the following emission models:
   Model](../Models/Electric.md#emission_output): an
   electricity-consumption model by [Kurczveil, T., López, P.A.,
   Schnieder](../Models/Electric.md#publications).
+- [MMP Electric Vehicle Model](../Models/MMPEVEM.md): an
+  electricity-consumption model by [Kevin Badalian from Teaching and Research
+  Area Mechatronics in Mobile Propulsion (MMP), RWTH Aachen
+  University](../Models/MMPEVEM.md#publications).
 
 Literature on the Models and their implementation can be found at [the
 DLR electronic library
