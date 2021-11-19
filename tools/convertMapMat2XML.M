@@ -6,7 +6,7 @@
 %            (https://www.eclipse.org/legal/epl-2.0/)
 % MATLAB script for conversion of powerloss maps generated with the electric
 % machine design tool developed by Kalt et. al. (DOI: 10.1109/EVER.2019.8813601)
-% into xml-format required for the electric vehicle model in SUMO.
+% into xml-format required for the MMPEVEM emission model in SUMO.
 % If you use this model for academic research, you are highly encouraged to
 % cite our paper "Accurate physics-based modeling of electric vehicle energy
 % consumption in the SUMO traffic microsimulator"
