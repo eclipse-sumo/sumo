@@ -202,6 +202,7 @@ title: ChangeLog
 
 - simulation
   - Traffic light type "NEMA" is now supported and implements a NEMA compliant dual-ring controller. Issue #9520 (Thanks to Qichao Wang and NREL)
+  - Added new electric vehicle model ["MMPEVEM"](Models/MMPEVEM.md). Issue #8764 (Thanks to Kevin Badalian and the MMP, RHTW Aachen)
   - Detectortype (E1, E2, E3) now support [attribute 'detectPersons'](Simulation/Pedestrians.md#detectors_for_pedestrians) to detect pedestrians and passengesr. Issue #5252
   - When option **--vehroute-output.exit-times** is set, The output for walk,ride, transport and tranship now includes the values 'started' and 'ended.' Issue #9005
   - Added option **--weights.separate-turns FLOAT**. When this is set to values in ]0,1] routing in the simulation will distinguish travel times by turning direction (i.e. to prefer right turns over left truns where the latter are a cause of delay). Issue #2566
