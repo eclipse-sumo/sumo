@@ -679,8 +679,6 @@ MSFrame::buildStreams() {
     OutputDevice::createDeviceByOption("fcd-output", "fcd-export", "fcd_file.xsd");
     OutputDevice::createDeviceByOption("emission-output", "emission-export", "emission_file.xsd");
     OutputDevice::createDeviceByOption("battery-output", "battery-export");
-    OutputDevice::createDeviceByOption("ev_powertrain-output",
-        "ev_powertrain-export");
     if (OptionsCont::getOptions().getBool("elechybrid-output.aggregated")) {
         OutputDevice::createDeviceByOption("elechybrid-output", "elecHybrid-export-aggregated");
     }
