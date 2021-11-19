@@ -17,8 +17,9 @@ visually in [netedit](../Netedit/index.md#traffic_lights).
 
 # Automatically Generated TLS-Programs
 
-- All traffic lights are generated with a fixed cycle and a default
-  cycle time of 90s. This can be changed with the option **--tls.cycle.time**.
+- By default, all traffic lights are generated with a fixed cycle and a
+  cycle time of 90s. This can be changed with the option **--tls.cycle.time**. 
+  The [osmWebWizard](../Tutorials/OSMWebWizard.md) generates *actuated* traffic lights by default (see below).
 - The green time is split equally between the main phases
 - All green phases are followed by a yellow phase. The length of the
   yellow phase is computed from the maximum speed of the incoming
@@ -52,7 +53,7 @@ visually in [netedit](../Netedit/index.md#traffic_lights).
     - default type **actuated**: traffic light actuation is based on gaps measured by automatically generated induction loops
     - default ypte **delay_based**: actuation is based on vehicle delays
 - The generated phase layout can be selected setting option **--tls.layout** to
-  *opposites* (default) or *incoming*.
+  *opposites* (default) or *incoming* (see below).
 - The generated phase layout is also influenced by the [node
   type](../Networks/PlainXML.md#node_types) which may be either
   *traffic_light* or *traffic_light_right_on_red* (explained
