@@ -1,0 +1,8 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="r1" edges="WC CE"/>
+
+    <!-- Independent vehicles. (tls is on a 90s cycle) -->
+    <vehicle id="VW_ID4" depart="0" route="r1" type="VW_ID4">
+        <stop lane="CE_0" endPos="50" duration="20"/>
+    </vehicle>
+</routes>
