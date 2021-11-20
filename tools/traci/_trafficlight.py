@@ -339,6 +339,27 @@ class TrafficLightDomain(Domain):
         """
         self.setParameter(tlsID, "NEMA_splits", splits)
 
+    def setNemaMaxGreens(self, tlsID, maxGreens):
+        """setNemaMaxGreens(string, string) -> None
+        Set a new set of splits to the given NEMA-controller.
+        This function is only effective for NEMA type of controllers.
+        The new max green will be implemented in the next cycle of the control.
+        The value must be a space-separated list of 8 numbers with each number
+        being the time in seconds for NEMA-phases 1 to 8.
+        Time 0 must be used of the phase does not exists.
+        Example: “11.0 34.0 15.0 20.0 11.0 34.0 15.0 20.0"
+        """
+        self.setParameter(tlsID, "NEMA_max_greens", maxGreens)
+
+    def setNemaCycleLength(self, tlsID, cycleLength):
+        """setNemaCycleLength(string, string) -> None
+        Set a new cycle length to the given NEMA-controller.
+        This function is only effective for NEMA type of controllers.
+        The new cycle length will be implemented in the next cycle of the control.
+        This function should be used with setNemaSplits or setNemaMaxGreen.
+        """
+        self.setParameter(tlsID, "NEMA_cycle", cycleLength)
+
     def setNemaOffset(self, tlsID, offset):
         """setNemaOffset(string, string) -> None
         Set a new offset to the given NEMA-controller.

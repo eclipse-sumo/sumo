@@ -692,6 +692,10 @@ void
 TrafficLight::setParameter(const std::string& tlsID, const std::string& paramName, const std::string& value) {
     if (paramName == "NEMA_splits") {
         TrafficLight::setNemaSplits(tlsID, value);
+    } else if (paramName == "NEMA_max_greens") {
+        TrafficLight::setNemaMaxGreens(tlsID, value);
+    } else if (paramName == "NEMA_cycle") {
+        TrafficLight::setNemaCycleLength(tlsID, value);
     } else if (paramName == "NEMA_offset") {
         TrafficLight::setNemaOffset(tlsID, value);
     } else {
@@ -728,12 +732,56 @@ TrafficLight::setNemaSplits(const std::string& tlsID, const std::string& splits)
     MSTLLogicControl::TLSLogicVariants& test_logic = MSNet::getInstance()->getTLSControl().get(tlsID);
     NEMALogic* target_logic = dynamic_cast<NEMALogic*>(test_logic.getActive());
     if (target_logic != nullptr) {
-        target_logic->setNewTiming(newTiming);
+        target_logic->setNewSplits(newTiming);
+    } else {
+        throw TraCIException("'" + tlsID + "' is not a NEMA controller");
+    }
+}
+void
+TrafficLight::setNemaMaxGreens(const std::string& tlsID, const std::string& maxGreens) {
+    double newTiming[8];
+    std::string _timing = maxGreens;
+    // convert string s to vector<string>
+    std::vector<std::string> split;
+    std::string delimiter = " ";
+    size_t pos = 0;
+    std::string token;
+    while ((pos = _timing.find(delimiter)) != std::string::npos) {
+        token = _timing.substr(0, pos);
+        split.push_back(token);
+        _timing.erase(0, pos + delimiter.length());
+    }
+    split.push_back(_timing);
+    //convert vector<string> to double[]
+    int i = 0;
+    for (auto s : split) {
+        double temp = std::stod(s);
+        newTiming[i] = temp;
+        i++;
+    }
+    // send the new timing to the controller
+    MSTLLogicControl::TLSLogicVariants& test_logic = MSNet::getInstance()->getTLSControl().get(tlsID);
+    NEMALogic* target_logic = dynamic_cast<NEMALogic*>(test_logic.getActive());
+    if (target_logic != nullptr) {
+        target_logic->setNewMaxGreens(newTiming);
     } else {
         throw TraCIException("'" + tlsID + "' is not a NEMA controller");
     }
 }
 
+
+void
+TrafficLight::setNemaCycleLength(const std::string& tlsID, const std::string& cycleLength) {
+    double d_cycleLength = std::stod(cycleLength);
+    // send the new offset to the controller
+    MSTLLogicControl::TLSLogicVariants& test_logic = MSNet::getInstance()->getTLSControl().get(tlsID);
+    NEMALogic* target_logic = dynamic_cast<NEMALogic*>(test_logic.getActive());
+    if (target_logic != nullptr) {
+        target_logic->setNewCycleLength(d_cycleLength);
+    } else {
+        throw TraCIException("'" + tlsID + "' is not a NEMA controller");
+    }
+}
 
 void
 TrafficLight::setNemaOffset(const std::string& tlsID, const std::string& offset) {

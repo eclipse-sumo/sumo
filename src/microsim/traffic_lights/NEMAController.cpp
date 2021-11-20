@@ -61,6 +61,7 @@ NEMALogic::NEMALogic(MSTLLogicControl& tlcontrol,
     myDetectorLength = StringUtils::toDouble(getParameter("detector-length", "20"));
     myDetectorLengthLeftTurnLane = StringUtils::toDouble(getParameter("detector-length-leftTurnLane", "20"));
     myCycleLength = (StringUtils::toDouble(getParameter("total-cycle-length", "60")));
+    myNextCycleLength = myCycleLength;
     myShowDetectors = StringUtils::toBool(getParameter("show-detectors", toString(OptionsCont::getOptions().getBool("tls.actuated.show-detectors"))));
     myFile = FileHelpers::checkForRelativity(getParameter("file", "NUL"), basePath);
     myFreq = TIME2STEPS(StringUtils::toDouble(getParameter("freq", "300")));
@@ -477,10 +478,18 @@ NEMALogic::init(NLDetectorBuilder& nb) {
 #endif
 }
 
-void NEMALogic::setNewTiming(double newTiming[8]) {
+void NEMALogic::setNewSplits(double NewSplits[8]) {
     for (int i = 0; i < 8; i++) {
-        nextMaxGreen[i] = newTiming[i];
+        nextMaxGreen[i] = NewSplits[i]-yellowTime[i]-redTime[i];
     }
+}
+void NEMALogic::setNewMaxGreens(double newMaxGreen[8]) {
+    for (int i = 0; i < 8; i++) {
+        nextMaxGreen[i] = newMaxGreen[i];
+    }
+}
+void NEMALogic::setNewCycleLength(double NewCycleLength) {
+    myNextCycleLength = NewCycleLength;
 }
 void NEMALogic::setNewOffset(double NewOffset) {
     nextOffset = NewOffset;
@@ -645,6 +654,7 @@ NEMALogic::NEMA_control() {
                     maxGreen[i] = nextMaxGreen[i];
                 }
                 offset = nextOffset;
+                myCycleLength = myNextCycleLength;
             }
         } else {
             //next phase

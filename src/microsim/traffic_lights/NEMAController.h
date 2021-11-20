@@ -121,7 +121,9 @@ public:
 
     std::set<std::string> getLaneIDsFromNEMAState(std::string state);
 
-    void setNewTiming(double newTiming[8]);
+    void setNewMaxGreens(double NewMaxGreens[8]);
+    void setNewSplits(double NewSplits[8]);
+    void setNewCycleLength(double NewCycleLength);
     void setNewOffset(double NewOffset);
 
     // not using for now, but could be helpful for cycle change controller
@@ -193,6 +195,9 @@ protected:
 
     // total cycle length
     double myCycleLength;
+
+    // total cycle length in the next cycle
+    double myNextCycleLength;
 
     /// Whether the detectors shall be shown in the GUI
     bool myShowDetectors;
