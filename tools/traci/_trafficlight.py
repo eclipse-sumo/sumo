@@ -343,9 +343,11 @@ class TrafficLightDomain(Domain):
         """setNemaOffset(string, string) -> None
         Set a new offset to the given NEMA-controller.
         This function is only effective for NEMA type controllers when operating under coordinated mode.
-        The new offset will be implemented in the next cycle of the control by adjusting the actual green time of the coordinated phase.
+        The new offset will be implemented in the next cycle of the control by adjusting
+        the actual green time of the coordinated phase.
         There is no transition implemented in the NEMA-controller for changing the offset.
-        It’s expected that the users will control the change of the offset in each cycle to implement their own transition algorithm.
+        It’s expected that the users will control the change of the offset in each cycle
+        to implement their own transition algorithm.
         """
         self.setParameter(tlsID, "NEMA_offset", offset)
 
