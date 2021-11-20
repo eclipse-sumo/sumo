@@ -30,7 +30,8 @@ The following things currently do not work (or work differently than with the Tr
 - stricter type checking
   - the TraCI client sometimes accepts any iterable object where Libsumo wants a list
   - TraCI client may accept any object where Libsumo needs a boolean value
-- using traci.init or traci.connect is not possible (you always need to use libsumo.start)
+  - TraCI automagically converts every parameter into a string if a string is needed, Libsumo does not
+- using traci.init or traci.connect is not possible (you always need to use traci.start / libsumo.start)
 - with traci every TraCIException will generate a message on stderr, Libsumo does not generate this message
 
 # Building it
