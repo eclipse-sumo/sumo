@@ -111,8 +111,7 @@ EnergyParams::getCharacteristicMap(SumoXMLAttr attr) const {
     auto it = myCharacteristicMapMap.find(attr);
     if (it != myCharacteristicMapMap.end()) {
         return it->second;
-    }
-    else {
+    } else {
         throw UnknownElement("Unknown Energy Model parameter: " + toString(attr));
     }
 }
@@ -120,8 +119,8 @@ EnergyParams::getCharacteristicMap(SumoXMLAttr attr) const {
 bool
 EnergyParams::knowsParameter(SumoXMLAttr attr) const {
     return myMap.find(attr) != myMap.end()
-        || myVecMap.find(attr) != myVecMap.end()
-        || myCharacteristicMapMap.find(attr) != myCharacteristicMapMap.end();
+           || myVecMap.find(attr) != myVecMap.end()
+           || myCharacteristicMapMap.find(attr) != myCharacteristicMapMap.end();
 }
 
 /****************************************************************************/

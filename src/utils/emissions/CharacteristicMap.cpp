@@ -1,13 +1,23 @@
-/**
- * \file utils/emissions/CharacteristicMap.cpp
- * \author Kevin Badalian (badalian_k@mmp.rwth-aachen.de)
- *         Teaching and Research Area Mechatronics in Mobile Propulsion (MMP)
- *         RWTH Aachen University
- * \copyright Eclipse Public License v2.0
- *            (https://www.eclipse.org/legal/epl-2.0/)
- * \date 2021-02
- * \brief This file contains the CharacteristicMap class.
- */
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+/****************************************************************************/
+/// @file    CharacteristicMap.cpp
+/// @author  Kevin Badalian (badalian_k@mmp.rwth-aachen.de)
+/// @date    2021-02
+///
+// Characteristic map for vehicle type parameters as needed by the MMPEVEM model
+// Teaching and Research Area Mechatronics in Mobile Propulsion (MMP), RWTH Aachen
+/****************************************************************************/
 
 
 /******************************************************************************
@@ -104,23 +114,21 @@
  * \returns A vector containing the substrings
  */
 std::vector<std::string> tokenize(const std::string& ref_string,
-    const std::string& ref_delimiter)
-{
-  std::vector<std::string> tokens;
+                                  const std::string& ref_delimiter) {
+    std::vector<std::string> tokens;
 
-  char* ptr_buffer = new char[ref_string.length() + 1];
-  std::strcpy(ptr_buffer, ref_string.c_str());
+    char* ptr_buffer = new char[ref_string.length() + 1];
+    std::strcpy(ptr_buffer, ref_string.c_str());
 
-  char* ptr_token = std::strtok(ptr_buffer, ref_delimiter.c_str());
-  while(ptr_token != nullptr)
-  {
-    tokens.push_back(std::string(ptr_token));
-    ptr_token = std::strtok(nullptr, ref_delimiter.c_str());
-  }
+    char* ptr_token = std::strtok(ptr_buffer, ref_delimiter.c_str());
+    while (ptr_token != nullptr) {
+        tokens.push_back(std::string(ptr_token));
+        ptr_token = std::strtok(nullptr, ref_delimiter.c_str());
+    }
 
-  delete[] ptr_buffer;
-  ptr_buffer = nullptr;
-  return tokens;
+    delete[] ptr_buffer;
+    ptr_buffer = nullptr;
+    return tokens;
 }
 
 
@@ -129,13 +137,13 @@ std::vector<std::string> tokenize(const std::string& ref_string,
 /**
  * \brief Determine the stride for each map dimension in the flattened map.
  */
-void CharacteristicMap::determineStrides()
-{
-  strides.clear();
-  strides.reserve(domainDim);
-  strides.push_back(1*imageDim);
-  for(int i = 1; i < domainDim; i++)
-    strides.push_back(axes[i - 1].size()*strides[i - 1]);
+void CharacteristicMap::determineStrides() {
+    strides.clear();
+    strides.reserve(domainDim);
+    strides.push_back(1 * imageDim);
+    for (int i = 1; i < domainDim; i++) {
+        strides.push_back(axes[i - 1].size()*strides[i - 1]);
+    }
 }
 
 
@@ -147,22 +155,20 @@ void CharacteristicMap::determineStrides()
  * \returns Flattened map index
  * \throws std::runtime_error
  */
-int CharacteristicMap::calcFlatIdx(const std::vector<int>& ref_idxs) const
-{
-  if(static_cast<int>(ref_idxs.size()) != domainDim)
-  {
-    throw std::runtime_error("The number of indices differs from the map's"
-        " domain dimension.");
-  }
+int CharacteristicMap::calcFlatIdx(const std::vector<int>& ref_idxs) const {
+    if (static_cast<int>(ref_idxs.size()) != domainDim) {
+        throw std::runtime_error("The number of indices differs from the map's"
+                                 " domain dimension.");
+    }
 
-  int flatIdx = 0;
-  for(int i = 0; i < domainDim; i++)
-  {
-    if(ref_idxs[i] < 0)
-      throw std::runtime_error("The argument indices aren't non-negative.");
-    flatIdx += ref_idxs[i]*strides[i];
-  }
-  return flatIdx;
+    int flatIdx = 0;
+    for (int i = 0; i < domainDim; i++) {
+        if (ref_idxs[i] < 0) {
+            throw std::runtime_error("The argument indices aren't non-negative.");
+        }
+        flatIdx += ref_idxs[i] * strides[i];
+    }
+    return flatIdx;
 }
 
 
@@ -179,51 +185,41 @@ int CharacteristicMap::calcFlatIdx(const std::vector<int>& ref_idxs) const
  * \throws std::runtime_error
  */
 int CharacteristicMap::findNearestNeighborIdxs(const std::vector<double>& ref_p,
-    std::vector<int>& ref_idxs, double eps) const
-{
-  if(static_cast<int>(ref_p.size()) != domainDim)
-  {
-    throw std::runtime_error("The argument point's size doesn't match the"
-        " domain dimension.");
-  }
-
-  ref_idxs = std::vector<int>(domainDim, -1);
-  for(int i = 0; i < domainDim; i++)
-  {
-    if(axes[i][0] - eps <= ref_p[i] && ref_p[i] < axes[i][0])
-      ref_idxs[i] = 0;
-    else if(axes[i][axes[i].size() - 1] <= ref_p[i]
-        && ref_p[i] < axes[i][axes[i].size() - 1] + eps)
-    {
-      ref_idxs[i] = axes[i].size() - 1;
+        std::vector<int>& ref_idxs, double eps) const {
+    if (static_cast<int>(ref_p.size()) != domainDim) {
+        throw std::runtime_error("The argument point's size doesn't match the"
+                                 " domain dimension.");
     }
-    else
-    {
-      for(int j = 0; j < static_cast<int>(axes[i].size()) - 1; j++)
-      {
-        if(axes[i][j] <= ref_p[i] && ref_p[i] < axes[i][j + 1])
-        {
-          // Pick the index that is closest to the point
-          if(ref_p[i] - axes[i][j] <= axes[i][j + 1] - ref_p[i])
-          {
-            ref_idxs[i] = j;
-            break;
-          }
-          else
-          {
-            ref_idxs[i] = j + 1;
-            break;
-          }
+
+    ref_idxs = std::vector<int>(domainDim, -1);
+    for (int i = 0; i < domainDim; i++) {
+        if (axes[i][0] - eps <= ref_p[i] && ref_p[i] < axes[i][0]) {
+            ref_idxs[i] = 0;
+        } else if (axes[i][axes[i].size() - 1] <= ref_p[i]
+                   && ref_p[i] < axes[i][axes[i].size() - 1] + eps) {
+            ref_idxs[i] = axes[i].size() - 1;
+        } else {
+            for (int j = 0; j < static_cast<int>(axes[i].size()) - 1; j++) {
+                if (axes[i][j] <= ref_p[i] && ref_p[i] < axes[i][j + 1]) {
+                    // Pick the index that is closest to the point
+                    if (ref_p[i] - axes[i][j] <= axes[i][j + 1] - ref_p[i]) {
+                        ref_idxs[i] = j;
+                        break;
+                    } else {
+                        ref_idxs[i] = j + 1;
+                        break;
+                    }
+                }
+            }
         }
-      }
+
+        // The point lies outside of the valid range
+        if (ref_idxs[i] == -1) {
+            return -1;
+        }
     }
 
-    // The point lies outside of the valid range
-    if(ref_idxs[i] == -1)
-      return -1;
-  }
-
-  return 0;
+    return 0;
 }
 
 
@@ -237,17 +233,15 @@ int CharacteristicMap::findNearestNeighborIdxs(const std::vector<double>& ref_p,
  * \throws std::runtime_error
  */
 std::vector<double> CharacteristicMap::at(
-    const std::vector<int>& ref_idxs) const
-{
-  if(static_cast<int>(ref_idxs.size()) != domainDim)
-  {
-    throw std::runtime_error("The number of indices differs from the map's"
-        " domain dimension.");
-  }
+    const std::vector<int>& ref_idxs) const {
+    if (static_cast<int>(ref_idxs.size()) != domainDim) {
+        throw std::runtime_error("The number of indices differs from the map's"
+                                 " domain dimension.");
+    }
 
-  int flatIdx = calcFlatIdx(ref_idxs);
-  return std::vector<double>(flattenedMap.begin() + flatIdx,
-      flattenedMap.begin() + flatIdx + imageDim);
+    int flatIdx = calcFlatIdx(ref_idxs);
+    return std::vector<double>(flattenedMap.begin() + flatIdx,
+                               flattenedMap.begin() + flatIdx + imageDim);
 }
 
 
@@ -264,29 +258,27 @@ std::vector<double> CharacteristicMap::at(
  * \throws std::runtime_error
  */
 CharacteristicMap::CharacteristicMap(int domainDim, int imageDim,
-    const std::vector<std::vector<double>>& ref_axes,
-    const std::vector<double>& ref_flattenedMap)
- : domainDim(domainDim),
-   imageDim(imageDim),
-   axes(ref_axes),
-   flattenedMap(ref_flattenedMap)
-{
-  // Check whether the dimensions are consistent
-  if(static_cast<int>(axes.size()) != domainDim)
-  {
-    throw std::runtime_error("The number of axes doesn't match the specified"
-        " domain dimension.");
-  }
-  int expectedEntryCnt = 1*imageDim;
-  for(auto& ref_axis : axes)
-    expectedEntryCnt *= ref_axis.size();
-  if(static_cast<int>(flattenedMap.size()) != expectedEntryCnt)
-  {
-    throw std::runtime_error("The number of map entries isn't equal to the"
-        " product of the axes' dimensions times the image dimension.");
-  }
+                                     const std::vector<std::vector<double>>& ref_axes,
+                                     const std::vector<double>& ref_flattenedMap)
+    : domainDim(domainDim),
+      imageDim(imageDim),
+      axes(ref_axes),
+      flattenedMap(ref_flattenedMap) {
+    // Check whether the dimensions are consistent
+    if (static_cast<int>(axes.size()) != domainDim) {
+        throw std::runtime_error("The number of axes doesn't match the specified"
+                                 " domain dimension.");
+    }
+    int expectedEntryCnt = 1 * imageDim;
+    for (auto& ref_axis : axes) {
+        expectedEntryCnt *= ref_axis.size();
+    }
+    if (static_cast<int>(flattenedMap.size()) != expectedEntryCnt) {
+        throw std::runtime_error("The number of map entries isn't equal to the"
+                                 " product of the axes' dimensions times the image dimension.");
+    }
 
-  determineStrides();
+    determineStrides();
 }
 
 
@@ -298,57 +290,54 @@ CharacteristicMap::CharacteristicMap(int domainDim, int imageDim,
  *            example at the top of the file)
  * throws std::runtime_error
  */
-CharacteristicMap::CharacteristicMap(const std::string& ref_mapString)
-{
-  // Split the map string into its three main parts
-  std::vector<std::string> tokens = tokenize(ref_mapString, "|");
-  if(tokens.size() != 3)
-  {
-    throw std::runtime_error("The map string isn't made up of the 3 parts"
-        " dimensions, axes, and flattened entries.");
-  }
+CharacteristicMap::CharacteristicMap(const std::string& ref_mapString) {
+    // Split the map string into its three main parts
+    std::vector<std::string> tokens = tokenize(ref_mapString, "|");
+    if (tokens.size() != 3) {
+        throw std::runtime_error("The map string isn't made up of the 3 parts"
+                                 " dimensions, axes, and flattened entries.");
+    }
 
-  // Extract the domain and image dimensions
-  std::vector<std::string> dimensionTokens = tokenize(tokens[0], ",");
-  if(dimensionTokens.size() != 2)
-  {
-    throw std::runtime_error("The domain and image dimensions aren't specified"
-        " correctly.");
-  }
-  domainDim = std::stoi(dimensionTokens[0]);
-  imageDim = std::stoi(dimensionTokens[1]);
+    // Extract the domain and image dimensions
+    std::vector<std::string> dimensionTokens = tokenize(tokens[0], ",");
+    if (dimensionTokens.size() != 2) {
+        throw std::runtime_error("The domain and image dimensions aren't specified"
+                                 " correctly.");
+    }
+    domainDim = std::stoi(dimensionTokens[0]);
+    imageDim = std::stoi(dimensionTokens[1]);
 
-  // Create the map axes
-  std::vector<std::string> axisTokens = tokenize(tokens[1], ";");
-  if(static_cast<int>(axisTokens.size()) != domainDim)
-  {
-    throw std::runtime_error("The number of axes doesn't match the specified"
-        " domain dimension.");
-  }
-  for(auto& ref_axisToken : axisTokens)
-  {
-    std::vector<std::string> axisEntryTokens = tokenize(ref_axisToken, ",");
-    std::vector<double> axisEntries;
-    for(auto& ref_axisEntryToken : axisEntryTokens)
-      axisEntries.push_back(std::stod(ref_axisEntryToken));
-    axes.push_back(axisEntries);
-  }
+    // Create the map axes
+    std::vector<std::string> axisTokens = tokenize(tokens[1], ";");
+    if (static_cast<int>(axisTokens.size()) != domainDim) {
+        throw std::runtime_error("The number of axes doesn't match the specified"
+                                 " domain dimension.");
+    }
+    for (auto& ref_axisToken : axisTokens) {
+        std::vector<std::string> axisEntryTokens = tokenize(ref_axisToken, ",");
+        std::vector<double> axisEntries;
+        for (auto& ref_axisEntryToken : axisEntryTokens) {
+            axisEntries.push_back(std::stod(ref_axisEntryToken));
+        }
+        axes.push_back(axisEntries);
+    }
 
-  // Create the flattened map
-  std::vector<std::string> flattenedMapTokens = tokenize(tokens[2], ",");
-  int expectedEntryCnt = 1*imageDim;
-  for(auto& ref_axis : axes)
-    expectedEntryCnt *= ref_axis.size();
-  if(static_cast<int>(flattenedMapTokens.size()) != expectedEntryCnt)
-  {
-    throw std::runtime_error("The number of map entries isn't equal to the"
-        " product of the axes' dimensions times the image dimension.");
-  }
-  flattenedMap.reserve(expectedEntryCnt);
-  for(auto& ref_flattenedMapToken : flattenedMapTokens)
-    flattenedMap.push_back(std::stod(ref_flattenedMapToken));
+    // Create the flattened map
+    std::vector<std::string> flattenedMapTokens = tokenize(tokens[2], ",");
+    int expectedEntryCnt = 1 * imageDim;
+    for (auto& ref_axis : axes) {
+        expectedEntryCnt *= ref_axis.size();
+    }
+    if (static_cast<int>(flattenedMapTokens.size()) != expectedEntryCnt) {
+        throw std::runtime_error("The number of map entries isn't equal to the"
+                                 " product of the axes' dimensions times the image dimension.");
+    }
+    flattenedMap.reserve(expectedEntryCnt);
+    for (auto& ref_flattenedMapToken : flattenedMapTokens) {
+        flattenedMap.push_back(std::stod(ref_flattenedMapToken));
+    }
 
-  determineStrides();
+    determineStrides();
 }
 
 
@@ -359,31 +348,27 @@ CharacteristicMap::CharacteristicMap(const std::string& ref_mapString)
  * \returns A string representation of the characteristic map (cf. example at
  *          the top of the file)
  */
-std::string CharacteristicMap::toString() const
-{
-  // Write the domain and image dimensions
-  std::string mapString = std::to_string(domainDim) + ","
-      + std::to_string(imageDim) + "|";
+std::string CharacteristicMap::toString() const {
+    // Write the domain and image dimensions
+    std::string mapString = std::to_string(domainDim) + ","
+                            + std::to_string(imageDim) + "|";
 
-  // Add the axes
-  for(int i = 0; i < static_cast<int>(axes.size()); i++)
-  {
-    for(int j = 0; j < static_cast<int>(axes[i].size()); j++)
-    {
-      mapString += std::to_string(axes[i][j])
-          + (j == static_cast<int>(axes[i].size()) - 1 ? "" : ",");
+    // Add the axes
+    for (int i = 0; i < static_cast<int>(axes.size()); i++) {
+        for (int j = 0; j < static_cast<int>(axes[i].size()); j++) {
+            mapString += std::to_string(axes[i][j])
+                         + (j == static_cast<int>(axes[i].size()) - 1 ? "" : ",");
+        }
+        mapString += (i == static_cast<int>(axes.size()) - 1 ? "|" : ";");
     }
-    mapString += (i == static_cast<int>(axes.size()) - 1 ? "|" : ";");
-  }
 
-  // Append the flattened map entries
-  for(int i = 0; i < static_cast<int>(flattenedMap.size()); i++)
-  {
-    mapString += std::to_string(flattenedMap[i])
-        + (i == static_cast<int>(flattenedMap.size()) - 1 ? "" : ",");
-  }
+    // Append the flattened map entries
+    for (int i = 0; i < static_cast<int>(flattenedMap.size()); i++) {
+        mapString += std::to_string(flattenedMap[i])
+                     + (i == static_cast<int>(flattenedMap.size()) - 1 ? "" : ",");
+    }
 
-  return mapString;
+    return mapString;
 }
 
 
@@ -393,9 +378,8 @@ std::string CharacteristicMap::toString() const
  *
  * \returns The domain's dimension
  */
-int CharacteristicMap::getDomainDim() const
-{
-  return domainDim;
+int CharacteristicMap::getDomainDim() const {
+    return domainDim;
 }
 
 
@@ -405,9 +389,8 @@ int CharacteristicMap::getDomainDim() const
  *
  * \returns The image dimension of the characteristic map
  */
-int CharacteristicMap::getImageDim() const
-{
-  return imageDim;
+int CharacteristicMap::getImageDim() const {
+    return imageDim;
 }
 
 
@@ -430,71 +413,67 @@ int CharacteristicMap::getImageDim() const
  * \throws std::runtime_error
  */
 std::vector<double> CharacteristicMap::eval(const std::vector<double>& ref_p,
-    double eps) const
-{
-  if(static_cast<int>(ref_p.size()) != domainDim)
-  {
-    throw std::runtime_error("The argument's size doesn't match the domain"
-        " dimension.");
-  }
-
-  // Find the nearest neighbor and its image values
-  std::vector<int> nnIdxs;
-  if(findNearestNeighborIdxs(ref_p, nnIdxs, eps))
-    return std::vector<double>(imageDim, std::stod("nan"));
-  // Image values of the nearest neighbor
-  const std::vector<double> y_nn = at(nnIdxs);
-  // The result is based on the image values of the nearest neighbor
-  std::vector<double> y = y_nn;
-
-  // Interpolate
-  for(int i = 0; i < domainDim; i++)
-  {
-    // Depending on the configuration of the points, different neighbors will be
-    // used for interpolation
-    const double s = ref_p[i] - axes[i][nnIdxs[i]];
-    if(std::abs(s) <= eps)
-      continue;
-    bool b_constellation1 = s < 0 && nnIdxs[i] > 0;
-    bool b_constellation2 = s >= 0
-        && nnIdxs[i] == static_cast<int>(axes[i].size()) - 1
-        && nnIdxs[i] > 0;
-    bool b_constellation3 = s < 0 && nnIdxs[i] == 0
-        && nnIdxs[i] < static_cast<int>(axes[i].size()) - 1;
-    bool b_constellation4 = s >= 0
-        && nnIdxs[i] < static_cast<int>(axes[i].size()) - 1;
-
-    double dx = 1;
-    // Axis neighbor indices (i.e. the indices of the second support point)
-    std::vector<int> anIdxs = nnIdxs;
-    if(b_constellation1 || b_constellation2)
-    {
-      anIdxs[i] -= 1;
-      dx = axes[i][nnIdxs[i]] - axes[i][anIdxs[i]];
+        double eps) const {
+    if (static_cast<int>(ref_p.size()) != domainDim) {
+        throw std::runtime_error("The argument's size doesn't match the domain"
+                                 " dimension.");
     }
-    else if(b_constellation3 || b_constellation4)
-    {
-      anIdxs[i] += 1;
-      dx = axes[i][anIdxs[i]] - axes[i][nnIdxs[i]];
+
+    // Find the nearest neighbor and its image values
+    std::vector<int> nnIdxs;
+    if (findNearestNeighborIdxs(ref_p, nnIdxs, eps)) {
+        return std::vector<double>(imageDim, std::stod("nan"));
     }
-    else
-      continue;
-    // Image values of the axis neighbor
-    const std::vector<double> y_an = at(anIdxs);
+    // Image values of the nearest neighbor
+    const std::vector<double> y_nn = at(nnIdxs);
+    // The result is based on the image values of the nearest neighbor
+    std::vector<double> y = y_nn;
 
-    for(int j = 0; j < imageDim; j++)
-    {
-      double dy = 0;
-      if(b_constellation1 || b_constellation2)
-        dy = y_nn[j] - y_an[j];
-      else
-        dy = y_an[j] - y_nn[j];
+    // Interpolate
+    for (int i = 0; i < domainDim; i++) {
+        // Depending on the configuration of the points, different neighbors will be
+        // used for interpolation
+        const double s = ref_p[i] - axes[i][nnIdxs[i]];
+        if (std::abs(s) <= eps) {
+            continue;
+        }
+        bool b_constellation1 = s < 0 && nnIdxs[i] > 0;
+        bool b_constellation2 = s >= 0
+                                && nnIdxs[i] == static_cast<int>(axes[i].size()) - 1
+                                && nnIdxs[i] > 0;
+        bool b_constellation3 = s < 0 && nnIdxs[i] == 0
+                                && nnIdxs[i] < static_cast<int>(axes[i].size()) - 1;
+        bool b_constellation4 = s >= 0
+                                && nnIdxs[i] < static_cast<int>(axes[i].size()) - 1;
 
-      // Update
-      y[j] += s*dy/dx;
+        double dx = 1;
+        // Axis neighbor indices (i.e. the indices of the second support point)
+        std::vector<int> anIdxs = nnIdxs;
+        if (b_constellation1 || b_constellation2) {
+            anIdxs[i] -= 1;
+            dx = axes[i][nnIdxs[i]] - axes[i][anIdxs[i]];
+        } else if (b_constellation3 || b_constellation4) {
+            anIdxs[i] += 1;
+            dx = axes[i][anIdxs[i]] - axes[i][nnIdxs[i]];
+        } else {
+            continue;
+        }
+        // Image values of the axis neighbor
+        const std::vector<double> y_an = at(anIdxs);
+
+        for (int j = 0; j < imageDim; j++) {
+            double dy = 0;
+            if (b_constellation1 || b_constellation2) {
+                dy = y_nn[j] - y_an[j];
+            } else {
+                dy = y_an[j] - y_nn[j];
+            }
+
+            // Update
+            y[j] += s * dy / dx;
+        }
     }
-  }
 
-  return y;
+    return y;
 }
 
