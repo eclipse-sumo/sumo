@@ -94,15 +94,10 @@
  *   removeTrailingComma(M_flat)                                              *
  *                                                                            *
  ******************************************************************************/
-
-
 #pragma once
-
 
 #include <vector>
 #include <string>
-
-
 
 
 /**
@@ -235,4 +230,3 @@ public:
     std::vector<double> eval(const std::vector<double>& ref_p,
                              double eps = 1e-6) const;
 };
-

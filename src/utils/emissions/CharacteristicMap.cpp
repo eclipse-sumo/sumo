@@ -18,144 +18,32 @@
 // Characteristic map for vehicle type parameters as needed by the MMPEVEM model
 // Teaching and Research Area Mechatronics in Mobile Propulsion (MMP), RWTH Aachen
 /****************************************************************************/
-
-
-/******************************************************************************
- * ============================= Example Usage ============================== *
- ******************************************************************************
- *                                                                            *
- * Assume a function f which maps from R^2 to R^1 according to...             *
- *                                                                            *
- *     |  0 |  1 |  2 |  3 |  4   -> x_1                                      *
- * ----|------------------------                                              *
- *  -1 |  1 |  3 |  1 | -2 |                                                  *
- *   1 |  1 | -2 | -3 |  7 |  5                                               *
- *   3 | -2 | -1 |  0 |  1 |  3                                               *
- *   5 |    |  0 |  8 |  4 |  4                                               *
- *                                                                            *
- *   |                                                                        *
- *   v                                                                        *
- *  x_2                                                                       *
- *                                                                            *
- * ... so that, for example, f(3, 1) = 7. Note that f is not defined at       *
- * (4, -1) and (0, 5). There are two ways to create a CharacteristicMap       *
- * object for this function.                                                  *
- * 1) Using the standard constructor:                                         *
- *      // Axes                                                               *
- *      std::vector<std::vector<double>> axes;                                *
- *      axes.push_back(std::vector<double>{0, 1, 2, 3, 4});  // Axis 1        *
- *      axes.push_back(std::vector<double>{-1, 1, 3, 5});    // Axis 2        *
- *      // Flattened row-major map entries                                    *
- *      std::vector<double> flattenedMap{1, 3, 1, -2, std::nan(""),           *
- *          1, -2, -3, 7, 5, -2, -1, 0, 1, 3, std::nan(""), 0, 8, 4, 4};      *
- *                                                                            *
- *      CharacteristicMap map1(2,              // Mapping from R^2...         *
- *                             1,              // ... to R^1                  *
- *                             axes,                                          *
- *                             flattenedMap);                                 *
- *                                                                            *
- * 2) Using a string-encoding of the map:                                     *
- *      CharacteristicMap map2("2,1|0,1,2,3,4;-1,1,3,5|1,3,1,-2,nan,"         *
- *          "1,-2,-3,7,5,-2,-1,0,1,3,nan,0,8,4,4");                           *
- *                                                                            *
- *    See below for an in-depth explanation of the format.                    *
- *                                                                            *
- *                                                                            *
- * To evaluate the map at, for instance, p = (2.2, 2), one must call:         *
- *   std::vector<double> res = map1.eval(std::vector<double>{2.2, 2},  // p   *
- *                                       1e-3);  // eps                       *
- *   if(std::isnan(res[0]))                                                   *
- *     std::cout << "[WARNING] Couldn't evaluate the map." << std::endl;      *
- *   else                                                                     *
- *     std::cout << "res = " << res[0] << std::endl;                          *
- *                                                                            *
- * The epsilon value is used for numerical reasons and decides how much a     *
- * point must deviate from its nearest neighbor before linear interpolation   *
- * is applied or when a point is considered outside of the map. The default   *
- * is 1e-6.                                                                   *
- *                                                                            *
- *                                                                            *
- * The string-encoding of a CharacteristicMap that maps from R^m to R^n is    *
- * formally defined as                                                        *
- *   "m,n|A_1[1],A_1[2],...,A_1[l1];A_2[1],A_2[2],...,A_2[l2];...;\           *
- *       A_m[1],A_m[2],...,A_m[lm]|\                                          *
- *       M_flat[1],M_flat[2],...,M_flat[l1*l2*...*lm]"                        *
- * where A_i[j] denotes the j-th value of the i-th axis (which has li values  *
- * total) and M_flat[i] stands for the i-th entry in the row-major flattened  *
- * map. To be more specific, given a map M, its flattened version is          *
- * computed as follows (using pseudo code):                                   *
- *   M_flat = ""                                                              *
- *   for i_m in {1,2,...,lm}:        // Last axis                             *
- *     ...                                                                    *
- *       for i_2 in {1,2,...,l2}:    // Second axis                           *
- *         for i_1 in {1,2,...,l1}:  // First axis (i.e. row axis)            *
- *           for d in {1,2,...,n}:   // Image dimensions                      *
- *             M_flat += M[i_1,i_2,...,i_m][d] + ","                          *
- *   removeTrailingComma(M_flat)                                              *
- *                                                                            *
- ******************************************************************************/
-
-
-#include <utils/emissions/CharacteristicMap.h>
+#include <config.h>
 
 #include <cmath>
 #include <cstring>
 #include <stdexcept>
 
+#include <utils/common/StringTokenizer.h>
+#include <utils/emissions/CharacteristicMap.h>
 
 
-
-/**
- * \brief Split a string into substrings that are delimited by one or more
- *        special characters.
- *
- * \param ref_string The string that shall be tokenized
- * \param ref_delimiter A string containing all delimiter characters
- * \returns A vector containing the substrings
- */
-std::vector<std::string> tokenize(const std::string& ref_string,
-                                  const std::string& ref_delimiter) {
-    std::vector<std::string> tokens;
-
-    char* ptr_buffer = new char[ref_string.length() + 1];
-    std::strcpy(ptr_buffer, ref_string.c_str());
-
-    char* ptr_token = std::strtok(ptr_buffer, ref_delimiter.c_str());
-    while (ptr_token != nullptr) {
-        tokens.push_back(std::string(ptr_token));
-        ptr_token = std::strtok(nullptr, ref_delimiter.c_str());
-    }
-
-    delete[] ptr_buffer;
-    ptr_buffer = nullptr;
-    return tokens;
-}
-
-
-
-
-/**
- * \brief Determine the stride for each map dimension in the flattened map.
- */
-void CharacteristicMap::determineStrides() {
+// ===========================================================================
+// method definitions
+// ===========================================================================
+void
+CharacteristicMap::determineStrides() {
     strides.clear();
     strides.reserve(domainDim);
-    strides.push_back(1 * imageDim);
+    strides.push_back(imageDim);
     for (int i = 1; i < domainDim; i++) {
-        strides.push_back(axes[i - 1].size()*strides[i - 1]);
+        strides.push_back((int)axes[i - 1].size() * strides[i - 1]);
     }
 }
 
 
-
-/**
- * \brief Compute the index of a map entry in the flattened map.
- *
- * \param[in] ref_idxs Non-flattened map indices
- * \returns Flattened map index
- * \throws std::runtime_error
- */
-int CharacteristicMap::calcFlatIdx(const std::vector<int>& ref_idxs) const {
+int
+CharacteristicMap::calcFlatIdx(const std::vector<int>& ref_idxs) const {
     if (static_cast<int>(ref_idxs.size()) != domainDim) {
         throw std::runtime_error("The number of indices differs from the map's"
                                  " domain dimension.");
@@ -172,19 +60,8 @@ int CharacteristicMap::calcFlatIdx(const std::vector<int>& ref_idxs) const {
 }
 
 
-
-/**
- * \brief Determine the indices of the nearest neighbor of a point in the map.
- *
- * A point has no such neighbor if it lies outside of the range of an axis with
- * respect to some epsilon.
- * \param[in] ref_p A point
- * \param[out] ref_idxs A vector into which the indices shall be written
- * \param[in] eps An epsilon value
- * \returns 0 if a nearest neighbor could be found, else -1
- * \throws std::runtime_error
- */
-int CharacteristicMap::findNearestNeighborIdxs(const std::vector<double>& ref_p,
+int
+CharacteristicMap::findNearestNeighborIdxs(const std::vector<double>& ref_p,
         std::vector<int>& ref_idxs, double eps) const {
     if (static_cast<int>(ref_p.size()) != domainDim) {
         throw std::runtime_error("The argument point's size doesn't match the"
@@ -197,7 +74,7 @@ int CharacteristicMap::findNearestNeighborIdxs(const std::vector<double>& ref_p,
             ref_idxs[i] = 0;
         } else if (axes[i][axes[i].size() - 1] <= ref_p[i]
                    && ref_p[i] < axes[i][axes[i].size() - 1] + eps) {
-            ref_idxs[i] = axes[i].size() - 1;
+            ref_idxs[i] = (int)axes[i].size() - 1;
         } else {
             for (int j = 0; j < static_cast<int>(axes[i].size()) - 1; j++) {
                 if (axes[i][j] <= ref_p[i] && ref_p[i] < axes[i][j + 1]) {
@@ -223,17 +100,8 @@ int CharacteristicMap::findNearestNeighborIdxs(const std::vector<double>& ref_p,
 }
 
 
-
-/**
- * \brief Access a map entry using its indices.
- *
- * \param[in] ref_idxs A vector containing indices
- * \returns A vector containing the image values of the map at the specified
- *          location
- * \throws std::runtime_error
- */
-std::vector<double> CharacteristicMap::at(
-    const std::vector<int>& ref_idxs) const {
+std::vector<double>
+CharacteristicMap::at(const std::vector<int>& ref_idxs) const {
     if (static_cast<int>(ref_idxs.size()) != domainDim) {
         throw std::runtime_error("The number of indices differs from the map's"
                                  " domain dimension.");
@@ -245,18 +113,6 @@ std::vector<double> CharacteristicMap::at(
 }
 
 
-
-/**
- * \brief Constructor
- *
- * \param[in] domainDim The map's domain dimension
- * \param[in] imageDim The map's image dimension
- * \param[in] ref_axes A vector of vectors containing the entries of their
- *            respective axes in ascending order
- * \param[in] ref_flattenedMap The row-major flattened entries of the map (i.e.
- *            the map is flattened along its first axis)
- * \throws std::runtime_error
- */
 CharacteristicMap::CharacteristicMap(int domainDim, int imageDim,
                                      const std::vector<std::vector<double>>& ref_axes,
                                      const std::vector<double>& ref_flattenedMap)
@@ -269,9 +125,9 @@ CharacteristicMap::CharacteristicMap(int domainDim, int imageDim,
         throw std::runtime_error("The number of axes doesn't match the specified"
                                  " domain dimension.");
     }
-    int expectedEntryCnt = 1 * imageDim;
+    int expectedEntryCnt = imageDim;
     for (auto& ref_axis : axes) {
-        expectedEntryCnt *= ref_axis.size();
+        expectedEntryCnt *= (int)ref_axis.size();
     }
     if (static_cast<int>(flattenedMap.size()) != expectedEntryCnt) {
         throw std::runtime_error("The number of map entries isn't equal to the"
@@ -282,24 +138,16 @@ CharacteristicMap::CharacteristicMap(int domainDim, int imageDim,
 }
 
 
-
-/**
- * \brief Constructor
- *
- * \param[in] ref_mapString A string representation of a characteristic map (cf.
- *            example at the top of the file)
- * throws std::runtime_error
- */
 CharacteristicMap::CharacteristicMap(const std::string& ref_mapString) {
     // Split the map string into its three main parts
-    std::vector<std::string> tokens = tokenize(ref_mapString, "|");
+    const std::vector<std::string> tokens = StringTokenizer(ref_mapString, "|").getVector();
     if (tokens.size() != 3) {
         throw std::runtime_error("The map string isn't made up of the 3 parts"
                                  " dimensions, axes, and flattened entries.");
     }
 
     // Extract the domain and image dimensions
-    std::vector<std::string> dimensionTokens = tokenize(tokens[0], ",");
+    const std::vector<std::string> dimensionTokens = StringTokenizer(tokens[0], ",").getVector();
     if (dimensionTokens.size() != 2) {
         throw std::runtime_error("The domain and image dimensions aren't specified"
                                  " correctly.");
@@ -308,13 +156,13 @@ CharacteristicMap::CharacteristicMap(const std::string& ref_mapString) {
     imageDim = std::stoi(dimensionTokens[1]);
 
     // Create the map axes
-    std::vector<std::string> axisTokens = tokenize(tokens[1], ";");
+    const std::vector<std::string> axisTokens = StringTokenizer(tokens[1], ";").getVector();
     if (static_cast<int>(axisTokens.size()) != domainDim) {
         throw std::runtime_error("The number of axes doesn't match the specified"
                                  " domain dimension.");
     }
     for (auto& ref_axisToken : axisTokens) {
-        std::vector<std::string> axisEntryTokens = tokenize(ref_axisToken, ",");
+        std::vector<std::string> axisEntryTokens = StringTokenizer(ref_axisToken, ",").getVector();
         std::vector<double> axisEntries;
         for (auto& ref_axisEntryToken : axisEntryTokens) {
             axisEntries.push_back(std::stod(ref_axisEntryToken));
@@ -323,10 +171,10 @@ CharacteristicMap::CharacteristicMap(const std::string& ref_mapString) {
     }
 
     // Create the flattened map
-    std::vector<std::string> flattenedMapTokens = tokenize(tokens[2], ",");
-    int expectedEntryCnt = 1 * imageDim;
+    const std::vector<std::string> flattenedMapTokens = StringTokenizer(tokens[2], ",").getVector();
+    int expectedEntryCnt = imageDim;
     for (auto& ref_axis : axes) {
-        expectedEntryCnt *= ref_axis.size();
+        expectedEntryCnt *= (int)ref_axis.size();
     }
     if (static_cast<int>(flattenedMapTokens.size()) != expectedEntryCnt) {
         throw std::runtime_error("The number of map entries isn't equal to the"
@@ -341,14 +189,8 @@ CharacteristicMap::CharacteristicMap(const std::string& ref_mapString) {
 }
 
 
-
-/**
- * \brief Encode the map as a string.
- *
- * \returns A string representation of the characteristic map (cf. example at
- *          the top of the file)
- */
-std::string CharacteristicMap::toString() const {
+std::string
+CharacteristicMap::toString() const {
     // Write the domain and image dimensions
     std::string mapString = std::to_string(domainDim) + ","
                             + std::to_string(imageDim) + "|";
@@ -372,48 +214,20 @@ std::string CharacteristicMap::toString() const {
 }
 
 
-
-/**
- * \brief Get the dimension of the map's domain.
- *
- * \returns The domain's dimension
- */
-int CharacteristicMap::getDomainDim() const {
+int
+CharacteristicMap::getDomainDim() const {
     return domainDim;
 }
 
 
-
-/**
- * \brief Get the image dimension of the map.
- *
- * \returns The image dimension of the characteristic map
- */
-int CharacteristicMap::getImageDim() const {
+int
+CharacteristicMap::getImageDim() const {
     return imageDim;
 }
 
 
-
-/**
- * \brief Evaluate a point in the map using linear interpolation.
- *
- * Please note that the result may contain NaNs. That happens when...
- * a) ... the point in question has no nearest neighbor (that is, it lies
- *    outside of the domain). In that case, all entries of the vector are set to
- *    NaN.
- * b) ... an image value of the nearest neighbor is NaN. Then, the result is
- *    also NaN in that image dimension.
- * c) ... evaluation would require interpolating with a support point which is
- *    NaN in an image dimension. The corresponding result entry is set to NaN in
- *    that case.
- * \param[in] ref_p A point
- * \param[in] eps An epsilon value
- * \returns The (interpolated) image values of the map at the specified point
- * \throws std::runtime_error
- */
-std::vector<double> CharacteristicMap::eval(const std::vector<double>& ref_p,
-        double eps) const {
+std::vector<double>
+CharacteristicMap::eval(const std::vector<double>& ref_p, double eps) const {
     if (static_cast<int>(ref_p.size()) != domainDim) {
         throw std::runtime_error("The argument's size doesn't match the domain"
                                  " dimension.");
@@ -476,4 +290,3 @@ std::vector<double> CharacteristicMap::eval(const std::vector<double>& ref_p,
 
     return y;
 }
-
