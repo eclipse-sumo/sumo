@@ -120,11 +120,8 @@ won't work
 
 ## Data and Documentation
 
-Unless otherwise noted all documentation (including this wiki) and data
-files are
-
-<p style="border:1px solid #909090; padding:1px 4px 3px 4px"><img src="images/CC-BY-SA-small.png" alt="Creative Commons License">
-This work is licensed under a <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>. The authors are listed in the history.</p>
+Unless otherwise noted all documentation (including the files in this directory and below) and data
+files are licensed under the [Eclipse Public License v2](http://www.eclipse.org/legal/epl-v20.html) just as the rest of SUMO.
 
 ### 3D models
 
