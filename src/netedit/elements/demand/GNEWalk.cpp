@@ -136,7 +136,8 @@ GNEWalk::writeDemandElement(OutputDevice& device) const {
         }
     }
     // only write arrivalPos if is different of -1
-    if (myArrivalPosition != -1) {
+    if ((myArrivalPosition != -1) || 
+        !((myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP) && (myArrivalPosition == 0))) {
         device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
     }
     // write parameters
