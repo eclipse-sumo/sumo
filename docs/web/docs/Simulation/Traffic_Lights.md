@@ -421,7 +421,22 @@ To use custom detectors (i.e. for custom placement or output) additional paramet
    <param key="gneE42_2" value="customDetector1"/>
 ```
 !!! caution
-    Custom detectors only work when the 'tlLogic' is loaded from an additional file.
+Custom detectors only work when the 'tlLogic' is loaded from an additional file.
+
+## Type 'NEMA'
+
+Since version 1.11.0, SUMO supports defining controllers with the naming
+convention and control logic according to the 'National Electrical Manufacturers
+Association' commonly used throughout the United States.
+Detailed documentation is at [NEMA](NEMA.md).
+
+### Custom Detectors
+To use custom detectors (i.e. for custom placement or output) additional parameters can be defined where KEY is a lane that is incoming to the traffic light and VALUE is a user-defined laneAreaDetector.
+```
+   <param key="gneE42_2" value="customDetector1"/>
+```
+!!! caution
+Custom detectors only work when the 'tlLogic' is loaded from an additional file.
 
 # Loading a new Program
 
@@ -447,14 +462,6 @@ giving the `programID` the value
 ```
 <tlLogic id="0" type="static" programID="off"/>
 ```
-
-
-## Type 'NEMA'
-
-Since version 1.11.0, SUMO supports defining controllers with the naming
-convention and control logic according to the 'National Electrical Manufacturers
-Association' commonly used throughout the United States.
-Detailed documentation is at [NEMA](NEMA.md).
 
 # Tools for Importing TLS Programs
 
