@@ -1,13 +1,14 @@
 /* XPM */
-static const char * poi_xpm[] = {
+static const char * poigeo_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"16 16 6 1 ",
+"16 16 7 1 ",
 "  c gray50",
 ". c #880015",
 "X c #ED1C24",
 "o c #CFCFCF",
 "O c white",
 "# c None",
+"k c black",
 /* pixels */
 "################",
 "######XXX#######",
@@ -18,11 +19,11 @@ static const char * poi_xpm[] = {
 "#####XXXX.######",
 "######X..#######",
 "######o o#######",
-"######o o#######",
-"######o o#######",
-"######o o#######",
-"######o o#######",
-"######o o#######",
-"####### ########",
+"######o o####kk#",
+"######o o###k##k",
+"######o o###k###",
+"######o o###k#kk",
+"######o o###k##k",
+"####### #####kk#",
 "################"
 };

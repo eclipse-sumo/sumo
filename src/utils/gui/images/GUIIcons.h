@@ -368,6 +368,8 @@ enum class GUIIcon {
     ROUTEPROBREROUTE,
     POLY,
     POI,
+    POILANE,
+    POIGEO,
     TAZ,
     TAZEDGE,
     /// @}

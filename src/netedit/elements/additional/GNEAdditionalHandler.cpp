@@ -1563,7 +1563,7 @@ GNEAdditionalHandler::buildPOILane(const CommonXMLStructure::SumoBaseObject* sum
             GNEShape* POILane = new GNEPOI(myNet, id, type, color, lane, posOverLane, friendlyPos, posLat, layer, angle, imgFile, relativePath, width, height, name, parameters);
             // add it depending of allow undoRed
             if (myAllowUndoRedo) {
-                myNet->getViewNet()->getUndoList()->begin(GUIIcon::POI, "add " + POILane->getTagStr());
+                myNet->getViewNet()->getUndoList()->begin(GUIIcon::POILANE, "add " + POILane->getTagStr());
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_Shape(POILane, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
@@ -1599,7 +1599,7 @@ GNEAdditionalHandler::buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumo
         GNEPOI* POIGEO = new GNEPOI(myNet, id, type, color, lon, lat, true, layer, angle, imgFile, relativePath, width, height, name, parameters);
         // add it depending of allow undoRed
         if (myAllowUndoRedo) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::POI, "add " + POIGEO->getTagStr());
+            myNet->getViewNet()->getUndoList()->begin(GUIIcon::POIGEO, "add " + POIGEO->getTagStr());
             myNet->getViewNet()->getUndoList()->add(new GNEChange_Shape(POIGEO, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {

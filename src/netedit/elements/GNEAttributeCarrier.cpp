@@ -2882,7 +2882,7 @@ GNEAttributeCarrier::fillShapes() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::SHAPE,
                                       0,
-                                      GUIIcon::POI, SUMO_TAG_POI);
+                                      GUIIcon::POILANE, SUMO_TAG_POI);
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
@@ -2970,7 +2970,7 @@ GNEAttributeCarrier::fillShapes() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::SHAPE,
                                       GNETagProperties::RTREE,
-                                      GUIIcon::POI, SUMO_TAG_POI);
+                                      GUIIcon::POIGEO, SUMO_TAG_POI);
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,

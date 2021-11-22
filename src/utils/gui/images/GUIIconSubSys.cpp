@@ -264,6 +264,8 @@
 #include "routeprobreroute.xpm"
 #include "poly.xpm"
 #include "poi.xpm"
+#include "poilane.xpm"
+#include "poigeo.xpm"
 #include "taz.xpm"
 #include "tazedge.xpm"
 
@@ -624,6 +626,8 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::ROUTEPROBREROUTE] = new FXXPMIcon(a, routeprobreroute_xpm);
     myIcons[GUIIcon::POLY] = new FXXPMIcon(a, poly_xpm);
     myIcons[GUIIcon::POI] = new FXXPMIcon(a, poi_xpm);
+    myIcons[GUIIcon::POILANE] = new FXXPMIcon(a, poilane_xpm);
+    myIcons[GUIIcon::POIGEO] = new FXXPMIcon(a, poigeo_xpm);
     myIcons[GUIIcon::TAZ] = new FXXPMIcon(a, taz_xpm);
     myIcons[GUIIcon::TAZEDGE] = new FXXPMIcon(a, tazedge_xpm);
 
