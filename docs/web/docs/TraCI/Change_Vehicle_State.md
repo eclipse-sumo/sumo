@@ -397,7 +397,7 @@ To disable all autonomous changing but still handle safety checks in the
 simulation, either one of the modes **256** (collision avoidance) or
 **512** (collision avoidance and safety-gap enforcement) may be used.
 
-### add (legacy) (0x80)
+### addLegacy (deprecated) (0x80)
 
 |         byte          |              int              |        byte         |            string            |        byte         |        string         |         byte         |       int        |        byte         |     double      |        byte         |    double    |       byte        |    byte     |
 | :-------------------: | :---------------------------: | :-----------------: | :--------------------------: | :-----------------: | :-------------------: | :------------------: | :--------------: | :-----------------: | :-------------: | :-----------------: | :----------: | :---------------: | :---------: |
@@ -445,7 +445,7 @@ that consists of a single arbitrary edge (with suitalbe vClass
 permissions). This can be used to simply the initialization of remote
 controlled vehicle (moveToXY).
 
-### add_full (0x85)
+### add (alias addFull) (0x85)
 
 |         byte          |              int               |        byte         |        string         |        byte         |            string            |        byte         |   string    |        byte         |   string    |        byte         |     string      |        byte         |    string    |        byte         |    string    |        byte         |      string      |        byte         |    string     |        byte         |           string           |        byte         |            string             |        byte         |           string            |         byte         |       int       |         byte         |      int      |
 | :-------------------: | :----------------------------: | :-----------------: | :-------------------: | :-----------------: | :--------------------------: | :-----------------: | :---------: | :-----------------: | :---------: | :-----------------: | :-------------: | :-----------------: | :----------: | :-----------------: | :----------: | :-----------------: | :--------------: | :-----------------: | :-----------: | :-----------------: | :------------------------: | :-----------------: | :---------------------------: | :-----------------: | :-------------------------: | :------------------: | :-------------: | :------------------: | :-----------: |
@@ -455,6 +455,11 @@ If an empty routeID is given, the vehicle will be placed on an route
 that consists of a single arbitrary edge (with suitable vClass
 permissions). This can be used to simply the initialization of remote
 controlled vehicle (moveToXY).
+
+#### special cases
+
+- if routeID is "", the vehicle will be inserted on a random network edge. This may be useful when intending the vehicle with moveToXY (and now route information is available)
+- if the route consists of 2 disconnected edges, the vehicle will be treated like a `<trip>` and use the fastest route between the two edges 
 
 !!! note
     Please note that the values are not checked in a very elaborated way. Make sure they are correct before sending.
@@ -556,7 +561,7 @@ step.
 
 ## Vehicle insertion
 
-When a vehicle is added using method *add* or *addFull* it is not
+When a vehicle is added using method *add* it is not
 immediately inserted into the network. Only after the next call to
 *simulationStep* does the simulation try to insert it (and this may fail
 when in conflict with other traffic). The result of *getIDList* only
