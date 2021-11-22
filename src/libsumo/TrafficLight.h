@@ -83,6 +83,8 @@ public:
     }
 
     static void setNemaSplits(const std::string& tlsID, const std::string& splits);
+    static void setNemaMaxGreens(const std::string& tlsID, const std::string& maxGreens);
+    static void setNemaCycleLength(const std::string& tlsID, const std::string& cycleLength);
     static void setNemaOffset(const std::string& tlsID, const std::string& offset);
 
 #ifndef LIBTRACI
