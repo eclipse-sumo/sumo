@@ -23,7 +23,7 @@ title: ChangeLog
     - Fixed invalid error after emergency braking at red light with ballistic update. Issue #8978
     - Fixed unsafe sublane changing on junction. Issue #9180
     - Fixed emergency braking during opposite-direction overtaking. Issue #9183, #9184, #9185, #9297, #9530
-    - Fixed invalid collision warning during opposite direction driving. Issue #9388  
+    - Fixed invalid collision warning during opposite direction driving. Issue #9388
     - Fixed bug where frontal collision between fast vehicles was not detected. Issue #9402
   - sublane
     - Fixed invalid behavior after using stop posLat in non-sublane simulation. Issue #9013
@@ -32,7 +32,7 @@ title: ChangeLog
     - Fixed bug where vehicles stay on the opposite side for too long in sublane simulation. Issue #9548
   - output
     - Fixed invalid edges and exitTimes in **vehroute-output** when using rerouting and looped routes. Issue #9374
-    - Fcd-output no longer includes persons in vehicle when peson-device.fcd is disabled. Issue #9469  
+    - Fcd-output no longer includes persons in vehicle when person-device.fcd is disabled. Issue #9469
     - Stop attribute 'actType' is now preserved in vehroute-output. Issue #9495
     - Fixed invalid use of busStop instead of containerStop in vehroute-output. Issue #8989
     - Fixed invalid human readable times in tripinfo output (affecting sub-second values). Issue #9580
@@ -43,12 +43,12 @@ title: ChangeLog
     - Attribute personCapacity is no longer ignored for trainStop. Issue #9262
     - Fixed lower-than-configured boardingTime when many persons are entering. Issue #9263
   - misc
-    - Fixed bug where a vehicle never starts with startPos="stop" departSpeed="max" and ballistic update. Issue #8988  
-    - Fixed departSpeed related errors when using vehrouter-output as simulation input. Issue #9199, #9205    
+    - Fixed bug where a vehicle never starts with startPos="stop" departSpeed="max" and ballistic update. Issue #8988
+    - Fixed departSpeed related errors when using vehrouter-output as simulation input. Issue #9199, #9205
     - Fixed invalid duplicate ids when using option **--scale**. Added option **--scale-suffix** to deal with unavoidable id collisions. Issue #9055
     - Railway routing now longer creates routes where a train gets stuck on very short reversal edges. Issue #9323
-    - Fixed invalid warning in railway simulation. Issue #9398  
-    
+    - Fixed invalid warning in railway simulation. Issue #9398
+
 - netedit
   - network mode: additionals
     - Fixed probability statistics and coloring in taz mode. Issue #9107 (regression in 1.7.0)
@@ -65,7 +65,7 @@ title: ChangeLog
     - Fixed bug where additional objects could not be loaded via command line option. Issue #9166
     - When creating a new TAZ, edges are now assigned based on the polygon shape rather than it's bounding box. Issue #9225
     - Fixed invalid e3detector position when placing entry/exit detectors close to junction. Issue #9421
-  - network mode: other    
+  - network mode: other
     - Copying one of several traffic light programs now copies the correct one. Issue #7963
     - Adding a bicycle lane via lane context menu now respects option **--default.bikelane-width** Issue #9073
     - Fixed missung turnaround after adding bike lane. Issue #9079
@@ -93,7 +93,7 @@ title: ChangeLog
     - Fixed crash when entering non-existing vtype in current vtype field. Issue #9509
   - data mode
     - Fixed various usability issues related to tazRelation editing. Issue #9059, #9086, #9109, #9123, #9114, #9122, #9120, #9121, #9126, #9113, #9152
-   
+
 - sumo-gui
   - Fixed invalid person angle in output. Issue #9014
   - Fixed slow stepping on windows when the simulation has little to do. Issue #6371
@@ -108,7 +108,7 @@ title: ChangeLog
   - Small text placement fixes. Issue #9477, #9476, #9467
   - Fixed freezing in person simulation. Issue #9468
   - Fixed crash when loading edgeData with inconsisten interval times. Issue #9502
-    
+
 - netconvert
   - Connection attribute visibility is now working if the connection has an internal junction. Issue #8953
   - Fixed crash when importing OpenDrive with internal lane shapes when the input defines no width. Issue #9009
@@ -124,7 +124,7 @@ title: ChangeLog
   - Option **--geometry.min-dist** no longer changes OpenDRIVE topology. Issue #9448
   - When importing OSM, footpaths with bike access now default to two-way edges. Issue #9459
   - Option **--speed.factor** now works with lane-specific speeds. Issue #9466
-  - Fixed invalid permissions for sime bicycle and pedestrian lanes in OSM import. Issue #9483
+  - Fixed invalid permissions for some bicycle and pedestrian lanes in OSM import. Issue #9483
   - Fixed invalid walkingarea shapes that overlap with vehicular movements. Issue #9485
   - Fixed inconsistencies in assignment of connection directional arrows. Issue #9430
 
@@ -144,6 +144,7 @@ title: ChangeLog
   - Fixed infinite loop when loading flow with probability and number but without end attribute. Issue #9504
   - Fixed crash when ignoring missing vType for probabilistic flow. Issue #9503
   - Option **--weights.random-factor** now influences routing results when using **--routing-algorithm** CH or CHWrapper. Issue #9515
+  - Fixed several memory leaks
 
 - meso
   - fixed crash when using taxi device #9208 (regression in 1.9.2)
@@ -157,9 +158,9 @@ title: ChangeLog
 - polyconvert
   - Shapefiles will now be interpreted correctly when no projection is defined #8948
   - Fixed hidden buildings due to invalid default layers in OSM typemap. Issue #9061
-  
-- traci
-  - trafficLights.getControlledLinks passes the correct response size (this has no effect for the end user and is only relevent for client developers). Issue #8891
+
+- TraCI
+  - trafficLights.getControlledLinks passes the correct response size (this has no effect for the end user and is only relevant for client developers). Issue #8891
   - The debug-build of libsumo is now working. Issue #8946
   - Removing and reinserting a vehicle in the same step is now working. Issue #5647
   - traci.vehicle.getLeader can no longer return -inf when the leader is on an intersection. Issue #9001
@@ -177,7 +178,7 @@ title: ChangeLog
   - Function 'traci.vehicle.replaceStop' no longer fails while on junction. Issue #9467
   - Fixed invalid stop duration reported after updating duration with setStop. Issue #9522
   - Added missing convenience functions in traci.vehicle (i.e. 'isAtBusstop' to libsumo and libtraci python bindings. Issue #9591
-  
+
 - tools
   - cutRoutes.py: Fixed mixed usage of trainStop and busStop. Issue #8982
   - cutRoutes.py: Handles flows without end time
@@ -185,7 +186,7 @@ title: ChangeLog
     - Initial tripId set via vehicle param is now used. Issue #8959
     - Now using correct tripId when generating constraints for intermediate stop. Issue #8960
     - Fixed crash when there are two stops on the same edge. Issue #8958 (regression in 1.10)
-  - generateContinousRerouters.py: fixed infinite loop. Issue #9167  
+  - generateContinousRerouters.py: fixed infinite loop. Issue #9167
   - GTFS import no longer ignores trips with routes not starting in the simulation area. Issue #9224
   - GTFS import now works when crossing day boundaries. Issue #9002
   - GTFS import no longer fails when the optional 'shapes.txt' is missing.
@@ -245,7 +246,7 @@ title: ChangeLog
   - Added extra colors for 'stopped' in vehicle coloring scheme 'by speed' #9547
   - Added number of stopped vehicles to network parameters. Issue #9558
   - Attribute guiShape now supports 'scooter'. Issue #9190
-  
+
 - netedit
   - Added context menu function to reset opposite-lane information for a selection of lanes. Issue #8888
   - Added new 'Lock' menu to protect different types of objects from inspect,move,select and delete operations. Issue #8342
@@ -338,15 +339,18 @@ title: ChangeLog
 
 ### Other
 
-- Miscellaneous: Renamed the "master" branch in git to "main". Issue #8591  
+- Miscellaneous: Renamed the "master" branch in git to "main". Issue #8591
+- This will be the last time we officially release a 32bit version for Windows.
+- The repository location for the open build service (RPMs for openSUSE, Fedora and derivatives) changed to https://build.opensuse.org/project/show/science:dlr
 - Simulation: Default efficiency of chargingStation is now 0.95 (previously 0). Issue #9414
-- Traci: Parameter 'upstreamDist' of function 'traci.vehicle.addSubscriptionFilterTurn' was renamed to upstreamDist. Issue #9141
+- TraCI: Parameter 'upstreamDist' of function 'traci.vehicle.addSubscriptionFilterTurn' was renamed to 'foeDistToJunction'. Issue #9141
 - netconvert: opendrive-output now includes header comment with netconvert version and options. Issue #9454
 - netedit
   - Some Undo-Redo operations are now restricted to the supermode of the operation. Issue #9097
-  - TAZ and Polygons can now longer have the same id. Issue #9165
+  - TAZ and Polygons can no longer have the same id. Issue #9165
 - polyconvert: When no network is loaded, output will now be in lon,lat by default (if the input is geo-referenced) in order to be useful with any network. The old behavior of writing raw utm values in this case can be restored by setting option **--proj.plain-geo false**.
-- duaIterate.py option **-C** is no longer a synonym for **--continue-on-unbuild**. Instead, it is a shortcut for **--save-configurtion**. Issue #9314
+- duaIterate.py option **-C** is no longer a synonym for **--continue-on-unbuild**. Instead, it is a shortcut for **--save-configuration**. Issue #9314
+
 
 ## Version 1.10.0 (17.08.2021)
 
