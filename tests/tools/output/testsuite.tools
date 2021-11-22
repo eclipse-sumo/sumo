@@ -36,3 +36,5 @@ computeStoppingPlaceUsage
 # compute number of passengers in vehicle
 computePassengerCounts
 stopOrder
+
+parkingSearchTraffic

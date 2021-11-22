@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-11-22 20:38:36 by Eclipse SUMO sumo Version v1_10_0+2297-bf5805bd9ba
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.exit-times value="true"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="flow1.5" depart="25.00" arrival="296.00">
+        <routeDistribution>
+            <route replacedOnEdge="a" reason="REROUTER_Via_Montespirello:parkingAreaReroute" replacedAtTime="43.00" probability="0" edges="a b c"/>
+            <route edges="a b c" exitTimes="53.00 279.00 296.00"/>
+        </routeDistribution>
+        <stop parkingArea="ParkAreaB" duration="400.00" started="73.00" ended="273.00"/>
+    </vehicle>
+
+    <vehicle id="flow1.6" depart="30.00" arrival="299.00">
+        <routeDistribution>
+            <route replacedOnEdge="a" reason="REROUTER_Via_Montespirello:parkingAreaReroute" replacedAtTime="43.00" probability="0" edges="a b c"/>
+            <route edges="a b c" exitTimes="54.00 282.00 299.00"/>
+        </routeDistribution>
+        <stop parkingArea="ParkAreaB" duration="400.00" started="76.00" ended="276.00"/>
+    </vehicle>
+
+    <vehicle id="flow3.0" depart="40.00" arrival="308.00">
+        <routeDistribution>
+            <route replacedOnEdge="a" reason="REROUTER_Via_Montespirello:parkingAreaReroute" replacedAtTime="43.00" probability="0" edges="a b c"/>
+            <route edges="a b c" exitTimes="64.00 291.00 308.00"/>
+        </routeDistribution>
+        <stop parkingArea="ParkAreaB" duration="200.00" started="85.00" ended="285.00"/>
+    </vehicle>
+
+    <vehicle id="flow3.1" depart="45.00" arrival="313.00">
+        <routeDistribution>
+            <route replacedOnEdge="a" reason="REROUTER_Via_Montespirello:parkingAreaReroute" replacedAtTime="45.00" probability="0" edges="a b c"/>
+            <route edges="a b c" exitTimes="69.00 296.00 313.00"/>
+        </routeDistribution>
+        <stop parkingArea="ParkAreaB" duration="200.00" started="90.00" ended="290.00"/>
+    </vehicle>
+
+    <vehicle id="flow3.2" depart="50.00" arrival="318.00">
+        <routeDistribution>
+            <route replacedOnEdge="a" reason="REROUTER_Via_Montespirello:parkingAreaReroute" replacedAtTime="50.00" probability="0" edges="a b c"/>
+            <route edges="a b c" exitTimes="74.00 301.00 318.00"/>
+        </routeDistribution>
+        <stop parkingArea="ParkAreaB" duration="200.00" started="95.00" ended="295.00"/>
+    </vehicle>
+
+    <vehicle id="flow3.3" depart="55.00" arrival="323.00">
+        <routeDistribution>
+            <route replacedOnEdge="a" reason="REROUTER_Via_Montespirello:parkingAreaReroute" replacedAtTime="55.00" probability="0" edges="a b c"/>
+            <route edges="a b c" exitTimes="79.00 306.00 323.00"/>
+        </routeDistribution>
+        <stop parkingArea="ParkAreaB" duration="200.00" started="100.00" ended="300.00"/>
+    </vehicle>
+
+    <vehicle id="flow3.4" depart="60.00" arrival="328.00">
+        <routeDistribution>
+            <route replacedOnEdge="a" reason="REROUTER_Via_Montespirello:parkingAreaReroute" replacedAtTime="60.00" probability="0" edges="a b c"/>
+            <route edges="a b c" exitTimes="84.00 311.00 328.00"/>
+        </routeDistribution>
+        <stop parkingArea="ParkAreaB" duration="200.00" started="105.00" ended="305.00"/>
+    </vehicle>
+
+    <vehicle id="flow3.5" depart="65.00" arrival="333.00">
+        <routeDistribution>
+            <route replacedOnEdge="a" reason="REROUTER_Via_Montespirello:parkingAreaReroute" replacedAtTime="65.00" probability="0" edges="a b c"/>
+            <route edges="a b c" exitTimes="89.00 316.00 333.00"/>
+        </routeDistribution>
+        <stop parkingArea="ParkAreaB" duration="200.00" started="110.00" ended="310.00"/>
+    </vehicle>
+
+    <vehicle id="flow3.6" depart="70.00" arrival="338.00">
+        <routeDistribution>
+            <route replacedOnEdge="a" reason="REROUTER_Via_Montespirello:parkingAreaReroute" replacedAtTime="70.00" probability="0" edges="a b c"/>
+            <route edges="a b c" exitTimes="94.00 321.00 338.00"/>
+        </routeDistribution>
+        <stop parkingArea="ParkAreaB" duration="200.00" started="115.00" ended="315.00"/>
+    </vehicle>
+</routes>
