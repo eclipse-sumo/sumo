@@ -278,7 +278,7 @@ GNEFixDemandElements::DemandList::DemandList(GNEFixDemandElements* fixDemandElem
         myTable->setItem(indexRow, 1, item);
         // Set conflict
         const auto demandElementProblem = invalidRoute->getDemandElementProblem();
-        if (demandElementProblem.size() > textSize) {
+        if ((int)demandElementProblem.size() > textSize) {
             textSize = (int)demandElementProblem.size();
         }
         item = new FXTableItem(demandElementProblem.c_str());
@@ -299,7 +299,7 @@ GNEFixDemandElements::DemandList::DemandList(GNEFixDemandElements* fixDemandElem
         myTable->setItem(indexRow, 1, item);
         // Set conflict
         const auto demandElementProblem = invalidVehicle->getDemandElementProblem();
-        if (demandElementProblem.size() > textSize) {
+        if ((int)demandElementProblem.size() > textSize) {
             textSize = (int)demandElementProblem.size();
         }
         item = new FXTableItem(demandElementProblem.c_str());
@@ -320,7 +320,7 @@ GNEFixDemandElements::DemandList::DemandList(GNEFixDemandElements* fixDemandElem
         myTable->setItem(indexRow, 1, item);
         // Set conflict
         const auto demandElementProblem = invalidStop->getDemandElementProblem();
-        if (demandElementProblem.size() > textSize) {
+        if ((int)demandElementProblem.size() > textSize) {
             textSize = (int)demandElementProblem.size();
         }
         item = new FXTableItem(demandElementProblem.c_str());
@@ -341,7 +341,7 @@ GNEFixDemandElements::DemandList::DemandList(GNEFixDemandElements* fixDemandElem
         myTable->setItem(indexRow, 1, item);
         // Set conflict
         const auto demandElementProblem = invalidPersonPlan->getDemandElementProblem();
-        if (demandElementProblem.size() > textSize) {
+        if ((int)demandElementProblem.size() > textSize) {
             textSize = (int)demandElementProblem.size();
         }
         item = new FXTableItem(demandElementProblem.c_str());
