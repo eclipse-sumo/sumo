@@ -1,0 +1,2 @@
+Warning: Teleporting vehicle 'train1'; collision with vehicle 'train2', lane='c_0', gap=-89.97, time=181.00 stage=move.
+Warning: Vehicle 'train1' ends teleporting on edge 'd', time 181.00.
