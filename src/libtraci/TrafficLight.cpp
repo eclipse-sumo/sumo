@@ -340,12 +340,21 @@ TrafficLight::removeConstraints(const std::string& tlsID, const std::string& tri
 
 void
 TrafficLight::setNemaSplits(const std::string& tlsID, const std::string& splits) {
-    setParameter(tlsID, "NEMA_splits", splits);
+    setParameter(tlsID, "NEMA.splits", splits);
 }
 
 void
+TrafficLight::setNemaMaxGreens(const std::string& tlsID, const std::string& maxGreens) {
+    setParameter(tlsID, "NEMA.maxGreens", maxGreens);
+}
+
+void
+TrafficLight::setNemaCycleLength(const std::string& tlsID, const std::string& cycleLength) {
+    setParameter(tlsID, "NEMA.cycleLength", cycleLength);
+}
+void
 TrafficLight::setNemaOffset(const std::string& tlsID, const std::string& offset) {
-    setParameter(tlsID, "NEMA_offset", offset);
+    setParameter(tlsID, "NEMA.offset", offset);
 }
 
 

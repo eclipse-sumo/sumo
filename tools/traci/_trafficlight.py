@@ -337,7 +337,7 @@ class TrafficLightDomain(Domain):
         Time 0 must be used of the phase does not exists.
         Example: “11.0 34.0 15.0 20.0 11.0 34.0 15.0 20.0" (gives total cycle length of 80s)
         """
-        self.setParameter(tlsID, "NEMA_splits", splits)
+        self.setParameter(tlsID, "NEMA.splits", splits)
 
     def setNemaMaxGreens(self, tlsID, maxGreens):
         """setNemaMaxGreens(string, string) -> None
@@ -349,7 +349,7 @@ class TrafficLightDomain(Domain):
         Time 0 must be used of the phase does not exists.
         Example: “11.0 34.0 15.0 20.0 11.0 34.0 15.0 20.0"
         """
-        self.setParameter(tlsID, "NEMA_max_greens", maxGreens)
+        self.setParameter(tlsID, "NEMA.maxGreens", maxGreens)
 
     def setNemaCycleLength(self, tlsID, cycleLength):
         """setNemaCycleLength(string, string) -> None
@@ -358,7 +358,7 @@ class TrafficLightDomain(Domain):
         The new cycle length will be implemented in the next cycle of the control.
         This function should be used with setNemaSplits or setNemaMaxGreen.
         """
-        self.setParameter(tlsID, "NEMA_cycle", cycleLength)
+        self.setParameter(tlsID, "NEMA.cycleLength", cycleLength)
 
     def setNemaOffset(self, tlsID, offset):
         """setNemaOffset(string, string) -> None
@@ -370,7 +370,7 @@ class TrafficLightDomain(Domain):
         It’s expected that the users will control the change of the offset in each cycle
         to implement their own transition algorithm.
         """
-        self.setParameter(tlsID, "NEMA_offset", offset)
+        self.setParameter(tlsID, "NEMA.offset", offset)
 
     def setPhaseDuration(self, tlsID, phaseDuration):
         """setPhaseDuration(string, double) -> None

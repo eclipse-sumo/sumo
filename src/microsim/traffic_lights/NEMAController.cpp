@@ -863,3 +863,92 @@ int NEMALogic::string2int(std::string s) {
     ss >> ret;
     return ret;
 }
+
+void
+NEMALogic::setParameter(const std::string& key, const std::string& value) {
+    if (StringUtils::startsWith(key, "NEMA.")) {
+        if (key == "NEMA.splits") {
+            setNemaSplits(value);
+        } else if (key == "NEMA.maxGreens") {
+            setNemaMaxGreens(value);
+        } else if (key == "NEMA.cycleLength") {
+            setNemaCycleLength(value);
+        } else if (key == "NEMA.offset") {
+            setNemaOffset(value);
+        } else {
+            throw InvalidArgument("Unsupported parameter '" + key + "' for NEMA controller '" + getID() + "'");
+        }
+    }
+    Parameterised::setParameter(key, value);
+}
+
+
+//splits="2.0 3.0 4.0 5.0 2.0 3.0 4.0 5.0"
+void
+NEMALogic::setNemaSplits(const std::string& splits) {
+    double newTiming[8];
+    std::string _timing = splits;
+    // convert string s to vector<string>
+    std::vector<std::string> split;
+    std::string delimiter = " ";
+    size_t pos = 0;
+    std::string token;
+    while ((pos = _timing.find(delimiter)) != std::string::npos) {
+        token = _timing.substr(0, pos);
+        split.push_back(token);
+        _timing.erase(0, pos + delimiter.length());
+    }
+    split.push_back(_timing);
+    //convert vector<string> to double[]
+    int i = 0;
+    for (auto s : split) {
+        double temp = std::stod(s);
+        newTiming[i] = temp;
+        i++;
+    }
+    setNewSplits(newTiming);
+}
+
+
+void
+NEMALogic::setNemaMaxGreens(const std::string& maxGreens) {
+    double newTiming[8];
+    std::string _timing = maxGreens;
+    // convert string s to vector<string>
+    std::vector<std::string> split;
+    std::string delimiter = " ";
+    size_t pos = 0;
+    std::string token;
+    while ((pos = _timing.find(delimiter)) != std::string::npos) {
+        token = _timing.substr(0, pos);
+        split.push_back(token);
+        _timing.erase(0, pos + delimiter.length());
+    }
+    split.push_back(_timing);
+    //convert vector<string> to double[]
+    int i = 0;
+    for (auto s : split) {
+        double temp = std::stod(s);
+        newTiming[i] = temp;
+        i++;
+    }
+    setNewMaxGreens(newTiming);
+}
+
+
+void
+NEMALogic::setNemaCycleLength(const std::string& cycleLength) {
+    double d_cycleLength = std::stod(cycleLength);
+    // send the new offset to the controller
+    setNewCycleLength(d_cycleLength);
+}
+
+void
+NEMALogic::setNemaOffset(const std::string& offset) {
+    double d_offset = std::stod(offset);
+    // send the new offset to the controller
+    setNewOffset(d_offset);
+}
+
+
+

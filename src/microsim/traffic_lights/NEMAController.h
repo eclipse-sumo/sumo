@@ -144,6 +144,9 @@ public:
         return false;
     }
 
+    /// @brief try to set the given parameter. Parameters prefixed with 'NEMA.' control functionality
+    void setParameter(const std::string& key, const std::string& value) override; 
+
 protected:
     // create a small datatype for mapping detector to phase index
     // This is the one copied from MSActuatedTrafficLightLogic
@@ -288,4 +291,10 @@ protected:
 
     /// @brief virtual phase that holds the current state
     MSPhaseDefinition myPhase;
+
+    void setNemaSplits(const std::string& splits);
+    void setNemaMaxGreens(const std::string& maxGreens);
+    void setNemaCycleLength(const std::string& cycleLength);
+    void setNemaOffset(const std::string& offset);
+
 };
