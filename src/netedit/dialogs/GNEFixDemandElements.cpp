@@ -46,7 +46,7 @@ FXIMPLEMENT(GNEFixDemandElements, FXDialogBox, GNEFixDemandElementsMap, ARRAYNUM
 // ===========================================================================
 
 GNEFixDemandElements::GNEFixDemandElements(GNEViewNet* viewNet, const std::vector<GNEDemandElement*>& invalidDemandElements) :
-    FXDialogBox(viewNet->getApp(), "Fix demand elements problems", GUIDesignDialogBoxExplicit(500, 450)),
+    FXDialogBox(viewNet->getApp(), "Fix demand elements problems", GUIDesignDialogBoxExplicit(800, 600)),
     myViewNet(viewNet) {
     // set busStop icon for this dialog
     setIcon(GUIIconSubSys::getIcon(GUIIcon::ROUTE));
@@ -256,7 +256,7 @@ GNEFixDemandElements::DemandList::DemandList(GNEFixDemandElements* fixDemandElem
     myTable->setVisibleColumns(4);
     myTable->setColumnWidth(0, GUIDesignHeight);
     myTable->setColumnWidth(1, 160);
-    myTable->setColumnWidth(2, 280);
+    myTable->setColumnWidth(2, 580);
     myTable->setColumnText(0, "");
     myTable->setColumnText(1, toString(SUMO_ATTR_ID).c_str());
     myTable->setColumnText(2, "Conflict");
@@ -264,6 +264,8 @@ GNEFixDemandElements::DemandList::DemandList(GNEFixDemandElements* fixDemandElem
     // Declare index for rows and pointer to FXTableItem
     int indexRow = 0;
     FXTableItem* item = nullptr;
+    // declare textSize
+    int textSize = 0;
     // iterate over invalid routes
     for (const auto& invalidRoute : myInvalidRoutes) {
         // Set icon
@@ -275,7 +277,11 @@ GNEFixDemandElements::DemandList::DemandList(GNEFixDemandElements* fixDemandElem
         item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
         myTable->setItem(indexRow, 1, item);
         // Set conflict
-        item = new FXTableItem(invalidRoute->getDemandElementProblem().c_str());
+        const auto demandElementProblem = invalidRoute->getDemandElementProblem();
+        if (demandElementProblem.size() > textSize) {
+            textSize = (int)demandElementProblem.size();
+        }
+        item = new FXTableItem(demandElementProblem.c_str());
         item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
         myTable->setItem(indexRow, 2, item);
         // Update index
@@ -292,7 +298,11 @@ GNEFixDemandElements::DemandList::DemandList(GNEFixDemandElements* fixDemandElem
         item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
         myTable->setItem(indexRow, 1, item);
         // Set conflict
-        item = new FXTableItem(invalidVehicle->getDemandElementProblem().c_str());
+        const auto demandElementProblem = invalidVehicle->getDemandElementProblem();
+        if (demandElementProblem.size() > textSize) {
+            textSize = (int)demandElementProblem.size();
+        }
+        item = new FXTableItem(demandElementProblem.c_str());
         item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
         myTable->setItem(indexRow, 2, item);
         // Update index
@@ -309,7 +319,11 @@ GNEFixDemandElements::DemandList::DemandList(GNEFixDemandElements* fixDemandElem
         item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
         myTable->setItem(indexRow, 1, item);
         // Set conflict
-        item = new FXTableItem(invalidStop->getDemandElementProblem().c_str());
+        const auto demandElementProblem = invalidStop->getDemandElementProblem();
+        if (demandElementProblem.size() > textSize) {
+            textSize = (int)demandElementProblem.size();
+        }
+        item = new FXTableItem(demandElementProblem.c_str());
         item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
         myTable->setItem(indexRow, 2, item);
         // Update index
@@ -326,11 +340,22 @@ GNEFixDemandElements::DemandList::DemandList(GNEFixDemandElements* fixDemandElem
         item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
         myTable->setItem(indexRow, 1, item);
         // Set conflict
-        item = new FXTableItem(invalidPersonPlan->getDemandElementProblem().c_str());
+        const auto demandElementProblem = invalidPersonPlan->getDemandElementProblem();
+        if (demandElementProblem.size() > textSize) {
+            textSize = (int)demandElementProblem.size();
+        }
+        item = new FXTableItem(demandElementProblem.c_str());
         item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
         myTable->setItem(indexRow, 2, item);
         // Update index
         indexRow++;
+    }
+    // update Column Width
+    myTable->setColumnWidth(2, 6 * textSize);
+    if ((6 * textSize) > 580) {
+        myTable->setScrollStyle(HSCROLLING_ON | VSCROLLING_ON);
+    } else {
+        myTable->setScrollStyle(HSCROLLING_OFF | VSCROLLING_ON);
     }
 }
 
