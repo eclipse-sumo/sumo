@@ -479,25 +479,34 @@ NEMALogic::init(NLDetectorBuilder& nb) {
 #endif
 }
 
-void NEMALogic::setNewSplits(std::vector<double> newSplits) {
+
+void 
+NEMALogic::setNewSplits(std::vector<double> newSplits) {
     assert(newSplits.size() == 8);
     for (int i = 0; i < 8; i++) {
         nextMaxGreen[i] = newSplits[i] - yellowTime[i] - redTime[i];
     }
 }
-void NEMALogic::setNewMaxGreens(std::vector<double> newMaxGreens) {
-    assert(newSplits.size() == 8);
+
+
+void 
+NEMALogic::setNewMaxGreens(std::vector<double> newMaxGreens) {
     for (int i = 0; i < 8; i++) {
         nextMaxGreen[i] = newMaxGreens[i];
     }
 }
-void NEMALogic::setNewCycleLength(double newCycleLength) {
+
+
+void 
+NEMALogic::setNewCycleLength(double newCycleLength) {
     myNextCycleLength = newCycleLength;
 }
-void NEMALogic::setNewOffset(double newOffset) {
+
+
+void
+NEMALogic::setNewOffset(double newOffset) {
     myNextOffset = newOffset;
 }
-
 
 //helper methods
 
