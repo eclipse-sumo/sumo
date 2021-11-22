@@ -160,16 +160,6 @@ GNEPersonPlanFrame::tagSelected() {
         myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties(), {});
         // get previous person plan
         GNEEdge* previousEdge = myPersonSelector->getPersonPlanPreviousEdge();
-        // set path creator mode depending if previousEdge exist
-        if (previousEdge) {
-            // set path creator mode
-            myPathCreator->showPathCreatorModul(personPlanTag, true, false);
-            // add previous edge
-            myPathCreator->addEdge(previousEdge, false, false);
-        } else {
-            // set path creator mode
-            myPathCreator->showPathCreatorModul(personPlanTag, false, false);
-        }
         // show path creator depending of tag
         if (myPersonPlanTagSelector->getCurrentTagProperties().getTag() == GNE_TAG_WALK_ROUTE) {
             myPathCreator->hidePathCreatorModul();
@@ -180,8 +170,16 @@ GNEPersonPlanFrame::tagSelected() {
             } else {
                 myPathCreator->setVClass(SVC_PEDESTRIAN);
             }
-            // show edge path creator modul
-            myPathCreator->showPathCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties().getTag(), false, false);
+            // set path creator mode depending if previousEdge exist
+            if (previousEdge) {
+                // set path creator mode
+                myPathCreator->showPathCreatorModul(personPlanTag, true, false);
+                // add previous edge
+                myPathCreator->addEdge(previousEdge, false, false);
+            } else {
+                // set path creator mode
+                myPathCreator->showPathCreatorModul(personPlanTag, false, false);
+            }
         }
         // show person hierarchy
         myPersonHierarchy->showHierarchicalElementTree(myPersonSelector->getCurrentDemandElement());
