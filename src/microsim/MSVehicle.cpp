@@ -2085,6 +2085,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     const MSLane* lane = opposite ? myLane->getParallelOpposite() : myLane;
     assert(lane != 0);
     const MSLane* leaderLane = myLane;
+    bool foundRailSignal = !isRailway(getVClass());
 #ifdef PARALLEL_STOPWATCH
     myLane->getStopWatch()[0].start();
 #endif
@@ -2423,16 +2424,21 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                       << "' is " << laneStopOffset << " (-> stopDist=" << stopDist << ")" << std::endl;
         }
 #endif
-        // check for train direction reversal
-        if ((getVClass() & SVC_RAIL_CLASSES) != 0
-                && !lane->isInternal()
-                && lane->getBidiLane() != nullptr
-                && (*link)->getLane()->getBidiLane() == lane) {
-            double vMustReverse = getCarFollowModel().stopSpeed(this, getSpeed(), seen - POSITION_EPS);
-            if (seen < 1) {
-                mustSeeBeforeReversal = 2 * seen + getLength();
+        if (isRailway(getVClass())
+                && !lane->isInternal()) {
+            // check for train direction reversal
+            if (lane->getBidiLane() != nullptr
+                    && (*link)->getLane()->getBidiLane() == lane) {
+                double vMustReverse = getCarFollowModel().stopSpeed(this, getSpeed(), seen - POSITION_EPS);
+                if (seen < 1) {
+                    mustSeeBeforeReversal = 2 * seen + getLength();
+                }
+                v = MIN2(v, vMustReverse);
             }
-            v = MIN2(v, vMustReverse);
+            // signal that is passed in the current step does not count
+            foundRailSignal |= ((*link)->getTLLogic() != nullptr
+                    && (*link)->getTLLogic()->getLogicType() == TrafficLightType::RAIL_SIGNAL
+                    && seen > SPEED2DIST(v));
         }
 
         bool canReverseEventually = false;
@@ -2651,7 +2657,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         }
 #endif
         // we need to look ahead far enough to see available space for checkRewindLinkLanes
-        if ((!setRequest || v <= 0 || seen > dist) && hadNonInternal && seenNonInternal > MAX2(vehicleLength * CRLL_LOOK_AHEAD, vehicleLength + seenInternal)) {
+        if ((!setRequest || v <= 0 || seen > dist) && hadNonInternal && seenNonInternal > MAX2(vehicleLength * CRLL_LOOK_AHEAD, vehicleLength + seenInternal) && foundRailSignal) {
             break;
         }
         // get the following lane
@@ -5216,7 +5222,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         seenLength += currentLanes[0].lane->getLength();
         ++ce;
         progress &= (seen <= 4 || seenLength < MAX2(maxBrakeDist, 3000.0)); // motorway
-        progress &= (seen <= 8 || seenLength < MAX2(maxBrakeDist, 200.0));  // urban
+        progress &= (seen <= 8 || seenLength < MAX2(maxBrakeDist, 200.0) || isRailway(getVClass()));  // urban
         progress &= ce != myRoute->end();
         /*
         if(progress) {
