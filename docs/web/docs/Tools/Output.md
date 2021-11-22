@@ -278,3 +278,14 @@ Example:
 ```
 python tools/output/computePassengerCounts.py -s stopinfos.xml
 ```
+
+## parkingSearchTraffic.py
+This tool reads vehicle-routes-output and generates statistics for the time and the distance vehicles
+spent on searching parking locations as well as the length of the walking way back.
+It evaluates the time and distance between the first reroute and the arrival at the final stop.
+It currently outputs only basic statistics (mean, avg, quartiles etc.).
+
+Example:
+```
+python tools/output/parkingSearchTraffic.py net.net.xml vehroutes.xml
+```
