@@ -1575,6 +1575,9 @@ class VehicleDomain(Domain):
             fromTaz="", toTaz="", line="", personCapacity=0, personNumber=0):
         """
         Add a new vehicle (new style with all possible parameters)
+        If routeID is "", the vehicle will be inserted on a random network edge
+        if route consists of two disconnected edges, the vehicle will be treated
+        like a <trip> and use the fastest route between the two edges.
         """
         if depart is None:
             # legacy compatibility
