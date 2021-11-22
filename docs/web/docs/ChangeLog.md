@@ -333,9 +333,10 @@ title: ChangeLog
   - Added tool [scheduleStats](Tools/Railways.md#schedulestatspy) to analyze deviations between loaded public transport schedules and simulation timing. Issue #8420
   - Added tool [plotXMLAttributes.py](Tools/Visualization.md#plotxmlattributespy) to generated 2D-plots from arbitrary attribute of XML files. Issue #9403
   - osmTaxiStop.py: added option **--fleet-size** to generated a taxi fleet along with the stops. Issue #9116
-  - sumolib.net.getShortest path now allows using edges in both direcions for pedestrian route search (`ignoreDirection="true"`). Issue #9533
+  - sumolib.net.getShortest path now allows using edges in both directions for pedestrian route search (`ignoreDirection="true"`). Issue #9533
   - [addStops2Routes.py](Tools/Routes.md#addstops2routespy) received new options to define stops at parkingAreas, add stops to persons and to define stationary (parkig) traffic. Issue #3607, #9561, #9562
   - library functions 'sumolib.xml.parse_fast' and 'parse_fast_nested' can now handle XML-comments. Issue #8565
+  - Added tool [](Tools/Output.md#parkingsearchtrafficpy) to analyze reroute times and distances for parking search traffic. Issue #9534
 
 ### Other
 
