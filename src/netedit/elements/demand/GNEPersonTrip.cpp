@@ -116,10 +116,12 @@ GNEPersonTrip::writeDemandElement(OutputDevice& device) const {
     } else {
         device.writeAttr(SUMO_ATTR_TO, getParentEdges().back()->getID());
     }
-    // only write arrivalPos if is different of -1
-    if ((myArrivalPosition != -1) || 
-        !((myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP) && (myArrivalPosition == 0))) {
-        device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
+    // avoid writte arrival positions in person trip to busStop
+    if (!((myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP) && (myArrivalPosition == 0))) {
+        // only write arrivalPos if is different of -1
+        if (myArrivalPosition != -1) {
+            device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
+        }
     }
     // write modes
     if (myModes.size() > 0) {
