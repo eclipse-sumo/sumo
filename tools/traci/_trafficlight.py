@@ -328,7 +328,7 @@ class TrafficLightDomain(Domain):
         self._setCmd(tc.TL_PROGRAM, tlsID, "s", programID)
 
     def setNemaSplits(self, tlsID, splits):
-        """setNemaSplits(string, string) -> None
+        """setNemaSplits(string, list(string)) -> None
         Set a new set of splits to the given NEMA-controller.
         This function is only effective for NEMA type of controllers.
         The new splits will be implemented in the next cycle of the control.
@@ -337,10 +337,12 @@ class TrafficLightDomain(Domain):
         Time 0 must be used of the phase does not exists.
         Example: “11.0 34.0 15.0 20.0 11.0 34.0 15.0 20.0" (gives total cycle length of 80s)
         """
+        if type(splits) == list:
+            splits = ' '.join(map(str, splits))
         self.setParameter(tlsID, "NEMA.splits", splits)
 
     def setNemaMaxGreens(self, tlsID, maxGreens):
-        """setNemaMaxGreens(string, string) -> None
+        """setNemaMaxGreens(string, list(string)) -> None
         Set a new set of splits to the given NEMA-controller.
         This function is only effective for NEMA type of controllers.
         The new max green will be implemented in the next cycle of the control.
@@ -349,19 +351,21 @@ class TrafficLightDomain(Domain):
         Time 0 must be used of the phase does not exists.
         Example: “11.0 34.0 15.0 20.0 11.0 34.0 15.0 20.0"
         """
+        if type(maxGreens) == list:
+            maxGreens = ' '.join(map(str, maxGreens))
         self.setParameter(tlsID, "NEMA.maxGreens", maxGreens)
 
     def setNemaCycleLength(self, tlsID, cycleLength):
-        """setNemaCycleLength(string, string) -> None
+        """setNemaCycleLength(string, double) -> None
         Set a new cycle length to the given NEMA-controller.
         This function is only effective for NEMA type of controllers.
         The new cycle length will be implemented in the next cycle of the control.
         This function should be used with setNemaSplits or setNemaMaxGreen.
         """
-        self.setParameter(tlsID, "NEMA.cycleLength", cycleLength)
+        self.setParameter(tlsID, "NEMA.cycleLength", str(cycleLength))
 
     def setNemaOffset(self, tlsID, offset):
-        """setNemaOffset(string, string) -> None
+        """setNemaOffset(string, double) -> None
         Set a new offset to the given NEMA-controller.
         This function is only effective for NEMA type controllers when operating under coordinated mode.
         The new offset will be implemented in the next cycle of the control by adjusting
@@ -370,7 +374,7 @@ class TrafficLightDomain(Domain):
         It’s expected that the users will control the change of the offset in each cycle
         to implement their own transition algorithm.
         """
-        self.setParameter(tlsID, "NEMA.offset", offset)
+        self.setParameter(tlsID, "NEMA.offset", str(offset))
 
     def setPhaseDuration(self, tlsID, phaseDuration):
         """setPhaseDuration(string, double) -> None

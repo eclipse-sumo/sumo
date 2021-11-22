@@ -23,7 +23,6 @@
 #include <config.h>
 
 #define LIBTRACI 1
-#include <netload/NLDetectorBuilder.h>
 #include <libsumo/StorageHelper.h>
 #include <libsumo/TraCIConstants.h>
 #include <libsumo/TrafficLight.h>
@@ -338,23 +337,36 @@ TrafficLight::removeConstraints(const std::string& tlsID, const std::string& tri
     Dom::set(libsumo::TL_CONSTRAINT_REMOVE, tlsID, &content);
 }
 
+std::string
+to_string(const std::vector<double>& value) {
+    std::ostringstream tmp;
+    for (double d : value) {
+        tmp << d << " ";
+    }
+    std::string tmp2 = tmp.str();
+    tmp2.pop_back();
+    return tmp2;
+}
+
+
 void
-TrafficLight::setNemaSplits(const std::string& tlsID, const std::string& splits) {
-    setParameter(tlsID, "NEMA.splits", splits);
+TrafficLight::setNemaSplits(const std::string& tlsID, const std::vector<double>& splits) {
+    setParameter(tlsID, "NEMA.splits", to_string(splits));
 }
 
 void
-TrafficLight::setNemaMaxGreens(const std::string& tlsID, const std::string& maxGreens) {
-    setParameter(tlsID, "NEMA.maxGreens", maxGreens);
+TrafficLight::setNemaMaxGreens(const std::string& tlsID, const std::vector<double>& maxGreens) {
+    setParameter(tlsID, "NEMA.maxGreens", to_string(maxGreens));
 }
 
 void
-TrafficLight::setNemaCycleLength(const std::string& tlsID, const std::string& cycleLength) {
-    setParameter(tlsID, "NEMA.cycleLength", cycleLength);
+TrafficLight::setNemaCycleLength(const std::string& tlsID, double cycleLength) {
+    setParameter(tlsID, "NEMA.cycleLength", std::to_string(cycleLength));
 }
+
 void
-TrafficLight::setNemaOffset(const std::string& tlsID, const std::string& offset) {
-    setParameter(tlsID, "NEMA.offset", offset);
+TrafficLight::setNemaOffset(const std::string& tlsID, double offset) {
+    setParameter(tlsID, "NEMA.offset", std::to_string(offset));
 }
 
 

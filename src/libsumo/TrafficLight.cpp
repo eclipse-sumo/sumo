@@ -700,25 +700,24 @@ TrafficLight::setParameter(const std::string& tlsID, const std::string& paramNam
 
 LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(TrafficLight, TL)
 
-//splits="2.0 3.0 4.0 5.0 2.0 3.0 4.0 5.0"
 void
-TrafficLight::setNemaSplits(const std::string& tlsID, const std::string& splits) {
-    setParameter(tlsID, "NEMA.splits", splits);
+TrafficLight::setNemaSplits(const std::string& tlsID, const std::vector<double>& splits) {
+    setParameter(tlsID, "NEMA.splits", toString(splits));
 }
 
 void
-TrafficLight::setNemaMaxGreens(const std::string& tlsID, const std::string& maxGreens) {
-    setParameter(tlsID, "NEMA.maxGreens", maxGreens);
+TrafficLight::setNemaMaxGreens(const std::string& tlsID, const std::vector<double>& maxGreens) {
+    setParameter(tlsID, "NEMA.maxGreens", toString(maxGreens));
 }
 
 void
-TrafficLight::setNemaCycleLength(const std::string& tlsID, const std::string& cycleLength) {
-    setParameter(tlsID, "NEMA.cycleLength", cycleLength);
+TrafficLight::setNemaCycleLength(const std::string& tlsID, double cycleLength) {
+    setParameter(tlsID, "NEMA.cycleLength", toString(cycleLength));
 }
 
 void
-TrafficLight::setNemaOffset(const std::string& tlsID, const std::string& offset) {
-    setParameter(tlsID, "NEMA.offset", offset);
+TrafficLight::setNemaOffset(const std::string& tlsID, double offset) {
+    setParameter(tlsID, "NEMA.offset", toString(offset));
 }
 
 
