@@ -271,7 +271,7 @@ Generally, the designation "actuated" referse to traffic lights that switch in r
 !!! note
     [Mesoscopic simulation](Meso.md) does not support actuated traffic lights.
 
-## Based on Time Gaps
+## Type 'actuated'
 
 SUMO supports *gap-based* actuated traffic control. This control scheme
 is common in Germany and works by prolonging traffic phases whenever a
@@ -381,7 +381,7 @@ The detectors used by an actuated traffic light will be colored to indicate thei
 
 
 
-## Based on Time Loss
+## Type 'delay_based'
 
 Similar to the control by time gaps between vehicles, a phase
 prolongation can also be triggered by the presence of vehicles with time
@@ -447,6 +447,14 @@ giving the `programID` the value
 ```
 <tlLogic id="0" type="static" programID="off"/>
 ```
+
+
+## Type 'NEMA'
+
+Since version 1.11.0, SUMO supports defining controllers with the naming
+convention and control logic according to the 'National Electrical Manufacturers
+Association' commonly used throughout the United States.
+Detailed documentation is at [NEMA](NEMA.md).
 
 # Tools for Importing TLS Programs
 
