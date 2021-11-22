@@ -2,7 +2,7 @@
 title: ChangeLog
 ---
 
-## Git Main
+## Version 1.11.0 (23.11.2021)
 
 ### Bugfixes
 
