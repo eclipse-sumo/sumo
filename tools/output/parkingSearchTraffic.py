@@ -30,7 +30,7 @@ def main(net, routes):
     time = sumolib.miscutils.Statistics("Time")
     walk_dist = sumolib.miscutils.Statistics("Walking Distance")
     for vehicle in sumolib.xml.parse(routes, 'vehicle'):
-        if not vehicle.arrival:
+        if not vehicle.stop:
             print("Warning! Vehicle '%s' did not arrive." % vehicle.id)
             continue
         if vehicle.routeDistribution and vehicle.stop:
@@ -44,9 +44,12 @@ def main(net, routes):
             dist.add(length, vehicle.id)
             time.add(sumolib.miscutils.parseTime(vehicle.stop[0].started) -
                      sumolib.miscutils.parseTime(replace_time), vehicle.id)
-            walk, _ = net.getShortestPath(net.getEdge(extra_route[-1]), net.getEdge(extra_route[0]),
-                                          ignoreDirection=True)
-            walk_length = sum([e.getLength() for e in walk])
+            if extra_route:
+                walk, _ = net.getShortestPath(net.getEdge(extra_route[-1]), net.getEdge(extra_route[0]),
+                                              ignoreDirection=True)
+                walk_length = sum([e.getLength() for e in walk])
+            else:
+                walk_length = 0
             walk_dist.add(walk_length, vehicle.id)
         else:
             dist.add(0, vehicle.id)
