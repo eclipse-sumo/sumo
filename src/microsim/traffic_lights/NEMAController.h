@@ -121,10 +121,10 @@ public:
 
     std::set<std::string> getLaneIDsFromNEMAState(std::string state);
 
-    void setNewMaxGreens(double NewMaxGreens[8]);
-    void setNewSplits(double NewSplits[8]);
-    void setNewCycleLength(double NewCycleLength);
-    void setNewOffset(double NewOffset);
+    void setNewMaxGreens(std::vector<double> newMaxGreens);
+    void setNewSplits(std::vector<double> newSplits);
+    void setNewCycleLength(double newCycleLength);
+    void setNewOffset(double newOffset);
 
     // not using for now, but could be helpful for cycle change controller
     double getCurrentCycleLength() {
@@ -273,7 +273,7 @@ protected:
     //activeR1phase
     int R1State, R2State;
     double offset;
-    double nextOffset;
+    double myNextOffset;
     int r1barrier, r2barrier;
     int r1coordinatePhase, r2coordinatePhase;
 
@@ -291,10 +291,5 @@ protected:
 
     /// @brief virtual phase that holds the current state
     MSPhaseDefinition myPhase;
-
-    void setNemaSplits(const std::string& splits);
-    void setNemaMaxGreens(const std::string& maxGreens);
-    void setNemaCycleLength(const std::string& cycleLength);
-    void setNemaOffset(const std::string& offset);
 
 };

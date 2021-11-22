@@ -35,6 +35,7 @@
 #include <microsim/MSEdge.h>
 #include <netload/NLDetectorBuilder.h>
 #include <utils/common/StringUtils.h>
+#include <utils/common/StringTokenizer.h>
 #include "microsim/output/MSE2Collector.h"
 #include <sstream>
 #include <iostream>
@@ -71,7 +72,7 @@ NEMALogic::NEMALogic(MSTLLogicControl& tlcontrol,
     barriers = getParameter("barrierPhases", "");
     coordinates = getParameter("coordinatePhases", "");
     offset = (StringUtils::toDouble(getParameter("offset", "0")));
-    nextOffset = offset;
+    myNextOffset = offset;
     whetherOutputState = StringUtils::toBool(getParameter("whetherOutputState", "false"));
     coordinateMode = StringUtils::toBool(getParameter("coordinate-mode", "false"));
     //print to check
@@ -478,21 +479,23 @@ NEMALogic::init(NLDetectorBuilder& nb) {
 #endif
 }
 
-void NEMALogic::setNewSplits(double NewSplits[8]) {
+void NEMALogic::setNewSplits(std::vector<double> newSplits) {
+    assert(newSplits.size() == 8);
     for (int i = 0; i < 8; i++) {
-        nextMaxGreen[i] = NewSplits[i]-yellowTime[i]-redTime[i];
+        nextMaxGreen[i] = newSplits[i] - yellowTime[i] - redTime[i];
     }
 }
-void NEMALogic::setNewMaxGreens(double newMaxGreen[8]) {
+void NEMALogic::setNewMaxGreens(std::vector<double> newMaxGreens) {
+    assert(newSplits.size() == 8);
     for (int i = 0; i < 8; i++) {
-        nextMaxGreen[i] = newMaxGreen[i];
+        nextMaxGreen[i] = newMaxGreens[i];
     }
 }
-void NEMALogic::setNewCycleLength(double NewCycleLength) {
-    myNextCycleLength = NewCycleLength;
+void NEMALogic::setNewCycleLength(double newCycleLength) {
+    myNextCycleLength = newCycleLength;
 }
-void NEMALogic::setNewOffset(double NewOffset) {
-    nextOffset = NewOffset;
+void NEMALogic::setNewOffset(double newOffset) {
+    myNextOffset = newOffset;
 }
 
 
@@ -653,7 +656,7 @@ NEMALogic::NEMA_control() {
                 for (int i = 0; i < 8; i++) {
                     maxGreen[i] = nextMaxGreen[i];
                 }
-                offset = nextOffset;
+                offset = myNextOffset;
                 myCycleLength = myNextCycleLength;
             }
         } else {
@@ -867,88 +870,28 @@ int NEMALogic::string2int(std::string s) {
 void
 NEMALogic::setParameter(const std::string& key, const std::string& value) {
     if (StringUtils::startsWith(key, "NEMA.")) {
-        if (key == "NEMA.splits") {
-            setNemaSplits(value);
-        } else if (key == "NEMA.maxGreens") {
-            setNemaMaxGreens(value);
+        if (key == "NEMA.splits" || key == "NEMA.maxGreens") {
+            //splits="2.0 3.0 4.0 5.0 2.0 3.0 4.0 5.0"
+            const std::vector<std::string>& tmp = StringTokenizer(value).getVector();
+            if (tmp.size() != 8) {
+                throw InvalidArgument("Parameter '" + key + "' for NEMA controller '" + getID() + "' requires 8 space-separated values");
+            }
+            std::vector<double> timing;
+            for (const std::string& s : tmp) {
+                timing.push_back(StringUtils::toDouble(s));
+            }
+            if (key == "NEMA.maxGreens") {
+                setNewMaxGreens(timing);
+            } else {
+                setNewSplits(timing);
+            }
         } else if (key == "NEMA.cycleLength") {
-            setNemaCycleLength(value);
+            setNewCycleLength(StringUtils::toDouble(value));
         } else if (key == "NEMA.offset") {
-            setNemaOffset(value);
+            setNewOffset(StringUtils::toDouble(value));
         } else {
             throw InvalidArgument("Unsupported parameter '" + key + "' for NEMA controller '" + getID() + "'");
         }
     }
     Parameterised::setParameter(key, value);
 }
-
-
-//splits="2.0 3.0 4.0 5.0 2.0 3.0 4.0 5.0"
-void
-NEMALogic::setNemaSplits(const std::string& splits) {
-    double newTiming[8];
-    std::string _timing = splits;
-    // convert string s to vector<string>
-    std::vector<std::string> split;
-    std::string delimiter = " ";
-    size_t pos = 0;
-    std::string token;
-    while ((pos = _timing.find(delimiter)) != std::string::npos) {
-        token = _timing.substr(0, pos);
-        split.push_back(token);
-        _timing.erase(0, pos + delimiter.length());
-    }
-    split.push_back(_timing);
-    //convert vector<string> to double[]
-    int i = 0;
-    for (auto s : split) {
-        double temp = std::stod(s);
-        newTiming[i] = temp;
-        i++;
-    }
-    setNewSplits(newTiming);
-}
-
-
-void
-NEMALogic::setNemaMaxGreens(const std::string& maxGreens) {
-    double newTiming[8];
-    std::string _timing = maxGreens;
-    // convert string s to vector<string>
-    std::vector<std::string> split;
-    std::string delimiter = " ";
-    size_t pos = 0;
-    std::string token;
-    while ((pos = _timing.find(delimiter)) != std::string::npos) {
-        token = _timing.substr(0, pos);
-        split.push_back(token);
-        _timing.erase(0, pos + delimiter.length());
-    }
-    split.push_back(_timing);
-    //convert vector<string> to double[]
-    int i = 0;
-    for (auto s : split) {
-        double temp = std::stod(s);
-        newTiming[i] = temp;
-        i++;
-    }
-    setNewMaxGreens(newTiming);
-}
-
-
-void
-NEMALogic::setNemaCycleLength(const std::string& cycleLength) {
-    double d_cycleLength = std::stod(cycleLength);
-    // send the new offset to the controller
-    setNewCycleLength(d_cycleLength);
-}
-
-void
-NEMALogic::setNemaOffset(const std::string& offset) {
-    double d_offset = std::stod(offset);
-    // send the new offset to the controller
-    setNewOffset(d_offset);
-}
-
-
-
