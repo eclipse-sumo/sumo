@@ -95,9 +95,10 @@ Each phase is defined using the following attributes:
 
 # Change the timings during the simulation
 Certain signal timing parameters can be udpated during the simulation through TraCI.
-- Offset: the offset can be updated through **traci.trafficlight.setNemaOffset(tlsID, offset)** function. The offset will be adjusted by shortening or extending the green time of the coordinated phase so that the end of the coordianted phase will match the offset. It is recommended to change the offset gradually to mimic a transition time.
-- Maximum green/splits: the maximum green time / splits can be updated through **traci.trafficlight.setNemaMaxGreens(tlsID, MaxGreens)** and **traci.trafficlight.setNemaSplits(tlsID, splits)**. The value must be a space-separated list of 8 numbers with each number being the time in seconds for NEMA-phases 1 to 8. Time 0 must be used of the phase does not exists. Example: “11.0 34.0 15.0 20.0 11.0 34.0 15.0 20.0".
 
-- Cycle length: the cycle length may change as you update the splits/max green. You need to set the new cycle length to make the new timing work without problems. The new cycle length can be updated by **traci.trafficlight.setNemaMaxGreens(tlsID, MaxGreens)**
+- **traci.trafficlight.setNemaOffset(tlsID, offset)**: The offset will be adjusted by shortening or extending the green time of the coordinated phase so that the end of the coordianted phase will match the offset. It is recommended to change the offset gradually to mimic a transition time.
+- **traci.trafficlight.setNemaMaxGreens(tlsID, maxGreens)**: sets maximum green times for each NEMA phase by giving 8 numbers. Time 0 must be used for each phase that does not exists
+- **traci.trafficlight.setNemaSplits(tlsID, splits)**: works like setNemaMaxGreens but subtracts the red- and yellow-times before setting maximum green time for each phase
+- **traci.trafficlight.setNemaCycleLength(tlsID, cycleLength)**: the cycle length may change when you update the splits/max green. You need to set the new cycle length to make the new timing work without problems.
 
 All the updates in the signal timing parameters in the NEMA-phase controller will happen after the current cycle ended.
