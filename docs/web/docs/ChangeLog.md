@@ -56,7 +56,7 @@ title: ChangeLog
   - network mode: additionals
     - Fixed probability statistics and coloring in taz mode. Issue #9107 (regression in 1.7.0)
     - Fixed crash when creating reverse edge with "both directions" active. Issue #9408 (regression in 1.8.0)
-    - Inverting selection of shapes now works even when no edges are loaded. Issue #8951 (regresssion in 1.9.2)
+    - Inverting selection of shapes now works even when no edges are loaded. Issue #8951 (regression in 1.9.2)
     - BusStops with '/' in their name can now be loaded gain. Issue #9064 (regression in 1.10.0)
     - Fixed disappearance of connecting lines between E3 detector and its entry/exit elements. Issue #8916
     - trainStops with access can now be loaded. Issue #8969
@@ -105,7 +105,7 @@ title: ChangeLog
   - Option **--no-warnings** now supresses warnings from actuated tls. Issue #9104
   - Fixed crash on pressing "recalibrate rainbow" button when taz files are loaded. #9119
   - Fixed invalid error when defining step-length with human readable time. Issue #9196
-  - Coloring by edgedata is now working in meso. Issue #9215
+  - Coloring by edgeData is now working in meso. Issue #9215
   - Edge color value is now correct when coloring 'by angle'. Issue #9431
   - Color values for 'color by edge data' are now loaded from settings file. Issue #9462
   - Small text placement fixes. Issue #9477, #9476, #9467
@@ -114,7 +114,7 @@ title: ChangeLog
 
 - netconvert
   - Connection attribute visibility is now working if the connection has an internal junction. Issue #8953
-  - Fixed crash when importing OpenDrive with internal lane shapes when the input defines no width. Issue #9009
+  - Fixed crash when importing OpenDRIVE with internal lane shapes when the input defines no width. Issue #9009
   - Attribute 'color' and generic params of loaded stops are now kept. Issue #9011, #9048
   - Guessed bicycle lanes are now always placed to the left of an existing sidewalk. Issue #9084
   - Fixed invalid connections after guessing bicycle lanes. Issue #9083
@@ -176,7 +176,7 @@ title: ChangeLog
   - Fixed warning "splitting vector close to end" when using subscription filter. Issue #9404
   - Fixed invalid expected vehicle number after failed vehicle.add. Issue #9456
   - Fixed crash when using libtraci repeatedly. Issue #9478
-  - 'traci.vehicle.getLaneChangeState' now longer inclues 'TraCI' in the 'state-without-traci' component. Issue #9492
+  - 'traci.vehicle.getLaneChangeState' no longer inclues 'TraCI' in the 'state-without-traci' component. Issue #9492
   - Fixeds bug where command 'traci.vehicle.changeLane' was ignored in sublane simulation. Issue #9147, #9493
   - Function 'traci.vehicle.replaceStop' no longer fails while on junction. Issue #9467
   - Fixed invalid stop duration reported after updating duration with setStop. Issue #9522
@@ -269,9 +269,9 @@ title: ChangeLog
   - Colors for traffic demand elements (routes, stops, ...) can now be customized in the 'Demand' tab of the view settings dialog. Issue #6318
   - Added options **--node-prefix**, **--edge-prefix** and **--edge-infix** to customize the default names for new objects. Issue #4375
     - New default prefix for edges is 'E' and new prefix for junctions is 'J'. Issue #9424
-  - Generic paramters (`<param>`) of traffic light programs can now be edited in the traffic light frame. Issue #7659
+  - Generic parameters (`<param>`) of traffic light programs can now be edited in the traffic light frame. Issue #7659
   - [stopOffset](Networks/PlainXML.md#stop_offsets) can now be defined. Issue #3799
-  - Object attributes that are computed rather than user-defined (i.e. edge length) are now distinguised in blue. Issue #4633
+  - Object attributes that are computed rather than user-defined (i.e. edge length) are now distinguished in blue. Issue #4633
   - Stopping places can now be resized via shift + drag #3966
   - Loaded rerouters are now drawn near their edges rather than (0, 0), when no position is defined. Issue #9365
   - Parking spaces and textured POIs can now be resized with the mouse. Issue #8825
@@ -301,7 +301,7 @@ title: ChangeLog
 
 - marouter
   - tazRelation files (as written by netedit) are now supported as OD-matrix definition. Issue #9057
-  - **--netload-output** now includes 'density' and 'laneDensity' and 'speedRelative. Issue #9197
+  - **--netload-output** now includes 'density' and 'laneDensity' and 'speedRelative'. Issue #9197
 
 - traci
   - Added function 'traci.simulation.getEndTime' to retrieve the **--end** value that was set when starting sumo. Issue #2764
@@ -328,7 +328,7 @@ title: ChangeLog
   - generateContinousRerouters.py: added option **--vlcass** to avoid errors in multi-modal networks. Issue #9188
   - generateTurnRatios.py: Added option **--interval** to write time-dependent turn counts / ratios. Issue #9294
   - duaIterate.py: Now supports options **--save-configuration** (**-C**) and **--configuration-file** (**-c**) to save and load configurations. Issue #9314
-  - Added tool [computePassengercounts.py](Tools/Output.md#computepassengercountspy) to count passenger number in vehicle over time #9366
+  - Added tool [computePassengerCounts.py](Tools/Output.md#computepassengercountspy) to count passenger number in vehicle over time #9366
   - [generateParkingAreaRerouters.py](Tools/Misc.md#generateparkingarearerouterspy)
     - added option **--opposite-visible** to ensure that parking areas on the opposite direction road are visible. Issue #9372   
     - now runs much faster. Issue #9379    
@@ -337,7 +337,7 @@ title: ChangeLog
   - Added tool [plotXMLAttributes.py](Tools/Visualization.md#plotxmlattributespy) to generated 2D-plots from arbitrary attribute of XML files. Issue #9403
   - osmTaxiStop.py: added option **--fleet-size** to generated a taxi fleet along with the stops. Issue #9116
   - sumolib.net.getShortest path now allows using edges in both directions for pedestrian route search (`ignoreDirection="true"`). Issue #9533
-  - [addStops2Routes.py](Tools/Routes.md#addstops2routespy) received new options to define stops at parkingAreas, add stops to persons and to define stationary (parkig) traffic. Issue #3607, #9561, #9562
+  - [addStops2Routes.py](Tools/Routes.md#addstops2routespy) received new options to define stops at parkingAreas, add stops to persons and to define stationary (parking) traffic. Issue #3607, #9561, #9562
   - library functions 'sumolib.xml.parse_fast' and 'parse_fast_nested' can now handle XML-comments. Issue #8565
   - Added tool [parkingSearchTraffic.py](Tools/Output.md#parkingsearchtrafficpy) to analyze reroute times and distances for parking search traffic. Issue #9534
   - Added tool [tripinfoByType.py](Tools/Output.md#tripinfobytypepy) for aggregating tripinfo output by vType #9596
