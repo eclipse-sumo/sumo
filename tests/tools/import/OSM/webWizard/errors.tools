@@ -149,7 +149,6 @@ Warning: Teleporting vehicle 'pt_tram_M2:0.1'; frontal collision with vehicle 'p
 Warning: Vehicle 'pt_tram_M2:0.1' ends teleporting on edge '148458500#1', time 480.00.
 Warning: busStop '3928759794' on lane '388702041#11_0' is too short for vehicle 'pt_bus_N6:1.0'.
 Warning: Teleporting person 'ped150' from vehicle destination edge '295255789' to intended destination edge '378664954'
-Warning: Person 'ped145' is jammed on edge ':4591015622_c0', time=1039.00.
 Warning: Person 'ped81' aborted waiting for 100:0 at busStop '272408975'.
 Warning: Person 'ped1' aborted waiting for M5:0 at busStop '1633759766'.
 Warning: Person 'ped135' aborted waiting for N40:1 at busStop '1686199552'.
