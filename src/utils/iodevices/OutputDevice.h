@@ -243,6 +243,10 @@ public:
         return *this;
     }
 
+    inline bool useAttribute(const SumoXMLAttr attr, long long int attributeMask) const {
+        return (attributeMask & ((long long int)1 << attr)) != 0;
+    }
+
     /** @brief writes a named attribute unless filtered
      *
      * @param[in] attr The attribute (name)
@@ -253,7 +257,7 @@ public:
     template <typename T>
     OutputDevice& writeOptionalAttr(const SumoXMLAttr attr, const T& val, long long int attributeMask) {
         assert((int)attr <= 63);
-        if (attributeMask == 0 || attributeMask & ((long long int)1 << attr)) {
+        if (attributeMask == 0 || useAttribute(attr, attributeMask)) {
             PlainXMLFormatter::writeAttr(getOStream(), attr, val);
         }
         return *this;
