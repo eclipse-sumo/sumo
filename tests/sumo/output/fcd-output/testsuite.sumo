@@ -60,3 +60,6 @@ precision
 
 # filter written attributes
 attributes
+
+# filter written attributes, using those that must otherwise be activated by extra options
+extended_attributes
