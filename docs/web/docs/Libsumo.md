@@ -60,7 +60,7 @@ libsumo.start(["sumo", "-c", "test.sumocfg"])
 libsumo.simulationStep()
 ```
 
-Existing traci scripts can mostly be reused by calling
+Existing traci scripts can be reused (subject to the [limitations](#limitations) mentioned above) by calling
 
 ```py
 import libsumo as traci
