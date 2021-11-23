@@ -1,3 +1,6 @@
+# Return all foes approaching junctions, which are closer than 50m, at a distance < 50m. Account for crossings as foe lanes.
+turn_d50_u50_crossing
+
 # Return all foes approaching junctions, which are closer than 50m, at a distance < 50m.
 turn_d50_u50
 

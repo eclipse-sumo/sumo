@@ -9,6 +9,7 @@ copy_test_path:input_nodes.nod.xml
 copy_test_path:input_connections.con.xml
 copy_test_path:input_routes.rou.xml
 copy_test_path:input_routes2.rou.xml
+copy_test_path:input_routes3.rou.xml
 copy_test_path:net.net.xml
 copy_test_path:input_net.net.xml
 copy_test_path:input_net2.net.xml
