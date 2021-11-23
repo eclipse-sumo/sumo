@@ -292,6 +292,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "waitingTime",            SUMO_ATTR_WAITINGTIME },
     { "timeLoss",               SUMO_ATTR_TIMELOSS },
     { "speed",                  SUMO_ATTR_SPEED },
+    { "speedRelative",          SUMO_ATTR_SPEEDREL },
     { "departed",               SUMO_ATTR_DEPARTED },
     { "arrived",                SUMO_ATTR_ARRIVED },
     { "entered",                SUMO_ATTR_ENTERED },

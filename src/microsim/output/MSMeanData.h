@@ -142,7 +142,7 @@ public:
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
         virtual void write(OutputDevice& dev, long long int attributeMask, const SUMOTime period,
-                           const double numLanes, const double defaultTravelTime,
+                           const double numLanes, const double speedLimit, const double defaultTravelTime,
                            const int numVehicles = -1) const = 0;
 
         /** @brief Returns the number of collected sample seconds.
@@ -244,7 +244,7 @@ public:
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
         void write(OutputDevice& dev, long long int attributeMask, const SUMOTime period,
-                   const double numLanes, const double defaultTravelTime,
+                   const double numLanes, const double speedLimit, const double defaultTravelTime,
                    const int numVehicles = -1) const;
 
         int getNumReady() const;

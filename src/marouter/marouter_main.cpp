@@ -169,7 +169,7 @@ writeInterval(OutputDevice& dev, const SUMOTime begin, const SUMOTime end, const
             const double laneDensity = density / edge->getNumLanes();
             dev.writeAttr(SUMO_ATTR_TRAVELTIME, traveltime);
             dev.writeAttr(SUMO_ATTR_SPEED, speed);
-            dev.writeAttr("speedRelative", speed / edge->getSpeedLimit());
+            dev.writeAttr(SUMO_ATTR_SPEEDREL, speed / edge->getSpeedLimit());
             dev.writeAttr(SUMO_ATTR_ENTERED, flow);
             dev.writeAttr(SUMO_ATTR_DENSITY, density);
             dev.writeAttr(SUMO_ATTR_LANEDENSITY, laneDensity);
