@@ -1,0 +1,2 @@
+Warning: Missing yellow phase in tlLogic 'J0', program '0' for tl-index 0 when switching to phase 1
+Warning: Vehicle '0' performs emergency braking with decel=-30.59 wished=4.50 severity=5.80, time=6.20.
