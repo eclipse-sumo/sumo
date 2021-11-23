@@ -1777,6 +1777,10 @@ GNENet::replaceJunctionByGeometry(GNEJunction* junction, GNEUndoList* undoList) 
             begin->setAttribute(SUMO_ATTR_ENDOFFSET, continuation->getAttribute(SUMO_ATTR_ENDOFFSET), undoList);
             begin->setAttribute(SUMO_ATTR_SHAPE, toString(newShape), undoList);
             begin->getNBEdge()->resetNodeBorder(begin->getNBEdge()->getToNode());
+            // fix loaded lengths
+            if (begin->getNBEdge()->hasLoadedLength() || continuation->getNBEdge()->hasLoadedLength()) {
+                begin->setAttribute(SUMO_ATTR_LENGTH, toString(begin->getNBEdge()->getLoadedLength() + continuation->getNBEdge()->getLoadedLength()), undoList);
+            }
         }
         //delete replaced junction
         deleteJunction(junction, undoList);
