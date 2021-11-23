@@ -39,7 +39,7 @@ tlsID = "2881"
 for step in range(300):
     if step == 60:
         # only phases 1,2,4,6 are used
-        traci.trafficlight.setNemaMaxGreens(tlsID, [10,10,0,30,0,20,0,0])
+        traci.trafficlight.setNemaMaxGreens(tlsID, [10, 10, 0, 30, 0, 20, 0, 0])
     traci.simulationStep()
 
 traci.close()

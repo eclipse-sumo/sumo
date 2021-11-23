@@ -53,6 +53,7 @@ _REFERENCE_PNG = os.path.join(os.path.dirname(__file__), "reference.png")
 # interaction functions
 #################################################
 
+
 def typeKeyUp(key):
     """
     @brief type single key up
@@ -299,6 +300,7 @@ def dragDrop(referencePosition, x1, y1, x2, y2):
 #################################################
 # basic functions
 #################################################
+
 
 def Popen(extraParameters, debugInformation):
     """
@@ -911,6 +913,7 @@ def changeEditMode(key):
 # Create nodes and edges
 #################################################
 
+
 def createEdgeMode():
     """
     @brief Change to create edge mode
@@ -930,6 +933,7 @@ def cancelEdge():
 #################################################
 # Inspect mode
 #################################################
+
 
 def inspectMode():
     """
@@ -1039,6 +1043,7 @@ def checkDoubleParameters(referencePosition, attributeNumber, overlapped, posX=0
 # Move mode
 #################################################
 
+
 def moveMode():
     """
     @brief set move mode
@@ -1058,6 +1063,7 @@ def moveElement(referencePosition, startX, startY, endX, endY):
 #################################################
 # crossings
 #################################################
+
 
 def crossingMode():
     """
@@ -1152,6 +1158,7 @@ def crossingInvertEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
 # Connection mode
 #################################################
 
+
 def connectionMode():
     """
     @brief Change to connection mode
@@ -1199,6 +1206,7 @@ def saveConnectionEdit():
 #################################################
 # additionals
 #################################################
+
 
 def additionalMode():
     """
@@ -1340,6 +1348,7 @@ def fixStoppingPlace(solution):
 # route elements
 #################################################
 
+
 def routeMode():
     """
     @brief change to route mode
@@ -1380,6 +1389,7 @@ def changeRouteVClass(value):
 #################################################
 # person elements
 #################################################
+
 
 def personMode():
     """
@@ -1462,6 +1472,7 @@ def changePersonFlowPlan(personFlowPlan, subPersonFlowPlan):
 # stop elements
 #################################################
 
+
 def stopMode():
     """
     @brief change to person mode
@@ -1501,6 +1512,7 @@ def changeStopType(stopType):
 # vehicle elements
 #################################################
 
+
 def vehicleMode():
     """
     @brief change to vehicle mode
@@ -1512,6 +1524,7 @@ def vehicleMode():
 #################################################
 # delete
 #################################################
+
 
 def deleteMode():
     """
@@ -1620,6 +1633,7 @@ def waitDeleteWarning():
 #################################################
 # select mode
 #################################################
+
 
 def selectMode():
     """
@@ -1879,6 +1893,7 @@ def createTLS():
 # shapes
 #################################################
 
+
 def shapeMode():
     """
     @brief change to shape mode
@@ -2080,6 +2095,7 @@ def createLineTAZ(referencePosition, positionx, positiony, sizex, sizey, close):
 # datas
 #################################################
 
+
 def edgeData():
     """
     @brief change to edgeData mode
@@ -2146,6 +2162,7 @@ def createDataInterval(begin="0", end="3600"):
 #################################################
 # Contextual menu
 #################################################
+
 
 def contextualMenuOperation(referencePosition, positionx, positiony, operation, suboperation1, suboperation2=0):
     # obtain clicked position

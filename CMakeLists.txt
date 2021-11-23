@@ -433,7 +433,7 @@ if (NOT ${SETUPTOOLS_MISSING})
 endif ()
 
 if (SUMO_LIBRARIES AND WIN32)
-	# filter release DLLs
+    # filter release DLLs
     execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/filterDebugDLL.py ${SUMO_LIBRARIES_DLL} OUTPUT_VARIABLE SUMO_LIBRARIES_RELEASE_DLL)
     # copy debug dlls
     foreach(DEBUG_DLL ${SUMO_LIBRARIES_DLL} ${GTEST_DLL})
