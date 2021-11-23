@@ -47,21 +47,22 @@
 // ===========================================================================
 void
 MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
-    const SUMOTime period = string2time(OptionsCont::getOptions().getString("device.fcd.period"));
-    const SUMOTime begin = string2time(OptionsCont::getOptions().getString("begin"));
+    const OptionsCont& oc = OptionsCont::getOptions();
+    const SUMOTime period = string2time(oc.getString("device.fcd.period"));
+    const SUMOTime begin = string2time(oc.getString("begin"));
     if (period > 0 && (timestep - begin) % period != 0) {
         return;
     }
     const long long int mask = MSDevice_FCD::getWrittenAttributes();
-    const bool maskSet = OptionsCont::getOptions().isSet("fcd-output.attributes");
-    const bool useGeo = OptionsCont::getOptions().getBool("fcd-output.geo");
-    const bool signals = OptionsCont::getOptions().getBool("fcd-output.signals") || (maskSet && of.useAttribute(SUMO_ATTR_SIGNALS, mask));
-    const bool writeAccel = OptionsCont::getOptions().getBool("fcd-output.acceleration") || (maskSet && of.useAttribute(SUMO_ATTR_ACCELERATION, mask));
-    const bool writeDistance = OptionsCont::getOptions().getBool("fcd-output.distance") || (maskSet && of.useAttribute(SUMO_ATTR_DISTANCE, mask));
-    const double maxLeaderDistance = OptionsCont::getOptions().getFloat("fcd-output.max-leader-distance");
-    std::vector<std::string> params = OptionsCont::getOptions().getStringVector("fcd-output.params");
+    const bool maskSet = oc.isSet("fcd-output.attributes");
+    const bool useGeo = oc.getBool("fcd-output.geo");
+    const bool signals = oc.getBool("fcd-output.signals") || (maskSet && of.useAttribute(SUMO_ATTR_SIGNALS, mask));
+    const bool writeAccel = oc.getBool("fcd-output.acceleration") || (maskSet && of.useAttribute(SUMO_ATTR_ACCELERATION, mask));
+    const bool writeDistance = oc.getBool("fcd-output.distance") || (maskSet && of.useAttribute(SUMO_ATTR_DISTANCE, mask));
+    const double maxLeaderDistance = oc.getFloat("fcd-output.max-leader-distance");
+    std::vector<std::string> params = oc.getStringVector("fcd-output.params");
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
-    const double radius = OptionsCont::getOptions().getFloat("device.fcd.radius");
+    const double radius = oc.getFloat("device.fcd.radius");
     const bool filter = MSDevice_FCD::getEdgeFilter().size() > 0;
     std::set<const Named*> inRadius;
     if (radius > 0) {
