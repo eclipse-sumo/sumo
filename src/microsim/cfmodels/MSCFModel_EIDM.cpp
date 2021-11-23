@@ -184,8 +184,8 @@ MSCFModel_EIDM::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     // finalizeSpeed is only called once every timestep!
 
     VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
-
-    const double oldV = veh->getSpeed(); // save old v for optional acceleration computation
+    // save old v for optional acceleration computation
+    const double oldV = veh->getSpeed();
 
     // @ToDo: Maybe change whole calculation to calculate real freeSpeed/stopSpeed/followSpeed in every call and here calculate resulting speed with reaction Time and update?!
     // @ToDo: Could check which call resulted in speed update with stop-vector containing all calculated accelerations!
@@ -198,18 +198,21 @@ MSCFModel_EIDM::finalizeSpeed(MSVehicle* const veh, double vPos) const {
         }
     }
 
-    double vSafe = MIN2(vPos, veh->processNextStop(vPos)); // process stops (includes update of stopping state)
-
+    // process stops (includes update of stopping state)
+    const double vStop = MIN2(vPos, veh->processNextStop(vPos));
+    // apply deceleration bounds
+    const double vMinEmergency = minNextSpeedEmergency(oldV, veh);
+    // vPos contains the uppper bound on safe speed. allow emergency braking here
+    const double vMin = MIN2(minNextSpeed(oldV, veh), MAX2(vPos, vMinEmergency));
     // apply planned speed constraints and acceleration constraints
-    const double vMax = MIN2(maxNextSpeed(oldV, veh), vSafe);
+    double vMax = MIN2(maxNextSpeed(oldV, veh), vStop);
+    vMax = MAX2(vMin, vMax);
 
-    double vMin, vNext;
+    double vNext;
     if (MSGlobals::gSemiImplicitEulerUpdate) {
-        // we cannot rely on never braking harder than maxDecel because TraCI or strange cf models may decide to do so
-        vMin = MIN2(getSpeedAfterMaxDecel(oldV), vMax);
 
-        // Using the original MSCFModel::finalizeSpeed function, the vehicle could brake with its EmergencyDecel,
-        // to let other vehicles change to the respected lane. This is not allowed here.
+        // The model does not directly use vNext from patchSpeed (like the original MSCFModel::finalizeSpeed function),
+        // but rather slowly adapts to vNext.
         vNext = veh->getLaneChangeModel().patchSpeed(vMin, vMax, vMax, *this);
 
         // Bound the positive change of the acceleration with myJerkmax
@@ -240,7 +243,6 @@ MSCFModel_EIDM::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 
         // for ballistic update, negative vnext must be allowed to
         // indicate a stop within the coming timestep (i.e., to attain negative values)
-        vMin =  MIN2(minNextSpeed(oldV, veh), vMax);
         vNext = veh->getLaneChangeModel().patchSpeed(vMin, vMax, vMax, *this);
         // (Leo) finalizeSpeed() is responsible for assuring that the next
         // velocity is chosen in accordance with maximal decelerations.
