@@ -1,0 +1,2 @@
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Warning: busStop '-stopBranch' on lane '-i_0' is too short for vehicle 'light_rail_S46:0.0'.
