@@ -208,9 +208,9 @@ title: ChangeLog
 - simulation
   - Traffic light type "NEMA" is now supported and implements a NEMA compliant dual-ring controller. Issue #9520 (Thanks to Qichao Wang and NREL)
   - Added new electric vehicle model ["MMPEVEM"](Models/MMPEVEM.md). Issue #8764 (Thanks to Kevin Badalian and the MMP, RHTW Aachen)
-  - Detectortype (E1, E2, E3) now support [attribute 'detectPersons'](Simulation/Pedestrians.md#detectors_for_pedestrians) to detect pedestrians and passengesr. Issue #5252
+  - Detectortype (E1, E2, E3) now support [attribute 'detectPersons'](Simulation/Pedestrians.md#detectors_for_pedestrians) to detect pedestrians and passengers. Issue #5252
   - When option **--vehroute-output.exit-times** is set, The output for walk,ride, transport and tranship now includes the values 'started' and 'ended.' Issue #9005
-  - Added option **--weights.separate-turns FLOAT**. When this is set to values in ]0,1] routing in the simulation will distinguish travel times by turning direction (i.e. to prefer right turns over left truns where the latter are a cause of delay). Issue #2566
+  - Added option **--weights.separate-turns FLOAT**. When this is set to values in ]0,1] routing in the simulation will distinguish travel times by turning direction (i.e. to prefer right turns over left turns where the latter are a cause of delay). Issue #2566
   - If a simulation includes bicycles, they will get a separate section in trip statistics for bicycles. Issue #9069
   - Added option **--vehroute-output.speedfactor**. When this is set, the vehicle specific speed factor will be written in the output. If the vehicle defines a departSpeed, this defaults to 'true'. Issue #9199 
   - BoardingDuration / loadingDuration are now also applied when exiting a vehicle. Issue #4216
@@ -240,8 +240,7 @@ title: ChangeLog
   - Added vehicle context menu function 'Select transported'. Issue #2241
   - Time range and intervals in loaded edgedata are now reported. Issue #9217
   - Meso vehicles are now drawn with interpolated positions
-  - Segment boundaries are now drawn in meso simulation. Issue #9227
-  - Added support for custom coloring of busStops. Issue #8280
+  - Segment boundaries are now drawn in meso simulation. Issue #9227  
   - Breakpoints are now rounded down to reachable step value. Issue #6789
   - Clicking on timestamps in message window now creates breakpoints with a configurable offset. Issue #7617
   - Lane params and street names are now shown in meso edge parameter dialog. Issue #9300
@@ -295,7 +294,7 @@ title: ChangeLog
   - tazRelation files (as written by netedit) are now supported as OD-matrix definition. Issue #9057
 
 - duarouter & jtrrouter
-  - Added option **--named-routes** which writes routes with an id and lets vehicles reference them. Can reduce output size if many vehicles using the same route. Issue #8643
+  - Added option **--named-routes** which writes routes with an id and lets vehicles reference them. Can reduce output size if many vehicles are using the same route. Issue #8643
 
 - meso
   - Tau value of vehicles types now affect simulation (by acting as a multiplier on the segment tau value) Issue #9356
@@ -309,9 +308,9 @@ title: ChangeLog
   - addSubscriptionFilterTurn can now be combined (additively) with addSubscriptionFilterLateralDistance and with addSubscriptionFilterLanes. Issue #9177
   - Added function 'traci.person.remove' Issue #9351
   - Improved warning messages when 'traci.vehicle.replaceStop', or 'changeTarget' fails. Issue #9453
-  - Added functions retrieve aggregated traffic measures from E3-detector. Issue #9501
+  - Added functions to retrieve aggregated traffic measures from E3-detector. Issue #9501
   - Libtraci now supports 'Simulation::start'. Issue #6466
-  - Added functions 'trafficlight.setNemaSplits' and 'setNemaOffset' to control the split and offset of NEMA-type controllers. Issue #9520  
+  - Added functions 'trafficlight.setNemaSplits', 'setNemaMaxGreens', 'setNemaCycleLength' and 'setNemaOffset' to control the split and offset of NEMA-type controllers. Issue #9520  
 
 - tools
   - cutRoutes.py: Can now handle multiple additional and public transport files in input. Issue #8997
@@ -319,7 +318,7 @@ title: ChangeLog
   - Added tool [addTAZ.py](Tools/Routes.md#addtazpy) for adding taz information to route files. Issue #8884
   - osmWebWizard.py now imports all bicycle lane data when building scenario with bicycle traffic. Issue #9071
   - osmWebWizard.py uses improved pedestrian routing on shared space. Issue #9100
-  - osmWebWizard.py now [avoids duplicate sidewalks](Networks/Import/OpenStreetMap.md#sidwalks_from_osm) when building a simulation with persons. Rebuild network with **osm.sidewalks False** to replicate the old behavior (for areas that lack OSM sidewalk data). Issue #9444
+  - osmWebWizard.py now [avoids duplicate sidewalks](Networks/Import/OpenStreetMap.md#sidwalks_from_osm) when building a simulation with persons. Rebuild network with **--osm.sidewalks False** to replicate the old behavior (for areas that lack OSM sidewalk data). Issue #9444
   - [gridDistricts.py](Tools/District.md#griddistrictspy) now supports option **--vclass** for filtering taz edges in multi-modal networks. Issue #9127
   - Added tool [route2OD.py](Tools/Routes.md#route2odpy) which generates a [tazRelation-file (OD-Matrix)](Demand/Importing_O/D_Matrices.md#tazrelation_format) from a taz-file and route-file. Issue #9117
   - Major speedup in GTFS import with [gtfs2pt](Tools/Import/GTFS.md). Issue #9136
@@ -334,14 +333,14 @@ title: ChangeLog
     - added option **--opposite-visible** to ensure that parking areas on the opposite direction road are visible. Issue #9372   
     - now runs much faster. Issue #9379    
   - routeSampler.py: added option **--min-count** to set mininum number of counting locations for each used route. Issue #9415
-  - Added tool [scheduleStats](Tools/Railways.md#schedulestatspy) to analyze deviations between loaded public transport schedules and simulation timing. Issue #8420
+  - Added tool [scheduleStats.py](Tools/Railways.md#schedulestatspy) to analyze deviations between loaded public transport schedules and simulation timing. Issue #8420
   - Added tool [plotXMLAttributes.py](Tools/Visualization.md#plotxmlattributespy) to generated 2D-plots from arbitrary attribute of XML files. Issue #9403
   - osmTaxiStop.py: added option **--fleet-size** to generated a taxi fleet along with the stops. Issue #9116
   - sumolib.net.getShortest path now allows using edges in both directions for pedestrian route search (`ignoreDirection="true"`). Issue #9533
   - [addStops2Routes.py](Tools/Routes.md#addstops2routespy) received new options to define stops at parkingAreas, add stops to persons and to define stationary (parkig) traffic. Issue #3607, #9561, #9562
   - library functions 'sumolib.xml.parse_fast' and 'parse_fast_nested' can now handle XML-comments. Issue #8565
-  - Added tool [](Tools/Output.md#parkingsearchtrafficpy) to analyze reroute times and distances for parking search traffic. Issue #9534
-  - Added tool [tripinfoByType](Tools/Output.md#tripinfobytypepy) for aggregating tripinfo output by vType #9596
+  - Added tool [parkingSearchTraffic.py](Tools/Output.md#parkingsearchtrafficpy) to analyze reroute times and distances for parking search traffic. Issue #9534
+  - Added tool [tripinfoByType.py](Tools/Output.md#tripinfobytypepy) for aggregating tripinfo output by vType #9596
 
 ### Other
 
@@ -356,7 +355,6 @@ title: ChangeLog
   - TAZ and Polygons can no longer have the same id. Issue #9165
 - polyconvert: When no network is loaded, output will now be in lon,lat by default (if the input is geo-referenced) in order to be useful with any network. The old behavior of writing raw utm values in this case can be restored by setting option **--proj.plain-geo false**.
 - duaIterate.py option **-C** is no longer a synonym for **--continue-on-unbuild**. Instead, it is a shortcut for **--save-configuration**. Issue #9314
-
 
 ## Version 1.10.0 (17.08.2021)
 
