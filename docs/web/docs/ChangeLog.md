@@ -25,6 +25,7 @@ title: ChangeLog
     - Fixed emergency braking during opposite-direction overtaking. Issue #9183, #9184, #9185, #9297, #9530
     - Fixed invalid collision warning during opposite direction driving. Issue #9388
     - Fixed bug where frontal collision between fast vehicles was not detected. Issue #9402
+    - Fixed rail_signal bug that could cause a flanking conflict to be ignored. Issue #9612
   - sublane
     - Fixed invalid behavior after using stop posLat in non-sublane simulation. Issue #9013
     - Fixed deadlock when using lcSigma without sublane model. Issue #9395
@@ -178,6 +179,7 @@ title: ChangeLog
   - Function 'traci.vehicle.replaceStop' no longer fails while on junction. Issue #9467
   - Fixed invalid stop duration reported after updating duration with setStop. Issue #9522
   - Added missing convenience functions in traci.vehicle (i.e. 'isAtBusstop' to libsumo and libtraci python bindings. Issue #9591
+  - Fixed missing vehicles when using subscriptionFilterLateralDistance. Issue #9603
 
 - tools
   - cutRoutes.py: Fixed mixed usage of trainStop and busStop. Issue #8982
@@ -337,6 +339,7 @@ title: ChangeLog
   - [addStops2Routes.py](Tools/Routes.md#addstops2routespy) received new options to define stops at parkingAreas, add stops to persons and to define stationary (parkig) traffic. Issue #3607, #9561, #9562
   - library functions 'sumolib.xml.parse_fast' and 'parse_fast_nested' can now handle XML-comments. Issue #8565
   - Added tool [](Tools/Output.md#parkingsearchtrafficpy) to analyze reroute times and distances for parking search traffic. Issue #9534
+  - Added tool [tripinfoByType](Tools/Output.md#tripinfobytypepy) for aggregating tripinfo output by vType #9596
 
 ### Other
 
