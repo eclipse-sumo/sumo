@@ -307,7 +307,7 @@ RGBColor::parseColor(std::string coldef) {
                 }
             }
         } else {
-            throw EmptyData();
+            throw InvalidArgument("Invalid color definition '" + coldef + "'");
         }
     }
     return RGBColor(r, g, b, a);
