@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-23 11:14:20 by Eclipse SUMO sumo Version v1_11_0+0008-87cece6
+<!-- generated on 2021-11-23 15:04:05 by Eclipse SUMO sumo Version v1_11_0+0019-253abf7
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -136,37 +136,37 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="0" acceleration="-0.01"/>
     </timestep>
     <timestep time="6.20">
-        <vehicle id="0" acceleration="-30.59"/>
+        <vehicle id="0" acceleration="-9.00"/>
     </timestep>
     <timestep time="6.40">
-        <vehicle id="0" acceleration="-29.03"/>
+        <vehicle id="0" acceleration="-9.00"/>
     </timestep>
     <timestep time="6.60">
-        <vehicle id="0" acceleration="-22.27"/>
+        <vehicle id="0" acceleration="-9.00"/>
     </timestep>
     <timestep time="6.80">
-        <vehicle id="0" acceleration="-20.64"/>
+        <vehicle id="0" acceleration="0.00"/>
     </timestep>
     <timestep time="7.00">
-        <vehicle id="0" acceleration="-13.68"/>
+        <vehicle id="0" acceleration="0.00"/>
     </timestep>
     <timestep time="7.20">
-        <vehicle id="0" acceleration="-11.97"/>
+        <vehicle id="0" acceleration="0.00"/>
     </timestep>
     <timestep time="7.40">
-        <vehicle id="0" acceleration="-7.76"/>
+        <vehicle id="0" acceleration="0.00"/>
     </timestep>
     <timestep time="7.60">
-        <vehicle id="0" acceleration="-6.35"/>
+        <vehicle id="0" acceleration="0.00"/>
     </timestep>
     <timestep time="7.80">
-        <vehicle id="0" acceleration="-3.10"/>
+        <vehicle id="0" acceleration="0.00"/>
     </timestep>
     <timestep time="8.00">
-        <vehicle id="0" acceleration="-2.78"/>
+        <vehicle id="0" acceleration="0.00"/>
     </timestep>
     <timestep time="8.20">
-        <vehicle id="0" acceleration="-0.24"/>
+        <vehicle id="0" acceleration="0.00"/>
     </timestep>
     <timestep time="8.40">
         <vehicle id="0" acceleration="0.00"/>
@@ -433,43 +433,43 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="0" acceleration="0.00"/>
     </timestep>
     <timestep time="26.00">
-        <vehicle id="0" acceleration="0.15"/>
+        <vehicle id="0" acceleration="2.60"/>
     </timestep>
     <timestep time="26.20">
-        <vehicle id="0" acceleration="0.49"/>
+        <vehicle id="0" acceleration="2.60"/>
     </timestep>
     <timestep time="26.40">
-        <vehicle id="0" acceleration="1.21"/>
+        <vehicle id="0" acceleration="2.60"/>
     </timestep>
     <timestep time="26.60">
-        <vehicle id="0" acceleration="2.00"/>
+        <vehicle id="0" acceleration="2.60"/>
     </timestep>
     <timestep time="26.80">
-        <vehicle id="0" acceleration="2.41"/>
+        <vehicle id="0" acceleration="2.60"/>
     </timestep>
     <timestep time="27.00">
-        <vehicle id="0" acceleration="2.55"/>
+        <vehicle id="0" acceleration="2.60"/>
     </timestep>
     <timestep time="27.20">
-        <vehicle id="0" acceleration="2.59"/>
-    </timestep>
-    <timestep time="27.40">
-        <vehicle id="0" acceleration="2.60"/>
-    </timestep>
-    <timestep time="27.60">
-        <vehicle id="0" acceleration="2.60"/>
-    </timestep>
-    <timestep time="27.80">
         <vehicle id="0" acceleration="2.48"/>
     </timestep>
-    <timestep time="28.00">
+    <timestep time="27.40">
+        <vehicle id="0" acceleration="2.50"/>
+    </timestep>
+    <timestep time="27.60">
+        <vehicle id="0" acceleration="2.47"/>
+    </timestep>
+    <timestep time="27.80">
         <vehicle id="0" acceleration="2.49"/>
     </timestep>
-    <timestep time="28.20">
+    <timestep time="28.00">
         <vehicle id="0" acceleration="2.56"/>
     </timestep>
-    <timestep time="28.40">
+    <timestep time="28.20">
         <vehicle id="0" acceleration="2.59"/>
+    </timestep>
+    <timestep time="28.40">
+        <vehicle id="0" acceleration="2.60"/>
     </timestep>
     <timestep time="28.60">
         <vehicle id="0" acceleration="2.60"/>
@@ -532,100 +532,94 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="0" acceleration="2.60"/>
     </timestep>
     <timestep time="32.60">
-        <vehicle id="0" acceleration="2.60"/>
+        <vehicle id="0" acceleration="2.58"/>
     </timestep>
     <timestep time="32.80">
-        <vehicle id="0" acceleration="2.60"/>
+        <vehicle id="0" acceleration="2.52"/>
     </timestep>
     <timestep time="33.00">
-        <vehicle id="0" acceleration="2.57"/>
+        <vehicle id="0" acceleration="2.44"/>
     </timestep>
     <timestep time="33.20">
-        <vehicle id="0" acceleration="2.50"/>
+        <vehicle id="0" acceleration="2.39"/>
     </timestep>
     <timestep time="33.40">
-        <vehicle id="0" acceleration="2.45"/>
+        <vehicle id="0" acceleration="2.29"/>
     </timestep>
     <timestep time="33.60">
-        <vehicle id="0" acceleration="2.35"/>
+        <vehicle id="0" acceleration="2.22"/>
     </timestep>
     <timestep time="33.80">
-        <vehicle id="0" acceleration="2.28"/>
+        <vehicle id="0" acceleration="2.21"/>
     </timestep>
     <timestep time="34.00">
-        <vehicle id="0" acceleration="2.28"/>
+        <vehicle id="0" acceleration="2.16"/>
     </timestep>
     <timestep time="34.20">
-        <vehicle id="0" acceleration="2.23"/>
-    </timestep>
-    <timestep time="34.40">
-        <vehicle id="0" acceleration="2.17"/>
-    </timestep>
-    <timestep time="34.60">
-        <vehicle id="0" acceleration="2.12"/>
-    </timestep>
-    <timestep time="34.80">
         <vehicle id="0" acceleration="2.10"/>
     </timestep>
-    <timestep time="35.00">
-        <vehicle id="0" acceleration="2.07"/>
+    <timestep time="34.40">
+        <vehicle id="0" acceleration="2.04"/>
     </timestep>
-    <timestep time="35.20">
-        <vehicle id="0" acceleration="2.07"/>
+    <timestep time="34.60">
+        <vehicle id="0" acceleration="2.02"/>
     </timestep>
-    <timestep time="35.40">
-        <vehicle id="0" acceleration="2.00"/>
-    </timestep>
-    <timestep time="35.60">
+    <timestep time="34.80">
         <vehicle id="0" acceleration="1.98"/>
     </timestep>
+    <timestep time="35.00">
+        <vehicle id="0" acceleration="1.98"/>
+    </timestep>
+    <timestep time="35.20">
+        <vehicle id="0" acceleration="1.91"/>
+    </timestep>
+    <timestep time="35.40">
+        <vehicle id="0" acceleration="1.88"/>
+    </timestep>
+    <timestep time="35.60">
+        <vehicle id="0" acceleration="1.82"/>
+    </timestep>
     <timestep time="35.80">
-        <vehicle id="0" acceleration="1.92"/>
-    </timestep>
-    <timestep time="36.00">
-        <vehicle id="0" acceleration="1.90"/>
-    </timestep>
-    <timestep time="36.20">
-        <vehicle id="0" acceleration="1.84"/>
-    </timestep>
-    <timestep time="36.40">
         <vehicle id="0" acceleration="1.81"/>
     </timestep>
-    <timestep time="36.60">
+    <timestep time="36.00">
+        <vehicle id="0" acceleration="1.74"/>
+    </timestep>
+    <timestep time="36.20">
         <vehicle id="0" acceleration="1.71"/>
     </timestep>
-    <timestep time="36.80">
-        <vehicle id="0" acceleration="1.63"/>
-    </timestep>
-    <timestep time="37.00">
+    <timestep time="36.40">
         <vehicle id="0" acceleration="1.61"/>
     </timestep>
+    <timestep time="36.60">
+        <vehicle id="0" acceleration="1.53"/>
+    </timestep>
+    <timestep time="36.80">
+        <vehicle id="0" acceleration="1.51"/>
+    </timestep>
+    <timestep time="37.00">
+        <vehicle id="0" acceleration="1.37"/>
+    </timestep>
     <timestep time="37.20">
-        <vehicle id="0" acceleration="1.47"/>
+        <vehicle id="0" acceleration="1.25"/>
     </timestep>
     <timestep time="37.40">
-        <vehicle id="0" acceleration="1.34"/>
+        <vehicle id="0" acceleration="1.30"/>
     </timestep>
     <timestep time="37.60">
-        <vehicle id="0" acceleration="1.39"/>
+        <vehicle id="0" acceleration="1.12"/>
     </timestep>
     <timestep time="37.80">
-        <vehicle id="0" acceleration="1.21"/>
+        <vehicle id="0" acceleration="1.04"/>
     </timestep>
     <timestep time="38.00">
-        <vehicle id="0" acceleration="1.13"/>
-    </timestep>
-    <timestep time="38.20">
-        <vehicle id="0" acceleration="1.06"/>
-    </timestep>
-    <timestep time="38.40">
-        <vehicle id="0" acceleration="1.10"/>
-    </timestep>
-    <timestep time="38.60">
-        <vehicle id="0" acceleration="1.05"/>
-    </timestep>
-    <timestep time="38.80">
         <vehicle id="0" acceleration="0.97"/>
     </timestep>
-    <timestep time="39.00"/>
+    <timestep time="38.20">
+        <vehicle id="0" acceleration="1.01"/>
+    </timestep>
+    <timestep time="38.40">
+        <vehicle id="0" acceleration="0.97"/>
+    </timestep>
+    <timestep time="38.60"/>
 </fcd-export>

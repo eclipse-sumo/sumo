@@ -1,2 +1,3 @@
 Warning: Missing yellow phase in tlLogic 'J0', program '0' for tl-index 0 when switching to phase 1
-Warning: Vehicle '0' performs emergency braking with decel=-30.59 wished=4.50 severity=5.80, time=6.20.
+Warning: Vehicle '0' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=6.20.
+Warning: Vehicle '0' performs emergency stop at the end of lane 'a_0' because of a red traffic light (decel=-31.48, offset=4.20), time=6.80.
