@@ -1126,6 +1126,12 @@ Helper::applySubscriptionFilterTurn(const Subscription& s, std::set<const SUMOTr
         std::cout << "  On junction '" << l->getJunction()->getID() << "' (no. foe links = " << l->getFoeLinks().size() << "):" << std::endl;
 #endif
         for (auto& foeLane : l->getFoeLanes()) {
+            if (foeLane->getEdge().isCrossing()) {
+#ifdef DEBUG_SURROUNDING
+                std::cout << "   skipping crossing foeLane '" << foeLane->getID() << "'" << std::endl;
+#endif
+                continue;
+            }
 #ifdef DEBUG_SURROUNDING
             std::cout << "   foeLane '" << foeLane->getID() << "'" << std::endl;
 #endif
