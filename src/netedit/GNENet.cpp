@@ -841,6 +841,9 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
     const double laneSplitPosition = oldLaneGeometry.nearest_offset_to_point2D(pos, false);
     // split edge geometry in two new geometries using edgeSplitPosition
     std::pair<PositionVector, PositionVector> newGeoms = oldEdgeGeometry.splitAt(edgeSplitPosition);
+    const double oldLength = oldEdgeGeometry.length();
+    const double relativeLength1 = oldLength != 0 ? newGeoms.first.length() / oldLength : 1;
+    const double relativeLength2 = oldLength != 0 ? newGeoms.second.length() / oldLength : 1;
     // get shape end
     const std::string shapeEnd = edge->getAttribute(GNE_ATTR_SHAPE_END);
     // figure out the new name
@@ -895,6 +898,13 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
     newGeoms.second.pop_back();
     newGeoms.second.erase(newGeoms.second.begin());
     secondPart->setAttribute(SUMO_ATTR_SHAPE, toString(newGeoms.second), undoList);
+    // fix custom length
+    if (edge->getNBEdge()->hasLoadedLength()) {
+        // split in proportion to geometry lengths
+        const double loadedLength = edge->getNBEdge()->getLoadedLength();
+        edge->setAttribute(SUMO_ATTR_LENGTH, toString(relativeLength1 * loadedLength), undoList);
+        secondPart->setAttribute(SUMO_ATTR_LENGTH, toString(relativeLength2 * loadedLength), undoList);
+    }
     // reconnect across the split
     for (int i = 0; i < (int)edge->getLanes().size(); ++i) {
         undoList->add(new GNEChange_Connection(edge, NBEdge::Connection(i, secondPart->getNBEdge(), i), false, true), true);
