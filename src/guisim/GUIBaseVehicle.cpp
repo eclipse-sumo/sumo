@@ -568,20 +568,20 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
     glScaled(1 / upscale, 1 / upscaleLength, 1);
     glRotated(-degAngle, 0, 0, 1);
     drawName(Position(0, 0), s.scale, s.vehicleName, s.angle);
-    if (s.vehicleName.show && myVehicle.getParameter().line != "") {
+    if (s.vehicleName.show(this) && myVehicle.getParameter().line != "") {
         glRotated(-s.angle, 0, 0, 1);
         glTranslated(0, 0.7 * s.vehicleName.scaledSize(s.scale), 0);
         glRotated(s.angle, 0, 0, 1);
         GLHelper::drawTextSettings(s.vehicleName, "line:" + myVehicle.getParameter().line, Position(0, 0), s.scale, s.angle);
     }
-    if (s.vehicleValue.show) {
+    if (s.vehicleValue.show(this)) {
         glRotated(-s.angle, 0, 0, 1);
         glTranslated(0, 0.7 * s.vehicleName.scaledSize(s.scale), 0);
         glRotated(s.angle, 0, 0, 1);
         const double value = getColorValue(s, s.vehicleColorer.getActive());
         GLHelper::drawTextSettings(s.vehicleValue, toString(value), Position(0, 0), s.scale, s.angle);
     }
-    if (s.vehicleText.show) {
+    if (s.vehicleText.show(this)) {
         std::string error;
         std::string value = myVehicle.getPrefixedParameter(s.vehicleTextParam, error);
         if (value != "") {

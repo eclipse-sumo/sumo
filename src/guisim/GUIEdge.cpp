@@ -278,16 +278,17 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
     }
     GLHelper::popName();
     // (optionally) draw the name and/or the street name
-    const bool drawEdgeName = s.edgeName.show && myFunction == SumoXMLEdgeFunc::NORMAL;
-    const bool drawInternalEdgeName = s.internalEdgeName.show && myFunction == SumoXMLEdgeFunc::INTERNAL;
-    const bool drawCwaEdgeName = s.cwaEdgeName.show && (myFunction == SumoXMLEdgeFunc::CROSSING || myFunction == SumoXMLEdgeFunc::WALKINGAREA);
-    const bool drawStreetName = s.streetName.show && myStreetName != "";
-    const bool drawEdgeValue = s.edgeValue.show && (myFunction == SumoXMLEdgeFunc::NORMAL
+    GUILane* lane2 = dynamic_cast<GUILane*>((*myLanes).back());
+    const GUIGlObject* selCheck = gSelected.isSelected(this) ? (GUIGlObject*)this : (GUIGlObject*)lane2;
+    const bool drawEdgeName = s.edgeName.show(selCheck) && myFunction == SumoXMLEdgeFunc::NORMAL;
+    const bool drawInternalEdgeName = s.internalEdgeName.show(selCheck) && myFunction == SumoXMLEdgeFunc::INTERNAL;
+    const bool drawCwaEdgeName = s.cwaEdgeName.show(selCheck) && (myFunction == SumoXMLEdgeFunc::CROSSING || myFunction == SumoXMLEdgeFunc::WALKINGAREA);
+    const bool drawStreetName = s.streetName.show(selCheck) && myStreetName != "";
+    const bool drawEdgeValue = s.edgeValue.show(selCheck) && (myFunction == SumoXMLEdgeFunc::NORMAL
                                || (myFunction == SumoXMLEdgeFunc::INTERNAL && !s.drawJunctionShape)
                                || ((myFunction == SumoXMLEdgeFunc::CROSSING || myFunction == SumoXMLEdgeFunc::WALKINGAREA) && s.drawCrossingsAndWalkingareas));
     if (drawEdgeName || drawInternalEdgeName || drawCwaEdgeName || drawStreetName || drawEdgeValue) {
         GUILane* lane1 = dynamic_cast<GUILane*>((*myLanes)[0]);
-        GUILane* lane2 = dynamic_cast<GUILane*>((*myLanes).back());
         if (lane1 != nullptr && lane2 != nullptr) {
             const bool spreadSuperposed = s.spreadSuperposed && getBidiEdge() != nullptr && lane2->drawAsRailway(s);
             Position p = lane1->getShape().positionAtOffset(lane1->getShape().length() / (double) 2.);
@@ -302,11 +303,11 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
             }
             double angle = s.getTextAngle(lane1->getShape().rotationDegreeAtOffset(lane1->getShape().length() / (double) 2.) + 90);
             if (drawEdgeName) {
-                drawName(p, s.scale, s.edgeName, angle);
+                drawName(p, s.scale, s.edgeName, angle, true);
             } else if (drawInternalEdgeName) {
-                drawName(p, s.scale, s.internalEdgeName, angle);
+                drawName(p, s.scale, s.internalEdgeName, angle, true);
             } else if (drawCwaEdgeName) {
-                drawName(p, s.scale, s.cwaEdgeName, angle);
+                drawName(p, s.scale, s.cwaEdgeName, angle, true);
             }
             if (drawStreetName) {
                 GLHelper::drawTextSettings(s.streetName, getStreetName(), p, s.scale, angle);

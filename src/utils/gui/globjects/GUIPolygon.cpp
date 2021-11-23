@@ -351,7 +351,7 @@ GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, const SUMOPolygo
     GLHelper::popMatrix();
     const Position& namePos = shape.getPolygonCenter();
     o->drawName(namePos, s.scale, s.polyName, s.angle);
-    if (s.polyType.show) {
+    if (s.polyType.show(o)) {
         const Position p = namePos + Position(0, -0.6 * s.polyType.size / s.scale);
         GLHelper::drawTextSettings(s.polyType, polygon->getShapeType(), p, s.scale, s.angle);
     }

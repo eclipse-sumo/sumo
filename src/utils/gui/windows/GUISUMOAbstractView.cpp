@@ -508,7 +508,7 @@ GUISUMOAbstractView::showToolTipFor(const GUIGlID id) {
             Position pos = getPositionInformation();
             pos.add(0, p2m(15));
             std::string label = object->getFullName();
-            if (myVisualizationSettings->edgeValue.show &&
+            if (myVisualizationSettings->edgeValue.show(object) &&
                     (object->getType() == GLO_EDGE || object->getType() == GLO_LANE)) {
                 const int activeScheme = myVisualizationSettings->getLaneEdgeMode();
                 label += " (" + toString(object->getColorValue(*myVisualizationSettings, activeScheme)) + ")";

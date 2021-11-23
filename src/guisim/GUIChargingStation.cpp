@@ -184,7 +184,7 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::popMatrix();
 
     }
-    if (s.addFullName.show && getMyName() != "") {
+    if (s.addFullName.show(this) && getMyName() != "") {
         GLHelper::drawTextSettings(s.addFullName, getMyName(), myFGSignPos, s.scale, s.getTextAngle(myFGSignRot), GLO_MAX - getType());
     }
     GLHelper::popMatrix();

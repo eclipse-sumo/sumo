@@ -217,48 +217,58 @@ const double GUIVisualizationSettings::MISSING_DATA(std::numeric_limits<double>:
 // GUIVisualizationTextSettings - methods
 // ---------------------------------------------------------------------------
 
-GUIVisualizationTextSettings::GUIVisualizationTextSettings(bool _show, double _size, RGBColor _color, RGBColor _bgColor, bool _constSize) :
-    show(_show),
+GUIVisualizationTextSettings::GUIVisualizationTextSettings(bool _showText, double _size, RGBColor _color, RGBColor _bgColor, bool _constSize, bool _onlySelected) :
+    showText(_showText),
     size(_size),
     color(_color),
     bgColor(_bgColor),
-    constSize(_constSize) {
+    constSize(_constSize),
+    onlySelected(_onlySelected) {
 }
 
 
 bool
 GUIVisualizationTextSettings::operator==(const GUIVisualizationTextSettings& other) {
-    return (show == other.show) &&
+    return (showText == other.showText) &&
            (size == other.size) &&
            (color == other.color) &&
            (bgColor == other.bgColor) &&
-           (constSize == other.constSize);
+           (constSize == other.constSize) &&
+           (onlySelected == other.onlySelected);
 }
 
 
 bool
 GUIVisualizationTextSettings::operator!=(const GUIVisualizationTextSettings& other) {
-    return (show != other.show) ||
+    return (showText != other.showText) ||
            (size != other.size) ||
            (color != other.color) ||
            (bgColor != other.bgColor) ||
-           (constSize != other.constSize);
+           (constSize != other.constSize) ||
+           (onlySelected != other.onlySelected);
 }
 
 
 void
 GUIVisualizationTextSettings::print(OutputDevice& dev, const std::string& name) const {
-    dev.writeAttr(name + "_show", show);
+    dev.writeAttr(name + "_show", showText);
     dev.writeAttr(name + "_size", size);
     dev.writeAttr(name + "_color", color);
     dev.writeAttr(name + "_bgColor", bgColor);
     dev.writeAttr(name + "_constantSize", constSize);
+    dev.writeAttr(name + "_onlySelected", onlySelected);
 }
 
 
 double
 GUIVisualizationTextSettings::scaledSize(double scale, double constFactor) const {
     return constSize ? (size / scale) : (size * constFactor);
+}
+
+
+bool
+GUIVisualizationTextSettings::show(const GUIGlObject* o) const {
+    return showText && (!onlySelected || o == nullptr || gSelected.isSelected(o));
 }
 
 // ---------------------------------------------------------------------------

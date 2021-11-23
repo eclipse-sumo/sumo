@@ -186,7 +186,7 @@ public:
     /// @}
 
     /// @brief draw name of item
-    void drawName(const Position& pos, const double scale, const GUIVisualizationTextSettings& settings, const double angle = 0) const;
+    void drawName(const Position& pos, const double scale, const GUIVisualizationTextSettings& settings, const double angle = 0, bool forceShow = false) const;
 
 protected:
     /// @name helper methods for building popup-menus

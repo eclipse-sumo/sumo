@@ -253,7 +253,7 @@ GNELane::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*
 void
 GNELane::drawLinkNo(const GUIVisualizationSettings& s) const {
     // first check that drawLinkJunctionIndex must be drawn
-    if (s.drawLinkJunctionIndex.show) {
+    if (s.drawLinkJunctionIndex.show(myParentEdge->getToJunction())) {
         // get connections
         const std::vector<NBEdge::Connection>& cons = myParentEdge->getNBEdge()->getConnectionsFromLane(myIndex);
         // get number of links
@@ -290,7 +290,7 @@ GNELane::drawLinkNo(const GUIVisualizationSettings& s) const {
 void
 GNELane::drawTLSLinkNo(const GUIVisualizationSettings& s) const {
     // first check that drawLinkTLIndex must be drawn
-    if (s.drawLinkTLIndex.show) {
+    if (s.drawLinkTLIndex.show(myParentEdge->getToJunction())) {
         // get connections
         const std::vector<NBEdge::Connection>& cons = myParentEdge->getNBEdge()->getConnectionsFromLane(myIndex);
         // get numer of links

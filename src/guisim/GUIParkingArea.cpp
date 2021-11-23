@@ -179,7 +179,7 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         }
     }
     GLHelper::popMatrix();
-    if (s.addFullName.show && getMyName() != "") {
+    if (s.addFullName.show(this) && getMyName() != "") {
         GLHelper::drawTextSettings(s.addFullName, getMyName(), mySignPos, s.scale, s.getTextAngle(mySignRot), GLO_MAX - getType());
     }
     GLHelper::popName();

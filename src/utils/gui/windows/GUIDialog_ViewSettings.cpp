@@ -1548,8 +1548,10 @@ GUIDialog_ViewSettings::NamePanel::NamePanel(
     const std::string& title,
     const GUIVisualizationTextSettings& settings) {
     myCheck = new FXCheckButton(parent, title.c_str(), target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
-    myCheck->setCheck(settings.show);
+    myCheck->setCheck(settings.showText);
     myMatrix0 = new FXMatrix(parent, 2, GUIDesignViewSettingsMatrix5);
+    mySelectedCheck = new FXCheckButton(myMatrix0, "Only for selected", target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    mySelectedCheck->setCheck(settings.onlySelected);
     myConstSizeCheck = new FXCheckButton(myMatrix0, "constant text size", target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
     myConstSizeCheck->setCheck(settings.constSize);
     FXMatrix* m1 = new FXMatrix(parent, 2, GUIDesignViewSettingsMatrix5);
@@ -1571,17 +1573,19 @@ GUIDialog_ViewSettings::NamePanel::getSettings() {
                                         mySizeDial->getValue(),
                                         MFXUtils::getRGBColor(myColorWell->getRGBA()),
                                         MFXUtils::getRGBColor(myBGColorWell->getRGBA()),
-                                        myConstSizeCheck->getCheck() != FALSE);
+                                        myConstSizeCheck->getCheck() != FALSE,
+                                        mySelectedCheck->getCheck() != FALSE);
 }
 
 
 void
 GUIDialog_ViewSettings::NamePanel::update(const GUIVisualizationTextSettings& settings) {
-    myCheck->setCheck(settings.show);
+    myCheck->setCheck(settings.showText);
     mySizeDial->setValue(settings.size);
     myColorWell->setRGBA(MFXUtils::getFXColor(settings.color));
     myBGColorWell->setRGBA(MFXUtils::getFXColor(settings.bgColor));
     myConstSizeCheck->setCheck(settings.constSize);
+    mySelectedCheck->setCheck(settings.onlySelected);
 }
 
 

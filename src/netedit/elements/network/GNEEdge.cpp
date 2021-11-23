@@ -2126,10 +2126,10 @@ GNEEdge::drawEdgeName(const GUIVisualizationSettings& s) const {
     // check  if we can draw it
     if (!s.drawForPositionSelection && !s.drawForRectangleSelection) {
         // draw the name and/or the street name
-        const bool drawStreetName = s.streetName.show && (myNBEdge->getStreetName() != "");
+        const bool drawStreetName = s.streetName.show(this) && (myNBEdge->getStreetName() != "");
         const bool spreadSuperposed = s.spreadSuperposed && myLanes.back()->drawAsRailway(s) && myNBEdge->isBidiRail();
         // check conditions
-        if (s.edgeName.show || drawStreetName || s.edgeValue.show) {
+        if (s.edgeName.show(this) || drawStreetName || s.edgeValue.show(this)) {
             // get first and last lanes
             const GNELane* firstLane = myLanes[0];
             const GNELane* lastLane = myLanes[myLanes.size() - 1];
@@ -2152,7 +2152,7 @@ GNEEdge::drawEdgeName(const GUIVisualizationSettings& s) const {
                 drawAngle -= 180;
             }
             // draw edge name
-            if (s.edgeName.show) {
+            if (s.edgeName.show(this)) {
                 drawName(drawPosition, s.scale, s.edgeName, drawAngle);
             }
             // draw street name
@@ -2160,7 +2160,7 @@ GNEEdge::drawEdgeName(const GUIVisualizationSettings& s) const {
                 GLHelper::drawTextSettings(s.streetName, myNBEdge->getStreetName(), drawPosition, s.scale, drawAngle);
             }
             // draw edge values
-            if (s.edgeValue.show) {
+            if (s.edgeValue.show(this)) {
                 // get current scheme
                 const int activeScheme = s.laneColorer.getActive();
                 // calculate value depending of active scheme

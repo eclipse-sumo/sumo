@@ -425,11 +425,12 @@ GUISettingsHandler::parseTextSettings(
     GUIVisualizationTextSettings defaults) {
     bool ok = true;
     return GUIVisualizationTextSettings(
-               StringUtils::toBool(attrs.getStringSecure(prefix + "_show", toString(defaults.show))),
+               StringUtils::toBool(attrs.getStringSecure(prefix + "_show", toString(defaults.showText))),
                StringUtils::toDouble(attrs.getStringSecure(prefix + "_size", toString(defaults.size))),
                RGBColor::parseColorReporting(attrs.getStringSecure(prefix + "_color", toString(defaults.color)), "textSettings", nullptr, true, ok),
                RGBColor::parseColorReporting(attrs.getStringSecure(prefix + "_bgColor", toString(defaults.bgColor)), "textSettings", nullptr, true, ok),
-               StringUtils::toBool(attrs.getStringSecure(prefix + "_constantSize", toString(defaults.constSize))));
+               StringUtils::toBool(attrs.getStringSecure(prefix + "_constantSize", toString(defaults.constSize))),
+               StringUtils::toBool(attrs.getStringSecure(prefix + "_onlySelected", toString(defaults.onlySelected))));
 }
 
 

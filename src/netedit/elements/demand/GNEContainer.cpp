@@ -399,7 +399,7 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popName();
             // draw name
             drawName(containerPosition, s.scale, s.containerName, s.angle);
-            if (s.personValue.show) {
+            if (s.personValue.show(this)) {
                 Position containerValuePosition = containerPosition + Position(0, 0.6 * s.containerName.scaledSize(s.scale));
                 const double value = getColorValue(s, s.containerColorer.getActive());
                 GLHelper::drawTextSettings(s.personValue, toString(value), containerValuePosition, s.scale, s.angle, GLO_MAX - getType());

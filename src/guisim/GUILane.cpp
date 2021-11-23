@@ -663,10 +663,10 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                             drawArrows();
                         }
                         glTranslated(0, 0, 1000);
-                        if (s.drawLinkJunctionIndex.show) {
+                        if (s.drawLinkJunctionIndex.show(nullptr)) {
                             drawLinkNo(s);
                         }
-                        if (s.drawLinkTLIndex.show) {
+                        if (s.drawLinkTLIndex.show(nullptr)) {
                             drawTLSLinkNo(s, *net);
                         }
                         glTranslated(0, 0, -1000);

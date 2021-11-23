@@ -161,11 +161,11 @@ GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s, const PointO
     if (!s.drawForRectangleSelection) {
         const Position namePos = *POI;
         o->drawName(namePos, s.scale, s.poiName, s.angle);
-        if (s.poiType.show) {
+        if (s.poiType.show(o)) {
             const Position p = namePos + Position(0, -0.6 * s.poiType.size / s.scale);
             GLHelper::drawTextSettings(s.poiType, POI->getShapeType(), p, s.scale, s.angle);
         }
-        if (s.poiText.show) {
+        if (s.poiText.show(o)) {
             GLHelper::pushMatrix();
             glTranslated(POI->x(), POI->y(), 0);
             std::string value = POI->getParameter(s.poiTextParam, "");

@@ -74,6 +74,9 @@ public:
         /// @brief BGColor well
         FXColorWell* myBGColorWell;
 
+        /// @brief draw only for selected?
+        FXCheckButton* mySelectedCheck;
+
         /// @brief const size check
         FXCheckButton* myConstSizeCheck;
 

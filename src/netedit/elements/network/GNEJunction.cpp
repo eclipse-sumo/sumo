@@ -493,7 +493,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             // draw name and ID
             if (!s.drawForRectangleSelection) {
                 drawName(myNBNode->getPosition(), s.scale, s.junctionID);
-                if (s.junctionName.show && myNBNode->getName() != "") {
+                if (s.junctionName.show(this) && myNBNode->getName() != "") {
                     GLHelper::drawTextSettings(s.junctionName, myNBNode->getName(), myNBNode->getPosition(), s.scale, s.angle);
                 }
             }

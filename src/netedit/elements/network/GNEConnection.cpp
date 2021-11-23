@@ -418,7 +418,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             // Pop layer matrix
             GLHelper::popMatrix();
             // check if edge value has to be shown
-            if (s.edgeValue.show) {
+            if (s.edgeValue.show(this)) {
                 NBEdge::Connection& nbCon = getNBEdgeConnection();
                 std::string value = nbCon.getParameter(s.edgeParam, "");
                 if (value != "") {

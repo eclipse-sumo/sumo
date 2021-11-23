@@ -522,7 +522,7 @@ GNEAdditional::isValidDetectorID(const std::string& newID) const {
 
 void
 GNEAdditional::drawAdditionalID(const GUIVisualizationSettings& s) const {
-    if (s.addName.show && (myAdditionalGeometry.getShape().size() > 0) && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
+    if (s.addName.show(this) && (myAdditionalGeometry.getShape().size() > 0) && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
         // calculate middle point
         const double middlePoint = (myAdditionalGeometry.getShape().length2D() * 0.5);
         // calculate position
@@ -541,7 +541,7 @@ GNEAdditional::drawAdditionalID(const GUIVisualizationSettings& s) const {
 
 void
 GNEAdditional::drawAdditionalName(const GUIVisualizationSettings& s) const {
-    if (s.addFullName.show && (myAdditionalGeometry.getShape().size() > 0) && (myAdditionalName != "") && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
+    if (s.addFullName.show(this) && (myAdditionalGeometry.getShape().size() > 0) && (myAdditionalName != "") && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
         // calculate middle point
         const double middlePoint = (myAdditionalGeometry.getShape().length2D() * 0.5);
         // calculate position

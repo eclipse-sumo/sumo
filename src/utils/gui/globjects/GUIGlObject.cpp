@@ -387,8 +387,8 @@ GUIGlObject::createFullName() const {
 
 
 void
-GUIGlObject::drawName(const Position& pos, const double scale, const GUIVisualizationTextSettings& settings, const double angle) const {
-    if (settings.show) {
+GUIGlObject::drawName(const Position& pos, const double scale, const GUIVisualizationTextSettings& settings, const double angle, bool forceShow) const {
+    if (settings.show(this) || forceShow) {
         GLHelper::drawTextSettings(settings, getMicrosimID(), pos, scale, angle);
     }
 }

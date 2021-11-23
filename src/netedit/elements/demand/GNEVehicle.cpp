@@ -675,7 +675,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                     glRotated(vehicleRotation, 0, 0, -1);
                     drawName(Position(0, 0), s.scale, getParentDemandElements().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "pedestrian" ? s.personName : s.vehicleName, s.angle);
                     // draw line
-                    if (s.vehicleName.show && line != "") {
+                    if (s.vehicleName.show(this) && line != "") {
                         glTranslated(0, 0.6 * s.vehicleName.scaledSize(s.scale), 0);
                         GLHelper::drawTextSettings(s.vehicleName, "line:" + line, Position(0, 0), s.scale, s.angle);
                     }

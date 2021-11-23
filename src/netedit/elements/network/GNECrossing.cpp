@@ -242,7 +242,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popName();
         }
         // link indices must be drawn in all edit modes if isn't being drawn for selecting
-        if (s.drawLinkTLIndex.show && !s.drawForRectangleSelection) {
+        if (s.drawLinkTLIndex.show(myParentJunction) && !s.drawForRectangleSelection) {
             drawTLSLinkNo(s, NBCrossing);
         }
         // draw lock icon

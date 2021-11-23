@@ -48,7 +48,7 @@ class GUIGlObject;
 struct GUIVisualizationTextSettings {
 
     /// @brief constructor
-    GUIVisualizationTextSettings(bool _show, double _size, RGBColor _color, RGBColor _bgColor = RGBColor(128, 0, 0, 0), bool _constSize = true);
+    GUIVisualizationTextSettings(bool _show, double _size, RGBColor _color, RGBColor _bgColor = RGBColor(128, 0, 0, 0), bool _constSize = true, bool _onlySelected = false);
 
     /// @brief equality comparator
     bool operator==(const GUIVisualizationTextSettings& other);
@@ -62,8 +62,11 @@ struct GUIVisualizationTextSettings {
     /// @brief get scale size
     double scaledSize(double scale, double constFactor = 0.1) const;
 
+    /// @brief whether to show the text
+    bool show(const GUIGlObject* o) const;
+
     /// @brief flag show
-    bool show;
+    bool showText;
 
     /// @brief text size
     double size;
@@ -76,6 +79,9 @@ struct GUIVisualizationTextSettings {
 
     /// @brif flag to avoid size changes
     bool constSize;
+
+    /// @brief whether only selected objects shall have text drawn
+    bool onlySelected;
 };
 
 
