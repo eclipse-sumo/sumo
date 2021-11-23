@@ -1,2 +1,2 @@
-Error: Attribute 'color' in definition of vType 'color_test' is empty.
+Error: Invalid color definition 'mauve'
 Quitting (on error).
