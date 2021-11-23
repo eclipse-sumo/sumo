@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Oct 13 13:26:26 2020 by Eclipse SUMO sumo Version v1_7_0+0594-1f29e2c600
+<!-- generated on 2021-11-23 12:57:45 by Eclipse SUMO sumo Version v1_11_0+0012-279bcfd
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -45,7 +45,7 @@ SPDX-License-Identifier: EPL-2.0
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="1000.00" id="dump25">
-        <edge id="beg" sampledSeconds="17.98" traveltime="17.98" overlapTraveltime="18.16" density="0.04" laneDensity="0.04" occupancy="0.02" waitingTime="0.00" timeLoss="0.00" speed="27.80" departed="1" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg" sampledSeconds="17.98" traveltime="17.98" overlapTraveltime="18.16" density="0.04" laneDensity="0.04" occupancy="0.02" waitingTime="0.00" timeLoss="0.00" speed="27.80" speedRelative="1.00" departed="1" arrived="0" entered="0" left="1" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="end" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
         <edge id="middle" sampledSeconds="0.00" departed="0" arrived="0" entered="1" left="1" laneChangedFrom="0" laneChangedTo="0" vaporized="1"/>
     </interval>
