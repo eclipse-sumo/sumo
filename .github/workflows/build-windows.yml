@@ -60,6 +60,10 @@ jobs:
           ${{ matrix.build-type }}-${{ github.head_ref }}-
           ${{ matrix.build-type }}-
 
+    # required for CMake to find Ninja
+    - name: "Set up MSVC Developer Command Prompt"
+      uses: seanmiddleditch/gha-setup-vsdevenv@v3
+
     - name: Configuring SUMO plain build
       if: matrix.build-type == 'plain'
       run: |
