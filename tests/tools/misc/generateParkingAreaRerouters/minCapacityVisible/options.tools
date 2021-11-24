@@ -1,0 +1,6 @@
+-n net.net.xml -a input_additional.add.xml -o out.add.xml 
+--max-number-alternatives 2
+--max-distance-alternatives 1000
+--max-distance-visibility 10
+--min-capacity-visibility-true 10
+tools/generateParkingAreaRerouters.py

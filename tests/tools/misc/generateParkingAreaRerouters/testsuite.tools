@@ -9,3 +9,10 @@ minCapacity
 
 # handle multiple parkingAreas on the same edge
 sameEdge
+
+# distibute alternatives over a larger area
+distribute
+minCapacityVisible
+
+# parking areas that are visible should be preferred as alternatives
+visible_preferredAlternative
