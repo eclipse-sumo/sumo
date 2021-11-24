@@ -115,6 +115,10 @@ The following extensions are managed and supported by other parties.
 - [SumoNetVis](https://pypi.org/project/SumoNetVis/)
 
     A python library to render Sumo network files and trajectories with matplotlib or as an OBJ file.
+    
+- [SESAM](https://sesam.co4e.com)
+
+    SUMO as a cloud service to build, run and analyze simulation scenarios, developed by the DLR spin-off company co4e GmbH
 
 # Purgatory
 
