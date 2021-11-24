@@ -20,13 +20,16 @@ jobs:
     strategy:
       matrix:
         build-type: [plain]
-        python: [3.5, 3.6, 3.7, 3.8, 3.9]
+        python: [3.5, 3.6, 3.7, 3.8, 3.9, 3.10]
         include:
           - build-type: extra
             python: 3.8
           - build-type: wheel
             python: 3.8
 
+    env:
+      CC: cl
+      CXX: cl
     steps:
     - name: Cloning SUMO
       uses: actions/checkout@v2
