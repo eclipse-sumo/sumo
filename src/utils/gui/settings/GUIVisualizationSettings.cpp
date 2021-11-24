@@ -828,6 +828,12 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme = GUIColorScheme("by thread index", RGBColor(204, 204, 204));
     scheme.addColor(RGBColor::RED, (double)1);
     laneColorer.addScheme(scheme);
+    scheme = GUIColorScheme("free parking spaces", RGBColor(204, 204, 204), "", false, 0, COL_SCHEME_DYNAMIC);
+    scheme.addColor(RGBColor::RED, (double)1);
+    scheme.addColor(RGBColor::YELLOW, (double)10);
+    scheme.addColor(RGBColor::GREEN, (double)100);
+    scheme.addColor(RGBColor::BLUE, (double)1000);
+    laneColorer.addScheme(scheme);
 
     /// add vehicle coloring schemes
     vehicleColorer.addScheme(GUIColorScheme("given vehicle/type/route color", RGBColor::YELLOW, "", true));

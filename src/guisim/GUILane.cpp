@@ -45,6 +45,7 @@
 #include <microsim/MSVehicleTransfer.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdgeWeightsStorage.h>
+#include <microsim/MSParkingArea.h>
 #include <microsim/devices/MSDevice_Routing.h>
 #include <mesosim/MELoop.h>
 #include <mesosim/MESegment.h>
@@ -79,6 +80,7 @@ GUILane::GUILane(const std::string& id, double maxSpeed, double length,
                  const std::string& type) :
     MSLane(id, maxSpeed, length, edge, numericalID, shape, width, permissions, changeLeft, changeRight, index, isRampAccel, type),
     GUIGlObject(GLO_LANE, id),
+    myParkingAreas(nullptr),
 #ifdef HAVE_OSG
     myGeom(0),
 #endif
@@ -110,6 +112,7 @@ GUILane::~GUILane() {
     if (myLock.locked()) {
         myLock.unlock();
     }
+    delete myParkingAreas;
 }
 
 
@@ -1337,6 +1340,22 @@ GUILane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
         }
         case 37: {
             return myRNGIndex % MSGlobals::gNumSimThreads;
+        }
+        case 38: {
+            if (myParkingAreas == nullptr) {
+                // init
+                myParkingAreas = new std::vector<MSParkingArea*>();
+                for (auto& item : MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_PARKING_AREA)) {
+                    if (&item.second->getLane() == this) {
+                        myParkingAreas->push_back(dynamic_cast<MSParkingArea*>(item.second));
+                    }
+                }
+            }
+            int capacity = 0;
+            for (MSParkingArea* pa : *myParkingAreas) {
+                capacity += pa->getCapacity() - pa->getOccupancy();
+            }
+            return capacity;
         }
     }
     return 0;

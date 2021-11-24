@@ -363,6 +363,9 @@ private:
     /// @brief the time distance from a particular edge
     double myReachability;
 
+    /// @brief list of parkingAreas on this lane
+    mutable std::vector<MSParkingArea*>* myParkingAreas;
+
 #ifdef HAVE_OSG
     osg::Geometry* myGeom;
 #endif
