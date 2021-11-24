@@ -1378,7 +1378,7 @@ AdditionalHandler::parseParkingAreaRerouteAttributes(const SUMOSAXAttributes& at
     bool parsedOk = true;
     // needed attributes
     const std::string parkingAreaID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
-    const double probability = attrs.get<double>(SUMO_ATTR_PROB, "", parsedOk);
+    const double probability = attrs.getOpt<double>(SUMO_ATTR_PROB, "", parsedOk, 1);
     // optional attributes
     const bool visible = attrs.getOpt<bool>(SUMO_ATTR_VISIBLE, "", parsedOk, false);
     // check parent
@@ -1405,7 +1405,7 @@ AdditionalHandler::parseRouteProbRerouteAttributes(const SUMOSAXAttributes& attr
     bool parsedOk = true;
     // needed attributes
     const std::string routeID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
-    const double probability = attrs.get<double>(SUMO_ATTR_PROB, "", parsedOk);
+    const double probability = attrs.getOpt<double>(SUMO_ATTR_PROB, "", parsedOk, 1);
     // check parent
     checkParent(SUMO_TAG_ROUTE_PROB_REROUTE, {SUMO_TAG_INTERVAL}, parsedOk);
     // continue if flag is ok
