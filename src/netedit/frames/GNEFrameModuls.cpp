@@ -25,6 +25,34 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Children.h>
+#include <netedit/elements/additional/GNEAccess.h>
+#include <netedit/elements/additional/GNEBusStop.h>
+#include <netedit/elements/additional/GNECalibrator.h>
+#include <netedit/elements/additional/GNECalibratorFlow.h>
+#include <netedit/elements/additional/GNEChargingStation.h>
+#include <netedit/elements/additional/GNEClosingLaneReroute.h>
+#include <netedit/elements/additional/GNEClosingReroute.h>
+#include <netedit/elements/additional/GNEContainerStop.h>
+#include <netedit/elements/additional/GNEDestProbReroute.h>
+#include <netedit/elements/additional/GNEDetectorE1.h>
+#include <netedit/elements/additional/GNEDetectorE1Instant.h>
+#include <netedit/elements/additional/GNEDetectorE2.h>
+#include <netedit/elements/additional/GNEDetectorE3.h>
+#include <netedit/elements/additional/GNEDetectorEntryExit.h>
+#include <netedit/elements/additional/GNEPOI.h>
+#include <netedit/elements/additional/GNEParkingArea.h>
+#include <netedit/elements/additional/GNEParkingAreaReroute.h>
+#include <netedit/elements/additional/GNEParkingSpace.h>
+#include <netedit/elements/additional/GNEPoly.h>
+#include <netedit/elements/additional/GNERerouter.h>
+#include <netedit/elements/additional/GNERerouterInterval.h>
+#include <netedit/elements/additional/GNERouteProbReroute.h>
+#include <netedit/elements/additional/GNERouteProbe.h>
+#include <netedit/elements/additional/GNETAZ.h>
+#include <netedit/elements/additional/GNETAZSourceSink.h>
+#include <netedit/elements/additional/GNEVaporizer.h>
+#include <netedit/elements/additional/GNEVariableSpeedSign.h>
+#include <netedit/elements/additional/GNEVariableSpeedSignStep.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
@@ -34,8 +62,6 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-
-#include <netedit/elements/additional/GNEBusStop.h>
 
 #include "GNEFrameModuls.h"
 
@@ -287,6 +313,95 @@ GNEFrameModuls::TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagPro
         case SUMO_TAG_BUS_STOP:
         case SUMO_TAG_TRAIN_STOP:
             myAC = new GNEBusStop(tagProperty.getTag(), net);
+            break;
+        case SUMO_TAG_ACCESS:
+            myAC = new GNEAccess(net);
+            break;
+        case SUMO_TAG_CONTAINER_STOP:
+            myAC = new GNEContainerStop(net);
+            break;
+        case SUMO_TAG_CHARGING_STATION:
+            myAC = new GNEChargingStation(net);
+            break;
+        case SUMO_TAG_PARKING_AREA:
+            myAC = new GNEParkingArea(net);
+            break;
+        case SUMO_TAG_PARKING_SPACE:
+            myAC = new GNEParkingSpace(net);
+            break;
+        case SUMO_TAG_E1DETECTOR:
+            myAC = new GNEDetectorE1(net);
+            break;
+        case SUMO_TAG_E2DETECTOR:
+        case GNE_TAG_E2DETECTOR_MULTILANE:
+            myAC = new GNEDetectorE2(tagProperty.getTag(), net);
+            break;
+        case SUMO_TAG_E3DETECTOR:
+            myAC = new GNEDetectorE3(net);
+            break;
+        case SUMO_TAG_DET_ENTRY:
+        case SUMO_TAG_DET_EXIT:
+            myAC = new GNEDetectorEntryExit(tagProperty.getTag(), net);
+            break;
+        case SUMO_TAG_INSTANT_INDUCTION_LOOP:
+            myAC = new GNEDetectorE1Instant(net);
+            break;
+        case SUMO_TAG_VSS:
+            myAC = new GNEVariableSpeedSign(net);
+            break;
+        case SUMO_TAG_STEP:
+            myAC = new GNEVariableSpeedSignStep(net);
+            break;
+        case SUMO_TAG_CALIBRATOR:
+        case SUMO_TAG_LANECALIBRATOR:
+            myAC = new GNECalibrator(tagProperty.getTag(), net);
+            break;
+        case GNE_TAG_FLOW_CALIBRATOR:
+            myAC = new GNECalibratorFlow(net);
+            break;
+        case SUMO_TAG_REROUTER:
+            myAC = new GNERerouter(net);
+            break;
+        case SUMO_TAG_INTERVAL:
+            myAC = new GNERerouterInterval(net);
+            break;
+        case SUMO_TAG_CLOSING_REROUTE:
+            myAC = new GNEClosingReroute(net);
+            break;
+        case SUMO_TAG_CLOSING_LANE_REROUTE:
+            myAC = new GNEClosingLaneReroute(net);
+            break;
+        case SUMO_TAG_DEST_PROB_REROUTE:
+            myAC = new GNEDestProbReroute(net);
+            break;
+        case SUMO_TAG_PARKING_AREA_REROUTE:
+            myAC = new GNEParkingAreaReroute(net);
+            break;
+        case SUMO_TAG_ROUTE_PROB_REROUTE:
+            myAC = new GNERouteProbReroute(net);
+            break;
+        case SUMO_TAG_ROUTEPROBE:
+            myAC = new GNERouteProbe(net);
+            break;
+        case SUMO_TAG_VAPORIZER:
+            myAC = new GNEVaporizer(net);
+            break;
+        // shapes
+        case SUMO_TAG_POLY:
+            myAC = new GNEPoly(net);
+            break;
+        case SUMO_TAG_POI:
+        case GNE_TAG_POILANE:
+        case GNE_TAG_POIGEO:
+            myAC = new GNEPOI(tagProperty.getTag(), net);
+            break;
+        // TAZs
+        case SUMO_TAG_TAZ:
+            myAC = new GNETAZ(net);
+            break;
+        case SUMO_TAG_TAZSOURCE:
+        case SUMO_TAG_TAZSINK:
+            myAC = new GNETAZSourceSink(tagProperty.getTag(), net);
             break;
         default:
             break;
