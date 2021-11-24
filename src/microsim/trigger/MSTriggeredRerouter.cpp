@@ -882,11 +882,8 @@ MSTriggeredRerouter::addParkValues(const SUMOVehicle& veh, double brakeGap, bool
 
     // Compute the route from the current edge to the parking area edge
     ConstMSEdgeVector edgesToPark;
-    if (veh.getEdge() == parkEdge && pa->getLastFreePos(veh) < veh.getPositionOnLane()) {
-        router.computeLooped(veh.getEdge(), parkEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edgesToPark, true);
-    } else {
-        router.compute(veh.getEdge(), parkEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edgesToPark, true);
-    }
+    const double parkPos = pa->getLastFreePos(veh);
+    router.compute(veh.getEdge(), veh.getPositionOnLane(), parkEdge, parkPos, &veh, MSNet::getInstance()->getCurrentTimeStep(), edgesToPark, true);
 
     if (edgesToPark.size() > 0) {
         // Compute the route from the parking area edge to the end of the route
@@ -904,11 +901,7 @@ MSTriggeredRerouter::addParkValues(const SUMOVehicle& veh, double brakeGap, bool
                 nextPos = stopIndices[1].second;
 
             }
-            if (parkEdge == nextDestination && nextPos < pa->getLastFreePos(veh)) {
-                router.computeLooped(parkEdge, nextDestination, &veh, MSNet::getInstance()->getCurrentTimeStep(), edgesFromPark, true);
-            } else {
-                router.compute(parkEdge, nextDestination, &veh, MSNet::getInstance()->getCurrentTimeStep(), edgesFromPark, true);
-            }
+            router.compute(parkEdge, parkPos, nextDestination, nextPos,  &veh, MSNet::getInstance()->getCurrentTimeStep(), edgesFromPark, true);
         }
 
         if (edgesFromPark.size() > 0 || newDestination) {
