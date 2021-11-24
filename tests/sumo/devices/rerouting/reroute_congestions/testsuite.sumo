@@ -1,6 +1,9 @@
 # all vehicles have the device due to trip def and reroute every 120s
 period_120
 
+# all vehicles have the device due to trip def and reroute every 120s
+period_vType
+
 # vehicles should not reroute repeatedly while waiting for insertion
 delayed_insertion
 
