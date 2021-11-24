@@ -831,9 +831,14 @@ public:
     static MSLane* interpretOppositeStop(SUMOVehicleParameter::Stop& stop);
 
     void rememberBlockedParkingArea(const MSParkingArea* pa);
+
+    /// @brief score only needed when running with gui
+    void resetParkingAreaScores();
+    void rememberParkingAreaScore(const MSParkingArea* pa, const std::string& score); 
+
     SUMOTime sawBlockedParkingArea(const MSParkingArea* pa);
 
-    typedef std::map<const MSParkingArea*, SUMOTime> ParkingMemory;
+    typedef std::map<const MSParkingArea*, std::pair<SUMOTime, std::string> > ParkingMemory;
     const ParkingMemory* getParkingMemory() const {
         return myParkingMemory;
     }

@@ -364,6 +364,8 @@ public:
     virtual double getLength() const = 0;
 
     virtual void rememberBlockedParkingArea(const MSParkingArea* pa) = 0;
+    virtual void resetParkingAreaScores() = 0;
+    virtual void rememberParkingAreaScore(const MSParkingArea* pa, const std::string& score) = 0;
     virtual SUMOTime sawBlockedParkingArea(const MSParkingArea* pa) = 0;
     /// @name state io
     //@{

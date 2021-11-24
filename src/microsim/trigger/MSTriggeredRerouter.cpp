@@ -647,6 +647,8 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
         return nullptr;
     }
     if (destParkArea->getLastStepOccupancy() == destParkArea->getCapacity()) {
+        veh.resetParkingAreaScores();
+        veh.rememberParkingAreaScore(destParkArea, "occupied");
         veh.rememberBlockedParkingArea(destParkArea);
         // if the current route ends at the parking area, the new route will
         // also and at the new area
@@ -827,6 +829,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
             for (ParkingParamMap_t::iterator pc = parkValues.begin(); pc != parkValues.end(); ++pc) {
                 parkingCost += weights[pc->first] * pc->second;
             }
+            veh.rememberParkingAreaScore(it->first, toString(parkingCost));
 
             // get the parking area with minimum cost
             if (nearParkArea == nullptr || parkingCost < minParkingCost) {

@@ -1814,8 +1814,29 @@ MSBaseVehicle::rememberBlockedParkingArea(const MSParkingArea* pa) {
     if (myParkingMemory == nullptr) {
         myParkingMemory = new ParkingMemory();
     }
-    (*myParkingMemory)[pa] = SIMSTEP;
+    (*myParkingMemory)[pa].first = SIMSTEP;
 }
+
+void
+MSBaseVehicle::resetParkingAreaScores() {
+    if (myParkingMemory != nullptr) {
+        for (auto& item : *myParkingMemory) {
+            item.second.second = "";
+        }
+    }
+}
+
+void
+MSBaseVehicle::rememberParkingAreaScore(const MSParkingArea* pa, const std::string& score) {
+    if (myParkingMemory == nullptr) {
+        myParkingMemory = new ParkingMemory();
+    }
+    if (myParkingMemory->find(pa) == myParkingMemory->end()) {
+        (*myParkingMemory)[pa].first = -1;
+    }
+    (*myParkingMemory)[pa].second = score;
+}
+
 
 SUMOTime
 MSBaseVehicle::sawBlockedParkingArea(const MSParkingArea* pa) {
@@ -1826,7 +1847,7 @@ MSBaseVehicle::sawBlockedParkingArea(const MSParkingArea* pa) {
     if (it == myParkingMemory->end()) {
         return -1;
     } else {
-        return it->second;
+        return it->second.first;
     }
 }
 
