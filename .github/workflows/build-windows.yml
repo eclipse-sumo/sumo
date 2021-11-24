@@ -97,7 +97,7 @@ jobs:
         cmake --build . --config Release
 
     - name: "Print compiler cache stats"
-      run: sumolibraries\sccache*\sccache -s
+      run: sumolibraries/sccache*/sccache -s
 
     - name: Building SUMO Wheels
       if: matrix.build-type == 'wheel'
