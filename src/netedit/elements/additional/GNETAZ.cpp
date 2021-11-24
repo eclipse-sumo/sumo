@@ -46,19 +46,35 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 // member method definitions
 // ===========================================================================
 
+GNETAZ::GNETAZ(GNENet* net) :
+    GNETAZElement("", net, GLO_TAZ, SUMO_TAG_TAZ,
+        {}, {}, {}, {}, {}, {}, {}, {},
+    std::map<std::string, std::string>()),
+    SUMOPolygon("", "", RGBColor::BLACK, {}, false, false, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, ""),
+    myMaxWeightSource(0),
+    myMinWeightSource(0),
+    myAverageWeightSource(0),
+    myMaxWeightSink(0),
+    myMinWeightSink(0),
+    myAverageWeightSink(0) {
+    // reset default values
+    resetDefaultValues();
+}
+
+
 GNETAZ::GNETAZ(const std::string& id, GNENet* net, const PositionVector& shape, const Position& center, const bool fill,
                const RGBColor& color, const std::string& name, const std::map<std::string, std::string>& parameters) :
     GNETAZElement(id, net, GLO_TAZ, SUMO_TAG_TAZ,
-{}, {}, {}, {}, {}, {}, {}, {},
-parameters),
-SUMOPolygon(id, "", color, shape, false, fill, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, name),
-myTAZCenter(center),
-myMaxWeightSource(0),
-myMinWeightSource(0),
-myAverageWeightSource(0),
-myMaxWeightSink(0),
-myMinWeightSink(0),
-myAverageWeightSink(0) {
+        {}, {}, {}, {}, {}, {}, {}, {},
+    parameters),
+    SUMOPolygon(id, "", color, shape, false, fill, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, name),
+    myTAZCenter(center),
+    myMaxWeightSource(0),
+    myMinWeightSource(0),
+    myAverageWeightSource(0),
+    myMaxWeightSink(0),
+    myMinWeightSink(0),
+    myAverageWeightSink(0) {
     // update geometry
     updateGeometry();
 }

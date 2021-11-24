@@ -37,6 +37,9 @@ public:
     /// @brief needed to avoid diamond Problem between GUIPolygon and GNETAZElement
     using GNETAZElement::getID;
 
+    /// @default GNETAZ Constructor
+    GNETAZ(GNENet* net);
+
     /**@brief GNETAZ Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] net pointer to GNENet of this additional element belongs
