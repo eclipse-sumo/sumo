@@ -1354,7 +1354,7 @@ AdditionalHandler::parseDestProbRerouteAttributes(const SUMOSAXAttributes& attrs
     bool parsedOk = true;
     // needed attributes
     const std::string edgeID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
-    const double probability = attrs.get<double>(SUMO_ATTR_PROB, "", parsedOk);
+    const double probability = attrs.getOpt<double>(SUMO_ATTR_PROB, "", parsedOk, 1);
     // check parent
     checkParent(SUMO_TAG_DEST_PROB_REROUTE, {SUMO_TAG_INTERVAL}, parsedOk);
     // continue if flag is ok
