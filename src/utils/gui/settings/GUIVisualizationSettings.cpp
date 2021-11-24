@@ -528,6 +528,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     showBTRange(false),
     showRouteIndex(false),
     scaleLength(true),
+    showParkingInfo(false),
     vehicleSize(1),
     vehicleName(false, 60, RGBColor(204, 153, 0, 255)),
     vehicleValue(false, 80, RGBColor::CYAN),
@@ -1613,6 +1614,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("showBTRange", showBTRange);
     dev.writeAttr("showRouteIndex", showRouteIndex);
     dev.writeAttr("scaleLength", scaleLength);
+    dev.writeAttr("showParkingInfo", showParkingInfo);
     dev.lf();
     dev << "                 ";
     vehicleName.print(dev, "vehicleName");
@@ -1900,6 +1902,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (scaleLength != v2.scaleLength) {
+        return false;
+    }
+    if (showParkingInfo != v2.showParkingInfo) {
         return false;
     }
     if (vehicleName != v2.vehicleName) {

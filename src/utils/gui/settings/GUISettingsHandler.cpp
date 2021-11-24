@@ -233,6 +233,7 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             mySettings.showBTRange = StringUtils::toBool(attrs.getStringSecure("showBTRange", toString(mySettings.showBTRange)));
             mySettings.showRouteIndex = StringUtils::toBool(attrs.getStringSecure("showRouteIndex", toString(mySettings.showRouteIndex)));
             mySettings.scaleLength = StringUtils::toBool(attrs.getStringSecure("scaleLength", toString(mySettings.scaleLength)));
+            mySettings.showParkingInfo = StringUtils::toBool(attrs.getStringSecure("showParkingInfo", toString(mySettings.showParkingInfo)));
             mySettings.vehicleSize = parseSizeSettings("vehicle", attrs, mySettings.vehicleSize);
             mySettings.vehicleName = parseTextSettings("vehicleName", attrs, mySettings.vehicleName);
             mySettings.vehicleValue = parseTextSettings("vehicleValue", attrs, mySettings.vehicleValue);

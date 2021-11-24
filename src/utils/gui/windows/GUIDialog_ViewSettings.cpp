@@ -296,6 +296,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
     myShowBTRange->setCheck(mySettings->showBTRange);
     myShowRouteIndex->setCheck(mySettings->showRouteIndex);
     myScaleLength->setCheck(mySettings->scaleLength);
+    myShowParkingInfo->setCheck(mySettings->showParkingInfo);
     /*
     myShowLaneChangePreference->setCheck(mySettings->drawLaneChangePreference);
     */
@@ -574,6 +575,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.showBTRange = (myShowBTRange->getCheck() != FALSE);
     tmpSettings.showRouteIndex = (myShowRouteIndex->getCheck() != FALSE);
     tmpSettings.scaleLength = (myScaleLength->getCheck() != FALSE);
+    tmpSettings.showParkingInfo = (myShowParkingInfo->getCheck() != FALSE);
     /*
     tmpSettings.drawLaneChangePreference = (myShowLaneChangePreference->getCheck() != FALSE);
     */
@@ -1864,6 +1866,8 @@ GUIDialog_ViewSettings::buildVehiclesFrame(FXTabBook* tabbook) {
     myShowRouteIndex->setCheck(mySettings->showRouteIndex);
     myScaleLength = new FXCheckButton(matrixShow, "Scale length with geometry", this, MID_SIMPLE_VIEW_COLORCHANGE);
     myScaleLength->setCheck(mySettings->scaleLength);
+    myShowParkingInfo = new FXCheckButton(matrixShow, "Show parking info", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myShowParkingInfo->setCheck(mySettings->showParkingInfo);
     //new FXLabel(matrixShow, " ", nullptr, GUIDesignViewSettingsLabel1);
     //myShowLaneChangePreference = new FXCheckButton(matrixShow, "Show lane change preference", this, MID_SIMPLE_VIEW_COLORCHANGE);
     //myShowLaneChangePreference->setCheck(mySettings->drawLaneChangePreference);

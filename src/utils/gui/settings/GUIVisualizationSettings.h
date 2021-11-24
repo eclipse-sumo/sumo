@@ -754,6 +754,9 @@ public:
     /// @brief Whether vehicle length shall be scaled with length/geometry factor
     bool scaleLength;
 
+    /// @brief Set whether parking related information should be shown
+    bool showParkingInfo;
+
     // Setting bundles for controling the size of the drawn vehicles
     GUIVisualizationSizeSettings vehicleSize;
 
