@@ -1,0 +1,4 @@
+Warning: Vehicle 'EN.2' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=290.00.
+Warning: Teleporting vehicle 'WS.7'; junction collision with vehicle 'WE.3', lane=':C_12_0', gap=-1.00', latGap=0.00, time=668.00 stage=move.
+Warning: Vehicle 'WS.7' ends teleporting on edge 'CS', time 668.00.
+Warning: Vehicle 'WE.3' collision with person 'pSW.25', lane=':C_13_0', time=699.00, stage=laneChange.
