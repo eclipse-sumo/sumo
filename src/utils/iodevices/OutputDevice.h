@@ -146,6 +146,13 @@ public:
      */
     virtual bool ok();
 
+    /** @brief returns the information whether the device will discard all output
+     * @return Whether the device redirects to /dev/null
+     */
+    virtual bool isNull() {
+        return false;
+    }
+
     /// @brief get filename or suitable description of this device
     const std::string& getFilename();
 

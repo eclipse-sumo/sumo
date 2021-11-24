@@ -271,19 +271,31 @@ void
 RONet::openOutput(const OptionsCont& options) {
     if (options.isSet("output-file") && options.getString("output-file") != "") {
         myRoutesOutput = &OutputDevice::getDevice(options.getString("output-file"));
-        myRoutesOutput->writeHeader<ROEdge>(SUMO_TAG_ROUTES);
-        myRoutesOutput->writeAttr("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance").writeAttr("xsi:noNamespaceSchemaLocation", "http://sumo.dlr.de/xsd/routes_file.xsd");
+        if (myRoutesOutput->isNull()) {
+            myRoutesOutput = nullptr;
+        } else {
+            myRoutesOutput->writeHeader<ROEdge>(SUMO_TAG_ROUTES);
+            myRoutesOutput->writeAttr("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance").writeAttr("xsi:noNamespaceSchemaLocation", "http://sumo.dlr.de/xsd/routes_file.xsd");
+        }
     }
     if (options.exists("alternatives-output") && options.isSet("alternatives-output")
             && !(options.exists("write-trips") && options.getBool("write-trips"))) {
         myRouteAlternativesOutput = &OutputDevice::getDevice(options.getString("alternatives-output"));
-        myRouteAlternativesOutput->writeHeader<ROEdge>(SUMO_TAG_ROUTES);
-        myRouteAlternativesOutput->writeAttr("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance").writeAttr("xsi:noNamespaceSchemaLocation", "http://sumo.dlr.de/xsd/routes_file.xsd");
+        if (myRouteAlternativesOutput->isNull()) {
+            myRouteAlternativesOutput = nullptr;
+        } else {
+            myRouteAlternativesOutput->writeHeader<ROEdge>(SUMO_TAG_ROUTES);
+            myRouteAlternativesOutput->writeAttr("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance").writeAttr("xsi:noNamespaceSchemaLocation", "http://sumo.dlr.de/xsd/routes_file.xsd");
+        }
     }
     if (options.isSet("vtype-output")) {
         myTypesOutput = &OutputDevice::getDevice(options.getString("vtype-output"));
-        myTypesOutput->writeHeader<ROEdge>(SUMO_TAG_ROUTES);
-        myTypesOutput->writeAttr("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance").writeAttr("xsi:noNamespaceSchemaLocation", "http://sumo.dlr.de/xsd/routes_file.xsd");
+        if (myTypesOutput->isNull()) {
+            myTypesOutput = nullptr;
+        } else {
+            myTypesOutput->writeHeader<ROEdge>(SUMO_TAG_ROUTES);
+            myTypesOutput->writeAttr("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance").writeAttr("xsi:noNamespaceSchemaLocation", "http://sumo.dlr.de/xsd/routes_file.xsd");
+        }
     }
 }
 
@@ -692,7 +704,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont& options, const RORouterProvider& pr
                 // ok, check whether it has been routed
                 if (r->getRoutingSuccess()) {
                     // write the route
-                    r->write(*myRoutesOutput, myRouteAlternativesOutput, myTypesOutput, options);
+                    r->write(myRoutesOutput, myRouteAlternativesOutput, myTypesOutput, options);
                     myWrittenRouteNo++;
                 } else {
                     myDiscardedRouteNo++;
