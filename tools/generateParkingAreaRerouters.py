@@ -67,6 +67,9 @@ def get_options(cmd_args=None):
         '--opposite-visible', action="store_true", dest='opposite_visible',
         default=False, help="ParkingArea on the opposite side of the road is always visible")
     parser.add_argument(
+        '--prefer-visible', action="store_true", dest='prefer_visible',
+        default=False, help="ParkingAreas which are visible are preferentially")
+    parser.add_argument(
         '--min-capacity', type=int, dest='min_capacity', default=1,
         help='Do no reroute to parkingAreas with less than min-capacity')
     parser.add_argument(
@@ -165,6 +168,7 @@ class ReroutersGeneration(object):
                 'capacity_threshold': self._opt.capacity_threshold,
                 'min_capacity': self._opt.min_capacity,
                 'opposite_visible': self._opt.opposite_visible,
+                'prefer_visible': self._opt.prefer_visible,
             }
             list_parameters.append(parameters)
         for res in pool.imap_unordered(generate_rerouters_process, list_parameters):
@@ -308,12 +312,31 @@ def generate_rerouters_process(parameters):
         sequence = tqdm(distances.items())
     else:
         sequence = distances.items()
+
+
+
+
+
     for pid, dists in sequence:
         list_of_dist = [tuple(reversed(x)) for x in dists.items() if x[1] is not None]
         list_of_dist = sorted(list_of_dist)
         temp_rerouters = [(pid, 0.0)]
+
+        used = set()
+        if parameters['prefer_visible']:
+            for distance, parking in list_of_dist:
+                if isVisible(pid, parking, distance, sumo_net,
+                             parameters['all_parking_areas'],
+                             parameters['dist_threshold'],
+                             parameters['capacity_threshold'],
+                             parameters['opposite_visible']):
+                    temp_rerouters.append((parking, distance))
+                    used.add(parking)
+
         for distance, parking in list_of_dist:
             route = routes[pid][parking]
+            if parking in used:
+                continue
             if parameters['all_parking_areas'][parking].get('capacity') < parameters['min_capacity']:
                 continue
             if len(temp_rerouters) > parameters['num_alternatives']:
