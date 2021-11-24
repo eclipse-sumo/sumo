@@ -51,6 +51,15 @@ jobs:
         python-version: ${{ matrix.python }}
         architecture: x64
 
+    - name: "Set up compiler cache"
+      uses: actions/cache@v2
+      with:
+        path: C:\Users\runneradmin\AppData\Local\Mozilla\sccache\cache
+        key: ${{ matrix.build-type }}-${{ github.head_ref }}-${{ github.run_number }}
+        restore-keys: |
+          ${{ matrix.build-type }}-${{ github.head_ref }}-
+          ${{ matrix.build-type }}-
+
     - name: Configuring SUMO plain build
       if: matrix.build-type == 'plain'
       run: |
@@ -58,7 +67,7 @@ jobs:
         cd sumo
         mkdir build_msvc
         cd build_msvc
-        cmake .. -G"Visual Studio 16 2019" -A x64 -DCHECK_OPTIONAL_LIBS=false
+        cmake .. -GNinja -A x64 -DCHECK_OPTIONAL_LIBS=false
 
     - name: Building libsumo plain
       if: matrix.build-type == 'plain'
@@ -82,6 +91,9 @@ jobs:
         cd build_msvc
         cmake -DFMI=ON .. -G"Visual Studio 16 2019" -A x64 -DCHECK_OPTIONAL_LIBS=true
         cmake --build . --config Release
+
+    - name: "Print compiler cache stats"
+      run: sumolibraries\sccache*\sccache -s
 
     - name: Building SUMO Wheels
       if: matrix.build-type == 'wheel'
