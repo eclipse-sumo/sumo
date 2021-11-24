@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-11-24 13:33:20.042391 by generateParkingAreaRerouters.py v1_11_0+0045-3d546428cd6
+<!-- generated on 2021-11-24 14:29:36.912754 by generateParkingAreaRerouters.py v1_11_0+0048-59b9988292f
 <configuration>
     <min-capacity-visibility-true value="10"/>
     <max-distance-alternatives value="1000.0"/>
@@ -18,8 +18,8 @@
         <interval begin="0.0" end="86400">
             <!-- in order of distance --> 
             <parkingAreaReroute id="pB" visible="true"/> <!-- dist: 0.0 -->
-            <parkingAreaReroute id="pD" visible="true"/> <!-- dist: 253.8 -->
-            <parkingAreaReroute id="pF" visible="true"/> <!-- dist: 478.6 -->
+            <parkingAreaReroute id="pD" visible="true"/> <!-- dist: 212.3 -->
+            <parkingAreaReroute id="pF" visible="true"/> <!-- dist: 441.8 -->
         </interval>
     </rerouter>
 
@@ -27,8 +27,8 @@
         <interval begin="0.0" end="86400">
             <!-- in order of distance --> 
             <parkingAreaReroute id="pC" visible="true"/> <!-- dist: 0.0 -->
-            <parkingAreaReroute id="pD" visible="true"/> <!-- dist: 170.2 -->
-            <parkingAreaReroute id="pF" visible="true"/> <!-- dist: 733.4 -->
+            <parkingAreaReroute id="pD" visible="true"/> <!-- dist: 128.7 -->
+            <parkingAreaReroute id="pF" visible="true"/> <!-- dist: 696.6 -->
         </interval>
     </rerouter>
 
@@ -36,8 +36,8 @@
         <interval begin="0.0" end="86400">
             <!-- in order of distance --> 
             <parkingAreaReroute id="pD" visible="true"/> <!-- dist: 0.0 -->
-            <parkingAreaReroute id="pF" visible="true"/> <!-- dist: 648.8 -->
-            <parkingAreaReroute id="pE" visible="false"/> <!-- dist: 170.2 -->
+            <parkingAreaReroute id="pF" visible="true"/> <!-- dist: 612.0 -->
+            <parkingAreaReroute id="pE" visible="false"/> <!-- dist: 126.0 -->
         </interval>
     </rerouter>
 
@@ -45,8 +45,8 @@
         <interval begin="0.0" end="86400">
             <!-- in order of distance --> 
             <parkingAreaReroute id="pE" visible="true"/> <!-- dist: 0.0 -->
-            <parkingAreaReroute id="pD" visible="true"/> <!-- dist: 338.4 -->
-            <parkingAreaReroute id="pF" visible="true"/> <!-- dist: 563.2 -->
+            <parkingAreaReroute id="pD" visible="true"/> <!-- dist: 296.9 -->
+            <parkingAreaReroute id="pF" visible="true"/> <!-- dist: 526.4 -->
         </interval>
     </rerouter>
 </additional>

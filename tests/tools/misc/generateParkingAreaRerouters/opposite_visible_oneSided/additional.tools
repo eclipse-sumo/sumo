@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-11-17 14:34:57.599321 by generateParkingAreaRerouters.py v1_10_0+2370-63b2175
+<!-- generated on 2021-11-24 14:30:03.488994 by generateParkingAreaRerouters.py v1_11_0+0048-59b9988292f
 <configuration>
     <min-capacity-visibility-true value="50"/>
     <max-distance-alternatives value="1000.0"/>
@@ -18,8 +18,8 @@
         <interval begin="0.0" end="86400">
             <!-- in order of distance --> 
             <parkingAreaReroute id="parking_-c" visible="true"/> <!-- dist: 0.0 -->
-            <parkingAreaReroute id="parking_b" visible="false"/> <!-- dist: 250.0 -->
-            <parkingAreaReroute id="parking_a" visible="false"/> <!-- dist: 800.0 -->
+            <parkingAreaReroute id="parking_b" visible="false"/> <!-- dist: 206.0 -->
+            <parkingAreaReroute id="parking_a" visible="false"/> <!-- dist: 506.0 -->
         </interval>
     </rerouter>
 
@@ -27,8 +27,8 @@
         <interval begin="0.0" end="86400">
             <!-- in order of distance --> 
             <parkingAreaReroute id="parking_a" visible="true"/> <!-- dist: 0.0 -->
-            <parkingAreaReroute id="parking_b" visible="false"/> <!-- dist: 350.0 -->
-            <parkingAreaReroute id="parking_-c" visible="false"/> <!-- dist: 650.0 -->
+            <parkingAreaReroute id="parking_b" visible="false"/> <!-- dist: 306.0 -->
+            <parkingAreaReroute id="parking_-c" visible="false"/> <!-- dist: 506.0 -->
         </interval>
     </rerouter>
 
@@ -36,8 +36,8 @@
         <interval begin="0.0" end="86400">
             <!-- in order of distance --> 
             <parkingAreaReroute id="parking_b" visible="true"/> <!-- dist: 0.0 -->
-            <parkingAreaReroute id="parking_-c" visible="false"/> <!-- dist: 350.0 -->
-            <parkingAreaReroute id="parking_a" visible="false"/> <!-- dist: 700.0 -->
+            <parkingAreaReroute id="parking_-c" visible="false"/> <!-- dist: 206.0 -->
+            <parkingAreaReroute id="parking_a" visible="false"/> <!-- dist: 406.0 -->
         </interval>
     </rerouter>
 </additional>
