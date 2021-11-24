@@ -289,7 +289,7 @@ def generate_rerouters_process(parameters):
         for parking_b in candidates:
             if parking_a['id'] == parking_b['id']:
                 continue
-            toPos = float(parking_b['endPos'])
+            toPos = float(parking_b['startPos'])
             route, cost = _cached_get_shortest_path(from_edge,
                                                     sumo_net.getEdge(parking_b['edge']),
                                                     fromPos, toPos)

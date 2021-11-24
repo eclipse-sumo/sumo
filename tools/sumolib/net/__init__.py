@@ -174,6 +174,8 @@ class Net:
         self._proj = None
         self.hasWarnedAboutMissingRTree = False
         self.hasInternal = False
+        # store dijsktra heap for reuse if the same origin is used repeatedly
+        self._shortestPathCache = None
 
     def setLocation(self, netOffset, convBoundary, origBoundary, projParameter):
         self._location["netOffset"] = netOffset
@@ -545,9 +547,10 @@ class Net:
             if e1 == toEdge:
                 if self.hasInternal:
                     return path + appendix, cost + appendixCost
-                if includeFromToCost:
+                if includeFromToCost and toPos == 0:
+                    # assume toPos=0 is the default value
                     return path, cost
-                return path, cost - toEdge.getLength()
+                return path, cost - toEdge.getLength() + toPos
             if cost > maxCost:
                 return None, cost
 
