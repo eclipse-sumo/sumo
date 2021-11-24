@@ -107,6 +107,16 @@ GNEAttributeCarrier::drawUsingSelectColor() const {
 }
 
 
+void 
+GNEAttributeCarrier::resetDefaultValues() {
+    for (const auto &attrProperty: myTagProperty) {
+        if (attrProperty.hasStaticDefaultValue()) {
+            setAttribute(attrProperty.getAttr(), attrProperty.getDefaultValue());
+        }
+    }
+}
+
+
 template<> int
 GNEAttributeCarrier::parse(const std::string& string) {
     return StringUtils::toInt(string);
@@ -2259,7 +2269,7 @@ GNEAttributeCarrier::fillAdditionals() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_LANES,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
                                               "List of Variable Speed Sign lanes");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -2448,12 +2458,14 @@ GNEAttributeCarrier::fillAdditionals() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_VEHSPERHOUR,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL | GNEAttributeProperties::ACTIVATABLE,
-                                              "Number of " + toString(currentTag) + "s per hour, equally spaced");
+                                              "Number of " + toString(currentTag) + "s per hour, equally spaced",
+                                              "0.0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_SPEED,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL | GNEAttributeProperties::ACTIVATABLE,
-                                              "Speed of " + toString(currentTag) + "s");
+                                              "Speed of " + toString(currentTag) + "s",
+                                              "0.0");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_REROUTER;
