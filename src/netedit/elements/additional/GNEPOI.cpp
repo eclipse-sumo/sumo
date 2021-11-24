@@ -40,14 +40,20 @@
 // method definitions
 // ===========================================================================
 
+GNEPOI::GNEPOI(SumoXMLTag tag, GNENet* net) :
+    PointOfInterest("", "", RGBColor::BLACK, Position(0, 0), false, "", 0, false, 0, 0, 0, "", false, 0, 0, "", std::map<std::string, std::string>()),
+    GNEShape("", net, GLO_POI, tag, {}, {}, {}, {}, {}, {}, {}, {}) {
+    // reset default values
+    resetDefaultValues();
+}
+
+
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color, const double xLon,
                const double yLat, const bool geo, const double layer, const double angle, const std::string& imgFile,
                const bool relativePath, const double width, const double height, const std::string& name,
                const std::map<std::string, std::string>& parameters) :
     PointOfInterest(id, type, color, Position(xLon, yLat), geo, "", 0, false, 0, layer, angle, imgFile, relativePath, width, height, name, parameters),
-    GNEShape(id, net, GLO_POI, geo ? GNE_TAG_POIGEO : SUMO_TAG_POI,
-{}, {}, {}, {}, {}, {}, {}, {}
-        ) {
+    GNEShape(id, net, GLO_POI, geo ? GNE_TAG_POIGEO : SUMO_TAG_POI, {}, {}, {}, {}, {}, {}, {}, {}) {
     // update position depending of GEO
     if (geo) {
         Position cartesian(x(), y());
@@ -64,8 +70,8 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
                const double height, const std::string& name, const std::map<std::string, std::string>& parameters) :
     PointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, friendlyPos, posLat, layer, angle, imgFile, relativePath, width, height, name, parameters),
     GNEShape(id, net, GLO_POI, GNE_TAG_POILANE,
-{}, {}, {lane}, {}, {}, {}, {}, {}
-        ) {
+        {}, {}, {lane}, {}, {}, {}, {}, {}
+    ) {
     // update geometry (needed for POILanes)
     updateGeometry();
     // update centering boundary without updating grid
@@ -603,12 +609,16 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_IMGFILE:
             // first remove object from grid due img file affect to boundary
-            myNet->removeGLObjectFromGrid(this);
+            if (getID().size() > 0) {
+                myNet->removeGLObjectFromGrid(this);
+            }
             setShapeImgFile(value);
             // all textures must be refresh
             GUITexturesHelper::clearTextures();
             // add object into grid again
-            myNet->addGLObjectIntoGrid(this);
+            if (getID().size() > 0) {
+                myNet->addGLObjectIntoGrid(this);
+            }
             break;
         case SUMO_ATTR_RELATIVEPATH:
             setShapeRelativePath(parse<bool>(value));
@@ -616,18 +626,20 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_WIDTH:
             // set new width
             setWidth(parse<double>(value));
-            // update centering boundary
-            updateCenteringBoundary(true);
-            // update geometry
-            updateGeometry();
+            // update centering boundary and geometry (except for templates)
+            if (getID().size() > 0) {
+                updateCenteringBoundary(true);
+                updateGeometry();
+            }
             break;
         case SUMO_ATTR_HEIGHT:
             // set new height
             setHeight(parse<double>(value));
-            // update centering boundary
-            updateCenteringBoundary(true);
-            // update geometry
-            updateGeometry();
+            // update centering boundary and geometry (except for templates)
+            if (getID().size() > 0) {
+                updateCenteringBoundary(true);
+                updateGeometry();
+            }
             break;
         case SUMO_ATTR_ANGLE:
             setShapeNaviDegree(parse<double>(value));

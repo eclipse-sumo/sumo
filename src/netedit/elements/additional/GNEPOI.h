@@ -46,7 +46,10 @@ public:
     /// @brief needed to avoid diamond problem between PointOfInterest and GNEShape
     using GNEShape::getID;
 
-    /** @brief Constructor
+    /// @brief Constructor
+    GNEPOI(SumoXMLTag tag, GNENet* net);
+
+    /**@brief Constructor
      * @param[in] net net in which this polygon is placed
      * @param[in] id The name of the POI
      * @param[in] type The (abstract) type of the POI
@@ -68,7 +71,7 @@ public:
            const bool relativePath, const double width, const double height, const std::string& name,
            const std::map<std::string, std::string>& parameters);
 
-    /** @brief Constructor
+    /**@brief Constructor
      * @param[in] net net in which this polygon is placed
      * @param[in] id The name of the POI
      * @param[in] type The (abstract) type of the POI

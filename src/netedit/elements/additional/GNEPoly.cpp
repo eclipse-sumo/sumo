@@ -38,13 +38,22 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
+GNEPoly::GNEPoly(GNENet* net) :
+    SUMOPolygon("", "", RGBColor::BLACK, {}, false, false, 0, 0, 0, "", false, "", std::map<std::string, std::string>()),
+    GNEShape("", net, GLO_POLYGON, SUMO_TAG_POLY, {}, {}, {}, {}, {}, {}, {}, {}),
+    mySimplifiedShape(false) {
+    // reset default values
+    resetDefaultValues();
+}
+
+
 GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill, double lineWidth,
                  const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, const std::string& name,
                  const std::map<std::string, std::string>& parameters) :
     SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name, parameters),
-    GNEShape(id, net, GLO_POLYGON, SUMO_TAG_POLY,
-{}, {}, {}, {}, {}, {}, {}, {}),
-mySimplifiedShape(false) {
+    GNEShape(id, net, GLO_POLYGON, SUMO_TAG_POLY, {}, {}, {}, {}, {}, {}, {}, {}),
+    mySimplifiedShape(false) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
     // check if imgFile is valid
