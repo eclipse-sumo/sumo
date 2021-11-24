@@ -33,6 +33,9 @@
 class GNEVaporizer : public GNEAdditional {
 
 public:
+    /// @brief default Constructor
+    GNEVaporizer(GNENet* net);
+
     /**@brief Constructor
      * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] edge edge in which this vaporizer is placed

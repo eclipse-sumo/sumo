@@ -31,17 +31,27 @@
 // method definitions
 // ===========================================================================
 
+GNEParkingSpace::GNEParkingSpace(GNENet* net) :
+    GNEAdditional("", net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, "",
+        {}, {}, {}, {}, {}, {}, {}, {},
+    std::map<std::string, std::string>()),
+    mySlope(0) {
+    // reset default values
+    resetDefaultValues();
+}
+
+
 GNEParkingSpace::GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, const Position& pos,
                                  const std::string& width, const std::string& length, const std::string& angle, double slope,
                                  const std::string& name, const std::map<std::string, std::string>& parameters) :
     GNEAdditional(net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, name,
-{}, {}, {}, {parkingAreaParent}, {}, {}, {}, {},
-parameters),
-myPosition(pos),
-myWidth(width),
-myLength(length),
-myAngle(angle),
-mySlope(slope) {
+        {}, {}, {}, {parkingAreaParent}, {}, {}, {}, {},
+    parameters),
+    myPosition(pos),
+    myWidth(width),
+    myLength(length),
+    myAngle(angle),
+    mySlope(slope) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -328,18 +338,24 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_WIDTH:
             myWidth = value;
-            // update geometry
-            updateGeometry();
+            // update geometry (except for template)
+            if (getParentAdditionals().size() > 0) {
+                updateGeometry();
+            }
             break;
         case SUMO_ATTR_LENGTH:
             myLength = value;
-            // update geometry
-            updateGeometry();
+            // update geometry (except for template)
+            if (getParentAdditionals().size() > 0) {
+                updateGeometry();
+            }
             break;
         case SUMO_ATTR_ANGLE:
             myAngle = value;
-            // update geometry
-            updateGeometry();
+            // update geometry (except for template)
+            if (getParentAdditionals().size() > 0) {
+                updateGeometry();
+            }
             break;
         case SUMO_ATTR_SLOPE:
             mySlope = parse<double>(value);

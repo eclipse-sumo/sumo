@@ -49,11 +49,11 @@ GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObje
                                    GNELane* lane, const double startPos, const double endPos, const std::string& name,
                                    bool friendlyPosition, const std::map<std::string, std::string>& parameters) :
     GNEAdditional(id, net, type, tag, name,
-{}, {}, {lane}, {}, {}, {}, {}, {},
-parameters),
-myStartPosition(startPos),
-myEndPosition(endPos),
-myFriendlyPosition(friendlyPosition) {
+        {}, {}, {lane}, {}, {}, {}, {}, {},
+    parameters),
+    myStartPosition(startPos),
+    myEndPosition(endPos),
+    myFriendlyPosition(friendlyPosition) {
 }
 
 

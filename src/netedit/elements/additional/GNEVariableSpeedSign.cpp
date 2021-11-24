@@ -34,13 +34,22 @@
 // member method definitions
 // ===========================================================================
 
+GNEVariableSpeedSign::GNEVariableSpeedSign(GNENet* net) :
+    GNEAdditional("", net, GLO_VSS, SUMO_TAG_VSS, "",
+        {}, {}, {}, {}, {}, {}, {}, {},
+    std::map<std::string, std::string>()) {
+    // reset default values
+    resetDefaultValues();
+}
+
+
 GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNENet* net, const Position& pos, const std::string& name,
         const std::vector<std::string>& vTypes, const std::map<std::string, std::string>& parameters) :
     GNEAdditional(id, net, GLO_VSS, SUMO_TAG_VSS, name,
-{}, {}, {}, {}, {}, {}, {}, {},
-parameters),
-myPosition(pos),
-myVehicleTypes(vTypes) {
+        {}, {}, {}, {}, {}, {}, {}, {},
+    parameters),
+    myPosition(pos),
+    myVehicleTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -281,8 +290,10 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_POSITION:
             myPosition = parse<Position>(value);
-            // update boundary
-            updateCenteringBoundary(true);
+            // update boundary (except for template)
+            if (getID().size() > 0) {
+                updateCenteringBoundary(true);
+            }
             break;
         case SUMO_ATTR_NAME:
             myAdditionalName = value;

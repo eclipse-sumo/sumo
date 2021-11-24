@@ -43,6 +43,9 @@ class GNEParkingAreaReroute;
 class GNERerouterInterval : public GNEAdditional {
 
 public:
+    /// @brief default constructor
+    GNERerouterInterval(GNENet* net);
+
     /// @brief constructor (Used in GNERerouterDialog)
     GNERerouterInterval(GNERerouterDialog* rerouterDialog);
 

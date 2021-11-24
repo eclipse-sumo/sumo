@@ -32,6 +32,9 @@
 class GNERouteProbe : public GNEAdditional {
 
 public:
+    /// @brief Constructor
+    GNERouteProbe(GNENet* net);
+
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] net pointer to GNENet of this additional element belongs

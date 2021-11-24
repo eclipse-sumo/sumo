@@ -33,6 +33,16 @@
 // method definitions
 // ===========================================================================
 
+GNEBusStop::GNEBusStop(SumoXMLTag tag, GNENet* net) :
+    GNEStoppingPlace("", net, GLO_BUS_STOP, tag, nullptr, 0, 0, "", false, std::map<std::string, std::string>()),
+    myPersonCapacity(0),
+    myParkingLength(0),
+    myColor(RGBColor::BLACK) {
+    // reset default values
+    resetDefaultValues();
+}
+
+
 GNEBusStop::GNEBusStop(SumoXMLTag tag, const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
                        const std::string& name, const std::vector<std::string>& lines, int personCapacity, double parkingLength, const RGBColor& color,
                        bool friendlyPosition, const std::map<std::string, std::string>& parameters) :

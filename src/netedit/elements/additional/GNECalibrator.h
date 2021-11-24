@@ -39,6 +39,9 @@ class GNERoute;
 class GNECalibrator : public GNEAdditional {
 
 public:
+    /// @brief Default constructor
+    GNECalibrator(SumoXMLTag tag, GNENet* net);
+
     /**@brief Constructor using edge
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] net pointer to GNENet of this additional element belongs

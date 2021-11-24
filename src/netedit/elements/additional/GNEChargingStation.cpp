@@ -33,6 +33,17 @@
 // member method definitions
 // ===========================================================================
 
+GNEChargingStation::GNEChargingStation(GNENet* net) :
+    GNEStoppingPlace("", net, GLO_CHARGING_STATION, SUMO_TAG_CHARGING_STATION, nullptr, 0, 0, "", false, std::map<std::string, std::string>()),
+    myChargingPower(0),
+    myEfficiency(0),
+    myChargeInTransit(0),
+    myChargeDelay(0) {
+    // reset default values
+    resetDefaultValues();
+}
+
+
 GNEChargingStation::GNEChargingStation(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
                                        const std::string& name, double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay, bool friendlyPosition,
                                        const std::map<std::string, std::string>& parameters) :

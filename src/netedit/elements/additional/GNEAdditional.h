@@ -334,9 +334,6 @@ protected:
     /// @brief pointer to special color (used for drawing Additional with a certain color, mainly used for selections)
     const RGBColor* mySpecialColor = nullptr;
 
-    /// @brief change all attributes of additional with their default values (note: this cannot be undo)
-    void setDefaultValues();
-
     /// @name Functions relative to change values in setAttribute(...)
     /// @{
 

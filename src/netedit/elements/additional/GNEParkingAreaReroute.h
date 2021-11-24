@@ -41,6 +41,9 @@ class GNEParkingAreaReroute : public GNEAdditional {
 
 public:
     /// @brief constructor
+    GNEParkingAreaReroute(GNENet* net);
+
+    /// @brief constructor
     GNEParkingAreaReroute(GNEAdditional* rerouterIntervalParent, GNEAdditional* newParkingArea, double probability, bool visible);
 
     /// @brief destructor

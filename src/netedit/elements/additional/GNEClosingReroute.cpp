@@ -30,6 +30,17 @@
 // member method definitions
 // ===========================================================================
 
+GNEClosingReroute::GNEClosingReroute(GNENet* net) :
+    GNEAdditional("", net, GLO_REROUTER_CLOSINGREROUTE, SUMO_TAG_CLOSING_REROUTE, "",
+        {}, {}, {}, {}, {}, {}, {}, {},
+    std::map<std::string, std::string>()),
+    myClosedEdge(nullptr),
+    myPermissions(0) {
+    // reset default values
+    resetDefaultValues();
+}
+
+
 GNEClosingReroute::GNEClosingReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* closedEdge, SVCPermissions permissions) :
     GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER_CLOSINGREROUTE, SUMO_TAG_CLOSING_REROUTE, "",
         {}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {},

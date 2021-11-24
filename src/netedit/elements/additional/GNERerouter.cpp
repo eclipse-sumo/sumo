@@ -32,6 +32,18 @@
 // member method definitions
 // ===========================================================================
 
+GNERerouter::GNERerouter(GNENet* net) :
+    GNEAdditional("", net, GLO_REROUTER, SUMO_TAG_REROUTER, "",
+        {}, {}, {}, {}, {}, {}, {}, {},
+    std::map<std::string, std::string>()),
+    myProbability(0),
+    myOff(false),
+    myTimeThreshold(0) {
+    // update centering boundary without updating grid
+    updateCenteringBoundary(false);
+}
+
+
 GNERerouter::GNERerouter(const std::string& id, GNENet* net, const Position& pos, const std::string& name,
                          const std::string& filename, double probability, bool off, SUMOTime timeThreshold, const std::vector<std::string>& vTypes,
                          const std::map<std::string, std::string>& parameters) :
@@ -337,8 +349,10 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_POSITION:
             myPosition = parse<Position>(value);
-            // update boundary
-            updateCenteringBoundary(true);
+            // update boundary (except for template)
+            if (getID().size() > 0) {
+                updateCenteringBoundary(true);
+            }
             break;
         case SUMO_ATTR_NAME:
             myAdditionalName = value;

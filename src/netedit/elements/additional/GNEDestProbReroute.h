@@ -40,6 +40,9 @@ class GNEDestProbReroute : public GNEAdditional {
 
 public:
     /// @brief constructor
+    GNEDestProbReroute(GNENet* net);
+
+    /// @brief constructor
     GNEDestProbReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* newEdgeDestination, double probability);
 
     /// @brief destructor

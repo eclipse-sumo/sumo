@@ -29,6 +29,16 @@
 // member method definitions
 // ===========================================================================
 
+GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNENet* net) :
+    GNEAdditional("", net, GLO_VSS_STEP, SUMO_TAG_STEP, "",
+        {}, {}, {}, {}, {}, {}, {}, {},
+    std::map<std::string, std::string>()),
+    myTime(0) {
+    // reset default values
+    resetDefaultValues();
+}
+
+
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, SUMOTime time, const std::string& speed) :
     GNEAdditional(variableSpeedSignParent->getNet(), GLO_VSS_STEP, SUMO_TAG_STEP, "",
         {}, {}, {}, {variableSpeedSignParent}, {}, {}, {}, {},

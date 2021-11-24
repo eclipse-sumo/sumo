@@ -33,7 +33,10 @@
 class GNEBusStop : public GNEStoppingPlace {
 
 public:
-    /**@brief Constructor
+    /// @brief default constructor
+    GNEBusStop(SumoXMLTag tag, GNENet* net);
+
+    /**@brief parameter Constructor
      * @param[in] tag busStop or trainStop tag
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] lane Lane of this StoppingPlace belongs
