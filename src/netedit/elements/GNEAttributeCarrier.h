@@ -90,6 +90,9 @@ public:
 
     /// @}
 
+    /// @brief reset attribute carrier to their default values
+    void resetDefaultValues();
+
     /// @name Functions related with attributes (must be implemented in all children)
     /// @{
     /* @brief method for getting the Attribute of an XML key
