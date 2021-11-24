@@ -1,12 +1,12 @@
 Loaded 98 routes (98 distinct)
-input route edge count: count 98, min 2.00 (7), max 16.00 (39), mean 8.66 Q1 6.00, median 9.00, Q3 11.00
+input route edge count: count 98, min 2.00 (7), max 16.00 (39), mean 8.66, Q1 6.00, median 9.00, Q3 11.00
  histogram: [(2, 2), (3, 3), (4, 8), (5, 6), (6, 10), (7, 8), (8, 12), (9, 10), (10, 12), (11, 7), (12, 3), (13, 7), (14, 4), (15, 4), (16, 2)]
-input route detector count: count 98, min 1.00 (7), max 15.00 (39), mean 7.66 Q1 5.00, median 8.00, Q3 10.00
+input route detector count: count 98, min 1.00 (7), max 15.00 (39), mean 7.66, Q1 5.00, median 8.00, Q3 10.00
  histogram: [(1, 2), (2, 3), (3, 8), (4, 6), (5, 10), (6, 8), (7, 12), (8, 10), (9, 12), (10, 7), (11, 3), (12, 7), (13, 4), (14, 4), (15, 2)]
 Wrote 95 routes (77 distinct) achieving total count 704 (93.74%) at 138 locations. GEH<5 for 97.10%
-result route edge count: count 95, min 2.00 (1), max 16.00 (59), mean 8.41 Q1 6.00, median 8.00, Q3 11.00
+result route edge count: count 95, min 2.00 (1), max 16.00 (59), mean 8.41, Q1 6.00, median 8.00, Q3 11.00
  histogram: [(2, 3), (3, 4), (4, 9), (5, 6), (6, 9), (7, 9), (8, 11), (9, 8), (10, 8), (11, 8), (12, 3), (13, 8), (14, 6), (15, 2), (16, 1)]
-result route detector count: count 95, min 1.00 (1), max 15.00 (59), mean 7.41 Q1 5.00, median 7.00, Q3 10.00
+result route detector count: count 95, min 1.00 (1), max 15.00 (59), mean 7.41, Q1 5.00, median 7.00, Q3 10.00
  histogram: [(1, 3), (2, 4), (3, 9), (4, 6), (5, 9), (6, 9), (7, 11), (8, 8), (9, 8), (10, 8), (11, 3), (12, 8), (13, 6), (14, 2), (15, 1)]
-GEH: count 138, min 0.00 ([-58.121.42 64] 36 36), max 8.53 ([-31.80.00 37] 36 0), mean 0.95 Q1 0.00, median 0.00, Q3 1.58
-Warning: underflow locations: count 39, min 1.00 (('45', '-68')), max 2.00 (('131', '131.180.00')), mean 1.21 Q1 1.00, median 1.00, Q3 1.00 (total 47)
+GEH: count 138, min 0.00 ([-58.121.42 64] 36 36), max 8.53 ([-31.80.00 37] 36 0), mean 0.95, Q1 0.00, median 0.00, Q3 1.58
+Warning: underflow locations: count 39, min 1.00 (('45', '-68')), max 2.00 (('131', '131.180.00')), mean 1.21, Q1 1.00, median 1.00, Q3 1.00 (total 47)

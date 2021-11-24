@@ -1,11 +1,11 @@
 0: Wrote 50 routes (3 distinct) achieving total count 80 (80.00%) at 2 locations. GEH<5 for 50.00%
-Warning: underflow locations: count 1, min 20.00 (('5',)), max 20.00 (('5',)), mean 20.00 Q1 20.00, median 20.00, Q3 20.00 (total 20)
+Warning: underflow locations: count 1, min 20.00 (('5',)), max 20.00 (('5',)), mean 20.00, Q1 20.00, median 20.00, Q3 20.00 (total 20)
 150: Wrote 50 routes (3 distinct) achieving total count 86 (86.00%) at 2 locations. GEH<5 for 50.00%
-Warning: underflow locations: count 1, min 14.00 (('5',)), max 14.00 (('5',)), mean 14.00 Q1 14.00, median 14.00, Q3 14.00 (total 14)
+Warning: underflow locations: count 1, min 14.00 (('5',)), max 14.00 (('5',)), mean 14.00, Q1 14.00, median 14.00, Q3 14.00 (total 14)
 300: Wrote 4 routes (2 distinct) achieving total count 7 (87.50%) at 2 locations. GEH<5 for 100.00%
-Warning: underflow locations: count 1, min 1.00 (('11',)), max 1.00 (('11',)), mean 1.00 Q1 1.00, median 1.00, Q3 1.00 (total 1)
+Warning: underflow locations: count 1, min 1.00 (('11',)), max 1.00 (('11',)), mean 1.00, Q1 1.00, median 1.00, Q3 1.00 (total 1)
 450: Wrote 4 routes (2 distinct) achieving total count 7 (87.50%) at 2 locations. GEH<5 for 100.00%
-Warning: underflow locations: count 1, min 1.00 (('11',)), max 1.00 (('11',)), mean 1.00 Q1 1.00, median 1.00, Q3 1.00 (total 1)
-all interval underflow: count 4, min 1.00 (300.0), max 20.00 (0.0), mean 9.00 Q1 1.00, median 14.00, Q3 20.00
-all interval overflow: count 4, min 0.00 (0.0), max 0.00 (0.0), mean 0.00 Q1 0.00, median 0.00, Q3 0.00
-all interval GEH%: count 4, min 50.00 (0.0), max 100.00 (300.0), mean 75.00 Q1 50.00, median 100.00, Q3 100.00
+Warning: underflow locations: count 1, min 1.00 (('11',)), max 1.00 (('11',)), mean 1.00, Q1 1.00, median 1.00, Q3 1.00 (total 1)
+all interval underflow: count 4, min 1.00 (300.0), max 20.00 (0.0), mean 9.00, Q1 1.00, median 14.00, Q3 20.00
+all interval overflow: count 4, min 0.00 (0.0), max 0.00 (0.0), mean 0.00, Q1 0.00, median 0.00, Q3 0.00
+all interval GEH%: count 4, min 50.00 (0.0), max 100.00 (300.0), mean 75.00, Q1 50.00, median 100.00, Q3 100.00

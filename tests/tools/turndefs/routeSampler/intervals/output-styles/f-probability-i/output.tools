@@ -1,5 +1,5 @@
 0: Wrote 10 routes (1 distinct) achieving total count 10 (100.00%) at 1 locations. GEH<5 for 100.00%
 200: Wrote 8 routes (1 distinct) achieving total count 8 (100.00%) at 1 locations. GEH<5 for 100.00%
-all interval underflow: count 2, min 0.00 (0.0), max 0.00 (0.0), mean 0.00 Q1 0.00, median 0.00, Q3 0.00
-all interval overflow: count 2, min 0.00 (0.0), max 0.00 (0.0), mean 0.00 Q1 0.00, median 0.00, Q3 0.00
-all interval GEH%: count 2, min 100.00 (0.0), max 100.00 (0.0), mean 100.00 Q1 100.00, median 100.00, Q3 100.00
+all interval underflow: count 2, min 0.00 (0.0), max 0.00 (0.0), mean 0.00, Q1 0.00, median 0.00, Q3 0.00
+all interval overflow: count 2, min 0.00 (0.0), max 0.00 (0.0), mean 0.00, Q1 0.00, median 0.00, Q3 0.00
+all interval GEH%: count 2, min 100.00 (0.0), max 100.00 (0.0), mean 100.00, Q1 100.00, median 100.00, Q3 100.00
