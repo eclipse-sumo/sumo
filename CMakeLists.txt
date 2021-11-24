@@ -30,12 +30,29 @@ endif ()
 
 project(SUMO CXX C)
 set(PACKAGE_VERSION "git")
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.4)
 
-find_program(CCACHE_FOUND "ccache")
-if (CCACHE_FOUND AND CCACHE_SUPPORT)
-    message(STATUS "Enabling ccache")
-    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "ccache")
+# Check if libraries have to be found, depending on SUMO_LIBRARIES
+set(SUMO_LIBRARIES "$ENV{SUMO_LIBRARIES}" CACHE PATH "Location of SUMOLibraries dependencies")
+
+# some user place SUMOLibraries in the same SUMO folder
+if (NOT SUMO_LIBRARIES AND EXISTS "${CMAKE_SOURCE_DIR}/../SUMOLibraries")
+    set(SUMO_LIBRARIES "${CMAKE_SOURCE_DIR}/../SUMOLibraries")
+endif ()
+
+if (CCACHE_SUPPORT)
+    find_program(CCACHE_PROGRAM ccache)
+    file(GLOB SCCACHE_ROOT "${SUMO_LIBRARIES}/sccache-*")
+    find_program(SCCACHE_PROGRAM sccache ${SCCACHE_ROOT})
+    if (CCACHE_PROGRAM)
+       message(STATUS "Found ccache: ${CCACHE_PROGRAM}")
+       set(CMAKE_C_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
+       set(CMAKE_CXX_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
+    elseif (SCCACHE_PROGRAM)
+       message(STATUS "Found sccache: ${SCCACHE_PROGRAM}")
+       set(CMAKE_C_COMPILER_LAUNCHER "${SCCACHE_PROGRAM}")
+       set(CMAKE_CXX_COMPILER_LAUNCHER "${SCCACHE_PROGRAM}")
+    endif()
 endif()
 
 set(CMAKE_COLOR_MAKEFILE ON)
@@ -179,14 +196,6 @@ if (GNU_COMPILER AND WIN32)
     option(USE_MINGW_64BITS "Use 64 bits libraries for the compilation with MinGW" true)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DWIN32 -D_WIN32_WINNT=0x0501")
     set(MINGW32 1)
-endif ()
-
-# Check if libraries have to be found, depending on SUMO_LIBRARIES
-set(SUMO_LIBRARIES "$ENV{SUMO_LIBRARIES}" CACHE PATH "Location of SUMOLibraries dependencies")
-
-# some user place SUMOLibraries in the same SUMO folder
-if (NOT SUMO_LIBRARIES AND EXISTS "${CMAKE_SOURCE_DIR}/../SUMOLibraries")
-    set(SUMO_LIBRARIES "${CMAKE_SOURCE_DIR}/../SUMOLibraries")
 endif ()
 
 # check if SUMOLibraries was found (Only in Windows)
