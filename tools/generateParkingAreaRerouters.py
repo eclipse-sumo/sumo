@@ -73,6 +73,11 @@ def get_options(cmd_args=None):
         '--min-capacity', type=int, dest='min_capacity', default=1,
         help='Do no reroute to parkingAreas with less than min-capacity')
     parser.add_argument(
+        '--distribute', dest='distribute',
+        help='Distribute alternatives by distance according to the given weights. "3,1"'
+        + 'means that 75% of the alternatives are below the median distance of all'
+        + 'alternatives in range and 25% are above the median distance')
+    parser.add_argument(
         '--processes', type=int, dest='processes', default=1,
         help='Number of processes spawned to compute the distance between parking areas.')
     parser.add_argument(
@@ -82,7 +87,20 @@ def get_options(cmd_args=None):
         '--tqdm', dest='with_tqdm', action='store_true',
         help='Enable TQDM feature.')
     parser.set_defaults(with_tqdm=False)
-    return parser.parse_args(cmd_args)
+
+    options = parser.parse_args(cmd_args)
+
+    if options.distribute is not None:
+        dists = options.distribute.split(',')
+        for x in dists:
+            try:
+                x = float(x)
+            except ValueError:
+                print("Value '%s' in option --distribute must be numeric" % x,
+                        file=sys.stderr)
+                sys.exit()
+
+    return options
 
 
 def initRTree(all_parkings):
@@ -169,6 +187,7 @@ class ReroutersGeneration(object):
                 'min_capacity': self._opt.min_capacity,
                 'opposite_visible': self._opt.opposite_visible,
                 'prefer_visible': self._opt.prefer_visible,
+                'distribute': self._opt.distribute,
             }
             list_parameters.append(parameters)
         for res in pool.imap_unordered(generate_rerouters_process, list_parameters):
@@ -273,6 +292,13 @@ def generate_rerouters_process(parameters):
     else:
         sequence = parameters['selection']
 
+    distWeights = None
+    distWeigtSum = None
+    distThresholds = None
+    if parameters['distribute'] is not None:
+        distWeights = list(map(float, parameters['distribute'].split(',')))
+        distWeightSum = sum(distWeights)
+
     for parking_id in sequence:
         parking_a = parameters['all_parking_areas'][parking_id]
         from_edge = sumo_net.getEdge(parking_a['edge'])
@@ -318,9 +344,13 @@ def generate_rerouters_process(parameters):
         list_of_dist = sorted(list_of_dist)
         temp_rerouters = [(pid, 0.0)]
 
+        numAlternatives = min(len(list_of_dist), parameters['num_alternatives'])
+
         used = set()
         if parameters['prefer_visible']:
             for distance, parking in list_of_dist:
+                if len(temp_rerouters) > parameters['num_alternatives']:
+                    break
                 if isVisible(pid, parking, distance, sumo_net,
                              parameters['all_parking_areas'],
                              parameters['dist_threshold'],
@@ -329,16 +359,45 @@ def generate_rerouters_process(parameters):
                     temp_rerouters.append((parking, distance))
                     used.add(parking)
 
+        dist = None
+        distThresholds = None
+        if distWeights is not None:
+            dist = [int(x / distWeightSum * numAlternatives) for x in distWeights]
+            distThresholdIndex = [int(i * len(list_of_dist) / len(dist)) for i in range(len(dist))]
+            distThresholds = [list_of_dist[i][0] for i in distThresholdIndex]
+            # print("distWeights=%s" % distWeights)
+            # print("dist=%s" % dist)
+            # print("distances=%s" % [x[0] for x in list_of_dist])
+            # print("distThresholdIndex=%s" % distThresholdIndex)
+            # print("distThresholds=%s" % distThresholds)
+
+        distIndex = 0
+        found = 0
+        required = dist[distIndex] if dist else None
         for distance, parking in list_of_dist:
             route = routes[pid][parking]
             if parking in used:
+                found += 1
                 continue
             if parameters['all_parking_areas'][parking].get('capacity') < parameters['min_capacity']:
                 continue
+            # optionally enforce distance distribution
+            # if dist is not None:
+            #     print("found=%s required=%s distIndex=%s threshold=%s" % (found, required,
+            #         distIndex, distThresholds[distIndex]))
+
+            if dist is not None and found >= required:
+                if distIndex + 1 < len(dist):
+                    distIndex += 1
+                    required += dist[distIndex]
+            if distThresholds is not None and distance < distThresholds[distIndex]:
+                continue
+                
             if len(temp_rerouters) > parameters['num_alternatives']:
                 break
             if distance > parameters['dist_alternatives']:
                 break
+            found += 1
             temp_rerouters.append((parking, distance))
 
         if not list_of_dist:
