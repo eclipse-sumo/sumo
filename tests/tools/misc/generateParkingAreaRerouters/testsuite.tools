@@ -11,7 +11,16 @@ minCapacity
 sameEdge
 
 # distibute alternatives over a larger area
-distribute
+distribute_3_1
+
+# distibute alternatives over a larger area
+distribute_3_1_only2
+
+# distibute alternatives over a larger area
+distribute_1_1_1_1
+
+# distibute alternatives over a larger area
+distribute_1_1
 minCapacityVisible
 
 # parking areas that are visible should be preferred as alternatives
