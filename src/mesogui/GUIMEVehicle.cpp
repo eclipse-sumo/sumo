@@ -235,6 +235,7 @@ GUIMEVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& 
         repeatLane[lane]++;
     }
     drawStopLabels(s, noLoop, col);
+    drawParkingInfo(s, col);
 }
 
 

@@ -833,6 +833,11 @@ public:
     void rememberBlockedParkingArea(const MSParkingArea* pa);
     SUMOTime sawBlockedParkingArea(const MSParkingArea* pa);
 
+    typedef std::map<const MSParkingArea*, SUMOTime> ParkingMemory;
+    const ParkingMemory* getParkingMemory() const {
+        return myParkingMemory;
+    }
+
 protected:
     /// @brief This vehicle's parameter.
     const SUMOVehicleParameter* myParameter;
@@ -904,7 +909,6 @@ protected:
     int myRouteValidity;
 
     /// memory for parking search
-    typedef std::map<const MSParkingArea*, SUMOTime> ParkingMemory;
     ParkingMemory* myParkingMemory = nullptr;
 
     /* @brief magic value for undeparted vehicles

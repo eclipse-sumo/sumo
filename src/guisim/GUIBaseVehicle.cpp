@@ -61,6 +61,7 @@
 #include "GUINet.h"
 #include "GUIEdge.h"
 #include "GUILane.h"
+#include "GUIParkingArea.h"
 
 //#define DRAW_BOUNDING_BOX
 
@@ -905,6 +906,19 @@ GUIBaseVehicle::drawStopLabels(const GUIVisualizationSettings& s, bool noLoop, c
     }
 }
 
+void
+GUIBaseVehicle::drawParkingInfo(const GUIVisualizationSettings& s, const RGBColor& /*col*/) const {
+    if (s.showParkingInfo) {
+        const MSBaseVehicle::ParkingMemory* pm = myVehicle.getParkingMemory();
+        if (pm != nullptr) {
+            for (auto item : *pm) {
+                const GUIParkingArea* pa = dynamic_cast<const GUIParkingArea*>(item.first);
+                const SUMOTime seenAgo = SIMSTEP - item.second;
+                GLHelper::drawTextSettings(s.vehicleText, time2string(seenAgo), pa->getSignPos(), s.scale, s.angle, 1.0);
+            }
+        }
+    }
+}
 
 const GUIBaseVehicle::Seat&
 GUIBaseVehicle::getSeatPosition(int personIndex) const {

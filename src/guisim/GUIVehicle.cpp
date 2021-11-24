@@ -703,6 +703,7 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
         }
     }
     drawStopLabels(s, noLoop, col);
+    drawParkingInfo(s, col);
 }
 
 

@@ -133,6 +133,9 @@ public:
     void drawGL(const GUIVisualizationSettings& s) const;
     //@}
 
+    const Position& getSignPos() const {
+        return mySignPos;
+    }
 
 private:
     /// @brief The rotations of the shape parts
