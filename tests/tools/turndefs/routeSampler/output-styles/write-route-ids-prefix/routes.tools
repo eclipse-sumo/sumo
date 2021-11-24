@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2021-11-24 08:14:17.849716 by routeSampler.py v1_11_0+0034-f1e4717b824
+<configuration>
+    <prefix value="truck"/>
+    <route-files value="input_routes.rou.xml"/>
+    <turn-files value="input_turns.xml"/>
+    <write-route-ids value="True"/>
+</configuration>
+
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<!-- begin="0.0" end="99.0" -->
+    <route id="truck0" edges="-109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 -27"/> <!-- 1 -->
+    <route id="truck1" edges="-109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 -27 -27.80.00"/> <!-- 1 -->
+    <route id="truck3" edges="-11 -11.80.00 15 15.180.00 -123 -123.121.42 -120 -120.180.00"/> <!-- 1 -->
+    <route id="truck4" edges="-11.80.00 3 3.180.00 27 27.80.00 55 71"/> <!-- 1 -->
+    <route id="truck5" edges="-120 -120.180.00 -64 -64.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -71 -55 -55.80.00"/> <!-- 1 -->
+    <route id="truck6" edges="-123 -123.121.42 131 131.180.00"/> <!-- 1 -->
+    <route id="truck7" edges="-123.121.42 131"/> <!-- 1 -->
+    <route id="truck9" edges="-144 -144.121.42 -131 -131.180.00 131 131.180.00"/> <!-- 1 -->
+    <route id="truck10" edges="-144 -144.121.42 152"/> <!-- 1 -->
+    <route id="truck11" edges="-144.121.42 144 144.121.42 -15 -15.180.00 5"/> <!-- 1 -->
+    <route id="truck12" edges="-148 -148.80.00 -131 -131.180.00 -109 -109.80.00 23 23.80.00 37 -58 -58.121.42"/> <!-- 1 -->
+    <route id="truck13" edges="-148 -148.80.00 144 144.121.42 -15 -15.180.00 3 3.180.00 -3"/> <!-- 1 -->
+    <route id="truck14" edges="-15 -15.180.00 15 15.180.00"/> <!-- 1 -->
+    <route id="truck15" edges="-15.180.00 11 11.80.00 23 23.80.00 31 31.80.00 64 64.80.00 120"/> <!-- 1 -->
+    <route id="truck16" edges="-152.80.00 -131 -131.180.00 -109 -109.80.00 23 23.80.00 31 31.80.00 64 64.80.00"/> <!-- 2 -->
+    <route id="truck18" edges="-27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 144 144.121.42"/> <!-- 1 -->
+    <route id="truck19" edges="-27.80.00 27 27.80.00 45 -68 -43 -43.80.00"/> <!-- 1 -->
+    <route id="truck20" edges="-3.180.00 11 11.80.00 23 23.80.00"/> <!-- 3 -->
+    <route id="truck21" edges="-3.180.00 3 3.180.00 -3"/> <!-- 1 -->
+    <route id="truck22" edges="-31.80.00 -23 -23.80.00 109 109.80.00 123"/> <!-- 1 -->
+    <route id="truck24" edges="-37.80.00 -23 -23.80.00 -11 -11.80.00 15 15.180.00"/> <!-- 1 -->
+    <route id="truck25" edges="-37.80.00 -23 -23.80.00 109 109.80.00 -109"/> <!-- 1 -->
+    <route id="truck26" edges="-37.80.00 -23 -23.80.00 109 109.80.00 131"/> <!-- 1 -->
+    <route id="truck27" edges="-43 -43.80.00 -27 -27.80.00"/> <!-- 1 -->
+    <route id="truck28" edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 109 109.80.00"/> <!-- 2 -->
+    <route id="truck29" edges="-43.80.00 -27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 152"/> <!-- 1 -->
+    <route id="truck31" edges="-43.80.00 -27 -27.80.00 27 27.80.00"/> <!-- 1 -->
+    <route id="truck32" edges="-45.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 60 60.80.00 92"/> <!-- 1 -->
+    <route id="truck35" edges="-55 -55.80.00 -27 -27.80.00 -3 -3.180.00 15 15.180.00"/> <!-- 2 -->
+    <route id="truck36" edges="-55 -55.80.00 -27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 -131"/> <!-- 1 -->
+    <route id="truck37" edges="-58 -58.121.42 64 64.80.00 120 120.180.00"/> <!-- 1 -->
+    <route id="truck38" edges="-58.121.42 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 5"/> <!-- 1 -->
+    <route id="truck39" edges="-60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 43 68 -45 -45.80.00"/> <!-- 1 -->
+    <route id="truck40" edges="-64 -64.80.00 64 64.80.00 120 120.180.00 -120 -120.180.00"/> <!-- 1 -->
+    <route id="truck41" edges="-64 -64.80.00 64 64.80.00 120 120.180.00 123 123.121.42"/> <!-- 1 -->
+    <route id="truck43" edges="-71 -55 -55.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 58"/> <!-- 2 -->
+    <route id="truck45" edges="-75 -75.121.42 -60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -71"/> <!-- 1 -->
+    <route id="truck46" edges="-75.121.42 -60 -60.80.00 -31 -31.80.00 -23 -23.80.00 23"/> <!-- 1 -->
+    <route id="truck47" edges="-79 -79.80.00 -60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -3 -3.180.00"/> <!-- 2 -->
+    <route id="truck48" edges="-79 -79.80.00 -60 -60.80.00 64 64.80.00"/> <!-- 1 -->
+    <route id="truck51" edges="-79.80.00 75 75.121.42"/> <!-- 2 -->
+    <route id="truck52" edges="-79.80.00 75 75.121.42 120 120.180.00 131 131.180.00 144 144.121.42"/> <!-- 1 -->
+    <route id="truck54" edges="109 109.80.00 -109 -109.80.00 -11 -11.80.00 3 3.180.00 -71 -55 -55.80.00"/> <!-- 1 -->
+    <route id="truck55" edges="109 109.80.00 -109 -109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 43 68 -45"/> <!-- 1 -->
+    <route id="truck57" edges="11.80.00 23 23.80.00 31"/> <!-- 2 -->
+    <route id="truck58" edges="120 120.180.00 -109 -109.80.00 -11 -11.80.00 3 3.180.00 -71 -55 -55.80.00"/> <!-- 2 -->
+    <route id="truck60" edges="120 120.180.00 -109 -109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 45"/> <!-- 1 -->
+    <route id="truck61" edges="120 120.180.00 -120 -120.180.00 -75 -75.121.42 -60"/> <!-- 1 -->
+    <route id="truck62" edges="123 123.121.42 -123"/> <!-- 1 -->
+    <route id="truck63" edges="123 123.121.42 -15 -15.180.00 3 3.180.00 27 27.80.00 43 68"/> <!-- 1 -->
+    <route id="truck64" edges="131 131.180.00 144 144.121.42 -15 -15.180.00 3 3.180.00 27 27.80.00 55 71"/> <!-- 1 -->
+    <route id="truck65" edges="144 144.121.42 -123 -123.121.42 -120 -120.180.00 -64 -64.80.00 58"/> <!-- 1 -->
+    <route id="truck66" edges="144 144.121.42 -15 -15.180.00 3 3.180.00 27 27.80.00"/> <!-- 1 -->
+    <route id="truck67" edges="144.121.42 -123 -123.121.42 -120 -120.180.00 -64 -64.80.00 58"/> <!-- 1 -->
+    <route id="truck68" edges="15 15.180.00 -123 -123.121.42 -109 -109.80.00 -11"/> <!-- 1 -->
+    <route id="truck69" edges="15 15.180.00 -123 -123.121.42 -120 -120.180.00 -75 -75.121.42 75"/> <!-- 1 -->
+    <route id="truck70" edges="15.180.00 -15 -15.180.00 11 11.80.00 23 23.80.00 31 31.80.00"/> <!-- 1 -->
+    <route id="truck71" edges="23 23.80.00 -23 -23.80.00 109"/> <!-- 1 -->
+    <route id="truck72" edges="23.80.00 31 31.80.00 60 60.80.00 75 75.121.42"/> <!-- 2 -->
+    <route id="truck74" edges="27 27.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 64 64.80.00 -75"/> <!-- 1 -->
+    <route id="truck75" edges="27 27.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 37 -58 -58.121.42"/> <!-- 2 -->
+    <route id="truck77" edges="3 3.180.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 64 64.80.00"/> <!-- 2 -->
+    <route id="truck79" edges="3.180.00 27 27.80.00 55 71"/> <!-- 1 -->
+    <route id="truck80" edges="31 31.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 -27"/> <!-- 2 -->
+    <route id="truck81" edges="31.80.00 58"/> <!-- 2 -->
+    <route id="truck83" edges="37 -58 -58.121.42 -31 -31.80.00 -23 -23.80.00 109 109.80.00 131 131.180.00 -131 -131.180.00"/> <!-- 2 -->
+    <route id="truck85" edges="45 -68 -43 -43.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 109 109.80.00 123 123.121.42"/> <!-- 1 -->
+    <route id="truck87" edges="58 -37 -37.80.00 -23"/> <!-- 2 -->
+    <route id="truck88" edges="58 -37 -37.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00"/> <!-- 1 -->
+    <route id="truck89" edges="60.80.00 -60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 5"/> <!-- 1 -->
+    <route id="truck90" edges="60.80.00 75 75.121.42 -75"/> <!-- 1 -->
+    <route id="truck91" edges="64.80.00 -64 -64.80.00 -31 -31.80.00 31"/> <!-- 1 -->
+    <route id="truck92" edges="64.80.00 120 120.180.00 131 131.180.00 -131"/> <!-- 1 -->
+    <route id="truck93" edges="68 -45 -45.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 -11"/> <!-- 1 -->
+    <route id="truck94" edges="68 -45 -45.80.00 -27 -27.80.00 -71 -55"/> <!-- 2 -->
+    <route id="truck95" edges="71 71.121.42 -3 -3.180.00 11 11.80.00 109 109.80.00 -120"/> <!-- 1 -->
+    <route id="truck97" edges="75 75.121.42 120 120.180.00 -109 -109.80.00 23 23.80.00"/> <!-- 1 -->
+
+    <vehicle id="truck0" depart="0.00" route="truck60"/>
+    <vehicle id="truck1" depart="1.04" route="truck81"/>
+    <vehicle id="truck2" depart="2.08" route="truck91"/>
+    <vehicle id="truck3" depart="3.13" route="truck0"/>
+    <vehicle id="truck4" depart="4.17" route="truck58"/>
+    <vehicle id="truck5" depart="5.21" route="truck51"/>
+    <vehicle id="truck6" depart="6.25" route="truck88"/>
+    <vehicle id="truck7" depart="7.29" route="truck20"/>
+    <vehicle id="truck8" depart="8.34" route="truck32"/>
+    <vehicle id="truck9" depart="9.38" route="truck70"/>
+    <vehicle id="truck10" depart="10.42" route="truck95"/>
+    <vehicle id="truck11" depart="11.46" route="truck5"/>
+    <vehicle id="truck12" depart="12.51" route="truck24"/>
+    <vehicle id="truck13" depart="13.55" route="truck80"/>
+    <vehicle id="truck14" depart="14.59" route="truck40"/>
+    <vehicle id="truck15" depart="15.63" route="truck97"/>
+    <vehicle id="truck16" depart="16.67" route="truck43"/>
+    <vehicle id="truck17" depart="17.72" route="truck16"/>
+    <vehicle id="truck18" depart="18.76" route="truck14"/>
+    <vehicle id="truck19" depart="19.80" route="truck22"/>
+    <vehicle id="truck20" depart="20.84" route="truck20"/>
+    <vehicle id="truck21" depart="21.88" route="truck43"/>
+    <vehicle id="truck22" depart="22.93" route="truck51"/>
+    <vehicle id="truck23" depart="23.97" route="truck46"/>
+    <vehicle id="truck24" depart="25.01" route="truck38"/>
+    <vehicle id="truck25" depart="26.05" route="truck27"/>
+    <vehicle id="truck26" depart="27.09" route="truck54"/>
+    <vehicle id="truck27" depart="28.14" route="truck63"/>
+    <vehicle id="truck28" depart="29.18" route="truck47"/>
+    <vehicle id="truck29" depart="30.22" route="truck77"/>
+    <vehicle id="truck30" depart="31.26" route="truck79"/>
+    <vehicle id="truck31" depart="32.31" route="truck47"/>
+    <vehicle id="truck32" depart="33.35" route="truck12"/>
+    <vehicle id="truck33" depart="34.39" route="truck81"/>
+    <vehicle id="truck34" depart="35.43" route="truck83"/>
+    <vehicle id="truck35" depart="36.47" route="truck28"/>
+    <vehicle id="truck36" depart="37.52" route="truck11"/>
+    <vehicle id="truck37" depart="38.56" route="truck87"/>
+    <vehicle id="truck38" depart="39.60" route="truck45"/>
+    <vehicle id="truck39" depart="40.64" route="truck72"/>
+    <vehicle id="truck40" depart="41.68" route="truck58"/>
+    <vehicle id="truck41" depart="42.73" route="truck71"/>
+    <vehicle id="truck42" depart="43.77" route="truck35"/>
+    <vehicle id="truck43" depart="44.81" route="truck65"/>
+    <vehicle id="truck44" depart="45.85" route="truck29"/>
+    <vehicle id="truck45" depart="46.89" route="truck52"/>
+    <vehicle id="truck46" depart="47.94" route="truck25"/>
+    <vehicle id="truck47" depart="48.98" route="truck83"/>
+    <vehicle id="truck48" depart="50.02" route="truck75"/>
+    <vehicle id="truck49" depart="51.06" route="truck94"/>
+    <vehicle id="truck50" depart="52.11" route="truck28"/>
+    <vehicle id="truck51" depart="53.15" route="truck64"/>
+    <vehicle id="truck52" depart="54.19" route="truck93"/>
+    <vehicle id="truck53" depart="55.23" route="truck18"/>
+    <vehicle id="truck54" depart="56.27" route="truck4"/>
+    <vehicle id="truck55" depart="57.32" route="truck66"/>
+    <vehicle id="truck56" depart="58.36" route="truck48"/>
+    <vehicle id="truck57" depart="59.40" route="truck74"/>
+    <vehicle id="truck58" depart="60.44" route="truck10"/>
+    <vehicle id="truck59" depart="61.48" route="truck39"/>
+    <vehicle id="truck60" depart="62.53" route="truck85"/>
+    <vehicle id="truck61" depart="63.57" route="truck68"/>
+    <vehicle id="truck62" depart="64.61" route="truck35"/>
+    <vehicle id="truck63" depart="65.65" route="truck36"/>
+    <vehicle id="truck64" depart="66.69" route="truck37"/>
+    <vehicle id="truck65" depart="67.74" route="truck87"/>
+    <vehicle id="truck66" depart="68.78" route="truck61"/>
+    <vehicle id="truck67" depart="69.82" route="truck90"/>
+    <vehicle id="truck68" depart="70.86" route="truck62"/>
+    <vehicle id="truck69" depart="71.91" route="truck26"/>
+    <vehicle id="truck70" depart="72.95" route="truck80"/>
+    <vehicle id="truck71" depart="73.99" route="truck31"/>
+    <vehicle id="truck72" depart="75.03" route="truck15"/>
+    <vehicle id="truck73" depart="76.07" route="truck21"/>
+    <vehicle id="truck74" depart="77.12" route="truck41"/>
+    <vehicle id="truck75" depart="78.16" route="truck13"/>
+    <vehicle id="truck76" depart="79.20" route="truck55"/>
+    <vehicle id="truck77" depart="80.24" route="truck92"/>
+    <vehicle id="truck78" depart="81.28" route="truck6"/>
+    <vehicle id="truck79" depart="82.33" route="truck67"/>
+    <vehicle id="truck80" depart="83.37" route="truck19"/>
+    <vehicle id="truck81" depart="84.41" route="truck69"/>
+    <vehicle id="truck82" depart="85.45" route="truck77"/>
+    <vehicle id="truck83" depart="86.49" route="truck57"/>
+    <vehicle id="truck84" depart="87.54" route="truck57"/>
+    <vehicle id="truck85" depart="88.58" route="truck94"/>
+    <vehicle id="truck86" depart="89.62" route="truck1"/>
+    <vehicle id="truck87" depart="90.66" route="truck89"/>
+    <vehicle id="truck88" depart="91.71" route="truck75"/>
+    <vehicle id="truck89" depart="92.75" route="truck72"/>
+    <vehicle id="truck90" depart="93.79" route="truck7"/>
+    <vehicle id="truck91" depart="94.83" route="truck20"/>
+    <vehicle id="truck92" depart="95.87" route="truck16"/>
+    <vehicle id="truck93" depart="96.92" route="truck9"/>
+    <vehicle id="truck94" depart="97.96" route="truck3"/>
+</routes>

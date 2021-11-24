@@ -1,6 +1,9 @@
 # Copy of default
 default
 write-route-ids
+
+# prefix should apply to route ids to allow combining multiple runs
+write-route-ids-prefix
 write-route-distribution
 write-flows-number
 write-flows-probability
