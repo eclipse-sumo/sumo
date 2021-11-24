@@ -210,4 +210,17 @@ MSDevice::getBoolParam(const SUMOVehicle& v, const OptionsCont& oc, std::string 
 }
 
 
+SUMOTime
+MSDevice::getTimeParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, SUMOTime deflt, bool required) {
+    const std::string key = "device." + paramName;
+    std::string val = getStringParam(v, oc, paramName, toString(deflt), required);
+    try {
+        return string2time(val);
+    } catch (...) {
+        WRITE_ERROR("Invalid time value '" + val + "'for parameter '" + key + "'");
+        return deflt;
+    }
+}
+
+
 /****************************************************************************/
