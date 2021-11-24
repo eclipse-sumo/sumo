@@ -56,7 +56,6 @@
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
-#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/foxtools/MFXMenuHeader.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -408,9 +407,10 @@ GNEFrameModuls::TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagPro
     }
 }
 
+
  GNEFrameModuls::TagSelector::ACTemplate::~ACTemplate() {
     delete myAC;
- }
+}
 
 // ---------------------------------------------------------------------------
 // GNEFrameModuls::DemandElementSelector - methods
