@@ -598,6 +598,14 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
             }
         }
     }
+    if (s.showParkingInfo && myAdditionalVisualizations.size() != 0 && hasActiveAddVisualisation(
+                myAdditionalVisualizations.begin()->first, VO_SHOW_ROUTE | VO_SHOW_FUTURE_ROUTE | VO_SHOW_ALL_ROUTES)) {
+        glRotated(-s.angle, 0, 0, 1);
+        glTranslated(0, 0.7 * s.vehicleName.scaledSize(s.scale), 0);
+        glRotated(s.angle, 0, 0, 1);
+        const double value = myVehicle.getNumberParkingReroutes();
+        GLHelper::drawTextSettings(s.vehicleName, toString(value), Position(0, 0), s.scale, s.angle);
+    }
 
     if (!drawCarriages) {
         mySeatPositions.clear();
