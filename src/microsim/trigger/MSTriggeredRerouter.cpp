@@ -694,11 +694,14 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
 #ifdef DEBUG_PARKING
         if (DEBUGCOND) {
             std::cout << SIMTIME << " rerouter=" << getID() << " veh=" << veh.getID()
-                << " dest=" << destParkArea->getID() << " parkAnywhere=" << parkAnywhere << " parkingReroutes=" << veh.getNumberParkingReroutes() << " alongTheWay=" << Named::getIDSecure(alongTheWay) << "\n";
+                << " dest=" << destParkArea->getID() << " parkAnywhere=" << parkAnywhere << " parkingReroutes=" << veh.getNumberParkingReroutes() << " alongTheWay=" << Named::getIDSecure(onTheWay) << "\n";
         }
 #endif
+        if (onTheWay == nullptr) {
+            return nullptr;
+        }
+        // otherwise compute new route
     }
-
 
     if (destParkArea->getLastStepOccupancy() == destParkArea->getCapacity() || onTheWay != nullptr) {
 
