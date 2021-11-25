@@ -105,7 +105,7 @@ protected:
     /// @}
 
     /// @brief Open help attributes dialog
-    void openHelpAttributesDialog(const GNETagProperties& tagProperties) const;
+    void openHelpAttributesDialog(const GNEAttributeCarrier* AC) const;
 
     /// @brief get predefinedTagsMML
     const std::vector<std::string>& getPredefinedTagsMML() const;
