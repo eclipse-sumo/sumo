@@ -537,8 +537,8 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNERide::setEnabledAttribute(const int /*enabledAttributes*/) {
-    //
+GNERide::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
+    throw InvalidArgument("Nothing to enable");
 }
 
 

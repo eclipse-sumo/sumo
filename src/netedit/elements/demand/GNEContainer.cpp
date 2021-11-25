@@ -914,8 +914,10 @@ GNEContainer::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEContainer::setEnabledAttribute(const int enabledAttributes) {
+GNEContainer::toogleAttribute(SumoXMLAttr key, const bool value) {
+/*
     parametersSet = enabledAttributes;
+*/
 }
 
 

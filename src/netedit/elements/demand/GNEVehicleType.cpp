@@ -1679,8 +1679,8 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEVehicleType::setEnabledAttribute(const int /*enabledAttributes*/) {
-    //
+GNEVehicleType::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
+    throw InvalidArgument("Nothing to enable");
 }
 
 

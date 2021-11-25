@@ -541,7 +541,7 @@ GNETAZRelData::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNETAZRelData::setEnabledAttribute(const int /*enabledAttributes*/) {
+GNETAZRelData::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
     throw InvalidArgument("Nothing to enable");
 }
 

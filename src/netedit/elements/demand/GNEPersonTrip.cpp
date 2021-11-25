@@ -538,8 +538,8 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEPersonTrip::setEnabledAttribute(const int /*enabledAttributes*/) {
-    //
+GNEPersonTrip::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
+    throw InvalidArgument("Nothing to enable");
 }
 
 

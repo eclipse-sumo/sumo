@@ -1986,8 +1986,10 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEVehicle::setEnabledAttribute(const int enabledAttributes) {
+GNEVehicle::toogleAttribute(SumoXMLAttr key, const bool value) {
+/*
     parametersSet = enabledAttributes;
+*/
 }
 
 

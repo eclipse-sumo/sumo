@@ -639,8 +639,8 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEWalk::setEnabledAttribute(const int /*enabledAttributes*/) {
-    //
+GNEWalk::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
+    throw InvalidArgument("Nothing to enable");
 }
 
 

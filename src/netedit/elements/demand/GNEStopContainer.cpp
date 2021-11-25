@@ -746,8 +746,10 @@ GNEStopContainer::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEStopContainer::setEnabledAttribute(const int enabledAttributes) {
+GNEStopContainer::toogleAttribute(SumoXMLAttr key, const bool value) {
+/*
     parametersSet = enabledAttributes;
+*/
 }
 
 

@@ -750,8 +750,10 @@ GNEStopPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEStopPerson::setEnabledAttribute(const int enabledAttributes) {
+GNEStopPerson::toogleAttribute(SumoXMLAttr key, const bool value) {
+/*
     parametersSet = enabledAttributes;
+*/
 }
 
 

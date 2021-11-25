@@ -743,8 +743,8 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNERoute::setEnabledAttribute(const int /*enabledAttributes*/) {
-    //
+GNERoute::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
+    throw InvalidArgument("Nothing to enable");
 }
 
 
