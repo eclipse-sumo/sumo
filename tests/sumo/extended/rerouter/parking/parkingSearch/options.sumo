@@ -9,3 +9,4 @@
 --stop-output stopinfos.xml
 --stop-output.write-unfinished
 -e 500
+-g settings.xml
