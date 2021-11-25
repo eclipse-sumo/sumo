@@ -28,6 +28,7 @@
       <xsd:attribute name="waitingTime" use="optional" type="nonNegativeFloatType"/>
       <xsd:attribute name="timeLoss" use="optional" type="xsd:float"/>
       <xsd:attribute name="speed" use="optional" type="xsd:decimal"/>
+      <xsd:attribute name="speedRelative" use="optional" type="xsd:decimal"/>
       <xsd:attribute name="vaporized" use="optional" type="xsd:integer"/>
     </xsd:complexType>
   </xsd:element>
@@ -48,6 +49,7 @@
       <xsd:attribute name="waitingTime" use="optional" type="nonNegativeFloatType"/>
       <xsd:attribute name="timeLoss" use="optional" type="xsd:float"/>
       <xsd:attribute name="speed" use="optional" type="xsd:decimal"/>
+      <xsd:attribute name="speedRelative" use="optional" type="xsd:decimal"/>
       <xsd:attribute name="vaporized" use="optional" type="xsd:integer"/>
     </xsd:complexType>
   </xsd:element>
