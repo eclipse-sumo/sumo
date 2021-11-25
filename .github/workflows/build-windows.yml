@@ -58,7 +58,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: C:\Users\runneradmin\AppData\Local\Mozilla\sccache\cache
-        key: ${{ matrix.build-type }}-${{ github.head_ref }}-${{ github.run_number }}
+        key: ${{ matrix.build-type }}-${{ matrix.python }}-${{ github.head_ref }}-${{ github.run_number }}
         restore-keys: |
           ${{ matrix.build-type }}-${{ matrix.python }}-${{ github.head_ref }}-
           ${{ matrix.build-type }}-${{ matrix.python }}-
