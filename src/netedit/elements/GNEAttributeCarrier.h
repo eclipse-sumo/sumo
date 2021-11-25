@@ -50,6 +50,7 @@ class GNEAttributeCarrier : public GNEReferenceCounter {
     /// @brief declare friend class
     friend class GNEChange_Attribute;
     friend class GNEChange_EnableAttribute;
+    friend class GNEFrameAttributesModuls;
 
 public:
 

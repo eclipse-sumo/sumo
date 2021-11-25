@@ -86,8 +86,8 @@ public:
         /// @brief refresh row
         void refreshRow() const;
 
-        /// @brief returns a empty string if current value is valid, a string with information about invalid value in other case
-        const std::string& isAttributeValid() const;
+        /// @brief check if current attribute is valid
+        bool isAttributeValid() const;
 
         /// @brief get AttributesCreator parent
         AttributesCreator* getAttributesCreatorParent() const;
@@ -97,18 +97,12 @@ public:
         /// @brief called when user set the value of an attribute of type int/float/string/bool
         long onCmdSetAttribute(FXObject*, FXSelector, void*);
 
-        /// @brief called when user press a check button
-        long onCmdSelectCheckButton(FXObject*, FXSelector, void*);
-
         /// @brief called when user press the "Color" button
-        long onCmdSelectColorButton(FXObject*, FXSelector, void*);
+        long onCmdSelectDialog(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
         FOX_CONSTRUCTOR(AttributesCreatorRow)
-
-        /// @brief check if given complex attribute is valid
-        std::string checkComplexAttribute(const std::string& value);
 
         /// @brief generate ID
         std::string generateID() const;
@@ -731,11 +725,11 @@ public:
 
     private:
         /// @brief list of the reference points
-        enum AdditionalReferencePoint {
-            GNE_ADDITIONALREFERENCEPOINT_LEFT,
-            GNE_ADDITIONALREFERENCEPOINT_RIGHT,
-            GNE_ADDITIONALREFERENCEPOINT_CENTER,
-            GNE_ADDITIONALREFERENCEPOINT_INVALID
+        enum class AdditionalReferencePoint {
+            LEFT,
+            RIGHT,
+            CENTER,
+            INVALID
         };
 
         /// @brief obtain the Start position values of StoppingPlaces and E2 detector over the lane
