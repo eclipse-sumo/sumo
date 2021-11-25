@@ -13,5 +13,8 @@ parkAnywhere_default
 # use the first free parkingArea along the way
 parkAnywhere_0
 
+# use the first free parkingArea along the way (but no others nearby)
+parkAnywhere_0_probability
+
 # use the first free parkingArea along the way
 parkAnywhere_1
