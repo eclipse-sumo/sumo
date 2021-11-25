@@ -124,7 +124,7 @@ public:
         FXLabel* myAttributeLabel = nullptr;
 
         /// @brief check button to enable/disable Label attribute
-        FXCheckButton* myAttributeCheckButton = nullptr;
+        FXCheckButton* myEnableAttributeCheckButton = nullptr;
 
         /// @brief Button for open color editor
         FXButton* myAttributeColorButton = nullptr;

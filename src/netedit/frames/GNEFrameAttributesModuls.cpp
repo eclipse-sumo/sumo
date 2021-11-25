@@ -116,8 +116,8 @@ GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesC
     // Create left visual elements
     myAttributeLabel = new FXLabel(this, "name", nullptr, GUIDesignLabelAttribute);
     myAttributeLabel->hide();
-    myAttributeCheckButton = new FXCheckButton(this, "name", this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonAttribute);
-    myAttributeCheckButton->hide();
+    myEnableAttributeCheckButton = new FXCheckButton(this, "name", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
+    myEnableAttributeCheckButton->hide();
     myAttributeColorButton = new FXButton(this, "ColorButton", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myAttributeColorButton->hide();
     // Create right visual elements
@@ -134,9 +134,9 @@ GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesC
         // special case for attribute ID
         if (attrProperties.getAttr() == SUMO_ATTR_ID) {
             // show check button and disable it
-            myAttributeCheckButton->setText(myAttrProperties.getAttrStr().c_str());
-            myAttributeCheckButton->setCheck(false);
-            myAttributeCheckButton->show();
+            myEnableAttributeCheckButton->setText(myAttrProperties.getAttrStr().c_str());
+            myEnableAttributeCheckButton->setCheck(false);
+            myEnableAttributeCheckButton->show();
             // show text field and disable it
             myValueTextField->setTextColor(FXRGB(0, 0, 0));
             myValueTextField->disable();
@@ -153,13 +153,13 @@ GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesC
                 myAttributeColorButton->show();
             } else if (myAttrProperties.isActivatable()) {
                 // show check button
-                myAttributeCheckButton->setText(myAttrProperties.getAttrStr().c_str());
-                myAttributeCheckButton->show();
+                myEnableAttributeCheckButton->setText(myAttrProperties.getAttrStr().c_str());
+                myEnableAttributeCheckButton->show();
                 // enable or disable depending of template AC
                 if (myAttributesCreatorParent->getCurrentTemplateAC()->isAttributeEnabled(myAttrProperties.getAttr())) {
-                    myAttributeCheckButton->setCheck(TRUE);
+                    myEnableAttributeCheckButton->setCheck(TRUE);
                 } else {
-                    myAttributeCheckButton->setCheck(FALSE);
+                    myEnableAttributeCheckButton->setCheck(FALSE);
                 }
             } else {
                 // show label
@@ -177,7 +177,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesC
                 }
                 myValueCheckButton->show();
                 // if it's associated to a label button and is disabled, then disable myValueCheckButton
-                if (myAttributeCheckButton->shown() && (myAttributeCheckButton->getCheck() == FALSE)) {
+                if (myEnableAttributeCheckButton->shown() && (myEnableAttributeCheckButton->getCheck() == FALSE)) {
                     myValueCheckButton->disable();
                 }
             } else {
@@ -185,7 +185,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesC
                 myValueTextField->setText(myAttributesCreatorParent->getCurrentTemplateAC()->getAttribute(myAttrProperties.getAttr()).c_str());
                 myValueTextField->show();
                 // if it's associated to a label button and is disabled, then disable myValueTextField
-                if (myAttributeCheckButton->shown() && (myAttributeCheckButton->getCheck() == FALSE)) {
+                if (myEnableAttributeCheckButton->shown() && (myEnableAttributeCheckButton->getCheck() == FALSE)) {
                     myValueTextField->disable();
                 }
             }
@@ -224,7 +224,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::getValue() const {
 bool
 GNEFrameAttributesModuls::AttributesCreatorRow::getAttributeCheckButtonCheck() const {
     if (shown()) {
-        return myAttributeCheckButton->getCheck() == TRUE;
+        return myEnableAttributeCheckButton->getCheck() == TRUE;
     } else {
         return false;
     }
@@ -235,7 +235,7 @@ void
 GNEFrameAttributesModuls::AttributesCreatorRow::setAttributeCheckButtonCheck(bool value) {
     if (shown()) {
         // set radio button
-        myAttributeCheckButton->setCheck(value);
+        myEnableAttributeCheckButton->setCheck(value);
         // enable or disable input fields
         if (value) {
             if (myAttrProperties.isBool()) {
@@ -309,8 +309,30 @@ GNEFrameAttributesModuls::AttributesCreatorRow::getAttributesCreatorParent() con
 
 long
 GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
-    // Check if format of current value of myTextField is correct
-    if (obj == myValueCheckButton) {
+    // check what object was called
+    if (obj == myEnableAttributeCheckButton) {
+        if (myEnableAttributeCheckButton->getCheck()) {
+            // enable text field
+            if (myValueTextField->shown()) {
+                myValueTextField->enable();
+            }
+            // enable check button
+            if (myValueCheckButton->shown()) {
+                myValueCheckButton->enable();
+            }
+            /* Enable */
+        } else {
+            // enable text field
+            if (myValueTextField->shown()) {
+                myValueTextField->disable();
+            }
+            // enable check button
+            if (myValueCheckButton->shown()) {
+                myValueCheckButton->disable();
+            }
+            /* disable */
+        }
+    } else if (obj == myValueCheckButton) {
         if (myValueCheckButton->getCheck()) {
             myValueCheckButton->setText("true");
             myAttributesCreatorParent->getCurrentTemplateAC()->setAttribute(myAttrProperties.getAttr(), "true");
@@ -321,7 +343,12 @@ GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
     } else if (obj == myValueTextField) {
         // change color of text field depending of myCurrentValueValid
         if (myAttributesCreatorParent->getCurrentTemplateAC()->isValid(myAttrProperties.getAttr(), myValueTextField->getText().text())) {
-            myValueTextField->setTextColor(FXRGB(0, 0, 0));
+            // check color depending if is a default value
+            if (myAttrProperties.hasStaticDefaultValue() && (myAttrProperties.getDefaultValue() == myValueTextField->getText().text())) {
+                myValueTextField->setTextColor(FXRGB(128, 128, 128));
+            } else {
+                myValueTextField->setTextColor(FXRGB(0, 0, 0));
+            }
             myValueTextField->killFocus();
             myAttributesCreatorParent->getCurrentTemplateAC()->setAttribute(myAttrProperties.getAttr(), myValueTextField->getText().text());
         } else {
