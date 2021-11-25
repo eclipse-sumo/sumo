@@ -20,7 +20,6 @@ changed, the parameter which must be given are also shown in the table.
 | Variable | ValueType | Description | [Python Method](../TraCI/Interfacing_TraCI_from_Python.md) |
 |---------------------------|----------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------|
 | flow (0x18) | compound (string, double, double, double, double, string, string, string, string), see below | Set the houlryflow for a given route on the given lane in an given interval, defined with begin and end. The repsective speed, vehicle type and departure speed also need to given. | [setFlow](https://sumo.dlr.de/pydoc/traci._calibrator.html#CalibratorDomain-setFlow) |
-|  |  |  |  |
 
 # compound message details
 
