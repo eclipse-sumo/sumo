@@ -797,8 +797,10 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
             // alternative occupancy is randomized (but never full) if invisible
             // current destination must be visible at this point
             const bool visible = parks[i].second || (pa == destParkArea && destVisible);
-            int paOccupancy = visible ? pa->getOccupancy() : RandHelper::rand(pa->getCapacity());
+            double paOccupancy = pa->getOccupancy();
             if (!visible) {
+                const double minOccupancy = MIN2((double)pa->getCapacity() - NUMERICAL_EPS, (veh.getNumberParkingReroutes() * pa->getCapacity() / getWeight(veh, "parking.frustration", 100)));
+                paOccupancy = RandHelper::rand(minOccupancy, (double)pa->getCapacity());
                 // previously visited?
                 SUMOTime blockedTime = veh.sawBlockedParkingArea(pa);
                 if (blockedTime >= 0 && SIMSTEP - blockedTime < TIME2STEPS(getWeight(veh, "parking.memory", 600))) {
@@ -828,7 +830,9 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
             for (auto item : blockedTimes) {
                 MSParkingArea* pa = std::get<1>(item);
                 double prob = probs[std::get<2>(item)];
-                int paOccupancy = RandHelper::rand(pa->getCapacity());
+                // all parking areas are occupied. We have have good basis for
+                // prefering one or the other based on estimated occupancy
+                double paOccupancy = RandHelper::rand((double)pa->getCapacity());
                 if (addParkValues(veh, brakeGap, newDestination, pa, paOccupancy, prob, router, parkAreas, newRoutes, parkApproaches, maxValues)) {
                     break;
                 }
@@ -943,7 +947,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
 
 bool
 MSTriggeredRerouter::addParkValues(SUMOVehicle& veh, double brakeGap, bool newDestination,
-        MSParkingArea* pa, int paOccupancy, double prob,
+        MSParkingArea* pa, double paOccupancy, double prob,
         SUMOAbstractRouter<MSEdge, SUMOVehicle>& router,
         MSParkingAreaMap_t& parkAreas,
         std::map<MSParkingArea*, ConstMSEdgeVector>& newRoutes,
@@ -1004,7 +1008,8 @@ MSTriggeredRerouter::addParkValues(SUMOVehicle& veh, double brakeGap, bool newDe
 
             parkValues["capacity"] = (double)(pa->getCapacity());
             parkValues["absfreespace"] = (double)(pa->getCapacity() - paOccupancy);
-            parkValues["relfreespace"] = parkValues["absfreespace"] / parkValues["capacity"];
+            // if capacity = 0 then absfreespace and relfreespace are also 0
+            parkValues["relfreespace"] = parkValues["absfreespace"] / MAX2(1.0, parkValues["capacity"]);
 
             if (parkValues["capacity"] > maxValues["capacity"]) {
                 maxValues["capacity"] = parkValues["capacity"];

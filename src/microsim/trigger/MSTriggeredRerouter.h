@@ -221,7 +221,7 @@ protected:
 
     /// determine attributes of candiate parking area for scoring
     bool addParkValues(SUMOVehicle& veh, double brakeGap, bool newDestination,
-            MSParkingArea* pa, int paOccupancy, double prob,
+            MSParkingArea* pa, double paOccupancy, double prob,
             SUMOAbstractRouter<MSEdge, SUMOVehicle>& router,
             MSParkingAreaMap_t& parkAreas,
             std::map<MSParkingArea*, ConstMSEdgeVector>& newRoutes,
