@@ -54,7 +54,10 @@ GNERouteFrame::RouteModeSelector::RouteModeSelector(GNERouteFrame* routeFramePar
     FXGroupBox(routeFrameParent->myContentFrame, "Route mode", GUIDesignGroupBoxFrame),
     myRouteFrameParent(routeFrameParent),
     myCurrentRouteMode(RouteMode::NONCONSECUTIVE_EDGES),
-    myValidVClass(true) {
+    myValidVClass(true),
+    myRouteTemplate(nullptr) {
+    // create route template
+    myRouteTemplate = new GNERoute(routeFrameParent->getViewNet()->getNet());
     // first fill myRouteModesStrings
     myRouteModesStrings.push_back(std::make_pair(RouteMode::NONCONSECUTIVE_EDGES, "non consecutive edges"));
     myRouteModesStrings.push_back(std::make_pair(RouteMode::CONSECUTIVE_EDGES, "consecutive edges"));
@@ -81,7 +84,9 @@ GNERouteFrame::RouteModeSelector::RouteModeSelector(GNERouteFrame* routeFramePar
 }
 
 
-GNERouteFrame::RouteModeSelector::~RouteModeSelector() {}
+GNERouteFrame::RouteModeSelector::~RouteModeSelector() {
+    delete myRouteTemplate;
+}
 
 
 const GNERouteFrame::RouteMode&
@@ -107,7 +112,7 @@ GNERouteFrame::RouteModeSelector::areParametersValid() {
     // check if current mode is valid
     if ((myCurrentRouteMode != RouteMode::INVALID) && myValidVClass) {
         // show route attributes modul
-        myRouteFrameParent->myRouteAttributes->showAttributesCreatorModul(GNEAttributeCarrier::getTagProperties(SUMO_TAG_ROUTE), {});
+        myRouteFrameParent->myRouteAttributes->showAttributesCreatorModul(myRouteTemplate, {});
         // show path creator
         myRouteFrameParent->myPathCreator->showPathCreatorModul(SUMO_TAG_ROUTE, false, (myCurrentRouteMode == RouteMode::CONSECUTIVE_EDGES));
         // update edge colors

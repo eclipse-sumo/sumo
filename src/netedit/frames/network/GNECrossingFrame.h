@@ -22,6 +22,13 @@
 
 #include <netedit/frames/GNEFrame.h>
 
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
+
+class GNECrossing;
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -176,6 +183,9 @@ public:
     private:
         /// @brief pointer to GNECrossingFrame parent
         GNECrossingFrame* myCrossingFrameParent;
+
+        /// @brief crossing template
+        GNECrossing *myCrossingTemplate;
 
         /// @brief current selected edges
         std::vector<GNEEdge*> myCurrentSelectedEdges;

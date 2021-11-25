@@ -145,7 +145,7 @@ GNEContainerPlanFrame::tagSelected() {
         // Obtain current container plan tag (only for improve code legibility)
         SumoXMLTag containerPlanTag = myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
         // show container attributes
-        myContainerPlanAttributes->showAttributesCreatorModul(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty(), {});
+        myContainerPlanAttributes->showAttributesCreatorModul(myContainerPlanTagSelector->getCurrentTemplateAC(), {});
         // get previous container plan
         GNEEdge* previousEdge = myContainerSelector->getContainerPlanPreviousEdge();
         // set path creator mode depending if previousEdge exist

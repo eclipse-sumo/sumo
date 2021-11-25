@@ -444,7 +444,7 @@ void
 GNEPolygonFrame::tagSelected() {
     if (myShapeTagSelector->getCurrentTemplateAC()) {
         // if there are parmeters, show and Recalc groupBox
-        myShapeAttributes->showAttributesCreatorModul(myShapeTagSelector->getCurrentTemplateAC()->getTagProperty(), {});
+        myShapeAttributes->showAttributesCreatorModul(myShapeTagSelector->getCurrentTemplateAC(), {});
         // show netedit attributes
         myNeteditAttributes->showNeteditAttributesModul(myShapeTagSelector->getCurrentTemplateAC()->getTagProperty());
         // Check if drawing mode has to be shown

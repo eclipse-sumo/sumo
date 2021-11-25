@@ -22,6 +22,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <netedit/changes/GNEChange_Crossing.h>
+#include <netedit/elements/network/GNECrossing.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
@@ -190,7 +191,10 @@ GNECrossingFrame::EdgesSelector::onCmdInvertSelection(FXObject*, FXSelector, voi
 GNECrossingFrame::CrossingParameters::CrossingParameters(GNECrossingFrame* crossingFrameParent) :
     FXGroupBox(crossingFrameParent->myContentFrame, "Crossing parameters", GUIDesignGroupBoxFrame),
     myCrossingFrameParent(crossingFrameParent),
+    myCrossingTemplate(nullptr),
     myCurrentParametersValid(true) {
+    // createcrossing template
+    myCrossingTemplate = new GNECrossing(crossingFrameParent->getViewNet()->getNet());
     FXHorizontalFrame* crossingParameter = nullptr;
     // create label and string textField for edges
     crossingParameter = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
@@ -216,7 +220,9 @@ GNECrossingFrame::CrossingParameters::CrossingParameters(GNECrossingFrame* cross
 }
 
 
-GNECrossingFrame::CrossingParameters::~CrossingParameters() {}
+GNECrossingFrame::CrossingParameters::~CrossingParameters() {
+    delete myCrossingTemplate;
+}
 
 
 void
@@ -444,7 +450,7 @@ GNECrossingFrame::CrossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
 
 long
 GNECrossingFrame::CrossingParameters::onCmdHelp(FXObject*, FXSelector, void*) {
-    myCrossingFrameParent->openHelpAttributesDialog(GNEAttributeCarrier::getTagProperties(SUMO_TAG_CROSSING));
+    myCrossingFrameParent->openHelpAttributesDialog(myCrossingTemplate);
     return 1;
 }
 

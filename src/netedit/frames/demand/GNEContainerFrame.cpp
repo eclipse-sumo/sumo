@@ -156,9 +156,9 @@ GNEContainerFrame::tagSelected() {
         if (myPTypeSelector->getCurrentDemandElement()) {
             // show container attributes depending of myContainerPlanTagSelector
             if (myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopContainer()) {
-                myContainerAttributes->showAttributesCreatorModul(myContainerTagSelector->getCurrentTemplateAC()->getTagProperty(), {SUMO_ATTR_DEPARTPOS});
+                myContainerAttributes->showAttributesCreatorModul(myContainerTagSelector->getCurrentTemplateAC(), {SUMO_ATTR_DEPARTPOS});
             } else {
-                myContainerAttributes->showAttributesCreatorModul(myContainerTagSelector->getCurrentTemplateAC()->getTagProperty(), {});
+                myContainerAttributes->showAttributesCreatorModul(myContainerTagSelector->getCurrentTemplateAC(), {});
             }
             // show container plan tag selector
             myContainerPlanTagSelector->showTagSelector();
@@ -171,7 +171,7 @@ GNEContainerFrame::tagSelected() {
                     myPathCreator->setVClass(SVC_PEDESTRIAN);
                 }
                 // show container plan attributes
-                myContainerPlanAttributes->showAttributesCreatorModul(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty(), {});
+                myContainerPlanAttributes->showAttributesCreatorModul(myContainerPlanTagSelector->getCurrentTemplateAC(), {});
                 // show Netedit attributes modul
                 myNeteditAttributes->showNeteditAttributesModul(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty());
                 // show edge path creator modul
@@ -207,9 +207,9 @@ GNEContainerFrame::demandElementSelected() {
     if (myPTypeSelector->getCurrentDemandElement()) {
         // show container attributes depending of myContainerPlanTagSelector
         if (myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopContainer()) {
-            myContainerAttributes->showAttributesCreatorModul(myContainerTagSelector->getCurrentTemplateAC()->getTagProperty(), {SUMO_ATTR_DEPARTPOS});
+            myContainerAttributes->showAttributesCreatorModul(myContainerTagSelector->getCurrentTemplateAC(), {SUMO_ATTR_DEPARTPOS});
         } else {
-            myContainerAttributes->showAttributesCreatorModul(myContainerTagSelector->getCurrentTemplateAC()->getTagProperty(), {});
+            myContainerAttributes->showAttributesCreatorModul(myContainerTagSelector->getCurrentTemplateAC(), {});
         }
         // show container plan tag selector
         myContainerPlanTagSelector->showTagSelector();
@@ -222,7 +222,7 @@ GNEContainerFrame::demandElementSelected() {
                 myPathCreator->setVClass(SVC_PEDESTRIAN);
             }
             // show container plan attributes
-            myContainerPlanAttributes->showAttributesCreatorModul(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty(), {});
+            myContainerPlanAttributes->showAttributesCreatorModul(myContainerPlanTagSelector->getCurrentTemplateAC(), {});
             // show Netedit attributes modul
             myNeteditAttributes->showNeteditAttributesModul(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty());
             // show edge path creator modul

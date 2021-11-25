@@ -1071,7 +1071,10 @@ GNETAZFrame::TAZSelectionStatistics::updateStatistics() {
 
 GNETAZFrame::TAZParameters::TAZParameters(GNETAZFrame* TAZFrameParent) :
     FXGroupBox(TAZFrameParent->myContentFrame, "TAZ parameters", GUIDesignGroupBoxFrame),
-    myTAZFrameParent(TAZFrameParent) {
+    myTAZFrameParent(TAZFrameParent),
+    myTAZTemplate(nullptr) {
+    // create TAZ Template
+    myTAZTemplate = new GNETAZ(TAZFrameParent->getViewNet()->getNet());
     // create Button and string textField for center (by default, empty)
     FXHorizontalFrame* centerParameter = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(centerParameter, toString(SUMO_ATTR_CENTER).c_str(), 0, GUIDesignLabelAttribute);
@@ -1100,7 +1103,9 @@ GNETAZFrame::TAZParameters::TAZParameters(GNETAZFrame* TAZFrameParent) :
 }
 
 
-GNETAZFrame::TAZParameters::~TAZParameters() {}
+GNETAZFrame::TAZParameters::~TAZParameters() {
+    delete myTAZTemplate;
+}
 
 
 void
@@ -1216,7 +1221,7 @@ GNETAZFrame::TAZParameters::onCmdSetAttribute(FXObject* obj, FXSelector, void*) 
 
 long
 GNETAZFrame::TAZParameters::onCmdHelp(FXObject*, FXSelector, void*) {
-    myTAZFrameParent->openHelpAttributesDialog(GNEAttributeCarrier::getTagProperties(SUMO_TAG_TAZ));
+    myTAZFrameParent->openHelpAttributesDialog(myTAZTemplate);
     return 1;
 }
 

@@ -376,7 +376,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
                 myInvalidValue = "'" + myAttrProperties.getAttrStr() + "' takes only values between 0 and 1";
             } else if (myAttrProperties.hasAttrRange() && ((doubleValue < myAttrProperties.getMinimumRange()) || doubleValue > myAttrProperties.getMaximumRange())) {
                 myInvalidValue = "'" + myAttrProperties.getAttrStr() + "' takes only values between " + toString(myAttrProperties.getMinimumRange()) + " and " + toString(myAttrProperties.getMaximumRange());
-            } else if ((myAttributesCreatorParent->getCurrentTagProperties().getTag() == SUMO_TAG_E2DETECTOR) && (myAttrProperties.getAttr() == SUMO_ATTR_LENGTH) && (doubleValue == 0)) {
+            } else if ((myAttributesCreatorParent->getCurrentTemplateAC()->getTagProperty().getTag() == SUMO_TAG_E2DETECTOR) && (myAttrProperties.getAttr() == SUMO_ATTR_LENGTH) && (doubleValue == 0)) {
                 myInvalidValue = "E2 length cannot be 0";
             }
         } else {
@@ -608,63 +608,71 @@ GNEFrameAttributesModuls::AttributesCreator::~AttributesCreator() {}
 
 
 void
-GNEFrameAttributesModuls::AttributesCreator::showAttributesCreatorModul(const GNETagProperties& tagProperties, const std::vector<SumoXMLAttr>& hiddenAttributes) {
-    // set current tag Properties
-    myTagProperties = tagProperties;
-    // first destroy all rows
-    for (auto& row : myAttributesCreatorRows) {
-        // destroy and delete all rows
-        if (row != nullptr) {
-            row->destroy();
-            delete row;
-            row = nullptr;
+GNEFrameAttributesModuls::AttributesCreator::showAttributesCreatorModul(GNEAttributeCarrier *templateAC, const std::vector<SumoXMLAttr>& hiddenAttributes) {
+    // set current template
+    myTemplateAC = templateAC;
+    // continue if myTemplateAC is valid
+    if (myTemplateAC) {
+        // first destroy all rows
+        for (auto& row : myAttributesCreatorRows) {
+            // destroy and delete all rows
+            if (row != nullptr) {
+                row->destroy();
+                delete row;
+                row = nullptr;
+            }
         }
-    }
-    // now declare a flag to show Flow editor
-    bool showFlowEditor = false;
-    // iterate over tag attributes and create AttributesCreatorRows for every attribute
-    for (const auto& attribute : myTagProperties) {
-        // declare falg to check conditions for show attribute
-        bool showAttribute = true;
-        // check that only non-unique attributes (except ID) are created (And depending of includeExtendedAttributes)
-        if (attribute.isUnique() && (attribute.getAttr() != SUMO_ATTR_ID)) {
-            showAttribute = false;
+        // now declare a flag to show Flow editor
+        bool showFlowEditor = false;
+        // iterate over tag attributes and create AttributesCreatorRows for every attribute
+        for (const auto& attribute : myTemplateAC->getTagProperty()) {
+            // declare falg to check conditions for show attribute
+            bool showAttribute = true;
+            // check that only non-unique attributes (except ID) are created (And depending of includeExtendedAttributes)
+            if (attribute.isUnique() && (attribute.getAttr() != SUMO_ATTR_ID)) {
+                showAttribute = false;
+            }
+            // check if attribute must stay hidden
+            if (std::find(hiddenAttributes.begin(), hiddenAttributes.end(), attribute.getAttr()) != hiddenAttributes.end()) {
+                showAttribute = false;
+            }
+            // check if attribute is a flow definitionattribute
+            if (attribute.isFlowDefinition()) {
+                showAttribute = false;
+                showFlowEditor = true;
+            }
+            // check special case for vaporizer IDs
+            if ((attribute.getAttr() == SUMO_ATTR_ID) && (attribute.getTagPropertyParent().getTag() == SUMO_TAG_VAPORIZER)) {
+                showAttribute = false;
+            }
+            // check special case for VType IDs in vehicle Frame
+            if ((attribute.getAttr() == SUMO_ATTR_TYPE) && (myFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) &&
+                    (myFrameParent->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_VEHICLE)) {
+                showAttribute = false;
+            }
+            // show attribute depending of showAttribute flag
+            if (showAttribute) {
+                myAttributesCreatorRows.at(attribute.getPositionListed()) = new AttributesCreatorRow(this, attribute);
+            }
         }
-        // check if attribute must stay hidden
-        if (std::find(hiddenAttributes.begin(), hiddenAttributes.end(), attribute.getAttr()) != hiddenAttributes.end()) {
-            showAttribute = false;
+        // reparent help button (to place it at bottom)
+        myHelpButton->reparent(this);
+        // recalc
+        recalc();
+        // check if flow editor has to be shown
+        if (showFlowEditor) {
+            myAttributesCreatorFlow->showAttributesCreatorFlowModul(
+                myTemplateAC->getTagProperty().hasAttribute(SUMO_ATTR_VEHSPERHOUR) || 
+                myTemplateAC->getTagProperty().hasAttribute(SUMO_ATTR_PERSONSPERHOUR) ||
+                myTemplateAC->getTagProperty().hasAttribute(SUMO_ATTR_CONTAINERSPERHOUR));
+        } else {
+            myAttributesCreatorFlow->hideAttributesCreatorFlowModul();
         }
-        // check if attribute is a flow definitionattribute
-        if (attribute.isFlowDefinition()) {
-            showAttribute = false;
-            showFlowEditor = true;
-        }
-        // check special case for vaporizer IDs
-        if ((attribute.getAttr() == SUMO_ATTR_ID) && (attribute.getTagPropertyParent().getTag() == SUMO_TAG_VAPORIZER)) {
-            showAttribute = false;
-        }
-        // check special case for VType IDs in vehicle Frame
-        if ((attribute.getAttr() == SUMO_ATTR_TYPE) && (myFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) &&
-                (myFrameParent->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_VEHICLE)) {
-            showAttribute = false;
-        }
-        // show attribute depending of showAttribute flag
-        if (showAttribute) {
-            myAttributesCreatorRows.at(attribute.getPositionListed()) = new AttributesCreatorRow(this, attribute);
-        }
-    }
-    // reparent help button (to place it at bottom)
-    myHelpButton->reparent(this);
-    // recalc
-    recalc();
-    // check if flow editor has to be shown
-    if (showFlowEditor) {
-        myAttributesCreatorFlow->showAttributesCreatorFlowModul(tagProperties.hasAttribute(SUMO_ATTR_PERSONSPERHOUR));
+        // show
+        show();
     } else {
-        myAttributesCreatorFlow->hideAttributesCreatorFlowModul();
+        throw ProcessError("invalid templateAC in showAttributesCreatorModul");
     }
-    // show
-    show();
 }
 
 
@@ -729,9 +737,9 @@ GNEFrameAttributesModuls::AttributesCreator::getAttributesAndValues(CommonXMLStr
 }
 
 
-GNETagProperties
-GNEFrameAttributesModuls::AttributesCreator::getCurrentTagProperties() const {
-    return myTagProperties;
+GNEAttributeCarrier*
+GNEFrameAttributesModuls::AttributesCreator::getCurrentTemplateAC() const {
+    return myTemplateAC;
 }
 
 
@@ -739,7 +747,7 @@ void
 GNEFrameAttributesModuls::AttributesCreator::showWarningMessage(std::string extra) const {
     std::string errorMessage;
     // iterate over standar parameters
-    for (const auto& attribute : myTagProperties) {
+    for (const auto& attribute : myTemplateAC->getTagProperty()) {
         if (errorMessage.empty() && myAttributesCreatorRows.at(attribute.getPositionListed())) {
             // Return string with the error if at least one of the parameter isn't valid
             std::string attributeValue = myAttributesCreatorRows.at(attribute.getPositionListed())->isAttributeValid();
@@ -750,11 +758,10 @@ GNEFrameAttributesModuls::AttributesCreator::showWarningMessage(std::string extr
     }
     // show warning box if input parameters aren't invalid
     if (extra.size() == 0) {
-        errorMessage = "Invalid input parameter of " + myTagProperties.getTagStr() + ": " + errorMessage;
+        errorMessage = "Invalid input parameter of " + myTemplateAC->getTagProperty().getTagStr() + ": " + errorMessage;
     } else {
-        errorMessage = "Invalid input parameter of " + myTagProperties.getTagStr() + ": " + extra;
+        errorMessage = "Invalid input parameter of " + myTemplateAC->getTagProperty().getTagStr() + ": " + extra;
     }
-
     // set message in status bar
     myFrameParent->myViewNet->setStatusBarText(errorMessage);
     // Write Warning in console if we're in testing mode
@@ -765,7 +772,7 @@ GNEFrameAttributesModuls::AttributesCreator::showWarningMessage(std::string extr
 bool
 GNEFrameAttributesModuls::AttributesCreator::areValuesValid() const {
     // iterate over standar parameters
-    for (const auto& attribute : myTagProperties) {
+    for (const auto& attribute : myTemplateAC->getTagProperty()) {
         // Return false if error message of attriuve isn't empty
         if (myAttributesCreatorRows.at(attribute.getPositionListed()) && myAttributesCreatorRows.at(attribute.getPositionListed())->isAttributeValid().size() != 0) {
             return false;
@@ -778,15 +785,15 @@ GNEFrameAttributesModuls::AttributesCreator::areValuesValid() const {
 void
 GNEFrameAttributesModuls::AttributesCreator::refreshRows() {
     // currently only row with attribute ID must be refresh
-    if (myTagProperties.hasAttribute(SUMO_ATTR_ID) && (myTagProperties.getTag() != SUMO_TAG_VAPORIZER)) {
-        myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_ID).getPositionListed()]->refreshRow();
+    if (myTemplateAC->getTagProperty().hasAttribute(SUMO_ATTR_ID) && (myTemplateAC->getTagProperty().getTag() != SUMO_TAG_VAPORIZER)) {
+        myAttributesCreatorRows[myTemplateAC->getTagProperty().getAttributeProperties(SUMO_ATTR_ID).getPositionListed()]->refreshRow();
     }
 }
 
 long
 GNEFrameAttributesModuls::AttributesCreator::onCmdHelp(FXObject*, FXSelector, void*) {
     // open Help attributes dialog
-    myFrameParent->openHelpAttributesDialog(myTagProperties);
+    myFrameParent->openHelpAttributesDialog(myTemplateAC);
     return 1;
 }
 
@@ -1784,7 +1791,7 @@ GNEFrameAttributesModuls::AttributesEditor::onCmdAttributesEditorHelp(FXObject*,
     // open Help attributes dialog if there is inspected ACs
     if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
         // open Help attributes dialog
-        myFrameParent->openHelpAttributesDialog(myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty());
+        myFrameParent->openHelpAttributesDialog(myFrameParent->getViewNet()->getInspectedAttributeCarriers().front());
     }
     return 1;
 }

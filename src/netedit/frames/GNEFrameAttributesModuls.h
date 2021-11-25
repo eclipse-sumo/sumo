@@ -160,11 +160,8 @@ public:
         /// @brief destructor
         ~AttributesCreator();
 
-        /**@brief show AttributesCreator modul
-         * @param tagProperties GNETagProperties which contain all attributes
-         * @param hiddenAttributes list of attributes contained in tagProperties but not shown
-         */
-        void showAttributesCreatorModul(const GNETagProperties& tagProperties, const std::vector<SumoXMLAttr>& hiddenAttributes);
+        /// @brief show AttributesCreator modul
+        void showAttributesCreatorModul(GNEAttributeCarrier *templateAC, const std::vector<SumoXMLAttr>& hiddenAttributes);
 
         /// @brief hide group box
         void hideAttributesCreatorModul();
@@ -175,8 +172,8 @@ public:
         /// @brief get attributes and their values
         void getAttributesAndValues(CommonXMLStructure::SumoBaseObject* baseObject, bool includeAll) const;
 
-        /// @brief get current edited Tag Properties
-        GNETagProperties getCurrentTagProperties() const;
+        /// @brief get current template AC
+        GNEAttributeCarrier *getCurrentTemplateAC() const;
 
         /// @brief check if parameters of attributes are valid
         bool areValuesValid() const;
@@ -203,8 +200,8 @@ public:
         /// @brief pointer to myAttributesCreatorFlow
         AttributesCreatorFlow* myAttributesCreatorFlow = nullptr;
 
-        /// @brief current edited Tag Properties
-        GNETagProperties myTagProperties;
+        /// @brief current templateAC
+        GNEAttributeCarrier *myTemplateAC;
 
         /// @brief vector with the AttributesCreatorRow
         std::vector<AttributesCreatorRow*> myAttributesCreatorRows;

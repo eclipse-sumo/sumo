@@ -295,7 +295,7 @@ void
 GNEVehicleFrame::demandElementSelected() {
     if (myVTypeSelector->getCurrentDemandElement()) {
         // show vehicle attributes modul
-        myVehicleAttributes->showAttributesCreatorModul(myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty(), {});
+        myVehicleAttributes->showAttributesCreatorModul(myVehicleTagSelector->getCurrentTemplateAC(), {});
         // set current VTypeClass in TripCreator
         myPathCreator->setVClass(myVTypeSelector->getCurrentDemandElement()->getVClass());
         // show path creator modul

@@ -153,7 +153,7 @@ GNEPersonPlanFrame::tagSelected() {
         // Obtain current person plan tag (only for improve code legibility)
         SumoXMLTag personPlanTag = myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
         // show person attributes
-        myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty(), {});
+        myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTemplateAC(), {});
         // get previous person plan
         GNEEdge* previousEdge = myPersonSelector->getPersonPlanPreviousEdge();
         // show path creator depending of tag
