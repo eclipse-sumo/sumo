@@ -96,15 +96,15 @@ public:
             /// @brief get template AC
             GNEAttributeCarrier* getAC() const;
 
-            // @brief tag in string format
-            const std::string tag;
-
-            /// @brief icon
-            const GUIIcon icon;
-
         private:
             /// @brief editedAC
             GNEAttributeCarrier *myAC;
+            
+            /// @brief Invalidated copy constructor.
+            ACTemplate(const ACTemplate&) = delete;
+
+            /// @brief Invalidated assignment operator
+            ACTemplate& operator=(const ACTemplate& src) = delete;
         };
 
         /// @brief pointer to Frame Parent

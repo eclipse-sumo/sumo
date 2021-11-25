@@ -322,8 +322,6 @@ GNEFrameModuls::TagSelector::ACTemplate::getAC() const {
 
 
 GNEFrameModuls::TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagProperty) :
-    tag(tagProperty.getTagStr()),
-    icon(tagProperty.getGUIIcon()),
     myAC(nullptr) {
     // create attribute carrier depending of 
     switch (tagProperty.getTag()) {
@@ -485,6 +483,7 @@ GNEFrameModuls::TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagPro
             myAC = new GNEStopPerson(tagProperty.getTag(), net);
             break;
         default:
+            throw ProcessError("Non-supported tagProperty in ACTemplate");
             break;
     }
 }
