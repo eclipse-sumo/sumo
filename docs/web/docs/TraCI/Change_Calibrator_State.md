@@ -12,8 +12,6 @@ Changes the state of a calibrator. Because it is possible to change
 different values of a calibrator, the number of parameter to supply and
 their types differ between commands. The following values can be
 changed, the parameter which must be given are also shown in the table.
-Furthermore it is possible to change all values mentioned in
-[TraCI/Change_Calibrator_State](../TraCI/Change_Calibrator_State.md).
 
 <center>
 **Overview Changeable Calibrator Variables**
