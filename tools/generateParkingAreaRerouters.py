@@ -75,8 +75,8 @@ def get_options(cmd_args=None):
     parser.add_argument(
         '--distribute', dest='distribute',
         help='Distribute alternatives by distance according to the given weights. "3,1"'
-        + 'means that 75% of the alternatives are below the median distance of all'
-        + 'alternatives in range and 25% are above the median distance')
+        + 'means that 75 percent of the alternatives are below the median distance of all'
+        + 'alternatives in range and 25 percent are above the median distance')
     parser.add_argument(
         '--processes', type=int, dest='processes', default=1,
         help='Number of processes spawned to compute the distance between parking areas.')
@@ -154,9 +154,17 @@ class ReroutersGeneration(object):
 
             laneID = child.attrib['lane']
             lane = self._sumo_net.getLane(laneID)
-            endPos = float(child.attrib['endPos'])
-            if endPos < 0:
-                endPos = lane.getLength()
+
+            endPos = lane.getLength()
+            if 'endPos' in child.attrib:
+                endPos = float(child.attrib['endPos'])
+                if endPos < 0:
+                    endPos = lane.getLength()
+            else:
+                child.attrib['endPos'] = endPos
+
+            if 'startPos' not in child.attrib:
+                child.attrib['startPos'] = 0
 
             self._parking_areas[child.attrib['id']]['edge'] = lane.getEdge().getID()
             self._parking_areas[child.attrib['id']]['pos'] = sumolib.geomhelper.positionAtShapeOffset(lane.getShape(), endPos)  # noqa
