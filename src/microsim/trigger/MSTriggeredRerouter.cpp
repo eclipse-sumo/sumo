@@ -835,9 +835,13 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
                 double prob = 0;
                 if (!dominated) {
                     prob = RandHelper::rand(parkValues["probability"], veh.getRNG());
+                    parkValues["probability"] = 1.0 - prob / maxValues["probability"];
+                } else {
+                    // worst probability score
+                    parkValues["probability"] = 1.0;
                 }
-                parkValues["probability"] = 1.0 - prob / maxValues["probability"];
             } else {
+                // value takes no effect due to weight=0
                 parkValues["probability"] = 0;
             }
             // normalizing with maximum values (we want to maximize some parameters then we reverse the value)
