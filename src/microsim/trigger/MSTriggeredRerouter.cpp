@@ -616,9 +616,13 @@ MSTriggeredRerouter::getWeight(SUMOVehicle& veh, const std::string param, const 
 MSParkingArea*
 MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterval* rerouteDef,
                                         SUMOVehicle& veh, bool& newDestination, ConstMSEdgeVector& newRoute) const {
-    // reroute destination from initial parking area to the near parking area
-    // if the next stop is a parking area, it is included in the current
-    // alternative set and if it can be observed to be full
+    // Reroute destination from initial parking area to an alternative parking area
+    // if the following conditions are met:
+    // - next stop target is a parking area
+    // - target is included in the current alternative set
+    // - target is visibly full
+    // Any parking areas that are visibly full at the current location are
+    // committed to parking memory
 
     MSParkingArea* nearParkArea = nullptr;
     std::vector<ParkingAreaVisible> parks = rerouteDef->parkProbs.getVals();
@@ -643,7 +647,12 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
         }
     }
     if (!destVisible) {
-        // cannot determine destination occupancy
+        // cannot determine destination occupancy, only register visibly full
+        for (const ParkingAreaVisible& pav : parks) {
+            if (pav.second && pav.first->getLastStepOccupancy() == pav.first->getCapacity()) {
+                veh.rememberBlockedParkingArea(pav.first);
+            }
+        }
         return nullptr;
     }
     if (destParkArea->getLastStepOccupancy() == destParkArea->getCapacity()) {
