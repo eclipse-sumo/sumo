@@ -26,6 +26,11 @@ environment:
           generator: "Visual Studio 16 2019"
           configuration: Release
           PYTHON: C:\Python27-x64
+        - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
+          ver: 2022
+          generator: "Visual Studio 17 2022"
+          configuration: Release
+          PYTHON: C:\Python37-x64
 
 install:
     - git clone --recurse-submodules https://github.com/DLR-TS/SUMOLibraries
