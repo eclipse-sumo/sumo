@@ -18,3 +18,9 @@ parkAnywhere_0_probability
 
 # use the first free parkingArea along the way
 parkAnywhere_1
+
+# test frustration after prolonged parking search
+frustration_10
+
+# test frustration after prolonged parking search
+frustration_100
