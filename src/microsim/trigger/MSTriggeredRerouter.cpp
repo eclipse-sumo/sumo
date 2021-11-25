@@ -873,7 +873,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
 
 #ifdef DEBUG_PARKING
             if (DEBUGCOND) {
-                std::cout << "    altPA=" << it->first->getID() << " score=" << parkingCost << "\n";
+                std::cout << "    altPA=" << it->first->getID() << " score=" << parkingCost << " vals=" << joinToString(parkValues, " ", ":") << "\n";
             }
 #endif
         }
@@ -897,7 +897,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
 
 
 bool
-MSTriggeredRerouter::addParkValues(const SUMOVehicle& veh, double brakeGap, bool newDestination,
+MSTriggeredRerouter::addParkValues(SUMOVehicle& veh, double brakeGap, bool newDestination,
         MSParkingArea* pa, int paOccupancy, double prob,
         SUMOAbstractRouter<MSEdge, SUMOVehicle>& router,
         MSParkingAreaMap_t& parkAreas,
@@ -988,6 +988,7 @@ MSTriggeredRerouter::addParkValues(const SUMOVehicle& veh, double brakeGap, bool
             //    << "\n";
             const double distToEnd = parkValues["distanceto"] - pa->getBeginLanePosition() + pa->getEndLanePosition();
             if (distToEnd < brakeGap) {
+                veh.rememberParkingAreaScore(pa, "tooClose");
 #ifdef DEBUG_PARKING
                 if (DEBUGCOND) {
                     std::cout << "    altPA=" << pa->getID() << " too close to brake (dist=" << distToEnd << " brakeGap=" << brakeGap << "\n";
@@ -1035,15 +1036,12 @@ MSTriggeredRerouter::addParkValues(const SUMOVehicle& veh, double brakeGap, bool
             parkAreas[pa] = parkValues;
             newRoutes[pa] = newEdges;
 
-#ifdef DEBUG_PARKING
-            if (DEBUGCOND) {
-                std::cout << "    altPA=" << pa->getID()
-                    << " vals=" << joinToString(parkValues, " ", ":")
-                    << "\n";
-            }
-#endif
             return true;
+        } else {
+            veh.rememberParkingAreaScore(pa, "destUnreachable");
         }
+    } else {
+        veh.rememberParkingAreaScore(pa, "unreachable");
     }
 #ifdef DEBUG_PARKING
     if (DEBUGCOND) {
