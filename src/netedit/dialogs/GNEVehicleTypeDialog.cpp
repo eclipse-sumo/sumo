@@ -374,8 +374,10 @@ GNEVehicleTypeDialog::VTypeAtributes::VShapeRow::setVShapeLabelImage() {
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_SHIP));
             break;
         case SVS_EMERGENCY:
-        case SVS_FIREBRIGADE:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_EMERGENCY));
+            break;
+        case SVS_FIREBRIGADE:
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_FIREBRIGADE));
             break;
         case SVS_POLICE:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_POLICE));
