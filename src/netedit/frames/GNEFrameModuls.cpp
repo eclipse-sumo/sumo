@@ -54,6 +54,19 @@
 #include <netedit/elements/additional/GNEVariableSpeedSign.h>
 #include <netedit/elements/additional/GNEVariableSpeedSignStep.h>
 #include <netedit/elements/data/GNEDataInterval.h>
+#include <netedit/elements/demand/GNEContainer.h>
+#include <netedit/elements/demand/GNEPerson.h>
+#include <netedit/elements/demand/GNEPersonTrip.h>
+#include <netedit/elements/demand/GNERide.h>
+#include <netedit/elements/demand/GNERoute.h>
+#include <netedit/elements/demand/GNEStop.h>
+#include <netedit/elements/demand/GNEStopContainer.h>
+#include <netedit/elements/demand/GNEStopPerson.h>
+#include <netedit/elements/demand/GNETranship.h>
+#include <netedit/elements/demand/GNETransport.h>
+#include <netedit/elements/demand/GNEVehicle.h>
+#include <netedit/elements/demand/GNEVehicleType.h>
+#include <netedit/elements/demand/GNEWalk.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <utils/foxtools/MFXMenuHeader.h>
@@ -302,6 +315,12 @@ GNEFrameModuls::TagSelector::onCmdSelectTag(FXObject*, FXSelector, void*) {
 }
 
 
+GNEAttributeCarrier*
+GNEFrameModuls::TagSelector::ACTemplate::getAC() const {
+    return myAC;
+}
+
+
 GNEFrameModuls::TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagProperty) :
     tag(tagProperty.getTagStr()),
     icon(tagProperty.getGUIIcon()),
@@ -401,6 +420,69 @@ GNEFrameModuls::TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagPro
         case SUMO_TAG_TAZSOURCE:
         case SUMO_TAG_TAZSINK:
             myAC = new GNETAZSourceSink(tagProperty.getTag(), net);
+            break;
+        // Demand elements
+        case SUMO_TAG_ROUTE:
+        case GNE_TAG_ROUTE_EMBEDDED:
+            myAC = new GNERoute(tagProperty.getTag(), net);
+            break;
+        case SUMO_TAG_VTYPE:
+        case SUMO_TAG_PTYPE:
+            myAC = new GNEVehicleType(tagProperty.getTag(), net);
+            break;
+        case SUMO_TAG_VEHICLE:
+        case GNE_TAG_VEHICLE_WITHROUTE:
+        case GNE_TAG_FLOW_ROUTE:
+        case GNE_TAG_FLOW_WITHROUTE:
+        case SUMO_TAG_TRIP:
+        case SUMO_TAG_FLOW:
+            myAC = new GNEVehicle(tagProperty.getTag(), net);
+            break;
+        case SUMO_TAG_STOP_LANE:
+        case SUMO_TAG_STOP_BUSSTOP:
+        case SUMO_TAG_STOP_CONTAINERSTOP:
+        case SUMO_TAG_STOP_CHARGINGSTATION:
+        case SUMO_TAG_STOP_PARKINGAREA:
+            myAC = new GNEStop(tagProperty.getTag(), net);
+            break;
+        case SUMO_TAG_PERSON:
+        case SUMO_TAG_PERSONFLOW:
+            myAC = new GNEPerson(tagProperty.getTag(), net);
+            break;
+        case SUMO_TAG_CONTAINER:
+        case SUMO_TAG_CONTAINERFLOW:
+            myAC = new GNEContainer(tagProperty.getTag(), net);
+            break;
+        case GNE_TAG_TRANSPORT_EDGE:
+        case GNE_TAG_TRANSPORT_CONTAINERSTOP:
+            myAC = new GNETransport(tagProperty.getTag(), net);
+            break;
+        case GNE_TAG_TRANSHIP_EDGE:
+        case GNE_TAG_TRANSHIP_CONTAINERSTOP:
+        case GNE_TAG_TRANSHIP_EDGES:
+            myAC = new GNETranship(tagProperty.getTag(), net);
+            break;
+        case GNE_TAG_STOPCONTAINER_EDGE:
+        case GNE_TAG_STOPCONTAINER_CONTAINERSTOP:
+            myAC = new GNEStopContainer(tagProperty.getTag(), net);
+            break;
+        case GNE_TAG_PERSONTRIP_EDGE:
+        case GNE_TAG_PERSONTRIP_BUSSTOP:
+            myAC = new GNEPersonTrip(tagProperty.getTag(), net);
+            break;
+        case GNE_TAG_WALK_EDGE:
+        case GNE_TAG_WALK_BUSSTOP:
+        case GNE_TAG_WALK_EDGES:
+        case GNE_TAG_WALK_ROUTE:
+            myAC = new GNEWalk(tagProperty.getTag(), net);
+            break;
+        case GNE_TAG_RIDE_EDGE:
+        case GNE_TAG_RIDE_BUSSTOP:
+            myAC = new GNERide(tagProperty.getTag(), net);
+            break;
+        case GNE_TAG_STOPPERSON_EDGE:
+        case GNE_TAG_STOPPERSON_BUSSTOP:
+            myAC = new GNEStopPerson(tagProperty.getTag(), net);
             break;
         default:
             break;

@@ -93,10 +93,8 @@ public:
             /// @brief destructor
             ~ACTemplate();
 
-            /// @brief editedAC
-            GNEAttributeCarrier *getAC() {
-                return myAC;
-            };
+            /// @brief get template AC
+            GNEAttributeCarrier* getAC() const;
 
             // @brief tag in string format
             const std::string tag;
