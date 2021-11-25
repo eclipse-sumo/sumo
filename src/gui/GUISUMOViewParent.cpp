@@ -178,6 +178,10 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject* sender, FXSelector, void*) {
         }
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
+        if (file.find(".") == -1) {
+            file.append(".png");
+            WRITE_MESSAGE("No file extension was specified - saving Snapshot as PNG.");
+        }
         std::string error = myView->makeSnapshot(file);
         if (error == "video") {
             button->setChecked(!button->amChecked());
