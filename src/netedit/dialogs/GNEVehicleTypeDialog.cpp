@@ -385,6 +385,9 @@ GNEVehicleTypeDialog::VTypeAtributes::VShapeRow::setVShapeLabelImage() {
         case SVS_RICKSHAW:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_RICKSHAW));
             break;
+        case SVS_SCOOTER:
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_SCOOTER));
+            break;
         default:
             myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_IGNORING));
             break;
