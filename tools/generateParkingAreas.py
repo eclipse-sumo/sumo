@@ -84,12 +84,13 @@ def main(options):
                         if options.randCapacity:
                             capacity *= random.random()
                         capacity = min(options.max, max(options.min, int(capacity)))
-                        if capacity > 0:
+                        if capacity > 0 or capacity == options.max:
                             angle = '' if options.angle is None else ' angle="%s"' % options.angle
+                            length = '' if options.spaceLength <= 0 else ' length="%s"' % options.spaceLength
                             width = '' if options.width is None else ' width="%s"' % options.width
-                            outf.write('  <parkingArea id="%s%s" lane="%s" length="%s" roadsideCapacity="%s"%s%s/>\n' % (
+                            outf.write('    <parkingArea id="%s%s" lane="%s" roadsideCapacity="%s"%s%s%s/>\n' % (
                                 options.prefix, edge.getID(), lane.getID(),
-                                options.spaceLength, capacity, angle, width))
+                                capacity, length, width, angle))
                     break
         outf.write("</additional>\n")
 
