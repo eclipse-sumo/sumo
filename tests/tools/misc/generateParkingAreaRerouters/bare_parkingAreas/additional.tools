@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2021-11-25 20:43:00.486089 by generateParkingAreaRerouters.py v1_11_0+0099-d869ee1
+<configuration>
+    <min-capacity-visibility-true value="50"/>
+    <max-distance-alternatives value="150.0"/>
+    <max-distance-visibility-true value="100.0"/>
+    <max-number-alternatives value="4"/>
+    <output value="out.add.xml"/>
+    <parking-areas value="input_additional.add.xml"/>
+    <sumo-net value="net.net.xml"/>
+</configuration>
+
+-->
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <rerouter id="parking_b" edges="b">
+        <interval begin="0.0" end="86400">
+            <!-- in order of distance --> 
+            <parkingAreaReroute id="parking_b" visible="true"/> <!-- dist: 0.0 -->
+            <parkingAreaReroute id="parking_c" visible="true"/> <!-- dist: 72.2 -->
+            <parkingAreaReroute id="parking_d" visible="false"/> <!-- dist: 115.8 -->
+        </interval>
+    </rerouter>
+
+    <rerouter id="parking_c" edges="c">
+        <interval begin="0.0" end="86400">
+            <!-- in order of distance --> 
+            <parkingAreaReroute id="parking_c" visible="true"/> <!-- dist: 0.0 -->
+            <parkingAreaReroute id="parking_d" visible="true"/> <!-- dist: 82.2 -->
+            <parkingAreaReroute id="parking_e" visible="false"/> <!-- dist: 120.8 -->
+        </interval>
+    </rerouter>
+
+    <rerouter id="parking_d" edges="d">
+        <interval begin="0.0" end="86400">
+            <!-- in order of distance --> 
+            <parkingAreaReroute id="parking_d" visible="true"/> <!-- dist: 0.0 -->
+            <parkingAreaReroute id="parking_e" visible="true"/> <!-- dist: 82.2 -->
+            <parkingAreaReroute id="parking_b" visible="false"/> <!-- dist: 115.8 -->
+        </interval>
+    </rerouter>
+
+    <rerouter id="parking_e" edges="e">
+        <interval begin="0.0" end="86400">
+            <!-- in order of distance --> 
+            <parkingAreaReroute id="parking_e" visible="true"/> <!-- dist: 0.0 -->
+            <parkingAreaReroute id="parking_b" visible="true"/> <!-- dist: 72.2 -->
+            <parkingAreaReroute id="parking_c" visible="false"/> <!-- dist: 110.8 -->
+        </interval>
+    </rerouter>
+</additional>

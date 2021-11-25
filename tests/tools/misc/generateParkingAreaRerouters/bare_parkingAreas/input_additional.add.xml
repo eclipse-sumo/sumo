@@ -1,0 +1,8 @@
+<additional>
+
+    <parkingArea id="parking_b" lane="b_0" roadsideCapacity="6"/>
+    <parkingArea id="parking_c" lane="c_0" roadsideCapacity="6"/>
+    <parkingArea id="parking_d" lane="d_0" roadsideCapacity="6"/>
+    <parkingArea id="parking_e" lane="e_0" roadsideCapacity="6"/>
+
+</additional>
