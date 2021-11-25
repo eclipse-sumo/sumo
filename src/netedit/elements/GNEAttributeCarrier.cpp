@@ -3588,7 +3588,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         fillCommonVehicleAttributes(currentTag);
 
         // add flow attributes
-        fillCommonFlowAttributes(currentTag, true);
+        fillCommonFlowAttributes(currentTag, SUMO_ATTR_VEHSPERHOUR);
     }
     currentTag = GNE_TAG_FLOW_WITHROUTE;
     {
@@ -3623,7 +3623,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         fillCommonVehicleAttributes(currentTag);
 
         // add flow attributes
-        fillCommonFlowAttributes(currentTag, true);
+        fillCommonFlowAttributes(currentTag, SUMO_ATTR_VEHSPERHOUR);
     }
     currentTag = SUMO_TAG_TRIP;
     {
@@ -3645,17 +3645,17 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
                                               "The name of the edge the " + toString(currentTag) + " starts at");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TO,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
                                               "The name of the edge the " + toString(currentTag) + " ends at");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_VIA,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::LIST,
                                               "List of intermediate edge ids which shall be part of the " + toString(currentTag));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -3688,17 +3688,17 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
                                               "The name of the edge the " + toString(currentTag) + " starts at");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TO,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
                                               "The name of the edge the " + toString(currentTag) + " ends at");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_VIA,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::LIST,
                                               "List of intermediate edge ids which shall be part of the " + toString(currentTag));
         myTagProperties[currentTag].addAttribute(attrProperty);
 
@@ -3706,7 +3706,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         fillCommonVehicleAttributes(currentTag);
 
         // add flow attributes
-        fillCommonFlowAttributes(currentTag, true);
+        fillCommonFlowAttributes(currentTag, SUMO_ATTR_VEHSPERHOUR);
     }
     /* currently disabled. See #5259
     currentTag = SUMO_TAG_TRIP_TAZ;
@@ -3867,7 +3867,7 @@ GNEAttributeCarrier::fillPersonElements() {
         fillCommonPersonAttributes(currentTag);
 
         // add flow attributes
-        fillCommonFlowAttributes(currentTag, false);
+        fillCommonFlowAttributes(currentTag, SUMO_ATTR_PERSONSPERHOUR);
     }
 }
 
@@ -3900,7 +3900,7 @@ GNEAttributeCarrier::fillContainerElements() {
         fillCommonContainerAttributes(currentTag);
 
         // add flow attributes
-        fillCommonFlowAttributes(currentTag, false);
+        fillCommonFlowAttributes(currentTag, SUMO_ATTR_CONTAINERSPERHOUR);
     }
 }
 
@@ -4536,7 +4536,7 @@ GNEAttributeCarrier::fillCommonVehicleAttributes(SumoXMLTag currentTag) {
 
 
 void
-GNEAttributeCarrier::fillCommonFlowAttributes(SumoXMLTag currentTag, const bool forVehicles) {
+GNEAttributeCarrier::fillCommonFlowAttributes(SumoXMLTag currentTag, SumoXMLAttr perHour) {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
 
@@ -4558,7 +4558,7 @@ GNEAttributeCarrier::fillCommonFlowAttributes(SumoXMLTag currentTag, const bool 
                                           "1800");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
-    attrProperty = GNEAttributeProperties(forVehicles ? SUMO_ATTR_VEHSPERHOUR : SUMO_ATTR_PERSONSPERHOUR,
+    attrProperty = GNEAttributeProperties(perHour,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL | GNEAttributeProperties::FLOWDEFINITION,
                                           "Number of " + toString(currentTag) + "s per hour, equally spaced (not together with period or probability)",
                                           "1800");
