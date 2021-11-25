@@ -27,14 +27,6 @@ GLDebug: 	Inserted edge:6 into SUMORTree with boundary -10.00,28.40,60.00,50.00
 GLDebug: 	Inserted edge:7 into SUMORTree with boundary -10.00,20.00,60.00,41.60
 GLDebug: 	Inserted edge:8 into SUMORTree with boundary -10.00,18.40,60.00,40.00
 GLDebug: 	Inserted edge:9 into SUMORTree with boundary -10.00,10.00,60.00,31.60
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'personTrip: edge->edge' in TagSelector
-Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
-Debug: Selected item 'personTrip: edge->edge' in TagSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Error: Attribute 'id' is missing in definition of a busStop.
 Error: 'access' must be defined within the definition of a 'busStop' (found '').
 Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.08Nov111408.28264\netedit.gui\additionalElements\access\load\invalid_parent\input_additionals.add.xml failed.

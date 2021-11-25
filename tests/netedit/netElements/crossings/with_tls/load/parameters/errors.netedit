@@ -12,14 +12,6 @@ GLDebug: 	Inserted edge:EC into SUMORTree with boundary 90.00,90.00,210.00,114.8
 GLDebug: 	Inserted edge:NC into SUMORTree with boundary 85.20,90.00,110.00,210.00
 GLDebug: 	Inserted edge:SC into SUMORTree with boundary 90.00,-10.00,114.80,110.00
 GLDebug: 	Inserted edge:WC into SUMORTree with boundary -10.00,85.20,110.00,110.00
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'personTrip: edge->edge' in TagSelector
-Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
-Debug: Selected item 'personTrip: edge->edge' in TagSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:C from SUMORTree with boundary 79.60,79.60,120.40,120.40
