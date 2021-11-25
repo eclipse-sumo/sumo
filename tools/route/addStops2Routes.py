@@ -34,9 +34,9 @@ import sumolib  # noqa
 def get_options(args=None):
     optParser = ArgumentParser()
     optParser.add_option("-n", "--net-file", dest="netfile",
-                         help="define the net filename")
+                         help="define the net filename (mandatory)")
     optParser.add_option("-r", "--route-files", dest="routefiles",
-                         help="define the route file seperated by comma(mandatory)")
+                         help="define the route file seperated by comma (mandatory)")
     optParser.add_option("-o", "--output-file", dest="outfile",
                          help="define the output filename")
     optParser.add_option("-t", "--typesfile", dest="typesfile",
@@ -60,9 +60,21 @@ def get_options(args=None):
 
     (options, args) = optParser.parse_known_args(args=args)
 
-    if not options.routefiles or not options.netfile or not options.outfile or not options.typesfile:
+    if not options.routefiles:
         optParser.print_help()
-        sys.exit("input file missing")
+        sys.exit("--route-files missing")
+    else:
+        options.routefiles = options.routefiles.split(',')
+
+    if not options.netfile:
+        optParser.print_help()
+        sys.exit("--net-file missing")
+
+    if not options.typesfile:
+        options.typesfile = options.routefile
+    if not options.outfile:
+        options.outfile = options.routefiles[0][:-4] + ".stops.xml"
+
 
     if not options.duration and not options.until:
         optParser.print_help()
@@ -105,7 +117,7 @@ def main(options):
         vtypes = readTypes(options)
         sumolib.writeXMLHeader(outf, "$Id$", "routes", options=options)  # noqa
         numSkipped = defaultdict(lambda: 0)
-        for file in options.routefiles.split(','):
+        for file in options.routefiles:
             for obj in sumolib.xml.parse(file, ['vehicle', 'trip', 'flow', 'person']):
                 lastEdgeID = getLastEdge(obj)
                 if lastEdgeID is None:
