@@ -32,6 +32,9 @@
 class GNEStopPerson : public GNEDemandElement, public SUMOVehicleParameter::Stop {
 
 public:
+    /// @brief default constructor
+    GNEStopPerson(SumoXMLTag tag, GNENet* net);
+
     /// @brief constructor used for stops over busStops
     GNEStopPerson(GNENet* net, GNEDemandElement* personParent, GNEAdditional* stoppingPlace, const SUMOVehicleParameter::Stop& stopParameter);
 

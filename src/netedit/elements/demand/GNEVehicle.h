@@ -144,6 +144,9 @@ public:
         /// @brief menu command for transform all selected vehicles to flow
         FXMenuCommand* myTransformAllVehiclesToFlow;
     };
+    
+    /// @brief default constructor
+    GNEVehicle(SumoXMLTag tag, GNENet* net);
 
     /// @brief default constructor for vehicles and routeFlows without embedded routes
     GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route);

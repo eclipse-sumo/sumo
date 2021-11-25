@@ -36,6 +36,9 @@ class GNEVehicle;
 class GNEWalk : public GNEDemandElement, public Parameterised {
 
 public:
+    /// @brief default constructor
+    GNEWalk(SumoXMLTag tag, GNENet* net);
+
     /**@brief parameter constructor for person edge->edge
      * @param[in] viewNet view in which this Walk is placed
      * @param[in] personParent person parent

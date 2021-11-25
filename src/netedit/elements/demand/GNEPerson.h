@@ -102,6 +102,9 @@ public:
         FXMenuCommand* myTransformToPersonFlow;
     };
 
+    /// @brief default constructor
+    GNEPerson(SumoXMLTag tag, GNENet* net);
+
     /// @brief constructor for persons
     GNEPerson(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType, const SUMOVehicleParameter& personparameters);
 

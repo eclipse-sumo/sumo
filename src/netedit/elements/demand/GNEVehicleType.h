@@ -34,6 +34,9 @@
 class GNEVehicleType : public GNEDemandElement, public SUMOVTypeParameter {
 
 public:
+    /// @brief default constructor
+    GNEVehicleType(SumoXMLTag tag, GNENet* net);
+
     /// @brief constructor for default VTypes
     GNEVehicleType(GNENet* net, const std::string& vTypeID, const SUMOVehicleClass& defaultVClass, SumoXMLTag tag);
 

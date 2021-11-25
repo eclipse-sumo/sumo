@@ -102,6 +102,9 @@ public:
         FXMenuCommand* myTransformToContainerFlow;
     };
 
+    /// @brief default constructor
+    GNEContainer(SumoXMLTag tag, GNENet* net);
+
     /// @brief constructor for containers
     GNEContainer(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType, const SUMOVehicleParameter& containerparameters);
 

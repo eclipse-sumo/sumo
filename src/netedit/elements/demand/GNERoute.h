@@ -64,9 +64,10 @@ public:
         GNERoutePopupMenu() {}
     };
 
-    /**@brief default constructor
-     * @param[in] viewNet view in which this Route is placed
-     */
+    /// @brief default constructor
+    GNERoute(SumoXMLTag tag, GNENet* net);
+
+    /// @brief default constructor (used in calibrators)
     GNERoute(GNENet* net);
 
     /**@brief parameter constructor

@@ -32,6 +32,9 @@
 class GNEStopContainer : public GNEDemandElement, public SUMOVehicleParameter::Stop {
 
 public:
+    /// @brief default constructor
+    GNEStopContainer(SumoXMLTag tag, GNENet* net);
+
     /// @brief constructor used for stops over stopContainers
     GNEStopContainer(GNENet* net, GNEDemandElement* containerParent, GNEAdditional* stoppingPlace, const SUMOVehicleParameter::Stop& stopParameter);
 

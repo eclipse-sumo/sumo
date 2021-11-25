@@ -37,6 +37,9 @@ class GNEVehicle;
 class GNETranship : public GNEDemandElement, public Parameterised {
 
 public:
+    /// @brief default constructor
+    GNETranship(SumoXMLTag tag, GNENet* net);
+
     /**@brief parameter constructor for container edge->edge
      * @param[in] viewNet view in which this Tranship is placed
      * @param[in] containerParent container parent

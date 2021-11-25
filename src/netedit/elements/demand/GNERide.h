@@ -36,6 +36,9 @@ class GNEVehicle;
 class GNERide : public GNEDemandElement, public Parameterised {
 
 public:
+    /// @brief default constructor
+    GNERide(SumoXMLTag tag, GNENet* net);
+
     /**@brief parameter constructor for person edge->edge
      * @param[in] viewNet view in which this Ride is placed
      * @param[in] personParent person parent
