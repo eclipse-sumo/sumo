@@ -20,13 +20,16 @@ jobs:
     strategy:
       matrix:
         build-type: [plain]
-        python: [3.5, 3.6, 3.7, 3.8, 3.9]
+        python: [3.5, 3.6, 3.7, 3.8, 3.9, '3.10']
         include:
           - build-type: extra
             python: 3.8
           - build-type: wheel
             python: 3.8
 
+    env:
+      CC: cl
+      CXX: cl
     steps:
     - name: Cloning SUMO
       uses: actions/checkout@v2
@@ -51,6 +54,19 @@ jobs:
         python-version: ${{ matrix.python }}
         architecture: x64
 
+    - name: "Set up compiler cache"
+      uses: actions/cache@v2
+      with:
+        path: C:\Users\runneradmin\AppData\Local\Mozilla\sccache\cache
+        key: ${{ matrix.build-type }}-${{ matrix.python }}-${{ github.head_ref }}-${{ github.run_number }}
+        restore-keys: |
+          ${{ matrix.build-type }}-${{ matrix.python }}-${{ github.head_ref }}-
+          ${{ matrix.build-type }}-${{ matrix.python }}-
+
+    # required for CMake to find Ninja
+    - name: "Set up MSVC Developer Command Prompt"
+      uses: seanmiddleditch/gha-setup-vsdevenv@v3
+
     - name: Configuring SUMO plain build
       if: matrix.build-type == 'plain'
       run: |
@@ -58,7 +74,7 @@ jobs:
         cd sumo
         mkdir build_msvc
         cd build_msvc
-        cmake .. -G"Visual Studio 16 2019" -A x64 -DCHECK_OPTIONAL_LIBS=false
+        cmake .. -GNinja -DCHECK_OPTIONAL_LIBS=false
 
     - name: Building libsumo plain
       if: matrix.build-type == 'plain'
@@ -80,7 +96,7 @@ jobs:
         cd sumo
         mkdir build_msvc
         cd build_msvc
-        cmake -DFMI=ON .. -G"Visual Studio 16 2019" -A x64 -DCHECK_OPTIONAL_LIBS=true
+        cmake -DFMI=ON .. -GNinja -DCHECK_OPTIONAL_LIBS=true
         cmake --build . --config Release
 
     - name: Building SUMO Wheels
