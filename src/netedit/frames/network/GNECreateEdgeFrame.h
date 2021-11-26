@@ -389,11 +389,14 @@ public:
     void setUseEdgeTemplate();
 
 protected:
-    /// @brief edge parameters
-    EdgeTypeParameters* myEdgeTypeParameters = nullptr;
-
     /// @brief custom edge selector
     EdgeTypeSelector* myEdgeTypeSelector = nullptr;
+
+    /// @brief internal edgeType attributes
+    GNEFrameAttributesModuls::AttributesCreator* myEdgeTypeAttributes;
+
+    /// @brief edge parameters
+    EdgeTypeParameters* myEdgeTypeParameters = nullptr;
 
     /// @brief edge selector legend
     EdgeTypeSelectorLegend* myEdgeTypeSelectorLegend = nullptr;

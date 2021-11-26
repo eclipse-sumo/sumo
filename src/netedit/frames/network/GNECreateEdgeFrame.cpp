@@ -1383,6 +1383,8 @@ GNECreateEdgeFrame::GNECreateEdgeFrame(FXHorizontalFrame* horizontalFrameParent,
     myCreateEdgeSource(nullptr) {
     // create custom edge selector
     myEdgeTypeSelector = new EdgeTypeSelector(this);
+    // Create edgeType parameters
+    myEdgeTypeAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
     // create edge parameters
     myEdgeTypeParameters = new EdgeTypeParameters(this);
     // create edge selector legend
