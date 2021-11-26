@@ -227,11 +227,20 @@ protected:
     /// @brief value for saving second original position over lane before moving
     std::string mySecondOriginalPosition;
 
+    /// @brief get first valid lane
+    const GNELane* getFirstAllowedLane() const;
+
     /// @brief check if vehicle stop can be draw
     bool canDrawVehicleStop() const;
 
     /// @brief draw vehicle stop
     void drawVehicleStop(const GUIVisualizationSettings& s, const double exaggeration) const;
+
+    /// @brief draw stopPerson over lane
+    void drawStopPersonOverEdge(const GUIVisualizationSettings& s, const double exaggeration) const;
+
+    /// @brief draw stopPerson over busStop
+    void drawStopPersonOverBusStop(const GUIVisualizationSettings& s, const double exaggeration) const;
 
 private:
     /// @brief method for setting the attribute and nothing else
