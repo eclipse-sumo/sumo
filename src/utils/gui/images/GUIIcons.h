@@ -471,6 +471,7 @@ enum class GUIIcon {
     VSHAPE_FIREBRIGADE,
     VSHAPE_POLICE,
     VSHAPE_RICKSHAW,
+    VSHAPE_SCOOTER,
     VSHAPE_UNKNOWN,
     /// @}
 

@@ -32,6 +32,9 @@
 class GNETAZSourceSink : public GNETAZElement {
 
 public:
+    /// @brief default Constructor
+    GNETAZSourceSink(SumoXMLTag tag, GNENet* net);
+
     /**@brief Constructor
      * @param[in] sourceSinkTag Child Tag (Either SUMO_TAG_TAZSOURCE or SUMO_TAG_TAZINK)
      * @param[in] parent pointer to TAZ of this TAZSourceSinks belongs

@@ -25,10 +25,48 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Children.h>
+#include <netedit/elements/additional/GNEAccess.h>
+#include <netedit/elements/additional/GNEBusStop.h>
+#include <netedit/elements/additional/GNECalibrator.h>
+#include <netedit/elements/additional/GNECalibratorFlow.h>
+#include <netedit/elements/additional/GNEChargingStation.h>
+#include <netedit/elements/additional/GNEClosingLaneReroute.h>
+#include <netedit/elements/additional/GNEClosingReroute.h>
+#include <netedit/elements/additional/GNEContainerStop.h>
+#include <netedit/elements/additional/GNEDestProbReroute.h>
+#include <netedit/elements/additional/GNEDetectorE1.h>
+#include <netedit/elements/additional/GNEDetectorE1Instant.h>
+#include <netedit/elements/additional/GNEDetectorE2.h>
+#include <netedit/elements/additional/GNEDetectorE3.h>
+#include <netedit/elements/additional/GNEDetectorEntryExit.h>
+#include <netedit/elements/additional/GNEPOI.h>
+#include <netedit/elements/additional/GNEParkingArea.h>
+#include <netedit/elements/additional/GNEParkingAreaReroute.h>
+#include <netedit/elements/additional/GNEParkingSpace.h>
+#include <netedit/elements/additional/GNEPoly.h>
+#include <netedit/elements/additional/GNERerouter.h>
+#include <netedit/elements/additional/GNERerouterInterval.h>
+#include <netedit/elements/additional/GNERouteProbReroute.h>
+#include <netedit/elements/additional/GNERouteProbe.h>
+#include <netedit/elements/additional/GNETAZ.h>
+#include <netedit/elements/additional/GNETAZSourceSink.h>
+#include <netedit/elements/additional/GNEVaporizer.h>
+#include <netedit/elements/additional/GNEVariableSpeedSign.h>
+#include <netedit/elements/additional/GNEVariableSpeedSignStep.h>
 #include <netedit/elements/data/GNEDataInterval.h>
+#include <netedit/elements/demand/GNEContainer.h>
+#include <netedit/elements/demand/GNEPerson.h>
+#include <netedit/elements/demand/GNEPersonTrip.h>
+#include <netedit/elements/demand/GNERide.h>
+#include <netedit/elements/demand/GNERoute.h>
+#include <netedit/elements/demand/GNEStop.h>
+#include <netedit/elements/demand/GNETranship.h>
+#include <netedit/elements/demand/GNETransport.h>
+#include <netedit/elements/demand/GNEVehicle.h>
+#include <netedit/elements/demand/GNEVehicleType.h>
+#include <netedit/elements/demand/GNEWalk.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
-#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/foxtools/MFXMenuHeader.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -43,7 +81,6 @@
 // ===========================================================================
 
 FXDEFMAP(GNEFrameModuls::TagSelector) TagSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_TAGTYPE_SELECTED,    GNEFrameModuls::TagSelector::onCmdSelectTagType),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_TAG_SELECTED,        GNEFrameModuls::TagSelector::onCmdSelectTag)
 };
 
@@ -99,11 +136,55 @@ FXIMPLEMENT(GNEFrameModuls::PathCreator,                FXGroupBox,     PathCrea
 // GNEFrameModuls::TagSelector - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameModuls::TagSelector::TagSelector(GNEFrame* frameParent, GNETagProperties::TagType type, bool onlyDrawables) :
+GNEFrameModuls::TagSelector::TagSelector(GNEFrame* frameParent, GNETagProperties::TagType type, SumoXMLTag tag, bool onlyDrawables) :
     FXGroupBox(frameParent->myContentFrame, "Element", GUIDesignGroupBoxFrame),
-    myFrameParent(frameParent) {
-    // first check that property is valid
-    switch (type) {
+    myFrameParent(frameParent),
+    myTagType(type),
+    myCurrentTemplateAC(nullptr) {
+    // Create MFXIconComboBox
+    myTagsMatchBox = new MFXIconComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_TAG_SELECTED, GUIDesignComboBox);
+    // set current tag type without notifying
+    setCurrentTagType(myTagType, onlyDrawables, false);
+    // set current tag without notifying
+    setCurrentTag(tag, false);
+    // TagSelector is always shown
+    show();
+}
+
+
+GNEFrameModuls::TagSelector::~TagSelector() {
+    // clear myACTemplates and myTagsMatchBox
+    for (const auto &ACTemplate : myACTemplates) {
+        delete ACTemplate;
+    }
+    myACTemplates.clear();
+}
+
+
+void
+GNEFrameModuls::TagSelector::showTagSelector() {
+    show();
+}
+
+
+void
+GNEFrameModuls::TagSelector::hideTagSelector() {
+    hide();
+}
+
+
+GNEAttributeCarrier*
+GNEFrameModuls::TagSelector::getCurrentTemplateAC() const {
+    return myCurrentTemplateAC;
+}
+
+
+void
+GNEFrameModuls::TagSelector::setCurrentTagType(GNETagProperties::TagType tagType, const bool onlyDrawables, const bool notifyFrameParent) {
+    // set new tagType
+    myTagType = tagType;
+    // change TagSelector text
+    switch (myTagType) {
         case GNETagProperties::TagType::NETWORKELEMENT:
             setText("network elements");
             break;
@@ -127,21 +208,12 @@ GNEFrameModuls::TagSelector::TagSelector(GNEFrame* frameParent, GNETagProperties
             break;
         case GNETagProperties::TagType::PERSONPLAN:
             setText("Person plans");
-            // person plan type has four sub-groups
-            myTagTypes.push_back(TagType("person trips", GNETagProperties::TagType::PERSONTRIP, GUIIcon::PERSONTRIP_FROMTO));
-            myTagTypes.push_back(TagType("walks", GNETagProperties::TagType::WALK, GUIIcon::WALK_FROMTO));
-            myTagTypes.push_back(TagType("rides", GNETagProperties::TagType::RIDE, GUIIcon::RIDE_FROMTO));
-            myTagTypes.push_back(TagType("stops", GNETagProperties::TagType::STOPPERSON, GUIIcon::STOPELEMENT));
             break;
         case GNETagProperties::TagType::CONTAINER:
             setText("Container");
             break;
         case GNETagProperties::TagType::CONTAINERPLAN:
             setText("Container plans");
-            // container plan type has four sub-groups
-            myTagTypes.push_back(TagType("transport", GNETagProperties::TagType::TRANSPORT, GUIIcon::TRANSHIP_FROMTO));
-            myTagTypes.push_back(TagType("tranship", GNETagProperties::TagType::TRANSHIP, GUIIcon::TRANSHIP_FROMTO));
-            myTagTypes.push_back(TagType("stops", GNETagProperties::TagType::STOPCONTAINER, GUIIcon::STOPELEMENT));
             break;
         case GNETagProperties::TagType::PERSONTRIP:
             setText("Person trips");
@@ -158,152 +230,70 @@ GNEFrameModuls::TagSelector::TagSelector(GNEFrame* frameParent, GNETagProperties
         default:
             throw ProcessError("invalid tag property");
     }
-    // Create FXComboBox
-    myTagTypesMatchBox = new MFXIconComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_TAGTYPE_SELECTED, GUIDesignComboBox);
-    // Create FXComboBox
-    myTagsMatchBox = new MFXIconComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_TAG_SELECTED, GUIDesignComboBox);
-    // Fill comboBox depending of myTagTypes
-    if (myTagTypes.size() > 0) {
-        // fill myTypeMatchBox with list of tags
-        for (const auto& tagType : myTagTypes) {
-            myTagTypesMatchBox->appendIconItem(tagType.tag.c_str(), GUIIconSubSys::getIcon(tagType.icon));
-        }
-        // Set visible items
-        myTagTypesMatchBox->setNumVisible((int)myTagTypesMatchBox->getNumItems());
-        // fill myTagPropertiesString with personTrips (the first Tag Type)
-        myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(type, onlyDrawables);
-    } else {
-        myTagTypesMatchBox->hide();
-        // fill myTagPropertiesString
-        myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(type, onlyDrawables);
+    // clear myACTemplates and myTagsMatchBox
+    for (const auto &ACTemplate : myACTemplates) {
+        delete ACTemplate;
     }
-    // fill myTypeMatchBox with list of tags
-    for (const auto& tagIt : myTagPropertiesString) {
-        myTagsMatchBox->appendIconItem(tagIt.second.c_str(), GUIIconSubSys::getIcon(tagIt.first.getGUIIcon()), tagIt.first.getBackGroundColor());
+    myACTemplates.clear();
+    myTagsMatchBox->clearItems();
+    // get tag properties
+    const auto tagProperties = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(myTagType, onlyDrawables);
+    // fill myACTemplates and myTagsMatchBox
+    for (const auto &tagProperty : tagProperties) {
+        myACTemplates.push_back(new ACTemplate(myFrameParent->getViewNet()->getNet(), tagProperty.first));
+        myTagsMatchBox->appendIconItem(tagProperty.first.getTagStr().c_str(), GUIIconSubSys::getIcon(tagProperty.first.getGUIIcon()), tagProperty.first.getBackGroundColor());
     }
+    // set color of myTypeMatchBox to black (valid)
+    myTagsMatchBox->setTextColor(FXRGB(0, 0, 0));
     // Set visible items
     myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems());
-    // TagSelector is always shown
-    show();
-}
-
-
-GNEFrameModuls::TagSelector::~TagSelector() {}
-
-
-void
-GNEFrameModuls::TagSelector::showTagSelector() {
-    show();
+    // set first myACTemplate as edited AC
+    myCurrentTemplateAC = myACTemplates.front()->getAC();
+    // call tag selected function
+    if (notifyFrameParent) {
+        myFrameParent->tagSelected();
+    }
 }
 
 
 void
-GNEFrameModuls::TagSelector::hideTagSelector() {
-    hide();
-}
-
-
-const GNETagProperties&
-GNEFrameModuls::TagSelector::getCurrentTagProperties() const {
-    return myCurrentTagProperties;
-}
-
-
-void
-GNEFrameModuls::TagSelector::setCurrentTagType(GNETagProperties::TagType tagType) {
-    // set empty tag properties
-    myCurrentTagProperties = GNETagProperties();
-    // make sure that tag is in myTypeMatchBox
-    for (int i = 0; i < (int)myTagsMatchBox->getNumItems(); i++) {
-        if (myTagsMatchBox->getItem(i).text() == toString(tagType)) {
+GNEFrameModuls::TagSelector::setCurrentTag(SumoXMLTag newTag, const bool notifyFrameParent) {
+    // first reset myCurrentTemplateAC
+    myCurrentTemplateAC = nullptr;
+    // iterate over all myTagsMatchBox
+    for (int i = 0; i < (int)myACTemplates.size(); i++) {
+        if (myACTemplates.at(i)->getAC() && (myACTemplates.at(i)->getAC()->getTagProperty().getTag() == newTag)) {
+            // set current template and currentItem
+            myCurrentTemplateAC = myACTemplates.at(i)->getAC();
             myTagsMatchBox->setCurrentItem(i);
-            // fill myTagPropertiesString with personTrips (the first Tag Type)
-            myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(tagType, true);
-            // clear myTagsMatchBox
-            myTagsMatchBox->clearItems();
-            // fill myTypeMatchBox with list of tags
-            for (const auto& tagIt : myTagPropertiesString) {
-                myTagsMatchBox->appendIconItem(tagIt.second.c_str(), GUIIconSubSys::getIcon(tagIt.first.getGUIIcon()), tagIt.first.getBackGroundColor());
-            }
-            // Set visible items
-            myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems());
+            // set color of myTypeMatchBox to black (valid)
+            myTagsMatchBox->setTextColor(FXRGB(0, 0, 0));
         }
     }
     // call tag selected function
-    myFrameParent->tagSelected();
+    if (notifyFrameParent) {
+        myFrameParent->tagSelected();
+    }
 }
 
 
 void
-GNEFrameModuls::TagSelector::setCurrentTag(SumoXMLTag newTag) {
-    // set empty tag properties
-    myCurrentTagProperties = GNETagProperties();
-    // make sure that tag is in myTypeMatchBox
-    for (int i = 0; i < (int)myTagsMatchBox->getNumItems(); i++) {
-        if (myTagsMatchBox->getItem(i).text() == toString(newTag)) {
-            myTagsMatchBox->setCurrentItem(i);
-            // Set new current type
-            myCurrentTagProperties = GNEAttributeCarrier::getTagProperties(newTag);
-        }
-    }
+GNEFrameModuls::TagSelector::refreshTagSelector() {
     // call tag selected function
     myFrameParent->tagSelected();
-}
-
-
-void
-GNEFrameModuls::TagSelector::refreshTagProperties() {
-    // simply call onCmdSelectItem (to avoid duplicated code)
-    onCmdSelectTag(0, 0, 0);
-}
-
-
-long GNEFrameModuls::TagSelector::onCmdSelectTagType(FXObject*, FXSelector, void*) {
-    // Check if value of myTypeMatchBox correspond of an allowed additional tags
-    for (const auto& tagType : myTagTypes) {
-        if (tagType.tag == myTagTypesMatchBox->getText().text()) {
-            // set color of myTagTypesMatchBox to black (valid)
-            myTagTypesMatchBox->setTextColor(FXRGB(0, 0, 0));
-            // fill myTagPropertiesString with personTrips (the first Tag Type)
-            myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(tagType.tagType, true);
-            // show and clear myTagsMatchBox
-            myTagsMatchBox->show();
-            myTagsMatchBox->clearItems();
-            // fill myTypeMatchBox with list of tags
-            for (const auto& tagIt : myTagPropertiesString) {
-                myTagsMatchBox->appendIconItem(tagIt.second.c_str(), GUIIconSubSys::getIcon(tagIt.first.getGUIIcon()), tagIt.first.getBackGroundColor());
-            }
-            // Set visible items
-            myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems());
-            // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(("Selected item '" + myTagsMatchBox->getText() + "' in TagTypeSelector").text());
-            // call onCmdSelectTag
-            return onCmdSelectTag(nullptr, 0, nullptr);
-        }
-    }
-    // if TagType isn't valid, hide myTagsMatchBox
-    myTagsMatchBox->hide();
-    // if additional name isn't correct, set SUMO_TAG_NOTHING as current type
-    myCurrentTagProperties = myInvalidTagProperty;
-    // call tag selected function
-    myFrameParent->tagSelected();
-    // set color of myTagTypesMatchBox to red (invalid)
-    myTagTypesMatchBox->setTextColor(FXRGB(255, 0, 0));
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Selected invalid item in TagTypeSelector");
-    return 1;
 }
 
 
 long
 GNEFrameModuls::TagSelector::onCmdSelectTag(FXObject*, FXSelector, void*) {
-    // Check if value of myTypeMatchBox correspond of an allowed additional tags
-    for (const auto& tagProperty : myTagPropertiesString) {
-        if (tagProperty.second == myTagsMatchBox->getText().text()) {
+    // iterate over all myTagsMatchBox
+    for (int i = 0; i < (int)myACTemplates.size(); i++) {
+        if (myACTemplates.at(i)->getAC() && myACTemplates.at(i)->getAC()->getTagProperty().getTagStr() == myTagsMatchBox->getText().text()) {
+            // set templateAC and currentItem
+            myCurrentTemplateAC = myACTemplates.at(i)->getAC();
+            myTagsMatchBox->setCurrentItem(i);
             // set color of myTypeMatchBox to black (valid)
             myTagsMatchBox->setTextColor(FXRGB(0, 0, 0));
-            // Set new current type
-            myCurrentTagProperties = tagProperty.first;
             // call tag selected function
             myFrameParent->tagSelected();
             // Write Warning in console if we're in testing mode
@@ -311,22 +301,190 @@ GNEFrameModuls::TagSelector::onCmdSelectTag(FXObject*, FXSelector, void*) {
             return 1;
         }
     }
-    // if additional name isn't correct, set SUMO_TAG_NOTHING as current type
-    myCurrentTagProperties = myInvalidTagProperty;
-    // call tag selected function
-    myFrameParent->tagSelected();
+    // reset templateAC
+    myCurrentTemplateAC = nullptr;
     // set color of myTypeMatchBox to red (invalid)
     myTagsMatchBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Selected invalid item in TagSelector");
+    // call tag selected function
+    myFrameParent->tagSelected();
     return 1;
 }
 
 
-GNEFrameModuls::TagSelector::TagType::TagType(std::string _tag, GNETagProperties::TagType _tagType, GUIIcon _icon) :
-    tag(_tag),
-    tagType(_tagType),
-    icon(_icon) {
+GNEAttributeCarrier*
+GNEFrameModuls::TagSelector::ACTemplate::getAC() const {
+    return myAC;
+}
+
+
+GNEFrameModuls::TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagProperty) :
+    myAC(nullptr) {
+    // create attribute carrier depending of 
+    switch (tagProperty.getTag()) {
+        // additional elements
+        case SUMO_TAG_BUS_STOP:
+        case SUMO_TAG_TRAIN_STOP:
+            myAC = new GNEBusStop(tagProperty.getTag(), net);
+            break;
+        case SUMO_TAG_ACCESS:
+            myAC = new GNEAccess(net);
+            break;
+        case SUMO_TAG_CONTAINER_STOP:
+            myAC = new GNEContainerStop(net);
+            break;
+        case SUMO_TAG_CHARGING_STATION:
+            myAC = new GNEChargingStation(net);
+            break;
+        case SUMO_TAG_PARKING_AREA:
+            myAC = new GNEParkingArea(net);
+            break;
+        case SUMO_TAG_PARKING_SPACE:
+            myAC = new GNEParkingSpace(net);
+            break;
+        case SUMO_TAG_E1DETECTOR:
+            myAC = new GNEDetectorE1(net);
+            break;
+        case SUMO_TAG_E2DETECTOR:
+        case GNE_TAG_E2DETECTOR_MULTILANE:
+            myAC = new GNEDetectorE2(tagProperty.getTag(), net);
+            break;
+        case SUMO_TAG_E3DETECTOR:
+            myAC = new GNEDetectorE3(net);
+            break;
+        case SUMO_TAG_DET_ENTRY:
+        case SUMO_TAG_DET_EXIT:
+            myAC = new GNEDetectorEntryExit(tagProperty.getTag(), net);
+            break;
+        case SUMO_TAG_INSTANT_INDUCTION_LOOP:
+            myAC = new GNEDetectorE1Instant(net);
+            break;
+        case SUMO_TAG_VSS:
+            myAC = new GNEVariableSpeedSign(net);
+            break;
+        case SUMO_TAG_STEP:
+            myAC = new GNEVariableSpeedSignStep(net);
+            break;
+        case SUMO_TAG_CALIBRATOR:
+        case SUMO_TAG_LANECALIBRATOR:
+            myAC = new GNECalibrator(tagProperty.getTag(), net);
+            break;
+        case GNE_TAG_FLOW_CALIBRATOR:
+            myAC = new GNECalibratorFlow(net);
+            break;
+        case SUMO_TAG_REROUTER:
+            myAC = new GNERerouter(net);
+            break;
+        case SUMO_TAG_INTERVAL:
+            myAC = new GNERerouterInterval(net);
+            break;
+        case SUMO_TAG_CLOSING_REROUTE:
+            myAC = new GNEClosingReroute(net);
+            break;
+        case SUMO_TAG_CLOSING_LANE_REROUTE:
+            myAC = new GNEClosingLaneReroute(net);
+            break;
+        case SUMO_TAG_DEST_PROB_REROUTE:
+            myAC = new GNEDestProbReroute(net);
+            break;
+        case SUMO_TAG_PARKING_AREA_REROUTE:
+            myAC = new GNEParkingAreaReroute(net);
+            break;
+        case SUMO_TAG_ROUTE_PROB_REROUTE:
+            myAC = new GNERouteProbReroute(net);
+            break;
+        case SUMO_TAG_ROUTEPROBE:
+            myAC = new GNERouteProbe(net);
+            break;
+        case SUMO_TAG_VAPORIZER:
+            myAC = new GNEVaporizer(net);
+            break;
+        // shapes
+        case SUMO_TAG_POLY:
+            myAC = new GNEPoly(net);
+            break;
+        case SUMO_TAG_POI:
+        case GNE_TAG_POILANE:
+        case GNE_TAG_POIGEO:
+            myAC = new GNEPOI(tagProperty.getTag(), net);
+            break;
+        // TAZs
+        case SUMO_TAG_TAZ:
+            myAC = new GNETAZ(net);
+            break;
+        case SUMO_TAG_TAZSOURCE:
+        case SUMO_TAG_TAZSINK:
+            myAC = new GNETAZSourceSink(tagProperty.getTag(), net);
+            break;
+        // Demand elements
+        case SUMO_TAG_ROUTE:
+        case GNE_TAG_ROUTE_EMBEDDED:
+            myAC = new GNERoute(tagProperty.getTag(), net);
+            break;
+        case SUMO_TAG_VTYPE:
+        case SUMO_TAG_PTYPE:
+            myAC = new GNEVehicleType(tagProperty.getTag(), net);
+            break;
+        case SUMO_TAG_VEHICLE:
+        case GNE_TAG_VEHICLE_WITHROUTE:
+        case GNE_TAG_FLOW_ROUTE:
+        case GNE_TAG_FLOW_WITHROUTE:
+        case SUMO_TAG_TRIP:
+        case SUMO_TAG_FLOW:
+            myAC = new GNEVehicle(tagProperty.getTag(), net);
+            break;
+        case SUMO_TAG_STOP_LANE:
+        case SUMO_TAG_STOP_BUSSTOP:
+        case SUMO_TAG_STOP_CONTAINERSTOP:
+        case SUMO_TAG_STOP_CHARGINGSTATION:
+        case SUMO_TAG_STOP_PARKINGAREA:
+        case GNE_TAG_STOPPERSON_EDGE:
+        case GNE_TAG_STOPPERSON_BUSSTOP:
+        case GNE_TAG_STOPCONTAINER_EDGE:
+        case GNE_TAG_STOPCONTAINER_CONTAINERSTOP:
+            myAC = new GNEStop(tagProperty.getTag(), net);
+            break;
+        case SUMO_TAG_PERSON:
+        case SUMO_TAG_PERSONFLOW:
+            myAC = new GNEPerson(tagProperty.getTag(), net);
+            break;
+        case SUMO_TAG_CONTAINER:
+        case SUMO_TAG_CONTAINERFLOW:
+            myAC = new GNEContainer(tagProperty.getTag(), net);
+            break;
+        case GNE_TAG_TRANSPORT_EDGE:
+        case GNE_TAG_TRANSPORT_CONTAINERSTOP:
+            myAC = new GNETransport(tagProperty.getTag(), net);
+            break;
+        case GNE_TAG_TRANSHIP_EDGE:
+        case GNE_TAG_TRANSHIP_CONTAINERSTOP:
+        case GNE_TAG_TRANSHIP_EDGES:
+            myAC = new GNETranship(tagProperty.getTag(), net);
+            break;
+        case GNE_TAG_PERSONTRIP_EDGE:
+        case GNE_TAG_PERSONTRIP_BUSSTOP:
+            myAC = new GNEPersonTrip(tagProperty.getTag(), net);
+            break;
+        case GNE_TAG_WALK_EDGE:
+        case GNE_TAG_WALK_BUSSTOP:
+        case GNE_TAG_WALK_EDGES:
+        case GNE_TAG_WALK_ROUTE:
+            myAC = new GNEWalk(tagProperty.getTag(), net);
+            break;
+        case GNE_TAG_RIDE_EDGE:
+        case GNE_TAG_RIDE_BUSSTOP:
+            myAC = new GNERide(tagProperty.getTag(), net);
+            break;
+        default:
+            throw ProcessError("Non-supported tagProperty in ACTemplate");
+            break;
+    }
+}
+
+
+ GNEFrameModuls::TagSelector::ACTemplate::~ACTemplate() {
+    delete myAC;
 }
 
 // ---------------------------------------------------------------------------

@@ -34,18 +34,27 @@
 // member method definitions
 // ===========================================================================
 
+GNEDetectorE2::GNEDetectorE2(SumoXMLTag tag, GNENet* net) :
+    GNEDetector("", net, GLO_E2DETECTOR, tag, 0, 0, {}, "", {}, "", false, std::map<std::string, std::string>()),
+    myEndPositionOverLane(0),
+    myTimeThreshold(0),
+    mySpeedThreshold(0),
+    myJamThreshold(0) {
+    // reset default values
+    resetDefaultValues();
+}
+
+
 GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNENet* net, double pos, double length, const SUMOTime freq,
                              const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name,
                              SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos,
                              const std::map<std::string, std::string>& parameters) :
-    GNEDetector(id, net, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, pos, freq, {
-    lane
-}, filename, vehicleTypes, name, friendlyPos, parameters),
-myEndPositionOverLane(pos + length),
-myTimeThreshold(timeThreshold),
-mySpeedThreshold(speedThreshold),
-myJamThreshold(jamThreshold),
-myTrafficLight(trafficLight) {
+    GNEDetector(id, net, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, pos, freq, {lane}, filename, vehicleTypes, name, friendlyPos, parameters),
+    myEndPositionOverLane(pos + length),
+    myTimeThreshold(timeThreshold),
+    mySpeedThreshold(speedThreshold),
+    myJamThreshold(jamThreshold),
+    myTrafficLight(trafficLight) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -445,11 +454,17 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_POSITION:
             myPositionOverLane = parse<double>(value);
-            updateGeometry();
+            // update geometry (except for template)
+            if (getParentLanes().size() > 0) {
+                updateGeometry();
+            }
             break;
         case SUMO_ATTR_ENDPOS:
             myEndPositionOverLane = parse<double>(value);
-            updateGeometry();
+            // update geometry (except for template)
+            if (getParentLanes().size() > 0) {
+                updateGeometry();
+            }
             break;
         case SUMO_ATTR_FREQUENCY:
             myFreq = string2time(value);
@@ -459,7 +474,10 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_LENGTH:
             myEndPositionOverLane = (myPositionOverLane + parse<double>(value));
-            updateGeometry();
+            // update geometry (except for template)
+            if (getParentLanes().size() > 0) {
+                updateGeometry();
+            }
             break;
         case SUMO_ATTR_NAME:
             myAdditionalName = value;

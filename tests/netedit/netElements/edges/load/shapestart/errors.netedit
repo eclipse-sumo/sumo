@@ -3,14 +3,6 @@ GLDebug: 	Inserted junction:gneJ21 into SUMORTree with boundary -12.00,-6.32,12.
 GLDebug: 	Inserted junction:gneJ22 into SUMORTree with boundary 38.00,-6.32,62.00,17.68
 GLDebug: 	Inserted edge:gneE12 into SUMORTree with boundary -10.00,-11.58,60.25,15.68
 GLDebug: 	Inserted edge:gneE13 into SUMORTree with boundary -10.27,-4.32,60.00,24.23
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'personTrip: edge->edge' in TagSelector
-Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
-Debug: Selected item 'personTrip: edge->edge' in TagSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 GLDebug: 	Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 10.00,-20.00,30.00,0.00
 Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional

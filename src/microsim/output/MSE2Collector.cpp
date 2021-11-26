@@ -1342,6 +1342,10 @@ MSE2Collector::writeXMLDetectorProlog(OutputDevice& dev) const {
 
 void
 MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime) {
+    if (dev.isNull()) {
+        reset();
+        return;
+    }
     dev << "   <interval begin=\"" << time2string(startTime) << "\" end=\"" << time2string(stopTime) << "\" " << "id=\"" << getID() << "\" ";
 
     const double meanSpeed = myVehicleSamples != 0 ? mySpeedSum / myVehicleSamples : -1;
@@ -1420,7 +1424,6 @@ MSE2Collector::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime st
         << "maxVehicleNumber=\"" << myMaxVehicleNumber << "\" "
         << "/>\n";
     reset();
-
 }
 
 void

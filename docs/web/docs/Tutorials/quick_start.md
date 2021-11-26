@@ -112,11 +112,12 @@ referring to the network from your configuration.
 
 Now you should be able to create the rest of the given nodes and edges
 in this example and change the names, the number of lanes, and reset the
-positions. Don't forget to save your work from time to time. The Dummy
-nodes 911-914 are needed for analyzing the traffic performance on the
-incoming and outgoing links in the network. More dummy nodes can be
-applied if needed (such as for accurate geometric alignment or for the
-specification of detector locations).
+positions. Don't forget to save your work from time to time. 
+
+The junctions 911-914 aren't really needed. 
+Splitting an length of road into multiple edges is necessary when an attribute such as speed or numLanes changes.
+Distinct edges may also be useful for [analyzing the traffic performance](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md) in more detail.
+To model curved roads it is sufficient to modify the *shape* of an edge using 'move mode'.
 
 - Next step would be to define the connections between the edges. To
   see which connections are already build automatically, please select

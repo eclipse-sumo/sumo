@@ -1839,7 +1839,7 @@ MSBaseVehicle::rememberParkingAreaScore(const MSParkingArea* pa, const std::stri
 
 
 SUMOTime
-MSBaseVehicle::sawBlockedParkingArea(const MSParkingArea* pa) {
+MSBaseVehicle::sawBlockedParkingArea(const MSParkingArea* pa) const {
     if (myParkingMemory == nullptr) {
         return -1;
     }

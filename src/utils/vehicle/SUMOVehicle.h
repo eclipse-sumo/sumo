@@ -363,10 +363,16 @@ public:
     /// @brief Returns the vehicles's length
     virtual double getLength() const = 0;
 
+    /// @name parking memory io
+    //@{
     virtual void rememberBlockedParkingArea(const MSParkingArea* pa) = 0;
-    virtual void resetParkingAreaScores() = 0;
+    virtual SUMOTime sawBlockedParkingArea(const MSParkingArea* pa) const = 0;
     virtual void rememberParkingAreaScore(const MSParkingArea* pa, const std::string& score) = 0;
-    virtual SUMOTime sawBlockedParkingArea(const MSParkingArea* pa) = 0;
+    virtual void resetParkingAreaScores() = 0;
+    virtual int getNumberParkingReroutes() const = 0;
+    virtual void setNumberParkingReroutes(int value) = 0;
+    //@}
+
     /// @name state io
     //@{
 

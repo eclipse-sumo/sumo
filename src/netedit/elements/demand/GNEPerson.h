@@ -102,6 +102,9 @@ public:
         FXMenuCommand* myTransformToPersonFlow;
     };
 
+    /// @brief default constructor
+    GNEPerson(SumoXMLTag tag, GNENet* net);
+
     /// @brief constructor for persons
     GNEPerson(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType, const SUMOVehicleParameter& personparameters);
 
@@ -317,8 +320,8 @@ private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
-    /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
-    void setEnabledAttribute(const int enabledAttributes);
+    /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
+    void toogleAttribute(SumoXMLAttr key, const bool value, const int previousParameters);
 
     /// @brief set move shape
     void setMoveShape(const GNEMoveResult& moveResult);

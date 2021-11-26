@@ -269,6 +269,8 @@ sumo/devices/rerouting/input_routes.rou.xml:379:0:ERROR:SCHEMASV:SCHEMAV_CVC_DAT
 sumo/devices/rerouting/input_routes.rou.xml:382:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'color': '-1,-1,-1' is not a valid value of the union type 'colorType'.
 sumo/devices/rerouting/input_routes.rou.xml:385:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vehicle', attribute 'color': '-1,-1,-1' is not a valid value of the union type 'colorType'.
 sumo/lc_model/errors/lcm_unknown/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'vType', attribute 'laneChangeModel': [facet 'enumeration'] The value 'foo' is not an element of the set {'default', 'DK2008', 'LC2013', 'SL2015'}.
+sumo/errors/invalid_color/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vType', attribute 'color': '1 2 3 4 5' is not a valid value of the union type 'colorType'.
+sumo/errors/invalid_color_name/input_routes.rou.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'vType', attribute 'color': 'mauve' is not a valid value of the union type 'colorType'.
 sumo/errors/routes/emptyperson/input_routes.rou.xml:6:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'person': Missing child element(s). Expected is one of ( personTrip, ride, walk, stop, param ).
 sumo/errors/duplicates/route_newstyle_plainemission/input_routes.rou.xml:5:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'route': This element is not expected. Expected is one of ( param, stop ).
 sumo/errors/action_step_negative_warning/input_routes.rou.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_MINEXCLUSIVE_VALID: Element 'vType', attribute 'actionStepLength': [facet 'minExclusive'] The value '-2.2' must be greater than '0'.

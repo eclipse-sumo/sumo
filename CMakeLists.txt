@@ -30,7 +30,7 @@ endif ()
 
 project(SUMO CXX C)
 set(PACKAGE_VERSION "git")
-cmake_minimum_required(VERSION 3.4)
+cmake_minimum_required(VERSION 3.9)
 
 # Check if libraries have to be found, depending on SUMO_LIBRARIES
 set(SUMO_LIBRARIES "$ENV{SUMO_LIBRARIES}" CACHE PATH "Location of SUMOLibraries dependencies")
@@ -450,41 +450,27 @@ endif ()
 
 if (SUMO_LIBRARIES AND WIN32)
     # filter release DLLs
-    execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/filterDebugDLL.py ${SUMO_LIBRARIES_DLL} OUTPUT_VARIABLE SUMO_LIBRARIES_RELEASE_DLL)
+    execute_process(COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/build/filterDebugDLL.py ${SUMO_LIBRARIES_DLL}
+                    OUTPUT_VARIABLE SUMO_LIBRARIES_RELEASE_DLL)
     # copy debug dlls
-    foreach(DEBUG_DLL ${SUMO_LIBRARIES_DLL} ${GTEST_DLL})
-        get_filename_component(DLL_BASENAME ${DEBUG_DLL} NAME)
-        set(TARGET_DEBUG_DLL ${CMAKE_SOURCE_DIR}/bin/${DLL_BASENAME})
-        list(FIND TARGET_DEBUG_DLLS ${TARGET_DEBUG_DLL} DLL_KNOWN)
-        list(FIND GTEST_DLL ${DEBUG_DLL} IS_TEST_DLL)
+    foreach(DLL_PATH ${SUMO_LIBRARIES_DLL} ${GTEST_DLL})
+        get_filename_component(DLL_BASENAME ${DLL_PATH} NAME)
+        set(TARGET_DLL ${CMAKE_SOURCE_DIR}/bin/${DLL_BASENAME})
+        list(FIND TARGET_ALL_DLLS ${TARGET_DLL} DLL_KNOWN)
+        list(FIND SUMO_LIBRARIES_RELEASE_DLL ${DLL_PATH} IS_RELEASE_DLL)
+        list(FIND GTEST_DLL ${DLL_PATH} IS_TEST_DLL)
         if (DLL_KNOWN EQUAL -1)
-            add_custom_command(OUTPUT ${TARGET_DEBUG_DLL}
-                               COMMAND ${CMAKE_COMMAND} -E copy ${DEBUG_DLL} ${TARGET_DEBUG_DLL}
-                               DEPENDS ${DEBUG_DLL})
-            if (IS_TEST_DLL EQUAL -1)
-                list(APPEND TARGET_DEBUG_DLLS ${TARGET_DEBUG_DLL})
-            else ()
-                list(APPEND TARGET_TEST_DLLS ${TARGET_DEBUG_DLL})
+            add_custom_command(OUTPUT ${TARGET_DLL}
+                               COMMAND ${CMAKE_COMMAND} -E copy ${DLL_PATH} ${TARGET_DLL}
+                               DEPENDS ${DLL_PATH})
+            if (IS_TEST_DLL GREATER -1)
+                list(APPEND TARGET_TEST_DLLS ${TARGET_DLL})
+            elseif (IS_RELEASE_DLL GREATER -1)
+                list(APPEND TARGET_RELEASE_DLLS ${TARGET_DLL})
             endif ()
+            list(APPEND TARGET_ALL_DLLS ${TARGET_DLL})
         endif()
-    endforeach(DEBUG_DLL)
-    # copy release dlls
-    foreach(RELEASE_DLL ${SUMO_LIBRARIES_RELEASE_DLL} ${GTEST_DLL})
-        get_filename_component(DLL_BASENAME ${RELEASE_DLL} NAME)
-        set(TARGET_RELEASE_DLL ${CMAKE_SOURCE_DIR}/bin/${DLL_BASENAME})
-        list(FIND TARGET_RELEASE_DLLS ${TARGET_RELEASE_DLL} DLL_KNOWN)
-        list(FIND GTEST_DLL ${RELEASE_DLL} IS_TEST_DLL)
-        if (DLL_KNOWN EQUAL -1)
-            add_custom_command(OUTPUT ${TARGET_RELEASE_DLL}
-                               COMMAND ${CMAKE_COMMAND} -E copy ${RELEASE_DLL} ${TARGET_RELEASE_DLL}
-                               DEPENDS ${RELEASE_DLL})
-            if (IS_TEST_DLL EQUAL -1)
-                list(APPEND TARGET_RELEASE_DLLS ${TARGET_RELEASE_DLL})
-            else ()
-                list(APPEND TARGET_TEST_DLLS ${TARGET_RELEASE_DLL})
-            endif ()
-        endif()
-    endforeach(RELEASE_DLL)
+    endforeach(DLL_PATH)
     # copy OSG dlls
     if (HAVE_OSG)
         file(GLOB OSG_DLL "${OSG_PATH}/bin/*osg.dll")
@@ -500,17 +486,16 @@ if (SUMO_LIBRARIES AND WIN32)
                        COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJ_PATH}/share/proj ${CMAKE_SOURCE_DIR}/share/proj
                        DEPENDS ${PROJ_PATH}/share/proj/proj.db)
     install(DIRECTORY share/ DESTINATION ${DATA_PATH}share)
-    # set install dll targets
-    add_custom_target(install_debug_dll ALL DEPENDS ${TARGET_DEBUG_DLLS} ${OSG_TARGET} ${PROJ_DATA})
-    add_custom_target(install_release_dll ALL DEPENDS ${TARGET_RELEASE_DLLS} ${OSG_TARGET} ${PROJ_DATA})
-    add_custom_target(install_test_dll DEPENDS ${TARGET_TEST_DLLS})
-    # set in DLL folders
-    set_property(TARGET install_debug_dll PROPERTY FOLDER "DLLs")
-    set_property(TARGET install_release_dll PROPERTY FOLDER "DLLs")
-    set_property(TARGET install_test_dll PROPERTY FOLDER "DLLs")
-else ()
-    add_custom_target(install_test_dll)  # dummy target for non-Windows
-endif ()
+endif()
+# set install dll targets, for non-Windows they depend on nothing
+if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release" AND NOT GENERATOR_IS_MULTI_CONFIG)
+    add_custom_target(install_dll DEPENDS ${TARGET_RELEASE_DLLS} ${OSG_TARGET} ${PROJ_DATA})
+else()
+    add_custom_target(install_dll DEPENDS ${TARGET_ALL_DLLS} ${OSG_TARGET} ${PROJ_DATA})
+endif()
+add_custom_target(install_test_dll DEPENDS ${TARGET_TEST_DLLS})
+set_property(TARGET install_dll PROPERTY FOLDER "CMake")
+set_property(TARGET install_test_dll PROPERTY FOLDER "CMake")
 
 # java targets
 find_program(MVN_EXECUTABLE mvn)

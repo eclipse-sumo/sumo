@@ -50,6 +50,7 @@ class GNEAttributeCarrier : public GNEReferenceCounter {
     /// @brief declare friend class
     friend class GNEChange_Attribute;
     friend class GNEChange_EnableAttribute;
+    friend class GNEFrameAttributesModuls;
 
 public:
 
@@ -89,6 +90,9 @@ public:
     virtual void updateGeometry() = 0;
 
     /// @}
+
+    /// @brief reset attribute carrier to their default values
+    void resetDefaultValues();
 
     /// @name Functions related with attributes (must be implemented in all children)
     /// @{
@@ -342,8 +346,8 @@ private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
-    /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
-    virtual void setEnabledAttribute(const int enabledAttributes) = 0;
+    /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
+    virtual void toogleAttribute(SumoXMLAttr key, const bool value, const int previousParameters) = 0;
 
     /// @brief fill Attribute Carriers
     static void fillAttributeCarriers();
@@ -400,7 +404,7 @@ private:
     static void fillCommonVehicleAttributes(SumoXMLTag currentTag);
 
     /// @brief fill common flow attributes (used by flows, routeFlows and personFlows)
-    static void fillCommonFlowAttributes(SumoXMLTag currentTag, const bool forVehicles);
+    static void fillCommonFlowAttributes(SumoXMLTag currentTag, SumoXMLAttr perHour);
 
     /// @brief fill Car Following Model of Vehicle/Person Types
     static void fillCarFollowingModelAttributes(SumoXMLTag currentTag);

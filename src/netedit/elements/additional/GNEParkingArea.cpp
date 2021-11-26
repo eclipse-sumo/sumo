@@ -33,6 +33,18 @@
 // method definitions
 // ===========================================================================
 
+GNEParkingArea::GNEParkingArea(GNENet* net) :
+    GNEStoppingPlace("", net, GLO_PARKING_AREA, SUMO_TAG_PARKING_AREA, nullptr, 0, 0, "", false, std::map<std::string, std::string>()),
+    myRoadSideCapacity(0),
+    myOnRoad(false),
+    myWidth(0),
+    myLength(0),
+    myAngle(0) {
+    // reset default values
+    resetDefaultValues();
+}
+
+
 GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
                                const std::string& departPos, const std::string& name, bool friendlyPosition, int roadSideCapacity, bool onRoad, double width,
                                const double length, double angle, const std::map<std::string, std::string>& parameters) :
@@ -394,8 +406,10 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 myStartPosition = parse<double>(value);
             }
-            // update boundary
-            updateCenteringBoundary(true);
+            // update boundary (except for template)
+            if (getID().size() > 0) {
+                updateCenteringBoundary(true);
+            }
             break;
         case SUMO_ATTR_ENDPOS:
             if (value == "") {
@@ -403,8 +417,10 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 myEndPosition = parse<double>(value);
             }
-            // update boundary
-            updateCenteringBoundary(true);
+            // update boundary (except for template)
+            if (getID().size() > 0) {
+                updateCenteringBoundary(true);
+            }
             break;
         case SUMO_ATTR_DEPARTPOS:
             myDepartPos = value;
@@ -417,8 +433,10 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_ROADSIDE_CAPACITY:
             myRoadSideCapacity = parse<int>(value);
-            // update boundary
-            updateCenteringBoundary(true);
+            // update boundary (except for template)
+            if (getID().size() > 0) {
+                updateCenteringBoundary(true);
+            }
             break;
         case SUMO_ATTR_ONROAD:
             myOnRoad = parse<bool>(value);
@@ -429,8 +447,10 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             for (const auto& space : getChildAdditionals()) {
                 space->updateGeometry();
             }
-            // update boundary
-            updateCenteringBoundary(true);
+            // update boundary (except for template)
+            if (getID().size() > 0) {
+                updateCenteringBoundary(true);
+            }
             break;
         case SUMO_ATTR_LENGTH:
             myLength = parse<double>(value);

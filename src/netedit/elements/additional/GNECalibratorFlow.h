@@ -40,6 +40,9 @@ class GNECalibratorDialog;
 class GNECalibratorFlow : public GNEAdditional, public SUMOVehicleParameter {
 
 public:
+    /// @brief default constructor
+    GNECalibratorFlow(GNENet* net);
+
     /// @brief default constructor (used only in GNECalibratorDialog)
     GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route);
 

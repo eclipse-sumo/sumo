@@ -46,19 +46,35 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 // member method definitions
 // ===========================================================================
 
+GNETAZ::GNETAZ(GNENet* net) :
+    GNETAZElement("", net, GLO_TAZ, SUMO_TAG_TAZ,
+        {}, {}, {}, {}, {}, {}, {}, {},
+    std::map<std::string, std::string>()),
+    SUMOPolygon("", "", RGBColor::BLACK, {}, false, false, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, ""),
+    myMaxWeightSource(0),
+    myMinWeightSource(0),
+    myAverageWeightSource(0),
+    myMaxWeightSink(0),
+    myMinWeightSink(0),
+    myAverageWeightSink(0) {
+    // reset default values
+    resetDefaultValues();
+}
+
+
 GNETAZ::GNETAZ(const std::string& id, GNENet* net, const PositionVector& shape, const Position& center, const bool fill,
                const RGBColor& color, const std::string& name, const std::map<std::string, std::string>& parameters) :
     GNETAZElement(id, net, GLO_TAZ, SUMO_TAG_TAZ,
-{}, {}, {}, {}, {}, {}, {}, {},
-parameters),
-SUMOPolygon(id, "", color, shape, false, fill, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, name),
-myTAZCenter(center),
-myMaxWeightSource(0),
-myMinWeightSource(0),
-myAverageWeightSource(0),
-myMaxWeightSink(0),
-myMinWeightSink(0),
-myAverageWeightSink(0) {
+        {}, {}, {}, {}, {}, {}, {}, {},
+    parameters),
+    SUMOPolygon(id, "", color, shape, false, fill, 1, Shape::DEFAULT_LAYER, Shape::DEFAULT_ANGLE, Shape::DEFAULT_IMG_FILE, Shape::DEFAULT_RELATIVEPATH, name),
+    myTAZCenter(center),
+    myMaxWeightSource(0),
+    myMinWeightSource(0),
+    myAverageWeightSource(0),
+    myMaxWeightSink(0),
+    myMinWeightSink(0),
+    myAverageWeightSink(0) {
     // update geometry
     updateGeometry();
 }
@@ -657,9 +673,11 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_SHAPE: {
             const bool updateCenter = (myTAZCenter == myShape.getCentroid());
             // remove TAZ and TAZRelDatas
-            myNet->removeGLObjectFromGrid(this);
-            for (const auto& TAZRelData : getChildGenericDatas()) {
-                myNet->removeGLObjectFromGrid(TAZRelData);
+            if (getID().size() > 0) {
+                myNet->removeGLObjectFromGrid(this);
+                for (const auto& TAZRelData : getChildGenericDatas()) {
+                    myNet->removeGLObjectFromGrid(TAZRelData);
+                }
             }
             myShape = parse<PositionVector>(value);
             // always close shape
@@ -673,18 +691,22 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
                 myTAZCenter = myShape.getCentroid();
             }
             // add TAZ and TAZRelDatas
-            myNet->addGLObjectIntoGrid(this);
-            for (const auto& TAZRelData : getChildGenericDatas()) {
-                TAZRelData->updateGeometry();
-                myNet->addGLObjectIntoGrid(TAZRelData);
+            if (getID().size() > 0) {
+                myNet->addGLObjectIntoGrid(this);
+                for (const auto& TAZRelData : getChildGenericDatas()) {
+                    TAZRelData->updateGeometry();
+                    myNet->addGLObjectIntoGrid(TAZRelData);
+                }
             }
             break;
         }
         case SUMO_ATTR_CENTER:
             // remove TAZ and TAZRelDatas
-            myNet->removeGLObjectFromGrid(this);
-            for (const auto& TAZRelData : getChildGenericDatas()) {
-                myNet->removeGLObjectFromGrid(TAZRelData);
+            if (getID().size() > 0) {
+                myNet->removeGLObjectFromGrid(this);
+                for (const auto& TAZRelData : getChildGenericDatas()) {
+                    myNet->removeGLObjectFromGrid(TAZRelData);
+                }
             }
             if (value.empty()) {
                 myTAZCenter = myShape.getCentroid();
@@ -692,10 +714,12 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
                 myTAZCenter = parse<Position>(value);
             }
             // add TAZ and TAZRelDatas
-            myNet->addGLObjectIntoGrid(this);
-            for (const auto& TAZRelData : getChildGenericDatas()) {
-                TAZRelData->updateGeometry();
-                myNet->addGLObjectIntoGrid(TAZRelData);
+            if (getID().size() > 0) {
+                myNet->addGLObjectIntoGrid(this);
+                for (const auto& TAZRelData : getChildGenericDatas()) {
+                    TAZRelData->updateGeometry();
+                    myNet->addGLObjectIntoGrid(TAZRelData);
+                }
             }
             break;
         case SUMO_ATTR_COLOR:

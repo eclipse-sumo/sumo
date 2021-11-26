@@ -25,7 +25,7 @@ add_executable(polyconvert ${polyconvert_SRCS})
 set_target_properties(polyconvert PROPERTIES OUTPUT_NAME polyconvert${BINARY_SUFFIX})
 set_target_properties(polyconvert PROPERTIES OUTPUT_NAME_DEBUG polyconvert${BINARY_SUFFIX}D)
 target_link_libraries(polyconvert ${commonlibs} ${GDAL_LIBRARY})
-add_dependencies(polyconvert generate-version-h)
+add_dependencies(polyconvert generate-version-h install_dll)
 
 add_custom_command(OUTPUT pc_typemap.h
                    COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/../../tools/build/typemap.py ${CMAKE_BINARY_DIR}/src

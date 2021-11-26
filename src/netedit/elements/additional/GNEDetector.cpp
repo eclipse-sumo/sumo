@@ -41,23 +41,22 @@ GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType typ
                          const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name,
                          const bool friendlyPos, const std::map<std::string, std::string>& parameters) :
     GNEAdditional(id, net, type, tag, name, {}, {}, parentLanes, {}, {}, {}, {}, {}, parameters),
-              myPositionOverLane(pos),
-              myFreq(freq),
-              myFilename(filename),
-              myVehicleTypes(vehicleTypes),
-myFriendlyPosition(friendlyPos) {
+    myPositionOverLane(pos),
+    myFreq(freq),
+    myFilename(filename),
+    myVehicleTypes(vehicleTypes),
+    myFriendlyPosition(friendlyPos) {
 }
 
 
 GNEDetector::GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, const double pos, const SUMOTime freq,
                          const std::vector<GNELane*>& parentLanes, const std::string& filename, const std::string& name, const bool friendlyPos,
                          const std::map<std::string, std::string>& parameters) :
-    GNEAdditional(net, type, tag, name, {}, {}, parentLanes, {additionalParent}, {}, {}, {}, {},
-parameters),
-myPositionOverLane(pos),
-myFreq(freq),
-myFilename(filename),
-myFriendlyPosition(friendlyPos) {
+    GNEAdditional(net, type, tag, name, {}, {}, parentLanes, {additionalParent}, {}, {}, {}, {}, parameters),
+    myPositionOverLane(pos),
+    myFreq(freq),
+    myFilename(filename),
+    myFriendlyPosition(friendlyPos) {
 }
 
 

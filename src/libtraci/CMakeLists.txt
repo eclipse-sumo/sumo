@@ -37,7 +37,7 @@ set(libtracistatic_STAT_SRCS
 )
 
 add_library(libtracistatic STATIC ${libtracistatic_STAT_SRCS})
-add_dependencies(libtracistatic generate-version-h)
+add_dependencies(libtracistatic generate-version-h install_dll)
 set_property(TARGET libtracistatic PROPERTY FOLDER "libtraci")
 
 if (MSVC)
@@ -55,6 +55,8 @@ set_target_properties(libtracicpp PROPERTIES OUTPUT_NAME libtracicpp${BINARY_SUF
 set_target_properties(libtracicpp PROPERTIES OUTPUT_NAME_DEBUG libtracicpp${BINARY_SUFFIX}D)
 target_include_directories(libtracicpp PUBLIC $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src>)
 install(TARGETS libtracicpp EXPORT SUMOConfig
+    DESTINATION bin
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )

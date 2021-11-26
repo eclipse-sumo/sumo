@@ -40,6 +40,9 @@ class GNERerouterIntervalDialog;
 class GNERouteProbReroute : public GNEAdditional {
 
 public:
+    /// @brief default constructor
+    GNERouteProbReroute(GNENet* net);
+
     /// @brief constructor
     GNERouteProbReroute(GNEAdditional* rerouterIntervalParent, GNEDemandElement* route, double probability);
 

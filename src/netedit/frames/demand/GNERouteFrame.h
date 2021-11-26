@@ -26,6 +26,12 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
+
+class GNERoute;
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
 /**
  * @class GNERouteFrame
  * The Widget for create route elements
@@ -92,6 +98,9 @@ public:
 
         /// @brief current selected route mode
         RouteMode myCurrentRouteMode;
+
+        /// @brief route template
+        GNERoute* myRouteTemplate;
 
         /// @brief flag to check if VClass is Valid
         bool myValidVClass;

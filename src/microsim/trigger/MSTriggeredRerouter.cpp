@@ -57,6 +57,7 @@
 //#define DEBUG_REROUTER
 //#define DEBUG_PARKING
 #define DEBUGCOND (veh.isSelected())
+//#define DEBUGCOND (true)
 //#define DEBUGCOND (veh.getID() == "")
 
 // ===========================================================================
@@ -616,9 +617,13 @@ MSTriggeredRerouter::getWeight(SUMOVehicle& veh, const std::string param, const 
 MSParkingArea*
 MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterval* rerouteDef,
                                         SUMOVehicle& veh, bool& newDestination, ConstMSEdgeVector& newRoute) const {
-    // reroute destination from initial parking area to the near parking area
-    // if the next stop is a parking area, it is included in the current
-    // alternative set and if it can be observed to be full
+    // Reroute destination from initial parking area to an alternative parking area
+    // if the following conditions are met:
+    // - next stop target is a parking area
+    // - target is included in the current alternative set
+    // - target is visibly full
+    // Any parking areas that are visibly full at the current location are
+    // committed to parking memory
 
     MSParkingArea* nearParkArea = nullptr;
     std::vector<ParkingAreaVisible> parks = rerouteDef->parkProbs.getVals();
@@ -642,14 +647,64 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
             break;
         }
     }
+
+    MSParkingArea* onTheWay = nullptr;
+
     if (!destVisible) {
-        // cannot determine destination occupancy
-        return nullptr;
+        // check whether we are ready to accept any free parkingArea along the
+        // way to our destination
+        const int parkAnywhere = getWeight(veh, "parking.anywhere", -1);
+        if (parkAnywhere < 0 || parkAnywhere > veh.getNumberParkingReroutes()) {
+            // cannot determine destination occupancy, only register visibly full
+            for (const ParkingAreaVisible& pav : parks) {
+                if (pav.second && pav.first->getLastStepOccupancy() == pav.first->getCapacity()) {
+                    veh.rememberBlockedParkingArea(pav.first);
+                }
+            }
+#ifdef DEBUG_PARKING
+            if (DEBUGCOND) {
+                //std::cout << SIMTIME << " rerouter=" << getID() << " veh=" << veh.getID()
+                //    << " dest=" << destParkArea->getID() << " parkAnywhere=" << parkAnywhere << " parkingReroutes=" << veh.getNumberParkingReroutes() << " stay on original route\n";
+            }
+#endif
+            return nullptr;
+        }
+
+        double bestDist = std::numeric_limits<double>::max();
+        const double brakeGap = veh.getBrakeGap();
+        for (ParkingAreaVisible& item : parks) {
+            if (item.second) {
+                MSParkingArea* pa = item.first;
+                if (&pa->getLane().getEdge() == &veh.getLane()->getEdge()
+                        && pa->getLastStepOccupancy() < pa->getCapacity()) {
+                    const double distToStart = pa->getBeginLanePosition() - veh.getPositionOnLane();
+                    const double distToEnd = pa->getEndLanePosition() - veh.getPositionOnLane();
+                    if (distToEnd > brakeGap) {
+                        veh.rememberParkingAreaScore(pa, "dist=" + toString(distToStart));
+                        if (distToStart < bestDist) {
+                            bestDist = distToStart;
+                            onTheWay = pa;
+                        }
+                    } else {
+                        veh.rememberParkingAreaScore(pa, "tooClose");
+                    }
+                }
+            }
+        }
+#ifdef DEBUG_PARKING
+        if (DEBUGCOND) {
+            std::cout << SIMTIME << " rerouter=" << getID() << " veh=" << veh.getID()
+                << " dest=" << destParkArea->getID() << " parkAnywhere=" << parkAnywhere << " parkingReroutes=" << veh.getNumberParkingReroutes() << " alongTheWay=" << Named::getIDSecure(onTheWay) << "\n";
+        }
+#endif
+        if (onTheWay == nullptr) {
+            return nullptr;
+        }
+        // otherwise compute new route
     }
-    if (destParkArea->getLastStepOccupancy() == destParkArea->getCapacity()) {
-        veh.resetParkingAreaScores();
-        veh.rememberParkingAreaScore(destParkArea, "occupied");
-        veh.rememberBlockedParkingArea(destParkArea);
+
+    if (destParkArea->getLastStepOccupancy() == destParkArea->getCapacity() || onTheWay != nullptr) {
+
         // if the current route ends at the parking area, the new route will
         // also and at the new area
         newDestination = (&destParkArea->getLane().getEdge() == route.getLastEdge()
@@ -715,16 +770,37 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
 
         const double brakeGap = veh.getBrakeGap();
 
+        if (onTheWay != nullptr) {
+            // compute new route
+            if (newDestination) {
+                newRoute.push_back(&veh.getLane()->getEdge());
+            } else {
+                bool valid = addParkValues(veh, brakeGap, newDestination, onTheWay, onTheWay->getLastStepOccupancy(), 1, router, parkAreas, newRoutes, parkApproaches, maxValues);
+                if (!valid) {
+                    WRITE_WARNING("Parkingarea '" + onTheWay->getID() + "' along the way cannot be used by vehicle '" + veh.getID() + "' for unknown reason");
+                    return nullptr;
+                }
+                newRoute = newRoutes[onTheWay];
+            }
+            return onTheWay;
+        }
+
         int numAlternatives = 0;
         std::vector<std::tuple<SUMOTime, MSParkingArea*, int> > blockedTimes;
+        veh.resetParkingAreaScores();
+        veh.rememberParkingAreaScore(destParkArea, "occupied");
+        veh.rememberBlockedParkingArea(destParkArea);
+
 
         for (int i = 0; i < (int)parks.size(); ++i) {
             MSParkingArea* pa = parks[i].first;
             // alternative occupancy is randomized (but never full) if invisible
             // current destination must be visible at this point
-            const bool visible = parks[i].second || pa == destParkArea;
-            int paOccupancy = visible ? pa->getOccupancy() : RandHelper::rand(pa->getCapacity());
+            const bool visible = parks[i].second || (pa == destParkArea && destVisible);
+            double paOccupancy = pa->getOccupancy();
             if (!visible) {
+                const double minOccupancy = MIN2((double)pa->getCapacity() - NUMERICAL_EPS, (veh.getNumberParkingReroutes() * pa->getCapacity() / getWeight(veh, "parking.frustration", 100)));
+                paOccupancy = RandHelper::rand(minOccupancy, (double)pa->getCapacity());
                 // previously visited?
                 SUMOTime blockedTime = veh.sawBlockedParkingArea(pa);
                 if (blockedTime >= 0 && SIMSTEP - blockedTime < TIME2STEPS(getWeight(veh, "parking.memory", 600))) {
@@ -754,7 +830,9 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
             for (auto item : blockedTimes) {
                 MSParkingArea* pa = std::get<1>(item);
                 double prob = probs[std::get<2>(item)];
-                int paOccupancy = RandHelper::rand(pa->getCapacity());
+                // all parking areas are occupied. We have have good basis for
+                // prefering one or the other based on estimated occupancy
+                double paOccupancy = RandHelper::rand((double)pa->getCapacity());
                 if (addParkValues(veh, brakeGap, newDestination, pa, paOccupancy, prob, router, parkAreas, newRoutes, parkApproaches, maxValues)) {
                     break;
                 }
@@ -806,9 +884,13 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
                 double prob = 0;
                 if (!dominated) {
                     prob = RandHelper::rand(parkValues["probability"], veh.getRNG());
+                    parkValues["probability"] = 1.0 - prob / maxValues["probability"];
+                } else {
+                    // worst probability score
+                    parkValues["probability"] = 1.0;
                 }
-                parkValues["probability"] = 1.0 - prob / maxValues["probability"];
             } else {
+                // value takes no effect due to weight=0
                 parkValues["probability"] = 0;
             }
             // normalizing with maximum values (we want to maximize some parameters then we reverse the value)
@@ -829,7 +911,11 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
             for (ParkingParamMap_t::iterator pc = parkValues.begin(); pc != parkValues.end(); ++pc) {
                 parkingCost += weights[pc->first] * pc->second;
             }
-            veh.rememberParkingAreaScore(it->first, toString(parkingCost));
+            veh.rememberParkingAreaScore(it->first, toString(parkingCost)
+                    //+ " rfs=" + toString(parkValues["relfreespace"])
+                    //+ " dt=" + toString(parkValues["distanceto"])
+                    //+ " p=" + toString(parkValues["probability"])
+                    );
 
             // get the parking area with minimum cost
             if (nearParkArea == nullptr || parkingCost < minParkingCost) {
@@ -840,10 +926,11 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
 
 #ifdef DEBUG_PARKING
             if (DEBUGCOND) {
-                std::cout << "    altPA=" << it->first->getID() << " score=" << parkingCost << "\n";
+                std::cout << "    altPA=" << it->first->getID() << " score=" << parkingCost << " vals=" << joinToString(parkValues, " ", ":") << "\n";
             }
 #endif
         }
+        veh.setNumberParkingReroutes(veh.getNumberParkingReroutes() + 1);
     } else {
 #ifdef DEBUG_PARKING
         if (DEBUGCOND) {
@@ -863,8 +950,8 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
 
 
 bool
-MSTriggeredRerouter::addParkValues(const SUMOVehicle& veh, double brakeGap, bool newDestination,
-        MSParkingArea* pa, int paOccupancy, double prob,
+MSTriggeredRerouter::addParkValues(SUMOVehicle& veh, double brakeGap, bool newDestination,
+        MSParkingArea* pa, double paOccupancy, double prob,
         SUMOAbstractRouter<MSEdge, SUMOVehicle>& router,
         MSParkingAreaMap_t& parkAreas,
         std::map<MSParkingArea*, ConstMSEdgeVector>& newRoutes,
@@ -885,6 +972,12 @@ MSTriggeredRerouter::addParkValues(const SUMOVehicle& veh, double brakeGap, bool
     const double parkPos = pa->getLastFreePos(veh);
     router.compute(veh.getEdge(), veh.getPositionOnLane(), parkEdge, parkPos, &veh, MSNet::getInstance()->getCurrentTimeStep(), edgesToPark, true);
 
+#ifdef DEBUG_PARKING
+    if (DEBUGCOND) {
+        //std::cout << "    altPA=" << pa->getID() << " vehEdge=" << veh.getEdge()->getID() << " parkEdge " << parkEdge->getID() << " edgesToPark=" << edgesToPark.size() << "\n";
+    }
+#endif
+
     if (edgesToPark.size() > 0) {
         // Compute the route from the parking area edge to the end of the route
         ConstMSEdgeVector edgesFromPark;
@@ -903,6 +996,11 @@ MSTriggeredRerouter::addParkValues(const SUMOVehicle& veh, double brakeGap, bool
             }
             router.compute(parkEdge, parkPos, nextDestination, nextPos,  &veh, MSNet::getInstance()->getCurrentTimeStep(), edgesFromPark, true);
         }
+#ifdef DEBUG_PARKING
+        if (DEBUGCOND) {
+            //std::cout << "    altPA=" << pa->getID() << " parkEdge=" << parkEdge->getID() << " nextDest=" << nextDestination->getID() << " edgesFromPark=" << edgesFromPark.size() << "\n";
+        }
+#endif
 
         if (edgesFromPark.size() > 0 || newDestination) {
 
@@ -914,7 +1012,8 @@ MSTriggeredRerouter::addParkValues(const SUMOVehicle& veh, double brakeGap, bool
 
             parkValues["capacity"] = (double)(pa->getCapacity());
             parkValues["absfreespace"] = (double)(pa->getCapacity() - paOccupancy);
-            parkValues["relfreespace"] = parkValues["absfreespace"] / parkValues["capacity"];
+            // if capacity = 0 then absfreespace and relfreespace are also 0
+            parkValues["relfreespace"] = parkValues["absfreespace"] / MAX2(1.0, parkValues["capacity"]);
 
             if (parkValues["capacity"] > maxValues["capacity"]) {
                 maxValues["capacity"] = parkValues["capacity"];
@@ -931,8 +1030,16 @@ MSTriggeredRerouter::addParkValues(const SUMOVehicle& veh, double brakeGap, bool
             MSRoute routeToPark(route.getID() + "!topark#1", edgesToPark, false, &c == &RGBColor::DEFAULT_COLOR ? nullptr : new RGBColor(c), route.getStops());
 
             // The distance from the current edge to the new parking area
-            parkValues["distanceto"] = routeToPark.getDistanceBetween(veh.getPositionOnLane(), pa->getBeginLanePosition(),
+            double toPos = pa->getBeginLanePosition();
+            if (&pa->getLane().getEdge() == &veh.getLane()->getEdge()) {
+                toPos = MAX2(veh.getPositionOnLane(), toPos);
+            }
+            parkValues["distanceto"] = routeToPark.getDistanceBetween(veh.getPositionOnLane(), toPos,
                     routeToPark.begin(), routeToPark.end() - 1, includeInternalLengths);
+
+            if (parkValues["distanceto"] == std::numeric_limits<double>::max()) {
+                WRITE_WARNING("Invalid distance computation for vehicle '" + veh.getID() + "' to parkingArea '" + pa->getID() + "' at time " + time2string(SIMTIME));
+            }
 
             //std::cout << SIMTIME << " veh=" << veh.getID() << " candidate=" << pa->getID()
             //    << " distanceTo=" << parkValues["distanceto"]
@@ -941,9 +1048,14 @@ MSTriggeredRerouter::addParkValues(const SUMOVehicle& veh, double brakeGap, bool
             //    << " fromPos=" << veh.getPositionOnLane()
             //    << " tPos=" << pa->getBeginLanePosition()
             //    << "\n";
-            if (parkValues["distanceto"] < brakeGap) {
-                //std::cout << "   removed: pa too close\n";
-                // to close to stop for this parkingArea
+            const double distToEnd = parkValues["distanceto"] - toPos + pa->getEndLanePosition();
+            if (distToEnd < brakeGap) {
+                veh.rememberParkingAreaScore(pa, "tooClose");
+#ifdef DEBUG_PARKING
+                if (DEBUGCOND) {
+                    std::cout << "    altPA=" << pa->getID() << " too close to brake (dist=" << distToEnd << " brakeGap=" << brakeGap << "\n";
+                }
+#endif
                 return false;
             }
 
@@ -969,6 +1081,9 @@ MSTriggeredRerouter::addParkValues(const SUMOVehicle& veh, double brakeGap, bool
                 // The distance from the new parking area to the end of the route
                 parkValues["distancefrom"] = routeFromPark.getDistanceBetween(pa->getBeginLanePosition(), routeFromPark.getLastEdge()->getLength(),
                         routeFromPark.begin(), routeFromPark.end() - 1, includeInternalLengths);
+                if (parkValues["distancefrom"] == std::numeric_limits<double>::max()) {
+                    WRITE_WARNING("Invalid distance computation for vehicle '" + veh.getID() + "' from parkingArea '" + pa->getID() + "' at time " + time2string(SIMTIME));
+                }
                 // The time to reach this area
                 parkValues["timefrom"] = router.recomputeCosts(edgesFromPark, &veh, MSNet::getInstance()->getCurrentTimeStep());
                 newEdges.insert(newEdges.end(), edgesFromPark.begin() + 1, edgesFromPark.end());
@@ -986,19 +1101,20 @@ MSTriggeredRerouter::addParkValues(const SUMOVehicle& veh, double brakeGap, bool
             parkAreas[pa] = parkValues;
             newRoutes[pa] = newEdges;
 
-#ifdef DEBUG_PARKING
-            if (DEBUGCOND) {
-                std::cout << "    altPA=" << pa->getID()
-                    << " vals=" << joinToString(parkValues, " ", ":")
-                    << "\n";
-            }
-#endif
+            return true;
+        } else {
+            veh.rememberParkingAreaScore(pa, "destUnreachable");
         }
-        return true;
     } else {
-        // unreachable
-        return false;
+        veh.rememberParkingAreaScore(pa, "unreachable");
     }
+#ifdef DEBUG_PARKING
+    if (DEBUGCOND) {
+        std::cout << "    altPA=" << pa->getID() << " disconnected\n";
+    }
+#endif
+    // unreachable
+    return false;
 }
 
 

@@ -32,14 +32,3 @@ value is also shown in the table.
 | type ID                                  | string          | Returns the type id for the current calibration interval  | [getTypeID](https://sumo.dlr.de/pydoc/traci._calibrator.html#CalibratorDomain-getTypeID) |    
 | vTypes                                  | string          | Returns a list of all types to which the calibrator applies (in a type filter is active)  | [getVTypes](https://sumo.dlr.de/pydoc/traci._calibrator.html#CalibratorDomain-getVTypes) |    
 | vehicle per hour                                  | double          | Returns the number of vehicles per hour in the current calibration interval  | [getVehsPerHour](https://sumo.dlr.de/pydoc/traci._calibrator.html#CalibratorDomain-getVehsPerHour) |    
-| flow                                  | compound (string, double, double, double, double, string, string, string, string), see below          | Update or add a calibrator interval  | [setFlow](https://sumo.dlr.de/pydoc/traci._calibrator.html#CalibratorDomain-setFlow) |    
-
-# compound message details
-
-The message contents are as following:
-
-### flow
-
-|       string        |    double     |     double     | double  |     string      |    string    |       string     |   string  |  
-| :-------------: | :-------------: | :-------------: | :-----: | :--------------: | :----------: | :------------: | :--------: | 
-| calibratorID | begin | end | vehsPerHour | speed | typeID | routeID | departLane='first' | departSpeed='max' |

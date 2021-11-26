@@ -1,4 +1,7 @@
 example
+
+# minimum parkingArea attributes
+bare_parkingAreas
 opposite_visible
 
 # parkingAreas are only on one side but vehicles driving past should still see them
@@ -25,3 +28,4 @@ minCapacityVisible
 
 # parking areas that are visible should be preferred as alternatives
 visible_preferredAlternative
+visible_explicit

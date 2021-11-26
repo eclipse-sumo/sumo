@@ -139,14 +139,16 @@ public:
      * @param[in] typeos The types - output device to store the vehicle types into
      * @exception IOError If something fails (not yet implemented)
      */
-    void write(OutputDevice& os, OutputDevice* const altos,
+    void write(OutputDevice* os, OutputDevice* const altos,
                OutputDevice* const typeos, OptionsCont& options) const {
-        if (altos == 0 && typeos == 0) {
-            saveAsXML(os, &os, false, options);
-        } else {
-            saveAsXML(os, typeos, false, options);
+        if (os != nullptr) {
+            if (altos == nullptr && typeos == nullptr) {
+                saveAsXML(*os, os, false, options);
+            } else {
+                saveAsXML(*os, typeos, false, options);
+            }
         }
-        if (altos != 0) {
+        if (altos != nullptr) {
             saveAsXML(*altos, typeos, true, options);
         }
     }

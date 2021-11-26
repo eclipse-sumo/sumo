@@ -86,8 +86,8 @@ public:
         /// @brief refresh row
         void refreshRow() const;
 
-        /// @brief returns a empty string if current value is valid, a string with information about invalid value in other case
-        const std::string& isAttributeValid() const;
+        /// @brief check if current attribute is valid
+        bool isAttributeValid() const;
 
         /// @brief get AttributesCreator parent
         AttributesCreator* getAttributesCreatorParent() const;
@@ -97,18 +97,12 @@ public:
         /// @brief called when user set the value of an attribute of type int/float/string/bool
         long onCmdSetAttribute(FXObject*, FXSelector, void*);
 
-        /// @brief called when user press a check button
-        long onCmdSelectCheckButton(FXObject*, FXSelector, void*);
-
         /// @brief called when user press the "Color" button
-        long onCmdSelectColorButton(FXObject*, FXSelector, void*);
+        long onCmdSelectDialog(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
         FOX_CONSTRUCTOR(AttributesCreatorRow)
-
-        /// @brief check if given complex attribute is valid
-        std::string checkComplexAttribute(const std::string& value);
 
         /// @brief generate ID
         std::string generateID() const;
@@ -130,7 +124,7 @@ public:
         FXLabel* myAttributeLabel = nullptr;
 
         /// @brief check button to enable/disable Label attribute
-        FXCheckButton* myAttributeCheckButton = nullptr;
+        FXCheckButton* myEnableAttributeCheckButton = nullptr;
 
         /// @brief Button for open color editor
         FXButton* myAttributeColorButton = nullptr;
@@ -160,11 +154,8 @@ public:
         /// @brief destructor
         ~AttributesCreator();
 
-        /**@brief show AttributesCreator modul
-         * @param tagProperties GNETagProperties which contain all attributes
-         * @param hiddenAttributes list of attributes contained in tagProperties but not shown
-         */
-        void showAttributesCreatorModul(const GNETagProperties& tagProperties, const std::vector<SumoXMLAttr>& hiddenAttributes);
+        /// @brief show AttributesCreator modul
+        void showAttributesCreatorModul(GNEAttributeCarrier *templateAC, const std::vector<SumoXMLAttr>& hiddenAttributes);
 
         /// @brief hide group box
         void hideAttributesCreatorModul();
@@ -175,8 +166,8 @@ public:
         /// @brief get attributes and their values
         void getAttributesAndValues(CommonXMLStructure::SumoBaseObject* baseObject, bool includeAll) const;
 
-        /// @brief get current edited Tag Properties
-        GNETagProperties getCurrentTagProperties() const;
+        /// @brief get current template AC
+        GNEAttributeCarrier *getCurrentTemplateAC() const;
 
         /// @brief check if parameters of attributes are valid
         bool areValuesValid() const;
@@ -203,8 +194,8 @@ public:
         /// @brief pointer to myAttributesCreatorFlow
         AttributesCreatorFlow* myAttributesCreatorFlow = nullptr;
 
-        /// @brief current edited Tag Properties
-        GNETagProperties myTagProperties;
+        /// @brief current templateAC
+        GNEAttributeCarrier *myTemplateAC;
 
         /// @brief vector with the AttributesCreatorRow
         std::vector<AttributesCreatorRow*> myAttributesCreatorRows;
@@ -734,11 +725,11 @@ public:
 
     private:
         /// @brief list of the reference points
-        enum AdditionalReferencePoint {
-            GNE_ADDITIONALREFERENCEPOINT_LEFT,
-            GNE_ADDITIONALREFERENCEPOINT_RIGHT,
-            GNE_ADDITIONALREFERENCEPOINT_CENTER,
-            GNE_ADDITIONALREFERENCEPOINT_INVALID
+        enum class AdditionalReferencePoint {
+            LEFT,
+            RIGHT,
+            CENTER,
+            INVALID
         };
 
         /// @brief obtain the Start position values of StoppingPlaces and E2 detector over the lane

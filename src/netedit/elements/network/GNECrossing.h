@@ -40,7 +40,10 @@ class GNEEdge;
  * editor (hence inheritance from FXDelegator)
  */
 class GNECrossing : public GNENetworkElement {
+
 public:
+    /// @brief default constructor
+    GNECrossing(GNENet* net);
 
     /**@brief Constructor
      * @param[in] parentJunction GNEJunction in which this crossing is placed
@@ -157,6 +160,9 @@ protected:
 
     /// @brief crossing geometry
     GUIGeometry myCrossingGeometry;
+
+    /// @brief template NBCrossing
+    NBNode::Crossing* myTemplateNBCrossing;
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)

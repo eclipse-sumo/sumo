@@ -32,6 +32,9 @@
 class GNEDetectorE3 : public GNEAdditional {
 
 public:
+    /// @brief default constructor
+    GNEDetectorE3(GNENet* net);
+
     /**@brief GNEDetectorE3 Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] net pointer to GNENet of this additional element belongs

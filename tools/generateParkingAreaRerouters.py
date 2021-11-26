@@ -75,8 +75,11 @@ def get_options(cmd_args=None):
     parser.add_argument(
         '--distribute', dest='distribute',
         help='Distribute alternatives by distance according to the given weights. "3,1"'
-        + 'means that 75% of the alternatives are below the median distance of all'
-        + 'alternatives in range and 25% are above the median distance')
+        + 'means that 75 percent of the alternatives are below the median distance of all'
+        + 'alternatives in range and 25 percent are above the median distance')
+    parser.add_argument(
+        '--visible-ids', dest='visible_ids', default="",
+        help='set list of parkingArea ids as always visible')
     parser.add_argument(
         '--processes', type=int, dest='processes', default=1,
         help='Number of processes spawned to compute the distance between parking areas.')
@@ -97,8 +100,10 @@ def get_options(cmd_args=None):
                 x = float(x)
             except ValueError:
                 print("Value '%s' in option --distribute must be numeric" % x,
-                        file=sys.stderr)
+                      file=sys.stderr)
                 sys.exit()
+
+    options.visible_ids = set(options.visible_ids.split(','))
 
     return options
 
@@ -154,9 +159,17 @@ class ReroutersGeneration(object):
 
             laneID = child.attrib['lane']
             lane = self._sumo_net.getLane(laneID)
-            endPos = float(child.attrib['endPos'])
-            if endPos < 0:
-                endPos = lane.getLength()
+
+            endPos = lane.getLength()
+            if 'endPos' in child.attrib:
+                endPos = float(child.attrib['endPos'])
+                if endPos < 0:
+                    endPos = lane.getLength()
+            else:
+                child.attrib['endPos'] = endPos
+
+            if 'startPos' not in child.attrib:
+                child.attrib['startPos'] = 0
 
             self._parking_areas[child.attrib['id']]['edge'] = lane.getEdge().getID()
             self._parking_areas[child.attrib['id']]['pos'] = sumolib.geomhelper.positionAtShapeOffset(lane.getShape(), endPos)  # noqa
@@ -188,6 +201,7 @@ class ReroutersGeneration(object):
                 'opposite_visible': self._opt.opposite_visible,
                 'prefer_visible': self._opt.prefer_visible,
                 'distribute': self._opt.distribute,
+                'visible_ids': self._opt.visible_ids,
             }
             list_parameters.append(parameters)
         for res in pool.imap_unordered(generate_rerouters_process, list_parameters):
@@ -238,7 +252,8 @@ class ReroutersGeneration(object):
                                             self._parking_areas,
                                             self._opt.dist_threshold,
                                             self._opt.capacity_threshold,
-                                            self._opt.opposite_visible)
+                                            self._opt.opposite_visible,
+                                            self._opt.visible_ids)
                     _visibility = str(_visibility).lower()
                     alternatives += self._RR_PARKING.format(pid=alt, visible=_visibility, dist=dist)
 
@@ -256,7 +271,8 @@ class ReroutersGeneration(object):
     # ----------------------------------------------------------------------------------------- #
 
 
-def isVisible(pID, altID, dist, net, parking_areas, dist_threshold, capacity_threshold, opposite_visible):
+def isVisible(pID, altID, dist, net, parking_areas, dist_threshold,
+        capacity_threshold, opposite_visible, visible_ids):
     if altID == pID:
         return True
     if (int(parking_areas[altID].get('roadsideCapacity', 0)) >= capacity_threshold):
@@ -268,6 +284,8 @@ def isVisible(pID, altID, dist, net, parking_areas, dist_threshold, capacity_thr
         altEdge = net.getEdge(parking_areas[altID]['edge'])
         if rrEdge.getFromNode() == altEdge.getToNode() and rrEdge.getToNode() == altEdge.getFromNode():
             return True
+    if altID in visible_ids:
+        return True
     return False
 
 
@@ -293,7 +311,7 @@ def generate_rerouters_process(parameters):
         sequence = parameters['selection']
 
     distWeights = None
-    distWeigtSum = None
+    distWeightSum = None
     distThresholds = None
     if parameters['distribute'] is not None:
         distWeights = list(map(float, parameters['distribute'].split(',')))
@@ -355,7 +373,8 @@ def generate_rerouters_process(parameters):
                              parameters['all_parking_areas'],
                              parameters['dist_threshold'],
                              parameters['capacity_threshold'],
-                             parameters['opposite_visible']):
+                             parameters['opposite_visible'],
+                             parameters['visible_ids']):
                     temp_rerouters.append((parking, distance))
                     used.add(parking)
 
@@ -392,7 +411,7 @@ def generate_rerouters_process(parameters):
                     required += dist[distIndex]
             if distThresholds is not None and distance < distThresholds[distIndex]:
                 continue
-                
+
             if len(temp_rerouters) > parameters['num_alternatives']:
                 break
             if distance > parameters['dist_alternatives']:

@@ -32,15 +32,16 @@
 // member method definitions
 // ===========================================================================
 
+GNEDetectorEntryExit::GNEDetectorEntryExit(SumoXMLTag entryExitTag, GNENet* net) :
+    GNEDetector("", net, GLO_DET_ENTRY, entryExitTag, 0, 0, {}, "", {}, "", false, std::map<std::string, std::string>()) {
+    // reset default values
+    resetDefaultValues();
+}
+
+
 GNEDetectorEntryExit::GNEDetectorEntryExit(SumoXMLTag entryExitTag, GNENet* net, GNEAdditional* parent, GNELane* lane, const double pos,
         const bool friendlyPos, const std::map<std::string, std::string>& parameters) :
-    GNEDetector(parent, net, GLO_DET_ENTRY, entryExitTag, pos, 0, {
-    lane
-}, "", "", friendlyPos, parameters) {
-    // check that this is a Entry/Exit
-    if ((entryExitTag != SUMO_TAG_DET_ENTRY) && (entryExitTag != SUMO_TAG_DET_EXIT)) {
-        throw InvalidArgument("Invalid E3 Child Tag");
-    }
+    GNEDetector(parent, net, GLO_DET_ENTRY, entryExitTag, pos, 0, {lane}, "", "", friendlyPos, parameters) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }

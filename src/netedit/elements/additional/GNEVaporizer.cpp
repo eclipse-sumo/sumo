@@ -32,13 +32,24 @@
 // member method definitions
 // ===========================================================================
 
+GNEVaporizer::GNEVaporizer(GNENet* net) :
+    GNEAdditional("", net, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, "",
+        {}, {}, {}, {}, {}, {}, {}, {},
+    std::map<std::string, std::string>()),
+    myBegin(0),
+    myEnd(0) {
+    // reset default values
+    resetDefaultValues();
+}
+
+
 GNEVaporizer::GNEVaporizer(GNENet* net, GNEEdge* edge, SUMOTime from, SUMOTime end, const std::string& name,
                            const std::map<std::string, std::string>& parameters) :
     GNEAdditional(edge->getID(), net, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name,
-{}, {edge}, {}, {}, {}, {}, {}, {},
-parameters),
-myBegin(from),
-myEnd(end) {
+        {}, {edge}, {}, {}, {}, {}, {}, {},
+    parameters),
+    myBegin(from),
+    myEnd(end) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }

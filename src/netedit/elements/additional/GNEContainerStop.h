@@ -33,6 +33,9 @@
 class GNEContainerStop : public GNEStoppingPlace {
 
 public:
+    /// @brief default constructor
+    GNEContainerStop(GNENet* net);
+
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] lane Lane of this StoppingPlace belongs

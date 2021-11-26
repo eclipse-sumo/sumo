@@ -249,6 +249,10 @@ MSInductLoop::writeXMLDetectorProlog(OutputDevice& dev) const {
 
 void
 MSInductLoop::writeXMLOutput(OutputDevice& dev, SUMOTime startTime, SUMOTime stopTime) {
+    if (dev.isNull()) {
+        reset();
+        return;
+    }
     const double t(STEPS2TIME(stopTime - startTime));
     double occupancy = 0.;
     double speedSum = 0.;

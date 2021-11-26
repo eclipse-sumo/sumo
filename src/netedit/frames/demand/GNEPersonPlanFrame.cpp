@@ -42,7 +42,7 @@ GNEPersonPlanFrame::GNEPersonPlanFrame(FXHorizontalFrame* horizontalFrameParent,
     myPersonSelector = new GNEFrameModuls::DemandElementSelector(this, {GNETagProperties::TagType::PERSON});
 
     // Create tag selector for person plan
-    myPersonPlanTagSelector = new GNEFrameModuls::TagSelector(this, GNETagProperties::TagType::PERSONPLAN);
+    myPersonPlanTagSelector = new GNEFrameModuls::TagSelector(this, GNETagProperties::TagType::PERSONPLAN, GNE_TAG_PERSONTRIP_EDGE);
 
     // Create person parameters
     myPersonPlanAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
@@ -52,10 +52,6 @@ GNEPersonPlanFrame::GNEPersonPlanFrame(FXHorizontalFrame* horizontalFrameParent,
 
     // Create HierarchicalElementTree modul
     myPersonHierarchy = new GNEFrameModuls::HierarchicalElementTree(this);
-
-    // set PersonPlan tag type in tag selector
-    myPersonPlanTagSelector->setCurrentTagType(GNETagProperties::TagType::PERSONTRIP);
-    myPersonPlanTagSelector->onCmdSelectTagType(0, 0, 0);
 }
 
 
@@ -71,8 +67,8 @@ GNEPersonPlanFrame::show() {
     if ((persons.size() > 0) || (personFlows.size() > 0)) {
         // show person selector
         myPersonSelector->showDemandElementSelector();
-        // refresh person plan tag selector
-        myPersonPlanTagSelector->refreshTagProperties();
+        // refresh tag selector
+        myPersonPlanTagSelector->refreshTagSelector();
         // set first person as demand element (this will call demandElementSelected() function)
         if (persons.size() > 0) {
             myPersonSelector->setDemandElement(*persons.begin());
@@ -111,12 +107,12 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCur
         return false;
     }
     // finally check that person plan selected is valid
-    if (myPersonPlanTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_NOTHING) {
+    if (myPersonPlanTagSelector->getCurrentTemplateAC() == nullptr) {
         myViewNet->setStatusBarText("Current selected person plan isn't valid.");
         return false;
     }
     // Obtain current person plan tag (only for improve code legibility)
-    SumoXMLTag personPlanTag = myPersonPlanTagSelector->getCurrentTagProperties().getTag();
+    SumoXMLTag personPlanTag = myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
     // declare flags for requirements
     const bool requireBusStop = ((personPlanTag == GNE_TAG_PERSONTRIP_BUSSTOP) || (personPlanTag == GNE_TAG_WALK_BUSSTOP) ||
                                  (personPlanTag == GNE_TAG_RIDE_BUSSTOP) || (personPlanTag == GNE_TAG_STOPPERSON_BUSSTOP));
@@ -153,19 +149,19 @@ GNEPersonPlanFrame::getPathCreator() const {
 void
 GNEPersonPlanFrame::tagSelected() {
     // first check if person is valid
-    if (myPersonPlanTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
+    if (myPersonPlanTagSelector->getCurrentTemplateAC()) {
         // Obtain current person plan tag (only for improve code legibility)
-        SumoXMLTag personPlanTag = myPersonPlanTagSelector->getCurrentTagProperties().getTag();
+        SumoXMLTag personPlanTag = myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
         // show person attributes
-        myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties(), {});
+        myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTemplateAC(), {});
         // get previous person plan
         GNEEdge* previousEdge = myPersonSelector->getPersonPlanPreviousEdge();
         // show path creator depending of tag
-        if (myPersonPlanTagSelector->getCurrentTagProperties().getTag() == GNE_TAG_WALK_ROUTE) {
+        if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() == GNE_TAG_WALK_ROUTE) {
             myPathCreator->hidePathCreatorModul();
         } else {
             // update VClass of myPathCreator depending if person is a ride
-            if (myPersonPlanTagSelector->getCurrentTagProperties().isRide()) {
+            if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isRide()) {
                 myPathCreator->setVClass(SVC_PASSENGER);
             } else {
                 myPathCreator->setVClass(SVC_PEDESTRIAN);
@@ -199,7 +195,7 @@ GNEPersonPlanFrame::demandElementSelected() {
         // show person plan tag selector
         myPersonPlanTagSelector->showTagSelector();
         // now check if person plan selected is valid
-        if (myPersonPlanTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
+        if (myPersonPlanTagSelector->getCurrentTemplateAC()) {
             // call tag selected
             tagSelected();
         } else {
@@ -221,11 +217,11 @@ void
 GNEPersonPlanFrame::createPath() {
     // first check that all attributes are valid
     if (!myPersonPlanAttributes->areValuesValid()) {
-        myViewNet->setStatusBarText("Invalid " + myPersonPlanTagSelector->getCurrentTagProperties().getTagStr() + " parameters.");
+        myViewNet->setStatusBarText("Invalid " + myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " parameters.");
     } else {
         // check if person plan can be created
         if (myRouteHandler.buildPersonPlan(
-                    myPersonPlanTagSelector->getCurrentTagProperties().getTag(),
+                    myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(),
                     myPersonSelector->getCurrentDemandElement(),
                     myPersonPlanAttributes, myPathCreator, false)) {
             // refresh HierarchicalElementTree

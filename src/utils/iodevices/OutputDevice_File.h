@@ -48,6 +48,13 @@ public:
     /// @brief Destructor
     ~OutputDevice_File();
 
+    /** @brief returns the information whether the device will discard all output
+     * @return Whether the device redirects to /dev/null
+     */
+    bool isNull() {
+        return myAmNull;
+    }
+
 
 protected:
     /// @name Methods that override/implement OutputDevice-methods
@@ -62,6 +69,9 @@ protected:
 
 private:
     /// The wrapped ofstream
-    std::ostream* myFileStream;
+    std::ostream* myFileStream = nullptr;
+
+    /// am I redirecting to /dev/null
+    bool myAmNull = false;
 
 };

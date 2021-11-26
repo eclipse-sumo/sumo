@@ -379,16 +379,16 @@ RORouteDef::getDestination() const {
 
 OutputDevice&
 RORouteDef::writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
-                               bool asAlternatives, bool withExitTimes) const {
+                               bool asAlternatives, bool withExitTimes, bool withCost) const {
     if (asAlternatives) {
         dev.openTag(SUMO_TAG_ROUTE_DISTRIBUTION).writeAttr(SUMO_ATTR_LAST, myLastUsed);
         for (int i = 0; i != (int)myAlternatives.size(); i++) {
-            myAlternatives[i]->writeXMLDefinition(dev, veh, true, withExitTimes);
+            myAlternatives[i]->writeXMLDefinition(dev, veh, true, true, withExitTimes);
         }
         dev.closeTag();
         return dev;
     } else {
-        return myAlternatives[myLastUsed]->writeXMLDefinition(dev, veh, false, withExitTimes);
+        return myAlternatives[myLastUsed]->writeXMLDefinition(dev, veh, withCost, false, withExitTimes);
     }
 }
 

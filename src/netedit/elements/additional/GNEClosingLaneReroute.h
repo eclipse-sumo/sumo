@@ -40,6 +40,9 @@ class GNEClosingLaneReroute : public GNEAdditional {
 
 public:
     /// @brief parameter constructor
+    GNEClosingLaneReroute(GNENet* net);
+
+    /// @brief parameter constructor
     GNEClosingLaneReroute(GNEAdditional* rerouterIntervalParent, GNELane* closedLane, SVCPermissions permissions);
 
     /// @brief destructor

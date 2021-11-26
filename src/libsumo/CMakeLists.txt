@@ -63,7 +63,7 @@ set(libsumostatic_STAT_SRCS
 )
 
 add_library(libsumostatic STATIC ${libsumostatic_STAT_SRCS})
-add_dependencies(libsumostatic generate-version-h)
+add_dependencies(libsumostatic generate-version-h install_dll)
 set_property(TARGET libsumostatic PROPERTY FOLDER "libsumo")
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/bin)
@@ -75,6 +75,8 @@ set_target_properties(libsumocpp PROPERTIES OUTPUT_NAME libsumocpp${BINARY_SUFFI
 set_target_properties(libsumocpp PROPERTIES OUTPUT_NAME_DEBUG libsumocpp${BINARY_SUFFIX}D)
 target_include_directories(libsumocpp PUBLIC $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src>)
 install(TARGETS libsumocpp EXPORT SUMOConfig
+    DESTINATION bin
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )

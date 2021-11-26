@@ -728,7 +728,7 @@ following table.
 | carFollowing-BKerner        | BKerner                                         | A model by Boris Kerner<br><br>**Caution:** currently under work                             |
 | carFollowing-IDM            | IDM                                             | The Intelligent Driver Model by Martin Treiber<br><br>**Caution:** Default parameters result in very conservative lane changing gap acceptance |
 | carFollowing-IDMM           | IDMM                                            | Variant of IDMM<br><br>**Caution:** lacking documentation                                    |
-| carFollowing-EIDM           | EIDM                                            | Extended Intelligent Driver Model for subsecond simulation by Dominik Salles                 |
+| carFollowing-EIDM           | EIDM                                            | [Extended Intelligent Driver Model for subsecond simulation by Dominik Salles](Car-Following-Models/EIDM.md)                 |
 | carFollowing-KraussPS       | KraussPS                                        | the default Krauss model with consideration of road slope                                    |
 | carFollowing-KraussAB       | KraussAB                                        | the default Krauss model with bounded acceleration (only relevant when using PHEM classes)   |
 | carFollowing-SmartSK        | SmartSK                                         | Variant of the default Krauss model<br><br>**Caution:** lacking documentation                |
@@ -994,6 +994,13 @@ following:
     <routeDistribution id="routedist1">
         <route id="route0" color="1,1,0" edges="beg middle end rend" probability="0.9"/>
         <route id="route1" color="1,2,0" edges="beg middle end" probability="0.1"/>
+    </routeDistribution>
+    
+    <route id="route2" edges="beg middle end rend"/>
+    <route id="route3" edges="beg middle end"/>
+    <routeDistribution id="routedist2">
+        <route refId="route2" probability="2"/>
+        <route refId="route3" probability="3"/>        
     </routeDistribution>
 </routes>
 ```

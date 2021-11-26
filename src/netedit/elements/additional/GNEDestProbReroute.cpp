@@ -29,6 +29,17 @@
 // member method definitions
 // ===========================================================================
 
+GNEDestProbReroute::GNEDestProbReroute(GNENet* net):
+    GNEAdditional("", net, GLO_REROUTER_DESTPROBREROUTE, SUMO_TAG_DEST_PROB_REROUTE, "",
+        {}, {}, {}, {}, {}, {}, {}, {},
+    std::map<std::string, std::string>()),
+    myNewEdgeDestination(nullptr),
+    myProbability(0) {
+    // reset default values
+    resetDefaultValues();
+}
+
+
 GNEDestProbReroute::GNEDestProbReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* newEdgeDestination, double probability):
     GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER_DESTPROBREROUTE, SUMO_TAG_DEST_PROB_REROUTE, "",
         {}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {},

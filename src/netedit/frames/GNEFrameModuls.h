@@ -50,7 +50,7 @@ public:
 
     public:
         /// @brief constructor
-        TagSelector(GNEFrame* frameParent, GNETagProperties::TagType type, bool onlyDrawables = true);
+        TagSelector(GNEFrame* frameParent, GNETagProperties::TagType type, SumoXMLTag tag, bool onlyDrawables = true);
 
         /// @brief destructor
         ~TagSelector();
@@ -61,23 +61,20 @@ public:
         /// @brief hide item selector
         void hideTagSelector();
 
-        /// @brief get current type tag
-        const GNETagProperties& getCurrentTagProperties() const;
+        /// @brief get current templateAC
+        GNEAttributeCarrier *getCurrentTemplateAC() const;
 
         /// @brief set current type manually
-        void setCurrentTagType(GNETagProperties::TagType tagType);
+        void setCurrentTagType(GNETagProperties::TagType tagType, const bool onlyDrawables, const bool notifyFrameParent = true);
 
         /// @brief set current type manually
-        void setCurrentTag(SumoXMLTag newTag);
+        void setCurrentTag(SumoXMLTag newTag, const bool notifyFrameParent = true);
 
-        /// @brief due myCurrentTagProperties is a Reference, we need to refresh it when frameParent is show
-        void refreshTagProperties();
+        /// @brief refresh tagSelector (used when frameParent is show)
+        void refreshTagSelector();
 
         /// @name FOX-callbacks
         /// @{
-        /// @brief Called when the user select an group in ComboBox
-        long onCmdSelectTagType(FXObject*, FXSelector, void*);
-
         /// @brief Called when the user select an elementin ComboBox
         long onCmdSelectTag(FXObject*, FXSelector, void*);
         /// @}
@@ -87,40 +84,43 @@ public:
         FOX_CONSTRUCTOR(TagSelector)
 
     private:
-        struct TagType {
+        class ACTemplate {
+
+        public:
             /// @brief constructor
-            TagType(std::string _tag, GNETagProperties::TagType _tagType, GUIIcon _icon);
+            ACTemplate(GNENet* net, const GNETagProperties tagProperty);
 
-            // @brief tag in string format
-            const std::string tag;
+            /// @brief destructor
+            ~ACTemplate();
 
-            /// @brief tag type
-            const GNETagProperties::TagType tagType;
+            /// @brief get template AC
+            GNEAttributeCarrier* getAC() const;
 
-            /// @brief icon
-            const GUIIcon icon;
+        private:
+            /// @brief editedAC
+            GNEAttributeCarrier *myAC;
+            
+            /// @brief Invalidated copy constructor.
+            ACTemplate(const ACTemplate&) = delete;
+
+            /// @brief Invalidated assignment operator
+            ACTemplate& operator=(const ACTemplate& src) = delete;
         };
 
         /// @brief pointer to Frame Parent
         GNEFrame* myFrameParent;
 
-        /// @brief comboBox with tag type
-        MFXIconComboBox* myTagTypesMatchBox;
+        /// @brief current tagType
+        GNETagProperties::TagType myTagType;
 
-        /// @brief comboBox with the list of tags
+        /// @brief comboBox with the tags
         MFXIconComboBox* myTagsMatchBox;
 
-        /// @brief current tag properties
-        GNETagProperties myCurrentTagProperties;
+        /// @brief current templateAC;
+        GNEAttributeCarrier *myCurrentTemplateAC;
 
-        /// @brief list of tags types that will be shown in Match Box
-        std::vector<TagType> myTagTypes;
-
-        /// @brief list of tags that will be shown in Match Box
-        std::vector<std::pair<GNETagProperties, std::string> > myTagPropertiesString;
-
-        /// @brief dummy tag properties used if user select an invalid tag
-        GNETagProperties myInvalidTagProperty;
+        /// @brief list with ACTemplates
+        std::vector<ACTemplate*> myACTemplates;
     };
 
     // ===========================================================================

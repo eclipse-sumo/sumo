@@ -29,12 +29,20 @@
 // member method definitions
 // ===========================================================================
 
+GNECalibratorFlow::GNECalibratorFlow(GNENet* net) :
+    GNEAdditional("", net, GLO_CALIBRATOR, GNE_TAG_FLOW_CALIBRATOR, "",
+        {}, {}, {}, {}, {}, {}, {}, {},
+    std::map<std::string, std::string>()) {
+    // reset default values
+    resetDefaultValues();
+}
+
 
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route) :
     GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_FLOW_CALIBRATOR, "",
-{}, {}, {}, {calibratorParent}, {}, {}, {vehicleType, route}, {},
-std::map<std::string, std::string>()),
-SUMOVehicleParameter() {
+        {}, {}, {}, {calibratorParent}, {}, {}, {vehicleType, route}, {},
+    std::map<std::string, std::string>()),
+    SUMOVehicleParameter() {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -42,9 +50,9 @@ SUMOVehicleParameter() {
 
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters) :
     GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_FLOW_CALIBRATOR, "",
-{}, {}, {}, {calibratorParent}, {}, {}, {vehicleType, route}, {},
-std::map<std::string, std::string>()),
-SUMOVehicleParameter(vehicleParameters) {
+        {}, {}, {}, {calibratorParent}, {}, {}, {vehicleType, route}, {},
+    std::map<std::string, std::string>()),
+    SUMOVehicleParameter(vehicleParameters) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -454,15 +462,17 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
             setMicrosimID(value);
             break;
         case SUMO_ATTR_TYPE:
-            replaceDemandElementParent(SUMO_TAG_VTYPE, value, 0);
+            if (getParentDemandElements().size() > 0) {
+                replaceDemandElementParent(SUMO_TAG_VTYPE, value, 0);
+            }
             // set manually vtypeID (needed for saving)
             vtypeid = value;
             break;
         case SUMO_ATTR_ROUTE:
             if (getParentDemandElements().size() == 2) {
                 replaceDemandElementParent(SUMO_TAG_ROUTE, value, 1);
+                updateGeometry();
             }
-            updateGeometry();
             break;
         case SUMO_ATTR_VEHSPERHOUR:
             repetitionOffset = TIME2STEPS(3600 / parse<double>(value));
@@ -517,7 +527,10 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
                 // unset parameter
                 parametersSet &= ~VEHPARS_DEPARTPOS_SET;
             }
-            updateGeometry();
+            // update geometry (except for template)
+            if (getParentAdditionals().size() > 0) {
+                updateGeometry();
+            }
             break;
         case SUMO_ATTR_DEPARTSPEED:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
@@ -554,7 +567,10 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
                 // unset parameter
                 parametersSet &= ~VEHPARS_ARRIVALPOS_SET;
             }
-            updateGeometry();
+            // update geometry (except for template)
+            if (getParentAdditionals().size() > 0) {
+                updateGeometry();
+            }
             break;
         case SUMO_ATTR_ARRIVALSPEED:
             if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {

@@ -4,6 +4,57 @@ title: ChangeLog
 
 ## Git Main
 
+### Bugfixes
+
+- netedit
+  - splitting and merging edges with custom length now preserves total length. Issue #9617
+  - can now load parkingAreaReroute without probability attribute. Issue #9640
+  - Fixed invalid weights of sinks and sources when loading taz from file. Issue #9672
+
+- traci
+  - turn subscription filter no longer crashes when crossings are present in foe lanes. Issue #9630
+
+- tools
+  - generateParkingAreaRerouters.py: fixed distance bias against long parkingAreas. Issue #9644
+
+- Miscellaneous
+  - Specifiying NUL output on the command line finally works. Issue #3400
+  - Fixed unhelpful error message when defining invalid color in XML input. Issue #9623
+  
+### Enhancements
+
+- simulation
+ - Added attribute speedRelative to edgeData output. Issue #9601
+ - Option **--fcd-output.attributes** can now be used to active non-standard attributes (i.e. acceleration). Issue #9625
+ - Rerouting period can now be customized via `<param key="device.rerouting.period" value="X"/>` in vType or vehicle. Issue #9646
+ - Vehicles now collect occupancy information for all parkingareas along the way during parking search. Issue #9645
+ - Parking search now supports `<param key="parking.anywhere" value="X"/>` which permit using free parkingArea along the way after doing unsuccessful  parkingAreaReroute x times. Issue #9577
+ - Parking search now supports `<param key="parking.frustration" value="X"/>` which increases the preference for visibly free parkingAreas over time. Issue 9657
+
+- sumo-gui
+  - All text setting now have the checkbox "only for selected" to display text selectively. Issue #9574
+  - Added vehicle setting "show parking info" which labels parking memory (block time and scores) for vehicles with active route visualization. Also, the vehicle is labeled with the number of parking reroutes since the last successful parkingArea stop. Issue #9572
+  - Can now color roads "by free parking spaces". Issue #9643
+
+- netedit
+  - Add images for the guiShapes in the vType attributes editor. Issue #9457
+
+- duarouter
+  - can now write route costs in regular route output. Issue #9667
+
+- tools
+  - routeSampler.py: Option **--prefix** now also applies to route ids. Issue #9634
+  - generateParkingAreaRerouters.py: added option **--prefer-visible** which prefers visible alteranatives regardless of distance. Issue #9642
+  - generateParkingAreaRerouters.py: added option **--distribute** which sets a distance distribution for the given number of alternatives (instead of always using the closest parkingAreas). Issue #9566
+  - generateParkingAreaRerouters.py: added option **--visible-ids** to set visible parkingAreas explicitly. Issue #9669
+  - addStops2Routes.py: Can now generate stationary traffic to fill each parkingArea to a configurable occupancy. Issue #9660
+
+- Miscellaneous
+  - Speed up Visual Studio build with sccache (only works with Ninja not with Visual Studio projects). Issue #9290
+  - Updated Eigen library Issue #9613
+  - Updated GDAL library Issue #9614
+  - Updated gtest library Issue #9616
+
 ## Version 1.11.0 (23.11.2021)
 
 ### Bugfixes

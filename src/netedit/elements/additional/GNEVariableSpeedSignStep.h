@@ -38,6 +38,9 @@ class GNEVariableSpeedSignDialog;
 class GNEVariableSpeedSignStep : public GNEAdditional {
 
 public:
+    /// @brief default constructor
+    GNEVariableSpeedSignStep(GNENet* net);
+
     /// @brief constructor
     GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, SUMOTime time, const std::string& speed);
 

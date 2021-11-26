@@ -41,8 +41,7 @@
 
 FXDEFMAP(GNEFrameAttributesModuls::AttributesCreatorRow) RowCreatorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,     GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSelectCheckButton),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSelectColorButton),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSelectDialog),
 };
 
 FXDEFMAP(GNEFrameAttributesModuls::AttributesCreator) AttributesCreatorMap[] = {
@@ -117,8 +116,8 @@ GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesC
     // Create left visual elements
     myAttributeLabel = new FXLabel(this, "name", nullptr, GUIDesignLabelAttribute);
     myAttributeLabel->hide();
-    myAttributeCheckButton = new FXCheckButton(this, "name", this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonAttribute);
-    myAttributeCheckButton->hide();
+    myEnableAttributeCheckButton = new FXCheckButton(this, "name", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
+    myEnableAttributeCheckButton->hide();
     myAttributeColorButton = new FXButton(this, "ColorButton", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myAttributeColorButton->hide();
     // Create right visual elements
@@ -126,12 +125,6 @@ GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesC
     myValueTextField->hide();
     myValueCheckButton = new FXCheckButton(this, "Disabled", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myValueCheckButton->hide();
-    // by default attribute check button is true (except for until)
-    if ((attrProperties.getTagPropertyParent().isStop() || attrProperties.getTagPropertyParent().isStopPerson()) && (attrProperties.getAttr() == SUMO_ATTR_UNTIL)) {
-        myAttributeCheckButton->setCheck(FALSE);
-    } else {
-        myAttributeCheckButton->setCheck(TRUE);
-    }
     // only create if parent was created
     if (getParent()->id()) {
         // create AttributesCreatorRow
@@ -141,9 +134,9 @@ GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesC
         // special case for attribute ID
         if (attrProperties.getAttr() == SUMO_ATTR_ID) {
             // show check button and disable it
-            myAttributeCheckButton->setText(myAttrProperties.getAttrStr().c_str());
-            myAttributeCheckButton->setCheck(false);
-            myAttributeCheckButton->show();
+            myEnableAttributeCheckButton->setText(myAttrProperties.getAttrStr().c_str());
+            myEnableAttributeCheckButton->setCheck(false);
+            myEnableAttributeCheckButton->show();
             // show text field and disable it
             myValueTextField->setTextColor(FXRGB(0, 0, 0));
             myValueTextField->disable();
@@ -152,28 +145,30 @@ GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesC
             // show textField
             myValueTextField->show();
         } else {
-            // show label, button for edit colors or radio button
+            // left
             if (myAttrProperties.isColor()) {
+                // show color button
                 myAttributeColorButton->setTextColor(FXRGB(0, 0, 0));
                 myAttributeColorButton->setText(myAttrProperties.getAttrStr().c_str());
                 myAttributeColorButton->show();
             } else if (myAttrProperties.isActivatable()) {
-                myAttributeCheckButton->setText(myAttrProperties.getAttrStr().c_str());
-                myAttributeCheckButton->show();
-                // special case for attributes "Parking", "until" and "duration" (by default disabled)
-                if ((myAttrProperties.getTagPropertyParent().isStop() || myAttrProperties.getTagPropertyParent().isStopPerson()) &&
-                        (myAttrProperties.getAttr() == SUMO_ATTR_UNTIL || myAttrProperties.getAttr() == SUMO_ATTR_EXTENSION ||
-                         myAttrProperties.getAttr() == SUMO_ATTR_PARKING)) {
-                    myAttributeCheckButton->setCheck(FALSE);
+                // show check button
+                myEnableAttributeCheckButton->setText(myAttrProperties.getAttrStr().c_str());
+                myEnableAttributeCheckButton->show();
+                // enable or disable depending of template AC
+                if (myAttributesCreatorParent->getCurrentTemplateAC()->isAttributeEnabled(myAttrProperties.getAttr())) {
+                    myEnableAttributeCheckButton->setCheck(TRUE);
                 } else {
-                    myAttributeCheckButton->setCheck(TRUE);
+                    myEnableAttributeCheckButton->setCheck(FALSE);
                 }
             } else {
+                // show label
                 myAttributeLabel->setText(myAttrProperties.getAttrStr().c_str());
                 myAttributeLabel->show();
             }
+            // right
             if (myAttrProperties.isBool()) {
-                if (GNEAttributeCarrier::parse<bool>(attrProperties.getDefaultValue())) {
+                if (GNEAttributeCarrier::parse<bool>(myAttributesCreatorParent->getCurrentTemplateAC()->getAttribute(myAttrProperties.getAttr()))) {
                     myValueCheckButton->setCheck(true);
                     myValueCheckButton->setText("true");
                 } else {
@@ -182,15 +177,15 @@ GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesC
                 }
                 myValueCheckButton->show();
                 // if it's associated to a label button and is disabled, then disable myValueCheckButton
-                if (myAttributeCheckButton->shown() && (myAttributeCheckButton->getCheck() == FALSE)) {
+                if (myEnableAttributeCheckButton->shown() && (myEnableAttributeCheckButton->getCheck() == FALSE)) {
                     myValueCheckButton->disable();
                 }
             } else {
                 myValueTextField->setTextColor(FXRGB(0, 0, 0));
-                myValueTextField->setText(attrProperties.getDefaultValue().c_str());
+                myValueTextField->setText(myAttributesCreatorParent->getCurrentTemplateAC()->getAttribute(myAttrProperties.getAttr()).c_str());
                 myValueTextField->show();
                 // if it's associated to a label button and is disabled, then disable myValueTextField
-                if (myAttributeCheckButton->shown() && (myAttributeCheckButton->getCheck() == FALSE)) {
+                if (myEnableAttributeCheckButton->shown() && (myEnableAttributeCheckButton->getCheck() == FALSE)) {
                     myValueTextField->disable();
                 }
             }
@@ -229,7 +224,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::getValue() const {
 bool
 GNEFrameAttributesModuls::AttributesCreatorRow::getAttributeCheckButtonCheck() const {
     if (shown()) {
-        return myAttributeCheckButton->getCheck() == TRUE;
+        return myEnableAttributeCheckButton->getCheck() == TRUE;
     } else {
         return false;
     }
@@ -240,7 +235,7 @@ void
 GNEFrameAttributesModuls::AttributesCreatorRow::setAttributeCheckButtonCheck(bool value) {
     if (shown()) {
         // set radio button
-        myAttributeCheckButton->setCheck(value);
+        myEnableAttributeCheckButton->setCheck(value);
         // enable or disable input fields
         if (value) {
             if (myAttrProperties.isBool()) {
@@ -300,9 +295,9 @@ GNEFrameAttributesModuls::AttributesCreatorRow::refreshRow() const {
 }
 
 
-const std::string&
+bool
 GNEFrameAttributesModuls::AttributesCreatorRow::isAttributeValid() const {
-    return myInvalidValue;
+    return (myValueTextField->getTextColor() != FXRGB(255, 0, 0));
 }
 
 
@@ -314,154 +309,52 @@ GNEFrameAttributesModuls::AttributesCreatorRow::getAttributesCreatorParent() con
 
 long
 GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
-    // We assume that current value is valid
-    myInvalidValue = "";
-    // Check if format of current value of myTextField is correct
-    if (obj == myValueCheckButton) {
+    // check what object was called
+    if (obj == myEnableAttributeCheckButton) {
+        if (myEnableAttributeCheckButton->getCheck()) {
+            // enable text field
+            if (myValueTextField->shown()) {
+                myValueTextField->enable();
+            }
+            // enable check button
+            if (myValueCheckButton->shown()) {
+                myValueCheckButton->enable();
+            }
+            myAttributesCreatorParent->getCurrentTemplateAC()->toogleAttribute(myAttrProperties.getAttr(), true, -1);
+        } else {
+            // enable text field
+            if (myValueTextField->shown()) {
+                myValueTextField->disable();
+            }
+            // enable check button
+            if (myValueCheckButton->shown()) {
+                myValueCheckButton->disable();
+            }
+            myAttributesCreatorParent->getCurrentTemplateAC()->toogleAttribute(myAttrProperties.getAttr(), false, -1);
+        }
+    } else if (obj == myValueCheckButton) {
         if (myValueCheckButton->getCheck()) {
             myValueCheckButton->setText("true");
+            myAttributesCreatorParent->getCurrentTemplateAC()->setAttribute(myAttrProperties.getAttr(), "true");
         } else {
             myValueCheckButton->setText("false");
+            myAttributesCreatorParent->getCurrentTemplateAC()->setAttribute(myAttrProperties.getAttr(), "false");
         }
-    } else if (myAttrProperties.isComplex()) {
-        // check complex attribute
-        myInvalidValue = checkComplexAttribute(myValueTextField->getText().text());
-    } else if (myAttrProperties.isInt()) {
-        // first filter int attributes
-        if (GNEAttributeCarrier::canParse<double>(myValueTextField->getText().text())) {
-            // obtain parsed attribute
-            double parsedDouble = GNEAttributeCarrier::parse<double>(myValueTextField->getText().text());
-            // check if parsed double doesn't have decimal part (or is 0)
-            if ((parsedDouble - (int)parsedDouble) == 0) {
-                myValueTextField->setText(toString((int)parsedDouble).c_str(), FALSE);
-                // Check if int value must be positive
-                if (myAttrProperties.isPositive() && (parsedDouble < 0)) {
-                    myInvalidValue = "'" + myAttrProperties.getAttrStr() + "' cannot be negative";
-                }
+    } else if (obj == myValueTextField) {
+        // change color of text field depending of myCurrentValueValid
+        if (myAttributesCreatorParent->getCurrentTemplateAC()->isValid(myAttrProperties.getAttr(), myValueTextField->getText().text())) {
+            // check color depending if is a default value
+            if (myAttrProperties.hasStaticDefaultValue() && (myAttrProperties.getDefaultValue() == myValueTextField->getText().text())) {
+                myValueTextField->setTextColor(FXRGB(128, 128, 128));
             } else {
-                myInvalidValue = "'" + myAttrProperties.getAttrStr() + "' doesn't have a valid 'int' format";
+                myValueTextField->setTextColor(FXRGB(0, 0, 0));
             }
+            myValueTextField->killFocus();
+            myAttributesCreatorParent->getCurrentTemplateAC()->setAttribute(myAttrProperties.getAttr(), myValueTextField->getText().text());
         } else {
-            myInvalidValue = "'" + myAttrProperties.getAttrStr() + "' doesn't have a valid 'int' format";
+            // if value of TextField isn't valid, change their color to Red
+            myValueTextField->setTextColor(FXRGB(255, 0, 0));
         }
-
-    } else if (myAttrProperties.getAttr() == SUMO_ATTR_ANGLE) {
-        if (GNEAttributeCarrier::canParse<double>(myValueTextField->getText().text())) {
-            // filter angle
-            double angle = GNEAttributeCarrier::parse<double>(myValueTextField->getText().text());
-            // filter if angle isn't between [0,360]
-            if ((angle < 0) || (angle > 360)) {
-                // apply modul
-                angle = fmod(angle, 360);
-            }
-            // update Textfield
-            myValueTextField->setText(toString(angle).c_str(), FALSE);
-        } else {
-            myInvalidValue = "'" + myAttrProperties.getAttrStr() + "' doesn't have a valid 'float' format between [0, 360]";
-        }
-    } else if (myAttrProperties.isSUMOTime()) {
-        // time attributes work as positive doubles
-        if (!GNEAttributeCarrier::canParse<SUMOTime>(myValueTextField->getText().text())) {
-            myInvalidValue = "'" + myAttrProperties.getAttrStr() + "' doesn't have a valid SUMOTime format";
-        }
-    } else if (myAttrProperties.isFloat()) {
-        if (GNEAttributeCarrier::canParse<double>(myValueTextField->getText().text())) {
-            // convert string to double
-            double doubleValue = GNEAttributeCarrier::parse<double>(myValueTextField->getText().text());
-            // Check if double value must be positive
-            if (myAttrProperties.isPositive() && (doubleValue < 0)) {
-                myInvalidValue = "'" + myAttrProperties.getAttrStr() + "' cannot be negative";
-                // check if double value is a probability
-            } else if (myAttrProperties.isProbability() && ((doubleValue < 0) || doubleValue > 1)) {
-                myInvalidValue = "'" + myAttrProperties.getAttrStr() + "' takes only values between 0 and 1";
-            } else if (myAttrProperties.hasAttrRange() && ((doubleValue < myAttrProperties.getMinimumRange()) || doubleValue > myAttrProperties.getMaximumRange())) {
-                myInvalidValue = "'" + myAttrProperties.getAttrStr() + "' takes only values between " + toString(myAttrProperties.getMinimumRange()) + " and " + toString(myAttrProperties.getMaximumRange());
-            } else if ((myAttributesCreatorParent->getCurrentTagProperties().getTag() == SUMO_TAG_E2DETECTOR) && (myAttrProperties.getAttr() == SUMO_ATTR_LENGTH) && (doubleValue == 0)) {
-                myInvalidValue = "E2 length cannot be 0";
-            }
-        } else {
-            myInvalidValue = "'" + myAttrProperties.getAttrStr() + "' doesn't have a valid 'float' format";
-        }
-    } else if (myAttrProperties.isColor()) {
-        // check if filename format is valid
-        if (GNEAttributeCarrier::canParse<RGBColor>(myValueTextField->getText().text()) == false) {
-            myInvalidValue = "'" + myAttrProperties.getAttrStr() + "' doesn't have a valid 'RBGColor' format";
-        }
-    } else if (myAttrProperties.isFilename()) {
-        const std::string file = myValueTextField->getText().text();
-        // check if filename format is valid
-        if (SUMOXMLDefinitions::isValidFilename(file) == false) {
-            myInvalidValue = "input contains invalid characters for a filename";
-        } else if (myAttrProperties.getAttr() == SUMO_ATTR_IMGFILE) {
-            if (!file.empty()) {
-                // only load value if file exist and can be loaded
-                if (GUITexturesHelper::getTextureID(file) == -1) {
-                    myInvalidValue = "doesn't exist image '" + file + "'";
-                }
-            }
-        }
-    } else if (myAttrProperties.getAttr() == SUMO_ATTR_NAME) {
-        const std::string name = myValueTextField->getText().text();
-        // check if name format is valid
-        if (SUMOXMLDefinitions::isValidAttribute(name) == false) {
-            myInvalidValue = "input contains invalid characters";
-        }
-    } else if (myAttrProperties.getAttr() == SUMO_ATTR_VTYPES) {
-        const std::string types = myValueTextField->getText().text();
-        // if list of VTypes isn't empty, check that all characters are valid
-        if (!types.empty() && !SUMOXMLDefinitions::isValidListOfTypeID(types)) {
-            myInvalidValue = "list of IDs contains invalid characters";
-        }
-    } else if (myAttrProperties.getAttr() == SUMO_ATTR_INDEX) {
-        // special case for stop indx
-        const std::string index = myValueTextField->getText().text();
-        if ((index != "fit") && (index != "end") && !GNEAttributeCarrier::canParse<int>(index)) {
-            myInvalidValue = "index isn't either 'fit' or 'end' or a valid positive int";
-        } else if (GNEAttributeCarrier::canParse<int>(index) && (GNEAttributeCarrier::parse<int>(index) < 0)) {
-            myInvalidValue = "index cannot be negative";
-        }
-    } else if ((myAttrProperties.getAttr() == SUMO_ATTR_EXPECTED) || (myAttrProperties.getAttr() == SUMO_ATTR_EXPECTED_CONTAINERS)) {
-        // check if attribute can be parsed in a list of Ids
-        std::vector<std::string> vehicleIDs = GNEAttributeCarrier::parse<std::vector<std::string> >(myValueTextField->getText().text());
-        // check every ID
-        for (const auto& vehicleID : vehicleIDs) {
-            if (!SUMOXMLDefinitions::isValidVehicleID(vehicleID)) {
-                myInvalidValue = "invalid id used in " + myAttrProperties.getAttrStr();
-            }
-        }
-    } else if (myAttrProperties.getAttr() == SUMO_ATTR_TRIP_ID) {
-        if (!SUMOXMLDefinitions::isValidVehicleID(myValueTextField->getText().text())) {
-            myInvalidValue = "invalid id used in " + myAttrProperties.getAttrStr();
-        }
-    } else if (myAttrProperties.getAttr() == SUMO_ATTR_ID) {
-        // check ID depending of tag
-        if (myAttrProperties.getTagPropertyParent().isNetworkElement() && !SUMOXMLDefinitions::isValidNetID(myValueTextField->getText().text())) {
-            myInvalidValue = "invalid id used in " + myAttrProperties.getAttrStr();
-        } else if (myAttrProperties.getTagPropertyParent().isDetector() && !SUMOXMLDefinitions::isValidDetectorID(myValueTextField->getText().text())) {
-            myInvalidValue = "invalid id used in " + myAttrProperties.getAttrStr();
-        } else if (myAttrProperties.getTagPropertyParent().isAdditionalElement() &&  !SUMOXMLDefinitions::isValidNetID(myValueTextField->getText().text())) {
-            myInvalidValue = "invalid id used in " + myAttrProperties.getAttrStr();
-        } else if (myAttrProperties.getTagPropertyParent().isShape() &&  !SUMOXMLDefinitions::isValidTypeID(myValueTextField->getText().text())) {
-            myInvalidValue = "invalid id used in " + myAttrProperties.getAttrStr();
-        } else if (myAttrProperties.getTagPropertyParent().isDemandElement() && !SUMOXMLDefinitions::isValidVehicleID(myValueTextField->getText().text())) {
-            myInvalidValue = "invalid id used in " + myAttrProperties.getAttrStr();
-        }
-    } else if ((myAttrProperties.getAttr() == SUMO_ATTR_FREQUENCY) && myAttrProperties.getTagPropertyParent().isDetector()) {
-        if (!myValueTextField->getText().empty()) {
-            if (!GNEAttributeCarrier::canParse<double>(myValueTextField->getText().text())) {
-                myInvalidValue = "'" + myAttrProperties.getAttrStr() + "' doesn't have a valid 'float' or empty format";
-            } else if (GNEAttributeCarrier::parse<double>(myValueTextField->getText().text()) < 0) {
-                myInvalidValue = "'" + myAttrProperties.getAttrStr() + "' cannot be negative";
-            }
-        }
-    }
-    // change color of text field depending of myCurrentValueValid
-    if (myInvalidValue.size() == 0) {
-        myValueTextField->setTextColor(FXRGB(0, 0, 0));
-        myValueTextField->killFocus();
-    } else {
-        // IF value of TextField isn't valid, change their color to Red
-        myValueTextField->setTextColor(FXRGB(255, 0, 0));
     }
     // Update aditional frame
     update();
@@ -470,24 +363,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
 
 
 long
-GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSelectCheckButton(FXObject*, FXSelector, void*) {
-    if (myAttributeCheckButton->getCheck()) {
-        // enable input values
-        myValueCheckButton->enable();
-        myValueTextField->enable();
-        // refresh row
-        refreshRow();
-    } else {
-        // disable input values
-        myValueCheckButton->disable();
-        myValueTextField->disable();
-    }
-    return 0;
-}
-
-
-long
-GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSelectColorButton(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSelectDialog(FXObject*, FXSelector, void*) {
     // create FXColorDialog
     FXColorDialog colordialog(this, tr("Color Dialog"));
     colordialog.setTarget(this);
@@ -503,64 +379,6 @@ GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSelectColorButton(FXObject*
         onCmdSetAttribute(nullptr, 0, nullptr);
     }
     return 0;
-}
-
-
-std::string
-GNEFrameAttributesModuls::AttributesCreatorRow::checkComplexAttribute(const std::string& value) {
-    // declare values needed to check if given complex parameters are valid
-    std::string errorMessage;
-    DepartDefinition dd;
-    DepartLaneDefinition dld;
-    DepartPosDefinition dpd;
-    DepartPosLatDefinition dpld;
-    ArrivalLaneDefinition ald;
-    DepartSpeedDefinition dsd;
-    ArrivalPosDefinition apd;
-    ArrivalPosLatDefinition apld;
-    ArrivalSpeedDefinition asd;
-    SVCPermissions mode;
-    int valueInt;
-    double valueDouble;
-    SUMOTime valueSUMOTime;
-    // check complex attribute
-    switch (myAttrProperties.getAttr()) {
-        case SUMO_ATTR_DEPART:
-        case SUMO_ATTR_BEGIN:
-            SUMOVehicleParameter::parseDepart(value, myAttrProperties.getAttrStr(), "", valueSUMOTime, dd, errorMessage);
-            break;
-        case SUMO_ATTR_DEPARTLANE:
-            SUMOVehicleParameter::parseDepartLane(value, myAttrProperties.getAttrStr(), "", valueInt, dld, errorMessage);
-            break;
-        case SUMO_ATTR_DEPARTPOS:
-            SUMOVehicleParameter::parseDepartPos(value, myAttrProperties.getAttrStr(), "", valueDouble, dpd, errorMessage);
-            break;
-        case SUMO_ATTR_DEPARTSPEED:
-            SUMOVehicleParameter::parseDepartSpeed(value, myAttrProperties.getAttrStr(), "", valueDouble, dsd, errorMessage);
-            break;
-        case SUMO_ATTR_ARRIVALLANE:
-            SUMOVehicleParameter::parseArrivalLane(value, myAttrProperties.getAttrStr(), "", valueInt, ald, errorMessage);
-            break;
-        case SUMO_ATTR_ARRIVALPOS:
-            SUMOVehicleParameter::parseArrivalPos(value, myAttrProperties.getAttrStr(), "", valueDouble, apd, errorMessage);
-            break;
-        case SUMO_ATTR_ARRIVALSPEED:
-            SUMOVehicleParameter::parseArrivalSpeed(value, myAttrProperties.getAttrStr(), "", valueDouble, asd, errorMessage);
-            break;
-        case SUMO_ATTR_DEPARTPOS_LAT:
-            SUMOVehicleParameter::parseDepartPosLat(value, myAttrProperties.getAttrStr(), "", valueDouble, dpld, errorMessage);
-            break;
-        case SUMO_ATTR_ARRIVALPOS_LAT:
-            SUMOVehicleParameter::parseArrivalPosLat(value, myAttrProperties.getAttrStr(), "", valueDouble, apld, errorMessage);
-            break;
-        case SUMO_ATTR_MODES:
-            SUMOVehicleParameter::parsePersonModes(value, myAttrProperties.getAttrStr(), "", mode, errorMessage);
-            break;
-        default:
-            throw ProcessError("Invalid complex attribute");
-    }
-    // return error message (Will be empty if value is valid)
-    return errorMessage;
 }
 
 
@@ -594,7 +412,8 @@ GNEFrameAttributesModuls::AttributesCreatorRow::isValidID() const {
 
 GNEFrameAttributesModuls::AttributesCreator::AttributesCreator(GNEFrame* frameParent) :
     FXGroupBox(frameParent->myContentFrame, "Internal attributes", GUIDesignGroupBoxFrame),
-    myFrameParent(frameParent) {
+    myFrameParent(frameParent),
+    myTemplateAC(nullptr) {
     // resize myAttributesCreatorRows
     myAttributesCreatorRows.resize(GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES, nullptr);
     // create myAttributesCreatorFlow
@@ -608,63 +427,71 @@ GNEFrameAttributesModuls::AttributesCreator::~AttributesCreator() {}
 
 
 void
-GNEFrameAttributesModuls::AttributesCreator::showAttributesCreatorModul(const GNETagProperties& tagProperties, const std::vector<SumoXMLAttr>& hiddenAttributes) {
-    // set current tag Properties
-    myTagProperties = tagProperties;
-    // first destroy all rows
-    for (auto& row : myAttributesCreatorRows) {
-        // destroy and delete all rows
-        if (row != nullptr) {
-            row->destroy();
-            delete row;
-            row = nullptr;
+GNEFrameAttributesModuls::AttributesCreator::showAttributesCreatorModul(GNEAttributeCarrier *templateAC, const std::vector<SumoXMLAttr>& hiddenAttributes) {
+    // set current template
+    myTemplateAC = templateAC;
+    // continue if myTemplateAC is valid
+    if (myTemplateAC) {
+        // first destroy all rows
+        for (auto& row : myAttributesCreatorRows) {
+            // destroy and delete all rows
+            if (row != nullptr) {
+                row->destroy();
+                delete row;
+                row = nullptr;
+            }
         }
-    }
-    // now declare a flag to show Flow editor
-    bool showFlowEditor = false;
-    // iterate over tag attributes and create AttributesCreatorRows for every attribute
-    for (const auto& attribute : myTagProperties) {
-        // declare falg to check conditions for show attribute
-        bool showAttribute = true;
-        // check that only non-unique attributes (except ID) are created (And depending of includeExtendedAttributes)
-        if (attribute.isUnique() && (attribute.getAttr() != SUMO_ATTR_ID)) {
-            showAttribute = false;
+        // now declare a flag to show Flow editor
+        bool showFlowEditor = false;
+        // iterate over tag attributes and create AttributesCreatorRows for every attribute
+        for (const auto& attribute : myTemplateAC->getTagProperty()) {
+            // declare falg to check conditions for show attribute
+            bool showAttribute = true;
+            // check that only non-unique attributes (except ID) are created (And depending of includeExtendedAttributes)
+            if (attribute.isUnique() && (attribute.getAttr() != SUMO_ATTR_ID)) {
+                showAttribute = false;
+            }
+            // check if attribute must stay hidden
+            if (std::find(hiddenAttributes.begin(), hiddenAttributes.end(), attribute.getAttr()) != hiddenAttributes.end()) {
+                showAttribute = false;
+            }
+            // check if attribute is a flow definitionattribute
+            if (attribute.isFlowDefinition()) {
+                showAttribute = false;
+                showFlowEditor = true;
+            }
+            // check special case for vaporizer IDs
+            if ((attribute.getAttr() == SUMO_ATTR_ID) && (attribute.getTagPropertyParent().getTag() == SUMO_TAG_VAPORIZER)) {
+                showAttribute = false;
+            }
+            // check special case for VType IDs in vehicle Frame
+            if ((attribute.getAttr() == SUMO_ATTR_TYPE) && (myFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) &&
+                    (myFrameParent->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_VEHICLE)) {
+                showAttribute = false;
+            }
+            // show attribute depending of showAttribute flag
+            if (showAttribute) {
+                myAttributesCreatorRows.at(attribute.getPositionListed()) = new AttributesCreatorRow(this, attribute);
+            }
         }
-        // check if attribute must stay hidden
-        if (std::find(hiddenAttributes.begin(), hiddenAttributes.end(), attribute.getAttr()) != hiddenAttributes.end()) {
-            showAttribute = false;
+        // reparent help button (to place it at bottom)
+        myHelpButton->reparent(this);
+        // recalc
+        recalc();
+        // check if flow editor has to be shown
+        if (showFlowEditor) {
+            myAttributesCreatorFlow->showAttributesCreatorFlowModul(
+                myTemplateAC->getTagProperty().hasAttribute(SUMO_ATTR_VEHSPERHOUR) || 
+                myTemplateAC->getTagProperty().hasAttribute(SUMO_ATTR_PERSONSPERHOUR) ||
+                myTemplateAC->getTagProperty().hasAttribute(SUMO_ATTR_CONTAINERSPERHOUR));
+        } else {
+            myAttributesCreatorFlow->hideAttributesCreatorFlowModul();
         }
-        // check if attribute is a flow definitionattribute
-        if (attribute.isFlowDefinition()) {
-            showAttribute = false;
-            showFlowEditor = true;
-        }
-        // check special case for vaporizer IDs
-        if ((attribute.getAttr() == SUMO_ATTR_ID) && (attribute.getTagPropertyParent().getTag() == SUMO_TAG_VAPORIZER)) {
-            showAttribute = false;
-        }
-        // check special case for VType IDs in vehicle Frame
-        if ((attribute.getAttr() == SUMO_ATTR_TYPE) && (myFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) &&
-                (myFrameParent->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_VEHICLE)) {
-            showAttribute = false;
-        }
-        // show attribute depending of showAttribute flag
-        if (showAttribute) {
-            myAttributesCreatorRows.at(attribute.getPositionListed()) = new AttributesCreatorRow(this, attribute);
-        }
-    }
-    // reparent help button (to place it at bottom)
-    myHelpButton->reparent(this);
-    // recalc
-    recalc();
-    // check if flow editor has to be shown
-    if (showFlowEditor) {
-        myAttributesCreatorFlow->showAttributesCreatorFlowModul(tagProperties.hasAttribute(SUMO_ATTR_PERSONSPERHOUR));
+        // show
+        show();
     } else {
-        myAttributesCreatorFlow->hideAttributesCreatorFlowModul();
+        throw ProcessError("invalid templateAC in showAttributesCreatorModul");
     }
-    // show
-    show();
 }
 
 
@@ -701,22 +528,30 @@ GNEFrameAttributesModuls::AttributesCreator::getAttributesAndValues(CommonXMLStr
             if (rowEnabled && (includeAll || hasDefaultStaticValue || isFlowDefinitionAttribute || isActivatableAttribute)) {
                 // add attribute depending of type
                 if (attrProperties.isInt()) {
-                    baseObject->addIntAttribute(attrProperties.getAttr(), GNEAttributeCarrier::parse<int>(row->getValue()));
+                    const int intValue = GNEAttributeCarrier::canParse<int>(row->getValue())? GNEAttributeCarrier::parse<int>(row->getValue()) : GNEAttributeCarrier::parse<int>(attrProperties.getDefaultValue());
+                    baseObject->addIntAttribute(attrProperties.getAttr(), intValue);
                 } else if (attrProperties.isFloat()) {
-                    baseObject->addDoubleAttribute(attrProperties.getAttr(), GNEAttributeCarrier::parse<double>(row->getValue()));
+                    const double doubleValue = GNEAttributeCarrier::canParse<double>(row->getValue())? GNEAttributeCarrier::parse<double>(row->getValue()) : GNEAttributeCarrier::parse<double>(attrProperties.getDefaultValue());
+                    baseObject->addDoubleAttribute(attrProperties.getAttr(), doubleValue);
                 } else if (attrProperties.isBool()) {
-                    baseObject->addBoolAttribute(attrProperties.getAttr(), GNEAttributeCarrier::parse<bool>(row->getValue()));
+                    const bool boolValue = GNEAttributeCarrier::canParse<bool>(row->getValue())? GNEAttributeCarrier::parse<bool>(row->getValue()) : GNEAttributeCarrier::parse<bool>(attrProperties.getDefaultValue());
+                    baseObject->addBoolAttribute(attrProperties.getAttr(), boolValue);
                 } else if (attrProperties.isposition()) {
-                    baseObject->addPositionAttribute(attrProperties.getAttr(), GNEAttributeCarrier::parse<Position>(row->getValue()));
+                    const Position positionValue = GNEAttributeCarrier::canParse<Position>(row->getValue())? GNEAttributeCarrier::parse<Position>(row->getValue()) : GNEAttributeCarrier::parse<Position>(attrProperties.getDefaultValue());
+                    baseObject->addPositionAttribute(attrProperties.getAttr(), positionValue);
                 } else if (attrProperties.isSUMOTime()) {
-                    baseObject->addTimeAttribute(attrProperties.getAttr(), GNEAttributeCarrier::parse<SUMOTime>(row->getValue()));
+                    const SUMOTime timeValue = GNEAttributeCarrier::canParse<SUMOTime>(row->getValue())? GNEAttributeCarrier::parse<SUMOTime>(row->getValue()) : GNEAttributeCarrier::parse<SUMOTime>(attrProperties.getDefaultValue());
+                    baseObject->addTimeAttribute(attrProperties.getAttr(), timeValue);
                 } else if (attrProperties.isColor()) {
-                    baseObject->addColorAttribute(attrProperties.getAttr(), GNEAttributeCarrier::parse<RGBColor>(row->getValue()));
+                    const RGBColor colorValue = GNEAttributeCarrier::canParse<RGBColor>(row->getValue())? GNEAttributeCarrier::parse<RGBColor>(row->getValue()) : GNEAttributeCarrier::parse<RGBColor>(attrProperties.getDefaultValue());
+                    baseObject->addColorAttribute(attrProperties.getAttr(), colorValue);
                 } else if (attrProperties.isList()) {
                     if (attrProperties.isposition()) {
-                        baseObject->addPositionVectorAttribute(attrProperties.getAttr(), GNEAttributeCarrier::parse<PositionVector>(row->getValue()));
+                        const PositionVector positionVectorValue = GNEAttributeCarrier::canParse<PositionVector>(row->getValue())? GNEAttributeCarrier::parse<PositionVector>(row->getValue()) : GNEAttributeCarrier::parse<PositionVector>(attrProperties.getDefaultValue());
+                        baseObject->addPositionVectorAttribute(attrProperties.getAttr(), positionVectorValue);
                     } else {
-                        baseObject->addStringListAttribute(attrProperties.getAttr(), GNEAttributeCarrier::parse<std::vector<std::string> >(row->getValue()));
+                        const std::vector<std::string> stringVectorValue = GNEAttributeCarrier::canParse<std::vector<std::string> >(row->getValue())? GNEAttributeCarrier::parse<std::vector<std::string> >(row->getValue()) : GNEAttributeCarrier::parse<std::vector<std::string> >(attrProperties.getDefaultValue());
+                        baseObject->addStringListAttribute(attrProperties.getAttr(), stringVectorValue);
                     }
                 } else {
                     baseObject->addStringAttribute(attrProperties.getAttr(), row->getValue());
@@ -729,32 +564,21 @@ GNEFrameAttributesModuls::AttributesCreator::getAttributesAndValues(CommonXMLStr
 }
 
 
-GNETagProperties
-GNEFrameAttributesModuls::AttributesCreator::getCurrentTagProperties() const {
-    return myTagProperties;
+GNEAttributeCarrier*
+GNEFrameAttributesModuls::AttributesCreator::getCurrentTemplateAC() const {
+    return myTemplateAC;
 }
 
 
 void
 GNEFrameAttributesModuls::AttributesCreator::showWarningMessage(std::string extra) const {
     std::string errorMessage;
-    // iterate over standar parameters
-    for (const auto& attribute : myTagProperties) {
-        if (errorMessage.empty() && myAttributesCreatorRows.at(attribute.getPositionListed())) {
-            // Return string with the error if at least one of the parameter isn't valid
-            std::string attributeValue = myAttributesCreatorRows.at(attribute.getPositionListed())->isAttributeValid();
-            if (attributeValue.size() != 0) {
-                errorMessage = attributeValue;
-            }
-        }
-    }
     // show warning box if input parameters aren't invalid
     if (extra.size() == 0) {
-        errorMessage = "Invalid input parameter of " + myTagProperties.getTagStr() + ": " + errorMessage;
+        errorMessage = "Invalid input parameter of " + myTemplateAC->getTagProperty().getTagStr();
     } else {
-        errorMessage = "Invalid input parameter of " + myTagProperties.getTagStr() + ": " + extra;
+        errorMessage = "Invalid input parameter of " + myTemplateAC->getTagProperty().getTagStr() + ": " + extra;
     }
-
     // set message in status bar
     myFrameParent->myViewNet->setStatusBarText(errorMessage);
     // Write Warning in console if we're in testing mode
@@ -765,9 +589,9 @@ GNEFrameAttributesModuls::AttributesCreator::showWarningMessage(std::string extr
 bool
 GNEFrameAttributesModuls::AttributesCreator::areValuesValid() const {
     // iterate over standar parameters
-    for (const auto& attribute : myTagProperties) {
+    for (const auto& attribute : myTemplateAC->getTagProperty()) {
         // Return false if error message of attriuve isn't empty
-        if (myAttributesCreatorRows.at(attribute.getPositionListed()) && myAttributesCreatorRows.at(attribute.getPositionListed())->isAttributeValid().size() != 0) {
+        if (myAttributesCreatorRows.at(attribute.getPositionListed()) && !myAttributesCreatorRows.at(attribute.getPositionListed())->isAttributeValid()) {
             return false;
         }
     }
@@ -778,15 +602,15 @@ GNEFrameAttributesModuls::AttributesCreator::areValuesValid() const {
 void
 GNEFrameAttributesModuls::AttributesCreator::refreshRows() {
     // currently only row with attribute ID must be refresh
-    if (myTagProperties.hasAttribute(SUMO_ATTR_ID) && (myTagProperties.getTag() != SUMO_TAG_VAPORIZER)) {
-        myAttributesCreatorRows[myTagProperties.getAttributeProperties(SUMO_ATTR_ID).getPositionListed()]->refreshRow();
+    if (myTemplateAC->getTagProperty().hasAttribute(SUMO_ATTR_ID) && (myTemplateAC->getTagProperty().getTag() != SUMO_TAG_VAPORIZER)) {
+        myAttributesCreatorRows[myTemplateAC->getTagProperty().getAttributeProperties(SUMO_ATTR_ID).getPositionListed()]->refreshRow();
     }
 }
 
 long
 GNEFrameAttributesModuls::AttributesCreator::onCmdHelp(FXObject*, FXSelector, void*) {
     // open Help attributes dialog
-    myFrameParent->openHelpAttributesDialog(myTagProperties);
+    myFrameParent->openHelpAttributesDialog(myTemplateAC);
     return 1;
 }
 
@@ -1542,6 +1366,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdSelectCheckButton(FXObject*,
 
 
 GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow() :
+    myAttributesEditorParent(nullptr),
     myMultiple(false) {
 }
 
@@ -1784,7 +1609,7 @@ GNEFrameAttributesModuls::AttributesEditor::onCmdAttributesEditorHelp(FXObject*,
     // open Help attributes dialog if there is inspected ACs
     if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
         // open Help attributes dialog
-        myFrameParent->openHelpAttributesDialog(myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty());
+        myFrameParent->openHelpAttributesDialog(myFrameParent->getViewNet()->getInspectedAttributeCarriers().front());
     }
     return 1;
 }
@@ -2494,7 +2319,7 @@ GNEFrameAttributesModuls::NeteditAttributes::NeteditAttributes(GNEFrame* framePa
     FXGroupBox(frameParent->myContentFrame, "Netedit attributes", GUIDesignGroupBoxFrame),
     myFrameParent(frameParent),
     myCurrentLengthValid(true),
-    myActualAdditionalReferencePoint(GNE_ADDITIONALREFERENCEPOINT_LEFT) {
+    myActualAdditionalReferencePoint(AdditionalReferencePoint::LEFT) {
     // Create FXListBox for the reference points and fill it
     myReferencePointMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
     myReferencePointMatchBox->appendItem("reference left");
@@ -2578,7 +2403,7 @@ GNEFrameAttributesModuls::NeteditAttributes::getNeteditAttributesAndValues(Commo
             // Obtain position of the mouse over lane (limited over grid)
             double mousePositionOverLane = lane->getLaneShape().nearest_offset_to_point2D(myFrameParent->myViewNet->snapToActiveGrid(myFrameParent->myViewNet->getPositionInformation())) / lane->getLengthGeometryFactor();
             // check if current reference point is valid
-            if (myActualAdditionalReferencePoint == GNE_ADDITIONALREFERENCEPOINT_INVALID) {
+            if (myActualAdditionalReferencePoint == AdditionalReferencePoint::INVALID) {
                 std::string errorMessage = "Current selected reference point isn't valid";
                 myFrameParent->myViewNet->setStatusBarText(errorMessage);
                 // Write Warning in console if we're in testing mode
@@ -2639,20 +2464,20 @@ GNEFrameAttributesModuls::NeteditAttributes::onCmdSetNeteditAttribute(FXObject* 
         // Cast actual reference point type
         if (myReferencePointMatchBox->getText() == "reference left") {
             myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
-            myActualAdditionalReferencePoint = GNE_ADDITIONALREFERENCEPOINT_LEFT;
+            myActualAdditionalReferencePoint = AdditionalReferencePoint::LEFT;
             myLengthTextField->enable();
         } else if (myReferencePointMatchBox->getText() == "reference right") {
             myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
-            myActualAdditionalReferencePoint = GNE_ADDITIONALREFERENCEPOINT_RIGHT;
+            myActualAdditionalReferencePoint = AdditionalReferencePoint::RIGHT;
             myLengthTextField->enable();
         } else if (myReferencePointMatchBox->getText() == "reference center") {
             myLengthTextField->enable();
             myReferencePointMatchBox->setTextColor(FXRGB(0, 0, 0));
-            myActualAdditionalReferencePoint = GNE_ADDITIONALREFERENCEPOINT_CENTER;
+            myActualAdditionalReferencePoint = AdditionalReferencePoint::CENTER;
             myLengthTextField->enable();
         } else {
             myReferencePointMatchBox->setTextColor(FXRGB(255, 0, 0));
-            myActualAdditionalReferencePoint = GNE_ADDITIONALREFERENCEPOINT_INVALID;
+            myActualAdditionalReferencePoint = AdditionalReferencePoint::INVALID;
             myLengthTextField->disable();
         }
     }
@@ -2719,11 +2544,11 @@ GNEFrameAttributesModuls::NeteditAttributes::onCmdHelp(FXObject*, FXSelector, vo
 double
 GNEFrameAttributesModuls::NeteditAttributes::setStartPosition(double positionOfTheMouseOverLane, double lengthOfAdditional) const {
     switch (myActualAdditionalReferencePoint) {
-        case GNE_ADDITIONALREFERENCEPOINT_LEFT:
+        case AdditionalReferencePoint::LEFT:
             return positionOfTheMouseOverLane;
-        case GNE_ADDITIONALREFERENCEPOINT_RIGHT:
+        case AdditionalReferencePoint::RIGHT:
             return positionOfTheMouseOverLane - lengthOfAdditional;
-        case GNE_ADDITIONALREFERENCEPOINT_CENTER:
+        case AdditionalReferencePoint::CENTER:
             return positionOfTheMouseOverLane - lengthOfAdditional / 2;
         default:
             throw InvalidArgument("Reference Point invalid");
@@ -2734,11 +2559,11 @@ GNEFrameAttributesModuls::NeteditAttributes::setStartPosition(double positionOfT
 double
 GNEFrameAttributesModuls::NeteditAttributes::setEndPosition(double positionOfTheMouseOverLane, double lengthOfAdditional)  const {
     switch (myActualAdditionalReferencePoint) {
-        case GNE_ADDITIONALREFERENCEPOINT_LEFT:
+        case AdditionalReferencePoint::LEFT:
             return positionOfTheMouseOverLane + lengthOfAdditional;
-        case GNE_ADDITIONALREFERENCEPOINT_RIGHT:
+        case AdditionalReferencePoint::RIGHT:
             return positionOfTheMouseOverLane;
-        case GNE_ADDITIONALREFERENCEPOINT_CENTER:
+        case AdditionalReferencePoint::CENTER:
             return positionOfTheMouseOverLane + lengthOfAdditional / 2;
         default:
             throw InvalidArgument("Reference Point invalid");

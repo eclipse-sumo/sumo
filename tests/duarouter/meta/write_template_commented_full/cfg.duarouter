@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-10-07 11:53:41 by Eclipse SUMO duarouter Version v1_10_0+1309-8c72549c7d7
+<!-- generated on 2021-11-26 11:53:38 by Eclipse SUMO duarouter Version v1_11_0+0127-8e863dbaffd
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -95,6 +95,9 @@
 
         <!-- Write trips with fromJunction and toJunction -->
         <write-trips.junctions value="false" type="BOOL"/>
+
+        <!-- Include the cost attribute in route output -->
+        <write-costs value="false" type="BOOL"/>
 
         <!-- Write exit times (weights) for each edge -->
         <exit-times value="false" type="BOOL"/>

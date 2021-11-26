@@ -665,10 +665,12 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                     routeCounts[routeIndex], routeIDComment))
             outf.write('\n')
         elif options.writeRouteDist:
-            outf.write('    <routeDistribution id="%s%s%s">\n' % (options.prefix, intervalPrefix, options.writeRouteDist))
+            outf.write('    <routeDistribution id="%s%s%s">\n' % (
+                       options.prefix, intervalPrefix, options.writeRouteDist))
             for routeIndex in sorted(set(usedRoutes)):
                 outf.write('        <route id="%s%s%s" edges="%s" probability="%s"/>\n' % (
-                    options.prefix, intervalPrefix, routeIndex, ' '.join(routes.unique[routeIndex]), routeCounts[routeIndex]))
+                    options.prefix, intervalPrefix, routeIndex,
+                    ' '.join(routes.unique[routeIndex]), routeCounts[routeIndex]))
             outf.write('    </routeDistribution>\n\n')
 
         routeID = options.writeRouteDist
@@ -737,7 +739,8 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                         if options.pedestrians:
                             outf2.write('    <personFlow id="%s" begin="%.2f" end="%.2f" %s%s>\n' % (
                                 flowID, fBegin, fEnd, repeat, options.vehattrs))
-                            outf2.write('        <walk route="%s%s%s"/>\n' % (options.prefix, intervalPrefix, routeIndex))
+                            outf2.write('        <walk route="%s%s%s"/>\n' % (
+                                options.prefix, intervalPrefix, routeIndex))
                             outf2.write('    </personFlow>\n')
                         else:
                             outf2.write('    <flow id="%s" begin="%.2f" end="%.2f" %s route="%s%s%s"%s/>\n' % (

@@ -89,6 +89,9 @@ public:
     /// @brief set discrete values
     void setDiscreteValues(const std::vector<std::string>& discreteValues);
 
+    /// @brief set default activated value
+    void setDefaultActivated(const bool value);
+
     /// @brief set synonim
     void setSynonym(const SumoXMLAttr synonym);
 
@@ -115,6 +118,9 @@ public:
 
     /// @brief get default value
     const std::string& getDefaultValue() const;
+
+    /// @brief get default active value
+    bool getDefaultActivated() const;
 
     /// @brief return a description of attribute
     std::string getDescription() const;
@@ -233,6 +239,9 @@ private:
 
     /// @brief default value (by default empty)
     std::string myDefaultValue;
+
+    /// @brief default activated (by default false)
+    bool myDefaultActivated;
 
     /// @brief discrete values that can take this Attribute (by default empty)
     std::vector<std::string> myDiscreteValues;

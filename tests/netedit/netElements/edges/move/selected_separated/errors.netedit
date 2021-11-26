@@ -9,14 +9,6 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-0.60,60.00,21
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,1.00,60.00,22.60
 GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary -10.00,-11.60,59.00,10.00
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary -10.00,12.00,60.00,33.60
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'personTrip: edge->edge' in TagSelector
-Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
-Debug: Selected item 'personTrip: edge->edge' in TagSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding busStop 'busStop_gneE0_0_6' in GNEChange_Additional
 Debug: Adding busStop 'busStop_gneE0_0_7' in GNEChange_Additional
 Debug: Adding busStop 'busStop_gneE1_0_1' in GNEChange_Additional

@@ -5,6 +5,9 @@ ignore_errors_invalid_depart_edge
 # randomize edge weights
 random-factor
 
+# write costs
+costs
+
 # Testing loop removal
 remove_loops
 

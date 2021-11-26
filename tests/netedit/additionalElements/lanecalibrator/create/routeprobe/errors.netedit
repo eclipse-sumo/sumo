@@ -1,11 +1,3 @@
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'personTrip: edge->edge' in TagSelector
-Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
-Debug: Selected item 'personTrip: edge->edge' in TagSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Error: Attribute 'edge' is missing in definition of routeProbe 'routeProbe_0'.
 Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Nov122624.7328\netedit.gui\additionalElements\lanecalibrator\create\routeprobe\input_additionals.add.xml failed.
 Debug: Selected item 'busStop' in TagSelector

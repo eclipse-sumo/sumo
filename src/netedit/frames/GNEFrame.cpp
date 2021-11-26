@@ -199,16 +199,16 @@ GNEFrame::createPath() {
 }
 
 void
-GNEFrame::openHelpAttributesDialog(const GNETagProperties& tagProperties) const {
-    FXDialogBox* attributesHelpDialog = new FXDialogBox(myScrollWindowsContents, ("Parameters of " + tagProperties.getTagStr()).c_str(), GUIDesignDialogBoxResizable, 0, 0, 0, 0, 10, 10, 10, 38, 4, 4);
+GNEFrame::openHelpAttributesDialog(const GNEAttributeCarrier* AC) const {
+    FXDialogBox* attributesHelpDialog = new FXDialogBox(myScrollWindowsContents, ("Parameters of " + AC->getTagStr()).c_str(), GUIDesignDialogBoxResizable, 0, 0, 0, 0, 10, 10, 10, 38, 4, 4);
     // Create FXTable
     FXTable* myTable = new FXTable(attributesHelpDialog, attributesHelpDialog, MID_TABLE, GUIDesignTableNotEditable);
     attributesHelpDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT));
     int sizeColumnDescription = 0;
     int sizeColumnDefinitions = 0;
-    myTable->setVisibleRows((FXint)(tagProperties.getNumberOfAttributes()));
+    myTable->setVisibleRows((FXint)(AC->getTagProperty().getNumberOfAttributes()));
     myTable->setVisibleColumns(3);
-    myTable->setTableSize((FXint)(tagProperties.getNumberOfAttributes()), 3);
+    myTable->setTableSize((FXint)(AC->getTagProperty().getNumberOfAttributes()), 3);
     myTable->setBackColor(FXRGB(255, 255, 255));
     myTable->setColumnText(0, "Attribute");
     myTable->setColumnText(1, "Description");
@@ -216,22 +216,22 @@ GNEFrame::openHelpAttributesDialog(const GNETagProperties& tagProperties) const 
     myTable->getRowHeader()->setWidth(0);
     // Iterate over vector of additional parameters
     int itemIndex = 0;
-    for (const auto& i : tagProperties) {
+    for (const auto& tagProperty : AC->getTagProperty()) {
         // Set attribute
-        FXTableItem* attribute = new FXTableItem(i.getAttrStr().c_str());
+        FXTableItem* attribute = new FXTableItem(tagProperty.getAttrStr().c_str());
         attribute->setJustify(FXTableItem::CENTER_X);
         myTable->setItem(itemIndex, 0, attribute);
         // Set description of element
         FXTableItem* type = new FXTableItem("");
-        type->setText(i.getDescription().c_str());
-        sizeColumnDescription = MAX2(sizeColumnDescription, (int)i.getDescription().size());
+        type->setText(tagProperty.getDescription().c_str());
+        sizeColumnDescription = MAX2(sizeColumnDescription, (int)tagProperty.getDescription().size());
         type->setJustify(FXTableItem::CENTER_X);
         myTable->setItem(itemIndex, 1, type);
         // Set definition
-        FXTableItem* definition = new FXTableItem(i.getDefinition().c_str());
+        FXTableItem* definition = new FXTableItem(tagProperty.getDefinition().c_str());
         definition->setJustify(FXTableItem::LEFT);
         myTable->setItem(itemIndex, 2, definition);
-        sizeColumnDefinitions = MAX2(sizeColumnDefinitions, (int)i.getDefinition().size());
+        sizeColumnDefinitions = MAX2(sizeColumnDefinitions, (int)tagProperty.getDefinition().size());
         itemIndex++;
     }
     // set header
@@ -251,7 +251,7 @@ GNEFrame::openHelpAttributesDialog(const GNETagProperties& tagProperties) const 
     new FXButton(myHorizontalFrameOKButton, "OK\t\tclose", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), attributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
     // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Opening HelpAttributes dialog for tag '" + tagProperties.getTagStr() + "' showing " + toString(tagProperties.getNumberOfAttributes()) + " attributes");
+    WRITE_DEBUG("Opening HelpAttributes dialog for tag '" + AC->getTagProperty().getTagStr() + "' showing " + toString(AC->getTagProperty().getNumberOfAttributes()) + " attributes");
     // create Dialog
     attributesHelpDialog->create();
     // show in the given position
@@ -261,7 +261,7 @@ GNEFrame::openHelpAttributesDialog(const GNETagProperties& tagProperties) const 
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     getApp()->runModalFor(attributesHelpDialog);
     // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Closing HelpAttributes dialog for tag '" + tagProperties.getTagStr() + "'");
+    WRITE_DEBUG("Closing HelpAttributes dialog for tag '" + AC->getTagProperty().getTagStr() + "'");
 }
 
 

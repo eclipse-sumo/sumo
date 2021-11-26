@@ -160,10 +160,18 @@ GNEPerson::GNESelectedPersonsPopupMenu::onCmdTransform(FXObject* obj, FXSelector
 // member method definitions
 // ===========================================================================
 
+GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net) :
+    GNEDemandElement("", net, GLO_PERSON, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+        {}, {}, {}, {}, {}, {}, {}, {}) {
+        // reset default values
+    resetDefaultValues();
+}
+
+
 GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType, const SUMOVehicleParameter& personparameters) :
     GNEDemandElement(personparameters.id, net, (tag == SUMO_TAG_PERSONFLOW) ? GLO_PERSONFLOW : GLO_PERSON, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-{}, {}, {}, {}, {}, {}, {pType}, {}),
-SUMOVehicleParameter(personparameters) {
+        {}, {}, {}, {}, {}, {}, {pType}, {}),
+    SUMOVehicleParameter(personparameters) {
     // set manually vtypeID (needed for saving)
     vtypeid = pType->getID();
 }
@@ -670,12 +678,16 @@ GNEPerson::isValid(SumoXMLAttr key, const std::string& value) {
 
 void
 GNEPerson::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
-    // obtain a copy of parameter sets
-    int newParametersSet = parametersSet;
-    // modify newParametersSet
-    GNERouteHandler::setFlowParameters(key, newParametersSet);
-    // add GNEChange_EnableAttribute
-    undoList->add(new GNEChange_EnableAttribute(this, parametersSet, newParametersSet), true);
+    switch (key) {
+        case SUMO_ATTR_END:
+        case SUMO_ATTR_NUMBER:
+        case SUMO_ATTR_CONTAINERSPERHOUR:
+        case SUMO_ATTR_PERIOD:
+        case SUMO_ATTR_PROB:
+            undoList->add(new GNEChange_EnableAttribute(this, key, true, parametersSet), true);
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 
@@ -906,8 +918,12 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEPerson::setEnabledAttribute(const int enabledAttributes) {
-    parametersSet = enabledAttributes;
+GNEPerson::toogleAttribute(SumoXMLAttr key, const bool value, const int previousParameters) {
+    if (value) {
+        GNERouteHandler::setFlowParameters(key, parametersSet);
+    } else {
+        parametersSet = previousParameters;
+    }
 }
 
 

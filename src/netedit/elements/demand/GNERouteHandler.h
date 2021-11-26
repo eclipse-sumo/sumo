@@ -186,7 +186,7 @@ public:
 
     /// @}
 
-    /// @brief configure flow parameters
+    /// @brief set flow parameters
     static void setFlowParameters(const SumoXMLAttr attribute, int& parameters);
 
 protected:

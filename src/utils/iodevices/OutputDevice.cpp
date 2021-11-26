@@ -85,9 +85,8 @@ OutputDevice::getDevice(const std::string& name) {
             throw IOError("No port number given.");
         }
     } else {
-        const int len = (int)name.length();
-        std::string name2 = name;
-        if (OptionsCont::getOptions().isSet("output-prefix") && name != "/dev/null") {
+        std::string name2 = (name == "nul" || name == "NUL") ? "/dev/null" : name;
+        if (OptionsCont::getOptions().isSet("output-prefix") && name2 != "/dev/null") {
             std::string prefix = OptionsCont::getOptions().getString("output-prefix");
             const std::string::size_type metaTimeIndex = prefix.find("TIME");
             if (metaTimeIndex != std::string::npos) {
@@ -100,6 +99,7 @@ OutputDevice::getDevice(const std::string& name) {
             }
             name2 = FileHelpers::prependToLastPathComponent(prefix, name);
         }
+        const int len = (int)name.length();
         dev = new OutputDevice_File(name2, len > 3 && name.substr(len - 3) == ".gz");
     }
     dev->setPrecision();

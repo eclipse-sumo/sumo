@@ -3,3 +3,24 @@ default
 # driver instantly forgets parkingarea occupancy
 no_memory
 probability
+
+# always remember all visibly occupied parking areas along the way
+active_memory
+
+# use the first free parkingArea along the way
+parkAnywhere_default
+
+# use the first free parkingArea along the way
+parkAnywhere_0
+
+# use the first free parkingArea along the way (but no others nearby)
+parkAnywhere_0_probability
+
+# use the first free parkingArea along the way
+parkAnywhere_1
+
+# test frustration after prolonged parking search
+frustration_10
+
+# test frustration after prolonged parking search
+frustration_100

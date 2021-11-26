@@ -24,9 +24,7 @@
 #include <netedit/changes/GNEChange_DemandElement.h>
 
 #include "GNEContainer.h"
-#include "GNEStopContainer.h"
 #include "GNEPerson.h"
-#include "GNEStopPerson.h"
 #include "GNEPersonTrip.h"
 #include "GNERide.h"
 #include "GNERoute.h"
@@ -803,11 +801,11 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 // create stop using stopParameters and stoppingPlace
                 GNEDemandElement* stop = nullptr;
                 if (stopParent->getTagProperty().isPerson()) {
-                    stop = new GNEStopPerson(myNet, stopParent, stoppingPlace, stopParameters);
+                    stop = new GNEStop(GNE_TAG_STOPPERSON_BUSSTOP, myNet, stopParent, stoppingPlace, stopParameters);
                 } else if (stopParent->getTagProperty().isContainer()) {
-                    stop = new GNEStopContainer(myNet, stopParent, stoppingPlace, stopParameters);
+                    stop = new GNEStop(GNE_TAG_TRANSPORT_CONTAINERSTOP, myNet, stopParent, stoppingPlace, stopParameters);
                 } else {
-                    stop = new GNEStop(stopTagType, myNet, stopParameters, stoppingPlace, stopParent);
+                    stop = new GNEStop(stopTagType, myNet, stopParent, stoppingPlace, stopParameters);
                 }
                 // add it depending of undoDemandElements
                 if (myUndoDemandElements) {
@@ -822,7 +820,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 }
             } else if (lane) {
                 // create stop using stopParameters and lane (only for vehicles)
-                GNEDemandElement* stop = new GNEStop(myNet, stopParameters, lane, stopParent);
+                GNEDemandElement* stop = new GNEStop(myNet, stopParent, lane, stopParameters);
                 // add it depending of undoDemandElements
                 if (myUndoDemandElements) {
                     myNet->getViewNet()->getUndoList()->begin(stop->getTagProperty().getGUIIcon(), "add " + stop->getTagStr());
@@ -838,9 +836,9 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 // create stop using stopParameters and edge
                 GNEDemandElement* stop = nullptr;
                 if (stopParent->getTagProperty().isPerson()) {
-                    stop = new GNEStopPerson(myNet, stopParent, edge, stopParameters);
+                    stop = new GNEStop(GNE_TAG_STOPPERSON_EDGE, myNet, stopParent, edge, stopParameters);
                 } else {
-                    stop = new GNEStopContainer(myNet, stopParent, edge, stopParameters);
+                    stop = new GNEStop(GNE_TAG_STOPCONTAINER_EDGE, myNet, stopParent, edge, stopParameters);
                 }
                 // add it depending of undoDemandElements
                 if (myUndoDemandElements) {
@@ -1517,7 +1515,7 @@ GNERouteHandler::transformToContainerFlow(GNEContainer* /*originalContainer*/) {
 
 void
 GNERouteHandler::setFlowParameters(const SumoXMLAttr attribute, int& parameters) {
-    // modify parametersSetCopy depending of given Flow attribute
+    // modify parameters depending of given Flow attribute
     switch (attribute) {
         case SUMO_ATTR_END: {
             // give more priority to end
@@ -1529,7 +1527,8 @@ GNERouteHandler::setFlowParameters(const SumoXMLAttr attribute, int& parameters)
             parameters |= VEHPARS_NUMBER_SET;
             break;
         case SUMO_ATTR_VEHSPERHOUR:
-        case SUMO_ATTR_PERSONSPERHOUR: {
+        case SUMO_ATTR_PERSONSPERHOUR:
+        case SUMO_ATTR_CONTAINERSPERHOUR: {
             // give more priority to end
             if ((parameters & VEHPARS_END_SET) && (parameters & VEHPARS_NUMBER_SET)) {
                 parameters = VEHPARS_END_SET;

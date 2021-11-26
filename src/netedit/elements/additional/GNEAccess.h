@@ -36,6 +36,9 @@ class GNEBusStop;
 class GNEAccess : public GNEAdditional {
 
 public:
+    /// @brief Default constructor
+    GNEAccess(GNENet* net);
+
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] busStop GNEBusStop of this Access belongs

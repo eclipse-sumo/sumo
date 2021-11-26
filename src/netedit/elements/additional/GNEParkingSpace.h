@@ -37,6 +37,9 @@ class GNEParkingArea;
 class GNEParkingSpace : public GNEAdditional {
 
 public:
+    /// @brief Constructor
+    GNEParkingSpace(GNENet* net);
+
     /**@brief Constructor
      * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] parkingAreaParent pointer to Parking Area parent

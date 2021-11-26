@@ -32,6 +32,9 @@
 class GNEDetectorE1Instant : public GNEDetector {
 
 public:
+    /// @brief default Constructor
+    GNEDetectorE1Instant(GNENet* net);
+
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] lane Lane of this StoppingPlace belongs

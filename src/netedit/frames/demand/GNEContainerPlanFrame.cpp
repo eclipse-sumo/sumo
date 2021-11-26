@@ -42,7 +42,7 @@ GNEContainerPlanFrame::GNEContainerPlanFrame(FXHorizontalFrame* horizontalFrameP
     myContainerSelector = new GNEFrameModuls::DemandElementSelector(this, {GNETagProperties::TagType::CONTAINER});
 
     // Create tag selector for container plan
-    myContainerPlanTagSelector = new GNEFrameModuls::TagSelector(this, GNETagProperties::TagType::CONTAINERPLAN);
+    myContainerPlanTagSelector = new GNEFrameModuls::TagSelector(this, GNETagProperties::TagType::CONTAINERPLAN, GNE_TAG_TRANSPORT_EDGE);
 
     // Create container parameters
     myContainerPlanAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
@@ -52,9 +52,6 @@ GNEContainerPlanFrame::GNEContainerPlanFrame(FXHorizontalFrame* horizontalFrameP
 
     // Create HierarchicalElementTree modul
     myContainerHierarchy = new GNEFrameModuls::HierarchicalElementTree(this);
-
-    // set ContainerPlan tag type in tag selector
-    myContainerPlanTagSelector->setCurrentTagType(GNETagProperties::TagType::CONTAINERPLAN);
 }
 
 
@@ -70,8 +67,8 @@ GNEContainerPlanFrame::show() {
     if ((containers.size() > 0) || (containerFlows.size() > 0)) {
         // show container selector
         myContainerSelector->showDemandElementSelector();
-        // refresh container plan tag selector
-        myContainerPlanTagSelector->refreshTagProperties();
+        // refresh tag selector
+        myContainerPlanTagSelector->refreshTagSelector();
         // set first container as demand element (this will call demandElementSelected() function)
         if (containers.size() > 0) {
             myContainerSelector->setDemandElement(*containers.begin());
@@ -110,12 +107,12 @@ GNEContainerPlanFrame::addContainerPlanElement(const GNEViewNetHelper::ObjectsUn
         return false;
     }
     // finally check that container plan selected is valid
-    if (myContainerPlanTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_NOTHING) {
+    if (myContainerPlanTagSelector->getCurrentTemplateAC() == nullptr) {
         myViewNet->setStatusBarText("Current selected container plan isn't valid.");
         return false;
     }
     // Obtain current container plan tag (only for improve code legibility)
-    SumoXMLTag containerPlanTag = myContainerPlanTagSelector->getCurrentTagProperties().getTag();
+    SumoXMLTag containerPlanTag = myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
     // declare flags for requirements
     const bool requireContainerStop = ((containerPlanTag == GNE_TAG_TRANSPORT_CONTAINERSTOP) || (containerPlanTag == GNE_TAG_TRANSHIP_CONTAINERSTOP) ||
                                        (containerPlanTag == GNE_TAG_STOPCONTAINER_CONTAINERSTOP));
@@ -144,11 +141,11 @@ GNEContainerPlanFrame::getPathCreator() const {
 void
 GNEContainerPlanFrame::tagSelected() {
     // first check if container is valid
-    if (myContainerPlanTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
+    if (myContainerPlanTagSelector->getCurrentTemplateAC()) {
         // Obtain current container plan tag (only for improve code legibility)
-        SumoXMLTag containerPlanTag = myContainerPlanTagSelector->getCurrentTagProperties().getTag();
+        SumoXMLTag containerPlanTag = myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
         // show container attributes
-        myContainerPlanAttributes->showAttributesCreatorModul(myContainerPlanTagSelector->getCurrentTagProperties(), {});
+        myContainerPlanAttributes->showAttributesCreatorModul(myContainerPlanTagSelector->getCurrentTemplateAC(), {});
         // get previous container plan
         GNEEdge* previousEdge = myContainerSelector->getContainerPlanPreviousEdge();
         // set path creator mode depending if previousEdge exist
@@ -179,7 +176,7 @@ GNEContainerPlanFrame::demandElementSelected() {
         // show container plan tag selector
         myContainerPlanTagSelector->showTagSelector();
         // now check if container plan selected is valid
-        if (myContainerPlanTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
+        if (myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != SUMO_TAG_NOTHING) {
             // call tag selected
             tagSelected();
         } else {
@@ -201,11 +198,11 @@ void
 GNEContainerPlanFrame::createPath() {
     // first check that all attributes are valid
     if (!myContainerPlanAttributes->areValuesValid()) {
-        myViewNet->setStatusBarText("Invalid " + myContainerPlanTagSelector->getCurrentTagProperties().getTagStr() + " parameters.");
+        myViewNet->setStatusBarText("Invalid " + myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " parameters.");
     } else {
         // check if container plan can be created
         if (myRouteHandler.buildContainerPlan(
-                    myContainerPlanTagSelector->getCurrentTagProperties().getTag(),
+                    myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(),
                     myContainerSelector->getCurrentDemandElement(),
                     myContainerPlanAttributes,
                     myPathCreator)) {

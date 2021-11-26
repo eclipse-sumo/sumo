@@ -32,6 +32,9 @@
 class GNEDetectorE2 : public GNEDetector {
 
 public:
+    /// @brief default Constructor
+    GNEDetectorE2(SumoXMLTag tag, GNENet* net);
+
     /**@brief Constructor for Single-Lane E2 detectors
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] lane Lane of this StoppingPlace belongs

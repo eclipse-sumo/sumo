@@ -65,7 +65,7 @@ GNEVehicleFrame::HelpCreation::updateHelpCreation() {
     // create information label
     std::ostringstream information;
     // set text depending of selected vehicle type
-    switch (myVehicleFrameParent->myVehicleTagSelector->getCurrentTagProperties().getTag()) {
+    switch (myVehicleFrameParent->myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag()) {
         case SUMO_TAG_VEHICLE:
             information
                     << "- Click over a route to\n"
@@ -103,7 +103,7 @@ GNEVehicleFrame::GNEVehicleFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     myVehicleBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
     // Create item Selector modul for vehicles
-    myVehicleTagSelector = new GNEFrameModuls::TagSelector(this, GNETagProperties::TagType::VEHICLE);
+    myVehicleTagSelector = new GNEFrameModuls::TagSelector(this, GNETagProperties::TagType::VEHICLE, SUMO_TAG_VEHICLE);
 
     // Create vehicle type selector
     myVTypeSelector = new GNEFrameModuls::DemandElementSelector(this, SUMO_TAG_VTYPE);
@@ -116,9 +116,6 @@ GNEVehicleFrame::GNEVehicleFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
 
     // Create Help Creation Modul
     myHelpCreation = new HelpCreation(this);
-
-    // set Vehicle as default vehicle
-    myVehicleTagSelector->setCurrentTag(SUMO_TAG_VEHICLE);
 }
 
 
@@ -129,8 +126,8 @@ GNEVehicleFrame::~GNEVehicleFrame() {
 
 void
 GNEVehicleFrame::show() {
-    // refresh item selector
-    myVehicleTagSelector->refreshTagProperties();
+    // refresh tag selector
+    myVehicleTagSelector->refreshTagSelector();
     // show frame
     GNEFrame::show();
 }
@@ -152,7 +149,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
     // begin cleaning vehicle base object
     myVehicleBaseObject->clear();
     // obtain tag (only for improve code legibility)
-    SumoXMLTag vehicleTag = myVehicleTagSelector->getCurrentTagProperties().getTag();
+    SumoXMLTag vehicleTag = myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
     const bool addEdge = ((vehicleTag == SUMO_TAG_TRIP) || (vehicleTag == GNE_TAG_VEHICLE_WITHROUTE) || (vehicleTag == SUMO_TAG_FLOW) || (vehicleTag == GNE_TAG_FLOW_WITHROUTE));
     // first check that current selected vehicle is valid
     if (vehicleTag == SUMO_TAG_NOTHING) {
@@ -277,13 +274,13 @@ GNEVehicleFrame::getPathCreator() const {
 
 void
 GNEVehicleFrame::tagSelected() {
-    if (myVehicleTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
+    if (myVehicleTagSelector->getCurrentTemplateAC()) {
         // show vehicle type selector modul
         myVTypeSelector->showDemandElementSelector();
         // show path creator modul
-        if ((myVehicleTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_VEHICLE) &&
-                (myVehicleTagSelector->getCurrentTagProperties().getTag() != GNE_TAG_FLOW_ROUTE)) {
-            myPathCreator->showPathCreatorModul(myVehicleTagSelector->getCurrentTagProperties().getTag(), false, false);
+        if ((myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != SUMO_TAG_VEHICLE) &&
+                (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != GNE_TAG_FLOW_ROUTE)) {
+            myPathCreator->showPathCreatorModul(myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
         }
     } else {
         // hide all moduls if vehicle isn't valid
@@ -298,13 +295,13 @@ void
 GNEVehicleFrame::demandElementSelected() {
     if (myVTypeSelector->getCurrentDemandElement()) {
         // show vehicle attributes modul
-        myVehicleAttributes->showAttributesCreatorModul(myVehicleTagSelector->getCurrentTagProperties(), {});
+        myVehicleAttributes->showAttributesCreatorModul(myVehicleTagSelector->getCurrentTemplateAC(), {});
         // set current VTypeClass in TripCreator
         myPathCreator->setVClass(myVTypeSelector->getCurrentDemandElement()->getVClass());
         // show path creator modul
-        if ((myVehicleTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_VEHICLE) &&
-                (myVehicleTagSelector->getCurrentTagProperties().getTag() != GNE_TAG_FLOW_ROUTE)) {
-            myPathCreator->showPathCreatorModul(myVehicleTagSelector->getCurrentTagProperties().getTag(), false, false);
+        if ((myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != SUMO_TAG_VEHICLE) &&
+                (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != GNE_TAG_FLOW_ROUTE)) {
+            myPathCreator->showPathCreatorModul(myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
         }
         // show help creation
         myHelpCreation->showHelpCreation();
@@ -325,7 +322,7 @@ GNEVehicleFrame::createPath() {
     // begin cleaning vehicle base object
     myVehicleBaseObject->clear();
     // obtain tag (only for improve code legibility)
-    SumoXMLTag vehicleTag = myVehicleTagSelector->getCurrentTagProperties().getTag();
+    SumoXMLTag vehicleTag = myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
     const bool embebbedRoute = ((vehicleTag == GNE_TAG_VEHICLE_WITHROUTE) || (vehicleTag == GNE_TAG_FLOW_WITHROUTE));
     // check number of edges
     if ((myPathCreator->getSelectedEdges().size() > 1) || (myPathCreator->getSelectedEdges().size() > 0 && embebbedRoute)) {

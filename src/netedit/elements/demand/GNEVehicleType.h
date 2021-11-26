@@ -34,6 +34,9 @@
 class GNEVehicleType : public GNEDemandElement, public SUMOVTypeParameter {
 
 public:
+    /// @brief default constructor
+    GNEVehicleType(SumoXMLTag tag, GNENet* net);
+
     /// @brief constructor for default VTypes
     GNEVehicleType(GNENet* net, const std::string& vTypeID, const SUMOVehicleClass& defaultVClass, SumoXMLTag tag);
 
@@ -209,8 +212,8 @@ private:
     /// @brief method for setting the attribute and nothing else
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
-    /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
-    void setEnabledAttribute(const int enabledAttributes);
+    /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
+    void toogleAttribute(SumoXMLAttr key, const bool value, const int previousParameters);
 
     /// @brief set move shape
     void setMoveShape(const GNEMoveResult& moveResult);

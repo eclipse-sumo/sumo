@@ -36,17 +36,18 @@
 // method definitions
 // ===========================================================================
 OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool compressed)
-    : OutputDevice(0, fullName), myFileStream(nullptr) {
-#ifdef WIN32
+    : OutputDevice(0, fullName) {
     if (fullName == "/dev/null") {
+        myAmNull = true;
+#ifdef WIN32
         myFileStream = new std::ofstream("NUL");
         if (!myFileStream->good()) {
             delete myFileStream;
             throw IOError("Could not redirect to NUL device (" + std::string(std::strerror(errno)) + ").");
         }
         return;
-    }
 #endif
+    }
     const std::string& localName = StringUtils::transcodeToLocal(fullName);
 #ifdef HAVE_ZLIB
     if (compressed) {

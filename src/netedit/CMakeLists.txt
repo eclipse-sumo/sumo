@@ -49,6 +49,6 @@ if (MSVC)
     endif()
     target_link_libraries(netedit opengl32 glu32)
 endif ()
-add_dependencies(netedit generate-version-h)
+add_dependencies(netedit generate-version-h install_dll)
 
 install(TARGETS netedit RUNTIME DESTINATION bin)

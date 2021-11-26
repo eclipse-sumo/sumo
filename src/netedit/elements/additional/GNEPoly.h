@@ -46,6 +46,9 @@ public:
     /// @brief needed to avoid diamond problem between SUMOPolygon and GNEShape
     using GNEShape::getID;
 
+    /// @brief default Constructor
+    GNEPoly(GNENet* net);
+
     /** @brief Constructor
      * @param[in] net net in which this polygon is placed
      * @param[in] id The name of the polygon

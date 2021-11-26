@@ -31,14 +31,25 @@
 // member method definitions
 // ===========================================================================
 
+GNERerouterInterval::GNERerouterInterval(GNENet* net) :
+    GNEAdditional("", net, GLO_REROUTER_INTERVAL, SUMO_TAG_INTERVAL, "",
+        {}, {}, {}, {}, {}, {}, {}, {},
+    std::map<std::string, std::string>()),
+    myBegin(0),
+    myEnd(0) {
+    // reset default values
+    resetDefaultValues();
+}
+
+
 GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
     GNEAdditional(rerouterDialog->getEditedAdditional()->getNet(), GLO_REROUTER_INTERVAL, SUMO_TAG_INTERVAL, "",
         {}, {}, {}, {rerouterDialog->getEditedAdditional()}, {}, {}, {}, {},
     std::map<std::string, std::string>()),
     myBegin(0),
     myEnd(0) {
-    // fill reroute interval with default values
-    setDefaultValues();
+    // reset default values
+    resetDefaultValues();
     // update boundary of rerouter parent
     rerouterDialog->getEditedAdditional()->updateCenteringBoundary(true);
 }

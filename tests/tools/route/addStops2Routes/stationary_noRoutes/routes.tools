@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2021-11-26 07:58:10.541547 by addStops2Routes.py v1_11_0+0114-66352850079
+<configuration>
+    <abs-occupancy value="2"/>
+    <duration value="1800"/>
+    <net-file value="input_net.net.xml"/>
+    <output-file value="out.rou.xml"/>
+    <parking value="True"/>
+    <parking-areas value="input_additional.add.xml"/>
+    <start-at-stop value="True"/>
+    <until value="12:0:0"/>
+</configuration>
+
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="pCN.0" depart="0" departPos="stop">
+       <route edges="CN"/>
+       <stop parkingArea="pCN" duration="1800" until="12:0:0"/>
+    </vehicle>
+    <vehicle id="pCN.1" depart="0" departPos="stop">
+       <route edges="CN"/>
+       <stop parkingArea="pCN" duration="1800" until="12:0:0"/>
+    </vehicle>
+</routes>

@@ -13,5 +13,8 @@ parkingArea
 # generated vehicles that start at the destination stop
 stationary
 
-# generated trips that start at the destination stop
+# generate trips that start at the destination stop
 stationary_trips
+
+# generate routes that start at each parkingArea without input route file
+stationary_noRoutes

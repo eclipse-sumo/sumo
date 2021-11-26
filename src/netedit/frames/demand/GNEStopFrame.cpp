@@ -64,37 +64,39 @@ GNEStopFrame::HelpCreation::updateHelpCreation() {
     // create information label
     std::ostringstream information;
     // set text depending of selected Stop type
-    switch (myStopFrameParent->myStopTagSelector->getCurrentTagProperties().getTag()) {
-        case SUMO_TAG_STOP_BUSSTOP:
-            information
-                    << "- Click over a bus stop\n"
-                    << "  to create a stop.";
-            break;
-        case SUMO_TAG_STOP_CONTAINERSTOP:
-            information
-                    << "- Click over a container stop\n"
-                    << "  to create a stop.";
-            break;
-        case SUMO_TAG_STOP_CHARGINGSTATION:
-            information
-                    << "- Click over a charging \n"
-                    << "  station to create a stop.";
-            break;
-        case SUMO_TAG_STOP_PARKINGAREA:
-            information
-                    << "- Click over a parking area\n"
-                    << "  to create a stop.";
-            break;
-        case SUMO_TAG_STOP_LANE:
-            information
-                    << "- Click over a lane to\n"
-                    << "  create a stop.";
-            break;
-        default:
-            information
-                    << "- No stop parents in\n"
-                    << "  current network.";
-            break;
+    if (myStopFrameParent->myStopTagSelector->getCurrentTemplateAC()) {
+        switch (myStopFrameParent->myStopTagSelector->getCurrentTemplateAC()->getTagProperty().getTag()) {
+            case SUMO_TAG_STOP_BUSSTOP:
+                information
+                        << "- Click over a bus stop\n"
+                        << "  to create a stop.";
+                break;
+            case SUMO_TAG_STOP_CONTAINERSTOP:
+                information
+                        << "- Click over a container stop\n"
+                        << "  to create a stop.";
+                break;
+            case SUMO_TAG_STOP_CHARGINGSTATION:
+                information
+                        << "- Click over a charging \n"
+                        << "  station to create a stop.";
+                break;
+            case SUMO_TAG_STOP_PARKINGAREA:
+                information
+                        << "- Click over a parking area\n"
+                        << "  to create a stop.";
+                break;
+            case SUMO_TAG_STOP_LANE:
+                information
+                        << "- Click over a lane to\n"
+                        << "  create a stop.";
+                break;
+            default:
+                information
+                        << "- No stop parents in\n"
+                        << "  current network.";
+                break;
+        }
     }
     // set information label
     myInformationLabel->setText(information.str().c_str());
@@ -113,7 +115,7 @@ GNEStopFrame::GNEStopFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet*
     myStopParentSelector = new GNEFrameModuls::DemandElementSelector(this, {GNETagProperties::TagType::PERSON, GNETagProperties::TagType::VEHICLE, GNETagProperties::TagType::ROUTE});
 
     // Create item Selector modul for Stops
-    myStopTagSelector = new GNEFrameModuls::TagSelector(this, GNETagProperties::TagType::STOP);
+    myStopTagSelector = new GNEFrameModuls::TagSelector(this, GNETagProperties::TagType::STOP, SUMO_TAG_STOP_LANE);
 
     // Create Stop parameters
     myStopAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
@@ -148,10 +150,12 @@ GNEStopFrame::show() {
     if (validStopParent) {
         myStopParentSelector->showDemandElementSelector();
         myStopTagSelector->showTagSelector();
+        // refresh tag selector
+        myStopTagSelector->refreshTagSelector();
         // refresh vType selector
         myStopParentSelector->refreshDemandElementSelector();
-        // refresh item selector
-        myStopTagSelector->refreshTagProperties();
+        // refresh tag selector
+        myStopTagSelector->refreshTagSelector();
     } else {
         // hide moduls (except help creation)
         myStopParentSelector->hideDemandElementSelector();
@@ -187,7 +191,7 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
             return false;
         }
         // create stop base object
-        getStopParameter(myStopTagSelector->getCurrentTagProperties().getTag(),
+        getStopParameter(myStopTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(),
                          objectsUnderCursor.getLaneFront(), objectsUnderCursor.getAdditionalFront());
         if (myStopParentBaseObject->getTag() != SUMO_TAG_NOTHING) {
             myRouteHandler.buildStop(myStopParentBaseObject->getSumoBaseObjectChildren().front(),
@@ -398,10 +402,10 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
 
 void
 GNEStopFrame::tagSelected() {
-    if (myStopTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
+    if (myStopTagSelector->getCurrentTemplateAC()) {
         // show Stop type selector modul
-        myStopAttributes->showAttributesCreatorModul(myStopTagSelector->getCurrentTagProperties(), {});
-        myNeteditAttributes->showNeteditAttributesModul(myStopTagSelector->getCurrentTagProperties());
+        myStopAttributes->showAttributesCreatorModul(myStopTagSelector->getCurrentTemplateAC(), {});
+        myNeteditAttributes->showNeteditAttributesModul(myStopTagSelector->getCurrentTemplateAC()->getTagProperty());
         myHelpCreation->showHelpCreation();
     } else {
         // hide all moduls if stop parent isn't valid
@@ -417,10 +421,10 @@ GNEStopFrame::demandElementSelected() {
     // show or hidde moduls depending if current selected stop parent is valid
     if (myStopParentSelector->getCurrentDemandElement()) {
         myStopTagSelector->showTagSelector();
-        if (myStopTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
+        if (myStopTagSelector->getCurrentTemplateAC()) {
             // show moduls
-            myStopAttributes->showAttributesCreatorModul(myStopTagSelector->getCurrentTagProperties(), {});
-            myNeteditAttributes->showNeteditAttributesModul(myStopTagSelector->getCurrentTagProperties());
+            myStopAttributes->showAttributesCreatorModul(myStopTagSelector->getCurrentTemplateAC(), {});
+            myNeteditAttributes->showNeteditAttributesModul(myStopTagSelector->getCurrentTemplateAC()->getTagProperty());
             myHelpCreation->showHelpCreation();
         } else {
             myStopAttributes->hideAttributesCreatorModul();

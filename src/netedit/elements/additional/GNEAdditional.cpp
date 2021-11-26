@@ -489,17 +489,6 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* f
 // GNEAdditional - protected methods
 // ---------------------------------------------------------------------------
 
-void
-GNEAdditional::setDefaultValues() {
-    // iterate over attributes and set default value
-    for (const auto& attr : myTagProperty) {
-        if (attr.hasStaticDefaultValue()) {
-            setAttribute(attr.getAttr(), attr.getDefaultValue());
-        }
-    }
-}
-
-
 bool
 GNEAdditional::isValidAdditionalID(const std::string& newID) const {
     if (SUMOXMLDefinitions::isValidAdditionalID(newID) && (myNet->getAttributeCarriers()->retrieveAdditional(myTagProperty.getTag(), newID, false) == nullptr)) {
@@ -965,8 +954,8 @@ GNEAdditional::checkChildAdditionalRestriction() const {
 
 
 void
-GNEAdditional::setEnabledAttribute(const int /*enabledAttributes*/) {
-    //
+GNEAdditional::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
+    //throw InvalidArgument("Nothing to enable");
 }
 
 

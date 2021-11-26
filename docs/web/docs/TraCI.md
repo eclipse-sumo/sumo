@@ -149,6 +149,8 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
     simulation
   - [Change GUI State](TraCI/Change_GUI_State.md) change the
     simulation visualization
+  - [Change Calibrator State](TraCI/Change_Calibrator_State.md) change the
+    calibrator state 
 - Subscriptions
   - [TraCI/Object Variable
     Subscription](TraCI/Object_Variable_Subscription.md)

@@ -277,6 +277,8 @@ MSParkingArea::enter(SUMOVehicle* veh) {
     mySpaceOccupancies[myLastFreeLot].vehicle = veh;
     myEndPositions[veh] = std::pair<double, double>(beg, end);
     computeLastFreePos();
+    // current search ends here
+    veh->setNumberParkingReroutes(0);
 }
 
 

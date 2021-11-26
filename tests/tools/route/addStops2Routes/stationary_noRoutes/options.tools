@@ -1,0 +1,4 @@
+-o out.rou.xml -n input_net.net.xml
+-p --duration 1800 --until 12:0:0 --parking-areas input_additional.add.xml
+--abs-occupancy 2
+--start-at-stop

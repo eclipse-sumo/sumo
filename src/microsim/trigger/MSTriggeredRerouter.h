@@ -220,8 +220,8 @@ protected:
     typedef std::map<MSParkingArea*, ParkingParamMap_t, ComparatorIdLess> MSParkingAreaMap_t;
 
     /// determine attributes of candiate parking area for scoring
-    bool addParkValues(const SUMOVehicle& veh, double brakeGap, bool newDestination,
-            MSParkingArea* pa, int paOccupancy, double prob,
+    bool addParkValues(SUMOVehicle& veh, double brakeGap, bool newDestination,
+            MSParkingArea* pa, double paOccupancy, double prob,
             SUMOAbstractRouter<MSEdge, SUMOVehicle>& router,
             MSParkingAreaMap_t& parkAreas,
             std::map<MSParkingArea*, ConstMSEdgeVector>& newRoutes,

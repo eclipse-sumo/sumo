@@ -85,6 +85,9 @@ RODUAFrame::addImportOptions() {
     oc.doRegister("write-trips.junctions", new Option_Bool(false));
     oc.addDescription("write-trips.junctions", "Output", "Write trips with fromJunction and toJunction");
 
+    oc.doRegister("write-costs", new Option_Bool(false));
+    oc.addDescription("write-costs", "Output", "Include the cost attribute in route output");
+
     // register import options
     oc.doRegister("weight-files", 'w', new Option_FileName());
     oc.addSynonyme("weight-files", "weights");

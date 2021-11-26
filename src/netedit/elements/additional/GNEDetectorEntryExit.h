@@ -36,6 +36,9 @@ class GNEDetectorE3;
 class GNEDetectorEntryExit  : public GNEDetector {
 
 public:
+    /// @brief default Constructor
+    GNEDetectorEntryExit(SumoXMLTag entryExitTag, GNENet* net);
+
     /**@brief Constructor
      * @param[in] entryExitTag Child Tag (Either SUMO_TAG_DET_ENTRY or SUMO_TAG_DET_EXIT)
      * @param[in] net pointer to GNENet of this additional element belongs
