@@ -26,7 +26,6 @@
 #include "GNEContainer.h"
 #include "GNEStopContainer.h"
 #include "GNEPerson.h"
-#include "GNEStopPerson.h"
 #include "GNEPersonTrip.h"
 #include "GNERide.h"
 #include "GNERoute.h"
@@ -803,7 +802,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 // create stop using stopParameters and stoppingPlace
                 GNEDemandElement* stop = nullptr;
                 if (stopParent->getTagProperty().isPerson()) {
-                    stop = new GNEStopPerson(myNet, stopParent, stoppingPlace, stopParameters);
+                    stop = new GNEStop(GNE_TAG_STOPPERSON_BUSSTOP, myNet, stopParent, stoppingPlace, stopParameters);
                 } else if (stopParent->getTagProperty().isContainer()) {
                     stop = new GNEStopContainer(myNet, stopParent, stoppingPlace, stopParameters);
                 } else {
@@ -838,7 +837,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 // create stop using stopParameters and edge
                 GNEDemandElement* stop = nullptr;
                 if (stopParent->getTagProperty().isPerson()) {
-                    stop = new GNEStopPerson(myNet, stopParent, edge, stopParameters);
+                    stop = new GNEStop(GNE_TAG_STOPPERSON_EDGE, myNet, stopParent, edge, stopParameters);
                 } else {
                     stop = new GNEStopContainer(myNet, stopParent, edge, stopParameters);
                 }

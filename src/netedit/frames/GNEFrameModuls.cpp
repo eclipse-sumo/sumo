@@ -61,7 +61,6 @@
 #include <netedit/elements/demand/GNERoute.h>
 #include <netedit/elements/demand/GNEStop.h>
 #include <netedit/elements/demand/GNEStopContainer.h>
-#include <netedit/elements/demand/GNEStopPerson.h>
 #include <netedit/elements/demand/GNETranship.h>
 #include <netedit/elements/demand/GNETransport.h>
 #include <netedit/elements/demand/GNEVehicle.h>
@@ -441,6 +440,10 @@ GNEFrameModuls::TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagPro
         case SUMO_TAG_STOP_CONTAINERSTOP:
         case SUMO_TAG_STOP_CHARGINGSTATION:
         case SUMO_TAG_STOP_PARKINGAREA:
+        case GNE_TAG_STOPPERSON_EDGE:
+        case GNE_TAG_STOPPERSON_BUSSTOP:
+        case GNE_TAG_STOPCONTAINER_EDGE:
+        case GNE_TAG_STOPCONTAINER_CONTAINERSTOP:
             myAC = new GNEStop(tagProperty.getTag(), net);
             break;
         case SUMO_TAG_PERSON:
@@ -460,10 +463,6 @@ GNEFrameModuls::TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagPro
         case GNE_TAG_TRANSHIP_EDGES:
             myAC = new GNETranship(tagProperty.getTag(), net);
             break;
-        case GNE_TAG_STOPCONTAINER_EDGE:
-        case GNE_TAG_STOPCONTAINER_CONTAINERSTOP:
-            myAC = new GNEStopContainer(tagProperty.getTag(), net);
-            break;
         case GNE_TAG_PERSONTRIP_EDGE:
         case GNE_TAG_PERSONTRIP_BUSSTOP:
             myAC = new GNEPersonTrip(tagProperty.getTag(), net);
@@ -477,10 +476,6 @@ GNEFrameModuls::TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagPro
         case GNE_TAG_RIDE_EDGE:
         case GNE_TAG_RIDE_BUSSTOP:
             myAC = new GNERide(tagProperty.getTag(), net);
-            break;
-        case GNE_TAG_STOPPERSON_EDGE:
-        case GNE_TAG_STOPPERSON_BUSSTOP:
-            myAC = new GNEStopPerson(tagProperty.getTag(), net);
             break;
         default:
             throw ProcessError("Non-supported tagProperty in ACTemplate");
