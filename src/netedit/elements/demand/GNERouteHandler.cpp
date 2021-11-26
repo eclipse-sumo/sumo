@@ -24,7 +24,6 @@
 #include <netedit/changes/GNEChange_DemandElement.h>
 
 #include "GNEContainer.h"
-#include "GNEStopContainer.h"
 #include "GNEPerson.h"
 #include "GNEPersonTrip.h"
 #include "GNERide.h"
@@ -804,7 +803,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 if (stopParent->getTagProperty().isPerson()) {
                     stop = new GNEStop(GNE_TAG_STOPPERSON_BUSSTOP, myNet, stopParent, stoppingPlace, stopParameters);
                 } else if (stopParent->getTagProperty().isContainer()) {
-                    stop = new GNEStopContainer(myNet, stopParent, stoppingPlace, stopParameters);
+                    stop = new GNEStop(GNE_TAG_TRANSPORT_CONTAINERSTOP, myNet, stopParent, stoppingPlace, stopParameters);
                 } else {
                     stop = new GNEStop(stopTagType, myNet, stopParent, stoppingPlace, stopParameters);
                 }
@@ -839,7 +838,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 if (stopParent->getTagProperty().isPerson()) {
                     stop = new GNEStop(GNE_TAG_STOPPERSON_EDGE, myNet, stopParent, edge, stopParameters);
                 } else {
-                    stop = new GNEStopContainer(myNet, stopParent, edge, stopParameters);
+                    stop = new GNEStop(GNE_TAG_STOPCONTAINER_EDGE, myNet, stopParent, edge, stopParameters);
                 }
                 // add it depending of undoDemandElements
                 if (myUndoDemandElements) {

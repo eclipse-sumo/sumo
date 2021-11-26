@@ -596,7 +596,6 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_ACTTYPE:
         case SUMO_ATTR_TRIP_ID:
         // specific of Stops over stoppingPlaces
-        case SUMO_ATTR_CONTAINER_STOP:
         case SUMO_ATTR_CHARGING_STATION:
         case SUMO_ATTR_PARKING_AREA:
         // specific of stops over lanes
@@ -623,8 +622,8 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             }
             break;
         }
-        case SUMO_ATTR_BUS_STOP: {
-            if (myTagProperty.isStopPerson() || myTagProperty.isStopContainer()) {
+        case SUMO_ATTR_BUS_STOP:
+            if (myTagProperty.isStopPerson()) {
                 // get next person plan
                 GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
                 // continue depending of nextPersonPlan
@@ -643,8 +642,27 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
                 undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             }
             break;
-        }
-        case SUMO_ATTR_ENDPOS: {
+        case SUMO_ATTR_CONTAINER_STOP:
+            if (myTagProperty.isStopContainer()) {
+                // get next person plan
+                GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
+                // continue depending of nextPersonPlan
+                if (nextPersonPlan) {
+                    // obtain containerStop
+                    const GNEAdditional* containerStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, value);
+                    // change from attribute using edge ID
+                    undoList->begin(myTagProperty.getGUIIcon(), "Change from attribute of next personPlan");
+                    nextPersonPlan->setAttribute(SUMO_ATTR_FROM, containerStop->getParentLanes().front()->getParentEdge()->getID(), undoList);
+                    undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                    undoList->end();
+                } else {
+                    undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+                }
+            } else {
+                undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
+            }
+            break;
+        case SUMO_ATTR_ENDPOS:
             if (myTagProperty.isStopPerson() || myTagProperty.isStopContainer()) {
                 // get previous person plan
                 GNEDemandElement* previousPersonPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
@@ -663,7 +681,6 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
                 undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             }
             break;
-        }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }

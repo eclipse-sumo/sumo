@@ -60,7 +60,6 @@
 #include <netedit/elements/demand/GNERide.h>
 #include <netedit/elements/demand/GNERoute.h>
 #include <netedit/elements/demand/GNEStop.h>
-#include <netedit/elements/demand/GNEStopContainer.h>
 #include <netedit/elements/demand/GNETranship.h>
 #include <netedit/elements/demand/GNETransport.h>
 #include <netedit/elements/demand/GNEVehicle.h>
