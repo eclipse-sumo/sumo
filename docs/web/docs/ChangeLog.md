@@ -4,6 +4,22 @@ title: ChangeLog
 
 ## Git Main
 
+### Bugfixes
+
+- Miscellaneous
+  - Specifiying NUL output on the command line finally works. Issue #3400
+
+### Enhancements
+
+- duarouter
+  - can now write route costs in regular route output. Issue #9667
+
+- Miscellaneous
+  - Speed up Visual Studio build with sccache (only works with Ninja not with Visual Studio projects). Issue #9290
+  - Updated Eigen library Issue #9613
+  - Updated GDAL library Issue #9614
+  - Updated gtest library Issue #9616
+
 ## Version 1.11.0 (23.11.2021)
 
 ### Bugfixes
