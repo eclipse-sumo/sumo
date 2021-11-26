@@ -97,7 +97,7 @@ def get_options(cmd_args=None):
                 x = float(x)
             except ValueError:
                 print("Value '%s' in option --distribute must be numeric" % x,
-                        file=sys.stderr)
+                      file=sys.stderr)
                 sys.exit()
 
     return options
@@ -301,7 +301,7 @@ def generate_rerouters_process(parameters):
         sequence = parameters['selection']
 
     distWeights = None
-    distWeigtSum = None
+    distWeightSum = None
     distThresholds = None
     if parameters['distribute'] is not None:
         distWeights = list(map(float, parameters['distribute'].split(',')))
@@ -400,7 +400,7 @@ def generate_rerouters_process(parameters):
                     required += dist[distIndex]
             if distThresholds is not None and distance < distThresholds[distIndex]:
                 continue
-                
+
             if len(temp_rerouters) > parameters['num_alternatives']:
                 break
             if distance > parameters['dist_alternatives']:
