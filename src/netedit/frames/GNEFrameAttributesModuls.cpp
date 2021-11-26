@@ -320,7 +320,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
             if (myValueCheckButton->shown()) {
                 myValueCheckButton->enable();
             }
-            myAttributesCreatorParent->getCurrentTemplateAC()->toogleAttribute(myAttrProperties.getAttr(), true);
+            myAttributesCreatorParent->getCurrentTemplateAC()->toogleAttribute(myAttrProperties.getAttr(), true, -1);
         } else {
             // enable text field
             if (myValueTextField->shown()) {
@@ -330,7 +330,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
             if (myValueCheckButton->shown()) {
                 myValueCheckButton->disable();
             }
-            myAttributesCreatorParent->getCurrentTemplateAC()->toogleAttribute(myAttrProperties.getAttr(), false);
+            myAttributesCreatorParent->getCurrentTemplateAC()->toogleAttribute(myAttrProperties.getAttr(), false, -1);
         }
     } else if (obj == myValueCheckButton) {
         if (myValueCheckButton->getCheck()) {
