@@ -112,6 +112,9 @@ GNEAttributeCarrier::resetDefaultValues() {
     for (const auto &attrProperty: myTagProperty) {
         if (attrProperty.hasStaticDefaultValue()) {
             setAttribute(attrProperty.getAttr(), attrProperty.getDefaultValue());
+            if (attrProperty.isActivatable()) {
+                toogleAttribute(attrProperty.getAttr(), attrProperty.getDefaultActivated(), -1);
+            }
         }
     }
 }
@@ -2460,6 +2463,7 @@ GNEAttributeCarrier::fillAdditionals() {
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL | GNEAttributeProperties::ACTIVATABLE,
                                               "Number of " + toString(currentTag) + "s per hour, equally spaced",
                                               "0.0");
+        attrProperty.setDefaultActivated(true);
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_SPEED,
@@ -4106,6 +4110,7 @@ GNEAttributeCarrier::fillContainerStopElements() {
                                               GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::DEFAULTVALUESTATIC,
                                               "Minimum duration for stopping",
                                               "60");
+        attrProperty.setDefaultActivated(true);
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_UNTIL,
@@ -4409,6 +4414,7 @@ GNEAttributeCarrier::fillStopPersonElements() {
                                               GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::DEFAULTVALUESTATIC,
                                               "Minimum duration for stopping",
                                               "60");
+        attrProperty.setDefaultActivated(true);
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_UNTIL,
@@ -4441,6 +4447,7 @@ GNEAttributeCarrier::fillStopPersonElements() {
                                               GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::DEFAULTVALUESTATIC,
                                               "Minimum duration for stopping",
                                               "60");
+        attrProperty.setDefaultActivated(true);
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_UNTIL,
@@ -5063,6 +5070,7 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag, const bool 
                                           GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::DEFAULTVALUESTATIC,
                                           "Minimum duration for stopping",
                                           "60");
+    attrProperty.setDefaultActivated(true);
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_UNTIL,

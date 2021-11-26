@@ -38,6 +38,7 @@ GNEAttributeProperties::GNEAttributeProperties() :
     myAttributeProperty(STRING),
     myDefinition(""),
     myDefaultValue(""),
+    myDefaultActivated(false),
     myAttrSynonym(SUMO_ATTR_NOTHING),
     myMinimumRange(0),
     myMaximumRange(0) {}
@@ -50,6 +51,7 @@ GNEAttributeProperties::GNEAttributeProperties(const SumoXMLAttr attribute, cons
     myAttributeProperty(attributeProperty),
     myDefinition(definition),
     myDefaultValue(defaultValue),
+    myDefaultActivated(false),
     myAttrSynonym(SUMO_ATTR_NOTHING),
     myMinimumRange(0),
     myMaximumRange(0) {
@@ -116,6 +118,16 @@ GNEAttributeProperties::setDiscreteValues(const std::vector<std::string>& discre
         myDiscreteValues = discreteValues;
     } else {
         throw FormatException("AttributeProperty doesn't support discrete values values");
+    }
+}
+
+
+void 
+GNEAttributeProperties::setDefaultActivated(const bool value) {
+    if (isActivatable()) {
+        myDefaultActivated = value;
+    } else {
+        throw FormatException("AttributeProperty doesn't support default activated");
     }
 }
 
@@ -193,6 +205,12 @@ GNEAttributeProperties::getDefinition() const {
 const std::string&
 GNEAttributeProperties::getDefaultValue() const {
     return myDefaultValue;
+}
+
+
+bool
+GNEAttributeProperties::getDefaultActivated() const {
+    return myDefaultActivated;
 }
 
 
