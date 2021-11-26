@@ -1346,7 +1346,7 @@ GUILane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
                 // init
                 myParkingAreas = new std::vector<MSParkingArea*>();
                 for (auto& item : MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_PARKING_AREA)) {
-                    if (&item.second->getLane() == this) {
+                    if (&item.second->getLane().getEdge() == myEdge) {
                         myParkingAreas->push_back(dynamic_cast<MSParkingArea*>(item.second));
                     }
                 }
