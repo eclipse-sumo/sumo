@@ -64,37 +64,39 @@ GNEStopFrame::HelpCreation::updateHelpCreation() {
     // create information label
     std::ostringstream information;
     // set text depending of selected Stop type
-    switch (myStopFrameParent->myStopTagSelector->getCurrentTemplateAC()->getTagProperty().getTag()) {
-        case SUMO_TAG_STOP_BUSSTOP:
-            information
-                    << "- Click over a bus stop\n"
-                    << "  to create a stop.";
-            break;
-        case SUMO_TAG_STOP_CONTAINERSTOP:
-            information
-                    << "- Click over a container stop\n"
-                    << "  to create a stop.";
-            break;
-        case SUMO_TAG_STOP_CHARGINGSTATION:
-            information
-                    << "- Click over a charging \n"
-                    << "  station to create a stop.";
-            break;
-        case SUMO_TAG_STOP_PARKINGAREA:
-            information
-                    << "- Click over a parking area\n"
-                    << "  to create a stop.";
-            break;
-        case SUMO_TAG_STOP_LANE:
-            information
-                    << "- Click over a lane to\n"
-                    << "  create a stop.";
-            break;
-        default:
-            information
-                    << "- No stop parents in\n"
-                    << "  current network.";
-            break;
+    if (myStopFrameParent->myStopTagSelector->getCurrentTemplateAC()) {
+        switch (myStopFrameParent->myStopTagSelector->getCurrentTemplateAC()->getTagProperty().getTag()) {
+            case SUMO_TAG_STOP_BUSSTOP:
+                information
+                        << "- Click over a bus stop\n"
+                        << "  to create a stop.";
+                break;
+            case SUMO_TAG_STOP_CONTAINERSTOP:
+                information
+                        << "- Click over a container stop\n"
+                        << "  to create a stop.";
+                break;
+            case SUMO_TAG_STOP_CHARGINGSTATION:
+                information
+                        << "- Click over a charging \n"
+                        << "  station to create a stop.";
+                break;
+            case SUMO_TAG_STOP_PARKINGAREA:
+                information
+                        << "- Click over a parking area\n"
+                        << "  to create a stop.";
+                break;
+            case SUMO_TAG_STOP_LANE:
+                information
+                        << "- Click over a lane to\n"
+                        << "  create a stop.";
+                break;
+            default:
+                information
+                        << "- No stop parents in\n"
+                        << "  current network.";
+                break;
+        }
     }
     // set information label
     myInformationLabel->setText(information.str().c_str());
@@ -113,7 +115,7 @@ GNEStopFrame::GNEStopFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet*
     myStopParentSelector = new GNEFrameModuls::DemandElementSelector(this, {GNETagProperties::TagType::PERSON, GNETagProperties::TagType::VEHICLE, GNETagProperties::TagType::ROUTE});
 
     // Create item Selector modul for Stops
-    myStopTagSelector = new GNEFrameModuls::TagSelector(this, GNETagProperties::TagType::STOP, SUMO_TAG_STOP);
+    myStopTagSelector = new GNEFrameModuls::TagSelector(this, GNETagProperties::TagType::STOP, SUMO_TAG_STOP_LANE);
 
     // Create Stop parameters
     myStopAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
@@ -148,6 +150,8 @@ GNEStopFrame::show() {
     if (validStopParent) {
         myStopParentSelector->showDemandElementSelector();
         myStopTagSelector->showTagSelector();
+        // refresh tag selector
+        myStopTagSelector->refreshTagSelector();
         // refresh vType selector
         myStopParentSelector->refreshDemandElementSelector();
         // refresh tag selector
