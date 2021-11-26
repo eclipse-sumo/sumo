@@ -273,113 +273,15 @@ GNEStop::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkEleme
 
 void
 GNEStop::drawGL(const GUIVisualizationSettings& s) const {
-    // declare flag to enable or disable draw person plan
-    bool drawPersonPlan = false;
-    if (myTagProperty.isStop()) {
-        if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
-                myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this)) {
-            drawPersonPlan = true;
-        }
-    } else if (myNet->getViewNet()->getDemandViewOptions().showAllPersonPlans()) {
-        drawPersonPlan = true;
-    } else if (myNet->getViewNet()->isAttributeCarrierInspected(getParentDemandElements().front())) {
-        drawPersonPlan = true;
-    } else if (myNet->getViewNet()->getDemandViewOptions().getLockedPerson() == getParentDemandElements().front()) {
-        drawPersonPlan = true;
-    } else if (!myNet->getViewNet()->getInspectedAttributeCarriers().empty() &&
-               (myNet->getViewNet()->getInspectedAttributeCarriers().front()->getAttribute(GNE_ATTR_PARENT) == getAttribute(GNE_ATTR_PARENT))) {
-        drawPersonPlan = true;
-    }
+    const bool draw = (getTagProperty().isStopPerson() || getTagProperty().isStopContainer())? drawPersonPlan() : canDrawVehicleStop();
     // check if stop can be drawn
-    if (drawPersonPlan) {
+    if (draw) {
         // Obtain exaggeration of the draw
         const double exaggeration = getExaggeration(s);
-        // declare value to save stop color
-        RGBColor stopColor;
-        // Set color
-        if (drawUsingSelectColor()) {
-            stopColor = s.colorSettings.selectedRouteColor;
-        } else {
-            stopColor = s.colorSettings.stopColor;
-        }
-        // get lane
-        const auto& stopLane = getParentLanes().size() > 0 ? getParentLanes().front() : nullptr;
-        // get lane width
-        const double width = stopLane ? stopLane->getParentEdge()->getNBEdge()->getLaneWidth(stopLane->getIndex()) * 0.5 : exaggeration * 0.8;
-        // Start drawing adding an gl identificator
-        GLHelper::pushName(getGlID());
-        // Add a layer matrix
-        GLHelper::pushMatrix();
-        // set Color
-        GLHelper::setColor(stopColor);
-        // Start with the drawing of the area traslating matrix to origin
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
-        // draw depending of details
-        if (s.drawDetail(s.detailSettings.stopsDetails, exaggeration) && stopLane) {
-            // Draw top and bot lines using shape, shapeRotations, shapeLengths and value of exaggeration
-            GLHelper::drawBoxLines(myDemandElementGeometry.getShape(),
-                                   myDemandElementGeometry.getShapeRotations(),
-                                   myDemandElementGeometry.getShapeLengths(),
-                                   exaggeration * 0.1, 0, width);
-            GLHelper::drawBoxLines(myDemandElementGeometry.getShape(),
-                                   myDemandElementGeometry.getShapeRotations(),
-                                   myDemandElementGeometry.getShapeLengths(),
-                                   exaggeration * 0.1, 0, width * -1);
-            // Add a detail matrix
-            GLHelper::pushMatrix();
-            // move to geometry front
-            glTranslated(myDemandElementGeometry.getShape().back().x(), myDemandElementGeometry.getShape().back().y(), 0.1);
-            // rotate
-            if (myDemandElementGeometry.getShapeRotations().size() > 0) {
-                glRotated(myDemandElementGeometry.getShapeRotations().back(), 0, 0, 1);
-            }
-            // move again
-            glTranslated(0, exaggeration * 0.5, 0);
-            // draw stop front
-            GLHelper::drawBoxLine(Position(0, 0), 0, exaggeration * 0.5, width);
-            // move to "S" position
-            glTranslated(0, 1, 0.1);
-            // only draw text if isn't being drawn for selecting
-            if (s.drawForRectangleSelection) {
-                GLHelper::setColor(stopColor);
-                GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
-            } else if (s.drawDetail(s.detailSettings.stopsText, exaggeration)) {
-                // draw "S" symbol
-                GLHelper::drawText("S", Position(), .1, 2.8, stopColor);
-                // move to subtitle positin
-                glTranslated(0, 1.4, 0);
-                // draw subtitle depending of tag
-                GLHelper::drawText("lane", Position(), .1, 1, stopColor, 180);
-            }
-            // pop detail matrix
-            GLHelper::popMatrix();
-            // draw geometry points
-            drawGeometryPoints(s, stopColor);
-        } else {
-            // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration taked from stoppingPlace parent
-            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, width);
-        }
-        // pop layer matrix
-        GLHelper::popMatrix();
-        // Pop name
-        GLHelper::popName();
-        // Draw name if isn't being drawn for selecting
+        // draw vehicle over stop
+        drawVehicleStop(s, exaggeration);
+        // Draw name
         drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-        // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
-        // check if dotted contour has to be drawn
-        if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myDemandElementGeometry.getShape(),
-                    width, exaggeration, true, true);
-        }
-        if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myDemandElementGeometry.getShape(),
-                    width, exaggeration, true, true);
-        }
-        // draw person parent if this stop if their first person plan child
-        if ((getParentDemandElements().size() == 1) && getParentDemandElements().front()->getChildDemandElements().front() == this) {
-            getParentDemandElements().front()->drawGL(s);
-        }
     }
 }
 
@@ -747,6 +649,102 @@ GNEStop::getEndGeometryPositionOverLane() const {
         fixedPos += len;
     }
     return fixedPos * getParentLanes().front()->getLengthGeometryFactor();
+}
+
+// ===========================================================================
+// protected
+// ===========================================================================
+
+bool 
+GNEStop::canDrawVehicleStop() const {
+    if (isAttributeCarrierSelected()) {
+        return true;
+    } else if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+        return true;
+    } else if (myNet->getViewNet()->isAttributeCarrierInspected(getParentDemandElements().front())) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+void 
+GNEStop::drawVehicleStop(const GUIVisualizationSettings& s, const double exaggeration) const {
+    // declare value to save stop color
+    const RGBColor stopColor = drawUsingSelectColor()? s.colorSettings.selectedRouteColor : s.colorSettings.stopColor;
+    // get lane
+    const auto& stopLane = getParentLanes().size() > 0 ? getParentLanes().front() : nullptr;
+    // get lane width
+    const double width = stopLane ? stopLane->getParentEdge()->getNBEdge()->getLaneWidth(stopLane->getIndex()) * 0.5 : exaggeration * 0.8;
+    // Start drawing adding an gl identificator
+    GLHelper::pushName(getGlID());
+    // Add a layer matrix
+    GLHelper::pushMatrix();
+    // set Color
+    GLHelper::setColor(stopColor);
+    // Start with the drawing of the area traslating matrix to origin
+    myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
+    // draw depending of details
+    if (s.drawDetail(s.detailSettings.stopsDetails, exaggeration) && stopLane) {
+        // Draw top and bot lines using shape, shapeRotations, shapeLengths and value of exaggeration
+        GLHelper::drawBoxLines(myDemandElementGeometry.getShape(),
+            myDemandElementGeometry.getShapeRotations(),
+            myDemandElementGeometry.getShapeLengths(),
+            exaggeration * 0.1, 0, width);
+        GLHelper::drawBoxLines(myDemandElementGeometry.getShape(),
+            myDemandElementGeometry.getShapeRotations(),
+            myDemandElementGeometry.getShapeLengths(),
+            exaggeration * 0.1, 0, width * -1);
+        // Add a detail matrix
+        GLHelper::pushMatrix();
+        // move to geometry front
+        glTranslated(myDemandElementGeometry.getShape().back().x(), myDemandElementGeometry.getShape().back().y(), 0.1);
+        // rotate
+        if (myDemandElementGeometry.getShapeRotations().size() > 0) {
+            glRotated(myDemandElementGeometry.getShapeRotations().back(), 0, 0, 1);
+        }
+        // move again
+        glTranslated(0, exaggeration * 0.5, 0);
+        // draw stop front
+        GLHelper::drawBoxLine(Position(0, 0), 0, exaggeration * 0.5, width);
+        // move to "S" position
+        glTranslated(0, 1, 0.1);
+        // only draw text if isn't being drawn for selecting
+        if (s.drawForRectangleSelection) {
+            GLHelper::setColor(stopColor);
+            GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
+        } else if (s.drawDetail(s.detailSettings.stopsText, exaggeration)) {
+            // draw "S" symbol
+            GLHelper::drawText("S", Position(), .1, 2.8, stopColor);
+            // move to subtitle positin
+            glTranslated(0, 1.4, 0);
+            // draw subtitle depending of tag
+            GLHelper::drawText("lane", Position(), .1, 1, stopColor, 180);
+        }
+        // pop detail matrix
+        GLHelper::popMatrix();
+        // draw geometry points
+        drawGeometryPoints(s, stopColor);
+    } else {
+        // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration taked from stoppingPlace parent
+        GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myDemandElementGeometry, width);
+    }
+    // pop layer matrix
+    GLHelper::popMatrix();
+    // Pop name
+    GLHelper::popName();
+    // draw lock icon
+    GNEViewNetHelper::LockIcon::drawLockIcon(this, getType(), getPositionInView(), exaggeration);
+    // check if dotted contour has to be drawn
+    if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
+        GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::INSPECT, s, myDemandElementGeometry.getShape(),
+            width, exaggeration, true, true);
+    }
+    if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+        GUIDottedGeometry::drawDottedContourShape(GUIDottedGeometry::DottedContourType::FRONT, s, myDemandElementGeometry.getShape(),
+            width, exaggeration, true, true);
+    }
 }
 
 // ===========================================================================
