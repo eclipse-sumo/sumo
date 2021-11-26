@@ -444,45 +444,45 @@ std::string
 GNEStop::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_DURATION:
-            if (parametersSet & STOP_DURATION_SET) {
+            if (isAttributeEnabled(key)) {
                 return time2string(duration);
             } else {
                 return "";
             }
         case SUMO_ATTR_UNTIL:
-            if (parametersSet & STOP_UNTIL_SET) {
+            if (isAttributeEnabled(key)) {
                 return time2string(until);
             } else {
                 return "";
             }
         case SUMO_ATTR_EXTENSION:
-            if (parametersSet & STOP_EXTENSION_SET) {
+            if (isAttributeEnabled(key)) {
                 return time2string(extension);
             } else {
                 return "";
             }
         case SUMO_ATTR_TRIGGERED:
             // this is an special case
-            if (parametersSet & STOP_TRIGGER_SET) {
+            if (isAttributeEnabled(key)) {
                 return "1";
             } else {
                 return "0";
             }
         case SUMO_ATTR_CONTAINER_TRIGGERED:
             // this is an special case
-            if (parametersSet & STOP_CONTAINER_TRIGGER_SET) {
+            if (isAttributeEnabled(key)) {
                 return "1";
             } else {
                 return "0";
             }
         case SUMO_ATTR_EXPECTED:
-            if (parametersSet & STOP_EXPECTED_SET) {
+            if (isAttributeEnabled(key)) {
                 return toString(awaitedPersons);
             } else {
                 return "";
             }
         case SUMO_ATTR_EXPECTED_CONTAINERS:
-            if (parametersSet & STOP_EXPECTED_CONTAINERS_SET) {
+            if (isAttributeEnabled(key)) {
                 return toString(awaitedContainers);
             } else {
                 return "";
@@ -492,7 +492,7 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ACTTYPE:
             return actType;
         case SUMO_ATTR_TRIP_ID:
-            if (parametersSet & STOP_TRIP_ID_SET) {
+            if (isAttributeEnabled(key)) {
                 return tripId;
             } else {
                 return "";
@@ -1131,60 +1131,50 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_DURATION:
             if (value.empty()) {
-                parametersSet &= ~STOP_DURATION_SET;
+                toogleAttribute(key, false, -1);
             } else {
+                toogleAttribute(key, true, -1);
                 duration = string2time(value);
-                parametersSet |= STOP_DURATION_SET;
             }
             break;
         case SUMO_ATTR_UNTIL:
             if (value.empty()) {
-                parametersSet &= ~STOP_UNTIL_SET;
+                toogleAttribute(key, false, -1);
             } else {
+                toogleAttribute(key, true, -1);
                 until = string2time(value);
-                parametersSet |= STOP_UNTIL_SET;
             }
             break;
         case SUMO_ATTR_EXTENSION:
             if (value.empty()) {
-                parametersSet &= ~STOP_EXTENSION_SET;
+                toogleAttribute(key, false, -1);
             } else {
+                toogleAttribute(key, true, -1);
                 extension = string2time(value);
-                parametersSet |= STOP_EXTENSION_SET;
             }
             break;
         case SUMO_ATTR_TRIGGERED:
             triggered = parse<bool>(value);
-            // this is an special case: only if SUMO_ATTR_TRIGGERED is true, it will be written in XML
-            if (triggered) {
-                parametersSet |= STOP_TRIGGER_SET;
-            } else {
-                parametersSet &= ~STOP_TRIGGER_SET;
-            }
+            toogleAttribute(key, triggered, -1);
             break;
         case SUMO_ATTR_CONTAINER_TRIGGERED:
             containerTriggered = parse<bool>(value);
-            // this is an special case: only if SUMO_ATTR_CONTAINER_TRIGGERED is true, it will be written in XML
-            if (containerTriggered) {
-                parametersSet |= STOP_CONTAINER_TRIGGER_SET;
-            } else {
-                parametersSet &= ~STOP_CONTAINER_TRIGGER_SET;
-            }
+            toogleAttribute(key, containerTriggered, -1);
             break;
         case SUMO_ATTR_EXPECTED:
             if (value.empty()) {
-                parametersSet &= ~STOP_EXPECTED_SET;
+                toogleAttribute(key, false, -1);
             } else {
+                toogleAttribute(key, true, -1);
                 awaitedPersons = parse<std::set<std::string> >(value);
-                parametersSet |= STOP_EXPECTED_SET;
             }
             break;
         case SUMO_ATTR_EXPECTED_CONTAINERS:
             if (value.empty()) {
-                parametersSet &= ~STOP_EXPECTED_CONTAINERS_SET;
+                toogleAttribute(key, false, -1);
             } else {
+                toogleAttribute(key, true, -1);
                 awaitedContainers = parse<std::set<std::string> >(value);
-                parametersSet |= STOP_EXPECTED_CONTAINERS_SET;
             }
             break;
         case SUMO_ATTR_PARKING:
@@ -1195,10 +1185,10 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_TRIP_ID:
             if (value.empty()) {
-                parametersSet &= ~STOP_TRIP_ID_SET;
+                toogleAttribute(key, false, -1);
             } else {
+                toogleAttribute(key, true, -1);
                 tripId = value;
-                parametersSet |= STOP_TRIP_ID_SET;
             }
             break;
         // specific of Stops over stoppingPlaces
@@ -1242,11 +1232,11 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_POSITION_LAT:
             if (value.empty()) {
+                toogleAttribute(key, false, -1);
                 posLat = INVALID_DOUBLE;
-                parametersSet &= ~ STOP_POSLAT_SET;
             } else {
+                toogleAttribute(key, true, -1);
                 posLat = parse<double>(value);
-                parametersSet |= STOP_POSLAT_SET;
             }
             break;
         //
@@ -1287,11 +1277,25 @@ GNEStop::toogleAttribute(SumoXMLAttr key, const bool value, const int /*previous
                 parametersSet &= ~STOP_EXTENSION_SET;
             }
             break;
+        case SUMO_ATTR_TRIGGERED:
+            if (value) {
+                parametersSet |= STOP_TRIGGER_SET;
+            } else {
+                parametersSet &= ~STOP_TRIGGER_SET;
+            }
+            break;
         case SUMO_ATTR_EXPECTED:
             if (value) {
                 parametersSet |= STOP_TRIGGER_SET;
             } else {
                 parametersSet &= ~STOP_TRIGGER_SET;
+            }
+            break;
+        case SUMO_ATTR_CONTAINER_TRIGGERED:
+            if (value) {
+                parametersSet |= STOP_CONTAINER_TRIGGER_SET;
+            } else {
+                parametersSet &= ~STOP_CONTAINER_TRIGGER_SET;
             }
             break;
         case SUMO_ATTR_EXPECTED_CONTAINERS:
@@ -1306,6 +1310,13 @@ GNEStop::toogleAttribute(SumoXMLAttr key, const bool value, const int /*previous
                 parametersSet |= STOP_PARKING_SET;
             } else {
                 parametersSet &= ~STOP_PARKING_SET;
+            }
+            break;
+        case SUMO_ATTR_POSITION_LAT:
+            if (value) {
+                parametersSet |= STOP_POSLAT_SET;
+            } else {
+                parametersSet &= ~STOP_POSLAT_SET;
             }
             break;
         default:
