@@ -791,6 +791,9 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
         veh.rememberParkingAreaScore(destParkArea, "occupied");
         veh.rememberBlockedParkingArea(destParkArea);
 
+        const SUMOTime parkingMemory = TIME2STEPS(getWeight(veh, "parking.memory", 600));
+        const double parkingFrustration = getWeight(veh, "parking.frustration", 100);
+        const double parkingKnowledge = getWeight(veh, "parking.knowledge", 0);
 
         for (int i = 0; i < (int)parks.size(); ++i) {
             MSParkingArea* pa = parks[i].first;
@@ -798,12 +801,12 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
             // current destination must be visible at this point
             const bool visible = parks[i].second || (pa == destParkArea && destVisible);
             double paOccupancy = pa->getOccupancy();
-            if (!visible) {
-                const double minOccupancy = MIN2((double)pa->getCapacity() - NUMERICAL_EPS, (veh.getNumberParkingReroutes() * pa->getCapacity() / getWeight(veh, "parking.frustration", 100)));
+            if (!visible && (parkingKnowledge == 0 || parkingKnowledge < RandHelper::rand(veh.getRNG()))) {
+                const double minOccupancy = MIN2((double)pa->getCapacity() - NUMERICAL_EPS, (veh.getNumberParkingReroutes() * pa->getCapacity() / parkingFrustration));
                 paOccupancy = RandHelper::rand(minOccupancy, (double)pa->getCapacity());
                 // previously visited?
                 SUMOTime blockedTime = veh.sawBlockedParkingArea(pa);
-                if (blockedTime >= 0 && SIMSTEP - blockedTime < TIME2STEPS(getWeight(veh, "parking.memory", 600))) {
+                if (blockedTime >= 0 && SIMSTEP - blockedTime < parkingMemory) {
                     // assume it's still occupied
                     paOccupancy = pa->getCapacity();
                     blockedTimes.push_back(std::make_tuple(blockedTime, pa, i));
