@@ -38,8 +38,11 @@ public:
     /// @brief constructor used for stops over stoppingPlaces
     GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEAdditional* stoppingPlace, const SUMOVehicleParameter::Stop& stopParameter);
 
-    /// @brief constructor used for stops over lanes
+    /// @brief constructor used for stops over lane (only for vehicle/route stops)
     GNEStop(GNENet* net, GNEDemandElement* stopParent, GNELane* lane, const SUMOVehicleParameter::Stop& stopParameter);
+
+    /// @brief constructor used for stops over edge (only for person/container stops)
+    GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEEdge* edge, const SUMOVehicleParameter::Stop& stopParameter);
 
     /// @brief destructor
     ~GNEStop();
