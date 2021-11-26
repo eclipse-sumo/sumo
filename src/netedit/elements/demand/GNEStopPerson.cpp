@@ -511,60 +511,35 @@ GNEStopPerson::isValid(SumoXMLAttr key, const std::string& value) {
 
 void
 GNEStopPerson::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
-/*
-    // obtain a copy of parameter sets
-    int newParametersSet = parametersSet;
-    // modify parametersSetCopy depending of attr
     switch (key) {
         case SUMO_ATTR_DURATION:
-            newParametersSet |= STOP_DURATION_SET;
-            break;
-        case SUMO_ATTR_UNTIL:
-            newParametersSet |= STOP_UNTIL_SET;
-            break;
-        default:
-            break;
-    }
-    // add GNEChange_EnableAttribute
-    undoList->add(new GNEChange_EnableAttribute(this, parametersSet, newParametersSet), true);
-    // modify parametersSetCopy depending of attr
-    switch (key) {
-        case SUMO_ATTR_DURATION:
-            undoList->changeAttribute(new GNEChange_Attribute(this, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
-            break;
         case SUMO_ATTR_UNTIL:
         case SUMO_ATTR_EXTENSION:
-            undoList->changeAttribute(new GNEChange_Attribute(this, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
+        case SUMO_ATTR_EXPECTED:
+        case SUMO_ATTR_EXPECTED_CONTAINERS:
+        case SUMO_ATTR_PARKING:
+            undoList->add(new GNEChange_EnableAttribute(this, key, true));
             break;
         default:
-            break;
-    }
-*/
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+        }
 }
 
 
 void
 GNEStopPerson::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
-/*
-    // obtain a copy of parameter sets
-    int newParametersSet = parametersSet;
-    // modify parametersSetCopy depending of attr
     switch (key) {
         case SUMO_ATTR_DURATION:
-            newParametersSet &= ~STOP_DURATION_SET;
-            break;
         case SUMO_ATTR_UNTIL:
-            newParametersSet &= ~STOP_UNTIL_SET;
-            break;
         case SUMO_ATTR_EXTENSION:
-            newParametersSet &= ~STOP_EXTENSION_SET;
+        case SUMO_ATTR_EXPECTED:
+        case SUMO_ATTR_EXPECTED_CONTAINERS:
+        case SUMO_ATTR_PARKING:
+            undoList->add(new GNEChange_EnableAttribute(this, key, false));
             break;
         default:
-            break;
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    // add GNEChange_EnableAttribute
-    undoList->add(new GNEChange_EnableAttribute(this, parametersSet, newParametersSet), true);
-*/
 }
 
 
@@ -754,10 +729,53 @@ GNEStopPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEStopPerson::toogleAttribute(SumoXMLAttr key, const bool value, const int previousParameters) {
-/*
-    parametersSet = enabledAttributes;
-*/
+GNEStopPerson::toogleAttribute(SumoXMLAttr key, const bool value, const int /*previousParameters*/) {
+    switch (key) {
+        case SUMO_ATTR_DURATION:
+            if (value) {
+                parametersSet |= STOP_DURATION_SET;
+            } else {
+                parametersSet &= ~STOP_DURATION_SET;
+            }
+            break;
+        case SUMO_ATTR_UNTIL:
+            if (value) {
+                parametersSet |= STOP_UNTIL_SET;
+            } else {
+                parametersSet &= ~STOP_UNTIL_SET;
+            }
+            break;
+        case SUMO_ATTR_EXTENSION:
+            if (value) {
+                parametersSet |= STOP_EXTENSION_SET;
+            } else {
+                parametersSet &= ~STOP_EXTENSION_SET;
+            }
+            break;
+        case SUMO_ATTR_EXPECTED:
+            if (value) {
+                parametersSet |= STOP_TRIGGER_SET;
+            } else {
+                parametersSet &= ~STOP_TRIGGER_SET;
+            }
+            break;
+        case SUMO_ATTR_EXPECTED_CONTAINERS:
+            if (value) {
+                parametersSet |= STOP_CONTAINER_TRIGGER_SET;
+            } else {
+                parametersSet &= ~STOP_CONTAINER_TRIGGER_SET;
+            }
+            break;
+        case SUMO_ATTR_PARKING:
+            if (value) {
+                parametersSet |= STOP_PARKING_SET;
+            } else {
+                parametersSet &= ~STOP_PARKING_SET;
+            }
+            break;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 
