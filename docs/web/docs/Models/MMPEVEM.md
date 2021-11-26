@@ -24,35 +24,35 @@ To utilise MMPEVEM, set `emissionClass="MMPEVEM"` in the `vType` definitions of
 the vehicles you are interested in. Although default parameters are available,
 it is strongly advised to explicitly define *all* the model parameters listed
 below and to make sure that they are consistent. Failing to do so may lead to
-implausible operating points (cf. [Output]{#output}) which skew the overall
+implausible operating points (cf. [Output](#output)) which skew the overall
 energy consumption.
 
 
 ## Model Parameters
 
-MMPEVEM shares a lot of [SUMO's native electric vehicle parameters](Electric.md
-#defining_electric_vehicles) and introduces only a couple of new ones. You can
-find exemplary vehicle type definitions at
-`{SUMO_HOME}/data/emissions/MMPEVEM`[^1].
+MMPEVEM shares a lot of
+[SUMO's native electric vehicle parameters](Electric.md#defining_electric_vehicles)
+and introduces only a couple of new ones. You can find exemplary vehicle
+type definitions at `{SUMO_HOME}/data/emissions/MMPEVEM`[^1].
 
-| Key                       | Value Type   | Default                             | Description                                                           |
-|---------------------------|--------------|-------------------------------------|-----------------------------------------------------------------------|
-| vehicleMass               | float (>= 0) | 1000.0 [kg]                         | Mass of the vehicle                                                   |
-| wheelRadius               | float (>= 0) | 0.3588 [m]                          | Wheel radius                                                          |
-| internalMomentOfInertia   | float (>= 0) | 0.01 [kg * m^2]                     | Internal components' moment of inertia                                |
-| rollDragCoefficient       | float (>= 0) | 0.01 [1]                            | Rolling resistance coefficient                                        |
-| airDragCoefficient        | float (>= 0) | 0.6 [1]                             | Air drag coefficient                                                  |
-| frontSurfaceArea          | float (>= 0) | 5.0 [m^2]                           | Cross-sectional area of the front of the vehicle                      |
-| gearRatio                 | float (>= 0) | 10.0 [1]                            | Combined ratio of the single reduction gear and the differential      |
-| gearEfficiency            | float (>= 0) | 0.96 [1]                            | Combined efficiency of the single reduction gear and the differential |
-| maximumTorque             | float (>= 0) | 310.0 [Nm]                          | Maximum generative torque of the electric motor                       |
-| maximumPower              | float (>= 0) | 107000.0 [W]                        | Maximum power of the electric motor                                   |
-| maximumRecuperationTorque | float (>= 0) | 95.5 [Nm]                           | Maximum recuperation torque of the electric motor                     |
-| maximumRecuperationPower  | float (>= 0) | 42800.0 [W]                         | Maximum recuperation power of the electric motor                      |
-| internalBatteryResistance | float (>= 0) | 0.1142 [Ohm]                        | Internal battery resistance                                           |
-| nominalBatteryVoltage     | float (>= 0) | 396.0 [V]                           | Nominal battery voltage                                               |
-| constantPowerIntake       | float        | 100.0 [W]                           | Constant power consumption of auxiliary devices                       |
-| powerLossMap              | string       | `2,1|-1e9,1e9;-1e9,1e9|0,0,0,0`[^2] | String representation of the electric motor's power loss map          |
+| Key                       | Value Type   | Default                               | Description                                                           |
+|---------------------------|--------------|---------------------------------------|-----------------------------------------------------------------------|
+| vehicleMass               | float (>= 0) | 1000.0 [kg]                           | Mass of the vehicle                                                   |
+| wheelRadius               | float (>= 0) | 0.3588 [m]                            | Wheel radius                                                          |
+| internalMomentOfInertia   | float (>= 0) | 0.01 [kg * m^2]                       | Internal components' moment of inertia                                |
+| rollDragCoefficient       | float (>= 0) | 0.01 [1]                              | Rolling resistance coefficient                                        |
+| airDragCoefficient        | float (>= 0) | 0.6 [1]                               | Air drag coefficient                                                  |
+| frontSurfaceArea          | float (>= 0) | 5.0 [m^2]                             | Cross-sectional area of the front of the vehicle                      |
+| gearRatio                 | float (>= 0) | 10.0 [1]                              | Combined ratio of the single reduction gear and the differential      |
+| gearEfficiency            | float (>= 0) | 0.96 [1]                              | Combined efficiency of the single reduction gear and the differential |
+| maximumTorque             | float (>= 0) | 310.0 [Nm]                            | Maximum generative torque of the electric motor                       |
+| maximumPower              | float (>= 0) | 107000.0 [W]                          | Maximum power of the electric motor                                   |
+| maximumRecuperationTorque | float (>= 0) | 95.5 [Nm]                             | Maximum recuperation torque of the electric motor                     |
+| maximumRecuperationPower  | float (>= 0) | 42800.0 [W]                           | Maximum recuperation power of the electric motor                      |
+| internalBatteryResistance | float (>= 0) | 0.1142 [Ohm]                          | Internal battery resistance                                           |
+| nominalBatteryVoltage     | float (>= 0) | 396.0 [V]                             | Nominal battery voltage                                               |
+| constantPowerIntake       | float        | 100.0 [W]                             | Constant power consumption of auxiliary devices                       |
+| powerLossMap              | string       | `2,1\|-1e9,1e9;-1e9,1e9\|0,0,0,0`[^2] | String representation of the electric motor's power loss map          |
 
 
 [^1]: For the sake of compatibility, the XMLs in
@@ -67,12 +67,12 @@ The power loss map describes the electric motor's power loss [W] as a function
 of motor speed [rpm] and torque [Nm]. It is passed to the model using a custom
 string format which shall be explicated using the following mock power loss map:
 
-        |     0 rpm |  4000 rpm |  8000 rpm |
---------|-----------|-----------|-----------|
--100 Nm |   826.7 W |  4295.6 W |           |
-   0 Nm |     0.0 W |  2162.9 W |  6137.4 W |
- 100 Nm |   826.7 W |  4295.6 W |  9317.5 W |
- 200 Nm |  3297.4 W |  8361.2 W | 14988.6 W |
+|         |     0 rpm |  4000 rpm |  8000 rpm |
+|- -------|-----------|-----------|-----------|
+| -100 Nm |   826.7 W |  4295.6 W |           |
+|    0 Nm |     0.0 W |  2162.9 W |  6137.4 W |
+|  100 Nm |   826.7 W |  4295.6 W |  9317.5 W |
+|  200 Nm |  3297.4 W |  8361.2 W | 14988.6 W |
 
 Its string representation is `2,1|0,4000,8000;-100,0,100,200|826.7,4295.6,nan,
 0.0,2162.9,6137.4,826.7,4295.6,9317.5,3297.4,8361.2,14988.6` and consists of
@@ -91,9 +91,9 @@ three parts delimited by the `|` character:
 ### Tools
 
 For permanent magnet synchronous machines (PMSMs), power loss maps can be
-generated with the [Electric Machine Design Tool]
-{https://github.com/TUMFTM/Electric_Machine_Design} developed by
-Kalt et al.[^3] and converted into the expected format using
+generated with the
+[Electric Machine Design Tool]{https://github.com/TUMFTM/Electric_Machine_Design}
+developed by Kalt et al.[^3] and converted into the expected format using
 `{SUMO_HOME}/tools/contributed/convertMapMat2XML.M`. The tool and the conversion
 script require MATLAB(R) 2017 or newer.
 
