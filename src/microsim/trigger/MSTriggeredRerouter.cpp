@@ -911,7 +911,11 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
             for (ParkingParamMap_t::iterator pc = parkValues.begin(); pc != parkValues.end(); ++pc) {
                 parkingCost += weights[pc->first] * pc->second;
             }
-            veh.rememberParkingAreaScore(it->first, toString(parkingCost));
+            veh.rememberParkingAreaScore(it->first, toString(parkingCost)
+                    //+ " rfs=" + toString(parkValues["relfreespace"])
+                    //+ " dt=" + toString(parkValues["distanceto"])
+                    //+ " p=" + toString(parkValues["probability"])
+                    );
 
             // get the parking area with minimum cost
             if (nearParkArea == nullptr || parkingCost < minParkingCost) {
@@ -1026,8 +1030,16 @@ MSTriggeredRerouter::addParkValues(SUMOVehicle& veh, double brakeGap, bool newDe
             MSRoute routeToPark(route.getID() + "!topark#1", edgesToPark, false, &c == &RGBColor::DEFAULT_COLOR ? nullptr : new RGBColor(c), route.getStops());
 
             // The distance from the current edge to the new parking area
-            parkValues["distanceto"] = routeToPark.getDistanceBetween(veh.getPositionOnLane(), pa->getBeginLanePosition(),
+            double toPos = pa->getBeginLanePosition();
+            if (&pa->getLane().getEdge() == &veh.getLane()->getEdge()) {
+                toPos = MAX2(veh.getPositionOnLane(), toPos);
+            }
+            parkValues["distanceto"] = routeToPark.getDistanceBetween(veh.getPositionOnLane(), toPos,
                     routeToPark.begin(), routeToPark.end() - 1, includeInternalLengths);
+
+            if (parkValues["distanceto"] == std::numeric_limits<double>::max()) {
+                WRITE_WARNING("Invalid distance computation for vehicle '" + veh.getID() + "' to parkingArea '" + pa->getID() + "' at time " + time2string(SIMTIME));
+            }
 
             //std::cout << SIMTIME << " veh=" << veh.getID() << " candidate=" << pa->getID()
             //    << " distanceTo=" << parkValues["distanceto"]
@@ -1036,7 +1048,7 @@ MSTriggeredRerouter::addParkValues(SUMOVehicle& veh, double brakeGap, bool newDe
             //    << " fromPos=" << veh.getPositionOnLane()
             //    << " tPos=" << pa->getBeginLanePosition()
             //    << "\n";
-            const double distToEnd = parkValues["distanceto"] - pa->getBeginLanePosition() + pa->getEndLanePosition();
+            const double distToEnd = parkValues["distanceto"] - toPos + pa->getEndLanePosition();
             if (distToEnd < brakeGap) {
                 veh.rememberParkingAreaScore(pa, "tooClose");
 #ifdef DEBUG_PARKING
@@ -1069,6 +1081,9 @@ MSTriggeredRerouter::addParkValues(SUMOVehicle& veh, double brakeGap, bool newDe
                 // The distance from the new parking area to the end of the route
                 parkValues["distancefrom"] = routeFromPark.getDistanceBetween(pa->getBeginLanePosition(), routeFromPark.getLastEdge()->getLength(),
                         routeFromPark.begin(), routeFromPark.end() - 1, includeInternalLengths);
+                if (parkValues["distancefrom"] == std::numeric_limits<double>::max()) {
+                    WRITE_WARNING("Invalid distance computation for vehicle '" + veh.getID() + "' from parkingArea '" + pa->getID() + "' at time " + time2string(SIMTIME));
+                }
                 // The time to reach this area
                 parkValues["timefrom"] = router.recomputeCosts(edgesFromPark, &veh, MSNet::getInstance()->getCurrentTimeStep());
                 newEdges.insert(newEdges.end(), edgesFromPark.begin() + 1, edgesFromPark.end());
