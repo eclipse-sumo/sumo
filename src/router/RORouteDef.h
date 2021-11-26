@@ -115,7 +115,7 @@ public:
      * @return The same device for further usage
      */
     OutputDevice& writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
-                                     bool asAlternatives, bool withExitTimes) const;
+                                     bool asAlternatives, bool withExitTimes, bool withCost) const;
 
 
     /** @brief Returns a deep copy of the route definition.

@@ -319,7 +319,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                     od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
                     for (RORoute* const r : c->pathsVector) {
                         r->setCosts(router->recomputeCosts(r->getEdgeVector(), &defaultVehicle, begin));
-                        r->writeXMLDefinition(od, nullptr, true, false);
+                        r->writeXMLDefinition(od, nullptr, true, true, false);
                     }
                     od.closeTag();
                     od.closeTag();
@@ -337,7 +337,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                             od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
                             for (RORoute* const r : c->pathsVector) {
                                 r->setCosts(router->recomputeCosts(r->getEdgeVector(), &defaultVehicle, begin));
-                                r->writeXMLDefinition(od, nullptr, true, false);
+                                r->writeXMLDefinition(od, nullptr, true, true, false);
                             }
                             od.closeTag();
                             if (!tazParamKeys.empty()) {

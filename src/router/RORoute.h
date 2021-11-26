@@ -168,7 +168,8 @@ public:
 
     OutputDevice&
     writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
-                       const bool withCosts, const bool withExitTimes, const std::string& id = "") const;
+                       const bool withCosts, const bool withProb,
+                       const bool withExitTimes, const std::string& id = "") const;
 
     /** @brief add additional vehicles/probability
      */
