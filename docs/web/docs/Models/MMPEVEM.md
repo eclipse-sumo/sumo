@@ -74,7 +74,7 @@ string format which shall be explicated using the following mock power loss map:
 |  100 Nm |   826.7 W |  4295.6 W |  9317.5 W |
 |  200 Nm |  3297.4 W |  8361.2 W | 14988.6 W |
 
-Its string representation is `2,1|0,4000,8000;-100,0,100,200|826.7,4295.6,nan,
+Its string representation is `2,1|0,4000,8000;-100,0,100,200|826.7,4295.6,nan,\
 0.0,2162.9,6137.4,826.7,4295.6,9317.5,3297.4,8361.2,14988.6` and consists of
 three parts delimited by the `|` character:
 - The first part signifies that it maps from `R^2` to `R^1` and does not change
@@ -132,7 +132,7 @@ from `{SUMO_HOME}/data/emissions/MMPEVEM/SUV.xml`.
 
 
 
-# Output (#output)
+# Output
 
 TODO
 
