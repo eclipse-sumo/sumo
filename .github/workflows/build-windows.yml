@@ -99,9 +99,6 @@ jobs:
         cmake -DFMI=ON .. -GNinja -DCHECK_OPTIONAL_LIBS=true
         cmake --build . --config Release
 
-#    - name: "Print compiler cache stats"
-#      run: sumolibraries/sccache*/sccache -s
-
     - name: Building SUMO Wheels
       if: matrix.build-type == 'wheel'
       run: |
