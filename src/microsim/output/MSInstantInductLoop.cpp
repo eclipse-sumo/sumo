@@ -106,15 +106,17 @@ MSInstantInductLoop::notifyMove(SUMOTrafficObject& veh, double oldPos,
 
 void
 MSInstantInductLoop::write(const char* state, double t, SUMOTrafficObject& veh, double speed, const char* add, double addValue) {
-    myOutputDevice.openTag("instantOut").writeAttr(
-        "id", getID()).writeAttr("time", toString(t)).writeAttr("state", state).writeAttr(
-            "vehID", veh.getID()).writeAttr("speed", toString(speed)).writeAttr(
-                "length", toString(veh.getVehicleType().getLength())).writeAttr(
-                    "type", veh.getVehicleType().getID());
-    if (add != nullptr) {
-        myOutputDevice.writeAttr(add, toString(addValue));
+    if (!myOutputDevice.isNull()) {
+        myOutputDevice.openTag("instantOut").writeAttr(
+            "id", getID()).writeAttr("time", toString(t)).writeAttr("state", state).writeAttr(
+                "vehID", veh.getID()).writeAttr("speed", toString(speed)).writeAttr(
+                    "length", toString(veh.getVehicleType().getLength())).writeAttr(
+                        "type", veh.getVehicleType().getID());
+        if (add != nullptr) {
+            myOutputDevice.writeAttr(add, toString(addValue));
+        }
+        myOutputDevice.closeTag();
     }
-    myOutputDevice.closeTag();
 }
 
 
