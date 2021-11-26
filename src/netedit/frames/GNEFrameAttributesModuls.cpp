@@ -528,22 +528,30 @@ GNEFrameAttributesModuls::AttributesCreator::getAttributesAndValues(CommonXMLStr
             if (rowEnabled && (includeAll || hasDefaultStaticValue || isFlowDefinitionAttribute || isActivatableAttribute)) {
                 // add attribute depending of type
                 if (attrProperties.isInt()) {
-                    baseObject->addIntAttribute(attrProperties.getAttr(), GNEAttributeCarrier::parse<int>(row->getValue()));
+                    const int intValue = GNEAttributeCarrier::canParse<int>(row->getValue())? GNEAttributeCarrier::parse<int>(row->getValue()) : GNEAttributeCarrier::parse<int>(attrProperties.getDefaultValue());
+                    baseObject->addIntAttribute(attrProperties.getAttr(), intValue);
                 } else if (attrProperties.isFloat()) {
-                    baseObject->addDoubleAttribute(attrProperties.getAttr(), GNEAttributeCarrier::parse<double>(row->getValue()));
+                    const double doubleValue = GNEAttributeCarrier::canParse<double>(row->getValue())? GNEAttributeCarrier::parse<double>(row->getValue()) : GNEAttributeCarrier::parse<double>(attrProperties.getDefaultValue());
+                    baseObject->addDoubleAttribute(attrProperties.getAttr(), doubleValue);
                 } else if (attrProperties.isBool()) {
-                    baseObject->addBoolAttribute(attrProperties.getAttr(), GNEAttributeCarrier::parse<bool>(row->getValue()));
+                    const bool boolValue = GNEAttributeCarrier::canParse<bool>(row->getValue())? GNEAttributeCarrier::parse<bool>(row->getValue()) : GNEAttributeCarrier::parse<bool>(attrProperties.getDefaultValue());
+                    baseObject->addBoolAttribute(attrProperties.getAttr(), boolValue);
                 } else if (attrProperties.isposition()) {
-                    baseObject->addPositionAttribute(attrProperties.getAttr(), GNEAttributeCarrier::parse<Position>(row->getValue()));
+                    const Position positionValue = GNEAttributeCarrier::canParse<Position>(row->getValue())? GNEAttributeCarrier::parse<Position>(row->getValue()) : GNEAttributeCarrier::parse<Position>(attrProperties.getDefaultValue());
+                    baseObject->addPositionAttribute(attrProperties.getAttr(), positionValue);
                 } else if (attrProperties.isSUMOTime()) {
-                    baseObject->addTimeAttribute(attrProperties.getAttr(), GNEAttributeCarrier::parse<SUMOTime>(row->getValue()));
+                    const SUMOTime timeValue = GNEAttributeCarrier::canParse<SUMOTime>(row->getValue())? GNEAttributeCarrier::parse<SUMOTime>(row->getValue()) : GNEAttributeCarrier::parse<SUMOTime>(attrProperties.getDefaultValue());
+                    baseObject->addTimeAttribute(attrProperties.getAttr(), timeValue);
                 } else if (attrProperties.isColor()) {
-                    baseObject->addColorAttribute(attrProperties.getAttr(), GNEAttributeCarrier::parse<RGBColor>(row->getValue()));
+                    const RGBColor colorValue = GNEAttributeCarrier::canParse<RGBColor>(row->getValue())? GNEAttributeCarrier::parse<RGBColor>(row->getValue()) : GNEAttributeCarrier::parse<RGBColor>(attrProperties.getDefaultValue());
+                    baseObject->addColorAttribute(attrProperties.getAttr(), colorValue);
                 } else if (attrProperties.isList()) {
                     if (attrProperties.isposition()) {
-                        baseObject->addPositionVectorAttribute(attrProperties.getAttr(), GNEAttributeCarrier::parse<PositionVector>(row->getValue()));
+                        const PositionVector positionVectorValue = GNEAttributeCarrier::canParse<PositionVector>(row->getValue())? GNEAttributeCarrier::parse<PositionVector>(row->getValue()) : GNEAttributeCarrier::parse<PositionVector>(attrProperties.getDefaultValue());
+                        baseObject->addPositionVectorAttribute(attrProperties.getAttr(), positionVectorValue);
                     } else {
-                        baseObject->addStringListAttribute(attrProperties.getAttr(), GNEAttributeCarrier::parse<std::vector<std::string> >(row->getValue()));
+                        const std::vector<std::string> stringVectorValue = GNEAttributeCarrier::canParse<std::vector<std::string> >(row->getValue())? GNEAttributeCarrier::parse<std::vector<std::string> >(row->getValue()) : GNEAttributeCarrier::parse<std::vector<std::string> >(attrProperties.getDefaultValue());
+                        baseObject->addStringListAttribute(attrProperties.getAttr(), stringVectorValue);
                     }
                 } else {
                     baseObject->addStringAttribute(attrProperties.getAttr(), row->getValue());
