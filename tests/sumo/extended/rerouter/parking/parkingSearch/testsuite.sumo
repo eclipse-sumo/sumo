@@ -4,6 +4,9 @@ default
 no_memory
 probability
 
+# intuitive knowledge of occupancy
+knowledge_1
+
 # always remember all visibly occupied parking areas along the way
 active_memory
 
