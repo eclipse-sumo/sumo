@@ -213,10 +213,10 @@ protected:
     const GNELane* getFirstAllowedLane() const;
 
     /// @brief draw stopPerson over lane
-    void drawStopPersonOverLane(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor& stopColor) const;
+    void drawStopPersonOverEdge(const GUIVisualizationSettings& s, const double exaggeration) const;
 
     /// @brief draw stopPerson over busStop
-    void drawStopPersonOverBusStop(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor& stopColor) const;
+    void drawStopPersonOverBusStop(const GUIVisualizationSettings& s, const double exaggeration) const;
 
 private:
     /// @brief method for setting the attribute and nothing else

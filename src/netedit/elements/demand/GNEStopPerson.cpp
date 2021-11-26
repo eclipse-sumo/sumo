@@ -247,8 +247,6 @@ GNEStopPerson::drawGL(const GUIVisualizationSettings& s) const {
     if (drawPersonPlan()) {
         // Obtain exaggeration of the draw
         const double exaggeration = getExaggeration(s);
-        // declare stop color
-        const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stopColor;
         // Start drawing adding an gl identificator
         GLHelper::pushName(getGlID());
         // Add layer matrix matrix
@@ -257,9 +255,9 @@ GNEStopPerson::drawGL(const GUIVisualizationSettings& s) const {
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
         // check if draw stopPerson over busStop oder over lane
         if (getParentAdditionals().size() > 0) {
-            drawStopPersonOverBusStop(s, exaggeration, stopColor);
+            drawStopPersonOverBusStop(s, exaggeration);
         } else {
-            drawStopPersonOverLane(s, exaggeration, stopColor);
+            drawStopPersonOverEdge(s, exaggeration);
         }
         // pop layer matrix
         GLHelper::popMatrix();
@@ -590,7 +588,9 @@ GNEStopPerson::getFirstAllowedLane() const {
 
 
 void
-GNEStopPerson::drawStopPersonOverLane(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor& stopColor) const {
+GNEStopPerson::drawStopPersonOverEdge(const GUIVisualizationSettings& s, const double exaggeration) const {
+    // declare stop color
+    const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stopColor;
     // declare central line color
     const RGBColor centralLineColor = drawUsingSelectColor() ? stopColor.changedBrightness(-32) : RGBColor::WHITE;
     // set base color
@@ -635,7 +635,9 @@ GNEStopPerson::drawStopPersonOverLane(const GUIVisualizationSettings& s, const d
 
 
 void
-GNEStopPerson::drawStopPersonOverBusStop(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor& stopColor) const {
+GNEStopPerson::drawStopPersonOverBusStop(const GUIVisualizationSettings& s, const double exaggeration) const {
+    // declare stop color
+    const RGBColor stopColor = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : s.colorSettings.stopColor;
     // set base color
     GLHelper::setColor(stopColor);
     // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
