@@ -1,4 +1,4 @@
-Eclipse SUMO duarouter Version v1_10_0+1309-8c72549c7d7
+Eclipse SUMO duarouter Version v1_11_0+0127-8e863dbaffd
  Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Shortest path router and DUE computer for the microscopic, multi-modal traffic
  simulation SUMO.
@@ -61,6 +61,8 @@ Output Options:
   --write-trips.geo                   Write trips with geo-coordinates
   --write-trips.junctions             Write trips with fromJunction and
                                        toJunction
+  --write-costs                       Include the cost attribute in route
+                                       output
   --exit-times                        Write exit times (weights) for each edge
   --route-length                      Include total route length in the output
 
