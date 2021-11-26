@@ -19,7 +19,7 @@ changed, the parameter which must be given are also shown in the table.
 
 | Variable | ValueType | Description | [Python Method](../TraCI/Interfacing_TraCI_from_Python.md) |
 |---------------------------|----------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------|
-| flow (0x18) | compound (string, double, double, double, double, string, string, string, string), see below | Set the houlryflow for a given route on the given lane in an given interval, defined with begin and end. The repsective speed, vehicle type and departure speed also need to given. | [setFlow](https://sumo.dlr.de/pydoc/traci._calibrator.html#CalibratorDomain-setFlow) |
+| flow (0x18) | compound (string, double, double, double, double, string, string, string, string), see below | Set the hourly flow and speed at the calibrator location in a given time range. Missing traffic will be added with the given routeID (or routeDistribution ID) and type. DepartLane and departSpeed default to "first" and "max" but can optionally be set. For details on calibrating only flow, speed or type individually, see [Calibrator](../Simulation/Calibrator.md). | [setFlow](https://sumo.dlr.de/pydoc/traci._calibrator.html#CalibratorDomain-setFlow) |
 
 # compound message details
 
