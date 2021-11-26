@@ -263,7 +263,7 @@ GNEFrameModuls::TagSelector::setCurrentTag(SumoXMLTag newTag, const bool notifyF
     // first reset myCurrentTemplateAC
     myCurrentTemplateAC = nullptr;
     // iterate over all myTagsMatchBox
-    for (int i = 0; i < myACTemplates.size(); i++) {
+    for (int i = 0; i < (int)myACTemplates.size(); i++) {
         if (myACTemplates.at(i)->getAC() && (myACTemplates.at(i)->getAC()->getTagProperty().getTag() == newTag)) {
             // set current template and currentItem
             myCurrentTemplateAC = myACTemplates.at(i)->getAC();
@@ -289,7 +289,7 @@ GNEFrameModuls::TagSelector::refreshTagSelector() {
 long
 GNEFrameModuls::TagSelector::onCmdSelectTag(FXObject*, FXSelector, void*) {
     // iterate over all myTagsMatchBox
-    for (int i = 0; i < myACTemplates.size(); i++) {
+    for (int i = 0; i < (int)myACTemplates.size(); i++) {
         if (myACTemplates.at(i)->getAC() && myACTemplates.at(i)->getAC()->getTagProperty().getTagStr() == myTagsMatchBox->getText().text()) {
             // set templateAC and currentItem
             myCurrentTemplateAC = myACTemplates.at(i)->getAC();
