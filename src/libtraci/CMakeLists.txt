@@ -37,7 +37,7 @@ set(libtracistatic_STAT_SRCS
 )
 
 add_library(libtracistatic STATIC ${libtracistatic_STAT_SRCS})
-add_dependencies(libtracistatic generate-version-h)
+add_dependencies(libtracistatic generate-version-h install_dll)
 set_property(TARGET libtracistatic PROPERTY FOLDER "libtraci")
 
 if (MSVC)

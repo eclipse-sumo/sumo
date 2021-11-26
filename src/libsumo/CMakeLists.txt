@@ -63,7 +63,7 @@ set(libsumostatic_STAT_SRCS
 )
 
 add_library(libsumostatic STATIC ${libsumostatic_STAT_SRCS})
-add_dependencies(libsumostatic generate-version-h)
+add_dependencies(libsumostatic generate-version-h install_dll)
 set_property(TARGET libsumostatic PROPERTY FOLDER "libsumo")
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/bin)
