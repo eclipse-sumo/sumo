@@ -68,7 +68,7 @@ of motor speed [rpm] and torque [Nm]. It is passed to the model using a custom
 string format which shall be explicated using the following mock power loss map:
 
 |         |     0 rpm |  4000 rpm |  8000 rpm |
-|- -------|-----------|-----------|-----------|
+|---------|-----------|-----------|-----------|
 | -100 Nm |   826.7 W |  4295.6 W |           |
 |    0 Nm |     0.0 W |  2162.9 W |  6137.4 W |
 |  100 Nm |   826.7 W |  4295.6 W |  9317.5 W |
@@ -92,7 +92,7 @@ three parts delimited by the `|` character:
 
 For permanent magnet synchronous machines (PMSMs), power loss maps can be
 generated with the
-[Electric Machine Design Tool]{https://github.com/TUMFTM/Electric_Machine_Design}
+[Electric Machine Design Tool](https://github.com/TUMFTM/Electric_Machine_Design)
 developed by Kalt et al.[^3] and converted into the expected format using
 `{SUMO_HOME}/tools/contributed/convertMapMat2XML.M`. The tool and the conversion
 script require MATLAB(R) 2017 or newer.
@@ -101,7 +101,7 @@ script require MATLAB(R) 2017 or newer.
   Tool for Permanent Magnet Synchronous Machines," 2019 Fourteenth International
   Conference on Ecological Vehicles and Renewable Energies (EVER), 2019,
   pp. 1-7, doi:
-  10.1109/EVER.2019.8813601]{https://doi.org/10.1109/EVER.2019.8813601}
+  10.1109/EVER.2019.8813601](https://doi.org/10.1109/EVER.2019.8813601)
 
 
 
