@@ -1517,7 +1517,7 @@ GNERouteHandler::transformToContainerFlow(GNEContainer* /*originalContainer*/) {
 
 void
 GNERouteHandler::setFlowParameters(const SumoXMLAttr attribute, int& parameters) {
-    // modify parametersSetCopy depending of given Flow attribute
+    // modify parameters depending of given Flow attribute
     switch (attribute) {
         case SUMO_ATTR_END: {
             // give more priority to end
@@ -1529,7 +1529,8 @@ GNERouteHandler::setFlowParameters(const SumoXMLAttr attribute, int& parameters)
             parameters |= VEHPARS_NUMBER_SET;
             break;
         case SUMO_ATTR_VEHSPERHOUR:
-        case SUMO_ATTR_PERSONSPERHOUR: {
+        case SUMO_ATTR_PERSONSPERHOUR:
+        case SUMO_ATTR_CONTAINERSPERHOUR: {
             // give more priority to end
             if ((parameters & VEHPARS_END_SET) && (parameters & VEHPARS_NUMBER_SET)) {
                 parameters = VEHPARS_END_SET;

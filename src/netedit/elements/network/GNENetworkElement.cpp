@@ -132,7 +132,7 @@ GNENetworkElement::getHierarchyName() const {
 
 
 void
-GNENetworkElement::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
+GNENetworkElement::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
     throw InvalidArgument("Nothing to enable");
 }
 

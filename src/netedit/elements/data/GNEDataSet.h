@@ -217,7 +217,7 @@ private:
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
-    void toogleAttribute(SumoXMLAttr key, const bool value);
+    void toogleAttribute(SumoXMLAttr key, const bool value, const int previousParameters);
 
     /// @brief check if a new GNEDataInterval with the given begin and end can be inserted in current GNEDataSet
     static bool checkNewInterval(const std::map<const double, GNEDataInterval*>& dataIntervalMap, const double newBegin, const double newEnd);

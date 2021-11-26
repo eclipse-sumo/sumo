@@ -369,7 +369,7 @@ GNEDataInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEDataInterval::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
+GNEDataInterval::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
     throw InvalidArgument("Nothing to enable");
 }
 

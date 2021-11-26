@@ -639,7 +639,7 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEWalk::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
+GNEWalk::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
     throw InvalidArgument("Nothing to enable");
 }
 

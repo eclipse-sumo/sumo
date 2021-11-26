@@ -397,7 +397,7 @@ GNEDataSet::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEDataSet::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
+GNEDataSet::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
     throw InvalidArgument("Nothing to enable");
 }
 

@@ -954,7 +954,7 @@ GNEAdditional::checkChildAdditionalRestriction() const {
 
 
 void
-GNEAdditional::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
+GNEAdditional::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
     throw InvalidArgument("Nothing to enable");
 }
 

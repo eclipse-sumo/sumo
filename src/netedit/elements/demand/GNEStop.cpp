@@ -648,6 +648,7 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
 
 void
 GNEStop::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
+/*
     // obtain a copy of parameter sets
     int newParametersSet = parametersSet;
     // modify parametersSetCopy depending of attr
@@ -687,11 +688,13 @@ GNEStop::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
         default:
             break;
     }
+*/
 }
 
 
 void
 GNEStop::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
+/*
     // obtain a copy of parameter sets
     int newParametersSet = parametersSet;
     // modify parametersSetCopy depending of attr
@@ -719,6 +722,7 @@ GNEStop::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
     }
     // add GNEChange_EnableAttribute
     undoList->add(new GNEChange_EnableAttribute(this, parametersSet, newParametersSet), true);
+*/
 }
 
 
@@ -927,7 +931,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEStop::toogleAttribute(SumoXMLAttr key, const bool value) {
+GNEStop::toogleAttribute(SumoXMLAttr key, const bool value, const int previousParameters) {
 /*
     parametersSet = enabledAttributes;
 */

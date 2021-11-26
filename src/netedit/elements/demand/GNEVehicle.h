@@ -351,7 +351,7 @@ private:
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
-    void toogleAttribute(SumoXMLAttr key, const bool value);
+    void toogleAttribute(SumoXMLAttr key, const bool value, const int previousParameters);
 
     /// @brief set move shape
     void setMoveShape(const GNEMoveResult& moveResult);

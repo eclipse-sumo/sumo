@@ -511,6 +511,7 @@ GNEStopPerson::isValid(SumoXMLAttr key, const std::string& value) {
 
 void
 GNEStopPerson::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
+/*
     // obtain a copy of parameter sets
     int newParametersSet = parametersSet;
     // modify parametersSetCopy depending of attr
@@ -538,11 +539,13 @@ GNEStopPerson::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
         default:
             break;
     }
+*/
 }
 
 
 void
 GNEStopPerson::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
+/*
     // obtain a copy of parameter sets
     int newParametersSet = parametersSet;
     // modify parametersSetCopy depending of attr
@@ -561,6 +564,7 @@ GNEStopPerson::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
     }
     // add GNEChange_EnableAttribute
     undoList->add(new GNEChange_EnableAttribute(this, parametersSet, newParametersSet), true);
+*/
 }
 
 
@@ -750,7 +754,7 @@ GNEStopPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEStopPerson::toogleAttribute(SumoXMLAttr key, const bool value) {
+GNEStopPerson::toogleAttribute(SumoXMLAttr key, const bool value, const int previousParameters) {
 /*
     parametersSet = enabledAttributes;
 */

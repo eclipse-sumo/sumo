@@ -541,7 +541,7 @@ GNETransport::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNETransport::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
+GNETransport::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
     throw InvalidArgument("Nothing to enable");
 }
 

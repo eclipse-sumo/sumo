@@ -678,12 +678,16 @@ GNEContainer::isValid(SumoXMLAttr key, const std::string& value) {
 
 void
 GNEContainer::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
-    // obtain a copy of parameter sets
-    int newParametersSet = parametersSet;
-    // modify newParametersSet
-    GNERouteHandler::setFlowParameters(key, newParametersSet);
-    // add GNEChange_EnableAttribute
-    undoList->add(new GNEChange_EnableAttribute(this, parametersSet, newParametersSet), true);
+    switch (key) {
+        case SUMO_ATTR_END:
+        case SUMO_ATTR_NUMBER:
+        case SUMO_ATTR_CONTAINERSPERHOUR:
+        case SUMO_ATTR_PERIOD:
+        case SUMO_ATTR_PROB:
+            undoList->add(new GNEChange_EnableAttribute(this, key, true, parametersSet), true);
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 
@@ -914,10 +918,12 @@ GNEContainer::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEContainer::toogleAttribute(SumoXMLAttr key, const bool value) {
-/*
-    parametersSet = enabledAttributes;
-*/
+GNEContainer::toogleAttribute(SumoXMLAttr key, const bool value, const int previousParameters) {
+    if (value) {
+        GNERouteHandler::setFlowParameters(key, parametersSet);
+    } else {
+        parametersSet = previousParameters;
+    }
 }
 
 

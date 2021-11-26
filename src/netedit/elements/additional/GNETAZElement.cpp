@@ -142,7 +142,7 @@ GNETAZElement::checkChildTAZElementRestriction() const {
 
 
 void 
-GNETAZElement::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/) {
+GNETAZElement::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
     throw InvalidArgument("Nothing to enable");
 }
 

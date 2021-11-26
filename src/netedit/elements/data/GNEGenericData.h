@@ -289,7 +289,7 @@ private:
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
     /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
-    virtual void toogleAttribute(SumoXMLAttr key, const bool value) = 0;
+    virtual void toogleAttribute(SumoXMLAttr key, const bool value, const int previousParameters) = 0;
 
     /// @brief Invalidated copy constructor.
     GNEGenericData(const GNEGenericData&) = delete;
