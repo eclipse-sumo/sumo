@@ -807,7 +807,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 } else if (stopParent->getTagProperty().isContainer()) {
                     stop = new GNEStopContainer(myNet, stopParent, stoppingPlace, stopParameters);
                 } else {
-                    stop = new GNEStop(stopTagType, myNet, stopParameters, stoppingPlace, stopParent);
+                    stop = new GNEStop(stopTagType, myNet, stopParent, stoppingPlace, stopParameters);
                 }
                 // add it depending of undoDemandElements
                 if (myUndoDemandElements) {
@@ -822,7 +822,7 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                 }
             } else if (lane) {
                 // create stop using stopParameters and lane (only for vehicles)
-                GNEDemandElement* stop = new GNEStop(myNet, stopParameters, lane, stopParent);
+                GNEDemandElement* stop = new GNEStop(myNet, stopParent, lane, stopParameters);
                 // add it depending of undoDemandElements
                 if (myUndoDemandElements) {
                     myNet->getViewNet()->getUndoList()->begin(stop->getTagProperty().getGUIIcon(), "add " + stop->getTagStr());
