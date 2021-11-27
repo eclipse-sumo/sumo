@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+	
+    <vType id="car" sigma="0">
+        <param key="parking.absfreespace.weight" value="1"/>
+        <param key="parking.frustration" value="10"/>
+    </vType>
+
+</additional>

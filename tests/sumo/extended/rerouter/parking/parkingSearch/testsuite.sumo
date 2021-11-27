@@ -4,9 +4,6 @@ default
 no_memory
 probability
 
-# intuitive knowledge of occupancy
-knowledge_1
-
 # always remember all visibly occupied parking areas along the way
 active_memory
 
@@ -25,5 +22,5 @@ parkAnywhere_1
 # test frustration after prolonged parking search
 frustration_10
 
-# test frustration after prolonged parking search
-frustration_100
+# parking search must not stall when all alternatives are visibly occupied
+all_visible
