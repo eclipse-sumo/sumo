@@ -846,6 +846,9 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
                 // take any random target instead of stalling 
                 std::vector<std::pair<SUMOTime, MSParkingArea*> > candidates;
                 for (const ParkingAreaVisible& pav : parks) {
+                    if (pav.first == destParkArea) {
+                        continue;
+                    }
                     SUMOTime dummy = TIME2STEPS(RandHelper::rand(1000.0));
                     candidates.push_back(std::make_pair(dummy, pav.first));
                 }
