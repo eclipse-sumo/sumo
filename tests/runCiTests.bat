@@ -6,4 +6,4 @@ REM which accompanies this distribution, and is available at
 REM http://www.eclipse.org/legal/epl-v20.html
 REM SPDX-License-Identifier: EPL-2.0
 call %~dp0\testEnv.bat
-%1 -b ci -v ci %TEXTTEST_CI_APPS%
+%1 -b ci -v ci -keeptmp 0 %TEXTTEST_CI_APPS%

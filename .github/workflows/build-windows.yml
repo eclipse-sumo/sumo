@@ -139,6 +139,7 @@ jobs:
     - name: Plain examples and tests
       if: matrix.build-type == 'plain' && matrix.python == '3.8'
       run: |
+        $env:TEXTTEST_TMP = "D:/texttest"
         cd sumo/build_msvc
         $env:TEXTTEST_CI_APPS = "-a activitygen,dfrouter,duarouter,jtrrouter,sumo"
         ctest -R texttest --verbose
@@ -148,11 +149,20 @@ jobs:
     - name: Examples and extra tests
       if: matrix.build-type == 'extra' && matrix.python == '3.8'
       run: |
-        $env:TEXTTEST_CI_APPS = "-a complex,tools,traci"
         python -m pip install pyproj Rtree ezdxf pulp pandas matplotlib scipy
         cd sumo/build_msvc
         cmake --build . --config Release --target examples
+        $env:TEXTTEST_TMP = "D:/texttest"
+        $env:TEXTTEST_CI_APPS = "-a complex,tools,traci"
         ctest --build-config Release --verbose
+
+    - name: Uploading test results
+      if: matrix.python == '3.8'
+      uses: actions/upload-artifact@v2
+      with:
+        name: texttesttmp-${{ matrix.build-type }}
+        path: D:/texttest
+        if-no-files-found: warn
 
     - name: Building FMU Compliance Checker
       if: matrix.build-type == 'extra'
