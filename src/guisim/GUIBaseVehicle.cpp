@@ -922,8 +922,11 @@ GUIBaseVehicle::drawParkingInfo(const GUIVisualizationSettings& s, const RGBColo
             for (auto item : *pm) {
                 const GUIParkingArea* pa = dynamic_cast<const GUIParkingArea*>(item.first);
                 if (item.second.blockedAtTime >= 0) {
-                    const SUMOTime seenAgo = SIMSTEP - item.second.blockedAtTime;
-                    GLHelper::drawTextSettings(s.vehicleValue, time2string(seenAgo), pa->getSignPos(), s.scale, s.angle, 1.0);
+                    std::string seenAgo = time2string(SIMSTEP - item.second.blockedAtTime);
+                    //if (item.second.blockedAtTime >= 0) {
+                    //    seenAgo += ", " + time2string(SIMSTEP - item.second.blockedAtTimeLocal);
+                    //}
+                    GLHelper::drawTextSettings(s.vehicleValue, seenAgo, pa->getSignPos(), s.scale, s.angle, 1.0);
                 }
                 if (item.second.score != "") {
                     const double dist = 0.4 * (s.vehicleText.scaledSize(s.scale) + s.vehicleValue.scaledSize(s.scale));

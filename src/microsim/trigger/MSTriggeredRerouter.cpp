@@ -843,21 +843,23 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
                 //std::cout << "  candidate=" << item.second->getID() << " observed=" << time2string(item.first) << "\n";
             }
             if (numAlternatives == 0) {
-                // take any random target instead of stalling 
+                // take any random target but prefer that that haven't been visited yet
                 std::vector<std::pair<SUMOTime, MSParkingArea*> > candidates;
                 for (const ParkingAreaVisible& pav : parks) {
                     if (pav.first == destParkArea) {
                         continue;
                     }
-                    SUMOTime dummy = TIME2STEPS(RandHelper::rand(1000.0));
+                    SUMOTime dummy = veh.sawBlockedParkingArea(pav.first, true);
+                    if (dummy < 0) {
+                        // randomomize among the unvisited
+                        dummy = TIME2STEPS(RandHelper::rand() * -1000);
+                    }
                     candidates.push_back(std::make_pair(dummy, pav.first));
                 }
-                // sorting by random value
                 std::sort(candidates.begin(), candidates.end());
                 for (auto item : candidates) {
                     MSParkingArea* pa = item.second;
-                    double paOccupancy = RandHelper::rand((double)pa->getCapacity());
-                    if (addParkValues(veh, brakeGap, newDestination, pa, paOccupancy, 1, router, parkAreas, newRoutes, parkApproaches, maxValues)) {
+                    if (addParkValues(veh, brakeGap, newDestination, pa, 0, 1, router, parkAreas, newRoutes, parkApproaches, maxValues)) {
                         numAlternatives = 1;
                         break;
                     }
