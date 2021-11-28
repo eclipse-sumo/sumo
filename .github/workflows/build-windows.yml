@@ -139,7 +139,7 @@ jobs:
     - name: Plain examples and tests
       if: matrix.build-type == 'plain' && matrix.python == '3.8'
       run: |
-        $env:TEXTTEST_TMP=D:/texttest
+        $env:TEXTTEST_TMP = "D:/texttest"
         cd sumo/build_msvc
         $env:TEXTTEST_CI_APPS = "-a activitygen,dfrouter,duarouter,jtrrouter,sumo"
         ctest -R texttest --verbose
@@ -152,7 +152,7 @@ jobs:
         python -m pip install pyproj Rtree ezdxf pulp pandas matplotlib scipy
         cd sumo/build_msvc
         cmake --build . --config Release --target examples
-        $env:TEXTTEST_TMP=D:/texttest
+        $env:TEXTTEST_TMP = "D:/texttest"
         $env:TEXTTEST_CI_APPS = "-a complex,tools,traci"
         ctest --build-config Release --verbose
 
