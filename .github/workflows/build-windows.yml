@@ -155,11 +155,11 @@ jobs:
         ctest --build-config Release --verbose
 
     - name: Uploading results of failed tests
-      if: ${{ failure() }} && matrix.python == '3.8'
+      if: matrix.python == '3.8' && ${{ failure() }}
       uses: actions/upload-artifact@v1
       with:
         name: test-results
-        path: ${{ env.HOME }}/.texttest
+        path: .texttest
 
     - name: Building FMU Compliance Checker
       if: matrix.build-type == 'extra'
