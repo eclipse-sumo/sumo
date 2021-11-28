@@ -154,6 +154,13 @@ jobs:
         cmake --build . --config Release --target examples
         ctest --build-config Release --verbose
 
+    - name: Uploading results of failed tests
+      if: ${{ failure() }} && matrix.python == '3.8'
+      uses: actions/upload-artifact@v1
+      with:
+        name: test-results
+        path: ${{ env.HOME }}/.texttest
+
     - name: Building FMU Compliance Checker
       if: matrix.build-type == 'extra'
       run: |
