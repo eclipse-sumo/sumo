@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2021-11-25 22:41:57.996423 by addStops2Routes.py v1_11_0+0103-2bf86f8
+<configuration>
+    <duration value="3600"/>
+    <net-file value="net.net.xml"/>
+    <output-file value="input_routes2.rou.xml"/>
+    <parking-areas value="input_additional.add.xml"/>
+    <start-at-stop value="True"/>
+</configuration>
+
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="DEFAULT_VEHTYPE">
+        <param key="has.vehroute.device" value="false"/>
+        <param key="has.tripinfo.device" value="false"/>
+    </vType>
+    <vehicle id="paA2A3.0" depart="0" departPos="stop">
+       <route edges="A2A3"/>
+       <stop parkingArea="paA2A3" duration="3600"/>
+    </vehicle>
+    <vehicle id="paA2A1.0" depart="0" departPos="stop">
+       <route edges="A2A1"/>
+       <stop parkingArea="paA2A1" duration="3600"/>
+    </vehicle>
+    <vehicle id="paA3A2.0" depart="0" departPos="stop">
+       <route edges="A3A2"/>
+       <stop parkingArea="paA3A2" duration="3600"/>
+    </vehicle>
+    <vehicle id="paB1C1.0" depart="0" departPos="stop">
+       <route edges="B1C1"/>
+       <stop parkingArea="paB1C1" duration="3600"/>
+    </vehicle>
+    <vehicle id="paC3D3.0" depart="0" departPos="stop">
+       <route edges="C3D3"/>
+       <stop parkingArea="paC3D3" duration="3600"/>
+    </vehicle>
+    <vehicle id="paC1B1.0" depart="0" departPos="stop">
+       <route edges="C1B1"/>
+       <stop parkingArea="paC1B1" duration="3600"/>
+    </vehicle>
+    <vehicle id="paD2D3.0" depart="0" departPos="stop">
+       <route edges="D2D3"/>
+       <stop parkingArea="paD2D3" duration="3600"/>
+    </vehicle>
+    <vehicle id="paC0B0.0" depart="0" departPos="stop">
+       <route edges="C0B0"/>
+       <stop parkingArea="paC0B0" duration="3600"/>
+    </vehicle>
+    <vehicle id="paB1B0.0" depart="0" departPos="stop">
+       <route edges="B1B0"/>
+       <stop parkingArea="paB1B0" duration="3600"/>
+    </vehicle>
+    <vehicle id="paB0C0.0" depart="0" departPos="stop">
+       <route edges="B0C0"/>
+       <stop parkingArea="paB0C0" duration="3600"/>
+    </vehicle>
+    <vehicle id="paB1A1.0" depart="0" departPos="stop">
+       <route edges="B1A1"/>
+       <stop parkingArea="paB1A1" duration="3600"/>
+    </vehicle>
+    <vehicle id="paC2B2.0" depart="0" departPos="stop">
+       <route edges="C2B2"/>
+       <stop parkingArea="paC2B2" duration="3600"/>
+    </vehicle>
+    <vehicle id="paD3D2.0" depart="0" departPos="stop">
+       <route edges="D3D2"/>
+       <stop parkingArea="paD3D2" duration="3600"/>
+    </vehicle>
+    <vehicle id="paB0A0.0" depart="0" departPos="stop">
+       <route edges="B0A0"/>
+       <stop parkingArea="paB0A0" duration="3600"/>
+    </vehicle>
+    <vehicle id="paB2A2.0" depart="0" departPos="stop">
+       <route edges="B2A2"/>
+       <stop parkingArea="paB2A2" duration="3600"/>
+    </vehicle>
+    <vehicle id="paB3C3.0" depart="0" departPos="stop">
+       <route edges="B3C3"/>
+       <stop parkingArea="paB3C3" duration="3600"/>
+    </vehicle>
+    <vehicle id="paA0B0.0" depart="0" departPos="stop">
+       <route edges="A0B0"/>
+       <stop parkingArea="paA0B0" duration="3600"/>
+    </vehicle>
+    <vehicle id="paC1D1.0" depart="0" departPos="stop">
+       <route edges="C1D1"/>
+       <stop parkingArea="paC1D1" duration="3600"/>
+    </vehicle>
+    <vehicle id="paB2C2.0" depart="0" departPos="stop">
+       <route edges="B2C2"/>
+       <stop parkingArea="paB2C2" duration="3600"/>
+    </vehicle>
+    <vehicle id="paB3A3.0" depart="0" departPos="stop">
+       <route edges="B3A3"/>
+       <stop parkingArea="paB3A3" duration="3600"/>
+    </vehicle>
+    <vehicle id="paD1D2.0" depart="0" departPos="stop">
+       <route edges="D1D2"/>
+       <stop parkingArea="paD1D2" duration="3600"/>
+    </vehicle>
+    <vehicle id="paD1D0.0" depart="0" departPos="stop">
+       <route edges="D1D0"/>
+       <stop parkingArea="paD1D0" duration="3600"/>
+    </vehicle>
+    <vehicle id="paC3C2.0" depart="0" departPos="stop">
+       <route edges="C3C2"/>
+       <stop parkingArea="paC3C2" duration="3600"/>
+    </vehicle>
+    <vehicle id="paC3B3.0" depart="0" departPos="stop">
+       <route edges="C3B3"/>
+       <stop parkingArea="paC3B3" duration="3600"/>
+    </vehicle>
+    <vehicle id="paC1C0.0" depart="0" departPos="stop">
+       <route edges="C1C0"/>
+       <stop parkingArea="paC1C0" duration="3600"/>
+    </vehicle>
+    <vehicle id="paC1C2.0" depart="0" departPos="stop">
+       <route edges="C1C2"/>
+       <stop parkingArea="paC1C2" duration="3600"/>
+    </vehicle>
+    <vehicle id="paA3B3.0" depart="0" departPos="stop">
+       <route edges="A3B3"/>
+       <stop parkingArea="paA3B3" duration="3600"/>
+    </vehicle>
+    <vehicle id="paB1B2.0" depart="0" departPos="stop">
+       <route edges="B1B2"/>
+       <stop parkingArea="paB1B2" duration="3600"/>
+    </vehicle>
+    <vehicle id="paA2B2.0" depart="0" departPos="stop">
+       <route edges="A2B2"/>
+       <stop parkingArea="paA2B2" duration="3600"/>
+    </vehicle>
+    <vehicle id="paC2C3.0" depart="0" departPos="stop">
+       <route edges="C2C3"/>
+       <stop parkingArea="paC2C3" duration="3600"/>
+    </vehicle>
+    <vehicle id="paA1B1.0" depart="0" departPos="stop">
+       <route edges="A1B1"/>
+       <stop parkingArea="paA1B1" duration="3600"/>
+    </vehicle>
+    <vehicle id="paC0C1.0" depart="0" departPos="stop">
+       <route edges="C0C1"/>
+       <stop parkingArea="paC0C1" duration="3600"/>
+    </vehicle>
+    <vehicle id="paD3C3.0" depart="0" departPos="stop">
+       <route edges="D3C3"/>
+       <stop parkingArea="paD3C3" duration="3600"/>
+    </vehicle>
+    <vehicle id="paD0C0.0" depart="0" departPos="stop">
+       <route edges="D0C0"/>
+       <stop parkingArea="paD0C0" duration="3600"/>
+    </vehicle>
+    <vehicle id="paC2C1.0" depart="0" departPos="stop">
+       <route edges="C2C1"/>
+       <stop parkingArea="paC2C1" duration="3600"/>
+    </vehicle>
+    <vehicle id="paB0B1.0" depart="0" departPos="stop">
+       <route edges="B0B1"/>
+       <stop parkingArea="paB0B1" duration="3600"/>
+    </vehicle>
+    <vehicle id="paD2D1.0" depart="0" departPos="stop">
+       <route edges="D2D1"/>
+       <stop parkingArea="paD2D1" duration="3600"/>
+    </vehicle>
+    <vehicle id="paD2C2.0" depart="0" departPos="stop">
+       <route edges="D2C2"/>
+       <stop parkingArea="paD2C2" duration="3600"/>
+    </vehicle>
+    <vehicle id="paD0D1.0" depart="0" departPos="stop">
+       <route edges="D0D1"/>
+       <stop parkingArea="paD0D1" duration="3600"/>
+    </vehicle>
+    <vehicle id="paB3B2.0" depart="0" departPos="stop">
+       <route edges="B3B2"/>
+       <stop parkingArea="paB3B2" duration="3600"/>
+    </vehicle>
+    <vehicle id="paC2D2.0" depart="0" departPos="stop">
+       <route edges="C2D2"/>
+       <stop parkingArea="paC2D2" duration="3600"/>
+    </vehicle>
+    <vehicle id="paB2B3.0" depart="0" departPos="stop">
+       <route edges="B2B3"/>
+       <stop parkingArea="paB2B3" duration="3600"/>
+    </vehicle>
+    <vehicle id="paB2B1.0" depart="0" departPos="stop">
+       <route edges="B2B1"/>
+       <stop parkingArea="paB2B1" duration="3600"/>
+    </vehicle>
+    <vehicle id="paA1A0.0" depart="0" departPos="stop">
+       <route edges="A1A0"/>
+       <stop parkingArea="paA1A0" duration="3600"/>
+    </vehicle>
+    <vehicle id="paA1A2.0" depart="0" departPos="stop">
+       <route edges="A1A2"/>
+       <stop parkingArea="paA1A2" duration="3600"/>
+    </vehicle>
+    <vehicle id="paD1C1.0" depart="0" departPos="stop">
+       <route edges="D1C1"/>
+       <stop parkingArea="paD1C1" duration="3600"/>
+    </vehicle>
+    <vehicle id="paC0D0.0" depart="0" departPos="stop">
+       <route edges="C0D0"/>
+       <stop parkingArea="paC0D0" duration="3600"/>
+    </vehicle>
+    <vehicle id="paA0A1.0" depart="0" departPos="stop">
+       <route edges="A0A1"/>
+       <stop parkingArea="paA0A1" duration="3600"/>
+    </vehicle>
+</routes>

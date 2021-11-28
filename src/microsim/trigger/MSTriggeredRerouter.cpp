@@ -791,6 +791,9 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
         veh.rememberParkingAreaScore(destParkArea, "occupied");
         veh.rememberBlockedParkingArea(destParkArea);
 
+        const SUMOTime parkingMemory = TIME2STEPS(getWeight(veh, "parking.memory", 600));
+        const double parkingFrustration = getWeight(veh, "parking.frustration", 100);
+        const double parkingKnowledge = getWeight(veh, "parking.knowledge", 0);
 
         for (int i = 0; i < (int)parks.size(); ++i) {
             MSParkingArea* pa = parks[i].first;
@@ -798,12 +801,12 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
             // current destination must be visible at this point
             const bool visible = parks[i].second || (pa == destParkArea && destVisible);
             double paOccupancy = pa->getOccupancy();
-            if (!visible) {
-                const double minOccupancy = MIN2((double)pa->getCapacity() - NUMERICAL_EPS, (veh.getNumberParkingReroutes() * pa->getCapacity() / getWeight(veh, "parking.frustration", 100)));
+            if (!visible && (parkingKnowledge == 0 || parkingKnowledge < RandHelper::rand(veh.getRNG()))) {
+                const double minOccupancy = MIN2((double)pa->getCapacity() - NUMERICAL_EPS, (veh.getNumberParkingReroutes() * pa->getCapacity() / parkingFrustration));
                 paOccupancy = RandHelper::rand(minOccupancy, (double)pa->getCapacity());
                 // previously visited?
                 SUMOTime blockedTime = veh.sawBlockedParkingArea(pa);
-                if (blockedTime >= 0 && SIMSTEP - blockedTime < TIME2STEPS(getWeight(veh, "parking.memory", 600))) {
+                if (blockedTime >= 0 && SIMSTEP - blockedTime < parkingMemory) {
                     // assume it's still occupied
                     paOccupancy = pa->getCapacity();
                     blockedTimes.push_back(std::make_tuple(blockedTime, pa, i));
@@ -830,13 +833,35 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
             for (auto item : blockedTimes) {
                 MSParkingArea* pa = std::get<1>(item);
                 double prob = probs[std::get<2>(item)];
-                // all parking areas are occupied. We have have good basis for
+                // all parking areas are occupied. We have no good basis for
                 // prefering one or the other based on estimated occupancy
                 double paOccupancy = RandHelper::rand((double)pa->getCapacity());
                 if (addParkValues(veh, brakeGap, newDestination, pa, paOccupancy, prob, router, parkAreas, newRoutes, parkApproaches, maxValues)) {
+                    numAlternatives = 1;
                     break;
                 }
                 //std::cout << "  candidate=" << item.second->getID() << " observed=" << time2string(item.first) << "\n";
+            }
+            if (numAlternatives == 0) {
+                // take any random target instead of stalling 
+                std::vector<std::pair<SUMOTime, MSParkingArea*> > candidates;
+                for (const ParkingAreaVisible& pav : parks) {
+                    if (pav.first == destParkArea) {
+                        continue;
+                    }
+                    SUMOTime dummy = TIME2STEPS(RandHelper::rand(1000.0));
+                    candidates.push_back(std::make_pair(dummy, pav.first));
+                }
+                // sorting by random value
+                std::sort(candidates.begin(), candidates.end());
+                for (auto item : candidates) {
+                    MSParkingArea* pa = item.second;
+                    double paOccupancy = RandHelper::rand((double)pa->getCapacity());
+                    if (addParkValues(veh, brakeGap, newDestination, pa, paOccupancy, 1, router, parkAreas, newRoutes, parkApproaches, maxValues)) {
+                        numAlternatives = 1;
+                        break;
+                    }
+                }
             }
         }
 

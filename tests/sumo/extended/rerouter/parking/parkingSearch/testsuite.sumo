@@ -22,5 +22,5 @@ parkAnywhere_1
 # test frustration after prolonged parking search
 frustration_10
 
-# test frustration after prolonged parking search
-frustration_100
+# parking search must not stall when all alternatives are visibly occupied
+all_visible
