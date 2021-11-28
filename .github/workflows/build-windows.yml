@@ -156,10 +156,11 @@ jobs:
 
     - name: Uploading results of failed tests
       if: matrix.python == '3.8' && ${{ failure() }}
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v2
       with:
         name: test-results
-        path: .texttest
+        path: ../.texttest
+        if-no-files-found: warn
 
     - name: Building FMU Compliance Checker
       if: matrix.build-type == 'extra'
