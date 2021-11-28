@@ -921,14 +921,14 @@ GUIBaseVehicle::drawParkingInfo(const GUIVisualizationSettings& s, const RGBColo
         if (pm != nullptr) {
             for (auto item : *pm) {
                 const GUIParkingArea* pa = dynamic_cast<const GUIParkingArea*>(item.first);
-                if (item.second.first >= 0) {
-                    const SUMOTime seenAgo = SIMSTEP - item.second.first;
+                if (item.second.blockedAtTime >= 0) {
+                    const SUMOTime seenAgo = SIMSTEP - item.second.blockedAtTime;
                     GLHelper::drawTextSettings(s.vehicleValue, time2string(seenAgo), pa->getSignPos(), s.scale, s.angle, 1.0);
                 }
-                if (item.second.second != "") {
+                if (item.second.score != "") {
                     const double dist = 0.4 * (s.vehicleText.scaledSize(s.scale) + s.vehicleValue.scaledSize(s.scale));
                     Position shift(0, -dist);
-                    GLHelper::drawTextSettings(s.vehicleText, item.second.second, pa->getSignPos() + shift, s.scale, s.angle, 1.0);
+                    GLHelper::drawTextSettings(s.vehicleText, item.second.score, pa->getSignPos() + shift, s.scale, s.angle, 1.0);
                 }
             }
         }

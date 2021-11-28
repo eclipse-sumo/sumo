@@ -832,12 +832,21 @@ public:
 
     /// @name state io
     //@{
-    void rememberBlockedParkingArea(const MSParkingArea* pa);
-    SUMOTime sawBlockedParkingArea(const MSParkingArea* pa) const;
+    void rememberBlockedParkingArea(const MSParkingArea* pa, bool local);
+    SUMOTime sawBlockedParkingArea(const MSParkingArea* pa, bool local) const;
 
     /// @brief score only needed when running with gui
     void rememberParkingAreaScore(const MSParkingArea* pa, const std::string& score); 
     void resetParkingAreaScores();
+
+    /// @brief store information for a single parking area
+    struct PaMemory {
+        PaMemory() : blockedAtTime(-1), blockedAtTimeLocal(-1) {}
+
+        SUMOTime blockedAtTime;
+        SUMOTime blockedAtTimeLocal;
+        std::string score;
+    };
 
     int getNumberParkingReroutes() const {
         return myNumberParkingReroutes;
@@ -846,7 +855,7 @@ public:
         myNumberParkingReroutes = value;
     }
 
-    typedef std::map<const MSParkingArea*, std::pair<SUMOTime, std::string> > ParkingMemory;
+    typedef std::map<const MSParkingArea*, PaMemory> ParkingMemory;
     const ParkingMemory* getParkingMemory() const {
         return myParkingMemory;
     }

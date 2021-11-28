@@ -1810,18 +1810,21 @@ MSBaseVehicle::getPrefixedParameter(const std::string& key, std::string& error) 
 }
 
 void
-MSBaseVehicle::rememberBlockedParkingArea(const MSParkingArea* pa) {
+MSBaseVehicle::rememberBlockedParkingArea(const MSParkingArea* pa, bool local) {
     if (myParkingMemory == nullptr) {
         myParkingMemory = new ParkingMemory();
     }
-    (*myParkingMemory)[pa].first = SIMSTEP;
+    (*myParkingMemory)[pa].blockedAtTime = SIMSTEP;
+    if (local) {
+        (*myParkingMemory)[pa].blockedAtTimeLocal = SIMSTEP;
+    }
 }
 
 void
 MSBaseVehicle::resetParkingAreaScores() {
     if (myParkingMemory != nullptr) {
         for (auto& item : *myParkingMemory) {
-            item.second.second = "";
+            item.second.score = "";
         }
     }
 }
@@ -1831,15 +1834,12 @@ MSBaseVehicle::rememberParkingAreaScore(const MSParkingArea* pa, const std::stri
     if (myParkingMemory == nullptr) {
         myParkingMemory = new ParkingMemory();
     }
-    if (myParkingMemory->find(pa) == myParkingMemory->end()) {
-        (*myParkingMemory)[pa].first = -1;
-    }
-    (*myParkingMemory)[pa].second = score;
+    (*myParkingMemory)[pa].score = score;
 }
 
 
 SUMOTime
-MSBaseVehicle::sawBlockedParkingArea(const MSParkingArea* pa) const {
+MSBaseVehicle::sawBlockedParkingArea(const MSParkingArea* pa, bool local) const {
     if (myParkingMemory == nullptr) {
         return -1;
     }
@@ -1847,7 +1847,7 @@ MSBaseVehicle::sawBlockedParkingArea(const MSParkingArea* pa) const {
     if (it == myParkingMemory->end()) {
         return -1;
     } else {
-        return it->second.first;
+        return local ? it->second.blockedAtTimeLocal : it->second.blockedAtTime;
     }
 }
 

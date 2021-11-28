@@ -365,8 +365,8 @@ public:
 
     /// @name parking memory io
     //@{
-    virtual void rememberBlockedParkingArea(const MSParkingArea* pa) = 0;
-    virtual SUMOTime sawBlockedParkingArea(const MSParkingArea* pa) const = 0;
+    virtual void rememberBlockedParkingArea(const MSParkingArea* pa, bool local) = 0;
+    virtual SUMOTime sawBlockedParkingArea(const MSParkingArea* pa, bool local) const = 0;
     virtual void rememberParkingAreaScore(const MSParkingArea* pa, const std::string& score) = 0;
     virtual void resetParkingAreaScores() = 0;
     virtual int getNumberParkingReroutes() const = 0;
