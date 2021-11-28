@@ -156,11 +156,11 @@ jobs:
         $env:TEXTTEST_CI_APPS = "-a complex,tools,traci"
         ctest --build-config Release --verbose
 
-    - name: Uploading results of failed tests
-      if: matrix.python == '3.8' && ${{ failure() }}
+    - name: Uploading test results
+      if: matrix.python == '3.8'
       uses: actions/upload-artifact@v2
       with:
-        name: test-results
+        name: texttesttmp-${{ matrix.build-type }}
         path: D:/texttest
         if-no-files-found: warn
 
