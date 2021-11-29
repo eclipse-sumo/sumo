@@ -97,7 +97,7 @@ generated with the
 [Electric Machine Design Tool](https://github.com/TUMFTM/Electric_Machine_Design)
 developed by Kalt et al.[^3] and converted into the expected format using
 `{SUMO_HOME}/tools/contributed/convertMapMat2XML.M`. The tool and the conversion
-script require MATLAB&reg 2017 or newer.
+script require MATLAB® 2017 or newer.
 
 [^3]: [S. Kalt, J. Erhard, B. Danquah and M. Lienkamp, "Electric Machine Design
   Tool for Permanent Magnet Synchronous Machines," 2019 Fourteenth International
