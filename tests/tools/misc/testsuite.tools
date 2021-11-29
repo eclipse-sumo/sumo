@@ -2,6 +2,7 @@
 
 averageTripStatistics
 createVehTypeDistribution
+generateParkingAreas
 generateParkingLots
 generateParkingAreaRerouters
 generateContinuousRerouters

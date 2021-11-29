@@ -1,0 +1,5 @@
+-n net.net.xml -o out.add.xml 
+--space-length 8 
+--min 1 
+--max 7 
+tools/generateParkingAreas.py
