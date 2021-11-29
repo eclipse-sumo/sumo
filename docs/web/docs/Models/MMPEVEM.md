@@ -67,12 +67,12 @@ The power loss map describes the electric motor's power loss [W] as a function
 of motor speed [rpm] and torque [Nm]. It is passed to the model using a custom
 string format which shall be explicated using the following mock power loss map:
 
-|         |     0 rpm |  4000 rpm |  8000 rpm |
-|---------|-----------|-----------|-----------|
-| -100 Nm |   826.7 W |  4295.6 W |           |
-|    0 Nm |     0.0 W |  2162.9 W |  6137.4 W |
-|  100 Nm |   826.7 W |  4295.6 W |  9317.5 W |
-|  200 Nm |  3297.4 W |  8361.2 W | 14988.6 W |
+|             |     **0 rpm** |  **4000 rpm** |  **8000 rpm** |
+|-------------|---------------|---------------|---------------|
+| **-100 Nm** |       826.7 W |      4295.6 W |               |
+|    **0 Nm** |         0.0 W |      2162.9 W |      6137.4 W |
+|  **100 Nm** |       826.7 W |      4295.6 W |      9317.5 W |
+|  **200 Nm** |      3297.4 W |      8361.2 W |     14988.6 W |
 
 Its string representation is:
 ```
