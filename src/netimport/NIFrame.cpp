@@ -343,6 +343,8 @@ NIFrame::fillOptions(bool forNetedit) {
     oc.addDescription("opendrive.min-width", "Formats", "The minimum lane width for determining start or end of variable-width lanes");
     oc.doRegister("opendrive.internal-shapes", new Option_Bool(false));
     oc.addDescription("opendrive.internal-shapes", "Formats", "Import internal lane shapes");
+    oc.doRegister("opendrive.position-ids", new Option_Bool(false));
+    oc.addDescription("opendrive.position-ids", "Formats", "Sets edge-id based on road-id and offset in m (legacy)");
 
     // register some additional options
     oc.doRegister("tls.discard-loaded", new Option_Bool(false));

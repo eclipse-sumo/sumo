@@ -396,6 +396,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // -------------------------
     const double defaultSpeed = tc.getEdgeTypeSpeed("");
     const bool saveOrigIDs = OptionsCont::getOptions().getBool("output.original-names");
+    const bool positionIDs = OptionsCont::getOptions().getBool("opendrive.position-ids");
     // lane-id-map sumoEdge,sumoLaneIndex->odrLaneIndex
     std::map<std::pair<NBEdge*, int>, int> laneIndexMap;
     // build edges
@@ -449,6 +450,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         }
 
         // build along lane sections
+        int sectionIndex = 0;
         for (std::vector<OpenDriveLaneSection>::iterator j = e->laneSections.begin(); j != e->laneSections.end(); ++j) {
             // add internal node if needed
             if (j == e->laneSections.end() - 1) {
@@ -464,10 +466,14 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             }
             PositionVector geom = geomWithOffset.getSubpart2D(sB, sE);
             std::string id = e->id;
-            if (sFrom != e->from || sTo != e->to) {
-                id = id + "." + toString((*j).s);
-            } else if (e->laneSections.size() == 1) {
-                id = id + ".0.00";
+            if (positionIDs) {
+                if (sFrom != e->from || sTo != e->to) {
+                    id = id + "." + toString((*j).s);
+                } else if (e->laneSections.size() == 1) {
+                    id = id + ".0.00";
+                }
+            } else if (e->laneSections.size() > 1) {
+                id = id + "#" + toString(sectionIndex++);
             }
 #ifdef DEBUG_VARIABLE_WIDTHS
             if (DEBUG_COND(e)) {
