@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-02 14:57:05 by Eclipse SUMO netconvert Version v1_10_0+1846-87b5ddb
+<!-- generated on 2021-11-29 08:31:03 by Eclipse SUMO netconvert Version v1_11_0+0165-4261a27
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -42,7 +42,7 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Nov  2 14:57:05 2021" north="125.86" south="-2.83" east="201.10" west="60.28"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Mon Nov 29 08:31:03 2021" north="125.86" south="-2.83" east="201.10" west="60.28"/>
     <road name="" length="261.94650261" id="80" junction="-1">
         <type s="0" type="town"/>
         <planView>
@@ -598,7 +598,7 @@ SPDX-License-Identifier: EPL-2.0
         </lanes>
         <objects/>
         <signals/>
-        <userData code="sumoId" value="-80.0.00"/>
+        <userData code="sumoId" value="-80"/>
     </road>
     <road name="" length="197.36977927" id="81" junction="-1">
         <type s="0" type="town"/>
@@ -1027,7 +1027,7 @@ SPDX-License-Identifier: EPL-2.0
         </lanes>
         <objects/>
         <signals/>
-        <userData code="sumoId" value="-81.0.00"/>
+        <userData code="sumoId" value="-81"/>
     </road>
     <road name="" length="114.15000894" id="82" junction="-1">
         <type s="0" type="town"/>
@@ -1132,7 +1132,7 @@ SPDX-License-Identifier: EPL-2.0
         </lanes>
         <objects/>
         <signals/>
-        <userData code="sumoId" value="-82.0.00"/>
+        <userData code="sumoId" value="-82"/>
     </road>
     <road name="" length="91.16218286" id="83" junction="-1">
         <type s="0" type="town"/>
@@ -1276,7 +1276,7 @@ SPDX-License-Identifier: EPL-2.0
         </lanes>
         <objects/>
         <signals/>
-        <userData code="sumoId" value="-83.0.00"/>
+        <userData code="sumoId" value="-83"/>
     </road>
 
 

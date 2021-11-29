@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-02 14:57:05 by Eclipse SUMO netconvert Version v1_10_0+1846-87b5ddb
+<!-- generated on 2021-11-29 08:31:03 by Eclipse SUMO netconvert Version v1_11_0+0165-4261a27
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -42,7 +42,7 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Nov  2 14:57:05 2021" north="0.00" south="0.00" east="50.00" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Mon Nov 29 08:31:03 2021" north="0.00" south="0.00" east="50.00" west="0.00"/>
     <road name="a1" length="50.00000000" id="20" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -78,7 +78,7 @@ SPDX-License-Identifier: EPL-2.0
         </lanes>
         <objects/>
         <signals/>
-        <userData code="sumoId" value="-1.0.00"/>
+        <userData code="sumoId" value="-1"/>
     </road>
     <road name="a1" length="50.00000000" id="21" junction="-1">
         <link>
@@ -115,7 +115,7 @@ SPDX-License-Identifier: EPL-2.0
         </lanes>
         <objects/>
         <signals/>
-        <userData code="sumoId" value="1.0.00"/>
+        <userData code="sumoId" value="1"/>
     </road>
 
     <road name=":1.begin_0" length="8.85886644" id="22" junction="1">
