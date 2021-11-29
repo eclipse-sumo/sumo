@@ -136,7 +136,21 @@ from `{SUMO_HOME}/data/emissions/MMPEVEM/SUV.xml`.
 
 # Output
 
-TODO
+Start SUMO with the `--emission-output` option in order to generate an XML file
+with the emissions of all vehicles. In the XML, the attribute `electricity`
+shows the electric energy consumption of a vehicle in a given time step in Wh.
+Please note that this value is only provided by MMPEVEM if and only if the
+`vtype` definition of the vehilce in question was set accordingly.
+
+
+MMPEVEM is a backward-facing model, meaning that it expects a velocity,
+acceleration, slope, and time step size to calculate the energy demand. This
+also means that it has no way to stop the vehicle from running into invalid
+operating points. The latter can be caused by implausible accelerations (for
+instance due to teleportations), wrong vehicle parameters, etc. If the model
+finds itself in such a state, it returns `nan`. On a related note, MMPEVEM
+assumes that the driver perfectly operates the mechanical brakes such that
+torque and power are capped to the motor's limits during recuperation.
 
 
 
