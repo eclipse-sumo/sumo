@@ -1,0 +1,20 @@
+# a larger test
+adlershof_dlr
+
+# convert osm to openDrive
+from_osm2
+
+# convert sumo network to xodr
+ramps
+
+# as above but smoothed
+ramps_curve_stretch
+
+# convert sumo network to xodr
+split
+
+# roadmark test
+forbiddenlane
+
+# convert sumo network to xodr
+lefthand

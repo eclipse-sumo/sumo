@@ -7,13 +7,7 @@ simple1_right_nt
 simple2_noturnarounds
 simple2_left_nt
 simple2_right_nt
-
-# a larger test
-adlershof_dlr
 error_simple1_nolanes
-
-# convert osm to openDrive
-from_osm2
 
 # include sumo edge ids if option --output.original-names is given
 orig-names
@@ -26,21 +20,6 @@ elevation_roundtrip
 
 # import and export elevation
 elevation_flatten
-
-# convert sumo network to xodr
-sumo_to_xodr
-
-# as above but smoothed
-sumo_to_xodr_scurve_stretch
-
-# convert sumo network to xodr
-sumo_to_xodr_split
-
-# roadmark test
-sumo_to_xodr_forbiddenlane
-
-# convert sumo network to xodr
-sumo_lefthand_to_xodr
 
 # roadMark with type information
 roadMark
