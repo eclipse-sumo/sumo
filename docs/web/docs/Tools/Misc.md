@@ -72,6 +72,38 @@ python tools/extractTest.py <path to test directory>
 ```
 - or use the [online test extraction](https://sumo.dlr.de/extractTest.php). In the online tool you enter the path to the test you like (e.g. [{{SUMO}}/tests/sumo/extended/rerouter/use_routing_device](https://github.com/eclipse/sumo/blob/master/tests/sumo/extended/rerouter/use_routing_device) into the form and get a zip containing all the files.
 
+# generateParkingAreas.py
+
+This tool generates parking areas for a network, and saves them in an additional file. If the output filename is not defined (using -o or --output-file), it will use as default *parkingareas.add.xml*.
+
+Most basic call:
+```
+python tools/generateParkingAreas.py -n <my network>
+```
+Other Example:
+```
+python tools/generateParkingAreas.py -n <my network> -o <name of output file> --space-length <visual length per parking space> --min <minimum capacity> --max <maximum capacity>
+```
+
+The required parameter is the network (-n or --net-file). More options can be obtained by calling `python tools/generateParkingAreas.py --help`.
+
+Additional options:
+
+- **--output-file** define the output filename
+- **--probability** probability for an edge to receive a parkingArea
+- **--length** length required per parking space
+- **--space-length** visual length of each parking space
+- **--width** visual width of each parking space
+- **--random-capacity** randomize roadsideCapacity
+- **--min** minimum capacity for parkingAreas
+- **--max** maximum capacity for parkingAreas
+- **--angle** parking area angle
+- **--prefix** prefix for the parkingArea ids
+- **--seed** random seed
+- **--random** use a random seed to initialize the random number generator
+- **--vclass** only use edges which permit the given vehicle class
+- **--verbose** tell me what you are doing
+
 # generateParkingLots.py
 
 This script generates parking lots. Example:
