@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-01 16:00:19 by Eclipse SUMO netconvert Version v1_10_0+1813-0414620
+<!-- generated on 2021-11-29 08:31:50 by Eclipse SUMO netconvert Version v1_11_0+0165-4261a27
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -905,6 +905,9 @@
 
         <!-- Import internal lane shapes -->
         <opendrive.internal-shapes value="false" type="BOOL"/>
+
+        <!-- Sets edge-id based on road-id and offset in m (legacy) -->
+        <opendrive.position-ids value="false" type="BOOL"/>
 
     </formats>
 

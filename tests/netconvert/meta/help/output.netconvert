@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_10_0+1813-0414620
+Eclipse SUMO netconvert Version v1_11_0+0165-4261a27
  Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -589,6 +589,8 @@ Formats Options:
   --opendrive.min-width FLOAT          The minimum lane width for determining
                                         start or end of variable-width lanes
   --opendrive.internal-shapes          Import internal lane shapes
+  --opendrive.position-ids             Sets edge-id based on road-id and offset
+                                        in m (legacy)
 
 Report Options:
   -v, --verbose                        Switches to verbose output
