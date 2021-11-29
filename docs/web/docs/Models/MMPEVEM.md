@@ -46,7 +46,7 @@ type definitions at `{SUMO_HOME}/data/emissions/MMPEVEM`[^1].
 | gearRatio                 | float (>= 0) | 10.0 [1]                              | Combined ratio of the single reduction gear and the differential      |
 | gearEfficiency            | float (>= 0) | 0.96 [1]                              | Combined efficiency of the single reduction gear and the differential |
 | maximumTorque             | float (>= 0) | 310.0 [Nm]                            | Maximum generative torque of the electric motor                       |
-| maximumPower              | float (>= 0) | 107000.0 [W]                          | Maximum power of the electric motor                                   |
+| maximumPower              | float (>= 0) | 107000.0 [W]                          | Maximum generative power of the electric motor                        |
 | maximumRecuperationTorque | float (>= 0) | 95.5 [Nm]                             | Maximum recuperation torque of the electric motor                     |
 | maximumRecuperationPower  | float (>= 0) | 42800.0 [W]                           | Maximum recuperation power of the electric motor                      |
 | internalBatteryResistance | float (>= 0) | 0.1142 [Ohm]                          | Internal battery resistance                                           |
