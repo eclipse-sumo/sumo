@@ -24,8 +24,8 @@ To utilise MMPEVEM, set `emissionClass="MMPEVEM"` in the `vType` definitions of
 the vehicles you are interested in. Although default parameters are available,
 it is strongly advised to explicitly define *all* the model parameters listed
 below and to make sure that they are consistent. Failing to do so may lead to
-implausible operating points (cf. [Output](#output)) which skew the overall
-energy consumption.
+wrong or even invalid operating points (cf. [Output](#output)) which skew the
+overall energy consumption.
 
 
 ## Model Parameters
