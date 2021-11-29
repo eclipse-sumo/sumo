@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-02 14:57:05 by Eclipse SUMO netconvert Version v1_10_0+1846-87b5ddb
+<!-- generated on 2021-11-29 12:56:57 by Eclipse SUMO netconvert Version v1_11_0+0177-db90c06e318
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Nov  2 14:57:05 2021" north="0.00" south="0.00" east="200.00" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Mon Nov 29 12:56:57 2021" north="0.00" south="0.00" east="200.00" west="0.00"/>
     <road name="" length="94.00000000" id="30" junction="-1">
         <link>
             <successor elementType="junction" elementId="1"/>
@@ -294,12 +294,12 @@ SPDX-License-Identifier: EPL-2.0
 
     <junction name="gneJ3" id="1">
         <connection id="0" incomingRoad="30" connectingRoad="32" contactPoint="start">
-            <laneLink from="-1" to="-3"/>
-            <laneLink from="-2" to="-4"/>
-            <laneLink from="-3" to="-5"/>
+            <laneLink from="-1" to="-1"/>
+            <laneLink from="-2" to="-2"/>
+            <laneLink from="-3" to="-3"/>
         </connection>
         <connection id="3" incomingRoad="30" connectingRoad="33" contactPoint="start">
-            <laneLink from="-1" to="-2"/>
+            <laneLink from="-1" to="-1"/>
         </connection>
         <connection id="4" incomingRoad="30" connectingRoad="34" contactPoint="start">
             <laneLink from="-1" to="-1"/>

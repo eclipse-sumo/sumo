@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-02 14:57:05 by Eclipse SUMO netconvert Version v1_10_0+1846-87b5ddb
+<!-- generated on 2021-11-29 12:56:58 by Eclipse SUMO netconvert Version v1_11_0+0177-db90c06e318
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Nov  2 14:57:05 2021" north="200.00" south="0.00" east="200.00" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Mon Nov 29 12:56:58 2021" north="200.00" south="0.00" east="200.00" west="0.00"/>
     <road name="" length="89.60000000" id="50" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -1217,11 +1217,11 @@ SPDX-License-Identifier: EPL-2.0
             <laneLink from="-1" to="-1"/>
         </connection>
         <connection id="2" incomingRoad="57" connectingRoad="60" contactPoint="start">
-            <laneLink from="-2" to="-2"/>
-            <laneLink from="-1" to="-1"/>
+            <laneLink from="-2" to="-1"/>
+            <laneLink from="-1" to="-2"/>
         </connection>
         <connection id="4" incomingRoad="57" connectingRoad="61" contactPoint="start">
-            <laneLink from="-2" to="-2"/>
+            <laneLink from="-2" to="-1"/>
         </connection>
         <connection id="5" incomingRoad="55" connectingRoad="62" contactPoint="start">
             <laneLink from="-1" to="-1"/>
@@ -1230,11 +1230,11 @@ SPDX-License-Identifier: EPL-2.0
             <laneLink from="-1" to="-1"/>
         </connection>
         <connection id="7" incomingRoad="55" connectingRoad="64" contactPoint="start">
-            <laneLink from="-2" to="-2"/>
-            <laneLink from="-1" to="-1"/>
+            <laneLink from="-2" to="-1"/>
+            <laneLink from="-1" to="-2"/>
         </connection>
         <connection id="9" incomingRoad="55" connectingRoad="65" contactPoint="start">
-            <laneLink from="-2" to="-2"/>
+            <laneLink from="-2" to="-1"/>
         </connection>
         <connection id="10" incomingRoad="54" connectingRoad="66" contactPoint="start">
             <laneLink from="-1" to="-1"/>
@@ -1243,11 +1243,11 @@ SPDX-License-Identifier: EPL-2.0
             <laneLink from="-1" to="-1"/>
         </connection>
         <connection id="12" incomingRoad="54" connectingRoad="68" contactPoint="start">
-            <laneLink from="-2" to="-2"/>
-            <laneLink from="-1" to="-1"/>
+            <laneLink from="-2" to="-1"/>
+            <laneLink from="-1" to="-2"/>
         </connection>
         <connection id="14" incomingRoad="54" connectingRoad="69" contactPoint="start">
-            <laneLink from="-2" to="-2"/>
+            <laneLink from="-2" to="-1"/>
         </connection>
         <connection id="15" incomingRoad="56" connectingRoad="70" contactPoint="start">
             <laneLink from="-1" to="-1"/>
@@ -1256,11 +1256,11 @@ SPDX-License-Identifier: EPL-2.0
             <laneLink from="-1" to="-1"/>
         </connection>
         <connection id="17" incomingRoad="56" connectingRoad="72" contactPoint="start">
-            <laneLink from="-2" to="-2"/>
-            <laneLink from="-1" to="-1"/>
+            <laneLink from="-2" to="-1"/>
+            <laneLink from="-1" to="-2"/>
         </connection>
         <connection id="19" incomingRoad="56" connectingRoad="73" contactPoint="start">
-            <laneLink from="-2" to="-2"/>
+            <laneLink from="-2" to="-1"/>
         </connection>
     </junction>
     <junction name="E" id="2">

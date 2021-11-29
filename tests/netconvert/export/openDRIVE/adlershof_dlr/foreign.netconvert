@@ -1,8 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- generated on 2021-11-29 12:56:58 by Eclipse SUMO netconvert Version v1_11_0+0177-db90c06e318
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <opendrive-output value="foreign.net"/>
+        <output.original-names value="true"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+        <proj.plain-geo value="true"/>
+    </projection>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <rectangular-lane-cut value="true"/>
+    </junctions>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
 
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Sep  7 12:27:51 2021" north="767.39" south="0.00" east="1737.68" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Mon Nov 29 12:56:58 2021" north="767.39" south="0.00" east="1737.68" west="0.00"/>
     <road name="Teltowkanalbrücke" length="56.06086751" id="870" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -22364,7 +22401,7 @@
     </junction>
     <junction name="261636678" id="60">
         <connection id="0" incomingRoad="943" connectingRoad="1067" contactPoint="start">
-            <laneLink from="-1" to="-2"/>
+            <laneLink from="-1" to="-1"/>
         </connection>
         <connection id="1" incomingRoad="943" connectingRoad="1068" contactPoint="start">
             <laneLink from="-1" to="-1"/>
@@ -22789,7 +22826,7 @@
     </junction>
     <junction name="32266935" id="4">
         <connection id="0" incomingRoad="1057" connectingRoad="1190" contactPoint="start">
-            <laneLink from="-1" to="-2"/>
+            <laneLink from="-1" to="-1"/>
         </connection>
         <connection id="1" incomingRoad="1057" connectingRoad="1191" contactPoint="start">
             <laneLink from="-1" to="-1"/>
@@ -22814,7 +22851,7 @@
             <laneLink from="-1" to="-1"/>
         </connection>
         <connection id="9" incomingRoad="873" connectingRoad="1198" contactPoint="start">
-            <laneLink from="-1" to="-2"/>
+            <laneLink from="-1" to="-1"/>
         </connection>
         <connection id="10" incomingRoad="873" connectingRoad="1199" contactPoint="start">
             <laneLink from="-1" to="-1"/>
@@ -22869,7 +22906,7 @@
     </junction>
     <junction name="36268369" id="24">
         <connection id="0" incomingRoad="890" connectingRoad="1214" contactPoint="start">
-            <laneLink from="-1" to="-2"/>
+            <laneLink from="-1" to="-1"/>
         </connection>
         <connection id="1" incomingRoad="890" connectingRoad="1215" contactPoint="start">
             <laneLink from="-1" to="-1"/>

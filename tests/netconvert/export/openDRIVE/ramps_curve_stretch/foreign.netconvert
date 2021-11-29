@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-02 14:57:05 by Eclipse SUMO netconvert Version v1_10_0+1846-87b5ddb
+<!-- generated on 2021-11-29 12:56:57 by Eclipse SUMO netconvert Version v1_11_0+0177-db90c06e318
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -48,7 +48,7 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Nov  2 14:57:05 2021" north="100.00" south="0.00" east="2000.00" west="-100.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Mon Nov 29 12:56:57 2021" north="100.00" south="0.00" east="2000.00" west="-100.00"/>
     <road name="" length="96.00000000" id="100" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -932,8 +932,8 @@ SPDX-License-Identifier: EPL-2.0
     <junction name="1" id="1">
         <connection id="0" incomingRoad="108" connectingRoad="109" contactPoint="start">
             <laneLink from="-1" to="-1"/>
-            <laneLink from="-2" to="-1"/>
-            <laneLink from="-3" to="-2"/>
+            <laneLink from="-2" to="-2"/>
+            <laneLink from="-3" to="-3"/>
         </connection>
     </junction>
     <junction name="2" id="2">
@@ -955,7 +955,7 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction name="4" id="3">
         <connection id="0" incomingRoad="102" connectingRoad="113" contactPoint="start">
-            <laneLink from="-1" to="-4"/>
+            <laneLink from="-1" to="-1"/>
         </connection>
         <connection id="1" incomingRoad="103" connectingRoad="114" contactPoint="start">
             <laneLink from="-1" to="-1"/>
@@ -972,7 +972,7 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction name="s3-AddedOffRampNode" id="6">
         <connection id="0" incomingRoad="106" connectingRoad="116" contactPoint="start">
-            <laneLink from="-3" to="-4"/>
+            <laneLink from="-3" to="-1"/>
         </connection>
         <connection id="1" incomingRoad="106" connectingRoad="117" contactPoint="start">
             <laneLink from="-1" to="-1"/>
