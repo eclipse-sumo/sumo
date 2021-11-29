@@ -91,7 +91,6 @@ def get_options(args=None):
     if not options.typesfile:
         options.typesfiles = options.routefiles
 
-
     if not options.duration and not options.until:
         optParser.print_help()
         sys.exit("stop duration or until missing")
@@ -115,6 +114,7 @@ def getLastEdge(obj):
         return obj.to
     else:
         return None
+
 
 def loadRouteFiles(options, routefile, edge2parking, outf):
     net = sumolib.net.readNet(options.netfile)
@@ -185,7 +185,7 @@ def generateStationary(options, edge2parking, outf):
     if options.parkingareas:
         for pafile in options.parkingareas:
             for pa in sumolib.xml.parse(pafile, "parkingArea"):
-                paCapacity[pa.id] = int(pa.getAttributeSecure("roadsideCapacity", 0)) 
+                paCapacity[pa.id] = int(pa.getAttributeSecure("roadsideCapacity", 0))
 
     attrs = ""
     if options.duration:
@@ -208,6 +208,7 @@ def generateStationary(options, edge2parking, outf):
             outf.write('       <stop parkingArea="%s"%s/>\n' % (pa, attrs))
             outf.write('    </vehicle>\n')
 
+
 def main(options):
 
     edge2parking = {}
@@ -227,7 +228,6 @@ def main(options):
             generateStationary(options, edge2parking, outf)
         outf.write('</routes>\n')
     outf.close()
-
 
 
 if __name__ == "__main__":

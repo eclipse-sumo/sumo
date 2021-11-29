@@ -21,13 +21,11 @@ from __future__ import absolute_import
 import os
 import sys
 import random
-from collections import defaultdict
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 from sumolib.miscutils import uMax  # noqa
-
 
 
 def get_options(args=None):
@@ -50,13 +48,13 @@ def get_options(args=None):
                            help="Minimum capacity for parkingAreas")
     optParser.add_argument("--max", type=int, default=uMax,
                            help="Maximum capacity for parkingAreas")
-    optParser.add_argument("-a", "--angle", type=float, 
+    optParser.add_argument("-a", "--angle", type=float,
                            help="parking area angle")
     optParser.add_argument("--prefix", default="pa", help="prefix for the parkingArea ids")
     optParser.add_argument("-s", "--seed", type=int, default=42, help="random seed")
     optParser.add_argument("--random", action="store_true", default=False,
                            help="use a random seed to initialize the random number generator")
-    optParser.add_argument("--vclass",default="passenger",
+    optParser.add_argument("--vclass", default="passenger",
                            help="only use edges which permit the given vehicle class")
     optParser.add_argument("-v", "--verbose", action="store_true",
                            default=False, help="tell me what you are doing")
@@ -67,6 +65,7 @@ def get_options(args=None):
         sys.exit(1)
 
     return options
+
 
 def main(options):
     if not options.random:
@@ -93,6 +92,7 @@ def main(options):
                                 capacity, length, width, angle))
                     break
         outf.write("</additional>\n")
+
 
 if __name__ == "__main__":
     if not main(get_options()):

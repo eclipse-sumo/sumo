@@ -272,7 +272,7 @@ class ReroutersGeneration(object):
 
 
 def isVisible(pID, altID, dist, net, parking_areas, dist_threshold,
-        capacity_threshold, opposite_visible, visible_ids):
+              capacity_threshold, opposite_visible, visible_ids):
     if altID == pID:
         return True
     if (int(parking_areas[altID].get('roadsideCapacity', 0)) >= capacity_threshold):
