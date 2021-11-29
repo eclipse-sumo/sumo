@@ -327,7 +327,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
         carriageLength = carriageLengthWithGap - carriageGap;
     }
     const int firstPassengerCarriage = defaultLength == locomotiveLength || numCarriages == 1 || (getVClass() & SVC_RAIL_CLASSES) == 0 ? 0 : 1;
-    const int noPersonsBackCarriages = (getVehicleType().getGuiShape() == SVS_TRUCK_SEMITRAILER || getVehicleType().getGuiShape() == SVS_TRUCK_1TRAILER) ? 1 : 0;
+    const int noPersonsBackCarriages = (getVehicleType().getGuiShape() == SVS_TRUCK_SEMITRAILER || getVehicleType().getGuiShape() == SVS_TRUCK_1TRAILER) && numCarriages > 1 ? 1 : 0;
     const int firstContainerCarriage = numCarriages == 1 || getVehicleType().getGuiShape() == SVS_TRUCK_1TRAILER ? 0 : 1;
     const int seatsPerCarriage = (int)ceil(getVType().getPersonCapacity() / (numCarriages - firstPassengerCarriage - noPersonsBackCarriages));
     const int containersPerCarriage = (int)ceil(getVType().getContainerCapacity() / (numCarriages - firstContainerCarriage));
