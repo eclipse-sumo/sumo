@@ -1,0 +1,657 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 08/09/21 13:59:47 by Eclipse SUMO netconvert Version v1_8_0+1925-6bf04e0fef
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <type-files value="C:\Program%20Files%20(x86)\Eclipse\Sumo\data\typemap\osmNetconvert.typ.xml,C:\Program%20Files%20(x86)\Eclipse\Sumo\data\typemap\osmNetconvertUrbanDe.typ.xml,C:\Program%20Files%20(x86)\Eclipse\Sumo\data\typemap\osmNetconvertPedestrians.typ.xml,C:\Program%20Files%20(x86)\Eclipse\Sumo\data\typemap\osmNetconvertShips.typ.xml"/>
+        <osm-files value="osm_bbox.osm.xml"/>
+    </input>
+
+    <output>
+        <output-file value="osm.net.xml"/>
+        <output.street-names value="true"/>
+        <output.original-names value="true"/>
+        <ptstop-output value="osm_stops.add.xml"/>
+        <ptline-output value="osm_ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <processing>
+        <geometry.remove value="true"/>
+        <roundabouts.guess value="true"/>
+    </processing>
+
+    <tls_building>
+        <tls.discard-simple value="true"/>
+        <tls.join value="true"/>
+        <tls.guess-signals value="true"/>
+        <tls.default-type value="actuated"/>
+    </tls_building>
+
+    <ramp_guessing>
+        <ramps.guess value="true"/>
+    </ramp_guessing>
+
+    <junctions>
+        <junctions.join value="true"/>
+        <junctions.corner-detail value="5"/>
+    </junctions>
+
+    <pedestrian>
+        <crossings.guess value="true"/>
+    </pedestrian>
+
+    <railway>
+        <railway.topology.repair value="true"/>
+        <railway.topology.repair.stop-turn value="true"/>
+    </railway>
+
+    <report>
+        <verbose value="true"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
+    <ptLine id="10082594" name="Tram 10: Rühme =&gt; Hauptbahnhof" line="10" type="tram" vClass="tram" period="900" completeness="0.28">
+        <route edges="728830240#1 859066421#1 728830242#1 859066418#0 859066418#1 859066419#1 859066419#2 806561072#0 806561072#1 806561071#0 806561071#1 806561071#2 806561071#3 806561071#4 806561071#5 245334408#0 245334408#1 245334408#2 245334408#3 245334408#4 245334408#5"/>
+        <busStop id="2525484930" name="Carl-Miele-Straße"/>
+        <busStop id="2525484873" name="Lincolnsiedlung"/>
+        <busStop id="333148448" name="Hansestraße Ost"/>
+        <busStop id="2525484946" name="Nordhoffstraße"/>
+        <busStop id="54143138" name="Schmalbachstraße"/>
+    </ptLine>
+    <ptLine id="10082595" name="Tram 10: Hauptbahnhof =&gt; Rühme" line="10" type="tram" vClass="tram" period="900" completeness="0.28">
+        <route edges="245334406#0 245334406#3 245334406#4 245334406#5 245334406#6 245334406#7 806561073#0 806561073#1 806561073#2 806561073#3 806561073#4 806561073#5 806561074 859066420#0 859066420#1 859066420#2 859066417#1 728830241#0 728830241#1 7006207#0 7006207#1 7006207#2 7006207#3 7006207#4 7006207#5 7006207#6 728830240#0 728830240#1"/>
+        <busStop id="54143139" name="Schmalbachstraße"/>
+        <busStop id="54143135" name="Nordhoffstraße"/>
+        <busStop id="333148451" name="Hansestraße Ost"/>
+        <busStop id="54143083" name="Lincolnsiedlung"/>
+        <busStop id="2525484930" name="Carl-Miele-Straße"/>
+    </ptLine>
+    <ptLine id="1967175" name="Bus 424: Rühme =&gt; Bevenrode =&gt; Essenrode" line="424" type="bus" vClass="bus" period="3600" completeness="0.17">
+        <route edges="222336041#2 625075004#0 -28266064#1 -10749352 -511175451 -173298393 -25498147#2 -25498147#1 -25498147#0 -25498146 -614969456 -4304991 511175442 4729000#0 4729000#1 4729000#2 222114077#0 222114077#1 222114077#2 222114077#3 222114077#4 222114077#5 222114077#7 611113418#0 611113418#1 4726410#0 4726410#1 4726410#2 4726410#3 4726410#4 4726410#5 -5640229#6 -5640229#5 -5640229#4 -5640229#3 -5640229#2 -5640229#1 -5640229#0 30253923 -5640228#5 -5640228#4 -5640228#3 -5640228#2 -5640228#1 -5640228#0"/>
+        <busStop id="1780723613" name="Lincolnsiedlung"/>
+        <busStop id="-310417058" name="Im Steinkampe"/>
+        <busStop id="333697505" name="Am Berge"/>
+        <busStop id="2313104473" name="Dammwiese"/>
+        <busStop id="-2310890309" name="Pappelallee"/>
+        <busStop id="2310890289" name="Am Platz"/>
+    </ptLine>
+    <ptLine id="2653085" name="Linie 113 via Schwülper Baunschweiger Straße" line="113" type="bus" vClass="bus" completeness="0.08">
+        <route edges="24803131 931767245 146902430#1 146902430#2 146902430#3 146902430#4 146902430#5 611113394"/>
+        <busStop id="2078032882" name="Heideblick"/>
+        <busStop id="481115891" name="Aschenkamp"/>
+    </ptLine>
+    <ptLine id="2656639" name="Linie 113 via Rothemühle" line="113" type="bus" vClass="bus" completeness="0.17">
+        <route edges="24803131 931767245 146902430#1 146902430#2 146902430#3 146902430#4 146902430#5 611113394"/>
+        <busStop id="2078032882" name="Heideblick"/>
+        <busStop id="481115891" name="Aschenkamp"/>
+    </ptLine>
+    <ptLine id="2657421" name="Linie 112" line="112" type="bus" vClass="bus" completeness="0.13">
+        <route edges="23187673#1 53650436#1 53650436#3 53650436#4 24803131 931767245 146902430#1 146902430#2 146902430#3 146902430#4 146902430#5 611113394"/>
+        <busStop id="250749715" name="Heideblick"/>
+        <busStop id="481115891" name="Aschenkamp"/>
+    </ptLine>
+    <ptLine id="2660202" name="Bus 480: Braunschweig Rathaus =&gt; Groß Schwülper" line="480" type="bus" vClass="bus" period="3600" completeness="0.09">
+        <route edges="10743323 -47007889 -108915782#2 -33199416#8 -33199416#7 -33199416#6 -33199416#5 -33199416#4 -33199416#2 -33199416#0 -33199328 -509331932 -611101972 -328670992#2 -328670992#1 -328670992#0 -509331931 -113049480#3 -113049480#1 -113049480#0"/>
+        <busStop id="-2303819179" name="Schlesierweg"/>
+        <busStop id="-2304877718" name="Am Grasplatz"/>
+        <busStop id="-2126769010" name="Am Grasplatz"/>
+    </ptLine>
+    <ptLine id="2777015" name="Tram 1: Wenden =&gt; Stöckheim" line="1" type="tram" vClass="tram" period="600" completeness="0.24">
+        <route edges="859066434#3 859066433#1 859066433#2 859066433#3 859066431#1 859066431#2 859066427#2 859066426#1 859066426#2 859066423#1 728830240#0 728830240#1 859066421#1 728830242#1 859066418#0 859066418#1 859066419#1 859066419#2 806561072#0 806561072#1 806561071#0 806561071#1 806561071#2 806561071#3 806561071#4 806561071#5 245334408#0 245334408#1 245334408#2 245334408#3 245334408#4 245334408#5"/>
+        <busStop id="54142977" name="Heideblick"/>
+        <busStop id="54143009" name="Veltenhöfer Straße"/>
+        <busStop id="2525484928" name="Geibelstraße"/>
+        <busStop id="2525484930" name="Carl-Miele-Straße"/>
+        <busStop id="2525484873" name="Lincolnsiedlung"/>
+        <busStop id="333148448" name="Hansestraße Ost"/>
+        <busStop id="2525484946" name="Nordhoffstraße"/>
+        <busStop id="54143138" name="Schmalbachstraße"/>
+    </ptLine>
+    <ptLine id="2928267" name="Bus 416: Völkenrode =&gt; Kralenriede" line="416" type="bus" vClass="bus" period="900" completeness="0.02">
+        <route edges="-108915817#1 -108915817#0 108915796 509331931 328670992#0 328670992#1 328670992#2 611101972 509331932 33199328 33199416#0 33199416#2 33199416#4 33199416#5 33199416#6 33199416#7 33199416#8 108915782#1 108915782#3 4726795 -5640212#12 -5640212#11 -5640212#9 -5640212#7 -5640212#5 -5640212#4 -5640212#3 -5640212#2 -5640212#1 -5640212#0 -30427558 -153742986 71962469#0 71962469#1"/>
+        <busStop id="-2304877721" name="Am Bruchkamp"/>
+    </ptLine>
+    <ptLine id="2928268" name="Bus 416: Kralenriede =&gt; Völkenrode" line="416" type="bus" vClass="bus" period="900" completeness="0.06">
+        <route edges="71962469#1 30427558 5640212#0 5640212#1 5640212#2 5640212#3 5640212#4 5640212#5 5640212#7 5640212#9 5640212#11 5640212#12 -4726795 -47007889 -108915782#2 -33199416#8 -33199416#7 -33199416#6 -33199416#5 -33199416#4 -33199416#2 -33199416#0 -33199328 -509331932 -611101972 -328670992#2 -328670992#1 -328670992#0 -509331931 5987976 108915817#0 108915817#1"/>
+        <busStop id="2299687606" name="Wartheweg"/>
+        <busStop id="1944469926" name="Wartheweg"/>
+        <busStop id="247261400" name="Rodelandweg"/>
+    </ptLine>
+    <ptLine id="2928355" name="Bus 416: Kralenriede =&gt; Niebelungenplatz =&gt; Völkenrode" line="416" type="bus" vClass="bus" completeness="0.05">
+        <route edges="71962469#1 30427558 5640212#0 5640212#1 5640212#2 5640212#3 5640212#4 5640212#5 5640212#7 5640212#9 5640212#11 5640212#12 -4726795 -47007889 -108915782#2 -33199416#8 -33199416#7 -33199416#6 -33199416#5 -33199416#4 -33199416#2 -33199416#0 -33199328 -509331932 -611101972 -328670992#2 -328670992#1 -328670992#0 -509331931 5987976 108915817#0 108915817#1"/>
+        <busStop id="2299687606" name="Wartheweg"/>
+        <busStop id="1944469926" name="Wartheweg"/>
+        <busStop id="247261400" name="Rodelandweg"/>
+    </ptLine>
+    <ptLine id="2928360" name="Bus 416: Völkenrode =&gt; Niebelungenplatz =&gt; Kralenriede" line="416" type="bus" vClass="bus" completeness="0.02">
+        <route edges="-108915817#1 -108915817#0 108915796 509331931 328670992#0 328670992#1 328670992#2 611101972 509331932 33199328 33199416#0 33199416#2 33199416#4 33199416#5 33199416#6 33199416#7 33199416#8 108915782#1 108915782#3 4726795 -5640212#12 -5640212#11 -5640212#9 -5640212#7 -5640212#5 -5640212#4 -5640212#3 -5640212#2 -5640212#1 -5640212#0 -30427558 -153742986 71962469#0 71962469#1"/>
+        <busStop id="-2304877721" name="Am Bruchkamp"/>
+    </ptLine>
+    <ptLine id="2928804" name="Bus 436: Flughafen =&gt; Hauptbahnhof" line="436" type="bus" vClass="bus" period="1800" completeness="0.03">
+        <route edges="-165484800#1 -165484800#0 -151627454 151627445 165484797 -151627458#1 -151627458#0 427480092"/>
+        <busStop id="-632920367" name="Hermann-Blenk-Straße"/>
+    </ptLine>
+    <ptLine id="2928805" name="Bus 436: Hauptbahnhof =&gt; Flughafen" line="436" type="bus" vClass="bus" period="1800" completeness="0.03">
+        <route edges="-427480092 -262049413 151627458#1 165484799 151627454 165484800#0 165484800#1"/>
+        <busStop id="632920372" name="Hermann-Blenk-Straße"/>
+    </ptLine>
+    <ptLine id="2948482" name="Bus 464: Rühme =&gt; Stadion" line="464" type="bus" vClass="bus" completeness="0.17">
+        <route edges="222336041#2 625075004#0 -28266064#1 -10749352 -511175451 -173298393 -25498147#2 -25498147#1 -25498147#0 -25498146 -614969456 -4304991 511175442 4729000#0 4729000#1 4729000#2 222114077#0 222114077#1 222114077#2 222114077#3 222114077#4 222114077#5 222114077#7 611113418#0 611113418#1 4726410#0 4726410#1 4726410#2 4726410#3 4726410#4 4726410#5 -5640229#6 -5640229#5 -5640229#4 -5640229#3 -5640229#2 -5640229#1 -5640229#0 30253923 -5640228#5 -5640228#4 -5640228#3 -5640228#2 -5640228#1 -5640228#0 -165484800#1 -165484800#0 -151627454 151627445 165484797 -151627458#1 -151627458#0 427480092"/>
+        <busStop id="1780723613" name="Lincolnsiedlung"/>
+        <busStop id="-310417058" name="Im Steinkampe"/>
+        <busStop id="333697505" name="Am Berge"/>
+        <busStop id="2313104473" name="Dammwiese"/>
+        <busStop id="-2310890309" name="Pappelallee"/>
+        <busStop id="2310890289" name="Am Platz"/>
+    </ptLine>
+    <ptLine id="2948483" name="Bus 464: Stadion =&gt; Rühme" line="464" type="bus" vClass="bus" completeness="0.03">
+        <route edges="-427480092 -262049413 151627458#1 165484799 151627454 165484800#0 165484800#1 5640228#0 5640228#1 5640228#2 5640228#3 5640228#4 5640228#5 -30253923 5640229#0 5640229#1 5640229#2 5640229#3 5640229#4 5640229#5 5640229#6 -4726410#5 -4726410#4 -4726410#3 -4726410#2 -4726410#1 -4726410#0 -611113418#1 -611113418#0 -222114077#7 -222114077#6 -222114077#4 -222114077#3 -222114077#2 -222114077#1 -222114077#0 -4729000#2 -4729000#1 -4729000#0 -511175442 4304991 614969456 25498146 25498147#0 25498147#1 25498147#2 173298393 720932058 173298390 28266064#0 28266063#0 511175444 625075005#1 597760605#1 625075010#1"/>
+        <busStop id="632920372" name="Hermann-Blenk-Straße"/>
+    </ptLine>
+    <ptLine id="31366" name="Tram 1: Stöckheim =&gt; Wenden" line="1" type="tram" vClass="tram" period="600" completeness="0.24">
+        <route edges="245334406#0 245334406#3 245334406#4 245334406#5 245334406#6 245334406#7 806561073#0 806561073#1 806561073#2 806561073#3 806561073#4 806561073#5 806561074 859066420#0 859066420#1 859066420#2 859066417#1 728830241#0 728830241#1 859066424#0 859066424#1 859066424#2 859066424#3 859066424#4 859066424#5 859066428#1 859066428#2 859066429#2 859066430#1 859066430#2 859066434#1 859066434#2 859066434#3"/>
+        <busStop id="54143139" name="Schmalbachstraße"/>
+        <busStop id="54143135" name="Nordhoffstraße"/>
+        <busStop id="333148451" name="Hansestraße Ost"/>
+        <busStop id="54143083" name="Lincolnsiedlung"/>
+        <busStop id="54153340" name="Carl-Miele-Straße"/>
+        <busStop id="54143015" name="Geibelstraße"/>
+        <busStop id="54143012" name="Veltenhöfer Straße"/>
+        <busStop id="54142977" name="Heideblick"/>
+    </ptLine>
+    <ptLine id="4599998" name="Tram 1: Stöckheim =&gt; Anklamstraße =&gt; Wenden" line="1" type="tram" vClass="tram" completeness="0.22">
+        <route edges="245334406#0 245334406#3 245334406#4 245334406#5 245334406#6 245334406#7 806561073#0 806561073#1 806561073#2 806561073#3 806561073#4 806561073#5 806561074 859066420#0 859066420#1 859066420#2 859066417#1 728830241#0 728830241#1 859066424#0 859066424#1 859066424#2 859066424#3 859066424#4 859066424#5 859066428#1 859066428#2 859066429#2 859066430#1 859066430#2 859066434#1 859066434#2 859066434#3"/>
+        <busStop id="54143139" name="Schmalbachstraße"/>
+        <busStop id="54143135" name="Nordhoffstraße"/>
+        <busStop id="333148451" name="Hansestraße Ost"/>
+        <busStop id="54143083" name="Lincolnsiedlung"/>
+        <busStop id="54153340" name="Carl-Miele-Straße"/>
+        <busStop id="54143015" name="Geibelstraße"/>
+        <busStop id="54143012" name="Veltenhöfer Straße"/>
+        <busStop id="54142977" name="Heideblick"/>
+    </ptLine>
+    <ptLine id="4599999" name="Tram 1: Wenden =&gt; Anklamstraße =&gt; Stöckheim" line="1" type="tram" vClass="tram" completeness="0.22">
+        <route edges="859066434#3 859066433#1 859066433#2 859066433#3 859066431#1 859066431#2 859066427#2 859066426#1 859066426#2 859066423#1 728830240#0 728830240#1 859066421#1 728830242#1 859066418#0 859066418#1 859066419#1 859066419#2 806561072#0 806561072#1 806561071#0 806561071#1 806561071#2 806561071#3 806561071#4 806561071#5 245334408#0 245334408#1 245334408#2 245334408#3 245334408#4 245334408#5"/>
+        <busStop id="54142977" name="Heideblick"/>
+        <busStop id="54143009" name="Veltenhöfer Straße"/>
+        <busStop id="2525484928" name="Geibelstraße"/>
+        <busStop id="2525484930" name="Carl-Miele-Straße"/>
+        <busStop id="2525484873" name="Lincolnsiedlung"/>
+        <busStop id="333148448" name="Hansestraße Ost"/>
+        <busStop id="2525484946" name="Nordhoffstraße"/>
+        <busStop id="54143138" name="Schmalbachstraße"/>
+    </ptLine>
+    <ptLine id="4616533" name="Bus 424: Essenrode =&gt; Bevenrode =&gt; Rühme" line="424" type="bus" vClass="bus" period="3600" completeness="0.26">
+        <route edges="5640228#0 5640228#1 5640228#2 5640228#3 5640228#4 5640228#5 -30253923 5640229#0 5640229#1 5640229#2 5640229#3 5640229#4 5640229#5 5640229#6 -4726410#5 -4726410#4 -4726410#3 -4726410#2 -4726410#1 -4726410#0 -611113418#1 -611113418#0 -222114077#7 -222114077#6 -222114077#4 -222114077#3 -222114077#2 -222114077#1 -222114077#0 -4729000#2 -4729000#1 -4729000#0 -511175442 4304991 614969456 25498146 25498147#0 25498147#1 25498147#2 173298393 720932058 173298390 28266064#0 28266063#0 511175444 625075005#1 597760605#1 625075010#1"/>
+        <busStop id="-4393542161" name="Am Platz"/>
+        <busStop id="-333325794" name="Am Platz"/>
+        <busStop id="2310890299" name="Pappelallee"/>
+        <busStop id="333697509" name="Pappelallee"/>
+        <busStop id="-2310869837" name="Dammwiese"/>
+        <busStop id="-333697504" name="Dammwiese"/>
+        <busStop id="-333697507" name="Am Berge"/>
+        <busStop id="310417074" name="Im Steinkampe"/>
+        <busStop id="2313104483" name="Lincolnsiedlung"/>
+    </ptLine>
+    <ptLine id="4617961" name="Bus 464: Harxbüttel =&gt; Volkmarode" line="464" type="bus" vClass="bus" completeness="0.02">
+        <route edges="-611113394 -146902430#5 -146902430#4 -146902430#3 -146902430#2 -146902430#1 23187673#0 23187673#1 53650436#1 53650436#3 53650436#4 24803131 931767245 146902430#1 146902430#2 146902430#3 146902430#4 146902430#5 611113394 -611113399 -611113396#4 -611113396#2 -611113396#1 -611113396#0 -611113397#0 -31000152#4 -31000152#3 -31000152#1 -31000152#0 -614969458#0 -573227380#10 -573227380#8 -573227380#7 -573227380#6 -573227380#5 -573227380#4 -573227380#3 -573227380#2 -573227380#1 -573227380#0 -32434373 -511175453 -4726357#2 -4726357#1 -4726357#0 720932058 173298390 28266064#0 28266063#0 511175444 625075005#1 597760605#1 625075010#1 222336041#1 222336041#2 625075004#0 -28266064#1 -10749352 -511175451 -173298393 -25498147#2 -25498147#1 -25498147#0 -25498146 -614969456 -4304991 511175442 4729000#0 4729000#1 4729000#2 222114077#0 222114077#1 222114077#2 222114077#3 222114077#4 222114077#5 222114077#7 611113418#0 611113418#1 4726410#0 4726410#1 4726410#2 4726410#3 4726410#4 4726410#5 -5640229#6 -5640229#5 -5640229#4 -5640229#3 -5640229#2 -5640229#1 -5640229#0 30253923 -5640228#5 -5640228#4 -5640228#3 -5640228#2 -5640228#1 -5640228#0 -165484800#1 -165484800#0 -151627454 151627445 165484797 -151627458#1 -151627458#0 427480092"/>
+        <busStop id="-4539421793" name="Aschenkamp"/>
+    </ptLine>
+    <ptLine id="558248" name="Bus 433: Völkenrode =&gt; Hondelage" line="433" type="bus" vClass="bus" period="1800" completeness="0.01">
+        <route edges="-108915817#1 -108915817#0 108915796 509331931 328670992#0 328670992#1 328670992#2 611101972 509331932 509331935 5989176#0 5989176#1 5989176#2 188116371#0 188116371#1 22780141#0 22780141#1"/>
+        <busStop id="-2304877721" name="Am Bruchkamp"/>
+    </ptLine>
+    <ptLine id="6428561" name="Bus 480: Groß Schwülper =&gt; Braunschweig Rathaus" line="480" type="bus" vClass="bus" period="3600" completeness="0.11">
+        <route edges="113049480#0 113049480#1 113049480#3 509331931 328670992#0 328670992#1 328670992#2 611101972 509331932 33199328 33199416#0 33199416#2 33199416#4 33199416#5 33199416#6 33199416#7 33199416#8 108915782#1 108915782#3 -10743323"/>
+        <busStop id="2304877719" name="Am Grasplatz"/>
+        <busStop id="2126769011" name="Am Grasplatz"/>
+        <busStop id="4397131130" name="Schlesierweg"/>
+        <busStop id="763452451" name="Schlesierweg"/>
+    </ptLine>
+    <ptLine id="6573308" name="Bus 484: Groß Schwülper =&gt; Rühme" line="484" type="bus" vClass="bus" period="3600" completeness="0.48">
+        <route edges="506455706 332880797 203945964 508036761 4764344 508036762 332880798 -508036764 -28331539#1 -28331540 -508036763 -508036760 722504211#1 722504211#2 722504211#3 23170152#1 23170152#2 23170152#3 23170152#4 23170152#5 23170152#6 -4764512#22 -4764512#21 -4764512#20 -4764512#19 -4764512#17 -4764512#16 -4764512#15 -4764512#14 -4764512#13 -4764512#12 -4764512#11 -4764512#9 -4764512#8 -4764512#7 -4764512#6 -4764512#5 -4764512#4 -4764512#3 -4764512#2 -4764512#1 -4764512#0 -23170149 24786912#0 24786912#1 22988931#1 22988931#2 22988931#3 22988931#4 22988931#5 22988931#6 22988931#7 22988931#8 22988931#9 22988931#10 22988931#11 22988931#12 22988931#13 22988931#14 511308706#0 511308706#1 511308724#0 511308724#1 511308724#2 511308724#4 511308724#5 511308724#6 511308662 32903756#0 307704876#1 307704876#2 511308698 166445410#0 166445409#1 511308675 511308694#0 511308646#0 511308646#1 511308686 511308682 299911660 166445411 134637607#0 32202541 85272780#0 85272780#1 85272780#2 85272780#3 191883898#0 191883898#2 511315739 -511315730 -511175448#1 -30253919#1 -30253919#0 -625075006#0 625075005#1 597760605#1 625075010#1"/>
+        <busStop id="4393374272" name="Hansestraße West"/>
+        <busStop id="4112400478" name="Hansestraße West"/>
+        <busStop id="4393374271" name="Carl-Giesecke-Straße"/>
+        <busStop id="4112400476" name="Carl-Giesecke-Straße"/>
+        <busStop id="-269321181" name="Pillmannstraße"/>
+        <busStop id="-4112396296" name="Pillmannstraße"/>
+        <busStop id="-269321182" name="Christian-Pommer-Straße"/>
+        <busStop id="-4112395169" name="Christian-Pommer-Straße"/>
+        <busStop id="269320966" name="Kanalbrücke"/>
+        <busStop id="344536365" name="Kanalbrücke"/>
+        <busStop id="4103379673" name="Hansestraße Mitte"/>
+        <busStop id="4103379672" name="Hansestraße Mitte"/>
+        <busStop id="4112383489" name="Benzstraße"/>
+        <busStop id="343692308" name="Benzstraße"/>
+        <busStop id="4112385564" name="Adam-Opel-Straße"/>
+        <busStop id="343692314" name="Adam-Opel-Straße"/>
+        <busStop id="343692301" name="Daimlerstraße"/>
+        <busStop id="2314078461" name="Daimlerstraße"/>
+        <busStop id="367019569" name="Hansestraße Ost"/>
+        <busStop id="2313104483" name="Lincolnsiedlung"/>
+    </ptLine>
+    <ptLine id="6714526" name="Bus 433: Hondelage =&gt; Völkenrode" line="433" type="bus" vClass="bus" period="1800" completeness="0.07">
+        <route edges="-22780141#1 -22780141#0 -188116371#1 -188116371#0 -5989176#2 -5989176#1 -5989176#0 750411120 -509331932 -611101972 -328670992#2 -328670992#1 -328670992#0 -509331931 5987976 108915817#0 108915817#1"/>
+        <busStop id="-4080471903" name="Neuruppinstraße"/>
+        <busStop id="-763406413" name="Neuruppinstraße"/>
+        <busStop id="-763406410" name="Am Grasplatz"/>
+        <busStop id="-2126769009" name="Am Grasplatz"/>
+        <busStop id="4488574841" name="Am Bruchkamp"/>
+    </ptLine>
+    <ptLine id="6768238" name="Bus 414: Ernst-Böhme-Straße =&gt; Stadion (Schwarzer Berg)" line="414" type="bus" vClass="bus" completeness="0.80">
+        <route edges="70908501#2 -611101996#5 -611101996#4 -611101996#3 -611101996#2 -611101996#0 -625070018#1 -625070018#0 -625070025#1 -625070025#0 -31000150#1 -31000150#0 4752455 31000149 -4752423#2 -4752423#0 -7016592#13 -7016592#12 -7016592#9 -7016592#8 -7016592#7 -7016592#4 -7016592#3 -7016592#2 -7016592#1 -7016592#0 7016601 24823334 -611101998#1 -611101998#0 -82457818#2 -82457818#1 -82457818#0 -173759898#4 -173759898#3 -173759898#2 -173759898#1 -173759898#0 -47291034#3 -47291034#2 -47291034#1 -47291034#0 -657618384 -10750085#7 -10750085#6 -10750085#5 -10750085#4 -10750085#3 -10750085#2 -10750085#1 -10750085#0 -4726782#4 -4726782#3 -4726782#1 -4726782#0"/>
+        <busStop id="4539379541" name="Ernst-Böhme-Straße"/>
+        <busStop id="842199418" name="Ernst-Böhme-Straße"/>
+        <busStop id="-4539379540" name="Am Hafen"/>
+        <busStop id="-844172737" name="Am Hafen"/>
+        <busStop id="-4539379539" name="Waller Weg"/>
+        <busStop id="-844172689" name="Waller Weg"/>
+        <busStop id="4103294756" name="Heesfeld"/>
+        <busStop id="844172723" name="Heesfeld"/>
+        <busStop id="-4103274675" name="Unter den Linden"/>
+        <busStop id="-844172698" name="Unter den Linden"/>
+        <busStop id="-4103260847" name="Wendener Weg"/>
+        <busStop id="-844172702" name="Wendener Weg"/>
+        <busStop id="-4103249696" name="Dreisch"/>
+        <busStop id="-855328418" name="Dreisch"/>
+        <busStop id="-4103243803" name="Sandanger"/>
+        <busStop id="-844172717" name="Sandanger"/>
+    </ptLine>
+    <ptLine id="6768239" name="Bus 414: Stadion (Schwarzer Berg) =&gt; Ernst-Böhme-Straße" line="414" type="bus" vClass="bus" completeness="0.62">
+        <route edges="4726782#0 4726782#1 4726782#3 4726782#4 4726782#5 10750085#1 10750085#2 10750085#3 10750085#4 10750085#5 10750085#6 10750085#7 657618384 47291034#0 47291034#1 47291034#2 47291034#3 173759898#0 173759898#1 173759898#2 173759898#3 173759898#4 7016618#0 7016618#1 54981199#0 82457821#1"/>
+        <busStop id="4539379534" name="Sandanger"/>
+        <busStop id="844172701" name="Sandanger"/>
+        <busStop id="4103249697" name="Dreisch"/>
+        <busStop id="844172703" name="Dreisch"/>
+        <busStop id="4539379535" name="Wendener Weg"/>
+        <busStop id="844172696" name="Wendener Weg"/>
+        <busStop id="4103284302" name="Ernst-Böhme-Straße"/>
+        <busStop id="844172692" name="Ernst-Böhme-Straße"/>
+    </ptLine>
+    <ptLine id="6768240" name="Bus 414: Stadion (Schwarzer Berg) =&gt; Heideblick" line="414" type="bus" vClass="bus" completeness="0.79">
+        <route edges="4726782#0 4726782#1 4726782#3 4726782#4 4726782#5 10750085#1 10750085#2 10750085#3 10750085#4 10750085#5 10750085#6 10750085#7 657618384 47291034#0 47291034#1 47291034#2 47291034#3 173759898#0 173759898#1 173759898#2 173759898#3 173759898#4 82457818#0 82457818#1 82457818#2 611101998#0 611101998#1 7016597#0 7016597#1 7016592#0 7016592#1 7016592#2 7016592#3 7016592#4 7016592#7 7016592#8 7016592#9 7016592#12 7016592#13 4752423#0 4752423#2 24787043 31000150#0 31000150#1 31000150#2 625070025#1 625070018#0 625070018#1 625070018#2 611101996#2 611101996#3 611101996#4 611101996#5 22988925#0 22988925#1 54981191 82457821#1 511308639#0 511308639#1 28672098#0 28672098#1 511308631 23031878#0 23031878#1 23031878#2 23031878#4 23031878#5 10749647#0 10749647#1 10749647#2 10749647#3 4747816#0 4747816#1 4747816#5 4747816#6 4747816#7 4747816#8 4747816#9 31000152#0 31000152#1 31000152#3 31000152#4 611113397#0 611113396#0 611113396#1 611113396#2 611113396#4 611113399 -611113394 -146902430#5 -146902430#4 -146902430#3 -146902430#2 -146902430#1 23187673#0 23187673#1"/>
+        <busStop id="4539379534" name="Sandanger"/>
+        <busStop id="844172701" name="Sandanger"/>
+        <busStop id="4103249697" name="Dreisch"/>
+        <busStop id="844172703" name="Dreisch"/>
+        <busStop id="4539379535" name="Wendener Weg"/>
+        <busStop id="844172696" name="Wendener Weg"/>
+        <busStop id="4539379536" name="Unter den Linden"/>
+        <busStop id="844172750" name="Unter den Linden"/>
+        <busStop id="269321675" name="Heesfeld"/>
+        <busStop id="4103294757" name="Heesfeld"/>
+        <busStop id="4103297697" name="Waller Weg"/>
+        <busStop id="844172741" name="Waller Weg"/>
+        <busStop id="4103308340" name="Am Hafen"/>
+        <busStop id="844172725" name="Am Hafen"/>
+        <busStop id="4103284302" name="Ernst-Böhme-Straße"/>
+        <busStop id="844172692" name="Ernst-Böhme-Straße"/>
+        <busStop id="248483771" name="Hansestraße"/>
+        <busStop id="715902961" name="Hansestraße Mitte"/>
+        <busStop id="91600371" name="Grotrian-Steinweg-Straße"/>
+        <busStop id="4103408008" name="Grotrian-Steinweg-Straße"/>
+        <busStop id="4539420388" name="Veltenhöfer Straße"/>
+        <busStop id="4103427181" name="Veltenhöfer Straße"/>
+        <busStop id="91556880" name="Brandenburgstraße"/>
+        <busStop id="4103539293" name="Brandenburgstraße"/>
+        <busStop id="4626215440" name="Alter Postweg"/>
+        <busStop id="4103489890" name="Alter Postweg"/>
+        <busStop id="-4539421793" name="Aschenkamp"/>
+    </ptLine>
+    <ptLine id="6768241" name="Bus 414: Stadion (Schwarzer Berg) =&gt; Waller Weg" line="414" type="bus" vClass="bus" completeness="0.71">
+        <route edges="4726782#0 4726782#1 4726782#3 4726782#4 4726782#5 10750085#1 10750085#2 10750085#3 10750085#4 10750085#5 10750085#6 10750085#7 657618384 47291034#0 47291034#1 47291034#2 47291034#3 173759898#0 173759898#1 173759898#2 173759898#3 173759898#4 82457818#0 82457818#1 82457818#2 611101998#0 611101998#1 7016597#0 7016597#1 7016592#0 7016592#1 7016592#2 7016592#3 7016592#4 7016592#7 7016592#8 7016592#9 7016592#12 7016592#13 4752423#0 4752423#2 24787043 31000150#0 31000150#1 31000150#2"/>
+        <busStop id="4539379534" name="Sandanger"/>
+        <busStop id="844172701" name="Sandanger"/>
+        <busStop id="4103249697" name="Dreisch"/>
+        <busStop id="844172703" name="Dreisch"/>
+        <busStop id="4539379535" name="Wendener Weg"/>
+        <busStop id="844172696" name="Wendener Weg"/>
+        <busStop id="4539379536" name="Unter den Linden"/>
+        <busStop id="844172750" name="Unter den Linden"/>
+        <busStop id="269321675" name="Heesfeld"/>
+        <busStop id="4103294757" name="Heesfeld"/>
+        <busStop id="4103297697" name="Waller Weg"/>
+        <busStop id="844172741@6768241" name="Waller Weg"/>
+    </ptLine>
+    <ptLine id="6768242" name="Bus 414: Waller Weg =&gt; Stadion (Schwarzer Berg)" line="414" type="bus" vClass="bus" completeness="0.75">
+        <route edges="-625070025#0 -31000150#1 -31000150#0 4752455 31000149 -4752423#2 -4752423#0 -7016592#13 -7016592#12 -7016592#9 -7016592#8 -7016592#7 -7016592#4 -7016592#3 -7016592#2 -7016592#1 -7016592#0 7016601 24823334 -611101998#1 -611101998#0 -82457818#2 -82457818#1 -82457818#0 -173759898#4 -173759898#3 -173759898#2 -173759898#1 -173759898#0 -47291034#3 -47291034#2 -47291034#1 -47291034#0 -657618384 -10750085#7 -10750085#6 -10750085#5 -10750085#4 -10750085#3 -10750085#2 -10750085#1 -10750085#0 -4726782#4 -4726782#3 -4726782#1 -4726782#0"/>
+        <busStop id="-4539379539" name="Waller Weg"/>
+        <busStop id="-844172689@6768242" name="Waller Weg"/>
+        <busStop id="4103294756" name="Heesfeld"/>
+        <busStop id="844172723" name="Heesfeld"/>
+        <busStop id="-4103274675" name="Unter den Linden"/>
+        <busStop id="-844172698" name="Unter den Linden"/>
+        <busStop id="-4103260847" name="Wendener Weg"/>
+        <busStop id="-844172702" name="Wendener Weg"/>
+        <busStop id="-4103249696" name="Dreisch"/>
+        <busStop id="-855328418" name="Dreisch"/>
+        <busStop id="-4103243803" name="Sandanger"/>
+        <busStop id="-844172717" name="Sandanger"/>
+    </ptLine>
+    <ptLine id="6768729" name="Bus 434: Heideblick =&gt; Krugplatz" line="434" type="bus" vClass="bus" completeness="0.29">
+        <route edges="23187673#1 53650436#1 53650436#3 53650436#4 24803131 931767245 146902430#1 146902430#2 146902430#3 146902430#4 146902430#5 611113394"/>
+        <busStop id="250749715" name="Heideblick"/>
+        <busStop id="481115891" name="Aschenkamp"/>
+    </ptLine>
+    <ptLine id="6768731" name="Bus 434: Krugplatz =&gt; Heideblick" line="434" type="bus" vClass="bus" completeness="0.14">
+        <route edges="-611113394 -146902430#5 -146902430#4 -146902430#3 -146902430#2 -146902430#1 23187673#0 23187673#1"/>
+        <busStop id="-4539421793" name="Aschenkamp"/>
+    </ptLine>
+    <ptLine id="6953324" name="Bus 414: Ernst-Böhme-Straße =&gt; Waller Weg" line="414" type="bus" vClass="bus" completeness="1.00">
+        <route edges="70908501#2 -611101996#5 -611101996#4 -611101996#3 -611101996#2 -611101996#0 -625070018#1 -625070018#0 -625070025#1 -625070025#0"/>
+        <busStop id="4539379541" name="Ernst-Böhme-Straße"/>
+        <busStop id="842199418" name="Ernst-Böhme-Straße"/>
+        <busStop id="-4539379540" name="Am Hafen"/>
+        <busStop id="-844172737" name="Am Hafen"/>
+        <busStop id="-4539379539" name="Waller Weg"/>
+        <busStop id="-844172689" name="Waller Weg"/>
+    </ptLine>
+    <ptLine id="6953325" name="Bus 414: Stadion (Schwarzer Berg) =&gt; Am Hafen" line="414" type="bus" vClass="bus" completeness="0.74">
+        <route edges="4726782#0 4726782#1 4726782#3 4726782#4 4726782#5 10750085#1 10750085#2 10750085#3 10750085#4 10750085#5 10750085#6 10750085#7 657618384 47291034#0 47291034#1 47291034#2 47291034#3 173759898#0 173759898#1 173759898#2 173759898#3 173759898#4 82457818#0 82457818#1 82457818#2 611101998#0 611101998#1 7016597#0 7016597#1 7016592#0 7016592#1 7016592#2 7016592#3 7016592#4 7016592#7 7016592#8 7016592#9 7016592#12 7016592#13 4752423#0 4752423#2 24787043 31000150#0 31000150#1 31000150#2 625070025#1 625070018#0 625070018#1 625070018#2"/>
+        <busStop id="4539379534" name="Sandanger"/>
+        <busStop id="844172701" name="Sandanger"/>
+        <busStop id="4103249697" name="Dreisch"/>
+        <busStop id="844172703" name="Dreisch"/>
+        <busStop id="4539379535" name="Wendener Weg"/>
+        <busStop id="844172696" name="Wendener Weg"/>
+        <busStop id="4539379536" name="Unter den Linden"/>
+        <busStop id="844172750" name="Unter den Linden"/>
+        <busStop id="269321675" name="Heesfeld"/>
+        <busStop id="4103294757" name="Heesfeld"/>
+        <busStop id="4103297697" name="Waller Weg"/>
+        <busStop id="844172741" name="Waller Weg"/>
+        <busStop id="4103308340" name="Am Hafen"/>
+        <busStop id="844172725@6953325" name="Am Hafen"/>
+    </ptLine>
+    <ptLine id="6953326" name="Bus 416: Altstadtmarkt =&gt; Kralenriede" line="416" type="bus" vClass="bus" completeness="0.13">
+        <route edges="-5640212#12 -5640212#11 -5640212#9 -5640212#7 -5640212#5 -5640212#4 -5640212#3 -5640212#2 -5640212#1 -5640212#0 -30427558 -153742986 71962469#0 71962469#1"/>
+        <busStop id="-41944784" name="Rodelandweg"/>
+        <busStop id="2299687606" name="Wartheweg"/>
+        <busStop id="1944469926@6953326" name="Wartheweg"/>
+    </ptLine>
+    <ptLine id="6974398" name="Bus 424: Bevenrode =&gt; Heideblick" line="424" type="bus" vClass="bus" completeness="0.35">
+        <route edges="5640228#0 5640228#1 5640228#2 5640228#3 5640228#4 5640228#5 -30253923 5640229#0 5640229#1 5640229#2 5640229#3 5640229#4 5640229#5 5640229#6 -4726410#5 -4726410#4 -4726410#3 -4726410#2 -4726410#1 -4726410#0 -611113418#1 -611113418#0 -222114077#7 -222114077#6 -222114077#4 -222114077#3 -222114077#2 -222114077#1 -222114077#0 -4729000#2 -4729000#1 -4729000#0 -511175442 4304991 614969456 25498146 25498147#0 25498147#1 25498147#2 173298393 4726357#0 4726357#1 4726357#2 511175453 32434373 573227380#0 573227380#1 573227380#2 573227380#3 573227380#4 573227380#5 573227380#6 573227380#7 573227380#8 573227380#10 614969458#0 31000152#0 31000152#1 31000152#3 31000152#4 611113397#0 611113396#0 611113396#1 611113396#2 611113396#4 611113399 -611113394 -146902430#5 -146902430#4 -146902430#3 -146902430#2 -146902430#1 23187673#0 23187673#1"/>
+        <busStop id="-4393542161" name="Am Platz"/>
+        <busStop id="-333325794" name="Am Platz"/>
+        <busStop id="2310890299" name="Pappelallee"/>
+        <busStop id="333697509" name="Pappelallee"/>
+        <busStop id="-2310869837" name="Dammwiese"/>
+        <busStop id="-333697504" name="Dammwiese"/>
+        <busStop id="-333697507" name="Am Berge"/>
+        <busStop id="4539421794" name="Heideblick"/>
+    </ptLine>
+    <ptLine id="6974399" name="Bus 424: Bevenrode =&gt; Rühme" line="424" type="bus" vClass="bus" completeness="0.38">
+        <route edges="5640228#0 5640228#1 5640228#2 5640228#3 5640228#4 5640228#5 -30253923 5640229#0 5640229#1 5640229#2 5640229#3 5640229#4 5640229#5 5640229#6 -4726410#5 -4726410#4 -4726410#3 -4726410#2 -4726410#1 -4726410#0 -611113418#1 -611113418#0 -222114077#7 -222114077#6 -222114077#4 -222114077#3 -222114077#2 -222114077#1 -222114077#0 -4729000#2 -4729000#1 -4729000#0 -511175442 4304991 614969456 25498146 25498147#0 25498147#1 25498147#2 173298393 720932058 173298390 28266064#0 28266063#0 511175444 625075005#1 597760605#1 625075010#1"/>
+        <busStop id="-4393542161" name="Am Platz"/>
+        <busStop id="-333325794" name="Am Platz"/>
+        <busStop id="2310890299" name="Pappelallee"/>
+        <busStop id="333697509" name="Pappelallee"/>
+        <busStop id="-2310869837" name="Dammwiese"/>
+        <busStop id="-333697504" name="Dammwiese"/>
+        <busStop id="-333697507" name="Am Berge"/>
+        <busStop id="310417074" name="Im Steinkampe"/>
+        <busStop id="2313104483" name="Lincolnsiedlung"/>
+    </ptLine>
+    <ptLine id="6974400" name="Bus 424: Waggum =&gt; Rühme" line="424" type="bus" vClass="bus" completeness="0.50">
+        <route edges="5640228#0 5640228#1 5640228#2 5640228#3 5640228#4 5640228#5 -30253923 5640229#0 5640229#1 5640229#2 5640229#3 5640229#4 5640229#5 5640229#6 -4726410#5 -4726410#4 -4726410#3 -4726410#2 -4726410#1 -4726410#0 -611113418#1 -611113418#0 -222114077#7 -222114077#6 -222114077#4 -222114077#3 -222114077#2 -222114077#1 -222114077#0 -4729000#2 -4729000#1 -4729000#0 -511175442 4304991 614969456 25498146 25498147#0 25498147#1 25498147#2 173298393 720932058 173298390 28266064#0 28266063#0 511175444 625075005#1 597760605#1 625075010#1"/>
+        <busStop id="-4393542161" name="Am Platz"/>
+        <busStop id="-333325794" name="Am Platz"/>
+        <busStop id="2310890299" name="Pappelallee"/>
+        <busStop id="333697509" name="Pappelallee"/>
+        <busStop id="-2310869837" name="Dammwiese"/>
+        <busStop id="-333697504" name="Dammwiese"/>
+        <busStop id="-333697507" name="Am Berge"/>
+        <busStop id="310417074" name="Im Steinkampe"/>
+        <busStop id="2313104483" name="Lincolnsiedlung"/>
+    </ptLine>
+    <ptLine id="6974403" name="Bus 424: Rühme =&gt; Bevenrode" line="424" type="bus" vClass="bus" completeness="0.25">
+        <route edges="222336041#2 625075004#0 -28266064#1 -10749352 -511175451 -173298393 -25498147#2 -25498147#1 -25498147#0 -25498146 -614969456 -4304991 511175442 4729000#0 4729000#1 4729000#2 222114077#0 222114077#1 222114077#2 222114077#3 222114077#4 222114077#5 222114077#7 611113418#0 611113418#1 4726410#0 4726410#1 4726410#2 4726410#3 4726410#4 4726410#5 -5640229#6 -5640229#5 -5640229#4 -5640229#3 -5640229#2 -5640229#1 -5640229#0 30253923 -5640228#5 -5640228#4 -5640228#3 -5640228#2 -5640228#1 -5640228#0"/>
+        <busStop id="1780723613" name="Lincolnsiedlung"/>
+        <busStop id="-310417058" name="Im Steinkampe"/>
+        <busStop id="333697505" name="Am Berge"/>
+        <busStop id="2313104473" name="Dammwiese"/>
+        <busStop id="-2310890309" name="Pappelallee"/>
+        <busStop id="2310890289" name="Am Platz"/>
+    </ptLine>
+    <ptLine id="6974404" name="Bus 424: Rühme =&gt; Waggum" line="424" type="bus" vClass="bus" period="1800" completeness="0.33">
+        <route edges="222336041#2 625075004#0 -28266064#1 -10749352 -511175451 -173298393 -25498147#2 -25498147#1 -25498147#0 -25498146 -614969456 -4304991 511175442 4729000#0 4729000#1 4729000#2 222114077#0 222114077#1 222114077#2 222114077#3 222114077#4 222114077#5 222114077#7 611113418#0 611113418#1 4726410#0 4726410#1 4726410#2 4726410#3 4726410#4 4726410#5 -5640229#6 -5640229#5 -5640229#4 -5640229#3 -5640229#2 -5640229#1 -5640229#0 30253923 -5640228#5 -5640228#4 -5640228#3 -5640228#2 -5640228#1 -5640228#0"/>
+        <busStop id="1780723613" name="Lincolnsiedlung"/>
+        <busStop id="-310417058" name="Im Steinkampe"/>
+        <busStop id="333697505" name="Am Berge"/>
+        <busStop id="2313104473" name="Dammwiese"/>
+        <busStop id="-2310890309" name="Pappelallee"/>
+        <busStop id="2310890289" name="Am Platz"/>
+    </ptLine>
+    <ptLine id="6975025" name="Bus 433: Völkenrode =&gt; Rudolfplatz" line="433" type="bus" vClass="bus" completeness="0.04">
+        <route edges="-108915817#1 -108915817#0 108915796 509331931 328670992#0 328670992#1 328670992#2 611101972 509331932 509331935 5989176#0 5989176#1 5989176#2 188116371#0 188116371#1 22780141#0 22780141#1"/>
+        <busStop id="-2304877721" name="Am Bruchkamp"/>
+    </ptLine>
+    <ptLine id="6975161" name="Bus 434: Heideblick =&gt; Hänflingstraße" line="434" type="bus" vClass="bus" completeness="0.08">
+        <route edges="23187673#1 53650436#1 53650436#3 53650436#4 24803131 931767245 146902430#1 146902430#2 146902430#3 146902430#4 146902430#5 611113394"/>
+        <busStop id="481115891" name="Aschenkamp"/>
+    </ptLine>
+    <ptLine id="6975162" name="Bus 434: Heideblick =&gt; Schmiedegasse" line="434" type="bus" vClass="bus" completeness="0.05">
+        <route edges="23187673#1 53650436#1 53650436#3 53650436#4 24803131 931767245 146902430#1 146902430#2 146902430#3 146902430#4 146902430#5 611113394"/>
+        <busStop id="481115891" name="Aschenkamp"/>
+    </ptLine>
+    <ptLine id="6975163" name="Bus 434: Hänflingstraße =&gt; Heideblick" line="434" type="bus" vClass="bus" completeness="0.08">
+        <route edges="-611113394 -146902430#5 -146902430#4 -146902430#3 -146902430#2 -146902430#1 23187673#0 23187673#1"/>
+        <busStop id="-4539421793" name="Aschenkamp"/>
+    </ptLine>
+    <ptLine id="6975164" name="Bus 434: Lagesbüttel Schule =&gt; Heideblick" line="434" type="bus" vClass="bus" completeness="0.06">
+        <route edges="-611113394 -146902430#5 -146902430#4 -146902430#3 -146902430#2 -146902430#1 23187673#0 23187673#1"/>
+        <busStop id="-4539421793" name="Aschenkamp"/>
+    </ptLine>
+    <ptLine id="7018920" name="Bus 484: Gewerbegebiet Waller See =&gt; Rühme" line="484" type="bus" vClass="bus" completeness="1.00">
+        <route edges="-722504209#0 -278491962#26 -278491962#23 -278491962#22 -278491962#21 -278491962#19 -278491962#18 -278491962#16 -278491962#15 -278491962#14 -278491962#13 -278491962#11 -278491962#10 -278491962#9 -278491962#8 -278491962#7 -278491962#6 -278491962#5 -278491962#4 -278491962#3 -278491962#2 -278491962#1 -278491962#0 -942708516 278491967#0 278491967#1 508036761 4764344 508036762 332880798 -508036764 -28331539#1 -28331540 -508036763 -508036760 722504211#1 722504211#2 722504211#3 23170152#1 23170152#2 23170152#3 23170152#4 23170152#5 23170152#6 -4764512#22 -4764512#21 -4764512#20 -4764512#19 -4764512#17 -4764512#16 -4764512#15 -4764512#14 -4764512#13 -4764512#12 -4764512#11 -4764512#9 -4764512#8 -4764512#7 -4764512#6 -4764512#5 -4764512#4 -4764512#3 -4764512#2 -4764512#1 -4764512#0 -23170149 24786912#0 24786912#1 22988931#1 22988931#2 22988931#3 22988931#4 22988931#5 22988931#6 22988931#7 22988931#8 22988931#9 22988931#10 22988931#11 22988931#12 22988931#13 22988931#14 511308706#0 511308706#1 511308724#0 511308724#1 511308724#2 511308724#4 511308724#5 511308724#6 511308662 32903756#0 307704876#1 307704876#2 511308698 166445410#0 166445409#1 511308675 511308694#0 511308646#0 511308646#1 511308686 511308682 299911660 166445411 134637607#0 32202541 85272780#0 85272780#1 85272780#2 85272780#3 191883898#0 191883898#2 511315739 -511315730 -511175448#1 -30253919#1 -30253919#0 -625075006#0 625075005#1 597760605#1 625075010#1"/>
+        <busStop id="4393385970" name="Gewerbegebiet Waller See (Ost)"/>
+        <busStop id="-4393385969" name="Gewerbegebiet Waller See (Ost)"/>
+        <busStop id="4393385966" name="Gewerbegebiet Waller See (West)"/>
+        <busStop id="4393385967" name="Gewerbegebiet Waller See (West)"/>
+        <busStop id="4393374272" name="Hansestraße West"/>
+        <busStop id="4112400478" name="Hansestraße West"/>
+        <busStop id="4393374271" name="Carl-Giesecke-Straße"/>
+        <busStop id="4112400476" name="Carl-Giesecke-Straße"/>
+        <busStop id="-269321181" name="Pillmannstraße"/>
+        <busStop id="-4112396296" name="Pillmannstraße"/>
+        <busStop id="-269321182" name="Christian-Pommer-Straße"/>
+        <busStop id="-4112395169" name="Christian-Pommer-Straße"/>
+        <busStop id="269320966" name="Kanalbrücke"/>
+        <busStop id="344536365" name="Kanalbrücke"/>
+        <busStop id="4103379673" name="Hansestraße Mitte"/>
+        <busStop id="4103379672" name="Hansestraße Mitte"/>
+        <busStop id="4112383489" name="Benzstraße"/>
+        <busStop id="343692308" name="Benzstraße"/>
+        <busStop id="4112385564" name="Adam-Opel-Straße"/>
+        <busStop id="343692314" name="Adam-Opel-Straße"/>
+        <busStop id="343692301" name="Daimlerstraße"/>
+        <busStop id="2314078461" name="Daimlerstraße"/>
+        <busStop id="367019569" name="Hansestraße Ost"/>
+        <busStop id="2313104483" name="Lincolnsiedlung"/>
+    </ptLine>
+    <ptLine id="7018921" name="Bus 484: Hansestraße West =&gt; Rühme" line="484" type="bus" vClass="bus" completeness="1.00">
+        <route edges="722504211#3 23170152#1 23170152#2 23170152#3 23170152#4 23170152#5 23170152#6 -4764512#22 -4764512#21 -4764512#20 -4764512#19 -4764512#17 -4764512#16 -4764512#15 -4764512#14 -4764512#13 -4764512#12 -4764512#11 -4764512#9 -4764512#8 -4764512#7 -4764512#6 -4764512#5 -4764512#4 -4764512#3 -4764512#2 -4764512#1 -4764512#0 -23170149 24786912#0 24786912#1 22988931#1 22988931#2 22988931#3 22988931#4 22988931#5 22988931#6 22988931#7 22988931#8 22988931#9 22988931#10 22988931#11 22988931#12 22988931#13 22988931#14 511308706#0 511308706#1 511308724#0 511308724#1 511308724#2 511308724#4 511308724#5 511308724#6 511308662 32903756#0 307704876#1 307704876#2 511308698 166445410#0 166445409#1 511308675 511308694#0 511308646#0 511308646#1 511308686 511308682 299911660 166445411 134637607#0 32202541 85272780#0 85272780#1 85272780#2 85272780#3 191883898#0 191883898#2 511315739 -511315730 -511175448#1 -30253919#1 -30253919#0 -625075006#0 625075005#1 597760605#1 625075010#1"/>
+        <busStop id="4393374272" name="Hansestraße West"/>
+        <busStop id="4112400478" name="Hansestraße West"/>
+        <busStop id="4393374271" name="Carl-Giesecke-Straße"/>
+        <busStop id="4112400476" name="Carl-Giesecke-Straße"/>
+        <busStop id="-269321181" name="Pillmannstraße"/>
+        <busStop id="-4112396296" name="Pillmannstraße"/>
+        <busStop id="-269321182" name="Christian-Pommer-Straße"/>
+        <busStop id="-4112395169" name="Christian-Pommer-Straße"/>
+        <busStop id="269320966" name="Kanalbrücke"/>
+        <busStop id="344536365" name="Kanalbrücke"/>
+        <busStop id="4103379673" name="Hansestraße Mitte"/>
+        <busStop id="4103379672" name="Hansestraße Mitte"/>
+        <busStop id="4112383489" name="Benzstraße"/>
+        <busStop id="343692308" name="Benzstraße"/>
+        <busStop id="4112385564" name="Adam-Opel-Straße"/>
+        <busStop id="343692314" name="Adam-Opel-Straße"/>
+        <busStop id="343692301" name="Daimlerstraße"/>
+        <busStop id="2314078461" name="Daimlerstraße"/>
+        <busStop id="367019569" name="Hansestraße Ost"/>
+        <busStop id="2313104483" name="Lincolnsiedlung"/>
+    </ptLine>
+    <ptLine id="7018922" name="Bus 484: Rühme =&gt; Gewerbegebiet Waller See" line="484" type="bus" vClass="bus" completeness="0.96">
+        <route edges="222336041#2 625075004#0 28266063#0 511175444 625075006#0 625075006#1 30253919#1 511175448#0 511315730 4747813#0 4747813#1 4747813#2 191883897#0 191883897#2 191883897#3 191883897#4 120991989#0 120991989#1 191883900 511315746 191883899 759425699 511308690 191883896#1 166445408 524262428 124928253#0 511308710#1 511308710#2 511308710#3 511308710#5 166359011#1 511308658#0 511308658#2 511308719#1 511308719#2 511308719#3 511308719#4 511308714#0 511308714#1 307704875#0 307704875#1 307704875#3 307704875#4 307704875#5 307704875#6 307704875#7 307704875#8 307704875#9 307704875#10 307704875#11 307704875#12 307704875#13 307704875#14 307704875#15 307704875#16 24786911#1 23170149 4764512#0 4764512#1 4764512#2 4764512#3 4764512#4 4764512#5 4764512#6 4764512#7 4764512#8 4764512#9 4764512#11 4764512#12 4764512#13 4764512#14 4764512#15 4764512#16 4764512#17 4764512#19 4764512#20 4764512#21 4764512#22 -23170152#6 -23170152#5 -23170152#4 -23170152#3 -23170152#2 -23170152#1 -23170152#0 -722504211#2 -722504211#1 508036760 508036763 28331540 28331539#1 508036764 33368648 -508036762 -4764344 508036766 7016633#0 7016633#1 942708516 278491962#0 278491962#1 278491962#2 278491962#3 278491962#4 278491962#5 278491962#6 278491962#7 278491962#8 278491962#9 278491962#10 278491962#11 278491962#13 278491962#14 278491962#15 278491962#16 278491962#18 278491962#19 278491962#21 278491962#22 278491962#23 278491962#26 278491962#27 722504209#1 722504209#2 722504209#3"/>
+        <busStop id="1780723613" name="Lincolnsiedlung"/>
+        <busStop id="367019365" name="Hansestraße Ost"/>
+        <busStop id="343692298" name="Daimlerstraße"/>
+        <busStop id="4112383490" name="Benzstraße"/>
+        <busStop id="343692303" name="Benzstraße"/>
+        <busStop id="4112385563" name="Adam-Opel-Straße"/>
+        <busStop id="343692311" name="Adam-Opel-Straße"/>
+        <busStop id="269320278" name="Hansestraße Mitte"/>
+        <busStop id="4103379671" name="Hansestraße Mitte"/>
+        <busStop id="1355332139" name="Kanalbrücke"/>
+        <busStop id="344536364" name="Kanalbrücke"/>
+        <busStop id="4393374269" name="Christian-Pommer-Straße"/>
+        <busStop id="4112395168" name="Christian-Pommer-Straße"/>
+        <busStop id="4393374270" name="Pillmannstraße"/>
+        <busStop id="4112396297" name="Pillmannstraße"/>
+        <busStop id="-269321180" name="Carl-Giesecke-Straße"/>
+        <busStop id="-4112400477" name="Carl-Giesecke-Straße"/>
+        <busStop id="-269321183" name="Hansestraße West"/>
+        <busStop id="-4112400479" name="Hansestraße West"/>
+        <busStop id="4393385968" name="Gewerbegebiet Waller See (West)"/>
+        <busStop id="4393385965" name="Gewerbegebiet Waller See (West)"/>
+        <busStop id="4393385970" name="Gewerbegebiet Waller See (Ost)"/>
+        <busStop id="4393385969@7018922" name="Gewerbegebiet Waller See (Ost)"/>
+    </ptLine>
+    <ptLine id="7018923" name="Bus 484: Rühme =&gt; Hansestraße West" line="484" type="bus" vClass="bus" completeness="0.95">
+        <route edges="222336041#2 625075004#0 28266063#0 511175444 625075006#0 625075006#1 30253919#1 511175448#0 511315730 4747813#0 4747813#1 4747813#2 191883897#0 191883897#2 191883897#3 191883897#4 120991989#0 120991989#1 191883900 511315746 191883899 759425699 511308690 191883896#1 166445408 524262428 124928253#0 511308710#1 511308710#2 511308710#3 511308710#5 166359011#1 511308658#0 511308658#2 511308719#1 511308719#2 511308719#3 511308719#4 511308714#0 511308714#1 307704875#0 307704875#1 307704875#3 307704875#4 307704875#5 307704875#6 307704875#7 307704875#8 307704875#9 307704875#10 307704875#11 307704875#12 307704875#13 307704875#14 307704875#15 307704875#16 24786911#1 23170149 4764512#0 4764512#1 4764512#2 4764512#3 4764512#4 4764512#5 4764512#6 4764512#7 4764512#8 4764512#9 4764512#11 4764512#12 4764512#13 4764512#14 4764512#15 4764512#16 4764512#17 4764512#19 4764512#20 4764512#21 4764512#22 -23170152#6 -23170152#5 -23170152#4 -23170152#3 -23170152#2 -23170152#1 -23170152#0"/>
+        <busStop id="1780723613" name="Lincolnsiedlung"/>
+        <busStop id="367019365" name="Hansestraße Ost"/>
+        <busStop id="343692298" name="Daimlerstraße"/>
+        <busStop id="4112383490" name="Benzstraße"/>
+        <busStop id="343692303" name="Benzstraße"/>
+        <busStop id="4112385563" name="Adam-Opel-Straße"/>
+        <busStop id="343692311" name="Adam-Opel-Straße"/>
+        <busStop id="269320278" name="Hansestraße Mitte"/>
+        <busStop id="4103379671" name="Hansestraße Mitte"/>
+        <busStop id="1355332139" name="Kanalbrücke"/>
+        <busStop id="344536364" name="Kanalbrücke"/>
+        <busStop id="4393374269" name="Christian-Pommer-Straße"/>
+        <busStop id="4112395168" name="Christian-Pommer-Straße"/>
+        <busStop id="4393374270" name="Pillmannstraße"/>
+        <busStop id="4112396297" name="Pillmannstraße"/>
+        <busStop id="-269321180" name="Carl-Giesecke-Straße"/>
+        <busStop id="-4112400477" name="Carl-Giesecke-Straße"/>
+        <busStop id="-269321183" name="Hansestraße West"/>
+        <busStop id="-4112400479@7018923" name="Hansestraße West"/>
+    </ptLine>
+    <ptLine id="7018924" name="Bus 484: Rühme =&gt; Groß Schwülper" line="484" type="bus" vClass="bus" period="3600" completeness="0.45">
+        <route edges="222336041#2 625075004#0 28266063#0 511175444 625075006#0 625075006#1 30253919#1 511175448#0 511315730 4747813#0 4747813#1 4747813#2 191883897#0 191883897#2 191883897#3 191883897#4 120991989#0 120991989#1 191883900 511315746 191883899 759425699 511308690 191883896#1 166445408 524262428 124928253#0 511308710#1 511308710#2 511308710#3 511308710#5 166359011#1 511308658#0 511308658#2 511308719#1 511308719#2 511308719#3 511308719#4 511308714#0 511308714#1 307704875#0 307704875#1 307704875#3 307704875#4 307704875#5 307704875#6 307704875#7 307704875#8 307704875#9 307704875#10 307704875#11 307704875#12 307704875#13 307704875#14 307704875#15 307704875#16 24786911#1 23170149 4764512#0 4764512#1 4764512#2 4764512#3 4764512#4 4764512#5 4764512#6 4764512#7 4764512#8 4764512#9 4764512#11 4764512#12 4764512#13 4764512#14 4764512#15 4764512#16 4764512#17 4764512#19 4764512#20 4764512#21 4764512#22 -23170152#6 -23170152#5 -23170152#4 -23170152#3 -23170152#2 -23170152#1 -23170152#0 -722504211#2 -722504211#1 508036760 508036763 28331540 28331539#1 508036764 33368648 -508036762 -4764344 -508036761 -203945964 -332880797 -506455706"/>
+        <busStop id="1780723613" name="Lincolnsiedlung"/>
+        <busStop id="367019365" name="Hansestraße Ost"/>
+        <busStop id="343692298" name="Daimlerstraße"/>
+        <busStop id="4112383490" name="Benzstraße"/>
+        <busStop id="343692303" name="Benzstraße"/>
+        <busStop id="4112385563" name="Adam-Opel-Straße"/>
+        <busStop id="343692311" name="Adam-Opel-Straße"/>
+        <busStop id="269320278" name="Hansestraße Mitte"/>
+        <busStop id="4103379671" name="Hansestraße Mitte"/>
+        <busStop id="1355332139" name="Kanalbrücke"/>
+        <busStop id="344536364" name="Kanalbrücke"/>
+        <busStop id="4393374269" name="Christian-Pommer-Straße"/>
+        <busStop id="4112395168" name="Christian-Pommer-Straße"/>
+        <busStop id="4393374270" name="Pillmannstraße"/>
+        <busStop id="4112396297" name="Pillmannstraße"/>
+        <busStop id="-269321180" name="Carl-Giesecke-Straße"/>
+        <busStop id="-4112400477" name="Carl-Giesecke-Straße"/>
+        <busStop id="-269321183" name="Hansestraße West"/>
+        <busStop id="-4112400479" name="Hansestraße West"/>
+    </ptLine>
+    <ptLine id="7090404" name="Tram 1: Rathaus =&gt; Wenden" line="1" type="tram" vClass="tram" completeness="0.50">
+        <route edges="245334406#0 245334406#3 245334406#4 245334406#5 245334406#6 245334406#7 806561073#0 806561073#1 806561073#2 806561073#3 806561073#4 806561073#5 806561074 859066420#0 859066420#1 859066420#2 859066417#1 728830241#0 728830241#1 859066424#0 859066424#1 859066424#2 859066424#3 859066424#4 859066424#5 859066428#1 859066428#2 859066429#2 859066430#1 859066430#2 859066434#1 859066434#2 859066434#3"/>
+        <busStop id="54143139" name="Schmalbachstraße"/>
+        <busStop id="54143135" name="Nordhoffstraße"/>
+        <busStop id="333148451" name="Hansestraße Ost"/>
+        <busStop id="54143083" name="Lincolnsiedlung"/>
+        <busStop id="54153340" name="Carl-Miele-Straße"/>
+        <busStop id="54143015" name="Geibelstraße"/>
+        <busStop id="54143012" name="Veltenhöfer Straße"/>
+        <busStop id="54142977" name="Heideblick"/>
+    </ptLine>
+    <ptLine id="7090406" name="Tram 1: Wenden =&gt; Rathaus" line="1" type="tram" vClass="tram" completeness="0.50">
+        <route edges="859066434#3 859066433#1 859066433#2 859066433#3 859066431#1 859066431#2 859066427#2 859066426#1 859066426#2 859066423#1 728830240#0 728830240#1 859066421#1 728830242#1 859066418#0 859066418#1 859066419#1 859066419#2 806561072#0 806561072#1 806561071#0 806561071#1 806561071#2 806561071#3 806561071#4 806561071#5 245334408#0 245334408#1 245334408#2 245334408#3 245334408#4 245334408#5"/>
+        <busStop id="54142977" name="Heideblick"/>
+        <busStop id="54143009" name="Veltenhöfer Straße"/>
+        <busStop id="2525484928" name="Geibelstraße"/>
+        <busStop id="2525484930" name="Carl-Miele-Straße"/>
+        <busStop id="2525484873" name="Lincolnsiedlung"/>
+        <busStop id="333148448" name="Hansestraße Ost"/>
+        <busStop id="2525484946" name="Nordhoffstraße"/>
+        <busStop id="54143138" name="Schmalbachstraße"/>
+    </ptLine>
+    <ptLine id="7378840" name="Bus 191: Gifhorn, Steinweg =&gt; Wenden, Heideblick" line="191" type="bus" vClass="bus" completeness="0.03">
+        <route edges="-611113394 -146902430#5 -146902430#4 -146902430#3 -146902430#2 -146902430#1 23187673#0 23187673#1"/>
+        <busStop id="-4539421793" name="Aschenkamp"/>
+    </ptLine>
+    <ptLine id="7378841" name="Bus 191: Wenden, Heideblick =&gt; Gifhorn, Steinweg" line="191" type="bus" vClass="bus" completeness="0.05">
+        <route edges="23187673#1 53650436#1 53650436#3 53650436#4 24803131 931767245 146902430#1 146902430#2 146902430#3 146902430#4 146902430#5 611113394"/>
+        <busStop id="250749715" name="Heideblick"/>
+        <busStop id="481115891" name="Aschenkamp"/>
+    </ptLine>
+    <ptLine id="7392814" name="Bus 191: Gifhorn, Bahnhof (Süd) =&gt; Wenden, Heideblick" line="191" type="bus" vClass="bus" completeness="0.03">
+        <route edges="-611113394 -146902430#5 -146902430#4 -146902430#3 -146902430#2 -146902430#1 23187673#0 23187673#1"/>
+        <busStop id="-4539421793" name="Aschenkamp"/>
+    </ptLine>
+    <ptLine id="7392821" name="Bus 191: Wenden, Heideblick =&gt; Gifhorn, Bahnhof (Süd)" line="191" type="bus" vClass="bus" completeness="0.06">
+        <route edges="23187673#1 53650436#1 53650436#3 53650436#4 24803131 931767245 146902430#1 146902430#2 146902430#3 146902430#4 146902430#5 611113394"/>
+        <busStop id="250749715" name="Heideblick"/>
+        <busStop id="481115891" name="Aschenkamp"/>
+    </ptLine>
+    <ptLine id="7393653" name="Bus 111: Gifhorn, Gesundheitsamt =&gt; Wenden, Heideblick" line="111" type="bus" vClass="bus" completeness="0.02">
+        <route edges="-611113394 -146902430#5 -146902430#4 -146902430#3 -146902430#2 -146902430#1 23187673#0 23187673#1"/>
+        <busStop id="-4539421793" name="Aschenkamp"/>
+    </ptLine>
+    <ptLine id="7393662" name="Bus 111: Wenden, Heideblick =&gt; Gifhorn, Gesundheitsamt" line="111" type="bus" vClass="bus" completeness="0.03">
+        <route edges="23187673#1 53650436#1 53650436#3 53650436#4 24803131 931767245 146902430#1 146902430#2 146902430#3 146902430#4 146902430#5 611113394"/>
+        <busStop id="250749715" name="Heideblick"/>
+        <busStop id="481115891" name="Aschenkamp"/>
+    </ptLine>
+    <ptLine id="75711" name="Bus 484: Rühme =&gt; Gewerbegebiet Waller See =&gt; Groß Schwülper" line="484" type="bus" vClass="bus" completeness="0.52">
+        <route edges="222336041#2 625075004#0 28266063#0 511175444 625075006#0 625075006#1 30253919#1 511175448#0 511315730 4747813#0 4747813#1 4747813#2 191883897#0 191883897#2 191883897#3 191883897#4 120991989#0 120991989#1 191883900 511315746 191883899 759425699 511308690 191883896#1 166445408 524262428 124928253#0 511308710#1 511308710#2 511308710#3 511308710#5 166359011#1 511308658#0 511308658#2 511308719#1 511308719#2 511308719#3 511308719#4 511308714#0 511308714#1 307704875#0 307704875#1 307704875#3 307704875#4 307704875#5 307704875#6 307704875#7 307704875#8 307704875#9 307704875#10 307704875#11 307704875#12 307704875#13 307704875#14 307704875#15 307704875#16 24786911#1 23170149 4764512#0 4764512#1 4764512#2 4764512#3 4764512#4 4764512#5 4764512#6 4764512#7 4764512#8 4764512#9 4764512#11 4764512#12 4764512#13 4764512#14 4764512#15 4764512#16 4764512#17 4764512#19 4764512#20 4764512#21 4764512#22 -23170152#6 -23170152#5 -23170152#4 -23170152#3 -23170152#2 -23170152#1 -23170152#0 -722504211#2 -722504211#1 508036760 508036763 28331540 28331539#1 508036764 33368648 -508036762 -4764344 508036766 7016633#0 7016633#1 942708516 278491962#0 278491962#1 278491962#2 278491962#3 278491962#4 278491962#5 278491962#6 278491962#7 278491962#8 278491962#9 278491962#10 278491962#11 278491962#13 278491962#14 278491962#15 278491962#16 278491962#18 278491962#19 278491962#21 278491962#22 278491962#23 278491962#26 278491962#27 722504209#1 722504209#2 722504209#3 -722504209#3 -722504209#2 -722504209#1 -722504209#0 -278491962#26 -278491962#23 -278491962#22 -278491962#21 -278491962#19 -278491962#18 -278491962#16 -278491962#15 -278491962#14 -278491962#13 -278491962#11 -278491962#10 -278491962#9 -278491962#8 -278491962#7 -278491962#6 -278491962#5 -278491962#4 -278491962#3 -278491962#2 -278491962#1 -278491962#0 -942708516 278491967#0 278491967#1 -203945964 -332880797 -506455706"/>
+        <busStop id="1780723613" name="Lincolnsiedlung"/>
+        <busStop id="367019365" name="Hansestraße Ost"/>
+        <busStop id="343692298" name="Daimlerstraße"/>
+        <busStop id="4112383490" name="Benzstraße"/>
+        <busStop id="343692303" name="Benzstraße"/>
+        <busStop id="4112385563" name="Adam-Opel-Straße"/>
+        <busStop id="343692311" name="Adam-Opel-Straße"/>
+        <busStop id="269320278" name="Hansestraße Mitte"/>
+        <busStop id="4103379671" name="Hansestraße Mitte"/>
+        <busStop id="1355332139" name="Kanalbrücke"/>
+        <busStop id="344536364" name="Kanalbrücke"/>
+        <busStop id="4393374269" name="Christian-Pommer-Straße"/>
+        <busStop id="4112395168" name="Christian-Pommer-Straße"/>
+        <busStop id="4393374270" name="Pillmannstraße"/>
+        <busStop id="4112396297" name="Pillmannstraße"/>
+        <busStop id="-269321180" name="Carl-Giesecke-Straße"/>
+        <busStop id="-4112400477" name="Carl-Giesecke-Straße"/>
+        <busStop id="-269321183" name="Hansestraße West"/>
+        <busStop id="-4112400479" name="Hansestraße West"/>
+        <busStop id="4393385968" name="Gewerbegebiet Waller See (West)"/>
+        <busStop id="4393385965" name="Gewerbegebiet Waller See (West)"/>
+        <busStop id="4393385970" name="Gewerbegebiet Waller See (Ost)"/>
+        <busStop id="4393385969@7018922" name="Gewerbegebiet Waller See (Ost)"/>
+        <busStop id="4393385966" name="Gewerbegebiet Waller See (West)"/>
+        <busStop id="4393385967" name="Gewerbegebiet Waller See (West)"/>
+    </ptLine>
+    <ptLine id="76955" name="Bus 414: Heideblick =&gt; Stadion (Schwarzer Berg)" line="414" type="bus" vClass="bus" completeness="0.06">
+        <route edges="23187673#1 53650436#1 53650436#3 53650436#4 24803131 931767245 146902430#1 146902430#2 146902430#3 146902430#4 146902430#5 611113394 -611113399 -611113396#4 -611113396#2 -611113396#1 -611113396#0 -611113397#0 -31000152#4 -31000152#3 -31000152#1 -31000152#0 -4747816#9 -4747816#8 -4747816#7 -4747816#6 -4747816#5 -4747816#1 -4747816#0 -10749647#3 -10749647#2 -10749647#1 -10749647#0 -10749644 -23031878#4 -23031878#2 -23031878#1 -23031878#0 -511308631 23031879#0 23031879#1 511308635 28672096#0 28672096#1 82457822 899983662 54981194 70908501#0 70908501#1 70908501#2 -611101996#5 -611101996#4 -611101996#3 -611101996#2 -611101996#0 -625070018#1 -625070018#0 -625070025#1 -625070025#0 -31000150#1 -31000150#0 4752455 31000149 -4752423#2 -4752423#0 -7016592#13 -7016592#12 -7016592#9 -7016592#8 -7016592#7 -7016592#4 -7016592#3 -7016592#2 -7016592#1 -7016592#0 7016601 24823334 -611101998#1 -611101998#0 -82457818#2 -82457818#1 -82457818#0 -173759898#4 -173759898#3 -173759898#2 -173759898#1 -173759898#0 -47291034#3 -47291034#2 -47291034#1 -47291034#0 -657618384 -10750085#7 -10750085#6 -10750085#5 -10750085#4 -10750085#3 -10750085#2 -10750085#1 -10750085#0 -4726782#4 -4726782#3 -4726782#1 -4726782#0"/>
+        <busStop id="250749715" name="Heideblick"/>
+        <busStop id="481115891" name="Aschenkamp"/>
+    </ptLine>
+</ptLines>

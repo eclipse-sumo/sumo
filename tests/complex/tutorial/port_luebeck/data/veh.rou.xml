@@ -1,0 +1,80 @@
+<routes>
+	<!--Vtypes-->
+    <vType id="type_ship" vClass="ship" containerCapacity="25" personCapacity="20"/>
+    <vType id="type_train" vClass="rail" containerCapacity="15"/>
+    <vType id="type_truck_taxi" vClass="truck" containerCapacity="1" personCapacity="1" loadingDuration="30.0"/> 
+    <vType id="type_truck" vClass="truck" containerCapacity="1" loadingDuration="30.0"/> 
+    <vType id="type_car" vClass="passenger"/>
+    <vType id="type_bus_taxi" vClass="bus" personCapacity="20"/>
+    <vType id="type_passenger" vClass="pedestrian"/>
+	
+	<!--PortArea Trucks/Stapler-->
+    <flow id="stapler" begin="0" end="0" number="5" type="type_truck_taxi">
+        <param key="has.taxi.device" value="true"/>
+        <route edges="276781727#9"/>
+		<stop containerStop="containerStop_truck_trainstation" duration="10.00"/>
+    </flow>
+	
+	<!--Trains-->
+    <trip id="train" type="type_train" depart="0" departLane="best" from="149084838#0" to="-149084838#0" via="29497609">
+        <stop containerStop="containerStop_trainstation" duration="2100"/>
+	</trip>
+	
+	<!--ships-->
+	<vehicle id="ferry" depart="0.00" departPos="0" line="ferry" type="type_ship" color="0,255,0">
+        <route edges="-127071510.253116 127071510"/>
+        <stop busStop="busStop_waterway" until="1200"/>
+    </vehicle>
+	<trip id="containership" type="type_ship" depart="0" departLane="best" from="-5005413" to="5005413.18170" via="gneE2">
+        <stop containerStop="containerStop_waterway" until="1500"/>
+	</trip>
+	
+	<!--Container-->
+	<containerFlow id="containerfromship" begin="triggered" number="15" color="255,0,0">
+       <transport from="-5005413" containerStop="containerStop_waterway" lines="containership"/>
+	   <tranship containerStop="containerStop_pier"/>
+	   <transport containerStop="containerStop_truck_trainstation" lines="taxi"/>
+	   <tranship containerStop="containerStop_trainstation"/>
+	   <transport to="-149084838#0" lines="train"/>
+    </containerFlow>  
+	
+	<!--trucks and cars-->
+	<flow id="passengercartoship" begin="0" end="200" number="20" type="type_car" from="39549605" to="-128042010" via="619566331">
+        <stop busStop="busStop_pier" until="800.00"/>
+    </flow>
+	<flow id="trucktoship" begin="0" end="200" number="20" type="type_truck" from="39549605" to="-277007500#0" via="619566331">
+        <stop containerStop="containerStop_pier" until="970.00"/>
+    </flow>
+	
+	<!--Container-->
+	<containerFlow id="containertoship" begin="triggered" number="15" color="255,0,255"> 
+		<transport from="149084838#0" containerStop="containerStop_trainstation" lines="train"/>
+		<tranship containerStop="containerStop_truck_trainstation"/>
+		<transport containerStop="containerStop_pier" lines="taxi"/>
+		<tranship containerStop="containerStop_waterway"/>
+        <transport to="5005413.18170" lines="containership"/>
+    </containerFlow>
+	
+	<trip id="bus" type="type_bus_taxi" depart="0" departLane="best" from="-197841302" via="-128042010" to="-197841302" line="bus">
+        <stop busStop="busStop_busstation_terminal" until="300.00"/> 
+        <stop busStop="busStop_pier" until="750.00"/> 
+		<stop busStop="busStop_busstation_terminal" until="900.00"/> 
+    </trip>	
+	<personFlow id="pedestrianfromship" begin="triggered" number="20" color="0,255,0">
+       <ride from="-127071510.253116" busStop="busStop_waterway" lines="ferry"/>
+	   <walk busStop="busStop_waterway"/>
+	   <walk busStop="busStop_pier"/>
+	   <ride busStop="busStop_busstation_terminal" lines="bus"/>
+       <walk busStop="busStop_passenger_terminal"/>
+    </personFlow> 
+ 	<personFlow id="pedestriantoship" begin="0" end="200" number="20">
+       <walk from="-596327078#2" busStop="busStop_passenger_terminal"/>
+       <walk busStop="busStop_busstation_terminal"/>
+	   <ride busStop="busStop_pier" lines="bus"/>
+       <walk busStop="busStop_waterway"/>
+       <ride to="127071510" lines="ferry"/>
+    </personFlow> 
+	<flow id="passengercarfromship" begin="730" end="750" number="20" type="type_car" from="-277007518" to="84630550" via="-197841302"/>
+	<flow id="truckfromship" begin="870" end="920" number="20" type="type_truck" from="277007496#0" to="84630550" via="-197841302"/>
+
+</routes>

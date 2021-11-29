@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 08/09/21 13:59:47 by Eclipse SUMO polyconvert Version v1_8_0+1925-6bf04e0fef
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
+
+    <input>
+        <net-file value="port_brunswick.net.xml"/>
+        <osm-files value="port_brunswick_bbox.osm.xml"/>
+        <osm.keep-full-type value="true"/>
+        <type-file value="C:\Program%20Files%20(x86)\Eclipse\Sumo\data\typemap\osmPolyconvert.typ.xml"/>
+    </input>
+
+    <output>
+        <output-file value="port_brunswick.poly.xml"/>
+    </output>
+
+    <report>
+        <verbose value="true"/>
+    </report>
+
+</configuration>

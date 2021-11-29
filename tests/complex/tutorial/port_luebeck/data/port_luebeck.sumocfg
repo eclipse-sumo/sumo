@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 07/29/21 09:19:35 by Eclipse SUMO sumo Version v1_8_0+1925-6bf04e0fef
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="port_luebeck.net.xml"/>
+        <route-files value="veh.rou.xml"/>
+        <additional-files value="port_luebeck.poly.xml,stops.add.xml"/>
+    </input>
+	
+	<time>
+		<begin value="0"/>
+		<end value="3600"/> <!-- one hour 3600-->
+	</time>
+
+    <processing>
+        <ignore-route-errors value="true"/>
+    </processing>
+
+    <routing>
+        <device.rerouting.adaptation-steps value="18"/>
+        <device.rerouting.adaptation-interval value="10"/>
+    </routing>
+
+    <report>
+        <verbose value="true"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <gui_only>
+        <gui-settings-file value="port_luebeck.view.xml"/>
+    </gui_only>
+
+</configuration>

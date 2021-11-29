@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 08/09/21 14:01:24 by Eclipse SUMO duarouter Version v1_8_0+1925-6bf04e0fef
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="C:\Users\knoc_me\Sumo\2021-08-09-13-59-18\osm.net.xml"/>
+        <route-files value="C:\Users\knoc_me\Sumo\2021-08-09-13-59-18\osm.ship.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\knoc_me\Sumo\2021-08-09-13-59-18\osm.ship.trips.xml.tmp"/>
+        <write-trips value="true"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="3600"/>
+    </time>
+
+    <report>
+        <no-warnings value="true"/>
+        <ignore-errors value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="ship_ship" vClass="ship"/>
+    <trip id="ship0" type="ship_ship" depart="0.00" departSpeed="max" from="23096016#0" to="-254347704"/>
+    <trip id="ship6" type="ship_ship" depart="120.01" departSpeed="max" from="-35795946" to="-5005723#3"/>
+    <trip id="ship7" type="ship_ship" depart="140.01" departSpeed="max" from="23096016#0" to="41114836"/>
+    <trip id="ship8" type="ship_ship" depart="160.01" departSpeed="max" from="-41114836" to="41114836"/>
+    <trip id="ship12" type="ship_ship" depart="240.02" departSpeed="max" from="6122888" to="-6123066#0"/>
+    <trip id="ship16" type="ship_ship" depart="320.03" departSpeed="max" from="-737097419#5" to="737097419#3"/>
+    <trip id="ship20" type="ship_ship" depart="400.03" departSpeed="max" from="23096016#0" to="-254347704"/>
+    <trip id="ship22" type="ship_ship" depart="440.04" departSpeed="max" from="-35795946" to="-5005723#3"/>
+    <trip id="ship27" type="ship_ship" depart="540.05" departSpeed="max" from="23096016#0" to="41114836"/>
+    <trip id="ship29" type="ship_ship" depart="580.05" departSpeed="max" from="-41114836" to="22789630"/>
+    <trip id="ship30" type="ship_ship" depart="600.05" departSpeed="max" from="6122888" to="581292709"/>
+    <trip id="ship33" type="ship_ship" depart="660.06" departSpeed="max" from="-41114836" to="-254347704"/>
+    <trip id="ship34" type="ship_ship" depart="680.06" departSpeed="max" from="-581292709" to="-6123066#0"/>
+    <trip id="ship36" type="ship_ship" depart="720.06" departSpeed="max" from="6122888" to="-6123066#0"/>
+    <trip id="ship41" type="ship_ship" depart="820.07" departSpeed="max" from="-737097419#5" to="737097419#3"/>
+    <trip id="ship45" type="ship_ship" depart="900.08" departSpeed="max" from="-35795946" to="5005723#4"/>
+    <trip id="ship46" type="ship_ship" depart="920.08" departSpeed="max" from="5005723#0" to="35795947#0"/>
+    <trip id="ship49" type="ship_ship" depart="980.08" departSpeed="max" from="6122888" to="6123066#1"/>
+    <trip id="ship51" type="ship_ship" depart="1020.09" departSpeed="max" from="23096016#0" to="41114836"/>
+    <trip id="ship52" type="ship_ship" depart="1040.09" departSpeed="max" from="-581292709" to="581292709"/>
+    <trip id="ship53" type="ship_ship" depart="1060.09" departSpeed="max" from="-35795946" to="35795947#0"/>
+    <trip id="ship55" type="ship_ship" depart="1100.09" departSpeed="max" from="6122888" to="-6123066#0"/>
+    <trip id="ship56" type="ship_ship" depart="1120.09" departSpeed="max" from="-737097419#5" to="-5005723#3"/>
+    <trip id="ship57" type="ship_ship" depart="1140.10" departSpeed="max" from="6122888" to="6123066#1"/>
+    <trip id="ship58" type="ship_ship" depart="1160.10" departSpeed="max" from="-581292709" to="581292709"/>
+    <trip id="ship59" type="ship_ship" depart="1180.10" departSpeed="max" from="-737097419#5" to="-5005723#3"/>
+    <trip id="ship63" type="ship_ship" depart="1260.11" departSpeed="max" from="-35795946" to="737097419#3"/>
+    <trip id="ship64" type="ship_ship" depart="1280.11" departSpeed="max" from="6122888" to="6123066#1"/>
+    <trip id="ship67" type="ship_ship" depart="1340.11" departSpeed="max" from="-35795946" to="35795947#0"/>
+    <trip id="ship69" type="ship_ship" depart="1380.12" departSpeed="max" from="5005723#0" to="-5005723#3"/>
+    <trip id="ship71" type="ship_ship" depart="1420.12" departSpeed="max" from="-581292709" to="6123066#1"/>
+    <trip id="ship77" type="ship_ship" depart="1540.13" departSpeed="max" from="-35795946" to="-5005723#3"/>
+    <trip id="ship86" type="ship_ship" depart="1720.14" departSpeed="max" from="-6123066#1" to="6123066#1"/>
+    <trip id="ship87" type="ship_ship" depart="1740.15" departSpeed="max" from="5005723#0" to="-5005723#3"/>
+    <trip id="ship88" type="ship_ship" depart="1760.15" departSpeed="max" from="-35795946" to="35795947#0"/>
+    <trip id="ship92" type="ship_ship" depart="1840.15" departSpeed="max" from="-6123066#1" to="-6123066#0"/>
+    <trip id="ship93" type="ship_ship" depart="1860.16" departSpeed="max" from="5005723#0" to="-5005723#6"/>
+    <trip id="ship95" type="ship_ship" depart="1900.16" departSpeed="max" from="-6123066#1" to="-6123066#0"/>
+    <trip id="ship96" type="ship_ship" depart="1920.16" from="-5005723#6" to="737097419#3"/>
+    <trip id="ship97" type="ship_ship" depart="1940.16" departSpeed="max" from="-6123066#1" to="6123066#1"/>
+    <trip id="ship101" type="ship_ship" depart="2020.17" departSpeed="max" from="5005723#0" to="-5005723#3"/>
+    <trip id="ship105" type="ship_ship" depart="2100.18" departSpeed="max" from="-581292709" to="6123066#1"/>
+    <trip id="ship115" type="ship_ship" depart="2300.19" departSpeed="max" from="-35795946" to="-5005723#3"/>
+    <trip id="ship117" type="ship_ship" depart="2340.20" departSpeed="max" from="-41114836" to="-254347704"/>
+    <trip id="ship121" type="ship_ship" depart="2420.20" departSpeed="max" from="-737097419#5" to="737097419#3"/>
+    <trip id="ship125" type="ship_ship" depart="2500.21" departSpeed="max" from="-581292709" to="6123066#1"/>
+    <trip id="ship126" type="ship_ship" depart="2520.21" departSpeed="max" from="-35795946" to="35795947#0"/>
+    <trip id="ship127" type="ship_ship" depart="2540.21" from="737097419#2" to="737097419#3"/>
+    <trip id="ship128" type="ship_ship" depart="2560.21" departSpeed="max" from="-35795946" to="-5005723#3"/>
+    <trip id="ship133" type="ship_ship" depart="2660.22" departSpeed="max" from="-737097419#5" to="737097419#3"/>
+    <trip id="ship134" type="ship_ship" depart="2680.22" departSpeed="max" from="23096016#0" to="-254347704"/>
+    <trip id="ship137" type="ship_ship" depart="2740.23" departSpeed="max" from="-41114836" to="-254347704"/>
+    <trip id="ship144" type="ship_ship" depart="2880.24" departSpeed="max" from="-6123066#1" to="-6123066#0"/>
+    <trip id="ship147" type="ship_ship" depart="2940.25" departSpeed="max" from="23096016#0" to="41114836"/>
+    <trip id="ship149" type="ship_ship" depart="2980.25" departSpeed="max" from="-35795946" to="737097419#3"/>
+    <trip id="ship157" type="ship_ship" depart="3140.26" departSpeed="max" from="5005723#0" to="737097419#3"/>
+    <trip id="ship160" type="ship_ship" depart="3200.27" departSpeed="max" from="5005723#0" to="737097419#3"/>
+    <trip id="ship161" type="ship_ship" depart="3220.27" departSpeed="max" from="5005723#0" to="737097419#3"/>
+    <trip id="ship169" type="ship_ship" depart="3380.28" departSpeed="max" from="-6123066#1" to="-6123066#0"/>
+    <trip id="ship170" type="ship_ship" depart="3400.28" departSpeed="max" from="5005723#0" to="-5005723#3"/>
+    <trip id="ship171" type="ship_ship" depart="3420.29" departSpeed="max" from="-35795946" to="-5005723#3"/>
+    <trip id="ship172" type="ship_ship" depart="3440.29" departSpeed="max" from="-581292709" to="6123066#1"/>
+    <trip id="ship173" type="ship_ship" depart="3460.29" departSpeed="max" from="6122888" to="-6123066#0"/>
+    <trip id="ship178" type="ship_ship" depart="3560.30" departSpeed="max" from="6122888" to="-6123066#0"/>
+    <trip id="ship179" type="ship_ship" depart="3580.30" departSpeed="max" from="-35795946" to="35795947#0"/>
+</routes>

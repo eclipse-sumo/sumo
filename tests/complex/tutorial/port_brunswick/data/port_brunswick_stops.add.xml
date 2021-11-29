@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 08/09/21 13:59:47 by Eclipse SUMO netconvert Version v1_8_0+1925-6bf04e0fef
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <type-files value="C:\Program%20Files%20(x86)\Eclipse\Sumo\data\typemap\osmNetconvert.typ.xml,C:\Program%20Files%20(x86)\Eclipse\Sumo\data\typemap\osmNetconvertUrbanDe.typ.xml,C:\Program%20Files%20(x86)\Eclipse\Sumo\data\typemap\osmNetconvertPedestrians.typ.xml,C:\Program%20Files%20(x86)\Eclipse\Sumo\data\typemap\osmNetconvertShips.typ.xml"/>
+        <osm-files value="osm_bbox.osm.xml"/>
+    </input>
+
+    <output>
+        <output-file value="osm.net.xml"/>
+        <output.street-names value="true"/>
+        <output.original-names value="true"/>
+        <ptstop-output value="osm_stops.add.xml"/>
+        <ptline-output value="osm_ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <processing>
+        <geometry.remove value="true"/>
+        <roundabouts.guess value="true"/>
+    </processing>
+
+    <tls_building>
+        <tls.discard-simple value="true"/>
+        <tls.join value="true"/>
+        <tls.guess-signals value="true"/>
+        <tls.default-type value="actuated"/>
+    </tls_building>
+
+    <ramp_guessing>
+        <ramps.guess value="true"/>
+    </ramp_guessing>
+
+    <junctions>
+        <junctions.join value="true"/>
+        <junctions.corner-detail value="5"/>
+    </junctions>
+
+    <pedestrian>
+        <crossings.guess value="true"/>
+    </pedestrian>
+
+    <railway>
+        <railway.topology.repair value="true"/>
+        <railway.topology.repair.stop-turn value="true"/>
+    </railway>
+
+    <report>
+        <verbose value="true"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="-2126769009" name="Am Grasplatz" lane="-5989176#0_1" startPos="50.44" endPos="65.08" friendlyPos="true" lines="433"/>
+    <busStop id="-2126769010" name="Am Grasplatz" lane="-33199328_1" startPos="15.34" endPos="30.34" friendlyPos="true" lines="480"/>
+    <busStop id="-2303819179" name="Schlesierweg" lane="-108915782#2_1" startPos="13.84" endPos="28.84" friendlyPos="true" lines="480"/>
+    <busStop id="-2304877718" name="Am Grasplatz" lane="-33199328_1" startPos="14.44" endPos="29.44" friendlyPos="true" lines="480"/>
+    <busStop id="-2304877721" name="Am Bruchkamp" lane="-108915817#1_1" startPos="499.21" endPos="514.21" friendlyPos="true" lines="416 433"/>
+    <busStop id="-2310869837" name="Dammwiese" lane="-222114077#7_1" startPos="6.91" endPos="21.91" friendlyPos="true" lines="424"/>
+    <busStop id="-2310890305" name="Pappelallee" lane="-5640229#5_1" startPos="27.00" endPos="42.00" friendlyPos="true" lines="424 464"/>
+    <busStop id="-2310890309" name="Pappelallee" lane="-5640229#5_1" startPos="27.66" endPos="42.66" friendlyPos="true" lines="424 464"/>
+    <busStop id="-2525484946" name="Nordhoffstraße" lane="-245334408#3_0" startPos="269.09" endPos="294.09" friendlyPos="true">
+        <access lane="299911659#1_0" pos="39.89" length="15.94" friendlyPos="1"/>
+        <access lane="394037100_0" pos="0.00" length="14.31" friendlyPos="1"/>
+        <access lane="405563773#3_0" pos="36.38" length="22.02" friendlyPos="1"/>
+        <access lane="53026097_0" pos="37.37" length="26.82" friendlyPos="1"/>
+        <access lane="543234960#2_0" pos="271.73" length="20.47" friendlyPos="1"/>
+    </busStop>
+    <busStop id="-269321180" name="Carl-Giesecke-Straße" lane="-23170152#6_1" startPos="32.81" endPos="47.81" friendlyPos="true" lines="484"/>
+    <busStop id="-269321181" name="Pillmannstraße" lane="-4764512#13_1" startPos="56.11" endPos="71.11" friendlyPos="true" lines="484"/>
+    <busStop id="-269321182" name="Christian-Pommer-Straße" lane="-4764512#2_1" startPos="23.59" endPos="38.59" friendlyPos="true" lines="484"/>
+    <busStop id="-269321183" name="Hansestraße West" lane="-23170152#0_1" startPos="18.99" endPos="33.99" friendlyPos="true" lines="484"/>
+    <busStop id="-310417058" name="Im Steinkampe" lane="-173298393_1" startPos="21.69" endPos="36.69" friendlyPos="true" lines="424 464"/>
+    <busStop id="-333148448" name="Hansestraße Ost" lane="-245334408#0_0" startPos="4.86" endPos="29.86" friendlyPos="true">
+        <access lane="148863925_0" pos="14.64" length="5.18" friendlyPos="1"/>
+        <access lane="24710789#3_0" pos="73.84" length="35.29" friendlyPos="1"/>
+        <access lane="28672230#0_0" pos="58.55" length="31.10" friendlyPos="1"/>
+        <access lane="28672230#1_0" pos="0.20" length="30.06" friendlyPos="1"/>
+        <access lane="28672230#3_0" pos="0.00" length="32.23" friendlyPos="1"/>
+    </busStop>
+    <busStop id="-333325794" name="Am Platz" lane="-30253923_0" startPos="47.39" endPos="62.39" friendlyPos="true" lines="424">
+        <access lane="-30253924#0_0" pos="41.96" length="76.46" friendlyPos="1"/>
+        <access lane="-5640228#5_0" pos="0.00" length="80.01" friendlyPos="1"/>
+        <access lane="30253923_0" pos="42.90" length="19.89" friendlyPos="1"/>
+        <access lane="5640229#0_0" pos="0.00" length="72.74" friendlyPos="1"/>
+        <access lane="5640230#1_0" pos="58.29" length="72.92" friendlyPos="1"/>
+    </busStop>
+    <busStop id="-333697504" name="Dammwiese" lane="-222114077#7_1" startPos="8.09" endPos="23.09" friendlyPos="true" lines="424"/>
+    <busStop id="-333697507" name="Am Berge" lane="-4729000#1_1" startPos="12.63" endPos="23.04" friendlyPos="true" lines="424"/>
+    <busStop id="-4080471903" name="Neuruppinstraße" lane="-5989176#2_1" startPos="5.11" endPos="20.11" friendlyPos="true" lines="433"/>
+    <busStop id="-4103243803" name="Sandanger" lane="-657618384_1" startPos="49.07" endPos="64.07" friendlyPos="true" lines="414"/>
+    <busStop id="-4103249696" name="Dreisch" lane="-173759898#0_1" startPos="88.70" endPos="103.70" friendlyPos="true" lines="414"/>
+    <busStop id="-4103260847" name="Wendener Weg" lane="-82457818#0_1" startPos="1.77" endPos="16.77" friendlyPos="true" lines="414"/>
+    <busStop id="-4103274675" name="Unter den Linden" lane="-7016592#1_1" startPos="0.00" endPos="8.94" friendlyPos="true" lines="414"/>
+    <busStop id="-4112395169" name="Christian-Pommer-Straße" lane="-4764512#2_1" startPos="21.93" endPos="36.93" friendlyPos="true" lines="484"/>
+    <busStop id="-4112396296" name="Pillmannstraße" lane="-4764512#13_1" startPos="56.23" endPos="71.23" friendlyPos="true" lines="484"/>
+    <busStop id="-4112400477" name="Carl-Giesecke-Straße" lane="-23170152#6_1" startPos="32.03" endPos="47.03" friendlyPos="true" lines="484"/>
+    <busStop id="-4112400479" name="Hansestraße West" lane="-23170152#0_1" startPos="18.99" endPos="33.99" friendlyPos="true" lines="484"/>
+    <busStop id="-4112400479@7018923" name="Hansestraße West" lane="-23170152#0_1" startPos="18.99" endPos="33.99" friendlyPos="true" lines="484"/>
+    <busStop id="-41944784" name="Rodelandweg" lane="-5640212#11_1" startPos="40.25" endPos="55.25" friendlyPos="true" lines="416"/>
+    <busStop id="-4393385969" name="Gewerbegebiet Waller See (Ost)" lane="-722504209#0_1" startPos="60.75" endPos="75.75" friendlyPos="true" lines="484"/>
+    <busStop id="-4393542161" name="Am Platz" lane="-30253923_0" startPos="48.76" endPos="63.76" friendlyPos="true" lines="424">
+        <access lane="-30253924#0_0" pos="44.97" length="78.56" friendlyPos="1"/>
+        <access lane="-5640228#5_0" pos="0.00" length="78.74" friendlyPos="1"/>
+        <access lane="30253923_0" pos="41.53" length="6.30" friendlyPos="1"/>
+        <access lane="5640229#0_0" pos="0.00" length="70.59" friendlyPos="1"/>
+        <access lane="5640230#1_0" pos="58.29" length="67.56" friendlyPos="1"/>
+    </busStop>
+    <busStop id="-4539379539" name="Waller Weg" lane="-625070025#0_1" startPos="0.00" endPos="9.43" friendlyPos="true" lines="414"/>
+    <busStop id="-4539379540" name="Am Hafen" lane="-611101996#0_1" startPos="24.57" endPos="36.75" friendlyPos="true" lines="414"/>
+    <busStop id="-4539421793" name="Aschenkamp" lane="-611113394_1" startPos="13.04" endPos="28.04" friendlyPos="true" lines="464 414 434 191 111"/>
+    <busStop id="-54143138" name="Schmalbachstraße" lane="-245334408#7_0" startPos="220.96" endPos="245.96" friendlyPos="true">
+        <access lane="-53026078_0" pos="0.00" length="115.85" friendlyPos="1"/>
+        <access lane="299911659#1_0" pos="661.38" length="82.51" friendlyPos="1"/>
+        <access lane="53026078_0" pos="125.49" length="117.78" friendlyPos="1"/>
+        <access lane="543234960#0_0" pos="0.00" length="21.47" friendlyPos="1"/>
+        <access lane="957651223_0" pos="0.00" length="185.37" friendlyPos="1"/>
+    </busStop>
+    <busStop id="-632920367" name="Hermann-Blenk-Straße" lane="-151627458#0_1" startPos="3.07" endPos="18.07" friendlyPos="true" lines="436"/>
+    <busStop id="-763406410" name="Am Grasplatz" lane="-5989176#0_1" startPos="53.21" endPos="65.08" friendlyPos="true" lines="433"/>
+    <busStop id="-763406413" name="Neuruppinstraße" lane="-5989176#2_1" startPos="6.12" endPos="21.12" friendlyPos="true" lines="433"/>
+    <busStop id="-844172689" name="Waller Weg" lane="-625070025#0_1" startPos="0.00" endPos="9.43" friendlyPos="true" lines="414"/>
+    <busStop id="-844172689@6768242" name="Waller Weg" lane="-625070025#0_1" startPos="0.00" endPos="9.43" friendlyPos="true" lines="414"/>
+    <busStop id="-844172698" name="Unter den Linden" lane="-7016592#2_1" startPos="3.26" endPos="16.18" friendlyPos="true" lines="414"/>
+    <busStop id="-844172702" name="Wendener Weg" lane="-82457818#0_1" startPos="0.00" endPos="10.41" friendlyPos="true" lines="414"/>
+    <busStop id="-844172717" name="Sandanger" lane="-657618384_1" startPos="48.70" endPos="63.70" friendlyPos="true" lines="414"/>
+    <busStop id="-844172737" name="Am Hafen" lane="-611101996#0_1" startPos="24.57" endPos="36.75" friendlyPos="true" lines="414"/>
+    <busStop id="-855328418" name="Dreisch" lane="-173759898#0_1" startPos="90.81" endPos="105.81" friendlyPos="true" lines="414"/>
+    <busStop id="1355332139" name="Kanalbrücke" lane="307704875#13_1" startPos="17.88" endPos="32.88" friendlyPos="true" lines="484"/>
+    <busStop id="1644625945" name="Hermann-Blenk-Straße" lane="358613274_1" startPos="78.14" endPos="93.14" friendlyPos="true"/>
+    <busStop id="1780723613" name="Lincolnsiedlung" lane="222336041#2_0" startPos="0.00" endPos="1.49" friendlyPos="true" lines="424 464 484"/>
+    <busStop id="1845907223" name="Schlesierweg" lane="67500111#1_0" startPos="27.69" endPos="35.17" friendlyPos="true">
+        <access lane="-108915782#2_0" pos="42.14" length="1.66" friendlyPos="1"/>
+        <access lane="-119136523#1_0" pos="10.63" length="45.59" friendlyPos="1"/>
+        <access lane="-33199416#8_0" pos="0.00" length="64.77" friendlyPos="1"/>
+        <access lane="108915782#1_0" pos="29.96" length="15.76" friendlyPos="1"/>
+        <access lane="119136523#1_0" pos="70.60" length="50.39" friendlyPos="1"/>
+    </busStop>
+    <busStop id="1944469926" name="Wartheweg" lane="71962469#1_0" startPos="26.84" endPos="41.84" friendlyPos="true" lines="416"/>
+    <busStop id="1944469926@6953326" name="Wartheweg" lane="71962469#1_0" startPos="29.07" endPos="32.34" friendlyPos="true" lines="416"/>
+    <busStop id="2078032882" name="Heideblick" lane="24803131_1" startPos="25.38" endPos="40.38" friendlyPos="true" lines="113"/>
+    <busStop id="2126769011" name="Am Grasplatz" lane="611101972_1" startPos="29.59" endPos="44.59" friendlyPos="true" lines="480"/>
+    <busStop id="2299687606" name="Wartheweg" lane="71962469#1_0" startPos="27.54" endPos="42.54" friendlyPos="true" lines="416"/>
+    <busStop id="2304877719" name="Am Grasplatz" lane="509331932_1" startPos="6.14" endPos="21.14" friendlyPos="true" lines="480"/>
+    <busStop id="2310890289" name="Am Platz" lane="30253923_1" startPos="44.26" endPos="59.26" friendlyPos="true" lines="424 464"/>
+    <busStop id="2310890299" name="Pappelallee" lane="5640229#5_1" startPos="45.80" endPos="60.80" friendlyPos="true" lines="424"/>
+    <busStop id="2313104468" name="Altmarkstraße" lane="30253920#1_1" startPos="13.96" endPos="27.05" friendlyPos="true"/>
+    <busStop id="2313104473" name="Dammwiese" lane="222114077#5_1" startPos="23.89" endPos="38.89" friendlyPos="true" lines="424 464"/>
+    <busStop id="2313104483" name="Lincolnsiedlung" lane="625075010#1_0" startPos="0.00" endPos="2.89" friendlyPos="true" lines="424 484"/>
+    <busStop id="2314078460" name="Daimlerstraße" lane="511308690_1" startPos="20.80" endPos="35.80" friendlyPos="true" lines="484"/>
+    <busStop id="2314078461" name="Daimlerstraße" lane="511308694#0_1" startPos="8.79" endPos="23.79" friendlyPos="true" lines="484"/>
+    <busStop id="247261400" name="Rodelandweg" lane="5640212#12_1" startPos="13.14" endPos="28.14" friendlyPos="true" lines="416"/>
+    <busStop id="248483771" name="Hansestraße" lane="28672098#1_1" startPos="16.00" endPos="23.50" friendlyPos="true" lines="414"/>
+    <busStop id="250749715" name="Heideblick" lane="23187673#1_0" startPos="53.00" endPos="68.00" friendlyPos="true" lines="112 434 191 111 414"/>
+    <busStop id="2525484873" name="Lincolnsiedlung" lane="859066418#1_0" startPos="0.00" endPos="15.90" friendlyPos="true" lines="10 1">
+        <access lane="-876206001#0_0" pos="17.07" length="16.30" friendlyPos="1"/>
+        <access lane="597760621_0" pos="6.04" length="13.85" friendlyPos="1"/>
+        <access lane="597760636_0" pos="1.28" length="15.46" friendlyPos="1"/>
+        <access lane="597760638_0" pos="7.44" length="16.05" friendlyPos="1"/>
+        <access lane="876206001#0_0" pos="18.91" length="13.30" friendlyPos="1"/>
+    </busStop>
+    <busStop id="2525484928" name="Geibelstraße" lane="859066426#1_0" startPos="37.13" endPos="56.98" friendlyPos="true" lines="1">
+        <access lane="-32548138_0" pos="46.60" length="16.34" friendlyPos="1"/>
+        <access lane="-42791142_0" pos="222.26" length="12.78" friendlyPos="1"/>
+        <access lane="42791139#0_0" pos="2.41" length="14.80" friendlyPos="1"/>
+        <access lane="42791139#3_0" pos="0.00" length="11.28" friendlyPos="1"/>
+        <access lane="42791142_0" pos="4.73" length="9.78" friendlyPos="1"/>
+    </busStop>
+    <busStop id="2525484930" name="Carl-Miele-Straße" lane="728830240#1_0" startPos="67.96" endPos="92.96" friendlyPos="true" lines="10 1">
+        <access lane="-180678256#3_0" pos="76.46" length="26.65" friendlyPos="1"/>
+        <access lane="180678256#2_0" pos="50.94" length="42.52" friendlyPos="1"/>
+        <access lane="180678256#3_0" pos="20.79" length="14.05" friendlyPos="1"/>
+        <access lane="394019241#0_0" pos="0.00" length="34.11" friendlyPos="1"/>
+        <access lane="394019241#2_0" pos="21.75" length="33.24" friendlyPos="1"/>
+    </busStop>
+    <busStop id="2525484946" name="Nordhoffstraße" lane="245334408#3_0" startPos="29.68" endPos="54.68" friendlyPos="true" lines="10 1">
+        <access lane="299911659#1_0" pos="39.89" length="15.94" friendlyPos="1"/>
+        <access lane="394037100_0" pos="0.00" length="14.31" friendlyPos="1"/>
+        <access lane="405563773#3_0" pos="36.38" length="22.02" friendlyPos="1"/>
+        <access lane="53026097_0" pos="37.37" length="26.82" friendlyPos="1"/>
+        <access lane="543234960#2_0" pos="271.73" length="20.47" friendlyPos="1"/>
+    </busStop>
+    <busStop id="269320278" name="Hansestraße Mitte" lane="307704875#1_1" startPos="10.11" endPos="25.11" friendlyPos="true" lines="484"/>
+    <busStop id="269320966" name="Kanalbrücke" lane="22988931#3_1" startPos="47.83" endPos="62.83" friendlyPos="true" lines="484"/>
+    <busStop id="269321675" name="Heesfeld" lane="24787043_0" startPos="17.15" endPos="32.15" friendlyPos="true" lines="414"/>
+    <busStop id="2768840762" name="Lönsweg" lane="321638052#2_1" startPos="131.67" endPos="146.67" friendlyPos="true"/>
+    <busStop id="310417074" name="Im Steinkampe" lane="720932058_1" startPos="11.89" endPos="26.89" friendlyPos="true" lines="424"/>
+    <busStop id="311129389" lane="30918490#0_1" startPos="31.41" endPos="46.41" friendlyPos="true"/>
+    <busStop id="333148448" name="Hansestraße Ost" lane="245334408#0_0" startPos="26.60" endPos="51.60" friendlyPos="true" lines="10 1">
+        <access lane="148863925_0" pos="14.64" length="5.18" friendlyPos="1"/>
+        <access lane="24710789#3_0" pos="73.84" length="35.29" friendlyPos="1"/>
+        <access lane="28672230#0_0" pos="58.55" length="31.10" friendlyPos="1"/>
+        <access lane="28672230#1_0" pos="0.20" length="30.06" friendlyPos="1"/>
+        <access lane="28672230#3_0" pos="0.00" length="32.23" friendlyPos="1"/>
+    </busStop>
+    <busStop id="333148451" name="Hansestraße Ost" lane="806561074_0" startPos="1.44" endPos="26.44" friendlyPos="true" lines="10 1">
+        <access lane="-394024233_0" pos="0.00" length="15.74" friendlyPos="1"/>
+        <access lane="120991989#0_0" pos="16.73" length="48.96" friendlyPos="1"/>
+        <access lane="32646056#2_0" pos="246.11" length="20.33" friendlyPos="1"/>
+        <access lane="394024235_0" pos="0.18" length="46.23" friendlyPos="1"/>
+        <access lane="791205040#1_0" pos="28.87" length="50.26" friendlyPos="1"/>
+    </busStop>
+    <busStop id="333325797" name="Am Platz" lane="30253923_1" startPos="42.84" endPos="57.84" friendlyPos="true" lines="424 464"/>
+    <busStop id="333697503" name="Dammwiese" lane="222114077#5_1" startPos="23.89" endPos="38.89" friendlyPos="true" lines="424 464"/>
+    <busStop id="333697505" name="Am Berge" lane="511175442_1" startPos="20.48" endPos="35.48" friendlyPos="true" lines="424 464"/>
+    <busStop id="333697509" name="Pappelallee" lane="5640229#5_1" startPos="47.02" endPos="62.02" friendlyPos="true" lines="424"/>
+    <busStop id="343692298" name="Daimlerstraße" lane="511308690_1" startPos="21.03" endPos="36.03" friendlyPos="true" lines="484"/>
+    <busStop id="343692301" name="Daimlerstraße" lane="511308694#0_1" startPos="2.58" endPos="17.58" friendlyPos="true" lines="484"/>
+    <busStop id="343692303" name="Benzstraße" lane="511308710#1_1" startPos="9.31" endPos="24.31" friendlyPos="true" lines="484"/>
+    <busStop id="343692308" name="Benzstraße" lane="166445410#0_1" startPos="35.17" endPos="46.49" friendlyPos="true" lines="484"/>
+    <busStop id="343692311" name="Adam-Opel-Straße" lane="166359011#1_1" startPos="10.16" endPos="25.16" friendlyPos="true" lines="484"/>
+    <busStop id="343692314" name="Adam-Opel-Straße" lane="307704876#2_1" startPos="29.27" endPos="44.27" friendlyPos="true" lines="484"/>
+    <busStop id="344536364" name="Kanalbrücke" lane="307704875#13_1" startPos="14.08" endPos="29.08" friendlyPos="true" lines="484"/>
+    <busStop id="344536365" name="Kanalbrücke" lane="22988931#3_1" startPos="42.57" endPos="57.57" friendlyPos="true" lines="484"/>
+    <busStop id="367019365" name="Hansestraße Ost" lane="120991989#0_1" startPos="19.10" endPos="34.10" friendlyPos="true" lines="484"/>
+    <busStop id="367019569" name="Hansestraße Ost" lane="85272780#3_1" startPos="10.36" endPos="25.36" friendlyPos="true" lines="484"/>
+    <busStop id="4103249697" name="Dreisch" lane="173759898#1_1" startPos="1.91" endPos="16.91" friendlyPos="true" lines="414"/>
+    <busStop id="4103284302" name="Ernst-Böhme-Straße" lane="82457821#1_1" startPos="26.43" endPos="33.77" friendlyPos="true" lines="414"/>
+    <busStop id="4103294756" name="Heesfeld" lane="31000149_1" startPos="12.25" endPos="25.49" friendlyPos="true" lines="414"/>
+    <busStop id="4103294757" name="Heesfeld" lane="24787043_0" startPos="14.72" endPos="29.72" friendlyPos="true" lines="414"/>
+    <busStop id="4103297697" name="Waller Weg" lane="31000150#2_1" startPos="38.67" endPos="53.67" friendlyPos="true" lines="414"/>
+    <busStop id="4103308340" name="Am Hafen" lane="625070018#2_1" startPos="6.13" endPos="21.13" friendlyPos="true" lines="414"/>
+    <busStop id="4103379671" name="Hansestraße Mitte" lane="307704875#1_1" startPos="4.91" endPos="19.91" friendlyPos="true" lines="484"/>
+    <busStop id="4103379672" name="Hansestraße Mitte" lane="511308706#0_1" startPos="16.43" endPos="31.43" friendlyPos="true" lines="484"/>
+    <busStop id="4103379673" name="Hansestraße Mitte" lane="511308706#0_1" startPos="19.77" endPos="34.77" friendlyPos="true" lines="484"/>
+    <busStop id="4103379674" name="Hansestraße Mitte" lane="28672096#1_1" startPos="30.36" endPos="45.36" friendlyPos="true"/>
+    <busStop id="4103408008" name="Grotrian-Steinweg-Straße" lane="23031878#4_1" startPos="46.10" endPos="61.10" friendlyPos="true" lines="414"/>
+    <busStop id="4103427181" name="Veltenhöfer Straße" lane="4747816#1_1" startPos="29.68" endPos="44.68" friendlyPos="true" lines="414"/>
+    <busStop id="4103489890" name="Alter Postweg" lane="611113397#0_1" startPos="7.60" endPos="22.60" friendlyPos="true" lines="414"/>
+    <busStop id="4103539293" name="Brandenburgstraße" lane="4747816#8_1" startPos="43.63" endPos="58.63" friendlyPos="true" lines="414"/>
+    <busStop id="4112383489" name="Benzstraße" lane="166445410#0_1" startPos="27.95" endPos="42.95" friendlyPos="true" lines="484"/>
+    <busStop id="4112383490" name="Benzstraße" lane="511308710#1_1" startPos="16.14" endPos="31.14" friendlyPos="true" lines="484"/>
+    <busStop id="4112385563" name="Adam-Opel-Straße" lane="166359011#1_1" startPos="11.95" endPos="26.95" friendlyPos="true" lines="484"/>
+    <busStop id="4112385564" name="Adam-Opel-Straße" lane="307704876#2_1" startPos="29.27" endPos="44.27" friendlyPos="true" lines="484"/>
+    <busStop id="4112395168" name="Christian-Pommer-Straße" lane="4764512#2_1" startPos="50.47" endPos="65.47" friendlyPos="true" lines="484"/>
+    <busStop id="4112396297" name="Pillmannstraße" lane="4764512#13_1" startPos="1.53" endPos="16.53" friendlyPos="true" lines="484"/>
+    <busStop id="4112400476" name="Carl-Giesecke-Straße" lane="23170152#6_1" startPos="23.15" endPos="38.15" friendlyPos="true" lines="484"/>
+    <busStop id="4112400478" name="Hansestraße West" lane="722504211#3_1" startPos="9.15" endPos="24.15" friendlyPos="true" lines="484"/>
+    <busStop id="4393374269" name="Christian-Pommer-Straße" lane="4764512#2_1" startPos="50.30" endPos="65.30" friendlyPos="true" lines="484"/>
+    <busStop id="4393374270" name="Pillmannstraße" lane="4764512#13_1" startPos="1.56" endPos="16.56" friendlyPos="true" lines="484"/>
+    <busStop id="4393374271" name="Carl-Giesecke-Straße" lane="23170152#6_1" startPos="21.80" endPos="36.80" friendlyPos="true" lines="484"/>
+    <busStop id="4393374272" name="Hansestraße West" lane="722504211#3_1" startPos="9.15" endPos="24.15" friendlyPos="true" lines="484"/>
+    <busStop id="4393385965" name="Gewerbegebiet Waller See (West)" lane="278491962#10_1" startPos="3.22" endPos="18.22" friendlyPos="true" lines="484"/>
+    <busStop id="4393385966" name="Gewerbegebiet Waller See (West)" lane="278491962#10_1" startPos="0.00" endPos="13.69" friendlyPos="true" lines="484"/>
+    <busStop id="4393385967" name="Gewerbegebiet Waller See (West)" lane="278491962#10_1" startPos="0.00" endPos="13.98" friendlyPos="true" lines="484"/>
+    <busStop id="4393385968" name="Gewerbegebiet Waller See (West)" lane="278491962#10_1" startPos="3.31" endPos="18.31" friendlyPos="true" lines="484"/>
+    <busStop id="4393385969@7018922" name="Gewerbegebiet Waller See (Ost)" lane="278491962#27_1" startPos="0.03" endPos="15.03" friendlyPos="true" lines="484"/>
+    <busStop id="4393385970" name="Gewerbegebiet Waller See (Ost)" lane="278491962#27_1" startPos="4.86" endPos="12.36" friendlyPos="true" lines="484"/>
+    <busStop id="4397131130" name="Schlesierweg" lane="108915782#1_1" startPos="33.92" endPos="48.92" friendlyPos="true" lines="480"/>
+    <busStop id="4488574841" name="Am Bruchkamp" lane="108915817#1_1" startPos="105.52" endPos="120.52" friendlyPos="true" lines="433"/>
+    <busStop id="4488654728" name="Neuruppinstraße" lane="188116371#0_1" startPos="3.04" endPos="18.04" friendlyPos="true"/>
+    <busStop id="4526203179" name="Altmarkstraße" lane="30253920#1_1" startPos="10.16" endPos="25.16" friendlyPos="true"/>
+    <busStop id="4539379534" name="Sandanger" lane="10750085#7_1" startPos="0.00" endPos="5.93" friendlyPos="true" lines="414"/>
+    <busStop id="4539379535" name="Wendener Weg" lane="173759898#3_1" startPos="134.93" endPos="149.93" friendlyPos="true" lines="414"/>
+    <busStop id="4539379536" name="Unter den Linden" lane="7016592#0_1" startPos="1.47" endPos="16.47" friendlyPos="true" lines="414"/>
+    <busStop id="4539379541" name="Ernst-Böhme-Straße" lane="70908501#2_1" startPos="7.56" endPos="22.56" friendlyPos="true" lines="414"/>
+    <busStop id="4539420386" name="Grotrian-Steinweg-Straße" lane="23031878#4_1" startPos="81.99" endPos="96.99" friendlyPos="true"/>
+    <busStop id="4539420388" name="Veltenhöfer Straße" lane="4747816#1_1" startPos="30.83" endPos="45.83" friendlyPos="true" lines="414"/>
+    <busStop id="4539421789" name="Brandenburgstraße" lane="4747816#8_1" startPos="35.03" endPos="50.03" friendlyPos="true"/>
+    <busStop id="4539421792" name="Alter Postweg" lane="611113396#0_1" startPos="21.41" endPos="36.41" friendlyPos="true"/>
+    <busStop id="4539421794" name="Heideblick" lane="23187673#1_0" startPos="56.69" endPos="64.19" friendlyPos="true" lines="424"/>
+    <busStop id="4626215440" name="Alter Postweg" lane="611113397#0_1" startPos="7.67" endPos="22.67" friendlyPos="true" lines="414"/>
+    <busStop id="481115891" name="Aschenkamp" lane="611113394_1" startPos="98.43" endPos="113.43" friendlyPos="true" lines="113 112 434 191 111 414"/>
+    <busStop id="54142977" name="Heideblick" lane="859066434#3_0" startPos="49.04" endPos="61.54" friendlyPos="true" lines="1">
+        <access lane="177846735#0_0" pos="0.20" length="12.61" friendlyPos="1"/>
+        <access lane="177846735#1_0" pos="0.00" length="13.34" friendlyPos="1"/>
+        <access lane="23187673#1_0" pos="56.78" length="16.47" friendlyPos="1"/>
+        <access lane="595002498#0_0" pos="0.00" length="12.74" friendlyPos="1"/>
+        <access lane="595002498#1_0" pos="0.00" length="15.10" friendlyPos="1"/>
+    </busStop>
+    <busStop id="54143009" name="Veltenhöfer Straße" lane="859066431#1_0" startPos="28.88" endPos="53.88" friendlyPos="true" lines="1">
+        <access lane="-10425592#1_0" pos="33.64" length="10.50" friendlyPos="1"/>
+        <access lane="-32433933#1_0" pos="36.81" length="7.91" friendlyPos="1"/>
+        <access lane="32433933#1_0" pos="2.63" length="10.91" friendlyPos="1"/>
+        <access lane="394007640#2_0" pos="0.20" length="17.14" friendlyPos="1"/>
+        <access lane="394014663_0" pos="26.80" length="22.35" friendlyPos="1"/>
+    </busStop>
+    <busStop id="54143012" name="Veltenhöfer Straße" lane="859066428#2_0" startPos="0.00" endPos="13.51" friendlyPos="true" lines="1">
+        <access lane="-32548182#1_0" pos="9.74" length="0.16" friendlyPos="1"/>
+        <access lane="-4747816#1_0" pos="0.00" length="35.81" friendlyPos="1"/>
+        <access lane="32548182#1_0" pos="23.68" length="2.84" friendlyPos="1"/>
+        <access lane="394014663_0" pos="21.62" length="37.24" friendlyPos="1"/>
+        <access lane="4747816#1_0" pos="45.83" length="21.73" friendlyPos="1"/>
+    </busStop>
+    <busStop id="54143015" name="Geibelstraße" lane="859066428#1_0" startPos="33.69" endPos="56.95" friendlyPos="true" lines="1">
+        <access lane="-32548138_0" pos="8.01" length="8.56" friendlyPos="1"/>
+        <access lane="-42791142_0" pos="183.49" length="18.18" friendlyPos="1"/>
+        <access lane="32548138_0" pos="43.68" length="11.56" friendlyPos="1"/>
+        <access lane="42791142_0" pos="43.50" length="15.18" friendlyPos="1"/>
+        <access lane="595002458#2_0" pos="0.00" length="16.61" friendlyPos="1"/>
+    </busStop>
+    <busStop id="54143083" name="Lincolnsiedlung" lane="859066420#2_0" startPos="0.00" endPos="18.53" friendlyPos="true" lines="10 1">
+        <access lane="-876206001#0_0" pos="36.05" length="12.00" friendlyPos="1"/>
+        <access lane="597760624_0" pos="0.00" length="14.34" friendlyPos="1"/>
+        <access lane="597760644#1_0" pos="7.29" length="13.74" friendlyPos="1"/>
+        <access lane="597760651_0" pos="0.00" length="18.72" friendlyPos="1"/>
+        <access lane="876206001#0_0" pos="0.00" length="9.14" friendlyPos="1"/>
+    </busStop>
+    <busStop id="54143135" name="Nordhoffstraße" lane="245334406#4_0" startPos="300.08" endPos="325.08" friendlyPos="true" lines="10 1">
+        <access lane="299911659#1_0" pos="12.52" length="10.54" friendlyPos="1"/>
+        <access lane="327664791#0_0" pos="0.00" length="24.13" friendlyPos="1"/>
+        <access lane="394037101_0" pos="0.00" length="23.20" friendlyPos="1"/>
+        <access lane="394037102#0_0" pos="0.20" length="23.21" friendlyPos="1"/>
+        <access lane="394037102#2_0" pos="0.00" length="22.02" friendlyPos="1"/>
+    </busStop>
+    <busStop id="54143138" name="Schmalbachstraße" lane="245334408#5_0" startPos="195.49" endPos="220.07" friendlyPos="true" lines="10 1">
+        <access lane="-53026078_0" pos="0.00" length="115.85" friendlyPos="1"/>
+        <access lane="299911659#1_0" pos="661.38" length="82.51" friendlyPos="1"/>
+        <access lane="53026078_0" pos="125.49" length="117.78" friendlyPos="1"/>
+        <access lane="543234960#0_0" pos="0.00" length="21.47" friendlyPos="1"/>
+        <access lane="957651223_0" pos="0.00" length="185.37" friendlyPos="1"/>
+    </busStop>
+    <busStop id="54143139" name="Schmalbachstraße" lane="245334406#0_0" startPos="140.30" endPos="165.30" friendlyPos="true" lines="10 1">
+        <access lane="-53026078_0" pos="0.00" length="224.05" friendlyPos="1"/>
+        <access lane="299911659#1_0" pos="661.38" length="188.73" friendlyPos="1"/>
+        <access lane="53026078_0" pos="125.49" length="225.76" friendlyPos="1"/>
+        <access lane="543234960#0_0" pos="0.00" length="127.31" friendlyPos="1"/>
+    </busStop>
+    <busStop id="54153340" name="Carl-Miele-Straße" lane="859066424#1_0" startPos="177.83" endPos="202.83" friendlyPos="true" lines="1">
+        <access lane="180678256#3_0" pos="83.05" length="20.62" friendlyPos="1"/>
+        <access lane="394019233#0_0" pos="0.00" length="6.16" friendlyPos="1"/>
+        <access lane="394019233#1_0" pos="0.20" length="31.35" friendlyPos="1"/>
+        <access lane="394019233#4_0" pos="16.02" length="11.76" friendlyPos="1"/>
+        <access lane="394019249#0_0" pos="0.00" length="32.24" friendlyPos="1"/>
+    </busStop>
+    <busStop id="5672130288" name="Heideblick" lane="40020450#1_0" startPos="73.11" endPos="98.11" friendlyPos="true">
+        <access lane="177846735#0_0" pos="0.20" length="20.18" friendlyPos="1"/>
+        <access lane="177846735#1_0" pos="0.20" length="18.75" friendlyPos="1"/>
+        <access lane="23187673#1_0" pos="60.62" length="22.78" friendlyPos="1"/>
+        <access lane="595002498#0_0" pos="0.00" length="20.47" friendlyPos="1"/>
+        <access lane="595002498#1_0" pos="0.00" length="23.57" friendlyPos="1"/>
+    </busStop>
+    <busStop id="632920372" name="Hermann-Blenk-Straße" lane="165484800#0_1" startPos="18.78" endPos="33.78" friendlyPos="true" lines="436 464"/>
+    <busStop id="715902961" name="Hansestraße Mitte" lane="511308631_1" startPos="9.64" endPos="20.15" friendlyPos="true" lines="414"/>
+    <busStop id="763452451" name="Schlesierweg" lane="108915782#1_1" startPos="32.43" endPos="47.43" friendlyPos="true" lines="480"/>
+    <busStop id="842199418" name="Ernst-Böhme-Straße" lane="70908501#2_1" startPos="4.44" endPos="19.44" friendlyPos="true" lines="414"/>
+    <busStop id="844172692" name="Ernst-Böhme-Straße" lane="82457821#1_1" startPos="20.20" endPos="33.77" friendlyPos="true" lines="414"/>
+    <busStop id="844172696" name="Wendener Weg" lane="173759898#3_1" startPos="134.15" endPos="149.15" friendlyPos="true" lines="414"/>
+    <busStop id="844172701" name="Sandanger" lane="10750085#7_1" startPos="0.00" endPos="5.93" friendlyPos="true" lines="414"/>
+    <busStop id="844172703" name="Dreisch" lane="173759898#1_1" startPos="1.39" endPos="16.39" friendlyPos="true" lines="414"/>
+    <busStop id="844172723" name="Heesfeld" lane="31000149_1" startPos="10.55" endPos="25.49" friendlyPos="true" lines="414"/>
+    <busStop id="844172725" name="Am Hafen" lane="625070018#2_1" startPos="6.13" endPos="21.13" friendlyPos="true" lines="414"/>
+    <busStop id="844172725@6953325" name="Am Hafen" lane="625070018#2_1" startPos="6.13" endPos="21.13" friendlyPos="true" lines="414"/>
+    <busStop id="844172741" name="Waller Weg" lane="31000150#2_1" startPos="38.67" endPos="53.67" friendlyPos="true" lines="414"/>
+    <busStop id="844172741@6768241" name="Waller Weg" lane="31000150#2_1" startPos="38.67" endPos="53.67" friendlyPos="true" lines="414"/>
+    <busStop id="844172750" name="Unter den Linden" lane="7016592#0_1" startPos="1.57" endPos="16.57" friendlyPos="true" lines="414"/>
+    <busStop id="91556880" name="Brandenburgstraße" lane="4747816#8_1" startPos="43.52" endPos="58.52" friendlyPos="true" lines="414"/>
+    <busStop id="91556885" name="Veltenhöfer Straße" lane="4747816#1_1" startPos="36.03" endPos="51.03" friendlyPos="true"/>
+    <busStop id="91600371" name="Grotrian-Steinweg-Straße" lane="23031878#4_1" startPos="45.69" endPos="60.69" friendlyPos="true" lines="414"/>
+</additional>
