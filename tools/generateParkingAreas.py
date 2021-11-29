@@ -41,7 +41,7 @@ def get_options(args=None):
     optParser.add_argument("-l", "--space-length", type=float, default=5, dest="spaceLength",
                            help="visual length of each parking space")
     optParser.add_argument("-w", "--width", type=float,
-                           help="visual lengtth of each parking space")
+                           help="visual width of each parking space")
     optParser.add_argument("-r", "--random-capacity", action="store_true", dest="randCapacity",
                            default=False, help="Randomize roadsideCapacity")
     optParser.add_argument("--min", type=int, default=0,
