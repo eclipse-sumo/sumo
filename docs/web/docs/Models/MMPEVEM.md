@@ -97,7 +97,7 @@ generated with the
 [Electric Machine Design Tool](https://github.com/TUMFTM/Electric_Machine_Design)
 developed by Kalt et al.[^3] and converted into the expected format using
 `{SUMO_HOME}/tools/contributed/convertMapMat2XML.M`. The tool and the conversion
-script require MATLAB(R) 2017 or newer.
+script require MATLAB&reg 2017 or newer.
 
 [^3]: [S. Kalt, J. Erhard, B. Danquah and M. Lienkamp, "Electric Machine Design
   Tool for Permanent Magnet Synchronous Machines," 2019 Fourteenth International
@@ -140,7 +140,7 @@ Start SUMO with the `--emission-output` option in order to generate an XML file
 with the emissions of all vehicles. In the XML, the attribute `electricity`
 shows the electric energy consumption of a vehicle in a given time step in Wh.
 Please note that this value is only provided by MMPEVEM if and only if the
-`vtype` definition of the vehilce in question was set accordingly.
+`vtype` definition of the vehicle in question was set accordingly.
 
 
 MMPEVEM is a backward-facing model, meaning that it expects a velocity,
