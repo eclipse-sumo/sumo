@@ -79,7 +79,7 @@ Its string representation is:
 2,1|0,4000,8000;-100,0,100,200|826.7,4295.6,nan,0.0,2162.9,6137.4,826.7,4295.6,9317.5,3297.4,8361.2,14988.6
 ```
 The string consists of three parts delimited by the `|` character:
-- The first part signifies that it maps from `R^2` to `R^1` and does not change
+- The first part signifies that it maps from ℝ² to ℝ¹ and does not change
   for MMPEVEM's power loss maps.
 - The middle section contains the axis values in ascending order. Axes are
   separated by semi-colons while commas are used to delimit the values of each
