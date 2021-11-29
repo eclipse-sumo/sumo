@@ -431,7 +431,9 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
     device << "            <laneSection s=\"0\">\n";
     writeEmptyCenterLane(device, centerMark, 0);
     device << "                <right>\n";
+    int toIndexInternal = 0;
     for (int j = (int)parallel.size(); --j >= 0;) {
+        toIndexInternal--;
         const NBEdge::Connection& c = parallel[j];
         const int fromIndex = c.fromLane - inEdge->getNumLanes();
         const int toIndex = c.toLane - outEdge->getNumLanes();
@@ -466,7 +468,7 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
         device << "                        <speed sOffset=\"0\" max=\"" << c.vmax << "\"/>\n";
         device << "                    </lane>\n";
 
-        junctionDevice << "            <laneLink from=\"" << fromIndex << "\" to=\"" << toIndex << "\"/>\n";
+        junctionDevice << "            <laneLink from=\"" << fromIndex << "\" to=\"" << toIndexInternal << "\"/>\n";
         connectionID++;
     }
     device << "                 </right>\n";
