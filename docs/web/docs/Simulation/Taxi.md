@@ -123,7 +123,7 @@ Taxis will stop to pick-up and drop-off customers. The 'actType' attribute of a 
 - duration for pick-up stop can be configurd with vType/vehicle param "device.taxi.pickupDuration" (default "0")
 - duration for drop-off stop can be configurd with vType/vehicle param "device.taxi.dropOffDuration" (default "60")
 
-By default, vehicle stops will have attribute `parking="true"` which means that the taxi will not block a driving lane. This can by changed by setting
+By default, vehicle stops will have attribute `parking="true"` which means that the taxi will not block a driving lane. This can be changed by setting
 param "device.taxi.parking" to "false".
 
 # TraCI
