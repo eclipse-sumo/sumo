@@ -917,12 +917,20 @@ GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*, FXSelector, void* /*data*/) 
         }
     }
     GUIVisualizationSettings tmpSettings = *mySettings;
-    gSchemeStorage.remove(mySettings->name);
     tmpSettings.name = name;
+    if (name == mySettings->name || StringUtils::startsWith(mySettings->name, "custom_")) {
+        gSchemeStorage.remove(mySettings->name);
+        myParent->getColoringSchemesCombo()->setItemText(index, name.c_str());
+    } else {
+        gSchemeStorage.get(mySettings->name) = myBackup;
+        index = mySchemeName->appendItem(name.c_str());
+        myParent->getColoringSchemesCombo()->appendItem(name.c_str());
+        myParent->getColoringSchemesCombo()->setCurrentItem(
+                myParent->getColoringSchemesCombo()->findItem(name.c_str()));
+    }
     gSchemeStorage.add(tmpSettings);
-    mySchemeName->setItemText(index, tmpSettings.name.c_str());
-    myParent->getColoringSchemesCombo()->setItemText(index, tmpSettings.name.c_str());
-    myParent->setColorScheme(tmpSettings.name);
+    mySchemeName->setItemText(index, name.c_str());
+    myParent->setColorScheme(name);
     mySettings = &gSchemeStorage.get(name);
     myBackup = *mySettings;
     gSchemeStorage.writeSettings(getApp());
