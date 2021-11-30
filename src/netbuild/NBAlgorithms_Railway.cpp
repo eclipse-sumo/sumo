@@ -1098,93 +1098,15 @@ NBRailwayTopologyAnalyzer::getTravelTimeStatic(const Track* const track, const N
 
 
 void
-NBRailwayTopologyAnalyzer::assignDirectionPriority(NBNetBuilder& nb) {
-    // assign priority value for each railway edge:
+NBRailwayTopologyAnalyzer::extendDirectionPriority(NBNetBuilder& nb, bool fromUniDir) {
+    // if fromUniDir=true, assign priority value for each railway edge:
     // 4: edge is unidirectional
     // 3: edge is in main direction of bidirectional track
     // 2: edge is part of bidirectional track, main direction unknown - both edges are extensions of unidirectional edges
     // 1: edge is part of bidirectional track, main direction unknown - neither edge is an extension of a unidirectional edge
     // 0: edge is part of bidirectional track in reverse of main direction
-
-    EdgeSet bidi;
-    EdgeSet uni;
-    for (NBEdge* edge : nb.getEdgeCont().getAllEdges()) {
-        if (isRailway(edge->getPermissions())) {
-            if (!edge->isBidiRail()) {
-                edge->setPriority(4);
-                uni.insert(edge);
-            } else {
-                bidi.insert(edge);
-            }
-        }
-    }
-    if (uni.size() == 0) {
-        if (bidi.size() != 0) {
-            WRITE_WARNING("Cannot assign track direction priority because there are no unidirectional tracks.");
-        }
-        return;
-    }
-    EdgeSet seen;
-    EdgeSet check = uni;
-    EdgeSet forward;
-    while (!check.empty()) {
-        NBEdge* edge = *check.begin();
-        check.erase(edge);
-        if (seen.count(edge) != 0) {
-            continue;
-        }
-        seen.insert(edge);
-        NBEdge* straightOut = edge->getStraightContinuation(edge->getPermissions());
-        if (straightOut != nullptr && straightOut->getStraightPredecessor(straightOut->getPermissions()) == edge) {
-            forward.insert(straightOut);
-            check.insert(straightOut);
-        }
-        NBEdge* straightIn = edge->getStraightPredecessor(edge->getPermissions());
-        if (straightIn != nullptr && straightIn->getStraightContinuation(straightIn->getPermissions()) == edge) {
-            forward.insert(straightIn);
-            check.insert(straightIn);
-        }
-#ifdef DEBUG_DIRECTION_PRIORITY
-        std::cout << "edge=" << edge->getID() << " in=" << Named::getIDSecure(straightIn) << " out=" << Named::getIDSecure(straightOut)
-                  << " outPred=" << (straightOut != nullptr ? Named::getIDSecure(straightOut->getStraightPredecessor(straightOut->getPermissions())) : "")
-                  << " inSucc=" << (straightIn != nullptr ? Named::getIDSecure(straightIn->getStraightContinuation(straightIn->getPermissions())) : "")
-                  << "\n";
-#endif
-    }
-
-    for (NBEdge* edge : bidi) {
-        NBEdge* bidiEdge = const_cast<NBEdge*>(edge->getBidiEdge());
-        if (forward.count(edge) != 0) {
-            if (forward.count(bidiEdge) == 0) {
-                edge->setPriority(3);
-                bidiEdge->setPriority(0);
-            } else {
-                // both forward
-                edge->setPriority(2);
-                bidiEdge->setPriority(2);
-            }
-        } else {
-            if (forward.count(bidiEdge) != 0) {
-                edge->setPriority(0);
-                bidiEdge->setPriority(3);
-            } else {
-                // neither forward
-                edge->setPriority(1);
-                bidiEdge->setPriority(1);
-            }
-        }
-    }
-    std::map<int, int> numPrios;
-    for (NBEdge* edge : bidi) {
-        numPrios[edge->getPriority()]++;
-    }
-    WRITE_MESSAGE("Assigned edge priority based on main direction: " + joinToString(numPrios, " ", ":") + ".")
-}
-
-
-void
-NBRailwayTopologyAnalyzer::extendDirectionPriority(NBNetBuilder& nb) {
-    // works like assignDirectionPriority but based on initial priority instead of isBidiRail
+    //
+    // otherwise:
     // assign priority value for each railway edge with priority -1 (undefined):
     // x: edges with priority >= 0 keep their priority
     // x-1 : edge is in direct (no switch) sequence of an edge with initial priority x
@@ -1196,13 +1118,23 @@ NBRailwayTopologyAnalyzer::extendDirectionPriority(NBNetBuilder& nb) {
     EdgeSet uni;
     for (NBEdge* edge : nb.getEdgeCont().getAllEdges()) {
         if (isRailway(edge->getPermissions())) {
-            if (edge->getPriority() >= 0) {
-                uni.insert(edge);
+            if (fromUniDir) {
+                if (!edge->isBidiRail()) {
+                    edge->setPriority(4);
+                    uni.insert(edge);
+                } else {
+                    bidi.insert(edge);
+                }
             } else {
-                bidi.insert(edge);
+                if (edge->getPriority() >= 0) {
+                    uni.insert(edge);
+                } else {
+                    bidi.insert(edge);
+                }
             }
         }
     }
+
     if (uni.size() == 0) {
         if (bidi.size() != 0) {
             WRITE_WARNING("Cannot extend track direction priority because there are no track edges with positive priority");
@@ -1277,7 +1209,11 @@ NBRailwayTopologyAnalyzer::extendDirectionPriority(NBNetBuilder& nb) {
     for (NBEdge* edge : bidi) {
         numPrios[edge->getPriority()]++;
     }
-    WRITE_MESSAGE("Extended edge priority based on main direction: " + joinToString(numPrios, " ", ":") + ".")
+    if (fromUniDir) {
+        WRITE_MESSAGE("Assigned edge priority based on main direction: " + joinToString(numPrios, " ", ":") + ".")
+    } else {
+        WRITE_MESSAGE("Extended edge priority based on main direction: " + joinToString(numPrios, " ", ":") + ".")
+    }
 }
 
 
