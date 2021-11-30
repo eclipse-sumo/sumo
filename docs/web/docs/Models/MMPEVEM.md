@@ -21,11 +21,20 @@ represent auxiliary devices such as air conditioning, and the battery.
 # Using the Model
 
 To utilise MMPEVEM, set `emissionClass="MMPEVEM"` in the `vType` definitions of
-the vehicles you are interested in. Although default parameters are available,
-it is strongly advised to explicitly define *all* the model parameters listed
-below and to make sure that they are consistent. Failing to do so may lead to
-wrong or even invalid operating points (cf. [Output](#output)) which skew the
-overall energy consumption.
+the vehicles you are interested in and add the following parameter:
+```
+<param key="has.battery.device" value="true"/>
+```
+Equipping the `vType` with a battery device is necessary because it triggers the
+parsing and loading of all the energy-related quantities. Other than that, there
+is currently no interaction between MMPEVEM and said device. Especially, this
+entails that the battery's state and output are *not* based on the former.
+
+
+Although default parameters are available, it is strongly advised to explicitly
+define *all* the model parameters listed below and to make sure that they are
+consistent. Failing to do so may lead to wrong or even invalid operating points
+(cf. [Output](#output)) which skew the overall energy consumption.
 
 
 ## Model Parameters
@@ -113,6 +122,7 @@ This is an example `vType` definition of a generic electric SUV and was taken
 from `{SUMO_HOME}/data/emissions/MMPEVEM/SUV.xml`.
 ```
 <vType id="SUV" vClass="passenger" emissionClass="MMPEVEM" actionStepLength="1.0">
+  <param key="has.battery.device" value="true"/>
   <param key="vehicleMass" value="2100"/>
   <param key="wheelRadius" value="0.3835"/>
   <param key="internalMomentOfInertia" value="16"/>
