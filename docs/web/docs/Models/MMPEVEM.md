@@ -163,7 +163,7 @@ operating points. The latter can be caused by implausible accelerations (for
 instance due to teleportations), wrong vehicle parameters, etc. If the model
 finds itself in such a state, it returns `nan`. On a related note, MMPEVEM
 assumes that the driver perfectly operates the mechanical brakes such that
-torque and power are capped to the motor's limits during recuperation.
+torque and power are clipped to the motor's limits during recuperation.
 
 
 
