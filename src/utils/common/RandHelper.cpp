@@ -87,7 +87,8 @@ RandHelper::randNorm(double mean, double variance, SumoRNG* rng) {
         const double v = rand(2.0, rng) - 1;
         q = u * u + v * v;
     } while (q == 0.0 || q >= 1.0);
-    return mean + variance * u * sqrt(-2 * log(q) / q);
+    const double logRounded = ceil(log(q) * 1e14) / 1e14;
+    return mean + variance * u * sqrt(-2 * logRounded / q);
 }
 
 
