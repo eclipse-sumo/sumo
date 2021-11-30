@@ -21,8 +21,13 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/changes/GNEChange_LaneType.h>
+#include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <utils/options/OptionsCont.h>
+
 
 #include "GNELaneType.h"
 #include "GNEEdgeType.h"
@@ -126,7 +131,7 @@ std::string
 GNELaneType::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return myEdgeTypeParent->getID() + toString(myEdgeTypeParent->getLaneTypeIndex(this));
+            return "lane: " + toString(myEdgeTypeParent->getLaneTypeIndex(this));
         case SUMO_ATTR_SPEED:
             if (attrs.count(key) == 0) {
                 return "";
@@ -266,6 +271,10 @@ GNELaneType::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+    // update edge selector
+    if (myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->shown()) {
+        myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getLaneTypeAttributes()->refreshAttributesCreator();
     }
 }
 
