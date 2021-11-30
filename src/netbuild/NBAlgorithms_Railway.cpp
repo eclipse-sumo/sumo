@@ -1182,4 +1182,103 @@ NBRailwayTopologyAnalyzer::assignDirectionPriority(NBNetBuilder& nb) {
 }
 
 
+void
+NBRailwayTopologyAnalyzer::extendDirectionPriority(NBNetBuilder& nb) {
+    // works like assignDirectionPriority but based on initial priority instead of isBidiRail
+    // assign priority value for each railway edge with priority -1 (undefined):
+    // x: edges with priority >= 0 keep their priority
+    // x-1 : edge is in direct (no switch) sequence of an edge with initial priority x
+    // x-2 : edge and its opposite-direction are in direct (no switch) sequence of an edge with initial priority x
+    // x-3 : edge is part of bidirectional track, both directions are indirect extensions of x-1 edges
+    // x-4 : edge is reverse direction of an x-1 edge
+
+    EdgeSet bidi;
+    EdgeSet uni;
+    for (NBEdge* edge : nb.getEdgeCont().getAllEdges()) {
+        if (isRailway(edge->getPermissions())) {
+            if (edge->getPriority() >= 0) {
+                uni.insert(edge);
+            } else {
+                bidi.insert(edge);
+            }
+        }
+    }
+    if (uni.size() == 0) {
+        if (bidi.size() != 0) {
+            WRITE_WARNING("Cannot extend track direction priority because there are no track edges with positive priority");
+        }
+        return;
+    }
+    EdgeSet seen;
+    EdgeSet check = uni;
+    EdgeSet forward;
+    while (!check.empty()) {
+        NBEdge* edge = *check.begin();
+        check.erase(edge);
+        if (seen.count(edge) != 0) {
+            continue;
+        }
+        seen.insert(edge);
+        NBEdge* straightOut = edge->getStraightContinuation(edge->getPermissions());
+        if (straightOut != nullptr && straightOut->getStraightPredecessor(straightOut->getPermissions()) == edge) {
+            forward.insert(straightOut);
+            check.insert(straightOut);
+        }
+        NBEdge* straightIn = edge->getStraightPredecessor(edge->getPermissions());
+        if (straightIn != nullptr && straightIn->getStraightContinuation(straightIn->getPermissions()) == edge) {
+            forward.insert(straightIn);
+            check.insert(straightIn);
+        }
+#ifdef DEBUG_DIRECTION_PRIORITY
+        std::cout << "edge=" << edge->getID() << " in=" << Named::getIDSecure(straightIn) << " out=" << Named::getIDSecure(straightOut)
+                  << " outPred=" << (straightOut != nullptr ? Named::getIDSecure(straightOut->getStraightPredecessor(straightOut->getPermissions())) : "")
+                  << " inSucc=" << (straightIn != nullptr ? Named::getIDSecure(straightIn->getStraightContinuation(straightIn->getPermissions())) : "")
+                  << "\n";
+#endif
+    }
+
+    for (NBEdge* edge : bidi) {
+        NBEdge* bidiEdge = const_cast<NBEdge*>(edge->getBidiEdge());
+        int prio;
+        int bidiPrio;
+        if (forward.count(edge) != 0) {
+            if (forward.count(bidiEdge) == 0) {
+                prio = 3;
+                bidiPrio = 0;
+            } else {
+                // both forward
+                prio = 2;
+                bidiPrio = 2;
+            }
+        } else {
+            if (forward.count(bidiEdge) != 0) {
+                prio = 0;
+                bidiPrio = 3;
+            } else {
+                // neither forward
+                prio = 1;
+                bidiPrio = 1;
+            }
+        }
+        if (edge->getPriority() >= 0) {
+            bidiPrio = 0;
+        }
+        if (bidiEdge->getPriority() >= 0) {
+            prio = 0;
+        }
+        if (edge->getPriority() < 0) {
+            edge->setPriority(prio);
+        }
+        if (bidiEdge->getPriority() < 0) {
+            bidiEdge->setPriority(bidiPrio);
+        }
+    }
+    std::map<int, int> numPrios;
+    for (NBEdge* edge : bidi) {
+        numPrios[edge->getPriority()]++;
+    }
+    WRITE_MESSAGE("Extended edge priority based on main direction: " + joinToString(numPrios, " ", ":") + ".")
+}
+
+
 /****************************************************************************/

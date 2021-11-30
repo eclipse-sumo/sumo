@@ -166,6 +166,9 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     if (oc.exists("railway.topology.direction-priority") && oc.getBool("railway.topology.direction-priority")) {
         NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false); // recompute after new edges were added
         NBRailwayTopologyAnalyzer::assignDirectionPriority(*this);
+    } else if (oc.exists("railway.topology.extend-priority") && oc.getBool("railway.topology.extend-priority")) {
+        NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false); // recompute after new edges were added
+        NBRailwayTopologyAnalyzer::extendDirectionPriority(*this);
     }
     if (oc.exists("railway.topology.output") && oc.isSet("railway.topology.output")) {
         NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false); // recompute after new edges were added

@@ -52,6 +52,7 @@ public:
     static int repairTopology(NBNetBuilder& nb);
     static int makeAllBidi(NBNetBuilder& nb);
     static void assignDirectionPriority(NBNetBuilder& nb);
+    static void extendDirectionPriority(NBNetBuilder& nb);
 
     /// routing edge
     class Track {

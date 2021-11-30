@@ -228,6 +228,9 @@ NBFrame::fillOptions(bool forNetgen) {
         oc.doRegister("railway.topology.direction-priority", new Option_Bool(false));
         oc.addDescription("railway.topology.direction-priority", "Railway", "Set edge priority values based on estimated main direction");
 
+        oc.doRegister("railway.topology.extend-priority", new Option_Bool(false));
+        oc.addDescription("railway.topology.extend-priority", "Railway", "Extend loaded edge priority values based on estimated main direction");
+
         oc.doRegister("railway.access-distance", new Option_Float(150.f));
         oc.addDescription("railway.access-distance", "Railway", "The search radius for finding suitable road accesses for rail stops");
         oc.addSynonyme("railway.access-distance", "osm.stop-output.footway-access-distance", true);
