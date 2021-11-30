@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-29 08:31:50 by Eclipse SUMO netconvert Version v1_11_0+0165-4261a27
+<!-- generated on 2021-11-30 18:04:53 by Eclipse SUMO netconvert Version v1_11_0+0205-4d2d9e8
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -734,6 +734,9 @@
 
         <!-- Set edge priority values based on estimated main direction -->
         <railway.topology.direction-priority value="false" type="BOOL"/>
+
+        <!-- Extend loaded edge priority values based on estimated main direction -->
+        <railway.topology.extend-priority value="false" type="BOOL"/>
 
         <!-- The search radius for finding suitable road accesses for rail stops -->
         <railway.access-distance value="150" synonymes="osm.stop-output.footway-access-distance" type="FLOAT"/>
