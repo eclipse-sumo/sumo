@@ -10,6 +10,13 @@ title: ChangeLog
   - splitting and merging edges with custom length now preserves total length. Issue #9617
   - can now load parkingAreaReroute without probability attribute. Issue #9640
   - Fixed invalid weights of sinks and sources when loading taz from file. Issue #9672
+  - Parking search no longer stalls when all current alternatives are known to be full. Issue #9678
+
+- sumo-gui
+  - Fixed crash when using guiShape "truck/trailer" or "truck/semitrailer" for short vehicles. #9682 (regression in 1.11.0)
+
+- netconvert
+  - Fixed invalid LaneLink index in OpenDRIVE export. Issue #9637
 
 - traci
   - turn subscription filter no longer crashes when crossings are present in foe lanes. Issue #9630
@@ -27,9 +34,12 @@ title: ChangeLog
  - Added attribute speedRelative to edgeData output. Issue #9601
  - Option **--fcd-output.attributes** can now be used to active non-standard attributes (i.e. acceleration). Issue #9625
  - Rerouting period can now be customized via `<param key="device.rerouting.period" value="X"/>` in vType or vehicle. Issue #9646
- - Vehicles now collect occupancy information for all parkingareas along the way during parking search. Issue #9645
- - Parking search now supports `<param key="parking.anywhere" value="X"/>` which permit using free parkingArea along the way after doing unsuccessful  parkingAreaReroute x times. Issue #9577
- - Parking search now supports `<param key="parking.frustration" value="X"/>` which increases the preference for visibly free parkingAreas over time. Issue 9657
+ - Vehicles now collect occupancy information for all parkingareas along the way during parking search. Issue #9645 
+ - Detector processing now takes less time if their output file is set to 'NUL'. Issue #7772, #9620 
+ - parking search:
+   - Parking search now supports `<param key="parking.anywhere" value="X"/>` which permit using free parkingArea along the way after doing unsuccessful  parkingAreaReroute x times. Issue #9577 - 
+   - Parking search now supports `<param key="parking.frustration" value="X"/>` which increases the preference for visibly free parkingAreas over time. Issue 9657
+   - Parking search now supports `<param key="parking.knowledge" value="x"/>` to let driver "guess" the occupancy of invisible parkingAreas with probability x. Issue #9545 
 
 - sumo-gui
   - All text setting now have the checkbox "only for selected" to display text selectively. Issue #9574
@@ -38,6 +48,9 @@ title: ChangeLog
 
 - netedit
   - Add images for the guiShapes in the vType attributes editor. Issue #9457
+
+- netconvert
+  - Simplified edge names in OpenDRIVE import. (i.e. '42' instead of '42.0.00'). The option **--opendrive.position-ids8** is provided for backward compatibility.  #9463
 
 - duarouter
   - can now write route costs in regular route output. Issue #9667
@@ -48,6 +61,7 @@ title: ChangeLog
   - generateParkingAreaRerouters.py: added option **--distribute** which sets a distance distribution for the given number of alternatives (instead of always using the closest parkingAreas). Issue #9566
   - generateParkingAreaRerouters.py: added option **--visible-ids** to set visible parkingAreas explicitly. Issue #9669
   - addStops2Routes.py: Can now generate stationary traffic to fill each parkingArea to a configurable occupancy. Issue #9660
+  - Added tool [generateParkingAreas.py](Tools/Misc.md#generateparkingareaspy) to generate parkingAreas for some or all edges of a network. Issue #9659
 
 - Miscellaneous
   - Speed up Visual Studio build with sccache (only works with Ninja not with Visual Studio projects). Issue #9290
