@@ -58,7 +58,7 @@ definitions at `{SUMO_HOME}/data/emissions/MMPEVEM`[^1].
 | maximumPower              | float (>= 0) | 107000.0 [W]                          | Maximum generative power of the electric motor                        |
 | maximumRecuperationTorque | float (>= 0) | 95.5 [Nm]                             | Maximum recuperation torque of the electric motor                     |
 | maximumRecuperationPower  | float (>= 0) | 42800.0 [W]                           | Maximum recuperation power of the electric motor                      |
-| internalBatteryResistance | float (>= 0) | 0.1142 [Ohm]                          | Internal battery resistance                                           |
+| internalBatteryResistance |  float (> 0) | 0.1142 [Ohm]                          | Internal battery resistance                                           |
 | nominalBatteryVoltage     | float (>= 0) | 396.0 [V]                             | Nominal battery voltage                                               |
 | constantPowerIntake       |        float | 100.0 [W]                             | Constant power consumption of auxiliary devices                       |
 | powerLossMap              |       string | `2,1\|-1e9,1e9;-1e9,1e9\|0,0,0,0`[^2] | String representation of the electric motor's power loss map          |
