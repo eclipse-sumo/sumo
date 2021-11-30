@@ -311,7 +311,7 @@ def average(elements, attrname):
         raise Exception("average of 0 elements is not defined")
 
 
-def _createRecordAndPattern(element_name, attrnames, warn, optional):
+def _createRecordAndPattern(element_name, attrnames, warn, optional, extra=None):
     if isinstance(attrnames, str):
         attrnames = [attrnames]
     prefixedAttrnames = [_prefix_keyword(a, warn) for a in attrnames]
@@ -321,6 +321,8 @@ def _createRecordAndPattern(element_name, attrnames, warn, optional):
     else:
         pattern = '.*'.join(['<%s' % element_name] +
                             ['%s="([^"]*)"' % attr for attr in attrnames])
+    if extra is not None:
+        prefixedAttrnames += [_prefix_keyword(a, warn) for a in extra]
     Record = namedtuple(_prefix_keyword(element_name, warn), prefixedAttrnames)
     reprog = re.compile(pattern)
     return Record, reprog
@@ -397,6 +399,51 @@ def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames
                     record = Record(*m.groups())
             elif element_name in line:
                 record = None
+
+
+def parse_fast_structured(xmlfile, element_name, attrnames, nested,
+                          warn=False, optional=False, encoding="utf8"):
+    """
+    Parses the given attrnames from all elements with element_name and nested elements of level 1.
+    Unlike parse_fast_nested this function can handle multiple different child elements and
+    returns objects where the child elements can be accessed by name (e.g. timestep.vehicle[0])
+    as with the parse method. The returned object is not modifiable though.
+    @Note: Every element must be on its own line and the attributes must appear in the given order.
+    @Example: parse_fast_collated('fcd.xml', 'timestep', ['time'],
+                                  {'vehicle': ['id', 'speed', 'lane'], 'person': ['id', 'speed', 'edge']}):
+    """
+    Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional, nested.keys())
+    re2 = [(elem,) + _createRecordAndPattern(elem, attr, warn, optional) for elem, attr in nested.items()]
+    finalizer = "</%s>" % element_name
+    record = None
+    for line in _comment_filter(_open(xmlfile, encoding)):
+        if record:
+            for name2, Record2, reprog2 in re2:
+                m2 = reprog2.search(line)
+                if m2:
+                    if optional:
+                        inner = Record2(**m2.groupdict())
+                    else:
+                        inner = Record2(*m2.groups())
+                    getattr(record, name2).append(inner)
+                    break
+            else:
+                if finalizer in line:
+                    yield record
+                    record = None
+        else:
+            m = reprog.search(line)
+            if m:
+                if optional:
+                    args = dict(m.groupdict())
+                    for name, _, __ in re2:
+                        args[name] = []
+                    record = Record(**args)
+                else:
+                    args = list(m.groups())
+                    for _ in range(len(re2)):
+                        args.append([])
+                    record = Record(*args)
 
 
 def writeHeader(outf, script=None, root=None, schemaPath=None, rootAttrs="", options=None):
