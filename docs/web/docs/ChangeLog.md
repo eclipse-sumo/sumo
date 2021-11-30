@@ -31,15 +31,15 @@ title: ChangeLog
 ### Enhancements
 
 - simulation
- - Added attribute speedRelative to edgeData output. Issue #9601
- - Option **--fcd-output.attributes** can now be used to active non-standard attributes (i.e. acceleration). Issue #9625
- - Rerouting period can now be customized via `<param key="device.rerouting.period" value="X"/>` in vType or vehicle. Issue #9646
- - Vehicles now collect occupancy information for all parkingareas along the way during parking search. Issue #9645 
- - Detector processing now takes less time if their output file is set to 'NUL'. Issue #7772, #9620 
- - parking search:
-   - Parking search now supports `<param key="parking.anywhere" value="X"/>` which permit using free parkingArea along the way after doing unsuccessful  parkingAreaReroute x times. Issue #9577 - 
-   - Parking search now supports `<param key="parking.frustration" value="X"/>` which increases the preference for visibly free parkingAreas over time. Issue 9657
-   - Parking search now supports `<param key="parking.knowledge" value="x"/>` to let driver "guess" the occupancy of invisible parkingAreas with probability x. Issue #9545 
+  - Added attribute speedRelative to edgeData output. Issue #9601
+  - Option **--fcd-output.attributes** can now be used to active non-standard attributes (i.e. acceleration). Issue #9625
+  - Rerouting period can now be customized via `<param key="device.rerouting.period" value="X"/>` in vType or vehicle. Issue #9646
+  - Vehicles now collect occupancy information for all parkingareas along the way during parking search. Issue #9645 
+  - Detector processing now takes less time if their output file is set to 'NUL'. Issue #7772, #9620 
+  - parking search:
+    - Parking search now supports `<param key="parking.anywhere" value="X"/>` which permit using free parkingArea along the way after doing unsuccessful  parkingAreaReroute x times. Issue #9577 - 
+    - Parking search now supports `<param key="parking.frustration" value="X"/>` which increases the preference for visibly free parkingAreas over time. Issue 9657
+    - Parking search now supports `<param key="parking.knowledge" value="x"/>` to let driver "guess" the occupancy of invisible parkingAreas with probability x. Issue #9545 
 
 - sumo-gui
   - All text setting now have the checkbox "only for selected" to display text selectively. Issue #9574
