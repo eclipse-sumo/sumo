@@ -28,13 +28,15 @@ the vehicles you are interested in and add the following parameter:
 Equipping the `vType` with a battery device is necessary because it triggers the
 parsing and loading of all energy-related quantities. Other than that, there is
 currently no interaction between MMPEVEM and said device. This especially
-entails that the battery's state and output are *not* based on the former.
+entails that the battery's state and output are *not* affected by or based on
+the former.
 
 
 Although default parameters are available, it is strongly advised to explicitly
 specify *all* the model parameters listed below and to make sure that they are
-compatible. Failing to do so may lead to wrong or even invalid operating points
-(cf. [Output](#output)) which skew the overall energy consumption.
+compatible with one another. Failing to do so may lead to wrong or even invalid
+operating points (cf. [Output](#output)) which skew the overall energy
+consumption.
 
 
 ## Model Parameters
