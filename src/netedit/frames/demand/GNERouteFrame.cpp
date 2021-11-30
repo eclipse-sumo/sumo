@@ -52,10 +52,7 @@ FXIMPLEMENT(GNERouteFrame::RouteModeSelector,   FXGroupBox,     RouteModeSelecto
 
 GNERouteFrame::RouteModeSelector::RouteModeSelector(GNERouteFrame* routeFrameParent) :
     FXGroupBox(routeFrameParent->myContentFrame, "Route mode", GUIDesignGroupBoxFrame),
-    myRouteFrameParent(routeFrameParent),
-    myCurrentRouteMode(RouteMode::NONCONSECUTIVE_EDGES),
-    myValidVClass(true),
-    myRouteTemplate(nullptr) {
+    myRouteFrameParent(routeFrameParent) {
     // create route template
     myRouteTemplate = new GNERoute(routeFrameParent->getViewNet()->getNet());
     // first fill myRouteModesStrings

@@ -653,7 +653,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
     if (!destVisible) {
         // check whether we are ready to accept any free parkingArea along the
         // way to our destination
-        const int parkAnywhere = getWeight(veh, "parking.anywhere", -1);
+        const int parkAnywhere = (int)getWeight(veh, "parking.anywhere", -1);
         if (parkAnywhere < 0 || parkAnywhere > veh.getNumberParkingReroutes()) {
             // cannot determine destination occupancy, only register visibly full
             for (const ParkingAreaVisible& pav : parks) {
@@ -1065,7 +1065,7 @@ MSTriggeredRerouter::addParkValues(SUMOVehicle& veh, double brakeGap, bool newDe
                     routeToPark.begin(), routeToPark.end() - 1, includeInternalLengths);
 
             if (parkValues["distanceto"] == std::numeric_limits<double>::max()) {
-                WRITE_WARNING("Invalid distance computation for vehicle '" + veh.getID() + "' to parkingArea '" + pa->getID() + "' at time " + time2string(SIMTIME));
+                WRITE_WARNING("Invalid distance computation for vehicle '" + veh.getID() + "' to parkingArea '" + pa->getID() + "' at time " + time2string(SIMSTEP));
             }
 
             //std::cout << SIMTIME << " veh=" << veh.getID() << " candidate=" << pa->getID()
@@ -1109,7 +1109,7 @@ MSTriggeredRerouter::addParkValues(SUMOVehicle& veh, double brakeGap, bool newDe
                 parkValues["distancefrom"] = routeFromPark.getDistanceBetween(pa->getBeginLanePosition(), routeFromPark.getLastEdge()->getLength(),
                         routeFromPark.begin(), routeFromPark.end() - 1, includeInternalLengths);
                 if (parkValues["distancefrom"] == std::numeric_limits<double>::max()) {
-                    WRITE_WARNING("Invalid distance computation for vehicle '" + veh.getID() + "' from parkingArea '" + pa->getID() + "' at time " + time2string(SIMTIME));
+                    WRITE_WARNING("Invalid distance computation for vehicle '" + veh.getID() + "' from parkingArea '" + pa->getID() + "' at time " + time2string(SIMSTEP));
                 }
                 // The time to reach this area
                 parkValues["timefrom"] = router.recomputeCosts(edgesFromPark, &veh, MSNet::getInstance()->getCurrentTimeStep());

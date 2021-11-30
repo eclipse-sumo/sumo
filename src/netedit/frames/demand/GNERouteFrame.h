@@ -91,19 +91,19 @@ public:
         GNERouteFrame* myRouteFrameParent;
 
         /// @brief comboBox with the list of route modes
-        FXComboBox* myRouteModeMatchBox;
+        FXComboBox* myRouteModeMatchBox = nullptr;
 
         /// @brief comboBox with the list of VClass
-        FXComboBox* myVClassMatchBox;
+        FXComboBox* myVClassMatchBox = nullptr;
 
         /// @brief current selected route mode
-        RouteMode myCurrentRouteMode;
+        RouteMode myCurrentRouteMode = RouteMode::NONCONSECUTIVE_EDGES;
 
         /// @brief route template
-        GNERoute* myRouteTemplate;
+        GNERoute* myRouteTemplate = nullptr;
 
         /// @brief flag to check if VClass is Valid
-        bool myValidVClass;
+        bool myValidVClass = true;
 
         /// @brief list of Route modes that will be shown in Match Box
         std::vector<std::pair<RouteMode, std::string> > myRouteModesStrings;
