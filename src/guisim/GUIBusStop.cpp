@@ -178,8 +178,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, getType());
     GLHelper::setColor(color);
     const double exaggeration = getExaggeration(s);
-    const double offset = myWidth * 0.5 * MAX2(0.0, exaggeration - 1);
-    GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, myWidth * 0.5 * exaggeration, 0, offset);
+    GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, myWidth * 0.5, 0, 0);
     // draw details unless zoomed out to far
     if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) {
         GLHelper::pushMatrix();
