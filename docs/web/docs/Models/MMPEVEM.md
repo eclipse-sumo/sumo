@@ -42,7 +42,7 @@ consumption.
 ## Model Parameters
 
 MMPEVEM shares a lot of SUMO's
-[native electric vehicle parameters](Electric.md#defining_electric_vehicles) and
+[native electric vehicle parameters](Electric.md#defining-electric-vehicles) and
 introduces only a couple of new ones. You can find exemplary vehicle type
 definitions at `{SUMO_HOME}/data/emissions/MMPEVEM`[^1].
 
