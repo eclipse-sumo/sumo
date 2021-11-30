@@ -20,13 +20,9 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
-#include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/changes/GNEChange_LaneType.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
-#include <utils/options/OptionsCont.h>
 
 
 #include "GNELaneType.h"

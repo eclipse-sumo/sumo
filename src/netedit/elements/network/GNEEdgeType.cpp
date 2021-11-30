@@ -24,7 +24,6 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
-#include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_LaneType.h>
 #include <utils/options/OptionsCont.h>
 
