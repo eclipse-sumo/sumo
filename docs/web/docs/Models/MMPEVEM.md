@@ -68,7 +68,7 @@ definitions at `{SUMO_HOME}/data/emissions/MMPEVEM`[^1].
 
 [^1]: For the sake of compatibility, the XMLs in
   `{SUMO_HOME}/data/emissions/MMPEVEM` contain all
-  [native electric vehicle parameters](Electric.md#defining_electric_vehicles).
+  [native electric vehicle parameters](Electric.md#defining-electric-vehicles).
 [^2]: All operating points result in a power loss of 0 W in the default map.
 
 
