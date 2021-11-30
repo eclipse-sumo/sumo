@@ -55,5 +55,11 @@ beyond_stops
 # assign edge priority based on main direction
 direction-priority
 
+# extend edge priority based on loaded priorities and main direction
+extend-priority
+
+# extend edge priority based on loaded priorities and main direction (all edges are bidi)
+extend-priority_bidi
+
 # road connections should not be affect by railway repair
 road_connections
