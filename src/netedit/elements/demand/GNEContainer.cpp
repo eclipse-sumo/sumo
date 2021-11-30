@@ -685,6 +685,7 @@ GNEContainer::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
         case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_PROB:
             undoList->add(new GNEChange_EnableAttribute(this, key, true, parametersSet), true);
+            return;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }

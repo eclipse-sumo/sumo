@@ -72,7 +72,6 @@ FXIMPLEMENT(GNECreateEdgeFrame::LaneTypeSelector,       FXGroupBox,     LaneType
 GNECreateEdgeFrame::EdgeTypeSelector::EdgeTypeSelector(GNECreateEdgeFrame* createEdgeFrameParent) :
     FXGroupBox(createEdgeFrameParent->myContentFrame, "Template selector", GUIDesignGroupBoxFrame),
     myCreateEdgeFrameParent(createEdgeFrameParent),
-    myEdgeTypeSelected(nullptr),
     myDefaultEdgeType(new GNEEdgeType(createEdgeFrameParent)),
     myHiddenAttributes({SUMO_ATTR_ID, SUMO_ATTR_ONEWAY, SUMO_ATTR_DISCARD, SUMO_ATTR_MAXWIDTH, SUMO_ATTR_MINWIDTH, SUMO_ATTR_SIDEWALKWIDTH, SUMO_ATTR_BIKELANEWIDTH, SUMO_ATTR_WIDTHRESOLUTION}) {
     // default edge radio button
@@ -520,7 +519,7 @@ void
 GNECreateEdgeFrame::LaneTypeSelector::fillDefaultParameters() {
     // get templateEdge
     const auto edgeType = myCreateEdgeFrameParent->myEdgeTypeSelector->getEdgeTypeSelected();
-    if (edgeType && (myLaneIndex < edgeType->getLaneTypes().size())) {
+    if (edgeType && (myLaneIndex < (int)edgeType->getLaneTypes().size())) {
         // set speed
         edgeType->getLaneTypes().at(myLaneIndex)->setAttribute(SUMO_ATTR_SPEED, "13.89");
         // set allow

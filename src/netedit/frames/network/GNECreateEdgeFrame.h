@@ -109,7 +109,7 @@ public:
         GNEEdgeType* myDefaultEdgeType;
 
         /// @brief selected edgeType
-        GNEEdgeType* myEdgeTypeSelected;
+        GNEEdgeType* myEdgeTypeSelected = nullptr;
 
         /// @brief hidden attributes (temporal)
         const std::vector<SumoXMLAttr> myHiddenAttributes;
