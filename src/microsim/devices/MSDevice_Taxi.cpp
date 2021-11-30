@@ -459,6 +459,9 @@ MSDevice_Taxi::prepareStop(ConstMSEdgeVector& edges,
                            double& lastPos, const MSEdge* stopEdge, double stopPos,
                            const std::string& action) {
     assert(!edges.empty());
+    if (stopPos < lastPos && stopPos + NUMERICAL_EPS >= lastPos) {
+        stopPos = lastPos;
+    }
     if (stopEdge == edges.back() && !stops.empty()) {
         if (stopPos >= lastPos && stopPos <= stops.back().endPos) {
             // no new stop and no adaption needed
