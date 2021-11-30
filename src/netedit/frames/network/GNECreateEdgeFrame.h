@@ -128,6 +128,64 @@ public:
     };
 
     // ===========================================================================
+    // class LaneTypeSelector
+    // ===========================================================================
+
+    class LaneTypeSelector : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNECreateEdgeFrame::LaneTypeSelector)
+
+    public:
+        /// @brief constructor
+        LaneTypeSelector(GNECreateEdgeFrame* createEdgeFrameParent);
+
+        /// @brief destructor
+        ~LaneTypeSelector();
+
+        /// @brief show lane type selector
+        void showLaneTypeSelector();
+
+        /// @brief hide lane type selector
+        void hideLaneTypeSelector();
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user press button for add a new lane type
+        long onCmdAddLaneType(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user press button for delete lane type
+        long onCmdDeleteLaneType(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user press select an laneType in comboBox
+        long onCmdSelectLaneType(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief FOX need this
+        FOX_CONSTRUCTOR(LaneTypeSelector);
+
+        /// @brief fill default parameters
+        void fillDefaultParameters();
+
+    private:
+        /// @brief pointer to createEdgeFrameParent
+        GNECreateEdgeFrame* myCreateEdgeFrameParent;
+    
+        /// @brief lane index
+        int myLaneIndex;
+
+        /// @brief ComboBox for lane types
+        FXComboBox* myLaneTypesComboBox = nullptr;
+
+        /// @brief button for create new lane type
+        FXButton* myAddLaneTypeButton = nullptr;
+
+        /// @brief button for delete lane type
+        FXButton* myDeleteLaneTypeButton = nullptr;
+    };
+
+    // ===========================================================================
     // class EdgeTypeSelectorLegend
     // ===========================================================================
 
