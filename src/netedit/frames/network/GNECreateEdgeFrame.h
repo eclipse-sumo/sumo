@@ -111,6 +111,9 @@ public:
         /// @brief selected edgeType
         GNEEdgeType* myEdgeTypeSelected;
 
+        /// @brief hidden attributes (temporal)
+        const std::vector<SumoXMLAttr> myHiddenAttributes;
+
         /// @brief create default edge
         FXRadioButton* myUseDefaultEdgeType = nullptr;
 
@@ -164,6 +167,9 @@ public:
     protected:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(LaneTypeSelector);
+
+        /// @brief refresh LaneTypeSelector
+        void refreshLaneTypeSelector();
 
         /// @brief fill default parameters
         void fillDefaultParameters();
@@ -237,15 +243,24 @@ public:
     /// @brief get edgeType attributes
     GNEFrameAttributesModuls::AttributesCreator* getEdgeTypeAttributes() const;
 
+    /// @brief get laneType attributes
+    GNEFrameAttributesModuls::AttributesCreator* getLaneTypeAttributes() const;
+
     /// @brief set default to using edge template
     void setUseEdgeTemplate();
 
 protected:
-    /// @brief custom edge selector
+    /// @brief edge type selector
     EdgeTypeSelector* myEdgeTypeSelector = nullptr;
 
     /// @brief internal edgeType attributes
     GNEFrameAttributesModuls::AttributesCreator* myEdgeTypeAttributes;
+
+    /// @brief lane type selector
+    LaneTypeSelector* myLaneTypeSelector;
+
+    /// @brief internal laneType attributes
+    GNEFrameAttributesModuls::AttributesCreator* myLaneTypeAttributes;
 
     /// @brief edge selector legend
     EdgeTypeSelectorLegend* myEdgeTypeSelectorLegend = nullptr;
