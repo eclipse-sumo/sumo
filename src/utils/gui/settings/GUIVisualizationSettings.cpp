@@ -142,7 +142,7 @@ const double GUIVisualizationDetectorSettings::E3EntryExitHeight(0.5);
 const double GUIVisualizationStoppingPlaceSettings::stoppingPlaceSignOffset(1.5);
 const double GUIVisualizationStoppingPlaceSettings::busStopWidth(1);
 const double GUIVisualizationStoppingPlaceSettings::trainStopWidth(0.5);
-const double GUIVisualizationStoppingPlaceSettings::containerStopWidth(1);
+const double GUIVisualizationStoppingPlaceSettings::containerStopWidth(3);
 const double GUIVisualizationStoppingPlaceSettings::chargingStationWidth(1);
 
 // -------------------------------------------------------------------------
