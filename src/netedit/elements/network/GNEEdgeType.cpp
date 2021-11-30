@@ -238,13 +238,17 @@ GNEEdgeType::getAttribute(SumoXMLAttr key) const {
                 return toString(speed);
             }
         case SUMO_ATTR_ALLOW:
-            if (attrs.count(SUMO_ATTR_DISALLOW) == 0) {
+            if ((permissions == SVCAll) || (permissions == -1)) {
                 return "all";
+            } else if  (permissions == 0) {
+                return "";
             } else {
                 return getVehicleClassNames(permissions);
             }
         case SUMO_ATTR_DISALLOW:
-            if (attrs.count(SUMO_ATTR_DISALLOW) == 0) {
+            if (permissions == 0) {
+                return "all";
+            } else if ((permissions == SVCAll) || (permissions == -1)) {
                 return "";
             } else {
                 return getVehicleClassNames(invertPermissions(permissions));
@@ -288,23 +292,8 @@ GNEEdgeType::getAttribute(SumoXMLAttr key) const {
 
 
 void
-GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    switch (key) {
-        case SUMO_ATTR_ID:
-        case SUMO_ATTR_NUMLANES:
-        case SUMO_ATTR_SPEED:
-        case SUMO_ATTR_ALLOW:
-        case SUMO_ATTR_DISALLOW:
-        case SUMO_ATTR_SPREADTYPE:
-        case SUMO_ATTR_DISCARD:
-        case SUMO_ATTR_WIDTH:
-        case SUMO_ATTR_PRIORITY:
-        case GNE_ATTR_PARAMETERS:
-            undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
-            break;
-        default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
-    }
+GNEEdgeType::setAttribute(SumoXMLAttr /*key*/, const std::string& /*value*/, GNEUndoList* /*undoList*/) {
+    throw InvalidArgument("EdgeType attributes cannot be edited here");
 }
 
 
@@ -347,20 +336,8 @@ GNEEdgeType::isValid(SumoXMLAttr key, const std::string& value) {
 
 
 bool
-GNEEdgeType::isAttributeEnabled(SumoXMLAttr key) const {
-    switch (key) {
-        // non editable attributes
-        case SUMO_ATTR_ONEWAY:
-        case SUMO_ATTR_DISCARD:
-        case SUMO_ATTR_WIDTHRESOLUTION:
-        case SUMO_ATTR_MAXWIDTH:
-        case SUMO_ATTR_MINWIDTH:
-        case SUMO_ATTR_SIDEWALKWIDTH:
-        case SUMO_ATTR_BIKELANEWIDTH:
-            return false;
-        default:
-            return true;
-    }
+GNEEdgeType::isAttributeEnabled(SumoXMLAttr /*key*/) const {
+    return true;
 }
 
 
@@ -396,19 +373,33 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_ALLOW:
-            if (value.empty()) {
+            // parse permissions
+            permissions = parseVehicleClasses(value);
+            // check attrs
+            if ((permissions == SVCAll) || (permissions == -1)) {
+                attrs.insert(SUMO_ATTR_ALLOW);
+                attrs.erase(SUMO_ATTR_DISALLOW);
+            } else if (permissions == 0) {
                 attrs.erase(SUMO_ATTR_ALLOW);
+                attrs.insert(SUMO_ATTR_DISALLOW);
             } else {
                 attrs.insert(SUMO_ATTR_ALLOW);
-                permissions = parseVehicleClasses(value);
+                attrs.insert(SUMO_ATTR_DISALLOW);
             }
             break;
         case SUMO_ATTR_DISALLOW:
-            if (value.empty()) {
+            // parse invert permissions
+            permissions = invertPermissions(parseVehicleClasses(value));
+            // check attrs
+            if ((permissions == SVCAll) || (permissions == -1)) {
+                attrs.insert(SUMO_ATTR_ALLOW);
                 attrs.erase(SUMO_ATTR_DISALLOW);
-            } else {
+            } else if (permissions == 0) {
+                attrs.erase(SUMO_ATTR_ALLOW);
                 attrs.insert(SUMO_ATTR_DISALLOW);
-                permissions = invertPermissions(parseVehicleClasses(value));
+            } else {
+                attrs.insert(SUMO_ATTR_ALLOW);
+                attrs.insert(SUMO_ATTR_DISALLOW);
             }
             break;
         case SUMO_ATTR_SPREADTYPE:
