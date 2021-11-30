@@ -25,7 +25,6 @@
 <routes>
   <vType actionStepLength="1.0" color="blue" emissionClass="MMPEVEM" id="VW_ID3" vClass="passenger">
     <param key="has.battery.device" value="true"/>
-    <param key="has.ev_powertrain.device" value="true"/>
     <param key="maximumBatteryCapacity" value="58000"/>
     <param key="maximumPower" value="107000"/>
     <param key="maximumTorque" value="310"/>
