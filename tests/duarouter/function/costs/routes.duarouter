@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-26 11:52:26 by Eclipse SUMO duarouter Version v1_11_0+0127-8e863dbaffd
+<!-- generated on 2021-11-30 17:26:41 by Eclipse SUMO duarouter Version v1_11_0+0199-2ec6693914c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -35,64 +35,64 @@ SPDX-License-Identifier: EPL-2.0
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <person id="ped.0" depart="0.00">
-        <walk edges="A0B0 B0A0 B0C0 C1C0 C1D1 D1D2 D3D2 E3D3 E4E3 E5E4 E5F5"/>
+        <walk cost="1234.14" edges="A0B0 B0A0 B0C0 C1C0 C1D1 D1D2 D3D2 E3D3 E4E3 E5E4 E5F5"/>
     </person>
     <person id="ped.1" depart="1.00">
-        <walk edges="A0B0 A0A1 B1A1 B1B2 B2C2 C3C2 C3C4 C4D4 D5D4 D5E5 E5F5"/>
+        <walk cost="1293.51" edges="A0B0 A0A1 B1A1 B1B2 B2C2 C3C2 C3C4 C4D4 D5D4 D5E5 E5F5"/>
     </person>
     <person id="ped.2" depart="2.00">
-        <walk edges="A0B0 B0A0 B0B1 B2B1 B2C2 C3C2 C3D3 D4D3 D4E4 E5E4 E5F5"/>
+        <walk cost="1187.28" edges="A0B0 B0A0 B0B1 B2B1 B2C2 C3C2 C3D3 D4D3 D4E4 E5E4 E5F5"/>
     </person>
     <person id="ped.3" depart="3.00">
-        <walk edges="A0B0 B1B0 B2B1 B3B2 B3C3 C4C3 D4C4 E4D4 E5E4 E5F5"/>
+        <walk cost="1301.83" edges="A0B0 B1B0 B2B1 B3B2 B3C3 C4C3 D4C4 E4D4 E5E4 E5F5"/>
     </person>
     <person id="ped.4" depart="4.00">
-        <walk edges="A0B0 A1A0 B1A1 B2B1 B3B2 C3B3 D3C3 D3E3 E4E3 E4E5 E5F5"/>
+        <walk cost="1301.89" edges="A0B0 A1A0 B1A1 B2B1 B3B2 C3B3 D3C3 D3E3 E4E3 E4E5 E5F5"/>
     </person>
     <person id="ped.5" depart="5.00">
-        <walk edges="A0B0 A0A1 A1B1 B2B1 B2C2 C2D2 D2D3 D4D3 E4D4 E4E5 E5F5"/>
+        <walk cost="1129.82" edges="A0B0 A0A1 A1B1 B2B1 B2C2 C2D2 D2D3 D4D3 E4D4 E4E5 E5F5"/>
     </person>
     <person id="ped.6" depart="6.00">
-        <walk edges="A0B0 A0A1 A2A1 A3A2 A3B3 B4B3 B4C4 D4C4 E4D4 E5E4 E5F5"/>
+        <walk cost="1369.51" edges="A0B0 A0A1 A2A1 A3A2 A3B3 B4B3 B4C4 D4C4 E4D4 E5E4 E5F5"/>
     </person>
     <person id="ped.7" depart="7.00">
-        <walk edges="A0B0 B0A0 B0B1 B2B1 B2B3 B3C3 C4C3 C4D4 D4E4 E4E5 E5F5"/>
+        <walk cost="1260.71" edges="A0B0 B0A0 B0B1 B2B1 B2B3 B3C3 C4C3 C4D4 D4E4 E4E5 E5F5"/>
     </person>
     <person id="ped.8" depart="8.00">
-        <walk edges="A0B0 A0A1 B1A1 C1B1 C1D1 D2D1 D2D3 D4D3 D5D4 D5E5 E5F5"/>
+        <walk cost="1398.55" edges="A0B0 A0A1 B1A1 C1B1 C1D1 D2D1 D2D3 D4D3 D5D4 D5E5 E5F5"/>
     </person>
     <person id="ped.9" depart="9.00">
-        <walk edges="A0B0 A0A1 A2A1 A2A3 A3A4 A5A4 A5B5 B5C5 D5C5 D5E5 E5F5"/>
+        <walk cost="1351.76" edges="A0B0 A0A1 A2A1 A2A3 A3A4 A5A4 A5B5 B5C5 D5C5 D5E5 E5F5"/>
     </person>
     <person id="ped.10" depart="10.00">
-        <walk edges="A0B0 A1A0 B1A1 B2B1 B2B3 C3B3 C4C3 C4D4 D5D4 E5D5 E5F5"/>
+        <walk cost="1365.85" edges="A0B0 A1A0 B1A1 B2B1 B2B3 C3B3 C4C3 C4D4 D5D4 E5D5 E5F5"/>
     </person>
     <person id="ped.11" depart="11.00">
-        <walk edges="A0B0 A0A1 A1A2 A2B2 C2B2 C3C2 C3C4 C4D4 D4D5 E5D5 E5F5"/>
+        <walk cost="1186.41" edges="A0B0 A0A1 A1A2 A2B2 C2B2 C3C2 C3C4 C4D4 D4D5 E5D5 E5F5"/>
     </person>
     <person id="ped.12" depart="12.00">
-        <walk edges="A0B0 A1A0 A2A1 A2B2 C2B2 C2C3 C3D3 E3D3 E4E3 E5E4 E5F5"/>
+        <walk cost="1311.38" edges="A0B0 A1A0 A2A1 A2B2 C2B2 C2C3 C3D3 E3D3 E4E3 E5E4 E5F5"/>
     </person>
     <person id="ped.13" depart="13.00">
-        <walk edges="A0B0 A1A0 A2A1 B2A2 C2B2 D2C2 D2D3 D3D4 D4E4 E4E5 E5F5"/>
+        <walk cost="1339.70" edges="A0B0 A1A0 A2A1 B2A2 C2B2 D2C2 D2D3 D3D4 D4E4 E4E5 E5F5"/>
     </person>
     <person id="ped.14" depart="14.00">
-        <walk edges="A0B0 B0C0 C1C0 C2C1 C3C2 D3C3 D3D4 D4D5 E5D5 E5F5"/>
+        <walk cost="1306.46" edges="A0B0 B0C0 C1C0 C2C1 C3C2 D3C3 D3D4 D4D5 E5D5 E5F5"/>
     </person>
     <person id="ped.15" depart="15.00">
-        <walk edges="A0B0 B0C0 C1C0 C1D1 D1E1 E2E1 E2E3 E4E3 E4E5 E5F5"/>
+        <walk cost="1296.22" edges="A0B0 B0C0 C1C0 C1D1 D1E1 E2E1 E2E3 E4E3 E4E5 E5F5"/>
     </person>
     <person id="ped.16" depart="16.00">
-        <walk edges="A0B0 C0B0 D0C0 E0D0 E1E0 E1E2 E3E2 E4E3 E4E5 E5F5"/>
+        <walk cost="1412.97" edges="A0B0 C0B0 D0C0 E0D0 E1E0 E1E2 E3E2 E4E3 E4E5 E5F5"/>
     </person>
     <person id="ped.17" depart="17.00">
-        <walk edges="A0B0 B0A0 C0B0 D0C0 D1D0 D2D1 D3D2 D3D4 D4E4 E5E4 E5F5"/>
+        <walk cost="1371.64" edges="A0B0 B0A0 C0B0 D0C0 D1D0 D2D1 D3D2 D3D4 D4E4 E5E4 E5F5"/>
     </person>
     <person id="ped.18" depart="18.00">
-        <walk edges="A0B0 B0A0 B0C0 C0C1 C1D1 D2D1 D3D2 D4D3 D5D4 D5E5 E5F5"/>
+        <walk cost="1492.70" edges="A0B0 B0A0 B0C0 C0C1 C1D1 D2D1 D3D2 D4D3 D5D4 D5E5 E5F5"/>
     </person>
     <person id="ped.19" depart="19.00">
-        <walk edges="A0B0 A0A1 A2A1 A2B2 B2C2 C3C2 C3C4 D4C4 D5D4 D5E5 E5F5"/>
+        <walk cost="1309.16" edges="A0B0 A0A1 A2A1 A2B2 B2C2 C3C2 C3C4 D4C4 D5D4 D5E5 E5F5"/>
     </person>
     <vehicle id="cars.0" depart="30.00">
         <route cost="103.89" edges="A5B5 B5B4 B4C4 C4D4 D4E4 E4E3 E3E2 E2E1 E1E0 E0F0"/>
