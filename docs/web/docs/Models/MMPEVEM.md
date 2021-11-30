@@ -74,9 +74,10 @@ definitions at `{SUMO_HOME}/data/emissions/MMPEVEM`[^1].
 
 ## Power Loss Map
 
-The power loss map describes the electric motor's power loss [W] as a function
-of motor speed [rpm] and torque [Nm]. It is passed to the model using a custom
-string format which shall be explicated using the following mock power loss map:
+The power loss map describes the electric motor's power loss (in W) as a
+function of motor speed (in rpm) and torque (in Nm). It is passed to the model
+using a custom string format which shall be explicated using the mock power loss
+map below.
 
 |             |     **0 rpm** |  **4000 rpm** |  **8000 rpm** |
 |-------------|---------------|---------------|---------------|
@@ -150,7 +151,7 @@ from `{SUMO_HOME}/data/emissions/MMPEVEM/SUV.xml`.
 
 Start SUMO with the `--emission-output` option in order to generate an XML file
 with the emissions of all vehicles. In the XML, the attribute `electricity`
-shows the electric energy consumption of a vehicle in a given time step in Wh.
+shows the electric energy consumption (in Wh) of a vehicle in a given time step.
 Please note that this value is only provided by MMPEVEM if and only if the
 `vtype` definition of the vehicle in question was set accordingly.
 
