@@ -4,38 +4,41 @@ Warning: Speed of straight connection 'i2_2->i3_2' reduced by 9.61 due to turnin
 Warning: Speed of straight connection 'i3_0->i4_0' reduced by 5.29 due to turning radius of 13.45 (length=5.96, angle=41.99).
 Warning: Speed of straight connection 'i3_1->i4_1' reduced by 7.10 due to turning radius of 8.39 (length=3.58, angle=41.99).
 Warning: 18 total messages of type: Speed of % connection '%' reduced by % due to turning radius of % (length=%, angle=%).
-Warning: Vehicle 'vehicle.232' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=756.00.
-Warning: Vehicle 'vehicle.272' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=757.00.
-Warning: Vehicle 'vehicle.234' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=758.00.
-Warning: Vehicle 'vehicle.219' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=759.00.
-Warning: Teleporting vehicle 'vehicle.273'; waited too long (wrong lane), lane='i7_1', time=1164.00.
-Warning: Vehicle 'vehicle.273' ends teleporting on edge 'e2', time 1205.00.
-Warning: Vehicle 'vehicle.815' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2543.00.
-Warning: Vehicle 'vehicle.816' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2544.00.
-Warning: Vehicle 'vehicle.876' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2545.00.
-Warning: Vehicle 'vehicle.943' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2924.00.
-Warning: Vehicle 'vehicle.1031' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3367.00.
-Warning: Vehicle 'vehicle.1043' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3368.00.
-Warning: Vehicle 'vehicle.1035' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3369.00.
-Warning: Vehicle 'vehicle.1030' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3370.00.
-Warning: Vehicle 'vehicle.1037' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3371.00.
-Warning: Vehicle 'vehicle.1011' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3372.00.
-Warning: Vehicle 'vehicle.1061' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3373.00.
-Warning: Vehicle 'vehicle.1045' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3374.00.
-Warning: Vehicle 'vehicle.1058' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3375.00.
-Warning: Vehicle 'vehicle.1062' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3376.00.
-Warning: Vehicle 'vehicle.1060' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3377.00.
-Warning: Vehicle 'vehicle.1070' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3378.00.
-Warning: Vehicle 'vehicle.1017' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3379.00.
-Warning: Teleporting vehicle 'vehicle.982'; waited too long (jam), lane='i3_0', time=3439.00.
-Warning: Vehicle 'vehicle.982' ends teleporting on edge 'i4', time 3439.00.
-Warning: Teleporting vehicle 'vehicle.1046'; waited too long (jam), lane='i4_1', time=3757.00.
-Warning: Vehicle 'vehicle.1046' ends teleporting on edge 'i5', time 3757.00.
-Warning: Vehicle 'vehicle.1728' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=5256.00.
-Warning: Vehicle 'vehicle.1599' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=5257.00.
-Warning: Vehicle 'vehicle.1730' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=5258.00.
-Warning: Vehicle 'vehicle.1762' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=5259.00.
-Warning: Vehicle 'vehicle.1671' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=5260.00.
-Warning: Vehicle 'vehicle.2085' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=6379.00.
-Warning: Teleporting vehicle 'vehicle.2871'; waited too long (jam), lane='i1_1', time=8259.00.
-Warning: Vehicle 'vehicle.2871' ends teleporting on edge 'i3', time 8274.00.
+Warning: Teleporting vehicle 'vehicle.201'; waited too long (wrong lane), lane='i7_1', time=936.00.
+Warning: Vehicle 'vehicle.201' ends teleporting on edge 'e3', time 999.00.
+Warning: Vehicle 'vehicle.751' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2454.00.
+Warning: Vehicle 'vehicle.872' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2694.00.
+Warning: Vehicle 'vehicle.852' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2695.00.
+Warning: Vehicle 'vehicle.812' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2696.00.
+Warning: Vehicle 'vehicle.1039' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3537.00.
+Warning: Vehicle 'vehicle.1066' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3538.00.
+Warning: Vehicle 'vehicle.1111' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3539.00.
+Warning: Vehicle 'vehicle.1033' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3540.00.
+Warning: Vehicle 'vehicle.1055' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3541.00.
+Warning: Vehicle 'vehicle.1095' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3542.00.
+Warning: Vehicle 'vehicle.1125' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3543.00.
+Warning: Vehicle 'vehicle.1116' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3544.00.
+Warning: Vehicle 'vehicle.1059' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3545.00.
+Warning: Vehicle 'vehicle.1136' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3546.00.
+Warning: Vehicle 'vehicle.1088' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3547.00.
+Warning: Vehicle 'vehicle.1032' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3548.00.
+Warning: Vehicle 'vehicle.1071' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3549.00.
+Warning: Vehicle 'vehicle.1064' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3550.00.
+Warning: Vehicle 'vehicle.1036' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3551.00.
+Warning: Vehicle 'vehicle.1099' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3552.00.
+Warning: Vehicle 'vehicle.1098' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3553.00.
+Warning: Vehicle 'vehicle.1090' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3554.00.
+Warning: Vehicle 'vehicle.1135' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3555.00.
+Warning: Vehicle 'vehicle.1081' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3556.00.
+Warning: Vehicle 'vehicle.1053' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3557.00.
+Warning: Vehicle 'vehicle.1067' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3558.00.
+Warning: Vehicle 'vehicle.1134' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3559.00.
+Warning: Vehicle 'vehicle.1056' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3560.00.
+Warning: Vehicle 'vehicle.1035' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3561.00.
+Warning: Vehicle 'vehicle.1142' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3562.00.
+Warning: Vehicle 'vehicle.1112' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3563.00.
+Warning: Vehicle 'vehicle.1131' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3564.00.
+Warning: Vehicle 'vehicle.1038' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=3565.00.
+Warning: Teleporting vehicle 'vehicle.1251'; waited too long (jam), lane='i3_1', time=4320.00.
+Warning: Vehicle 'vehicle.1251' ends teleporting on edge 'i4', time 4320.00.
+Warning: Vehicle 'vehicle.2091' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=6189.00.

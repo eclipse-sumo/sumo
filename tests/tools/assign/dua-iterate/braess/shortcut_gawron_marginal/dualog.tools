@@ -5,10 +5,10 @@ Success.
 -------------------------------------------------------------------------------
 ['/home/kobo/dlr/sumo/bin/sumo', '-c', '0/iteration_000.sumocfg']
 Loading configuration ... done.
-Loading net-file from '0/../input_net.net.xml' ... done (2ms).
+Loading net-file from '0/../input_net.net.xml' ... done (3ms).
 Loading additional-files from '0/dua_dump_000.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_9_2+0041-82fcaf2c59 started with time: 0.00
+Simulation version v1_11_0+0189-7be604757dc started with time: 0.00
 Simulation ended at time: 5977.00
 Reason: All vehicles have left the simulation.
 Statistics (avg):
@@ -26,10 +26,10 @@ Success.
 -------------------------------------------------------------------------------
 ['/home/kobo/dlr/sumo/bin/sumo', '-c', '1/iteration_001.sumocfg']
 Loading configuration ... done.
-Loading net-file from '1/../input_net.net.xml' ... done (2ms).
-Loading additional-files from '1/dua_dump_001.add.xml' ... done (1ms).
+Loading net-file from '1/../input_net.net.xml' ... done (3ms).
+Loading additional-files from '1/dua_dump_001.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_9_2+0041-82fcaf2c59 started with time: 0.00
+Simulation version v1_11_0+0189-7be604757dc started with time: 0.00
 Simulation ended at time: 5247.00
 Reason: All vehicles have left the simulation.
 Statistics (avg):
@@ -47,10 +47,10 @@ Success.
 -------------------------------------------------------------------------------
 ['/home/kobo/dlr/sumo/bin/sumo', '-c', '2/iteration_002.sumocfg']
 Loading configuration ... done.
-Loading net-file from '2/../input_net.net.xml' ... done (3ms).
+Loading net-file from '2/../input_net.net.xml' ... done (6ms).
 Loading additional-files from '2/dua_dump_002.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_9_2+0041-82fcaf2c59 started with time: 0.00
+Simulation version v1_11_0+0189-7be604757dc started with time: 0.00
 Simulation ended at time: 4391.00
 Reason: All vehicles have left the simulation.
 Statistics (avg):
@@ -68,10 +68,10 @@ Success.
 -------------------------------------------------------------------------------
 ['/home/kobo/dlr/sumo/bin/sumo', '-c', '3/iteration_003.sumocfg']
 Loading configuration ... done.
-Loading net-file from '3/../input_net.net.xml' ... done (3ms).
-Loading additional-files from '3/dua_dump_003.add.xml' ... done (1ms).
+Loading net-file from '3/../input_net.net.xml' ... done (4ms).
+Loading additional-files from '3/dua_dump_003.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_9_2+0041-82fcaf2c59 started with time: 0.00
+Simulation version v1_11_0+0189-7be604757dc started with time: 0.00
 Simulation ended at time: 4678.00
 Reason: All vehicles have left the simulation.
 Statistics (avg):
@@ -89,10 +89,10 @@ Success.
 -------------------------------------------------------------------------------
 ['/home/kobo/dlr/sumo/bin/sumo', '-c', '4/iteration_004.sumocfg']
 Loading configuration ... done.
-Loading net-file from '4/../input_net.net.xml' ... done (2ms).
-Loading additional-files from '4/dua_dump_004.add.xml' ... done (0ms).
+Loading net-file from '4/../input_net.net.xml' ... done (11ms).
+Loading additional-files from '4/dua_dump_004.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_9_2+0041-82fcaf2c59 started with time: 0.00
+Simulation version v1_11_0+0189-7be604757dc started with time: 0.00
 Simulation ended at time: 4908.00
 Reason: All vehicles have left the simulation.
 Statistics (avg):
@@ -110,10 +110,10 @@ Success.
 -------------------------------------------------------------------------------
 ['/home/kobo/dlr/sumo/bin/sumo', '-c', '5/iteration_005.sumocfg']
 Loading configuration ... done.
-Loading net-file from '5/../input_net.net.xml' ... done (3ms).
-Loading additional-files from '5/dua_dump_005.add.xml' ... done (0ms).
+Loading net-file from '5/../input_net.net.xml' ... done (2ms).
+Loading additional-files from '5/dua_dump_005.add.xml' ... done (4ms).
 Loading done.
-Simulation version v1_9_2+0041-82fcaf2c59 started with time: 0.00
+Simulation version v1_11_0+0189-7be604757dc started with time: 0.00
 Simulation ended at time: 4979.00
 Reason: All vehicles have left the simulation.
 Statistics (avg):
@@ -134,13 +134,13 @@ Loading configuration ... done.
 Loading net-file from '6/../input_net.net.xml' ... done (2ms).
 Loading additional-files from '6/dua_dump_006.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_9_2+0041-82fcaf2c59 started with time: 0.00
+Simulation version v1_11_0+0189-7be604757dc started with time: 0.00
 Simulation ended at time: 4997.00
 Reason: All vehicles have left the simulation.
 Statistics (avg):
  RouteLength: 998.58
  Speed: 4.78
- Duration: 267.27
+ Duration: 267.28
  WaitingTime: 86.18
  TimeLoss: 192.62
  DepartDelay: 331.91

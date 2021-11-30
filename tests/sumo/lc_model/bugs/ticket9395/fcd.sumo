@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-01 12:22:37 by Eclipse SUMO sumo Version v1_10_0+1803-c64b006
+<!-- generated on 2021-11-30 11:33:05 by Eclipse SUMO sumo Version v1_11_0+0189-7be604757dc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -112,7 +112,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="ego" x="100.28" y="100.00" angle="90.00" type="t0" speed="12.88" pos="11.88" lane=":J1_1_0" slope="0.00"/>
     </timestep>
     <timestep time="26.00">
-        <vehicle id="ego" x="114.16" y="99.13" angle="99.92" type="t0" speed="13.89" pos="2.56" lane="end_0" slope="0.00"/>
+        <vehicle id="ego" x="114.16" y="100.00" angle="90.00" type="t0" speed="13.89" pos="2.56" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="27.00">
         <vehicle id="ego" x="127.48" y="100.00" angle="90.00" type="t0" speed="13.31" pos="15.88" lane="end_0" slope="0.00"/>
@@ -121,13 +121,13 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="ego" x="140.60" y="100.00" angle="90.00" type="t0" speed="13.12" pos="29.00" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="29.00">
-        <vehicle id="ego" x="154.23" y="99.02" angle="90.00" type="t0" speed="13.63" pos="42.63" lane="end_0" slope="0.00"/>
+        <vehicle id="ego" x="154.23" y="100.00" angle="90.00" type="t0" speed="13.63" pos="42.63" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="30.00">
         <vehicle id="ego" x="168.04" y="100.00" angle="90.00" type="t0" speed="13.81" pos="56.44" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="31.00">
-        <vehicle id="ego" x="181.01" y="99.07" angle="90.00" type="t0" speed="12.98" pos="69.41" lane="end_0" slope="0.00"/>
+        <vehicle id="ego" x="181.01" y="100.00" angle="90.00" type="t0" speed="12.98" pos="69.41" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="32.00">
         <vehicle id="ego" x="194.65" y="100.00" angle="90.00" type="t0" speed="13.64" pos="83.05" lane="end_0" slope="0.00"/>

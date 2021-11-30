@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jan 24 15:47:50 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
+<!-- generated on 2021-11-30 11:31:55 by Eclipse SUMO sumo Version v1_11_0+0189-7be604757dc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -27,6 +27,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -36,7 +37,7 @@ SPDX-License-Identifier: EPL-2.0
 
 <calibratorstats xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/calibratorstats_file.xsd">
     <interval begin="0.00" end="1800.00" id="calibtest" nVehContrib="1250" removed="0" inserted="1250" cleared="0" flow="2500.00" aspiredFlow="2500.00" speed="29.86" aspiredSpeed="27.80"/>
-    <interval begin="1800.00" end="3600.00" id="calibtest" nVehContrib="1124" removed="0" inserted="1124" cleared="0" flow="2248.00" aspiredFlow="2500.00" speed="15.36" aspiredSpeed="15.00"/>
-    <interval begin="3600.00" end="5400.00" id="calibtest" nVehContrib="1046" removed="0" inserted="1046" cleared="0" flow="2092.00" aspiredFlow="2500.00" speed="9.95" aspiredSpeed="10.00"/>
-    <interval begin="5400.00" end="7200.00" id="calibtest" nVehContrib="754" removed="0" inserted="754" cleared="0" flow="1508.00" aspiredFlow="2500.00" speed="4.97" aspiredSpeed="5.00"/>
+    <interval begin="1800.00" end="3600.00" id="calibtest" nVehContrib="1113" removed="0" inserted="1113" cleared="0" flow="2226.00" aspiredFlow="2500.00" speed="15.39" aspiredSpeed="15.00"/>
+    <interval begin="3600.00" end="5400.00" id="calibtest" nVehContrib="1043" removed="0" inserted="1043" cleared="0" flow="2086.00" aspiredFlow="2500.00" speed="9.87" aspiredSpeed="10.00"/>
+    <interval begin="5400.00" end="7200.00" id="calibtest" nVehContrib="759" removed="0" inserted="759" cleared="0" flow="1518.00" aspiredFlow="2500.00" speed="5.00" aspiredSpeed="5.00"/>
 </calibratorstats>
