@@ -26,8 +26,8 @@ the vehicles you are interested in and add the following parameter:
 <param key="has.battery.device" value="true"/>
 ```
 Equipping the `vType` with a battery device is necessary because it triggers the
-parsing and loading of all the energy-related quantities. Other than that, there
-is currently no interaction between MMPEVEM and said device. Especially, this
+parsing and loading of all energy-related quantities. Other than that, there is
+currently no interaction between MMPEVEM and said device. This especially
 entails that the battery's state and output are *not* based on the former.
 
 
