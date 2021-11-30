@@ -1,1 +1,0 @@
-sumo-gui -c port_luebeck.sumocfg
