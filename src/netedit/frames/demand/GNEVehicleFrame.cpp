@@ -247,7 +247,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
                 myViewNet->centerTo(vehicle->getPositionInView(), false);
             }
             // refresh myVehicleAttributes
-            myVehicleAttributes->refreshRows();
+            myVehicleAttributes->refreshAttributesCreator();
             // all ok, then return true;
             return true;
         } else {
@@ -464,7 +464,7 @@ GNEVehicleFrame::createPath() {
         // abort path creation
         myPathCreator->abortPathCreation();
         // refresh myVehicleAttributes
-        myVehicleAttributes->refreshRows();
+        myVehicleAttributes->refreshAttributesCreator();
     }
 }
 

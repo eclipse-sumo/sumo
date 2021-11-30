@@ -334,8 +334,8 @@ GNEContainerFrame::buildContainer() {
         }
     }
     // refresh container and containerPlan attributes
-    myContainerAttributes->refreshRows();
-    myContainerPlanAttributes->refreshRows();
+    myContainerAttributes->refreshAttributesCreator();
+    myContainerPlanAttributes->refreshAttributesCreator();
     // return created container
     return myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(containerTag, myContainerBaseObject->getStringAttribute(SUMO_ATTR_ID));
 }

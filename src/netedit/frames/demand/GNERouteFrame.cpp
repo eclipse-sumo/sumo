@@ -287,7 +287,7 @@ GNERouteFrame::createPath() {
         // abort path creation
         myPathCreator->abortPathCreation();
         // refresh route attributes
-        myRouteAttributes->refreshRows();
+        myRouteAttributes->refreshAttributesCreator();
         // compute path route
         myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, myRouteBaseObject->getStringAttribute(SUMO_ATTR_ID))->computePathElement();
     }

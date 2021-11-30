@@ -173,7 +173,7 @@ GNEAdditionalFrame::SelectorParentLanes::stopConsecutiveLaneSelector() {
         // abort consecutive lane selector
         abortConsecutiveLaneSelector();
         // refresh additional attributes
-        myAdditionalFrameParent->myAdditionalAttributes->refreshRows();
+        myAdditionalFrameParent->myAdditionalAttributes->refreshAttributesCreator();
         return true;
     }
 }
@@ -875,7 +875,7 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::createPath() {
     // abort E2 creation
     abortPathCreation();
     // refresh additional attributes
-    myAdditionalFrameParent->myAdditionalAttributes->refreshRows();
+    myAdditionalFrameParent->myAdditionalAttributes->refreshAttributesCreator();
     return true;
 }
 
@@ -1323,7 +1323,7 @@ GNEAdditionalFrame::buildAdditionalOverEdge(GNELane* lane, const GNETagPropertie
         mySelectorChildEdges->onCmdClearSelection(nullptr, 0, nullptr);
         mySelectorChildLanes->onCmdClearSelection(nullptr, 0, nullptr);
         // refresh additional attributes
-        myAdditionalAttributes->refreshRows();
+        myAdditionalAttributes->refreshAttributesCreator();
         return true;
     }
 }
@@ -1365,7 +1365,7 @@ GNEAdditionalFrame::buildAdditionalOverLane(GNELane* lane, const GNETagPropertie
         mySelectorChildEdges->onCmdClearSelection(nullptr, 0, nullptr);
         mySelectorChildLanes->onCmdClearSelection(nullptr, 0, nullptr);
         // refresh additional attributes
-        myAdditionalAttributes->refreshRows();
+        myAdditionalAttributes->refreshAttributesCreator();
         return true;
     }
 }
@@ -1422,7 +1422,7 @@ GNEAdditionalFrame::buildAdditionalOverView(const GNETagProperties& tagPropertie
         mySelectorChildEdges->onCmdClearSelection(nullptr, 0, nullptr);
         mySelectorChildLanes->onCmdClearSelection(nullptr, 0, nullptr);
         // refresh additional attributes
-        myAdditionalAttributes->refreshRows();
+        myAdditionalAttributes->refreshAttributesCreator();
         return true;
     }
 }

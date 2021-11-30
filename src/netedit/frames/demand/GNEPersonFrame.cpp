@@ -290,8 +290,8 @@ GNEPersonFrame::createPath() {
             // abort path creation
             myPathCreator->abortPathCreation();
             // refresh person and personPlan attributes
-            myPersonAttributes->refreshRows();
-            myPersonPlanAttributes->refreshRows();
+            myPersonAttributes->refreshAttributesCreator();
+            myPersonPlanAttributes->refreshAttributesCreator();
             // compute person
             person->computePathElement();
             // enable show all person plans
@@ -363,8 +363,8 @@ GNEPersonFrame::buildPerson() {
         }
     }
     // refresh person and personPlan attributes
-    myPersonAttributes->refreshRows();
-    myPersonPlanAttributes->refreshRows();
+    myPersonAttributes->refreshAttributesCreator();
+    myPersonPlanAttributes->refreshAttributesCreator();
     // return created person
     return myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(personTag, myPersonBaseObject->getStringAttribute(SUMO_ATTR_ID));
 }

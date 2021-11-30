@@ -203,7 +203,7 @@ GNEPolygonFrame::GEOPOICreator::onCmdCreateGEOPOI(FXObject*, FXSelector, void*) 
             }
         }
         // refresh shape attributes
-        myPolygonFrameParent->myShapeAttributes->refreshRows();
+        myPolygonFrameParent->myShapeAttributes->refreshAttributesCreator();
     }
     return 1;
 }
@@ -281,7 +281,7 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetH
             // add shape
             addShape();
             // refresh shape attributes
-            myShapeAttributes->refreshRows();
+            myShapeAttributes->refreshAttributesCreator();
             // shape added, then return true
             return true;
         } else if (myShapeTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() == GNE_TAG_POIGEO) {
@@ -311,7 +311,7 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetH
             // add shape
             addShape();
             // refresh shape attributes
-            myShapeAttributes->refreshRows();
+            myShapeAttributes->refreshAttributesCreator();
             // shape added, then return true
             return true;
         } else if (myShapeTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() == GNE_TAG_POILANE) {
@@ -342,7 +342,7 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetH
             // add shape
             addShape();
             // refresh shape attributes
-            myShapeAttributes->refreshRows();
+            myShapeAttributes->refreshAttributesCreator();
             // shape added, then return true
             return true;
         } else if (myShapeTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() == SUMO_TAG_POLY) {
@@ -433,7 +433,7 @@ GNEPolygonFrame::shapeDrawed() {
         // add shape
         addShape();
         // refresh shape attributes
-        myShapeAttributes->refreshRows();
+        myShapeAttributes->refreshAttributesCreator();
         // shape added, then return true;
         return true;
     }

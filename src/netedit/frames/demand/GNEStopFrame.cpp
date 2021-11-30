@@ -389,7 +389,7 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
         stop.index = STOP_INDEX_END;
     }
     // refresh stop attributes
-    myStopAttributes->refreshRows();
+    myStopAttributes->refreshAttributesCreator();
     // set tag
     stopBaseObject->setTag(stopTag);
     stopBaseObject->setStopParameter(stop);

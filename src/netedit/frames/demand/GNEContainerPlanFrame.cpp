@@ -213,7 +213,7 @@ GNEContainerPlanFrame::createPath() {
             // refresh using tagSelected
             tagSelected();
             // refresh containerPlan attributes
-            myContainerPlanAttributes->refreshRows();
+            myContainerPlanAttributes->refreshAttributesCreator();
         }
     }
 }

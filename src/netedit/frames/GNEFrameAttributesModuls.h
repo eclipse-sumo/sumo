@@ -84,7 +84,7 @@ public:
         bool isAttributesCreatorRowEnabled() const;
 
         /// @brief refresh row
-        void refreshRow() const;
+        void refreshRow();
 
         /// @brief check if current attribute is valid
         bool isAttributeValid() const;
@@ -175,17 +175,20 @@ public:
         /// @brief show warning message with information about non-valid attributes
         void showWarningMessage(std::string extra = "") const;
 
+        /// @brief refresh attribute creator
+        void refreshAttributesCreator();
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when help button is pressed
         long onCmdHelp(FXObject*, FXSelector, void*);
         /// @}
 
-        /// @brief refresh rows (called after creating an element)
-        void refreshRows();
-
     protected:
         FOX_CONSTRUCTOR(AttributesCreator);
+
+        /// @brief refresh rows
+        void refreshRows(const bool createRows);
 
     private:
         /// @brief pointer to Frame Parent
@@ -196,6 +199,9 @@ public:
 
         /// @brief current templateAC
         GNEAttributeCarrier *myTemplateAC;
+
+        /// @brief hidden attributes
+        std::vector<SumoXMLAttr> myHiddenAttributes;
 
         /// @brief vector with the AttributesCreatorRow
         std::vector<AttributesCreatorRow*> myAttributesCreatorRows;

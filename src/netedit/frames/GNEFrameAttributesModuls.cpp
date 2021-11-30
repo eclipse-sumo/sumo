@@ -129,67 +129,8 @@ GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesC
     if (getParent()->id()) {
         // create AttributesCreatorRow
         FXHorizontalFrame::create();
-        // reset invalid value
-        myInvalidValue = "";
-        // special case for attribute ID
-        if (attrProperties.getAttr() == SUMO_ATTR_ID) {
-            // show check button and disable it
-            myEnableAttributeCheckButton->setText(myAttrProperties.getAttrStr().c_str());
-            myEnableAttributeCheckButton->setCheck(false);
-            myEnableAttributeCheckButton->show();
-            // show text field and disable it
-            myValueTextField->setTextColor(FXRGB(0, 0, 0));
-            myValueTextField->disable();
-            // generate ID
-            myValueTextField->setText(generateID().c_str());
-            // show textField
-            myValueTextField->show();
-        } else {
-            // left
-            if (myAttrProperties.isColor()) {
-                // show color button
-                myAttributeColorButton->setTextColor(FXRGB(0, 0, 0));
-                myAttributeColorButton->setText(myAttrProperties.getAttrStr().c_str());
-                myAttributeColorButton->show();
-            } else if (myAttrProperties.isActivatable()) {
-                // show check button
-                myEnableAttributeCheckButton->setText(myAttrProperties.getAttrStr().c_str());
-                myEnableAttributeCheckButton->show();
-                // enable or disable depending of template AC
-                if (myAttributesCreatorParent->getCurrentTemplateAC()->isAttributeEnabled(myAttrProperties.getAttr())) {
-                    myEnableAttributeCheckButton->setCheck(TRUE);
-                } else {
-                    myEnableAttributeCheckButton->setCheck(FALSE);
-                }
-            } else {
-                // show label
-                myAttributeLabel->setText(myAttrProperties.getAttrStr().c_str());
-                myAttributeLabel->show();
-            }
-            // right
-            if (myAttrProperties.isBool()) {
-                if (GNEAttributeCarrier::parse<bool>(myAttributesCreatorParent->getCurrentTemplateAC()->getAttribute(myAttrProperties.getAttr()))) {
-                    myValueCheckButton->setCheck(true);
-                    myValueCheckButton->setText("true");
-                } else {
-                    myValueCheckButton->setCheck(false);
-                    myValueCheckButton->setText("false");
-                }
-                myValueCheckButton->show();
-                // if it's associated to a label button and is disabled, then disable myValueCheckButton
-                if (myEnableAttributeCheckButton->shown() && (myEnableAttributeCheckButton->getCheck() == FALSE)) {
-                    myValueCheckButton->disable();
-                }
-            } else {
-                myValueTextField->setTextColor(FXRGB(0, 0, 0));
-                myValueTextField->setText(myAttributesCreatorParent->getCurrentTemplateAC()->getAttribute(myAttrProperties.getAttr()).c_str());
-                myValueTextField->show();
-                // if it's associated to a label button and is disabled, then disable myValueTextField
-                if (myEnableAttributeCheckButton->shown() && (myEnableAttributeCheckButton->getCheck() == FALSE)) {
-                    myValueTextField->disable();
-                }
-            }
-        }
+        // refresh row
+        refreshRow();
         // show AttributesCreatorRow
         show();
     }
@@ -287,10 +228,67 @@ GNEFrameAttributesModuls::AttributesCreatorRow::isAttributesCreatorRowEnabled() 
 
 
 void
-GNEFrameAttributesModuls::AttributesCreatorRow::refreshRow() const {
-    // currently only row with ID attribute must be updated
+GNEFrameAttributesModuls::AttributesCreatorRow::refreshRow() {
+    // reset invalid value
+    myInvalidValue.clear();
+    // special case for attribute ID
     if (myAttrProperties.getAttr() == SUMO_ATTR_ID) {
+        // show check button and disable it
+        myEnableAttributeCheckButton->setText(myAttrProperties.getAttrStr().c_str());
+        myEnableAttributeCheckButton->setCheck(false);
+        myEnableAttributeCheckButton->show();
+        // show text field and disable it
+        myValueTextField->setTextColor(FXRGB(0, 0, 0));
+        myValueTextField->disable();
+        // generate ID
         myValueTextField->setText(generateID().c_str());
+        // show textField
+        myValueTextField->show();
+    } else {
+        // left
+        if (myAttrProperties.isColor()) {
+            // show color button
+            myAttributeColorButton->setTextColor(FXRGB(0, 0, 0));
+            myAttributeColorButton->setText(myAttrProperties.getAttrStr().c_str());
+            myAttributeColorButton->show();
+        } else if (myAttrProperties.isActivatable()) {
+            // show check button
+            myEnableAttributeCheckButton->setText(myAttrProperties.getAttrStr().c_str());
+            myEnableAttributeCheckButton->show();
+            // enable or disable depending of template AC
+            if (myAttributesCreatorParent->getCurrentTemplateAC()->isAttributeEnabled(myAttrProperties.getAttr())) {
+                myEnableAttributeCheckButton->setCheck(TRUE);
+            } else {
+                myEnableAttributeCheckButton->setCheck(FALSE);
+            }
+        } else {
+            // show label
+            myAttributeLabel->setText(myAttrProperties.getAttrStr().c_str());
+            myAttributeLabel->show();
+        }
+        // right
+        if (myAttrProperties.isBool()) {
+            if (GNEAttributeCarrier::parse<bool>(myAttributesCreatorParent->getCurrentTemplateAC()->getAttribute(myAttrProperties.getAttr()))) {
+                myValueCheckButton->setCheck(true);
+                myValueCheckButton->setText("true");
+            } else {
+                myValueCheckButton->setCheck(false);
+                myValueCheckButton->setText("false");
+            }
+            myValueCheckButton->show();
+            // if it's associated to a label button and is disabled, then disable myValueCheckButton
+            if (myEnableAttributeCheckButton->shown() && (myEnableAttributeCheckButton->getCheck() == FALSE)) {
+                myValueCheckButton->disable();
+            }
+        } else {
+            myValueTextField->setTextColor(FXRGB(0, 0, 0));
+            myValueTextField->setText(myAttributesCreatorParent->getCurrentTemplateAC()->getAttribute(myAttrProperties.getAttr()).c_str());
+            myValueTextField->show();
+            // if it's associated to a label button and is disabled, then disable myValueTextField
+            if (myEnableAttributeCheckButton->shown() && (myEnableAttributeCheckButton->getCheck() == FALSE)) {
+                myValueTextField->disable();
+            }
+        }
     }
 }
 
@@ -428,65 +426,21 @@ GNEFrameAttributesModuls::AttributesCreator::~AttributesCreator() {}
 
 void
 GNEFrameAttributesModuls::AttributesCreator::showAttributesCreatorModul(GNEAttributeCarrier *templateAC, const std::vector<SumoXMLAttr>& hiddenAttributes) {
-    // set current template
-    myTemplateAC = templateAC;
-    // continue if myTemplateAC is valid
-    if (myTemplateAC) {
-        // first destroy all rows
-        for (auto& row : myAttributesCreatorRows) {
-            // destroy and delete all rows
-            if (row != nullptr) {
-                row->destroy();
-                delete row;
-                row = nullptr;
-            }
+    // destroy all rows
+    for (auto& row : myAttributesCreatorRows) {
+        // destroy and delete all rows
+        if (row != nullptr) {
+            row->destroy();
+            delete row;
+            row = nullptr;
         }
-        // now declare a flag to show Flow editor
-        bool showFlowEditor = false;
-        // iterate over tag attributes and create AttributesCreatorRows for every attribute
-        for (const auto& attribute : myTemplateAC->getTagProperty()) {
-            // declare falg to check conditions for show attribute
-            bool showAttribute = true;
-            // check that only non-unique attributes (except ID) are created (And depending of includeExtendedAttributes)
-            if (attribute.isUnique() && (attribute.getAttr() != SUMO_ATTR_ID)) {
-                showAttribute = false;
-            }
-            // check if attribute must stay hidden
-            if (std::find(hiddenAttributes.begin(), hiddenAttributes.end(), attribute.getAttr()) != hiddenAttributes.end()) {
-                showAttribute = false;
-            }
-            // check if attribute is a flow definitionattribute
-            if (attribute.isFlowDefinition()) {
-                showAttribute = false;
-                showFlowEditor = true;
-            }
-            // check special case for vaporizer IDs
-            if ((attribute.getAttr() == SUMO_ATTR_ID) && (attribute.getTagPropertyParent().getTag() == SUMO_TAG_VAPORIZER)) {
-                showAttribute = false;
-            }
-            // check special case for VType IDs in vehicle Frame
-            if ((attribute.getAttr() == SUMO_ATTR_TYPE) && (myFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) &&
-                    (myFrameParent->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_VEHICLE)) {
-                showAttribute = false;
-            }
-            // show attribute depending of showAttribute flag
-            if (showAttribute) {
-                myAttributesCreatorRows.at(attribute.getPositionListed()) = new AttributesCreatorRow(this, attribute);
-            }
-        }
-        // reparent help button (to place it at bottom)
-        myHelpButton->reparent(this);
-        // recalc
-        recalc();
-        // check if flow editor has to be shown
-        if (showFlowEditor) {
-            myAttributesCreatorFlow->showAttributesCreatorFlowModul(
-                myTemplateAC->getTagProperty().hasAttribute(SUMO_ATTR_VEHSPERHOUR) || 
-                myTemplateAC->getTagProperty().hasAttribute(SUMO_ATTR_PERSONSPERHOUR) ||
-                myTemplateAC->getTagProperty().hasAttribute(SUMO_ATTR_CONTAINERSPERHOUR));
-        } else {
-            myAttributesCreatorFlow->hideAttributesCreatorFlowModul();
-        }
+    }
+    if (templateAC) {
+        // set current template AC and hidden attributes
+        myTemplateAC = templateAC;
+        myHiddenAttributes = hiddenAttributes;
+        // refresh rows (new rows will be created)
+        refreshRows(true);
         // show
         show();
     } else {
@@ -586,6 +540,15 @@ GNEFrameAttributesModuls::AttributesCreator::showWarningMessage(std::string extr
 }
 
 
+void 
+GNEFrameAttributesModuls::AttributesCreator::refreshAttributesCreator() {
+    // just refresh row without creating new rows
+    if (shown() && myTemplateAC) {
+        refreshRows(false);
+    }
+}
+
+
 bool
 GNEFrameAttributesModuls::AttributesCreator::areValuesValid() const {
     // iterate over standar parameters
@@ -600,10 +563,57 @@ GNEFrameAttributesModuls::AttributesCreator::areValuesValid() const {
 
 
 void
-GNEFrameAttributesModuls::AttributesCreator::refreshRows() {
-    // currently only row with attribute ID must be refresh
-    if (myTemplateAC->getTagProperty().hasAttribute(SUMO_ATTR_ID) && (myTemplateAC->getTagProperty().getTag() != SUMO_TAG_VAPORIZER)) {
-        myAttributesCreatorRows[myTemplateAC->getTagProperty().getAttributeProperties(SUMO_ATTR_ID).getPositionListed()]->refreshRow();
+GNEFrameAttributesModuls::AttributesCreator::refreshRows(const bool createRows) {
+    // declare a flag to show Flow editor
+    bool showFlowEditor = false;
+    // iterate over tag attributes and create AttributesCreatorRows for every attribute
+    for (const auto& attribute : myTemplateAC->getTagProperty()) {
+        // declare falg to check conditions for show attribute
+        bool showAttribute = true;
+        // check that only non-unique attributes (except ID) are created (And depending of includeExtendedAttributes)
+        if (attribute.isUnique() && (attribute.getAttr() != SUMO_ATTR_ID)) {
+            showAttribute = false;
+        }
+        // check if attribute must stay hidden
+        if (std::find(myHiddenAttributes.begin(), myHiddenAttributes.end(), attribute.getAttr()) != myHiddenAttributes.end()) {
+            showAttribute = false;
+        }
+        // check if attribute is a flow definitionattribute
+        if (attribute.isFlowDefinition()) {
+            showAttribute = false;
+            showFlowEditor = true;
+        }
+        // check special case for vaporizer IDs
+        if ((attribute.getAttr() == SUMO_ATTR_ID) && (attribute.getTagPropertyParent().getTag() == SUMO_TAG_VAPORIZER)) {
+            showAttribute = false;
+        }
+        // check special case for VType IDs in vehicle Frame
+        if ((attribute.getAttr() == SUMO_ATTR_TYPE) && (myFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) &&
+                (myFrameParent->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_VEHICLE)) {
+            showAttribute = false;
+        }
+        // show attribute depending of showAttribute flag
+        if (showAttribute) {
+            // check if we have to create a new row
+            if (createRows) {
+                myAttributesCreatorRows.at(attribute.getPositionListed()) = new AttributesCreatorRow(this, attribute);
+            } else {
+                myAttributesCreatorRows.at(attribute.getPositionListed())->refreshRow();
+            }
+        }
+    }
+    // reparent help button (to place it at bottom)
+    myHelpButton->reparent(this);
+    // recalc
+    recalc();
+    // check if flow editor has to be shown
+    if (showFlowEditor) {
+        myAttributesCreatorFlow->showAttributesCreatorFlowModul(
+            myTemplateAC->getTagProperty().hasAttribute(SUMO_ATTR_VEHSPERHOUR) || 
+            myTemplateAC->getTagProperty().hasAttribute(SUMO_ATTR_PERSONSPERHOUR) ||
+            myTemplateAC->getTagProperty().hasAttribute(SUMO_ATTR_CONTAINERSPERHOUR));
+    } else {
+        myAttributesCreatorFlow->hideAttributesCreatorFlowModul();
     }
 }
 

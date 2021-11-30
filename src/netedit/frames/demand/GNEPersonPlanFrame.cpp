@@ -231,7 +231,7 @@ GNEPersonPlanFrame::createPath() {
             // refresh using tagSelected
             tagSelected();
             // refresh personPlan attributes
-            myPersonPlanAttributes->refreshRows();
+            myPersonPlanAttributes->refreshAttributesCreator();
         }
     }
 }
