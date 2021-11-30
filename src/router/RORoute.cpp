@@ -100,6 +100,7 @@ RORoute::writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
                             const bool withCosts,
                             const bool withProb,
                             const bool withExitTimes,
+                            const bool withLength,
                             const std::string& id) const {
     dev.openTag(SUMO_TAG_ROUTE);
     if (id != "") {
@@ -120,13 +121,20 @@ RORoute::writeXMLDefinition(OutputDevice& dev, const ROVehicle* const veh,
     if (withExitTimes) {
         std::vector<double> exitTimes;
         double time = STEPS2TIME(veh->getDepartureTime());
-        for (const ROEdge* roe : myRoute) {
+        for (const ROEdge* const roe : myRoute) {
             time += roe->getTravelTime(veh, time);
             if (!roe->isInternal() && !roe->isTazConnector()) {
                 exitTimes.push_back(time);
             }
         }
         dev.writeAttr("exitTimes", exitTimes);
+    }
+    if (withLength) {
+        double length = 0.;
+        for (const ROEdge* const roe : myRoute) {
+            length += roe->getLength();
+        }
+        dev.writeAttr("routeLength", length);
     }
     dev.closeTag();
     return dev;

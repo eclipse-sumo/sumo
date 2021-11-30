@@ -212,6 +212,8 @@ ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAltern
     const bool writeJunctions = writeTrip && options.getBool("write-trips.junctions");
     const bool writeNamedRoute = !asAlternatives && options.getBool("named-routes");
     const bool writeCosts = options.exists("write-costs") && options.getBool("write-costs");
+    const bool writeExit = options.exists("exit-times") && options.getBool("exit-times");
+    const bool writeLength = options.exists("route-length") && options.getBool("route-length");
 
     std::string routeID;
     if (writeNamedRoute) {
@@ -219,7 +221,8 @@ ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAltern
         auto it = mySavedRoutes.find(edges);
         if (it == mySavedRoutes.end()) {
             routeID = "r" + toString(mySavedRoutes.size());
-            myRoute->getUsedRoute()->writeXMLDefinition(os, this, writeCosts, false, options.getBool("exit-times"), routeID);
+            myRoute->getUsedRoute()->writeXMLDefinition(os, this, writeCosts, false, writeExit,
+                                                        writeLength, routeID);
             mySavedRoutes[edges] = routeID;
         } else {
             routeID = it->second;
@@ -325,7 +328,7 @@ ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAltern
     } else if (writeNamedRoute) {
         os.writeAttr(SUMO_ATTR_ROUTE, routeID);
     } else {
-        myRoute->writeXMLDefinition(os, this, asAlternatives, options.getBool("exit-times"), writeCosts);
+        myRoute->writeXMLDefinition(os, this, asAlternatives, writeExit, writeCosts, writeLength);
     }
     for (std::vector<SUMOVehicleParameter::Stop>::const_iterator stop = getParameter().stops.begin(); stop != getParameter().stops.end(); ++stop) {
         stop->write(os);

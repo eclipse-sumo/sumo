@@ -138,7 +138,7 @@ void
 ROPerson::Ride::saveAsXML(OutputDevice& os, const bool extended, OptionsCont& options) const {
     os.openTag(SUMO_TAG_RIDE);
     std::string comment = "";
-    if (extended && myCost >= 0.) {
+    if ((extended || options.getBool("write-costs")) && myCost >= 0.) {
         os.writeAttr(SUMO_ATTR_COST, myCost);
     }
     if (from != nullptr) {
@@ -182,7 +182,7 @@ void
 ROPerson::Walk::saveAsXML(OutputDevice& os, const bool extended, OptionsCont& options) const {
     os.openTag(SUMO_TAG_WALK);
     std::string comment = "";
-    if (extended && myCost >= 0.) {
+    if ((extended || options.getBool("write-costs")) && myCost >= 0.) {
         os.writeAttr(SUMO_ATTR_COST, myCost);
     }
     if (dur > 0) {
