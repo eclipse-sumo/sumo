@@ -1,4 +1,4 @@
 Warning: Could not write OpenDRIVE geoReference. Only unshifted Coordinate systems are supported (offset=-399345.66,-5809365.64)
 Warning: Could not compute smooth shape from lane '-25944605_0' to lane '6137239#2_0'. Use option 'junctions.scurve-stretch' or increase radius of junction 'cluster_283018937_38919841' to fix this.
 Warning: Mismatched geometry for edge '881' between geometry segments 0 and 1.
-Warning: Found sharp turn with radius 1.08 at the end of edge '-823.0.00'.
+Warning: Found sharp turn with radius 1.08 at the end of edge '-823'.
