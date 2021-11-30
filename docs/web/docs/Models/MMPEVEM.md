@@ -39,29 +39,29 @@ consistent. Failing to do so may lead to wrong or even invalid operating points
 
 ## Model Parameters
 
-MMPEVEM shares a lot of
-[SUMO's native electric vehicle parameters](Electric.md#defining_electric_vehicles)
-and introduces only a couple of new ones. You can find exemplary vehicle
-type definitions at `{SUMO_HOME}/data/emissions/MMPEVEM`[^1].
+MMPEVEM shares a lot of SUMO's
+[native electric vehicle parameters](Electric.md#defining_electric_vehicles) and
+introduces only a couple of new ones. You can find exemplary vehicle type
+definitions at `{SUMO_HOME}/data/emissions/MMPEVEM`[^1].
 
 | Key                       | Value Type   | Default                               | Description                                                           |
 |---------------------------|--------------|---------------------------------------|-----------------------------------------------------------------------|
-| vehicleMass               | float (>= 0) | 1000.0 [kg]                           | Mass of the vehicle                                                   |
-| wheelRadius               | float (>= 0) | 0.3588 [m]                            | Wheel radius                                                          |
+| vehicleMass               |  float (> 0) | 1000.0 [kg]                           | Mass of the vehicle                                                   |
+| wheelRadius               |  float (> 0) | 0.3588 [m]                            | Wheel radius                                                          |
 | internalMomentOfInertia   | float (>= 0) | 0.01 [kg * m^2]                       | Internal components' moment of inertia                                |
 | rollDragCoefficient       | float (>= 0) | 0.01 [1]                              | Rolling resistance coefficient                                        |
 | airDragCoefficient        | float (>= 0) | 0.6 [1]                               | Air drag coefficient                                                  |
 | frontSurfaceArea          | float (>= 0) | 5.0 [m^2]                             | Cross-sectional area of the front of the vehicle                      |
-| gearRatio                 | float (>= 0) | 10.0 [1]                              | Combined ratio of the single reduction gear and the differential      |
-| gearEfficiency            | float (>= 0) | 0.96 [1]                              | Combined efficiency of the single reduction gear and the differential |
+| gearRatio                 |  float (> 0) | 10.0 [1]                              | Combined ratio of the single reduction gear and the differential      |
+| gearEfficiency            |  float (> 0) | 0.96 [1]                              | Combined efficiency of the single reduction gear and the differential |
 | maximumTorque             | float (>= 0) | 310.0 [Nm]                            | Maximum generative torque of the electric motor                       |
 | maximumPower              | float (>= 0) | 107000.0 [W]                          | Maximum generative power of the electric motor                        |
 | maximumRecuperationTorque | float (>= 0) | 95.5 [Nm]                             | Maximum recuperation torque of the electric motor                     |
 | maximumRecuperationPower  | float (>= 0) | 42800.0 [W]                           | Maximum recuperation power of the electric motor                      |
 | internalBatteryResistance | float (>= 0) | 0.1142 [Ohm]                          | Internal battery resistance                                           |
 | nominalBatteryVoltage     | float (>= 0) | 396.0 [V]                             | Nominal battery voltage                                               |
-| constantPowerIntake       | float        | 100.0 [W]                             | Constant power consumption of auxiliary devices                       |
-| powerLossMap              | string       | `2,1\|-1e9,1e9;-1e9,1e9\|0,0,0,0`[^2] | String representation of the electric motor's power loss map          |
+| constantPowerIntake       |        float | 100.0 [W]                             | Constant power consumption of auxiliary devices                       |
+| powerLossMap              |       string | `2,1\|-1e9,1e9;-1e9,1e9\|0,0,0,0`[^2] | String representation of the electric motor's power loss map          |
 
 
 [^1]: For the sake of compatibility, the XMLs in
