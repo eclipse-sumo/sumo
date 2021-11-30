@@ -230,13 +230,13 @@ Step 22.8
 Step 22.9
 Step 23.0
 Step 23.1
-  veh=v2 len=4.5 entry=23.119191237778434 leave=-1.0 type=car
+  veh=v2 len=4.5 entry=23.119191237778438 leave=-1.0 type=car
 Step 23.2
-  veh=v2 len=4.5 entry=23.119191237778434 leave=-1.0 type=car
+  veh=v2 len=4.5 entry=23.119191237778438 leave=-1.0 type=car
 Step 23.3
-  veh=v2 len=4.5 entry=23.119191237778434 leave=-1.0 type=car
+  veh=v2 len=4.5 entry=23.119191237778438 leave=-1.0 type=car
 Step 23.4
-  veh=v2 len=4.5 entry=23.119191237778434 leave=23.43983293193565 type=car
+  veh=v2 len=4.5 entry=23.119191237778438 leave=23.439832931935655 type=car
 Step 23.5
 Step 23.6
 Step 23.7
@@ -276,13 +276,13 @@ Step 26.6
 Step 26.7
 Step 26.8
 Step 26.9
-  veh=v6 len=4.5 entry=26.985796040478416 leave=-1.0 type=car
+  veh=v6 len=4.5 entry=26.985796040478427 leave=-1.0 type=car
 Step 27.0
-  veh=v6 len=4.5 entry=26.985796040478416 leave=-1.0 type=car
+  veh=v6 len=4.5 entry=26.985796040478427 leave=-1.0 type=car
 Step 27.1
-  veh=v6 len=4.5 entry=26.985796040478416 leave=-1.0 type=car
+  veh=v6 len=4.5 entry=26.985796040478427 leave=-1.0 type=car
 Step 27.2
-  veh=v6 len=4.5 entry=26.985796040478416 leave=27.29557849722893 type=car
+  veh=v6 len=4.5 entry=26.985796040478427 leave=27.295578497228938 type=car
 Step 27.3
 Step 27.4
 Step 27.5
@@ -326,13 +326,13 @@ Step 31.2
 Step 31.3
 Step 31.4
 Step 31.5
-  veh=v8 len=4.5 entry=31.55369793209228 leave=-1.0 type=car
+  veh=v8 len=4.5 entry=31.553697932092295 leave=-1.0 type=car
 Step 31.6
-  veh=v8 len=4.5 entry=31.55369793209228 leave=-1.0 type=car
+  veh=v8 len=4.5 entry=31.553697932092295 leave=-1.0 type=car
 Step 31.7
-  veh=v8 len=4.5 entry=31.55369793209228 leave=-1.0 type=car
+  veh=v8 len=4.5 entry=31.553697932092295 leave=-1.0 type=car
 Step 31.8
-  veh=v8 len=4.5 entry=31.55369793209228 leave=31.899128675453657 type=car
+  veh=v8 len=4.5 entry=31.553697932092295 leave=31.89912867545367 type=car
 Step 31.9
 Step 32.0
 Step 32.1
@@ -345,13 +345,13 @@ Step 32.7
 Step 32.8
 Step 32.9
 Step 33.0
-  veh=v10 len=4.5 entry=33.0568699410602 leave=-1.0 type=car
+  veh=v10 len=4.5 entry=33.05686994106021 leave=-1.0 type=car
 Step 33.1
-  veh=v10 len=4.5 entry=33.0568699410602 leave=-1.0 type=car
+  veh=v10 len=4.5 entry=33.05686994106021 leave=-1.0 type=car
 Step 33.2
-  veh=v10 len=4.5 entry=33.0568699410602 leave=-1.0 type=car
+  veh=v10 len=4.5 entry=33.05686994106021 leave=-1.0 type=car
 Step 33.3
-  veh=v10 len=4.5 entry=33.0568699410602 leave=33.39961159114684 type=car
+  veh=v10 len=4.5 entry=33.05686994106021 leave=33.399611591146844 type=car
 Step 33.4
 Step 33.5
 Step 33.6
@@ -367,13 +367,13 @@ Step 34.5
 Step 34.6
 Step 34.7
 Step 34.8
-  veh=v12 len=4.5 entry=34.86433708077766 leave=-1.0 type=car
+  veh=v12 len=4.5 entry=34.8643370807777 leave=-1.0 type=car
 Step 34.9
-  veh=v12 len=4.5 entry=34.86433708077766 leave=-1.0 type=car
+  veh=v12 len=4.5 entry=34.8643370807777 leave=-1.0 type=car
 Step 35.0
-  veh=v12 len=4.5 entry=34.86433708077766 leave=-1.0 type=car
+  veh=v12 len=4.5 entry=34.8643370807777 leave=-1.0 type=car
 Step 35.1
-  veh=v12 len=4.5 entry=34.86433708077766 leave=35.18741593881282 type=car
+  veh=v12 len=4.5 entry=34.8643370807777 leave=35.18741593881287 type=car
 Step 35.2
 Step 35.3
 Step 35.4
@@ -382,15 +382,15 @@ Step 35.6
 Step 35.7
 Step 35.8
 Step 35.9
-  veh=v11 len=4.5 entry=35.989775469710246 leave=-1.0 type=car
+  veh=v11 len=4.5 entry=35.98977546971026 leave=-1.0 type=car
 Step 36.0
-  veh=v11 len=4.5 entry=35.989775469710246 leave=-1.0 type=car
+  veh=v11 len=4.5 entry=35.98977546971026 leave=-1.0 type=car
 Step 36.1
-  veh=v11 len=4.5 entry=35.989775469710246 leave=-1.0 type=car
+  veh=v11 len=4.5 entry=35.98977546971026 leave=-1.0 type=car
 Step 36.2
-  veh=v11 len=4.5 entry=35.989775469710246 leave=-1.0 type=car
+  veh=v11 len=4.5 entry=35.98977546971026 leave=-1.0 type=car
 Step 36.3
-  veh=v11 len=4.5 entry=35.989775469710246 leave=36.335319326537466 type=car
+  veh=v11 len=4.5 entry=35.98977546971026 leave=36.33531932653748 type=car
 Step 36.4
 Step 36.5
 Step 36.6
@@ -412,13 +412,13 @@ Step 38.1
 Step 38.2
 Step 38.3
 Step 38.4
-  veh=v14 len=4.5 entry=38.42783415219398 leave=-1.0 type=car
+  veh=v14 len=4.5 entry=38.42783415219411 leave=-1.0 type=car
 Step 38.5
-  veh=v14 len=4.5 entry=38.42783415219398 leave=-1.0 type=car
+  veh=v14 len=4.5 entry=38.42783415219411 leave=-1.0 type=car
 Step 38.6
-  veh=v14 len=4.5 entry=38.42783415219398 leave=-1.0 type=car
+  veh=v14 len=4.5 entry=38.42783415219411 leave=-1.0 type=car
 Step 38.7
-  veh=v14 len=4.5 entry=38.42783415219398 leave=38.75469964126489 type=car
+  veh=v14 len=4.5 entry=38.42783415219411 leave=38.75469964126502 type=car
 Step 38.8
 Step 38.9
 Step 39.0
@@ -466,15 +466,15 @@ Step 43.1
 Step 43.2
 Step 43.3
 Step 43.4
-  veh=v16 len=4.5 entry=43.48620010945925 leave=-1.0 type=car
+  veh=v16 len=4.5 entry=43.48620010945953 leave=-1.0 type=car
 Step 43.5
-  veh=v16 len=4.5 entry=43.48620010945925 leave=-1.0 type=car
+  veh=v16 len=4.5 entry=43.48620010945953 leave=-1.0 type=car
 Step 43.6
-  veh=v16 len=4.5 entry=43.48620010945925 leave=-1.0 type=car
+  veh=v16 len=4.5 entry=43.48620010945953 leave=-1.0 type=car
 Step 43.7
-  veh=v16 len=4.5 entry=43.48620010945925 leave=-1.0 type=car
+  veh=v16 len=4.5 entry=43.48620010945953 leave=-1.0 type=car
 Step 43.8
-  veh=v16 len=4.5 entry=43.48620010945925 leave=43.855006060301115 type=car
+  veh=v16 len=4.5 entry=43.48620010945953 leave=43.855006060301406 type=car
 Step 43.9
 Step 44.0
 Step 44.1
@@ -487,15 +487,15 @@ Step 44.7
 Step 44.8
 Step 44.9
 Step 45.0
-  veh=v18 len=4.5 entry=45.062655705752675 leave=-1.0 type=car
+  veh=v18 len=4.5 entry=45.06265570575309 leave=-1.0 type=car
 Step 45.1
-  veh=v18 len=4.5 entry=45.062655705752675 leave=-1.0 type=car
+  veh=v18 len=4.5 entry=45.06265570575309 leave=-1.0 type=car
 Step 45.2
-  veh=v18 len=4.5 entry=45.062655705752675 leave=-1.0 type=car
+  veh=v18 len=4.5 entry=45.06265570575309 leave=-1.0 type=car
 Step 45.3
-  veh=v18 len=4.5 entry=45.062655705752675 leave=-1.0 type=car
+  veh=v18 len=4.5 entry=45.06265570575309 leave=-1.0 type=car
 Step 45.4
-  veh=v18 len=4.5 entry=45.062655705752675 leave=45.42553669751146 type=car
+  veh=v18 len=4.5 entry=45.06265570575309 leave=45.425536697511866 type=car
 Step 45.5
 Step 45.6
 Step 45.7
@@ -508,13 +508,13 @@ Step 46.3
 Step 46.4
 Step 46.5
 Step 46.6
-  veh=v20 len=4.5 entry=46.63292237588293 leave=-1.0 type=car
+  veh=v20 len=4.5 entry=46.63292237588349 leave=-1.0 type=car
 Step 46.7
-  veh=v20 len=4.5 entry=46.63292237588293 leave=-1.0 type=car
+  veh=v20 len=4.5 entry=46.63292237588349 leave=-1.0 type=car
 Step 46.8
-  veh=v20 len=4.5 entry=46.63292237588293 leave=-1.0 type=car
+  veh=v20 len=4.5 entry=46.63292237588349 leave=-1.0 type=car
 Step 46.9
-  veh=v20 len=4.5 entry=46.63292237588293 leave=46.99125109155281 type=car
+  veh=v20 len=4.5 entry=46.63292237588349 leave=46.99125109155335 type=car
 Step 47.0
 Step 47.1
 Step 47.2
@@ -603,15 +603,15 @@ Step 55.2
 Step 55.3
 Step 55.4
 Step 55.5
-  veh=v24 len=4.5 entry=55.55910771818683 leave=-1.0 type=car
+  veh=v24 len=4.5 entry=55.55910771819482 leave=-1.0 type=car
 Step 55.6
-  veh=v24 len=4.5 entry=55.55910771818683 leave=-1.0 type=car
+  veh=v24 len=4.5 entry=55.55910771819482 leave=-1.0 type=car
 Step 55.7
-  veh=v24 len=4.5 entry=55.55910771818683 leave=-1.0 type=car
+  veh=v24 len=4.5 entry=55.55910771819482 leave=-1.0 type=car
 Step 55.8
-  veh=v24 len=4.5 entry=55.55910771818683 leave=-1.0 type=car
+  veh=v24 len=4.5 entry=55.55910771819482 leave=-1.0 type=car
 Step 55.9
-  veh=v24 len=4.5 entry=55.55910771818683 leave=55.95149029421068 type=car
+  veh=v24 len=4.5 entry=55.55910771819482 leave=55.951490294218665 type=car
 Step 56.0
 Step 56.1
 Step 56.2
@@ -624,13 +624,13 @@ Step 56.8
 Step 56.9
 Step 57.0
 Step 57.1
-  veh=v26 len=4.5 entry=57.100406278423534 leave=-1.0 type=car
+  veh=v26 len=4.5 entry=57.10040627843191 leave=-1.0 type=car
 Step 57.2
-  veh=v26 len=4.5 entry=57.100406278423534 leave=-1.0 type=car
+  veh=v26 len=4.5 entry=57.10040627843191 leave=-1.0 type=car
 Step 57.3
-  veh=v26 len=4.5 entry=57.100406278423534 leave=-1.0 type=car
+  veh=v26 len=4.5 entry=57.10040627843191 leave=-1.0 type=car
 Step 57.4
-  veh=v26 len=4.5 entry=57.100406278423534 leave=57.49136415422611 type=car
+  veh=v26 len=4.5 entry=57.10040627843191 leave=57.49136415423446 type=car
 Step 57.5
 Step 57.6
 Step 57.7
@@ -643,15 +643,15 @@ Step 58.3
 Step 58.4
 Step 58.5
 Step 58.6
-  veh=v28 len=4.5 entry=58.65514431606426 leave=-1.0 type=car
+  veh=v28 len=4.5 entry=58.65514431607357 leave=-1.0 type=car
 Step 58.7
-  veh=v28 len=4.5 entry=58.65514431606426 leave=-1.0 type=car
+  veh=v28 len=4.5 entry=58.65514431607357 leave=-1.0 type=car
 Step 58.8
-  veh=v28 len=4.5 entry=58.65514431606426 leave=-1.0 type=car
+  veh=v28 len=4.5 entry=58.65514431607357 leave=-1.0 type=car
 Step 58.9
-  veh=v28 len=4.5 entry=58.65514431606426 leave=-1.0 type=car
+  veh=v28 len=4.5 entry=58.65514431607357 leave=-1.0 type=car
 Step 59.0
-  veh=v28 len=4.5 entry=58.65514431606426 leave=59.043826576740116 type=car
+  veh=v28 len=4.5 entry=58.65514431607357 leave=59.04382657674933 type=car
 Step 59.1
 Step 59.2
 Step 59.3
@@ -664,15 +664,15 @@ Step 59.9
 Step 60.0
 Step 60.1
 Step 60.2
-  veh=v30 len=4.5 entry=60.24561138118933 leave=-1.0 type=car
+  veh=v30 len=4.5 entry=60.245611381203084 leave=-1.0 type=car
 Step 60.3
-  veh=v30 len=4.5 entry=60.24561138118933 leave=-1.0 type=car
+  veh=v30 len=4.5 entry=60.245611381203084 leave=-1.0 type=car
 Step 60.4
-  veh=v30 len=4.5 entry=60.24561138118933 leave=-1.0 type=car
+  veh=v30 len=4.5 entry=60.245611381203084 leave=-1.0 type=car
 Step 60.5
-  veh=v30 len=4.5 entry=60.24561138118933 leave=-1.0 type=car
+  veh=v30 len=4.5 entry=60.245611381203084 leave=-1.0 type=car
 Step 60.6
-  veh=v30 len=4.5 entry=60.24561138118933 leave=60.629574479536934 type=car
+  veh=v30 len=4.5 entry=60.245611381203084 leave=60.62957447955028 type=car
 Step 60.7
 Step 60.8
 Step 60.9
@@ -689,15 +689,15 @@ Step 61.9
 Step 62.0
 Step 62.1
 Step 62.2
-  veh=v32 len=4.5 entry=62.2770342263709 leave=-1.0 type=car
+  veh=v32 len=4.5 entry=62.27703422650147 leave=-1.0 type=car
 Step 62.3
-  veh=v32 len=4.5 entry=62.2770342263709 leave=-1.0 type=car
+  veh=v32 len=4.5 entry=62.27703422650147 leave=-1.0 type=car
 Step 62.4
-  veh=v32 len=4.5 entry=62.2770342263709 leave=-1.0 type=car
+  veh=v32 len=4.5 entry=62.27703422650147 leave=-1.0 type=car
 Step 62.5
-  veh=v32 len=4.5 entry=62.2770342263709 leave=-1.0 type=car
+  veh=v32 len=4.5 entry=62.27703422650147 leave=-1.0 type=car
 Step 62.6
-  veh=v32 len=4.5 entry=62.2770342263709 leave=62.627952018860796 type=car
+  veh=v32 len=4.5 entry=62.27703422650147 leave=62.62795201898427 type=car
 Step 62.7
 Step 62.8
 Step 62.9
@@ -722,13 +722,13 @@ Step 64.7
 Step 64.8
 Step 64.9
 Step 65.0
-  veh=v34 len=4.5 entry=65.0282997103449 leave=-1.0 type=car
+  veh=v34 len=4.5 entry=65.02829971084184 leave=-1.0 type=car
 Step 65.1
-  veh=v34 len=4.5 entry=65.0282997103449 leave=-1.0 type=car
+  veh=v34 len=4.5 entry=65.02829971084184 leave=-1.0 type=car
 Step 65.2
-  veh=v34 len=4.5 entry=65.0282997103449 leave=-1.0 type=car
+  veh=v34 len=4.5 entry=65.02829971084184 leave=-1.0 type=car
 Step 65.3
-  veh=v34 len=4.5 entry=65.0282997103449 leave=65.35395547173725 type=car
+  veh=v34 len=4.5 entry=65.02829971084184 leave=65.35395547223419 type=car
 Step 65.4
 Step 65.5
 Step 65.6
@@ -756,15 +756,15 @@ Step 67.7
 Step 67.8
 Step 67.9
 Step 68.0
-  veh=v36 len=4.5 entry=68.08982296128991 leave=-1.0 type=car
+  veh=v36 len=4.5 entry=68.08982296241096 leave=-1.0 type=car
 Step 68.1
-  veh=v36 len=4.5 entry=68.08982296128991 leave=-1.0 type=car
+  veh=v36 len=4.5 entry=68.08982296241096 leave=-1.0 type=car
 Step 68.2
-  veh=v36 len=4.5 entry=68.08982296128991 leave=-1.0 type=car
+  veh=v36 len=4.5 entry=68.08982296241096 leave=-1.0 type=car
 Step 68.3
-  veh=v36 len=4.5 entry=68.08982296128991 leave=-1.0 type=car
+  veh=v36 len=4.5 entry=68.08982296241096 leave=-1.0 type=car
 Step 68.4
-  veh=v36 len=4.5 entry=68.08982296128991 leave=68.42270851276461 type=car
+  veh=v36 len=4.5 entry=68.08982296241096 leave=68.42270851388567 type=car
 Step 68.5
 Step 68.6
 Step 68.7
@@ -776,15 +776,15 @@ Step 69.2
 Step 69.3
 Step 69.4
 Step 69.5
-  veh=v38 len=4.5 entry=69.59328669761025 leave=-1.0 type=car
+  veh=v38 len=4.5 entry=69.59328669886003 leave=-1.0 type=car
 Step 69.6
-  veh=v38 len=4.5 entry=69.59328669761025 leave=-1.0 type=car
+  veh=v38 len=4.5 entry=69.59328669886003 leave=-1.0 type=car
 Step 69.7
-  veh=v38 len=4.5 entry=69.59328669761025 leave=-1.0 type=car
+  veh=v38 len=4.5 entry=69.59328669886003 leave=-1.0 type=car
 Step 69.8
-  veh=v38 len=4.5 entry=69.59328669761025 leave=-1.0 type=car
+  veh=v38 len=4.5 entry=69.59328669886003 leave=-1.0 type=car
 Step 69.9
-  veh=v38 len=4.5 entry=69.59328669761025 leave=69.92268110154947 type=car
+  veh=v38 len=4.5 entry=69.59328669886003 leave=69.92268110279194 type=car
 Step 70.0
 Step 70.1
 Step 70.2
@@ -809,13 +809,13 @@ Step 72.0
 Step 72.1
 Step 72.2
 Step 72.3
-  veh=v40 len=4.5 entry=72.32994877638237 leave=-1.0 type=car
+  veh=v40 len=4.5 entry=72.32994878186871 leave=-1.0 type=car
 Step 72.4
-  veh=v40 len=4.5 entry=72.32994877638237 leave=-1.0 type=car
+  veh=v40 len=4.5 entry=72.32994878186871 leave=-1.0 type=car
 Step 72.5
-  veh=v40 len=4.5 entry=72.32994877638237 leave=-1.0 type=car
+  veh=v40 len=4.5 entry=72.32994878186871 leave=-1.0 type=car
 Step 72.6
-  veh=v40 len=4.5 entry=72.32994877638237 leave=72.64437047547156 type=car
+  veh=v40 len=4.5 entry=72.32994878186871 leave=72.6443704809579 type=car
 Step 72.7
 Step 72.8
 Step 72.9
@@ -830,13 +830,13 @@ Step 73.7
 Step 73.8
 Step 73.9
 Step 74.0
-  veh=v42 len=4.5 entry=74.02931147496024 leave=-1.0 type=car
+  veh=v42 len=4.5 entry=74.02931148631578 leave=-1.0 type=car
 Step 74.1
-  veh=v42 len=4.5 entry=74.02931147496024 leave=-1.0 type=car
+  veh=v42 len=4.5 entry=74.02931148631578 leave=-1.0 type=car
 Step 74.2
-  veh=v42 len=4.5 entry=74.02931147496024 leave=-1.0 type=car
+  veh=v42 len=4.5 entry=74.02931148631578 leave=-1.0 type=car
 Step 74.3
-  veh=v42 len=4.5 entry=74.02931147496024 leave=74.32955540915141 type=car
+  veh=v42 len=4.5 entry=74.02931148631578 leave=74.32955542022731 type=car
 Step 74.4
 Step 74.5
 Step 74.6
@@ -868,13 +868,13 @@ Step 77.1
 Step 77.2
 Step 77.3
 Step 77.4
-  veh=v44 len=4.5 entry=77.43459273938187 leave=-1.0 type=car
+  veh=v44 len=4.5 entry=77.434592767287 leave=-1.0 type=car
 Step 77.5
-  veh=v44 len=4.5 entry=77.43459273938187 leave=-1.0 type=car
+  veh=v44 len=4.5 entry=77.434592767287 leave=-1.0 type=car
 Step 77.6
-  veh=v44 len=4.5 entry=77.43459273938187 leave=-1.0 type=car
+  veh=v44 len=4.5 entry=77.434592767287 leave=-1.0 type=car
 Step 77.7
-  veh=v44 len=4.5 entry=77.43459273938187 leave=77.74508854179899 type=car
+  veh=v44 len=4.5 entry=77.434592767287 leave=77.74508856970412 type=car
 Step 77.8
 Step 77.9
 Step 78.0
@@ -990,15 +990,15 @@ Step 88.9
 Step 89.0
 Step 89.1
 Step 89.2
-  veh=v50 len=4.5 entry=89.29294555613203 leave=-1.0 type=car
+  veh=v50 len=4.5 entry=89.2929458400114 leave=-1.0 type=car
 Step 89.3
-  veh=v50 len=4.5 entry=89.29294555613203 leave=-1.0 type=car
+  veh=v50 len=4.5 entry=89.2929458400114 leave=-1.0 type=car
 Step 89.4
-  veh=v50 len=4.5 entry=89.29294555613203 leave=-1.0 type=car
+  veh=v50 len=4.5 entry=89.2929458400114 leave=-1.0 type=car
 Step 89.5
-  veh=v50 len=4.5 entry=89.29294555613203 leave=-1.0 type=car
+  veh=v50 len=4.5 entry=89.2929458400114 leave=-1.0 type=car
 Step 89.6
-  veh=v50 len=4.5 entry=89.29294555613203 leave=89.67189294741078 type=car
+  veh=v50 len=4.5 entry=89.2929458400114 leave=89.67189323129016 type=car
 Step 89.7
 Step 89.8
 Step 89.9
@@ -1011,13 +1011,13 @@ Step 90.5
 Step 90.6
 Step 90.7
 Step 90.8
-  veh=v52 len=4.5 entry=90.8164677826612 leave=-1.0 type=car
+  veh=v52 len=4.5 entry=90.81646807594419 leave=-1.0 type=car
 Step 90.9
-  veh=v52 len=4.5 entry=90.8164677826612 leave=-1.0 type=car
+  veh=v52 len=4.5 entry=90.81646807594419 leave=-1.0 type=car
 Step 91.0
-  veh=v52 len=4.5 entry=90.8164677826612 leave=-1.0 type=car
+  veh=v52 len=4.5 entry=90.81646807594419 leave=-1.0 type=car
 Step 91.1
-  veh=v52 len=4.5 entry=90.8164677826612 leave=91.19405355650224 type=car
+  veh=v52 len=4.5 entry=90.81646807594419 leave=91.19405384906693 type=car
 Step 91.2
 Step 91.3
 Step 91.4
@@ -1030,15 +1030,15 @@ Step 92.0
 Step 92.1
 Step 92.2
 Step 92.3
-  veh=v54 len=4.5 entry=92.39696444694847 leave=-1.0 type=car
+  veh=v54 len=4.5 entry=92.39696486856268 leave=-1.0 type=car
 Step 92.4
-  veh=v54 len=4.5 entry=92.39696444694847 leave=-1.0 type=car
+  veh=v54 len=4.5 entry=92.39696486856268 leave=-1.0 type=car
 Step 92.5
-  veh=v54 len=4.5 entry=92.39696444694847 leave=-1.0 type=car
+  veh=v54 len=4.5 entry=92.39696486856268 leave=-1.0 type=car
 Step 92.6
-  veh=v54 len=4.5 entry=92.39696444694847 leave=-1.0 type=car
+  veh=v54 len=4.5 entry=92.39696486856268 leave=-1.0 type=car
 Step 92.7
-  veh=v54 len=4.5 entry=92.39696444694847 leave=92.76925033710428 type=car
+  veh=v54 len=4.5 entry=92.39696486856268 leave=92.76925074903656 type=car
 Step 92.8
 Step 92.9
 Step 93.0
@@ -1055,13 +1055,13 @@ Step 94.0
 Step 94.1
 Step 94.2
 Step 94.3
-  veh=v57 len=4.5 entry=94.30892070510129 leave=-1.0 type=car
+  veh=v57 len=4.5 entry=94.30892193523704 leave=-1.0 type=car
 Step 94.4
-  veh=v57 len=4.5 entry=94.30892070510129 leave=-1.0 type=car
+  veh=v57 len=4.5 entry=94.30892193523704 leave=-1.0 type=car
 Step 94.5
-  veh=v57 len=4.5 entry=94.30892070510129 leave=-1.0 type=car
+  veh=v57 len=4.5 entry=94.30892193523704 leave=-1.0 type=car
 Step 94.6
-  veh=v57 len=4.5 entry=94.30892070510129 leave=94.65553146635158 type=car
+  veh=v57 len=4.5 entry=94.30892193523704 leave=94.65553264110005 type=car
 Step 94.7
 Step 94.8
 Step 94.9
@@ -1081,13 +1081,13 @@ Step 96.2
 Step 96.3
 Step 96.4
 Step 96.5
-  veh=v58 len=4.5 entry=96.5533997524896 leave=-1.0 type=car
+  veh=v58 len=4.5 entry=96.55340426671012 leave=-1.0 type=car
 Step 96.6
-  veh=v58 len=4.5 entry=96.5533997524896 leave=-1.0 type=car
+  veh=v58 len=4.5 entry=96.55340426671012 leave=-1.0 type=car
 Step 96.7
-  veh=v58 len=4.5 entry=96.5533997524896 leave=-1.0 type=car
+  veh=v58 len=4.5 entry=96.55340426671012 leave=-1.0 type=car
 Step 96.8
-  veh=v58 len=4.5 entry=96.5533997524896 leave=96.8699161525692 type=car
+  veh=v58 len=4.5 entry=96.55340426671012 leave=96.86992066678972 type=car
 Step 96.9
 Step 97.0
 Step 97.1
@@ -1101,13 +1101,13 @@ Step 97.8
 Step 97.9
 Step 98.0
 Step 98.1
-  veh=v60 len=4.5 entry=98.14185208423878 leave=-1.0 type=car
+  veh=v60 len=4.5 entry=98.14186318397816 leave=-1.0 type=car
 Step 98.2
-  veh=v60 len=4.5 entry=98.14185208423878 leave=-1.0 type=car
+  veh=v60 len=4.5 entry=98.14186318397816 leave=-1.0 type=car
 Step 98.3
-  veh=v60 len=4.5 entry=98.14185208423878 leave=-1.0 type=car
+  veh=v60 len=4.5 entry=98.14186318397816 leave=-1.0 type=car
 Step 98.4
-  veh=v60 len=4.5 entry=98.14185208423878 leave=98.45589350748844 type=car
+  veh=v60 len=4.5 entry=98.14186318397816 leave=98.45590413496657 type=car
 Step 98.5
 Step 98.6
 Step 98.7
@@ -1120,13 +1120,13 @@ Step 99.3
 Step 99.4
 Step 99.5
 Step 99.6
-  veh=v61 len=4.5 entry=99.64254144590474 leave=-1.0 type=car
+  veh=v61 len=4.5 entry=99.6425497495514 leave=-1.0 type=car
 Step 99.7
-  veh=v61 len=4.5 entry=99.64254144590474 leave=-1.0 type=car
+  veh=v61 len=4.5 entry=99.6425497495514 leave=-1.0 type=car
 Step 99.8
-  veh=v61 len=4.5 entry=99.64254144590474 leave=-1.0 type=car
+  veh=v61 len=4.5 entry=99.6425497495514 leave=-1.0 type=car
 Step 99.9
-  veh=v61 len=4.5 entry=99.64254144590474 leave=99.96167370096441 type=car
+  veh=v61 len=4.5 entry=99.6425497495514 leave=99.96168170809736 type=car
 Step 100.0
 Step 100.1
 Step 100.2
@@ -1222,13 +1222,13 @@ Step 108.9
 Step 109.0
 Step 109.1
 Step 109.2
-  veh=v66 len=4.5 entry=109.21985794770563 leave=-1.0 type=car
+  veh=v66 len=4.5 entry=109.22003255723622 leave=-1.0 type=car
 Step 109.3
-  veh=v66 len=4.5 entry=109.21985794770563 leave=-1.0 type=car
+  veh=v66 len=4.5 entry=109.22003255723622 leave=-1.0 type=car
 Step 109.4
-  veh=v66 len=4.5 entry=109.21985794770563 leave=-1.0 type=car
+  veh=v66 len=4.5 entry=109.22003255723622 leave=-1.0 type=car
 Step 109.5
-  veh=v66 len=4.5 entry=109.21985794770563 leave=109.57712086512441 type=car
+  veh=v66 len=4.5 entry=109.22003255723622 leave=109.577295474655 type=car
 Step 109.6
 Step 109.7
 Step 109.8
@@ -1241,13 +1241,13 @@ Step 110.4
 Step 110.5
 Step 110.6
 Step 110.7
-  veh=v68 len=4.5 entry=110.73342558728045 leave=-1.0 type=car
+  veh=v68 len=4.5 entry=110.73361499935659 leave=-1.0 type=car
 Step 110.8
-  veh=v68 len=4.5 entry=110.73342558728045 leave=-1.0 type=car
+  veh=v68 len=4.5 entry=110.73361499935659 leave=-1.0 type=car
 Step 110.9
-  veh=v68 len=4.5 entry=110.73342558728045 leave=-1.0 type=car
+  veh=v68 len=4.5 entry=110.73361499935659 leave=-1.0 type=car
 Step 111.0
-  veh=v68 len=4.5 entry=110.73342558728045 leave=111.0882131153882 type=car
+  veh=v68 len=4.5 entry=110.73361499935659 leave=111.08840153480392 type=car
 Step 111.1
 Step 111.2
 Step 111.3
@@ -1262,15 +1262,15 @@ Step 112.1
 Step 112.2
 Step 112.3
 Step 112.4
-  veh=v70 len=4.5 entry=112.46469916411971 leave=-1.0 type=car
+  veh=v70 len=4.5 entry=112.46524438202681 leave=-1.0 type=car
 Step 112.5
-  veh=v70 len=4.5 entry=112.46469916411971 leave=-1.0 type=car
+  veh=v70 len=4.5 entry=112.46524438202681 leave=-1.0 type=car
 Step 112.6
-  veh=v70 len=4.5 entry=112.46469916411971 leave=-1.0 type=car
+  veh=v70 len=4.5 entry=112.46524438202681 leave=-1.0 type=car
 Step 112.7
-  veh=v70 len=4.5 entry=112.46469916411971 leave=-1.0 type=car
+  veh=v70 len=4.5 entry=112.46524438202681 leave=-1.0 type=car
 Step 112.8
-  veh=v70 len=4.5 entry=112.46469916411971 leave=112.80385341672796 type=car
+  veh=v70 len=4.5 entry=112.46524438202681 leave=112.80437735661107 type=car
 Step 112.9
 Step 113.0
 Step 113.1
@@ -1307,15 +1307,15 @@ Step 116.1
 Step 116.2
 Step 116.3
 Step 116.4
-  veh=v72 len=4.5 entry=116.46666269340757 leave=-1.0 type=car
+  veh=v72 len=4.5 entry=116.46869104836985 leave=-1.0 type=car
 Step 116.5
-  veh=v72 len=4.5 entry=116.46666269340757 leave=-1.0 type=car
+  veh=v72 len=4.5 entry=116.46869104836985 leave=-1.0 type=car
 Step 116.6
-  veh=v72 len=4.5 entry=116.46666269340757 leave=-1.0 type=car
+  veh=v72 len=4.5 entry=116.46869104836985 leave=-1.0 type=car
 Step 116.7
-  veh=v72 len=4.5 entry=116.46666269340757 leave=-1.0 type=car
+  veh=v72 len=4.5 entry=116.46869104836985 leave=-1.0 type=car
 Step 116.8
-  veh=v72 len=4.5 entry=116.46666269340757 leave=116.81127338612075 type=car
+  veh=v72 len=4.5 entry=116.46869104836985 leave=116.81330174108302 type=car
 Step 116.9
 Step 117.0
 Step 117.1
@@ -1336,13 +1336,13 @@ Step 118.5
 Step 118.6
 Step 118.7
 Step 118.8
-  veh=v74 len=4.5 entry=118.82210521911433 leave=-1.0 type=car
+  veh=v74 len=4.5 entry=118.82670046281802 leave=-1.0 type=car
 Step 118.9
-  veh=v74 len=4.5 entry=118.82210521911433 leave=-1.0 type=car
+  veh=v74 len=4.5 entry=118.82670046281802 leave=-1.0 type=car
 Step 119.0
-  veh=v74 len=4.5 entry=118.82210521911433 leave=-1.0 type=car
+  veh=v74 len=4.5 entry=118.82670046281802 leave=-1.0 type=car
 Step 119.1
-  veh=v74 len=4.5 entry=118.82210521911433 leave=119.16129670412424 type=car
+  veh=v74 len=4.5 entry=118.82670046281802 leave=119.16589194782793 type=car
 Step 119.2
 Step 119.3
 Step 119.4
@@ -1355,15 +1355,15 @@ Step 120.0
 Step 120.1
 Step 120.2
 Step 120.3
-  veh=v76 len=4.5 entry=120.37128592158497 leave=-1.0 type=car
+  veh=v76 len=4.5 entry=120.37736270821189 leave=-1.0 type=car
 Step 120.4
-  veh=v76 len=4.5 entry=120.37128592158497 leave=-1.0 type=car
+  veh=v76 len=4.5 entry=120.37736270821189 leave=-1.0 type=car
 Step 120.5
-  veh=v76 len=4.5 entry=120.37128592158497 leave=-1.0 type=car
+  veh=v76 len=4.5 entry=120.37736270821189 leave=-1.0 type=car
 Step 120.6
-  veh=v76 len=4.5 entry=120.37128592158497 leave=-1.0 type=car
+  veh=v76 len=4.5 entry=120.37736270821189 leave=-1.0 type=car
 Step 120.7
-  veh=v76 len=4.5 entry=120.37128592158497 leave=120.70462520797341 type=car
+  veh=v76 len=4.5 entry=120.37736270821189 leave=120.71061619678156 type=car
 Step 120.8
 Step 120.9
 Step 121.0
@@ -1388,14 +1388,14 @@ Step 122.8
 Step 122.9
 Step 123.0
 Step 123.1
+  veh=v78 len=4.5 entry=123.15704996421404 leave=-1.0 type=car
 Step 123.2
-  veh=v78 len=4.5 entry=123.21279516805984 leave=-1.0 type=car
+  veh=v78 len=4.5 entry=123.15704996421404 leave=-1.0 type=car
 Step 123.3
-  veh=v78 len=4.5 entry=123.21279516805984 leave=-1.0 type=car
+  veh=v78 len=4.5 entry=123.15704996421404 leave=-1.0 type=car
 Step 123.4
-  veh=v78 len=4.5 entry=123.21279516805984 leave=-1.0 type=car
+  veh=v78 len=4.5 entry=123.15704996421404 leave=123.47868007294727 type=car
 Step 123.5
-  veh=v78 len=4.5 entry=123.21279516805984 leave=123.53442527679306 type=car
 Step 123.6
 Step 123.7
 Step 123.8
@@ -1414,14 +1414,14 @@ Step 125.0
 Step 125.1
 Step 125.2
 Step 125.3
+  veh=v80 len=4.5 entry=125.3346787101867 leave=-1.0 type=car
 Step 125.4
-  veh=v80 len=4.5 entry=125.4156227816317 leave=-1.0 type=car
+  veh=v80 len=4.5 entry=125.3346787101867 leave=-1.0 type=car
 Step 125.5
-  veh=v80 len=4.5 entry=125.4156227816317 leave=-1.0 type=car
+  veh=v80 len=4.5 entry=125.3346787101867 leave=-1.0 type=car
 Step 125.6
-  veh=v80 len=4.5 entry=125.4156227816317 leave=-1.0 type=car
+  veh=v80 len=4.5 entry=125.3346787101867 leave=125.64785427451412 type=car
 Step 125.7
-  veh=v80 len=4.5 entry=125.4156227816317 leave=125.72879834595912 type=car
 Step 125.8
 Step 125.9
 Step 126.0
@@ -1448,13 +1448,13 @@ Step 128.0
 Step 128.1
 Step 128.2
 Step 128.3
-  veh=v82 len=4.5 entry=128.3390480696994 leave=-1.0 type=car
+  veh=v82 len=4.5 entry=128.32889991866998 leave=-1.0 type=car
 Step 128.4
-  veh=v82 len=4.5 entry=128.3390480696994 leave=-1.0 type=car
+  veh=v82 len=4.5 entry=128.32889991866998 leave=-1.0 type=car
 Step 128.5
-  veh=v82 len=4.5 entry=128.3390480696994 leave=-1.0 type=car
+  veh=v82 len=4.5 entry=128.32889991866998 leave=-1.0 type=car
 Step 128.6
-  veh=v82 len=4.5 entry=128.3390480696994 leave=128.65763767362247 type=car
+  veh=v82 len=4.5 entry=128.32889991866998 leave=128.64748952259305 type=car
 Step 128.7
 Step 128.8
 Step 128.9
@@ -1467,13 +1467,13 @@ Step 129.5
 Step 129.6
 Step 129.7
 Step 129.8
-  veh=v84 len=4.5 entry=129.86159333703839 leave=-1.0 type=car
+  veh=v84 len=4.5 entry=129.84246005095514 leave=-1.0 type=car
 Step 129.9
-  veh=v84 len=4.5 entry=129.86159333703839 leave=-1.0 type=car
+  veh=v84 len=4.5 entry=129.84246005095514 leave=-1.0 type=car
 Step 130.0
-  veh=v84 len=4.5 entry=129.86159333703839 leave=-1.0 type=car
+  veh=v84 len=4.5 entry=129.84246005095514 leave=-1.0 type=car
 Step 130.1
-  veh=v84 len=4.5 entry=129.86159333703839 leave=130.18033196506465 type=car
+  veh=v84 len=4.5 entry=129.84246005095514 leave=130.16105601160191 type=car
 Step 130.2
 Step 130.3
 Step 130.4
@@ -1512,15 +1512,14 @@ Step 133.6
 Step 133.7
 Step 133.8
 Step 133.9
-  veh=v86 len=4.5 entry=133.98006592298583 leave=-1.0 type=car
+  veh=v86 len=4.5 entry=133.9137963026583 leave=-1.0 type=car
 Step 134.0
-  veh=v86 len=4.5 entry=133.98006592298583 leave=-1.0 type=car
+  veh=v86 len=4.5 entry=133.9137963026583 leave=-1.0 type=car
 Step 134.1
-  veh=v86 len=4.5 entry=133.98006592298583 leave=-1.0 type=car
+  veh=v86 len=4.5 entry=133.9137963026583 leave=-1.0 type=car
 Step 134.2
-  veh=v86 len=4.5 entry=133.98006592298583 leave=-1.0 type=car
+  veh=v86 len=4.5 entry=133.9137963026583 leave=134.23721611597847 type=car
 Step 134.3
-  veh=v86 len=4.5 entry=133.98006592298583 leave=134.303485736306 type=car
 Step 134.4
 Step 134.5
 Step 134.6
@@ -1542,14 +1541,14 @@ Step 136.1
 Step 136.2
 Step 136.3
 Step 136.4
+  veh=v88 len=4.5 entry=136.45451485367977 leave=-1.0 type=car
 Step 136.5
-  veh=v88 len=4.5 entry=136.51290931949526 leave=-1.0 type=car
+  veh=v88 len=4.5 entry=136.45451485367977 leave=-1.0 type=car
 Step 136.6
-  veh=v88 len=4.5 entry=136.51290931949526 leave=-1.0 type=car
+  veh=v88 len=4.5 entry=136.45451485367977 leave=-1.0 type=car
 Step 136.7
-  veh=v88 len=4.5 entry=136.51290931949526 leave=-1.0 type=car
+  veh=v88 len=4.5 entry=136.45451485367977 leave=136.77621809455724 type=car
 Step 136.8
-  veh=v88 len=4.5 entry=136.51290931949526 leave=136.8346125603728 type=car
 Step 136.9
 Step 137.0
 Step 137.1
@@ -1571,15 +1570,10 @@ Step 138.6
 Step 138.7
 Step 138.8
 Step 138.9
-  veh=v90 len=4.5 entry=138.9736254036705 leave=-1.0 type=car
 Step 139.0
-  veh=v90 len=4.5 entry=138.9736254036705 leave=-1.0 type=car
 Step 139.1
-  veh=v90 len=4.5 entry=138.9736254036705 leave=-1.0 type=car
 Step 139.2
-  veh=v90 len=4.5 entry=138.9736254036705 leave=-1.0 type=car
 Step 139.3
-  veh=v90 len=4.5 entry=138.9736254036705 leave=139.3016622174842 type=car
 Step 139.4
 Step 139.5
 Step 139.6
@@ -1643,13 +1637,13 @@ Step 145.3
 Step 145.4
 Step 145.5
 Step 145.6
-  veh=v92 len=4.5 entry=145.61124002523343 leave=-1.0 type=car
+  veh=v92 len=4.5 entry=145.6092239053227 leave=-1.0 type=car
 Step 145.7
-  veh=v92 len=4.5 entry=145.61124002523343 leave=-1.0 type=car
+  veh=v92 len=4.5 entry=145.6092239053227 leave=-1.0 type=car
 Step 145.8
-  veh=v92 len=4.5 entry=145.61124002523343 leave=-1.0 type=car
+  veh=v92 len=4.5 entry=145.6092239053227 leave=-1.0 type=car
 Step 145.9
-  veh=v92 len=4.5 entry=145.61124002523343 leave=145.99988628273542 type=car
+  veh=v92 len=4.5 entry=145.6092239053227 leave=145.9978701628247 type=car
 Step 146.0
 Step 146.1
 Step 146.2
@@ -1662,15 +1656,15 @@ Step 146.8
 Step 146.9
 Step 147.0
 Step 147.1
-  veh=v94 len=4.5 entry=147.14360749731392 leave=-1.0 type=car
+  veh=v94 len=4.5 entry=147.14107657602258 leave=-1.0 type=car
 Step 147.2
-  veh=v94 len=4.5 entry=147.14360749731392 leave=-1.0 type=car
+  veh=v94 len=4.5 entry=147.14107657602258 leave=-1.0 type=car
 Step 147.3
-  veh=v94 len=4.5 entry=147.14360749731392 leave=-1.0 type=car
+  veh=v94 len=4.5 entry=147.14107657602258 leave=-1.0 type=car
 Step 147.4
-  veh=v94 len=4.5 entry=147.14360749731392 leave=-1.0 type=car
+  veh=v94 len=4.5 entry=147.14107657602258 leave=-1.0 type=car
 Step 147.5
-  veh=v94 len=4.5 entry=147.14360749731392 leave=147.53115000248712 type=car
+  veh=v94 len=4.5 entry=147.14107657602258 leave=147.52865929698316 type=car
 Step 147.6
 Step 147.7
 Step 147.8
@@ -1683,15 +1677,15 @@ Step 148.4
 Step 148.5
 Step 148.6
 Step 148.7
-  veh=v96 len=4.5 entry=148.72753818941558 leave=-1.0 type=car
+  veh=v96 len=4.5 entry=148.72085768978195 leave=-1.0 type=car
 Step 148.8
-  veh=v96 len=4.5 entry=148.72753818941558 leave=-1.0 type=car
+  veh=v96 len=4.5 entry=148.72085768978195 leave=-1.0 type=car
 Step 148.9
-  veh=v96 len=4.5 entry=148.72753818941558 leave=-1.0 type=car
+  veh=v96 len=4.5 entry=148.72085768978195 leave=-1.0 type=car
 Step 149.0
-  veh=v96 len=4.5 entry=148.72753818941558 leave=-1.0 type=car
+  veh=v96 len=4.5 entry=148.72085768978195 leave=-1.0 type=car
 Step 149.1
-  veh=v96 len=4.5 entry=148.72753818941558 leave=149.147690445296 type=car
+  veh=v96 len=4.5 entry=148.72085768978195 leave=149.14135049355096 type=car
 Step 149.2
 Step 149.3
 Step 149.4
@@ -1706,17 +1700,17 @@ Step 150.2
 Step 150.3
 Step 150.4
 Step 150.5
-  veh=v98 len=4.5 entry=150.5385590022562 leave=-1.0 type=car
+  veh=v98 len=4.5 entry=150.5286100252087 leave=-1.0 type=car
 Step 150.6
-  veh=v98 len=4.5 entry=150.5385590022562 leave=-1.0 type=car
+  veh=v98 len=4.5 entry=150.5286100252087 leave=-1.0 type=car
 Step 150.7
-  veh=v98 len=4.5 entry=150.5385590022562 leave=-1.0 type=car
+  veh=v98 len=4.5 entry=150.5286100252087 leave=-1.0 type=car
 Step 150.8
-  veh=v98 len=4.5 entry=150.5385590022562 leave=-1.0 type=car
+  veh=v98 len=4.5 entry=150.5286100252087 leave=-1.0 type=car
 Step 150.9
-  veh=v98 len=4.5 entry=150.5385590022562 leave=-1.0 type=car
+  veh=v98 len=4.5 entry=150.5286100252087 leave=-1.0 type=car
 Step 151.0
-  veh=v98 len=4.5 entry=150.5385590022562 leave=151.031343904433 type=car
+  veh=v98 len=4.5 entry=150.5286100252087 leave=151.02184552175072 type=car
 Step 151.1
 Step 151.2
 Step 151.3
@@ -1734,17 +1728,17 @@ Step 152.4
 Step 152.5
 Step 152.6
 Step 152.7
-  veh=v100 len=4.5 entry=152.747872507814 leave=-1.0 type=car
+  veh=v100 len=4.5 entry=152.75037056613778 leave=-1.0 type=car
 Step 152.8
-  veh=v100 len=4.5 entry=152.747872507814 leave=-1.0 type=car
+  veh=v100 len=4.5 entry=152.75037056613778 leave=-1.0 type=car
 Step 152.9
-  veh=v100 len=4.5 entry=152.747872507814 leave=-1.0 type=car
+  veh=v100 len=4.5 entry=152.75037056613778 leave=-1.0 type=car
 Step 153.0
-  veh=v100 len=4.5 entry=152.747872507814 leave=-1.0 type=car
+  veh=v100 len=4.5 entry=152.75037056613778 leave=-1.0 type=car
 Step 153.1
-  veh=v100 len=4.5 entry=152.747872507814 leave=-1.0 type=car
+  veh=v100 len=4.5 entry=152.75037056613778 leave=-1.0 type=car
 Step 153.2
-  veh=v100 len=4.5 entry=152.747872507814 leave=153.29342211158388 type=car
+  veh=v100 len=4.5 entry=152.75037056613778 leave=153.29533765187114 type=car
 Step 153.3
 Step 153.4
 Step 153.5
@@ -1776,17 +1770,17 @@ Step 156.0
 Step 156.1, tlsPhase 1 (Transition to East-West)
 Step 156.1
 Step 156.2
-  veh=v102 len=4.5 entry=156.23319609706368 leave=-1.0 type=car
+  veh=v102 len=4.5 entry=156.225346020767 leave=-1.0 type=car
 Step 156.3
-  veh=v102 len=4.5 entry=156.23319609706368 leave=-1.0 type=car
+  veh=v102 len=4.5 entry=156.225346020767 leave=-1.0 type=car
 Step 156.4
-  veh=v102 len=4.5 entry=156.23319609706368 leave=-1.0 type=car
+  veh=v102 len=4.5 entry=156.225346020767 leave=-1.0 type=car
 Step 156.5
-  veh=v102 len=4.5 entry=156.23319609706368 leave=-1.0 type=car
+  veh=v102 len=4.5 entry=156.225346020767 leave=-1.0 type=car
 Step 156.6
-  veh=v102 len=4.5 entry=156.23319609706368 leave=-1.0 type=car
+  veh=v102 len=4.5 entry=156.225346020767 leave=-1.0 type=car
 Step 156.7
-  veh=v102 len=4.5 entry=156.23319609706368 leave=156.75934305964253 type=car
+  veh=v102 len=4.5 entry=156.225346020767 leave=156.75181045315756 type=car
 Step 156.8
 Step 156.9
 Step 157.0
@@ -1823,19 +1817,18 @@ Step 159.9
 Step 160.0
 Step 160.1
 Step 160.2
-  veh=v104 len=4.5 entry=160.2699443204369 leave=-1.0 type=car
+  veh=v104 len=4.5 entry=160.25099179218626 leave=-1.0 type=car
 Step 160.3
-  veh=v104 len=4.5 entry=160.2699443204369 leave=-1.0 type=car
+  veh=v104 len=4.5 entry=160.25099179218626 leave=-1.0 type=car
 Step 160.4
-  veh=v104 len=4.5 entry=160.2699443204369 leave=-1.0 type=car
+  veh=v104 len=4.5 entry=160.25099179218626 leave=-1.0 type=car
 Step 160.5
-  veh=v104 len=4.5 entry=160.2699443204369 leave=-1.0 type=car
+  veh=v104 len=4.5 entry=160.25099179218626 leave=-1.0 type=car
 Step 160.6
-  veh=v104 len=4.5 entry=160.2699443204369 leave=-1.0 type=car
+  veh=v104 len=4.5 entry=160.25099179218626 leave=-1.0 type=car
 Step 160.7
-  veh=v104 len=4.5 entry=160.2699443204369 leave=-1.0 type=car
+  veh=v104 len=4.5 entry=160.25099179218626 leave=160.7892158887096 type=car
 Step 160.8
-  veh=v104 len=4.5 entry=160.2699443204369 leave=160.8076550424884 type=car
 Step 160.9
 Step 161.0
 Step 161.1
@@ -1852,21 +1845,21 @@ Step 162.1
 Step 162.2
 Step 162.3
 Step 162.4
-  veh=v106 len=4.5 entry=162.45010565233432 leave=-1.0 type=car
+  veh=v106 len=4.5 entry=162.4357984960898 leave=-1.0 type=car
 Step 162.5
-  veh=v106 len=4.5 entry=162.45010565233432 leave=-1.0 type=car
+  veh=v106 len=4.5 entry=162.4357984960898 leave=-1.0 type=car
 Step 162.6
-  veh=v106 len=4.5 entry=162.45010565233432 leave=-1.0 type=car
+  veh=v106 len=4.5 entry=162.4357984960898 leave=-1.0 type=car
 Step 162.7
-  veh=v106 len=4.5 entry=162.45010565233432 leave=-1.0 type=car
+  veh=v106 len=4.5 entry=162.4357984960898 leave=-1.0 type=car
 Step 162.8
-  veh=v106 len=4.5 entry=162.45010565233432 leave=-1.0 type=car
+  veh=v106 len=4.5 entry=162.4357984960898 leave=-1.0 type=car
 Step 162.9
-  veh=v106 len=4.5 entry=162.45010565233432 leave=-1.0 type=car
+  veh=v106 len=4.5 entry=162.4357984960898 leave=-1.0 type=car
 Step 163.0
-  veh=v106 len=4.5 entry=162.45010565233432 leave=-1.0 type=car
+  veh=v106 len=4.5 entry=162.4357984960898 leave=-1.0 type=car
 Step 163.1
-  veh=v106 len=4.5 entry=162.45010565233432 leave=163.16826753395154 type=car
+  veh=v106 len=4.5 entry=162.4357984960898 leave=163.15410187575668 type=car
 Step 163.2
 Step 163.3
 Step 163.4
@@ -1886,27 +1879,27 @@ Step 164.7
 Step 164.8
 Step 164.9
 Step 165.0
-  veh=v108 len=4.5 entry=165.03212164053429 leave=-1.0 type=car
+  veh=v108 len=4.5 entry=165.03171995774534 leave=-1.0 type=car
 Step 165.1
-  veh=v108 len=4.5 entry=165.03212164053429 leave=-1.0 type=car
+  veh=v108 len=4.5 entry=165.03171995774534 leave=-1.0 type=car
 Step 165.2
-  veh=v108 len=4.5 entry=165.03212164053429 leave=-1.0 type=car
+  veh=v108 len=4.5 entry=165.03171995774534 leave=-1.0 type=car
 Step 165.3
-  veh=v108 len=4.5 entry=165.03212164053429 leave=-1.0 type=car
+  veh=v108 len=4.5 entry=165.03171995774534 leave=-1.0 type=car
 Step 165.4
-  veh=v108 len=4.5 entry=165.03212164053429 leave=-1.0 type=car
+  veh=v108 len=4.5 entry=165.03171995774534 leave=-1.0 type=car
 Step 165.5
-  veh=v108 len=4.5 entry=165.03212164053429 leave=-1.0 type=car
+  veh=v108 len=4.5 entry=165.03171995774534 leave=-1.0 type=car
 Step 165.6
-  veh=v108 len=4.5 entry=165.03212164053429 leave=-1.0 type=car
+  veh=v108 len=4.5 entry=165.03171995774534 leave=-1.0 type=car
 Step 165.7
-  veh=v108 len=4.5 entry=165.03212164053429 leave=-1.0 type=car
+  veh=v108 len=4.5 entry=165.03171995774534 leave=-1.0 type=car
 Step 165.8
-  veh=v108 len=4.5 entry=165.03212164053429 leave=-1.0 type=car
+  veh=v108 len=4.5 entry=165.03171995774534 leave=-1.0 type=car
 Step 165.9
-  veh=v108 len=4.5 entry=165.03212164053429 leave=-1.0 type=car
+  veh=v108 len=4.5 entry=165.03171995774534 leave=-1.0 type=car
 Step 166.0
-  veh=v108 len=4.5 entry=165.03212164053429 leave=166.00319026167054 type=car
+  veh=v108 len=4.5 entry=165.03171995774534 leave=166.0006448000391 type=car
 Step 166.1
 Step 166.2
 Step 166.3
@@ -1941,33 +1934,33 @@ Step 169.1
 Step 169.2
 Step 169.3
 Step 169.4
-  veh=v112 len=4.5 entry=169.41833551959425 leave=-1.0 type=car
+  veh=v112 len=4.5 entry=169.44187272361359 leave=-1.0 type=car
 Step 169.5
-  veh=v112 len=4.5 entry=169.41833551959425 leave=-1.0 type=car
+  veh=v112 len=4.5 entry=169.44187272361359 leave=-1.0 type=car
 Step 169.6
-  veh=v112 len=4.5 entry=169.41833551959425 leave=-1.0 type=car
+  veh=v112 len=4.5 entry=169.44187272361359 leave=-1.0 type=car
 Step 169.7
-  veh=v112 len=4.5 entry=169.41833551959425 leave=-1.0 type=car
+  veh=v112 len=4.5 entry=169.44187272361359 leave=-1.0 type=car
 Step 169.8
-  veh=v112 len=4.5 entry=169.41833551959425 leave=-1.0 type=car
+  veh=v112 len=4.5 entry=169.44187272361359 leave=-1.0 type=car
 Step 169.9
-  veh=v112 len=4.5 entry=169.41833551959425 leave=-1.0 type=car
+  veh=v112 len=4.5 entry=169.44187272361359 leave=-1.0 type=car
 Step 170.0
-  veh=v112 len=4.5 entry=169.41833551959425 leave=-1.0 type=car
+  veh=v112 len=4.5 entry=169.44187272361359 leave=-1.0 type=car
 Step 170.1
-  veh=v112 len=4.5 entry=169.41833551959425 leave=-1.0 type=car
+  veh=v112 len=4.5 entry=169.44187272361359 leave=-1.0 type=car
 Step 170.2
-  veh=v112 len=4.5 entry=169.41833551959425 leave=-1.0 type=car
+  veh=v112 len=4.5 entry=169.44187272361359 leave=-1.0 type=car
 Step 170.3
-  veh=v112 len=4.5 entry=169.41833551959425 leave=-1.0 type=car
+  veh=v112 len=4.5 entry=169.44187272361359 leave=-1.0 type=car
 Step 170.4
-  veh=v112 len=4.5 entry=169.41833551959425 leave=-1.0 type=car
+  veh=v112 len=4.5 entry=169.44187272361359 leave=-1.0 type=car
 Step 170.5
-  veh=v112 len=4.5 entry=169.41833551959425 leave=-1.0 type=car
+  veh=v112 len=4.5 entry=169.44187272361359 leave=-1.0 type=car
 Step 170.6
-  veh=v112 len=4.5 entry=169.41833551959425 leave=-1.0 type=car
+  veh=v112 len=4.5 entry=169.44187272361359 leave=-1.0 type=car
 Step 170.7
-  veh=v112 len=4.5 entry=169.41833551959425 leave=170.71701752489903 type=car
+  veh=v112 len=4.5 entry=169.44187272361359 leave=170.73704931085416 type=car
 Step 170.8
 Step 170.9
 Step 171.0
@@ -1998,147 +1991,147 @@ Step 173.4
 Step 173.5
 Step 173.6
 Step 173.7
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 173.8
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 173.9
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 174.0
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 174.1
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 174.2
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 174.3
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 174.4
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 174.5
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 174.6
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 174.7
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 174.8
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 174.9
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 175.0
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 175.1
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 175.2
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 175.3
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 175.4
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 175.5
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 175.6
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 175.7
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 175.8
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 175.9
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 176.0
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 176.1
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 176.2
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 176.3
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 176.4
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 176.5
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 176.6
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 176.7
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 176.8
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 176.9
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 177.0
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 177.1
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 177.2
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 177.3
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 177.4
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 177.5
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 177.6
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 177.7
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 177.8
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 177.9
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 178.0
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 178.1
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 178.2
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 178.3
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 178.4
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 178.5
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 178.6
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 178.7
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 178.8
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 178.9
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 179.0
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 179.1
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 179.2
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 179.3
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 179.4
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 179.5
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 179.6
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 179.7
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 179.8
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 179.9
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 180.0
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 180.1
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 180.2
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 180.3
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 180.4
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 180.5
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 180.6
-  veh=v114 len=4.5 entry=173.71043582873676 leave=-1.0 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=-1.0 type=car
 Step 180.7
-  veh=v114 len=4.5 entry=173.71043582873676 leave=180.7557236206506 type=car
+  veh=v114 len=4.5 entry=173.77813410528555 leave=180.75588988273384 type=car
 Step 180.8
 Step 180.9
 Step 181.0
@@ -2156,45 +2149,45 @@ Step 182.1
 Step 182.2
 Step 182.3
 Step 182.4
-  veh=v116 len=4.5 entry=182.47073694826756 leave=-1.0 type=car
+  veh=v116 len=4.5 entry=182.47117717457124 leave=-1.0 type=car
 Step 182.5
-  veh=v116 len=4.5 entry=182.47073694826756 leave=-1.0 type=car
+  veh=v116 len=4.5 entry=182.47117717457124 leave=-1.0 type=car
 Step 182.6
-  veh=v116 len=4.5 entry=182.47073694826756 leave=-1.0 type=car
+  veh=v116 len=4.5 entry=182.47117717457124 leave=-1.0 type=car
 Step 182.7
-  veh=v116 len=4.5 entry=182.47073694826756 leave=-1.0 type=car
+  veh=v116 len=4.5 entry=182.47117717457124 leave=-1.0 type=car
 Step 182.8
-  veh=v116 len=4.5 entry=182.47073694826756 leave=-1.0 type=car
+  veh=v116 len=4.5 entry=182.47117717457124 leave=-1.0 type=car
 Step 182.9
-  veh=v116 len=4.5 entry=182.47073694826756 leave=-1.0 type=car
+  veh=v116 len=4.5 entry=182.47117717457124 leave=-1.0 type=car
 Step 183.0
-  veh=v116 len=4.5 entry=182.47073694826756 leave=-1.0 type=car
+  veh=v116 len=4.5 entry=182.47117717457124 leave=-1.0 type=car
 Step 183.1
-  veh=v116 len=4.5 entry=182.47073694826756 leave=-1.0 type=car
+  veh=v116 len=4.5 entry=182.47117717457124 leave=-1.0 type=car
 Step 183.2
-  veh=v116 len=4.5 entry=182.47073694826756 leave=-1.0 type=car
+  veh=v116 len=4.5 entry=182.47117717457124 leave=-1.0 type=car
 Step 183.3
-  veh=v116 len=4.5 entry=182.47073694826756 leave=-1.0 type=car
+  veh=v116 len=4.5 entry=182.47117717457124 leave=-1.0 type=car
 Step 183.4
-  veh=v116 len=4.5 entry=182.47073694826756 leave=-1.0 type=car
+  veh=v116 len=4.5 entry=182.47117717457124 leave=-1.0 type=car
 Step 183.5
-  veh=v116 len=4.5 entry=182.47073694826756 leave=-1.0 type=car
+  veh=v116 len=4.5 entry=182.47117717457124 leave=-1.0 type=car
 Step 183.6
-  veh=v116 len=4.5 entry=182.47073694826756 leave=-1.0 type=car
+  veh=v116 len=4.5 entry=182.47117717457124 leave=-1.0 type=car
 Step 183.7
-  veh=v116 len=4.5 entry=182.47073694826756 leave=-1.0 type=car
+  veh=v116 len=4.5 entry=182.47117717457124 leave=-1.0 type=car
 Step 183.8
-  veh=v116 len=4.5 entry=182.47073694826756 leave=-1.0 type=car
+  veh=v116 len=4.5 entry=182.47117717457124 leave=-1.0 type=car
 Step 183.9
-  veh=v116 len=4.5 entry=182.47073694826756 leave=-1.0 type=car
+  veh=v116 len=4.5 entry=182.47117717457124 leave=-1.0 type=car
 Step 184.0
-  veh=v116 len=4.5 entry=182.47073694826756 leave=-1.0 type=car
+  veh=v116 len=4.5 entry=182.47117717457124 leave=-1.0 type=car
 Step 184.1
-  veh=v116 len=4.5 entry=182.47073694826756 leave=-1.0 type=car
+  veh=v116 len=4.5 entry=182.47117717457124 leave=-1.0 type=car
 Step 184.2
-  veh=v116 len=4.5 entry=182.47073694826756 leave=-1.0 type=car
+  veh=v116 len=4.5 entry=182.47117717457124 leave=-1.0 type=car
 Step 184.3
-  veh=v116 len=4.5 entry=182.47073694826756 leave=184.32040034245972 type=car
+  veh=v116 len=4.5 entry=182.47117717457124 leave=184.32049468210747 type=car
 Step 184.4
 Step 184.5
 Step 184.6
@@ -2207,33 +2200,33 @@ Step 185.2
 Step 185.3
 Step 185.4
 Step 185.5
-  veh=v118 len=4.5 entry=185.58202664296587 leave=-1.0 type=car
+  veh=v118 len=4.5 entry=185.5828586397944 leave=-1.0 type=car
 Step 185.6
-  veh=v118 len=4.5 entry=185.58202664296587 leave=-1.0 type=car
+  veh=v118 len=4.5 entry=185.5828586397944 leave=-1.0 type=car
 Step 185.7
-  veh=v118 len=4.5 entry=185.58202664296587 leave=-1.0 type=car
+  veh=v118 len=4.5 entry=185.5828586397944 leave=-1.0 type=car
 Step 185.8
-  veh=v118 len=4.5 entry=185.58202664296587 leave=-1.0 type=car
+  veh=v118 len=4.5 entry=185.5828586397944 leave=-1.0 type=car
 Step 185.9
-  veh=v118 len=4.5 entry=185.58202664296587 leave=-1.0 type=car
+  veh=v118 len=4.5 entry=185.5828586397944 leave=-1.0 type=car
 Step 186.0
-  veh=v118 len=4.5 entry=185.58202664296587 leave=-1.0 type=car
+  veh=v118 len=4.5 entry=185.5828586397944 leave=-1.0 type=car
 Step 186.1
-  veh=v118 len=4.5 entry=185.58202664296587 leave=-1.0 type=car
+  veh=v118 len=4.5 entry=185.5828586397944 leave=-1.0 type=car
 Step 186.2
-  veh=v118 len=4.5 entry=185.58202664296587 leave=-1.0 type=car
+  veh=v118 len=4.5 entry=185.5828586397944 leave=-1.0 type=car
 Step 186.3
-  veh=v118 len=4.5 entry=185.58202664296587 leave=-1.0 type=car
+  veh=v118 len=4.5 entry=185.5828586397944 leave=-1.0 type=car
 Step 186.4
-  veh=v118 len=4.5 entry=185.58202664296587 leave=-1.0 type=car
+  veh=v118 len=4.5 entry=185.5828586397944 leave=-1.0 type=car
 Step 186.5
-  veh=v118 len=4.5 entry=185.58202664296587 leave=-1.0 type=car
+  veh=v118 len=4.5 entry=185.5828586397944 leave=-1.0 type=car
 Step 186.6
-  veh=v118 len=4.5 entry=185.58202664296587 leave=-1.0 type=car
+  veh=v118 len=4.5 entry=185.5828586397944 leave=-1.0 type=car
 Step 186.7
-  veh=v118 len=4.5 entry=185.58202664296587 leave=-1.0 type=car
+  veh=v118 len=4.5 entry=185.5828586397944 leave=-1.0 type=car
 Step 186.8
-  veh=v118 len=4.5 entry=185.58202664296587 leave=186.8016990380419 type=car
+  veh=v118 len=4.5 entry=185.5828586397944 leave=186.8020823115208 type=car
 Step 186.9
 Step 187.0
 Step 187.1
@@ -2245,27 +2238,27 @@ Step 187.6
 Step 187.7
 Step 187.8
 Step 187.9
-  veh=v120 len=4.5 entry=187.97736020647966 leave=-1.0 type=car
+  veh=v120 len=4.5 entry=187.9803458411312 leave=-1.0 type=car
 Step 188.0
-  veh=v120 len=4.5 entry=187.97736020647966 leave=-1.0 type=car
+  veh=v120 len=4.5 entry=187.9803458411312 leave=-1.0 type=car
 Step 188.1
-  veh=v120 len=4.5 entry=187.97736020647966 leave=-1.0 type=car
+  veh=v120 len=4.5 entry=187.9803458411312 leave=-1.0 type=car
 Step 188.2
-  veh=v120 len=4.5 entry=187.97736020647966 leave=-1.0 type=car
+  veh=v120 len=4.5 entry=187.9803458411312 leave=-1.0 type=car
 Step 188.3
-  veh=v120 len=4.5 entry=187.97736020647966 leave=-1.0 type=car
+  veh=v120 len=4.5 entry=187.9803458411312 leave=-1.0 type=car
 Step 188.4
-  veh=v120 len=4.5 entry=187.97736020647966 leave=-1.0 type=car
+  veh=v120 len=4.5 entry=187.9803458411312 leave=-1.0 type=car
 Step 188.5
-  veh=v120 len=4.5 entry=187.97736020647966 leave=-1.0 type=car
+  veh=v120 len=4.5 entry=187.9803458411312 leave=-1.0 type=car
 Step 188.6
-  veh=v120 len=4.5 entry=187.97736020647966 leave=-1.0 type=car
+  veh=v120 len=4.5 entry=187.9803458411312 leave=-1.0 type=car
 Step 188.7
-  veh=v120 len=4.5 entry=187.97736020647966 leave=-1.0 type=car
+  veh=v120 len=4.5 entry=187.9803458411312 leave=-1.0 type=car
 Step 188.8
-  veh=v120 len=4.5 entry=187.97736020647966 leave=-1.0 type=car
+  veh=v120 len=4.5 entry=187.9803458411312 leave=-1.0 type=car
 Step 188.9
-  veh=v120 len=4.5 entry=187.97736020647966 leave=188.9607981001121 type=car
+  veh=v120 len=4.5 entry=187.9803458411312 leave=188.96257205641996 type=car
 Step 189.0
 Step 189.1
 Step 189.2
@@ -2277,25 +2270,24 @@ Step 189.7
 Step 189.8
 Step 189.9
 Step 190.0
-  veh=v122 len=4.5 entry=190.09938581535062 leave=-1.0 type=car
 Step 190.1
-  veh=v122 len=4.5 entry=190.09938581535062 leave=-1.0 type=car
+  veh=v122 len=4.5 entry=190.10374953548057 leave=-1.0 type=car
 Step 190.2
-  veh=v122 len=4.5 entry=190.09938581535062 leave=-1.0 type=car
+  veh=v122 len=4.5 entry=190.10374953548057 leave=-1.0 type=car
 Step 190.3
-  veh=v122 len=4.5 entry=190.09938581535062 leave=-1.0 type=car
+  veh=v122 len=4.5 entry=190.10374953548057 leave=-1.0 type=car
 Step 190.4
-  veh=v122 len=4.5 entry=190.09938581535062 leave=-1.0 type=car
+  veh=v122 len=4.5 entry=190.10374953548057 leave=-1.0 type=car
 Step 190.5
-  veh=v122 len=4.5 entry=190.09938581535062 leave=-1.0 type=car
+  veh=v122 len=4.5 entry=190.10374953548057 leave=-1.0 type=car
 Step 190.6
-  veh=v122 len=4.5 entry=190.09938581535062 leave=-1.0 type=car
+  veh=v122 len=4.5 entry=190.10374953548057 leave=-1.0 type=car
 Step 190.7
-  veh=v122 len=4.5 entry=190.09938581535062 leave=-1.0 type=car
+  veh=v122 len=4.5 entry=190.10374953548057 leave=-1.0 type=car
 Step 190.8
-  veh=v122 len=4.5 entry=190.09938581535062 leave=-1.0 type=car
+  veh=v122 len=4.5 entry=190.10374953548057 leave=-1.0 type=car
 Step 190.9
-  veh=v122 len=4.5 entry=190.09938581535062 leave=190.9491137043596 type=car
+  veh=v122 len=4.5 entry=190.10374953548057 leave=190.95211428357894 type=car
 Step 191.0
 Step 191.1
 Step 191.2
@@ -2307,23 +2299,23 @@ Step 191.7
 Step 191.8
 Step 191.9
 Step 192.0
-  veh=v124 len=4.5 entry=192.06906521238471 leave=-1.0 type=car
+  veh=v124 len=4.5 entry=192.0748349096399 leave=-1.0 type=car
 Step 192.1
-  veh=v124 len=4.5 entry=192.06906521238471 leave=-1.0 type=car
+  veh=v124 len=4.5 entry=192.0748349096399 leave=-1.0 type=car
 Step 192.2
-  veh=v124 len=4.5 entry=192.06906521238471 leave=-1.0 type=car
+  veh=v124 len=4.5 entry=192.0748349096399 leave=-1.0 type=car
 Step 192.3
-  veh=v124 len=4.5 entry=192.06906521238471 leave=-1.0 type=car
+  veh=v124 len=4.5 entry=192.0748349096399 leave=-1.0 type=car
 Step 192.4
-  veh=v124 len=4.5 entry=192.06906521238471 leave=-1.0 type=car
+  veh=v124 len=4.5 entry=192.0748349096399 leave=-1.0 type=car
 Step 192.5
-  veh=v124 len=4.5 entry=192.06906521238471 leave=-1.0 type=car
+  veh=v124 len=4.5 entry=192.0748349096399 leave=-1.0 type=car
 Step 192.6
-  veh=v124 len=4.5 entry=192.06906521238471 leave=-1.0 type=car
+  veh=v124 len=4.5 entry=192.0748349096399 leave=-1.0 type=car
 Step 192.7
-  veh=v124 len=4.5 entry=192.06906521238471 leave=-1.0 type=car
+  veh=v124 len=4.5 entry=192.0748349096399 leave=-1.0 type=car
 Step 192.8
-  veh=v124 len=4.5 entry=192.06906521238471 leave=192.83150265855363 type=car
+  veh=v124 len=4.5 entry=192.0748349096399 leave=192.83578842019264 type=car
 Step 192.9
 Step 193.0
 Step 193.1
@@ -2335,21 +2327,21 @@ Step 193.6
 Step 193.7
 Step 193.8
 Step 193.9
-  veh=v126 len=4.5 entry=193.95712559983525 leave=-1.0 type=car
+  veh=v126 len=4.5 entry=193.9643760391926 leave=-1.0 type=car
 Step 194.0
-  veh=v126 len=4.5 entry=193.95712559983525 leave=-1.0 type=car
+  veh=v126 len=4.5 entry=193.9643760391926 leave=-1.0 type=car
 Step 194.1
-  veh=v126 len=4.5 entry=193.95712559983525 leave=-1.0 type=car
+  veh=v126 len=4.5 entry=193.9643760391926 leave=-1.0 type=car
 Step 194.2
-  veh=v126 len=4.5 entry=193.95712559983525 leave=-1.0 type=car
+  veh=v126 len=4.5 entry=193.9643760391926 leave=-1.0 type=car
 Step 194.3
-  veh=v126 len=4.5 entry=193.95712559983525 leave=-1.0 type=car
+  veh=v126 len=4.5 entry=193.9643760391926 leave=-1.0 type=car
 Step 194.4
-  veh=v126 len=4.5 entry=193.95712559983525 leave=-1.0 type=car
+  veh=v126 len=4.5 entry=193.9643760391926 leave=-1.0 type=car
 Step 194.5
-  veh=v126 len=4.5 entry=193.95712559983525 leave=-1.0 type=car
+  veh=v126 len=4.5 entry=193.9643760391926 leave=-1.0 type=car
 Step 194.6
-  veh=v126 len=4.5 entry=193.95712559983525 leave=194.65732721724046 type=car
+  veh=v126 len=4.5 entry=193.9643760391926 leave=194.6630268668945 type=car
 Step 194.7
 Step 194.8
 Step 194.9
@@ -2361,21 +2353,21 @@ Step 195.4
 Step 195.5
 Step 195.6
 Step 195.7
-  veh=v128 len=4.5 entry=195.78656398078792 leave=-1.0 type=car
+  veh=v128 len=4.5 entry=195.7948712375954 leave=-1.0 type=car
 Step 195.8
-  veh=v128 len=4.5 entry=195.78656398078792 leave=-1.0 type=car
+  veh=v128 len=4.5 entry=195.7948712375954 leave=-1.0 type=car
 Step 195.9
-  veh=v128 len=4.5 entry=195.78656398078792 leave=-1.0 type=car
+  veh=v128 len=4.5 entry=195.7948712375954 leave=-1.0 type=car
 Step 196.0
-  veh=v128 len=4.5 entry=195.78656398078792 leave=-1.0 type=car
+  veh=v128 len=4.5 entry=195.7948712375954 leave=-1.0 type=car
 Step 196.1
-  veh=v128 len=4.5 entry=195.78656398078792 leave=-1.0 type=car
+  veh=v128 len=4.5 entry=195.7948712375954 leave=-1.0 type=car
 Step 196.2
-  veh=v128 len=4.5 entry=195.78656398078792 leave=-1.0 type=car
+  veh=v128 len=4.5 entry=195.7948712375954 leave=-1.0 type=car
 Step 196.3
-  veh=v128 len=4.5 entry=195.78656398078792 leave=-1.0 type=car
+  veh=v128 len=4.5 entry=195.7948712375954 leave=-1.0 type=car
 Step 196.4
-  veh=v128 len=4.5 entry=195.78656398078792 leave=196.4408750461338 type=car
+  veh=v128 len=4.5 entry=195.7948712375954 leave=196.44765227734288 type=car
 Step 196.5
 Step 196.6
 Step 196.7
@@ -2388,19 +2380,19 @@ Step 197.3
 Step 197.4
 Step 197.5
 Step 197.6
-  veh=v130 len=4.5 entry=197.60659843815358 leave=-1.0 type=car
+  veh=v130 len=4.5 entry=197.61953106015486 leave=-1.0 type=car
 Step 197.7
-  veh=v130 len=4.5 entry=197.60659843815358 leave=-1.0 type=car
+  veh=v130 len=4.5 entry=197.61953106015486 leave=-1.0 type=car
 Step 197.8
-  veh=v130 len=4.5 entry=197.60659843815358 leave=-1.0 type=car
+  veh=v130 len=4.5 entry=197.61953106015486 leave=-1.0 type=car
 Step 197.9
-  veh=v130 len=4.5 entry=197.60659843815358 leave=-1.0 type=car
+  veh=v130 len=4.5 entry=197.61953106015486 leave=-1.0 type=car
 Step 198.0
-  veh=v130 len=4.5 entry=197.60659843815358 leave=-1.0 type=car
+  veh=v130 len=4.5 entry=197.61953106015486 leave=-1.0 type=car
 Step 198.1
-  veh=v130 len=4.5 entry=197.60659843815358 leave=-1.0 type=car
+  veh=v130 len=4.5 entry=197.61953106015486 leave=-1.0 type=car
 Step 198.2
-  veh=v130 len=4.5 entry=197.60659843815358 leave=198.21948882654456 type=car
+  veh=v130 len=4.5 entry=197.61953106015486 leave=198.2302966996468 type=car
 Step 198.3
 Step 198.4
 Step 198.5
@@ -2412,19 +2404,19 @@ Step 199.0
 Step 199.1
 Step 199.2
 Step 199.3
-  veh=v131 len=4.5 entry=199.37258490433675 leave=-1.0 type=car
+  veh=v131 len=4.5 entry=199.3876016138462 leave=-1.0 type=car
 Step 199.4
-  veh=v131 len=4.5 entry=199.37258490433675 leave=-1.0 type=car
+  veh=v131 len=4.5 entry=199.3876016138462 leave=-1.0 type=car
 Step 199.5
-  veh=v131 len=4.5 entry=199.37258490433675 leave=-1.0 type=car
+  veh=v131 len=4.5 entry=199.3876016138462 leave=-1.0 type=car
 Step 199.6
-  veh=v131 len=4.5 entry=199.37258490433675 leave=-1.0 type=car
+  veh=v131 len=4.5 entry=199.3876016138462 leave=-1.0 type=car
 Step 199.7
-  veh=v131 len=4.5 entry=199.37258490433675 leave=-1.0 type=car
+  veh=v131 len=4.5 entry=199.3876016138462 leave=-1.0 type=car
 Step 199.8
-  veh=v131 len=4.5 entry=199.37258490433675 leave=-1.0 type=car
+  veh=v131 len=4.5 entry=199.3876016138462 leave=-1.0 type=car
 Step 199.9
-  veh=v131 len=4.5 entry=199.37258490433675 leave=199.95692046631123 type=car
+  veh=v131 len=4.5 entry=199.3876016138462 leave=199.96976423635275 type=car
 Step 200.0
 Step 200.1
 Step 200.2
@@ -2437,17 +2429,17 @@ Step 200.8
 Step 200.9
 Step 201.0
 Step 201.1
-  veh=v132 len=4.5 entry=201.10955655430328 leave=-1.0 type=car
+  veh=v132 len=4.5 entry=201.12561790234767 leave=-1.0 type=car
 Step 201.2
-  veh=v132 len=4.5 entry=201.10955655430328 leave=-1.0 type=car
+  veh=v132 len=4.5 entry=201.12561790234767 leave=-1.0 type=car
 Step 201.3
-  veh=v132 len=4.5 entry=201.10955655430328 leave=-1.0 type=car
+  veh=v132 len=4.5 entry=201.12561790234767 leave=-1.0 type=car
 Step 201.4
-  veh=v132 len=4.5 entry=201.10955655430328 leave=-1.0 type=car
+  veh=v132 len=4.5 entry=201.12561790234767 leave=-1.0 type=car
 Step 201.5
-  veh=v132 len=4.5 entry=201.10955655430328 leave=-1.0 type=car
+  veh=v132 len=4.5 entry=201.12561790234767 leave=-1.0 type=car
 Step 201.6
-  veh=v132 len=4.5 entry=201.10955655430328 leave=201.67118620689985 type=car
+  veh=v132 len=4.5 entry=201.12561790234767 leave=201.6852226259596 type=car
 Step 201.7
 Step 201.8
 Step 201.9
@@ -2460,17 +2452,17 @@ Step 202.5
 Step 202.6
 Step 202.7
 Step 202.8
-  veh=v134 len=4.5 entry=202.82361893926583 leave=-1.0 type=car
+  veh=v134 len=4.5 entry=202.83992637692964 leave=-1.0 type=car
 Step 202.9
-  veh=v134 len=4.5 entry=202.82361893926583 leave=-1.0 type=car
+  veh=v134 len=4.5 entry=202.83992637692964 leave=-1.0 type=car
 Step 203.0
-  veh=v134 len=4.5 entry=202.82361893926583 leave=-1.0 type=car
+  veh=v134 len=4.5 entry=202.83992637692964 leave=-1.0 type=car
 Step 203.1
-  veh=v134 len=4.5 entry=202.82361893926583 leave=-1.0 type=car
+  veh=v134 len=4.5 entry=202.83992637692964 leave=-1.0 type=car
 Step 203.2
-  veh=v134 len=4.5 entry=202.82361893926583 leave=-1.0 type=car
+  veh=v134 len=4.5 entry=202.83992637692964 leave=-1.0 type=car
 Step 203.3
-  veh=v134 len=4.5 entry=202.82361893926583 leave=203.3646724503682 type=car
+  veh=v134 len=4.5 entry=202.83992637692964 leave=203.37910332898508 type=car
 Step 203.4
 Step 203.5
 Step 203.6
@@ -2483,17 +2475,17 @@ Step 204.2
 Step 204.3
 Step 204.4
 Step 204.5
-  veh=v136 len=4.5 entry=204.5274186138074 leave=-1.0 type=car
+  veh=v136 len=4.5 entry=204.54411019991127 leave=-1.0 type=car
 Step 204.6
-  veh=v136 len=4.5 entry=204.5274186138074 leave=-1.0 type=car
+  veh=v136 len=4.5 entry=204.54411019991127 leave=-1.0 type=car
 Step 204.7
-  veh=v136 len=4.5 entry=204.5274186138074 leave=-1.0 type=car
+  veh=v136 len=4.5 entry=204.54411019991127 leave=-1.0 type=car
 Step 204.8
-  veh=v136 len=4.5 entry=204.5274186138074 leave=-1.0 type=car
+  veh=v136 len=4.5 entry=204.54411019991127 leave=-1.0 type=car
 Step 204.9
-  veh=v136 len=4.5 entry=204.5274186138074 leave=-1.0 type=car
+  veh=v136 len=4.5 entry=204.54411019991127 leave=-1.0 type=car
 Step 205.0
-  veh=v136 len=4.5 entry=204.5274186138074 leave=205.0465470685245 type=car
+  veh=v136 len=4.5 entry=204.54411019991127 leave=205.06152172871367 type=car
 Step 205.1
 Step 205.2
 Step 205.3
@@ -2506,17 +2498,17 @@ Step 205.9
 Step 206.0
 Step 206.1
 Step 206.2
-  veh=v138 len=4.5 entry=206.27613851167044 leave=-1.0 type=car
+  veh=v138 len=4.5 entry=206.2952017164777 leave=-1.0 type=car
 Step 206.3
-  veh=v138 len=4.5 entry=206.27613851167044 leave=-1.0 type=car
+  veh=v138 len=4.5 entry=206.2952017164777 leave=-1.0 type=car
 Step 206.4
-  veh=v138 len=4.5 entry=206.27613851167044 leave=-1.0 type=car
+  veh=v138 len=4.5 entry=206.2952017164777 leave=-1.0 type=car
 Step 206.5
-  veh=v138 len=4.5 entry=206.27613851167044 leave=-1.0 type=car
+  veh=v138 len=4.5 entry=206.2952017164777 leave=-1.0 type=car
 Step 206.6
-  veh=v138 len=4.5 entry=206.27613851167044 leave=-1.0 type=car
+  veh=v138 len=4.5 entry=206.2952017164777 leave=-1.0 type=car
 Step 206.7
-  veh=v138 len=4.5 entry=206.27613851167044 leave=206.76949116749935 type=car
+  veh=v138 len=4.5 entry=206.2952017164777 leave=206.7867647885709 type=car
 Step 206.8
 Step 206.9
 Step 207.0
@@ -2529,17 +2521,17 @@ Step 207.6
 Step 207.7
 Step 207.8
 Step 207.9
-  veh=v140 len=4.5 entry=207.9786273121096 leave=-1.0 type=car
+  veh=v140 len=4.5 entry=207.99782352533944 leave=-1.0 type=car
 Step 208.0
-  veh=v140 len=4.5 entry=207.9786273121096 leave=-1.0 type=car
+  veh=v140 len=4.5 entry=207.99782352533944 leave=-1.0 type=car
 Step 208.1
-  veh=v140 len=4.5 entry=207.9786273121096 leave=-1.0 type=car
+  veh=v140 len=4.5 entry=207.99782352533944 leave=-1.0 type=car
 Step 208.2
-  veh=v140 len=4.5 entry=207.9786273121096 leave=-1.0 type=car
+  veh=v140 len=4.5 entry=207.99782352533944 leave=-1.0 type=car
 Step 208.3
-  veh=v140 len=4.5 entry=207.9786273121096 leave=-1.0 type=car
+  veh=v140 len=4.5 entry=207.99782352533944 leave=-1.0 type=car
 Step 208.4
-  veh=v140 len=4.5 entry=207.9786273121096 leave=208.45444536173898 type=car
+  veh=v140 len=4.5 entry=207.99782352533944 leave=208.47203360302174 type=car
 Step 208.5
 Step 208.6
 Step 208.7
@@ -2557,16 +2549,17 @@ Step 209.7
 Step 209.8
 Step 209.9
 Step 210.0
-  veh=v142 len=4.5 entry=210.0552881497307 leave=-1.0 type=car
+  veh=v142 len=4.5 entry=210.08345723686455 leave=-1.0 type=car
 Step 210.1
-  veh=v142 len=4.5 entry=210.0552881497307 leave=-1.0 type=car
+  veh=v142 len=4.5 entry=210.08345723686455 leave=-1.0 type=car
 Step 210.2
-  veh=v142 len=4.5 entry=210.0552881497307 leave=-1.0 type=car
+  veh=v142 len=4.5 entry=210.08345723686455 leave=-1.0 type=car
 Step 210.3
-  veh=v142 len=4.5 entry=210.0552881497307 leave=-1.0 type=car
+  veh=v142 len=4.5 entry=210.08345723686455 leave=-1.0 type=car
 Step 210.4
-  veh=v142 len=4.5 entry=210.0552881497307 leave=210.4794504256389 type=car
+  veh=v142 len=4.5 entry=210.08345723686455 leave=-1.0 type=car
 Step 210.5
+  veh=v142 len=4.5 entry=210.08345723686455 leave=210.5058376438561 type=car
 Step 210.6
 Step 210.7
 Step 210.8
@@ -2634,13 +2627,13 @@ Step 216.8
 Step 216.9
 Step 217.0
 Step 217.1
-  veh=v148 len=4.5 entry=217.1345437353381 leave=-1.0 type=car
+  veh=v148 len=4.5 entry=217.13679124680854 leave=-1.0 type=car
 Step 217.2
-  veh=v148 len=4.5 entry=217.1345437353381 leave=-1.0 type=car
+  veh=v148 len=4.5 entry=217.13679124680854 leave=-1.0 type=car
 Step 217.3
-  veh=v148 len=4.5 entry=217.1345437353381 leave=-1.0 type=car
+  veh=v148 len=4.5 entry=217.13679124680854 leave=-1.0 type=car
 Step 217.4
-  veh=v148 len=4.5 entry=217.1345437353381 leave=217.46962657803564 type=car
+  veh=v148 len=4.5 entry=217.13679124680854 leave=217.47187408950606 type=car
 Step 217.5
 Step 217.6
 Step 217.7
@@ -2661,14 +2654,15 @@ Step 219.1
 Step 219.2
 Step 219.3
 Step 219.4
+  veh=v150 len=4.5 entry=219.4827318339792 leave=-1.0 type=car
 Step 219.5
-  veh=v150 len=4.5 entry=219.5027902326941 leave=-1.0 type=car
+  veh=v150 len=4.5 entry=219.4827318339792 leave=-1.0 type=car
 Step 219.6
-  veh=v150 len=4.5 entry=219.5027902326941 leave=-1.0 type=car
+  veh=v150 len=4.5 entry=219.4827318339792 leave=-1.0 type=car
 Step 219.7
-  veh=v150 len=4.5 entry=219.5027902326941 leave=-1.0 type=car
+  veh=v150 len=4.5 entry=219.4827318339792 leave=-1.0 type=car
 Step 219.8
-  veh=v150 len=4.5 entry=219.5027902326941 leave=219.83921987962765 type=car
+  veh=v150 len=4.5 entry=219.4827318339792 leave=219.81916148091273 type=car
 Step 219.9
 Step 220.0
 Step 220.1
@@ -2680,14 +2674,15 @@ Step 220.6
 Step 220.7
 Step 220.8
 Step 220.9
+  veh=v152 len=4.5 entry=220.99570205358575 leave=-1.0 type=car
 Step 221.0
-  veh=v152 len=4.5 entry=221.01400676617519 leave=-1.0 type=car
+  veh=v152 len=4.5 entry=220.99570205358575 leave=-1.0 type=car
 Step 221.1
-  veh=v152 len=4.5 entry=221.01400676617519 leave=-1.0 type=car
+  veh=v152 len=4.5 entry=220.99570205358575 leave=-1.0 type=car
 Step 221.2
-  veh=v152 len=4.5 entry=221.01400676617519 leave=-1.0 type=car
+  veh=v152 len=4.5 entry=220.99570205358575 leave=-1.0 type=car
 Step 221.3
-  veh=v152 len=4.5 entry=221.01400676617519 leave=221.34667759203754 type=car
+  veh=v152 len=4.5 entry=220.99570205358575 leave=221.32827055155843 type=car
 Step 221.4
 Step 221.5
 Step 221.6
@@ -2705,13 +2700,13 @@ Step 222.7
 Step 222.8
 Step 222.9
 Step 223.0
-  veh=v154 len=4.5 entry=223.05315899014852 leave=-1.0 type=car
+  veh=v154 len=4.5 entry=223.04177905681505 leave=-1.0 type=car
 Step 223.1
-  veh=v154 len=4.5 entry=223.05315899014852 leave=-1.0 type=car
+  veh=v154 len=4.5 entry=223.04177905681505 leave=-1.0 type=car
 Step 223.2
-  veh=v154 len=4.5 entry=223.05315899014852 leave=-1.0 type=car
+  veh=v154 len=4.5 entry=223.04177905681505 leave=-1.0 type=car
 Step 223.3
-  veh=v154 len=4.5 entry=223.05315899014852 leave=223.36722929914782 type=car
+  veh=v154 len=4.5 entry=223.04177905681505 leave=223.35594063350317 type=car
 Step 223.4
 Step 223.5
 Step 223.6
@@ -2725,15 +2720,15 @@ Step 224.3
 Step 224.4
 Step 224.5
 Step 224.6
-  veh=v156 len=4.5 entry=224.69391649587166 leave=-1.0 type=car
+  veh=v156 len=4.5 entry=224.67919333781282 leave=-1.0 type=car
 Step 224.7
-  veh=v156 len=4.5 entry=224.69391649587166 leave=-1.0 type=car
+  veh=v156 len=4.5 entry=224.67919333781282 leave=-1.0 type=car
 Step 224.8
-  veh=v156 len=4.5 entry=224.69391649587166 leave=-1.0 type=car
+  veh=v156 len=4.5 entry=224.67919333781282 leave=-1.0 type=car
 Step 224.9
-  veh=v156 len=4.5 entry=224.69391649587166 leave=-1.0 type=car
+  veh=v156 len=4.5 entry=224.67919333781282 leave=-1.0 type=car
 Step 225.0
-  veh=v156 len=4.5 entry=224.69391649587166 leave=225.03519559953918 type=car
+  veh=v156 len=4.5 entry=224.67919333781282 leave=225.02060996308518 type=car
 Step 225.1
 Step 225.2
 Step 225.3
@@ -2742,15 +2737,15 @@ Step 225.5
 Step 225.6
 Step 225.7
 Step 225.8
-  veh=v155 len=4.5 entry=225.89848346374234 leave=-1.0 type=car
+  veh=v155 len=4.5 entry=225.88837906426932 leave=-1.0 type=car
 Step 225.9
-  veh=v155 len=4.5 entry=225.89848346374234 leave=-1.0 type=car
+  veh=v155 len=4.5 entry=225.88837906426932 leave=-1.0 type=car
 Step 226.0
-  veh=v155 len=4.5 entry=225.89848346374234 leave=-1.0 type=car
+  veh=v155 len=4.5 entry=225.88837906426932 leave=-1.0 type=car
 Step 226.1
-  veh=v155 len=4.5 entry=225.89848346374234 leave=-1.0 type=car
+  veh=v155 len=4.5 entry=225.88837906426932 leave=-1.0 type=car
 Step 226.2
-  veh=v155 len=4.5 entry=225.89848346374234 leave=226.29053206398845 type=car
+  veh=v155 len=4.5 entry=225.88837906426932 leave=226.28040974329406 type=car
 Step 226.3
 Step 226.4
 Step 226.5
@@ -2778,16 +2773,16 @@ Step 228.6
 Step 228.7
 Step 228.8
 Step 228.9
+  veh=v159 len=4.5 entry=228.98989472097125 leave=-1.0 type=car
 Step 229.0
-  veh=v159 len=4.5 entry=229.06323333243012 leave=-1.0 type=car
+  veh=v159 len=4.5 entry=228.98989472097125 leave=-1.0 type=car
 Step 229.1
-  veh=v159 len=4.5 entry=229.06323333243012 leave=-1.0 type=car
+  veh=v159 len=4.5 entry=228.98989472097125 leave=-1.0 type=car
 Step 229.2
-  veh=v159 len=4.5 entry=229.06323333243012 leave=-1.0 type=car
+  veh=v159 len=4.5 entry=228.98989472097125 leave=-1.0 type=car
 Step 229.3
-  veh=v159 len=4.5 entry=229.06323333243012 leave=-1.0 type=car
+  veh=v159 len=4.5 entry=228.98989472097125 leave=229.3422202671185 type=car
 Step 229.4
-  veh=v159 len=4.5 entry=229.06323333243012 leave=229.41323007095062 type=car
 Step 229.5
 Step 229.6
 Step 229.7
@@ -2817,13 +2812,13 @@ Step 232.0
 Step 232.1
 Step 232.2
 Step 232.3
-  veh=v161 len=4.5 entry=232.34907593011366 leave=-1.0 type=car
+  veh=v161 len=4.5 entry=232.3310913415748 leave=-1.0 type=car
 Step 232.4
-  veh=v161 len=4.5 entry=232.34907593011366 leave=-1.0 type=car
+  veh=v161 len=4.5 entry=232.3310913415748 leave=-1.0 type=car
 Step 232.5
-  veh=v161 len=4.5 entry=232.34907593011366 leave=-1.0 type=car
+  veh=v161 len=4.5 entry=232.3310913415748 leave=-1.0 type=car
 Step 232.6
-  veh=v161 len=4.5 entry=232.34907593011366 leave=232.68070724382085 type=car
+  veh=v161 len=4.5 entry=232.3310913415748 leave=232.66260339116957 type=car
 Step 232.7
 Step 232.8
 Step 232.9
@@ -2843,14 +2838,15 @@ Step 234.2
 Step 234.3
 Step 234.4
 Step 234.5
+  veh=v160 len=4.5 entry=234.5743098592496 leave=-1.0 type=car
 Step 234.6
-  veh=v160 len=4.5 entry=234.62461336288214 leave=-1.0 type=car
+  veh=v160 len=4.5 entry=234.5743098592496 leave=-1.0 type=car
 Step 234.7
-  veh=v160 len=4.5 entry=234.62461336288214 leave=-1.0 type=car
+  veh=v160 len=4.5 entry=234.5743098592496 leave=-1.0 type=car
 Step 234.8
-  veh=v160 len=4.5 entry=234.62461336288214 leave=-1.0 type=car
+  veh=v160 len=4.5 entry=234.5743098592496 leave=-1.0 type=car
 Step 234.9
-  veh=v160 len=4.5 entry=234.62461336288214 leave=234.99336297285703 type=car
+  veh=v160 len=4.5 entry=234.5743098592496 leave=234.9430594692245 type=car
 Step 235.0
 Step 235.1
 Step 235.2
@@ -2869,15 +2865,15 @@ Step 236.4
 Step 236.5
 Step 236.6
 Step 236.7
-  veh=v164 len=4.5 entry=236.78137568309089 leave=-1.0 type=car
+  veh=v164 len=4.5 entry=236.75665525736528 leave=-1.0 type=car
 Step 236.8
-  veh=v164 len=4.5 entry=236.78137568309089 leave=-1.0 type=car
+  veh=v164 len=4.5 entry=236.75665525736528 leave=-1.0 type=car
 Step 236.9
-  veh=v164 len=4.5 entry=236.78137568309089 leave=-1.0 type=car
+  veh=v164 len=4.5 entry=236.75665525736528 leave=-1.0 type=car
 Step 237.0
-  veh=v164 len=4.5 entry=236.78137568309089 leave=-1.0 type=car
+  veh=v164 len=4.5 entry=236.75665525736528 leave=-1.0 type=car
 Step 237.1
-  veh=v164 len=4.5 entry=236.78137568309089 leave=237.1628105441606 type=car
+  veh=v164 len=4.5 entry=236.75665525736528 leave=237.13785770734015 type=car
 Step 237.2
 Step 237.3
 Step 237.4
@@ -2906,15 +2902,14 @@ Step 239.6
 Step 239.7
 Step 239.8
 Step 239.9
-  veh=v166 len=4.5 entry=239.9664660455269 leave=-1.0 type=car
 Step 240.0
-  veh=v166 len=4.5 entry=239.9664660455269 leave=-1.0 type=car
+  veh=v166 len=4.5 entry=240.01548905893398 leave=-1.0 type=car
 Step 240.1
-  veh=v166 len=4.5 entry=239.9664660455269 leave=-1.0 type=car
+  veh=v166 len=4.5 entry=240.01548905893398 leave=-1.0 type=car
 Step 240.2
-  veh=v166 len=4.5 entry=239.9664660455269 leave=-1.0 type=car
+  veh=v166 len=4.5 entry=240.01548905893398 leave=-1.0 type=car
 Step 240.3
-  veh=v166 len=4.5 entry=239.9664660455269 leave=240.34184450263774 type=car
+  veh=v166 len=4.5 entry=240.01548905893398 leave=240.38861072897927 type=car
 Step 240.4
 Step 240.5
 Step 240.6
@@ -2941,16 +2936,16 @@ Step 242.6
 Step 242.7
 Step 242.8
 Step 242.9
-  veh=v168 len=4.5 entry=242.9792805257579 leave=-1.0 type=car
 Step 243.0
-  veh=v168 len=4.5 entry=242.9792805257579 leave=-1.0 type=car
+  veh=v168 len=4.5 entry=243.05144942253176 leave=-1.0 type=car
 Step 243.1
-  veh=v168 len=4.5 entry=242.9792805257579 leave=-1.0 type=car
+  veh=v168 len=4.5 entry=243.05144942253176 leave=-1.0 type=car
 Step 243.2
-  veh=v168 len=4.5 entry=242.9792805257579 leave=-1.0 type=car
+  veh=v168 len=4.5 entry=243.05144942253176 leave=-1.0 type=car
 Step 243.3
-  veh=v168 len=4.5 entry=242.9792805257579 leave=243.36778267611194 type=car
+  veh=v168 len=4.5 entry=243.05144942253176 leave=-1.0 type=car
 Step 243.4
+  veh=v168 len=4.5 entry=243.05144942253176 leave=243.4379038230574 type=car
 Step 243.5
 Step 243.6
 Step 243.7
@@ -2965,16 +2960,17 @@ Step 244.5
 Step 244.6
 Step 244.7
 Step 244.8
-  veh=v170 len=4.5 entry=244.8115286050795 leave=-1.0 type=car
+  veh=v170 len=4.5 entry=244.86560872149354 leave=-1.0 type=car
 Step 244.9
-  veh=v170 len=4.5 entry=244.8115286050795 leave=-1.0 type=car
+  veh=v170 len=4.5 entry=244.86560872149354 leave=-1.0 type=car
 Step 245.0
-  veh=v170 len=4.5 entry=244.8115286050795 leave=-1.0 type=car
+  veh=v170 len=4.5 entry=244.86560872149354 leave=-1.0 type=car
 Step 245.1
-  veh=v170 len=4.5 entry=244.8115286050795 leave=-1.0 type=car
+  veh=v170 len=4.5 entry=244.86560872149354 leave=-1.0 type=car
 Step 245.2
-  veh=v170 len=4.5 entry=244.8115286050795 leave=245.26722824167484 type=car
+  veh=v170 len=4.5 entry=244.86560872149354 leave=-1.0 type=car
 Step 245.3
+  veh=v170 len=4.5 entry=244.86560872149354 leave=245.3200699451073 type=car
 Step 245.4
 Step 245.5
 Step 245.6
@@ -3023,15 +3019,15 @@ Step 249.8
 Step 249.9
 Step 250.0
 Step 250.1
-  veh=v172 len=4.5 entry=250.17766456557317 leave=-1.0 type=car
+  veh=v172 len=4.5 entry=250.15588935205847 leave=-1.0 type=car
 Step 250.2
-  veh=v172 len=4.5 entry=250.17766456557317 leave=-1.0 type=car
+  veh=v172 len=4.5 entry=250.15588935205847 leave=-1.0 type=car
 Step 250.3
-  veh=v172 len=4.5 entry=250.17766456557317 leave=-1.0 type=car
+  veh=v172 len=4.5 entry=250.15588935205847 leave=-1.0 type=car
 Step 250.4
-  veh=v172 len=4.5 entry=250.17766456557317 leave=-1.0 type=car
+  veh=v172 len=4.5 entry=250.15588935205847 leave=-1.0 type=car
 Step 250.5
-  veh=v172 len=4.5 entry=250.17766456557317 leave=250.58170490481052 type=car
+  veh=v172 len=4.5 entry=250.15588935205847 leave=250.56100464500494 type=car
 Step 250.6
 Step 250.7
 Step 250.8
@@ -3047,17 +3043,17 @@ Step 251.7
 Step 251.8
 Step 251.9
 Step 252.0
-  veh=v174 len=4.5 entry=252.0105821156373 leave=-1.0 type=car
+  veh=v174 len=4.5 entry=252.00405672963296 leave=-1.0 type=car
 Step 252.1
-  veh=v174 len=4.5 entry=252.0105821156373 leave=-1.0 type=car
+  veh=v174 len=4.5 entry=252.00405672963296 leave=-1.0 type=car
 Step 252.2
-  veh=v174 len=4.5 entry=252.0105821156373 leave=-1.0 type=car
+  veh=v174 len=4.5 entry=252.00405672963296 leave=-1.0 type=car
 Step 252.3
-  veh=v174 len=4.5 entry=252.0105821156373 leave=-1.0 type=car
+  veh=v174 len=4.5 entry=252.00405672963296 leave=-1.0 type=car
 Step 252.4
-  veh=v174 len=4.5 entry=252.0105821156373 leave=-1.0 type=car
+  veh=v174 len=4.5 entry=252.00405672963296 leave=-1.0 type=car
 Step 252.5
-  veh=v174 len=4.5 entry=252.0105821156373 leave=252.52104479307448 type=car
+  veh=v174 len=4.5 entry=252.00405672963296 leave=252.51481576742495 type=car
 Step 252.6
 Step 252.7
 Step 252.8
@@ -3074,19 +3070,19 @@ Step 253.8
 Step 253.9
 Step 254.0
 Step 254.1
-  veh=v176 len=4.5 entry=254.13428933559618 leave=-1.0 type=car
+  veh=v176 len=4.5 entry=254.12928088526075 leave=-1.0 type=car
 Step 254.2
-  veh=v176 len=4.5 entry=254.13428933559618 leave=-1.0 type=car
+  veh=v176 len=4.5 entry=254.12928088526075 leave=-1.0 type=car
 Step 254.3
-  veh=v176 len=4.5 entry=254.13428933559618 leave=-1.0 type=car
+  veh=v176 len=4.5 entry=254.12928088526075 leave=-1.0 type=car
 Step 254.4
-  veh=v176 len=4.5 entry=254.13428933559618 leave=-1.0 type=car
+  veh=v176 len=4.5 entry=254.12928088526075 leave=-1.0 type=car
 Step 254.5
-  veh=v176 len=4.5 entry=254.13428933559618 leave=-1.0 type=car
+  veh=v176 len=4.5 entry=254.12928088526075 leave=-1.0 type=car
 Step 254.6
-  veh=v176 len=4.5 entry=254.13428933559618 leave=-1.0 type=car
+  veh=v176 len=4.5 entry=254.12928088526075 leave=-1.0 type=car
 Step 254.7
-  veh=v176 len=4.5 entry=254.13428933559618 leave=254.76955490161114 type=car
+  veh=v176 len=4.5 entry=254.12928088526075 leave=254.76450841573634 type=car
 Step 254.8
 Step 254.9
 Step 255.0
@@ -3106,23 +3102,23 @@ Step 256.3
 Step 256.4
 Step 256.5
 Step 256.6
-  veh=v178 len=4.5 entry=256.6941147177802 leave=-1.0 type=car
+  veh=v178 len=4.5 entry=256.69914494420664 leave=-1.0 type=car
 Step 256.7
-  veh=v178 len=4.5 entry=256.6941147177802 leave=-1.0 type=car
+  veh=v178 len=4.5 entry=256.69914494420664 leave=-1.0 type=car
 Step 256.8
-  veh=v178 len=4.5 entry=256.6941147177802 leave=-1.0 type=car
+  veh=v178 len=4.5 entry=256.69914494420664 leave=-1.0 type=car
 Step 256.9
-  veh=v178 len=4.5 entry=256.6941147177802 leave=-1.0 type=car
+  veh=v178 len=4.5 entry=256.69914494420664 leave=-1.0 type=car
 Step 257.0
-  veh=v178 len=4.5 entry=256.6941147177802 leave=-1.0 type=car
+  veh=v178 len=4.5 entry=256.69914494420664 leave=-1.0 type=car
 Step 257.1
-  veh=v178 len=4.5 entry=256.6941147177802 leave=-1.0 type=car
+  veh=v178 len=4.5 entry=256.69914494420664 leave=-1.0 type=car
 Step 257.2
-  veh=v178 len=4.5 entry=256.6941147177802 leave=-1.0 type=car
+  veh=v178 len=4.5 entry=256.69914494420664 leave=-1.0 type=car
 Step 257.3
-  veh=v178 len=4.5 entry=256.6941147177802 leave=-1.0 type=car
+  veh=v178 len=4.5 entry=256.69914494420664 leave=-1.0 type=car
 Step 257.4
-  veh=v178 len=4.5 entry=256.6941147177802 leave=257.45852258328154 type=car
+  veh=v178 len=4.5 entry=256.69914494420664 leave=257.4623460279817 type=car
 Step 257.5
 Step 257.6
 Step 257.7
@@ -3145,25 +3141,25 @@ Step 259.3
 Step 259.4
 Step 259.5
 Step 259.6
-  veh=v180 len=4.5 entry=259.64281491820674 leave=-1.0 type=car
+  veh=v180 len=4.5 entry=259.63074706683364 leave=-1.0 type=car
 Step 259.7
-  veh=v180 len=4.5 entry=259.64281491820674 leave=-1.0 type=car
+  veh=v180 len=4.5 entry=259.63074706683364 leave=-1.0 type=car
 Step 259.8
-  veh=v180 len=4.5 entry=259.64281491820674 leave=-1.0 type=car
+  veh=v180 len=4.5 entry=259.63074706683364 leave=-1.0 type=car
 Step 259.9
-  veh=v180 len=4.5 entry=259.64281491820674 leave=-1.0 type=car
+  veh=v180 len=4.5 entry=259.63074706683364 leave=-1.0 type=car
 Step 260.0
-  veh=v180 len=4.5 entry=259.64281491820674 leave=-1.0 type=car
+  veh=v180 len=4.5 entry=259.63074706683364 leave=-1.0 type=car
 Step 260.1
-  veh=v180 len=4.5 entry=259.64281491820674 leave=-1.0 type=car
+  veh=v180 len=4.5 entry=259.63074706683364 leave=-1.0 type=car
 Step 260.2
-  veh=v180 len=4.5 entry=259.64281491820674 leave=-1.0 type=car
+  veh=v180 len=4.5 entry=259.63074706683364 leave=-1.0 type=car
 Step 260.3
-  veh=v180 len=4.5 entry=259.64281491820674 leave=-1.0 type=car
+  veh=v180 len=4.5 entry=259.63074706683364 leave=-1.0 type=car
 Step 260.4
-  veh=v180 len=4.5 entry=259.64281491820674 leave=-1.0 type=car
+  veh=v180 len=4.5 entry=259.63074706683364 leave=-1.0 type=car
 Step 260.5
-  veh=v180 len=4.5 entry=259.64281491820674 leave=260.59846677784515 type=car
+  veh=v180 len=4.5 entry=259.63074706683364 leave=260.588092475521 type=car
 Step 260.6
 Step 260.7
 Step 260.8
@@ -3192,35 +3188,35 @@ Step 262.9
 Step 263.0
 Step 263.1
 Step 263.2
-  veh=v182 len=4.5 entry=263.29578444323766 leave=-1.0 type=car
+  veh=v182 len=4.5 entry=263.28714599183485 leave=-1.0 type=car
 Step 263.3
-  veh=v182 len=4.5 entry=263.29578444323766 leave=-1.0 type=car
+  veh=v182 len=4.5 entry=263.28714599183485 leave=-1.0 type=car
 Step 263.4
-  veh=v182 len=4.5 entry=263.29578444323766 leave=-1.0 type=car
+  veh=v182 len=4.5 entry=263.28714599183485 leave=-1.0 type=car
 Step 263.5
-  veh=v182 len=4.5 entry=263.29578444323766 leave=-1.0 type=car
+  veh=v182 len=4.5 entry=263.28714599183485 leave=-1.0 type=car
 Step 263.6
-  veh=v182 len=4.5 entry=263.29578444323766 leave=-1.0 type=car
+  veh=v182 len=4.5 entry=263.28714599183485 leave=-1.0 type=car
 Step 263.7
-  veh=v182 len=4.5 entry=263.29578444323766 leave=-1.0 type=car
+  veh=v182 len=4.5 entry=263.28714599183485 leave=-1.0 type=car
 Step 263.8
-  veh=v182 len=4.5 entry=263.29578444323766 leave=-1.0 type=car
+  veh=v182 len=4.5 entry=263.28714599183485 leave=-1.0 type=car
 Step 263.9
-  veh=v182 len=4.5 entry=263.29578444323766 leave=-1.0 type=car
+  veh=v182 len=4.5 entry=263.28714599183485 leave=-1.0 type=car
 Step 264.0
-  veh=v182 len=4.5 entry=263.29578444323766 leave=-1.0 type=car
+  veh=v182 len=4.5 entry=263.28714599183485 leave=-1.0 type=car
 Step 264.1
-  veh=v182 len=4.5 entry=263.29578444323766 leave=-1.0 type=car
+  veh=v182 len=4.5 entry=263.28714599183485 leave=-1.0 type=car
 Step 264.2
-  veh=v182 len=4.5 entry=263.29578444323766 leave=-1.0 type=car
+  veh=v182 len=4.5 entry=263.28714599183485 leave=-1.0 type=car
 Step 264.3
-  veh=v182 len=4.5 entry=263.29578444323766 leave=-1.0 type=car
+  veh=v182 len=4.5 entry=263.28714599183485 leave=-1.0 type=car
 Step 264.4
-  veh=v182 len=4.5 entry=263.29578444323766 leave=-1.0 type=car
+  veh=v182 len=4.5 entry=263.28714599183485 leave=-1.0 type=car
 Step 264.5
-  veh=v182 len=4.5 entry=263.29578444323766 leave=-1.0 type=car
+  veh=v182 len=4.5 entry=263.28714599183485 leave=-1.0 type=car
 Step 264.6
-  veh=v182 len=4.5 entry=263.29578444323766 leave=264.6994811373925 type=car
+  veh=v182 len=4.5 entry=263.28714599183485 leave=264.6913573022034 type=car
 Step 264.7
 Step 264.8
 Step 264.9
@@ -3263,357 +3259,357 @@ Step 268.4
 Step 268.5
 Step 268.6
 Step 268.7
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 268.8
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 268.9
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 269.0
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 269.1
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 269.2
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 269.3
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 269.4
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 269.5
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 269.6
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 269.7
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 269.8
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 269.9
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 270.0
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 270.1
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 270.2
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 270.3
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 270.4
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 270.5
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 270.6
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 270.7
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 270.8
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 270.9
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 271.0
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 271.1
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 271.2
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 271.3
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 271.4
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 271.5
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 271.6
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 271.7
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 271.8
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 271.9
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 272.0
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 272.1
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 272.2
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 272.3
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 272.4
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 272.5
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 272.6
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 272.7
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 272.8
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 272.9
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 273.0
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 273.1
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 273.2
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 273.3
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 273.4
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 273.5
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 273.6
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 273.7
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 273.8
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 273.9
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 274.0
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 274.1
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 274.2
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 274.3
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 274.4
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 274.5
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 274.6
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 274.7
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 274.8
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 274.9
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 275.0
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 275.1
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 275.2
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 275.3
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 275.4
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 275.5
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 275.6
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 275.7
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 275.8
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 275.9
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 276.0
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 276.1
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 276.2
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 276.3
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 276.4
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 276.5
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 276.6
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 276.7
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 276.8
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 276.9
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 277.0
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 277.1
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 277.2
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 277.3
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 277.4
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 277.5
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 277.6
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 277.7
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 277.8
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 277.9
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 278.0
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 278.1
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 278.2
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 278.3
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 278.4
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 278.5
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 278.6
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 278.7
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 278.8
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 278.9
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 279.0
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 279.1
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 279.2
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 279.3
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 279.4
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 279.5
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 279.6
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 279.7
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 279.8
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 279.9
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 280.0
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 280.1
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 280.2
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 280.3
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 280.4
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 280.5
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 280.6
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 280.7
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 280.8
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 280.9
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 281.0
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 281.1
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 281.2
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 281.3
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 281.4
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 281.5
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 281.6
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 281.7
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 281.8
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 281.9
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 282.0
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 282.1
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 282.2
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 282.3
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 282.4
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 282.5
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 282.6
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 282.7
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 282.8
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 282.9
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 283.0
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 283.1
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 283.2
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 283.3
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 283.4
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 283.5
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 283.6
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 283.7
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 283.8
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 283.9
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 284.0
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 284.1
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 284.2
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 284.3
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 284.4
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 284.5
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 284.6
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 284.7
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 284.8
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 284.9
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 285.0
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 285.1
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 285.2
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 285.3
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 285.4
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 285.5
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 285.6
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 285.7
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 285.8
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 285.9
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 286.0
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 286.1
-  veh=v186 len=4.5 entry=268.7832686297891 leave=-1.0 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=-1.0 type=car
 Step 286.2
-  veh=v186 len=4.5 entry=268.7832686297891 leave=286.29556088955377 type=car
+  veh=v186 len=4.5 entry=268.786757666005 leave=286.29556089701117 type=car
 Step 286.3
 Step 286.4
 Step 286.5
@@ -3631,43 +3627,43 @@ Step 287.6
 Step 287.7
 Step 287.8
 Step 287.9
-  veh=v185 len=4.5 entry=287.945076129557 leave=-1.0 type=car
+  veh=v185 len=4.5 entry=287.9450761334466 leave=-1.0 type=car
 Step 288.0
-  veh=v185 len=4.5 entry=287.945076129557 leave=-1.0 type=car
+  veh=v185 len=4.5 entry=287.9450761334466 leave=-1.0 type=car
 Step 288.1
-  veh=v185 len=4.5 entry=287.945076129557 leave=-1.0 type=car
+  veh=v185 len=4.5 entry=287.9450761334466 leave=-1.0 type=car
 Step 288.2
-  veh=v185 len=4.5 entry=287.945076129557 leave=-1.0 type=car
+  veh=v185 len=4.5 entry=287.9450761334466 leave=-1.0 type=car
 Step 288.3
-  veh=v185 len=4.5 entry=287.945076129557 leave=-1.0 type=car
+  veh=v185 len=4.5 entry=287.9450761334466 leave=-1.0 type=car
 Step 288.4
-  veh=v185 len=4.5 entry=287.945076129557 leave=-1.0 type=car
+  veh=v185 len=4.5 entry=287.9450761334466 leave=-1.0 type=car
 Step 288.5
-  veh=v185 len=4.5 entry=287.945076129557 leave=-1.0 type=car
+  veh=v185 len=4.5 entry=287.9450761334466 leave=-1.0 type=car
 Step 288.6
-  veh=v185 len=4.5 entry=287.945076129557 leave=-1.0 type=car
+  veh=v185 len=4.5 entry=287.9450761334466 leave=-1.0 type=car
 Step 288.7
-  veh=v185 len=4.5 entry=287.945076129557 leave=-1.0 type=car
+  veh=v185 len=4.5 entry=287.9450761334466 leave=-1.0 type=car
 Step 288.8
-  veh=v185 len=4.5 entry=287.945076129557 leave=-1.0 type=car
+  veh=v185 len=4.5 entry=287.9450761334466 leave=-1.0 type=car
 Step 288.9
-  veh=v185 len=4.5 entry=287.945076129557 leave=-1.0 type=car
+  veh=v185 len=4.5 entry=287.9450761334466 leave=-1.0 type=car
 Step 289.0
-  veh=v185 len=4.5 entry=287.945076129557 leave=-1.0 type=car
+  veh=v185 len=4.5 entry=287.9450761334466 leave=-1.0 type=car
 Step 289.1
-  veh=v185 len=4.5 entry=287.945076129557 leave=-1.0 type=car
+  veh=v185 len=4.5 entry=287.9450761334466 leave=-1.0 type=car
 Step 289.2
-  veh=v185 len=4.5 entry=287.945076129557 leave=-1.0 type=car
+  veh=v185 len=4.5 entry=287.9450761334466 leave=-1.0 type=car
 Step 289.3
-  veh=v185 len=4.5 entry=287.945076129557 leave=-1.0 type=car
+  veh=v185 len=4.5 entry=287.9450761334466 leave=-1.0 type=car
 Step 289.4
-  veh=v185 len=4.5 entry=287.945076129557 leave=-1.0 type=car
+  veh=v185 len=4.5 entry=287.9450761334466 leave=-1.0 type=car
 Step 289.5
-  veh=v185 len=4.5 entry=287.945076129557 leave=-1.0 type=car
+  veh=v185 len=4.5 entry=287.9450761334466 leave=-1.0 type=car
 Step 289.6
-  veh=v185 len=4.5 entry=287.945076129557 leave=-1.0 type=car
+  veh=v185 len=4.5 entry=287.9450761334466 leave=-1.0 type=car
 Step 289.7
-  veh=v185 len=4.5 entry=287.945076129557 leave=289.7160009090954 type=car
+  veh=v185 len=4.5 entry=287.9450761334466 leave=289.71600091141806 type=car
 Step 289.8
 Step 289.9
 Step 290.0
@@ -3680,31 +3676,31 @@ Step 290.6
 Step 290.7
 Step 290.8
 Step 290.9
-  veh=v188 len=4.5 entry=290.9397017677991 leave=-1.0 type=car
+  veh=v188 len=4.5 entry=290.93970176927826 leave=-1.0 type=car
 Step 291.0
-  veh=v188 len=4.5 entry=290.9397017677991 leave=-1.0 type=car
+  veh=v188 len=4.5 entry=290.93970176927826 leave=-1.0 type=car
 Step 291.1
-  veh=v188 len=4.5 entry=290.9397017677991 leave=-1.0 type=car
+  veh=v188 len=4.5 entry=290.93970176927826 leave=-1.0 type=car
 Step 291.2
-  veh=v188 len=4.5 entry=290.9397017677991 leave=-1.0 type=car
+  veh=v188 len=4.5 entry=290.93970176927826 leave=-1.0 type=car
 Step 291.3
-  veh=v188 len=4.5 entry=290.9397017677991 leave=-1.0 type=car
+  veh=v188 len=4.5 entry=290.93970176927826 leave=-1.0 type=car
 Step 291.4
-  veh=v188 len=4.5 entry=290.9397017677991 leave=-1.0 type=car
+  veh=v188 len=4.5 entry=290.93970176927826 leave=-1.0 type=car
 Step 291.5
-  veh=v188 len=4.5 entry=290.9397017677991 leave=-1.0 type=car
+  veh=v188 len=4.5 entry=290.93970176927826 leave=-1.0 type=car
 Step 291.6
-  veh=v188 len=4.5 entry=290.9397017677991 leave=-1.0 type=car
+  veh=v188 len=4.5 entry=290.93970176927826 leave=-1.0 type=car
 Step 291.7
-  veh=v188 len=4.5 entry=290.9397017677991 leave=-1.0 type=car
+  veh=v188 len=4.5 entry=290.93970176927826 leave=-1.0 type=car
 Step 291.8
-  veh=v188 len=4.5 entry=290.9397017677991 leave=-1.0 type=car
+  veh=v188 len=4.5 entry=290.93970176927826 leave=-1.0 type=car
 Step 291.9
-  veh=v188 len=4.5 entry=290.9397017677991 leave=-1.0 type=car
+  veh=v188 len=4.5 entry=290.93970176927826 leave=-1.0 type=car
 Step 292.0
-  veh=v188 len=4.5 entry=290.9397017677991 leave=-1.0 type=car
+  veh=v188 len=4.5 entry=290.93970176927826 leave=-1.0 type=car
 Step 292.1
-  veh=v188 len=4.5 entry=290.9397017677991 leave=292.1173571576935 type=car
+  veh=v188 len=4.5 entry=290.93970176927826 leave=292.11735715894827 type=car
 Step 292.2
 Step 292.3
 Step 292.4
@@ -3716,27 +3712,27 @@ Step 292.9
 Step 293.0
 Step 293.1
 Step 293.2
-  veh=v190 len=4.5 entry=293.25529307284233 leave=-1.0 type=car
+  veh=v190 len=4.5 entry=293.2552930754741 leave=-1.0 type=car
 Step 293.3
-  veh=v190 len=4.5 entry=293.25529307284233 leave=-1.0 type=car
+  veh=v190 len=4.5 entry=293.2552930754741 leave=-1.0 type=car
 Step 293.4
-  veh=v190 len=4.5 entry=293.25529307284233 leave=-1.0 type=car
+  veh=v190 len=4.5 entry=293.2552930754741 leave=-1.0 type=car
 Step 293.5
-  veh=v190 len=4.5 entry=293.25529307284233 leave=-1.0 type=car
+  veh=v190 len=4.5 entry=293.2552930754741 leave=-1.0 type=car
 Step 293.6
-  veh=v190 len=4.5 entry=293.25529307284233 leave=-1.0 type=car
+  veh=v190 len=4.5 entry=293.2552930754741 leave=-1.0 type=car
 Step 293.7
-  veh=v190 len=4.5 entry=293.25529307284233 leave=-1.0 type=car
+  veh=v190 len=4.5 entry=293.2552930754741 leave=-1.0 type=car
 Step 293.8
-  veh=v190 len=4.5 entry=293.25529307284233 leave=-1.0 type=car
+  veh=v190 len=4.5 entry=293.2552930754741 leave=-1.0 type=car
 Step 293.9
-  veh=v190 len=4.5 entry=293.25529307284233 leave=-1.0 type=car
+  veh=v190 len=4.5 entry=293.2552930754741 leave=-1.0 type=car
 Step 294.0
-  veh=v190 len=4.5 entry=293.25529307284233 leave=-1.0 type=car
+  veh=v190 len=4.5 entry=293.2552930754741 leave=-1.0 type=car
 Step 294.1
-  veh=v190 len=4.5 entry=293.25529307284233 leave=-1.0 type=car
+  veh=v190 len=4.5 entry=293.2552930754741 leave=-1.0 type=car
 Step 294.2
-  veh=v190 len=4.5 entry=293.25529307284233 leave=294.2158432847059 type=car
+  veh=v190 len=4.5 entry=293.2552930754741 leave=294.2158432865621 type=car
 Step 294.3
 Step 294.4
 Step 294.5
@@ -3748,23 +3744,23 @@ Step 295.0
 Step 295.1
 Step 295.2
 Step 295.3
-  veh=v192 len=4.5 entry=295.31639690443643 leave=-1.0 type=car
+  veh=v192 len=4.5 entry=295.31639691519706 leave=-1.0 type=car
 Step 295.4
-  veh=v192 len=4.5 entry=295.31639690443643 leave=-1.0 type=car
+  veh=v192 len=4.5 entry=295.31639691519706 leave=-1.0 type=car
 Step 295.5
-  veh=v192 len=4.5 entry=295.31639690443643 leave=-1.0 type=car
+  veh=v192 len=4.5 entry=295.31639691519706 leave=-1.0 type=car
 Step 295.6
-  veh=v192 len=4.5 entry=295.31639690443643 leave=-1.0 type=car
+  veh=v192 len=4.5 entry=295.31639691519706 leave=-1.0 type=car
 Step 295.7
-  veh=v192 len=4.5 entry=295.31639690443643 leave=-1.0 type=car
+  veh=v192 len=4.5 entry=295.31639691519706 leave=-1.0 type=car
 Step 295.8
-  veh=v192 len=4.5 entry=295.31639690443643 leave=-1.0 type=car
+  veh=v192 len=4.5 entry=295.31639691519706 leave=-1.0 type=car
 Step 295.9
-  veh=v192 len=4.5 entry=295.31639690443643 leave=-1.0 type=car
+  veh=v192 len=4.5 entry=295.31639691519706 leave=-1.0 type=car
 Step 296.0
-  veh=v192 len=4.5 entry=295.31639690443643 leave=-1.0 type=car
+  veh=v192 len=4.5 entry=295.31639691519706 leave=-1.0 type=car
 Step 296.1
-  veh=v192 len=4.5 entry=295.31639690443643 leave=296.15613859182514 type=car
+  veh=v192 len=4.5 entry=295.31639691519706 leave=296.15613859926805 type=car
 Step 296.2
 Step 296.3
 Step 296.4
@@ -3776,21 +3772,21 @@ Step 296.9
 Step 297.0
 Step 297.1
 Step 297.2
-  veh=v194 len=4.5 entry=297.2340090638404 leave=-1.0 type=car
+  veh=v194 len=4.5 entry=297.2340091019996 leave=-1.0 type=car
 Step 297.3
-  veh=v194 len=4.5 entry=297.2340090638404 leave=-1.0 type=car
+  veh=v194 len=4.5 entry=297.2340091019996 leave=-1.0 type=car
 Step 297.4
-  veh=v194 len=4.5 entry=297.2340090638404 leave=-1.0 type=car
+  veh=v194 len=4.5 entry=297.2340091019996 leave=-1.0 type=car
 Step 297.5
-  veh=v194 len=4.5 entry=297.2340090638404 leave=-1.0 type=car
+  veh=v194 len=4.5 entry=297.2340091019996 leave=-1.0 type=car
 Step 297.6
-  veh=v194 len=4.5 entry=297.2340090638404 leave=-1.0 type=car
+  veh=v194 len=4.5 entry=297.2340091019996 leave=-1.0 type=car
 Step 297.7
-  veh=v194 len=4.5 entry=297.2340090638404 leave=-1.0 type=car
+  veh=v194 len=4.5 entry=297.2340091019996 leave=-1.0 type=car
 Step 297.8
-  veh=v194 len=4.5 entry=297.2340090638404 leave=-1.0 type=car
+  veh=v194 len=4.5 entry=297.2340091019996 leave=-1.0 type=car
 Step 297.9
-  veh=v194 len=4.5 entry=297.2340090638404 leave=297.99296510494986 type=car
+  veh=v194 len=4.5 entry=297.2340091019996 leave=297.9929651328623 type=car
 Step 298.0
 Step 298.1
 Step 298.2
@@ -3802,21 +3798,21 @@ Step 298.7
 Step 298.8
 Step 298.9
 Step 299.0
-  veh=v196 len=4.5 entry=299.06001990704914 leave=-1.0 type=car
+  veh=v196 len=4.5 entry=299.06002002646255 leave=-1.0 type=car
 Step 299.1
-  veh=v196 len=4.5 entry=299.06001990704914 leave=-1.0 type=car
+  veh=v196 len=4.5 entry=299.06002002646255 leave=-1.0 type=car
 Step 299.2
-  veh=v196 len=4.5 entry=299.06001990704914 leave=-1.0 type=car
+  veh=v196 len=4.5 entry=299.06002002646255 leave=-1.0 type=car
 Step 299.3
-  veh=v196 len=4.5 entry=299.06001990704914 leave=-1.0 type=car
+  veh=v196 len=4.5 entry=299.06002002646255 leave=-1.0 type=car
 Step 299.4
-  veh=v196 len=4.5 entry=299.06001990704914 leave=-1.0 type=car
+  veh=v196 len=4.5 entry=299.06002002646255 leave=-1.0 type=car
 Step 299.5
-  veh=v196 len=4.5 entry=299.06001990704914 leave=-1.0 type=car
+  veh=v196 len=4.5 entry=299.06002002646255 leave=-1.0 type=car
 Step 299.6
-  veh=v196 len=4.5 entry=299.06001990704914 leave=-1.0 type=car
+  veh=v196 len=4.5 entry=299.06002002646255 leave=-1.0 type=car
 Step 299.7
-  veh=v196 len=4.5 entry=299.06001990704914 leave=299.7644469655793 type=car
+  veh=v196 len=4.5 entry=299.06002002646255 leave=299.7644470562971 type=car
 Step 299.8
 Step 299.9
 Step 300.0
@@ -3828,19 +3824,19 @@ Step 300.5
 Step 300.6
 Step 300.7
 Step 300.8
-  veh=v198 len=4.5 entry=300.8267553090552 leave=-1.0 type=car
+  veh=v198 len=4.5 entry=300.82675564298205 leave=-1.0 type=car
 Step 300.9
-  veh=v198 len=4.5 entry=300.8267553090552 leave=-1.0 type=car
+  veh=v198 len=4.5 entry=300.82675564298205 leave=-1.0 type=car
 Step 301.0
-  veh=v198 len=4.5 entry=300.8267553090552 leave=-1.0 type=car
+  veh=v198 len=4.5 entry=300.82675564298205 leave=-1.0 type=car
 Step 301.1
-  veh=v198 len=4.5 entry=300.8267553090552 leave=-1.0 type=car
+  veh=v198 len=4.5 entry=300.82675564298205 leave=-1.0 type=car
 Step 301.2
-  veh=v198 len=4.5 entry=300.8267553090552 leave=-1.0 type=car
+  veh=v198 len=4.5 entry=300.82675564298205 leave=-1.0 type=car
 Step 301.3
-  veh=v198 len=4.5 entry=300.8267553090552 leave=-1.0 type=car
+  veh=v198 len=4.5 entry=300.82675564298205 leave=-1.0 type=car
 Step 301.4
-  veh=v198 len=4.5 entry=300.8267553090552 leave=301.49121314409814 type=car
+  veh=v198 len=4.5 entry=300.82675564298205 leave=301.49121340728345 type=car
 Step 301.5
 Step 301.6
 Step 301.7
@@ -3852,19 +3848,19 @@ Step 302.2
 Step 302.3
 Step 302.4
 Step 302.5
-  veh=v200 len=4.5 entry=302.55162692412824 leave=-1.0 type=car
+  veh=v200 len=4.5 entry=302.5516281112127 leave=-1.0 type=car
 Step 302.6
-  veh=v200 len=4.5 entry=302.55162692412824 leave=-1.0 type=car
+  veh=v200 len=4.5 entry=302.5516281112127 leave=-1.0 type=car
 Step 302.7
-  veh=v200 len=4.5 entry=302.55162692412824 leave=-1.0 type=car
+  veh=v200 len=4.5 entry=302.5516281112127 leave=-1.0 type=car
 Step 302.8
-  veh=v200 len=4.5 entry=302.55162692412824 leave=-1.0 type=car
+  veh=v200 len=4.5 entry=302.5516281112127 leave=-1.0 type=car
 Step 302.9
-  veh=v200 len=4.5 entry=302.55162692412824 leave=-1.0 type=car
+  veh=v200 len=4.5 entry=302.5516281112127 leave=-1.0 type=car
 Step 303.0
-  veh=v200 len=4.5 entry=302.55162692412824 leave=-1.0 type=car
+  veh=v200 len=4.5 entry=302.5516281112127 leave=-1.0 type=car
 Step 303.1
-  veh=v200 len=4.5 entry=302.55162692412824 leave=303.1853020368307 type=car
+  veh=v200 len=4.5 entry=302.5516281112127 leave=303.18530298883616 type=car
 Step 303.2
 Step 303.3
 Step 303.4
@@ -3876,19 +3872,19 @@ Step 303.9
 Step 304.0
 Step 304.1
 Step 304.2
-  veh=v202 len=4.5 entry=304.24558072600297 leave=-1.0 type=car
+  veh=v202 len=4.5 entry=304.2455845028545 leave=-1.0 type=car
 Step 304.3
-  veh=v202 len=4.5 entry=304.24558072600297 leave=-1.0 type=car
+  veh=v202 len=4.5 entry=304.2455845028545 leave=-1.0 type=car
 Step 304.4
-  veh=v202 len=4.5 entry=304.24558072600297 leave=-1.0 type=car
+  veh=v202 len=4.5 entry=304.2455845028545 leave=-1.0 type=car
 Step 304.5
-  veh=v202 len=4.5 entry=304.24558072600297 leave=-1.0 type=car
+  veh=v202 len=4.5 entry=304.2455845028545 leave=-1.0 type=car
 Step 304.6
-  veh=v202 len=4.5 entry=304.24558072600297 leave=-1.0 type=car
+  veh=v202 len=4.5 entry=304.2455845028545 leave=-1.0 type=car
 Step 304.7
-  veh=v202 len=4.5 entry=304.24558072600297 leave=-1.0 type=car
+  veh=v202 len=4.5 entry=304.2455845028545 leave=-1.0 type=car
 Step 304.8
-  veh=v202 len=4.5 entry=304.24558072600297 leave=304.8546777680667 type=car
+  veh=v202 len=4.5 entry=304.2455845028545 leave=304.8546808487909 type=car
 Step 304.9
 Step 305.0
 Step 305.1
@@ -3900,19 +3896,19 @@ Step 305.6
 Step 305.7
 Step 305.8
 Step 305.9
-  veh=v204 len=4.5 entry=305.91542188189106 leave=-1.0 type=car
+  veh=v204 len=4.5 entry=305.91543259863903 leave=-1.0 type=car
 Step 306.0
-  veh=v204 len=4.5 entry=305.91542188189106 leave=-1.0 type=car
+  veh=v204 len=4.5 entry=305.91543259863903 leave=-1.0 type=car
 Step 306.1
-  veh=v204 len=4.5 entry=305.91542188189106 leave=-1.0 type=car
+  veh=v204 len=4.5 entry=305.91543259863903 leave=-1.0 type=car
 Step 306.2
-  veh=v204 len=4.5 entry=305.91542188189106 leave=-1.0 type=car
+  veh=v204 len=4.5 entry=305.91543259863903 leave=-1.0 type=car
 Step 306.3
-  veh=v204 len=4.5 entry=305.91542188189106 leave=-1.0 type=car
+  veh=v204 len=4.5 entry=305.91543259863903 leave=-1.0 type=car
 Step 306.4
-  veh=v204 len=4.5 entry=305.91542188189106 leave=-1.0 type=car
+  veh=v204 len=4.5 entry=305.91543259863903 leave=-1.0 type=car
 Step 306.5
-  veh=v204 len=4.5 entry=305.91542188189106 leave=306.50236585657603 type=car
+  veh=v204 len=4.5 entry=305.91543259863903 leave=306.5023747096372 type=car
 Step 306.6
 Step 306.7
 Step 306.8
@@ -3923,19 +3919,19 @@ Step 307.2
 Step 307.3
 Step 307.4
 Step 307.5
-  veh=v206 len=4.5 entry=307.5607866638033 leave=-1.0 type=car
+  veh=v206 len=4.5 entry=307.5608214781774 leave=-1.0 type=car
 Step 307.6
-  veh=v206 len=4.5 entry=307.5607866638033 leave=-1.0 type=car
+  veh=v206 len=4.5 entry=307.5608214781774 leave=-1.0 type=car
 Step 307.7
-  veh=v206 len=4.5 entry=307.5607866638033 leave=-1.0 type=car
+  veh=v206 len=4.5 entry=307.5608214781774 leave=-1.0 type=car
 Step 307.8
-  veh=v206 len=4.5 entry=307.5607866638033 leave=-1.0 type=car
+  veh=v206 len=4.5 entry=307.5608214781774 leave=-1.0 type=car
 Step 307.9
-  veh=v206 len=4.5 entry=307.5607866638033 leave=-1.0 type=car
+  veh=v206 len=4.5 entry=307.5608214781774 leave=-1.0 type=car
 Step 308.0
-  veh=v206 len=4.5 entry=307.5607866638033 leave=-1.0 type=car
+  veh=v206 len=4.5 entry=307.5608214781774 leave=-1.0 type=car
 Step 308.1
-  veh=v206 len=4.5 entry=307.5607866638033 leave=308.1292889072024 type=car
+  veh=v206 len=4.5 entry=307.5608214781774 leave=308.1293180201244 type=car
 Step 308.2
 Step 308.3
 Step 308.4
@@ -3946,19 +3942,19 @@ Step 308.8
 Step 308.9
 Step 309.0
 Step 309.1
-  veh=v208 len=4.5 entry=309.1888887349402 leave=-1.0 type=car
+  veh=v208 len=4.5 entry=309.18900783765434 leave=-1.0 type=car
 Step 309.2
-  veh=v208 len=4.5 entry=309.1888887349402 leave=-1.0 type=car
+  veh=v208 len=4.5 entry=309.18900783765434 leave=-1.0 type=car
 Step 309.3
-  veh=v208 len=4.5 entry=309.1888887349402 leave=-1.0 type=car
+  veh=v208 len=4.5 entry=309.18900783765434 leave=-1.0 type=car
 Step 309.4
-  veh=v208 len=4.5 entry=309.1888887349402 leave=-1.0 type=car
+  veh=v208 len=4.5 entry=309.18900783765434 leave=-1.0 type=car
 Step 309.5
-  veh=v208 len=4.5 entry=309.1888887349402 leave=-1.0 type=car
+  veh=v208 len=4.5 entry=309.18900783765434 leave=-1.0 type=car
 Step 309.6
-  veh=v208 len=4.5 entry=309.1888887349402 leave=-1.0 type=car
+  veh=v208 len=4.5 entry=309.18900783765434 leave=-1.0 type=car
 Step 309.7
-  veh=v208 len=4.5 entry=309.1888887349402 leave=309.74194742199154 type=car
+  veh=v208 len=4.5 entry=309.18900783765434 leave=309.74204784466417 type=car
 Step 309.8
 Step 309.9
 Step 310.0
@@ -3970,17 +3966,17 @@ Step 310.5
 Step 310.6
 Step 310.7
 Step 310.8
-  veh=v210 len=4.5 entry=310.8035096216512 leave=-1.0 type=car
+  veh=v210 len=4.5 entry=310.8037721388838 leave=-1.0 type=car
 Step 310.9
-  veh=v210 len=4.5 entry=310.8035096216512 leave=-1.0 type=car
+  veh=v210 len=4.5 entry=310.8037721388838 leave=-1.0 type=car
 Step 311.0
-  veh=v210 len=4.5 entry=310.8035096216512 leave=-1.0 type=car
+  veh=v210 len=4.5 entry=310.8037721388838 leave=-1.0 type=car
 Step 311.1
-  veh=v210 len=4.5 entry=310.8035096216512 leave=-1.0 type=car
+  veh=v210 len=4.5 entry=310.8037721388838 leave=-1.0 type=car
 Step 311.2
-  veh=v210 len=4.5 entry=310.8035096216512 leave=-1.0 type=car
+  veh=v210 len=4.5 entry=310.8037721388838 leave=-1.0 type=car
 Step 311.3
-  veh=v210 len=4.5 entry=310.8035096216512 leave=311.34330276225535 type=car
+  veh=v210 len=4.5 entry=310.8037721388838 leave=311.34352761698324 type=car
 Step 311.4
 Step 311.5
 Step 311.6
@@ -3992,17 +3988,17 @@ Step 312.1
 Step 312.2
 Step 312.3
 Step 312.4
-  veh=v212 len=4.5 entry=312.40808620444386 leave=-1.0 type=car
+  veh=v212 len=4.5 entry=312.40860126855824 leave=-1.0 type=car
 Step 312.5
-  veh=v212 len=4.5 entry=312.40808620444386 leave=-1.0 type=car
+  veh=v212 len=4.5 entry=312.40860126855824 leave=-1.0 type=car
 Step 312.6
-  veh=v212 len=4.5 entry=312.40808620444386 leave=-1.0 type=car
+  veh=v212 len=4.5 entry=312.40860126855824 leave=-1.0 type=car
 Step 312.7
-  veh=v212 len=4.5 entry=312.40808620444386 leave=-1.0 type=car
+  veh=v212 len=4.5 entry=312.40860126855824 leave=-1.0 type=car
 Step 312.8
-  veh=v212 len=4.5 entry=312.40808620444386 leave=-1.0 type=car
+  veh=v212 len=4.5 entry=312.40860126855824 leave=-1.0 type=car
 Step 312.9
-  veh=v212 len=4.5 entry=312.40808620444386 leave=312.93564990919316 type=car
+  veh=v212 len=4.5 entry=312.40860126855824 leave=312.9360945042499 type=car
 Step 313.0
 Step 313.1
 Step 313.2
@@ -4014,17 +4010,17 @@ Step 313.7
 Step 313.8
 Step 313.9
 Step 314.0
-  veh=v214 len=4.5 entry=314.0082042197291 leave=-1.0 type=car
+  veh=v214 len=4.5 entry=314.00930879128805 leave=-1.0 type=car
 Step 314.1
-  veh=v214 len=4.5 entry=314.0082042197291 leave=-1.0 type=car
+  veh=v214 len=4.5 entry=314.00930879128805 leave=-1.0 type=car
 Step 314.2
-  veh=v214 len=4.5 entry=314.0082042197291 leave=-1.0 type=car
+  veh=v214 len=4.5 entry=314.00930879128805 leave=-1.0 type=car
 Step 314.3
-  veh=v214 len=4.5 entry=314.0082042197291 leave=-1.0 type=car
+  veh=v214 len=4.5 entry=314.00930879128805 leave=-1.0 type=car
 Step 314.4
-  veh=v214 len=4.5 entry=314.0082042197291 leave=-1.0 type=car
+  veh=v214 len=4.5 entry=314.00930879128805 leave=-1.0 type=car
 Step 314.5
-  veh=v214 len=4.5 entry=314.0082042197291 leave=314.52082957539545 type=car
+  veh=v214 len=4.5 entry=314.00930879128805 leave=314.5217888294222 type=car
 Step 314.6
 Step 314.7
 Step 314.8
@@ -4036,17 +4032,17 @@ Step 315.2
 Step 315.3
 Step 315.4
 Step 315.5
-  veh=v216 len=4.5 entry=315.59263816632716 leave=-1.0 type=car
+  veh=v216 len=4.5 entry=315.59423583112886 leave=-1.0 type=car
 Step 315.6
-  veh=v216 len=4.5 entry=315.59263816632716 leave=-1.0 type=car
+  veh=v216 len=4.5 entry=315.59423583112886 leave=-1.0 type=car
 Step 315.7
-  veh=v216 len=4.5 entry=315.59263816632716 leave=-1.0 type=car
+  veh=v216 len=4.5 entry=315.59423583112886 leave=-1.0 type=car
 Step 315.8
-  veh=v216 len=4.5 entry=315.59263816632716 leave=-1.0 type=car
+  veh=v216 len=4.5 entry=315.59423583112886 leave=-1.0 type=car
 Step 315.9
-  veh=v216 len=4.5 entry=315.59263816632716 leave=-1.0 type=car
+  veh=v216 len=4.5 entry=315.59423583112886 leave=-1.0 type=car
 Step 316.0
-  veh=v216 len=4.5 entry=315.59263816632716 leave=316.09266761234426 type=car
+  veh=v216 len=4.5 entry=315.59423583112886 leave=316.0940755526095 type=car
 Step 316.1
 Step 316.2
 Step 316.3
@@ -4058,17 +4054,17 @@ Step 316.8
 Step 316.9
 Step 317.0
 Step 317.1
-  veh=v218 len=4.5 entry=317.1795449916617 leave=-1.0 type=car
+  veh=v218 len=4.5 entry=317.1815994572694 leave=-1.0 type=car
 Step 317.2
-  veh=v218 len=4.5 entry=317.1795449916617 leave=-1.0 type=car
+  veh=v218 len=4.5 entry=317.1815994572694 leave=-1.0 type=car
 Step 317.3
-  veh=v218 len=4.5 entry=317.1795449916617 leave=-1.0 type=car
+  veh=v218 len=4.5 entry=317.1815994572694 leave=-1.0 type=car
 Step 317.4
-  veh=v218 len=4.5 entry=317.1795449916617 leave=-1.0 type=car
+  veh=v218 len=4.5 entry=317.1815994572694 leave=-1.0 type=car
 Step 317.5
-  veh=v218 len=4.5 entry=317.1795449916617 leave=-1.0 type=car
+  veh=v218 len=4.5 entry=317.1815994572694 leave=-1.0 type=car
 Step 317.6
-  veh=v218 len=4.5 entry=317.1795449916617 leave=317.68591216652413 type=car
+  veh=v218 len=4.5 entry=317.1815994572694 leave=317.6877625025529 type=car
 Step 317.7
 Step 317.8
 Step 317.9
@@ -4082,17 +4078,17 @@ Step 318.5
 Step 318.6
 Step 318.7
 Step 318.8
-  veh=v220 len=4.5 entry=318.81955583579304 leave=-1.0 type=car
+  veh=v220 len=4.5 entry=318.8216884825213 leave=-1.0 type=car
 Step 318.9
-  veh=v220 len=4.5 entry=318.81955583579304 leave=-1.0 type=car
+  veh=v220 len=4.5 entry=318.8216884825213 leave=-1.0 type=car
 Step 319.0
-  veh=v220 len=4.5 entry=318.81955583579304 leave=-1.0 type=car
+  veh=v220 len=4.5 entry=318.8216884825213 leave=-1.0 type=car
 Step 319.1
-  veh=v220 len=4.5 entry=318.81955583579304 leave=-1.0 type=car
+  veh=v220 len=4.5 entry=318.8216884825213 leave=-1.0 type=car
 Step 319.2
-  veh=v220 len=4.5 entry=318.81955583579304 leave=-1.0 type=car
+  veh=v220 len=4.5 entry=318.8216884825213 leave=-1.0 type=car
 Step 319.3
-  veh=v220 len=4.5 entry=318.81955583579304 leave=319.336977169767 type=car
+  veh=v220 len=4.5 entry=318.8216884825213 leave=319.3389175813779 type=car
 Step 319.4
 Step 319.5
 Step 319.6
@@ -4105,17 +4101,17 @@ Step 320.2
 Step 320.3
 Step 320.4
 Step 320.5
-  veh=v222 len=4.5 entry=320.55592141499443 leave=-1.0 type=car
+  veh=v222 len=4.5 entry=320.55950213413365 leave=-1.0 type=car
 Step 320.6
-  veh=v222 len=4.5 entry=320.55592141499443 leave=-1.0 type=car
+  veh=v222 len=4.5 entry=320.55950213413365 leave=-1.0 type=car
 Step 320.7
-  veh=v222 len=4.5 entry=320.55592141499443 leave=-1.0 type=car
+  veh=v222 len=4.5 entry=320.55950213413365 leave=-1.0 type=car
 Step 320.8
-  veh=v222 len=4.5 entry=320.55592141499443 leave=-1.0 type=car
+  veh=v222 len=4.5 entry=320.55950213413365 leave=-1.0 type=car
 Step 320.9
-  veh=v222 len=4.5 entry=320.55592141499443 leave=-1.0 type=car
+  veh=v222 len=4.5 entry=320.55950213413365 leave=-1.0 type=car
 Step 321.0
-  veh=v222 len=4.5 entry=320.55592141499443 leave=321.0786530529479 type=car
+  veh=v222 len=4.5 entry=320.55950213413365 leave=321.0818833316223 type=car
 Step 321.1
 Step 321.2
 Step 321.3
@@ -4128,19 +4124,18 @@ Step 321.9
 Step 322.0
 Step 322.1
 Step 322.2
-  veh=v224 len=4.5 entry=322.2998293660998 leave=-1.0 type=car
 Step 322.3
-  veh=v224 len=4.5 entry=322.2998293660998 leave=-1.0 type=car
+  veh=v224 len=4.5 entry=322.3036696551744 leave=-1.0 type=car
 Step 322.4
-  veh=v224 len=4.5 entry=322.2998293660998 leave=-1.0 type=car
+  veh=v224 len=4.5 entry=322.3036696551744 leave=-1.0 type=car
 Step 322.5
-  veh=v224 len=4.5 entry=322.2998293660998 leave=-1.0 type=car
+  veh=v224 len=4.5 entry=322.3036696551744 leave=-1.0 type=car
 Step 322.6
-  veh=v224 len=4.5 entry=322.2998293660998 leave=-1.0 type=car
+  veh=v224 len=4.5 entry=322.3036696551744 leave=-1.0 type=car
 Step 322.7
-  veh=v224 len=4.5 entry=322.2998293660998 leave=-1.0 type=car
+  veh=v224 len=4.5 entry=322.3036696551744 leave=-1.0 type=car
 Step 322.8
-  veh=v224 len=4.5 entry=322.2998293660998 leave=322.8340968322049 type=car
+  veh=v224 len=4.5 entry=322.3036696551744 leave=322.83759550646704 type=car
 Step 322.9
 Step 323.0
 Step 323.1
@@ -4153,19 +4148,19 @@ Step 323.7
 Step 323.8
 Step 323.9
 Step 324.0
-  veh=v226 len=4.5 entry=324.08321939137875 leave=-1.0 type=car
+  veh=v226 len=4.5 entry=324.08802654137827 leave=-1.0 type=car
 Step 324.1
-  veh=v226 len=4.5 entry=324.08321939137875 leave=-1.0 type=car
+  veh=v226 len=4.5 entry=324.08802654137827 leave=-1.0 type=car
 Step 324.2
-  veh=v226 len=4.5 entry=324.08321939137875 leave=-1.0 type=car
+  veh=v226 len=4.5 entry=324.08802654137827 leave=-1.0 type=car
 Step 324.3
-  veh=v226 len=4.5 entry=324.08321939137875 leave=-1.0 type=car
+  veh=v226 len=4.5 entry=324.08802654137827 leave=-1.0 type=car
 Step 324.4
-  veh=v226 len=4.5 entry=324.08321939137875 leave=-1.0 type=car
+  veh=v226 len=4.5 entry=324.08802654137827 leave=-1.0 type=car
 Step 324.5
-  veh=v226 len=4.5 entry=324.08321939137875 leave=-1.0 type=car
+  veh=v226 len=4.5 entry=324.08802654137827 leave=-1.0 type=car
 Step 324.6
-  veh=v226 len=4.5 entry=324.08321939137875 leave=324.63059810224297 type=car
+  veh=v226 len=4.5 entry=324.08802654137827 leave=324.63497855237114 type=car
 Step 324.7
 Step 324.8
 Step 324.9
@@ -4179,17 +4174,17 @@ Step 325.6
 Step 325.7
 Step 325.8
 Step 325.9
-  veh=v228 len=4.5 entry=325.92051781734483 leave=-1.0 type=car
+  veh=v228 len=4.5 entry=325.92739669574087 leave=-1.0 type=car
 Step 326.0
-  veh=v228 len=4.5 entry=325.92051781734483 leave=-1.0 type=car
+  veh=v228 len=4.5 entry=325.92739669574087 leave=-1.0 type=car
 Step 326.1
-  veh=v228 len=4.5 entry=325.92051781734483 leave=-1.0 type=car
+  veh=v228 len=4.5 entry=325.92739669574087 leave=-1.0 type=car
 Step 326.2
-  veh=v228 len=4.5 entry=325.92051781734483 leave=-1.0 type=car
+  veh=v228 len=4.5 entry=325.92739669574087 leave=-1.0 type=car
 Step 326.3
-  veh=v228 len=4.5 entry=325.92051781734483 leave=-1.0 type=car
+  veh=v228 len=4.5 entry=325.92739669574087 leave=-1.0 type=car
 Step 326.4
-  veh=v228 len=4.5 entry=325.92051781734483 leave=326.4809783799322 type=car
+  veh=v228 len=4.5 entry=325.92739669574087 leave=326.487181895769 type=car
 Step 326.5
 Step 326.6
 Step 326.7
@@ -4204,19 +4199,19 @@ Step 327.5
 Step 327.6
 Step 327.7
 Step 327.8
-  veh=v230 len=4.5 entry=327.8402127941152 leave=-1.0 type=car
+  veh=v230 len=4.5 entry=327.8495429927497 leave=-1.0 type=car
 Step 327.9
-  veh=v230 len=4.5 entry=327.8402127941152 leave=-1.0 type=car
+  veh=v230 len=4.5 entry=327.8495429927497 leave=-1.0 type=car
 Step 328.0
-  veh=v230 len=4.5 entry=327.8402127941152 leave=-1.0 type=car
+  veh=v230 len=4.5 entry=327.8495429927497 leave=-1.0 type=car
 Step 328.1
-  veh=v230 len=4.5 entry=327.8402127941152 leave=-1.0 type=car
+  veh=v230 len=4.5 entry=327.8495429927497 leave=-1.0 type=car
 Step 328.2
-  veh=v230 len=4.5 entry=327.8402127941152 leave=-1.0 type=car
+  veh=v230 len=4.5 entry=327.8495429927497 leave=-1.0 type=car
 Step 328.3
-  veh=v230 len=4.5 entry=327.8402127941152 leave=-1.0 type=car
+  veh=v230 len=4.5 entry=327.8495429927497 leave=-1.0 type=car
 Step 328.4
-  veh=v230 len=4.5 entry=327.8402127941152 leave=328.4107597396263 type=car
+  veh=v230 len=4.5 entry=327.8495429927497 leave=328.4192102352775 type=car
 Step 328.5
 Step 328.6
 Step 328.7
@@ -4232,19 +4227,19 @@ Step 329.6
 Step 329.7
 Step 329.8
 Step 329.9
-  veh=v232 len=4.5 entry=329.95693671763826 leave=-1.0 type=car
+  veh=v232 len=4.5 entry=329.9827679382873 leave=-1.0 type=car
 Step 330.0
-  veh=v232 len=4.5 entry=329.95693671763826 leave=-1.0 type=car
+  veh=v232 len=4.5 entry=329.9827679382873 leave=-1.0 type=car
 Step 330.1
-  veh=v232 len=4.5 entry=329.95693671763826 leave=-1.0 type=car
+  veh=v232 len=4.5 entry=329.9827679382873 leave=-1.0 type=car
 Step 330.2
-  veh=v232 len=4.5 entry=329.95693671763826 leave=-1.0 type=car
+  veh=v232 len=4.5 entry=329.9827679382873 leave=-1.0 type=car
 Step 330.3
-  veh=v232 len=4.5 entry=329.95693671763826 leave=-1.0 type=car
+  veh=v232 len=4.5 entry=329.9827679382873 leave=-1.0 type=car
 Step 330.4
-  veh=v232 len=4.5 entry=329.95693671763826 leave=-1.0 type=car
+  veh=v232 len=4.5 entry=329.9827679382873 leave=-1.0 type=car
 Step 330.5
-  veh=v232 len=4.5 entry=329.95693671763826 leave=330.5219170144411 type=car
+  veh=v232 len=4.5 entry=329.9827679382873 leave=330.54512801578653 type=car
 Step 330.6
 Step 330.7
 Step 330.8
@@ -4258,19 +4253,19 @@ Step 331.5
 Step 331.6
 Step 331.7
 Step 331.8
-  veh=v233 len=4.5 entry=331.86038965410177 leave=-1.0 type=car
+  veh=v233 len=4.5 entry=331.88439276783487 leave=-1.0 type=car
 Step 331.9
-  veh=v233 len=4.5 entry=331.86038965410177 leave=-1.0 type=car
+  veh=v233 len=4.5 entry=331.88439276783487 leave=-1.0 type=car
 Step 332.0
-  veh=v233 len=4.5 entry=331.86038965410177 leave=-1.0 type=car
+  veh=v233 len=4.5 entry=331.88439276783487 leave=-1.0 type=car
 Step 332.1
-  veh=v233 len=4.5 entry=331.86038965410177 leave=-1.0 type=car
+  veh=v233 len=4.5 entry=331.88439276783487 leave=-1.0 type=car
 Step 332.2
-  veh=v233 len=4.5 entry=331.86038965410177 leave=-1.0 type=car
+  veh=v233 len=4.5 entry=331.88439276783487 leave=-1.0 type=car
 Step 332.3
-  veh=v233 len=4.5 entry=331.86038965410177 leave=-1.0 type=car
+  veh=v233 len=4.5 entry=331.88439276783487 leave=-1.0 type=car
 Step 332.4
-  veh=v233 len=4.5 entry=331.86038965410177 leave=332.4587704187014 type=car
+  veh=v233 len=4.5 entry=331.88439276783487 leave=332.4805577523537 type=car
 Step 332.5
 Step 332.6
 Step 332.7
@@ -4286,19 +4281,19 @@ Step 333.6
 Step 333.7
 Step 333.8
 Step 333.9
-  veh=v234 len=4.5 entry=333.9267176449121 leave=-1.0 type=car
+  veh=v234 len=4.5 entry=333.9642724394516 leave=-1.0 type=car
 Step 334.0
-  veh=v234 len=4.5 entry=333.9267176449121 leave=-1.0 type=car
+  veh=v234 len=4.5 entry=333.9642724394516 leave=-1.0 type=car
 Step 334.1
-  veh=v234 len=4.5 entry=333.9267176449121 leave=-1.0 type=car
+  veh=v234 len=4.5 entry=333.9642724394516 leave=-1.0 type=car
 Step 334.2
-  veh=v234 len=4.5 entry=333.9267176449121 leave=-1.0 type=car
+  veh=v234 len=4.5 entry=333.9642724394516 leave=-1.0 type=car
 Step 334.3
-  veh=v234 len=4.5 entry=333.9267176449121 leave=-1.0 type=car
+  veh=v234 len=4.5 entry=333.9642724394516 leave=-1.0 type=car
 Step 334.4
-  veh=v234 len=4.5 entry=333.9267176449121 leave=-1.0 type=car
+  veh=v234 len=4.5 entry=333.9642724394516 leave=-1.0 type=car
 Step 334.5
-  veh=v234 len=4.5 entry=333.9267176449121 leave=334.54409893386526 type=car
+  veh=v234 len=4.5 entry=333.9642724394516 leave=334.5777787683939 type=car
 Step 334.6
 Step 334.7
 Step 334.8
@@ -4313,21 +4308,20 @@ Step 335.6
 Step 335.7
 Step 335.8
 Step 335.9
-  veh=v236 len=4.5 entry=335.97094916627776 leave=-1.0 type=car
 Step 336.0
-  veh=v236 len=4.5 entry=335.97094916627776 leave=-1.0 type=car
+  veh=v236 len=4.5 entry=336.0104011746582 leave=-1.0 type=car
 Step 336.1
-  veh=v236 len=4.5 entry=335.97094916627776 leave=-1.0 type=car
+  veh=v236 len=4.5 entry=336.0104011746582 leave=-1.0 type=car
 Step 336.2
-  veh=v236 len=4.5 entry=335.97094916627776 leave=-1.0 type=car
+  veh=v236 len=4.5 entry=336.0104011746582 leave=-1.0 type=car
 Step 336.3
-  veh=v236 len=4.5 entry=335.97094916627776 leave=-1.0 type=car
+  veh=v236 len=4.5 entry=336.0104011746582 leave=-1.0 type=car
 Step 336.4
-  veh=v236 len=4.5 entry=335.97094916627776 leave=-1.0 type=car
+  veh=v236 len=4.5 entry=336.0104011746582 leave=-1.0 type=car
 Step 336.5
-  veh=v236 len=4.5 entry=335.97094916627776 leave=-1.0 type=car
+  veh=v236 len=4.5 entry=336.0104011746582 leave=-1.0 type=car
 Step 336.6
-  veh=v236 len=4.5 entry=335.97094916627776 leave=336.62341469398314 type=car
+  veh=v236 len=4.5 entry=336.0104011746582 leave=336.6590575082329 type=car
 Step 336.7
 Step 336.8
 Step 336.9
@@ -4343,20 +4337,21 @@ Step 337.8
 Step 337.9
 Step 338.0
 Step 338.1
-  veh=v238 len=4.5 entry=338.1018481272118 leave=-1.0 type=car
+  veh=v238 len=4.5 entry=338.1400550749109 leave=-1.0 type=car
 Step 338.2
-  veh=v238 len=4.5 entry=338.1018481272118 leave=-1.0 type=car
+  veh=v238 len=4.5 entry=338.1400550749109 leave=-1.0 type=car
 Step 338.3
-  veh=v238 len=4.5 entry=338.1018481272118 leave=-1.0 type=car
+  veh=v238 len=4.5 entry=338.1400550749109 leave=-1.0 type=car
 Step 338.4
-  veh=v238 len=4.5 entry=338.1018481272118 leave=-1.0 type=car
+  veh=v238 len=4.5 entry=338.1400550749109 leave=-1.0 type=car
 Step 338.5
-  veh=v238 len=4.5 entry=338.1018481272118 leave=-1.0 type=car
+  veh=v238 len=4.5 entry=338.1400550749109 leave=-1.0 type=car
 Step 338.6
-  veh=v238 len=4.5 entry=338.1018481272118 leave=-1.0 type=car
+  veh=v238 len=4.5 entry=338.1400550749109 leave=-1.0 type=car
 Step 338.7
-  veh=v238 len=4.5 entry=338.1018481272118 leave=338.7906345819717 type=car
+  veh=v238 len=4.5 entry=338.1400550749109 leave=-1.0 type=car
 Step 338.8
+  veh=v238 len=4.5 entry=338.1400550749109 leave=338.82529514502187 type=car
 Step 338.9
 Step 339.0
 Step 339.1
@@ -4371,22 +4366,23 @@ Step 339.9
 Step 340.0
 Step 340.1
 Step 340.2
-  veh=v239 len=4.5 entry=340.2572846672924 leave=-1.0 type=car
+  veh=v239 len=4.5 entry=340.2949827975608 leave=-1.0 type=car
 Step 340.3
-  veh=v239 len=4.5 entry=340.2572846672924 leave=-1.0 type=car
+  veh=v239 len=4.5 entry=340.2949827975608 leave=-1.0 type=car
 Step 340.4
-  veh=v239 len=4.5 entry=340.2572846672924 leave=-1.0 type=car
+  veh=v239 len=4.5 entry=340.2949827975608 leave=-1.0 type=car
 Step 340.5
-  veh=v239 len=4.5 entry=340.2572846672924 leave=-1.0 type=car
+  veh=v239 len=4.5 entry=340.2949827975608 leave=-1.0 type=car
 Step 340.6
-  veh=v239 len=4.5 entry=340.2572846672924 leave=-1.0 type=car
+  veh=v239 len=4.5 entry=340.2949827975608 leave=-1.0 type=car
 Step 340.7
-  veh=v239 len=4.5 entry=340.2572846672924 leave=-1.0 type=car
+  veh=v239 len=4.5 entry=340.2949827975608 leave=-1.0 type=car
 Step 340.8
-  veh=v239 len=4.5 entry=340.2572846672924 leave=-1.0 type=car
+  veh=v239 len=4.5 entry=340.2949827975608 leave=-1.0 type=car
 Step 340.9
-  veh=v239 len=4.5 entry=340.2572846672924 leave=340.99864009258283 type=car
+  veh=v239 len=4.5 entry=340.2949827975608 leave=-1.0 type=car
 Step 341.0
+  veh=v239 len=4.5 entry=340.2949827975608 leave=341.0329195416642 type=car
 Step 341.1
 Step 341.2
 Step 341.3
@@ -4402,23 +4398,23 @@ Step 342.2
 Step 342.3
 Step 342.4
 Step 342.5
-  veh=v240 len=4.5 entry=342.5327453410214 leave=-1.0 type=car
+  veh=v240 len=4.5 entry=342.571961196391 leave=-1.0 type=car
 Step 342.6
-  veh=v240 len=4.5 entry=342.5327453410214 leave=-1.0 type=car
+  veh=v240 len=4.5 entry=342.571961196391 leave=-1.0 type=car
 Step 342.7
-  veh=v240 len=4.5 entry=342.5327453410214 leave=-1.0 type=car
+  veh=v240 len=4.5 entry=342.571961196391 leave=-1.0 type=car
 Step 342.8
-  veh=v240 len=4.5 entry=342.5327453410214 leave=-1.0 type=car
+  veh=v240 len=4.5 entry=342.571961196391 leave=-1.0 type=car
 Step 342.9
-  veh=v240 len=4.5 entry=342.5327453410214 leave=-1.0 type=car
+  veh=v240 len=4.5 entry=342.571961196391 leave=-1.0 type=car
 Step 343.0
-  veh=v240 len=4.5 entry=342.5327453410214 leave=-1.0 type=car
+  veh=v240 len=4.5 entry=342.571961196391 leave=-1.0 type=car
 Step 343.1
-  veh=v240 len=4.5 entry=342.5327453410214 leave=-1.0 type=car
+  veh=v240 len=4.5 entry=342.571961196391 leave=-1.0 type=car
 Step 343.2
-  veh=v240 len=4.5 entry=342.5327453410214 leave=-1.0 type=car
+  veh=v240 len=4.5 entry=342.571961196391 leave=-1.0 type=car
 Step 343.3
-  veh=v240 len=4.5 entry=342.5327453410214 leave=343.3317804551004 type=car
+  veh=v240 len=4.5 entry=342.571961196391 leave=343.3669666350354 type=car
 Step 343.4
 Step 343.5
 Step 343.6
@@ -4435,25 +4431,25 @@ Step 344.6
 Step 344.7
 Step 344.8
 Step 344.9
-  veh=v242 len=4.5 entry=344.9361427263708 leave=-1.0 type=car
+  veh=v242 len=4.5 entry=344.9851474936798 leave=-1.0 type=car
 Step 345.0
-  veh=v242 len=4.5 entry=344.9361427263708 leave=-1.0 type=car
+  veh=v242 len=4.5 entry=344.9851474936798 leave=-1.0 type=car
 Step 345.1
-  veh=v242 len=4.5 entry=344.9361427263708 leave=-1.0 type=car
+  veh=v242 len=4.5 entry=344.9851474936798 leave=-1.0 type=car
 Step 345.2
-  veh=v242 len=4.5 entry=344.9361427263708 leave=-1.0 type=car
+  veh=v242 len=4.5 entry=344.9851474936798 leave=-1.0 type=car
 Step 345.3
-  veh=v242 len=4.5 entry=344.9361427263708 leave=-1.0 type=car
+  veh=v242 len=4.5 entry=344.9851474936798 leave=-1.0 type=car
 Step 345.4
-  veh=v242 len=4.5 entry=344.9361427263708 leave=-1.0 type=car
+  veh=v242 len=4.5 entry=344.9851474936798 leave=-1.0 type=car
 Step 345.5
-  veh=v242 len=4.5 entry=344.9361427263708 leave=-1.0 type=car
+  veh=v242 len=4.5 entry=344.9851474936798 leave=-1.0 type=car
 Step 345.6
-  veh=v242 len=4.5 entry=344.9361427263708 leave=-1.0 type=car
+  veh=v242 len=4.5 entry=344.9851474936798 leave=-1.0 type=car
 Step 345.7
-  veh=v242 len=4.5 entry=344.9361427263708 leave=-1.0 type=car
+  veh=v242 len=4.5 entry=344.9851474936798 leave=-1.0 type=car
 Step 345.8
-  veh=v242 len=4.5 entry=344.9361427263708 leave=345.8066013989251 type=car
+  veh=v242 len=4.5 entry=344.9851474936798 leave=345.8493812764633 type=car
 Step 345.9
 Step 346.0
 Step 346.1
@@ -4470,27 +4466,27 @@ Step 347.1
 Step 347.2
 Step 347.3
 Step 347.4
-  veh=v244 len=4.5 entry=347.4416439691576 leave=-1.0 type=car
+  veh=v244 len=4.5 entry=347.48479252691277 leave=-1.0 type=car
 Step 347.5
-  veh=v244 len=4.5 entry=347.4416439691576 leave=-1.0 type=car
+  veh=v244 len=4.5 entry=347.48479252691277 leave=-1.0 type=car
 Step 347.6
-  veh=v244 len=4.5 entry=347.4416439691576 leave=-1.0 type=car
+  veh=v244 len=4.5 entry=347.48479252691277 leave=-1.0 type=car
 Step 347.7
-  veh=v244 len=4.5 entry=347.4416439691576 leave=-1.0 type=car
+  veh=v244 len=4.5 entry=347.48479252691277 leave=-1.0 type=car
 Step 347.8
-  veh=v244 len=4.5 entry=347.4416439691576 leave=-1.0 type=car
+  veh=v244 len=4.5 entry=347.48479252691277 leave=-1.0 type=car
 Step 347.9
-  veh=v244 len=4.5 entry=347.4416439691576 leave=-1.0 type=car
+  veh=v244 len=4.5 entry=347.48479252691277 leave=-1.0 type=car
 Step 348.0
-  veh=v244 len=4.5 entry=347.4416439691576 leave=-1.0 type=car
+  veh=v244 len=4.5 entry=347.48479252691277 leave=-1.0 type=car
 Step 348.1
-  veh=v244 len=4.5 entry=347.4416439691576 leave=-1.0 type=car
+  veh=v244 len=4.5 entry=347.48479252691277 leave=-1.0 type=car
 Step 348.2
-  veh=v244 len=4.5 entry=347.4416439691576 leave=-1.0 type=car
+  veh=v244 len=4.5 entry=347.48479252691277 leave=-1.0 type=car
 Step 348.3
-  veh=v244 len=4.5 entry=347.4416439691576 leave=-1.0 type=car
+  veh=v244 len=4.5 entry=347.48479252691277 leave=-1.0 type=car
 Step 348.4
-  veh=v244 len=4.5 entry=347.4416439691576 leave=348.42246115802277 type=car
+  veh=v244 len=4.5 entry=347.48479252691277 leave=348.46032306015366 type=car
 Step 348.5
 Step 348.6
 Step 348.7
@@ -4509,30 +4505,31 @@ Step 349.9
 Step 350.0
 Step 350.1
 Step 350.2
-  veh=v246 len=4.5 entry=350.2539788839359 leave=-1.0 type=car
+  veh=v246 len=4.5 entry=350.2920494068094 leave=-1.0 type=car
 Step 350.3
-  veh=v246 len=4.5 entry=350.2539788839359 leave=-1.0 type=car
+  veh=v246 len=4.5 entry=350.2920494068094 leave=-1.0 type=car
 Step 350.4
-  veh=v246 len=4.5 entry=350.2539788839359 leave=-1.0 type=car
+  veh=v246 len=4.5 entry=350.2920494068094 leave=-1.0 type=car
 Step 350.5
-  veh=v246 len=4.5 entry=350.2539788839359 leave=-1.0 type=car
+  veh=v246 len=4.5 entry=350.2920494068094 leave=-1.0 type=car
 Step 350.6
-  veh=v246 len=4.5 entry=350.2539788839359 leave=-1.0 type=car
+  veh=v246 len=4.5 entry=350.2920494068094 leave=-1.0 type=car
 Step 350.7
-  veh=v246 len=4.5 entry=350.2539788839359 leave=-1.0 type=car
+  veh=v246 len=4.5 entry=350.2920494068094 leave=-1.0 type=car
 Step 350.8
-  veh=v246 len=4.5 entry=350.2539788839359 leave=-1.0 type=car
+  veh=v246 len=4.5 entry=350.2920494068094 leave=-1.0 type=car
 Step 350.9
-  veh=v246 len=4.5 entry=350.2539788839359 leave=-1.0 type=car
+  veh=v246 len=4.5 entry=350.2920494068094 leave=-1.0 type=car
 Step 351.0
-  veh=v246 len=4.5 entry=350.2539788839359 leave=-1.0 type=car
+  veh=v246 len=4.5 entry=350.2920494068094 leave=-1.0 type=car
 Step 351.1
-  veh=v246 len=4.5 entry=350.2539788839359 leave=-1.0 type=car
+  veh=v246 len=4.5 entry=350.2920494068094 leave=-1.0 type=car
 Step 351.2
-  veh=v246 len=4.5 entry=350.2539788839359 leave=-1.0 type=car
+  veh=v246 len=4.5 entry=350.2920494068094 leave=-1.0 type=car
 Step 351.3
-  veh=v246 len=4.5 entry=350.2539788839359 leave=351.3679886031277 type=car
+  veh=v246 len=4.5 entry=350.2920494068094 leave=-1.0 type=car
 Step 351.4
+  veh=v246 len=4.5 entry=350.2920494068094 leave=351.40115940509963 type=car
 Step 351.5
 Step 351.6
 Step 351.7
@@ -4550,36 +4547,37 @@ Step 352.8
 Step 352.9
 Step 353.0
 Step 353.1
-  veh=v248 len=4.5 entry=353.1518620055619 leave=-1.0 type=car
+  veh=v248 len=4.5 entry=353.1864215708127 leave=-1.0 type=car
 Step 353.2
-  veh=v248 len=4.5 entry=353.1518620055619 leave=-1.0 type=car
+  veh=v248 len=4.5 entry=353.1864215708127 leave=-1.0 type=car
 Step 353.3
-  veh=v248 len=4.5 entry=353.1518620055619 leave=-1.0 type=car
+  veh=v248 len=4.5 entry=353.1864215708127 leave=-1.0 type=car
 Step 353.4
-  veh=v248 len=4.5 entry=353.1518620055619 leave=-1.0 type=car
+  veh=v248 len=4.5 entry=353.1864215708127 leave=-1.0 type=car
 Step 353.5
-  veh=v248 len=4.5 entry=353.1518620055619 leave=-1.0 type=car
+  veh=v248 len=4.5 entry=353.1864215708127 leave=-1.0 type=car
 Step 353.6
-  veh=v248 len=4.5 entry=353.1518620055619 leave=-1.0 type=car
+  veh=v248 len=4.5 entry=353.1864215708127 leave=-1.0 type=car
 Step 353.7
-  veh=v248 len=4.5 entry=353.1518620055619 leave=-1.0 type=car
+  veh=v248 len=4.5 entry=353.1864215708127 leave=-1.0 type=car
 Step 353.8
-  veh=v248 len=4.5 entry=353.1518620055619 leave=-1.0 type=car
+  veh=v248 len=4.5 entry=353.1864215708127 leave=-1.0 type=car
 Step 353.9
-  veh=v248 len=4.5 entry=353.1518620055619 leave=-1.0 type=car
+  veh=v248 len=4.5 entry=353.1864215708127 leave=-1.0 type=car
 Step 354.0
-  veh=v248 len=4.5 entry=353.1518620055619 leave=-1.0 type=car
+  veh=v248 len=4.5 entry=353.1864215708127 leave=-1.0 type=car
 Step 354.1
-  veh=v248 len=4.5 entry=353.1518620055619 leave=-1.0 type=car
+  veh=v248 len=4.5 entry=353.1864215708127 leave=-1.0 type=car
 Step 354.2
-  veh=v248 len=4.5 entry=353.1518620055619 leave=-1.0 type=car
+  veh=v248 len=4.5 entry=353.1864215708127 leave=-1.0 type=car
 Step 354.3
-  veh=v248 len=4.5 entry=353.1518620055619 leave=-1.0 type=car
+  veh=v248 len=4.5 entry=353.1864215708127 leave=-1.0 type=car
 Step 354.4
-  veh=v248 len=4.5 entry=353.1518620055619 leave=-1.0 type=car
+  veh=v248 len=4.5 entry=353.1864215708127 leave=-1.0 type=car
 Step 354.5
-  veh=v248 len=4.5 entry=353.1518620055619 leave=354.5975145389947 type=car
+  veh=v248 len=4.5 entry=353.1864215708127 leave=-1.0 type=car
 Step 354.6
+  veh=v248 len=4.5 entry=353.1864215708127 leave=354.62628400955833 type=car
 Step 354.7
 Step 354.8
 Step 354.9
@@ -4607,46 +4605,46 @@ Step 357.0
 Step 357.1
 Step 357.2
 Step 357.3
-  veh=v252 len=4.5 entry=357.39400991132055 leave=-1.0 type=car
 Step 357.4
-  veh=v252 len=4.5 entry=357.39400991132055 leave=-1.0 type=car
+  veh=v252 len=4.5 entry=357.4393252742171 leave=-1.0 type=car
 Step 357.5
-  veh=v252 len=4.5 entry=357.39400991132055 leave=-1.0 type=car
+  veh=v252 len=4.5 entry=357.4393252742171 leave=-1.0 type=car
 Step 357.6
-  veh=v252 len=4.5 entry=357.39400991132055 leave=-1.0 type=car
+  veh=v252 len=4.5 entry=357.4393252742171 leave=-1.0 type=car
 Step 357.7
-  veh=v252 len=4.5 entry=357.39400991132055 leave=-1.0 type=car
+  veh=v252 len=4.5 entry=357.4393252742171 leave=-1.0 type=car
 Step 357.8
-  veh=v252 len=4.5 entry=357.39400991132055 leave=-1.0 type=car
+  veh=v252 len=4.5 entry=357.4393252742171 leave=-1.0 type=car
 Step 357.9
-  veh=v252 len=4.5 entry=357.39400991132055 leave=-1.0 type=car
+  veh=v252 len=4.5 entry=357.4393252742171 leave=-1.0 type=car
 Step 358.0
-  veh=v252 len=4.5 entry=357.39400991132055 leave=-1.0 type=car
+  veh=v252 len=4.5 entry=357.4393252742171 leave=-1.0 type=car
 Step 358.1
-  veh=v252 len=4.5 entry=357.39400991132055 leave=-1.0 type=car
+  veh=v252 len=4.5 entry=357.4393252742171 leave=-1.0 type=car
 Step 358.2
-  veh=v252 len=4.5 entry=357.39400991132055 leave=-1.0 type=car
+  veh=v252 len=4.5 entry=357.4393252742171 leave=-1.0 type=car
 Step 358.3
-  veh=v252 len=4.5 entry=357.39400991132055 leave=-1.0 type=car
+  veh=v252 len=4.5 entry=357.4393252742171 leave=-1.0 type=car
 Step 358.4
-  veh=v252 len=4.5 entry=357.39400991132055 leave=-1.0 type=car
+  veh=v252 len=4.5 entry=357.4393252742171 leave=-1.0 type=car
 Step 358.5
-  veh=v252 len=4.5 entry=357.39400991132055 leave=-1.0 type=car
+  veh=v252 len=4.5 entry=357.4393252742171 leave=-1.0 type=car
 Step 358.6
-  veh=v252 len=4.5 entry=357.39400991132055 leave=-1.0 type=car
+  veh=v252 len=4.5 entry=357.4393252742171 leave=-1.0 type=car
 Step 358.7
-  veh=v252 len=4.5 entry=357.39400991132055 leave=-1.0 type=car
+  veh=v252 len=4.5 entry=357.4393252742171 leave=-1.0 type=car
 Step 358.8
-  veh=v252 len=4.5 entry=357.39400991132055 leave=-1.0 type=car
+  veh=v252 len=4.5 entry=357.4393252742171 leave=-1.0 type=car
 Step 358.9
-  veh=v252 len=4.5 entry=357.39400991132055 leave=-1.0 type=car
+  veh=v252 len=4.5 entry=357.4393252742171 leave=-1.0 type=car
 Step 359.0
-  veh=v252 len=4.5 entry=357.39400991132055 leave=-1.0 type=car
+  veh=v252 len=4.5 entry=357.4393252742171 leave=-1.0 type=car
 Step 359.1
-  veh=v252 len=4.5 entry=357.39400991132055 leave=-1.0 type=car
+  veh=v252 len=4.5 entry=357.4393252742171 leave=-1.0 type=car
 Step 359.2
-  veh=v252 len=4.5 entry=357.39400991132055 leave=359.2975062936779 type=car
+  veh=v252 len=4.5 entry=357.4393252742171 leave=-1.0 type=car
 Step 359.3
+  veh=v252 len=4.5 entry=357.4393252742171 leave=359.3303597346052 type=car
 Step 359.4
 Step 359.5
 Step 359.6
