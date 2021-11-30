@@ -32,8 +32,8 @@ entails that the battery's state and output are *not* based on the former.
 
 
 Although default parameters are available, it is strongly advised to explicitly
-define *all* the model parameters listed below and to make sure that they are
-consistent. Failing to do so may lead to wrong or even invalid operating points
+specify *all* the model parameters listed below and to make sure that they are
+compatible. Failing to do so may lead to wrong or even invalid operating points
 (cf. [Output](#output)) which skew the overall energy consumption.
 
 
