@@ -93,10 +93,12 @@ algorithms are available
 By default, taxis will remain in the simulation until all persons have left. To make them leave the simulation at an earlier time, the end time can be defined using a generic parameter in their ```vType``` or ```vehicle```-definition:
 
 ```
+```
     <vType id="taxi" vClass="taxi">
         <param key="has.taxi.device" value="true"/>
         <param key="device.taxi.end" value="3600"/>
     </vType>
+```
 ```
 
 ## Idle Behavior
@@ -105,6 +107,24 @@ By default, vehicles will leave the simulation after reaching the end of their f
 - "stop" (default): stop at the current location (off-road) after delivering the last customer of the current service request.
 - "randomCircling": continue driving to random edges until the next request is received. (caution: taxi might get stuck in a cul-de-sac if the network has those)
 
+## Customer Stops
+
+Taxis will stop to pick-up and drop-off customers. The 'actType' attribute of a stop indicates the purpose ('pickup' / 'dropOff') as well as the ids of the customers and their reservation id. Stop attributes can be configured using [generic parameters]() `<vType>` or `<vehicle>` definition of the taxi:
+
+```
+    <vType id="taxi" vClass="taxi">
+        <param key="has.taxi.device" value="true"/>
+        <param key="device.taxi.pickUpDuration" value="0"/>
+        <param key="device.taxi.dropOffDuration" value="60"/>
+        <param key="device.taxi.parking" value="false"/>
+    </vType>
+```
+
+- duration for pick-up stop can be configurd with vType/vehicle param "device.taxi.pickupDuration" (default "0")
+- duration for drop-off stop can be configurd with vType/vehicle param "device.taxi.dropOffDuration" (default "60")
+
+By default, vehicle stops will have attribute `parking="true"` which means that the taxi will not block a driving lane. This can by changed by setting
+param "device.taxi.parking" to "false".
 
 # TraCI
 To couple an external dispatch algorithm to SUMO, the following [TraCI](../TraCI.md) functions are provided:
