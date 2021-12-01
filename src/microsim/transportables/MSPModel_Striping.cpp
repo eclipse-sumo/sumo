@@ -373,11 +373,17 @@ MSPModel_Striping::initWalkingAreaPaths(const MSNet*) {
             for (const MSEdge* in : edge->getPredecessors()) {
                 if (!in->isTazConnector()) {
                     lanes.push_back(getSidewalk<MSEdge, MSLane>(in));
+                    if (lanes.back() == nullptr) {
+                        throw ProcessError("Invalid connection from edge '" + in->getID() + "' to walkingarea edge '" + edge->getID() + "'");
+                    }
                 }
             }
             for (const MSEdge* out : edge->getSuccessors()) {
                 if (!out->isTazConnector()) {
                     lanes.push_back(getSidewalk<MSEdge, MSLane>(out));
+                    if (lanes.back() == nullptr) {
+                        throw ProcessError("Invalid connection from walkingarea edge '" + edge->getID() + "' to edge '" + out->getID() + "'");
+                    }
                 }
             }
             // build all combinations
