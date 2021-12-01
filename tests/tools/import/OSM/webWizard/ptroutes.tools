@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-11-11 12:38:42.234319 by $Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $ v1_10_0+2161-158af9c7c02
+<!-- generated on 2021-12-01 12:21:54.988709 by $Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $ v1_11_0+0225-1f1b9c8724c
   options: <doubleminus>test-output test
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -10,6 +10,8 @@
     <vType id="pt_light_rail" vClass="rail_urban"/>
     <vType id="pt_monorail" vClass="rail"/>
     <vType id="pt_trolleybus" vClass="bus"/>
+    <vType id="pt_minibus" vClass="bus"/>
+    <vType id="pt_share_taxi" vClass="taxi"/>
     <vType id="pt_aerialway" vClass="bus"/>
     <vType id="pt_ferry" vClass="ship"/>
     <route id="pt_light_rail_S1:0" color="212,116,174" edges="109444375" >
