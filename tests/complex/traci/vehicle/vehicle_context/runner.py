@@ -23,7 +23,6 @@ import os
 import sys
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import traci  # noqa
-import sumolib  # noqa
 import traci.constants as tc  # noqa
 
 sumoBinary = os.environ["SUMO_BINARY"]
@@ -45,6 +44,6 @@ traci.vehicle.subscribeContext(vehID, tc.CMD_GET_VEHICLE_VARIABLE,
 sr = traci.simulationStep()
 for vehID, response in sr:
     print("t=%s subscriptionResult=%s" % (traci.simulation.getTime(),
-                                          traci.vehicle.getContextSubscriptionResults(vehID)))
+                                          sorted(traci.vehicle.getContextSubscriptionResults(vehID).items())))
 
 traci.close()
