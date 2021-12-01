@@ -33,21 +33,24 @@
 // members methods
 // ===========================================================================
 
-GNELaneType::GNELaneType(GNEEdgeType* edgeTypeParent):
+GNELaneType::GNELaneType(GNEEdgeType* edgeTypeParent) :
     GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANE, SUMO_TAG_LANETYPE, {}, {}, {}, {}, {}, {}, {}, {}),
     myEdgeTypeParent(edgeTypeParent) {
 }
 
 
-GNELaneType::GNELaneType(GNEEdgeType* edgeTypeParent, const NBTypeCont::LaneTypeDefinition& laneType):
+GNELaneType::GNELaneType(const GNELaneType* laneType) :
+    GNENetworkElement(laneType->getNet(), "", GLO_LANE, SUMO_TAG_LANETYPE, {}, {}, {}, {}, {}, {}, {}, {}),
+    NBTypeCont::LaneTypeDefinition(laneType),
+    Parameterised(laneType->getParametersMap()), 
+    myEdgeTypeParent(laneType->getEdgeTypeParent()){
+}
+
+
+GNELaneType::GNELaneType(GNEEdgeType* edgeTypeParent, const NBTypeCont::LaneTypeDefinition& laneType) :
     GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANE, SUMO_TAG_LANETYPE, {}, {}, {}, {}, {}, {}, {}, {}),
+    NBTypeCont::LaneTypeDefinition(laneType),
     myEdgeTypeParent(edgeTypeParent) {
-    // copy parameters
-    speed = laneType.speed;
-    permissions = laneType.permissions;
-    width = laneType.width;
-    restrictions = laneType.restrictions;
-    attrs = laneType.attrs;
 }
 
 

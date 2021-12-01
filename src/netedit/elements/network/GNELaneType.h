@@ -19,6 +19,7 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
 #include "GNENetworkElement.h"
 
 #include <netbuild/NBTypeCont.h>
@@ -34,10 +35,11 @@ public:
     /// @brief GNECreateEdgeFrame need access to setAttribute
     friend class GNECreateEdgeFrame;
 
-    /**@brief Constructor
-     * @param[in] edgeTypeParent GNEEdgeType parent
-     */
+    /// @brief Constructor
     GNELaneType(GNEEdgeType* edgeTypeParent);
+
+    /// @brief copy Constructor
+    GNELaneType(const GNELaneType* laneType);
 
     /**@brief Constructor
      * @param[in] edgeTypeParent GNEEdgeType parent
