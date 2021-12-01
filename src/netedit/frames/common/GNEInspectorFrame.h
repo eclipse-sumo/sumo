@@ -179,17 +179,32 @@ public:
     public:
         /// @brief edgeTemplate
         struct EdgeTemplate {
-            /// @brief default constructor
-            EdgeTemplate();
-
+        
+        public:
             /// @brief constructor
             EdgeTemplate(const GNEEdge* edge);
 
+            /// @brief get edge parameters
+            const std::map<SumoXMLAttr, std::string> &getEdgeParameters() const;
+
+            /// @brief get lane parameters
+            const std::vector<std::map<SumoXMLAttr, std::string> > getLaneParameters() const;
+
+        private:
             /// @brief edge parameters
-            std::map<SumoXMLAttr, std::string> edgeParameters;
+            std::map<SumoXMLAttr, std::string> myEdgeParameters;
 
             /// @brief lane parameters
-            std::vector<std::map<SumoXMLAttr, std::string> > laneParameters;
+            std::vector<std::map<SumoXMLAttr, std::string> > myLaneParameters;
+
+            /// @brief invalidated default constructor
+            EdgeTemplate() = delete;
+
+            /// @brief invalidated copy constructor
+            EdgeTemplate(const GNEEdge& s) = delete;
+
+            /// @brief invalidated assignment operator
+            GNEEdge& operator=(const GNEEdge& s) = delete;
         };
 
         /// @brief constructor
@@ -204,14 +219,11 @@ public:
         /// @brief hide template editor
         void hideTemplateEditor();
 
-        /// @brief there is a template
-        bool hasTemplate() const;
-
         /// @brief get the template edge (to copy attributes from)
-        const TemplateEditor::EdgeTemplate& getEdgeTemplate() const;
+        const TemplateEditor::EdgeTemplate *getEdgeTemplate() const;
 
-        /// @brief update edge template
-        void updateEdgeTemplate(const GNEEdge* edge);
+        /// @brief set edge template
+        void setEdgeTemplate(const GNEEdge* edge);
 
         /// @brief set template (used by shortcut)
         void setTemplate();
@@ -238,9 +250,6 @@ public:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(TemplateEditor)
 
-        /// @brief seh the template edge (we assume shared responsibility via reference counting)
-        void setEdgeTemplate(GNEEdge* edgeTemplate);
-
         /// @brief update buttons
         void updateButtons();
 
@@ -257,11 +266,8 @@ public:
         /// @brief clear template button
         FXButton* myClearTemplateButton;
 
-        /// @brief flag for edge template
-        bool myHasEdgeTemplate;
-
-        /// @brief map with edge template
-        TemplateEditor::EdgeTemplate myEdgeTemplate;
+        /// @brief edge Template
+        TemplateEditor::EdgeTemplate *myEdgeTemplate;
     };
 
     // ===========================================================================

@@ -224,7 +224,7 @@ public:
     void remakeGNEConnections();
 
     /// @brief copy edge attributes from edgetemplate
-    void copyTemplate(const GNEInspectorFrame::TemplateEditor::EdgeTemplate& edgeTemplate, GNEUndoList* undoList);
+    void copyTemplate(const GNEInspectorFrame::TemplateEditor::EdgeTemplate* edgeTemplate, GNEUndoList* undoList);
 
     /// @brief copy edge attributes from edgeType
     void copyEdgeType(const GNEEdgeType* edgeType, GNEUndoList* undoList);

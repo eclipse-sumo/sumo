@@ -104,7 +104,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::refreshEdgeTypeSelector(const bool show) {
     // get edge types
     const auto& edgeTypes = myCreateEdgeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdgeTypes();
     // get flag for number of items
-    const bool thereAreItems = (templateEditor->hasTemplate() || (edgeTypes.size() > 0));
+    const bool thereAreItems = (templateEditor->getEdgeTemplate() || (edgeTypes.size() > 0));
     // first fill combo box
     fillComboBox();
     // show parameter fields
@@ -112,7 +112,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::refreshEdgeTypeSelector(const bool show) {
     myCreateEdgeFrameParent->myEdgeTypeParameters->showEdgeTypeParameters();
 */
     // check conditions
-    if (show && templateEditor->hasTemplate()) {
+    if (show && templateEditor->getEdgeTemplate()) {
         // set buttons
         myUseDefaultEdgeType->setCheck(FALSE);
         myUseCustomEdgeType->setCheck(TRUE);
@@ -163,7 +163,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::refreshEdgeTypeSelector(const bool show) {
             // enable parameter fields
             myCreateEdgeFrameParent->myEdgeTypeParameters->enableEdgeTypeParameters();
 */
-        } else if (templateEditor->hasTemplate()) {
+        } else if (templateEditor->getEdgeTemplate()) {
             // set template as current item
             myEdgeTypesComboBox->setCurrentItem(0);
             // update edge parameters (using template
@@ -208,7 +208,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::refreshEdgeTypeSelector(const bool show) {
 
 bool
 GNECreateEdgeFrame::EdgeTypeSelector::useEdgeTemplate() const {
-    if (myCreateEdgeFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor()->hasTemplate()) {
+    if (myCreateEdgeFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate()) {
         if ((myUseCustomEdgeType->getCheck() == TRUE) && (myEdgeTypesComboBox->getCurrentItem() == 0)) {
             return true;
         } else {
@@ -325,7 +325,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::onCmdSelectEdgeType(FXObject*, FXSelector,
     // reset myEdgeTypeSelected
     myEdgeTypeSelected = nullptr;
     // check if we selected template
-    if (templateEditor->hasTemplate() && myEdgeTypesComboBox->getCurrentItem() == 0) {
+    if (templateEditor->getEdgeTemplate() && myEdgeTypesComboBox->getCurrentItem() == 0) {
         // set valid color
         myEdgeTypesComboBox->setTextColor(FXRGB(0, 0, 0));
         myEdgeTypesComboBox->killFocus();
@@ -378,8 +378,8 @@ GNECreateEdgeFrame::EdgeTypeSelector::fillComboBox() {
     // clear edge types
     myEdgeTypesComboBox->clearItems();
     // add template
-    if (templateEditor->hasTemplate()) {
-        myEdgeTypesComboBox->appendItem(("template: " + templateEditor->getEdgeTemplate().edgeParameters.at(SUMO_ATTR_ID)).c_str(), nullptr);
+    if (templateEditor->getEdgeTemplate()) {
+        myEdgeTypesComboBox->appendItem(("template: " + templateEditor->getEdgeTemplate()->getEdgeParameters().at(SUMO_ATTR_ID)).c_str(), nullptr);
     }
     // add edge types
     for (const auto& edgeType : edgeTypes) {
