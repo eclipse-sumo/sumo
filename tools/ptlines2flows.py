@@ -113,12 +113,18 @@ class PTLine:
 
 def writeTypes(fout, prefix, options):
     # note: public transport vehicles have speedDev="0" by default
-    prefixes_and_sf = [prefix, ""] * 9
+    prefixes_and_sf = [prefix, ""] * 11
     if options:
+        # bus
         prefixes_and_sf[1] = ' speedFactor="%s"' % options.speedFactorBus
+        # tram
         prefixes_and_sf[3] = ' speedFactor="%s"' % options.speedFactorTram
         # trolleybus
         prefixes_and_sf[13] = ' speedFactor="%s"' % options.speedFactorBus
+        # minibus
+        prefixes_and_sf[15] = ' speedFactor="%s"' % options.speedFactorBus
+        # share_taxi
+        prefixes_and_sf[17] = ' speedFactor="%s"' % options.speedFactorBus
 
     print("""    <vType id="%sbus" vClass="bus"%s/>
     <vType id="%stram" vClass="tram"%s/>
@@ -127,6 +133,8 @@ def writeTypes(fout, prefix, options):
     <vType id="%slight_rail" vClass="rail_urban"%s/>
     <vType id="%smonorail" vClass="rail"%s/>
     <vType id="%strolleybus" vClass="bus"%s/>
+    <vType id="%sminibus" vClass="bus"%s/>
+    <vType id="%sshare_taxi" vClass="taxi"%s/>
     <vType id="%saerialway" vClass="bus"%s/>
     <vType id="%sferry" vClass="ship"%s/>""" % tuple(prefixes_and_sf), file=fout)
 
