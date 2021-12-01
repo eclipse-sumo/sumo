@@ -32,9 +32,10 @@ They're getting picked up and brought to the target bus stop.
 
 Running the simulation:
 ```
-./PublicTransportTutorial.sumocfg
+.docs/tutorials/public_transport/data/run.sumocfg
 ```
 ![](../images/PublicTransport01.gif)
+
 
 ## Net, routes, demand and schedules
 ### Net
@@ -63,65 +64,65 @@ Bus stops should be written in the additional.add.xml file to provide the stops 
 An example how an xml code for the bus stop may look like:
 
 ```
-<busStop id="busStop_-gneE0_1_7" lane="-gneE0_1" startPos="519.30" endPos="529.30"/>
+    <busStop id="A_bus" lane="-E1_1" startPos="14.42" endPos="24.42"/>
+    <busStop id="A_tram1" lane="-E4_0" startPos="13.43" endPos="43.43">
+        <access lane="E1_0" pos="175.00"/>
+    </busStop>
+
 ```
 
-You can go ahead and create a basic net to your liking and save it as net.net.xml,
-as well as the bus stops by just saving the additionals.
+If a busStop is on an edge that does not permit pedestrians (i.e. tram track) it must be connected to the rest of the network with `<access>` elements (also in the netedit additional-mode).
 
-### Routes
+
+## Public Transport
 The created bus stops can be used as the stopping points within the route declaration.   
 Those routes can later be assigned to vehicles, in this case the trams and buses.
 The routes are written into the routes.rou.xml file.   
 Below you can see examples from the code for the routes of the trams and buses.
-Additionally there is a duration how long the tram/bus is stopping at given stop.
+
+
+To obtain a repeating schedule multiple approaches are feasible
+
+- define repeating vehicles (`<flow>`) that disappear after running the route once. This is useful if the network does not contain the full circuit of the route
+- define a single vehicle with a repeating route. This is ideal for letting delays from one round of the scheduel carry over to the next round
 
 ```
-<route id="tramRoute" edges="gneE10 -gneE10 " >
-            <stop busStop="busStop_gneE10_1_5" duration="20"/>
-            <stop busStop="busStop_-gneE10_1_6" duration="20"/>
-            <stop busStop="busStop_-gneE10_1_5" duration="20"/>
-</route>
+    <vType id="bus" vClass="bus"/>
+    <vType id="tram" vClass="tram"/>
 
+    <route id="busRoute" edges="-E1 -E0 -E3 -E2" color="yellow" repeat="10" cycleTime="140">
+        <stop busStop="A_bus" duration="20.00" until="30.00"/>
+        <stop busStop="B_bus" duration="20.00" until="90.00"/>
+    </route>
 
-<route id="busRoute" edges="-gneE2 -gneE1 -gneE0 -gneE3 -gneE2" >
-            <stop busStop="busStop_-gneE1_0_1" duration="20"/>
-            <stop busStop="busStop_-gneE0_1_7" duration="20"/>
-</route>
+    <vehicle id="bus" type="bus" depart="0.00" line="42" route="busRoute"/>
+
+    <flow id="tram1" type="tram" begin="0.00" end="3600.00" period="300.00" line="23">
+        <route edges="-E4" color="cyan"/>
+        <stop busStop="A_tram1" duration="20.00" until="30.00"/>
+        <stop busStop="B_tram1" duration="20.00" until="45.00"/>
+    </flow>
 ```
 
-You can write your own routes for your net using netedit or writing them in the xml file.   
-The busStop parameter in routes should be a existing busStop in the additional.add.xml file.
+### Schedules
 
-So far we created a net, some bus stops and routes.
+Buses and trams usually run by strict schedules in daily life. Similar alterations are possible in Sumo and vital when using intermodal routing.   
+Such schedules are defined with the attribute until. The until attribute is set for the stops.
+The vehicle following this schedule can't leave this stop until this time ('until') has passed and the minimum stoppping time ('duration') has also passed.
 
-### Demand
-All demands of this tutorial are written into the routes.rou.xml file.   
-The demand consists out of different person-, tram- and bus-flows. The vehicle flows are
-getting the routes assigned that where created earlier.
 
-The person flow defines the travel behaviour of the people. For this small example
-the person flow walks from an existing edge in the net to a bus stop to wait for
-their ride (lines="tram"/lines="bus") to bring them to their destination.
+## Demand
 
-First you have to declare the type of vehicle that is used in a flow via vType.
-The id from vType is then used as the type parameter within the flow.
+The travel demand consists of persons that can choose their mode of transport freely 
 
 ```
-<vType color="1,1,0" maxSpeed="70" minGap="3" length="12" sigma="0" decel="4.5" accel="2.6" id="Tram" personCapacity="8" vClass="tram"/>
-<vType color="1,1,0" maxSpeed="70" minGap="3" length="12" sigma="0" decel="4.5" accel="2.6" id="Bus" personCapacity="8" vClass="bus"/>
-
-<flow type="Tram" line="tram" id="flow_0" begin="1.00" route="tramRoute" end="3600.00" number="25" />
-<flow type="Bus"  line="bus" id="flow_1" begin="1.00" route="busRoute" end="3600.00" number="25" />
-
-<personFlow id="TramPerson_0" begin="0.00" end="3600.00" number="80" >
-     <walk from="gneE1" busStop="busStop_-gneE10_1_6"/>
-     <ride busStop="busStop_-gneE10_1_5" lines="tram"/>   
-</personFlow>
+   <personFlow id="AB" begin="0" end="3600" probability="0.1">
+        <personTrip from="-E1" to="-E0" arrivalPos="-20" modes="public"/>
+    </personFlow>
 ```
 
-If you don't want to write a flow, you can assign vehicles and people their routes
-individually.
+Instead of flows, all persons and vehicles can also be defined individually and person plans can be defined with explicit steps.
+Use sumo option **--vehroute** output to learn how a `<personFlow>` is expanded into multiple travel stages during the simulation.
 
 ```
 <person id="HeadingBusstop20" depart="1.00" color="green">
@@ -135,27 +136,11 @@ individually.
 </vehicle>
 ```
 
-### Schedules
-Buses and trams usually run by strict schedules in daily life. Similar alterations are possible in Sumo and vital when using intermodal routing.   
-Such schedules are defined with the attribute until. The until attribute is set for the stops.
-The vehicle following this schedule can't leave this stop until this time has passed and the eventual added duration.   
-This entails that if both, until and duration are used, this might cause a traffic delay, because the vehicle still waits at the bus stop when running late.
 
-```
-<route id="busRoute" edges="-gneE2 -gneE1 -gneE0 -gneE3 -gneE2" >
-      <stop busStop="busStop_-gneE1_0_1" duration="20"/>
-      <stop busStop="busStop_-gneE0_1_7" until="00170" duration="20"/>
-</route>
-```
 
 ![](../images/PublicTransport05.gif)
 *Alteration of the busRoute.The bus stops until 170 at the uppermost bus stop.*
 
-Notice that when running the simulation that the next buses and trams have the same schedule, just adjusted
-to their departure time. This is handled differently depending on you implementation of until.
-It is possible to use the until attribute with flows, trips and routes. The time declaration can also be written in human-readable times.
-
-It is beneficial to add the schedules to your implementation and to newly added stops to avoid errors when using intermodal routing.
 
 
 ## sumocfg
@@ -169,14 +154,10 @@ command line.
 
     <input>
         <net-file value="net.net.xml"/>
-        <route-files value="routes.rou.xml"/>
-        <additional-files value="additional.add.xml"/>
+        <route-files value="pt.rou.xml,persons.rou.xml"/>
+        <additional-files value="stops.add.xml"/>
     </input>
-
-    <time>
-        <begin value="0"/>
-        <end value="10000"/>
-    </time>
+    
 </configuration>
 ```
 
