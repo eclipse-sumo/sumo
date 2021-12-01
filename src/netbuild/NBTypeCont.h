@@ -52,13 +52,23 @@ class OutputDevice;
 class NBTypeCont {
 
 public:
+    /// @name struct declaration
+    struct EdgeTypeDefinition;
+
     /// @brief laneType definition
     struct LaneTypeDefinition {
-        /// @brief Constructor
+
+        /// @brief default Constructor
         LaneTypeDefinition();
 
-        /// @brief parameter Constructor
-        LaneTypeDefinition(double speed, double width, SVCPermissions permissions);
+        /// @brief constructor (using parameters of EdgeTypeDefinition)
+        LaneTypeDefinition(const EdgeTypeDefinition* edgeTypeDefinition);
+
+        /// @brief parameter constructor
+        LaneTypeDefinition(const double speed, const double width, SVCPermissions permissions, const std::set<SumoXMLAttr> &attrs);
+
+        /// @brief copy constructor
+        LaneTypeDefinition(const LaneTypeDefinition* laneTypeDefinition);
 
         /// @brief The maximal velocity on a lane in m/s
         double speed;

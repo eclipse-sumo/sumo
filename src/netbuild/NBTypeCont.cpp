@@ -47,10 +47,27 @@ NBTypeCont::LaneTypeDefinition::LaneTypeDefinition() :
 }
 
 
-NBTypeCont::LaneTypeDefinition::LaneTypeDefinition(double _speed, double _width, SVCPermissions _permissions) :
+NBTypeCont::LaneTypeDefinition::LaneTypeDefinition(const EdgeTypeDefinition* edgeTypeDefinition) :
+    speed(edgeTypeDefinition->speed),
+    permissions(edgeTypeDefinition->permissions),
+    width(edgeTypeDefinition->width) {
+}
+
+
+NBTypeCont::LaneTypeDefinition::LaneTypeDefinition(const double _speed, const double _width, SVCPermissions _permissions, const std::set<SumoXMLAttr> &_attrs) :
     speed(_speed),
     permissions(_permissions),
-    width(_width) {
+    width(_width),
+    attrs(_attrs) {
+}
+
+
+NBTypeCont::LaneTypeDefinition::LaneTypeDefinition(const LaneTypeDefinition* laneTypeDefinition) :
+    speed(laneTypeDefinition->speed),
+    permissions(laneTypeDefinition->permissions),
+    width(laneTypeDefinition->width),
+    restrictions(laneTypeDefinition->restrictions),
+    attrs(laneTypeDefinition->attrs) {
 }
 
 // ---------------------------------------------------------------------------
@@ -212,11 +229,10 @@ NBTypeCont::insertLaneType(const std::string& edgeTypeID, int index, double maxS
                            double width, const std::set<SumoXMLAttr>& attrs) {
     EdgeTypeDefinition* et = myEdgeTypes.at(edgeTypeID);
     while ((int)et->laneTypeDefinitions.size() <= index) {
-        et->laneTypeDefinitions.push_back(LaneTypeDefinition(et->speed, et->width, et->permissions));
+        et->laneTypeDefinitions.push_back(et);
     }
-    et->laneTypeDefinitions[index] = LaneTypeDefinition(maxSpeed, width, permissions);
-    // update attributes
-    et->laneTypeDefinitions[index].attrs = attrs;
+    // add LaneTypeDefinition with the given attributes
+    et->laneTypeDefinitions[index] = LaneTypeDefinition(maxSpeed, width, permissions, attrs);
 }
 
 
