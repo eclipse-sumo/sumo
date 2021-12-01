@@ -1,0 +1,149 @@
+name: windows-wheels
+
+on: 
+  push:            # run on push events
+    paths-ignore:  # but ignore everything in the docs subfolder 
+      - 'docs/**'
+    branches:
+      - '**'
+    tags:
+      - '*'
+  pull_request:    # run on pull requests
+    paths-ignore:  # but ignore everything in the docs subfolder 
+      - 'docs/**'
+  schedule:
+    - cron:  '5 1 * * *'
+
+jobs:
+  build-wheels:
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        build-type: [libsumo]
+        python: [3.5, 3.6, 3.7, 3.8, 3.9, '3.10']
+        include:
+          - build-type: sumo
+            python: 3.8
+    env:
+      CC: cl
+      CXX: cl
+
+    steps:
+    - name: Cloning SUMO
+      uses: actions/checkout@v2
+      with:
+        path: sumo
+        fetch-depth: 0
+
+    - name: Fetching SUMO tags
+      run: |
+        cd sumo
+        git fetch --tags --force
+
+    - name: Cloning SUMO Libraries
+      uses: actions/checkout@v2
+      with:
+        repository: DLR-TS/SUMOLibraries 
+        path: sumolibraries
+
+    - name: Configuring Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python }}
+        architecture: x64
+
+    - name: "Set up compiler cache"
+      uses: actions/cache@v2
+      with:
+        path: C:\Users\runneradmin\AppData\Local\Mozilla\sccache\cache
+        key: ${{ matrix.build-type }}-${{ matrix.python }}-${{ github.head_ref }}-${{ github.run_number }}
+        restore-keys: |
+          ${{ matrix.build-type }}-${{ matrix.python }}-${{ github.head_ref }}-
+          ${{ matrix.build-type }}-${{ matrix.python }}-
+
+    # required for CMake to find Ninja
+    - name: "Set up MSVC Developer Command Prompt"
+      uses: seanmiddleditch/gha-setup-vsdevenv@v3
+
+    - name: Configuring SUMO plain build
+      if: matrix.build-type == 'libsumo'
+      run: |
+        python -m pip install wheel
+        cd sumo
+        mkdir build_msvc
+        cd build_msvc
+        cmake .. -GNinja -DCHECK_OPTIONAL_LIBS=false
+
+    - name: Building libsumo plain
+      if: matrix.build-type == 'libsumo'
+      run: |
+        cd sumo
+        cmake --build build_msvc --config Release --target libsumo libtraci
+        python tools\build\setup-libsumo.py bdist_wheel --plat-name win_amd64
+        python tools\build\setup-libtraci.py bdist_wheel --plat-name win_amd64
+
+    - name: Building SUMO Wheels
+      if: matrix.build-type == 'sumo'
+      run: |
+        python -m pip install wheel scikit-build
+        cd sumo
+        python tools\build\setup-sumolib.py bdist_wheel
+        python tools\build\setup-traci.py bdist_wheel
+        python tools\build\setup-sumo.py bdist_wheel --plat-name win_amd64 -GNinja
+        # we should rename the sumo wheel here
+
+    - name: Uploading artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: Py3-${{ matrix.build-type }}-wheels
+        path: sumo/dist
+
+    - name: Plain libsumo tests
+      if: matrix.build-type == 'libsumo'
+      run: |
+        $env:PATH += ";$pwd\sumo\bin"
+        $env:TEXTTEST_TMP = "D:/texttest"
+        cd sumo/build_msvc
+        $env:TEXTTEST_CI_APPS = "-a complex.libsumo -ts vehicle/v"
+        ctest -R texttest --verbose
+        copy Testing/Temporary/LastTest.log D:/texttest
+
+    - name: Uploading test results
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: texttesttmp-${{ matrix.build-type }}-${{ matrix.python }}
+        path: D:/texttest
+        if-no-files-found: warn
+
+  ###################
+  # PUBLISHING wheels
+  ###################
+  publish-wheels:
+    if: github.event_name == 'schedule' || startsWith(github.ref, 'refs/tags')
+    needs: [build-wheels]
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/download-artifact@v2
+
+    - name: Moving artifacts
+      run: |
+        ls -lR
+        mkdir dist
+        mv ./*-wheels/* dist
+        mv dist/eclipse_sumo-*cp38* `echo dist/eclipse_sumo-*cp38* | sed 's/cp38-cp38/py2.py3-none/'`
+
+    - name: Publish to Test PyPI
+      uses: pypa/gh-action-pypi-publish@master
+      with:
+        password: ${{ secrets.TEST_PYPI_TOKEN }}
+        repository_url: https://test.pypi.org/legacy/
+        skip_existing: true
+
+    - name: Publish to PyPI
+      if: startsWith(github.ref, 'refs/tags')
+      uses: pypa/gh-action-pypi-publish@master
+      with:
+        password: ${{ secrets.PYPI_TOKEN }}

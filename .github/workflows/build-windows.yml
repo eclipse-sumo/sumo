@@ -12,24 +12,19 @@ on:
     paths-ignore:  # but ignore everything in the docs subfolder 
       - 'docs/**'
   schedule:
-    - cron:  '5 1 * * *'
+    - cron:  '25 1 * * *'
 
 jobs:
   build:
     runs-on: windows-latest
     strategy:
+      fail-fast: false
       matrix:
-        build-type: [plain]
-        python: [3.5, 3.6, 3.7, 3.8, 3.9, '3.10']
-        include:
-          - build-type: extra
-            python: 3.8
-          - build-type: wheel
-            python: 3.8
-
+        build-type: [plain, extra]
     env:
       CC: cl
       CXX: cl
+
     steps:
     - name: Cloning SUMO
       uses: actions/checkout@v2
@@ -48,20 +43,14 @@ jobs:
         repository: DLR-TS/SUMOLibraries 
         path: sumolibraries
 
-    - name: Configuring Python
-      uses: actions/setup-python@v1
-      with:
-        python-version: ${{ matrix.python }}
-        architecture: x64
-
     - name: "Set up compiler cache"
       uses: actions/cache@v2
       with:
         path: C:\Users\runneradmin\AppData\Local\Mozilla\sccache\cache
-        key: ${{ matrix.build-type }}-${{ matrix.python }}-${{ github.head_ref }}-${{ github.run_number }}
+        key: ${{ matrix.build-type }}-${{ github.head_ref }}-${{ github.run_number }}
         restore-keys: |
-          ${{ matrix.build-type }}-${{ matrix.python }}-${{ github.head_ref }}-
-          ${{ matrix.build-type }}-${{ matrix.python }}-
+          ${{ matrix.build-type }}-${{ github.head_ref }}-
+          ${{ matrix.build-type }}-
 
     # required for CMake to find Ninja
     - name: "Set up MSVC Developer Command Prompt"
@@ -76,16 +65,8 @@ jobs:
         cd build_msvc
         cmake .. -GNinja -DCHECK_OPTIONAL_LIBS=false
 
-    - name: Building libsumo plain
-      if: matrix.build-type == 'plain'
-      run: |
-        cd sumo
-        cmake --build build_msvc --config Release --target install_dll libsumo libtraci
-        python tools\build\setup-libsumo.py bdist_wheel --plat-name win_amd64
-        python tools\build\setup-libtraci.py bdist_wheel --plat-name win_amd64
-
     - name: Building SUMO plain
-      if: matrix.build-type == 'plain' && matrix.python == '3.8'
+      if: matrix.build-type == 'plain'
       run: |
         cd sumo
         cmake --build build_msvc --config Release
@@ -99,55 +80,30 @@ jobs:
         cmake -DFMI=ON .. -GNinja -DCHECK_OPTIONAL_LIBS=true
         cmake --build . --config Release
 
-    - name: Building SUMO Wheels
-      if: matrix.build-type == 'wheel'
-      run: |
-        python -m pip install wheel scikit-build
-        cd sumo
-        python tools\build\setup-sumolib.py bdist_wheel
-        python tools\build\setup-traci.py bdist_wheel
-        python tools\build\setup-sumo.py bdist_wheel --plat-name win_amd64 -G "Visual Studio 16 2019"
-        # we should rename the sumo wheel here
-
     - name: Building TraaS
-      if: matrix.build-type != 'wheel'
       run: |
         cd sumo/build_msvc
         cmake --build . --config Release --target traas
 
     - name: Uploading artifacts (SUMO binaries)
-      if: matrix.build-type != 'wheel' && matrix.python == '3.8'
       uses: actions/upload-artifact@v1
       with:
         name: Windows-${{ matrix.build-type }}
         path: sumo/bin
 
-    - name: Uploading artifacts (libsumo wheels)
-      if: matrix.build-type == 'plain'
-      uses: actions/upload-artifact@v1
-      with:
-        name: Py3-libsumo-wheels
-        path: sumo/dist
-
-    - name: Uploading artifacts (Python wheels)
-      if: matrix.build-type == 'wheel'
-      uses: actions/upload-artifact@v1
-      with:
-        name: Py3-sumo-wheels
-        path: sumo/dist
-
     - name: Plain examples and tests
-      if: matrix.build-type == 'plain' && matrix.python == '3.8'
+      if: matrix.build-type == 'plain'
       run: |
-        $env:TEXTTEST_TMP = "D:/texttest"
         cd sumo/build_msvc
+        $env:TEXTTEST_TMP = "D:/texttest/1"
         $env:TEXTTEST_CI_APPS = "-a activitygen,dfrouter,duarouter,jtrrouter,sumo"
         ctest -R texttest --verbose
+        $env:TEXTTEST_TMP = "D:/texttest/2"
         $env:TEXTTEST_CI_APPS = "-a marouter,netgen,od2trips,polyconvert,netconvert"
         ctest -R texttest --verbose
 
     - name: Examples and extra tests
-      if: matrix.build-type == 'extra' && matrix.python == '3.8'
+      if: matrix.build-type == 'extra'
       run: |
         python -m pip install pyproj Rtree ezdxf pulp pandas matplotlib scipy
         cd sumo/build_msvc
@@ -157,7 +113,7 @@ jobs:
         ctest --build-config Release --verbose
 
     - name: Uploading test results
-      if: matrix.python == '3.8'
+      if: always()
       uses: actions/upload-artifact@v2
       with:
         name: texttesttmp-${{ matrix.build-type }}
@@ -188,34 +144,3 @@ jobs:
       with:
         name: sumo-fmi2-win64
         path: sumo/bin/sumo-fmi2-win64.fmu 
-
-  ###################
-  # PUBLISHING wheels
-  ###################
-  publish-wheels:
-    if: github.event_name == 'schedule' || startsWith(github.ref, 'refs/tags')
-    needs: [build]
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/download-artifact@v2
-
-    - name: Moving artifacts
-      run: |
-        ls -lR
-        mkdir dist
-        mv ./*-wheels/* dist
-        mv dist/eclipse_sumo-*cp38* `echo dist/eclipse_sumo-*cp38* | sed 's/cp38-cp38/py2.py3-none/'`
-
-    - name: Publish to Test PyPI
-      uses: pypa/gh-action-pypi-publish@master
-      with:
-        password: ${{ secrets.TEST_PYPI_TOKEN }}
-        repository_url: https://test.pypi.org/legacy/
-        skip_existing: true
-
-    - name: Publish to PyPI
-      if: startsWith(github.ref, 'refs/tags')
-      uses: pypa/gh-action-pypi-publish@master
-      with:
-        password: ${{ secrets.PYPI_TOKEN }}
