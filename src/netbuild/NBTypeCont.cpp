@@ -91,9 +91,12 @@ NBTypeCont::EdgeTypeDefinition::EdgeTypeDefinition() :
 
 
 NBTypeCont::EdgeTypeDefinition::EdgeTypeDefinition(const EdgeTypeDefinition* edgeType) :
-    speed(edgeType->speed), priority(edgeType->priority),
+    speed(edgeType->speed), 
+    priority(edgeType->priority),
     permissions(edgeType->permissions),
-    oneWay(edgeType->oneWay), discard(edgeType->discard),
+    spreadType(edgeType->spreadType),
+    oneWay(edgeType->oneWay), 
+    discard(edgeType->discard),
     width(edgeType->width),
     widthResolution(edgeType->widthResolution),
     maxWidth(edgeType->maxWidth),
