@@ -1485,7 +1485,7 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
         } else if (key == "route") {
             std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myCurrentRelation).c_str(), ok, false);
             if (value == "train" || value == "subway" || value == "light_rail" || value == "monorail" || value == "tram" || value == "bus"
-                    || value == "trolleybus" || value == "arialway" || value == "ferry") {
+                    || value == "trolleybus" || value == "arialway" || value == "ferry" || value == "share_taxi" || value == "minibus") {
                 myPTRouteType = value;
             }
 
@@ -2141,6 +2141,10 @@ NIImporter_OpenStreetMap::interpretTransportType(const std::string& type, NIOSMN
         result = SVC_RAIL;
     } else if (type == "subway" || type == "light_rail") {
         result = SVC_RAIL_URBAN;
+    } else if (type == "share_taxi") {
+        result = SVC_TAXI;
+    } else if (type == "minibus") {
+        result = SVC_BUS;
     } else if (SumoVehicleClassStrings.hasString(type)) {
         result = SumoVehicleClassStrings.get(type);
     }
