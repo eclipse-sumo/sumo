@@ -139,6 +139,7 @@ errors:Warning: State was written with sumo version
 errors:Warning: Overhead wire solver (Eigen) not compiled in, expect errors in overhead wire simulation
 errors:Error: Overhead wire solver is on, but the Eigen library has not been compiled in!
 errors:Network contains internal links which are ignored.
+errors:Matplotlib is building the font cache; this may take a moment.
 ps:%%CreationDate
 
 [unordered_text]
