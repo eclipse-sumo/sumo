@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-09-17 09:28:22.239717 by $Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $ v1_10_0+0756-8d9ba0bd927
+<!-- generated on 2021-12-01 12:12:32.718484 by $Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $ v1_11_0+0221-bbdd205
   options: -n net.net.xml -s input_additional.add.xml -l ptlines.xml -o out.flows.xml -p 600 <doubleminus>min-stops 0 <doubleminus>extend-to-fringe <doubleminus>verbose
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -10,6 +10,8 @@
     <vType id="light_rail" vClass="rail_urban"/>
     <vType id="monorail" vClass="rail"/>
     <vType id="trolleybus" vClass="bus" speedFactor="0.95"/>
+    <vType id="minibus" vClass="bus" speedFactor="0.95"/>
+    <vType id="share_taxi" vClass="taxi" speedFactor="0.95"/>
     <vType id="aerialway" vClass="bus"/>
     <vType id="ferry" vClass="ship"/>
     <trip id="0_bus_0:0" type="bus" depart="0" departLane="best" from="-391493954#3" to="-110450334#1">
