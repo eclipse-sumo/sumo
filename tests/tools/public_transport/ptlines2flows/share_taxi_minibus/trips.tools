@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2021-12-01 12:10:49.826563 by $Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $ v1_11_0+0219-0641fb1
+  options: -n net.net.xml -s input_additional.add.xml -l ptlines.xml -o out.flows.xml -p 600 <doubleminus>min-stops 0 <doubleminus>extend-to-fringe <doubleminus>verbose
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="bus" vClass="bus" speedFactor="0.95"/>
+    <vType id="tram" vClass="tram" speedFactor="1.0"/>
+    <vType id="train" vClass="rail"/>
+    <vType id="subway" vClass="rail_urban"/>
+    <vType id="light_rail" vClass="rail_urban"/>
+    <vType id="monorail" vClass="rail"/>
+    <vType id="trolleybus" vClass="bus" speedFactor="0.95"/>
+    <vType id="minibus" vClass="bus" speedFactor="0.95"/>
+    <vType id="share_taxi" vClass="taxi" speedFactor="0.95"/>
+    <vType id="aerialway" vClass="bus"/>
+    <vType id="ferry" vClass="ship"/>
+    <trip id="0_minibus_2:0" type="minibus" depart="0" departLane="best" from="53356539#0" to="111325187#3">
+        <stop busStop="4032629819" duration="30"/>
+        <stop busStop="2029039199" duration="30"/>
+    </trip>
+    <trip id="1_share_taxi_3:0" type="share_taxi" depart="0" departLane="best" from="53356539#1" to="111325187#1">
+        <stop busStop="4032629819" duration="30"/>
+        <stop busStop="2029039199" duration="30"/>
+    </trip>
+</routes>

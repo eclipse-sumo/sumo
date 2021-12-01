@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2021-12-01 12:10:49.931187 by $Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $ v1_11_0+0219-0641fb1
+  options: -n net.net.xml -s input_additional.add.xml -l ptlines.xml -o out.flows.xml -p 600 <doubleminus>min-stops 0 <doubleminus>extend-to-fringe <doubleminus>verbose
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="bus" vClass="bus"/>
+    <vType id="tram" vClass="tram"/>
+    <vType id="train" vClass="rail"/>
+    <vType id="subway" vClass="rail_urban"/>
+    <vType id="light_rail" vClass="rail_urban"/>
+    <vType id="monorail" vClass="rail"/>
+    <vType id="trolleybus" vClass="bus"/>
+    <vType id="minibus" vClass="bus"/>
+    <vType id="share_taxi" vClass="taxi"/>
+    <vType id="aerialway" vClass="bus"/>
+    <vType id="ferry" vClass="ship"/>
+    <route id="share_taxi_3:0" edges="53356539#1 4710636#0 4710636#1 4710636#2 111325187#0 111325187#1" >
+        <stop busStop="4032629819" duration="20" until="48.0"/> <!-- Monumentenstraße -->
+        <stop busStop="2029039199" duration="20" until="102.0"/> <!-- Dudenstraße/Katzbachstraße -->
+    </route>
+    <route id="minibus_2:0" edges="53356539#0 53356539#1 4710636#0 4710636#1 4710636#2 111325187#0 111325187#1 111325187#2 111325187#3" >
+        <stop busStop="4032629819" duration="20" until="61.0"/> <!-- Monumentenstraße -->
+        <stop busStop="2029039199" duration="20" until="138.0"/> <!-- Dudenstraße/Katzbachstraße -->
+    </route>
+    <flow id="share_taxi_3:0" type="share_taxi" route="share_taxi_3:0" begin="0.0" end="3600.0" period="600" line="3:0" >
+        <param key="name" value="noRoute"/>
+    </flow>
+    <flow id="minibus_2:0" type="minibus" route="minibus_2:0" begin="0.0" end="3600.0" period="600" line="2:0" >
+        <param key="name" value="twoStops"/>
+    </flow>
+</routes>

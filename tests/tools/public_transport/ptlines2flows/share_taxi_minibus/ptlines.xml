@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Sep 15 08:56:00 2017 by SUMO netconvert Version dev-SVN-r26021
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <type-files value="input_types.typ.xml"/>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <processing>
+        <osm.stop-output.length value="200"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <ptLine id="2" name="twoStops" line="2" type="minibus" vClass="bus">
+        <route edges=" 53356539#0 53356539#1 4710636#0 4710636#1 4710636#2 111325187#0 111325187#1 111325187#2 111325187#3"/>
+        <busStop id="4032629819" name="Monumentenstraße"/>
+        <busStop id="2029039199" name="Dudenstraße/Katzbachstraße"/>
+    </ptLine>
+    <ptLine id="3" name="noRoute" line="3" type="share_taxi" vClass="taxi">
+        <busStop id="4032629819" name="Monumentenstraße"/>
+        <busStop id="2029039199" name="Dudenstraße/Katzbachstraße"/>
+    </ptLine>
+</additional>

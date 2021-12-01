@@ -23,3 +23,6 @@ night
 
 # extend train route beyond terminal stops (for incomplete line)
 extendFringe
+
+# test more route types
+share_taxi_minibus
