@@ -73,6 +73,12 @@ public:
         /// @brief clear edgeType selected
         void clearEdgeTypeSelected();
 
+        /// @brief set current edgeType
+        void setCurrentEdgeType(const GNEEdgeType* edgeType);
+
+        /// @brief use template
+        void useTemplate();
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user press a radio button
@@ -88,8 +94,6 @@ public:
         long onCmdSelectEdgeType(FXObject*, FXSelector, void*);
 
         /// @}
-
-        void useTemplate();
 
     protected:
         /// @brief FOX need this

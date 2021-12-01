@@ -247,6 +247,17 @@ GNECreateEdgeFrame::EdgeTypeSelector::clearEdgeTypeSelected() {
     myEdgeTypeSelected = nullptr;
 }
 
+
+void
+GNECreateEdgeFrame::EdgeTypeSelector::setCurrentEdgeType(const GNEEdgeType* edgeType) {
+    for (int i = 0; i < myEdgeTypesComboBox->getNumItems(); i++) {
+        if (myEdgeTypesComboBox->getItem(i).text() == edgeType->getID()) {
+            myEdgeTypesComboBox->setCurrentItem(i, TRUE);
+        }
+    }
+}
+
+
 void
 GNECreateEdgeFrame::EdgeTypeSelector::useTemplate() {
     myUseCustomEdgeType->setCheck(TRUE, FALSE);
@@ -441,6 +452,35 @@ GNECreateEdgeFrame::LaneTypeSelector::hideLaneTypeSelector() {
 
 long
 GNECreateEdgeFrame::LaneTypeSelector::onCmdAddLaneType(FXObject*, FXSelector, void*) {
+    // check what edgeType is being edited
+    if (myCreateEdgeFrameParent->myEdgeTypeSelector->useDefaultEdgeType()) {
+        // add new lane in default edge type
+        myCreateEdgeFrameParent->myEdgeTypeSelector->getDefaultEdgeType()->addLaneType(new GNELaneType(myCreateEdgeFrameParent->myEdgeTypeSelector->getDefaultEdgeType()));
+        // refresh laneTypeSelector
+        refreshLaneTypeSelector();
+        // set combo box
+        myLaneTypesComboBox->setCurrentItem(myLaneTypesComboBox->getNumItems() - 1);
+    } else if (!myCreateEdgeFrameParent->myEdgeTypeSelector->useEdgeTemplate()) { 
+        // get selected
+        const auto edgeType = myCreateEdgeFrameParent->myEdgeTypeSelector->getEdgeTypeSelected();
+        if (edgeType) {
+            // create new edgeType
+            GNEEdgeType* newEdgeType = new GNEEdgeType(edgeType);
+            // add new lane
+            newEdgeType->addLaneType(new GNELaneType(newEdgeType));
+            // remove old edgeTyp und and newEdgeType
+            myCreateEdgeFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::LANE, "add laneType");
+            myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_EdgeType(edgeType, false), true);
+            myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_EdgeType(newEdgeType, true), true);
+            myCreateEdgeFrameParent->getViewNet()->getUndoList()->end();
+            // set current edgeType in selector
+            myCreateEdgeFrameParent->myEdgeTypeSelector->setCurrentEdgeType(newEdgeType);
+            // refresh laneTypeSelector
+            refreshLaneTypeSelector();
+            // set combo box
+            myLaneTypesComboBox->setCurrentItem(myLaneTypesComboBox->getNumItems() - 1);
+        }
+    }
     return 0;
 }
 
@@ -465,7 +505,7 @@ void
 GNECreateEdgeFrame::LaneTypeSelector::refreshLaneTypeSelector() {
     // clear lane types
     myLaneTypesComboBox->clearItems();
-    // get templateEdge
+    // get edgeType
     const auto edgeType = myCreateEdgeFrameParent->myEdgeTypeSelector->getEdgeTypeSelected();
     if (edgeType) {
         if (myLaneIndex > ((int)edgeType->getLaneTypes().size() - 1)) {
