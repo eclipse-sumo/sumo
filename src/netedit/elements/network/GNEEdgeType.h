@@ -46,6 +46,9 @@ public:
      */
     GNEEdgeType(GNECreateEdgeFrame* createEdgeFrame);
 
+    /// @brief copy constructor
+    GNEEdgeType(const GNEEdgeType* edgeType);
+
     /**@brief Constructor
      * @param[in] net The net to inform about gui updates
      */
