@@ -24,7 +24,6 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
-#include <netedit/changes/GNEChange_LaneType.h>
 #include <utils/options/OptionsCont.h>
 
 #include "GNEEdgeType.h"
@@ -39,7 +38,6 @@ GNEEdgeType::GNEEdgeType(GNECreateEdgeFrame* createEdgeFrame) :
     GNENetworkElement(createEdgeFrame->getViewNet()->getNet(), "", GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}) {
     // create laneType
     GNELaneType* laneType = new GNELaneType(this);
-    laneType->incRef("GNEEdgeType::GNEEdgeType(Default)");
     myLaneTypes.push_back(laneType);
 }
 
@@ -48,7 +46,6 @@ GNEEdgeType::GNEEdgeType(GNENet* net) :
     GNENetworkElement(net, net->getAttributeCarriers()->generateEdgeTypeID(), GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}) {
     // create laneType
     GNELaneType* laneType = new GNELaneType(this);
-    laneType->incRef("GNEEdgeType::GNEEdgeType");
     myLaneTypes.push_back(laneType);
 }
 
@@ -58,7 +55,6 @@ GNEEdgeType::GNEEdgeType(GNENet* net, const std::string& ID, const NBTypeCont::E
     // create  laneTypes
     for (const auto& laneTypeDef : edgeType->laneTypeDefinitions) {
         GNELaneType* laneType = new GNELaneType(this, laneTypeDef);
-        laneType->incRef("GNEEdgeType::GNEEdgeType(parameters)");
         myLaneTypes.push_back(laneType);
     }
     // copy parameters
@@ -83,10 +79,7 @@ GNEEdgeType::GNEEdgeType(GNENet* net, const std::string& ID, const NBTypeCont::E
 GNEEdgeType::~GNEEdgeType() {
     // delete laneTypes
     for (const auto& laneType : myLaneTypes) {
-        laneType->decRef("GNEEdgeType::~GNEEdgeType");
-        if (laneType->unreferenced()) {
-            delete laneType;
-        }
+        delete laneType;
     }
 }
 
@@ -109,66 +102,17 @@ GNEEdgeType::getLaneTypeIndex(const GNELaneType* laneType) const {
 
 
 void
-GNEEdgeType::addLaneType(GNELaneType* laneType, const int position) {
-    if (std::find(myLaneTypes.begin(), myLaneTypes.end(), laneType) != myLaneTypes.end()) {
-        throw ProcessError("GNELaneType already inserted");
+GNEEdgeType::addLaneType(GNELaneType* laneType) {
+    myLaneTypes.push_back(laneType);
+}
+
+
+void
+GNEEdgeType::removeLaneType(const int index) {
+    if (index < myLaneTypes.size()) {
+        myLaneTypes.erase(myLaneTypes.begin() + index);
     } else {
-        if (position < 0 || position > (int)myLaneTypes.size()) {
-            throw ProcessError("invalid position");
-        } else if (position == (int)myLaneTypes.size()) {
-            myLaneTypes.push_back(laneType);
-        } else {
-            myLaneTypes[position] = laneType;
-        }
-    }
-}
-
-
-void
-GNEEdgeType::addLaneType(GNEUndoList* undoList) {
-    // get options
-    const OptionsCont& oc = OptionsCont::getOptions();
-    // create new laneType
-    GNELaneType* laneType = new GNELaneType(this);
-    // begin undoList
-    undoList->begin(GUIIcon::EDGE, "add laneType");
-    // add lane
-    undoList->add(new GNEChange_LaneType(laneType, (int)myLaneTypes.size(), true), true);
-    // set default parameters
-    laneType->setAttribute(SUMO_ATTR_SPEED, toString(oc.getFloat("default.speed")), undoList);
-    laneType->setAttribute(SUMO_ATTR_DISALLOW, oc.getString("default.disallow"), undoList);
-    laneType->setAttribute(SUMO_ATTR_WIDTH, toString(NBEdge::UNSPECIFIED_WIDTH), undoList);
-    laneType->setAttribute(GNE_ATTR_PARAMETERS, "", undoList);
-    // end undoList
-    undoList->end();
-}
-
-
-void
-GNEEdgeType::removeLaneType(GNELaneType* laneType) {
-    auto it = std::find(myLaneTypes.begin(), myLaneTypes.end(), laneType);
-    if (it == myLaneTypes.end()) {
-        throw ProcessError("GNELaneType wasn't inserted");
-    } else {
-        myLaneTypes.erase(it);
-    }
-}
-
-
-void
-GNEEdgeType::removeLaneType(const int index, GNEUndoList* undoList) {
-    // first check if index is correct
-    if ((myLaneTypes.size() > 1) && (index < (int)myLaneTypes.size())) {
-        // begin undoList
-        undoList->begin(GUIIcon::EDGE, "remove laneType");
-        // copy laneType values
-        for (int i = index; i < ((int)myLaneTypes.size() - 1); i++) {
-            myLaneTypes.at(i)->copyLaneType(myLaneTypes.at(i + 1), undoList);
-        }
-        // remove last lane
-        undoList->add(new GNEChange_LaneType(myLaneTypes.back(), ((int)myLaneTypes.size() - 1), false), true);
-        // end undoList
-        undoList->end();
+        throw ProcessError("Invalid index");
     }
 }
 

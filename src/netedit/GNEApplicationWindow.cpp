@@ -29,7 +29,6 @@
 #include <netedit/frames/network/GNETAZFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <netedit/changes/GNEChange_EdgeType.h>
-#include <netedit/changes/GNEChange_LaneType.h>
 #include <netimport/NIFrame.h>
 #include <netimport/NIXMLTypesHandler.h>
 #include <netimport/NITypeLoader.h>
@@ -737,15 +736,13 @@ GNEApplicationWindow::onCmdOpenEdgeTypes(FXObject*, FXSelector, void*) {
         for (const auto& auxEdgeType : typeContainerAux) {
             // create new edge type
             GNEEdgeType* edgeType = new GNEEdgeType(myNet, auxEdgeType.first, auxEdgeType.second);
+            // add lane types
+            for (const auto& laneType : auxEdgeType.second->laneTypeDefinitions) {
+                edgeType->addLaneType(new GNELaneType(edgeType, laneType));
+            }
             // add it using undoList
             myViewNet->getUndoList()->add(new GNEChange_EdgeType(edgeType, true), true);
-            // iterate over lanes auxType
-            for (const auto& auxLaneType : auxEdgeType.second->laneTypeDefinitions) {
-                // also create a new laneType
-                GNELaneType* laneType = new GNELaneType(edgeType, auxLaneType);
-                // add it using undoList
-                myViewNet->getUndoList()->add(new GNEChange_LaneType(laneType, (int)edgeType->getLaneTypes().size(), true), true);
-            }
+
         }
         // end undo list
         myViewNet->getUndoList()->end();

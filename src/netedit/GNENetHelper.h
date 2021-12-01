@@ -78,7 +78,6 @@ struct GNENetHelper {
         friend class GNEDataHandler;
         friend class GNEChange_Junction;
         friend class GNEChange_EdgeType;
-        friend class GNEChange_LaneType;
         friend class GNEChange_Edge;
         friend class GNEChange_Additional;
         friend class GNEChange_Shape;

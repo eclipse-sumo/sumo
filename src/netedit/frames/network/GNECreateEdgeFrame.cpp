@@ -25,7 +25,6 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_EdgeType.h>
-#include <netedit/changes/GNEChange_LaneType.h>
 #include <netedit/dialogs/GNEAllowDisallow.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
 #include <netedit/elements/network/GNEEdgeType.h>
@@ -276,12 +275,9 @@ long
 GNECreateEdgeFrame::EdgeTypeSelector::onCmdAddEdgeType(FXObject*, FXSelector, void*) {
     // create new edge type
     GNEEdgeType* edgeType = new GNEEdgeType(myCreateEdgeFrameParent->getViewNet()->getNet());
-    // also create a new laneType
-    GNELaneType* laneType = new GNELaneType(edgeType);
     // add it using undoList
     myCreateEdgeFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::EDGE, "create new edge type");
     myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_EdgeType(edgeType, true), true);
-    myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_LaneType(laneType, 0, true), true);
     myCreateEdgeFrameParent->getViewNet()->getUndoList()->end();
     // update myEdgeTypeSelected
     myEdgeTypeSelected = edgeType;
@@ -300,11 +296,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::onCmdDeleteEdgeType(FXObject*, FXSelector,
     // get edgeType to remove
     GNEEdgeType* edgeType = myCreateEdgeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveEdgeType(myEdgeTypesComboBox->getText().text());
     // remove it using undoList
-    myCreateEdgeFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::EDGE, "create new edge type");
-    // iterate over all laneType
-    for (int i = 0; i < (int)edgeType->getLaneTypes().size(); i++) {
-        myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_LaneType(edgeType->getLaneTypes().at(i), i, false), true);
-    }
+    myCreateEdgeFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::EDGE, "delete edge edge type");
     myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_EdgeType(edgeType, false), true);
     myCreateEdgeFrameParent->getViewNet()->getUndoList()->end();
     // refresh EdgeTypeSelector
