@@ -293,6 +293,16 @@ GNEFrameAttributesModuls::AttributesCreatorRow::refreshRow() {
 }
 
 
+void 
+GNEFrameAttributesModuls::AttributesCreatorRow::disableRow() {
+    myAttributeLabel->disable();
+    myEnableAttributeCheckButton->disable();
+    myAttributeColorButton->disable();
+    myValueTextField->disable();
+    myValueCheckButton->disable();
+}
+
+
 bool
 GNEFrameAttributesModuls::AttributesCreatorRow::isAttributeValid() const {
     return (myValueTextField->getTextColor() != FXRGB(255, 0, 0));
@@ -545,6 +555,17 @@ GNEFrameAttributesModuls::AttributesCreator::refreshAttributesCreator() {
     // just refresh row without creating new rows
     if (shown() && myTemplateAC) {
         refreshRows(false);
+    }
+}
+
+
+void 
+GNEFrameAttributesModuls::AttributesCreator::disableAttributesCreator() {
+    // disable all rows
+    for (const auto &row : myAttributesCreatorRows) {
+        if (row) {
+            row->disableRow();
+        }
     }
 }
 

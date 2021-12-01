@@ -107,10 +107,6 @@ GNECreateEdgeFrame::EdgeTypeSelector::refreshEdgeTypeSelector(const bool show) {
     const bool thereAreItems = (templateEditor->getEdgeTemplate() || (edgeTypes.size() > 0));
     // first fill combo box
     fillComboBox();
-    // show parameter fields
-/*
-    myCreateEdgeFrameParent->myEdgeTypeParameters->showEdgeTypeParameters();
-*/
     // check conditions
     if (show && templateEditor->getEdgeTemplate()) {
         // set buttons
@@ -118,16 +114,11 @@ GNECreateEdgeFrame::EdgeTypeSelector::refreshEdgeTypeSelector(const bool show) {
         myUseCustomEdgeType->setCheck(TRUE);
         // set template as current item
         myEdgeTypesComboBox->setCurrentItem(0);
-        // update edge parameters (using template
-/*
-        myCreateEdgeFrameParent->myEdgeTypeParameters->setTemplateValues();
-*/
         // disable delete edge type button (because templates cannot be removed)
         myDeleteEdgeTypeButton->disable();
-        // disable parameter fields (because templates cannot be edited)
-/*
-        myCreateEdgeFrameParent->myEdgeTypeParameters->disableEdgeTypeParameters();
-*/
+        // disable attributes (because templates cannot be edited)
+        myCreateEdgeFrameParent->myEdgeTypeAttributes->disableAttributesCreator();
+        myCreateEdgeFrameParent->myLaneTypeAttributes->disableAttributesCreator();
     } else if (myUseDefaultEdgeType->getCheck() == TRUE) {
         // disable comboBox
         myEdgeTypesComboBox->disable();

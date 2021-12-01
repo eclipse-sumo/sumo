@@ -86,6 +86,9 @@ public:
         /// @brief refresh row
         void refreshRow();
 
+        /// @brief disable Rows
+        void disableRow();
+
         /// @brief check if current attribute is valid
         bool isAttributeValid() const;
 
@@ -177,6 +180,9 @@ public:
 
         /// @brief refresh attribute creator
         void refreshAttributesCreator();
+
+        /// @brief disable AttributesCreator
+        void disableAttributesCreator();
 
         /// @name FOX-callbacks
         /// @{
