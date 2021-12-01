@@ -43,8 +43,8 @@ GNEEdgeType::GNEEdgeType(GNECreateEdgeFrame* createEdgeFrame) :
 
 GNEEdgeType::GNEEdgeType(const GNEEdgeType* edgeType) :
     GNENetworkElement(edgeType->getNet(), edgeType->getID(), GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}),
-    NBTypeCont::EdgeTypeDefinition(edgeType),
-    Parameterised(edgeType->getParametersMap()) {
+    Parameterised(edgeType->getParametersMap()),
+    NBTypeCont::EdgeTypeDefinition(edgeType) {
     // create laneTypes
     for (const auto &laneType : edgeType->getLaneTypes()) {
         myLaneTypes.push_back(new GNELaneType(laneType));
@@ -119,7 +119,7 @@ GNEEdgeType::addLaneType(GNELaneType* laneType) {
 
 void
 GNEEdgeType::removeLaneType(const int index) {
-    if (index < myLaneTypes.size()) {
+    if (index < (int)myLaneTypes.size()) {
         myLaneTypes.erase(myLaneTypes.begin() + index);
     } else {
         throw ProcessError("Invalid index");

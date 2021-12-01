@@ -41,9 +41,9 @@ GNELaneType::GNELaneType(GNEEdgeType* edgeTypeParent) :
 
 GNELaneType::GNELaneType(const GNELaneType* laneType) :
     GNENetworkElement(laneType->getNet(), "", GLO_LANE, SUMO_TAG_LANETYPE, {}, {}, {}, {}, {}, {}, {}, {}),
-    NBTypeCont::LaneTypeDefinition(laneType),
     Parameterised(laneType->getParametersMap()), 
-    myEdgeTypeParent(laneType->getEdgeTypeParent()){
+    NBTypeCont::LaneTypeDefinition(laneType),
+    myEdgeTypeParent(laneType->getEdgeTypeParent()) {
 }
 
 

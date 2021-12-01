@@ -75,13 +75,13 @@ public:
      * @param[in] nb The detector builder
      * @exception ProcessError If something fails on initialisation
      */
-    void init(NLDetectorBuilder& nb);
+    void init(NLDetectorBuilder& nb) override;
 
     /// @brief Destructor
     ~NEMALogic();
 
 
-    SUMOTime trySwitch();
+    SUMOTime trySwitch() override;
 
     /// @name Dynamic Information Retrieval
     /// @{
@@ -89,12 +89,12 @@ public:
     /** @brief Returns the definition of the current phase
      * @return The current phase
      */
-    const MSPhaseDefinition& getCurrentPhaseDef() const;
+    const MSPhaseDefinition& getCurrentPhaseDef() const override;
     /// @}
 
     /// @brief called when switching programs
-    void activateProgram();
-    void deactivateProgram();
+    void activateProgram() override;
+    void deactivateProgram() override;
 
     bool showDetectors() const {
         return myShowDetectors;
