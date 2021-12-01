@@ -46,7 +46,7 @@
 
 #define INVALID_POSITION std::numeric_limits<double>::max() // tl added
 
-//#define DEBUG_NEMA
+// #define DEBUG_NEMA
 
 // ===========================================================================
 // method definitions
@@ -70,7 +70,7 @@ NEMALogic::NEMALogic(MSTLLogicControl& tlcontrol,
     ring1 = getParameter("ring1", "");
     ring2 = getParameter("ring2", "");
     barriers = getParameter("barrierPhases", "");
-    coordinates = getParameter("coordinatePhases", "");
+    coordinates = getParameter("coordinatePhases", getParameter("barrier2Phases",""));
     offset = (StringUtils::toDouble(getParameter("offset", "0")));
     myNextOffset = offset;
     whetherOutputState = StringUtils::toBool(getParameter("whetherOutputState", "false"));
