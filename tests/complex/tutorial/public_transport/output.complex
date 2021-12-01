@@ -1,0 +1,42 @@
+Loading configuration ... done.
+Loading net-file from 'data/net.net.xml' ... done (2ms).
+Loading additional-files from 'data/stops.add.xml' ... done (6ms).
+Loading done.
+Simulation version v1_11_0+0215-ec00761 started with time: 0.00
+Simulation ended at time: 4048.00
+Reason: All vehicles have left the simulation.
+Performance: 
+ Duration: 0.17s
+ Real time factor: 23952.7
+ UPS: 20834.319527
+ UPS-Persons: 1067431.952663
+Vehicles: 
+ Inserted: 25
+ Running: 0
+ Waiting: 0
+Persons: 
+ Inserted: 729
+ Running: 0
+Statistics (avg):
+ RouteLength: 736.62
+ Speed: 3.96
+ Duration: 140.84
+ WaitingTime: 0.16
+ TimeLoss: 34.72
+ DepartDelay: 0.00
+Pedestrian Statistics (avg of 1370 walks):
+ RouteLength: 51.87
+ Duration: 46.03
+ TimeLoss: 8.49
+Ride Statistics (avg of 641 rides):
+ WaitingTime: 118.30
+ RouteLength: 356.37
+ Duration: 42.30
+ Bus: 239
+ Train: 402
+
+DijkstraRouter answered 2506 queries and explored 7.86 edges on average.
+DijkstraRouter spent 0.00s answering queries (0.00ms on average).
+DijkstraRouter answered 729 queries and explored 77.93 edges on average.
+DijkstraRouter spent 0.00s answering queries (0.00ms on average).
+>> Simulation closed with status 0

@@ -65,3 +65,4 @@ complex/tutorial/sumolympics;../docs/tutorial/sumolympics
 complex/tutorial/traci_pedestrian_crossing;../docs/tutorial/traci_pedestrian_crossing
 complex/tutorial/traci_taxi;../docs/tutorial/traci_taxi
 complex/tutorial/traci_tls/plain;../docs/tutorial/traci_tls
+complex/tutorial/public_transport;../docs/tutorial/public_transport
