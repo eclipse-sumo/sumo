@@ -61,7 +61,8 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
     const bool writeDistance = oc.getBool("fcd-output.distance") || (maskSet && of.useAttribute(SUMO_ATTR_DISTANCE, mask));
     const double maxLeaderDistance = oc.getFloat("fcd-output.max-leader-distance");
     std::vector<std::string> params = oc.getStringVector("fcd-output.params");
-    MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
+    MSNet* net = MSNet::getInstance();
+    MSVehicleControl& vc = net->getVehicleControl();
     const double radius = oc.getFloat("device.fcd.radius");
     const bool filter = MSDevice_FCD::getEdgeFilter().size() > 0;
     std::set<const Named*> inRadius;
@@ -171,9 +172,9 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
             }
         }
     }
-    if (MSNet::getInstance()->getPersonControl().hasTransportables()) {
+    if (net->hasPersons() && net->getPersonControl().hasTransportables()) {
         // write persons
-        MSEdgeControl& ec = MSNet::getInstance()->getEdgeControl();
+        MSEdgeControl& ec = net->getEdgeControl();
         const MSEdgeVector& edges = ec.getEdges();
         for (MSEdgeVector::const_iterator e = edges.begin(); e != edges.end(); ++e) {
             if (filter && MSDevice_FCD::getEdgeFilter().count(*e) == 0) {
@@ -185,9 +186,9 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
             }
         }
     }
-    if (MSNet::getInstance()->getContainerControl().hasTransportables()) {
+    if (net->hasContainers() && net->getContainerControl().hasTransportables()) {
         // write containers
-        MSEdgeControl& ec = MSNet::getInstance()->getEdgeControl();
+        MSEdgeControl& ec = net->getEdgeControl();
         const std::vector<MSEdge*>& edges = ec.getEdges();
         for (std::vector<MSEdge*>::const_iterator e = edges.begin(); e != edges.end(); ++e) {
             if (filter && MSDevice_FCD::getEdgeFilter().count(*e) == 0) {
