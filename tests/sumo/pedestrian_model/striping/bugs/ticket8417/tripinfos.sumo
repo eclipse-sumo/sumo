@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-06-30 22:05:25 by Eclipse SUMO sumo Version v1_9_2+0784-39d4ad0
+<!-- generated on 2021-12-02 09:37:26 by Eclipse SUMO sumo Version v1_11_0+0246-dff6be7
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -45,14 +45,14 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="bike2869" depart="186.20" departLane="-34001206#18_0" departPos="10.00" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="205.60" arrivalLane="-34001206#17_0" arrivalPos="15.75" arrivalPosLat="0.00" arrivalSpeed="2.85" duration="19.40" routeLength="36.36" waitingTime="3.60" waitingCount="1" stopTime="0.00" timeLoss="6.68" rerouteNo="0" devices="tripinfo_bike2869 routing_bike2869" vType="bike_bicycle" speedFactor="1.03" vaporized=""/>
+    <tripinfo id="bike2869" depart="186.20" departLane="-34001206#18_0" departPos="10.00" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="205.50" arrivalLane="-34001206#17_0" arrivalPos="15.75" arrivalPosLat="0.00" arrivalSpeed="2.82" duration="19.30" routeLength="36.36" waitingTime="3.40" waitingCount="1" stopTime="0.00" timeLoss="6.55" rerouteNo="0" devices="tripinfo_bike2869 routing_bike2869" vType="bike_bicycle" speedFactor="1.03" vaporized=""/>
     <personinfo id="ped4877" depart="186.20" type="ped_pedestrian">
-        <walk depart="186.20" departPos="0.00" arrival="207.70" arrivalPos="8.46" duration="21.50" routeLength="22.15" timeLoss="5.56" maxSpeed="1.39"/>
+        <walk depart="186.20" departPos="0.00" arrival="208.00" arrivalPos="8.46" duration="21.80" routeLength="22.15" timeLoss="5.86" maxSpeed="1.39"/>
     </personinfo>
     <personinfo id="ped4843" depart="176.71" type="ped_pedestrian">
-        <walk depart="176.80" departPos="0.00" arrival="214.30" arrivalPos="7.88" duration="37.50" routeLength="38.49" timeLoss="9.79" maxSpeed="1.39"/>
+        <walk depart="176.80" departPos="0.00" arrival="214.40" arrivalPos="7.88" duration="37.60" routeLength="38.49" timeLoss="9.89" maxSpeed="1.39"/>
     </personinfo>
     <personinfo id="ped4943" depart="247.50" type="ped_pedestrian">
-        <walk depart="247.50" departPos="0.00" arrival="284.30" arrivalPos="7.88" duration="36.80" routeLength="38.49" timeLoss="9.09" maxSpeed="1.39"/>
+        <walk depart="247.50" departPos="0.00" arrival="284.20" arrivalPos="7.88" duration="36.70" routeLength="38.49" timeLoss="8.99" maxSpeed="1.39"/>
     </personinfo>
 </tripinfos>
