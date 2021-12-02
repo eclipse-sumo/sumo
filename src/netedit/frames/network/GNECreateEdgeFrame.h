@@ -150,7 +150,7 @@ public:
         ~LaneTypeSelector();
 
         /// @brief show lane type selector
-        void showLaneTypeSelector(const bool allowEdit);
+        void showLaneTypeSelector();
 
         /// @brief hide lane type selector
         void hideLaneTypeSelector();
@@ -178,16 +178,15 @@ public:
         /// @brief fill default parameters
         void fillDefaultParameters();
 
+        /// @brief update comboBox
+        void updateComboBox();
+
     private:
         /// @brief pointer to createEdgeFrameParent
         GNECreateEdgeFrame* myCreateEdgeFrameParent;
     
         /// @brief lane index
         int myLaneIndex;
-
-        /// @brief allow edit attributes
-        bool myAllowEdit;
-
         /// @brief ComboBox for lane types
         FXComboBox* myLaneTypesComboBox = nullptr;
 
@@ -261,13 +260,13 @@ protected:
     EdgeTypeSelector* myEdgeTypeSelector = nullptr;
 
     /// @brief internal edgeType attributes
-    GNEFrameAttributesModuls::AttributesCreator* myEdgeTypeAttributes;
+    GNEFrameAttributesModuls::AttributesCreator* myEdgeTypeAttributes = nullptr;
 
     /// @brief lane type selector
     LaneTypeSelector* myLaneTypeSelector;
 
     /// @brief internal laneType attributes
-    GNEFrameAttributesModuls::AttributesCreator* myLaneTypeAttributes;
+    GNEFrameAttributesModuls::AttributesCreator* myLaneTypeAttributes = nullptr;
 
     /// @brief edge selector legend
     EdgeTypeSelectorLegend* myEdgeTypeSelectorLegend = nullptr;
