@@ -24,6 +24,11 @@
 #include <netedit/frames/GNEFrame.h>
 
 // ===========================================================================
+// class declaration
+// ===========================================================================
+class GNEEdgeTemplate;
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -177,36 +182,6 @@ public:
         FXDECLARE(GNEInspectorFrame::TemplateEditor)
 
     public:
-        /// @brief edgeTemplate
-        struct EdgeTemplate {
-        
-        public:
-            /// @brief constructor
-            EdgeTemplate(const GNEEdge* edge);
-
-            /// @brief get edge parameters
-            const std::map<SumoXMLAttr, std::string> &getEdgeParameters() const;
-
-            /// @brief get lane parameters
-            const std::vector<std::map<SumoXMLAttr, std::string> > getLaneParameters() const;
-
-        private:
-            /// @brief edge parameters
-            std::map<SumoXMLAttr, std::string> myEdgeParameters;
-
-            /// @brief lane parameters
-            std::vector<std::map<SumoXMLAttr, std::string> > myLaneParameters;
-
-            /// @brief invalidated default constructor
-            EdgeTemplate() = delete;
-
-            /// @brief invalidated copy constructor
-            EdgeTemplate(const GNEEdge& s) = delete;
-
-            /// @brief invalidated assignment operator
-            GNEEdge& operator=(const GNEEdge& s) = delete;
-        };
-
         /// @brief constructor
         TemplateEditor(GNEInspectorFrame* inspectorFrameParent);
 
@@ -219,8 +194,8 @@ public:
         /// @brief hide template editor
         void hideTemplateEditor();
 
-        /// @brief get the template edge (to copy attributes from)
-        const TemplateEditor::EdgeTemplate *getEdgeTemplate() const;
+        /// @brief get edge template (to copy attributes from)
+        GNEEdgeTemplate *getEdgeTemplate() const;
 
         /// @brief set edge template
         void setEdgeTemplate(const GNEEdge* edge);
@@ -267,7 +242,7 @@ public:
         FXButton* myClearTemplateButton;
 
         /// @brief edge Template
-        TemplateEditor::EdgeTemplate *myEdgeTemplate;
+        GNEEdgeTemplate *myEdgeTemplate;
     };
 
     // ===========================================================================

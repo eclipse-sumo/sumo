@@ -27,6 +27,7 @@
 #include <netedit/elements/additional/GNERerouter.h>
 #include <netedit/elements/additional/GNECalibrator.h>
 #include <netedit/elements/additional/GNEVariableSpeedSign.h>
+#include <netedit/elements/network/GNEEdgeTemplate.h>
 #include <netedit/dialogs/GNEMultipleParametersDialog.h>
 #include <netedit/dialogs/GNERerouterDialog.h>
 #include <netedit/dialogs/GNECalibratorDialog.h>
@@ -495,54 +496,6 @@ GNEInspectorFrame::GEOAttributesEditor::onCmdGEOAttributeHelp(FXObject*, FXSelec
 }
 
 // ---------------------------------------------------------------------------
-// GNEInspectorFrame::TemplateEditor::EdgeTemplate - methods
-// ---------------------------------------------------------------------------
-
-GNEInspectorFrame::TemplateEditor::EdgeTemplate::EdgeTemplate(const GNEEdge* edge) {
-    // copy ID
-    myEdgeParameters[SUMO_ATTR_ID] = edge->getAttribute(SUMO_ATTR_ID);
-    // copy edge-specific attributes
-    myEdgeParameters[SUMO_ATTR_NUMLANES] = edge->getAttribute(SUMO_ATTR_NUMLANES);
-    myEdgeParameters[SUMO_ATTR_TYPE] = edge->getAttribute(SUMO_ATTR_TYPE);
-    myEdgeParameters[SUMO_ATTR_PRIORITY] = edge->getAttribute(SUMO_ATTR_PRIORITY);
-    myEdgeParameters[SUMO_ATTR_SPREADTYPE] = edge->getAttribute(SUMO_ATTR_SPREADTYPE);
-    myEdgeParameters[GNE_ATTR_STOPOFFSET] = edge->getAttribute(GNE_ATTR_STOPOFFSET);
-    myEdgeParameters[GNE_ATTR_STOPOEXCEPTION] = edge->getAttribute(GNE_ATTR_STOPOEXCEPTION);
-    myEdgeParameters[GNE_ATTR_PARAMETERS] = edge->getAttribute(GNE_ATTR_PARAMETERS);
-    // copy raw values for lane-specific attributes
-    myEdgeParameters[SUMO_ATTR_ALLOW] = edge->getAttribute(SUMO_ATTR_ALLOW);
-    myEdgeParameters[SUMO_ATTR_DISALLOW] = edge->getAttribute(SUMO_ATTR_DISALLOW);    // only used in GNECreateEdgeFrame
-    myEdgeParameters[SUMO_ATTR_SPEED] = edge->getAttribute(SUMO_ATTR_SPEED);
-    myEdgeParameters[SUMO_ATTR_WIDTH] = edge->getAttribute(SUMO_ATTR_WIDTH);
-    myEdgeParameters[SUMO_ATTR_ENDOFFSET] = edge->getAttribute(SUMO_ATTR_ENDOFFSET);
-    // copy lane attributes as well
-    for (int i = 0; i < (int)edge->getLanes().size(); i++) {
-        std::map<SumoXMLAttr, std::string> laneParameter;
-        laneParameter[SUMO_ATTR_ALLOW] = edge->getLanes().at(i)->getAttribute(SUMO_ATTR_ALLOW);
-        laneParameter[SUMO_ATTR_DISALLOW] = edge->getLanes().at(i)->getAttribute(SUMO_ATTR_DISALLOW);   // only used in GNECreateEdgeFrame
-        laneParameter[SUMO_ATTR_SPEED] = edge->getLanes().at(i)->getAttribute(SUMO_ATTR_SPEED);
-        laneParameter[SUMO_ATTR_WIDTH] = edge->getLanes().at(i)->getAttribute(SUMO_ATTR_WIDTH);
-        laneParameter[SUMO_ATTR_ENDOFFSET] = edge->getLanes().at(i)->getAttribute(SUMO_ATTR_ENDOFFSET);
-        laneParameter[GNE_ATTR_STOPOFFSET] = edge->getLanes().at(i)->getAttribute(GNE_ATTR_STOPOFFSET);
-        laneParameter[GNE_ATTR_STOPOEXCEPTION] = edge->getLanes().at(i)->getAttribute(GNE_ATTR_STOPOEXCEPTION);
-        laneParameter[GNE_ATTR_PARAMETERS] = edge->getLanes().at(i)->getAttribute(GNE_ATTR_PARAMETERS);
-        myLaneParameters.push_back(laneParameter);
-    }
-}
-
-
-const std::map<SumoXMLAttr, std::string>&
-GNEInspectorFrame::TemplateEditor::EdgeTemplate::getEdgeParameters() const {
-    return myEdgeParameters;
-}
-
-
-const std::vector<std::map<SumoXMLAttr, std::string> > 
-GNEInspectorFrame::TemplateEditor::EdgeTemplate::getLaneParameters() const {
-    return myLaneParameters;
-}
-
-// ---------------------------------------------------------------------------
 // GNEInspectorFrame::TemplateEditor - methods
 // ---------------------------------------------------------------------------
 
@@ -588,7 +541,7 @@ GNEInspectorFrame::TemplateEditor::hideTemplateEditor() {
 }
 
 
-const GNEInspectorFrame::TemplateEditor::EdgeTemplate*
+GNEEdgeTemplate*
 GNEInspectorFrame::TemplateEditor::getEdgeTemplate() const {
     return myEdgeTemplate;
 }
@@ -603,7 +556,7 @@ GNEInspectorFrame::TemplateEditor::setEdgeTemplate(const GNEEdge* edge) {
     }
     // update edge template
     if (edge) {
-        myEdgeTemplate = new TemplateEditor::EdgeTemplate(edge);
+        myEdgeTemplate = new GNEEdgeTemplate(edge);
         // use template by default
          myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getViewParent()->getCreateEdgeFrame()->setUseEdgeTemplate();
     }
@@ -693,9 +646,9 @@ GNEInspectorFrame::TemplateEditor::updateButtons() {
         const auto &ACs = myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
         // update caption of copy button
         if (ACs.size() == 1) {
-            myCopyTemplateButton->setText(("Copy '" + myEdgeTemplate->getEdgeParameters().at(SUMO_ATTR_ID) + "' into edge '" + ACs.front()->getID() + "'").c_str());
+            myCopyTemplateButton->setText(("Copy '" + myEdgeTemplate->getID() + "' into edge '" + ACs.front()->getID() + "'").c_str());
         } else {
-            myCopyTemplateButton->setText(("Copy '" + myEdgeTemplate->getEdgeParameters().at(SUMO_ATTR_ID) + "' into " + toString(ACs.size()) + " selected edges").c_str());
+            myCopyTemplateButton->setText(("Copy '" + myEdgeTemplate->getID() + "' into " + toString(ACs.size()) + " selected edges").c_str());
         }
         // enable set and clear buttons
         myCopyTemplateButton->enable();
