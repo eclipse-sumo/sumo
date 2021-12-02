@@ -28,7 +28,7 @@
 // ===========================================================================
 
 GNELaneTemplate::GNELaneTemplate(const GNELane *lane) :
-    GNEAttributeCarrier(SUMO_TAG_EDGE, lane->getNet()),
+    GNEAttributeCarrier(SUMO_TAG_LANE, lane->getNet()),
     myLane(lane) {
 }
 
