@@ -1,0 +1,42 @@
+Warning: Teleporting vehicle '68'; frontal collision with vehicle '131', lane='CE_0', gap=-2.66, time=162.00 stage=move.
+Warning: Vehicle '68' ends teleporting on edge 'CW', time 162.00.
+Warning: Teleporting vehicle '159'; frontal collision with vehicle '131', lane='CE_0', gap=-1.45, time=172.00 stage=move.
+Warning: Vehicle '159' ends teleporting on edge 'CW', time 172.00.
+Warning: Teleporting vehicle '96'; frontal collision with vehicle '134', lane='CE_0', gap=-6.98, time=175.00 stage=move.
+Warning: Vehicle '96' ends teleporting on edge 'CW', time 175.00.
+Warning: Teleporting vehicle '145'; frontal collision with vehicle '134', lane='CE_0', gap=-1.57, time=180.00 stage=move.
+Warning: Vehicle '145' ends teleporting on edge 'CW', time 180.00.
+Warning: Teleporting vehicle '149'; frontal collision with vehicle '140', lane='CE_0', gap=-1.13, time=189.00 stage=move.
+Warning: Vehicle '149' ends teleporting on edge 'CW', time 190.00.
+Warning: Teleporting vehicle '168'; frontal collision with vehicle '140', lane='CE_0', gap=-0.80, time=191.00 stage=move.
+Warning: Vehicle '168' ends teleporting on edge 'CW', time 191.00.
+Warning: Teleporting vehicle '184'; frontal collision with vehicle '248', lane='CE_0', gap=-3.41, time=288.00 stage=move.
+Warning: Vehicle '184' ends teleporting on edge 'CW', time 288.00.
+Warning: Teleporting vehicle '143'; frontal collision with vehicle '338', lane='CW_0', gap=-3.03, time=383.00 stage=move.
+Warning: Teleporting vehicle '82'; frontal collision with vehicle '346', lane='CW_0', gap=-3.07, time=383.00 stage=move.
+Warning: Vehicle '82' ends teleporting on edge 'CE', time 383.00.
+Warning: Vehicle '143' ends teleporting on edge 'CE', time 383.00.
+Warning: Teleporting vehicle '87'; frontal collision with vehicle '372', lane='CW_0', gap=-0.64, time=394.00 stage=move.
+Warning: Vehicle '87' ends teleporting on edge 'CE', time 394.00.
+Warning: Teleporting vehicle '91'; frontal collision with vehicle '348', lane='CW_0', gap=-0.47, time=406.00 stage=move.
+Warning: Vehicle '91' ends teleporting on edge 'CE', time 406.00.
+Warning: Teleporting vehicle '155'; frontal collision with vehicle '348', lane='CW_0', gap=-4.50, time=412.00 stage=move.
+Warning: Vehicle '155' ends teleporting on edge 'CE', time 412.00.
+Warning: Teleporting vehicle '170'; frontal collision with vehicle '348', lane='CW_0', gap=-4.59, time=415.00 stage=move.
+Warning: Vehicle '170' ends teleporting on edge 'CE', time 415.00.
+Warning: Teleporting vehicle '176'; frontal collision with vehicle '348', lane='CW_0', gap=-3.62, time=417.00 stage=move.
+Warning: Vehicle '176' ends teleporting on edge 'CE', time 417.00.
+Warning: Teleporting vehicle '93'; frontal collision with vehicle '370', lane='CW_0', gap=-3.16, time=418.00 stage=move.
+Warning: Vehicle '93' ends teleporting on edge 'CE', time 418.00.
+Warning: Teleporting vehicle '177'; frontal collision with vehicle '348', lane='CW_0', gap=-3.91, time=420.00 stage=move.
+Warning: Vehicle '177' ends teleporting on edge 'CE', time 420.00.
+Warning: Teleporting vehicle '202'; frontal collision with vehicle '370', lane='CW_0', gap=-10.92, time=429.00 stage=move.
+Warning: Vehicle '202' ends teleporting on edge 'CE', time 429.00.
+Warning: Teleporting vehicle '101'; frontal collision with vehicle '419', lane='CW_0', gap=-2.37, time=441.00 stage=move.
+Warning: Vehicle '101' ends teleporting on edge 'CE', time 441.00.
+Warning: Teleporting vehicle '209'; frontal collision with vehicle '455', lane='CW_0', gap=-4.28, time=490.00 stage=move.
+Warning: Vehicle '209' ends teleporting on edge 'CE', time 490.00.
+Warning: Teleporting vehicle '263'; frontal collision with vehicle '477', lane='CW_0', gap=-4.33, time=511.00 stage=move.
+Warning: Vehicle '263' ends teleporting on edge 'CE', time 511.00.
+Warning: Teleporting vehicle '216'; frontal collision with vehicle '544', lane='CE_0', gap=-2.94, time=616.00 stage=move.
+Warning: Vehicle '216' ends teleporting on edge 'CW', time 616.00.
