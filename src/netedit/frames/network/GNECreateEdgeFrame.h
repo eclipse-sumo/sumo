@@ -115,6 +115,9 @@ public:
         /// @brief selected edgeType
         GNEEdgeType* myEdgeTypeSelected = nullptr;
 
+        /// @brief currentIndex
+        int myCurrentIndex;
+
         /// @brief hidden attributes (temporal)
         const std::vector<SumoXMLAttr> myHiddenAttributes;
 

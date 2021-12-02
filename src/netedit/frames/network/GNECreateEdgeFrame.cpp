@@ -74,6 +74,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::EdgeTypeSelector(GNECreateEdgeFrame* creat
     FXGroupBox(createEdgeFrameParent->myContentFrame, "Template selector", GUIDesignGroupBoxFrame),
     myCreateEdgeFrameParent(createEdgeFrameParent),
     myDefaultEdgeType(new GNEEdgeType(createEdgeFrameParent)),
+    myCurrentIndex(0),
     myHiddenAttributes({SUMO_ATTR_ID, SUMO_ATTR_ONEWAY, SUMO_ATTR_DISCARD, SUMO_ATTR_MAXWIDTH, SUMO_ATTR_MINWIDTH, SUMO_ATTR_SIDEWALKWIDTH, SUMO_ATTR_BIKELANEWIDTH, SUMO_ATTR_WIDTHRESOLUTION}) {
     // default edge radio button
     myUseDefaultEdgeType = new FXRadioButton(this, "Create default edge", this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
@@ -108,10 +109,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::refreshEdgeTypeSelector() {
     // fill combo box
     fillComboBox();
     // set default edgeType
-    if (myUseDefaultEdgeType->getCheck() || (myEdgeTypesComboBox->getNumItems() == 0)) {
-        // set buttons
-        myUseDefaultEdgeType->setCheck(TRUE);
-        myUseCustomEdgeType->setCheck(FALSE);
+    if (myUseDefaultEdgeType->getCheck()) {
         // disable comboBox
         myEdgeTypesComboBox->disable();
         // disable buttons
@@ -122,12 +120,14 @@ GNECreateEdgeFrame::EdgeTypeSelector::refreshEdgeTypeSelector() {
         // show lane attributes
         myCreateEdgeFrameParent->myLaneTypeSelector->showLaneTypeSelector();
     } else if (myUseCustomEdgeType->getCheck()) {
-        // enable add edge button
+        // enable buttons
         myAddEdgeTypeButton->enable();
+        myDeleteEdgeTypeButton->enable();
         // check conditions
         if (myEdgeTypesComboBox->getNumItems() == 0) {
-            // disable comboBox
+            // disable comboBox and edgeType
             myEdgeTypesComboBox->disable();
+            myDeleteEdgeTypeButton->disable();
             // hide attributes creators
             myCreateEdgeFrameParent->myEdgeTypeAttributes->hideAttributesCreatorModul();
             myCreateEdgeFrameParent->myLaneTypeSelector->hideLaneTypeSelector();
@@ -204,6 +204,10 @@ GNECreateEdgeFrame::EdgeTypeSelector::getEdgeTypeSelected() const {
 void
 GNECreateEdgeFrame::EdgeTypeSelector::clearEdgeTypeSelected() {
     myEdgeTypeSelected = nullptr;
+    myCurrentIndex--;
+    if (myCurrentIndex < 0) {
+        myCurrentIndex = 0;
+    }
 }
 
 
@@ -211,7 +215,14 @@ void
 GNECreateEdgeFrame::EdgeTypeSelector::setCurrentEdgeType(const GNEEdgeType* edgeType) {
     for (int i = 0; i < myEdgeTypesComboBox->getNumItems(); i++) {
         if (myEdgeTypesComboBox->getItem(i).text() == edgeType->getID()) {
-            myEdgeTypesComboBox->setCurrentItem(i, TRUE);
+            // set current item and index
+            myEdgeTypesComboBox->setCurrentItem(i);
+            myCurrentIndex = i;
+            // set buttons
+            myUseDefaultEdgeType->setCheck(FALSE);
+            myUseCustomEdgeType->setCheck(TRUE);
+            // refresh
+            refreshEdgeTypeSelector();
         }
     }
 }
@@ -219,9 +230,10 @@ GNECreateEdgeFrame::EdgeTypeSelector::setCurrentEdgeType(const GNEEdgeType* edge
 
 void
 GNECreateEdgeFrame::EdgeTypeSelector::useTemplate() {
-    myUseCustomEdgeType->setCheck(TRUE, TRUE);
+    myUseCustomEdgeType->setCheck(TRUE);
     refreshEdgeTypeSelector();
 }
+
 
 long
 GNECreateEdgeFrame::EdgeTypeSelector::onCmdRadioButton(FXObject* obj, FXSelector, void*) {
@@ -251,6 +263,8 @@ GNECreateEdgeFrame::EdgeTypeSelector::onCmdAddEdgeType(FXObject*, FXSelector, vo
     myCreateEdgeFrameParent->getViewNet()->getUndoList()->end();
     // update myEdgeTypeSelected
     myEdgeTypeSelected = edgeType;
+    // select last item
+    myCurrentIndex = (myEdgeTypesComboBox->getNumItems() - 1);
     // refresh EdgeTypeSelector
     refreshEdgeTypeSelector();
     return 0;
@@ -266,7 +280,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::onCmdDeleteEdgeType(FXObject*, FXSelector,
     // get edgeType to remove
     GNEEdgeType* edgeType = myCreateEdgeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveEdgeType(myEdgeTypesComboBox->getText().text());
     // remove it using undoList
-    myCreateEdgeFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::EDGE, "delete edge edge type");
+    myCreateEdgeFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::EDGE, "delete edge type");
     myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_EdgeType(edgeType, false), true);
     myCreateEdgeFrameParent->getViewNet()->getUndoList()->end();
     // refresh EdgeTypeSelector
@@ -277,7 +291,9 @@ GNECreateEdgeFrame::EdgeTypeSelector::onCmdDeleteEdgeType(FXObject*, FXSelector,
 
 long
 GNECreateEdgeFrame::EdgeTypeSelector::onCmdSelectEdgeType(FXObject*, FXSelector, void*) {
-    // just refresh edgeType selector
+    // update current index
+    myCurrentIndex = myEdgeTypesComboBox->getCurrentItem();
+    // refresh edgeType selector
     refreshEdgeTypeSelector();
     return 0;
 }
@@ -307,6 +323,11 @@ GNECreateEdgeFrame::EdgeTypeSelector::fillComboBox() {
     } else {
         myEdgeTypesComboBox->setNumVisible(10);
     }
+    // set current item
+    if (myCurrentIndex >= myEdgeTypesComboBox->getNumItems()) {
+        myCurrentIndex = myEdgeTypesComboBox->getNumItems() - 1;
+    }
+    myEdgeTypesComboBox->setCurrentItem(myCurrentIndex);
 }
 
 
@@ -353,10 +374,10 @@ GNECreateEdgeFrame::LaneTypeSelector::~LaneTypeSelector() {
 
 void
 GNECreateEdgeFrame::LaneTypeSelector::showLaneTypeSelector() {
+    // start at first lane
+    myLaneIndex = 0;
     // refresh laneTypeSelector
     refreshLaneTypeSelector();
-    // set default lane
-    myLaneTypesComboBox->setCurrentItem(0);
     // show
     show();
 }
@@ -387,6 +408,10 @@ GNECreateEdgeFrame::LaneTypeSelector::onCmdAddLaneType(FXObject*, FXSelector, vo
         if (edgeType) {
             // create new edgeType
             GNEEdgeType* newEdgeType = new GNEEdgeType(edgeType);
+            // create laneTypes
+            for (const auto &laneType : edgeType->getLaneTypes()) {
+                newEdgeType->addLaneType(new GNELaneType(newEdgeType, laneType));
+            }
             // add new lane
             newEdgeType->addLaneType(new GNELaneType(newEdgeType));
             // remove old edgeTyp und and newEdgeType
@@ -394,12 +419,10 @@ GNECreateEdgeFrame::LaneTypeSelector::onCmdAddLaneType(FXObject*, FXSelector, vo
             myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_EdgeType(edgeType, false), true);
             myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_EdgeType(newEdgeType, true), true);
             myCreateEdgeFrameParent->getViewNet()->getUndoList()->end();
+            // update index
+            myLaneIndex = myLaneTypesComboBox->getNumItems() - 1;
             // set current edgeType in selector
             myCreateEdgeFrameParent->myEdgeTypeSelector->setCurrentEdgeType(newEdgeType);
-            // refresh laneTypeSelector
-            refreshLaneTypeSelector();
-            // set combo box
-            myLaneTypesComboBox->setCurrentItem(myLaneTypesComboBox->getNumItems() - 1);
         }
     }
     return 0;
