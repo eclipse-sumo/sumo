@@ -56,7 +56,7 @@ public:
         ~EdgeTypeSelector();
 
         /// @brief refresh edge type selector
-        void refreshEdgeTypeSelector(const bool show = false);
+        void refreshEdgeTypeSelector();
 
         /// @brief check if we have to use edge template
         bool useEdgeTemplate() const;
@@ -150,7 +150,7 @@ public:
         ~LaneTypeSelector();
 
         /// @brief show lane type selector
-        void showLaneTypeSelector();
+        void showLaneTypeSelector(const bool allowEdit);
 
         /// @brief hide lane type selector
         void hideLaneTypeSelector();
@@ -184,6 +184,9 @@ public:
     
         /// @brief lane index
         int myLaneIndex;
+
+        /// @brief allow edit attributes
+        bool myAllowEdit;
 
         /// @brief ComboBox for lane types
         FXComboBox* myLaneTypesComboBox = nullptr;

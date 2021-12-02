@@ -99,99 +99,63 @@ GNECreateEdgeFrame::EdgeTypeSelector::~EdgeTypeSelector() {
 
 
 void
-GNECreateEdgeFrame::EdgeTypeSelector::refreshEdgeTypeSelector(const bool show) {
+GNECreateEdgeFrame::EdgeTypeSelector::refreshEdgeTypeSelector() {
     // get template editor
     const GNEInspectorFrame::TemplateEditor* templateEditor = myCreateEdgeFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor();
-    // get edge types
-    const auto& edgeTypes = myCreateEdgeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdgeTypes();
-    // get flag for number of items
-    const bool thereAreItems = (templateEditor->getEdgeTemplate() || (edgeTypes.size() > 0));
-    // first fill combo box
+    // get current item
+    const int index = myEdgeTypesComboBox->getCurrentItem();
+    // fill combo box
     fillComboBox();
-    // check conditions
-    if (show && templateEditor->getEdgeTemplate()) {
+    // set default edgeType
+    if (myUseDefaultEdgeType->getCheck() || (myEdgeTypesComboBox->getNumItems() == 0)) {
         // set buttons
-        myUseDefaultEdgeType->setCheck(FALSE);
-        myUseCustomEdgeType->setCheck(TRUE);
-        // set template as current item
-        myEdgeTypesComboBox->setCurrentItem(0, TRUE);
-        // disable delete edge type button (because templates cannot be removed)
-        myDeleteEdgeTypeButton->disable();
-        // disable attributes (because templates cannot be edited)
-        myCreateEdgeFrameParent->myEdgeTypeAttributes->disableAttributesCreator();
-        myCreateEdgeFrameParent->myLaneTypeAttributes->disableAttributesCreator();
-    } else if (myUseDefaultEdgeType->getCheck() == TRUE) {
+        myUseDefaultEdgeType->setCheck(TRUE);
+        myUseCustomEdgeType->setCheck(FALSE);
         // disable comboBox
         myEdgeTypesComboBox->disable();
         // disable buttons
         myAddEdgeTypeButton->disable();
         myDeleteEdgeTypeButton->disable();
-        // show edgeType attributes
+        // show default edgeType attributes
         myCreateEdgeFrameParent->myEdgeTypeAttributes->showAttributesCreatorModul(myDefaultEdgeType, myHiddenAttributes);
         // show lane attributes
-        myCreateEdgeFrameParent->myLaneTypeSelector->showLaneTypeSelector();
-    } else if (thereAreItems) {
-        // enable add button
+        myCreateEdgeFrameParent->myLaneTypeSelector->showLaneTypeSelector(true);
+    } else if (myUseCustomEdgeType->getCheck()) {
+        // enable add edge button
         myAddEdgeTypeButton->enable();
-        // enable combo box
-        myEdgeTypesComboBox->enable();
-        // myEdgeTypesComboBox
-        if (myEdgeTypeSelected) {
-            // declare index
-            int index = 0;
-            // search index of current selectedEdgeType
-            for (int i = 0; i < myEdgeTypesComboBox->getNumItems(); i++) {
-                if (myEdgeTypeSelected->getID() == myEdgeTypesComboBox->getItem(i).text()) {
-                    index = i;
-                }
+        // check conditions
+        if (myEdgeTypesComboBox->getNumItems() == 0) {
+            // disable comboBox
+            myEdgeTypesComboBox->disable();
+            // hide attributes creators
+            myCreateEdgeFrameParent->myEdgeTypeAttributes->hideAttributesCreatorModul();
+            myCreateEdgeFrameParent->myLaneTypeSelector->hideLaneTypeSelector();
+        } else if (templateEditor->getEdgeTemplate() && (index == 0)) {
+            // enable comboBox
+            myEdgeTypesComboBox->enable();
+            // show edgeType attributes and disable
+            myCreateEdgeFrameParent->myEdgeTypeAttributes->showAttributesCreatorModul(templateEditor->getEdgeTemplate(), {});
+            myCreateEdgeFrameParent->myEdgeTypeAttributes->disableAttributesCreator();
+            // show lane attributes and disable
+            myCreateEdgeFrameParent->myLaneTypeSelector->showLaneTypeSelector(false);  
+        } else {
+            // get edgeType
+            myEdgeTypeSelected = myCreateEdgeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveEdgeType(myEdgeTypesComboBox->getText().text(), false);
+            // check if exist
+            if (myEdgeTypeSelected) {
+                // show edgeType attributes
+                myCreateEdgeFrameParent->myEdgeTypeAttributes->showAttributesCreatorModul(myEdgeTypeSelected, myHiddenAttributes);
+                // show lane attributes
+                myCreateEdgeFrameParent->myLaneTypeSelector->showLaneTypeSelector(true);
+            } else {
+                // hide edgeType attributes
+                myCreateEdgeFrameParent->myEdgeTypeAttributes->hideAttributesCreatorModul();
+                // hide lane attributes
+                myCreateEdgeFrameParent->myLaneTypeSelector->hideLaneTypeSelector();
+                // set comboBox text
+                myEdgeTypesComboBox->setTextColor(FXRGB(255, 0, 0));
             }
-            // set current item
-            myEdgeTypesComboBox->setCurrentItem(index);
-            // enable delete edge type button
-            myDeleteEdgeTypeButton->enable();
-/*
-            // update edge parameters
-            myCreateEdgeFrameParent->myEdgeTypeParameters->setEdgeType(myEdgeTypeSelected, true);
-            // enable parameter fields
-            myCreateEdgeFrameParent->myEdgeTypeParameters->enableEdgeTypeParameters();
-*/
-        } else if (templateEditor->getEdgeTemplate()) {
-            // set template as current item
-            myEdgeTypesComboBox->setCurrentItem(0);
-            // update edge parameters (using template
-/*
-            myCreateEdgeFrameParent->myEdgeTypeParameters->setTemplateValues();
-            // disable delete edge type button (because templates cannot be removed)
-*/
-            myDeleteEdgeTypeButton->disable();
-/*
-            // disable parameter fields (because templates cannot be edited)
-            myCreateEdgeFrameParent->myEdgeTypeParameters->disableEdgeTypeParameters();
-*/
-        } else if (edgeTypes.size() > 0) {
-            // set myEdgeTypeSelected
-            myEdgeTypeSelected = edgeTypes.begin()->second;
-            // set current item
-            myEdgeTypesComboBox->setCurrentItem(0);
-            // enable delete edge type button
-            myDeleteEdgeTypeButton->enable();
-            // update edge parameters
-/*
-            myCreateEdgeFrameParent->myEdgeTypeParameters->setEdgeType(myEdgeTypeSelected, true);
-            // enable parameter fields (because edgeTypes can be edited)
-            myCreateEdgeFrameParent->myEdgeTypeParameters->enableEdgeTypeParameters();
-*/
         }
-    } else {
-        // hide parameter fields
-/*
-        myCreateEdgeFrameParent->myEdgeTypeParameters->hideEdgeTypeParameters();
-*/
-        // disable add and delete buttons
-        myAddEdgeTypeButton->enable();
-        myDeleteEdgeTypeButton->disable();
-        // disable combo box
-        myEdgeTypesComboBox->disable();
     }
     // recalc
     recalc();
@@ -261,12 +225,12 @@ GNECreateEdgeFrame::EdgeTypeSelector::onCmdRadioButton(FXObject* obj, FXSelector
     // check what object was pressed
     if (obj == myUseDefaultEdgeType) {
         // update radio buttons
-        myUseDefaultEdgeType->setCheck(TRUE, FALSE);
-        myUseCustomEdgeType->setCheck(FALSE, FALSE);
+        myUseDefaultEdgeType->setCheck(TRUE);
+        myUseCustomEdgeType->setCheck(FALSE);
     } else {
         // update radio buttons
-        myUseDefaultEdgeType->setCheck(FALSE, FALSE);
-        myUseCustomEdgeType->setCheck(TRUE, FALSE);
+        myUseDefaultEdgeType->setCheck(FALSE);
+        myUseCustomEdgeType->setCheck(TRUE);
     }
     // refresh template selector
     refreshEdgeTypeSelector();
@@ -310,45 +274,8 @@ GNECreateEdgeFrame::EdgeTypeSelector::onCmdDeleteEdgeType(FXObject*, FXSelector,
 
 long
 GNECreateEdgeFrame::EdgeTypeSelector::onCmdSelectEdgeType(FXObject*, FXSelector, void*) {
-    // get template editor
-    const GNEInspectorFrame::TemplateEditor* templateEditor = myCreateEdgeFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor();
-    // reset myEdgeTypeSelected
-    myEdgeTypeSelected = nullptr;
-    // check if we selected template
-    if (templateEditor->getEdgeTemplate() && myEdgeTypesComboBox->getCurrentItem() == 0) {
-        // set valid color
-        myEdgeTypesComboBox->setTextColor(FXRGB(0, 0, 0));
-        myEdgeTypesComboBox->killFocus();
-        // set edgeTypeAttributes
-        myCreateEdgeFrameParent->myEdgeTypeAttributes->showAttributesCreatorModul(templateEditor->getEdgeTemplate(), myHiddenAttributes);
-        // disable delete edge type button (because templates cannot be edited)
-        myDeleteEdgeTypeButton->disable();
-        // disable attributes (because templates cannot be edited)
-        myCreateEdgeFrameParent->myEdgeTypeAttributes->disableAttributesCreator();
-        myCreateEdgeFrameParent->myLaneTypeAttributes->disableAttributesCreator();
-        return 1;
-    }
-    // get edgeType
-    GNEEdgeType* edgeType = myCreateEdgeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveEdgeType(myEdgeTypesComboBox->getText().text(), false);
-    // check edge type
-    if (edgeType) {
-        // set valid color
-        myEdgeTypesComboBox->setTextColor(FXRGB(0, 0, 0));
-        myEdgeTypesComboBox->killFocus();
-        // enable delete edge type button
-        myDeleteEdgeTypeButton->enable();
-        // show parameter fields
-        myCreateEdgeFrameParent->myEdgeTypeAttributes->showAttributesCreatorModul(edgeType, myHiddenAttributes);
-        myCreateEdgeFrameParent->myLaneTypeSelector->showLaneTypeSelector();
-    } else {
-        // set invalid color
-        myEdgeTypesComboBox->setTextColor(FXRGB(255, 0, 0));
-        // disable delete edge type button
-        myDeleteEdgeTypeButton->disable();
-        // hide parameter fields
-        myCreateEdgeFrameParent->myEdgeTypeAttributes->hideAttributesCreatorModul();
-        myCreateEdgeFrameParent->myLaneTypeSelector->hideLaneTypeSelector();
-    }
+    // just refresh edgeType selector
+    refreshEdgeTypeSelector();
     return 0;
 }
 
@@ -361,6 +288,8 @@ GNECreateEdgeFrame::EdgeTypeSelector::fillComboBox() {
     const auto& edgeTypes = myCreateEdgeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdgeTypes();
     // clear edge types
     myEdgeTypesComboBox->clearItems();
+    // set comboBox text color
+    myEdgeTypesComboBox->setTextColor(FXRGB(0, 0, 0));
     // add template
     if (templateEditor->getEdgeTemplate()) {
         myEdgeTypesComboBox->appendItem(("template: " + templateEditor->getEdgeTemplate()->getID()).c_str(), nullptr);
@@ -420,7 +349,9 @@ GNECreateEdgeFrame::LaneTypeSelector::~LaneTypeSelector() {
 
 
 void
-GNECreateEdgeFrame::LaneTypeSelector::showLaneTypeSelector() {
+GNECreateEdgeFrame::LaneTypeSelector::showLaneTypeSelector(const bool allowEdit) {
+    // st allow edit
+    myAllowEdit = allowEdit;
     // refresh laneTypeSelector
     refreshLaneTypeSelector();
     // set default lane
@@ -434,6 +365,7 @@ void
 GNECreateEdgeFrame::LaneTypeSelector::hideLaneTypeSelector() {
     // hide attributes creator modul
     myCreateEdgeFrameParent->myLaneTypeAttributes->hideAttributesCreatorModul();
+    // hide
     hide();
 }
 
@@ -522,6 +454,10 @@ GNECreateEdgeFrame::LaneTypeSelector::refreshLaneTypeSelector() {
         }
         // show laneTypeAttributes
         myCreateEdgeFrameParent->myLaneTypeAttributes->showAttributesCreatorModul(edgeType->getLaneTypes().at(myLaneIndex), {});
+        // check if disable
+        if (!myAllowEdit) {
+            myCreateEdgeFrameParent->myLaneTypeAttributes->disableAttributesCreator();
+        }
     } else {
         // disable items
         myAddLaneTypeButton->disable();
@@ -704,7 +640,7 @@ GNECreateEdgeFrame::updateObjectsUnderSnappedCursor(const std::vector<GUIGlObjec
 void
 GNECreateEdgeFrame::show() {
     // refresh template selector
-    myEdgeTypeSelector->refreshEdgeTypeSelector(true);
+    myEdgeTypeSelector->refreshEdgeTypeSelector();
     // show frame
     GNEFrame::show();
 }
