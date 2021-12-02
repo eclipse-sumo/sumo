@@ -485,4 +485,10 @@ GNEAttributeProperties::isFlowDefinition() const {
     return (myAttributeProperty & FLOWDEFINITION) != 0;
 }
 
+
+bool
+GNEAttributeProperties::hasAutomaticID() const {
+    return (myAttributeProperty & AUTOMATICID) != 0;
+}
+
 /****************************************************************************/

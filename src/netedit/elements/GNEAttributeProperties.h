@@ -72,6 +72,7 @@ public:
         ACTIVATABLE =         1 << 24,  // Attribute can be switch on/off using a checkbox in frame
         COMPLEX =             1 << 25,  // Attribute is complex: Require a special function to check if the given value is valid
         FLOWDEFINITION =      1 << 26,  // Attribute is part of a flow definition (Number, vehsPerHour...)
+        AUTOMATICID =         1 << 27,  // Attribute id can generate their own ID (used by additionals, vehicles, etc...)
     };
 
     /// @brief default constructor
@@ -220,6 +221,9 @@ public:
 
     /// @brief return true if atribute is part of a flow definition
     bool isFlowDefinition() const;
+
+    /// @brief return true if attribute ID can generate an automatic ID
+    bool hasAutomaticID() const;
 
 private:
     /// @brief XML Attribute
