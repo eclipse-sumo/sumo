@@ -67,6 +67,7 @@
 #include <netedit/elements/demand/GNEWalk.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
+#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/foxtools/MFXMenuHeader.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>

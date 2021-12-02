@@ -31,6 +31,7 @@
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEEdgeType.h>
+#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>

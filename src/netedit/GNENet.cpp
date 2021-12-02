@@ -48,6 +48,7 @@
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEEdgeType.h>
 #include <netedit/elements/network/GNELaneType.h>
+#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netwrite/NWFrame.h>
 #include <netwrite/NWWriter_SUMO.h>
 #include <netwrite/NWWriter_XML.h>

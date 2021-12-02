@@ -25,6 +25,7 @@
 #include <netedit/elements/GNEGeneralHandler.h>
 #include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/GNEGeneralHandler.h>
+#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netedit/frames/network/GNETAZFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>

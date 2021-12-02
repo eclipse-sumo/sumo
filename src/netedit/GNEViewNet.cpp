@@ -30,6 +30,7 @@
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
+#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/data/GNEEdgeDataFrame.h>
