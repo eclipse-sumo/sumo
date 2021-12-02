@@ -232,7 +232,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::refreshRow() {
     // reset invalid value
     myInvalidValue.clear();
     // special case for attribute ID
-    if (myAttrProperties.getAttr() == SUMO_ATTR_ID) {
+    if ((myAttrProperties.getAttr() == SUMO_ATTR_ID) && myAttrProperties.hasAutomaticID()) {
         // show check button and disable it
         myEnableAttributeCheckButton->setText(myAttrProperties.getAttrStr().c_str());
         myEnableAttributeCheckButton->setCheck(false);
