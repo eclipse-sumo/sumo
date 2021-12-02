@@ -2085,12 +2085,16 @@ GNENetHelper::AttributeCarriers::edgeTypeExist(const GNEEdgeType* edgeType) cons
 
 void
 GNENetHelper::AttributeCarriers::insertEdgeType(GNEEdgeType* edgeType) {
+    // get pointer to create edge frame
+    const auto& createEdgeFrame = myNet->getViewNet()->getViewParent()->getCreateEdgeFrame();
     // insert in myEdgeTypes
     myEdgeTypes[edgeType->getMicrosimID()] = edgeType;
     // update edge selector
     if (myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->shown()) {
         myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
     }
+    // set current edge type inspected
+    createEdgeFrame->getEdgeTypeSelector()->setCurrentEdgeType(edgeType);
 }
 
 
@@ -2106,12 +2110,9 @@ GNENetHelper::AttributeCarriers::deleteEdgeType(GNEEdgeType* edgeType) {
     // check if this is the selected edge type in edgeSelector
     if (createEdgeFrame->getEdgeTypeSelector()->getEdgeTypeSelected() == edgeType) {
         createEdgeFrame->getEdgeTypeSelector()->clearEdgeTypeSelected();
-        createEdgeFrame->getEdgeTypeSelector()->refreshEdgeTypeSelector();
     }
     // update edge selector
-    if (createEdgeFrame->shown()) {
-        createEdgeFrame->getEdgeTypeSelector()->refreshEdgeTypeSelector();
-    }
+    createEdgeFrame->getEdgeTypeSelector()->refreshEdgeTypeSelector();
 }
 
 
