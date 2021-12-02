@@ -74,8 +74,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::EdgeTypeSelector(GNECreateEdgeFrame* creat
     FXGroupBox(createEdgeFrameParent->myContentFrame, "Template selector", GUIDesignGroupBoxFrame),
     myCreateEdgeFrameParent(createEdgeFrameParent),
     myDefaultEdgeType(new GNEEdgeType(createEdgeFrameParent)),
-    myCurrentIndex(0),
-    myHiddenAttributes({SUMO_ATTR_ID, SUMO_ATTR_ONEWAY, SUMO_ATTR_DISCARD, SUMO_ATTR_MAXWIDTH, SUMO_ATTR_MINWIDTH, SUMO_ATTR_SIDEWALKWIDTH, SUMO_ATTR_BIKELANEWIDTH, SUMO_ATTR_WIDTHRESOLUTION}) {
+    myCurrentIndex(0) {
     // default edge radio button
     myUseDefaultEdgeType = new FXRadioButton(this, "Create default edge", this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
     // use custom edge radio button
@@ -116,7 +115,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::refreshEdgeTypeSelector() {
         myAddEdgeTypeButton->disable();
         myDeleteEdgeTypeButton->disable();
         // show default edgeType attributes
-        myCreateEdgeFrameParent->myEdgeTypeAttributes->showAttributesCreatorModul(myDefaultEdgeType, myHiddenAttributes);
+        myCreateEdgeFrameParent->myEdgeTypeAttributes->showAttributesCreatorModul(myDefaultEdgeType, {SUMO_ATTR_ID});
         // show lane attributes
         myCreateEdgeFrameParent->myLaneTypeSelector->showLaneTypeSelector();
     } else if (myUseCustomEdgeType->getCheck()) {
@@ -134,6 +133,8 @@ GNECreateEdgeFrame::EdgeTypeSelector::refreshEdgeTypeSelector() {
         } else if (templateEditor->getEdgeTemplate() && (index == 0)) {
             // enable comboBox
             myEdgeTypesComboBox->enable();
+            // disable delete edge type button (because templates cannot be deleted)
+            myDeleteEdgeTypeButton->disable();
             // show edgeType attributes and disable
             myCreateEdgeFrameParent->myEdgeTypeAttributes->showAttributesCreatorModul(templateEditor->getEdgeTemplate(), {SUMO_ATTR_ID});
             myCreateEdgeFrameParent->myEdgeTypeAttributes->disableAttributesCreator();
@@ -147,7 +148,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::refreshEdgeTypeSelector() {
             // check if exist
             if (myEdgeTypeSelected) {
                 // show edgeType attributes
-                myCreateEdgeFrameParent->myEdgeTypeAttributes->showAttributesCreatorModul(myEdgeTypeSelected, myHiddenAttributes);
+                myCreateEdgeFrameParent->myEdgeTypeAttributes->showAttributesCreatorModul(myEdgeTypeSelected, {});
                 // show lane attributes
                 myCreateEdgeFrameParent->myLaneTypeSelector->showLaneTypeSelector();
             } else {
@@ -162,6 +163,16 @@ GNECreateEdgeFrame::EdgeTypeSelector::refreshEdgeTypeSelector() {
     }
     // recalc
     recalc();
+}
+
+
+void
+GNECreateEdgeFrame::EdgeTypeSelector::updateIDinComboBox(const std::string &oldID, const std::string &newID) {
+    for (int i = 0; i < myEdgeTypesComboBox->getNumItems(); i++) {
+        if (myEdgeTypesComboBox->getItem(i).text() == oldID) {
+            myEdgeTypesComboBox->setItemText(i, newID.c_str());
+        }
+    }
 }
 
 

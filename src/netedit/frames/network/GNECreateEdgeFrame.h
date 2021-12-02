@@ -58,6 +58,9 @@ public:
         /// @brief refresh edge type selector
         void refreshEdgeTypeSelector();
 
+        /// @brief update id in comboBox
+        void updateIDinComboBox(const std::string &oldID, const std::string &newID);
+
         /// @brief check if we have to use edge template
         bool useEdgeTemplate() const;
 
@@ -117,9 +120,6 @@ public:
 
         /// @brief currentIndex
         int myCurrentIndex;
-
-        /// @brief hidden attributes (temporal)
-        const std::vector<SumoXMLAttr> myHiddenAttributes;
 
         /// @brief create default edge
         FXRadioButton* myUseDefaultEdgeType = nullptr;

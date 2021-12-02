@@ -308,9 +308,13 @@ GNEEdgeType::getACParametersMap() const {
 void
 GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID:
+        case SUMO_ATTR_ID: {
+            // update comboBox
+            myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->updateIDinComboBox(getID(), value);
+            // update ID
             myNet->getAttributeCarriers()->updateEdgeTypeID(this, value);
             break;
+        }
         case SUMO_ATTR_NUMLANES: {
             const int numLanes = parse<int>(value);
             // add new lanes
