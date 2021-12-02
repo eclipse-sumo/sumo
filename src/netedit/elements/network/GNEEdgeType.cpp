@@ -45,10 +45,6 @@ GNEEdgeType::GNEEdgeType(const GNEEdgeType* edgeType) :
     GNENetworkElement(edgeType->getNet(), edgeType->getID(), GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}),
     Parameterised(edgeType->getParametersMap()),
     NBTypeCont::EdgeTypeDefinition(edgeType) {
-    // create laneTypes
-    for (const auto &laneType : edgeType->getLaneTypes()) {
-        myLaneTypes.push_back(new GNELaneType(laneType));
-    }
 }
 
 

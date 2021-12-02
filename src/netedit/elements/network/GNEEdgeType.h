@@ -46,7 +46,7 @@ public:
      */
     GNEEdgeType(GNECreateEdgeFrame* createEdgeFrame);
 
-    /// @brief copy constructor
+    /// @brief copy constructor (this doesn't create new lanes)
     GNEEdgeType(const GNEEdgeType* edgeType);
 
     /**@brief Constructor
