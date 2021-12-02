@@ -1901,7 +1901,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
                // still on the road
                && stripe() == stripe(myRelY)
                // only when the vehicle is moving on the same lane
-               && !myLane->getEdge().isCrossing()) {
+               && !(myLane->getEdge().isCrossing() || myLane->getEdge().isWalkingArea())) {
         // step aside to let the vehicle pass
         int stepAsideDir = myDir;
         if (myLane->getEdge().getLanes().size() > 1 || current > sMax / 2) {
