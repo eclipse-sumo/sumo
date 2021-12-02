@@ -453,6 +453,7 @@ GeoConvHelper::x2cartesian_const(Position& from) const {
         }
 #endif
         if (myProjectionMethod == SIMPLE) {
+            // Sinusoidal projection (https://en.wikipedia.org/wiki/Sinusoidal_projection)
             x *= 111320. * cos(DEG2RAD(y));
             y *= 111136.;
             //!!! recheck whether the axes are mirrored
