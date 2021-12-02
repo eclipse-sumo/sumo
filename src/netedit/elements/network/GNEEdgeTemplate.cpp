@@ -42,6 +42,13 @@ GNEEdgeTemplate::~GNEEdgeTemplate() {
     }
 }
 
+
+const std::vector<GNELaneTemplate*>&
+GNEEdgeTemplate::getLaneTemplates() const {
+    return myLaneTemplates;
+}
+
+
 void
 GNEEdgeTemplate::updateLaneTemplates() {
     // first remove all laneTemplates
