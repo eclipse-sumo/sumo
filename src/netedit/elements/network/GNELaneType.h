@@ -38,14 +38,8 @@ public:
     /// @brief Constructor
     GNELaneType(GNEEdgeType* edgeTypeParent);
 
-    /// @brief copy Constructor
-    GNELaneType(const GNELaneType* laneType);
-
-    /**@brief Constructor
-     * @param[in] edgeTypeParent GNEEdgeType parent
-     * @param[in] laneType laneType Definition
-     */
-    GNELaneType(GNEEdgeType* edgeTypeParent, const NBTypeCont::LaneTypeDefinition& laneType);
+    /// @brief Copy constructor
+    GNELaneType(GNEEdgeType* edgeTypeParent, const NBTypeCont::LaneTypeDefinition &laneType);
 
     /// @brief Destructor.
     ~GNELaneType();
