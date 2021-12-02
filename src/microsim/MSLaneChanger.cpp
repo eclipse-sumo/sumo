@@ -1855,6 +1855,17 @@ MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double>
             if (leadLead.second > requiredSpace) {
                 foundSpaceAhead = true;
             } else {
+
+                if (leadLead.second < 0) {
+                    // must be a junction leader or some other dangerous situation
+#ifdef DEBUG_CHANGE_OPPOSITE
+                    if (DEBUG_COND) {
+                        std::cout << "   leader's leader " << leadLead.first->getID() << " gap=" << leadLead.second << " is junction leader (aborting)\n";
+                    }
+#endif
+                    return std::make_pair(nullptr, -1);
+                }
+
 #ifdef DEBUG_CHANGE_OPPOSITE
                 if (DEBUG_COND) {
                     std::cout << "   not enough space after columnLeader=" << columnLeader.first->getID() << " required=" << requiredSpace << "\n";
