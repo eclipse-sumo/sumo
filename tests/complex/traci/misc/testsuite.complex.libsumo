@@ -1,0 +1,32 @@
+# test setting and getting of params to all objects which support it
+params
+
+# test getParameterWithKey().
+paramsWithKey
+
+# test subscribeParameterWithKey().
+paramsWithKey_subscription
+
+# Test for the StepListener functions
+steplistener
+
+# test client-side command tracing
+tracing
+
+# run two subsequent simulations with tracing
+tracing_repeat
+
+# test client-side command tracing when calling commands via the connection
+#tracing_connection
+
+# test client-side command tracing (including getters)
+tracing_noGetters
+
+# test client-side command tracing
+tracing_close_start
+
+# test some output
+verbose
+
+# test various functions and options for influencing the behavior of rerouting functions
+rerouting
