@@ -1,0 +1,12 @@
+<routes>
+    <vType id="normal" sigma="0"/>
+    <vType id="slow" sigma="0" maxSpeed="5"/>
+
+    <route id="r0" edges="a"/>
+
+    <vehicle id="leader" type="slow" route="r0" departPos="stop" depart="0">
+        <stop edge="a" endPos="180" duration="100"/>
+    </vehicle>
+    <vehicle id="overtaking" type="normal" route="r0" departPos="0"  depart="0"/>
+
+</routes>
