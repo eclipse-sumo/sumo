@@ -164,6 +164,9 @@ public:
         /// @brief hide lane type selector
         void hideLaneTypeSelector();
 
+        /// @brief refresh LaneTypeSelector
+        void refreshLaneTypeSelector();
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user press button for add a new lane type
@@ -180,9 +183,6 @@ public:
     protected:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(LaneTypeSelector);
-
-        /// @brief refresh LaneTypeSelector
-        void refreshLaneTypeSelector();
 
         /// @brief fill default parameters
         void fillDefaultParameters();
@@ -257,6 +257,9 @@ public:
 
     /// @brief get edgeType attributes
     GNEFrameAttributesModuls::AttributesCreator* getEdgeTypeAttributes() const;
+
+    /// @brief get lane type selector
+    LaneTypeSelector* getLaneTypeSelector();
 
     /// @brief get laneType attributes
     GNEFrameAttributesModuls::AttributesCreator* getLaneTypeAttributes() const;
