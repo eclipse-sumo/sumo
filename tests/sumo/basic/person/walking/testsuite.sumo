@@ -1,0 +1,18 @@
+# person walking between two unconnected edges
+walk_unconnected
+
+# person with a single walk
+walk
+
+# person with a single walk defined by route-id
+walk_routeID
+
+# person with a single walk with given duration
+walk_duration
+
+# person with a single walk with duration 0
+walk_0
+
+# random depart and arrival positions
+walk_random_pos
+walk_start_crossing

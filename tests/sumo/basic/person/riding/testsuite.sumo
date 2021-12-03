@@ -1,0 +1,67 @@
+# person with a single ride
+ride
+
+# person with a triggered vehicles ride specified using the exact vehicle id rather than the line attribute
+ride_ignore_line
+
+# a bus will stop at two busstop that are located at the same edge and a person is waiting at the second bus stop. the person has to enter the bus when the bus stops at the second busstop and not before.
+two_busstops_at_one_edge
+
+# a bus will stop at two busstop that are located at the same edge and a person is waiting at the second bus stop. the person has to enter the bus when the bus stops at the second busstop and not before.
+# 
+# Stops are defined within a stand-alone route
+two_busstops_at_one_edge2
+
+# a bus will stop two times on the same edge and a person is waiting at the second stop. the person has to enter the bus when the bus stops at the second stop and not before.
+two_stops_at_one_edge
+
+# busses have a large boarding duration such that the stop duration will be extended by the boarding of the passengers
+boarding_duration_extension
+
+# many persons with sub-second boardingDuration should extend the stop
+boarding_duration_extension_small
+
+# busses have a small boarding duration such that the stop duration will not be extended by the boarding of the passengers
+boarding_duration_no_extension
+
+# busses have a large boarding duration but the stop duration extension is limited
+boarding_duration_extension_limited
+
+# busses have a large boarding duration but the stop duration extension is limited
+boarding_duration_extension_limited_no_persons
+
+# busses have a large boarding duration such that the stop duration will be extended by the deboarding of the passengers
+deboarding_duration_extension
+
+# person with a public transport ride
+public
+
+# person with a public transport ride specified using the exact vehicle id
+public_by_id
+
+# person waiting for a public transport ride
+public_wait
+
+# bus arrives past it's until time but still picks up person
+public_brief_stop
+
+# vehicle is waiting at stop for a person
+triggered
+
+# vehicle with triggered departure is discarded due to departDelay
+triggered_discard
+
+# car waiting for person
+vehicle_triggered
+
+# When all vehicles have left the simulation, any remainig persons waiting for a ride should abort their plan.
+abort_impossible_ride
+
+# person ride for restricted capacity
+capacity
+
+# specify the persons that may enter
+permitted
+
+# person ride triggers a vehicle scaled with 3
+ride_triggered_scale
