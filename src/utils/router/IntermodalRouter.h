@@ -109,17 +109,18 @@ public:
 
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
-    bool compute(const E* from, const E* to, const double departPos, const double arrivalPos,
-                 const std::string stopID, const double speed,
-                 const V* const vehicle, const SVCPermissions modeSet, const SUMOTime msTime,
+    bool compute(const E* from, const E* to,
+                 const double departPos, const std::string& originStopID,
+                 const double arrivalPos, const std::string& stopID,
+                 const double speed, const V* const vehicle, const SVCPermissions modeSet, const SUMOTime msTime,
                  std::vector<TripItem>& into, const double externalFactor = 0.) {
         createNet();
         _IntermodalTrip trip(from, to, departPos, arrivalPos, speed, msTime, 0, vehicle, modeSet, myExternalEffort, externalFactor);
         std::vector<const _IntermodalEdge*> intoEdges;
         //std::cout << "compute from=" << from->getID() << " to=" << to->getID() << " dPos=" << departPos << " aPos=" << arrivalPos << " stopID=" << stopID << " speed=" << speed << " veh=" << Named::getIDSecure(vehicle) << " modeSet=" << modeSet << " t=" << msTime << " iFrom=" << myIntermodalNet->getDepartEdge(from, trip.departPos)->getID() << " iTo=" << (stopID != "" ? myIntermodalNet->getStopEdge(stopID) : myIntermodalNet->getArrivalEdge(to, trip.arrivalPos))->getID() << "\n";
-        const bool success = myInternalRouter->compute(myIntermodalNet->getDepartEdge(from, trip.departPos),
-                             stopID != "" ? myIntermodalNet->getStopEdge(stopID) : myIntermodalNet->getArrivalEdge(to, trip.arrivalPos),
-                             &trip, msTime, intoEdges);
+        const _IntermodalEdge* iFrom = originStopID != "" ? myIntermodalNet->getStopEdge(originStopID) : myIntermodalNet->getDepartEdge(from, trip.departPos);
+        const _IntermodalEdge* iTo = stopID != "" ? myIntermodalNet->getStopEdge(stopID) : myIntermodalNet->getArrivalEdge(to, trip.arrivalPos);
+        const bool success = myInternalRouter->compute(iFrom, iTo, &trip, msTime, intoEdges);
         if (success) {
             std::string lastLine = "";
             double time = STEPS2TIME(msTime);

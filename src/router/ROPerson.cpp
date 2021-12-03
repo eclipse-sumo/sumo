@@ -327,7 +327,9 @@ ROPerson::computeIntermodal(SUMOTime time, const RORouterProvider& provider,
                             PersonTrip* const trip, const ROVehicle* const veh, MsgHandler* const errorHandler) {
     const double speed = getType()->maxSpeed * trip->getWalkFactor();
     std::vector<ROIntermodalRouter::TripItem> result;
-    provider.getIntermodalRouter().compute(trip->getOrigin(), trip->getDestination(), trip->getDepartPos(), trip->getArrivalPos(), trip->getStopDest(),
+    provider.getIntermodalRouter().compute(trip->getOrigin(), trip->getDestination(),
+                                           trip->getDepartPos(), "", // XXX fixme #9730
+                                           trip->getArrivalPos(), trip->getStopDest(),
                                            speed, veh, trip->getModes(), time, result);
     bool carUsed = false;
     SUMOTime start = time;

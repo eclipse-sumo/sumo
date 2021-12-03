@@ -649,7 +649,7 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
             }
         }
         std::vector<MSNet::MSIntermodalRouter::TripItem> items;
-        if (router.compute(fromEdge, toEdge, departPos, arrivalPos, destStop,
+        if (router.compute(fromEdge, toEdge, departPos, "", arrivalPos, destStop,
                            speed * walkFactor, vehicle, modeSet, departStep, items, externalFactor)) {
             double cost = 0;
             for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = items.begin(); it != items.end(); ++it) {
