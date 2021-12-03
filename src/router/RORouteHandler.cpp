@@ -1190,7 +1190,9 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     const std::string types = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id, ok, "");
     double walkFactor = attrs.getOpt<double>(SUMO_ATTR_WALKFACTOR, id, ok, OptionsCont::getOptions().getFloat("persontrip.walkfactor"));
     if (ok) {
-        ROPerson::addTrip(*myActivePlan, myVehicleParameter->id, from, to, modeSet, types, departPos, arrivalPos, busStopID, walkFactor, group);
+        const std::string originStopID = myActivePlan->empty() ?  "" : myActivePlan->back()->getStopDest();
+        ROPerson::addTrip(*myActivePlan, myVehicleParameter->id, from, to, modeSet, types,
+                          departPos, originStopID, arrivalPos, busStopID, walkFactor, group);
     }
 }
 
