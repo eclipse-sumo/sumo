@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-12-03 11:42:22 by Eclipse SUMO netconvert Version v1_11_0+0282-1c5758e
+<!-- generated on 2021-12-03 11:54:19 by Eclipse SUMO netconvert Version v1_11_0+0283-ce0508b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -1829,7 +1829,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="430601418#1_3" index="3" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="0.51" shape="301.40,282.78 301.55,283.27"/>
     </edge>
     <edge id="449425610" from="4463814688" to="1619563444" priority="1" type="highway.service" spreadType="center" shape="300.49,331.52 330.51,321.12">
-        <lane id="449425610_0" index="0" allow="bus delivery bicycle" speed="5.56" length="30.12" width="2.00" shape="299.58,328.45 328.04,318.59"/>
+        <lane id="449425610_0" index="0" allow="pedestrian" speed="5.56" length="30.12" width="2.00" shape="299.58,328.45 328.04,318.59"/>
         <lane id="449425610_1" index="1" allow="bus delivery bicycle" speed="5.56" length="30.12" shape="300.43,330.90 328.89,321.05"/>
         <lane id="449425610_2" index="2" allow="bus delivery bicycle" speed="5.56" length="30.12" shape="301.48,333.93 329.94,324.07"/>
     </edge>
