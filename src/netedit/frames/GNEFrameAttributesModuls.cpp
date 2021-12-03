@@ -45,7 +45,8 @@ FXDEFMAP(GNEFrameAttributesModuls::AttributesCreatorRow) RowCreatorMap[] = {
 };
 
 FXDEFMAP(GNEFrameAttributesModuls::AttributesCreator) AttributesCreatorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEFrameAttributesModuls::AttributesCreator::onCmdHelp)
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_RESET,  GNEFrameAttributesModuls::AttributesCreator::onCmdReset),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,       GNEFrameAttributesModuls::AttributesCreator::onCmdHelp),
 };
 
 FXDEFMAP(GNEFrameAttributesModuls::AttributesCreatorFlow) AttributesCreatorFlowMap[] = {
@@ -440,8 +441,11 @@ GNEFrameAttributesModuls::AttributesCreator::AttributesCreator(GNEFrame* framePa
     myAttributesCreatorRows.resize(GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES, nullptr);
     // create myAttributesCreatorFlow
     myAttributesCreatorFlow = new AttributesCreatorFlow(this);
-    // create help button
-    myHelpButton = new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+    // create reset and help button
+    // create elements for end attribute
+    myFrameButtons = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myResetButton = new FXButton(myFrameButtons, "", GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_RESET, GUIDesignButtonIcon);
+    new FXButton(myFrameButtons, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
@@ -465,6 +469,8 @@ GNEFrameAttributesModuls::AttributesCreator::showAttributesCreatorModul(GNEAttri
         myHiddenAttributes = hiddenAttributes;
         // refresh rows (new rows will be created)
         refreshRows(true);
+        // enable reset
+        myResetButton->enable();
         // show
         show();
     } else {
@@ -581,6 +587,8 @@ GNEFrameAttributesModuls::AttributesCreator::disableAttributesCreator() {
             row->disableRow();
         }
     }
+    // also disable reset
+    myResetButton->disable();
 }
 
 
@@ -594,6 +602,24 @@ GNEFrameAttributesModuls::AttributesCreator::areValuesValid() const {
         }
     }
     return true;
+}
+
+
+long
+GNEFrameAttributesModuls::AttributesCreator::onCmdReset(FXObject*, FXSelector, void*) {
+    if (myTemplateAC) {
+        myTemplateAC->resetDefaultValues();
+        refreshRows(false);
+    }
+    return 1;
+}
+
+
+long
+GNEFrameAttributesModuls::AttributesCreator::onCmdHelp(FXObject*, FXSelector, void*) {
+    // open Help attributes dialog
+    myFrameParent->openHelpAttributesDialog(myTemplateAC);
+    return 1;
 }
 
 
@@ -638,7 +664,7 @@ GNEFrameAttributesModuls::AttributesCreator::refreshRows(const bool createRows) 
         }
     }
     // reparent help button (to place it at bottom)
-    myHelpButton->reparent(this);
+    myFrameButtons->reparent(this);
     // recalc
     recalc();
     // check if flow editor has to be shown
@@ -650,13 +676,6 @@ GNEFrameAttributesModuls::AttributesCreator::refreshRows(const bool createRows) 
     } else {
         myAttributesCreatorFlow->hideAttributesCreatorFlowModul();
     }
-}
-
-long
-GNEFrameAttributesModuls::AttributesCreator::onCmdHelp(FXObject*, FXSelector, void*) {
-    // open Help attributes dialog
-    myFrameParent->openHelpAttributesDialog(myTemplateAC);
-    return 1;
 }
 
 // ---------------------------------------------------------------------------

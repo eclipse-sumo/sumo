@@ -186,8 +186,12 @@ public:
 
         /// @name FOX-callbacks
         /// @{
+        /// @brief Called when reset button is pressed
+        long onCmdReset(FXObject*, FXSelector, void*);
+
         /// @brief Called when help button is pressed
         long onCmdHelp(FXObject*, FXSelector, void*);
+
         /// @}
 
     protected:
@@ -212,8 +216,11 @@ public:
         /// @brief vector with the AttributesCreatorRow
         std::vector<AttributesCreatorRow*> myAttributesCreatorRows;
 
-        /// @brief help button
-        FXButton* myHelpButton = nullptr;
+        /// @brief frame buttons
+        FXHorizontalFrame* myFrameButtons = nullptr;
+
+        /// @brief reset button
+        FXButton* myResetButton = nullptr;
     };
 
     // ===========================================================================
