@@ -165,11 +165,7 @@ GNEStoppingPlace::getPositionInView() const {
 
 
 void
-GNEStoppingPlace::updateCenteringBoundary(const bool updateGrid) {
-    // remove additional from grid
-    if (updateGrid && myTagProperty.isPlacedInRTree()) {
-        myNet->removeGLObjectFromGrid(this);
-    }
+GNEStoppingPlace::updateCenteringBoundary(const bool /*updateGrid*/) {
     // update geometry
     updateGeometry();
     // add shape boundary
@@ -177,7 +173,7 @@ GNEStoppingPlace::updateCenteringBoundary(const bool updateGrid) {
     // grow with "width"
     if (myTagProperty.hasAttribute(SUMO_ATTR_WIDTH)) {
         // we cannot use "getAttributeDouble(...)"
-        myAdditionalBoundary.growWidth(parse<double>(getAttribute(SUMO_ATTR_WIDTH)));
+        myAdditionalBoundary.grow(parse<double>(getAttribute(SUMO_ATTR_WIDTH)));
     }
     // grow
     myAdditionalBoundary.grow(10);
@@ -186,10 +182,6 @@ GNEStoppingPlace::updateCenteringBoundary(const bool updateGrid) {
         if (parkingSpace->getTagProperty().getTag() == SUMO_TAG_PARKING_SPACE) {
             myAdditionalBoundary.add(parkingSpace->getCenteringBoundary());
         }
-    }
-    // add additional into RTREE again
-    if (updateGrid &&  myTagProperty.isPlacedInRTree()) {
-        myNet->addGLObjectIntoGrid(this);
     }
 }
 

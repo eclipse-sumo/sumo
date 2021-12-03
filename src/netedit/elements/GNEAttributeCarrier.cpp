@@ -1761,7 +1761,7 @@ GNEAttributeCarrier::fillAdditionals() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::ADDITIONALELEMENT | GNETagProperties::STOPPINGPLACE,
-                                      GNETagProperties::RTREE | GNETagProperties::MASKSTARTENDPOS,
+                                      GNETagProperties::MASKSTARTENDPOS,
                                       GUIIcon::PARKINGAREA, currentTag, {}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,

@@ -108,10 +108,6 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // check exaggeration
         if (s.drawAdditionals(parkingAreaExaggeration)) {
-            // check if boundary has to be drawn
-            if (s.drawBoundaries) {
-                GLHelper::drawBoundary(getCenteringBoundary());
-            }
             // declare colors
             RGBColor baseColor, signColor;
             // set colors
@@ -408,7 +404,7 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             // update boundary (except for template)
             if (getID().size() > 0) {
-                updateCenteringBoundary(true);
+                updateCenteringBoundary(false);
             }
             break;
         case SUMO_ATTR_ENDPOS:
@@ -419,7 +415,7 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             // update boundary (except for template)
             if (getID().size() > 0) {
-                updateCenteringBoundary(true);
+                updateCenteringBoundary(false);
             }
             break;
         case SUMO_ATTR_DEPARTPOS:
@@ -435,7 +431,7 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             myRoadSideCapacity = parse<int>(value);
             // update boundary (except for template)
             if (getID().size() > 0) {
-                updateCenteringBoundary(true);
+                updateCenteringBoundary(false);
             }
             break;
         case SUMO_ATTR_ONROAD:
@@ -449,7 +445,8 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             // update boundary (except for template)
             if (getID().size() > 0) {
-                updateCenteringBoundary(true);
+                updateCenteringBoundary(false);
+                getParentLanes().front()->getParentEdge()->updateCenteringBoundary(true);
             }
             break;
         case SUMO_ATTR_LENGTH:

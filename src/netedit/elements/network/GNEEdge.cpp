@@ -336,6 +336,12 @@ GNEEdge::updateCenteringBoundary(const bool updateGrid) {
     // add lane boundaries
     for (const auto& lane : myLanes) {
         myBoundary.add(lane->getCenteringBoundary());
+        // add parkingArea boundaris
+        for (const auto &additional : lane->getChildAdditionals()) {
+            if (additional->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA) {
+                myBoundary.add(additional->getCenteringBoundary());
+            }
+        }
     }
     // ensure that geometry points are selectable even if the lane geometry is strange
     for (const Position& pos : myNBEdge->getGeometry()) {

@@ -581,10 +581,8 @@ GNELane::drawChildren(const GUIVisualizationSettings& s) const {
     }
     // draw child additional
     for (const auto& additional : getChildAdditionals()) {
-        if (!additional->getTagProperty().isPlacedInRTree()) {
-            // check that ParkingAreas aren't draw two times
-            additional->drawGL(s);
-        }
+        // check that ParkingAreas aren't draw two times
+        additional->drawGL(s);
     }
     // draw child demand elements
     for (const auto& demandElement : getChildDemandElements()) {
