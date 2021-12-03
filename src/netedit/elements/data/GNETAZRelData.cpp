@@ -107,7 +107,7 @@ GNETAZRelData::isGenericDataVisible() const {
     DataEditMode dataMode = myNet->getViewNet()->getEditModes().dataEditMode;
     // check if we have to filter generic data
     if ((dataMode == DataEditMode::DATA_INSPECT) || (dataMode == DataEditMode::DATA_DELETE) || (dataMode == DataEditMode::DATA_SELECT)) {
-        return isVisibleInspectDeleteSelect();
+        return /*isVisibleInspectDeleteSelect()*/ true;
     } else if (TAZRelDataFrame->shown()) {
         // check interval
         if ((TAZRelDataFrame->getIntervalSelector()->getDataInterval() != nullptr) &&
