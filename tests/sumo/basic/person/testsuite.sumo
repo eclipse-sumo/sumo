@@ -72,4 +72,7 @@ atJunction_ride_walk
 
 # ride directly to access edge of destination stop
 ride_access_busstop
+
+# vehicle ride ends at a containerStop but the person is set to arrive at a busStop (and depends on it's access)
+ride_stopMismatch
 errors
