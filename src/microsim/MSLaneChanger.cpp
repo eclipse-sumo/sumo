@@ -1862,7 +1862,8 @@ MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double>
             } else {
                 // maybe the columnleader is stopped before a junction or takes a different turn.
                 // try to find another columnleader on successive lanes
-                const MSLane* next = getLaneAfter(columnLeader.first->getLane(), conts);
+                const bool allowMinor = vehicle->getVehicleType().getVehicleClass() == SVC_EMERGENCY;
+                const MSLane* next = getLaneAfter(columnLeader.first->getLane(), conts, allowMinor);
 #ifdef DEBUG_CHANGE_OPPOSITE
                 if (DEBUG_COND) {
                     std::cout << "   look for another leader on lane " << Named::getIDSecure(next) << "\n";
@@ -1877,6 +1878,7 @@ MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double>
                             foundSpaceAhead = true;
                             break;
                         }
+                        next = getLaneAfter(next, conts, allowMinor);
                     } else {
                         availableSpace += cand->getBackPositionOnLane();
                         if (availableSpace > requiredSpace) {
@@ -1948,12 +1950,18 @@ MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double>
 }
 
 
-MSLane*
-MSLaneChanger::getLaneAfter(const MSLane* lane, const std::vector<MSLane*>& conts) {
+const MSLane*
+MSLaneChanger::getLaneAfter(const MSLane* lane, const std::vector<MSLane*>& conts, bool allowMinor) {
     for (auto it = conts.begin(); it != conts.end(); ++it) {
         if (*it == lane) {
             if (it + 1 != conts.end()) {
-                return *(it + 1);
+                // abort on minor link
+                const MSLane* next = *(it + 1);
+                const MSLink* link = lane->getLinkTo(next);
+                if (link == nullptr || (!allowMinor && !link->havePriority())) {
+                    return nullptr;
+                }
+                return next;
             } else {
                 return nullptr;
             }

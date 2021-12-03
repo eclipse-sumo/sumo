@@ -236,7 +236,7 @@ protected:
     static std::pair<MSVehicle*, double> getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double> leader, double maxLookAhead = std::numeric_limits<double>::max());
 
     /// @brief return the next lane in conts beyond lane or nullptr
-    static MSLane* getLaneAfter(const MSLane* lane, const std::vector<MSLane*>& conts);
+    static const MSLane* getLaneAfter(const MSLane* lane, const std::vector<MSLane*>& conts, bool allowMinor);
 
     /// @brief whether vehicle has an opposite-direction stop within relevant range
     static bool hasOppositeStop(MSVehicle* vehicle);
