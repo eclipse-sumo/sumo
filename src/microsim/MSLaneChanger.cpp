@@ -1415,11 +1415,12 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
 #endif
         return false;
     }
-    if (!isOpposite && MSNet::getInstance()->hasElevation() && vehicle->getSlope() > 0 && !overtaken.first->isStopped()) {
+    if (!isOpposite && MSNet::getInstance()->hasElevation() && !overtaken.first->isStopped()) {
         // do not overtake before the top of a hill
         double searchDist = timeToOvertake * oncomingLane->getSpeedLimit() * 1.5 * vehicle->getLaneChangeModel().getOppositeSafetyFactor() + spaceToOvertake;
         int view = vehicle->getLane()->isInternal() ? 1 : 0;
-        if (foundHilltop(vehicle, searchDist, vehicle->getBestLanesContinuation(), view, vehicle->getPositionOnLane(), vehicle->getPosition().z(), OPPOSITE_OVERTAKING_HILLTOP_THRESHOHOLD)) {
+        bool foundHill = vehicle->getSlope() > 0;
+        if (foundHilltop(vehicle, foundHill, searchDist, vehicle->getBestLanesContinuation(), view, vehicle->getPositionOnLane(), vehicle->getPosition().z(), OPPOSITE_OVERTAKING_HILLTOP_THRESHOHOLD)) {
             return false;
         }
     }
@@ -1592,21 +1593,32 @@ MSLaneChanger::computeSurplusGap(const MSVehicle* vehicle, const MSLane* opposit
 }
 
 bool
-MSLaneChanger::foundHilltop(MSVehicle* vehicle, double searchDist, const std::vector<MSLane*>& bestLanes, int view, double pos, double lastMax, double hilltopThreshold) {
+MSLaneChanger::foundHilltop(MSVehicle* vehicle, bool foundHill, double searchDist, const std::vector<MSLane*>& bestLanes, int view, double pos, double lastMax, double hilltopThreshold) {
     if (view >= (int)bestLanes.size()) {
         return false;
     }
     MSLane* lane = bestLanes[view];
     double laneDist = 0;
     const PositionVector& shape = lane->getShape();
+    double lastZ = lastMax;
     for (int i = 1; i < (int)shape.size(); i++) {
         const double dist = lane->interpolateGeometryPosToLanePos(shape[i - 1].distanceTo(shape[i]));
         laneDist += dist;
         if (laneDist > pos) {
             const double z = shape[i].z();
-            //std::cout << SIMTIME << "   searchDist=" << searchDist << " lastMax=" << lastMax << " lane=" << lane->getID() << " laneDist=" << laneDist << " z=" << z << "\n";
-            lastMax = MAX2(lastMax, z);
-            if (z < lastMax) {
+            if (z > lastMax) {
+                lastMax = z;
+            }
+            if (z > lastZ) {
+                foundHill = true;
+            }
+            lastZ = z;
+#ifdef DEBUG_CHANGE_OPPOSITE
+            if (DEBUG_COND) {
+                std::cout << SIMTIME << "   foundHill=" << foundHill << " searchDist=" << searchDist << " lastMax=" << lastMax << " lane=" << lane->getID() << " laneDist=" << laneDist << " z=" << z << "\n";
+            }
+#endif
+            if (foundHill && z < lastMax) {
                 const double drop = lastMax - z;
                 //std::cout << SIMTIME << "   searchDist=" << searchDist << " hillDrop=" << drop << " lastMax=" << lastMax << " lane=" << lane->getID() << " laneDist=" << laneDist << " z=" << z << "\n";
                 if (drop > hilltopThreshold) {
@@ -1630,7 +1642,7 @@ MSLaneChanger::foundHilltop(MSVehicle* vehicle, double searchDist, const std::ve
             }
         }
     }
-    return foundHilltop(vehicle, searchDist, bestLanes, view + 1, 0, lastMax, hilltopThreshold);
+    return foundHilltop(vehicle, foundHill, searchDist, bestLanes, view + 1, 0, lastMax, hilltopThreshold);
 }
 
 
