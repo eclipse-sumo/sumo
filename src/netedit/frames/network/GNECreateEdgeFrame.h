@@ -108,9 +108,6 @@ public:
         /// @brief fill comboBox
         void fillComboBox();
 
-        /// @brief fill default parameters
-        void fillDefaultParameters();
-
     private:
         /// @brief pointer to createEdgeFrameParent
         GNECreateEdgeFrame* myCreateEdgeFrameParent;
@@ -183,9 +180,6 @@ public:
     protected:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(LaneTypeSelector);
-
-        /// @brief fill default parameters
-        void fillDefaultParameters();
 
         /// @brief update comboBox
         void updateComboBox();

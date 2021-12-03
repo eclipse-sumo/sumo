@@ -375,23 +375,6 @@ GNECreateEdgeFrame::EdgeTypeSelector::fillComboBox() {
     myEdgeTypesComboBox->setCurrentItem(myCurrentIndex);
 }
 
-
-void
-GNECreateEdgeFrame::EdgeTypeSelector::fillDefaultParameters() {
-    // set numLanes
-    myDefaultEdgeType->setAttribute(SUMO_ATTR_NUMLANES, "1");
-    // set speed
-    myDefaultEdgeType->setAttribute(SUMO_ATTR_SPEED, "13.89");
-    // set allow
-    myDefaultEdgeType->setAttribute(SUMO_ATTR_ALLOW, "all");
-    // set spreadType
-    myDefaultEdgeType->setAttribute(SUMO_ATTR_SPREADTYPE, "");
-    // set width
-    myDefaultEdgeType->setAttribute(SUMO_ATTR_WIDTH, "-1.00");
-    // set parameters
-    myDefaultEdgeType->setAttribute(GNE_ATTR_PARAMETERS, "");
-}
-
 // ---------------------------------------------------------------------------
 // GNECreateEdgeFrame::LaneTypeSelector - methods
 // ---------------------------------------------------------------------------
@@ -532,23 +515,6 @@ GNECreateEdgeFrame::LaneTypeSelector::onCmdSelectLaneType(FXObject*, FXSelector,
     // refresh laneType selector
     refreshLaneTypeSelector();
     return 0;
-}
-
-
-void
-GNECreateEdgeFrame::LaneTypeSelector::fillDefaultParameters() {
-    // get templateEdge
-    const auto edgeType = myCreateEdgeFrameParent->myEdgeTypeSelector->getEdgeTypeSelected();
-    if (edgeType && (myLaneIndex < (int)edgeType->getLaneTypes().size())) {
-        // set speed
-        edgeType->getLaneTypes().at(myLaneIndex)->setAttribute(SUMO_ATTR_SPEED, "13.89");
-        // set allow
-        edgeType->getLaneTypes().at(myLaneIndex)->setAttribute(SUMO_ATTR_ALLOW, "all");
-        // set width
-        edgeType->getLaneTypes().at(myLaneIndex)->setAttribute(SUMO_ATTR_WIDTH, "-1.00");
-        // set parameters
-        edgeType->getLaneTypes().at(myLaneIndex)->setAttribute(GNE_ATTR_PARAMETERS, "");
-    }
 }
 
 
