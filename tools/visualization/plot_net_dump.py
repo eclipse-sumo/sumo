@@ -92,6 +92,8 @@ def main(args=None):
                          help="If set, the script says what it's doing")
     optParser.add_option("--color-bar-label", dest="colorBarLabel", default="",
                          help="The label to put on the color bar")
+    optParser.add_option("--internal", action="store_true",
+                         default=False, help="include internal edges in generated shapes")
 
     # standard plot options
     helpers.addInteractionOptions(optParser)
@@ -112,7 +114,7 @@ def main(args=None):
         return 1
     if options.verbose:
         print("Reading network from '%s'" % options.net)
-    net = sumolib.net.readNet(options.net)
+    net = sumolib.net.readNet(options.net, withInternal=options.internal)
 
     if options.measures is None:
         print("Error: a dump file must be given.")
