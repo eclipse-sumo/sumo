@@ -8,6 +8,8 @@ set(utils_foxtools_STAT_SRCS
    FXLCDLabel.h
    FXLinkLabel.cpp
    FXLinkLabel.h
+   FXGroupBoxModul.h
+   FXGroupBoxModul.cpp
    FXMenuCheckIcon.cpp
    FXMenuCheckIcon.h
    FXRecentNetworks.cpp
