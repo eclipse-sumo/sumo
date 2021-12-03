@@ -1,0 +1,18 @@
+Warning: Discarding unusable type 'railway.abandoned' (first occurence for edge '23077101').
+Warning: Discarding unusable type 'railway.stop' (first occurence for edge '23735099').
+Warning: Discarding unknown compound 'usage.main' in type 'railway.rail|usage.main' (first occurence for edge '96560977').
+Warning: Discarding unusable type 'railway.platform' (first occurence for edge '812591734').
+Warning: Removing pt stop '1118516724' on non existing edge '892099949'.
+Warning: Removing pt stop '1118516947' on non existing edge '892099948'.
+Warning: Removing pt stop '4672299045' on non existing edge '812591737'.
+Warning: Removing pt stop '4672299046' on non existing edge '96560979'.
+Warning: Removing pt stop '4672299047' on non existing edge '314452250'.
+Warning: Done reading first coherent chunk of pt stops. Further stops in relation 7446410 are ignored
+Warning: Shape for junction '296403298' has distance 25.13 to its given position.
+Warning: Shape for junction '410195758' has distance 80.62 to its given position.
+Warning: Shape for junction '410195764' has distance 44.43 to its given position.
+Warning: Speed of straight connection '669499122#1_1->284801760#0_2' reduced by 6.52 due to turning radius of 24.18 (length=15.99, angle=54.17).
+Warning: Speed of straight connection '669499122#1_1->284801760#0_3' reduced by 7.10 due to turning radius of 21.80 (length=14.36, angle=54.17).
+Warning: Speed of straight connection '78488919_0->124764208#0_1' reduced by 12.44 due to turning radius of 17.40 (length=8.52, angle=44.42).
+Warning: Speed of straight connection '78488919_1->124764208#0_2' reduced by 11.38 due to turning radius of 21.36 (length=10.56, angle=44.42).
+Warning: 15 total messages of type: Removing pt stop '%' on non existing edge '%'.
