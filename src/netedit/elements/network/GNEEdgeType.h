@@ -29,6 +29,7 @@
 // ===========================================================================
 
 class GNELaneType;
+class GNEEdgeTemplate;
 class GNECreateEdgeFrame;
 
 // ===========================================================================
@@ -64,6 +65,9 @@ public:
 
     /// @brief Destructor.
     ~GNEEdgeType();
+
+    /// @brief copy edge template
+    void copyTemplate(const GNEEdgeTemplate *edgeTemplate);
 
     /// @brief get laneTypes
     const std::vector<GNELaneType*>& getLaneTypes() const;

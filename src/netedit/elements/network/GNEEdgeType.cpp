@@ -28,6 +28,8 @@
 
 #include "GNEEdgeType.h"
 #include "GNELaneType.h"
+#include "GNEEdgeTemplate.h"
+#include "GNELaneTemplate.h"
 
 
 // ===========================================================================
@@ -79,6 +81,34 @@ GNEEdgeType::GNEEdgeType(GNENet* net, const std::string& ID, const NBTypeCont::E
     restrictions = edgeType->restrictions;
     attrs = edgeType->attrs;
     laneTypeDefinitions = edgeType->laneTypeDefinitions;
+}
+
+
+void
+GNEEdgeType::copyTemplate(const GNEEdgeTemplate *edgeTemplate) {
+    // copy all edge attributes
+    setAttribute(SUMO_ATTR_NUMLANES, edgeTemplate->getAttribute(SUMO_ATTR_NUMLANES));
+    setAttribute(SUMO_ATTR_SPEED, edgeTemplate->getAttribute(SUMO_ATTR_SPEED));
+    setAttribute(SUMO_ATTR_ALLOW, edgeTemplate->getAttribute(SUMO_ATTR_ALLOW));
+    setAttribute(SUMO_ATTR_DISALLOW, edgeTemplate->getAttribute(SUMO_ATTR_DISALLOW));
+    setAttribute(SUMO_ATTR_SPREADTYPE, edgeTemplate->getAttribute(SUMO_ATTR_SPREADTYPE));
+    if (canParse<double>(edgeTemplate->getAttribute(SUMO_ATTR_WIDTH))) {
+        setAttribute(SUMO_ATTR_WIDTH, edgeTemplate->getAttribute(SUMO_ATTR_WIDTH));
+    }
+    setAttribute(SUMO_ATTR_PRIORITY, edgeTemplate->getAttribute(SUMO_ATTR_PRIORITY));
+    setAttribute(GNE_ATTR_PARAMETERS, edgeTemplate->getAttribute(GNE_ATTR_PARAMETERS));
+    // copy lane attributes
+    for (int i = 0; i < edgeTemplate->getLaneTemplates().size(); i++) {
+        if (canParse<double>(edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_SPEED))) {
+            myLaneTypes.at(i)->setAttribute(SUMO_ATTR_SPEED, edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_SPEED));
+        }
+        myLaneTypes.at(i)->setAttribute(SUMO_ATTR_ALLOW, edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_ALLOW));
+        myLaneTypes.at(i)->setAttribute(SUMO_ATTR_DISALLOW, edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_DISALLOW));
+        if (canParse<double>(edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_WIDTH))) {
+            myLaneTypes.at(i)->setAttribute(SUMO_ATTR_WIDTH, edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_WIDTH));
+        }
+        myLaneTypes.at(i)->setAttribute(GNE_ATTR_PARAMETERS, edgeTemplate->getLaneTemplates().at(i)->getAttribute(GNE_ATTR_PARAMETERS));
+    }
 }
 
 

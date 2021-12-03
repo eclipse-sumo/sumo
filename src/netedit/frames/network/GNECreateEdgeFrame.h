@@ -96,6 +96,9 @@ public:
         /// @brief Called when the user press select an edgeType in comboBox
         long onCmdSelectEdgeType(FXObject*, FXSelector, void*);
 
+        /// @brief Called when the user press create edgeType from Template
+        long onCmdCreateFromTemplate(FXObject*, FXSelector, void*);
+
         /// @}
 
     protected:
@@ -135,6 +138,9 @@ public:
 
         /// @brief button for delete edge type
         FXButton* myDeleteEdgeTypeButton = nullptr;
+
+        /// @brief button for create edgeType from template
+        FXButton* myCreateFromTemplate = nullptr;
     };
 
     // ===========================================================================

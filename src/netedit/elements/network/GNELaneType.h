@@ -34,6 +34,7 @@ class GNELaneType : public GNENetworkElement, public Parameterised, public NBTyp
 public:
     /// @brief GNECreateEdgeFrame need access to setAttribute
     friend class GNECreateEdgeFrame;
+    friend class GNEEdgeType;
 
     /// @brief Constructor
     GNELaneType(GNEEdgeType* edgeTypeParent);
