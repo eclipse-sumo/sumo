@@ -369,7 +369,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::fillComboBox() {
         myEdgeTypesComboBox->setNumVisible(10);
     }
     // set current item
-    if (myCurrentIndex >= myEdgeTypesComboBox->getNumItems()) {
+    if ((myCurrentIndex < 0) || (myCurrentIndex >= myEdgeTypesComboBox->getNumItems())) {
         myCurrentIndex = myEdgeTypesComboBox->getNumItems() - 1;
     }
     myEdgeTypesComboBox->setCurrentItem(myCurrentIndex);
@@ -586,77 +586,82 @@ GNECreateEdgeFrame::~GNECreateEdgeFrame() {}
 void
 GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor,
                                  const bool oppositeEdge, const bool chainEdge) {
-    // obtain junction depending of gridEnabled
-    GNEJunction* junction = nullptr;
-    if (objectsUnderCursor.getJunctionFront()) {
-        junction = objectsUnderCursor.getJunctionFront();
-    } else if (myObjectsUnderSnappedCursor.getJunctionFront()) {
-        junction = myObjectsUnderSnappedCursor.getJunctionFront();
-    }
-    // begin undo list
-    if (!myViewNet->getUndoList()->hasCommandGroup()) {
-        myViewNet->getUndoList()->begin(GUIIcon::EDGE, "create new " + toString(SUMO_TAG_EDGE));
-    }
-    // if we didn't clicked over another junction, then create a new
-    if (junction == nullptr) {
-        junction = myViewNet->getNet()->createJunction(myViewNet->snapToActiveGrid(clickedPosition), myViewNet->getUndoList());
-    }
-    // now check if we have to create a new edge
-    if (myCreateEdgeSource == nullptr) {
-        myCreateEdgeSource = junction;
-        myCreateEdgeSource->markAsCreateEdgeSource();
-        update();
+    // first check if there is an edge template, an edge type (default or custom)
+    if (!myEdgeTypeSelector->useDefaultEdgeType() && !myEdgeTypeSelector->useEdgeTemplate() && (myEdgeTypeSelector->getEdgeTypeSelected() == nullptr)) {
+        WRITE_WARNING("Select either default edgeType or a custom edgeType or template");
     } else {
-        // make sure that junctions source and destiny are different
-        if (myCreateEdgeSource != junction) {
-            // may fail to prevent double edges
-            GNEEdge* newEdge = myViewNet->getNet()->createEdge(myCreateEdgeSource, junction, nullptr, myViewNet->getUndoList());
-            // check if edge was sucesfully created
-            if (newEdge) {
-                // set parameters
-                if (myEdgeTypeSelector->useEdgeTemplate()) {
-                    newEdge->copyTemplate(myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), myViewNet->getUndoList());
-                } else if (myEdgeTypeSelector->useDefaultEdgeType()) {
-                    newEdge->copyEdgeType(myEdgeTypeSelector->getDefaultEdgeType(), myViewNet->getUndoList());
-                } else {
-                    newEdge->copyEdgeType(myEdgeTypeSelector->getEdgeTypeSelected(), myViewNet->getUndoList());
-                }
-                // create another edge, if create opposite edge is enabled
-                if (oppositeEdge && (myViewNet->getNet()->getAttributeCarriers()->retrieveEdge(junction, myCreateEdgeSource, false) == nullptr)) {
-                    GNEEdge* newOppositeEdge = myViewNet->getNet()->createEdge(junction, myCreateEdgeSource, nullptr,
-                                               myViewNet->getUndoList(), "-" + newEdge->getNBEdge()->getID());
+        // obtain junction depending of gridEnabled
+        GNEJunction* junction = nullptr;
+        if (objectsUnderCursor.getJunctionFront()) {
+            junction = objectsUnderCursor.getJunctionFront();
+        } else if (myObjectsUnderSnappedCursor.getJunctionFront()) {
+            junction = myObjectsUnderSnappedCursor.getJunctionFront();
+        }
+        // begin undo list
+        if (!myViewNet->getUndoList()->hasCommandGroup()) {
+            myViewNet->getUndoList()->begin(GUIIcon::EDGE, "create new " + toString(SUMO_TAG_EDGE));
+        }
+        // if we didn't clicked over another junction, then create a new
+        if (junction == nullptr) {
+            junction = myViewNet->getNet()->createJunction(myViewNet->snapToActiveGrid(clickedPosition), myViewNet->getUndoList());
+        }
+        // now check if we have to create a new edge
+        if (myCreateEdgeSource == nullptr) {
+            myCreateEdgeSource = junction;
+            myCreateEdgeSource->markAsCreateEdgeSource();
+            update();
+        } else {
+            // make sure that junctions source and destiny are different
+            if (myCreateEdgeSource != junction) {
+                // may fail to prevent double edges
+                GNEEdge* newEdge = myViewNet->getNet()->createEdge(myCreateEdgeSource, junction, nullptr, myViewNet->getUndoList());
+                // check if edge was sucesfully created
+                if (newEdge) {
                     // set parameters
                     if (myEdgeTypeSelector->useEdgeTemplate()) {
-                        newOppositeEdge->copyTemplate(myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), myViewNet->getUndoList());
+                        newEdge->copyTemplate(myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), myViewNet->getUndoList());
                     } else if (myEdgeTypeSelector->useDefaultEdgeType()) {
-                        newOppositeEdge->copyEdgeType(myEdgeTypeSelector->getDefaultEdgeType(), myViewNet->getUndoList());
+                        newEdge->copyEdgeType(myEdgeTypeSelector->getDefaultEdgeType(), myViewNet->getUndoList());
                     } else {
-                        newOppositeEdge->copyEdgeType(myEdgeTypeSelector->getEdgeTypeSelected(), myViewNet->getUndoList());
+                        newEdge->copyEdgeType(myEdgeTypeSelector->getEdgeTypeSelected(), myViewNet->getUndoList());
                     }
-                }
-                // edge created, then unmark as create edge source
-                myCreateEdgeSource->unMarkAsCreateEdgeSource();
-                // end undo list
-                if (myViewNet->getUndoList()->hasCommandGroup()) {
-                    myViewNet->getUndoList()->end();
+                    // create another edge, if create opposite edge is enabled
+                    if (oppositeEdge && (myViewNet->getNet()->getAttributeCarriers()->retrieveEdge(junction, myCreateEdgeSource, false) == nullptr)) {
+                        GNEEdge* newOppositeEdge = myViewNet->getNet()->createEdge(junction, myCreateEdgeSource, nullptr,
+                                                   myViewNet->getUndoList(), "-" + newEdge->getNBEdge()->getID());
+                        // set parameters
+                        if (myEdgeTypeSelector->useEdgeTemplate()) {
+                            newOppositeEdge->copyTemplate(myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), myViewNet->getUndoList());
+                        } else if (myEdgeTypeSelector->useDefaultEdgeType()) {
+                            newOppositeEdge->copyEdgeType(myEdgeTypeSelector->getDefaultEdgeType(), myViewNet->getUndoList());
+                        } else {
+                            newOppositeEdge->copyEdgeType(myEdgeTypeSelector->getEdgeTypeSelected(), myViewNet->getUndoList());
+                        }
+                    }
+                    // edge created, then unmark as create edge source
+                    myCreateEdgeSource->unMarkAsCreateEdgeSource();
+                    // end undo list
+                    if (myViewNet->getUndoList()->hasCommandGroup()) {
+                        myViewNet->getUndoList()->end();
+                    } else {
+                        std::cout << "edge created without an open CommandGroup )-:\n";
+                    }
+                    // if we're creating edges in chain mode, mark junction as junction edge source
+                    if (chainEdge) {
+                        myCreateEdgeSource = junction;
+                        myCreateEdgeSource->markAsCreateEdgeSource();
+                        myViewNet->getUndoList()->begin(GUIIcon::EDGE, "create new " + toString(SUMO_TAG_EDGE));
+                    } else {
+                        myCreateEdgeSource = nullptr;
+                    }
                 } else {
-                    std::cout << "edge created without an open CommandGroup )-:\n";
-                }
-                // if we're creating edges in chain mode, mark junction as junction edge source
-                if (chainEdge) {
-                    myCreateEdgeSource = junction;
-                    myCreateEdgeSource->markAsCreateEdgeSource();
-                    myViewNet->getUndoList()->begin(GUIIcon::EDGE, "create new " + toString(SUMO_TAG_EDGE));
-                } else {
-                    myCreateEdgeSource = nullptr;
+                    myViewNet->setStatusBarText("An " + toString(SUMO_TAG_EDGE) + " with the same geometry already exists!");
                 }
             } else {
-                myViewNet->setStatusBarText("An " + toString(SUMO_TAG_EDGE) + " with the same geometry already exists!");
+                myViewNet->setStatusBarText("Start- and endpoint for an " + toString(SUMO_TAG_EDGE) + " must be distinct!");
             }
-        } else {
-            myViewNet->setStatusBarText("Start- and endpoint for an " + toString(SUMO_TAG_EDGE) + " must be distinct!");
+            update();
         }
-        update();
     }
 }
 
@@ -727,6 +732,7 @@ GNECreateEdgeFrame::getLaneTypeAttributes() const {
 void
 GNECreateEdgeFrame::setUseEdgeTemplate() {
     myEdgeTypeSelector->useTemplate();
+    myEdgeTypeSelector->refreshEdgeTypeSelector();
 }
 
 /****************************************************************************/
