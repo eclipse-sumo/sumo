@@ -186,13 +186,14 @@ noise](../Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md).
 
 **Options**
 
+Here the most important options are listed. Use **--help** to see all options.
 | Option                                               | Description                                         |
 |------------------------------------------------------|-----------------------------------------------------|
 | **-n** {{DT_FILE}}<br>**--net** {{DT_FILE}}                            | Defines the network to read                         |
 | **-i** {{DT_FILE}},{{DT_FILE}}<br>**--dump-inputs** {{DT_FILE}},{{DT_FILE}}      | Defines the dump-output files to use as input       |
 | **-m** {{DT_STR}},{{DT_STR}}<br>**--measures** {{DT_STR}},{{DT_STR}} | Define which measure to plot;default: speed,entered |
 | **-w** {{DT_FLOAT}}<br>**--default-width** {{DT_FLOAT}}                | Defines the default edge width; default: .1         |
-| **-c** {{DT_Color}}<br> **--default-color** {{DT_Color}}                | If set, the progress is printed on the screen       |
+| **-c** {{DT_Color}}<br> **--default-color** {{DT_Color}}                | Defines the default edge color       |
 | **--min-width** {{DT_FLOAT}}                                  | Defines the minimum edge width; default: .5         |
 | **--max-width** {{DT_FLOAT}}                                  | Defines the maximumedge width; default: 3           |
 | **--log-colors**                                         | If set, colors are log-scaled                       |
@@ -202,6 +203,7 @@ noise](../Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md).
 | **--min-width-value** {{DT_FLOAT}}                            | If set, defines the minimum edge width value        |
 | **--max-width-value** {{DT_FLOAT}}                            | If set, defines the maximum edge width value        |
 | **-v**<br>**--verbose**                                     | If set, the progress is printed on the screen       |
+| **--internal**                                     | If set, internal edges (of junctions) are included to the genrated shapes.       |
 
 ## plot_net_selection.py
 
