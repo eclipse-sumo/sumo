@@ -57,21 +57,19 @@ GNEAllowDisallow::GNEAllowDisallow(GNEViewNet* viewNet, GNEAttributeCarrier* AC,
     myAC(AC),
     myEditedAttr(attr),
     myAcceptChanges(acceptChanges),
-    myAllow(nullptr),
-    myDisAllow(nullptr) {
+    myAllow(nullptr) {
     // call constructor
     constructor();
 }
 
 
-GNEAllowDisallow::GNEAllowDisallow(GNEViewNet* viewNet, std::string* allow, std::string* disallow, bool* acceptChanges) :
+GNEAllowDisallow::GNEAllowDisallow(GNEViewNet* viewNet, std::string* allow, bool* acceptChanges) :
     FXDialogBox(viewNet->getApp(), ("Edit " + toString(SUMO_ATTR_ALLOW) + " " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignDialogBox),
     myViewNet(viewNet),
     myAC(nullptr),
     myEditedAttr(SUMO_ATTR_ALLOW),
     myAcceptChanges(acceptChanges),
-    myAllow(allow),
-    myDisAllow(disallow) {
+    myAllow(allow) {
     // call constructor
     constructor();
 }
@@ -165,7 +163,6 @@ GNEAllowDisallow::onCmdAccept(FXObject*, FXSelector, void*) {
     } else {
         // update strings
         *myAllow = joinToString(allowedVehicles, " ");
-        *myDisAllow = joinToString(disallowedVehicles, " ");
     }
     // enable accept flag
     *myAcceptChanges = true;

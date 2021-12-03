@@ -100,8 +100,8 @@ public:
         /// @brief called when user set the value of an attribute of type int/float/string/bool
         long onCmdSetAttribute(FXObject*, FXSelector, void*);
 
-        /// @brief called when user press the "Color" button
-        long onCmdSelectDialog(FXObject*, FXSelector, void*);
+        /// @brief called when user press the open dialog button
+        long onCmdOpenAttributeDialog(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -129,8 +129,8 @@ public:
         /// @brief check button to enable/disable Label attribute
         FXCheckButton* myEnableAttributeCheckButton = nullptr;
 
-        /// @brief Button for open color editor
-        FXButton* myAttributeColorButton = nullptr;
+        /// @brief Button for open color or allow/disallow editor
+        FXButton* myAttributeButton = nullptr;
 
         /// @brief textField to modify the default value of string parameters
         FXTextField* myValueTextField = nullptr;

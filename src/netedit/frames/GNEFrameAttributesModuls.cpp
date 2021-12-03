@@ -41,7 +41,7 @@
 
 FXDEFMAP(GNEFrameAttributesModuls::AttributesCreatorRow) RowCreatorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSelectDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEFrameAttributesModuls::AttributesCreatorRow::onCmdOpenAttributeDialog),
 };
 
 FXDEFMAP(GNEFrameAttributesModuls::AttributesCreator) AttributesCreatorMap[] = {
@@ -118,8 +118,8 @@ GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesC
     myAttributeLabel->hide();
     myEnableAttributeCheckButton = new FXCheckButton(this, "name", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButtonAttribute);
     myEnableAttributeCheckButton->hide();
-    myAttributeColorButton = new FXButton(this, "ColorButton", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
-    myAttributeColorButton->hide();
+    myAttributeButton = new FXButton(this, "button", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    myAttributeButton->hide();
     // Create right visual elements
     myValueTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myValueTextField->hide();
@@ -246,11 +246,11 @@ GNEFrameAttributesModuls::AttributesCreatorRow::refreshRow() {
         myValueTextField->show();
     } else {
         // left
-        if (myAttrProperties.isColor()) {
+        if (myAttrProperties.isColor() || (myAttrProperties.getAttr() == SUMO_ATTR_ALLOW) || (myAttrProperties.getAttr() == SUMO_ATTR_DISALLOW)) {
             // show color button
-            myAttributeColorButton->setTextColor(FXRGB(0, 0, 0));
-            myAttributeColorButton->setText(myAttrProperties.getAttrStr().c_str());
-            myAttributeColorButton->show();
+            myAttributeButton->setTextColor(FXRGB(0, 0, 0));
+            myAttributeButton->setText(myAttrProperties.getAttrStr().c_str());
+            myAttributeButton->show();
         } else if (myAttrProperties.isActivatable()) {
             // show check button
             myEnableAttributeCheckButton->setText(myAttrProperties.getAttrStr().c_str());
@@ -297,7 +297,7 @@ void
 GNEFrameAttributesModuls::AttributesCreatorRow::disableRow() {
     myAttributeLabel->disable();
     myEnableAttributeCheckButton->disable();
-    myAttributeColorButton->disable();
+    myAttributeButton->disable();
     myValueTextField->disable();
     myValueCheckButton->disable();
 }
@@ -371,20 +371,34 @@ GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
 
 
 long
-GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSelectDialog(FXObject*, FXSelector, void*) {
-    // create FXColorDialog
-    FXColorDialog colordialog(this, tr("Color Dialog"));
-    colordialog.setTarget(this);
-    // If previous attribute wasn't correct, set black as default color
-    if (GNEAttributeCarrier::canParse<RGBColor>(myValueTextField->getText().text())) {
-        colordialog.setRGBA(MFXUtils::getFXColor(GNEAttributeCarrier::parse<RGBColor>(myValueTextField->getText().text())));
-    } else {
-        colordialog.setRGBA(MFXUtils::getFXColor(GNEAttributeCarrier::parse<RGBColor>(myAttrProperties.getDefaultValue())));
-    }
-    // execute dialog to get a new color
-    if (colordialog.execute()) {
-        myValueTextField->setText(toString(MFXUtils::getRGBColor(colordialog.getRGBA())).c_str());
-        onCmdSetAttribute(nullptr, 0, nullptr);
+GNEFrameAttributesModuls::AttributesCreatorRow::onCmdOpenAttributeDialog(FXObject*, FXSelector, void*) {
+    // continue depending of attribute
+    if (myAttrProperties.getAttr() == SUMO_ATTR_COLOR) {
+        // create FXColorDialog
+        FXColorDialog colordialog(this, tr("Color Dialog"));
+        colordialog.setTarget(this);
+        // If previous attribute wasn't correct, set black as default color
+        if (GNEAttributeCarrier::canParse<RGBColor>(myValueTextField->getText().text())) {
+            colordialog.setRGBA(MFXUtils::getFXColor(GNEAttributeCarrier::parse<RGBColor>(myValueTextField->getText().text())));
+        } else {
+            colordialog.setRGBA(MFXUtils::getFXColor(GNEAttributeCarrier::parse<RGBColor>(myAttrProperties.getDefaultValue())));
+        }
+        // execute dialog to get a new color
+        if (colordialog.execute()) {
+            myValueTextField->setText(toString(MFXUtils::getRGBColor(colordialog.getRGBA())).c_str(), TRUE);
+        }
+    } else if ((myAttrProperties.getAttr() == SUMO_ATTR_ALLOW) || (myAttrProperties.getAttr() == SUMO_ATTR_DISALLOW)) {
+        // get allow string
+        std::string allow = myValueTextField->getText().text();
+        // get accept changes 
+        bool acceptChanges = false;
+        // opena allowDisallow dialog
+        GNEAllowDisallow(myAttributesCreatorParent->getFrameParent()->getViewNet(), &allow, &acceptChanges).execute();
+        // continue depending of acceptChanges
+        if (acceptChanges) {
+            /// @brief Constructor (For string
+            myValueTextField->setText(allow.c_str(), TRUE);
+        }
     }
     return 0;
 }
