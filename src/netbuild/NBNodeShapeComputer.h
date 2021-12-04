@@ -48,7 +48,7 @@ public:
     ~NBNodeShapeComputer();
 
     /// Computes the shape of the assigned junction
-    PositionVector compute();
+    const PositionVector compute();
 
     /// @brief get computed radius for node
     double getRadius() const {
@@ -63,7 +63,7 @@ private:
      * Then the node geometry is built from intersection between the borders
      * of adjacent edge groups
      */
-    PositionVector computeNodeShapeDefault(bool simpleContinuation);
+    const PositionVector computeNodeShapeDefault(bool simpleContinuation);
 
     /** @brief Computes the node geometry using normals
      *
@@ -76,7 +76,7 @@ private:
      *  @note This usually gives a very small node shape, appropriate for
      *  dead-ends or turn-around-only situations
      */
-    PositionVector computeNodeShapeSmall();
+    const PositionVector computeNodeShapeSmall();
 
     /// @brief compute clockwise/counter-clockwise edge boundaries
     void computeEdgeBoundaries(const EdgeVector& edges,
