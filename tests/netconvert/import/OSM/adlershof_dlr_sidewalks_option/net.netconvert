@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-10 08:08:27 by Eclipse SUMO netconvert Version v1_10_0+2093-f0238c5e244
+<!-- generated on 2021-12-04 23:29:32 by Eclipse SUMO netconvert Version v1_11_0+0312-fcb0fd14546
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -1053,7 +1053,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="-70214888#2_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="40.14" shape="4322.05,778.45 4351.75,792.87"/>
     </edge>
     <edge id="-70214888#3" from="38919854" to="1472995246" priority="1" type="highway.service" shape="4320.39,759.71 4318.27,778.12 4319.16,778.82">
-        <lane id="-70214888#3_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="19.66" shape="4321.04,767.99 4319.99,777.16"/>
+        <lane id="-70214888#3_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="19.64" shape="4321.04,767.99 4320.03,776.84"/>
     </edge>
     <edge id="-70255226#0" from="837749848" to="837749843" priority="1" type="highway.service" shape="4364.94,859.29 4371.09,861.06 4375.84,858.77 4379.08,851.78 4382.05,839.03">
         <lane id="-70255226#0_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="32.47" shape="4366.46,858.07 4370.94,859.35 4374.63,857.58 4377.56,851.26 4379.01,845.02"/>
@@ -2548,7 +2548,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="70214888#2_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="40.14" shape="4350.36,795.75 4320.66,781.33"/>
     </edge>
     <edge id="70214888#3" from="1472995246" to="38919854" priority="1" type="highway.service" shape="4319.16,778.82 4318.27,778.12 4320.39,759.71">
-        <lane id="70214888#3_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="19.44" shape="4316.81,779.00 4316.58,778.82 4317.87,767.63"/>
+        <lane id="70214888#3_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="19.64" shape="4317.01,779.16 4316.58,778.82 4317.87,767.63"/>
     </edge>
     <edge id="70218677" from="838456012" to="838456023" priority="1" type="highway.footway" spreadType="center" shape="4436.85,883.30 4445.87,887.72 4448.23,888.88 4468.71,898.94 4473.93,901.50">
         <lane id="70218677_0" index="0" allow="pedestrian" speed="2.78" length="41.30" width="2.00" shape="4441.07,885.36 4445.87,887.72 4448.23,888.88 4468.71,898.94 4473.93,901.50"/>
@@ -2769,7 +2769,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="1421174997" type="dead_end" x="4575.03" y="949.07" incLanes="174657433#0_0" intLanes="" shape="4576.37,951.45 4577.63,949.89 4577.10,949.24 4577.01,948.90 4577.04,948.56 4577.19,948.20 4577.46,947.83 4575.97,946.50 4572.63,950.15 4574.09,951.52 4574.80,951.03 4575.17,950.96 4575.56,951.00 4575.96,951.17"/>
     <junction id="1421174999" type="dead_end" x="4585.07" y="957.22" incLanes="128643752_0" intLanes="" shape="4585.70,956.44 4584.44,958.00"/>
     <junction id="1421187870" type="dead_end" x="4502.04" y="738.78" incLanes="128648605_0" intLanes="" shape="4502.17,739.77 4501.91,737.79"/>
-    <junction id="1472995246" type="priority" x="4319.16" y="778.82" incLanes="70214888#2_0 -70214888#3_0 133858187_0" intLanes="" shape="4319.96,782.77 4322.75,777.01 4322.20,776.82 4321.98,776.75 4321.82,776.64 4321.72,776.48 4321.71,776.21 4318.27,778.10 4318.36,777.38 4315.70,780.17 4316.28,780.84 4316.40,781.23 4316.42,781.63 4316.34,782.07 4316.15,782.54 4317.93,783.45 4318.46,782.78 4318.78,782.61 4319.13,782.55 4319.53,782.60">
+    <junction id="1472995246" type="priority" x="4319.16" y="778.82" incLanes="70214888#2_0 -70214888#3_0 133858187_0" intLanes="" shape="4319.96,782.77 4322.75,777.01 4322.17,776.61 4321.98,776.37 4321.85,776.10 4321.79,775.81 4321.80,775.49 4315.70,780.17 4316.28,780.84 4316.40,781.23 4316.42,781.63 4316.34,782.07 4316.15,782.54 4317.93,783.45 4318.46,782.78 4318.78,782.61 4319.13,782.55 4319.53,782.60">
         <request index="0" response="0000" foes="1000"/>
         <request index="1" response="0100" foes="0100"/>
         <request index="2" response="0000" foes="0010"/>
