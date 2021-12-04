@@ -98,7 +98,7 @@ GNEEdgeType::copyTemplate(const GNEEdgeTemplate *edgeTemplate) {
     setAttribute(SUMO_ATTR_PRIORITY, edgeTemplate->getAttribute(SUMO_ATTR_PRIORITY));
     setAttribute(GNE_ATTR_PARAMETERS, edgeTemplate->getAttribute(GNE_ATTR_PARAMETERS));
     // copy lane attributes
-    for (int i = 0; i < edgeTemplate->getLaneTemplates().size(); i++) {
+    for (int i = 0; i < (int)edgeTemplate->getLaneTemplates().size(); i++) {
         if (canParse<double>(edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_SPEED))) {
             myLaneTypes.at(i)->setAttribute(SUMO_ATTR_SPEED, edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_SPEED));
         }
