@@ -659,6 +659,7 @@ NBNodeShapeComputer::joinSameDirectionEdges(const EdgeVector& edges, std::map<NB
         const bool incoming = (*i)->getToNode() == &myNode;
         const bool incoming2 = (*j)->getToNode() == &myNode;
         const bool differentDirs = (incoming != incoming2);
+        const bool sameGeom = (*i)->getGeometry() == (differentDirs ? (*j)->getGeometry().reverse() : (*j)->getGeometry());
         const PositionVector g1 = incoming ? (*i)->getCCWBoundaryLine(myNode) : (*i)->getCWBoundaryLine(myNode);
         const PositionVector g2 = incoming ? (*j)->getCCWBoundaryLine(myNode) : (*j)->getCWBoundaryLine(myNode);
         const double angle1further = (g1.size() > 2 && g1[0].distanceTo2D(g1[1]) < angleChangeLookahead ?
@@ -684,7 +685,7 @@ NBNodeShapeComputer::joinSameDirectionEdges(const EdgeVector& edges, std::map<NB
 
         }
 #endif
-        if (fabs(angleDiff) < DEG2RAD(20)) {
+        if (sameGeom || fabs(angleDiff) < DEG2RAD(20)) {
             const bool isOpposite = differentDirs && foundOpposite.count(*i) == 0;
             if (isOpposite) {
                 foundOpposite.insert(*i);
