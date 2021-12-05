@@ -181,6 +181,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     myImportWidths = !oc.getBool("opendrive.ignore-widths");
     myMinWidth = oc.getFloat("opendrive.min-width");
     myImportInternalShapes = oc.getBool("opendrive.internal-shapes");
+    bool customLaneShapes = oc.getBool("opendrive.lane-shapes");
     NBTypeCont& tc = nb.getTypeCont();
     NBNodeCont& nc = nb.getNodeCont();
     // build the handler
@@ -494,6 +495,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                         int sumoLaneIndex = lp->second;
                         setLaneAttributes(e, currRight->getLaneStruct(sumoLaneIndex), *k, saveOrigIDs, tc);
                         laneIndexMap[std::make_pair(currRight, sumoLaneIndex)] = (*k).id;
+                    } else if (customLaneShapes) {
                     }
                 }
                 if (!nb.getEdgeCont().insert(currRight, myImportAllTypes)) {
@@ -1427,39 +1429,47 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
         }
         // add laneoffset
         if (e.offsets.size() > 0) {
-            // make sure there are intermediate points for each offset-section
-            for (std::vector<OpenDriveLaneOffset>::iterator j = e.offsets.begin(); j != e.offsets.end(); ++j) {
-                const OpenDriveLaneOffset& el = *j;
-                // check wether we need to insert a new point at dist
-                Position pS = e.geom.positionAtOffset2D(el.s);
-                int iS = e.geom.indexOfClosest(pS);
-                // prevent close spacing to reduce impact of rounding errors in z-axis
-                if (pS.distanceTo2D(e.geom[iS]) > POSITION_EPS) {
-                    e.geom.insertAtClosest(pS, false);
-                    //std::cout << " edge=" << e.id << " inserting pos=" << pS << " s=" << el.s << " iS=" << iS << " dist=" << pS.distanceTo2D(e.geom[iS]) << "\n";
-                }
-            }
-            // XXX add further points for sections with non-constant offset
-            // shift each point orthogonally by the specified offset
-            int kk = 0;
-            double ppos = 0;
-            for (std::vector<OpenDriveLaneOffset>::iterator j = e.offsets.begin(); j != e.offsets.end(); ++j) {
-                const OpenDriveLaneOffset& el = *j;
-                const double sNext = (j + 1) == e.offsets.end() ? std::numeric_limits<double>::max() : (*(j + 1)).s;
-                while (kk < (int)e.geom.size() && ppos < sNext) {
-                    const double offset = el.computeAt(ppos);
-                    e.laneOffsets.push_back(fabs(offset) > POSITION_EPS ? -offset : 0);
-                    kk++;
-                    if (kk < (int)e.geom.size()) {
-                        // XXX pos understimates the actual position since the
-                        // actual geometry between k-1 and k could be curved
-                        ppos += e.geom[kk - 1].distanceTo2D(e.geom[kk]);
-                    }
-                }
-            }
+            e.laneOffsets = discretizeOffsets(e.geom, e.offsets, e.id); 
         }
         //std::cout << " loaded geometry " << e.id << "=" << e.geom << "\n";
     }
+}
+
+
+std::vector<double> 
+NIImporter_OpenDrive::discretizeOffsets(PositionVector& geom, const std::vector<OpenDriveLaneOffset>& offsets, const std::string& id) {
+    UNUSED_PARAMETER(id);
+    std::vector<double> laneOffsets;
+    // make sure there are intermediate points for each offset-section
+    for (const OpenDriveLaneOffset& el : offsets) {
+        // check wether we need to insert a new point at dist
+        Position pS = geom.positionAtOffset2D(el.s);
+        int iS = geom.indexOfClosest(pS);
+        // prevent close spacing to reduce impact of rounding errors in z-axis
+        if (pS.distanceTo2D(geom[iS]) > POSITION_EPS) {
+            geom.insertAtClosest(pS, false);
+            //std::cout << " edge=" << e.id << " inserting pos=" << pS << " s=" << el.s << " iS=" << iS << " dist=" << pS.distanceTo2D(geom[iS]) << "\n";
+        }
+    }
+    // XXX add further points for sections with non-constant offset
+    // shift each point orthogonally by the specified offset
+    int kk = 0;
+    double ppos = 0;
+    for (auto j = offsets.begin(); j != offsets.end(); ++j) {
+        const OpenDriveLaneOffset& el = *j;
+        const double sNext = (j + 1) == offsets.end() ? std::numeric_limits<double>::max() : (*(j + 1)).s;
+        while (kk < (int)geom.size() && ppos < sNext) {
+            const double offset = el.computeAt(ppos);
+            laneOffsets.push_back(fabs(offset) > POSITION_EPS ? -offset : 0);
+            kk++;
+            if (kk < (int)geom.size()) {
+                // XXX pos understimates the actual position since the
+                // actual geometry between k-1 and k could be curved
+                ppos += geom[kk - 1].distanceTo2D(geom[kk]);
+            }
+        }
+    }
+    return laneOffsets;
 }
 
 

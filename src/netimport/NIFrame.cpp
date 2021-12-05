@@ -345,6 +345,8 @@ NIFrame::fillOptions(bool forNetedit) {
     oc.addDescription("opendrive.internal-shapes", "Formats", "Import internal lane shapes");
     oc.doRegister("opendrive.position-ids", new Option_Bool(false));
     oc.addDescription("opendrive.position-ids", "Formats", "Sets edge-id based on road-id and offset in m (legacy)");
+    oc.doRegister("opendrive.lane-shapes", new Option_Bool(false));
+    oc.addDescription("opendrive.lane-shapes", "Formats", "Use custom lane shapes to compensate discarded lane types");
 
     // register some additional options
     oc.doRegister("tls.discard-loaded", new Option_Bool(false));
