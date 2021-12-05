@@ -82,6 +82,8 @@ def get_options(args=None):
     optParser.add_argument(
         "-p", "--period", type=float, default=1, help="Generate vehicles with equidistant departure times and " +
         "period=FLOAT (default 1.0). If option --binomial is used, the expected arrival rate is set to 1/period.")
+    optParser.add_argument("--random-depart", action="store_true", dest="randomDepart",
+                           default=False, help="Distribute departures randomly between begin and end")
     optParser.add_argument("-s", "--seed", type=int, default=42, help="random seed")
     optParser.add_argument("--random", action="store_true",
                            default=False, help="use a random seed to initialize the random number generator")
@@ -472,7 +474,7 @@ def main(options):
 
     vias = {}
 
-    def generate_one(idx):
+    def generate_one(idx, depart):
         label = "%s%s" % (options.tripprefix, idx)
         try:
             source_edge, sink_edge, intermediate = trip_generator.get_trip(
@@ -551,26 +553,37 @@ def main(options):
                 fouttrips.write(vTypeDef)
             options.tripattrs += ' type="%s"' % options.vtypeID
             personattrs += ' type="%s"' % options.vtypeID
-        depart = sumolib.miscutils.parseTime(options.begin)
+        time = begin = sumolib.miscutils.parseTime(options.begin)
         maxTime = sumolib.miscutils.parseTime(options.end)
         if trip_generator:
             if options.flows == 0:
-                while depart < maxTime:
-                    if options.binomial is None:
-                        # generate with constant spacing
-                        idx = generate_one(idx)
-                        depart += options.period
+                if options.binomial is None:
+                    departures = []
+                    if options.randomDepart:
+                        while time < maxTime:
+                            departures.append(random.randrange(begin, maxTime))
+                            time += options.period
+                        departures.sort()
                     else:
+                        while time < maxTime:
+                            departures.append(time)
+                            time += options.period
+
+                    for time in departures:
+                        # generate with constant spacing
+                        idx = generate_one(idx, time)
+                else:
+                    while time < maxTime:
                         # draw n times from a Bernoulli distribution
                         # for an average arrival rate of 1 / period
                         prob = 1.0 / options.period / options.binomial
                         for _ in range(options.binomial):
                             if random.random() < prob:
-                                idx = generate_one(idx)
-                        depart += 1
+                                idx = generate_one(idx, time)
+                        time += 1
             else:
                 for _ in range(options.flows):
-                    idx = generate_one(idx)
+                    idx = generate_one(idx, time)
 
         fouttrips.write("</routes>\n")
 
