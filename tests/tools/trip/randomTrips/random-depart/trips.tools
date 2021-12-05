@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2021-12-05 23:57:19.763076 by randomTrips.py v1_11_0+0318-314124f
+  options: -n net.net.xml -b 8:0:0 -e 9:0:0 -p 360 <doubleminus>random-depart
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <trip id="0" depart="28902.00" from="3si" to="4si"/>
+    <trip id="1" depart="29219.00" from="1fi" to="2si"/>
+    <trip id="2" depart="29256.00" from="1fi" to="1si"/>
+    <trip id="3" depart="29371.00" from="3fi" to="1o"/>
+    <trip id="4" depart="29714.00" from="1si" to="3si"/>
+    <trip id="5" depart="29803.00" from="3fi" to="1si"/>
+    <trip id="6" depart="29926.00" from="3fi" to="4o"/>
+    <trip id="7" depart="31419.00" from="1fi" to="4o"/>
+    <trip id="8" depart="31816.00" from="3si" to="2o"/>
+    <trip id="9" depart="31837.00" from="1si" to="4si"/>
+</routes>
