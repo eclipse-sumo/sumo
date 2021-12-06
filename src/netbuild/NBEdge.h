@@ -186,6 +186,9 @@ public:
 
         /// @brief the type of this lane
         std::string type;
+
+        /// @brief turning signs printed on the road, bitset of LinkDirection (imported from OSM)
+        int turnSigns = 0;
     };
 
     /** @struct Connection

@@ -591,6 +591,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             }
             applyChangeProhibition(nbe, e->myChangeForward);
             applyLaneUseInformation(nbe, e->myLaneUseForward);
+            applyTurnSigns(nbe, e->myTurnSignsForward);
             if (addBikeLane && (cyclewayType == WAY_UNKNOWN || (cyclewayType & WAY_FORWARD) != 0)) {
                 nbe->addBikeLane(tc.getEdgeTypeBikeLaneWidth(type) * offsetFactor);
             } else if (nbe->getPermissions(0) == SVC_BUS) {
@@ -619,6 +620,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             }
             applyChangeProhibition(nbe, e->myChangeBackward);
             applyLaneUseInformation(nbe, e->myLaneUseBackward);
+            applyTurnSigns(nbe, e->myTurnSignsBackward);
             if (addBikeLane && (cyclewayType == WAY_UNKNOWN || (cyclewayType & WAY_BACKWARD) != 0)) {
                 nbe->addBikeLane(tc.getEdgeTypeBikeLaneWidth(type) * offsetFactor);
             } else if (nbe->getPermissions(0) == SVC_BUS) {
@@ -1015,6 +1017,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 && key != "foot"
                 && key != "bicycle"
                 && key != "oneway:bicycle"
+                && !StringUtils::startsWith(key, "turn:lanes")
                 && key != "public_transport") {
             return;
         }
@@ -1242,9 +1245,40 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
             interpretLaneUse(value, SVC_PASSENGER, myCurrentEdge->myLaneUseForward);
         } else if (key == "vehicle:lanes:backward") {
             interpretLaneUse(value, SVC_PASSENGER, myCurrentEdge->myLaneUseBackward);
+        } else if (StringUtils::startsWith(key, "turn:lanes")) {
+            const std::vector<std::string> values = StringTokenizer(value, "|").getVector();
+            std::vector<int> turnCodes;
+            for (std::string codeList : values) {
+                const std::vector<std::string> codes = StringTokenizer(codeList, ";").getVector();
+                int turnCode = 0;
+                for (std::string code : codes) {
+                    if (value == "" || value == "none" || value == "through") {
+                        turnCode |= (int)LinkDirection::STRAIGHT;
+                    } else if (value == "left" || value == "sharp_left") {
+                        turnCode |= (int)LinkDirection::LEFT;
+                    } else if (value == "right" || value == "sharp_right") {
+                        turnCode |= (int)LinkDirection::RIGHT;
+                    } else if (value == "slight_left") {
+                        turnCode |= (int)LinkDirection::PARTLEFT;
+                    } else if (value == "slight_right") {
+                        turnCode |= (int)LinkDirection::PARTRIGHT;
+                    } else if (value == "reverse") {
+                        turnCode |= (int)LinkDirection::TURN;
+                    } else if (value == "merge_to_left" || value == "merge_to_right") {
+                        turnCode |= (int)LinkDirection::NODIR;
+                    }
+                }
+                turnCodes.push_back(turnCode);
+            }
+            if (key == "turn:lanes" || key == "turn:lanes:forward") {
+                myCurrentEdge->myTurnSignsForward = turnCodes;
+            } else if (key == "turn:lanes:backward") {
+                myCurrentEdge->myTurnSignsBackward = turnCodes;
+            } else if (key == "turn:lanes:both_ways") {
+                myCurrentEdge->myTurnSignsForward = turnCodes;
+                myCurrentEdge->myTurnSignsBackward = turnCodes;
+            }
         }
-
-
     }
 }
 
@@ -2196,6 +2230,28 @@ NIImporter_OpenStreetMap::applyLaneUseInformation(NBEdge* e, const std::vector<S
             }
         } else {
             WRITE_WARNINGF("Ignoring lane use information for % lanes on edge % with % lanes", laneUse.size(), e->getID(), e->getNumLanes());
+        }
+    }
+}
+
+void
+NIImporter_OpenStreetMap::applyTurnSigns(NBEdge* e, const std::vector<int>& turnSigns) {
+    if (turnSigns.size() > 0) {
+        int numLanesNoSidewalk = e->getNumLanes();
+        int start = 0;
+        if (e->getPermissions(0) == SVC_PEDESTRIAN) {
+            numLanesNoSidewalk--;
+            start = 1;
+        }
+        if ((int)turnSigns.size() == numLanesNoSidewalk) {
+            const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
+            for (int i = 0; i < (int)turnSigns.size(); i++) {
+                // laneUse stores from left to right
+                const int lane = lefthand ? i + start : e->getNumLanes() - 1 - i;
+                e->getLaneStruct(lane).turnSigns = turnSigns[i]; 
+            }
+        } else {
+            WRITE_WARNINGF("Ignoring turn sign information for % lanes on edge % with % driving lanes", turnSigns.size(), e->getID(), numLanesNoSidewalk);
         }
     }
 }

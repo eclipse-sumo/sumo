@@ -232,6 +232,9 @@ protected:
         bool myCurrentIsPlatform;
         /// @brief Information whether this is railway is electrified
         bool myCurrentIsElectrified;
+        /// @brief turning direction (arrows printed on the road)
+        std::vector<int> myTurnSignsForward;
+        std::vector<int> myTurnSignsBackward;
 
     private:
         /// invalidated assignment operator
@@ -344,6 +347,7 @@ protected:
 
     static void applyChangeProhibition(NBEdge* e, int changeProhibition);
     void applyLaneUseInformation(NBEdge* e, const std::vector<SVCPermissions>& laneUse);
+    void applyTurnSigns(NBEdge* e, const std::vector<int>& turnSigns);
 
     /**
      * @class NodesHandler

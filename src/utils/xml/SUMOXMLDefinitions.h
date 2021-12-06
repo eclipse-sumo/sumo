@@ -1469,21 +1469,21 @@ enum LinkState {
  */
 enum class LinkDirection {
     /// @brief The link is a (hard) right direction
-    RIGHT = 0,
+    RIGHT = 1 << 0,
     /// @brief The link is a partial right direction
-    PARTRIGHT,
+    PARTRIGHT = 1 << 1,
     /// @brief The link is a straight direction
-    STRAIGHT,
+    STRAIGHT = 1 << 2,
     /// @brief The link is a partial left direction
-    PARTLEFT,
+    PARTLEFT = 1 << 3,
     /// @brief The link is a (hard) left direction
-    LEFT,
+    LEFT = 1 << 4,
     /// @brief The link is a 180 degree turn
-    TURN,
+    TURN = 1 << 5,
     /// @brief The link is a 180 degree turn (left-hand network)
-    TURN_LEFTHAND,
+    TURN_LEFTHAND = 1 << 6,
     /// @brief The link has no direction (is a dead end link)
-    NODIR
+    NODIR = 1 << 7
 };
 
 
