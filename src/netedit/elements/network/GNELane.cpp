@@ -352,6 +352,10 @@ GNELane::drawArrows(const GUIVisualizationSettings& s, const bool spreadSuperpos
         glTranslated(end.x(), end.y(), 0);
         // rotate
         glRotated(rot, 0, 0, 1);
+        const double width = myParentEdge->getNBEdge()->getLaneWidth(myIndex);
+        if (width < SUMO_const_laneWidth) {
+            glScaled(width / SUMO_const_laneWidth, 1, 1);
+        }
         // get destiny node
         const NBNode* dest = myParentEdge->getNBEdge()->myTo;
         // draw all links iterating over connections
