@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2021-12-06 21:40:10.102284 by tripinfoByType.py v1_11_0+0352-2baa2d6
+<configuration>
+    <attribute value="arrival"/>
+    <by-arrivals value="True"/>
+    <interval value="300"/>
+    <output value="out.xml"/>
+    <tripinfo-file value="tripinfos.xml"/>
+</configuration>
+
+-->
+<tripinfosByType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfosByType_file.xsd">
+  <interval begin="0.0" end="300.0">
+    <typeInfo vType="access" count="17" min="105.0" minVeh="ped10" max="290.0" maxVeh="ped42" mean="246.23529411764707" Q1="258.0" median="271.0" Q3="274.0"/>
+    <typeInfo vType="bike_bicycle" count="4" min="160.0" minVeh="bike3" max="236.0" maxVeh="bike11" mean="198.25" Q1="184.0" median="213.0" Q3="236.0"/>
+    <typeInfo vType="pt_light_rail" count="2" min="208.0" minVeh="pt_light_rail_S1:0.0" max="213.0" maxVeh="pt_light_rail_S1:1.0" mean="210.5" Q1="208.0" median="213.0" Q3="213.0"/>
+    <typeInfo vType="pt_tram" count="3" min="234.0" minVeh="pt_tram_M2:0.0" max="275.0" maxVeh="pt_tram_M2:1.0" mean="260.3333333333333" Q1="234.0" median="272.0" Q3="275.0"/>
+    <typeInfo vType="ride" count="2" min="261.0" minVeh="ped24" max="267.0" maxVeh="ped2" mean="264.0" Q1="261.0" median="267.0" Q3="267.0"/>
+    <typeInfo vType="veh_passenger" count="11" min="103.0" minVeh="veh3" max="293.0" maxVeh="veh13" mean="220.54545454545453" Q1="146.0" median="234.0" Q3="274.0"/>
+    <typeInfo vType="walk" count="18" min="69.0" minVeh="ped6" max="289.0" maxVeh="ped42" mean="214.0" Q1="141.0" median="255.0" Q3="269.0"/>
+  </interval>
+  <interval begin="300.0" end="600.0">
+    <typeInfo vType="access" count="35" min="303.0" minVeh="ped42" max="594.0" maxVeh="ped67" mean="471.77142857142854" Q1="425.0" median="495.0" Q3="545.0"/>
+    <typeInfo vType="bike_bicycle" count="11" min="310.0" minVeh="bike12" max="592.0" maxVeh="bike25" mean="471.6363636363636" Q1="455.0" median="459.0" Q3="516.0"/>
+    <typeInfo vType="pt_bus" count="7" min="489.0" minVeh="pt_bus_TXL:0.0" max="599.0" maxVeh="pt_bus_N5:0.0" mean="543.1428571428571" Q1="500.0" median="546.0" Q3="579.0"/>
+    <typeInfo vType="pt_light_rail" count="9" min="393.0" minVeh="pt_light_rail_S5:1.0" max="599.0" maxVeh="pt_light_rail_S2:3.0" mean="498.77777777777777" Q1="459.0" median="507.0" Q3="538.0"/>
+    <typeInfo vType="pt_train" count="5" min="323.0" minVeh="pt_train_RE2:0.0" max="598.0" maxVeh="pt_train_RB21:1.0" mean="451.4" Q1="342.0" median="490.0" Q3="504.0"/>
+    <typeInfo vType="pt_tram" count="10" min="445.0" minVeh="pt_tram_12:1.0" max="597.0" maxVeh="pt_tram_M6:0.0" mean="517.2" Q1="478.0" median="521.0" Q3="569.0"/>
+    <typeInfo vType="ride" count="15" min="389.0" minVeh="ped27" max="589.0" maxVeh="ped67" mean="484.1333333333333" Q1="430.0" median="482.0" Q3="535.0"/>
+    <typeInfo vType="veh_passenger" count="73" min="305.0" minVeh="veh23" max="592.0" maxVeh="veh42" mean="460.9178082191781" Q1="398.0" median="458.0" Q3="534.0"/>
+    <typeInfo vType="walk" count="48" min="306.0" minVeh="ped1" max="591.0" maxVeh="ped8" mean="461.2083333333333" Q1="412.0" median="486.0" Q3="530.0"/>
+  </interval>
+  <interval begin="600.0" end="900.0">
+    <typeInfo vType="access" count="40" min="611.0" minVeh="ped23" max="882.0" maxVeh="ped23" mean="736.1" Q1="690.0" median="738.0" Q3="791.0"/>
+    <typeInfo vType="bike_bicycle" count="28" min="609.0" minVeh="bike20" max="880.0" maxVeh="bike24" mean="734.1428571428571" Q1="676.0" median="737.0" Q3="787.0"/>
+    <typeInfo vType="pt_bus" count="11" min="602.0" minVeh="pt_bus_M48:0.0" max="892.0" maxVeh="pt_bus_N40:0.0" mean="748.1818181818181" Q1="633.0" median="747.0" Q3="884.0"/>
+    <typeInfo vType="pt_light_rail" count="8" min="617.0" minVeh="pt_light_rail_S2:2.0" max="813.0" maxVeh="pt_light_rail_S1:1.1" mean="742.0" Q1="732.0" median="756.0" Q3="808.0"/>
+    <typeInfo vType="pt_subway" count="8" min="608.0" minVeh="pt_subway_U2:0.0" max="868.0" maxVeh="pt_subway_U2:1.1" mean="696.5" Q1="622.0" median="665.0" Q3="848.0"/>
+    <typeInfo vType="pt_train" count="6" min="666.0" minVeh="pt_train_RB22:0.0" max="870.0" maxVeh="pt_train_RE7:0.0" mean="754.3333333333334" Q1="703.0" median="728.0" Q3="851.0"/>
+    <typeInfo vType="pt_tram" count="11" min="601.0" minVeh="pt_tram_M2:3.0" max="891.0" maxVeh="pt_tram_M4:0.1" mean="790.1818181818181" Q1="744.0" median="823.0" Q3="853.0"/>
+    <typeInfo vType="ride" count="32" min="612.0" minVeh="ped25" max="881.0" maxVeh="ped50" mean="744.75" Q1="684.0" median="732.0" Q3="814.0"/>
+    <typeInfo vType="veh_passenger" count="59" min="601.0" minVeh="veh114" max="899.0" maxVeh="veh155" mean="757.5932203389831" Q1="686.0" median="774.0" Q3="830.0"/>
+    <typeInfo vType="walk" count="53" min="601.0" minVeh="ped32" max="897.0" maxVeh="ped150" mean="756.0566037735849" Q1="683.0" median="751.0" Q3="830.0"/>
+  </interval>
+  <interval begin="900.0" end="1200.0">
+    <typeInfo vType="access" count="4" min="942.0" minVeh="ped91" max="1067.0" maxVeh="ped81" mean="992.25" Q1="949.0" median="1011.0" Q3="1067.0"/>
+    <typeInfo vType="bike_bicycle" count="12" min="906.0" minVeh="bike31" max="1089.0" maxVeh="bike54" mean="992.0833333333334" Q1="954.0" median="1016.0" Q3="1039.0"/>
+    <typeInfo vType="pt_bus" count="4" min="904.0" minVeh="pt_bus_N8:0.0" max="988.0" maxVeh="pt_bus_N2:0.0" mean="947.75" Q1="943.0" median="956.0" Q3="988.0"/>
+    <typeInfo vType="pt_light_rail" count="4" min="932.0" minVeh="pt_light_rail_S9:0.0" max="1103.0" maxVeh="pt_light_rail_S25:1.1" mean="1029.0" Q1="993.0" median="1088.0" Q3="1103.0"/>
+    <typeInfo vType="pt_subway" count="5" min="915.0" minVeh="pt_subway_U6:0.1" max="1088.0" maxVeh="pt_subway_U2:0.2" mean="981.6" Q1="922.0" median="965.0" Q3="1018.0"/>
+    <typeInfo vType="pt_train" count="3" min="994.0" minVeh="pt_train_RE7:1.0" max="1104.0" maxVeh="pt_train_RB21:0.1" mean="1045.0" Q1="994.0" median="1037.0" Q3="1104.0"/>
+    <typeInfo vType="pt_tram" count="5" min="931.0" minVeh="pt_tram_M4:1.1" max="1092.0" maxVeh="pt_tram_M4:2.1" mean="999.6" Q1="931.0" median="963.0" Q3="1081.0"/>
+    <typeInfo vType="ride" count="4" min="936.0" minVeh="ped91" max="1063.0" maxVeh="ped81" mean="987.25" Q1="940.0" median="1010.0" Q3="1063.0"/>
+    <typeInfo vType="veh_passenger" count="42" min="900.0" minVeh="veh105" max="1099.0" maxVeh="veh172" mean="995.3333333333334" Q1="951.0" median="996.0" Q3="1044.0"/>
+    <typeInfo vType="walk" count="33" min="903.0" minVeh="ped29" max="1105.0" maxVeh="ped157" mean="1021.6666666666666" Q1="968.0" median="1046.0" Q3="1071.0"/>
+  </interval>
+</tripinfosByType>

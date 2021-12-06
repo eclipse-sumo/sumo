@@ -1,5 +1,14 @@
 # aggregated tripinfos by type
 timeLoss
 
+# aggregated tripinfos by type and time
+interval
+
 # aggregated tripinfos by type
 xml_out
+
+# aggregated tripinfos by type and time
+xml_out_interval
+
+# aggregated tripinfos by type and time
+xml_out_interval_arrival
