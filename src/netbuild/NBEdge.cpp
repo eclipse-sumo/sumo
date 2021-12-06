@@ -1625,7 +1625,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
             // skip indices to keep some correspondence between edge ids and link indices:
             // internalEdgeIndex + internalLaneIndex = linkIndex
             edgeIndex = linkIndex;
-            toEdge = (*i).toEdge;
+            toEdge = con.toEdge;
             internalLaneIndex = 0;
             assignInternalLaneLength(i, numLanes, lengthSum, averageLength);
             numLanes = 0;
@@ -1670,7 +1670,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                         bool oppositeLeftIntersect = avoidIntersectCandidate && haveIntersection(n, shape, i2, k2, numPoints, width2);
                         int shapeFlag = 0;
                         SVCPermissions warn = SVCAll & ~(SVC_PEDESTRIAN | SVC_BICYCLE | SVC_DELIVERY | SVC_RAIL_CLASSES);
-                        // do not warn if only bicycles pedestrians or delivery vehicles are involved as this is a typical occurence
+                        // do not warn if only bicycles, pedestrians or delivery vehicles are involved as this is a typical occurence
                         if (con.customShape.size() == 0
                                 && k2.customShape.size() == 0
                                 && (oppositeLeftIntersect || (avoidedIntersectingLeftOriginLane < con.fromLane  && avoidIntersectCandidate))
@@ -1707,8 +1707,10 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                         }
                         const bool bothPrio = getJunctionPriority(&n) > 0 && i2->getJunctionPriority(&n) > 0;
                         //std::cout << "n=" << n.getID() << " e1=" << getID() << " prio=" << getJunctionPriority(&n) << " e2=" << i2->getID() << " prio2=" << i2->getJunctionPriority(&n) << " both=" << bothPrio << " bothLeftIntersect=" << bothLeftIntersect(n, shape, dir, i2, k2, numPoints, width2) << " needsCont=" << needsCont << "\n";
+                        // the following special case might get obsolete once we have solved #9745
+                        const bool isBicycleLeftTurn = k2.indirectLeft || (dir2 == LinkDirection::LEFT && (i2->getPermissions(k2.fromLane) & k2.toEdge->getPermissions(k2.toLane)) == SVC_BICYCLE);
                         // compute the crossing point
-                        if ((needsCont || (bothPrio && oppositeLeftIntersect)) && (!con.indirectLeft || dir2 == LinkDirection::STRAIGHT)) {
+                        if ((needsCont || (bothPrio && oppositeLeftIntersect)) && (!con.indirectLeft || dir2 == LinkDirection::STRAIGHT) && !isBicycleLeftTurn) {
                             crossingPositions.second.push_back(index);
                             const PositionVector otherShape = n.computeInternalLaneShape(i2, k2, numPoints, 0, shapeFlag);
                             otherShapes.push_back(otherShape);
