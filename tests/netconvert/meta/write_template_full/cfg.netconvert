@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-12-05 23:05:42 by Eclipse SUMO netconvert Version v1_11_0+0316-1acbb37
+<!-- generated on 2021-12-07 00:03:01 by Eclipse SUMO netconvert Version v1_11_0+0355-d03b7b3
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -292,6 +292,7 @@
         <osm.lane-access value="false" type="BOOL" help="Import lane-specific access restrictions"/>
         <osm.bike-access value="false" type="BOOL" help="Check additional attributes to fix directions and permissions on bike paths"/>
         <osm.sidewalks value="false" type="BOOL" help="Import sidewalks"/>
+        <osm.turn-lanes value="false" type="BOOL" help="Import turning arrows from OSM to help with connection building"/>
         <osm.stop-output.length value="25" type="FLOAT" help="The default length of a public transport stop in FLOAT m"/>
         <osm.stop-output.length.bus value="15" type="FLOAT" help="The default length of a bus stop in FLOAT m"/>
         <osm.stop-output.length.tram value="25" type="FLOAT" help="The default length of a tram stop in FLOAT m"/>
