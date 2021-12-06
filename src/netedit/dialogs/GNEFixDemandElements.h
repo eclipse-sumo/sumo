@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <utils/foxtools/fxheader.h>
+#include <utils/foxtools/FXGroupBoxModul.h>
 
 // ===========================================================================
 // class declarations
@@ -136,7 +136,7 @@ protected:
     };
 
     /// @brief groupbox for all radio buttons related with fix stop options
-    class FixStopOptions : public FXGroupBox {
+    class FixStopOptions : public FXGroupBoxModul {
 
     public:
         /// @brief build Position Options
@@ -165,7 +165,7 @@ protected:
     };
 
     /// @brief groupbox for all radio buttons related with fix person plan options
-    class FixPersonPlanOptions : public FXGroupBox {
+    class FixPersonPlanOptions : public FXGroupBoxModul {
 
     public:
         /// @brief build Position Options
