@@ -28,7 +28,10 @@
 #include "FXGroupBoxModul.h"
 
 
-// Map
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
+
 FXDEFMAP(FXGroupBoxModul) FXGroupBoxModulMap[] = {
     FXMAPFUNC(SEL_PAINT,  0,  FXGroupBoxModul::onPaint),
 };
@@ -36,11 +39,22 @@ FXDEFMAP(FXGroupBoxModul) FXGroupBoxModulMap[] = {
 // Object implementation
 FXIMPLEMENT(FXGroupBoxModul, FXGroupBox, FXGroupBoxModulMap, ARRAYNUMBER(FXGroupBoxModulMap))
 
+// ===========================================================================
+// method definitions
+// ===========================================================================
 
 FXGroupBoxModul::FXGroupBoxModul(FXVerticalFrame* contentFrame, const std::string &text) :
     FXGroupBox(contentFrame, text.c_str(), GUIDesignGroupBoxFrame) {
 }
 
 
-FXGroupBoxModul::FXGroupBoxModul() {
+FXGroupBoxModul::~FXGroupBoxModul() {}
+
+
+long
+FXGroupBoxModul::onPaint(FXObject* obj ,FXSelector sel, void* ptr) {
+    return FXGroupBox::onPaint(obj, sel, ptr);
 }
+
+
+FXGroupBoxModul::FXGroupBoxModul() {}

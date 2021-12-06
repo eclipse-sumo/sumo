@@ -32,7 +32,10 @@ public:
     FXGroupBoxModul(FXVerticalFrame* contentFrame, const std::string &text);
 
     /// @brief destructor
-    ~FXGroupBoxModul() {}
+    ~FXGroupBoxModul();
+
+    /// @brief draw FXGroupBoxModul
+    long onPaint(FXObject*,FXSelector,void*);
 
 protected:
     /// @brief FOX need this
