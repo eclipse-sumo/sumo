@@ -90,10 +90,10 @@ FXDEFMAP(GNEFrameAttributesModuls::NeteditAttributes) NeteditAttributesMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEFrameAttributesModuls::AttributesCreatorRow,         FXHorizontalFrame,  RowCreatorMap,                  ARRAYNUMBER(RowCreatorMap))
+FXIMPLEMENT(GNEFrameAttributesModuls::AttributesCreatorRow,         FXHorizontalFrame,       RowCreatorMap,                  ARRAYNUMBER(RowCreatorMap))
 FXIMPLEMENT(GNEFrameAttributesModuls::AttributesCreator,            FXGroupBoxModul,         AttributesCreatorMap,           ARRAYNUMBER(AttributesCreatorMap))
 FXIMPLEMENT(GNEFrameAttributesModuls::AttributesCreatorFlow,        FXGroupBoxModul,         AttributesCreatorFlowMap,       ARRAYNUMBER(AttributesCreatorFlowMap))
-FXIMPLEMENT(GNEFrameAttributesModuls::AttributesEditorRow,          FXHorizontalFrame,  AttributesEditorRowMap,         ARRAYNUMBER(AttributesEditorRowMap))
+FXIMPLEMENT(GNEFrameAttributesModuls::AttributesEditorRow,          FXHorizontalFrame,       AttributesEditorRowMap,         ARRAYNUMBER(AttributesEditorRowMap))
 FXIMPLEMENT(GNEFrameAttributesModuls::AttributesEditor,             FXGroupBoxModul,         AttributesEditorMap,            ARRAYNUMBER(AttributesEditorMap))
 FXIMPLEMENT(GNEFrameAttributesModuls::AttributesEditorFlow,         FXGroupBoxModul,         AttributesEditorFlowMap,        ARRAYNUMBER(AttributesEditorFlowMap))
 FXIMPLEMENT(GNEFrameAttributesModuls::AttributesEditorExtended,     FXGroupBoxModul,         AttributesEditorExtendedMap,    ARRAYNUMBER(AttributesEditorExtendedMap))
@@ -111,7 +111,7 @@ FXIMPLEMENT(GNEFrameAttributesModuls::NeteditAttributes,            FXGroupBoxMo
 // ---------------------------------------------------------------------------
 
 GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesCreator* AttributesCreatorParent, const GNEAttributeProperties& attrProperties) :
-    FXHorizontalFrame(AttributesCreatorParent, GUIDesignAuxiliarHorizontalFrame),
+    FXHorizontalFrame(AttributesCreatorParent->getComposite(), GUIDesignAuxiliarHorizontalFrame),
     myAttributesCreatorParent(AttributesCreatorParent),
     myAttrProperties(attrProperties) {
     // Create left visual elements
@@ -944,7 +944,7 @@ GNEFrameAttributesModuls::AttributesCreatorFlow::onCmdSelectFlowRadioButton(FXOb
 
 GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttributesModuls::AttributesEditor* attributeEditorParent, const GNEAttributeProperties& ACAttr,
         const std::string& value, const bool attributeEnabled, const bool computed) :
-    FXHorizontalFrame(attributeEditorParent, GUIDesignAuxiliarHorizontalFrame),
+    FXHorizontalFrame(attributeEditorParent->getComposite(), GUIDesignAuxiliarHorizontalFrame),
     myAttributesEditorParent(attributeEditorParent),
     myACAttr(ACAttr),
     myMultiple(GNEAttributeCarrier::parse<std::vector<std::string>>(value).size() > 1) {

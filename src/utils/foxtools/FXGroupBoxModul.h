@@ -24,15 +24,18 @@
 #include "fxheader.h"
 
 /// @brief FXGroupBoxModul (based on FXGroupBox)
-class FXGroupBoxModul : public FXGroupBox {
+class FXGroupBoxModul : protected FXGroupBox {
     FXDECLARE(FXGroupBoxModul)
 
 public:
     /// @brief constructor
-    FXGroupBoxModul(FXVerticalFrame* contentFrame, const std::string &text);
+    FXGroupBoxModul(FXVerticalFrame* contentFrame, const std::string &text, const bool collapsible = true);
 
     /// @brief destructor
     ~FXGroupBoxModul();
+
+    /// @brief get composite (used for create rows within the FXGroupBoxModul)
+    FXComposite* getComposite();
 
     /// @brief draw FXGroupBoxModul
     long onPaint(FXObject*,FXSelector,void*);
@@ -40,4 +43,7 @@ public:
 protected:
     /// @brief FOX need this
     FXGroupBoxModul();
+
+private:
+    const bool myCollapsible;
 };

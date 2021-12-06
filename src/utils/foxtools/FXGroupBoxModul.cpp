@@ -43,12 +43,19 @@ FXIMPLEMENT(FXGroupBoxModul, FXGroupBox, FXGroupBoxModulMap, ARRAYNUMBER(FXGroup
 // method definitions
 // ===========================================================================
 
-FXGroupBoxModul::FXGroupBoxModul(FXVerticalFrame* contentFrame, const std::string &text) :
-    FXGroupBox(contentFrame, text.c_str(), GUIDesignGroupBoxFrame) {
+FXGroupBoxModul::FXGroupBoxModul(FXVerticalFrame* contentFrame, const std::string &text, const bool collapsible) :
+    FXGroupBox(contentFrame, text.c_str(), GUIDesignGroupBoxFrame),
+    myCollapsible(collapsible) {
 }
 
 
 FXGroupBoxModul::~FXGroupBoxModul() {}
+
+
+FXComposite* 
+FXGroupBoxModul::getComposite() {
+    return this;
+}
 
 
 long
@@ -57,4 +64,5 @@ FXGroupBoxModul::onPaint(FXObject* obj ,FXSelector sel, void* ptr) {
 }
 
 
-FXGroupBoxModul::FXGroupBoxModul() {}
+FXGroupBoxModul::FXGroupBoxModul() :
+    myCollapsible(false) {}
