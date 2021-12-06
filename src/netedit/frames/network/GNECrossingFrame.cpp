@@ -507,8 +507,8 @@ GNECrossingFrame::CreateCrossing::setCreateCrossingButton(bool value) {
 // GNECrossingFrame::Legend - methods
 // ---------------------------------------------------------------------------
 
-GNECrossingFrame::Legend::Legend(GNECrossingFrame* crossingFrameParent) :
-    FXGroupBoxModul(crossingFrameParent->myContentFrame, "Legend") {
+GNECrossingFrame::Information::Information(GNECrossingFrame* crossingFrameParent) :
+    FXGroupBoxModul(crossingFrameParent->myContentFrame, "Information") {
     // candidate
     FXLabel* colorCandidateLabel = new FXLabel(this, " Candidate", 0, GUIDesignLabelLeft);
     colorCandidateLabel->setBackColor(MFXUtils::getFXColor(crossingFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.possible));
@@ -519,7 +519,7 @@ GNECrossingFrame::Legend::Legend(GNECrossingFrame* crossingFrameParent) :
 }
 
 
-GNECrossingFrame::Legend::~Legend() {}
+GNECrossingFrame::Information::~Information() {}
 
 // ---------------------------------------------------------------------------
 // GNECrossingFrame - methods
@@ -539,8 +539,8 @@ GNECrossingFrame::GNECrossingFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     // create CreateCrossing modul
     myCreateCrossing = new CreateCrossing(this);
 
-    // create Legend modul
-    myLegend = new Legend(this);
+    // create information modul
+    myInformation = new Information(this);
 
     // disable edge selector
     myEdgeSelector->disableEdgeSelector();

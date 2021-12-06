@@ -251,17 +251,17 @@ public:
     };
 
     // ===========================================================================
-    // class Legend
+    // class Information
     // ===========================================================================
 
-    class Legend : public FXGroupBoxModul {
+    class Information : public FXGroupBoxModul {
 
     public:
         /// @brief constructor
-        Legend(GNECrossingFrame* crossingFrameParent);
+        Information(GNECrossingFrame* crossingFrameParent);
 
         /// @brief destructor
-        ~Legend();
+        ~Information();
     };
 
     /**@brief Constructor
@@ -301,6 +301,6 @@ private:
     /// @brief create crossing modul
     GNECrossingFrame::CreateCrossing* myCreateCrossing = nullptr;
 
-    /// @brief legend modul
-    GNECrossingFrame::Legend* myLegend = nullptr;
+    /// @brief information modul
+    GNECrossingFrame::Information* myInformation = nullptr;
 };
