@@ -55,9 +55,9 @@ FXDEFMAP(GNESelectorFrame::SelectionOperation) SelectionOperationMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNESelectorFrame::ModificationMode,                     FXGroupBox,     ModificationModeMap,            ARRAYNUMBER(ModificationModeMap))
-FXIMPLEMENT(GNESelectorFrame::VisualScaling,                        FXGroupBox,     VisualScalingMap,               ARRAYNUMBER(VisualScalingMap))
-FXIMPLEMENT(GNESelectorFrame::SelectionOperation,                   FXGroupBox,     SelectionOperationMap,          ARRAYNUMBER(SelectionOperationMap))
+FXIMPLEMENT(GNESelectorFrame::ModificationMode,                     FXGroupBoxModul,     ModificationModeMap,            ARRAYNUMBER(ModificationModeMap))
+FXIMPLEMENT(GNESelectorFrame::VisualScaling,                        FXGroupBoxModul,     VisualScalingMap,               ARRAYNUMBER(VisualScalingMap))
+FXIMPLEMENT(GNESelectorFrame::SelectionOperation,                   FXGroupBoxModul,     SelectionOperationMap,          ARRAYNUMBER(SelectionOperationMap))
 
 // ===========================================================================
 // method definitions
@@ -68,7 +68,7 @@ FXIMPLEMENT(GNESelectorFrame::SelectionOperation,                   FXGroupBox, 
 // ---------------------------------------------------------------------------
 
 GNESelectorFrame::SelectionInformation::SelectionInformation(GNESelectorFrame* selectorFrameParent) :
-    FXGroupBox(selectorFrameParent->myContentFrame, "Selection information", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(selectorFrameParent->myContentFrame, "Selection information"),
     mySelectorFrameParent(selectorFrameParent) {
     // information label
     myInformationLabel = new FXLabel(this, "", nullptr, GUIDesignLabelFrameInformation);
@@ -136,7 +136,7 @@ GNESelectorFrame::SelectionInformation::updateInformationLabel(const std::string
 // ---------------------------------------------------------------------------
 
 GNESelectorFrame::ModificationMode::ModificationMode(GNESelectorFrame* selectorFrameParent) :
-    FXGroupBox(selectorFrameParent->myContentFrame, "Modification Mode", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(selectorFrameParent->myContentFrame, "Modification Mode"),
     myModificationModeType(Operation::ADD) {
     // Create all options buttons
     myAddRadioButton = new FXRadioButton(this, "add\t\tSelected objects are added to the previous selection",
@@ -200,7 +200,7 @@ GNESelectorFrame::ModificationMode::onCmdSelectModificationMode(FXObject* obj, F
 // ---------------------------------------------------------------------------
 
 GNESelectorFrame::VisualScaling::VisualScaling(GNESelectorFrame* selectorFrameParent) :
-    FXGroupBox(selectorFrameParent->myContentFrame, "Visual Scaling", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(selectorFrameParent->myContentFrame, "Visual Scaling"),
     mySelectorFrameParent(selectorFrameParent) {
     // Create spin button and configure it
     mySelectionScaling = new FXRealSpinner(this, 7, this, MID_GNE_SELECTORFRAME_SELECTSCALE, GUIDesignSpinDial);
@@ -229,7 +229,7 @@ GNESelectorFrame::VisualScaling::onCmdScaleSelection(FXObject*, FXSelector, void
 // ---------------------------------------------------------------------------
 
 GNESelectorFrame::SelectionOperation::SelectionOperation(GNESelectorFrame* selectorFrameParent) :
-    FXGroupBox(selectorFrameParent->myContentFrame, "Operations for selections", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(selectorFrameParent->myContentFrame, "Operations for selections"),
     mySelectorFrameParent(selectorFrameParent) {
     // tabular buttons, see GNETLSEditorFrame
 
@@ -1004,7 +1004,7 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     // create SelectionOperation modul
     mySelectionOperation = new SelectionOperation(this);
     // Create groupbox for information about selections
-    FXGroupBox* selectionHintGroupBox = new FXGroupBox(myContentFrame, "Information", GUIDesignGroupBoxFrame);
+    FXGroupBoxModul* selectionHintGroupBox = new FXGroupBoxModul(myContentFrame, "Information");
     // Create Selection Hint
     new FXLabel(selectionHintGroupBox, " - Hold <SHIFT> for \n   rectangle selection.\n - Press <DEL> to\n   delete selected objects.", nullptr, GUIDesignLabelFrameInformation);
 

@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
+#include <utils/foxtools/FXGroupBoxModul.h>
 
 
 // ===========================================================================
@@ -38,7 +39,7 @@ public:
     // class SelectorParentLanes
     // ===========================================================================
 
-    class SelectorParentLanes : protected FXGroupBox {
+    class SelectorParentLanes : public FXGroupBoxModul {
         /// @brief FOX-declaration
         FXDECLARE(GNEAdditionalFrame::SelectorParentLanes)
     public:
@@ -114,7 +115,7 @@ public:
     // class SelectorChildEdges
     // ===========================================================================
 
-    class SelectorChildEdges : protected FXGroupBox {
+    class SelectorChildEdges : public FXGroupBoxModul {
         /// @brief FOX-declaration
         FXDECLARE(GNEAdditionalFrame::SelectorChildEdges)
 
@@ -182,7 +183,7 @@ public:
     // class SelectorChildLanes
     // ===========================================================================
 
-    class SelectorChildLanes : protected FXGroupBox {
+    class SelectorChildLanes : public FXGroupBoxModul {
         /// @brief FOX-declaration
         FXDECLARE(GNEAdditionalFrame::SelectorChildLanes)
 
@@ -250,7 +251,7 @@ public:
     // class E2MultilaneLaneSelector
     // ===========================================================================
 
-    class E2MultilaneLaneSelector : protected FXGroupBox {
+    class E2MultilaneLaneSelector : public FXGroupBoxModul {
         /// @brief FOX-declaration
         FXDECLARE(GNEAdditionalFrame::E2MultilaneLaneSelector)
 

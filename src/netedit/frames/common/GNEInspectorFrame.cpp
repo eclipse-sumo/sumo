@@ -78,11 +78,11 @@ FXDEFMAP(GNEInspectorFrame::AdditionalDialog) AdditionalDialogMap[] = {
 
 // Object implementation
 FXIMPLEMENT(GNEInspectorFrame,                              FXVerticalFrame,    GNEInspectorFrameMap,           ARRAYNUMBER(GNEInspectorFrameMap))
-FXIMPLEMENT(GNEInspectorFrame::NeteditAttributesEditor,     FXGroupBox,         NeteditAttributesEditorMap,     ARRAYNUMBER(NeteditAttributesEditorMap))
-FXIMPLEMENT(GNEInspectorFrame::GEOAttributesEditor,         FXGroupBox,         GEOAttributesEditorMap,         ARRAYNUMBER(GEOAttributesEditorMap))
-FXIMPLEMENT(GNEInspectorFrame::TemplateEditor,              FXGroupBox,         TemplateEditorMap,              ARRAYNUMBER(TemplateEditorMap))
-FXIMPLEMENT(GNEInspectorFrame::ParametersEditorInspector,   FXGroupBox,         ParametersEditorInspectorMap,   ARRAYNUMBER(ParametersEditorInspectorMap))
-FXIMPLEMENT(GNEInspectorFrame::AdditionalDialog,            FXGroupBox,         AdditionalDialogMap,            ARRAYNUMBER(AdditionalDialogMap))
+FXIMPLEMENT(GNEInspectorFrame::NeteditAttributesEditor,     FXGroupBoxModul,         NeteditAttributesEditorMap,     ARRAYNUMBER(NeteditAttributesEditorMap))
+FXIMPLEMENT(GNEInspectorFrame::GEOAttributesEditor,         FXGroupBoxModul,         GEOAttributesEditorMap,         ARRAYNUMBER(GEOAttributesEditorMap))
+FXIMPLEMENT(GNEInspectorFrame::TemplateEditor,              FXGroupBoxModul,         TemplateEditorMap,              ARRAYNUMBER(TemplateEditorMap))
+FXIMPLEMENT(GNEInspectorFrame::ParametersEditorInspector,   FXGroupBoxModul,         ParametersEditorInspectorMap,   ARRAYNUMBER(ParametersEditorInspectorMap))
+FXIMPLEMENT(GNEInspectorFrame::AdditionalDialog,            FXGroupBoxModul,         AdditionalDialogMap,            ARRAYNUMBER(AdditionalDialogMap))
 
 
 // ===========================================================================
@@ -94,7 +94,7 @@ FXIMPLEMENT(GNEInspectorFrame::AdditionalDialog,            FXGroupBox,         
 // ---------------------------------------------------------------------------
 
 GNEInspectorFrame::NeteditAttributesEditor::NeteditAttributesEditor(GNEInspectorFrame* inspectorFrameParent) :
-    FXGroupBox(inspectorFrameParent->myContentFrame, "Netedit attributes", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(inspectorFrameParent->myContentFrame, "Netedit attributes"),
     myInspectorFrameParent(inspectorFrameParent) {
 
     // Create mark as front element button
@@ -336,7 +336,7 @@ GNEInspectorFrame::NeteditAttributesEditor::onCmdNeteditAttributeHelp(FXObject*,
 // ---------------------------------------------------------------------------
 
 GNEInspectorFrame::GEOAttributesEditor::GEOAttributesEditor(GNEInspectorFrame* inspectorFrameParent) :
-    FXGroupBox(inspectorFrameParent->myContentFrame, "GEO Attributes", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(inspectorFrameParent->myContentFrame, "GEO Attributes"),
     myInspectorFrameParent(inspectorFrameParent) {
 
     // Create Frame for GEOAttribute
@@ -500,7 +500,7 @@ GNEInspectorFrame::GEOAttributesEditor::onCmdGEOAttributeHelp(FXObject*, FXSelec
 // ---------------------------------------------------------------------------
 
 GNEInspectorFrame::TemplateEditor::TemplateEditor(GNEInspectorFrame* inspectorFrameParent) :
-    FXGroupBox(inspectorFrameParent->myContentFrame, "Templates", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(inspectorFrameParent->myContentFrame, "Templates"),
     myInspectorFrameParent(inspectorFrameParent),
     myEdgeTemplate(nullptr) {
     // Create set template button
@@ -667,7 +667,7 @@ GNEInspectorFrame::TemplateEditor::updateButtons() {
 // ---------------------------------------------------------------------------
 
 GNEInspectorFrame::ParametersEditorInspector::ParametersEditorInspector(GNEInspectorFrame* inspectorFrameParent) :
-    FXGroupBox(inspectorFrameParent->myContentFrame, "Parameters", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(inspectorFrameParent->myContentFrame, "Parameters"),
     myInspectorFrameParent(inspectorFrameParent) {
     // create textfield and buttons
     myTextFieldParameters = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
@@ -826,7 +826,7 @@ GNEInspectorFrame::ParametersEditorInspector::onCmdSetParameters(FXObject*, FXSe
 // ---------------------------------------------------------------------------
 
 GNEInspectorFrame::AdditionalDialog::AdditionalDialog(GNEInspectorFrame* inspectorFrameParent) :
-    FXGroupBox(inspectorFrameParent->myContentFrame, "Additional dialog", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(inspectorFrameParent->myContentFrame, "Additional dialog"),
     myInspectorFrameParent(inspectorFrameParent) {
     // Create mark as front element button
     myOpenAdditionalDialog = new FXButton(this, "Additional dialog", nullptr, this, MID_OPEN_ADDITIONAL_DIALOG, GUIDesignButton);

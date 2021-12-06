@@ -85,7 +85,7 @@ FXDEFMAP(GNETLSEditorFrame::TLSFile) TLSFileMap[] = {
 
 // Object implementation
 FXIMPLEMENT(GNETLSEditorFrame,          FXVerticalFrame,    GNETLSEditorFrameMap,   ARRAYNUMBER(GNETLSEditorFrameMap))
-FXIMPLEMENT(GNETLSEditorFrame::TLSFile, FXGroupBox,         TLSFileMap,             ARRAYNUMBER(TLSFileMap))
+FXIMPLEMENT(GNETLSEditorFrame::TLSFile, FXGroupBoxModul,         TLSFileMap,             ARRAYNUMBER(TLSFileMap))
 
 
 // ===========================================================================
@@ -982,7 +982,7 @@ GNETLSEditorFrame::getSUMOTime(const FXString& string) {
 // ---------------------------------------------------------------------------
 
 GNETLSEditorFrame::TLSAttributes::TLSAttributes(GNETLSEditorFrame* TLSEditorParent) :
-    FXGroupBox(TLSEditorParent->myContentFrame, "Traffic light Attributes", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(TLSEditorParent->myContentFrame, "Traffic light Attributes"),
     myTLSEditorParent(TLSEditorParent) {
 
     // create frame, label and textfield for name (By default disabled)
@@ -1148,7 +1148,7 @@ GNETLSEditorFrame::TLSAttributes::isValidParameters() {
 // ---------------------------------------------------------------------------
 
 GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* tlsEditorParent) :
-    FXGroupBox(tlsEditorParent->myContentFrame, "Junction", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(tlsEditorParent->myContentFrame, "Junction"),
     myCurrentJunction(nullptr) {
     // Create frame for junction ID
     FXHorizontalFrame* junctionIDFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
@@ -1192,7 +1192,7 @@ GNETLSEditorFrame::TLSJunction::updateJunctionDescription() const {
 // ---------------------------------------------------------------------------
 
 GNETLSEditorFrame::TLSDefinition::TLSDefinition(GNETLSEditorFrame* TLSEditorParent) :
-    FXGroupBox(TLSEditorParent->myContentFrame, "Traffic Light Programs", GUIDesignGroupBoxFrame) {
+    FXGroupBoxModul(TLSEditorParent->myContentFrame, "Traffic Light Programs") {
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     // create create tlDef button
     myNewTLProgram = new FXButton(buttonsFrame, "Create\t\tCreate a new traffic light program",
@@ -1212,7 +1212,7 @@ GNETLSEditorFrame::TLSDefinition::~TLSDefinition() {}
 // ---------------------------------------------------------------------------
 
 GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
-    FXGroupBox(TLSEditorParent->myContentFrame, "Phases", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(TLSEditorParent->myContentFrame, "Phases"),
     myTLSEditorParent(TLSEditorParent),
     myTableFont(new FXFont(getApp(), "Courier New", 9)) {
 
@@ -1362,7 +1362,7 @@ GNETLSEditorFrame::TLSPhases::updateCycleDuration() {
 // ---------------------------------------------------------------------------
 
 GNETLSEditorFrame::TLSModifications::TLSModifications(GNETLSEditorFrame* TLSEditorParent) :
-    FXGroupBox(TLSEditorParent->myContentFrame, "Modifications", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(TLSEditorParent->myContentFrame, "Modifications"),
     myTLSEditorParent(TLSEditorParent),
     myHaveModifications(false) {
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
@@ -1396,7 +1396,7 @@ GNETLSEditorFrame::TLSModifications::setHaveModifications(bool value) {
 // ---------------------------------------------------------------------------
 
 GNETLSEditorFrame::TLSFile::TLSFile(GNETLSEditorFrame* TLSEditorParent) :
-    FXGroupBox(TLSEditorParent->myContentFrame, "TLS Program File", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(TLSEditorParent->myContentFrame, "TLS Program File"),
     myTLSEditorParent(TLSEditorParent) {
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     // create create tlDef button

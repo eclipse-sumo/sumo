@@ -121,12 +121,12 @@ FXDEFMAP(GNEFrameModuls::PathCreator) PathCreatorMap[] = {
 
 
 // Object implementation
-FXIMPLEMENT(GNEFrameModuls::TagSelector,                FXGroupBox,     TagSelectorMap,                 ARRAYNUMBER(TagSelectorMap))
-FXIMPLEMENT(GNEFrameModuls::DemandElementSelector,      FXGroupBox,     DemandElementSelectorMap,       ARRAYNUMBER(DemandElementSelectorMap))
-FXIMPLEMENT(GNEFrameModuls::HierarchicalElementTree,    FXGroupBox,     HierarchicalElementTreeMap,     ARRAYNUMBER(HierarchicalElementTreeMap))
-FXIMPLEMENT(GNEFrameModuls::DrawingShape,               FXGroupBox,     DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
-FXIMPLEMENT(GNEFrameModuls::OverlappedInspection,       FXGroupBox,     OverlappedInspectionMap,        ARRAYNUMBER(OverlappedInspectionMap))
-FXIMPLEMENT(GNEFrameModuls::PathCreator,                FXGroupBox,     PathCreatorMap,                 ARRAYNUMBER(PathCreatorMap))
+FXIMPLEMENT(GNEFrameModuls::TagSelector,                FXGroupBoxModul,     TagSelectorMap,                 ARRAYNUMBER(TagSelectorMap))
+FXIMPLEMENT(GNEFrameModuls::DemandElementSelector,      FXGroupBoxModul,     DemandElementSelectorMap,       ARRAYNUMBER(DemandElementSelectorMap))
+FXIMPLEMENT(GNEFrameModuls::HierarchicalElementTree,    FXGroupBoxModul,     HierarchicalElementTreeMap,     ARRAYNUMBER(HierarchicalElementTreeMap))
+FXIMPLEMENT(GNEFrameModuls::DrawingShape,               FXGroupBoxModul,     DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
+FXIMPLEMENT(GNEFrameModuls::OverlappedInspection,       FXGroupBoxModul,     OverlappedInspectionMap,        ARRAYNUMBER(OverlappedInspectionMap))
+FXIMPLEMENT(GNEFrameModuls::PathCreator,                FXGroupBoxModul,     PathCreatorMap,                 ARRAYNUMBER(PathCreatorMap))
 
 
 // ===========================================================================
@@ -138,7 +138,7 @@ FXIMPLEMENT(GNEFrameModuls::PathCreator,                FXGroupBox,     PathCrea
 // ---------------------------------------------------------------------------
 
 GNEFrameModuls::TagSelector::TagSelector(GNEFrame* frameParent, GNETagProperties::TagType type, SumoXMLTag tag, bool onlyDrawables) :
-    FXGroupBox(frameParent->myContentFrame, "Element", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(frameParent->myContentFrame, "Element"),
     myFrameParent(frameParent),
     myTagType(type),
     myCurrentTemplateAC(nullptr) {
@@ -493,7 +493,7 @@ GNEFrameModuls::TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagPro
 // ---------------------------------------------------------------------------
 
 GNEFrameModuls::DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag) :
-    FXGroupBox(frameParent->myContentFrame, ("Parent " + toString(demandElementTag)).c_str(), GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(frameParent->myContentFrame, ("Parent " + toString(demandElementTag)).c_str()),
     myFrameParent(frameParent),
     myCurrentDemandElement(nullptr),
     myDemandElementTags({demandElementTag}) {
@@ -507,7 +507,7 @@ GNEFrameModuls::DemandElementSelector::DemandElementSelector(GNEFrame* framePare
 
 
 GNEFrameModuls::DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, const std::vector<GNETagProperties::TagType>& tagTypes) :
-    FXGroupBox(frameParent->myContentFrame, "Parent element", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(frameParent->myContentFrame, "Parent element"),
     myFrameParent(frameParent),
     myCurrentDemandElement(nullptr) {
     // fill myDemandElementTags
@@ -773,7 +773,7 @@ GNEFrameModuls::DemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSel
 // ---------------------------------------------------------------------------
 
 GNEFrameModuls::HierarchicalElementTree::HierarchicalElementTree(GNEFrame* frameParent) :
-    FXGroupBox(frameParent->myContentFrame, "Hierarchy", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(frameParent->myContentFrame, "Hierarchy"),
     myFrameParent(frameParent),
     myHE(nullptr),
     myClickedAC(nullptr),
@@ -1721,7 +1721,7 @@ GNEFrameModuls::HierarchicalElementTree::addListItem(FXTreeItem* itemParent, con
 // ---------------------------------------------------------------------------
 
 GNEFrameModuls::DrawingShape::DrawingShape(GNEFrame* frameParent) :
-    FXGroupBox(frameParent->myContentFrame, "Drawing", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(frameParent->myContentFrame, "Drawing"),
     myFrameParent(frameParent),
     myDeleteLastCreatedPoint(false) {
     // create start and stop buttons
@@ -1752,16 +1752,16 @@ GNEFrameModuls::DrawingShape::~DrawingShape() {}
 void GNEFrameModuls::DrawingShape::showDrawingShape() {
     // abort current drawing before show
     abortDrawing();
-    // show FXGroupBox
-    FXGroupBox::show();
+    // show FXGroupBoxModul
+    FXGroupBoxModul::show();
 }
 
 
 void GNEFrameModuls::DrawingShape::hideDrawingShape() {
     // abort current drawing before hide
     abortDrawing();
-    // show FXGroupBox
-    FXGroupBox::hide();
+    // show FXGroupBoxModul
+    FXGroupBoxModul::hide();
 }
 
 
@@ -1872,7 +1872,7 @@ GNEFrameModuls::DrawingShape::onCmdAbortDrawing(FXObject*, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNEFrameModuls::SelectorParent::SelectorParent(GNEFrame* frameParent) :
-    FXGroupBox(frameParent->myContentFrame, "Parent selector", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(frameParent->myContentFrame, "Parent selector"),
     myFrameParent(frameParent) {
     // Create label with the type of SelectorParent
     myParentsLabel = new FXLabel(this, "No additional selected", nullptr, GUIDesignLabelLeftThick);
@@ -1972,7 +1972,7 @@ GNEFrameModuls::SelectorParent::refreshSelectorParentModul() {
 // ---------------------------------------------------------------------------
 
 GNEFrameModuls::OverlappedInspection::OverlappedInspection(GNEFrame* frameParent) :
-    FXGroupBox(frameParent->myContentFrame, "Overlapped elements", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(frameParent->myContentFrame, "Overlapped elements"),
     myFrameParent(frameParent),
     myFilteredTag(SUMO_TAG_NOTHING),
     myItemIndex(0) {
@@ -1982,7 +1982,7 @@ GNEFrameModuls::OverlappedInspection::OverlappedInspection(GNEFrame* frameParent
 
 
 GNEFrameModuls::OverlappedInspection::OverlappedInspection(GNEFrame* frameParent, const SumoXMLTag filteredTag) :
-    FXGroupBox(frameParent->myContentFrame, ("Overlapped " + toString(filteredTag) + "s").c_str(), GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(frameParent->myContentFrame, ("Overlapped " + toString(filteredTag) + "s").c_str()),
     myFrameParent(frameParent),
     myFilteredTag(filteredTag),
     myItemIndex(0) {
@@ -2315,7 +2315,7 @@ GNEFrameModuls::PathCreator::Path::Path() :
 
 
 GNEFrameModuls::PathCreator::PathCreator(GNEFrame* frameParent) :
-    FXGroupBox(frameParent->myContentFrame, "Route creator", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(frameParent->myContentFrame, "Route creator"),
     myFrameParent(frameParent),
     myVClass(SVC_PASSENGER),
     myCreationMode(0),
@@ -2995,7 +2995,7 @@ GNEFrameModuls::PathCreator::setPossibleCandidates(GNEEdge* originEdge, const SU
 // ---------------------------------------------------------------------------
 
 GNEFrameModuls::PathLegend::PathLegend(GNEFrame* frameParent) :
-    FXGroupBox(frameParent->myContentFrame, "Legend", GUIDesignGroupBoxFrame) {
+    FXGroupBoxModul(frameParent->myContentFrame, "Legend") {
     // declare label
     FXLabel* legendLabel = nullptr;
     // edge candidate

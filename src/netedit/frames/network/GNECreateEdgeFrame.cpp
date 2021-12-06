@@ -59,8 +59,8 @@ FXDEFMAP(GNECreateEdgeFrame::LaneTypeSelector) LaneTypeSelectorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNECreateEdgeFrame::EdgeTypeSelector,       FXGroupBox,     EdgeTypeSelectorMap,    ARRAYNUMBER(EdgeTypeSelectorMap))
-FXIMPLEMENT(GNECreateEdgeFrame::LaneTypeSelector,       FXGroupBox,     LaneTypeSelectorMap,    ARRAYNUMBER(LaneTypeSelectorMap))
+FXIMPLEMENT(GNECreateEdgeFrame::EdgeTypeSelector,       FXGroupBoxModul,     EdgeTypeSelectorMap,    ARRAYNUMBER(EdgeTypeSelectorMap))
+FXIMPLEMENT(GNECreateEdgeFrame::LaneTypeSelector,       FXGroupBoxModul,     LaneTypeSelectorMap,    ARRAYNUMBER(LaneTypeSelectorMap))
 
 
 // ===========================================================================
@@ -72,7 +72,7 @@ FXIMPLEMENT(GNECreateEdgeFrame::LaneTypeSelector,       FXGroupBox,     LaneType
 // ---------------------------------------------------------------------------
 
 GNECreateEdgeFrame::EdgeTypeSelector::EdgeTypeSelector(GNECreateEdgeFrame* createEdgeFrameParent) :
-    FXGroupBox(createEdgeFrameParent->myContentFrame, "Template selector", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(createEdgeFrameParent->myContentFrame, "Template selector"),
     myCreateEdgeFrameParent(createEdgeFrameParent),
     myDefaultEdgeType(new GNEEdgeType(createEdgeFrameParent)),
     myCurrentIndex(0) {
@@ -380,7 +380,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::fillComboBox() {
 // ---------------------------------------------------------------------------
 
 GNECreateEdgeFrame::LaneTypeSelector::LaneTypeSelector(GNECreateEdgeFrame* createEdgeFrameParent) :
-    FXGroupBox(createEdgeFrameParent->myContentFrame, "LaneType selector", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(createEdgeFrameParent->myContentFrame, "LaneType selector"),
     myCreateEdgeFrameParent(createEdgeFrameParent),
     myLaneIndex(0) {
     // lane types combo box
@@ -539,7 +539,7 @@ GNECreateEdgeFrame::LaneTypeSelector::updateComboBox() {
 // ---------------------------------------------------------------------------
 
 GNECreateEdgeFrame::EdgeTypeSelectorLegend::EdgeTypeSelectorLegend(GNECreateEdgeFrame* createEdgeFrameParent) :
-    FXGroupBox(createEdgeFrameParent->myContentFrame, "Legend", GUIDesignGroupBoxFrame) {
+    FXGroupBoxModul(createEdgeFrameParent->myContentFrame, "Legend") {
     // crate information
     std::ostringstream information;
     // add label for shift+click

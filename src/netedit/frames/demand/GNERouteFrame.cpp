@@ -39,7 +39,7 @@ FXDEFMAP(GNERouteFrame::RouteModeSelector) RouteModeSelectorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNERouteFrame::RouteModeSelector,   FXGroupBox,     RouteModeSelectorMap,   ARRAYNUMBER(RouteModeSelectorMap))
+FXIMPLEMENT(GNERouteFrame::RouteModeSelector,   FXGroupBoxModul,     RouteModeSelectorMap,   ARRAYNUMBER(RouteModeSelectorMap))
 
 
 // ===========================================================================
@@ -51,7 +51,7 @@ FXIMPLEMENT(GNERouteFrame::RouteModeSelector,   FXGroupBox,     RouteModeSelecto
 // ---------------------------------------------------------------------------
 
 GNERouteFrame::RouteModeSelector::RouteModeSelector(GNERouteFrame* routeFrameParent) :
-    FXGroupBox(routeFrameParent->myContentFrame, "Route mode", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(routeFrameParent->myContentFrame, "Route mode"),
     myRouteFrameParent(routeFrameParent) {
     // create route template
     myRouteTemplate = new GNERoute(routeFrameParent->getViewNet()->getNet());

@@ -40,7 +40,7 @@ public:
     // class CurrentLane
     // ===========================================================================
 
-    class CurrentLane : protected FXGroupBox {
+    class CurrentLane : public FXGroupBoxModul {
 
     public:
         /// @brief constructor
@@ -61,7 +61,7 @@ public:
     // class ConnectionModifications
     // ===========================================================================
 
-    class ConnectionModifications : protected FXGroupBox {
+    class ConnectionModifications : public FXGroupBoxModul {
         /// @brief FOX-declaration
         FXDECLARE(GNEConnectorFrame::ConnectionModifications)
 
@@ -103,7 +103,7 @@ public:
     // class ConnectionOperations
     // ===========================================================================
 
-    class ConnectionOperations : protected FXGroupBox {
+    class ConnectionOperations : public FXGroupBoxModul {
         /// @brief FOX-declaration
         FXDECLARE(GNEConnectorFrame::ConnectionOperations)
 
@@ -166,7 +166,7 @@ public:
     // class ConnectionSelection
     // ===========================================================================
 
-    class ConnectionSelection : protected FXGroupBox {
+    class ConnectionSelection : public FXGroupBoxModul {
 
     public:
         /// @brief constructor
@@ -187,7 +187,7 @@ public:
     // class ConnectionLegend
     // ===========================================================================
 
-    class ConnectionLegend : protected FXGroupBox {
+    class ConnectionLegend : public FXGroupBoxModul {
 
     public:
         /// @brief constructor

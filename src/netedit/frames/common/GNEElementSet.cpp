@@ -37,7 +37,7 @@ FXDEFMAP(GNEElementSet) GNEElementSetMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEElementSet, FXGroupBox, GNEElementSetMap, ARRAYNUMBER(GNEElementSetMap))
+FXIMPLEMENT(GNEElementSet, FXGroupBoxModul, GNEElementSetMap, ARRAYNUMBER(GNEElementSetMap))
 
 // ===========================================================================
 // method definitions
@@ -45,7 +45,7 @@ FXIMPLEMENT(GNEElementSet, FXGroupBox, GNEElementSetMap, ARRAYNUMBER(GNEElementS
 
 GNEElementSet::GNEElementSet(GNESelectorFrame* selectorFrameParent, Supermode supermode,
                              SumoXMLTag defaultTag, SumoXMLAttr defaultAttr, const std::string& defaultValue) :
-    FXGroupBox(selectorFrameParent->getContentFrame(), "Element Set", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(selectorFrameParent->getContentFrame(), "Element Set"),
     mySelectorFrameParent(selectorFrameParent),
     myMatchAttribute(nullptr),
     myMatchGenericDataAttribute(nullptr),

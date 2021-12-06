@@ -41,14 +41,14 @@ FXDEFMAP(GNEDeleteFrame::DeleteOptions) DeleteOptionsMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEDeleteFrame::DeleteOptions, FXGroupBox, DeleteOptionsMap, ARRAYNUMBER(DeleteOptionsMap))
+FXIMPLEMENT(GNEDeleteFrame::DeleteOptions, FXGroupBoxModul, DeleteOptionsMap, ARRAYNUMBER(DeleteOptionsMap))
 
 // ---------------------------------------------------------------------------
 // GNEDeleteFrame::DeleteOptions - methods
 // ---------------------------------------------------------------------------
 
 GNEDeleteFrame::DeleteOptions::DeleteOptions(GNEDeleteFrame* deleteFrameParent) :
-    FXGroupBox(deleteFrameParent->myContentFrame, "Options", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(deleteFrameParent->myContentFrame, "Options"),
     myDeleteFrameParent(deleteFrameParent) {
     // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
     myDeleteOnlyGeometryPoints = new FXCheckButton(this, "Delete geometry points", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
@@ -76,7 +76,7 @@ GNEDeleteFrame::DeleteOptions::onCmdSetOption(FXObject*, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNEDeleteFrame::ProtectElements::ProtectElements(GNEDeleteFrame* deleteFrameParent) :
-    FXGroupBox(deleteFrameParent->myContentFrame, "Protect Elements", GUIDesignGroupBoxFrame) {
+    FXGroupBoxModul(deleteFrameParent->myContentFrame, "Protect Elements") {
     // Create checkbox for enable/disable delete only geomtery point(by default, disabled)
     myProtectAdditionals = new FXCheckButton(this, "Protect additional elements", deleteFrameParent, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myProtectAdditionals->setCheck(TRUE);

@@ -37,7 +37,7 @@ public:
     // class TAZRelLegend
     // ===========================================================================
 
-    class TAZRelLegend : protected FXGroupBox {
+    class TAZRelLegend : public FXGroupBoxModul {
 
     public:
         /// @brief constructor

@@ -23,6 +23,7 @@
 #include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/GNEViewNetHelper.h>
 #include <utils/common/Parameterised.h>
+#include <utils/foxtools/FXGroupBoxModul.h>
 #include <utils/xml/CommonXMLStructure.h>
 
 // ===========================================================================
@@ -143,7 +144,7 @@ public:
     // class AttributesCreator
     // ===========================================================================
 
-    class AttributesCreator : public FXGroupBox {
+    class AttributesCreator : public FXGroupBoxModul {
         /// @brief FOX-declaration
         FXDECLARE(GNEFrameAttributesModuls::AttributesCreator)
 
@@ -227,7 +228,7 @@ public:
     // class AttributesCreatorFlow
     // ===========================================================================
 
-    class AttributesCreatorFlow : public FXGroupBox {
+    class AttributesCreatorFlow : public FXGroupBoxModul {
         /// @brief FOX-declaration
         FXDECLARE(GNEFrameAttributesModuls::AttributesCreatorFlow)
 
@@ -387,7 +388,7 @@ public:
     // class AttributesEditor
     // ===========================================================================
 
-    class AttributesEditor : public FXGroupBox {
+    class AttributesEditor : public FXGroupBoxModul {
         /// @brief FOX-declaration
         FXDECLARE(GNEFrameAttributesModuls::AttributesEditor)
 
@@ -438,7 +439,7 @@ public:
     // class AttributesEditorFlow
     // ===========================================================================
 
-    class AttributesEditorFlow : protected FXGroupBox {
+    class AttributesEditorFlow : public FXGroupBoxModul {
         /// @brief FOX-declaration
         FXDECLARE(GNEFrameAttributesModuls::AttributesEditorFlow)
 
@@ -524,7 +525,7 @@ public:
     // class AttributesEditorExtended
     // ===========================================================================
 
-    class AttributesEditorExtended : protected FXGroupBox {
+    class AttributesEditorExtended : public FXGroupBoxModul {
         /// @brief FOX-declaration
         FXDECLARE(GNEFrameAttributesModuls::AttributesEditorExtended)
 
@@ -559,7 +560,7 @@ public:
     // class ParametersEditorCreator
     // ===========================================================================
 
-    class ParametersEditorCreator : private FXGroupBox {
+    class ParametersEditorCreator : public FXGroupBoxModul {
         /// @brief FOX-declaration
         FXDECLARE(GNEFrameAttributesModuls::ParametersEditorCreator)
 
@@ -624,7 +625,7 @@ public:
     // class DrawingShape
     // ===========================================================================
 
-    class DrawingShape : private FXGroupBox {
+    class DrawingShape : public FXGroupBoxModul {
         /// @brief FOX-declaration
         FXDECLARE(GNEFrameAttributesModuls::DrawingShape)
 
@@ -710,7 +711,7 @@ public:
     // class NeteditAttributes
     // ===========================================================================
 
-    class NeteditAttributes : protected FXGroupBox {
+    class NeteditAttributes : public FXGroupBoxModul {
         /// @brief FOX-declaration
         FXDECLARE(GNEFrameAttributesModuls::NeteditAttributes)
 

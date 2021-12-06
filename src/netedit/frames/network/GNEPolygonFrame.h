@@ -36,7 +36,7 @@ public:
     // class GEOPOICreator
     // ===========================================================================
 
-    class GEOPOICreator : protected FXGroupBox {
+    class GEOPOICreator : public FXGroupBoxModul {
         /// @brief FOX-declaration
         FXDECLARE(GNEPolygonFrame::GEOPOICreator)
 

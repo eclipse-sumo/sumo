@@ -62,11 +62,11 @@ FXDEFMAP(GNETAZFrame::TAZEdgesGraphic) TAZEdgesGraphicMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNETAZFrame::TAZParameters,             FXGroupBox,     TAZParametersMap,               ARRAYNUMBER(TAZParametersMap))
-FXIMPLEMENT(GNETAZFrame::TAZSaveChanges,            FXGroupBox,     TAZSaveChangesMap,              ARRAYNUMBER(TAZSaveChangesMap))
-FXIMPLEMENT(GNETAZFrame::TAZChildDefaultParameters, FXGroupBox,     TAZChildDefaultParametersMap,   ARRAYNUMBER(TAZChildDefaultParametersMap))
-FXIMPLEMENT(GNETAZFrame::TAZSelectionStatistics,    FXGroupBox,     TAZSelectionStatisticsMap,      ARRAYNUMBER(TAZSelectionStatisticsMap))
-FXIMPLEMENT(GNETAZFrame::TAZEdgesGraphic,           FXGroupBox,     TAZEdgesGraphicMap,             ARRAYNUMBER(TAZEdgesGraphicMap))
+FXIMPLEMENT(GNETAZFrame::TAZParameters,             FXGroupBoxModul,     TAZParametersMap,               ARRAYNUMBER(TAZParametersMap))
+FXIMPLEMENT(GNETAZFrame::TAZSaveChanges,            FXGroupBoxModul,     TAZSaveChangesMap,              ARRAYNUMBER(TAZSaveChangesMap))
+FXIMPLEMENT(GNETAZFrame::TAZChildDefaultParameters, FXGroupBoxModul,     TAZChildDefaultParametersMap,   ARRAYNUMBER(TAZChildDefaultParametersMap))
+FXIMPLEMENT(GNETAZFrame::TAZSelectionStatistics,    FXGroupBoxModul,     TAZSelectionStatisticsMap,      ARRAYNUMBER(TAZSelectionStatisticsMap))
+FXIMPLEMENT(GNETAZFrame::TAZEdgesGraphic,           FXGroupBoxModul,     TAZEdgesGraphicMap,             ARRAYNUMBER(TAZEdgesGraphicMap))
 
 
 // ===========================================================================
@@ -148,7 +148,7 @@ GNETAZFrame::CurrentTAZ::TAZEdgeColor::TAZEdgeColor() :
 
 
 GNETAZFrame::CurrentTAZ::CurrentTAZ(GNETAZFrame* TAZFrameParent) :
-    FXGroupBox(TAZFrameParent->myContentFrame, "TAZ", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(TAZFrameParent->myContentFrame, "TAZ"),
     myTAZFrameParent(TAZFrameParent),
     myEditedTAZ(nullptr),
     myMaxSourcePlusSinkWeight(0),
@@ -345,7 +345,7 @@ GNETAZFrame::CurrentTAZ::addTAZChild(GNETAZSourceSink* sourceSink) {
 // ---------------------------------------------------------------------------
 
 GNETAZFrame::TAZCommonStatistics::TAZCommonStatistics(GNETAZFrame* TAZFrameParent) :
-    FXGroupBox(TAZFrameParent->myContentFrame, "TAZ Statistics", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(TAZFrameParent->myContentFrame, "TAZ Statistics"),
     myTAZFrameParent(TAZFrameParent) {
     // create label for statistics
     myStatisticsLabel = new FXLabel(this, "Statistics", 0, GUIDesignLabelFrameInformation);
@@ -395,7 +395,7 @@ GNETAZFrame::TAZCommonStatistics::updateStatistics() {
 // ---------------------------------------------------------------------------
 
 GNETAZFrame::TAZSaveChanges::TAZSaveChanges(GNETAZFrame* TAZFrameParent) :
-    FXGroupBox(TAZFrameParent->myContentFrame, "Modifications", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(TAZFrameParent->myContentFrame, "Modifications"),
     myTAZFrameParent(TAZFrameParent) {
     // Create groupbox for save changes
     mySaveChangesButton = new FXButton(this, "Confirm changes", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_OK, GUIDesignButton);
@@ -484,7 +484,7 @@ GNETAZFrame::TAZSaveChanges::onCmdCancelChanges(FXObject*, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNETAZFrame::TAZChildDefaultParameters::TAZChildDefaultParameters(GNETAZFrame* TAZFrameParent) :
-    FXGroupBox(TAZFrameParent->myContentFrame, "TAZ Sources/Sinks", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(TAZFrameParent->myContentFrame, "TAZ Sources/Sinks"),
     myTAZFrameParent(TAZFrameParent),
     myDefaultTAZSourceWeight(1),
     myDefaultTAZSinkWeight(1) {
@@ -783,7 +783,7 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdUseSelectedEdges(FXObject*, FXSelec
 // ---------------------------------------------------------------------------
 
 GNETAZFrame::TAZSelectionStatistics::TAZSelectionStatistics(GNETAZFrame* TAZFrameParent) :
-    FXGroupBox(TAZFrameParent->myContentFrame, "Selection Statistics", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(TAZFrameParent->myContentFrame, "Selection Statistics"),
     myTAZFrameParent(TAZFrameParent) {
     // create default TAZ Source weight
     myTAZSourceFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
@@ -1070,7 +1070,7 @@ GNETAZFrame::TAZSelectionStatistics::updateStatistics() {
 // ---------------------------------------------------------------------------
 
 GNETAZFrame::TAZParameters::TAZParameters(GNETAZFrame* TAZFrameParent) :
-    FXGroupBox(TAZFrameParent->myContentFrame, "TAZ parameters", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(TAZFrameParent->myContentFrame, "TAZ parameters"),
     myTAZFrameParent(TAZFrameParent),
     myTAZTemplate(nullptr) {
     // create TAZ Template
@@ -1110,13 +1110,13 @@ GNETAZFrame::TAZParameters::~TAZParameters() {
 
 void
 GNETAZFrame::TAZParameters::showTAZParametersModul() {
-    FXGroupBox::show();
+    FXGroupBoxModul::show();
 }
 
 
 void
 GNETAZFrame::TAZParameters::hideTAZParametersModul() {
-    FXGroupBox::hide();
+    FXGroupBoxModul::hide();
 }
 
 
@@ -1230,7 +1230,7 @@ GNETAZFrame::TAZParameters::onCmdHelp(FXObject*, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNETAZFrame::TAZEdgesGraphic::TAZEdgesGraphic(GNETAZFrame* TAZFrameParent) :
-    FXGroupBox(TAZFrameParent->myContentFrame, "Edges", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(TAZFrameParent->myContentFrame, "Edges"),
     myTAZFrameParent(TAZFrameParent),
     myEdgeDefaultColor(RGBColor::GREY),
     myEdgeSelectedColor(RGBColor::MAGENTA) {

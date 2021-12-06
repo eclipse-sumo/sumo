@@ -51,7 +51,7 @@ public:
     // class RelativeToConnection
     // ===========================================================================
 
-    class RelativeToConnection : protected FXGroupBox {
+    class RelativeToConnection : public FXGroupBoxModul {
 
     public:
         /// @brief constructor
@@ -75,7 +75,7 @@ public:
     // class ProhibitionLegend
     // ===========================================================================
 
-    class ProhibitionLegend : protected FXGroupBox {
+    class ProhibitionLegend : public FXGroupBoxModul {
 
     public:
         /// @brief constructor
@@ -120,7 +120,7 @@ public:
     // class Modifications
     // ===========================================================================
 
-    class Modifications : protected FXGroupBox {
+    class Modifications : public FXGroupBoxModul {
 
     public:
         /// @brief constructor

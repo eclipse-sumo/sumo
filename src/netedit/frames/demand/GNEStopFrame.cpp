@@ -35,7 +35,7 @@
 // ---------------------------------------------------------------------------
 
 GNEStopFrame::HelpCreation::HelpCreation(GNEStopFrame* StopFrameParent) :
-    FXGroupBox(StopFrameParent->myContentFrame, "Help", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(StopFrameParent->myContentFrame, "Help"),
     myStopFrameParent(StopFrameParent) {
     myInformationLabel = new FXLabel(this, "", 0, GUIDesignLabelFrameInformation);
 }

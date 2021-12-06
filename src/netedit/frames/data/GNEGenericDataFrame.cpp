@@ -53,9 +53,9 @@ FXDEFMAP(GNEGenericDataFrame::AttributeSelector) AttributeSelectorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEGenericDataFrame::DataSetSelector,   FXGroupBox, DataSetSelectorMap,   ARRAYNUMBER(DataSetSelectorMap))
-FXIMPLEMENT(GNEGenericDataFrame::IntervalSelector,  FXGroupBox, IntervalSelectorMap,  ARRAYNUMBER(IntervalSelectorMap))
-FXIMPLEMENT(GNEGenericDataFrame::AttributeSelector, FXGroupBox, AttributeSelectorMap, ARRAYNUMBER(AttributeSelectorMap))
+FXIMPLEMENT(GNEGenericDataFrame::DataSetSelector,   FXGroupBoxModul, DataSetSelectorMap,   ARRAYNUMBER(DataSetSelectorMap))
+FXIMPLEMENT(GNEGenericDataFrame::IntervalSelector,  FXGroupBoxModul, IntervalSelectorMap,  ARRAYNUMBER(IntervalSelectorMap))
+FXIMPLEMENT(GNEGenericDataFrame::AttributeSelector, FXGroupBoxModul, AttributeSelectorMap, ARRAYNUMBER(AttributeSelectorMap))
 
 // ===========================================================================
 // method definitions
@@ -66,7 +66,7 @@ FXIMPLEMENT(GNEGenericDataFrame::AttributeSelector, FXGroupBox, AttributeSelecto
 // ---------------------------------------------------------------------------
 
 GNEGenericDataFrame::DataSetSelector::DataSetSelector(GNEGenericDataFrame* genericDataFrameParent) :
-    FXGroupBox(genericDataFrameParent->myContentFrame, "DataSet", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(genericDataFrameParent->myContentFrame, "DataSet"),
     myGenericDataFrameParent(genericDataFrameParent) {
     // create check button for new data set
     myNewDataSetCheckButton = new FXCheckButton(this, "Create new dataSet", this, MID_GNE_SELECT, GUIDesignCheckButton);
@@ -195,7 +195,7 @@ GNEGenericDataFrame::DataSetSelector::onCmdSelectCheckButton(FXObject*, FXSelect
 // ---------------------------------------------------------------------------
 
 GNEGenericDataFrame::IntervalSelector::IntervalSelector(GNEGenericDataFrame* genericDataFrameParent) :
-    FXGroupBox(genericDataFrameParent->myContentFrame, "Interval", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(genericDataFrameParent->myContentFrame, "Interval"),
     myGenericDataFrameParent(genericDataFrameParent) {
     // create check button for new interval
     myNewIntervalCheckButton = new FXCheckButton(this, "Create new interval", this, MID_GNE_SELECT, GUIDesignCheckButton);
@@ -389,7 +389,7 @@ GNEGenericDataFrame::IntervalSelector::addIntervalItem(GNEDataInterval* dataInte
 // ---------------------------------------------------------------------------
 
 GNEGenericDataFrame::AttributeSelector::AttributeSelector(GNEGenericDataFrame* genericDataFrameParent, SumoXMLTag tag) :
-    FXGroupBox(genericDataFrameParent->myContentFrame, "Data attributes", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(genericDataFrameParent->myContentFrame, "Data attributes"),
     myGenericDataFrameParent(genericDataFrameParent),
     myMinMaxLabel(nullptr),
     myGenericDataTag(tag) {

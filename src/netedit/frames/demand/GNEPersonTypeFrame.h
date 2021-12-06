@@ -42,7 +42,7 @@ public:
     // class PersonTypeSelector
     // ===========================================================================
 
-    class PersonTypeSelector : protected FXGroupBox {
+    class PersonTypeSelector : public FXGroupBoxModul {
         /// @brief FOX-declaration
         FXDECLARE(GNEPersonTypeFrame::PersonTypeSelector)
 
@@ -86,7 +86,7 @@ public:
     // class PersonTypeEditor
     // ===========================================================================
 
-    class PersonTypeEditor : protected FXGroupBox {
+    class PersonTypeEditor : public FXGroupBoxModul {
         /// @brief FOX-declaration
         FXDECLARE(GNEPersonTypeFrame::PersonTypeEditor)
 

@@ -44,7 +44,7 @@ public:
     // class CurrentTAZ
     // ===========================================================================
 
-    class CurrentTAZ : protected FXGroupBox {
+    class CurrentTAZ : public FXGroupBoxModul {
 
     public:
         /// @brief struct for edges and the source/sink colors
@@ -150,7 +150,7 @@ public:
     // class TAZCommonStatistics
     // ===========================================================================
 
-    class TAZCommonStatistics : protected FXGroupBox {
+    class TAZCommonStatistics : public FXGroupBoxModul {
 
     public:
         /// @brief constructor
@@ -180,7 +180,7 @@ public:
     // class TAZSaveChanges
     // ===========================================================================
 
-    class TAZSaveChanges : protected FXGroupBox {
+    class TAZSaveChanges : public FXGroupBoxModul {
         /// @brief FOX-declaration
         FXDECLARE(GNETAZFrame::TAZSaveChanges)
 
@@ -230,7 +230,7 @@ public:
     // class TAZChildDefaultParameters
     // ===========================================================================
 
-    class TAZChildDefaultParameters : protected FXGroupBox {
+    class TAZChildDefaultParameters : public FXGroupBoxModul {
         /// @brief FOX-declaration
         FXDECLARE(GNETAZFrame::TAZChildDefaultParameters)
 
@@ -307,7 +307,7 @@ public:
     // class TAZSelectionStatistics
     // ===========================================================================
 
-    class TAZSelectionStatistics : protected FXGroupBox {
+    class TAZSelectionStatistics : public FXGroupBoxModul {
         /// @brief FOX-declaration
         FXDECLARE(GNETAZFrame::TAZSelectionStatistics)
 
@@ -381,7 +381,7 @@ public:
     // class TAZParameters
     // ===========================================================================
 
-    class TAZParameters : protected FXGroupBox {
+    class TAZParameters : public FXGroupBoxModul {
         /// @brief FOX-declaration
         FXDECLARE(GNETAZFrame::TAZParameters)
 
@@ -455,7 +455,7 @@ public:
     // class TAZEdgesGraphic
     // ===========================================================================
 
-    class TAZEdgesGraphic : protected FXGroupBox {
+    class TAZEdgesGraphic : public FXGroupBoxModul {
         /// @brief FOX-declaration
         FXDECLARE(GNETAZFrame::TAZEdgesGraphic)
 

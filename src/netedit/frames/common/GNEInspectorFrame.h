@@ -44,7 +44,7 @@ public:
     // class NeteditAttributesEditor
     // ===========================================================================
 
-    class NeteditAttributesEditor : private FXGroupBox {
+    class NeteditAttributesEditor : public FXGroupBoxModul {
         /// @brief FOX-declaration
         FXDECLARE(GNEInspectorFrame::NeteditAttributesEditor)
 
@@ -113,7 +113,7 @@ public:
     // class GEOAttributesEditor
     // ===========================================================================
 
-    class GEOAttributesEditor : private FXGroupBox {
+    class GEOAttributesEditor : public FXGroupBoxModul {
         /// @brief FOX-declaration
         FXDECLARE(GNEInspectorFrame::GEOAttributesEditor)
 
@@ -177,7 +177,7 @@ public:
     // class TemplateEditor
     // ===========================================================================
 
-    class TemplateEditor : private FXGroupBox {
+    class TemplateEditor : public FXGroupBoxModul {
         /// @brief FOX-declaration
         FXDECLARE(GNEInspectorFrame::TemplateEditor)
 
@@ -249,7 +249,7 @@ public:
     // class ParametersEditorInspector
     // ===========================================================================
 
-    class ParametersEditorInspector : private FXGroupBox {
+    class ParametersEditorInspector : public FXGroupBoxModul {
         /// @brief FOX-declaration
         FXDECLARE(GNEInspectorFrame::ParametersEditorInspector)
 
@@ -300,7 +300,7 @@ public:
     // class AdditionalDialog
     // ===========================================================================
 
-    class AdditionalDialog : private FXGroupBox {
+    class AdditionalDialog : public FXGroupBoxModul {
         /// @brief FOX-declaration
         FXDECLARE(GNEInspectorFrame::AdditionalDialog)
 

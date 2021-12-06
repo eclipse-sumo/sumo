@@ -42,7 +42,7 @@ public:
     // class VehicleTypeSelector
     // ===========================================================================
 
-    class VehicleTypeSelector : protected FXGroupBox {
+    class VehicleTypeSelector : public FXGroupBoxModul {
         /// @brief FOX-declaration
         FXDECLARE(GNEVehicleTypeFrame::VehicleTypeSelector)
 
@@ -89,7 +89,7 @@ public:
     // class VehicleTypeEditor
     // ===========================================================================
 
-    class VehicleTypeEditor : protected FXGroupBox {
+    class VehicleTypeEditor : public FXGroupBoxModul {
         /// @brief FOX-declaration
         FXDECLARE(GNEVehicleTypeFrame::VehicleTypeEditor)
 

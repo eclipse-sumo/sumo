@@ -48,7 +48,7 @@ public:
     // class TLSJunction
     // ===========================================================================
 
-    class TLSJunction : protected FXGroupBox {
+    class TLSJunction : public FXGroupBoxModul {
 
     public:
         /// @brief constructor
@@ -81,7 +81,7 @@ public:
     // class TLSDefinition
     // ===========================================================================
 
-    class TLSDefinition : protected FXGroupBox {
+    class TLSDefinition : public FXGroupBoxModul {
 
     public:
         /// @brief constructor
@@ -102,7 +102,7 @@ public:
     // class TLSAttributes
     // ===========================================================================
 
-    class TLSAttributes : protected FXGroupBox {
+    class TLSAttributes : public FXGroupBoxModul {
 
     public:
         /// @brief constructor
@@ -174,7 +174,7 @@ public:
     // class TLSPhases
     // ===========================================================================
 
-    class TLSPhases : protected FXGroupBox {
+    class TLSPhases : public FXGroupBoxModul {
 
     public:
         /// @brief constructor
@@ -227,7 +227,7 @@ public:
     // class TLSModifications
     // ===========================================================================
 
-    class TLSModifications : protected FXGroupBox {
+    class TLSModifications : public FXGroupBoxModul {
 
     public:
         /// @brief constructor
@@ -260,7 +260,7 @@ public:
     // class TLSFile
     // ===========================================================================
 
-    class TLSFile : protected FXGroupBox {
+    class TLSFile : public FXGroupBoxModul {
         /// @brief FOX-declaration
         FXDECLARE(GNETLSEditorFrame::TLSFile)
 

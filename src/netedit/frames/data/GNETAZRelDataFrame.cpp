@@ -38,7 +38,7 @@
 // ---------------------------------------------------------------------------
 
 GNETAZRelDataFrame::TAZRelLegend::TAZRelLegend(GNETAZRelDataFrame* TAZRelDataFrame) :
-    FXGroupBox(TAZRelDataFrame->myContentFrame, "Legend", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(TAZRelDataFrame->myContentFrame, "Legend"),
     myFromTAZLabel(nullptr),
     myToTAZLabel(nullptr) {
     // create from TAZ label

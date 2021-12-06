@@ -50,7 +50,7 @@ FXIMPLEMENT(GNEProhibitionFrame, FXVerticalFrame, GNEProhibitionFrameMap, ARRAYN
 // ---------------------------------------------------------------------------
 
 GNEProhibitionFrame::RelativeToConnection::RelativeToConnection(GNEProhibitionFrame* prohibitionFrameParent) :
-    FXGroupBox(prohibitionFrameParent->myContentFrame, "Relative to connection", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(prohibitionFrameParent->myContentFrame, "Relative to connection"),
     myProhibitionFrameParent(prohibitionFrameParent) {
     // Create label for current connection description and update it
     myConnDescriptionLabel = new FXLabel(this, "", nullptr, GUIDesignLabelFrameInformation);
@@ -78,7 +78,7 @@ GNEProhibitionFrame::RelativeToConnection::updateDescription() const {
 // ---------------------------------------------------------------------------
 
 GNEProhibitionFrame::ProhibitionLegend::ProhibitionLegend(GNEProhibitionFrame* prohibitionFrameParent) :
-    FXGroupBox(prohibitionFrameParent->myContentFrame, "Legend", GUIDesignGroupBoxFrame),
+    FXGroupBoxModul(prohibitionFrameParent->myContentFrame, "Legend"),
     myUndefinedColor(RGBColor::GREY),
     myProhibitedColor(RGBColor(0, 179, 0)),
     myProhibitingColor(RGBColor::RED),
@@ -143,7 +143,7 @@ GNEProhibitionFrame::ProhibitionLegend::getMutualConflictColor() const {
 // ---------------------------------------------------------------------------
 
 GNEProhibitionFrame::Modifications::Modifications(GNEProhibitionFrame* prohibitionFrameParent) :
-    FXGroupBox(prohibitionFrameParent->myContentFrame, "Modifications", GUIDesignGroupBoxFrame) {
+    FXGroupBoxModul(prohibitionFrameParent->myContentFrame, "Modifications") {
 
     // Create "OK" button
     mySaveButton = new FXButton(this, "OK\t\tSave prohibition modifications (Enter)",

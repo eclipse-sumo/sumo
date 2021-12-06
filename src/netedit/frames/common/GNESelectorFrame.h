@@ -47,7 +47,7 @@ public:
     // class SelectionInformation
     // ===========================================================================
 
-    class SelectionInformation : protected FXGroupBox {
+    class SelectionInformation : public FXGroupBoxModul {
 
     public:
         /// @brief constructor
@@ -84,7 +84,7 @@ public:
     // class ModificationMode
     // ===========================================================================
 
-    class ModificationMode : protected FXGroupBox {
+    class ModificationMode : public FXGroupBoxModul {
         /// @brief FOX-declaration
         FXDECLARE(GNESelectorFrame::ModificationMode)
 
@@ -145,7 +145,7 @@ public:
     // class VisualScaling
     // ===========================================================================
 
-    class VisualScaling : protected FXGroupBox {
+    class VisualScaling : public FXGroupBoxModul {
         /// @brief FOX-declaration
         FXDECLARE(GNESelectorFrame::VisualScaling)
 
@@ -186,7 +186,7 @@ public:
     // class SelectionOperation
     // ===========================================================================
 
-    class SelectionOperation : protected FXGroupBox {
+    class SelectionOperation : public FXGroupBoxModul {
         /// @brief FOX-declaration
         FXDECLARE(GNESelectorFrame::SelectionOperation)
 
