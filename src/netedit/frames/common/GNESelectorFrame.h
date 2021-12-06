@@ -255,6 +255,20 @@ public:
         SelectionOperation& operator=(const SelectionOperation&) = delete;
     };
 
+    // ===========================================================================
+    // class Legend
+    // ===========================================================================
+
+    class Information : public FXGroupBoxModul {
+
+    public:
+        /// @brief constructor
+        Information(GNESelectorFrame* selectorFrameParent);
+
+        /// @brief destructor
+        ~Information();
+    };
+
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -306,25 +320,28 @@ public:
 
 private:
     /// @brief modul for selection information
-    SelectionInformation* mySelectionInformation;
+    GNESelectorFrame::SelectionInformation* mySelectionInformation = nullptr;
 
     /// @brief modul for change modification mode
-    ModificationMode* myModificationMode;
+    GNESelectorFrame::ModificationMode* myModificationMode = nullptr;
 
     /// @brief moduls for select network element set
-    GNEElementSet* myNetworkElementSet;
+    GNESelectorFrame::GNEElementSet* myNetworkElementSet = nullptr;
 
     /// @brief moduls for select demand element set
-    GNEElementSet* myDemandElementSet;
+    GNESelectorFrame::GNEElementSet* myDemandElementSet = nullptr;
 
     /// @brief moduls for select data element set
-    GNEElementSet* myDataElementSet;
+    GNESelectorFrame::GNEElementSet* myDataElementSet = nullptr;
 
     /// @brief modul for visual scaling
-    VisualScaling* myVisualScaling;
+    GNESelectorFrame::VisualScaling* myVisualScaling = nullptr;
 
     /// @brief modul for selection operations
-    SelectionOperation* mySelectionOperation;
+    GNESelectorFrame::SelectionOperation* mySelectionOperation = nullptr;
+
+    /// @brief information modul
+    GNESelectorFrame::Information* myInformation = nullptr;
 
     /// @brief Invalidated copy constructor.
     GNESelectorFrame(const GNESelectorFrame&) = delete;

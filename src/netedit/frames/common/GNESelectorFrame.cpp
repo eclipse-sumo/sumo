@@ -986,6 +986,19 @@ GNESelectorFrame::SelectionOperation::askContinueIfLock() const {
 }
 
 // ---------------------------------------------------------------------------
+// GNECrossingFrame::Legend - methods
+// ---------------------------------------------------------------------------
+
+GNESelectorFrame::Information::Information(GNESelectorFrame* selectorFrameParent) :
+    FXGroupBoxModul(selectorFrameParent->myContentFrame, "Information") {
+    // Create Selection Hint
+    new FXLabel(this, " - Hold <SHIFT> for \n   rectangle selection.\n - Press <DEL> to\n   delete selected objects.", nullptr, GUIDesignLabelFrameInformation);
+}
+
+
+GNESelectorFrame::Information::~Information() {}
+
+// ---------------------------------------------------------------------------
 // GNESelectorFrame - methods
 // ---------------------------------------------------------------------------
 
@@ -1003,11 +1016,8 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     myVisualScaling = new VisualScaling(this);
     // create SelectionOperation modul
     mySelectionOperation = new SelectionOperation(this);
-    // Create groupbox for information about selections
-    FXGroupBoxModul* selectionHintGroupBox = new FXGroupBoxModul(myContentFrame, "Information");
-    // Create Selection Hint
-    new FXLabel(selectionHintGroupBox, " - Hold <SHIFT> for \n   rectangle selection.\n - Press <DEL> to\n   delete selected objects.", nullptr, GUIDesignLabelFrameInformation);
-
+    // create Information modul
+    myInformation = new Information(this);
 }
 
 
