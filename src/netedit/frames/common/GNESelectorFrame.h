@@ -326,13 +326,13 @@ private:
     GNESelectorFrame::ModificationMode* myModificationMode = nullptr;
 
     /// @brief moduls for select network element set
-    GNESelectorFrame::GNEElementSet* myNetworkElementSet = nullptr;
+    GNEElementSet* myNetworkElementSet = nullptr;
 
     /// @brief moduls for select demand element set
-    GNESelectorFrame::GNEElementSet* myDemandElementSet = nullptr;
+    GNEElementSet* myDemandElementSet = nullptr;
 
     /// @brief moduls for select data element set
-    GNESelectorFrame::GNEElementSet* myDataElementSet = nullptr;
+    GNEElementSet* myDataElementSet = nullptr;
 
     /// @brief modul for visual scaling
     GNESelectorFrame::VisualScaling* myVisualScaling = nullptr;
