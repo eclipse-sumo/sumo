@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-12-06 11:44:31 by Eclipse SUMO netedit Version v1_11_0+0320-767ac74
+<!-- generated on 2021-12-06 13:40:18 by Eclipse SUMO netconvert Version v1_11_0+0325-5284e00
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -19,7 +19,6 @@
     </processing>
 
     <junctions>
-        <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="0"/>
         <junctions.limit-turn-speed value="-1"/>
@@ -285,26 +284,26 @@
     <connection from="WC" to="CN" fromLane="1" toLane="2" via=":C_12_0" tl="C" linkIndex="12" dir="l" state="o"/>
 
     <connection from=":C_0" to="CW" fromLane="0" toLane="1" via=":C_13_0" dir="r" state="m"/>
-    <connection from=":C_13" to="CW" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from=":C_13" to="CW" fromLane="0" toLane="1" dir="r" state="m"/>
     <connection from=":C_1" to="CS" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":C_2" to="CE" fromLane="0" toLane="1" via=":C_14_0" dir="l" state="m"/>
-    <connection from=":C_14" to="CE" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":C_14" to="CE" fromLane="0" toLane="1" dir="l" state="m"/>
     <connection from=":C_3" to="CN" fromLane="0" toLane="2" via=":C_15_0" dir="r" state="m"/>
-    <connection from=":C_15" to="CN" fromLane="0" toLane="2" dir="r" state="M"/>
+    <connection from=":C_15" to="CN" fromLane="0" toLane="2" dir="r" state="m"/>
     <connection from=":C_4" to="CW" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":C_5" to="CS" fromLane="0" toLane="1" via=":C_16_0" dir="l" state="m"/>
-    <connection from=":C_16" to="CS" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":C_16" to="CS" fromLane="0" toLane="1" dir="l" state="m"/>
     <connection from=":C_6" to="CN" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":C_7" to="CE" fromLane="0" toLane="1" via=":C_17_0" dir="r" state="m"/>
-    <connection from=":C_17" to="CE" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from=":C_17" to="CE" fromLane="0" toLane="1" dir="r" state="m"/>
     <connection from=":C_8" to="CN" fromLane="0" toLane="2" dir="s" state="M"/>
     <connection from=":C_9" to="CW" fromLane="0" toLane="1" via=":C_18_0" dir="l" state="m"/>
-    <connection from=":C_18" to="CW" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":C_18" to="CW" fromLane="0" toLane="1" dir="l" state="m"/>
     <connection from=":C_10" to="CS" fromLane="0" toLane="1" via=":C_19_0" dir="r" state="m"/>
-    <connection from=":C_19" to="CS" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from=":C_19" to="CS" fromLane="0" toLane="1" dir="r" state="m"/>
     <connection from=":C_11" to="CE" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":C_12" to="CN" fromLane="0" toLane="2" via=":C_20_0" dir="l" state="m"/>
-    <connection from=":C_20" to="CN" fromLane="0" toLane="2" dir="l" state="M"/>
+    <connection from=":C_20" to="CN" fromLane="0" toLane="2" dir="l" state="m"/>
     <connection from=":E_0" to="EC" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from=":N_0" to="NC" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from=":S_0" to="SC" fromLane="0" toLane="2" dir="t" state="M"/>
