@@ -201,17 +201,17 @@ public:
     };
 
     // ===========================================================================
-    // class EdgeTypeSelectorLegend
+    // class Legend
     // ===========================================================================
 
-    class EdgeTypeSelectorLegend : public FXGroupBoxModul {
+    class Legend : public FXGroupBoxModul {
 
     public:
         /// @brief constructor
-        EdgeTypeSelectorLegend(GNECreateEdgeFrame* createEdgeFrameParent);
+        Legend(GNECreateEdgeFrame* createEdgeFrameParent);
 
         /// @brief destructor
-        ~EdgeTypeSelectorLegend();
+        ~Legend();
     };
 
     /**@brief Constructor
@@ -269,13 +269,13 @@ protected:
     GNEFrameAttributesModuls::AttributesCreator* myEdgeTypeAttributes = nullptr;
 
     /// @brief lane type selector
-    LaneTypeSelector* myLaneTypeSelector;
+    GNECreateEdgeFrame::LaneTypeSelector* myLaneTypeSelector = nullptr;
 
     /// @brief internal laneType attributes
     GNEFrameAttributesModuls::AttributesCreator* myLaneTypeAttributes = nullptr;
 
-    /// @brief edge selector legend
-    EdgeTypeSelectorLegend* myEdgeTypeSelectorLegend = nullptr;
+    /// @brief Legend
+    GNECreateEdgeFrame::Legend* myLegend = nullptr;
 
 private:
     /// @brief objects under snapped cursor

@@ -538,8 +538,8 @@ GNECreateEdgeFrame::LaneTypeSelector::updateComboBox() {
 // GNECreateEdgeFrame::Legend - methods
 // ---------------------------------------------------------------------------
 
-GNECreateEdgeFrame::EdgeTypeSelectorLegend::EdgeTypeSelectorLegend(GNECreateEdgeFrame* createEdgeFrameParent) :
-    FXGroupBoxModul(createEdgeFrameParent->myContentFrame, "Legend") {
+GNECreateEdgeFrame::Legend::Legend(GNECreateEdgeFrame* createEdgeFrameParent) :
+    FXGroupBoxModul(createEdgeFrameParent->myContentFrame, "Information") {
     // crate information
     std::ostringstream information;
     // add label for shift+click
@@ -553,11 +553,11 @@ GNECreateEdgeFrame::EdgeTypeSelectorLegend::EdgeTypeSelectorLegend(GNECreateEdge
             << "- Alt+Shift+Click:" << "\n"
             << "  Splits edge in one direction";
     // create label
-    new FXLabel(this, information.str().c_str(), 0, GUIDesignLabelFrameThicked);
+    new FXLabel(this, information.str().c_str(), 0, GUIDesignLabelFrameInformation);
 }
 
 
-GNECreateEdgeFrame::EdgeTypeSelectorLegend::~EdgeTypeSelectorLegend() {}
+GNECreateEdgeFrame::Legend::~Legend() {}
 
 // ---------------------------------------------------------------------------
 // GNECreateEdgeFrame - methods
@@ -576,7 +576,7 @@ GNECreateEdgeFrame::GNECreateEdgeFrame(FXHorizontalFrame* horizontalFrameParent,
     // Create laneType parameters
     myLaneTypeAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
     // create edge selector legend
-    myEdgeTypeSelectorLegend = new EdgeTypeSelectorLegend(this);
+    myLegend = new Legend(this);
 }
 
 
