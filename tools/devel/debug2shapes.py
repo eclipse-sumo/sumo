@@ -20,12 +20,16 @@
 """
 from __future__ import print_function
 import sys
+import os
 from collections import defaultdict
 
 COLORS = ["red", "green", "blue", "yellow", "cyan", "magenta", "orange"]
 
 outfile = sys.argv[1]
-shapesParts = sys.argv[2].split()
+if os.path.isfile(sys.argv[2]):
+    shapesParts = open(sys.argv[2]).read().split()
+else:
+    shapesParts = sys.argv[2].split()
 if len(sys.argv) == 4:
     fill = bool(sys.argv[3])
 else:
