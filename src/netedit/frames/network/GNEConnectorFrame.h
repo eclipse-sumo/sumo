@@ -184,17 +184,17 @@ public:
     };
 
     // ===========================================================================
-    // class ConnectionLegend
+    // class Legend
     // ===========================================================================
 
-    class ConnectionLegend : public FXGroupBoxModul {
+    class Legend : public FXGroupBoxModul {
 
     public:
         /// @brief constructor
-        ConnectionLegend(GNEConnectorFrame* connectorFrameParent);
+        Legend(GNEConnectorFrame* connectorFrameParent);
 
         /// @brief destructor
-        ~ConnectionLegend();
+        ~Legend();
 
     private:
     };
@@ -249,16 +249,16 @@ private:
     CurrentLane* myCurrentLane;
 
     /// @brief ConnectionModifications modul
-    ConnectionModifications* myConnectionModifications;
+    GNEConnectorFrame::ConnectionModifications* myConnectionModifications = nullptr;
 
     /// @brief ConnectionOperations modul
-    ConnectionOperations* myConnectionOperations;
+    GNEConnectorFrame::ConnectionOperations* myConnectionOperations = nullptr;
 
     /// @brief ConnectionSelection modul
-    ConnectionSelection* myConnectionSelection;
+    GNEConnectorFrame::ConnectionSelection* myConnectionSelection = nullptr;
 
-    /// @brief ConnectionLegend modul
-    ConnectionLegend* myConnectionLegend;
+    /// @brief Legend modul
+    GNEConnectorFrame::Legend* myLegend = nullptr;
 
     /// @brief the lane of which connections are to be modified
     GNELane* myCurrentEditedLane;

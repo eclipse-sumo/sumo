@@ -319,8 +319,8 @@ GNEConnectorFrame::ConnectionSelection::~ConnectionSelection() {}
 // GNEConnectorFrame::ConnectionLegend - methods
 // ---------------------------------------------------------------------------
 
-GNEConnectorFrame::ConnectionLegend::ConnectionLegend(GNEConnectorFrame* connectorFrameParent) :
-    FXGroupBoxModul(connectorFrameParent->myContentFrame, "Legend") {
+GNEConnectorFrame::Legend::Legend(GNEConnectorFrame* connectorFrameParent) :
+    FXGroupBoxModul(connectorFrameParent->myContentFrame, "Information") {
 
     // create possible target label
     FXLabel* possibleTargetLabel = new FXLabel(this, "Possible Target", 0, GUIDesignLabelLeft);
@@ -345,7 +345,7 @@ GNEConnectorFrame::ConnectionLegend::ConnectionLegend(GNEConnectorFrame* connect
 }
 
 
-GNEConnectorFrame::ConnectionLegend::~ConnectionLegend() {}
+GNEConnectorFrame::Legend::~Legend() {}
 
 // ---------------------------------------------------------------------------
 // GNEConnectorFrame - methods
@@ -368,7 +368,7 @@ GNEConnectorFrame::GNEConnectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     myConnectionSelection = new ConnectionSelection(this);
 
     // create connection legend modul
-    myConnectionLegend = new ConnectionLegend(this);
+    myLegend = new Legend(this);
 }
 
 
