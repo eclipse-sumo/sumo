@@ -133,6 +133,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
     std::vector<std::string> files = oc.getStringVector("osm-files");
 
     myImportLaneAccess = oc.getBool("osm.lane-access");
+    myImportTurnSigns = oc.getBool("osm.turn-lanes");
     myImportSidewalks = OptionsCont::getOptions().getBool("osm.sidewalks");
 
     // load nodes, first
@@ -2236,7 +2237,7 @@ NIImporter_OpenStreetMap::applyLaneUseInformation(NBEdge* e, const std::vector<S
 
 void
 NIImporter_OpenStreetMap::applyTurnSigns(NBEdge* e, const std::vector<int>& turnSigns) {
-    if (turnSigns.size() > 0) {
+    if (myImportTurnSigns && turnSigns.size() > 0) {
         int numLanesNoSidewalk = e->getNumLanes();
         int start = 0;
         if (e->getPermissions(0) == SVC_PEDESTRIAN) {
