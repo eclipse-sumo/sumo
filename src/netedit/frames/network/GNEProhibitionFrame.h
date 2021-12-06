@@ -72,17 +72,17 @@ public:
     };
 
     // ===========================================================================
-    // class ProhibitionLegend
+    // class Legend
     // ===========================================================================
 
-    class ProhibitionLegend : public FXGroupBoxModul {
+    class Legend : public FXGroupBoxModul {
 
     public:
         /// @brief constructor
-        ProhibitionLegend(GNEProhibitionFrame* prohibitionFrameParent);
+        Legend(GNEProhibitionFrame* prohibitionFrameParent);
 
         /// @brief destructor
-        ~ProhibitionLegend();
+        ~Legend();
 
         /// @brief get color for non-conflicting pairs of connections
         const RGBColor& getUndefinedColor() const;
@@ -178,13 +178,13 @@ private:
     RelativeToConnection* myRelativeToConnection;
 
     /// @brief prohibition legend
-    ProhibitionLegend* myProhibitionLegend;
+    GNEProhibitionFrame::Legend* myLegend = nullptr;
 
     /// @brief Modifications
-    Modifications* myModifications;
+    GNEProhibitionFrame::Modifications* myModifications = nullptr;
 
     /// @brief the connection which prohibits
-    GNEConnection* myCurrentConn;
+    GNEProhibitionFrame::GNEConnection* myCurrentConn = nullptr;
 
     /// @brief the set of connections which
     std::set<GNEConnection*> myConcernedConns;

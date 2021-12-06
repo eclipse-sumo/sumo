@@ -77,8 +77,8 @@ GNEProhibitionFrame::RelativeToConnection::updateDescription() const {
 // GNEProhibitionFrame::ProhibitionLegend - methods
 // ---------------------------------------------------------------------------
 
-GNEProhibitionFrame::ProhibitionLegend::ProhibitionLegend(GNEProhibitionFrame* prohibitionFrameParent) :
-    FXGroupBoxModul(prohibitionFrameParent->myContentFrame, "Legend"),
+GNEProhibitionFrame::Legend::Legend(GNEProhibitionFrame* prohibitionFrameParent) :
+    FXGroupBoxModul(prohibitionFrameParent->myContentFrame, "Information"),
     myUndefinedColor(RGBColor::GREY),
     myProhibitedColor(RGBColor(0, 179, 0)),
     myProhibitingColor(RGBColor::RED),
@@ -106,35 +106,35 @@ GNEProhibitionFrame::ProhibitionLegend::ProhibitionLegend(GNEProhibitionFrame* p
 }
 
 
-GNEProhibitionFrame::ProhibitionLegend::~ProhibitionLegend() {}
+GNEProhibitionFrame::Legend::~Legend() {}
 
 
 const RGBColor&
-GNEProhibitionFrame::ProhibitionLegend::getUndefinedColor() const {
+GNEProhibitionFrame::Legend::getUndefinedColor() const {
     return myUndefinedColor;
 }
 
 
 const RGBColor&
-GNEProhibitionFrame::ProhibitionLegend::getProhibitedColor() const {
+GNEProhibitionFrame::Legend::getProhibitedColor() const {
     return myProhibitedColor;
 }
 
 
 const RGBColor&
-GNEProhibitionFrame::ProhibitionLegend::getProhibitingColor() const {
+GNEProhibitionFrame::Legend::getProhibitingColor() const {
     return myProhibitingColor;
 }
 
 
 const RGBColor&
-GNEProhibitionFrame::ProhibitionLegend::getUnregulatedConflictColor() const {
+GNEProhibitionFrame::Legend::getUnregulatedConflictColor() const {
     return myUnregulatedConflictColor;
 }
 
 
 const RGBColor&
-GNEProhibitionFrame::ProhibitionLegend::getMutualConflictColor() const {
+GNEProhibitionFrame::Legend::getMutualConflictColor() const {
     return myMutualConflictColor;
 }
 
@@ -174,8 +174,8 @@ GNEProhibitionFrame::GNEProhibitionFrame(FXHorizontalFrame* horizontalFrameParen
     // create RelativeToConnection
     myRelativeToConnection = new RelativeToConnection(this);
 
-    // create ProhibitionLegend
-    myProhibitionLegend = new ProhibitionLegend(this);
+    // create legend
+    myLegend = new Legend(this);
 
     // create Modifications
     myModifications = new Modifications(this);
@@ -261,16 +261,16 @@ GNEProhibitionFrame::buildProhibition(GNEConnection* conn, bool /* mayDefinitely
                 myConcernedConns.insert(i);
                 // change color depending of prohibition status
                 if (!foes) {
-                    i->setSpecialColor(&myProhibitionLegend->getUndefinedColor());
+                    i->setSpecialColor(&myLegend->getUndefinedColor());
                 } else {
                     if (forbids && forbidden) {
-                        i->setSpecialColor(&myProhibitionLegend->getMutualConflictColor());
+                        i->setSpecialColor(&myLegend->getMutualConflictColor());
                     } else if (forbids) {
-                        i->setSpecialColor(&myProhibitionLegend->getProhibitedColor());
+                        i->setSpecialColor(&myLegend->getProhibitedColor());
                     } else if (forbidden) {
-                        i->setSpecialColor(&myProhibitionLegend->getProhibitingColor());
+                        i->setSpecialColor(&myLegend->getProhibitingColor());
                     } else {
-                        i->setSpecialColor(&myProhibitionLegend->getUnregulatedConflictColor());
+                        i->setSpecialColor(&myLegend->getUnregulatedConflictColor());
                     }
                 }
             }
