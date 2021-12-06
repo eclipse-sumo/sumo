@@ -34,17 +34,17 @@ class GNETAZRelDataFrame : public GNEGenericDataFrame {
 
 public:
     // ===========================================================================
-    // class TAZRelLegend
+    // class Legend
     // ===========================================================================
 
-    class TAZRelLegend : public FXGroupBoxModul {
+    class Legend : public FXGroupBoxModul {
 
     public:
         /// @brief constructor
-        TAZRelLegend(GNETAZRelDataFrame* TAZRelDataFrame);
+        Legend(GNETAZRelDataFrame* TAZRelDataFrame);
 
         /// @brief destructor
-        ~TAZRelLegend();
+        ~Legend();
 
         /// @brief set labels
         void setLabels(const GNETAZElement* fromTAZ, const GNETAZElement* toTAZ);
@@ -89,7 +89,7 @@ protected:
     GNETAZElement* mySecondTAZ;
 
     /// @brief TAZRel legend
-    TAZRelLegend* myTAZRelLegend;
+    GNETAZRelDataFrame::Legend* myLegend;
 
 private:
     /// @brief Invalidated copy constructor.
