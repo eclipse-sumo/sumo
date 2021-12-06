@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-04 21:20:56 by Eclipse SUMO netconvert Version v1_10_0+1964-4808582
+<!-- generated on 2021-12-06 13:59:30 by Eclipse SUMO netconvert Version v1_11_0+0328-1fa2b75766a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -9,7 +9,7 @@ SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml,/scr1/sumo/data/typemap/osmNetconvertPedestrians.typ.xml"/>
+        <type-files value="/home/kobo/dlr/sumo/data/typemap/osmNetconvert.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertPedestrians.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -616,26 +616,26 @@ SPDX-License-Identifier: EPL-2.0
     <connection from=":23083_0" to="2128#0" fromLane="0" toLane="1" dir="l" state="M"/>
     <connection from=":23126_0" to="-1748#0" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":23126_1" to="1762" fromLane="0" toLane="1" via=":23126_6_0" dir="l" state="m"/>
-    <connection from=":23126_6" to="1762" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":23126_6" to="1762" fromLane="0" toLane="1" dir="l" state="m"/>
     <connection from=":23126_2" to="1748#1" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":23126_3" to="-1748#0" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":23126_4" to="1762" fromLane="0" toLane="1" via=":23126_7_0" dir="R" state="m"/>
-    <connection from=":23126_7" to="1762" fromLane="0" toLane="1" dir="R" state="M"/>
+    <connection from=":23126_7" to="1762" fromLane="0" toLane="1" dir="R" state="m"/>
     <connection from=":23126_5" to="1748#1" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":7301_0" to="1757#1" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":7301_1" to="1696" fromLane="0" toLane="1" dir="l" state="M"/>
     <connection from=":7301_2" to="1757#1" fromLane="0" toLane="1" dir="l" state="M"/>
     <connection from=":9334_0" to="-1696" fromLane="0" toLane="1" via=":9334_6_0" dir="r" state="m"/>
-    <connection from=":9334_6" to="-1696" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from=":9334_6" to="-1696" fromLane="0" toLane="1" dir="r" state="m"/>
     <connection from=":9334_1" to="-1748#1" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":9334_2" to="1748#2" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":9334_3" to="-1696" fromLane="0" toLane="1" via=":9334_7_0" dir="l" state="m"/>
-    <connection from=":9334_7" to="-1696" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":9334_7" to="-1696" fromLane="0" toLane="1" dir="l" state="m"/>
     <connection from=":9334_4" to="-1748#1" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":9334_5" to="1748#2" fromLane="0" toLane="1" dir="l" state="M"/>
     <connection from=":9428_0" to="2131#1" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":9428_1" to="-1760" fromLane="0" toLane="1" via=":9428_3_0" dir="r" state="m"/>
-    <connection from=":9428_3" to="-1760" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from=":9428_3" to="-1760" fromLane="0" toLane="1" dir="r" state="m"/>
     <connection from=":9428_2" to="2131#1" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":9610_0" to="-61421#2" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":9610_1" to="-61421#2" fromLane="0" toLane="1" dir="s" state="M"/>

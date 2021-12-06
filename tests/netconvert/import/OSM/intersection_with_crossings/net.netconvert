@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:40 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2021-12-06 13:59:28 by Eclipse SUMO netconvert Version v1_11_0+0328-1fa2b75766a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -218,16 +218,16 @@ SPDX-License-Identifier: EPL-2.0
 
     <connection from=":447602290_0" to="-324752524" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from=":cluster_1802245009_335683858_0" to="324752524" fromLane="0" toLane="1" via=":cluster_1802245009_335683858_8_0" dir="r" state="m"/>
-    <connection from=":cluster_1802245009_335683858_8" to="324752524" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from=":cluster_1802245009_335683858_8" to="324752524" fromLane="0" toLane="1" dir="r" state="m"/>
     <connection from=":cluster_1802245009_335683858_1" to="177308083" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":cluster_1802245009_335683858_2" to="-324752522" fromLane="0" toLane="1" via=":cluster_1802245009_335683858_9_0" dir="l" state="m"/>
-    <connection from=":cluster_1802245009_335683858_9" to="-324752522" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":cluster_1802245009_335683858_9" to="-324752522" fromLane="0" toLane="1" dir="l" state="m"/>
     <connection from=":cluster_1802245009_335683858_3" to="324752524" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":cluster_1802245009_335683858_3" to="324752524" fromLane="1" toLane="2" dir="s" state="M"/>
     <connection from=":cluster_1802245009_335683858_5" to="177308083" fromLane="0" toLane="1" via=":cluster_1802245009_335683858_10_0" dir="l" state="m"/>
-    <connection from=":cluster_1802245009_335683858_10" to="177308083" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":cluster_1802245009_335683858_10" to="177308083" fromLane="0" toLane="1" dir="l" state="m"/>
     <connection from=":cluster_1802245009_335683858_6" to="177308083" fromLane="0" toLane="1" via=":cluster_1802245009_335683858_11_0" dir="r" state="m"/>
-    <connection from=":cluster_1802245009_335683858_11" to="177308083" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from=":cluster_1802245009_335683858_11" to="177308083" fromLane="0" toLane="1" dir="r" state="m"/>
     <connection from=":cluster_1802245009_335683858_7" to="-324752522" fromLane="0" toLane="1" dir="s" state="M"/>
 
     <connection from=":1877604780_w0" to="324752522" fromLane="0" toLane="0" dir="s" state="M"/>
