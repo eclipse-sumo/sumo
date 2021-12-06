@@ -1907,6 +1907,19 @@ NBNode::mustBrakeForCrossing(const NBEdge* const from, const NBEdge* const to, c
     return NBRequest::mustBrakeForCrossing(this, from, to, crossing);
 }
 
+bool
+NBNode::brakeForCrossingOnExit(const NBEdge* to) const {
+    // code is called for connections exiting after an internal junction.
+    // Therefore we can assume that the connection is turning and do not check
+    // for direction or crossing priority anymore.
+    for (auto& c : myCrossings) {
+        if (std::find(c->edges.begin(), c->edges.end(), to) != c->edges.end()) {
+            return true;
+        }
+    }
+    return false;
+}
+
 
 bool
 NBNode::rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,

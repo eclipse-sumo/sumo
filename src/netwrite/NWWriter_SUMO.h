@@ -182,6 +182,7 @@ private:
                                         LinkDirection dir = LinkDirection::STRAIGHT,
                                         const std::string& tlID = "",
                                         int linkIndex = NBConnection::InvalidTlIndex,
+                                        bool minor = false,
                                         double visibility = NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE);
 
     /// @brief writes a SUMOTime as int if possible, otherwise as a float
