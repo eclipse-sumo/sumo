@@ -2995,7 +2995,7 @@ GNEFrameModuls::PathCreator::setPossibleCandidates(GNEEdge* originEdge, const SU
 // ---------------------------------------------------------------------------
 
 GNEFrameModuls::PathLegend::PathLegend(GNEFrame* frameParent) :
-    FXGroupBoxModul(frameParent->myContentFrame, "Legend") {
+    FXGroupBoxModul(frameParent->myContentFrame, "Information") {
     // declare label
     FXLabel* legendLabel = nullptr;
     // edge candidate
