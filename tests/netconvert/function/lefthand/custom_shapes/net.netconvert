@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:49 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2021-12-06 13:41:41 by Eclipse SUMO netconvert Version v1_11_0+0325-5284e00
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -312,40 +312,40 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="WC" to="CS" fromLane="4" toLane="4" via=":C_21_0" tl="C" linkIndex="21" dir="r" state="o"/>
 
     <connection from=":C_0" to="CW" fromLane="0" toLane="2" via=":C_22_0" dir="l" state="m"/>
-    <connection from=":C_22" to="CW" fromLane="0" toLane="2" dir="l" state="M"/>
+    <connection from=":C_22" to="CW" fromLane="0" toLane="2" dir="l" state="m"/>
     <connection from=":C_1" to="CN" fromLane="0" toLane="2" dir="s" state="M"/>
     <connection from=":C_2" to="CE" fromLane="0" toLane="2" via=":C_23_0" dir="r" state="m"/>
-    <connection from=":C_23" to="CE" fromLane="0" toLane="2" dir="r" state="M"/>
+    <connection from=":C_23" to="CE" fromLane="0" toLane="2" dir="r" state="m"/>
     <connection from=":C_3" to="CW" fromLane="0" toLane="3" via=":C_24_0" dir="l" state="m"/>
-    <connection from=":C_24" to="CW" fromLane="0" toLane="3" dir="l" state="M"/>
+    <connection from=":C_24" to="CW" fromLane="0" toLane="3" dir="l" state="m"/>
     <connection from=":C_4" to="CN" fromLane="0" toLane="3" dir="s" state="M"/>
     <connection from=":C_4" to="CN" fromLane="1" toLane="4" dir="s" state="M"/>
     <connection from=":C_6" to="CE" fromLane="0" toLane="4" via=":C_25_0" dir="r" state="m"/>
-    <connection from=":C_25" to="CE" fromLane="0" toLane="4" dir="r" state="M"/>
+    <connection from=":C_25" to="CE" fromLane="0" toLane="4" dir="r" state="m"/>
     <connection from=":C_7" to="CS" fromLane="0" toLane="2" via=":C_26_0" dir="l" state="m"/>
-    <connection from=":C_26" to="CS" fromLane="0" toLane="2" dir="l" state="M"/>
+    <connection from=":C_26" to="CS" fromLane="0" toLane="2" dir="l" state="m"/>
     <connection from=":C_8" to="CW" fromLane="0" toLane="2" dir="s" state="M"/>
     <connection from=":C_9" to="CN" fromLane="0" toLane="2" via=":C_27_0" dir="r" state="m"/>
-    <connection from=":C_27" to="CN" fromLane="0" toLane="2" dir="r" state="M"/>
+    <connection from=":C_27" to="CN" fromLane="0" toLane="2" dir="r" state="m"/>
     <connection from=":C_10" to="CS" fromLane="0" toLane="3" via=":C_28_0" dir="l" state="m"/>
-    <connection from=":C_28" to="CS" fromLane="0" toLane="3" dir="l" state="M"/>
+    <connection from=":C_28" to="CS" fromLane="0" toLane="3" dir="l" state="m"/>
     <connection from=":C_11" to="CW" fromLane="0" toLane="3" dir="s" state="M"/>
     <connection from=":C_11" to="CW" fromLane="1" toLane="4" dir="s" state="M"/>
     <connection from=":C_13" to="CN" fromLane="0" toLane="4" via=":C_29_0" dir="r" state="m"/>
-    <connection from=":C_29" to="CN" fromLane="0" toLane="4" dir="r" state="M"/>
+    <connection from=":C_29" to="CN" fromLane="0" toLane="4" dir="r" state="m"/>
     <connection from=":C_14" to="CE" fromLane="0" toLane="4" via=":C_30_0" dir="l" state="m"/>
-    <connection from=":C_30" to="CE" fromLane="0" toLane="4" dir="l" state="M"/>
+    <connection from=":C_30" to="CE" fromLane="0" toLane="4" dir="l" state="m"/>
     <connection from=":C_15" to="CN" fromLane="0" toLane="2" via=":C_31_0" dir="l" state="m"/>
-    <connection from=":C_31" to="CN" fromLane="0" toLane="2" dir="l" state="M"/>
+    <connection from=":C_31" to="CN" fromLane="0" toLane="2" dir="l" state="m"/>
     <connection from=":C_16" to="CE" fromLane="0" toLane="2" dir="s" state="M"/>
     <connection from=":C_17" to="CS" fromLane="0" toLane="2" via=":C_32_0" dir="r" state="m"/>
-    <connection from=":C_32" to="CS" fromLane="0" toLane="2" dir="r" state="M"/>
+    <connection from=":C_32" to="CS" fromLane="0" toLane="2" dir="r" state="m"/>
     <connection from=":C_18" to="CN" fromLane="0" toLane="3" via=":C_33_0" dir="l" state="m"/>
-    <connection from=":C_33" to="CN" fromLane="0" toLane="3" dir="l" state="M"/>
+    <connection from=":C_33" to="CN" fromLane="0" toLane="3" dir="l" state="m"/>
     <connection from=":C_19" to="CE" fromLane="0" toLane="3" dir="s" state="M"/>
     <connection from=":C_19" to="CE" fromLane="1" toLane="4" dir="s" state="M"/>
     <connection from=":C_21" to="CS" fromLane="0" toLane="4" via=":C_34_0" dir="r" state="m"/>
-    <connection from=":C_34" to="CS" fromLane="0" toLane="4" dir="r" state="M"/>
+    <connection from=":C_34" to="CS" fromLane="0" toLane="4" dir="r" state="m"/>
 
     <connection from=":C_c0" to=":C_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":C_c1" to=":C_w1" fromLane="0" toLane="0" dir="s" state="M"/>

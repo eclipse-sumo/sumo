@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-04 21:19:27 by Eclipse SUMO netconvert Version v1_10_0+1964-4808582
+<!-- generated on 2021-12-06 13:41:43 by Eclipse SUMO netconvert Version v1_11_0+0325-5284e00
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -194,18 +194,18 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="WC" to="CE" fromLane="1" toLane="1" via=":C_9_0" tl="C" linkIndex="9" dir="s" state="o"/>
 
     <connection from=":C_0" to="CW" fromLane="0" toLane="1" via=":C_10_0" dir="r" state="m"/>
-    <connection from=":C_10" to="CW" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from=":C_10" to="CW" fromLane="0" toLane="1" dir="r" state="m"/>
     <connection from=":C_1" to="CS" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":C_1" to="CS" fromLane="1" toLane="2" dir="s" state="M"/>
     <connection from=":C_3" to="CN" fromLane="0" toLane="1" via=":C_11_0" dir="r" state="m"/>
-    <connection from=":C_11" to="CN" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from=":C_11" to="CN" fromLane="0" toLane="1" dir="r" state="m"/>
     <connection from=":C_4" to="CW" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":C_5" to="CE" fromLane="0" toLane="1" via=":C_12_0" dir="r" state="m"/>
-    <connection from=":C_12" to="CE" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from=":C_12" to="CE" fromLane="0" toLane="1" dir="r" state="m"/>
     <connection from=":C_6" to="CN" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":C_6" to="CN" fromLane="1" toLane="2" dir="s" state="M"/>
     <connection from=":C_8" to="CS" fromLane="0" toLane="1" via=":C_13_0" dir="r" state="m"/>
-    <connection from=":C_13" to="CS" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from=":C_13" to="CS" fromLane="0" toLane="1" dir="r" state="m"/>
     <connection from=":C_9" to="CE" fromLane="0" toLane="1" dir="s" state="M"/>
 
     <connection from=":C_c0" to=":C_w0" fromLane="0" toLane="0" dir="s" state="M"/>
