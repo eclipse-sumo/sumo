@@ -15,7 +15,7 @@
 /// @author  Jakob Erdmann
 /// @date    16.03.2020
 ///
-// APIs for getting/setting busstop values via TraCI
+// APIs for getting/setting parking area values via TraCI
 /****************************************************************************/
 #include <config.h>
 
