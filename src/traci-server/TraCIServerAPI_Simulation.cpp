@@ -18,7 +18,7 @@
 /// @author  Laura Bieker
 /// @date    Sept 2002
 ///
-// APIs for getting/setting edge values via TraCI
+// APIs for getting/setting simulation values via TraCI
 /****************************************************************************/
 #include <config.h>
 
