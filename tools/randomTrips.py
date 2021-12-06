@@ -391,7 +391,9 @@ def is_person_attribute(attr):
 
 
 def is_vehicle_attribute(attr):
-    for cand in ['depart', 'arrival', 'line', 'Number', 'type']:
+    # speedFactor could be used in vType and vehicle but we need it in the vType
+    # to allow for the multi-parameter version
+    for cand in ['depart', 'arrival', 'line', 'personNumber', 'containerNumber', 'type']:
         if cand in attr:
             return True
     return False
