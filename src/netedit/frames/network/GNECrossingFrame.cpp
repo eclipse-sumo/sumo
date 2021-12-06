@@ -504,6 +504,24 @@ GNECrossingFrame::CreateCrossing::setCreateCrossingButton(bool value) {
 }
 
 // ---------------------------------------------------------------------------
+// GNECrossingFrame::Legend - methods
+// ---------------------------------------------------------------------------
+
+GNECrossingFrame::Legend::Legend(GNECrossingFrame* crossingFrameParent) :
+    FXGroupBoxModul(crossingFrameParent->myContentFrame, "Legend") {
+    // candidate
+    FXLabel* colorCandidateLabel = new FXLabel(this, " Candidate", 0, GUIDesignLabelLeft);
+    colorCandidateLabel->setBackColor(MFXUtils::getFXColor(crossingFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.possible));
+    colorCandidateLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
+    // selected
+    FXLabel* colorSelectedLabel = new FXLabel(this, " Selected", 0, GUIDesignLabelLeft);
+    colorSelectedLabel->setBackColor(MFXUtils::getFXColor(crossingFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.target));
+}
+
+
+GNECrossingFrame::Legend::~Legend() {}
+
+// ---------------------------------------------------------------------------
 // GNECrossingFrame - methods
 // ---------------------------------------------------------------------------
 
@@ -521,13 +539,8 @@ GNECrossingFrame::GNECrossingFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     // create CreateCrossing modul
     myCreateCrossing = new CreateCrossing(this);
 
-    // Create groupbox and labels for legends
-    FXGroupBoxModul* groupBoxLegend = new FXGroupBoxModul(myContentFrame, "");
-    FXLabel* colorCandidateLabel = new FXLabel(groupBoxLegend, " Candidate", 0, GUIDesignLabelLeft);
-    colorCandidateLabel->setBackColor(MFXUtils::getFXColor(viewNet->getVisualisationSettings().candidateColorSettings.possible));
-    colorCandidateLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
-    FXLabel* colorSelectedLabel = new FXLabel(groupBoxLegend, " Selected", 0, GUIDesignLabelLeft);
-    colorSelectedLabel->setBackColor(MFXUtils::getFXColor(viewNet->getVisualisationSettings().candidateColorSettings.target));
+    // create Legend modul
+    myLegend = new Legend(this);
 
     // disable edge selector
     myEdgeSelector->disableEdgeSelector();

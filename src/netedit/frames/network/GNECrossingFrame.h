@@ -250,6 +250,20 @@ public:
         FXButton* myCreateCrossingButton;
     };
 
+    // ===========================================================================
+    // class Legend
+    // ===========================================================================
+
+    class Legend : public FXGroupBoxModul {
+
+    public:
+        /// @brief constructor
+        Legend(GNECrossingFrame* crossingFrameParent);
+
+        /// @brief destructor
+        ~Legend();
+    };
+
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -271,18 +285,22 @@ public:
     void createCrossingHotkey();
 
 protected:
+    /// @brief FOX need this
     FOX_CONSTRUCTOR(GNECrossingFrame)
 
 private:
     /// @brief current junction modul
-    GNECrossingFrame::CurrentJunction* myCurrentJunction;
+    GNECrossingFrame::CurrentJunction* myCurrentJunction = nullptr;
 
     /// @brief edge selector modul
-    GNECrossingFrame::EdgesSelector* myEdgeSelector;
+    GNECrossingFrame::EdgesSelector* myEdgeSelector = nullptr;
 
     /// @brief crossing parameters modul
-    GNECrossingFrame::CrossingParameters* myCrossingParameters;
+    GNECrossingFrame::CrossingParameters* myCrossingParameters = nullptr;
 
     /// @brief create crossing modul
-    GNECrossingFrame::CreateCrossing* myCreateCrossing;
+    GNECrossingFrame::CreateCrossing* myCreateCrossing = nullptr;
+
+    /// @brief legend modul
+    GNECrossingFrame::Legend* myLegend = nullptr;
 };
