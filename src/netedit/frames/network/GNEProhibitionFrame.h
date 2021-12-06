@@ -184,7 +184,7 @@ private:
     GNEProhibitionFrame::Modifications* myModifications = nullptr;
 
     /// @brief the connection which prohibits
-    GNEProhibitionFrame::GNEConnection* myCurrentConn = nullptr;
+    GNEConnection* myCurrentConn = nullptr;
 
     /// @brief the set of connections which
     std::set<GNEConnection*> myConcernedConns;
