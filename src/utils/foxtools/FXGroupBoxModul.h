@@ -29,8 +29,7 @@ class FXGroupBoxModul : public FXGroupBox {
 
 public:
     /// @brief constructor
-    FXGroupBoxModul(FXComposite* p, const FXString& text, FXuint opts = GROUPBOX_NORMAL, FXint x = 0, FXint y = 0, FXint w = 0, FXint h = 0, 
-               FXint pl = DEFAULT_SPACING, FXint pr = DEFAULT_SPACING, FXint pt = DEFAULT_SPACING, FXint pb = DEFAULT_SPACING, FXint hs = DEFAULT_SPACING, FXint vs = DEFAULT_SPACING);
+    FXGroupBoxModul(FXVerticalFrame* contentFrame, const std::string &text);
 
     /// @brief destructor
     ~FXGroupBoxModul() {}

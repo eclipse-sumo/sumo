@@ -23,22 +23,22 @@
  * ======================================================================= */
 #include <config.h>
 
+#include <utils/gui/div/GUIDesigns.h>
+
 #include "FXGroupBoxModul.h"
 
 
 // Map
 FXDEFMAP(FXGroupBoxModul) FXGroupBoxModulMap[] = {
     FXMAPFUNC(SEL_PAINT,  0,  FXGroupBoxModul::onPaint),
-
 };
 
 // Object implementation
 FXIMPLEMENT(FXGroupBoxModul, FXGroupBox, FXGroupBoxModulMap, ARRAYNUMBER(FXGroupBoxModulMap))
 
 
-FXGroupBoxModul::FXGroupBoxModul(FXComposite* p, const FXString& text, FXuint opts, FXint x, FXint y, FXint w, FXint h, 
-                                 FXint pl, FXint pr, FXint pt, FXint pb, FXint hs, FXint vs) :
-    FXGroupBox(p, text, opts, x, y, w, h, pl, pr, pt, pb, hs, vs) {
+FXGroupBoxModul::FXGroupBoxModul(FXVerticalFrame* contentFrame, const std::string &text) :
+    FXGroupBox(contentFrame, text.c_str(), GUIDesignGroupBoxFrame) {
 }
 
 
