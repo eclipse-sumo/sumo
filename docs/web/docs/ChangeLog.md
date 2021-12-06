@@ -6,17 +6,38 @@ title: ChangeLog
 
 ### Bugfixes
 
+- simulation
+  - Fixed invalid error on taxi dispatch. Issue #9695
+  - Fix person model bug where person enters jammed state without good reason. Issue #9717
+  - Fixed crash on opposite direction driving (at looped road). Issue #9718
+  - Opposite direction overtaking now takes into account slopes. Issue #9719
+  - Fixed collision during opposite direction driving near junction. Issue #9721
+  - Fixed invalid error on mismatch between ride destination stop and vehicle destination stop. Issue #9712
+  - Parking search no longer stalls when all current alternatives are known to be full. Issue #9678
+
 - netedit
+  - Fixed bug preventing inspection of tazRelelations. Issue #9728
   - splitting and merging edges with custom length now preserves total length. Issue #9617
   - can now load parkingAreaReroute without probability attribute. Issue #9640
   - Fixed invalid weights of sinks and sources when loading taz from file. Issue #9672
-  - Parking search no longer stalls when all current alternatives are known to be full. Issue #9678
+  - Fixed unclickable ParkingArea after moving junction with active grid. Issue #9639
+  - Fixed rendering of turn direction arrows for narrow lanes. Issue #9738
 
 - sumo-gui
   - Fixed crash when using guiShape "truck/trailer" or "truck/semitrailer" for short vehicles. #9682 (regression in 1.11.0)
+  - Fixed inconsistent behavior when storing gui settings in registry. Issue #9693
 
 - netconvert
   - Fixed invalid LaneLink index in OpenDRIVE export. Issue #9637
+  - Fixed invalid network when importing public transport and sidewalks. Issue #9701 (regression in 1.10.0)
+  - 
+
+- duarouter
+  - Option **--write-costs** now also applies to walks/rides, Option **--route-length** now applies to normal vehicles. Issue #9698
+  - Fixed invalid error on mismatch between ride destination stop and vehicle destination stop. Issue #9730
+
+- jtrrouter
+  - Unsorted flows now trigger a warning. Issue #9327
 
 - traci
   - turn subscription filter no longer crashes when crossings are present in foe lanes. Issue #9630
@@ -51,7 +72,10 @@ title: ChangeLog
 
 - netconvert
   - Simplified edge names in OpenDRIVE import. (i.e. '42' instead of '42.0.00'). The option **--opendrive.position-ids8** is provided for backward compatibility.  #9463
-
+  - Added option **--opendrive.lane-shapes** which uses custom lane shapes to account for spacing of discarded lanes. Issue #4913
+  - OSM: import of public transport now supports share_taxi (PUJ) and minibus. Issue #9708
+  - Added option **--railway.topology.extend-priority** which extrapolates directional priorities in an all-bidi network based on initial priorities. Issue #9683
+  
 - duarouter
   - can now write route costs in regular route output. Issue #9667
 
@@ -62,6 +86,8 @@ title: ChangeLog
   - generateParkingAreaRerouters.py: added option **--visible-ids** to set visible parkingAreas explicitly. Issue #9669
   - addStops2Routes.py: Can now generate stationary traffic to fill each parkingArea to a configurable occupancy. Issue #9660
   - Added tool [generateParkingAreas.py](Tools/Misc.md#generateparkingareaspy) to generate parkingAreas for some or all edges of a network. Issue #9659
+  - plot_net_dump.py now supports option **--internal** for plotting internal edges. Issue #9729
+  - randomTrips.py now supports option **--random-depart** to randomize departure times. Issue #9735
 
 - Miscellaneous
   - Speed up Visual Studio build with sccache (only works with Ninja not with Visual Studio projects). Issue #9290
