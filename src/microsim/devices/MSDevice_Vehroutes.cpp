@@ -524,8 +524,10 @@ MSDevice_Vehroutes::loadState(const SUMOSAXAttributes& attrs) {
         bis >> newIndex;
 
         const MSRoute* route = MSRoute::dictionary(routeID);
-        route->addReference();
-        myReplacedRoutes.push_back(RouteReplaceInfo(MSEdge::dictionary(edgeID), time, route, info, lastIndex, newIndex));
+        if (route != nullptr) {
+            route->addReference();
+            myReplacedRoutes.push_back(RouteReplaceInfo(MSEdge::dictionary(edgeID), time, route, info, lastIndex, newIndex));
+        }
     }
     if (mySaveExits && attrs.hasAttribute(SUMO_ATTR_EXITTIMES)) {
         for (const std::string& t : attrs.getStringVector(SUMO_ATTR_EXITTIMES)) {
