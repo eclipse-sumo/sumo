@@ -616,12 +616,15 @@ GNEEdge::remakeGNEConnections() {
     for (const auto& connection : myGNEConnections) {
         // decrease reference
         connection->decRef();
+        // remove it from network
+        myNet->removeGLObjectFromGrid(connection);
+        // and from AttributeCarreirs
+        if (myNet->getAttributeCarriers()->getConnections().count(connection) > 0) {
+            myNet->getAttributeCarriers()->deleteConnection(connection);
+        }
         // delete GNEConnection if is unreferenced
         if (connection->unreferenced()) {
-            // remove it from network
-            myNet->removeGLObjectFromGrid(connection);
-            // and from AttributeCarreirs
-            myNet->getAttributeCarriers()->deleteConnection(connection);
+
             // show extra information for tests
             WRITE_DEBUG("Deleting unreferenced " + connection->getTagStr() + " '" + connection->getID() + "' in rebuildGNEConnections()");
             delete connection;
@@ -645,7 +648,9 @@ GNEEdge::clearGNEConnections() {
         // remove it from network
         myNet->removeGLObjectFromGrid(connection);
         // and from AttributeCarreirs
-        myNet->getAttributeCarriers()->deleteConnection(connection);
+        if (myNet->getAttributeCarriers()->getConnections().count(connection) > 0) {
+            myNet->getAttributeCarriers()->deleteConnection(connection);
+        }
         // Delete GNEConnectionToErase if is unreferenced
         if (connection->unreferenced()) {
             // show extra information for tests
@@ -1886,8 +1891,10 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
         }
         // remove it from network
         myNet->removeGLObjectFromGrid(connection);
-        // and from AttributeCarreirs
-        myNet->getAttributeCarriers()->deleteConnection(connection);
+        // check if remove it from Attribute Carriers
+        if (myNet->getAttributeCarriers()->getConnections().count(connection) > 0) {
+            myNet->getAttributeCarriers()->deleteConnection(connection);
+        }
         if (connection->unreferenced()) {
             // show extra information for tests
             WRITE_DEBUG("Deleting unreferenced " + connection->getTagStr() + " '" + connection->getID() + "' in removeConnection()");
