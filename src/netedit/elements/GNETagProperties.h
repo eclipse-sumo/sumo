@@ -235,8 +235,8 @@ public:
     /// @brief return true if tag correspond to a internal lane
     bool isInternalLane() const;
 
-    /// @brief return true if tag correspond to a non drawable element
-    bool isNotDrawable() const;
+    /// @brief return true if tag correspond to a drawable element
+    bool isDrawable() const;
 
     /// @brief return true if tag correspond to a selectable element
     bool isSelectable() const;

@@ -241,7 +241,7 @@ GNEFrameModuls::TagSelector::setCurrentTagType(GNETagProperties::TagType tagType
     const auto tagProperties = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(myTagType);
     // fill myACTemplates and myTagsMatchBox
     for (const auto &tagProperty : tagProperties) {
-        if (!onlyDrawables || !tagProperty.first.isNotDrawable()) {
+        if (!onlyDrawables || tagProperty.first.isDrawable()) {
             myACTemplates.push_back(new ACTemplate(myFrameParent->getViewNet()->getNet(), tagProperty.first));
             myTagsMatchBox->appendIconItem(tagProperty.first.getTagStr().c_str(), GUIIconSubSys::getIcon(tagProperty.first.getGUIIcon()), tagProperty.first.getBackGroundColor());
         }

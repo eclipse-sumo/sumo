@@ -130,9 +130,9 @@ GNEMatchGenericDataAttribute::enableMatchGenericDataAttribute() {
         myEnd->setTextColor(FXRGB(0, 0, 0));
         // get generic datas
         const auto genericDataTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::GENERICDATA);
-        // fill combo box
+        // fill combo box (only with drawable elements)
         for (const auto& genericDataTag : genericDataTags) {
-            if (!genericDataTag.first.isNotDrawable()) {
+            if (genericDataTag.first.isDrawable()) {
                 myMatchGenericDataTagComboBox->appendIconItem(genericDataTag.second.c_str(), GUIIconSubSys::getIcon(genericDataTag.first.getGUIIcon()));
             }
         }
@@ -254,7 +254,7 @@ GNEMatchGenericDataAttribute::onCmdSelectTag(FXObject*, FXSelector, void*) {
     const auto listOfTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::GENERICDATA);
     // fill myMatchGenericDataTagComboBox
     for (const auto& genericDataTag : listOfTags) {
-        if (!genericDataTag.first.isNotDrawable() && (genericDataTag.second == myMatchGenericDataTagComboBox->getText().text())) {
+        if (genericDataTag.first.isDrawable() && (genericDataTag.second == myMatchGenericDataTagComboBox->getText().text())) {
             myCurrentTag = genericDataTag.first.getTag();
         }
     }

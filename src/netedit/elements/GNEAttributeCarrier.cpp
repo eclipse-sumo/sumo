@@ -621,7 +621,7 @@ GNEAttributeCarrier::allowedAttributeProperties(const bool onlyDrawables) {
     }
     // fill all tags
     for (const auto& tagProperty : myTagProperties) {
-        if (!onlyDrawables || !tagProperty.second.isNotDrawable()) {
+        if (!onlyDrawables || tagProperty.second.isDrawable()) {
             attributeProperties.push_back(tagProperty.second);
         }
     }
