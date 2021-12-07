@@ -564,6 +564,28 @@ MSStageWaiting::getStageSummary(const bool /* isPerson */) const {
     return "stopping at edge '" + getDestination()->getID() + "' " + timeInfo + " (" + myActType + ")";
 }
 
+void
+MSStageWaiting::saveState(std::ostringstream& out) {
+    out << " " << myDeparted;
+}
+
+void
+MSStageWaiting::loadState(MSTransportable* transportable, std::istringstream& state) {
+    state >> myDeparted;
+    const SUMOTime until = MAX3(myDeparted, myDeparted + myWaitingDuration, myWaitingUntil);
+    if (myDestinationStop != nullptr) {
+        myDestinationStop->addTransportable(transportable);
+        myStopWaitPos = myDestinationStop->getWaitPosition(transportable);
+    }
+    MSNet* net = MSNet::getInstance();
+    if (dynamic_cast<MSPerson*>(transportable) != nullptr) {
+        myDestination->addPerson(transportable);
+        net->getPersonControl().setWaitEnd(until, transportable);
+    } else {
+        myDestination->addContainer(transportable);
+        net->getContainerControl().setWaitEnd(until, transportable);
+    }
+}
 
 /* -------------------------------------------------------------------------
 * MSStageMoving - methods

@@ -423,6 +423,10 @@ public:
      */
     void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength, const MSStage* const previous) const;
 
+    void saveState(std::ostringstream& out);
+
+    void loadState(MSTransportable* transportable, std::istringstream& state);
+
 private:
     /// the time the person is waiting
     SUMOTime myWaitingDuration;
