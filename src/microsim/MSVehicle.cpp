@@ -1663,7 +1663,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                     fitsOnStoppingPlace = false;
                 }
             }
-            const double targetPos = myState.myPos + myStopDist;
+            const double targetPos = myState.myPos + myStopDist + (stop.pars.speed > 0 ? (stop.pars.startPos - stop.pars.endPos) : 0);
             const double reachedThreshold = (useStoppingPlace ? targetPos - STOPPING_PLACE_OFFSET : stop.getReachedThreshold()) - NUMERICAL_EPS;
 #ifdef DEBUG_STOPS
             if (DEBUG_COND) {
