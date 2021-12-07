@@ -133,9 +133,9 @@ pip install eclipse-sumo
 
 ## SUMO - Alternative download and older releases
 
-All releases can also be obtained via the [sourceforge download
-portal](https://sourceforge.net/projects/sumo/files/sumo/).
-
+All releases can also be obtained via the [sourceforge download portal](https://sourceforge.net/projects/sumo/files/sumo/).
+If you want to try out an older version you can also use the virtual environment approach above with a fixed version, e.g.
+`pip install eclipse-sumo=1.9.0` (works only for 1.8.0 and later).
 
 ## SUMO - Latest Development Version
 
