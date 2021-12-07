@@ -24,6 +24,7 @@ import subprocess
 import random
 import shutil
 
+random.seed(42)
 SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..", "..")
 sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
 import sumolib  # noqa
@@ -121,6 +122,7 @@ def main():
                     '--device.emissions.probability', '1',
                     '--queue-output', 'results/queue_%s_%s_%s.xml' % (
                         tlType, f1, f2),
+                    '--statistic-output', 'statistics.xml',
                     ]
             subprocess.call(args)
             shutil.move(
@@ -142,7 +144,7 @@ def main():
             shutil.move("results/TLSSwitchTimes.xml",
                         "results/TLSSwitchTimes_%s_%s_%s.xml" % (tlType, f1, f2))
             shutil.move("results/TLSSwitchStates.xml",
-                        "results/TLSSwitchStates_%s_%s_%s.xml" % (tlType, f1, f2))
+                        "tls_state.xml")
 
 
 if __name__ == "__main__":
