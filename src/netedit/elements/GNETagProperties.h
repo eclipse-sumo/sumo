@@ -85,12 +85,11 @@ public:
         REPARENT =                  1 << 6,     // Element can be reparent
         NOTSELECTABLE =             1 << 7,     // Element cannot be selected
         MASKSTARTENDPOS =           1 << 8,     // Element mask attributes StartPos and EndPos as "length" (Only used in the appropiate GNEFrame)
-        MASKXYZPOSITION =           1 << 9,     // Element mask attributes X, Y and Z as "Position"
-        WRITECHILDRENSEPARATE =     1 << 10,    // Element writes their children in a separated filename
-        NOPARAMETERS =              1 << 11,    // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
-        RTREE =                     1 << 12,    // Element is placed in RTREE
-        CENTERAFTERCREATION =       1 << 13,    // Camera is moved after element creation
-        EMBEDDED_ROUTE =            1 << 14,    // Element has an embedded route
+        WRITECHILDRENSEPARATE =     1 << 9,     // Element writes their children in a separated filename
+        NOPARAMETERS =              1 << 10,    // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
+        RTREE =                     1 << 11,    // Element is placed in RTREE
+        CENTERAFTERCREATION =       1 << 12,    // Camera is moved after element creation
+        EMBEDDED_ROUTE =            1 << 13,    // Element has an embedded route
     };
 
     /// @brief default constructor
@@ -267,9 +266,6 @@ public:
 
     /// @brief return true if tag correspond to an element that can mask the attributes "start" and "end" position as attribute "length"
     bool canMaskStartEndPos() const;
-
-    /// @brief return true if tag correspond to an element that can mask the attributes "X", "Y" and "Z" position as attribute "Position"
-    bool canMaskXYZPositions() const;
 
     /// @brief return true if tag correspond to an element that center camera after creation
     bool canCenterCameraAfterCreation() const;

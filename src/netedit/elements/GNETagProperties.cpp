@@ -484,12 +484,6 @@ GNETagProperties::canMaskStartEndPos() const {
 
 
 bool
-GNETagProperties::canMaskXYZPositions() const {
-    return (myTagProperty & MASKXYZPOSITION) != 0;
-}
-
-
-bool
 GNETagProperties::canCenterCameraAfterCreation() const {
     return (myTagProperty & CENTERAFTERCREATION) != 0;
 }
