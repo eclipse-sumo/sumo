@@ -152,4 +152,7 @@ oneway_bike
 
 # complex intermodal junction in Brunswick
 tostmannplatz
+
+# import turn-lane information
+turn-lanes
 bugs
