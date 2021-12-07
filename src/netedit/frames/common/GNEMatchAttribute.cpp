@@ -92,30 +92,34 @@ GNEMatchAttribute::disableMatchAttribute() {
 
 void
 GNEMatchAttribute::showMatchAttribute(const GNEElementSet::Type type) {
+    std::vector<std::pair<GNETagProperties, std::string> > tagPropertiesStrings;
     // get tags for the given element set
     if (type == (GNEElementSet::Type::NETWORK)) {
-        myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::NETWORKELEMENT, true);
+        tagPropertiesStrings = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::NETWORKELEMENT);
     } else if (type == GNEElementSet::Type::ADDITIONAL) {
-        myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::ADDITIONALELEMENT, true);
+        tagPropertiesStrings = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::ADDITIONALELEMENT);
     } else if (type == GNEElementSet::Type::SHAPE) {
-        myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::SHAPE, true);
+        tagPropertiesStrings = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::SHAPE);
     } else if (type == GNEElementSet::Type::TAZ) {
-        myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::TAZELEMENT, true);
+        tagPropertiesStrings = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::TAZELEMENT);
     } else if (type == GNEElementSet::Type::DEMAND) {
-        myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP, true);
+        tagPropertiesStrings = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP);
     } else if (type == GNEElementSet::Type::DATA) {
-        myTagPropertiesString = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::GENERICDATA, true);
+        tagPropertiesStrings = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::GENERICDATA);
     } else {
         throw ProcessError("Unkown set");
+    }
+    // now filter to allow only drawables and proj
+    myTagPropertiesString.clear();
+    for (const auto &tagPropertiesString : tagPropertiesStrings) {
+        if (!tagPropertiesString.first.isNotDrawable()) {
+            myTagPropertiesString.push_back(tagPropertiesString);
+        }
     }
     // update tag
     updateTag();
     // update attribute
     updateAttribute();
-
-
-    // @ToDo: Here can be placed a button to set the default value
-
     // show groupbox
     show();
 }

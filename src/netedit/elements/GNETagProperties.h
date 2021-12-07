@@ -90,6 +90,7 @@ public:
         RTREE =                     1 << 11,    // Element is placed in RTREE
         CENTERAFTERCREATION =       1 << 12,    // Camera is moved after element creation
         EMBEDDED_ROUTE =            1 << 13,    // Element has an embedded route
+        REQUIERE_PROJ  =            1 << 14,    // Element requiere a geo-projection defined in network
     };
 
     /// @brief default constructor
@@ -272,6 +273,9 @@ public:
 
     /// @brief return true if tag correspond to an element that owns a embebbed route
     bool embebbedRoute() const;
+
+    /// @brief return true if tag correspond to an element that requires a geo projection
+    bool requireProjection() const;
 
     /// @brief return true if attribute of this tag is deprecated
     bool isAttributeDeprecated(SumoXMLAttr attr) const;

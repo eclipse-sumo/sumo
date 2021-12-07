@@ -238,11 +238,13 @@ GNEFrameModuls::TagSelector::setCurrentTagType(GNETagProperties::TagType tagType
     myACTemplates.clear();
     myTagsMatchBox->clearItems();
     // get tag properties
-    const auto tagProperties = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(myTagType, onlyDrawables);
+    const auto tagProperties = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(myTagType);
     // fill myACTemplates and myTagsMatchBox
     for (const auto &tagProperty : tagProperties) {
-        myACTemplates.push_back(new ACTemplate(myFrameParent->getViewNet()->getNet(), tagProperty.first));
-        myTagsMatchBox->appendIconItem(tagProperty.first.getTagStr().c_str(), GUIIconSubSys::getIcon(tagProperty.first.getGUIIcon()), tagProperty.first.getBackGroundColor());
+        if (!onlyDrawables || !tagProperty.first.isNotDrawable()) {
+            myACTemplates.push_back(new ACTemplate(myFrameParent->getViewNet()->getNet(), tagProperty.first));
+            myTagsMatchBox->appendIconItem(tagProperty.first.getTagStr().c_str(), GUIIconSubSys::getIcon(tagProperty.first.getGUIIcon()), tagProperty.first.getBackGroundColor());
+        }
     }
     // set color of myTypeMatchBox to black (valid)
     myTagsMatchBox->setTextColor(FXRGB(0, 0, 0));
@@ -512,7 +514,7 @@ GNEFrameModuls::DemandElementSelector::DemandElementSelector(GNEFrame* framePare
     myCurrentDemandElement(nullptr) {
     // fill myDemandElementTags
     for (const auto& tagType : tagTypes) {
-        const auto tagProperties = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(tagType, false);
+        const auto tagProperties = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(tagType);
         for (const auto& tagProperty : tagProperties) {
             myDemandElementTags.push_back(tagProperty.first.getTag());
         }
@@ -1917,7 +1919,7 @@ GNEFrameModuls::SelectorParent::setIDSelected(const std::string& id) {
 bool
 GNEFrameModuls::SelectorParent::showSelectorParentModul(const std::vector<SumoXMLTag>& additionalTypeParents) {
     // make sure that we're editing an additional tag
-    const auto listOfTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::ADDITIONALELEMENT, false);
+    const auto listOfTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::ADDITIONALELEMENT);
     for (const auto& tagIt : listOfTags) {
         if (std::find(additionalTypeParents.begin(), additionalTypeParents.end(), tagIt.first.getTag()) != additionalTypeParents.end()) {
             myParentTags = additionalTypeParents;

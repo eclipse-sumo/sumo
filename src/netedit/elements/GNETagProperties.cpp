@@ -496,6 +496,12 @@ GNETagProperties::embebbedRoute() const {
 
 
 bool
+GNETagProperties::requireProjection() const {
+    return (myTagProperty & REQUIERE_PROJ) != 0;
+}
+
+
+bool
 GNETagProperties::isAttributeDeprecated(SumoXMLAttr attr) const {
     return (std::find(myDeprecatedAttributes.begin(), myDeprecatedAttributes.end(), attr) != myDeprecatedAttributes.end());
 }
