@@ -316,6 +316,7 @@ private:
      *
      * @param[in] e The definition of the edge
      * @param[in] index The index of the edge (in the case it is split along her nodes)
+     * @param[in] last Whether this edge is last part of the way
      * @param[in] from The origin node of the edge
      * @param[in] to The destination node of the edge
      * @param[in] passed The list of passed nodes (geometry information)
@@ -324,7 +325,7 @@ private:
      * @return the new index if the edge is split
      * @exception ProcessError If the edge could not be added to the container
      */
-    int insertEdge(Edge* e, int index, NBNode* from, NBNode* to,
+    int insertEdge(Edge* e, int index, bool last, NBNode* from, NBNode* to,
                    const std::vector<long long int>& passed, NBNetBuilder& nb);
 
     /// @brief reconstruct elevation from layer info

@@ -239,7 +239,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
             passed.push_back(*j);
             if (nodeUsage[*j] > 1 && j != e->myCurrentNodes.end() - 1 && j != e->myCurrentNodes.begin()) {
                 NBNode* currentTo = insertNodeChecking(*j, nc, tlsc);
-                running = insertEdge(e, running, currentFrom, currentTo, passed, nb);
+                running = insertEdge(e, running, false, currentFrom, currentTo, passed, nb);
                 currentFrom = currentTo;
                 passed.clear();
                 passed.push_back(*j);
@@ -248,7 +248,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
         if (running == 0) {
             running = -1;
         }
-        insertEdge(e, running, currentFrom, last, passed, nb);
+        insertEdge(e, running, true, currentFrom, last, passed, nb);
     }
 
     const double layerElevation = oc.getFloat("osm.layer-elevation");
@@ -316,7 +316,7 @@ NIImporter_OpenStreetMap::insertNodeChecking(long long int id, NBNodeCont& nc, N
 }
 
 int
-NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* to,
+NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, bool last, NBNode* from, NBNode* to,
                                      const std::vector<long long int>& passed, NBNetBuilder& nb) {
     NBNodeCont& nc = nb.getNodeCont();
     NBEdgeCont& ec = nb.getEdgeCont();
@@ -346,8 +346,8 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         NBNode* intermediate = insertNodeChecking(passed[intermediateIndex], nc, tlsc);
         std::vector<long long int> part1(passed.begin(), passed.begin() + intermediateIndex + 1);
         std::vector<long long int> part2(passed.begin() + intermediateIndex, passed.end());
-        index = insertEdge(e, index, from, intermediate, part1, nb);
-        return insertEdge(e, index, intermediate, to, part2, nb);
+        index = insertEdge(e, index, false, from, intermediate, part1, nb);
+        return insertEdge(e, index, last, intermediate, to, part2, nb);
     }
     const int newIndex = index + 1;
 
@@ -592,7 +592,9 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             }
             applyChangeProhibition(nbe, e->myChangeForward);
             applyLaneUseInformation(nbe, e->myLaneUseForward);
-            applyTurnSigns(nbe, e->myTurnSignsForward);
+            if (last) {
+                applyTurnSigns(nbe, e->myTurnSignsForward);
+            }
             if (addBikeLane && (cyclewayType == WAY_UNKNOWN || (cyclewayType & WAY_FORWARD) != 0)) {
                 nbe->addBikeLane(tc.getEdgeTypeBikeLaneWidth(type) * offsetFactor);
             } else if (nbe->getPermissions(0) == SVC_BUS) {
@@ -621,7 +623,9 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             }
             applyChangeProhibition(nbe, e->myChangeBackward);
             applyLaneUseInformation(nbe, e->myLaneUseBackward);
-            applyTurnSigns(nbe, e->myTurnSignsBackward);
+            if (last) {
+                applyTurnSigns(nbe, e->myTurnSignsBackward);
+            }
             if (addBikeLane && (cyclewayType == WAY_UNKNOWN || (cyclewayType & WAY_BACKWARD) != 0)) {
                 nbe->addBikeLane(tc.getEdgeTypeBikeLaneWidth(type) * offsetFactor);
             } else if (nbe->getPermissions(0) == SVC_BUS) {
@@ -1253,19 +1257,19 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                 const std::vector<std::string> codes = StringTokenizer(codeList, ";").getVector();
                 int turnCode = 0;
                 for (std::string code : codes) {
-                    if (value == "" || value == "none" || value == "through") {
+                    if (code == "" || code == "none" || code == "through") {
                         turnCode |= (int)LinkDirection::STRAIGHT;
-                    } else if (value == "left" || value == "sharp_left") {
+                    } else if (code == "left" || code == "sharp_left") {
                         turnCode |= (int)LinkDirection::LEFT;
-                    } else if (value == "right" || value == "sharp_right") {
+                    } else if (code == "right" || code == "sharp_right") {
                         turnCode |= (int)LinkDirection::RIGHT;
-                    } else if (value == "slight_left") {
+                    } else if (code == "slight_left") {
                         turnCode |= (int)LinkDirection::PARTLEFT;
-                    } else if (value == "slight_right") {
+                    } else if (code == "slight_right") {
                         turnCode |= (int)LinkDirection::PARTRIGHT;
-                    } else if (value == "reverse") {
+                    } else if (code == "reverse") {
                         turnCode |= (int)LinkDirection::TURN;
-                    } else if (value == "merge_to_left" || value == "merge_to_right") {
+                    } else if (code == "merge_to_left" || code == "merge_to_right") {
                         turnCode |= (int)LinkDirection::NODIR;
                     }
                 }
@@ -2238,21 +2242,18 @@ NIImporter_OpenStreetMap::applyLaneUseInformation(NBEdge* e, const std::vector<S
 void
 NIImporter_OpenStreetMap::applyTurnSigns(NBEdge* e, const std::vector<int>& turnSigns) {
     if (myImportTurnSigns && turnSigns.size() > 0) {
-        int numLanesNoSidewalk = e->getNumLanes();
-        int start = 0;
-        if (e->getPermissions(0) == SVC_PEDESTRIAN) {
-            numLanesNoSidewalk--;
-            start = 1;
-        }
-        if ((int)turnSigns.size() == numLanesNoSidewalk) {
+        // no sidewalks and bike lanes have been added yet
+        if ((int)turnSigns.size() == e->getNumLanes()) {
             const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
+            //std::cout << "apply turnSigns for " << e->getID() << " turnSigns=" << toString(turnSigns) << "\n";
             for (int i = 0; i < (int)turnSigns.size(); i++) {
                 // laneUse stores from left to right
-                const int lane = lefthand ? i + start : e->getNumLanes() - 1 - i;
-                e->getLaneStruct(lane).turnSigns = turnSigns[i]; 
+                const int laneIndex = lefthand ? i : e->getNumLanes() - 1 - i;
+                NBEdge::Lane& lane = e->getLaneStruct(laneIndex);
+                lane.turnSigns = turnSigns[i];
             }
         } else {
-            WRITE_WARNINGF("Ignoring turn sign information for % lanes on edge % with % driving lanes", turnSigns.size(), e->getID(), numLanesNoSidewalk);
+            WRITE_WARNINGF("Ignoring turn sign information for % lanes on edge % with % driving lanes", turnSigns.size(), e->getID(), e->getNumLanes());
         }
     }
 }
