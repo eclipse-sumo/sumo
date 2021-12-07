@@ -612,23 +612,6 @@ GNEAttributeCarrier::getTagProperties(SumoXMLTag tag) {
 }
 
 
-const std::vector<GNETagProperties>
-GNEAttributeCarrier::allowedAttributeProperties(const bool onlyDrawables) {
-    std::vector<GNETagProperties> attributeProperties;
-    // define on first access
-    if (myTagProperties.size() == 0) {
-        fillAttributeCarriers();
-    }
-    // fill all tags
-    for (const auto& tagProperty : myTagProperties) {
-        if (!onlyDrawables || tagProperty.second.isDrawable()) {
-            attributeProperties.push_back(tagProperty.second);
-        }
-    }
-    return attributeProperties;
-}
-
-
 const std::vector<std::pair<GNETagProperties, std::string> >
 GNEAttributeCarrier::getAllowedTagPropertiesByCategory(const int tagPropertyCategory) {
     std::vector<std::pair<GNETagProperties, std::string> > allowedTags;

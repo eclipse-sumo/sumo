@@ -214,9 +214,6 @@ public:
     /// @brief get Tag Properties
     static const GNETagProperties& getTagProperties(SumoXMLTag tag);
 
-    /// @brief get tags of all editable element types
-    static const std::vector<GNETagProperties> allowedAttributeProperties(const bool onlyDrawables);
-
     /// @brief get tagProperties of all editable element types using TagProperty Type (NetworkEditMode::NETWORKELEMENT, ADDITIONALELEMENT, etc.)
     static const std::vector<std::pair<GNETagProperties, std::string> > getAllowedTagPropertiesByCategory(const int tagPropertyCategory);
 
