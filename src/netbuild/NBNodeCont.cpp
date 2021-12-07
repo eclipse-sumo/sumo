@@ -1734,6 +1734,14 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
                 e->setParameter("origTo", e->getToNode()->getID());
             }
         }
+        if (e->getTurnSignTarget() != "") {
+            for (NBNode* n : cluster) {
+                if (e->getTurnSignTarget() == n->getID()) {
+                    e->setTurnSignTarget(to->getID());
+                    break;
+                }
+            }
+        }
         e->reinitNodes(from, to);
         // re-add connections which previously existed and may still valid.
         // connections to removed edges will be ignored

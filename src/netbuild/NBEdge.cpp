@@ -2529,6 +2529,7 @@ NBEdge::applyTurnSigns() {
         bool checkMore = true;
         while (signedDirs.size() < targets.size() && checkMore) {
             checkMore = false;
+            //std::cout << getID() << " sumoDirs=" << joinToString(sumoDirs, ",") << " signedDirs=" << joinToString(signedDirs, ",") << "\n";
             if (sumoDirs.back() != signedDirs.back()) {
                 targets.pop_back();
                 sumoDirs.pop_back();
@@ -2543,6 +2544,16 @@ NBEdge::applyTurnSigns() {
                 targets.erase(targets.begin());
                 sumoDirs.erase(sumoDirs.begin());
                 checkMore = true;
+            }
+        }
+        // remove targets by permissions
+        int i = 0;
+        while (signedDirs.size() < targets.size() && i < (int)targets.size()) {
+            if ((targets[i]->getPermissions() & SVC_PASSENGER) == 0) {
+                targets.erase(targets.begin() + i);
+                sumoDirs.erase(sumoDirs.begin() + i);
+            } else {
+                i++;
             }
         }
         if (signedDirs.size() != targets.size()) {
@@ -2656,7 +2667,10 @@ NBEdge::recheckLanes() {
         }
     }
     if (myStep != EdgeBuildingStep::LANES2LANES_DONE && myStep != EdgeBuildingStep::LANES2LANES_USER) {
-        if (myLanes.back().turnSigns == 0 || !applyTurnSigns()) {
+        //if (myLanes.back().turnSigns != 0 && myTurnSignTarget != myTo->getID()) {
+        //    std::cout << getID() << " tst=" << myTurnSignTarget << " to=" << myTo->getID() << "\n";
+        //}
+        if (myLanes.back().turnSigns == 0 || myTurnSignTarget != myTo->getID() || !applyTurnSigns()) {
             // check #1:
             // If there is a lane with no connections and any neighbour lane has
             //  more than one connections, try to move one of them.
@@ -3580,6 +3594,7 @@ NBEdge::append(NBEdge* e) {
             }
         }
         myLanes[i].connectionsDone = e->myLanes[i].connectionsDone;
+        myLanes[i].turnSigns = e->myLanes[i].turnSigns;
     }
     if (e->getLength() > myLength) {
         // possibly some lane attributes differ (when using option geometry.remove.min-length)
@@ -3601,6 +3616,7 @@ NBEdge::append(NBEdge* e) {
     myConnectionsToDelete = e->myConnectionsToDelete;
     // set the node
     myTo = e->myTo;
+    myTurnSignTarget = e->myTurnSignTarget;
     myToBorder = e->myToBorder;
     if (e->knowsParameter("origTo")) {
         setParameter("origTo", e->getParameter("origTo"));

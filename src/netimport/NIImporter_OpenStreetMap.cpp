@@ -231,15 +231,16 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
         // build nodes;
         //  - the from- and to-nodes must be built in any case
         //  - the in-between nodes are only built if more than one edge references them
-        NBNode* currentFrom = insertNodeChecking(*e->myCurrentNodes.begin(), nc, tlsc);
+        NBNode* first = insertNodeChecking(*e->myCurrentNodes.begin(), nc, tlsc);
         NBNode* last = insertNodeChecking(*(e->myCurrentNodes.end() - 1), nc, tlsc);
+        NBNode* currentFrom = first;
         int running = 0;
         std::vector<long long int> passed;
         for (auto j = e->myCurrentNodes.begin(); j != e->myCurrentNodes.end(); ++j) {
             passed.push_back(*j);
             if (nodeUsage[*j] > 1 && j != e->myCurrentNodes.end() - 1 && j != e->myCurrentNodes.begin()) {
                 NBNode* currentTo = insertNodeChecking(*j, nc, tlsc);
-                running = insertEdge(e, running, false, currentFrom, currentTo, passed, nb);
+                running = insertEdge(e, running, currentFrom, currentTo, passed, nb, first, last);
                 currentFrom = currentTo;
                 passed.clear();
                 passed.push_back(*j);
@@ -248,7 +249,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
         if (running == 0) {
             running = -1;
         }
-        insertEdge(e, running, true, currentFrom, last, passed, nb);
+        insertEdge(e, running, currentFrom, last, passed, nb, first, last);
     }
 
     const double layerElevation = oc.getFloat("osm.layer-elevation");
@@ -316,8 +317,9 @@ NIImporter_OpenStreetMap::insertNodeChecking(long long int id, NBNodeCont& nc, N
 }
 
 int
-NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, bool last, NBNode* from, NBNode* to,
-                                     const std::vector<long long int>& passed, NBNetBuilder& nb) {
+NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* to,
+                                     const std::vector<long long int>& passed, NBNetBuilder& nb,
+                                     const NBNode* first, const NBNode* last) {
     NBNodeCont& nc = nb.getNodeCont();
     NBEdgeCont& ec = nb.getEdgeCont();
     NBTypeCont& tc = nb.getTypeCont();
@@ -346,8 +348,8 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, bool last, NBNode* from
         NBNode* intermediate = insertNodeChecking(passed[intermediateIndex], nc, tlsc);
         std::vector<long long int> part1(passed.begin(), passed.begin() + intermediateIndex + 1);
         std::vector<long long int> part2(passed.begin() + intermediateIndex, passed.end());
-        index = insertEdge(e, index, false, from, intermediate, part1, nb);
-        return insertEdge(e, index, last, intermediate, to, part2, nb);
+        index = insertEdge(e, index, from, intermediate, part1, nb, first, last);
+        return insertEdge(e, index, intermediate, to, part2, nb, first, last);
     }
     const int newIndex = index + 1;
 
@@ -592,9 +594,8 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, bool last, NBNode* from
             }
             applyChangeProhibition(nbe, e->myChangeForward);
             applyLaneUseInformation(nbe, e->myLaneUseForward);
-            if (last) {
-                applyTurnSigns(nbe, e->myTurnSignsForward);
-            }
+            applyTurnSigns(nbe, e->myTurnSignsForward);
+            nbe->setTurnSignTarget(last->getID());
             if (addBikeLane && (cyclewayType == WAY_UNKNOWN || (cyclewayType & WAY_FORWARD) != 0)) {
                 nbe->addBikeLane(tc.getEdgeTypeBikeLaneWidth(type) * offsetFactor);
             } else if (nbe->getPermissions(0) == SVC_BUS) {
@@ -623,9 +624,8 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, bool last, NBNode* from
             }
             applyChangeProhibition(nbe, e->myChangeBackward);
             applyLaneUseInformation(nbe, e->myLaneUseBackward);
-            if (last) {
-                applyTurnSigns(nbe, e->myTurnSignsBackward);
-            }
+            applyTurnSigns(nbe, e->myTurnSignsBackward);
+            nbe->setTurnSignTarget(first->getID());
             if (addBikeLane && (cyclewayType == WAY_UNKNOWN || (cyclewayType & WAY_BACKWARD) != 0)) {
                 nbe->addBikeLane(tc.getEdgeTypeBikeLaneWidth(type) * offsetFactor);
             } else if (nbe->getPermissions(0) == SVC_BUS) {
