@@ -7,6 +7,9 @@ default_positions
 # only speed no other attrs
 default_positions_slow
 
+# updated tripId when reaching waypoint
+tripId
+
 # waypoint at the end of a lane that does not continue the route
 wrong_lane
 
