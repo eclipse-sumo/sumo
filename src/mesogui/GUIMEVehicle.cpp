@@ -286,20 +286,32 @@ Boundary
 GUIMEVehicle::getCenteringBoundary() const {
     // getPosition returns the start of the first lane, so we do not use it here
     getEdge()->lock();
-    const MSLane* const lane = getEdge()->getLanes()[getQueIndex()];
-    double offset = 0;
-    if (getSegment() != nullptr) {
-        offset = getSegment()->getLength();
-        const std::vector<MEVehicle*>& queue = getSegment()->getQueue(getQueIndex());
-        for (int i = (int)queue.size() - 1; i >= 0 && queue[i] != this; i--) {
-            offset -= queue[i]->getVehicleType().getLengthWithGap();
+    const double curTime = SIMTIME;
+    double vehiclePosition = 0.;
+    const MESegment* const segment = getSegment();
+    const int queIdx = getQueIndex();
+    if (segment != nullptr && queIdx != MESegment::PARKING_QUEUE) {
+        vehiclePosition = segment->getLength();
+        const std::vector<MEVehicle*>& queue = segment->getQueue(queIdx);
+        for (auto it = queue.rbegin(); it != queue.rend(); ++it) {
+            const MEVehicle* const v = *it;
+            const double intendedLeave = MIN2(v->getEventTimeSeconds(), v->getBlockTimeSeconds());
+            const double entry = v->getLastEntryTimeSeconds();
+            const double offset = segment->getLength() * (curTime - entry) / (intendedLeave - entry);
+            if (offset < vehiclePosition) {
+                vehiclePosition = offset;
+            }
+            if (v == this) {
+                break;
+            }
+            vehiclePosition -= v->getVehicleType().getLengthWithGap();
         }
     }
-    getEdge()->unlock();
-    Position pos = lane->geometryPositionAtOffset(getPositionOnLane() + offset);
     Boundary b;
-    b.add(pos);
+    const MSLane* const lane = getEdge()->getLanes()[queIdx == MESegment::PARKING_QUEUE ? 0 : queIdx];
+    b.add(lane->geometryPositionAtOffset(getPositionOnLane() + vehiclePosition));
     b.grow(getVehicleType().getLength());
+    getEdge()->unlock();
     return b;
 }
 
