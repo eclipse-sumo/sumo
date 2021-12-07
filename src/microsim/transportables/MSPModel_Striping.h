@@ -63,6 +63,9 @@ public:
     /// @brief register the given person as a pedestrian
     MSTransportableStateAdapter* add(MSTransportable* transportable, MSStageMoving* stage, SUMOTime now);
 
+    /// @brief load the state of the given transportable
+    MSTransportableStateAdapter* loadState(MSTransportable* transportable, MSStageMoving* stage, std::istringstream& in);
+
     /// @brief remove the specified person from the pedestrian simulation
     void remove(MSTransportableStateAdapter* state);
 
@@ -287,6 +290,8 @@ protected:
 
         PState(MSPerson* person, MSStageMoving* stage, const MSLane* lane);
 
+        /// @brief constructor for loading state
+        PState(MSPerson* person, MSStageMoving* stage, std::istringstream* in = nullptr);
 
         ~PState() {};
         MSPerson* myPerson;
@@ -373,6 +378,10 @@ protected:
 
         /// @brief whether the person is currently being controlled via TraCI
         bool isRemoteControlled() const;
+
+        /** @brief Saves the current state into the given stream
+         */
+        void saveState(std::ostringstream& out);
 
     protected:
         /// @brief constructor for PStateVehicle

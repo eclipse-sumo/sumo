@@ -200,6 +200,21 @@ MSPModel_Striping::add(MSTransportable* transportable, MSStageMoving* stage, SUM
 }
 
 
+MSTransportableStateAdapter*
+MSPModel_Striping::loadState(MSTransportable* transportable, MSStageMoving* stage, std::istringstream& in) {
+    MSPerson* person = static_cast<MSPerson*>(transportable);
+    MSNet* net = MSNet::getInstance();
+    if (!myAmActive) {
+        net->getBeginOfTimestepEvents()->addEvent(new MovePedestrians(this), net->getCurrentTimeStep() + DELTA_T);
+        myAmActive = true;
+    }
+    PState* ped = new PState(person, stage, &in);
+    myActiveLanes[ped->getLane()].push_back(ped);
+    myNumActivePedestrians++;
+    return ped;
+}
+
+
 void
 MSPModel_Striping::remove(MSTransportableStateAdapter* state) {
     const MSLane* lane = dynamic_cast<PState*>(state)->myLane;
@@ -1508,6 +1523,7 @@ MSPModel_Striping::PState::PState(MSPerson* person, MSStageMoving* stage, const 
     myNLI = getNextLane(*this, lane, nullptr);
 }
 
+
 MSPModel_Striping::PState::PState():
     myPerson(nullptr),
     myStage(nullptr),
@@ -1525,6 +1541,112 @@ MSPModel_Striping::PState::PState():
     myAngle(std::numeric_limits<double>::max()) {
 }
 
+
+MSPModel_Striping::PState::PState(MSPerson* person, MSStageMoving* stage, std::istringstream* in): 
+    myPerson(person),
+    myStage(stage),
+    myLane(nullptr),
+    myWalkingAreaPath(nullptr),
+    myRemoteXYPos(Position::INVALID),
+    myAngle(std::numeric_limits<double>::max()) {
+    if (in != nullptr) {
+        std::string laneID;
+        std::string wapLaneFrom;
+        std::string wapLaneTo;
+        std::string nextLaneID;
+        std::string nextLinkFrom;
+        std::string nextLinkTo;
+        int nextDir;
+
+        (*in) >> laneID
+            >> myRelX >> myRelY >> myDir >> mySpeed >> mySpeedLat >> myWaitingToEnter >> myWaitingTime 
+            >> wapLaneFrom >> wapLaneTo
+            >> myAmJammed
+            >> nextLaneID
+            >> nextLinkFrom
+            >> nextLinkTo
+            >> nextDir;
+
+
+        myLane = MSLane::dictionary(laneID);
+        if (myLane == nullptr) {
+            throw ProcessError("Unknown lane '" + laneID + "' when loading walk for person '" + myPerson->getID() + "' from state.");
+        }
+
+        MSLane* nextLane = nullptr;
+        if (nextLaneID != "null") {
+            nextLane = MSLane::dictionary(nextLaneID);
+            if (nextLane == nullptr) {
+                throw ProcessError("Unknown next lane '" + nextLaneID + "' when loading walk for person '" + myPerson->getID() + "' from state.");
+            }
+        }
+        const MSLink* link = nullptr;
+        if (nextLinkFrom != "null") {
+            MSLane* from = MSLane::dictionary(nextLinkFrom);
+            MSLane* to = MSLane::dictionary(nextLinkTo);
+            if (from == nullptr) {
+                throw ProcessError("Unknown link origin lane '" + nextLinkFrom + "' when loading walk for person '" + myPerson->getID() + "' from state.");
+            }
+            if (to == nullptr) {
+                throw ProcessError("Unknown link destination lane '" + nextLinkTo + "' when loading walk for person '" + myPerson->getID() + "' from state.");
+            }
+            link = from->getLinkTo(to);
+        }
+        myNLI =  NextLaneInfo(nextLane, link, nextDir);
+
+        if (wapLaneFrom != "null") {
+            MSLane* from = MSLane::dictionary(wapLaneFrom);
+            MSLane* to = MSLane::dictionary(wapLaneFrom);
+            if (from == nullptr) {
+                throw ProcessError("Unknown walkingAreaPath origin lane '" + wapLaneFrom + "' when loading walk for person '" + myPerson->getID() + "' from state.");
+            }
+            if (to == nullptr) {
+                throw ProcessError("Unknown walkingAreaPath destination lane '" + wapLaneTo + "' when loading walk for person '" + myPerson->getID() + "' from state.");
+            }
+            const auto pathIt = myWalkingAreaPaths.find(std::make_pair(from, to));
+            if (pathIt != myWalkingAreaPaths.end()) {
+                myWalkingAreaPath = &pathIt->second;
+            } else {
+                throw ProcessError("Unknown walkingAreaPath from lane '" + wapLaneFrom + "' to lane '" + wapLaneFrom + "' wawhen loading walk for person '" + myPerson->getID() + "' from state.");
+            }
+        }
+    }
+}
+
+void
+MSPModel_Striping::PState::saveState(std::ostringstream& out) {
+    std::string wapLaneFrom = "null";
+    std::string wapLaneTo = "null";
+    if (myWalkingAreaPath != nullptr) {
+        wapLaneFrom = myWalkingAreaPath->from->getID();
+        wapLaneTo = myWalkingAreaPath->to->getID();
+    }
+    std::string nextLaneID = "null";
+    std::string nextLinkFrom = "null";
+    std::string nextLinkTo = "null";
+    if (myNLI.lane != nullptr) {
+        nextLaneID = myNLI.lane->getID();
+    }
+    if (myNLI.link != nullptr) {
+        nextLinkFrom = myNLI.link->getLaneBefore()->getID();
+        nextLinkTo = myNLI.link->getViaLaneOrLane()->getID();
+    }
+    out << " " << myLane->getID()
+        << " " << myRelX 
+        << " " << myRelY 
+        << " " << myDir 
+        << " " << mySpeed 
+        << " " << mySpeedLat 
+        << " " << myWaitingToEnter
+        << " " << myWaitingTime
+        << " " << wapLaneFrom
+        << " " << wapLaneTo
+        << " " << myAmJammed
+        << " " << nextLaneID
+        << " " << nextLinkFrom
+        << " " << nextLinkTo
+        << " " << myNLI.dir;
+}
 
 double
 MSPModel_Striping::PState::getMinX(const bool includeMinGap) const {
