@@ -50,6 +50,11 @@ GNEVariableSpeedSignSymbol::getMoveOperation() {
 }
 
 
+void GNEVariableSpeedSignSymbol::writeAdditional(OutputDevice& /*device*/) const {
+    // nothing to write
+}
+
+
 void
 GNEVariableSpeedSignSymbol::updateGeometry() {
     // update additional geometry

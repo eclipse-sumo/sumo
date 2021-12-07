@@ -62,8 +62,36 @@ GNEChargingStation::~GNEChargingStation() {}
 
 void
 GNEChargingStation::writeAdditional(OutputDevice& device) const {
-    // use write additional of gneAdditional
-    GNEAdditional::writeAdditional(device);
+    device.openTag(getTagProperty().getTag());
+    device.writeAttr(SUMO_ATTR_ID, getID());
+    if (!myAdditionalName.empty()) {
+        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
+    }
+    device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
+    if (myStartPosition != INVALID_DOUBLE) {
+        device.writeAttr(SUMO_ATTR_STARTPOS, myStartPosition);
+    }
+    if (myEndPosition != INVALID_DOUBLE) {
+        device.writeAttr(SUMO_ATTR_ENDPOS, myEndPosition);
+    }
+    if (myFriendlyPosition) {
+        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, "true");
+    }
+    if (getAttribute(SUMO_ATTR_CHARGINGPOWER) != myTagProperty.getDefaultValue(SUMO_ATTR_CHARGINGPOWER)) {
+        device.writeAttr(SUMO_ATTR_CHARGINGPOWER, toString(myChargingPower));
+    }
+    if (getAttribute(SUMO_ATTR_EFFICIENCY) != myTagProperty.getDefaultValue(SUMO_ATTR_EFFICIENCY)) {
+        device.writeAttr(SUMO_ATTR_EFFICIENCY, myEfficiency);
+    }
+    if (getAttribute(SUMO_ATTR_CHARGEINTRANSIT) != myTagProperty.getDefaultValue(SUMO_ATTR_CHARGEINTRANSIT)) {
+        device.writeAttr(SUMO_ATTR_CHARGEINTRANSIT, myChargeInTransit);
+    }
+    if (getAttribute(SUMO_ATTR_CHARGEDELAY) != myTagProperty.getDefaultValue(SUMO_ATTR_CHARGEDELAY)) {
+        device.writeAttr(SUMO_ATTR_CHARGEDELAY, myChargeDelay);
+    }
+    // write parameters (Always after children to avoid problems with additionals.xsd)
+    writeParams(device);
+    device.closeTag();
 }
 
 

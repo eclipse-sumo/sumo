@@ -61,8 +61,36 @@ GNEContainerStop::~GNEContainerStop() {}
 
 void
 GNEContainerStop::writeAdditional(OutputDevice& device) const {
-    // use write additional of gneAdditional
-    GNEAdditional::writeAdditional(device);
+    device.openTag(getTagProperty().getTag());
+    device.writeAttr(SUMO_ATTR_ID, getID());
+    if (!myAdditionalName.empty()) {
+        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
+    }
+    device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
+    if (myStartPosition != INVALID_DOUBLE) {
+        device.writeAttr(SUMO_ATTR_STARTPOS, myStartPosition);
+    }
+    if (myEndPosition != INVALID_DOUBLE) {
+        device.writeAttr(SUMO_ATTR_ENDPOS, myEndPosition);
+    }
+    if (myFriendlyPosition) {
+        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, "true");
+    }
+    if (getAttribute(SUMO_ATTR_LINES) != myTagProperty.getDefaultValue(SUMO_ATTR_LINES)) {
+        device.writeAttr(SUMO_ATTR_LINES, toString(myLines));
+    }
+    if (getAttribute(SUMO_ATTR_CONTAINER_CAPACITY) != myTagProperty.getDefaultValue(SUMO_ATTR_CONTAINER_CAPACITY)) {
+        device.writeAttr(SUMO_ATTR_CONTAINER_CAPACITY, myContainerCapacity);
+    }
+    if (getAttribute(SUMO_ATTR_PARKING_LENGTH) != myTagProperty.getDefaultValue(SUMO_ATTR_PARKING_LENGTH)) {
+        device.writeAttr(SUMO_ATTR_PARKING_LENGTH, myParkingLength);
+    }
+    if (myColor.isValid()) {
+        device.writeAttr(SUMO_ATTR_COLOR, myColor);
+    }
+    // write parameters (Always after children to avoid problems with additionals.xsd)
+    writeParams(device);
+    device.closeTag();
 }
 
 

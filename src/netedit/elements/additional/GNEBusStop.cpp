@@ -76,17 +76,14 @@ GNEBusStop::writeAdditional(OutputDevice& device) const {
     if (myFriendlyPosition) {
         device.writeAttr(SUMO_ATTR_FRIENDLY_POS, "true");
     }
-    if (myLines.size() > 0) {
+    if (getAttribute(SUMO_ATTR_LINES) != myTagProperty.getDefaultValue(SUMO_ATTR_LINES)) {
         device.writeAttr(SUMO_ATTR_LINES, toString(myLines));
     }
-    if (myPersonCapacity != 6) {
+    if (getAttribute(SUMO_ATTR_PERSON_CAPACITY) != myTagProperty.getDefaultValue(SUMO_ATTR_PERSON_CAPACITY)) {
         device.writeAttr(SUMO_ATTR_PERSON_CAPACITY, myPersonCapacity);
     }
-    if (myParkingLength > 0) {
+    if (getAttribute(SUMO_ATTR_PARKING_LENGTH) != myTagProperty.getDefaultValue(SUMO_ATTR_PARKING_LENGTH)) {
         device.writeAttr(SUMO_ATTR_PARKING_LENGTH, myParkingLength);
-    }
-    if (myColor.isValid()) {
-        device.writeAttr(SUMO_ATTR_COLOR, myColor);
     }
     // write all access
     for (const auto& access : getChildAdditionals()) {

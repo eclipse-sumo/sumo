@@ -89,6 +89,36 @@ GNEParkingSpace::getMoveOperation() {
 }
 
 
+void 
+GNEParkingSpace::writeAdditional(OutputDevice& device) const {
+    device.openTag(getTagProperty().getTag());
+    device.writeAttr(SUMO_ATTR_ID, getID());
+    if (!myAdditionalName.empty()) {
+        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
+    }
+    device.writeAttr(SUMO_ATTR_X, myPosition.x());
+    device.writeAttr(SUMO_ATTR_Y, myPosition.y());
+    if (myPosition.z() != 0) {
+        device.writeAttr(SUMO_ATTR_Z, myPosition.z());
+    }
+    if (myWidth != getParentAdditionals().front()->getAttribute(SUMO_ATTR_WIDTH)) {
+        device.writeAttr(SUMO_ATTR_WIDTH, myWidth);
+    }
+    if (myLength != getParentAdditionals().front()->getAttribute(SUMO_ATTR_LENGTH)) {
+        device.writeAttr(SUMO_ATTR_LENGTH, myLength);
+    }
+    if (myAngle != getParentAdditionals().front()->getAttribute(SUMO_ATTR_ANGLE)) {
+        device.writeAttr(SUMO_ATTR_ANGLE, myAngle);
+    }
+    if (getAttribute(SUMO_ATTR_SLOPE) != myTagProperty.getDefaultValue(SUMO_ATTR_SLOPE)) {
+        device.writeAttr(SUMO_ATTR_SLOPE, myAngle);
+    }
+    // write parameters (Always after children to avoid problems with additionals.xsd)
+    writeParams(device);
+    device.closeTag();
+}
+
+
 void
 GNEParkingSpace::updateGeometry() {
     // get width an lenght

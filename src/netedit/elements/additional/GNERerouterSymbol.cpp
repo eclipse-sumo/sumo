@@ -50,6 +50,12 @@ GNERerouterSymbol::getMoveOperation() {
 }
 
 
+void 
+GNERerouterSymbol::writeAdditional(OutputDevice& /*device*/) const {
+    // noting to write
+}
+
+
 void
 GNERerouterSymbol::updateGeometry() {
     // clear geometries

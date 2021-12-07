@@ -103,7 +103,7 @@ GNEAdditional::setSpecialColor(const RGBColor* color) {
     mySpecialColor = color;
 }
 
-
+/*
 void
 GNEAdditional::writeAdditional(OutputDevice& device) const {
     // first check if minimum number of children is correct
@@ -204,7 +204,7 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
         device.closeTag();
     }
 }
-
+*/
 
 bool
 GNEAdditional::isAdditionalValid() const {

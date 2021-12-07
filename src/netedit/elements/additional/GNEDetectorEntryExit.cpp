@@ -50,6 +50,18 @@ GNEDetectorEntryExit::GNEDetectorEntryExit(SumoXMLTag entryExitTag, GNENet* net,
 GNEDetectorEntryExit::~GNEDetectorEntryExit() {}
 
 
+void 
+GNEDetectorEntryExit::writeAdditional(OutputDevice& device) const {
+    device.openTag(getTagProperty().getTag());
+    device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
+    device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane);
+    if (myFriendlyPosition) {
+        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, true);
+    }
+    device.closeTag();
+}
+
+
 bool
 GNEDetectorEntryExit::isAdditionalValid() const {
     // with friendly position enabled position are "always fixed"

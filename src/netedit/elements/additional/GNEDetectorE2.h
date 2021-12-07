@@ -82,6 +82,11 @@ public:
 
     /// @name members and functions relative to write additionals into XML
     /// @{
+    /**@brief writte additional element into a xml file
+     * @param[in] device device in which write parameters of additional element
+     */
+    void writeAdditional(OutputDevice& device) const;
+
     /// @brief check if current additional is valid to be writed into XML
     bool isAdditionalValid() const;
 

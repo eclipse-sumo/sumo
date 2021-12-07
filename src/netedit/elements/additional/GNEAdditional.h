@@ -129,7 +129,7 @@ public:
     /**@brief writte additional element into a xml file
      * @param[in] device device in which write parameters of additional element
      */
-    virtual void writeAdditional(OutputDevice& device) const;
+    virtual void writeAdditional(OutputDevice& device) const = 0;
 
     /// @brief check if current additional is valid to be writed into XML (by default true, can be reimplemented in children)
     virtual bool isAdditionalValid() const;

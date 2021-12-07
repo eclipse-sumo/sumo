@@ -65,8 +65,40 @@ GNEParkingArea::~GNEParkingArea() {}
 
 void
 GNEParkingArea::writeAdditional(OutputDevice& device) const {
-    // use write additional of gneAdditional
-    GNEAdditional::writeAdditional(device);
+    device.openTag(getTagProperty().getTag());
+    device.writeAttr(SUMO_ATTR_ID, getID());
+    if (!myAdditionalName.empty()) {
+        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
+    }
+    device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
+    if (myStartPosition != INVALID_DOUBLE) {
+        device.writeAttr(SUMO_ATTR_STARTPOS, myStartPosition);
+    }
+    if (myEndPosition != INVALID_DOUBLE) {
+        device.writeAttr(SUMO_ATTR_ENDPOS, myEndPosition);
+    }
+    if (myFriendlyPosition) {
+        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, "true");
+    }
+    if (getAttribute(SUMO_ATTR_ROADSIDE_CAPACITY) != myTagProperty.getDefaultValue(SUMO_ATTR_ROADSIDE_CAPACITY)) {
+        device.writeAttr(SUMO_ATTR_ROADSIDE_CAPACITY, toString(myRoadSideCapacity));
+    }
+    if (getAttribute(SUMO_ATTR_ONROAD) != myTagProperty.getDefaultValue(SUMO_ATTR_ONROAD)) {
+        device.writeAttr(SUMO_ATTR_ONROAD, myOnRoad);
+    }
+    if (getAttribute(SUMO_ATTR_WIDTH) != myTagProperty.getDefaultValue(SUMO_ATTR_WIDTH)) {
+        device.writeAttr(SUMO_ATTR_WIDTH, myWidth);
+    }
+    if (getAttribute(SUMO_ATTR_LENGTH) != myTagProperty.getDefaultValue(SUMO_ATTR_LENGTH)) {
+        device.writeAttr(SUMO_ATTR_LENGTH, myLength);
+    }
+    // write all parking spaces
+    for (const auto& access : getChildAdditionals()) {
+        access->writeAdditional(device);
+    }
+    // write parameters (Always after children to avoid problems with additionals.xsd)
+    writeParams(device);
+    device.closeTag();
 }
 
 
