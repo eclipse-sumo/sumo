@@ -2,3 +2,4 @@
 --junctions.join
 --keep-edges.by-vclass passenger
 -R
+--osm.turn-lanes
