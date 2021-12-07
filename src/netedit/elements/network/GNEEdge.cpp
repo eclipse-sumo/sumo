@@ -443,10 +443,10 @@ GNEEdge::getSplitPos(const Position& clickPos) {
     int index = geom.indexOfClosest(clickPos, true);
     if (geom[index].distanceSquaredTo2D(clickPos) < SNAP_RADIUS_SQUARED) {
         // split at existing geometry point
-        return geom[index];
+        return myNet->getViewNet()->snapToActiveGrid(geom[index]);
     } else {
         // split straight between the next two points
-        return geom.positionAtOffset(geom.nearest_offset_to_point2D(clickPos));
+        return myNet->getViewNet()->snapToActiveGrid(geom.positionAtOffset(geom.nearest_offset_to_point2D(clickPos)));
     }
 }
 
