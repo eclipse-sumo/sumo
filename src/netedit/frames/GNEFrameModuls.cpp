@@ -182,6 +182,8 @@ GNEFrameModuls::TagSelector::getCurrentTemplateAC() const {
 
 void
 GNEFrameModuls::TagSelector::setCurrentTagType(GNETagProperties::TagType tagType, const bool onlyDrawables, const bool notifyFrameParent) {
+    // check if net has proj
+    const bool proj = (GeoConvHelper::getFinal().getProjString() != "!");
     // set new tagType
     myTagType = tagType;
     // change TagSelector text
@@ -241,7 +243,7 @@ GNEFrameModuls::TagSelector::setCurrentTagType(GNETagProperties::TagType tagType
     const auto tagProperties = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(myTagType);
     // fill myACTemplates and myTagsMatchBox
     for (const auto &tagProperty : tagProperties) {
-        if (!onlyDrawables || tagProperty.first.isDrawable()) {
+        if ((!onlyDrawables || tagProperty.first.isDrawable()) && (!tagProperty.first.requireProj() || proj)) {
             myACTemplates.push_back(new ACTemplate(myFrameParent->getViewNet()->getNet(), tagProperty.first));
             myTagsMatchBox->appendIconItem(tagProperty.first.getTagStr().c_str(), GUIIconSubSys::getIcon(tagProperty.first.getGUIIcon()), tagProperty.first.getBackGroundColor());
         }

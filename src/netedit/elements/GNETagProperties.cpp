@@ -496,7 +496,7 @@ GNETagProperties::embebbedRoute() const {
 
 
 bool
-GNETagProperties::requireProjection() const {
+GNETagProperties::requireProj() const {
     return (myTagProperty & REQUIERE_PROJ) != 0;
 }
 

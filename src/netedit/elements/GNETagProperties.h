@@ -275,7 +275,7 @@ public:
     bool embebbedRoute() const;
 
     /// @brief return true if tag correspond to an element that requires a geo projection
-    bool requireProjection() const;
+    bool requireProj() const;
 
     /// @brief return true if attribute of this tag is deprecated
     bool isAttributeDeprecated(SumoXMLAttr attr) const;

@@ -19,6 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/geom/GeoConvHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
@@ -92,8 +93,10 @@ GNEMatchAttribute::disableMatchAttribute() {
 
 void
 GNEMatchAttribute::showMatchAttribute(const GNEElementSet::Type type) {
-    std::vector<std::pair<GNETagProperties, std::string> > tagPropertiesStrings;
+    // declare flag for proj
+    const bool proj = (GeoConvHelper::getFinal().getProjString() != "!");
     // get tags for the given element set
+    std::vector<std::pair<GNETagProperties, std::string> > tagPropertiesStrings;
     if (type == (GNEElementSet::Type::NETWORK)) {
         tagPropertiesStrings = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::NETWORKELEMENT);
     } else if (type == GNEElementSet::Type::ADDITIONAL) {
@@ -111,9 +114,9 @@ GNEMatchAttribute::showMatchAttribute(const GNEElementSet::Type type) {
     }
     // now filter to allow only drawables and proj
     myTagPropertiesString.clear();
-    for (const auto &tagPropertiesString : tagPropertiesStrings) {
-        if (tagPropertiesString.first.isDrawable()) {
-            myTagPropertiesString.push_back(tagPropertiesString);
+    for (const auto &tagProperty : tagPropertiesStrings) {
+        if (tagProperty.first.isDrawable() && (!tagProperty.first.requireProj() || proj)) {
+            myTagPropertiesString.push_back(tagProperty);
         }
     }
     // update tag

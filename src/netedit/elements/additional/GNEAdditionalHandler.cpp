@@ -1592,6 +1592,8 @@ GNEAdditionalHandler::buildPOIGeo(const CommonXMLStructure::SumoBaseObject* sumo
         writeErrorInvalidNegativeValue(SUMO_TAG_POI, id, SUMO_ATTR_HEIGHT);
     } else if (!SUMOXMLDefinitions::isValidFilename(imgFile)) {
         writeErrorInvalidFilename(SUMO_TAG_POI, id);
+    } else if (GeoConvHelper::getFinal().getProjString() == "!") {
+        WRITE_ERROR("Could not build " + toString(SUMO_TAG_POI) + " with ID '" + id + "' in netedit; Networ requieres a geo projection.");
     } else if (myNet->getAttributeCarriers()->retrieveShape(SUMO_TAG_POI, id, false) == nullptr) {
         // get NETEDIT parameters
         NeteditParameters neteditParameters(sumoBaseObject);
