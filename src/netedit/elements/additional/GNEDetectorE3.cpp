@@ -76,7 +76,7 @@ GNEDetectorE3::writeAdditional(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
     }
     device.writeAttr(SUMO_ATTR_POSITION, myPosition);
-    device.writeAttr(SUMO_ATTR_FREQUENCY, myFreq);
+    device.writeAttr(SUMO_ATTR_FREQUENCY, time2string(myFreq));
     if (myFilename.size() > 0) {
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
     }

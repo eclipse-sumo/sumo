@@ -98,7 +98,7 @@ GNEDetectorE2::writeAdditional(OutputDevice& device) const {
     if (myTrafficLight.size() > 0) {
         device.writeAttr(SUMO_ATTR_TLID, myTrafficLight);
     } else {
-        device.writeAttr(SUMO_ATTR_FREQUENCY, myFreq);
+        device.writeAttr(SUMO_ATTR_FREQUENCY, time2string(myFreq));
     }
     if (myFilename.size() > 0) {
         device.writeAttr(SUMO_ATTR_FILE, myFilename);
