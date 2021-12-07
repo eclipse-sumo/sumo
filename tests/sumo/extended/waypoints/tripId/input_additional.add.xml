@@ -41,5 +41,5 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="bStop" lane="CE_1" startPos="0.00" endPos="-0.10"/>
+    <busStop id="bStop" lane="CE_1" startPos="20.00" endPos="-0.10"/>
 </additional>
