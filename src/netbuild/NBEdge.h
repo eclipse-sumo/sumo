@@ -1638,6 +1638,12 @@ private:
     /// @brief assign length to all lanes of an internal edge
     void assignInternalLaneLength(std::vector<Connection>::iterator i, int numLanes, double lengthSum, bool averageLength);
 
+    /// @brief decode bitset
+    std::vector<LinkDirection> decodeTurnSigns(int turnSigns);
+
+    /// @brief apply loaded turn sign information
+    bool applyTurnSigns();
+
 private:
     /** @brief The building step
      * @see EdgeBuildingStep
