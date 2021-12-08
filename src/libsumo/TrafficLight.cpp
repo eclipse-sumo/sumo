@@ -659,7 +659,7 @@ TrafficLight::setProgramLogic(const std::string& tlsID, const TraCILogic& logic)
             case TrafficLightType::ACTUATED:
                 tlLogic = new MSActuatedTrafficLightLogic(tlc,
                         tlsID, logic.programID,
-                        phases, step, nextSwitch,
+                        phases, step, nextSwitch, 0,
                         logic.subParameter, basePath);
                 break;
             case TrafficLightType::NEMA:

@@ -59,7 +59,7 @@ public:
     MSActuatedTrafficLightLogic(MSTLLogicControl& tlcontrol,
                                 const std::string& id, const std::string& programID,
                                 const MSSimpleTrafficLightLogic::Phases& phases,
-                                int step, SUMOTime delay,
+                                int step, SUMOTime delay, SUMOTime offset,
                                 const std::map<std::string, std::string>& parameter,
                                 const std::string& basePath);
 
@@ -169,12 +169,24 @@ protected:
     /// @brief the minimum duratin for keeping the current phase due to linkMinDur constraints
     SUMOTime getLinkMinDuration(int target) const;
 
+    /// @brief the minimum duratin for keeping the current phase when considering 'earliestEnd'
+    SUMOTime getEarliest() const; 
+
 protected:
     /// @brief A map from phase to induction loops to be used for gap control
     InductLoopMap myInductLoopsForPhase;
 
     std::vector<InductLoopInfo> myInductLoops;
 
+    /// @brief the configured offset value
+    SUMOTime myOffset;
+
+    /// @brief the sum of phase durations
+    SUMOTime myCycleTime;
+
+    /// @brief whether coordination parameters earliestEnd, latestEnd are
+    //compared to absolute simulation time or timeInCycle
+    bool myCoordinated;
 
     /// The maximum gap to check in seconds
     double myMaxGap;

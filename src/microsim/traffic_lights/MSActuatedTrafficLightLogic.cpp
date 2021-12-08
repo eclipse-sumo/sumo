@@ -62,12 +62,15 @@
 MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcontrol,
         const std::string& id, const std::string& programID,
         const Phases& phases,
-        int step, SUMOTime delay,
+        int step, SUMOTime delay, SUMOTime offset,
         const std::map<std::string, std::string>& parameter,
         const std::string& basePath) :
     MSSimpleTrafficLightLogic(tlcontrol, id, programID, TrafficLightType::ACTUATED, phases, step, delay, parameter),
+    myOffset(offset),
     myLastTrySwitchTime(0),
-    myTraCISwitch(false) {
+    myTraCISwitch(false) 
+{
+    myCoordinated = StringUtils::toBool(getParameter("coordinated", "false"));
     myMaxGap = StringUtils::toDouble(getParameter("max-gap", DEFAULT_MAX_GAP));
     myPassingTime = StringUtils::toDouble(getParameter("passing-time", DEFAULT_PASSING_TIME));
     myDetectorGap = StringUtils::toDouble(getParameter("detector-gap", DEFAULT_DETECTOR_GAP));
@@ -76,6 +79,10 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
     myFile = FileHelpers::checkForRelativity(getParameter("file", "NUL"), basePath);
     myFreq = TIME2STEPS(StringUtils::toDouble(getParameter("freq", "300")));
     myVehicleTypes = getParameter("vTypes", "");
+    myCycleTime = 0;
+    for (const MSPhaseDefinition* phase : myPhases) {
+        myCycleTime += phase->duration;
+    }
 }
 
 MSActuatedTrafficLightLogic::~MSActuatedTrafficLightLogic() { }
@@ -538,7 +545,7 @@ MSActuatedTrafficLightLogic::trySwitch() {
         }
     }
     // set the next event
-    return MAX2(TIME2STEPS(1), getCurrentPhaseDef().minDuration - actDuration);
+    return MAX3(TIME2STEPS(1), getCurrentPhaseDef().minDuration - actDuration, getEarliest());
 }
 
 
@@ -783,6 +790,18 @@ MSActuatedTrafficLightLogic::getLinkMinDuration(int target) const {
     return result;
 }
 
+SUMOTime
+MSActuatedTrafficLightLogic::getEarliest() const {
+    if (myPhases[myStep]->earliestEnd == MSPhaseDefinition::UNSPECIFIED_DURATION) {
+        return 0;
+    } else {
+        const SUMOTime timeInCycle = (myCoordinated 
+            ? (SIMSTEP - myOffset) % myCycleTime
+            : SIMSTEP - myPhases[0]->myLastSwitch);
+        //std::cout << SIMTIME << " " << getID() << " timeInCycle=" << time2string(timeInCycle) << "\n";
+        return myPhases[myStep]->earliestEnd - timeInCycle;
+    }
+}
 
 void
 MSActuatedTrafficLightLogic::setParameter(const std::string& key, const std::string& value) {

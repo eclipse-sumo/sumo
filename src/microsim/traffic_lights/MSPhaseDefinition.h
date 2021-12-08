@@ -65,6 +65,12 @@ public:
     /// @brief The maximum duration of the phase
     SUMOTime maxDuration;
 
+    /// @brief The minimum time within the cycle for switching (for coordinated actuation)
+    SUMOTime earliestEnd;
+
+    /// @brief The maximum time within the cycle for switching (for coordinated actuation)
+    SUMOTime latestEnd;
+
     /// @brief Stores the timestep of the last on-switched of the phase
     SUMOTime myLastSwitch;
 
@@ -114,6 +120,8 @@ public:
         lastDuration(UNSPECIFIED_DURATION),
         minDuration(duration),
         maxDuration(duration),
+        earliestEnd(UNSPECIFIED_DURATION),
+        latestEnd(UNSPECIFIED_DURATION),
         myLastSwitch(UNSPECIFIED_DURATION),
         name(_name),
         yellow(UNSPECIFIED_DURATION),

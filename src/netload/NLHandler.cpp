@@ -787,6 +787,8 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
     //  the minimum and maximum durations
     phase->minDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MINDURATION, id.c_str(), ok, duration);
     phase->maxDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MAXDURATION, id.c_str(), ok, duration);
+    phase->earliestEnd = attrs.getOptSUMOTimeReporting(SUMO_ATTR_EARLIEST_END, id.c_str(), ok, tDefault);
+    phase->latestEnd = attrs.getOptSUMOTimeReporting(SUMO_ATTR_LATEST_END, id.c_str(), ok, tDefault);
     phase->nextPhases = attrs.getOptIntVector(SUMO_ATTR_NEXT, id.c_str(), ok);
     phase->name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
 

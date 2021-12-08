@@ -296,7 +296,7 @@ NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
             tlLogic = new MSActuatedTrafficLightLogic(getTLLogicControlToUse(),
                     myActiveKey, myActiveProgram,
                     myActivePhases, step, (*i)->minDuration + myNet.getCurrentTimeStep(),
-                    myAdditionalParameter, basePath);
+                    myOffset, myAdditionalParameter, basePath);
             break;
         case TrafficLightType::NEMA:
             tlLogic = new NEMALogic(getTLLogicControlToUse(),
