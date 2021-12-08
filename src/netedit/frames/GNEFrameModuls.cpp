@@ -243,9 +243,9 @@ GNEFrameModuls::TagSelector::setCurrentTagType(GNETagProperties::TagType tagType
     const auto tagProperties = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(myTagType);
     // fill myACTemplates and myTagsMatchBox
     for (const auto &tagProperty : tagProperties) {
-        if ((!onlyDrawables || tagProperty.first.isDrawable()) && (!tagProperty.first.requireProj() || proj)) {
-            myACTemplates.push_back(new ACTemplate(myFrameParent->getViewNet()->getNet(), tagProperty.first));
-            myTagsMatchBox->appendIconItem(tagProperty.first.getTagStr().c_str(), GUIIconSubSys::getIcon(tagProperty.first.getGUIIcon()), tagProperty.first.getBackGroundColor());
+        if ((!onlyDrawables || tagProperty.isDrawable()) && (!tagProperty.requireProj() || proj)) {
+            myACTemplates.push_back(new ACTemplate(myFrameParent->getViewNet()->getNet(), tagProperty));
+            myTagsMatchBox->appendIconItem(tagProperty.getFieldString().c_str(), GUIIconSubSys::getIcon(tagProperty.getGUIIcon()), tagProperty.getBackGroundColor());
         }
     }
     // set color of myTypeMatchBox to black (valid)
@@ -293,7 +293,7 @@ long
 GNEFrameModuls::TagSelector::onCmdSelectTag(FXObject*, FXSelector, void*) {
     // iterate over all myTagsMatchBox
     for (int i = 0; i < (int)myACTemplates.size(); i++) {
-        if (myACTemplates.at(i)->getAC() && myACTemplates.at(i)->getAC()->getTagProperty().getTagStr() == myTagsMatchBox->getText().text()) {
+        if (myACTemplates.at(i)->getAC() && myACTemplates.at(i)->getAC()->getTagProperty().getFieldString() == myTagsMatchBox->getText().text()) {
             // set templateAC and currentItem
             myCurrentTemplateAC = myACTemplates.at(i)->getAC();
             myTagsMatchBox->setCurrentItem(i);
@@ -518,7 +518,7 @@ GNEFrameModuls::DemandElementSelector::DemandElementSelector(GNEFrame* framePare
     for (const auto& tagType : tagTypes) {
         const auto tagProperties = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(tagType);
         for (const auto& tagProperty : tagProperties) {
-            myDemandElementTags.push_back(tagProperty.first.getTag());
+            myDemandElementTags.push_back(tagProperty.getTag());
         }
     }
     // Create MFXIconComboBox
@@ -1923,9 +1923,9 @@ GNEFrameModuls::SelectorParent::showSelectorParentModul(const std::vector<SumoXM
     // make sure that we're editing an additional tag
     const auto listOfTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::ADDITIONALELEMENT);
     for (const auto& tagIt : listOfTags) {
-        if (std::find(additionalTypeParents.begin(), additionalTypeParents.end(), tagIt.first.getTag()) != additionalTypeParents.end()) {
+        if (std::find(additionalTypeParents.begin(), additionalTypeParents.end(), tagIt.getTag()) != additionalTypeParents.end()) {
             myParentTags = additionalTypeParents;
-            myParentsLabel->setText(("Parent type: " + tagIt.second).c_str());
+            myParentsLabel->setText(("Parent type: " + tagIt.getFieldString()).c_str());
             refreshSelectorParentModul();
             show();
             return true;

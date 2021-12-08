@@ -215,7 +215,7 @@ public:
     static const GNETagProperties& getTagProperties(SumoXMLTag tag);
 
     /// @brief get tagProperties of all editable element types using TagProperty Type (NetworkEditMode::NETWORKELEMENT, ADDITIONALELEMENT, etc.)
-    static const std::vector<std::pair<GNETagProperties, std::string> > getAllowedTagPropertiesByCategory(const int tagPropertyCategory);
+    static const std::vector<GNETagProperties> getAllowedTagPropertiesByCategory(const int tagPropertyCategory);
 
     /// @brief true if a value of type T can be parsed from string
     template<typename T>

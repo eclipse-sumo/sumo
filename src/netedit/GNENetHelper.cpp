@@ -48,31 +48,31 @@ GNENetHelper::AttributeCarriers::AttributeCarriers(GNENet* net) :
     // fill additionals with tags
     auto additionalTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::SYMBOL);
     for (const auto& additionalTag : additionalTags) {
-        myAdditionals.insert(std::make_pair(additionalTag.first.getTag(), std::set<GNEAdditional*>()));
+        myAdditionals.insert(std::make_pair(additionalTag.getTag(), std::set<GNEAdditional*>()));
     }
     // fill shapes with tags
     auto shapeTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::SHAPE);
     for (const auto& shapeTag : shapeTags) {
-        myShapes.insert(std::make_pair(shapeTag.first.getTag(), std::set<GNEShape*>()));
+        myShapes.insert(std::make_pair(shapeTag.getTag(), std::set<GNEShape*>()));
     }
     // fill TAZElements with tags
     auto TAZElementTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::TAZELEMENT);
     for (const auto& TAZElementTag : TAZElementTags) {
-        myTAZElements.insert(std::make_pair(TAZElementTag.first.getTag(), std::set<GNETAZElement*>()));
+        myTAZElements.insert(std::make_pair(TAZElementTag.getTag(), std::set<GNETAZElement*>()));
     }
     // fill demand elements with tags
     auto demandElementTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::DEMANDELEMENT);
     for (const auto& demandElementTag : demandElementTags) {
-        myDemandElements.insert(std::make_pair(demandElementTag.first.getTag(), std::set<GNEDemandElement*>()));
+        myDemandElements.insert(std::make_pair(demandElementTag.getTag(), std::set<GNEDemandElement*>()));
     }
     auto stopTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::STOP);
     for (const auto& stopTag : stopTags) {
-        myDemandElements.insert(std::make_pair(stopTag.first.getTag(), std::set<GNEDemandElement*>()));
+        myDemandElements.insert(std::make_pair(stopTag.getTag(), std::set<GNEDemandElement*>()));
     }
     // fill data elements with tags
     auto genericDataElementTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::GENERICDATA);
     for (const auto& genericDataElementTag : genericDataElementTags) {
-        myGenericDatas.insert(std::make_pair(genericDataElementTag.first.getTag(), std::set<GNEGenericData*>()));
+        myGenericDatas.insert(std::make_pair(genericDataElementTag.getTag(), std::set<GNEGenericData*>()));
     }
 }
 

@@ -96,7 +96,7 @@ GNEMatchAttribute::showMatchAttribute(const GNEElementSet::Type type) {
     // declare flag for proj
     const bool proj = (GeoConvHelper::getFinal().getProjString() != "!");
     // get tags for the given element set
-    std::vector<std::pair<GNETagProperties, std::string> > tagPropertiesStrings;
+    std::vector<GNETagProperties> tagPropertiesStrings;
     if (type == (GNEElementSet::Type::NETWORK)) {
         tagPropertiesStrings = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::NETWORKELEMENT);
     } else if (type == GNEElementSet::Type::ADDITIONAL) {
@@ -115,7 +115,7 @@ GNEMatchAttribute::showMatchAttribute(const GNEElementSet::Type type) {
     // now filter to allow only drawables and proj
     myTagPropertiesString.clear();
     for (const auto &tagProperty : tagPropertiesStrings) {
-        if (tagProperty.first.isDrawable() && (!tagProperty.first.requireProj() || proj)) {
+        if (tagProperty.isDrawable() && (!tagProperty.requireProj() || proj)) {
             myTagPropertiesString.push_back(tagProperty);
         }
     }
@@ -143,9 +143,9 @@ GNEMatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
     myMatchTagComboBox->setTextColor(FXRGB(255, 0, 0));
     // iterate over tags
     for (const auto& tagString : myTagPropertiesString) {
-        if (tagString.second == myMatchTagComboBox->getText().text()) {
+        if (tagString.getFieldString() == myMatchTagComboBox->getText().text()) {
             // set valid tag
-            myCurrentTag = tagString.first.getTag();
+            myCurrentTag = tagString.getTag();
             // set valid color
             myMatchTagComboBox->setTextColor(FXRGB(0, 0, 0));
         }
@@ -324,9 +324,9 @@ GNEMatchAttribute::updateTag() {
     // itreate over myTagPropertiesString
     for (int i = 0; i < (int)myTagPropertiesString.size(); i++) {
         // add tag in combo Box
-        myMatchTagComboBox->appendIconItem(myTagPropertiesString.at(i).second.c_str(), GUIIconSubSys::getIcon(myTagPropertiesString.at(i).first.getGUIIcon()));
+        myMatchTagComboBox->appendIconItem(myTagPropertiesString.at(i).getFieldString().c_str(), GUIIconSubSys::getIcon(myTagPropertiesString.at(i).getGUIIcon()));
         // check tag index
-        if (myTagPropertiesString.at(i).first.getTag() == myCurrentTag) {
+        if (myTagPropertiesString.at(i).getTag() == myCurrentTag) {
             tagIndex = i;
         }
     }
@@ -335,7 +335,7 @@ GNEMatchAttribute::updateTag() {
     // check tagIndex
     if (tagIndex == -1) {
         myMatchTagComboBox->setCurrentItem(0);
-        myCurrentTag = myTagPropertiesString.front().first.getTag();
+        myCurrentTag = myTagPropertiesString.front().getTag();
     } else {
         myMatchTagComboBox->setCurrentItem(tagIndex);
     }

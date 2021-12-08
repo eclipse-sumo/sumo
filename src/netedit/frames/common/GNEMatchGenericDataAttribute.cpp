@@ -132,8 +132,8 @@ GNEMatchGenericDataAttribute::enableMatchGenericDataAttribute() {
         const auto genericDataTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::GENERICDATA);
         // fill combo box (only with drawable elements)
         for (const auto& genericDataTag : genericDataTags) {
-            if (genericDataTag.first.isDrawable()) {
-                myMatchGenericDataTagComboBox->appendIconItem(genericDataTag.second.c_str(), GUIIconSubSys::getIcon(genericDataTag.first.getGUIIcon()));
+            if (genericDataTag.isDrawable()) {
+                myMatchGenericDataTagComboBox->appendIconItem(genericDataTag.getFieldString().c_str(), GUIIconSubSys::getIcon(genericDataTag.getGUIIcon()));
             }
         }
         // set first item as current item
@@ -256,8 +256,8 @@ GNEMatchGenericDataAttribute::onCmdSelectTag(FXObject*, FXSelector, void*) {
     const auto listOfTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::GENERICDATA);
     // fill myMatchGenericDataTagComboBox
     for (const auto& genericDataTag : listOfTags) {
-        if (genericDataTag.first.isDrawable() && (genericDataTag.second == myMatchGenericDataTagComboBox->getText().text())) {
-            myCurrentTag = genericDataTag.first.getTag();
+        if (genericDataTag.isDrawable() && (genericDataTag.getFieldString() == myMatchGenericDataTagComboBox->getText().text())) {
+            myCurrentTag = genericDataTag.getTag();
         }
     }
     // check that typed-by-user value is correct
