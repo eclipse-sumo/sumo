@@ -54,20 +54,18 @@
 /bin/testmicrosim*
 /bin/testnetbuild*
 /bin/testlibsumo*
+/bin/testlibtraci*
 /bin/testthreadpool*
 /bin/*.dll
 /bin/*.dylib
 /bin/*.so
 /bin/*.pyd
+/bin/*.manifest
 /bin/osgPlugins*
 /bin/libsumoc*
 /bin/liblibsumojni.jnilib
 /bin/liblibtracijni.jnilib
 /bin/libsumofmi2.dylib
-/bin/libtracicpp.dll.manifest
-/bin/testlibtraci
-/bin/testlibtraciD
-/bin/testlibtraci.exe.manifest
 # data dir
 /data/proj
 # docs dir, make artifacts
@@ -129,15 +127,8 @@
 /tools/contributed/traas/target
 /tools/libsumo/_libsumo.*
 /tools/libsumo/libsumo.py
-/tools/libsumo/libsumoPYTHON_wrap.cxx
-/tools/libsumo/libsumoc.so
-/tools/libsumo/libsumocpp.so
-/tools/libsumo/libsumocpp.dylib
 /tools/libtraci/_libtraci.*
 /tools/libtraci/libtraci.py
-/tools/libtraci/libtraciPYTHON_wrap.cxx
-/tools/libtraci/libtracicpp.so
-/tools/libtraci/libtracicpp.dylib
 # extracted tests
 /tests/_*
 # netedit test
