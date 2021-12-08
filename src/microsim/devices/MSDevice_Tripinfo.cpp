@@ -211,7 +211,6 @@ MSDevice_Tripinfo::notifyMoveInternal(const SUMOTrafficObject& veh,
         myMesoTimeLoss += TIME2STEPS(timeOnLane * (vmax - meanSpeedVehicleOnLane) / vmax);
     }
     myWaitingTime += veh.getWaitingTime();
-    myStoppingTime += TIME2STEPS(mesoVeh->getCurrentStoppingTimeSeconds());
 }
 
 void

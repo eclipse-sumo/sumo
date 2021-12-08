@@ -470,6 +470,9 @@ MESegment::send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMOT
     if (link != nullptr) {
         link->removeApproaching(veh);
     }
+    if (veh->isStopped()) {
+        veh->processStop();
+    }
     MEVehicle* lc = removeCar(veh, time, reason); // new leaderCar
     q.setBlockTime(time);
     if (!isInvalid(next)) {
@@ -491,9 +494,6 @@ MESegment::send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMOT
     if (lc != nullptr) {
         lc->setEventTime(MAX2(lc->getEventTime(), q.getBlockTime()));
         MSGlobals::gMesoNet->addLeaderCar(lc, getLink(lc));
-    }
-    if (veh->isStopped()) {
-        veh->processStop();
     }
 }
 

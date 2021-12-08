@@ -178,6 +178,11 @@ public:
      */
     void loadState(const SUMOSAXAttributes& attrs);
 
+    /// @brief update stopping time for meso
+    void updateStopTime(const SUMOTime time) {
+        myStoppingTime += time;
+    }
+
 
 private:
     /** @brief Constructor

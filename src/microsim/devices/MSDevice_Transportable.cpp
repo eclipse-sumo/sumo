@@ -84,30 +84,31 @@ MSDevice_Transportable::~MSDevice_Transportable() {
 void
 MSDevice_Transportable::notifyMoveInternal(const SUMOTrafficObject& veh,
         const double /* frontOnLane */,
-        const double /* timeOnLane*/,
+        const double /* timeOnLane */,
         const double /* meanSpeedFrontOnLane */,
-        const double /*meanSpeedVehicleOnLane */,
-        const double /* travelledDistanceFrontOnLane */,
+        const double /* meanSpeedVehicleOnLane */,
+        const double travelledDistanceFrontOnLane,
         const double /* travelledDistanceVehicleOnLane */,
         const double /* meanLengthOnLane */) {
-    notifyMove(const_cast<SUMOTrafficObject&>(veh), -1, -1, -1);
+    notifyMove(const_cast<SUMOTrafficObject&>(veh), -1, travelledDistanceFrontOnLane, veh.getEdge()->getVehicleMaxSpeed(&veh));
 }
 
 
 bool
-MSDevice_Transportable::notifyMove(SUMOTrafficObject& /*tObject*/, double /*oldPos*/, double /*newPos*/, double /*newSpeed*/) {
+MSDevice_Transportable::notifyMove(SUMOTrafficObject& /*tObject*/, double /*oldPos*/, double newPos, double newSpeed) {
     SUMOVehicle& veh = myHolder;
+    const SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
     if (myStopped) {
         if (!veh.isStopped()) {
-            for (std::vector<MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end(); ++i) {
-                (*i)->setDeparted(MSNet::getInstance()->getCurrentTimeStep());
+            const SUMOTime freeFlowTimeCorrection = MSGlobals::gUseMesoSim ? TIME2STEPS(newPos / newSpeed) : 0;
+            for (MSTransportable* const transportable : myTransportables) {
+                transportable->setDeparted(currentTime - freeFlowTimeCorrection);
             }
             myStopped = false;
         }
     } else {
         if (veh.isStopped()) {
             myStopped = true;
-            const SUMOTime currentTime =  MSNet::getInstance()->getCurrentTimeStep();
             MSStop& stop = veh.getNextStop();
             const SUMOTime boardingDuration = myAmContainer ? veh.getVehicleType().getLoadingDuration() : veh.getVehicleType().getBoardingDuration();
             for (std::vector<MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end();) {
@@ -123,7 +124,10 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& /*tObject*/, double /*oldP
                         stage->getDestinationStop()->addTransportable(transportable);
                     }
 
-                    if (!MSGlobals::gUseMesoSim) {
+                    SUMOTime arrivalTime = currentTime;
+                    if (MSGlobals::gUseMesoSim) {
+                        arrivalTime += 1;
+                    } else {
                         // no boarding / unboarding time in meso
                         if (stop.timeToBoardNextPerson > currentTime - DELTA_T) {
                             stop.timeToBoardNextPerson += boardingDuration;
@@ -139,7 +143,7 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& /*tObject*/, double /*oldP
                     if (taxiDevice != nullptr) {
                         taxiDevice->customerArrived(transportable);
                     }
-                    if (!transportable->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep())) {
+                    if (!transportable->proceed(MSNet::getInstance(), arrivalTime)) {
                         if (myAmContainer) {
                             MSNet::getInstance()->getContainerControl().erase(transportable);
                         } else {
@@ -167,8 +171,9 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& /*tObject*/, double /*oldP
 bool
 MSDevice_Transportable::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
-        for (std::vector<MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end(); ++i) {
-            (*i)->setDeparted(MSNet::getInstance()->getCurrentTimeStep());
+        const SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
+        for (MSTransportable* const transportable : myTransportables) {
+            transportable->setDeparted(currentTime);
         }
     }
     if (MSGlobals::gUseMesoSim) {
