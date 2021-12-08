@@ -113,13 +113,13 @@ jobs:
         $env:TEXTTEST_CI_APPS = "-a complex,tools,traci"
         ctest --build-config Release --verbose
 
-    - name: Uploading test results
-      if: always()
-      uses: actions/upload-artifact@v2
-      with:
-        name: texttesttmp-${{ matrix.build-type }}
-        path: D:/texttest
-        if-no-files-found: warn
+#    - name: Uploading test results
+#      if: always()
+#      uses: actions/upload-artifact@v2
+#      with:
+#        name: texttesttmp-${{ matrix.build-type }}
+#        path: D:/texttest
+#        if-no-files-found: warn
 
     - name: Building FMU Compliance Checker
       if: matrix.build-type == 'extra'
