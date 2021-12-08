@@ -5049,9 +5049,10 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag) {
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_TRIGGERED,
-                                          GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                          "Whether a person may end the stop",
-                                          "0");
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
+                                          "Whether a person or container or bth may end the stop",
+                                          "false");
+    attrProperty.setDiscreteValues({"false", "person", "container", "join"});
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_EXPECTED,
@@ -5062,7 +5063,7 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag) {
     attrProperty = GNEAttributeProperties(SUMO_ATTR_PARKING,
                                             GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
                                             "whether the vehicle stops on the road or beside ",
-                                            "0");
+                                            "false");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_ACTTYPE,

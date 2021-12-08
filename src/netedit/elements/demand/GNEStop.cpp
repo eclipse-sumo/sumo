@@ -51,6 +51,9 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEA
     if (tag == SUMO_TAG_STOP_PARKINGAREA) {
         parking = true;
         toogleAttribute(SUMO_ATTR_PARKING, parking, -1);
+    } else {
+        // set parking flag
+        parking = ((parametersSet & STOP_PARKING_SET) != 0);
     }
 }
 
@@ -59,6 +62,8 @@ GNEStop::GNEStop(GNENet* net, GNEDemandElement* stopParent, GNELane* lane, const
     GNEDemandElement(stopParent, net, GLO_STOP, SUMO_TAG_STOP_LANE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
         {}, {}, {lane}, {}, {}, {}, {stopParent}, {}),
     SUMOVehicleParameter::Stop(stopParameter) {
+    // set parking flag
+    parking = ((parametersSet & STOP_PARKING_SET) != 0);
 }
 
 
@@ -66,6 +71,8 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEE
     GNEDemandElement(stopParent, net, GLO_STOP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
         {}, {edge}, {}, {}, {}, {}, {stopParent}, {}),
     SUMOVehicleParameter::Stop(stopParameter) {
+    // set parking flag
+    parking = ((parametersSet & STOP_PARKING_SET) != 0);
 }
 
 
@@ -726,9 +733,9 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             } else {
                 const std::set<std::string> expectedValues = {"true", "false", "person", "container", "join"};
-                const std::vector<std::string> values = parse<std::vector<std::string> >(value);
-                for (const auto& value : values) {
-                    if (expectedValues.find(value) == expectedValues.end()) {
+                const std::vector<std::string> triggeredValues = parse<std::vector<std::string> >(value);
+                for (const auto& triggeredValue : triggeredValues) {
+                    if (expectedValues.find(triggeredValue) == expectedValues.end()) {
                         return false;
                     }
                 }
@@ -738,9 +745,9 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return false;
             } else {
-                const std::vector<std::string> values = parse<std::vector<std::string> >(value);
-                for (const auto& value : values) {
-                    if (!SUMOXMLDefinitions::isValidVehicleID(value)) {
+                const std::vector<std::string> expectedValues = parse<std::vector<std::string> >(value);
+                for (const auto& expectedValue : expectedValues) {
+                    if (!SUMOXMLDefinitions::isValidVehicleID(expectedValue)) {
                         return false;
                     }
                 }
@@ -1195,10 +1202,12 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
                 containerTriggered = false;
             }
             toogleAttribute(SUMO_ATTR_TRIGGERED, triggered, -1);
-            toogleAttribute(SUMO_ATTR_EXPECTED, triggered, -1);
+
+            toogleAttribute(SUMO_ATTR_EXPECTED, (awaitedPersons.size() > 0), -1);
             break;
         case SUMO_ATTR_EXPECTED:
             awaitedPersons = parse<std::set<std::string> >(value);
+            toogleAttribute(SUMO_ATTR_EXPECTED, (awaitedPersons.size() > 0), -1);
             break;
         case SUMO_ATTR_PARKING:
             parking = parse<bool>(value);
@@ -1310,9 +1319,9 @@ GNEStop::toogleAttribute(SumoXMLAttr key, const bool value, const int /*previous
             break;
         case SUMO_ATTR_EXPECTED:
             if (value) {
-                parametersSet |= STOP_TRIGGER_SET;
+                parametersSet |= STOP_EXPECTED_SET;
             } else {
-                parametersSet &= ~STOP_TRIGGER_SET;
+                parametersSet &= ~STOP_EXPECTED_SET;
             }
             break;
         case SUMO_ATTR_PARKING:
