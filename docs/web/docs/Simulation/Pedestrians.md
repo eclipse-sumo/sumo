@@ -69,6 +69,10 @@ removed from all other lanes.
 !!! note
     The heuristic methods described below, also perform automatic connection shifting and removal of pedestrian permissions from non-sidewalk lanes.
 
+### Direct Import
+
+When importing [OSM](../Networks/Import/OpenStreetMap.md), the option **--osm.sidwalks** may be used to import sidwalks for all roads that carry this information.
+
 ### Type-base generation
 
 When importing edges with defined types, it is also possible to declare
