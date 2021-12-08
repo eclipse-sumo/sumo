@@ -665,6 +665,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
 
     { "minDur",                 SUMO_ATTR_MINDURATION },
     { "maxDur",                 SUMO_ATTR_MAXDURATION },
+    { "earliestEnd",            SUMO_ATTR_EARLIEST_END },
+    { "latestEnd",              SUMO_ATTR_LATEST_END },
     { "vehext",                 SUMO_ATTR_VEHICLEEXTENSION },
     { "yellow",                 SUMO_ATTR_YELLOW },
     { "red",                    SUMO_ATTR_RED },

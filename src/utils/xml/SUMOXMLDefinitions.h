@@ -981,6 +981,10 @@ enum SumoXMLAttr {
     SUMO_ATTR_MINDURATION,
     /// @brief maximum duration of a phase
     SUMO_ATTR_MAXDURATION,
+    /// @brief The minimum time within the cycle for switching (for coordinated actuation)
+    SUMO_ATTR_EARLIEST_END,
+    /// @brief The maximum time within the cycle for switching (for coordinated actuation)
+    SUMO_ATTR_LATEST_END,
     /// @brief vehicle extension time of a phase
     SUMO_ATTR_VEHICLEEXTENSION,
     /// @brief yellow duration of a phase
