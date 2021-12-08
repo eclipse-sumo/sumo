@@ -261,7 +261,7 @@ public:
     static const size_t MAXNUMBEROFATTRIBUTES;
 
 protected:
-    /// @brief the xml tag to which this attribute carrier corresponds
+    /// @brief reference to tagProperty associated with this attribute carrier
     const GNETagProperties& myTagProperty;
 
     /// @brief pointer to net

@@ -824,7 +824,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     fillContainerStopElements();
     //data
     fillDataElements();
-    // check integrity of all Tags (function checkTagIntegrity() throw an exception if there is an inconsistency)
+    // check integrity of all Tags (function checkTagIntegrity() throws an exception if there is an inconsistency)
     for (const auto& tagProperty : myTagProperties) {
         tagProperty.second.checkTagIntegrity();
     }
