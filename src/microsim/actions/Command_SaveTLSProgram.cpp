@@ -54,7 +54,7 @@ Command_SaveTLSProgram::execute(SUMOTime /*currentTime*/) {
         myTLSID = myLogics.getActive()->getID();
     }
     if (myPreviousStates.size() == 0 || myPreviousStates.back().getState() != state) {
-        myPreviousStates.push_back(MSPhaseDefinition(0, state, std::vector<int>(), name));
+        myPreviousStates.push_back(MSPhaseDefinition(0, state, name));
     }
     myPreviousStates.back().duration += DELTA_T;
     return DELTA_T;

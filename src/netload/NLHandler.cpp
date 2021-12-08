@@ -767,101 +767,75 @@ void
 NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
     // try to get the phase definition
     bool ok = true;
-    std::string state = attrs.get<std::string>(SUMO_ATTR_STATE, nullptr, ok);
-    if (!ok) {
-        return;
-    }
-    // try to get the phase duration
+    const std::string& id = myJunctionControlBuilder.getActiveKey();
+    const SUMOTime tDefault = MSPhaseDefinition::UNSPECIFIED_DURATION;
+
     const SUMOTime duration = attrs.getSUMOTimeReporting(SUMO_ATTR_DURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok);
+    const std::string state = attrs.get<std::string>(SUMO_ATTR_STATE, nullptr, ok);
     if (duration == 0) {
         WRITE_ERROR("Duration of phase " + toString(myJunctionControlBuilder.getNumberOfLoadedPhases())
                     + " for tlLogic '" + myJunctionControlBuilder.getActiveKey()
                     + "' program '" + myJunctionControlBuilder.getActiveSubKey() + "' is zero.");
         return;
     }
+    if (!ok) {
+        return;
+    }
+    MSPhaseDefinition* phase = new MSPhaseDefinition(duration, state);
+
     // if the traffic light is an actuated traffic light, try to get
     //  the minimum and maximum durations
-    const SUMOTime minDuration = attrs.getOptSUMOTimeReporting(
-                                     SUMO_ATTR_MINDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, duration);
-    const SUMOTime maxDuration = attrs.getOptSUMOTimeReporting(
-                                     SUMO_ATTR_MAXDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, duration);
+    phase->minDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MINDURATION, id.c_str(), ok, duration);
+    phase->maxDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MAXDURATION, id.c_str(), ok, duration);
+    phase->nextPhases = attrs.getOptIntVector(SUMO_ATTR_NEXT, id.c_str(), ok);
+    phase->name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
 
+    phase->vehext= attrs.getOptSUMOTimeReporting(SUMO_ATTR_VEHICLEEXTENSION, id.c_str(), ok, tDefault);
+    phase->yellow= attrs.getOptSUMOTimeReporting(SUMO_ATTR_YELLOW, id.c_str(), ok, tDefault);
+    phase->red = attrs.getOptSUMOTimeReporting(SUMO_ATTR_RED, id.c_str(), ok, tDefault);
 
-    const std::vector<int> nextPhases = attrs.getOptIntVector(SUMO_ATTR_NEXT, nullptr, ok);
-    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, nullptr, ok, "");
-
-    SUMOTime vehextTime = attrs.getOptSUMOTimeReporting(
-                              SUMO_ATTR_VEHICLEEXTENSION, myJunctionControlBuilder.getActiveKey().c_str(), ok, string2time("999"));
-    SUMOTime yellowTime = attrs.getOptSUMOTimeReporting(
-                              SUMO_ATTR_YELLOW, myJunctionControlBuilder.getActiveKey().c_str(), ok, string2time("999"));
-    SUMOTime redTime = attrs.getOptSUMOTimeReporting(
-                           SUMO_ATTR_RED, myJunctionControlBuilder.getActiveKey().c_str(), ok, string2time("999"));
-    if (vehextTime != string2time("999")) {
-        myJunctionControlBuilder.addPhase(duration, state, nextPhases, minDuration, maxDuration, name, vehextTime, yellowTime, redTime);
-    } else {
+    if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
         //SOTL attributes
         //If the type attribute is not present, the parsed phase is of type "undefined" (MSPhaseDefinition constructor),
         //in this way SOTL traffic light logic can recognize the phase as unsuitable or decides other
         //behaviors. See SOTL traffic light logic implementations.
-        if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
-            std::string phaseTypeString;
-            bool transient_notdecisional_bit;
-            bool commit_bit;
-            std::vector<std::string> laneIdVector;
-            try {
-                phaseTypeString = attrs.get<std::string>(SUMO_ATTR_TYPE, "phase", ok, false);
-            } catch (EmptyData&) {
-                MsgHandler::getWarningInstance()->inform("Empty type definition. Assuming phase type as SUMOSOTL_TagAttrDefinitions::SOTL_ATTL_TYPE_TRANSIENT");
-                transient_notdecisional_bit = false;
-            }
-            if (phaseTypeString.find("decisional") != std::string::npos) {
-                transient_notdecisional_bit = false;
-            } else if (phaseTypeString.find("transient") != std::string::npos) {
-                transient_notdecisional_bit = true;
-            } else {
-                MsgHandler::getWarningInstance()->inform("SOTL_ATTL_TYPE_DECISIONAL nor SOTL_ATTL_TYPE_TRANSIENT. Assuming phase type as SUMOSOTL_TagAttrDefinitions::SOTL_ATTL_TYPE_TRANSIENT");
-                transient_notdecisional_bit = false;
-            }
-            commit_bit = (phaseTypeString.find("commit") != std::string::npos);
-
-            if (phaseTypeString.find("target") != std::string::npos) {
-                std::string delimiter(" ,;");
-                //Phase declared as target, getting targetLanes attribute
-                try {
-                    /// @todo: the following should be moved to StringTok
-                    std::string targetLanesString = attrs.getStringSecure(SUMO_ATTR_TARGETLANE, "");
-                    //TOKENIZING
-                    std::vector<std::string> targetLanesVector;
-                    //Skip delimiters at the beginning
-                    std::string::size_type firstPos = targetLanesString.find_first_not_of(delimiter, 0);
-                    //Find first "non-delimiter".
-                    std::string::size_type pos = targetLanesString.find_first_of(delimiter, firstPos);
-
-                    while (std::string::npos != pos || std::string::npos != firstPos) {
-                        //Found a token, add it to the vector
-                        targetLanesVector.push_back(targetLanesString.substr(firstPos, pos - firstPos));
-
-                        //Skip delimiters
-                        firstPos = targetLanesString.find_first_not_of(delimiter, pos);
-
-                        //Find next "non-delimiter"
-                        pos = targetLanesString.find_first_of(delimiter, firstPos);
-                    }
-                    //Adding the SOTL parsed phase to have a new MSPhaseDefinition that is SOTL compliant for target phases
-                    myJunctionControlBuilder.addPhase(duration, state, nextPhases, minDuration, maxDuration, name, transient_notdecisional_bit, commit_bit, &targetLanesVector);
-                } catch (EmptyData&) {
-                    MsgHandler::getErrorInstance()->inform("Missing targetLane definition for the target phase.");
-                    return;
-                }
-            } else {
-                //Adding the SOTL parsed phase to have a new MSPhaseDefinition that is SOTL compliant for non target phases
-                myJunctionControlBuilder.addPhase(duration, state, nextPhases, minDuration, maxDuration, name, transient_notdecisional_bit, commit_bit);
-            }
+        std::string phaseTypeString;
+        try {
+            phaseTypeString = attrs.get<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, false);
+        } catch (EmptyData&) {
+            MsgHandler::getWarningInstance()->inform("Empty type definition. Assuming phase type as SUMOSOTL_TagAttrDefinitions::SOTL_ATTL_TYPE_TRANSIENT");
+            phase->myTransientNotDecisional = false;
+        }
+        if (phaseTypeString.find("decisional") != std::string::npos) {
+            phase->myTransientNotDecisional = false;
+        } else if (phaseTypeString.find("transient") != std::string::npos) {
+            phase->myTransientNotDecisional = true;
         } else {
-            //Adding the standard parsed phase to have a new MSPhaseDefinition
-            myJunctionControlBuilder.addPhase(duration, state, nextPhases, minDuration, maxDuration, name);
+            MsgHandler::getWarningInstance()->inform("SOTL_ATTL_TYPE_DECISIONAL nor SOTL_ATTL_TYPE_TRANSIENT. Assuming phase type as SUMOSOTL_TagAttrDefinitions::SOTL_ATTL_TYPE_TRANSIENT");
+            phase->myTransientNotDecisional = false;
+        }
+        phase->myCommit = (phaseTypeString.find("commit") != std::string::npos);
+
+        if (phaseTypeString.find("target") != std::string::npos) {
+            std::string delimiter(" ,;");
+            //Phase declared as target, getting targetLanes attribute
+            try {
+                phase->myTargetLaneSet = StringTokenizer(attrs.getStringSecure(SUMO_ATTR_TARGETLANE, ""), " ,;", true).getVector();
+            } catch (EmptyData&) {
+                MsgHandler::getErrorInstance()->inform("Missing targetLane definition for the target phase.");
+                delete phase;
+                return;
+            }
         }
     }
+
+    if (phase->maxDuration < phase->minDuration) {
+        WRITE_WARNINGF("maxDur % should not be smaller than minDir % in phase of tlLogic %", phase->maxDuration, phase->minDuration, id);
+        phase->maxDuration = phase->duration;
+    }
+
+    phase->myLastSwitch = string2time(OptionsCont::getOptions().getString("begin")); // SUMOTime-option
+    myJunctionControlBuilder.addPhase(phase);
 }
 
 

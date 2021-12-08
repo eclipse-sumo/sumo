@@ -643,7 +643,11 @@ TrafficLight::setProgramLogic(const std::string& tlsID, const TraCILogic& logic)
     }
     std::vector<MSPhaseDefinition*> phases;
     for (TraCIPhase* phase : logic.phases) {
-        phases.push_back(new MSPhaseDefinition(TIME2STEPS(phase->duration), phase->state, TIME2STEPS(phase->minDur), TIME2STEPS(phase->maxDur), phase->next, phase->name));
+        MSPhaseDefinition* sumoPhase = new MSPhaseDefinition(TIME2STEPS(phase->duration), phase->state, phase->name);
+        sumoPhase->minDuration = TIME2STEPS(phase->minDur);
+        sumoPhase->maxDuration = TIME2STEPS(phase->maxDur);
+        sumoPhase->nextPhases = phase->next;
+        phases.push_back(sumoPhase);
     }
     if (vars.getLogic(logic.programID) == nullptr) {
         MSTLLogicControl& tlc = MSNet::getInstance()->getTLSControl();

@@ -87,7 +87,7 @@ MSOffTrafficLightLogic::rebuildPhase() {
         delete *i;
     }
     myPhaseDefinition.clear();
-    myPhaseDefinition.push_back(new MSPhaseDefinition(TIME2STEPS(120), state, -1));
+    myPhaseDefinition.push_back(new MSPhaseDefinition(TIME2STEPS(120), state));
 }
 
 

@@ -418,32 +418,13 @@ NLJunctionControlBuilder::initTrafficLightLogic(const std::string& id, const std
 
 
 void
-NLJunctionControlBuilder::addPhase(SUMOTime duration, const std::string& state, const std::vector<int>& nextPhases, SUMOTime minDuration, SUMOTime maxDuration, const std::string& name, bool transient_notdecisional, bool commit, std::vector<std::string>* targetLanes) {
+NLJunctionControlBuilder::addPhase(MSPhaseDefinition* phase) {
     // build and add the phase definition to the list
-    myActivePhases.push_back(new MSPhaseDefinition(duration, state, minDuration, maxDuration, nextPhases, name, transient_notdecisional, commit, targetLanes));
+    myActivePhases.push_back(phase);
     // add phase duration to the absolute duration
-    myAbsDuration += duration;
+    myAbsDuration += phase->duration;
 }
 
-
-void
-NLJunctionControlBuilder::addPhase(SUMOTime duration, const std::string& state, const std::vector<int>& nextPhases,
-                                   SUMOTime minDuration, SUMOTime maxDuration, const std::string& name) {
-    // build and add the phase definition to the list
-    myActivePhases.push_back(new MSPhaseDefinition(duration, state, minDuration, maxDuration, nextPhases, name));
-    // add phase duration to the absolute duration
-    myAbsDuration += duration;
-}
-
-void
-NLJunctionControlBuilder::addPhase(SUMOTime duration, const std::string& state, const std::vector<int>& nextPhases,
-                                   SUMOTime minDuration, SUMOTime maxDuration, const std::string& name,
-                                   SUMOTime vehextTime, SUMOTime yellowTime, SUMOTime redTime) {
-    // build and add the phase definition to the list
-    myActivePhases.push_back(new MSPhaseDefinition(duration, state, minDuration, maxDuration, vehextTime, redTime, yellowTime, nextPhases, name));
-    // add phase duration to the absolute duration
-    myAbsDuration += duration;
-}
 
 void
 NLJunctionControlBuilder::closeJunctionLogic() {
