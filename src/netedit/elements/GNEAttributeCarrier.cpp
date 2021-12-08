@@ -49,7 +49,7 @@ const double GNEAttributeCarrier::INVALID_POSITION(-1000000);
 // ===========================================================================
 
 GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net) :
-    myTagProperty(getTagProperties(tag)),
+    myTagProperty(getTagProperty(tag)),
     myNet(net),
     mySelected(false) {
 }
@@ -575,12 +575,6 @@ GNEAttributeCarrier::getTagStr() const {
 }
 
 
-const GNETagProperties&
-GNEAttributeCarrier::getTagProperty() const {
-    return myTagProperty;
-}
-
-
 FXIcon*
 GNEAttributeCarrier::getIcon() const {
     // define on first access
@@ -590,12 +584,18 @@ GNEAttributeCarrier::getIcon() const {
     return GUIIconSubSys::getIcon(myTagProperty.getGUIIcon());
 }
 
+
+const GNETagProperties&
+GNEAttributeCarrier::getTagProperty() const {
+    return myTagProperty;
+}
+
 // ===========================================================================
 // static methods
 // ===========================================================================
 
 const GNETagProperties&
-GNEAttributeCarrier::getTagProperties(SumoXMLTag tag) {
+GNEAttributeCarrier::getTagProperty(SumoXMLTag tag) {
     if (tag == SUMO_TAG_NOTHING) {
         return dummyTagProperty;
     }
@@ -613,7 +613,7 @@ GNEAttributeCarrier::getTagProperties(SumoXMLTag tag) {
 
 
 const std::vector<GNETagProperties>
-GNEAttributeCarrier::getAllowedTagPropertiesByCategory(const int tagPropertyCategory) {
+GNEAttributeCarrier::getTagPropertiesByType(const int tagPropertyCategory) {
     std::vector<GNETagProperties> allowedTags;
     // define on first access
     if (myTagProperties.size() == 0) {

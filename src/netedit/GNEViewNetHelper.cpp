@@ -2802,7 +2802,7 @@ GNEViewNetHelper::IntervalBar::updateIntervalBar() {
                 myGenericDataTypesComboBox->appendItem(myAllGenericDatas);
                 myDataSetsComboBox->appendItem(myAllDataSets);
                 // get all generic data types
-                const auto genericDataTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::GENERICDATA);
+                const auto genericDataTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::GENERICDATA);
                 // add all generic data types
                 for (const auto& dataTag : genericDataTags) {
                     myGenericDataTypesComboBox->appendItem(dataTag.getFieldString().c_str());
@@ -2893,7 +2893,7 @@ GNEViewNetHelper::IntervalBar::setGenericDataType() {
         myGenericDataTypesComboBox->setText(myAllGenericDatas);
     } else {
         // get all generic data types
-        const auto genericDataTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::GENERICDATA);
+        const auto genericDataTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::GENERICDATA);
         // set invalid color
         myGenericDataTypesComboBox->setTextColor(FXRGB(255, 0, 0));
         // set valid color depending of myGenericDataTypesComboBox

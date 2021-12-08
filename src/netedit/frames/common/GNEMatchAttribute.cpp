@@ -98,17 +98,17 @@ GNEMatchAttribute::showMatchAttribute(const GNEElementSet::Type type) {
     // get tags for the given element set
     std::vector<GNETagProperties> tagPropertiesStrings;
     if (type == (GNEElementSet::Type::NETWORK)) {
-        tagPropertiesStrings = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::NETWORKELEMENT);
+        tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::NETWORKELEMENT);
     } else if (type == GNEElementSet::Type::ADDITIONAL) {
-        tagPropertiesStrings = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::ADDITIONALELEMENT);
+        tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::ADDITIONALELEMENT);
     } else if (type == GNEElementSet::Type::SHAPE) {
-        tagPropertiesStrings = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::SHAPE);
+        tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::SHAPE);
     } else if (type == GNEElementSet::Type::TAZ) {
-        tagPropertiesStrings = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::TAZELEMENT);
+        tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::TAZELEMENT);
     } else if (type == GNEElementSet::Type::DEMAND) {
-        tagPropertiesStrings = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP);
+        tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP);
     } else if (type == GNEElementSet::Type::DATA) {
-        tagPropertiesStrings = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::GENERICDATA);
+        tagPropertiesStrings = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::GENERICDATA);
     } else {
         throw ProcessError("Unkown set");
     }
@@ -159,9 +159,9 @@ GNEMatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
 long
 GNEMatchAttribute::onCmdSelMBAttribute(FXObject*, FXSelector, void*) {
     // first obtain a copy of item attributes vinculated with current tag
-    auto tagPropertiesCopy = GNEAttributeCarrier::getTagProperties(myCurrentTag);
+    auto tagPropertiesCopy = GNEAttributeCarrier::getTagProperty(myCurrentTag);
     // obtain tag property (only for improve code legibility)
-    const auto& tagValue = GNEAttributeCarrier::getTagProperties(myCurrentTag);
+    const auto& tagValue = GNEAttributeCarrier::getTagProperty(myCurrentTag);
     // add an extra AttributeValues to allow select ACs using as criterium "parameters"
     GNEAttributeProperties extraAttrProperty;
     extraAttrProperty = GNEAttributeProperties(GNE_ATTR_PARAMETERS,
@@ -210,7 +210,7 @@ long
 GNEMatchAttribute::onCmdSelMBString(FXObject*, FXSelector, void*) {
     // obtain expresion
     std::string expr(myMatchString->getText().text());
-    const auto& tagValue = GNEAttributeCarrier::getTagProperties(myCurrentTag);
+    const auto& tagValue = GNEAttributeCarrier::getTagProperty(myCurrentTag);
     bool valid = true;
     if (expr == "") {
         // the empty expression matches all objects
@@ -347,7 +347,7 @@ GNEMatchAttribute::updateAttribute() {
     // first check if tag is valid
     if (myCurrentTag != SUMO_TAG_NOTHING) {
         // now continue with attributes
-        const auto& tagProperty = GNEAttributeCarrier::getTagProperties(myCurrentTag);
+        const auto& tagProperty = GNEAttributeCarrier::getTagProperty(myCurrentTag);
         // set color and enable items
         myMatchAttrComboBox->enable();
         myMatchAttrComboBox->setTextColor(FXRGB(0, 0, 0));

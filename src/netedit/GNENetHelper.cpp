@@ -46,31 +46,31 @@
 GNENetHelper::AttributeCarriers::AttributeCarriers(GNENet* net) :
     myNet(net) {
     // fill additionals with tags
-    auto additionalTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::SYMBOL);
+    auto additionalTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::SYMBOL);
     for (const auto& additionalTag : additionalTags) {
         myAdditionals.insert(std::make_pair(additionalTag.getTag(), std::set<GNEAdditional*>()));
     }
     // fill shapes with tags
-    auto shapeTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::SHAPE);
+    auto shapeTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::SHAPE);
     for (const auto& shapeTag : shapeTags) {
         myShapes.insert(std::make_pair(shapeTag.getTag(), std::set<GNEShape*>()));
     }
     // fill TAZElements with tags
-    auto TAZElementTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::TAZELEMENT);
+    auto TAZElementTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::TAZELEMENT);
     for (const auto& TAZElementTag : TAZElementTags) {
         myTAZElements.insert(std::make_pair(TAZElementTag.getTag(), std::set<GNETAZElement*>()));
     }
     // fill demand elements with tags
-    auto demandElementTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::DEMANDELEMENT);
+    auto demandElementTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::DEMANDELEMENT);
     for (const auto& demandElementTag : demandElementTags) {
         myDemandElements.insert(std::make_pair(demandElementTag.getTag(), std::set<GNEDemandElement*>()));
     }
-    auto stopTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::STOP);
+    auto stopTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::STOP);
     for (const auto& stopTag : stopTags) {
         myDemandElements.insert(std::make_pair(stopTag.getTag(), std::set<GNEDemandElement*>()));
     }
     // fill data elements with tags
-    auto genericDataElementTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::GENERICDATA);
+    auto genericDataElementTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::GENERICDATA);
     for (const auto& genericDataElementTag : genericDataElementTags) {
         myGenericDatas.insert(std::make_pair(genericDataElementTag.getTag(), std::set<GNEGenericData*>()));
     }
@@ -270,19 +270,19 @@ GNENetHelper::AttributeCarriers::retrieveAttributeCarriers(SumoXMLTag tag) {
         for (const auto& crossing : myCrossings) {
             result.push_back(crossing);
         }
-    } else if ((tag == SUMO_TAG_NOTHING) || (GNEAttributeCarrier::getTagProperties(tag).isAdditionalElement())) {
+    } else if ((tag == SUMO_TAG_NOTHING) || (GNEAttributeCarrier::getTagProperty(tag).isAdditionalElement())) {
         for (const auto& additional : myAdditionals.at(tag)) {
             result.push_back(additional);
         }
-    } else if ((tag == SUMO_TAG_NOTHING) || (GNEAttributeCarrier::getTagProperties(tag).isShape())) {
+    } else if ((tag == SUMO_TAG_NOTHING) || (GNEAttributeCarrier::getTagProperty(tag).isShape())) {
         for (const auto& shape : myShapes.at(tag)) {
             result.push_back(shape);
         }
-    } else if ((tag == SUMO_TAG_NOTHING) || (GNEAttributeCarrier::getTagProperties(tag).isTAZElement())) {
+    } else if ((tag == SUMO_TAG_NOTHING) || (GNEAttributeCarrier::getTagProperty(tag).isTAZElement())) {
         for (const auto& TAZElement : myTAZElements.at(tag)) {
             result.push_back(TAZElement);
         }
-    } else if ((tag == SUMO_TAG_NOTHING) || (GNEAttributeCarrier::getTagProperties(tag).isDemandElement())) {
+    } else if ((tag == SUMO_TAG_NOTHING) || (GNEAttributeCarrier::getTagProperty(tag).isDemandElement())) {
         for (const auto& demandElemet : myDemandElements.at(tag)) {
             result.push_back(demandElemet);
         }
@@ -294,7 +294,7 @@ GNENetHelper::AttributeCarriers::retrieveAttributeCarriers(SumoXMLTag tag) {
         for (const auto& dataInterval : myDataIntervals) {
             result.push_back(dataInterval);
         }
-    } else if ((tag == SUMO_TAG_NOTHING) || (GNEAttributeCarrier::getTagProperties(tag).isGenericData())) {
+    } else if ((tag == SUMO_TAG_NOTHING) || (GNEAttributeCarrier::getTagProperty(tag).isGenericData())) {
         for (const auto& genericData : myGenericDatas.at(tag)) {
             result.push_back(genericData);
         }

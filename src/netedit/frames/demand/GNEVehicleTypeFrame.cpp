@@ -323,7 +323,7 @@ GNEVehicleTypeFrame::VehicleTypeEditor::onCmdResetVehicleType(FXObject*, FXSelec
     // begin reset default vehicle type values
     myVehicleTypeFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::VTYPE, "reset default vehicle type values");
     // reset all values of default vehicle type
-    for (const auto& i : GNEAttributeCarrier::getTagProperties(SUMO_TAG_VTYPE)) {
+    for (const auto& i : GNEAttributeCarrier::getTagProperty(SUMO_TAG_VTYPE)) {
         // change all attributes with "" to reset it (except ID and vClass)
         if ((i.getAttr() != SUMO_ATTR_ID) && (i.getAttr() != SUMO_ATTR_VCLASS)) {
             myVehicleTypeFrameParent->myVehicleTypeSelector->getCurrentVehicleType()->setAttribute(i.getAttr(), "", myVehicleTypeFrameParent->myViewNet->getUndoList());

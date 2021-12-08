@@ -192,7 +192,7 @@ GNETAZFrame::CurrentTAZ::setTAZ(GNETAZ* editedTAZ) {
         // show TAZ parameters
         myTAZFrameParent->myTAZParameters->showTAZParametersModul();
         // show Netedit parameters
-        myTAZFrameParent->myNeteditAttributes->showNeteditAttributesModul(GNEAttributeCarrier::getTagProperties(SUMO_TAG_TAZ));
+        myTAZFrameParent->myNeteditAttributes->showNeteditAttributesModul(GNEAttributeCarrier::getTagProperty(SUMO_TAG_TAZ));
         // show drawing shape
         myTAZFrameParent->myDrawingShape->showDrawingShape();
         // hide edge common parameters

@@ -514,7 +514,7 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
     if (ignoreLocking || !locks.isObjectLocked(GLO_ADDITIONALELEMENT, false)) {
         for (const auto& additionalTag : ACs->getAdditionals()) {
             // first check if additional is selectable
-            if (GNEAttributeCarrier::getTagProperties(additionalTag.first).isSelectable()) {
+            if (GNEAttributeCarrier::getTagProperty(additionalTag.first).isSelectable()) {
                 for (const auto& additional : additionalTag.second) {
                     if (onlyCount) {
                         return true;
@@ -1157,7 +1157,7 @@ GNESelectorFrame::getMatches(const SumoXMLTag ACTag, const SumoXMLAttr ACAttr, c
     // first retrieve all ACs using ACTag
     const auto allACbyTag = myViewNet->getNet()->getAttributeCarriers()->retrieveAttributeCarriers(ACTag);
     // get Tag value
-    const auto& tagValue = GNEAttributeCarrier::getTagProperties(ACTag);
+    const auto& tagValue = GNEAttributeCarrier::getTagProperty(ACTag);
     // iterate over all ACs
     for (const auto& AC : allACbyTag) {
         if (expr == "" && compOp == '@') {

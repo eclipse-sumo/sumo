@@ -205,17 +205,17 @@ public:
     /// @brief get tag assigned to this object in string format
     const std::string& getTagStr() const;
 
-    /// @brief get Tag Property assigned to this object
-    const GNETagProperties& getTagProperty() const;
-
     /// @brief get FXIcon associated to this AC
     FXIcon* getIcon() const;
 
-    /// @brief get Tag Properties
-    static const GNETagProperties& getTagProperties(SumoXMLTag tag);
+    /// @brief get tagProperty associated with this Attribute Carrier
+    const GNETagProperties& getTagProperty() const;
 
-    /// @brief get tagProperties of all editable element types using TagProperty Type (NetworkEditMode::NETWORKELEMENT, ADDITIONALELEMENT, etc.)
-    static const std::vector<GNETagProperties> getAllowedTagPropertiesByCategory(const int tagPropertyCategory);
+    /// @brief get tagProperty associated to the given tag
+    static const GNETagProperties& getTagProperty(SumoXMLTag tag);
+
+    /// @brief get tagProperties associated to the given GNETagProperties::TagType (NETWORKELEMENT, ADDITIONALELEMENT, VEHICLE, etc.)
+    static const std::vector<GNETagProperties> getTagPropertiesByType(const int tagPropertyCategory);
 
     /// @brief true if a value of type T can be parsed from string
     template<typename T>

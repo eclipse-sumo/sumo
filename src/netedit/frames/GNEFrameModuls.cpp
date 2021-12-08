@@ -240,7 +240,7 @@ GNEFrameModuls::TagSelector::setCurrentTagType(GNETagProperties::TagType tagType
     myACTemplates.clear();
     myTagsMatchBox->clearItems();
     // get tag properties
-    const auto tagProperties = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(myTagType);
+    const auto tagProperties = GNEAttributeCarrier::getTagPropertiesByType(myTagType);
     // fill myACTemplates and myTagsMatchBox
     for (const auto &tagProperty : tagProperties) {
         if ((!onlyDrawables || tagProperty.isDrawable()) && (!tagProperty.requireProj() || proj)) {
@@ -516,7 +516,7 @@ GNEFrameModuls::DemandElementSelector::DemandElementSelector(GNEFrame* framePare
     myCurrentDemandElement(nullptr) {
     // fill myDemandElementTags
     for (const auto& tagType : tagTypes) {
-        const auto tagProperties = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(tagType);
+        const auto tagProperties = GNEAttributeCarrier::getTagPropertiesByType(tagType);
         for (const auto& tagProperty : tagProperties) {
             myDemandElementTags.push_back(tagProperty.getTag());
         }
@@ -1921,7 +1921,7 @@ GNEFrameModuls::SelectorParent::setIDSelected(const std::string& id) {
 bool
 GNEFrameModuls::SelectorParent::showSelectorParentModul(const std::vector<SumoXMLTag>& additionalTypeParents) {
     // make sure that we're editing an additional tag
-    const auto listOfTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::TagType::ADDITIONALELEMENT);
+    const auto listOfTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::ADDITIONALELEMENT);
     for (const auto& tagIt : listOfTags) {
         if (std::find(additionalTypeParents.begin(), additionalTypeParents.end(), tagIt.getTag()) != additionalTypeParents.end()) {
             myParentTags = additionalTypeParents;
