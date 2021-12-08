@@ -125,7 +125,35 @@ GNEStop::getBegin() const {
 
 void
 GNEStop::writeDemandElement(OutputDevice& device) const {
-    write(device);
+    device.openTag(SUMO_TAG_STOP);
+    if (getParentAdditionals().size() > 0) {
+        if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) {
+            device.writeAttr(SUMO_ATTR_BUS_STOP, getParentAdditionals().front()->getID());
+        }
+        if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_CONTAINER_STOP) {
+            device.writeAttr(SUMO_ATTR_CONTAINER_STOP, getParentAdditionals().front()->getID());
+        }
+        if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_CHARGING_STATION) {
+            device.writeAttr(SUMO_ATTR_CHARGING_STATION, getParentAdditionals().front()->getID());
+        }
+        if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA) {
+            device.writeAttr(SUMO_ATTR_PARKING_AREA, getParentAdditionals().front()->getID());
+        }
+    } else {
+        if (getParentLanes().size() > 0) {
+            device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
+        } else {
+            device.writeAttr(SUMO_ATTR_EDGE, getParentEdges().front()->getID());
+        }
+        if ((parametersSet & STOP_START_SET) != 0) {
+            device.writeAttr(SUMO_ATTR_STARTPOS, startPos);
+        }
+        if ((parametersSet & STOP_END_SET) != 0) {
+            device.writeAttr(SUMO_ATTR_ENDPOS, endPos);
+        }
+    }
+    // write rest of attributes
+    write(device, true, false);
 }
 
 

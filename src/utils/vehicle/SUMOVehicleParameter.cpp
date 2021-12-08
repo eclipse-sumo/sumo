@@ -177,31 +177,33 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
 
 
 void
-SUMOVehicleParameter::Stop::write(OutputDevice& dev, bool close) const {
-    dev.openTag(SUMO_TAG_STOP);
-    if (busstop != "") {
-        dev.writeAttr(SUMO_ATTR_BUS_STOP, busstop);
-    }
-    if (containerstop != "") {
-        dev.writeAttr(SUMO_ATTR_CONTAINER_STOP, containerstop);
-    }
-    if (chargingStation != "") {
-        dev.writeAttr(SUMO_ATTR_CHARGING_STATION, chargingStation);
-    }
-    if (parkingarea != "") {
-        dev.writeAttr(SUMO_ATTR_PARKING_AREA, parkingarea);
-    }
-    if ((busstop == "") && (containerstop == "") && (parkingarea == "") && (chargingStation == "")) {
-        if (lane != "") {
-            dev.writeAttr(SUMO_ATTR_LANE, lane);
-        } else {
-            dev.writeAttr(SUMO_ATTR_EDGE, edge);
+SUMOVehicleParameter::Stop::write(OutputDevice& dev, const bool close, const bool writeTagAndParents) const {
+    if (writeTagAndParents) {
+        dev.openTag(SUMO_TAG_STOP);
+        if (busstop != "") {
+            dev.writeAttr(SUMO_ATTR_BUS_STOP, busstop);
         }
-        if ((parametersSet & STOP_START_SET) != 0) {
-            dev.writeAttr(SUMO_ATTR_STARTPOS, startPos);
+        if (containerstop != "") {
+            dev.writeAttr(SUMO_ATTR_CONTAINER_STOP, containerstop);
         }
-        if ((parametersSet & STOP_END_SET) != 0) {
-            dev.writeAttr(SUMO_ATTR_ENDPOS, endPos);
+        if (chargingStation != "") {
+            dev.writeAttr(SUMO_ATTR_CHARGING_STATION, chargingStation);
+        }
+        if (parkingarea != "") {
+            dev.writeAttr(SUMO_ATTR_PARKING_AREA, parkingarea);
+        }
+        if ((busstop == "") && (containerstop == "") && (parkingarea == "") && (chargingStation == "")) {
+            if (lane != "") {
+                dev.writeAttr(SUMO_ATTR_LANE, lane);
+            } else {
+                dev.writeAttr(SUMO_ATTR_EDGE, edge);
+            }
+            if ((parametersSet & STOP_START_SET) != 0) {
+                dev.writeAttr(SUMO_ATTR_STARTPOS, startPos);
+            }
+            if ((parametersSet & STOP_END_SET) != 0) {
+                dev.writeAttr(SUMO_ATTR_ENDPOS, endPos);
+            }
         }
     }
     if ((parametersSet & STOP_POSLAT_SET) != 0 && posLat != INVALID_DOUBLE) {
