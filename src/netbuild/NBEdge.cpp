@@ -2549,7 +2549,7 @@ NBEdge::applyTurnSigns() {
         // remove targets by permissions
         int i = 0;
         while (signedDirs.size() < targets.size() && i < (int)targets.size()) {
-            if ((targets[i]->getPermissions() & SVC_PASSENGER) == 0) {
+            if (targets[i] != nullptr && (targets[i]->getPermissions() & SVC_PASSENGER) == 0) {
                 targets.erase(targets.begin() + i);
                 sumoDirs.erase(sumoDirs.begin() + i);
             } else {
