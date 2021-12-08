@@ -90,6 +90,7 @@ jobs:
       with:
         name: Windows-${{ matrix.build-type }}
         path: sumo/bin
+        retention-days: 30
 
     - name: Plain examples and tests
       if: matrix.build-type == 'plain'
