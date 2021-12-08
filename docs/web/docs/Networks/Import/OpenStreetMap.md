@@ -112,6 +112,18 @@ as well as oneway information for bicycles. This usually applies only to the per
 for existing lanes and streets. If you want to add further bike lanes use the bicycle
 type map mentioned above.
 
+### Pedestrian Traffic
+
+By default only footpaths (osm ways dedicated for pedestrian use) are imported.
+To import all sidewalk related information, the option **--sidewalks** can be set. Alternatively, sidwalks can be added heuristically via typemaps (see above) or [guessing-options](../../Simulation/Pedestrians.md#generating_a_network_with_sidewalks)
+
+### Lane-To-Lane Connections
+
+By default, lane-to-lane connections are guessed by [netconvert](../../netconvert.md) and only turning restrictions are loaded from OSM to influence connection generation. When setting option **--osm.turn-lanes**, the turn direction road markings form OSM are evaluated to guide connection generation.
+
+!!! caution
+    At roads where some lanes have turn markings and others do not, the unmarked lanes are interpreted as through-lanes. This may not be correct in all cases.
+
 # Importing additional Polygons (Buildings, Water, etc.)
 
 OSM-data not only contains the road network but also a wide range of
