@@ -35,13 +35,11 @@
 // ===========================================================================
 
 std::map<SumoXMLTag, GNETagProperties> GNEAttributeCarrier::myTagProperties;
-GNETagProperties GNEAttributeCarrier::dummyTagProperty;
 const std::string GNEAttributeCarrier::FEATURE_LOADED = "loaded";
 const std::string GNEAttributeCarrier::FEATURE_GUESSED = "guessed";
 const std::string GNEAttributeCarrier::FEATURE_MODIFIED = "modified";
 const std::string GNEAttributeCarrier::FEATURE_APPROVED = "approved";
 const size_t GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES = 128;
-const double GNEAttributeCarrier::INVALID_POSITION(-1000000);
 
 
 // ===========================================================================
@@ -596,16 +594,13 @@ GNEAttributeCarrier::getTagProperty() const {
 
 const GNETagProperties&
 GNEAttributeCarrier::getTagProperty(SumoXMLTag tag) {
-    if (tag == SUMO_TAG_NOTHING) {
-        return dummyTagProperty;
-    }
     // define on first access
     if (myTagProperties.size() == 0) {
         fillAttributeCarriers();
     }
     // check that tag is defined
     if (myTagProperties.count(tag) == 0) {
-        throw ProcessError("Attributes for tag '" + toString(tag) + "' not defined");
+        throw ProcessError("TagProperty for tag '" + toString(tag) + "' not defined");
     } else {
         return myTagProperties.at(tag);
     }
