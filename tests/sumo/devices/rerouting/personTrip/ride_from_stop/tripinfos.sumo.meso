@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Dec 17 10:57:07 2020 by Eclipse SUMO sumo Version v1_8_0+0301-ed4f30242e
+<!-- generated on 2021-12-08 14:35:33 by Eclipse SUMO sumo Version v1_11_0+0353-0fe5fe321c1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -44,7 +44,7 @@ SPDX-License-Identifier: EPL-2.0
     <tripinfo id="trainBA.0" depart="362.00" departLane="" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="568.00" arrivalLane="" arrivalPos="1200.00" arrivalSpeed="13.89" duration="206.00" routeLength="1200.00" waitingTime="0.00" waitingCount="0" stopTime="119.41" timeLoss="119.41" rerouteNo="0" devices="tripinfo_trainBA.0" vType="train" speedFactor="1.00" vaporized=""/>
     <personinfo id="p0" depart="400.00" type="DEFAULT_PEDTYPE">
         <stop duration="1.00" arrival="401.00" arrivalPos="300.00" actType="waiting"/>
-        <ride waitingTime="142.00" vehicle="trainAC.0" depart="543.00" arrival="679.00" arrivalPos="1400.00" duration="136.00" routeLength="1100.00" timeLoss="0.00"/>
+        <ride waitingTime="127.80" vehicle="trainAC.0" depart="528.80" arrival="608.00" arrivalPos="1400.00" duration="79.20" routeLength="1100.00" timeLoss="0.00"/>
     </personinfo>
     <tripinfo id="trainAC.0" depart="451.00" departLane="" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="693.00" arrivalLane="" arrivalPos="1700.00" arrivalSpeed="13.89" duration="242.00" routeLength="1700.00" waitingTime="0.00" waitingCount="0" stopTime="119.21" timeLoss="119.21" rerouteNo="0" devices="tripinfo_trainAC.0 person_trainAC.0" vType="train" speedFactor="1.00" vaporized=""/>
     <tripinfo id="trainCA.0" depart="522.00" departLane="" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="764.00" arrivalLane="" arrivalPos="1700.00" arrivalSpeed="13.89" duration="242.00" routeLength="1700.00" waitingTime="0.00" waitingCount="0" stopTime="119.21" timeLoss="119.21" rerouteNo="0" devices="tripinfo_trainCA.0" vType="train" speedFactor="1.00" vaporized=""/>

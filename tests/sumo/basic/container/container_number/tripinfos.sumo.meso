@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-09-02 14:21:18 by Eclipse SUMO sumo Version v1_10_0+0462-e5698a887e3
+<!-- generated on 2021-12-08 14:33:25 by Eclipse SUMO sumo Version v1_11_0+0353-0fe5fe321c1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -45,7 +45,7 @@ SPDX-License-Identifier: EPL-2.0
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <containerinfo id="container0" depart="0.00" type="DEFAULT_CONTAINERTYPE">
-        <transport waitingTime="64.00" vehicle="vehicle1" depart="64.00" arrival="70.00" arrivalPos="0.00" duration="6.00" routeLength="92.00" timeLoss="0.00"/>
+        <transport waitingTime="57.49" vehicle="vehicle1" depart="57.49" arrival="70.00" arrivalPos="0.00" duration="12.51" routeLength="182.50" timeLoss="0.00"/>
     </containerinfo>
     <tripinfo id="vehicle1" depart="0.00" departLane="" departPos="0.00" departSpeed="13.90" departDelay="0.00" arrival="103.00" arrivalLane="" arrivalPos="90.50" arrivalSpeed="13.90" duration="103.00" routeLength="455.50" waitingTime="0.00" waitingCount="0" stopTime="70.00" timeLoss="70.00" rerouteNo="0" devices="tripinfo_vehicle1 container_vehicle1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-09-03 08:52:27 by Eclipse SUMO sumo Version v1_10_0+0482-3835bb5824c
+<!-- generated on 2021-12-08 14:33:20 by Eclipse SUMO sumo Version v1_11_0+0353-0fe5fe321c1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -47,7 +47,7 @@ SPDX-License-Identifier: EPL-2.0
     <tripinfo id="bus.2" depart="240.00" departLane="" departPos="0.00" departSpeed="2.98" departDelay="0.00" arrival="451.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="211.00" routeLength="3012.36" waitingTime="0.00" waitingCount="0" stopTime="30.00" timeLoss="30.00" rerouteNo="0" devices="tripinfo_bus.2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="bus.3" depart="360.00" departLane="" departPos="0.00" departSpeed="2.98" departDelay="0.00" arrival="571.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="211.00" routeLength="3012.36" waitingTime="0.00" waitingCount="0" stopTime="30.00" timeLoss="30.00" rerouteNo="0" devices="tripinfo_bus.3" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <personinfo id="p1" depart="20.00" type="DEFAULT_PEDTYPE">
-        <ride waitingTime="494.00" vehicle="bus.4" depart="514.00" arrival="691.00" arrivalPos="500.00" duration="177.00" routeLength="2912.36" timeLoss="0.00"/>
+        <ride waitingTime="490.40" vehicle="bus.4" depart="510.40" arrival="691.00" arrivalPos="500.00" duration="180.60" routeLength="2912.36" timeLoss="0.00"/>
     </personinfo>
     <tripinfo id="bus.4" depart="480.00" departLane="" departPos="0.00" departSpeed="2.98" departDelay="0.00" arrival="691.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="211.00" routeLength="3012.36" waitingTime="0.00" waitingCount="0" stopTime="30.00" timeLoss="30.00" rerouteNo="0" devices="tripinfo_bus.4 person_bus.4" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="bus.5" depart="600.00" departLane="" departPos="0.00" departSpeed="2.98" departDelay="0.00" arrival="811.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="211.00" routeLength="3012.36" waitingTime="0.00" waitingCount="0" stopTime="30.00" timeLoss="30.00" rerouteNo="0" devices="tripinfo_bus.5" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>

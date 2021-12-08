@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-09-02 14:21:16 by Eclipse SUMO sumo Version v1_10_0+0462-e5698a887e3
+<!-- generated on 2021-12-08 14:33:25 by Eclipse SUMO sumo Version v1_11_0+0353-0fe5fe321c1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,14 +43,14 @@ SPDX-License-Identifier: EPL-2.0
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <containerinfo id="c1" depart="20.00" type="DEFAULT_CONTAINERTYPE">
-        <transport waitingTime="14.00" vehicle="truck0" depart="34.00" arrival="211.00" arrivalPos="500.00" duration="177.00" routeLength="2912.36" timeLoss="0.00"/>
+        <transport waitingTime="10.40" vehicle="truck0" depart="30.40" arrival="211.00" arrivalPos="500.00" duration="180.60" routeLength="2912.36" timeLoss="0.00"/>
     </containerinfo>
     <containerinfo id="c2" depart="20.00" type="DEFAULT_CONTAINERTYPE">
-        <transport waitingTime="14.00" vehicle="truck0" depart="34.00" arrival="211.00" arrivalPos="500.00" duration="177.00" routeLength="2912.36" timeLoss="0.00"/>
+        <transport waitingTime="10.40" vehicle="truck0" depart="30.40" arrival="211.00" arrivalPos="500.00" duration="180.60" routeLength="2912.36" timeLoss="0.00"/>
     </containerinfo>
     <tripinfo id="truck0" depart="0.00" departLane="" departPos="0.00" departSpeed="2.98" departDelay="0.00" arrival="211.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="211.00" routeLength="3012.36" waitingTime="0.00" waitingCount="0" stopTime="30.00" timeLoss="30.00" rerouteNo="0" devices="tripinfo_truck0 container_truck0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <containerinfo id="c3" depart="20.00" type="DEFAULT_CONTAINERTYPE">
-        <transport waitingTime="134.00" vehicle="truck1" depart="154.00" arrival="331.00" arrivalPos="500.00" duration="177.00" routeLength="2912.36" timeLoss="0.00"/>
+        <transport waitingTime="130.40" vehicle="truck1" depart="150.40" arrival="331.00" arrivalPos="500.00" duration="180.60" routeLength="2912.36" timeLoss="0.00"/>
     </containerinfo>
     <tripinfo id="truck1" depart="120.00" departLane="" departPos="0.00" departSpeed="2.98" departDelay="0.00" arrival="331.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="211.00" routeLength="3012.36" waitingTime="0.00" waitingCount="0" stopTime="30.00" timeLoss="30.00" rerouteNo="0" devices="tripinfo_truck1 container_truck1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>

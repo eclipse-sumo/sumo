@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-10-27 14:02:14 by Eclipse SUMO sumo Version v1_10_0+1740-a59df310fb4
+<!-- generated on 2021-12-08 14:33:34 by Eclipse SUMO sumo Version v1_11_0+0353-0fe5fe321c1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -47,7 +47,7 @@ SPDX-License-Identifier: EPL-2.0
     <tripinfo id="car" depart="120.00" departLane="" departPos="0.00" departSpeed="7.69" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="30.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="3.00" timeLoss="3.00" rerouteNo="1" devices="tripinfo_car routing_car person_car" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized="end"/>
     <personinfo id="ride_not_finished" depart="0.00" type="DEFAULT_PEDTYPE">
         <stop duration="3.00" arrival="3.00" arrivalPos="3.00" actType="waiting"/>
-        <ride waitingTime="130.00" vehicle="car" depart="133.00" arrival="-1" arrivalPos="400.00" duration="17.00" routeLength="0.00" timeLoss="-1"/>
+        <ride waitingTime="120.00" vehicle="car" depart="123.00" arrival="-1" arrivalPos="400.00" duration="27.00" routeLength="0.00" timeLoss="-1"/>
     </personinfo>
     <personinfo id="ride_not_started" depart="0.00" type="DEFAULT_PEDTYPE">
         <stop duration="3.00" arrival="3.00" arrivalPos="0.00" actType="waiting"/>

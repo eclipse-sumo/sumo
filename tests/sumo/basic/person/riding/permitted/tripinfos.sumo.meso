@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-09-03 08:52:28 by Eclipse SUMO sumo Version v1_10_0+0482-3835bb5824c
+<!-- generated on 2021-12-08 14:33:21 by Eclipse SUMO sumo Version v1_11_0+0353-0fe5fe321c1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -40,10 +40,10 @@ SPDX-License-Identifier: EPL-2.0
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <personinfo id="p1" depart="0.00" type="DEFAULT_PEDTYPE">
-        <ride waitingTime="24.00" vehicle="v1" depart="24.00" arrival="30.00" arrivalPos="0.00" duration="6.00" routeLength="91.95" timeLoss="0.00"/>
+        <ride waitingTime="17.38" vehicle="v1" depart="17.38" arrival="30.00" arrivalPos="0.00" duration="12.62" routeLength="183.90" timeLoss="0.00"/>
     </personinfo>
     <personinfo id="p2" depart="0.00" type="DEFAULT_PEDTYPE">
-        <ride waitingTime="70.00" vehicle="v1" depart="70.00" arrival="77.00" arrivalPos="0.00" duration="7.00" routeLength="91.95" timeLoss="0.00"/>
+        <ride waitingTime="63.38" vehicle="v1" depart="63.38" arrival="77.00" arrivalPos="0.00" duration="13.62" routeLength="183.90" timeLoss="0.00"/>
     </personinfo>
     <tripinfo id="v1" depart="0.00" departLane="" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="146.00" arrivalLane="" arrivalPos="91.95" arrivalSpeed="13.89" duration="146.00" routeLength="1471.20" waitingTime="0.00" waitingCount="0" stopTime="40.00" timeLoss="40.00" rerouteNo="0" devices="vehroute_v1 tripinfo_v1 person_v1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>
