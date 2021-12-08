@@ -32,6 +32,13 @@ to set the file names explicitly. In particular if a plain text xml-file
 is desired as output (instead of the compressed format .xml.gz) the file names
 should be given (with suffix .xml).
 
+## Further options
+
+- **--save-state.rng**: Save random number generator states
+- **--save-state.transportables**: Save person and container states
+- **--save-state.constraints**: Save rail signal constraints
+- **--save-state.precision**: Set decimal precision when saving states
+
 # Loading
 
 The option **--load-state** {{DT_FILE}} is used to initialize the simulation with the given state
@@ -64,10 +71,9 @@ When setting option **--save-state.rng**, the state of all random number generat
 
 # Know Issues
 
+- flows cannot be loaded from a state file alone (the original route file must be loaded as well)
 - The internal state of the laneChangeModel is not saved
 - the internal state of the carFollowModel is not saved (not all models have this).
-- Persons are not saved
-- Traffic light states with dynamic / modified timings may not be restored correctly.
 
 # Older Versions of SUMO
 
