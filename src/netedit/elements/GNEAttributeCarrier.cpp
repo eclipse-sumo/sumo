@@ -3729,7 +3729,7 @@ GNEAttributeCarrier::fillStopElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         // fill common stop attributes
-        fillCommonStopAttributes(currentTag, true);
+        fillCommonStopAttributes(currentTag);
     }
     currentTag = SUMO_TAG_STOP_BUSSTOP;
     {
@@ -3745,7 +3745,7 @@ GNEAttributeCarrier::fillStopElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         // fill common stop attributes
-        fillCommonStopAttributes(currentTag, true);
+        fillCommonStopAttributes(currentTag);
     }
     currentTag = SUMO_TAG_STOP_CONTAINERSTOP;
     {
@@ -3761,7 +3761,7 @@ GNEAttributeCarrier::fillStopElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         // fill common stop attributes
-        fillCommonStopAttributes(currentTag, true);
+        fillCommonStopAttributes(currentTag);
     }
     currentTag = SUMO_TAG_STOP_CHARGINGSTATION;
     {
@@ -3777,7 +3777,7 @@ GNEAttributeCarrier::fillStopElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         // fill common stop attributes
-        fillCommonStopAttributes(currentTag, true);
+        fillCommonStopAttributes(currentTag);
     }
     currentTag = SUMO_TAG_STOP_PARKINGAREA;
     {
@@ -3793,7 +3793,7 @@ GNEAttributeCarrier::fillStopElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         // fill common stop attributes (no parking)
-        fillCommonStopAttributes(currentTag, false);
+        fillCommonStopAttributes(currentTag);
     }
 }
 
@@ -5025,7 +5025,7 @@ GNEAttributeCarrier::fillCommonContainerAttributes(SumoXMLTag currentTag) {
 
 
 void
-GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag, const bool parking) {
+GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag) {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
 
@@ -5070,13 +5070,11 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag, const bool 
                                           "List of containers that must be loaded onto the vehicle before it may continue");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
-    if (parking) {
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_PARKING,
-                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::ACTIVATABLE,
-                                              "whether the vehicle stops on the road or beside ",
-                                              "0");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-    }
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_PARKING,
+                                            GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
+                                            "whether the vehicle stops on the road or beside ",
+                                            "0");
+    myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_ACTTYPE,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,

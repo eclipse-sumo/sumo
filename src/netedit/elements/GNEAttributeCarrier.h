@@ -359,7 +359,7 @@ private:
     static void fillCommonContainerAttributes(SumoXMLTag currentTag);
 
     /// @brief fill stop person attributes
-    static void fillCommonStopAttributes(SumoXMLTag currentTag, const bool parking);
+    static void fillCommonStopAttributes(SumoXMLTag currentTag);
 
     /// @brief fill Data elements
     static void fillDataElements();

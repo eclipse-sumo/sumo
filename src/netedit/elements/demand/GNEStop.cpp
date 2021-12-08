@@ -47,6 +47,11 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEA
     GNEDemandElement(stopParent, net, GLO_STOP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
         {}, {}, {}, {stoppingPlace}, {}, {}, {stopParent}, {}),
     SUMOVehicleParameter::Stop(stopParameter) {
+    // enable parking for stops in parkingAreas
+    if (tag == SUMO_TAG_STOP_PARKINGAREA) {
+        parking = true;
+        toogleAttribute(SUMO_ATTR_PARKING, parking, -1);
+    }
 }
 
 
@@ -813,7 +818,6 @@ GNEStop::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
         case SUMO_ATTR_EXTENSION:
         case SUMO_ATTR_EXPECTED:
         case SUMO_ATTR_EXPECTED_CONTAINERS:
-        case SUMO_ATTR_PARKING:
             undoList->add(new GNEChange_EnableAttribute(this, key, true));
             break;
         default:
@@ -830,7 +834,6 @@ GNEStop::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
         case SUMO_ATTR_EXTENSION:
         case SUMO_ATTR_EXPECTED:
         case SUMO_ATTR_EXPECTED_CONTAINERS:
-        case SUMO_ATTR_PARKING:
             undoList->add(new GNEChange_EnableAttribute(this, key, false));
             break;
         default:
@@ -859,7 +862,7 @@ GNEStop::isAttributeEnabled(SumoXMLAttr key) const {
         case SUMO_ATTR_EXPECTED_CONTAINERS:
             return (parametersSet & STOP_CONTAINER_TRIGGER_SET) != 0;
         case SUMO_ATTR_PARKING:
-            return (parametersSet & STOP_PARKING_SET) != 0;
+            return (myTagProperty.getTag() != SUMO_TAG_STOP_PARKINGAREA);
         default:
             return true;
     }
@@ -1207,6 +1210,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_PARKING:
             parking = parse<bool>(value);
+            toogleAttribute(key, parking, -1);
             break;
         case SUMO_ATTR_ACTTYPE:
             actType = value;
