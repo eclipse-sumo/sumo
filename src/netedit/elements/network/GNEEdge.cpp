@@ -1496,6 +1496,20 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             myNet->getAttributeCarriers()->updateEdgeID(this, value);
+            // enable save demand elements if there are stops
+            for (const auto &stop : getChildDemandElements()) {
+                if (stop->getTagProperty().isStop() || stop->getTagProperty().isStopPerson()) {
+                    myNet->requireSaveDemandElements(true);
+                }
+            }
+            // also for lanes
+            for (const auto &lane : myLanes) {
+                for (const auto &stop : lane->getChildDemandElements()) {
+                    if (stop->getTagProperty().isStop() || stop->getTagProperty().isStopPerson()) {
+                        myNet->requireSaveDemandElements(true);
+                    }
+                }
+            }
             break;
         case SUMO_ATTR_FROM:
             myNet->changeEdgeEndpoints(this, value, getToJunction()->getID());

@@ -325,6 +325,12 @@ GNEContainerStop::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             // update microsimID
             setMicrosimID(value);
+            // enable save demand elements if there are stops
+            for (const auto &stop : getChildDemandElements()) {
+                if (stop->getTagProperty().isStop() || stop->getTagProperty().isStopPerson()) {
+                    myNet->requireSaveDemandElements(true);
+                }
+            }
             break;
         case SUMO_ATTR_LANE:
             replaceAdditionalParentLanes(value);
