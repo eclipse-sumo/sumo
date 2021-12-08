@@ -1,0 +1,7 @@
+# set coordination parametes in the absence of traffic
+noTraffic
+
+# uncooordinated
+default
+earliestEnd
+earliestEnd_c
