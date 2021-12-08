@@ -185,7 +185,7 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_REPEAT, toString(myRepeat));
     }
     if (myCycleTime != 0) {
-        device.writeAttr(SUMO_ATTR_CYCLETIME, toString(myCycleTime));
+        device.writeAttr(SUMO_ATTR_CYCLETIME, time2string(myCycleTime));
     }
     // write stops associated to this route (not for embedded routes)
     if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
