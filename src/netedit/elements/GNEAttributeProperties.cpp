@@ -63,14 +63,6 @@ GNEAttributeProperties::GNEAttributeProperties(const SumoXMLAttr attribute, cons
     if (!defaultValue.empty() && !(attributeProperty & DEFAULTVALUESTATIC)) {
         throw FormatException("AttributeProperty for '" + toString(attribute) + "' doesn't support default values");
     }
-    // default value cannot be static and mutables at the same time
-    if ((attributeProperty & DEFAULTVALUESTATIC) && (attributeProperty & DEFAULTVALUEMUTABLE)) {
-        throw FormatException("Default value for attribute '" + toString(attribute) + "' cannot be static and mutable at the same time");
-    }
-    // Attributes that can write optionally their values in XML must have either a static or a mutable efault value
-    if ((attributeProperty & XMLOPTIONAL) && !((attributeProperty & DEFAULTVALUESTATIC) || (attributeProperty & DEFAULTVALUEMUTABLE))) {
-        throw FormatException("Attribute '" + toString(attribute) + "' requires a either static or mutable default value");
-    }
     // Attributes cannot be flowdefinition and enabilitablet at the same time
     if ((attributeProperty & FLOWDEFINITION) && (attributeProperty & ACTIVATABLE)) {
         throw FormatException("Attribute '" + toString(attribute) + "' cannot be flowdefinition and activatable at the same time");
@@ -104,10 +96,6 @@ GNEAttributeProperties::checkAttributeIntegrity() const {
         } else if ((myMaximumRange - myMinimumRange) <= 0) {
             throw FormatException("invalid range");
         }
-    }
-    // check that positive attributes correspond only to a int, floats or SUMOTimes
-    if (isOptional() && !(hasStaticDefaultValue() || hasMutableDefaultValue())) {
-        throw FormatException("if attribute is optional, must have either a static or dynamic default value");
     }
 }
 
@@ -235,9 +223,6 @@ GNEAttributeProperties::getDescription() const {
     if ((myAttributeProperty & DISCRETE) != 0) {
         pre += "discrete ";
     }
-    if ((myAttributeProperty & XMLOPTIONAL) != 0) {
-        pre += "optional ";
-    }
     if ((myAttributeProperty & UNIQUE) != 0) {
         pre += "unique ";
     }
@@ -323,12 +308,6 @@ GNEAttributeProperties::getMaximumRange() const {
 bool
 GNEAttributeProperties::hasStaticDefaultValue() const {
     return (myAttributeProperty & DEFAULTVALUESTATIC) != 0;
-}
-
-
-bool
-GNEAttributeProperties::hasMutableDefaultValue() const {
-    return (myAttributeProperty & DEFAULTVALUEMUTABLE) != 0;
 }
 
 
@@ -438,11 +417,6 @@ GNEAttributeProperties::isUnique() const {
     return (myAttributeProperty & UNIQUE) != 0;
 }
 
-
-bool
-GNEAttributeProperties::isOptional() const {
-    return (myAttributeProperty & XMLOPTIONAL) != 0;
-}
 
 bool
 GNEAttributeProperties::isDiscrete() const {
