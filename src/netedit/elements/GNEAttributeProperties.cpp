@@ -60,7 +60,7 @@ GNEAttributeProperties::GNEAttributeProperties(const SumoXMLAttr attribute, cons
         throw FormatException("Missing definition for AttributeProperty '" + toString(attribute) + "'");
     }
     // if default value isn't empty, but attribute doesn't support default values, throw exception.
-    if (!defaultValue.empty() && !(attributeProperty & DEFAULTVALUESTATIC)) {
+    if (!defaultValue.empty() && !(attributeProperty & DEFAULTVALUE)) {
         throw FormatException("AttributeProperty for '" + toString(attribute) + "' doesn't support default values");
     }
     // Attributes cannot be flowdefinition and enabilitablet at the same time
@@ -306,8 +306,8 @@ GNEAttributeProperties::getMaximumRange() const {
 
 
 bool
-GNEAttributeProperties::hasStaticDefaultValue() const {
-    return (myAttributeProperty & DEFAULTVALUESTATIC) != 0;
+GNEAttributeProperties::hasDefaultValue() const {
+    return (myAttributeProperty & DEFAULTVALUE) != 0;
 }
 
 

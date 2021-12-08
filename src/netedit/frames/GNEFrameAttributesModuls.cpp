@@ -353,7 +353,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
         // change color of text field depending of myCurrentValueValid
         if (myAttributesCreatorParent->getCurrentTemplateAC()->isValid(myAttrProperties.getAttr(), myValueTextField->getText().text())) {
             // check color depending if is a default value
-            if (myAttrProperties.hasStaticDefaultValue() && (myAttrProperties.getDefaultValue() == myValueTextField->getText().text())) {
+            if (myAttrProperties.hasDefaultValue() && (myAttrProperties.getDefaultValue() == myValueTextField->getText().text())) {
                 myValueTextField->setTextColor(FXRGB(128, 128, 128));
             } else {
                 myValueTextField->setTextColor(FXRGB(0, 0, 0));
@@ -503,7 +503,7 @@ GNEFrameAttributesModuls::AttributesCreator::getAttributesAndValues(CommonXMLStr
             // flag for row enabled
             bool rowEnabled = row->isAttributesCreatorRowEnabled();
             // flag for default attributes
-            bool hasDefaultStaticValue = !attrProperties.hasStaticDefaultValue() || (attrProperties.getDefaultValue() != row->getValue());
+            bool hasDefaultStaticValue = !attrProperties.hasDefaultValue() || (attrProperties.getDefaultValue() != row->getValue());
             // flag for enablitables attributes
             bool isFlowDefinitionAttribute = attrProperties.isFlowDefinition();
             // flag for optional attributes
@@ -1313,7 +1313,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
         }
     } else {
         // Check if default value of attribute must be set
-        if (myValueTextField->getText().empty() && myACAttr.hasStaticDefaultValue()) {
+        if (myValueTextField->getText().empty() && myACAttr.hasDefaultValue()) {
             newVal = myACAttr.getDefaultValue();
             myValueTextField->setText(newVal.c_str());
         } else if (myACAttr.isInt() && GNEAttributeCarrier::canParse<double>(myValueTextField->getText().text())) {

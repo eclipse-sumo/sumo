@@ -136,7 +136,7 @@ GNETagProperties::getDefaultValue(SumoXMLAttr attr) const {
     // iterate over attribute properties
     for (const auto& attributeProperty : myAttributeProperties) {
         if (attributeProperty.getAttr() == attr) {
-            if (!attributeProperty.hasStaticDefaultValue()) {
+            if (!attributeProperty.hasDefaultValue()) {
                 throw ProcessError("attribute '" + attributeProperty.getAttrStr() + "' doesn't have a default value");
             } else {
                 return attributeProperty.getDefaultValue();

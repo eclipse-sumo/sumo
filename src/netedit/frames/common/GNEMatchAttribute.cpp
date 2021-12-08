@@ -172,7 +172,7 @@ GNEMatchAttribute::onCmdSelMBAttribute(FXObject*, FXSelector, void*) {
     if (tagValue.canCloseShape()) {
         // add an extra AttributeValues to allow select ACs using as criterium "close shape"
         extraAttrProperty = GNEAttributeProperties(GNE_ATTR_CLOSE_SHAPE,
-                            GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUESTATIC,
+                            GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUE,
                             "Close shape",
                             "true");
         tagPropertiesCopy.addAttribute(extraAttrProperty);
