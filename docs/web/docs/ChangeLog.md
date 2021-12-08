@@ -7,6 +7,7 @@ title: ChangeLog
 ### Bugfixes
 
 - simulation
+  - tripId is now updated again when passing waypoints. Issue #9751 (regression in 1.11.0)
   - Fixed invalid error on taxi dispatch. Issue #9695
   - Fix person model bug where person enters jammed state without good reason. Issue #9717
   - Fixed crash on opposite direction driving (at looped road). Issue #9718
@@ -22,6 +23,8 @@ title: ChangeLog
   - Fixed invalid weights of sinks and sources when loading taz from file. Issue #9672
   - Fixed unclickable ParkingArea after moving junction with active grid. Issue #9639
   - Fixed rendering of turn direction arrows for narrow lanes. Issue #9738
+  - In create-edge mode: shift-click to split edge now takes into account active grid. Issue #9624
+  - Fixed crash on undo after resetting connections. Issue #9673
 
 - sumo-gui
   - Fixed crash when using guiShape "truck/trailer" or "truck/semitrailer" for short vehicles. #9682 (regression in 1.11.0)
@@ -30,12 +33,13 @@ title: ChangeLog
 - netconvert
   - Fixed invalid LaneLink index in OpenDRIVE export. Issue #9637
   - Fixed invalid network when importing public transport and sidewalks. Issue #9701 (regression in 1.10.0)
-  - 
+  - Fixed invalid internal junction location. Issue #9381
+  - Fixed intersection rules that could cause emergency braking at pedestrian crossing. Issue #9671
 
 - duarouter
   - Option **--write-costs** now also applies to walks/rides, Option **--route-length** now applies to normal vehicles. Issue #9698
   - Fixed invalid error on mismatch between ride destination stop and vehicle destination stop. Issue #9730
-
+  
 - jtrrouter
   - Unsorted flows now trigger a warning. Issue #9327
 
@@ -52,6 +56,7 @@ title: ChangeLog
 ### Enhancements
 
 - simulation
+  - Persons are now included in saved simualtion state when setting option **--save-state.transportables**. Issue #2792
   - Added attribute speedRelative to edgeData output. Issue #9601
   - Option **--fcd-output.attributes** can now be used to active non-standard attributes (i.e. acceleration). Issue #9625
   - Rerouting period can now be customized via `<param key="device.rerouting.period" value="X"/>` in vType or vehicle. Issue #9646
@@ -69,11 +74,13 @@ title: ChangeLog
 
 - netedit
   - Add images for the guiShapes in the vType attributes editor. Issue #9457
+  - All output elements now write 'id' as their first attribute. Issue #9664
 
 - netconvert
-  - Simplified edge names in OpenDRIVE import. (i.e. '42' instead of '42.0.00'). The option **--opendrive.position-ids8** is provided for backward compatibility.  #9463
-  - Added option **--opendrive.lane-shapes** which uses custom lane shapes to account for spacing of discarded lanes. Issue #4913
   - OSM: import of public transport now supports share_taxi (PUJ) and minibus. Issue #9708
+  - OSM: attribute turn:lanes is now used to determine lane-to-lane connections when option **--osm.turn-lanes** is set. Issue #1446
+  - Simplified edge names in OpenDRIVE import. (i.e. '42' instead of '42.0.00'). The option **--opendrive.position-ids8** is provided for backward compatibility.  #9463
+  - Added option **--opendrive.lane-shapes** which uses custom lane shapes to account for spacing of discarded lanes. Issue #4913  
   - Added option **--railway.topology.extend-priority** which extrapolates directional priorities in an all-bidi network based on initial priorities. Issue #9683
   
 - duarouter
@@ -88,6 +95,7 @@ title: ChangeLog
   - Added tool [generateParkingAreas.py](Tools/Misc.md#generateparkingareaspy) to generate parkingAreas for some or all edges of a network. Issue #9659
   - plot_net_dump.py now supports option **--internal** for plotting internal edges. Issue #9729
   - randomTrips.py now supports option **--random-depart** to randomize departure times. Issue #9735
+  - tripinfoByType.py: now supports option **--internval** to aggregated data by depart time (or by arrival time with option **--by-arrivals**) Issue #9746
 
 - Miscellaneous
   - Speed up Visual Studio build with sccache (only works with Ninja not with Visual Studio projects). Issue #9290
