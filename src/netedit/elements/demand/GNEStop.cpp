@@ -495,28 +495,18 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
                 return "";
             }
         case SUMO_ATTR_TRIGGERED:
-            // this is an special case
-            if (isAttributeEnabled(key)) {
-                return "1";
+            if (triggered && containerTriggered) {
+                return "join";
+            } else if (triggered) {
+                return "person";
+            } else if (containerTriggered) {
+                return "container";
             } else {
-                return "0";
-            }
-        case SUMO_ATTR_CONTAINER_TRIGGERED:
-            // this is an special case
-            if (isAttributeEnabled(key)) {
-                return "1";
-            } else {
-                return "0";
+                return "false";
             }
         case SUMO_ATTR_EXPECTED:
             if (isAttributeEnabled(key)) {
                 return toString(awaitedPersons);
-            } else {
-                return "";
-            }
-        case SUMO_ATTR_EXPECTED_CONTAINERS:
-            if (isAttributeEnabled(key)) {
-                return toString(awaitedContainers);
             } else {
                 return "";
             }
@@ -622,9 +612,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_UNTIL:
         case SUMO_ATTR_EXTENSION:
         case SUMO_ATTR_TRIGGERED:
-        case SUMO_ATTR_CONTAINER_TRIGGERED:
         case SUMO_ATTR_EXPECTED:
-        case SUMO_ATTR_EXPECTED_CONTAINERS:
         case SUMO_ATTR_PARKING:
         case SUMO_ATTR_ACTTYPE:
         case SUMO_ATTR_TRIP_ID:
@@ -734,17 +722,25 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_TRIGGERED:
-            return canParse<bool>(value);
-        case SUMO_ATTR_CONTAINER_TRIGGERED:
-            return canParse<bool>(value);
-        case SUMO_ATTR_EXPECTED:
-        case SUMO_ATTR_EXPECTED_CONTAINERS:
             if (value.empty()) {
-                return true;
+                return false;
             } else {
-                std::vector<std::string> IDs = parse<std::vector<std::string>>(value);
-                for (const auto& i : IDs) {
-                    if (SUMOXMLDefinitions::isValidVehicleID(i) == false) {
+                const std::set<std::string> expectedValues = {"true", "false", "person", "container", "join"};
+                const std::vector<std::string> values = parse<std::vector<std::string> >(value);
+                for (const auto& value : values) {
+                    if (expectedValues.find(value) == expectedValues.end()) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        case SUMO_ATTR_EXPECTED:
+            if (value.empty()) {
+                return false;
+            } else {
+                const std::vector<std::string> values = parse<std::vector<std::string> >(value);
+                for (const auto& value : values) {
+                    if (!SUMOXMLDefinitions::isValidVehicleID(value)) {
                         return false;
                     }
                 }
@@ -1185,28 +1181,24 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_TRIGGERED:
-            triggered = parse<bool>(value);
-            toogleAttribute(key, triggered, -1);
-            break;
-        case SUMO_ATTR_CONTAINER_TRIGGERED:
-            containerTriggered = parse<bool>(value);
-            toogleAttribute(key, containerTriggered, -1);
+            if (value == "join") {
+                triggered = true;
+                containerTriggered = true;
+            } else if ((value == "person") || (value == "true")) {
+                triggered = true;
+                containerTriggered = false;
+            } else if (value == "container") {
+                triggered = false;
+                containerTriggered = true;
+            } else {
+                triggered = false;
+                containerTriggered = false;
+            }
+            toogleAttribute(SUMO_ATTR_TRIGGERED, triggered, -1);
+            toogleAttribute(SUMO_ATTR_EXPECTED, triggered, -1);
             break;
         case SUMO_ATTR_EXPECTED:
-            if (value.empty()) {
-                toogleAttribute(key, false, -1);
-            } else {
-                toogleAttribute(key, true, -1);
-                awaitedPersons = parse<std::set<std::string> >(value);
-            }
-            break;
-        case SUMO_ATTR_EXPECTED_CONTAINERS:
-            if (value.empty()) {
-                toogleAttribute(key, false, -1);
-            } else {
-                toogleAttribute(key, true, -1);
-                awaitedContainers = parse<std::set<std::string> >(value);
-            }
+            awaitedPersons = parse<std::set<std::string> >(value);
             break;
         case SUMO_ATTR_PARKING:
             parking = parse<bool>(value);
@@ -1321,20 +1313,6 @@ GNEStop::toogleAttribute(SumoXMLAttr key, const bool value, const int /*previous
                 parametersSet |= STOP_TRIGGER_SET;
             } else {
                 parametersSet &= ~STOP_TRIGGER_SET;
-            }
-            break;
-        case SUMO_ATTR_CONTAINER_TRIGGERED:
-            if (value) {
-                parametersSet |= STOP_CONTAINER_TRIGGER_SET;
-            } else {
-                parametersSet &= ~STOP_CONTAINER_TRIGGER_SET;
-            }
-            break;
-        case SUMO_ATTR_EXPECTED_CONTAINERS:
-            if (value) {
-                parametersSet |= STOP_CONTAINER_TRIGGER_SET;
-            } else {
-                parametersSet &= ~STOP_CONTAINER_TRIGGER_SET;
             }
             break;
         case SUMO_ATTR_PARKING:

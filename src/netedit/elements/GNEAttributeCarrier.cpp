@@ -5059,17 +5059,6 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag) {
                                           "List of persons that must board the vehicle before it may continue");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
-    attrProperty = GNEAttributeProperties(SUMO_ATTR_CONTAINER_TRIGGERED,
-                                          GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                          "Whether a container may end the stop",
-                                          "0");
-    myTagProperties[currentTag].addAttribute(attrProperty);
-
-    attrProperty = GNEAttributeProperties(SUMO_ATTR_EXPECTED_CONTAINERS,
-                                          GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
-                                          "List of containers that must be loaded onto the vehicle before it may continue");
-    myTagProperties[currentTag].addAttribute(attrProperty);
-
     attrProperty = GNEAttributeProperties(SUMO_ATTR_PARKING,
                                             GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
                                             "whether the vehicle stops on the road or beside ",
