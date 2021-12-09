@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,10 +14,11 @@
 
 # @file    processdialog.py
 # @author  Joerg Schweizer
-# @date
+# @date    2012
 
 
 import wx
+import os
 import objpanel
 from wxmisc import AgileStatusbar
 
@@ -26,6 +27,57 @@ class ProcessDialogMixin:
 
     def get_status(self):
         return self.process.status
+
+    def clear_log(self):
+        self.get_logger().w('', 'message')
+        self.get_logger().w('', 'action')
+
+    def copy_options_to_results(self, results):
+        # TODO
+        pass
+
+    def on_save_options(self, event):
+        """
+        Save current options to file.
+        """
+        dlg = wx.FileDialog(
+            self, message="Save Options as ...",
+            # defaultDir=os.getcwd(),
+            # defaultFile="",
+            wildcard='Python obj files (*.obj)|*.obj|All files (*.*)|*.*',
+            style=wx.SAVE | wx.CHANGE_DIR
+        )
+
+        # This sets the default filter that the user will initially see. Otherwise,
+        # the first filter in the list will be used by default.
+        dlg.SetFilterIndex(0)
+
+        # Show the dialog and retrieve the user response. If it is the OK response,
+        # process the data.
+        if dlg.ShowModal() == wx.ID_OK:
+            filepath = dlg.GetPath()
+            self.process.save_options(filepath)
+
+    def on_load_options(self, event):
+        """
+        Load previously saved options from file. 
+        """
+
+        dlg = wx.FileDialog(self, message="Open object",
+                            # defaultDir=os.getcwd(),
+                            # defaultFile="",
+                            wildcard='Python obj files (*.obj)|*.obj|All files (*.*)|*.*',
+                            style=wx.OPEN | wx.CHANGE_DIR
+                            )
+
+        # Show the dialog and retrieve the user response. If it is the OK response,
+        # process the data.
+        if dlg.ShowModal() == wx.ID_OK:
+            # This returns a Python list of files that were selected.
+            filepath = dlg.GetPath()
+            self.process.load_options(filepath)
+
+        self.restore()
 
 
 class ProcessDialog(ProcessDialogMixin, objpanel.ObjPanelDialog):
@@ -67,7 +119,9 @@ class ProcessDialog(ProcessDialogMixin, objpanel.ObjPanelDialog):
     def _get_buttons(self):
         buttons = [('Run',   self.on_run,      'Start the process!'),
                    #('Kill',   self.on_kill,      'Kill process in background.'),
-                   ('Apply',   self.on_apply,      'Apply current values, complete them and make them consistent, but do not run.'),
+                   ('Apply',   self.on_apply,      'Apply current options, complete them and make them consistent, but do not run.'),
+                   ('Save Options...', self.on_save_options, self.on_save_options.__doc__),
+                   ('Load Options...', self.on_load_options, self.on_load_options.__doc__),
                    ]
         defaultbutton = 'Run'
         standartbuttons = ['cancel', ]
@@ -187,13 +241,23 @@ class ProcessDialogInteractive(ProcessDialogMixin, wx.Frame):
 
     def __init__(self, parent,
                  process,
-                 title='Process Dialog',
-                 func_close=None):
+                 title=None,
+                 func_close=None,
+                 is_close_after_completion=True,
+                 ):
+
+        if title is None:
+            title = process.get_name()
         wx.Frame.__init__(self, parent, -1, title=title, pos=wx.DefaultPosition, size=wx.DefaultSize)
 
         self.parent = parent
         self.process = process
+
         self.func_close = func_close
+        # if self.func_close is None:
+        self.is_close_after_completion = is_close_after_completion
+        # else:
+        #    self.is_close_after_completion = False
         #self._is_run = False
 
         self.Bind(wx.EVT_TIMER, self.on_step)
@@ -264,13 +328,20 @@ class ProcessDialogInteractive(ProcessDialogMixin, wx.Frame):
                        ('Done',   self.on_done,        'Stop process and close window.'),
                        ]
             defaultbutton = 'Start'
-            standartbuttons = []
+
         else:
-            buttons = [('Run',   self.on_start,      'Start the process!'),
-                       ('Done',   self.on_done,      'Finish with process and close window.'),
-                       ]
-            defaultbutton = 'Start'
-            standartbuttons = []
+            if self.is_close_after_completion:
+                buttons = [('Run',   self.on_start,      'Start the process!'),
+                           ]
+            else:
+                buttons = [('Run',   self.on_start,      'Start the process!'),
+                           ('Done',   self.on_done,      'Finish with process and close window.'),
+                           ]
+            defaultbutton = 'Run'
+
+        buttons.append(('Cancel',   self.on_close,        'Close window, without running the process.'))
+        # standartbuttons=['cancel'] # uses also standard on_cancel :(
+        standartbuttons = []
         return buttons, defaultbutton, standartbuttons
 
     # def on_idle(self,event):
@@ -293,6 +364,11 @@ class ProcessDialogInteractive(ProcessDialogMixin, wx.Frame):
                 self.process.do()
             else:
                 self.process.run()
+
+                # no closing function defined
+                if self.is_close_after_completion:
+                    self.on_close(event)
+
             # print 'on_start: after preparation self.process.status=',self.process.status
 
         if hasattr(self.process, 'step'):
@@ -328,25 +404,36 @@ class ProcessDialogInteractive(ProcessDialogMixin, wx.Frame):
                 wx.FutureCall(1, self.process.step)
 
     def on_close(self, event=None):
-        print 'on_close', self.process.status
+        # print 'on_close',self.process.status
         if self.process.status == 'running':
             self.process.aboard()
-            print '  aboarded.'
+            # print '  aboarded.'
 
         self.MakeModal(False)
+        # print '  call func_close',self.func_close
         if self.func_close is not None:
             self.func_close(self)
 
+        # print '  reput callbacks to main'
         if self.oldprogressfunc is not None:
             self.process.get_logger().add_callback(self.oldprogressfunc, 'progress')
 
         if self.oldmessagefunc is not None:
             self.process.get_logger().add_callback(self.oldmessagefunc, 'message')
 
+        # print '  call destroy'
         self.Destroy()
+        # self.Close() # no effect
 
     def on_done(self, event=None):
         # print 'on_done',self.process.status
+        self.on_close(event)
+
+    def on_cancel(self, event):
+        """
+        Apply values, destroy itself and parent
+        """
+        # print 'on_cancel'
         self.on_close(event)
 
     def on_kill(self, event=None):
@@ -354,7 +441,10 @@ class ProcessDialogInteractive(ProcessDialogMixin, wx.Frame):
         pass
 
     def show_progress(self, percent, **kwargs):
-        print 'show_progress', percent
+        """
+        Shows progress on progress bar. Plug-in funcion for logger.
+        """
+        # print 'show_progress',percent
         self.statusbar.set_progress(percent)
         # self.Refresh()
         # wx.Yield()

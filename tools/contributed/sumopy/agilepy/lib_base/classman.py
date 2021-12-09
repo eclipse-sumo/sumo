@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,7 +14,7 @@
 
 # @file    classman.py
 # @author  Joerg Schweizer
-# @date
+# @date    2012
 
 
 # python classman.py
@@ -32,11 +32,13 @@
 # xml mixin
 # different attrconfig classe (numbers, strings, lists, colors,...)
 
+
 import types
 import os
 import pickle
 import sys
 import string
+import math
 from collections import OrderedDict
 from datetime import datetime
 #import numpy as np
@@ -71,6 +73,7 @@ STRUCTS_SCALAR = ('scalar', 'list', 'matrix', 'scalar.func')
 
 NUMERICTYPES = (types.BooleanType, types.FloatType, types.IntType, types.LongType, types.ComplexType)
 STRINGTYPES = (types.StringType, types.UnicodeType)
+NODATATYPES = (types.FunctionType, types.InstanceType, types.LambdaType)
 
 
 def save_obj(obj, filename, is_not_save_parent=False):
@@ -81,7 +84,7 @@ def save_obj(obj, filename, is_not_save_parent=False):
     """
     # print 'save_obj',is_not_save_parent,filename,obj.parent
     try:
-        file = open(filename, 'wb')
+        f = open(filename, 'wb')
     except:
         print 'WARNING in save: could not open', filename
         return False
@@ -90,8 +93,8 @@ def save_obj(obj, filename, is_not_save_parent=False):
         parent = obj.parent
         obj.parent = None
     # print '  before',is_not_save_parent,parent,obj.parent
-    pickle.dump(obj, file, protocol=2)
-    file.close()
+    pickle.dump(obj, f, protocol=2)
+    f.close()
     #  set all objects and attrubutes to unsaved again
     # obj.set_unsaved()
     # no, decided to eliminate _is_saved restriction
@@ -224,6 +227,7 @@ class AttrConf:
                  unit='',
                  xmltag=None,
                  xmlsep=' ',
+                 xmlmap=None,
                  is_plugin=False,
                  struct='scalar',
                  metatype='',
@@ -261,7 +265,7 @@ class AttrConf:
 
         self.init_plugin(is_plugin)
         # self._init_xml(xmltag)
-        self.set_xmltag(xmltag, xmlsep)
+        self.set_xmltag(xmltag, xmlsep, xmlmap)
 
         # set rest of attributes passed as keyword args
         # no matter what they are used for
@@ -280,6 +284,14 @@ class AttrConf:
     def add_groupnames(self, groupnames):
         self.groupnames = list(set(self.groupnames+groupnames))
         self._manager.insert_groupnames(self)
+
+    def del_groupname(self, groupname):
+        if groupname in self.groupnames:
+            self.groupnames.remove(groupname)
+
+        # do this update in any case to be sure
+        # it disappears in the centralized database
+        self._manager.del_groupname(self)
 
     def has_group(self, groupname):
         return groupname in self.groupnames
@@ -305,9 +317,10 @@ class AttrConf:
     #    else:
     #        self.xmltag = self.attrname
 
-    def set_xmltag(self, xmltag, xmlsep=' '):
+    def set_xmltag(self, xmltag, xmlsep=' ', xmlmap=None):
         self.xmltag = xmltag
         self.xmlsep = xmlsep
+        self.xmlmap = xmlmap
 
     def get_value_from_xmlattr(self, xmlattrs):
         """
@@ -346,7 +359,7 @@ class AttrConf:
         #        # don't even write empty lists
         #        pass
 
-        elif hasattr(self, 'xmlmap'):
+        elif self.xmlmap is not None:
             imap = get_inversemap(self.xmlmap)
             # print 'get_value_from_string',s,imap
             if imap.has_key(s):
@@ -357,8 +370,12 @@ class AttrConf:
         else:
             return self.get_numvalue_from_string(s)
 
-    def get_numvalue_from_string(self, s):
-        t = type(self._default)
+    def get_numvalue_from_string(self, s, valtype=None):
+        if valtype is None:
+            t = type(self._default)
+        else:
+            t = valtype
+
         if t in (types.UnicodeType, types.StringType):
             return s
 
@@ -376,7 +393,7 @@ class AttrConf:
                 return True
             else:
                 return False
-
+        # 'MethodType', 'ModuleType', 'NoneType', 'NotImplementedType', 'ObjectType'
         else:
             return None  # unsuccessful
 
@@ -385,7 +402,7 @@ class AttrConf:
             self._write_xml_value(self.get_value(), fd)
 
     def _write_xml_value(self, val, fd):
-        # print 'write_xml',self.xmltag,hasattr(val, '__iter__')
+        # print 'write_xml',self.xmltag,'is array',hasattr(val, '__iter__'),'xmlmap',self.xmlmap
         if self.metatype == 'color':
             fd.write(xm.color(self.xmltag, val))
 
@@ -403,7 +420,7 @@ class AttrConf:
                 # don't even write empty lists
                 pass
 
-        elif hasattr(self, 'xmlmap'):
+        elif self.xmlmap is not None:
             if self.xmlmap.has_key(val):
                 fd.write(xm.num(self.xmltag, self.xmlmap[val]))
             else:
@@ -581,17 +598,32 @@ class AttrConf:
         else:
             unit = ''
         # return repr(self.get_value())+unit
-        return str(self.get_value())+unit
+        v = self.get_value()
+        # print 'format_value',self.attrname,v,type(v)
 
-    def format_symbol(self):
+        if not hasattr(v, '__iter__'):
+            # print '    ',hasattr(self, 'digits_fraction'),(not math.isnan(v)),(not math.isinf(v))
+            if hasattr(self, 'digits_fraction'):
+                if (not math.isnan(v)) & (not math.isinf(v)):
+                    printformat = "%."+str(self.digits_fraction)+"f"
+                    return printformat % v+unit
+                else:
+                    return str(v)+unit
+            else:
+                return str(v)+unit
+        else:
+            return str(v)+unit
+
+    def format_symbol(self, show_parentesis=True):
         if hasattr(self, 'symbol'):
             symbol = self.symbol
         else:
             symbol = self._name
 
-        return symbol+' '+self.format_unit(show_parentesis=True)
+        return symbol+' '+self.format_unit(show_parentesis=show_parentesis)
 
     ####
+
     def get_value(self):
         # always return attribute, no indexing, no plugin
         if self._is_localvalue:
@@ -705,6 +737,10 @@ class AttrConf:
                 setattr(self._obj, self.attrname, self.value)  # TODO: could be made nicer with method
                 del self.value  # no longer needed
 
+        # this attribute became compulsory
+        if not hasattr(self, 'xmlmap'):
+            self.xmlmap = None
+
         # print '  check',hasattr(self,'value')
         # print '  value=',self.get_value()
         self._is_saved = False
@@ -731,6 +767,43 @@ class NumConf(AttrConf):
         AttrConf.__init__(self,  attrname, default, metatype='number',
                           **kwargs
                           )
+
+
+class ListConf(AttrConf):
+    """
+    Specifies a list of objects.
+    Objects may be editable or selectable in the GUI
+    """
+
+    def __init__(self, attrname, default,
+                 sep=',', valtype=None, is_fixedlength=False,
+                 perm='rw', **kwargs):
+        #self._is_child = is_child
+        if valtype is None:
+            if len(default) > 0:
+                valtype = type(default[0])
+            else:
+                valtype = types.UnicodeType
+
+        AttrConf.__init__(self,  attrname, default,
+                          struct='scalar',
+                          metatype='list',
+                          sep=sep,
+                          valtype=valtype,
+                          is_fixedlength=is_fixedlength,
+                          perm=perm,
+                          **kwargs
+                          )
+
+    def get_value_from_string(self, s, sep=None):
+        """
+        Returns the attribute value from a string in the correct type. 
+        """
+        value = []
+        for val in s.split(self.sep):
+            value.append(self.get_numvalue_from_string(val, valtype=self.valtype))
+
+        return value
 
 
 class ObjConf(AttrConf):
@@ -788,6 +861,7 @@ class ObjConf(AttrConf):
         before returning states.
         To be overridden.
         """
+
         # print 'ObjConf._getstate_specific',self.attrname,self._is_child,self._is_save
         if self._is_save:
             if self._is_child:
@@ -796,7 +870,12 @@ class ObjConf(AttrConf):
             else:
                 # print ' remove object reference from value and create ident'
                 state['value'] = None
-                state['_ident_value'] = self.get_value().get_ident_abs()
+                if self.get_value() is not None:
+                    # print '    found object',self.get_value().get_ident_abs()
+                    state['_ident_value'] = self.get_value().get_ident_abs()
+                else:
+                    print 'WARNING in ObjConf._getstate_specific', self.attrname, 'lost linked object'
+                    state['_ident_value'] = []
                 # print '  ',
 
     def is_modified(self):
@@ -836,13 +915,17 @@ class ObjConf(AttrConf):
             # Called from init_postload_external of attrsman during load_obj
             #
             ident_abs = self._ident_value
-            # print 'reset_linkobj',self.attrname,ident_abs
-            obj = self.get_obj()
-            rootobj = obj.get_root()
-            # print '  rootobj',rootobj.ident
-            linkobj = rootobj.get_obj_from_ident(ident_abs)
-            # print '  linkobj',linkobj.ident
-            self.set_value(linkobj)
+            if len(ident_abs) > 0:
+                # print 'reset_linkobj',self.attrname,ident_abs
+                obj = self.get_obj()
+                rootobj = obj.get_root()
+                # print '  rootobj',rootobj.ident
+                linkobj = rootobj.get_obj_from_ident(ident_abs)
+                # print '  linkobj',linkobj.ident
+                self.set_value(linkobj)
+            else:
+                print 'WARNING in ObjConf._getstate_specific', self.attrname, 'lost linked object'
+                self.set_value(BaseObjman('lost_object'))
 
     # def get_valueobj(self):
     #    """
@@ -937,6 +1020,14 @@ class Indexing:
     def get_id_from_index(self, index):
         return self._index_to_id[index]
 
+    def has_indices(self, indices):
+        ans = len(indices)*[False]
+        for i in range(len(indices)):
+            if self._index_to_id.has_key(indices[i]):
+                ans[i] = True
+
+        return ans
+
     def has_index(self, index):
         return self._index_to_id.has_key(index)
 
@@ -959,6 +1050,7 @@ class Indexing:
         return ids
 
     # use set instead of add
+
     def add_indices(self, ids, indices):
         for _id, index in zip(ids, indices):
             self.add_index(_id, index)
@@ -1788,17 +1880,20 @@ class Attrsman:
                 modified.append(attrconf)
         return modified
 
+    def __getitem__(self, attrname):
+        return getattr(self, attrname).get_value()
+
     def get_config(self, attrname):
         return getattr(self, attrname)  # a bit risky
 
-    def get_configs(self, is_all=False, structs=None, filtergroupnames=None):
+    def get_configs(self, is_all=False, structs=None, filtergroupnames=None, is_private=False):
         # print 'get_configs',self,self._obj.ident,structs,filtergroupnames,len(self._attrconfigs)
         if is_all:
             return self._attrconfigs
         else:
             attrconfigs = []
             for attrconf in self._attrconfigs:
-                # print '  found',attrconf.attrname,attrconf.struct
+                # print '  found',attrconf.attrname,attrconf.struct,'groupnames',attrconf.groupnames
                 is_check = True
                 if (structs is not None):
                     if (attrconf.struct not in structs):
@@ -1807,7 +1902,7 @@ class Attrsman:
                 if is_check:
                     # print '  **is_check',is_check
                     if len(attrconf.groupnames) > 0:
-                        if '_private' not in attrconf.groupnames:
+                        if ('_private' not in attrconf.groupnames) | is_private:
                             # print '    not private'
                             if filtergroupnames is not None:
                                 # print '     apply filtergroupnames',filtergroupnames,attrconf.groupnames
@@ -1829,7 +1924,7 @@ class Attrsman:
     def get_obj(self):
         return self._obj
 
-    def add(self, attrconf, is_overwrite=False):
+    def add(self, attrconf, is_overwrite=False, is_prepend=False):
         """
         Add a one or several new attributes to be managed.
         kwargs has attribute name as key and Attribute configuration object
@@ -1838,7 +1933,7 @@ class Attrsman:
 
         attrname = attrconf.attrname
         # print '\n\nAttrsman.add',self.get_obj().ident,'add',attrname,self.has_attrname(attrname)
-        dir(self._obj)
+        # dir(self._obj)
         if (not self.has_attrname(attrname)) | is_overwrite:
             attrconf.set_obj(self._obj)
             attrconf.set_manager(self)
@@ -1847,7 +1942,10 @@ class Attrsman:
             setattr(self, attrname, attrconf)
 
             # append also to the list of managed objects
-            self._attrconfigs.append(attrconf)
+            if is_prepend:
+                self._attrconfigs.insert(0, attrconf)
+            else:
+                self._attrconfigs.append(attrconf)
 
             # insert in groups
             self.insert_groupnames(attrconf)
@@ -1892,6 +1990,14 @@ class Attrsman:
                 if attrconf not in self._groups[groupname]:
                     self._groups[groupname].append(attrconf)
 
+    def del_groupname(self, attrconf):
+        if len(attrconf.groupnames) > 0:
+            for groupname in self._groups.keys():
+                attrconfigs = self._groups[groupname]
+                if attrconf in attrconfigs:
+                    if groupname not in attrconf.groupnames:
+                        attrconfigs.remove(attrconf)
+
     def get_groups(self):
         return self._groups
 
@@ -1923,13 +2029,33 @@ class Attrsman:
         # print '  attrs',attrs
         return attrs
 
+    def write_csv(self, fd, sep=',',
+                  show_parentesis=False, attrconfigs=None,
+                  groupnames=None,
+                  is_export_not_save=True):
+        # print 'Attrsman.write_csv attrconfigs'#,attrconfigs,'groupnames',groupnames,
+        if attrconfigs is None:
+            attrconfigs = self.get_configs(is_all=False, structs=STRUCTS_SCALAR, filtergroupnames=groupnames)
+
+        for attrconf in attrconfigs:
+            # print '  attrconfig', attrconf.attrname,attrconf.struct,attrconf.metatype
+            if (attrconf.is_save() | is_export_not_save) & (attrconf.struct in STRUCTS_SCALAR):
+                mt = attrconf.metatype
+
+                if mt == 'id':
+                    fd.write('%s %s%s%s\n' % (attrconf.attrname, attrconf.format_unit(show_parentesis),
+                                              sep, attrconf.get_linktab().format_ids([attrconf.get_value()])))
+                else:
+                    fd.write('%s %s%s%s\n' % (attrconf.attrname, attrconf.format_unit(
+                        show_parentesis), sep, attrconf.format_value()))
+
     def print_attrs(self, show_unit=True, show_parentesis=False, attrconfigs=None):
         print 'Attributes of', self._obj._name, 'ident_abs=', self._obj.get_ident_abs()
         if attrconfigs is None:
-            attrconfigs = self.get_configs()
+            attrconfigs = self.get_configs(structs=STRUCTS_SCALAR)
 
-        for attrconf in attrconfigs:
-            print '  %s =\t %s' % (attrconf.attrname, attrconf.format_value(show_unit=True))
+        # for attrconf in attrconfigs:
+        #    print '  %s =\t %s'%(attrconf.attrname, attrconf.format_value(show_unit=True))
 
     def save_values(self, state):
         """
@@ -1941,7 +2067,7 @@ class Attrsman:
 
     def delete(self, attrname):
         """
-        Delete attibite with respective name
+        Delete attribute with respective name
         """
         # print '.__delitem__','attrname=',attrname
 
@@ -1967,9 +2093,10 @@ class Attrsman:
 
     def __getstate__(self):
         # if hasattr(self,'attrname'):
-        #    print 'Attrsman.__getstate__',self.attrname,'  of  obj=',self._obj.ident
+        #    print 'Attrsman.__getstate__ of',self.attrname,'  of  obj=',self._obj.ident,'id',id(self),'id obj',id(self._obj)
+        #
         # else:
-        #    print 'WARNING in Attrsman.__getstate__','attrname missing'
+        #    print 'WARNING in Attrsman.__getstate__',self,'attrname missing','id',id(self),'id obj',id(self._obj)
 
         if not hasattr(self, '_obj'):
             print 'WARNING: unknown obj in attrman', self, type(self)
@@ -1989,8 +2116,8 @@ class Attrsman:
 
         state = {}
         for attr in self.__dict__.keys():
-                # print '  attr',attr,self.__dict__[attr]
-                # TODO: optimize and put this at the end
+            # print '  attr',attr,self.__dict__[attr]
+            # TODO: optimize and put this at the end
             if attr == 'plugin':
                 plugin = self.__dict__[attr]
                 if plugin is not None:
@@ -2001,7 +2128,11 @@ class Attrsman:
             elif attr == '_attrconfigs':
                 attrconfigs_save = []
                 for attrconfig in self._attrconfigs:
+
                     if attrconfig.is_save():
+                        # print '    save',attrconfig.attrname
+                        # if attrconfig.struct == 'array':
+                        #    print '      size =',len(self)
                         attrconfigs_save.append(attrconfig)
                 state[attr] = attrconfigs_save
 
@@ -2053,10 +2184,10 @@ class Attrsman:
         Called after set state.
         Link external states.
         """
-        # print 'init_postload_external',self._obj.get_ident()
+        # print 'Attrsman.init_postload_external',self._obj.get_ident()
 
         for attrconfig in self.get_configs(is_all=True):
-            # print '  ***',attrconfig.attrname,attrconfig.metatype
+            # print '  call',attrconfig.attrname,attrconfig.metatype
             attrconfig.init_postload_external()
 
 
@@ -2113,11 +2244,13 @@ class Tabman(Attrsman):
             return self._colconfigs
         else:
             colconfigs = []
+            if filtergroupnames is not None:
+                filtergroupnameset = set(filtergroupnames)
             for colconfig in self._colconfigs:
                 if len(colconfig.groupnames) > 0:
-                    if colconfig.groupnames[0] != '_private':
+                    if '_private' not in colconfig.groupnames:
                         if filtergroupnames is not None:
-                            if not set(filtergroupnames).isdisjoint(colconfig.groupnames):
+                            if not filtergroupnameset.isdisjoint(colconfig.groupnames):
                                 colconfigs.append(colconfig)
                         else:
                             colconfigs.append(colconfig)
@@ -2270,13 +2403,82 @@ class Tabman(Attrsman):
         else:
             self.del_row(ids)
 
-    def print_attrs(self, **kwargs):
+    def print_attrs(self, ids=None, **kwargs):
         # print 'Attributes of',self._obj._name,'(ident=%s)'%self._obj.ident
         Attrsman.print_attrs(self, attrconfigs=self.get_configs(structs=['scalar']), **kwargs)
         # print '   ids=',self._ids
-        for _id in self.get_ids():
+        if ids is None:
+            ids = self.get_ids()
+
+        for _id in ids:
             for attrconf in self.get_configs(structs=STRUCTS_COL):
                 print '  %s[%d] =\t %s' % (attrconf.attrname, _id, attrconf.format_value(_id, show_unit=True))
+
+    def write_csv(self, fd, sep=',', ids=None,
+                  attrconfigs=None,
+                  groupnames=None,
+                  show_parentesis=True,
+                  is_export_not_save=True,  # export attr, also non save
+                  name_id='ID',
+                  ):
+        # if attrconfigs is None:
+        #    attrconfigs = self.get_configs()
+        # print 'Tabman.write_csv attrconfigs is_export_not_save',is_export_not_save
+
+        Attrsman.write_csv(self, fd, sep=sep,
+                           show_parentesis=show_parentesis,
+                           groupnames=groupnames,
+                           attrconfigs=attrconfigs,
+                           #is_export_private = False,
+                           is_export_not_save=is_export_not_save,  # export attr, also non save
+                           )
+        # fd.write('\n')
+        # for attrconf in attrconfigs:
+        #    #print '  %s =\t %s'%(attrconf.attrname, attrconf.format_value(show_unit=True))
+        #    fd.write( '%s %s%s%s\n'%(attrconf.attrname,format_unit(show_parentesis), sep, attrconf.format_value()))
+
+        if ids is None:
+            ids = self.get_ids()
+
+        if groupnames is not None:
+            #attrconfigs = self.get_group(groupname)
+            attrconfigs = self.get_configs(is_all=False, filtergroupnames=groupnames)
+            is_exportall = False
+
+        elif attrconfigs is None:
+            attrconfigs = self.get_colconfigs(is_all=False)
+            #is_exportall = False
+
+        # check if attributes are all column attribute and indicted for save
+        attrconfigs_checked = []
+        for attrconf in attrconfigs:
+            if (attrconf.is_save() | is_export_not_save) & (attrconf.struct in STRUCTS_COL):
+
+                attrconfigs_checked.append(attrconf)
+
+        # first table row
+        row = name_id
+        for attrconf in attrconfigs_checked:
+            # print '  attrconfig', attrconf.attrname,attrconf.metatype
+            row += sep+self._clean_csv(attrconf.format_symbol(show_parentesis=show_parentesis), sep)
+        fd.write(row+'\n')
+
+        # rest
+        for _id in ids:
+            row = str(_id)
+            row = self._clean_csv(row, sep)
+            for attrconf in attrconfigs:
+                mt = attrconf.metatype
+                # print '    attrconf,',attrconf.attrname,mt,attrconf[_id]
+                if mt == 'id':
+                    # print '      ',
+                    row += sep+self._clean_csv(attrconf.get_linktab().format_ids([attrconf[_id]]), sep)
+                else:
+                    row += sep+self._clean_csv('%s' % (attrconf.format_value(_id, show_unit=False)), sep)
+
+            # make sure there is no CR in the row!!
+            # print  row
+            fd.write(row+'\n')
 
 
 class BaseObjman:
@@ -2343,10 +2545,15 @@ class BaseObjman:
         pass
 
     def set_version(self, version):
+
         self._version = version
 
     def get_version(self):
-        return self._version
+        if hasattr(self, '_version'):
+            return self._version
+        else:
+            # for compatibility
+            return 0.0
 
     # def _upgrade_version(self):
     #    pass
@@ -2466,6 +2673,43 @@ class BaseObjman:
         for ident in self.get_ident_abs():
             s += self._format_ident(ident)+'.'
         return s[:-1]
+
+    def export_csv(self, filepath, sep=',',
+                   attrconfigs=None,  groupnames=None,
+                   is_header=True, is_ident=False, is_timestamp=True,
+                   show_parentesis=True):
+        """
+        Export scalars to file feed in csv format.
+        """
+        print 'BaseObjman.export_csv', filepath, "*"+sep+"*", 'attrconfigs', attrconfigs, self.get_attrsman()
+        fd = open(filepath, 'w')
+
+        # header
+        if is_header:
+
+            row = self._clean_csv(self.get_name(), sep)
+            if is_ident:
+                row += sep+'(ident=%s)' % self.format_ident_abs()
+            fd.write(row+'\n')
+            if is_timestamp:
+                now = datetime.now()
+                fd.write(self._clean_csv(now.isoformat(), sep)+'\n')
+            fd.write('\n\n')
+
+        self.get_attrsman().write_csv(fd, sep=sep,
+                                      show_parentesis=show_parentesis, groupnames=groupnames,
+                                      attrconfigs=attrconfigs)
+
+        fd.close()
+
+    def _clean_csv(self, row, sep):
+        row = row.replace('\n', ' ')
+        #row=row.replace('\b',' ')
+        row = row.replace('\r', ' ')
+        #row=row.replace('\f',' ')
+        #row=row.replace('\newline',' ')
+        row = row.replace(sep, ' ')
+        return row
 
     def get_root(self):
         # if hasattr(self,'_is_root'):
@@ -2659,7 +2903,7 @@ class BaseObjman:
         """
 
         #self._is_root =  is_root
-        print 'init_postload_external', self.ident  # ,self._is_root
+        # print 'init_postload_external',self.ident#,self._is_root
         # set default logger
         self.set_logger(Logger(self))
         # for child in self.childs.values():
@@ -2812,25 +3056,15 @@ class TableMixin(BaseObjman):
         self._init_attributes()
         self._init_constants()
 
-    def export_csv(self, filepath, sep=',', name_id='ID',
-                   file=None, attrconfigs=None, ids=None, groupname=None,
-                   is_header=True, is_ident=False, is_timestamp=True):
-
-        # print 'export_csv',filepath,"*"+sep+"*"
+    def export_csv(self, filepath, sep=',',
+                   ids=None, attrconfigs=None,  groupnames=None,
+                   is_header=True, is_ident=False, is_timestamp=True,
+                   show_parentesis=True, name_id='ID'):
+        """
+        Export scalars to file feed in csv format.
+        """
+        print 'TableMixin.export_csv', filepath, "*"+sep+"*"  # ,'attrconfigs',attrconfigs,self.get_attrsman()
         fd = open(filepath, 'w')
-
-        if ids is None:
-            ids = self.get_ids()
-
-        if groupname is not None:
-            attrconfigs = self.get_group(groupname)
-            is_exportall = False
-
-        if attrconfigs is None:
-            attrconfigs = self.get_colconfigs(is_all=True)
-            is_exportall = False
-        else:
-            is_exportall = True
 
         # header
         if is_header:
@@ -2844,42 +3078,11 @@ class TableMixin(BaseObjman):
                 fd.write(self._clean_csv(now.isoformat(), sep)+'\n')
             fd.write('\n\n')
 
-        # first table row
-        row = name_id
-        for attrconf in attrconfigs:
-            # print '   write first row',attrconf.attrname
-            is_private = attrconf.has_group('_private')
-            if ((not is_private) & (attrconf.is_save())) | is_exportall:
-                row += sep+self._clean_csv(attrconf.format_symbol(), sep)
-        fd.write(row+'\n')
+        self.get_attrsman().write_csv(fd, sep=sep, ids=ids,
+                                      show_parentesis=show_parentesis, groupnames=groupnames,
+                                      attrconfigs=attrconfigs, name_id='ID')
 
-        # rest
-        for _id in ids:
-            # if self._is_keyindex:
-            #    row = str(self.get_key_from_id(id))#.__repr__()
-            # else:
-            row = str(_id)
-            row = self._clean_csv(row, sep)
-            for attrconf in attrconfigs:
-                is_private = attrconf.has_group('_private')
-                if ((not is_private) & (attrconf.is_save())) | is_exportall:
-                    row += sep+self._clean_csv('%s' % (attrconf.format_value(_id, show_unit=False)), sep)
-
-            # make sure there is no CR in the row!!
-            # print  row
-            fd.write(row+'\n')
-
-        if filepath is not None:
-            fd.close()
-
-    def _clean_csv(self, row, sep):
-        row = row.replace('\n', ' ')
-        #row=row.replace('\b',' ')
-        row = row.replace('\r', ' ')
-        #row=row.replace('\f',' ')
-        #row=row.replace('\newline',' ')
-        row = row.replace(sep, ' ')
-        return row
+        fd.close()
 
     def clear_rows(self):
         if self.plugin:
@@ -3067,7 +3270,6 @@ class TableObjman(Tabman, TableMixin):
         Tabman.__init__(self, is_plugin=is_plugin)
         # self.set_attrsman(self)
         self.set_attrsman(self)
-
 
 
 ###############################################################################

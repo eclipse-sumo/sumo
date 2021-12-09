@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,7 +14,7 @@
 
 # @file    xmlman.py
 # @author  Joerg Schweizer
-# @date
+# @date    2012
 
 #import classman as cm
 #XMLTAG = 'xmltag'
@@ -22,7 +22,7 @@ import numpy as np
 np.set_printoptions(suppress=True, precision=4)
 
 
-def write_obj_to_xml(obj, filepath, attrname_id=None,
+def write_obj_to_xml(obj, filepath,
                      encoding='UTF-8',  # 'iso-8859-1'
                      ):
     """
@@ -113,7 +113,7 @@ def mat(attr, m):
 
 
 def parse_color(s, sep=','):
-        # print 'parseColor',s
+    # print 'parseColor',s
     arr = s.split(sep)
     color = [1.0, 1.0, 1.0, 1.0]
     #np.ones(4,dtype = np.float32)
@@ -134,19 +134,6 @@ def parse_color_old(s):
 
     return tuple(ret)
 
-# def process_shape(s, offset = [0.0,0.0], is_flatarray=False):
-#    cshape = []
-#    #print 'process_shape',type(s),s
-#    es = s.rstrip().split(" ")
-#    for e in es:
-#        p = e.split(",")
-#        if is_flatarray:
-#            cshape.append(float(p[0])-offset[0])
-#            cshape.append(float(p[1]) - offset[1])
-#        else:
-#            cshape.append((float(p[0])-offset[0], float(p[1]) - offset[1]))
-#    return cshape
-
 
 def process_shape(shapeString, offset=[0.0, 0.0]):
     cshape = []
@@ -154,7 +141,7 @@ def process_shape(shapeString, offset=[0.0, 0.0]):
     for e in es:
         p = e.split(",")
         if len(p) == 2:
-                # 2D coordinates with elevetion = 0
+            # 2D coordinates with elevetion = 0
             cshape.append(np.array([float(p[0])-offset[0], float(p[1]) - offset[1], 0.0], np.float32))
         elif len(p) == 3:
             # 3D coordinates
@@ -168,15 +155,7 @@ def process_shape(shapeString, offset=[0.0, 0.0]):
     return cshape  # keep list of vertex arrays
 
 
-def conver_val(s):
-    """
-    Convert attribute s from a string to a number, if this is possible.
-    """
-    # if
-
 # helper function for parsing comment line in xml file
-
-
 def read_keyvalue(line, key):
     data = line.split(' ')
     for element in data:

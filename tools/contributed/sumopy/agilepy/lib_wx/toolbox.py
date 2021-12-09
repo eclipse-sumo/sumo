@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,8 +14,13 @@
 
 # @file    toolbox.py
 # @author  Joerg Schweizer
-# @date
+# @date    2012
 
+import agilepy.lib_base.arrayman as am
+import agilepy.lib_base.classman as cm
+from objpanel import ObjPanel, NaviPanel
+from wx.lib.buttons import GenBitmapTextButton, GenBitmapButton
+import wx
 import sys
 import os
 import string
@@ -28,14 +33,6 @@ if __name__ == '__main__':
     sys.path.append(os.path.join(FILEDIR, "..", ".."))
 
 IMAGEDIR = os.path.join(os.path.dirname(__file__), "images")
-
-import wx
-from wx.lib.buttons import GenBitmapTextButton, GenBitmapButton
-
-from objpanel import ObjPanel, NaviPanel
-
-import agilepy.lib_base.classman as cm
-import agilepy.lib_base.arrayman as am
 
 
 class BaseTool(am.ArrayObjman):

@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,7 +14,7 @@
 
 # @file    test_glcanvas.py
 # @author  Joerg Schweizer
-# @date
+# @date    2012
 
 '''
 @author: Stou Sandalski (stou@icapsid.net)
@@ -25,6 +25,10 @@
 #import wxversion
 # wxversion.select('2.8')
 
+import wxmisc
+import objpanel
+from wxmisc import *
+import classman as cm
 import math
 import wx
 
@@ -49,13 +53,9 @@ import types
 APPDIR = os.path.join(os.path.dirname(__file__), "..")
 sys.path.append(os.path.join(APPDIR, "lib_base"))
 IMAGEDIR = os.path.join(os.path.dirname(__file__), "images")
-import classman as cm
 
 # wx gui stuff
-from wxmisc import *
 
-import objpanel
-import wxmisc
 
 stockIDs = [
     wx.ID_ABOUT,
@@ -649,8 +649,8 @@ def get_dist_point_to_segs(p, y1, x1, y2, x2, is_ending=True):
     Minimum Distance between a Point p = (x,y) and a Line segments ,
     where vectors x1, y1 are the first  points and x2,y2 are the second points 
     of the line segments.
-    Inspired by the description by Paul Bourke,    October 1988
-    http://paulbourke.net/geometry/pointlineplane/
+    Written by Paul Bourke,    October 1988
+    http://astronomy.swin.edu.au/~pbourke/geometry/pointline/
 
     Rewritten in vectorial form by Joerg Schweizer
     """

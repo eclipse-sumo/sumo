@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,7 +14,7 @@
 
 # @file    logger.py
 # @author  Joerg Schweizer
-# @date
+# @date    2012
 
 import types
 from time import gmtime, strftime
@@ -49,7 +49,7 @@ class Logger:
         del self._callbacks[key]
 
     def progress(self, percent):
-        pass
+        self.w(percent, key='progress')
 
     def w(self, data, key='message', **kwargs):
         # print 'Logger.w:',self._logfile is not None,self._is_stdout,data

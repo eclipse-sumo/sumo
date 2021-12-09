@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,23 +14,25 @@
 
 # @file    origin_to_destination_wxgui.py
 # @author  Joerg Schweizer
-# @date
+# @date   2012
 
 import wx
-
-
+from agilepy.lib_wx.processdialog import ProcessDialog, ProcessDialogInteractive
+from coremodules.demand import origin_to_destination_mpl
+from coremodules.misc.matplottools import ResultDialog
 import agilepy.lib_base.classman as cm
 import agilepy.lib_base.arrayman as am
 from agilepy.lib_base.misc import get_inversemap
 from agilepy.lib_wx.ogleditor import *
 from agilepy.lib_wx.objpanel import ObjPanel
 from coremodules.network.network import SumoIdsConf, MODES
+import origin_to_destination as od
 
 
 class OdCommonMixin:
-    def add_odoptions_common(self, modes=None, activitytypes=None):
-        # print 'add_odoptions_common',modes
-        self.add(am.AttrConf('t_start', 0,
+    def add_odoptions_common(self, modes=None, activitytypes=None, **kwargs):
+        print 'add_odoptions_common', modes
+        self.add(am.AttrConf('t_start', kwargs.get('t_start', 0),
                              groupnames=['options'],
                              perm='rw',
                              name='Start time',
@@ -38,7 +40,7 @@ class OdCommonMixin:
                              info='Start time of interval',
                              ))
 
-        self.add(am.AttrConf('t_end', 3600,
+        self.add(am.AttrConf('t_end', kwargs.get('t_end', 3600),
                              groupnames=['options'],
                              perm='rw',
                              name='End time',
@@ -52,15 +54,17 @@ class OdCommonMixin:
             modechoices = {'': -1}
         else:
             modechoices = modes.names.get_indexmap()
-        # print '  modechoices',modechoices
-        self.add(am.AttrConf('id_mode',   -1,
+            # not in use updated in activate tool
+            # print '  modechoices',modechoices
+            # print '  modes.names.get_value()',modes.names.get_value()
+        self.add(am.AttrConf('id_mode',    kwargs.get('id_mode', -1),
                              groupnames=['options'],
                              choices=modechoices,
                              name='Mode',
                              info='Transport mode.',
                              ))
 
-        self.add(cm.AttrConf('scale', 1.0,
+        self.add(cm.AttrConf('scale', kwargs.get('scale', 1.0),
                              groupnames=['options'],
                              perm='rw',
                              name='Scale',
@@ -73,8 +77,8 @@ class OdCommonMixin:
             id_act_dest = -1
         else:
             activitytypechoices = activitytypes.names.get_indexmap()
-            id_act_orig = activitytypes.names.get_id_from_index('home')
-            id_act_dest = activitytypes.names.get_id_from_index('work')
+            id_act_orig = activitytypes.names.get_id_from_index(kwargs.get('act_orig', 'home'))
+            id_act_dest = activitytypes.names.get_id_from_index(kwargs.get('act_dest', 'work'))
 
         self.add(cm.AttrConf('id_activitytype_orig', id_act_orig,
                              groupnames=['options'],
@@ -108,22 +112,31 @@ class OdFlowsWxGuiMixin:
         menubar.append_menu('demand/Zone-to-zone demand',
                             bitmap=self.get_icon("fig_od_24px.png"),
                             )
+
         menubar.append_item('demand/Zone-to-zone demand/add zone-to-zone flows...',
                             self.on_add_odtrips,
                             info='Add or import trips between origin and destination zones, with a certain mode during a certain time interval.',
                             bitmap=self.get_agileicon("Document_Import_24px.png"),
                             )
 
-        menubar.append_item('demand/Zone-to-zone demand/generate trips from flows',
+        menubar.append_item('demand/Zone-to-zone demand/generate trips from flows...',
                             self.on_generate_odtrips,
-                            # info=self.on_generate_odtrips.__doc__.strip(),
                             #bitmap = wx.ArtProvider.GetBitmap(wx.ART_FILE_SAVE_AS,wx.ART_MENU),
                             )
 
-        menubar.append_item('demand/Zone-to-zone demand/generate routes from flows, if connected',
-                            self.on_generate_odroutes,
-                            # info=self.on_generate_odtrips.__doc__.strip(),
-                            #bitmap = wx.ArtProvider.GetBitmap(wx.ART_FILE_SAVE_AS,wx.ART_MENU),
+        menubar.append_item('demand/Zone-to-zone demand/export flows to SUMO XML...',
+                            self.on_export_odflows_xml,
+                            bitmap=self.get_agileicon("Document_Export_24px.png"),
+                            )
+
+        menubar.append_item('demand/Zone-to-zone demand/export flows to Amitran XML...',
+                            self.on_export_odflows_amitranxml,
+                            bitmap=self.get_agileicon("Document_Export_24px.png"),
+                            )
+
+        menubar.append_item('demand/Zone-to-zone demand/OD plots...',
+                            self.on_od_plots,
+                            bitmap=self.get_icon('icon_mpl.png'),
                             )
 
         menubar.append_item('demand/Zone-to-zone demand/clear zone-to-zone flows',
@@ -142,21 +155,115 @@ class OdFlowsWxGuiMixin:
         self._mainframe.browse_obj(self._demand.odintervals)
         # self.scenariopanel.refresh_panel(self.scenario)
 
-    def on_generate_odtrips(self, event=None):
+    def on_od_plots(self, event=None):
         """
-        Generates trips from origin to destination zone from current OD matrices.
+        Plot OD data with matplotlib.
         """
-        self._demand.odintervals.generate_trips(n_trials_connect=-1,
-                                                is_make_route=False,)
-        self._mainframe.browse_obj(self._demand.trips)
+        p = origin_to_destination_mpl.OdPlots('odplots', self._demand, logger=self._mainframe.get_logger(),)
+        dlg = ResultDialog(self._mainframe,
+                           p,
+                           title='Od Plot')
 
-    def on_generate_odroutes(self, event=None):
+        dlg.CenterOnScreen()
+
+        # this does not return until the dialog is closed.
+        val = dlg.ShowModal()
+        # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+        # print '  status =',dlg.get_status()
+        if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+            # print ">>>>>>>>>Unsuccessful\n"
+            dlg.Destroy()
+
+        if dlg.get_status() == 'success':
+            # print ">>>>>>>>>successful\n"
+            # apply current widget values to scenario instance
+            dlg.apply()
+            dlg.Destroy()
+# p.plot_reallocation_needs()
+
+    def on_export_odflows_xml(self, event=None):
+        """Export flows in SUMO trip XML format""",
+
+        scenario = self.get_scenario()
+        wildcards_all = "All files (*.*)|*.*"
+        wildcards_xml = "SUMO xml files (*.flow.xml)|*.flow.xml|XML files (*.xml)|*.xml"
+        wildcards = wildcards_xml+"|"+wildcards_all
+
+        # Finally, if the directory is changed in the process of getting files, this
+        # dialog is set up to change the current working directory to the path chosen.
+        dlg = wx.FileDialog(
+            self._mainframe, message="Choose xml file",
+            defaultDir=scenario.get_workdirpath(),
+            # defaultFile = scenario.get_rootfilepath()+'.poly.xml',
+            wildcard=wildcards,
+            style=wx.SAVE | wx.CHANGE_DIR
+        )
+
+        # Show the dialog and retrieve the user response. If it is the OK response,
+        # process the data.
+        if dlg.ShowModal() == wx.ID_OK:
+            # This returns a Python list of files that were selected.
+            path = dlg.GetPath()
+            # print 'You selected %d files:' % len(paths)
+            if path is not "":
+                self._demand.odintervals.export_sumoxml(path)
+
+        dlg.Destroy()
+
+    def on_export_odflows_amitranxml(self, event=None):
+        """Export flows in Amitran format that defines the demand per OD pair in time slices for every vehicle type""",
+
+        scenario = self.get_scenario()
+        wildcards_all = "All files (*.*)|*.*"
+        wildcards_xml = "Amitran xml files (*.ami.xml)|*.ami.xml|XML files (*.xml)|*.xml"
+        wildcards = wildcards_xml+"|"+wildcards_all
+
+        # Finally, if the directory is changed in the process of getting files, this
+        # dialog is set up to change the current working directory to the path chosen.
+        dlg = wx.FileDialog(
+            self._mainframe, message="Choose xml file",
+            defaultDir=scenario.get_workdirpath(),
+            # defaultFile = scenario.get_rootfilepath()+'.poly.xml',
+            wildcard=wildcards,
+            style=wx.SAVE | wx.CHANGE_DIR
+        )
+
+        # Show the dialog and retrieve the user response. If it is the OK response,
+        # process the data.
+        if dlg.ShowModal() == wx.ID_OK:
+            # This returns a Python list of files that were selected.
+            path = dlg.GetPath()
+            # print 'You selected %d files:' % len(paths)
+            if path is not "":
+                self._demand.odintervals.export_amitranxml(path)
+
+        dlg.Destroy()
+
+    def on_generate_odtrips(self, event=None):
+        """Generates trips and routes from origin to destination zone from current OD matrices.
         """
-        Generates routes from origin to destination zone from current OD matrices, if connected.
-        """
-        self._demand.odintervals.generate_trips(n_trials_connect=5,
-                                                is_make_route=True,)
-        self._mainframe.browse_obj(self._demand.trips)
+
+        p = od.OdTripgenerator(self._demand.odintervals,
+                               logger=self._mainframe.get_logger()
+                               )
+        dlg = ProcessDialog(self._mainframe, p)
+
+        dlg.CenterOnScreen()
+
+        # this does not return until the dialog is closed.
+        val = dlg.ShowModal()
+        # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+        # print '  status =',dlg.get_status()
+        if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+            # print ">>>>>>>>>Unsuccessful\n"
+            dlg.Destroy()
+
+        if dlg.get_status() == 'success':
+            # print ">>>>>>>>>successful\n"
+            # apply current widget values to scenario instance
+            dlg.apply()
+            dlg.Destroy()
+            self._mainframe.browse_obj(self._demand.trips)
 
     def on_clear_odtrips(self, event=None):
         """
@@ -241,7 +348,12 @@ class AddODflowTool(OdCommonMixin, SelectTool):
         self.id_orig.choices = zonenames
         self.id_dest.choices = zonenames
 
+        # these are the mode choices which have a defined vehicle type
         modechoices = self.get_scenario().demand.vtypes.get_modechoices()
+
+        # these are all modes
+        #modechoices = self.get_scenario().net.modes.names.get_indexmap()
+
         self.id_mode.set_value(modechoices['passenger'])
         self.id_mode.choices = modechoices
 
@@ -379,7 +491,7 @@ class AddODflowTool(OdCommonMixin, SelectTool):
         """
         size = (200, -1)
         buttons = [('Add flow', self.on_add_new, 'Add a new OD flow to demand.'),
-                   ('Rest Zones', self.on_clear_zones, 'Clear the fields with zones of origin and destination.'),
+                   ('Clear Zones', self.on_clear_zones, 'Clear the fields with zones of origin and destination.'),
                    #('Save flows', self.on_add, 'Save OD flows to current demand.'),
                    #('Cancel', self.on_close, 'Close wizzard without adding flows.'),
                    ]
@@ -404,7 +516,7 @@ class AddOdWizzard(OdCommonMixin, am.ArrayObjman):
     a certain mode and for a certain time interval to the scenario.
     """
 
-    def __init__(self, odintervals):
+    def __init__(self, odintervals, **kwargs):
         # print 'AddOdWizzard',odintervals#,odintervals.times_start
         # print ' dir(odintervals)',dir(odintervals)
         zones = odintervals.get_zones()
@@ -414,7 +526,50 @@ class AddOdWizzard(OdCommonMixin, am.ArrayObjman):
                           info='Wizzard to add origin zone to destination zone demand informations.',
                           )
 
-        self.add_odoptions_common(odintervals.parent.get_scenario().net.modes, odintervals.parent.activitytypes)
+        self.add_odoptions_common(odintervals.parent.get_scenario().net.modes,
+                                  odintervals.parent.activitytypes, **kwargs)
+
+        ids_zone = zones.get_ids()
+        zonechoices = {}
+        for id_zone, name_zone in zip(ids_zone, zones.ids_sumo[ids_zone]):
+            zonechoices[name_zone] = id_zone
+        # print '  zonechoices',zonechoices
+        # make for each possible pattern a field for prob
+        # if len(zonechoices) > 0:
+        self.add(cm.ListConf('ids_zone_orig_filter', kwargs.get('ids_zone_orig_filter', []),
+                             groupnames=['options'],
+                             choices=zonechoices,
+                             name='Filter zones of origin',
+                             info="""Filters flows if its origin is in one of these zones. If no zone is given, then no filtering takes place.""",
+                             ))
+
+        self.add(cm.ListConf('ids_zone_dest_filter', kwargs.get('ids_zone_dest_filter', []),
+                             groupnames=['options'],
+                             choices=zonechoices,
+                             name='Filter zones of destination',
+                             info="""Filters flows if its destination is in one of these zones. If no zone is given, then no filtering takes place.""",
+                             ))
+
+        self.add(cm.ListConf('ids_zone_cross_filter', kwargs.get('ids_zone_cross_filter', []),
+                             groupnames=['options'],
+                             choices=zonechoices,
+                             name='Filter zones to cross',
+                             info="""Filters flows if a straight line between origin and destination crosses at least one of these zones. If no zone is given, then no filtering takes place.""",
+                             ))
+
+        self.add(cm.AttrConf('dist_min', kwargs.get('dist_min', -1.0),
+                             groupnames=['options'],
+                             name='Filter zones with min. dist.',
+                             unit='m',
+                             info="""Filters flows if the straight line between origin and destination is greater than the given minimum distance. If negative, then no filtering takes place.""",
+                             ))
+
+        self.add(cm.AttrConf('dist_max', kwargs.get('dist_max', -1.0),
+                             groupnames=['options'],
+                             name='Filter zones with max. dist.',
+                             unit='m',
+                             info="""Filters flows if the straight line between origin and destination is less than the given minimum distance. If negative, then no filtering takes place.""",
+                             ))
 
         self.add_col(am.ArrayConf('names_orig', '',
                                   dtype='object',
@@ -475,17 +630,24 @@ class AddOdWizzard(OdCommonMixin, am.ArrayObjman):
         """
         Add demand to scenario.
         """
-        # print 'AddOdm.add_demand'
+        print 'AddOdm.add_demand'
+        # print '   ids_zone_orig_filter',self.ids_zone_orig_filter.get_value()
+        # print '   ids_zone_dest_filter',self.ids_zone_dest_filter.get_value()
         odintervals = self.parent
         #demand = self._scenario.demand
         # odm={} # create a temporary dict with (o,d) as key and trips as value
         ids = self.get_ids()
-        odintervals.add_od_flows(self.t_start.value, self.t_end.value,
-                                 self.id_mode.value,
-                                 self.id_activitytype_orig.value, self.id_activitytype_dest.value,
-                                 self.scale.value,
+        odintervals.add_od_flows(self.t_start.value, self.t_end.get_value(),
+                                 self.id_mode.get_value(),
+                                 self.id_activitytype_orig.get_value(), self.id_activitytype_dest.get_value(),
+                                 self.scale.get_value(),
                                  self.names_orig[ids], self.names_dest[ids],
-                                 self.tripnumbers[ids]
+                                 self.tripnumbers[ids],
+                                 ids_zone_orig_filter=self.ids_zone_orig_filter.get_value(),
+                                 ids_zone_dest_filter=self.ids_zone_dest_filter.get_value(),
+                                 ids_zone_cross_filter=self.ids_zone_cross_filter.get_value(),
+                                 dist_min=self.dist_min.get_value(),
+                                 dist_max=self.dist_max.get_value(),
                                  )
 
         #t_start, t_end, id_mode,
@@ -629,7 +791,7 @@ class AddOdDialog(wx.Frame):
         wildcards_all = "CSV files (*.csv)|*.csv|CSV files (*.txt)|*.txt|All files (*.*)|*.*"  # +"|"+otherwildcards
         dlg = wx.FileDialog(self.parent, message="Import CSV file",
                             defaultDir=self.dirpath,
-                            defaultFile="",
+                            # defaultFile="",
                             wildcard=wildcards_all,
                             style=wx.OPEN | wx.MULTIPLE | wx.CHANGE_DIR
                             )

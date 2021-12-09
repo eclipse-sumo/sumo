@@ -1,7 +1,8 @@
+#!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,27 +15,42 @@
 
 # @file    objpanel.py
 # @author  Joerg Schweizer
-# @date
+# @date    2012
 
 # cd /home/joerg/projects/sumopy/tools/sumopy/wxpython
 # python objpanel.py
 
+import string
+import random
+from agilepy.lib_base.misc import filepathlist_to_filepathstring, filepathstring_to_filepathlist
+from wxmisc import KEYMAP, AgilePopupMenu, AgileToolbarMixin, get_tablecolors
+import agilepy.lib_base.exports as ex
+import time
+from agilepy.lib_base.logger import Logger
+import agilepy.lib_base.classman as cm
+import wx.py as py  # pyshell
+from collections import OrderedDict
+import wx.lib.colourselect as coloursel
+import wx.lib.editor as editor
+from wx.lib import scrolledpanel, hyperlink, colourdb, masked
+import wx.grid as gridlib
+import wx.lib as wxlib
+import wx
+import numpy as np
 import sys
 import os
 import types
+if __name__ == '__main__':
+    # search SUMOPy in local directory (where this file is located)
+    try:
+        APPDIR = os.path.dirname(os.path.abspath(__file__))
+    except:
+        APPDIR = os.path.dirname(os.path.abspath(sys.argv[0]))
+    sys.path.append(os.path.join(APPDIR, '..', '..'))
 
 
-import time
-import random
-import string
-import numpy as np
-import wx
-import wx.lib as wxlib
-import wx.grid as gridlib
-from wx.lib import scrolledpanel, hyperlink, colourdb, masked
-import wx.lib.editor as editor
-import wx.lib.colourselect as coloursel
-from collections import OrderedDict
+# from processdialog import ProcessDialog # no! uses objectpanel
+
 havePopupWindow = 1
 if wx.Platform == '__WXMAC__':
     havePopupWindow = 0
@@ -47,17 +63,12 @@ if __name__ == '__main__':
 
 IMAGEDIR = os.path.join(os.path.dirname(__file__), 'images')
 
-from wxmisc import KEYMAP, AgilePopupMenu, AgileToolbarMixin, get_tablecolors
 
 # used for demo:
-import wx.py as py  # pyshell
 wildcards_all = "All files (*.*)|*.*"
 
 provider = wx.SimpleHelpProvider()
 wx.HelpProvider_Set(provider)
-
-import agilepy.lib_base.classman as cm
-from agilepy.lib_base.misc import filepathlist_to_filepathstring, filepathstring_to_filepathlist
 
 METATYPES_LINKSTYLE = ('obj', 'id', 'tabid', 'ids')
 
@@ -65,20 +76,21 @@ NUMERICTYPES = cm.NUMERICTYPES  # (types.BooleanType,types.FloatType,types.IntTy
 STRINGTYPES = cm.STRINGTYPES  # (types.StringType,types.UnicodeType)
 
 
-def list_to_str(l, lb='', rb=''):
+def list_to_str(l, lb='', rb='', sep=','):
     # print 'list_to_str',l,len(l)
     if len(l) == 0:
         return lb+rb
     else:
         s = lb
         for e in l[:-1]:
-            s += unicode(e)+','
+            s += unicode(e)+sep
         # print '  returns',s+unicode(l[-1])+rb
         return s+unicode(l[-1])+rb
 
 
 def is_list_flat(l):
-    if type(l) in STRINGTYPES:
+    if type(l) not in (types.ListType, types.TupleType):  # STRINGTYPES:
+        # not a list
         return False
 
     is_flat = True
@@ -242,6 +254,7 @@ class WidgetContainer:
 # -------------------------------------------------------------------------------
     # the following methods are usually overwritten to create
     # attribute specific widgets
+
 
     def define_widgetset(self):
         """
@@ -536,10 +549,13 @@ class WidgetContainer:
     def set_tooltip(self, widget=None):
 
         # TODO : check for global tooltip on/off
+        infostr = '%s (%s)' % (self._attrconf.get_name(), self._attrconf.attrname)
         if self._attrconf.has_info():
             # print 'set_tooltip',self.attr,self.config_attr['info']
-            widget.SetToolTipString(self._attrconf.get_info())
-            widget.SetHelpText(self._attrconf.get_info())
+            for infoline in self._attrconf.get_info().split('\n'):
+                infostr += '\n  '+infoline.strip()
+        widget.SetToolTipString(infostr)
+        widget.SetHelpText(infostr)
 
 
 class NumericWidgetContainer(AttrBase, WidgetContainer):
@@ -802,7 +818,7 @@ class BooleanWidgetContainer(AttrBase, WidgetContainer):
 
 class ChoiceWidgetContainer(WidgetContainer):
     """
-    Contains one or several widgets representing a text attribute.
+    Contains widget to select one item from a choice list.
 
     """
 
@@ -894,14 +910,105 @@ class ChoiceWidgetContainer(WidgetContainer):
             #ind = self._choicenames.index(value)
             ind = self._choicevalues.index(val)
         except:
-            print 'WARNING in ChoiceWidgetContainer.set_widgetvalue: %s with value "%s" not in choice list' % (
-                self._attrconf.attrname, val)
+            print 'WARNING in ChoiceWidgetContainer.set_widgetvalue: %s with value "%s" not in choice list' % (self._attrconf.attrname, val)
             return
         # print '  ind',ind,self.valuewidget
         if self._attrconf.is_writable():
             self.valuewidget.SetSelection(ind)
         else:
             self.valuewidget.SetValue(self._choicenames[ind])
+
+
+class ChecklistWidgetContainer(ChoiceWidgetContainer):
+    """
+    Contains widchet to chosse several items from a choice list.
+
+    """
+
+    def get_valuewidget_read(self):
+        """
+        Return widget to read only numeric value of attribute
+        This is effectively the parametrisation of the masked.NumCtrl widget.
+        """
+        # this is a list:
+        values = self.get_value_obj()
+        # print 'ChoiceWidgetContainer.get_valuewidget_read',value,type(value)
+        # print '  choices',self._attrconf.choices
+
+        # mal values in list with .choices dictionary
+        if (len(values) > 0) & (type(self._attrconf.choices) in (OrderedDict, types.DictionaryType)):
+            #value = self._attrconf.choices[value]
+            values = []
+            for val in self.get_value_obj():
+                if val in self._choicevalues:
+                    values.append(self._choicenames[self._choicevalues.index(val)])
+
+        # print '  value =',value
+        widget = wx.TextCtrl(self.parent, -1, list_to_str(values, sep=self._attrconf.sep), style=wx.ALIGN_RIGHT)
+        widget.Enable(False)
+        return widget
+
+    def get_valuewidget_write(self):
+        """
+        Return widget to edit numeric value of attribute
+        This is effectively the parametrisation of the masked.NumCtrl widget.
+        """
+
+        value = self.get_value_obj()
+        # print 'ChoiceWidgetContainer.get_valuewidget_write',self._attrconf.attrname, value,type(value),self.immediate_apply
+        # print '  choices',self._attrconf.choices
+        # print '  self._choicenames',self._choicenames
+        # print '  self._choicevalues',self._choicevalues
+
+        widget = wx.CheckListBox(self.parent, -1, (80, 50), wx.DefaultSize, self._choicenames)
+        #wx.ComboBox(self.parent,choices = self._choicenames)
+        # print 'widget',widget,'dir:',dir(widget)
+
+        if self.immediate_apply:
+
+            # ATTENTION: this does not work because self.parent is not
+            # a panel, but a windoe, without EvtListBox !!!
+            #self.parent.Bind(wx.EVT_LISTBOX, self.parent.EvtListBox, widget)
+            self.parent.Bind(wx.EVT_CHECKLISTBOX, self.on_apply_immediate, widget)
+
+        self.set_checkbox(widget, value)
+
+        return widget
+
+    def get_widgetvalue(self):
+        """
+        Returnes current value from valuewidget.
+        Depends on attribute type and hence widgettype.
+        To be overwritten.
+        """
+        values = []
+        # print 'get_widgetvalue Checked',self.valuewidget.Checked
+        for ind in self.valuewidget.Checked:
+            values.append(self._choicevalues[ind])
+
+        return values
+
+    def set_checkbox(self, widget, values):
+        # print 'set_checkbox',values
+        is_set = False
+        for val in values:  # values must be a list
+            # print '  test',val,val in self._choicevalues
+            if val in self._choicevalues:
+                # print '    select ind',self._choicevalues.index(val)
+                ind = self._choicevalues.index(val)
+                widget.Check(ind, True)
+                is_set = True
+
+    def set_widgetvalue(self, val):
+        """
+        Sets value for valuewidget.
+        Depends on attribute type and hence widgettype.
+        To be overwritten.
+        """
+        if self._attrconf.is_writable():
+            self.set_checkbox(self.valuewidget, val)
+        else:
+            self.valuewidget.SetValue(str(val))
 
 
 class TextWidgetContainer(WidgetContainer):
@@ -1038,9 +1145,15 @@ class ListWidgetContainer(WidgetContainer):
         Return widget to edit numeric value of attribute
         This is effectively the parametrisation of the masked.NumCtrl widget.
         """
+        if self._attrconf.get_metatype() == 'list':
+            sep = self._attrconf.sep
+            is_ok = True  # assuming that List configs are flat
+        else:
+            sep = ','
+            is_ok = is_list_flat(self.get_value_obj())
 
-        value = list_to_str(self.get_value_obj())
-        if is_list_flat(value):
+        value = list_to_str(self.get_value_obj(), sep=sep)
+        if is_ok:
             widget = wx.TextCtrl(self.parent, -1, value, style=wx.ALIGN_LEFT | wx.TE_MULTILINE)
         else:  # only flat lists can be edited :(
             widget = wx.TextCtrl(self.parent, -1, value, style=wx.ALIGN_RIGHT | wx.TE_MULTILINE)
@@ -1057,7 +1170,10 @@ class ListWidgetContainer(WidgetContainer):
         """
         # print 'get_widgetvalue',  self.widgets['value'][0].GetValue()
         # print ' returns', str_to_list(self.widgets['value'][0].GetValue())
-        return str_to_list(self.widgets['value'][0].GetValue())
+        if self._attrconf.get_metatype() == 'list':
+            return self._attrconf.get_value_from_string(self.widgets['value'][0].GetValue())
+        else:
+            return str_to_list(self.widgets['value'][0].GetValue())
 
     def set_widgetvalue(self, value):
         """
@@ -1066,10 +1182,16 @@ class ListWidgetContainer(WidgetContainer):
         To be overwritten.
         """
         # print 'set_widgetvalue',value,is_list_flat(value)
+        if self._attrconf.get_metatype() == 'list':
+            sep = self._attrconf.sep
+
+        else:
+            sep = ','
+
         if is_list_flat(value):  # &self._attrconf.is_editable():
-            self.widgets['value'][0].SetValue(list_to_str(value))
+            self.widgets['value'][0].SetValue(list_to_str(value, sep=sep))
         else:  # only flat lists can be edited :(
-            self.widgets['value'][0].SetValue(repr(value))
+            self.widgets['value'][0].SetValue(repr(value, sep=sep))
 
 
 class ObjWidgetContainer(AttrBase, WidgetContainer):
@@ -1399,13 +1521,17 @@ class FilepathWidgetContainer(AttrBase, TextWidgetContainer):
         filepath = self.get_objvalue()
         if type(filepath) not in STRINGTYPES:
             filepath = ""
-            dirpath = os.getcwd()
+            dirpath = os.path.expanduser("~")  # os.getcwd()
         else:
-            dirpath = os.path.dirname(filepath)
+            if len(filepath) == 0:
+                dirpath = os.path.expanduser("~")  # os.getcwd()
+            else:
+                dirpath = os.path.dirname(filepath)
 
+        # print 'on_fileopen dirpath',dirpath
         dlg = wx.FileDialog(self.parent, message="Open file",
                             defaultDir=dirpath,
-                            defaultFile=filepath,
+                            #defaultFile= filepath,
                             wildcard=wildcards,
                             style=wx.OPEN | wx.CHANGE_DIR
                             )
@@ -1443,15 +1569,19 @@ class FilepathsWidgetContainer(FilepathWidgetContainer):
         # print '  filepath',filepath,type(filepath)
         if type(filepath) not in STRINGTYPES:
             filepath = ""
-            dirpath = os.getcwd()
+            dirpath = dirpath = os.path.expanduser("~")  # os.getcwd()
         else:
-            dirpath = os.path.dirname(filepath.split(',')[0])
+            if len(filepath) == 0:
+                dirpath = dirpath = os.path.expanduser("~")  # os.getcwd()
+            else:
+                # take directory of first filepath
+                dirpath = os.path.dirname(filepath.split(',')[0])
 
         # print '  dirpath',dirpath
         # print '  filepath',filepath
         dlg = wx.FileDialog(self.parent, message="Open file",
                             defaultDir=dirpath,
-                            defaultFile=filepath,
+                            #defaultFile= filepath,
                             wildcard=wildcards,
                             style=wx.OPEN | wx.MULTIPLE | wx.CHANGE_DIR
                             )
@@ -1657,6 +1787,12 @@ class ScalarPanel(wx.Panel):
 
         elif mt == 'color':
             return ColorWidgetContainer(self, attrconf, **args)
+
+        elif (mt == 'list') & hasattr(attrconf, 'choices'):
+            return ChecklistWidgetContainer(self, attrconf, **args)
+
+        elif (mt == 'list'):
+            return ListWidgetContainer(self, attrconf, **args)
 
         elif hasattr(attrconf, 'choices'):
             return ChoiceWidgetContainer(self, attrconf, **args)
@@ -2239,6 +2375,7 @@ class TableGrid(AttrBase, gridlib.PyGridTableBase):
     # Called to determine the kind of editor/renderer to use by
     # default, doesn't necessarily have to be the same type used
     # natively by the editor/renderer if they know how to convert.
+
     def GetTypeName(self, row, col):
         if (col > -1) & (col < len(self.celltypes)):
             return self.celltypes[col]
@@ -2467,14 +2604,14 @@ class TabPanel(AttrBase, gridlib.Grid):
             # popup row options menu
             self._contextfunctions = {}
             # print '  configs',self.tab.get_configs(is_all=True)
-            for config in self.tab.get_configs(is_all=True):
+            for config in self.tab.get_configs(filtergroupnames=['rowfunctions'], is_private=True):  # (is_all=True):
                 # print '  ',config.attrname,config.groupnames,'rowfunctions' in config.groupnames
-                if 'rowfunctions' in config.groupnames:
-                    item, id = menu.append_item(config.get_name(), self.on_select_rowfunction, info=config.get_info())
-                    #item,id = menu.append_item( config.name,config.get_function(), info=config.info)
-                    self._contextfunctions[id] = config.get_function()
-                    # print '  append ',config.name,id
-                    #menu.append_item( config.name,self.on_select_contextmenu, info=config.info)
+                # if 'rowfunctions' in config.groupnames:
+                item, _id = menu.append_item(config.get_name(), self.on_select_rowfunction, info=config.get_info())
+                #item,id = menu.append_item( config.name,config.get_function(), info=config.info)
+                self._contextfunctions[_id] = config.get_function()
+                # print '  append ',config.name,_id
+                #menu.append_item( config.name,self.on_select_contextmenu, info=config.info)
 
         # default
         menu.append_item('Export to CSV...', self.on_export_csv,
@@ -2499,17 +2636,17 @@ class TabPanel(AttrBase, gridlib.Grid):
         table = self.GetTable()
         row = popupmenu.get_row()
         col = popupmenu.get_col()
-        id, attrconf = table.get_id_attrconf(row, col)
+        _id, attrconf = table.get_id_attrconf(row, col)
         id_menu = event.GetId()
-        # print 'on_select_contextmenu id_menu,id, attrconf',id_menu,id, attrconf
+        # print 'on_select_contextmenu id_menu,_id, attrconf',id_menu,_id, attrconf
         # print '  GetSelection',event.GetSelection()
         # print '  GetString',event.GetString()
 
         # print '  GetId',id_menu,event.Id
         # print '  GetClientObject',event.GetClientObject()
 
-        # call selected row function with row id
-        self._contextfunctions[id_menu](id)
+        # call selected row function with row _id
+        self._contextfunctions[id_menu](_id)
 
         # item = popupmenu.get_menuitem_from_id(event.GetId())# OK but not neede
         # if self._rowfunctions.has_keid_menu:
@@ -2517,7 +2654,7 @@ class TabPanel(AttrBase, gridlib.Grid):
         #    #help = item.GetHelp()
         #    #??? menu id->name->function??????????
         #    print 'on_select_contextmenu: found function:',funcname#,getattr(table,funcname)
-        #    self._rowfunctions[id]
+        #    self._rowfunctions[_id]
         # else:
         #    print 'on_select_contextmenu: No function found'
 
@@ -2555,11 +2692,11 @@ class TabPanel(AttrBase, gridlib.Grid):
         if dlg.ShowModal() == wx.ID_OK:
             # This returns a Python list of files that were selected.
             path = dlg.GetPath()
-            # print 'You selected %d files:' % len(paths)
+            print 'on_export_csv', type(path), path
             if type(path) in STRINGTYPES:
-                self.tab.export_csv(path, sep=',', name_id='ID',
-                                    file=None, attrconfigs=self.GetTable().get_valueconfigs(),
-                                    groupname=None, is_header=True)
+                self.tab.export_csv(path, sep=',',
+                                    attrconfigs=self.GetTable().get_valueconfigs(),
+                                    groupnames=None, is_header=True)
 
     def on_click_cell(self, event):
         """
@@ -3524,8 +3661,9 @@ class ObjPanelMixin:
 
     def on_cancel(self, event):
         """
-        Apply values, destroy itself and parent
+        Destroy itself and parent
         """
+        # print 'OP.on_cancel'
         self.Close()
 
     def apply(self):
@@ -4135,6 +4273,13 @@ class NaviPanelMixin:
         #self.toolbar.AddControl(wx.TextCtrl(self.toolbar, -1, "Toolbar controls!!", size=(150, -1)))
 
         # self.toolbar.AddSeparator()
+        bitmap = wx.Bitmap(os.path.join(IMAGEDIR, 'fig_menu_icon.png'), wx.BITMAP_TYPE_PNG)
+        b = wx.BitmapButton(self, -1, bitmap, bottonsize,
+                            (bitmap.GetWidth()+bottonborder, bitmap.GetHeight()+bottonborder))
+        b.SetToolTipString("Object browser menu. Click for actions on this object")
+        #b = wx.Button(self, label="Show/Hide")
+        self.Bind(wx.EVT_BUTTON,  self.popup_menu, b)
+        self.toolbar.Add(b)
 
         # panel.SetAutoLayout(True)
         # panel.SetSizer(buttons)
@@ -4143,6 +4288,70 @@ class NaviPanelMixin:
 
         # only for frames
         # self.SetToolBar(self.toolbar)
+
+    def popup_menu(self, event):
+        #btn = event.GetEventObject()
+        #drawing = self._canvas.get_drawing()
+
+        # Create the popup menu
+        self._popupmenu = AgilePopupMenu(self)
+        self._popupmenu.append_item(
+            'Export to CSV...',
+            self.on_export_csv,
+            info='Export current object in CSV format.',
+            #check= drawobj.is_visible(),
+        )
+
+        if ex.IS_EXCEL:
+            self._popupmenu.append_item(
+                'Export to Excel...',
+                self.on_export_excel,
+                info='Export current object in EXCEL format.',
+                #check= drawobj.is_visible(),
+            )
+
+        self.PopupMenu(self._popupmenu)
+        self._popupmenu.Destroy()
+        event.Skip()
+
+    def on_export_excel(self, event):
+        print 'on_export_excel'
+        obj = self.objpanel.get_obj()
+
+        #dirpath = self.get_scenario().get_workdirpath()
+        #defaultFile = self.get_scenario().get_rootfilename()+'.rou.xml'
+        wildcards_all = 'Excel files (*.xls)|*.xls|All files (*.*)|*.*'
+        dlg = wx.FileDialog(None, message='Export object to Excel file',
+                            # defaultDir=dirpath,
+                            # defaultFile=defaultFile,
+                            wildcard=wildcards_all, style=wx.SAVE | wx.CHANGE_DIR)
+        if dlg.ShowModal() == wx.ID_OK:
+            filepath = dlg.GetPath()
+            ex.export_excel(filepath, obj, ids=None, attrconfigs=None,  groupnames=None,
+                            is_header=True, is_ident=False, is_timestamp=True,
+                            show_parentesis=True, name_id='ID', is_export_not_save=True)
+        else:
+            return
+
+    def on_export_csv(self, event):
+        print 'on_export_csv'
+        obj = self.objpanel.get_obj()
+
+        #dirpath = self.get_scenario().get_workdirpath()
+        #defaultFile = self.get_scenario().get_rootfilename()+'.rou.xml'
+        wildcards_all = 'CSV files (*.csv)|*.csv|Text files (*.txt)|*.txt|All files (*.*)|*.*'
+        dlg = wx.FileDialog(None, message='Export object to CSV file',
+                            # defaultDir=dirpath,
+                            # defaultFile=defaultFile,
+                            wildcard=wildcards_all, style=wx.SAVE | wx.CHANGE_DIR)
+        if dlg.ShowModal() == wx.ID_OK:
+            filepath = dlg.GetPath()
+            obj.export_csv(filepath, sep=',',
+                           attrconfigs=None,  groupnames=None,
+                           is_header=True, is_ident=False, is_timestamp=True,
+                           show_parentesis=True)
+        else:
+            return
 
     def get_ident_abs(self, obj, _id):
         if _id is not None:
@@ -4269,9 +4478,12 @@ class ObjBrowserMainframe(wx.Frame):
             # print '  init ObjPanel'
             #self.browser = ObjPanel(self, obj)
             self.browser = NaviPanel(self, obj, _id)
-        else:
+        elif table is not None:
             # print '  init TablePanel'
             self.browser = TablePanel(self, table)
+        else:
+            obj = cm.BaseObjman('empty')
+            self.browser = NaviPanel(self, obj, _id)
         #browser = TablePanel(self,obj)
         # self.MsgWindow = wx.TextCtrl(self, wx.ID_ANY,
         #                             "Look Here for output from events\n",
@@ -4302,7 +4514,12 @@ class ObjBrowserMainframe(wx.Frame):
         wxlib.colourdb.updateColourDB()
         self.colors = wxlib.colourdb.getColourList()
 
+        self.__init_specific()
+
         return None
+
+    def __init_specific(self):
+        pass
 
     def OnAbout(self, event):
         dlg = wx.MessageDialog(self,
@@ -4317,7 +4534,7 @@ class ObjBrowserMainframe(wx.Frame):
 
         dlg = wx.FileDialog(self, message="Open object",
                             defaultDir=os.getcwd(),
-                            defaultFile="",
+                            # defaultFile="",
                             wildcard=wildcards_all,
                             style=wx.OPEN | wx.MULTIPLE | wx.CHANGE_DIR
                             )
@@ -4360,7 +4577,8 @@ class ObjBrowserMainframe(wx.Frame):
     def OnSave(self, event):
         dlg = wx.FileDialog(
             self, message="Save file as ...", defaultDir=os.getcwd(),
-            defaultFile="", wildcard=wildcards_all, style=wx.SAVE
+            # defaultFile="",
+            wildcard=wildcards_all, style=wx.SAVE
         )
 
         # This sets the default filter that the user will initially see. Otherwise,
@@ -4385,19 +4603,32 @@ class ObjBrowserApp(wx.App):
 
     """
 
-    def __init__(self, obj, _id=None, output=False, **kwargs):
+    def __init__(self, obj, _id=None, output=False, logger=None, **kwargs):
+        if obj is None:
+            obj = cm.BaseObjman('empty')
         self._obj = obj
         self._id = _id
         # print 'ObjBrowserApp.__init__',obj.ident, _id
-
+        self._logger = logger
         wx.App.__init__(self, output, **kwargs)
 
     def OnInit(self):
         wx.InitAllImageHandlers()
         #DrawFrame = BuildDrawFrame()
-        frame = ObjBrowserMainframe(None, -1, "Object browser", wx.DefaultPosition,
-                                    (700, 700), obj=self._obj, _id=self._id)
+        #frame = ObjBrowserMainframe(None, -1, "Object browser",wx.DefaultPosition,(700,700),obj=self._obj, _id = self._id)
 
+        frame = ObjBrowserMainframe(None, -1, 'Object browser', wx.DefaultPosition,
+                                    size=wx.DefaultSize, obj=self._obj, table=None)
+        #title ='Object browser',
+        #appname = 'Object browser app',
+        #logger = self._logger,
+        #appdir = '',
+        # is_maximize = False, is_centerscreen = True,
+        #pos=wx.DefaultPosition, size=wx.DefaultSize,
+        # style=wx.DEFAULT_FRAME_STYLE,
+        #name='Object browser frame',
+        #size_toolbaricons = (24,24)
+        # )
         self.SetTopWindow(frame)
         frame.Show()
 

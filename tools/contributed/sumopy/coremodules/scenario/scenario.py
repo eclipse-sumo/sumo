@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,9 +14,18 @@
 
 # @file    scenario.py
 # @author  Joerg Schweizer
-# @date
+# @date   2012
 
 
+import numpy as np
+from coremodules.misc import shapeformat
+from coremodules.simulation import simulation
+from coremodules.demand import demand
+from coremodules.landuse import landuse
+from coremodules.network import network
+from agilepy.lib_base.processes import Process
+import agilepy.lib_base.arrayman as am
+import agilepy.lib_base.classman as cm
 import os
 import sys
 if __name__ == '__main__':
@@ -27,31 +36,20 @@ if __name__ == '__main__':
     sys.path.append(os.path.join(FILEDIR, "..", ".."))
 
 # this is default scenario directory
-DIRPATH_SCENARIO = os.path.join(os.path.expanduser("~"), 'Sumo')  # os.path.join(os.getcwd(),'testscenario')
-
-
-import numpy as np
-import agilepy.lib_base.classman as cm
-import agilepy.lib_base.arrayman as am
-from agilepy.lib_base.processes import Process
-
-from coremodules.network import network
-from coremodules.landuse import landuse
-from coremodules.demand import demand
-from coremodules.simulation import simulation
-from coremodules.misc import shapeformat
+DIRPATH_SCENARIO = os.path.join(os.path.expanduser("~"), 'Sumo')
+#  os.path.join(os.getcwd(),'testscenario')
 
 
 def load_scenario(filepath, logger=None):
-    scenario = cm.load_obj(filepath, parent=None)
+    scen = cm.load_obj(filepath, parent=None)
     # scenario.set_workdirpath(os.path.dirname(filepath))
     # this will set rootname and workdir
-
-    scenario.set_filepath(filepath)
-    # print 'load_scenario', scenario.get_rootfilepath(),'workdirpath',scenario.workdirpath
-    if logger is not None:
-        scenario.set_logger(logger)
-    return scenario
+    if scen is not None:
+        scen.set_filepath(filepath)
+        # print 'load_scenario', scen.get_rootfilepath(),'workdirpath',scen.workdirpath
+        if logger is not None:
+            scen.set_logger(logger)
+    return scen
 
 
 class ScenarioCreator(Process):

@@ -1,7 +1,8 @@
+#!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,14 +15,25 @@
 
 # @file    ogleditor.py
 # @author  Joerg Schweizer
-# @date
+# @date    2012
 
-#!/usr/bin/env python;
 """OpenGL editor"""
+import types
+import os
+import sys
+from toolbox import *
+from wxmisc import *
+from agilepy.lib_base.geometry import *
+import agilepy.lib_base.arrayman as am
+import agilepy.lib_base.classman as cm
+from wx.lib.buttons import GenBitmapTextButton, GenBitmapButton
+from wx import glcanvas
+from collections import OrderedDict
+import wx
 if __name__ == '__main__':
-    __version__ = "0.1a"
+    __version__ = "0.3"
     __licence__ = """licensed under the GPL."""
-    __copyright__ = "(c) 2012-2016 University of Bologna - DICAM"
+    __copyright__ = "(c) 2012-2018 University of Bologna - DICAM"
     __author__ = "Joerg Schweizer"
 
     __usage__ = """USAGE:
@@ -40,10 +52,6 @@ if __name__ == '__main__':
 #import wxversion
 # wxversion.select("2.8")
 
-import wx
-from collections import OrderedDict
-from wx import glcanvas
-from wx.lib.buttons import GenBitmapTextButton, GenBitmapButton
 try:
     from OpenGL.GL import *
     from OpenGL.GLU import *  # project , unproject , tess
@@ -57,9 +65,6 @@ try:
 except ImportError:
     raise ImportError, "Required dependencies numpy or OpenGL not present"
 
-import sys
-import os
-import types
 if __name__ == '__main__':
     try:
         FILEDIR = os.path.dirname(os.path.abspath(__file__))
@@ -70,14 +75,8 @@ if __name__ == '__main__':
 
 IMAGEDIR = os.path.join(os.path.dirname(__file__), "images")
 
-import agilepy.lib_base.classman as cm
-import agilepy.lib_base.arrayman as am
-
-from agilepy.lib_base.geometry import *
 
 # wx gui stuff
-from wxmisc import *
-from toolbox import *
 
 
 FLATHEAD = 0
@@ -96,6 +95,52 @@ LINEHEADS = {  # 'flat':0,# not a style
 }
 
 # to be deleted
+
+###############################################################################
+# vbo test
+vertices = [
+    [0.1, 0.1, 0],  # 0
+    [0.1, 0.5, 0.5],  # 1
+    [0, 0.9, 0],  # 2
+    [0.2, 0.0, 0],  # 3
+    [0.5, 0.0, 0],  # 4
+    [0.9, 0, 0],  # 5
+    [0.2, 0.2, 0.5],  # 6
+    [0.5, 0.5, 0.5],  # 7
+    [0.9, 0.9, 0],  # 8
+]
+
+indexes = [
+    0, 1,
+    2, 7,
+    5, 6,
+]
+
+colors = [
+    [0.9, 0.9, 0.0, 0.9],    # 0
+    [0.9, 0.9, 0.0, 0.9],    # 1
+    [0.9, 0.0, 0.9, 0.9],    # 2
+    [0.9, 0.0, 0.9, 0.9],    # 3
+    [0.0, 0.9, 0.9, 0.9],    # 4
+    [0.0, 0.9, 0.9, 0.9],    # 5
+    [0.0, 0.9, 0.9, 0.9],    # 6
+    [0.9, 0.0, 0.9, 0.9],    # 7
+    [0.9, 0.0, 0.9, 0.9],    # 8
+]
+
+# Create the VBO
+vertexarray = np.array(vertices, dtype=np.float32)
+indexarray = np.array(indexes, dtype=np.int32)
+
+vertexvbo = vbo.VBO(vertexarray)
+indexvbo = vbo.VBO(indexarray, target=GL_ELEMENT_ARRAY_BUFFER)
+
+colorarray = np.array(colors, dtype=np.float32)
+colorvbo = vbo.VBO(colorarray)
+
+###############################################################################
+
+
 #import  test_glcanvas as testogl
 # class TestVbo(Vbo):
 # def draw(self, resolution):
@@ -126,7 +171,6 @@ LINEHEADS = {  # 'flat':0,# not a style
 # self._vertexvbo.unbind()
 # self._indexvbo.unbind()
 # self._colorvbo.unbind()
-
 
 def normalize(v):
     norm = np.linalg.norm(v)
@@ -304,12 +348,13 @@ class SelectToolMixin(BaseTool):
         self.highlight_current()
 
     def on_left_down_select(self, event):
-        # print 'on_left_down_select'
+        # print 'on_left_down_select',len(self)>0,event.ShiftDown(),'is_show_selected',self.is_show_selected
         is_draw = False
 
         if len(self) > 0:
+            # print '  len(self)',len(self)
             if event.ShiftDown():
-
+                # print '  ShiftDown'
                 self.iterate_selection()
                 self.on_change_selection(event)
                 is_draw = True
@@ -321,11 +366,14 @@ class SelectToolMixin(BaseTool):
                     self.parent.refresh_optionspanel(self)
 
         else:
+            # print '  no selection len(self)',len(self)
             is_draw |= self.pick_all(event)
             self.highlight_current()
 
             if not event.ShiftDown():
+                # print '  no shift down'
                 if self.is_preselected():
+                    # print '  is_preselected len(self)',len(self)
                     self.coord_last = self._canvas.unproject(event.GetPosition())
                     # print '  on_execute_selection 2'
                     is_draw |= self.on_execute_selection(event)
@@ -333,9 +381,11 @@ class SelectToolMixin(BaseTool):
                     # objects in list with self.unselect_all()
 
             else:
+                # print '  shift down'
                 self.coord_last = self._canvas.unproject(event.GetPosition())
 
             if self.is_show_selected:
+                # print '  is_show_selected',self.is_show_selected
                 self.parent.refresh_optionspanel(self)
 
         return is_draw
@@ -397,7 +447,7 @@ class SelectToolMixin(BaseTool):
             # calculate detectwidth based on current resolution
             self.detectwidth = self._canvas.get_resolution()*self.detectpix
 
-        # print 'pick_all',self.detectwidth,self.detectpix,self._canvas.get_resolution()
+        print 'pick_all', self.detectwidth, self.detectpix, self._canvas.get_resolution()
 
         self._idcounter = 0
         is_draw = False
@@ -1080,7 +1130,7 @@ class HandleTool(SelectTool):
         Pick all objets with id and vertex index, that are near the pointer
         coordinates.
         """
-        # print 'pick_all'
+        # print 'HandleTool.pick_all'
         p = self._canvas.unproject_event(event)
 
         if self.detectpix > 0:
@@ -1097,6 +1147,7 @@ class HandleTool(SelectTool):
             # experiment
             if drawobj.is_visible():
                 handles = drawobj.pick_handle(p, detectwidth=self.detectwidth)
+                # print '    handles',handles
                 if len(handles) > 0:
                     # print '  handles',drawobj.get_ident(),handles
                     for id_handle, ind_vertex in handles:
@@ -1369,6 +1420,7 @@ class StretchTool(HandleTool):
         """
         Definively execute operation on currently selected drawobjects.
         """
+        print 'Stretch', self.is_tool_allowed_on_selection()
         if self.is_tool_allowed_on_selection():
             if not self.is_animated:
                 return self.begin_animation(event)
@@ -1649,7 +1701,6 @@ class DrawobjMixin(am.ArrayObjman):
         self.id_anim = self._drawobj_anim.add_drawobj(np.array(self.vertices[id_target]),
                                                       self.color_anim.value,
                                                       )
-        # print 'begin_animation',self.ident,_id,self._drawobj_anim
         return True
 
     def end_animation(self, is_del_last_vert=False):
@@ -2374,6 +2425,197 @@ class Rectangles(Lines):
                                     vertices[:, 3, 0], vertices[:, 3, 1])
 
         return self._ids[np.flatnonzero(inds1 | inds2)]
+
+
+class Triangles(Lines):
+    def __init__(self, ident,  parent, name='Triangles',
+                 is_parentobj=False,
+                 is_fill=True,
+                 is_outline=True,  # currently only fill implemented
+                 c_highl=0.3,
+                 linewidth=3,
+                 **kwargs):
+
+        n_vert = 3  # 3 verts for triangle draw obj
+        self.init_common(ident, parent=parent, name=name,
+                         linewidth=linewidth,  # for outline only
+                         is_parentobj=is_parentobj,
+                         is_fill=is_fill,
+                         is_outline=is_outline,
+                         n_vert=n_vert,
+                         c_highl=c_highl,
+                         **kwargs)
+
+        # ident of drawobject used for animations
+        # must be defined AFTER init_common
+        self._ident_drawobj_anim = 'anim_triangles'
+
+        # if is_outline:
+        #    self.add_vbo(Vbo('outline',GL_LINES,2, noncyclic = 0))
+
+        if is_fill:
+            self.add_vbo(Vbo('triangle_filled', GL_TRIANGLES, 3, objtype='fill'))
+        if is_outline:
+            self.add_vbo(Vbo('triangle_outline', GL_LINES, 2, objtype='outline'))
+
+        self.add_col(am.ArrayConf('vertices',  np.zeros((n_vert, 3), dtype=np.float32),
+                                  dtype=np.float32,
+                                  groupnames=['_private'],
+                                  perm='rw',
+                                  name='Vertex',
+                                  unit='m',
+                                  is_save=True,
+                                  info='Triangle vertex coordinate vectors of points: [[[x11,y11,z11],[x12,y12,z12],[x13,y13,z13]],[[x21,y21,z21],[x22,y22,z122],[x13,y13,z13]],...]',
+                                  ))
+
+    def add_drawobj(self, vertex,
+                    color, color_fill=None,
+                    color_highl=None, color_fill_highl=None,
+                    is_update=True):
+        # print 'Fancylines.add_drawobj'
+        if color_highl is None:
+            color_highl = self._get_colors_highl(np.array([color]))[0]
+
+        if color_fill is None:
+            color_fill = color
+
+        if color_fill_highl is None:
+            color_fill_highl = self._get_colors_highl(np.array([color_fill]))[0]
+
+        # print '  ids',self.get_ids()
+        _id = self.add_row(vertices=vertex,
+                           colors=color,
+                           colors_highl=color_highl,
+                           colors_fill=color_fill,
+                           colors_fill_highl=color_fill_highl,
+                           )
+        if is_update:
+            self._update_vertexvbo()
+            self._update_colorvbo()
+        return _id
+
+    def add_drawobjs(self, vertices,
+                     colors, colors_fill=None,
+                     colors_highl=None, colors_fill_highl=None,
+                     is_update=True):
+        # print 'add_drawobjs'
+        if colors_highl is None:
+            colors_highl = self._get_colors_highl(colors)
+
+        n = len(vertices)
+        if colors_fill_highl is None:
+            colors_fill_highl = self._get_colors_highl(colors_fill)
+        ids = self.add_rows(n,
+                            vertices=vertices,
+                            colors=colors,
+                            colors_highl=colors_highl,
+                            colors_fill=colors_fill,
+                            colors_fill_highl=colors_fill_highl,
+                            )
+        # self.print_attrs()
+        if is_update:
+            self._update_vertexvbo()
+            self._update_colorvbo()
+        return ids
+
+    def _update_vertexvbo(self):
+        if self.is_fill():
+            self.get_vbo('triangle_filled').update_vertices(self.get_vertices_array().reshape((-1, 3*3)), len(self))
+        if self.is_outline():
+            self.get_vbo('triangle_outline').update_vertices(self._get_linevertices(), len(self))
+
+    def _get_linevertices(self):
+        # print '_make_lines'
+
+        vertices = self.get_vertices_array()
+
+        n = len(self)
+        n_lpe = 3  # lines per element (here 4 lines for a rectangle)
+        n_lines_tot = n*n_lpe
+
+        linevertices = np.zeros((n, 2*n_lpe, 3), np.float32)
+
+        # fix first and last point of each rectangle
+        linevertices[:, 0, :] = vertices[:, 0, :]
+        linevertices[:, -1, :] = vertices[:, 0, :]
+        # do rest of the vertices by doubling orginal
+        linevertices[:, 1:-1, :] = np.repeat(vertices[:, 1:, :], 2, 1)
+        # print '  linevertices\n',linevertices
+
+        #vertexinds = np.zeros((n_lines_tot,2),np.int32)
+        #inds = self.get_inds()
+        #vertexinds = np.repeat(inds,2*n_lpe).reshape((n_lines_tot,2))
+        # print '  vertexinds\n',vertexinds
+        #rectinds = np.zeros(n_lines_tot,np.int32)
+        #rectinds = np.repeat(inds,n_lpe)
+
+        #self._vertices =  vertices
+        return linevertices.reshape((2*n_lines_tot, 3))
+        # print '  self._linevertices',self._linevertices
+        #self._rectinds = rectinds
+        #self._vertexinds = vertexinds
+
+    def pick(self, p, detectwidth=0.1):
+        """
+        Returns a binary vector which is True values for lines that have been selected
+        by point p.
+
+        """
+        # print 'pick'
+        if len(self) == 0:
+            return np.array([], np.int)
+
+        vertices = self.get_vertices_array()
+        # print '  vertices.shape',vertices.shape,'\n',vertices
+        inds = is_inside_triangles(p,  vertices[:, 0, 0], vertices[:, 0, 1],
+                                   vertices[:, 1, 0], vertices[:, 1, 1],
+                                   vertices[:, 2, 0], vertices[:, 2, 1])
+
+        return self._ids[np.flatnonzero(inds)]
+
+    def pick_handle(self, coord, detectwidth=0.1):
+        """
+        Retuns list [ id, ind_vert] when handle is near coord,
+        otherwise []
+
+        """
+        # print 'Triangles.pick_handle',self.get_ident(),len(self)
+        dw = detectwidth**2
+
+        if len(self) == 0:
+            return np.zeros((0, 2), np.int)
+
+        vertices = self.get_vertices_array()
+        handles = []
+        # print '  vertices',vertices
+        # print '  vertices.shape',vertices.shape
+        dx = vertices[:, 0, 0]-coord[0]
+        dy = vertices[:, 0, 1]-coord[1]
+
+        ids = self._ids[dx*dx+dy*dy < dw]
+        handle1 = np.ones((len(ids), 2), np.int)
+        handle1[:, 0] = ids
+        handle1[:, 1] = 0
+        # print '  ',d,handle1
+
+        dx = vertices[:, 1, 0]-coord[0]
+        dy = vertices[:, 1, 1]-coord[1]
+        ids = self._ids[dx*dx+dy*dy < dw]
+        handle2 = np.ones((len(ids), 2), np.int)
+        handle2[:, 0] = ids
+        handle2[:, 1] = 1
+
+        dx = vertices[:, 2, 0]-coord[0]
+        dy = vertices[:, 2, 1]-coord[1]
+        ids = self._ids[dx*dx+dy*dy < dw]
+        handle3 = np.ones((len(ids), 2), np.int)
+        handle3[:, 0] = ids
+        handle3[:, 1] = 2
+
+        # print '  ',d,handle2
+        handles = np.concatenate((handle1, handle2, handle3), 0)
+
+        return handles
 
 
 class Fancylines(Lines):
@@ -3858,21 +4100,44 @@ class OGLnavcanvas(wx.Panel):
                  size=wx.DefaultSize,
                  ):
 
-        wx.Panel.__init__(self, parent, wx.ID_ANY, size=size)
-        sizer = wx.BoxSizer(wx.VERTICAL)
+        wx.Panel.__init__(self, parent, -1)
+        box = wx.BoxSizer(wx.VERTICAL)
+        #box.Add((20, 30))
+        #keys = buttonDefs.keys()
+        # keys.sort()
+        # for k in keys:
+        #    text = buttonDefs[k][1]
+        #    btn = wx.Button(self, k, text)
+        #    box.Add(btn, 0, wx.ALIGN_CENTER|wx.ALL, 15)
+        #    self.Bind(wx.EVT_BUTTON, self.OnButton, btn)
+        #btn = wx.Button(self, 1, "test")
+        #box.Add(btn, 0, wx.ALIGN_CENTER|wx.ALL, 15)
 
-        # initialize GL canvas
-        self._canvas = OGLcanvas(self, mainframe,)
+        # With this enabled, you see how you can put a GLCanvas on the wx.Panel
+        # if 1:
+        c = OGLcanvas(self, mainframe=mainframe)
+        # important to give a value
+        c.SetMinSize((200, 200))
+        self._canvas = c
 
         # navigation bar
         self._navbar = self.make_navbar()
 
         # compose navcanvas  window
-        sizer.Add(self._canvas, 1, wx.GROW)
-        sizer.Add(self._navbar, 0, wx.ALL | wx.ALIGN_LEFT | wx.GROW, 4)  # from NaviPanelTest
-        # finish panel setup
-        self.SetSizer(sizer)
-        sizer.Fit(self)
+        #box.Add(self._canvas,1,wx.GROW)#
+        box.Add(self._canvas, 1, wx.EXPAND)
+        box.Add(self._navbar, 0, wx.ALL | wx.ALIGN_LEFT | wx.GROW, 4)  # from NaviPanelTest
+
+        #box.Add(c, 0, wx.ALIGN_CENTER|wx.ALL, 15)
+        #box.Add(c, 0, wx.EXPAND)
+        # sizer.Add(self._toolspanel,0,wx.EXPAND)
+
+        self.SetAutoLayout(True)
+        self.SetSizer(box)
+        #self.Bind(wx.EVT_SIZE, self.OnSize)
+
+    # def OnSize(self, event):
+    #    self.Show(show=True, recursive=True)
 
     def get_canvas(self):
         return self._canvas
@@ -4013,12 +4278,50 @@ class OGLnavcanvas(wx.Panel):
 
 
 class OGLcanvas(glcanvas.GLCanvas):
-    def __init__(self, parent,  mainframe=None):
+    def __init__(self, parent, mainframe=None):
         if mainframe is None:
             self._mainframe = parent
         else:
             self._mainframe = mainframe
 
+        attribList = (glcanvas.WX_GL_RGBA,  # RGBA
+                      glcanvas.WX_GL_DOUBLEBUFFER,  # Double Buffered
+                      glcanvas.WX_GL_DEPTH_SIZE, 24)  # 24 bit
+        glcanvas.GLCanvas.__init__(self, parent, attribList=attribList)
+        self.init = False
+
+        self.context = glcanvas.GLContext(self)
+
+        self.xRotate = 0.
+        self.yRotate = 0.
+        self.zRotate = 0.
+
+        self.xTrans = 0.
+        self.yTrans = 0.
+
+        # initial mouse position
+        self.lastx = self.x = 30
+        self.lasty = self.y = 30
+        self.size = None
+
+        # gui event binding
+        self.Bind(wx.EVT_ERASE_BACKGROUND, self.OnEraseBackground)
+        self.Bind(wx.EVT_SIZE, self.OnSize)
+        self.Bind(wx.EVT_PAINT, self.OnPaint)
+
+        # mouse event binding
+        self.Bind(wx.EVT_LEFT_DOWN, self.OnLeftDown)
+        self.Bind(wx.EVT_LEFT_DCLICK, self.OnLeftDclick)
+        self.Bind(wx.EVT_LEFT_UP, self.OnLeftUp)
+        self.Bind(wx.EVT_RIGHT_DOWN, self.OnRightDown)
+        self.Bind(wx.EVT_RIGHT_UP, self.OnRightUp)
+        self.Bind(wx.EVT_MOTION, self.OnMotion)
+        self.Bind(wx.EVT_MOUSEWHEEL, self.OnWheel)
+
+        #
+        self.action = ""
+
+        # 2D geom specific
         self.eyex = 0.0
         self.eyey = 0.0
         self.eyez = -30000.0  # -9.0
@@ -4037,61 +4340,190 @@ class OGLcanvas(glcanvas.GLCanvas):
         self.g_nearPlane = 10.0  # 10.
         self.g_farPlane = 10.0**8  # 10.0**8 #10000.
 
-        self.action = ""
         self.pos_start = (0.0, 0.0)
         self.trans_start = (0.0, 0.0)
 
         self.resetView(is_draw=False)
 
         self._tool = None
-
-        # Forcing a specific style on the window.
-        #   Should this include styles passed?
-        style = wx.DEFAULT_FRAME_STYLE | wx.NO_FULL_REPAINT_ON_RESIZE
-
-        attribList = (glcanvas.WX_GL_RGBA,  # RGBA
-                      glcanvas.WX_GL_DOUBLEBUFFER,  # Double Buffered
-                      glcanvas.WX_GL_DEPTH_SIZE, 24)  # 24 bit
-
-        glcanvas.GLCanvas.__init__(self, parent, -1, attribList=attribList)
-
-        self._wxversion = wx.__version__[:3]
-        if self._wxversion == '2.8':
-            self.GLinitialized = False
-        else:
-            self.init = False  # 3.0
-            self.context = glcanvas.GLContext(self)
-
-        # Set the event handlers.
-        self.Bind(wx.EVT_ERASE_BACKGROUND, self.processEraseBackgroundEvent)
-        self.Bind(wx.EVT_SIZE, self.OnSize)
-        self.Bind(wx.EVT_PAINT, self.processPaintEvent)
-
-        self.Bind(wx.EVT_LEFT_DOWN, self.OnLeftDown)
-        self.Bind(wx.EVT_LEFT_DCLICK, self.OnLeftDclick)
-        self.Bind(wx.EVT_LEFT_UP, self.OnLeftUp)
-        self.Bind(wx.EVT_RIGHT_DOWN, self.OnRightDown)
-        self.Bind(wx.EVT_RIGHT_UP, self.OnRightUp)
-        self.Bind(wx.EVT_MOTION, self.OnMotion)
-        self.Bind(wx.EVT_MOUSEWHEEL, self.OnWheel)
-
-        #self.Bind(wx.EVT_CHAR, self.on_key_down)
-        # wx.EVT_KEY_DOWN(self, self.on_key_down) # NO, does not get focus
-        # EVT_LEFT_DCLICK
-        # EVT_MIDDLE_DCLICK
-        # EVT_RIGHT_DCLICK
-        # EVT_LEAVE_WINDOW
-        # EVT_ENTER_WINDOW
-        # EVT_MOUSE_EVENTS
-
-        # self.SetFocus()
-
         self._drawing = None
-        # if drawing is not None:
-        #    self.set_drawing(drawing)
+        # self.Parent.Fit()
+        # wx.CallAfter(self.Parent.Fit)
+        # wx.CallAfter(self.OnSize)
+        # self.Show()
+        # self.SetCurrent(self.context)# too e
 
-        # this is needed to initialize GL projections for unproject
-        wx.CallAfter(self.OnSize)
+    def polarView(self):
+        glTranslatef(self.trans[1], 0.0, 0.0)
+        glTranslatef(0.0, -self.trans[0], 0.0)
+
+        glRotatef(-self.zRotate, 0.0, 0.0, 1.0)
+        glRotatef(-self.xRotate, 1.0, 0.0, 0.0)
+        glRotatef(-self.yRotate, 0.0, 1.0, 0.0)
+
+    def OnEraseBackground(self, event):
+        pass  # Do nothing, to avoid flashing on MSW.
+
+    def OnSize(self, event):
+        wx.CallAfter(self.DoSetViewport)
+        event.Skip()
+        # self.DoSetViewport()
+
+    def DoSetViewport(self):
+        # self.Show()
+        size = self.size = self.GetClientSize()
+        # print 'DoSetViewport',size.width, size.height,self.IsShown()
+        # if self.IsShown():
+
+        # sufficient to call SetCurrent in OnPaint
+        # try:
+        #    #if self.context is not None:
+        #    #self.SetCurrent(self.context)
+        #    pass
+        # except:
+        #    print 'WARNING in DoSetViewport: caoon set context'
+        #glViewport(0, 0, size.width, size.height)
+        self.OnReshape(size.width, size.height)
+        # self.OnPaint()
+
+    def set_color_background(self, color):
+        glClearColor(color[0], color[1], color[2], color[3])
+        self.draw()
+
+    def OnReshape(self, width, height):
+        """Reshape the OpenGL viewport based on the dimensions of the window."""
+        #global g_Width, g_Height
+        self.g_Width = width
+        self.g_Height = height
+        glViewport(0, 0, self.g_Width, self.g_Height)
+
+    def OnPaint(self, event=None):
+        # print 'OnPaint',self.IsShown()
+        dc = wx.PaintDC(self)
+        self.SetCurrent(self.context)
+        if not self.init:
+            self.InitGL()
+            self.init = True
+        self.OnDraw()
+        # err self.SendSizeEventToParent()
+        #del dc
+
+    def InitGL(self):
+        glClearColor(0, 0, 0, 1)
+
+    def get_intersection(self, v_near, v_far):
+        # 150918
+        # idea from http://www.bfilipek.com/2012/06/select-mouse-opengl.html
+        # https://en.wikipedia.org/wiki/Line%E2%80%93plane_intersection
+        d = -v_near + v_far
+
+        t = -v_near[2]/d[2]
+        v_inter = v_near+t*d
+
+        return v_inter
+
+    def unproject_event(self, event):
+        return self.unproject(event.GetPosition())[0:2]
+
+    def unproject(self, pos_display):
+        """Get the world coordinates for viewCoordinate for the event
+        """
+        # print 'unproject',pos_display
+        x = pos_display[0]
+        y = self.g_Height-pos_display[1]
+
+        modelviewmatrix = glGetDoublev(GL_MODELVIEW_MATRIX)
+        projectionmatrix = glGetDoublev(GL_PROJECTION_MATRIX)
+        viewport = glGetInteger(GL_VIEWPORT)
+
+        z = 0.0
+        worldCoordinate_near = np.array(gluUnProject(
+            x, y, z,
+            modelviewmatrix,
+            projectionmatrix,
+            viewport,), dtype=np.float32)
+
+        z = 1.0
+        worldCoordinate_far = np.array(gluUnProject(
+            x, y, z,
+            modelviewmatrix,
+            projectionmatrix,
+            viewport,), dtype=np.float32)
+
+        v_inter = self.get_intersection(worldCoordinate_near, worldCoordinate_far)
+        # print '  world coords v_inter',v_inter
+        return v_inter
+
+    def project(self, vertex):
+        """
+        http://stackoverflow.com/questions/3792481/how-to-get-screen-coordinates-from-a-3d-point-opengl
+        """
+        modelviewmatrix = glGetDoublev(GL_MODELVIEW_MATRIX)
+        projectionmatrix = glGetDoublev(GL_PROJECTION_MATRIX)
+        viewport = glGetInteger(GL_VIEWPORT)
+
+        coords = np.array(gluProject(vertex[0], vertex[1], vertex[2],
+                                     modelviewmatrix, projectionmatrix,
+                                     viewport))
+
+        coords[1] = self.g_Height - coords[1]
+        # print 'project',coords
+
+        return coords
+
+    def OnDraw(self, *args, **kwargs):
+        """Draw the window."""
+
+        # print 'OGLCanvas.draw id(self._drawing)',id(self._drawing)
+        # Clear frame buffer and depth buffer
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+        # Set up viewing transformation, looking down -Z axis
+        if self._drawing is None:
+            self.SwapBuffers()
+            return
+
+        glLoadIdentity()
+        gluLookAt(self.eyex, self.eyey, self.eyez, self.centerx, self.centery,
+                  self.centerz, self.upx, self.upy, self.upz)  # -.1,0,0
+
+        # Set perspective (also zoom)
+        glMatrixMode(GL_PROJECTION)
+        glLoadIdentity()
+        # the window corner OpenGL coordinates are (-+1, -+1)
+        glOrtho(-1, 1, 1, -1, -1, 1)
+
+        aspect = float(self.g_Width)/float(self.g_Height)
+
+        gluPerspective(self.zoom, aspect, self.g_nearPlane, self.g_farPlane)
+        glMatrixMode(GL_MODELVIEW)
+        self.polarView()
+
+        # resolution in GL unit per scren pixel
+        #resolution = self.get_resolution()
+        # print '  get_resolution',resolution
+
+        # draw actual scene
+        # if self._drawing:
+        # self._drawing.print_attrs()
+        for drawobj in self._drawing.get_drawobjs(is_anim=True):
+            #checkobj = self._drawing.get_drawobj_by_ident(drawobj.ident)
+            # if checkobj is not None:
+            #    print '\n  draw.drawobj',drawobj.ident, checkobj.ident
+            # else:
+            #    print '\n  draw.drawobj',drawobj.ident, checkobj,self._drawing.has_drawobj_with_ident(drawobj.ident)
+            drawobj.draw()  # resolution)
+
+        self.SwapBuffers()
+
+    def draw(self, *args, **kwargs):
+        # print 'draw',self.IsShown()
+        # self.Show() # does not prevent error in SetCurrent
+        try:
+            self.SetCurrent(self.context)
+            self.OnDraw(*args, **kwargs)
+            # print 'draw',self.lastx,self.lasty,self.x,self.y
+        except:
+            print 'WARNING in draw: unable to set context'
 
     def set_drawing(self, drawing):
         if self._drawing != drawing:
@@ -4101,7 +4533,7 @@ class OGLcanvas(glcanvas.GLCanvas):
 
             del self._drawing
             self._drawing = drawing
-            self.draw()
+            # self.draw()
 
     def activate_tool(self, tool):
         # called from tool
@@ -4141,34 +4573,6 @@ class OGLcanvas(glcanvas.GLCanvas):
         if event.KeyCode() == 'x':
             self.xRotate += 5.0
             is_draw |= True
-
-        if is_draw:
-            self.draw()
-            event.Skip()
-
-    def OnWheel(self, event, is_draw=False):
-        #EventType = FloatCanvas.EVT_FC_MOUSEWHEEL
-        #
-        Rot = event.GetWheelRotation()
-        # print 'OnWheel!!',Rot,event.ControlDown(),event.ShiftDown()
-        if (not event.ShiftDown()) & event.ControlDown():  # event.ControlDown(): # zoom
-            if Rot < 0:
-                self.zoom_in(is_draw=False)
-            else:
-                self.zoom_out(is_draw=False)
-            is_draw |= True
-
-        if (event.ShiftDown()) & event.ControlDown():  # event.ControlDown(): # zoom
-            if Rot < 0:
-                self.xRotate -= 5.0
-            else:
-                self.xRotate += 5.0
-            is_draw |= True
-
-        elif self._tool is not None:
-            is_draw |= self._tool.on_wheel(event)
-            self.draw()
-            event.Skip()
 
         if is_draw:
             self.draw()
@@ -4278,7 +4682,9 @@ class OGLcanvas(glcanvas.GLCanvas):
             self.draw()
 
     def OnLeftDown(self, event, is_draw=False):
-        if (event.ControlDown() & event.ShiftDown()) & (self.action == ''):
+        # print 'GLCanvas.OnLeftDown',self._tool
+        is_control_down = event.ControlDown()  # | event.RawControlDown() | event.MetaDown()
+        if (is_control_down & event.ShiftDown()) & (self.action == ''):
             self.action = 'drag'
             self.BeginGrap(event)
             event.Skip()
@@ -4371,289 +4777,33 @@ class OGLcanvas(glcanvas.GLCanvas):
         self.SetCursor(self._cursor_last)
         self.action = ''
 
-    #
-    # wxPython Window Handlers
-
-    def processEraseBackgroundEvent(self, event):
-        """Process the erase background event."""
-        pass  # Do nothing, to avoid flashing on MSWin
-
-    def OnSize(self, event=None, win=None):
-        """Process the resize event."""
-
-        if self.GetContext():
-            # Make sure the frame is shown before calling SetCurrent.
-            self.Show()
-            if self._wxversion != '2.8':
-                self.SetCurrent(self.context)
+    def OnWheel(self, event, is_draw=False):
+        #EventType = FloatCanvas.EVT_FC_MOUSEWHEEL
+        #
+        Rot = event.GetWheelRotation()
+        # print 'OnWheel!!',Rot,event.ControlDown(),event.ShiftDown()
+        if (not event.ShiftDown()) & event.ControlDown():  # event.ControlDown(): # zoom
+            if Rot < 0:
+                self.zoom_in(is_draw=False)
             else:
-                self.SetCurrent()
+                self.zoom_out(is_draw=False)
+            is_draw |= True
 
-            size = self.GetClientSize()
-            self.OnReshape(size.width, size.height)
-            self.Refresh(False)
-        if event:
+        if (event.ShiftDown()) & event.ControlDown():  # event.ControlDown(): # zoom
+            if Rot < 0:
+                self.xRotate -= 5.0
+            else:
+                self.xRotate += 5.0
+            is_draw |= True
+
+        elif self._tool is not None:
+            is_draw |= self._tool.on_wheel(event)
+            self.draw()
             event.Skip()
 
-    def processPaintEvent(self, event):
-        """Process the drawing event."""
-
-        # This is a 'perfect' time to initialize OpenGL ... only if we need to
-
-        if self._wxversion != '2.8':
-            self.SetCurrent(self.context)
-            if not self.init:
-                self.OnInitGL()
-        else:
-            self.SetCurrent()
-            if not self.GLinitialized:
-                self.OnInitGL()
-
-        self.draw()
-        event.Skip()
-
-    #
-    # GLFrame OpenGL Event Handlers
-
-    def OnInitGL(self):
-        """Initialize OpenGL for use in the window."""
-
-        if self._wxversion == '2.8':
-            self.GLinitialized = True
-        else:
-            self.InitGL()
-            self.init = True
-
-        glClearColor(0, 0, 0, 1)
-
-    def InitGL(self):
-        '''
-        From 3.0 Demo
-        Initialize GL
-        '''
-        pass
-
-#        # set viewing projection
-#        glClearColor(0.0, 0.0, 0.0, 1.0)
-#        glClearDepth(1.0)
-#
-#        glMatrixMode(GL_PROJECTION)
-#        glLoadIdentity()
-#        gluPerspective(40.0, 1.0, 1.0, 30.0)
-#
-#        glMatrixMode(GL_MODELVIEW)
-#        glLoadIdentity()
-#        gluLookAt(0.0, 0.0, 10.0,
-#                  0.0, 0.0, 0.0,
-#                  0.0, 1.0, 0.0)
-
-    def set_color_background(self, color):
-        glClearColor(color[0], color[1], color[2], color[3])
-        self.draw()
-
-    def OnReshape(self, width, height):
-        """Reshape the OpenGL viewport based on the dimensions of the window."""
-        #global g_Width, g_Height
-        self.g_Width = width
-        self.g_Height = height
-        if self._wxversion != '2.8':
-            self.SetCurrent(self.context)
-        glViewport(0, 0, self.g_Width, self.g_Height)
-
-    def draw(self, *args, **kwargs):
-        """Draw the window."""
-        # print 'OGLCanvas.draw id(self._drawing)',id(self._drawing)
-        if self.GetContext():
-            if self._wxversion != '2.8':
-                self.SetCurrent(self.context)
-
-            # Clear frame buffer and depth buffer
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-            # Set up viewing transformation, looking down -Z axis
-            glLoadIdentity()
-            gluLookAt(self.eyex, self.eyey, self.eyez, self.centerx, self.centery,
-                      self.centerz, self.upx, self.upy, self.upz)  # -.1,0,0
-
-            # Set perspective (also zoom)
-            glMatrixMode(GL_PROJECTION)
-            glLoadIdentity()
-            # the window corner OpenGL coordinates are (-+1, -+1)
-            glOrtho(-1, 1, 1, -1, -1, 1)
-
-            aspect = float(self.g_Width)/float(self.g_Height)
-
-            gluPerspective(self.zoom, aspect, self.g_nearPlane, self.g_farPlane)
-            glMatrixMode(GL_MODELVIEW)
-            self.polarView()
-
-            # resolution in GL unit per scren pixel
-            resolution = self.get_resolution()
-            # print '  get_resolution',resolution
-
-            # draw actual scene
-            if self._drawing:
-                # self._drawing.print_attrs()
-                for drawobj in self._drawing.get_drawobjs(is_anim=True):
-                    #checkobj = self._drawing.get_drawobj_by_ident(drawobj.ident)
-                    # if checkobj is not None:
-                    #    print '\n  draw.drawobj',drawobj.ident, checkobj.ident
-                    # else:
-                    #    print '\n  draw.drawobj',drawobj.ident, checkobj,self._drawing.has_drawobj_with_ident(drawobj.ident)
-                    drawobj.draw(resolution)
-
-            self.SwapBuffers()
-
-    def polarView(self):
-        glTranslatef(self.trans[1], 0.0, 0.0)
-        glTranslatef(0.0, -self.trans[0], 0.0)
-
-        glRotatef(-self.zRotate, 0.0, 0.0, 1.0)
-        glRotatef(-self.xRotate, 1.0, 0.0, 0.0)
-        glRotatef(-self.yRotate, 0.0, 1.0, 0.0)
-
-    def get_intersection(self, v_near, v_far):
-        # 150918
-        # idea from http://www.bfilipek.com/2012/06/select-mouse-opengl.html
-        # https://en.wikipedia.org/wiki/Line%E2%80%93plane_intersection
-        d = -v_near + v_far
-
-        t = -v_near[2]/d[2]
-        v_inter = v_near+t*d
-
-        return v_inter
-
-    def unproject_event(self, event):
-        return self.unproject(event.GetPosition())[0:2]
-
-    def unproject_noglu(self, pos_display):
-        """
-        Unproject without GLU function gluUnProject
-        (does not work properly)
-        """
-        print 'unproject'
-        mousex, mousey = pos_display
-        # http://antongerdelan.net/opengl/raycasting.html
-        # http://www1.cs.columbia.edu/~cs4160/html04f/slides/transformations.pdf
-
-        # The next step is to transform it into 3d normalised device coordinates.
-        x = (2.0 * mousex) / self.g_Width - 1.0
-        y = 1.0 - (2.0 * mousey) / self.g_Height
-        z = 1.0
-        ray_nds = np.array([x, y, z], dtype=np.float32)
-
-        ray_clip = np.array([[ray_nds[0], ray_nds[1], -1.0, 1.0]], dtype=np.float32).transpose()
-        print 'ray_clip=\n', ray_clip
-
-        # projection matrix
-        aspect = float(self.g_Width)/float(self.g_Height)
-        f = 1.0/np.tan(self.zoom/2.0)
-        z_near = self.g_nearPlane
-        z_far = self.g_farPlane
-        a = (z_far+z_near)/(z_near-z_far)
-        b = (2*z_far*z_near)/(z_near-z_far)
-
-        projection_matrix = np.array([
-            [f/aspect,  0.,     0.,     0.],
-            [0.,        f,      0.,     0.],
-            [0.,        0.,     a,     b],
-            [0.,        0.,     -1.,    0.],
-        ], dtype=np.float32)
-
-        # 4d Eye (Camera) Coordinates
-        ray_eye = np.dot(np.linalg.inv(projection_matrix), ray_clip)
-        ray_eye = np.array([[ray_eye[0], ray_eye[1], -1.0, 0.0]], float).transpose()
-        print '  ray_eye=\n', ray_eye
-
-        #  4d World Coordinates
-        #gluLookAt(self.eyex, self.eyey, self.eyez, self.centerx,self.centery, self.centerz, self.upx, self.upy, self.upz)
-        # print self.centerx,self.centery, self.centerz
-        # print self.eyex, self.eyey, self.eyez
-
-        f_vec = np.array([
-            [self.centerx - self.eyex],
-            [self.centery - self.eyey],
-            [self.centerz - self.eyez],
-        ], dtype=np.float32).flatten()
-        f_norm = normalize(f_vec)
-        # print 'f_vec=\n',f_vec
-        # print 'f_norm=\n',f_norm,np.linalg.norm(f_norm)
-        up_vec = np.array([
-            [self.upx],
-            [self.upy],
-            [self.upz],
-        ], dtype=np.float32).flatten()
-        up_norm = normalize(up_vec)
-
-        fxup = np.cross(f_norm, up_norm)
-        s = normalize(fxup)
-        sxf = np.cross(s, f_norm)
-        u = normalize(sxf)
-
-        view_matrix = np.array([
-            [s[0],              s[1],           s[2],     0.],
-            [u[0],              u[1],           u[2],     0.],
-            [-f_norm[0],        -f_norm[1],     -f_norm[2],     0.],
-            [0.,                0.,             0.,             1.],
-        ], dtype=np.float32)
-
-        ray_wor = np.dot(np.linalg.inv(view_matrix), ray_eye)
-        # print 'ray_wor=\n',ray_wor,ray_wor[0:3,0]
-        ray_wor = normalize(ray_wor[0:3, 0])
-        print '  ray_wor=\n', ray_wor
-        i0 = 8*3
-
-        eye_vec = np.array([self.eyex, self.eyey, self.eyez], dtype=np.float32)
-        t = 1.0
-        # vertexvbo[i0:i0+3]=eye_vec+ray_wor*t
-
-        # self.vertexarray[8]=eye_vec+ray_wor*t
-        # self.vertexvbo.set_array(self.vertexarray)
-        v_inter = eye_vec+ray_wor*t
-        print '  ray pointer=', v_inter
-
-        return v_inter[0:2]
-
-    def unproject(self, pos_display):
-        """Get the world coordinates for viewCoordinate for the event
-        """
-
-        x = pos_display[0]
-        y = self.g_Height-pos_display[1]
-
-        modelviewmatrix = glGetDoublev(GL_MODELVIEW_MATRIX)
-        projectionmatrix = glGetDoublev(GL_PROJECTION_MATRIX)
-        viewport = glGetInteger(GL_VIEWPORT)
-
-        z = 0.0
-        worldCoordinate_near = np.array(gluUnProject(x, y, z),
-                                        dtype=np.float32)
-
-        z = 1.0
-        worldCoordinate_far = np.array(gluUnProject(
-            x, y, z,
-            modelviewmatrix,
-            projectionmatrix,
-            viewport,), dtype=np.float32)
-
-        v_inter = self.get_intersection(worldCoordinate_near, worldCoordinate_far)
-        return v_inter
-
-    def project(self, vertex):
-        """
-        http://stackoverflow.com/questions/3792481/how-to-get-screen-coordinates-from-a-3d-point-opengl
-        """
-        modelviewmatrix = glGetDoublev(GL_MODELVIEW_MATRIX)
-        projectionmatrix = glGetDoublev(GL_PROJECTION_MATRIX)
-        viewport = glGetInteger(GL_VIEWPORT)
-
-        coords = np.array(gluProject(vertex[0], vertex[1], vertex[2],
-                                     modelviewmatrix, projectionmatrix,
-                                     viewport))
-
-        coords[1] = self.g_Height - coords[1]
-        # print 'project',coords
-
-        return coords
+        if is_draw:
+            self.draw()
+            event.Skip()
 
 
 class OGLcanvasTools(ToolsPanel):
@@ -4717,12 +4867,13 @@ class OGleditor(wx.Panel):
         # sizer.Add(self._toolspanel,0, wx.ALL | wx.ALIGN_LEFT | wx.GROW, 4)# from NaviPanelTest
         # sizer.Add(navcanvas,1,wx.GROW)
 
+        # print 'OGleditor!!!!!!!!!!!!!!!!!!!'
+
+        # 2.8 OK for 3.0 also
         sizer.Add(self._toolspanel, 0, wx.EXPAND)
         sizer.Add(navcanvas, 1, wx.EXPAND)
 
-        # navbar
-        #sizer.Add(self._canvas,1,wx.GROW)#
-        # sizer.Add(self._navbar,0, wx.ALL | wx.ALIGN_LEFT | wx.GROW, 4)# from NaviPanelTest
+        self.SetAutoLayout(True)
 
         # finish panel setup
         self.SetSizer(sizer)
@@ -4731,6 +4882,164 @@ class OGleditor(wx.Panel):
 
         # no use:
         #wx.EVT_SIZE(self, self.on_size)
+
+    def on_test(self, event=None, drawing=None):
+        print '\non_test'
+
+        if drawing is None:
+            drawing = OGLdrawing()
+        vertices = np.array([
+            [[0.0, 0.0, 0.0], [0.2, 0.0, 0.0]],  # 0 green
+            [[0.0, 0.0, 0.0], [0.0, 0.9, 0.0]],  # 1 red
+        ])
+
+        colors = np.array([
+            [0.0, 0.9, 0.0, 0.9],    # 0
+            [0.9, 0.0, 0.0, 0.9],    # 1
+        ])
+
+        colors2 = np.array([
+            [0.5, 0.9, 0.5, 0.5],    # 0
+            [0.9, 0.5, 0.9, 0.5],    # 1
+        ])
+        colors2o = np.array([
+            [0.8, 0.9, 0.8, 0.9],    # 0
+            [0.9, 0.8, 0.9, 0.9],    # 1
+        ])
+
+
+# -------------------------------------------------------------------------------
+
+        if 1:
+            lines = Lines('lines', drawing)
+            lines.add_drawobjs(vertices, colors)
+            drawing.add_drawobj(lines)
+
+
+# -------------------------------------------------------------------------------
+
+        if 1:
+            rectangles = Rectangles('rectangles', drawing,
+                                    is_fill=True,
+                                    is_outline=True)
+
+            colors = np.array([
+                [0.2, 0.9, 0.0, 0.9],    # 0
+                [0.9, 0.2, 0.0, 0.9],    # 1
+            ])
+
+            colors2 = np.array([
+                [0.9, 0.9, 0.5, 0.3],    # 0
+                [0.9, 0.9, 0.5, 0.3],    # 1
+            ])
+
+            rectangles.add_drawobjs([[3.0, 0.0, 0.0], [0.0, 3.0, 0.0]],  # offsets
+                                    widths=[1.0, 1.6],
+                                    lengths=[2.0, 0.4],
+                                    rotangles_xy=[0, 0.5],
+                                    colors=colors,
+                                    colors_fill=colors2)
+            drawing.add_drawobj(rectangles)
+
+
+# -------------------------------------------------------------------------------
+        if 1:
+            fancylines = Fancylines('fancylines', drawing,
+                                    arrowstretch=1.0,
+                                    is_lefthalf=True,
+                                    is_righthalf=True
+                                    )
+
+            colors_fancy = np.array([
+                [0.0, 0.9, 0.0, 0.9],    # 0
+                # [0.9,0.0,0.0,0.9],    # 1
+            ])
+            vertices_fancy = np.array([
+                [[0.0, -1.0, 0.0], [2, -1.0, 0.0]],  # 0 green
+                # [[0.0,-1.0,0.0],[0.0,-5.0,0.0]],# 1 red
+            ])
+
+            widths = [0.5,
+                      # 0.3,
+                      ]
+            # print '  vertices_fancy\n',vertices_fancy
+            # FLATHEAD = 0
+            #BEVELHEAD = 1
+            #TRIANGLEHEAD = 2
+            #ARROWHEAD = 3
+            fancylines.add_drawobjs(vertices_fancy,
+                                    widths,  # width
+                                    colors_fancy,
+                                    beginstyles=[TRIANGLEHEAD, ],
+                                    endstyles=[TRIANGLEHEAD, ],
+                                    )
+            drawing.add_drawobj(fancylines, layer=10)
+# -------------------------------------------------------------------------------
+        if 1:
+            polylines = Polylines('polylines', drawing,
+                                  joinstyle=FLATHEAD,
+                                  arrowstretch=1.0,
+                                  is_lefthalf=True,
+                                  is_righthalf=True
+                                  )
+            colors_poly = np.array([
+                [0.0, 0.8, 0.5, 0.9],    # 0
+                [0.8, 0.0, 0.5, 0.9],    # 1
+            ])
+
+            vertices_poly = np.array([
+                [[0.0, 2.0, 0.0], [5.0, 2.0, 0.0], [5.0, 7.0, 0.0], [10.0, 7.0, 0.0]],  # 0 green
+                [[0.0, -2.0, 0.0], [-2.0, -2.0, 0.0]],  # 1 red
+            ], np.object)
+
+            widths = [0.5,
+                      0.3,
+                      ]
+            # print '  vertices_poly\n',vertices_poly
+            polylines.add_drawobjs(vertices_poly,
+                                   widths,  # width
+                                   colors_poly,
+                                   beginstyles=[TRIANGLEHEAD, TRIANGLEHEAD],
+                                   endstyles=[TRIANGLEHEAD, TRIANGLEHEAD])
+            drawing.add_drawobj(polylines, layer=-2)
+
+# -------------------------------------------------------------------------------
+        if 1:
+            polygons = Polygons('polygons', drawing, linewidth=5)
+            colors_poly = np.array([
+                [0.0, 0.9, 0.9, 0.9],    # 0
+                [0.8, 0.2, 0.2, 0.9],    # 1
+            ])
+
+            vertices_poly = [
+                [[0.0, 2.0, 0.0], [5.0, 2.0, 0.0], [5.0, 7.0, 0.0], ],  # 0 green
+                [[0.0, -2.0, 0.0], [-2.0, -2.0, 0.0], [-2.0, 0.0, 0.0]],  # 1 red
+            ]
+
+            print '  vertices_polygon\n', vertices_poly
+            polygons.add_drawobjs(vertices_poly,
+                                  colors_poly)
+            polygons.add_drawobj([[5.0, -2.0, 0.0], [3.0, -2.0, 0.0], [3.0, 0.0, 0.0]],
+                                 [0.8, 0.2, 0.8, 0.9])
+            drawing.add_drawobj(polygons)
+
+
+# -------------------------------------------------------------------------------
+
+        if 1:
+            circles = Circles('circles', drawing,
+                              is_fill=False,  # Fill objects,
+                              is_outline=True,  # show outlines
+                              )
+            circles.add_drawobjs([[0.0, 0.0, 0.0], [1.0, 0.5, 0.0]], [0.5, 0.25], colors2o, colors2)
+            drawing.add_drawobj(circles)
+
+        # canvas.zoom_tofit()
+        # wx.CallAfter(canvas.zoom_tofit)
+        self.add_drawobjs_anim(drawing)
+        self.set_drawing(drawing)
+        if event:
+            event.Skip()
 
     def get_canvas(self):
         # DEPRICATED: canvas should not be needed outside netwdit
@@ -4800,6 +5109,12 @@ class OGleditor(wx.Panel):
                                  is_outline=True,  # show outlines
                                  linewidth=1,
                                  ),
+
+                         Triangles(self.prefix_anim+'triangles', drawing,
+                                   is_fill=False,  # Fill objects,
+                                   is_outline=True,  # show outlines
+                                   linewidth=1,
+                                   ),
                          ]
 
         for drawobj in drawobjs_anim:
@@ -4809,21 +5124,11 @@ class OGleditor(wx.Panel):
         # this is used mainly by the tools to know on which mainframe to operate on
         return self._mainframe
 
-    def on_size(self, event=None):
-        # print 'on_size',self._toolspanel.GetSize()
-        # self._toolspanel.SetSize((300,-1))
-        # self.tc.SetSize(self.GetSize())
-        # self.tc.SetSize(self.GetSize())
-        # self._viewtabs.SetSize(self.GetSize())
-        # pass
-        #wx.LayoutAlgorithm().LayoutWindow(self, self.p1)
-        #wx.LayoutAlgorithm().LayoutWindow(self, self.p1)
-
-        # important:
-        #wx.LayoutAlgorithm().LayoutWindow(self, self._toolspanel)
-
-        if event:
-            event.Skip()
+    # def on_size(self,event=None):
+    #    #print 'on_size',self._toolspanel.GetSize()
+    #
+    #    if event:
+    #        event.Skip()
 
 
 if __name__ == '__main__':
@@ -4892,7 +5197,19 @@ if __name__ == '__main__':
                 lines.add_drawobjs(vertices, colors)
                 drawing.add_drawobj(lines)
 
- # -------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
+            if 1:
+                triangles = Triangles('triangles', drawing,
+                                      is_fill=True,
+                                      is_outline=True)
+                triangles.add_drawobjs(np.array([
+                                                [[0.0, 0.0, 0.0], [1.5, 0.0, 0.0], [1.5, 2.5, 0.0]],  # 0 green
+                                                [[0.0, 0.0, 0.0], [-1.5, -0.9, 0.0], [-1.0, -2.5, 0.0]],  # 1 red
+                                                ]), colors2, colors2o)
+                drawing.add_drawobj(triangles)
+
+
+# -------------------------------------------------------------------------------
 
             if 1:
                 rectangles = Rectangles('rectangles', drawing,

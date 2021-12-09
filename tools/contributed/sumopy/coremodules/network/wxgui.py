@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,7 +14,7 @@
 
 # @file    wxgui.py
 # @author  Joerg Schweizer
-# @date
+# @date   2012
 
 import os
 import wx
@@ -28,9 +28,64 @@ import routing
 import netgenerate
 import netconvert
 import networktools
+import networkxtools  # IS_NX = True if available
+
+
 from publictransportnet_wxgui import PtWxGuiMixin
 from network_editor import *
 from coremodules.misc import shapeformat
+
+from coremodules.misc.matplottools import *
+
+
+class Netplotter(PlotoptionsMixin, Process):
+    def __init__(self, net, name='Plot network',
+                 info="High quality plot using matplotlib",
+                 logger=None,
+                 **kwargs):
+
+        self._init_common('netplotter', parent=net, name=name,
+                          info=info, logger=logger)
+
+        # print 'Resultplotter.__init__',results,self.parent
+        attrsman = self.get_attrsman()
+
+        # change some defaults
+        kwargs.update({'color_network': np.array([0.1, 0.1, 1.0, 1.0], dtype=np.float32),
+                       'color_nodes': np.array([0.1, 1.0, 1.0, 1.0], dtype=np.float32),
+                       'alpha_net': 0.9,
+                       'alpha_maps': 0.9,
+                       'color_facilities': np.array([0.9, 0.7, 0.4, 0.6], dtype=np.float32),
+                       'color_borders': np.array([0.3, 0.2, 0.0, 0.8], dtype=np.float32),
+                       'color_zones': np.array([0.2, 0.8, 0.2, 0.1], dtype=np.float32),
+                       'alpha_zones': 0.2,
+                       'color_zoneborders': np.array([0.0, 0.5, 0.0, 0.9], dtype=np.float32),
+                       'color_background': np.array([1, 1, 1, 1], dtype=np.float32),
+                       # 'title':
+                       })
+
+        self.add_networkoptions(**kwargs)
+        self.add_facilityoptions(**kwargs)
+        self.add_zoneoptions(**kwargs)
+        self.add_plotoptions_mapbase(**kwargs)
+        self.add_plotoptions_base(**kwargs)
+        self.add_save_options(**kwargs)
+
+    def show(self):
+        self.plot_net()
+
+        if self.is_save:
+            plt.subplots_adjust(left=0.12, bottom=0.1, right=0.86, top=0.9, wspace=0.2, hspace=0.2)
+            self.save_fig('net')
+        else:
+            show_plot()
+
+    def do(self):
+        # print 'do',self.edgeattrname
+        self.show()
+
+    def get_scenario(self):
+        return self.parent.parent
 
 
 class WxGui(PtWxGuiMixin, ModuleGui):
@@ -112,11 +167,26 @@ class WxGui(PtWxGuiMixin, ModuleGui):
                             bitmap=self.get_icon('icon_sumo_24px.png'),  # ,
                             )
 
+        menubar.append_item('network/import/merge sumo net.xml ...',
+                            self.on_merge_sumonets,
+                            bitmap=self.get_icon('icon_sumo_24px.png'),
+                            )
+
         menubar.append_item('network/import/from osm.xml ...',
                             self.on_import_osm,
                             info='Import network from osm files.',
                             bitmap=self.get_icon('Files-Osm-icon_24.png'),
                             )
+
+        if networkxtools.IS_NX:
+            # menubar.append_item( 'Scenario/create/create from osmnx...',
+            #    self.on_create_from_osmnx,
+            #    bitmap = wx.ArtProvider.GetBitmap(wx.ART_NEW,wx.ART_MENU),
+            #    )
+            menubar.append_item('network/import/from osm with osmnx ...',
+                                self.on_import_osmnx,
+                                bitmap=wx.ArtProvider.GetBitmap(wx.ART_NEW, wx.ART_MENU),
+                                )
 
         # exports
         menubar.append_menu('network/export',
@@ -178,10 +248,25 @@ class WxGui(PtWxGuiMixin, ModuleGui):
                             bitmap=self.get_icon('icon_sumo_24px.png'),  # ,
                             )
 
+        menubar.append_item('network/plot with matplotlib...',
+                            self.on_plot_network,
+                            bitmap=self.get_icon('icon_mpl.png'),
+                            )
+
         menubar.append_menu('network/tools',
                             #bitmap = self.get_agileicon("Document_Export_24px.png"),
                             )
 
+        menubar.append_item('network/tools/analyze_connections',
+                            self.on_analyze_connections,
+                            info='Analyze connections.',
+                            #bitmap = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE,wx.ART_MENU),
+                            )
+        menubar.append_item('network/tools/analyze_edges',
+                            self.on_analyze_edges,
+                            info='Analyze edges.',
+                            #bitmap = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE,wx.ART_MENU),
+                            )
         # menubar.append_item( 'network/refresh',
         #    self.on_refresh,
         #    info='Refresh graph.',
@@ -218,6 +303,15 @@ class WxGui(PtWxGuiMixin, ModuleGui):
         menubar.append_item('network/tools/enlarge nodes',
                             self.on_clean_codes,
                             info='Enlarge nodes and cut back edges and lanes to the border of the node, so that connections become clearer visible end editable.',
+                            #bitmap = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE,wx.ART_MENU),
+                            )
+        menubar.append_item('network/tools/set zipper nodes in roundabouts',
+                            self.on_set_zipper_roundabouts,
+                            #bitmap = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE,wx.ART_MENU),
+                            )
+
+        menubar.append_item('network/tools/configure actuated Tls...',
+                            self.on_configure_actuated_tls,
                             #bitmap = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE,wx.ART_MENU),
                             )
 
@@ -273,15 +367,34 @@ class WxGui(PtWxGuiMixin, ModuleGui):
     #    self._mainframe.refresh_moduleguis()
 
     def on_netedit(self, event=None):
-        if self._net.call_netedit():
+        if self._net.call_netedit(is_maps=False, is_poly=True):
             self._mainframe.refresh_moduleguis()
 
     def on_netedit_on_map(self, event=None):
-        if self._net.call_netedit(is_maps=True):
+        if self._net.call_netedit(is_maps=True, is_poly=False):
             self._mainframe.refresh_moduleguis()
 
     def on_sumogui(self, event=None):
         self._net.call_sumogui(is_maps=True, is_poly=True)
+
+    def on_plot_network(self, event=None):
+        """
+        High quality plot of network and other elements.
+        """
+        p = Netplotter(self._net, logger=self._mainframe.get_logger())
+        dlg = ProcessDialog(self._mainframe, p, immediate_apply=True)
+
+        dlg.CenterOnScreen()
+
+        # this does not return until the dialog is closed.
+        val = dlg.ShowModal()
+        if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+            dlg.Destroy()
+
+        if dlg.get_status() == 'success':
+            # apply current widget values to scenario instance
+            dlg.apply()
+            dlg.Destroy()
 
     def on_test_routing(self, event=None):
         D, P = routing.dijkstra(54, self._net.nodes, self._net.edges, set([42, 82]))
@@ -326,6 +439,38 @@ class WxGui(PtWxGuiMixin, ModuleGui):
         self._mainframe.refresh_moduleguis()
         if event:
             event.Skip()
+
+    def on_configure_actuated_tls(self, event=None):
+        """
+        Enable and configure actuated traffic lights. 
+        """
+        p = networktools.ActuatedTlsConfigurator(self._net, logger=self._mainframe.get_logger())
+        dlg = ProcessDialog(self._mainframe, p, immediate_apply=True)
+
+        dlg.CenterOnScreen()
+
+        # this does not return until the dialog is closed.
+        val = dlg.ShowModal()
+        # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+        # print '  status =',dlg.get_status()
+        if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+            # print ">>>>>>>>>Unsuccessful\n"
+            dlg.Destroy()
+
+        if dlg.get_status() == 'success':
+            # print ">>>>>>>>>successful\n"
+            # apply current widget values to scenario instance
+            dlg.apply()
+            dlg.Destroy()
+            self._mainframe.browse_obj(self._net.edges)
+            self._mainframe.refresh_moduleguis()
+            #self._is_needs_refresh = True
+            # self.refresh_widgets()
+
+    def on_set_zipper_roundabouts(self, event=None):
+        """Convert all roundabout node types to zipper nodes"""
+        self._net.roundabouts.convert_to_zipper()
+        self._mainframe.browse_obj(self._net.roundabouts)
 
     def on_complete_bikenetwork(self, event=None):
         """
@@ -386,6 +531,38 @@ class WxGui(PtWxGuiMixin, ModuleGui):
             # print 'call self._mainframe.refresh_moduleguis()'
             self._mainframe.refresh_moduleguis()
 
+    def on_merge_sumonets(self, event=None):
+        """
+        Chosse one or more SUMO net.xml files to be merged with the current network.
+        """
+        sumonetmerger = network.SumonetMerger(self._net, logger=self._mainframe.get_logger())
+        dlg = ProcessDialog(self._mainframe, sumonetmerger)
+
+        dlg.CenterOnScreen()
+
+        # this does not return until the dialog is closed.
+        val = dlg.ShowModal()
+        # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+        # print '  status =',dlg.get_status()
+        if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+            # print ">>>>>>>>>Unsuccessful\n"
+            dlg.Destroy()
+
+        if dlg.get_status() == 'success':
+            # print ">>>>>>>>>successful\n"
+            # apply current widget values to scenario instance
+            dlg.apply()
+            dlg.Destroy()
+
+            #del self._scenario
+            #self._scenario = scenariocreator.get_scenario()
+
+            self._mainframe.browse_obj(self._net)
+
+            # this should update all widgets for the new scenario!!
+            # print 'call self._mainframe.refresh_moduleguis()'
+            self._mainframe.refresh_moduleguis()
+
     def on_import_osm(self, event=None):
         # TODO: here we should actually replace the current network
         # so we would need a clear net method in scenario
@@ -413,6 +590,35 @@ class WxGui(PtWxGuiMixin, ModuleGui):
 
             # this should update all widgets for the new scenario!!
             # print 'call self._mainframe.refresh_moduleguis()'
+            self._mainframe.refresh_moduleguis()
+
+    def on_import_osmnx(self, event=None):
+        """
+        Import net from databeses generated by the OSMnx package 
+        """
+
+        proc = networkxtools.OxImporter(self._net.parent,
+                                        logger=self._mainframe.get_logger(),
+                                        )
+
+        dlg = ProcessDialog(self._mainframe, proc)
+
+        dlg.CenterOnScreen()
+
+        # this does not return until the dialog is closed.
+        val = dlg.ShowModal()
+        # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+        # print '  status =',dlg.get_status()
+        if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+            # print ">>>>>>>>>Unsuccessful\n"
+            dlg.Destroy()
+
+        if dlg.get_status() == 'success':
+            # print ">>>>>>>>>successful\n"
+            dlg.apply()
+            dlg.Destroy()
+
+            self._mainframe.browse_obj(self._net)
             self._mainframe.refresh_moduleguis()
 
     def on_generate_grid(self, event=None):
@@ -471,6 +677,11 @@ class WxGui(PtWxGuiMixin, ModuleGui):
             # print 'call self._mainframe.refresh_moduleguis()'
             self._mainframe.refresh_moduleguis()
 
+    def on_analyze_edges(self, event=None):
+
+        self._net.edges.analyze_edges()
+        self._mainframe.browse_obj(self._net.edges)
+
     def on_generate_random(self, event=None):
         # TODO: here we should actually replace the current network
         # so we would need a clear net method in scenario
@@ -498,6 +709,13 @@ class WxGui(PtWxGuiMixin, ModuleGui):
             # this should update all widgets for the new scenario!!
             # print 'call self._mainframe.refresh_moduleguis()'
             self._mainframe.refresh_moduleguis()
+
+    def on_analyze_connections(self, event=None):
+        # TODO: here we should actually replace the current network
+        # so we would need a clear net method in scenario
+        # alternatively we could merge properly
+        self._net.connections.analyze_connections()
+        self._mainframe.browse_obj(self._net.connections)
 
     def on_netconvert(self, event=None):
         # TODO: here we should actually replace the current network
@@ -599,7 +817,7 @@ class WxGui(PtWxGuiMixin, ModuleGui):
 
         dlg = wx.FileDialog(None, message='Write trips to SUMO xml',
                             defaultDir=rootdirpath,
-                            defaultFile=netfilepath,
+                            # defaultFile=netfilepath,
                             wildcard=wildcards_all, style=wx.SAVE | wx.CHANGE_DIR)
         if dlg.ShowModal() == wx.ID_OK:
             filepath = dlg.GetPath()
@@ -619,7 +837,8 @@ class WxGui(PtWxGuiMixin, ModuleGui):
         defaultFile = self._net.parent.get_rootfilename()+'.edges.shp'
         wildcards_all = 'All files (*.*)|*.*|SHP files (*.shp)|*.shp'
         dlg = wx.FileDialog(None, message='Export Edges to shapefile',
-                            defaultDir=dirpath, defaultFile=defaultFile,
+                            defaultDir=dirpath,
+                            # defaultFile=defaultFile,
                             wildcard=wildcards_all, style=wx.SAVE | wx.CHANGE_DIR)
         if dlg.ShowModal() == wx.ID_OK:
             filepath = dlg.GetPath()
@@ -641,7 +860,8 @@ class WxGui(PtWxGuiMixin, ModuleGui):
         defaultFile = self._net.parent.get_rootfilename()+'.nodes.shp'
         wildcards_all = 'All files (*.*)|*.*|SHP files (*.shp)|*.shp'
         dlg = wx.FileDialog(None, message='Export nodes to shapefile',
-                            defaultDir=dirpath, defaultFile=defaultFile,
+                            defaultDir=dirpath,
+                            # defaultFile=defaultFile,
                             wildcard=wildcards_all, style=wx.SAVE | wx.CHANGE_DIR)
         if dlg.ShowModal() == wx.ID_OK:
             filepath = dlg.GetPath()

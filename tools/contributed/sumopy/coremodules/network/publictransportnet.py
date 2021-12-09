@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,7 +14,7 @@
 
 # @file    publictransportnet.py
 # @author  Joerg Schweizer
-# @date
+# @date   2012
 
 import os
 import sys
@@ -25,12 +25,26 @@ from xml.sax import saxutils, parse, handler
 import numpy as np
 from collections import OrderedDict
 from coremodules.modules_common import *
+#from coremodules.misc import netmatching
 import agilepy.lib_base.classman as cm
 import agilepy.lib_base.arrayman as am
 import agilepy.lib_base.xmlman as xm
 from agilepy.lib_base.geometry import *
 from agilepy.lib_base.processes import Process, CmlMixin
 #from coremodules.network.network import SumoIdsConf, MODES
+from agilepy.lib_base.geometry import get_length_polypoints, get_dist_point_to_segs, get_diff_angle_clockwise
+
+try:
+    try:
+        import pyproj
+    except:
+        from mpl_toolkits.basemap import pyproj
+
+except:
+    pyproj = None
+    print 'Some of the functions cannot be executed because module pypro or mpl_toolkits.basemap is missing.'
+    print 'Please install these modules if you want to use it.'
+    # print __doc__
 
 
 # example
@@ -45,9 +59,12 @@ class StopAccessProvider(Process):
                           logger=logger,
                           info='Provides pedestrian (or bike) access to public transport stops.',
                           )
-
         attrsman = self.set_attrsman(cm.Attrsman(self))
 
+        self.init_accessprovider(**kwargs)
+
+    def init_accessprovider(self, **kwargs):
+        attrsman = self.get_attrsman()
         self.is_bikeaccess = attrsman.add(cm.AttrConf('is_bikeaccess', kwargs.get('is_bikeaccess', False),
                                                       groupnames=['options'],
                                                       perm='rw',
@@ -59,6 +76,10 @@ class StopAccessProvider(Process):
 
     def do(self):
         print 'StopAccessProvider.do'
+
+        self.provide_access()
+
+    def provide_access(self):
         edges = self.parent.edges
         nodes = self.parent.nodes
         lanes = self.parent.lanes
@@ -86,21 +107,18 @@ class StopAccessProvider(Process):
                 # print ' Check access at stop %s lane %d. al='%(id_stop,id_lane)
                 if lanes.get_accesslevel([id_lane], id_mode_ped) == -1:
                     # no pedaccess
-                    print '    add ped access at stop %s lane %d, ID edge SUMO "%s".' % (
-                        id_stop, id_lane, edges.ids_sumo[id_edge])
+                    print '    add ped access at stop %s lane %d, ID edge SUMO "%s".' % (id_stop, id_lane, edges.ids_sumo[id_edge])
                     lanes.add_access(id_lane, id_mode_ped)
                     n_add_access += 1
 
                 if self.is_bikeaccess:
                     if lanes.get_accesslevel([id_lane], id_mode_bike) == -1:
-                        print '    add bike access at stop %s lane %d, ID edge SUMO "%s".' % (
-                            id_stop, id_lane, edges.ids_sumo[id_edge])
+                        print '    add bike access at stop %s lane %d, ID edge SUMO "%s".' % (id_stop, id_lane, edges.ids_sumo[id_edge])
                         lanes.add_access(id_lane, id_mode_bike)
                         n_add_access += 1
 
             else:
-                print 'WARNING: stop %s at edge %d, SUMO ID %s with without access lane.' % (
-                    id_stop, id_edge, edges.ids_sumo[id_edge])
+                print 'WARNING: stop %s at edge %d, SUMO ID %s with without access lane.' % (id_stop, id_edge, edges.ids_sumo[id_edge])
                 # return False
 
         print '  Added access to %d stops' % n_add_access
@@ -141,7 +159,7 @@ class PtStops(am.ArrayObjman):
 
         self.add_col(am.IdsArrayConf('ids_lane', net.lanes,
                                      name='ID Lane',
-                                     info='ID of lane for this parking position. ',
+                                     info='ID of lane for this stop. ',
                                      xmltag='lane',
                                      ))
 
@@ -285,7 +303,12 @@ class PtStops(am.ArrayObjman):
             # print '   id_stop ',id_stop,coord
             # print '    ',np.sqrt(np.sum(coords-coord,1)**2)
             dists = np.sqrt(np.sum((coords-coord)**2, 1))
-            inds_prox = dists <= dist_walk_los
+            inds_prox = (dists <= dist_walk_los)
+
+            # exclude stop itself
+            ind_stop = ids_stop == id_stop
+            inds_prox[ind_stop] = False
+
             # inds_prox[ind] = False # avoid putting stop itself
             stop_proximity[id_stop] = (dists[inds_prox], ids_stop[inds_prox])
             ind += 1
@@ -338,7 +361,7 @@ class PtStops(am.ArrayObjman):
         #xmltag, xmltag_item, attrname_id = self.xmltag
         fd.write('<?xml version="1.0" encoding="%s"?>\n' % encoding)
         indent = 0
-        #fd.write(xm.begin('routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.sf.net/xsd/routes_file.xsd"',indent))
+        #fd.write(xm.begin('routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd"',indent))
 
         fd.write(xm.begin('additional', indent))
 

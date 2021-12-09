@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,7 +14,7 @@
 
 # @file    turnflows_wxgui.py
 # @author  Joerg Schweizer
-# @date
+# @date   2012
 
 import wx
 import agilepy.lib_base.classman as cm
@@ -48,17 +48,21 @@ class TurnflowWxGuiMixin:
                             bitmap=self.get_agileicon("Document_Import_24px.png"),
                             )
 
-        menubar.append_item('demand/turnflows/normalize turn-probabilities',
-                            self.on_normalize_turnprobabilities,
-                            #info='Makes sure that sum of turn probabilities from an edge equals 1.',
-                            #bitmap = self.get_icon("Document_Import_24px.png"),
+        # menubar.append_item( 'demand/turnflows/normalize turn-probabilities',
+        #    self.on_normalize_turnprobabilities,
+        #    #info='Makes sure that sum of turn probabilities from an edge equals 1.',
+        #    #bitmap = self.get_icon("Document_Import_24px.png"),
+        #    )
+
+        menubar.append_item('demand/turnflows/turnflows to routes...',
+                            self.on_turnflows_to_routes,
                             )
 
-        menubar.append_item('demand/turnflows/turnflows to routes',
-                            self.on_turnflows_to_routes,
-                            #info='Makes sure that sum of turn probabilities from an edge equals 1.',
-                            #bitmap = self.get_icon("Document_Import_24px.png"),
-                            )
+        # menubar.append_item( 'demand/turnflows/turnflows to routes',
+        #    self.on_turnflows_to_routes,
+        #    #info='Makes sure that sum of turn probabilities from an edge equals 1.',
+        #    #bitmap = self.get_icon("Document_Import_24px.png"),
+        #    )
 
         menubar.append_item('demand/turnflows/clear all turnflows',
                             self.on_clear_turnflows,
@@ -89,14 +93,14 @@ class TurnflowWxGuiMixin:
             dlg.Destroy()
             self._mainframe.browse_obj(self._demand.turnflows)
 
-    def on_normalize_turnprobabilities(self, event=None):
-        """
-        Makes sure that sum of turn probabilities from an edge equals 1.
-        """
-        self._demand.turnflows.normalize_turnprobabilities()
-        self._mainframe.browse_obj(self._demand.turnflows)
-        # if event:
-        #    event.Skip()
+    # def on_normalize_turnprobabilities(self, event=None):
+    #    """
+    #    Makes sure that sum of turn probabilities from an edge equals 1.
+    #    """
+    #    self._demand.turnflows.normalize_turnprobabilities()
+    #    self._mainframe.browse_obj(self._demand.turnflows)
+    #    #if event:
+    #    #    event.Skip()
 
     def on_clear_turnflows(self, event=None):
         """Generates routes, based on flow information and turnflow probabilities.
@@ -111,8 +115,31 @@ class TurnflowWxGuiMixin:
         """Generates routes, based on flow information and turnflow probabilities.
         This function will apply the JTROUTER for each transport mode separately.
         """
-        self._demand.turnflows.turnflows_to_routes(is_clear_trips=False)
-        self._mainframe.browse_obj(self._demand.trips)
+        # TODO: maka proper control-panel
+        #self._demand.turnflows.turnflows_to_routes(is_clear_trips = False, is_make_probabilities = True)
+        # self._mainframe.browse_obj(self._demand.trips)
+
+        tfrouter = turnflows.TurnflowRouter(self._demand.turnflows,
+                                            logger=self._mainframe.get_logger()
+                                            )
+        dlg = ProcessDialog(self._mainframe, tfrouter)
+
+        dlg.CenterOnScreen()
+
+        # this does not return until the dialog is closed.
+        val = dlg.ShowModal()
+        # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+        # print '  status =',dlg.get_status()
+        if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+            # print ">>>>>>>>>Unsuccessful\n"
+            dlg.Destroy()
+
+        if dlg.get_status() == 'success':
+            # print ">>>>>>>>>successful\n"
+            # apply current widget values to scenario instance
+            dlg.apply()
+            dlg.Destroy()
+            self._mainframe.browse_obj(self._demand.trips)
 
 
 class TurnflowCommonMixin:

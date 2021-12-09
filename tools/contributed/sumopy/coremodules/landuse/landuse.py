@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,8 +14,21 @@
 
 # @file    landuse.py
 # @author  Joerg Schweizer
-# @date
+# @date   2012
 
+import maps
+from agilepy.lib_base.processes import Process, CmlMixin
+from collections import OrderedDict
+from numpy import random
+import numpy as np
+from coremodules.misc.shapeformat import ShapefileImporter
+from coremodules.network.network import SumoIdsConf, MODES
+from agilepy.lib_base.misc import string_to_float
+from agilepy.lib_base.geometry import *
+import agilepy.lib_base.xmlman as xm
+import agilepy.lib_base.arrayman as am
+import agilepy.lib_base.classman as cm
+from coremodules.modules_common import *
 import os
 import sys
 import time
@@ -28,19 +41,18 @@ if __name__ == '__main__':
         APPDIR = os.path.dirname(os.path.abspath(sys.argv[0]))
     SUMOPYDIR = os.path.join(APPDIR, '..', '..')
     sys.path.append(SUMOPYDIR)
+try:
+    import pyproj
+except:
+    from mpl_toolkits.basemap import pyproj
 
+#from coremodules.network.routing import get_mincostroute_edge2edges
 
-import numpy as np
-from numpy import random
-from collections import OrderedDict
-from coremodules.modules_common import *
-import agilepy.lib_base.classman as cm
-import agilepy.lib_base.arrayman as am
-import agilepy.lib_base.xmlman as xm
-from agilepy.lib_base.geometry import *
-from agilepy.lib_base.processes import Process, CmlMixin
-from coremodules.network.network import SumoIdsConf, MODES
-import maps
+try:
+    from shapely.geometry import MultiPoint, Polygon
+    IS_SHAPELY = True
+except:
+    IS_SHAPELY = False
 
 
 def clean_osm(filepath_in, filepath_out):
@@ -89,12 +101,6 @@ class LanduseTypes(am.ArrayObjman):
         #                                info = 'Name of facility type used as reference in OSM.',
         #                                ))
 
-        self.add_col(am.ListArrayConf('osmfilters',
-                                      perm='r',
-                                      name='OSM filter',
-                                      info='List of openstreetmap filters that allow to identify this facility type.',
-                                      ))
-
         self.add_col(am.ArrayConf('colors', np.ones(4, np.float32),
                                   dtype=np.float32,
                                   metatype='color',
@@ -111,9 +117,36 @@ class LanduseTypes(am.ArrayObjman):
                                   info='Information about this landuse.',
                                   ))
 
+        self.add_col(am.ArrayConf('are_area', False,
+                                  perm='rw',
+                                  name='is area',
+                                  info='True if this is an area of particular use, instead of a single facility. An area can include several facilities. If False, then it is dealt with a single facility.',
+                                  ))
+
+        self.add_col(am.ListArrayConf('osmfilters',
+                                      perm='r',
+                                      name='OSM filter',
+                                      info='List of openstreetmap filters that allow to identify this facility type.',
+                                      ))
+
+        # this will remove all previous and setnw
         if len(self) > 0:
             self.clear()
             self.add_types_default()
+
+    def get_landusetype_facility_from_area(self, id_landuse_area):
+        # get typekey
+        typekey_area = self.typekeys[id_landuse_area]
+        typekey_info = typekey_area.split('_')
+        if len(typekey_info) == 2:
+            if typekey_info[1] == 'area':
+                return self.typekeys.get_id_from_index(typekey_info[0])
+            else:
+                # no area, return unchanged
+                return id_landuse_area
+        else:
+            # no area, return unchanged
+            return id_landuse_area
 
     def format_ids(self, ids):
         return ','.join(self.typekeys[ids])
@@ -127,35 +160,43 @@ class LanduseTypes(am.ArrayObjman):
     def add_types_default(self):
         # default types
         self.add_row(typekeys='leisure',
-                     descriptions='Areas which offer leasure type activities',
-                     osmfilters=['sport', 'leisure.park', 'park'],
+                     descriptions='Facilities which offer leasure type activities',
+                     osmfilters=['historic.church', 'building.church', 'sport', 'sport.*'],
                      colors=(0.2, 0.5, 0.3, 0.7)
                      )
+        # leisure.nature_reserve is actually an area so remove 'leisure.*'
+
         self.add_row(typekeys='commercial',
-                     descriptions='Areas with trade, offices, banks, shopping opportunitties, etc.',
-                     osmfilters=['shop.*', 'building.commercial'],
+                     descriptions='Facility with trade, offices, banks, shopping opportunitties, etc.',
+                     osmfilters=['building.hospital', 'building.retail', 'building.shop',
+                                 'building.restaurant', 'building.cafe', 'restaurant', 'shop.*', 'building.commercial', ],
                      colors=(0.6171875,  0.6171875,  0.875, 0.7),
                      )
+
         self.add_row(typekeys='industrial',
-                     descriptions='Areas with industrial production facilities.',
+                     descriptions='industrial production facilities.',
                      osmfilters=['building.industrial'],
                      colors=(0.89453125,  0.65625,  0.63671875, 0.7),
                      )
+
         self.add_row(typekeys='parking',
-                     descriptions='Areas reserved for car parking.',
-                     osmfilters=['building.parking', 'amenity.parking'],
+                     descriptions='Areas reserved for car parking. This can be either area or building.',
+                     osmfilters=['building.parking', ],
                      colors=(0.52734375,  0.875,  0.875, 0.7),
                      )
+
         self.add_row(typekeys='residential',
-                     descriptions='Residential Areas',
-                     osmfilters=['building.*', 'building'],
+                     descriptions='Facilities with residential use',
+                     osmfilters=['building.house', 'building.apartments', 'building.*', 'building'],
                      colors=(0.921875,  0.78125,  0.4375, 0.7),
                      )
+
         self.add_row(typekeys='mixed',
-                     descriptions='Areas with mixed land use, which cannot be clearly assigned to one of the other landuse types.',
+                     descriptions='Facilities with mixed land use, which cannot be clearly assigned to one of the other landuse types.',
                      osmfilters=[],
                      colors=(0.5, 0.9, 0.5, 0.7),
                      )
+
         self.add_row(typekeys='sink',
                      descriptions='Areas where vehicles disappear (evaporate). These zones are used for turn-flow demand models in order to avoid the creation of routes with loops.',
                      osmfilters=[],
@@ -163,8 +204,59 @@ class LanduseTypes(am.ArrayObjman):
                      )
         self.add_row(typekeys='education',
                      descriptions='Educational facilities such as schools, universities',
-                     osmfilters=['building.scool', 'building.university'],
+                     # with amenity and landuse, we should look inside and assign all buildings
+                     osmfilters=['building.school', 'building.university'],
+                     colors=(0.89453125,  0.65625,  0.89453125, 0.7),
+                     )
+
+        self.add_row(typekeys='leisure_area',
+                     descriptions='Areas on which leasure type activitiesbare offered',
+                     osmfilters=['leisure.park', 'park', 'amenity.park',
+                                 'landuse.park', 'amenity.sport', 'landuse.sport'],
+                     are_area=True,
+                     colors=(0.2, 0.5, 0.3, 0.7)
+                     )
+
+        self.add_row(typekeys='industrial_area',
+                     descriptions='Area with industrial production facilities.',
+                     osmfilters=['amenity.industrial', 'landuse.industrial', ],
+                     are_area=True,
+                     colors=(0.89453125,  0.65625,  0.63671875, 0.7),
+                     )
+
+        self.add_row(typekeys='commercial_area',
+                     descriptions='Areas with trade, offices, banks, shopping opportunitties, or other customer services.',
+                     osmfilters=['amenity.hospital', 'amenity.commercial', 'landuse.commercial', ],
+                     colors=(0.6171875,  0.6171875,  0.875, 0.7),
+                     are_area=True,
+                     )
+
+        self.add_row(typekeys='residential_area',
+                     descriptions='Areas with residential facilities.',
+                     osmfilters=['amenity.residential', 'landuse.residential'],
                      colors=(0.921875,  0.78125,  0.4375, 0.7),
+                     are_area=True,
+                     )
+
+        self.add_row(typekeys='mixed_area',
+                     descriptions='Facilities with mixed land use, which cannot be clearly assigned to one of the other landuse types.',
+                     osmfilters=[],
+                     colors=(0.5, 0.9, 0.5, 0.7),
+                     are_area=True,
+                     )
+
+        self.add_row(typekeys='education_area',
+                     descriptions='Educational facilities such as schools, universities',
+                     osmfilters=['landuse.university', 'landuse.school', 'amenity.school', 'amenity.university'],
+                     colors=(0.89453125,  0.65625,  0.89453125, 0.7),
+                     are_area=True,
+                     )
+
+        self.add_row(typekeys='parking_area',
+                     descriptions='Areas reserved for car parking. This can be either area or building.',
+                     osmfilters=['amenity.parking'],
+                     colors=(0.52734375,  0.875,  0.875, 0.7),
+                     are_area=True,
                      )
 
 
@@ -174,15 +266,24 @@ class Zones(am.ArrayObjman):
                           name='Zones',
                           info='Traffic Zones which can be used for zone-to-zone traffic transport demand or to specify zones for traffic evaporation.',
                           is_plugin=True,
-                          version=0.1,
+                          version=0.3,
                           **kwargs)
 
         self._init_attributes()
+        self._init_constants()
 
     def _init_attributes(self):
-        # print 'Zones._init_attributes',hasattr(self,'are_evaporate')
+        # print 'Zones._init_attributes',hasattr(self,'are_evaporate'),'version',self.get_version()
         edges = self.parent.get_net().edges
-        self.add_col(SumoIdsConf('Zone', name='Name', perm='rw'))
+        self.add_col(SumoIdsConf('Zone', name='Name', perm='rw', info='Unique short name or ID to identify zone.'))
+
+        self.add_col(am.ArrayConf('names_extended', '',
+                                  dtype=np.object,
+                                  groupnames=['parameter'],
+                                  perm='rw',
+                                  name='Extended name',
+                                  info='Extended, human readable name, no uniqueness required, not used as key.',
+                                  ))
 
         self.add_col(am.IdsArrayConf('ids_landusetype',  self.parent.landusetypes,
                                      id_default=6,
@@ -212,30 +313,69 @@ class Zones(am.ArrayObjman):
                                       is_plugin=True,
                                       ))
 
-        self.add_col(am.IdlistsArrayConf('ids_edges_orig', edges,
+        self.add_col(am.ListArrayConf('areas',
+                                      groupnames=['state'],
+                                      perm='rw',
+                                      name='Area',
+                                      unit='km^2',
+                                      info='Area of the zone in square kilometers.',
+                                      is_plugin=True,
+                                      ))
+
+        # self.add_col(am.IdlistsArrayConf( 'ids_edges_orig', edges,
+        #                                    groupnames = ['state'],
+        #                                    name = 'IDs orig edges',
+        #                                    info = 'List with IDs of network edges that can be used as origins for trips in this zone.',
+        #                                    ))
+
+        # self.add_col(am.IdlistsArrayConf( 'ids_edges_dest', edges,
+        #                                    groupnames = ['state'],
+        #                                    name = 'IDs dest edges',
+        #                                    info = 'List with IDs of network edges that can be used as origins for trips in this zone.',
+        #                                    ))
+
+        if self.get_version() < 0.2:
+            self.delete('priority_max')
+            self.delete('speed_max')
+            self.delete('n_edges_min_length')
+            self.delete('n_edges_max_length')
+
+        # self.add_col(am.ListArrayConf( 'probs_edges_orig',
+        #                                groupnames = ['_private'],
+        #                                #perm='rw',
+        #                                name = 'edge probs origin',
+        #                                info = 'Probabilities of edges to be at the origin of a trip departing from this zone.',
+        #                                ))
+        # self.add_col(am.ListArrayConf( 'probs_edges_dest',
+        #                                groupnames = ['_private'],
+        #                                #perm='rw',
+        #                                name = 'edge probs dest',
+        #                                info = 'Probabilities of edges to be a destination of a trip arriving at this zone.',
+        #                                ))
+
+        self.add_col(am.IdlistsArrayConf('ids_edges_inside', edges,
                                          groupnames=['state'],
-                                         name='IDs orig edges',
-                                         info='List with IDs of network edges that can be used as origins for trips in this zone.',
+                                         name='Edge IDs inside',
+                                         info='List with IDs of network edges that are entirely inside each zone.',
                                          ))
 
-        self.add_col(am.IdlistsArrayConf('ids_edges_dest', edges,
-                                         groupnames=['state'],
-                                         name='IDs dest edges',
-                                         info='List with IDs of network edges that can be used as origins for trips in this zone.',
-                                         ))
+        if self.get_version() < 0.3:
+            ids = self.get_ids()
+            self.ids_edges_inside[ids] = self.ids_edges_orig[ids]
+            self.delete('ids_edges_dest')
+            self.delete('ids_edges_orig')
+            self.delete('probs_edges_orig')
+            self.delete('probs_edges_dest')
 
-        self.add_col(am.ListArrayConf('probs_edges_orig',
-                                      groupnames=['_private'],
-                                      # perm='rw',
-                                      name='edge probs origin',
-                                      info='Probabilities of edges to be at the origin of a trip departing from this zone.',
-                                      ))
-        self.add_col(am.ListArrayConf('probs_edges_dest',
-                                      groupnames=['_private'],
-                                      # perm='rw',
-                                      name='edge probs dest',
-                                      info='Probabilities of edges to be a destination of a trip arriving at this zone.',
-                                      ))
+        self.set_version(0.3)
+
+    def _init_constants(self):
+        self._proj = None
+        self._offset = None
+        self._mode_to_edges_inside = {}
+        attrsman = self.get_attrsman()
+        attrsman.do_not_save_attrs(['_proj', '_offset', '_mode_to_edges_inside'])
+        # self.set_version(0.2)
 
     def make(self, zonename='',
              coord=np.zeros(3, dtype=np.float32),
@@ -249,7 +389,7 @@ class Zones(am.ArrayObjman):
 
         self.get_coords_from_shape(shape)
         id_zone = self.add_row(coords=self.get_coords_from_shape(shape),
-                               shapes=shape,
+                               shapes=shape, areas=find_area(shape)/1000000.,
                                ids_landusetype=id_landusetype,
                                )
         if zonename == '':
@@ -281,12 +421,29 @@ class Zones(am.ArrayObjman):
         self.del_row(id_zone)
 
     def get_edges(self):
-        return self.ids_edges_dest.get_linktab()
+        return self.ids_edges_inside.get_linktab()
+
+    def update_zones(self):
+        """Update all dependent attributes of all zones"""
+        ids = self.get_ids()
+        for id_zone, shape in zip(ids, self.shapes[ids]):
+            self.coords[id_zone] = self.get_coords_from_shape(shape)
+            self.areas[id_zone] = find_area(shape)/1000000.0
+            self.identify_zoneedges(id_zone)
 
     def refresh_zoneedges(self):
         for _id in self.get_ids():
             self.identify_zoneedges(_id)
-            self.make_egdeprobs(_id)
+            # self.make_egdeprobs(_id)
+            self.coords[_id] = self.get_coords_from_shape(self.shapes[_id])
+
+    def refresh_zonearea(self):
+        """
+        Update the area of each zone
+        """
+        ids_zone = self.get_ids()
+        for id_zone in ids_zone:
+            self.identify_zonearea(id_zone)
 
     def update_netoffset(self, deltaoffset):
         """
@@ -301,88 +458,345 @@ class Zones(am.ArrayObjman):
             s[:, :2] = s[:, :2] + deltaoffset
             shapes[i] = list(s)
 
+    def identify_zonearea(self, id_zone):
+        # print 'identify_zonearea',id_zone
+        shape = self.shapes[id_zone]
+        self.areas[id_zone] = find_area(shape)/1000000.0
+
     def identify_zoneedges(self, id_zone):
-        # print 'identify_zoneedges',id_zone
-        inds_within = []
-        ind = 0
-        # print '  self.shapes[id_zone]',self.shapes[id_zone]
+        print 'identify_zoneedges of id_zone', id_zone
 
-        polygon = np.array(self.shapes[id_zone])[:, :2]
-        for polyline in self.get_edges().shapes.value:
-            # print '  polygon',polygon,type(polygon)
-            # print '  np.array(polyline)[:,:2]',np.array(polyline)[:,:2],type(np.array(polyline)[:,:2])
-            if is_polyline_in_polygon(np.array(polyline)[:, :2], polygon):
-                inds_within.append(ind)
-            ind += 1
+        if len(self.shapes[id_zone]) >= 3:
+            # must have at least 3 vertices to be an area
 
-        # print '  inds_within',inds_within
+            inds_within = []
+            ind = 0
+            # print '  self.shapes[id_zone]',self.shapes[id_zone]
+            if not IS_SHAPELY:
+                polygon = np.array(self.shapes[id_zone])[:, :2]
+                # print '  polygon',type(polygon)
+                for polyline in self.get_edges().shapes.get_value():
 
-        # select and determine weights
-        self.ids_edges_orig[id_zone] = self.get_edges().get_ids(inds_within)
-        self.ids_edges_dest[id_zone] = self.get_edges().get_ids(inds_within)
+                    # print '    np.array(polyline)[:,:2]',np.array(polyline)[:,:2],type(np.array(polyline)[:,:2])
+                    if is_polyline_in_polygon(np.array(polyline)[:, :2], polygon):
+                        inds_within.append(ind)
+                    ind += 1
+            else:
+                polygon = Polygon(np.array(self.shapes[id_zone])[:, :2])
+                for polyline in self.get_edges().shapes.get_value():
+                    if MultiPoint(np.array(polyline)[:, :2]).within(polygon):
+                        inds_within.append(ind)
+                    ind += 1
 
-    def make_egdeprobs(self, id_zone):
+            # print '  inds_within',inds_within
+
+            # select and determine weights
+            self.ids_edges_inside[id_zone] = self.get_edges().get_ids(inds_within)
+            print '  found', len(self.ids_edges_inside[id_zone]), 'edges'
+            if len(self.ids_edges_inside[id_zone]) == 0:
+                print 'WARNING in identify_zoneedges: no edges found in zone', id_zone
+
+    def get_zoneedges_by_mode_fast(self, id_zone, id_mode, speed_max=None,
+                                   modeconst_excl=0.0, modeconst_mix=0.0,
+                                   weights=None, fstar=None):
         """
-        Returns two dictionaries with normalized edge weight distribution 
+        Returns a list of edge IDs which are connected and accessible by mode id_mode.
+        Uses cashed results, if possible.
+
+        Optionally weights and fstar can be provided to improve computational speed.
+        Otherwise weights and fstar are calculated with the optional parameters
+        modeconst_excl and modeconst_mix
+        """
+
+        # print 'get_zoneedges_by_mode_fast id_zone',id_zone,'id_mode',id_mode
+        if not self._mode_to_edges_inside.has_key(id_mode):
+            self._mode_to_edges_inside[id_mode] = {}
+
+        if not self._mode_to_edges_inside[id_mode].has_key(id_zone):
+            self._mode_to_edges_inside[id_mode][id_zone] = self.get_zoneedges_by_mode(
+                id_zone, id_mode, weights=weights, fstar=fstar)
+            # print '  found edges',len(self._mode_to_edges_inside[id_mode][id_zone])
+        return self._mode_to_edges_inside[id_mode][id_zone]
+
+    def get_zoneedges_by_mode(self, id_zone, id_mode, speed_max=None,
+                              modeconst_excl=0.0, modeconst_mix=0.0,
+                              weights=None, fstar=None):
+        """
+        Returns a list of edge IDs which are connected and accessible by mode id_mode.
+        The algorithm tries to maximize the number of reachabe edges.
+
+        Optionally weights and fstar can be provided to improve computational speed.
+        Otherwise weights and fstar are calculated with the optional parameters
+        modeconst_excl and modeconst_mix
+        """
+        # print 'get_zoneedges_by_mode id_zone',id_zone,'id_mode',id_mode
+
+        return self.get_edges().get_max_connected(
+            ids_edge=self.ids_edges_inside[id_zone],
+            id_mode=id_mode, speed_max=speed_max,
+            modeconst_excl=modeconst_excl,
+            modeconst_mix=modeconst_mix,
+            weights=weights, fstar=fstar,
+            is_bidir=True)
+
+    def get_egdeprobs(self, id_zone, n_edges_min_length, n_edges_max_length, priority_max, speed_max, is_normalize=True, is_dict=False):
+        """
+        OBSOLETE!!!
+        Returns vectors ids_edge and edge_props
+        where ids_edge are the edge IDs of edges in id_zone and edge_props are 
+        the respective probabilities to start/end a trip
+
+        if is_dict is True then a dictionary is returnd with edge IDs as key 
+        and arrival/departure probability as value
+        """
+        # todo: rename ids_edges_orig to simply ids_edges
+        ids_edge_orig = self.ids_edges_orig[id_zone]
+        if ids_edge_orig is None:
+            print 'WARNING: no edges in zone', id_zone, '. Run edge detection first.'
+            if is_dict:
+                return {}
+            else:
+                return [], []
+
+        n_edges_orig = len(ids_edge_orig)
+
+        if n_edges_orig > 0:
+            weights = self.get_edgeweights(ids_edge_orig, n_edges_min_length,
+                                           n_edges_max_length, priority_max, speed_max)
+            if is_normalize:
+                weights = weights/np.sum(weights)
+            if is_dict:
+                probs = {}
+                for id_edge, prob in zip(ids_edge_orig, weights):
+                    probs[id_edge] = prob
+                return probs
+            else:
+                return ids_edge_orig, weights
+        else:
+            if is_dict:
+                return {}
+            else:
+                return [], []
+
+    def make_egdeprobs(self, id_zone, n_edges_min_length, n_edges_max_length, priority_max, speed_max,  is_normalize=True):
+        """
+        OBSOLETE!!! This funzione has moved to origin_to_destination
+        Update  probs_edges_orig and probs_edges_dest distribution 
         one for departures and one for arrivals.
-
-        The  dictionaries have id_zone as key and a and an array of edge weights as value. 
         """
+
+        # print 'make_egdeprobs',id_zone
         #zones = self.zones.value
         #edgeweights_orig = {}
         #edgeweights_dest = {}
 
         # for id_zone in zones.get_ids():
-        n_edges_orig = len(self.ids_edges_orig[id_zone])
-        n_edges_dest = len(self.ids_edges_dest[id_zone])
+        ids_edge_orig = self.ids_edges_orig[id_zone]
+        ids_edge_dest = self.ids_edges_dest[id_zone]
+        n_edges_orig = len(ids_edge_orig)
+        n_edges_dest = len(ids_edge_dest)
         # da fare meglio...
         if n_edges_orig > 0:
-            self.probs_edges_orig[id_zone] = 1.0/float(n_edges_orig)*np.ones(n_edges_orig, np.float)
+            #self.probs_edges_orig[id_zone] = 1.0/float(n_edges_orig)*np.ones(n_edges_orig,np.float)
+            weights = self.get_edgeweights(ids_edge_orig, n_edges_min_length,
+                                           n_edges_max_length, priority_max, speed_max)
+            if is_normalize:
+                self.probs_edges_orig[id_zone] = weights/np.sum(weights)
+            else:
+                self.probs_edges_orig[id_zone] = weights
         else:
-            self.probs_edges_orig[id_zone] = 1.0
+            self.probs_edges_orig[id_zone] = []
 
         if n_edges_dest > 0:
-            self.probs_edges_dest[id_zone] = 1.0/float(n_edges_dest)*np.ones(n_edges_dest, np.float)
+            #self.probs_edges_dest[id_zone] = 1.0/float(n_edges_dest)*np.ones(n_edges_dest,np.float)
+            weights = self.get_edgeweights(ids_edge_dest, n_edges_min_length,
+                                           n_edges_max_length, priority_max, speed_max)
+            if is_normalize:
+                self.probs_edges_dest[id_zone] = weights/np.sum(weights)
+            else:
+                self.probs_edges_dest[id_zone] = weights
         else:
-            self.probs_edges_dest[id_zone] = 1.0
+            self.probs_edges_dest[id_zone] = []
 
-    def export_evaporator_xml(self, filepath=None, encoding='UTF-8'):
+    def get_edgeweights(self, ids_edge, n_edges_min_length, n_edges_max_length, priority_max, speed_max):
+        # OBSOLETE!!! This funzione has moved to origin_to_destination
+        # print 'get_edgeweights ids_edge',ids_edge
+        edges = self.get_edges()
+        n_edges = len(ids_edge)
+        if (n_edges > n_edges_min_length) & (n_edges < n_edges_max_length):
+            return edges.lengths[ids_edge]*((edges.priorities[ids_edge] < priority_max) & (edges.speeds_max[ids_edge] < speed_max))
+        else:
+            return np.ones(n_edges, dtype=np.float32)*((edges.priorities[ids_edge] < priority_max) & (edges.speeds_max[ids_edge] < speed_max))
+
+    def write_kml(self, fd=None, indent=0):
+
+        ids_zone = self.get_ids()
+        for id_zone in ids_zone:
+            fd.write(xm.begin('Placemark', indent + 2))
+            fd.write((indent + 4)*' '+'<name>%s</name>\n' % self.names_extended[id_zone])
+            fd.write(xm.begin('LineString', indent + 4))
+            fd.write(xm.begin('coordinates', indent + 6))
+
+            for point in self.shapes[id_zone]:
+
+                projection = self.project(point[0], point[1])
+                fd.write((indent+8)*' '+'%f,%f\n' % (projection[0], projection[1]))
+
+            fd.write(xm.end('coordinates', indent + 6))
+            fd.write(xm.end('LineString', indent + 4))
+            fd.write(xm.end('Placemark', indent + 2))
+
+    def write_xml(self, fd=None, indent=0):
+        print 'Zones.write_xml'
+        net = self.parent.parent.net
+        ids_edge_sumo = net.edges.ids_sumo
+        ids_zone = self.get_ids()
+        fd.write(xm.begin('tazs', indent))
+        for id_zone_sumo, shape, id_edges_orig, id_edges_dest, probs_edge_orig, probs_edge_dest in zip(
+                self.ids_sumo[ids_zone], self.shapes[ids_zone],
+                self.ids_edges_orig[ids_zone], self.ids_edges_dest[ids_zone],
+                self.probs_edges_orig[ids_zone], self.probs_edges_dest[ids_zone]):
+
+            if id_edges_orig is not None:
+                if len(id_edges_orig) > 0:
+                    # print '  id_zone_sumo',id_zone_sumo,'id_edges_orig',id_edges_orig,'probs_edge_orig',probs_edge_orig
+                    #    <taz id="<TAZ_ID>">
+                    #      <tazSource id="<EDGE_ID>" weight="<PROBABILITY_TO_USE>"/>
+                    #      ... further source edges ...
+                    #
+                    #      <tazSink id="<EDGE_ID>" weight="<PROBABILITY_TO_USE>"/>
+                    #      ... further destination edges ...
+                    #   </taz>
+
+                    fd.write(xm.start('taz', indent + 2))
+                    fd.write(xm.num('id', id_zone_sumo))
+                    fd.write(xm.mat('shape', shape))
+                    fd.write(xm.stop())
+                    # for id_edge_sumo, prob_edge in zip(ids_edge_sumo[id_edges_orig], probs_edge_orig):
+                    #    fd.write(xm.start('tazSource',indent + 4))
+                    #    fd.write(xm.num('id',id_edge_sumo))
+                    #    fd.write(xm.num('weight',prob_edge))
+                    #    fd.write(xm.stopit())
+                    #
+                    # for id_edge_sumo, prob_edge in zip(ids_edge_sumo[id_edges_dest], probs_edge_dest):
+                    #    fd.write(xm.start('tazSink',indent + 4))
+                    #    fd.write(xm.num('id',id_edge_sumo))
+                    #    fd.write(xm.num('weight',prob_edge))
+                    #    fd.write(xm.stopit())
+
+                    fd.write(xm.end('taz', indent + 2))
+
+        fd.write(xm.end('tazs', indent))
+
+    def project(self, x, y):
+        if self._proj is None:
+            self._proj, self._offset = self.get_proj_and_offset()
+        lons, lats = self._proj(x-self._offset[0], y-self._offset[1], inverse=True)
+        return np.transpose(np.concatenate(([lons], [lats]), axis=0))
+
+    def get_proj_and_offset(self):
+        if self._proj is None:
+            net = self.parent.parent.net
+            proj_params = str(net.get_projparams())
+            # try:
+            self._proj = pyproj.Proj(proj_params)
+            # except:
+            #    proj_params ="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"
+            #    self._proj = pyproj.Proj(self.proj_params)
+
+            self._offset = net.get_offset()
+
+            return self._proj, self._offset
+
+    def get_zonefilepath(self):
+        return self.parent.parent.get_rootfilepath()+'.taz'
+
+    def export_kml(self, filepath=None, encoding='UTF-8'):
         """
-        Export trips to SUMO xml file.
-        Method takes care of sorting trips by departure time.
+        Export zones to Google kml file formate.
         """
+        print 'export_sumoxml', filepath, len(self)
+        if len(self) == 0:
+            return None
+
         if filepath is None:
-            filepath = self.get_tripfilepath()
-        print 'export_trips_xml', filepath
+            filepath = self.get_zonefilepath()+'.kml'
+
         try:
             fd = open(filepath, 'w')
         except:
             print 'WARNING in write_obj_to_xml: could not open', filepath
             return False
-
+        #xmltag, xmltag_item, attrname_id = self.xmltag
         fd.write('<?xml version="1.0" encoding="%s"?>\n' % encoding)
-        fd.write(xm.begin('???'))
-        indent = 2
+        fd.write('<kml xmlns="http://www.opengis.net/kml/2.2">\n')
+        indent = 0
+        #fd.write(xm.begin('routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd"',indent))
 
-        for id_zone in self.select_ids(self.are_evaporate.value):
+        fd.write(xm.begin('Document', indent=0))
 
-            inds_selected[ids_vtype == id_vtype] = False
-        ids_trip_selected = ids_trip[inds_selected]
-        ids_vtype_selected = set(ids_vtype[inds_selected])
-        #ids_vtypes_selected = set(ids_vtypes).difference(ids_vtypes_exclude)
+        self.write_kml(fd, indent=0)
 
-        self.parent.vtypes.write_xml(fd, indent=indent,
-                                     ids=ids_vtype_selected,
-                                     is_print_begin_end=False)
-
-        self.write_xml(fd,     indent=indent,
-                       ids=ids_trip_selected,
-                       attrconfigs_excluded=[self.routes, self.ids_routes],
-                       is_print_begin_end=False)
-
-        fd.write(xm.end(xmltag))
+        fd.write(xm.end('Document', indent=0))
+        fd.write(xm.end('kml', indent=0))
         fd.close()
         return filepath
+
+    def export_sumoxml(self, filepath=None, encoding='UTF-8'):
+        """
+        Export zones to SUMO xml file formate.
+        """
+        print 'export_sumoxml', filepath, len(self)
+        if len(self) == 0:
+            return None
+
+        if filepath is None:
+            filepath = self.get_zonefilepath()+'.xml'
+
+        try:
+            fd = open(filepath, 'w')
+        except:
+            print 'WARNING in export_sumoxml: could not open', filepath
+            return False
+        #xmltag, xmltag_item, attrname_id = self.xmltag
+        #fd.write('<?xml version="1.0" encoding="%s"?>\n'%encoding)
+        #fd.write('<kml xmlns="http://www.opengis.net/kml/2.2">\n')
+        indent = 0
+        #fd.write(xm.begin('routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd"',indent))
+
+        self.write_xml(fd, indent=0)
+
+        fd.close()
+        return filepath
+
+
+class ZonesFromShapeImporter(ShapefileImporter):
+    def __init__(self, ident='zonesfromshapeimporter', zones=None,
+                 name='Zones from Shapefile importer',
+                 shapeattr_ids_zone='ID',
+                 shapeattr_names_zone='',
+                 shapeattr_names_landuse='',
+                 filepath='', logger=None, **kwargs):
+
+        net = zones.parent.parent.net
+        ShapefileImporter.__init__(self, ident, parent=zones,
+                                   name=name,
+                                   filepath=filepath,
+                                   coordsattr='shapes',
+                                   attrnames_to_shapeattrs={'ids_sumo': shapeattr_ids_zone,
+                                                            'names_extended': shapeattr_names_zone,
+                                                            'ids_landusetype': shapeattr_names_landuse},
+                                   projparams_target=net.get_projparams(),
+                                   offset=net.get_offset(),
+                                   boundaries=net.get_boundaries(is_netboundaries=True),
+                                   logger=logger,
+                                   **kwargs)
+
+    def do(self):
+        ShapefileImporter.do(self)
+
+        # update zones
+        self.parent.update_zones()
 
 
 class FacilityTypeMixin(cm.BaseObjman):
@@ -701,6 +1115,7 @@ class Facilities(am.ArrayObjman):
                           **kwargs)
 
         self._init_attributes()
+        self._init_constants()
 
         if net is not None:
             self.add_col(am.IdsArrayConf('ids_roadedge_closest', net.edges,
@@ -725,12 +1140,27 @@ class Facilities(am.ArrayObjman):
             #                        info = 'List of IDs of closest public transport stops.',
             #                        ))
 
+    def _init_constants(self):
+        self._proj = None
+        self._offset = None
+
+        attrsman = self.get_attrsman()
+        attrsman.do_not_save_attrs(['_proj', '_offset'])
+
     def _init_attributes(self):
         landusetypes = self.parent.landusetypes
         zones = self.parent.zones
         self.add(cm.ObjConf(FacilityTypes('facilitytypes', self,)))
 
         self.add_col(SumoIdsConf('Facility', info='SUMO facility ID'))
+
+        self.add_col(am.ArrayConf('names', '',
+                                  dtype='object',  # actually a string of variable length
+                                  perm='rw',
+                                  name='Name',
+                                  info='Name of facility.',
+                                  is_plugin=True,
+                                  ))
 
         self.add_col(am.IdsArrayConf('ids_landusetype', landusetypes,
                                      groupnames=['landuse'],
@@ -892,7 +1322,7 @@ class Facilities(am.ArrayObjman):
         # print 'del_element',id_zone
         self.del_row(id_fac)
 
-    def write_xml(self, fd, indent=0, is_print_begin_end=True):
+    def write_xml(self, fd, indent=0, is_print_begin_end=True, delta=np.zeros(3, dtype=np.float32)):
         xmltag, xmltag_item, attrname_id = self.xmltag
         layer_default = -1
         fill_default = 1
@@ -902,11 +1332,15 @@ class Facilities(am.ArrayObjman):
         if is_print_begin_end:
             fd.write(xm.begin(xmltag, indent))
 
-        attrsconfigs_write = [self.ids_sumo, self.osmkeys, self.shapes]
+        attrsconfigs_write = [self.ids_sumo, self.osmkeys]
+        xmltag_shape = self.shapes.xmltag
+        sep_shape = self.shapes.xmlsep
         for _id in self.get_ids():
             fd.write(xm.start(xmltag_item, indent+2))
             for attrsconfig in attrsconfigs_write:
                 attrsconfig.write_xml(fd, _id)
+
+            fd.write(xm.mat(xmltag_shape, self.shapes[_id] - delta))
 
             landusecolors.write_xml(fd, ids_landusetype[_id])
             fd.write(xm.num('layer', layer_default))
@@ -990,6 +1424,58 @@ class Facilities(am.ArrayObjman):
 
         return probabilities, self.get_ids(inds_fac)
 
+    def get_departure_probabilities_landuse2(self, ids_landusetype):
+        """
+        Returns a dictionary, where probabilities[id_zone]
+        is a vector of departure probabilities for each facility
+        of zone id_zone.
+        Probabilities are proportional to the capacity attribute of the facility.
+
+        Only facilities with one of the landuse given in ids_landusetype
+        have non-zero probabilities.
+
+        The ids_fac is an array that contains the facility ids in correspondence
+        to the probability vector.
+        """
+        print 'get_departure_probabilities_landuse2 ids_landusetype', ids_landusetype
+        probabilities = {}
+        zones = self.ids_zone.get_linktab()
+        inds_fac = self.get_inds()
+        n_frac = len(inds_fac)
+        for id_zone in zones.get_ids():
+            # probabilities[id_zone]={}
+            utils = np.zeros(n_frac, dtype=np.float32)
+            util_tot = 0.0
+            for id_landusetype in ids_landusetype:
+                # print '    id_zone,id_landusetype',id_zone,id_landusetype
+                # print '  ids_landusetype',self.ids_landusetype.value[inds_fac]
+                # print '  ids_zone',self.ids_zone.value[inds_fac]
+                # print ''
+                utils_new = self.capacities.value[inds_fac].astype(
+                    np.float32)*np.logical_and((self.ids_landusetype.value[inds_fac] == id_landusetype), (self.ids_zone.value[inds_fac] == id_zone))
+                utils += utils_new
+                util_tot += np.sum(utils_new)
+                # print '\n\n  [id_taz][ftype]',id_taz,ftype,util_tot,np.sum(util/np.sum(util))
+                # print '  self.type==ftype',self.type==ftype
+                # print '  self.id_taz==id_taz',self.id_taz==id_taz
+                # print '      util',np.sum(utils)
+
+            if util_tot > 0.0:
+                probabilities[id_zone] = utils/util_tot
+            else:
+                probabilities[id_zone] = utils  # all zero prob
+
+            if 0:  # debug
+                print '    sum(probs)', np.sum(probabilities[id_zone])
+                if np.sum(probabilities[id_zone]) > 0:
+                    ids_fac = self.get_ids(inds_fac)
+                    for id_fac, id_landusetype, id_thiszone, prob in zip(ids_fac, self.ids_landusetype[ids_fac], self.ids_zone[ids_fac], probabilities[id_zone]):
+                        if (id_thiszone == id_zone):  # & (id_landusetype in ids_landusetype):
+                            if prob > 0:
+                                print '        id_fac', id_fac, 'id_landusetype', id_landusetype, 'prob', prob
+
+        return probabilities, self.get_ids(inds_fac)
+
     def get_departure_probabilities_landuse(self):
         """
         Returns the dictionnary of dictionaries with departure (or arrival)
@@ -1038,22 +1524,72 @@ class Facilities(am.ArrayObjman):
             self.update_area(_id)
             #self.areas[_id] = get_polygonarea_fast(np.array(self.shapes[_id],float)[:,0], np.array(self.shapes[_id],float)[:,1])
 
+        self.identify_landuse_from_area(ids)
         self.update_capacities(ids)
         # self.identify_closest_edge(ids)
+
+    def get_ids_area(self, ids=None):
+        if ids is None:
+            ids = self.get_ids()
+        return ids[self.get_landusetypes().are_area[self.ids_landusetype[ids]]]
+
+    def get_ids_building(self, ids=None):
+        """Returns all building type of facilities"""
+        # print 'get_ids_building'
+        if ids is None:
+            ids = self.get_ids()
+        # debug
+        #landusetypes =  self.get_landusetypes()
+        # for id_fac in ids[self.get_landusetypes().are_area[self.ids_landusetype[ids]] == False]:
+        #    id_landusetype = self.ids_landusetype[id_fac]
+        #    print '  id_fac',id_fac,id_landusetype,'is_area',landusetypes.are_area[id_landusetype]
+
+        return ids[self.get_landusetypes().are_area[self.ids_landusetype[ids]] == False]
+
+    def identify_landuse_from_area(self, ids_fac=None):
+        """Determines the landuse of facilities from the landuse of areas in which their are located"""
+        print 'identify_landuse_from_area', ids_fac
+        # TODO:
+        landusetypes = self.get_landusetypes()
+        ids_area = self.get_ids_area(ids_fac)
+        ids_build = self.get_ids_building(ids_fac)
+
+        for id_area, shape, id_landuse in zip(ids_area, self.shapes[ids_area], self.ids_landusetype[ids_area]):
+            id_landusetype_fac = landusetypes.get_landusetype_facility_from_area(self.ids_landusetype[id_area])
+            for id_fac, osmkey, coord in zip(ids_build, self.osmkeys[ids_build], self.centroids[ids_build]):
+
+                if osmkey == 'building.yes':
+                    if is_point_in_polygon(coord[:2], np.array(shape, dtype=np.float32)[:, :2], is_use_shapely=IS_SHAPELY):
+                        print '  found id_fac', id_fac, osmkey, 'in id_area', id_area
+                        print '    id_landusetype', self.ids_landusetype[id_fac], 'is_area', landusetypes.are_area[self.ids_landusetype[id_fac]], '->', id_landusetype_fac
+                        self.ids_landusetype[id_fac] = id_landusetype_fac
 
     def update_centroid(self, _id):
         self.centroids[_id] = np.mean(self.shapes[_id], 0)
 
     def update_area(self, _id):
-        self.areas[_id] = get_polygonarea_fast(np.array(self.shapes[_id], float)[
-                                               :, 0], np.array(self.shapes[_id], float)[:, 1])
+        if IS_SHAPELY:
+            self.areas[_id] = find_area(self.shapes[_id])
+        else:
+            self.areas[_id] = get_polygonarea_fast(np.array(self.shapes[_id], float)[
+                                                   :, 0], np.array(self.shapes[_id], float)[:, 1])
 
     def update_capacity(self, id_fac):
         self.update_capacities([id_fac])
 
     def update_capacities(self, ids):
-        volumes_unit = self.get_facilitytypes().unitvolumes[self.ids_facilitytype[ids]]
-        self.capacities[ids] = self.areas[ids]*self.heights[ids]/volumes_unit
+        ids_fac = self.get_ids_building(ids)
+        ids_area = self.get_ids_area(ids)
+        volumes_unit = self.get_facilitytypes().unitvolumes[self.ids_facilitytype[ids_fac]]
+
+        self.capacities[ids_fac] = self.areas[ids_fac]*self.heights[ids_fac]/volumes_unit
+
+        # here we assume that pure areas do not have capacities
+        # this will prevent that activities are assigned to areas
+        # instead of facilities (buildings)
+        # TODO: problem is for example parks with no buildings
+        # fixed: parks etc. are areas
+        self.capacities[ids_area] = 0.0
 
     def get_dists(self, ids_fac_from, ids_fac_to):
         """
@@ -1063,7 +1599,7 @@ class Facilities(am.ArrayObjman):
 
         return np.sqrt(np.sum((self.centroids[ids_fac_to]-self.centroids[ids_fac_from])**2))
 
-    def identify_closest_edge(self, ids=None, priority_max=5, has_sidewalk=True):
+    def identify_closest_edge(self, ids=None, priority_max=5, has_sidewalk=True, n_best=10):
         """
         Identifies edge ID and position on this edge that 
         is closest to the centoid of each facility and the satisfies certain
@@ -1071,62 +1607,63 @@ class Facilities(am.ArrayObjman):
         """
         print 'identify_closest_edge'
         edges = self.get_edges()
-
+        id_ped = self.get_net().modes.get_id_mode('pedestrian')
         # select edges...if (edges.priorities[id_edge]<=priority_max) & edges.has_sidewalk(id_edge):
 
-        ids_edge = edges.select_ids((edges.priorities.get_value() < priority_max)
-                                    & (edges.widths_sidewalk.get_value() > 0.0))
+        # ids_edge = edges.select_ids((edges.priorities.get_value()<priority_max)\
+        #                             & (edges.widths_sidewalk.get_value()>0.0))
+        accesslevels = edges.get_accesslevels(id_ped)
+        # edges.make_segment_edge_map()
 
-        edges.make_segment_edge_map(ids_edge)
+        for id_fac in self.get_ids():
+            ids_edge, dists = edges.get_closest_edge(self.centroids[id_fac], n_best=n_best, accesslevels=accesslevels)
 
-        if ids is None:
-            ids = self.get_ids()
-        for id_fac in ids:
-            id_edge = edges.get_closest_edge(self.centroids[id_fac])
+            if len(ids_edge) > 0:
+                id_edge = ids_edge[0]
 
-            # determin position on edeg where edge is closest to centroid
-            # TODO: solve this faster with precalculated maps!!
-            xc, yc, zc = self.centroids[id_fac]
-            shape = edges.shapes[id_edge]
-            n_segs = len(shape)
+                # determin position on edeg where edge is closest to centroid
+                # TODO: solve this faster with precalculated maps!!
+                xc, yc, zc = self.centroids[id_fac]
+                shape = edges.shapes[id_edge]
+                n_segs = len(shape)
 
-            d_min = 10.0**8
-            x_min = 0.0
-            y_min = 0.0
-            j_min = 0
-            p_min = 0.0
-            pos = 0.0
-            x1, y1, z1 = shape[0]
-            edgelength = edges.lengths[id_edge]
-            for j in xrange(1, n_segs):
-                x2, y2, z2 = shape[j]
-                d, xp, yp = shortest_dist(x1, y1, x2, y2, xc, yc)
-                # print '    x1,y1=(%d,%d)'%(x1,y1),',x2,y2=(%d,%d)'%(x2,y2),',xc,yc=(%d,%d)'%(xc,yc)
-                # print '    d,x,y=(%d,%d,%d)'%shortest_dist(x1,y1, x2,y2, xc,yc)
-                if d < d_min:
-                    d_min = d
-                    # print '    **d_min=',d_min,[xp,yp]
-                    x_min = xp
-                    y_min = yp
-                    j_min = j
-                    p_min = pos
-                # print '    pos',pos,[x2-x1,y2-y1],'p_min',p_min
-                pos += np.linalg.norm([x2-x1, y2-y1])
-                x1, y1 = x2, y2
+                d_min = 10.0**8
+                x_min = 0.0
+                y_min = 0.0
+                j_min = 0
+                p_min = 0.0
+                pos = 0.0
+                x1, y1, z1 = shape[0]
+                edgelength = edges.lengths[id_edge]
+                for j in xrange(1, n_segs):
+                    x2, y2, z2 = shape[j]
+                    d, xp, yp = shortest_dist(x1, y1, x2, y2, xc, yc)
+                    # print '    x1,y1=(%d,%d)'%(x1,y1),',x2,y2=(%d,%d)'%(x2,y2),',xc,yc=(%d,%d)'%(xc,yc)
+                    # print '    d,x,y=(%d,%d,%d)'%shortest_dist(x1,y1, x2,y2, xc,yc)
+                    if d < d_min:
+                        d_min = d
+                        # print '    **d_min=',d_min,[xp,yp]
+                        x_min = xp
+                        y_min = yp
+                        j_min = j
+                        p_min = pos
+                    # print '    pos',pos,[x2-x1,y2-y1],'p_min',p_min
+                    pos += np.linalg.norm([x2-x1, y2-y1])
+                    x1, y1 = x2, y2
 
-            x1, y1, z1 = shape[j_min-1]
-            pos_min = p_min+np.linalg.norm([x_min-x1, y_min-y1])
-            # print '  k=%d,d_min=%d, x1,y1=(%d,%d),xmin,ymin=(%d,%d),xc,yc=(%d,%d)'%(k,d_min,x1,y1,x_min,y_min,xc,yc)
-            # print '  pos=%d,p_min=%d,pos_min=%d'%(pos,p_min,pos_min)
+                x1, y1, z1 = shape[j_min-1]
+                pos_min = p_min+np.linalg.norm([x_min-x1, y_min-y1])
+                # print '  k=%d,d_min=%d, x1,y1=(%d,%d),xmin,ymin=(%d,%d),xc,yc=(%d,%d)'%(k,d_min,x1,y1,x_min,y_min,xc,yc)
+                # print '  pos=%d,p_min=%d,pos_min=%d'%(pos,p_min,pos_min)
 
-            if pos_min > edgelength:
-                pos_min = edgelength
+                if pos_min > edgelength:
+                    pos_min = edgelength
 
-            if pos_min < 0:
-                pos_min = 0
-            # print '  id_fac,id_edge',id_fac,id_edge,pos_min
-            self.ids_roadedge_closest[id_fac] = id_edge
-            self.positions_roadedge_closest[id_fac] = pos_min
+                if pos_min < 0:
+                    pos_min = 0
+                # print '  id_fac,id_edge',id_fac,id_edge,pos_min
+                self.ids_roadedge_closest[id_fac] = id_edge
+                self.positions_roadedge_closest[id_fac] = pos_min
 
     def set_shape(self, id_fac, shape):
         # print 'set_shape',id_fac,shape
@@ -1149,56 +1686,21 @@ class Facilities(am.ArrayObjman):
         # print 'add_poly',id_sumo,id_landusetype,osmkey
 
         landusetypes = self.get_landusetypes()
-        if id_landusetype is not None:
-            # this means that landusetype has been previousely identified
-            if osmkey is None:
-                # use filter as key
-                osmkey = landusetypes.osmfilters[id_landusetype][0]
 
-            id_fac = self.add_row(ids_sumo=id_sumo,
-                                  ids_landusetype=id_landusetype,
-                                  osmkeys=osmkey,
-                                  )
-            self.set_shape(id_fac, shape)
-            return id_fac
+        if id_landusetype is None:
+            # make default landuse
+            id_landusetype = landusetypes.typekeys.get_id_from_index('residential')
 
-        else:
-            # identify ftype from fkeys...
-            keyvec = osmkey.split('.')
-            len_keyvec = len(keyvec)
-            is_match = False
-            for id_landusetype in landusetypes.get_ids():
-                # print '  ',landusetypes.osmfilters[id_landusetype]
-                # if fkeys==('building.industrial'): print ' check',facilitytype
-                for osmfilter in landusetypes.osmfilters[id_landusetype]:
-                    # print '     ',
-                    osmfiltervec = osmfilter.split('.')
-                    if osmkey == osmfilter:  # exact match of filter
-                        is_match = True
-                        # if fkeys==('building.industrial'):print '    found exact',osmkey
-                    elif (len(osmfiltervec) == 2) & (len_keyvec == 2):
+        if osmkey is None:
+            # use first filter as key
+            osmkey = landusetypes.osmfilters[id_landusetype][0]
 
-                        if osmfiltervec[0] == keyvec[0]:
-
-                            if osmfiltervec[1] == '*':
-                                is_match = True
-                                # if fkeys==('building.industrial'):print '    found match',osmkeyvec[0]
-
-                            # redundent to exact match
-                            # elif osmkeyvec[1]==keyvec[1]:
-                            #    is_match = True
-                            #   if is_match:
-                            #       print '    found exact',osmkey
-
-                    if is_match:
-                        # if fkeys==('building.industrial'):print '  *found:',facilitytype,fkeys
-                        # return self.facilities.set_row(ident, type = facilitytype, polygon=polygon, fkeys = fkeys,area=find_area(polygon),centroid=np.mean(polygon,0))
-                        id_fac = self.add_row(ids_sumo=id_sumo,
-                                              ids_landusetype=id_landusetype,
-                                              osmkeys=osmkey,
-                                              )
-                        self.set_shape(id_fac, shape)
-                        return id_fac
+        id_fac = self.add_row(ids_sumo=id_sumo,
+                              ids_landusetype=id_landusetype,
+                              osmkeys=osmkey,
+                              )
+        self.set_shape(id_fac, shape)
+        return id_fac
 
     def clear(self):
         # self.reset()
@@ -1210,9 +1712,10 @@ class Facilities(am.ArrayObjman):
             ids = [ids]
         self.update(ids)
 
-    def import_poly(self, polyfilepath, is_remove_xmlfiles=False):
+    def import_poly(self, polyfilepath, is_remove_xmlfiles=False, is_clear=True, **kwargs):
         print 'import_poly from %s ' % (polyfilepath,)
-        self.clear()
+        if is_clear:
+            self.clear()
         # let's read first the offset information, which are in the
         # comment area
         fd = open(polyfilepath, 'r')
@@ -1238,7 +1741,7 @@ class Facilities(am.ArrayObjman):
 
         counter = SumoPolyCounter()
         parse(polyfilepath, counter)
-        fastreader = SumoPolyReader(self, counter, offset_delta)
+        fastreader = SumoPolyReader(self, counter, offset_delta, **kwargs)
         parse(polyfilepath, fastreader)
         fastreader.finish()
 
@@ -1249,6 +1752,86 @@ class Facilities(am.ArrayObjman):
         print '  exec time=', time.clock() - exectime_start
 
         # print '  self.shapes',self.shapes.value
+
+    def write_kml(self, fd=None, indent=0):
+        #  <busStop id="busstop4" lane="1/0to2/0_0" startPos="20" endPos="40" lines="100 101"/>
+
+        ids_fac = self.get_ids()
+        for id_fac in ids_fac:
+            fd.write(xm.begin('Placemark', indent + 2))
+            fd.write((indent+4)*' '+'<name>%s</name>\n' % id_fac)
+            fd.write(xm.begin('Polygon', indent + 4))
+            fd.write((indent+6)*' '+'<extrude>1</extrude>\n' % id_fac)
+            fd.write((indent+6)*' '+'<altitudeMode>relativeToGround</altitudeMode>\n' % id_fac)
+            fd.write(xm.begin('outerBoundaryIs', indent + 6))
+
+            fd.write(xm.begin('LinearRing', indent + 8))
+            fd.write(xm.begin('coordinates', indent + 10))
+
+            for point in self.shapes[id_fac]:
+
+                projection = self.project(point[0], point[1])
+                fd.write((indent+12)*' '+'%f,%f,%f\n' % (projection[0], projection[1], self.heights[id_fac]))
+
+            fd.write(xm.end('coordinates', indent + 10))
+            fd.write(xm.end('LinearRing', indent + 8))
+            fd.write(xm.end('outerBoundaryIs', indent + 6))
+            fd.write(xm.end('Polygon', indent + 4))
+            fd.write(xm.end('Placemark', indent + 2))
+
+    def project(self, x, y):
+        if self._proj is None:
+            self._proj, self._offset = self.get_proj_and_offset()
+        lons, lats = self._proj(x-self._offset[0], y-self._offset[1], inverse=True)
+        return np.transpose(np.concatenate(([lons], [lats]), axis=0))
+
+    def get_proj_and_offset(self):
+        if self._proj is None:
+            net = self.parent.parent.net
+            proj_params = str(net.get_projparams())
+            # try:
+            self._proj = pyproj.Proj(proj_params)
+            # except:
+            #    proj_params ="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"
+            #    self._proj = pyproj.Proj(self.proj_params)
+
+            self._offset = net.get_offset()
+
+            return self._proj, self._offset
+
+    def get_facfilepath(self):
+        return self.parent.parent.get_rootfilepath()+'.fac.kml'
+
+    def export_sumokml(self, filepath=None, encoding='UTF-8'):
+        """
+        Export stops to SUMO stop xml file.
+        """
+        print 'export_sumoxml', filepath, len(self)
+        if len(self) == 0:
+            return None
+
+        if filepath is None:
+            filepath = self.get_facfilepath()
+
+        try:
+            fd = open(filepath, 'w')
+        except:
+            print 'WARNING in write_obj_to_xml: could not open', filepath
+            return False
+        #xmltag, xmltag_item, attrname_id = self.xmltag
+        fd.write('<?xml version="1.0" encoding="%s"?>\n' % encoding)
+        fd.write('<kml xmlns="http://www.opengis.net/kml/2.2">\n')
+        indent = 0
+        #fd.write(xm.begin('routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd"',indent))
+
+        fd.write(xm.begin('Document', indent=0))
+
+        self.write_kml(fd, indent=0)
+
+        fd.write(xm.end('Document', indent=0))
+        fd.write(xm.end('kml', indent=0))
+        fd.close()
+        return filepath
 
 
 class SumoPolyCounter(handler.ContentHandler):
@@ -1266,8 +1849,10 @@ class SumoPolyCounter(handler.ContentHandler):
 class SumoPolyReader(handler.ContentHandler):
     """Reads facilities from poly.xml file into facility structure"""
 
-    def __init__(self, facilities, counter, offset_delta):
+    def __init__(self, facilities, counter, offset_delta, type_default='building.yes', height_default=7.0):
 
+        self._type_default = type_default
+        self._height_default = height_default
         self._facilities = facilities
         self._ids_landusetype_all = self._facilities.get_landusetypes().get_ids()
         self._osmfilters = self._facilities.get_landusetypes().osmfilters
@@ -1276,8 +1861,10 @@ class SumoPolyReader(handler.ContentHandler):
         self.ids_sumo = np.zeros(counter.n_fac, np.object)
         self.ids_landusetype = -1*np.ones(counter.n_fac, np.int32)
         self.osmkeys = np.zeros(counter.n_fac, np.object)
+        self.names = np.zeros(counter.n_fac, np.object)
         self.shape = np.zeros(counter.n_fac, np.object)
         self.areas = np.zeros(counter.n_fac, np.float32)
+        self.heights = self._height_default * np.ones(counter.n_fac, np.float32)
         self.centroids = np.zeros((counter.n_fac, 3), np.float32)
 
         #self._id_facility = None
@@ -1290,8 +1877,8 @@ class SumoPolyReader(handler.ContentHandler):
             self._ind_fac += 1
             i = self._ind_fac
 
-            osmkey = attrs.get('type', 'building.yes')
-
+            osmkey = attrs.get('type', self._type_default)
+            # print '  id_sumo=',attrs['id'],osmkey
             id_landuse = self.get_landuse(osmkey)
             if id_landuse >= 0:  # land use is interesting
                 shape = xm.process_shape(attrs.get('shape', ''), offset=self._offset_delta)
@@ -1303,6 +1890,16 @@ class SumoPolyReader(handler.ContentHandler):
                 self.shape[i] = shape
                 self.areas[i] = find_area(shapearray[:, :2])
                 self.centroids[i] = np.mean(shapearray, 0)
+                self.names[i] = ''
+
+                # print '    control id_sumo',self.ids_sumo[i]
+
+        elif name == 'param':
+            i = self._ind_fac
+            if attrs['key'] == 'height':
+                self.heights[i] = string_to_float(attrs['value'])
+            elif attrs['key'] == 'name':
+                self.names[i] = attrs['value']
 
             # color info in this file no longer used as it is defined in
             # facility types table
@@ -1311,23 +1908,30 @@ class SumoPolyReader(handler.ContentHandler):
     def get_landuse(self, osmkey):
         keyvec = osmkey.split('.')
         len_keyvec = len(keyvec)
-        # print 'get_landuse',len_keyvec,keyvec
+        print 'get_landuse', len_keyvec, keyvec
         #is_match = False
         for id_landusetype in self._ids_landusetype_all:
-            # print '  ',landusetypes.osmfilters[id_landusetype]
+            # print '    id_landusetype',id_landusetype
             # if fkeys==('building.industrial'): print ' check',facilitytype
-            for osmfilter in self._osmfilters[id_landusetype]:
-                osmfiltervec = osmfilter.split('.')
-                # print '     osmfiltervec',id_landusetype,osmfiltervec,osmkey==osmfilter,(len(osmfiltervec)==2)&(len_keyvec==2)
 
+            # first filter only exact matches before wildcards
+            for osmfilter in self._osmfilters[id_landusetype]:
+                # print '       ?osmfiltervec',osmfilter,osmkey==osmfilter
                 if osmkey == osmfilter:  # exact match of filter
+                    print '      exact', osmkey
                     return id_landusetype
 
-                elif (len(osmfiltervec) == 2) & (len_keyvec == 2):
+        # now check for wildcards
+        for id_landusetype in self._ids_landusetype_all:
+            # print '    *id_landusetype',id_landusetype
 
+            for osmfilter in self._osmfilters[id_landusetype]:
+                osmfiltervec = osmfilter.split('.')
+                # print '       ?osmfiltervec',osmfiltervec,(len(osmfiltervec)==2)&(len_keyvec==2)
+                if (len(osmfiltervec) == 2) & (len_keyvec == 2):
                     if osmfiltervec[0] == keyvec[0]:
-
                         if osmfiltervec[1] == '*':
+                            print '      *', keyvec[0]
                             return id_landusetype
         return -1
 
@@ -1342,6 +1946,8 @@ class SumoPolyReader(handler.ContentHandler):
             shapes=self.shape[inds_valid],
             areas=self.areas[inds_valid],
             centroids=self.centroids[inds_valid],
+            heights=self.heights[inds_valid],
+            names=self.names[inds_valid]
         )
 
     # def characters(self, content):
@@ -1476,21 +2082,33 @@ class Parking(am.ArrayObjman):
 
     def get_parkinglane_from_edge(self, id_edge, id_mode, length_min=15.0, priority_max=8, n_freelanes_min=1):
         """
-        Check if edge can have on-road parking
+        Check if edge can have on-road parking.
+        Returns lane ID if parking is possible and -1 otherwise.
         """
         edges = self.edges.get_value()
         lanes = self.lanes.get_value()
-        # check size
-        # laneindex =
-        # print 'get_parkinglane_from_edge',id_edge, id_mode,priority_max,length_min
-        # print '   check',(edges.priorities[id_edge]<=priority_max),(edges.lengths[id_edge]>length_min),(edges.widths_sidewalk[id_edge]>-1)
+        id_mode_ped = edges.parent.modes.get_id_mode('pedestrian')
+        # check access
+        ids_lane = edges.ids_lanes[id_edge]
+        edgelength = edges.lengths[id_edge]
 
-        if (edges.priorities[id_edge] <= priority_max) & (edges.lengths[id_edge] > length_min) & (edges.widths_sidewalk[id_edge] > 0):
+        if (len(ids_lane) >= 2):
+            if (lanes.get_accesslevel([ids_lane[0]], id_mode_ped) > -1) & (lanes.get_accesslevel([ids_lane[1]], id_mode) > -1):
+                # check size
+                # laneindex =
+                # print 'get_parkinglane_from_edge',id_edge, id_mode,priority_max,length_min
+                # print '   check',(edges.priorities[id_edge]<=priority_max),(edges.lengths[id_edge]>length_min),(edges.widths_sidewalk[id_edge]>-1)
 
-            laneindex = edges.get_laneindex_allowed(id_edge, id_mode)
-            # print '  found',laneindex,edges.nums_lanes[id_edge]-laneindex > n_freelanes_min
-            if (laneindex >= 0) & (edges.nums_lanes[id_edge]-laneindex >= n_freelanes_min):
-                return edges.ids_lanes[id_edge][laneindex]
+                if (edges.priorities[id_edge] <= priority_max) & (edgelength > length_min) & (edges.widths_sidewalk[id_edge] > 0):
+
+                    laneindex = 1
+                    # print '  found',laneindex,edges.nums_lanes[id_edge]-laneindex > n_freelanes_min
+                    if (len(ids_lane)-laneindex >= n_freelanes_min):
+                        return ids_lane[laneindex]
+                    else:
+                        return -1
+                else:
+                    return -1
             else:
                 return -1
 
@@ -1508,7 +2126,12 @@ class Parking(am.ArrayObjman):
     #
     #    return self.edges.get_value()(self.id_edge_parking[ind]),self.pos_edge_parking[ind]
 
-    def make_parking(self, id_mode=MODES['passenger'], length_min=42.0, length_noparking=15.0, length_lot=6.0, angle=0.0, is_clear=True, **kwargs):
+    def make_parking(self, id_mode=MODES['passenger'],
+                     length_min=42.0, length_noparking=15.0,
+                     length_lot=6.0, angle=0.0,
+                     is_clear=True,
+                     logger=None,
+                     **kwargs):
         print 'make_parking'
         if is_clear:
             self.clear()
@@ -1517,7 +2140,12 @@ class Parking(am.ArrayObjman):
         n_parking = 0
         ids_parking = []
         ids_lane_current = self.ids_lane.get_value().copy()
+        ii = 0.0
+        n_edges = len(edges.get_ids())
         for id_edge in edges.get_ids():
+            ii += 1
+            if logger is not None:
+                logger.progress(int(ii/n_edges*100))
             # check if edge is suitable...
             # print '  id_edge,length,n_lanes,',id_edge
             id_lane = self.get_parkinglane_from_edge(id_edge, id_mode, length_min, **kwargs)
@@ -1572,14 +2200,20 @@ class Parking(am.ArrayObjman):
         self.numbers_booking.get_value()[ind_parking_closest] += 1
         return self.get_ids(ind_parking_closest), ind_parking_closest
 
-    def get_closest_parkings(self, ids_veh, coords, c_spread=2.0):
+    def get_closest_parkings(self, ids_veh, ids_mode, coords, dists_walk_max, c_spread=2.0,
+                             n_retrials=20, id_mode_fallback=None):
         """
         Returns  parking space for each vehicle in ids_veh as close as possible to coords.
         """
 
+        # Used by virtualpop
+
+        lanes = self.ids_lane.get_linktab()
+        ids_lane = self.ids_lane.get_value()
         #inds_person = self.persons.get_inds(ids_person)
         n = len(ids_veh)
-        # print 'get_closest_parking',n,len(self)
+
+        # print 'get_closest_parking',n,len(self),'n_retrials',n_retrials
         if len(self) == 0:
             print 'WARNING in get_closest_parkings: there is no parking.'
             return [], []
@@ -1591,28 +2225,66 @@ class Parking(am.ArrayObjman):
         numbers_booking = self.numbers_booking.get_value()
         lengths = self.lengths.get_value()
         inds_vehparking = np.zeros(n, int)
+        are_fallback = np.zeros(n, bool)
 
         #inds_parking_avail = np.flatnonzero( self.ids_bookedveh.value == -1).tolist()
         inds_parking_avail = self.get_inds().copy()
+
         #ids_veh = np.zeros(n,object)
         i = 0
-        for id_veh, coord in zip(ids_veh, coords):
-            # print '\n  id_veh',id_veh
+        for id_veh, id_mode, coord, dist_walk_max_sq in zip(ids_veh, ids_mode, coords, dists_walk_max**2):
+            # print '  search parking for id_veh',id_veh
             # print '    landuse.id_bookedveh_parking',landuse.id_bookedveh_parking
             #
 
             # print '    inds_parking_avail',inds_parking_avail
             # print '    dists',np.sum((coord-coord_parking[inds_parking_avail])**2,1),np.argmin(np.sum((coord-coord_parking[inds_parking_avail])**2,1))
-            ind_parking_closest = inds_parking_avail[np.argmin(
-                np.sum((coord-coord_parking)**2, 1) + c_spread*lengths*numbers_booking)]
-            # print '  ind_parking_closest,n_avail',ind_parking_closest,len(inds_parking_avail)
+            is_fallback = False
+            penalties_inaccessible = np.ones(len(numbers_booking), dtype=np.float32)
+            n_search = n_retrials
+            is_search = True
+            while (n_search > 0) & is_search:
+                dists = np.sum((coord-coord_parking)**2, 1)
+                ind_parking_closest = inds_parking_avail[np.argmin(
+                    dists + c_spread*lengths*numbers_booking*penalties_inaccessible)]
+                # print '    ind_parking_closest,n_avail',ind_parking_closest,len(inds_parking_avail),'n_search',n_search,'is_search',is_search
+                is_search = (not (lanes.get_accesslevel([ids_lane[ind_parking_closest]], id_mode) >= 0))\
+                    | (dists[ind_parking_closest] > dist_walk_max_sq)
+                penalties_inaccessible[ind_parking_closest] = np.inf  # prevent reselection of this parking
+                n_search -= 1
+                # print '    n_search',n_search,'is_search',is_search
+
+            # print '  done with id_mode is_search',is_search
+            if is_search & (id_mode_fallback is not None):
+                # search mode means no parking has bee found for ordinary mode
+                # now try with fallback mode
+
+                is_fallback = True
+                penalties_inaccessible = np.ones(len(numbers_booking), dtype=np.float32)
+                n_search = n_retrials
+                while (n_search > 0) & is_search:
+                    dists = np.sum((coord-coord_parking)**2, 1)
+                    ind_parking_closest = inds_parking_avail[np.argmin(
+                        dists + c_spread*lengths*numbers_booking*penalties_inaccessible)]
+                    # print '  ind_parking_closest,n_avail',ind_parking_closest,len(inds_parking_avail)
+                    is_search = (not (lanes.get_accesslevel([ids_lane[ind_parking_closest]], id_mode_fallback) >= 0))\
+                        | (dists[ind_parking_closest] > dist_walk_max_sq)
+                    penalties_inaccessible[ind_parking_closest] = np.inf  # prevent reselection of this parking
+                    n_search -= 1
+                    # print '    fallback n_search',n_search,'is_search',is_search
+
+            if is_search:
+                print 'WARNING: inaccessible parking for id_veh', id_veh, 'is_fallback', is_fallback
+                print '  dist=%.1f' % (np.sqrt(dists[ind_parking_closest])), 'id_lane', ids_lane[ind_parking_closest], 'al', lanes.get_accesslevel([ids_lane[ind_parking_closest]], id_mode_fallback)
+
             inds_vehparking[i] = ind_parking_closest
+            are_fallback[i] = is_fallback
             # print '    coords_veh',coord
             # print '    coord_park',coord_parking[ind_parking_closest]
             numbers_booking[ind_parking_closest] += 1
 
-            id_parking = self.get_ids([ind_parking_closest])
-            id_edge, pos = self.get_edge_pos_parking(id_parking)
+            #id_parking = self.get_ids([ind_parking_closest])
+            #id_edge, pos = self.get_edge_pos_parking(id_parking)
             # print '    id_veh=%s,id_parking_closest=%s, dist =%.2fm'%(id_veh,id_parking,np.sqrt(np.sum((coord-coord_parking[ind_parking_closest])**2)))
             # ids_bookedveh[ind_parking_closest]=id_veh # occupy parking
             # print '    id_edge, pos',id_edge, pos
@@ -1624,7 +2296,7 @@ class Parking(am.ArrayObjman):
         # print '  ids_veh',ids_veh
         #self.ids_bookedveh.value[inds_vehparking] = ids_veh
         # self.ids_bookedveh.[ids_parking] =ids_bookedveh
-        return self.get_ids(inds_vehparking), inds_vehparking
+        return self.get_ids(inds_vehparking), are_fallback
 
     def assign_parking(self, ids_veh, coords, is_overbook=False):
         """
@@ -1702,7 +2374,7 @@ class Landuse(cm.BaseObjman):
         else:
             return None
 
-    def export_polyxml(self, filepath=None, encoding='UTF-8'):
+    def export_polyxml(self, filepath=None, encoding='UTF-8', delta=np.zeros(3, dtype=np.float32)):
         """
         Export landuse facilities to SUMO poly.xml file.
         """
@@ -1732,10 +2404,16 @@ class Landuse(cm.BaseObjman):
         # print '  groups:',self.parent.net.get_attrsman().get_groups()
         for attrconfig in self.parent.net.get_attrsman().get_group('location'):
             # print '    locationconfig',attrconfig.attrname
-            attrconfig.write_xml(fd)
+            if attrconfig.attrname == '_boundaries':
+                delta_bb = np.zeros(4, dtype=np.float32)
+                delta_bb[0:2] = delta[:2]
+                delta_bb[2:4] = delta[:2]
+                fd.write(xm.arr('convBoundary', attrconfig.get_value()-delta_bb))
+            else:
+                attrconfig.write_xml(fd)
         fd.write(xm.stopit())
 
-        self.facilities.write_xml(fd, indent=indent+2, is_print_begin_end=False)
+        self.facilities.write_xml(fd, indent=indent+2, is_print_begin_end=False, delta=delta)
 
         fd.write(xm.end(xmltag_poly))
         fd.close()
@@ -1744,7 +2422,7 @@ class Landuse(cm.BaseObjman):
     def get_filepath(self):
         return self.parent.get_rootfilepath() + '.poly.xml'
 
-    def import_polyxml(self, rootname=None, dirname='', filepath=None):
+    def import_polyxml(self, rootname=None, dirname='', filepath=None, is_clear=True, **kwargs):
         if filepath is None:
             if rootname is not None:
                 filepath = os.path.join(dirname, rootname+'.poly.xml')
@@ -1752,7 +2430,7 @@ class Landuse(cm.BaseObjman):
                 filepath = self.get_filepath()
 
         if os.path.isfile(filepath):
-            self.facilities.import_poly(filepath)
+            self.facilities.import_poly(filepath, is_clear=is_clear, **kwargs)
 
         else:
             self.get_logger().w('import_xml: files not found:'+filepath, key='message')
@@ -1786,6 +2464,13 @@ class FacilityGenerator(Process):
                                                        unit='m',
                                                        info="""Minimum edge length for which houses are generated.""",
                                                        ))
+
+        self.priority_max = attrsman.add(cm.AttrConf('priority_max', kwargs.get('priority_max', 7),
+                                                     groupnames=['options'],
+                                                     perm='rw',
+                                                     name='Max. priority',
+                                                     info="""Maximum edge priority where facilities will be created.""",
+                                                     ))
 
         self.height_max = attrsman.add(cm.AttrConf('height_max', kwargs.get('height_max', 20.0),
                                                    groupnames=['options'],
@@ -1830,10 +2515,10 @@ class FacilityGenerator(Process):
         x1, y1, x2, y2 = edges.get_segvertices_xy()
 
         logger = self.get_logger()
-        #logger.w('Provide vehicles...')
 
         ids_edge = edges.select_ids((edges.widths_sidewalk.get_value() > 0)
                                     & (edges.lengths.get_value() > self.edgelength_min)
+                                    & (edges.priorities.get_value() < self.priority_max)
                                     )
         facilitytypes = facilities.facilitytypes.get_value()
 
@@ -1843,7 +2528,10 @@ class FacilityGenerator(Process):
         # print '  facilitytypes, facilitytypeobjs',facilitytypes,facilitytypeobjs
         n_factypes = len(facilitytypes)
         n_fac = 0
+        n_edges = len(ids_edge)
+        #logger.w('Add facilities to %d edges')
         # print '  eligible edges =',ids_edge
+        i = 0.0
         for id_edge, edgelength, id_fromnode, id_tonode, shape, edgewidth\
                 in zip(ids_edge, edges.lengths[ids_edge],
                        edges.ids_fromnode[ids_edge],
@@ -1853,6 +2541,9 @@ class FacilityGenerator(Process):
                        ):
             pos = 5.0
             # print '  Build at edge',id_edge,edgelength
+            #logger.w('Add facilities to %d edges')
+            i += 1
+            logger.progress(i/n_edges*100)
 
             # identify opposite edge, which needs to be excluded
             # from bulding overlapping check
@@ -1866,7 +2557,7 @@ class FacilityGenerator(Process):
                     id_edge_opp = id_edge_opp_set.pop()
                     inds_seg_opp = edges.get_inds_seg_from_id_edge(id_edge_opp)
                 else:
-                    # no edge in opposite direction
+                    # print '   no edge in opposite direction'
                     id_edge_opp = -1
                     inds_seg_opp = None
             else:
@@ -1989,7 +2680,7 @@ class ParkingGenerator(Process):
                                                    info="""Minimum edge length in order to qualify for parking.""",
                                                    ))
 
-        self.length_noparking = attrsman.add(cm.AttrConf('length_noparking', kwargs.get('length_noparking', 6.0),
+        self.length_noparking = attrsman.add(cm.AttrConf('length_noparking', kwargs.get('length_noparking', 15.0),
                                                          groupnames=['options'],
                                                          perm='rw',
                                                          unit='m',
@@ -2004,6 +2695,7 @@ class ParkingGenerator(Process):
                                                    name='Lot length',
                                                    info="""Length of a single parking lot.""",
                                                    ))
+
         self.angle = attrsman.add(cm.AttrConf('angle', kwargs.get('angle', 0.0),
                                               groupnames=['options'],
                                               perm='rw',
@@ -2028,7 +2720,7 @@ class ParkingGenerator(Process):
                                                  groupnames=['options'],
                                                  perm='rw',
                                                  name='Clear',
-                                                 info="""Clear precious parking areas.""",
+                                                 info="""Clear previous parking areas from ntework.""",
                                                  ))
 
     def do(self):
@@ -2036,7 +2728,9 @@ class ParkingGenerator(Process):
         # links
         # print '  self.id_mode',self.id_mode
         # print '  self.get_kwoptions()',self.get_kwoptions()
-        self.parent.make_parking(**self.get_kwoptions())
+        logger = self.get_logger()
+
+        self.parent.make_parking(logger=logger, **self.get_kwoptions())
         return True
 
 
@@ -2053,6 +2747,7 @@ class OsmPolyImporter(CmlMixin, Process):
                  is_use_name_for_id=False,
                  polytypefilepath='',
                  is_clean_osmfile=True,
+                 is_merge=False,
                  logger=None, **kwargs):
         print 'OsmPolyImporter.__init__', landuse, landuse.parent.get_rootfilename()
         self._init_common('osmpolyimporter', name='OSM Poly import',
@@ -2086,11 +2781,16 @@ class OsmPolyImporter(CmlMixin, Process):
             osmfilepaths = os.path.join(rootdirpath, rootname+'.osm.xml')
 
         if typefilepath is None:
-            typefilepath = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                        '..', '..', 'typemap', 'osmPolyconvert.typ.xml')
+            if 'SUMO_HOME' in os.environ:
+                typemapdir = os.path.join(os.environ['SUMO_HOME'], 'data', 'typemap')
+                typefilepath = os.path.join(typemapdir, 'osmPolyconvert.typ.xml')
+            else:
+                print("No poly typemaps found. Please declare environment variable 'SUMO_HOME'")
+                typefilepath = ''
+
         attrsman = self.get_attrsman()
 
-        self.workdirpath = rootdirpath
+        self.rootdirpath = rootdirpath
 
         self.rootname = rootname
 
@@ -2104,12 +2804,33 @@ class OsmPolyImporter(CmlMixin, Process):
                         info='Openstreetmap files to be imported.',
                         )
 
+        self.is_merge = attrsman.add(cm.AttrConf('is_merge', is_merge,
+                                                 groupnames=['options'],
+                                                 perm='rw',
+                                                 name='Merge',
+                                                 info='If set, imported polygons are merged with existing.',
+                                                 ))
+
         self.is_clean_osmfile = attrsman.add(cm.AttrConf('is_clean_osmfile', is_clean_osmfile,
                                                          groupnames=['options'],
                                                          perm='rw',
                                                          name='Clean OSM files',
                                                          info='If set, OSM files are cleaned from strange characters prior to import (recommended).',
                                                          ))
+
+        self.height_default = attrsman.add(cm.AttrConf('height_default', kwargs.get('height_default', 7.0),
+                                                       groupnames=['options'],
+                                                       perm='rw',
+                                                       name='Default height',
+                                                       info='Default height of facilities in case no height information is available.',
+                                                       ))
+
+        self.type_default = attrsman.add(cm.AttrConf('type_default', kwargs.get('type_default', 'building.yes'),
+                                                     groupnames=['options'],
+                                                     perm='rw',
+                                                     name='Default facility type',
+                                                     info='Default type of facilities in case no type information is available.',
+                                                     ))
 
         self.add_option('polyfilepath', polyfilepath,
                         groupnames=['_private'],
@@ -2225,7 +2946,10 @@ OSM building types are mapped to specific facility parameters, is not explicitel
         if self.status == 'success':
             if os.path.isfile(self.polyfilepath):
                 print '  OSM->poly.xml successful, start importing xml files'
-                self._landuse.import_polyxml(self.rootname, self.workdirpath)
+                self._landuse.import_polyxml(self.rootname, self.rootdirpath,
+                                             is_clear=not self.is_merge,
+                                             type_default=self.type_default,
+                                             height_default=self.height_default)
                 print '  import poly in sumopy done.'
                 return True
             return False

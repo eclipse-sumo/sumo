@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,7 +14,7 @@
 
 # @file    arrayman.py
 # @author  Joerg Schweizer
-# @date
+# @date    2012
 
 from classman import *
 import numpy as np
@@ -90,6 +90,12 @@ class ArrayConfMixin:
         return self._manager.get_ids(inds[np.argsort(self.get_value()[inds])])
 
         #sortarray = np.concatenate((self.get_value()[inds],inds))
+
+    def _del_rows(self, ids_del, inds_remain):
+        """
+        Multiple row delete method used by attrsman
+        """
+        self.set_value(self.get_value()[inds_remain])
 
     def delete_ind(self, i):
         # called from del_rows
@@ -245,6 +251,7 @@ class ArrayConfMixin:
     #        fd.write(xm.num(self.xmltag,val))
 
     def format_value(self, _id, show_unit=False, show_parentesis=False):
+        # TODO: handle also linked ids, etc...
         if show_unit:
             unit = ' '+self.format_unit(show_parentesis)
         else:
@@ -266,7 +273,10 @@ class ArrayConfMixin:
                 digits_fraction = self.digits_fraction
             else:
                 digits_fraction = 3
+
             s = "%."+str(digits_fraction)+"f"
+            # print 'format_value df=',digits_fraction,'val=',val
+
             return s % (val)+unit
 
         else:
@@ -377,6 +387,29 @@ class NumArrayConf(ArrayConfMixin, ColConf):
 
         ArrayConfMixin.__init__(self,  attrname, default, metatype='number', **attrs)
 
+    def format_value(self, _id, show_unit=False, show_parentesis=False):
+        # TODO: handle also linked ids, etc...
+        if show_unit:
+            unit = ' '+self.format_unit(show_parentesis)
+        else:
+            unit = ''
+        # return repr(self[_id])+unit
+
+        #self.min = minval
+        #self.max = maxval
+        #self.digits_integer = digits_integer
+        #self.digits_fraction = digits_fraction
+        val = self[_id]
+        if self.digits_fraction is None:
+            digits_fraction = 3
+        else:
+            digits_fraction = self.digits_fraction
+
+        s = "%."+str(digits_fraction)+"f"
+        # print 'format_value df=',digits_fraction,'val=',val
+
+        return s % (val)+unit
+
 
 class IdsArrayConf(ArrayConfMixin, ColConf):
     """
@@ -406,6 +439,7 @@ class IdsArrayConf(ArrayConfMixin, ColConf):
 
 # -------------------------------------------------------------------------------
     # copied from IdsConf!!!
+
     def set_linktab(self, tab):
         self._tab = tab
 
@@ -855,6 +889,31 @@ class Arrayman(Tabman):
 
         return
 
+    def __getitem__(self, args):
+        if type(args) == types.TupleType:
+            attrnames = args[0]
+            ids = args[1]
+        else:
+            attrnames = args
+            ids = self._ids
+
+        if hasattr(attrnames, '__iter__'):
+            n_rows = len(ids)
+            n_cols = len(attrnames)
+            # print '  n_rows',n_rows,'n_cols',n_cols,attrnames
+            if (n_rows == 0) | (n_cols == 0):
+                return np.array([[]])
+            else:
+                #attrconf = getattr(self,attrnames[0])
+                # TODO: detect dtype by adding numbers or use fields!!!
+                dtype = np.float32
+                out = np.zeros((n_rows, n_cols), dtype=dtype)
+                for i, attrname in zip(xrange(n_cols), attrnames):
+                    out[:, i] = getattr(self, attrname)[ids]
+                return out
+        else:
+            return getattr(self, attrnames)[ids]
+
     def get_ind(self, id):
         return self._inds[id]
 
@@ -992,7 +1051,7 @@ class Arrayman(Tabman):
         if n is not None:
             ids = self.suggest_ids(n)
         elif (len(ids) == 0) & (len(attrs) > 0):
-            # get number of rows from any valye vector provided
+            # get number of rows from any value vector provided
             ids = self.suggest_ids(len(attrs.values()[0]))
         elif (n is None) & (len(ids) == 0) & (len(attrs) > 0):
             # nothing given really-> do nothing
@@ -1012,6 +1071,8 @@ class Arrayman(Tabman):
         return ids
 
     def copy_cols(self, attrman2, ids=None):
+        # WARNING: this method is unsafe for indexed colums as values are
+        # copied and are no longer unique
         # print 'copy_cols'
         if ids is None:
             ids2 = attrman2.get_ids()
@@ -1060,16 +1121,37 @@ class Arrayman(Tabman):
         if self.plugin:
             self.plugin.exec_events_ids(EVTSETITEM, [id])
 
+    def del_rows(self, ids_del):
+        # print '\n\ndel_rows',self.ident,ids_del
+        # remaining index
+        if self.plugin:
+            self.plugin.exec_events_ids(EVTDELITEM, ids_del)
+
+        inds_remain = np.ones(len(self), dtype=np.bool_)
+        inds_remain[self._inds[ids_del]] = False
+        inds_remain = np.flatnonzero(inds_remain)
+        for colconfig in self._colconfigs:
+            colconfig._del_rows(ids_del, inds_remain)
+        self._ids = self._ids[inds_remain]
+        if len(self._ids) == 0:
+            n = 0
+        else:
+            n = np.max(self._ids)
+        self._inds = np.zeros(n+1, dtype=np.int32)
+        self._inds[self._ids] = np.arange(len(self._ids))
+
     def del_row(self, _id):
         # print 'del_row',id
-        self.del_rows([_id])
+        self.del_rows_simple([_id])
 
-    def del_rows(self, ids):
+    def del_rows_simple(self, ids):
         # print '\n\ndel_rows',self.ident,ids
         # print '  self._ids',self._ids
         # print '  self._inds',self._inds
         # TODO: this could be done in with array methods
 
+        if self.plugin:
+            self.plugin.exec_events_ids(EVTDELITEM, ids)
         for _id in ids:
             i = self._inds[_id]
             # print '    id to eliminate _id=',_id
@@ -1101,12 +1183,10 @@ class Arrayman(Tabman):
 
             # print '    self._inds',self._inds
 
-        if self.plugin:
-            self.plugin.exec_events_ids(EVTDELITEM, ids)
-
         # print '  del',ids,' done.'
 
     def clear_rows(self):
+        # attention: overridden by ArrayObjman
         # print 'clear_rows',self.ident
 
         if self.plugin:
@@ -1177,3 +1257,5 @@ class ArrayObjman(Arrayman, TableMixin):
         self.clear_rows()
         self._init_constants()
         self.set_modified()
+
+        # print '  check: suggest_ids',self.suggest_ids(5)

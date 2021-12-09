@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,7 +14,7 @@
 
 # @file    wxgui.py
 # @author  Joerg Schweizer
-# @date
+# @date   2012
 
 import os
 import wx
@@ -435,8 +435,7 @@ class FacilityDrawings(ZoneDrawings):
         # print 'FacilityDrawings.update'
         n = len(self)
 
-        if n == 0:
-            return
+        # if n==0:return# causes problems with drawing the first houses
 
         self.colors.value[:] = np.ones((n, 4), np.float32)*self.color_facility_default.value
         self.colors_highl.value[:] = self._get_colors_highl(self.colors.value)
@@ -743,16 +742,39 @@ class WxGui(ModuleGui):
                             bitmap=self.get_icon('map_del_24px.png'),
                             )
 
+        menubar.append_item('landuse/maps/import elevations from csv',
+                            self.on_import_elevations_from_csv,
+                            #bitmap = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE,wx.ART_MENU),
+                            )
+
         menubar.append_menu('landuse/zones',
                             bitmap=self.get_icon("fig_zone_24px.png"),
                             )
 
+        menubar.append_item('landuse/zones/import from shapefile...',
+                            self.on_import_zones_from_shape,
+                            #bitmap = self.get_icon('Files-Osm-icon_24.png'),#
+                            )
         menubar.append_item('landuse/zones/identify zone edges',
                             self.on_refresh_zoneedges,
                             info='Identify network edges that are located within each zone.',
                             #bitmap = self.get_icon('Files-Osm-icon_24.png'),#
                             )
-
+        menubar.append_item('landuse/zones/identify zone areas',
+                            self.on_refresh_zoneareas,
+                            info='Identify area of each zone in square kilometers.',
+                            #bitmap = self.get_icon('Files-Osm-icon_24.png'),#
+                            )
+        menubar.append_item('landuse/zones/export zone.kml',
+                            self.on_export_zone_kml,
+                            info='Export zones in .kml format.',
+                            bitmap=self.get_agileicon("Document_Export_24px.png"),
+                            )
+        menubar.append_item('landuse/zones/export to shape file...',
+                            self.on_zones_to_shapefile,
+                            #bitmap = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE,wx.ART_MENU)
+                            bitmap=self.get_agileicon("Document_Export_24px.png"),
+                            )
         menubar.append_item('landuse/zones/clear all',
                             self.on_clear_zones,
                             info='Delete all zones.',
@@ -779,7 +801,11 @@ class WxGui(ModuleGui):
                             #bitmap = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE,wx.ART_MENU)
                             bitmap=self.get_agileicon("Document_Export_24px.png"),
                             )
-
+        menubar.append_item('landuse/facilities/export kml file...',
+                            self.on_facilities_to_kml,
+                            #bitmap = wx.ArtProvider.GetBitmap(wx.ART_NORMAL_FILE,wx.ART_MENU)
+                            bitmap=self.get_agileicon("Document_Export_24px.png"),
+                            )
         menubar.append_item('landuse/facilities/clean osm file...',
                             self.on_clean_osm,
                             info='Cleans OSM file from strange characters. Use if you have trouble importing from OSM.',
@@ -828,8 +854,67 @@ class WxGui(ModuleGui):
                             bitmap=wx.ArtProvider.GetBitmap(wx.ART_DELETE, wx.ART_MENU),
                             )
 
+    def on_import_elevations_from_csv(self, event=None):
+        """
+        Import elevation from a csv file.
+        """
+        p = landuse.maps.CsvElevationsImport(self.get_scenario().net, logger=self._mainframe.get_logger())
+        dlg = ProcessDialog(self._mainframe, p, immediate_apply=True)
+
+        dlg.CenterOnScreen()
+
+        # this does not return until the dialog is closed.
+        val = dlg.ShowModal()
+        # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+        # print '  status =',dlg.get_status()
+        if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+            # print ">>>>>>>>>Unsuccessful\n"
+            dlg.Destroy()
+
+        if dlg.get_status() == 'success':
+            # print ">>>>>>>>>successful\n"
+            # apply current widget values to scenario instance
+            dlg.apply()
+            dlg.Destroy()
+# self._mainframe.browse_obj(self.get_scenario().net.edges)
+            self._mainframe.refresh_moduleguis()
+            #self._is_needs_refresh = True
+            # self.refresh_widgets()
+
+    def on_import_zones_from_shape(self, event=None):
+        """
+        Import zones from shape file format.
+        """
+
+        proc = landuse.ZonesFromShapeImporter('shapeimporter', self._landuse.zones, logger=self._mainframe.get_logger())
+        dlg = ProcessDialog(self._mainframe, proc, immediate_apply=True)
+
+        dlg.CenterOnScreen()
+
+        # this does not return until the dialog is closed.
+        val = dlg.ShowModal()
+        # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+        # print '  status =',dlg.get_status()
+        if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+            # print ">>>>>>>>>Unsuccessful\n"
+            dlg.Destroy()
+
+        if dlg.get_status() == 'success':
+            # print ">>>>>>>>>successful\n"
+            # apply current widget values to scenario instance
+            dlg.apply()
+            dlg.Destroy()
+            # self._landuse.zones.refresh_zoneedges()
+            self._mainframe.browse_obj(self._landuse.zones)
+            self._is_needs_refresh = True
+            self._mainframe.refresh_moduleguis()
+
     def on_refresh_zoneedges(self, event=None):
         self._landuse.zones.refresh_zoneedges()
+        self._mainframe.browse_obj(self._landuse.zones)
+
+    def on_refresh_zoneareas(self, event=None):
+        self._landuse.zones.refresh_zonearea()
         self._mainframe.browse_obj(self._landuse.zones)
 
     def on_identify_taz(self, event=None):
@@ -890,7 +975,7 @@ class WxGui(ModuleGui):
         dlg = wx.FileDialog(
             self._mainframe, message="Choose one or more osm files to clean",
             defaultDir=scenario.get_workdirpath(),
-            defaultFile=os.path.join(scenario.get_workdirpath(), scenario.get_rootfilename()+'osm.xml'),
+            # defaultFile = os.path.join(scenario.get_workdirpath(), scenario.get_rootfilename()+'osm.xml'),
             wildcard=wildcards,
             style=wx.OPEN | wx.MULTIPLE | wx.CHANGE_DIR
         )
@@ -938,7 +1023,7 @@ class WxGui(ModuleGui):
         dlg = wx.FileDialog(
             self._mainframe, message="Choose one or more poly files",
             defaultDir=scenario.get_workdirpath(),
-            defaultFile=scenario.get_rootfilepath()+'.poly.xml',
+            # defaultFile = scenario.get_rootfilepath()+'.poly.xml',
             wildcard=wildcards,
             style=wx.OPEN | wx.MULTIPLE | wx.CHANGE_DIR
         )
@@ -966,6 +1051,35 @@ class WxGui(ModuleGui):
         # Destroy the dialog. Don't do this until you are done with it!
         # BAD things can happen otherwise!
         dlg.Destroy()
+
+    def on_zones_to_shapefile(self, event=None):
+        """
+        Export facility data to shape file.
+        """
+        # print 'on_edges_to_shapefile'
+
+        dirpath = self._landuse.parent.get_workdirpath()
+        defaultFile = self._landuse.parent.get_rootfilename()+'.facil.shp'
+        wildcards_all = 'All files (*.*)|*.*|SHP files (*.shp)|*.shp'
+        dlg = wx.FileDialog(None, message='Export facilities to shapefile',
+                            defaultDir=dirpath,
+                            # defaultFile=defaultFile,
+                            wildcard=wildcards_all, style=wx.SAVE | wx.CHANGE_DIR)
+        if dlg.ShowModal() == wx.ID_OK:
+            filepath = dlg.GetPath()
+
+        else:
+            return
+
+        shapeformat.zones_to_shapefile(self._landuse.zones,
+                                       filepath,
+                                       log=self._mainframe.get_logger())
+
+    def on_export_zone_kml(self, event=None):
+        self._landuse.zones.export_sumokml()
+        self._mainframe.browse_obj(self._landuse.zones)
+        self._is_needs_refresh = True
+        self._mainframe.refresh_moduleguis()
 
     def on_clear_zones(self, event=None):
         self._landuse.zones.clear()
@@ -998,9 +1112,11 @@ class WxGui(ModuleGui):
 
     def close_process_facilities(self, dlg):
         # called before destroying the process dialog
+        print 'close_process_facilities', self.proc.status
         if self.proc.status == 'success':
             self._mainframe.browse_obj(self._landuse.facilities)
             self._is_needs_refresh = True
+
             self._mainframe.refresh_moduleguis()
 
     def on_clear_facilities(self, event=None):
@@ -1028,7 +1144,7 @@ class WxGui(ModuleGui):
         dlg = wx.FileDialog(
             self._mainframe, message="Choose one or more poly files",
             defaultDir=scenario.get_workdirpath(),
-            defaultFile=scenario.get_rootfilepath()+'.poly.xml',
+            # defaultFile = scenario.get_rootfilepath()+'.poly.xml',
             wildcard=wildcards,
             style=wx.SAVE | wx.CHANGE_DIR
         )
@@ -1054,7 +1170,8 @@ class WxGui(ModuleGui):
         defaultFile = self._landuse.parent.get_rootfilename()+'.facil.shp'
         wildcards_all = 'All files (*.*)|*.*|SHP files (*.shp)|*.shp'
         dlg = wx.FileDialog(None, message='Export facilities to shapefile',
-                            defaultDir=dirpath, defaultFile=defaultFile,
+                            defaultDir=dirpath,
+                            # defaultFile=defaultFile,
                             wildcard=wildcards_all, style=wx.SAVE | wx.CHANGE_DIR)
         if dlg.ShowModal() == wx.ID_OK:
             filepath = dlg.GetPath()
@@ -1065,6 +1182,17 @@ class WxGui(ModuleGui):
         shapeformat.facilities_to_shapefile(self._landuse.facilities,
                                             filepath,
                                             log=self._mainframe.get_logger())
+
+    def on_facilities_to_kml(self, event=None):
+        """
+        Export facility data to kml file.
+        """
+        # print 'on_edges_to_kml'
+
+        self._landuse.facilities.export_sumokml()
+        self._mainframe.browse_obj(self._landuse.zones)
+        self._is_needs_refresh = True
+        self._mainframe.refresh_moduleguis()
 
     def on_import_osm(self, event=None):
         importer = landuse.OsmPolyImporter(self._landuse, logger=self._mainframe.get_logger())

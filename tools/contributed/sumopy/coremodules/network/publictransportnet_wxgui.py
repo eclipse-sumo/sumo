@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,9 +14,10 @@
 
 # @file    publictransportnet_wxgui.py
 # @author  Joerg Schweizer
-# @date
+# @date   2012
 
 import wx
+import os
 import agilepy.lib_base.classman as cm
 import agilepy.lib_base.arrayman as am
 from agilepy.lib_wx.ogleditor import *
@@ -275,6 +276,11 @@ class PtWxGuiMixin:
                             #bitmap = wx.ArtProvider.GetBitmap(wx.ART_DELETE,wx.ART_MENU),
                             )
 
+        menubar.append_item('network/public transport/import from GTFS...',
+                            self.on_gtfsstop_importer,
+                            bitmap=self.get_agileicon("Document_Import_24px.png"),
+                            )
+
         menubar.append_item('network/public transport/provide stop access...',
                             self.on_provide_stopaccess,
                             )
@@ -298,8 +304,8 @@ class PtWxGuiMixin:
 
         dlg = wx.FileDialog(
             self._mainframe, message="Open stops XML file",
-            #defaultDir = self._net.get_workdirpath(),
-            defaultFile=defaultfilepath,
+            defaultDir=os.path.dirname(wildcards),
+            # defaultFile = = defaultfilepath,
             wildcard=wildcards,
             style=wx.OPEN | wx.CHANGE_DIR
         )
@@ -335,6 +341,34 @@ class PtWxGuiMixin:
         self._net.ptstops.adjust()
         self._mainframe.browse_obj(self._net.ptstops)
         self._mainframe.refresh_moduleguis()
+
+    def on_gtfsstop_importer(self, event=None):
+        """
+        Make sure, all public transport stops are accessible by foot or bike
+        from the road network. 
+        """
+        p = pt.GtfsStopImporter(self._net, logger=self._mainframe.get_logger())
+        dlg = ProcessDialog(self._mainframe, p, immediate_apply=True)
+
+        dlg.CenterOnScreen()
+
+        # this does not return until the dialog is closed.
+        val = dlg.ShowModal()
+        # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+        # print '  status =',dlg.get_status()
+        if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+            print ">>>>>>>>>Unsuccessful\n"
+            dlg.Destroy()
+
+        if dlg.get_status() == 'success':
+            print ">>>>>>>>>successful\n"
+            # apply current widget values to scenario instance
+            dlg.apply()
+            dlg.Destroy()
+            # self._mainframe.browse_obj(self._net.stops)
+            self._mainframe.refresh_moduleguis()
+            #self._is_needs_refresh = True
+            # self.refresh_widgets()
 
     def on_provide_stopaccess(self, event=None):
         """

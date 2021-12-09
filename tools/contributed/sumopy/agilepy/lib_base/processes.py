@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,13 +14,14 @@
 
 # @file    processes.py
 # @author  Joerg Schweizer
-# @date
+# @date    2012
 
 
 import subprocess
 import os
 import sys
 import types
+import pickle
 
 
 #SUMOPYDIR = os.path.join(os.path.dirname(__file__),"..")
@@ -82,6 +83,7 @@ class Process(cm.BaseObjman):
     def _init_common(self,  ident, parent=None, name=None, **kwargs):
         self._init_objman(ident=ident, parent=parent, name=name, **kwargs)
         attrsman = self.set_attrsman(cm.Attrsman(self))
+        self.optiongroupnames = ['options']
         #self.net = attrsman.add(   cm.ObjConf( network.Network(self) ) )
         self.status = attrsman.add(cm.AttrConf(
             'status', 'preparation',
@@ -90,8 +92,8 @@ class Process(cm.BaseObjman):
             name='Status',
             info='Process status: preparation-> running -> success|error.'
         ))
-        self._logger.w(self.get_name(), key='action')
-        self._logger.w('Prepare', key='message')
+        #self._logger.w(self.get_name(), key='action')
+        #self._logger.w('Prepare', key='message')
 
     def _set_status(self, status):
         self.status = status
@@ -106,7 +108,7 @@ class Process(cm.BaseObjman):
         if self.is_ready():
             logger = self.get_logger()
             self.status = 'running'
-            logger.start('Start process: %s' % self.get_name())
+            logger.start('Run process: %s' % self.get_name())
 
             #logger.w('start', key='message')
             #
@@ -150,6 +152,40 @@ class Process(cm.BaseObjman):
         """
         return True
 
+    def save_options(self, filepath):
+        optiondata = {}
+        for attrconf in self.get_attrsman().get_configs(filtergroupnames=self.optiongroupnames):
+            optiondata[attrconf.attrname] = attrconf.get_value()
+
+        cm.save_obj(optiondata, filepath, is_not_save_parent=False)
+
+        try:
+            f = open(filepath, 'wb')
+        except:
+            print 'WARNING in save: could not open', filepath
+            return False
+
+        # print '  before',is_not_save_parent,parent,obj.parent
+        pickle.dump(optiondata, f, protocol=2)
+        f.close()
+
+    def load_options(self, filepath):
+        try:
+            f = open(filepath, 'rb')
+        except:
+            print 'WARNING in load_options: could not open', filepath
+            return None
+
+        # try:
+        # print '  pickle.load...'
+        optiondata = pickle.load(f)
+        f.close()
+
+        attrsman = self.get_attrsman()
+        for attrname, value in optiondata.iteritems():
+            if attrsman.has_attrname(attrname):
+                attrsman.get_config(attrname).set_value(value)
+
 
 class Options:
     """
@@ -158,14 +194,17 @@ class Options:
 
     def __init__(self, **kwargs):
         self._optionattrs = []
+        self._cmlvaluemaps = []
         self._transdir = {}
         self._filepathattrs = []
         for attr, value in kwargs.iteritems():
             self.add_option(attr, value)
 
-    def add_option(self, attr='', value='', cml=None, is_filepath=False):
+    def add_option(self, attr='', value='', cml=None,
+                   is_filepath=False, cmlvaluemap=None):
         setattr(self, attr, value)
         self._optionattrs.append(attr)
+        self._cmlvaluemaps.append(cmlvaluemap)
         if cml is not None:
             self._transdir[attr] = cml
         if is_filepath:
@@ -187,31 +226,45 @@ class Options:
     def get_optionstring(self):
         # print 'get_optionstring'
         s = ''
-        for attr in self._optionattrs:
+        for attr, cmlvaluemap in zip(self._optionattrs, self._cmlvaluemaps):
             value = getattr(self, attr)
             cmlattr = self._transdir.get(attr, attr)
-            # print '  option',attr,cmlattr,attr in self._filepathattrs,type(value)
-            if attr in self._filepathattrs:
-                if value != '':
-                    s += ' '+cmlattr+' %s' % filepathlist_to_filepathstring(value.split(','))
-            elif type(value) == types.BooleanType:
-                if value:
-                    s += ' '+cmlattr
-            elif type(value) in [types.StringTypes, types.UnicodeType]:
-                if P == '"':  # windows
-                    s += ' '+cmlattr+' "%s"' % value
+            is_continue = True
+            if cmlvaluemap is not None:
+                if cmlvaluemap.has_key(value):
+                    is_continue = False  # take value from mapping
+                    if P == '"':  # windows
+                        s += ' '+cmlattr+' "%s"' % cmlvaluemap[value]
+                    else:
+                        s += ' '+cmlattr+" '%s'" % cmlvaluemap[value]
+            # print '  option',attr,cmlattr, 'cmlvaluemap',cmlvaluemap
+
+            if is_continue:
+
+                if attr in self._filepathattrs:
+                    if value != '':
+                        s += ' '+cmlattr+' %s' % filepathlist_to_filepathstring(value.split(','))
+                elif type(value) == types.BooleanType:
+                    if value:
+                        s += ' '+cmlattr
+                elif type(value) in [types.StringTypes, types.UnicodeType]:
+                    if P == '"':  # windows
+                        s += ' '+cmlattr+' "%s"' % value
+                    else:
+                        s += ' '+cmlattr+" '%s'" % value
                 else:
-                    s += ' '+cmlattr+" '%s'" % value
-            else:
-                s += ' '+cmlattr+' %s' % value
+                    s += ' '+cmlattr+' %s' % value
         return s
 
 
 class CmlMixin:
-    def init_cml(self, command, is_run_background=False, is_nohup=False):
+    def init_cml(self, command, is_run_background=False, is_nohup=False, workdirpath=None):
+
         self.optiongroupname = 'cml-options'
+        self.optiongroupnames.append(self.optiongroupname)
         attrsman = self.get_attrsman()
         self.pathmetatypes = ['filepath', 'dirpath', 'filepaths', 'dirpaths']
+        self.workdirpath = workdirpath
         self._command = attrsman.add(cm.AttrConf(
             '_command', command,
             groupnames=['_private'],
@@ -265,15 +318,19 @@ class CmlMixin:
         options = Options()
         for attrconfig in self.get_attrsman().get_configs(is_all=True):
             if self.optiongroupname in attrconfig.groupnames:
-                print '  option', attrconfig.attrname, attrconfig.groupnames, attrconfig.get_metatype() in self.pathmetatypes
+                print '  option', attrconfig.attrname, attrconfig.groupnames, 'is path', attrconfig.get_metatype() in self.pathmetatypes, 'has cmlmap', hasattr(attrconfig, 'cmlvaluemap')
                 is_enabled = True
                 if hasattr(attrconfig, 'is_enabled'):
-                    # print ' is_enabled=',attrconfig.is_enabled(self), attrconfig.get_value()
+                    print ' is_enabled=', attrconfig.is_enabled(self), attrconfig.get_value()
                     is_enabled = attrconfig.is_enabled(self)
                 if is_enabled:  # disabeled options are simply not added
+                    if hasattr(attrconfig, 'cmlvaluemap'):
+                        cmlvaluemap = attrconfig.cmlvaluemap
+                    else:
+                        cmlvaluemap = None
                     is_filepath = attrconfig.get_metatype() in self.pathmetatypes
-                    options.add_option(attrconfig.attrname, attrconfig.get_value(),
-                                       attrconfig.cml, is_filepath=is_filepath)
+                    options.add_option(attrconfig.attrname, attrconfig.get_value(), attrconfig.cml,
+                                       is_filepath=is_filepath, cmlvaluemap=cmlvaluemap)
 
         return options
 
@@ -286,33 +343,49 @@ class CmlMixin:
     def reset_cml(self, cml):
         self._command = cml
 
-    def get_cml(self, is_changecwd=False):
+    def get_cml(self, is_changecwd=False, is_without_command=False):
         """
         Returns commandline with all options.
         To be overridden by costum class.
         """
+        # is_changecwd is obsolete, chenge in different directory
+        # if self.workdirpath is not None
         options = self.get_options()
-
-        if is_changecwd:
-            if self.get_workdirpath() is None:
-                cwd = ''
+        optionstr = options.get_optionstring()
+        print 'get_cml command', self._command, 'workdirpath', self.workdirpath
+        if True:  # self.workdirpath is None:
+            if is_without_command:
+                cml = optionstr
             else:
-                cwd = 'cd '+self.get_workdirpath()+' ;'
+                cml = P+self._command+P + optionstr
         else:
-            cwd = ''
-        return cwd+self._command + options.get_optionstring()
+            cml = 'cd '+P+self.workdirpath+P+' ;'\
+                + P+self._command+P + optionstr
+
+        # print '  now call get_optionstring',options.get_optionstring
+        return cml
 
     def run_cml(self, cml=None):
         if cml is None:
             cml = self.get_cml()
         attrsman = self.get_attrsman()
-        self._subprocess = subprocess.Popen(cml, shell=True)
+        if self.workdirpath is not None:
+            wd = self.workdirpath
+            #    os.chdir(self.workdirpath)
+            self._subprocess = subprocess.Popen(cml, shell=True, cwd=wd)
+
+        else:
+            wd = os.getcwd()
+            self._subprocess = subprocess.Popen(cml, shell=True)
+
         attrsman.pid.set(self._subprocess.pid)
         attrsman.status.set('running')
         print 'run_cml cml=', cml
-        print '  pid = ', self.pid
+        print '  pid = ', self.pid, 'cwd', wd
         if not self.is_run_background:
             self._subprocess.wait()
+            # if self.workdirpath is not None:
+            #    os.chdir(wd)
 
             if self._subprocess.returncode == 0:
                 attrsman.status.set('success')
@@ -323,457 +396,6 @@ class CmlMixin:
                 return False
 
 
-class ProcessOld(cm.BaseObjman):
-    def __init__(self, ident, command=None, parent=None, name=None,
-                 is_inputfilelist=True, is_outputfilelist=True,
-                 is_force=False, is_run_background=False, is_nohup=False,
-                 workdirpath=None):
-        self._init_objman(ident, parent=parent, name=name)
-        self.attrs = self.set_attrman(cm.AttrsManager(self, 'attrs'))
-
-        if command is None:
-            command_default = ''
-        else:
-            command_default = command
-
-        self.set_workdirpath(workdirpath)
-
-        self.status = self.attrs.add(cm.AttrConf(
-            'status', 'preparation',
-            groupnames=['parameters'],
-            perm='r',
-            metatype='internal',
-            name='Status',
-            info='Process status: preparation-> running -> success|error.'
-        ))
-
-        self._command = self.attrs.add(cm.AttrConf(
-            '_command', command_default,
-            groupnames=['parameters', '_private', 'advanced'],
-            perm='r',
-            metatype='internal',
-            name='command',
-            info='Command to be executed.'
-        ))
-
-        self.progress = self.attrs.add(cm.AttrConf(
-            'progress', 0.0,
-            groupnames=['parameters'],
-            perm='r',
-            metatype='progress',
-            unit='%',
-            name='Progress',
-            info='Indicates the percentage of completion of the process.'
-        ))
-
-        self.pid = self.attrs.add(cm.AttrConf(
-            'pid', -1,
-            groupnames=['parameters', 'advanced'],
-            perm='r',
-            name='Process ID',
-            info="The system's Process ID",
-        ))
-
-        self.is_force = self.attrs.add(cm.AttrConf(
-            'is_force', is_force,
-            groupnames=['parameters', 'advanced'],
-            perm='rw',
-            name='is_force',
-            info='If set, process will be executed even if output files exist.',
-        ))
-
-        self.is_run_background = self.attrs.add(cm.AttrConf(
-            'is_run_background', is_run_background,
-            groupnames=['parameters', 'advanced'],
-            perm='rw',
-            name='Run in background',
-            info='If set, process will run in background.',
-        ))
-
-        self.is_nohup = self.attrs.add(cm.AttrConf(
-            'is_nohup', is_nohup,
-            groupnames=['parameters', 'advanced'],
-            perm='rw',
-            name='No hangup',
-            info="""If set, process will run in the background and will continue to run after logout. (Currently on UNIX platforms only.) """,
-        ))
-
-        if is_inputfilelist:
-            self.files_input = self.add_tableman(cm.TableManager(ident='files_input',
-                                                                 parent=self,
-                                                                 name='Input files',
-                                                                 is_keyindex=True),
-                                                 )
-
-            self.files_input.add(cm.DictConf('filename', '',
-                                             groupnames=['input'],
-                                             perm='rw',
-                                             name='Name',
-                                             info='File name of input file',
-                                             ))
-
-            self.files_input.add(cm.DictConf('is_existent', False,
-                                             groupnames=['output'],
-                                             perm='r',
-                                             name='Exists?',
-                                             info='If set, this input file is exists.',
-                                             ))
-
-            self.files_input.add(cm.DictConf('is_required', True,
-                                             groupnames=['output'],
-                                             perm='r',
-                                             name='Required?',
-                                             info='If set, this input file is required.',
-                                             ))
-
-            self.files_input.add(cm.DictConf('filepath', '',
-                                             groupnames=['input'],
-                                             perm='rw',
-                                             metatype='filepath',
-                                             name='Path',
-                                             info='Filepath of input file',
-                                             ))
-
-            self.files_input.add(cm.DictConf('fileoption', '',
-                                             groupnames=['input', 'advanced'],
-                                             perm='r',
-                                             name='Option',
-                                             info='Command line option',
-                                             ))
-
-            self.files_input.add(cm.DictConf('fileinfo', '',
-                                             groupnames=['input', 'advanced'],
-                                             perm='rw',
-                                             name='Info',
-                                             info='File info  of input file',
-                                             ))
-            self.files_input.add(cm.DictConf('wildcards', '',
-                                             groupnames=['input', 'advanced'],
-                                             perm='rw',
-                                             name='wildcards',
-                                             info='Wildcards for file filtering',
-                                             ))
-
-        if is_outputfilelist:
-            self.files_output = self.add_tableman(cm.TableManager(
-                ident='files_output',
-                parent=self,
-                name='Output files',
-                is_keyindex=True),
-            )
-
-            self.files_output.add(cm.DictConf('filename', '',
-                                              groupnames=['output'],
-                                              perm='rw',
-                                              name='Name',
-                                              info='File name  of output file',
-                                              ))
-
-            self.files_output.add(cm.DictConf('filepath', '',
-                                              groupnames=['output'],
-                                              perm='rw',
-                                              metatype='filepath',
-                                              name='Path',
-                                              info='Filepath of output file',
-                                              ))
-
-            self.files_output.add(cm.DictConf('fileoption', '',
-                                              groupnames=['advanced'],
-                                              perm='r',
-                                              name='Option',
-                                              info='Command line option',
-                                              ))
-
-            self.files_output.add(cm.DictConf('fileinfo', '',
-                                              groupnames=['output', 'advanced'],
-                                              perm='r',
-                                              is_save=True,
-                                              name='Info',
-                                              info='File info of output file',
-                                              ))
-
-            self.files_output.add(cm.DictConf('wildcards', '',
-                                              groupnames=['output', 'advanced'],
-                                              perm='rw',
-                                              is_save=True,
-                                              name='wildcards',
-                                              info='Wildcards for file filtering',
-                                              ))
-
-    def add_option(self, option, value, **kwargs):
-        """
-        option = string with option 
-        value = value of option
-        name = human readable name
-        info = help info
-        cml = string to be specified if command line string different from option
-        """
-        kwargs0 = {'cml': None,
-                   'groupnames': [],
-                   'perm': 'rw',
-                   'is_save': True,
-                   'name': None,
-                   'info': '', }
-
-        kwargs0.update(kwargs)
-        if not ('options' in kwargs0['groupnames']):
-            kwargs0['groupnames'] += ['options']
-
-        default = self.attrs.add(cm.AttrConf(option, value, **kwargs0))
-
-        setattr(self, option, default)
-
-    def add_inputfile(self, filekey, filepath, is_required=True,
-                      cml=None, name=None, info='', wildcards=''):
-        self.files_input.add_row(key=filekey)
-        self.files_input.filepath.set(filekey, filepath)
-        self.files_input.is_existent.set(filekey, self.is_inputfile(filekey))
-        self.files_input.is_required.set(filekey, is_required)
-        self.files_input.fileoption.set(filekey, cml)
-        self.files_input.filename.set(filekey, name)
-        self.files_input.fileinfo.set(filekey, info)
-        self.files_input.wildcards.set(filekey, wildcards)
-
-    def add_outputfile(self, filekey, filepath,
-                       cml=None, name=None, info='', wildcards=''):
-        self.files_output.add_row(key=filekey)
-        self.files_output.filepath.set(filekey, filepath)
-        self.files_output.fileoption.set(filekey, cml)
-        self.files_output.filename.set(filekey, name)
-        self.files_output.fileinfo.set(filekey, info)
-        self.files_output.wildcards.set(filekey, wildcards)
-
-    def set_workdirpath(self, workdirpath):
-        """
-        Set  working directory for process.
-        If this directory is set then processes will be run
-        in this path and outputs without explicit path
-        will end in this directory.
-        Moreover, all filenames withot explicit path (absolue or relative)
-        are supposed to be in this directory.
-        """
-        self._workdirpath = workdirpath
-
-    def get_workdirpath(self):
-        return self._workdirpath
-
-    def set_path_inputfile(self, filekey, filepaths):
-        self.files_input.filepath.set(filekey, filepaths)
-        self.files_input.is_existent.set(filekey, self.is_inputfile(filekey))
-
-    def set_path_outputfile(self, filekey, filepaths):
-        self.files_output.filepath.set(filekey, filepaths)
-
-    def get_path_inputfile(self, filekey):
-        return self.files_input.filepath.get(filekey)
-
-    def get_path_outputfile(self, filekey):
-        return self.files_output.filepath.get(filekey)
-
-    def get_name_inputfile(self, filekey):
-        return os.path.basename(self.files_input.filepath.get(filekey))
-
-    def get_name_outputfile(self, filekey):
-        return os.path.basename(self.files_output.filepath.get(filekey))
-
-    def set_existents_inputfiles(self):
-        for filekey in self.files_input.get_keys():
-            self.files_input.is_existent.set(filekey, self.is_inputfile(filekey))
-
-    def get_inputfiles_missing(self):
-        """
-        Returns list with paths of all input files that 
-        are required but not existent in filesystem
-        """
-        files_missing = []
-        if hasattr(self, 'files_input'):
-            for filekey in self.files_input.get_keys():
-                if (not self.is_inputfile(filekey)) & (self.files_input.is_required.get(filekey)):
-                    files_missing.append(self.files_input.filepath.get(filekey))
-
-        return files_missing
-
-    def get_outputfiles_missing(self):
-        """
-        Returns list with paths of all output files that 
-        are expected to be produced and are currently not existent in filesystem
-        """
-        # print '\n\nget_outputfiles_missing'
-        files_missing = []
-        if hasattr(self, 'files_output'):
-            for filekey in self.files_output.get_keys():
-                if not self.is_outputfile(filekey):
-                    files_missing.append(self.files_output.filepath.get(filekey))
-
-        return files_missing
-
-    def is_inputfile(self, filekey):
-        print 'is_inputfile', filekey
-
-        filepaths = self.files_input.filepath.get(filekey)
-        # print '  filepaths =',filepaths,type(filepaths)
-        if type(filepaths) in types.StringTypes:
-            # print '    call filepathstring_to_filepathlist'
-            filepaths = filepathstring_to_filepathlist(filepaths)
-
-        # print  '  filepaths list',filepaths
-        if len(filepaths) > 0:
-            ans = True
-            for filepath in filepaths:
-                dirpath = os.path.dirname(filepath)
-                # this is to make sure that check always works
-                # either with filename or with filepath
-                if (self._workdirpath is not None) & (dirpath == ''):
-                    filepath = os.path.join(self._workdirpath, filepath)
-                print '  check is_inputfile: >>%s<< exists = %d' % (filepath, os.path.isfile(filepath))
-                ans = ans & os.path.isfile(filepath)
-            # print '  is_inputfile=',ans
-            return ans
-        else:
-            return False  # no path given
-
-    def is_outputfile(self, filekey):
-        ans = True
-        filepaths = self.files_output.filepath.get(filekey)
-        # print '\nis_outputfile  filepaths = >%s<'%filepaths,type(filepaths)
-        if type(filepaths) in types.StringTypes:
-            # print '    call filepathstring_to_filepathlist'
-            filepaths = filepathstring_to_filepathlist(filepaths)
-
-        # print  '  filepaths list',filepaths
-        for filepath in filepaths:
-            dirpath = os.path.dirname(filepath)
-            # this is to make sure that check always works
-            # either with filename or with filepath
-            if (self._workdirpath is not None) & (dirpath == ''):
-                filepath = os.path.join(self._workdirpath, filepath)
-            # print '  check is_outputfile: >>%s<< exists = %d'%(filepath,os.path.isfile(filepath))
-            ans = ans & os.path.isfile(filepath)
-        # print '  is_outputfile=',ans
-        return ans
-
-        #ans = True
-        #filepaths = self.files_output.filepath.get(filekey)
-        # for filepath in cm.filepathstring_to_filepathlist(filepaths):
-        #    dirpath = os.path.dirname(filepath)
-        #    if (self._workdirpath is not None)&(dirpath==''):
-        #        filepath = os.path.join(self._workdirpath,filepath)
-        #    #print '  check is_outputfile:',filepath,os.path.isfile(filepath)
-        #    ans = ans & os.path.isfile(filepath)
-        # return ans
-
-    def update_params(self):
-        """
-        Make all parameters consistent.
-        example: used by import OSM to calculate/update number of tiles
-        from process dialog
-        """
-        pass
-
-    def is_ready(self):
-        """
-        Returns True if process is ready to run.
-
-        """
-        if (self._command is not None) & (self._command != ''):
-            # check if all input files exist
-            return len(self.get_inputfiles_missing()) == 0
-
-        else:
-            print 'WARNING: command has not been set'
-            return False
-
-    def is_done(self):
-        """
-        Returns True if process produced all output files.
-        """
-        return len(self.get_outputfiles_missing()) == 0
-
-    def get_options(self):
-        options = Options()
-        for attrconfig in self.attrs.get_configs():
-            if 'cml-options' in attrconfig.groupnames:
-                options.add_option(attrconfig.attrname, attrconfig.get_attr(), attrconfig.cml, is_filepath=False)
-
-        if hasattr(self, 'files_input'):
-            for filekey in self.files_input.get_keys():
-                filepath = self.files_input.filepath.get(filekey)
-
-                cml = self.files_input.fileoption.get(filekey)
-                options.add_option(filekey, filepath.replace(',', ' '), cml, is_filepath=True)
-
-        if hasattr(self, 'files_output'):
-            for filekey in self.files_output.get_keys():
-                filepath = self.files_output.filepath.get(filekey)
-                cml = self.files_output.fileoption.get(filekey)
-                options.add_option(filekey, filepath.replace(',', ' '), cml, is_filepath=True)
-
-        return options
-
-    def print_options(self):
-        print 'Options of process ident:', self.ident
-        print ' Keywordoptions:'
-        for attrconfig in self.attrs.get_configs():
-            if 'options' in attrconfig.groupnames:
-                print '  ', attrconfig.attrname, '=', attrconfig.get_attr()
-
-        print ' Input files:'
-        if hasattr(self, 'files_input'):
-            for filekey in self.files_input.get_keys():
-                filepath = self.files_input.filepath.get(filekey)
-                print '  ', filekey, '=', filepath
-
-        print ' Output files:'
-        if hasattr(self, 'files_output'):
-            for filekey in self.files_output.get_keys():
-                filepath = self.files_input.filepath.get(filekey)
-                print '  ', filekey, '=', filepath
-
-    def get_cml(self, is_changecwd=False):
-        """
-        Returns commandline with all options.
-        To be overridden by costum class.
-        """
-        options = self.get_options()
-
-        if is_changecwd:
-            if self.get_workdirpath() is None:
-                cwd = ''
-            else:
-                cwd = 'cd '+self.get_workdirpath()+' ;'
-        else:
-            cwd = ''
-        return cwd+self._command + options.get_optionstring()
-
-    def run(self):
-        if self.is_ready():
-            if (not self.is_done()) | self.is_force:
-                cml = self.get_cml()
-                self._subprocess = subprocess.Popen(cml, shell=True)
-                self.attrs.pid.set(self._subprocess.pid)
-                self.attrs.status.set('running')
-                print 'run cml=', cml
-                print '  pid = ', self.pid
-                if not self.is_run_background:
-                    self._subprocess.wait()
-
-                    if self._subprocess.returncode == 0:
-                        self.attrs.status.set('success')
-                        return True
-
-                    else:
-                        self.attrs.status.set('error')
-                        return False
-            else:
-                print 'WARNING in run: process has already generated output files.'
-        else:
-            print 'WARNING: process not ready to run.'
-            return False
-
-    def kill(self):
-        pass
-
-
 # print '\n Starting command:',cmd
 ##p = subprocess.Popen(cmd, shell=True)
 # print "p.pid",p.pid, "p.poll=",p.poll()
@@ -781,8 +403,6 @@ class ProcessOld(cm.BaseObjman):
 # print '\n\nreturncode',p.poll(),p.returncode
 # print 'p.stdout=\n', p.stdout
 # call(cmd)
-
-
 ###############################################################################
 if __name__ == '__main__':
     """
