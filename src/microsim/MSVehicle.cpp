@@ -6226,7 +6226,8 @@ MSVehicle::rerouteParkingArea(const std::string& parkingAreaID, std::string& err
     ConstMSEdgeVector prevEdges(myCurrEdge, myRoute->end());
     const double savings = router.recomputeCosts(prevEdges, this, MSNet::getInstance()->getCurrentTimeStep());
     if (replaceParkingArea(newParkingArea, errorMsg)) {
-        replaceRouteEdges(edges, routeCost, savings, "TraCI:" + toString(SUMO_TAG_PARKING_AREA_REROUTE), false, false, false);
+        const bool onInit = myLane == nullptr;
+        replaceRouteEdges(edges, routeCost, savings, "TraCI:" + toString(SUMO_TAG_PARKING_AREA_REROUTE), onInit, false, false);
     } else {
         WRITE_WARNING("Vehicle '" + getID() + "' could not reroute to new parkingArea '" + newParkingArea->getID()
                       + "' reason=" + errorMsg + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
