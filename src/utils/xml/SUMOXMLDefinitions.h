@@ -141,6 +141,8 @@ enum SumoXMLTag {
     SUMO_TAG_VTYPEPROBE,
     /// @brief root element of a route file
     SUMO_TAG_ROUTES,
+    /// @brief a single trip definition (used by router)
+    SUMO_TAG_TRIP,
     /// @brief description of a vehicle
     SUMO_TAG_VEHICLE,
     /// @brief description of a vehicle type
@@ -165,8 +167,6 @@ enum SumoXMLTag {
     SUMO_TAG_TLLOGIC,
     /// @brief a single phase description
     SUMO_TAG_PHASE,
-    /// @brief a single trip definition (used by router)
-    SUMO_TAG_TRIP,
     /// @brief a single trip definition that uses TAZs (used in NETEDIT)
     SUMO_TAG_TRIP_TAZ,
     /// @brief a flow definitio nusing a from-to edges instead of a route (used by router)
