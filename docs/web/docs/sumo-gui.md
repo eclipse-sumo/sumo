@@ -485,6 +485,9 @@ value/range
 | simple shapes | All vehicles have simple car shape                                                                                               |
 | raster images | All vehicles are drawn with a loaded bitmap defined for their type using attribute `imgFile` (using *simple shapes* as fallback) |
 
+!!! note
+    When using an `imgFile` as the shape, it is necessary to select the vehicles to show as "raster images" in the viewsettings menu.
+
 **Table 1.2 Vehicle coloring schemes and boundaries**
 
 | Name                           | Measure | Description         |
