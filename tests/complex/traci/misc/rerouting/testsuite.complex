@@ -11,6 +11,9 @@ rerouteTraveltime_adaptVehicleEdgeWeight
 rerouteParkingArea_intermediate
 rerouteParkingArea_end
 
+# reroute vehicle before it's insertion
+rerouteParkingArea_undeparted
+
 # tests for behavior when using setRoutingMode
 routingMode
 
