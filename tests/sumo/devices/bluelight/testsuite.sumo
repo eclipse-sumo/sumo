@@ -20,3 +20,9 @@ override_strategic
 
 # multiple equipped vehicle in network with opposite direction driving (#9310)
 multiple_opposite
+
+# emergency vehicle may overtake queue before red light (if it wants to turn right)
+redlight_right
+
+# emergency vehicle may overtake queue before red light (if it wants to turn left)
+redlight_left
