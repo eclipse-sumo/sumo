@@ -309,7 +309,7 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
     // create stop object
     CommonXMLStructure::SumoBaseObject* stopBaseObject = new CommonXMLStructure::SumoBaseObject(myStopParentBaseObject);
     // get stop attributes
-    myStopAttributes->getAttributesAndValues(stopBaseObject, false);
+    myStopAttributes->getAttributesAndValues(stopBaseObject, true);
     // add netedit values
     if (!stop.lane.empty()) {
         myNeteditAttributes->getNeteditAttributesAndValues(stopBaseObject, lane);
@@ -351,9 +351,13 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
         stop.extension = stopBaseObject->getTimeAttribute(SUMO_ATTR_EXTENSION);
         stop.parametersSet |= STOP_EXTENSION_SET;
     }
-    if (stopBaseObject->hasBoolAttribute(SUMO_ATTR_TRIGGERED)) {
-        stop.triggered = stopBaseObject->getBoolAttribute(SUMO_ATTR_TRIGGERED);
-        stop.parametersSet |= STOP_TRIGGER_SET;
+    if (stopBaseObject->hasStringAttribute(SUMO_ATTR_TRIGGERED)) {
+        if ((stopBaseObject->getStringAttribute(SUMO_ATTR_TRIGGERED) == "true") || (stopBaseObject->getStringAttribute(SUMO_ATTR_TRIGGERED) == "person")) {
+            stop.triggered = true;
+            stop.parametersSet |= STOP_TRIGGER_SET;
+        } else {
+            stop.parametersSet &= ~STOP_TRIGGER_SET;
+        }
     }
     if (stopBaseObject->hasBoolAttribute(SUMO_ATTR_CONTAINER_TRIGGERED)) {
         stop.containerTriggered = stopBaseObject->getBoolAttribute(SUMO_ATTR_CONTAINER_TRIGGERED);

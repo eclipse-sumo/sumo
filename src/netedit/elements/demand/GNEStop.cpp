@@ -1202,7 +1202,6 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
                 containerTriggered = false;
             }
             toogleAttribute(SUMO_ATTR_TRIGGERED, triggered, -1);
-
             toogleAttribute(SUMO_ATTR_EXPECTED, (awaitedPersons.size() > 0), -1);
             break;
         case SUMO_ATTR_EXPECTED:
