@@ -138,6 +138,9 @@ public:
 
         /// @brief check button to enable/disable the value of boolean parameters
         FXCheckButton* myValueCheckButton = nullptr;
+
+        /// @brief comboBox for discrete vaues
+        FXComboBox* myValueComboBox = nullptr;
     };
 
     // ===========================================================================
