@@ -33,7 +33,7 @@ class GNEMatchAttribute;
 // class definitions
 // ===========================================================================
 
-class GNEElementSet : public FXGroupBoxModul {
+class GNEElementSet : public FXGroupBoxModule {
     /// @brief FOX-declaration
     FXDECLARE(GNEElementSet)
 

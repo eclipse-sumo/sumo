@@ -43,14 +43,14 @@ FXDEFMAP(GNEMatchGenericDataAttribute) GNEMatchGenericDataAttributeMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEMatchGenericDataAttribute, FXGroupBoxModul, GNEMatchGenericDataAttributeMap, ARRAYNUMBER(GNEMatchGenericDataAttributeMap))
+FXIMPLEMENT(GNEMatchGenericDataAttribute, FXGroupBoxModule, GNEMatchGenericDataAttributeMap, ARRAYNUMBER(GNEMatchGenericDataAttributeMap))
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
 GNEMatchGenericDataAttribute::GNEMatchGenericDataAttribute(GNEElementSet* elementSet, SumoXMLTag defaultTag, SumoXMLAttr defaultAttr, const std::string& defaultValue) :
-    FXGroupBoxModul(elementSet->getSelectorFrameParent()->getContentFrame(), "Match GenericData Attribute"),
+    FXGroupBoxModule(elementSet->getSelectorFrameParent()->getContentFrame(), "Match GenericData Attribute"),
     myElementSet(elementSet),
     myIntervalSelector(nullptr),
     myBegin(nullptr),

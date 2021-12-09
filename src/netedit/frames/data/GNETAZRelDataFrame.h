@@ -37,7 +37,7 @@ public:
     // class Legend
     // ===========================================================================
 
-    class Legend : public FXGroupBoxModul {
+    class Legend : public FXGroupBoxModule {
 
     public:
         /// @brief constructor

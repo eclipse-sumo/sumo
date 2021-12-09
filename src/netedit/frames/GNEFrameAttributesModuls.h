@@ -144,7 +144,7 @@ public:
     // class AttributesCreator
     // ===========================================================================
 
-    class AttributesCreator : public FXGroupBoxModul {
+    class AttributesCreator : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEFrameAttributesModuls::AttributesCreator)
 
@@ -228,7 +228,7 @@ public:
     // class AttributesCreatorFlow
     // ===========================================================================
 
-    class AttributesCreatorFlow : public FXGroupBoxModul {
+    class AttributesCreatorFlow : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEFrameAttributesModuls::AttributesCreatorFlow)
 
@@ -388,7 +388,7 @@ public:
     // class AttributesEditor
     // ===========================================================================
 
-    class AttributesEditor : public FXGroupBoxModul {
+    class AttributesEditor : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEFrameAttributesModuls::AttributesEditor)
 
@@ -439,7 +439,7 @@ public:
     // class AttributesEditorFlow
     // ===========================================================================
 
-    class AttributesEditorFlow : public FXGroupBoxModul {
+    class AttributesEditorFlow : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEFrameAttributesModuls::AttributesEditorFlow)
 
@@ -525,7 +525,7 @@ public:
     // class AttributesEditorExtended
     // ===========================================================================
 
-    class AttributesEditorExtended : public FXGroupBoxModul {
+    class AttributesEditorExtended : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEFrameAttributesModuls::AttributesEditorExtended)
 
@@ -560,7 +560,7 @@ public:
     // class ParametersEditorCreator
     // ===========================================================================
 
-    class ParametersEditorCreator : public FXGroupBoxModul {
+    class ParametersEditorCreator : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEFrameAttributesModuls::ParametersEditorCreator)
 
@@ -625,7 +625,7 @@ public:
     // class DrawingShape
     // ===========================================================================
 
-    class DrawingShape : public FXGroupBoxModul {
+    class DrawingShape : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEFrameAttributesModuls::DrawingShape)
 
@@ -711,7 +711,7 @@ public:
     // class NeteditAttributes
     // ===========================================================================
 
-    class NeteditAttributes : public FXGroupBoxModul {
+    class NeteditAttributes : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEFrameAttributesModuls::NeteditAttributes)
 

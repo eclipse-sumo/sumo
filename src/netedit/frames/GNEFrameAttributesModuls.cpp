@@ -91,15 +91,15 @@ FXDEFMAP(GNEFrameAttributesModuls::NeteditAttributes) NeteditAttributesMap[] = {
 
 // Object implementation
 FXIMPLEMENT(GNEFrameAttributesModuls::AttributesCreatorRow,         FXHorizontalFrame,       RowCreatorMap,                  ARRAYNUMBER(RowCreatorMap))
-FXIMPLEMENT(GNEFrameAttributesModuls::AttributesCreator,            FXGroupBoxModul,         AttributesCreatorMap,           ARRAYNUMBER(AttributesCreatorMap))
-FXIMPLEMENT(GNEFrameAttributesModuls::AttributesCreatorFlow,        FXGroupBoxModul,         AttributesCreatorFlowMap,       ARRAYNUMBER(AttributesCreatorFlowMap))
+FXIMPLEMENT(GNEFrameAttributesModuls::AttributesCreator,            FXGroupBoxModule,         AttributesCreatorMap,           ARRAYNUMBER(AttributesCreatorMap))
+FXIMPLEMENT(GNEFrameAttributesModuls::AttributesCreatorFlow,        FXGroupBoxModule,         AttributesCreatorFlowMap,       ARRAYNUMBER(AttributesCreatorFlowMap))
 FXIMPLEMENT(GNEFrameAttributesModuls::AttributesEditorRow,          FXHorizontalFrame,       AttributesEditorRowMap,         ARRAYNUMBER(AttributesEditorRowMap))
-FXIMPLEMENT(GNEFrameAttributesModuls::AttributesEditor,             FXGroupBoxModul,         AttributesEditorMap,            ARRAYNUMBER(AttributesEditorMap))
-FXIMPLEMENT(GNEFrameAttributesModuls::AttributesEditorFlow,         FXGroupBoxModul,         AttributesEditorFlowMap,        ARRAYNUMBER(AttributesEditorFlowMap))
-FXIMPLEMENT(GNEFrameAttributesModuls::AttributesEditorExtended,     FXGroupBoxModul,         AttributesEditorExtendedMap,    ARRAYNUMBER(AttributesEditorExtendedMap))
-FXIMPLEMENT(GNEFrameAttributesModuls::ParametersEditorCreator,      FXGroupBoxModul,         ParametersEditorCreatorMap,     ARRAYNUMBER(ParametersEditorCreatorMap))
-FXIMPLEMENT(GNEFrameAttributesModuls::DrawingShape,                 FXGroupBoxModul,         DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
-FXIMPLEMENT(GNEFrameAttributesModuls::NeteditAttributes,            FXGroupBoxModul,         NeteditAttributesMap,           ARRAYNUMBER(NeteditAttributesMap))
+FXIMPLEMENT(GNEFrameAttributesModuls::AttributesEditor,             FXGroupBoxModule,         AttributesEditorMap,            ARRAYNUMBER(AttributesEditorMap))
+FXIMPLEMENT(GNEFrameAttributesModuls::AttributesEditorFlow,         FXGroupBoxModule,         AttributesEditorFlowMap,        ARRAYNUMBER(AttributesEditorFlowMap))
+FXIMPLEMENT(GNEFrameAttributesModuls::AttributesEditorExtended,     FXGroupBoxModule,         AttributesEditorExtendedMap,    ARRAYNUMBER(AttributesEditorExtendedMap))
+FXIMPLEMENT(GNEFrameAttributesModuls::ParametersEditorCreator,      FXGroupBoxModule,         ParametersEditorCreatorMap,     ARRAYNUMBER(ParametersEditorCreatorMap))
+FXIMPLEMENT(GNEFrameAttributesModuls::DrawingShape,                 FXGroupBoxModule,         DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
+FXIMPLEMENT(GNEFrameAttributesModuls::NeteditAttributes,            FXGroupBoxModule,         NeteditAttributesMap,           ARRAYNUMBER(NeteditAttributesMap))
 
 
 // ===========================================================================
@@ -434,7 +434,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::isValidID() const {
 // ---------------------------------------------------------------------------
 
 GNEFrameAttributesModuls::AttributesCreator::AttributesCreator(GNEFrame* frameParent) :
-    FXGroupBoxModul(frameParent->myContentFrame, "Internal attributes"),
+    FXGroupBoxModule(frameParent->myContentFrame, "Internal attributes"),
     myFrameParent(frameParent),
     myTemplateAC(nullptr) {
     // resize myAttributesCreatorRows
@@ -682,7 +682,7 @@ GNEFrameAttributesModuls::AttributesCreator::refreshRows(const bool createRows) 
 // ---------------------------------------------------------------------------
 
 GNEFrameAttributesModuls::AttributesCreatorFlow::AttributesCreatorFlow(AttributesCreator* attributesCreatorParent) :
-    FXGroupBoxModul(attributesCreatorParent->getFrameParent()->myContentFrame, "Flow attributes"),
+    FXGroupBoxModule(attributesCreatorParent->getFrameParent()->myContentFrame, "Flow attributes"),
     myAttributesCreatorParent(attributesCreatorParent),
     myFlowParameters(VEHPARS_END_SET | VEHPARS_NUMBER_SET) {
     // declare auxiliar horizontal frame
@@ -1470,7 +1470,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::mergeJunction(SumoXMLAttr attr, c
 // ---------------------------------------------------------------------------
 
 GNEFrameAttributesModuls::AttributesEditor::AttributesEditor(GNEFrame* FrameParent) :
-    FXGroupBoxModul(FrameParent->myContentFrame, "Internal attributes"),
+    FXGroupBoxModule(FrameParent->myContentFrame, "Internal attributes"),
     myFrameParent(FrameParent),
     myIncludeExtended(true) {
     // resize myAttributesEditorRows
@@ -1682,7 +1682,7 @@ GNEFrameAttributesModuls::AttributesEditor::onCmdAttributesEditorHelp(FXObject*,
 // ---------------------------------------------------------------------------
 
 GNEFrameAttributesModuls::AttributesEditorFlow::AttributesEditorFlow(AttributesEditor* attributesEditorParent) :
-    FXGroupBoxModul(attributesEditorParent->getFrameParent()->myContentFrame, "Flow attributes"),
+    FXGroupBoxModule(attributesEditorParent->getFrameParent()->myContentFrame, "Flow attributes"),
     myAttributesEditorParent(attributesEditorParent) {
     // declare auxiliar horizontal frame
     FXHorizontalFrame* auxiliarHorizontalFrame = nullptr;
@@ -2057,7 +2057,7 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshProbability() {
 // ---------------------------------------------------------------------------
 
 GNEFrameAttributesModuls::AttributesEditorExtended::AttributesEditorExtended(GNEFrame* frameParent) :
-    FXGroupBoxModul(frameParent->myContentFrame, "Extended attributes"),
+    FXGroupBoxModule(frameParent->myContentFrame, "Extended attributes"),
     myFrameParent(frameParent) {
     // Create open dialog button
     new FXButton(getCollapsableFrame(), "Open attributes editor", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
@@ -2091,7 +2091,7 @@ GNEFrameAttributesModuls::AttributesEditorExtended::onCmdOpenDialog(FXObject*, F
 // ---------------------------------------------------------------------------
 
 GNEFrameAttributesModuls::ParametersEditorCreator::ParametersEditorCreator(GNEFrame* frameParent) :
-    FXGroupBoxModul(frameParent->myContentFrame, "Parameters"),
+    FXGroupBoxModule(frameParent->myContentFrame, "Parameters"),
     myFrameParent(frameParent) {
     // create textfield and buttons
     myTextFieldParameters = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
@@ -2228,7 +2228,7 @@ GNEFrameAttributesModuls::ParametersEditorCreator::onCmdSetParameters(FXObject*,
 // ---------------------------------------------------------------------------
 
 GNEFrameAttributesModuls::DrawingShape::DrawingShape(GNEFrame* frameParent) :
-    FXGroupBoxModul(frameParent->myContentFrame, "Drawing"),
+    FXGroupBoxModule(frameParent->myContentFrame, "Drawing"),
     myFrameParent(frameParent),
     myDeleteLastCreatedPoint(false) {
     // create start and stop buttons
@@ -2259,16 +2259,16 @@ GNEFrameAttributesModuls::DrawingShape::~DrawingShape() {}
 void GNEFrameAttributesModuls::DrawingShape::showDrawingShape() {
     // abort current drawing before show
     abortDrawing();
-    // show FXGroupBoxModul
-    FXGroupBoxModul::show();
+    // show FXGroupBoxModule
+    FXGroupBoxModule::show();
 }
 
 
 void GNEFrameAttributesModuls::DrawingShape::hideDrawingShape() {
     // abort current drawing before hide
     abortDrawing();
-    // show FXGroupBoxModul
-    FXGroupBoxModul::hide();
+    // show FXGroupBoxModule
+    FXGroupBoxModule::hide();
 }
 
 
@@ -2379,7 +2379,7 @@ GNEFrameAttributesModuls::DrawingShape::onCmdAbortDrawing(FXObject*, FXSelector,
 // ---------------------------------------------------------------------------
 
 GNEFrameAttributesModuls::NeteditAttributes::NeteditAttributes(GNEFrame* frameParent) :
-    FXGroupBoxModul(frameParent->myContentFrame, "Netedit attributes"),
+    FXGroupBoxModule(frameParent->myContentFrame, "Netedit attributes"),
     myFrameParent(frameParent),
     myCurrentLengthValid(true),
     myActualAdditionalReferencePoint(AdditionalReferencePoint::LEFT) {

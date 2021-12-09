@@ -38,7 +38,7 @@ public:
     // class HelpCreation
     // ===========================================================================
 
-    class HelpCreation : public FXGroupBoxModul {
+    class HelpCreation : public FXGroupBoxModule {
 
     public:
         /// @brief constructor

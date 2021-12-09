@@ -47,8 +47,8 @@ FXDEFMAP(GNEVehicleTypeFrame::VehicleTypeEditor) vehicleTypeEditorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEVehicleTypeFrame::VehicleTypeSelector,   FXGroupBoxModul,     vehicleTypeSelectorMap,     ARRAYNUMBER(vehicleTypeSelectorMap))
-FXIMPLEMENT(GNEVehicleTypeFrame::VehicleTypeEditor,     FXGroupBoxModul,     vehicleTypeEditorMap,       ARRAYNUMBER(vehicleTypeEditorMap))
+FXIMPLEMENT(GNEVehicleTypeFrame::VehicleTypeSelector,   FXGroupBoxModule,     vehicleTypeSelectorMap,     ARRAYNUMBER(vehicleTypeSelectorMap))
+FXIMPLEMENT(GNEVehicleTypeFrame::VehicleTypeEditor,     FXGroupBoxModule,     vehicleTypeEditorMap,       ARRAYNUMBER(vehicleTypeEditorMap))
 
 // ===========================================================================
 // method definitions
@@ -59,7 +59,7 @@ FXIMPLEMENT(GNEVehicleTypeFrame::VehicleTypeEditor,     FXGroupBoxModul,     veh
 // ---------------------------------------------------------------------------
 
 GNEVehicleTypeFrame::VehicleTypeSelector::VehicleTypeSelector(GNEVehicleTypeFrame* vehicleTypeFrameParent) :
-    FXGroupBoxModul(vehicleTypeFrameParent->myContentFrame, "Current Vehicle Type"),
+    FXGroupBoxModule(vehicleTypeFrameParent->myContentFrame, "Current Vehicle Type"),
     myVehicleTypeFrameParent(vehicleTypeFrameParent),
     myCurrentVehicleType(nullptr) {
     // Create FXComboBox
@@ -196,7 +196,7 @@ GNEVehicleTypeFrame::VehicleTypeSelector::onCmdSelectItem(FXObject*, FXSelector,
 // ---------------------------------------------------------------------------
 
 GNEVehicleTypeFrame::VehicleTypeEditor::VehicleTypeEditor(GNEVehicleTypeFrame* vehicleTypeFrameParent) :
-    FXGroupBoxModul(vehicleTypeFrameParent->myContentFrame, "Vehicle Type Editor"),
+    FXGroupBoxModule(vehicleTypeFrameParent->myContentFrame, "Vehicle Type Editor"),
     myVehicleTypeFrameParent(vehicleTypeFrameParent) {
     // Create new vehicle type
     myCreateVehicleTypeButton = new FXButton(getCollapsableFrame(), "Create Vehicle Type", nullptr, this, MID_GNE_CREATE, GUIDesignButton);

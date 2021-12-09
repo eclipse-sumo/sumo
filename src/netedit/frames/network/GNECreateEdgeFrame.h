@@ -44,7 +44,7 @@ public:
     // class EdgeTypeSelector
     // ===========================================================================
 
-    class EdgeTypeSelector : public FXGroupBoxModul {
+    class EdgeTypeSelector : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNECreateEdgeFrame::EdgeTypeSelector)
 
@@ -144,7 +144,7 @@ public:
     // class LaneTypeSelector
     // ===========================================================================
 
-    class LaneTypeSelector : public FXGroupBoxModul {
+    class LaneTypeSelector : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNECreateEdgeFrame::LaneTypeSelector)
 
@@ -204,7 +204,7 @@ public:
     // class Legend
     // ===========================================================================
 
-    class Legend : public FXGroupBoxModul {
+    class Legend : public FXGroupBoxModule {
 
     public:
         /// @brief constructor

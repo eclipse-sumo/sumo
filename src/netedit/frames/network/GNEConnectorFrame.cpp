@@ -51,8 +51,8 @@ FXDEFMAP(GNEConnectorFrame::ConnectionOperations) ConnectionOperationsMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEConnectorFrame::ConnectionModifications, FXGroupBoxModul, ConnectionModificationsMap, ARRAYNUMBER(ConnectionModificationsMap))
-FXIMPLEMENT(GNEConnectorFrame::ConnectionOperations,    FXGroupBoxModul, ConnectionOperationsMap,    ARRAYNUMBER(ConnectionOperationsMap))
+FXIMPLEMENT(GNEConnectorFrame::ConnectionModifications, FXGroupBoxModule, ConnectionModificationsMap, ARRAYNUMBER(ConnectionModificationsMap))
+FXIMPLEMENT(GNEConnectorFrame::ConnectionOperations,    FXGroupBoxModule, ConnectionOperationsMap,    ARRAYNUMBER(ConnectionOperationsMap))
 
 
 // ===========================================================================
@@ -64,7 +64,7 @@ FXIMPLEMENT(GNEConnectorFrame::ConnectionOperations,    FXGroupBoxModul, Connect
 // ---------------------------------------------------------------------------
 
 GNEConnectorFrame::CurrentLane::CurrentLane(GNEConnectorFrame* connectorFrameParent) :
-    FXGroupBoxModul(connectorFrameParent->myContentFrame, "Lane") {
+    FXGroupBoxModule(connectorFrameParent->myContentFrame, "Lane") {
     // create lane label
     myCurrentLaneLabel = new FXLabel(getCollapsableFrame(), "No lane selected", 0, GUIDesignLabelLeft);
 }
@@ -87,7 +87,7 @@ GNEConnectorFrame::CurrentLane::updateCurrentLaneLabel(const std::string& laneID
 // ---------------------------------------------------------------------------
 
 GNEConnectorFrame::ConnectionModifications::ConnectionModifications(GNEConnectorFrame* connectorFrameParent) :
-    FXGroupBoxModul(connectorFrameParent->myContentFrame, "Modifications"),
+    FXGroupBoxModule(connectorFrameParent->myContentFrame, "Modifications"),
     myConnectorFrameParent(connectorFrameParent) {
 
     // Create "Cancel" button
@@ -149,7 +149,7 @@ GNEConnectorFrame::ConnectionModifications::onCmdSaveModifications(FXObject*, FX
 // ---------------------------------------------------------------------------
 
 GNEConnectorFrame::ConnectionOperations::ConnectionOperations(GNEConnectorFrame* connectorFrameParent) :
-    FXGroupBoxModul(connectorFrameParent->myContentFrame, "Operations"),
+    FXGroupBoxModule(connectorFrameParent->myContentFrame, "Operations"),
     myConnectorFrameParent(connectorFrameParent) {
 
     // Create "Select Dead Ends" button
@@ -306,7 +306,7 @@ GNEConnectorFrame::ConnectionOperations::onCmdResetSelectedConnections(FXObject*
 // ---------------------------------------------------------------------------
 
 GNEConnectorFrame::ConnectionSelection::ConnectionSelection(GNEConnectorFrame* connectorFrameParent) :
-    FXGroupBoxModul(connectorFrameParent->myContentFrame, "Selection") {
+    FXGroupBoxModule(connectorFrameParent->myContentFrame, "Selection") {
     // create Selection Hint
     myHoldShiftLabel = new FXLabel(getCollapsableFrame(), "Hold <SHIFT> while clicking\nto create unyielding\nconnections (pass=true).", 0, GUIDesignLabelFrameInformation);
     myHoldControlLabel = new FXLabel(getCollapsableFrame(), "Hold <CTRL> while clicking\nto create conflicting\nconnections (i.e. at zipper\nnodes or with incompatible\npermissions)", 0, GUIDesignLabelFrameInformation);
@@ -320,7 +320,7 @@ GNEConnectorFrame::ConnectionSelection::~ConnectionSelection() {}
 // ---------------------------------------------------------------------------
 
 GNEConnectorFrame::Legend::Legend(GNEConnectorFrame* connectorFrameParent) :
-    FXGroupBoxModul(connectorFrameParent->myContentFrame, "Information") {
+    FXGroupBoxModule(connectorFrameParent->myContentFrame, "Information") {
 
     // create possible target label
     FXLabel* possibleTargetLabel = new FXLabel(getCollapsableFrame(), "Possible Target", 0, GUIDesignLabelLeft);

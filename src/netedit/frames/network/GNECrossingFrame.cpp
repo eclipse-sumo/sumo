@@ -50,9 +50,9 @@ FXDEFMAP(GNECrossingFrame::CreateCrossing) CreateCrossingMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNECrossingFrame::EdgesSelector,        FXGroupBoxModul,     EdgesSelectorMap,       ARRAYNUMBER(EdgesSelectorMap))
-FXIMPLEMENT(GNECrossingFrame::CrossingParameters,   FXGroupBoxModul,     CrossingParametersMap,  ARRAYNUMBER(CrossingParametersMap))
-FXIMPLEMENT(GNECrossingFrame::CreateCrossing,       FXGroupBoxModul,     CreateCrossingMap,      ARRAYNUMBER(CreateCrossingMap))
+FXIMPLEMENT(GNECrossingFrame::EdgesSelector,        FXGroupBoxModule,     EdgesSelectorMap,       ARRAYNUMBER(EdgesSelectorMap))
+FXIMPLEMENT(GNECrossingFrame::CrossingParameters,   FXGroupBoxModule,     CrossingParametersMap,  ARRAYNUMBER(CrossingParametersMap))
+FXIMPLEMENT(GNECrossingFrame::CreateCrossing,       FXGroupBoxModule,     CreateCrossingMap,      ARRAYNUMBER(CreateCrossingMap))
 
 
 // ===========================================================================
@@ -64,7 +64,7 @@ FXIMPLEMENT(GNECrossingFrame::CreateCrossing,       FXGroupBoxModul,     CreateC
 // ---------------------------------------------------------------------------
 
 GNECrossingFrame::CurrentJunction::CurrentJunction(GNECrossingFrame* crossingFrameParent) :
-    FXGroupBoxModul(crossingFrameParent->myContentFrame, "Junction") {
+    FXGroupBoxModule(crossingFrameParent->myContentFrame, "Junction") {
     // Create frame for junction ID
     FXHorizontalFrame* junctionIDFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create label
@@ -92,7 +92,7 @@ GNECrossingFrame::CurrentJunction::updateCurrentJunctionLabel(const std::string&
 // ---------------------------------------------------------------------------
 
 GNECrossingFrame::EdgesSelector::EdgesSelector(GNECrossingFrame* crossingFrameParent) :
-    FXGroupBoxModul(crossingFrameParent->myContentFrame, ("selection of " + toString(SUMO_TAG_EDGE) + "s").c_str()),
+    FXGroupBoxModule(crossingFrameParent->myContentFrame, ("selection of " + toString(SUMO_TAG_EDGE) + "s").c_str()),
     myCrossingFrameParent(crossingFrameParent),
     myCurrentJunction(nullptr) {
 
@@ -189,7 +189,7 @@ GNECrossingFrame::EdgesSelector::onCmdInvertSelection(FXObject*, FXSelector, voi
 // ---------------------------------------------------------------------------
 
 GNECrossingFrame::CrossingParameters::CrossingParameters(GNECrossingFrame* crossingFrameParent) :
-    FXGroupBoxModul(crossingFrameParent->myContentFrame, "Crossing parameters"),
+    FXGroupBoxModule(crossingFrameParent->myContentFrame, "Crossing parameters"),
     myCrossingFrameParent(crossingFrameParent),
     myCrossingTemplate(nullptr),
     myCurrentParametersValid(true) {
@@ -459,7 +459,7 @@ GNECrossingFrame::CrossingParameters::onCmdHelp(FXObject*, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNECrossingFrame::CreateCrossing::CreateCrossing(GNECrossingFrame* crossingFrameParent) :
-    FXGroupBoxModul(crossingFrameParent->myContentFrame, "Create"),
+    FXGroupBoxModule(crossingFrameParent->myContentFrame, "Create"),
     myCrossingFrameParent(crossingFrameParent) {
     // Create groupbox for create crossings
     myCreateCrossingButton = new FXButton(getCollapsableFrame(), "Create crossing", 0, this, MID_GNE_CREATE, GUIDesignButton);
@@ -508,7 +508,7 @@ GNECrossingFrame::CreateCrossing::setCreateCrossingButton(bool value) {
 // ---------------------------------------------------------------------------
 
 GNECrossingFrame::Information::Information(GNECrossingFrame* crossingFrameParent) :
-    FXGroupBoxModul(crossingFrameParent->myContentFrame, "Information") {
+    FXGroupBoxModule(crossingFrameParent->myContentFrame, "Information") {
     // candidate
     FXLabel* colorCandidateLabel = new FXLabel(getCollapsableFrame(), " Candidate", 0, GUIDesignLabelLeft);
     colorCandidateLabel->setBackColor(MFXUtils::getFXColor(crossingFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.possible));

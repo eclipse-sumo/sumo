@@ -37,7 +37,7 @@ public:
     // class CommonModeOptions
     // ===========================================================================
 
-    class CommonModeOptions : public FXGroupBoxModul {
+    class CommonModeOptions : public FXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -58,7 +58,7 @@ public:
     // class NetworkModeOptions
     // ===========================================================================
 
-    class NetworkModeOptions : public FXGroupBoxModul {
+    class NetworkModeOptions : public FXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -88,7 +88,7 @@ public:
     // class DemandMoveOptions
     // ===========================================================================
 
-    class DemandModeOptions : public FXGroupBoxModul {
+    class DemandModeOptions : public FXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -118,7 +118,7 @@ public:
     // class ShiftEdgeSelectedGeometry
     // ===========================================================================
 
-    class ShiftEdgeSelectedGeometry : public FXGroupBoxModul {
+    class ShiftEdgeSelectedGeometry : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEMoveFrame::ShiftEdgeSelectedGeometry)
 
@@ -164,7 +164,7 @@ public:
     // class ChangeZInSelection
     // ===========================================================================
 
-    class ChangeZInSelection : public FXGroupBoxModul {
+    class ChangeZInSelection : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEMoveFrame::ChangeZInSelection)
 
@@ -225,7 +225,7 @@ public:
     // class ShiftShapeGeometry
     // ===========================================================================
 
-    class ShiftShapeGeometry : public FXGroupBoxModul {
+    class ShiftShapeGeometry : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEMoveFrame::ShiftShapeGeometry)
 

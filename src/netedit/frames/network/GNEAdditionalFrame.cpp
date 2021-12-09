@@ -68,10 +68,10 @@ FXDEFMAP(GNEAdditionalFrame::E2MultilaneLaneSelector) E2MultilaneLaneSelectorMap
 };
 
 // Object implementation
-FXIMPLEMENT(GNEAdditionalFrame::SelectorParentLanes,        FXGroupBoxModul,     ConsecutiveLaneSelectorMap,     ARRAYNUMBER(ConsecutiveLaneSelectorMap))
-FXIMPLEMENT(GNEAdditionalFrame::SelectorChildEdges,         FXGroupBoxModul,     SelectorParentEdgesMap,         ARRAYNUMBER(SelectorParentEdgesMap))
-FXIMPLEMENT(GNEAdditionalFrame::SelectorChildLanes,         FXGroupBoxModul,     SelectorParentLanesMap,         ARRAYNUMBER(SelectorParentLanesMap))
-FXIMPLEMENT(GNEAdditionalFrame::E2MultilaneLaneSelector,    FXGroupBoxModul,     E2MultilaneLaneSelectorMap,     ARRAYNUMBER(E2MultilaneLaneSelectorMap))
+FXIMPLEMENT(GNEAdditionalFrame::SelectorParentLanes,        FXGroupBoxModule,     ConsecutiveLaneSelectorMap,     ARRAYNUMBER(ConsecutiveLaneSelectorMap))
+FXIMPLEMENT(GNEAdditionalFrame::SelectorChildEdges,         FXGroupBoxModule,     SelectorParentEdgesMap,         ARRAYNUMBER(SelectorParentEdgesMap))
+FXIMPLEMENT(GNEAdditionalFrame::SelectorChildLanes,         FXGroupBoxModule,     SelectorParentLanesMap,         ARRAYNUMBER(SelectorParentLanesMap))
+FXIMPLEMENT(GNEAdditionalFrame::E2MultilaneLaneSelector,    FXGroupBoxModule,     E2MultilaneLaneSelectorMap,     ARRAYNUMBER(E2MultilaneLaneSelectorMap))
 
 
 // ---------------------------------------------------------------------------
@@ -79,7 +79,7 @@ FXIMPLEMENT(GNEAdditionalFrame::E2MultilaneLaneSelector,    FXGroupBoxModul,    
 // ---------------------------------------------------------------------------
 
 GNEAdditionalFrame::SelectorParentLanes::SelectorParentLanes(GNEAdditionalFrame* additionalFrameParent) :
-    FXGroupBoxModul(additionalFrameParent->myContentFrame, "Lane Selector"),
+    FXGroupBoxModule(additionalFrameParent->myContentFrame, "Lane Selector"),
     myAdditionalFrameParent(additionalFrameParent) {
     // create start and stop buttons
     myStopSelectingButton = new FXButton(getCollapsableFrame(), "Stop selecting", nullptr, this, MID_GNE_ADDITIONALFRAME_STOPSELECTION, GUIDesignButton);
@@ -97,8 +97,8 @@ void
 GNEAdditionalFrame::SelectorParentLanes::showSelectorParentLanesModul() {
     // abort current selection before show
     abortConsecutiveLaneSelector();
-    // show FXGroupBoxModul
-    FXGroupBoxModul::show();
+    // show FXGroupBoxModule
+    FXGroupBoxModule::show();
 }
 
 
@@ -106,8 +106,8 @@ void
 GNEAdditionalFrame::SelectorParentLanes::hideSelectorParentLanesModul() {
     // abort current selection before hide
     abortConsecutiveLaneSelector();
-    // hide FXGroupBoxModul
-    FXGroupBoxModul::hide();
+    // hide FXGroupBoxModule
+    FXGroupBoxModule::hide();
 }
 
 
@@ -306,7 +306,7 @@ GNEAdditionalFrame::SelectorParentLanes::isLaneSelected(GNELane* lane) const {
 // ---------------------------------------------------------------------------
 
 GNEAdditionalFrame::SelectorChildEdges::SelectorChildEdges(GNEAdditionalFrame* additionalFrameParent) :
-    FXGroupBoxModul(additionalFrameParent->myContentFrame, "Edges"),
+    FXGroupBoxModule(additionalFrameParent->myContentFrame, "Edges"),
     myAdditionalFrameParent(additionalFrameParent) {
     // Create menuCheck for selected edges
     myUseSelectedEdgesCheckButton = new FXCheckButton(getCollapsableFrame(), ("Use selected " + toString(SUMO_TAG_EDGE) + "s").c_str(), this, MID_GNE_ADDITIONALFRAME_USESELECTED, GUIDesignCheckButton);
@@ -380,7 +380,7 @@ GNEAdditionalFrame::SelectorChildEdges::showSelectorChildEdgesModul(std::string 
 
 void
 GNEAdditionalFrame::SelectorChildEdges::hideSelectorChildEdgesModul() {
-    FXGroupBoxModul::hide();
+    FXGroupBoxModule::hide();
 }
 
 
@@ -458,7 +458,7 @@ GNEAdditionalFrame::SelectorChildEdges::onCmdInvertSelection(FXObject*, FXSelect
 // ---------------------------------------------------------------------------
 
 GNEAdditionalFrame::SelectorChildLanes::SelectorChildLanes(GNEAdditionalFrame* additionalFrameParent) :
-    FXGroupBoxModul(additionalFrameParent->myContentFrame, "Lanes"),
+    FXGroupBoxModule(additionalFrameParent->myContentFrame, "Lanes"),
     myAdditionalFrameParent(additionalFrameParent) {
     // Create CheckBox for selected lanes
     myUseSelectedLanesCheckButton = new FXCheckButton(getCollapsableFrame(), ("Use selected " + toString(SUMO_TAG_LANE) + "s").c_str(), this, MID_GNE_ADDITIONALFRAME_USESELECTED, GUIDesignCheckButton);
@@ -526,7 +526,7 @@ GNEAdditionalFrame::SelectorChildLanes::showSelectorChildLanesModul(std::string 
 
 void
 GNEAdditionalFrame::SelectorChildLanes::hideSelectorChildLanesModul() {
-    FXGroupBoxModul::hide();
+    FXGroupBoxModule::hide();
 }
 
 
@@ -604,7 +604,7 @@ GNEAdditionalFrame::SelectorChildLanes::onCmdInvertSelection(FXObject*, FXSelect
 // ---------------------------------------------------------------------------
 
 GNEAdditionalFrame::E2MultilaneLaneSelector::E2MultilaneLaneSelector(GNEAdditionalFrame* additionalFrameParent) :
-    FXGroupBoxModul(additionalFrameParent->myContentFrame, "E2Multilane lane selector"),
+    FXGroupBoxModule(additionalFrameParent->myContentFrame, "E2Multilane lane selector"),
     myAdditionalFrameParent(additionalFrameParent) {
     // create label for route info
     myInfoRouteLabel = new FXLabel(getCollapsableFrame(), "No lanes selected", 0, GUIDesignLabelFrameThicked);

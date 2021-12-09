@@ -342,7 +342,7 @@ class FXMenuCheckIcon;
 /// @brief design for the main content frame of every frame/dialog
 #define GUIDesignContentsFrame              (LAYOUT_FILL_X | LAYOUT_FILL_Y)
 
-/// @brief design for CollapsableFrame (Used in FXGroupBoxModul)
+/// @brief design for CollapsableFrame (Used in FXGroupBoxModule)
 #define GUIDesignCollapsableFrame           (LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 2, 2, 2, 2, 2, 2
 
 /// @}

@@ -37,7 +37,7 @@
 // ---------------------------------------------------------------------------
 
 GNEVehicleFrame::HelpCreation::HelpCreation(GNEVehicleFrame* vehicleFrameParent) :
-    FXGroupBoxModul(vehicleFrameParent->myContentFrame, "Help"),
+    FXGroupBoxModule(vehicleFrameParent->myContentFrame, "Help"),
     myVehicleFrameParent(vehicleFrameParent) {
     myInformationLabel = new FXLabel(getCollapsableFrame(), "", 0, GUIDesignLabelFrameInformation);
 }

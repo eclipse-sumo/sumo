@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    FXGroupBoxModul.cpp
+/// @file    FXGroupBoxModule.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Dec 2021
 ///
@@ -34,19 +34,19 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(FXGroupBoxModul) FXGroupBoxModulMap[] = {
-    FXMAPFUNC(SEL_PAINT,  0,  FXGroupBoxModul::onPaint),
-    FXMAPFUNC(SEL_COMMAND,  MID_SWITCH,  FXGroupBoxModul::onCollapseButton),
+FXDEFMAP(FXGroupBoxModule) FXGroupBoxModulMap[] = {
+    FXMAPFUNC(SEL_PAINT,  0,  FXGroupBoxModule::onPaint),
+    FXMAPFUNC(SEL_COMMAND,  MID_SWITCH,  FXGroupBoxModule::onCollapseButton),
 };
 
 // Object implementation
-FXIMPLEMENT(FXGroupBoxModul, FXVerticalFrame, FXGroupBoxModulMap, ARRAYNUMBER(FXGroupBoxModulMap))
+FXIMPLEMENT(FXGroupBoxModule, FXVerticalFrame, FXGroupBoxModulMap, ARRAYNUMBER(FXGroupBoxModulMap))
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-FXGroupBoxModul::FXGroupBoxModul(FXVerticalFrame* contentFrame, const std::string &text, const bool collapsible) :
+FXGroupBoxModule::FXGroupBoxModule(FXVerticalFrame* contentFrame, const std::string &text, const bool collapsible) :
     FXVerticalFrame(contentFrame, GUIDesignHorizontalFrame),
     myCollapsed(false) {
     // build collapse button or label
@@ -60,11 +60,11 @@ FXGroupBoxModul::FXGroupBoxModul(FXVerticalFrame* contentFrame, const std::strin
 }
 
 
-FXGroupBoxModul::~FXGroupBoxModul() {}
+FXGroupBoxModule::~FXGroupBoxModule() {}
 
 
 void 
-FXGroupBoxModul::setText(const std::string& text) {
+FXGroupBoxModule::setText(const std::string& text) {
     if (myCollapseButton) {
         myCollapseButton->setText(text.c_str());
     } else {
@@ -74,13 +74,13 @@ FXGroupBoxModul::setText(const std::string& text) {
 
 
 FXVerticalFrame* 
-FXGroupBoxModul::getCollapsableFrame() {
+FXGroupBoxModule::getCollapsableFrame() {
     return myCollapsableFrame;
 }
 
 
 long
-FXGroupBoxModul::onPaint(FXObject*, FXSelector, void* ptr) {
+FXGroupBoxModule::onPaint(FXObject*, FXSelector, void* ptr) {
     FXEvent *event = (FXEvent*)ptr;
     FXDCWindow dc(this, event);
     // Paint background
@@ -93,7 +93,7 @@ FXGroupBoxModul::onPaint(FXObject*, FXSelector, void* ptr) {
 
 
 long 
-FXGroupBoxModul::onCollapseButton(FXObject*,FXSelector,void*) {
+FXGroupBoxModule::onCollapseButton(FXObject*,FXSelector,void*) {
     if (myCollapsed) {
         myCollapsed = false;
         myCollapseButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::OK));
@@ -108,5 +108,5 @@ FXGroupBoxModul::onCollapseButton(FXObject*,FXSelector,void*) {
 }
 
 
-FXGroupBoxModul::FXGroupBoxModul() :
+FXGroupBoxModule::FXGroupBoxModule() :
     myCollapsed(false) {}

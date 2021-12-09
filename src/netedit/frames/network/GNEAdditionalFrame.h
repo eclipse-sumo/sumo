@@ -39,7 +39,7 @@ public:
     // class SelectorParentLanes
     // ===========================================================================
 
-    class SelectorParentLanes : public FXGroupBoxModul {
+    class SelectorParentLanes : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEAdditionalFrame::SelectorParentLanes)
     public:
@@ -115,7 +115,7 @@ public:
     // class SelectorChildEdges
     // ===========================================================================
 
-    class SelectorChildEdges : public FXGroupBoxModul {
+    class SelectorChildEdges : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEAdditionalFrame::SelectorChildEdges)
 
@@ -183,7 +183,7 @@ public:
     // class SelectorChildLanes
     // ===========================================================================
 
-    class SelectorChildLanes : public FXGroupBoxModul {
+    class SelectorChildLanes : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEAdditionalFrame::SelectorChildLanes)
 
@@ -251,7 +251,7 @@ public:
     // class E2MultilaneLaneSelector
     // ===========================================================================
 
-    class E2MultilaneLaneSelector : public FXGroupBoxModul {
+    class E2MultilaneLaneSelector : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEAdditionalFrame::E2MultilaneLaneSelector)
 

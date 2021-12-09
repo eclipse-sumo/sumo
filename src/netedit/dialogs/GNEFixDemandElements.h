@@ -136,7 +136,7 @@ protected:
     };
 
     /// @brief groupbox for all radio buttons related with fix stop options
-    class FixStopOptions : public FXGroupBoxModul {
+    class FixStopOptions : public FXGroupBoxModule {
 
     public:
         /// @brief build Position Options
@@ -165,7 +165,7 @@ protected:
     };
 
     /// @brief groupbox for all radio buttons related with fix person plan options
-    class FixPersonPlanOptions : public FXGroupBoxModul {
+    class FixPersonPlanOptions : public FXGroupBoxModule {
 
     public:
         /// @brief build Position Options

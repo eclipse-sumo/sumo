@@ -475,7 +475,7 @@ GNEFixDemandElements::FixVehicleOptions::disableFixVehicleOptions() {
 // ---------------------------------------------------------------------------
 
 GNEFixDemandElements::FixStopOptions::FixStopOptions(GNEFixDemandElements* fixDemandElementsDialogParents) :
-    FXGroupBoxModul(fixDemandElementsDialogParents->myMainFrame, "Select a solution for stops", false) {
+    FXGroupBoxModule(fixDemandElementsDialogParents->myMainFrame, "Select a solution for stops", false) {
     // create horizontal frames for radio buttons
     FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     // create Vertical Frame for left options
@@ -543,7 +543,7 @@ GNEFixDemandElements::FixStopOptions::disableFixStopOptions() {
 // ---------------------------------------------------------------------------
 
 GNEFixDemandElements::FixPersonPlanOptions::FixPersonPlanOptions(GNEFixDemandElements* fixDemandElementsDialogParents) :
-    FXGroupBoxModul(fixDemandElementsDialogParents->myMainFrame, "Select a solution for person plans", false) {
+    FXGroupBoxModule(fixDemandElementsDialogParents->myMainFrame, "Select a solution for person plans", false) {
     // create horizontal frames for radio buttons
     FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     // create Vertical Frame for left options

@@ -45,7 +45,7 @@ public:
     // class TagSelector
     // ===========================================================================
 
-    class TagSelector : public FXGroupBoxModul {
+    class TagSelector : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEFrameModuls::TagSelector)
 
@@ -128,7 +128,7 @@ public:
     // class DemandElementSelector
     // ===========================================================================
 
-    class DemandElementSelector : public FXGroupBoxModul {
+    class DemandElementSelector : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEFrameModuls::DemandElementSelector)
 
@@ -196,7 +196,7 @@ public:
     // class HierarchicalElementTree
     // ===========================================================================
 
-    class HierarchicalElementTree : public FXGroupBoxModul {
+    class HierarchicalElementTree : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEFrameModuls::HierarchicalElementTree)
 
@@ -318,7 +318,7 @@ public:
     // class DrawingShape
     // ===========================================================================
 
-    class DrawingShape : public FXGroupBoxModul {
+    class DrawingShape : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEFrameModuls::DrawingShape)
 
@@ -404,7 +404,7 @@ public:
     // class SelectorParent
     // ===========================================================================
 
-    class SelectorParent : public FXGroupBoxModul {
+    class SelectorParent : public FXGroupBoxModule {
     public:
         /// @brief constructor
         SelectorParent(GNEFrame* frameParent);
@@ -445,7 +445,7 @@ public:
     // class OverlappedInspection
     // ===========================================================================
 
-    class OverlappedInspection : public FXGroupBoxModul {
+    class OverlappedInspection : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEFrameModuls::OverlappedInspection)
 
@@ -542,7 +542,7 @@ public:
     // class PathCreator
     // ===========================================================================
 
-    class PathCreator : public FXGroupBoxModul {
+    class PathCreator : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEFrameModuls::PathCreator)
 
@@ -760,7 +760,7 @@ public:
     // class PathLegend
     // ===========================================================================
 
-    class PathLegend : public FXGroupBoxModul {
+    class PathLegend : public FXGroupBoxModule {
 
     public:
         /// @brief constructor

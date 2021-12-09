@@ -51,7 +51,7 @@ public:
     // class RouteModeSelector
     // ===========================================================================
 
-    class RouteModeSelector : public FXGroupBoxModul {
+    class RouteModeSelector : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNERouteFrame::RouteModeSelector)
 

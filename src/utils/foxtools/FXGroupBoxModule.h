@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    FXGroupBoxModul.h
+/// @file    FXGroupBoxModule.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Dec 2021
 ///
@@ -23,16 +23,16 @@
 
 #include "fxheader.h"
 
-/// @brief FXGroupBoxModul (based on FXGroupBox)
-class FXGroupBoxModul : protected FXVerticalFrame {
-    FXDECLARE(FXGroupBoxModul)
+/// @brief FXGroupBoxModule (based on FXGroupBox)
+class FXGroupBoxModule : protected FXVerticalFrame {
+    FXDECLARE(FXGroupBoxModule)
 
 public:
     /// @brief constructor
-    FXGroupBoxModul(FXVerticalFrame* contentFrame, const std::string &text, const bool collapsible = true);
+    FXGroupBoxModule(FXVerticalFrame* contentFrame, const std::string &text, const bool collapsible = true);
 
     /// @brief destructor
-    ~FXGroupBoxModul();
+    ~FXGroupBoxModule();
 
     /// @brief set text
     void setText(const std::string& text);
@@ -40,21 +40,21 @@ public:
     /// @brief get collapsable frame (used by all elements that will be collapsed if button is toogled)
     FXVerticalFrame* getCollapsableFrame();
 
-    /// @brief draw FXGroupBoxModul
+    /// @brief draw FXGroupBoxModule
     long onPaint(FXObject*,FXSelector,void*);
 
-    /// @brief draw FXGroupBoxModul
+    /// @brief draw FXGroupBoxModule
     long onCollapseButton(FXObject*,FXSelector,void*);
 
 protected:
     /// @brief FOX need this
-    FXGroupBoxModul();
+    FXGroupBoxModule();
 
 private:
     /// @brief vertical collapsable frame
     FXVerticalFrame *myCollapsableFrame = nullptr;
 
-    /// @brief label used in non collapsable FXGroupBoxModul
+    /// @brief label used in non collapsable FXGroupBoxModule
     FXLabel *myLabel = nullptr;
 
     /// @brief button for collapse elements

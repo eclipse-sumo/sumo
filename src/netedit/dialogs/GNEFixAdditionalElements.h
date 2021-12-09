@@ -79,7 +79,7 @@ protected:
     };
 
     /// @brief groupbox for group all radio buttons related to additionals with single lanes
-    class PositionOptions : public FXGroupBoxModul {
+    class PositionOptions : public FXGroupBoxModule {
 
     public:
         /// @brief build Position Options
@@ -108,7 +108,7 @@ protected:
     };
 
     /// @brief groupbox for group all radio buttons related to additionals with consecutive lanes
-    class ConsecutiveLaneOptions : public FXGroupBoxModul {
+    class ConsecutiveLaneOptions : public FXGroupBoxModule {
 
     public:
         /// @brief build consecutive lane Options
