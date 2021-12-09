@@ -68,7 +68,7 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
     MSSimpleTrafficLightLogic(tlcontrol, id, programID, TrafficLightType::ACTUATED, phases, step, delay, parameter),
     myOffset(offset),
     myLastTrySwitchTime(0),
-    myTraCISwitch(false) 
+    myTraCISwitch(false)
 {
     myCoordinated = StringUtils::toBool(getParameter("coordinated", "false"));
     myMaxGap = StringUtils::toDouble(getParameter("max-gap", DEFAULT_MAX_GAP));
@@ -564,7 +564,7 @@ MSActuatedTrafficLightLogic::duration(const double detectionGap) const {
         newDuration = (totalDur / 1000 + 1) * 1000 - actDuration;
     }
     // ensure that the maximum duration is not exceeded
-    newDuration = MIN2(newDuration, getCurrentPhaseDef().maxDuration - actDuration);
+    newDuration = MIN3(newDuration, getCurrentPhaseDef().maxDuration - actDuration, getLatest());
     return newDuration;
 }
 
@@ -593,7 +593,7 @@ MSActuatedTrafficLightLogic::gapControl() {
 
     // Checks, if the maxDuration is kept. No phase should last longer than maxDuration.
     SUMOTime actDuration = MSNet::getInstance()->getCurrentTimeStep() - myPhases[myStep]->myLastSwitch;
-    if (actDuration >= getCurrentPhaseDef().maxDuration || maxLinkDurationReached()) {
+    if (actDuration >= getCurrentPhaseDef().maxDuration || maxLinkDurationReached() || getLatest() == 0) {
         return result; // end current phase
     }
 
@@ -619,7 +619,7 @@ MSActuatedTrafficLightLogic::decideNextPhase() {
     int result = cands.front();
     int maxPrio = 0;
     SUMOTime actDuration = MSNet::getInstance()->getCurrentTimeStep() - myPhases[myStep]->myLastSwitch;
-    const bool canExtend = actDuration < getCurrentPhaseDef().maxDuration && !maxLinkDurationReached();
+    const bool canExtend = actDuration < getCurrentPhaseDef().maxDuration && !maxLinkDurationReached() && getLatest() > 0;
     if (canExtend) {
         // consider keeping the current phase until maxDur is reached
         // (only when there is still traffic in that phase)
@@ -708,7 +708,7 @@ MSActuatedTrafficLightLogic::getDetectorPriority(const InductLoopInfo& loopInfo)
             // give bonus to detectors that are currently served (if that phase can stil be extended)
             if (loopInfo.servedPhase[myStep]) {
                 SUMOTime actDuration = MSNet::getInstance()->getCurrentTimeStep() - myPhases[myStep]->myLastSwitch;
-                const bool canExtend = actDuration < getCurrentPhaseDef().maxDuration;
+                const bool canExtend = actDuration < getCurrentPhaseDef().maxDuration || getLatest() > 0;
                 if (canExtend) {
                     return DEFAULT_CURRENT_PRIORITY;
                 } else {
@@ -794,11 +794,24 @@ MSActuatedTrafficLightLogic::getEarliest() const {
     if (myPhases[myStep]->earliestEnd == MSPhaseDefinition::UNSPECIFIED_DURATION) {
         return 0;
     } else {
-        const SUMOTime timeInCycle = (myCoordinated 
+        const SUMOTime timeInCycle = (myCoordinated
             ? (SIMSTEP - myOffset) % myCycleTime
             : SIMSTEP - myPhases[0]->myLastSwitch);
         //std::cout << SIMTIME << " " << getID() << " timeInCycle=" << time2string(timeInCycle) << "\n";
         return myPhases[myStep]->earliestEnd - timeInCycle;
+    }
+}
+
+SUMOTime
+MSActuatedTrafficLightLogic::getLatest() const {
+    if (myPhases[myStep]->latestEnd == MSPhaseDefinition::UNSPECIFIED_DURATION) {
+        return SUMOTime_MAX; // no restriction
+    } else {
+        const SUMOTime timeInCycle = (myCoordinated
+            ? (SIMSTEP - myOffset) % myCycleTime
+            : SIMSTEP - myPhases[0]->myLastSwitch);
+        //std::cout << SIMTIME << " " << getID() << " timeInCycle=" << time2string(timeInCycle) << "\n";
+        return MAX2(SUMOTime(0), myPhases[myStep]->latestEnd - timeInCycle);
     }
 }
 
