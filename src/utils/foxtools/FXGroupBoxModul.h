@@ -37,8 +37,8 @@ public:
     /// @brief set text
     void setText(const std::string& text);
 
-    /// @brief get composite (used for create rows within the FXGroupBoxModul)
-    FXComposite* getComposite();
+    /// @brief get collapsable frame (used by all elements that will be collapsed if button is toogled)
+    FXVerticalFrame* getCollapsableFrame();
 
     /// @brief draw FXGroupBoxModul
     long onPaint(FXObject*,FXSelector,void*);
@@ -51,10 +51,11 @@ protected:
     FXGroupBoxModul();
 
 private:
+    /// @brief vertical collapsable frame
+    FXVerticalFrame *myCollapsableFrame;
+
     /// @brief button for collapse
     FXButton *myCollapseButton = nullptr;
-
-    //FXLabel* myTextLabel = nullptr;
 
     /// @brief flag
     const bool myCollapsible;

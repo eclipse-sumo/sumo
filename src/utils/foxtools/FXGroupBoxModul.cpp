@@ -51,6 +51,8 @@ FXGroupBoxModul::FXGroupBoxModul(FXVerticalFrame* contentFrame, const std::strin
     myCollapsible(collapsible) {
     // build collapse button
     myCollapseButton = new FXButton(this, text.c_str(), GUIIconSubSys::getIcon(GUIIcon::OK), this, MID_SWITCH, GUIDesignButtonFXGroupBoxModul);
+    // build collapsable frame
+    myCollapsableFrame = new FXVerticalFrame(this, GUIDesignCollapsableFrame);
 }
 
 
@@ -63,9 +65,9 @@ FXGroupBoxModul::setText(const std::string& text) {
 }
 
 
-FXComposite* 
-FXGroupBoxModul::getComposite() {
-    return this;
+FXVerticalFrame* 
+FXGroupBoxModul::getCollapsableFrame() {
+    return myCollapsableFrame;
 }
 
 
