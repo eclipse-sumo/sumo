@@ -126,9 +126,9 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     // draw the area
     glTranslated(0, 0, getType());
     GLHelper::setColor(blue);
-    GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myWidth / 2.);
-    // draw details unless zoomed out to far
     const double exaggeration = getExaggeration(s);
+    GLHelper::drawBoxLines(myShape, myShapeRotations, myShapeLengths, myWidth / 2. * MIN2(1.0, exaggeration));
+    // draw details unless zoomed out to far
     if (s.scale * exaggeration >= 1) {
         // draw the lots
         glTranslated(0, 0, .1);

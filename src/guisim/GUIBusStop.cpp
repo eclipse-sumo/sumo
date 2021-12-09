@@ -178,7 +178,8 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, getType());
     GLHelper::setColor(color);
     const double exaggeration = getExaggeration(s);
-    GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, myWidth * 0.5, 0, 0);
+    // only shrink the box but never enlarge it (only enlarge the sign)
+    GLHelper::drawBoxLines(myFGShape, myFGShapeRotations, myFGShapeLengths, myWidth * 0.5 * MIN2(1.0, exaggeration), 0, 0);
     // draw details unless zoomed out to far
     if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, exaggeration)) {
         GLHelper::pushMatrix();
