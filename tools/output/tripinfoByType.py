@@ -26,7 +26,7 @@ import os
 import sys
 from collections import defaultdict
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
-import sumolib
+import sumolib  # noqa
 from sumolib.xml import parse  # noqa
 from sumolib.miscutils import Statistics, parseTime  # noqa
 from sumolib.options import ArgumentParser  # noqa
@@ -50,6 +50,7 @@ def get_options(args=None):
         options.interval = parseTime(options.interval)
     return options
 
+
 def getAggregatedTime(options, elem):
     if options.interval:
         val = elem.arrival if options.byArrivals else elem.depart
@@ -57,8 +58,9 @@ def getAggregatedTime(options, elem):
     else:
         return None
 
+
 def main(options):
-    intervals = defaultdict(dict) # time -> (type -> stats)
+    intervals = defaultdict(dict)  # time -> (type -> stats)
 
     for trip in parse(options.tripinfoFile, 'tripinfo'):
         typeStats = intervals[getAggregatedTime(options, trip)]
