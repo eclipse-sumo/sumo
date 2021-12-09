@@ -63,7 +63,7 @@ GNEVehicleTypeFrame::VehicleTypeSelector::VehicleTypeSelector(GNEVehicleTypeFram
     myVehicleTypeFrameParent(vehicleTypeFrameParent),
     myCurrentVehicleType(nullptr) {
     // Create FXComboBox
-    myTypeMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myTypeMatchBox = new FXComboBox(getComposite(), GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // add default Vehicle an Bike types in the first and second positions
     myTypeMatchBox->appendItem(DEFAULT_VTYPE_ID.c_str());
     myTypeMatchBox->appendItem(DEFAULT_BIKETYPE_ID.c_str());
@@ -199,13 +199,13 @@ GNEVehicleTypeFrame::VehicleTypeEditor::VehicleTypeEditor(GNEVehicleTypeFrame* v
     FXGroupBoxModul(vehicleTypeFrameParent->myContentFrame, "Vehicle Type Editor"),
     myVehicleTypeFrameParent(vehicleTypeFrameParent) {
     // Create new vehicle type
-    myCreateVehicleTypeButton = new FXButton(this, "Create Vehicle Type", nullptr, this, MID_GNE_CREATE, GUIDesignButton);
+    myCreateVehicleTypeButton = new FXButton(getComposite(), "Create Vehicle Type", nullptr, this, MID_GNE_CREATE, GUIDesignButton);
     // Create delete vehicle type
-    myDeleteVehicleTypeButton = new FXButton(this, "Delete Vehicle Type", nullptr, this, MID_GNE_DELETE, GUIDesignButton);
+    myDeleteVehicleTypeButton = new FXButton(getComposite(), "Delete Vehicle Type", nullptr, this, MID_GNE_DELETE, GUIDesignButton);
     // Create reset vehicle type
-    myResetDefaultVehicleTypeButton = new FXButton(this, "Reset default Vehicle Type", nullptr, this, MID_GNE_RESET, GUIDesignButton);
+    myResetDefaultVehicleTypeButton = new FXButton(getComposite(), "Reset default Vehicle Type", nullptr, this, MID_GNE_RESET, GUIDesignButton);
     // Create copy vehicle type
-    myCopyVehicleTypeButton = new FXButton(this, "Copy Vehicle Type", nullptr, this, MID_GNE_COPY, GUIDesignButton);
+    myCopyVehicleTypeButton = new FXButton(getComposite(), "Copy Vehicle Type", nullptr, this, MID_GNE_COPY, GUIDesignButton);
 }
 
 

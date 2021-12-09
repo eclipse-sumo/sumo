@@ -53,7 +53,7 @@ GNEProhibitionFrame::RelativeToConnection::RelativeToConnection(GNEProhibitionFr
     FXGroupBoxModul(prohibitionFrameParent->myContentFrame, "Relative to connection"),
     myProhibitionFrameParent(prohibitionFrameParent) {
     // Create label for current connection description and update it
-    myConnDescriptionLabel = new FXLabel(this, "", nullptr, GUIDesignLabelFrameInformation);
+    myConnDescriptionLabel = new FXLabel(getComposite(), "", nullptr, GUIDesignLabelFrameInformation);
     // update description
     updateDescription();
 }
@@ -85,23 +85,23 @@ GNEProhibitionFrame::Legend::Legend(GNEProhibitionFrame* prohibitionFrameParent)
     myUnregulatedConflictColor(RGBColor::ORANGE),
     myMutualConflictColor(RGBColor::CYAN) {
     // Create labels for color legend
-    FXLabel* legendLabel = new FXLabel(this, "Selected", nullptr, GUIDesignLabelFrameInformation);
+    FXLabel* legendLabel = new FXLabel(getComposite(), "Selected", nullptr, GUIDesignLabelFrameInformation);
     legendLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
     legendLabel->setBackColor(MFXUtils::getFXColor(prohibitionFrameParent->myViewNet->getVisualisationSettings().colorSettings.selectedProhibitionColor));
     // label for conflicts
-    legendLabel = new FXLabel(this, "No conflict", nullptr, GUIDesignLabelFrameInformation);
+    legendLabel = new FXLabel(getComposite(), "No conflict", nullptr, GUIDesignLabelFrameInformation);
     legendLabel->setBackColor(MFXUtils::getFXColor(myUndefinedColor));
     // label for yields
-    legendLabel = new FXLabel(this, "Yields", nullptr, GUIDesignLabelFrameInformation);
+    legendLabel = new FXLabel(getComposite(), "Yields", nullptr, GUIDesignLabelFrameInformation);
     legendLabel->setBackColor(MFXUtils::getFXColor(myProhibitedColor));
     // label for right of way
-    legendLabel = new FXLabel(this, "Has right of way", nullptr, GUIDesignLabelFrameInformation);
+    legendLabel = new FXLabel(getComposite(), "Has right of way", nullptr, GUIDesignLabelFrameInformation);
     legendLabel->setBackColor(MFXUtils::getFXColor(myProhibitingColor));
     // label for unregulated conflict
-    legendLabel = new FXLabel(this, "Unregulated conflict", nullptr, GUIDesignLabelFrameInformation);
+    legendLabel = new FXLabel(getComposite(), "Unregulated conflict", nullptr, GUIDesignLabelFrameInformation);
     legendLabel->setBackColor(MFXUtils::getFXColor(myUnregulatedConflictColor));
     // label for mutual conflict
-    legendLabel = new FXLabel(this, "Mutual conflict", nullptr, GUIDesignLabelFrameInformation);
+    legendLabel = new FXLabel(getComposite(), "Mutual conflict", nullptr, GUIDesignLabelFrameInformation);
     legendLabel->setBackColor(MFXUtils::getFXColor(myMutualConflictColor));
 }
 
@@ -146,11 +146,11 @@ GNEProhibitionFrame::Modifications::Modifications(GNEProhibitionFrame* prohibiti
     FXGroupBoxModul(prohibitionFrameParent->myContentFrame, "Modifications") {
 
     // Create "OK" button
-    mySaveButton = new FXButton(this, "OK\t\tSave prohibition modifications (Enter)",
+    mySaveButton = new FXButton(getComposite(), "OK\t\tSave prohibition modifications (Enter)",
                                 GUIIconSubSys::getIcon(GUIIcon::ACCEPT), prohibitionFrameParent, MID_OK, GUIDesignButton);
 
     // Create "Cancel" button
-    myCancelButton = new FXButton(this, "Cancel\t\tDiscard prohibition modifications (Esc)",
+    myCancelButton = new FXButton(getComposite(), "Cancel\t\tDiscard prohibition modifications (Esc)",
                                   GUIIconSubSys::getIcon(GUIIcon::CANCEL), prohibitionFrameParent, MID_CANCEL, GUIDesignButton);
 
     // Currently mySaveButton is disabled

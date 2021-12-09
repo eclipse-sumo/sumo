@@ -62,7 +62,7 @@ GNEPersonTypeFrame::PersonTypeSelector::PersonTypeSelector(GNEPersonTypeFrame* p
     myPersonTypeFrameParent(personTypeFrameParent),
     myCurrentPersonType(nullptr) {
     // Create FXComboBox
-    myTypeMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myTypeMatchBox = new FXComboBox(getComposite(), GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // fill myTypeMatchBox with list of pTypes IDs
     for (const auto& pType : myPersonTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PTYPE)) {
         myTypeMatchBox->appendItem(pType->getID().c_str());
@@ -173,13 +173,13 @@ GNEPersonTypeFrame::PersonTypeEditor::PersonTypeEditor(GNEPersonTypeFrame* perso
     FXGroupBoxModul(personTypeFrameParent->myContentFrame, "Person Type Editor"),
     myPersonTypeFrameParent(personTypeFrameParent) {
     // Create new person type
-    myCreatePersonTypeButton = new FXButton(this, "Create Person Type", nullptr, this, MID_GNE_CREATE, GUIDesignButton);
+    myCreatePersonTypeButton = new FXButton(getComposite(), "Create Person Type", nullptr, this, MID_GNE_CREATE, GUIDesignButton);
     // Create delete person type
-    myDeletePersonTypeButton = new FXButton(this, "Delete Person Type", nullptr, this, MID_GNE_DELETE, GUIDesignButton);
+    myDeletePersonTypeButton = new FXButton(getComposite(), "Delete Person Type", nullptr, this, MID_GNE_DELETE, GUIDesignButton);
     // Create reset person type
-    myResetDefaultPersonTypeButton = new FXButton(this, "Reset default Person Type", nullptr, this, MID_GNE_RESET, GUIDesignButton);
+    myResetDefaultPersonTypeButton = new FXButton(getComposite(), "Reset default Person Type", nullptr, this, MID_GNE_RESET, GUIDesignButton);
     // Create copy person type
-    myCopyPersonTypeButton = new FXButton(this, "Copy Person Type", nullptr, this, MID_GNE_COPY, GUIDesignButton);
+    myCopyPersonTypeButton = new FXButton(getComposite(), "Copy Person Type", nullptr, this, MID_GNE_COPY, GUIDesignButton);
 }
 
 

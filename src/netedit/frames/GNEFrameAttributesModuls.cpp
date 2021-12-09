@@ -443,7 +443,7 @@ GNEFrameAttributesModuls::AttributesCreator::AttributesCreator(GNEFrame* framePa
     myAttributesCreatorFlow = new AttributesCreatorFlow(this);
     // create reset and help button
     // create elements for end attribute
-    myFrameButtons = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myFrameButtons = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
     myResetButton = new FXButton(myFrameButtons, "", GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_RESET, GUIDesignButtonIcon);
     new FXButton(myFrameButtons, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
@@ -689,23 +689,23 @@ GNEFrameAttributesModuls::AttributesCreatorFlow::AttributesCreatorFlow(Attribute
     // declare auxiliar horizontal frame
     FXHorizontalFrame* auxiliarHorizontalFrame = nullptr;
     // create elements for end attribute
-    auxiliarHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    auxiliarHorizontalFrame = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
     myAttributeEndRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_END).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
     myValueEndTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create elements for number attribute
-    auxiliarHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    auxiliarHorizontalFrame = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
     myAttributeNumberRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_NUMBER).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
     myValueNumberTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create elements for vehsPerHour attribute
-    auxiliarHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    auxiliarHorizontalFrame = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
     myAttributeVehsPerHourRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_VEHSPERHOUR).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
     myValueVehsPerHourTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create elements for period attribute
-    auxiliarHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    auxiliarHorizontalFrame = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
     myAttributePeriodRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_PERIOD).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
     myValuePeriodTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create elements for Probability attribute
-    auxiliarHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    auxiliarHorizontalFrame = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
     myAttributeProbabilityRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_PROB).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
     myValueProbabilityTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // set default values
@@ -1481,7 +1481,7 @@ GNEFrameAttributesModuls::AttributesEditor::AttributesEditor(GNEFrame* FramePare
     // leave it hidden
     myAttributesEditorFlow->hideAttributesEditorFlowModul();
     // Create help button
-    myHelpButton = new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+    myHelpButton = new FXButton(getComposite(), "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
@@ -1688,23 +1688,23 @@ GNEFrameAttributesModuls::AttributesEditorFlow::AttributesEditorFlow(AttributesE
     // declare auxiliar horizontal frame
     FXHorizontalFrame* auxiliarHorizontalFrame = nullptr;
     // create elements for end attribute
-    auxiliarHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    auxiliarHorizontalFrame = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
     myAttributeEndRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_END).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
     myValueEndTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create elements for number attribute
-    auxiliarHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    auxiliarHorizontalFrame = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
     myAttributeNumberRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_NUMBER).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
     myValueNumberTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create elements for vehsPerHour attribute
-    auxiliarHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    auxiliarHorizontalFrame = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
     myAttributeVehsPerHourRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_VEHSPERHOUR).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
     myValueVehsPerHourTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create elements for period attribute
-    auxiliarHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    auxiliarHorizontalFrame = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
     myAttributePeriodRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_PERIOD).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
     myValuePeriodTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create elements for Probability attribute
-    auxiliarHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    auxiliarHorizontalFrame = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
     myAttributeProbabilityRadioButton = new FXRadioButton(auxiliarHorizontalFrame, toString(SUMO_ATTR_PROB).c_str(), this, MID_GNE_SET_ATTRIBUTE_BUTTON, GUIDesignRadioButtonAttribute);
     myValueProbabilityTextField = new FXTextField(auxiliarHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
 }
@@ -2061,7 +2061,7 @@ GNEFrameAttributesModuls::AttributesEditorExtended::AttributesEditorExtended(GNE
     FXGroupBoxModul(frameParent->myContentFrame, "Extended attributes"),
     myFrameParent(frameParent) {
     // Create open dialog button
-    new FXButton(this, "Open attributes editor", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
+    new FXButton(getComposite(), "Open attributes editor", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
 }
 
 
@@ -2095,8 +2095,8 @@ GNEFrameAttributesModuls::ParametersEditorCreator::ParametersEditorCreator(GNEFr
     FXGroupBoxModul(frameParent->myContentFrame, "Parameters"),
     myFrameParent(frameParent) {
     // create textfield and buttons
-    myTextFieldParameters = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    myButtonEditParameters = new FXButton(this, "Edit parameters", nullptr, this, MID_GNE_OPEN_PARAMETERS_DIALOG, GUIDesignButton);
+    myTextFieldParameters = new FXTextField(getComposite(), GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myButtonEditParameters = new FXButton(getComposite(), "Edit parameters", nullptr, this, MID_GNE_OPEN_PARAMETERS_DIALOG, GUIDesignButton);
 }
 
 
@@ -2233,9 +2233,9 @@ GNEFrameAttributesModuls::DrawingShape::DrawingShape(GNEFrame* frameParent) :
     myFrameParent(frameParent),
     myDeleteLastCreatedPoint(false) {
     // create start and stop buttons
-    myStartDrawingButton = new FXButton(this, "Start drawing", 0, this, MID_GNE_STARTDRAWING, GUIDesignButton);
-    myStopDrawingButton = new FXButton(this, "Stop drawing", 0, this, MID_GNE_STOPDRAWING, GUIDesignButton);
-    myAbortDrawingButton = new FXButton(this, "Abort drawing", 0, this, MID_GNE_ABORTDRAWING, GUIDesignButton);
+    myStartDrawingButton = new FXButton(getComposite(), "Start drawing", 0, this, MID_GNE_STARTDRAWING, GUIDesignButton);
+    myStopDrawingButton = new FXButton(getComposite(), "Stop drawing", 0, this, MID_GNE_STOPDRAWING, GUIDesignButton);
+    myAbortDrawingButton = new FXButton(getComposite(), "Abort drawing", 0, this, MID_GNE_ABORTDRAWING, GUIDesignButton);
     // create information label
     std::ostringstream information;
     information
@@ -2247,7 +2247,7 @@ GNEFrameAttributesModuls::DrawingShape::DrawingShape(GNEFrame* frameParent) :
             << "  last created point.\n"
             << "- 'Abort drawing' or ESC\n"
             << "  removes drawed shape.";
-    myInformationLabel = new FXLabel(this, information.str().c_str(), 0, GUIDesignLabelFrameInformation);
+    myInformationLabel = new FXLabel(getComposite(), information.str().c_str(), 0, GUIDesignLabelFrameInformation);
     // disable stop and abort functions as init
     myStopDrawingButton->disable();
     myAbortDrawingButton->disable();
@@ -2385,26 +2385,26 @@ GNEFrameAttributesModuls::NeteditAttributes::NeteditAttributes(GNEFrame* framePa
     myCurrentLengthValid(true),
     myActualAdditionalReferencePoint(AdditionalReferencePoint::LEFT) {
     // Create FXListBox for the reference points and fill it
-    myReferencePointMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
+    myReferencePointMatchBox = new FXComboBox(getComposite(), GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBox);
     myReferencePointMatchBox->appendItem("reference left");
     myReferencePointMatchBox->appendItem("reference right");
     myReferencePointMatchBox->appendItem("reference center");
     // Create Frame for Length Label and textField
-    myLengthFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myLengthFrame = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(myLengthFrame, toString(SUMO_ATTR_LENGTH).c_str(), 0, GUIDesignLabelAttribute);
     myLengthTextField = new FXTextField(myLengthFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myLengthTextField->setText("10");
     // Create Frame for block close polygon and checkBox (By default disabled)
-    myCloseShapeFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myCloseShapeFrame = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(myCloseShapeFrame, "Close shape", 0, GUIDesignLabelAttribute);
     myCloseShapeCheckButton = new FXCheckButton(myCloseShapeFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     // Create Frame for center element after creation (By default enabled)
-    myCenterViewAfterCreationFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myCenterViewAfterCreationFrame = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(myCenterViewAfterCreationFrame, "Center view", 0, GUIDesignLabelAttribute);
     myCenterViewAfterCreationButton = new FXCheckButton(myCenterViewAfterCreationFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myCenterViewAfterCreationButton->setCheck(true);
     // Create help button
-    helpReferencePoint = new FXButton(this, "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
+    helpReferencePoint = new FXButton(getComposite(), "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
     // Set visible items
     myReferencePointMatchBox->setNumVisible((int)myReferencePointMatchBox->getNumItems());
 }
@@ -2553,7 +2553,7 @@ GNEFrameAttributesModuls::NeteditAttributes::onCmdSetNeteditAttribute(FXObject* 
 long
 GNEFrameAttributesModuls::NeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
     // Create dialog box
-    FXDialogBox* additionalNeteditAttributesHelpDialog = new FXDialogBox(this, "Netedit Parameters Help", GUIDesignDialogBox);
+    FXDialogBox* additionalNeteditAttributesHelpDialog = new FXDialogBox(getComposite(), "Netedit Parameters Help", GUIDesignDialogBox);
     additionalNeteditAttributesHelpDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL));
     // set help text
     std::ostringstream help;

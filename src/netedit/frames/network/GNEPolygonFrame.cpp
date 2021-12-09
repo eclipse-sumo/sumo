@@ -58,18 +58,18 @@ GNEPolygonFrame::GEOPOICreator::GEOPOICreator(GNEPolygonFrame* polygonFrameParen
     FXGroupBoxModul(polygonFrameParent->myContentFrame, "GEO POI Creator"),
     myPolygonFrameParent(polygonFrameParent) {
     // create RadioButtons for formats
-    myLonLatRadioButton = new FXRadioButton(this, "Format: Lon-Lat", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    myLatLonRadioButton = new FXRadioButton(this, "Format: Lat-Lon", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    myLonLatRadioButton = new FXRadioButton(getComposite(), "Format: Lon-Lat", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    myLatLonRadioButton = new FXRadioButton(getComposite(), "Format: Lat-Lon", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // set lat-lon as default
     myLatLonRadioButton->setCheck(TRUE);
     // create text field for coordinates
-    myCoordinatesTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myCoordinatesTextField = new FXTextField(getComposite(), GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create checkBox
-    myCenterViewAfterCreationCheckButton = new FXCheckButton(this, "Center View after creation", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myCenterViewAfterCreationCheckButton = new FXCheckButton(getComposite(), "Center View after creation", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     // create button for create GEO POIs
-    myCreateGEOPOIButton = new FXButton(this, "Create GEO POI (clipboard)", nullptr, this, MID_GNE_CREATE, GUIDesignButton);
+    myCreateGEOPOIButton = new FXButton(getComposite(), "Create GEO POI (clipboard)", nullptr, this, MID_GNE_CREATE, GUIDesignButton);
     // create information label
-    myLabelCartesianPosition = new FXLabel(this, "Cartesian equivalence:\n- X = give valid longitude\n- Y = give valid latitude", 0, GUIDesignLabelFrameInformation);
+    myLabelCartesianPosition = new FXLabel(getComposite(), "Cartesian equivalence:\n- X = give valid longitude\n- Y = give valid latitude", 0, GUIDesignLabelFrameInformation);
 }
 
 

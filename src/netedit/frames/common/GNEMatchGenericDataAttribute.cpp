@@ -61,20 +61,20 @@ GNEMatchGenericDataAttribute::GNEMatchGenericDataAttribute(GNEElementSet* elemen
     myCurrentAttribute(toString(defaultAttr)),
     myMatchGenericDataString(nullptr) {
     // Create MFXIconComboBox for interval
-    new FXLabel(this, "Interval [begin, end]", nullptr, GUIDesignLabelThick);
-    myIntervalSelector = new MFXIconComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SETINTERVAL, GUIDesignComboBoxStaticExtended);
+    new FXLabel(getComposite(), "Interval [begin, end]", nullptr, GUIDesignLabelThick);
+    myIntervalSelector = new MFXIconComboBox(getComposite(), GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SETINTERVAL, GUIDesignComboBoxStaticExtended);
     // Create textfield for begin and end
-    FXHorizontalFrame* myHorizontalFrameBeginEnd = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* myHorizontalFrameBeginEnd = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
     myBegin = new FXTextField(myHorizontalFrameBeginEnd, GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_SETBEGIN, GUIDesignTextField);
     myEnd = new FXTextField(myHorizontalFrameBeginEnd, GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_SETEND, GUIDesignTextField);
     // Create MFXIconComboBox for generic datas
-    myMatchGenericDataTagComboBox = new MFXIconComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
+    myMatchGenericDataTagComboBox = new MFXIconComboBox(getComposite(), GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
     // Create listBox for Attributes
-    myMatchGenericDataAttrComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE, GUIDesignComboBox);
+    myMatchGenericDataAttrComboBox = new FXComboBox(getComposite(), GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE, GUIDesignComboBox);
     // Create TextField for MatchGenericData string
-    myMatchGenericDataString = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignTextField);
+    myMatchGenericDataString = new FXTextField(getComposite(), GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignTextField);
     // Create help button
-    new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+    new FXButton(getComposite(), "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
     // Fill list of sub-items (first element will be "edge")
     enableMatchGenericDataAttribute();
     // Set speed of edge as default attribute
@@ -378,7 +378,7 @@ GNEMatchGenericDataAttribute::onCmdProcessString(FXObject*, FXSelector, void*) {
 long
 GNEMatchGenericDataAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
     // Create dialog box
-    FXDialogBox* additionalNeteditAttributesHelpDialog = new FXDialogBox(this, "Netedit Parameters Help", GUIDesignDialogBox);
+    FXDialogBox* additionalNeteditAttributesHelpDialog = new FXDialogBox(getComposite(), "Netedit Parameters Help", GUIDesignDialogBox);
     additionalNeteditAttributesHelpDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL));
     // set help text
     std::ostringstream help;

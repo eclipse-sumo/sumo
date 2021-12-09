@@ -71,7 +71,7 @@ GNESelectorFrame::SelectionInformation::SelectionInformation(GNESelectorFrame* s
     FXGroupBoxModul(selectorFrameParent->myContentFrame, "Selection information"),
     mySelectorFrameParent(selectorFrameParent) {
     // information label
-    myInformationLabel = new FXLabel(this, "", nullptr, GUIDesignLabelFrameInformation);
+    myInformationLabel = new FXLabel(getComposite(), "", nullptr, GUIDesignLabelFrameInformation);
 }
 
 
@@ -139,13 +139,13 @@ GNESelectorFrame::ModificationMode::ModificationMode(GNESelectorFrame* selectorF
     FXGroupBoxModul(selectorFrameParent->myContentFrame, "Modification Mode"),
     myModificationModeType(Operation::ADD) {
     // Create all options buttons
-    myAddRadioButton = new FXRadioButton(this, "add\t\tSelected objects are added to the previous selection",
+    myAddRadioButton = new FXRadioButton(getComposite(), "add\t\tSelected objects are added to the previous selection",
                                          this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    myRemoveRadioButton = new FXRadioButton(this, "remove\t\tSelected objects are removed from the previous selection",
+    myRemoveRadioButton = new FXRadioButton(getComposite(), "remove\t\tSelected objects are removed from the previous selection",
                                             this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    myKeepRadioButton = new FXRadioButton(this, "keep\t\tRestrict previous selection by the current selection",
+    myKeepRadioButton = new FXRadioButton(getComposite(), "keep\t\tRestrict previous selection by the current selection",
                                           this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    myReplaceRadioButton = new FXRadioButton(this, "replace\t\tReplace previous selection by the current selection",
+    myReplaceRadioButton = new FXRadioButton(getComposite(), "replace\t\tReplace previous selection by the current selection",
             this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     myAddRadioButton->setCheck(true);
 }
@@ -203,7 +203,7 @@ GNESelectorFrame::VisualScaling::VisualScaling(GNESelectorFrame* selectorFramePa
     FXGroupBoxModul(selectorFrameParent->myContentFrame, "Visual Scaling"),
     mySelectorFrameParent(selectorFrameParent) {
     // Create spin button and configure it
-    mySelectionScaling = new FXRealSpinner(this, 7, this, MID_GNE_SELECTORFRAME_SELECTSCALE, GUIDesignSpinDial);
+    mySelectionScaling = new FXRealSpinner(getComposite(), 7, this, MID_GNE_SELECTORFRAME_SELECTSCALE, GUIDesignSpinDial);
     //mySelectionScaling->setNumberFormat(1);
     //mySelectionScaling->setIncrements(0.1, .5, 1);
     mySelectionScaling->setIncrement(0.5);
@@ -233,7 +233,7 @@ GNESelectorFrame::SelectionOperation::SelectionOperation(GNESelectorFrame* selec
     mySelectorFrameParent(selectorFrameParent) {
     // tabular buttons, see GNETLSEditorFrame
 
-    FXHorizontalFrame* selectionButtons = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* selectionButtons = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
     FXVerticalFrame* col1 = new FXVerticalFrame(selectionButtons, LAYOUT_FILL_X, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); // left button columm
     FXVerticalFrame* col2 = new FXVerticalFrame(selectionButtons, LAYOUT_FILL_X, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); // right button column
 
@@ -256,7 +256,7 @@ GNESelectorFrame::SelectionOperation::~SelectionOperation() {}
 long
 GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
     // get the new file name
-    FXFileDialog opendialog(this, "Open List of Selected Items");
+    FXFileDialog opendialog(getComposite(), "Open List of Selected Items");
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("Selection files (*.txt)\nAll files (*)");
@@ -330,7 +330,7 @@ GNESelectorFrame::SelectionOperation::onCmdSave(FXObject*, FXSelector, void*) {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Opening FXMessageBox 'error storing selection'");
         // open message box error
-        FXMessageBox::error(this, MBOX_OK, "Storing Selection failed", "%s", e.what());
+        FXMessageBox::error(getComposite(), MBOX_OK, "Storing Selection failed", "%s", e.what());
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Closed FXMessageBox 'error storing selection' with 'OK'");
     }
@@ -992,7 +992,7 @@ GNESelectorFrame::SelectionOperation::askContinueIfLock() const {
 GNESelectorFrame::Information::Information(GNESelectorFrame* selectorFrameParent) :
     FXGroupBoxModul(selectorFrameParent->myContentFrame, "Information") {
     // Create Selection Hint
-    new FXLabel(this, " - Hold <SHIFT> for \n   rectangle selection.\n - Press <DEL> to\n   delete selected objects.", nullptr, GUIDesignLabelFrameInformation);
+    new FXLabel(getComposite(), " - Hold <SHIFT> for \n   rectangle selection.\n - Press <DEL> to\n   delete selected objects.", nullptr, GUIDesignLabelFrameInformation);
 }
 
 
