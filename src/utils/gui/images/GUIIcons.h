@@ -201,6 +201,8 @@ enum class GUIIcon {
     BIGARROWRIGHT,
     FRONTELEMENT,
     COMPUTEPATHMANAGER,
+    COLLAPSE,
+    UNCOLLAPSE,
     /// @}
 
     /// @name NETEDIT common mode specific icons

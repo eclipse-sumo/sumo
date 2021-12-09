@@ -52,7 +52,7 @@ FXGroupBoxModule::FXGroupBoxModule(FXVerticalFrame* contentFrame, const std::str
     // build button and labels
     FXHorizontalFrame *headerFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     if (collapsible) {
-        myCollapseButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::OK), this, MID_SWITCH, GUIDesignButtonFXGroupBoxModul);
+        myCollapseButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::COLLAPSE), this, MID_SWITCH, GUIDesignButtonFXGroupBoxModul);
     }
     myLabel = new FXLabel(headerFrame, text.c_str(), nullptr, GUIDesignLabelFXGroupBoxModul);
     // build collapsable frame
@@ -92,11 +92,11 @@ long
 FXGroupBoxModule::onCollapseButton(FXObject*,FXSelector,void*) {
     if (myCollapsed) {
         myCollapsed = false;
-        myCollapseButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::OK));
+        myCollapseButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::COLLAPSE));
         myCollapsableFrame->show();
     } else {
         myCollapsed = true;
-        myCollapseButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::CANCEL));
+        myCollapseButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::UNCOLLAPSE));
         myCollapsableFrame->hide();
     }
     recalc();
