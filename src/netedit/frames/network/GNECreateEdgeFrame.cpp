@@ -77,13 +77,13 @@ GNECreateEdgeFrame::EdgeTypeSelector::EdgeTypeSelector(GNECreateEdgeFrame* creat
     myDefaultEdgeType(new GNEEdgeType(createEdgeFrameParent)),
     myCurrentIndex(0) {
     // default edge radio button
-    myUseDefaultEdgeType = new FXRadioButton(getComposite(), "Create default edge", this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
+    myUseDefaultEdgeType = new FXRadioButton(getCollapsableFrame(), "Create default edge", this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
     // use custom edge radio button
-    myUseCustomEdgeType = new FXRadioButton(getComposite(), "Use edgeType/template", this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
+    myUseCustomEdgeType = new FXRadioButton(getCollapsableFrame(), "Use edgeType/template", this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
     // edge types combo box
-    myEdgeTypesComboBox = new FXComboBox(getComposite(), GUIDesignComboBoxNCol, this, MID_GNE_CREATEEDGEFRAME_SELECT, GUIDesignComboBoxAttribute);
+    myEdgeTypesComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_CREATEEDGEFRAME_SELECT, GUIDesignComboBoxAttribute);
     // create horizontal frame
-    FXHorizontalFrame* horizontalFrameButtons = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* horizontalFrameButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create new edge type button
     myAddEdgeTypeButton = new FXButton(horizontalFrameButtons, "Add\t\tAdd edge type", GUIIconSubSys::getIcon(GUIIcon::ADD), 
                                        this, MID_GNE_CREATEEDGEFRAME_ADD, GUIDesignButton);
@@ -92,7 +92,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::EdgeTypeSelector(GNECreateEdgeFrame* creat
                                           this, MID_GNE_CREATEEDGEFRAME_DELETE, GUIDesignButton);
 
     // create delete edge type button
-    myCreateFromTemplate = new FXButton(getComposite(), "Create from template\t\tCreate edgeType from template", GUIIconSubSys::getIcon(GUIIcon::EDGE), 
+    myCreateFromTemplate = new FXButton(getCollapsableFrame(), "Create from template\t\tCreate edgeType from template", GUIIconSubSys::getIcon(GUIIcon::EDGE), 
                                           this, MID_GNE_CREATEEDGEFRAME_CREATEFROMTEMPLATE, GUIDesignButton);
     // by default, create custom edge
     myUseDefaultEdgeType->setCheck(TRUE);
@@ -384,9 +384,9 @@ GNECreateEdgeFrame::LaneTypeSelector::LaneTypeSelector(GNECreateEdgeFrame* creat
     myCreateEdgeFrameParent(createEdgeFrameParent),
     myLaneIndex(0) {
     // lane types combo box
-    myLaneTypesComboBox = new FXComboBox(getComposite(), GUIDesignComboBoxNCol, this, MID_GNE_CREATEEDGEFRAME_SELECT, GUIDesignComboBoxAttribute);
+    myLaneTypesComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_CREATEEDGEFRAME_SELECT, GUIDesignComboBoxAttribute);
     // create horizontal frame
-    FXHorizontalFrame* horizontalFrameButtons = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* horizontalFrameButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create new lane type button
     myAddLaneTypeButton = new FXButton(horizontalFrameButtons, "Add\t\tAdd lane type", GUIIconSubSys::getIcon(GUIIcon::ADD), 
                                        this, MID_GNE_CREATEEDGEFRAME_ADD, GUIDesignButton);
@@ -553,7 +553,7 @@ GNECreateEdgeFrame::Legend::Legend(GNECreateEdgeFrame* createEdgeFrameParent) :
             << "- Alt+Shift+Click:" << "\n"
             << "  Splits edge in one direction";
     // create label
-    new FXLabel(getComposite(), information.str().c_str(), 0, GUIDesignLabelFrameInformation);
+    new FXLabel(getCollapsableFrame(), information.str().c_str(), 0, GUIDesignLabelFrameInformation);
 }
 
 

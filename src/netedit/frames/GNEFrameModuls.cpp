@@ -143,7 +143,7 @@ GNEFrameModuls::TagSelector::TagSelector(GNEFrame* frameParent, GNETagProperties
     myTagType(type),
     myCurrentTemplateAC(nullptr) {
     // Create MFXIconComboBox
-    myTagsMatchBox = new MFXIconComboBox(getComposite(), GUIDesignComboBoxNCol, this, MID_GNE_TAG_SELECTED, GUIDesignComboBox);
+    myTagsMatchBox = new MFXIconComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_TAG_SELECTED, GUIDesignComboBox);
     // set current tag type without notifying
     setCurrentTagType(myTagType, onlyDrawables, false);
     // set current tag without notifying
@@ -502,7 +502,7 @@ GNEFrameModuls::DemandElementSelector::DemandElementSelector(GNEFrame* framePare
     myCurrentDemandElement(nullptr),
     myDemandElementTags({demandElementTag}) {
     // Create MFXIconComboBox
-    myDemandElementsMatchBox = new MFXIconComboBox(getComposite(), GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myDemandElementsMatchBox = new MFXIconComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // refresh demand element MatchBox
     refreshDemandElementSelector();
     // shown after creation
@@ -522,7 +522,7 @@ GNEFrameModuls::DemandElementSelector::DemandElementSelector(GNEFrame* framePare
         }
     }
     // Create MFXIconComboBox
-    myDemandElementsMatchBox = new MFXIconComboBox(getComposite(), GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
+    myDemandElementsMatchBox = new MFXIconComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // refresh demand element MatchBox
     refreshDemandElementSelector();
     // shown after creation
@@ -794,7 +794,7 @@ GNEFrameModuls::HierarchicalElementTree::HierarchicalElementTree(GNEFrame* frame
     myClickedDataInterval(nullptr),
     myClickedGenericData(nullptr) {
     // Create three list
-    myTreeListDinamic = new FXTreeListDinamic(getComposite(), this, MID_GNE_ACHIERARCHY_SHOWCHILDMENU, GUIDesignTreeListDinamic);
+    myTreeListDinamic = new FXTreeListDinamic(getCollapsableFrame(), this, MID_GNE_ACHIERARCHY_SHOWCHILDMENU, GUIDesignTreeListDinamic);
     hide();
 }
 
@@ -1729,9 +1729,9 @@ GNEFrameModuls::DrawingShape::DrawingShape(GNEFrame* frameParent) :
     myFrameParent(frameParent),
     myDeleteLastCreatedPoint(false) {
     // create start and stop buttons
-    myStartDrawingButton = new FXButton(getComposite(), "Start drawing", 0, this, MID_GNE_STARTDRAWING, GUIDesignButton);
-    myStopDrawingButton = new FXButton(getComposite(), "Stop drawing", 0, this, MID_GNE_STOPDRAWING, GUIDesignButton);
-    myAbortDrawingButton = new FXButton(getComposite(), "Abort drawing", 0, this, MID_GNE_ABORTDRAWING, GUIDesignButton);
+    myStartDrawingButton = new FXButton(getCollapsableFrame(), "Start drawing", 0, this, MID_GNE_STARTDRAWING, GUIDesignButton);
+    myStopDrawingButton = new FXButton(getCollapsableFrame(), "Stop drawing", 0, this, MID_GNE_STOPDRAWING, GUIDesignButton);
+    myAbortDrawingButton = new FXButton(getCollapsableFrame(), "Abort drawing", 0, this, MID_GNE_ABORTDRAWING, GUIDesignButton);
     // create information label
     std::ostringstream information;
     information
@@ -1743,7 +1743,7 @@ GNEFrameModuls::DrawingShape::DrawingShape(GNEFrame* frameParent) :
             << "  abort shape creation.\n"
             << "- 'Shift + Click' to remove\n"
             << "  last inserted point.";
-    myInformationLabel = new FXLabel(getComposite(), information.str().c_str(), 0, GUIDesignLabelFrameInformation);
+    myInformationLabel = new FXLabel(getCollapsableFrame(), information.str().c_str(), 0, GUIDesignLabelFrameInformation);
     // disable stop and abort functions as init
     myStopDrawingButton->disable();
     myAbortDrawingButton->disable();
@@ -1879,9 +1879,9 @@ GNEFrameModuls::SelectorParent::SelectorParent(GNEFrame* frameParent) :
     FXGroupBoxModul(frameParent->myContentFrame, "Parent selector"),
     myFrameParent(frameParent) {
     // Create label with the type of SelectorParent
-    myParentsLabel = new FXLabel(getComposite(), "No additional selected", nullptr, GUIDesignLabelLeftThick);
+    myParentsLabel = new FXLabel(getCollapsableFrame(), "No additional selected", nullptr, GUIDesignLabelLeftThick);
     // Create list
-    myParentsList = new FXList(getComposite(), this, MID_GNE_SET_TYPE, GUIDesignListSingleElementFixedHeight);
+    myParentsList = new FXList(getCollapsableFrame(), this, MID_GNE_SET_TYPE, GUIDesignListSingleElementFixedHeight);
     // Hide List
     hideSelectorParentModul();
 }
@@ -2199,7 +2199,7 @@ GNEFrameModuls::OverlappedInspection::onCmdListItemSelected(FXObject*, FXSelecto
 
 long
 GNEFrameModuls::OverlappedInspection::onCmdOverlappingHelp(FXObject*, FXSelector, void*) {
-    FXDialogBox* helpDialog = new FXDialogBox(getComposite(), "GEO attributes Help", GUIDesignDialogBox);
+    FXDialogBox* helpDialog = new FXDialogBox(getCollapsableFrame(), "GEO attributes Help", GUIDesignDialogBox);
     std::ostringstream help;
     help
             << " - Click in the same position\n"
@@ -2230,7 +2230,7 @@ GNEFrameModuls::OverlappedInspection::OverlappedInspection() :
 
 void
 GNEFrameModuls::OverlappedInspection::buildFXElements() {
-    FXHorizontalFrame* frameButtons = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* frameButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // Create previous Item Button
     myPreviousElement = new FXButton(frameButtons, "", GUIIconSubSys::getIcon(GUIIcon::BIGARROWLEFT), this, MID_GNE_OVERLAPPED_PREVIOUS, GUIDesignButtonIconRectangular);
     // create current index button
@@ -2238,11 +2238,11 @@ GNEFrameModuls::OverlappedInspection::buildFXElements() {
     // Create next Item Button
     myNextElement = new FXButton(frameButtons, "", GUIIconSubSys::getIcon(GUIIcon::BIGARROWRIGHT), this, MID_GNE_OVERLAPPED_NEXT, GUIDesignButtonIconRectangular);
     // Create list of overlapped elements (by default hidden)
-    myOverlappedElementList = new FXList(getComposite(), this, MID_GNE_OVERLAPPED_ITEMSELECTED, GUIDesignListFixedHeight);
+    myOverlappedElementList = new FXList(getCollapsableFrame(), this, MID_GNE_OVERLAPPED_ITEMSELECTED, GUIDesignListFixedHeight);
     // by default list of overlapped elements is hidden)
     myOverlappedElementList->hide();
     // Create help button
-    myHelpButton = new FXButton(getComposite(), "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+    myHelpButton = new FXButton(getCollapsableFrame(), "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 // ---------------------------------------------------------------------------
@@ -2326,18 +2326,18 @@ GNEFrameModuls::PathCreator::PathCreator(GNEFrame* frameParent) :
     myToStoppingPlace(nullptr),
     myRoute(nullptr) {
     // create label for route info
-    myInfoRouteLabel = new FXLabel(getComposite(), "No edges selected", 0, GUIDesignLabelFrameThicked);
+    myInfoRouteLabel = new FXLabel(getCollapsableFrame(), "No edges selected", 0, GUIDesignLabelFrameThicked);
     // create button for finish route creation
-    myFinishCreationButton = new FXButton(getComposite(), "Finish route creation", nullptr, this, MID_GNE_EDGEPATH_FINISH, GUIDesignButton);
+    myFinishCreationButton = new FXButton(getCollapsableFrame(), "Finish route creation", nullptr, this, MID_GNE_EDGEPATH_FINISH, GUIDesignButton);
     myFinishCreationButton->disable();
     // create button for abort route creation
-    myAbortCreationButton = new FXButton(getComposite(), "Abort route creation", nullptr, this, MID_GNE_EDGEPATH_ABORT, GUIDesignButton);
+    myAbortCreationButton = new FXButton(getCollapsableFrame(), "Abort route creation", nullptr, this, MID_GNE_EDGEPATH_ABORT, GUIDesignButton);
     myAbortCreationButton->disable();
     // create button for remove last inserted edge
-    myRemoveLastInsertedElement = new FXButton(getComposite(), "Remove last inserted edge", nullptr, this, MID_GNE_EDGEPATH_REMOVELAST, GUIDesignButton);
+    myRemoveLastInsertedElement = new FXButton(getCollapsableFrame(), "Remove last inserted edge", nullptr, this, MID_GNE_EDGEPATH_REMOVELAST, GUIDesignButton);
     myRemoveLastInsertedElement->disable();
     // create check button
-    myShowCandidateEdges = new FXCheckButton(getComposite(), "Show candidate edges", this, MID_GNE_EDGEPATH_SHOWCANDIDATES, GUIDesignCheckButton);
+    myShowCandidateEdges = new FXCheckButton(getCollapsableFrame(), "Show candidate edges", this, MID_GNE_EDGEPATH_SHOWCANDIDATES, GUIDesignCheckButton);
     myShowCandidateEdges->setCheck(TRUE);
     // create shift label
     myShiftLabel = new FXLabel(this,
@@ -3003,20 +3003,20 @@ GNEFrameModuls::PathLegend::PathLegend(GNEFrame* frameParent) :
     // declare label
     FXLabel* legendLabel = nullptr;
     // edge candidate
-    legendLabel = new FXLabel(getComposite(), " edge candidate", 0, GUIDesignLabelLeft);
+    legendLabel = new FXLabel(getCollapsableFrame(), " edge candidate", 0, GUIDesignLabelLeft);
     legendLabel->setBackColor(MFXUtils::getFXColor(frameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.possible));
     legendLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
     // last edge selected
-    legendLabel = new FXLabel(getComposite(), " last edge selected", 0, GUIDesignLabelLeft);
+    legendLabel = new FXLabel(getCollapsableFrame(), " last edge selected", 0, GUIDesignLabelLeft);
     legendLabel->setBackColor(MFXUtils::getFXColor(frameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.target));
     // edge selected
-    legendLabel = new FXLabel(getComposite(), " edge selected", 0, GUIDesignLabelLeft);
+    legendLabel = new FXLabel(getCollapsableFrame(), " edge selected", 0, GUIDesignLabelLeft);
     legendLabel->setBackColor(MFXUtils::getFXColor(frameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.source));
     // edge conflict (vClass)
-    legendLabel = new FXLabel(getComposite(), " edge conflict (vClass)", 0, GUIDesignLabelLeft);
+    legendLabel = new FXLabel(getCollapsableFrame(), " edge conflict (vClass)", 0, GUIDesignLabelLeft);
     legendLabel->setBackColor(MFXUtils::getFXColor(frameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.special));
     // edge disconnected
-    legendLabel = new FXLabel(getComposite(), " edge disconnected", 0, GUIDesignLabelLeft);
+    legendLabel = new FXLabel(getCollapsableFrame(), " edge disconnected", 0, GUIDesignLabelLeft);
     legendLabel->setBackColor(MFXUtils::getFXColor(frameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.conflict));
 }
 

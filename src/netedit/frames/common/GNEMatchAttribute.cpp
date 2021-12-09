@@ -50,15 +50,15 @@ GNEMatchAttribute::GNEMatchAttribute(GNEElementSet* elementSet, SumoXMLTag defau
     myCurrentTag(defaultTag),
     myCurrentAttribute(defaultAttr) {
     // Create MFXIconComboBox for tags
-    myMatchTagComboBox = new MFXIconComboBox(getComposite(), GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
+    myMatchTagComboBox = new MFXIconComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTTAG, GUIDesignComboBox);
     // Create FXComboBox for Attributes
-    myMatchAttrComboBox = new FXComboBox(getComposite(), GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE, GUIDesignComboBox);
+    myMatchAttrComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE, GUIDesignComboBox);
     // Create TextField for Match string
-    myMatchString = new FXTextField(getComposite(), GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignTextField);
+    myMatchString = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignTextField);
     // create button
-    myMatchStringButton = new FXButton(getComposite(), "Apply selection", nullptr, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignButton);
+    myMatchStringButton = new FXButton(getCollapsableFrame(), "Apply selection", nullptr, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignButton);
     // Create help button
-    new FXButton(getComposite(), "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+    new FXButton(getCollapsableFrame(), "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
     // Set default value for Match string
     myMatchString->setText(defaultValue.c_str());
 }
@@ -263,7 +263,7 @@ GNEMatchAttribute::onCmdSelMBString(FXObject*, FXSelector, void*) {
 long
 GNEMatchAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
     // Create dialog box
-    FXDialogBox* additionalNeteditAttributesHelpDialog = new FXDialogBox(getComposite(), "Netedit Parameters Help", GUIDesignDialogBox);
+    FXDialogBox* additionalNeteditAttributesHelpDialog = new FXDialogBox(getCollapsableFrame(), "Netedit Parameters Help", GUIDesignDialogBox);
     additionalNeteditAttributesHelpDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL));
     // set help text
     std::ostringstream help;

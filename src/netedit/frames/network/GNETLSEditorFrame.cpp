@@ -986,25 +986,25 @@ GNETLSEditorFrame::TLSAttributes::TLSAttributes(GNETLSEditorFrame* TLSEditorPare
     myTLSEditorParent(TLSEditorParent) {
 
     // create frame, label and textfield for name (By default disabled)
-    FXHorizontalFrame* nameFrame = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* nameFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(nameFrame, toString(SUMO_ATTR_ID).c_str(), nullptr, GUIDesignLabelAttribute);
     myNameTextField = new FXTextField(nameFrame, GUIDesignTextFieldNCol, myTLSEditorParent, MID_GNE_TLSFRAME_SWITCH, GUIDesignTextField);
     myNameTextField->disable();
 
     // create frame, label and comboBox for Program (By default hidden)
-    FXHorizontalFrame* programFrame = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* programFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(programFrame, "program", nullptr, GUIDesignLabelAttribute);
     myProgramComboBox = new FXComboBox(programFrame, GUIDesignComboBoxNCol, myTLSEditorParent, MID_GNE_TLSFRAME_SWITCH, GUIDesignComboBoxAttribute);
     myProgramComboBox->disable();
 
     // create frame, label and TextField for Offset (By default disabled)
-    FXHorizontalFrame* offsetFrame = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* offsetFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(offsetFrame, toString(SUMO_ATTR_OFFSET).c_str(), nullptr, GUIDesignLabelAttribute);
     myOffsetTextField = new FXTextField(offsetFrame, GUIDesignTextFieldNCol, myTLSEditorParent, MID_GNE_TLSFRAME_OFFSET, GUIDesignTextField);
     myOffsetTextField->disable();
 
     // create frame, label and TextField for Offset (By default disabled)
-    FXHorizontalFrame* parametersFrame = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* parametersFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     myButtonEditParameters = new FXButton(parametersFrame, "parameters", nullptr, myTLSEditorParent, MID_GNE_OPEN_PARAMETERS_DIALOG, GUIDesignButtonAttribute);
     myParametersTextField = new FXTextField(parametersFrame, GUIDesignTextFieldNCol, myTLSEditorParent, MID_GNE_TLSFRAME_PARAMETERS, GUIDesignTextField);
     myButtonEditParameters->disable();
@@ -1151,7 +1151,7 @@ GNETLSEditorFrame::TLSJunction::TLSJunction(GNETLSEditorFrame* tlsEditorParent) 
     FXGroupBoxModul(tlsEditorParent->myContentFrame, "Junction"),
     myCurrentJunction(nullptr) {
     // Create frame for junction ID
-    FXHorizontalFrame* junctionIDFrame = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* junctionIDFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     myLabelJunctionID = new FXLabel(junctionIDFrame, "Junction ID", nullptr, GUIDesignLabelAttribute);
     myTextFieldJunctionID = new FXTextField(junctionIDFrame, GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_SELECT_JUNCTION, GUIDesignTextField);
     myTextFieldJunctionID->setEditable(false);
@@ -1193,7 +1193,7 @@ GNETLSEditorFrame::TLSJunction::updateJunctionDescription() const {
 
 GNETLSEditorFrame::TLSDefinition::TLSDefinition(GNETLSEditorFrame* TLSEditorParent) :
     FXGroupBoxModul(TLSEditorParent->myContentFrame, "Traffic Light Programs") {
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create create tlDef button
     myNewTLProgram = new FXButton(buttonsFrame, "Create\t\tCreate a new traffic light program",
                                   GUIIconSubSys::getIcon(GUIIcon::MODETLS), TLSEditorParent, MID_GNE_TLSFRAME_CREATE, GUIDesignButton);
@@ -1217,7 +1217,7 @@ GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
     myTableFont(new FXFont(getApp(), "Courier New", 9)) {
 
     // create and configure phase table
-    myTableScroll = new FXScrollWindow(getComposite(), LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT);
+    myTableScroll = new FXScrollWindow(getCollapsableFrame(), LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT);
     myPhaseTable = new FXTable(myTableScroll, myTLSEditorParent, MID_GNE_TLSFRAME_PHASE_TABLE, GUIDesignTableLimitedHeight);
     myPhaseTable->setColumnHeaderMode(LAYOUT_FIX_HEIGHT);
     myPhaseTable->setColumnHeaderHeight(getApp()->getNormalFont()->getFontHeight() + getApp()->getNormalFont()->getFontAscent() / 2);
@@ -1228,13 +1228,13 @@ GNETLSEditorFrame::TLSPhases::TLSPhases(GNETLSEditorFrame* TLSEditorParent) :
     myPhaseTable->setHelpText("phase duration in seconds | phase state");
 
     // create total duration info label
-    myCycleDuration = new FXLabel(getComposite(), "", nullptr, GUIDesignLabelLeft);
+    myCycleDuration = new FXLabel(getCollapsableFrame(), "", nullptr, GUIDesignLabelLeft);
 
     // using FXMatrix for tabular button layout would have been cleaner but the
     // below attempt did not make the buttons fill available horizontal space
-    // FXMatrix* phaseButtons = new FXMatrix(getComposite(), 2, LAYOUT_FILL_X | MATRIX_BY_COLUMNS);
+    // FXMatrix* phaseButtons = new FXMatrix(getCollapsableFrame(), 2, LAYOUT_FILL_X | MATRIX_BY_COLUMNS);
 
-    FXHorizontalFrame* phaseButtons = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* phaseButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     FXVerticalFrame* col1 = new FXVerticalFrame(phaseButtons, LAYOUT_FILL_X, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); // left button columm
     FXVerticalFrame* col2 = new FXVerticalFrame(phaseButtons, LAYOUT_FILL_X, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); // right button column
 
@@ -1365,7 +1365,7 @@ GNETLSEditorFrame::TLSModifications::TLSModifications(GNETLSEditorFrame* TLSEdit
     FXGroupBoxModul(TLSEditorParent->myContentFrame, "Modifications"),
     myTLSEditorParent(TLSEditorParent),
     myHaveModifications(false) {
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create save modifications button
     mySaveModificationsButtons = new FXButton(buttonsFrame, "Save\t\tSave program modifications (Enter)",
             GUIIconSubSys::getIcon(GUIIcon::OK), myTLSEditorParent, MID_OK, GUIDesignButton);
@@ -1398,7 +1398,7 @@ GNETLSEditorFrame::TLSModifications::setHaveModifications(bool value) {
 GNETLSEditorFrame::TLSFile::TLSFile(GNETLSEditorFrame* TLSEditorParent) :
     FXGroupBoxModul(TLSEditorParent->myContentFrame, "TLS Program File"),
     myTLSEditorParent(TLSEditorParent) {
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create create tlDef button
     myLoadTLSProgramButton = new FXButton(buttonsFrame, "Load\t\tLoad TLS program from additional file", GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_GNE_TLSFRAME_LOAD_PROGRAM, GUIDesignButton);
     // create create tlDef button
@@ -1413,7 +1413,7 @@ GNETLSEditorFrame::TLSFile::~TLSFile() {}
 
 long
 GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram(FXObject*, FXSelector, void*) {
-    FXFileDialog opendialog(getComposite(), "Load TLS Program");
+    FXFileDialog opendialog(getCollapsableFrame(), "Load TLS Program");
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::MODETLS));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("XML files (*.xml)\nAll files (*)");
@@ -1529,7 +1529,7 @@ GNETLSEditorFrame::TLSFile::writeSUMOTime(SUMOTime steps) {
 long
 GNETLSEditorFrame::TLSFile::onUpdNeedsDef(FXObject* o, FXSelector, void*) {
     const bool enable = myTLSEditorParent->myTLSAttributes->getNumberOfTLSDefinitions() > 0;
-    o->handle(getComposite(), FXSEL(SEL_COMMAND, enable ? FXWindow::ID_ENABLE : FXWindow::ID_DISABLE), nullptr);
+    o->handle(getCollapsableFrame(), FXSEL(SEL_COMMAND, enable ? FXWindow::ID_ENABLE : FXWindow::ID_DISABLE), nullptr);
     return 1;
 }
 

@@ -42,10 +42,10 @@ GNETAZRelDataFrame::Legend::Legend(GNETAZRelDataFrame* TAZRelDataFrame) :
     myFromTAZLabel(nullptr),
     myToTAZLabel(nullptr) {
     // create from TAZ label
-    myFromTAZLabel = new FXLabel(getComposite(), "From TAZ", 0, GUIDesignLabelLeft);
+    myFromTAZLabel = new FXLabel(getCollapsableFrame(), "From TAZ", 0, GUIDesignLabelLeft);
     myFromTAZLabel->setBackColor(MFXUtils::getFXColor(RGBColor::GREEN));
     // create to TAZ Label
-    myToTAZLabel = new FXLabel(getComposite(), "To TAZ", 0, GUIDesignLabelLeft);
+    myToTAZLabel = new FXLabel(getCollapsableFrame(), "To TAZ", 0, GUIDesignLabelLeft);
     myToTAZLabel->setBackColor(MFXUtils::getFXColor(RGBColor::MAGENTA));
 }
 

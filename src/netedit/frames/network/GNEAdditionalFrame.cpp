@@ -82,8 +82,8 @@ GNEAdditionalFrame::SelectorParentLanes::SelectorParentLanes(GNEAdditionalFrame*
     FXGroupBoxModul(additionalFrameParent->myContentFrame, "Lane Selector"),
     myAdditionalFrameParent(additionalFrameParent) {
     // create start and stop buttons
-    myStopSelectingButton = new FXButton(getComposite(), "Stop selecting", nullptr, this, MID_GNE_ADDITIONALFRAME_STOPSELECTION, GUIDesignButton);
-    myAbortSelectingButton = new FXButton(getComposite(), "Abort selecting", nullptr, this, MID_GNE_ADDITIONALFRAME_ABORTSELECTION, GUIDesignButton);
+    myStopSelectingButton = new FXButton(getCollapsableFrame(), "Stop selecting", nullptr, this, MID_GNE_ADDITIONALFRAME_STOPSELECTION, GUIDesignButton);
+    myAbortSelectingButton = new FXButton(getCollapsableFrame(), "Abort selecting", nullptr, this, MID_GNE_ADDITIONALFRAME_ABORTSELECTION, GUIDesignButton);
     // disable stop and abort functions as init
     myStopSelectingButton->disable();
     myAbortSelectingButton->disable();
@@ -309,16 +309,16 @@ GNEAdditionalFrame::SelectorChildEdges::SelectorChildEdges(GNEAdditionalFrame* a
     FXGroupBoxModul(additionalFrameParent->myContentFrame, "Edges"),
     myAdditionalFrameParent(additionalFrameParent) {
     // Create menuCheck for selected edges
-    myUseSelectedEdgesCheckButton = new FXCheckButton(getComposite(), ("Use selected " + toString(SUMO_TAG_EDGE) + "s").c_str(), this, MID_GNE_ADDITIONALFRAME_USESELECTED, GUIDesignCheckButton);
+    myUseSelectedEdgesCheckButton = new FXCheckButton(getCollapsableFrame(), ("Use selected " + toString(SUMO_TAG_EDGE) + "s").c_str(), this, MID_GNE_ADDITIONALFRAME_USESELECTED, GUIDesignCheckButton);
 
     // Create search box
-    myEdgesSearch = new FXTextField(getComposite(), GUIDesignTextFieldNCol, this, MID_GNE_ADDITIONALFRAME_SEARCH, GUIDesignTextField);
+    myEdgesSearch = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_ADDITIONALFRAME_SEARCH, GUIDesignTextField);
 
     // Create list
-    myList = new FXList(getComposite(), this, MID_GNE_ADDITIONALFRAME_SELECT, GUIDesignListFixedHeight, 0, 0, 0, 100);
+    myList = new FXList(getCollapsableFrame(), this, MID_GNE_ADDITIONALFRAME_SELECT, GUIDesignListFixedHeight, 0, 0, 0, 100);
 
     // Create horizontal frame
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
 
     // Create button for clear selection
     myClearEdgesSelection = new FXButton(buttonsFrame, "Clear", nullptr, this, MID_GNE_ADDITIONALFRAME_CLEARSELECTION, GUIDesignButtonRectangular);
@@ -461,16 +461,16 @@ GNEAdditionalFrame::SelectorChildLanes::SelectorChildLanes(GNEAdditionalFrame* a
     FXGroupBoxModul(additionalFrameParent->myContentFrame, "Lanes"),
     myAdditionalFrameParent(additionalFrameParent) {
     // Create CheckBox for selected lanes
-    myUseSelectedLanesCheckButton = new FXCheckButton(getComposite(), ("Use selected " + toString(SUMO_TAG_LANE) + "s").c_str(), this, MID_GNE_ADDITIONALFRAME_USESELECTED, GUIDesignCheckButton);
+    myUseSelectedLanesCheckButton = new FXCheckButton(getCollapsableFrame(), ("Use selected " + toString(SUMO_TAG_LANE) + "s").c_str(), this, MID_GNE_ADDITIONALFRAME_USESELECTED, GUIDesignCheckButton);
 
     // Create search box
-    myLanesSearch = new FXTextField(getComposite(), GUIDesignTextFieldNCol, this, MID_GNE_ADDITIONALFRAME_SEARCH, GUIDesignTextField);
+    myLanesSearch = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_ADDITIONALFRAME_SEARCH, GUIDesignTextField);
 
     // Create list
-    myList = new FXList(getComposite(), this, MID_GNE_ADDITIONALFRAME_SELECT, GUIDesignListFixedHeight, 0, 0, 0, 100);
+    myList = new FXList(getCollapsableFrame(), this, MID_GNE_ADDITIONALFRAME_SELECT, GUIDesignListFixedHeight, 0, 0, 0, 100);
 
     // Create horizontal frame
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
 
     // Create button for clear selection
     clearLanesSelection = new FXButton(buttonsFrame, "clear", nullptr, this, MID_GNE_ADDITIONALFRAME_CLEARSELECTION, GUIDesignButtonRectangular);
@@ -607,18 +607,18 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::E2MultilaneLaneSelector(GNEAddition
     FXGroupBoxModul(additionalFrameParent->myContentFrame, "E2Multilane lane selector"),
     myAdditionalFrameParent(additionalFrameParent) {
     // create label for route info
-    myInfoRouteLabel = new FXLabel(getComposite(), "No lanes selected", 0, GUIDesignLabelFrameThicked);
+    myInfoRouteLabel = new FXLabel(getCollapsableFrame(), "No lanes selected", 0, GUIDesignLabelFrameThicked);
     // create button for finish route creation
-    myFinishCreationButton = new FXButton(getComposite(), "Finish route creation", nullptr, this, MID_GNE_LANEPATH_FINISH, GUIDesignButton);
+    myFinishCreationButton = new FXButton(getCollapsableFrame(), "Finish route creation", nullptr, this, MID_GNE_LANEPATH_FINISH, GUIDesignButton);
     myFinishCreationButton->disable();
     // create button for abort route creation
-    myAbortCreationButton = new FXButton(getComposite(), "Abort route creation", nullptr, this, MID_GNE_LANEPATH_ABORT, GUIDesignButton);
+    myAbortCreationButton = new FXButton(getCollapsableFrame(), "Abort route creation", nullptr, this, MID_GNE_LANEPATH_ABORT, GUIDesignButton);
     myAbortCreationButton->disable();
     // create button for remove last inserted lane
-    myRemoveLastInsertedElement = new FXButton(getComposite(), "Remove last inserted lane", nullptr, this, MID_GNE_LANEPATH_REMOVELAST, GUIDesignButton);
+    myRemoveLastInsertedElement = new FXButton(getCollapsableFrame(), "Remove last inserted lane", nullptr, this, MID_GNE_LANEPATH_REMOVELAST, GUIDesignButton);
     myRemoveLastInsertedElement->disable();
     // create check button
-    myShowCandidateLanes = new FXCheckButton(getComposite(), "Show candidate lanes", this, MID_GNE_LANEPATH_SHOWCANDIDATES, GUIDesignCheckButton);
+    myShowCandidateLanes = new FXCheckButton(getCollapsableFrame(), "Show candidate lanes", this, MID_GNE_LANEPATH_SHOWCANDIDATES, GUIDesignCheckButton);
     myShowCandidateLanes->setCheck(TRUE);
     // create backspace label (always shown)
     new FXLabel(this,

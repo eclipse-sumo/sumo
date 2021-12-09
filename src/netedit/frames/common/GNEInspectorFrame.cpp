@@ -98,20 +98,20 @@ GNEInspectorFrame::NeteditAttributesEditor::NeteditAttributesEditor(GNEInspector
     myInspectorFrameParent(inspectorFrameParent) {
 
     // Create mark as front element button
-    myMarkFrontElementButton = new FXButton(getComposite(), "Mark as front element", GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), this, MID_GNE_MARKFRONTELEMENT, GUIDesignButton);
+    myMarkFrontElementButton = new FXButton(getCollapsableFrame(), "Mark as front element", GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), this, MID_GNE_MARKFRONTELEMENT, GUIDesignButton);
 
     // Create elements for parent additional
-    myHorizontalFrameParentAdditional = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
+    myHorizontalFrameParentAdditional = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     myLabelParentAdditional = new FXLabel(myHorizontalFrameParentAdditional, "Block move", nullptr, GUIDesignLabelAttribute);
     myTextFieldParentAdditional = new FXTextField(myHorizontalFrameParentAdditional, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
 
     // Create elements for close shape
-    myHorizontalFrameCloseShape = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
+    myHorizontalFrameCloseShape = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     myLabelCloseShape = new FXLabel(myHorizontalFrameCloseShape, "Close shape", nullptr, GUIDesignLabelAttribute);
     myCheckBoxCloseShape = new FXCheckButton(myHorizontalFrameCloseShape, "", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
 
     // Create help button
-    myHelpButton = new FXButton(getComposite(), "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+    myHelpButton = new FXButton(getCollapsableFrame(), "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
@@ -297,7 +297,7 @@ GNEInspectorFrame::NeteditAttributesEditor::onCmdMarkFrontElement(FXObject*, FXS
 long
 GNEInspectorFrame::NeteditAttributesEditor::onCmdNeteditAttributeHelp(FXObject*, FXSelector, void*) {
     // Create dialog box
-    FXDialogBox* additionalNeteditAttributesHelpDialog = new FXDialogBox(getComposite(), "Netedit Attributes Help", GUIDesignDialogBox);
+    FXDialogBox* additionalNeteditAttributesHelpDialog = new FXDialogBox(getCollapsableFrame(), "Netedit Attributes Help", GUIDesignDialogBox);
     additionalNeteditAttributesHelpDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL));
     // set help text
     std::ostringstream help;
@@ -340,17 +340,17 @@ GNEInspectorFrame::GEOAttributesEditor::GEOAttributesEditor(GNEInspectorFrame* i
     myInspectorFrameParent(inspectorFrameParent) {
 
     // Create Frame for GEOAttribute
-    myGEOAttributeFrame = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
+    myGEOAttributeFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     myGEOAttributeLabel = new FXLabel(myGEOAttributeFrame, "Undefined GEO Attribute", nullptr, GUIDesignLabelAttribute);
     myGEOAttributeTextField = new FXTextField(myGEOAttributeFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
 
     // Create Frame for use GEO
-    myUseGEOFrame = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
+    myUseGEOFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     myUseGEOLabel = new FXLabel(myUseGEOFrame, toString(SUMO_ATTR_GEO).c_str(), nullptr, GUIDesignLabelAttribute);
     myUseGEOCheckButton = new FXCheckButton(myUseGEOFrame, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
 
     // Create help button
-    myHelpButton = new FXButton(getComposite(), "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
+    myHelpButton = new FXButton(getCollapsableFrame(), "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
@@ -478,7 +478,7 @@ GNEInspectorFrame::GEOAttributesEditor::onCmdSetGEOAttribute(FXObject* obj, FXSe
 
 long
 GNEInspectorFrame::GEOAttributesEditor::onCmdGEOAttributeHelp(FXObject*, FXSelector, void*) {
-    FXDialogBox* helpDialog = new FXDialogBox(getComposite(), "GEO attributes Help", GUIDesignDialogBox);
+    FXDialogBox* helpDialog = new FXDialogBox(getCollapsableFrame(), "GEO attributes Help", GUIDesignDialogBox);
     std::ostringstream help;
     help
             << " SUMO uses the World Geodetic System 84 (WGS84/UTM).\n"
@@ -504,11 +504,11 @@ GNEInspectorFrame::TemplateEditor::TemplateEditor(GNEInspectorFrame* inspectorFr
     myInspectorFrameParent(inspectorFrameParent),
     myEdgeTemplate(nullptr) {
     // Create set template button
-    mySetTemplateButton = new FXButton(getComposite(), "Set as Template\t\t", nullptr, this, MID_HOTKEY_SHIFT_F1_TEMPLATE_SET, GUIDesignButton);
+    mySetTemplateButton = new FXButton(getCollapsableFrame(), "Set as Template\t\t", nullptr, this, MID_HOTKEY_SHIFT_F1_TEMPLATE_SET, GUIDesignButton);
     // Create copy template button
-    myCopyTemplateButton = new FXButton(getComposite(), "", nullptr, this, MID_HOTKEY_SHIFT_F2_TEMPLATE_COPY, GUIDesignButton);
+    myCopyTemplateButton = new FXButton(getCollapsableFrame(), "", nullptr, this, MID_HOTKEY_SHIFT_F2_TEMPLATE_COPY, GUIDesignButton);
     // Create copy template button
-    myClearTemplateButton = new FXButton(getComposite(), "clear Edge Template", nullptr, this, MID_HOTKEY_SHIFT_F3_TEMPLATE_CLEAR, GUIDesignButton);
+    myClearTemplateButton = new FXButton(getCollapsableFrame(), "clear Edge Template", nullptr, this, MID_HOTKEY_SHIFT_F3_TEMPLATE_CLEAR, GUIDesignButton);
 }
 
 
@@ -670,8 +670,8 @@ GNEInspectorFrame::ParametersEditorInspector::ParametersEditorInspector(GNEInspe
     FXGroupBoxModul(inspectorFrameParent->myContentFrame, "Parameters"),
     myInspectorFrameParent(inspectorFrameParent) {
     // create textfield and buttons
-    myTextFieldParameters = new FXTextField(getComposite(), GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    myButtonEditParameters = new FXButton(getComposite(), "Edit parameters", nullptr, this, MID_GNE_OPEN_PARAMETERS_DIALOG, GUIDesignButton);
+    myTextFieldParameters = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myButtonEditParameters = new FXButton(getCollapsableFrame(), "Edit parameters", nullptr, this, MID_GNE_OPEN_PARAMETERS_DIALOG, GUIDesignButton);
 }
 
 
@@ -829,7 +829,7 @@ GNEInspectorFrame::AdditionalDialog::AdditionalDialog(GNEInspectorFrame* inspect
     FXGroupBoxModul(inspectorFrameParent->myContentFrame, "Additional dialog"),
     myInspectorFrameParent(inspectorFrameParent) {
     // Create mark as front element button
-    myOpenAdditionalDialog = new FXButton(getComposite(), "Additional dialog", nullptr, this, MID_OPEN_ADDITIONAL_DIALOG, GUIDesignButton);
+    myOpenAdditionalDialog = new FXButton(getCollapsableFrame(), "Additional dialog", nullptr, this, MID_OPEN_ADDITIONAL_DIALOG, GUIDesignButton);
 }
 
 

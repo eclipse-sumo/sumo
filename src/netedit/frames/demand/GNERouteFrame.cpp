@@ -59,7 +59,7 @@ GNERouteFrame::RouteModeSelector::RouteModeSelector(GNERouteFrame* routeFramePar
     myRouteModesStrings.push_back(std::make_pair(RouteMode::NONCONSECUTIVE_EDGES, "non consecutive edges"));
     myRouteModesStrings.push_back(std::make_pair(RouteMode::CONSECUTIVE_EDGES, "consecutive edges"));
     // Create FXComboBox for Route mode
-    myRouteModeMatchBox = new FXComboBox(getComposite(), GUIDesignComboBoxNCol, this, MID_GNE_ROUTEFRAME_ROUTEMODE, GUIDesignComboBox);
+    myRouteModeMatchBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_ROUTEFRAME_ROUTEMODE, GUIDesignComboBox);
     // fill myRouteModeMatchBox with route modes
     for (const auto& routeMode : myRouteModesStrings) {
         myRouteModeMatchBox->appendItem(routeMode.second.c_str());
@@ -67,7 +67,7 @@ GNERouteFrame::RouteModeSelector::RouteModeSelector(GNERouteFrame* routeFramePar
     // Set visible items
     myRouteModeMatchBox->setNumVisible((int)myRouteModeMatchBox->getNumItems());
     // Create FXComboBox for VClass
-    myVClassMatchBox = new FXComboBox(getComposite(), GUIDesignComboBoxNCol, this, MID_GNE_ROUTEFRAME_VCLASS, GUIDesignComboBox);
+    myVClassMatchBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_ROUTEFRAME_VCLASS, GUIDesignComboBox);
     // fill myVClassMatchBox with all VCLass
     for (const auto& vClass : SumoVehicleClassStrings.getStrings()) {
         myVClassMatchBox->appendItem(vClass.c_str());

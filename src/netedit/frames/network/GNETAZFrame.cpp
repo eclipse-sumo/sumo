@@ -156,7 +156,7 @@ GNETAZFrame::CurrentTAZ::CurrentTAZ(GNETAZFrame* TAZFrameParent) :
     myMaxSourceMinusSinkWeight(0),
     myMinSourceMinusSinkWeight(-1) {
     // create TAZ label
-    myCurrentTAZLabel = new FXLabel(getComposite(), "No TAZ selected", 0, GUIDesignLabelLeft);
+    myCurrentTAZLabel = new FXLabel(getCollapsableFrame(), "No TAZ selected", 0, GUIDesignLabelLeft);
 }
 
 
@@ -348,7 +348,7 @@ GNETAZFrame::TAZCommonStatistics::TAZCommonStatistics(GNETAZFrame* TAZFrameParen
     FXGroupBoxModul(TAZFrameParent->myContentFrame, "TAZ Statistics"),
     myTAZFrameParent(TAZFrameParent) {
     // create label for statistics
-    myStatisticsLabel = new FXLabel(getComposite(), "Statistics", 0, GUIDesignLabelFrameInformation);
+    myStatisticsLabel = new FXLabel(getCollapsableFrame(), "Statistics", 0, GUIDesignLabelFrameInformation);
 }
 
 
@@ -398,10 +398,10 @@ GNETAZFrame::TAZSaveChanges::TAZSaveChanges(GNETAZFrame* TAZFrameParent) :
     FXGroupBoxModul(TAZFrameParent->myContentFrame, "Modifications"),
     myTAZFrameParent(TAZFrameParent) {
     // Create groupbox for save changes
-    mySaveChangesButton = new FXButton(getComposite(), "Confirm changes", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_OK, GUIDesignButton);
+    mySaveChangesButton = new FXButton(getCollapsableFrame(), "Confirm changes", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_OK, GUIDesignButton);
     mySaveChangesButton->disable();
     // Create groupbox cancel changes
-    myCancelChangesButton = new FXButton(getComposite(), "Cancel changes", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_CANCEL, GUIDesignButton);
+    myCancelChangesButton = new FXButton(getCollapsableFrame(), "Cancel changes", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_CANCEL, GUIDesignButton);
     myCancelChangesButton->disable();
 }
 
@@ -489,30 +489,30 @@ GNETAZFrame::TAZChildDefaultParameters::TAZChildDefaultParameters(GNETAZFrame* T
     myDefaultTAZSourceWeight(1),
     myDefaultTAZSinkWeight(1) {
     // create checkbox for toggle membership
-    FXHorizontalFrame* toggleMembershipFrame = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* toggleMembershipFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(toggleMembershipFrame, "Membership", 0, GUIDesignLabelAttribute);
     myToggleMembership = new FXCheckButton(toggleMembershipFrame, "Toggle", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     // by default enabled
     myToggleMembership->setCheck(TRUE);
     // create default TAZ Source weight
-    myDefaultTAZSourceFrame = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
+    myDefaultTAZSourceFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(myDefaultTAZSourceFrame, "New source", 0, GUIDesignLabelAttribute);
     myTextFieldDefaultValueTAZSources = new FXTextField(myDefaultTAZSourceFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTextFieldDefaultValueTAZSources->setText("1");
     // create default TAZ Sink weight
-    myDefaultTAZSinkFrame = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
+    myDefaultTAZSinkFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(myDefaultTAZSinkFrame, "New sink", 0, GUIDesignLabelAttribute);
     myTextFieldDefaultValueTAZSinks = new FXTextField(myDefaultTAZSinkFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTextFieldDefaultValueTAZSinks->setText("1");
     // Create button for use selected edges
-    myUseSelectedEdges = new FXButton(getComposite(), "Use selected edges", nullptr, this, MID_GNE_SELECT, GUIDesignButton);
+    myUseSelectedEdges = new FXButton(getCollapsableFrame(), "Use selected edges", nullptr, this, MID_GNE_SELECT, GUIDesignButton);
     // Create information label
     std::ostringstream information;
     information
             << "- Toggle Membership:\n"
             << "  Create new Sources/Sinks\n"
             << "  with given weights.";
-    myInformationLabel = new FXLabel(getComposite(), information.str().c_str(), 0, GUIDesignLabelFrameInformation);
+    myInformationLabel = new FXLabel(getCollapsableFrame(), information.str().c_str(), 0, GUIDesignLabelFrameInformation);
 }
 
 
@@ -786,17 +786,17 @@ GNETAZFrame::TAZSelectionStatistics::TAZSelectionStatistics(GNETAZFrame* TAZFram
     FXGroupBoxModul(TAZFrameParent->myContentFrame, "Selection Statistics"),
     myTAZFrameParent(TAZFrameParent) {
     // create default TAZ Source weight
-    myTAZSourceFrame = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
+    myTAZSourceFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(myTAZSourceFrame, "Source", 0, GUIDesignLabelAttribute);
     myTextFieldTAZSourceWeight = new FXTextField(myTAZSourceFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTAZSourceFrame->hide();
     // create default TAZ Sink weight
-    myTAZSinkFrame = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
+    myTAZSinkFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(myTAZSinkFrame, "Sink", 0, GUIDesignLabelAttribute);
     myTextFieldTAZSinkWeight = new FXTextField(myTAZSinkFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTAZSinkFrame->hide();
     // create label for statistics
-    myStatisticsLabel = new FXLabel(getComposite(), "Statistics", 0, GUIDesignLabelFrameInformation);
+    myStatisticsLabel = new FXLabel(getCollapsableFrame(), "Statistics", 0, GUIDesignLabelFrameInformation);
 }
 
 
@@ -1076,30 +1076,30 @@ GNETAZFrame::TAZParameters::TAZParameters(GNETAZFrame* TAZFrameParent) :
     // create TAZ Template
     myTAZTemplate = new GNETAZ(TAZFrameParent->getViewNet()->getNet());
     // create Button and string textField for center (by default, empty)
-    FXHorizontalFrame* centerParameter = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* centerParameter = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(centerParameter, toString(SUMO_ATTR_CENTER).c_str(), 0, GUIDesignLabelAttribute);
     myTextFieldCenter = new FXTextField(centerParameter, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create Button and string textField for color and set blue as default color
-    FXHorizontalFrame* fillParameter = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* fillParameter = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(fillParameter, toString(SUMO_ATTR_FILL).c_str(), 0, GUIDesignLabelAttribute);
     myCheckButtonFill = new FXCheckButton(fillParameter, "false", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myCheckButtonFill->setCheck(FALSE);
     // create Button and string textField for color and set blue as default color
-    FXHorizontalFrame* colorParameter = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* colorParameter = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     myColorEditor = new FXButton(colorParameter, toString(SUMO_ATTR_COLOR).c_str(), 0, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myTextFieldColor = new FXTextField(colorParameter, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     myTextFieldColor->setText("blue");
     // create Button and string textField for name and set blue as default name
-    FXHorizontalFrame* nameParameter = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* nameParameter = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(nameParameter, toString(SUMO_ATTR_NAME).c_str(), 0, GUIDesignLabelAttribute);
     myTextFieldName = new FXTextField(nameParameter, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create Label and CheckButton for use innen edges with true as default value
-    FXHorizontalFrame* useInnenEdges = new FXHorizontalFrame(getComposite(), GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* useInnenEdges = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(useInnenEdges, "Edges within", 0, GUIDesignLabelAttribute);
     myAddEdgesWithinCheckButton = new FXCheckButton(useInnenEdges, "use", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myAddEdgesWithinCheckButton->setCheck(true);
     // Create help button
-    myHelpTAZAttribute = new FXButton(getComposite(), "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
+    myHelpTAZAttribute = new FXButton(getCollapsableFrame(), "Help", 0, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
@@ -1157,7 +1157,7 @@ GNETAZFrame::TAZParameters::getAttributesAndValues() const {
 long
 GNETAZFrame::TAZParameters::onCmdSetColorAttribute(FXObject*, FXSelector, void*) {
     // create FXColorDialog
-    FXColorDialog colordialog(getComposite(), tr("Color Dialog"));
+    FXColorDialog colordialog(getCollapsableFrame(), tr("Color Dialog"));
     colordialog.setTarget(this);
     // If previous attribute wasn't correct, set black as default color
     if (GNEAttributeCarrier::canParse<RGBColor>(myTextFieldColor->getText().text())) {
@@ -1235,22 +1235,22 @@ GNETAZFrame::TAZEdgesGraphic::TAZEdgesGraphic(GNETAZFrame* TAZFrameParent) :
     myEdgeDefaultColor(RGBColor::GREY),
     myEdgeSelectedColor(RGBColor::MAGENTA) {
     // create label for non taz edge color information
-    FXLabel* NonTAZEdgeLabel = new FXLabel(getComposite(), "Non TAZ Edge", nullptr, GUIDesignLabelCenter);
+    FXLabel* NonTAZEdgeLabel = new FXLabel(getCollapsableFrame(), "Non TAZ Edge", nullptr, GUIDesignLabelCenter);
     NonTAZEdgeLabel->setBackColor(MFXUtils::getFXColor(myEdgeDefaultColor));
     NonTAZEdgeLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
     // create label for selected TAZEdgeColor color information
-    FXLabel* selectedTAZEdgeLabel = new FXLabel(getComposite(), "Selected TAZ Edge", nullptr, GUIDesignLabelCenter);
+    FXLabel* selectedTAZEdgeLabel = new FXLabel(getCollapsableFrame(), "Selected TAZ Edge", nullptr, GUIDesignLabelCenter);
     selectedTAZEdgeLabel->setBackColor(MFXUtils::getFXColor(myEdgeSelectedColor));
     // build rainbow
     GNEFrameModuls::buildRainbow(this);
     // create Radio button for show edges by source weight
-    myColorBySourceWeight = new FXRadioButton(getComposite(), "Color by Source", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    myColorBySourceWeight = new FXRadioButton(getCollapsableFrame(), "Color by Source", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // create Radio button for show edges by sink weight
-    myColorBySinkWeight = new FXRadioButton(getComposite(), "Color by Sink", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    myColorBySinkWeight = new FXRadioButton(getCollapsableFrame(), "Color by Sink", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // create Radio button for show edges by source + sink weight
-    myColorBySourcePlusSinkWeight = new FXRadioButton(getComposite(), "Color by Source + Sink", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    myColorBySourcePlusSinkWeight = new FXRadioButton(getCollapsableFrame(), "Color by Source + Sink", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // create Radio button for show edges by source - sink weight
-    myColorBySourceMinusSinkWeight = new FXRadioButton(getComposite(), "Color by Source - Sink", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    myColorBySourceMinusSinkWeight = new FXRadioButton(getCollapsableFrame(), "Color by Source - Sink", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // show by source as default
     myColorBySourceWeight->setCheck(true);
 }
