@@ -22,7 +22,7 @@
 
 #include <netedit/GNEViewNetHelper.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
-#include <utils/foxtools/FXGroupBoxModul.h>
+#include <utils/foxtools/FXGroupBoxModule.h>
 #include <utils/foxtools/FXTreeListDinamic.h>
 #include <utils/foxtools/MFXIconComboBox.h>
 

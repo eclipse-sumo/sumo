@@ -27,7 +27,7 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
-#include "FXGroupBoxModul.h"
+#include "FXGroupBoxModule.h"
 
 
 // ===========================================================================

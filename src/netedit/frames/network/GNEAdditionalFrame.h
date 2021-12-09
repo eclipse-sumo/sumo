@@ -21,7 +21,7 @@
 #include <config.h>
 
 #include <netedit/frames/GNEFrame.h>
-#include <utils/foxtools/FXGroupBoxModul.h>
+#include <utils/foxtools/FXGroupBoxModule.h>
 
 
 // ===========================================================================
