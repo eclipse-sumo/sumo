@@ -48,9 +48,13 @@ FXIMPLEMENT(FXGroupBoxModul, FXVerticalFrame, FXGroupBoxModulMap, ARRAYNUMBER(FX
 
 FXGroupBoxModul::FXGroupBoxModul(FXVerticalFrame* contentFrame, const std::string &text, const bool collapsible) :
     FXVerticalFrame(contentFrame, GUIDesignHorizontalFrame),
-    myCollapsible(collapsible) {
-    // build collapse button
-    myCollapseButton = new FXButton(this, text.c_str(), GUIIconSubSys::getIcon(GUIIcon::OK), this, MID_SWITCH, GUIDesignButtonFXGroupBoxModul);
+    myCollapsed(false) {
+    // build collapse button or label
+    if (collapsible) {
+        myCollapseButton = new FXButton(this, text.c_str(), GUIIconSubSys::getIcon(GUIIcon::OK), this, MID_SWITCH, GUIDesignButtonFXGroupBoxModul);
+    } else {
+        myLabel = new FXLabel(this, text.c_str(), nullptr, GUIDesignLabelFXGroupBoxModul);
+    }
     // build collapsable frame
     myCollapsableFrame = new FXVerticalFrame(this, GUIDesignCollapsableFrame);
 }
@@ -61,7 +65,11 @@ FXGroupBoxModul::~FXGroupBoxModul() {}
 
 void 
 FXGroupBoxModul::setText(const std::string& text) {
-    myCollapseButton->setText(text.c_str());
+    if (myCollapseButton) {
+        myCollapseButton->setText(text.c_str());
+    } else {
+        myLabel->setText(text.c_str());
+    }
 }
 
 
@@ -86,9 +94,19 @@ FXGroupBoxModul::onPaint(FXObject*, FXSelector, void* ptr) {
 
 long 
 FXGroupBoxModul::onCollapseButton(FXObject*,FXSelector,void*) {
+    if (myCollapsed) {
+        myCollapsed = false;
+        myCollapseButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::OK));
+        myCollapsableFrame->show();
+    } else {
+        myCollapsed = true;
+        myCollapseButton->setIcon(GUIIconSubSys::getIcon(GUIIcon::CANCEL));
+        myCollapsableFrame->hide();
+    }
+    recalc();
     return 1;
 }
 
 
 FXGroupBoxModul::FXGroupBoxModul() :
-    myCollapsible(false) {}
+    myCollapsed(false) {}

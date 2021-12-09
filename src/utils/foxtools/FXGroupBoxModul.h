@@ -52,11 +52,14 @@ protected:
 
 private:
     /// @brief vertical collapsable frame
-    FXVerticalFrame *myCollapsableFrame;
+    FXVerticalFrame *myCollapsableFrame = nullptr;
 
-    /// @brief button for collapse
+    /// @brief label used in non collapsable FXGroupBoxModul
+    FXLabel *myLabel = nullptr;
+
+    /// @brief button for collapse elements
     FXButton *myCollapseButton = nullptr;
 
-    /// @brief flag
-    const bool myCollapsible;
+    /// @brief flag to check if this groupbox is collapsed
+    bool myCollapsed;
 };
