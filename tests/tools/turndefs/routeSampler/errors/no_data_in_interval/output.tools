@@ -1,0 +1,10 @@
+Loaded 98 routes (98 distinct)
+input route edge count: count 98, min 2.00 (7), max 16.00 (39), mean 8.66, Q1 6.00, median 9.00, Q3 11.00
+ histogram: [(2, 2), (3, 3), (4, 8), (5, 6), (6, 10), (7, 8), (8, 12), (9, 10), (10, 12), (11, 7), (12, 3), (13, 7), (14, 4), (15, 4), (16, 2)]
+input route detector count: count 98, min 0.00 (0), max 0.00 (0), mean 0.00, Q1 0.00, median 0.00, Q3 0.00
+ histogram: [(0, 98)]
+Ignored 98 routes which do not pass any counting location
+Wrote 0 routes (0 distinct) achieving total count 0 (-) at 0 locations. GEH<5 for -
+result route edge count: no values
+result route detector count: no values
+GEH: no values

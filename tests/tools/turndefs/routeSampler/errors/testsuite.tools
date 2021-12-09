@@ -4,3 +4,7 @@ no_routes
 # invalid options
 invalid_options
 no_intervals
+
+# Copy of no_intervals
+no_intervals_edgeData
+no_data_in_interval
