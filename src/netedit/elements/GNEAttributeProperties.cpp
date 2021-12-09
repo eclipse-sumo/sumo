@@ -105,7 +105,7 @@ GNEAttributeProperties::setDiscreteValues(const std::vector<std::string>& discre
     if (isDiscrete()) {
         myDiscreteValues = discreteValues;
     } else {
-        throw FormatException("AttributeProperty doesn't support discrete values values");
+        throw FormatException("AttributeProperty doesn't support discrete values");
     }
 }
 
