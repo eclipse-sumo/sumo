@@ -85,6 +85,9 @@ class FXMenuCheckIcon;
 /// @brief button rectangular with thick and raise frame with a width of 150
 #define GUIDesignButtonRectangular150   (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 150, GUIDesignHeight, 2, 2, 2, 2
 
+/// @brief button used in GroupBoxModul
+#define GUIDesignButtonFXGroupBoxModul  (FRAME_LINE | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | LAYOUT_SIDE_TOP | ICON_BEFORE_TEXT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+
 /// @}
 
 

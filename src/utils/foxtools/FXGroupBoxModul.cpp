@@ -24,6 +24,8 @@
 #include <config.h>
 
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "FXGroupBoxModul.h"
 
@@ -34,22 +36,31 @@
 
 FXDEFMAP(FXGroupBoxModul) FXGroupBoxModulMap[] = {
     FXMAPFUNC(SEL_PAINT,  0,  FXGroupBoxModul::onPaint),
+    FXMAPFUNC(SEL_COMMAND,  MID_SWITCH,  FXGroupBoxModul::onCollapseButton),
 };
 
 // Object implementation
-FXIMPLEMENT(FXGroupBoxModul, FXGroupBox, FXGroupBoxModulMap, ARRAYNUMBER(FXGroupBoxModulMap))
+FXIMPLEMENT(FXGroupBoxModul, FXVerticalFrame, FXGroupBoxModulMap, ARRAYNUMBER(FXGroupBoxModulMap))
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
 FXGroupBoxModul::FXGroupBoxModul(FXVerticalFrame* contentFrame, const std::string &text, const bool collapsible) :
-    FXGroupBox(contentFrame, text.c_str(), GUIDesignGroupBoxFrame),
+    FXVerticalFrame(contentFrame, GUIDesignHorizontalFrame),
     myCollapsible(collapsible) {
+    // build collapse button
+    myCollapseButton = new FXButton(this, text.c_str(), GUIIconSubSys::getIcon(GUIIcon::OK), this, MID_SWITCH, GUIDesignButtonFXGroupBoxModul);
 }
 
 
 FXGroupBoxModul::~FXGroupBoxModul() {}
+
+
+void 
+FXGroupBoxModul::setText(const std::string& text) {
+    myCollapseButton->setText(text.c_str());
+}
 
 
 FXComposite* 
@@ -59,63 +70,21 @@ FXGroupBoxModul::getComposite() {
 
 
 long
-FXGroupBoxModul::onPaint(FXObject* obj ,FXSelector sel, void* ptr) {
-    // first check if this FXGroupBoxModul is collapsible
-    if (myCollapsible) {
-        FXEvent *event = (FXEvent*)ptr;
-        FXDCWindow dc(this, event);
-        // declare int for positions
-        FXint tw = 0;
-        FXint th = 0;
-        FXint xx = 0;
-        FXint yy = 0;
-        // Paint background
-        dc.setForeground(backColor);
-        dc.fillRectangle(event->rect.x, event->rect.y, event->rect.w, event->rect.h);
-        // Draw label if there is one
-        if (!label.empty()) {
-            yy = 2 + font->getFontAscent() / 2;
-        }
-        // draw groove rectangle
-        drawGrooveRectangle(dc, 0, yy, width, height - yy);
-        // Draw label
-        if(!label.empty()){
-            tw = font->getTextWidth(label);
-            th = font->getFontHeight() + 4;
-            if (options&GROUPBOX_TITLE_RIGHT) {
-                xx = width - tw - 12;
-            } else if (options&GROUPBOX_TITLE_CENTER) {
-                xx = (width - tw) / 2 - 4;
-            } else {
-                xx = 4;
-            }
-            if (xx < 4) {
-                xx = 4;
-            }
-            if ((tw + 16) > width) {
-                tw = width - 16;
-            }
-            if (0 < tw) {
-                dc.setForeground(backColor);
-                dc.setFont(font);
-                dc.fillRectangle(xx, yy, tw + 8, 2);
-                dc.setClipRectangle(xx + 4, 0, tw, th);
-                if (isEnabled()) {
-                    dc.setForeground(textColor);
-                    dc.drawText(xx + 4, 2 + font->getFontAscent(), label);
-                } else {
-                    dc.setForeground(hiliteColor);
-                    dc.drawText(xx + 5, 3 + font->getFontAscent(), label);
-                    dc.setForeground(shadowColor);
-                    dc.drawText(xx + 4, 2 + font->getFontAscent(), label);
-                }
-            }
-        }
-        return 1;
-    } else {
-        // just draw like a normal FXGroupBox
-        return FXGroupBox::onPaint(obj, sel, ptr);
-    }
+FXGroupBoxModul::onPaint(FXObject*, FXSelector, void* ptr) {
+    FXEvent *event = (FXEvent*)ptr;
+    FXDCWindow dc(this, event);
+    // Paint background
+    dc.setForeground(backColor);
+    dc.fillRectangle(event->rect.x, event->rect.y, event->rect.w, event->rect.h);
+    // draw groove rectangle
+    drawGrooveRectangle(dc, 0, 15, width, height - 15);
+    return 1;
+}
+
+
+long 
+FXGroupBoxModul::onCollapseButton(FXObject*,FXSelector,void*) {
+    return 1;
 }
 
 

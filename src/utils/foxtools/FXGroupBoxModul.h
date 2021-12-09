@@ -24,7 +24,7 @@
 #include "fxheader.h"
 
 /// @brief FXGroupBoxModul (based on FXGroupBox)
-class FXGroupBoxModul : protected FXGroupBox {
+class FXGroupBoxModul : protected FXVerticalFrame {
     FXDECLARE(FXGroupBoxModul)
 
 public:
@@ -34,16 +34,28 @@ public:
     /// @brief destructor
     ~FXGroupBoxModul();
 
+    /// @brief set text
+    void setText(const std::string& text);
+
     /// @brief get composite (used for create rows within the FXGroupBoxModul)
     FXComposite* getComposite();
 
     /// @brief draw FXGroupBoxModul
     long onPaint(FXObject*,FXSelector,void*);
 
+    /// @brief draw FXGroupBoxModul
+    long onCollapseButton(FXObject*,FXSelector,void*);
+
 protected:
     /// @brief FOX need this
     FXGroupBoxModul();
 
 private:
+    /// @brief button for collapse
+    FXButton *myCollapseButton = nullptr;
+
+    //FXLabel* myTextLabel = nullptr;
+
+    /// @brief flag
     const bool myCollapsible;
 };
