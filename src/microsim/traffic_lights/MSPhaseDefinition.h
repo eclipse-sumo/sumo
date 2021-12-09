@@ -191,6 +191,9 @@ public:
         return (LinkState) myState[pos];
     }
 
+    inline bool isActuted() const {
+        return minDuration != maxDuration;
+    }
 
     /** @brief Comparison operator
      *

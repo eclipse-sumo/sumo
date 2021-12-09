@@ -239,8 +239,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     for (const MSPhaseDefinition* phase : myPhases) {
         const int phaseIndex = (int)myInductLoopsForPhase.size();
         std::set<MSInductLoop*> loops;
-        if (phase->minDuration != phase->maxDuration) {
-            // actuated phase
+        if (phase->isActuted()) {
             const std::string& state = phase->getState();
             // collect indices of all green links for the phase
             std::set<int> greenLinks;
@@ -410,7 +409,7 @@ MSActuatedTrafficLightLogic::getMinimumMinDuration(MSLane* lane) const {
             if (state[i] == LINKSTATE_TL_GREEN_MAJOR || state[i] == LINKSTATE_TL_GREEN_MINOR) {
                 for (MSLane* cand : getLanesAt(i)) {
                     if (lane == cand) {
-                        if (phase->minDuration != phase->maxDuration) {
+                        if (phase->isActuted()) {
                             result = MIN2(result, phase->minDuration);
                         }
                     }

@@ -393,8 +393,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
     for (const MSPhaseDefinition* phase : myPhases) {
         const int phaseIndex = (int)myDetectorForPhase.size();
         std::set<MSE2Collector*> detectors;
-        if (phase->minDuration != phase->maxDuration) {
-            //actuated phase
+        if (phase->isActuted()) {
             const std::string& state = phase->getState();
             std::set<int> greenLinks;
             std::map<MSE2Collector*, std::set<int>> detectorLinks;
