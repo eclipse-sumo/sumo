@@ -442,7 +442,6 @@ GNEFrameAttributesModuls::AttributesCreator::AttributesCreator(GNEFrame* framePa
     // create myAttributesCreatorFlow
     myAttributesCreatorFlow = new AttributesCreatorFlow(this);
     // create reset and help button
-    // create elements for end attribute
     myFrameButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     myResetButton = new FXButton(myFrameButtons, "", GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_RESET, GUIDesignButtonIcon);
     new FXButton(myFrameButtons, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
@@ -664,7 +663,7 @@ GNEFrameAttributesModuls::AttributesCreator::refreshRows(const bool createRows) 
         }
     }
     // reparent help button (to place it at bottom)
-    myFrameButtons->reparent(this);
+    myFrameButtons->reparent(getCollapsableFrame());
     // recalc
     recalc();
     // check if flow editor has to be shown
