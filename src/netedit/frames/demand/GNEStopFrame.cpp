@@ -196,6 +196,12 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
         if (myStopParentBaseObject->getTag() != SUMO_TAG_NOTHING) {
             myRouteHandler.buildStop(myStopParentBaseObject->getSumoBaseObjectChildren().front(),
                                      myStopParentBaseObject->getSumoBaseObjectChildren().front()->getStopParameter());
+            // show all trips 
+            if (myStopTagSelector->getCurrentTemplateAC()->getTagProperty().isStop()) {
+                myViewNet->getDemandViewOptions().menuCheckShowAllTrips->setChecked(TRUE);
+            } else {
+                myViewNet->getDemandViewOptions().menuCheckShowAllPersonPlans->setChecked(TRUE);
+            }
             // stop sucesfully created, then return true
             return true;
         } else {
