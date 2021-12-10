@@ -84,7 +84,7 @@
 #include "MSLeaderInfo.h"
 #include "MSDriverState.h"
 
-#define DEBUG_PLAN_MOVE
+//#define DEBUG_PLAN_MOVE
 //#define DEBUG_PLAN_MOVE_LEADERINFO
 //#define DEBUG_CHECKREWINDLINKLANES
 //#define DEBUG_EXEC_MOVE
@@ -4108,6 +4108,25 @@ MSVehicle::executeMove() {
                         time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
             }
             myLaneChangeModel->changedToOpposite();
+            if (myState.myPos < getLength()) {
+                // further lanes is always cleared during opposite driving
+                MSLane* oldOpposite = oldLane->getOpposite();
+                if (oldOpposite != nullptr) {
+                    myFurtherLanes.push_back(oldOpposite);
+                    // small value since the lane is going in the other direction
+                    myState.myBackPos = getLength() - myState.myPos;
+                    myAngle = computeAngle();
+                } else {
+#ifdef WIN32
+#pragma warning(push)
+#pragma warning(disable: 4127) // do not warn about constant conditional expression
+#endif
+                    SOFT_ASSERT(false);
+#ifdef WIN32
+#pragma warning(pop)
+#endif
+                }
+            }
         } else {
             myState.myPos = myLane->getOppositePos(myState.myPos);
             myLane = newOpposite;
@@ -4325,6 +4344,8 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane, bool calledByGetPosition) c
         std::cout << SIMTIME
                   << " getBackPositionOnLane veh=" << getID()
                   << " lane=" << Named::getIDSecure(lane)
+                  << " pos=" << myState.myPos
+                  << " backPos=" << myState.myBackPos
                   << " myLane=" << myLane->getID()
                   << " further=" << toString(myFurtherLanes)
                   << " furtherPosLat=" << toString(myFurtherLanesPosLat)
