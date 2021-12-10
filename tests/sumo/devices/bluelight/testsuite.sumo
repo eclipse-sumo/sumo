@@ -28,6 +28,12 @@ opposite_multiple2
 # vehicles must turn left through oncoming traffic
 opposite_multiple_oncoming
 
+# multiple equipped vehicle in network with opposite direction driving (#9310)
+# vehicles must turn left through oncoming traffic
+# 
+# using jmIgnoreJunctionFoeProb=1
+opposite_multiple_oncoming2
+
 # emergency vehicle may overtake queue before red light (if it wants to turn right)
 opposite_redlight_right
 

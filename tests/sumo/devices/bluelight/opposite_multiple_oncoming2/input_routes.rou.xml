@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Define other vehicle type -->
+    <vType id="car" vClass="passenger">
+        <param key="has.tripinfo.device" value="false"/>
+    </vType>
+
+    <!-- LHF -->
+    <vType id="engine" accel="1.3" decel="4" emergencyDecel="7.0" sigma="0.5" length="8" width="2.5" maxSpeed="25" vClass="emergency" guiShape="firebrigade" speedFactor="1.4" jmDriveRedSpeed="2.77" impatience="1.0" emissionClass="HBEFA3/HDV_D_EU6" minGap="0.5" minGapLat="0.25" lcStrategic="1" lcCooperative="0" lcSpeedGain="1" lcKeepRight="0" lcOvertakeRight="1" lcOpposite="1" lcPushy="0.0" lcImpatience="1" lcTimeToImpatience="0" jmIgnoreFoeProb="1" jmIgnoreJunctionFoeProb="1" jmIgnoreKeepClearTime="1">
+        <param key="has.bluelight.device" value="true"/>
+        <param key="has.tripinfo.device" value="true"/>
+    </vType>
+    <!-- DLK -->
+    <vType id="ladder" accel="1.0" decel="4" emergencyDecel="7.0" sigma="0.5" length="10" width="2.5" maxSpeed="25" vClass="emergency" guiShape="firebrigade" speedFactor="1.4" jmDriveRedSpeed="2.77" impatience="1.0" emissionClass="HBEFA3/HDV_D_EU6" minGap="0.5" minGapLat="0.25" lcStrategic="1" lcCooperative="0" lcSpeedGain="1" lcKeepRight="0" lcOvertakeRight="1" lcOpposite="1" lcPushy="0.0" lcImpatience="1" lcTimeToImpatience="0" jmIgnoreFoeProb="1" jmIgnoreJunctionFoeProb="1" jmIgnoreKeepClearTime="1">
+        <param key="has.bluelight.device" value="true"/>
+        <param key="has.tripinfo.device" value="true"/>
+    </vType>
+    <!--
+        Edges in network:
+            1   0
+        4           6
+        5           7
+            3   2
+    -->
+
+    <!-- Define other traffic -->
+    <routeDistribution id="from_west">
+        <route edges="edge_5 edge_0" probability="0.2"/><!-- NORTH -->
+        <route edges="edge_5 edge_3" probability="0.2"/><!-- SOUTH -->
+        <route edges="edge_5 edge_7" probability="0.6"/><!-- EAST -->
+    </routeDistribution>
+
+    <routeDistribution id="from_east">
+        <route edges="edge_6 edge_0" probability="0.2"/><!-- NORTH -->
+        <route edges="edge_6 edge_3" probability="0.2"/><!-- SOUTH -->
+        <route edges="edge_6 edge_4" probability="0.6"/><!-- WEST -->
+    </routeDistribution>
+
+    <flow id="from_west"  route="from_west"  color="0,1,1" begin="0" probability="0.35" departSpeed="max" type="car" />
+    <flow id="from_east"  route="from_east"  color="1,1,0" begin="0" probability="0.35" departSpeed="max" type="car" />
+
+    <vehicle type="engine" id="case_1_engine" depart="20">
+        <route edges="edge_5 edge_0"/><!-- NORTH -->
+    </vehicle>
+    <vehicle type="ladder" id="case_1_ladder" depart="20">
+        <route edges="edge_5 edge_0"/><!-- NORTH -->
+    </vehicle>
+</routes>
