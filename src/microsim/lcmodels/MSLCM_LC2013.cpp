@@ -1811,14 +1811,24 @@ MSLCM_LC2013::anticipateFollowSpeed(const std::pair<MSVehicle*, double>& leaderD
         const double maxSpeed1s = (myVehicle.getSpeed() + myVehicle.getCarFollowModel().getMaxAccel()
                                    - ACCEL2SPEED(myVehicle.getCarFollowModel().getMaxAccel()));
         if (leader == nullptr) {
-            futureSpeed = getCarFollowModel().followSpeed(&myVehicle, maxSpeed1s, dist, 0, 0);
+            if (hasBlueLight()) {
+                // can continue from any lane if necessary
+                futureSpeed = vMax;
+            } else {
+                futureSpeed = getCarFollowModel().followSpeed(&myVehicle, maxSpeed1s, dist, 0, 0);
+            }
         } else {
             futureSpeed = getCarFollowModel().followSpeed(&myVehicle, maxSpeed1s, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel());
         }
     } else {
         // onInsertion = true because the vehicle has already moved
         if (leader == nullptr) {
-            futureSpeed = getCarFollowModel().maximumSafeStopSpeed(dist, getCarFollowModel().getMaxDecel(), myVehicle.getSpeed(), true);
+            if (hasBlueLight()) {
+                // can continue from any lane if necessary
+                futureSpeed = vMax;
+            } else {
+                futureSpeed = getCarFollowModel().maximumSafeStopSpeed(dist, getCarFollowModel().getMaxDecel(), myVehicle.getSpeed(), true);
+            }
         } else {
             futureSpeed = getCarFollowModel().maximumSafeFollowSpeed(gap, myVehicle.getSpeed(), leader->getSpeed(), leader->getCarFollowModel().getMaxDecel(), true);
         }

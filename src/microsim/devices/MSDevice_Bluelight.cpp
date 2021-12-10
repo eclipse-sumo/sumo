@@ -98,8 +98,9 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
     //violate red lights  this only need to be done once so shift it todo
     MSVehicle& ego = dynamic_cast<MSVehicle&>(veh);
     MSVehicle::Influencer& redLight = ego.getInfluencer();
+    const double vMax = ego.getLane()->getVehicleMaxSpeed(&ego);
     redLight.setSpeedMode(7);
-    if (veh.getWaitingTime() > TIME2STEPS(1)) {
+    if (ego.getSpeed() < 0.5 * vMax) {
         // advance as far as possible (assume vehicles will keep moving out of the way)
         ego.getLaneChangeModel().setParameter(toString(SUMO_ATTR_LCA_STRATEGIC_PARAM), "-1");
         ego.getLaneChangeModel().setParameter(toString(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD), "0");
