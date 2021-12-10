@@ -111,7 +111,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
         ret->mkItem("target lane [id]", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getTargetLaneID));
     }
     if (isSelected()) {
-        ret->mkItem("back lane [id]", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getBackLaneID));
+        ret->mkItem("back lanes [id,..]", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getBackLaneIDs));
     }
     ret->mkItem("position [m]", true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getPositionOnLane));
@@ -950,8 +950,8 @@ GUIVehicle::getLaneID() const {
 }
 
 std::string
-GUIVehicle::getBackLaneID() const {
-    return myFurtherLanes.size() > 0 ? myFurtherLanes.back()->getID() : getLaneID();
+GUIVehicle::getBackLaneIDs() const {
+    return toString(myFurtherLanes);
 }
 
 std::string
