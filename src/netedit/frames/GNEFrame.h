@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 #include "GNEFrameModuls.h"
-#include "GNEFrameAttributesModuls.h"
+#include "GNEFrameAttributesModules.h"
 
 // ===========================================================================
 // class definitions

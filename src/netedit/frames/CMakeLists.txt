@@ -8,8 +8,8 @@ set(netedit_frames_SRCS
    GNEFrame.cpp
    GNEFrameModuls.h
    GNEFrameModuls.cpp
-   GNEFrameAttributesModuls.h
-   GNEFrameAttributesModuls.cpp
+   GNEFrameAttributesModules.h
+   GNEFrameAttributesModules.cpp
    )
 
 add_library(netedit_frames STATIC ${netedit_frames_SRCS})

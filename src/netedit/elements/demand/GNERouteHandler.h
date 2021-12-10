@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/frames/GNEFrameAttributesModuls.h>
+#include <netedit/frames/GNEFrameAttributesModules.h>
 #include <netedit/frames/GNEFrameModuls.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/vehicle/SUMORouteHandler.h>

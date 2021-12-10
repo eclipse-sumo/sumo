@@ -32,7 +32,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEFrame.h"
-#include "GNEFrameAttributesModuls.h"
+#include "GNEFrameAttributesModules.h"
 
 
 // ===========================================================================
