@@ -157,19 +157,22 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
                 // emergency vehicles should not react
                 continue;
             }
-            const int numLanes = (int)veh2->getEdge()->getLanes().size();
+            const int numLanes = (int)veh2->getLane()->getEdge().getNumLanes();
             //make sure that vehicle are still building the a rescue lane
             if (influencedVehicles.count(veh2->getID()) > 0) {
                 //Vehicle gets a new Vehicletype to change the alignment and the lanechange options
                 MSVehicleType& t = veh2->getSingularType();
                 //Setting the lateral alignment to build a rescue lane
+                LatAlignmentDefinition align = LatAlignmentDefinition::RIGHT;
                 if (veh2->getLane()->getIndex() == numLanes - 1) {
-                    t.setPreferredLateralAlignment(LatAlignmentDefinition::LEFT);
-                    // the alignement is changet to left for the vehicle std::cout << "New alignment to left for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
-                } else {
-                    t.setPreferredLateralAlignment(LatAlignmentDefinition::RIGHT);
-                    // the alignement is changet to right for the vehicle std::cout << "New alignment to right for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
+                    align = LatAlignmentDefinition::LEFT;
                 }
+                t.setPreferredLateralAlignment(align);
+#ifdef DEBUG_BLUELIGHT_RESCUELANE
+                std::cout << "Refresh alignment for vehicle: " << veh2->getID()
+                    << " laneIndex=" << veh2->getLane()->getIndex() << " numLanes=" << numLanes
+                    << " alignment=" << toString(align) << "\n";
+#endif
             }
 
             double distanceDelta = veh.getPosition().distanceTo(veh2->getPosition());
@@ -204,16 +207,16 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
                     //Vehicle gets a new Vehicletype to change the alignment and the lanechange options
                     MSVehicleType& t = veh2->getSingularType();
                     //Setting the lateral alignment to build a rescue lane
+                    LatAlignmentDefinition align = LatAlignmentDefinition::RIGHT;
                     if (veh2->getLane()->getIndex() == numLanes - 1) {
-                        t.setPreferredLateralAlignment(LatAlignmentDefinition::LEFT);
-                        // the alignement is changet to left for the vehicle std::cout << "New alignment to left for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
-                    } else {
-                        t.setPreferredLateralAlignment(LatAlignmentDefinition::RIGHT);
-                        // the alignement is changet to right for the vehicle std::cout << "New alignment to right for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
+                        align = LatAlignmentDefinition::LEFT;
                     }
+                    t.setPreferredLateralAlignment(align);
                     // disable strategic lane-changing
 #ifdef DEBUG_BLUELIGHT_RESCUELANE
-                    std::cout << SIMTIME << " device=" << getID() << " createRescueLane " << veh2->getID() << "\n";
+                    std::cout << SIMTIME << " device=" << getID() << " formingRescueLane=" << veh2->getID()
+                        << " laneIndex=" << veh2->getLane()->getIndex() << " numLanes=" << numLanes
+                        << " alignment=" << toString(align) << "\n";
 #endif
                     std::vector<std::string> influencedBy = StringTokenizer(veh2->getParameter().getParameter(INFLUENCED_BY, "")).getVector();
                     if (std::find(influencedBy.begin(), influencedBy.end(), myHolder.getID()) == influencedBy.end()) {
