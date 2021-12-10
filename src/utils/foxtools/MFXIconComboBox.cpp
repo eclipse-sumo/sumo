@@ -126,6 +126,7 @@ MFXIconComboBox::MFXIconComboBox(FXComposite* p, FXint cols, FXObject* tgt, FXSe
     flags |= FLAG_ENABLED;
     target = tgt;
     message = sel;
+    myIconLabel = new FXLabel(this, "", nullptr, 0, 0, 0, 0, 0, pl, pr, pt, pb);
     myTextFieldIcon = new MFXTextFieldIcon(this, cols, this, MFXIconComboBox::ID_TEXT, 0, 0, 0, 0, 0, pl, pr, pt, pb);
     if (options & COMBOBOX_STATIC) {
         myTextFieldIcon->setEditable(FALSE);
@@ -145,6 +146,7 @@ MFXIconComboBox::MFXIconComboBox(FXComposite* p, FXint cols, FXObject* tgt, FXSe
 MFXIconComboBox::~MFXIconComboBox() {
     delete myPane;
     myPane = (FXPopup*) - 1L;
+    myIconLabel = (FXLabel*) - 1L;
     myTextFieldIcon = (MFXTextFieldIcon*) - 1L;
     myButton = (FXMenuButton*) - 1L;
     myList = (FXList*) - 1L;
@@ -176,6 +178,7 @@ void
 MFXIconComboBox::enable() {
     if (!isEnabled()) {
         FXPacker::enable();
+        myIconLabel->enable();
         myTextFieldIcon->enable();
         myButton->enable();
     }
@@ -186,6 +189,7 @@ void
 MFXIconComboBox::disable() {
     if (isEnabled()) {
         FXPacker::disable();
+        myIconLabel->disable();
         myTextFieldIcon->disable();
         myButton->disable();
     }
@@ -195,7 +199,7 @@ MFXIconComboBox::disable() {
 FXint
 MFXIconComboBox::getDefaultWidth() {
     FXint ww, pw;
-    ww = myTextFieldIcon->getDefaultWidth() + myButton->getDefaultWidth() + (border << 1);
+    ww = myIconLabel->getDefaultWidth() + myTextFieldIcon->getDefaultWidth() + myButton->getDefaultWidth() + (border << 1);
     pw = myPane->getDefaultWidth();
     return FXMAX(ww, pw);
 }
@@ -212,12 +216,14 @@ MFXIconComboBox::getDefaultHeight() {
 
 void
 MFXIconComboBox::layout() {
-    FXint buttonWidth, textWidth, itemHeight;
+    FXint buttonWidth, textWidth, itemHeight, iconSize;
     itemHeight = height - (border << 1);
+    iconSize = itemHeight;
     buttonWidth = myButton->getDefaultWidth();
-    textWidth = width - buttonWidth - (border << 1);
-    myTextFieldIcon->position(border, border, textWidth, itemHeight);
-    myButton->position(border + textWidth, border, buttonWidth, itemHeight);
+    textWidth = width - buttonWidth - iconSize - (border << 1);
+    myIconLabel->position(border, border, iconSize, iconSize);
+    myTextFieldIcon->position(border + iconSize, border, textWidth, itemHeight);
+    myButton->position(border + textWidth + iconSize, border, buttonWidth, itemHeight);
     myPane->resize(width, myPane->getDefaultHeight());
     flags &= ~FLAG_DIRTY;
 }
@@ -290,9 +296,13 @@ MFXIconComboBox::setCurrentItem(FXint index, FXbool notify) {
             if (item) {
                 myTextFieldIcon->setText(item->getText());
                 myTextFieldIcon->setBackColor(item->getBackGroundColor());
-                myTextFieldIcon->setIcon(item->getIcon());
+                myIconLabel->setIcon(item->getIcon());
+                myIconLabel->setBackColor(item->getBackGroundColor());
             } else {
                 myTextFieldIcon->resetTextField();
+                myTextFieldIcon->setBackColor(FXRGB(255, 255, 255));
+                myIconLabel->setIcon(nullptr);
+                myIconLabel->setBackColor(FXRGB(255, 255, 255));
             }
         } else {
             myTextFieldIcon->resetTextField();
@@ -324,8 +334,9 @@ MFXIconComboBox::setIconItem(FXint index, const FXString& text, FXIcon* icon, FX
     myList->setItem(index, text, NULL, ptr);
     if (isItemCurrent(index)) {
         myTextFieldIcon->setText(text);
-        myTextFieldIcon->setIcon(icon);
         myTextFieldIcon->setBackColor(bgColor);
+        myIconLabel->setIcon(icon);
+        myIconLabel->setBackColor(bgColor);
     }
     recalc();
     return index;
@@ -340,8 +351,9 @@ MFXIconComboBox::insertIconItem(FXint index, const FXString& text, FXIcon* icon,
     myList->insertItem(index, text, NULL, ptr);
     if (isItemCurrent(index)) {
         myTextFieldIcon->setText(text);
-        myTextFieldIcon->setIcon(icon);
         myTextFieldIcon->setBackColor(bgColor);
+        myIconLabel->setIcon(icon);
+        myIconLabel->setBackColor(bgColor);
     }
     recalc();
     return index;
@@ -353,8 +365,9 @@ MFXIconComboBox::appendIconItem(const FXString& text, FXIcon* icon, FXColor bgCo
     FXint index = myList->appendItem(new MFXListItem(text, icon, bgColor, ptr));
     if (isItemCurrent(getNumItems() - 1)) {
         myTextFieldIcon->setText(text);
-        myTextFieldIcon->setIcon(icon);
         myTextFieldIcon->setBackColor(bgColor);
+        myIconLabel->setIcon(icon);
+        myIconLabel->setBackColor(bgColor);
     }
     recalc();
     return index;
@@ -381,6 +394,9 @@ MFXIconComboBox::prependItem(const FXString& text, void* ptr) {
     FXint index = myList->prependItem(text, NULL, ptr);
     if (isItemCurrent(0)) {
         myTextFieldIcon->setText(text);
+        myTextFieldIcon->setBackColor(FXRGB(255,255,255));
+        myIconLabel->setIcon(nullptr);
+        myIconLabel->setBackColor(FXRGB(255,255,255));
     }
     recalc();
     return index;
@@ -401,6 +417,8 @@ MFXIconComboBox::moveItem(FXint newindex, FXint oldindex) {
         } else {
             myTextFieldIcon->setText(" ");
         }
+        myIconLabel->setIcon(nullptr);
+        myIconLabel->setBackColor(FXRGB(255,255,255));
     }
     recalc();
     return newindex;
@@ -418,6 +436,8 @@ MFXIconComboBox::removeItem(FXint index) {
         } else {
             myTextFieldIcon->setText(FXString::null);
         }
+        myIconLabel->setIcon(nullptr);
+        myIconLabel->setBackColor(FXRGB(255,255,255));
     }
     recalc();
 }
@@ -522,6 +542,7 @@ MFXIconComboBox::getJustify() const {
 void
 MFXIconComboBox::setBackColor(FXColor clr) {
     myTextFieldIcon->setBackColor(clr);
+    myIconLabel->setBackColor(clr);
     myList->setBackColor(clr);
 }
 
@@ -635,7 +656,8 @@ MFXIconComboBox::onListClicked(FXObject*, FXSelector sel, void* ptr) {
         if (item) {
             myTextFieldIcon->setText(item->getText());
             myTextFieldIcon->setBackColor(item->getBackGroundColor());
-            myTextFieldIcon->setIcon(item->getIcon());
+            myIconLabel->setIcon(item->getIcon());
+            myIconLabel->setBackColor(item->getBackGroundColor());
         }
         if (!(options & COMBOBOX_STATIC)) {
             // Select if editable
@@ -694,6 +716,10 @@ MFXIconComboBox::onTextCommand(FXObject*, FXSelector, void* ptr) {
                 break;
         }
     }
+    // reset icon and color
+    myTextFieldIcon->setBackColor(FXRGB(255, 255, 255));
+    myIconLabel->setIcon(nullptr);
+    myIconLabel->setBackColor(FXRGB(255, 255, 255));
     return target && target->tryHandle(this, FXSEL(SEL_COMMAND, message), ptr);
 }
 

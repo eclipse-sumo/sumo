@@ -266,6 +266,9 @@ protected:
     /// @brief FOX need this
     MFXIconComboBox();
 
+    /// @brief label for icon
+    FXLabel* myIconLabel = nullptr;
+
     /// @brief textField with icon
     MFXTextFieldIcon* myTextFieldIcon = nullptr;
 
