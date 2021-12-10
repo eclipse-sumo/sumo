@@ -56,7 +56,6 @@
 #include <microsim/devices/MSDevice_DriverState.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
 #include <microsim/devices/MSDevice_ElecHybrid.h>
-#include <microsim/devices/MSDevice_Bluelight.h>
 #include <microsim/output/MSStopOut.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include <microsim/trigger/MSOverheadWire.h>
@@ -2359,7 +2358,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                         || myLaneChangeModel->getShadowLane()->getLinkCont().size() == 0
                         || myLaneChangeModel->getShadowLane()->getLinkCont().front()->getLane() != (*link)->getLane()))
                 || (opposite && (*link)->getViaLaneOrLane()->getParallelOpposite() == nullptr
-                    && getDevice(typeid(MSDevice_Bluelight)) == nullptr)) {
+                    && !myLaneChangeModel->hasBlueLight())) {
             double va = cfModel.stopSpeed(this, getSpeed(), seen);
             if (lastLink != nullptr) {
                 lastLink->adaptLeaveSpeed(va);
@@ -4102,7 +4101,7 @@ MSVehicle::executeMove() {
             newOpposite = newOppositeEdge->getLanes()[oldLaneIndex];
         }
         if (newOpposite == nullptr) {
-            if (getDevice(typeid(MSDevice_Bluelight)) == nullptr) {
+            if (!myLaneChangeModel->hasBlueLight()) {
                 // unusual overtaking at junctions is ok for emergency vehicles
                 WRITE_WARNING("Unexpected end of opposite lane for vehicle '" + getID() + "' at lane '" + myLane->getID() + "', time=" +
                         time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");

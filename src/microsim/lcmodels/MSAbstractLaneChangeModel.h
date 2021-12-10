@@ -576,6 +576,10 @@ public:
     /// @brief get vehicle position relative to the forward direction lane
     double getForwardPos() const;
 
+    bool hasBlueLight() const {
+        return myHaveBlueLight;
+    }
+
     static const double NO_NEIGHBOR;
 
 protected:
@@ -703,6 +707,9 @@ protected:
     double myMaxDistLatStanding;
     // @brief factor for lane keeping imperfection
     double mySigma;
+
+    /// @brief whether this vehicle is driving with special permissions and behavior
+    bool myHaveBlueLight;
 
     /* @brief to be called by derived classes in their changed() method.
      * If dir=0 is given, the current value remains unchanged */
