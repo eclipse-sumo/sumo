@@ -239,7 +239,9 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
         }
     }
     // ego is at the end of its current lane and cannot continue
-    if (ego.getBestLanesContinuation().size() == 1 && ego.getLane()->getLength() - ego.getPositionOnLane() <= POSITION_EPS
+    const double distToEnd = ego.getLane()->getLength() - ego.getPositionOnLane();
+    //std::cout << SIMTIME << " " << getID() << " lane=" << ego.getLane()->getID() << " pos=" << ego.getPositionOnLane() << " distToEnd=" << distToEnd << " conts=" << toString(ego.getBestLanesContinuation()) << " furtherEdges=" << myUpcomingEdges.size() << "\n";
+    if (ego.getBestLanesContinuation().size() == 1 && distToEnd <= POSITION_EPS
             // route continues
             && myUpcomingEdges.size() > 1) {
         const MSEdge* currentEdge = &ego.getLane()->getEdge();
