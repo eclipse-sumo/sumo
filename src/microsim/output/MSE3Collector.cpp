@@ -574,7 +574,7 @@ MSE3Collector::detectorUpdate(const SUMOTime step) {
             const MSLane* lane = rem->getLane();
             if (lane->hasPedestrians()) {
                 for (MSTransportable* p : lane->getEdge().getPersons()) {
-                    if (p->getLane() == lane) {
+                    if (p->getLane() == lane && vehicleApplies(*p)) {
                         notifyMovePerson(p, rem, rem->getPosition(), p->getDirection(), p->getPositionOnLane());
                     }
                 }
@@ -584,7 +584,7 @@ MSE3Collector::detectorUpdate(const SUMOTime step) {
             const MSLane* lane = rem->getLane();
             if (lane->hasPedestrians()) {
                 for (MSTransportable* p : lane->getEdge().getPersons()) {
-                    if (p->getLane() == lane) {
+                    if (p->getLane() == lane && vehicleApplies(*p)) {
                         notifyMovePerson(p, rem, rem->getPosition(), p->getDirection(), p->getPositionOnLane());
                     }
                 }

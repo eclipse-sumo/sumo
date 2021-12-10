@@ -896,7 +896,7 @@ MSE2Collector::detectorUpdate(const SUMOTime /* step */) {
         for (MSLane* lane : getLanes()) {
             if (lane->hasPedestrians()) {
                 for (MSTransportable* p : myLane->getEdge().getPersons()) {
-                    if (p->getLane() == lane) {
+                    if (p->getLane() == lane && vehicleApplies(*p)) {
                         notifyMovePerson(p, p->getDirection(), p->getPositionOnLane());
                     }
                 }

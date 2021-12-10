@@ -294,7 +294,7 @@ MSInductLoop::detectorUpdate(const SUMOTime /* step */) {
     }
     if (myLane->hasPedestrians()) {
         for (MSTransportable* p : myLane->getEdge().getPersons()) {
-            if (p->getLane() != myLane) {
+            if (p->getLane() != myLane || !vehicleApplies(*p)) {
                 continue;
             }
             notifyMovePerson(p, p->getDirection(), p->getPositionOnLane());
