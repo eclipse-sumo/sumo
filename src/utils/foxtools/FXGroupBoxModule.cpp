@@ -34,13 +34,13 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(FXGroupBoxModule) FXGroupBoxModulMap[] = {
+FXDEFMAP(FXGroupBoxModule) FXGroupBoxModuleMap[] = {
     FXMAPFUNC(SEL_PAINT,  0,  FXGroupBoxModule::onPaint),
     FXMAPFUNC(SEL_COMMAND,  MID_SWITCH,  FXGroupBoxModule::onCollapseButton),
 };
 
 // Object implementation
-FXIMPLEMENT(FXGroupBoxModule, FXVerticalFrame, FXGroupBoxModulMap, ARRAYNUMBER(FXGroupBoxModulMap))
+FXIMPLEMENT(FXGroupBoxModule, FXVerticalFrame, FXGroupBoxModuleMap, ARRAYNUMBER(FXGroupBoxModuleMap))
 
 // ===========================================================================
 // method definitions
@@ -52,9 +52,9 @@ FXGroupBoxModule::FXGroupBoxModule(FXVerticalFrame* contentFrame, const std::str
     // build button and labels
     FXHorizontalFrame *headerFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     if (collapsible) {
-        myCollapseButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::COLLAPSE), this, MID_SWITCH, GUIDesignButtonFXGroupBoxModul);
+        myCollapseButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::COLLAPSE), this, MID_SWITCH, GUIDesignButtonFXGroupBoxModule);
     }
-    myLabel = new FXLabel(headerFrame, text.c_str(), nullptr, GUIDesignLabelFXGroupBoxModul);
+    myLabel = new FXLabel(headerFrame, text.c_str(), nullptr, GUIDesignLabelFXGroupBoxModule);
     // build collapsable frame
     myCollapsableFrame = new FXVerticalFrame(this, GUIDesignCollapsableFrame);
 }

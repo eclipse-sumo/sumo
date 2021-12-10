@@ -175,34 +175,34 @@ GNETAZFrame::CurrentTAZ::setTAZ(GNETAZ* editedTAZ) {
         // resfresh TAZ Edges
         refreshTAZEdges();
         // hide TAZ parameters
-        myTAZFrameParent->myTAZParameters->hideTAZParametersModul();
+        myTAZFrameParent->myTAZParameters->hideTAZParametersModule();
         // hide Netedit parameters
-        myTAZFrameParent->myNeteditAttributes->hideNeteditAttributesModul();
+        myTAZFrameParent->myNeteditAttributes->hideNeteditAttributesModule();
         // hide drawing shape
         myTAZFrameParent->myDrawingShape->hideDrawingShape();
         // show edge common parameters
-        myTAZFrameParent->myTAZCommonStatistics->showTAZCommonStatisticsModul();
+        myTAZFrameParent->myTAZCommonStatistics->showTAZCommonStatisticsModule();
         // show save TAZ Edges
-        myTAZFrameParent->myTAZSaveChanges->showTAZSaveChangesModul();
+        myTAZFrameParent->myTAZSaveChanges->showTAZSaveChangesModule();
         // show edge common parameters
-        myTAZFrameParent->myTAZChildDefaultParameters->showTAZChildDefaultParametersModul();
+        myTAZFrameParent->myTAZChildDefaultParameters->showTAZChildDefaultParametersModule();
         // show Edges graphics
-        myTAZFrameParent->myTAZEdgesGraphic->showTAZEdgesGraphicModul();
+        myTAZFrameParent->myTAZEdgesGraphic->showTAZEdgesGraphicModule();
     } else {
         // show TAZ parameters
-        myTAZFrameParent->myTAZParameters->showTAZParametersModul();
+        myTAZFrameParent->myTAZParameters->showTAZParametersModule();
         // show Netedit parameters
-        myTAZFrameParent->myNeteditAttributes->showNeteditAttributesModul(GNEAttributeCarrier::getTagProperty(SUMO_TAG_TAZ));
+        myTAZFrameParent->myNeteditAttributes->showNeteditAttributesModule(GNEAttributeCarrier::getTagProperty(SUMO_TAG_TAZ));
         // show drawing shape
         myTAZFrameParent->myDrawingShape->showDrawingShape();
         // hide edge common parameters
-        myTAZFrameParent->myTAZCommonStatistics->hideTAZCommonStatisticsModul();
+        myTAZFrameParent->myTAZCommonStatistics->hideTAZCommonStatisticsModule();
         // hide edge common parameters
-        myTAZFrameParent->myTAZChildDefaultParameters->hideTAZChildDefaultParametersModul();
+        myTAZFrameParent->myTAZChildDefaultParameters->hideTAZChildDefaultParametersModule();
         // hide Edges graphics
-        myTAZFrameParent->myTAZEdgesGraphic->hideTAZEdgesGraphicModul();
+        myTAZFrameParent->myTAZEdgesGraphic->hideTAZEdgesGraphicModule();
         // hide save TAZ Edges
-        myTAZFrameParent->myTAZSaveChanges->hideTAZSaveChangesModul();
+        myTAZFrameParent->myTAZSaveChanges->hideTAZSaveChangesModule();
         // restore label
         myCurrentTAZLabel->setText("No TAZ selected");
         // clear selected edges
@@ -356,7 +356,7 @@ GNETAZFrame::TAZCommonStatistics::~TAZCommonStatistics() {}
 
 
 void
-GNETAZFrame::TAZCommonStatistics::showTAZCommonStatisticsModul() {
+GNETAZFrame::TAZCommonStatistics::showTAZCommonStatisticsModule() {
     // always update statistics after show
     updateStatistics();
     show();
@@ -364,7 +364,7 @@ GNETAZFrame::TAZCommonStatistics::showTAZCommonStatisticsModul() {
 
 
 void
-GNETAZFrame::TAZCommonStatistics::hideTAZCommonStatisticsModul() {
+GNETAZFrame::TAZCommonStatistics::hideTAZCommonStatisticsModule() {
     hide();
 }
 
@@ -410,13 +410,13 @@ GNETAZFrame::TAZSaveChanges::~TAZSaveChanges() {}
 
 
 void
-GNETAZFrame::TAZSaveChanges::showTAZSaveChangesModul() {
+GNETAZFrame::TAZSaveChanges::showTAZSaveChangesModule() {
     show();
 }
 
 
 void
-GNETAZFrame::TAZSaveChanges::hideTAZSaveChangesModul() {
+GNETAZFrame::TAZSaveChanges::hideTAZSaveChangesModule() {
     // cancel changes before hidding modul
     onCmdCancelChanges(0, 0, 0);
     hide();
@@ -520,12 +520,12 @@ GNETAZFrame::TAZChildDefaultParameters::~TAZChildDefaultParameters() {}
 
 
 void
-GNETAZFrame::TAZChildDefaultParameters::showTAZChildDefaultParametersModul() {
-    // check if TAZ selection Statistics Modul has to be shown
+GNETAZFrame::TAZChildDefaultParameters::showTAZChildDefaultParametersModule() {
+    // check if TAZ selection Statistics Module has to be shown
     if (myToggleMembership->getCheck() == FALSE) {
-        myTAZFrameParent->myTAZSelectionStatistics->showTAZSelectionStatisticsModul();
+        myTAZFrameParent->myTAZSelectionStatistics->showTAZSelectionStatisticsModule();
     } else {
-        myTAZFrameParent->myTAZSelectionStatistics->hideTAZSelectionStatisticsModul();
+        myTAZFrameParent->myTAZSelectionStatistics->hideTAZSelectionStatisticsModule();
     }
     // update selected button
     updateSelectEdgesButton();
@@ -535,9 +535,9 @@ GNETAZFrame::TAZChildDefaultParameters::showTAZChildDefaultParametersModul() {
 
 
 void
-GNETAZFrame::TAZChildDefaultParameters::hideTAZChildDefaultParametersModul() {
-    // hide TAZ Selection Statistics Modul
-    myTAZFrameParent->myTAZSelectionStatistics->hideTAZSelectionStatisticsModul();
+GNETAZFrame::TAZChildDefaultParameters::hideTAZChildDefaultParametersModule() {
+    // hide TAZ Selection Statistics Module
+    myTAZFrameParent->myTAZSelectionStatistics->hideTAZSelectionStatisticsModule();
     // hide modul
     hide();
 }
@@ -557,14 +557,14 @@ GNETAZFrame::TAZChildDefaultParameters::updateSelectEdgesButton() {
             myUseSelectedEdges->setText("Use selected edges");
             myUseSelectedEdges->disable();
         }
-    } else if (myTAZFrameParent->getCurrentTAZModul()->getTAZEdges().size() > 0) {
+    } else if (myTAZFrameParent->getCurrentTAZModule()->getTAZEdges().size() > 0) {
         // enable myUseSelectedEdges button
         myUseSelectedEdges->enable();
         // update mySelectEdgesOfSelection label
         if (myTAZFrameParent->myTAZSelectionStatistics->getEdgeAndTAZChildrenSelected().size() == 0) {
             // check if all edges of TAZChildren are selected
             bool allSelected = true;
-            for (const auto& TAZEdgeColor : myTAZFrameParent->getCurrentTAZModul()->getTAZEdges()) {
+            for (const auto& TAZEdgeColor : myTAZFrameParent->getCurrentTAZModule()->getTAZEdges()) {
                 if (!TAZEdgeColor.edge->isAttributeCarrierSelected()) {
                     allSelected = false;
                 }
@@ -639,7 +639,7 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetDefaultValues(FXObject* obj, FXS
                     << "  with given weights.";
             myInformationLabel->setText(information.str().c_str());
             // hide TAZSelectionStatistics
-            myTAZFrameParent->myTAZSelectionStatistics->hideTAZSelectionStatisticsModul();
+            myTAZFrameParent->myTAZSelectionStatistics->hideTAZSelectionStatisticsModule();
             // check if use selected edges has to be enabled
             if (myTAZFrameParent->myCurrentTAZ->getSelectedEdges().size() > 0) {
                 myUseSelectedEdges->setText("Use selected edges");
@@ -663,7 +663,7 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdSetDefaultValues(FXObject* obj, FXS
                     << "  current selection.";
             myInformationLabel->setText(information.str().c_str());
             // show TAZSelectionStatistics
-            myTAZFrameParent->myTAZSelectionStatistics->showTAZSelectionStatisticsModul();
+            myTAZFrameParent->myTAZSelectionStatistics->showTAZSelectionStatisticsModule();
         }
         // update button
         updateSelectEdgesButton();
@@ -724,7 +724,7 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdUseSelectedEdges(FXObject*, FXSelec
         if (myTAZFrameParent->myTAZSelectionStatistics->getEdgeAndTAZChildrenSelected().size() == 0) {
             // first check if all TAZEdges are selected
             bool allSelected = true;
-            for (const auto& TAZEdgeColor : myTAZFrameParent->getCurrentTAZModul()->getTAZEdges()) {
+            for (const auto& TAZEdgeColor : myTAZFrameParent->getCurrentTAZModule()->getTAZEdges()) {
                 if (!TAZEdgeColor.edge->isAttributeCarrierSelected()) {
                     allSelected = false;
                 }
@@ -732,13 +732,13 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdUseSelectedEdges(FXObject*, FXSelec
             // select or unselect all depending of allSelected
             if (allSelected) {
                 // remove form selection all TAZEdges
-                for (const auto& TAZEdgeColor : myTAZFrameParent->getCurrentTAZModul()->getTAZEdges()) {
+                for (const auto& TAZEdgeColor : myTAZFrameParent->getCurrentTAZModule()->getTAZEdges()) {
                     // change attribute selected (without undo-redo)
                     TAZEdgeColor.edge->unselectAttributeCarrier();
                 }
             } else {
                 // add to selection all TAZEdges
-                for (const auto& TAZEdgeColor : myTAZFrameParent->getCurrentTAZModul()->getTAZEdges()) {
+                for (const auto& TAZEdgeColor : myTAZFrameParent->getCurrentTAZModule()->getTAZEdges()) {
                     // change attribute selected (without undo-redo)
                     TAZEdgeColor.edge->selectAttributeCarrier();
                 }
@@ -804,7 +804,7 @@ GNETAZFrame::TAZSelectionStatistics::~TAZSelectionStatistics() {}
 
 
 void
-GNETAZFrame::TAZSelectionStatistics::showTAZSelectionStatisticsModul() {
+GNETAZFrame::TAZSelectionStatistics::showTAZSelectionStatisticsModule() {
     // update Statistics before show
     updateStatistics();
     show();
@@ -812,7 +812,7 @@ GNETAZFrame::TAZSelectionStatistics::showTAZSelectionStatisticsModul() {
 
 
 void
-GNETAZFrame::TAZSelectionStatistics::hideTAZSelectionStatisticsModul() {
+GNETAZFrame::TAZSelectionStatistics::hideTAZSelectionStatisticsModule() {
     // clear children before hide
     clearSelectedEdges();
     hide();
@@ -912,7 +912,7 @@ GNETAZFrame::TAZSelectionStatistics::onCmdSetNewValues(FXObject* obj, FXSelector
                     selectedEdge.source->setAttribute(SUMO_ATTR_WEIGHT, myTextFieldTAZSourceWeight->getText().text(), myTAZFrameParent->myViewNet->getUndoList());
                 }
                 // refresh TAZ Edges
-                myTAZFrameParent->getCurrentTAZModul()->refreshTAZEdges();
+                myTAZFrameParent->getCurrentTAZModule()->refreshTAZEdges();
             } else {
                 // set invalid color
                 myTextFieldTAZSourceWeight->setTextColor(FXRGB(255, 0, 0));
@@ -936,7 +936,7 @@ GNETAZFrame::TAZSelectionStatistics::onCmdSetNewValues(FXObject* obj, FXSelector
                     selectedEdge.sink->setAttribute(SUMO_ATTR_WEIGHT, myTextFieldTAZSinkWeight->getText().text(), myTAZFrameParent->myViewNet->getUndoList());
                 }
                 // refresh TAZ Edges
-                myTAZFrameParent->getCurrentTAZModul()->refreshTAZEdges();
+                myTAZFrameParent->getCurrentTAZModule()->refreshTAZEdges();
             } else {
                 // set invalid color
                 myTextFieldTAZSinkWeight->setTextColor(FXRGB(255, 0, 0));
@@ -954,7 +954,7 @@ long
 GNETAZFrame::TAZSelectionStatistics::onCmdSelectEdges(FXObject*, FXSelector, void*) {
     if (myEdgeAndTAZChildrenSelected.size() == 0) {
         // add to selection all TAZEdges
-        for (const auto& TAZEdgeColor : myTAZFrameParent->getCurrentTAZModul()->getTAZEdges()) {
+        for (const auto& TAZEdgeColor : myTAZFrameParent->getCurrentTAZModule()->getTAZEdges()) {
             // avoid empty undolists
             if (!TAZEdgeColor.edge->isAttributeCarrierSelected()) {
                 // enable save button
@@ -1109,13 +1109,13 @@ GNETAZFrame::TAZParameters::~TAZParameters() {
 
 
 void
-GNETAZFrame::TAZParameters::showTAZParametersModul() {
+GNETAZFrame::TAZParameters::showTAZParametersModule() {
     FXGroupBoxModule::show();
 }
 
 
 void
-GNETAZFrame::TAZParameters::hideTAZParametersModul() {
+GNETAZFrame::TAZParameters::hideTAZParametersModule() {
     FXGroupBoxModule::hide();
 }
 
@@ -1242,7 +1242,7 @@ GNETAZFrame::TAZEdgesGraphic::TAZEdgesGraphic(GNETAZFrame* TAZFrameParent) :
     FXLabel* selectedTAZEdgeLabel = new FXLabel(getCollapsableFrame(), "Selected TAZ Edge", nullptr, GUIDesignLabelCenter);
     selectedTAZEdgeLabel->setBackColor(MFXUtils::getFXColor(myEdgeSelectedColor));
     // build rainbow
-    GNEFrameModuls::buildRainbow(this);
+    GNEFrameModules::buildRainbow(this);
     // create Radio button for show edges by source weight
     myColorBySourceWeight = new FXRadioButton(getCollapsableFrame(), "Color by Source", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // create Radio button for show edges by sink weight
@@ -1260,7 +1260,7 @@ GNETAZFrame::TAZEdgesGraphic::~TAZEdgesGraphic() {}
 
 
 void
-GNETAZFrame::TAZEdgesGraphic::showTAZEdgesGraphicModul() {
+GNETAZFrame::TAZEdgesGraphic::showTAZEdgesGraphicModule() {
     // update edge colors
     updateEdgeColors();
     show();
@@ -1268,7 +1268,7 @@ GNETAZFrame::TAZEdgesGraphic::showTAZEdgesGraphicModul() {
 
 
 void
-GNETAZFrame::TAZEdgesGraphic::hideTAZEdgesGraphicModul() {
+GNETAZFrame::TAZEdgesGraphic::hideTAZEdgesGraphicModule() {
     // iterate over all edges and restore color
     for (const auto& edge : myTAZFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
         for (const auto& lane : edge.second->getLanes()) {
@@ -1363,10 +1363,10 @@ GNETAZFrame::GNETAZFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* v
     myTAZParameters = new TAZParameters(this);
 
     /// @brief create  Netedit parameter
-    myNeteditAttributes = new GNEFrameAttributesModuls::NeteditAttributes(this);
+    myNeteditAttributes = new GNEFrameAttributesModules::NeteditAttributes(this);
 
     // Create drawing controls modul
-    myDrawingShape = new GNEFrameModuls::DrawingShape(this);
+    myDrawingShape = new GNEFrameModules::DrawingShape(this);
 
     // Create TAZ Edges Common Statistics modul
     myTAZCommonStatistics = new TAZCommonStatistics(this);
@@ -1492,26 +1492,26 @@ GNETAZFrame::processEdgeSelection(const std::vector<GNEEdge*>& edges) {
 }
 
 
-GNEFrameModuls::DrawingShape*
-GNETAZFrame::getDrawingShapeModul() const {
+GNEFrameModules::DrawingShape*
+GNETAZFrame::getDrawingShapeModule() const {
     return myDrawingShape;
 }
 
 
 GNETAZFrame::CurrentTAZ*
-GNETAZFrame::getCurrentTAZModul() const {
+GNETAZFrame::getCurrentTAZModule() const {
     return myCurrentTAZ;
 }
 
 
 GNETAZFrame::TAZSelectionStatistics*
-GNETAZFrame::getTAZSelectionStatisticsModul() const {
+GNETAZFrame::getTAZSelectionStatisticsModule() const {
     return myTAZSelectionStatistics;
 }
 
 
 GNETAZFrame::TAZSaveChanges*
-GNETAZFrame::getTAZSaveChangesModul() const {
+GNETAZFrame::getTAZSaveChangesModule() const {
     return myTAZSaveChanges;
 }
 

@@ -103,18 +103,18 @@ GNEVehicleFrame::GNEVehicleFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     myVehicleBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
     // Create item Selector modul for vehicles
-    myVehicleTagSelector = new GNEFrameModuls::TagSelector(this, GNETagProperties::TagType::VEHICLE, SUMO_TAG_TRIP);
+    myVehicleTagSelector = new GNEFrameModules::TagSelector(this, GNETagProperties::TagType::VEHICLE, SUMO_TAG_TRIP);
 
     // Create vehicle type selector
-    myVTypeSelector = new GNEFrameModuls::DemandElementSelector(this, SUMO_TAG_VTYPE);
+    myVTypeSelector = new GNEFrameModules::DemandElementSelector(this, SUMO_TAG_VTYPE);
 
     // Create vehicle parameters
-    myVehicleAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
+    myVehicleAttributes = new GNEFrameAttributesModules::AttributesCreator(this);
 
-    // create PathCreator Modul
-    myPathCreator = new GNEFrameModuls::PathCreator(this);
+    // create PathCreator Module
+    myPathCreator = new GNEFrameModules::PathCreator(this);
 
-    // Create Help Creation Modul
+    // Create Help Creation Module
     myHelpCreation = new HelpCreation(this);
 }
 
@@ -263,7 +263,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
 }
 
 
-GNEFrameModuls::PathCreator*
+GNEFrameModules::PathCreator*
 GNEVehicleFrame::getPathCreator() const {
     return myPathCreator;
 }
@@ -280,12 +280,12 @@ GNEVehicleFrame::tagSelected() {
         // show path creator modul
         if ((myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != SUMO_TAG_VEHICLE) &&
                 (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != GNE_TAG_FLOW_ROUTE)) {
-            myPathCreator->showPathCreatorModul(myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
+            myPathCreator->showPathCreatorModule(myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
         }
     } else {
         // hide all moduls if vehicle isn't valid
         myVTypeSelector->hideDemandElementSelector();
-        myVehicleAttributes->hideAttributesCreatorModul();
+        myVehicleAttributes->hideAttributesCreatorModule();
         myHelpCreation->hideHelpCreation();
     }
 }
@@ -295,20 +295,20 @@ void
 GNEVehicleFrame::demandElementSelected() {
     if (myVTypeSelector->getCurrentDemandElement()) {
         // show vehicle attributes modul
-        myVehicleAttributes->showAttributesCreatorModul(myVehicleTagSelector->getCurrentTemplateAC(), {});
+        myVehicleAttributes->showAttributesCreatorModule(myVehicleTagSelector->getCurrentTemplateAC(), {});
         // set current VTypeClass in TripCreator
         myPathCreator->setVClass(myVTypeSelector->getCurrentDemandElement()->getVClass());
         // show path creator modul
         if ((myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != SUMO_TAG_VEHICLE) &&
                 (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != GNE_TAG_FLOW_ROUTE)) {
-            myPathCreator->showPathCreatorModul(myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
+            myPathCreator->showPathCreatorModule(myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
         }
         // show help creation
         myHelpCreation->showHelpCreation();
     } else {
         // hide all moduls if selected item isn't valid
-        myVehicleAttributes->hideAttributesCreatorModul();
-        myPathCreator->hidePathCreatorModul();
+        myVehicleAttributes->hideAttributesCreatorModule();
+        myPathCreator->hidePathCreatorModule();
         myHelpCreation->hideHelpCreation();
         // hide help creation
         myHelpCreation->hideHelpCreation();

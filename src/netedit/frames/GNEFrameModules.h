@@ -11,11 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEFrameModuls.h
+/// @file    GNEFrameModules.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2019
 ///
-// Auxiliar class for GNEFrame Moduls
+// Auxiliar class for GNEFrame Modules
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -38,7 +38,7 @@ class GNEDataInterval;
 // class definitions
 // ===========================================================================
 
-class GNEFrameModuls {
+class GNEFrameModules {
 
 public:
     // ===========================================================================
@@ -47,7 +47,7 @@ public:
 
     class TagSelector : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameModuls::TagSelector)
+        FXDECLARE(GNEFrameModules::TagSelector)
 
     public:
         /// @brief constructor
@@ -130,7 +130,7 @@ public:
 
     class DemandElementSelector : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameModuls::DemandElementSelector)
+        FXDECLARE(GNEFrameModules::DemandElementSelector)
 
     public:
         /// @brief constructor with a single tag
@@ -198,7 +198,7 @@ public:
 
     class HierarchicalElementTree : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameModuls::HierarchicalElementTree)
+        FXDECLARE(GNEFrameModules::HierarchicalElementTree)
 
     public:
         /// @brief constructor
@@ -320,7 +320,7 @@ public:
 
     class DrawingShape : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameModuls::DrawingShape)
+        FXDECLARE(GNEFrameModules::DrawingShape)
 
     public:
         /// @brief constructor
@@ -418,14 +418,14 @@ public:
         /// @brief select manually a element of the list
         void setIDSelected(const std::string& id);
 
-        /// @brief Show list of SelectorParent Modul
-        bool showSelectorParentModul(const std::vector<SumoXMLTag>& additionalTypeParents);
+        /// @brief Show list of SelectorParent Module
+        bool showSelectorParentModule(const std::vector<SumoXMLTag>& additionalTypeParents);
 
-        /// @brief hide SelectorParent Modul
-        void hideSelectorParentModul();
+        /// @brief hide SelectorParent Module
+        void hideSelectorParentModule();
 
-        /// @brief Refresh list of Additional Parents Modul
-        void refreshSelectorParentModul();
+        /// @brief Refresh list of Additional Parents Module
+        void refreshSelectorParentModule();
 
     private:
         /// @brief pointer to Frame Parent
@@ -447,7 +447,7 @@ public:
 
     class OverlappedInspection : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameModuls::OverlappedInspection)
+        FXDECLARE(GNEFrameModules::OverlappedInspection)
 
     public:
         /// @brief constructor
@@ -544,7 +544,7 @@ public:
 
     class PathCreator : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameModuls::PathCreator)
+        FXDECLARE(GNEFrameModules::PathCreator)
 
     public:
         /// @brief class for path
@@ -606,10 +606,10 @@ public:
         ~PathCreator();
 
         /// @brief show PathCreator for the given tag
-        void showPathCreatorModul(SumoXMLTag element, const bool firstElement, const bool consecutives);
+        void showPathCreatorModule(SumoXMLTag element, const bool firstElement, const bool consecutives);
 
         /// @brief show PathCreator
-        void hidePathCreatorModul();
+        void hidePathCreatorModule();
 
         /// @brief get vClass
         SUMOVehicleClass getVClass() const;
@@ -770,10 +770,10 @@ public:
         ~PathLegend();
 
         /// @brief show Legend modul
-        void showPathLegendModul();
+        void showPathLegendModule();
 
         /// @brief hide Legend modul
-        void hidePathLegendModul();
+        void hidePathLegendModule();
     };
 
     // ===========================================================================

@@ -1487,8 +1487,8 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
         ACToSelect.reserve(ACsInBoundaryFiltered.size());
         ACToUnselect.reserve(ACsInBoundaryFiltered.size());
         // in restrict AND replace mode all current selected attribute carriers will be unselected
-        if ((myViewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode() == GNESelectorFrame::ModificationMode::Operation::RESTRICT) ||
-                (myViewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode() == GNESelectorFrame::ModificationMode::Operation::REPLACE)) {
+        if ((myViewNet->myViewParent->getSelectorFrame()->getModificationModeModule()->getModificationMode() == GNESelectorFrame::ModificationMode::Operation::RESTRICT) ||
+                (myViewNet->myViewParent->getSelectorFrame()->getModificationModeModule()->getModificationMode() == GNESelectorFrame::ModificationMode::Operation::REPLACE)) {
             // obtain selected ACs depending of current supermode
             const auto selectedAC = myViewNet->getNet()->getAttributeCarriers()->getSelectedAttributeCarriers(false);
             // add id into ACs to unselect
@@ -1498,7 +1498,7 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
         }
         // iterate over AtributeCarriers obtained of boundary an place it in ACToSelect or ACToUnselect
         for (const auto& AC : ACsInBoundaryFiltered) {
-            switch (myViewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode()) {
+            switch (myViewNet->myViewParent->getSelectorFrame()->getModificationModeModule()->getModificationMode()) {
                 case GNESelectorFrame::ModificationMode::Operation::SUB:
                     ACToUnselect.push_back(AC.second);
                     break;
@@ -1513,7 +1513,7 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
             }
         }
         // select junctions and their connections and crossings if Auto select junctions is enabled (note: only for "add mode")
-        if (myViewNet->autoSelectNodes() && (myViewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode() == GNESelectorFrame::ModificationMode::Operation::ADD)) {
+        if (myViewNet->autoSelectNodes() && (myViewNet->myViewParent->getSelectorFrame()->getModificationModeModule()->getModificationMode() == GNESelectorFrame::ModificationMode::Operation::ADD)) {
             std::vector<GNEEdge*> edgesToSelect;
             // iterate over ACToSelect and extract edges
             for (const auto& AC : ACToSelect) {

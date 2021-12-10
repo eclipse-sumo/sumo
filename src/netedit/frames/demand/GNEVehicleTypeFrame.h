@@ -101,13 +101,13 @@ public:
         ~VehicleTypeEditor();
 
         /// @brief show VehicleTypeEditor modul
-        void showVehicleTypeEditorModul();
+        void showVehicleTypeEditorModule();
 
         /// @brief hide VehicleTypeEditor box
-        void hideVehicleTypeEditorModul();
+        void hideVehicleTypeEditorModule();
 
         /// @brief update VehicleTypeEditor modul
-        void refreshVehicleTypeEditorModul();
+        void refreshVehicleTypeEditorModule();
 
         /// @name FOX-callbacks
         /// @{
@@ -171,10 +171,10 @@ private:
     VehicleTypeSelector* myVehicleTypeSelector;
 
     /// @brief editorinternal vehicle type attributes
-    GNEFrameAttributesModuls::AttributesEditor* myVehicleTypeAttributesEditor;
+    GNEFrameAttributesModules::AttributesEditor* myVehicleTypeAttributesEditor;
 
     /// @brief modul for open extended attributes dialog
-    GNEFrameAttributesModuls::AttributesEditorExtended* myAttributesEditorExtended;
+    GNEFrameAttributesModules::AttributesEditorExtended* myAttributesEditorExtended;
 
     /// @brief Vehicle Type editor (Create, copy, etc.)
     VehicleTypeEditor* myVehicleTypeEditor;

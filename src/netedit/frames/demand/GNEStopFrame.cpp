@@ -112,18 +112,18 @@ GNEStopFrame::GNEStopFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet*
     myStopParentBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
     // Create Stop parent selector
-    myStopParentSelector = new GNEFrameModuls::DemandElementSelector(this, {GNETagProperties::TagType::PERSON, GNETagProperties::TagType::VEHICLE, GNETagProperties::TagType::ROUTE});
+    myStopParentSelector = new GNEFrameModules::DemandElementSelector(this, {GNETagProperties::TagType::PERSON, GNETagProperties::TagType::VEHICLE, GNETagProperties::TagType::ROUTE});
 
     // Create item Selector modul for Stops
-    myStopTagSelector = new GNEFrameModuls::TagSelector(this, GNETagProperties::TagType::STOP, SUMO_TAG_STOP_LANE);
+    myStopTagSelector = new GNEFrameModules::TagSelector(this, GNETagProperties::TagType::STOP, SUMO_TAG_STOP_LANE);
 
     // Create Stop parameters
-    myStopAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
+    myStopAttributes = new GNEFrameAttributesModules::AttributesCreator(this);
 
     // Create Netedit parameter
-    myNeteditAttributes = new GNEFrameAttributesModuls::NeteditAttributes(this);
+    myNeteditAttributes = new GNEFrameAttributesModules::NeteditAttributes(this);
 
-    // Create Help Creation Modul
+    // Create Help Creation Module
     myHelpCreation = new HelpCreation(this);
 
     // refresh myStopParentMatchBox
@@ -160,8 +160,8 @@ GNEStopFrame::show() {
         // hide moduls (except help creation)
         myStopParentSelector->hideDemandElementSelector();
         myStopTagSelector->hideTagSelector();
-        myStopAttributes->hideAttributesCreatorModul();
-        myNeteditAttributes->hideNeteditAttributesModul();
+        myStopAttributes->hideAttributesCreatorModule();
+        myNeteditAttributes->hideNeteditAttributesModule();
         // show help creation modul
         myHelpCreation->showHelpCreation();
     }
@@ -414,13 +414,13 @@ void
 GNEStopFrame::tagSelected() {
     if (myStopTagSelector->getCurrentTemplateAC()) {
         // show Stop type selector modul
-        myStopAttributes->showAttributesCreatorModul(myStopTagSelector->getCurrentTemplateAC(), {});
-        myNeteditAttributes->showNeteditAttributesModul(myStopTagSelector->getCurrentTemplateAC()->getTagProperty());
+        myStopAttributes->showAttributesCreatorModule(myStopTagSelector->getCurrentTemplateAC(), {});
+        myNeteditAttributes->showNeteditAttributesModule(myStopTagSelector->getCurrentTemplateAC()->getTagProperty());
         myHelpCreation->showHelpCreation();
     } else {
         // hide all moduls if stop parent isn't valid
-        myStopAttributes->hideAttributesCreatorModul();
-        myNeteditAttributes->hideNeteditAttributesModul();
+        myStopAttributes->hideAttributesCreatorModule();
+        myNeteditAttributes->hideNeteditAttributesModule();
         myHelpCreation->hideHelpCreation();
     }
 }
@@ -433,19 +433,19 @@ GNEStopFrame::demandElementSelected() {
         myStopTagSelector->showTagSelector();
         if (myStopTagSelector->getCurrentTemplateAC()) {
             // show moduls
-            myStopAttributes->showAttributesCreatorModul(myStopTagSelector->getCurrentTemplateAC(), {});
-            myNeteditAttributes->showNeteditAttributesModul(myStopTagSelector->getCurrentTemplateAC()->getTagProperty());
+            myStopAttributes->showAttributesCreatorModule(myStopTagSelector->getCurrentTemplateAC(), {});
+            myNeteditAttributes->showNeteditAttributesModule(myStopTagSelector->getCurrentTemplateAC()->getTagProperty());
             myHelpCreation->showHelpCreation();
         } else {
-            myStopAttributes->hideAttributesCreatorModul();
-            myNeteditAttributes->hideNeteditAttributesModul();
+            myStopAttributes->hideAttributesCreatorModule();
+            myNeteditAttributes->hideNeteditAttributesModule();
             myHelpCreation->hideHelpCreation();
         }
     } else {
         // hide moduls
         myStopTagSelector->hideTagSelector();
-        myStopAttributes->hideAttributesCreatorModul();
-        myNeteditAttributes->hideNeteditAttributesModul();
+        myStopAttributes->hideAttributesCreatorModule();
+        myNeteditAttributes->hideNeteditAttributesModule();
         myHelpCreation->hideHelpCreation();
     }
 }

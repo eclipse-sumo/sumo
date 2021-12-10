@@ -143,11 +143,11 @@ GNEVehicleTypeFrame::VehicleTypeSelector::refreshVehicleTypeSelector() {
         }
     }
     // refresh vehicle type editor modul
-    myVehicleTypeFrameParent->myVehicleTypeEditor->refreshVehicleTypeEditorModul();
+    myVehicleTypeFrameParent->myVehicleTypeEditor->refreshVehicleTypeEditorModule();
     // set myCurrentVehicleType as inspected element
     myVehicleTypeFrameParent->getViewNet()->setInspectedAttributeCarriers({myCurrentVehicleType});
     // show Attribute Editor modul
-    myVehicleTypeFrameParent->myVehicleTypeAttributesEditor->showAttributeEditorModul(false, true);
+    myVehicleTypeFrameParent->myVehicleTypeAttributesEditor->showAttributeEditorModule(false, true);
 }
 
 
@@ -169,11 +169,11 @@ GNEVehicleTypeFrame::VehicleTypeSelector::onCmdSelectItem(FXObject*, FXSelector,
             // set color of myTypeMatchBox to black (valid)
             myTypeMatchBox->setTextColor(FXRGB(0, 0, 0));
             // refresh vehicle type editor modul
-            myVehicleTypeFrameParent->myVehicleTypeEditor->refreshVehicleTypeEditorModul();
+            myVehicleTypeFrameParent->myVehicleTypeEditor->refreshVehicleTypeEditorModule();
             // set myCurrentVehicleType as inspected element
             myVehicleTypeFrameParent->getViewNet()->setInspectedAttributeCarriers({myCurrentVehicleType});
             // show moduls if selected item is valid
-            myVehicleTypeFrameParent->myVehicleTypeAttributesEditor->showAttributeEditorModul(false, true);
+            myVehicleTypeFrameParent->myVehicleTypeAttributesEditor->showAttributeEditorModule(false, true);
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG(("Selected item '" + myTypeMatchBox->getText() + "' in VehicleTypeSelector").text());
             return 1;
@@ -181,9 +181,9 @@ GNEVehicleTypeFrame::VehicleTypeSelector::onCmdSelectItem(FXObject*, FXSelector,
     }
     myCurrentVehicleType = nullptr;
     // refresh vehicle type editor modul
-    myVehicleTypeFrameParent->myVehicleTypeEditor->refreshVehicleTypeEditorModul();
+    myVehicleTypeFrameParent->myVehicleTypeEditor->refreshVehicleTypeEditorModule();
     // hide all moduls if selected item isn't valid
-    myVehicleTypeFrameParent->myVehicleTypeAttributesEditor->hideAttributesEditorModul();
+    myVehicleTypeFrameParent->myVehicleTypeAttributesEditor->hideAttributesEditorModule();
     // set color of myTypeMatchBox to red (invalid)
     myTypeMatchBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
@@ -213,20 +213,20 @@ GNEVehicleTypeFrame::VehicleTypeEditor::~VehicleTypeEditor() {}
 
 
 void
-GNEVehicleTypeFrame::VehicleTypeEditor::showVehicleTypeEditorModul() {
-    refreshVehicleTypeEditorModul();
+GNEVehicleTypeFrame::VehicleTypeEditor::showVehicleTypeEditorModule() {
+    refreshVehicleTypeEditorModule();
     show();
 }
 
 
 void
-GNEVehicleTypeFrame::VehicleTypeEditor::hideVehicleTypeEditorModul() {
+GNEVehicleTypeFrame::VehicleTypeEditor::hideVehicleTypeEditorModule() {
     hide();
 }
 
 
 void
-GNEVehicleTypeFrame::VehicleTypeEditor::refreshVehicleTypeEditorModul() {
+GNEVehicleTypeFrame::VehicleTypeEditor::refreshVehicleTypeEditorModule() {
     // first check if selected VType is valid
     if (myVehicleTypeFrameParent->myVehicleTypeSelector->getCurrentVehicleType() == nullptr) {
         // disable all buttons except create button
@@ -270,8 +270,8 @@ GNEVehicleTypeFrame::VehicleTypeEditor::onCmdCreateVehicleType(FXObject*, FXSele
     myVehicleTypeFrameParent->myViewNet->getUndoList()->end();
     // set created vehicle type in selector
     myVehicleTypeFrameParent->myVehicleTypeSelector->setCurrentVehicleType(vehicleType);
-    // refresh VehicleType Editor Modul
-    myVehicleTypeFrameParent->myVehicleTypeEditor->refreshVehicleTypeEditorModul();
+    // refresh VehicleType Editor Module
+    myVehicleTypeFrameParent->myVehicleTypeEditor->refreshVehicleTypeEditorModule();
     return 1;
 }
 
@@ -365,8 +365,8 @@ GNEVehicleTypeFrame::VehicleTypeEditor::onCmdCopyVehicleType(FXObject*, FXSelect
         myVehicleTypeFrameParent->myVehicleTypeSelector->refreshVehicleTypeSelector();
         // set created vehicle type in selector
         myVehicleTypeFrameParent->myVehicleTypeSelector->setCurrentVehicleType(vehicleTypeCopy);
-        // refresh VehicleType Editor Modul
-        myVehicleTypeFrameParent->myVehicleTypeEditor->refreshVehicleTypeEditorModul();
+        // refresh VehicleType Editor Module
+        myVehicleTypeFrameParent->myVehicleTypeEditor->refreshVehicleTypeEditorModule();
     }
     return 1;
 }
@@ -385,10 +385,10 @@ GNEVehicleTypeFrame::GNEVehicleTypeFrame(FXHorizontalFrame* horizontalFrameParen
     myVehicleTypeSelector = new VehicleTypeSelector(this);
 
     // Create vehicle type attributes editor
-    myVehicleTypeAttributesEditor = new GNEFrameAttributesModuls::AttributesEditor(this);
+    myVehicleTypeAttributesEditor = new GNEFrameAttributesModules::AttributesEditor(this);
 
     // create modul for open extended attributes dialog
-    myAttributesEditorExtended = new GNEFrameAttributesModuls::AttributesEditorExtended(this);
+    myAttributesEditorExtended = new GNEFrameAttributesModules::AttributesEditorExtended(this);
 
     // set "VTYPE_DEFAULT" as default vehicle Type
     myVehicleTypeSelector->setCurrentVehicleType(myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID));
@@ -405,7 +405,7 @@ GNEVehicleTypeFrame::show() {
     // set myCurrentVehicleType as inspected element
     myVehicleTypeAttributesEditor->getFrameParent()->getViewNet()->setInspectedAttributeCarriers({myVehicleTypeSelector->getCurrentVehicleType()});
     // show vehicle type attributes editor (except extended attributes)
-    myVehicleTypeAttributesEditor->showAttributeEditorModul(false, true);
+    myVehicleTypeAttributesEditor->showAttributeEditorModule(false, true);
     // show frame
     GNEFrame::show();
 }
@@ -431,8 +431,8 @@ GNEVehicleTypeFrame::attributesEditorExtendedDialogOpened() {
         GNEVehicleTypeDialog(myVehicleTypeSelector->getCurrentVehicleType(), true);
         // set myCurrentVehicleType as inspected element
         myVehicleTypeAttributesEditor->getFrameParent()->getViewNet()->setInspectedAttributeCarriers({myVehicleTypeSelector->getCurrentVehicleType()});
-        // call "showAttributeEditorModul" to refresh attribute list
-        myVehicleTypeAttributesEditor->showAttributeEditorModul(false, true);
+        // call "showAttributeEditorModule" to refresh attribute list
+        myVehicleTypeAttributesEditor->showAttributeEditorModule(false, true);
     }
 }
 

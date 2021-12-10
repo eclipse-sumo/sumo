@@ -122,7 +122,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::refreshEdgeTypeSelector() {
         myAddEdgeTypeButton->disable();
         myDeleteEdgeTypeButton->disable();
         // show default edgeType attributes
-        myCreateEdgeFrameParent->myEdgeTypeAttributes->showAttributesCreatorModul(myDefaultEdgeType, {SUMO_ATTR_ID});
+        myCreateEdgeFrameParent->myEdgeTypeAttributes->showAttributesCreatorModule(myDefaultEdgeType, {SUMO_ATTR_ID});
         // show lane attributes
         myCreateEdgeFrameParent->myLaneTypeSelector->showLaneTypeSelector();
     } else if (myUseCustomEdgeType->getCheck()) {
@@ -135,7 +135,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::refreshEdgeTypeSelector() {
             myEdgeTypesComboBox->disable();
             myDeleteEdgeTypeButton->disable();
             // hide attributes creators
-            myCreateEdgeFrameParent->myEdgeTypeAttributes->hideAttributesCreatorModul();
+            myCreateEdgeFrameParent->myEdgeTypeAttributes->hideAttributesCreatorModule();
             myCreateEdgeFrameParent->myLaneTypeSelector->hideLaneTypeSelector();
         } else if (templateEditor->getEdgeTemplate() && (index == 0)) {
             // enable create from template
@@ -145,7 +145,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::refreshEdgeTypeSelector() {
             // disable delete edge type button (because templates cannot be deleted)
             myDeleteEdgeTypeButton->disable();
             // show edgeType attributes and disable
-            myCreateEdgeFrameParent->myEdgeTypeAttributes->showAttributesCreatorModul(templateEditor->getEdgeTemplate(), {SUMO_ATTR_ID});
+            myCreateEdgeFrameParent->myEdgeTypeAttributes->showAttributesCreatorModule(templateEditor->getEdgeTemplate(), {SUMO_ATTR_ID});
             myCreateEdgeFrameParent->myEdgeTypeAttributes->disableAttributesCreator();
             // show lane attributes (will be automatic disabled)
             myCreateEdgeFrameParent->myLaneTypeSelector->showLaneTypeSelector();  
@@ -159,12 +159,12 @@ GNECreateEdgeFrame::EdgeTypeSelector::refreshEdgeTypeSelector() {
             // check if exist
             if (myEdgeTypeSelected) {
                 // show edgeType attributes
-                myCreateEdgeFrameParent->myEdgeTypeAttributes->showAttributesCreatorModul(myEdgeTypeSelected, {});
+                myCreateEdgeFrameParent->myEdgeTypeAttributes->showAttributesCreatorModule(myEdgeTypeSelected, {});
                 // show lane attributes
                 myCreateEdgeFrameParent->myLaneTypeSelector->showLaneTypeSelector();
             } else {
                 // hide edgeType attributes
-                myCreateEdgeFrameParent->myEdgeTypeAttributes->hideAttributesCreatorModul();
+                myCreateEdgeFrameParent->myEdgeTypeAttributes->hideAttributesCreatorModule();
                 // hide lane attributes
                 myCreateEdgeFrameParent->myLaneTypeSelector->hideLaneTypeSelector();
                 // set comboBox text
@@ -414,7 +414,7 @@ GNECreateEdgeFrame::LaneTypeSelector::showLaneTypeSelector() {
 void
 GNECreateEdgeFrame::LaneTypeSelector::hideLaneTypeSelector() {
     // hide attributes creator modul
-    myCreateEdgeFrameParent->myLaneTypeAttributes->hideAttributesCreatorModul();
+    myCreateEdgeFrameParent->myLaneTypeAttributes->hideAttributesCreatorModule();
     // hide
     hide();
 }
@@ -434,7 +434,7 @@ GNECreateEdgeFrame::LaneTypeSelector::refreshLaneTypeSelector() {
         // update comboBox
         updateComboBox();
         // show laneTypeAttributes
-        myCreateEdgeFrameParent->myLaneTypeAttributes->showAttributesCreatorModul(edgeTemplate->getLaneTemplates().at(myLaneIndex), {SUMO_ATTR_ID});
+        myCreateEdgeFrameParent->myLaneTypeAttributes->showAttributesCreatorModule(edgeTemplate->getLaneTemplates().at(myLaneIndex), {SUMO_ATTR_ID});
         // disable laneAttributes (because is a template)
         myCreateEdgeFrameParent->myLaneTypeAttributes->disableAttributesCreator();
         // disable add and remove buttons
@@ -450,7 +450,7 @@ GNECreateEdgeFrame::LaneTypeSelector::refreshLaneTypeSelector() {
         // update comboBox
         updateComboBox();
         // show laneTypeAttributes
-        myCreateEdgeFrameParent->myLaneTypeAttributes->showAttributesCreatorModul(edgeType->getLaneTypes().at(myLaneIndex), {});
+        myCreateEdgeFrameParent->myLaneTypeAttributes->showAttributesCreatorModule(edgeType->getLaneTypes().at(myLaneIndex), {});
         // enable add and remove buttons
         myAddLaneTypeButton->enable();
         // check if enable or disable remove lane button
@@ -570,11 +570,11 @@ GNECreateEdgeFrame::GNECreateEdgeFrame(FXHorizontalFrame* horizontalFrameParent,
     // create custom edge selector
     myEdgeTypeSelector = new EdgeTypeSelector(this);
     // Create edgeType parameters
-    myEdgeTypeAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
+    myEdgeTypeAttributes = new GNEFrameAttributesModules::AttributesCreator(this);
     // lane type selector
     myLaneTypeSelector = new LaneTypeSelector(this);
     // Create laneType parameters
-    myLaneTypeAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
+    myLaneTypeAttributes = new GNEFrameAttributesModules::AttributesCreator(this);
     // create edge selector legend
     myLegend = new Legend(this);
 }
@@ -711,7 +711,7 @@ GNECreateEdgeFrame::getEdgeTypeSelector() const {
 }
 
 
-GNEFrameAttributesModuls::AttributesCreator* 
+GNEFrameAttributesModules::AttributesCreator* 
 GNECreateEdgeFrame::getEdgeTypeAttributes() const {
     return myEdgeTypeAttributes;
 }
@@ -723,7 +723,7 @@ GNECreateEdgeFrame::getLaneTypeSelector() {
 }
 
 
-GNEFrameAttributesModuls::AttributesCreator* 
+GNEFrameAttributesModules::AttributesCreator* 
 GNECreateEdgeFrame::getLaneTypeAttributes() const {
     return myLaneTypeAttributes;
 }

@@ -50,7 +50,7 @@ class GNEAttributeCarrier : public GNEReferenceCounter {
     /// @brief declare friend class
     friend class GNEChange_Attribute;
     friend class GNEChange_EnableAttribute;
-    friend class GNEFrameAttributesModuls;
+    friend class GNEFrameAttributesModules;
 
 public:
 
@@ -277,7 +277,7 @@ private:
     /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
     virtual void toogleAttribute(SumoXMLAttr key, const bool value, const int previousParameters) = 0;
 
-    /// @brief reset attributes to their default values without undo-redo (used in GNEFrameAttributesModuls)
+    /// @brief reset attributes to their default values without undo-redo (used in GNEFrameAttributesModules)
     void resetAttributes();
 
     /// @brief fill Attribute Carriers

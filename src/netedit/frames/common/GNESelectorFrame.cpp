@@ -1280,7 +1280,7 @@ GNESelectorFrame::getContentFrame() const {
 
 
 GNESelectorFrame::ModificationMode*
-GNESelectorFrame::getModificationModeModul() const {
+GNESelectorFrame::getModificationModeModule() const {
     return myModificationMode;
 }
 

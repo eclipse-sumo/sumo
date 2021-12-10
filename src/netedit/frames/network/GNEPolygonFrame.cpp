@@ -77,7 +77,7 @@ GNEPolygonFrame::GEOPOICreator::~GEOPOICreator() {}
 
 
 void
-GNEPolygonFrame::GEOPOICreator::showGEOPOICreatorModul() {
+GNEPolygonFrame::GEOPOICreator::showGEOPOICreatorModule() {
     // check if there is an GEO Proj string is defined
     if (GeoConvHelper::getFinal().getProjString() != "!") {
         myCoordinatesTextField->enable();
@@ -94,7 +94,7 @@ GNEPolygonFrame::GEOPOICreator::showGEOPOICreatorModul() {
 
 
 void
-GNEPolygonFrame::GEOPOICreator::hideGEOPOICreatorModul() {
+GNEPolygonFrame::GEOPOICreator::hideGEOPOICreatorModule() {
     hide();
 }
 
@@ -218,16 +218,16 @@ GNEPolygonFrame::GNEPolygonFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     myBaseShape(nullptr) {
 
     // create item Selector modul for shapes
-    myShapeTagSelector = new GNEFrameModuls::TagSelector(this, GNETagProperties::TagType::SHAPE, SUMO_TAG_POLY);
+    myShapeTagSelector = new GNEFrameModules::TagSelector(this, GNETagProperties::TagType::SHAPE, SUMO_TAG_POLY);
 
     // Create shape parameters
-    myShapeAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
+    myShapeAttributes = new GNEFrameAttributesModules::AttributesCreator(this);
 
     // Create Netedit parameter
-    myNeteditAttributes = new GNEFrameAttributesModuls::NeteditAttributes(this);
+    myNeteditAttributes = new GNEFrameAttributesModules::NeteditAttributes(this);
 
     // Create drawing controls
-    myDrawingShape = new GNEFrameModuls::DrawingShape(this);
+    myDrawingShape = new GNEFrameModules::DrawingShape(this);
 
     /// @brief create GEOPOICreator
     myGEOPOICreator = new GEOPOICreator(this);
@@ -382,8 +382,8 @@ GNEPolygonFrame::getIdsSelected(const FXList* list) {
 }
 
 
-GNEFrameModuls::DrawingShape*
-GNEPolygonFrame::getDrawingShapeModul() const {
+GNEFrameModules::DrawingShape*
+GNEPolygonFrame::getDrawingShapeModule() const {
     return myDrawingShape;
 }
 
@@ -444,9 +444,9 @@ void
 GNEPolygonFrame::tagSelected() {
     if (myShapeTagSelector->getCurrentTemplateAC()) {
         // if there are parmeters, show and Recalc groupBox
-        myShapeAttributes->showAttributesCreatorModul(myShapeTagSelector->getCurrentTemplateAC(), {});
+        myShapeAttributes->showAttributesCreatorModule(myShapeTagSelector->getCurrentTemplateAC(), {});
         // show netedit attributes
-        myNeteditAttributes->showNeteditAttributesModul(myShapeTagSelector->getCurrentTemplateAC()->getTagProperty());
+        myNeteditAttributes->showNeteditAttributesModule(myShapeTagSelector->getCurrentTemplateAC()->getTagProperty());
         // Check if drawing mode has to be shown
         if (myShapeTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() == SUMO_TAG_POLY) {
             myDrawingShape->showDrawingShape();
@@ -455,16 +455,16 @@ GNEPolygonFrame::tagSelected() {
         }
         // Check if GEO POI Creator has to be shown
         if (myShapeTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() == GNE_TAG_POIGEO) {
-            myGEOPOICreator->showGEOPOICreatorModul();
+            myGEOPOICreator->showGEOPOICreatorModule();
         } else {
-            myGEOPOICreator->hideGEOPOICreatorModul();
+            myGEOPOICreator->hideGEOPOICreatorModule();
         }
     } else {
         // hide all widgets
-        myShapeAttributes->hideAttributesCreatorModul();
-        myNeteditAttributes->hideNeteditAttributesModul();
+        myShapeAttributes->hideAttributesCreatorModule();
+        myNeteditAttributes->hideNeteditAttributesModule();
         myDrawingShape->hideDrawingShape();
-        myGEOPOICreator->hideGEOPOICreatorModul();
+        myGEOPOICreator->hideGEOPOICreatorModule();
     }
 }
 

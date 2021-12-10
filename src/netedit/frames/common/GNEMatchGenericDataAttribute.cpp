@@ -163,7 +163,7 @@ GNEMatchGenericDataAttribute::disableMatchGenericDataAttribute() {
 
 void
 GNEMatchGenericDataAttribute::showMatchGenericDataAttribute() {
-    // just show Modul
+    // just show Module
     show();
 }
 

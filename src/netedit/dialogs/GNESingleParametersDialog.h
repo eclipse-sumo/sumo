@@ -231,7 +231,7 @@ public:
     };
 
     /// @brief Constructor for parameter editor creator
-    GNESingleParametersDialog(GNEFrameAttributesModuls::ParametersEditorCreator* parametersEditorCreator);
+    GNESingleParametersDialog(GNEFrameAttributesModules::ParametersEditorCreator* parametersEditorCreator);
 
     /// @brief Constructor for parameter editor inspector
     GNESingleParametersDialog(GNEInspectorFrame::ParametersEditorInspector* parametersEditorInspector);
@@ -265,7 +265,7 @@ protected:
     FOX_CONSTRUCTOR(GNESingleParametersDialog)
 
     /// @brief pointer to ParametersEditorCreator
-    GNEFrameAttributesModuls::ParametersEditorCreator* myParametersEditorCreator;
+    GNEFrameAttributesModules::ParametersEditorCreator* myParametersEditorCreator;
 
     /// @brief pointer to ParametersEditorInspector
     GNEInspectorFrame::ParametersEditorInspector* myParametersEditorInspector;

@@ -396,7 +396,7 @@ GNEGenericDataFrame::AttributeSelector::AttributeSelector(GNEGenericDataFrame* g
     // Create FXComboBox
     myAttributesComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SELECT, GUIDesignComboBox);
     // build rainbow
-    myMinMaxLabel = GNEFrameModuls::buildRainbow(this);
+    myMinMaxLabel = GNEFrameModules::buildRainbow(this);
     // refresh interval selector
     refreshAttributeSelector();
     // AttributeSelector is always shown
@@ -512,7 +512,7 @@ GNEGenericDataFrame::getAttributeSelector() const {
 }
 
 
-GNEFrameModuls::PathCreator*
+GNEFrameModules::PathCreator*
 GNEGenericDataFrame::getPathCreator() const {
     return myPathCreator;
 }
@@ -530,7 +530,7 @@ GNEGenericDataFrame::show() {
     myDataSetSelector->refreshDataSetSelector(nullptr);
     // check if there is an edge path creator
     if (myPathCreator) {
-        myPathCreator->showPathCreatorModul(myGenericDataTag, false, false);
+        myPathCreator->showPathCreatorModule(myGenericDataTag, false, false);
     }
     // show frame
     GNEFrame::show();
@@ -565,10 +565,10 @@ GNEGenericDataFrame::GNEGenericDataFrame(FXHorizontalFrame* horizontalFrameParen
     // create AttributeSelector modul
     myAttributeSelector = new AttributeSelector(this, tag);
     // create parameter editor modul
-    myParametersEditorCreator = new GNEFrameAttributesModuls::ParametersEditorCreator(this);
+    myParametersEditorCreator = new GNEFrameAttributesModules::ParametersEditorCreator(this);
     // create PathCreator modul
     if (pathCreator) {
-        myPathCreator = new GNEFrameModuls::PathCreator(this);
+        myPathCreator = new GNEFrameModules::PathCreator(this);
     }
 }
 

@@ -11,11 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEFrameAttributesModuls.h
+/// @file    GNEFrameAttributesModules.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2019
 ///
-// Auxiliar class for GNEFrame Moduls (only for attributes edition)
+// Auxiliar class for GNEFrame Modules (only for attributes edition)
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -36,7 +36,7 @@ class GNEFrame;
 // class definitions
 // ===========================================================================
 
-class GNEFrameAttributesModuls {
+class GNEFrameAttributesModules {
 
 public:
     // ===========================================================================
@@ -54,7 +54,7 @@ public:
 
     class AttributesCreatorRow : public FXHorizontalFrame {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributesModuls::AttributesCreatorRow)
+        FXDECLARE(GNEFrameAttributesModules::AttributesCreatorRow)
 
     public:
         /// @brief constructor
@@ -149,7 +149,7 @@ public:
 
     class AttributesCreator : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributesModuls::AttributesCreator)
+        FXDECLARE(GNEFrameAttributesModules::AttributesCreator)
 
         // declare friend class
         friend class Row;
@@ -162,10 +162,10 @@ public:
         ~AttributesCreator();
 
         /// @brief show AttributesCreator modul
-        void showAttributesCreatorModul(GNEAttributeCarrier *templateAC, const std::vector<SumoXMLAttr>& hiddenAttributes);
+        void showAttributesCreatorModule(GNEAttributeCarrier *templateAC, const std::vector<SumoXMLAttr>& hiddenAttributes);
 
         /// @brief hide group box
-        void hideAttributesCreatorModul();
+        void hideAttributesCreatorModule();
 
         /// @brief return frame parent
         GNEFrame* getFrameParent() const;
@@ -233,7 +233,7 @@ public:
 
     class AttributesCreatorFlow : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributesModuls::AttributesCreatorFlow)
+        FXDECLARE(GNEFrameAttributesModules::AttributesCreatorFlow)
 
     public:
         /// @brief constructor
@@ -243,10 +243,10 @@ public:
         ~AttributesCreatorFlow();
 
         /// @brief show AttributesCreatorFlow modul
-        void showAttributesCreatorFlowModul(const bool persons);
+        void showAttributesCreatorFlowModule(const bool persons);
 
         /// @brief hide group box
-        void hideAttributesCreatorFlowModul();
+        void hideAttributesCreatorFlowModule();
 
         /// @brief refresh AttributesCreatorFlow
         void refreshAttributesCreatorFlow();
@@ -316,7 +316,7 @@ public:
 
     class AttributesEditorRow : protected FXHorizontalFrame {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributesModuls::AttributesEditorRow)
+        FXDECLARE(GNEFrameAttributesModules::AttributesEditorRow)
 
     public:
         /// @brief constructor
@@ -393,17 +393,17 @@ public:
 
     class AttributesEditor : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributesModuls::AttributesEditor)
+        FXDECLARE(GNEFrameAttributesModules::AttributesEditor)
 
     public:
         /// @brief constructor
         AttributesEditor(GNEFrame* inspectorFrameParent);
 
         /// @brief show attributes of multiple ACs
-        void showAttributeEditorModul(bool includeExtended, bool forceAttributeEnabled);
+        void showAttributeEditorModule(bool includeExtended, bool forceAttributeEnabled);
 
         /// @brief hide attribute editor
-        void hideAttributesEditorModul();
+        void hideAttributesEditorModule();
 
         /// @brief refresh attribute editor (only the valid values will be refresh)
         void refreshAttributeEditor(bool forceRefreshShape, bool forceRefreshPosition);
@@ -444,20 +444,20 @@ public:
 
     class AttributesEditorFlow : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributesModuls::AttributesEditorFlow)
+        FXDECLARE(GNEFrameAttributesModules::AttributesEditorFlow)
 
     public:
         /// @brief constructor
         AttributesEditorFlow(AttributesEditor* attributesEditorParent);
 
-        /// @brief show attributes editor Flow Modul
-        void showAttributeEditorFlowModul();
+        /// @brief show attributes editor Flow Module
+        void showAttributeEditorFlowModule();
 
         /// @brief hide attribute EditorFlow
-        void hideAttributesEditorFlowModul();
+        void hideAttributesEditorFlowModule();
 
         /// @brief check if attribute editor flow modul is shown
-        bool isAttributesEditorFlowModulShown() const;
+        bool isAttributesEditorFlowModuleShown() const;
 
         /// @brief refresh attribute EditorFlow (only the valid values will be refresh)
         void refreshAttributeEditorFlow();
@@ -530,7 +530,7 @@ public:
 
     class AttributesEditorExtended : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributesModuls::AttributesEditorExtended)
+        FXDECLARE(GNEFrameAttributesModules::AttributesEditorExtended)
 
     public:
         /// @brief constructor
@@ -540,10 +540,10 @@ public:
         ~AttributesEditorExtended();
 
         /// @brief show AttributesEditorExtended modul
-        void showAttributesEditorExtendedModul();
+        void showAttributesEditorExtendedModule();
 
         /// @brief hide group box
-        void hideAttributesEditorExtendedModul();
+        void hideAttributesEditorExtendedModule();
 
         /// @name FOX-callbacks
         /// @{
@@ -565,7 +565,7 @@ public:
 
     class ParametersEditorCreator : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributesModuls::ParametersEditorCreator)
+        FXDECLARE(GNEFrameAttributesModules::ParametersEditorCreator)
 
     public:
         /// @brief constructor
@@ -630,7 +630,7 @@ public:
 
     class DrawingShape : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributesModuls::DrawingShape)
+        FXDECLARE(GNEFrameAttributesModules::DrawingShape)
 
     public:
         /// @brief constructor
@@ -716,7 +716,7 @@ public:
 
     class NeteditAttributes : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributesModuls::NeteditAttributes)
+        FXDECLARE(GNEFrameAttributesModules::NeteditAttributes)
 
     public:
         /// @brief constructor
@@ -726,10 +726,10 @@ public:
         ~NeteditAttributes();
 
         /// @brief show Netedit attributes modul
-        void showNeteditAttributesModul(const GNETagProperties& tagValue);
+        void showNeteditAttributesModule(const GNETagProperties& tagValue);
 
         /// @brief hide Netedit attributes modul
-        void hideNeteditAttributesModul();
+        void hideNeteditAttributesModule();
 
         /// @brief fill valuesMap with netedit attributes
         bool getNeteditAttributesAndValues(CommonXMLStructure::SumoBaseObject* baseObject, const GNELane* lane) const;

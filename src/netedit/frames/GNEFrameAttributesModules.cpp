@@ -11,11 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEFrameAttributesModuls.cpp
+/// @file    GNEFrameAttributesModules.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2019
 ///
-// Auxiliar class for GNEFrame Moduls (only for attributes edition)
+// Auxiliar class for GNEFrame Modules (only for attributes edition)
 /****************************************************************************/
 #include <config.h>
 
@@ -39,67 +39,67 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEFrameAttributesModuls::AttributesCreatorRow) RowCreatorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEFrameAttributesModuls::AttributesCreatorRow::onCmdOpenAttributeDialog),
+FXDEFMAP(GNEFrameAttributesModules::AttributesCreatorRow) RowCreatorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameAttributesModules::AttributesCreatorRow::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEFrameAttributesModules::AttributesCreatorRow::onCmdOpenAttributeDialog),
 };
 
-FXDEFMAP(GNEFrameAttributesModuls::AttributesCreator) AttributesCreatorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_RESET,  GNEFrameAttributesModuls::AttributesCreator::onCmdReset),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,       GNEFrameAttributesModuls::AttributesCreator::onCmdHelp),
+FXDEFMAP(GNEFrameAttributesModules::AttributesCreator) AttributesCreatorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_RESET,  GNEFrameAttributesModules::AttributesCreator::onCmdReset),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,       GNEFrameAttributesModules::AttributesCreator::onCmdHelp),
 };
 
-FXDEFMAP(GNEFrameAttributesModuls::AttributesCreatorFlow) AttributesCreatorFlowMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameAttributesModuls::AttributesCreatorFlow::onCmdSetFlowAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BUTTON,   GNEFrameAttributesModuls::AttributesCreatorFlow::onCmdSelectFlowRadioButton),
+FXDEFMAP(GNEFrameAttributesModules::AttributesCreatorFlow) AttributesCreatorFlowMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameAttributesModules::AttributesCreatorFlow::onCmdSetFlowAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BUTTON,   GNEFrameAttributesModules::AttributesCreatorFlow::onCmdSelectFlowRadioButton),
 };
 
-FXDEFMAP(GNEFrameAttributesModuls::AttributesEditorRow) AttributesEditorRowMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameAttributesModuls::AttributesEditorRow::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,     GNEFrameAttributesModuls::AttributesEditorRow::onCmdSelectCheckButton),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEFrameAttributesModuls::AttributesEditorRow::onCmdOpenAttributeDialog),
+FXDEFMAP(GNEFrameAttributesModules::AttributesEditorRow) AttributesEditorRowMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameAttributesModules::AttributesEditorRow::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL,     GNEFrameAttributesModules::AttributesEditorRow::onCmdSelectCheckButton),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEFrameAttributesModules::AttributesEditorRow::onCmdOpenAttributeDialog),
 };
 
-FXDEFMAP(GNEFrameAttributesModuls::AttributesEditor) AttributesEditorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEFrameAttributesModuls::AttributesEditor::onCmdAttributesEditorHelp)
+FXDEFMAP(GNEFrameAttributesModules::AttributesEditor) AttributesEditorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,   GNEFrameAttributesModules::AttributesEditor::onCmdAttributesEditorHelp)
 };
 
-FXDEFMAP(GNEFrameAttributesModuls::AttributesEditorFlow) AttributesEditorFlowMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameAttributesModuls::AttributesEditorFlow::onCmdSetFlowAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BUTTON,   GNEFrameAttributesModuls::AttributesEditorFlow::onCmdSelectFlowRadioButton),
+FXDEFMAP(GNEFrameAttributesModules::AttributesEditorFlow) AttributesEditorFlowMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameAttributesModules::AttributesEditorFlow::onCmdSetFlowAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BUTTON,   GNEFrameAttributesModules::AttributesEditorFlow::onCmdSelectFlowRadioButton),
 };
 
-FXDEFMAP(GNEFrameAttributesModuls::AttributesEditorExtended) AttributesEditorExtendedMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEFrameAttributesModuls::AttributesEditorExtended::onCmdOpenDialog)
+FXDEFMAP(GNEFrameAttributesModules::AttributesEditorExtended) AttributesEditorExtendedMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEFrameAttributesModules::AttributesEditorExtended::onCmdOpenDialog)
 };
 
-FXDEFMAP(GNEFrameAttributesModuls::ParametersEditorCreator) ParametersEditorCreatorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OPEN_PARAMETERS_DIALOG, GNEFrameAttributesModuls::ParametersEditorCreator::onCmdEditParameters),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameAttributesModuls::ParametersEditorCreator::onCmdSetParameters)
+FXDEFMAP(GNEFrameAttributesModules::ParametersEditorCreator) ParametersEditorCreatorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OPEN_PARAMETERS_DIALOG, GNEFrameAttributesModules::ParametersEditorCreator::onCmdEditParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameAttributesModules::ParametersEditorCreator::onCmdSetParameters)
 };
 
-FXDEFMAP(GNEFrameAttributesModuls::DrawingShape) DrawingShapeMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_STARTDRAWING,   GNEFrameAttributesModuls::DrawingShape::onCmdStartDrawing),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_STOPDRAWING,    GNEFrameAttributesModuls::DrawingShape::onCmdStopDrawing),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ABORTDRAWING,   GNEFrameAttributesModuls::DrawingShape::onCmdAbortDrawing)
+FXDEFMAP(GNEFrameAttributesModules::DrawingShape) DrawingShapeMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_STARTDRAWING,   GNEFrameAttributesModules::DrawingShape::onCmdStartDrawing),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_STOPDRAWING,    GNEFrameAttributesModules::DrawingShape::onCmdStopDrawing),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ABORTDRAWING,   GNEFrameAttributesModules::DrawingShape::onCmdAbortDrawing)
 };
 
-FXDEFMAP(GNEFrameAttributesModuls::NeteditAttributes) NeteditAttributesMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEFrameAttributesModuls::NeteditAttributes::onCmdSetNeteditAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNEFrameAttributesModuls::NeteditAttributes::onCmdHelp)
+FXDEFMAP(GNEFrameAttributesModules::NeteditAttributes) NeteditAttributesMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEFrameAttributesModules::NeteditAttributes::onCmdSetNeteditAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNEFrameAttributesModules::NeteditAttributes::onCmdHelp)
 };
 
 // Object implementation
-FXIMPLEMENT(GNEFrameAttributesModuls::AttributesCreatorRow,         FXHorizontalFrame,       RowCreatorMap,                  ARRAYNUMBER(RowCreatorMap))
-FXIMPLEMENT(GNEFrameAttributesModuls::AttributesCreator,            FXGroupBoxModule,         AttributesCreatorMap,           ARRAYNUMBER(AttributesCreatorMap))
-FXIMPLEMENT(GNEFrameAttributesModuls::AttributesCreatorFlow,        FXGroupBoxModule,         AttributesCreatorFlowMap,       ARRAYNUMBER(AttributesCreatorFlowMap))
-FXIMPLEMENT(GNEFrameAttributesModuls::AttributesEditorRow,          FXHorizontalFrame,       AttributesEditorRowMap,         ARRAYNUMBER(AttributesEditorRowMap))
-FXIMPLEMENT(GNEFrameAttributesModuls::AttributesEditor,             FXGroupBoxModule,         AttributesEditorMap,            ARRAYNUMBER(AttributesEditorMap))
-FXIMPLEMENT(GNEFrameAttributesModuls::AttributesEditorFlow,         FXGroupBoxModule,         AttributesEditorFlowMap,        ARRAYNUMBER(AttributesEditorFlowMap))
-FXIMPLEMENT(GNEFrameAttributesModuls::AttributesEditorExtended,     FXGroupBoxModule,         AttributesEditorExtendedMap,    ARRAYNUMBER(AttributesEditorExtendedMap))
-FXIMPLEMENT(GNEFrameAttributesModuls::ParametersEditorCreator,      FXGroupBoxModule,         ParametersEditorCreatorMap,     ARRAYNUMBER(ParametersEditorCreatorMap))
-FXIMPLEMENT(GNEFrameAttributesModuls::DrawingShape,                 FXGroupBoxModule,         DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
-FXIMPLEMENT(GNEFrameAttributesModuls::NeteditAttributes,            FXGroupBoxModule,         NeteditAttributesMap,           ARRAYNUMBER(NeteditAttributesMap))
+FXIMPLEMENT(GNEFrameAttributesModules::AttributesCreatorRow,         FXHorizontalFrame,       RowCreatorMap,                  ARRAYNUMBER(RowCreatorMap))
+FXIMPLEMENT(GNEFrameAttributesModules::AttributesCreator,            FXGroupBoxModule,         AttributesCreatorMap,           ARRAYNUMBER(AttributesCreatorMap))
+FXIMPLEMENT(GNEFrameAttributesModules::AttributesCreatorFlow,        FXGroupBoxModule,         AttributesCreatorFlowMap,       ARRAYNUMBER(AttributesCreatorFlowMap))
+FXIMPLEMENT(GNEFrameAttributesModules::AttributesEditorRow,          FXHorizontalFrame,       AttributesEditorRowMap,         ARRAYNUMBER(AttributesEditorRowMap))
+FXIMPLEMENT(GNEFrameAttributesModules::AttributesEditor,             FXGroupBoxModule,         AttributesEditorMap,            ARRAYNUMBER(AttributesEditorMap))
+FXIMPLEMENT(GNEFrameAttributesModules::AttributesEditorFlow,         FXGroupBoxModule,         AttributesEditorFlowMap,        ARRAYNUMBER(AttributesEditorFlowMap))
+FXIMPLEMENT(GNEFrameAttributesModules::AttributesEditorExtended,     FXGroupBoxModule,         AttributesEditorExtendedMap,    ARRAYNUMBER(AttributesEditorExtendedMap))
+FXIMPLEMENT(GNEFrameAttributesModules::ParametersEditorCreator,      FXGroupBoxModule,         ParametersEditorCreatorMap,     ARRAYNUMBER(ParametersEditorCreatorMap))
+FXIMPLEMENT(GNEFrameAttributesModules::DrawingShape,                 FXGroupBoxModule,         DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
+FXIMPLEMENT(GNEFrameAttributesModules::NeteditAttributes,            FXGroupBoxModule,         NeteditAttributesMap,           ARRAYNUMBER(NeteditAttributesMap))
 
 
 // ===========================================================================
@@ -107,10 +107,10 @@ FXIMPLEMENT(GNEFrameAttributesModuls::NeteditAttributes,            FXGroupBoxMo
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
-// GNEFrameAttributesModuls::AttributesCreatorRow - methods
+// GNEFrameAttributesModules::AttributesCreatorRow - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesCreator* AttributesCreatorParent, const GNEAttributeProperties& attrProperties) :
+GNEFrameAttributesModules::AttributesCreatorRow::AttributesCreatorRow(AttributesCreator* AttributesCreatorParent, const GNEAttributeProperties& attrProperties) :
     FXHorizontalFrame(AttributesCreatorParent->getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame),
     myAttributesCreatorParent(AttributesCreatorParent),
     myAttrProperties(attrProperties) {
@@ -141,7 +141,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesC
 
 
 void
-GNEFrameAttributesModuls::AttributesCreatorRow::destroy() {
+GNEFrameAttributesModules::AttributesCreatorRow::destroy() {
     // only destroy if parent was created
     if (getParent()->id()) {
         FXHorizontalFrame::destroy();
@@ -150,13 +150,13 @@ GNEFrameAttributesModuls::AttributesCreatorRow::destroy() {
 
 
 const GNEAttributeProperties&
-GNEFrameAttributesModuls::AttributesCreatorRow::getAttrProperties() const {
+GNEFrameAttributesModules::AttributesCreatorRow::getAttrProperties() const {
     return myAttrProperties;
 }
 
 
 std::string
-GNEFrameAttributesModuls::AttributesCreatorRow::getValue() const {
+GNEFrameAttributesModules::AttributesCreatorRow::getValue() const {
     if (myAttrProperties.isBool()) {
         return (myValueCheckButton->getCheck() == 1) ? "1" : "0";
     } else if (myAttrProperties.isDiscrete()) {
@@ -168,7 +168,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::getValue() const {
 
 
 bool
-GNEFrameAttributesModuls::AttributesCreatorRow::getAttributeCheckButtonCheck() const {
+GNEFrameAttributesModules::AttributesCreatorRow::getAttributeCheckButtonCheck() const {
     if (shown()) {
         return myEnableAttributeCheckButton->getCheck() == TRUE;
     } else {
@@ -178,7 +178,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::getAttributeCheckButtonCheck() c
 
 
 void
-GNEFrameAttributesModuls::AttributesCreatorRow::setAttributeCheckButtonCheck(bool value) {
+GNEFrameAttributesModules::AttributesCreatorRow::setAttributeCheckButtonCheck(bool value) {
     if (shown()) {
         // set radio button
         myEnableAttributeCheckButton->setCheck(value);
@@ -205,7 +205,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::setAttributeCheckButtonCheck(boo
 
 
 void
-GNEFrameAttributesModuls::AttributesCreatorRow::enableAttributesCreatorRow() {
+GNEFrameAttributesModules::AttributesCreatorRow::enableAttributesCreatorRow() {
     if (myAttrProperties.isBool()) {
         return myValueCheckButton->enable();
     } else if (myAttrProperties.isDiscrete()) {
@@ -217,7 +217,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::enableAttributesCreatorRow() {
 
 
 void
-GNEFrameAttributesModuls::AttributesCreatorRow::disableAttributesCreatorRow() {
+GNEFrameAttributesModules::AttributesCreatorRow::disableAttributesCreatorRow() {
     if (myAttrProperties.isBool()) {
         return myValueCheckButton->disable();
     } else if (myAttrProperties.isDiscrete()) {
@@ -229,13 +229,13 @@ GNEFrameAttributesModuls::AttributesCreatorRow::disableAttributesCreatorRow() {
 
 
 bool
-GNEFrameAttributesModuls::AttributesCreatorRow::isAttributesCreatorRowEnabled() const {
+GNEFrameAttributesModules::AttributesCreatorRow::isAttributesCreatorRowEnabled() const {
     if (!shown()) {
         return false;
     } else if (myAttrProperties.isBool()) {
         return myValueCheckButton->isEnabled();
     } else if (myAttrProperties.isDiscrete()) {
-        myValueComboBox->isEnabled();
+        return myValueComboBox->isEnabled();
     } else {
         return myValueTextField->isEnabled();
     }
@@ -243,7 +243,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::isAttributesCreatorRowEnabled() 
 
 
 void
-GNEFrameAttributesModuls::AttributesCreatorRow::refreshRow() {
+GNEFrameAttributesModules::AttributesCreatorRow::refreshRow() {
     // reset invalid value
     myInvalidValue.clear();
     // special case for attribute ID
@@ -323,7 +323,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::refreshRow() {
 
 
 void 
-GNEFrameAttributesModuls::AttributesCreatorRow::disableRow() {
+GNEFrameAttributesModules::AttributesCreatorRow::disableRow() {
     myAttributeLabel->disable();
     myEnableAttributeCheckButton->disable();
     myAttributeButton->disable();
@@ -334,20 +334,20 @@ GNEFrameAttributesModuls::AttributesCreatorRow::disableRow() {
 
 
 bool
-GNEFrameAttributesModuls::AttributesCreatorRow::isAttributeValid() const {
+GNEFrameAttributesModules::AttributesCreatorRow::isAttributeValid() const {
     return (myValueTextField->getTextColor() != FXRGB(255, 0, 0) &&
             myValueComboBox->getTextColor() != FXRGB(255, 0, 0));
 }
 
 
-GNEFrameAttributesModuls::AttributesCreator*
-GNEFrameAttributesModuls::AttributesCreatorRow::getAttributesCreatorParent() const {
+GNEFrameAttributesModules::AttributesCreator*
+GNEFrameAttributesModules::AttributesCreatorRow::getAttributesCreatorParent() const {
     return myAttributesCreatorParent;
 }
 
 
 long
-GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
+GNEFrameAttributesModules::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
     // check what object was called
     if (obj == myEnableAttributeCheckButton) {
         if (myEnableAttributeCheckButton->getCheck()) {
@@ -425,7 +425,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
 
 
 long
-GNEFrameAttributesModuls::AttributesCreatorRow::onCmdOpenAttributeDialog(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModules::AttributesCreatorRow::onCmdOpenAttributeDialog(FXObject*, FXSelector, void*) {
     // continue depending of attribute
     if (myAttrProperties.getAttr() == SUMO_ATTR_COLOR) {
         // create FXColorDialog
@@ -459,7 +459,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::onCmdOpenAttributeDialog(FXObjec
 
 
 std::string
-GNEFrameAttributesModuls::AttributesCreatorRow::generateID() const {
+GNEFrameAttributesModules::AttributesCreatorRow::generateID() const {
     // get attribute carriers
     const auto& GNEAttributeCarriers = myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers();
     // continue depending of type
@@ -476,7 +476,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::generateID() const {
 
 
 bool
-GNEFrameAttributesModuls::AttributesCreatorRow::isValidID() const {
+GNEFrameAttributesModules::AttributesCreatorRow::isValidID() const {
     if (myAttrProperties.getTagPropertyParent().isAdditionalElement()) {
         return (myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->retrieveAdditional(
                     myAttrProperties.getTagPropertyParent().getTag(), myValueTextField->getText().text(), false) == nullptr);
@@ -489,10 +489,10 @@ GNEFrameAttributesModuls::AttributesCreatorRow::isValidID() const {
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrameAttributesModuls::AttributesCreator - methods
+// GNEFrameAttributesModules::AttributesCreator - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameAttributesModuls::AttributesCreator::AttributesCreator(GNEFrame* frameParent) :
+GNEFrameAttributesModules::AttributesCreator::AttributesCreator(GNEFrame* frameParent) :
     FXGroupBoxModule(frameParent->myContentFrame, "Internal attributes"),
     myFrameParent(frameParent),
     myTemplateAC(nullptr) {
@@ -507,11 +507,11 @@ GNEFrameAttributesModuls::AttributesCreator::AttributesCreator(GNEFrame* framePa
 }
 
 
-GNEFrameAttributesModuls::AttributesCreator::~AttributesCreator() {}
+GNEFrameAttributesModules::AttributesCreator::~AttributesCreator() {}
 
 
 void
-GNEFrameAttributesModuls::AttributesCreator::showAttributesCreatorModul(GNEAttributeCarrier *templateAC, const std::vector<SumoXMLAttr>& hiddenAttributes) {
+GNEFrameAttributesModules::AttributesCreator::showAttributesCreatorModule(GNEAttributeCarrier *templateAC, const std::vector<SumoXMLAttr>& hiddenAttributes) {
     // destroy all rows
     for (auto& row : myAttributesCreatorRows) {
         // destroy and delete all rows
@@ -532,28 +532,28 @@ GNEFrameAttributesModuls::AttributesCreator::showAttributesCreatorModul(GNEAttri
         // show
         show();
     } else {
-        throw ProcessError("invalid templateAC in showAttributesCreatorModul");
+        throw ProcessError("invalid templateAC in showAttributesCreatorModule");
     }
 }
 
 
 void
-GNEFrameAttributesModuls::AttributesCreator::hideAttributesCreatorModul() {
+GNEFrameAttributesModules::AttributesCreator::hideAttributesCreatorModule() {
     // hide attributes creator flow
-    myAttributesCreatorFlow->hideAttributesCreatorFlowModul();
+    myAttributesCreatorFlow->hideAttributesCreatorFlowModule();
     // hide modul
     hide();
 }
 
 
 GNEFrame*
-GNEFrameAttributesModuls::AttributesCreator::getFrameParent() const {
+GNEFrameAttributesModules::AttributesCreator::getFrameParent() const {
     return myFrameParent;
 }
 
 
 void
-GNEFrameAttributesModuls::AttributesCreator::getAttributesAndValues(CommonXMLStructure::SumoBaseObject* baseObject, bool includeAll) const {
+GNEFrameAttributesModules::AttributesCreator::getAttributesAndValues(CommonXMLStructure::SumoBaseObject* baseObject, bool includeAll) const {
     // get standard parameters
     for (const auto& row : myAttributesCreatorRows) {
         if (row && row->getAttrProperties().getAttr() != SUMO_ATTR_NOTHING) {
@@ -607,13 +607,13 @@ GNEFrameAttributesModuls::AttributesCreator::getAttributesAndValues(CommonXMLStr
 
 
 GNEAttributeCarrier*
-GNEFrameAttributesModuls::AttributesCreator::getCurrentTemplateAC() const {
+GNEFrameAttributesModules::AttributesCreator::getCurrentTemplateAC() const {
     return myTemplateAC;
 }
 
 
 void
-GNEFrameAttributesModuls::AttributesCreator::showWarningMessage(std::string extra) const {
+GNEFrameAttributesModules::AttributesCreator::showWarningMessage(std::string extra) const {
     std::string errorMessage;
     // show warning box if input parameters aren't invalid
     if (extra.size() == 0) {
@@ -629,7 +629,7 @@ GNEFrameAttributesModuls::AttributesCreator::showWarningMessage(std::string extr
 
 
 void 
-GNEFrameAttributesModuls::AttributesCreator::refreshAttributesCreator() {
+GNEFrameAttributesModules::AttributesCreator::refreshAttributesCreator() {
     // just refresh row without creating new rows
     if (shown() && myTemplateAC) {
         refreshRows(false);
@@ -638,7 +638,7 @@ GNEFrameAttributesModuls::AttributesCreator::refreshAttributesCreator() {
 
 
 void 
-GNEFrameAttributesModuls::AttributesCreator::disableAttributesCreator() {
+GNEFrameAttributesModules::AttributesCreator::disableAttributesCreator() {
     // disable all rows
     for (const auto &row : myAttributesCreatorRows) {
         if (row) {
@@ -651,7 +651,7 @@ GNEFrameAttributesModuls::AttributesCreator::disableAttributesCreator() {
 
 
 bool
-GNEFrameAttributesModuls::AttributesCreator::areValuesValid() const {
+GNEFrameAttributesModules::AttributesCreator::areValuesValid() const {
     // iterate over standar parameters
     for (const auto& attribute : myTemplateAC->getTagProperty()) {
         // Return false if error message of attriuve isn't empty
@@ -664,7 +664,7 @@ GNEFrameAttributesModuls::AttributesCreator::areValuesValid() const {
 
 
 long
-GNEFrameAttributesModuls::AttributesCreator::onCmdReset(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModules::AttributesCreator::onCmdReset(FXObject*, FXSelector, void*) {
     if (myTemplateAC) {
         myTemplateAC->resetDefaultValues();
         refreshRows(false);
@@ -674,7 +674,7 @@ GNEFrameAttributesModuls::AttributesCreator::onCmdReset(FXObject*, FXSelector, v
 
 
 long
-GNEFrameAttributesModuls::AttributesCreator::onCmdHelp(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModules::AttributesCreator::onCmdHelp(FXObject*, FXSelector, void*) {
     // open Help attributes dialog
     myFrameParent->openHelpAttributesDialog(myTemplateAC);
     return 1;
@@ -682,7 +682,7 @@ GNEFrameAttributesModuls::AttributesCreator::onCmdHelp(FXObject*, FXSelector, vo
 
 
 void
-GNEFrameAttributesModuls::AttributesCreator::refreshRows(const bool createRows) {
+GNEFrameAttributesModules::AttributesCreator::refreshRows(const bool createRows) {
     // declare a flag to show Flow editor
     bool showFlowEditor = false;
     // iterate over tag attributes and create AttributesCreatorRows for every attribute
@@ -727,20 +727,20 @@ GNEFrameAttributesModuls::AttributesCreator::refreshRows(const bool createRows) 
     recalc();
     // check if flow editor has to be shown
     if (showFlowEditor) {
-        myAttributesCreatorFlow->showAttributesCreatorFlowModul(
+        myAttributesCreatorFlow->showAttributesCreatorFlowModule(
             myTemplateAC->getTagProperty().hasAttribute(SUMO_ATTR_VEHSPERHOUR) || 
             myTemplateAC->getTagProperty().hasAttribute(SUMO_ATTR_PERSONSPERHOUR) ||
             myTemplateAC->getTagProperty().hasAttribute(SUMO_ATTR_CONTAINERSPERHOUR));
     } else {
-        myAttributesCreatorFlow->hideAttributesCreatorFlowModul();
+        myAttributesCreatorFlow->hideAttributesCreatorFlowModule();
     }
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrameAttributesModuls::AttributesCreatorFlow - methods
+// GNEFrameAttributesModules::AttributesCreatorFlow - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameAttributesModuls::AttributesCreatorFlow::AttributesCreatorFlow(AttributesCreator* attributesCreatorParent) :
+GNEFrameAttributesModules::AttributesCreatorFlow::AttributesCreatorFlow(AttributesCreator* attributesCreatorParent) :
     FXGroupBoxModule(attributesCreatorParent->getFrameParent()->myContentFrame, "Flow attributes"),
     myAttributesCreatorParent(attributesCreatorParent),
     myFlowParameters(VEHPARS_END_SET | VEHPARS_NUMBER_SET) {
@@ -777,11 +777,11 @@ GNEFrameAttributesModuls::AttributesCreatorFlow::AttributesCreatorFlow(Attribute
 }
 
 
-GNEFrameAttributesModuls::AttributesCreatorFlow::~AttributesCreatorFlow() {}
+GNEFrameAttributesModules::AttributesCreatorFlow::~AttributesCreatorFlow() {}
 
 
 void
-GNEFrameAttributesModuls::AttributesCreatorFlow::showAttributesCreatorFlowModul(const bool persons) {
+GNEFrameAttributesModules::AttributesCreatorFlow::showAttributesCreatorFlowModule(const bool persons) {
     if (persons) {
         myAttributeVehsPerHourRadioButton->setText(toString(SUMO_ATTR_PERSONSPERHOUR).c_str());
     } else {
@@ -793,13 +793,13 @@ GNEFrameAttributesModuls::AttributesCreatorFlow::showAttributesCreatorFlowModul(
 
 
 void
-GNEFrameAttributesModuls::AttributesCreatorFlow::hideAttributesCreatorFlowModul() {
+GNEFrameAttributesModules::AttributesCreatorFlow::hideAttributesCreatorFlowModule() {
     hide();
 }
 
 
 void
-GNEFrameAttributesModuls::AttributesCreatorFlow::refreshAttributesCreatorFlow() {
+GNEFrameAttributesModules::AttributesCreatorFlow::refreshAttributesCreatorFlow() {
     if (myFlowParameters & VEHPARS_END_SET) {
         myAttributeEndRadioButton->setCheck(TRUE);
         myValueEndTextField->enable();
@@ -839,7 +839,7 @@ GNEFrameAttributesModuls::AttributesCreatorFlow::refreshAttributesCreatorFlow() 
 
 
 void
-GNEFrameAttributesModuls::AttributesCreatorFlow::setFlowParameters(CommonXMLStructure::SumoBaseObject* baseObject) {
+GNEFrameAttributesModules::AttributesCreatorFlow::setFlowParameters(CommonXMLStructure::SumoBaseObject* baseObject) {
     if (myFlowParameters & VEHPARS_END_SET) {
         baseObject->addDoubleAttribute(SUMO_ATTR_END, GNEAttributeCarrier::parse<double>(myValueEndTextField->getText().text()));
     }
@@ -863,7 +863,7 @@ GNEFrameAttributesModuls::AttributesCreatorFlow::setFlowParameters(CommonXMLStru
 
 
 void
-GNEFrameAttributesModuls::AttributesCreatorFlow::showWarningMessage(std::string /* extra */) const {
+GNEFrameAttributesModules::AttributesCreatorFlow::showWarningMessage(std::string /* extra */) const {
     std::string errorMessage;
     /*
     // iterate over standar parameters
@@ -891,7 +891,7 @@ GNEFrameAttributesModuls::AttributesCreatorFlow::showWarningMessage(std::string 
 
 
 bool
-GNEFrameAttributesModuls::AttributesCreatorFlow::areValuesValid() const {
+GNEFrameAttributesModules::AttributesCreatorFlow::areValuesValid() const {
     // check every flow attribute
     if (myFlowParameters & VEHPARS_END_SET) {
         if (GNEAttributeCarrier::canParse<double>(myValueEndTextField->getText().text())) {
@@ -943,7 +943,7 @@ GNEFrameAttributesModuls::AttributesCreatorFlow::areValuesValid() const {
 
 
 long
-GNEFrameAttributesModuls::AttributesCreatorFlow::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
+GNEFrameAttributesModules::AttributesCreatorFlow::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
     // obtain clicked textfield
     FXTextField* textField = nullptr;
     // check what text field was pressed
@@ -972,7 +972,7 @@ GNEFrameAttributesModuls::AttributesCreatorFlow::onCmdSetFlowAttribute(FXObject*
 
 
 long
-GNEFrameAttributesModuls::AttributesCreatorFlow::onCmdSelectFlowRadioButton(FXObject* obj, FXSelector, void*) {
+GNEFrameAttributesModules::AttributesCreatorFlow::onCmdSelectFlowRadioButton(FXObject* obj, FXSelector, void*) {
     // check what check button was pressed
     if (obj == myAttributeEndRadioButton) {
         GNERouteHandler::setFlowParameters(SUMO_ATTR_END, myFlowParameters);
@@ -997,10 +997,10 @@ GNEFrameAttributesModuls::AttributesCreatorFlow::onCmdSelectFlowRadioButton(FXOb
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrameAttributesModuls::AttributesEditorRow - methods
+// GNEFrameAttributesModules::AttributesEditorRow - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttributesModuls::AttributesEditor* attributeEditorParent, const GNEAttributeProperties& ACAttr,
+GNEFrameAttributesModules::AttributesEditorRow::AttributesEditorRow(GNEFrameAttributesModules::AttributesEditor* attributeEditorParent, const GNEAttributeProperties& ACAttr,
         const std::string& value, const bool attributeEnabled, const bool computed) :
     FXHorizontalFrame(attributeEditorParent->getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame),
     myAttributesEditorParent(attributeEditorParent),
@@ -1187,7 +1187,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
 
 
 void
-GNEFrameAttributesModuls::AttributesEditorRow::destroy() {
+GNEFrameAttributesModules::AttributesEditorRow::destroy() {
     // only destroy if parent was created
     if (getParent()->id()) {
         FXHorizontalFrame::destroy();
@@ -1196,7 +1196,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::destroy() {
 
 
 void
-GNEFrameAttributesModuls::AttributesEditorRow::refreshAttributesEditorRow(const std::string& value,
+GNEFrameAttributesModules::AttributesEditorRow::refreshAttributesEditorRow(const std::string& value,
         const bool forceRefresh, const bool attributeEnabled, const bool computed) {
     // start enabling all elements, depending if attribute is enabled
     if (attributeEnabled == false) {
@@ -1265,14 +1265,14 @@ GNEFrameAttributesModuls::AttributesEditorRow::refreshAttributesEditorRow(const 
 
 
 bool
-GNEFrameAttributesModuls::AttributesEditorRow::isAttributesEditorRowValid() const {
+GNEFrameAttributesModules::AttributesEditorRow::isAttributesEditorRowValid() const {
     return ((myValueTextField->getTextColor() == FXRGB(0, 0, 0)) || (myValueTextField->getTextColor() == FXRGB(0, 0, 255))) &&
            ((myValueComboBoxChoices->getTextColor() == FXRGB(0, 0, 0)) || (myValueComboBoxChoices->getTextColor() == FXRGB(0, 0, 255)));
 }
 
 
 long
-GNEFrameAttributesModuls::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject* obj, FXSelector, void*) {
+GNEFrameAttributesModules::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject* obj, FXSelector, void*) {
     const auto& ACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
     if (obj == myAttributeColorButton) {
         // create FXColorDialog
@@ -1338,7 +1338,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
 
 
 long
-GNEFrameAttributesModuls::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModules::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSelector, void*) {
     // Declare changed value
     std::string newVal;
     // First, obtain the string value of the new attribute depending of their type
@@ -1461,7 +1461,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
 
 
 long
-GNEFrameAttributesModuls::AttributesEditorRow::onCmdSelectCheckButton(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModules::AttributesEditorRow::onCmdSelectCheckButton(FXObject*, FXSelector, void*) {
     const auto& ACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
     // obtain undoList (To improve code legibly)
     GNEUndoList* undoList = myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList();
@@ -1487,14 +1487,14 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdSelectCheckButton(FXObject*,
 }
 
 
-GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow() :
+GNEFrameAttributesModules::AttributesEditorRow::AttributesEditorRow() :
     myAttributesEditorParent(nullptr),
     myMultiple(false) {
 }
 
 
 std::string
-GNEFrameAttributesModuls::AttributesEditorRow::stripWhitespaceAfterComma(const std::string& stringValue) {
+GNEFrameAttributesModules::AttributesEditorRow::stripWhitespaceAfterComma(const std::string& stringValue) {
     std::string result(stringValue);
     while (result.find(", ") != std::string::npos) {
         result = StringUtils::replace(result, ", ", ",");
@@ -1504,7 +1504,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::stripWhitespaceAfterComma(const s
 
 
 bool
-GNEFrameAttributesModuls::AttributesEditorRow::mergeJunction(SumoXMLAttr attr, const std::vector<GNEAttributeCarrier*>& inspectedACs, const std::string& newVal) const {
+GNEFrameAttributesModules::AttributesEditorRow::mergeJunction(SumoXMLAttr attr, const std::vector<GNEAttributeCarrier*>& inspectedACs, const std::string& newVal) const {
     // check if we're editing junction position
     if ((inspectedACs.size() == 1) && (inspectedACs.front()->getTagProperty().getTag() == SUMO_TAG_JUNCTION) && (attr == SUMO_ATTR_POSITION)) {
         // retrieve original junction
@@ -1525,10 +1525,10 @@ GNEFrameAttributesModuls::AttributesEditorRow::mergeJunction(SumoXMLAttr attr, c
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrameAttributesModuls::AttributesEditor - methods
+// GNEFrameAttributesModules::AttributesEditor - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameAttributesModuls::AttributesEditor::AttributesEditor(GNEFrame* FrameParent) :
+GNEFrameAttributesModules::AttributesEditor::AttributesEditor(GNEFrame* FrameParent) :
     FXGroupBoxModule(FrameParent->myContentFrame, "Internal attributes"),
     myFrameParent(FrameParent),
     myIncludeExtended(true) {
@@ -1537,14 +1537,14 @@ GNEFrameAttributesModuls::AttributesEditor::AttributesEditor(GNEFrame* FramePare
     // create myAttributesFlowEditor
     myAttributesEditorFlow = new AttributesEditorFlow(this);
     // leave it hidden
-    myAttributesEditorFlow->hideAttributesEditorFlowModul();
+    myAttributesEditorFlow->hideAttributesEditorFlowModule();
     // Create help button
     myHelpButton = new FXButton(getCollapsableFrame(), "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
 
 void
-GNEFrameAttributesModuls::AttributesEditor::showAttributeEditorModul(bool includeExtended, bool forceAttributeEnabled) {
+GNEFrameAttributesModules::AttributesEditor::showAttributeEditorModule(bool includeExtended, bool forceAttributeEnabled) {
     myIncludeExtended = includeExtended;
     // first remove all rows
     for (auto& row : myAttributesEditorRows) {
@@ -1621,14 +1621,14 @@ GNEFrameAttributesModuls::AttributesEditor::showAttributeEditorModul(bool includ
         }
         // check if Flow editor has to be shown
         if (showFlowEditor) {
-            myAttributesEditorFlow->showAttributeEditorFlowModul();
+            myAttributesEditorFlow->showAttributeEditorFlowModule();
         } else {
-            myAttributesEditorFlow->hideAttributesEditorFlowModul();
+            myAttributesEditorFlow->hideAttributesEditorFlowModule();
         }
         // show AttributesEditor
         show();
     } else {
-        myAttributesEditorFlow->hideAttributesEditorFlowModul();
+        myAttributesEditorFlow->hideAttributesEditorFlowModule();
     }
     // reparent help button (to place it at bottom)
     myHelpButton->reparent(this);
@@ -1636,16 +1636,16 @@ GNEFrameAttributesModuls::AttributesEditor::showAttributeEditorModul(bool includ
 
 
 void
-GNEFrameAttributesModuls::AttributesEditor::hideAttributesEditorModul() {
-    // hide AttributesEditorFlowModul
-    myAttributesEditorFlow->hideAttributesEditorFlowModul();
+GNEFrameAttributesModules::AttributesEditor::hideAttributesEditorModule() {
+    // hide AttributesEditorFlowModule
+    myAttributesEditorFlow->hideAttributesEditorFlowModule();
     // hide also AttributesEditor
     hide();
 }
 
 
 void
-GNEFrameAttributesModuls::AttributesEditor::refreshAttributeEditor(bool forceRefreshShape, bool forceRefreshPosition) {
+GNEFrameAttributesModules::AttributesEditor::refreshAttributeEditor(bool forceRefreshShape, bool forceRefreshPosition) {
     // get inspected ACs
     const auto& ACs = myFrameParent->getViewNet()->getInspectedAttributeCarriers();
     // first check if there is inspected attribute carriers
@@ -1713,7 +1713,7 @@ GNEFrameAttributesModuls::AttributesEditor::refreshAttributeEditor(bool forceRef
             }
         }
         // check if flow editor has to be update
-        if (myAttributesEditorFlow->isAttributesEditorFlowModulShown()) {
+        if (myAttributesEditorFlow->isAttributesEditorFlowModuleShown()) {
             myAttributesEditorFlow->refreshAttributeEditorFlow();
         }
     }
@@ -1721,13 +1721,13 @@ GNEFrameAttributesModuls::AttributesEditor::refreshAttributeEditor(bool forceRef
 
 
 GNEFrame*
-GNEFrameAttributesModuls::AttributesEditor::getFrameParent() const {
+GNEFrameAttributesModules::AttributesEditor::getFrameParent() const {
     return myFrameParent;
 }
 
 
 long
-GNEFrameAttributesModuls::AttributesEditor::onCmdAttributesEditorHelp(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModules::AttributesEditor::onCmdAttributesEditorHelp(FXObject*, FXSelector, void*) {
     // open Help attributes dialog if there is inspected ACs
     if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
         // open Help attributes dialog
@@ -1737,10 +1737,10 @@ GNEFrameAttributesModuls::AttributesEditor::onCmdAttributesEditorHelp(FXObject*,
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrameAttributesModuls::AttributesEditorFlow - methods
+// GNEFrameAttributesModules::AttributesEditorFlow - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameAttributesModuls::AttributesEditorFlow::AttributesEditorFlow(AttributesEditor* attributesEditorParent) :
+GNEFrameAttributesModules::AttributesEditorFlow::AttributesEditorFlow(AttributesEditor* attributesEditorParent) :
     FXGroupBoxModule(attributesEditorParent->getFrameParent()->myContentFrame, "Flow attributes"),
     myAttributesEditorParent(attributesEditorParent) {
     // declare auxiliar horizontal frame
@@ -1769,9 +1769,9 @@ GNEFrameAttributesModuls::AttributesEditorFlow::AttributesEditorFlow(AttributesE
 
 
 void
-GNEFrameAttributesModuls::AttributesEditorFlow::showAttributeEditorFlowModul() {
+GNEFrameAttributesModules::AttributesEditorFlow::showAttributeEditorFlowModule() {
     if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
-        // refresh attributeEditorFlowModul
+        // refresh attributeEditorFlowModule
         refreshAttributeEditorFlow();
         // show flow
         show();
@@ -1782,20 +1782,20 @@ GNEFrameAttributesModuls::AttributesEditorFlow::showAttributeEditorFlowModul() {
 
 
 void
-GNEFrameAttributesModuls::AttributesEditorFlow::hideAttributesEditorFlowModul() {
+GNEFrameAttributesModules::AttributesEditorFlow::hideAttributesEditorFlowModule() {
     // simply hide modul
     hide();
 }
 
 
 bool
-GNEFrameAttributesModuls::AttributesEditorFlow::isAttributesEditorFlowModulShown() const {
+GNEFrameAttributesModules::AttributesEditorFlow::isAttributesEditorFlowModuleShown() const {
     return shown();
 }
 
 
 void
-GNEFrameAttributesModuls::AttributesEditorFlow::refreshAttributeEditorFlow() {
+GNEFrameAttributesModules::AttributesEditorFlow::refreshAttributeEditorFlow() {
     if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
         // simply refresh every flow attribute
         refreshEnd();
@@ -1808,7 +1808,7 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshAttributeEditorFlow() {
 
 
 long
-GNEFrameAttributesModuls::AttributesEditorFlow::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
+GNEFrameAttributesModules::AttributesEditorFlow::onCmdSetFlowAttribute(FXObject* obj, FXSelector, void*) {
     const auto& ACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
     // obtain undoList (To improve code legibly)
     GNEUndoList* undoList = myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList();
@@ -1859,7 +1859,7 @@ GNEFrameAttributesModuls::AttributesEditorFlow::onCmdSetFlowAttribute(FXObject* 
 
 
 long
-GNEFrameAttributesModuls::AttributesEditorFlow::onCmdSelectFlowRadioButton(FXObject* obj, FXSelector, void*) {
+GNEFrameAttributesModules::AttributesEditorFlow::onCmdSelectFlowRadioButton(FXObject* obj, FXSelector, void*) {
     const auto& ACs = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
     // obtain undoList (To improve code legibly)
     GNEUndoList* undoList = myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList();
@@ -1899,7 +1899,7 @@ GNEFrameAttributesModuls::AttributesEditorFlow::onCmdSelectFlowRadioButton(FXObj
 
 
 void
-GNEFrameAttributesModuls::AttributesEditorFlow::refreshEnd() {
+GNEFrameAttributesModules::AttributesEditorFlow::refreshEnd() {
     // first we need to check if all attributes are enabled or disabled
     int allAttributesEnabledOrDisabled = 0;
     for (const auto& inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
@@ -1940,7 +1940,7 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshEnd() {
 
 
 void
-GNEFrameAttributesModuls::AttributesEditorFlow::refreshNumber() {
+GNEFrameAttributesModules::AttributesEditorFlow::refreshNumber() {
     // first we need to check if all attributes are enabled or disabled
     int allAttributesEnabledOrDisabled = 0;
     for (const auto& inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
@@ -1981,7 +1981,7 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshNumber() {
 
 
 void
-GNEFrameAttributesModuls::AttributesEditorFlow::refreshVehsPerHour() {
+GNEFrameAttributesModules::AttributesEditorFlow::refreshVehsPerHour() {
     // declare attribute
     SumoXMLAttr attr = SUMO_ATTR_VEHSPERHOUR;
     // first change attribute
@@ -2030,7 +2030,7 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshVehsPerHour() {
 
 
 void
-GNEFrameAttributesModuls::AttributesEditorFlow::refreshPeriod() {
+GNEFrameAttributesModules::AttributesEditorFlow::refreshPeriod() {
     // first we need to check if all attributes are enabled or disabled
     int allAttributesEnabledOrDisabled = 0;
     for (const auto& inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
@@ -2071,7 +2071,7 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshPeriod() {
 
 
 void
-GNEFrameAttributesModuls::AttributesEditorFlow::refreshProbability() {
+GNEFrameAttributesModules::AttributesEditorFlow::refreshProbability() {
     // first we need to check if all attributes are enabled or disabled
     int allAttributesEnabledOrDisabled = 0;
     for (const auto& inspectedAC : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
@@ -2112,10 +2112,10 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshProbability() {
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrameAttributesModuls::AttributesEditorExtended- methods
+// GNEFrameAttributesModules::AttributesEditorExtended- methods
 // ---------------------------------------------------------------------------
 
-GNEFrameAttributesModuls::AttributesEditorExtended::AttributesEditorExtended(GNEFrame* frameParent) :
+GNEFrameAttributesModules::AttributesEditorExtended::AttributesEditorExtended(GNEFrame* frameParent) :
     FXGroupBoxModule(frameParent->myContentFrame, "Extended attributes"),
     myFrameParent(frameParent) {
     // Create open dialog button
@@ -2123,33 +2123,33 @@ GNEFrameAttributesModuls::AttributesEditorExtended::AttributesEditorExtended(GNE
 }
 
 
-GNEFrameAttributesModuls::AttributesEditorExtended::~AttributesEditorExtended() {}
+GNEFrameAttributesModules::AttributesEditorExtended::~AttributesEditorExtended() {}
 
 
 void
-GNEFrameAttributesModuls::AttributesEditorExtended::showAttributesEditorExtendedModul() {
+GNEFrameAttributesModules::AttributesEditorExtended::showAttributesEditorExtendedModule() {
     show();
 }
 
 
 void
-GNEFrameAttributesModuls::AttributesEditorExtended::hideAttributesEditorExtendedModul() {
+GNEFrameAttributesModules::AttributesEditorExtended::hideAttributesEditorExtendedModule() {
     hide();
 }
 
 
 long
-GNEFrameAttributesModuls::AttributesEditorExtended::onCmdOpenDialog(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModules::AttributesEditorExtended::onCmdOpenDialog(FXObject*, FXSelector, void*) {
     // open AttributesCreator extended dialog
     myFrameParent->attributesEditorExtendedDialogOpened();
     return 1;
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrameAttributesModuls::ParametersEditorCreator - methods
+// GNEFrameAttributesModules::ParametersEditorCreator - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameAttributesModuls::ParametersEditorCreator::ParametersEditorCreator(GNEFrame* frameParent) :
+GNEFrameAttributesModules::ParametersEditorCreator::ParametersEditorCreator(GNEFrame* frameParent) :
     FXGroupBoxModule(frameParent->myContentFrame, "Parameters"),
     myFrameParent(frameParent) {
     // create textfield and buttons
@@ -2158,11 +2158,11 @@ GNEFrameAttributesModuls::ParametersEditorCreator::ParametersEditorCreator(GNEFr
 }
 
 
-GNEFrameAttributesModuls::ParametersEditorCreator::~ParametersEditorCreator() {}
+GNEFrameAttributesModules::ParametersEditorCreator::~ParametersEditorCreator() {}
 
 
 void
-GNEFrameAttributesModuls::ParametersEditorCreator::showParametersEditorCreator() {
+GNEFrameAttributesModules::ParametersEditorCreator::showParametersEditorCreator() {
     // refresh ParametersEditorCreator
     refreshParametersEditorCreator();
     // show groupbox
@@ -2171,27 +2171,27 @@ GNEFrameAttributesModuls::ParametersEditorCreator::showParametersEditorCreator()
 
 
 void
-GNEFrameAttributesModuls::ParametersEditorCreator::hideParametersEditorCreator() {
+GNEFrameAttributesModules::ParametersEditorCreator::hideParametersEditorCreator() {
     // hide groupbox
     hide();
 }
 
 
 void
-GNEFrameAttributesModuls::ParametersEditorCreator::refreshParametersEditorCreator() {
+GNEFrameAttributesModules::ParametersEditorCreator::refreshParametersEditorCreator() {
     myTextFieldParameters->setText(getParametersStr().c_str());
     myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
 }
 
 
 const std::map<std::string, std::string>&
-GNEFrameAttributesModuls::ParametersEditorCreator::getParametersMap() const {
+GNEFrameAttributesModules::ParametersEditorCreator::getParametersMap() const {
     return myParameters;
 }
 
 
 std::string
-GNEFrameAttributesModuls::ParametersEditorCreator::getParametersStr() const {
+GNEFrameAttributesModules::ParametersEditorCreator::getParametersStr() const {
     std::string result;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
     for (const auto& parameter : myParameters) {
@@ -2206,7 +2206,7 @@ GNEFrameAttributesModuls::ParametersEditorCreator::getParametersStr() const {
 
 
 std::vector<std::pair<std::string, std::string> >
-GNEFrameAttributesModuls::ParametersEditorCreator::getParameters() const {
+GNEFrameAttributesModules::ParametersEditorCreator::getParameters() const {
     std::vector<std::pair<std::string, std::string> > result;
     // Generate a vector string using the following structure: "<key1,value1>, <key2, value2>,...
     for (const auto& parameter : myParameters) {
@@ -2217,7 +2217,7 @@ GNEFrameAttributesModuls::ParametersEditorCreator::getParameters() const {
 
 
 void
-GNEFrameAttributesModuls::ParametersEditorCreator::setParameters(const std::vector<std::pair<std::string, std::string> >& parameters) {
+GNEFrameAttributesModules::ParametersEditorCreator::setParameters(const std::vector<std::pair<std::string, std::string> >& parameters) {
     // declare result string
     std::string result;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
@@ -2234,13 +2234,13 @@ GNEFrameAttributesModuls::ParametersEditorCreator::setParameters(const std::vect
 
 
 GNEFrame*
-GNEFrameAttributesModuls::ParametersEditorCreator::getFrameParent() const {
+GNEFrameAttributesModules::ParametersEditorCreator::getFrameParent() const {
     return myFrameParent;
 }
 
 
 long
-GNEFrameAttributesModuls::ParametersEditorCreator::onCmdEditParameters(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModules::ParametersEditorCreator::onCmdEditParameters(FXObject*, FXSelector, void*) {
     // write debug information
     WRITE_DEBUG("Open single parameters dialog");
     if (GNESingleParametersDialog(this).execute()) {
@@ -2257,7 +2257,7 @@ GNEFrameAttributesModuls::ParametersEditorCreator::onCmdEditParameters(FXObject*
 
 
 long
-GNEFrameAttributesModuls::ParametersEditorCreator::onCmdSetParameters(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModules::ParametersEditorCreator::onCmdSetParameters(FXObject*, FXSelector, void*) {
     // clear current existent parameters
     myParameters.clear();
     // check if current given string is valid
@@ -2283,10 +2283,10 @@ GNEFrameAttributesModuls::ParametersEditorCreator::onCmdSetParameters(FXObject*,
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrameAttributesModuls::DrawingShape - methods
+// GNEFrameAttributesModules::DrawingShape - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameAttributesModuls::DrawingShape::DrawingShape(GNEFrame* frameParent) :
+GNEFrameAttributesModules::DrawingShape::DrawingShape(GNEFrame* frameParent) :
     FXGroupBoxModule(frameParent->myContentFrame, "Drawing"),
     myFrameParent(frameParent),
     myDeleteLastCreatedPoint(false) {
@@ -2312,10 +2312,10 @@ GNEFrameAttributesModuls::DrawingShape::DrawingShape(GNEFrame* frameParent) :
 }
 
 
-GNEFrameAttributesModuls::DrawingShape::~DrawingShape() {}
+GNEFrameAttributesModules::DrawingShape::~DrawingShape() {}
 
 
-void GNEFrameAttributesModuls::DrawingShape::showDrawingShape() {
+void GNEFrameAttributesModules::DrawingShape::showDrawingShape() {
     // abort current drawing before show
     abortDrawing();
     // show FXGroupBoxModule
@@ -2323,7 +2323,7 @@ void GNEFrameAttributesModuls::DrawingShape::showDrawingShape() {
 }
 
 
-void GNEFrameAttributesModuls::DrawingShape::hideDrawingShape() {
+void GNEFrameAttributesModules::DrawingShape::hideDrawingShape() {
     // abort current drawing before hide
     abortDrawing();
     // show FXGroupBoxModule
@@ -2332,7 +2332,7 @@ void GNEFrameAttributesModuls::DrawingShape::hideDrawingShape() {
 
 
 void
-GNEFrameAttributesModuls::DrawingShape::startDrawing() {
+GNEFrameAttributesModules::DrawingShape::startDrawing() {
     // Only start drawing if DrawingShape modul is shown
     if (shown()) {
         // change buttons
@@ -2344,7 +2344,7 @@ GNEFrameAttributesModuls::DrawingShape::startDrawing() {
 
 
 void
-GNEFrameAttributesModuls::DrawingShape::stopDrawing() {
+GNEFrameAttributesModules::DrawingShape::stopDrawing() {
     // try to build shape
     if (myFrameParent->shapeDrawed()) {
         // clear created points
@@ -2362,7 +2362,7 @@ GNEFrameAttributesModuls::DrawingShape::stopDrawing() {
 
 
 void
-GNEFrameAttributesModuls::DrawingShape::abortDrawing() {
+GNEFrameAttributesModules::DrawingShape::abortDrawing() {
     // clear created points
     myTemporalShapeShape.clear();
     myFrameParent->myViewNet->updateViewNet();
@@ -2374,7 +2374,7 @@ GNEFrameAttributesModuls::DrawingShape::abortDrawing() {
 
 
 void
-GNEFrameAttributesModuls::DrawingShape::addNewPoint(const Position& P) {
+GNEFrameAttributesModules::DrawingShape::addNewPoint(const Position& P) {
     if (myStopDrawingButton->isEnabled()) {
         myTemporalShapeShape.push_back(P);
     } else {
@@ -2384,60 +2384,60 @@ GNEFrameAttributesModuls::DrawingShape::addNewPoint(const Position& P) {
 
 
 void
-GNEFrameAttributesModuls::DrawingShape::removeLastPoint() {
+GNEFrameAttributesModules::DrawingShape::removeLastPoint() {
 
 }
 
 
 const PositionVector&
-GNEFrameAttributesModuls::DrawingShape::getTemporalShape() const {
+GNEFrameAttributesModules::DrawingShape::getTemporalShape() const {
     return myTemporalShapeShape;
 }
 
 
 bool
-GNEFrameAttributesModuls::DrawingShape::isDrawing() const {
+GNEFrameAttributesModules::DrawingShape::isDrawing() const {
     return myStopDrawingButton->isEnabled();
 }
 
 
 void
-GNEFrameAttributesModuls::DrawingShape::setDeleteLastCreatedPoint(bool value) {
+GNEFrameAttributesModules::DrawingShape::setDeleteLastCreatedPoint(bool value) {
     myDeleteLastCreatedPoint = value;
 }
 
 
 bool
-GNEFrameAttributesModuls::DrawingShape::getDeleteLastCreatedPoint() {
+GNEFrameAttributesModules::DrawingShape::getDeleteLastCreatedPoint() {
     return myDeleteLastCreatedPoint;
 }
 
 
 long
-GNEFrameAttributesModuls::DrawingShape::onCmdStartDrawing(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModules::DrawingShape::onCmdStartDrawing(FXObject*, FXSelector, void*) {
     startDrawing();
     return 0;
 }
 
 
 long
-GNEFrameAttributesModuls::DrawingShape::onCmdStopDrawing(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModules::DrawingShape::onCmdStopDrawing(FXObject*, FXSelector, void*) {
     stopDrawing();
     return 0;
 }
 
 
 long
-GNEFrameAttributesModuls::DrawingShape::onCmdAbortDrawing(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModules::DrawingShape::onCmdAbortDrawing(FXObject*, FXSelector, void*) {
     abortDrawing();
     return 0;
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrameAttributesModuls::NeteditAttributes- methods
+// GNEFrameAttributesModules::NeteditAttributes- methods
 // ---------------------------------------------------------------------------
 
-GNEFrameAttributesModuls::NeteditAttributes::NeteditAttributes(GNEFrame* frameParent) :
+GNEFrameAttributesModules::NeteditAttributes::NeteditAttributes(GNEFrame* frameParent) :
     FXGroupBoxModule(frameParent->myContentFrame, "Netedit attributes"),
     myFrameParent(frameParent),
     myCurrentLengthValid(true),
@@ -2468,11 +2468,11 @@ GNEFrameAttributesModuls::NeteditAttributes::NeteditAttributes(GNEFrame* framePa
 }
 
 
-GNEFrameAttributesModuls::NeteditAttributes::~NeteditAttributes() {}
+GNEFrameAttributesModules::NeteditAttributes::~NeteditAttributes() {}
 
 
 void
-GNEFrameAttributesModuls::NeteditAttributes::showNeteditAttributesModul(const GNETagProperties& tagProperty) {
+GNEFrameAttributesModules::NeteditAttributes::showNeteditAttributesModule(const GNETagProperties& tagProperty) {
     // we assume that frame will not be show
     bool showFrame = false;
     // check if length text field has to be showed
@@ -2509,13 +2509,13 @@ GNEFrameAttributesModuls::NeteditAttributes::showNeteditAttributesModul(const GN
 
 
 void
-GNEFrameAttributesModuls::NeteditAttributes::hideNeteditAttributesModul() {
+GNEFrameAttributesModules::NeteditAttributes::hideNeteditAttributesModule() {
     hide();
 }
 
 
 bool
-GNEFrameAttributesModuls::NeteditAttributes::getNeteditAttributesAndValues(CommonXMLStructure::SumoBaseObject* baseObject, const GNELane* lane) const {
+GNEFrameAttributesModules::NeteditAttributes::getNeteditAttributesAndValues(CommonXMLStructure::SumoBaseObject* baseObject, const GNELane* lane) const {
     // check if we need to obtain a start and end position over an edge
     if (myReferencePointMatchBox->shown()) {
         // we need a valid lane to calculate position over lane
@@ -2556,7 +2556,7 @@ GNEFrameAttributesModuls::NeteditAttributes::getNeteditAttributesAndValues(Commo
 
 
 long
-GNEFrameAttributesModuls::NeteditAttributes::onCmdSetNeteditAttribute(FXObject* obj, FXSelector, void*) {
+GNEFrameAttributesModules::NeteditAttributes::onCmdSetNeteditAttribute(FXObject* obj, FXSelector, void*) {
     if (obj == myCloseShapeCheckButton) {
         if (myCloseShapeCheckButton->getCheck()) {
             myCloseShapeCheckButton->setText("true");
@@ -2609,7 +2609,7 @@ GNEFrameAttributesModuls::NeteditAttributes::onCmdSetNeteditAttribute(FXObject* 
 
 
 long
-GNEFrameAttributesModuls::NeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModules::NeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
     // Create dialog box
     FXDialogBox* additionalNeteditAttributesHelpDialog = new FXDialogBox(getCollapsableFrame(), "Netedit Parameters Help", GUIDesignDialogBox);
     additionalNeteditAttributesHelpDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL));
@@ -2664,7 +2664,7 @@ GNEFrameAttributesModuls::NeteditAttributes::onCmdHelp(FXObject*, FXSelector, vo
 
 
 double
-GNEFrameAttributesModuls::NeteditAttributes::setStartPosition(double positionOfTheMouseOverLane, double lengthOfAdditional) const {
+GNEFrameAttributesModules::NeteditAttributes::setStartPosition(double positionOfTheMouseOverLane, double lengthOfAdditional) const {
     switch (myActualAdditionalReferencePoint) {
         case AdditionalReferencePoint::LEFT:
             return positionOfTheMouseOverLane;
@@ -2679,7 +2679,7 @@ GNEFrameAttributesModuls::NeteditAttributes::setStartPosition(double positionOfT
 
 
 double
-GNEFrameAttributesModuls::NeteditAttributes::setEndPosition(double positionOfTheMouseOverLane, double lengthOfAdditional)  const {
+GNEFrameAttributesModules::NeteditAttributes::setEndPosition(double positionOfTheMouseOverLane, double lengthOfAdditional)  const {
     switch (myActualAdditionalReferencePoint) {
         case AdditionalReferencePoint::LEFT:
             return positionOfTheMouseOverLane + lengthOfAdditional;
@@ -2694,7 +2694,7 @@ GNEFrameAttributesModuls::NeteditAttributes::setEndPosition(double positionOfThe
 
 
 bool
-GNEFrameAttributesModuls::isSupermodeValid(const GNEViewNet* viewNet, const GNEAttributeCarrier* AC) {
+GNEFrameAttributesModules::isSupermodeValid(const GNEViewNet* viewNet, const GNEAttributeCarrier* AC) {
     if (viewNet->getEditModes().isCurrentSupermodeNetwork() && (
                 AC->getTagProperty().isNetworkElement() ||
                 AC->getTagProperty().isAdditionalElement() ||
@@ -2714,7 +2714,7 @@ GNEFrameAttributesModuls::isSupermodeValid(const GNEViewNet* viewNet, const GNEA
 
 
 bool
-GNEFrameAttributesModuls::isSupermodeValid(const GNEViewNet* viewNet, const GNEAttributeProperties& ACAttr) {
+GNEFrameAttributesModules::isSupermodeValid(const GNEViewNet* viewNet, const GNEAttributeProperties& ACAttr) {
     if (ACAttr.getTagPropertyParent().isNetworkElement() || ACAttr.getTagPropertyParent().isAdditionalElement() ||
             ACAttr.getTagPropertyParent().isShape() || ACAttr.getTagPropertyParent().isTAZElement()) {
         return (viewNet->getEditModes().isCurrentSupermodeNetwork());

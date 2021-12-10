@@ -129,9 +129,9 @@ GNEPersonTypeFrame::PersonTypeSelector::refreshPersonTypeSelector() {
         }
     }
     // refresh person type editor modul
-    myPersonTypeFrameParent->myPersonTypeEditor->refreshPersonTypeEditorModul();
+    myPersonTypeFrameParent->myPersonTypeEditor->refreshPersonTypeEditorModule();
     // show Attribute Editor modul if selected item is valid
-    myPersonTypeFrameParent->myPersonTypeAttributesEditor->showAttributeEditorModul(false, true);
+    myPersonTypeFrameParent->myPersonTypeAttributesEditor->showAttributeEditorModule(false, true);
 }
 
 
@@ -145,9 +145,9 @@ GNEPersonTypeFrame::PersonTypeSelector::onCmdSelectItem(FXObject*, FXSelector, v
             // set color of myTypeMatchBox to black (valid)
             myTypeMatchBox->setTextColor(FXRGB(0, 0, 0));
             // refresh person type editor modul
-            myPersonTypeFrameParent->myPersonTypeEditor->refreshPersonTypeEditorModul();
+            myPersonTypeFrameParent->myPersonTypeEditor->refreshPersonTypeEditorModule();
             // show moduls if selected item is valid
-            myPersonTypeFrameParent->myPersonTypeAttributesEditor->showAttributeEditorModul(false, true);
+            myPersonTypeFrameParent->myPersonTypeAttributesEditor->showAttributeEditorModule(false, true);
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG(("Selected item '" + myTypeMatchBox->getText() + "' in PersonTypeSelector").text());
             return 1;
@@ -155,9 +155,9 @@ GNEPersonTypeFrame::PersonTypeSelector::onCmdSelectItem(FXObject*, FXSelector, v
     }
     myCurrentPersonType = nullptr;
     // refresh person type editor modul
-    myPersonTypeFrameParent->myPersonTypeEditor->refreshPersonTypeEditorModul();
+    myPersonTypeFrameParent->myPersonTypeEditor->refreshPersonTypeEditorModule();
     // hide all moduls if selected item isn't valid
-    myPersonTypeFrameParent->myPersonTypeAttributesEditor->hideAttributesEditorModul();
+    myPersonTypeFrameParent->myPersonTypeAttributesEditor->hideAttributesEditorModule();
     // set color of myTypeMatchBox to red (invalid)
     myTypeMatchBox->setTextColor(FXRGB(255, 0, 0));
     // Write Warning in console if we're in testing mode
@@ -187,20 +187,20 @@ GNEPersonTypeFrame::PersonTypeEditor::~PersonTypeEditor() {}
 
 
 void
-GNEPersonTypeFrame::PersonTypeEditor::showPersonTypeEditorModul() {
-    refreshPersonTypeEditorModul();
+GNEPersonTypeFrame::PersonTypeEditor::showPersonTypeEditorModule() {
+    refreshPersonTypeEditorModule();
     show();
 }
 
 
 void
-GNEPersonTypeFrame::PersonTypeEditor::hidePersonTypeEditorModul() {
+GNEPersonTypeFrame::PersonTypeEditor::hidePersonTypeEditorModule() {
     hide();
 }
 
 
 void
-GNEPersonTypeFrame::PersonTypeEditor::refreshPersonTypeEditorModul() {
+GNEPersonTypeFrame::PersonTypeEditor::refreshPersonTypeEditorModule() {
     // first check if selected pType is valid
     if (myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType() == nullptr) {
         // disable all buttons except create button
@@ -244,8 +244,8 @@ GNEPersonTypeFrame::PersonTypeEditor::onCmdCreatePersonType(FXObject*, FXSelecto
     myPersonTypeFrameParent->myViewNet->getUndoList()->end();
     // set created person type in selector
     myPersonTypeFrameParent->myPersonTypeSelector->setCurrentPersonType(personType);
-    // refresh PersonType Editor Modul
-    myPersonTypeFrameParent->myPersonTypeEditor->refreshPersonTypeEditorModul();
+    // refresh PersonType Editor Module
+    myPersonTypeFrameParent->myPersonTypeEditor->refreshPersonTypeEditorModule();
     return 1;
 }
 
@@ -337,8 +337,8 @@ GNEPersonTypeFrame::PersonTypeEditor::onCmdCopyPersonType(FXObject*, FXSelector,
         myPersonTypeFrameParent->myPersonTypeSelector->refreshPersonTypeSelector();
         // set created person type in selector
         myPersonTypeFrameParent->myPersonTypeSelector->setCurrentPersonType(personTypeCopy);
-        // refresh PersonType Editor Modul
-        myPersonTypeFrameParent->myPersonTypeEditor->refreshPersonTypeEditorModul();
+        // refresh PersonType Editor Module
+        myPersonTypeFrameParent->myPersonTypeEditor->refreshPersonTypeEditorModule();
     }
     return 1;
 }
@@ -357,7 +357,7 @@ GNEPersonTypeFrame::GNEPersonTypeFrame(FXHorizontalFrame* horizontalFrameParent,
     myPersonTypeSelector = new PersonTypeSelector(this);
 
     // Create person type attributes editor
-    myPersonTypeAttributesEditor = new GNEFrameAttributesModuls::AttributesEditor(this);
+    myPersonTypeAttributesEditor = new GNEFrameAttributesModules::AttributesEditor(this);
 
     // set "VTYPE_DEFAULT" as default person Type
     myPersonTypeSelector->setCurrentPersonType(myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PTYPE, DEFAULT_PEDTYPE_ID));
@@ -372,7 +372,7 @@ GNEPersonTypeFrame::show() {
     // refresh person type and Attribute Editor
     myPersonTypeSelector->refreshPersonTypeSelector();
     // show person type attributes editor (except extended attributes)
-    myPersonTypeAttributesEditor->showAttributeEditorModul(false, true);
+    myPersonTypeAttributesEditor->showAttributeEditorModule(false, true);
     // show frame
     GNEFrame::show();
 }

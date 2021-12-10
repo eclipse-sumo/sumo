@@ -11,11 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEFrameModuls.cpp
+/// @file    GNEFrameModules.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2019
 ///
-// Auxiliar class for GNEFrame Moduls
+// Auxiliar class for GNEFrame Modules
 /****************************************************************************/
 #include <config.h>
 
@@ -74,59 +74,59 @@
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
-#include "GNEFrameModuls.h"
+#include "GNEFrameModules.h"
 
 
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEFrameModuls::TagSelector) TagSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_TAG_SELECTED,        GNEFrameModuls::TagSelector::onCmdSelectTag)
+FXDEFMAP(GNEFrameModules::TagSelector) TagSelectorMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_TAG_SELECTED,        GNEFrameModules::TagSelector::onCmdSelectTag)
 };
 
-FXDEFMAP(GNEFrameModuls::DemandElementSelector) DemandElementSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEFrameModuls::DemandElementSelector::onCmdSelectDemandElement),
+FXDEFMAP(GNEFrameModules::DemandElementSelector) DemandElementSelectorMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEFrameModules::DemandElementSelector::onCmdSelectDemandElement),
 };
 
-FXDEFMAP(GNEFrameModuls::HierarchicalElementTree) HierarchicalElementTreeMap[] = {
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_CENTER,                     GNEFrameModuls::HierarchicalElementTree::onCmdCenterItem),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECT,                    GNEFrameModuls::HierarchicalElementTree::onCmdInspectItem),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_DELETE,                     GNEFrameModuls::HierarchicalElementTree::onCmdDeleteItem),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_ACHIERARCHY_MOVEUP,         GNEFrameModuls::HierarchicalElementTree::onCmdMoveItemUp),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_ACHIERARCHY_MOVEDOWN,       GNEFrameModuls::HierarchicalElementTree::onCmdMoveItemDown),
-    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_ACHIERARCHY_SHOWCHILDMENU,  GNEFrameModuls::HierarchicalElementTree::onCmdShowChildMenu)
+FXDEFMAP(GNEFrameModules::HierarchicalElementTree) HierarchicalElementTreeMap[] = {
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_CENTER,                     GNEFrameModules::HierarchicalElementTree::onCmdCenterItem),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECT,                    GNEFrameModules::HierarchicalElementTree::onCmdInspectItem),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_DELETE,                     GNEFrameModules::HierarchicalElementTree::onCmdDeleteItem),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_ACHIERARCHY_MOVEUP,         GNEFrameModules::HierarchicalElementTree::onCmdMoveItemUp),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_ACHIERARCHY_MOVEDOWN,       GNEFrameModules::HierarchicalElementTree::onCmdMoveItemDown),
+    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_ACHIERARCHY_SHOWCHILDMENU,  GNEFrameModules::HierarchicalElementTree::onCmdShowChildMenu)
 };
 
-FXDEFMAP(GNEFrameModuls::DrawingShape) DrawingShapeMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_STARTDRAWING,   GNEFrameModuls::DrawingShape::onCmdStartDrawing),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_STOPDRAWING,    GNEFrameModuls::DrawingShape::onCmdStopDrawing),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ABORTDRAWING,   GNEFrameModuls::DrawingShape::onCmdAbortDrawing)
+FXDEFMAP(GNEFrameModules::DrawingShape) DrawingShapeMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_STARTDRAWING,   GNEFrameModules::DrawingShape::onCmdStartDrawing),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_STOPDRAWING,    GNEFrameModules::DrawingShape::onCmdStopDrawing),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ABORTDRAWING,   GNEFrameModules::DrawingShape::onCmdAbortDrawing)
 };
 
-FXDEFMAP(GNEFrameModuls::OverlappedInspection) OverlappedInspectionMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OVERLAPPED_NEXT,            GNEFrameModuls::OverlappedInspection::onCmdNextElement),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OVERLAPPED_PREVIOUS,        GNEFrameModuls::OverlappedInspection::onCmdPreviousElement),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OVERLAPPED_SHOWLIST,        GNEFrameModuls::OverlappedInspection::onCmdShowList),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OVERLAPPED_ITEMSELECTED,    GNEFrameModuls::OverlappedInspection::onCmdListItemSelected),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                           GNEFrameModuls::OverlappedInspection::onCmdOverlappingHelp)
+FXDEFMAP(GNEFrameModules::OverlappedInspection) OverlappedInspectionMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OVERLAPPED_NEXT,            GNEFrameModules::OverlappedInspection::onCmdNextElement),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OVERLAPPED_PREVIOUS,        GNEFrameModules::OverlappedInspection::onCmdPreviousElement),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OVERLAPPED_SHOWLIST,        GNEFrameModules::OverlappedInspection::onCmdShowList),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OVERLAPPED_ITEMSELECTED,    GNEFrameModules::OverlappedInspection::onCmdListItemSelected),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                           GNEFrameModules::OverlappedInspection::onCmdOverlappingHelp)
 };
 
-FXDEFMAP(GNEFrameModuls::PathCreator) PathCreatorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_ABORT,          GNEFrameModuls::PathCreator::onCmdAbortPathCreation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_FINISH,         GNEFrameModuls::PathCreator::onCmdCreatePath),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_REMOVELAST,     GNEFrameModuls::PathCreator::onCmdRemoveLastElement),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_SHOWCANDIDATES, GNEFrameModuls::PathCreator::onCmdShowCandidateEdges)
+FXDEFMAP(GNEFrameModules::PathCreator) PathCreatorMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_ABORT,          GNEFrameModules::PathCreator::onCmdAbortPathCreation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_FINISH,         GNEFrameModules::PathCreator::onCmdCreatePath),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_REMOVELAST,     GNEFrameModules::PathCreator::onCmdRemoveLastElement),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_SHOWCANDIDATES, GNEFrameModules::PathCreator::onCmdShowCandidateEdges)
 };
 
 
 // Object implementation
-FXIMPLEMENT(GNEFrameModuls::TagSelector,                FXGroupBoxModule,     TagSelectorMap,                 ARRAYNUMBER(TagSelectorMap))
-FXIMPLEMENT(GNEFrameModuls::DemandElementSelector,      FXGroupBoxModule,     DemandElementSelectorMap,       ARRAYNUMBER(DemandElementSelectorMap))
-FXIMPLEMENT(GNEFrameModuls::HierarchicalElementTree,    FXGroupBoxModule,     HierarchicalElementTreeMap,     ARRAYNUMBER(HierarchicalElementTreeMap))
-FXIMPLEMENT(GNEFrameModuls::DrawingShape,               FXGroupBoxModule,     DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
-FXIMPLEMENT(GNEFrameModuls::OverlappedInspection,       FXGroupBoxModule,     OverlappedInspectionMap,        ARRAYNUMBER(OverlappedInspectionMap))
-FXIMPLEMENT(GNEFrameModuls::PathCreator,                FXGroupBoxModule,     PathCreatorMap,                 ARRAYNUMBER(PathCreatorMap))
+FXIMPLEMENT(GNEFrameModules::TagSelector,                FXGroupBoxModule,     TagSelectorMap,                 ARRAYNUMBER(TagSelectorMap))
+FXIMPLEMENT(GNEFrameModules::DemandElementSelector,      FXGroupBoxModule,     DemandElementSelectorMap,       ARRAYNUMBER(DemandElementSelectorMap))
+FXIMPLEMENT(GNEFrameModules::HierarchicalElementTree,    FXGroupBoxModule,     HierarchicalElementTreeMap,     ARRAYNUMBER(HierarchicalElementTreeMap))
+FXIMPLEMENT(GNEFrameModules::DrawingShape,               FXGroupBoxModule,     DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
+FXIMPLEMENT(GNEFrameModules::OverlappedInspection,       FXGroupBoxModule,     OverlappedInspectionMap,        ARRAYNUMBER(OverlappedInspectionMap))
+FXIMPLEMENT(GNEFrameModules::PathCreator,                FXGroupBoxModule,     PathCreatorMap,                 ARRAYNUMBER(PathCreatorMap))
 
 
 // ===========================================================================
@@ -134,10 +134,10 @@ FXIMPLEMENT(GNEFrameModuls::PathCreator,                FXGroupBoxModule,     Pa
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
-// GNEFrameModuls::TagSelector - methods
+// GNEFrameModules::TagSelector - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameModuls::TagSelector::TagSelector(GNEFrame* frameParent, GNETagProperties::TagType type, SumoXMLTag tag, bool onlyDrawables) :
+GNEFrameModules::TagSelector::TagSelector(GNEFrame* frameParent, GNETagProperties::TagType type, SumoXMLTag tag, bool onlyDrawables) :
     FXGroupBoxModule(frameParent->myContentFrame, "Element"),
     myFrameParent(frameParent),
     myTagType(type),
@@ -153,7 +153,7 @@ GNEFrameModuls::TagSelector::TagSelector(GNEFrame* frameParent, GNETagProperties
 }
 
 
-GNEFrameModuls::TagSelector::~TagSelector() {
+GNEFrameModules::TagSelector::~TagSelector() {
     // clear myACTemplates and myTagsMatchBox
     for (const auto &ACTemplate : myACTemplates) {
         delete ACTemplate;
@@ -163,25 +163,25 @@ GNEFrameModuls::TagSelector::~TagSelector() {
 
 
 void
-GNEFrameModuls::TagSelector::showTagSelector() {
+GNEFrameModules::TagSelector::showTagSelector() {
     show();
 }
 
 
 void
-GNEFrameModuls::TagSelector::hideTagSelector() {
+GNEFrameModules::TagSelector::hideTagSelector() {
     hide();
 }
 
 
 GNEAttributeCarrier*
-GNEFrameModuls::TagSelector::getCurrentTemplateAC() const {
+GNEFrameModules::TagSelector::getCurrentTemplateAC() const {
     return myCurrentTemplateAC;
 }
 
 
 void
-GNEFrameModuls::TagSelector::setCurrentTagType(GNETagProperties::TagType tagType, const bool onlyDrawables, const bool notifyFrameParent) {
+GNEFrameModules::TagSelector::setCurrentTagType(GNETagProperties::TagType tagType, const bool onlyDrawables, const bool notifyFrameParent) {
     // check if net has proj
     const bool proj = (GeoConvHelper::getFinal().getProjString() != "!");
     // set new tagType
@@ -262,7 +262,7 @@ GNEFrameModuls::TagSelector::setCurrentTagType(GNETagProperties::TagType tagType
 
 
 void
-GNEFrameModuls::TagSelector::setCurrentTag(SumoXMLTag newTag, const bool notifyFrameParent) {
+GNEFrameModules::TagSelector::setCurrentTag(SumoXMLTag newTag, const bool notifyFrameParent) {
     // first reset myCurrentTemplateAC
     myCurrentTemplateAC = nullptr;
     // iterate over all myTagsMatchBox
@@ -283,14 +283,14 @@ GNEFrameModuls::TagSelector::setCurrentTag(SumoXMLTag newTag, const bool notifyF
 
 
 void
-GNEFrameModuls::TagSelector::refreshTagSelector() {
+GNEFrameModules::TagSelector::refreshTagSelector() {
     // call tag selected function
     myFrameParent->tagSelected();
 }
 
 
 long
-GNEFrameModuls::TagSelector::onCmdSelectTag(FXObject*, FXSelector, void*) {
+GNEFrameModules::TagSelector::onCmdSelectTag(FXObject*, FXSelector, void*) {
     // iterate over all myTagsMatchBox
     for (int i = 0; i < (int)myACTemplates.size(); i++) {
         if (myACTemplates.at(i)->getAC() && myACTemplates.at(i)->getAC()->getTagProperty().getFieldString() == myTagsMatchBox->getText().text()) {
@@ -319,12 +319,12 @@ GNEFrameModuls::TagSelector::onCmdSelectTag(FXObject*, FXSelector, void*) {
 
 
 GNEAttributeCarrier*
-GNEFrameModuls::TagSelector::ACTemplate::getAC() const {
+GNEFrameModules::TagSelector::ACTemplate::getAC() const {
     return myAC;
 }
 
 
-GNEFrameModuls::TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagProperty) :
+GNEFrameModules::TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagProperty) :
     myAC(nullptr) {
     // create attribute carrier depending of 
     switch (tagProperty.getTag()) {
@@ -488,15 +488,15 @@ GNEFrameModuls::TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagPro
 }
 
 
- GNEFrameModuls::TagSelector::ACTemplate::~ACTemplate() {
+ GNEFrameModules::TagSelector::ACTemplate::~ACTemplate() {
     delete myAC;
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrameModuls::DemandElementSelector - methods
+// GNEFrameModules::DemandElementSelector - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameModuls::DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag) :
+GNEFrameModules::DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag) :
     FXGroupBoxModule(frameParent->myContentFrame, ("Parent " + toString(demandElementTag)).c_str()),
     myFrameParent(frameParent),
     myCurrentDemandElement(nullptr),
@@ -510,7 +510,7 @@ GNEFrameModuls::DemandElementSelector::DemandElementSelector(GNEFrame* framePare
 }
 
 
-GNEFrameModuls::DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, const std::vector<GNETagProperties::TagType>& tagTypes) :
+GNEFrameModules::DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, const std::vector<GNETagProperties::TagType>& tagTypes) :
     FXGroupBoxModule(frameParent->myContentFrame, "Parent element"),
     myFrameParent(frameParent),
     myCurrentDemandElement(nullptr) {
@@ -530,23 +530,23 @@ GNEFrameModuls::DemandElementSelector::DemandElementSelector(GNEFrame* framePare
 }
 
 
-GNEFrameModuls::DemandElementSelector::~DemandElementSelector() {}
+GNEFrameModules::DemandElementSelector::~DemandElementSelector() {}
 
 
 GNEDemandElement*
-GNEFrameModuls::DemandElementSelector::getCurrentDemandElement() const {
+GNEFrameModules::DemandElementSelector::getCurrentDemandElement() const {
     return myCurrentDemandElement;
 }
 
 
 const std::vector<SumoXMLTag>&
-GNEFrameModuls::DemandElementSelector::getAllowedTags() const {
+GNEFrameModules::DemandElementSelector::getAllowedTags() const {
     return myDemandElementTags;
 }
 
 
 void
-GNEFrameModuls::DemandElementSelector::setDemandElement(GNEDemandElement* demandElement) {
+GNEFrameModules::DemandElementSelector::setDemandElement(GNEDemandElement* demandElement) {
     // first check that demandElement tag correspond to a tag of myDemandElementTags
     if (std::find(myDemandElementTags.begin(), myDemandElementTags.end(), demandElement->getTagProperty().getTag()) != myDemandElementTags.end()) {
         // update text of myDemandElementsMatchBox
@@ -560,7 +560,7 @@ GNEFrameModuls::DemandElementSelector::setDemandElement(GNEDemandElement* demand
 
 
 void
-GNEFrameModuls::DemandElementSelector::showDemandElementSelector() {
+GNEFrameModules::DemandElementSelector::showDemandElementSelector() {
     // first refresh modul
     refreshDemandElementSelector();
     // if current selected item isn't valid, set DEFAULT_VTYPE_ID or DEFAULT_PEDTYPE_ID
@@ -581,19 +581,19 @@ GNEFrameModuls::DemandElementSelector::showDemandElementSelector() {
 
 
 void
-GNEFrameModuls::DemandElementSelector::hideDemandElementSelector() {
+GNEFrameModules::DemandElementSelector::hideDemandElementSelector() {
     hide();
 }
 
 
 bool
-GNEFrameModuls::DemandElementSelector::isDemandElementSelectorShown() const {
+GNEFrameModules::DemandElementSelector::isDemandElementSelectorShown() const {
     return shown();
 }
 
 
 void
-GNEFrameModuls::DemandElementSelector::refreshDemandElementSelector() {
+GNEFrameModules::DemandElementSelector::refreshDemandElementSelector() {
     // get demand elemenst container
     const auto& demandElements = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements();
     // clear demand elements comboBox
@@ -665,7 +665,7 @@ GNEFrameModuls::DemandElementSelector::refreshDemandElementSelector() {
 
 
 GNEEdge*
-GNEFrameModuls::DemandElementSelector::getPersonPlanPreviousEdge() const {
+GNEFrameModules::DemandElementSelector::getPersonPlanPreviousEdge() const {
     if (myCurrentDemandElement == nullptr) {
         return nullptr;
     }
@@ -708,7 +708,7 @@ GNEFrameModuls::DemandElementSelector::getPersonPlanPreviousEdge() const {
 
 
 GNEEdge*
-GNEFrameModuls::DemandElementSelector::getContainerPlanPreviousEdge() const {
+GNEFrameModules::DemandElementSelector::getContainerPlanPreviousEdge() const {
     if (myCurrentDemandElement == nullptr) {
         return nullptr;
     }
@@ -744,7 +744,7 @@ GNEFrameModuls::DemandElementSelector::getContainerPlanPreviousEdge() const {
 
 
 long
-GNEFrameModuls::DemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSelector, void*) {
+GNEFrameModules::DemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSelector, void*) {
     // Check if value of myTypeMatchBox correspond to a demand element
     for (const auto& demandElementTag : myDemandElementTags) {
         for (const auto& demandElement : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(demandElementTag)) {
@@ -773,10 +773,10 @@ GNEFrameModuls::DemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSel
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrameModuls::HierarchicalElementTree - methods
+// GNEFrameModules::HierarchicalElementTree - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameModuls::HierarchicalElementTree::HierarchicalElementTree(GNEFrame* frameParent) :
+GNEFrameModules::HierarchicalElementTree::HierarchicalElementTree(GNEFrame* frameParent) :
     FXGroupBoxModule(frameParent->myContentFrame, "Hierarchy"),
     myFrameParent(frameParent),
     myHE(nullptr),
@@ -799,11 +799,11 @@ GNEFrameModuls::HierarchicalElementTree::HierarchicalElementTree(GNEFrame* frame
 }
 
 
-GNEFrameModuls::HierarchicalElementTree::~HierarchicalElementTree() {}
+GNEFrameModules::HierarchicalElementTree::~HierarchicalElementTree() {}
 
 
 void
-GNEFrameModuls::HierarchicalElementTree::showHierarchicalElementTree(GNEAttributeCarrier* AC) {
+GNEFrameModules::HierarchicalElementTree::showHierarchicalElementTree(GNEAttributeCarrier* AC) {
     myHE = dynamic_cast<GNEHierarchicalElement*>(AC);
     // show HierarchicalElementTree and refresh HierarchicalElementTree
     if (myHE) {
@@ -818,7 +818,7 @@ GNEFrameModuls::HierarchicalElementTree::showHierarchicalElementTree(GNEAttribut
 
 
 void
-GNEFrameModuls::HierarchicalElementTree::hideHierarchicalElementTree() {
+GNEFrameModules::HierarchicalElementTree::hideHierarchicalElementTree() {
     // set all pointers null
     myHE = nullptr;
     myClickedAC = nullptr;
@@ -842,7 +842,7 @@ GNEFrameModuls::HierarchicalElementTree::hideHierarchicalElementTree() {
 
 
 void
-GNEFrameModuls::HierarchicalElementTree::refreshHierarchicalElementTree() {
+GNEFrameModules::HierarchicalElementTree::refreshHierarchicalElementTree() {
     // clear items
     myTreeListDinamic->clearItems();
     myTreeItemToACMap.clear();
@@ -855,7 +855,7 @@ GNEFrameModuls::HierarchicalElementTree::refreshHierarchicalElementTree() {
 
 
 void
-GNEFrameModuls::HierarchicalElementTree::removeCurrentEditedAttributeCarrier(const GNEAttributeCarrier* AC) {
+GNEFrameModules::HierarchicalElementTree::removeCurrentEditedAttributeCarrier(const GNEAttributeCarrier* AC) {
     // simply check if AC is the same of myHE
     if (AC == myHE) {
         myHE = nullptr;
@@ -864,7 +864,7 @@ GNEFrameModuls::HierarchicalElementTree::removeCurrentEditedAttributeCarrier(con
 
 
 long
-GNEFrameModuls::HierarchicalElementTree::onCmdShowChildMenu(FXObject*, FXSelector, void* eventData) {
+GNEFrameModules::HierarchicalElementTree::onCmdShowChildMenu(FXObject*, FXSelector, void* eventData) {
     // Obtain event
     FXEvent* e = (FXEvent*)eventData;
     // obtain FXTreeItem in the given position
@@ -878,7 +878,7 @@ GNEFrameModuls::HierarchicalElementTree::onCmdShowChildMenu(FXObject*, FXSelecto
 
 
 long
-GNEFrameModuls::HierarchicalElementTree::onCmdCenterItem(FXObject*, FXSelector, void*) {
+GNEFrameModules::HierarchicalElementTree::onCmdCenterItem(FXObject*, FXSelector, void*) {
     // Center item
     if (myClickedJunction) {
         myFrameParent->myViewNet->centerTo(myClickedJunction->getGlID(), true, -1);
@@ -908,7 +908,7 @@ GNEFrameModuls::HierarchicalElementTree::onCmdCenterItem(FXObject*, FXSelector, 
 
 
 long
-GNEFrameModuls::HierarchicalElementTree::onCmdInspectItem(FXObject*, FXSelector, void*) {
+GNEFrameModules::HierarchicalElementTree::onCmdInspectItem(FXObject*, FXSelector, void*) {
     if ((myHE != nullptr) && (myClickedAC != nullptr)) {
         myFrameParent->myViewNet->getViewParent()->getInspectorFrame()->inspectChild(myClickedAC, myHE);
     }
@@ -917,7 +917,7 @@ GNEFrameModuls::HierarchicalElementTree::onCmdInspectItem(FXObject*, FXSelector,
 
 
 long
-GNEFrameModuls::HierarchicalElementTree::onCmdDeleteItem(FXObject*, FXSelector, void*) {
+GNEFrameModules::HierarchicalElementTree::onCmdDeleteItem(FXObject*, FXSelector, void*) {
     // Remove Attribute Carrier
     if (myClickedJunction) {
         myFrameParent->myViewNet->getNet()->deleteJunction(myClickedJunction, myFrameParent->myViewNet->getUndoList());
@@ -986,7 +986,7 @@ GNEFrameModuls::HierarchicalElementTree::onCmdDeleteItem(FXObject*, FXSelector, 
 
 
 long
-GNEFrameModuls::HierarchicalElementTree::onCmdMoveItemUp(FXObject*, FXSelector, void*) {
+GNEFrameModules::HierarchicalElementTree::onCmdMoveItemUp(FXObject*, FXSelector, void*) {
     // currently only children of demand elements can be moved
     if (myClickedDemandElement) {
         myFrameParent->myViewNet->getUndoList()->begin(myClickedDemandElement->getTagProperty().getGUIIcon(), ("moving up " + myClickedDemandElement->getTagStr()).c_str());
@@ -1002,7 +1002,7 @@ GNEFrameModuls::HierarchicalElementTree::onCmdMoveItemUp(FXObject*, FXSelector, 
 
 
 long
-GNEFrameModuls::HierarchicalElementTree::onCmdMoveItemDown(FXObject*, FXSelector, void*) {
+GNEFrameModules::HierarchicalElementTree::onCmdMoveItemDown(FXObject*, FXSelector, void*) {
     // currently only children of demand elements can be moved
     if (myClickedDemandElement) {
         myFrameParent->myViewNet->getUndoList()->begin(myClickedDemandElement->getTagProperty().getGUIIcon(), ("moving down " + myClickedDemandElement->getTagStr()).c_str());
@@ -1018,7 +1018,7 @@ GNEFrameModuls::HierarchicalElementTree::onCmdMoveItemDown(FXObject*, FXSelector
 
 
 void
-GNEFrameModuls::HierarchicalElementTree::createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC) {
+GNEFrameModules::HierarchicalElementTree::createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC) {
     // get attributeCarrirs
     const auto& attributeCarriers = myFrameParent->myViewNet->getNet()->getAttributeCarriers();
     // first check that AC exist
@@ -1055,7 +1055,7 @@ GNEFrameModuls::HierarchicalElementTree::createPopUpMenu(int X, int Y, GNEAttrib
         FXMenuCommand* inspectMenuCommand = GUIDesigns::buildFXMenuCommand(pane, "Inspect", GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), this, MID_GNE_INSPECT);
         FXMenuCommand* deleteMenuCommand = GUIDesigns::buildFXMenuCommand(pane, "Delete", GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), this, MID_GNE_DELETE);
         // check if inspect and delete menu commands has to be disabled
-        if (GNEFrameAttributesModuls::isSupermodeValid(myFrameParent->myViewNet, myClickedAC) == false) {
+        if (GNEFrameAttributesModules::isSupermodeValid(myFrameParent->myViewNet, myClickedAC) == false) {
             inspectMenuCommand->disable();
             deleteMenuCommand->disable();
         }
@@ -1116,7 +1116,7 @@ GNEFrameModuls::HierarchicalElementTree::createPopUpMenu(int X, int Y, GNEAttrib
 
 
 FXTreeItem*
-GNEFrameModuls::HierarchicalElementTree::showAttributeCarrierParents() {
+GNEFrameModules::HierarchicalElementTree::showAttributeCarrierParents() {
     // get attributeCarrirs
     const auto& attributeCarriers = myFrameParent->myViewNet->getNet()->getAttributeCarriers();
     // check tags
@@ -1504,7 +1504,7 @@ GNEFrameModuls::HierarchicalElementTree::showAttributeCarrierParents() {
 
 
 void
-GNEFrameModuls::HierarchicalElementTree::showHierarchicalElementChildren(GNEHierarchicalElement* HE, FXTreeItem* itemParent) {
+GNEFrameModules::HierarchicalElementTree::showHierarchicalElementChildren(GNEHierarchicalElement* HE, FXTreeItem* itemParent) {
     if (HE->getTagProperty().isNetworkElement()) {
         // Switch gl type of ac
         switch (HE->getTagProperty().getTag()) {
@@ -1698,7 +1698,7 @@ GNEFrameModuls::HierarchicalElementTree::showHierarchicalElementChildren(GNEHier
 
 
 FXTreeItem*
-GNEFrameModuls::HierarchicalElementTree::addListItem(GNEAttributeCarrier* AC, FXTreeItem* itemParent, std::string prefix, std::string sufix) {
+GNEFrameModules::HierarchicalElementTree::addListItem(GNEAttributeCarrier* AC, FXTreeItem* itemParent, std::string prefix, std::string sufix) {
     // insert item in Tree list
     FXTreeItem* item = myTreeListDinamic->insertItem(nullptr, itemParent, (prefix + AC->getHierarchyName() + sufix).c_str(), AC->getIcon(), AC->getIcon());
     // insert item in map
@@ -1711,7 +1711,7 @@ GNEFrameModuls::HierarchicalElementTree::addListItem(GNEAttributeCarrier* AC, FX
 
 
 FXTreeItem*
-GNEFrameModuls::HierarchicalElementTree::addListItem(FXTreeItem* itemParent, const std::string& text, FXIcon* icon, bool expanded) {
+GNEFrameModules::HierarchicalElementTree::addListItem(FXTreeItem* itemParent, const std::string& text, FXIcon* icon, bool expanded) {
     // insert item in Tree list
     FXTreeItem* item = myTreeListDinamic->insertItem(nullptr, itemParent, text.c_str(), icon, icon);
     // expand item depending of flag expanded
@@ -1721,10 +1721,10 @@ GNEFrameModuls::HierarchicalElementTree::addListItem(FXTreeItem* itemParent, con
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrameModuls::DrawingShape - methods
+// GNEFrameModules::DrawingShape - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameModuls::DrawingShape::DrawingShape(GNEFrame* frameParent) :
+GNEFrameModules::DrawingShape::DrawingShape(GNEFrame* frameParent) :
     FXGroupBoxModule(frameParent->myContentFrame, "Drawing"),
     myFrameParent(frameParent),
     myDeleteLastCreatedPoint(false) {
@@ -1750,10 +1750,10 @@ GNEFrameModuls::DrawingShape::DrawingShape(GNEFrame* frameParent) :
 }
 
 
-GNEFrameModuls::DrawingShape::~DrawingShape() {}
+GNEFrameModules::DrawingShape::~DrawingShape() {}
 
 
-void GNEFrameModuls::DrawingShape::showDrawingShape() {
+void GNEFrameModules::DrawingShape::showDrawingShape() {
     // abort current drawing before show
     abortDrawing();
     // show FXGroupBoxModule
@@ -1761,7 +1761,7 @@ void GNEFrameModuls::DrawingShape::showDrawingShape() {
 }
 
 
-void GNEFrameModuls::DrawingShape::hideDrawingShape() {
+void GNEFrameModules::DrawingShape::hideDrawingShape() {
     // abort current drawing before hide
     abortDrawing();
     // show FXGroupBoxModule
@@ -1770,7 +1770,7 @@ void GNEFrameModuls::DrawingShape::hideDrawingShape() {
 
 
 void
-GNEFrameModuls::DrawingShape::startDrawing() {
+GNEFrameModules::DrawingShape::startDrawing() {
     // Only start drawing if DrawingShape modul is shown
     if (shown()) {
         // change buttons
@@ -1782,7 +1782,7 @@ GNEFrameModuls::DrawingShape::startDrawing() {
 
 
 void
-GNEFrameModuls::DrawingShape::stopDrawing() {
+GNEFrameModules::DrawingShape::stopDrawing() {
     // try to build shape
     if (myFrameParent->shapeDrawed()) {
         // clear created points
@@ -1799,7 +1799,7 @@ GNEFrameModuls::DrawingShape::stopDrawing() {
 
 
 void
-GNEFrameModuls::DrawingShape::abortDrawing() {
+GNEFrameModules::DrawingShape::abortDrawing() {
     // clear created points
     myTemporalShape.clear();
     // change buttons
@@ -1810,7 +1810,7 @@ GNEFrameModuls::DrawingShape::abortDrawing() {
 
 
 void
-GNEFrameModuls::DrawingShape::addNewPoint(const Position& P) {
+GNEFrameModules::DrawingShape::addNewPoint(const Position& P) {
     if (myStopDrawingButton->isEnabled()) {
         myTemporalShape.push_back(P);
     } else {
@@ -1820,7 +1820,7 @@ GNEFrameModuls::DrawingShape::addNewPoint(const Position& P) {
 
 
 void
-GNEFrameModuls::DrawingShape::removeLastPoint() {
+GNEFrameModules::DrawingShape::removeLastPoint() {
     if (myTemporalShape.size() > 1) {
         myTemporalShape.pop_back();
     }
@@ -1828,54 +1828,54 @@ GNEFrameModuls::DrawingShape::removeLastPoint() {
 
 
 const PositionVector&
-GNEFrameModuls::DrawingShape::getTemporalShape() const {
+GNEFrameModules::DrawingShape::getTemporalShape() const {
     return myTemporalShape;
 }
 
 
 bool
-GNEFrameModuls::DrawingShape::isDrawing() const {
+GNEFrameModules::DrawingShape::isDrawing() const {
     return myStopDrawingButton->isEnabled();
 }
 
 
 void
-GNEFrameModuls::DrawingShape::setDeleteLastCreatedPoint(bool value) {
+GNEFrameModules::DrawingShape::setDeleteLastCreatedPoint(bool value) {
     myDeleteLastCreatedPoint = value;
 }
 
 
 bool
-GNEFrameModuls::DrawingShape::getDeleteLastCreatedPoint() {
+GNEFrameModules::DrawingShape::getDeleteLastCreatedPoint() {
     return myDeleteLastCreatedPoint;
 }
 
 
 long
-GNEFrameModuls::DrawingShape::onCmdStartDrawing(FXObject*, FXSelector, void*) {
+GNEFrameModules::DrawingShape::onCmdStartDrawing(FXObject*, FXSelector, void*) {
     startDrawing();
     return 0;
 }
 
 
 long
-GNEFrameModuls::DrawingShape::onCmdStopDrawing(FXObject*, FXSelector, void*) {
+GNEFrameModules::DrawingShape::onCmdStopDrawing(FXObject*, FXSelector, void*) {
     stopDrawing();
     return 0;
 }
 
 
 long
-GNEFrameModuls::DrawingShape::onCmdAbortDrawing(FXObject*, FXSelector, void*) {
+GNEFrameModules::DrawingShape::onCmdAbortDrawing(FXObject*, FXSelector, void*) {
     abortDrawing();
     return 0;
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrameModuls::SelectorParent - methods
+// GNEFrameModules::SelectorParent - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameModuls::SelectorParent::SelectorParent(GNEFrame* frameParent) :
+GNEFrameModules::SelectorParent::SelectorParent(GNEFrame* frameParent) :
     FXGroupBoxModule(frameParent->myContentFrame, "Parent selector"),
     myFrameParent(frameParent) {
     // Create label with the type of SelectorParent
@@ -1883,15 +1883,15 @@ GNEFrameModuls::SelectorParent::SelectorParent(GNEFrame* frameParent) :
     // Create list
     myParentsList = new FXList(getCollapsableFrame(), this, MID_GNE_SET_TYPE, GUIDesignListSingleElementFixedHeight);
     // Hide List
-    hideSelectorParentModul();
+    hideSelectorParentModule();
 }
 
 
-GNEFrameModuls::SelectorParent::~SelectorParent() {}
+GNEFrameModules::SelectorParent::~SelectorParent() {}
 
 
 std::string
-GNEFrameModuls::SelectorParent::getIdSelected() const {
+GNEFrameModules::SelectorParent::getIdSelected() const {
     for (int i = 0; i < myParentsList->getNumItems(); i++) {
         if (myParentsList->isItemSelected(i)) {
             return myParentsList->getItem(i)->getText().text();
@@ -1902,7 +1902,7 @@ GNEFrameModuls::SelectorParent::getIdSelected() const {
 
 
 void
-GNEFrameModuls::SelectorParent::setIDSelected(const std::string& id) {
+GNEFrameModules::SelectorParent::setIDSelected(const std::string& id) {
     // first unselect all
     for (int i = 0; i < myParentsList->getNumItems(); i++) {
         myParentsList->getItem(i)->setSelected(false);
@@ -1919,14 +1919,14 @@ GNEFrameModuls::SelectorParent::setIDSelected(const std::string& id) {
 
 
 bool
-GNEFrameModuls::SelectorParent::showSelectorParentModul(const std::vector<SumoXMLTag>& additionalTypeParents) {
+GNEFrameModules::SelectorParent::showSelectorParentModule(const std::vector<SumoXMLTag>& additionalTypeParents) {
     // make sure that we're editing an additional tag
     const auto listOfTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::ADDITIONALELEMENT);
     for (const auto& tagIt : listOfTags) {
         if (std::find(additionalTypeParents.begin(), additionalTypeParents.end(), tagIt.getTag()) != additionalTypeParents.end()) {
             myParentTags = additionalTypeParents;
             myParentsLabel->setText(("Parent type: " + tagIt.getFieldString()).c_str());
-            refreshSelectorParentModul();
+            refreshSelectorParentModule();
             show();
             return true;
         }
@@ -1936,14 +1936,14 @@ GNEFrameModuls::SelectorParent::showSelectorParentModul(const std::vector<SumoXM
 
 
 void
-GNEFrameModuls::SelectorParent::hideSelectorParentModul() {
+GNEFrameModules::SelectorParent::hideSelectorParentModule() {
     myParentTags.clear();
     hide();
 }
 
 
 void
-GNEFrameModuls::SelectorParent::refreshSelectorParentModul() {
+GNEFrameModules::SelectorParent::refreshSelectorParentModule() {
     // save current edited elements
     std::set<std::string> selectedItems;
     for (int i = 0; i < myParentsList->getNumItems(); i++) {
@@ -1972,10 +1972,10 @@ GNEFrameModuls::SelectorParent::refreshSelectorParentModul() {
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrameModuls::OverlappedInspection - methods
+// GNEFrameModules::OverlappedInspection - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameModuls::OverlappedInspection::OverlappedInspection(GNEFrame* frameParent) :
+GNEFrameModules::OverlappedInspection::OverlappedInspection(GNEFrame* frameParent) :
     FXGroupBoxModule(frameParent->myContentFrame, "Overlapped elements"),
     myFrameParent(frameParent),
     myFilteredTag(SUMO_TAG_NOTHING),
@@ -1985,7 +1985,7 @@ GNEFrameModuls::OverlappedInspection::OverlappedInspection(GNEFrame* frameParent
 }
 
 
-GNEFrameModuls::OverlappedInspection::OverlappedInspection(GNEFrame* frameParent, const SumoXMLTag filteredTag) :
+GNEFrameModules::OverlappedInspection::OverlappedInspection(GNEFrame* frameParent, const SumoXMLTag filteredTag) :
     FXGroupBoxModule(frameParent->myContentFrame, ("Overlapped " + toString(filteredTag) + "s").c_str()),
     myFrameParent(frameParent),
     myFilteredTag(filteredTag),
@@ -1995,11 +1995,11 @@ GNEFrameModuls::OverlappedInspection::OverlappedInspection(GNEFrame* frameParent
 }
 
 
-GNEFrameModuls::OverlappedInspection::~OverlappedInspection() {}
+GNEFrameModules::OverlappedInspection::~OverlappedInspection() {}
 
 
 void
-GNEFrameModuls::OverlappedInspection::showOverlappedInspection(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const Position& clickedPosition) {
+GNEFrameModules::OverlappedInspection::showOverlappedInspection(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const Position& clickedPosition) {
     // first clear myOverlappedACs
     myOverlappedACs.clear();
     // reserve
@@ -2051,33 +2051,33 @@ GNEFrameModuls::OverlappedInspection::showOverlappedInspection(const GNEViewNetH
 
 
 void
-GNEFrameModuls::OverlappedInspection::hideOverlappedInspection() {
+GNEFrameModules::OverlappedInspection::hideOverlappedInspection() {
     // hide OverlappedInspection modul
     hide();
 }
 
 
 bool
-GNEFrameModuls::OverlappedInspection::overlappedInspectionShown() const {
+GNEFrameModules::OverlappedInspection::overlappedInspectionShown() const {
     // show OverlappedInspection modul
     return shown();
 }
 
 
 int
-GNEFrameModuls::OverlappedInspection::getNumberOfOverlappedACs() const {
+GNEFrameModules::OverlappedInspection::getNumberOfOverlappedACs() const {
     return (int)myOverlappedACs.size();
 }
 
 
 bool
-GNEFrameModuls::OverlappedInspection::checkSavedPosition(const Position& clickedPosition) const {
+GNEFrameModules::OverlappedInspection::checkSavedPosition(const Position& clickedPosition) const {
     return (mySavedClickedPosition.distanceSquaredTo2D(clickedPosition) < 0.25);
 }
 
 
 bool
-GNEFrameModuls::OverlappedInspection::nextElement(const Position& clickedPosition) {
+GNEFrameModules::OverlappedInspection::nextElement(const Position& clickedPosition) {
     // first check if OverlappedInspection is shown
     if (shown()) {
         // check if given position is near saved position
@@ -2095,7 +2095,7 @@ GNEFrameModuls::OverlappedInspection::nextElement(const Position& clickedPositio
 
 
 bool
-GNEFrameModuls::OverlappedInspection::previousElement(const Position& clickedPosition) {
+GNEFrameModules::OverlappedInspection::previousElement(const Position& clickedPosition) {
     // first check if OverlappedInspection is shown
     if (shown()) {
         // check if given position is near saved position
@@ -2113,7 +2113,7 @@ GNEFrameModuls::OverlappedInspection::previousElement(const Position& clickedPos
 
 
 long
-GNEFrameModuls::OverlappedInspection::onCmdPreviousElement(FXObject*, FXSelector, void*) {
+GNEFrameModules::OverlappedInspection::onCmdPreviousElement(FXObject*, FXSelector, void*) {
     // check if there is items
     if (myOverlappedElementList->getNumItems() > 0) {
         // unselect current list element
@@ -2139,7 +2139,7 @@ GNEFrameModuls::OverlappedInspection::onCmdPreviousElement(FXObject*, FXSelector
 
 
 long
-GNEFrameModuls::OverlappedInspection::onCmdNextElement(FXObject*, FXSelector, void*) {
+GNEFrameModules::OverlappedInspection::onCmdNextElement(FXObject*, FXSelector, void*) {
     // check if there is items
     if (myOverlappedElementList->getNumItems() > 0) {
         // unselect current list element
@@ -2161,7 +2161,7 @@ GNEFrameModuls::OverlappedInspection::onCmdNextElement(FXObject*, FXSelector, vo
 
 
 long
-GNEFrameModuls::OverlappedInspection::onCmdShowList(FXObject*, FXSelector, void*) {
+GNEFrameModules::OverlappedInspection::onCmdShowList(FXObject*, FXSelector, void*) {
     // show or hidde element list
     if (myOverlappedElementList->shown()) {
         myOverlappedElementList->hide();
@@ -2180,7 +2180,7 @@ GNEFrameModuls::OverlappedInspection::onCmdShowList(FXObject*, FXSelector, void*
 }
 
 long
-GNEFrameModuls::OverlappedInspection::onCmdListItemSelected(FXObject*, FXSelector, void*) {
+GNEFrameModules::OverlappedInspection::onCmdListItemSelected(FXObject*, FXSelector, void*) {
     for (int i = 0; i < myOverlappedElementList->getNumItems(); i++) {
         if (myOverlappedElementList->getItem(i)->isSelected()) {
             myItemIndex = i;
@@ -2198,7 +2198,7 @@ GNEFrameModuls::OverlappedInspection::onCmdListItemSelected(FXObject*, FXSelecto
 
 
 long
-GNEFrameModuls::OverlappedInspection::onCmdOverlappingHelp(FXObject*, FXSelector, void*) {
+GNEFrameModules::OverlappedInspection::onCmdOverlappingHelp(FXObject*, FXSelector, void*) {
     FXDialogBox* helpDialog = new FXDialogBox(getCollapsableFrame(), "GEO attributes Help", GUIDesignDialogBox);
     std::ostringstream help;
     help
@@ -2216,7 +2216,7 @@ GNEFrameModuls::OverlappedInspection::onCmdOverlappingHelp(FXObject*, FXSelector
 }
 
 
-GNEFrameModuls::OverlappedInspection::OverlappedInspection() :
+GNEFrameModules::OverlappedInspection::OverlappedInspection() :
     myFrameParent(nullptr),
     myPreviousElement(nullptr),
     myCurrentIndexButton(nullptr),
@@ -2229,7 +2229,7 @@ GNEFrameModuls::OverlappedInspection::OverlappedInspection() :
 
 
 void
-GNEFrameModuls::OverlappedInspection::buildFXElements() {
+GNEFrameModules::OverlappedInspection::buildFXElements() {
     FXHorizontalFrame* frameButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // Create previous Item Button
     myPreviousElement = new FXButton(frameButtons, "", GUIIconSubSys::getIcon(GUIIcon::BIGARROWLEFT), this, MID_GNE_OVERLAPPED_PREVIOUS, GUIDesignButtonIconRectangular);
@@ -2246,10 +2246,10 @@ GNEFrameModuls::OverlappedInspection::buildFXElements() {
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrameModuls::PathCreator - methods
+// GNEFrameModules::PathCreator - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameModuls::PathCreator::Path::Path(const SUMOVehicleClass vClass, GNEEdge* edge) :
+GNEFrameModules::PathCreator::Path::Path(const SUMOVehicleClass vClass, GNEEdge* edge) :
     mySubPath({edge}),
           myFromBusStop(nullptr),
           myToBusStop(nullptr),
@@ -2262,7 +2262,7 @@ myConflictDisconnected(false) {
 }
 
 
-GNEFrameModuls::PathCreator::Path::Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEEdge* edgeFrom, GNEEdge* edgeTo) :
+GNEFrameModules::PathCreator::Path::Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEEdge* edgeFrom, GNEEdge* edgeTo) :
     myFromBusStop(nullptr),
     myToBusStop(nullptr),
     myConflictVClass(false),
@@ -2283,34 +2283,34 @@ GNEFrameModuls::PathCreator::Path::Path(GNEViewNet* viewNet, const SUMOVehicleCl
 
 
 const std::vector<GNEEdge*>&
-GNEFrameModuls::PathCreator::Path::getSubPath() const {
+GNEFrameModules::PathCreator::Path::getSubPath() const {
     return mySubPath;
 }
 
 
-GNEAdditional* GNEFrameModuls::PathCreator::Path::getFromBusStop() const {
+GNEAdditional* GNEFrameModules::PathCreator::Path::getFromBusStop() const {
     return myFromBusStop;
 }
 
 
-GNEAdditional* GNEFrameModuls::PathCreator::Path::getToBusStop() const {
+GNEAdditional* GNEFrameModules::PathCreator::Path::getToBusStop() const {
     return myToBusStop;
 }
 
 
 bool
-GNEFrameModuls::PathCreator::Path::isConflictVClass() const {
+GNEFrameModules::PathCreator::Path::isConflictVClass() const {
     return myConflictVClass;
 }
 
 
 bool
-GNEFrameModuls::PathCreator::Path::isConflictDisconnected() const {
+GNEFrameModules::PathCreator::Path::isConflictDisconnected() const {
     return myConflictDisconnected;
 }
 
 
-GNEFrameModuls::PathCreator::Path::Path() :
+GNEFrameModules::PathCreator::Path::Path() :
     myFromBusStop(nullptr),
     myToBusStop(nullptr),
     myConflictVClass(false),
@@ -2318,7 +2318,7 @@ GNEFrameModuls::PathCreator::Path::Path() :
 }
 
 
-GNEFrameModuls::PathCreator::PathCreator(GNEFrame* frameParent) :
+GNEFrameModules::PathCreator::PathCreator(GNEFrame* frameParent) :
     FXGroupBoxModule(frameParent->myContentFrame, "Route creator"),
     myFrameParent(frameParent),
     myVClass(SVC_PASSENGER),
@@ -2354,11 +2354,11 @@ GNEFrameModuls::PathCreator::PathCreator(GNEFrame* frameParent) :
 }
 
 
-GNEFrameModuls::PathCreator::~PathCreator() {}
+GNEFrameModules::PathCreator::~PathCreator() {}
 
 
 void
-GNEFrameModuls::PathCreator::showPathCreatorModul(SumoXMLTag element, const bool firstElement, const bool consecutives) {
+GNEFrameModules::PathCreator::showPathCreatorModule(SumoXMLTag element, const bool firstElement, const bool consecutives) {
     // declare flag
     bool showPathCreator = true;
     // first abort creation
@@ -2461,7 +2461,7 @@ GNEFrameModuls::PathCreator::showPathCreatorModul(SumoXMLTag element, const bool
 
 
 void
-GNEFrameModuls::PathCreator::hidePathCreatorModul() {
+GNEFrameModules::PathCreator::hidePathCreatorModule() {
     // clear path
     clearPath();
     // hide modul
@@ -2470,13 +2470,13 @@ GNEFrameModuls::PathCreator::hidePathCreatorModul() {
 
 
 SUMOVehicleClass
-GNEFrameModuls::PathCreator::getVClass() const {
+GNEFrameModules::PathCreator::getVClass() const {
     return myVClass;
 }
 
 
 void
-GNEFrameModuls::PathCreator::setVClass(SUMOVehicleClass vClass) {
+GNEFrameModules::PathCreator::setVClass(SUMOVehicleClass vClass) {
     myVClass = vClass;
     // update edge colors
     updateEdgeColors();
@@ -2484,7 +2484,7 @@ GNEFrameModuls::PathCreator::setVClass(SUMOVehicleClass vClass) {
 
 
 bool
-GNEFrameModuls::PathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool controlKeyPressed) {
+GNEFrameModules::PathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool controlKeyPressed) {
     // check if edges are allowed
     if (((myCreationMode & CONSECUTIVE_EDGES) + (myCreationMode & NONCONSECUTIVE_EDGES) +
             (myCreationMode & START_EDGE) + (myCreationMode & END_EDGE)) == 0) {
@@ -2565,13 +2565,13 @@ GNEFrameModuls::PathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, 
 
 
 std::vector<GNEEdge*>
-GNEFrameModuls::PathCreator::getSelectedEdges() const {
+GNEFrameModules::PathCreator::getSelectedEdges() const {
     return mySelectedEdges;
 }
 
 
 bool
-GNEFrameModuls::PathCreator::addStoppingPlace(GNEAdditional* stoppingPlace, const bool /*shiftKeyPressed*/, const bool /*controlKeyPressed*/) {
+GNEFrameModules::PathCreator::addStoppingPlace(GNEAdditional* stoppingPlace, const bool /*shiftKeyPressed*/, const bool /*controlKeyPressed*/) {
     // check if stoppingPlaces aren allowed
     if ((myCreationMode & END_BUSSTOP) == 0) {
         return false;
@@ -2605,7 +2605,7 @@ GNEFrameModuls::PathCreator::addStoppingPlace(GNEAdditional* stoppingPlace, cons
 
 
 GNEAdditional*
-GNEFrameModuls::PathCreator::getToStoppingPlace(SumoXMLTag expectedTag) const {
+GNEFrameModules::PathCreator::getToStoppingPlace(SumoXMLTag expectedTag) const {
     if (myToStoppingPlace && (myToStoppingPlace->getTagProperty().getTag() == expectedTag)) {
         return myToStoppingPlace;
     } else {
@@ -2615,7 +2615,7 @@ GNEFrameModuls::PathCreator::getToStoppingPlace(SumoXMLTag expectedTag) const {
 
 
 bool
-GNEFrameModuls::PathCreator::addRoute(GNEDemandElement* route, const bool /*shiftKeyPressed*/, const bool /*controlKeyPressed*/) {
+GNEFrameModules::PathCreator::addRoute(GNEDemandElement* route, const bool /*shiftKeyPressed*/, const bool /*controlKeyPressed*/) {
     // check if routes aren allowed
     if ((myCreationMode & ROUTE) == 0) {
         return false;
@@ -2635,7 +2635,7 @@ GNEFrameModuls::PathCreator::addRoute(GNEDemandElement* route, const bool /*shif
 
 
 void
-GNEFrameModuls::PathCreator::removeRoute() {
+GNEFrameModules::PathCreator::removeRoute() {
     // set route
     myRoute = nullptr;
     // recalculate path
@@ -2646,25 +2646,25 @@ GNEFrameModuls::PathCreator::removeRoute() {
 
 
 GNEDemandElement*
-GNEFrameModuls::PathCreator::getRoute() const {
+GNEFrameModules::PathCreator::getRoute() const {
     return myRoute;
 }
 
 
-const std::vector<GNEFrameModuls::PathCreator::Path>&
-GNEFrameModuls::PathCreator::getPath() const {
+const std::vector<GNEFrameModules::PathCreator::Path>&
+GNEFrameModules::PathCreator::getPath() const {
     return myPath;
 }
 
 
 bool
-GNEFrameModuls::PathCreator::drawCandidateEdgesWithSpecialColor() const {
+GNEFrameModules::PathCreator::drawCandidateEdgesWithSpecialColor() const {
     return (myShowCandidateEdges->getCheck() == TRUE);
 }
 
 
 void
-GNEFrameModuls::PathCreator::updateEdgeColors() {
+GNEFrameModules::PathCreator::updateEdgeColors() {
     // reset all flags
     for (const auto& edge : myFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
         edge.second->resetCandidateFlags();
@@ -2714,7 +2714,7 @@ GNEFrameModuls::PathCreator::updateEdgeColors() {
 #pragma warning(disable: 4100) // do not warn about "unused" parameters which get optimized away
 #endif
 void
-GNEFrameModuls::PathCreator::drawTemporalRoute(const GUIVisualizationSettings& s) const {
+GNEFrameModules::PathCreator::drawTemporalRoute(const GUIVisualizationSettings& s) const {
     if (myPath.size() > 0) {
         const double lineWidth = 0.35;
         const double lineWidthin = 0.25;
@@ -2727,7 +2727,7 @@ GNEFrameModuls::PathCreator::drawTemporalRoute(const GUIVisualizationSettings& s
         // iterate over path
         for (int i = 0; i < (int)myPath.size(); i++) {
             // get path
-            const GNEFrameModuls::PathCreator::Path& path = myPath.at(i);
+            const GNEFrameModules::PathCreator::Path& path = myPath.at(i);
             // draw line over
             for (int j = 0; j < (int)path.getSubPath().size(); j++) {
                 const GNELane* lane = path.getSubPath().at(j)->getLanes().back();
@@ -2749,7 +2749,7 @@ GNEFrameModuls::PathCreator::drawTemporalRoute(const GUIVisualizationSettings& s
         // iterate over path again
         for (int i = 0; i < (int)myPath.size(); i++) {
             // get path
-            const GNEFrameModuls::PathCreator::Path& path = myPath.at(i);
+            const GNEFrameModules::PathCreator::Path& path = myPath.at(i);
             // set path color color
             if ((myCreationMode & SHOW_CANDIDATE_EDGES) == 0) {
                 GLHelper::setColor(RGBColor::ORANGE);
@@ -2787,14 +2787,14 @@ GNEFrameModuls::PathCreator::drawTemporalRoute(const GUIVisualizationSettings& s
 
 
 void
-GNEFrameModuls::PathCreator::createPath() {
+GNEFrameModules::PathCreator::createPath() {
     // call create path implemented in frame parent
     myFrameParent->createPath();
 }
 
 
 void
-GNEFrameModuls::PathCreator::abortPathCreation() {
+GNEFrameModules::PathCreator::abortPathCreation() {
     // first check that there is elements
     if ((mySelectedEdges.size() > 0) || myToStoppingPlace || myRoute) {
         // unblock undo/redo
@@ -2816,7 +2816,7 @@ GNEFrameModuls::PathCreator::abortPathCreation() {
 
 
 void
-GNEFrameModuls::PathCreator::removeLastElement() {
+GNEFrameModules::PathCreator::removeLastElement() {
     if (mySelectedEdges.size() > 1) {
         // remove special color of last selected edge
         mySelectedEdges.back()->resetCandidateFlags();
@@ -2846,7 +2846,7 @@ GNEFrameModuls::PathCreator::removeLastElement() {
 
 
 long
-GNEFrameModuls::PathCreator::onCmdCreatePath(FXObject*, FXSelector, void*) {
+GNEFrameModules::PathCreator::onCmdCreatePath(FXObject*, FXSelector, void*) {
     // just call create path
     createPath();
     return 1;
@@ -2854,7 +2854,7 @@ GNEFrameModuls::PathCreator::onCmdCreatePath(FXObject*, FXSelector, void*) {
 
 
 long
-GNEFrameModuls::PathCreator::onCmdAbortPathCreation(FXObject*, FXSelector, void*) {
+GNEFrameModules::PathCreator::onCmdAbortPathCreation(FXObject*, FXSelector, void*) {
     // just call abort path creation
     abortPathCreation();
     return 1;
@@ -2862,7 +2862,7 @@ GNEFrameModuls::PathCreator::onCmdAbortPathCreation(FXObject*, FXSelector, void*
 
 
 long
-GNEFrameModuls::PathCreator::onCmdRemoveLastElement(FXObject*, FXSelector, void*) {
+GNEFrameModules::PathCreator::onCmdRemoveLastElement(FXObject*, FXSelector, void*) {
     // just call remove last element
     removeLastElement();
     return 1;
@@ -2870,7 +2870,7 @@ GNEFrameModuls::PathCreator::onCmdRemoveLastElement(FXObject*, FXSelector, void*
 
 
 long
-GNEFrameModuls::PathCreator::onCmdShowCandidateEdges(FXObject*, FXSelector, void*) {
+GNEFrameModules::PathCreator::onCmdShowCandidateEdges(FXObject*, FXSelector, void*) {
     // update labels
     if (myShowCandidateEdges->getCheck() == TRUE) {
         myShiftLabel->show();
@@ -2888,7 +2888,7 @@ GNEFrameModuls::PathCreator::onCmdShowCandidateEdges(FXObject*, FXSelector, void
 
 
 void
-GNEFrameModuls::PathCreator::updateInfoRouteLabel() {
+GNEFrameModules::PathCreator::updateInfoRouteLabel() {
     if (myPath.size() > 0) {
         // declare variables for route info
         double length = 0;
@@ -2917,7 +2917,7 @@ GNEFrameModuls::PathCreator::updateInfoRouteLabel() {
 
 
 void
-GNEFrameModuls::PathCreator::clearPath() {
+GNEFrameModules::PathCreator::clearPath() {
     // reset all flags
     for (const auto& edge : myFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
         edge.second->resetCandidateFlags();
@@ -2934,7 +2934,7 @@ GNEFrameModuls::PathCreator::clearPath() {
 
 
 void
-GNEFrameModuls::PathCreator::recalculatePath() {
+GNEFrameModules::PathCreator::recalculatePath() {
     // first clear path
     myPath.clear();
     // set edges
@@ -2965,7 +2965,7 @@ GNEFrameModuls::PathCreator::recalculatePath() {
 
 
 void
-GNEFrameModuls::PathCreator::setSpecialCandidates(GNEEdge* originEdge) {
+GNEFrameModules::PathCreator::setSpecialCandidates(GNEEdge* originEdge) {
     // first calculate reachability for pedestrians (we use it, because pedestran can walk in almost all edges)
     myFrameParent->getViewNet()->getNet()->getPathManager()->getPathCalculator()->calculateReachability(SVC_PEDESTRIAN, originEdge);
     // change flags
@@ -2980,7 +2980,7 @@ GNEFrameModuls::PathCreator::setSpecialCandidates(GNEEdge* originEdge) {
 }
 
 void
-GNEFrameModuls::PathCreator::setPossibleCandidates(GNEEdge* originEdge, const SUMOVehicleClass vClass) {
+GNEFrameModules::PathCreator::setPossibleCandidates(GNEEdge* originEdge, const SUMOVehicleClass vClass) {
     // first calculate reachability for pedestrians
     myFrameParent->getViewNet()->getNet()->getPathManager()->getPathCalculator()->calculateReachability(vClass, originEdge);
     // change flags
@@ -2998,7 +2998,7 @@ GNEFrameModuls::PathCreator::setPossibleCandidates(GNEEdge* originEdge, const SU
 // GNERouteFrame::Legend - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameModuls::PathLegend::PathLegend(GNEFrame* frameParent) :
+GNEFrameModules::PathLegend::PathLegend(GNEFrame* frameParent) :
     FXGroupBoxModule(frameParent->myContentFrame, "Information") {
     // declare label
     FXLabel* legendLabel = nullptr;
@@ -3021,25 +3021,25 @@ GNEFrameModuls::PathLegend::PathLegend(GNEFrame* frameParent) :
 }
 
 
-GNEFrameModuls::PathLegend::~PathLegend() {}
+GNEFrameModules::PathLegend::~PathLegend() {}
 
 
 void
-GNEFrameModuls::PathLegend::showPathLegendModul() {
+GNEFrameModules::PathLegend::showPathLegendModule() {
     show();
 }
 
 void
-GNEFrameModuls::PathLegend::hidePathLegendModul() {
+GNEFrameModules::PathLegend::hidePathLegendModule() {
     hide();
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrameModuls - methods
+// GNEFrameModules - methods
 // ---------------------------------------------------------------------------
 
 FXLabel*
-GNEFrameModuls::buildRainbow(FXComposite* parent) {
+GNEFrameModules::buildRainbow(FXComposite* parent) {
     // create label for color information
     FXLabel* label = new FXLabel(parent, "Scale: Min -> Max", nullptr, GUIDesignLabelCenterThick);
     // create frame for color scale

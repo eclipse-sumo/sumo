@@ -100,16 +100,16 @@ private:
     CommonXMLStructure::SumoBaseObject* myStopParentBaseObject;
 
     /// @brief Stop parent selectors
-    GNEFrameModuls::DemandElementSelector* myStopParentSelector;
+    GNEFrameModules::DemandElementSelector* myStopParentSelector;
 
     /// @brief stop tag selector selector (used to select diffent kind of Stops)
-    GNEFrameModuls::TagSelector* myStopTagSelector;
+    GNEFrameModules::TagSelector* myStopTagSelector;
 
     /// @brief internal Stop attributes
-    GNEFrameAttributesModuls::AttributesCreator* myStopAttributes;
+    GNEFrameAttributesModules::AttributesCreator* myStopAttributes;
 
     /// @brief Netedit parameter
-    GNEFrameAttributesModuls::NeteditAttributes* myNeteditAttributes;
+    GNEFrameAttributesModules::NeteditAttributes* myNeteditAttributes;
 
     /// @brief Help creation
     HelpCreation* myHelpCreation;

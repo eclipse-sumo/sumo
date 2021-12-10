@@ -109,18 +109,18 @@ GNERouteFrame::RouteModeSelector::areParametersValid() {
     // check if current mode is valid
     if ((myCurrentRouteMode != RouteMode::INVALID) && myValidVClass) {
         // show route attributes modul
-        myRouteFrameParent->myRouteAttributes->showAttributesCreatorModul(myRouteTemplate, {});
+        myRouteFrameParent->myRouteAttributes->showAttributesCreatorModule(myRouteTemplate, {});
         // show path creator
-        myRouteFrameParent->myPathCreator->showPathCreatorModul(SUMO_TAG_ROUTE, false, (myCurrentRouteMode == RouteMode::CONSECUTIVE_EDGES));
+        myRouteFrameParent->myPathCreator->showPathCreatorModule(SUMO_TAG_ROUTE, false, (myCurrentRouteMode == RouteMode::CONSECUTIVE_EDGES));
         // update edge colors
         myRouteFrameParent->myPathCreator->updateEdgeColors();
         // show legend
-        myRouteFrameParent->myPathLegend->showPathLegendModul();
+        myRouteFrameParent->myPathLegend->showPathLegendModule();
     } else {
         // hide all moduls if route mode isnt' valid
-        myRouteFrameParent->myRouteAttributes->hideAttributesCreatorModul();
-        myRouteFrameParent->myPathCreator->hidePathCreatorModul();
-        myRouteFrameParent->myPathLegend->hidePathLegendModul();
+        myRouteFrameParent->myRouteAttributes->hideAttributesCreatorModule();
+        myRouteFrameParent->myPathCreator->hidePathCreatorModule();
+        myRouteFrameParent->myPathLegend->hidePathLegendModule();
         // reset all flags
         for (const auto& edge : myRouteFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
             edge.second->resetCandidateFlags();
@@ -195,13 +195,13 @@ GNERouteFrame::GNERouteFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNe
     myRouteModeSelector = new RouteModeSelector(this);
 
     // Create route parameters
-    myRouteAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
+    myRouteAttributes = new GNEFrameAttributesModules::AttributesCreator(this);
 
     // create consecutive edges modul
-    myPathCreator = new GNEFrameModuls::PathCreator(this);
+    myPathCreator = new GNEFrameModules::PathCreator(this);
 
     // create legend label
-    myPathLegend = new GNEFrameModuls::PathLegend(this);
+    myPathLegend = new GNEFrameModules::PathLegend(this);
 }
 
 
@@ -244,7 +244,7 @@ GNERouteFrame::addEdgeRoute(GNEEdge* clickedEdge, const GNEViewNetHelper::MouseB
 }
 
 
-GNEFrameModuls::PathCreator*
+GNEFrameModules::PathCreator*
 GNERouteFrame::getPathCreator() const {
     return myPathCreator;
 }

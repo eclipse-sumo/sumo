@@ -313,7 +313,7 @@ public:
     FXVerticalFrame* getContentFrame() const;
 
     /// @brief get modification mode modul
-    ModificationMode* getModificationModeModul() const;
+    ModificationMode* getModificationModeModule() const;
 
     /// @brief getmodul for selection information
     SelectionInformation* getSelectionInformation() const;

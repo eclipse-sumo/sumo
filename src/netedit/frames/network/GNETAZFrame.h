@@ -159,11 +159,11 @@ public:
         /// @brief destructor
         ~TAZCommonStatistics();
 
-        /// @brief show TAZ Common Statistics Modul
-        void showTAZCommonStatisticsModul();
+        /// @brief show TAZ Common Statistics Module
+        void showTAZCommonStatisticsModule();
 
-        /// @brief hide TAZ Common Statistics Modul
-        void hideTAZCommonStatisticsModul();
+        /// @brief hide TAZ Common Statistics Module
+        void hideTAZCommonStatisticsModule();
 
         /// @brief update Statistics label
         void updateStatistics();
@@ -191,11 +191,11 @@ public:
         /// @brief destructor
         ~TAZSaveChanges();
 
-        /// @brief show TAZ Save Changes Modul
-        void showTAZSaveChangesModul();
+        /// @brief show TAZ Save Changes Module
+        void showTAZSaveChangesModule();
 
-        /// @brief hide TAZ Save Changes Modul
-        void hideTAZSaveChangesModul();
+        /// @brief hide TAZ Save Changes Module
+        void hideTAZSaveChangesModule();
 
         /// @brief enable buttons save and cancel changes (And begin Undo List)
         void enableButtonsAndBeginUndoList();
@@ -241,11 +241,11 @@ public:
         /// @brief destructor
         ~TAZChildDefaultParameters();
 
-        /// @brief show TAZ child default parameters Modul
-        void showTAZChildDefaultParametersModul();
+        /// @brief show TAZ child default parameters Module
+        void showTAZChildDefaultParametersModule();
 
-        /// @brief hide TAZ child default parameters Modul
-        void hideTAZChildDefaultParametersModul();
+        /// @brief hide TAZ child default parameters Module
+        void hideTAZChildDefaultParametersModule();
 
         /// @brief update "select edges button"
         void updateSelectEdgesButton();
@@ -318,11 +318,11 @@ public:
         /// @brief destructor
         ~TAZSelectionStatistics();
 
-        /// @brief show TAZ Selection Statistics Modul
-        void showTAZSelectionStatisticsModul();
+        /// @brief show TAZ Selection Statistics Module
+        void showTAZSelectionStatisticsModule();
 
-        /// @brief hide TAZ Selection Statistics Modul
-        void hideTAZSelectionStatisticsModul();
+        /// @brief hide TAZ Selection Statistics Module
+        void hideTAZSelectionStatisticsModule();
 
         /// @brief add an edge and their TAZ Children in the list of selected items
         bool selectEdge(const CurrentTAZ::TAZEdgeColor& edge);
@@ -393,10 +393,10 @@ public:
         ~TAZParameters();
 
         /// @brief show TAZ parameters and set the default value of parameters
-        void showTAZParametersModul();
+        void showTAZParametersModule();
 
         /// @brief hide TAZ parameters
-        void hideTAZParametersModul();
+        void hideTAZParametersModule();
 
         /// @brief check if current parameters are valid
         bool isCurrentParametersValid() const;
@@ -466,11 +466,11 @@ public:
         /// @brief destructor
         ~TAZEdgesGraphic();
 
-        /// @brief show TAZ Edges Graphic Modul
-        void showTAZEdgesGraphicModul();
+        /// @brief show TAZ Edges Graphic Module
+        void showTAZEdgesGraphicModule();
 
-        /// @brief hide TAZ Edges Graphic Modul
-        void hideTAZEdgesGraphicModul();
+        /// @brief hide TAZ Edges Graphic Module
+        void hideTAZEdgesGraphicModule();
 
         /// @brief update edge colors;
         void updateEdgeColors();
@@ -530,16 +530,16 @@ public:
     void processEdgeSelection(const std::vector<GNEEdge*>& edges);
 
     /// @brief get drawing mode modul
-    GNEFrameModuls::DrawingShape* getDrawingShapeModul() const;
+    GNEFrameModules::DrawingShape* getDrawingShapeModule() const;
 
     /// @brief get Current TAZ modul
-    CurrentTAZ* getCurrentTAZModul() const;
+    CurrentTAZ* getCurrentTAZModule() const;
 
     /// @brief get TAZ Selection Statistics modul
-    TAZSelectionStatistics* getTAZSelectionStatisticsModul() const;
+    TAZSelectionStatistics* getTAZSelectionStatisticsModule() const;
 
     /// @brief get TAZ Save Changes modul
-    TAZSaveChanges* getTAZSaveChangesModul() const;
+    TAZSaveChanges* getTAZSaveChangesModule() const;
 
 protected:
     /// @brief SumoBaseObject used for creating TAZ
@@ -568,10 +568,10 @@ private:
     TAZParameters* myTAZParameters;
 
     /// @brief Netedit parameter
-    GNEFrameAttributesModuls::NeteditAttributes* myNeteditAttributes;
+    GNEFrameAttributesModules::NeteditAttributes* myNeteditAttributes;
 
     /// @brief Drawing shape
-    GNEFrameModuls::DrawingShape* myDrawingShape;
+    GNEFrameModules::DrawingShape* myDrawingShape;
 
     /// @brief save TAZ Edges
     TAZSaveChanges* myTAZSaveChanges;

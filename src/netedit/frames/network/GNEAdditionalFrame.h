@@ -50,10 +50,10 @@ public:
         ~SelectorParentLanes();
 
         /// @brief show SelectorParentLanes modul
-        void showSelectorParentLanesModul();
+        void showSelectorParentLanesModule();
 
         /// @brief hide SelectorParentLanes
-        void hideSelectorParentLanesModul();
+        void hideSelectorParentLanesModule();
 
         /// @brief start selection of consecutive lanes
         void startConsecutiveLaneSelector(GNELane* lane, const Position& clickedPosition);
@@ -129,11 +129,11 @@ public:
         /// @brief get list of selecte id's in string format
         std::vector<std::string> getEdgeIdsSelected() const;
 
-        /// @brief Show SelectorChildEdges Modul
-        void showSelectorChildEdgesModul(std::string search = "");
+        /// @brief Show SelectorChildEdges Module
+        void showSelectorChildEdgesModule(std::string search = "");
 
-        /// @brief hide SelectorChildEdges Modul
-        void hideSelectorChildEdgesModul();
+        /// @brief hide SelectorChildEdges Module
+        void hideSelectorChildEdgesModule();
 
         /// @brief Update use selectedEdges
         void updateUseSelectedEdges();
@@ -197,11 +197,11 @@ public:
         /// @brief get list of selecte lane ids in string format
         std::vector<std::string> getLaneIdsSelected() const;
 
-        /// @brief Show list of SelectorChildLanes Modul
-        void showSelectorChildLanesModul(std::string search = "");
+        /// @brief Show list of SelectorChildLanes Module
+        void showSelectorChildLanesModule(std::string search = "");
 
-        /// @brief hide SelectorChildLanes Modul
-        void hideSelectorChildLanesModul();
+        /// @brief hide SelectorChildLanes Module
+        void hideSelectorChildLanesModule();
 
         // @brief Update use selectedLanes
         void updateUseSelectedLanes();
@@ -263,10 +263,10 @@ public:
         ~E2MultilaneLaneSelector();
 
         /// @brief show E2MultilaneLaneSelector
-        void showE2MultilaneLaneSelectorModul();
+        void showE2MultilaneLaneSelectorModule();
 
         /// @brief show E2MultilaneLaneSelector
-        void hideE2MultilaneLaneSelectorModul();
+        void hideE2MultilaneLaneSelectorModule();
 
         /// @brief add lane
         bool addLane(GNELane* lane);
@@ -362,7 +362,7 @@ public:
     bool addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
     /// @brief show selector child lane and update use selected edges/lanes
-    void showSelectorChildLanesModul();
+    void showSelectorChildLanesModule();
 
     /// @brief get consecutive Lane Selector
     GNEAdditionalFrame::SelectorParentLanes* getConsecutiveLaneSelector() const;
@@ -397,26 +397,26 @@ private:
     bool buildAdditionalOverView(const GNETagProperties& tagValues);
 
     /// @brief item selector
-    GNEFrameModuls::TagSelector* myAdditionalTagSelector;
+    GNEFrameModules::TagSelector* myAdditionalTagSelector;
 
     /// @brief internal additional attributes
-    GNEFrameAttributesModuls::AttributesCreator* myAdditionalAttributes;
+    GNEFrameAttributesModules::AttributesCreator* myAdditionalAttributes;
 
     /// @brief Netedit parameter
-    GNEFrameAttributesModuls::NeteditAttributes* myNeteditAttributes;
+    GNEFrameAttributesModules::NeteditAttributes* myNeteditAttributes;
 
-    /// @brief Modul for select parent lanes (currently only consecutives)
+    /// @brief Module for select parent lanes (currently only consecutives)
     SelectorParentLanes* mySelectorLaneParents;
 
-    /// @brief Modul for select a single parent additional
-    GNEFrameModuls::SelectorParent* mySelectorAdditionalParent;
+    /// @brief Module for select a single parent additional
+    GNEFrameModules::SelectorParent* mySelectorAdditionalParent;
 
-    /// @brief Modul for select child edges
+    /// @brief Module for select child edges
     SelectorChildEdges* mySelectorChildEdges;
 
-    /// @brief Modul for select child lanes
+    /// @brief Module for select child lanes
     SelectorChildLanes* mySelectorChildLanes;
 
-    /// @brief Modul for E2Multilane lane selector
+    /// @brief Module for E2Multilane lane selector
     E2MultilaneLaneSelector* myE2MultilaneLaneSelector;
 };
