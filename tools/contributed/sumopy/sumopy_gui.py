@@ -13,8 +13,8 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    sumopy_gui.py
-# @author  Joerg Schweizer
+# @file   sumopy_gui.py
+# @author Joerg Schweizer
 # @date   2012
 
 """SUMOPy is intended to expand the user-base of the traffic micro-simulator SUMO (Simulation of Urban MObility) by providing a user-friendly, yet flexible simulation suite.
@@ -25,11 +25,27 @@ bicycle and Personal Rapid Transit (PRT). SUMOPy consists of a GUI interface, ne
 """
 __appname__ = "SUMOPy"
 __version__ = "2.4"
-__licence__ = """SUMOPy is licensed under the GPL."""
-__copyright__ = "(c) 2012-2019 University of Bologna - DICAM"
+__licence__ = "SUMOPy is licensed under the EPL-2.0 OR GPL-2.0-or-later."
+__copyright__ = "(c) 2012-2021 University of Bologna - DICAM"
 __author__ = "Joerg Schweizer"
+
 import sys
 import os
+try:
+    import wxversion
+    wxversion.select("2.8")
+except:
+    try:
+        import wxversion
+        wxversion.select("3")
+    except:
+        #sys.exit('ERROR: wxPython versions 2.8 or 3.x not available.')
+        print 'No wxversion module available, try import default wx version'
+        print 'If wx import shall fail, please install wxPython versions 2.8 or 3.x together with the wxversion module.'
+        sys.exit(0)
+
+
+
 from agilepy.lib_wx.mainframe import AgileMainframe
 import wx
 __usage__ = """USAGE:
@@ -62,25 +78,11 @@ print '                                         |/             '
 print ''
 print __appname__+' version '+__version__+'\n'+__copyright__
 
+print '\n  using wx python version', wx.__version__
+
 ###############################################################################
 # IMPORTS
 
-
-try:
-    import wxversion
-    wxversion.select("2.8")
-
-except:
-    try:
-        import wxversion
-        wxversion.select("3")
-    except:
-        #sys.exit('ERROR: wxPython versions 2.8 or 3.x not available.')
-        print 'No wxversion module available, try import default wx version'
-        print 'If wx import shall fail, please install wxPython versions 2.8 or 3.x together with the wxversion module.'
-        sys.exit(0)
-
-print '\n  using wx python version', wx.__version__
 
 # Load modules
 moduledirs = ['coremodules', 'plugins']
