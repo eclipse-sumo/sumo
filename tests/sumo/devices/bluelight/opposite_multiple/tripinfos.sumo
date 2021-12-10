@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-12-10 08:16:27 by Eclipse SUMO sumo Version v1_11_0+0461-25238a3
+<!-- generated on 2021-12-10 14:07:46 by Eclipse SUMO sumo Version v1_11_0+0480-562403d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -48,10 +48,10 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="case_1_engine" depart="100.00" departLane="edge_5_0" departPos="8.10" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="180.30" arrivalLane="edge_0_1" arrivalPos="489.60" arrivalPosLat="0.30" arrivalSpeed="19.60" duration="80.30" routeLength="990.46" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="29.75" rerouteNo="0" devices="tripinfo_case_1_engine bluelight_case_1_engine" vType="engine" speedFactor="1.40" vaporized="">
+    <tripinfo id="case_1_engine" depart="100.00" departLane="edge_5_0" departPos="8.10" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="180.20" arrivalLane="edge_0_1" arrivalPos="489.60" arrivalPosLat="0.30" arrivalSpeed="19.58" duration="80.20" routeLength="990.46" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="29.62" rerouteNo="0" devices="tripinfo_case_1_engine bluelight_case_1_engine" vType="engine" speedFactor="1.40" vaporized="">
         <bluelight/>
     </tripinfo>
-    <tripinfo id="case_1_ladder" depart="104.40" departLane="edge_5_0" departPos="10.10" departPosLat="0.00" departSpeed="0.00" departDelay="4.40" arrival="198.20" arrivalLane="edge_0_1" arrivalPos="489.60" arrivalPosLat="-0.38" arrivalSpeed="19.58" duration="93.80" routeLength="988.46" waitingTime="5.50" waitingCount="2" stopTime="0.00" timeLoss="43.28" rerouteNo="0" devices="tripinfo_case_1_ladder bluelight_case_1_ladder" vType="ladder" speedFactor="1.40" vaporized="">
+    <tripinfo id="case_1_ladder" depart="104.40" departLane="edge_5_0" departPos="10.10" departPosLat="0.00" departSpeed="0.00" departDelay="4.40" arrival="192.90" arrivalLane="edge_0_1" arrivalPos="489.60" arrivalPosLat="-0.38" arrivalSpeed="19.56" duration="88.50" routeLength="988.46" waitingTime="0.20" waitingCount="2" stopTime="0.00" timeLoss="38.01" rerouteNo="0" devices="tripinfo_case_1_ladder bluelight_case_1_ladder" vType="ladder" speedFactor="1.40" vaporized="">
         <bluelight/>
     </tripinfo>
     <tripinfo id="0" depart="0.00" departLane="edge_5_0" departPos="5.10" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="374.60" arrivalLane="edge_0_0" arrivalPos="489.60" arrivalPosLat="0.70" arrivalSpeed="13.96" duration="374.60" routeLength="974.10" waitingTime="300.10" waitingCount="1" stopTime="0.00" timeLoss="305.42" rerouteNo="0" devices="tripinfo_0" vType="car@0" speedFactor="1.00" vaporized=""/>

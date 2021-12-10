@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-12-10 08:16:27 by Eclipse SUMO sumo Version v1_11_0+0461-25238a3
+<!-- generated on 2021-12-10 14:07:46 by Eclipse SUMO sumo Version v1_11_0+0480-562403d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -32,5 +32,5 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <lanechanges>
-    <change id="overtaking" type="emergency" time="2.00" from="WC_0" to="CW_0" dir="1" speed="2.60" pos="2.60" reason="speedGain" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="57.35" origLeaderSecureGap="2.60" origLeaderSpeed="0.10"/>
+    <change id="overtaking" type="emergency" time="8.00" from="WC_0" to="CW_0" dir="1" speed="6.21" pos="55.93" reason="speedGain" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="4.22" origLeaderSecureGap="7.93" origLeaderSpeed="0.00"/>
 </lanechanges>
