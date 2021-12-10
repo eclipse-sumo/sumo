@@ -1,0 +1,17 @@
+Warning: Teleporting vehicle '0'; waited too long (yield), lane='edge_5_1', time=339.80.
+Warning: Vehicle '0' ends teleporting on edge 'edge_0', time 339.80.
+Warning: Teleporting vehicle '1'; waited too long (wrong lane), lane='edge_5_0', time=342.30.
+Warning: Vehicle '1' ends teleporting on edge 'edge_0', time 342.30.
+Warning: Vehicle 'case_1_engine.4' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=343.10.
+Warning: Vehicle 'case_1_engine.2'; junction collision with vehicle 'case_1_engine.7', lane=':junc4_19_0', gap=-4.97', latGap=-0.60, time=345.70 stage=move.
+Warning: Vehicle 'case_1_engine.3'; junction collision with vehicle 'case_1_engine.2', lane=':junc4_19_0', gap=-6.99', latGap=-2.25, time=348.50 stage=move.
+Warning: Teleporting vehicle '2'; waited too long (yield), lane='edge_5_0', time=645.30.
+Warning: Vehicle '2' ends teleporting on edge 'edge_3', time 645.30.
+Warning: Teleporting vehicle 'case_1_engine.1'; waited too long (jam), lane=':junc4_23_0', time=648.50.
+Warning: Teleporting vehicle 'case_1_engine.8'; waited too long (yield), lane='edge_5_1', time=648.50.
+Warning: Vehicle 'case_1_engine.1' ends teleporting on edge 'edge_0', time 648.50.
+Warning: Vehicle 'case_1_engine.8' ends teleporting on edge 'edge_0', time 648.50.
+Warning: Teleporting vehicle 'case_1_engine.7'; waited too long (jam), lane=':junc4_23_0', time=650.20.
+Warning: Vehicle 'case_1_engine.7' ends teleporting on edge 'edge_0', time 650.20.
+Warning: Teleporting vehicle '3'; waited too long (yield), lane='edge_5_0', time=948.50.
+Warning: Vehicle '3' ends teleporting on edge 'edge_3', time 948.50.

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-12-10 10:57:39 by Eclipse SUMO sumo Version v1_11_0+0465-df957ec
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <time>
+        <step-length value="0.1"/>
+    </time>
+
+    <processing>
+        <lateral-resolution value="0.64"/>
+        <collision.action value="warn"/>
+        <collision.check-junctions value="true"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <bluelight_device>
+        <device.bluelight.reactiondist value="250"/>
+    </bluelight_device>
+
+    <gui_only>
+        <tracker-interval value="0.1"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="case_1_engine.0" depart="20.00" departLane="edge_5_0" departPos="8.10" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="99.60" arrivalLane="edge_0_1" arrivalPos="489.60" arrivalPosLat="0.30" arrivalSpeed="19.59" duration="79.60" routeLength="990.46" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="29.04" rerouteNo="0" devices="tripinfo_case_1_engine.0 bluelight_case_1_engine.0" vType="engine" speedFactor="1.40" vaporized="">
+        <bluelight/>
+    </tripinfo>
+    <tripinfo id="0" depart="0.00" departLane="edge_5_0" departPos="5.10" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="374.60" arrivalLane="edge_0_0" arrivalPos="489.60" arrivalPosLat="-0.70" arrivalSpeed="13.95" duration="374.60" routeLength="974.10" waitingTime="300.10" waitingCount="1" stopTime="0.00" timeLoss="305.42" rerouteNo="0" devices="tripinfo_0" vType="car@0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="1" depart="2.60" departLane="edge_5_0" departPos="5.10" departPosLat="0.00" departSpeed="0.00" departDelay="1.60" arrival="377.10" arrivalLane="edge_0_0" arrivalPos="489.60" arrivalPosLat="-0.70" arrivalSpeed="13.97" duration="374.50" routeLength="974.10" waitingTime="300.10" waitingCount="1" stopTime="0.00" timeLoss="305.26" rerouteNo="0" devices="tripinfo_1" vType="car@1" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="case_1_engine.1" depart="24.10" departLane="edge_5_0" departPos="8.10" departPosLat="0.00" departSpeed="0.00" departDelay="0.10" arrival="674.00" arrivalLane="edge_0_0" arrivalPos="489.60" arrivalPosLat="0.00" arrivalSpeed="19.57" duration="649.90" routeLength="990.46" waitingTime="573.70" waitingCount="2" stopTime="0.00" timeLoss="599.69" rerouteNo="0" devices="tripinfo_case_1_engine.1 bluelight_case_1_engine.1" vType="engine" speedFactor="1.40" vaporized="">
+        <bluelight/>
+    </tripinfo>
+    <tripinfo id="case_1_engine.7" depart="48.50" departLane="edge_5_0" departPos="8.10" departPosLat="0.00" departSpeed="0.00" departDelay="0.50" arrival="675.70" arrivalLane="edge_0_0" arrivalPos="489.60" arrivalPosLat="0.00" arrivalSpeed="19.54" duration="627.20" routeLength="990.46" waitingTime="552.70" waitingCount="2" stopTime="0.00" timeLoss="576.99" rerouteNo="0" devices="tripinfo_case_1_engine.7 bluelight_case_1_engine.7" vType="engine" speedFactor="1.40" vaporized="">
+        <bluelight/>
+    </tripinfo>
+    <tripinfo id="case_1_engine.8" depart="52.50" departLane="edge_5_0" departPos="8.10" departPosLat="0.00" departSpeed="0.00" departDelay="0.50" arrival="679.00" arrivalLane="edge_0_1" arrivalPos="489.60" arrivalPosLat="0.00" arrivalSpeed="19.59" duration="626.50" routeLength="971.10" waitingTime="547.70" waitingCount="2" stopTime="0.00" timeLoss="577.34" rerouteNo="0" devices="tripinfo_case_1_engine.8 bluelight_case_1_engine.8" vType="engine" speedFactor="1.40" vaporized="">
+        <bluelight/>
+    </tripinfo>
+    <tripinfo id="2" depart="5.20" departLane="edge_5_0" departPos="5.10" departPosLat="0.00" departSpeed="0.00" departDelay="3.20" arrival="680.10" arrivalLane="edge_3_0" arrivalPos="489.60" arrivalPosLat="-0.70" arrivalSpeed="13.93" duration="674.90" routeLength="974.10" waitingTime="594.30" waitingCount="2" stopTime="0.00" timeLoss="605.73" rerouteNo="0" devices="tripinfo_2" vType="car@2" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="case_1_engine.2" depart="28.20" departLane="edge_5_0" departPos="8.10" departPosLat="0.00" departSpeed="0.00" departDelay="0.20" arrival="686.70" arrivalLane="edge_0_1" arrivalPos="489.60" arrivalPosLat="0.33" arrivalSpeed="19.57" duration="658.50" routeLength="990.46" waitingTime="567.80" waitingCount="3" stopTime="0.00" timeLoss="607.95" rerouteNo="0" devices="tripinfo_case_1_engine.2 bluelight_case_1_engine.2" vType="engine" speedFactor="1.40" vaporized="">
+        <bluelight/>
+    </tripinfo>
+    <tripinfo id="case_1_engine.3" depart="32.40" departLane="edge_5_0" departPos="8.10" departPosLat="0.00" departSpeed="0.00" departDelay="0.40" arrival="689.70" arrivalLane="edge_0_1" arrivalPos="489.60" arrivalPosLat="0.35" arrivalSpeed="19.60" duration="657.30" routeLength="990.46" waitingTime="565.60" waitingCount="3" stopTime="0.00" timeLoss="606.74" rerouteNo="0" devices="tripinfo_case_1_engine.3 bluelight_case_1_engine.3" vType="engine" speedFactor="1.40" vaporized="">
+        <bluelight/>
+    </tripinfo>
+    <tripinfo id="case_1_engine.9" depart="56.50" departLane="edge_5_0" departPos="8.10" departPosLat="0.00" departSpeed="0.00" departDelay="0.50" arrival="692.90" arrivalLane="edge_0_1" arrivalPos="489.60" arrivalPosLat="-0.28" arrivalSpeed="19.54" duration="636.40" routeLength="990.46" waitingTime="541.30" waitingCount="2" stopTime="0.00" timeLoss="585.79" rerouteNo="0" devices="tripinfo_case_1_engine.9 bluelight_case_1_engine.9" vType="engine" speedFactor="1.40" vaporized="">
+        <bluelight/>
+    </tripinfo>
+    <tripinfo id="case_1_engine.4" depart="36.50" departLane="edge_5_0" departPos="8.10" departPosLat="0.00" departSpeed="0.00" departDelay="0.50" arrival="696.30" arrivalLane="edge_0_1" arrivalPos="489.60" arrivalPosLat="0.35" arrivalSpeed="19.55" duration="659.80" routeLength="990.46" waitingTime="562.00" waitingCount="3" stopTime="0.00" timeLoss="609.27" rerouteNo="0" devices="tripinfo_case_1_engine.4 bluelight_case_1_engine.4" vType="engine" speedFactor="1.40" vaporized="">
+        <bluelight/>
+    </tripinfo>
+    <tripinfo id="case_1_engine.5" depart="40.50" departLane="edge_5_0" departPos="8.10" departPosLat="0.00" departSpeed="0.00" departDelay="0.50" arrival="701.40" arrivalLane="edge_0_1" arrivalPos="489.60" arrivalPosLat="-0.31" arrivalSpeed="19.58" duration="660.90" routeLength="990.46" waitingTime="550.50" waitingCount="5" stopTime="0.00" timeLoss="610.34" rerouteNo="0" devices="tripinfo_case_1_engine.5 bluelight_case_1_engine.5" vType="engine" speedFactor="1.40" vaporized="">
+        <bluelight/>
+    </tripinfo>
+    <tripinfo id="case_1_engine.6" depart="44.50" departLane="edge_5_0" departPos="8.10" departPosLat="0.00" departSpeed="0.00" departDelay="0.50" arrival="704.70" arrivalLane="edge_0_1" arrivalPos="489.60" arrivalPosLat="0.29" arrivalSpeed="19.54" duration="660.20" routeLength="990.46" waitingTime="542.90" waitingCount="3" stopTime="0.00" timeLoss="609.66" rerouteNo="0" devices="tripinfo_case_1_engine.6 bluelight_case_1_engine.6" vType="engine" speedFactor="1.40" vaporized="">
+        <bluelight/>
+    </tripinfo>
+    <tripinfo id="3" depart="7.90" departLane="edge_5_0" departPos="5.10" departPosLat="0.00" departSpeed="0.00" departDelay="4.90" arrival="983.30" arrivalLane="edge_3_0" arrivalPos="489.60" arrivalPosLat="-0.70" arrivalSpeed="13.98" duration="975.40" routeLength="974.10" waitingTime="889.00" waitingCount="3" stopTime="0.00" timeLoss="906.23" rerouteNo="0" devices="tripinfo_3" vType="car@3" speedFactor="1.00" vaporized=""/>
+</tripinfos>

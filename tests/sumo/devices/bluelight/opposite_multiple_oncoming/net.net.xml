@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-12-10 09:13:51 by Eclipse SUMO netedit Version v1_11_0+0465-df957ec
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net2.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net2.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,-1000.00,1000.00,0.00" origBoundary="0.00,-1000.00,1000.00,0.00" projParameter="!"/>
+
+    <edge id=":junc4_0" function="internal">
+        <lane id=":junc4_0_0" index="0" speed="14.00" length="9.55" width="3.84" shape="494.24,-488.32 493.87,-490.91 492.76,-492.76 490.91,-493.87 488.32,-494.24"/>
+        <lane id=":junc4_0_1" index="1" speed="14.00" length="12.79" width="3.84" shape="494.24,-488.32 493.87,-492.59 492.76,-495.64 490.91,-497.47 488.32,-498.08"/>
+    </edge>
+    <edge id=":junc4_2" function="internal">
+        <lane id=":junc4_2_0" index="0" speed="14.00" length="23.36" width="3.84" shape="494.24,-488.32 494.24,-511.68"/>
+        <lane id=":junc4_2_1" index="1" speed="14.00" length="23.36" width="3.84" shape="498.08,-488.32 498.08,-511.68">
+            <neigh lane=":junc4_12_1"/>
+        </lane>
+    </edge>
+    <edge id=":junc4_4" function="internal">
+        <lane id=":junc4_4_0" index="0" speed="14.00" length="4.00" width="3.84" shape="498.08,-488.32 498.65,-492.28"/>
+    </edge>
+    <edge id=":junc4_20" function="internal">
+        <lane id=":junc4_20_0" index="0" speed="14.00" length="17.93" width="3.84" shape="498.65,-492.28 498.93,-494.27 501.48,-498.52 505.73,-501.07 511.68,-501.92"/>
+    </edge>
+    <edge id=":junc4_5" function="internal">
+        <lane id=":junc4_5_0" index="0" speed="14.00" length="9.55" width="3.84" shape="511.68,-494.24 509.09,-493.87 507.24,-492.76 506.13,-490.91 505.76,-488.32"/>
+        <lane id=":junc4_5_1" index="1" speed="14.00" length="12.79" width="3.84" shape="511.68,-494.24 507.41,-493.87 504.36,-492.76 502.53,-490.91 501.92,-488.32"/>
+    </edge>
+    <edge id=":junc4_7" function="internal">
+        <lane id=":junc4_7_0" index="0" speed="14.00" length="23.36" width="3.84" shape="511.68,-494.24 488.32,-494.24"/>
+        <lane id=":junc4_7_1" index="1" speed="14.00" length="23.36" width="3.84" shape="511.68,-498.08 488.32,-498.08">
+            <neigh lane=":junc4_17_1"/>
+        </lane>
+    </edge>
+    <edge id=":junc4_9" function="internal">
+        <lane id=":junc4_9_0" index="0" speed="14.00" length="4.00" width="3.84" shape="511.68,-498.08 507.72,-498.65"/>
+    </edge>
+    <edge id=":junc4_21" function="internal">
+        <lane id=":junc4_21_0" index="0" speed="14.00" length="17.93" width="3.84" shape="507.72,-498.65 505.73,-498.93 501.48,-501.48 498.93,-505.73 498.08,-511.68"/>
+    </edge>
+    <edge id=":junc4_10" function="internal">
+        <lane id=":junc4_10_0" index="0" speed="14.00" length="9.55" width="3.84" shape="505.76,-511.68 506.13,-509.09 507.24,-507.24 509.09,-506.13 511.68,-505.76"/>
+        <lane id=":junc4_10_1" index="1" speed="14.00" length="12.79" width="3.84" shape="505.76,-511.68 506.13,-507.41 507.24,-504.36 509.09,-502.53 511.68,-501.92"/>
+    </edge>
+    <edge id=":junc4_12" function="internal">
+        <lane id=":junc4_12_0" index="0" speed="14.00" length="23.36" width="3.84" shape="505.76,-511.68 505.76,-488.32"/>
+        <lane id=":junc4_12_1" index="1" speed="14.00" length="23.36" width="3.84" shape="501.92,-511.68 501.92,-488.32">
+            <neigh lane=":junc4_2_1"/>
+        </lane>
+    </edge>
+    <edge id=":junc4_14" function="internal">
+        <lane id=":junc4_14_0" index="0" speed="14.00" length="4.00" width="3.84" shape="501.92,-511.68 501.35,-507.72"/>
+    </edge>
+    <edge id=":junc4_22" function="internal">
+        <lane id=":junc4_22_0" index="0" speed="14.00" length="17.93" width="3.84" shape="501.35,-507.72 501.07,-505.73 498.52,-501.48 494.27,-498.93 488.32,-498.08"/>
+    </edge>
+    <edge id=":junc4_15" function="internal">
+        <lane id=":junc4_15_0" index="0" speed="14.00" length="9.55" width="3.84" shape="488.32,-505.76 490.91,-506.13 492.76,-507.24 493.87,-509.09 494.24,-511.68"/>
+        <lane id=":junc4_15_1" index="1" speed="14.00" length="12.79" width="3.84" shape="488.32,-505.76 492.59,-506.13 495.64,-507.24 497.47,-509.09 498.08,-511.68"/>
+    </edge>
+    <edge id=":junc4_17" function="internal">
+        <lane id=":junc4_17_0" index="0" speed="14.00" length="23.36" width="3.84" shape="488.32,-505.76 511.68,-505.76"/>
+        <lane id=":junc4_17_1" index="1" speed="14.00" length="23.36" width="3.84" shape="488.32,-501.92 511.68,-501.92">
+            <neigh lane=":junc4_7_1"/>
+        </lane>
+    </edge>
+    <edge id=":junc4_19" function="internal">
+        <lane id=":junc4_19_0" index="0" speed="14.00" length="4.00" width="3.84" shape="488.32,-501.92 492.28,-501.35"/>
+    </edge>
+    <edge id=":junc4_23" function="internal">
+        <lane id=":junc4_23_0" index="0" speed="14.00" length="17.93" width="3.84" shape="492.28,-501.35 494.27,-501.07 498.52,-498.52 501.07,-494.27 501.92,-488.32"/>
+    </edge>
+
+    <edge id="edge_0" from="junc4" to="junc1" priority="-1">
+        <lane id="edge_0_0" index="0" speed="14.00" length="488.32" width="3.84" shape="505.76,-488.32 505.76,0.00"/>
+        <lane id="edge_0_1" index="1" speed="14.00" length="488.32" width="3.84" shape="501.92,-488.32 501.92,0.00">
+            <neigh lane="edge_1_1"/>
+        </lane>
+    </edge>
+    <edge id="edge_1" from="junc1" to="junc4" priority="-1">
+        <lane id="edge_1_0" index="0" speed="14.00" length="488.32" width="3.84" shape="494.24,0.00 494.24,-488.32"/>
+        <lane id="edge_1_1" index="1" speed="14.00" length="488.32" width="3.84" shape="498.08,0.00 498.08,-488.32">
+            <neigh lane="edge_0_1"/>
+        </lane>
+    </edge>
+    <edge id="edge_2" from="junc7" to="junc4" priority="-1">
+        <lane id="edge_2_0" index="0" speed="14.00" length="488.32" width="3.84" shape="505.76,-1000.00 505.76,-511.68"/>
+        <lane id="edge_2_1" index="1" speed="14.00" length="488.32" width="3.84" shape="501.92,-1000.00 501.92,-511.68">
+            <neigh lane="edge_3_1"/>
+        </lane>
+    </edge>
+    <edge id="edge_3" from="junc4" to="junc7" priority="-1">
+        <lane id="edge_3_0" index="0" speed="14.00" length="488.32" width="3.84" shape="494.24,-511.68 494.24,-1000.00"/>
+        <lane id="edge_3_1" index="1" speed="14.00" length="488.32" width="3.84" shape="498.08,-511.68 498.08,-1000.00">
+            <neigh lane="edge_2_1"/>
+        </lane>
+    </edge>
+    <edge id="edge_4" from="junc4" to="junc3" priority="-1">
+        <lane id="edge_4_0" index="0" speed="14.00" length="488.32" width="3.84" shape="488.32,-494.24 0.00,-494.24"/>
+        <lane id="edge_4_1" index="1" speed="14.00" length="488.32" width="3.84" shape="488.32,-498.08 0.00,-498.08">
+            <neigh lane="edge_5_1"/>
+        </lane>
+    </edge>
+    <edge id="edge_5" from="junc3" to="junc4" priority="-1">
+        <lane id="edge_5_0" index="0" speed="14.00" length="488.32" width="3.84" shape="0.00,-505.76 488.32,-505.76"/>
+        <lane id="edge_5_1" index="1" speed="14.00" length="488.32" width="3.84" shape="0.00,-501.92 488.32,-501.92">
+            <neigh lane="edge_4_1"/>
+        </lane>
+    </edge>
+    <edge id="edge_6" from="junc5" to="junc4" priority="-1">
+        <lane id="edge_6_0" index="0" speed="14.00" length="488.32" width="3.84" shape="1000.00,-494.24 511.68,-494.24"/>
+        <lane id="edge_6_1" index="1" speed="14.00" length="488.32" width="3.84" shape="1000.00,-498.08 511.68,-498.08">
+            <neigh lane="edge_7_1"/>
+        </lane>
+    </edge>
+    <edge id="edge_7" from="junc4" to="junc5" priority="-1">
+        <lane id="edge_7_0" index="0" speed="14.00" length="488.32" width="3.84" shape="511.68,-505.76 1000.00,-505.76"/>
+        <lane id="edge_7_1" index="1" speed="14.00" length="488.32" width="3.84" shape="511.68,-501.92 1000.00,-501.92">
+            <neigh lane="edge_6_1"/>
+        </lane>
+    </edge>
+
+    <tlLogic id="junc4" type="static" programID="0" offset="0">
+        <phase duration="42" state="GGGGgrrrrrGGGGgrrrrr"/>
+        <phase duration="3"  state="yyyyyrrrrryyyyyrrrrr"/>
+        <phase duration="42" state="rrrrrGGGGgrrrrrGGGGg"/>
+        <phase duration="3"  state="rrrrryyyyyrrrrryyyyy"/>
+    </tlLogic>
+
+    <junction id="junc1" type="dead_end" x="500.00" y="0.00" incLanes="edge_0_0 edge_0_1" intLanes="" shape="500.00,0.00 507.68,0.00 500.00,0.00"/>
+    <junction id="junc3" type="dead_end" x="0.00" y="-500.00" incLanes="edge_4_0 edge_4_1" intLanes="" shape="0.00,-500.00 0.00,-492.32 0.00,-500.00"/>
+    <junction id="junc4" type="traffic_light" x="500.00" y="-500.00" incLanes="edge_1_0 edge_1_1 edge_6_0 edge_6_1 edge_2_0 edge_2_1 edge_5_0 edge_5_1" intLanes=":junc4_0_0 :junc4_0_1 :junc4_2_0 :junc4_2_1 :junc4_20_0 :junc4_5_0 :junc4_5_1 :junc4_7_0 :junc4_7_1 :junc4_21_0 :junc4_10_0 :junc4_10_1 :junc4_12_0 :junc4_12_1 :junc4_22_0 :junc4_15_0 :junc4_15_1 :junc4_17_0 :junc4_17_1 :junc4_23_0" shape="492.32,-488.32 507.68,-488.32 511.68,-492.32 511.68,-507.68 507.68,-511.68 492.32,-511.68 488.32,-507.68 488.32,-492.32">
+        <request index="0"  response="00000000000000000000" foes="00000100000110000000" cont="0"/>
+        <request index="1"  response="00000000000000000000" foes="00000100000110000000" cont="0"/>
+        <request index="2"  response="10000000001000000000" foes="11111100001110000000" cont="0"/>
+        <request index="3"  response="10000000001000000000" foes="11111100001110000000" cont="0"/>
+        <request index="4"  response="10000011111000000000" foes="11100011111110000000" cont="1"/>
+        <request index="5"  response="00000011000000000000" foes="10000011000000000000" cont="0"/>
+        <request index="6"  response="00000011000000000000" foes="10000011000000000000" cont="0"/>
+        <request index="7"  response="00000111000000011111" foes="10000111000000011111" cont="0"/>
+        <request index="8"  response="00000111000000011111" foes="10000111000000011111" cont="0"/>
+        <request index="9"  response="01111111000000011100" foes="01111111000000011100" cont="1"/>
+        <request index="10" response="00000000000000000000" foes="01100000000000010000" cont="0"/>
+        <request index="11" response="00000000000000000000" foes="01100000000000010000" cont="0"/>
+        <request index="12" response="10000000001000000000" foes="11100000001111110000" cont="0"/>
+        <request index="13" response="10000000001000000000" foes="11100000001111110000" cont="0"/>
+        <request index="14" response="10000000001000001111" foes="11100000001110001111" cont="1"/>
+        <request index="15" response="00000000000000001100" foes="00000000001000001100" cont="0"/>
+        <request index="16" response="00000000000000001100" foes="00000000001000001100" cont="0"/>
+        <request index="17" response="00000111110000011100" foes="00000111111000011100" cont="0"/>
+        <request index="18" response="00000111110000011100" foes="00000111111000011100" cont="0"/>
+        <request index="19" response="00000111000111111100" foes="00000111000111111100" cont="1"/>
+    </junction>
+    <junction id="junc5" type="dead_end" x="1000.00" y="-500.00" incLanes="edge_7_0 edge_7_1" intLanes="" shape="1000.00,-500.00 1000.00,-507.68 1000.00,-500.00"/>
+    <junction id="junc7" type="dead_end" x="500.00" y="-1000.00" incLanes="edge_3_0 edge_3_1" intLanes="" shape="500.00,-1000.00 492.32,-1000.00 500.00,-1000.00"/>
+
+    <junction id=":junc4_20_0" type="internal" x="498.65" y="-492.28" incLanes=":junc4_4_0 edge_2_0 edge_2_1" intLanes=":junc4_7_0 :junc4_7_1 :junc4_9_0 :junc4_10_0 :junc4_10_1 :junc4_12_0 :junc4_12_1 :junc4_17_0 :junc4_17_1 :junc4_19_0"/>
+    <junction id=":junc4_21_0" type="internal" x="507.72" y="-498.65" incLanes=":junc4_9_0 edge_5_0 edge_5_1" intLanes=":junc4_2_0 :junc4_2_1 :junc4_4_0 :junc4_12_0 :junc4_12_1 :junc4_14_0 :junc4_15_0 :junc4_15_1 :junc4_17_0 :junc4_17_1"/>
+    <junction id=":junc4_22_0" type="internal" x="501.35" y="-507.72" incLanes=":junc4_14_0 edge_1_0 edge_1_1" intLanes=":junc4_0_0 :junc4_0_1 :junc4_2_0 :junc4_2_1 :junc4_7_0 :junc4_7_1 :junc4_9_0 :junc4_17_0 :junc4_17_1 :junc4_19_0"/>
+    <junction id=":junc4_23_0" type="internal" x="492.28" y="-501.35" incLanes=":junc4_19_0 edge_6_0 edge_6_1" intLanes=":junc4_2_0 :junc4_2_1 :junc4_4_0 :junc4_5_0 :junc4_5_1 :junc4_7_0 :junc4_7_1 :junc4_12_0 :junc4_12_1 :junc4_14_0"/>
+
+    <connection from="edge_1" to="edge_4" fromLane="0" toLane="0" via=":junc4_0_0" tl="junc4" linkIndex="0" dir="r" state="O"/>
+    <connection from="edge_1" to="edge_4" fromLane="0" toLane="1" via=":junc4_0_1" tl="junc4" linkIndex="1" dir="r" state="O"/>
+    <connection from="edge_1" to="edge_3" fromLane="0" toLane="0" via=":junc4_2_0" tl="junc4" linkIndex="2" dir="s" state="O"/>
+    <connection from="edge_1" to="edge_3" fromLane="1" toLane="1" via=":junc4_2_1" tl="junc4" linkIndex="3" dir="s" state="O"/>
+    <connection from="edge_1" to="edge_7" fromLane="1" toLane="1" contPos="4.00" via=":junc4_4_0" tl="junc4" linkIndex="4" dir="l" state="o"/>
+    <connection from="edge_2" to="edge_7" fromLane="0" toLane="0" via=":junc4_10_0" tl="junc4" linkIndex="10" dir="r" state="O"/>
+    <connection from="edge_2" to="edge_7" fromLane="0" toLane="1" via=":junc4_10_1" tl="junc4" linkIndex="11" dir="r" state="O"/>
+    <connection from="edge_2" to="edge_0" fromLane="0" toLane="0" via=":junc4_12_0" tl="junc4" linkIndex="12" dir="s" state="O"/>
+    <connection from="edge_2" to="edge_0" fromLane="1" toLane="1" via=":junc4_12_1" tl="junc4" linkIndex="13" dir="s" state="O"/>
+    <connection from="edge_2" to="edge_4" fromLane="1" toLane="1" contPos="4.00" via=":junc4_14_0" tl="junc4" linkIndex="14" dir="l" state="o"/>
+    <connection from="edge_5" to="edge_3" fromLane="0" toLane="0" via=":junc4_15_0" tl="junc4" linkIndex="15" dir="r" state="o"/>
+    <connection from="edge_5" to="edge_3" fromLane="0" toLane="1" via=":junc4_15_1" tl="junc4" linkIndex="16" dir="r" state="o"/>
+    <connection from="edge_5" to="edge_7" fromLane="0" toLane="0" via=":junc4_17_0" tl="junc4" linkIndex="17" dir="s" state="o"/>
+    <connection from="edge_5" to="edge_7" fromLane="1" toLane="1" via=":junc4_17_1" tl="junc4" linkIndex="18" dir="s" state="o"/>
+    <connection from="edge_5" to="edge_0" fromLane="1" toLane="1" contPos="4.00" via=":junc4_19_0" tl="junc4" linkIndex="19" dir="l" state="o"/>
+    <connection from="edge_6" to="edge_0" fromLane="0" toLane="0" via=":junc4_5_0" tl="junc4" linkIndex="5" dir="r" state="o"/>
+    <connection from="edge_6" to="edge_0" fromLane="0" toLane="1" via=":junc4_5_1" tl="junc4" linkIndex="6" dir="r" state="o"/>
+    <connection from="edge_6" to="edge_4" fromLane="0" toLane="0" via=":junc4_7_0" tl="junc4" linkIndex="7" dir="s" state="o"/>
+    <connection from="edge_6" to="edge_4" fromLane="1" toLane="1" via=":junc4_7_1" tl="junc4" linkIndex="8" dir="s" state="o"/>
+    <connection from="edge_6" to="edge_3" fromLane="1" toLane="1" contPos="4.00" via=":junc4_9_0" tl="junc4" linkIndex="9" dir="l" state="o"/>
+
+    <connection from=":junc4_0" to="edge_4" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":junc4_0" to="edge_4" fromLane="1" toLane="1" dir="r" state="M"/>
+    <connection from=":junc4_2" to="edge_3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":junc4_2" to="edge_3" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":junc4_4" to="edge_7" fromLane="0" toLane="1" via=":junc4_20_0" dir="l" state="m"/>
+    <connection from=":junc4_20" to="edge_7" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":junc4_5" to="edge_0" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":junc4_5" to="edge_0" fromLane="1" toLane="1" dir="r" state="M"/>
+    <connection from=":junc4_7" to="edge_4" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":junc4_7" to="edge_4" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":junc4_9" to="edge_3" fromLane="0" toLane="1" via=":junc4_21_0" dir="l" state="m"/>
+    <connection from=":junc4_21" to="edge_3" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":junc4_10" to="edge_7" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":junc4_10" to="edge_7" fromLane="1" toLane="1" dir="r" state="M"/>
+    <connection from=":junc4_12" to="edge_0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":junc4_12" to="edge_0" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":junc4_14" to="edge_4" fromLane="0" toLane="1" via=":junc4_22_0" dir="l" state="m"/>
+    <connection from=":junc4_22" to="edge_4" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":junc4_15" to="edge_3" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":junc4_15" to="edge_3" fromLane="1" toLane="1" dir="r" state="M"/>
+    <connection from=":junc4_17" to="edge_7" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":junc4_17" to="edge_7" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":junc4_19" to="edge_0" fromLane="0" toLane="1" via=":junc4_23_0" dir="l" state="m"/>
+    <connection from=":junc4_23" to="edge_0" fromLane="0" toLane="1" dir="l" state="M"/>
+
+</net>

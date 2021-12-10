@@ -1,0 +1,6 @@
+--no-step-log --net-file=net.net.xml -r input_routes.rou.xml --tripinfo-output tripinfos.xml --lateral-resolution 0.64
+--device.bluelight.reactiondist 100
+--collision.action warn
+--collision.check-junctions
+--step-length 0.2
+-e 200
