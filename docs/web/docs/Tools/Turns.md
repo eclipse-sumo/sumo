@@ -122,7 +122,7 @@ starting edges and inserted with high speed on a reasonable lane.
 !!! note
     Quoting of trip attributes on Linux may also use the style **--attributes 'departLane="best" departSpeed="max" departPos="random"'**
 
-### Multiple vehicle types
+## Multiple vehicle types
   
 To distinguish vehicles of different types, routeSampler may be run multiple times with different attributes. Note, that it is also necessary to set the option **--prefix** to prevent duplicate ids. The example below creates traffic consisting of cars and trucks using two edgedata files with distinct count values (stored in the default attribute 'entered').
 
@@ -143,7 +143,7 @@ When running the simulation, the types 'car' and 'heavy' (previously set as vehi
 ```
 <additional>
   <vType id="car"/>
-  <vType id="heave" vClass="truck"/>
+  <vType id="heavy" vClass="truck"/>
 </additional>
 ```
   
