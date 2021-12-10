@@ -79,7 +79,7 @@ private:
     GNEFrameModules::TagSelector* myPersonPlanTagSelector;
 
     /// @brief internal vehicle attributes
-    GNEFrameAttributesModules::AttributesCreator* myPersonPlanAttributes;
+    GNEFrameAttributeModules::AttributesCreator* myPersonPlanAttributes;
 
     /// @brief Path Creator
     GNEFrameModules::PathCreator* myPathCreator;

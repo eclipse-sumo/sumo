@@ -84,13 +84,13 @@ private:
     GNEFrameModules::TagSelector* myContainerPlanTagSelector;
 
     /// @brief internal vehicle attributes
-    GNEFrameAttributesModules::AttributesCreator* myContainerAttributes;
+    GNEFrameAttributeModules::AttributesCreator* myContainerAttributes;
 
     /// @brief internal container plan attributes
-    GNEFrameAttributesModules::AttributesCreator* myContainerPlanAttributes;
+    GNEFrameAttributeModules::AttributesCreator* myContainerPlanAttributes;
 
     /// @brief Netedit parameter
-    GNEFrameAttributesModules::NeteditAttributes* myNeteditAttributes;
+    GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes;
 
     /// @brief edge path creator (used for Walks, rides and trips)
     GNEFrameModules::PathCreator* myPathCreator;

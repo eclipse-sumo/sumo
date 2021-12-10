@@ -48,16 +48,16 @@ GNEContainerFrame::GNEContainerFrame(FXHorizontalFrame* horizontalFrameParent, G
     myPTypeSelector = new GNEFrameModules::DemandElementSelector(this, SUMO_TAG_PTYPE);
 
     // create container attributes
-    myContainerAttributes = new GNEFrameAttributesModules::AttributesCreator(this);
+    myContainerAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
 
     // create tag Selector modul for container plans
     myContainerPlanTagSelector = new GNEFrameModules::TagSelector(this, GNETagProperties::TagType::CONTAINERPLAN, GNE_TAG_TRANSPORT_EDGE);
 
     // create container plan attributes
-    myContainerPlanAttributes = new GNEFrameAttributesModules::AttributesCreator(this);
+    myContainerPlanAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
 
     // Create Netedit parameter
-    myNeteditAttributes = new GNEFrameAttributesModules::NeteditAttributes(this);
+    myNeteditAttributes = new GNEFrameAttributeModules::NeteditAttributes(this);
 
     // create PathCreator Module
     myPathCreator = new GNEFrameModules::PathCreator(this);

@@ -109,7 +109,7 @@ GNEVehicleFrame::GNEVehicleFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     myVTypeSelector = new GNEFrameModules::DemandElementSelector(this, SUMO_TAG_VTYPE);
 
     // Create vehicle parameters
-    myVehicleAttributes = new GNEFrameAttributesModules::AttributesCreator(this);
+    myVehicleAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
 
     // create PathCreator Module
     myPathCreator = new GNEFrameModules::PathCreator(this);

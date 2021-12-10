@@ -400,10 +400,10 @@ private:
     GNEFrameModules::TagSelector* myAdditionalTagSelector;
 
     /// @brief internal additional attributes
-    GNEFrameAttributesModules::AttributesCreator* myAdditionalAttributes;
+    GNEFrameAttributeModules::AttributesCreator* myAdditionalAttributes;
 
     /// @brief Netedit parameter
-    GNEFrameAttributesModules::NeteditAttributes* myNeteditAttributes;
+    GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes;
 
     /// @brief Module for select parent lanes (currently only consecutives)
     SelectorParentLanes* mySelectorLaneParents;

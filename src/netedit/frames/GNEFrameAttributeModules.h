@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEFrameAttributesModules.h
+/// @file    GNEFrameAttributeModules.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Aug 2019
 ///
@@ -36,7 +36,7 @@ class GNEFrame;
 // class definitions
 // ===========================================================================
 
-class GNEFrameAttributesModules {
+class GNEFrameAttributeModules {
 
 public:
     // ===========================================================================
@@ -54,7 +54,7 @@ public:
 
     class AttributesCreatorRow : public FXHorizontalFrame {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributesModules::AttributesCreatorRow)
+        FXDECLARE(GNEFrameAttributeModules::AttributesCreatorRow)
 
     public:
         /// @brief constructor
@@ -149,7 +149,7 @@ public:
 
     class AttributesCreator : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributesModules::AttributesCreator)
+        FXDECLARE(GNEFrameAttributeModules::AttributesCreator)
 
         // declare friend class
         friend class Row;
@@ -233,7 +233,7 @@ public:
 
     class AttributesCreatorFlow : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributesModules::AttributesCreatorFlow)
+        FXDECLARE(GNEFrameAttributeModules::AttributesCreatorFlow)
 
     public:
         /// @brief constructor
@@ -316,7 +316,7 @@ public:
 
     class AttributesEditorRow : protected FXHorizontalFrame {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributesModules::AttributesEditorRow)
+        FXDECLARE(GNEFrameAttributeModules::AttributesEditorRow)
 
     public:
         /// @brief constructor
@@ -393,7 +393,7 @@ public:
 
     class AttributesEditor : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributesModules::AttributesEditor)
+        FXDECLARE(GNEFrameAttributeModules::AttributesEditor)
 
     public:
         /// @brief constructor
@@ -444,7 +444,7 @@ public:
 
     class AttributesEditorFlow : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributesModules::AttributesEditorFlow)
+        FXDECLARE(GNEFrameAttributeModules::AttributesEditorFlow)
 
     public:
         /// @brief constructor
@@ -530,7 +530,7 @@ public:
 
     class AttributesEditorExtended : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributesModules::AttributesEditorExtended)
+        FXDECLARE(GNEFrameAttributeModules::AttributesEditorExtended)
 
     public:
         /// @brief constructor
@@ -565,7 +565,7 @@ public:
 
     class ParametersEditorCreator : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributesModules::ParametersEditorCreator)
+        FXDECLARE(GNEFrameAttributeModules::ParametersEditorCreator)
 
     public:
         /// @brief constructor
@@ -630,7 +630,7 @@ public:
 
     class DrawingShape : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributesModules::DrawingShape)
+        FXDECLARE(GNEFrameAttributeModules::DrawingShape)
 
     public:
         /// @brief constructor
@@ -716,7 +716,7 @@ public:
 
     class NeteditAttributes : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributesModules::NeteditAttributes)
+        FXDECLARE(GNEFrameAttributeModules::NeteditAttributes)
 
     public:
         /// @brief constructor

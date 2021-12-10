@@ -385,10 +385,10 @@ GNEVehicleTypeFrame::GNEVehicleTypeFrame(FXHorizontalFrame* horizontalFrameParen
     myVehicleTypeSelector = new VehicleTypeSelector(this);
 
     // Create vehicle type attributes editor
-    myVehicleTypeAttributesEditor = new GNEFrameAttributesModules::AttributesEditor(this);
+    myVehicleTypeAttributesEditor = new GNEFrameAttributeModules::AttributesEditor(this);
 
     // create modul for open extended attributes dialog
-    myAttributesEditorExtended = new GNEFrameAttributesModules::AttributesEditorExtended(this);
+    myAttributesEditorExtended = new GNEFrameAttributeModules::AttributesEditorExtended(this);
 
     // set "VTYPE_DEFAULT" as default vehicle Type
     myVehicleTypeSelector->setCurrentVehicleType(myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID));

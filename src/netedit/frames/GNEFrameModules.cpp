@@ -1055,7 +1055,7 @@ GNEFrameModules::HierarchicalElementTree::createPopUpMenu(int X, int Y, GNEAttri
         FXMenuCommand* inspectMenuCommand = GUIDesigns::buildFXMenuCommand(pane, "Inspect", GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), this, MID_GNE_INSPECT);
         FXMenuCommand* deleteMenuCommand = GUIDesigns::buildFXMenuCommand(pane, "Delete", GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), this, MID_GNE_DELETE);
         // check if inspect and delete menu commands has to be disabled
-        if (GNEFrameAttributesModules::isSupermodeValid(myFrameParent->myViewNet, myClickedAC) == false) {
+        if (GNEFrameAttributeModules::isSupermodeValid(myFrameParent->myViewNet, myClickedAC) == false) {
             inspectMenuCommand->disable();
             deleteMenuCommand->disable();
         }

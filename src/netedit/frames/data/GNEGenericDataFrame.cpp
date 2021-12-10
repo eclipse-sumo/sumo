@@ -565,7 +565,7 @@ GNEGenericDataFrame::GNEGenericDataFrame(FXHorizontalFrame* horizontalFrameParen
     // create AttributeSelector modul
     myAttributeSelector = new AttributeSelector(this, tag);
     // create parameter editor modul
-    myParametersEditorCreator = new GNEFrameAttributesModules::ParametersEditorCreator(this);
+    myParametersEditorCreator = new GNEFrameAttributeModules::ParametersEditorCreator(this);
     // create PathCreator modul
     if (pathCreator) {
         myPathCreator = new GNEFrameModules::PathCreator(this);

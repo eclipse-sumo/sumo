@@ -106,10 +106,10 @@ private:
     GNEFrameModules::TagSelector* myStopTagSelector;
 
     /// @brief internal Stop attributes
-    GNEFrameAttributesModules::AttributesCreator* myStopAttributes;
+    GNEFrameAttributeModules::AttributesCreator* myStopAttributes;
 
     /// @brief Netedit parameter
-    GNEFrameAttributesModules::NeteditAttributes* myNeteditAttributes;
+    GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes;
 
     /// @brief Help creation
     HelpCreation* myHelpCreation;

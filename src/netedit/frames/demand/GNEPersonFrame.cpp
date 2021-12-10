@@ -48,16 +48,16 @@ GNEPersonFrame::GNEPersonFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
     myPTypeSelector = new GNEFrameModules::DemandElementSelector(this, SUMO_TAG_PTYPE);
 
     // create person attributes
-    myPersonAttributes = new GNEFrameAttributesModules::AttributesCreator(this);
+    myPersonAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
 
     // create tag Selector modul for person plans
     myPersonPlanTagSelector = new GNEFrameModules::TagSelector(this, GNETagProperties::TagType::PERSONPLAN, GNE_TAG_PERSONTRIP_EDGE);
 
     // create person plan attributes
-    myPersonPlanAttributes = new GNEFrameAttributesModules::AttributesCreator(this);
+    myPersonPlanAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
 
     // Create Netedit parameter
-    myNeteditAttributes = new GNEFrameAttributesModules::NeteditAttributes(this);
+    myNeteditAttributes = new GNEFrameAttributeModules::NeteditAttributes(this);
 
     // create PathCreator Module
     myPathCreator = new GNEFrameModules::PathCreator(this);

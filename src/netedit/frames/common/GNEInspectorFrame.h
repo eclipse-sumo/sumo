@@ -387,7 +387,7 @@ public:
     void clearInspectedAC();
 
     /// @brief get AttributesEditor
-    GNEFrameAttributesModules::AttributesEditor* getAttributesEditor() const;
+    GNEFrameAttributeModules::AttributesEditor* getAttributesEditor() const;
 
     /// @brief get Netedit Attributes editor
     GNEInspectorFrame::NeteditAttributesEditor* getNeteditAttributesEditor() const;
@@ -429,7 +429,7 @@ private:
     GNEFrameModules::OverlappedInspection* myOverlappedInspection;
 
     /// @brief Attribute editor
-    GNEFrameAttributesModules::AttributesEditor* myAttributesEditor;
+    GNEFrameAttributeModules::AttributesEditor* myAttributesEditor;
 
     /// @brief Netedit Attributes editor
     NeteditAttributesEditor* myNeteditAttributesEditor;

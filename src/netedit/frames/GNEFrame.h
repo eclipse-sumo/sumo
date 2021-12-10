@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 #include "GNEFrameModules.h"
-#include "GNEFrameAttributesModules.h"
+#include "GNEFrameAttributeModules.h"
 
 // ===========================================================================
 // class definitions
@@ -34,7 +34,7 @@ class GNEFrame : public FXVerticalFrame {
 
     /// @brief friend class
     friend class GNEFrameModules;
-    friend class GNEFrameAttributesModules;
+    friend class GNEFrameAttributeModules;
 
 public:
     /**@brief Constructor

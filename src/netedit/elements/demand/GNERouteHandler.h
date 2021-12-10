@@ -20,7 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/frames/GNEFrameAttributesModules.h>
+#include <netedit/frames/GNEFrameAttributeModules.h>
 #include <netedit/frames/GNEFrameModules.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/vehicle/SUMORouteHandler.h>
@@ -132,11 +132,11 @@ public:
     void buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter::Stop& stopParameters);
 
     /// @brief build person plan
-    bool buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent, GNEFrameAttributesModules::AttributesCreator* personPlanAttributes,
+    bool buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent, GNEFrameAttributeModules::AttributesCreator* personPlanAttributes,
                          GNEFrameModules::PathCreator* pathCreator, const bool centerAfterCreation);
 
     /// @brief build container plan
-    bool buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerParent, GNEFrameAttributesModules::AttributesCreator* containerPlanAttributes, GNEFrameModules::PathCreator* pathCreator);
+    bool buildContainerPlan(SumoXMLTag tag, GNEDemandElement* containerParent, GNEFrameAttributeModules::AttributesCreator* containerPlanAttributes, GNEFrameModules::PathCreator* pathCreator);
 
     /// @brief check if there is already a vehicle (Vehicle, Trip, Flow or Flow) with the given ID
     static bool isVehicleIdDuplicated(GNENet* net, const std::string& id);

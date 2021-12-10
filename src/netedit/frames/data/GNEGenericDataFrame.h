@@ -270,7 +270,7 @@ protected:
     AttributeSelector* myAttributeSelector;
 
     /// @brief parameters editor creator
-    GNEFrameAttributesModules::ParametersEditorCreator* myParametersEditorCreator;
+    GNEFrameAttributeModules::ParametersEditorCreator* myParametersEditorCreator;
 
     /// @brief edge path creator (used for Walks, rides and trips)
     GNEFrameModules::PathCreator* myPathCreator;

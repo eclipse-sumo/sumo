@@ -1363,7 +1363,7 @@ GNETAZFrame::GNETAZFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* v
     myTAZParameters = new TAZParameters(this);
 
     /// @brief create  Netedit parameter
-    myNeteditAttributes = new GNEFrameAttributesModules::NeteditAttributes(this);
+    myNeteditAttributes = new GNEFrameAttributeModules::NeteditAttributes(this);
 
     // Create drawing controls modul
     myDrawingShape = new GNEFrameModules::DrawingShape(this);

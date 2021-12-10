@@ -113,7 +113,7 @@ private:
     GNEFrameModules::DemandElementSelector* myVTypeSelector;
 
     /// @brief internal vehicle attributes
-    GNEFrameAttributesModules::AttributesCreator* myVehicleAttributes;
+    GNEFrameAttributeModules::AttributesCreator* myVehicleAttributes;
 
     /// @brief edge path creator (used for trips and flows)
     GNEFrameModules::PathCreator* myPathCreator;

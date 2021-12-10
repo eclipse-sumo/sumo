@@ -180,7 +180,7 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
             myTextFieldParentAdditional->setText(toString(parents).c_str());
         }
         // disable all editable elements if we're in demand mode and inspected AC isn't a demand element
-        if (GNEFrameAttributesModules::isSupermodeValid(myInspectorFrameParent->getViewNet(), myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().front()) == false) {
+        if (GNEFrameAttributeModules::isSupermodeValid(myInspectorFrameParent->getViewNet(), myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().front()) == false) {
             myTextFieldParentAdditional->disable();
             myCheckBoxCloseShape->disable();
         }
@@ -405,7 +405,7 @@ GNEInspectorFrame::GEOAttributesEditor::showGEOAttributesEditor() {
             }
         }
         // disable all editable elements if we're in demand mode and inspected AC isn't a demand element
-        if (GNEFrameAttributesModules::isSupermodeValid(myInspectorFrameParent->getViewNet(), myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()) == false) {
+        if (GNEFrameAttributeModules::isSupermodeValid(myInspectorFrameParent->getViewNet(), myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()) == false) {
             myGEOAttributeTextField->disable();
             myUseGEOCheckButton->disable();
         }
@@ -663,7 +663,7 @@ GNEInspectorFrame::TemplateEditor::updateButtons() {
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrameAttributesModules::ParametersEditorInspector - methods
+// GNEFrameAttributeModules::ParametersEditorInspector - methods
 // ---------------------------------------------------------------------------
 
 GNEInspectorFrame::ParametersEditorInspector::ParametersEditorInspector(GNEInspectorFrame* inspectorFrameParent) :
@@ -724,7 +724,7 @@ GNEInspectorFrame::ParametersEditorInspector::refreshParametersEditorInspector()
         // reset color
         myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
         // disable myTextFieldParameters if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
-        if (GNEFrameAttributesModules::isSupermodeValid(myInspectorFrameParent->myViewNet, frontAC)) {
+        if (GNEFrameAttributeModules::isSupermodeValid(myInspectorFrameParent->myViewNet, frontAC)) {
             myTextFieldParameters->enable();
             myButtonEditParameters->enable();
         } else {
@@ -922,7 +922,7 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     myOverlappedInspection = new GNEFrameModules::OverlappedInspection(this);
 
     // Create Attributes Editor modul
-    myAttributesEditor = new GNEFrameAttributesModules::AttributesEditor(this);
+    myAttributesEditor = new GNEFrameAttributeModules::AttributesEditor(this);
 
     // Create GEO Parameters Editor modul
     myGEOAttributesEditor = new GEOAttributesEditor(this);
@@ -1214,7 +1214,7 @@ GNEInspectorFrame::clearInspectedAC() {
 }
 
 
-GNEFrameAttributesModules::AttributesEditor*
+GNEFrameAttributeModules::AttributesEditor*
 GNEInspectorFrame::getAttributesEditor() const {
     return myAttributesEditor;
 }

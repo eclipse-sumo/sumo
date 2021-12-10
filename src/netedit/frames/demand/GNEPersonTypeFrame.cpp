@@ -357,7 +357,7 @@ GNEPersonTypeFrame::GNEPersonTypeFrame(FXHorizontalFrame* horizontalFrameParent,
     myPersonTypeSelector = new PersonTypeSelector(this);
 
     // Create person type attributes editor
-    myPersonTypeAttributesEditor = new GNEFrameAttributesModules::AttributesEditor(this);
+    myPersonTypeAttributesEditor = new GNEFrameAttributeModules::AttributesEditor(this);
 
     // set "VTYPE_DEFAULT" as default person Type
     myPersonTypeSelector->setCurrentPersonType(myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PTYPE, DEFAULT_PEDTYPE_ID));

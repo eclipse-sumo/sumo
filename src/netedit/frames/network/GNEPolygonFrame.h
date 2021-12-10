@@ -140,10 +140,10 @@ private:
     GNEFrameModules::TagSelector* myShapeTagSelector;
 
     /// @brief shape internal attributes
-    GNEFrameAttributesModules::AttributesCreator* myShapeAttributes;
+    GNEFrameAttributeModules::AttributesCreator* myShapeAttributes;
 
     /// @brief Netedit parameter
-    GNEFrameAttributesModules::NeteditAttributes* myNeteditAttributes;
+    GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes;
 
     /// @brief Drawing shape
     GNEFrameModules::DrawingShape* myDrawingShape;
