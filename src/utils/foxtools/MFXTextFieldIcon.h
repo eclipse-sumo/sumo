@@ -26,7 +26,6 @@
 
 /// @brief FXTextFieldIcon (based on FXTextFieldIcon)
 class MFXTextFieldIcon : public FXTextField {
-    FXDECLARE(MFXTextFieldIcon)
 
 public:
     /// @brief constructor
@@ -38,13 +37,7 @@ public:
     /// @brief reset textField
     void resetTextField();
 
-    /// @brief paint
-    long onPaint(FXObject*, FXSelector, void* ptr);
-
 protected:
-    /// @brief FOX need this
-    MFXTextFieldIcon();
-
     /// @brief draw icon text range
     void drawIconTextRange(FXDCWindow& dc, const FXint iconWidth, FXint fm, FXint to);
 
