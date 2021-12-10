@@ -19,16 +19,32 @@ parameter 42
 parameter from XML 
 {16: 0}
 step 3
-{16: 1}
+{16: 0}
 step 4
-{16: 1}
+{16: 0}
 step 5
-{16: 1}
-step=6.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 4.0, -1.0, 'pType')]
-step=7.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 4.0, -1.0, 'pType')]
-step=8.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 4.0, -1.0, 'pType')]
-step=9.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 4.0, -1.0, 'pType')]
-step=10.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 4.0, -1.0, 'pType')]
-step=11.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 4.0, -1.0, 'pType')]
-step=12.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 4.0, -1.0, 'pType')]
-step=13.0 occ=100.0 num=1 detVehs=('p0',) vehData=[('p0', 0.215, 4.0, -1.0, 'pType')]
+{16: 0}
+step=6.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=7.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=8.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=9.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=10.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=11.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=12.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=13.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=14.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=15.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=16.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=17.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=18.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=19.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=20.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=21.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=22.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=23.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=24.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=25.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=26.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=27.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=28.0 occ=0.0 num=0 detVehs=() vehData=[]
+step=29.0 occ=0.0 num=0 detVehs=() vehData=[]
