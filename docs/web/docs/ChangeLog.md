@@ -59,13 +59,13 @@ title: ChangeLog
   - Persons are now included in saved simualtion state when setting option **--save-state.transportables**. Issue #2792
   - Added attribute speedRelative to edgeData output. Issue #9601
   - Option **--fcd-output.attributes** can now be used to active non-standard attributes (i.e. acceleration). Issue #9625
-  - Rerouting period can now be customized via `<param key="device.rerouting.period" value="X"/>` in vType or vehicle. Issue #9646
-  - Vehicles now collect occupancy information for all parkingareas along the way during parking search. Issue #9645 
+  - Rerouting period can now be customized via `<param key="device.rerouting.period" value="X"/>` in vType or vehicle. Issue #9646  
   - Detector processing now takes less time if their output file is set to 'NUL'. Issue #7772, #9620 
   - parking search:
     - Parking search now supports `<param key="parking.anywhere" value="X"/>` which permit using free parkingArea along the way after doing unsuccessful  parkingAreaReroute x times. Issue #9577 - 
     - Parking search now supports `<param key="parking.frustration" value="X"/>` which increases the preference for visibly free parkingAreas over time. Issue 9657
     - Parking search now supports `<param key="parking.knowledge" value="x"/>` to let driver "guess" the occupancy of invisible parkingAreas with probability x. Issue #9545 
+    - Vehicles now collect occupancy information for all parkingareas along the way during parking search. Issue #9645
 
 - sumo-gui
   - All text setting now have the checkbox "only for selected" to display text selectively. Issue #9574
@@ -79,7 +79,7 @@ title: ChangeLog
 - netconvert
   - OSM: import of public transport now supports share_taxi (PUJ) and minibus. Issue #9708
   - OSM: attribute turn:lanes is now used to determine lane-to-lane connections when option **--osm.turn-lanes** is set. Issue #1446
-  - Simplified edge names in OpenDRIVE import. (i.e. '42' instead of '42.0.00'). The option **--opendrive.position-ids8** is provided for backward compatibility.  #9463
+  - Simplified edge names in OpenDRIVE import. (i.e. '42' instead of '42.0.00'). The option **--opendrive.position-ids** is provided for backward compatibility.  #9463
   - Added option **--opendrive.lane-shapes** which uses custom lane shapes to account for spacing of discarded lanes. Issue #4913  
   - Added option **--railway.topology.extend-priority** which extrapolates directional priorities in an all-bidi network based on initial priorities. Issue #9683
   
