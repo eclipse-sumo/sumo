@@ -1,14 +1,13 @@
-***Starting server on port 34983 ***
+***Starting server on port 53367 ***
+Loading net-file from 'input_net.net.xml' ... done (3ms).
+Loading additional-files from 'input_additional2.add.xml' ... done (0ms).
+Loading done.
+Simulation version v1_11_0+0462-d030828f8b9 started with time: 0.00
+Simulation ended at time: 4.00
+Reason: TraCI issued load command.
 Loading net-file from 'input_net.net.xml' ... done (3ms).
 Loading additional-files from 'input_additional2.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_8_0+0890-4ac4626126 started with time: 0.00
-Simulation ended at time: 4.00
-Reason: TraCI issued load command.
-Loading configuration ... done.
-Loading net-file from 'input_net.net.xml' ... done (1ms).
-Loading additional-files from 'input_additional2.add.xml' ... done (1ms).
-Loading done.
-Simulation version v1_8_0+0890-4ac4626126 started with time: 0.00
+Simulation version v1_11_0+0462-d030828f8b9 started with time: 0.00
 Simulation ended at time: 361.00
 Reason: TraCI requested termination.

@@ -1,5 +1,5 @@
 Success.
-Loading configuration ... done.
+ Retrying in 1 seconds
 waiting time (max, mean, dev): False True False
 ('footmain0to1', 'footmainout') True True True
 ('footmain1to2', 'footmainout') True True True
@@ -18,7 +18,7 @@ waiting time (max, mean, dev): False True False
 ('footmainout', 'footmain6to7') True True True
 ('footmainout', 'footmain7to8') True True True
 CO2: True
-Loading configuration ... done.
+ Retrying in 1 seconds
 waiting time (max, mean, dev): False True False
 ('footmain0to1', 'footmainout') True True True
 ('footmain1to2', 'footmainout') True True True

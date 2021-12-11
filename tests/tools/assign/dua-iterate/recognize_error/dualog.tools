@@ -1,6 +1,5 @@
 -------------------------------------------------------------------------------
-['/home/kobo/dlr/sumo/bin/duarouter', '-c', '0/iteration_000_input_trips.duarcfg']
-Loading configuration ... done.
+['/home/micha/sumo/bin/duarouter', '-c', '0/iteration_000_input_trips.duarcfg']
 Error: no declaration found for element 'bogus_item'
  In file '0/../input_trips.trips.xml'
  At line/column 3/37.

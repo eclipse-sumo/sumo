@@ -1,12 +1,6 @@
-Loading configuration ... done.
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Dec 14 08:32:48 2016 by SUMO Version dev-SVN-r22288
-This data file and the accompanying materials
-are made available under the terms of the Eclipse Public License v2.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+<!-- generated on 2021-12-11 14:38:40 by Eclipse SUMO sumo Version v1_11_0+0462-d030828f8b9
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -53,4 +47,3 @@ SPDX-License-Identifier: EPL-2.0
             traveltime="39.05" CO_perVeh="751.712500" CO2_perVeh="82482.277778" HC_perVeh="5.195819" PMx_perVeh="0.487040" NOx_perVeh="27.150597" fuel_perVeh="35.456675" electricity_perVeh="0"/>
     </interval>
 </meandata>
-Loading configuration ... done.

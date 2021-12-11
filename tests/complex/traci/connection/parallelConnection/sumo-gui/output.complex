@@ -1,7 +1,4 @@
 ----------- SUMO ends first -----------
-Loading configuration ... done.
-Loading configuration ... done.
-Loading configuration ... done.
  Run 0
  Retrying in 1 seconds
  Run 1
@@ -13,9 +10,6 @@ Print ended at step 100.0
 Print ended at step 100.0
 Connection already closed.
 ----------- TraCI ends first -----------
-Loading configuration ... done.
-Loading configuration ... done.
-Loading configuration ... done.
  Run 0
  Retrying in 1 seconds
  Run 1
