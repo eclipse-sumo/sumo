@@ -114,7 +114,10 @@ OptionsIO::loadConfiguration() {
     if (!FileHelpers::isReadable(path)) {
         throw ProcessError("Could not access configuration '" + oc.getString("configuration-file") + "'.");
     }
-    PROGRESS_BEGIN_MESSAGE("Loading configuration");
+    const bool verbose = !oc.exists("verbose") || oc.getBool("verbose");
+    if (verbose) {
+        PROGRESS_BEGIN_MESSAGE("Loading configuration");
+    }
     oc.resetWritable();
     // build parser
     XERCES_CPP_NAMESPACE::SAXParser parser;
@@ -139,7 +142,9 @@ OptionsIO::loadConfiguration() {
         oc.resetWritable();
         OptionsParser::parse(myArgC, myArgV);
     }
-    PROGRESS_DONE_MESSAGE();
+    if (verbose) {
+        PROGRESS_DONE_MESSAGE();
+    }
 }
 
 
