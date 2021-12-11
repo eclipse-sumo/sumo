@@ -104,12 +104,23 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
         // advance as far as possible (assume vehicles will keep moving out of the way)
         ego.getLaneChangeModel().setParameter(toString(SUMO_ATTR_LCA_STRATEGIC_PARAM), "-1");
         ego.getLaneChangeModel().setParameter(toString(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD), "0");
+        try {
+            ego.getLaneChangeModel().setParameter(toString(SUMO_ATTR_MINGAP_LAT), "0");
+        } catch (InvalidArgument& e) {
+            // not supported by the current laneChangeModel
+        }
     } else {
         // restore defaults
         ego.getLaneChangeModel().setParameter(toString(SUMO_ATTR_LCA_STRATEGIC_PARAM),
                                               ego.getVehicleType().getParameter().getLCParamString(SUMO_ATTR_LCA_STRATEGIC_PARAM, "1"));
         ego.getLaneChangeModel().setParameter(toString(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD),
                                               ego.getVehicleType().getParameter().getLCParamString(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD, "5"));
+        try {
+            ego.getLaneChangeModel().setParameter(toString(SUMO_ATTR_MINGAP_LAT),
+                    toString(ego.getVehicleType().getMinGapLat()));
+        } catch (InvalidArgument& e) {
+            // not supported by the current laneChangeModel
+        }
     }
     // build a rescue lane for all vehicles on the route of the emergency vehicle within the range of the siren
     MSVehicleType* vt = MSNet::getInstance()->getVehicleControl().getVType(veh.getVehicleType().getID());
