@@ -95,7 +95,7 @@ title: ChangeLog
   - Added tool [generateParkingAreas.py](Tools/Misc.md#generateparkingareaspy) to generate parkingAreas for some or all edges of a network. Issue #9659
   - plot_net_dump.py now supports option **--internal** for plotting internal edges. Issue #9729
   - randomTrips.py now supports option **--random-depart** to randomize departure times. Issue #9735
-  - tripinfoByType.py: now supports option **--internval** to aggregated data by depart time (or by arrival time with option **--by-arrivals**) Issue #9746
+  - tripinfoByType.py: now supports option **--interval** to aggregated data by depart time (or by arrival time with option **--by-arrivals**) Issue #9746
 
 - Miscellaneous
   - Speed up Visual Studio build with sccache (only works with Ninja not with Visual Studio projects). Issue #9290
