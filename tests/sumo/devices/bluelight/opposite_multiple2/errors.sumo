@@ -2,21 +2,7 @@ Warning: Teleporting vehicle '0'; waited too long (yield), lane='edge_5_1', time
 Warning: Vehicle '0' ends teleporting on edge 'edge_0', time 339.80.
 Warning: Teleporting vehicle '1'; waited too long (wrong lane), lane='edge_5_0', time=342.30.
 Warning: Vehicle '1' ends teleporting on edge 'edge_0', time 342.30.
-Warning: Teleporting vehicle 'case_1_engine.6'; waited too long (wrong lane), lane='edge_4_1', time=383.60.
-Warning: Vehicle 'case_1_engine.6' ends teleporting on edge 'edge_0', time 383.60.
-Warning: Teleporting vehicle 'case_1_engine.5'; waited too long (wrong lane), lane='edge_4_1', time=383.70.
-Warning: Teleporting vehicle 'case_1_engine.4'; waited too long (wrong lane), lane='edge_4_1', time=383.80.
-Warning: Teleporting vehicle 'case_1_engine.3'; waited too long (wrong lane), lane='edge_4_1', time=383.90.
-Warning: Teleporting vehicle 'case_1_engine.2'; waited too long (wrong lane), lane='edge_4_1', time=384.00.
-Warning: Vehicle 'case_1_engine.2' ends teleporting on edge 'edge_0', time 409.00.
-Warning: Vehicle 'case_1_engine.3' teleports beyond arrival edge 'edge_0', time 418.30.
-Warning: Vehicle 'case_1_engine.4' teleports beyond arrival edge 'edge_0', time 418.40.
-Warning: Vehicle 'case_1_engine.5' teleports beyond arrival edge 'edge_0', time 418.50.
-Warning: Teleporting vehicle '2'; waited too long (yield), lane='edge_5_0', time=645.30.
-Warning: Vehicle '2' ends teleporting on edge 'edge_3', time 645.30.
-Warning: Teleporting vehicle 'case_1_engine.1'; waited too long (jam), lane=':junc4_23_0', time=648.50.
-Warning: Vehicle 'case_1_engine.1' ends teleporting on edge 'edge_0', time 648.50.
-Warning: Teleporting vehicle 'case_1_engine.7'; waited too long (jam), lane=':junc4_23_0', time=648.60.
-Warning: Vehicle 'case_1_engine.7' ends teleporting on edge 'edge_0', time 648.60.
-Warning: Teleporting vehicle '3'; waited too long (yield), lane='edge_5_0', time=948.50.
-Warning: Vehicle '3' ends teleporting on edge 'edge_3', time 948.50.
+Warning: Teleporting vehicle '2'; waited too long (yield), lane='edge_5_0', time=645.10.
+Warning: Vehicle '2' ends teleporting on edge 'edge_3', time 645.10.
+Warning: Teleporting vehicle '3'; waited too long (yield), lane='edge_5_0', time=948.30.
+Warning: Vehicle '3' ends teleporting on edge 'edge_3', time 948.30.
