@@ -25,11 +25,12 @@ Routes are normally given to the simulation modules using the option **--route-f
 (or **-r** {{DT_Routes}}\[,{{DT_Routes}}]\*). As you can see, you can use more than one route file within a
 single simulation run.
 
-The routes MUST be sorted. The reason is that we want to simulate large
-road networks with up to millions of routes. Using a plain PC this is
-only possible if you do not keep all routes in memory. All files given
-as parameter to **--route-files** {{DT_Routes}}\[,{{DT_Routes}}]\* are read step-wise. Starting at the begin time step,
-new routes are loaded every n time steps for the next n time steps. n
+!!! caution
+    The vehicular elements (trips, vehicles, flows) must be sorted by depart / begin time.
+   
+The reason is that route files are read incrementally to conserve memory and enable large simulations.
+All files given as parameter to **--route-files** {{DT_Routes}}\[,{{DT_Routes}}]\* are read step-wise.
+Starting at the begin time step, new routes are loaded every n time steps for the next n time steps. n
 may be controlled using the **--route-steps** {{DT_INT}} where <=0 forces
 [sumo](../sumo.md)/[sumo-gui](../sumo-gui.md) to load the file
 completely. Fetching routes for the next steps only implies that the
@@ -38,6 +39,9 @@ routes that use them.
 
 You may also give routes including vehicle definitions as {{AdditionalFile}} to
 [sumo](../sumo.md)/[sumo-gui](../sumo-gui.md).
+
+!!! caution
+    vTypes and named routes must preceed vehicle definitions which reference those types and routes.
 
 ## Additional Files
 
@@ -60,10 +64,8 @@ One ore more {{AdditionalFile}}(s) are used to load additional entities:
   [routes](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicles_and_routes)
 
 All these additional structures / definitions are given to the
-simulation using the **--additional-files** {{DT_FILE}}\[,{{DT_FILE}}]\*. The list of given files is processed
-incrementally, this means each file is read completely from top to
-bottom and the list is processed starting with the first file of the
-list.
+simulation using the **--additional-files** {{DT_FILE}}\[,{{DT_FILE}}]\*. 
+Each file is read completely into memory and the list of files is processed from left to right.
 
 ## Parsing Order
 
