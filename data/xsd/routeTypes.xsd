@@ -552,7 +552,7 @@
     <xsd:complexType name="flowCalibratorType">
         <xsd:complexContent>
             <xsd:extension base="flowWithoutIDType">
-                <xsd:attribute name="speed" type="nonNegativeFloatType"/>
+                <xsd:attribute name="speed" type="nonNegativeFloatTypeWithErrorValue"/>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
