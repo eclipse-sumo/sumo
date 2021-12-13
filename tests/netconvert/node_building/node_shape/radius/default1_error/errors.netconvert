@@ -1,2 +1,1 @@
-Error: option 'default.junctions.radius' cannot be smaller than option 'junctions.small-radius'
-Quitting (on error).
+Warning: option 'default.junctions.radius' is smaller than option 'junctions.small-radius'
