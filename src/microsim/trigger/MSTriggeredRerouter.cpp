@@ -997,7 +997,8 @@ MSTriggeredRerouter::addParkValues(SUMOVehicle& veh, double brakeGap, bool newDe
     // Compute the route from the current edge to the parking area edge
     ConstMSEdgeVector edgesToPark;
     const double parkPos = pa->getLastFreePos(veh);
-    router.compute(veh.getEdge(), veh.getPositionOnLane(), parkEdge, parkPos, &veh, MSNet::getInstance()->getCurrentTimeStep(), edgesToPark, true);
+    const MSEdge* rerouteOrigin = veh.getRerouteOrigin();
+    router.compute(rerouteOrigin, veh.getPositionOnLane(), parkEdge, parkPos, &veh, MSNet::getInstance()->getCurrentTimeStep(), edgesToPark, true);
 
 #ifdef DEBUG_PARKING
     if (DEBUGCOND) {
@@ -1007,6 +1008,9 @@ MSTriggeredRerouter::addParkValues(SUMOVehicle& veh, double brakeGap, bool newDe
 
     if (edgesToPark.size() > 0) {
         // Compute the route from the parking area edge to the end of the route
+        if (rerouteOrigin != veh.getEdge()) {
+            edgesToPark.insert(edgesToPark.begin(), veh.getEdge());
+        }
         ConstMSEdgeVector edgesFromPark;
         parkApproaches[pa] = edgesToPark;
 
