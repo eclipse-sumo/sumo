@@ -15,7 +15,9 @@ title: ChangeLog
   - Fixed collision during opposite direction driving near junction. Issue #9721
   - Fixed invalid error on mismatch between ride destination stop and vehicle destination stop. Issue #9712
   - Parking search no longer stalls when all current alternatives are known to be full. Issue #9678
-
+  - Fixed crash when retrieving detected persons with an active vTypes filter. Issue #9772
+  - Fixed various issues with emergency vehicle behavior, Issue #9310, #9768
+  
 - netedit
   - Fixed bug preventing inspection of tazRelelations. Issue #9728
   - splitting and merging edges with custom length now preserves total length. Issue #9617
@@ -25,10 +27,13 @@ title: ChangeLog
   - Fixed rendering of turn direction arrows for narrow lanes. Issue #9738
   - In create-edge mode: shift-click to split edge now takes into account active grid. Issue #9624
   - Fixed crash on undo after resetting connections. Issue #9673
+  - Stop attribute "triggered" now supports symbolic string values. Issue #9563
 
 - sumo-gui
   - Fixed crash when using guiShape "truck/trailer" or "truck/semitrailer" for short vehicles. #9682 (regression in 1.11.0)
   - Fixed inconsistent behavior when storing gui settings in registry. Issue #9693
+  - Fixed meso vehicle tracking focus. Issue #9711
+  - Exaggerating stopping place size only increases symbol size. Issue #9370
 
 - netconvert
   - Fixed invalid LaneLink index in OpenDRIVE export. Issue #9637
@@ -45,9 +50,12 @@ title: ChangeLog
 
 - traci
   - turn subscription filter no longer crashes when crossings are present in foe lanes. Issue #9630
+  - Fixed crash when calling vehicle.rerouteParkingArea for newly added vehicle. Issue #9755
+  - Fixed invalid warnings when adding turn/lanes filter with context domain person. Issue #9760
 
 - tools
   - generateParkingAreaRerouters.py: fixed distance bias against long parkingAreas. Issue #9644
+  - routeSampler.py: warning message instead of crash when trying to load an empty interval. Issue #9754
 
 - Miscellaneous
   - Specifiying NUL output on the command line finally works. Issue #3400
@@ -57,6 +65,7 @@ title: ChangeLog
 
 - simulation
   - Persons are now included in saved simualtion state when setting option **--save-state.transportables**. Issue #2792
+  - Actuated traffic lights now support attributes 'earliestEnd', 'latestEnd' to configure coordination. Issue #9748
   - Added attribute speedRelative to edgeData output. Issue #9601
   - Option **--fcd-output.attributes** can now be used to active non-standard attributes (i.e. acceleration). Issue #9625
   - Rerouting period can now be customized via `<param key="device.rerouting.period" value="X"/>` in vType or vehicle. Issue #9646  
@@ -75,14 +84,19 @@ title: ChangeLog
 - netedit
   - Add images for the guiShapes in the vType attributes editor. Issue #9457
   - All output elements now write 'id' as their first attribute. Issue #9664
+  - All elements of a side frame can now be collapsed/expanded. Issue #6034
 
 - netconvert
   - OSM: import of public transport now supports share_taxi (PUJ) and minibus. Issue #9708
   - OSM: attribute turn:lanes is now used to determine lane-to-lane connections when option **--osm.turn-lanes** is set. Issue #1446
-  - Simplified edge names in OpenDRIVE import. (i.e. '42' instead of '42.0.00'). The option **--opendrive.position-ids** is provided for backward compatibility.  #9463
+  - Simplified edge and junction names in OpenDRIVE import. (i.e. '42' instead of '42.0.00'). The option **--opendrive.position-ids** is provided for backward compatibility.  #9463
   - Added option **--opendrive.lane-shapes** which uses custom lane shapes to account for spacing of discarded lanes. Issue #4913  
   - Added option **--railway.topology.extend-priority** which extrapolates directional priorities in an all-bidi network based on initial priorities. Issue #9683
   
+- meso
+  - Fixed invalid stop arrival time in meso. Issue #9713  
+  - Fixed invalid ride depart time and route length when starting directly after stop. Issue #9560
+
 - duarouter
   - can now write route costs in regular route output. Issue #9667
 
