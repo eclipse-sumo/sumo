@@ -231,13 +231,13 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev, const bool close, const boo
     if ((parametersSet & STOP_PARKING_SET) != 0) {
         dev.writeAttr(SUMO_ATTR_PARKING, parking);
     }
-    if ((parametersSet & STOP_EXPECTED_SET) != 0) {
+    if ((parametersSet & STOP_EXPECTED_SET) != 0 && awaitedPersons.size() > 0) {
         dev.writeAttr(SUMO_ATTR_EXPECTED, awaitedPersons);
     }
-    if ((parametersSet & STOP_PERMITTED_SET) != 0) {
+    if ((parametersSet & STOP_PERMITTED_SET) != 0 && permitted.size() > 0) {
         dev.writeAttr(SUMO_ATTR_PERMITTED, permitted);
     }
-    if ((parametersSet & STOP_EXPECTED_CONTAINERS_SET) != 0) {
+    if ((parametersSet & STOP_EXPECTED_CONTAINERS_SET) != 0 && awaitedContainers.size() > 0) {
         dev.writeAttr(SUMO_ATTR_EXPECTED_CONTAINERS, awaitedContainers);
     }
     if ((parametersSet & STOP_TRIP_ID_SET) != 0) {
