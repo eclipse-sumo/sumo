@@ -80,6 +80,11 @@ public:
         }
     }
 
+    virtual void prohibit(const std::vector<E*>& toProhibit) {
+        if (toProhibit.size() > 0) {
+            WRITE_WARNINGF("Routing algorith CHWrapper does not support dynamic closing of edges%", "");
+        }
+    }
 
     virtual SUMOAbstractRouter<E, V>* clone() {
         CHRouterWrapper<E, V>* clone = new CHRouterWrapper<E, V>(myEdges, myIgnoreErrors, this->myOperation, myBegin, myEnd, myWeightPeriod, this->myHavePermissions, myMaxNumInstances);
