@@ -6,3 +6,6 @@ vehicle_closedEnroute
 
 # use routing algorithm CH
 trip_closedAlready_CH
+
+# use routing algorithm CHWrapper
+trip_closeEnroute_CHWrapper
