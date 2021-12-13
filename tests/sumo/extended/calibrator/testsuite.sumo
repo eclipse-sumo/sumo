@@ -17,6 +17,9 @@ simple_remove
 # Tests whether calibrators can reduce vehicle speed to 0
 speed_0
 
+# Tests whether undefined speed can be set explicitly
+speed_-1
+
 # test whether arrivals are added to current flow
 flow_at_destination_edge
 
