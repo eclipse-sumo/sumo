@@ -61,3 +61,6 @@ roadside_slope
 
 # reroute full parking (see #8338)
 reroute_fullparking
+
+# vehicle moves passed rerouter edge in a single step (#9780)
+reroute_on_junction
