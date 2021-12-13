@@ -133,6 +133,7 @@ def readConfigFile(options):
                         distAttr = None
 
                     # get optional limits
+                    limits = None
                     if len(row) == 3:
                         limitValue = row[2].strip()
                         items = re.findall(
@@ -141,8 +142,6 @@ def readConfigFile(options):
                             lowerLimit = float(items[0][0])
                             upperLimit = float(items[0][2])
                             limits = (lowerLimit, upperLimit)
-                    else:
-                        limits = None
 
                     result.append({
                         "name": attName,
