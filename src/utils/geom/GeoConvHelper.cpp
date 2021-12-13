@@ -25,6 +25,7 @@
 #include <cmath>
 #include <cassert>
 #include <climits>
+#include <regex>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/geom/GeomHelper.h>
@@ -76,11 +77,11 @@ GeoConvHelper::GeoConvHelper(const std::string& proj, const Position& offset,
 #ifdef PROJ_API_FILE
     } else {
         myProjectionMethod = PROJ;
-#ifdef PROJ_VERSION_MAJOR
-        myProjection = proj_create(PJ_DEFAULT_CTX, proj.c_str());
-#else
-        myProjection = pj_init_plus(proj.c_str());
-#endif
+        initProj(proj);
+        if (myProjection == nullptr) {
+            // avoid error about missing datum shift file
+            initProj(std::regex_replace(proj, std::regex("\\+geoidgrids[^ ]*"), std::string("")));
+        }
         if (myProjection == nullptr) {
             // !!! check pj_errno
             throw ProcessError("Could not build projection!");
@@ -88,6 +89,18 @@ GeoConvHelper::GeoConvHelper(const std::string& proj, const Position& offset,
 #endif
     }
 }
+
+
+#ifdef PROJ_API_FILE
+void
+GeoConvHelper::initProj(const std::string& proj) {
+#ifdef PROJ_VERSION_MAJOR
+        myProjection = proj_create(PJ_DEFAULT_CTX, proj.c_str());
+#else
+        myProjection = pj_init_plus(proj.c_str());
+#endif
+}
+#endif
 
 
 GeoConvHelper::~GeoConvHelper() {
