@@ -193,7 +193,7 @@ MSDevice_Transportable::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/,
             if (transportable->getDestination() != veh.getEdge()) {
                 WRITE_WARNING((myAmContainer ? "Teleporting container '" : "Teleporting person '") + transportable->getID() +
                               "' from vehicle destination edge '" + veh.getEdge()->getID() +
-                              "' to intended destination edge '" + transportable->getDestination()->getID() + "'");
+                              "' to intended destination edge '" + transportable->getDestination()->getID() + "' time=" + time2string(SIMSTEP));
             }
             if (!transportable->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep(), true)) {
                 if (myAmContainer) {
