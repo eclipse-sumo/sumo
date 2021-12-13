@@ -991,14 +991,19 @@ NBNodeShapeComputer::getDefaultRadius(const OptionsCont& oc) {
         maxTurnAngle = maxLeftAngle;
         extraWidth = extraWidthLeft;
     }
+    const double minRadius = maxTurnAngle >= DEG2RAD(30) ? MIN2(smallRadius, radius) : smallRadius;
     if (laneDelta == 0 || maxTurnAngle >= DEG2RAD(30) || myNode.isConstantWidthTransition()) {
         // subtract radius gained from extra lanes
         // do not increase radius for turns that are sharper than a right angle
-        result = MAX2(smallRadius, radius * tan(0.5 * MIN2(0.5 * M_PI, maxTurnAngle)) - extraWidth);
+        result = radius * tan(0.5 * MIN2(0.5 * M_PI, maxTurnAngle)) - extraWidth;
     }
+    result = MAX2(minRadius, result);
 #ifdef DEBUG_RADIUS
     if (DEBUGCOND) {
-        std::cout << "getDefaultRadius n=" << myNode.getID() << " laneDelta=" << laneDelta
+        std::cout << "getDefaultRadius n=" << myNode.getID()
+                  << " r=" << radius << " sr=" << smallRadius
+                  << " mr=" << minRadius
+                  << " laneDelta=" << laneDelta
                   << " rightA=" << RAD2DEG(maxRightAngle)
                   << " leftA=" << RAD2DEG(maxLeftAngle)
                   << " maxA=" << RAD2DEG(maxTurnAngle)
