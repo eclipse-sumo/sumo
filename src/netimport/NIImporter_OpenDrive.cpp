@@ -459,7 +459,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 sE = e->length / cF;
             } else {
                 double nextS = (j + 1)->s;
-                const std::string nodeID = e->id + "." + (positionIDs ? toString(nextS) : toString(sectionIndex + 1));
+                const std::string nodeID = e->id + (positionIDs ? "." + toString(nextS) : "#" + toString(sectionIndex + 1));
                 sTo = new NBNode(nodeID, geomWithOffset.positionAtOffset(nextS));
                 if (!nb.getNodeCont().insert(sTo)) {
                     throw ProcessError("Could not add node '" + sTo->getID() + "'.");
