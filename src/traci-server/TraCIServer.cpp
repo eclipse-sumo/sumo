@@ -1299,12 +1299,13 @@ TraCIServer::addObjectVariableSubscription(const int commandId, const bool hasCo
 bool
 TraCIServer::addSubscriptionFilter() {
     bool success  = true;
-    if (myLastContextSubscription == nullptr) {
-        WRITE_WARNING("addSubscriptionFilter: No previous vehicle context subscription exists to apply the context filter.");
-        return true;
-    }
     // Read filter type
     int filterType = myInputStorage.readUnsignedByte();
+
+    if (myLastContextSubscription == nullptr) {
+        writeStatusCmd(filterType, libsumo::RTYPE_ERR, "No previous vehicle context subscription exists to apply filter type " + toHex(filterType, 2));
+        return false;
+    }
 
     // dispatch according to filter type
     switch (filterType) {
