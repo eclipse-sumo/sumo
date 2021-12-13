@@ -82,29 +82,7 @@ NBNodeShapeComputer::compute() {
             return computeNodeShapeSmall();
         }
     }
-    // check whether the node is a just something like a geometry
-    //  node (one in and one out or two in and two out, pair-wise continuations)
-    // also in this case "computeNodeShapeSmall" is used
     const bool geometryLike = myNode.isSimpleContinuation(true, true);
-    if (geometryLike && myNode.getCrossings().empty()) {
-        // additionally, the angle between the edges must not be larger than 45 degrees
-        //  (otherwise, we will try to compute the shape in a different way)
-        const EdgeVector& outgoing = myNode.getOutgoingEdges();
-        double maxAngle = 0.;
-        for (const NBEdge* const inEdge : myNode.getIncomingEdges()) {
-            const double ia = inEdge->getAngleAtNode(&myNode);
-            for (const NBEdge* const outEdge : outgoing) {
-                const double ad = GeomHelper::getMinAngleDiff(ia, outEdge->getAngleAtNode(&myNode));
-                if (22.5 >= ad) {
-                    maxAngle = MAX2(ad, maxAngle);
-                }
-            }
-        }
-        if (maxAngle > 22.5) {
-            return computeNodeShapeSmall();
-        }
-    }
-
     const PositionVector& ret = computeNodeShapeDefault(geometryLike);
     // fail fall-back: use "computeNodeShapeSmall"
     if (ret.size() < 3) {
