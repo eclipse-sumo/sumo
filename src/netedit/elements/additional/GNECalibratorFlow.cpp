@@ -331,7 +331,8 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
                     return true;
                 }
             } else if (canParse<double>(value)) {
-                return (parse<double>(value) >= 0);
+                const double dVal = parse<double>(value);
+                return (dVal >= 0 || dVal == -1);
             } else {
                 return false;
             }
@@ -344,7 +345,8 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
                     return true;
                 }
             } else if (canParse<double>(value)) {
-                return (parse<double>(value) >= 0);
+                const double dVal = parse<double>(value);
+                return (dVal >= 0 || dVal == -1);
             } else {
                 return false;
             }
