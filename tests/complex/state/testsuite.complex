@@ -75,3 +75,9 @@ earlier_begin
 
 # when loading state, replace the vType attributes with new values
 replace_vtype
+
+# teleporting vehicles
+teleporting
+
+# teleporting vehicles
+teleporting_highbegin
