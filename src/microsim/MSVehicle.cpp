@@ -2505,16 +2505,12 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         }
 #endif
 
-        // TODO: Consider option on the CFModel side to allow red/yellow light violation
-
         if (yellowOrRed && canBrakeBeforeStopLine && !ignoreRed(*link, canBrakeBeforeStopLine) && seen >= mustSeeBeforeReversal) {
             if (lane->isInternal()) {
                 checkLinkLeaderCurrentAndParallel(*link, lane, seen, lastLink, v, vLinkPass, vLinkWait, setRequest);
             }
-            SUMOTime arrivalTime = t + TIME2STEPS(seen / MAX2(v, NUMERICAL_EPS));
-            if (isStopped()) {
-                arrivalTime += MAX2((SUMOTime)0, myStops.front().duration);
-            }
+            // arrivalSpeed / arrivalTime when braking for red light is only relevent for rail signal switching
+            const SUMOTime arrivalTime = getArrivalTime(t, seen, v, vLinkPass);
             // the vehicle is able to brake in front of a yellow/red traffic light
             lfLinks.push_back(DriveProcessItem(*link, v, vLinkWait, false, arrivalTime, vLinkWait, arrivalTime + TIME2STEPS(30), 0, seen));
             //lfLinks.push_back(DriveProcessItem(0, vLinkWait, vLinkWait, false, 0, 0, stopDist));
