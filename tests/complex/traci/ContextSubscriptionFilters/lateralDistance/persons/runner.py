@@ -34,7 +34,9 @@ else:
     sumoCall = [sumolib.checkBinary('sumo-gui')]  # , '-S', '-Q']
 
 
-def runSingle(traciEndTime, range, lateralDistance, downstreamDistance, upstreamDistance, testWithIncompatibleFilter, egoObjectType):
+def runSingle(traciEndTime, range, lateralDistance,
+              downstreamDistance, upstreamDistance,
+              testWithIncompatibleFilter, egoObjectType):
     egoID = ""
     if egoObjectType == "vehicle":
         egoID = "ego"
@@ -59,11 +61,11 @@ def runSingle(traciEndTime, range, lateralDistance, downstreamDistance, upstream
             if egoObjectType == "vehicle":
                 print("Subscribing to context of vehicle '%s' (range=%s)" % (egoID, range))
                 traci.vehicle.subscribeContext(egoID, traci.constants.CMD_GET_PERSON_VARIABLE,
-                                            range, [traci.constants.VAR_POSITION])
+                                               range, [traci.constants.VAR_POSITION])
             elif egoObjectType == "person":
                 print("Subscribing to context of person '%s' (range=%s)" % (egoID, range))
                 traci.person.subscribeContext(egoID, traci.constants.CMD_GET_PERSON_VARIABLE,
-                                            range, [traci.constants.VAR_POSITION])
+                                              range, [traci.constants.VAR_POSITION])
             print("Adding lateral distance subscription filter ... " +
                   "(lateralDistance=%s, downstreamDistance=%s, upstreamDistance=%s)" %
                   (lateralDistance, downstreamDistance, upstreamDistance))
@@ -71,7 +73,8 @@ def runSingle(traciEndTime, range, lateralDistance, downstreamDistance, upstream
             try:
                 if testWithIncompatibleFilter:
                     traci.vehicle.addSubscriptionFilterFieldOfVision(90.0)
-                traci.vehicle.addSubscriptionFilterLateralDistance(lateralDistance, downstreamDistance, upstreamDistance)
+                traci.vehicle.addSubscriptionFilterLateralDistance(lateralDistance,
+                        downstreamDistance, upstreamDistance)
             except traci.exceptions.TraCIException as e:
                 print("TraCIException:", e)
                 traci.close()
@@ -96,4 +99,5 @@ if len(sys.argv) != 8:
           "<testWithIncompatibleFilter (0/1)> <egoObjectType>")
     sys.exit("")
 sys.stdout.flush()
-runSingle(1, float(sys.argv[2]), float(sys.argv[3]), float(sys.argv[4]), float(sys.argv[5]), bool(int(sys.argv[6])), sys.argv[7])
+runSingle(1, float(sys.argv[2]), float(sys.argv[3]), float(sys.argv[4]),
+          float(sys.argv[5]), bool(int(sys.argv[6])), sys.argv[7])
