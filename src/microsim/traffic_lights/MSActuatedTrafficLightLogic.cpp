@@ -83,7 +83,15 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
     for (const MSPhaseDefinition* phase : myPhases) {
         myCycleTime += phase->duration;
     }
+
+    SUMOTime earliest = SIMSTEP + getEarliest();
+    if (earliest > getNextSwitchTime()) {
+        mySwitchCommand->deschedule(this);
+        mySwitchCommand = new SwitchCommand(tlcontrol, this, earliest);
+        MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(mySwitchCommand, earliest);
+    }
 }
+
 
 MSActuatedTrafficLightLogic::~MSActuatedTrafficLightLogic() { }
 
