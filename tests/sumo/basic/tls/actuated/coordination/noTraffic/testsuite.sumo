@@ -1,6 +1,7 @@
 # uncooordinated
 default
 earliestEnd
+earliestEnd2
 earliestEnd_coordinated
 
 # should take no effect without traffic
