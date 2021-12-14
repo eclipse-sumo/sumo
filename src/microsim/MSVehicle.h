@@ -2057,6 +2057,9 @@ protected:
      */
     bool hasArrivedInternal(bool oppositeTransformed = true) const;
 
+
+    SUMOTime getArrivalTime(SUMOTime t, double seen, double v, double arrivalSpeed) const;
+
 private:
     /// @brief The per vehicle variables of the car following model
     MSCFModel::VehicleVariables* myCFVariables;
