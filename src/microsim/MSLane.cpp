@@ -310,7 +310,8 @@ MSLane::resetPartialOccupation(MSVehicle* v) {
             return;
         }
     }
-    assert(false || MSGlobals::gClearState);
+    // bluelight eqipped vehicle can teleport onto the intersection without using a connection
+    assert(false || MSGlobals::gClearState || v->getLaneChangeModel().hasBlueLight());
 }
 
 
