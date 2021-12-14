@@ -12,12 +12,9 @@ on:
     paths-ignore:  # but ignore everything in the docs subfolder 
       - 'docs/**'
   schedule:
-    - cron:  '5 1 * * *'
+    - cron:  '25 1 * * *'
 
 jobs:
-  ###########################
-  # BUILDING ON LINUX
-  ###########################
   build:
     runs-on: ubuntu-latest
     strategy:
@@ -118,60 +115,3 @@ jobs:
       with:
         name: sumo-fmi2-linux64
         path: sumo/bin/sumo-fmi2-linux64.fmu 
-
-  ###################
-  # BUILDING wheels
-  ###################
-  build-manylinux-wheels:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Cloning SUMO
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-
-    - name: Fetching SUMO tags
-      run: |
-        git fetch --tags --force
-
-    - name: Building Python wheels
-      uses: docker://quay.io/pypa/manylinux2014_x86_64
-      with:
-        entrypoint: tools/build/build_wheels.sh
-
-    - name: Uploading artifacts (Python wheels)
-      uses: actions/upload-artifact@v1
-      with:
-        name: manylinux-wheels
-        path: wheelhouse
-
-  ###################
-  # PUBLISHING wheels
-  ###################
-  publish-wheels:
-    if: github.repository == 'eclipse/sumo' && (github.event_name == 'schedule' || startsWith(github.ref, 'refs/tags'))
-    needs: [build-manylinux-wheels]
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/download-artifact@v2
-
-    - name: Moving artifacts
-      run: |
-        ls -lR
-        mkdir dist
-        mv ./*-wheels/* dist
-
-    - name: Publish to Test PyPI
-      uses: pypa/gh-action-pypi-publish@master
-      with:
-        password: ${{ secrets.TEST_PYPI_TOKEN }}
-        repository_url: https://test.pypi.org/legacy/
-        skip_existing: true
-
-    - name: Publish to PyPI
-      if: startsWith(github.ref, 'refs/tags')
-      uses: pypa/gh-action-pypi-publish@master
-      with:
-        password: ${{ secrets.PYPI_TOKEN }}
