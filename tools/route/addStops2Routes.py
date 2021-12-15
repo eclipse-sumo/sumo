@@ -47,6 +47,8 @@ def get_options(args=None):
                          help="Define end time of vehicle stop")
     optParser.add_option("-p", "--parking", dest="parking", action="store_true",
                          default=False, help="where is the vehicle parking")
+    optParser.add_option("--relpos", type=float,
+                         help="relative stopping positiong along the edge [0,1]")
     optParser.add_option("--parking-areas", dest="parkingareas", default=False,
                          help="load parkingarea definitions and stop at parkingarea on the arrival edge if possible")
     optParser.add_option("--start-at-stop", dest="startAtStop", action="store_true",
@@ -94,6 +96,10 @@ def get_options(args=None):
     if not options.duration and not options.until:
         optParser.print_help()
         sys.exit("stop duration or until missing")
+
+    if options.relpos is not None:
+        options.relpos = max(0, min(1, options.relpos))
+
     return options
 
 
@@ -158,6 +164,9 @@ def loadRouteFiles(options, routefile, edge2parking, outf):
                 for lane in lanes:
                     if lane.allows(vtypes[obj.type]):
                         stopAttrs["lane"] = lane.getID()
+
+                        if options.relpos:
+                            stopAttrs["endPos"] = lane.getLength() * options.relpos
                         skip = False
                         break
                 if skip:
