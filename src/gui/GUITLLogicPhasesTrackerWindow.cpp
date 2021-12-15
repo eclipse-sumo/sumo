@@ -173,7 +173,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     GUITLLogicPhasesTrackerPanel(glcanvasFrame, *myApplication, *this);
     setTitle((logic.getID() + " - " + logic.getProgramID() + " - tracker").c_str());
     setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TLSTRACKER));
-    setHeight((FXint)(myTLLogic->getLinks().size() * 20 + 30 + 8 + 30));
+    setHeight((FXint)(myTLLogic->getLinks().size() * 20 + 30 + 8 + 30 + 60));
     setWidth(700);
 }
 
@@ -199,7 +199,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     GUITLLogicPhasesTrackerPanel(glcanvasFrame, *myApplication, *this);
     setTitle((logic.getID() + " - " + logic.getProgramID() + " - phases").c_str());
     setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TLSTRACKER));
-    setHeight((FXint)(myTLLogic->getLinks().size() * 20 + 30 + 8));
+    setHeight((FXint)(myTLLogic->getLinks().size() * 20 + 30 + 8 + 60));
     setWidth(700);
 }
 
@@ -293,8 +293,8 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     const double panelHeight = (double) caller.getHeight();
     const double panelWidth = (double) caller.getWidth();
     const double barWidth = MAX2(1.0, panelWidth - 31);
-    const double fontHeight = 0.08 * 300. / panelHeight;
-    const double fontWidth = 0.08 * 300. / panelWidth;
+    const double fontHeight = 0.06 * 300. / panelHeight;
+    const double fontWidth = 0.06 * 300. / panelWidth;
     const double h9 = 9. / panelHeight;
     const double h10 = 10. / panelHeight;
     const double h11 = 11. / panelHeight;
@@ -399,9 +399,10 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
 
     glColor3d(1, 1, 1);
     if (myPhases.size() != 0) {
+        const double timeRange = STEPS2TIME(myLastTime - myBeginTime);
         SUMOTime tickDist = TIME2STEPS(10);
         // patch distances - hack
-        double t = myBeginOffset != nullptr ? myBeginOffset->getValue() : STEPS2TIME(myLastTime - myBeginTime);
+        double t = myBeginOffset != nullptr ? myBeginOffset->getValue() : timeRange;
         while (t > barWidth / 4.) {
             tickDist += TIME2STEPS(10);
             t -= barWidth / 4.;
@@ -415,24 +416,44 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         int pos = 31;// + /*!!!currTime*/ - myFirstTime2Show;
         double glpos = (double) pos / panelWidth;
         const double ticSize = 4. / panelHeight;
-        while (pos < panelWidth + 50.) {
+        if (leftOffset > 0) {
+            const double a = STEPS2TIME(leftOffset) * barWidth / timeRange;
+            pos += (int) a;
+            glpos += a / panelWidth;
+            currTime += leftOffset;
+        } else if (myFirstPhaseOffset > 0) {
+            const double a = STEPS2TIME(-myFirstPhaseOffset) * barWidth / timeRange;
+            pos += (int) a;
+            glpos += a / panelWidth;
+            currTime += leftOffset;
+        }
+        int ticShift = 1;
+        for (DurationsVector::iterator pd = myDurations.begin() + myFirstPhase2Show; pd != myDurations.end(); ++pd) {
             const std::string timeStr = (gHumanReadableTime
                                          ? time2string(currTime % 3600000).substr(3) // only write mn:ss
                                          : toString((int)STEPS2TIME(currTime)));
             const double w = 50. / panelWidth;
-            glTranslated(glpos - w / 2., glh - h20, 0);
+            glTranslated(glpos - w / 2., glh - h20 * ticShift, 0);
             GLHelper::drawText(timeStr, Position(0, 0), 1, fontHeight, RGBColor::WHITE, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
-            glTranslated(-glpos + w / 2., -glh + h20, 0);
+            glTranslated(-glpos + w / 2., -glh + h20 * ticShift, 0);
 
             glBegin(GL_LINES);
             glVertex2d(glpos, glh);
-            glVertex2d(glpos, glh - ticSize);
+            glVertex2d(glpos, glh - ticSize * ticShift);
             glEnd();
 
-            const double a = STEPS2TIME(tickDist) * barWidth / STEPS2TIME(myLastTime - myBeginTime);
+            tickDist = *pd;
+            const double a = STEPS2TIME(tickDist) * barWidth / timeRange;
             pos += (int) a;
             glpos += a / panelWidth;
             currTime += tickDist;
+
+            // draw times at differnt heights
+            if (ticShift == 3) {
+                ticShift = 1;
+            } else {
+                ticShift++;
+            }
         }
     }
 }
