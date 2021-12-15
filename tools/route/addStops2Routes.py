@@ -101,7 +101,7 @@ def readTypes(options):
     vtypes = {None: "passenger"}
     for file in options.typesfile.split(','):
         for vtype in sumolib.output.parse(file, 'vType'):
-            vtypes[vtype.id] = vtype.vClass
+            vtypes[vtype.id] = vtype.getAttributeSecure("vClass", "passenger")
     # print(vtypes)
     return vtypes
 
@@ -153,11 +153,18 @@ def loadRouteFiles(options, routefile, edge2parking, outf):
                         lastEdgeID, obj.id), file=sys.stderr)
             else:
                 # find usable lane
+                skip = True
                 lanes = lastEdge.getLanes()
                 for lane in lanes:
                     if lane.allows(vtypes[obj.type]):
                         stopAttrs["lane"] = lane.getID()
+                        skip = False
                         break
+                if skip:
+                    numSkipped[obj.name] += 1;
+                    print("Warning: no allowed lane found on edge '%s' for vehicle '%s' (%s)" % (
+                        lastEdgeID, obj.id, vtypes[obj.type]), file=sys.stderr)
+
 
             if options.parking:
                 stopAttrs["parking"] = "true"
