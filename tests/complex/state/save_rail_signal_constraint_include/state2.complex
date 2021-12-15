@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-07-21 18:04:20 by Eclipse SUMO sumo Version v1_9_2+0878-fdc1e2a8d6
+<!-- generated on 2021-12-15 07:41:27 by Eclipse SUMO sumo Version v1_11_0+0553-f9af086
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -29,7 +29,7 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_9_2+0878-fdc1e2a8d6" time="10.00" type="micro" constraints="1">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_11_0+0553-f9af086" time="10.00" type="micro" constraints="1">
     <route id="!between" state="0" edges="d e"/>
     <route id="!t0!var#1" state="0" edges="a b c"/>
     <route id="!t1" state="0" edges="d c c"/>
@@ -51,7 +51,7 @@
     <lane id="a_0">
         <vehicles value="t0"/>
         <link to="b_0">
-            <approaching id="t0" arrivalTime="26191" arrivalSpeed="13.89" departSpeed="13.89" request="0" arrivalTimeBraking="56191" arrivalSpeedBraking="0.00" waitingTime="0" distance="238.78"/>
+            <approaching id="t0" arrivalTime="25191" arrivalSpeed="13.89" departSpeed="13.89" request="0" arrivalTimeBraking="55191" arrivalSpeedBraking="0.00" waitingTime="0" distance="238.78"/>
         </link>
     </lane>
     <lane id="d_0">
