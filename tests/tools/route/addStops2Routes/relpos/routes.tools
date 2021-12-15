@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2021-12-15 11:32:35.491609 by addStops2Routes.py v1_11_0+0556-b588ce33c38
+<configuration>
+    <duration value="1800"/>
+    <net-file value="input_net.net.xml"/>
+    <output-file value="out.rou.xml"/>
+    <parking value="True"/>
+    <relpos value="0.5"/>
+    <route-files value="input_routes.rou.xml"/>
+    <typesfile value="input_routes.rou.xml"/>
+    <until value="12:0:0"/>
+</configuration>
+
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle color="1,0,0" depart="0" id="0_parkingA" type="type1">
+        <route edges="SC CN"/>
+        <stop duration="1800" endPos="43.45" lane="CN_2" parking="true" until="12:0:0"/>
+    </vehicle>
+</routes>
