@@ -187,7 +187,6 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
       myApplication(&app), myTLLogic(&logic), myAmInTrackingMode(false),
       myToolBarDrag(nullptr), myBeginOffset(nullptr) {
     myConnector = nullptr;
-    setTitle("TLS-Tracker");
     app.addChild(this);
     for (int i = 0; i < (int)myTLLogic->getLinks().size(); ++i) {
         myLinkNames.push_back(toString<int>(i));
@@ -198,7 +197,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
                             0, 0, 0, 0, 0, 0, 0, 0);
     myPanel = new
     GUITLLogicPhasesTrackerPanel(glcanvasFrame, *myApplication, *this);
-    setTitle((logic.getID() + " - " + logic.getProgramID() + " - tracker").c_str());
+    setTitle((logic.getID() + " - " + logic.getProgramID() + " - phases").c_str());
     setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TLSTRACKER));
     setHeight((FXint)(myTLLogic->getLinks().size() * 20 + 30 + 8));
     setWidth(700);
