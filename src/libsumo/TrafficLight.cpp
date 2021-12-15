@@ -658,25 +658,25 @@ TrafficLight::setProgramLogic(const std::string& tlsID, const TraCILogic& logic)
         switch ((TrafficLightType)logic.type) {
             case TrafficLightType::ACTUATED:
                 tlLogic = new MSActuatedTrafficLightLogic(tlc,
-                        tlsID, logic.programID,
-                        phases, step, nextSwitch, 0,
+                        tlsID, logic.programID, 0,
+                        phases, step, nextSwitch,
                         logic.subParameter, basePath);
                 break;
             case TrafficLightType::NEMA:
                 tlLogic = new NEMALogic(tlc,
-                                        tlsID, logic.programID,
+                                        tlsID, logic.programID, 0,
                                         phases, step, nextSwitch,
                                         logic.subParameter, basePath);
                 break;
             case TrafficLightType::DELAYBASED:
                 tlLogic = new MSDelayBasedTrafficLightLogic(tlc,
-                        tlsID, logic.programID,
+                        tlsID, logic.programID, 0,
                         phases, step, nextSwitch,
                         logic.subParameter, basePath);
                 break;
             case TrafficLightType::STATIC:
                 tlLogic = new MSSimpleTrafficLightLogic(tlc,
-                                                        tlsID, logic.programID, TrafficLightType::STATIC,
+                                                        tlsID, logic.programID, 0, TrafficLightType::STATIC,
                                                         phases, step, nextSwitch,
                                                         logic.subParameter);
                 break;

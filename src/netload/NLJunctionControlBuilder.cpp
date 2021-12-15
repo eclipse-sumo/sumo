@@ -294,25 +294,26 @@ NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
             // @note it is unclear how to apply the given offset in the context
             // of variable-length phases
             tlLogic = new MSActuatedTrafficLightLogic(getTLLogicControlToUse(),
-                    myActiveKey, myActiveProgram,
+                    myActiveKey, myActiveProgram, myOffset,
                     myActivePhases, step, (*i)->minDuration + myNet.getCurrentTimeStep(),
-                    myOffset, myAdditionalParameter, basePath);
+                    myAdditionalParameter, basePath);
             break;
         case TrafficLightType::NEMA:
             tlLogic = new NEMALogic(getTLLogicControlToUse(),
-                                    myActiveKey, myActiveProgram,
+                                    myActiveKey, myActiveProgram, myOffset,
                                     myActivePhases, step, (*i)->minDuration + myNet.getCurrentTimeStep(),
                                     myAdditionalParameter, basePath);
             break;
         case TrafficLightType::DELAYBASED:
             tlLogic = new MSDelayBasedTrafficLightLogic(getTLLogicControlToUse(),
-                    myActiveKey, myActiveProgram,
+                    myActiveKey, myActiveProgram, myOffset,
                     myActivePhases, step, (*i)->minDuration + myNet.getCurrentTimeStep(),
                     myAdditionalParameter, basePath);
             break;
         case TrafficLightType::STATIC:
             tlLogic = new MSSimpleTrafficLightLogic(getTLLogicControlToUse(),
-                                                    myActiveKey, myActiveProgram, TrafficLightType::STATIC,
+                                                    myActiveKey, myActiveProgram, myOffset,
+                                                    TrafficLightType::STATIC,
                                                     myActivePhases, step, firstEventOffset,
                                                     myAdditionalParameter);
             break;

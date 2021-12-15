@@ -35,7 +35,7 @@
 // ===========================================================================
 MSOffTrafficLightLogic::MSOffTrafficLightLogic(MSTLLogicControl& tlcontrol,
         const std::string& id) :
-    MSTrafficLightLogic(tlcontrol, id, "off", TrafficLightType::OFF, 0, std::map<std::string, std::string>()) {
+    MSTrafficLightLogic(tlcontrol, id, "off", 0, TrafficLightType::OFF, 0, std::map<std::string, std::string>()) {
     myDefaultCycleTime = TIME2STEPS(120);
 }
 

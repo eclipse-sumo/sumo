@@ -61,12 +61,12 @@
 // ===========================================================================
 MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcontrol,
         const std::string& id, const std::string& programID,
+        const SUMOTime offset,
         const Phases& phases,
-        int step, SUMOTime delay, SUMOTime offset,
+        int step, SUMOTime delay,
         const std::map<std::string, std::string>& parameter,
         const std::string& basePath) :
-    MSSimpleTrafficLightLogic(tlcontrol, id, programID, TrafficLightType::ACTUATED, phases, step, delay, parameter),
-    myOffset(offset),
+    MSSimpleTrafficLightLogic(tlcontrol, id, programID, offset, TrafficLightType::ACTUATED, phases, step, delay, parameter),
     myLastTrySwitchTime(0),
     myTraCISwitch(false)
 {

@@ -58,8 +58,9 @@ public:
      */
     MSActuatedTrafficLightLogic(MSTLLogicControl& tlcontrol,
                                 const std::string& id, const std::string& programID,
+                                const SUMOTime offset,
                                 const MSSimpleTrafficLightLogic::Phases& phases,
-                                int step, SUMOTime delay, SUMOTime offset,
+                                int step, SUMOTime delay,
                                 const std::map<std::string, std::string>& parameter,
                                 const std::string& basePath);
 
@@ -182,9 +183,6 @@ protected:
     InductLoopMap myInductLoopsForPhase;
 
     std::vector<InductLoopInfo> myInductLoops;
-
-    /// @brief the configured offset value
-    SUMOTime myOffset;
 
     /// @brief whether coordination parameters earliestEnd, latestEnd are
     //compared to absolute simulation time or timeInCycle
