@@ -1030,7 +1030,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
 
         if ((key == "highway" && value != "platform") || key == "railway" || key == "waterway" || key == "cycleway"
                 || key == "busway" || key == "route" || key == "sidewalk" || key == "highspeed"
-                || key == "usage") {
+                || key == "aeroway" || key == "usage") {
             // build type id
             std::string singleTypeID = key + "." + value;
             myCurrentEdge->myCurrentIsRoad = true;
