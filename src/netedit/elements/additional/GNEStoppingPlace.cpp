@@ -166,6 +166,9 @@ GNEStoppingPlace::getPositionInView() const {
 
 void
 GNEStoppingPlace::updateCenteringBoundary(const bool /*updateGrid*/) {
+    if (isTemplate()) {
+        return;
+    }
     // update geometry
     updateGeometry();
     // add shape boundary

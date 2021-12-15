@@ -440,10 +440,7 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 myStartPosition = parse<double>(value);
             }
-            // update boundary (except for template)
-            if (getID().size() > 0) {
-                updateCenteringBoundary(false);
-            }
+            updateCenteringBoundary(false);
             break;
         case SUMO_ATTR_ENDPOS:
             if (value == "") {
@@ -451,10 +448,7 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 myEndPosition = parse<double>(value);
             }
-            // update boundary (except for template)
-            if (getID().size() > 0) {
-                updateCenteringBoundary(false);
-            }
+            updateCenteringBoundary(false);
             break;
         case SUMO_ATTR_DEPARTPOS:
             myDepartPos = value;
@@ -467,10 +461,7 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_ROADSIDE_CAPACITY:
             myRoadSideCapacity = parse<int>(value);
-            // update boundary (except for template)
-            if (getID().size() > 0) {
-                updateCenteringBoundary(false);
-            }
+            updateCenteringBoundary(false);
             break;
         case SUMO_ATTR_ONROAD:
             myOnRoad = parse<bool>(value);
@@ -481,9 +472,8 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             for (const auto& space : getChildAdditionals()) {
                 space->updateGeometry();
             }
-            // update boundary (except for template)
-            if (getID().size() > 0) {
-                updateCenteringBoundary(false);
+            updateCenteringBoundary(false);
+            if (!isTemplate()) {
                 getParentLanes().front()->getParentEdge()->updateCenteringBoundary(true);
             }
             break;

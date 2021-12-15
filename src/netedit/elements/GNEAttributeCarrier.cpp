@@ -49,7 +49,8 @@ const size_t GNEAttributeCarrier::MAXNUMBEROFATTRIBUTES = 128;
 GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net) :
     myTagProperty(getTagProperty(tag)),
     myNet(net),
-    mySelected(false) {
+    mySelected(false),
+    myIsTemplate(false) {
 }
 
 

@@ -190,6 +190,10 @@ public:
     /// @brief get tagProperty associated with this Attribute Carrier
     const GNETagProperties& getTagProperty() const;
 
+    bool isTemplate() const {
+        return myIsTemplate;
+    }
+
     /// @brief get tagProperty associated to the given tag
     static const GNETagProperties& getTagProperty(SumoXMLTag tag);
 
@@ -269,6 +273,9 @@ protected:
 
     /// @brief boolean to check if this AC is selected (instead of GUIGlObjectStorage)
     bool mySelected;
+
+    /// @brief whether the current object is a template object (not drawn in the view)
+    bool myIsTemplate;
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
