@@ -95,11 +95,12 @@ below.
   \[<https://wiki.openstreetmap.org/wiki/Key:usage> usage information
   for railways (main,branch,industrial,...). This typemap only works
   in combination with other typemaps.
-- **osmBidiRailNetconvert.typ.xml**. Changes the default from
+- **osmNetconvertBidiRail.typ.xml**. Changes the default from
   uni-directional railroads to bi-directional railroads. This may be
   useful in some regions of the world where OSM contributors used
   this style of date representation. The use of this typemap supplants
   the older option **--osm.railway.oneway-default** {{DT_BOOL}}.
+- **osmNetconvertAirport.typ.xml**. Imports aeroways (runway, taxiway, etc.)
 
 !!! caution
     When specifying a typemap using the option **--type-files**, the defaults are not loaded. To achieve the desired types, the user should load the default typemap along with the desired modification (**--type-files <SUMO_HOME\>/data/typemap/osmNetconvert.typ.xml,<SUMO_HOME\>/data/typemap/osmNetconvertUrbanDe.typ.xml**) or create a fully specified typemap file by himself.
