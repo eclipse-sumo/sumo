@@ -649,12 +649,12 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
     }
 
     MSParkingArea* onTheWay = nullptr;
+    const int parkAnywhere = (int)getWeight(veh, "parking.anywhere", -1);
 
-    if (!destVisible) {
-        // check whether we are ready to accept any free parkingArea along the
-        // way to our destination
-        const int parkAnywhere = (int)getWeight(veh, "parking.anywhere", -1);
-        if (parkAnywhere < 0 || parkAnywhere > veh.getNumberParkingReroutes()) {
+    // check whether we are ready to accept any free parkingArea along the
+    // way to our destination
+    if (parkAnywhere < 0 || parkAnywhere > veh.getNumberParkingReroutes()) {
+        if (!destVisible) {
             // cannot determine destination occupancy, only register visibly full
             for (const ParkingAreaVisible& pav : parks) {
                 if (pav.second && pav.first->getLastStepOccupancy() == pav.first->getCapacity()) {
@@ -667,9 +667,9 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
                 //    << " dest=" << destParkArea->getID() << " parkAnywhere=" << parkAnywhere << " parkingReroutes=" << veh.getNumberParkingReroutes() << " stay on original route\n";
             }
 #endif
-            return nullptr;
         }
 
+    } else {
         double bestDist = std::numeric_limits<double>::max();
         const double brakeGap = veh.getBrakeGap();
         for (ParkingAreaVisible& item : parks) {
@@ -697,10 +697,9 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
                 << " dest=" << destParkArea->getID() << " parkAnywhere=" << parkAnywhere << " parkingReroutes=" << veh.getNumberParkingReroutes() << " alongTheWay=" << Named::getIDSecure(onTheWay) << "\n";
         }
 #endif
-        if (onTheWay == nullptr) {
-            return nullptr;
-        }
-        // otherwise compute new route
+    }
+    if (!destVisible && onTheWay == nullptr) {
+        return nullptr;
     }
 
     if (destParkArea->getLastStepOccupancy() == destParkArea->getCapacity() || onTheWay != nullptr) {
