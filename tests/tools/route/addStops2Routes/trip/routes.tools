@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2021-12-15 10:10:52.978298 by addStops2Routes.py v1_11_0+0554-18b1caea9d1
+<configuration>
+    <duration value="1800"/>
+    <net-file value="input_net.net.xml"/>
+    <output-file value="out.rou.xml"/>
+    <route-files value="input_routes.rou.xml"/>
+    <typesfile value="input_routes.rou.xml"/>
+</configuration>
+
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <trip color="1,0,0" depart="0" from="SC" id="0" to="CN" type="type1">
+        <stop duration="1800" lane="CN_3"/>
+    </trip>
+</routes>

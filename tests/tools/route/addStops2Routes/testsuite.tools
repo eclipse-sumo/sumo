@@ -1,6 +1,12 @@
 # tests for adding stops at the end of a route
 basic
 
+# tests for adding stops at the end of a trip
+trip
+
+# tests for adding stops at the end of a trip (no suitable lane found)
+disallowed_vClass
+
 # preserve persons in input
 withPersons
 
