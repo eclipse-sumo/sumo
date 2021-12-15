@@ -475,6 +475,10 @@ MSTrafficLightLogic::ignoreLinkIndex(int pos) {
     myIgnoredIndices.insert(pos);
 }
 
+SUMOTime
+MSTrafficLightLogic::getTimeInCycle() const {
+    return MSPhaseDefinition::UNSPECIFIED_DURATION;
+}
 
 bool
 MSTrafficLightLogic::isSelected() const {

@@ -79,11 +79,6 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
     myFile = FileHelpers::checkForRelativity(getParameter("file", "NUL"), basePath);
     myFreq = TIME2STEPS(StringUtils::toDouble(getParameter("freq", "300")));
     myVehicleTypes = getParameter("vTypes", "");
-    myCycleTime = 0;
-    for (const MSPhaseDefinition* phase : myPhases) {
-        myCycleTime += phase->duration;
-    }
-
     SUMOTime earliest = SIMSTEP + getEarliest();
     if (earliest > getNextSwitchTime()) {
         mySwitchCommand->deschedule(this);
@@ -797,16 +792,21 @@ MSActuatedTrafficLightLogic::getLinkMinDuration(int target) const {
     return result;
 }
 
+
+SUMOTime
+MSActuatedTrafficLightLogic::getTimeInCycle() const {
+        return (myCoordinated
+                ? (SIMSTEP - myOffset) % myDefaultCycleTime
+                : SIMSTEP - myPhases[0]->myLastSwitch);
+}
+
+
 SUMOTime
 MSActuatedTrafficLightLogic::getEarliest() const {
     if (myPhases[myStep]->earliestEnd == MSPhaseDefinition::UNSPECIFIED_DURATION) {
         return 0;
     } else {
-        const SUMOTime timeInCycle = (myCoordinated
-            ? (SIMSTEP - myOffset) % myCycleTime
-            : SIMSTEP - myPhases[0]->myLastSwitch);
-        //std::cout << SIMTIME << " " << getID() << " timeInCycle=" << time2string(timeInCycle) << "\n";
-        return myPhases[myStep]->earliestEnd - timeInCycle;
+        return myPhases[myStep]->earliestEnd - getTimeInCycle();
     }
 }
 
@@ -815,11 +815,7 @@ MSActuatedTrafficLightLogic::getLatest() const {
     if (myPhases[myStep]->latestEnd == MSPhaseDefinition::UNSPECIFIED_DURATION) {
         return SUMOTime_MAX; // no restriction
     } else {
-        const SUMOTime timeInCycle = (myCoordinated
-            ? (SIMSTEP - myOffset) % myCycleTime
-            : SIMSTEP - myPhases[0]->myLastSwitch);
-        //std::cout << SIMTIME << " " << getID() << " timeInCycle=" << time2string(timeInCycle) << "\n";
-        return MAX2(SUMOTime(0), myPhases[myStep]->latestEnd - timeInCycle);
+        return MAX2(SUMOTime(0), myPhases[myStep]->latestEnd - getTimeInCycle());
     }
 }
 

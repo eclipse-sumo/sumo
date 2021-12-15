@@ -272,6 +272,9 @@ public:
         return myDefaultCycleTime;
     }
 
+    /// @brief return time within the current cycle
+    virtual SUMOTime getTimeInCycle() const;
+
     /// @brief return the number of controlled link indices
     int getNumLinks() const {
         return myNumLinks;

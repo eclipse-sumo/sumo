@@ -112,6 +112,8 @@ public:
     /**@brief Sets a parameter and updates internal constants */
     void setParameter(const std::string& key, const std::string& value);
 
+    SUMOTime getTimeInCycle() const;
+
 protected:
     struct InductLoopInfo {
         InductLoopInfo(MSInductLoop* _loop, int numPhases, double _maxGap):
@@ -183,9 +185,6 @@ protected:
 
     /// @brief the configured offset value
     SUMOTime myOffset;
-
-    /// @brief the sum of phase durations
-    SUMOTime myCycleTime;
 
     /// @brief whether coordination parameters earliestEnd, latestEnd are
     //compared to absolute simulation time or timeInCycle

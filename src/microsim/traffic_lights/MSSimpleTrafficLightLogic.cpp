@@ -45,8 +45,8 @@ MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(MSTLLogicControl& tlcontrol
     MSTrafficLightLogic(tlcontrol, id, programID, logicType, delay, parameters),
     myPhases(phases),
     myStep(step) {
-    for (int i = 0; i < (int)myPhases.size(); i++) {
-        myDefaultCycleTime += myPhases[i]->duration;
+    for (const MSPhaseDefinition* phase : myPhases) {
+        myDefaultCycleTime += phase->duration;
     }
 }
 
@@ -180,6 +180,15 @@ MSSimpleTrafficLightLogic::getIndexFromOffset(SUMOTime offset) const {
     return 0;
 }
 
+SUMOTime
+MSSimpleTrafficLightLogic::getTimeInCycle() const {
+    SUMOTime result = 0;
+    for (int i = 0; i < myStep; i++) {
+        result += myPhases[i]->duration;
+    }
+    result += (SIMSTEP - myPhases[myStep]->myLastSwitch);
+    return result;
+}
 
 // ------------ Changing phases and phase durations
 void
