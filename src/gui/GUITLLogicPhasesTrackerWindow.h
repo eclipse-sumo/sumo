@@ -234,6 +234,15 @@ private:
     /// @brief The offset changer (tracking mode)
     FXRealSpinner* myBeginOffset;
 
+    /// @brief The time mode
+    FXComboBox* myTimeMode;
+
+private:
+
+    void initToolBar();
+
+    void initTimeMode();
+
 
 protected:
     /// protected constructor for FOX

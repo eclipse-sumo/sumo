@@ -147,10 +147,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     : FXMainWindow(app.getApp(), "TLS-Tracker", nullptr, nullptr, DECOR_ALL,
                    20, 20, 300, 200),
       myApplication(&app), myTLLogic(&logic), myAmInTrackingMode(true) {
-    // build the toolbar
-    myToolBarDrag = new FXToolBarShell(this, GUIDesignToolBar);
-    myToolBar = new FXToolBar(this, myToolBarDrag, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | FRAME_RAISED);
-    new FXToolBarGrip(myToolBar, myToolBar, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+    initToolBar();
     // interval manipulation
     myBeginOffset = new FXRealSpinner(myToolBar, 10, this, MID_SIMSTEP, LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
     //myBeginOffset->setFormatString("%.0f");
@@ -158,8 +155,9 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     myBeginOffset->setIncrement(10);
     myBeginOffset->setRange(60, 3600);
     myBeginOffset->setValue(240);
-    new FXLabel(myToolBar, "(s)", nullptr, LAYOUT_CENTER_Y);
-    //
+    new FXLabel(myToolBar, "range (s)", nullptr, LAYOUT_CENTER_Y);
+    initTimeMode();
+    // 
     myConnector = new GLObjectValuePassConnector<std::pair<SUMOTime, MSPhaseDefinition> >(wrapper, src, this);
     app.addChild(this);
     for (int i = 0; i < (int)myTLLogic->getLinks().size(); ++i) {
@@ -187,6 +185,8 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
       myApplication(&app), myTLLogic(&logic), myAmInTrackingMode(false),
       myToolBarDrag(nullptr), myBeginOffset(nullptr) {
     myConnector = nullptr;
+    initToolBar();
+    initTimeMode();
     app.addChild(this);
     for (int i = 0; i < (int)myTLLogic->getLinks().size(); ++i) {
         myLinkNames.push_back(toString<int>(i));
@@ -199,7 +199,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     GUITLLogicPhasesTrackerPanel(glcanvasFrame, *myApplication, *this);
     setTitle((logic.getID() + " - " + logic.getProgramID() + " - phases").c_str());
     setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TLSTRACKER));
-    setHeight((FXint)(myTLLogic->getLinks().size() * 20 + 30 + 8 + 60));
+    setHeight((FXint)(myTLLogic->getLinks().size() * 20 + 30 + 8 + 30 + 60));
     setWidth(700);
 }
 
@@ -214,6 +214,21 @@ GUITLLogicPhasesTrackerWindow::~GUITLLogicPhasesTrackerWindow() {
     delete myToolBarDrag;
 }
 
+void
+GUITLLogicPhasesTrackerWindow::initToolBar() {
+    myToolBarDrag = new FXToolBarShell(this, GUIDesignToolBar);
+    myToolBar = new FXToolBar(this, myToolBarDrag, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | FRAME_RAISED);
+    new FXToolBarGrip(myToolBar, myToolBar, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
+}
+
+void
+GUITLLogicPhasesTrackerWindow::initTimeMode() {
+    myTimeMode = new FXComboBox(myToolBar, 20, this, MID_SIMSTEP, GUIDesignViewSettingsComboBox1);
+    myTimeMode->appendItem("Seconds");
+    myTimeMode->appendItem("MM:SS");
+    myTimeMode->appendItem("Time in cycle");
+    myTimeMode->setNumVisible(3);
+}
 
 void
 GUITLLogicPhasesTrackerWindow::create() {
@@ -428,11 +443,15 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
             currTime += leftOffset;
         }
         int ticShift = 1;
+        const bool mmSS = myTimeMode->getCurrentItem() == 1;
+        const bool cycleTime = myTimeMode->getCurrentItem() == 2;
         for (DurationsVector::iterator pd = myDurations.begin() + myFirstPhase2Show; pd != myDurations.end(); ++pd) {
-            const std::string timeStr = (gHumanReadableTime
+            const std::string timeStr = (mmSS
                                          ? time2string(currTime % 3600000).substr(3) // only write mn:ss
-                                         : toString((int)STEPS2TIME(currTime)));
-            const double w = 50. / panelWidth;
+                                         : toString((int)STEPS2TIME(cycleTime
+                                                 ? (currTime - myTLLogic->getOffset()) % myTLLogic->getDefaultCycleTime()
+                                                 : currTime)));
+            const double w = 10 * timeStr.size() / panelWidth;
             glTranslated(glpos - w / 2., glh - h20 * ticShift, 0);
             GLHelper::drawText(timeStr, Position(0, 0), 1, fontHeight, RGBColor::WHITE, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
             glTranslated(-glpos + w / 2., -glh + h20 * ticShift, 0);
