@@ -235,6 +235,8 @@ GUIPerson::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("speed factor", false, getSpeedFactor());
     ret->mkItem("angle [degree]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getNaviDegree));
     ret->mkItem("waiting time [s]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getWaitingSeconds));
+    ret->mkItem("vehicle [id]", true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getVehicleID));
+    ret->mkItem("stop duration [s]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getStopDuration));
     ret->mkItem("desired depart [s]", false, time2string(getParameter().depart));
     // close building
     ret->closeBuilding(&getParameter());
@@ -613,6 +615,35 @@ GUIPerson::getDestinationStopID() const {
         return destStop->getID();
     } else {
         return "";
+    }
+}
+
+
+std::string
+GUIPerson::getVehicleID() const {
+    FXMutexLock locker(myLock);
+    if (hasArrived()) {
+        return "";
+    }
+    SUMOVehicle* veh = getCurrentStage()->getVehicle();
+    if (veh != nullptr) {
+        return veh->getID();
+    } else {
+        return "";
+    }
+}
+
+
+double
+GUIPerson::getStopDuration() const {
+    FXMutexLock locker(myLock);
+    if (hasArrived()) {
+        return -1;
+    }
+    if (getCurrentStage()->getStageType() == MSStageType::WAITING) {
+        return STEPS2TIME(dynamic_cast<MSStageWaiting*>(getCurrentStage())->getStopEnd() - SIMSTEP);
+    } else {
+        return -1;
     }
 }
 

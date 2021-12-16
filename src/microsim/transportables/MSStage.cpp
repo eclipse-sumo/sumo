@@ -424,6 +424,7 @@ MSStageWaiting::MSStageWaiting(const MSEdge* destination, MSStoppingPlace* toSto
             initial ? MSStageType::WAITING_FOR_DEPART : MSStageType::WAITING),
     myWaitingDuration(duration),
     myWaitingUntil(until),
+    myStopEndTime(-1),
     myStopWaitPos(Position::INVALID),
     myActType(actType) {
 }
@@ -466,17 +467,17 @@ MSStageWaiting::getAngle(SUMOTime /* now */) const {
 void
 MSStageWaiting::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, MSStage* previous) {
     myDeparted = now;
-    const SUMOTime until = MAX3(now, now + myWaitingDuration, myWaitingUntil);
+    myStopEndTime = MAX3(now, now + myWaitingDuration, myWaitingUntil);
     if (myDestinationStop != nullptr) {
         myDestinationStop->addTransportable(transportable);
         myStopWaitPos = myDestinationStop->getWaitPosition(transportable);
     }
     if (dynamic_cast<MSPerson*>(transportable) != nullptr) {
         previous->getEdge()->addPerson(transportable);
-        net->getPersonControl().setWaitEnd(until, transportable);
+        net->getPersonControl().setWaitEnd(myStopEndTime, transportable);
     } else {
         previous->getEdge()->addContainer(transportable);
-        net->getContainerControl().setWaitEnd(until, transportable);
+        net->getContainerControl().setWaitEnd(myStopEndTime, transportable);
     }
 }
 
