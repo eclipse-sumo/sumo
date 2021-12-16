@@ -8,6 +8,7 @@ title: ChangeLog
 
 - simulation
   - tripId is now updated again when passing waypoints. Issue #9751 (regression in 1.11.0)
+  - calibrator speed -1 no longer triggers error. Issue #9767 (regression in 1.11.0)
   - Fixed invalid error on taxi dispatch. Issue #9695
   - Fix person model bug where person enters jammed state without good reason. Issue #9717
   - Fixed crash on opposite direction driving (at looped road). Issue #9718
@@ -17,6 +18,8 @@ title: ChangeLog
   - Parking search no longer stalls when all current alternatives are known to be full. Issue #9678
   - Fixed crash when retrieving detected persons with an active vTypes filter. Issue #9772
   - Fixed various issues with emergency vehicle behavior, Issue #9310, #9768
+  - Fixed bug where parkingReroute failed due to invalid rerouteOrigin. Issue #9778
+  - Fixed inconsistent arrival times for trains approaching red and green signals. Issue #9788
   
 - netedit
   - Fixed bug preventing inspection of tazRelelations. Issue #9728
@@ -34,12 +37,14 @@ title: ChangeLog
   - Fixed inconsistent behavior when storing gui settings in registry. Issue #9693
   - Fixed meso vehicle tracking focus. Issue #9711
   - Exaggerating stopping place size only increases symbol size. Issue #9370
+  - Fixed invisible rerouter on short edge. Issue #9779
 
 - netconvert
   - Fixed invalid LaneLink index in OpenDRIVE export. Issue #9637
   - Fixed invalid network when importing public transport and sidewalks. Issue #9701 (regression in 1.10.0)
   - Fixed invalid internal junction location. Issue #9381
   - Fixed intersection rules that could cause emergency braking at pedestrian crossing. Issue #9671
+  - Fixed invalid error when loading projections with '+geogrids' entry on windows. Issue #9766
 
 - duarouter
   - Option **--write-costs** now also applies to walks/rides, Option **--route-length** now applies to normal vehicles. Issue #9698
@@ -52,14 +57,18 @@ title: ChangeLog
   - turn subscription filter no longer crashes when crossings are present in foe lanes. Issue #9630
   - Fixed crash when calling vehicle.rerouteParkingArea for newly added vehicle. Issue #9755
   - Fixed invalid warnings when adding turn/lanes filter with context domain person. Issue #9760
+  - TraCI server no longer hangs when trying to add a subscription filter without previous vehicle subscription. Issue #9770
 
 - tools
   - generateParkingAreaRerouters.py: fixed distance bias against long parkingAreas. Issue #9644
   - routeSampler.py: warning message instead of crash when trying to load an empty interval. Issue #9754
+  - addStopsToRoutes.py: Now handles disallowed vClass and vTypes with undefined vClass. Issue #9792
+  - generateRailSignalConstraints.py: Now handles intermediate parking stops. Issue #9806
 
 - Miscellaneous
   - Specifiying NUL output on the command line finally works. Issue #3400
   - Fixed unhelpful error message when defining invalid color in XML input. Issue #9623
+  - Time output beyond 25 days now works correctly with all compilers. Issue #8912
   
 ### Enhancements
 
@@ -71,7 +80,7 @@ title: ChangeLog
   - Rerouting period can now be customized via `<param key="device.rerouting.period" value="X"/>` in vType or vehicle. Issue #9646  
   - Detector processing now takes less time if their output file is set to 'NUL'. Issue #7772, #9620 
   - parking search:
-    - Parking search now supports `<param key="parking.anywhere" value="X"/>` which permit using free parkingArea along the way after doing unsuccessful  parkingAreaReroute x times. Issue #9577 - 
+    - Parking search now supports `<param key="parking.anywhere" value="X"/>` which permit using free parkingArea along the way after doing unsuccessful  parkingAreaReroute x times. Issue #9577
     - Parking search now supports `<param key="parking.frustration" value="X"/>` which increases the preference for visibly free parkingAreas over time. Issue 9657
     - Parking search now supports `<param key="parking.knowledge" value="x"/>` to let driver "guess" the occupancy of invisible parkingAreas with probability x. Issue #9545 
     - Vehicles now collect occupancy information for all parkingareas along the way during parking search. Issue #9645
@@ -80,6 +89,8 @@ title: ChangeLog
   - All text setting now have the checkbox "only for selected" to display text selectively. Issue #9574
   - Added vehicle setting "show parking info" which labels parking memory (block time and scores) for vehicles with active route visualization. Also, the vehicle is labeled with the number of parking reroutes since the last successful parkingArea stop. Issue #9572
   - Can now color roads "by free parking spaces". Issue #9643
+  - Traffic light parameter dialog now includes cycle duration, timeInCycle, earliestEnd and latestEnd. Issue #9784
+  - Phase Tracker window now shows switch times, can configure time style and optionally print durations. Issue #9785
 
 - netedit
   - Add images for the guiShapes in the vType attributes editor. Issue #9457
@@ -89,10 +100,11 @@ title: ChangeLog
 - netconvert
   - OSM: import of public transport now supports share_taxi (PUJ) and minibus. Issue #9708
   - OSM: attribute turn:lanes is now used to determine lane-to-lane connections when option **--osm.turn-lanes** is set. Issue #1446
+  - OSM: importing airports (aeroways) is now supported. Issue #9800
   - Simplified edge and junction names in OpenDRIVE import. (i.e. '42' instead of '42.0.00'). The option **--opendrive.position-ids** is provided for backward compatibility.  #9463
   - Added option **--opendrive.lane-shapes** which uses custom lane shapes to account for spacing of discarded lanes. Issue #4913  
   - Added option **--railway.topology.extend-priority** which extrapolates directional priorities in an all-bidi network based on initial priorities. Issue #9683
-  
+   
 - meso
   - Fixed invalid stop arrival time in meso. Issue #9713  
   - Fixed invalid ride depart time and route length when starting directly after stop. Issue #9560
@@ -106,12 +118,15 @@ title: ChangeLog
   - generateParkingAreaRerouters.py: added option **--distribute** which sets a distance distribution for the given number of alternatives (instead of always using the closest parkingAreas). Issue #9566
   - generateParkingAreaRerouters.py: added option **--visible-ids** to set visible parkingAreas explicitly. Issue #9669
   - addStops2Routes.py: Can now generate stationary traffic to fill each parkingArea to a configurable occupancy. Issue #9660
+  - addStops2Routes.py: added option **--relpos** for configuring stop position along edge. Issue #9795
   - Added tool [generateParkingAreas.py](Tools/Misc.md#generateparkingareaspy) to generate parkingAreas for some or all edges of a network. Issue #9659
   - plot_net_dump.py now supports option **--internal** for plotting internal edges. Issue #9729
   - randomTrips.py now supports option **--random-depart** to randomize departure times. Issue #9735
   - tripinfoByType.py: now supports option **--interval** to aggregated data by depart time (or by arrival time with option **--by-arrivals**) Issue #9746
+  - netdiff.py: now supports option **--plain-geo** to write locational diffs in geo coordinates. Issue #9808
 
 - Miscellaneous
+  - Simulation console output 'Loading configuraton ... done' is now only printed in verbose mode. Issue #9743
   - Speed up Visual Studio build with sccache (only works with Ninja not with Visual Studio projects). Issue #9290
   - The text "Loading configuration" is printed now only if **--verbose** is given. Issue #9743
   - Updated Eigen library Issue #9613
