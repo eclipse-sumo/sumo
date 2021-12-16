@@ -227,6 +227,7 @@ GUIPerson::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("stage index", true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getStageIndexDescription));
     ret->mkItem("start edge [id]", true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getFromEdgeID));
     ret->mkItem("dest edge [id]", true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getDestinationEdgeID));
+    ret->mkItem("dest stop [id]", true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getDestinationStopID));
     ret->mkItem("arrivalPos [m]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getStageArrivalPos));
     ret->mkItem("edge [id]", true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getEdgeID));
     ret->mkItem("position [m]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getEdgePos));
@@ -598,6 +599,21 @@ GUIPerson::getDestinationEdgeID() const {
         return "arrived";
     }
     return getDestination()->getID();
+}
+
+
+std::string
+GUIPerson::getDestinationStopID() const {
+    FXMutexLock locker(myLock);
+    if (hasArrived()) {
+        return "";
+    }
+    MSStoppingPlace* destStop = getCurrentStage()->getDestinationStop();
+    if (destStop != nullptr) {
+        return destStop->getID();
+    } else {
+        return "";
+    }
 }
 
 

@@ -156,6 +156,9 @@ public:
     /// @brief get destination edge ID
     std::string getDestinationEdgeID() const;
 
+    /// @brief get destination stop ID
+    std::string getDestinationStopID() const;
+
     /// @brief get stage arrival position
     double getStageArrivalPos() const;
 
