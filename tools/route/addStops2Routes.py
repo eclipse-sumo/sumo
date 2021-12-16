@@ -170,10 +170,9 @@ def loadRouteFiles(options, routefile, edge2parking, outf):
                         skip = False
                         break
                 if skip:
-                    numSkipped[obj.name] += 1;
+                    numSkipped[obj.name] += 1
                     print("Warning: no allowed lane found on edge '%s' for vehicle '%s' (%s)" % (
                         lastEdgeID, obj.id, vtypes[obj.type]), file=sys.stderr)
-
 
             if options.parking:
                 stopAttrs["parking"] = "true"

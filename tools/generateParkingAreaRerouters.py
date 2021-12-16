@@ -400,7 +400,7 @@ def generate_rerouters_process(parameters):
             if parking in used:
                 found += 1
                 continue
-                    
+
             if parameters['all_parking_areas'][parking].get('capacity') < parameters['min_capacity']:
                 continue
             # optionally enforce distance distribution
