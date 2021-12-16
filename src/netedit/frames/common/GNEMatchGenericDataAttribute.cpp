@@ -248,8 +248,6 @@ GNEMatchGenericDataAttribute::onCmdSetEnd(FXObject*, FXSelector, void*) {
 
 long
 GNEMatchGenericDataAttribute::onCmdSelectTag(FXObject*, FXSelector, void*) {
-    // check if net has proj
-    const bool notProj = (GeoConvHelper::getFinal().getProjString() == "!");
     // First check what type of elementes is being selected
     myCurrentTag = SUMO_TAG_NOTHING;
     // get generic data tags
