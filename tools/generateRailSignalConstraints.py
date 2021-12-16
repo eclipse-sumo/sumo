@@ -893,9 +893,9 @@ def findConflicts(options, net, switchRoutes, mergeSignals, signalTimes, stopEdg
 def getIntermediateInfo(pStop, nStop):
     info = []
     if pStop.intermediateStop:
-        info.append("intermediateStop=%s" % pStop.intermediateStop.busStop)
+        info.append("foeIntermediateStop=%s" % pStop.intermediateStop.busStop)
     if nStop.intermediateStop:
-        info.append("foeIntermediateStop=%s" % nStop.intermediateStop.busStop)
+        info.append("intermediateStop=%s" % nStop.intermediateStop.busStop)
     # if pStop.otherVeh:
     #    info.append("otherVeh=%s" % pStop.otherVeh)
     # if nStop.otherVeh:
