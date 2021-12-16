@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Sep  9 10:11:50 2020 by Eclipse SUMO duarouter Version v1_7_0+0007-9073c1719d
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <output-file value="input_routes.rou.xml.rou.xml"/>
+        <alternatives-output value="input_routes.rou.xml.rou.alt.xml"/>
+    </output>
+
+    <report>
+        <ignore-errors value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="train" length="50.00" vClass="rail"/>
+    <vehicle id="t0" type="train" depart="0.00" departSpeed="max" line="S4">
+        <route edges="a b c d"/>
+        <stop busStop="stop_c" arrival="70.00" duration="20.00" until="90.00" parking="true"/>
+        <stop busStop="stop_d" arrival="100.00" duration="30.00" until="130.00"/>
+    </vehicle>
+    <vehicle id="t1" type="train" depart="20.00" departSpeed="max">
+        <route edges="a2 b2 c d"/>
+        <stop busStop="stop_d" arrival="50.00" duration="30.00" until="80.00"/>
+        <param key="tripId" value="trip1"/>
+    </vehicle>
+    <vehicle id="t2" type="train" depart="120.00" departSpeed="max">
+        <route edges="a2 b2 c d"/>
+        <stop busStop="stop_d" arrival="150.00" duration="30.00" until="180.00"/>
+        <param key="tripId" value="trip2"/>
+    </vehicle>
+    <vehicle id="t3" type="train" depart="220.00" departSpeed="max">
+        <route edges="a2 b2 c d"/>
+        <stop busStop="stop_d" arrival="250.00" duration="30.00" until="280.00"/>
+        <param key="tripId" value="trip3"/>
+    </vehicle>
+</routes>
