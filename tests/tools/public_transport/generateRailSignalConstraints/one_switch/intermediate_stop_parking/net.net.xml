@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-08-12 15:01:08 by Eclipse SUMO netedit Version v1_9_2+1045-5dc4cc1
+<!-- generated on 2021-12-16 12:25:55 by Eclipse SUMO netedit Version v1_11_0+0575-9b07db0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -66,7 +66,7 @@
     <junction id="A2" type="rail_signal" x="200.00" y="100.00" incLanes="a2_0" intLanes="" shape="200.94,99.06 198.67,96.80 198.67,100.00 199.52,99.90 199.90,99.77 200.27,99.58 200.61,99.35">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="C" type="priority" x="700.00" y="0.00" incLanes="c_0" intLanes="" shape="700.00,0.00 700.00,-3.20 700.00,0.00">
+    <junction id="C" type="rail_signal" x="700.00" y="0.00" incLanes="c_0" intLanes="" shape="700.00,0.00 700.00,-3.20 700.00,0.00">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="D" type="dead_end" x="1100.00" y="0.00" incLanes="d_0" intLanes="" shape="1100.00,-3.20 1100.00,0.00"/>
@@ -81,6 +81,6 @@
     <connection from="a2" to="b2" fromLane="0" toLane="0" tl="A2" linkIndex="0" dir="r" state="O"/>
     <connection from="b" to="c" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="b2" to="c" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from="c" to="d" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="c" to="d" fromLane="0" toLane="0" tl="C" linkIndex="0" dir="s" state="O"/>
 
 </net>
