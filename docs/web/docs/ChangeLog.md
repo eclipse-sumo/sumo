@@ -125,8 +125,7 @@ title: ChangeLog
   - tripinfoByType.py: now supports option **--interval** to aggregated data by depart time (or by arrival time with option **--by-arrivals**) Issue #9746
   - netdiff.py: now supports option **--plain-geo** to write locational diffs in geo coordinates. Issue #9808
 
-- Miscellaneous
-  - Simulation console output 'Loading configuraton ... done' is now only printed in verbose mode. Issue #9743
+### Miscellaneous  
   - Speed up Visual Studio build with sccache (only works with Ninja not with Visual Studio projects). Issue #9290
   - The text "Loading configuration" is printed now only if **--verbose** is given. Issue #9743
   - Updated Eigen library Issue #9613
