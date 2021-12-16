@@ -303,6 +303,7 @@ GUIGlObject::buildPositionCopyEntry(GUIGLObjectPopupMenu* ret, bool addSeparator
     GUIDesigns::buildFXMenuCommand(ret, "Copy cursor position to clipboard", nullptr, ret, MID_COPY_CURSOR_POSITION);
     if (GeoConvHelper::getFinal().usingGeoProjection()) {
         GUIDesigns::buildFXMenuCommand(ret, "Copy cursor geo-position to clipboard", nullptr, ret, MID_COPY_CURSOR_GEOPOSITION);
+        GUIDesigns::buildFXMenuCommand(ret, "Show cursor geo-position in GeoHack", nullptr, ret, MID_SHOW_GEOPOSITION_ONLINE);
     }
     if (addSeparator) {
         new FXMenuSeparator(ret);
