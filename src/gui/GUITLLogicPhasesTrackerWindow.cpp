@@ -149,14 +149,15 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
       myApplication(&app), myTLLogic(&logic), myAmInTrackingMode(true) {
     initToolBar();
     // interval manipulation
+    new FXLabel(myToolBar, "Range (s):", nullptr, LAYOUT_CENTER_Y);
     myBeginOffset = new FXRealSpinner(myToolBar, 10, this, MID_SIMSTEP, LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
     //myBeginOffset->setFormatString("%.0f");
     //myBeginOffset->setIncrements(1, 10, 100);
     myBeginOffset->setIncrement(10);
     myBeginOffset->setRange(60, 3600);
     myBeginOffset->setValue(240);
-    new FXLabel(myToolBar, "range (s)", nullptr, LAYOUT_CENTER_Y);
     initTimeMode();
+    initGreenMode();
     // 
     myConnector = new GLObjectValuePassConnector<std::pair<SUMOTime, MSPhaseDefinition> >(wrapper, src, this);
     app.addChild(this);
@@ -187,6 +188,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     myConnector = nullptr;
     initToolBar();
     initTimeMode();
+    initGreenMode();
     app.addChild(this);
     for (int i = 0; i < (int)myTLLogic->getLinks().size(); ++i) {
         myLinkNames.push_back(toString<int>(i));
@@ -223,11 +225,19 @@ GUITLLogicPhasesTrackerWindow::initToolBar() {
 
 void
 GUITLLogicPhasesTrackerWindow::initTimeMode() {
+    new FXLabel(myToolBar, "Time Style:", nullptr, LAYOUT_CENTER_Y);
     myTimeMode = new FXComboBox(myToolBar, 20, this, MID_SIMSTEP, GUIDesignViewSettingsComboBox1);
     myTimeMode->appendItem("Seconds");
     myTimeMode->appendItem("MM:SS");
     myTimeMode->appendItem("Time in cycle");
     myTimeMode->setNumVisible(3);
+}
+
+
+void
+GUITLLogicPhasesTrackerWindow::initGreenMode() {
+    new FXLabel(myToolBar, "Show green durations:", nullptr, LAYOUT_CENTER_Y);
+    myGreenMode = new FXCheckButton(myToolBar, "", this, MID_SIMSTEP);
 }
 
 void
@@ -398,6 +408,9 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
                     glVertex2d(x2, h - h16);
                     glEnd();
                     break;
+            }
+            if (myGreenMode->getCheck() != FALSE && (state == LINKSTATE_TL_GREEN_MINOR || state == LINKSTATE_TL_GREEN_MAJOR)) {
+                GLHelper::drawText(toString((int)STEPS2TIME(*pd)), Position(x, h - h9), 0, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
             }
             // proceed to next link
             h -= h20;

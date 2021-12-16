@@ -237,11 +237,14 @@ private:
     /// @brief The time mode
     FXComboBox* myTimeMode;
 
+    /// @brief Wheter green durations are printed
+    FXCheckButton* myGreenMode;
+
 private:
 
     void initToolBar();
-
     void initTimeMode();
+    void initGreenMode();
 
 
 protected:
