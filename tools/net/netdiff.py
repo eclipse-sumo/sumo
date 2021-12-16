@@ -572,14 +572,12 @@ def xmldiff(source, dest, diff, type, copy_tags, patchImport,
             root, schema, version = handle_children(dest, attributeStore.compare)
 
     if not have_source and not have_dest:
-        print("Skipping %s due to lack of input files" % diff)
+        print("Skipping %s due to lack of input files." % diff)
     else:
         if not have_source:
-            print(
-                "Source file %s is missing. Assuming all elements are created" % source)
+            print("Source file %s is missing. Assuming all elements are created." % source)
         elif not have_dest:
-            print(
-                "Dest file %s is missing. Assuming all elements are deleted" % dest)
+            print("Dest file %s is missing. Assuming all elements are deleted." % dest)
 
         with codecs.open(diff, 'w', 'utf-8') as diff_file:
             sumolib.xml.writeHeader(diff_file, root=root, schemaPath=schema, rootAttrs=version)
