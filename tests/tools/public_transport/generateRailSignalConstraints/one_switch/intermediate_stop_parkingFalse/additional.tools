@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-12-16 13:33:36.144521 by generateRailSignalConstraints.py v1_11_0+0577-713c001
+<!-- generated on 2021-12-16 13:37:42.203364 by generateRailSignalConstraints.py v1_11_0+0580-889a1ad
 <configuration>
     <additional-file value="input_additional.add.xml"/>
     <comment.id value="True"/>
@@ -13,9 +13,9 @@
 -->
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <railSignalConstraints id="A">
-        <predecessor tripId="t0" tl="A2" foes="trip1"/>   <!-- line=S4 foeID=t1 busStop=stop_d (foeIntermediateStop=stop_c)  -->
+        <predecessor tripId="t0" tl="A2" foes="trip1"/>   <!-- line=S4 foeID=t1 busStop=stop_d (intermediateStop=stop_c)  -->
     </railSignalConstraints>
     <railSignalConstraints id="A2">
-        <predecessor tripId="trip2" tl="A" foes="t0"/>   <!-- foeLine=S4 vehID=t2 busStop=stop_d (intermediateStop=stop_c)  -->
+        <predecessor tripId="trip2" tl="A" foes="t0"/>   <!-- foeLine=S4 vehID=t2 busStop=stop_d (foeIntermediateStop=stop_c)  -->
     </railSignalConstraints>
 </additional>

@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-08-18 08:47:40.582743 by $Id$ v1_10_0+0040-e99cbdd
-  options: -n net.net.xml -a input_additional.add.xml -r input_routes.rou.xml -o out.add.xml <doubleminus>comment.line <doubleminus>comment.id <doubleminus>comment.stop
+<!-- generated on 2021-12-16 13:37:41.777209 by generateRailSignalConstraints.py v1_11_0+0580-889a1ad
+<configuration>
+    <additional-file value="input_additional.add.xml"/>
+    <comment.id value="True"/>
+    <comment.line value="True"/>
+    <comment.stop value="True"/>
+    <net-file value="net.net.xml"/>
+    <output-file value="out.add.xml"/>
+    <route-file value="input_routes.rou.xml"/>
+</configuration>
+
 -->
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <railSignalConstraints id="A">
-        <predecessor tripId="t0" tl="A2" foes="trip1"/>   <!-- line=S4 foeID=t1 busStop=stop_d (foeIntermediateStop=stop_c)  -->
+        <predecessor tripId="t0" tl="A2" foes="trip1"/>   <!-- line=S4 foeID=t1 busStop=stop_d (intermediateStop=stop_c)  -->
     </railSignalConstraints>
     <railSignalConstraints id="A2">
-        <predecessor tripId="trip2" tl="A" foes="t0"/>   <!-- foeLine=S4 vehID=t2 busStop=stop_d (intermediateStop=stop_c)  -->
+        <predecessor tripId="trip2" tl="A" foes="t0"/>   <!-- foeLine=S4 vehID=t2 busStop=stop_d (foeIntermediateStop=stop_c)  -->
     </railSignalConstraints>
 </additional>
