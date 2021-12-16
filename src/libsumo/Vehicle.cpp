@@ -882,7 +882,7 @@ double
 Vehicle::getMinGapLat(const std::string& vehID) {
     try {
         return StringUtils::toDouble(getParameter(vehID, "laneChangeModel.minGapLat"));
-    } catch (TraCIException& e) {
+    } catch (const TraCIException&) {
         // legacy behavior
         return Helper::getVehicleType(vehID).getMinGapLat();
     }
@@ -1879,7 +1879,7 @@ void
 Vehicle::setMinGapLat(const std::string& vehID, double minGapLat) {
     try {
         setParameter(vehID, "laneChangeModel.minGapLat", toString(minGapLat));
-    } catch (TraCIException& e) {
+    } catch (TraCIException&) {
         // legacy behavior
         Helper::getVehicle(vehID)->getSingularType().setMinGapLat(minGapLat);
     }

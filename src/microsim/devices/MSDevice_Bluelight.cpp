@@ -106,7 +106,7 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
         ego.getLaneChangeModel().setParameter(toString(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD), "0");
         try {
             ego.getLaneChangeModel().setParameter(toString(SUMO_ATTR_MINGAP_LAT), "0");
-        } catch (InvalidArgument& e) {
+        } catch (InvalidArgument&) {
             // not supported by the current laneChangeModel
         }
     } else {
@@ -118,7 +118,7 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
         try {
             ego.getLaneChangeModel().setParameter(toString(SUMO_ATTR_MINGAP_LAT),
                     toString(ego.getVehicleType().getMinGapLat()));
-        } catch (InvalidArgument& e) {
+        } catch (InvalidArgument&) {
             // not supported by the current laneChangeModel
         }
     }

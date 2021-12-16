@@ -380,13 +380,13 @@ GUITrafficLightLogicWrapper::getCurrentMaxDur() const {
 int
 GUITrafficLightLogicWrapper::getCurrentEarliestEnd() const {
     const SUMOTime earliestEnd = getActiveTLLogic()->getCurrentPhaseDef().earliestEnd;
-    return earliestEnd == MSPhaseDefinition::UNSPECIFIED_DURATION ? -1 : STEPS2TIME(earliestEnd);
+    return earliestEnd == MSPhaseDefinition::UNSPECIFIED_DURATION ? -1 : (int)STEPS2TIME(earliestEnd);
 }
 
 int
 GUITrafficLightLogicWrapper::getCurrentLatestEnd() const {
     const SUMOTime latestEnd = getActiveTLLogic()->getCurrentPhaseDef().latestEnd;
-    return latestEnd == MSPhaseDefinition::UNSPECIFIED_DURATION ? -1 : STEPS2TIME(latestEnd);
+    return latestEnd == MSPhaseDefinition::UNSPECIFIED_DURATION ? -1 : (int)STEPS2TIME(latestEnd);
 }
 
 int
