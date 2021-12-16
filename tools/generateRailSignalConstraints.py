@@ -810,26 +810,32 @@ def findConflicts(options, net, switchRoutes, mergeSignals, signalTimes, stopEdg
                             pStop, nStop))
                     times = "arrival=%s foeArrival=%s " % (humanReadableTime(nArrival), humanReadableTime(pArrival))
                     info = getIntermediateInfo(pStop, nStop)
-                    isIntermediateParking = nStop.intermediateStop and parseBool(nStop.intermediateStop.getAttributeSecure("parking", "false"))
+                    isIntermediateParking = nStop.intermediateStop and parseBool(
+                        nStop.intermediateStop.getAttributeSecure("parking", "false"))
                     if isIntermediateParking:
-                        # intermediateParkingConflicts: train oder isn't determined at the switch but rather when the second vehicle leaves it's parking stop
+                        # intermediateParkingConflicts: train oder isn't determined at the switch
+                        #  but rather when the second vehicle leaves it's parking stop
                         stopEdge = stopEdges[nStop.intermediateStop.busStop]
                         signal = findSignal(net, (stopEdge,) + nStop.edgesBeforeCommon)
                         if signal is None:
                             print(("Ignoring intermediate parking insertion conflict between %s and %s at stop '%s' " +
-                                "because no rail signal was found after the stop") % (
-                                    nStop.tripID, pStop.prevTripId, nStop.intermediateStop.busStop), file=sys.stderr)
+                                   "because no rail signal was found after the stop") %
+                                  (nStop.tripID, pStop.prevTripId, nStop.intermediateStop.busStop), file=sys.stderr)
                             continue
-                        times = "intermediateArrival=%s %s" % (humanReadableTime(parseTime(nStop.intermediateStop.arrival)), times)
+                        times = "intermediateArrival=%s %s" % (humanReadableTime(
+                            parseTime(nStop.intermediateStop.arrival)), times)
                         info = "intermediateParking " + info
-                        intermediateParkingConflicts[signal].append(Conflict(nStop.prevTripId, signal, pStop.prevTripId, limit,
-                                                           # attributes for adding comments
-                                                           nStop.prevLine, pStop.prevLine,
-                                                           nStop.vehID, pStop.vehID,
-                                                           times, switch, nStop.intermediateStop.busStop, info))
+                        intermediateParkingConflicts[signal].append(Conflict(nStop.prevTripId, signal,
+                                                                             pStop.prevTripId, limit,
+                                                                             # attributes for adding comments
+                                                                             nStop.prevLine, pStop.prevLine,
+                                                                             nStop.vehID, pStop.vehID,
+                                                                             times, switch,
+                                                                             nStop.intermediateStop.busStop, info))
                     else:
                         info = getIntermediateInfo(pStop, nStop)
-                        limit += countPassingTrainsToOtherStops(options, pSignal, busStop, pTimeAtSignal, end, signalTimes)
+                        limit += countPassingTrainsToOtherStops(options, pSignal,
+                                                                busStop, pTimeAtSignal, end, signalTimes)
                         conflicts[nSignal].append(Conflict(nStop.prevTripId, pSignal, pStop.prevTripId, limit,
                                                            # attributes for adding comments
                                                            nStop.prevLine, pStop.prevLine,
@@ -1178,7 +1184,8 @@ def main(options):
     mergeSwitches = findMergingSwitches(options, uniqueRoutes, net)
     signalTimes = computeSignalTimes(options, net, stopRoutes)
     switchRoutes, mergeSignals = findStopsAfterMerge(net, stopRoutes, mergeSwitches)
-    conflicts, intermediateParkingConflicts = findConflicts(options, net, switchRoutes, mergeSignals, signalTimes, stopEdges, vehicleStopRoutes)
+    conflicts, intermediateParkingConflicts = findConflicts(
+        options, net, switchRoutes, mergeSignals, signalTimes, stopEdges, vehicleStopRoutes)
     foeInsertionConflicts = findFoeInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoutes)
     insertionConflicts = findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoutes)
 
@@ -1194,7 +1201,8 @@ def main(options):
             outf.write('    <railSignalConstraints id="%s">\n' % signal)
             for conflict in conflicts[signal] + foeInsertionConflicts[signal]:
                 writeConstraint(options, outf, "predecessor", conflict)
-            for conflict in insertionConflicts[signal] + parkingConflicts[signal] + intermediateParkingConflicts[signal]:
+            for conflict in (insertionConflicts[signal] + parkingConflicts[signal] +
+                             intermediateParkingConflicts[signal]):
                 writeConstraint(options, outf, "insertionPredecessor", conflict)
             outf.write('    </railSignalConstraints>\n')
         outf.write('</additional>\n')

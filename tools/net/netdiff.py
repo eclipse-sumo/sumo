@@ -544,7 +544,7 @@ def create_plain(netfile, netconvert, plain_geo):
           "--sumo-net-file", netfile,
           "--plain-output-prefix", prefix,
           "--roundabouts.guess", "false"]
-          + (["--proj.plain-geo"] if plain_geo else []))
+         + (["--proj.plain-geo"] if plain_geo else []))
     return prefix
 
 
