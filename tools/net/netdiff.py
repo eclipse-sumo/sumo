@@ -48,11 +48,13 @@ TYPE_NODES = '.nod.xml'
 TYPE_EDGES = '.edg.xml'
 TYPE_CONNECTIONS = '.con.xml'
 TYPE_TLLOGICS = '.tll.xml'
+TYPE_EDGETYPES = '.typ.xml'
 PLAIN_TYPES = [
     TYPE_NODES,
     TYPE_EDGES,
     TYPE_CONNECTIONS,
-    TYPE_TLLOGICS
+    TYPE_TLLOGICS,
+    TYPE_EDGETYPES
 ]
 
 # traffic lights have some peculiarities
