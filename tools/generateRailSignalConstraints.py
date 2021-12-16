@@ -654,13 +654,13 @@ def addCommonStop(options, switch, edgesBefore, stop, edgesBefore2, stop2, vehic
             if (edgesBefore2, s2) not in stopRoutes2[s.busStop]:
                 s2copy = copy.copy(s2)
                 s2copy.prevTripId = stop2.prevTripId
-                s2copy.setAttribute("intermediateStop", stop2.busStop)
+                s2copy.setAttribute("intermediateStop", copy.copy(stop2))
                 s2copy.setAttribute("otherVeh", stop.vehID)
                 stopRoutes2[s.busStop].append((edgesBefore2, s2copy))
             if s.busStop != stop.busStop and ((edgesBefore, s) not in stopRoutes2[s.busStop]):
                 scopy = copy.copy(s)
                 scopy.prevTripId = stop.prevTripId
-                scopy.setAttribute("intermediateStop", stop.busStop)
+                scopy.setAttribute("intermediateStop", copy.copy(stop))
                 scopy.setAttribute("otherVeh", stop2.vehID)
                 stopRoutes2[s.busStop].append((edgesBefore, scopy))
             return
@@ -788,7 +788,8 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes, stopEdges, v
                         numIgnoredConflicts += 1
                         numIgnoredSwitchConflicts += 1
                         continue
-                    if nStop.intermediateStop and pStop.intermediateStop == nStop.intermediateStop:
+                    if (nStop.intermediateStop and pStop.intermediateStop
+                            and nStop.intermediateStop.busStop == pStop.intermediateStop.busStop):
                         # intermediate conflict was added via other foes and this particular conflict is a normal one
                         continue
                     numConflicts += 1
@@ -817,7 +818,8 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes, stopEdges, v
                         for p2Arrival, p2Stop in reversed(arrivalsBySignal[pSignal]):
                             if pArrival - p2Arrival > options.redundant:
                                 break
-                            if nStop.intermediateStop and p2Stop.intermediateStop == nStop.intermediateStop:
+                            if (nStop.intermediateStop and pStop.intermediateStop
+                                    and nStop.intermediateStop.busStop == pStop.intermediateStop.busStop):
                                 # intermediate conflict was added via other foes
                                 # and this particular conflict is a normal one
                                 continue
@@ -866,9 +868,9 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes, stopEdges, v
 def getIntermediateInfo(pStop, nStop):
     info = []
     if pStop.intermediateStop:
-        info.append("intermediateStop=%s" % pStop.intermediateStop)
+        info.append("intermediateStop=%s" % pStop.intermediateStop.busStop)
     if nStop.intermediateStop:
-        info.append("foeIntermediateStop=%s" % nStop.intermediateStop)
+        info.append("foeIntermediateStop=%s" % nStop.intermediateStop.busStop)
     # if pStop.otherVeh:
     #    info.append("otherVeh=%s" % pStop.otherVeh)
     # if nStop.otherVeh:
