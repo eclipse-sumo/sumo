@@ -7,6 +7,7 @@ title: ChangeLog
 ### Bugfixes
 
 - simulation
+  - Fixed bug where persons could enter the wrong vehicle and thereby cause a taxis simulation to crash. Issue #9821, #9733 (regression in 1.11.0)
   - tripId is now updated again when passing waypoints. Issue #9751 (regression in 1.11.0)
   - calibrator speed -1 no longer triggers error. Issue #9767 (regression in 1.11.0)
   - Fixed invalid error on taxi dispatch. Issue #9695
@@ -20,6 +21,7 @@ title: ChangeLog
   - Fixed various issues with emergency vehicle behavior, Issue #9310, #9768
   - Fixed bug where parkingReroute failed due to invalid rerouteOrigin. Issue #9778
   - Fixed inconsistent arrival times for trains approaching red and green signals. Issue #9788
+  - Fixed slow sublane simulation on large networks with only a few vehicles. Issue #9816
   
 - netedit
   - Fixed bug preventing inspection of tazRelelations. Issue #9728
@@ -91,6 +93,7 @@ title: ChangeLog
   - Can now color roads "by free parking spaces". Issue #9643
   - Traffic light parameter dialog now includes cycle duration, timeInCycle, earliestEnd and latestEnd. Issue #9784
   - Phase Tracker window now shows switch times, can configure time style and optionally print durations. Issue #9785
+  - Added context menu entry to open map location in an online map. Issue #9787
 
 - netedit
   - Add images for the guiShapes in the vType attributes editor. Issue #9457
