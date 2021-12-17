@@ -127,11 +127,11 @@ title: ChangeLog
 
 ### Miscellaneous
 
-  - Speed up Visual Studio build with sccache (only works with Ninja not with Visual Studio projects). Issue #9290
-  - The text "Loading configuration" is printed now only if **--verbose** is given. Issue #9743
-  - Updated Eigen library Issue #9613
-  - Updated GDAL library Issue #9614
-  - Updated gtest library Issue #9616
+- Speed up Visual Studio build with sccache (only works with Ninja not with Visual Studio projects). Issue #9290
+- The text "Loading configuration" is printed now only if **--verbose** is given. Issue #9743
+- Updated Eigen library Issue #9613
+- Updated GDAL library Issue #9614
+- Updated gtest library Issue #9616
 
 ## Version 1.11.0 (23.11.2021)
 
