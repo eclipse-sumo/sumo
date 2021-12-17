@@ -12,3 +12,6 @@ latestEnd
 
 # Copy of latestEnd_coordinated
 latestEnd_coordinated
+
+# latestEnd < earliestEnd
+latestEnd_wrap
