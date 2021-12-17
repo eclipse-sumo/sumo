@@ -13,7 +13,7 @@ the gap below the minGap. By setting the option **--collision.mingap-factor** th
 reduced. When setting **--collision.mingap-factor 0**, only *physical collisions* (i.e. front and back
 bumper meet or overlap) are registered.
 
-When setting the option **--collisions.check-junctions**, collisions between vehicles on the same
+When setting the option **--collision.check-junctions**, collisions between vehicles on the same
 intersection are also checked by detecting overlap of the vehicles
 shapes.
 
