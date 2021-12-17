@@ -424,9 +424,9 @@ MSStageWaiting::MSStageWaiting(const MSEdge* destination, MSStoppingPlace* toSto
             initial ? MSStageType::WAITING_FOR_DEPART : MSStageType::WAITING),
     myWaitingDuration(duration),
     myWaitingUntil(until),
-    myStopEndTime(-1),
     myStopWaitPos(Position::INVALID),
-    myActType(actType) {
+    myActType(actType),
+    myStopEndTime(-1) {
 }
 
 
