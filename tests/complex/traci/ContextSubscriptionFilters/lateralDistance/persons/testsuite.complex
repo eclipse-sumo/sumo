@@ -1,5 +1,5 @@
 # Should return a warning
-range_50_lateralDist_50_person_as_egoObjectType
+r50_latDist50_ego_person
 
 # Vehicles 'v8', 'v9' and 'v10' should be returned.
 range_50_lateralDist_50
