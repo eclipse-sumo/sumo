@@ -12,3 +12,6 @@ ticket9310
 
 # crash when combining waypoints with busStop 	
 ticket9399
+
+# person enters wrong vehicle
+ticket9821
