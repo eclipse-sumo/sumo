@@ -40,6 +40,11 @@
 
 
 // ===========================================================================
+// static member initialisation
+// ===========================================================================
+int GUITLLogicPhasesTrackerWindow::myLastY(-1);
+
+// ===========================================================================
 // member method definitions
 // ===========================================================================
 /* -------------------------------------------------------------------------
@@ -209,6 +214,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
 GUITLLogicPhasesTrackerWindow::~GUITLLogicPhasesTrackerWindow() {
     if (myAmInTrackingMode) {
         saveSettings();
+        myLastY = -1;
     }
     myApplication->removeChild(this);
     delete myConnector;
@@ -558,9 +564,14 @@ GUITLLogicPhasesTrackerWindow::loadSettings() {
     const FXint minTitlebarHeight = 20;
     setX(MAX2(0, MIN2(getApp()->reg().readIntEntry("TL_TRACKER", "x", 150),
                       getApp()->getRootWindow()->getWidth() - minSize)));
-    setY(MAX2(minTitlebarHeight,
+    if (myLastY == -1) {
+        myLastY = MAX2(minTitlebarHeight,
               MIN2(getApp()->reg().readIntEntry("TL_TRACKER", "y", 150),
-                   getApp()->getRootWindow()->getHeight() - minSize)));
+                   getApp()->getRootWindow()->getHeight() - minSize));
+    } else {
+        myLastY += getHeight() + 20;
+    }
+    setY(myLastY);
     setWidth(MAX2(getApp()->reg().readIntEntry("TL_TRACKER", "width", 700), minSize));
     myBeginOffset->setValue(getApp()->reg().readIntEntry("TL_TRACKER", "timeRange", (int)myBeginOffset->getValue()));
     myTimeMode->setCurrentItem(getApp()->reg().readIntEntry("TL_TRACKER", "timeMode", myTimeMode->getCurrentItem()));

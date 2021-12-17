@@ -240,6 +240,9 @@ private:
     /// @brief Wheter green durations are printed
     FXCheckButton* myGreenMode;
 
+    /// @brief y-Position of previously opened window
+    static int myLastY;
+
 private:
 
     void initToolBar();
