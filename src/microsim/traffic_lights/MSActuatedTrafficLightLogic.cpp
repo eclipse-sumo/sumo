@@ -597,6 +597,12 @@ MSActuatedTrafficLightLogic::gapControl() {
     // Checks, if the maxDuration is kept. No phase should last longer than maxDuration.
     SUMOTime actDuration = MSNet::getInstance()->getCurrentTimeStep() - myPhases[myStep]->myLastSwitch;
     if (actDuration >= getCurrentPhaseDef().maxDuration || maxLinkDurationReached() || getLatest() == 0) {
+#ifdef DEBUG_PHASE_SELECTION
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " actDuration=" << STEPS2TIME(actDuration) << " maxDur=" << STEPS2TIME(getCurrentPhaseDef().maxDuration)
+                    << " maxLinkDurationReached=" << maxLinkDurationReached() << " latest=" << STEPS2TIME(getLatest()) << "\n";
+        }
+#endif
         return result; // end current phase
     }
 
@@ -797,7 +803,7 @@ SUMOTime
 MSActuatedTrafficLightLogic::getTimeInCycle() const {
         return (myCoordinated
                 ? (SIMSTEP - myOffset) % myDefaultCycleTime
-                : SIMSTEP - myPhases[0]->myLastSwitch);
+                : (SIMSTEP - myPhases[0]->myLastSwitch) % myDefaultCycleTime);
 }
 
 
@@ -812,10 +818,19 @@ MSActuatedTrafficLightLogic::getEarliest() const {
 
 SUMOTime
 MSActuatedTrafficLightLogic::getLatest() const {
-    if (myPhases[myStep]->latestEnd == MSPhaseDefinition::UNSPECIFIED_DURATION) {
+    const SUMOTime latest = getCurrentPhaseDef().latestEnd;
+    if (latest == MSPhaseDefinition::UNSPECIFIED_DURATION) {
         return SUMOTime_MAX; // no restriction
     } else {
-        return MAX2(SUMOTime(0), myPhases[myStep]->latestEnd - getTimeInCycle());
+        if (latest < myPhases[myStep]->earliestEnd) {
+            // time applies to the next cycle
+            const SUMOTime running = SIMSTEP - getCurrentPhaseDef().myLastSwitch;
+            if (running < getTimeInCycle()) {
+                // phase was started in the current cycle so the restriction does not apply yet
+                return SUMOTime_MAX;
+            }
+        }
+        return MAX2(SUMOTime(0), latest - getTimeInCycle());
     }
 }
 
