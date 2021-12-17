@@ -13,5 +13,8 @@
 # person doesn't care about taxi line
 2lines_rideAny
 
+# person doesn't care about taxi line but the vehicle must still be a taxi to qualify
+2lines_rideAny_notTaxi
+
 # taxi line appeals to all persons
 2lines_taxiAny
