@@ -246,6 +246,8 @@ private:
     void initTimeMode();
     void initGreenMode();
 
+    void saveSettings();
+    void loadSettings();
 
 protected:
     /// protected constructor for FOX

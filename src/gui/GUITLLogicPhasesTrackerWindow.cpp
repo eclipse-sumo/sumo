@@ -173,7 +173,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     setTitle((logic.getID() + " - " + logic.getProgramID() + " - tracker").c_str());
     setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TLSTRACKER));
     setHeight((FXint)(myTLLogic->getLinks().size() * 20 + 30 + 8 + 30 + 60));
-    setWidth(700);
+    loadSettings();
 }
 
 
@@ -207,6 +207,9 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
 
 
 GUITLLogicPhasesTrackerWindow::~GUITLLogicPhasesTrackerWindow() {
+    if (myAmInTrackingMode) {
+        saveSettings();
+    }
     myApplication->removeChild(this);
     delete myConnector;
     // just to quit cleanly on a failure
@@ -536,5 +539,32 @@ GUITLLogicPhasesTrackerWindow::setBeginTime(SUMOTime time) {
     myBeginTime = time;
 }
 
+
+void
+GUITLLogicPhasesTrackerWindow::saveSettings() {
+    getApp()->reg().writeIntEntry("TL_TRACKER", "x", getX());
+    getApp()->reg().writeIntEntry("TL_TRACKER", "y", getY());
+    getApp()->reg().writeIntEntry("TL_TRACKER", "width", getWidth());
+    getApp()->reg().writeIntEntry("TL_TRACKER", "timeRange", (int)myBeginOffset->getValue());
+    getApp()->reg().writeIntEntry("TL_TRACKER", "timeMode", myTimeMode->getCurrentItem());
+    getApp()->reg().writeIntEntry("TL_TRACKER", "greenMode", (int)(myGreenMode->getCheck() != FALSE));
+}
+
+
+void
+GUITLLogicPhasesTrackerWindow::loadSettings() {
+    // ensure window is visible after switching screen resolutions
+    const FXint minSize = 400;
+    const FXint minTitlebarHeight = 20;
+    setX(MAX2(0, MIN2(getApp()->reg().readIntEntry("TL_TRACKER", "x", 150),
+                      getApp()->getRootWindow()->getWidth() - minSize)));
+    setY(MAX2(minTitlebarHeight,
+              MIN2(getApp()->reg().readIntEntry("TL_TRACKER", "y", 150),
+                   getApp()->getRootWindow()->getHeight() - minSize)));
+    setWidth(MAX2(getApp()->reg().readIntEntry("TL_TRACKER", "width", 700), minSize));
+    myBeginOffset->setValue(getApp()->reg().readIntEntry("TL_TRACKER", "timeRange", (int)myBeginOffset->getValue()));
+    myTimeMode->setCurrentItem(getApp()->reg().readIntEntry("TL_TRACKER", "timeMode", myTimeMode->getCurrentItem()));
+    myGreenMode->setCheck(getApp()->reg().readIntEntry("TL_TRACKER", "greenMode", (int)(myGreenMode->getCheck() != FALSE)));
+}
 
 /****************************************************************************/
