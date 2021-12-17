@@ -115,6 +115,9 @@ public:
 
     SUMOTime getTimeInCycle() const;
 
+    /// @brief map the given time into the current cycle
+    SUMOTime getTimeInCycle(SUMOTime t) const;
+
 protected:
     struct InductLoopInfo {
         InductLoopInfo(MSInductLoop* _loop, int numPhases, double _maxGap):
