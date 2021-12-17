@@ -453,14 +453,17 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
             const double a = STEPS2TIME(-myFirstPhaseOffset) * barWidth / timeRange;
             pos += (int) a;
             glpos += a / panelWidth;
-            currTime += leftOffset;
+            currTime -= myFirstPhaseOffset;
         }
-        int ticShift = 1;
+        int ticShift = myFirstPhase2Show;
         const bool mmSS = myTimeMode->getCurrentItem() == 1;
         const bool cycleTime = myTimeMode->getCurrentItem() == 2;
         for (DurationsVector::iterator pd = myDurations.begin() + myFirstPhase2Show; pd != myDurations.end(); ++pd) {
+            // draw times at different heights
+            ticShift = (ticShift % 3) + 1;
             const std::string timeStr = (mmSS
-                                         ? time2string(currTime % 3600000).substr(3) // only write mn:ss
+                                         ? StringUtils::padFront(toString((currTime % 3600000) / 60000), 2, '0') + ":"
+                                         + StringUtils::padFront(toString((currTime % 60000) / 1000), 2, '0')
                                          : toString((int)STEPS2TIME(cycleTime
                                                  ? (currTime - myTLLogic->getOffset()) % myTLLogic->getDefaultCycleTime()
                                                  : currTime)));
@@ -480,12 +483,6 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
             glpos += a / panelWidth;
             currTime += tickDist;
 
-            // draw times at differnt heights
-            if (ticShift == 3) {
-                ticShift = 1;
-            } else {
-                ticShift++;
-            }
         }
     }
 }
