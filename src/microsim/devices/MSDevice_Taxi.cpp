@@ -668,9 +668,9 @@ MSDevice_Taxi::setParameter(const std::string& key, const std::string& value) {
 
 bool
 MSDevice_Taxi::compatibleLine(const std::string& taxiLine, const std::string& rideLine) {
-    return (taxiLine == TAXI_SERVICE
-            || rideLine == TAXI_SERVICE
-            || taxiLine == rideLine);
+    return (taxiLine == rideLine
+            || (taxiLine == TAXI_SERVICE && StringUtils::startsWith(rideLine, "taxi:"))
+            || (rideLine == TAXI_SERVICE && StringUtils::startsWith(taxiLine, "taxi:")));
 }
 
 bool
