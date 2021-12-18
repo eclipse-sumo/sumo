@@ -713,6 +713,8 @@ public:
     std::string edgeParam, laneParam;
     /// @brief key for coloring by vehicle parameter
     std::string vehicleParam;
+    /// @brief key for scaling by vehicle parameter
+    std::string vehicleScaleParam;
     /// @brief key for rendering vehicle textual parameter
     std::string vehicleTextParam;
 

@@ -297,17 +297,6 @@ public:
     }
 
 
-    /** @brief Returns the number of seconds waited (speed was lesser than 0.1m/s)
-     *
-     * The value is reset if the vehicle moves faster than 0.1m/s
-     * Intentional stopping does not count towards this time.
-     * @return The time the vehicle is standing
-     */
-    double getWaitingSeconds() const {
-        return STEPS2TIME(getWaitingTime());
-    }
-
-
     /// @brief Returns the earliest leave time for the current segment
     double getEventTimeSeconds() const {
         return STEPS2TIME(getEventTime());

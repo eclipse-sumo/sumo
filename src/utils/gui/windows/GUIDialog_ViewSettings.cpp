@@ -460,6 +460,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     int prevLaneMode = mySettings->getLaneEdgeMode();
     int prevLaneScaleMode = mySettings->getLaneEdgeScaleMode();
     int prevVehicleMode = mySettings->vehicleColorer.getActive();
+    int prevVehicleScaleMode = mySettings->vehicleScaler.getActive();
     int prevPersonMode = mySettings->personColorer.getActive();
     int prevContainerMode = mySettings->containerColorer.getActive();
     int prevJunctionMode = mySettings->junctionColorer.getActive();
@@ -694,6 +695,20 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         }
         if (sender == myVehicleColorInterpolation) {
             tmpSettings.vehicleColorer.getScheme().setInterpolated(myVehicleColorInterpolation->getCheck() != FALSE);
+            doRebuildColorMatrices = true;
+        }
+    } else {
+        doRebuildColorMatrices = true;
+    }
+    // vehicles (scaling)
+    if (tmpSettings.vehicleScaler.getActive() == prevVehicleScaleMode) {
+        if (updateScaleRanges(sender, myVehicleScales.begin(), myVehicleScales.end(),
+                              myVehicleScaleThresholds.begin(), myVehicleScaleThresholds.end(), myVehicleScaleButtons.begin(),
+                              tmpSettings.vehicleScaler.getScheme())) {
+            doRebuildColorMatrices = true;
+        }
+        if (sender == myVehicleScaleInterpolation) {
+            tmpSettings.vehicleScaler.getScheme().setInterpolated(myVehicleScaleInterpolation->getCheck() != FALSE);
             doRebuildColorMatrices = true;
         }
     } else {

@@ -517,6 +517,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     edgeParam("EDGE_KEY"),
     laneParam("LANE_KEY"),
     vehicleParam("PARAM_NUMERICAL"),
+    vehicleScaleParam("PARAM_NUMERICAL"),
     vehicleTextParam("PARAM_TEXT"),
     edgeData("speed"),
     edgeValueHideCheck(false),
@@ -1335,8 +1336,11 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     /// add vehicle scaling schemes
     {
         vehicleScaler.addScheme(GUIScaleScheme("uniform", 1, "", true));
-        GUIScaleScheme scheme = GUIScaleScheme("by speed", 1, "", false, 1, COL_SCHEME_DYNAMIC);
-        scheme.addColor(1, (double)(150 / 3.6));
+        GUIScaleScheme scheme = GUIScaleScheme(SCHEME_NAME_SELECTION, 1, "unselected", true, 0, COL_SCHEME_MISC);
+        scheme.addColor(5, 1, "selected");
+        vehicleScaler.addScheme(scheme);
+        scheme = GUIScaleScheme("by speed", 1, "", false, 1, COL_SCHEME_DYNAMIC);
+        scheme.addColor(5, (double)(150 / 3.6));
         scheme.setAllowsNegativeValues(true); // negative speed indicates stopped
         scheme.addColor(1, -1); // stopped on road
         scheme.addColor(0.5, -2); // stopped off-road (parking)
@@ -1360,9 +1364,6 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
         scheme = GUIScaleScheme("by reroute number", 1, "", false, 0, COL_SCHEME_DYNAMIC);
         scheme.addColor(1, (double)1.);
         scheme.addColor(5, (double)10.);
-        vehicleScaler.addScheme(scheme);
-        scheme = GUIScaleScheme(SCHEME_NAME_SELECTION, 1, "unselected", true, 0, COL_SCHEME_MISC);
-        scheme.addColor(5, 1, "selected");
         vehicleScaler.addScheme(scheme);
         scheme = GUIScaleScheme("by time loss", 1, "", false, 0, COL_SCHEME_DYNAMIC);
         scheme.addColor(1, (double)10);
@@ -1571,6 +1572,7 @@ GUIVisualizationSettings::initNeteditDefaults() {
     vehicleColorer.addScheme(GUIColorScheme("uniform", RGBColor::YELLOW, "", true));
     personColorer.addScheme(GUIColorScheme("uniform", RGBColor::YELLOW, "", true));
     containerColorer.addScheme(GUIColorScheme("uniform", RGBColor::YELLOW, "", true));
+    vehicleScaler.addScheme(GUIScaleScheme("uniform", 1, "", true));
 }
 
 
@@ -1646,6 +1648,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("edgeParam", edgeParam);
     dev.writeAttr("laneParam", laneParam);
     dev.writeAttr("vehicleParam", vehicleParam);
+    dev.writeAttr("vehicleScaleParam", vehicleScaleParam);
     dev.writeAttr("vehicleTextParam", vehicleTextParam);
     dev.writeAttr("edgeData", edgeData);
     dev.writeAttr("edgeValueHideCheck", edgeValueHideCheck);
@@ -1929,6 +1932,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (vehicleParam != v2.vehicleParam) {
+        return false;
+    }
+    if (vehicleScaleParam != v2.vehicleScaleParam) {
         return false;
     }
     if (vehicleTextParam != v2.vehicleTextParam) {

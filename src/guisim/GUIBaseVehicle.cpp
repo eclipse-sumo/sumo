@@ -400,7 +400,8 @@ GUIBaseVehicle::removedPopupMenu() {
 
 double
 GUIBaseVehicle::getExaggeration(const GUIVisualizationSettings& s) const {
-    return s.vehicleSize.getExaggeration(s, this);
+    return (s.vehicleSize.getExaggeration(s, this) *
+            s.vehicleScaler.getScheme().getColor(getScaleValue(s, s.vehicleScaler.getActive())));
 }
 
 
@@ -785,6 +786,59 @@ GUIBaseVehicle::setFunctionalColor(int activeScheme, const MSBaseVehicle* veh, R
         }
     }
     return false;
+}
+
+
+double
+GUIBaseVehicle::getScaleValue(const GUIVisualizationSettings& s, int activeScheme) const {
+    switch (activeScheme) {
+        case 0: // uniform
+            return 0;
+        case 1: // selection
+            return myVehicle.isSelected();
+        case 2: // by speed
+            if (myVehicle.isStopped()) {
+                return myVehicle.isParking() ? -2 : -1;
+            }
+            return myVehicle.getSpeed();
+        case 3:
+            return myVehicle.getWaitingSeconds();
+        case 4: {
+            MSVehicle* microVeh = dynamic_cast<MSVehicle*>(&myVehicle);
+            return (microVeh != nullptr ? microVeh->getAccumulatedWaitingSeconds() : 0);
+        }
+        case 5: {
+            MSVehicle* microVeh = dynamic_cast<MSVehicle*>(&myVehicle);
+            return (microVeh != nullptr ? microVeh->getLane()->getVehicleMaxSpeed(microVeh) : myVehicle.getEdge()->getVehicleMaxSpeed(&myVehicle));
+            }
+        case 6:
+            return myVehicle.getNumberReroutes();
+        case 7:
+            return myVehicle.getTimeLossSeconds();
+        case 8:
+            return myVehicle.getStopDelay();
+        case 9:
+            return myVehicle.getStopArrivalDelay();
+        case 10: // by numerical param value
+            std::string error;
+            std::string val = myVehicle.getPrefixedParameter(s.vehicleScaleParam, error);
+            try {
+                if (val == "") {
+                    return 0;
+                } else {
+                    return StringUtils::toDouble(val);
+                }
+            } catch (NumberFormatException&) {
+                try {
+                    return StringUtils::toBool(val);
+                } catch (BoolFormatException&) {
+                    WRITE_WARNING("Vehicle parameter '" + myVehicle.getParameter().getParameter(s.vehicleScaleParam, "0")
+                            + "' key '" + s.vehicleScaleParam + "' is not a number for vehicle '" + myVehicle.getID() + "'");
+                    return -1;
+                }
+            }
+    }
+    return 0;
 }
 
 
