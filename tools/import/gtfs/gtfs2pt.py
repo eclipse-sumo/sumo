@@ -371,10 +371,10 @@ def main(options):
             options.osm_routes = None
         else:
             (gtfs_data, trip_list,
-            filtered_stops,
-            shapes, shapes_dict) = gtfs2osm.filter_gtfs(options, routes,
-                                                        trips_on_day, shapes,
-                                                        stops, stop_times)
+             filtered_stops,
+             shapes, shapes_dict) = gtfs2osm.filter_gtfs(options, routes,
+                                                         trips_on_day, shapes,
+                                                         stops, stop_times)
 
             osm_routes = gtfs2osm.import_osm(options, net)
 
