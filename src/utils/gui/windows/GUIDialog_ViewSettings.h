@@ -302,6 +302,15 @@ protected:
     std::vector<FXRealSpinner*> myVehicleThresholds;
     std::vector<FXButton*> myVehicleButtons;
     FXCheckButton* myVehicleColorInterpolation;
+
+    /// @brief vehicle scaler
+    MFXIconComboBox* myVehicleScaleMode;
+    FXVerticalFrame* myVehicleScaleSettingFrame;
+    std::vector<FXRealSpinner*> myVehicleScales;
+    std::vector<FXRealSpinner*> myVehicleScaleThresholds;
+    std::vector<FXButton*> myVehicleScaleButtons;
+    FXCheckButton* myVehicleScaleInterpolation;
+
     FXCheckButton* myShowBlinker, *myShowMinGap, *myShowBrakeGap, *myShowBTRange, *myShowRouteIndex, *myScaleLength, *myShowParkingInfo; /* *myShowLaneChangePreference,*/
     FXComboBox* myVehicleParamKey;
     FXComboBox* myVehicleTextParamKey;

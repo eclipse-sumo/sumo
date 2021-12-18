@@ -730,6 +730,9 @@ public:
     /// @brief The vehicle colorer
     GUIColorer vehicleColorer;
 
+    /// @brief The size scaling settings for vehicles
+    GUIScaler vehicleScaler;
+
     /// @brief The quality of vehicle drawing
     int vehicleQuality;
 

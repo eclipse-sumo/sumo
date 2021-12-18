@@ -289,6 +289,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
     myLaneMinWidthDialer->setValue(mySettings->laneMinSize);
 
     myVehicleColorMode->setCurrentItem((FXint) mySettings->vehicleColorer.getActive());
+    myVehicleScaleMode->setCurrentItem((FXint) mySettings->vehicleScaler.getActive());
     myVehicleShapeDetail->setCurrentItem(mySettings->vehicleQuality);
     myShowBlinker->setCheck(mySettings->showBlinker);
     myShowMinGap->setCheck(mySettings->drawMinGap);
@@ -568,6 +569,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.laneMinSize = myLaneMinWidthDialer->getValue();
 
     tmpSettings.vehicleColorer.setActive(myVehicleColorMode->getCurrentItem());
+    tmpSettings.vehicleScaler.setActive(myVehicleScaleMode->getCurrentItem());
     tmpSettings.vehicleQuality = myVehicleShapeDetail->getCurrentItem();
     tmpSettings.showBlinker = (myShowBlinker->getCheck() != FALSE);
     tmpSettings.drawMinGap = (myShowMinGap->getCheck() != FALSE);
@@ -1346,6 +1348,12 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
     }
     myVehicleColorSettingFrame->getParent()->recalc();
 
+    m = rebuildScaleMatrix(myVehicleScaleSettingFrame, myVehicleScales, myVehicleScaleThresholds, myVehicleScaleButtons, myVehicleScaleInterpolation, mySettings->vehicleScaler.getScheme());
+    if (doCreate) {
+        m->create();
+    }
+    myVehicleScaleSettingFrame->getParent()->recalc();
+
     m = rebuildColorMatrix(myPersonColorSettingFrame, myPersonColors, myPersonThresholds, myPersonButtons, myPersonColorInterpolation, mySettings->personColorer.getScheme());
     if (doCreate) {
         m->create();
@@ -1849,7 +1857,17 @@ GUIDialog_ViewSettings::buildVehiclesFrame(FXTabBook* tabbook) {
     myVehicleParamKey->disable();
 
     myVehicleColorSettingFrame = new FXVerticalFrame(verticalframe, GUIDesignViewSettingsVerticalFrame4);
+    new FXHorizontalSeparator(verticalframe, GUIDesignHorizontalSeparator);
 
+    //  vehicle scale settings
+    FXVerticalFrame* verticalFrameScale = new FXVerticalFrame(verticalframe, GUIDesignViewSettingsVerticalFrame6);
+    FXMatrix* matrixScale = new FXMatrix(verticalFrameScale, 3, GUIDesignViewSettingsMatrix3);
+    new FXLabel(matrixScale, "Scale size", nullptr, GUIDesignViewSettingsLabel1);
+    myVehicleScaleMode = new MFXIconComboBox(matrixScale, 30, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+    myVehicleScaleInterpolation = new FXCheckButton(matrixScale, "Interpolate", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    myVehicleScaleSettingFrame = new FXVerticalFrame(verticalFrameScale, GUIDesignViewSettingsVerticalFrame4);
+    mySettings->vehicleScaler.fill(*myVehicleScaleMode);
+    myVehicleScaleMode->setNumVisible((int)mySettings->vehicleScaler.size());
     new FXHorizontalSeparator(verticalframe, GUIDesignHorizontalSeparator);
 
     FXMatrix* matrixVehicle = new FXMatrix(verticalframe, 2, GUIDesignMatrixViewSettings);
