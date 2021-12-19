@@ -1,0 +1,1375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-12-19 12:04:53 by Eclipse SUMO sumo Version v1_11_0+0620-3f1078c
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <fcd-output value="fcd.xml"/>
+        <fcd-output.attributes value="speed,acceleration"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <vehicle id="f.0" speed="29.45" acceleration="0.00"/>
+        <vehicle id="slow" speed="19.45" acceleration="0.00"/>
+    </timestep>
+    <timestep time="1.00">
+        <vehicle id="f.0" speed="28.52" acceleration="-0.93"/>
+        <vehicle id="slow" speed="18.29" acceleration="-1.16"/>
+    </timestep>
+    <timestep time="2.00">
+        <vehicle id="f.0" speed="27.91" acceleration="-0.61"/>
+        <vehicle id="f.1" speed="26.07" acceleration="0.00"/>
+        <vehicle id="slow" speed="19.39" acceleration="1.10"/>
+    </timestep>
+    <timestep time="3.00">
+        <vehicle id="f.0" speed="27.90" acceleration="-0.01"/>
+        <vehicle id="f.1" speed="25.10" acceleration="-0.97"/>
+        <vehicle id="slow" speed="18.68" acceleration="-0.71"/>
+    </timestep>
+    <timestep time="4.00">
+        <vehicle id="f.0" speed="25.40" acceleration="-2.50"/>
+        <vehicle id="f.1" speed="25.10" acceleration="-0.00"/>
+        <vehicle id="f.2" speed="27.88" acceleration="0.00"/>
+        <vehicle id="slow" speed="19.12" acceleration="0.45"/>
+    </timestep>
+    <timestep time="5.00">
+        <vehicle id="f.0" speed="24.48" acceleration="-0.91"/>
+        <vehicle id="f.1" speed="25.46" acceleration="0.36"/>
+        <vehicle id="f.2" speed="27.30" acceleration="-0.59"/>
+        <vehicle id="slow" speed="19.44" acceleration="0.31"/>
+    </timestep>
+    <timestep time="6.00">
+        <vehicle id="f.0" speed="24.38" acceleration="-0.10"/>
+        <vehicle id="f.1" speed="25.99" acceleration="0.53"/>
+        <vehicle id="f.2" speed="26.74" acceleration="-0.55"/>
+        <vehicle id="f.3" speed="29.61" acceleration="0.00"/>
+        <vehicle id="slow" speed="18.71" acceleration="-0.73"/>
+    </timestep>
+    <timestep time="7.00">
+        <vehicle id="f.0" speed="22.41" acceleration="-1.98"/>
+        <vehicle id="f.1" speed="26.01" acceleration="0.02"/>
+        <vehicle id="f.2" speed="27.40" acceleration="0.66"/>
+        <vehicle id="f.3" speed="29.21" acceleration="-0.40"/>
+        <vehicle id="slow" speed="19.03" acceleration="0.32"/>
+    </timestep>
+    <timestep time="8.00">
+        <vehicle id="f.0" speed="21.72" acceleration="-0.68"/>
+        <vehicle id="f.1" speed="24.99" acceleration="-1.01"/>
+        <vehicle id="f.2" speed="26.81" acceleration="-0.59"/>
+        <vehicle id="f.3" speed="29.36" acceleration="0.15"/>
+        <vehicle id="f.4" speed="28.62" acceleration="0.00"/>
+        <vehicle id="slow" speed="18.62" acceleration="-0.40"/>
+    </timestep>
+    <timestep time="9.00">
+        <vehicle id="f.0" speed="21.78" acceleration="0.06"/>
+        <vehicle id="f.1" speed="25.29" acceleration="0.29"/>
+        <vehicle id="f.2" speed="26.59" acceleration="-0.22"/>
+        <vehicle id="f.3" speed="28.04" acceleration="-1.32"/>
+        <vehicle id="f.4" speed="28.42" acceleration="-0.21"/>
+        <vehicle id="slow" speed="18.74" acceleration="0.12"/>
+    </timestep>
+    <timestep time="10.00">
+        <vehicle id="f.0" speed="21.53" acceleration="-0.25"/>
+        <vehicle id="f.1" speed="23.89" acceleration="-1.39"/>
+        <vehicle id="f.2" speed="26.57" acceleration="-0.01"/>
+        <vehicle id="f.3" speed="28.50" acceleration="0.46"/>
+        <vehicle id="f.4" speed="28.46" acceleration="0.04"/>
+        <vehicle id="f.5" speed="23.09" acceleration="0.00"/>
+        <vehicle id="slow" speed="18.20" acceleration="-0.54"/>
+    </timestep>
+    <timestep time="11.00">
+        <vehicle id="f.0" speed="19.22" acceleration="-2.31"/>
+        <vehicle id="f.1" speed="23.88" acceleration="-0.01"/>
+        <vehicle id="f.2" speed="25.11" acceleration="-1.47"/>
+        <vehicle id="f.3" speed="28.16" acceleration="-0.33"/>
+        <vehicle id="f.4" speed="27.88" acceleration="-0.58"/>
+        <vehicle id="f.5" speed="22.77" acceleration="-0.31"/>
+        <vehicle id="slow" speed="18.91" acceleration="0.71"/>
+    </timestep>
+    <timestep time="12.00">
+        <vehicle id="f.0" speed="20.87" acceleration="1.64"/>
+        <vehicle id="f.1" speed="20.92" acceleration="-2.96"/>
+        <vehicle id="f.2" speed="24.25" acceleration="-0.85"/>
+        <vehicle id="f.3" speed="26.10" acceleration="-2.06"/>
+        <vehicle id="f.4" speed="27.72" acceleration="-0.16"/>
+        <vehicle id="f.5" speed="21.87" acceleration="-0.90"/>
+        <vehicle id="f.6" speed="24.52" acceleration="0.00"/>
+        <vehicle id="slow" speed="18.39" acceleration="-0.52"/>
+    </timestep>
+    <timestep time="13.00">
+        <vehicle id="f.0" speed="19.67" acceleration="-1.20"/>
+        <vehicle id="f.1" speed="22.35" acceleration="1.43"/>
+        <vehicle id="f.2" speed="21.65" acceleration="-2.60"/>
+        <vehicle id="f.3" speed="25.64" acceleration="-0.46"/>
+        <vehicle id="f.4" speed="27.38" acceleration="-0.34"/>
+        <vehicle id="f.5" speed="22.85" acceleration="0.98"/>
+        <vehicle id="f.6" speed="23.69" acceleration="-0.83"/>
+        <vehicle id="slow" speed="18.20" acceleration="-0.19"/>
+    </timestep>
+    <timestep time="14.00">
+        <vehicle id="f.0" speed="19.59" acceleration="-0.08"/>
+        <vehicle id="f.1" speed="21.24" acceleration="-1.12"/>
+        <vehicle id="f.2" speed="22.78" acceleration="1.13"/>
+        <vehicle id="f.3" speed="21.96" acceleration="-3.68"/>
+        <vehicle id="f.4" speed="28.53" acceleration="1.15"/>
+        <vehicle id="f.5" speed="22.85" acceleration="0.01"/>
+        <vehicle id="f.6" speed="23.80" acceleration="0.11"/>
+        <vehicle id="f.7" speed="24.61" acceleration="0.00"/>
+        <vehicle id="slow" speed="19.25" acceleration="1.05"/>
+    </timestep>
+    <timestep time="15.00">
+        <vehicle id="f.0" speed="19.95" acceleration="0.37"/>
+        <vehicle id="f.1" speed="21.09" acceleration="-0.15"/>
+        <vehicle id="f.2" speed="21.75" acceleration="-1.03"/>
+        <vehicle id="f.3" speed="23.84" acceleration="1.87"/>
+        <vehicle id="f.4" speed="25.01" acceleration="-3.53"/>
+        <vehicle id="f.5" speed="23.03" acceleration="0.17"/>
+        <vehicle id="f.6" speed="24.83" acceleration="1.03"/>
+        <vehicle id="f.7" speed="23.67" acceleration="-0.94"/>
+        <vehicle id="slow" speed="19.04" acceleration="-0.21"/>
+    </timestep>
+    <timestep time="16.00">
+        <vehicle id="f.0" speed="19.67" acceleration="-0.29"/>
+        <vehicle id="f.1" speed="20.99" acceleration="-0.10"/>
+        <vehicle id="f.2" speed="21.36" acceleration="-0.40"/>
+        <vehicle id="f.3" speed="22.48" acceleration="-1.36"/>
+        <vehicle id="f.4" speed="25.72" acceleration="0.71"/>
+        <vehicle id="f.5" speed="22.58" acceleration="-0.45"/>
+        <vehicle id="f.6" speed="24.11" acceleration="-0.72"/>
+        <vehicle id="f.7" speed="23.54" acceleration="-0.13"/>
+        <vehicle id="f.8" speed="26.05" acceleration="0.00"/>
+        <vehicle id="slow" speed="18.99" acceleration="-0.05"/>
+    </timestep>
+    <timestep time="17.00">
+        <vehicle id="f.0" speed="19.33" acceleration="-0.34"/>
+        <vehicle id="f.1" speed="20.30" acceleration="-0.69"/>
+        <vehicle id="f.2" speed="20.82" acceleration="-0.54"/>
+        <vehicle id="f.3" speed="22.55" acceleration="0.07"/>
+        <vehicle id="f.4" speed="24.45" acceleration="-1.27"/>
+        <vehicle id="f.5" speed="22.95" acceleration="0.37"/>
+        <vehicle id="f.6" speed="23.01" acceleration="-1.10"/>
+        <vehicle id="f.7" speed="23.80" acceleration="0.26"/>
+        <vehicle id="f.8" speed="24.85" acceleration="-1.20"/>
+        <vehicle id="slow" speed="18.69" acceleration="-0.30"/>
+    </timestep>
+    <timestep time="18.00">
+        <vehicle id="f.0" speed="18.95" acceleration="-0.38"/>
+        <vehicle id="f.1" speed="19.38" acceleration="-0.92"/>
+        <vehicle id="f.2" speed="20.84" acceleration="0.02"/>
+        <vehicle id="f.3" speed="20.68" acceleration="-1.86"/>
+        <vehicle id="f.4" speed="23.84" acceleration="-0.62"/>
+        <vehicle id="f.5" speed="21.82" acceleration="-1.13"/>
+        <vehicle id="f.6" speed="24.07" acceleration="1.05"/>
+        <vehicle id="f.7" speed="24.08" acceleration="0.28"/>
+        <vehicle id="f.8" speed="25.61" acceleration="0.76"/>
+        <vehicle id="f.9" speed="23.81" acceleration="0.00"/>
+        <vehicle id="slow" speed="18.81" acceleration="0.12"/>
+    </timestep>
+    <timestep time="19.00">
+        <vehicle id="f.0" speed="19.43" acceleration="0.49"/>
+        <vehicle id="f.1" speed="19.31" acceleration="-0.07"/>
+        <vehicle id="f.2" speed="19.55" acceleration="-1.29"/>
+        <vehicle id="f.3" speed="20.85" acceleration="0.17"/>
+        <vehicle id="f.4" speed="22.44" acceleration="-1.40"/>
+        <vehicle id="f.5" speed="22.16" acceleration="0.34"/>
+        <vehicle id="f.6" speed="23.09" acceleration="-0.98"/>
+        <vehicle id="f.7" speed="23.69" acceleration="-0.39"/>
+        <vehicle id="f.8" speed="25.87" acceleration="0.26"/>
+        <vehicle id="f.9" speed="22.66" acceleration="-1.15"/>
+        <vehicle id="slow" speed="18.54" acceleration="-0.27"/>
+    </timestep>
+    <timestep time="20.00">
+        <vehicle id="f.0" speed="18.55" acceleration="-0.89"/>
+        <vehicle id="f.1" speed="20.28" acceleration="0.97"/>
+        <vehicle id="f.2" speed="19.79" acceleration="0.25"/>
+        <vehicle id="f.3" speed="19.69" acceleration="-1.16"/>
+        <vehicle id="f.4" speed="21.38" acceleration="-1.06"/>
+        <vehicle id="f.5" speed="21.99" acceleration="-0.17"/>
+        <vehicle id="f.6" speed="23.12" acceleration="0.03"/>
+        <vehicle id="f.7" speed="23.44" acceleration="-0.25"/>
+        <vehicle id="f.8" speed="25.11" acceleration="-0.76"/>
+        <vehicle id="f.9" speed="22.94" acceleration="0.28"/>
+        <vehicle id="slow" speed="18.96" acceleration="0.43"/>
+    </timestep>
+    <timestep time="21.00">
+        <vehicle id="f.0" speed="18.83" acceleration="0.28"/>
+        <vehicle id="f.1" speed="18.92" acceleration="-1.36"/>
+        <vehicle id="f.2" speed="20.68" acceleration="0.88"/>
+        <vehicle id="f.3" speed="19.90" acceleration="0.21"/>
+        <vehicle id="f.4" speed="20.65" acceleration="-0.73"/>
+        <vehicle id="f.5" speed="22.34" acceleration="0.35"/>
+        <vehicle id="f.6" speed="22.88" acceleration="-0.24"/>
+        <vehicle id="f.7" speed="23.50" acceleration="0.06"/>
+        <vehicle id="f.8" speed="24.24" acceleration="-0.87"/>
+        <vehicle id="f.9" speed="22.74" acceleration="-0.21"/>
+        <vehicle id="slow" speed="18.89" acceleration="-0.08"/>
+    </timestep>
+    <timestep time="22.00">
+        <vehicle id="f.0" speed="18.83" acceleration="0.00"/>
+        <vehicle id="f.1" speed="19.47" acceleration="0.55"/>
+        <vehicle id="f.2" speed="18.45" acceleration="-2.22"/>
+        <vehicle id="f.3" speed="20.49" acceleration="0.59"/>
+        <vehicle id="f.4" speed="20.81" acceleration="0.16"/>
+        <vehicle id="f.5" speed="21.91" acceleration="-0.43"/>
+        <vehicle id="f.6" speed="22.94" acceleration="0.06"/>
+        <vehicle id="f.7" speed="24.16" acceleration="0.66"/>
+        <vehicle id="f.8" speed="23.97" acceleration="-0.28"/>
+        <vehicle id="f.9" speed="23.19" acceleration="0.46"/>
+        <vehicle id="slow" speed="18.22" acceleration="-0.67"/>
+    </timestep>
+    <timestep time="23.00">
+        <vehicle id="f.0" speed="18.89" acceleration="0.06"/>
+        <vehicle id="f.1" speed="18.50" acceleration="-0.96"/>
+        <vehicle id="f.2" speed="19.18" acceleration="0.72"/>
+        <vehicle id="f.3" speed="19.45" acceleration="-1.05"/>
+        <vehicle id="f.4" speed="21.22" acceleration="0.41"/>
+        <vehicle id="f.5" speed="21.90" acceleration="-0.01"/>
+        <vehicle id="f.6" speed="22.17" acceleration="-0.78"/>
+        <vehicle id="f.7" speed="24.46" acceleration="0.30"/>
+        <vehicle id="f.8" speed="24.48" acceleration="0.52"/>
+        <vehicle id="f.9" speed="22.74" acceleration="-0.45"/>
+        <vehicle id="slow" speed="19.01" acceleration="0.79"/>
+    </timestep>
+    <timestep time="24.00">
+        <vehicle id="f.0" speed="18.25" acceleration="-0.64"/>
+        <vehicle id="f.1" speed="18.85" acceleration="0.34"/>
+        <vehicle id="f.2" speed="18.25" acceleration="-0.93"/>
+        <vehicle id="f.3" speed="18.97" acceleration="-0.48"/>
+        <vehicle id="f.4" speed="20.06" acceleration="-1.16"/>
+        <vehicle id="f.5" speed="21.99" acceleration="0.09"/>
+        <vehicle id="f.6" speed="22.22" acceleration="0.05"/>
+        <vehicle id="f.7" speed="24.24" acceleration="-0.23"/>
+        <vehicle id="f.8" speed="25.64" acceleration="1.15"/>
+        <vehicle id="f.9" speed="23.22" acceleration="0.48"/>
+        <vehicle id="slow" speed="18.93" acceleration="-0.07"/>
+    </timestep>
+    <timestep time="25.00">
+        <vehicle id="f.0" speed="18.68" acceleration="0.44"/>
+        <vehicle id="f.1" speed="18.27" acceleration="-0.58"/>
+        <vehicle id="f.2" speed="19.38" acceleration="1.14"/>
+        <vehicle id="f.3" speed="18.06" acceleration="-0.91"/>
+        <vehicle id="f.4" speed="19.85" acceleration="-0.20"/>
+        <vehicle id="f.5" speed="22.33" acceleration="0.34"/>
+        <vehicle id="f.6" speed="22.50" acceleration="0.28"/>
+        <vehicle id="f.7" speed="23.18" acceleration="-1.06"/>
+        <vehicle id="f.8" speed="25.27" acceleration="-0.37"/>
+        <vehicle id="f.9" speed="23.68" acceleration="0.45"/>
+        <vehicle id="slow" speed="19.03" acceleration="0.09"/>
+    </timestep>
+    <timestep time="26.00">
+        <vehicle id="f.0" speed="19.47" acceleration="0.79"/>
+        <vehicle id="f.1" speed="19.03" acceleration="0.76"/>
+        <vehicle id="f.2" speed="17.98" acceleration="-1.40"/>
+        <vehicle id="f.3" speed="19.86" acceleration="1.80"/>
+        <vehicle id="f.4" speed="18.64" acceleration="-1.21"/>
+        <vehicle id="f.5" speed="21.98" acceleration="-0.35"/>
+        <vehicle id="f.6" speed="22.27" acceleration="-0.24"/>
+        <vehicle id="f.7" speed="24.04" acceleration="0.85"/>
+        <vehicle id="f.8" speed="23.88" acceleration="-1.39"/>
+        <vehicle id="f.9" speed="22.58" acceleration="-1.10"/>
+        <vehicle id="slow" speed="19.15" acceleration="0.13"/>
+    </timestep>
+    <timestep time="27.00">
+        <vehicle id="f.0" speed="18.61" acceleration="-0.86"/>
+        <vehicle id="f.1" speed="19.26" acceleration="0.23"/>
+        <vehicle id="f.2" speed="18.96" acceleration="0.98"/>
+        <vehicle id="f.3" speed="18.26" acceleration="-1.60"/>
+        <vehicle id="f.4" speed="20.54" acceleration="1.90"/>
+        <vehicle id="f.5" speed="22.35" acceleration="0.37"/>
+        <vehicle id="f.6" speed="22.55" acceleration="0.28"/>
+        <vehicle id="f.7" speed="22.86" acceleration="-1.18"/>
+        <vehicle id="f.8" speed="23.96" acceleration="0.09"/>
+        <vehicle id="f.9" speed="22.94" acceleration="0.36"/>
+        <vehicle id="slow" speed="19.16" acceleration="0.01"/>
+    </timestep>
+    <timestep time="28.00">
+        <vehicle id="f.0" speed="19.33" acceleration="0.72"/>
+        <vehicle id="f.1" speed="19.17" acceleration="-0.09"/>
+        <vehicle id="f.2" speed="19.47" acceleration="0.51"/>
+        <vehicle id="f.3" speed="19.59" acceleration="1.33"/>
+        <vehicle id="f.4" speed="18.35" acceleration="-2.19"/>
+        <vehicle id="f.5" speed="22.06" acceleration="-0.29"/>
+        <vehicle id="f.6" speed="21.84" acceleration="-0.71"/>
+        <vehicle id="f.7" speed="23.19" acceleration="0.33"/>
+        <vehicle id="f.8" speed="23.51" acceleration="-0.45"/>
+        <vehicle id="f.9" speed="22.53" acceleration="-0.41"/>
+        <vehicle id="slow" speed="19.29" acceleration="0.13"/>
+    </timestep>
+    <timestep time="29.00">
+        <vehicle id="f.0" speed="19.87" acceleration="0.55"/>
+        <vehicle id="f.1" speed="19.10" acceleration="-0.07"/>
+        <vehicle id="f.2" speed="20.09" acceleration="0.62"/>
+        <vehicle id="f.3" speed="19.33" acceleration="-0.26"/>
+        <vehicle id="f.4" speed="19.93" acceleration="1.57"/>
+        <vehicle id="f.5" speed="22.38" acceleration="0.32"/>
+        <vehicle id="f.6" speed="21.42" acceleration="-0.42"/>
+        <vehicle id="f.7" speed="22.09" acceleration="-1.09"/>
+        <vehicle id="f.8" speed="23.69" acceleration="0.18"/>
+        <vehicle id="f.9" speed="22.62" acceleration="0.09"/>
+        <vehicle id="slow" speed="18.93" acceleration="-0.36"/>
+    </timestep>
+    <timestep time="30.00">
+        <vehicle id="f.0" speed="19.30" acceleration="-0.58"/>
+        <vehicle id="f.1" speed="19.93" acceleration="0.83"/>
+        <vehicle id="f.2" speed="19.50" acceleration="-0.59"/>
+        <vehicle id="f.3" speed="20.15" acceleration="0.82"/>
+        <vehicle id="f.4" speed="19.51" acceleration="-0.42"/>
+        <vehicle id="f.5" speed="22.10" acceleration="-0.28"/>
+        <vehicle id="f.6" speed="21.94" acceleration="0.52"/>
+        <vehicle id="f.7" speed="22.47" acceleration="0.38"/>
+        <vehicle id="f.8" speed="21.65" acceleration="-2.04"/>
+        <vehicle id="f.9" speed="23.33" acceleration="0.72"/>
+        <vehicle id="slow" speed="19.15" acceleration="0.21"/>
+    </timestep>
+    <timestep time="31.00">
+        <vehicle id="f.0" speed="19.41" acceleration="0.11"/>
+        <vehicle id="f.1" speed="19.04" acceleration="-0.88"/>
+        <vehicle id="f.2" speed="20.53" acceleration="1.03"/>
+        <vehicle id="f.3" speed="20.09" acceleration="-0.06"/>
+        <vehicle id="f.4" speed="20.64" acceleration="1.14"/>
+        <vehicle id="f.5" speed="21.89" acceleration="-0.20"/>
+        <vehicle id="f.6" speed="22.59" acceleration="0.65"/>
+        <vehicle id="f.7" speed="22.69" acceleration="0.22"/>
+        <vehicle id="f.8" speed="22.89" acceleration="1.24"/>
+        <vehicle id="f.9" speed="23.75" acceleration="0.42"/>
+        <vehicle id="slow" speed="19.43" acceleration="0.28"/>
+    </timestep>
+    <timestep time="32.00">
+        <vehicle id="f.0" speed="19.20" acceleration="-0.20"/>
+        <vehicle id="f.1" speed="19.19" acceleration="0.15"/>
+        <vehicle id="f.2" speed="18.93" acceleration="-1.60"/>
+        <vehicle id="f.3" speed="20.43" acceleration="0.33"/>
+        <vehicle id="f.4" speed="19.61" acceleration="-1.03"/>
+        <vehicle id="f.5" speed="22.05" acceleration="0.16"/>
+        <vehicle id="f.6" speed="21.98" acceleration="-0.61"/>
+        <vehicle id="f.7" speed="23.07" acceleration="0.38"/>
+        <vehicle id="f.8" speed="22.96" acceleration="0.07"/>
+        <vehicle id="f.9" speed="22.65" acceleration="-1.10"/>
+        <vehicle id="slow" speed="18.41" acceleration="-1.02"/>
+    </timestep>
+    <timestep time="33.00">
+        <vehicle id="f.0" speed="18.74" acceleration="-0.46"/>
+        <vehicle id="f.1" speed="19.51" acceleration="0.32"/>
+        <vehicle id="f.2" speed="19.35" acceleration="0.42"/>
+        <vehicle id="f.3" speed="18.62" acceleration="-1.81"/>
+        <vehicle id="f.4" speed="20.64" acceleration="1.03"/>
+        <vehicle id="f.5" speed="21.79" acceleration="-0.26"/>
+        <vehicle id="f.6" speed="21.56" acceleration="-0.42"/>
+        <vehicle id="f.7" speed="22.11" acceleration="-0.96"/>
+        <vehicle id="f.8" speed="23.68" acceleration="0.72"/>
+        <vehicle id="f.9" speed="22.61" acceleration="-0.04"/>
+        <vehicle id="slow" speed="19.06" acceleration="0.65"/>
+    </timestep>
+    <timestep time="34.00">
+        <vehicle id="f.0" speed="19.51" acceleration="0.77"/>
+        <vehicle id="f.1" speed="18.80" acceleration="-0.71"/>
+        <vehicle id="f.2" speed="18.86" acceleration="-0.49"/>
+        <vehicle id="f.3" speed="18.94" acceleration="0.32"/>
+        <vehicle id="f.4" speed="18.14" acceleration="-2.50"/>
+        <vehicle id="f.5" speed="22.05" acceleration="0.26"/>
+        <vehicle id="f.6" speed="22.55" acceleration="0.99"/>
+        <vehicle id="f.7" speed="21.84" acceleration="-0.27"/>
+        <vehicle id="f.8" speed="22.14" acceleration="-1.54"/>
+        <vehicle id="f.9" speed="23.29" acceleration="0.68"/>
+        <vehicle id="slow" speed="18.48" acceleration="-0.58"/>
+    </timestep>
+    <timestep time="35.00">
+        <vehicle id="f.0" speed="18.17" acceleration="-1.34"/>
+        <vehicle id="f.1" speed="18.93" acceleration="0.13"/>
+        <vehicle id="f.2" speed="18.63" acceleration="-0.23"/>
+        <vehicle id="f.3" speed="18.33" acceleration="-0.61"/>
+        <vehicle id="f.4" speed="19.21" acceleration="1.07"/>
+        <vehicle id="f.5" speed="21.92" acceleration="-0.13"/>
+        <vehicle id="f.6" speed="22.02" acceleration="-0.54"/>
+        <vehicle id="f.7" speed="22.85" acceleration="1.01"/>
+        <vehicle id="f.8" speed="22.12" acceleration="-0.01"/>
+        <vehicle id="f.9" speed="22.63" acceleration="-0.66"/>
+        <vehicle id="slow" speed="19.21" acceleration="0.72"/>
+    </timestep>
+    <timestep time="36.00">
+        <vehicle id="f.0" speed="18.74" acceleration="0.57"/>
+        <vehicle id="f.1" speed="18.06" acceleration="-0.87"/>
+        <vehicle id="f.2" speed="19.21" acceleration="0.58"/>
+        <vehicle id="f.3" speed="18.15" acceleration="-0.19"/>
+        <vehicle id="f.4" speed="17.68" acceleration="-1.53"/>
+        <vehicle id="f.5" speed="22.06" acceleration="0.14"/>
+        <vehicle id="f.6" speed="21.79" acceleration="-0.23"/>
+        <vehicle id="f.7" speed="22.85" acceleration="0.00"/>
+        <vehicle id="f.8" speed="22.81" acceleration="0.69"/>
+        <vehicle id="f.9" speed="22.56" acceleration="-0.07"/>
+        <vehicle id="slow" speed="18.21" acceleration="-1.00"/>
+    </timestep>
+    <timestep time="37.00">
+        <vehicle id="f.0" speed="18.32" acceleration="-0.43"/>
+        <vehicle id="f.1" speed="19.29" acceleration="1.23"/>
+        <vehicle id="f.2" speed="17.60" acceleration="-1.61"/>
+        <vehicle id="f.3" speed="19.64" acceleration="1.49"/>
+        <vehicle id="f.4" speed="18.79" acceleration="1.11"/>
+        <vehicle id="f.5" speed="21.17" acceleration="-0.89"/>
+        <vehicle id="f.6" speed="21.60" acceleration="-0.19"/>
+        <vehicle id="f.7" speed="22.36" acceleration="-0.50"/>
+        <vehicle id="f.8" speed="23.30" acceleration="0.49"/>
+        <vehicle id="f.9" speed="23.72" acceleration="1.16"/>
+        <vehicle id="slow" speed="18.29" acceleration="0.08"/>
+    </timestep>
+    <timestep time="38.00">
+        <vehicle id="f.0" speed="18.74" acceleration="0.42"/>
+        <vehicle id="f.1" speed="18.16" acceleration="-1.14"/>
+        <vehicle id="f.2" speed="19.15" acceleration="1.55"/>
+        <vehicle id="f.3" speed="17.56" acceleration="-2.08"/>
+        <vehicle id="f.4" speed="19.01" acceleration="0.21"/>
+        <vehicle id="f.5" speed="22.47" acceleration="1.30"/>
+        <vehicle id="f.6" speed="20.97" acceleration="-0.63"/>
+        <vehicle id="f.7" speed="21.08" acceleration="-1.28"/>
+        <vehicle id="f.8" speed="22.06" acceleration="-1.25"/>
+        <vehicle id="f.9" speed="23.47" acceleration="-0.26"/>
+        <vehicle id="slow" speed="19.12" acceleration="0.83"/>
+    </timestep>
+    <timestep time="39.00">
+        <vehicle id="f.0" speed="19.04" acceleration="0.30"/>
+        <vehicle id="f.1" speed="18.25" acceleration="0.10"/>
+        <vehicle id="f.2" speed="18.73" acceleration="-0.41"/>
+        <vehicle id="f.3" speed="19.59" acceleration="2.03"/>
+        <vehicle id="f.4" speed="17.64" acceleration="-1.37"/>
+        <vehicle id="f.5" speed="22.14" acceleration="-0.33"/>
+        <vehicle id="f.6" speed="23.06" acceleration="2.09"/>
+        <vehicle id="f.7" speed="21.62" acceleration="0.53"/>
+        <vehicle id="f.8" speed="21.42" acceleration="-0.64"/>
+        <vehicle id="f.9" speed="22.72" acceleration="-0.75"/>
+        <vehicle id="slow" speed="18.56" acceleration="-0.56"/>
+    </timestep>
+    <timestep time="40.00">
+        <vehicle id="f.0" speed="17.82" acceleration="-1.22"/>
+        <vehicle id="f.1" speed="18.45" acceleration="0.20"/>
+        <vehicle id="f.2" speed="18.83" acceleration="0.10"/>
+        <vehicle id="f.3" speed="18.30" acceleration="-1.29"/>
+        <vehicle id="f.4" speed="19.54" acceleration="1.91"/>
+        <vehicle id="f.5" speed="20.21" acceleration="-1.93"/>
+        <vehicle id="f.6" speed="22.11" acceleration="-0.94"/>
+        <vehicle id="f.7" speed="23.11" acceleration="1.50"/>
+        <vehicle id="f.8" speed="21.04" acceleration="-0.38"/>
+        <vehicle id="f.9" speed="23.46" acceleration="0.74"/>
+        <vehicle id="slow" speed="18.90" acceleration="0.33"/>
+    </timestep>
+    <timestep time="41.00">
+        <vehicle id="f.0" speed="19.17" acceleration="1.34"/>
+        <vehicle id="f.1" speed="18.35" acceleration="-0.09"/>
+        <vehicle id="f.2" speed="17.77" acceleration="-1.06"/>
+        <vehicle id="f.3" speed="18.37" acceleration="0.07"/>
+        <vehicle id="f.4" speed="18.17" acceleration="-1.38"/>
+        <vehicle id="f.5" speed="20.57" acceleration="0.36"/>
+        <vehicle id="f.6" speed="19.63" acceleration="-2.48"/>
+        <vehicle id="f.7" speed="21.86" acceleration="-1.25"/>
+        <vehicle id="f.8" speed="22.96" acceleration="1.93"/>
+        <vehicle id="f.9" speed="23.00" acceleration="-0.45"/>
+        <vehicle id="slow" speed="18.89" acceleration="-0.01"/>
+    </timestep>
+    <timestep time="42.00">
+        <vehicle id="f.0" speed="18.71" acceleration="-0.46"/>
+        <vehicle id="f.1" speed="18.72" acceleration="0.37"/>
+        <vehicle id="f.2" speed="18.08" acceleration="0.30"/>
+        <vehicle id="f.3" speed="18.28" acceleration="-0.09"/>
+        <vehicle id="f.4" speed="17.95" acceleration="-0.22"/>
+        <vehicle id="f.5" speed="19.91" acceleration="-0.66"/>
+        <vehicle id="f.6" speed="20.66" acceleration="1.02"/>
+        <vehicle id="f.7" speed="20.28" acceleration="-1.58"/>
+        <vehicle id="f.8" speed="22.38" acceleration="-0.59"/>
+        <vehicle id="f.9" speed="22.82" acceleration="-0.19"/>
+        <vehicle id="slow" speed="19.44" acceleration="0.55"/>
+    </timestep>
+    <timestep time="43.00">
+        <vehicle id="f.0" speed="19.95" acceleration="1.24"/>
+        <vehicle id="f.1" speed="19.30" acceleration="0.58"/>
+        <vehicle id="f.2" speed="19.38" acceleration="1.31"/>
+        <vehicle id="f.3" speed="17.61" acceleration="-0.68"/>
+        <vehicle id="f.4" speed="17.81" acceleration="-0.14"/>
+        <vehicle id="f.5" speed="18.70" acceleration="-1.21"/>
+        <vehicle id="f.6" speed="19.84" acceleration="-0.81"/>
+        <vehicle id="f.7" speed="20.22" acceleration="-0.06"/>
+        <vehicle id="f.8" speed="20.17" acceleration="-2.21"/>
+        <vehicle id="f.9" speed="23.53" acceleration="0.72"/>
+        <vehicle id="slow" speed="18.39" acceleration="-1.05"/>
+    </timestep>
+    <timestep time="44.00">
+        <vehicle id="f.0" speed="17.79" acceleration="-2.16"/>
+        <vehicle id="f.1" speed="20.05" acceleration="0.75"/>
+        <vehicle id="f.2" speed="19.35" acceleration="-0.04"/>
+        <vehicle id="f.3" speed="19.53" acceleration="1.93"/>
+        <vehicle id="f.4" speed="17.86" acceleration="0.05"/>
+        <vehicle id="f.5" speed="18.57" acceleration="-0.13"/>
+        <vehicle id="f.6" speed="19.33" acceleration="-0.51"/>
+        <vehicle id="f.7" speed="19.92" acceleration="-0.30"/>
+        <vehicle id="f.8" speed="20.09" acceleration="-0.08"/>
+        <vehicle id="f.9" speed="22.52" acceleration="-1.02"/>
+        <vehicle id="slow" speed="18.42" acceleration="0.03"/>
+    </timestep>
+    <timestep time="45.00">
+        <vehicle id="f.0" speed="18.66" acceleration="0.87"/>
+        <vehicle id="f.1" speed="18.31" acceleration="-1.74"/>
+        <vehicle id="f.2" speed="19.44" acceleration="0.09"/>
+        <vehicle id="f.3" speed="18.99" acceleration="-0.54"/>
+        <vehicle id="f.4" speed="20.17" acceleration="2.31"/>
+        <vehicle id="f.5" speed="18.37" acceleration="-0.20"/>
+        <vehicle id="f.6" speed="19.04" acceleration="-0.29"/>
+        <vehicle id="f.7" speed="19.86" acceleration="-0.06"/>
+        <vehicle id="f.8" speed="20.15" acceleration="0.06"/>
+        <vehicle id="f.9" speed="22.75" acceleration="0.24"/>
+        <vehicle id="slow" speed="19.34" acceleration="0.92"/>
+    </timestep>
+    <timestep time="46.00">
+        <vehicle id="f.0" speed="18.75" acceleration="0.09"/>
+        <vehicle id="f.1" speed="18.82" acceleration="0.51"/>
+        <vehicle id="f.2" speed="18.78" acceleration="-0.66"/>
+        <vehicle id="f.3" speed="20.04" acceleration="1.06"/>
+        <vehicle id="f.4" speed="18.42" acceleration="-1.75"/>
+        <vehicle id="f.5" speed="19.84" acceleration="1.47"/>
+        <vehicle id="f.6" speed="17.76" acceleration="-1.28"/>
+        <vehicle id="f.7" speed="19.04" acceleration="-0.81"/>
+        <vehicle id="f.8" speed="19.50" acceleration="-0.65"/>
+        <vehicle id="f.9" speed="23.37" acceleration="0.62"/>
+        <vehicle id="slow" speed="19.30" acceleration="-0.03"/>
+    </timestep>
+    <timestep time="47.00">
+        <vehicle id="f.0" speed="18.82" acceleration="0.07"/>
+        <vehicle id="f.1" speed="18.38" acceleration="-0.44"/>
+        <vehicle id="f.2" speed="18.90" acceleration="0.12"/>
+        <vehicle id="f.3" speed="18.39" acceleration="-1.66"/>
+        <vehicle id="f.4" speed="20.10" acceleration="1.68"/>
+        <vehicle id="f.5" speed="18.41" acceleration="-1.43"/>
+        <vehicle id="f.6" speed="20.26" acceleration="2.49"/>
+        <vehicle id="f.7" speed="18.06" acceleration="-0.98"/>
+        <vehicle id="f.8" speed="19.31" acceleration="-0.19"/>
+        <vehicle id="f.9" speed="22.38" acceleration="-0.99"/>
+        <vehicle id="slow" speed="18.24" acceleration="-1.06"/>
+    </timestep>
+    <timestep time="48.00">
+        <vehicle id="f.0" speed="17.71" acceleration="-1.11"/>
+        <vehicle id="f.1" speed="19.09" acceleration="0.71"/>
+        <vehicle id="f.2" speed="18.77" acceleration="-0.13"/>
+        <vehicle id="f.3" speed="19.21" acceleration="0.82"/>
+        <vehicle id="f.4" speed="18.40" acceleration="-1.70"/>
+        <vehicle id="f.5" speed="20.61" acceleration="2.20"/>
+        <vehicle id="f.6" speed="18.42" acceleration="-1.84"/>
+        <vehicle id="f.7" speed="20.36" acceleration="2.30"/>
+        <vehicle id="f.8" speed="17.60" acceleration="-1.71"/>
+        <vehicle id="f.9" speed="21.98" acceleration="-0.40"/>
+        <vehicle id="slow" speed="18.90" acceleration="0.65"/>
+    </timestep>
+    <timestep time="49.00">
+        <vehicle id="f.0" speed="19.23" acceleration="1.52"/>
+        <vehicle id="f.1" speed="17.16" acceleration="-1.93"/>
+        <vehicle id="f.2" speed="18.48" acceleration="-0.29"/>
+        <vehicle id="f.3" speed="19.16" acceleration="-0.05"/>
+        <vehicle id="f.4" speed="19.03" acceleration="0.63"/>
+        <vehicle id="f.5" speed="18.88" acceleration="-1.73"/>
+        <vehicle id="f.6" speed="20.76" acceleration="2.34"/>
+        <vehicle id="f.7" speed="18.81" acceleration="-1.55"/>
+        <vehicle id="f.8" speed="19.12" acceleration="1.52"/>
+        <vehicle id="f.9" speed="19.98" acceleration="-2.00"/>
+        <vehicle id="slow" speed="18.77" acceleration="-0.13"/>
+    </timestep>
+    <timestep time="50.00">
+        <vehicle id="f.0" speed="18.96" acceleration="-0.27"/>
+        <vehicle id="f.1" speed="18.67" acceleration="1.50"/>
+        <vehicle id="f.2" speed="17.62" acceleration="-0.87"/>
+        <vehicle id="f.3" speed="18.99" acceleration="-0.17"/>
+        <vehicle id="f.4" speed="19.24" acceleration="0.21"/>
+        <vehicle id="f.5" speed="19.24" acceleration="0.36"/>
+        <vehicle id="f.6" speed="19.03" acceleration="-1.73"/>
+        <vehicle id="f.7" speed="20.21" acceleration="1.40"/>
+        <vehicle id="f.8" speed="19.57" acceleration="0.44"/>
+        <vehicle id="f.9" speed="20.86" acceleration="0.88"/>
+        <vehicle id="slow" speed="18.67" acceleration="-0.10"/>
+    </timestep>
+    <timestep time="51.00">
+        <vehicle id="f.0" speed="18.60" acceleration="-0.37"/>
+        <vehicle id="f.1" speed="19.47" acceleration="0.81"/>
+        <vehicle id="f.2" speed="18.16" acceleration="0.54"/>
+        <vehicle id="f.3" speed="17.20" acceleration="-1.79"/>
+        <vehicle id="f.4" speed="19.69" acceleration="0.45"/>
+        <vehicle id="f.5" speed="20.08" acceleration="0.83"/>
+        <vehicle id="f.6" speed="18.95" acceleration="-0.08"/>
+        <vehicle id="f.7" speed="18.30" acceleration="-1.91"/>
+        <vehicle id="f.8" speed="19.74" acceleration="0.18"/>
+        <vehicle id="f.9" speed="20.64" acceleration="-0.21"/>
+        <vehicle id="slow" speed="18.52" acceleration="-0.15"/>
+    </timestep>
+    <timestep time="52.00">
+        <vehicle id="f.0" speed="18.06" acceleration="-0.54"/>
+        <vehicle id="f.1" speed="19.21" acceleration="-0.26"/>
+        <vehicle id="f.2" speed="19.33" acceleration="1.17"/>
+        <vehicle id="f.3" speed="17.76" acceleration="0.56"/>
+        <vehicle id="f.4" speed="16.95" acceleration="-2.74"/>
+        <vehicle id="f.5" speed="19.25" acceleration="-0.83"/>
+        <vehicle id="f.6" speed="20.00" acceleration="1.05"/>
+        <vehicle id="f.7" speed="19.06" acceleration="0.77"/>
+        <vehicle id="f.8" speed="17.99" acceleration="-1.75"/>
+        <vehicle id="f.9" speed="21.63" acceleration="0.98"/>
+        <vehicle id="slow" speed="18.53" acceleration="0.01"/>
+    </timestep>
+    <timestep time="53.00">
+        <vehicle id="f.0" speed="19.12" acceleration="1.07"/>
+        <vehicle id="f.1" speed="17.29" acceleration="-1.92"/>
+        <vehicle id="f.2" speed="19.70" acceleration="0.37"/>
+        <vehicle id="f.3" speed="19.06" acceleration="1.30"/>
+        <vehicle id="f.4" speed="17.65" acceleration="0.69"/>
+        <vehicle id="f.5" speed="16.95" acceleration="-2.30"/>
+        <vehicle id="f.6" speed="19.70" acceleration="-0.31"/>
+        <vehicle id="f.7" speed="19.92" acceleration="0.86"/>
+        <vehicle id="f.8" speed="19.48" acceleration="1.49"/>
+        <vehicle id="f.9" speed="18.70" acceleration="-2.93"/>
+        <vehicle id="slow" speed="18.54" acceleration="0.01"/>
+    </timestep>
+    <timestep time="54.00">
+        <vehicle id="f.0" speed="19.24" acceleration="0.12"/>
+        <vehicle id="f.1" speed="19.76" acceleration="2.46"/>
+        <vehicle id="f.2" speed="17.86" acceleration="-1.84"/>
+        <vehicle id="f.3" speed="20.39" acceleration="1.32"/>
+        <vehicle id="f.4" speed="18.86" acceleration="1.21"/>
+        <vehicle id="f.5" speed="17.66" acceleration="0.72"/>
+        <vehicle id="f.6" speed="16.36" acceleration="-3.33"/>
+        <vehicle id="f.7" speed="19.32" acceleration="-0.60"/>
+        <vehicle id="f.8" speed="20.16" acceleration="0.68"/>
+        <vehicle id="f.9" speed="20.09" acceleration="1.39"/>
+        <vehicle id="slow" speed="18.29" acceleration="-0.26"/>
+    </timestep>
+    <timestep time="55.00">
+        <vehicle id="f.0" speed="18.40" acceleration="-0.84"/>
+        <vehicle id="f.1" speed="18.86" acceleration="-0.90"/>
+        <vehicle id="f.2" speed="19.93" acceleration="2.07"/>
+        <vehicle id="f.3" speed="18.43" acceleration="-1.96"/>
+        <vehicle id="f.4" speed="20.40" acceleration="1.54"/>
+        <vehicle id="f.5" speed="19.76" acceleration="2.10"/>
+        <vehicle id="f.6" speed="17.50" acceleration="1.13"/>
+        <vehicle id="f.7" speed="16.62" acceleration="-2.71"/>
+        <vehicle id="f.8" speed="19.13" acceleration="-1.03"/>
+        <vehicle id="f.9" speed="20.92" acceleration="0.83"/>
+        <vehicle id="slow" speed="19.30" acceleration="1.02"/>
+    </timestep>
+    <timestep time="56.00">
+        <vehicle id="f.0" speed="19.29" acceleration="0.89"/>
+        <vehicle id="f.1" speed="18.23" acceleration="-0.62"/>
+        <vehicle id="f.2" speed="18.95" acceleration="-0.98"/>
+        <vehicle id="f.3" speed="20.25" acceleration="1.83"/>
+        <vehicle id="f.4" speed="18.24" acceleration="-2.16"/>
+        <vehicle id="f.5" speed="20.20" acceleration="0.44"/>
+        <vehicle id="f.6" speed="19.97" acceleration="2.47"/>
+        <vehicle id="f.7" speed="18.03" acceleration="1.41"/>
+        <vehicle id="f.8" speed="16.42" acceleration="-2.71"/>
+        <vehicle id="f.9" speed="19.98" acceleration="-0.94"/>
+        <vehicle id="slow" speed="19.26" acceleration="-0.04"/>
+    </timestep>
+    <timestep time="57.00">
+        <vehicle id="f.0" speed="19.56" acceleration="0.27"/>
+        <vehicle id="f.1" speed="19.31" acceleration="1.08"/>
+        <vehicle id="f.2" speed="17.38" acceleration="-1.57"/>
+        <vehicle id="f.3" speed="19.19" acceleration="-1.07"/>
+        <vehicle id="f.4" speed="20.15" acceleration="1.92"/>
+        <vehicle id="f.5" speed="18.31" acceleration="-1.90"/>
+        <vehicle id="f.6" speed="19.90" acceleration="-0.06"/>
+        <vehicle id="f.7" speed="20.25" acceleration="2.23"/>
+        <vehicle id="f.8" speed="18.19" acceleration="1.77"/>
+        <vehicle id="f.9" speed="16.88" acceleration="-3.10"/>
+        <vehicle id="slow" speed="18.54" acceleration="-0.72"/>
+    </timestep>
+    <timestep time="58.00">
+        <vehicle id="f.0" speed="17.94" acceleration="-1.62"/>
+        <vehicle id="f.1" speed="20.11" acceleration="0.80"/>
+        <vehicle id="f.2" speed="19.36" acceleration="1.98"/>
+        <vehicle id="f.3" speed="17.25" acceleration="-1.94"/>
+        <vehicle id="f.4" speed="19.57" acceleration="-0.58"/>
+        <vehicle id="f.5" speed="20.67" acceleration="2.37"/>
+        <vehicle id="f.6" speed="18.44" acceleration="-1.46"/>
+        <vehicle id="f.7" speed="19.62" acceleration="-0.64"/>
+        <vehicle id="f.8" speed="19.97" acceleration="1.78"/>
+        <vehicle id="f.9" speed="18.88" acceleration="1.99"/>
+        <vehicle id="slow" speed="18.55" acceleration="0.02"/>
+    </timestep>
+    <timestep time="59.00">
+        <vehicle id="f.0" speed="18.79" acceleration="0.85"/>
+        <vehicle id="f.1" speed="17.28" acceleration="-2.83"/>
+        <vehicle id="f.2" speed="20.17" acceleration="0.81"/>
+        <vehicle id="f.3" speed="18.88" acceleration="1.64"/>
+        <vehicle id="f.4" speed="16.96" acceleration="-2.61"/>
+        <vehicle id="f.5" speed="19.58" acceleration="-1.10"/>
+        <vehicle id="f.6" speed="20.00" acceleration="1.56"/>
+        <vehicle id="f.7" speed="18.34" acceleration="-1.28"/>
+        <vehicle id="f.8" speed="20.12" acceleration="0.14"/>
+        <vehicle id="f.9" speed="20.08" acceleration="1.20"/>
+        <vehicle id="slow" speed="18.49" acceleration="-0.06"/>
+    </timestep>
+    <timestep time="60.00">
+        <vehicle id="f.0" speed="18.61" acceleration="-0.18"/>
+        <vehicle id="f.1" speed="19.39" acceleration="2.12"/>
+        <vehicle id="f.2" speed="17.01" acceleration="-3.16"/>
+        <vehicle id="f.3" speed="19.54" acceleration="0.65"/>
+        <vehicle id="f.4" speed="18.83" acceleration="1.87"/>
+        <vehicle id="f.5" speed="17.29" acceleration="-2.28"/>
+        <vehicle id="f.6" speed="19.14" acceleration="-0.86"/>
+        <vehicle id="f.7" speed="19.85" acceleration="1.51"/>
+        <vehicle id="f.8" speed="19.11" acceleration="-1.00"/>
+        <vehicle id="f.9" speed="19.86" acceleration="-0.22"/>
+        <vehicle id="slow" speed="18.95" acceleration="0.46"/>
+    </timestep>
+    <timestep time="61.00">
+        <vehicle id="f.0" speed="18.39" acceleration="-0.22"/>
+        <vehicle id="f.1" speed="18.17" acceleration="-1.23"/>
+        <vehicle id="f.2" speed="19.22" acceleration="2.21"/>
+        <vehicle id="f.3" speed="17.56" acceleration="-1.98"/>
+        <vehicle id="f.4" speed="19.81" acceleration="0.98"/>
+        <vehicle id="f.5" speed="18.39" acceleration="1.09"/>
+        <vehicle id="f.6" speed="18.00" acceleration="-1.14"/>
+        <vehicle id="f.7" speed="19.39" acceleration="-0.47"/>
+        <vehicle id="f.8" speed="20.36" acceleration="1.24"/>
+        <vehicle id="f.9" speed="18.68" acceleration="-1.18"/>
+        <vehicle id="slow" speed="18.78" acceleration="-0.17"/>
+    </timestep>
+    <timestep time="62.00">
+        <vehicle id="f.0" speed="18.17" acceleration="-0.22"/>
+        <vehicle id="f.1" speed="18.12" acceleration="-0.05"/>
+        <vehicle id="f.2" speed="17.60" acceleration="-1.61"/>
+        <vehicle id="f.3" speed="18.56" acceleration="1.01"/>
+        <vehicle id="f.4" speed="17.23" acceleration="-2.58"/>
+        <vehicle id="f.5" speed="19.45" acceleration="1.06"/>
+        <vehicle id="f.6" speed="18.45" acceleration="0.44"/>
+        <vehicle id="f.7" speed="18.08" acceleration="-1.31"/>
+        <vehicle id="f.8" speed="18.71" acceleration="-1.65"/>
+        <vehicle id="f.9" speed="20.56" acceleration="1.88"/>
+        <vehicle id="slow" speed="18.26" acceleration="-0.52"/>
+    </timestep>
+    <timestep time="63.00">
+        <vehicle id="f.0" speed="19.03" acceleration="0.86"/>
+        <vehicle id="f.1" speed="17.75" acceleration="-0.37"/>
+        <vehicle id="f.2" speed="18.81" acceleration="1.21"/>
+        <vehicle id="f.3" speed="18.42" acceleration="-0.14"/>
+        <vehicle id="f.4" speed="19.22" acceleration="1.99"/>
+        <vehicle id="f.5" speed="16.91" acceleration="-2.54"/>
+        <vehicle id="f.6" speed="19.94" acceleration="1.50"/>
+        <vehicle id="f.7" speed="18.82" acceleration="0.74"/>
+        <vehicle id="f.8" speed="18.03" acceleration="-0.68"/>
+        <vehicle id="f.9" speed="19.05" acceleration="-1.50"/>
+        <vehicle id="slow" speed="18.19" acceleration="-0.07"/>
+    </timestep>
+    <timestep time="64.00">
+        <vehicle id="f.0" speed="17.97" acceleration="-1.06"/>
+        <vehicle id="f.1" speed="19.33" acceleration="1.58"/>
+        <vehicle id="f.2" speed="18.09" acceleration="-0.72"/>
+        <vehicle id="f.3" speed="18.85" acceleration="0.43"/>
+        <vehicle id="f.4" speed="18.09" acceleration="-1.13"/>
+        <vehicle id="f.5" speed="18.28" acceleration="1.37"/>
+        <vehicle id="f.6" speed="16.73" acceleration="-3.21"/>
+        <vehicle id="f.7" speed="20.09" acceleration="1.27"/>
+        <vehicle id="f.8" speed="18.63" acceleration="0.60"/>
+        <vehicle id="f.9" speed="18.69" acceleration="-0.36"/>
+        <vehicle id="slow" speed="19.41" acceleration="1.22"/>
+    </timestep>
+    <timestep time="65.00">
+        <vehicle id="f.0" speed="18.96" acceleration="0.98"/>
+        <vehicle id="f.1" speed="17.91" acceleration="-1.41"/>
+        <vehicle id="f.2" speed="19.28" acceleration="1.19"/>
+        <vehicle id="f.3" speed="17.63" acceleration="-1.22"/>
+        <vehicle id="f.4" speed="18.76" acceleration="0.67"/>
+        <vehicle id="f.5" speed="18.03" acceleration="-0.25"/>
+        <vehicle id="f.6" speed="18.59" acceleration="1.86"/>
+        <vehicle id="f.7" speed="16.73" acceleration="-3.36"/>
+        <vehicle id="f.8" speed="19.55" acceleration="0.93"/>
+        <vehicle id="f.9" speed="18.10" acceleration="-0.60"/>
+        <vehicle id="slow" speed="19.13" acceleration="-0.28"/>
+    </timestep>
+    <timestep time="66.00">
+        <vehicle id="f.0" speed="18.91" acceleration="-0.05"/>
+        <vehicle id="f.1" speed="19.15" acceleration="1.24"/>
+        <vehicle id="f.2" speed="18.33" acceleration="-0.95"/>
+        <vehicle id="f.3" speed="18.90" acceleration="1.28"/>
+        <vehicle id="f.4" speed="17.53" acceleration="-1.23"/>
+        <vehicle id="f.5" speed="19.00" acceleration="0.97"/>
+        <vehicle id="f.6" speed="17.54" acceleration="-1.05"/>
+        <vehicle id="f.7" speed="17.78" acceleration="1.04"/>
+        <vehicle id="f.8" speed="17.50" acceleration="-2.05"/>
+        <vehicle id="f.9" speed="19.32" acceleration="1.22"/>
+        <vehicle id="slow" speed="19.16" acceleration="0.03"/>
+    </timestep>
+    <timestep time="67.00">
+        <vehicle id="f.0" speed="19.78" acceleration="0.87"/>
+        <vehicle id="f.1" speed="18.33" acceleration="-0.83"/>
+        <vehicle id="f.2" speed="18.96" acceleration="0.63"/>
+        <vehicle id="f.3" speed="18.62" acceleration="-0.28"/>
+        <vehicle id="f.4" speed="19.27" acceleration="1.74"/>
+        <vehicle id="f.5" speed="17.70" acceleration="-1.30"/>
+        <vehicle id="f.6" speed="18.81" acceleration="1.28"/>
+        <vehicle id="f.7" speed="18.01" acceleration="0.24"/>
+        <vehicle id="f.8" speed="18.42" acceleration="0.91"/>
+        <vehicle id="f.9" speed="17.31" acceleration="-2.01"/>
+        <vehicle id="slow" speed="18.97" acceleration="-0.20"/>
+    </timestep>
+    <timestep time="68.00">
+        <vehicle id="f.0" speed="19.22" acceleration="-0.55"/>
+        <vehicle id="f.1" speed="19.51" acceleration="1.18"/>
+        <vehicle id="f.2" speed="18.16" acceleration="-0.80"/>
+        <vehicle id="f.3" speed="19.46" acceleration="0.84"/>
+        <vehicle id="f.4" speed="19.24" acceleration="-0.03"/>
+        <vehicle id="f.5" speed="19.88" acceleration="2.18"/>
+        <vehicle id="f.6" speed="18.03" acceleration="-0.78"/>
+        <vehicle id="f.7" speed="19.22" acceleration="1.21"/>
+        <vehicle id="f.8" speed="17.30" acceleration="-1.12"/>
+        <vehicle id="f.9" speed="18.68" acceleration="1.37"/>
+        <vehicle id="slow" speed="18.67" acceleration="-0.29"/>
+    </timestep>
+    <timestep time="69.00">
+        <vehicle id="f.0" speed="18.20" acceleration="-1.02"/>
+        <vehicle id="f.1" speed="20.01" acceleration="0.50"/>
+        <vehicle id="f.2" speed="18.98" acceleration="0.81"/>
+        <vehicle id="f.3" speed="17.65" acceleration="-1.81"/>
+        <vehicle id="f.4" speed="18.84" acceleration="-0.40"/>
+        <vehicle id="f.5" speed="19.52" acceleration="-0.36"/>
+        <vehicle id="f.6" speed="19.49" acceleration="1.46"/>
+        <vehicle id="f.7" speed="17.52" acceleration="-1.70"/>
+        <vehicle id="f.8" speed="19.72" acceleration="2.42"/>
+        <vehicle id="f.9" speed="17.17" acceleration="-1.50"/>
+        <vehicle id="slow" speed="18.75" acceleration="0.08"/>
+    </timestep>
+    <timestep time="70.00">
+        <vehicle id="f.0" speed="18.46" acceleration="0.26"/>
+        <vehicle id="f.1" speed="18.46" acceleration="-1.55"/>
+        <vehicle id="f.2" speed="20.58" acceleration="1.60"/>
+        <vehicle id="f.3" speed="18.88" acceleration="1.23"/>
+        <vehicle id="f.4" speed="18.21" acceleration="-0.63"/>
+        <vehicle id="f.5" speed="18.84" acceleration="-0.68"/>
+        <vehicle id="f.6" speed="19.70" acceleration="0.21"/>
+        <vehicle id="f.7" speed="19.65" acceleration="2.13"/>
+        <vehicle id="f.8" speed="18.13" acceleration="-1.59"/>
+        <vehicle id="f.9" speed="18.81" acceleration="1.64"/>
+        <vehicle id="slow" speed="18.92" acceleration="0.17"/>
+    </timestep>
+    <timestep time="71.00">
+        <vehicle id="f.0" speed="19.26" acceleration="0.80"/>
+        <vehicle id="f.1" speed="18.53" acceleration="0.08"/>
+        <vehicle id="f.2" speed="18.35" acceleration="-2.23"/>
+        <vehicle id="f.3" speed="21.15" acceleration="2.27"/>
+        <vehicle id="f.4" speed="18.47" acceleration="0.25"/>
+        <vehicle id="f.5" speed="17.71" acceleration="-1.13"/>
+        <vehicle id="f.6" speed="18.37" acceleration="-1.33"/>
+        <vehicle id="f.7" speed="19.43" acceleration="-0.22"/>
+        <vehicle id="f.8" speed="19.48" acceleration="1.35"/>
+        <vehicle id="f.9" speed="18.40" acceleration="-0.41"/>
+        <vehicle id="slow" speed="19.17" acceleration="0.25"/>
+    </timestep>
+    <timestep time="72.00">
+        <vehicle id="f.0" speed="19.56" acceleration="0.31"/>
+        <vehicle id="f.1" speed="19.17" acceleration="0.63"/>
+        <vehicle id="f.2" speed="18.60" acceleration="0.25"/>
+        <vehicle id="f.3" speed="18.32" acceleration="-2.83"/>
+        <vehicle id="f.4" speed="20.09" acceleration="1.62"/>
+        <vehicle id="f.5" speed="18.50" acceleration="0.80"/>
+        <vehicle id="f.6" speed="17.96" acceleration="-0.41"/>
+        <vehicle id="f.7" speed="18.33" acceleration="-1.10"/>
+        <vehicle id="f.8" speed="18.66" acceleration="-0.82"/>
+        <vehicle id="f.9" speed="20.17" acceleration="1.77"/>
+        <vehicle id="slow" speed="19.15" acceleration="-0.02"/>
+    </timestep>
+    <timestep time="73.00">
+        <vehicle id="f.0" speed="18.80" acceleration="-0.76"/>
+        <vehicle id="f.1" speed="19.60" acceleration="0.43"/>
+        <vehicle id="f.2" speed="18.93" acceleration="0.33"/>
+        <vehicle id="f.3" speed="18.42" acceleration="0.09"/>
+        <vehicle id="f.4" speed="18.76" acceleration="-1.32"/>
+        <vehicle id="f.5" speed="20.72" acceleration="2.21"/>
+        <vehicle id="f.6" speed="18.23" acceleration="0.27"/>
+        <vehicle id="f.7" speed="17.89" acceleration="-0.43"/>
+        <vehicle id="f.8" speed="17.92" acceleration="-0.74"/>
+        <vehicle id="f.9" speed="19.31" acceleration="-0.86"/>
+        <vehicle id="slow" speed="19.39" acceleration="0.24"/>
+    </timestep>
+    <timestep time="74.00">
+        <vehicle id="f.0" speed="19.61" acceleration="0.81"/>
+        <vehicle id="f.1" speed="18.35" acceleration="-1.24"/>
+        <vehicle id="f.2" speed="19.47" acceleration="0.54"/>
+        <vehicle id="f.3" speed="18.97" acceleration="0.55"/>
+        <vehicle id="f.4" speed="18.01" acceleration="-0.75"/>
+        <vehicle id="f.5" speed="19.40" acceleration="-1.31"/>
+        <vehicle id="f.6" speed="20.24" acceleration="2.02"/>
+        <vehicle id="f.7" speed="17.74" acceleration="-0.15"/>
+        <vehicle id="f.8" speed="18.43" acceleration="0.51"/>
+        <vehicle id="f.9" speed="17.88" acceleration="-1.43"/>
+        <vehicle id="slow" speed="18.83" acceleration="-0.55"/>
+    </timestep>
+    <timestep time="75.00">
+        <vehicle id="f.0" speed="19.29" acceleration="-0.32"/>
+        <vehicle id="f.1" speed="20.25" acceleration="1.89"/>
+        <vehicle id="f.2" speed="17.93" acceleration="-1.54"/>
+        <vehicle id="f.3" speed="18.86" acceleration="-0.11"/>
+        <vehicle id="f.4" speed="19.25" acceleration="1.24"/>
+        <vehicle id="f.5" speed="18.15" acceleration="-1.25"/>
+        <vehicle id="f.6" speed="20.27" acceleration="0.03"/>
+        <vehicle id="f.7" speed="20.03" acceleration="2.29"/>
+        <vehicle id="f.8" speed="17.91" acceleration="-0.52"/>
+        <vehicle id="f.9" speed="18.51" acceleration="0.63"/>
+        <vehicle id="slow" speed="18.23" acceleration="-0.60"/>
+    </timestep>
+    <timestep time="76.00">
+        <vehicle id="f.0" speed="18.04" acceleration="-1.26"/>
+        <vehicle id="f.1" speed="19.89" acceleration="-0.35"/>
+        <vehicle id="f.2" speed="19.33" acceleration="1.40"/>
+        <vehicle id="f.3" speed="17.70" acceleration="-1.16"/>
+        <vehicle id="f.4" speed="19.34" acceleration="0.09"/>
+        <vehicle id="f.5" speed="19.37" acceleration="1.22"/>
+        <vehicle id="f.6" speed="18.07" acceleration="-2.21"/>
+        <vehicle id="f.7" speed="20.31" acceleration="0.28"/>
+        <vehicle id="f.8" speed="19.95" acceleration="2.04"/>
+        <vehicle id="f.9" speed="18.48" acceleration="-0.03"/>
+        <vehicle id="slow" speed="19.22" acceleration="0.99"/>
+    </timestep>
+    <timestep time="77.00">
+        <vehicle id="f.0" speed="19.70" acceleration="1.66"/>
+        <vehicle id="f.1" speed="18.17" acceleration="-1.73"/>
+        <vehicle id="f.2" speed="19.57" acceleration="0.25"/>
+        <vehicle id="f.3" speed="18.99" acceleration="1.29"/>
+        <vehicle id="f.4" speed="17.66" acceleration="-1.68"/>
+        <vehicle id="f.5" speed="19.65" acceleration="0.28"/>
+        <vehicle id="f.6" speed="19.13" acceleration="1.06"/>
+        <vehicle id="f.7" speed="17.65" acceleration="-2.65"/>
+        <vehicle id="f.8" speed="19.81" acceleration="-0.15"/>
+        <vehicle id="f.9" speed="19.96" acceleration="1.47"/>
+        <vehicle id="slow" speed="19.13" acceleration="-0.10"/>
+    </timestep>
+    <timestep time="78.00">
+        <vehicle id="f.0" speed="18.98" acceleration="-0.72"/>
+        <vehicle id="f.1" speed="19.71" acceleration="1.54"/>
+        <vehicle id="f.2" speed="18.75" acceleration="-0.83"/>
+        <vehicle id="f.3" speed="19.25" acceleration="0.27"/>
+        <vehicle id="f.4" speed="19.66" acceleration="2.00"/>
+        <vehicle id="f.5" speed="17.14" acceleration="-2.51"/>
+        <vehicle id="f.6" speed="20.32" acceleration="1.18"/>
+        <vehicle id="f.7" speed="19.32" acceleration="1.66"/>
+        <vehicle id="f.8" speed="17.48" acceleration="-2.33"/>
+        <vehicle id="f.9" speed="19.40" acceleration="-0.55"/>
+        <vehicle id="slow" speed="18.78" acceleration="-0.35"/>
+    </timestep>
+    <timestep time="79.00">
+        <vehicle id="f.0" speed="19.22" acceleration="0.24"/>
+        <vehicle id="f.1" speed="18.54" acceleration="-1.16"/>
+        <vehicle id="f.2" speed="19.89" acceleration="1.14"/>
+        <vehicle id="f.3" speed="19.13" acceleration="-0.12"/>
+        <vehicle id="f.4" speed="18.84" acceleration="-0.82"/>
+        <vehicle id="f.5" speed="19.35" acceleration="2.21"/>
+        <vehicle id="f.6" speed="16.87" acceleration="-3.45"/>
+        <vehicle id="f.7" speed="19.99" acceleration="0.67"/>
+        <vehicle id="f.8" speed="19.70" acceleration="2.22"/>
+        <vehicle id="f.9" speed="17.16" acceleration="-2.24"/>
+        <vehicle id="slow" speed="18.25" acceleration="-0.53"/>
+    </timestep>
+    <timestep time="80.00">
+        <vehicle id="f.0" speed="17.71" acceleration="-1.51"/>
+        <vehicle id="f.1" speed="19.55" acceleration="1.00"/>
+        <vehicle id="f.2" speed="19.13" acceleration="-0.76"/>
+        <vehicle id="f.3" speed="20.54" acceleration="1.42"/>
+        <vehicle id="f.4" speed="19.07" acceleration="0.24"/>
+        <vehicle id="f.5" speed="19.03" acceleration="-0.33"/>
+        <vehicle id="f.6" speed="18.87" acceleration="2.00"/>
+        <vehicle id="f.7" speed="16.77" acceleration="-3.22"/>
+        <vehicle id="f.8" speed="20.60" acceleration="0.91"/>
+        <vehicle id="f.9" speed="19.39" acceleration="2.23"/>
+        <vehicle id="slow" speed="18.66" acceleration="0.41"/>
+    </timestep>
+    <timestep time="81.00">
+        <vehicle id="f.0" speed="19.11" acceleration="1.40"/>
+        <vehicle id="f.1" speed="17.26" acceleration="-2.29"/>
+        <vehicle id="f.2" speed="19.58" acceleration="0.45"/>
+        <vehicle id="f.3" speed="18.90" acceleration="-1.64"/>
+        <vehicle id="f.4" speed="20.24" acceleration="1.17"/>
+        <vehicle id="f.5" speed="18.44" acceleration="-0.59"/>
+        <vehicle id="f.6" speed="18.89" acceleration="0.02"/>
+        <vehicle id="f.7" speed="19.36" acceleration="2.59"/>
+        <vehicle id="f.8" speed="17.23" acceleration="-3.37"/>
+        <vehicle id="f.9" speed="20.74" acceleration="1.35"/>
+        <vehicle id="slow" speed="19.34" acceleration="0.68"/>
+    </timestep>
+    <timestep time="82.00">
+        <vehicle id="f.0" speed="19.83" acceleration="0.72"/>
+        <vehicle id="f.1" speed="19.07" acceleration="1.82"/>
+        <vehicle id="f.2" speed="17.21" acceleration="-2.37"/>
+        <vehicle id="f.3" speed="19.25" acceleration="0.36"/>
+        <vehicle id="f.4" speed="19.09" acceleration="-1.15"/>
+        <vehicle id="f.5" speed="20.76" acceleration="2.32"/>
+        <vehicle id="f.6" speed="18.71" acceleration="-0.18"/>
+        <vehicle id="f.7" speed="19.07" acceleration="-0.30"/>
+        <vehicle id="f.8" speed="19.06" acceleration="1.83"/>
+        <vehicle id="f.9" speed="17.10" acceleration="-3.64"/>
+        <vehicle id="slow" speed="19.02" acceleration="-0.32"/>
+    </timestep>
+    <timestep time="83.00">
+        <vehicle id="f.0" speed="18.33" acceleration="-1.49"/>
+        <vehicle id="f.1" speed="20.11" acceleration="1.04"/>
+        <vehicle id="f.2" speed="19.67" acceleration="2.46"/>
+        <vehicle id="f.3" speed="16.96" acceleration="-2.30"/>
+        <vehicle id="f.4" speed="19.60" acceleration="0.52"/>
+        <vehicle id="f.5" speed="18.95" acceleration="-1.81"/>
+        <vehicle id="f.6" speed="20.30" acceleration="1.59"/>
+        <vehicle id="f.7" speed="19.35" acceleration="0.28"/>
+        <vehicle id="f.8" speed="19.36" acceleration="0.30"/>
+        <vehicle id="f.9" speed="19.57" acceleration="2.46"/>
+        <vehicle id="slow" speed="19.28" acceleration="0.26"/>
+    </timestep>
+    <timestep time="84.00">
+        <vehicle id="f.0" speed="18.97" acceleration="0.64"/>
+        <vehicle id="f.1" speed="17.94" acceleration="-2.17"/>
+        <vehicle id="f.2" speed="19.58" acceleration="-0.09"/>
+        <vehicle id="f.3" speed="18.96" acceleration="2.00"/>
+        <vehicle id="f.4" speed="16.61" acceleration="-2.99"/>
+        <vehicle id="f.5" speed="20.26" acceleration="1.31"/>
+        <vehicle id="f.6" speed="18.96" acceleration="-1.33"/>
+        <vehicle id="f.7" speed="19.81" acceleration="0.46"/>
+        <vehicle id="f.8" speed="19.05" acceleration="-0.31"/>
+        <vehicle id="f.9" speed="19.25" acceleration="-0.32"/>
+        <vehicle id="slow" speed="18.78" acceleration="-0.50"/>
+    </timestep>
+    <timestep time="85.00">
+        <vehicle id="f.0" speed="18.56" acceleration="-0.41"/>
+        <vehicle id="f.1" speed="19.57" acceleration="1.63"/>
+        <vehicle id="f.2" speed="18.39" acceleration="-1.18"/>
+        <vehicle id="f.3" speed="19.72" acceleration="0.76"/>
+        <vehicle id="f.4" speed="18.36" acceleration="1.75"/>
+        <vehicle id="f.5" speed="16.73" acceleration="-3.53"/>
+        <vehicle id="f.6" speed="20.08" acceleration="1.12"/>
+        <vehicle id="f.7" speed="18.70" acceleration="-1.11"/>
+        <vehicle id="f.8" speed="19.79" acceleration="0.74"/>
+        <vehicle id="f.9" speed="18.85" acceleration="-0.39"/>
+        <vehicle id="slow" speed="18.58" acceleration="-0.20"/>
+    </timestep>
+    <timestep time="86.00">
+        <vehicle id="f.0" speed="18.25" acceleration="-0.31"/>
+        <vehicle id="f.1" speed="18.50" acceleration="-1.07"/>
+        <vehicle id="f.2" speed="19.93" acceleration="1.54"/>
+        <vehicle id="f.3" speed="18.66" acceleration="-1.06"/>
+        <vehicle id="f.4" speed="20.31" acceleration="1.95"/>
+        <vehicle id="f.5" speed="18.11" acceleration="1.38"/>
+        <vehicle id="f.6" speed="17.54" acceleration="-2.55"/>
+        <vehicle id="f.7" speed="20.21" acceleration="1.51"/>
+        <vehicle id="f.8" speed="18.69" acceleration="-1.10"/>
+        <vehicle id="f.9" speed="20.08" acceleration="1.23"/>
+        <vehicle id="slow" speed="18.61" acceleration="0.03"/>
+    </timestep>
+    <timestep time="87.00">
+        <vehicle id="f.0" speed="18.05" acceleration="-0.21"/>
+        <vehicle id="f.1" speed="18.24" acceleration="-0.26"/>
+        <vehicle id="f.2" speed="18.66" acceleration="-1.27"/>
+        <vehicle id="f.3" speed="20.41" acceleration="1.75"/>
+        <vehicle id="f.4" speed="18.35" acceleration="-1.96"/>
+        <vehicle id="f.5" speed="19.98" acceleration="1.87"/>
+        <vehicle id="f.6" speed="18.89" acceleration="1.36"/>
+        <vehicle id="f.7" speed="17.92" acceleration="-2.29"/>
+        <vehicle id="f.8" speed="19.82" acceleration="1.13"/>
+        <vehicle id="f.9" speed="18.06" acceleration="-2.02"/>
+        <vehicle id="slow" speed="18.66" acceleration="0.05"/>
+    </timestep>
+    <timestep time="88.00">
+        <vehicle id="f.0" speed="18.90" acceleration="0.86"/>
+        <vehicle id="f.1" speed="17.61" acceleration="-0.63"/>
+        <vehicle id="f.2" speed="18.00" acceleration="-0.66"/>
+        <vehicle id="f.3" speed="19.33" acceleration="-1.08"/>
+        <vehicle id="f.4" speed="20.11" acceleration="1.76"/>
+        <vehicle id="f.5" speed="18.93" acceleration="-1.05"/>
+        <vehicle id="f.6" speed="19.36" acceleration="0.47"/>
+        <vehicle id="f.7" speed="19.05" acceleration="1.13"/>
+        <vehicle id="f.8" speed="17.36" acceleration="-2.46"/>
+        <vehicle id="f.9" speed="20.48" acceleration="2.41"/>
+        <vehicle id="slow" speed="19.28" acceleration="0.61"/>
+    </timestep>
+    <timestep time="89.00">
+        <vehicle id="f.0" speed="19.06" acceleration="0.16"/>
+        <vehicle id="f.1" speed="18.70" acceleration="1.10"/>
+        <vehicle id="f.2" speed="17.47" acceleration="-0.53"/>
+        <vehicle id="f.3" speed="18.57" acceleration="-0.76"/>
+        <vehicle id="f.4" speed="19.56" acceleration="-0.55"/>
+        <vehicle id="f.5" speed="19.67" acceleration="0.74"/>
+        <vehicle id="f.6" speed="19.15" acceleration="-0.21"/>
+        <vehicle id="f.7" speed="19.14" acceleration="0.09"/>
+        <vehicle id="f.8" speed="19.62" acceleration="2.26"/>
+        <vehicle id="f.9" speed="17.55" acceleration="-2.92"/>
+        <vehicle id="slow" speed="18.95" acceleration="-0.32"/>
+    </timestep>
+    <timestep time="90.00">
+        <vehicle id="f.0" speed="18.80" acceleration="-0.26"/>
+        <vehicle id="f.1" speed="19.00" acceleration="0.30"/>
+        <vehicle id="f.2" speed="18.42" acceleration="0.94"/>
+        <vehicle id="f.3" speed="17.30" acceleration="-1.26"/>
+        <vehicle id="f.4" speed="18.86" acceleration="-0.69"/>
+        <vehicle id="f.5" speed="19.66" acceleration="-0.00"/>
+        <vehicle id="f.6" speed="19.75" acceleration="0.60"/>
+        <vehicle id="f.7" speed="19.58" acceleration="0.44"/>
+        <vehicle id="f.8" speed="18.62" acceleration="-1.00"/>
+        <vehicle id="f.9" speed="20.00" acceleration="2.44"/>
+        <vehicle id="slow" speed="18.40" acceleration="-0.56"/>
+    </timestep>
+    <timestep time="91.00">
+        <vehicle id="f.0" speed="18.97" acceleration="0.17"/>
+        <vehicle id="f.1" speed="18.89" acceleration="-0.11"/>
+        <vehicle id="f.2" speed="19.46" acceleration="1.04"/>
+        <vehicle id="f.3" speed="19.01" acceleration="1.71"/>
+        <vehicle id="f.4" speed="17.46" acceleration="-1.40"/>
+        <vehicle id="f.5" speed="18.75" acceleration="-0.91"/>
+        <vehicle id="f.6" speed="19.64" acceleration="-0.10"/>
+        <vehicle id="f.7" speed="18.97" acceleration="-0.61"/>
+        <vehicle id="f.8" speed="19.83" acceleration="1.21"/>
+        <vehicle id="f.9" speed="18.67" acceleration="-1.33"/>
+        <vehicle id="slow" speed="18.95" acceleration="0.55"/>
+    </timestep>
+    <timestep time="92.00">
+        <vehicle id="f.0" speed="18.63" acceleration="-0.35"/>
+        <vehicle id="f.1" speed="19.03" acceleration="0.15"/>
+        <vehicle id="f.2" speed="19.05" acceleration="-0.41"/>
+        <vehicle id="f.3" speed="19.62" acceleration="0.61"/>
+        <vehicle id="f.4" speed="18.88" acceleration="1.42"/>
+        <vehicle id="f.5" speed="18.10" acceleration="-0.66"/>
+        <vehicle id="f.6" speed="18.31" acceleration="-1.33"/>
+        <vehicle id="f.7" speed="19.11" acceleration="0.14"/>
+        <vehicle id="f.8" speed="18.38" acceleration="-1.45"/>
+        <vehicle id="f.9" speed="20.30" acceleration="1.63"/>
+        <vehicle id="slow" speed="18.91" acceleration="-0.04"/>
+    </timestep>
+    <timestep time="93.00">
+        <vehicle id="f.0" speed="19.60" acceleration="0.98"/>
+        <vehicle id="f.1" speed="19.13" acceleration="0.10"/>
+        <vehicle id="f.2" speed="18.51" acceleration="-0.55"/>
+        <vehicle id="f.3" speed="19.41" acceleration="-0.22"/>
+        <vehicle id="f.4" speed="20.19" acceleration="1.31"/>
+        <vehicle id="f.5" speed="18.93" acceleration="0.84"/>
+        <vehicle id="f.6" speed="18.17" acceleration="-0.14"/>
+        <vehicle id="f.7" speed="19.05" acceleration="-0.06"/>
+        <vehicle id="f.8" speed="18.97" acceleration="0.59"/>
+        <vehicle id="f.9" speed="17.67" acceleration="-2.63"/>
+        <vehicle id="slow" speed="19.15" acceleration="0.25"/>
+    </timestep>
+    <timestep time="94.00">
+        <vehicle id="f.0" speed="19.29" acceleration="-0.31"/>
+        <vehicle id="f.1" speed="18.99" acceleration="-0.14"/>
+        <vehicle id="f.2" speed="19.04" acceleration="0.53"/>
+        <vehicle id="f.3" speed="18.57" acceleration="-0.84"/>
+        <vehicle id="f.4" speed="19.55" acceleration="-0.64"/>
+        <vehicle id="f.5" speed="19.48" acceleration="0.54"/>
+        <vehicle id="f.6" speed="18.68" acceleration="0.51"/>
+        <vehicle id="f.7" speed="18.60" acceleration="-0.46"/>
+        <vehicle id="f.8" speed="19.34" acceleration="0.37"/>
+        <vehicle id="f.9" speed="18.46" acceleration="0.78"/>
+        <vehicle id="slow" speed="18.25" acceleration="-0.90"/>
+    </timestep>
+    <timestep time="95.00">
+        <vehicle id="f.0" speed="17.79" acceleration="-1.51"/>
+        <vehicle id="f.1" speed="18.82" acceleration="-0.17"/>
+        <vehicle id="f.2" speed="18.73" acceleration="-0.31"/>
+        <vehicle id="f.3" speed="19.20" acceleration="0.63"/>
+        <vehicle id="f.4" speed="18.58" acceleration="-0.96"/>
+        <vehicle id="f.5" speed="19.19" acceleration="-0.29"/>
+        <vehicle id="f.6" speed="20.29" acceleration="1.61"/>
+        <vehicle id="f.7" speed="17.94" acceleration="-0.66"/>
+        <vehicle id="f.8" speed="19.18" acceleration="-0.16"/>
+        <vehicle id="f.9" speed="19.15" acceleration="0.69"/>
+        <vehicle id="slow" speed="19.14" acceleration="0.88"/>
+    </timestep>
+    <timestep time="96.00">
+        <vehicle id="f.0" speed="19.38" acceleration="1.59"/>
+        <vehicle id="f.1" speed="18.31" acceleration="-0.51"/>
+        <vehicle id="f.2" speed="18.84" acceleration="0.11"/>
+        <vehicle id="f.3" speed="18.48" acceleration="-0.72"/>
+        <vehicle id="f.4" speed="19.26" acceleration="0.67"/>
+        <vehicle id="f.5" speed="18.41" acceleration="-0.78"/>
+        <vehicle id="f.6" speed="18.85" acceleration="-1.44"/>
+        <vehicle id="f.7" speed="20.48" acceleration="2.54"/>
+        <vehicle id="f.8" speed="17.97" acceleration="-1.20"/>
+        <vehicle id="f.9" speed="18.70" acceleration="-0.45"/>
+        <vehicle id="slow" speed="18.69" acceleration="-0.44"/>
+    </timestep>
+    <timestep time="97.00">
+        <vehicle id="f.0" speed="19.25" acceleration="-0.13"/>
+        <vehicle id="f.1" speed="18.83" acceleration="0.52"/>
+        <vehicle id="f.2" speed="18.91" acceleration="0.07"/>
+        <vehicle id="f.3" speed="18.36" acceleration="-0.12"/>
+        <vehicle id="f.4" speed="18.20" acceleration="-1.06"/>
+        <vehicle id="f.5" speed="18.88" acceleration="0.46"/>
+        <vehicle id="f.6" speed="18.38" acceleration="-0.48"/>
+        <vehicle id="f.7" speed="19.44" acceleration="-1.04"/>
+        <vehicle id="f.8" speed="20.44" acceleration="2.46"/>
+        <vehicle id="f.9" speed="17.55" acceleration="-1.15"/>
+        <vehicle id="slow" speed="19.29" acceleration="0.60"/>
+    </timestep>
+    <timestep time="98.00">
+        <vehicle id="f.0" speed="19.84" acceleration="0.59"/>
+        <vehicle id="f.1" speed="19.21" acceleration="0.37"/>
+        <vehicle id="f.2" speed="18.17" acceleration="-0.74"/>
+        <vehicle id="f.3" speed="19.37" acceleration="1.01"/>
+        <vehicle id="f.4" speed="18.05" acceleration="-0.15"/>
+        <vehicle id="f.5" speed="18.17" acceleration="-0.71"/>
+        <vehicle id="f.6" speed="18.65" acceleration="0.27"/>
+        <vehicle id="f.7" speed="18.80" acceleration="-0.64"/>
+        <vehicle id="f.8" speed="19.86" acceleration="-0.58"/>
+        <vehicle id="f.9" speed="18.87" acceleration="1.32"/>
+        <vehicle id="slow" speed="19.42" acceleration="0.13"/>
+    </timestep>
+    <timestep time="99.00">
+        <vehicle id="f.0" speed="19.03" acceleration="-0.81"/>
+        <vehicle id="f.1" speed="20.14" acceleration="0.93"/>
+        <vehicle id="f.2" speed="19.61" acceleration="1.44"/>
+        <vehicle id="f.3" speed="17.90" acceleration="-1.47"/>
+        <vehicle id="f.4" speed="19.93" acceleration="1.89"/>
+        <vehicle id="f.5" speed="18.31" acceleration="0.14"/>
+        <vehicle id="f.6" speed="18.10" acceleration="-0.56"/>
+        <vehicle id="f.7" speed="18.86" acceleration="0.07"/>
+        <vehicle id="f.8" speed="18.37" acceleration="-1.48"/>
+        <vehicle id="f.9" speed="20.79" acceleration="1.93"/>
+        <vehicle id="slow" speed="18.41" acceleration="-1.01"/>
+    </timestep>
+    <timestep time="100.00">
+        <vehicle id="f.0" speed="18.51" acceleration="-0.52"/>
+        <vehicle id="f.1" speed="19.14" acceleration="-0.99"/>
+        <vehicle id="f.2" speed="19.78" acceleration="0.17"/>
+        <vehicle id="f.3" speed="19.75" acceleration="1.85"/>
+        <vehicle id="f.4" speed="17.32" acceleration="-2.62"/>
+        <vehicle id="f.5" speed="19.99" acceleration="1.68"/>
+        <vehicle id="f.6" speed="18.79" acceleration="0.70"/>
+        <vehicle id="f.7" speed="17.50" acceleration="-1.37"/>
+        <vehicle id="f.8" speed="19.21" acceleration="0.83"/>
+        <vehicle id="f.9" speed="18.72" acceleration="-2.07"/>
+        <vehicle id="slow" speed="18.19" acceleration="-0.22"/>
+    </timestep>
+    <timestep time="101.00">
+        <vehicle id="f.0" speed="18.07" acceleration="-0.44"/>
+        <vehicle id="f.1" speed="18.92" acceleration="-0.23"/>
+        <vehicle id="f.2" speed="19.62" acceleration="-0.16"/>
+        <vehicle id="f.3" speed="19.89" acceleration="0.15"/>
+        <vehicle id="f.4" speed="19.12" acceleration="1.81"/>
+        <vehicle id="f.5" speed="17.17" acceleration="-2.82"/>
+        <vehicle id="f.6" speed="19.94" acceleration="1.14"/>
+        <vehicle id="f.7" speed="18.10" acceleration="0.60"/>
+        <vehicle id="f.8" speed="16.92" acceleration="-2.29"/>
+        <vehicle id="f.9" speed="19.03" acceleration="0.31"/>
+    </timestep>
+    <timestep time="102.00">
+        <vehicle id="f.0" speed="20.54" acceleration="2.46"/>
+        <vehicle id="f.1" speed="17.93" acceleration="-0.99"/>
+        <vehicle id="f.2" speed="19.00" acceleration="-0.61"/>
+        <vehicle id="f.3" speed="19.29" acceleration="-0.61"/>
+        <vehicle id="f.4" speed="20.42" acceleration="1.29"/>
+        <vehicle id="f.5" speed="19.14" acceleration="1.98"/>
+        <vehicle id="f.6" speed="17.91" acceleration="-2.03"/>
+        <vehicle id="f.7" speed="20.17" acceleration="2.07"/>
+        <vehicle id="f.8" speed="18.40" acceleration="1.47"/>
+        <vehicle id="f.9" speed="17.18" acceleration="-1.85"/>
+    </timestep>
+    <timestep time="103.00">
+        <vehicle id="f.1" speed="19.23" acceleration="1.31"/>
+        <vehicle id="f.2" speed="18.43" acceleration="-0.57"/>
+        <vehicle id="f.3" speed="19.25" acceleration="-0.04"/>
+        <vehicle id="f.4" speed="19.71" acceleration="-0.71"/>
+        <vehicle id="f.5" speed="20.01" acceleration="0.87"/>
+        <vehicle id="f.6" speed="18.83" acceleration="0.93"/>
+        <vehicle id="f.7" speed="17.64" acceleration="-2.52"/>
+        <vehicle id="f.8" speed="20.40" acceleration="2.00"/>
+        <vehicle id="f.9" speed="19.29" acceleration="2.11"/>
+    </timestep>
+    <timestep time="104.00">
+        <vehicle id="f.2" speed="18.66" acceleration="0.23"/>
+        <vehicle id="f.3" speed="18.06" acceleration="-1.19"/>
+        <vehicle id="f.4" speed="18.98" acceleration="-0.72"/>
+        <vehicle id="f.5" speed="19.86" acceleration="-0.15"/>
+        <vehicle id="f.6" speed="19.79" acceleration="0.96"/>
+        <vehicle id="f.7" speed="18.66" acceleration="1.02"/>
+        <vehicle id="f.8" speed="17.66" acceleration="-2.74"/>
+        <vehicle id="f.9" speed="20.60" acceleration="1.31"/>
+    </timestep>
+    <timestep time="105.00">
+        <vehicle id="f.2" speed="20.37" acceleration="1.71"/>
+        <vehicle id="f.3" speed="18.32" acceleration="0.26"/>
+        <vehicle id="f.4" speed="17.65" acceleration="-1.33"/>
+        <vehicle id="f.5" speed="18.59" acceleration="-1.27"/>
+        <vehicle id="f.6" speed="20.42" acceleration="0.63"/>
+        <vehicle id="f.7" speed="19.38" acceleration="0.72"/>
+        <vehicle id="f.8" speed="18.47" acceleration="0.82"/>
+        <vehicle id="f.9" speed="17.74" acceleration="-2.86"/>
+    </timestep>
+    <timestep time="106.00">
+        <vehicle id="f.3" speed="20.65" acceleration="2.34"/>
+        <vehicle id="f.4" speed="18.65" acceleration="0.99"/>
+        <vehicle id="f.5" speed="17.41" acceleration="-1.19"/>
+        <vehicle id="f.6" speed="18.45" acceleration="-1.97"/>
+        <vehicle id="f.7" speed="20.23" acceleration="0.85"/>
+        <vehicle id="f.8" speed="19.24" acceleration="0.77"/>
+        <vehicle id="f.9" speed="19.00" acceleration="1.26"/>
+    </timestep>
+    <timestep time="107.00">
+        <vehicle id="f.4" speed="20.32" acceleration="1.68"/>
+        <vehicle id="f.5" speed="18.34" acceleration="0.93"/>
+        <vehicle id="f.6" speed="18.13" acceleration="-0.33"/>
+        <vehicle id="f.7" speed="18.13" acceleration="-2.10"/>
+        <vehicle id="f.8" speed="20.13" acceleration="0.89"/>
+        <vehicle id="f.9" speed="19.76" acceleration="0.76"/>
+    </timestep>
+    <timestep time="108.00">
+        <vehicle id="f.4" speed="22.29" acceleration="1.97"/>
+        <vehicle id="f.5" speed="20.89" acceleration="2.55"/>
+        <vehicle id="f.6" speed="18.30" acceleration="0.17"/>
+        <vehicle id="f.7" speed="18.48" acceleration="0.35"/>
+        <vehicle id="f.8" speed="18.29" acceleration="-1.84"/>
+        <vehicle id="f.9" speed="19.79" acceleration="0.03"/>
+    </timestep>
+    <timestep time="109.00">
+        <vehicle id="f.5" speed="21.84" acceleration="0.95"/>
+        <vehicle id="f.6" speed="19.66" acceleration="1.36"/>
+        <vehicle id="f.7" speed="18.46" acceleration="-0.02"/>
+        <vehicle id="f.8" speed="18.34" acceleration="0.05"/>
+        <vehicle id="f.9" speed="17.72" acceleration="-2.07"/>
+    </timestep>
+    <timestep time="110.00">
+        <vehicle id="f.6" speed="21.83" acceleration="2.18"/>
+        <vehicle id="f.7" speed="20.34" acceleration="1.87"/>
+        <vehicle id="f.8" speed="18.62" acceleration="0.28"/>
+        <vehicle id="f.9" speed="17.86" acceleration="0.14"/>
+    </timestep>
+    <timestep time="111.00">
+        <vehicle id="f.6" speed="24.03" acceleration="2.19"/>
+        <vehicle id="f.7" speed="21.81" acceleration="1.47"/>
+        <vehicle id="f.8" speed="20.31" acceleration="1.69"/>
+        <vehicle id="f.9" speed="18.36" acceleration="0.50"/>
+    </timestep>
+    <timestep time="112.00">
+        <vehicle id="f.7" speed="23.11" acceleration="1.30"/>
+        <vehicle id="f.8" speed="21.14" acceleration="0.83"/>
+        <vehicle id="f.9" speed="19.83" acceleration="1.47"/>
+    </timestep>
+    <timestep time="113.00">
+        <vehicle id="f.8" speed="23.24" acceleration="2.10"/>
+        <vehicle id="f.9" speed="21.98" acceleration="2.15"/>
+    </timestep>
+    <timestep time="114.00">
+        <vehicle id="f.8" speed="25.50" acceleration="2.25"/>
+        <vehicle id="f.9" speed="22.69" acceleration="0.71"/>
+    </timestep>
+    <timestep time="115.00">
+        <vehicle id="f.9" speed="22.77" acceleration="0.08"/>
+    </timestep>
+    <timestep time="116.00"/>
+</fcd-export>
