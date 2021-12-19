@@ -1490,7 +1490,7 @@ GNEVehicle::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
     switch (key) {
         case SUMO_ATTR_END:
         case SUMO_ATTR_NUMBER:
-        case SUMO_ATTR_CONTAINERSPERHOUR:
+        case SUMO_ATTR_VEHSPERHOUR:
         case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_PROB:
             undoList->add(new GNEChange_EnableAttribute(this, key, true, parametersSet), true);
