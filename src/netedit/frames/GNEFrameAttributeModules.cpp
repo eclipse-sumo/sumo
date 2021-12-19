@@ -728,7 +728,6 @@ GNEFrameAttributeModules::AttributesCreator::refreshRows(const bool createRows) 
     // check if flow editor has to be shown
     if (showFlowEditor) {
         myAttributesCreatorFlow->showAttributesCreatorFlowModule(
-            myTemplateAC->getTagProperty().hasAttribute(SUMO_ATTR_VEHSPERHOUR) || 
             myTemplateAC->getTagProperty().hasAttribute(SUMO_ATTR_PERSONSPERHOUR) ||
             myTemplateAC->getTagProperty().hasAttribute(SUMO_ATTR_CONTAINERSPERHOUR));
     } else {
