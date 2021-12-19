@@ -74,7 +74,7 @@ def runSingle(traciEndTime, range, lateralDistance,
                 if testWithIncompatibleFilter:
                     traci.vehicle.addSubscriptionFilterFieldOfVision(90.0)
                 traci.vehicle.addSubscriptionFilterLateralDistance(lateralDistance,
-                        downstreamDistance, upstreamDistance)
+                                                                   downstreamDistance, upstreamDistance)
             except traci.exceptions.TraCIException as e:
                 print("TraCIException:", e)
                 traci.close()
