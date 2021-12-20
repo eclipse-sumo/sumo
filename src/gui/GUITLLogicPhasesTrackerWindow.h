@@ -193,6 +193,9 @@ private:
     /// @brief The list of phase durations
     DurationsVector myDurations;
 
+    /// @brief The time within the cycle for the current phase
+    DurationsVector myTimeInCycle;
+
     /// @brief The panel to draw on
     GUITLLogicPhasesTrackerPanel* myPanel;
 

@@ -268,6 +268,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     if (!myAmInTrackingMode) {
         myPhases.clear();
         myDurations.clear();
+        myTimeInCycle.clear();
         // insert phases
         MSSimpleTrafficLightLogic* simpleTLLogic = dynamic_cast<MSSimpleTrafficLightLogic*>(myTLLogic);
         if (simpleTLLogic == nullptr) {
@@ -280,6 +281,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         for (j = phases.begin(); j != phases.end(); ++j) {
             myPhases.push_back(*(*j));
             myDurations.push_back((*j)->duration);
+            myTimeInCycle.push_back(myLastTime);
             myLastTime += (*j)->duration;
         }
         if (myLastTime <= myBeginTime) {
@@ -473,9 +475,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
             const std::string timeStr = (mmSS
                                          ? StringUtils::padFront(toString((currTime % 3600000) / 60000), 2, '0') + ":"
                                          + StringUtils::padFront(toString((currTime % 60000) / 1000), 2, '0')
-                                         : toString((int)STEPS2TIME(cycleTime
-                                                 ? (currTime - myTLLogic->getOffset()) % myTLLogic->getDefaultCycleTime()
-                                                 : currTime)));
+                                         : toString((int)STEPS2TIME(cycleTime ? myTimeInCycle[pd - myDurations.begin()] : currTime)));
             const double w = 10 * timeStr.size() / panelWidth;
             glTranslated(glpos - w / 2., glh - h20 * ticShift, 0);
             GLHelper::drawText(timeStr, Position(0, 0), 1, fontHeight, RGBColor::WHITE, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
@@ -509,6 +509,7 @@ GUITLLogicPhasesTrackerWindow::addValue(std::pair<SUMOTime, MSPhaseDefinition> d
     if (myPhases.size() == 0 || *(myPhases.end() - 1) != def.second) {
         myPhases.push_back(def.second);
         myDurations.push_back(DELTA_T);
+        myTimeInCycle.push_back(myTLLogic->mapTimeInCycle(def.first - DELTA_T));
     } else {
         *(myDurations.end() - 1) += DELTA_T;
     }
