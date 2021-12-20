@@ -45,6 +45,6 @@ while traci.simulation.getMinExpectedNumber() > 0:
         pos = traci.person.getLanePosition(personID)
         traci.person.remove(personID)
         traci.person.add(personID, edge, pos)
-        traci.person.appendWalkingStage(personID, [edge], "-1")
+        traci.person.appendWalkingStage(personID, [edge], -1)
 
 traci.close()

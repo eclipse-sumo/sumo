@@ -1,6 +1,7 @@
 [run_dependent_text]
 errors:Error: Answered with error to command 0x[0-9a-f]*: {REPLACE Error: }
-errors:UserWarning{LINES 2}
+errors:UserWarning: Parameter order has changed {LINES 2}
+errors:UserWarning: Call to deprecated function {LINES 2}
 errors:Requested command not implemented
 errors:^Error: A network was not yet constructed.
 errors:raise FatalTraCIError("Connection already closed.")
@@ -15,8 +16,13 @@ log:***Starting server on port
 log:TraCI {REPLACE Libsumo }
 log:via Libsumo {REPLACE }
 log:Requested command not implemented
+log:traci.simulation.simulation_{REPLACE traci.simulation.}
 log:traci.simulation.step(0){REPLACE traci.simulationStep()}
 log:traci.simulation.close(){REPLACE traci.close()}
+log:traci\.(.*)\.(.*)_([gs]etParameter){REPLACE traci.\1.\3}
 log:traci\.(.*)\.subscribe\((.*), \[\]\){REPLACE traci.\1.unsubscribe(\2)}
+log:traci\.(.*)\.(.*)_((un)?subscribe){REPLACE traci.\1.\3}
+log2:traci.simulation.simulation_{REPLACE traci.simulation.}
 log2:traci.simulation.step(0){REPLACE traci.simulationStep()}
 log2:traci.simulation.close(){REPLACE traci.close()}
+log2:traci\.(.*)\.(.*)_([gs]etParameter){REPLACE traci.\1.\3}
