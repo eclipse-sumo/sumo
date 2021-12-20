@@ -822,7 +822,8 @@ MSActuatedTrafficLightLogic::getEarliest() const {
             // switch in the next cycle
             earliest += myDefaultCycleTime;
         }
-        return earliest - getTimeInCycle();
+        const SUMOTime maxRemaining = getCurrentPhaseDef().maxDuration - (SIMSTEP - getCurrentPhaseDef().myLastSwitch);
+        return MIN2(earliest - getTimeInCycle(), maxRemaining);
     }
 }
 
