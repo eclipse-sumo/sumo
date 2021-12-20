@@ -469,13 +469,15 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         int ticShift = myFirstPhase2Show;
         const bool mmSS = myTimeMode->getCurrentItem() == 1;
         const bool cycleTime = myTimeMode->getCurrentItem() == 2;
+        SUMOTime lastTimeInCycle = -1;
         for (DurationsVector::iterator pd = myDurations.begin() + myFirstPhase2Show; pd != myDurations.end(); ++pd) {
+            const SUMOTime timeInCycle = myTimeInCycle[pd - myDurations.begin()];
             // draw times at different heights
             ticShift = (ticShift % 3) + 1;
             const std::string timeStr = (mmSS
                                          ? StringUtils::padFront(toString((currTime % 3600000) / 60000), 2, '0') + ":"
                                          + StringUtils::padFront(toString((currTime % 60000) / 1000), 2, '0')
-                                         : toString((int)STEPS2TIME(cycleTime ? myTimeInCycle[pd - myDurations.begin()] : currTime)));
+                                         : toString((int)STEPS2TIME(cycleTime ? timeInCycle : currTime)));
             const double w = 10 * timeStr.size() / panelWidth;
             glTranslated(glpos - w / 2., glh - h20 * ticShift, 0);
             GLHelper::drawText(timeStr, Position(0, 0), 1, fontHeight, RGBColor::WHITE, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
@@ -485,6 +487,17 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
             glVertex2d(glpos, glh);
             glVertex2d(glpos, glh - ticSize * ticShift);
             glEnd();
+
+            if (timeInCycle == 0 || timeInCycle < lastTimeInCycle) {
+                const double cycle0pos = glpos - STEPS2TIME(timeInCycle) * barWidth / timeRange / panelWidth;
+                glColor3d(0.6, 0.6, 0.6);
+                glBegin(GL_LINES);
+                glVertex2d(cycle0pos, 1);
+                glVertex2d(cycle0pos, glh);
+                glEnd();
+                glColor3d(1, 1, 1);
+            }
+            lastTimeInCycle = timeInCycle;
 
             tickDist = *pd;
             const double a = STEPS2TIME(tickDist) * barWidth / timeRange;
