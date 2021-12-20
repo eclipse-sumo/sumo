@@ -642,7 +642,7 @@ TrafficLight::setProgramLogic(const std::string& tlsID, const TraCILogic& logic)
         throw TraCIException("set program: parameter index must be less than parameter phase number.");
     }
     std::vector<MSPhaseDefinition*> phases;
-    for (TraCIPhase* phase : logic.phases) {
+    for (const std::shared_ptr<libsumo::TraCIPhase>& phase : logic.phases) {
         MSPhaseDefinition* sumoPhase = new MSPhaseDefinition(TIME2STEPS(phase->duration), phase->state, phase->name);
         sumoPhase->minDuration = TIME2STEPS(phase->minDur);
         sumoPhase->maxDuration = TIME2STEPS(phase->maxDur);

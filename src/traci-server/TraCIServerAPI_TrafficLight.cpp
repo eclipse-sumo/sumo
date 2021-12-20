@@ -45,52 +45,30 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
         if (!libsumo::TrafficLight::handleVariable(id, variable, &server, &inputStorage)) {
             switch (variable) {
                 case libsumo::TL_COMPLETE_DEFINITION_RYG: {
-                    std::vector<libsumo::TraCILogic> logics = libsumo::TrafficLight::getCompleteRedYellowGreenDefinition(id);
+                    std::vector<libsumo::TraCILogic> logics = libsumo::TrafficLight::getAllProgramLogics(id);
                     tcpip::Storage& storage = server.getWrapperStorage();
-                    storage.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                    storage.writeInt((int)logics.size());
+                    StoHelp::writeCompound(storage, (int)logics.size());
                     for (const libsumo::TraCILogic& logic : logics) {
-                        storage.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                        storage.writeInt(5);
-                        storage.writeUnsignedByte(libsumo::TYPE_STRING);
-                        storage.writeString(logic.programID);
-                        // type
-                        storage.writeUnsignedByte(libsumo::TYPE_INTEGER);
-                        storage.writeInt(logic.type);
-                        // (current) phase index
-                        storage.writeUnsignedByte(libsumo::TYPE_INTEGER);
-                        storage.writeInt(logic.currentPhaseIndex);
-                        // phase number
-                        storage.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                        storage.writeInt((int)logic.phases.size());
-                        for (const libsumo::TraCIPhase* phase : logic.phases) {
-                            storage.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                            storage.writeInt(6);
-                            storage.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                            storage.writeDouble(phase->duration);
-                            storage.writeUnsignedByte(libsumo::TYPE_STRING);
-                            storage.writeString(phase->state);
-                            storage.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                            storage.writeDouble(phase->minDur);
-                            storage.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                            storage.writeDouble(phase->maxDur);
-                            storage.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                            storage.writeInt((int)phase->next.size());
+                        StoHelp::writeCompound(storage, 5);
+                        StoHelp::writeTypedString(storage, logic.programID);
+                        StoHelp::writeTypedInt(storage, logic.type);
+                        StoHelp::writeTypedInt(storage, logic.currentPhaseIndex);
+                        StoHelp::writeCompound(storage, (int)logic.phases.size());
+                        for (const std::shared_ptr<libsumo::TraCIPhase>& phase : logic.phases) {
+                            StoHelp::writeCompound(storage, 6);
+                            StoHelp::writeTypedDouble(storage, phase->duration);
+                            StoHelp::writeTypedString(storage, phase->state);
+                            StoHelp::writeTypedDouble(storage, phase->minDur);
+                            StoHelp::writeTypedDouble(storage, phase->maxDur);
+                            StoHelp::writeCompound(storage, (int)phase->next.size());
                             for (int n : phase->next) {
-                                storage.writeUnsignedByte(libsumo::TYPE_INTEGER);
-                                storage.writeInt(n);
+                                StoHelp::writeTypedInt(storage, n);
                             }
-                            storage.writeUnsignedByte(libsumo::TYPE_STRING);
-                            storage.writeString(phase->name);
+                            StoHelp::writeTypedString(storage, phase->name);
                         }
-                        // subparameter
-                        storage.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                        storage.writeInt((int)logic.subParameter.size());
+                        StoHelp::writeCompound(storage, (int)logic.subParameter.size());
                         for (const auto& item : logic.subParameter) {
-                            storage.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
-                            storage.writeInt(2);
-                            storage.writeString(item.first);
-                            storage.writeString(item.second);
+                            StoHelp::writeTypedStringList(storage, std::vector<std::string> {item.first, item.second});
                         }
                     }
                     break;
