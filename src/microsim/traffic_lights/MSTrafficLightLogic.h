@@ -275,7 +275,10 @@ public:
     }
 
     /// @brief return time within the current cycle
-    virtual SUMOTime getTimeInCycle() const;
+    SUMOTime getTimeInCycle() const;
+
+    /// @brief map the given time into the current cycle
+    virtual SUMOTime mapTimeInCycle(SUMOTime t) const;
 
     /// @brief return the number of controlled link indices
     int getNumLinks() const {

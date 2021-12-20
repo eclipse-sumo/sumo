@@ -196,7 +196,7 @@ public:
         */
     virtual void saveState(OutputDevice& /*out*/) const;
 
-    SUMOTime getTimeInCycle() const;
+    virtual SUMOTime mapTimeInCycle(SUMOTime t) const;
 
 protected:
     /// @brief The list of phases this logic uses

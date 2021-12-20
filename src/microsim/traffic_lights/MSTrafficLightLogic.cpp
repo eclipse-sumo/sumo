@@ -478,8 +478,15 @@ MSTrafficLightLogic::ignoreLinkIndex(int pos) {
 
 SUMOTime
 MSTrafficLightLogic::getTimeInCycle() const {
-    return MSPhaseDefinition::UNSPECIFIED_DURATION;
+    return mapTimeInCycle(SIMSTEP);
 }
+
+
+SUMOTime
+MSTrafficLightLogic::mapTimeInCycle(SUMOTime t) const {
+    return (t - myOffset) % myDefaultCycleTime;
+}
+
 
 bool
 MSTrafficLightLogic::isSelected() const {

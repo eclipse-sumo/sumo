@@ -113,10 +113,8 @@ public:
     /**@brief Sets a parameter and updates internal constants */
     void setParameter(const std::string& key, const std::string& value);
 
-    SUMOTime getTimeInCycle() const;
-
     /// @brief map the given time into the current cycle
-    SUMOTime getTimeInCycle(SUMOTime t) const;
+    SUMOTime mapTimeInCycle(SUMOTime t) const;
 
 protected:
     struct InductLoopInfo {

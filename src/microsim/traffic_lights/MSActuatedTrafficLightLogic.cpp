@@ -799,12 +799,7 @@ MSActuatedTrafficLightLogic::getLinkMinDuration(int target) const {
 }
 
 SUMOTime
-MSActuatedTrafficLightLogic::getTimeInCycle() const {
-    return getTimeInCycle(SIMSTEP);
-}
-
-SUMOTime
-MSActuatedTrafficLightLogic::getTimeInCycle(SUMOTime t) const {
+MSActuatedTrafficLightLogic::mapTimeInCycle(SUMOTime t) const {
         return (myCoordinated
                 ? (t - myOffset) % myDefaultCycleTime
                 : (t - myPhases[0]->myLastSwitch) % myDefaultCycleTime);
@@ -817,7 +812,7 @@ MSActuatedTrafficLightLogic::getEarliest() const {
     if (earliest == MSPhaseDefinition::UNSPECIFIED_DURATION) {
         return 0;
     } else {
-        const SUMOTime lastResetInCycle = getTimeInCycle(myPhases[0]->myLastSwitch);
+        const SUMOTime lastResetInCycle = mapTimeInCycle(myPhases[0]->myLastSwitch);
         if (lastResetInCycle > earliest) {
             // switch in the next cycle
             earliest += myDefaultCycleTime;

@@ -180,15 +180,12 @@ MSSimpleTrafficLightLogic::getIndexFromOffset(SUMOTime offset) const {
     return 0;
 }
 
+
 SUMOTime
-MSSimpleTrafficLightLogic::getTimeInCycle() const {
-    SUMOTime result = 0;
-    for (int i = 0; i < myStep; i++) {
-        result += myPhases[i]->duration;
-    }
-    result += (SIMSTEP - myPhases[myStep]->myLastSwitch);
-    return result;
+MSSimpleTrafficLightLogic::mapTimeInCycle(SUMOTime t) const {
+    return (t - myPhases[0]->myLastSwitch) % myDefaultCycleTime;
 }
+
 
 // ------------ Changing phases and phase durations
 void
