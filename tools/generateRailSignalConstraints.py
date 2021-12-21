@@ -654,13 +654,15 @@ def addCommonStop(options, switch, edgesBefore, stop, edgesBefore2, stop2, vehic
             if (edgesBefore2, s2) not in stopRoutes2[s.busStop]:
                 s2copy = copy.copy(s2)
                 s2copy.prevTripId = stop2.prevTripId
-                s2copy.setAttribute("intermediateStop", stop2.busStop)
+                s2copy.setAttribute("intermediateStop", copy.copy(stop2))
+                s2copy.setAttribute("edgesBeforeCommon", eb2)
                 s2copy.setAttribute("otherVeh", stop.vehID)
                 stopRoutes2[s.busStop].append((edgesBefore2, s2copy))
             if s.busStop != stop.busStop and ((edgesBefore, s) not in stopRoutes2[s.busStop]):
                 scopy = copy.copy(s)
                 scopy.prevTripId = stop.prevTripId
-                scopy.setAttribute("intermediateStop", stop.busStop)
+                scopy.setAttribute("intermediateStop", copy.copy(stop))
+                scopy.setAttribute("edgesBeforeCommon", eb)
                 scopy.setAttribute("otherVeh", stop2.vehID)
                 stopRoutes2[s.busStop].append((edgesBefore, scopy))
             return
@@ -694,7 +696,7 @@ def addCommonStop(options, switch, edgesBefore, stop, edgesBefore2, stop2, vehic
         ))
 
 
-def findConflicts(options, switchRoutes, mergeSignals, signalTimes, stopEdges, vehicleStopRoutes):
+def findConflicts(options, net, switchRoutes, mergeSignals, signalTimes, stopEdges, vehicleStopRoutes):
     """find stops that target the same busStop from different branches of the
     prior merge switch and establish their ordering"""
 
@@ -704,6 +706,7 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes, stopEdges, v
     numIgnoredStops = 0
     # signal -> [(tripID, otherSignal, otherTripID, limit, line, otherLine, vehID, otherVehID), ...]
     conflicts = defaultdict(list)
+    intermediateParkingConflicts = defaultdict(list)
 
     for switch, stopRoutes2 in switchRoutes.items():
         numSwitchConflicts = 0
@@ -788,7 +791,8 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes, stopEdges, v
                         numIgnoredConflicts += 1
                         numIgnoredSwitchConflicts += 1
                         continue
-                    if nStop.intermediateStop and pStop.intermediateStop == nStop.intermediateStop:
+                    if (nStop.intermediateStop and pStop.intermediateStop
+                            and nStop.intermediateStop.busStop == pStop.intermediateStop.busStop):
                         # intermediate conflict was added via other foes and this particular conflict is a normal one
                         continue
                     numConflicts += 1
@@ -804,22 +808,51 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes, stopEdges, v
                             humanReadableTime(pTimeAtSignal),
                             humanReadableTime(end), options.delay, pSignal,
                             pStop, nStop))
-                    info = getIntermediateInfo(pStop, nStop)
                     times = "arrival=%s foeArrival=%s " % (humanReadableTime(nArrival), humanReadableTime(pArrival))
-                    limit += countPassingTrainsToOtherStops(options, pSignal, busStop, pTimeAtSignal, end, signalTimes)
-                    conflicts[nSignal].append(Conflict(nStop.prevTripId, pSignal, pStop.prevTripId, limit,
-                                                       # attributes for adding comments
-                                                       nStop.prevLine, pStop.prevLine,
-                                                       nStop.vehID, pStop.vehID,
-                                                       times, switch, nStop.busStop, info))
+                    info = getIntermediateInfo(pStop, nStop)
+                    isIntermediateParking = nStop.intermediateStop and parseBool(
+                        nStop.intermediateStop.getAttributeSecure("parking", "false"))
+                    if isIntermediateParking:
+                        # intermediateParkingConflicts: train oder isn't determined at the switch
+                        #  but rather when the second vehicle leaves it's parking stop
+                        stopEdge = stopEdges[nStop.intermediateStop.busStop]
+                        signal = findSignal(net, (stopEdge,) + nStop.edgesBeforeCommon)
+                        if signal is None:
+                            print(("Ignoring intermediate parking insertion conflict between %s and %s at stop '%s' " +
+                                   "because no rail signal was found after the stop") %
+                                  (nStop.tripID, pStop.prevTripId, nStop.intermediateStop.busStop), file=sys.stderr)
+                            continue
+                        times = "intermediateArrival=%s %s" % (humanReadableTime(
+                            parseTime(nStop.intermediateStop.arrival)), times)
+                        info = "intermediateParking " + info
+                        intermediateParkingConflicts[signal].append(Conflict(nStop.prevTripId, signal,
+                                                                             pStop.prevTripId, limit,
+                                                                             # attributes for adding comments
+                                                                             nStop.prevLine, pStop.prevLine,
+                                                                             nStop.vehID, pStop.vehID,
+                                                                             times, switch,
+                                                                             nStop.intermediateStop.busStop, info))
+                    else:
+                        info = getIntermediateInfo(pStop, nStop)
+                        limit += countPassingTrainsToOtherStops(options, pSignal,
+                                                                busStop, pTimeAtSignal, end, signalTimes)
+                        conflicts[nSignal].append(Conflict(nStop.prevTripId, pSignal, pStop.prevTripId, limit,
+                                                           # attributes for adding comments
+                                                           nStop.prevLine, pStop.prevLine,
+                                                           nStop.vehID, pStop.vehID,
+                                                           times, switch, nStop.busStop, info))
                     if options.redundant >= 0:
                         prevBegin = pTimeAtSignal
                         for p2Arrival, p2Stop in reversed(arrivalsBySignal[pSignal]):
                             if pArrival - p2Arrival > options.redundant:
                                 break
-                            if nStop.intermediateStop and p2Stop.intermediateStop == nStop.intermediateStop:
+                            if (nStop.intermediateStop and pStop.intermediateStop
+                                    and nStop.intermediateStop.busStop == pStop.intermediateStop.busStop):
                                 # intermediate conflict was added via other foes
                                 # and this particular conflict is a normal one
+                                continue
+                            if isIntermediateParking:
+                                # no redundant parking insertion conflicts for intermediate stops
                                 continue
                             numRedundant += 1
                             numRedundantSwitchConflicts += 1
@@ -860,15 +893,15 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes, stopEdges, v
 
     if numIgnoredConflicts > 0 or numIgnoredStops > 0:
         print("Ignored %s conflicts and %s stops" % (numIgnoredConflicts, numIgnoredStops))
-    return conflicts
+    return conflicts, intermediateParkingConflicts
 
 
 def getIntermediateInfo(pStop, nStop):
     info = []
     if pStop.intermediateStop:
-        info.append("intermediateStop=%s" % pStop.intermediateStop)
+        info.append("foeIntermediateStop=%s" % pStop.intermediateStop.busStop)
     if nStop.intermediateStop:
-        info.append("foeIntermediateStop=%s" % nStop.intermediateStop)
+        info.append("intermediateStop=%s" % nStop.intermediateStop.busStop)
     # if pStop.otherVeh:
     #    info.append("otherVeh=%s" % pStop.otherVeh)
     # if nStop.otherVeh:
@@ -1151,14 +1184,16 @@ def main(options):
     mergeSwitches = findMergingSwitches(options, uniqueRoutes, net)
     signalTimes = computeSignalTimes(options, net, stopRoutes)
     switchRoutes, mergeSignals = findStopsAfterMerge(net, stopRoutes, mergeSwitches)
-    conflicts = findConflicts(options, switchRoutes, mergeSignals, signalTimes, stopEdges, vehicleStopRoutes)
+    conflicts, intermediateParkingConflicts = findConflicts(
+        options, net, switchRoutes, mergeSignals, signalTimes, stopEdges, vehicleStopRoutes)
     foeInsertionConflicts = findFoeInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoutes)
     insertionConflicts = findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoutes)
 
     signals = sorted(set(list(conflicts.keys())
                          + list(foeInsertionConflicts.keys())
                          + list(insertionConflicts.keys())
-                         + list(parkingConflicts.keys())))
+                         + list(parkingConflicts.keys())
+                         + list(intermediateParkingConflicts.keys())))
 
     with open(options.out, "w") as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "additional", options=options)  # noqa
@@ -1166,7 +1201,8 @@ def main(options):
             outf.write('    <railSignalConstraints id="%s">\n' % signal)
             for conflict in conflicts[signal] + foeInsertionConflicts[signal]:
                 writeConstraint(options, outf, "predecessor", conflict)
-            for conflict in insertionConflicts[signal] + parkingConflicts[signal]:
+            for conflict in (insertionConflicts[signal] + parkingConflicts[signal] +
+                             intermediateParkingConflicts[signal]):
                 writeConstraint(options, outf, "insertionPredecessor", conflict)
             outf.write('    </railSignalConstraints>\n')
         outf.write('</additional>\n')

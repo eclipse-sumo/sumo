@@ -241,17 +241,23 @@ def getOverlap(begin, end, iBegin, iEnd):
         return (end - iBegin) / (iEnd - iBegin)  # partial overlap
 
 
-def parseTurnCounts(interval, attr):
-    for edgeRel in interval.edgeRelation:
-        via = [] if edgeRel.via is None else edgeRel.via.split(' ')
-        edges = tuple([edgeRel.attr_from] + via + [edgeRel.to])
-        value = getattr(edgeRel, attr)
-        yield edges, value
+def parseTurnCounts(interval, attr, warn):
+    if interval.edgeRelation is not None:
+        for edgeRel in interval.edgeRelation:
+            via = [] if edgeRel.via is None else edgeRel.via.split(' ')
+            edges = tuple([edgeRel.attr_from] + via + [edgeRel.to])
+            value = getattr(edgeRel, attr)
+            yield edges, value
+    elif warn:
+        sys.stderr.write("Warning: No edgeRelations in interval from=%s to=%s\n" % (interval.begin, interval.end))
 
 
-def parseEdgeCounts(interval, attr):
-    for edge in interval.edge:
-        yield (edge.id,), getattr(edge, attr)
+def parseEdgeCounts(interval, attr, warn):
+    if interval.edge is not None:
+        for edge in interval.edge:
+            yield (edge.id,), getattr(edge, attr)
+    elif warn:
+        sys.stderr.write("Warning: No edges in interval from=%s to=%s\n" % (interval.begin, interval.end))
 
 
 def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr, options, isOD=False, warn=False):
@@ -262,7 +268,7 @@ def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr, options, i
             overlap = getOverlap(begin, end, parseTime(interval.begin), parseTime(interval.end))
             if overlap > 0:
                 # print(begin, end, interval.begin, interval.end, "overlap:", overlap)
-                for edges, value in parseFun(interval, attr):
+                for edges, value in parseFun(interval, attr, warn):
                     try:
                         value = float(value)
                     except TypeError:

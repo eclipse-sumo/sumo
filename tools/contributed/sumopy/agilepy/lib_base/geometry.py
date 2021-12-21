@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,10 +14,33 @@
 
 # @file    geometry.py
 # @author  Joerg Schweizer
-# @date
+# @date    2012
 
 import numpy as np
+try:
+    from shapely.geometry import MultiPoint, Polygon, Point, LineString
+    IS_SHAPELY = True
+except:
+    IS_SHAPELY = False
 
+
+# >>> from geometry import *
+# >>> cv = [(0,0),(0,1),(0,2),(0,3),(3,3),(3,0)]
+# >>> cc = [(0,0),(0,1),(1,1),(1,2),(0,2),(0,3),(3,3),(3,0)]
+# >>>
+# >>> p=Point(0.5,2)
+# >>> policc=Polygon(cc)
+# >>> policv=Polygon(cv)
+# >>> is_point_in_polygon(p,cv, is_use_shapely = True)
+# >>> pc = [0.5,2]
+# >>> is_point_in_polygon(pc,cv, is_use_shapely = True)
+# True
+# >>> is_point_in_polygon(pc,cc, is_use_shapely = True)
+# False
+# >>> is_point_in_polygon(pc,cc, is_use_shapely = False)
+# False
+# >>> is_point_in_polygon(pc,cv, is_use_shapely = False)
+# True
 
 def get_norm_2d(vertex3d):
     # print 'get_norm_2d',vertex3d.shape
@@ -262,8 +285,8 @@ def get_dist_point_to_segs(p, y1, x1, y2, x2, is_ending=True,
 
     If is_return_pos then the position on the section is returned.
 
-    Inspired by the description by Paul Bourke,    October 1988
-    http://paulbourke.net/geometry/pointlineplane/
+    Written by Paul Bourke,    October 1988
+    http://astronomy.swin.edu.au/~pbourke/geometry/pointline/
 
     Rewritten in vectorial form by Joerg Schweizer
     """
@@ -294,12 +317,15 @@ def get_dist_point_to_segs(p, y1, x1, y2, x2, is_ending=True,
     y = y1 + u * dy21
 
     if is_ending:
-        ie = u < 0
-        x[ie] = x1[ie]
-        y[ie] = y1[ie]
-        ie = u > 1
-        x[ie] = x2[ie]
-        y[ie] = y2[ie]
+        if not is_detect_initial:
+            ie = u < 0
+            x[ie] = x1[ie]
+            y[ie] = y1[ie]
+
+        if not is_detect_final:
+            ie = u > 1
+            x[ie] = x2[ie]
+            y[ie] = y2[ie]
 
     dx30 = x3-x
     dy30 = y3-y
@@ -346,20 +372,27 @@ def find_area_perim(array):
     return a/2, p
 
 
-def find_area(array):
+def find_area(array, is_use_shapely=True):
     """
     Single polygon with 2D coordinates.
     """
     # TODO: check, there are negative A!!!!
     # print 'find_area',array
-    a = 0
-    ox, oy = array[0]
-    for x, y in array[1:]:
-        a += (x*oy-y*ox)
-        ox, oy = x, y
+    if len(array) >= 3:
+        if IS_SHAPELY & is_use_shapely:
+            return Polygon(np.array(array)[:, :2]).area
 
-    # print '  =',np.abs(a/2)
-    return np.abs(a/2)
+        else:
+            a = 0
+            ox, oy = array[0]
+            for x, y in array[1:]:
+                a += (x*oy-y*ox)
+                ox, oy = x, y
+
+            # print '  =',np.abs(a/2)
+            return np.abs(a/2)
+    else:
+        return 0.0
 
 
 def get_polygonarea_fast(x, y):
@@ -371,50 +404,76 @@ def get_polygonarea_fast(x, y):
     return 0.5*np.abs(np.dot(x, np.roll(y, 1))-np.dot(y, np.roll(x, 1)))
 
 
-def is_point_in_polygon(point, poly):
+def is_point_in_polygon(point, poly, is_use_shapely=True):
     """
     Scalar!
     """
-    is_3d = len(point) == 3
-
-    if is_3d:
-        x, y, z = point
-        p1x, p1y, p1z = poly[0]
-    else:
-        x, y = point
-        p1x, p1y = poly[0]
-    n = len(poly)
-    inside = False
-
-    for i in range(n+1):
-        if is_3d:
-            p2x, p2y, p2z = poly[i % n]
+    if len(poly) >= 3:
+        if IS_SHAPELY & is_use_shapely:
+            pol = Polygon(np.array(poly)[:, :2])
+            return Point(point[:2]).within(pol)
         else:
-            p2x, p2y = poly[i % n]
-        if y > min(p1y, p2y):
-            if y <= max(p1y, p2y):
-                if x <= max(p1x, p2x):
-                    if p1y != p2y:
-                        xints = (y-p1y)*(p2x-p1x)/(p2y-p1y)+p1x
-                    if p1x == p2x or x <= xints:
-                        inside = not inside
-        p1x, p1y = p2x, p2y
+            is_3d = len(point) == 3
 
-    return inside
+            if is_3d:
+                x, y, z = point
+                p1x, p1y, p1z = poly[0]
+            else:
+                x, y = point
+                p1x, p1y = poly[0]
+            n = len(poly)
+            inside = False
+
+            for i in range(n+1):
+                if is_3d:
+                    p2x, p2y, p2z = poly[i % n]
+                else:
+                    p2x, p2y = poly[i % n]
+                if y > min(p1y, p2y):
+                    if y <= max(p1y, p2y):
+                        if x <= max(p1x, p2x):
+                            if p1y != p2y:
+                                xints = (y-p1y)*(p2x-p1x)/(p2y-p1y)+p1x
+                            if p1x == p2x or x <= xints:
+                                inside = not inside
+                p1x, p1y = p2x, p2y
+
+            return inside
+
+    else:
+        return False
 
 
-def is_polyline_intersect_polygon(polyline, polygon):
-    for p in polyline:
-        if is_point_in_polygon(p, polygon):
-            return True
-    return False
+def is_polyline_intersect_polygon(polyline, polygon, is_use_shapely=True, is_lineinterpolate=True):
+    if IS_SHAPELY & is_use_shapely:
+        poly = Polygon(np.array(polygon)[:, :2])
+        if is_lineinterpolate:
+            # requires that any line interpolation between 2 points
+            #  intersects the polygon
+            return LineString(np.array(polyline)[:, :2]).intersects(poly)
+        else:
+            # requires that at least one point is inside the polygon
+            return MultiPoint(np.array(polyline)[:, :2]).intersects(poly)
+
+    else:
+        # WARNING: this dows not work if no point of the polyline
+        # resides within the polygon
+        for p in polyline:
+            if is_point_in_polygon(p, polygon):
+                return True
+        return False
 
 
-def is_polyline_in_polygon(polyline, polygon):
-    for p in polyline:
-        if not is_point_in_polygon(p, polygon):
-            return False
-    return True
+def is_polyline_in_polygon(polyline, polygon, is_use_shapely=True):
+    if IS_SHAPELY & is_use_shapely:
+        poly = Polygon(np.array(polygon)[:, :2])
+        return MultiPoint(np.array(polyline)[:, :2]).within(poly)
+
+    else:
+        for p in polyline:
+            if not is_point_in_polygon(p, polygon):
+                return False
+        return True
 
 
 def get_angles_perpendicular(shape):
@@ -528,23 +587,103 @@ def get_diff_angle_clockwise(p1, p2):
     ang1 = np.arctan2(*p1[::-1])
     ang2 = np.arctan2(*p2[::-1])
     # return np.rad2deg((ang1 - ang2) % (2 * np.pi))
-    return (ang1 - ang2) % (2 * np.pi)
+    if hasattr(ang1, '__iter__'):
+        return anglediffs(ang1, ang2)
+    else:
+        return anglediff(ang1, ang2)
 ################################################################
 # old
+
+
+def anglediff(a1, a2):
+    """Compute the smallest difference between two angle arrays.
+    Parameters
+    ----------
+    a1, a2 : np.ndarray
+        The angle arrays to subtract
+    Returns
+    -------
+    out : np.ndarray
+        The difference between a1 and a2
+    """
+
+    dtheta = a1 - a2
+    while dtheta > np.pi:
+        dtheta -= 2.0*np.pi
+    while dtheta < -np.pi:
+        dtheta += 2.0*np.pi
+
+    return dtheta
+
+
+def anglediffs(a1, a2, deg=False):
+    """Compute the smallest difference between two angle arrays.
+    Parameters
+    ----------
+    a1, a2 : np.ndarray
+        The angle arrays to subtract
+    deg : bool (default=False)
+        Whether to compute the difference in degrees or radians
+    Returns
+    -------
+    out : np.ndarray
+        The difference between a1 and a2
+    """
+    print 'anglediffs', a1, a2
+    return wrapanglediffs(a1 - a2, deg=deg)
+
+
+def wrapanglediffs(diff, deg=False):
+    """Given an array of angle differences, make sure that they lie
+    between -pi and pi.
+    Parameters
+    ----------
+    diff : np.ndarray
+        The angle difference array
+    deg : bool (default=False)
+        Whether the angles are in degrees or radians
+    Returns
+    -------
+    out : np.ndarray
+        The updated angle differences
+    """
+
+    if deg:
+        base = 360
+    else:
+        base = np.pi * 2
+
+    i = np.abs(diff) > (base / 2.0)
+    out = diff.copy()
+    out[i] -= np.sign(diff[i]) * base
+    return out
 
 # find indees where 2 arrays are identical
 #idx = np.argwhere(np.diff(np.sign(f - g)) != 0).reshape(-1) + 0
 
 
+def azimut_from_origin(p, origin=[0, 0]):
+    # determine the azimut angle relative to a 2D point
+    p = np.array(p) - np.array(origin)
+    if p[0] > 0 and p[1] > 0:
+        return np.arctan(p[0]/p[1])
+    if p[0] > 0 and p[1] < 0:
+        return np.arctan(p[0]/p[1])+np.pi
+    if p[0] < 0 and p[1] < 0:
+        return np.arctan(p[0]/p[1])+np.pi
+    if p[0] < 0 and p[1] > 0:
+        return np.arctan(p[0]/p[1])+2*np.pi
+
+
 def angle2D(p1, p2):
     theta1 = math.atan2(p1[1], p1[0])
     theta2 = math.atan2(p2[1], p2[0])
-    dtheta = theta2 - theta1
-    while dtheta > np.pi:
-        dtheta -= 2.0*np.pi
-    while dtheta < -np.pi:
-        dtheta += 2.0*np.pi
-    return dtheta
+    #dtheta = theta2 - theta1;
+    # while dtheta > np.pi:
+    #    dtheta -= 2.0*np.pi
+    # while dtheta < -np.pi:
+    #    dtheta += 2.0*np.pi
+    return wrapanglediffs(theta2 - theta1)
 
 
 def is_point_within_polygon(pos, shape):
@@ -560,3 +699,11 @@ def is_point_within_polygon(pos, shape):
     p2 = ((shape[0][0] - pos[0]), (shape[0][1] - pos[1]))
     angle = angle + angle2D(p1, p2)
     return math.fabs(angle) >= np.pi
+
+
+if __name__ == '__main__':
+    a1 = 0.0
+    a2 = +0.1
+    print 'a1', a1/np.pi*180
+    print 'a2', a2/np.pi*180
+    print 'anglediff(a1, a2)', anglediff(a1, a2)/np.pi*180

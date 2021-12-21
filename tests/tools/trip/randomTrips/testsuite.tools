@@ -3,6 +3,9 @@ loadConfig
 simple
 begin_end_human_readable
 
+# randomize departure times
+random-depart
+
 # fractional depart times
 fractional
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 09/07/18 09:50:11 by Eclipse SUMO Version UNKNOWN
+<!-- generated on 2021-12-08 14:35:32 by Eclipse SUMO sumo Version v1_11_0+0353-0fe5fe321c1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -26,8 +26,13 @@ SPDX-License-Identifier: EPL-2.0
         <pedestrian.model value="nonInteracting"/>
     </processing>
 
+    <routing>
+        <persontrip.transfer.car-walk value="ptStops"/>
+    </routing>
+
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -46,9 +51,9 @@ SPDX-License-Identifier: EPL-2.0
         </routeDistribution>
     </vehicle>
 
-    <person id="p0" depart="0.00" arrival="471.00">
-        <ride from="beg" to="beg2left" busStop="beg2left" lines="p0_0"/>
-        <ride from="gneE0" to="gneE0" busStop="left2end" lines="train" intended="train.1" depart="310.00"/>
+    <person id="p0" depart="0.00" arrival="464.00">
+        <ride from="beg" to="beg2left" trainStop="beg2left" lines="p0_0"/>
+        <ride from="gneE0" to="gneE0" trainStop="left2end" lines="train" intended="train.1" depart="310.00"/>
         <walk edges="left2end end"/>
     </person>
 

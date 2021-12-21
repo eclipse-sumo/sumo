@@ -39,7 +39,7 @@ FXDEFMAP(GNERouteFrame::RouteModeSelector) RouteModeSelectorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNERouteFrame::RouteModeSelector,   FXGroupBox,     RouteModeSelectorMap,   ARRAYNUMBER(RouteModeSelectorMap))
+FXIMPLEMENT(GNERouteFrame::RouteModeSelector,   FXGroupBoxModule,     RouteModeSelectorMap,   ARRAYNUMBER(RouteModeSelectorMap))
 
 
 // ===========================================================================
@@ -51,7 +51,7 @@ FXIMPLEMENT(GNERouteFrame::RouteModeSelector,   FXGroupBox,     RouteModeSelecto
 // ---------------------------------------------------------------------------
 
 GNERouteFrame::RouteModeSelector::RouteModeSelector(GNERouteFrame* routeFrameParent) :
-    FXGroupBox(routeFrameParent->myContentFrame, "Route mode", GUIDesignGroupBoxFrame),
+    FXGroupBoxModule(routeFrameParent->myContentFrame, "Route mode"),
     myRouteFrameParent(routeFrameParent) {
     // create route template
     myRouteTemplate = new GNERoute(routeFrameParent->getViewNet()->getNet());
@@ -59,7 +59,7 @@ GNERouteFrame::RouteModeSelector::RouteModeSelector(GNERouteFrame* routeFramePar
     myRouteModesStrings.push_back(std::make_pair(RouteMode::NONCONSECUTIVE_EDGES, "non consecutive edges"));
     myRouteModesStrings.push_back(std::make_pair(RouteMode::CONSECUTIVE_EDGES, "consecutive edges"));
     // Create FXComboBox for Route mode
-    myRouteModeMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_ROUTEFRAME_ROUTEMODE, GUIDesignComboBox);
+    myRouteModeMatchBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_ROUTEFRAME_ROUTEMODE, GUIDesignComboBox);
     // fill myRouteModeMatchBox with route modes
     for (const auto& routeMode : myRouteModesStrings) {
         myRouteModeMatchBox->appendItem(routeMode.second.c_str());
@@ -67,7 +67,7 @@ GNERouteFrame::RouteModeSelector::RouteModeSelector(GNERouteFrame* routeFramePar
     // Set visible items
     myRouteModeMatchBox->setNumVisible((int)myRouteModeMatchBox->getNumItems());
     // Create FXComboBox for VClass
-    myVClassMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_ROUTEFRAME_VCLASS, GUIDesignComboBox);
+    myVClassMatchBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_ROUTEFRAME_VCLASS, GUIDesignComboBox);
     // fill myVClassMatchBox with all VCLass
     for (const auto& vClass : SumoVehicleClassStrings.getStrings()) {
         myVClassMatchBox->appendItem(vClass.c_str());
@@ -109,18 +109,18 @@ GNERouteFrame::RouteModeSelector::areParametersValid() {
     // check if current mode is valid
     if ((myCurrentRouteMode != RouteMode::INVALID) && myValidVClass) {
         // show route attributes modul
-        myRouteFrameParent->myRouteAttributes->showAttributesCreatorModul(myRouteTemplate, {});
+        myRouteFrameParent->myRouteAttributes->showAttributesCreatorModule(myRouteTemplate, {});
         // show path creator
-        myRouteFrameParent->myPathCreator->showPathCreatorModul(SUMO_TAG_ROUTE, false, (myCurrentRouteMode == RouteMode::CONSECUTIVE_EDGES));
+        myRouteFrameParent->myPathCreator->showPathCreatorModule(SUMO_TAG_ROUTE, false, (myCurrentRouteMode == RouteMode::CONSECUTIVE_EDGES));
         // update edge colors
         myRouteFrameParent->myPathCreator->updateEdgeColors();
         // show legend
-        myRouteFrameParent->myPathLegend->showPathLegendModul();
+        myRouteFrameParent->myPathLegend->showPathLegendModule();
     } else {
         // hide all moduls if route mode isnt' valid
-        myRouteFrameParent->myRouteAttributes->hideAttributesCreatorModul();
-        myRouteFrameParent->myPathCreator->hidePathCreatorModul();
-        myRouteFrameParent->myPathLegend->hidePathLegendModul();
+        myRouteFrameParent->myRouteAttributes->hideAttributesCreatorModule();
+        myRouteFrameParent->myPathCreator->hidePathCreatorModule();
+        myRouteFrameParent->myPathLegend->hidePathLegendModule();
         // reset all flags
         for (const auto& edge : myRouteFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
             edge.second->resetCandidateFlags();
@@ -195,13 +195,13 @@ GNERouteFrame::GNERouteFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNe
     myRouteModeSelector = new RouteModeSelector(this);
 
     // Create route parameters
-    myRouteAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
+    myRouteAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
 
     // create consecutive edges modul
-    myPathCreator = new GNEFrameModuls::PathCreator(this);
+    myPathCreator = new GNEFrameModules::PathCreator(this);
 
     // create legend label
-    myPathLegend = new GNEFrameModuls::PathLegend(this);
+    myPathLegend = new GNEFrameModules::PathLegend(this);
 }
 
 
@@ -244,7 +244,7 @@ GNERouteFrame::addEdgeRoute(GNEEdge* clickedEdge, const GNEViewNetHelper::MouseB
 }
 
 
-GNEFrameModuls::PathCreator*
+GNEFrameModules::PathCreator*
 GNERouteFrame::getPathCreator() const {
     return myPathCreator;
 }

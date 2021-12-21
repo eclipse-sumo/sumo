@@ -51,6 +51,7 @@
 #define OPPOSITE_OVERTAKING_ONCOMING_LOOKAHEAD 1000.0 // just a guess
 // do not attempt overtaking maneuvers that would exceed this distance
 #define OPPOSITE_OVERTAKING_MAX_SPACE_TO_OVERTAKE 1000.0 // just a guess
+#define OPPOSITE_OVERTAKING_HILLTOP_THRESHOHOLD 5 // (m)
 
 // ===========================================================================
 // debug defines
@@ -1414,6 +1415,15 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
 #endif
         return false;
     }
+    if (!isOpposite && MSNet::getInstance()->hasElevation() && !overtaken.first->isStopped()) {
+        // do not overtake before the top of a hill
+        double searchDist = timeToOvertake * oncomingLane->getSpeedLimit() * 1.5 * vehicle->getLaneChangeModel().getOppositeSafetyFactor() + spaceToOvertake;
+        int view = vehicle->getLane()->isInternal() ? 1 : 0;
+        bool foundHill = vehicle->getSlope() > 0;
+        if (foundHilltop(vehicle, foundHill, searchDist, vehicle->getBestLanesContinuation(), view, vehicle->getPositionOnLane(), vehicle->getPosition().z(), OPPOSITE_OVERTAKING_HILLTOP_THRESHOHOLD)) {
+            return false;
+        }
+    }
 #ifdef DEBUG_CHANGE_OPPOSITE
     if (DEBUG_COND) {
         std::cout << "   usableDist=" << usableDist << " spaceToOvertake=" << spaceToOvertake << " timeToOvertake=" << timeToOvertake << "\n";
@@ -1581,6 +1591,60 @@ MSLaneChanger::computeSurplusGap(const MSVehicle* vehicle, const MSLane* opposit
     }
     return surplusGap;
 }
+
+bool
+MSLaneChanger::foundHilltop(MSVehicle* vehicle, bool foundHill, double searchDist, const std::vector<MSLane*>& bestLanes, int view, double pos, double lastMax, double hilltopThreshold) {
+    if (view >= (int)bestLanes.size()) {
+        return false;
+    }
+    MSLane* lane = bestLanes[view];
+    double laneDist = 0;
+    const PositionVector& shape = lane->getShape();
+    double lastZ = lastMax;
+    for (int i = 1; i < (int)shape.size(); i++) {
+        const double dist = lane->interpolateGeometryPosToLanePos(shape[i - 1].distanceTo(shape[i]));
+        laneDist += dist;
+        if (laneDist > pos) {
+            const double z = shape[i].z();
+            if (z > lastMax) {
+                lastMax = z;
+            }
+            if (z > lastZ) {
+                foundHill = true;
+            }
+            lastZ = z;
+#ifdef DEBUG_CHANGE_OPPOSITE
+            if (DEBUG_COND) {
+                std::cout << SIMTIME << "   foundHill=" << foundHill << " searchDist=" << searchDist << " lastMax=" << lastMax << " lane=" << lane->getID() << " laneDist=" << laneDist << " z=" << z << "\n";
+            }
+#endif
+            if (foundHill && z < lastMax) {
+                const double drop = lastMax - z;
+                //std::cout << SIMTIME << "   searchDist=" << searchDist << " hillDrop=" << drop << " lastMax=" << lastMax << " lane=" << lane->getID() << " laneDist=" << laneDist << " z=" << z << "\n";
+                if (drop > hilltopThreshold) {
+#ifdef DEBUG_CHANGE_OPPOSITE
+                    if (DEBUG_COND) {
+                        std::cout << "   cannot changeOpposite before the top of a hill searchDist=" << searchDist << " hillDrop=" << drop
+                            << " lastMax=" << lastMax << " lane=" << lane->getID() << " laneDist=" << laneDist << " z=" << z << "\n";
+                    }
+#endif
+                    return true;
+                }
+            }
+            if (pos == 0) {
+                searchDist -= dist;
+            } else {
+                searchDist -= laneDist - pos;
+                pos = 0;
+            }
+            if (searchDist <= 0) {
+                return false;
+            }
+        }
+    }
+    return foundHilltop(vehicle, foundHill, searchDist, bestLanes, view + 1, 0, lastMax, hilltopThreshold);
+}
+
 
 bool
 MSLaneChanger::checkChangeOpposite(
@@ -1810,7 +1874,8 @@ MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double>
             } else {
                 // maybe the columnleader is stopped before a junction or takes a different turn.
                 // try to find another columnleader on successive lanes
-                const MSLane* next = getLaneAfter(columnLeader.first->getLane(), conts);
+                const bool allowMinor = vehicle->getVehicleType().getVehicleClass() == SVC_EMERGENCY;
+                const MSLane* next = getLaneAfter(columnLeader.first->getLane(), conts, allowMinor);
 #ifdef DEBUG_CHANGE_OPPOSITE
                 if (DEBUG_COND) {
                     std::cout << "   look for another leader on lane " << Named::getIDSecure(next) << "\n";
@@ -1825,6 +1890,7 @@ MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double>
                             foundSpaceAhead = true;
                             break;
                         }
+                        next = getLaneAfter(next, conts, allowMinor);
                     } else {
                         availableSpace += cand->getBackPositionOnLane();
                         if (availableSpace > requiredSpace) {
@@ -1855,6 +1921,17 @@ MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double>
             if (leadLead.second > requiredSpace) {
                 foundSpaceAhead = true;
             } else {
+
+                if (leadLead.second < 0) {
+                    // must be a junction leader or some other dangerous situation
+#ifdef DEBUG_CHANGE_OPPOSITE
+                    if (DEBUG_COND) {
+                        std::cout << "   leader's leader " << leadLead.first->getID() << " gap=" << leadLead.second << " is junction leader (aborting)\n";
+                    }
+#endif
+                    return std::make_pair(nullptr, -1);
+                }
+
 #ifdef DEBUG_CHANGE_OPPOSITE
                 if (DEBUG_COND) {
                     std::cout << "   not enough space after columnLeader=" << columnLeader.first->getID() << " required=" << requiredSpace << "\n";
@@ -1885,12 +1962,18 @@ MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double>
 }
 
 
-MSLane*
-MSLaneChanger::getLaneAfter(const MSLane* lane, const std::vector<MSLane*>& conts) {
+const MSLane*
+MSLaneChanger::getLaneAfter(const MSLane* lane, const std::vector<MSLane*>& conts, bool allowMinor) {
     for (auto it = conts.begin(); it != conts.end(); ++it) {
         if (*it == lane) {
             if (it + 1 != conts.end()) {
-                return *(it + 1);
+                // abort on minor link
+                const MSLane* next = *(it + 1);
+                const MSLink* link = lane->getLinkTo(next);
+                if (link == nullptr || (!allowMinor && !link->havePriority())) {
+                    return nullptr;
+                }
+                return next;
             } else {
                 return nullptr;
             }

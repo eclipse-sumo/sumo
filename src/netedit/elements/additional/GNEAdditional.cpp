@@ -49,7 +49,9 @@ GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
     GNEPathManager::PathElement(GNEPathManager::PathElement::Options::ADDITIONAL_ELEMENT),
     Parameterised(parameters),
-    myAdditionalName(additionalName) {
+    myAdditionalName(additionalName)
+{
+    myIsTemplate = (id == "");
 }
 
 
@@ -103,7 +105,7 @@ GNEAdditional::setSpecialColor(const RGBColor* color) {
     mySpecialColor = color;
 }
 
-
+/*
 void
 GNEAdditional::writeAdditional(OutputDevice& device) const {
     // first check if minimum number of children is correct
@@ -204,7 +206,7 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
         device.closeTag();
     }
 }
-
+*/
 
 bool
 GNEAdditional::isAdditionalValid() const {

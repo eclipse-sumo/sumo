@@ -19,8 +19,8 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include "GNEFrameModuls.h"
-#include "GNEFrameAttributesModuls.h"
+#include "GNEFrameModules.h"
+#include "GNEFrameAttributeModules.h"
 
 // ===========================================================================
 // class definitions
@@ -33,8 +33,8 @@
 class GNEFrame : public FXVerticalFrame {
 
     /// @brief friend class
-    friend class GNEFrameModuls;
-    friend class GNEFrameAttributesModuls;
+    friend class GNEFrameModules;
+    friend class GNEFrameAttributeModules;
 
 public:
     /**@brief Constructor

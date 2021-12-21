@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,7 +14,7 @@
 
 # @file    wxgui.py
 # @author  Joerg Schweizer
-# @date
+# @date   2012
 
 import os
 import wx
@@ -368,6 +368,12 @@ class WxGui(ModuleGui):
                                 info='Make PRT stops from PT stops with PRT access ("custom1").',
                                 # bitmap = self.get_icon('icon_sumo.png'),#,
                                 )
+
+            menubar.append_item('plugins/prt/clear stops',
+                                self.on_clear_stops,
+                                bitmap=wx.ArtProvider.GetBitmap(wx.ART_DELETE, wx.ART_MENU),
+                                )
+
             menubar.append_item('plugins/prt/update compressors',
                                 self.on_update_compressors,
                                 # bitmap = self.get_icon('icon_sumo.png'),#,
@@ -390,6 +396,12 @@ class WxGui(ModuleGui):
                                 info='Make PRT merge nodes.',
                                 # bitmap = self.get_icon('icon_sumo.png'),#,
                                 )
+
+            menubar.append_item('plugins/prt/clear merge nodes',
+                                self.on_clear_merges,
+                                bitmap=wx.ArtProvider.GetBitmap(wx.ART_DELETE, wx.ART_MENU),
+                                )
+
             menubar.append_item('plugins/prt/calculate stop to stop times',
                                 self.on_make_times_stop_to_stop,
                                 # bitmap = self.get_icon('icon_sumo.png'),#,
@@ -420,6 +432,11 @@ class WxGui(ModuleGui):
         self._prtservice.prtstops.make_from_net()
         self._mainframe.browse_obj(self._prtservice.prtstops)
 
+    def on_clear_stops(self, event=None):
+        """Delete all stope"""
+        self._prtservice.prtstops.clear()
+        self._mainframe.browse_obj(self._prtservice.prtstops)
+
     def on_update_compressors(self, event=None):
         """Update all compressors (determine detector edge)"""
         self._prtservice.compressors.update_all()
@@ -441,7 +458,13 @@ class WxGui(ModuleGui):
         self._mainframe.browse_obj(self._prtservice.decompressors)
 
     def on_make_merges(self, event=None):
+
         self._prtservice.mergenodes.make_from_net()
+        self._mainframe.browse_obj(self._prtservice.mergenodes)
+
+    def on_clear_merges(self, event=None):
+        """Delete all merges"""
+        self._prtservice.mergenodes.clear()
         self._mainframe.browse_obj(self._prtservice.mergenodes)
 
     def on_make_times_stop_to_stop(self, event=None):

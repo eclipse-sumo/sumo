@@ -132,10 +132,11 @@ MSLCM_SL2015::MSLCM_SL2015(MSVehicle& v) :
     myOppositeParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_OPPOSITE_PARAM, 1)),
     mySublaneParam(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SUBLANE_PARAM, 1)),
     // by default use SUMO_ATTR_LCA_PUSHY. If that is not set, try SUMO_ATTR_LCA_PUSHYGAP
+    myMinGapLat(v.getVehicleType().getMinGapLat()),
     myPushy(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_PUSHY,
             1 - (v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_PUSHYGAP,
-                    MAX2(NUMERICAL_EPS, v.getVehicleType().getMinGapLat())) /
-                 MAX2(NUMERICAL_EPS, v.getVehicleType().getMinGapLat())))),
+                    MAX2(NUMERICAL_EPS, myMinGapLat)) /
+                 MAX2(NUMERICAL_EPS, myMinGapLat)))),
     myAssertive(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_ASSERTIVE, 1)),
     myImpatience(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_IMPATIENCE, 0)),
     myMinImpatience(myImpatience),
@@ -2073,9 +2074,14 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int
             const double gap = ahead[sublane].second;
             double vSafe;
             if (leader == nullptr) {
-                const int prebIndex = isOpposite() ? (int)preb.size() - 1 : laneIndex;
-                const double dist = preb[prebIndex].length - myVehicle.getPositionOnLane();
-                vSafe = getCarFollowModel().followSpeed(&myVehicle, vMax, dist, 0, 0);
+                if (hasBlueLight()) {
+                    // can continue from any lane if necessary
+                    vSafe = vMax;
+                } else {
+                    const int prebIndex = isOpposite() ? (int)preb.size() - 1 : laneIndex;
+                    const double dist = preb[prebIndex].length - myVehicle.getPositionOnLane();
+                    vSafe = getCarFollowModel().followSpeed(&myVehicle, vMax, dist, 0, 0);
+                }
             } else {
                 if (leader->getAcceleration() > 0.5 * leader->getCarFollowModel().getMaxAccel()) {
                     // assume that the leader will continue accelerating to its maximum speed
@@ -3096,7 +3102,7 @@ MSLCM_SL2015::updateGaps(const MSLeaderDistanceInfo& others, double foeOffset, d
                          std::vector<CLeaderDist>* collectBlockers) {
     if (others.hasVehicles()) {
         const double halfWidth = getWidth() * 0.5 + NUMERICAL_EPS;
-        const double baseMinGap = myVehicle.getVehicleType().getMinGapLat();
+        const double baseMinGap = myMinGapLat;
         for (int i = 0; i < others.numSublanes(); ++i) {
             if (others[i].first != 0 && others[i].second <= 0
                     && myCFRelated.count(others[i].first) == 0
@@ -3495,6 +3501,8 @@ MSLCM_SL2015::getParameter(const std::string& key) const {
         return toString(myOppositeParam);
     } else if (key == toString(SUMO_ATTR_LCA_SUBLANE_PARAM)) {
         return toString(mySublaneParam);
+    } else if (key == toString(SUMO_ATTR_MINGAP_LAT)) {
+        return toString(myMinGapLat);
     } else if (key == toString(SUMO_ATTR_LCA_PUSHY)) {
         return toString(myPushy);
     } else if (key == toString(SUMO_ATTR_LCA_ASSERTIVE)) {
@@ -3563,6 +3571,8 @@ MSLCM_SL2015::setParameter(const std::string& key, const std::string& value) {
         myOppositeParam = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_SUBLANE_PARAM)) {
         mySublaneParam = doubleValue;
+    } else if (key == toString(SUMO_ATTR_MINGAP_LAT)) {
+        myMinGapLat = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_PUSHY)) {
         myPushy = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_ASSERTIVE)) {

@@ -1,0 +1,67 @@
+name: linux-wheels
+
+on: 
+  push:            # run on push events
+    paths-ignore:  # but ignore everything in the docs subfolder 
+      - 'docs/**'
+    branches:
+      - '**'
+    tags:
+      - '*'
+  pull_request:    # run on pull requests
+    paths-ignore:  # but ignore everything in the docs subfolder 
+      - 'docs/**'
+  schedule:
+    - cron:  '5 1 * * *'
+
+jobs:
+  build-manylinux-wheels:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Cloning SUMO
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Fetching SUMO tags
+      run: |
+        git fetch --tags --force
+
+    - name: Building Python wheels
+      uses: docker://quay.io/pypa/manylinux2014_x86_64
+      with:
+        entrypoint: tools/build/build_wheels.sh
+
+    - name: Uploading artifacts (Python wheels)
+      uses: actions/upload-artifact@v1
+      with:
+        name: manylinux-wheels
+        path: wheelhouse
+
+  publish-wheels:
+    if: github.repository == 'eclipse/sumo' && (github.event_name == 'schedule' || startsWith(github.ref, 'refs/tags'))
+    needs: [build-manylinux-wheels]
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/download-artifact@v2
+
+    - name: Moving artifacts
+      run: |
+        ls -lR
+        mkdir dist
+        mv ./*-wheels/* dist
+
+    - name: Publish to Test PyPI
+      uses: pypa/gh-action-pypi-publish@master
+      with:
+        password: ${{ secrets.TEST_PYPI_TOKEN }}
+        repository_url: https://test.pypi.org/legacy/
+        skip_existing: true
+
+    - name: Publish to PyPI
+      if: startsWith(github.ref, 'refs/tags')
+      uses: pypa/gh-action-pypi-publish@master
+      with:
+        password: ${{ secrets.PYPI_TOKEN }}

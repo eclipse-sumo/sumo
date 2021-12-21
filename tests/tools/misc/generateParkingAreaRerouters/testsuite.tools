@@ -28,4 +28,7 @@ minCapacityVisible
 
 # parking areas that are visible should be preferred as alternatives
 visible_preferredAlternative
+
+# parking areas that are visible should be preferred as alternatives
+visible_preferredAlternative_minCount
 visible_explicit

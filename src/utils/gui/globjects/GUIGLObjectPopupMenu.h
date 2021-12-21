@@ -85,6 +85,9 @@ public:
     /// @brief Called if the cursor geo-position shall be copied to clipboard
     long onCmdCopyCursorGeoPosition(FXObject*, FXSelector, void*);
 
+    /// @brief Called if the cursor geo-position shall be shown online
+    long onCmdShowCursorGeoPositionOnline(FXObject*, FXSelector, void*);
+
     /// @brief Called if the parameter of this object shall be shown
     long onCmdShowPars(FXObject*, FXSelector, void*);
 

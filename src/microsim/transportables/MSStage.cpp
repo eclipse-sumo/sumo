@@ -303,7 +303,9 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
         if (MSGlobals::gUseMesoSim && prevStop != nullptr) {
             departPos = (prevStop->getBeginLanePosition() + prevStop->getEndLanePosition()) / 2.;
         }
-        if (net->getIntermodalRouter(0).compute(myOrigin, myDestination, departPos, myArrivalPos, myDestinationStop == nullptr ? "" : myDestinationStop->getID(),
+        if (net->getIntermodalRouter(0).compute(myOrigin, myDestination,
+                                                departPos, myOriginStop == nullptr ? "" : myOriginStop->getID(),
+                                                myArrivalPos, myDestinationStop == nullptr ? "" : myDestinationStop->getID(),
                                                 transportable->getMaxSpeed() * myWalkFactor, vehicle, myModeSet, time, result)) {
             for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = result.begin(); it != result.end(); ++it) {
                 if (!it->edges.empty()) {
@@ -423,7 +425,8 @@ MSStageWaiting::MSStageWaiting(const MSEdge* destination, MSStoppingPlace* toSto
     myWaitingDuration(duration),
     myWaitingUntil(until),
     myStopWaitPos(Position::INVALID),
-    myActType(actType) {
+    myActType(actType),
+    myStopEndTime(-1) {
 }
 
 
@@ -464,17 +467,17 @@ MSStageWaiting::getAngle(SUMOTime /* now */) const {
 void
 MSStageWaiting::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, MSStage* previous) {
     myDeparted = now;
-    const SUMOTime until = MAX3(now, now + myWaitingDuration, myWaitingUntil);
+    myStopEndTime = MAX3(now, now + myWaitingDuration, myWaitingUntil);
     if (myDestinationStop != nullptr) {
         myDestinationStop->addTransportable(transportable);
         myStopWaitPos = myDestinationStop->getWaitPosition(transportable);
     }
     if (dynamic_cast<MSPerson*>(transportable) != nullptr) {
         previous->getEdge()->addPerson(transportable);
-        net->getPersonControl().setWaitEnd(until, transportable);
+        net->getPersonControl().setWaitEnd(myStopEndTime, transportable);
     } else {
         previous->getEdge()->addContainer(transportable);
-        net->getContainerControl().setWaitEnd(until, transportable);
+        net->getContainerControl().setWaitEnd(myStopEndTime, transportable);
     }
 }
 
@@ -562,6 +565,28 @@ MSStageWaiting::getStageSummary(const bool /* isPerson */) const {
     return "stopping at edge '" + getDestination()->getID() + "' " + timeInfo + " (" + myActType + ")";
 }
 
+void
+MSStageWaiting::saveState(std::ostringstream& out) {
+    out << " " << myDeparted;
+}
+
+void
+MSStageWaiting::loadState(MSTransportable* transportable, std::istringstream& state) {
+    state >> myDeparted;
+    const SUMOTime until = MAX3(myDeparted, myDeparted + myWaitingDuration, myWaitingUntil);
+    if (myDestinationStop != nullptr) {
+        myDestinationStop->addTransportable(transportable);
+        myStopWaitPos = myDestinationStop->getWaitPosition(transportable);
+    }
+    MSNet* net = MSNet::getInstance();
+    if (dynamic_cast<MSPerson*>(transportable) != nullptr) {
+        myDestination->addPerson(transportable);
+        net->getPersonControl().setWaitEnd(until, transportable);
+    } else {
+        myDestination->addContainer(transportable);
+        net->getContainerControl().setWaitEnd(until, transportable);
+    }
+}
 
 /* -------------------------------------------------------------------------
 * MSStageMoving - methods

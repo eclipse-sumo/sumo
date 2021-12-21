@@ -1,0 +1,14 @@
+# do not overtake before the top of a hill
+# (it's dangerous and the vehicle to be overtaken may start to accelerate again)
+hill_slow_leader
+
+# do not overtake before the top of a hill
+# (it's dangerous and the vehicle to be overtaken may start to accelerate again)
+hill_upcoming_slow_leader
+
+# overtaking can be completed with enough safety distance to the hilltop
+# 
+hill_slow_leader_before_top
+
+# stoppedl leader must be overtaken regardless of slope
+hill_stopped_leader

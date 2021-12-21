@@ -6,10 +6,10 @@ add_subdirectory(data)
 set(netedit_frames_SRCS
    GNEFrame.h
    GNEFrame.cpp
-   GNEFrameModuls.h
-   GNEFrameModuls.cpp
-   GNEFrameAttributesModuls.h
-   GNEFrameAttributesModuls.cpp
+   GNEFrameModules.h
+   GNEFrameModules.cpp
+   GNEFrameAttributeModules.h
+   GNEFrameAttributeModules.cpp
    )
 
 add_library(netedit_frames STATIC ${netedit_frames_SRCS})

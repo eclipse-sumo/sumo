@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-12-07 23:06:34 by Eclipse SUMO sumo Version v1_11_0+0385-01987a8
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+        <save-state.times value="50"/>
+        <save-state.files value="state.xml"/>
+        <save-state.transportables value="true"/>
+    </output>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_11_0+0385-01987a8" time="50.00" type="micro">
+    <delay number="0" begin="0" end="0" depart="0.00" time="0.00"/>
+    <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
+    <vType id="DEFAULT_VEHTYPE" length="3.00" minGap="2.00" maxSpeed="10.00" impatience="0.50" accel="0.8" decel="4.5" sigma="0"/>
+    <transportables type="person" state="1 1 0 0 0 0 0 0 1 0">
+        <person id="p0" type="DEFAULT_PEDTYPE" depart="0.00" state="0 1 0">
+            <stop lane="2/1to1/1_0" endPos="0.00" duration="100.00"/>
+        </person>
+    </transportables>
+    <tlLogic id="0/0" programID="0" phase="2" duration="16000"/>
+    <tlLogic id="0/1" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="0/2" programID="0" phase="2" duration="16000"/>
+    <tlLogic id="1/0" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="1/1" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="1/2" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="2/0" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="2/1" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="2/2" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="3/0" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="3/1" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="3/2" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="4/0" programID="0" phase="2" duration="16000"/>
+    <tlLogic id="4/1" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="4/2" programID="0" phase="2" duration="16000"/>
+</snapshot>

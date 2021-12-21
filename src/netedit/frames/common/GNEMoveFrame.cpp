@@ -48,9 +48,9 @@ FXDEFMAP(GNEMoveFrame::ShiftShapeGeometry) ShiftShapeGeometryMap[] = {
 
 
 // Object implementation
-FXIMPLEMENT(GNEMoveFrame::ChangeZInSelection,           FXGroupBox, ChangeZInSelectionMap,  ARRAYNUMBER(ChangeZInSelectionMap))
-FXIMPLEMENT(GNEMoveFrame::ShiftEdgeSelectedGeometry,    FXGroupBox, ShiftEdgeGeometryMap,   ARRAYNUMBER(ShiftEdgeGeometryMap))
-FXIMPLEMENT(GNEMoveFrame::ShiftShapeGeometry,           FXGroupBox, ShiftShapeGeometryMap,  ARRAYNUMBER(ShiftShapeGeometryMap))
+FXIMPLEMENT(GNEMoveFrame::ChangeZInSelection,           FXGroupBoxModule, ChangeZInSelectionMap,  ARRAYNUMBER(ChangeZInSelectionMap))
+FXIMPLEMENT(GNEMoveFrame::ShiftEdgeSelectedGeometry,    FXGroupBoxModule, ShiftEdgeGeometryMap,   ARRAYNUMBER(ShiftEdgeGeometryMap))
+FXIMPLEMENT(GNEMoveFrame::ShiftShapeGeometry,           FXGroupBoxModule, ShiftShapeGeometryMap,  ARRAYNUMBER(ShiftShapeGeometryMap))
 
 // ===========================================================================
 // method definitions
@@ -61,9 +61,9 @@ FXIMPLEMENT(GNEMoveFrame::ShiftShapeGeometry,           FXGroupBox, ShiftShapeGe
 // ---------------------------------------------------------------------------
 
 GNEMoveFrame::CommonModeOptions::CommonModeOptions(GNEMoveFrame* moveFrameParent) :
-    FXGroupBox(moveFrameParent->myContentFrame, "Common move options", GUIDesignGroupBoxFrame) {
+    FXGroupBoxModule(moveFrameParent->myContentFrame, "Common move options") {
     // Create checkbox for enable/disable move whole polygons
-    myAllowChangeLanes = new FXCheckButton(this, "Allow change Lane", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myAllowChangeLanes = new FXCheckButton(getCollapsableFrame(), "Allow change Lane", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myAllowChangeLanes->setCheck(FALSE);
 }
 
@@ -81,10 +81,10 @@ GNEMoveFrame::CommonModeOptions::getAllowChangeLane() const {
 // ---------------------------------------------------------------------------
 
 GNEMoveFrame::NetworkModeOptions::NetworkModeOptions(GNEMoveFrame* moveFrameParent) :
-    FXGroupBox(moveFrameParent->myContentFrame, "Network move options", GUIDesignGroupBoxFrame),
+    FXGroupBoxModule(moveFrameParent->myContentFrame, "Network move options"),
     myMoveFrameParent(moveFrameParent) {
     // Create checkbox for enable/disable move whole polygons
-    myMoveWholePolygons = new FXCheckButton(this, "Move whole polygons", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myMoveWholePolygons = new FXCheckButton(getCollapsableFrame(), "Move whole polygons", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myMoveWholePolygons->setCheck(FALSE);
 }
 
@@ -120,10 +120,10 @@ GNEMoveFrame::NetworkModeOptions::getMoveWholePolygons() const {
 // ---------------------------------------------------------------------------
 
 GNEMoveFrame::DemandModeOptions::DemandModeOptions(GNEMoveFrame* moveFrameParent) :
-    FXGroupBox(moveFrameParent->myContentFrame, "Demand move options", GUIDesignGroupBoxFrame),
+    FXGroupBoxModule(moveFrameParent->myContentFrame, "Demand move options"),
     myMoveFrameParent(moveFrameParent) {
     // Create checkbox for enable/disable move whole polygons
-    myLeaveStopPersonsConnected = new FXCheckButton(this, "Leave stopPersons connected", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myLeaveStopPersonsConnected = new FXCheckButton(getCollapsableFrame(), "Leave stopPersons connected", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     myLeaveStopPersonsConnected->setCheck(FALSE);
 }
 
@@ -159,16 +159,16 @@ GNEMoveFrame::DemandModeOptions::getLeaveStopPersonsConnected() const {
 // ---------------------------------------------------------------------------
 
 GNEMoveFrame::ShiftEdgeSelectedGeometry::ShiftEdgeSelectedGeometry(GNEMoveFrame* moveFrameParent) :
-    FXGroupBox(moveFrameParent->myContentFrame, "Shift selected edges geometry", GUIDesignGroupBoxFrame),
+    FXGroupBoxModule(moveFrameParent->myContentFrame, "Shift selected edges geometry"),
     myMoveFrameParent(moveFrameParent) {
     // create horizontal frame
-    FXHorizontalFrame* myZValueFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* myZValueFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create elements for Z value
     new FXLabel(myZValueFrame, "Shift value", 0, GUIDesignLabelAttribute);
     myShiftValueTextField = new FXTextField(myZValueFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldReal);
     myShiftValueTextField->setText("0");
     // create apply button
-    myApplyZValue = new FXButton(this, "Apply shift value\t\tShift edge geometry orthogonally to driving direction for all selected edges",
+    myApplyZValue = new FXButton(getCollapsableFrame(), "Apply shift value\t\tShift edge geometry orthogonally to driving direction for all selected edges",
                                  GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), this, MID_GNE_APPLY, GUIDesignButton);
 }
 
@@ -239,26 +239,26 @@ GNEMoveFrame::ShiftEdgeSelectedGeometry::onCmdShiftEdgeGeometry(FXObject*, FXSel
 // ---------------------------------------------------------------------------
 
 GNEMoveFrame::ChangeZInSelection::ChangeZInSelection(GNEMoveFrame* moveFrameParent) :
-    FXGroupBox(moveFrameParent->myContentFrame, "Change Z in selection", GUIDesignGroupBoxFrame),
+    FXGroupBoxModule(moveFrameParent->myContentFrame, "Change Z in selection"),
     myMoveFrameParent(moveFrameParent) {
     // create horizontal frame
-    FXHorizontalFrame* myZValueFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* myZValueFrame = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create elements for Z value
     new FXLabel(myZValueFrame, "Z value", 0, GUIDesignLabelAttribute);
     myZValueTextField = new FXTextField(myZValueFrame, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldReal);
     myZValueTextField->setText("0");
     // Create all options buttons
-    myAbsoluteValue = new FXRadioButton(this, "Absolute value\t\tSet Z value as absolute",
+    myAbsoluteValue = new FXRadioButton(getCollapsableFrame(), "Absolute value\t\tSet Z value as absolute",
                                         this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    myRelativeValue = new FXRadioButton(this, "Relative value\t\tSet Z value as relative",
+    myRelativeValue = new FXRadioButton(getCollapsableFrame(), "Relative value\t\tSet Z value as relative",
                                         this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // create apply button
-    myApplyButton = new FXButton(this, "Apply Z value\t\tApply Z value to all selected junctions",
+    myApplyButton = new FXButton(getCollapsableFrame(), "Apply Z value\t\tApply Z value to all selected junctions",
                                  GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_APPLY, GUIDesignButton);
     // set absolute value as default
     myAbsoluteValue->setCheck(true);
     // set info label
-    myInfoLabel = new FXLabel(this, "", nullptr, GUIDesignLabelFrameInformation);
+    myInfoLabel = new FXLabel(getCollapsableFrame(), "", nullptr, GUIDesignLabelFrameInformation);
 }
 
 
@@ -506,16 +506,16 @@ GNEMoveFrame::ChangeZInSelection::updateInfoLabel() {
 // ---------------------------------------------------------------------------
 
 GNEMoveFrame::ShiftShapeGeometry::ShiftShapeGeometry(GNEMoveFrame* moveFrameParent) :
-    FXGroupBox(moveFrameParent->myContentFrame, "Shift shape geometry", GUIDesignGroupBoxFrame),
+    FXGroupBoxModule(moveFrameParent->myContentFrame, "Shift shape geometry"),
     myMoveFrameParent(moveFrameParent) {
     // create horizontal frame
-    FXHorizontalFrame* horizontalFrameX = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* horizontalFrameX = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create elements for Z value
     new FXLabel(horizontalFrameX, "X value", 0, GUIDesignLabelAttribute);
     myShiftValueXTextField = new FXTextField(horizontalFrameX, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldReal);
     myShiftValueXTextField->setText("0");
     // create horizontal frame
-    FXHorizontalFrame* horizontalFrameY = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* horizontalFrameY = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // create elements for Z value
     new FXLabel(horizontalFrameY, "Y value", 0, GUIDesignLabelAttribute);
     myShiftValueYTextField = new FXTextField(horizontalFrameY, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextFieldReal);

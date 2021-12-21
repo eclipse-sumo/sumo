@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,7 +14,7 @@
 
 # @file    wxgui.py
 # @author  Joerg Schweizer
-# @date
+# @date   2012
 
 import os
 import wx
@@ -62,7 +62,7 @@ class GpsPointsDrawings(Circles):
                              info='Default point color.',
                              ))
 
-        self.set_netelement(gpspoints)
+        # self.set_netelement(gpspoints)
 
     def get_netelement(self):
         return self._gpspoints
@@ -81,7 +81,7 @@ class GpsPointsDrawings(Circles):
         Optionally a particular drawobj can be specified with id_drawobj.
         """
         # basic tools:
-        return tool.ident not in ['select_handles', 'delete', 'move', 'stretch']  # 'configure',
+        return tool.ident not in ['select_handles', 'delete', 'stretch']  # 'configure',
         # return tool.ident not in   ['delete','stretch']
 
     def set_netelement(self, gpspoints):
@@ -107,6 +107,8 @@ class GpsPointsDrawings(Circles):
                       #radii = self._nodes.radii[ids],
                       )
 
+        self.centers = self._gpspoints.coords
+        self.radii = self._gpspoints.radii
         self.update()
 
     def update(self, is_update=True):
@@ -148,7 +150,7 @@ class GpsRoutesDrawings(Polylines):
                              info='Default route color.',
                              ))
 
-        self.set_netelement(edges)
+        # self.set_netelement(edges)
 
     def get_netelement(self):
         return self._routes
@@ -345,6 +347,23 @@ class WxGui(ModuleGui):
                             bitmap=self.get_agileicon("Document_Import_24px.png"),
                             )
 
+        menubar.append_item('plugins/mapmatching/import/Bella mossa...',
+                            self.on_import_bellamossa,
+                            # info=self.on_import_ecc.__doc__.strip(),
+                            bitmap=self.get_agileicon("Document_Import_24px.png"),
+                            )
+
+        menubar.append_item('plugins/mapmatching/import/Mobike...',
+                            self.on_import_mobike,
+                            # info=self.on_import_ecc.__doc__.strip(),
+                            bitmap=self.get_agileicon("Document_Import_24px.png"),
+                            )
+        menubar.append_item('plugins/mapmatching/import/Strava...',
+                            self.on_import_strava,
+                            # info=self.on_import_ecc.__doc__.strip(),
+                            bitmap=self.get_agileicon("Document_Import_24px.png"),
+                            )
+
         menubar.append_item('plugins/mapmatching/import/GPX file...',
                             self.on_import_gpx,
                             # info=self.on_import_ecc.__doc__.strip(),
@@ -355,18 +374,34 @@ class WxGui(ModuleGui):
         #    self.on_project_points,
         #    #bitmap = wx.ArtProvider.GetBitmap(wx.ART_FILE_SAVE_AS,wx.ART_MENU),
         #    )
+# -------------------------------------------------------------------------------
 
-        menubar.append_item('plugins/mapmatching/match with birgillito method...',
+        menubar.append_menu('plugins/mapmatching/mapmatching',
+                            # bitmap = self.get_icon('icon_results_24px.png'),#,
+                            info='Apply different mapmatching methods to identify the network edges that best represent a trace of GPS points.'
+                            )
+
+        menubar.append_item('plugins/mapmatching/mapmatching/match points to road network...',
                             self.on_match_birgil,
                             #bitmap = wx.ArtProvider.GetBitmap(wx.ART_FILE_SAVE_AS,wx.ART_MENU),
                             )
 
-        menubar.append_item('plugins/mapmatching/shortest path routing...',
+        menubar.append_item('plugins/mapmatching/mapmatching/match points to PT network...',
+                            self.on_match_pt,
+                            #bitmap = wx.ArtProvider.GetBitmap(wx.ART_FILE_SAVE_AS,wx.ART_MENU),
+                            )
+
+# -------------------------------------------------------------------------------
+        menubar.append_menu('plugins/mapmatching/routing',
+                            # bitmap = self.get_icon('icon_results_24px.png'),#,
+                            info='Apply different routing algorithms to create alternative routes to the mapmatched routes.'
+                            )
+        menubar.append_item('plugins/mapmatching/routing/shortest path routing...',
                             self.on_route_shortest,
                             #bitmap = wx.ArtProvider.GetBitmap(wx.ART_FILE_SAVE_AS,wx.ART_MENU),
                             )
 
-        menubar.append_item('plugins/mapmatching/fastest path routing...',
+        menubar.append_item('plugins/mapmatching/routing/fastest path routing...',
                             self.on_route_fastest,
                             #bitmap = wx.ArtProvider.GetBitmap(wx.ART_FILE_SAVE_AS,wx.ART_MENU),
                             )
@@ -389,6 +424,18 @@ class WxGui(ModuleGui):
                             info='Save persons with matched trips in a CSV file.',
                             bitmap=self.get_agileicon("Document_Export_24px.png"),
                             )
+# -------------------------------------------------------------------------------
+
+        menubar.append_menu('plugins/mapmatching/point analysis',
+                            bitmap=self.get_icon('icon_results_24px.png'),  # ,
+                            info='Point analysis tools'
+                            )
+
+        if is_mpl:
+            menubar.append_item('plugins/mapmatching/point analysis/plot point results...',
+                                self.on_plot_pointresults,
+                                bitmap=results_mpl.get_mplicon(),  # ,
+                                )
 
 # -------------------------------------------------------------------------------
 
@@ -407,21 +454,56 @@ class WxGui(ModuleGui):
                             # bitmap = self.get_agileicon('icon_browse_24px.png'),#,
                             )
 
+        menubar.append_item('plugins/mapmatching/route analysis/create trips database...',
+                            self.on_create_trips_database,  # common function in modulegui
+                            # bitmap = self.get_agileicon('icon_browse_24px.png'),#,
+                            )
+
+        menubar.append_item('plugins/mapmatching/route analysis/create cyclists database...',
+                            self.on_create_cyclists_database,  # common function in modulegui
+                            # bitmap = self.get_agileicon('icon_browse_24px.png'),#,
+                            )
+        menubar.append_item('plugins/mapmatching/route analysis/analyze alternative routes...',
+                            self.on_altrouteanalyze,  # common function in modulegui
+                            # bitmap = self.get_agileicon('icon_browse_24px.png'),#,
+                            )
+
+        menubar.append_item('plugins/mapmatching/route analysis/analyze PT routes...',
+                            self.on_ptanalyze,  # common function in modulegui
+                            # bitmap = self.get_agileicon('icon_browse_24px.png'),#,
+                            )
+
         if is_mpl:
             menubar.append_item('plugins/mapmatching/route analysis/plot route results...',
                                 self.on_plot_routeresults,
                                 bitmap=results_mpl.get_mplicon(),  # ,
                                 )
+
+            menubar.append_item('plugins/mapmatching/route analysis/plot public transport flows...',
+                                self.on_plot_ptflows,
+                                bitmap=results_mpl.get_mplicon(),  # ,
+                                )
+
             menubar.append_item('plugins/mapmatching/route analysis/plot edge results...',
                                 self.on_plot_edgeresults,
                                 bitmap=results_mpl.get_mplicon(),  # ,
                                 )
+            menubar.append_item('plugins/mapmatching/route analysis/plot connection results...',
+                                self.on_plot_connectionresults,
+                                bitmap=results_mpl.get_mplicon(),  # ,
+                                )
+
             menubar.append_item('plugins/mapmatching/route analysis/plot speed profiles...',
                                 self.on_plot_speedprofiles,
                                 bitmap=results_mpl.get_mplicon(),  # ,
                                 )
             menubar.append_item('plugins/mapmatching/route analysis/plot node results...',
                                 self.on_plot_noderesults,
+                                bitmap=results_mpl.get_mplicon(),  # ,
+                                )
+
+            menubar.append_item('plugins/mapmatching/route analysis/plot alternative routes...',
+                                self.on_plot_alternative_routes,
                                 bitmap=results_mpl.get_mplicon(),  # ,
                                 )
 
@@ -435,19 +517,27 @@ class WxGui(ModuleGui):
                             bitmap=wx.ArtProvider.GetBitmap(wx.ART_FILE_OPEN, wx.ART_MENU),
                             )
 
-        menubar.append_item('plugins/mapmatching/route analysis/route results to shape...',
-                            self.on_routes_to_shapefile,
-                            bitmap=wx.ArtProvider.GetBitmap(wx.ART_FILE_SAVE_AS, wx.ART_MENU),
+
+# -------------------------------------------------------------------------------
+        menubar.append_menu('plugins/mapmatching/demand generation',
+                            bitmap=self.get_icon('icon_sim.png'),  # ,
+                            info='Create vp from trips'
                             )
 
-        menubar.append_item('plugins/mapmatching/route analysis/edge results to shape...',
-                            self.on_edgesresults_to_shapefile,
-                            bitmap=wx.ArtProvider.GetBitmap(wx.ART_FILE_SAVE_AS, wx.ART_MENU),
+        menubar.append_item('plugins/mapmatching/demand generation/zone-to-zone demand generation',
+                            self.create_zonetozone_demand,
+                            bitmap=self.get_icon('icon_od.png'),  # ,
+                            #bitmap = wx.ArtProvider.GetBitmap(wx.ART_FILE_SAVE_AS,wx.ART_MENU),
                             )
-
-        menubar.append_item('plugins/mapmatching/route analysis/GPS points to shape...',
-                            self.on_points_to_shapefile,
-                            bitmap=wx.ArtProvider.GetBitmap(wx.ART_FILE_SAVE_AS, wx.ART_MENU),
+        menubar.append_item('plugins/mapmatching/demand generation/routes generation...',
+                            self.create_odroute_from_trips,
+                            bitmap=self.get_icon('icon_sim.png'),  # ,
+                            #bitmap = wx.ArtProvider.GetBitmap(wx.ART_FILE_SAVE_AS,wx.ART_MENU),
+                            )
+        menubar.append_item('plugins/mapmatching/demand generation/virtual pop generation',
+                            self.create_vp_from_trips,
+                            bitmap=self.get_icon('icon_vp.png'),  # ,
+                            #bitmap = wx.ArtProvider.GetBitmap(wx.ART_FILE_SAVE_AS,wx.ART_MENU),
                             )
 
 # -------------------------------------------------------------------------------
@@ -462,8 +552,13 @@ class WxGui(ModuleGui):
                             #bitmap = wx.ArtProvider.GetBitmap(wx.ART_FILE_SAVE_AS,wx.ART_MENU),
                             )
 
-        menubar.append_item('plugins/mapmatching/filter and select/filter trips...',
+        menubar.append_item('plugins/mapmatching/filter and select/post-match filter trips...',
                             self.on_postmatchfilter_trips,
+                            #bitmap = wx.ArtProvider.GetBitmap(wx.ART_FILE_SAVE_AS,wx.ART_MENU),
+                            )
+
+        menubar.append_item('plugins/mapmatching/filter and select/select mode...',
+                            self.on_select_mode,
                             #bitmap = wx.ArtProvider.GetBitmap(wx.ART_FILE_SAVE_AS,wx.ART_MENU),
                             )
 
@@ -501,10 +596,172 @@ class WxGui(ModuleGui):
                             )
 
 # -------------------------------------------------------------------------------
+        menubar.append_menu('plugins/mapmatching/export',
+                            bitmap=self.get_agileicon("Document_Export_24px.png"),
+                            )
+
+        menubar.append_item('plugins/mapmatching/export/route results to shape...',
+                            self.on_routes_to_shapefile,
+                            bitmap=wx.ArtProvider.GetBitmap(wx.ART_FILE_SAVE_AS, wx.ART_MENU),
+                            )
+
+        menubar.append_item('plugins/mapmatching/export/edge results to shape...',
+                            self.on_edgesresults_to_shapefile,
+                            bitmap=wx.ArtProvider.GetBitmap(wx.ART_FILE_SAVE_AS, wx.ART_MENU),
+                            )
+
+        menubar.append_item('plugins/mapmatching/export/GPS points to shape...',
+                            self.on_points_to_shapefile,
+                            bitmap=wx.ArtProvider.GetBitmap(wx.ART_FILE_SAVE_AS, wx.ART_MENU),
+                            )
+
+# -------------------------------------------------------------------------------
+        menubar.append_menu('plugins/mapmatching/GTFS',
+                            bitmap=self.get_icon('icon_g.png'),  # ,
+                            info="GTFS import, matching and public transport generation functionality, based on Goole Transit file formats."
+                            )
+
+        menubar.append_item('plugins/mapmatching/GTFS/GTFS shapes...',
+                            self.on_import_gtfs,
+                            # info=self.on_import_ecc.__doc__.strip(),
+                            bitmap=self.get_agileicon("Document_Import_24px.png"),
+                            )
+
+        menubar.append_item('plugins/mapmatching/GTFS/generate Stops from GTFS...',
+                            self.on_gtfsstopgenerate,  # common function in modulegui
+                            bitmap=self.get_icon('icon_g.png'),  # ,
+                            )
+
+        menubar.append_item('plugins/mapmatching/GTFS/generate services from GTFS...',
+                            self.on_gtfsservicegenerate,  # common function in modulegui
+                            bitmap=self.get_icon('icon_g.png'),  # ,
+                            )
+
+# -------------------------------------------------------------------------------
 
         menubar.append_item('plugins/mapmatching/redraw GPS data',
                             self.on_redraw,
                             )
+
+    def on_plot_pointresults(self, event=None):
+        """
+        Plot point results of route analysis in Matplotlib plotting envitonment.
+        """
+        if is_mpl:
+            resultplotter = results_mpl.PointresultPlotter(self._results,
+                                                           logger=self._mainframe.get_logger()
+                                                           )
+            dlg = results_mpl.ResultDialog(self._mainframe, resultplotter)
+
+            dlg.CenterOnScreen()
+
+            # this does not return until the dialog is closed.
+            val = dlg.ShowModal()
+            # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+            # print '  status =',dlg.get_status()
+            if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+                # print ">>>>>>>>>Unsuccessful\n"
+                dlg.Destroy()
+
+            if dlg.get_status() == 'success':
+                # print ">>>>>>>>>successful\n"
+                # apply current widget values to scenario instance
+                dlg.apply()
+                dlg.Destroy()
+
+    def od_analysis(self, event=None):
+        """
+        OD analysis.
+        """
+        if is_mpl:
+            p = results_mpl.ODanalysis(self._results,
+                                       logger=self._mainframe.get_logger()
+                                       )
+            dlg = ProcessDialog(self._mainframe, p, immediate_apply=True)
+
+            dlg.CenterOnScreen()
+
+            # this does not return until the dialog is closed.
+            val = dlg.ShowModal()
+            # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+            # print '  status =',dlg.get_status()
+            if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+                # print ">>>>>>>>>Unsuccessful\n"
+                dlg.Destroy()
+
+            if dlg.get_status() == 'success':
+                # print ">>>>>>>>>successful\n"
+                # apply current widget values to scenario instance
+                dlg.apply()
+                dlg.Destroy()
+
+    def create_odroute_from_trips(self, event=None):
+        """
+        Create vp from GPS trips.
+        """
+
+        mapmatching.OdRouteCreator('create_odroute_from_trips',
+                                   self._mapmatching,
+                                   logger=self._mainframe.get_logger(),
+                                   ).do()
+
+    def create_zonetozone_demand(self, event=None):
+        """
+        Create zone-to-zone demand from GPS trips.
+        """
+
+        p = mapmatching.OdCreator('Create_zonetozone_demand_from_trips',
+                                  self._mapmatching,
+                                  logger=self._mainframe.get_logger(),
+                                  )
+        dlg = ProcessDialog(self._mainframe,
+                            p,
+                            title='Create Virtual Population from GPS Trips')
+
+        dlg.CenterOnScreen()
+
+        # this does not return until the dialog is closed.
+        val = dlg.ShowModal()
+        # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+        # print '  status =',dlg.get_status()
+        if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+            # print ">>>>>>>>>Unsuccessful\n"
+            dlg.Destroy()
+
+        if dlg.get_status() == 'success':
+            # print ">>>>>>>>>successful\n"
+            # apply current widget values to scenario instance
+            dlg.apply()
+            dlg.Destroy()
+
+    def create_vp_from_trips(self, event=None):
+        """
+        Create vp from GPS trips.
+        """
+
+        p = mapmatching.VpCreator('Create_Vp_from_trips',
+                                  self._mapmatching,
+                                  logger=self._mainframe.get_logger(),
+                                  )
+        dlg = ProcessDialog(self._mainframe,
+                            p,
+                            title='Create Virtual Population from GPS Trips')
+
+        dlg.CenterOnScreen()
+
+        # this does not return until the dialog is closed.
+        val = dlg.ShowModal()
+        # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+        # print '  status =',dlg.get_status()
+        if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+            # print ">>>>>>>>>Unsuccessful\n"
+            dlg.Destroy()
+
+        if dlg.get_status() == 'success':
+            # print ">>>>>>>>>successful\n"
+            # apply current widget values to scenario instance
+            dlg.apply()
+            dlg.Destroy()
 
     def on_plot_routeresults(self, event=None):
         """
@@ -540,6 +797,58 @@ class WxGui(ModuleGui):
             resultplotter = results_mpl.EdgeresultPlotter(self._results,
                                                           logger=self._mainframe.get_logger()
                                                           )
+            dlg = results_mpl.ResultDialog(self._mainframe, resultplotter)
+
+            dlg.CenterOnScreen()
+
+            # this does not return until the dialog is closed.
+            val = dlg.ShowModal()
+            # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+            # print '  status =',dlg.get_status()
+            if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+                # print ">>>>>>>>>Unsuccessful\n"
+                dlg.Destroy()
+
+            if dlg.get_status() == 'success':
+                # print ">>>>>>>>>successful\n"
+                # apply current widget values to scenario instance
+                dlg.apply()
+                dlg.Destroy()
+
+    def on_plot_connectionresults(self, event=None):
+        """
+        Plot connection results of route analysis in Matplotlib plotting envitonment.
+        """
+        if is_mpl:
+            resultplotter = results_mpl.ConnectionresultPlotter(self._results,
+                                                                logger=self._mainframe.get_logger()
+                                                                )
+            dlg = results_mpl.ResultDialog(self._mainframe, resultplotter)
+
+            dlg.CenterOnScreen()
+
+            # this does not return until the dialog is closed.
+            val = dlg.ShowModal()
+            # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+            # print '  status =',dlg.get_status()
+            if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+                # print ">>>>>>>>>Unsuccessful\n"
+                dlg.Destroy()
+
+            if dlg.get_status() == 'success':
+                # print ">>>>>>>>>successful\n"
+                # apply current widget values to scenario instance
+                dlg.apply()
+                dlg.Destroy()
+
+    def on_plot_alternative_routes(self, event=None):
+        """
+        Plot alternative route results in Matplotlib plotting envitonment.
+        """
+        if is_mpl:
+            resultplotter = results_mpl.AlternativeRoutesPlotter(self._results,
+                                                                 logger=self._mainframe.get_logger()
+                                                                 )
             dlg = results_mpl.ResultDialog(self._mainframe, resultplotter)
 
             dlg.CenterOnScreen()
@@ -620,7 +929,8 @@ class WxGui(ModuleGui):
         defaultFile = scenario.get_rootfilename()+'.routeres.shp'
         wildcards_all = 'All files (*.*)|*.*|SHP files (*.shp)|*.shp'
         dlg = wx.FileDialog(None, message='Export route results to shapefile',
-                            defaultDir=dirpath, defaultFile=defaultFile,
+                            defaultDir=dirpath,
+                            # defaultFile=defaultFile,
                             wildcard=wildcards_all, style=wx.SAVE | wx.CHANGE_DIR)
         if dlg.ShowModal() == wx.ID_OK:
             filepath = dlg.GetPath()
@@ -640,10 +950,11 @@ class WxGui(ModuleGui):
         print 'on_nodes_to_shapefile'
         scenario = self._mapmatching.get_scenario()
         dirpath = scenario.get_workdirpath()
-        defaultFile = scenario.get_rootfilename()+'.edgeres.shp'
+        #defaultFile = scenario.get_rootfilename()+'.edgeres.shp'
         wildcards_all = 'All files (*.*)|*.*|SHP files (*.shp)|*.shp'
         dlg = wx.FileDialog(None, message='Export edge results to shapefile',
-                            defaultDir=dirpath, defaultFile=defaultFile,
+                            defaultDir=dirpath,
+                            # defaultFile=defaultFile,
                             wildcard=wildcards_all, style=wx.SAVE | wx.CHANGE_DIR)
         if dlg.ShowModal() == wx.ID_OK:
             filepath = dlg.GetPath()
@@ -666,7 +977,8 @@ class WxGui(ModuleGui):
         defaultFile = scenario.get_rootfilename()+'.points.shp'
         wildcards_all = 'All files (*.*)|*.*|SHP files (*.shp)|*.shp'
         dlg = wx.FileDialog(None, message='Export GPS points to shapefile',
-                            defaultDir=dirpath, defaultFile=defaultFile,
+                            defaultDir=dirpath,
+                            # defaultFile=defaultFile,
                             wildcard=wildcards_all, style=wx.SAVE | wx.CHANGE_DIR)
         if dlg.ShowModal() == wx.ID_OK:
             filepath = dlg.GetPath()
@@ -686,7 +998,7 @@ class WxGui(ModuleGui):
             return
         scenario = self.get_scenario()
         wildcards_all = "All files (*.*)|*.*"
-        wildcards_obj = "Python binary mapmatch files (*.mmatch.obj)|*.mmatch.obj|Python binary files (*.obj)|*.obj"
+        wildcards_obj = "Python binary files (*.obj)|*.obj"
         wildcards = wildcards_obj+"|"+wildcards_all
 
         # Finally, if the directory is changed in the process of getting files, this
@@ -694,7 +1006,7 @@ class WxGui(ModuleGui):
         dlg = wx.FileDialog(
             self._mainframe, message="Save results to file",
             defaultDir=scenario.get_workdirpath(),
-            defaultFile=scenario.get_rootfilepath()+'.mmatch.obj',
+            #defaultFile = scenario.get_rootfilepath()+'.mmatch.obj',
             wildcard=wildcards,
             style=wx.SAVE | wx.CHANGE_DIR
         )
@@ -715,7 +1027,7 @@ class WxGui(ModuleGui):
     def on_open_results(self, event=None):
 
         wildcards_all = "All files (*.*)|*.*"
-        wildcards_obj = "Python binary mapmatch files (*.mmatch.obj)|*.mmatch.obj|Python binary files (*.obj)|*.obj"
+        wildcards_obj = "Python binary files (*.obj)|*.obj"
         wildcards = wildcards_obj+"|"+wildcards_all
 
         # Finally, if the directory is changed in the process of getting files, this
@@ -812,8 +1124,8 @@ class WxGui(ModuleGui):
         """
         self._mapmatching.delete_unselected_trips()
         self._mainframe.browse_obj(self._mapmatching.trips)
-        #self._is_needs_refresh = True
-        # self.refresh_widgets()
+        self._is_needs_refresh = True
+        self.refresh_widgets()
 
     def is_matchprocess(self, ident):
         if self._matchprocess is None:
@@ -823,7 +1135,7 @@ class WxGui(ModuleGui):
 
     def on_match_birgil(self, event=None):
         """
-        Match selected traces with Birgillito's method. 
+        Match selected traces with GPS points to the road network based on Birgillito's method. 
         """
         # self.prepare_results()
         if not self.is_matchprocess('birgilmatcher'):
@@ -854,6 +1166,61 @@ class WxGui(ModuleGui):
         if dlg.get_status() == 'success':
             #p = self._mapmatchprocess
 
+            self._mainframe.browse_obj(self._mapmatching.trips)
+            self._is_needs_refresh = True
+            self.refresh_widgets()
+
+    def on_match_pt(self, event=None):
+        """
+        Match selected traces with GPS points to the public transport network. A public transport network must be previously built. 
+        """
+        # self.prepare_results()
+        if not self.is_matchprocess('ptmatcher'):
+            self._matchprocess = mapmatching.PTMatcher('ptmatcher',
+                                                       self._mapmatching,
+                                                       logger=self._mainframe.get_logger(),
+                                                       )
+
+        dlg = ProcessDialogInteractive(self._mainframe,
+                                       self._matchprocess,
+                                       #title = 'Mapmatching with Birgillito method',
+                                       func_close=self.close_match_birgil,
+                                       )
+
+        dlg.CenterOnScreen()
+
+        # this does not return until the dialog is closed.
+        #val = dlg.ShowModal()
+        # print 'open_sumodialog_interactive'
+        dlg.Show()
+        dlg.MakeModal(True)
+        # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+        # print '  status =',dlg.get_status()
+        # print 'returned to main window self.simulator.status',self.simulator.status
+
+    def on_select_mode(self, event=None):
+        """
+        Select GPS traces of a specific mode.
+        The mode is selected only among the currently selected trips.
+        """
+        p = mapmatching.ModeSelector(self._mapmatching, logger=self._mainframe.get_logger())
+        dlg = ProcessDialog(self._mainframe, p, immediate_apply=True)
+
+        dlg.CenterOnScreen()
+
+        # this does not return until the dialog is closed.
+        val = dlg.ShowModal()
+        # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+        # print '  status =',dlg.get_status()
+        if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+            # print ">>>>>>>>>Unsuccessful\n"
+            dlg.Destroy()
+
+        if dlg.get_status() == 'success':
+            # print ">>>>>>>>>successful\n"
+            # apply current widget values to scenario instance
+            dlg.apply()
+            dlg.Destroy()
             self._mainframe.browse_obj(self._mapmatching.trips)
             self._is_needs_refresh = True
             self.refresh_widgets()
@@ -998,6 +1365,110 @@ class WxGui(ModuleGui):
             self._is_needs_refresh = True
             self.refresh_widgets()
 
+    def on_import_mobike(self, event=None):
+        """
+        Import and filter data from a Mobike database file. 
+        """
+        p = mapmatching.MobikeImporter(self._mapmatching, logger=self._mainframe.get_logger())
+        dlg = ProcessDialog(self._mainframe, p, immediate_apply=True)
+
+        dlg.CenterOnScreen()
+
+        # this does not return until the dialog is closed.
+        val = dlg.ShowModal()
+        # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+        # print '  status =',dlg.get_status()
+        if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+            # print ">>>>>>>>>Unsuccessful\n"
+            dlg.Destroy()
+
+        if dlg.get_status() == 'success':
+            # print ">>>>>>>>>successful\n"
+            # apply current widget values to scenario instance
+            dlg.apply()
+            dlg.Destroy()
+            self._mainframe.browse_obj(self._mapmatching.trips)
+            self._is_needs_refresh = True
+            self.refresh_widgets()
+
+    def on_import_bellamossa(self, event=None):
+        """
+        Import and filter data from a Bella Mossa data. 
+        """
+        p = mapmatching.BellamossaImporter(self._mapmatching, logger=self._mainframe.get_logger())
+        dlg = ProcessDialog(self._mainframe, p, immediate_apply=True)
+
+        dlg.CenterOnScreen()
+
+        # this does not return until the dialog is closed.
+        val = dlg.ShowModal()
+        # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+        # print '  status =',dlg.get_status()
+        if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+            # print ">>>>>>>>>Unsuccessful\n"
+            dlg.Destroy()
+
+        if dlg.get_status() == 'success':
+            # print ">>>>>>>>>successful\n"
+            # apply current widget values to scenario instance
+            dlg.apply()
+            dlg.Destroy()
+            self._mainframe.browse_obj(self._mapmatching.trips)
+            self._is_needs_refresh = True
+            self.refresh_widgets()
+
+    def on_import_strava(self, event=None):
+        """
+        Import and filter data from a Bella Mossa data. 
+        """
+        p = mapmatching.StravaImporter(self._mapmatching, logger=self._mainframe.get_logger())
+        dlg = ProcessDialog(self._mainframe, p, immediate_apply=True)
+
+        dlg.CenterOnScreen()
+
+        # this does not return until the dialog is closed.
+        val = dlg.ShowModal()
+        # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+        # print '  status =',dlg.get_status()
+        if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+            # print ">>>>>>>>>Unsuccessful\n"
+            dlg.Destroy()
+
+        if dlg.get_status() == 'success':
+            # print ">>>>>>>>>successful\n"
+            # apply current widget values to scenario instance
+            dlg.apply()
+            dlg.Destroy()
+            self._mainframe.browse_obj(self._mapmatching.trips)
+            self._is_needs_refresh = True
+            self.refresh_widgets()
+
+    def on_import_gtfs(self, event=None):
+        """
+        Import and filter data from GTFS shape database. 
+        """
+        p = mapmatching.GtfsShapeImporter(self._mapmatching, logger=self._mainframe.get_logger())
+        dlg = ProcessDialog(self._mainframe, p, immediate_apply=True)
+
+        dlg.CenterOnScreen()
+
+        # this does not return until the dialog is closed.
+        val = dlg.ShowModal()
+        # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+        # print '  status =',dlg.get_status()
+        if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+            # print ">>>>>>>>>Unsuccessful\n"
+            dlg.Destroy()
+
+        if dlg.get_status() == 'success':
+            # print ">>>>>>>>>successful\n"
+            # apply current widget values to scenario instance
+            dlg.apply()
+            dlg.Destroy()
+            self._mainframe.browse_obj(self._mapmatching.trips)
+            self._is_needs_refresh = True
+            self.refresh_widgets()
+
     def on_import_gpx(self, event=None):
         """
         Import and filter data from GPX file. 
@@ -1068,7 +1539,7 @@ class WxGui(ModuleGui):
         dlg = wx.FileDialog(
             self._mainframe, message="Export persons to CSV file",
             defaultDir=scenario.get_workdirpath(),
-            defaultFile=scenario.get_rootfilepath()+'.gpspersons.csv',
+            #defaultFile = scenario.get_rootfilepath()+'.gpspersons.csv',
             wildcard=wildcards,
             style=wx.SAVE | wx.CHANGE_DIR
         )
@@ -1115,5 +1586,220 @@ class WxGui(ModuleGui):
             dlg.apply()
             dlg.Destroy()
             self._mainframe.browse_obj(self._results)
+            self._is_needs_refresh = True
+            self.refresh_widgets()
+
+    def on_altrouteanalyze(self, event=None):
+        """
+        Analyze attributes of matched and alternative routes. 
+        """
+        p = mapmatching.AlternativeRoutesanalyzer('altrouteanalyzer',
+                                                  self._mapmatching,
+                                                  self._results,
+                                                  logger=self._mainframe.get_logger())
+
+        dlg = ProcessDialog(self._mainframe, p, immediate_apply=True)
+
+        dlg.CenterOnScreen()
+
+        # this does not return until the dialog is closed.
+        val = dlg.ShowModal()
+        # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+        # print '  status =',dlg.get_status()
+        if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+            # print ">>>>>>>>>Unsuccessful\n"
+            dlg.Destroy()
+
+        if dlg.get_status() == 'success':
+            # print ">>>>>>>>>successful\n"
+            # apply current widget values to scenario instance
+            dlg.apply()
+            dlg.Destroy()
+            self._mainframe.browse_obj(self._results)
+            self._is_needs_refresh = True
+            self.refresh_widgets()
+
+    def on_ptanalyze(self, event=None):
+        """
+        Analyze public tranport routes, calculating trips per line and trip distribution on public transport net. 
+        """
+        p = mapmatching.PtRoutesanalyzer('ptrouteanalyzer',
+                                         self._mapmatching,
+                                         self._results,
+                                         logger=self._mainframe.get_logger())
+
+        dlg = ProcessDialog(self._mainframe, p, immediate_apply=True)
+
+        dlg.CenterOnScreen()
+
+        # this does not return until the dialog is closed.
+        val = dlg.ShowModal()
+        # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+        # print '  status =',dlg.get_status()
+        if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+            # print ">>>>>>>>>Unsuccessful\n"
+            dlg.Destroy()
+
+        if dlg.get_status() == 'success':
+            # print ">>>>>>>>>successful\n"
+            # apply current widget values to scenario instance
+            dlg.apply()
+            dlg.Destroy()
+            self._mainframe.browse_obj(self._results)
+            self._is_needs_refresh = True
+            self.refresh_widgets()
+
+    def on_plot_ptflows(self, event=None):
+        """
+        Plot matched flow graph of public transport lines with the Matplotlib plotting envitonment.
+        """
+        if is_mpl:
+            resultplotter = results_mpl.PtFlowdigramPlotter(self._results,
+                                                            logger=self._mainframe.get_logger()
+                                                            )
+            dlg = results_mpl.ResultDialog(self._mainframe, resultplotter)
+
+            dlg.CenterOnScreen()
+
+            # this does not return until the dialog is closed.
+            val = dlg.ShowModal()
+            # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+            # print '  status =',dlg.get_status()
+            if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+                # print ">>>>>>>>>Unsuccessful\n"
+                dlg.Destroy()
+
+            if dlg.get_status() == 'success':
+                # print ">>>>>>>>>successful\n"
+                # apply current widget values to scenario instance
+                dlg.apply()
+                dlg.Destroy()
+
+    def on_gtfsstopgenerate(self, event=None):
+        """
+        Generate public transport stops from google transit file system data 
+        and previously imported public transit routes. 
+        """
+        p = mapmatching.GtfsStopGenerator('gtfsstopgenerator',
+                                          self._mapmatching,
+                                          self._results,
+                                          logger=self._mainframe.get_logger()
+                                          )
+
+        dlg = ProcessDialog(self._mainframe, p, immediate_apply=True)
+
+        dlg.CenterOnScreen()
+
+        # this does not return until the dialog is closed.
+        val = dlg.ShowModal()
+        # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+        # print '  status =',dlg.get_status()
+        if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+            # print ">>>>>>>>>Unsuccessful\n"
+            dlg.Destroy()
+
+        else:
+            # print ">>>>>>>>>successful\n"
+            # apply current widget values to scenario instance
+            dlg.apply()
+            dlg.Destroy()
+
+            self._mainframe.refresh_moduleguis()
+            self._is_needs_refresh = True
+            self.refresh_widgets()
+            print '  set browser to', self.get_scenario().net.ptstops
+            self._mainframe.browse_obj(self.get_scenario().net.ptstops)
+
+    def on_gtfsservicegenerate(self, event=None):
+        """
+        Generate public transport services from google transit file system data 
+        and previously generated public transit stops. 
+        """
+        p = mapmatching.GtfsServiceGenerator('gtfsservicegenerator',
+                                             self._mapmatching,
+                                             self._results,
+                                             logger=self._mainframe.get_logger()
+                                             )
+
+        dlg = ProcessDialog(self._mainframe, p, immediate_apply=True)
+
+        dlg.CenterOnScreen()
+
+        # this does not return until the dialog is closed.
+        val = dlg.ShowModal()
+        # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+        # print '  status =',dlg.get_status()
+        if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+            # print ">>>>>>>>>Unsuccessful\n"
+            dlg.Destroy()
+
+        if dlg.get_status() == 'success':
+            # print ">>>>>>>>>successful\n"
+            # apply current widget values to scenario instance
+            dlg.apply()
+            dlg.Destroy()
+            print '  set browser to', self.get_scenario().demand.ptlines
+            self._mainframe.browse_obj(self.get_scenario().demand.ptlines)
+            # self._mainframe.refresh_moduleguis()
+            #self._is_needs_refresh = True
+            # self.refresh_widgets()
+
+    def on_create_trips_database(self, event=None):
+        """
+        Analyze attributes of matched routes and create an elaborated trips database. 
+        """
+
+        p = mapmatching.TripsDatabaseAnalyzer('tripsdatabase', self._mapmatching,
+                                              results=self._results,
+                                              logger=self._mainframe.get_logger())
+
+        dlg = ProcessDialog(self._mainframe, p, immediate_apply=True)
+
+        dlg.CenterOnScreen()
+
+        # this does not return until the dialog is closed.
+        val = dlg.ShowModal()
+        # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+        # print '  status =',dlg.get_status()
+        if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+            # print ">>>>>>>>>Unsuccessful\n"
+            dlg.Destroy()
+
+        if dlg.get_status() == 'success':
+            # print ">>>>>>>>>successful\n"
+            # apply current widget values to scenario instance
+            dlg.apply()
+            dlg.Destroy()
+            self._mainframe.browse_obj(self._results.tripsdatabase)
+            self._is_needs_refresh = True
+            self.refresh_widgets()
+
+    def on_create_cyclists_database(self, event=None):
+        """
+        Analyze attributes of persons and create an elaborated trips database. 
+        """
+
+        p = mapmatching.CyclistsDatabaseAnalyzer('cyclistsdatabase', self._mapmatching,
+                                                 results=self._results,
+                                                 logger=self._mainframe.get_logger())
+
+        dlg = ProcessDialog(self._mainframe, p, immediate_apply=True)
+
+        dlg.CenterOnScreen()
+
+        # this does not return until the dialog is closed.
+        val = dlg.ShowModal()
+        # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+        # print '  status =',dlg.get_status()
+        if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+            # print ">>>>>>>>>Unsuccessful\n"
+            dlg.Destroy()
+
+        if dlg.get_status() == 'success':
+            # print ">>>>>>>>>successful\n"
+            # apply current widget values to scenario instance
+            dlg.apply()
+            dlg.Destroy()
+            self._mainframe.browse_obj(self._results.cyclistsdatabase)
             self._is_needs_refresh = True
             self.refresh_widgets()

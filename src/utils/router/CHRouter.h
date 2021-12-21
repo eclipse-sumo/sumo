@@ -266,6 +266,14 @@ public:
                                   mySVC, myWeightPeriod, this->myHavePermissions, this->myHaveRestrictions);
     }
 
+
+    virtual void prohibit(const std::vector<E*>& toProhibit) {
+        if (toProhibit.size() > 0) {
+            WRITE_WARNINGF("Routing algorith CH does not support dynamic closing of edges%", "");
+        }
+    }
+
+
     /// trigger hierarchy rebuild
     virtual void reset(const V* const vehicle) {
         if (myValidUntil == 0) {

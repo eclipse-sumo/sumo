@@ -24,6 +24,11 @@
 #include <netedit/frames/GNEFrame.h>
 
 // ===========================================================================
+// class declaration
+// ===========================================================================
+class GNEEdgeTemplate;
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -39,7 +44,7 @@ public:
     // class NeteditAttributesEditor
     // ===========================================================================
 
-    class NeteditAttributesEditor : private FXGroupBox {
+    class NeteditAttributesEditor : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEInspectorFrame::NeteditAttributesEditor)
 
@@ -108,7 +113,7 @@ public:
     // class GEOAttributesEditor
     // ===========================================================================
 
-    class GEOAttributesEditor : private FXGroupBox {
+    class GEOAttributesEditor : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEInspectorFrame::GEOAttributesEditor)
 
@@ -172,41 +177,11 @@ public:
     // class TemplateEditor
     // ===========================================================================
 
-    class TemplateEditor : private FXGroupBox {
+    class TemplateEditor : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEInspectorFrame::TemplateEditor)
 
     public:
-        /// @brief edgeTemplate
-        struct EdgeTemplate {
-        
-        public:
-            /// @brief constructor
-            EdgeTemplate(const GNEEdge* edge);
-
-            /// @brief get edge parameters
-            const std::map<SumoXMLAttr, std::string> &getEdgeParameters() const;
-
-            /// @brief get lane parameters
-            const std::vector<std::map<SumoXMLAttr, std::string> > getLaneParameters() const;
-
-        private:
-            /// @brief edge parameters
-            std::map<SumoXMLAttr, std::string> myEdgeParameters;
-
-            /// @brief lane parameters
-            std::vector<std::map<SumoXMLAttr, std::string> > myLaneParameters;
-
-            /// @brief invalidated default constructor
-            EdgeTemplate() = delete;
-
-            /// @brief invalidated copy constructor
-            EdgeTemplate(const GNEEdge& s) = delete;
-
-            /// @brief invalidated assignment operator
-            GNEEdge& operator=(const GNEEdge& s) = delete;
-        };
-
         /// @brief constructor
         TemplateEditor(GNEInspectorFrame* inspectorFrameParent);
 
@@ -219,8 +194,8 @@ public:
         /// @brief hide template editor
         void hideTemplateEditor();
 
-        /// @brief get the template edge (to copy attributes from)
-        const TemplateEditor::EdgeTemplate *getEdgeTemplate() const;
+        /// @brief get edge template (to copy attributes from)
+        GNEEdgeTemplate *getEdgeTemplate() const;
 
         /// @brief set edge template
         void setEdgeTemplate(const GNEEdge* edge);
@@ -267,14 +242,14 @@ public:
         FXButton* myClearTemplateButton;
 
         /// @brief edge Template
-        TemplateEditor::EdgeTemplate *myEdgeTemplate;
+        GNEEdgeTemplate *myEdgeTemplate;
     };
 
     // ===========================================================================
     // class ParametersEditorInspector
     // ===========================================================================
 
-    class ParametersEditorInspector : private FXGroupBox {
+    class ParametersEditorInspector : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEInspectorFrame::ParametersEditorInspector)
 
@@ -325,7 +300,7 @@ public:
     // class AdditionalDialog
     // ===========================================================================
 
-    class AdditionalDialog : private FXGroupBox {
+    class AdditionalDialog : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEInspectorFrame::AdditionalDialog)
 
@@ -412,7 +387,7 @@ public:
     void clearInspectedAC();
 
     /// @brief get AttributesEditor
-    GNEFrameAttributesModuls::AttributesEditor* getAttributesEditor() const;
+    GNEFrameAttributeModules::AttributesEditor* getAttributesEditor() const;
 
     /// @brief get Netedit Attributes editor
     GNEInspectorFrame::NeteditAttributesEditor* getNeteditAttributesEditor() const;
@@ -421,10 +396,10 @@ public:
     TemplateEditor* getTemplateEditor() const;
 
     /// @brief get OverlappedInspection modul
-    GNEFrameModuls::OverlappedInspection* getOverlappedInspection() const;
+    GNEFrameModules::OverlappedInspection* getOverlappedInspection() const;
 
     /// @brief get HierarchicalElementTree modul
-    GNEFrameModuls::HierarchicalElementTree* getHierarchicalElementTree() const;
+    GNEFrameModules::HierarchicalElementTree* getHierarchicalElementTree() const;
 
     /// @name FOX-callbacks
     /// @{
@@ -451,10 +426,10 @@ protected:
 
 private:
     /// @brief Overlapped Inspection
-    GNEFrameModuls::OverlappedInspection* myOverlappedInspection;
+    GNEFrameModules::OverlappedInspection* myOverlappedInspection;
 
     /// @brief Attribute editor
-    GNEFrameAttributesModuls::AttributesEditor* myAttributesEditor;
+    GNEFrameAttributeModules::AttributesEditor* myAttributesEditor;
 
     /// @brief Netedit Attributes editor
     NeteditAttributesEditor* myNeteditAttributesEditor;
@@ -472,7 +447,7 @@ private:
     TemplateEditor* myTemplateEditor;
 
     /// @brief Attribute Carrier Hierarchy
-    GNEFrameModuls::HierarchicalElementTree* myHierarchicalElementTree;
+    GNEFrameModules::HierarchicalElementTree* myHierarchicalElementTree;
 
     /// @brief Back Button
     FXButton* myBackButton;

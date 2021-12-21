@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,7 +14,7 @@
 
 # @file    netconvert.py
 # @author  Joerg Schweizer
-# @date
+# @date   2012
 
 import os
 import subprocess
@@ -25,7 +25,7 @@ import agilepy.lib_base.arrayman as am
 import agilepy.lib_base.xmlman as xm
 
 from agilepy.lib_base.processes import Process, CmlMixin
-from agilepy.lib_base.misc import filepathlist_to_filepathstring, filepathstring_to_filepathlist
+from agilepy.lib_base.misc import filepathlist_to_filepathstring, filepathstring_to_filepathlist, ff
 
 
 class NetConvertMixin(CmlMixin, Process):
@@ -103,6 +103,11 @@ class NetConvertMixin(CmlMixin, Process):
                         info='SUMO Net file in XML format.',
                         )
 
+        # will be confugured later, but necessary if not configured
+        self.select_edges_by_access = ''
+        self.typefilepath = ''
+        self.is_import_ptstops = False
+
     def init_options_edge(self, **kwargs):
         self.add_option('n_lanes_default', kwargs.get('n_lanes_default', 1),
                         groupnames=['options', 'edges'],
@@ -132,6 +137,14 @@ class NetConvertMixin(CmlMixin, Process):
                         info='The default speed on an edge.',
                         is_enabled=lambda self: self.edgespeed_default > 0,
                         )
+        self.add_option('dist_join_tram_edged', kwargs.get('dist_join_tram_edged', -1.0),
+                        groupnames=['options', 'edges'],
+                        cml='--edges.join-tram-dist',
+                        perm='rw',
+                        name='Tram edge join dist.',
+                        info='When this option is set (values between 1.0 and 2.0 are recommended), overlapping OSM elements, whereby one has Tram access, will be converted to road lanes with shared permissions. Negative value makes ignoring this option.',
+                        is_enabled=lambda self: self.edgespeed_default > 0,
+                        )
 
         choices_priority = {}
         for i in range(11):
@@ -149,22 +162,6 @@ class NetConvertMixin(CmlMixin, Process):
                         )
 
     def init_options_edgetype(self, **kwargs):
-        typefilepath = kwargs.get('typefilepath', None)
-        if typefilepath is None:
-            typefilepath = os.path.abspath(os.path.join(os.path.dirname(
-                os.path.abspath(__file__)), '..', '..', 'typemap', 'osmNetconvert.typ.xml'))
-        self.add_option('typefilepath', typefilepath,
-                        groupnames=['options'],
-                        cml='--type-files',
-                        perm='rw',
-                        name='Type files',
-                        wildcards='Typemap XML files (*.typ.xml)|*.typ.xml',
-                        metatype='filepaths',
-                        info="""Typemap XML files. In these file, 
-                            OSM road types are mapped to edge and lane parameters such as width, 
-                            speeds, etc. These parameters are used as defaults in absents of explicit OSM attributes.
-                            Use osmNetconvert.typ.xml as a base and additional type file to meet specific needs.""",
-                        )
 
         modesset = set(self.parent.modes.names.get_value())
         modesset_pt_rail = set(["rail_urban", "rail", "rail_electric"])
@@ -181,6 +178,7 @@ class NetConvertMixin(CmlMixin, Process):
                                           "ordinary roads+rails+bikeways+footpath": ','.join(modesset.difference(modesset_pt_road | modesset_motorized | modesset_pt_rail | set(['bicycle']) | set(['pedestrian']))),
                                           "all ways": ""
                                           }
+
         # print '  access_to_vtypes=',access_to_vtypes
         self.add_option('select_edges_by_access', roadtypes_to_disallowed_vtypes[kwargs.get('roadtypes', 'ordinary roads+bikeways')],
                         groupnames=['options', 'edges'],
@@ -190,6 +188,22 @@ class NetConvertMixin(CmlMixin, Process):
                         name='Keep edge with acces',
                         info='Imports all edges with the given vehicle access patterns.',
                         is_enabled=lambda self: self.select_edges_by_access != "",
+                        )
+
+        typefilepath = kwargs.get('typefilepath', "")
+        # if typefilepath  is None:
+        #    typefilepath = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','..','typemap','osmNetconvert.typ.xml'))
+        self.add_option('typefilepath', typefilepath,
+                        groupnames=['options'],
+                        cml='--type-files',
+                        perm='rw',
+                        name='Type files',
+                        wildcards='Typemap XML files (*.typ.xml)|*.typ.xml',
+                        metatype='filepaths',
+                        info="""Typemap XML files. In these file, 
+                            OSM road types are mapped to edge and lane parameters such as width, 
+                            speeds, etc. These parameters are used as defaults in absents of explicit OSM attributes.
+                            If left blank the typemaps are determined by the access type choice (recommended).""",
                         )
 
         self.add_option('is_remove_isolated_edges', kwargs.get('is_remove_isolated_edges', True),
@@ -410,10 +424,10 @@ class NetConvertMixin(CmlMixin, Process):
                         perm='rw',
                         name='Allow entering multilane roundabout',
                         info='Allow driving onto a multi-lane road at roundabouts if there are foes (arriving vehicles) on other lanes.',
-                        is_enabled=lambda self: self.is_roundabouts_guess,
+                        #is_enabled = lambda self: self.is_roundabouts_guess,
                         )
 
-        # --lefthand <BOOL> 	Assumes left-hand traffic on the network; default: false
+        # --lefthand <BOOL> Assumes left-hand traffic on the network; default: false
         self.add_option('is_no_left_connections', kwargs.get('is_no_left_connections', False),
                         groupnames=['options', 'topology'],
                         cml='--no-left-connections',
@@ -522,6 +536,94 @@ class NetConvertMixin(CmlMixin, Process):
                         name='Max edge speed for crossings',
                         info='At uncontrolled nodes, do not build crossings across edges with a speed above this maximum edge speed.',
                         is_enabled=lambda self: self.is_guess_crossings,
+                        )
+
+    def init_options_ptlines(self, **kwargs):
+        attrsman = self.get_attrsman()
+
+        self.is_import_ptlines = attrsman.add(cm.AttrConf('is_import_ptlines', kwargs.get('is_import_ptlines', False),
+                                                          groupnames=['options', 'ptstops'],
+                                                          perm='rw',
+                                                          name='Import PT lines?',
+                                                          info='Should PT lines be imported?',
+                                                          ))
+
+        self.add_option('is_cleanup_ptline', kwargs.get('is_cleanup_ptstops', True),
+                        groupnames=['options', 'ptline'],
+                        cml='--ptline-clean-up',
+                        perm='rw',
+                        name='PT line cleanup',
+                        info='Clean-up pt stops that are not served by any line',
+                        is_enabled=lambda self: self.is_import_ptstops,
+                        )
+
+    def init_options_ptstops(self, **kwargs):
+
+        attrsman = self.get_attrsman()
+        self.is_import_ptstops = attrsman.add(cm.AttrConf('is_import_ptstops', kwargs.get('is_import_stops', False),
+                                                          groupnames=['options', 'ptstops'],
+                                                          perm='rw',
+                                                          name='Import PT stops?',
+                                                          info='Should PT stops be imported?',
+                                                          ))
+
+        self.add_option('dist_search_footway_access_ptstops', kwargs.get('dist_search_footway_access_ptstops', 20.0),
+                        groupnames=['options', 'ptstops'],
+                        cml='--osm.stop-output.footway-access-distance',
+                        perm='rw',
+                        unit='m',
+                        name='Search dist. PT stop footway access',
+                        info='The search radius for finding suitable road accesses for rail stops',
+                        is_enabled=lambda self: self.is_import_ptstops,
+                        )
+
+        self.add_option('n_footway_accesses_max', kwargs.get('n_footway_accesses_max', 10),
+                        groupnames=['options', 'ptstops'],
+                        cml='--osm.stop-output.footway-max-accesses',
+                        perm='rw',
+                        name='Maximum number of footway accesses',
+                        info='The maximum roud accesses registered per rail stops',
+                        is_enabled=lambda self: self.is_import_ptstops,
+                        )
+
+        self.add_option('lenght_default_ptstops', kwargs.get('lenght_default_ptstops', 20.0),
+                        groupnames=['options', 'ptstops'],
+                        cml='--osm.stop-output.length',
+                        perm='rw',
+                        unit='m',
+                        name='Default length PT stops',
+                        info='The default length of a public transport stop.',
+                        is_enabled=lambda self: self.is_import_ptstops,
+                        )
+
+        self.add_option('lenght_default_busstops', kwargs.get('lenght_default_busstops', 20.0),
+                        groupnames=['options', 'ptstops'],
+                        cml='--osm.stop-output.length.bus',
+                        perm='rw',
+                        unit='m',
+                        name='Default length bus stops',
+                        info='The default length of bus stops.',
+                        is_enabled=lambda self: self.is_import_ptstops,
+                        )
+
+        self.add_option('lenght_default_tramstops', kwargs.get('lenght_default_tramstops', 50.0),
+                        groupnames=['options', 'ptstops'],
+                        cml='--osm.stop-output.length.tram',
+                        perm='rw',
+                        unit='m',
+                        name='Default length tram stops',
+                        info='The default length of tram stops.',
+                        is_enabled=lambda self: self.is_import_ptstops,
+                        )
+
+        self.add_option('lenght_default_trainstops', kwargs.get('lenght_default_trainstops', 100.0),
+                        groupnames=['options', 'ptstops'],
+                        cml='--osm.stop-output.length.train',
+                        perm='rw',
+                        unit='m',
+                        name='Default length train stops',
+                        info='The default length of train stops.',
+                        is_enabled=lambda self: self.is_import_ptstops,
                         )
 
     def init_options_geometry(self, **kwargs):
@@ -678,6 +780,9 @@ class NetConvertMixin(CmlMixin, Process):
         # TLS Building Options:
         self.init_options_tls(**kwargs)
 
+        # PT stops
+        self.init_options_ptstops(**kwargs)
+
         # topology
         self.init_options_topology(**kwargs)
 
@@ -690,6 +795,42 @@ class NetConvertMixin(CmlMixin, Process):
         # other
         self.init_other(**kwargs)
 
+    def guess_typefilepath(self):
+        """Guesses typefiles from chosen road restrictions
+        """
+        if 'SUMO_HOME' in os.environ:
+            typemapdir = os.path.join(os.environ['SUMO_HOME'], 'data', 'typemap')
+
+        else:
+            print("No typemaps found. Please declare environment variable 'SUMO_HOME'")
+            return
+
+        typemapfilenames = ['osmNetconvert']
+        if typemapdir != "":
+            if self.select_edges_by_access == 'ordinary roads+bikeways':
+                typemapfilenames.append('osmNetconvertBicycle')
+            elif self.select_edges_by_access == 'roads+bikeways+footpath':
+                typemapfilenames.append('osmNetconvertBicycle')
+                typemapfilenames.append('osmNetconvertPedestrians')
+            elif self.select_edges_by_access == 'ordinary roads+rails':
+                typemapfilenames.append('osmNetconvertExtraRail')
+                typemapfilenames.append('osmNetconvertBidiRail')
+            elif self.select_edges_by_access == 'ordinary roads+rails+bikeways':
+                typemapfilenames.append('osmNetconvertExtraRail')
+                typemapfilenames.append('osmNetconvertBidiRail')
+                typemapfilenames.append('osmNetconvertBicycle')
+            elif self.select_edges_by_access == 'ordinary roads+rails+bikeways+footpath':
+                typemapfilenames.append('osmNetconvertExtraRail')
+                typemapfilenames.append('osmNetconvertBidiRail')
+                typemapfilenames.append('osmNetconvertBicycle')
+                typemapfilenames.append('osmNetconvertPedestrians')
+
+            for typemapfilename in typemapfilenames:
+                if self.typefilepath == "":
+                    self.typefilepath = os.path.join(typemapdir, typemapfilename+'.typ.xml')
+                else:
+                    self.typefilepath += ','+os.path.join(typemapdir, typemapfilename+'.typ.xml')
+
     def update_params(self):
         """
         Make all parameters consistent.
@@ -700,15 +841,26 @@ class NetConvertMixin(CmlMixin, Process):
 
     def do(self):
         self.update_params()
+        net = self.parent
         cml = self.get_cml()
+        if self.typefilepath == '':
+            self.guess_typefilepath()
 
+        if self.is_import_ptstops:
+            ptstopfilepath = net.get_rootfilepath()+'.ptstop.xml'
+            cml += ' --ptstop-output '+ff(ptstopfilepath)
         # print 'SumonetImporter.do',cml
         self.run_cml(cml)
         if self.status == 'success':
             print '  Netconvert done.'
             if os.path.isfile(self.netfilepath):
-                # print '  sumo.net.xml exists, start generation of xml files'
-                self.parent.import_netxml(self.netfilepath)
+                print '  sumo.net.xml exists, start generation of xml files'
+                net.import_netxml(self.netfilepath)
+                if self.is_import_ptstops:
+                    if os.path.isfile(ptstopfilepath):
+                        print '  ptfilepath exists, start importing ptstops'
+                        net.ptstops.import_sumostops(ptstopfilepath)
+
                 # print '  import in sumopy done.'
             return True
         return False

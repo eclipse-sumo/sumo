@@ -186,6 +186,9 @@ public:
 
         /// @brief the type of this lane
         std::string type;
+
+        /// @brief turning signs printed on the road, bitset of LinkDirection (imported from OSM)
+        int turnSigns = 0;
     };
 
     /** @struct Connection
@@ -1477,6 +1480,15 @@ public:
     /// @brief set oppositeID and return opposite edge if found
     NBEdge* guessOpposite(bool reguess = false);
 
+
+    const std::string& getTurnSignTarget() const {
+        return myTurnSignTarget;
+    }
+
+    void setTurnSignTarget(const std::string& target) {
+        myTurnSignTarget = target;
+    }
+
     /// @brief return only those edges that permit at least one of the give permissions
     static EdgeVector filterByPermissions(const EdgeVector& edges, SVCPermissions permissions);
 
@@ -1635,6 +1647,12 @@ private:
     /// @brief assign length to all lanes of an internal edge
     void assignInternalLaneLength(std::vector<Connection>::iterator i, int numLanes, double lengthSum, bool averageLength);
 
+    /// @brief decode bitset
+    std::vector<LinkDirection> decodeTurnSigns(int turnSigns);
+
+    /// @brief apply loaded turn sign information
+    bool applyTurnSigns();
+
 private:
     /** @brief The building step
      * @see EdgeBuildingStep
@@ -1646,6 +1664,9 @@ private:
 
     /// @brief The source and the destination node
     NBNode* myFrom, *myTo;
+
+    /// @brief node for which turnSign information applies
+    std::string myTurnSignTarget;
 
     /// @brief The length of the edge
     double myLength;

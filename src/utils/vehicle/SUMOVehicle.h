@@ -93,6 +93,13 @@ public:
      */
     virtual const MSEdge* succEdge(int nSuccs) const = 0;
 
+    /** @brief Returns the starting point for reroutes (usually the current edge)
+     *
+     * This differs from *myCurrEdge only if the vehicle is on an internal edge
+     * @return The rerouting start point
+     */
+    virtual const MSEdge* getRerouteOrigin() const = 0;
+
     /** @brief Replaces the current route by the given edges
      *
      * It is possible that the new route is not accepted, if a) it does not

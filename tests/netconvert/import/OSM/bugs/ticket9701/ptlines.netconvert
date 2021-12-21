@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-12-03 11:42:22 by Eclipse SUMO netconvert Version v1_11_0+0282-1c5758e
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+        <ptline-clean-up value="true"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <edge_removal>
+        <keep-edges.by-vclass value="passenger,bus,pedestrian"/>
+        <keep-edges.components value="1"/>
+    </edge_removal>
+
+    <pedestrian>
+        <sidewalks.guess.from-permissions value="true"/>
+        <crossings.guess value="true"/>
+    </pedestrian>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
+    <ptLine id="7446410" name="Bus VAC 099: Madrid → Alcalá → Guadalajara → Medinaceli → Calatayud → Zaragoza → Barcelona" line="VAC 099" type="bus" vClass="bus" color="130,1,101" completeness="0.13">
+        <route edges="34999068 449425610 369127298 527144204#0 527144204#1 527144204#2 34999066 296662014#0 296662014#1 284795665#0 284795665#1 252332116 252332232#0 252332232#1 252332232#2 252332232#3 252332117#0 252332117#1"/>
+        <busStop id="224101094" name="Estación de autobuses de Zaragoza"/>
+        <busStop id="8399487641" name=""/>
+    </ptLine>
+</ptLines>

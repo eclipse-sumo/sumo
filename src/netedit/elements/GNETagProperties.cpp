@@ -46,7 +46,7 @@ GNETagProperties::GNETagProperties() :
 }
 
 
-GNETagProperties::GNETagProperties(const SumoXMLTag tag, int tagType, int tagProperty, GUIIcon icon, const SumoXMLTag XMLTag,
+GNETagProperties::GNETagProperties(const SumoXMLTag tag, const int tagType, const int tagProperty, const GUIIcon icon, const SumoXMLTag XMLTag,
                                    const std::vector<SumoXMLTag> parentTags, const unsigned int backgroundColor) :
     myTag(tag),
     myTagStr(toString(tag)),
@@ -55,6 +55,7 @@ GNETagProperties::GNETagProperties(const SumoXMLTag tag, int tagType, int tagPro
     myIcon(icon),
     myXMLTag(XMLTag),
     myParentTags(parentTags),
+    myFieldString(toString(tag)),
     myBackgroundColor(backgroundColor) {
 }
 
@@ -136,7 +137,7 @@ GNETagProperties::getDefaultValue(SumoXMLAttr attr) const {
     // iterate over attribute properties
     for (const auto& attributeProperty : myAttributeProperties) {
         if (attributeProperty.getAttr() == attr) {
-            if (!attributeProperty.hasStaticDefaultValue()) {
+            if (!attributeProperty.hasDefaultValue()) {
                 throw ProcessError("attribute '" + attributeProperty.getAttrStr() + "' doesn't have a default value");
             } else {
                 return attributeProperty.getDefaultValue();
@@ -177,6 +178,18 @@ GNETagProperties::addDeprecatedAttribute(SumoXMLAttr attr) {
     }
     // add it into myDeprecatedAttributes
     myDeprecatedAttributes.push_back(attr);
+}
+
+
+const std::string&
+GNETagProperties::getFieldString() const {
+    return myFieldString;
+}
+
+
+void
+GNETagProperties::setFieldString(const std::string &fieldString) {
+    myFieldString = fieldString;
 }
 
 
@@ -416,8 +429,8 @@ GNETagProperties::isInternalLane() const {
 
 
 bool
-GNETagProperties::isNotDrawable() const {
-    return (myTagProperty & NOTDRAWABLE) != 0;
+GNETagProperties::isDrawable() const {
+    return (myTagProperty & NOTDRAWABLE) == 0;
 }
 
 
@@ -484,12 +497,6 @@ GNETagProperties::canMaskStartEndPos() const {
 
 
 bool
-GNETagProperties::canMaskXYZPositions() const {
-    return (myTagProperty & MASKXYZPOSITION) != 0;
-}
-
-
-bool
 GNETagProperties::canCenterCameraAfterCreation() const {
     return (myTagProperty & CENTERAFTERCREATION) != 0;
 }
@@ -498,6 +505,12 @@ GNETagProperties::canCenterCameraAfterCreation() const {
 bool
 GNETagProperties::embebbedRoute() const {
     return (myTagProperty & EMBEDDED_ROUTE) != 0;
+}
+
+
+bool
+GNETagProperties::requireProj() const {
+    return (myTagProperty & REQUIERE_PROJ) != 0;
 }
 
 

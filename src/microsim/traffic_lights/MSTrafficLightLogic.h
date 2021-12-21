@@ -80,6 +80,7 @@ public:
      * @param[in] tlcontrol The tls control responsible for this tls
      * @param[in] id This tls' id
      * @param[in] programID This tls' sub-id (program id)
+     * @param[in] offset the time offset of the program
      * @param[in] logicType This tls' type (static, actuated etc.)
      * @param[in] delay The time to wait before the first switch
      * @param[in] parameters Additional parameters (especially for actuated logics)
@@ -87,6 +88,7 @@ public:
     MSTrafficLightLogic(MSTLLogicControl& tlcontrol,
                         const std::string& id,
                         const std::string& programID,
+                        const SUMOTime offset,
                         const TrafficLightType logicType,
                         const SUMOTime delay,
                         const std::map<std::string, std::string>& parameters);
@@ -272,6 +274,12 @@ public:
         return myDefaultCycleTime;
     }
 
+    /// @brief return time within the current cycle
+    SUMOTime getTimeInCycle() const;
+
+    /// @brief map the given time into the current cycle
+    virtual SUMOTime mapTimeInCycle(SUMOTime t) const;
+
     /// @brief return the number of controlled link indices
     int getNumLinks() const {
         return myNumLinks;
@@ -318,6 +326,9 @@ public:
     /// @}
 
 
+    SUMOTime getOffset() const {
+        return myOffset;
+    }
 
     /// @name Changing phases and phase durations
     /// @{
@@ -457,6 +468,9 @@ protected:
 protected:
     /// @brief The id of the logic
     const std::string myProgramID;
+
+    /// @brief the offset parameter of the current program
+    SUMOTime myOffset;
 
     /// @brief The type of the logic
     const TrafficLightType myLogicType;

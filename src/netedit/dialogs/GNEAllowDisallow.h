@@ -46,7 +46,7 @@ public:
     GNEAllowDisallow(GNEViewNet* viewNet, GNEAttributeCarrier* AC, SumoXMLAttr attr, bool* acceptChanges);
 
     /// @brief Constructor (For
-    GNEAllowDisallow(GNEViewNet* viewNet, std::string* allow, std::string* disallow, bool* acceptChanges);
+    GNEAllowDisallow(GNEViewNet* viewNet, std::string* allow, bool* acceptChanges);
 
     /// @brief destructor
     ~GNEAllowDisallow();
@@ -96,9 +96,6 @@ protected:
 
     /// @brief allow vehicles
     std::string* myAllow;
-
-    /// @brief disallow vehicles
-    std::string* myDisAllow;
 
     /// @brief accept button
     FXButton* myAcceptButton;

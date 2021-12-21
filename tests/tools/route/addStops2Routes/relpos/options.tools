@@ -1,0 +1,3 @@
+-o out.rou.xml -n input_net.net.xml -t input_routes.rou.xml -r input_routes.rou.xml 
+-p --duration 1800 --until 12:0:0
+--relpos 0.5

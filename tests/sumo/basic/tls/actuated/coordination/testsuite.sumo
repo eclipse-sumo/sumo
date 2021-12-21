@@ -1,0 +1,8 @@
+# set coordination parametes in the absence of traffic
+noTraffic
+
+# tls on approach cause 3 distinct traffic rythms
+pulsedTraffic
+
+# all flows (at B0 andC0) achieve full saturation
+saturatedTraffic

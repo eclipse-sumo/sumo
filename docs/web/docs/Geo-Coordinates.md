@@ -41,7 +41,7 @@ right-corner of the window.
   geo-coordinates (lon,lat) and vice versa
 - using [sumolib](Tools/Sumolib.md#coordinate_transformations)
   , coordinates can be transformed between network-coordinates (m,m)
-  and geo-coordinates (lon,lat) and vice versa
+  and geo-coordinates (lon,lat) and vice versa. Converting back and forth between lon,lat and raw UTM (m,m) is also supported.
 
 # Obtaining output with geo-coordinates
 

@@ -47,7 +47,7 @@ public:
     // class SelectionInformation
     // ===========================================================================
 
-    class SelectionInformation : protected FXGroupBox {
+    class SelectionInformation : public FXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -84,7 +84,7 @@ public:
     // class ModificationMode
     // ===========================================================================
 
-    class ModificationMode : protected FXGroupBox {
+    class ModificationMode : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNESelectorFrame::ModificationMode)
 
@@ -145,7 +145,7 @@ public:
     // class VisualScaling
     // ===========================================================================
 
-    class VisualScaling : protected FXGroupBox {
+    class VisualScaling : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNESelectorFrame::VisualScaling)
 
@@ -186,7 +186,7 @@ public:
     // class SelectionOperation
     // ===========================================================================
 
-    class SelectionOperation : protected FXGroupBox {
+    class SelectionOperation : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNESelectorFrame::SelectionOperation)
 
@@ -255,6 +255,20 @@ public:
         SelectionOperation& operator=(const SelectionOperation&) = delete;
     };
 
+    // ===========================================================================
+    // class Legend
+    // ===========================================================================
+
+    class Information : public FXGroupBoxModule {
+
+    public:
+        /// @brief constructor
+        Information(GNESelectorFrame* selectorFrameParent);
+
+        /// @brief destructor
+        ~Information();
+    };
+
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -299,32 +313,35 @@ public:
     FXVerticalFrame* getContentFrame() const;
 
     /// @brief get modification mode modul
-    ModificationMode* getModificationModeModul() const;
+    ModificationMode* getModificationModeModule() const;
 
     /// @brief getmodul for selection information
     SelectionInformation* getSelectionInformation() const;
 
 private:
     /// @brief modul for selection information
-    SelectionInformation* mySelectionInformation;
+    GNESelectorFrame::SelectionInformation* mySelectionInformation = nullptr;
 
     /// @brief modul for change modification mode
-    ModificationMode* myModificationMode;
+    GNESelectorFrame::ModificationMode* myModificationMode = nullptr;
 
     /// @brief moduls for select network element set
-    GNEElementSet* myNetworkElementSet;
+    GNEElementSet* myNetworkElementSet = nullptr;
 
     /// @brief moduls for select demand element set
-    GNEElementSet* myDemandElementSet;
+    GNEElementSet* myDemandElementSet = nullptr;
 
     /// @brief moduls for select data element set
-    GNEElementSet* myDataElementSet;
+    GNEElementSet* myDataElementSet = nullptr;
 
     /// @brief modul for visual scaling
-    VisualScaling* myVisualScaling;
+    GNESelectorFrame::VisualScaling* myVisualScaling = nullptr;
 
     /// @brief modul for selection operations
-    SelectionOperation* mySelectionOperation;
+    GNESelectorFrame::SelectionOperation* mySelectionOperation = nullptr;
+
+    /// @brief information modul
+    GNESelectorFrame::Information* myInformation = nullptr;
 
     /// @brief Invalidated copy constructor.
     GNESelectorFrame(const GNESelectorFrame&) = delete;

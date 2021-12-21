@@ -55,9 +55,9 @@ FXDEFMAP(GNESelectorFrame::SelectionOperation) SelectionOperationMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNESelectorFrame::ModificationMode,                     FXGroupBox,     ModificationModeMap,            ARRAYNUMBER(ModificationModeMap))
-FXIMPLEMENT(GNESelectorFrame::VisualScaling,                        FXGroupBox,     VisualScalingMap,               ARRAYNUMBER(VisualScalingMap))
-FXIMPLEMENT(GNESelectorFrame::SelectionOperation,                   FXGroupBox,     SelectionOperationMap,          ARRAYNUMBER(SelectionOperationMap))
+FXIMPLEMENT(GNESelectorFrame::ModificationMode,                     FXGroupBoxModule,     ModificationModeMap,            ARRAYNUMBER(ModificationModeMap))
+FXIMPLEMENT(GNESelectorFrame::VisualScaling,                        FXGroupBoxModule,     VisualScalingMap,               ARRAYNUMBER(VisualScalingMap))
+FXIMPLEMENT(GNESelectorFrame::SelectionOperation,                   FXGroupBoxModule,     SelectionOperationMap,          ARRAYNUMBER(SelectionOperationMap))
 
 // ===========================================================================
 // method definitions
@@ -68,10 +68,10 @@ FXIMPLEMENT(GNESelectorFrame::SelectionOperation,                   FXGroupBox, 
 // ---------------------------------------------------------------------------
 
 GNESelectorFrame::SelectionInformation::SelectionInformation(GNESelectorFrame* selectorFrameParent) :
-    FXGroupBox(selectorFrameParent->myContentFrame, "Selection information", GUIDesignGroupBoxFrame),
+    FXGroupBoxModule(selectorFrameParent->myContentFrame, "Selection information"),
     mySelectorFrameParent(selectorFrameParent) {
     // information label
-    myInformationLabel = new FXLabel(this, "", nullptr, GUIDesignLabelFrameInformation);
+    myInformationLabel = new FXLabel(getCollapsableFrame(), "", nullptr, GUIDesignLabelFrameInformation);
 }
 
 
@@ -136,16 +136,16 @@ GNESelectorFrame::SelectionInformation::updateInformationLabel(const std::string
 // ---------------------------------------------------------------------------
 
 GNESelectorFrame::ModificationMode::ModificationMode(GNESelectorFrame* selectorFrameParent) :
-    FXGroupBox(selectorFrameParent->myContentFrame, "Modification Mode", GUIDesignGroupBoxFrame),
+    FXGroupBoxModule(selectorFrameParent->myContentFrame, "Modification Mode"),
     myModificationModeType(Operation::ADD) {
     // Create all options buttons
-    myAddRadioButton = new FXRadioButton(this, "add\t\tSelected objects are added to the previous selection",
+    myAddRadioButton = new FXRadioButton(getCollapsableFrame(), "add\t\tSelected objects are added to the previous selection",
                                          this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    myRemoveRadioButton = new FXRadioButton(this, "remove\t\tSelected objects are removed from the previous selection",
+    myRemoveRadioButton = new FXRadioButton(getCollapsableFrame(), "remove\t\tSelected objects are removed from the previous selection",
                                             this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    myKeepRadioButton = new FXRadioButton(this, "keep\t\tRestrict previous selection by the current selection",
+    myKeepRadioButton = new FXRadioButton(getCollapsableFrame(), "keep\t\tRestrict previous selection by the current selection",
                                           this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    myReplaceRadioButton = new FXRadioButton(this, "replace\t\tReplace previous selection by the current selection",
+    myReplaceRadioButton = new FXRadioButton(getCollapsableFrame(), "replace\t\tReplace previous selection by the current selection",
             this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     myAddRadioButton->setCheck(true);
 }
@@ -200,10 +200,10 @@ GNESelectorFrame::ModificationMode::onCmdSelectModificationMode(FXObject* obj, F
 // ---------------------------------------------------------------------------
 
 GNESelectorFrame::VisualScaling::VisualScaling(GNESelectorFrame* selectorFrameParent) :
-    FXGroupBox(selectorFrameParent->myContentFrame, "Visual Scaling", GUIDesignGroupBoxFrame),
+    FXGroupBoxModule(selectorFrameParent->myContentFrame, "Visual Scaling"),
     mySelectorFrameParent(selectorFrameParent) {
     // Create spin button and configure it
-    mySelectionScaling = new FXRealSpinner(this, 7, this, MID_GNE_SELECTORFRAME_SELECTSCALE, GUIDesignSpinDial);
+    mySelectionScaling = new FXRealSpinner(getCollapsableFrame(), 7, this, MID_GNE_SELECTORFRAME_SELECTSCALE, GUIDesignSpinDial);
     //mySelectionScaling->setNumberFormat(1);
     //mySelectionScaling->setIncrements(0.1, .5, 1);
     mySelectionScaling->setIncrement(0.5);
@@ -229,11 +229,11 @@ GNESelectorFrame::VisualScaling::onCmdScaleSelection(FXObject*, FXSelector, void
 // ---------------------------------------------------------------------------
 
 GNESelectorFrame::SelectionOperation::SelectionOperation(GNESelectorFrame* selectorFrameParent) :
-    FXGroupBox(selectorFrameParent->myContentFrame, "Operations for selections", GUIDesignGroupBoxFrame),
+    FXGroupBoxModule(selectorFrameParent->myContentFrame, "Operations for selections"),
     mySelectorFrameParent(selectorFrameParent) {
     // tabular buttons, see GNETLSEditorFrame
 
-    FXHorizontalFrame* selectionButtons = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* selectionButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     FXVerticalFrame* col1 = new FXVerticalFrame(selectionButtons, LAYOUT_FILL_X, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); // left button columm
     FXVerticalFrame* col2 = new FXVerticalFrame(selectionButtons, LAYOUT_FILL_X, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); // right button column
 
@@ -256,7 +256,7 @@ GNESelectorFrame::SelectionOperation::~SelectionOperation() {}
 long
 GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
     // get the new file name
-    FXFileDialog opendialog(this, "Open List of Selected Items");
+    FXFileDialog opendialog(getCollapsableFrame(), "Open List of Selected Items");
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("Selection files (*.txt)\nAll files (*)");
@@ -330,7 +330,7 @@ GNESelectorFrame::SelectionOperation::onCmdSave(FXObject*, FXSelector, void*) {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Opening FXMessageBox 'error storing selection'");
         // open message box error
-        FXMessageBox::error(this, MBOX_OK, "Storing Selection failed", "%s", e.what());
+        FXMessageBox::error(getCollapsableFrame(), MBOX_OK, "Storing Selection failed", "%s", e.what());
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Closed FXMessageBox 'error storing selection' with 'OK'");
     }
@@ -514,7 +514,7 @@ GNESelectorFrame::SelectionOperation::processNetworkElementSelection(const bool 
     if (ignoreLocking || !locks.isObjectLocked(GLO_ADDITIONALELEMENT, false)) {
         for (const auto& additionalTag : ACs->getAdditionals()) {
             // first check if additional is selectable
-            if (GNEAttributeCarrier::getTagProperties(additionalTag.first).isSelectable()) {
+            if (GNEAttributeCarrier::getTagProperty(additionalTag.first).isSelectable()) {
                 for (const auto& additional : additionalTag.second) {
                     if (onlyCount) {
                         return true;
@@ -986,6 +986,19 @@ GNESelectorFrame::SelectionOperation::askContinueIfLock() const {
 }
 
 // ---------------------------------------------------------------------------
+// GNECrossingFrame::Legend - methods
+// ---------------------------------------------------------------------------
+
+GNESelectorFrame::Information::Information(GNESelectorFrame* selectorFrameParent) :
+    FXGroupBoxModule(selectorFrameParent->myContentFrame, "Information") {
+    // Create Selection Hint
+    new FXLabel(getCollapsableFrame(), " - Hold <SHIFT> for \n   rectangle selection.\n - Press <DEL> to\n   delete selected objects.", nullptr, GUIDesignLabelFrameInformation);
+}
+
+
+GNESelectorFrame::Information::~Information() {}
+
+// ---------------------------------------------------------------------------
 // GNESelectorFrame - methods
 // ---------------------------------------------------------------------------
 
@@ -1003,11 +1016,8 @@ GNESelectorFrame::GNESelectorFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     myVisualScaling = new VisualScaling(this);
     // create SelectionOperation modul
     mySelectionOperation = new SelectionOperation(this);
-    // Create groupbox for information about selections
-    FXGroupBox* selectionHintGroupBox = new FXGroupBox(myContentFrame, "Information", GUIDesignGroupBoxFrame);
-    // Create Selection Hint
-    new FXLabel(selectionHintGroupBox, " - Hold <SHIFT> for \n   rectangle selection.\n - Press <DEL> to\n   delete selected objects.", nullptr, GUIDesignLabelFrameInformation);
-
+    // create Information modul
+    myInformation = new Information(this);
 }
 
 
@@ -1147,7 +1157,7 @@ GNESelectorFrame::getMatches(const SumoXMLTag ACTag, const SumoXMLAttr ACAttr, c
     // first retrieve all ACs using ACTag
     const auto allACbyTag = myViewNet->getNet()->getAttributeCarriers()->retrieveAttributeCarriers(ACTag);
     // get Tag value
-    const auto& tagValue = GNEAttributeCarrier::getTagProperties(ACTag);
+    const auto& tagValue = GNEAttributeCarrier::getTagProperty(ACTag);
     // iterate over all ACs
     for (const auto& AC : allACbyTag) {
         if (expr == "" && compOp == '@') {
@@ -1270,7 +1280,7 @@ GNESelectorFrame::getContentFrame() const {
 
 
 GNESelectorFrame::ModificationMode*
-GNESelectorFrame::getModificationModeModul() const {
+GNESelectorFrame::getModificationModeModule() const {
     return myModificationMode;
 }
 

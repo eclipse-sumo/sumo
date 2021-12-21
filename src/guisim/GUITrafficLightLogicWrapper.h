@@ -119,6 +119,10 @@ public:
     int getCurrentDuration() const;
     int getCurrentMinDur() const;
     int getCurrentMaxDur() const;
+    int getCurrentEarliestEnd() const;
+    int getCurrentLatestEnd() const;
+    int getDefaultCycleTime() const;
+    int getCurrentTimeInCycle() const;
     int getRunningDuration() const;
 
 public:

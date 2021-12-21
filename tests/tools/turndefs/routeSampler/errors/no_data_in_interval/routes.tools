@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2021-12-09 08:31:40.624406 by routeSampler.py v1_11_0+0421-96d1c786f0c
+<configuration>
+    <edgedata-files value="input_edgedata.xml"/>
+    <route-files value="input_routes.rou.xml"/>
+    <verbose value="True"/>
+    <verbose.histograms value="True"/>
+</configuration>
+
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+</routes>

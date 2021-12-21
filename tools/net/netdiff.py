@@ -48,11 +48,13 @@ TYPE_NODES = '.nod.xml'
 TYPE_EDGES = '.edg.xml'
 TYPE_CONNECTIONS = '.con.xml'
 TYPE_TLLOGICS = '.tll.xml'
+TYPE_EDGETYPES = '.typ.xml'
 PLAIN_TYPES = [
     TYPE_NODES,
     TYPE_EDGES,
     TYPE_CONNECTIONS,
-    TYPE_TLLOGICS
+    TYPE_TLLOGICS,
+    TYPE_EDGETYPES
 ]
 
 # traffic lights have some peculiarities
@@ -506,7 +508,6 @@ def parse_args():
     optParser.add_option("-d", "--direct", action="store_true",
                          default=False, help="compare source and dest files directly")
     optParser.add_option("-i", "--patch-on-import", action="store_true",
-                         dest="patchImport",
                          default=False, help="generate patch that can be applied during initial network import" +
                          " (exports additional connection elements)")
     optParser.add_option("--copy",
@@ -514,10 +515,12 @@ def parse_args():
     optParser.add_option("--path", dest="path", help="Path to binaries")
     optParser.add_option("--remove-plain", action="store_true",
                          help="avoid saving plain xml files of source and destination networks")
-    optParser.add_option("-l", "--write-selections", action="store_true", dest="writeSelections",
-                         default=False, help="Write selection files for created,deleted and changed elements")
-    optParser.add_option("-s", "--write-shapes", action="store_true", dest="writeShapes",
-                         default=False, help="Write shape files for created,deleted and changed elements")
+    optParser.add_option("-l", "--write-selections", action="store_true", default=False,
+                         help="Write selection files for created, deleted and changed elements")
+    optParser.add_option("-s", "--write-shapes", action="store_true", default=False,
+                         help="Write shape files for created, deleted and changed elements")
+    optParser.add_option("-g", "--plain-geo", action="store_true", default=False,
+                         help="Write geo coordinates instead of network coordinates")
     options, args = optParser.parse_known_args()
     if len(args) != 3:
         sys.exit(USAGE)
@@ -525,7 +528,7 @@ def parse_args():
         optParser.error(
             "Options --use-prefix and --direct are mutually exclusive")
 
-    if options.writeShapes:
+    if options.write_shapes:
         if options.direct:
             optParser.error(
                 "Options --write-shapes and --direct are mutually exclusive")
@@ -537,12 +540,13 @@ def parse_args():
     return options
 
 
-def create_plain(netfile, netconvert):
+def create_plain(netfile, netconvert, plain_geo):
     prefix = netfile[:-8]
     call([netconvert,
           "--sumo-net-file", netfile,
           "--plain-output-prefix", prefix,
-          "--roundabouts.guess", "false"])
+          "--roundabouts.guess", "false"]
+         + (["--proj.plain-geo"] if plain_geo else []))
     return prefix
 
 
@@ -568,14 +572,12 @@ def xmldiff(source, dest, diff, type, copy_tags, patchImport,
             root, schema, version = handle_children(dest, attributeStore.compare)
 
     if not have_source and not have_dest:
-        print("Skipping %s due to lack of input files" % diff)
+        print("Skipping %s due to lack of input files." % diff)
     else:
         if not have_source:
-            print(
-                "Source file %s is missing. Assuming all elements are created" % source)
+            print("Source file %s is missing. Assuming all elements are created." % source)
         elif not have_dest:
-            print(
-                "Dest file %s is missing. Assuming all elements are deleted" % dest)
+            print("Dest file %s is missing. Assuming all elements are deleted." % dest)
 
         with codecs.open(diff, 'w', 'utf-8') as diff_file:
             sumolib.xml.writeHeader(diff_file, root=root, schemaPath=schema, rootAttrs=version)
@@ -655,11 +657,11 @@ def main():
 
     selectionOutputFiles = []
     shapeOutputFiles = []
-    if options.writeSelections:
+    if options.write_selections:
         selectionOutputFiles.append(codecs.open('created.sel.txt', 'w', 'utf-8'))
         selectionOutputFiles.append(codecs.open('deleted.sel.txt', 'w', 'utf-8'))
         selectionOutputFiles.append(codecs.open('changed.sel.txt', 'w', 'utf-8'))
-    if options.writeShapes:
+    if options.write_shapes:
         shapeOutputFiles.append(codecs.open('created.shape.xml', 'w', 'utf-8'))
         shapeOutputFiles.append(codecs.open('deleted.shape.xml', 'w', 'utf-8'))
         shapeOutputFiles.append(codecs.open('changed.shape.xml', 'w', 'utf-8'))
@@ -673,7 +675,7 @@ def main():
                 options.outprefix + type,
                 type,
                 copy_tags,
-                options.patchImport,
+                options.patch_on_import,
                 selectionOutputFiles,
                 shapeOutputFiles)
     else:
@@ -681,10 +683,11 @@ def main():
         destNet = None
         if not options.use_prefix:
             netconvert = sumolib.checkBinary("netconvert", options.path)
-            sourceNet = sumolib.net.readNet(options.source)
-            destNet = sumolib.net.readNet(options.dest)
-            options.source = create_plain(options.source, netconvert)
-            options.dest = create_plain(options.dest, netconvert)
+            if shapeOutputFiles:
+                sourceNet = sumolib.net.readNet(options.source)
+                destNet = sumolib.net.readNet(options.dest)
+            options.source = create_plain(options.source, netconvert, options.plain_geo)
+            options.dest = create_plain(options.dest, netconvert, options.plain_geo)
 
         for type in PLAIN_TYPES:
             xmldiff(options.source + type,
@@ -692,7 +695,7 @@ def main():
                     options.outprefix + type,
                     type,
                     copy_tags,
-                    options.patchImport,
+                    options.patch_on_import,
                     selectionOutputFiles,
                     shapeOutputFiles,
                     sourceNet, destNet)

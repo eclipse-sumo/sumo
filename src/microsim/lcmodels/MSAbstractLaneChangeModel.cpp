@@ -43,6 +43,7 @@
 #include <microsim/MSStop.h>
 #include <microsim/MSDriverState.h>
 #include <microsim/MSGlobals.h>
+#include <microsim/devices/MSDevice_Bluelight.h>
 #include "MSLCM_DK2008.h"
 #include "MSLCM_LC2013.h"
 #include "MSLCM_SL2015.h"
@@ -130,6 +131,7 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneCha
                          // prevent lateral sliding for cars but permit for two-wheelers due to better maneuverability
                          (v.getVClass() & (SVC_BICYCLE | SVC_MOTORCYCLE | SVC_MOPED)) != 0 ? std::numeric_limits<double>::max() : 1.6)),
     mySigma(v.getVehicleType().getParameter().getLCParam(SUMO_ATTR_LCA_SIGMA, 0.0)),
+    myHaveBlueLight(v.getDevice(typeid(MSDevice_Bluelight)) != nullptr), // see MSVehicle::initDevices
     myLastLaneChangeOffset(0),
     myAmOpposite(false),
     myManeuverDist(0.),

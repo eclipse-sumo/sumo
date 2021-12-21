@@ -85,19 +85,19 @@ public:
         REPARENT =                  1 << 6,     // Element can be reparent
         NOTSELECTABLE =             1 << 7,     // Element cannot be selected
         MASKSTARTENDPOS =           1 << 8,     // Element mask attributes StartPos and EndPos as "length" (Only used in the appropiate GNEFrame)
-        MASKXYZPOSITION =           1 << 9,     // Element mask attributes X, Y and Z as "Position"
-        WRITECHILDRENSEPARATE =     1 << 10,    // Element writes their children in a separated filename
-        NOPARAMETERS =              1 << 11,    // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
-        RTREE =                     1 << 12,    // Element is placed in RTREE
-        CENTERAFTERCREATION =       1 << 13,    // Camera is moved after element creation
-        EMBEDDED_ROUTE =            1 << 14,    // Element has an embedded route
+        WRITECHILDRENSEPARATE =     1 << 9,     // Element writes their children in a separated filename
+        NOPARAMETERS =              1 << 10,    // Element doesn't accept parameters "key1=value1|key2=value2|...|keyN=valueN" (by default all tags supports parameters)
+        RTREE =                     1 << 11,    // Element is placed in RTREE
+        CENTERAFTERCREATION =       1 << 12,    // Camera is moved after element creation
+        EMBEDDED_ROUTE =            1 << 13,    // Element has an embedded route
+        REQUIERE_PROJ  =            1 << 14,    // Element requiere a geo-projection defined in network
     };
 
     /// @brief default constructor
     GNETagProperties();
 
     /// @brief parameter constructor
-    GNETagProperties(const SumoXMLTag tag, int tagType, int tagProperty, GUIIcon icon, const SumoXMLTag XMLTag,
+    GNETagProperties(const SumoXMLTag tag, const int tagType, const int tagProperty, const GUIIcon icon, const SumoXMLTag XMLTag,
                      const std::vector<SumoXMLTag> parentTags = {}, const unsigned int backgroundColor = FXRGBA(255, 255, 255, 255));
 
     /// @brief destructor
@@ -120,6 +120,12 @@ public:
 
     /// @brief add deprecated Attribute
     void addDeprecatedAttribute(SumoXMLAttr attr);
+
+    /// @brief get field string (by default tag in string format)
+    const std::string &getFieldString() const;
+
+    /// @brief set field that will be drawn in TextFields/ComboBox/etc,
+    void setFieldString(const std::string &fieldString);
 
     /// @brief get background color
     unsigned int getBackGroundColor() const;
@@ -235,8 +241,8 @@ public:
     /// @brief return true if tag correspond to a internal lane
     bool isInternalLane() const;
 
-    /// @brief return true if tag correspond to a non drawable element
-    bool isNotDrawable() const;
+    /// @brief return true if tag correspond to a drawable element
+    bool isDrawable() const;
 
     /// @brief return true if tag correspond to a selectable element
     bool isSelectable() const;
@@ -268,14 +274,14 @@ public:
     /// @brief return true if tag correspond to an element that can mask the attributes "start" and "end" position as attribute "length"
     bool canMaskStartEndPos() const;
 
-    /// @brief return true if tag correspond to an element that can mask the attributes "X", "Y" and "Z" position as attribute "Position"
-    bool canMaskXYZPositions() const;
-
     /// @brief return true if tag correspond to an element that center camera after creation
     bool canCenterCameraAfterCreation() const;
 
     /// @brief return true if tag correspond to an element that owns a embebbed route
     bool embebbedRoute() const;
+
+    /// @brief return true if tag correspond to an element that requires a geo projection
+    bool requireProj() const;
 
     /// @brief return true if attribute of this tag is deprecated
     bool isAttributeDeprecated(SumoXMLAttr attr) const;
@@ -307,6 +313,9 @@ private:
 
     /// @brief List with the deprecated Attributes
     std::vector<SumoXMLAttr> myDeprecatedAttributes;
+
+    /// @brief field string
+    std::string myFieldString;
 
     /// @brief background color (used in labels and textFields, by default white)
     unsigned int myBackgroundColor;

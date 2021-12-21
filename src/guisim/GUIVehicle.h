@@ -148,7 +148,7 @@ public:
 
     /// @brief return vehicle lane id
     std::string getLaneID() const;
-    std::string getBackLaneID() const;
+    std::string getBackLaneIDs() const;
     std::string getShadowLaneID() const;
     std::string getTargetLaneID() const;
 

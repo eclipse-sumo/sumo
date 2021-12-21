@@ -517,6 +517,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     edgeParam("EDGE_KEY"),
     laneParam("LANE_KEY"),
     vehicleParam("PARAM_NUMERICAL"),
+    vehicleScaleParam("PARAM_NUMERICAL"),
     vehicleTextParam("PARAM_TEXT"),
     edgeData("speed"),
     edgeValueHideCheck(false),
@@ -1332,6 +1333,67 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
         edgeScaler.addScheme(edgeScheme);
     }
 
+    /// add vehicle scaling schemes
+    {
+        vehicleScaler.addScheme(GUIScaleScheme("uniform", 1, "", true));
+        GUIScaleScheme scheme = GUIScaleScheme(SCHEME_NAME_SELECTION, 1, "unselected", true, 0, COL_SCHEME_MISC);
+        scheme.addColor(5, 1, "selected");
+        vehicleScaler.addScheme(scheme);
+        scheme = GUIScaleScheme("by speed", 1, "", false, 1, COL_SCHEME_DYNAMIC);
+        scheme.addColor(5, (double)(150 / 3.6));
+        scheme.setAllowsNegativeValues(true); // negative speed indicates stopped
+        scheme.addColor(1, -1); // stopped on road
+        scheme.addColor(0.5, -2); // stopped off-road (parking)
+        vehicleScaler.addScheme(scheme);
+        scheme = GUIScaleScheme("by waiting time", 1, "", false, 1, COL_SCHEME_DYNAMIC);
+        scheme.addColor(1, (double)30);
+        scheme.addColor(2, (double)100);
+        scheme.addColor(4, (double)200);
+        scheme.addColor(10, (double)300);
+        vehicleScaler.addScheme(scheme);
+        scheme = GUIScaleScheme("by accumulated waiting time", 1, "", false, 1, COL_SCHEME_DYNAMIC);
+        scheme.addColor(5, (double)100);
+        vehicleScaler.addScheme(scheme);
+        scheme = GUIScaleScheme("by max speed", 1);
+        scheme.addColor(1, (double)(30 / 3.6));
+        scheme.addColor(1, (double)(55 / 3.6));
+        scheme.addColor(1, (double)(80 / 3.6));
+        scheme.addColor(1, (double)(120 / 3.6));
+        scheme.addColor(1, (double)(150 / 3.6));
+        vehicleScaler.addScheme(scheme);
+        scheme = GUIScaleScheme("by reroute number", 1, "", false, 0, COL_SCHEME_DYNAMIC);
+        scheme.addColor(1, (double)1.);
+        scheme.addColor(5, (double)10.);
+        vehicleScaler.addScheme(scheme);
+        scheme = GUIScaleScheme("by time loss", 1, "", false, 0, COL_SCHEME_DYNAMIC);
+        scheme.addColor(1, (double)10);
+        scheme.addColor(2, (double)60);
+        scheme.addColor(3, (double)180);
+        scheme.addColor(10, (double)900);
+        vehicleScaler.addScheme(scheme);
+        scheme = GUIScaleScheme("by stop delay", 0.1, "", false, -1, COL_SCHEME_DYNAMIC);
+        scheme.addColor(1, (double)0);
+        scheme.addColor(2, (double)10);
+        scheme.addColor(3, (double)60);
+        scheme.addColor(4, (double)120);
+        scheme.addColor(5, (double)300);
+        scheme.addColor(10, (double)900);
+        scheme.setAllowsNegativeValues(true);
+        vehicleScaler.addScheme(scheme);
+        scheme = GUIScaleScheme("by stop arrival delay", 0.1, "", false, INVALID_DOUBLE, COL_SCHEME_DYNAMIC);
+        scheme.addColor(0.5, (double) -10);
+        scheme.addColor(1, (double)0);
+        scheme.addColor(2, (double)10);
+        scheme.addColor(3, (double)60);
+        scheme.addColor(4, (double)120);
+        scheme.addColor(5, (double)300);
+        scheme.addColor(10, (double)900);
+        scheme.setAllowsNegativeValues(true);
+        vehicleScaler.addScheme(scheme);
+        scheme = GUIScaleScheme(SCHEME_NAME_PARAM_NUMERICAL, 1);
+        scheme.setAllowsNegativeValues(true);
+        vehicleScaler.addScheme(scheme);
+    }
 }
 
 
@@ -1510,6 +1572,7 @@ GUIVisualizationSettings::initNeteditDefaults() {
     vehicleColorer.addScheme(GUIColorScheme("uniform", RGBColor::YELLOW, "", true));
     personColorer.addScheme(GUIColorScheme("uniform", RGBColor::YELLOW, "", true));
     containerColorer.addScheme(GUIColorScheme("uniform", RGBColor::YELLOW, "", true));
+    vehicleScaler.addScheme(GUIScaleScheme("uniform", 1, "", true));
 }
 
 
@@ -1585,6 +1648,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("edgeParam", edgeParam);
     dev.writeAttr("laneParam", laneParam);
     dev.writeAttr("vehicleParam", vehicleParam);
+    dev.writeAttr("vehicleScaleParam", vehicleScaleParam);
     dev.writeAttr("vehicleTextParam", vehicleTextParam);
     dev.writeAttr("edgeData", edgeData);
     dev.writeAttr("edgeValueHideCheck", edgeValueHideCheck);
@@ -1612,6 +1676,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     // vehicles
     dev.openTag(SUMO_TAG_VIEWSETTINGS_VEHICLES);
     dev.writeAttr("vehicleMode", vehicleColorer.getActive());
+    dev.writeAttr("vehicleScaleMode", vehicleScaler.getActive());
     dev.writeAttr("vehicleQuality", vehicleQuality);
     vehicleSize.print(dev, "vehicle");
     dev.writeAttr("showBlinker", showBlinker);
@@ -1631,6 +1696,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev << "                 ";
     vehicleText.print(dev, "vehicleText");
     vehicleColorer.save(dev);
+    vehicleScaler.save(dev);
     dev.closeTag();
     // persons
     dev.openTag(SUMO_TAG_VIEWSETTINGS_PERSONS);
@@ -1868,6 +1934,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     if (vehicleParam != v2.vehicleParam) {
         return false;
     }
+    if (vehicleScaleParam != v2.vehicleScaleParam) {
+        return false;
+    }
     if (vehicleTextParam != v2.vehicleTextParam) {
         return false;
     }
@@ -1881,6 +1950,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (!(vehicleColorer == v2.vehicleColorer)) {
+        return false;
+    }
+    if (!(vehicleScaler == v2.vehicleScaler)) {
         return false;
     }
     if (vehicleQuality != v2.vehicleQuality) {

@@ -24,6 +24,7 @@
 #include <netedit/dialogs/GNEDialogACChooser.h>
 #include <netedit/elements/additional/GNEAdditional.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
+#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/data/GNEEdgeDataFrame.h>

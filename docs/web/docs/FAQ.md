@@ -798,6 +798,10 @@ registered
   being seen. To avoid this, you may [increase the *Delay*-value](sumo-gui.md#usage_description) to slow down
   the simulation.
 - [You might have outdated graphic card drivers](sumo-gui.md#windows_and_buttons_appear_but_no_netcars_are_visible_vehicles_are_not_visible_or_flicker_roads_are_drawn_on_top_of_vehicles)
+- You did not [define any vehicles](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md)
+- All your vehicles are set to depart before the simulation **--begin** time
+- Your vehicles are set to depart much later than the simulation **--begin** time
+
 
 ### Different departure times with different time step size
 

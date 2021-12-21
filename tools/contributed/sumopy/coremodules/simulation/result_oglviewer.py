@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,8 +14,13 @@
 
 # @file    result_oglviewer.py
 # @author  Joerg Schweizer
-# @date
+# @date   2012
 
+from coremodules.network.network_editor import NetSelectTool, EdgeDrawings, NodeDrawings
+from agilepy.lib_wx.ogleditor import *
+import numpy as np
+from collections import OrderedDict
+from coremodules.landuse.wxgui import FacilityDrawings
 import os
 import sys
 import wx
@@ -28,12 +33,6 @@ if __name__ == '__main__':
     SUMOPYDIR = os.path.join(APPDIR, '..', '..')
     sys.path.append(os.path.join(SUMOPYDIR))
 
-import numpy as np
-
-from agilepy.lib_wx.ogleditor import *
-from coremodules.network.network_editor import NetSelectTool, EdgeDrawings, NodeDrawings
-from coremodules.landuse.wxgui import FacilityDrawings
-from collections import OrderedDict
 
 COLORMAP_JET = np.array([
     (0.0, 0.0, 0.5, 1.0),
@@ -631,7 +630,7 @@ class ResultviewerTools(ToolsPanel):
     Here tools are added which 
     """
 
-    def __init__(self, parent):
+    def __init__(self, parent, n_buttoncolumns=2, size_title=150):
         ToolsPanel.__init__(self, parent, n_buttoncolumns=2, size_title=150)
         # add and set initial tool
 
@@ -797,7 +796,7 @@ class Resultviewer(OGleditor):
                  is_menu=False,  # create menu items
                  Debug=0,
                  ):
-
+        print 'Resultviewer.__init__ parent', parent
         self._drawing = None
         self.prefix_anim = 'anim_'
         self.layer_anim = 1000.0
@@ -813,16 +812,29 @@ class Resultviewer(OGleditor):
         self._canvas = navcanvas.get_canvas()
 
         # compose tool pallet here
-        self._toolspanel = ResultviewerTools(self)
+        self._toolspanel = ResultviewerTools(self, n_buttoncolumns=2, size_title=250)
 
         # compose editor window
-        sizer.Add(self._toolspanel, 0, wx.ALL | wx.ALIGN_LEFT | wx.GROW, 4)  # from NaviPanelTest
-        # sizer.Add(self._canvas,1,wx.GROW)# from NaviPanelTest
-        sizer.Add(navcanvas, 1, wx.GROW)
+
+        # works but toolpanel changes size!!!
+        # sizer.Add(self._toolspanel,0, wx.ALL | wx.ALIGN_LEFT | wx.GROW, 4)# from NaviPanelTest
+        # sizer.Add(navcanvas,1,wx.GROW)
+
+        # print 'OGleditor!!!!!!!!!!!!!!!!!!!'
+
+        # 2.8 OK for 3.0 also
+        sizer.Add(self._toolspanel, 0, wx.EXPAND)
+        sizer.Add(navcanvas, 1, wx.EXPAND)
+
+        self.SetAutoLayout(True)
 
         # finish panel setup
         self.SetSizer(sizer)
-        sizer.Fit(self)
+        # sizer.Fit(self)
+        # self.Layout()
+
+        # no use:
+        #wx.EVT_SIZE(self, self.on_size)
 
     def set_resultsdrawings(self, results):
         for ident_drawob, DrawobjClass, attrname, layer in RESULTDRAWINGS:

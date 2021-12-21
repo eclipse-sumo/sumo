@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-12-17 09:09:41 by Eclipse SUMO sumo Version v1_11_0+0602-e03e66a
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml,input_routes2.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <tripinfo-output.write-unfinished value="true"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <personinfo id="0" depart="0.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="67.00" vehicle="trip_B" depart="67.00" arrival="194.00" arrivalPos="285.60" duration="127.00" routeLength="1480.62" timeLoss="20.41"/>
+    </personinfo>
+    <personinfo id="1" depart="0.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="324.00" vehicle="trip_B" depart="324.00" arrival="401.00" arrivalPos="285.60" duration="77.00" routeLength="880.67" timeLoss="13.60"/>
+    </personinfo>
+    <tripinfo id="trip_A" depart="0.00" departLane="A0B0_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="462.00" routeLength="696.30" waitingTime="0.00" waitingCount="0" stopTime="400.00" timeLoss="10.13" rerouteNo="1" devices="tripinfo_trip_A routing_trip_A" vType="special" speedFactor="1.00" vaporized="end"/>
+    <tripinfo id="trip_B" depart="0.00" departLane="A2B2_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="462.00" routeLength="3942.57" waitingTime="5.00" waitingCount="2" stopTime="112.00" timeLoss="62.22" rerouteNo="4" devices="tripinfo_trip_B routing_trip_B taxi_trip_B person_trip_B" vType="taxi" speedFactor="1.00" vaporized="">
+        <taxi customers="2" occupiedDistance="2361.29" occupiedTime="208.00"/>
+    </tripinfo>
+</tripinfos>

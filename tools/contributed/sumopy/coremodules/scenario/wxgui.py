@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,7 +14,7 @@
 
 # @file    wxgui.py
 # @author  Joerg Schweizer
-# @date
+# @date   2012
 
 import os
 
@@ -27,13 +27,6 @@ from agilepy.lib_wx.processdialog import ProcessDialog
 
 import scenario
 
-# if 1: #try:
-import networkxtools
-#    IS_NETX = True
-# else:#except:
-#    print 'WARNING: Networkx support not available because no networkx package installed'
-#    IS_NETX = False
-
 
 class WxGui(ModuleGui):
     """Contains functions that communicate between the widgets of the main wx gui
@@ -44,6 +37,9 @@ class WxGui(ModuleGui):
         self._scenario = None
         self._init_common(ident,  priority=1,
                           icondirpath=os.path.join(os.path.dirname(__file__), 'images'))
+
+    def set_module(self, scenario):
+        self._scenario = scenario
 
     def get_module(self):
         return self._scenario
@@ -62,7 +58,8 @@ class WxGui(ModuleGui):
         self.make_menu()
         self.make_toolbar()
         args = mainframe.get_args()
-
+        del self._scenario
+        self._scenario = None
         if len(args) == 3:
             # command line provided rootname and dirpath
             rootname = args[1]
@@ -78,7 +75,7 @@ class WxGui(ModuleGui):
             self._scenario = scenario.load_scenario(filepath, logger=self._mainframe.get_logger())
             #self._scenario = cm.load_obj(filepath)
 
-        else:
+        if self._scenario is None:
             # command line provided nothing
             rootname = 'myscenario'
             # None# this means no directory will be created os.path.join(os.path.expanduser("~"),'sumopy','myscenario')
@@ -94,7 +91,15 @@ class WxGui(ModuleGui):
         and reset widgets. For exampe enable/disable widgets
         dependent on the availability of data. 
         """
+        self.set_frametitle()
+        # if self._scenario != self._mainframe.get_modulegui('coremodules.scenario').get_module():
+        #    del self._scenario
+        #    self._scenario = self._mainframe.get_modulegui('coremodules.scenario').get_module()
+        #    self._mainframe.set_title(self._scenario.get_ident()+"("+self._scenario.get_name()+")")
         self._mainframe.browse_obj(self._scenario)
+
+    def set_frametitle(self):
+        self._mainframe.set_title(self._scenario.rootname+" ("+self._scenario.name_scenario+")")
 
     def make_menu(self):
         # event section
@@ -124,16 +129,6 @@ class WxGui(ModuleGui):
                             info='Create scenario from various sumo xml files.',
                             bitmap=wx.ArtProvider.GetBitmap(wx.ART_NEW, wx.ART_MENU),
                             )
-
-        if networkxtools.IS_NX:
-            menubar.append_item('Scenario/create/create from osmnx...',
-                                self.on_create_from_osmnx,
-                                bitmap=wx.ArtProvider.GetBitmap(wx.ART_NEW, wx.ART_MENU),
-                                )
-            menubar.append_item('Scenario/create/import from osmnx in current...',
-                                self.on_import_osmnx,
-                                bitmap=wx.ArtProvider.GetBitmap(wx.ART_NEW, wx.ART_MENU),
-                                )
 
         menubar.append_item('Scenario/open...',
                             self.on_open,
@@ -220,58 +215,12 @@ class WxGui(ModuleGui):
 
             del self._scenario
             self._scenario = scenariocreator.get_scenario()
+
             self._scenario.import_xml()
             self._mainframe.browse_obj(self._scenario)
             # this should update all widgets for the new scenario!!
             # print 'call self._mainframe.refresh_moduleguis()'
-            self._mainframe.refresh_moduleguis()
 
-    def on_create_from_osmnx(self, event=None):
-        """
-        Import net and buildings from OSMnx generated
-        """
-
-        pass
-
-    def on_import_osmnx(self, event=None):
-        """
-        Import net and buildings from OSMnx
-        """
-
-        # proc = OxScenariocreator(\
-        #                            workdirpath = scenario.DIRPATH_SCENARIO,
-        #                            logger = self._mainframe.get_logger(),
-        #                            )
-
-        proc = networkxtools.OxImporter(self._scenario,
-                                        logger=self._mainframe.get_logger(),
-                                        )
-
-        dlg = ProcessDialog(self._mainframe, proc)
-
-        dlg.CenterOnScreen()
-
-        # this does not return until the dialog is closed.
-        val = dlg.ShowModal()
-        # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
-        # print '  status =',dlg.get_status()
-        if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
-            # print ">>>>>>>>>Unsuccessful\n"
-            dlg.Destroy()
-
-        if dlg.get_status() == 'success':
-            # print ">>>>>>>>>successful\n"
-            # apply current widget values to scenario instance
-            dlg.apply()
-            dlg.Destroy()
-
-            #del self._scenario
-            #self._scenario = scenariocreator.get_scenario()
-
-            # self._scenario.import_xml()
-            self._mainframe.browse_obj(self._scenario)
-            # this should update all widgets for the new scenario!!
-            # print 'call self._mainframe.refresh_moduleguis()'
             self._mainframe.refresh_moduleguis()
 
     def on_create(self, event=None):
@@ -300,6 +249,7 @@ class WxGui(ModuleGui):
             del self._scenario
             self._scenario = scenariocreator.get_scenario()
             self._mainframe.browse_obj(self._scenario)
+
             # this should update all widgets for the new scenario!!
             # print 'call self._mainframe.refresh_moduleguis()'
             self._mainframe.refresh_moduleguis()
@@ -353,7 +303,7 @@ class WxGui(ModuleGui):
         dlg = wx.FileDialog(
             self._mainframe, message="Save scenario to file",
             defaultDir=scenario.get_workdirpath(),
-            defaultFile=scenario.get_rootfilepath()+'.obj',
+            #defaultFile = scenario.get_rootfilepath()+'.obj',
             wildcard=wildcards,
             style=wx.SAVE | wx.CHANGE_DIR
         )

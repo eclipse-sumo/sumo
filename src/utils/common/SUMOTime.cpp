@@ -71,7 +71,7 @@ time2string(SUMOTime t) {
         oss << "-";
     }
     // needed for signed zero errors, see #5926
-    t = abs(t);
+    t = llabs(t);
     const SUMOTime scale = (SUMOTime)pow(10, MAX2(0, 3 - gPrecision));
     if (scale > 1 && t != SUMOTime_MAX) {
         t = (t + scale / 2) / scale;

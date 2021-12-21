@@ -33,6 +33,6 @@ sumoBinary = checkBinary('sumo')
 # run simulation
 retcode = subprocess.call(
     [sumoBinary, "-c", "data/run.sumocfg", "--no-step-log", "-t",
-    "--stop-output", "stopinfos.xml"], stdout=sys.stdout, stderr=sys.stderr)
+     "--stop-output", "stopinfos.xml"], stdout=sys.stdout, stderr=sys.stderr)
 print(">> Simulation closed with status %s" % retcode)
 sys.stdout.flush()

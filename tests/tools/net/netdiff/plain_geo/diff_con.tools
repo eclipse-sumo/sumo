@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2021-12-16 10:32:05.266811 by netdiff.py v1_11_0+0575-9b07db0115e
+  options: -g source.net.xml dest.net.xml diff
+-->
+<connections version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <!-- Deleted Elements -->
+    <delete from="-10860203" fromLane="0" to="-10860201" toLane="1"/>
+    <delete from="10860203" fromLane="0" to="-10860203" toLane="0"/>
+    <!-- Created Elements -->
+    <connection from="-10860203" fromLane="0" to="-10860203.384" toLane="0" />
+    <connection from="-10860203.384" fromLane="0" to="-10860201" toLane="1" />
+    <connection from="10860203" fromLane="0" to="108602030" toLane="0" />
+    <connection from="108602030" fromLane="0" to="-10860203" toLane="0" />
+    <!-- Changed Elements -->
+</connections>

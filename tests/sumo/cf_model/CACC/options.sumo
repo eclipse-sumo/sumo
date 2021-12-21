@@ -1,0 +1,6 @@
+--no-step-log --net-file=net.net.xml 
+--routes=input_routes.rou.xml 
+--fcd-output fcd.xml
+--fcd-output.attributes acceleration
+--carfollow.model CACC
+

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-12-10 14:07:46 by Eclipse SUMO sumo Version v1_11_0+0480-562403d
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <time>
+        <end value="150"/>
+        <step-length value="0.2"/>
+    </time>
+
+    <processing>
+        <lateral-resolution value="0.64"/>
+        <collision.action value="warn"/>
+        <collision.check-junctions value="true"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <bluelight_device>
+        <device.bluelight.reactiondist value="100"/>
+    </bluelight_device>
+
+    <gui_only>
+        <tracker-interval value="0.2"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="case_1_engine" depart="20.00" departLane="edge_5_0" departPos="8.10" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="98.60" arrivalLane="edge_0_1" arrivalPos="488.32" arrivalPosLat="-0.69" arrivalSpeed="19.60" duration="78.60" routeLength="990.47" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="27.92" rerouteNo="0" devices="tripinfo_case_1_engine bluelight_case_1_engine" vType="engine" speedFactor="1.40" vaporized="">
+        <bluelight/>
+    </tripinfo>
+    <tripinfo id="case_1_ladder" depart="24.40" departLane="edge_5_0" departPos="10.10" departPosLat="0.00" departSpeed="0.00" departDelay="4.40" arrival="109.20" arrivalLane="edge_0_1" arrivalPos="488.32" arrivalPosLat="-0.73" arrivalSpeed="19.55" duration="84.80" routeLength="988.47" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="34.30" rerouteNo="0" devices="tripinfo_case_1_ladder bluelight_case_1_ladder" vType="ladder" speedFactor="1.40" vaporized="">
+        <bluelight/>
+    </tripinfo>
+</tripinfos>

@@ -37,24 +37,24 @@
 // GNETAZRelDataFrame::TAZRelLegend - methods
 // ---------------------------------------------------------------------------
 
-GNETAZRelDataFrame::TAZRelLegend::TAZRelLegend(GNETAZRelDataFrame* TAZRelDataFrame) :
-    FXGroupBox(TAZRelDataFrame->myContentFrame, "Legend", GUIDesignGroupBoxFrame),
+GNETAZRelDataFrame::Legend::Legend(GNETAZRelDataFrame* TAZRelDataFrame) :
+    FXGroupBoxModule(TAZRelDataFrame->myContentFrame, "Information"),
     myFromTAZLabel(nullptr),
     myToTAZLabel(nullptr) {
     // create from TAZ label
-    myFromTAZLabel = new FXLabel(this, "From TAZ", 0, GUIDesignLabelLeft);
+    myFromTAZLabel = new FXLabel(getCollapsableFrame(), "From TAZ", 0, GUIDesignLabelLeft);
     myFromTAZLabel->setBackColor(MFXUtils::getFXColor(RGBColor::GREEN));
     // create to TAZ Label
-    myToTAZLabel = new FXLabel(this, "To TAZ", 0, GUIDesignLabelLeft);
+    myToTAZLabel = new FXLabel(getCollapsableFrame(), "To TAZ", 0, GUIDesignLabelLeft);
     myToTAZLabel->setBackColor(MFXUtils::getFXColor(RGBColor::MAGENTA));
 }
 
 
-GNETAZRelDataFrame::TAZRelLegend::~TAZRelLegend() {}
+GNETAZRelDataFrame::Legend::~Legend() {}
 
 
 void
-GNETAZRelDataFrame::TAZRelLegend::setLabels(const GNETAZElement* fromTAZ, const GNETAZElement* toTAZ) {
+GNETAZRelDataFrame::Legend::setLabels(const GNETAZElement* fromTAZ, const GNETAZElement* toTAZ) {
     // from TAZ
     if (fromTAZ) {
         myFromTAZLabel->setText(("From TAZ: " + fromTAZ->getID()).c_str());
@@ -77,9 +77,9 @@ GNETAZRelDataFrame::GNETAZRelDataFrame(FXHorizontalFrame* horizontalFrameParent,
     GNEGenericDataFrame(horizontalFrameParent, viewNet, SUMO_TAG_TAZREL, false),
     myFirstTAZ(nullptr),
     mySecondTAZ(nullptr),
-    myTAZRelLegend(nullptr) {
+    myLegend(nullptr) {
     // create legend
-    myTAZRelLegend = new TAZRelLegend(this);
+    myLegend = new Legend(this);
 }
 
 
@@ -95,12 +95,12 @@ GNETAZRelDataFrame::setTAZ(const GNEViewNetHelper::ObjectsUnderCursor& objectsUn
             return false;
         } else {
             mySecondTAZ = objectsUnderCursor.getTAZElementFront();
-            myTAZRelLegend->setLabels(myFirstTAZ, mySecondTAZ);
+            myLegend->setLabels(myFirstTAZ, mySecondTAZ);
             return true;
         }
     } else if (objectsUnderCursor.getTAZElementFront()) {
         myFirstTAZ = objectsUnderCursor.getTAZElementFront();
-        myTAZRelLegend->setLabels(myFirstTAZ, mySecondTAZ);
+        myLegend->setLabels(myFirstTAZ, mySecondTAZ);
         return true;
     } else {
         return false;
@@ -134,7 +134,7 @@ GNETAZRelDataFrame::buildTAZRelationData() {
             // reset both TAZs
             myFirstTAZ = nullptr;
             mySecondTAZ = nullptr;
-            myTAZRelLegend->setLabels(myFirstTAZ, mySecondTAZ);
+            myLegend->setLabels(myFirstTAZ, mySecondTAZ);
         }
     }
 }
@@ -156,7 +156,7 @@ void
 GNETAZRelDataFrame::clearTAZSelection() {
     myFirstTAZ = nullptr;
     mySecondTAZ = nullptr;
-    myTAZRelLegend->setLabels(myFirstTAZ, mySecondTAZ);
+    myLegend->setLabels(myFirstTAZ, mySecondTAZ);
 }
 
 /****************************************************************************/

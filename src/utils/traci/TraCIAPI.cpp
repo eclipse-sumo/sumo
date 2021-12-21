@@ -1803,7 +1803,7 @@ TraCIAPI::TrafficLightScope::setProgramLogic(const std::string& tlsID, const lib
     content.writeInt(logic.currentPhaseIndex);
     content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
     content.writeInt((int)logic.phases.size());
-    for (const libsumo::TraCIPhase* p : logic.phases) {
+    for (const std::shared_ptr<libsumo::TraCIPhase>& p : logic.phases) {
         content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
         content.writeInt(6);
         content.writeUnsignedByte(libsumo::TYPE_DOUBLE);

@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,7 +14,7 @@
 
 # @file    simulation.py
 # @author  Joerg Schweizer
-# @date
+# @date   2012
 
 
 import numpy as np
@@ -23,6 +23,8 @@ import agilepy.lib_base.arrayman as am
 import agilepy.lib_base.xmlman as xm
 from agilepy.lib_base.misc import random_choice, get_inversemap
 import results
+from simplaconfig import SimplaConfig
+from taxi import TaxiService
 
 
 class Simulation(cm.BaseObjman):
@@ -40,7 +42,7 @@ class Simulation(cm.BaseObjman):
         self._init_constants()
 
     def _init_attributes(self):
-        print 'Simulation._init_attributes'  # ,dir(self)
+        print 'Simulation._init_attributes id', id(self), self.parent.rootname  # ,dir(self)
         attrsman = self.get_attrsman()
 
         # if self.get_version()<0.2:
@@ -51,9 +53,24 @@ class Simulation(cm.BaseObjman):
             is_child=False,
             is_save=False,  # will not be saved
             groups=['results']))
+
         # upgrade
         # self.results.set_save(False)
         # print '  self.results', self.results
+
+        # load taxi services
+        self.taxiservice = attrsman.add(cm.ObjConf(
+            TaxiService(self),
+            is_child=True,
+            groups=['misc']
+        ))
+
+        # platooning simulation tool
+        self.simplaconfig = attrsman.add(cm.ObjConf(
+            SimplaConfig(self),
+            is_child=True,
+            groups=['misc']
+        ))
 
     def _init_constants(self):
         # no! for attrs onlyself.do_not_save_attrs(['results',])# redundant is_save = False

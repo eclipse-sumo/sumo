@@ -68,6 +68,9 @@ for edge in sumolib.xml.parse('myNet.edg.xml', ['edge']):
 avgSpeed = speedSum / edgeCount
 ```
 
+!!! note
+    This is just a processing example. To compute average travel speeds in a network, process [edgeData](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md), [tripinfos](../Simulation/Output/TripInfo.md) or [summary-output](../Simulation/Output/Summary.md) instead.
+
 ## compute the median speed using the [Statistics](http://sumo.dlr.de/pydoc/sumolib.miscutils.html#Statistics) module
 
 ```

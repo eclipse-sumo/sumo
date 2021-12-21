@@ -1014,11 +1014,10 @@ TraCITestClient::testAPI() {
         }
     }
     libsumo::TraCILogic logic("custom", 0, 3);
-    logic.phases = std::vector<libsumo::TraCIPhase*>({ new libsumo::TraCIPhase(5, "rrrrrrr", 5, 5),
-                     new libsumo::TraCIPhase(10, "ggggggg", 5, 15),
-                     new libsumo::TraCIPhase(3, "GGGGGGG", 3, 3),
-                     new libsumo::TraCIPhase(3, "yyyyyyy", 3, 3)
-    });
+    logic.phases.push_back(std::make_shared<libsumo::TraCIPhase>(5, "rrrrrrr", 5, 5));
+    logic.phases.push_back(std::make_shared<libsumo::TraCIPhase>(10, "ggggggg", 5, 15));
+    logic.phases.push_back(std::make_shared<libsumo::TraCIPhase>(3, "GGGGGGG", 3, 3));
+    logic.phases.push_back(std::make_shared<libsumo::TraCIPhase>(3, "yyyyyyy", 3, 3));
     trafficlights.setProgramLogic("n_m4", logic);
 
     std::vector<libsumo::TraCILogic> logics = trafficlights.getAllProgramLogics("n_m4");

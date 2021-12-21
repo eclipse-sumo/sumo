@@ -1,8 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -13,9 +13,9 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    sumopy_gui.py
-# @author  Joerg Schweizer
-# @date
+# @file   sumopy_gui.py
+# @author Joerg Schweizer
+# @date   2012
 
 """SUMOPy is intended to expand the user-base of the traffic micro-simulator SUMO (Simulation of Urban MObility) by providing a user-friendly, yet flexible simulation suite.
 
@@ -24,10 +24,30 @@ This includes different demand generation models as well as a large range of mod
 bicycle and Personal Rapid Transit (PRT). SUMOPy consists of a GUI interface, network editor as well as a simple to use scripting language which facilitates the use of SUMO.
 """
 __appname__ = "SUMOPy"
-__version__ = "2.2"
-__licence__ = """SUMOPy as well as SUMO is licensed under the GPL."""
-__copyright__ = "(c) 2012-2019 University of Bologna - DICAM"
+__version__ = "2.4"
+__licence__ = "SUMOPy is licensed under the EPL-2.0 OR GPL-2.0-or-later."
+__copyright__ = "(c) 2012-2021 University of Bologna - DICAM"
 __author__ = "Joerg Schweizer"
+
+import sys
+import os
+try:
+    import wxversion
+    wxversion.select("2.8")
+except:
+    try:
+        import wxversion
+        wxversion.select("3")
+    except:
+        #sys.exit('ERROR: wxPython versions 2.8 or 3.x not available.')
+        print 'No wxversion module available, try import default wx version'
+        print 'If wx import shall fail, please install wxPython versions 2.8 or 3.x together with the wxversion module.'
+        sys.exit(0)
+
+
+
+from agilepy.lib_wx.mainframe import AgileMainframe
+import wx
 __usage__ = """USAGE:
 from command line:
     Open with empty scenario:
@@ -38,41 +58,50 @@ from command line:
 
     Open binary scenario file:
         python sumopy_gui.py <path/scenarioname.obj>
+    
+    SUMOPy is part of the SUMO distribution and is located in 
+    SUMO_HOME/tools/contributed/sumopy
 
 use for debugging:
     python sumopy_gui.py --debug > debug.txt 2>&1
 """
+print '                   _                         '
+print '       ____________|______|||___________________      '
+print '      /      _     |              / \  _ _ _ _ _ \     '
+print '     /       |   / | \     v     / _ \ _|_|_|_|_ /     '
+print '     \   __o-o__/  |  \  \ | /  / / \ \     ____/      '
+print '      \        / \|o|/ \  \|/  / / o/\ \   |   _|__/_  '
+print '       \      /  \|o|/  \  |  / / /|  \ \  |  | |      '
+print '   | | | | | /   \|0|/   \ v /  \_/ \_/  \_|    |      '
+print '   | | | | |/_____________\_/____________/ ____/       '
+print '                                         |/             '
+print ''
+print __appname__+' version '+__version__+'\n'+__copyright__
 
-print __appname__+' version'+__version__+'\n'+__copyright__
+print '\n  using wx python version', wx.__version__
 
 ###############################################################################
 # IMPORTS
-import os
-import sys
 
-import wxversion
-try:
-    try:
-        wxversion.select("3.0")
-    except:
-        wxversion.select("2.8")
 
-    #
-except:
-    sys.exit('ERROR: wxPython versions 2.8 not available.')
-
-import wx
-
+# Load modules
 moduledirs = ['coremodules', 'plugins']
 APPDIR = ''
 if __name__ == '__main__':
-    if False:  # 'SUMO_HOME' in os.environ:
-        APPDIR = os.path.join(os.environ['SUMO_HOME'], 'tools', 'contributed', 'sumopy')
-    else:
-        try:
-            APPDIR = os.path.dirname(os.path.abspath(__file__))
-        except:
-            APPDIR = os.path.dirname(os.path.abspath(sys.argv[0]))
+    # search SUMOPy in local directory (where this file is located)
+    try:
+        APPDIR = os.path.dirname(os.path.abspath(__file__))
+    except:
+        APPDIR = os.path.dirname(os.path.abspath(sys.argv[0]))
+
+    # if 'SUMO_HOME' in os.environ:
+    #    APPDIR = os.path.join(os.environ['SUMO_HOME'],'tools','contributed','sumopy')
+    #
+    # else:
+    #    try:
+    #        APPDIR = os.path.dirname(os.path.abspath(__file__))
+    #    except:
+    #        APPDIR = os.path.dirname(os.path.abspath(sys.argv[0]))
 
     # print 'APPDIR',APPDIR
     #libpaths = [APPDIR,]
@@ -87,10 +116,8 @@ if __name__ == '__main__':
 
 #
 
-from agilepy.lib_wx.mainframe import AgileMainframe
 
 ###############################################################################
-
 
 class MyApp(wx.App):
 
@@ -126,12 +153,13 @@ class MyApp(wx.App):
         info.SetVersion(__version__)
         info.SetDescription(__doc__)
         info.SetCopyright(__copyright__)
-        info.SetWebSite('https://sumo-sim.org/')
+        info.SetWebSite('http://sumo.dlr.de/wiki/Contributed/SUMOPy')
         # info.SetWebSite('http://distart041.ing.unibo.it/~mait/projects/sim/users_guide/users_guide.html')
         info.SetLicence(__licence__)
         info.AddDeveloper(__author__)
-        info.AddDeveloper("Supported by the SUMO team at the German Aerospace Center (DLR)!")
-        info.AddDocWriter(__author__)
+        info.AddDeveloper(
+            "Cristian Poliziani\nwith the friendly support of the SUMO team at the German Aerospace Center (DLR)")
+        info.AddDocWriter(__author__ + ', Cristian Poliziani')
         info.AddArtist(__author__)
         #info.AddTranslator('Jan Bodnar')
 

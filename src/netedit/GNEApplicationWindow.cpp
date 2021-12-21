@@ -25,6 +25,7 @@
 #include <netedit/elements/GNEGeneralHandler.h>
 #include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/GNEGeneralHandler.h>
+#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netedit/frames/network/GNETAZFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
@@ -1934,11 +1935,11 @@ GNEApplicationWindow::onCmdAbort(FXObject*, FXSelector, void*) {
         // show extra information for tests
         WRITE_DEBUG("Key ESC (abort) pressed");
         // first check if we're selecting a subset of edges in TAZ Frame
-        if (myViewNet->getViewParent()->getTAZFrame()->getTAZSelectionStatisticsModul()->getEdgeAndTAZChildrenSelected().size() > 0) {
+        if (myViewNet->getViewParent()->getTAZFrame()->getTAZSelectionStatisticsModule()->getEdgeAndTAZChildrenSelected().size() > 0) {
             // show extra information for tests
             WRITE_DEBUG("Cleaning current selected edges");
             // clear current selection
-            myViewNet->getViewParent()->getTAZFrame()->getTAZSelectionStatisticsModul()->clearSelectedEdges();
+            myViewNet->getViewParent()->getTAZFrame()->getTAZSelectionStatisticsModule()->clearSelectedEdges();
         } else if (myViewNet->getViewParent()->getInspectorFrame()->shown()) {
             // show extra information for tests
             WRITE_DEBUG("Cleaning inspected elements");

@@ -236,13 +236,16 @@ protected:
     static std::pair<MSVehicle*, double> getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double> leader, double maxLookAhead = std::numeric_limits<double>::max());
 
     /// @brief return the next lane in conts beyond lane or nullptr
-    static MSLane* getLaneAfter(const MSLane* lane, const std::vector<MSLane*>& conts);
+    static const MSLane* getLaneAfter(const MSLane* lane, const std::vector<MSLane*>& conts, bool allowMinor);
 
     /// @brief whether vehicle has an opposite-direction stop within relevant range
     static bool hasOppositeStop(MSVehicle* vehicle);
 
     // @brief compute distance that can safely be driven on the opposite side
     static double computeSurplusGap(const MSVehicle* vehicle, const MSLane* opposite, std::pair<MSVehicle*, double> oncoming, double timeToOvertake, double spaceToOvertake, double& oncomingSpeed);
+
+    // @brief find hilltop within searchDistance
+    static bool foundHilltop(MSVehicle* vehicle, bool foundHill, double searchDist, const std::vector<MSLane*>& bestLanes, int view, double pos, double lastMax, double hilltopThreshold);
 
     /// @brief add LaneQ for opposite lanes
     static std::vector<MSVehicle::LaneQ> getBestLanesOpposite(MSVehicle* vehicle, const MSLane* stopLane, double oppositeLength);

@@ -1,2 +1,8 @@
 # Tests the inductionloop API
 inductionloop
+
+# Tests the inductionloop API
+persons_walk
+
+# persons should be filter due to wrong type
+persons_walk_wrongType

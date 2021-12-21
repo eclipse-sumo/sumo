@@ -47,6 +47,14 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEA
     GNEDemandElement(stopParent, net, GLO_STOP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
         {}, {}, {}, {stoppingPlace}, {}, {}, {stopParent}, {}),
     SUMOVehicleParameter::Stop(stopParameter) {
+    // enable parking for stops in parkingAreas
+    if (tag == SUMO_TAG_STOP_PARKINGAREA) {
+        parking = true;
+        toogleAttribute(SUMO_ATTR_PARKING, parking, -1);
+    } else {
+        // set parking flag
+        parking = ((parametersSet & STOP_PARKING_SET) != 0);
+    }
 }
 
 
@@ -54,6 +62,8 @@ GNEStop::GNEStop(GNENet* net, GNEDemandElement* stopParent, GNELane* lane, const
     GNEDemandElement(stopParent, net, GLO_STOP, SUMO_TAG_STOP_LANE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
         {}, {}, {lane}, {}, {}, {}, {stopParent}, {}),
     SUMOVehicleParameter::Stop(stopParameter) {
+    // set parking flag
+    parking = ((parametersSet & STOP_PARKING_SET) != 0);
 }
 
 
@@ -61,6 +71,8 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, GNEDemandElement* stopParent, GNEE
     GNEDemandElement(stopParent, net, GLO_STOP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
         {}, {edge}, {}, {}, {}, {}, {stopParent}, {}),
     SUMOVehicleParameter::Stop(stopParameter) {
+    // set parking flag
+    parking = ((parametersSet & STOP_PARKING_SET) != 0);
 }
 
 
@@ -125,7 +137,35 @@ GNEStop::getBegin() const {
 
 void
 GNEStop::writeDemandElement(OutputDevice& device) const {
-    write(device);
+    device.openTag(SUMO_TAG_STOP);
+    if (getParentAdditionals().size() > 0) {
+        if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) {
+            device.writeAttr(SUMO_ATTR_BUS_STOP, getParentAdditionals().front()->getID());
+        }
+        if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_CONTAINER_STOP) {
+            device.writeAttr(SUMO_ATTR_CONTAINER_STOP, getParentAdditionals().front()->getID());
+        }
+        if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_CHARGING_STATION) {
+            device.writeAttr(SUMO_ATTR_CHARGING_STATION, getParentAdditionals().front()->getID());
+        }
+        if (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA) {
+            device.writeAttr(SUMO_ATTR_PARKING_AREA, getParentAdditionals().front()->getID());
+        }
+    } else {
+        if (getParentLanes().size() > 0) {
+            device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
+        } else {
+            device.writeAttr(SUMO_ATTR_EDGE, getParentEdges().front()->getID());
+        }
+        if ((parametersSet & STOP_START_SET) != 0) {
+            device.writeAttr(SUMO_ATTR_STARTPOS, startPos);
+        }
+        if ((parametersSet & STOP_END_SET) != 0) {
+            device.writeAttr(SUMO_ATTR_ENDPOS, endPos);
+        }
+    }
+    // write rest of attributes
+    write(device, true, false);
 }
 
 
@@ -462,28 +502,18 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
                 return "";
             }
         case SUMO_ATTR_TRIGGERED:
-            // this is an special case
-            if (isAttributeEnabled(key)) {
-                return "1";
+            if (triggered && containerTriggered) {
+                return "join";
+            } else if (triggered) {
+                return "person";
+            } else if (containerTriggered) {
+                return "container";
             } else {
-                return "0";
-            }
-        case SUMO_ATTR_CONTAINER_TRIGGERED:
-            // this is an special case
-            if (isAttributeEnabled(key)) {
-                return "1";
-            } else {
-                return "0";
+                return "false";
             }
         case SUMO_ATTR_EXPECTED:
             if (isAttributeEnabled(key)) {
                 return toString(awaitedPersons);
-            } else {
-                return "";
-            }
-        case SUMO_ATTR_EXPECTED_CONTAINERS:
-            if (isAttributeEnabled(key)) {
-                return toString(awaitedContainers);
             } else {
                 return "";
             }
@@ -589,9 +619,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_UNTIL:
         case SUMO_ATTR_EXTENSION:
         case SUMO_ATTR_TRIGGERED:
-        case SUMO_ATTR_CONTAINER_TRIGGERED:
         case SUMO_ATTR_EXPECTED:
-        case SUMO_ATTR_EXPECTED_CONTAINERS:
         case SUMO_ATTR_PARKING:
         case SUMO_ATTR_ACTTYPE:
         case SUMO_ATTR_TRIP_ID:
@@ -701,17 +729,25 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_TRIGGERED:
-            return canParse<bool>(value);
-        case SUMO_ATTR_CONTAINER_TRIGGERED:
-            return canParse<bool>(value);
-        case SUMO_ATTR_EXPECTED:
-        case SUMO_ATTR_EXPECTED_CONTAINERS:
             if (value.empty()) {
-                return true;
+                return false;
             } else {
-                std::vector<std::string> IDs = parse<std::vector<std::string>>(value);
-                for (const auto& i : IDs) {
-                    if (SUMOXMLDefinitions::isValidVehicleID(i) == false) {
+                const std::set<std::string> expectedValues = {"true", "false", "person", "container", "join"};
+                const std::vector<std::string> triggeredValues = parse<std::vector<std::string> >(value);
+                for (const auto& triggeredValue : triggeredValues) {
+                    if (expectedValues.find(triggeredValue) == expectedValues.end()) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        case SUMO_ATTR_EXPECTED:
+            if (value.empty()) {
+                return false;
+            } else {
+                const std::vector<std::string> expectedValues = parse<std::vector<std::string> >(value);
+                for (const auto& expectedValue : expectedValues) {
+                    if (!SUMOXMLDefinitions::isValidVehicleID(expectedValue)) {
                         return false;
                     }
                 }
@@ -785,7 +821,6 @@ GNEStop::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
         case SUMO_ATTR_EXTENSION:
         case SUMO_ATTR_EXPECTED:
         case SUMO_ATTR_EXPECTED_CONTAINERS:
-        case SUMO_ATTR_PARKING:
             undoList->add(new GNEChange_EnableAttribute(this, key, true));
             break;
         default:
@@ -802,7 +837,6 @@ GNEStop::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
         case SUMO_ATTR_EXTENSION:
         case SUMO_ATTR_EXPECTED:
         case SUMO_ATTR_EXPECTED_CONTAINERS:
-        case SUMO_ATTR_PARKING:
             undoList->add(new GNEChange_EnableAttribute(this, key, false));
             break;
         default:
@@ -831,7 +865,7 @@ GNEStop::isAttributeEnabled(SumoXMLAttr key) const {
         case SUMO_ATTR_EXPECTED_CONTAINERS:
             return (parametersSet & STOP_CONTAINER_TRIGGER_SET) != 0;
         case SUMO_ATTR_PARKING:
-            return (parametersSet & STOP_PARKING_SET) != 0;
+            return (myTagProperty.getTag() != SUMO_TAG_STOP_PARKINGAREA);
         default:
             return true;
     }
@@ -1154,31 +1188,29 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_TRIGGERED:
-            triggered = parse<bool>(value);
-            toogleAttribute(key, triggered, -1);
-            break;
-        case SUMO_ATTR_CONTAINER_TRIGGERED:
-            containerTriggered = parse<bool>(value);
-            toogleAttribute(key, containerTriggered, -1);
+            if (value == "join") {
+                triggered = true;
+                containerTriggered = true;
+            } else if ((value == "person") || (value == "true")) {
+                triggered = true;
+                containerTriggered = false;
+            } else if (value == "container") {
+                triggered = false;
+                containerTriggered = true;
+            } else {
+                triggered = false;
+                containerTriggered = false;
+            }
+            toogleAttribute(SUMO_ATTR_TRIGGERED, triggered, -1);
+            toogleAttribute(SUMO_ATTR_EXPECTED, (awaitedPersons.size() > 0), -1);
             break;
         case SUMO_ATTR_EXPECTED:
-            if (value.empty()) {
-                toogleAttribute(key, false, -1);
-            } else {
-                toogleAttribute(key, true, -1);
-                awaitedPersons = parse<std::set<std::string> >(value);
-            }
-            break;
-        case SUMO_ATTR_EXPECTED_CONTAINERS:
-            if (value.empty()) {
-                toogleAttribute(key, false, -1);
-            } else {
-                toogleAttribute(key, true, -1);
-                awaitedContainers = parse<std::set<std::string> >(value);
-            }
+            awaitedPersons = parse<std::set<std::string> >(value);
+            toogleAttribute(SUMO_ATTR_EXPECTED, (awaitedPersons.size() > 0), -1);
             break;
         case SUMO_ATTR_PARKING:
             parking = parse<bool>(value);
+            toogleAttribute(key, parking, -1);
             break;
         case SUMO_ATTR_ACTTYPE:
             actType = value;
@@ -1286,23 +1318,9 @@ GNEStop::toogleAttribute(SumoXMLAttr key, const bool value, const int /*previous
             break;
         case SUMO_ATTR_EXPECTED:
             if (value) {
-                parametersSet |= STOP_TRIGGER_SET;
+                parametersSet |= STOP_EXPECTED_SET;
             } else {
-                parametersSet &= ~STOP_TRIGGER_SET;
-            }
-            break;
-        case SUMO_ATTR_CONTAINER_TRIGGERED:
-            if (value) {
-                parametersSet |= STOP_CONTAINER_TRIGGER_SET;
-            } else {
-                parametersSet &= ~STOP_CONTAINER_TRIGGER_SET;
-            }
-            break;
-        case SUMO_ATTR_EXPECTED_CONTAINERS:
-            if (value) {
-                parametersSet |= STOP_CONTAINER_TRIGGER_SET;
-            } else {
-                parametersSet &= ~STOP_CONTAINER_TRIGGER_SET;
+                parametersSet &= ~STOP_EXPECTED_SET;
             }
             break;
         case SUMO_ATTR_PARKING:

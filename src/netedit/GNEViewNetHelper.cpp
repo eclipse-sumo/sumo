@@ -1487,8 +1487,8 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
         ACToSelect.reserve(ACsInBoundaryFiltered.size());
         ACToUnselect.reserve(ACsInBoundaryFiltered.size());
         // in restrict AND replace mode all current selected attribute carriers will be unselected
-        if ((myViewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode() == GNESelectorFrame::ModificationMode::Operation::RESTRICT) ||
-                (myViewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode() == GNESelectorFrame::ModificationMode::Operation::REPLACE)) {
+        if ((myViewNet->myViewParent->getSelectorFrame()->getModificationModeModule()->getModificationMode() == GNESelectorFrame::ModificationMode::Operation::RESTRICT) ||
+                (myViewNet->myViewParent->getSelectorFrame()->getModificationModeModule()->getModificationMode() == GNESelectorFrame::ModificationMode::Operation::REPLACE)) {
             // obtain selected ACs depending of current supermode
             const auto selectedAC = myViewNet->getNet()->getAttributeCarriers()->getSelectedAttributeCarriers(false);
             // add id into ACs to unselect
@@ -1498,7 +1498,7 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
         }
         // iterate over AtributeCarriers obtained of boundary an place it in ACToSelect or ACToUnselect
         for (const auto& AC : ACsInBoundaryFiltered) {
-            switch (myViewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode()) {
+            switch (myViewNet->myViewParent->getSelectorFrame()->getModificationModeModule()->getModificationMode()) {
                 case GNESelectorFrame::ModificationMode::Operation::SUB:
                     ACToUnselect.push_back(AC.second);
                     break;
@@ -1513,7 +1513,7 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
             }
         }
         // select junctions and their connections and crossings if Auto select junctions is enabled (note: only for "add mode")
-        if (myViewNet->autoSelectNodes() && (myViewNet->myViewParent->getSelectorFrame()->getModificationModeModul()->getModificationMode() == GNESelectorFrame::ModificationMode::Operation::ADD)) {
+        if (myViewNet->autoSelectNodes() && (myViewNet->myViewParent->getSelectorFrame()->getModificationModeModule()->getModificationMode() == GNESelectorFrame::ModificationMode::Operation::ADD)) {
             std::vector<GNEEdge*> edgesToSelect;
             // iterate over ACToSelect and extract edges
             for (const auto& AC : ACToSelect) {
@@ -2802,10 +2802,10 @@ GNEViewNetHelper::IntervalBar::updateIntervalBar() {
                 myGenericDataTypesComboBox->appendItem(myAllGenericDatas);
                 myDataSetsComboBox->appendItem(myAllDataSets);
                 // get all generic data types
-                const auto genericDataTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::GENERICDATA, false);
+                const auto genericDataTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::GENERICDATA);
                 // add all generic data types
                 for (const auto& dataTag : genericDataTags) {
-                    myGenericDataTypesComboBox->appendItem(dataTag.second.c_str());
+                    myGenericDataTypesComboBox->appendItem(dataTag.getFieldString().c_str());
                 }
                 myGenericDataTypesComboBox->setNumVisible(myGenericDataTypesComboBox->getNumItems());
                 // add data sets
@@ -2893,12 +2893,12 @@ GNEViewNetHelper::IntervalBar::setGenericDataType() {
         myGenericDataTypesComboBox->setText(myAllGenericDatas);
     } else {
         // get all generic data types
-        const auto genericDataTags = GNEAttributeCarrier::getAllowedTagPropertiesByCategory(GNETagProperties::GENERICDATA, false);
+        const auto genericDataTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::GENERICDATA);
         // set invalid color
         myGenericDataTypesComboBox->setTextColor(FXRGB(255, 0, 0));
         // set valid color depending of myGenericDataTypesComboBox
         for (const auto& genericDataTag : genericDataTags) {
-            if (genericDataTag.second == myGenericDataTypesComboBox->getText().text()) {
+            if (genericDataTag.getFieldString() == myGenericDataTypesComboBox->getText().text()) {
                 myGenericDataTypesComboBox->setTextColor(FXRGB(0, 0, 0));
             }
         }

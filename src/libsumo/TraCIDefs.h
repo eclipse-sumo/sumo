@@ -299,7 +299,7 @@ public:
 
 
 #ifdef SWIG
-%template(TraCIPhaseVector) std::vector<libsumo::TraCIPhase*>; // *NOPAD*
+%template(TraCIPhaseVector) std::vector<std::shared_ptr<libsumo::TraCIPhase> >; // *NOPAD*
 #endif
 
 
@@ -308,14 +308,14 @@ class TraCILogic {
 public:
     TraCILogic() {}
     TraCILogic(const std::string& _programID, const int _type, const int _currentPhaseIndex,
-               const std::vector<libsumo::TraCIPhase*>& _phases = std::vector<libsumo::TraCIPhase*>())
+               const std::vector<std::shared_ptr<libsumo::TraCIPhase> >& _phases = std::vector<std::shared_ptr<libsumo::TraCIPhase> >())
         : programID(_programID), type(_type), currentPhaseIndex(_currentPhaseIndex), phases(_phases) {}
     ~TraCILogic() {}
 
     std::string programID;
     int type;
     int currentPhaseIndex;
-    std::vector<TraCIPhase*> phases;
+    std::vector<std::shared_ptr<libsumo::TraCIPhase> > phases;
     std::map<std::string, std::string> subParameter;
 };
 

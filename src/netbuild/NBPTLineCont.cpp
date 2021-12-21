@@ -610,7 +610,7 @@ NBPTLineCont::fixPermissions() {
                 }
                 if (!ok) {
                     int lane = cons[0].fromLane;
-                    e1->setPermissions(e1->getPermissions(lane) | svc);
+                    e1->setPermissions(e1->getPermissions(lane) | svc, lane);
                 }
             }
         }

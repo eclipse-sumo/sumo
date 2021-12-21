@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,9 +14,10 @@
 
 # @file    misc.py
 # @author  Joerg Schweizer
-# @date
+# @date    2012
 
 
+import platform
 import types
 import numpy as np
 import time
@@ -24,11 +25,25 @@ import time
 # default file path priming
 # this did depend on operating system, now " for all
 P = '"'
-#import platform
 # if platform.system()=='Windows':
-#    P = '"'
-# else:
-#    P=''
+if platform.system() == 'Linux':
+    IS_LINUX = True
+else:
+    IS_LINUX = False
+
+
+def string_to_float(s):
+    """Returns a float from a string while cleaning it"""
+    q = ''
+    is_sample = False
+    for c in s:
+        if c.isdigit():
+            q += c
+        elif c == '.':
+            q += c
+        else:
+            break
+    return float(q)
 
 
 def get_inversemap(m):
@@ -138,3 +153,11 @@ def filepathstring_to_filepathlist(filepathstring, sep=','):
     for filepath in filepathstring.split(sep):
         filepaths.append(P+filepath.strip().replace('"', '')+P)
     return filepaths
+
+
+def dict_to_str(d, intend=0):
+    s = ''
+    for key, value in d.iteritems():
+        s += intend*" "+"%s: %s\n" % (key, value)
+
+    return s

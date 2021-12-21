@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 17 07:57:37 2020 by Eclipse SUMO Version v1_5_0+1182-c674b91ce6
+<!-- generated on 2021-12-08 14:33:26 by Eclipse SUMO sumo Version v1_11_0+0353-0fe5fe321c1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,6 +30,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -43,10 +44,10 @@ SPDX-License-Identifier: EPL-2.0
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <containerinfo id="c1" depart="20.00" type="DEFAULT_CONTAINERTYPE">
-        <transport waitingTime="18.00" vehicle="truck" depart="38.00" arrival="115.00" arrivalPos="503.09" duration="77.00" routeLength="902.47" timeLoss="0.00"/>
+        <transport waitingTime="10.40" vehicle="truck" depart="30.40" arrival="115.00" arrivalPos="503.09" duration="84.60" routeLength="902.47" timeLoss="0.00"/>
     </containerinfo>
     <containerinfo id="c2" depart="20.00" type="DEFAULT_CONTAINERTYPE">
-        <transport waitingTime="55.00" vehicle="truck" depart="75.00" arrival="115.00" arrivalPos="503.09" duration="40.00" routeLength="702.47" timeLoss="0.00"/>
+        <transport waitingTime="47.40" vehicle="truck" depart="67.40" arrival="115.00" arrivalPos="503.09" duration="47.60" routeLength="702.47" timeLoss="0.00"/>
     </containerinfo>
     <tripinfo id="truck" depart="0.00" departLane="" departPos="0.00" departSpeed="2.98" departDelay="0.00" arrival="115.00" arrivalLane="" arrivalPos="503.09" arrivalSpeed="13.90" duration="115.00" routeLength="1003.09" waitingTime="0.00" waitingCount="0" stopTime="60.00" timeLoss="60.00" rerouteNo="0" devices="tripinfo_truck fcd_truck container_truck" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>

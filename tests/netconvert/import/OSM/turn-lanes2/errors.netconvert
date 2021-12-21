@@ -1,0 +1,9 @@
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.residential' (first occurence for edge '23454697').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.secondary' (first occurence for edge '24660415').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.secondary_link' (first occurence for edge '32928686').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurence for edge '208193950').
+Warning: Discarding unusable type 'railway.platform' (first occurence for edge '524679383').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurence for edge '820246656').
+Warning: Cannot apply turn sign information for edge '24660415' because there are 2 signed directions and 3 targets (after target pruning)
+Warning: Cannot apply turn sign information for edge '706159402' because there are 2 signed directions but only 1 targets
+Warning: Cannot apply turn sign information for edge '81234792' because there are 2 signed directions but only 1 targets

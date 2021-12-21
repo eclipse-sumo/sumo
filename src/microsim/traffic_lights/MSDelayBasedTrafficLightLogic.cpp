@@ -43,11 +43,12 @@
 // ===========================================================================
 MSDelayBasedTrafficLightLogic::MSDelayBasedTrafficLightLogic(MSTLLogicControl& tlcontrol,
         const std::string& id, const std::string& programID,
+        const SUMOTime offset,
         const Phases& phases,
         int step, SUMOTime delay,
         const std::map<std::string, std::string>& parameter,
         const std::string& basePath) :
-    MSSimpleTrafficLightLogic(tlcontrol, id, programID, TrafficLightType::DELAYBASED, phases, step, delay, parameter) {
+    MSSimpleTrafficLightLogic(tlcontrol, id, programID, offset, TrafficLightType::DELAYBASED, phases, step, delay, parameter) {
 #ifdef DEBUG_TIMELOSS_CONTROL
     std::cout << "Building delay based tls logic '" << id << "'" << std::endl;
 #endif

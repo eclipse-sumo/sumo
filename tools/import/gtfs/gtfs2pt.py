@@ -112,12 +112,10 @@ def get_options(args=None):
         options.warning_output = options.region + "_missing.xml"
     if options.dua_repair_output is None:
         options.dua_repair_output = options.region + "_repair_errors.txt"
-
-    if not options.osm_routes:
-        if options.map_output is None:
-            options.map_output = os.path.join('output', options.region)
-        if options.network_split is None:
-            options.network_split = os.path.join('resources', options.region)
+    if options.map_output is None:
+        options.map_output = os.path.join('output', options.region)
+    if options.network_split is None:
+        options.network_split = os.path.join('resources', options.region)
 
     return options
 
@@ -366,28 +364,29 @@ def main(options):
             options.bbox = [float(coord) for coord in options.bbox.split(",")]
 
         gtfsZip = zipfile.ZipFile(sumolib.open(options.gtfs, False))
+        routes, trips_on_day, shapes, stops, stop_times = gtfs2osm.import_gtfs(options, gtfsZip)
 
-        (routes, trips_on_day,
-         shapes, stops, stop_times) = gtfs2osm.import_gtfs(options, gtfsZip)
+        if shapes is None:
+            print('Warning: Importing OSM routes currently requires a GTFS file with shapes.')
+            options.osm_routes = None
+        else:
+            (gtfs_data, trip_list,
+             filtered_stops,
+             shapes, shapes_dict) = gtfs2osm.filter_gtfs(options, routes,
+                                                         trips_on_day, shapes,
+                                                         stops, stop_times)
 
-        (gtfs_data, trip_list,
-         filtered_stops,
-         shapes, shapes_dict) = gtfs2osm.filter_gtfs(options, routes,
-                                                     trips_on_day, shapes,
-                                                     stops, stop_times)
+            osm_routes = gtfs2osm.import_osm(options, net)
 
-        osm_routes = gtfs2osm.import_osm(options, net)
+            (mapped_routes, mapped_stops,
+            missing_stops, missing_lines) = gtfs2osm.map_gtfs_osm(options, net, osm_routes,  # noqa
+                                                                gtfs_data, shapes,  # noqa
+                                                                shapes_dict, filtered_stops)  # noqa
 
-        (mapped_routes, mapped_stops,
-         missing_stops, missing_lines) = gtfs2osm.map_gtfs_osm(options, net, osm_routes,  # noqa
-                                                               gtfs_data, shapes,  # noqa
-                                                               shapes_dict, filtered_stops)  # noqa
-
-        gtfs2osm.write_gtfs_osm_outputs(options, mapped_routes, mapped_stops,
-                                        missing_stops, missing_lines,
-                                        gtfs_data, trip_list, shapes_dict, net)
-
-    else:
+            gtfs2osm.write_gtfs_osm_outputs(options, mapped_routes, mapped_stops,
+                                            missing_stops, missing_lines,
+                                            gtfs_data, trip_list, shapes_dict, net)
+    if not options.osm_routes:
         # Import PT from GTFS
         if not options.skip_fcd:
             gtfs2fcd.main(options)

@@ -51,7 +51,7 @@ public:
     // class RouteModeSelector
     // ===========================================================================
 
-    class RouteModeSelector : protected FXGroupBox {
+    class RouteModeSelector : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNERouteFrame::RouteModeSelector)
 
@@ -132,7 +132,7 @@ public:
     bool addEdgeRoute(GNEEdge* clickedEdge, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 
     /// @brief get path creator modul
-    GNEFrameModuls::PathCreator* getPathCreator() const;
+    GNEFrameModules::PathCreator* getPathCreator() const;
 
 protected:
     /// @brief create path
@@ -149,11 +149,11 @@ private:
     RouteModeSelector* myRouteModeSelector;
 
     /// @brief internal route attributes
-    GNEFrameAttributesModuls::AttributesCreator* myRouteAttributes;
+    GNEFrameAttributeModules::AttributesCreator* myRouteAttributes;
 
     /// @brief path creator modul
-    GNEFrameModuls::PathCreator* myPathCreator;
+    GNEFrameModules::PathCreator* myPathCreator;
 
     /// @brief path legend modul
-    GNEFrameModuls::PathLegend* myPathLegend;
+    GNEFrameModules::PathLegend* myPathLegend;
 };

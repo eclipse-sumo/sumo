@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-09-03 14:49:56 by Eclipse SUMO sumo Version v1_10_0+0487-96e8a8620ec
+<!-- generated on 2021-12-08 14:33:23 by Eclipse SUMO sumo Version v1_11_0+0353-0fe5fe321c1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,13 +43,13 @@ SPDX-License-Identifier: EPL-2.0
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <personinfo id="p1.0" depart="0.00" type="DEFAULT_PEDTYPE">
-        <ride waitingTime="24.00" vehicle="v1" depart="24.00" arrival="92.00" arrivalPos="500.00" duration="68.00" routeLength="1900.00" timeLoss="0.00"/>
+        <ride waitingTime="20.40" vehicle="v1" depart="20.40" arrival="92.00" arrivalPos="500.00" duration="71.60" routeLength="1900.00" timeLoss="0.00"/>
     </personinfo>
     <personinfo id="p1.1" depart="5.00" type="DEFAULT_PEDTYPE">
-        <ride waitingTime="19.00" vehicle="v1" depart="24.00" arrival="92.00" arrivalPos="500.00" duration="68.00" routeLength="1900.00" timeLoss="0.00"/>
+        <ride waitingTime="15.40" vehicle="v1" depart="20.40" arrival="92.00" arrivalPos="500.00" duration="71.60" routeLength="1900.00" timeLoss="0.00"/>
     </personinfo>
     <personinfo id="p1.2" depart="10.00" type="DEFAULT_PEDTYPE">
-        <ride waitingTime="14.00" vehicle="v1" depart="24.00" arrival="92.00" arrivalPos="500.00" duration="68.00" routeLength="1900.00" timeLoss="0.00"/>
+        <ride waitingTime="10.40" vehicle="v1" depart="20.40" arrival="92.00" arrivalPos="500.00" duration="71.60" routeLength="1900.00" timeLoss="0.00"/>
     </personinfo>
     <tripinfo id="v1" depart="0.00" departLane="" departPos="0.00" departSpeed="4.24" departDelay="0.00" arrival="92.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="92.00" routeLength="2000.00" waitingTime="0.00" waitingCount="0" stopTime="20.00" timeLoss="20.00" rerouteNo="0" devices="tripinfo_v1 person_v1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>

@@ -174,6 +174,8 @@ private:
     std::string myProjString;
 
 #ifdef PROJ_API_FILE
+    void initProj(const std::string& proj);
+
     /// @brief The proj.4-projection to use
     projPJ myProjection;
 

@@ -477,7 +477,7 @@ GNESingleParametersDialog::ParametersOperations::GNEParameterHandler::myStartEle
 // GNESingleParametersDialog - methods
 // ---------------------------------------------------------------------------
 
-GNESingleParametersDialog::GNESingleParametersDialog(GNEFrameAttributesModuls::ParametersEditorCreator* parametersEditorCreator) :
+GNESingleParametersDialog::GNESingleParametersDialog(GNEFrameAttributeModules::ParametersEditorCreator* parametersEditorCreator) :
     FXDialogBox(parametersEditorCreator->getFrameParent()->getViewNet()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
     myParametersEditorCreator(parametersEditorCreator),
     myParametersEditorInspector(nullptr),

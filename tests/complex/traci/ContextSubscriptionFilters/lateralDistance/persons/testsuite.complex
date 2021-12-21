@@ -1,2 +1,5 @@
+# Should return a warning
+r50_latDist50_ego_person
+
 # Vehicles 'v8', 'v9' and 'v10' should be returned.
 range_50_lateralDist_50

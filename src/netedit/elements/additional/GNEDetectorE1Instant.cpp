@@ -51,6 +51,31 @@ GNEDetectorE1Instant::~GNEDetectorE1Instant() {
 }
 
 
+void
+GNEDetectorE1Instant::writeAdditional(OutputDevice& device) const {
+    device.openTag(getTagProperty().getTag());
+    device.writeAttr(SUMO_ATTR_ID, getID());
+    if (!myAdditionalName.empty()) {
+        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
+    }
+    device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
+    device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane);
+    device.writeAttr(SUMO_ATTR_FREQUENCY, time2string(myFreq));
+    if (myFilename.size() > 0) {
+        device.writeAttr(SUMO_ATTR_FILE, myFilename);
+    }
+    if (myVehicleTypes.size() > 0) {
+        device.writeAttr(SUMO_ATTR_VTYPES, myVehicleTypes);
+    }
+    if (myFriendlyPosition) {
+        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, true);
+    }
+    // write parameters (Always after children to avoid problems with additionals.xsd)
+    writeParams(device);
+    device.closeTag();
+}
+
+
 bool
 GNEDetectorE1Instant::isAdditionalValid() const {
     // with friendly position enabled position are "always fixed"

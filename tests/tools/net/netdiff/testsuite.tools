@@ -43,3 +43,6 @@ write_selections
 
 # diff for a complex network change, write shape files
 write_shapes
+
+# generate plain geo output
+plain_geo

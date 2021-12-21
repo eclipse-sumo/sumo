@@ -53,9 +53,9 @@ FXDEFMAP(GNEGenericDataFrame::AttributeSelector) AttributeSelectorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEGenericDataFrame::DataSetSelector,   FXGroupBox, DataSetSelectorMap,   ARRAYNUMBER(DataSetSelectorMap))
-FXIMPLEMENT(GNEGenericDataFrame::IntervalSelector,  FXGroupBox, IntervalSelectorMap,  ARRAYNUMBER(IntervalSelectorMap))
-FXIMPLEMENT(GNEGenericDataFrame::AttributeSelector, FXGroupBox, AttributeSelectorMap, ARRAYNUMBER(AttributeSelectorMap))
+FXIMPLEMENT(GNEGenericDataFrame::DataSetSelector,   FXGroupBoxModule, DataSetSelectorMap,   ARRAYNUMBER(DataSetSelectorMap))
+FXIMPLEMENT(GNEGenericDataFrame::IntervalSelector,  FXGroupBoxModule, IntervalSelectorMap,  ARRAYNUMBER(IntervalSelectorMap))
+FXIMPLEMENT(GNEGenericDataFrame::AttributeSelector, FXGroupBoxModule, AttributeSelectorMap, ARRAYNUMBER(AttributeSelectorMap))
 
 // ===========================================================================
 // method definitions
@@ -66,21 +66,21 @@ FXIMPLEMENT(GNEGenericDataFrame::AttributeSelector, FXGroupBox, AttributeSelecto
 // ---------------------------------------------------------------------------
 
 GNEGenericDataFrame::DataSetSelector::DataSetSelector(GNEGenericDataFrame* genericDataFrameParent) :
-    FXGroupBox(genericDataFrameParent->myContentFrame, "DataSet", GUIDesignGroupBoxFrame),
+    FXGroupBoxModule(genericDataFrameParent->myContentFrame, "DataSet"),
     myGenericDataFrameParent(genericDataFrameParent) {
     // create check button for new data set
-    myNewDataSetCheckButton = new FXCheckButton(this, "Create new dataSet", this, MID_GNE_SELECT, GUIDesignCheckButton);
+    myNewDataSetCheckButton = new FXCheckButton(getCollapsableFrame(), "Create new dataSet", this, MID_GNE_SELECT, GUIDesignCheckButton);
     // Create FXComboBox
-    myDataSetsComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_DATASET_SELECTED, GUIDesignComboBox);
+    myDataSetsComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_DATASET_SELECTED, GUIDesignComboBox);
     // create new id label
-    myHorizontalFrameNewID = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myHorizontalFrameNewID = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(myHorizontalFrameNewID, "new dataSet ID", nullptr, GUIDesignLabelAttribute);
     // create new id textField
     myNewDataSetIDTextField = new FXTextField(myHorizontalFrameNewID, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // hide horizontal frame
     myHorizontalFrameNewID->hide();
     // create dataSet button
-    myCreateDataSetButton = new FXButton(this, "Create dataSet", GUIIconSubSys::getIcon(GUIIcon::DATASET), this, MID_GNE_CREATE, GUIDesignButton);
+    myCreateDataSetButton = new FXButton(getCollapsableFrame(), "Create dataSet", GUIIconSubSys::getIcon(GUIIcon::DATASET), this, MID_GNE_CREATE, GUIDesignButton);
     myCreateDataSetButton->hide();
     // refresh interval selector
     refreshDataSetSelector(nullptr);
@@ -195,12 +195,12 @@ GNEGenericDataFrame::DataSetSelector::onCmdSelectCheckButton(FXObject*, FXSelect
 // ---------------------------------------------------------------------------
 
 GNEGenericDataFrame::IntervalSelector::IntervalSelector(GNEGenericDataFrame* genericDataFrameParent) :
-    FXGroupBox(genericDataFrameParent->myContentFrame, "Interval", GUIDesignGroupBoxFrame),
+    FXGroupBoxModule(genericDataFrameParent->myContentFrame, "Interval"),
     myGenericDataFrameParent(genericDataFrameParent) {
     // create check button for new interval
-    myNewIntervalCheckButton = new FXCheckButton(this, "Create new interval", this, MID_GNE_SELECT, GUIDesignCheckButton);
+    myNewIntervalCheckButton = new FXCheckButton(getCollapsableFrame(), "Create new interval", this, MID_GNE_SELECT, GUIDesignCheckButton);
     // create begin label
-    myHorizontalFrameBegin = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myHorizontalFrameBegin = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(myHorizontalFrameBegin, toString(SUMO_ATTR_BEGIN).c_str(), nullptr, GUIDesignLabelAttribute);
     // create begin TextField
     myBeginTextField = new FXTextField(myHorizontalFrameBegin, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
@@ -208,7 +208,7 @@ GNEGenericDataFrame::IntervalSelector::IntervalSelector(GNEGenericDataFrame* gen
     // hide horizontal frame begin
     myHorizontalFrameBegin->hide();
     // create end label
-    myHorizontalFrameEnd = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myHorizontalFrameEnd = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(myHorizontalFrameEnd, toString(SUMO_ATTR_END).c_str(), nullptr, GUIDesignLabelAttribute);
     // create end textfield
     myEndTextField = new FXTextField(myHorizontalFrameEnd, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
@@ -216,10 +216,10 @@ GNEGenericDataFrame::IntervalSelector::IntervalSelector(GNEGenericDataFrame* gen
     // hide horizontal frame end
     myHorizontalFrameEnd->hide();
     // create interval button
-    myCreateIntervalButton = new FXButton(this, "create interval", GUIIconSubSys::getIcon(GUIIcon::DATAINTERVAL), this, MID_GNE_CREATE, GUIDesignButton);
+    myCreateIntervalButton = new FXButton(getCollapsableFrame(), "create interval", GUIIconSubSys::getIcon(GUIIcon::DATAINTERVAL), this, MID_GNE_CREATE, GUIDesignButton);
     myCreateIntervalButton->hide();
     // Create three list
-    myIntervalsTreelist = new FXTreeList(this, this, MID_GNE_DATAINTERVAL_SELECTED, GUIDesignTreeListFrame);
+    myIntervalsTreelist = new FXTreeList(getCollapsableFrame(), this, MID_GNE_DATAINTERVAL_SELECTED, GUIDesignTreeListFrame);
     // refresh interval selector
     refreshIntervalSelector();
     // IntervalSelector is always shown
@@ -389,14 +389,14 @@ GNEGenericDataFrame::IntervalSelector::addIntervalItem(GNEDataInterval* dataInte
 // ---------------------------------------------------------------------------
 
 GNEGenericDataFrame::AttributeSelector::AttributeSelector(GNEGenericDataFrame* genericDataFrameParent, SumoXMLTag tag) :
-    FXGroupBox(genericDataFrameParent->myContentFrame, "Data attributes", GUIDesignGroupBoxFrame),
+    FXGroupBoxModule(genericDataFrameParent->myContentFrame, "Data attributes"),
     myGenericDataFrameParent(genericDataFrameParent),
     myMinMaxLabel(nullptr),
     myGenericDataTag(tag) {
     // Create FXComboBox
-    myAttributesComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SELECT, GUIDesignComboBox);
+    myAttributesComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SELECT, GUIDesignComboBox);
     // build rainbow
-    myMinMaxLabel = GNEFrameModuls::buildRainbow(this);
+    myMinMaxLabel = GNEFrameModules::buildRainbow(this);
     // refresh interval selector
     refreshAttributeSelector();
     // AttributeSelector is always shown
@@ -512,7 +512,7 @@ GNEGenericDataFrame::getAttributeSelector() const {
 }
 
 
-GNEFrameModuls::PathCreator*
+GNEFrameModules::PathCreator*
 GNEGenericDataFrame::getPathCreator() const {
     return myPathCreator;
 }
@@ -530,7 +530,7 @@ GNEGenericDataFrame::show() {
     myDataSetSelector->refreshDataSetSelector(nullptr);
     // check if there is an edge path creator
     if (myPathCreator) {
-        myPathCreator->showPathCreatorModul(myGenericDataTag, false, false);
+        myPathCreator->showPathCreatorModule(myGenericDataTag, false, false);
     }
     // show frame
     GNEFrame::show();
@@ -565,10 +565,10 @@ GNEGenericDataFrame::GNEGenericDataFrame(FXHorizontalFrame* horizontalFrameParen
     // create AttributeSelector modul
     myAttributeSelector = new AttributeSelector(this, tag);
     // create parameter editor modul
-    myParametersEditorCreator = new GNEFrameAttributesModuls::ParametersEditorCreator(this);
+    myParametersEditorCreator = new GNEFrameAttributeModules::ParametersEditorCreator(this);
     // create PathCreator modul
     if (pathCreator) {
-        myPathCreator = new GNEFrameModuls::PathCreator(this);
+        myPathCreator = new GNEFrameModules::PathCreator(this);
     }
 }
 

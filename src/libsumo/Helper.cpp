@@ -1020,6 +1020,10 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
 void
 Helper::applySubscriptionFilterLanes(const Subscription& s, std::set<const SUMOTrafficObject*>& vehs, std::vector<int>& filterLanes, double downstreamDist,
                                      double upstreamDist, bool disregardOppositeDirection) {
+    if (!s.isVehicleToVehicleContextSubscription()) {
+        WRITE_WARNINGF("Lanes filter is only feasible for context domain 'vehicle' (current is '%'), ignoring filter...", toHex(s.contextDomain, 2));
+        return;
+    }
     assert(filterLanes.size() > 0);
     MSVehicle* v = dynamic_cast<MSVehicle*>(getVehicle(s.id));
     const MSLane* vehLane = v->getLane();
@@ -1113,6 +1117,10 @@ Helper::applySubscriptionFilterLanes(const Subscription& s, std::set<const SUMOT
 
 void
 Helper::applySubscriptionFilterTurn(const Subscription& s, std::set<const SUMOTrafficObject*>& vehs) {
+    if (!s.isVehicleToVehicleContextSubscription()) {
+        WRITE_WARNINGF("Turn filter is only feasible for context domain 'vehicle' (current is '%'), ignoring filter...", toHex(s.contextDomain, 2));
+        return;
+    }
     // Get upcoming junctions and vialanes within downstream distance, where foe links exist or at least the link direction is not straight
     MSVehicle* v = dynamic_cast<MSVehicle*>(getVehicle(s.id));
     const MSLane* lane = v->getLane();

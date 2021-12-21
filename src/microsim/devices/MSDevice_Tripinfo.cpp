@@ -204,14 +204,11 @@ MSDevice_Tripinfo::notifyMoveInternal(const SUMOTrafficObject& veh,
                                       const double /* meanLengthOnLane */) {
 
     // called by meso
-    const MEVehicle* mesoVeh = dynamic_cast<const MEVehicle*>(&veh);
-    assert(mesoVeh);
     const double vmax = veh.getEdge()->getVehicleMaxSpeed(&veh);
     if (vmax > 0) {
         myMesoTimeLoss += TIME2STEPS(timeOnLane * (vmax - meanSpeedVehicleOnLane) / vmax);
     }
     myWaitingTime += veh.getWaitingTime();
-    myStoppingTime += TIME2STEPS(mesoVeh->getCurrentStoppingTimeSeconds());
 }
 
 void

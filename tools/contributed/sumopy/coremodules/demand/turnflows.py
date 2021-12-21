@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,7 +14,7 @@
 
 # @file    turnflows.py
 # @author  Joerg Schweizer
-# @date
+# @date   2012
 
 import os
 import string
@@ -26,7 +26,8 @@ import agilepy.lib_base.xmlman as xm
 from agilepy.lib_base.geometry import *
 #from coremodules.modules_common import *
 from coremodules.network.network import SumoIdsConf, MODES
-from agilepy.lib_base.processes import Process, P, call  # ,CmlMixin
+from agilepy.lib_base.processes import Process, P, call, CmlMixin
+import demandbase as db
 
 
 class Flows(am.ArrayObjman):
@@ -277,11 +278,19 @@ class Turns(am.ArrayObjman):
         counter[self.ids_toedge[ids_turns]] += self.flows[ids_turns]
 
     def export_xml(self, fd, indent=0):
-        # <fromEdge id="myEdge0">
-        # <toEdge id="myEdge1" probability="0.2"/>
-        # <toEdge id="myEdge2" probability="0.7"/>
-        # <toEdge id="myEdge3" probability="0.1"/>
-        # </fromEdge>
+        # <edgeRelations>
+        # <interval begin="0" end="3600">
+        # <edgeRelation from="myEdge0" to="myEdge1" probability="0.2"/>
+        # <edgeRelation from="myEdge0" to="myEdge2" probability="0.7"/>
+        # <edgeRelation from="myEdge0" to="myEdge3" probability="0.1"/>
+
+        # ... any other edges ...
+
+        # </interval>
+
+        # ... some further intervals ...
+
+        # </edgeRelations>
 
         fromedge_to_turnprobs = {}
         for _id in self.get_ids():
@@ -292,13 +301,17 @@ class Turns(am.ArrayObjman):
 
         ids_sumoeges = self.get_edges().ids_sumo
 
+        fd.write(xm.begin('edgeRelations', indent))
         for id_fromedge in fromedge_to_turnprobs.keys():
-            fd.write(xm.begin('fromEdge'+xm.num('id', ids_sumoeges[id_fromedge]), indent))
+
             for id_toedge, turnprob in fromedge_to_turnprobs[id_fromedge]:
-                fd.write(xm.start('toEdge', indent+2))
-                fd.write(xm.num('id', ids_sumoeges[id_toedge])+xm.num('probability', turnprob))
+                fd.write(xm.start('edgeRelation', indent+2))
+                fd.write(xm.num('from', ids_sumoeges[id_fromedge]))
+                fd.write(xm.num('to', ids_sumoeges[id_toedge]))
+                fd.write(xm.num('probability', turnprob))
                 fd.write(xm.stopit())
-            fd.write(xm.end('fromEdge', indent))
+
+        fd.write(xm.end('edgeRelations', indent))
 
 
 class TurnflowModes(am.ArrayObjman):
@@ -563,7 +576,7 @@ class Turnflows(am.ArrayObjman):
         zones = self.parent.get_scenario().landuse.zones
         ids_sinkedges = set()
         ids_sinkzone = zones.select_ids(zones.ids_landusetype.get_value() == 7)
-        for ids_edge in zones.ids_edges_orig[ids_sinkzone]:
+        for ids_edge in zones.ids_edges_inside[ids_sinkzone]:
             ids_sinkedges.update(ids_edge)
         #sinkedges = zones.ids_edges_orig.get_value().tolist()
         # print 'get_sinkedges',sinkedges
@@ -664,12 +677,18 @@ class Turnflows(am.ArrayObjman):
         entered_vec = counter[ids_edge].copy()
         return ids_edge, entered_vec
 
-    def turnflows_to_routes(self, is_clear_trips=True, is_export_network=True):
+    def turnflows_to_routes(self, is_clear_trips=True, is_export_network=True,
+                            is_make_probabilities=True, cmloptions=None,):
         #  jtrrouter --flow-files=<FLOW_DEFS>
         # --turn-ratio-files=<TURN_DEFINITIONS> --net-file=<SUMO_NET> \
         # --output-file=MySUMORoutes.rou.xml --begin <UINT> --end <UINT>
+
+        if is_make_probabilities:
+            self.normalize_turnprobabilities()
+
         scenario = self.parent.get_scenario()
-        cmloptions = '-v --max-edges-factor 1  --seed 23423 --repair --ignore-vclasses false --ignore-errors --turn-defaults 5,90,5'
+        if cmloptions is None:
+            cmloptions = '-v --max-edges-factor 1  --seed 23423 --repair --ignore-vclasses false --ignore-errors --turn-defaults 5,90,5'
 
         trips = scenario.demand.trips
         if is_clear_trips:
@@ -677,26 +696,28 @@ class Turnflows(am.ArrayObjman):
             trips.clear_trips()
 
         rootfilepath = scenario.get_rootfilepath()
-        netfilepath = rootfilepath+'.net.xml'
+        netfilepath = scenario.net.get_filepath()
         flowfilepath = rootfilepath+'.flow.xml'
         turnfilepath = rootfilepath+'.turn.xml'
 
         routefilepath = trips.get_routefilepath()
 
+        # first generate xml for net
         if is_export_network:
-            # first generate xml for net
             scenario.net.export_netxml()
 
         ids_mode = self.get_modes()
         print 'turnflows_to_routes', ids_mode  # scenario.net.modes.get_ids()
+        print '  cmloptions', cmloptions
 
         # route for all modes and read in routes
         for id_mode in ids_mode:
             # write flow and turns xml file for this mode
             time_start, time_end = self.export_flows_and_turns(flowfilepath, turnfilepath, id_mode)
             print '  time_start, time_end =', time_start, time_end
+
             if time_end > time_start:  # means there exist some flows for this mode
-                cmd = 'jtrrouter --flow-files=%s --turn-ratio-files=%s --net-file=%s --output-file=%s --begin %s --end %s %s'\
+                cmd = 'jtrrouter --route-files=%s --turn-ratio-files=%s --net-file=%s --output-file=%s --begin %s --end %s %s'\
                     % (P+flowfilepath+P,
                        P+turnfilepath+P,
                        P+netfilepath+P,
@@ -717,6 +738,148 @@ class Turnflows(am.ArrayObjman):
         # self.simfiles.set_modified_data('rou',True)
         # self.simfiles.set_modified_data('trip',True)
         # trips and routes are not yet saved!!
+
+
+class TurnflowRouter(db.TripoptionMixin, CmlMixin, Process):
+    def __init__(self, turnflows, logger=None, **kwargs):
+
+        self._init_common('turnflowrouter', name='Turnflow Router',
+                          parent=turnflows,
+                          logger=logger,
+                          info='Generates routes from turnflow database using the JTR router.',
+                          )
+
+        self.init_cml('')  # pass  no commad to generate options only
+
+        attrsman = self.get_attrsman()
+
+        self.add_option('turnratio_defaults', '30,50,20',
+                        groupnames=['options'],
+                        cml='--turn-defaults',
+                        name='Default turn ratios',
+                        info='Default turn definition. Comma separated string means: "percent right, percent straight, percent left".',
+                        )
+
+        self.add_option('max-edges-factor', 2.0,
+                        groupnames=['options'],
+                        cml='--max-edges-factor',
+                        name='Maximum edge factor',
+                        info='Routes are cut off when the route edges to net edges ratio is larger than this factor.',
+                        )
+
+        self.add_option('is_internal_links', False,
+                        groupnames=['options'],
+                        cml='--no-internal-links',
+                        name='Disable internal links',
+                        info='Disable (junction) internal links.',
+                        )
+
+        self.add_option('is_randomize_flows', True,
+                        groupnames=['options'],
+                        cml='--randomize-flows',
+                        name='Randomize flows',
+                        info='generate random departure times for flow input.',
+                        )
+
+        self.add_option('is_ignore_vclasses', False,
+                        groupnames=['options'],
+                        cml='--ignore-vclasses',
+                        name='Ignore mode restrictions',
+                        info='Ignore mode restrictions of network edges.',
+                        )
+
+        self.add_option('is_remove_loops', True,
+                        groupnames=['options'],
+                        cml='--remove-loops',
+                        name='Remove loops',
+                        info='emove loops within the route; Remove turnarounds at start and end of the route.',
+                        )
+
+        self.add_option('is_remove_loops', True,
+                        groupnames=['options'],
+                        cml='--remove-loops',
+                        name='Remove loops',
+                        info='Remove loops within the route; Remove turnarounds at start and end of the route.',
+                        )
+
+        self.add_option('is_weights_interpolate', True,
+                        groupnames=['options'],
+                        cml='--weights.interpolate',
+                        name='Interpolate edge weights',
+                        info='Interpolate edge weights at interval boundaries.',
+                        )
+
+        self.add_option('weights_minor_penalty', 1.5,
+                        groupnames=['options'],
+                        cml='--weights.minor-penalty',
+                        name='Minor link panelty',
+                        info='Apply the given time penalty when computing routing costs for minor-link internal lanes.',
+                        )
+
+        self.add_option('n_routing_threads', 0,
+                        groupnames=['options'],
+                        cml='--routing-threads',
+                        name='Number of parallel threads',
+                        info='ATTENTION: Numbers greater than 0 may cause errors!. The number of parallel execution threads used for routing.',
+                        )
+        self.add_option('seed', 1,
+                        groupnames=['options'],
+                        cml='--seed',
+                        name='Random seed',
+                        info='Initialises the random number generator with the given value.',
+                        )
+
+        self.add_option('is_repair', True,
+                        groupnames=['options'],
+                        cml='--repair',
+                        name='Repair routes',
+                        info='Tries to correct a false route.',
+                        )
+
+        self.add_option('is_ignore_errors', True,
+                        groupnames=['options'],
+                        cml='--ignore-errors',
+                        name='Ignore errors',
+                        info="""Continue routing, even if errors occur. 
+                        This option is recommended to avoid abortion if no sink zones are.""",
+                        )
+
+        self.is_export_network = attrsman.add(am.AttrConf('is_export_network', True,
+                                                          groupnames=['options'],
+                                                          perm='rw',
+                                                          name='Export network',
+                                                          info='Export network before routing.',
+                                                          ))
+
+        self.is_clear_trips = attrsman.add(am.AttrConf('is_clear_trips', True,
+                                                       groupnames=['options'],
+                                                       perm='rw',
+                                                       name='Clear trips',
+                                                       info='Clear all trips in current trips database before routing.',
+                                                       ))
+
+        self.add_posoptions()
+        self.add_laneoptions()
+        self.add_speedoptions()
+        # self.add_option('turnratiofilepath', turnratiofilepath,
+        #                groupnames = ['_private'],#
+        #                cml = '--turn-ratio-files',
+        #                perm='r',
+        #                name = 'Net file',
+        #                wildcards = 'Net XML files (*.net.xml)|*.net.xml',
+        #                metatype = 'filepath',
+        #                info = 'SUMO Net file in XML format.',
+        #                )
+
+    def do(self):
+        print 'do'
+        cml = self.get_cml(is_without_command=True)  # only options, not the command #
+        print '  cml=', cml
+        self.parent.turnflows_to_routes(is_clear_trips=self.is_clear_trips,
+                                        is_export_network=self.is_export_network,
+                                        is_make_probabilities=True,
+                                        cmloptions=cml)
+        return True
 
 
 class TurnflowImporter(Process):
@@ -795,7 +958,8 @@ class TurnflowImporter(Process):
     def do(self):
         # self.update_params()
         if os.path.isfile(self.tffilepath):
-            self.import_pat_csv()
+            ids_sumoedge_notexist, pairs_sumoedge_unconnected = self.import_pat_csv()
+        return (len(ids_sumoedge_notexist) == 0) & (len(pairs_sumoedge_unconnected) == 0)
 
     def import_pat_csv(self, sep=","):
 
@@ -849,7 +1013,5 @@ class TurnflowImporter(Process):
             print 'WARNING: inexistant edge IDs:', ids_sumoedge_notexist
         if len(pairs_sumoedge_unconnected) > 0:
             print 'WARNING: unconnected edge pairs:', pairs_sumoedge_unconnected
-        return ids_sumoedge_notexist, pairs_sumoedge_unconnected
 
-    # def get_net(self):
-    #    return self._net
+        return ids_sumoedge_notexist, pairs_sumoedge_unconnected

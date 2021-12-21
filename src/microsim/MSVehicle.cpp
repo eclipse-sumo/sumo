@@ -1663,7 +1663,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                     fitsOnStoppingPlace = false;
                 }
             }
-            const double targetPos = myState.myPos + myStopDist;
+            const double targetPos = myState.myPos + myStopDist + (stop.pars.speed > 0 ? (stop.pars.startPos - stop.pars.endPos) : 0);
             const double reachedThreshold = (useStoppingPlace ? targetPos - STOPPING_PLACE_OFFSET : stop.getReachedThreshold()) - NUMERICAL_EPS;
 #ifdef DEBUG_STOPS
             if (DEBUG_COND) {
@@ -2357,7 +2357,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                     && (myLaneChangeModel->getShadowLane() == nullptr
                         || myLaneChangeModel->getShadowLane()->getLinkCont().size() == 0
                         || myLaneChangeModel->getShadowLane()->getLinkCont().front()->getLane() != (*link)->getLane()))
-                || (opposite && (*link)->getViaLaneOrLane()->getParallelOpposite() == nullptr)) {
+                || (opposite && (*link)->getViaLaneOrLane()->getParallelOpposite() == nullptr
+                    && !myLaneChangeModel->hasBlueLight())) {
             double va = cfModel.stopSpeed(this, getSpeed(), seen);
             if (lastLink != nullptr) {
                 lastLink->adaptLeaveSpeed(va);
@@ -2504,16 +2505,12 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         }
 #endif
 
-        // TODO: Consider option on the CFModel side to allow red/yellow light violation
-
         if (yellowOrRed && canBrakeBeforeStopLine && !ignoreRed(*link, canBrakeBeforeStopLine) && seen >= mustSeeBeforeReversal) {
             if (lane->isInternal()) {
                 checkLinkLeaderCurrentAndParallel(*link, lane, seen, lastLink, v, vLinkPass, vLinkWait, setRequest);
             }
-            SUMOTime arrivalTime = t + TIME2STEPS(seen / MAX2(v, NUMERICAL_EPS));
-            if (isStopped()) {
-                arrivalTime += MAX2((SUMOTime)0, myStops.front().duration);
-            }
+            // arrivalSpeed / arrivalTime when braking for red light is only relevent for rail signal switching
+            const SUMOTime arrivalTime = getArrivalTime(t, seen, v, vLinkPass);
             // the vehicle is able to brake in front of a yellow/red traffic light
             lfLinks.push_back(DriveProcessItem(*link, v, vLinkWait, false, arrivalTime, vLinkWait, arrivalTime + TIME2STEPS(30), 0, seen));
             //lfLinks.push_back(DriveProcessItem(0, vLinkWait, vLinkWait, false, 0, 0, stopDist));
@@ -2604,18 +2601,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 #endif
         }
 
-        SUMOTime arrivalTime;
-        if (MSGlobals::gSemiImplicitEulerUpdate) {
-            // @note intuitively it would make sense to compare arrivalSpeed with getSpeed() instead of v
-            // however, due to the current position update rule (ticket #860) the vehicle moves with v in this step
-            // subtract DELTA_T because t is the time at the end of this step and the movement is not carried out yet
-            arrivalTime = t - DELTA_T + cfModel.getMinimalArrivalTime(seen, v, arrivalSpeed);
-        } else {
-            arrivalTime = t - DELTA_T + cfModel.getMinimalArrivalTime(seen, myState.mySpeed, arrivalSpeed);
-        }
-        if (isStopped()) {
-            arrivalTime += MAX2((SUMOTime)0, myStops.front().duration);
-        }
+        const SUMOTime arrivalTime = getArrivalTime(t, seen, v, arrivalSpeed);
 
         // compute arrival speed and arrival time if vehicle starts braking now
         // if stopping is possible, arrivalTime can be arbitrarily large. A small value keeps fractional times (impatience) meaningful
@@ -2698,6 +2684,25 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 #ifdef PARALLEL_STOPWATCH
     myLane->getStopWatch()[0].stop();
 #endif
+}
+
+
+SUMOTime
+MSVehicle::getArrivalTime(SUMOTime t, double seen, double v, double arrivalSpeed) const {
+    const MSCFModel& cfModel = getCarFollowModel();
+    SUMOTime arrivalTime;
+    if (MSGlobals::gSemiImplicitEulerUpdate) {
+        // @note intuitively it would make sense to compare arrivalSpeed with getSpeed() instead of v
+        // however, due to the current position update rule (ticket #860) the vehicle moves with v in this step
+        // subtract DELTA_T because t is the time at the end of this step and the movement is not carried out yet
+        arrivalTime = t - DELTA_T + cfModel.getMinimalArrivalTime(seen, v, arrivalSpeed);
+    } else {
+        arrivalTime = t - DELTA_T + cfModel.getMinimalArrivalTime(seen, myState.mySpeed, arrivalSpeed);
+    }
+    if (isStopped()) {
+        arrivalTime += MAX2((SUMOTime)0, myStops.front().duration);
+    }
+    return arrivalTime;
 }
 
 
@@ -4100,9 +4105,31 @@ MSVehicle::executeMove() {
             newOpposite = newOppositeEdge->getLanes()[oldLaneIndex];
         }
         if (newOpposite == nullptr) {
-            WRITE_WARNING("Unexpected end of opposite lane for vehicle '" + getID() + "' at lane '" + myLane->getID() + "', time=" +
-                          time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+            if (!myLaneChangeModel->hasBlueLight()) {
+                // unusual overtaking at junctions is ok for emergency vehicles
+                WRITE_WARNING("Unexpected end of opposite lane for vehicle '" + getID() + "' at lane '" + myLane->getID() + "', time=" +
+                        time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+            }
             myLaneChangeModel->changedToOpposite();
+            if (myState.myPos < getLength()) {
+                // further lanes is always cleared during opposite driving
+                MSLane* oldOpposite = oldLane->getOpposite();
+                if (oldOpposite != nullptr) {
+                    myFurtherLanes.push_back(oldOpposite);
+                    // small value since the lane is going in the other direction
+                    myState.myBackPos = getLength() - myState.myPos;
+                    myAngle = computeAngle();
+                } else {
+#ifdef WIN32
+#pragma warning(push)
+#pragma warning(disable: 4127) // do not warn about constant conditional expression
+#endif
+                    SOFT_ASSERT(false);
+#ifdef WIN32
+#pragma warning(pop)
+#endif
+                }
+            }
         } else {
             myState.myPos = myLane->getOppositePos(myState.myPos);
             myLane = newOpposite;
@@ -4320,6 +4347,8 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane, bool calledByGetPosition) c
         std::cout << SIMTIME
                   << " getBackPositionOnLane veh=" << getID()
                   << " lane=" << Named::getIDSecure(lane)
+                  << " pos=" << myState.myPos
+                  << " backPos=" << myState.myBackPos
                   << " myLane=" << myLane->getID()
                   << " further=" << toString(myFurtherLanes)
                   << " furtherPosLat=" << toString(myFurtherLanesPosLat)
@@ -6226,7 +6255,8 @@ MSVehicle::rerouteParkingArea(const std::string& parkingAreaID, std::string& err
     ConstMSEdgeVector prevEdges(myCurrEdge, myRoute->end());
     const double savings = router.recomputeCosts(prevEdges, this, MSNet::getInstance()->getCurrentTimeStep());
     if (replaceParkingArea(newParkingArea, errorMsg)) {
-        replaceRouteEdges(edges, routeCost, savings, "TraCI:" + toString(SUMO_TAG_PARKING_AREA_REROUTE), false, false, false);
+        const bool onInit = myLane == nullptr;
+        replaceRouteEdges(edges, routeCost, savings, "TraCI:" + toString(SUMO_TAG_PARKING_AREA_REROUTE), onInit, false, false);
     } else {
         WRITE_WARNING("Vehicle '" + getID() + "' could not reroute to new parkingArea '" + newParkingArea->getID()
                       + "' reason=" + errorMsg + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");

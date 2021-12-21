@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,7 +14,7 @@
 
 # @file    networktools.py
 # @author  Joerg Schweizer
-# @date
+# @date   2012
 
 
 import subprocess
@@ -32,6 +32,80 @@ import netconvert
 import routing
 #from agilepy.lib_base.geometry import get_length_polypoints,get_dist_point_to_segs, get_diff_angle_clockwise
 from agilepy.lib_base.geometry import *
+
+
+class ActuatedTlsConfigurator(Process):
+
+    def __init__(self,  net, logger=None, **kwargs):
+        print 'ActuatedTlsConfigurator.__init__'
+        self._init_common('sctuatedtlsconfigurator',
+                          parent=net,
+                          name='Actuated Tls Configurator',
+                          logger=logger,
+                          info='Actuated Tls Configurator allows to configure parameters of actuated traffic lights, in particular the intervals in which traffic ligh phases can be altered.',
+                          )
+
+        attrsman = self.set_attrsman(cm.Attrsman(self))
+
+        self.is_set_actuated = attrsman.add(cm.AttrConf('is_set_actuated', kwargs.get('is_set_actuated', True),
+                                                        groupnames=['options'],
+                                                        perm='rw',
+                                                        name='Set to actuated',
+                                                        info='If True, all eligible traffic lights are set to actuated mode. Otherwise, all traffic lights in actuated mode are set to static mode.',
+                                                        ))
+
+        self.variation_max = attrsman.add(cm.AttrConf('variation_max', kwargs.get('variation_max', 20),
+                                                      groupnames=['options'],
+                                                      perm='rw',
+                                                      name='Max. phase duration variation',
+                                                      unit='%',
+                                                      info='Max. variation of duration phase caused by actuated traffic light.',
+                                                      ))
+
+        self.duration_min = attrsman.add(cm.AttrConf('duration_min', kwargs.get('duration_min', 5),
+                                                     groupnames=['options'],
+                                                     perm='rw',
+                                                     name='Min. phase duration',
+                                                     unit='s',
+                                                     info='Below the minimum phase duration phase time will not change. Use this option to keep short phases, such as all red, constant.',
+                                                     ))
+
+    def do(self):
+
+        nodes = self.parent.nodes
+        tlss = self.parent.tlss  # traffic light systems
+        tlls = tlss.tlls.get_value()  # traffic light logics = programs
+        ids_node = nodes.get_ids()
+        print 'ActuatedTlsConfigurator.do, len(ids_node)', len(ids_node), self.is_set_actuated
+
+        if self.is_set_actuated:
+            type_tls = 2
+        else:
+            type_tls = 1
+
+        for id_node, id_tls, nodetype, in zip(ids_node, nodes.ids_tls[ids_node], nodes.types[ids_node]):
+            # print '  id_node',id_node,'id_tls',id_tls
+            if id_tls != -1:
+                tlstype = nodes.types_tl[id_node]
+                if tlstype != type_tls:  # activated
+                    nodes.types_tl[id_node] = type_tls  # switch tls mode
+
+                # go through logics of traffic light
+                for id_tll in tlss.ids_tlls[id_tls]:
+                    print '    set logic  id_tll', id_tll
+                    tlls.ptypes[id_tll] = type_tls
+
+                    # go through phases of program and adjust min max durations
+                    program = tlls.programs[id_tll]
+                    ids_phase = program.get_ids()
+                    # print '    ids_phase',ids_phase
+                    for id_phase, duration in zip(ids_phase, program.durations[ids_phase]):
+                        # print '      id_phase',id_phase,'duration',duration
+                        if duration > self.duration_min:
+                            program.durations_min[id_phase] = (1.0-0.01*self.variation_max)*float(duration)
+                            program.durations_max[id_phase] = (1.0+0.01*self.variation_max)*float(duration)
+
+        return True
 
 
 class TlsGenerator(netconvert.NetConvertMixin):
@@ -104,8 +178,7 @@ class TlsGenerator(netconvert.NetConvertMixin):
                    edges.ids_tonode[ids_edge],
                    edges.speeds_max[ids_edge],
                    ):
-            print '    is_major_road', id_edge, self.is_major_road(
-                priority, n_lanes, speed_max), id_edge not in ids_edges_major
+            print '    is_major_road', id_edge, self.is_major_road(priority, n_lanes, speed_max), id_edge not in ids_edges_major
             if self.is_major_road(priority, n_lanes, speed_max):
                 if id_edge not in ids_edges_major:
                     #dist = 0
@@ -269,8 +342,7 @@ class TlsGenerator(netconvert.NetConvertMixin):
 
                 # detect incoming edges
                 # ,not is_ped_edge,'not from TLS',edges.ids_fromnode[id_edge] not in ids_nodes_tls
-                print '       is external', edges.ids_fromnode[
-                    id_edge] not in ids_nodes_tls, 'is_cycle_edge', is_cycle_edge, 'is_major', id_edge in edges_major, 'is_noped'
+                print '       is external', edges.ids_fromnode[id_edge] not in ids_nodes_tls, 'is_cycle_edge', is_cycle_edge, 'is_major', id_edge in edges_major, 'is_noped'
                 if edges.ids_fromnode[id_edge] not in ids_nodes_tls:
                     # from node is not part of the TLS
                     # so it comes from external
@@ -439,8 +511,7 @@ class TlsGenerator(netconvert.NetConvertMixin):
                         dists_to < dist_intercheck,
                         (ids_connodes == id_node), (ids_conedges_from != id_edge_from),
                         inds):
-                    print '    id_con:%d d_from %.2f, d_to %.2f' % (
-                        id_con1, df, dt), df < dist_intercheck, dt < dist_intercheck, id_node1 == id_node, id_edge1 != id_edge_from, crit
+                    print '    id_con:%d d_from %.2f, d_to %.2f' % (id_con1, df, dt), df < dist_intercheck, dt < dist_intercheck, id_node1 == id_node, id_edge1 != id_edge_from, crit
                     # print '    vf',vf,'vt',vt,'cent',cent,cent-vt
 
                 dists_fromcon_node[id_con] = np.array(dists_from[inds], dtype=np.int32)
@@ -453,8 +524,7 @@ class TlsGenerator(netconvert.NetConvertMixin):
         if 1:  # debug
             print '  show conflicts:', len(inds_cons_conflict)
             for id_con_tls, inds_con_conflict, id_connode in zip(ids_con_tls, inds_cons_conflict.values(), ids_connodes):
-                print '   id_connode:%d id_con:%d' % (
-                    id_connode, id_con_tls), 'ids_conf', ids_con_tls[inds_con_conflict]
+                print '   id_connode:%d id_con:%d' % (id_connode, id_con_tls), 'ids_conf', ids_con_tls[inds_con_conflict]
 
             # print '  id_node %d, id_con %d confl:'%(id_node,id_con)
             # print '    ids_con_conflict',ids_con_tls[inds_con_conflict]
@@ -561,8 +631,7 @@ class TlsGenerator(netconvert.NetConvertMixin):
                                             weights=costs_bike, fstar=fstar)
 
                 for id_outgoing_tls in ids_outgoing_bike_tls:  # +ids_outgoing_tls+ids_outgoing_major_tls:
-                    print '      bike route from %d to %d' % (
-                        id_incoming_tls, id_outgoing_tls), 'can route?', (id_incoming_tls in D) & (id_outgoing_tls in D)
+                    print '      bike route from %d to %d' % (id_incoming_tls, id_outgoing_tls), 'can route?', (id_incoming_tls in D) & (id_outgoing_tls in D)
                     if (id_incoming_tls in D) & (id_outgoing_tls in D):
 
                         # avoid route with turnaround
@@ -675,8 +744,7 @@ class TlsGenerator(netconvert.NetConvertMixin):
                         inds_con_route |= (lanes.ids_edge[ids_fromlane_tls] == id_edge_from) & (
                             lanes.ids_edge[ids_tolane_tls] == id_edge_to)
 
-                print '    id_node,prio', id_node, prio, id_node in nodes_tls, 'n_cons_route', len(
-                    np.flatnonzero(inds_con_route))
+                print '    id_node,prio', id_node, prio, id_node in nodes_tls, 'n_cons_route', len(np.flatnonzero(inds_con_route))
 
             # make phase  for ids_edges
             if prio != -1:
@@ -730,8 +798,7 @@ class TlsGenerator(netconvert.NetConvertMixin):
                     i_route]
 
                 #inds_cons_conflict_group = inds_cons_conflict.copy()
-                print '    Check group', i_group, 'for ind_tlsroute', ind_tlsroute, 'c=%.1f' % routes_tls_cost[
-                    ind_tlsroute]
+                print '    Check group', i_group, 'for ind_tlsroute', ind_tlsroute, 'c=%.1f' % routes_tls_cost[ind_tlsroute]
 
                 # print '     inds_cons_conflict',inds_cons_conflict
                 # check whether there are other, compatible
@@ -746,8 +813,7 @@ class TlsGenerator(netconvert.NetConvertMixin):
                         # no phase group associated with
                         ind_tlsroute2, inds_con_route2, prio2, inds_cons_conflict_route2, inds_cons_merge_route2 = routeconnectordata[
                             j_route]
-                        print '      check with ind_tlsroute2', ind_tlsroute2, np.any(
-                            inds_cons_conflict_route2 & inds_con_route), np.any(inds_cons_conflict_route & inds_con_route2)
+                        print '      check with ind_tlsroute2', ind_tlsroute2, np.any(inds_cons_conflict_route2 & inds_con_route), np.any(inds_cons_conflict_route & inds_con_route2)
                         # print '        c',inds_con_route
                         # print '        x',inds_cons_conflict_route2
                         if (not np.any(inds_cons_conflict_route2 & inds_alloc_group)) & (not np.any(inds_confict_group & inds_con_route2)):
@@ -804,6 +870,10 @@ class TlsGenerator(netconvert.NetConvertMixin):
         phasepriorities = []
 
         # print '\n  **inds_cons_conflict',inds_cons_conflict
+        if len(phasegroups) == 0:
+            print '  WARNING: a TLS without signal groups. Abandone.'
+            return
+
         for i_group, inds_alloc_groups, inds_confict_groups, inds_merge_groups, prio_group in zip(xrange(max(phasegroups)+1), inds_alloc_groups, inds_confict_groups, inds_merge_groups, prios_group):
             print '    allocate slots for group', i_group
             phaseallocations.append(inds_alloc_groups)
@@ -873,8 +943,7 @@ class TlsGenerator(netconvert.NetConvertMixin):
         if 1:
             # go though all nodes of this TLS
             for id_node, nodeattrs in nodes_tls.iteritems():
-                print '    safecheck id_node', id_node, 'is_crossing', nodeattrs[
-                    'is_crossing'], 'is_cycleped', nodeattrs['is_cycleped']
+                print '    safecheck id_node', id_node, 'is_crossing', nodeattrs['is_crossing'], 'is_cycleped', nodeattrs['is_cycleped']
 
                 #nodeattrs['is_cycleped'] = is_cycleped
                 # nodeattrs['is_crossing'] =
@@ -890,8 +959,7 @@ class TlsGenerator(netconvert.NetConvertMixin):
 
                     for id_edge_from in nodeattrs['ids_cycleped_incoming']:  # nodes.ids_incoming[id_node]:
                         for id_edge_to in nodeattrs['ids_cycleped_outgoing']:
-                            print '      safecheck cycleped from edge %d to edge %d id_edge' % (
-                                id_edge_from, id_edge_to)
+                            print '      safecheck cycleped from edge %d to edge %d id_edge' % (id_edge_from, id_edge_to)
 
                             # connector index vector with all connectors for this edge
 
@@ -983,8 +1051,7 @@ class TlsGenerator(netconvert.NetConvertMixin):
 
                                     inds_noconf = phaseconflicts[i] == 0
                                     inds_noconf_last = phaseconflicts[i-1] == 0
-                                    print '          safecheck phase', i, 'inds_noconf', inds_noconf[
-                                        ind_con], 'inds_noconf_last', inds_noconf_last[ind_con]
+                                    print '          safecheck phase', i, 'inds_noconf', inds_noconf[ind_con], 'inds_noconf_last', inds_noconf_last[ind_con]
 
                                     if inds_noconfmerge[ind_con]:  # no red at ind_con
 
@@ -999,8 +1066,7 @@ class TlsGenerator(netconvert.NetConvertMixin):
 
                                         # ambiguous cons = green cons inds & inds where cons should be red
                                         inds_con_ambiqu = inds_noconf & (inds_con_confcheck > 0) & are_enabeled
-                                        print '            inds_con_ambiqu', ids_con_tls[inds_con_ambiqu], 'resolve ambig', (inds_noconf_last[ind_con]) & np.any(
-                                            inds_con_ambiqu)
+                                        print '            inds_con_ambiqu', ids_con_tls[inds_con_ambiqu], 'resolve ambig', (inds_noconf_last[ind_con]) & np.any(inds_con_ambiqu)
 
                                         # any ambiguous connector found?
                                         if np.any(inds_con_ambiqu):
@@ -1296,8 +1362,7 @@ class TlsGenerator(netconvert.NetConvertMixin):
 
         id_fromlane = ids_fromlane_tls[ind_con_block]
         is_disabled = not are_enabeled[ind_con_block]
-        print 'block_connection id %d id_fromlane %d' % (ids_con_tls[ind_con_block], id_fromlane), 'nocycleped', lanes.ids_mode[ids_fromlane_tls[
-            ind_con_block]] not in self.ids_cycleped, 'slot', slots[ind_con_block], 'L=%dm' % edges.lengths[lanes.ids_edge[id_fromlane]],
+        print 'block_connection id %d id_fromlane %d' % (ids_con_tls[ind_con_block], id_fromlane), 'nocycleped', lanes.ids_mode[ids_fromlane_tls[ind_con_block]] not in self.ids_cycleped, 'slot', slots[ind_con_block], 'L=%dm' % edges.lengths[lanes.ids_edge[id_fromlane]],
 
         if (slots[ind_con_block] > 0) | is_disabled:
             # ind_con_block has already been tuned to red
@@ -1500,8 +1565,7 @@ class TlsGenerator(netconvert.NetConvertMixin):
                 return
 
             for id_edge, length, id_edgenode in zip(ids_edge, edges.lengths[ids_edge], edges.ids_fromnode[ids_edge]):
-                print '    check in id_edge', id_edge, dist + \
-                    length, dist_tls_max, (dist+length < dist_tls_max), (length < self.dist_tls_internode_max)
+                print '    check in id_edge', id_edge, dist+length, dist_tls_max, (dist+length < dist_tls_max), (length < self.dist_tls_internode_max)
                 if (dist+length < dist_tls_max) & (length < self.dist_tls_internode_max):
                     if id_edgenode not in nodes_tls:
                         self.init_tlsnode(id_edgenode, nodes_tls)
@@ -1546,7 +1610,7 @@ class TlsGenerator(netconvert.NetConvertMixin):
         # ids_edges_major.add(id_edge_next)
 
         if len(route) == 0:
-            return []
+            return [], []
 
         if not is_check_angle:
             angle_max = np.inf
@@ -1580,7 +1644,7 @@ class TlsGenerator(netconvert.NetConvertMixin):
                edges.speeds_max[ids_edge],
                ):
 
-                # determine direction vector of start of current edge shape
+            # determine direction vector of start of current edge shape
             p02 = shape_curr[0][:2]
             p12 = shape_curr[1][:2]
             dir2 = p12-p02
@@ -1588,15 +1652,14 @@ class TlsGenerator(netconvert.NetConvertMixin):
             # determine angle change
             angle = get_diff_angle_clockwise(dir1, dir2)
             angle_abs = min(angle, 2*np.pi-angle)
-            print '      id_edge:%d, angle_abs:%.1f, angle_max: %.1f' % (
-                id_edge, angle_abs/np.pi*180, angle_max/np.pi*180), id_fromnode in nodes_tls, (angle_abs < angle_max)
+            print '      id_edge:%d, angle_abs:%.1f, angle_max: %.1f' % (id_edge, angle_abs/np.pi*180, angle_max/np.pi*180), id_fromnode in nodes_tls, (angle_abs < angle_max)
             if id_fromnode in nodes_tls:
-                    # route is still in TLS
+                # route is still in TLS
                 p01 = shape_curr[-2][:2]
                 p11 = shape_curr[-1][:2]
                 dir1 = p11-p01
                 if (angle_abs < angle_max):
-                        # route is straigt enough
+                    # route is straigt enough
                     ind_route += 1
                     # determine direction vector of end of current edge shape
 
@@ -1606,7 +1669,7 @@ class TlsGenerator(netconvert.NetConvertMixin):
                     # route is not straight and will be split.
                     # put old route in list and start a new route
                     if len(newroute) >= n_edges_min:
-                                # route should contain at least n_edges_min edges
+                        # route should contain at least n_edges_min edges
                         newroutes.append(newroute)
                         routecosts.append(self.get_routecost(newroute))
 
@@ -1886,21 +1949,29 @@ class BikenetworkCompleter(Process):
                                                     info='Operate only on edges up to this number of lanes. Note that footpath is also a lane.',
                                                     ))
 
-        self.id_mode_bike = MODES["bicycle"]
-        self.id_mode_ped = MODES["pedestrian"]
-        #self.id_mode_ped = MODES["delivery"]
+        net = self.parent
+        modes = net.modes
+        self.id_mode_bike = modes.get_id_mode("bicycle")
+        self.id_mode_ped = modes.get_id_mode("pedestrian")
+        #self.id_mode_ped = modes.get_id_mode("delivery")
 
-        self.ids_modes_tocomplete = set([MODES["pedestrian"], MODES["delivery"], MODES["bus"]])
+        self.ids_modes_tocomplete = set(
+            [modes.get_id_mode("pedestrian"), modes.get_id_mode("delivery"), modes.get_id_mode("bus")])
 
     def do(self):
         print 'BikenetworkCompleter.do'
         edges = self.parent.edges
         nodes = self.parent.nodes
         lanes = self.parent.lanes
+        modes = self.parent.modes
         connections = self.parent.connections
+        roundabouts = self.parent.roundabouts
         ids_edge = edges.get_ids()
         allow_cycloped = [self.id_mode_bike, self.id_mode_ped]
         ids_edge_update = []
+        nodeset_roundabouts = set([])
+        for ids_node in roundabouts.ids_nodes[roundabouts.get_ids()]:
+            nodeset_roundabouts.update(ids_node)
 
         for id_edge, id_sumo, type_spread, shape, \
             n_lanes, ids_lane, priority, id_fromnode, id_tonode\
@@ -1915,7 +1986,9 @@ class BikenetworkCompleter(Process):
                    edges.ids_tonode[ids_edge],
                    ):
 
-            if (n_lanes <= self.n_lanes_max) & (priority <= self.priority_max):
+            if (n_lanes <= self.n_lanes_max) & (priority <= self.priority_max)\
+                    & (id_fromnode not in nodeset_roundabouts)\
+                    & (id_tonode not in nodeset_roundabouts):
                 # a footpath ha been made accessible for bikes
                 # check if footpath is a on-way
                 ids_incoming = nodes.ids_incoming[id_fromnode]
@@ -1942,7 +2015,7 @@ class BikenetworkCompleter(Process):
                             ids_edge_update.append(id_edge)
 
                             if is_oneway:  # slow: edges.is_oneway(id_edge):
-                                    # print '    add opposite edge with same properties ids_modes_allow',ids_modes_allow
+                                # print '    add opposite edge with same properties ids_modes_allow',ids_modes_allow
                                 edges.types_spread[id_edge] = 0  # right spread
                                 #edges.widths[id_edge] = 0.5*lanewidths
                                 lanes.widths[id_lane] = 0.5*lanewidths
@@ -1966,6 +2039,7 @@ class BikenetworkCompleter(Process):
                                                          width=0.5*lanewidths,
                                                          speed_max=self.speed_max_bike,
                                                          ids_modes_allow=ids_modes_allow)
+# id_mode = modes.get_id_mode("army"))
 
                                 edges.ids_lanes[id_edge_opp] = [id_lane_opp]
                                 ids_edge_update.append(id_edge_opp)
@@ -2000,6 +2074,7 @@ class BikenetworkCompleter(Process):
                                                  width=self.width_bikelane_opp,
                                                  speed_max=self.speed_max_bike_opp,
                                                  ids_modes_allow=allow_cycloped,
+                                                 id_mode=modes.get_id_mode("passenger")
                                                  )
 
                         edges.ids_lanes[id_edge_opp] = [id_lane_opp]
@@ -2043,6 +2118,7 @@ class BikenetworkCompleter(Process):
                                                  width=self.width_bikelane_opp,
                                                  speed_max=self.speed_max_bike_opp,
                                                  ids_modes_allow=allow_cycloped,
+                                                 id_mode=modes.get_id_mode("passenger")
                                                  )
 
                         edges.ids_lanes[id_edge_opp] = [id_lane_opp]

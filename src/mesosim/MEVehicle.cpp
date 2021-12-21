@@ -27,6 +27,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/xml/SUMOSAXAttributes.h>
+#include <microsim/devices/MSDevice_Tripinfo.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
 #include <microsim/output/MSStopOut.h>
 #include <microsim/MSGlobals.h>
@@ -211,12 +212,13 @@ MEVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info,  bool 
 
 SUMOTime
 MEVehicle::checkStop(SUMOTime time) {
+    const SUMOTime initialTime = time;
     bool hadStop = false;
     MSNet* const net = MSNet::getInstance();
     SUMOTime dummy = -1; // boarding- and loading-time are not considered
     for (MSStop& stop : myStops) {
         if (stop.edge != myCurrEdge || stop.segment != mySegment) {
-            return time;
+            break;
         }
         const SUMOTime cur = time;
         if (stop.duration > 0) { // it might be a triggered stop with duration -1
@@ -261,6 +263,10 @@ MEVehicle::checkStop(SUMOTime time) {
             time = MAX2(time, cur + DELTA_T);
         }
         hadStop = true;
+    }
+    MSDevice_Tripinfo* tripinfo = static_cast<MSDevice_Tripinfo*>(getDevice(typeid(MSDevice_Tripinfo)));
+    if (tripinfo != nullptr) {
+        tripinfo->updateStopTime(time - initialTime);
     }
     return time;
 }

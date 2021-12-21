@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-12-03 15:15:24 by Eclipse SUMO sumo Version v1_11_0+0301-2d64fd7
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="v0" depart="0.00" departLane="e_0" departPos="17.10" departSpeed="0.00" departDelay="0.00" arrival="246.00" arrivalLane="e_0" arrivalPos="400.00" arrivalSpeed="3.60" duration="246.00" routeLength="382.90" waitingTime="2.00" waitingCount="2" stopTime="100.00" timeLoss="53.13" rerouteNo="0" devices="vehroute_v0 tripinfo_v0 routing_v0 person_v0" vType="ship" speedFactor="1.00" vaporized=""/>
+    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="0.00" vehicle="v0" depart="0.00" arrival="111.00" arrivalPos="333.49" duration="111.00" routeLength="316.39" timeLoss="33.28"/>
+        <walk depart="111.00" departPos="30.00" arrival="313.00" arrivalPos="50.00" duration="202.00" routeLength="280.00" timeLoss="0.40" maxSpeed="1.39"/>
+    </personinfo>
+</tripinfos>

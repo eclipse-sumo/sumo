@@ -1456,8 +1456,8 @@ MSLink::getOppositeDirectionLink() const {
 
 MSLink*
 MSLink::computeParallelLink(int direction) {
-    const MSLane* const before = getLaneBefore()->getParallelLane(direction);
-    const MSLane* const after = getLane()->getParallelLane(direction);
+    const MSLane* const before = getLaneBefore()->getParallelLane(direction, false);
+    const MSLane* const after = getLane()->getParallelLane(direction, false);
     if (before != nullptr && after != nullptr) {
         for (MSLink* const link : before->getLinkCont()) {
             if (link->getLane() == after) {

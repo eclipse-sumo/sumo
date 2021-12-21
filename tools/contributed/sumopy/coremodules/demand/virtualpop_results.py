@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,7 +14,7 @@
 
 # @file    virtualpop_results.py
 # @author  Joerg Schweizer
-# @date
+# @date   2012
 
 import os
 import sys
@@ -26,6 +26,165 @@ import agilepy.lib_base.classman as cm
 import agilepy.lib_base.arrayman as am
 import agilepy.lib_base.xmlman as xm
 from coremodules.simulation import results as res
+
+
+class IterateStatistics(am.ArrayObjman):
+    def __init__(self, scenario, parent=None,
+                 name='VP Iteration statistics',
+                 info='Table with aggegate simulation statistics for each virtual population simulation step.',
+                 **kwargs):
+
+        self._init_objman(ident='vpiterstats',
+                          parent=parent,  # usually  main results object
+                          info=info,
+                          name=name,
+                          **kwargs)
+
+        self.add_col(am.ArrayConf('times_tot', 0.0,
+                                  dtype=np.float32,
+                                  groupnames=['general'],
+                                  perm='r',
+                                  name='Total triptimes',
+                                  info='Sum of trip times of executed trips. Etimated trip time is used if respective strategy has not been executed during the last simulation.',
+                                  ))
+
+        self.add_col(am.ArrayConf('times_tot_est', 0.0,
+                                  dtype=np.float32,
+                                  groupnames=['general'],
+                                  perm='r',
+                                  name='Total est. triptimes',
+                                  info='Sum of all estimated journey times for the next iteration. Effective travel time is used if the respective strategy has been simulated in a previous iteration.',
+                                  ))
+
+        self.add_col(am.ArrayConf('numbers_changes', 0,
+                                  dtype=np.int32,
+                                  groupnames=['general'],
+                                  perm='r',
+                                  name='Number changes',
+                                  info='Number of strategy changes with respect to the previous simulation run.',
+                                  ))
+
+        virtualpop = scenario.demand.virtualpop
+        strategies = virtualpop.get_strategies()
+        ids_strat = strategies.get_ids()
+        for id_strat, strategy in zip(ids_strat, strategies.strategies[ids_strat]):
+            ident_strat = strategy.get_ident()
+            name_strat = strategy.get_name()
+            self.add_col(am.ArrayConf(self.get_stratcountattr(strategy), 0,
+                                      dtype=np.int32,
+                                      groupnames=['trips'],
+                                      perm='r',
+                                      name='Pers. using '+name_strat,
+                                      info='Total number of persons using the %s mobility strategy.' % name_strat,
+                                      ))
+
+            self.add_col(am.ArrayConf(self.get_strattimeattr(strategy), 0.0,
+                                      dtype=np.float32,
+                                      groupnames=['times'],
+                                      perm='r',
+                                      name='Times with '+name_strat,
+                                      info='Total travel times of all persons using strategy %s.' % name_strat,
+                                      ))
+
+            self.add_col(am.ArrayConf(self.get_stratesttimeattr(strategy), 0.0,
+                                      dtype=np.float32,
+                                      groupnames=['est. times'],
+                                      perm='r',
+                                      name='Est. times with '+name_strat,
+                                      info='Total estimated or effective travel times of all persons using strategy %s.' % name_strat,
+                                      ))
+
+            self.add_col(am.ArrayConf(self.get_stratutilattr(strategy), 0.0,
+                                      dtype=np.float32,
+                                      groupnames=['utilities'],
+                                      perm='r',
+                                      name='Utility with '+name_strat,
+                                      info='Total utility of all persons using strategy %s.' % name_strat,
+                                      ))
+
+            self.add_col(am.ArrayConf(self.get_stratestutilattr(strategy), 0.0,
+                                      dtype=np.float32,
+                                      groupnames=['est. utilities'],
+                                      perm='r',
+                                      name='Est. utility with '+name_strat,
+                                      info='Total estimated utility of all persons using strategy %s.' % name_strat,
+                                      ))
+
+    def import_xml(self, sumo, datapaths):
+        return True
+
+    def get_strattimeattr(self, strategy):
+        return 'times_'+strategy.get_ident()
+
+    def get_stratesttimeattr(self, strategy):
+        return 'esttimes_'+strategy.get_ident()
+
+    def get_stratcountattr(self, strategy):
+        return 'stratcounts_'+strategy.get_ident()
+
+    def get_stratutilattr(self, strategy):
+        return 'utils_'+strategy.get_ident()
+
+    def get_stratestutilattr(self, strategy):
+        return 'estutils_'+strategy.get_ident()
+
+    def add_results(self, scenario, ids_plan_before, ids_plan_after):
+        print 'add_results iteration:', len(self)+1
+        # print '  ids_plan_before',ids_plan_before
+        # print '  ids_plan_after',ids_plan_after
+        # print '  changes',np.sum(ids_plan_before != ids_plan_after)
+        virtualpop = scenario.demand.virtualpop
+        plans = virtualpop.get_plans()
+        strategies = virtualpop.get_strategies()
+        ids_strat = strategies.get_ids()
+
+        ids_strat_before = plans.ids_strategy[ids_plan_before]
+        ids_strat_after = plans.ids_strategy[ids_plan_after]
+
+        # make estinated tiime for current and exec for last
+        times_before = plans.times_exec[ids_plan_before]
+        # in case no times_exec available, replace by estimated
+        inds_times_est = np.logical_not(times_before > 0)
+        times_before[inds_times_est] = plans.times_est[ids_plan_before[inds_times_est]]
+
+        times_after = plans.times_exec[ids_plan_after]
+        # in case no times_exec available, replace by estimated
+        inds_times_est = np.logical_not(times_after > 0)
+        times_after[inds_times_est] = plans.times_est[ids_plan_after[inds_times_est]]
+
+        # get utilities
+
+        #ids_strat_sim, frequ_strat_sim = itemfrequencies(ids_strat_after)
+        id_run = self.add_row()
+# if id_run>1:
+##            self.numbers_changes[id_run] = np.sum(ids_plan_before != ids_plan_after)
+##            self.times_tot[id_run-1] = np.sum(times_before)
+##            self.times_tot_est[id_run] = np.sum(times_after)
+# else:
+##            self.times_tot_est[id_run] = np.sum(times_after)
+        self.numbers_changes[id_run] = np.sum(ids_plan_before != ids_plan_after)
+        self.times_tot[id_run] = np.sum(times_before)
+        self.times_tot_est[id_run] = np.sum(times_after)
+
+        for id_strat, strategy in zip(ids_strat, strategies.strategies[ids_strat]):
+            inds_thisstrat_before = ids_strat_before == id_strat
+            inds_thisstrat_after = ids_strat_after == id_strat
+            print '  check', id_strat, strategy, np.sum(inds_thisstrat_before), np.sum(inds_thisstrat_after)
+            stratcountattr = self.get_stratcountattr(strategy)
+            getattr(self, stratcountattr)[id_run] = np.sum(inds_thisstrat_after)
+
+            # determine effective executed time before new plan selection
+# if id_run>1:
+##                strattimeattr = self.get_strattimeattr(strategy)
+##                getattr(self, strattimeattr)[id_run-1] = np.sum(times_before[inds_thisstrat_before])
+            strattimeattr = self.get_strattimeattr(strategy)
+            getattr(self, strattimeattr)[id_run] = np.sum(times_before[inds_thisstrat_before])
+            # determine estimated or effective time (if available)
+            # after plan selection
+            stratesttimeattr = self.get_stratesttimeattr(strategy)
+            getattr(self, stratesttimeattr)[id_run] = np.sum(times_after[inds_thisstrat_after])
+
+        return id_run
 
 
 class Vehicleresults(res.Tripresults):
@@ -93,7 +252,7 @@ class Personresults(am.ArrayObjman):
         # default cannot be kwarg
         default = kwargs['default']
         del kwargs['default']
-        if 'groupnames' in kwargs:
+        if kwargs.has_key('groupnames'):
             kwargs['groupnames'].append('results')
         else:
             kwargs['groupnames'] = ['results']
@@ -102,7 +261,7 @@ class Personresults(am.ArrayObjman):
 
     def import_xml(self, sumo, datapaths):
         datapathkey = self.datapathkey.get_value()
-        if datapathkey in datapaths:
+        if datapaths.has_key(datapathkey):
             self.import_sumoxml(datapaths[datapathkey], sumo)
             self.get_persons().update_results(self)
 

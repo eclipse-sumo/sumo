@@ -44,7 +44,7 @@ public:
     // class DataSetSelector
     // ===========================================================================
 
-    class DataSetSelector : protected FXGroupBox {
+    class DataSetSelector : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEGenericDataFrame::DataSetSelector)
 
@@ -104,7 +104,7 @@ public:
     // class IntervalSelector
     // ===========================================================================
 
-    class IntervalSelector : protected FXGroupBox {
+    class IntervalSelector : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEGenericDataFrame::IntervalSelector)
 
@@ -176,7 +176,7 @@ public:
     // class AttributeSelector
     // ===========================================================================
 
-    class AttributeSelector : protected FXGroupBox {
+    class AttributeSelector : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEGenericDataFrame::AttributeSelector)
 
@@ -231,7 +231,7 @@ public:
     const AttributeSelector* getAttributeSelector() const;
 
     /// @brief get PathCreator modul
-    GNEFrameModuls::PathCreator* getPathCreator() const;
+    GNEFrameModules::PathCreator* getPathCreator() const;
 
     /// @bried get element type of this data frame
     SumoXMLTag getTag() const;
@@ -270,10 +270,10 @@ protected:
     AttributeSelector* myAttributeSelector;
 
     /// @brief parameters editor creator
-    GNEFrameAttributesModuls::ParametersEditorCreator* myParametersEditorCreator;
+    GNEFrameAttributeModules::ParametersEditorCreator* myParametersEditorCreator;
 
     /// @brief edge path creator (used for Walks, rides and trips)
-    GNEFrameModuls::PathCreator* myPathCreator;
+    GNEFrameModules::PathCreator* myPathCreator;
 
     /// @brief generic data tag
     SumoXMLTag myGenericDataTag;

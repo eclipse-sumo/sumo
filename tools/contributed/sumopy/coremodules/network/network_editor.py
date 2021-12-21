@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,9 +14,12 @@
 
 # @file    network_editor.py
 # @author  Joerg Schweizer
-# @date
+# @date   2012
 
 
+import numpy as np
+from coremodules.network.network import MODES
+from agilepy.lib_wx.ogleditor import *
 import os
 import sys
 import wx
@@ -34,11 +37,8 @@ if __name__ == '__main__':
     SUMOPYDIR = os.path.join(APPDIR, '..', '..')
     sys.path.append(os.path.join(SUMOPYDIR))
 
-import numpy as np
 
-from agilepy.lib_wx.ogleditor import *
 #from agilepy.lib_wx.mainframe import AgileMainframe
-from coremodules.network.network import MODES
 #( ident_drawob, DrawobjClass, netattrname, layer )
 
 
@@ -558,6 +558,117 @@ class NodeDrawings(Circles):
         self.add_rows(ids=ids,
                       colors=np.ones((n, 1), np.float32)*self.color_node_default.value,
                       colors_highl=self._get_colors_highl(np.ones((n, 1), np.float32)*self.color_node_default.value),
+                      #centers = self._nodes.coords[ids],
+                      #radii = self._nodes.radii[ids],
+                      )
+
+        self.update()
+
+    def update(self, is_update=True):
+
+        if is_update:
+            self._update_vertexvbo()
+            self._update_colorvbo()
+
+
+class RoundaboutDrawings(Circles):
+    def __init__(self, ident, nodes, parent,   **kwargs):
+
+        Circles.__init__(self, ident,  parent, name='Roundabout drawings',
+                         is_parentobj=False,
+                         is_fill=False,  # Fill objects,
+                         is_outline=True,  # show outlines
+                         n_vert=21,  # default number of vertex per circle
+                         linewidth=3,
+                         **kwargs)
+
+        self.delete('centers')
+        self.delete('radii')
+
+        self.add(cm.AttrConf('color_default', np.array([148.0, 83.8, 244.0, 255.0], np.float32)/255.0,
+                             groupnames=['options', 'default color'],
+                             metatype='color',
+                             perm='wr',
+                             name='Default color',
+                             info='Default roundabout color.',
+                             ))
+
+        self.set_netelement(nodes)
+
+    def get_netelement(self):
+        return self._roundabouts
+
+    def get_centers_array(self):
+
+        n = len(self._inds_map)
+        # print 'get_centers_array' ,n
+        coords_roundabout = np.zeros((n, 3), dtype=np.float32)
+        nodes = self._roundabouts.parent.nodes
+        for ind, ids_node in zip(np.arange(n, dtype=np.int32),  self._roundabouts.ids_nodes.get_value()[self._inds_map]):
+            # print '  ids_node',ids_node,nodes.coords[ids_node]
+            coords_roundabout[ind] = np.mean(nodes.coords[ids_node], 0)
+
+        # for ind, coords_node in zip(np.arange(n, dtype = np.int32), nodes.coords[self._roundabouts.ids_nodes.get_value()[self._inds_map]]):
+        #    coords_roundabout[ind] = np.mean(coords_node,0)
+
+        # print '  coords_roundabout',coords_roundabout
+        return coords_roundabout
+
+    def get_radii_array(self):
+
+        n = len(self._inds_map)
+        # print 'get_radii_array',n
+        radii_roundabout = np.zeros((n), dtype=np.float32)
+        nodes = self._roundabouts.parent.nodes
+        for ind, center, ids_node in zip(np.arange(n, dtype=np.int32), self.get_centers_array(), self._roundabouts.ids_nodes.get_value()[self._inds_map]):
+            # print '  ',ind,'center',center
+            # print '         coords',nodes.coords[ids_node]
+            # print '            R^2',np.sum(  (nodes.coords[ids_node]-center)**2,1)
+            # print '            R',np.sqrt(np.sum(  (nodes.coords[ids_node]-center)**2,1))
+            # print '        R_min',np.min(np.sqrt(np.sum(  (nodes.coords[ids_node]-center)**2,1) ))
+            radii_roundabout[ind] = 0.9*np.min(np.sqrt(np.sum((nodes.coords[ids_node]-center)**2, 1)))
+        # print '  radii_roundabout',radii_roundabout
+        return radii_roundabout
+
+    def is_tool_allowed(self, tool, id_drawobj=-1):
+        """
+        Returns True if this tool can be applied to this drawobj.
+        Optionally a particular drawobj can be specified with id_drawobj.
+        """
+        # basic tools:
+        return tool.ident not in ['configure', 'select_handles', 'move', 'stretch']
+        # return tool.ident not in   ['delete','stretch']
+
+    def del_elem(self, _id, is_update=True):
+        self.del_row(_id)
+        self._roundabouts.del_row(_id)
+        # this is a bit awkward...could be done more transparently
+        self._inds_map = self._roundabouts.get_inds(self._roundabouts.get_ids())
+        if is_update:
+            self._update_vertexvbo()
+            self._update_colorvbo()
+
+    def set_netelement(self, roundabouts):
+        # print 'set_nodes'
+        self._roundabouts = roundabouts
+        # if len(self)>0:
+        #    self.del_rows(self.get_ids())
+        self.clear_rows()
+
+        ids = self._roundabouts.get_ids()
+        n = len(ids)
+
+        self._inds_map = self._roundabouts.get_inds(ids)
+
+        # print 'color_node_default',self.color_node_default.value
+        # print 'colors\n',  np.ones((n,1),np.int32)*self.color_node_default.value
+        # print '  dtypes', self.color_node_default.value.dtype,    np.ones((n,1),np.float32).dtype
+        # print '  dtypes colors_highl', self.colors_highl.value.dtype,self._get_colors_highl(np.ones((n,1),np.float32)*self.color_node_default.value).dtype
+        # print '  colors',np.ones((n,1),np.float32)*self.color_node_default.value
+        # print '  dtypes ids',ids.dtype, self.get_ids().dtype
+        self.add_rows(ids=ids,
+                      colors=np.ones((n, 1), np.float32)*self.color_default.value,
+                      colors_highl=self._get_colors_highl(np.ones((n, 1), np.float32)*self.color_default.value),
                       #centers = self._nodes.coords[ids],
                       #radii = self._nodes.radii[ids],
                       )
@@ -1189,6 +1300,7 @@ NETDRAWINGS = [
     ('nodedraws', NodeDrawings, 'nodes', 20),
     ('edgedraws', EdgeDrawings, 'edges', 10),
     ('lanedraws', LaneDrawings, 'lanes', 15),
+    ('roundaboutdraws', RoundaboutDrawings, 'roundabouts', 18),
     ('connectiondraws', ConnectionDrawings, 'connections', 25),
     ('crossingsdraws', CrossingDrawings, 'crossings', 30),
 ]

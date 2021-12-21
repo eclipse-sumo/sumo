@@ -66,6 +66,9 @@ public:
     /// Checks whether a given string ends with the suffix
     static bool endsWith(const std::string& str, const std::string suffix);
 
+    //// @brief pads the given string with padding character up to the given total length
+    static std::string padFront(const std::string& str, int length, char padding);
+
     /**
      * @brief Replaces the standard escapes by their XML entities.
      *

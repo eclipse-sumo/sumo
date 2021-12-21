@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-12-09 10:13:14 by Eclipse SUMO sumo Version v1_11_0+0428-4b7701a
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net4.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <processing>
+        <time-to-teleport value="-1"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="49933"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="ego" depart="0.00" arrival="54.00">
+        <routeDistribution>
+            <route replacedOnEdge="" reason="TraCI:parkingAreaReroute" replacedAtTime="0.00" probability="0" edges="A0A1 A1A2 A2A3"/>
+            <route edges="A0A1 A1B1 B1B2 B2A2 A2A3"/>
+        </routeDistribution>
+        <stop parkingArea="parkB1B2" duration="10.00"/>
+    </vehicle>
+
+</routes>

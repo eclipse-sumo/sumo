@@ -44,7 +44,7 @@ public:
     // class EdgeTypeSelector
     // ===========================================================================
 
-    class EdgeTypeSelector : protected FXGroupBox {
+    class EdgeTypeSelector : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNECreateEdgeFrame::EdgeTypeSelector)
 
@@ -56,7 +56,10 @@ public:
         ~EdgeTypeSelector();
 
         /// @brief refresh edge type selector
-        void refreshEdgeTypeSelector(const bool show = false);
+        void refreshEdgeTypeSelector();
+
+        /// @brief update id in comboBox
+        void updateIDinComboBox(const std::string &oldID, const std::string &newID);
 
         /// @brief check if we have to use edge template
         bool useEdgeTemplate() const;
@@ -93,6 +96,9 @@ public:
         /// @brief Called when the user press select an edgeType in comboBox
         long onCmdSelectEdgeType(FXObject*, FXSelector, void*);
 
+        /// @brief Called when the user press create edgeType from Template
+        long onCmdCreateFromTemplate(FXObject*, FXSelector, void*);
+
         /// @}
 
     protected:
@@ -101,9 +107,6 @@ public:
 
         /// @brief fill comboBox
         void fillComboBox();
-
-        /// @brief fill default parameters
-        void fillDefaultParameters();
 
     private:
         /// @brief pointer to createEdgeFrameParent
@@ -115,8 +118,8 @@ public:
         /// @brief selected edgeType
         GNEEdgeType* myEdgeTypeSelected = nullptr;
 
-        /// @brief hidden attributes (temporal)
-        const std::vector<SumoXMLAttr> myHiddenAttributes;
+        /// @brief currentIndex
+        int myCurrentIndex;
 
         /// @brief create default edge
         FXRadioButton* myUseDefaultEdgeType = nullptr;
@@ -132,13 +135,16 @@ public:
 
         /// @brief button for delete edge type
         FXButton* myDeleteEdgeTypeButton = nullptr;
+
+        /// @brief button for create edgeType from template
+        FXButton* myCreateFromTemplate = nullptr;
     };
 
     // ===========================================================================
     // class LaneTypeSelector
     // ===========================================================================
 
-    class LaneTypeSelector : protected FXGroupBox {
+    class LaneTypeSelector : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNECreateEdgeFrame::LaneTypeSelector)
 
@@ -154,6 +160,9 @@ public:
 
         /// @brief hide lane type selector
         void hideLaneTypeSelector();
+
+        /// @brief refresh LaneTypeSelector
+        void refreshLaneTypeSelector();
 
         /// @name FOX-callbacks
         /// @{
@@ -172,11 +181,8 @@ public:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(LaneTypeSelector);
 
-        /// @brief refresh LaneTypeSelector
-        void refreshLaneTypeSelector();
-
-        /// @brief fill default parameters
-        void fillDefaultParameters();
+        /// @brief update comboBox
+        void updateComboBox();
 
     private:
         /// @brief pointer to createEdgeFrameParent
@@ -184,7 +190,6 @@ public:
     
         /// @brief lane index
         int myLaneIndex;
-
         /// @brief ComboBox for lane types
         FXComboBox* myLaneTypesComboBox = nullptr;
 
@@ -196,17 +201,17 @@ public:
     };
 
     // ===========================================================================
-    // class EdgeTypeSelectorLegend
+    // class Legend
     // ===========================================================================
 
-    class EdgeTypeSelectorLegend : protected FXGroupBox {
+    class Legend : public FXGroupBoxModule {
 
     public:
         /// @brief constructor
-        EdgeTypeSelectorLegend(GNECreateEdgeFrame* createEdgeFrameParent);
+        Legend(GNECreateEdgeFrame* createEdgeFrameParent);
 
         /// @brief destructor
-        ~EdgeTypeSelectorLegend();
+        ~Legend();
     };
 
     /**@brief Constructor
@@ -245,10 +250,13 @@ public:
     EdgeTypeSelector* getEdgeTypeSelector() const;
 
     /// @brief get edgeType attributes
-    GNEFrameAttributesModuls::AttributesCreator* getEdgeTypeAttributes() const;
+    GNEFrameAttributeModules::AttributesCreator* getEdgeTypeAttributes() const;
+
+    /// @brief get lane type selector
+    LaneTypeSelector* getLaneTypeSelector();
 
     /// @brief get laneType attributes
-    GNEFrameAttributesModuls::AttributesCreator* getLaneTypeAttributes() const;
+    GNEFrameAttributeModules::AttributesCreator* getLaneTypeAttributes() const;
 
     /// @brief set default to using edge template
     void setUseEdgeTemplate();
@@ -258,16 +266,16 @@ protected:
     EdgeTypeSelector* myEdgeTypeSelector = nullptr;
 
     /// @brief internal edgeType attributes
-    GNEFrameAttributesModuls::AttributesCreator* myEdgeTypeAttributes;
+    GNEFrameAttributeModules::AttributesCreator* myEdgeTypeAttributes = nullptr;
 
     /// @brief lane type selector
-    LaneTypeSelector* myLaneTypeSelector;
+    GNECreateEdgeFrame::LaneTypeSelector* myLaneTypeSelector = nullptr;
 
     /// @brief internal laneType attributes
-    GNEFrameAttributesModuls::AttributesCreator* myLaneTypeAttributes;
+    GNEFrameAttributeModules::AttributesCreator* myLaneTypeAttributes = nullptr;
 
-    /// @brief edge selector legend
-    EdgeTypeSelectorLegend* myEdgeTypeSelectorLegend = nullptr;
+    /// @brief Legend
+    GNECreateEdgeFrame::Legend* myLegend = nullptr;
 
 private:
     /// @brief objects under snapped cursor

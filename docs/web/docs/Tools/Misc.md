@@ -207,6 +207,8 @@ ptlines-file will be used, rather than creating new shortest path routes between
 A *ptlines-file* is typically created by [netconvert](../netconvert.md) option **--ptlines-output** when importing OSM data.
 However it can also be customized or created from scratch for a non OSM network.
 
+## Example Input
+
 A minimal description for a bus line looks like this:
 
 ```
@@ -218,6 +220,8 @@ A minimal description for a bus line looks like this:
     </ptLine>
 </additional>
 ```
+
+## Example Output
 
 The used busStops must be defined in an additional file and passed with option **-s** when running the tool.
 The resulting bus definition may look like this:
@@ -233,6 +237,45 @@ The resulting bus definition may look like this:
     <flow id="bus_123:0" type="bus" route="bus_123:0" begin="0.0" end="3600.0" period="600" line="123:0" /> 
 </routes>
 ```
+
+## Further Options
+
+- **--types**: only export lines with the given list of types
+- **--bus.parking**: let busses clear the road while stopping
+- **--vtype-prefix**: prefix for generated vehicle types (to allow combining multiple runs in the same simulation)
+- **--stop-duration**: minimum duration for stops (default 20)
+- **--stop-duration.slack**: time to reserve in the schedule per stop (default 10)
+- **--speedfactor.bus**: assumed relative travel speed of busses (default 0.95)
+- **--speedfactor.tram**: assumed relative travel speed of trams (default 1)
+- **--night**: only export lines that run during the night (by default, only lines running during the day are used)
+- **--begin**: flow begin time in output (default 0)
+- **--end**: flow end time in output (default 3600)
+- **--min-stops**: minimum number of stops to use a line (default 2)
+- **--flow-attribute**: additional attributes to include in the flows (i.e. `"departSpeed=\"max\""`)
+- **--extend-to-fringe**: whether vehicles should start on the first route edge rather than the first stop
+- **--random-begin**: whether to set the flow begin time to a random value between options **--begin** and the period of the line
+- **--no-vtypes**: whether to skip writing vTypes for the output
+- **--seed**: set random seed
+- **--ignore-errors**: ignore various input errors
+- **--human-readable-time**: write all times as (H:M:S)
+- **--verbose**: more output
+
+## Available ptLine Attributes
+
+These values have the following meanings:
+
+| Attribute Name    | Value Type                        | Default    | Description                                     |
+| ----------------- | --------------------------------- | ------ | --------------------------------------------------- |
+| **id**            | id (string)     | \-     | The id of the public transport relation (usually from OSM)   |
+| **type**          | string (enum)   | \-     | The [route type](https://wiki.openstreetmap.org/wiki/Relation:route) [bus, tram, train, subway, light_rail, monorail, trolleybus, minibus, share_taxi ,aerialway, ferry] |
+| **line**          | string          | \-     | The official line reference (must not be unique) |
+| **vClass**        | string          | \-     | [sumo vehicle class](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#abstract_vehicle_class) |
+| period            | time (s, H:M:S) | **--period** (600)   | The service period   |
+| night_service     | string (enum)   | false   | The service period   | whether the line runs at night [yes, no, only] |
+| name              | string          |         | Long name for the line |
+| color             | [color](../Basics/Notation.md#referenced_data_types)  |         | Official line color |
+
+
 
 
 # tileGet.py

@@ -53,3 +53,10 @@ intermediate_stop3
 # one train has an intermediate stop between the merging switch and the common stop
 # The train with the intermediate stop has a reversal in it's route
 intermediate_stop_reversal
+
+# one train has an intermediate stop between the merging switch and the common stop.
+# Since the intermediate stop has parking=true, no constraint should be generated when option --skip-parking is set.
+intermediate_stop_parking
+
+# one train has an intermediate stop between the merging switch and the common stop.
+intermediate_stop_parkingFalse

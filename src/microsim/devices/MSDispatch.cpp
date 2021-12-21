@@ -214,7 +214,7 @@ SUMOTime
 MSDispatch::computePickupTime(SUMOTime t, const MSDevice_Taxi* taxi, const Reservation& res, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router) {
     ConstMSEdgeVector edges;
     router.compute(taxi->getHolder().getEdge(), taxi->getHolder().getPositionOnLane() - NUMERICAL_EPS,
-                   res.from, res.fromPos, &taxi->getHolder(), t, edges);
+                   res.from, res.fromPos, &taxi->getHolder(), t, edges, true);
     return TIME2STEPS(router.recomputeCosts(edges, &taxi->getHolder(), t));
 }
 
@@ -228,12 +228,12 @@ MSDispatch::computeDetourTime(SUMOTime t, SUMOTime viaTime, const MSDevice_Taxi*
                               double& timeDirect) {
     ConstMSEdgeVector edges;
     if (timeDirect < 0) {
-        router.compute(from, fromPos, to, toPos, &taxi->getHolder(), t, edges);
+        router.compute(from, fromPos, to, toPos, &taxi->getHolder(), t, edges, true);
         timeDirect = router.recomputeCosts(edges, &taxi->getHolder(), fromPos, toPos, t);
         edges.clear();
     }
 
-    router.compute(from, fromPos, via, viaPos, &taxi->getHolder(), t, edges);
+    router.compute(from, fromPos, via, viaPos, &taxi->getHolder(), t, edges, true);
     const double start = STEPS2TIME(t);
     const double leg1 = router.recomputeCosts(edges, &taxi->getHolder(), fromPos, viaPos, t);
 #ifdef DEBUG_DETOUR
@@ -242,7 +242,7 @@ MSDispatch::computeDetourTime(SUMOTime t, SUMOTime viaTime, const MSDevice_Taxi*
     const double wait = MAX2(0.0, STEPS2TIME(viaTime) - (start + leg1));
     edges.clear();
     const SUMOTime timeContinue = TIME2STEPS(start + leg1 + wait);
-    router.compute(via, viaPos, to, toPos, &taxi->getHolder(), timeContinue, edges);
+    router.compute(via, viaPos, to, toPos, &taxi->getHolder(), timeContinue, edges, true);
     const double leg2 = router.recomputeCosts(edges, &taxi->getHolder(), viaPos, toPos, timeContinue);
     const double timeDetour = leg1 + wait + leg2;
 #ifdef DEBUG_DETOUR

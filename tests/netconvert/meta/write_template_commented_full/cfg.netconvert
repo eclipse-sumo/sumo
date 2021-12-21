@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-30 18:04:53 by Eclipse SUMO netconvert Version v1_11_0+0205-4d2d9e8
+<!-- generated on 2021-12-07 00:03:01 by Eclipse SUMO netconvert Version v1_11_0+0355-d03b7b3
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -780,6 +780,9 @@
         <!-- Import sidewalks -->
         <osm.sidewalks value="false" type="BOOL"/>
 
+        <!-- Import turning arrows from OSM to help with connection building -->
+        <osm.turn-lanes value="false" type="BOOL"/>
+
         <!-- The default length of a public transport stop in FLOAT m -->
         <osm.stop-output.length value="25" type="FLOAT"/>
 
@@ -911,6 +914,9 @@
 
         <!-- Sets edge-id based on road-id and offset in m (legacy) -->
         <opendrive.position-ids value="false" type="BOOL"/>
+
+        <!-- Use custom lane shapes to compensate discarded lane types -->
+        <opendrive.lane-shapes value="false" type="BOOL"/>
 
     </formats>
 

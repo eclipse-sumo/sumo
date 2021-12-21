@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,14 +14,16 @@
 
 # @file    wxgui.py
 # @author  Joerg Schweizer
-# @date
+# @date   2012
 
 import os
 import wx
 
 from agilepy.lib_wx.modulegui import ModuleGui
 from agilepy.lib_wx.processdialog import ProcessDialog, ProcessDialogInteractive
-
+from coremodules.scenario.scenario import Scenario
+from coremodules.network import routing
+from coremodules.misc.matplottools import ResultDialog
 import sumo
 import results
 
@@ -35,10 +37,12 @@ except:
     is_mpl = False
 
 
-class ResultDialog(ProcessDialog):
+class EnergyResultDialog(ProcessDialog):
     def _get_buttons(self):
-        buttons = [('Plot and close',   self.on_run,      'Plot  selected quantity in matplotlib window and close this window thereafter.'),
-                   ('Plot',   self.on_show,      'Plot selected quantity in matplotlib window.'),
+        buttons = [('Plot and close',   self.on_run,      'Plot  energy results in matplotlib window and close this window thereafter.'),
+                   ('Plot',   self.on_show,      'Plot energy results in matplotlib window.'),
+                   ('Save Options...', self.on_save_options, self.on_save_options.__doc__),
+                   ('Load Options...', self.on_load_options, self.on_load_options.__doc__),
                    ]
         defaultbutton = 'Plot and close'
         standartbuttons = ['cancel', ]
@@ -78,11 +82,12 @@ class WxGui(ModuleGui):
         Set mainframe and initialize widgets to various places.
         """
         self._mainframe = mainframe
-
+        print 'SimulationGui.init_widgets'
         # mainframe.browse_obj(self._net)
         self.make_menu()
         self.make_toolbar()
         self._resultviewer = mainframe.add_view("Result viewer", Resultviewer)
+        print '  self._resultviewer', self._resultviewer, self._resultviewer.get_drawing()
 
     def refresh_widgets(self):
         """
@@ -95,6 +100,7 @@ class WxGui(ModuleGui):
         is_refresh = False
 
         if self._simulation != scenario.simulation:
+            print '  id(self._simulation)', id(self._simulation), 'id(scenario.simulation)', id(scenario.simulation), scenario.rootname
             del self._simulation
             self._simulation = scenario.simulation
             is_refresh = True
@@ -121,40 +127,57 @@ class WxGui(ModuleGui):
                             bitmap=self.get_agileicon('icon_browse_24px.png'),  # ,
                             )
 
-        menubar.append_menu('simulation/micro-simulation',
+        menubar.append_menu('simulation/microscopic simulation',
                             bitmap=self.get_icon('icon_sumo.png'),
                             )
 
-        menubar.append_item('simulation/micro-simulation/SUMO...',
+        menubar.append_item('simulation/microscopic simulation/SUMO...',
                             self.on_sumo,
-                            info='Define simulation parameters and simulate with SUMO micro-simulator.',
                             bitmap=self.get_icon('icon_sumo.png'),  # ,
                             )
 
+        # menubar.append_item( 'simulation/micro-simulation/Low memory SUMO...',
+        #    self.on_sumo_lowmem,
+        #    info='Define simulation parameters and simulate with SUMO micro-simulator. Low memory is used because the SUMOPy scenario will be deleted prior to run the simulation.',
+        #    bitmap = self.get_icon('icon_sumo.png'),#,
+        #    )
+
         if sumo.traci is not None:
-            menubar.append_item('simulation/micro-simulation/SUMO traci...',
+            menubar.append_item('simulation/microscopic simulation/SUMO traci...',
                                 self.on_sumo_traci,
                                 info='Define simulation parameters and simulate with SUMO with interactive control via TRACI.',
                                 bitmap=self.get_icon('icon_sumo.png'),  # ,
                                 )
 
-        menubar.append_item('simulation/micro-simulation/SUMO with custom files...',
-                            self.on_sumo_prompt,
-                            info='Select Net file, Route file(s) and poly files and SUMO micro-simulate.',
+        menubar.append_item('simulation/microscopic simulation/Dynamic User Equilibrium...',
+                            self.on_duaiterate,
                             bitmap=self.get_icon('icon_sumo.png'),  # ,
                             )
 
-        menubar.append_menu('simulation/macro-simulation',
+        menubar.append_menu('simulation/mesoscopic simulation',
+                            bitmap=self.get_icon('icon_sumo.png'),
+                            )
+
+        menubar.append_item('simulation/mesoscopic simulation/MESO...',
+                            self.on_meso,
+                            )
+
+        menubar.append_menu('simulation/macroscopic simulation',
                             #bitmap = self.get_icon('icon_sumo.png'),
                             )
 
-        menubar.append_item('simulation/macro-simulation/estimate entered demand',
+        menubar.append_item('simulation/macroscopic simulation/macroscopic router...',
+                            self.on_maroute,
+                            # bitmap = self.get_icon('icon_sumo.png'),#,
+                            )
+
+        menubar.append_item('simulation/macroscopic simulation/estimate entered from routes',
                             self.on_estimate_entered_demand,
                             info='Use routes from demand to compute how many vehicle entered each edge.',
                             # bitmap = self.get_icon('icon_sumo.png'),#,
                             )
 
-        menubar.append_item('simulation/macro-simulation/estimate entered turnflows',
+        menubar.append_item('simulation/macroscopic simulation/estimate entered from turnflows',
                             self.on_estimate_entered_turnflows,
                             info='Use turnflows from demand to compute how many vehicle entered each edge.',
                             # bitmap = self.get_icon('icon_sumo.png'),#,
@@ -170,10 +193,20 @@ class WxGui(ModuleGui):
                             bitmap=self.get_agileicon('icon_browse_24px.png'),
                             )
 
+        # TODO: Error: Simresults instance has no attribute 'process'
+        # migh have been implemented in an older version!!
         menubar.append_item('simulation/results/process',
                             self.on_process_results,
                             info='Process results. Update demand models with results from last simulation run.',
                             #bitmap = self.get_agileicon('icon_browse_24px.png'),#
+                            )
+
+        menubar.append_item('simulation/results/add edge length to edgeresults',
+                            self.on_add_edgelength,
+                            )
+
+        menubar.append_item('simulation/results/add detector flow measurements to edgeresults',
+                            self.on_add_detectorflows_to_edgeresults,
                             )
 
         # menubar.append_item( 'simulation/results/safe',
@@ -199,18 +232,39 @@ class WxGui(ModuleGui):
                             bitmap=self.get_agileicon("Document_Export_24px.png"),
                             )
 
+        menubar.append_item('simulation/results/filter edgresults...',
+                            self.on_filter_edgeresults,
+                            )
+
         if is_mpl:
-            menubar.append_item('simulation/results/plot with matplotlib',
+            menubar.append_item('simulation/results/plot edge results on map',
                                 self.on_plot_results,
-                                info='Plot results in Matplotlib plotting envitonment.',
                                 bitmap=self.get_icon('icon_mpl.png'),  # ,
                                 )
 
-            menubar.append_item('simulation/results/Flowcompare with matplotlib',
-                                self.on_mpl_flowcompare,
-                                info='Compare simulated and estimated flows in Matplotlib plotting envitonment.',
+            menubar.append_item('simulation/results/plot 2 edge results on XY plot...',
+                                self.on_plot_xy_edgeresults,
                                 bitmap=self.get_icon('icon_mpl.png'),  # ,
                                 )
+            menubar.append_item('simulation/results/plot speedprofiles...',
+                                self.on_plot_speedprofiles,
+                                bitmap=self.get_icon('icon_mpl.png'),  # ,
+                                )
+
+            menubar.append_item('simulation/results/plot travel times...',
+                                self.on_plot_traveltimes,
+                                bitmap=self.get_icon('icon_mpl.png'),  # ,
+                                )
+
+            menubar.append_item('simulation/results/plot electrical energy...',
+                                self.on_plot_electrical_energy_results,
+                                bitmap=self.get_icon('icon_mpl.png'),  # ,
+                                )
+            # menubar.append_item( 'simulation/results/Flowcompare with matplotlib',
+            #    self.on_mpl_flowcompare,
+            #    info='Compare simulated and estimated flows in Matplotlib plotting envitonment.',
+            #    bitmap = self.get_icon('icon_mpl.png'),#,
+            #    )
 
         menubar.append_item('simulation/results/open...',
                             self.on_open,
@@ -328,7 +382,7 @@ class WxGui(ModuleGui):
         dlg = wx.FileDialog(
             self._mainframe, message="Save results to file",
             defaultDir=scenario.get_workdirpath(),
-            defaultFile=scenario.get_rootfilepath()+'.res.obj',
+            #defaultFile = scenario.get_rootfilepath()+'.res.obj',
             wildcard=wildcards,
             style=wx.SAVE | wx.CHANGE_DIR
         )
@@ -359,7 +413,7 @@ class WxGui(ModuleGui):
         dlg = wx.FileDialog(
             self._mainframe, message="Export edge results to CSV file",
             defaultDir=scenario.get_workdirpath(),
-            defaultFile=scenario.get_rootfilepath()+'.edgeres.csv',
+            # defaultFile = scenario.get_rootfilepath()+'.edgeres.csv',
             wildcard=wildcards,
             style=wx.SAVE | wx.CHANGE_DIR
         )
@@ -390,7 +444,7 @@ class WxGui(ModuleGui):
         dlg = wx.FileDialog(
             self._mainframe, message="Export trip results to CSV file",
             defaultDir=scenario.get_workdirpath(),
-            defaultFile=scenario.get_rootfilepath()+'.tripres.csv',
+            # defaultFile = scenario.get_rootfilepath()+'.tripres.csv',
             wildcard=wildcards,
             style=wx.SAVE | wx.CHANGE_DIR
         )
@@ -408,7 +462,34 @@ class WxGui(ModuleGui):
         # BAD things can happen otherwise!
         dlg.Destroy()
 
+    def on_filter_edgeresults(self, event=None):
+        """Filter edgeresults by zone, etc."""
+        if self._simulation.results is None:
+            self._simulation.results = results.Simresults(ident='simresults', simulation=self._simulation)
+
+        edgeresultfilter = results.EdgeresultFilter(self._simulation.results.edgeresults,
+                                                    logger=self._mainframe.get_logger())
+        dlg = ProcessDialog(self._mainframe, edgeresultfilter)
+
+        dlg.CenterOnScreen()
+
+        # this does not return until the dialog is closed.
+        val = dlg.ShowModal()
+        # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+        # print '  status =',dlg.get_status()
+        if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+            # print ">>>>>>>>>Unsuccessful\n"
+            dlg.Destroy()
+
+        if dlg.get_status() == 'success':
+            # print ">>>>>>>>>successful\n"
+            # apply current widget values to scenario instance
+            dlg.apply()
+            dlg.Destroy()
+            self._mainframe.browse_obj(self._simulation.results.edgeresults)
+
     def on_plot_results(self, event=None):
+        """Plot edge results on map using the Matplotlib plotting envitonment."""
         if self._simulation.results is None:
             self._simulation.results = results.Simresults(ident='simresults', simulation=self._simulation)
 
@@ -433,13 +514,14 @@ class WxGui(ModuleGui):
                 dlg.apply()
                 dlg.Destroy()
 
-    def on_mpl_flowcompare(self, event=None):
+    def on_plot_xy_edgeresults(self, event=None):
+        """Plot one edge result attribute versus another result attribute using matplotlib."""
         if self._simulation.results is None:
             self._simulation.results = results.Simresults(ident='simresults', simulation=self._simulation)
 
         if is_mpl:
-            resultplotter = results_mpl.Flowcomparison(self._simulation.results,
-                                                       logger=self._mainframe.get_logger())
+            resultplotter = results_mpl.XYEdgeresultsPlotter(self._simulation.results,
+                                                             logger=self._mainframe.get_logger())
             dlg = ResultDialog(self._mainframe, resultplotter)
 
             dlg.CenterOnScreen()
@@ -458,7 +540,117 @@ class WxGui(ModuleGui):
                 dlg.apply()
                 dlg.Destroy()
 
+    def on_plot_speedprofiles(self, event=None):
+        """Plot speed profiles using the Matplotlib plotting envitonment."""
+        if self._simulation.results is None:
+            self._simulation.results = results.Simresults(ident='simresults', simulation=self._simulation)
+
+        if is_mpl:
+            resultplotter = results_mpl.SpeedprofilePlotter(self._simulation.results,
+                                                            logger=self._mainframe.get_logger())
+            dlg = ResultDialog(self._mainframe, resultplotter)
+
+            dlg.CenterOnScreen()
+
+            # this does not return until the dialog is closed.
+            val = dlg.ShowModal()
+            # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+            # print '  status =',dlg.get_status()
+            if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+                # print ">>>>>>>>>Unsuccessful\n"
+                dlg.Destroy()
+
+            if dlg.get_status() == 'success':
+                # print ">>>>>>>>>successful\n"
+                # apply current widget values to scenario instance
+                dlg.apply()
+                dlg.Destroy()
+
+    def on_plot_traveltimes(self, event=None):
+        """Plot travel times to/from specific edges using the Matplotlib plotting envitonment."""
+        if self._simulation.results is None:
+            self._simulation.results = results.Simresults(ident='simresults', simulation=self._simulation)
+
+        if is_mpl:
+            resultplotter = results_mpl.TraveltimePlotter(self._simulation.results,
+                                                          logger=self._mainframe.get_logger())
+            dlg = ResultDialog(self._mainframe, resultplotter)
+
+            dlg.CenterOnScreen()
+
+            # this does not return until the dialog is closed.
+            val = dlg.ShowModal()
+            if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+                dlg.Destroy()
+
+            if dlg.get_status() == 'success':
+                dlg.apply()
+                dlg.Destroy()
+
+    def on_plot_electrical_energy_results(self, event=None):
+        """Plot energy results using the Matplotlib plotting envitonment."""
+        if self._simulation.results is None:
+            self._simulation.results = results.Simresults(ident='simresults', simulation=self._simulation)
+
+        if is_mpl:
+            resultplotter = results_mpl.ElectricalEnergyResultsPlotter(self._simulation.results,
+                                                                       logger=self._mainframe.get_logger())
+            dlg = EnergyResultDialog(self._mainframe, resultplotter)
+
+            dlg.CenterOnScreen()
+
+            # this does not return until the dialog is closed.
+            val = dlg.ShowModal()
+            # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+            # print '  status =',dlg.get_status()
+            if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+                # print ">>>>>>>>>Unsuccessful\n"
+                dlg.Destroy()
+
+            if dlg.get_status() == 'success':
+                # print ">>>>>>>>>successful\n"
+                # apply current widget values to scenario instance
+                dlg.apply()
+                dlg.Destroy()
+
+    # def on_mpl_flowcompare(self, event = None):
+    #    if self._simulation.results is None:
+    #        self._simulation.results = results.Simresults(ident= 'simresults', simulation=self._simulation)
+    #
+    #    if is_mpl:
+    #        resultplotter = results_mpl.Flowcomparison(  self._simulation.results,
+    #                                                    logger = self._mainframe.get_logger())
+    #        dlg = ResultDialog(self._mainframe, resultplotter)
+    #
+    #        dlg.CenterOnScreen()
+    #
+    #        # this does not return until the dialog is closed.
+    #        val = dlg.ShowModal()
+    #        #print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+    #        #print '  status =',dlg.get_status()
+    #        if dlg.get_status() != 'success':#val == wx.ID_CANCEL:
+    #            #print ">>>>>>>>>Unsuccessful\n"
+    #            dlg.Destroy()
+    #
+    #        if dlg.get_status() == 'success':
+    #            #print ">>>>>>>>>successful\n"
+    #            # apply current widget values to scenario instance
+    #            dlg.apply()
+    #            dlg.Destroy()
+
+    def on_add_detectorflows_to_edgeresults(self, event=None):
+        """Add detector flow measurements to edge results.
+        """
+        # self._demand.detectorflows.clear()
+        # self._mainframe.browse_obj(self._demand.detectorflows)
+        detectorflows = self.get_scenario().demand.detectorflows
+        detectorflows.add_flows_to_edgeresults(self._simulation.results.edgeresults)
+        self._mainframe.browse_obj(self._simulation.results.edgeresults)
+
     def on_sumo(self, event=None):
+        """
+        Set simulation parameters and simulate with SUMO micro-simulator
+        """
         # self.prepare_results()
         self.simulator = sumo.Sumo(scenario=self.get_scenario(),
                                    results=self._simulation.results,
@@ -470,6 +662,24 @@ class WxGui(ModuleGui):
                                    is_prompt_filepaths=False,
                                    )
         self.open_sumodialog()
+
+    # def on_sumo_lowmem(self, event = None):
+    #    #self.prepare_results()
+    #    # delete current scenario
+    #    #del self._scenario
+    #    scenario = self.get_scenario()
+    #
+    #    # set dummy scenario
+    #    dummyscenario = Scenario('empty', name_scenario = 'Empty')
+    #    self._mainframe.get_modulegui('coremodules.scenario').set_module(dummyscenario)
+    #    #self._scenario = scenariocreator.get_scenario()
+    #
+    #    # this should update all widgets for the new scenario!!
+    #    #print 'call self._mainframe.refresh_moduleguis()'
+    #    self._mainframe.refresh_moduleguis()
+    #    self._mainframe.browse_obj(dummyscenario)
+    #
+    #    del scenario
 
     def on_sumo_prompt(self, event=None):
         # self.prepare_results()
@@ -522,7 +732,9 @@ class WxGui(ModuleGui):
                 self.simulator.import_results()
 
             self._mainframe.browse_obj(self._simulation.results)
-            self._mainframe.select_view(name="Result viewer")  # !!!!!!!!tricky, crashes without
+            # print '  select_view'
+            # self._mainframe.select_view(name = "Result viewer") #!!!!!!!!tricky, crashes without
+            # print '  call refresh_widgets'
             self.refresh_widgets()
             # print 'call self._mainframe.refresh_moduleguis()'
             # self._mainframe.refresh_moduleguis()
@@ -564,6 +776,15 @@ class WxGui(ModuleGui):
         self._mainframe.select_view(name="Result viewer")  # !!!!!!!!tricky, crashes without
         self.refresh_widgets()
 
+    def on_add_edgelength(self, event=None):
+        """
+        Add edgelength to edgeresults.
+        """
+        results = self._simulation.results
+        results.edgeresults.add_edgelength()
+        self._mainframe.browse_obj(results.edgeresults)
+        self.refresh_widgets()
+
     def on_estimate_entered_turnflows(self, event=None):
         results = self._simulation.results
         turnflows = self.get_scenario().demand.turnflows
@@ -575,3 +796,106 @@ class WxGui(ModuleGui):
         self._mainframe.browse_obj(results.edgeresults)
         self._mainframe.select_view(name="Result viewer")  # !!!!!!!!tricky, crashes without
         self.refresh_widgets()
+
+    def on_duaiterate(self, event=None):
+        """Dynamic User equilibrium Assignment (DuaIterate).
+        """
+
+        p = sumo.Duaiterate(self.get_scenario(),
+                            results=self._simulation.results,
+                            logger=self._mainframe.get_logger(),
+                            )
+        dlg = ProcessDialog(self._mainframe, p)
+
+        dlg.CenterOnScreen()
+
+        # this does not return until the dialog is closed.
+        val = dlg.ShowModal()
+        # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+        # print '  status =',dlg.get_status()
+        if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+            # print ">>>>>>>>>Unsuccessful\n"
+            dlg.Destroy()
+
+        if dlg.get_status() == 'success':
+            # print ">>>>>>>>>successful\n"
+            # apply current widget values to scenario instance
+            dlg.apply()
+            dlg.Destroy()
+            self._mainframe.browse_obj(self.get_scenario().demand.trips)
+
+            # p.import_results()
+            # self._mainframe.browse_obj(p.get_results())
+            # self._mainframe.select_view(name = "Result viewer") #!!!!!!!!tricky, crashes without
+            # self.refresh_widgets()
+
+    def on_meso(self, event=None):
+        """Simulate scenario with Mesoscopic, queue based simulator.
+        """
+
+        p = sumo.Meso(
+            scenario=self.get_scenario(),
+            results=self._simulation.results,
+            logger=self._mainframe.get_logger(),
+            is_gui=True,
+            is_export_net=True,
+            is_export_poly=True,
+            is_export_rou=True,
+            is_prompt_filepaths=False,
+            is_quit_on_end=False,
+            is_start=False,
+        )
+
+        dlg = ProcessDialog(self._mainframe, p)
+
+        dlg.CenterOnScreen()
+
+        # this does not return until the dialog is closed.
+        val = dlg.ShowModal()
+        # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+        # print '  status =',dlg.get_status()
+        if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+            # print ">>>>>>>>>Unsuccessful\n"
+            dlg.Destroy()
+
+        if dlg.get_status() == 'success':
+            # print ">>>>>>>>>successful\n"
+            # apply current widget values to scenario instance
+            dlg.apply()
+            dlg.Destroy()
+            # self._mainframe.browse_obj(self._simulation.results)
+            p.import_results()
+            self._mainframe.browse_obj(p.get_results())
+            self._mainframe.select_view(name="Result viewer")  # !!!!!!!!tricky, crashes without
+            self.refresh_widgets()
+
+    def on_maroute(self, event=None):
+        """Simulate scenario with Macrosopic router (marouter).
+        """
+
+        p = routing.MaRouter(self.get_scenario(),
+                             results=self._simulation.results,
+                             logger=self._mainframe.get_logger(),
+                             )
+        dlg = ProcessDialog(self._mainframe, p)
+
+        dlg.CenterOnScreen()
+
+        # this does not return until the dialog is closed.
+        val = dlg.ShowModal()
+        # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+        # print '  status =',dlg.get_status()
+        if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+            # print ">>>>>>>>>Unsuccessful\n"
+            dlg.Destroy()
+
+        if dlg.get_status() == 'success':
+            # print ">>>>>>>>>successful\n"
+            # apply current widget values to scenario instance
+            dlg.apply()
+            dlg.Destroy()
+            # self._mainframe.browse_obj(self._simulation.results)
+            p.import_results()
+            self._mainframe.browse_obj(p.get_results())
+            self._mainframe.select_view(name="Result viewer")  # !!!!!!!!tricky, crashes without
+            self.refresh_widgets()

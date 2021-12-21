@@ -241,6 +241,11 @@
         <xsd:attribute name="duration" type="nonNegativeFloatType" use="required"/>
         <xsd:attribute name="minDur" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="maxDur" type="nonNegativeFloatType" use="optional"/>
+        <xsd:attribute name="earliestEnd" type="nonNegativeFloatType" use="optional"/>
+        <xsd:attribute name="latestEnd" type="nonNegativeFloatType" use="optional"/>
+        <xsd:attribute name="yellow" type="nonNegativeFloatType" use="optional"/>
+        <xsd:attribute name="red" type="nonNegativeFloatType" use="optional"/>
+        <xsd:attribute name="vehext" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="state" use="required">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">

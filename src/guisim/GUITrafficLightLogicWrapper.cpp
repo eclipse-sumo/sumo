@@ -239,6 +239,10 @@ GUITrafficLightLogicWrapper::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("minDur", true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getCurrentMinDur));
     ret->mkItem("maxDur", true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getCurrentMaxDur));
     ret->mkItem("running duration", true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getRunningDuration));
+    ret->mkItem("earliestEnd", true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getCurrentEarliestEnd));
+    ret->mkItem("latestEnd", true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getCurrentLatestEnd));
+    ret->mkItem("time in cycle", true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getCurrentTimeInCycle));
+    ret->mkItem("cycle time", true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getDefaultCycleTime));
     MSRailSignal* rs = dynamic_cast<MSRailSignal*>(&myTLLogic);
     if (rs != nullptr) {
         ret->mkItem("blocking", true, new FunctionBindingString<MSRailSignal>(rs, &MSRailSignal::getBlockingVehicleIDs));
@@ -371,6 +375,28 @@ GUITrafficLightLogicWrapper::getCurrentMinDur() const {
 int
 GUITrafficLightLogicWrapper::getCurrentMaxDur() const {
     return (int)STEPS2TIME(getActiveTLLogic()->getCurrentPhaseDef().maxDuration);
+}
+
+int
+GUITrafficLightLogicWrapper::getCurrentEarliestEnd() const {
+    const SUMOTime earliestEnd = getActiveTLLogic()->getCurrentPhaseDef().earliestEnd;
+    return earliestEnd == MSPhaseDefinition::UNSPECIFIED_DURATION ? -1 : (int)STEPS2TIME(earliestEnd);
+}
+
+int
+GUITrafficLightLogicWrapper::getCurrentLatestEnd() const {
+    const SUMOTime latestEnd = getActiveTLLogic()->getCurrentPhaseDef().latestEnd;
+    return latestEnd == MSPhaseDefinition::UNSPECIFIED_DURATION ? -1 : (int)STEPS2TIME(latestEnd);
+}
+
+int
+GUITrafficLightLogicWrapper::getDefaultCycleTime() const {
+    return (int)STEPS2TIME(getActiveTLLogic()->getDefaultCycleTime());
+}
+
+int
+GUITrafficLightLogicWrapper::getCurrentTimeInCycle() const {
+    return (int)STEPS2TIME(getActiveTLLogic()->getTimeInCycle());
 }
 
 int

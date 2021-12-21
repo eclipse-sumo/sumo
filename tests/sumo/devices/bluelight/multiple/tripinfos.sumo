@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-08 12:09:41 by Eclipse SUMO sumo Version v1_10_0+2024-ab06973
+<!-- generated on 2021-12-11 22:16:26 by Eclipse SUMO sumo Version v1_11_0+0489-eed1b29
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -37,7 +37,7 @@ SPDX-License-Identifier: EPL-2.0
     <tripinfo id="rescue" depart="40.00" departLane="SC_1" departPos="0.00" departPosLat="0.00" departSpeed="0.00" departDelay="2.00" arrival="61.00" arrivalLane="CN_0" arrivalPos="91.95" arrivalPosLat="1.56" arrivalSpeed="23.76" duration="21.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="13.30" rerouteNo="0" devices="tripinfo_rescue bluelight_rescue" vType="rescue" speedFactor="2.00" vaporized="">
         <bluelight/>
     </tripinfo>
-    <tripinfo id="rescue2" depart="43.00" departLane="SC_1" departPos="0.00" departPosLat="0.00" departSpeed="0.00" departDelay="4.00" arrival="65.00" arrivalLane="CN_0" arrivalPos="91.95" arrivalPosLat="1.56" arrivalSpeed="23.76" duration="22.00" routeLength="200.00" waitingTime="1.00" waitingCount="1" stopTime="0.00" timeLoss="14.40" rerouteNo="0" devices="tripinfo_rescue2 bluelight_rescue2" vType="rescue" speedFactor="2.00" vaporized="">
+    <tripinfo id="rescue2" depart="43.00" departLane="SC_1" departPos="0.00" departPosLat="0.00" departSpeed="0.00" departDelay="4.00" arrival="64.00" arrivalLane="CN_1" arrivalPos="91.95" arrivalPosLat="-1.00" arrivalSpeed="23.76" duration="21.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="13.29" rerouteNo="0" devices="tripinfo_rescue2 bluelight_rescue2" vType="rescue" speedFactor="2.00" vaporized="">
         <bluelight/>
     </tripinfo>
     <tripinfo id="left1" depart="35.00" departLane="SC_1" departPos="0.00" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="100.00" arrivalLane="CN_1" arrivalPos="91.95" arrivalPosLat="0.00" arrivalSpeed="13.89" duration="65.00" routeLength="200.00" waitingTime="44.00" waitingCount="1" stopTime="0.00" timeLoss="49.64" rerouteNo="0" devices="tripinfo_left1" vType="left" speedFactor="1.00" vaporized=""/>

@@ -1,0 +1,32 @@
+Computing for 0<->0
+ for tls-type static
+Computing for 0<->600
+ for tls-type static
+Computing for 0<->1200
+ for tls-type static
+Computing for 0<->1800
+ for tls-type static
+Computing for 600<->0
+ for tls-type static
+Computing for 600<->600
+ for tls-type static
+Computing for 600<->1200
+ for tls-type static
+Computing for 600<->1800
+ for tls-type static
+Computing for 1200<->0
+ for tls-type static
+Computing for 1200<->600
+ for tls-type static
+Computing for 1200<->1200
+ for tls-type static
+Computing for 1200<->1800
+ for tls-type static
+Computing for 1800<->0
+ for tls-type static
+Computing for 1800<->600
+ for tls-type static
+Computing for 1800<->1200
+ for tls-type static
+Computing for 1800<->1800
+ for tls-type static

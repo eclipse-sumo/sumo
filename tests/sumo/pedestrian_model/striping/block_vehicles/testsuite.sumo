@@ -37,3 +37,6 @@ blockage2
 
 # when an unprioritized crossing is blocked by pedestrians, vehicles must yield their request
 blockage3
+
+# avoid emergency braking if there is a large distance between the internal junction built for bike lanes and the pedestrian crossing
+largeJunction_bikelane

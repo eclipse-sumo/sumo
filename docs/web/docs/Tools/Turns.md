@@ -112,23 +112,46 @@ With the option **--attributes** {{DT_STR}}, additional parameters can be given 
 vehicles (note, usage of the quoting characters).
 
 ```
-python tools/randomTrips.py -n input_net.net.xml 
+python tools/routeSampler.py -n input_net.net.xml -r candidate.rou.xml -o out.rou.xml -d data.xml
   --attributes="departLane=\"best\" departSpeed=\"max\" departPos=\"random\""
 ```
 
 The above attriutes would make the vehicles be distributed randomly on their
 starting edges and inserted with high speed on a reasonable lane.
-    
-The distinguish vehicles of different types, the 'type' attribute may be set. The corresponding type should then be defined in an additional xml file and loaded with option **--additional-files**.
-    
-```
-python tools/randomTrips.py -n input_net.net.xml 
-  --attributes="type=\"customType\""
-```
 
-    
 !!! note
     Quoting of trip attributes on Linux may also use the style **--attributes 'departLane="best" departSpeed="max" departPos="random"'**
+
+## Multiple vehicle types
+  
+To distinguish vehicles of different types, routeSampler may be run multiple times with different attributes. Note, that it is also necessary to set the option **--prefix** to prevent duplicate ids. The example below creates traffic consisting of cars and trucks using two edgedata files with distinct count values (stored in the default attribute 'entered').
+
+```
+python tools/routeSampler.py --attributes="type=\"car\"" --edgedata-files carcounts.xml --prefix c -o cars.rou.xml -n net.net.xml -r candidate.rou.xml
+python tools/routeSampler.py --attributes="type=\"heavy\"" --edgedata-files truckcounts.xml --prefix t -o trucks.rou.xml  -n net.net.xml -r candidate.rou.xml
+```
+  
+Alternatively, the count values might also be stored in different attributes of the same file (i.e. 'count1', 'count2'):
+  
+```
+python tools/routeSampler.py --attributes="type=\"car\"" --edgedata-files counts.xml --edgedata-attribute count1 --prefix c -o cars.rou.xml  -n net.net.xml -r candidate.rou.xml
+python tools/routeSampler.py --attributes="type=\"heavy\"" --edgedata-files counts.xml --edgedata-attribute count2 --prefix t -o trucks.rou.xml  -n net.net.xml -r candidate.rou.xml
+```
+   
+When running the simulation, the types 'car' and 'heavy' (previously set as vehicle attributes), must be defined in an additional file which could look like the following example (types.add.xml):
+  
+```
+<additional>
+  <vType id="car"/>
+  <vType id="heavy" vClass="truck"/>
+</additional>
+```
+  
+The simulation could then be called like this:
+  
+```
+  sumo -n net.net.xml -a types.add.xml -r cars.rou.xml,trucks.rou.xml
+```
 
 ## Sampling
 By default, sampling will be performed iteratively by 

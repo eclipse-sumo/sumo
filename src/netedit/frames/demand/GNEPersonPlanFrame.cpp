@@ -39,19 +39,19 @@ GNEPersonPlanFrame::GNEPersonPlanFrame(FXHorizontalFrame* horizontalFrameParent,
     myRouteHandler("", viewNet->getNet(), true) {
 
     // create person types selector modul
-    myPersonSelector = new GNEFrameModuls::DemandElementSelector(this, {GNETagProperties::TagType::PERSON});
+    myPersonSelector = new GNEFrameModules::DemandElementSelector(this, {GNETagProperties::TagType::PERSON});
 
     // Create tag selector for person plan
-    myPersonPlanTagSelector = new GNEFrameModuls::TagSelector(this, GNETagProperties::TagType::PERSONPLAN, GNE_TAG_PERSONTRIP_EDGE);
+    myPersonPlanTagSelector = new GNEFrameModules::TagSelector(this, GNETagProperties::TagType::PERSONPLAN, GNE_TAG_PERSONTRIP_EDGE);
 
     // Create person parameters
-    myPersonPlanAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
+    myPersonPlanAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
 
-    // create myPathCreator Modul
-    myPathCreator = new GNEFrameModuls::PathCreator(this);
+    // create myPathCreator Module
+    myPathCreator = new GNEFrameModules::PathCreator(this);
 
     // Create HierarchicalElementTree modul
-    myPersonHierarchy = new GNEFrameModuls::HierarchicalElementTree(this);
+    myPersonHierarchy = new GNEFrameModules::HierarchicalElementTree(this);
 }
 
 
@@ -79,8 +79,8 @@ GNEPersonPlanFrame::show() {
         // hide all moduls except helpCreation
         myPersonSelector->hideDemandElementSelector();
         myPersonPlanTagSelector->hideTagSelector();
-        myPersonPlanAttributes->hideAttributesCreatorModul();
-        myPathCreator->hidePathCreatorModul();
+        myPersonPlanAttributes->hideAttributesCreatorModule();
+        myPathCreator->hidePathCreatorModule();
         myPersonHierarchy->hideHierarchicalElementTree();
     }
     // show frame
@@ -137,7 +137,7 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCur
 }
 
 
-GNEFrameModuls::PathCreator*
+GNEFrameModules::PathCreator*
 GNEPersonPlanFrame::getPathCreator() const {
     return myPathCreator;
 }
@@ -153,12 +153,12 @@ GNEPersonPlanFrame::tagSelected() {
         // Obtain current person plan tag (only for improve code legibility)
         SumoXMLTag personPlanTag = myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
         // show person attributes
-        myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTemplateAC(), {});
+        myPersonPlanAttributes->showAttributesCreatorModule(myPersonPlanTagSelector->getCurrentTemplateAC(), {});
         // get previous person plan
         GNEEdge* previousEdge = myPersonSelector->getPersonPlanPreviousEdge();
         // show path creator depending of tag
         if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() == GNE_TAG_WALK_ROUTE) {
-            myPathCreator->hidePathCreatorModul();
+            myPathCreator->hidePathCreatorModule();
         } else {
             // update VClass of myPathCreator depending if person is a ride
             if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isRide()) {
@@ -169,20 +169,20 @@ GNEPersonPlanFrame::tagSelected() {
             // set path creator mode depending if previousEdge exist
             if (previousEdge) {
                 // set path creator mode
-                myPathCreator->showPathCreatorModul(personPlanTag, true, false);
+                myPathCreator->showPathCreatorModule(personPlanTag, true, false);
                 // add previous edge
                 myPathCreator->addEdge(previousEdge, false, false);
             } else {
                 // set path creator mode
-                myPathCreator->showPathCreatorModul(personPlanTag, false, false);
+                myPathCreator->showPathCreatorModule(personPlanTag, false, false);
             }
         }
         // show person hierarchy
         myPersonHierarchy->showHierarchicalElementTree(myPersonSelector->getCurrentDemandElement());
     } else {
         // hide moduls if tag selecte isn't valid
-        myPersonPlanAttributes->hideAttributesCreatorModul();
-        myPathCreator->hidePathCreatorModul();
+        myPersonPlanAttributes->hideAttributesCreatorModule();
+        myPathCreator->hidePathCreatorModule();
         myPersonHierarchy->hideHierarchicalElementTree();
     }
 }
@@ -199,15 +199,15 @@ GNEPersonPlanFrame::demandElementSelected() {
             // call tag selected
             tagSelected();
         } else {
-            myPersonPlanAttributes->hideAttributesCreatorModul();
-            myPathCreator->hidePathCreatorModul();
+            myPersonPlanAttributes->hideAttributesCreatorModule();
+            myPathCreator->hidePathCreatorModule();
             myPersonHierarchy->hideHierarchicalElementTree();
         }
     } else {
         // hide moduls if person selected isn't valid
         myPersonPlanTagSelector->hideTagSelector();
-        myPersonPlanAttributes->hideAttributesCreatorModul();
-        myPathCreator->hidePathCreatorModul();
+        myPersonPlanAttributes->hideAttributesCreatorModule();
+        myPathCreator->hidePathCreatorModule();
         myPersonHierarchy->hideHierarchicalElementTree();
     }
 }

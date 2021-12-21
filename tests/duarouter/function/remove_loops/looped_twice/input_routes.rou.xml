@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-12-21 09:14:07 by Eclipse SUMO netedit Version v1_11_0+0629-a2885f1
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="vehicle_0" depart="0.00">
+        <route edges="4_5 5_6 6_12 12_13 13_5 5_6 6_8 8_22 22_11 11_12 12_13" color="cyan"/>
+    </vehicle>
+</routes>

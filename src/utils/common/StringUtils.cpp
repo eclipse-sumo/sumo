@@ -187,6 +187,12 @@ StringUtils::endsWith(const std::string& str, const std::string suffix) {
 
 
 std::string
+StringUtils::padFront(const std::string& str, int length, char padding) {
+    return std::string(MAX2(0, length - (int)str.size()), padding) + str;
+}
+
+
+std::string
 StringUtils::escapeXML(const std::string& orig, const bool maskDoubleHyphen) {
     std::string result = replace(orig, "&", "&amp;");
     result = replace(result, ">", "&gt;");

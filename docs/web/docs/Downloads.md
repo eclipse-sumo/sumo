@@ -4,11 +4,11 @@ title: Downloads
 
 ## SUMO - Latest Release (Version {{Version}})
 
-**Release date: {{ReleaseDate}}**
+**Release date: {{ReleaseDate}} (updated 15.12.2021)**
 
 ### MS Windows binaries
 
-Contains the binaries (32 or 64 bit), all dlls needed, the examples,
+Contains the binaries (64 bit), all dlls needed, the examples,
 tools, and documentation in HTML format. For an explanation of the contents and the
 licensing, especially concerning the "extra" build, see [the notes below](Downloads.md#note_on_licensing)
 
@@ -16,9 +16,9 @@ licensing, especially concerning the "extra" build, see [the notes below](Downlo
 <li>Download 64 bit installer: <a class="no-arrow-link" href="https://sumo.dlr.de/releases/{{Version}}/sumo-win64-{{Version}}.msi">sumo-win64-{{Version}}.msi </a><span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-win64-{{Version}}.msi","r");?></span></li>
 <li>Download 64 bit zip: <a class="no-arrow-link" href="https://sumo.dlr.de/releases/{{Version}}/sumo-win64-{{Version}}.zip">sumo-win64-{{Version}}.zip </a><span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-win64-{{Version}}.zip","r");?></span></li>
 <li>Download 64 bit zip with all extras: <a class="no-arrow-link" href="https://sumo.dlr.de/releases/{{Version}}/sumo-win64extra-{{Version}}.zip">sumo-win64extra-{{Version}}.zip </a><span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-win64extra-{{Version}}.zip","r");?></span></li>
-<li>Download 32 bit installer: <a class="no-arrow-link" href="https://sumo.dlr.de/releases/{{Version}}/sumo-win32-{{Version}}.msi">sumo-win32-{{Version}}.msi </a><span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-win32-{{Version}}.msi","r");?></span> (Please rather use the 64bit build, Win32 is going to be discontinued.)</li>
-<li>Download 32 bit zip: <a class="no-arrow-link" href="https://sumo.dlr.de/releases/{{Version}}/sumo-win32-{{Version}}.zip">sumo-win32-{{Version}}.zip </a><span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-win32-{{Version}}.zip","r");?></span> (Please rather use the 64bit build, Win32 is going to be discontinued.)</li>
 </ul>
+
+Please note that due to the [log4j vulnerability](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-44228) the lisum-gui.jar in the distribution 1.11.0 has been replaced. Up to 15.12.2021 it contained a vulnerable version of the library. All other files are as in the original release. You can also download an updated [lisum-gui.jar directly](https://sumo.dlr.de/daily/lisum-gui.jar). Please note that no other part of SUMO (not even lisum-core.jar) is affected.
 
 ### SUMO-Game
 
@@ -133,9 +133,9 @@ pip install eclipse-sumo
 
 ## SUMO - Alternative download and older releases
 
-All releases can also be obtained via the [sourceforge download
-portal](https://sourceforge.net/projects/sumo/files/sumo/).
-
+All releases can also be obtained via the [sourceforge download portal](https://sourceforge.net/projects/sumo/files/sumo/).
+If you want to try out an older version you can also use the virtual environment approach above with a fixed version, e.g.
+`pip install eclipse-sumo=1.9.0` (works only for 1.8.0 and later).
 
 ## SUMO - Latest Development Version
 

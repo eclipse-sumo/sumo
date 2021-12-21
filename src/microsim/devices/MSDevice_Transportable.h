@@ -154,7 +154,7 @@ protected:
                             const double meanSpeedVehicleOnLane,
                             const double travelledDistanceFrontOnLane,
                             const double travelledDistanceVehicleOnLane,
-                            const double /* meanLengthOnLane */);
+                            const double meanLengthOnLane);
 
 private:
     /** @brief Constructor

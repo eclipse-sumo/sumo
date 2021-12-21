@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-12-07 16:40:56 by Eclipse SUMO sumo Version v1_11_0+0377-337d5b1
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <queue-output value="results/queue_sotl_platoon_1800_1800.xml"/>
+        <summary-output value="results/summary_sotl_platoon_1800_1800.xml"/>
+        <tripinfo-output value="results/tripinfos_sotl_platoon_1800_1800.xml"/>
+        <statistic-output value="statistics.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <emissions>
+        <device.emissions.probability value="1"/>
+    </emissions>
+
+</configuration>
+-->
+
+<statistics xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/statistic_file.xsd">
+    <vehicles loaded="1458" inserted="1458" running="0" waiting="0"/>
+    <teleports total="0" jam="0" yield="0" wrongLane="0"/>
+    <safety collisions="0" emergencyStops="0"/>
+    <persons loaded="0" running="0" jammed="0"/>
+    <vehicleTripStatistics routeLength="2041.90" speed="6.39" duration="341.17" waitingTime="181.60" timeLoss="193.72" departDelay="161.02" departDelayWaiting="-1.00" totalTravelTime="497424.00" totalDepartDelay="234760.00"/>
+    <pedestrianStatistics number="0" routeLength="0.00" duration="0.00" timeLoss="0.00"/>
+    <rideStatistics number="0"/>
+    <transportStatistics number="0"/>
+</statistics>

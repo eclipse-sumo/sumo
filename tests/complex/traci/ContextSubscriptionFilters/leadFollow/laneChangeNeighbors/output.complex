@@ -1,191 +1,191 @@
-Loading configuration ... done.
  Retrying in 1 seconds
 Subscribing to vehicle context of object 'ego'
 [001] Context results for vehicle 'ego':
-follow_straight
-follow_right
 follow_left
+follow_right
+follow_straight
+lead_left
 lead_right
 lead_straight
-lead_left
 [002] Context results for vehicle 'ego':
-follow_straight
-follow_right
 follow_left
+follow_right
+follow_straight
+lead_left
 lead_right
 lead_straight
-lead_left
 [003] Context results for vehicle 'ego':
-follow_straight
-follow_right
 follow_left
+follow_right
+follow_straight
+lead_left
 lead_right
 lead_straight
-lead_left
 [004] Context results for vehicle 'ego':
-follow_straight
-follow_right
 follow_left
+follow_right
+follow_straight
+lead_left
 lead_right
 lead_straight
-lead_left
 [005] Context results for vehicle 'ego':
-follow_straight
-follow_right
 follow_left
+follow_right
+follow_straight
+lead_left
 lead_right
 lead_straight
-lead_left
 [006] Context results for vehicle 'ego':
-follow_straight
-follow_right
 follow_left
+follow_right
+follow_straight
+lead_left
 lead_right
 lead_straight
-lead_left
 [007] Context results for vehicle 'ego':
-follow_straight
-follow_right
 follow_left
+follow_right
+follow_straight
+lead_left
 lead_right
 lead_straight
-lead_left
 [008] Context results for vehicle 'ego':
-follow_straight
-follow_right
 follow_left
+follow_right
+follow_straight
+lead_left
 lead_right
 lead_straight
-lead_left
 [009] Context results for vehicle 'ego':
-follow_straight
-follow_right
 follow_left
+follow_right
+follow_straight
+lead_left
 lead_right
 lead_straight
-lead_left
 [010] Context results for vehicle 'ego':
-follow_straight
-follow_right
 follow_left
+follow_right
+follow_straight
+lead_left
 lead_right
 lead_straight
-lead_left
 [011] Context results for vehicle 'ego':
-follow_straight
-follow_right
 follow_left
+follow_right
+follow_straight
+lead_left
 lead_right
 lead_straight
-lead_left
 [012] Context results for vehicle 'ego':
-follow_straight
-follow_right
 follow_left
+follow_right
+follow_straight
+lead_left
 lead_right
 lead_straight
-lead_left
 [013] Context results for vehicle 'ego':
-follow_straight
-follow_right
 follow_left
+follow_right
+follow_straight
+lead_left
 lead_right
 lead_straight
-lead_left
 [014] Context results for vehicle 'ego':
-follow_straight
-follow_right
 follow_left
+follow_right
+follow_straight
+lead_left
 lead_right
 lead_straight
-lead_left
 [015] Context results for vehicle 'ego':
-follow_straight
-follow_right
 follow_left
+follow_right
+follow_straight
+lead_left
 lead_right
 lead_straight
-lead_left
 [016] Context results for vehicle 'ego':
-follow_straight
-follow_right
 follow_left
+follow_right
+follow_straight
+lead_left
 lead_right
 lead_straight
-lead_left
 [017] Context results for vehicle 'ego':
-follow_straight
-follow_right
 follow_left
+follow_right
+follow_straight
+lead_left
 lead_right
 lead_straight
-lead_left
 [018] Context results for vehicle 'ego':
-follow_straight
-follow_right
 follow_left
+follow_right
+follow_straight
+lead_left
 lead_right
 lead_straight
-lead_left
 [019] Context results for vehicle 'ego':
-follow_straight
-follow_right
 follow_left
+follow_right
+follow_straight
+lead_left
 lead_right
 lead_straight
-lead_left
 [020] Context results for vehicle 'ego':
-follow_straight
-follow_right
 follow_left
+follow_right
+follow_straight
+lead_left
 lead_right
 lead_straight
-lead_left
 [021] Context results for vehicle 'ego':
-follow_straight
-follow_right
 follow_left
+follow_right
+follow_straight
+lead_left
 lead_right
 lead_straight
-lead_left
 [022] Context results for vehicle 'ego':
-follow_straight
-follow_right
 follow_left
+follow_right
+follow_straight
+lead_left
 lead_right
 lead_straight
-lead_left
 [023] Context results for vehicle 'ego':
-follow_straight
-follow_right
 follow_left
+follow_right
+follow_straight
+lead_left
 lead_right
 lead_straight
-lead_left
 [024] Context results for vehicle 'ego':
-follow_right
 follow_left
-lead_left
-lead_straight
+follow_right
 follow_straight
+lead_left
+lead_right
+lead_straight
 [025] Context results for vehicle 'ego':
-follow_right
 follow_left
+follow_right
+follow_straight
 lead_left
 lead_straight
-follow_straight
 [026] Context results for vehicle 'ego':
-follow_right
 follow_left
-lead_straight
+follow_right
 follow_straight
+lead_straight
 [027] Context results for vehicle 'ego':
-follow_right
 follow_left
+follow_right
 follow_straight
 [028] Context results for vehicle 'ego':
-follow_right
 follow_left
+follow_right
 follow_straight
 [029] Vehicle 'ego' has arrived at destination
-Print ended at step 30
+Print ended at step 29

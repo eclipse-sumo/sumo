@@ -111,7 +111,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
         ret->mkItem("target lane [id]", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getTargetLaneID));
     }
     if (isSelected()) {
-        ret->mkItem("back lane [id]", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getBackLaneID));
+        ret->mkItem("back lanes [id,..]", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getBackLaneIDs));
     }
     ret->mkItem("position [m]", true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getPositionOnLane));
@@ -295,7 +295,8 @@ void
 GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool asImage) const {
     RGBColor current = GLHelper::getColor();
     RGBColor darker = current.changedBrightness(-51);
-    const double exaggeration = s.vehicleSize.getExaggeration(s, this);
+    const double exaggeration = (s.vehicleSize.getExaggeration(s, this)
+            * s.vehicleScaler.getScheme().getColor(getScaleValue(s, s.vehicleScaler.getActive())));
     const double totalLength = getVType().getLength();
     double upscaleLength = exaggeration;
     if (exaggeration > 1 && totalLength > 5) {
@@ -950,8 +951,8 @@ GUIVehicle::getLaneID() const {
 }
 
 std::string
-GUIVehicle::getBackLaneID() const {
-    return myFurtherLanes.size() > 0 ? myFurtherLanes.back()->getID() : getLaneID();
+GUIVehicle::getBackLaneIDs() const {
+    return toString(myFurtherLanes);
 }
 
 std::string

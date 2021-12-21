@@ -158,7 +158,7 @@ public:
         return false;
     }
 
-    /// @brief Whether the transportable waits for a vehicle
+    /// @brief Current vehicle in which the transportable is driving (or nullptr)
     virtual SUMOVehicle* getVehicle() const {
         return nullptr;
     }
@@ -390,6 +390,10 @@ public:
     SUMOTime getUntil() const;
 
     SUMOTime getDuration() const;
+
+    SUMOTime getStopEnd() const {
+        return myStopEndTime;
+    }
     ///
     Position getPosition(SUMOTime now) const;
 
@@ -423,6 +427,10 @@ public:
      */
     void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength, const MSStage* const previous) const;
 
+    void saveState(std::ostringstream& out);
+
+    void loadState(MSTransportable* transportable, std::istringstream& state);
+
 private:
     /// the time the person is waiting
     SUMOTime myWaitingDuration;
@@ -435,6 +443,9 @@ private:
 
     /// @brief The type of activity
     std::string myActType;
+
+    /// @brief stores the actual end time of the stop (combination of duration and until)
+    SUMOTime myStopEndTime;
 
 private:
     /// @brief Invalidated copy constructor.

@@ -277,7 +277,7 @@ TrafficLight::setProgramLogic(const std::string& tlsID, const libsumo::TraCILogi
     StoHelp::writeTypedInt(content, logic.type);
     StoHelp::writeTypedInt(content, logic.currentPhaseIndex);
     StoHelp::writeCompound(content, (int)logic.phases.size());
-    for (const libsumo::TraCIPhase* const phase : logic.phases) {
+    for (const std::shared_ptr<libsumo::TraCIPhase>& phase : logic.phases) {
         StoHelp::writeCompound(content, 6);
         StoHelp::writeTypedDouble(content, phase->duration);
         StoHelp::writeTypedString(content, phase->state);

@@ -61,9 +61,10 @@ public:
     virtual ~ROPerson();
 
     static void addTrip(std::vector<PlanItem*>& plan, const std::string& id,
-                        const ROEdge* const from, const ROEdge* const to, const SVCPermissions modeSet,
-                        const std::string& vTypes, const double departPos, const double arrivalPos,
-                        const std::string& busStop, double walkFactor, const std::string& group);
+                        const ROEdge* const from, const ROEdge* const to, const SVCPermissions modeSet, const std::string& vTypes,
+                        const double departPos, const std::string& stopOrigin,
+                        const double arrivalPos, const std::string& busStop,
+                        double walkFactor, const std::string& group);
 
     static void addRide(std::vector<PlanItem*>& plan, const ROEdge* const from, const ROEdge* const to, const std::string& lines,
                         double arrivalPos, const std::string& destStop, const std::string& group);
@@ -101,6 +102,11 @@ public:
         }
 
         virtual SUMOTime getDuration() const = 0;
+        virtual const std::string& getStopDest() const {
+            return UNDEFINED_STOPPING_PLACE;
+        }
+
+        static const std::string UNDEFINED_STOPPING_PLACE;
     };
 
     /**
@@ -133,6 +139,9 @@ public:
         }
         SUMOTime getDuration() const {
             return stopDesc.duration;
+        }
+        inline const std::string& getStopDest() const {
+            return stopDesc.busstop;
         }
 
     private:
@@ -282,11 +291,11 @@ public:
      */
     class PersonTrip : public PlanItem {
     public:
-        PersonTrip()
-            : from(0), to(0), modes(SVC_PEDESTRIAN), dep(0), arr(0), stopDest(""), walkFactor(1.0) {}
-        PersonTrip(const ROEdge* const from, const ROEdge* const to, const SVCPermissions modeSet,
-                   const double departPos, const double arrivalPos, const std::string& _stopDest, double _walkFactor, const std::string& _group)
-            : from(from), to(to), modes(modeSet), dep(departPos), arr(arrivalPos), stopDest(_stopDest), walkFactor(_walkFactor), group(_group) {}
+        PersonTrip(const ROEdge* _to, const std::string _stopDest) : 
+            from(0), to(_to), modes(SVC_PEDESTRIAN), dep(0), arr(0), stopDest(_stopDest), walkFactor(1.0) {}
+        PersonTrip(const ROEdge* const _from, const ROEdge* const _to, const SVCPermissions modeSet,
+                   const double departPos, const std::string& _stopOrigin, const double arrivalPos, const std::string& _stopDest, double _walkFactor, const std::string& _group) :
+            from(_from), to(_to), modes(modeSet), dep(departPos), arr(arrivalPos), stopOrigin(_stopOrigin), stopDest(_stopDest), walkFactor(_walkFactor), group(_group) { }
         /// @brief Destructor
         virtual ~PersonTrip() {
             for (std::vector<TripItem*>::const_iterator it = myTripItems.begin(); it != myTripItems.end(); ++it) {
@@ -339,6 +348,10 @@ public:
             return group;
         }
 
+        const std::string& getStopOrigin() const {
+            return stopOrigin;
+        }
+
         const std::string& getStopDest() const {
             return stopDest;
         }
@@ -360,6 +373,7 @@ public:
         const ROEdge* to;
         SVCPermissions modes;
         const double dep, arr;
+        const std::string stopOrigin;
         const std::string stopDest;
         /// @brief the fully specified trips
         std::vector<TripItem*> myTripItems;

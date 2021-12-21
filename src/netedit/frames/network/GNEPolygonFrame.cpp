@@ -43,7 +43,7 @@ FXDEFMAP(GNEPolygonFrame::GEOPOICreator) GEOPOICreatorMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEPolygonFrame::GEOPOICreator,     FXGroupBox,     GEOPOICreatorMap,   ARRAYNUMBER(GEOPOICreatorMap))
+FXIMPLEMENT(GNEPolygonFrame::GEOPOICreator,     FXGroupBoxModule,     GEOPOICreatorMap,   ARRAYNUMBER(GEOPOICreatorMap))
 
 
 // ===========================================================================
@@ -55,21 +55,21 @@ FXIMPLEMENT(GNEPolygonFrame::GEOPOICreator,     FXGroupBox,     GEOPOICreatorMap
 // ---------------------------------------------------------------------------
 
 GNEPolygonFrame::GEOPOICreator::GEOPOICreator(GNEPolygonFrame* polygonFrameParent) :
-    FXGroupBox(polygonFrameParent->myContentFrame, "GEO POI Creator", GUIDesignGroupBoxFrame),
+    FXGroupBoxModule(polygonFrameParent->myContentFrame, "GEO POI Creator"),
     myPolygonFrameParent(polygonFrameParent) {
     // create RadioButtons for formats
-    myLonLatRadioButton = new FXRadioButton(this, "Format: Lon-Lat", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    myLatLonRadioButton = new FXRadioButton(this, "Format: Lat-Lon", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    myLonLatRadioButton = new FXRadioButton(getCollapsableFrame(), "Format: Lon-Lat", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    myLatLonRadioButton = new FXRadioButton(getCollapsableFrame(), "Format: Lat-Lon", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // set lat-lon as default
     myLatLonRadioButton->setCheck(TRUE);
     // create text field for coordinates
-    myCoordinatesTextField = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myCoordinatesTextField = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create checkBox
-    myCenterViewAfterCreationCheckButton = new FXCheckButton(this, "Center View after creation", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myCenterViewAfterCreationCheckButton = new FXCheckButton(getCollapsableFrame(), "Center View after creation", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
     // create button for create GEO POIs
-    myCreateGEOPOIButton = new FXButton(this, "Create GEO POI (clipboard)", nullptr, this, MID_GNE_CREATE, GUIDesignButton);
+    myCreateGEOPOIButton = new FXButton(getCollapsableFrame(), "Create GEO POI (clipboard)", nullptr, this, MID_GNE_CREATE, GUIDesignButton);
     // create information label
-    myLabelCartesianPosition = new FXLabel(this, "Cartesian equivalence:\n- X = give valid longitude\n- Y = give valid latitude", 0, GUIDesignLabelFrameInformation);
+    myLabelCartesianPosition = new FXLabel(getCollapsableFrame(), "Cartesian equivalence:\n- X = give valid longitude\n- Y = give valid latitude", 0, GUIDesignLabelFrameInformation);
 }
 
 
@@ -77,7 +77,7 @@ GNEPolygonFrame::GEOPOICreator::~GEOPOICreator() {}
 
 
 void
-GNEPolygonFrame::GEOPOICreator::showGEOPOICreatorModul() {
+GNEPolygonFrame::GEOPOICreator::showGEOPOICreatorModule() {
     // check if there is an GEO Proj string is defined
     if (GeoConvHelper::getFinal().getProjString() != "!") {
         myCoordinatesTextField->enable();
@@ -94,7 +94,7 @@ GNEPolygonFrame::GEOPOICreator::showGEOPOICreatorModul() {
 
 
 void
-GNEPolygonFrame::GEOPOICreator::hideGEOPOICreatorModul() {
+GNEPolygonFrame::GEOPOICreator::hideGEOPOICreatorModule() {
     hide();
 }
 
@@ -218,16 +218,16 @@ GNEPolygonFrame::GNEPolygonFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     myBaseShape(nullptr) {
 
     // create item Selector modul for shapes
-    myShapeTagSelector = new GNEFrameModuls::TagSelector(this, GNETagProperties::TagType::SHAPE, SUMO_TAG_POLY);
+    myShapeTagSelector = new GNEFrameModules::TagSelector(this, GNETagProperties::TagType::SHAPE, SUMO_TAG_POLY);
 
     // Create shape parameters
-    myShapeAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
+    myShapeAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
 
     // Create Netedit parameter
-    myNeteditAttributes = new GNEFrameAttributesModuls::NeteditAttributes(this);
+    myNeteditAttributes = new GNEFrameAttributeModules::NeteditAttributes(this);
 
     // Create drawing controls
-    myDrawingShape = new GNEFrameModuls::DrawingShape(this);
+    myDrawingShape = new GNEFrameModules::DrawingShape(this);
 
     /// @brief create GEOPOICreator
     myGEOPOICreator = new GEOPOICreator(this);
@@ -382,8 +382,8 @@ GNEPolygonFrame::getIdsSelected(const FXList* list) {
 }
 
 
-GNEFrameModuls::DrawingShape*
-GNEPolygonFrame::getDrawingShapeModul() const {
+GNEFrameModules::DrawingShape*
+GNEPolygonFrame::getDrawingShapeModule() const {
     return myDrawingShape;
 }
 
@@ -444,9 +444,9 @@ void
 GNEPolygonFrame::tagSelected() {
     if (myShapeTagSelector->getCurrentTemplateAC()) {
         // if there are parmeters, show and Recalc groupBox
-        myShapeAttributes->showAttributesCreatorModul(myShapeTagSelector->getCurrentTemplateAC(), {});
+        myShapeAttributes->showAttributesCreatorModule(myShapeTagSelector->getCurrentTemplateAC(), {});
         // show netedit attributes
-        myNeteditAttributes->showNeteditAttributesModul(myShapeTagSelector->getCurrentTemplateAC()->getTagProperty());
+        myNeteditAttributes->showNeteditAttributesModule(myShapeTagSelector->getCurrentTemplateAC()->getTagProperty());
         // Check if drawing mode has to be shown
         if (myShapeTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() == SUMO_TAG_POLY) {
             myDrawingShape->showDrawingShape();
@@ -455,16 +455,16 @@ GNEPolygonFrame::tagSelected() {
         }
         // Check if GEO POI Creator has to be shown
         if (myShapeTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() == GNE_TAG_POIGEO) {
-            myGEOPOICreator->showGEOPOICreatorModul();
+            myGEOPOICreator->showGEOPOICreatorModule();
         } else {
-            myGEOPOICreator->hideGEOPOICreatorModul();
+            myGEOPOICreator->hideGEOPOICreatorModule();
         }
     } else {
         // hide all widgets
-        myShapeAttributes->hideAttributesCreatorModul();
-        myNeteditAttributes->hideNeteditAttributesModul();
+        myShapeAttributes->hideAttributesCreatorModule();
+        myNeteditAttributes->hideNeteditAttributesModule();
         myDrawingShape->hideDrawingShape();
-        myGEOPOICreator->hideGEOPOICreatorModul();
+        myGEOPOICreator->hideGEOPOICreatorModule();
     }
 }
 

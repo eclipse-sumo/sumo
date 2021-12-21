@@ -41,15 +41,22 @@ recheckForLoops(ConstROEdgeVector& edges, const ConstROEdgeVector& mandatory) {
     // XXX check for departLane, departPos, departSpeed, ....
 
     // removal of edge loops within the route (edge occurs twice)
-    std::map<const ROEdge*, int> lastOccurence; // index of the last occurence of this edge
-    for (int ii = 0; ii < (int)edges.size(); ++ii) {
-        std::map<const ROEdge*, int>::iterator it_pre = lastOccurence.find(edges[ii]);
-        if (it_pre != lastOccurence.end() &&
-                noMandatory(mandatory, edges.begin() + it_pre->second, edges.begin() + ii)) {
-            edges.erase(edges.begin() + it_pre->second, edges.begin() + ii);
-            ii = it_pre->second;
-        } else {
-            lastOccurence[edges[ii]] = ii;
+    // call repeatedly until no more loops have been found
+    bool findLoop = true;
+    while (findLoop) {
+        findLoop = false;
+        std::map<const ROEdge*, int> lastOccurence; // index of the last occurence of this edge
+        for (int ii = 0; ii < (int)edges.size(); ++ii) {
+            std::map<const ROEdge*, int>::iterator it_pre = lastOccurence.find(edges[ii]);
+            if (it_pre != lastOccurence.end() &&
+                    noMandatory(mandatory, edges.begin() + it_pre->second, edges.begin() + ii)) {
+                edges.erase(edges.begin() + it_pre->second, edges.begin() + ii);
+                ii = it_pre->second;
+                findLoop = true;
+                break;
+            } else {
+                lastOccurence[edges[ii]] = ii;
+            }
         }
     }
 

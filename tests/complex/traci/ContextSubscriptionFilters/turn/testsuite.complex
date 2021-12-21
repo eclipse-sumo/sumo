@@ -12,3 +12,6 @@ combined_with_lanes
 
 # Combination of turn filter with lateralDistance filter
 combined_with_lateralDistance
+
+# detect and filter surrounding persons
+persons

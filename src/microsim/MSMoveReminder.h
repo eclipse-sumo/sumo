@@ -234,14 +234,14 @@ public:
                                     const double travelledDistanceFrontOnLane,
                                     const double travelledDistanceVehicleOnLane,
                                     const double meanLengthOnLane) {
-        UNUSED_PARAMETER(meanLengthOnLane);
-        UNUSED_PARAMETER(travelledDistanceFrontOnLane);
-        UNUSED_PARAMETER(travelledDistanceVehicleOnLane);
-        UNUSED_PARAMETER(meanSpeedVehicleOnLane);
-        UNUSED_PARAMETER(meanSpeedFrontOnLane);
+        UNUSED_PARAMETER(&veh);
         UNUSED_PARAMETER(frontOnLane);
         UNUSED_PARAMETER(timeOnLane);
-        UNUSED_PARAMETER(&veh);
+        UNUSED_PARAMETER(meanSpeedFrontOnLane);
+        UNUSED_PARAMETER(meanSpeedVehicleOnLane);
+        UNUSED_PARAMETER(travelledDistanceFrontOnLane);
+        UNUSED_PARAMETER(travelledDistanceVehicleOnLane);
+        UNUSED_PARAMETER(meanLengthOnLane);
     }
 
     void setDescription(const std::string& description) {

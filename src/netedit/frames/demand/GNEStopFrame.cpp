@@ -35,9 +35,9 @@
 // ---------------------------------------------------------------------------
 
 GNEStopFrame::HelpCreation::HelpCreation(GNEStopFrame* StopFrameParent) :
-    FXGroupBox(StopFrameParent->myContentFrame, "Help", GUIDesignGroupBoxFrame),
+    FXGroupBoxModule(StopFrameParent->myContentFrame, "Help"),
     myStopFrameParent(StopFrameParent) {
-    myInformationLabel = new FXLabel(this, "", 0, GUIDesignLabelFrameInformation);
+    myInformationLabel = new FXLabel(getCollapsableFrame(), "", 0, GUIDesignLabelFrameInformation);
 }
 
 
@@ -112,18 +112,18 @@ GNEStopFrame::GNEStopFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet*
     myStopParentBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
     // Create Stop parent selector
-    myStopParentSelector = new GNEFrameModuls::DemandElementSelector(this, {GNETagProperties::TagType::PERSON, GNETagProperties::TagType::VEHICLE, GNETagProperties::TagType::ROUTE});
+    myStopParentSelector = new GNEFrameModules::DemandElementSelector(this, {GNETagProperties::TagType::PERSON, GNETagProperties::TagType::VEHICLE, GNETagProperties::TagType::ROUTE});
 
     // Create item Selector modul for Stops
-    myStopTagSelector = new GNEFrameModuls::TagSelector(this, GNETagProperties::TagType::STOP, SUMO_TAG_STOP_LANE);
+    myStopTagSelector = new GNEFrameModules::TagSelector(this, GNETagProperties::TagType::STOP, SUMO_TAG_STOP_LANE);
 
     // Create Stop parameters
-    myStopAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
+    myStopAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
 
     // Create Netedit parameter
-    myNeteditAttributes = new GNEFrameAttributesModuls::NeteditAttributes(this);
+    myNeteditAttributes = new GNEFrameAttributeModules::NeteditAttributes(this);
 
-    // Create Help Creation Modul
+    // Create Help Creation Module
     myHelpCreation = new HelpCreation(this);
 
     // refresh myStopParentMatchBox
@@ -160,8 +160,8 @@ GNEStopFrame::show() {
         // hide moduls (except help creation)
         myStopParentSelector->hideDemandElementSelector();
         myStopTagSelector->hideTagSelector();
-        myStopAttributes->hideAttributesCreatorModul();
-        myNeteditAttributes->hideNeteditAttributesModul();
+        myStopAttributes->hideAttributesCreatorModule();
+        myNeteditAttributes->hideNeteditAttributesModule();
         // show help creation modul
         myHelpCreation->showHelpCreation();
     }
@@ -196,6 +196,12 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
         if (myStopParentBaseObject->getTag() != SUMO_TAG_NOTHING) {
             myRouteHandler.buildStop(myStopParentBaseObject->getSumoBaseObjectChildren().front(),
                                      myStopParentBaseObject->getSumoBaseObjectChildren().front()->getStopParameter());
+            // show all trips 
+            if (myStopTagSelector->getCurrentTemplateAC()->getTagProperty().isStop()) {
+                myViewNet->getDemandViewOptions().menuCheckShowAllTrips->setChecked(TRUE);
+            } else {
+                myViewNet->getDemandViewOptions().menuCheckShowAllPersonPlans->setChecked(TRUE);
+            }
             // stop sucesfully created, then return true
             return true;
         } else {
@@ -303,7 +309,7 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
     // create stop object
     CommonXMLStructure::SumoBaseObject* stopBaseObject = new CommonXMLStructure::SumoBaseObject(myStopParentBaseObject);
     // get stop attributes
-    myStopAttributes->getAttributesAndValues(stopBaseObject, false);
+    myStopAttributes->getAttributesAndValues(stopBaseObject, true);
     // add netedit values
     if (!stop.lane.empty()) {
         myNeteditAttributes->getNeteditAttributesAndValues(stopBaseObject, lane);
@@ -345,9 +351,13 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
         stop.extension = stopBaseObject->getTimeAttribute(SUMO_ATTR_EXTENSION);
         stop.parametersSet |= STOP_EXTENSION_SET;
     }
-    if (stopBaseObject->hasBoolAttribute(SUMO_ATTR_TRIGGERED)) {
-        stop.triggered = stopBaseObject->getBoolAttribute(SUMO_ATTR_TRIGGERED);
-        stop.parametersSet |= STOP_TRIGGER_SET;
+    if (stopBaseObject->hasStringAttribute(SUMO_ATTR_TRIGGERED)) {
+        if ((stopBaseObject->getStringAttribute(SUMO_ATTR_TRIGGERED) == "true") || (stopBaseObject->getStringAttribute(SUMO_ATTR_TRIGGERED) == "person")) {
+            stop.triggered = true;
+            stop.parametersSet |= STOP_TRIGGER_SET;
+        } else {
+            stop.parametersSet &= ~STOP_TRIGGER_SET;
+        }
     }
     if (stopBaseObject->hasBoolAttribute(SUMO_ATTR_CONTAINER_TRIGGERED)) {
         stop.containerTriggered = stopBaseObject->getBoolAttribute(SUMO_ATTR_CONTAINER_TRIGGERED);
@@ -404,13 +414,13 @@ void
 GNEStopFrame::tagSelected() {
     if (myStopTagSelector->getCurrentTemplateAC()) {
         // show Stop type selector modul
-        myStopAttributes->showAttributesCreatorModul(myStopTagSelector->getCurrentTemplateAC(), {});
-        myNeteditAttributes->showNeteditAttributesModul(myStopTagSelector->getCurrentTemplateAC()->getTagProperty());
+        myStopAttributes->showAttributesCreatorModule(myStopTagSelector->getCurrentTemplateAC(), {});
+        myNeteditAttributes->showNeteditAttributesModule(myStopTagSelector->getCurrentTemplateAC()->getTagProperty());
         myHelpCreation->showHelpCreation();
     } else {
         // hide all moduls if stop parent isn't valid
-        myStopAttributes->hideAttributesCreatorModul();
-        myNeteditAttributes->hideNeteditAttributesModul();
+        myStopAttributes->hideAttributesCreatorModule();
+        myNeteditAttributes->hideNeteditAttributesModule();
         myHelpCreation->hideHelpCreation();
     }
 }
@@ -423,19 +433,19 @@ GNEStopFrame::demandElementSelected() {
         myStopTagSelector->showTagSelector();
         if (myStopTagSelector->getCurrentTemplateAC()) {
             // show moduls
-            myStopAttributes->showAttributesCreatorModul(myStopTagSelector->getCurrentTemplateAC(), {});
-            myNeteditAttributes->showNeteditAttributesModul(myStopTagSelector->getCurrentTemplateAC()->getTagProperty());
+            myStopAttributes->showAttributesCreatorModule(myStopTagSelector->getCurrentTemplateAC(), {});
+            myNeteditAttributes->showNeteditAttributesModule(myStopTagSelector->getCurrentTemplateAC()->getTagProperty());
             myHelpCreation->showHelpCreation();
         } else {
-            myStopAttributes->hideAttributesCreatorModul();
-            myNeteditAttributes->hideNeteditAttributesModul();
+            myStopAttributes->hideAttributesCreatorModule();
+            myNeteditAttributes->hideNeteditAttributesModule();
             myHelpCreation->hideHelpCreation();
         }
     } else {
         // hide moduls
         myStopTagSelector->hideTagSelector();
-        myStopAttributes->hideAttributesCreatorModul();
-        myNeteditAttributes->hideNeteditAttributesModul();
+        myStopAttributes->hideAttributesCreatorModule();
+        myNeteditAttributes->hideNeteditAttributesModule();
         myHelpCreation->hideHelpCreation();
     }
 }

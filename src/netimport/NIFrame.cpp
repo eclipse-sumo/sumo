@@ -198,6 +198,9 @@ NIFrame::fillOptions(bool forNetedit) {
     oc.doRegister("osm.sidewalks", new Option_Bool(false));
     oc.addDescription("osm.sidewalks", "Formats", "Import sidewalks");
 
+    oc.doRegister("osm.turn-lanes", new Option_Bool(false));
+    oc.addDescription("osm.turn-lanes", "Formats", "Import turning arrows from OSM to help with connection building");
+
     oc.doRegister("osm.stop-output.length", new Option_Float(25));
     oc.addDescription("osm.stop-output.length", "Formats", "The default length of a public transport stop in FLOAT m");
     oc.doRegister("osm.stop-output.length.bus", new Option_Float(15));
@@ -345,6 +348,8 @@ NIFrame::fillOptions(bool forNetedit) {
     oc.addDescription("opendrive.internal-shapes", "Formats", "Import internal lane shapes");
     oc.doRegister("opendrive.position-ids", new Option_Bool(false));
     oc.addDescription("opendrive.position-ids", "Formats", "Sets edge-id based on road-id and offset in m (legacy)");
+    oc.doRegister("opendrive.lane-shapes", new Option_Bool(false));
+    oc.addDescription("opendrive.lane-shapes", "Formats", "Use custom lane shapes to compensate discarded lane types");
 
     // register some additional options
     oc.doRegister("tls.discard-loaded", new Option_Bool(false));

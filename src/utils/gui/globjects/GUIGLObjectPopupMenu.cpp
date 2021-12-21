@@ -32,6 +32,7 @@
 #include <utils/gui/div/GUIUserIO.h>
 #include <utils/common/ToString.h>
 #include "GUIGLObjectPopupMenu.h"
+#include <utils/foxtools/FXLinkLabel.h>
 
 // ===========================================================================
 // FOX callback mapping
@@ -43,6 +44,7 @@ FXDEFMAP(GUIGLObjectPopupMenu) GUIGLObjectPopupMenuMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_COPY_EDGE_NAME,          GUIGLObjectPopupMenu::onCmdCopyEdgeName),
     FXMAPFUNC(SEL_COMMAND,  MID_COPY_CURSOR_POSITION,    GUIGLObjectPopupMenu::onCmdCopyCursorPosition),
     FXMAPFUNC(SEL_COMMAND,  MID_COPY_CURSOR_GEOPOSITION, GUIGLObjectPopupMenu::onCmdCopyCursorGeoPosition),
+    FXMAPFUNC(SEL_COMMAND,  MID_SHOW_GEOPOSITION_ONLINE, GUIGLObjectPopupMenu::onCmdShowCursorGeoPositionOnline),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWPARS,                GUIGLObjectPopupMenu::onCmdShowPars),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWTYPEPARS,            GUIGLObjectPopupMenu::onCmdShowTypePars),
     FXMAPFUNC(SEL_COMMAND,  MID_ADDSELECT,               GUIGLObjectPopupMenu::onCmdAddSelected),
@@ -136,6 +138,17 @@ GUIGLObjectPopupMenu::onCmdCopyCursorGeoPosition(FXObject*, FXSelector, void*) {
     // formated for pasting into google maps
     const std::string posString = toString(pos.y(), gPrecisionGeo) + ", " + toString(pos.x(), gPrecisionGeo);
     GUIUserIO::copyToClipboard(*myParent->getApp(), posString);
+    return 1;
+}
+
+
+long
+GUIGLObjectPopupMenu::onCmdShowCursorGeoPositionOnline(FXObject*, FXSelector, void*) {
+    Position pos = myNetworkPosition;
+    GeoConvHelper::getFinal().cartesian2geo(pos);
+    std::string paramsString = toString(pos.y(), gPrecisionGeo) + ";" + toString(pos.x(), gPrecisionGeo);
+    std::string geohackUrl = "https://geohack.toolforge.org/geohack.php?params=" + paramsString;
+    FXLinkLabel::fxexecute(geohackUrl.c_str());
     return 1;
 }
 

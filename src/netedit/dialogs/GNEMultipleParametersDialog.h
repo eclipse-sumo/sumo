@@ -22,7 +22,7 @@
 
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/xml/SUMOSAXHandler.h>
-#include <netedit/frames/GNEFrameAttributesModuls.h>
+#include <netedit/frames/GNEFrameAttributeModules.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 
 // ===========================================================================

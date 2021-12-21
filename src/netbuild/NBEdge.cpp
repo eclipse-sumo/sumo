@@ -1625,7 +1625,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
             // skip indices to keep some correspondence between edge ids and link indices:
             // internalEdgeIndex + internalLaneIndex = linkIndex
             edgeIndex = linkIndex;
-            toEdge = (*i).toEdge;
+            toEdge = con.toEdge;
             internalLaneIndex = 0;
             assignInternalLaneLength(i, numLanes, lengthSum, averageLength);
             numLanes = 0;
@@ -1670,7 +1670,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                         bool oppositeLeftIntersect = avoidIntersectCandidate && haveIntersection(n, shape, i2, k2, numPoints, width2);
                         int shapeFlag = 0;
                         SVCPermissions warn = SVCAll & ~(SVC_PEDESTRIAN | SVC_BICYCLE | SVC_DELIVERY | SVC_RAIL_CLASSES);
-                        // do not warn if only bicycles pedestrians or delivery vehicles are involved as this is a typical occurence
+                        // do not warn if only bicycles, pedestrians or delivery vehicles are involved as this is a typical occurence
                         if (con.customShape.size() == 0
                                 && k2.customShape.size() == 0
                                 && (oppositeLeftIntersect || (avoidedIntersectingLeftOriginLane < con.fromLane  && avoidIntersectCandidate))
@@ -1707,8 +1707,10 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                         }
                         const bool bothPrio = getJunctionPriority(&n) > 0 && i2->getJunctionPriority(&n) > 0;
                         //std::cout << "n=" << n.getID() << " e1=" << getID() << " prio=" << getJunctionPriority(&n) << " e2=" << i2->getID() << " prio2=" << i2->getJunctionPriority(&n) << " both=" << bothPrio << " bothLeftIntersect=" << bothLeftIntersect(n, shape, dir, i2, k2, numPoints, width2) << " needsCont=" << needsCont << "\n";
+                        // the following special case might get obsolete once we have solved #9745
+                        const bool isBicycleLeftTurn = k2.indirectLeft || (dir2 == LinkDirection::LEFT && (i2->getPermissions(k2.fromLane) & k2.toEdge->getPermissions(k2.toLane)) == SVC_BICYCLE);
                         // compute the crossing point
-                        if ((needsCont || (bothPrio && oppositeLeftIntersect)) && (!con.indirectLeft || dir2 == LinkDirection::STRAIGHT)) {
+                        if ((needsCont || (bothPrio && oppositeLeftIntersect)) && (!con.indirectLeft || dir2 == LinkDirection::STRAIGHT) && !isBicycleLeftTurn) {
                             crossingPositions.second.push_back(index);
                             const PositionVector otherShape = n.computeInternalLaneShape(i2, k2, numPoints, 0, shapeFlag);
                             otherShapes.push_back(otherShape);
@@ -2467,6 +2469,175 @@ NBEdge::computeLanes2Edges() {
 }
 
 
+std::vector<LinkDirection>
+NBEdge::decodeTurnSigns(int turnSigns) {
+    std::vector<LinkDirection> result;
+    for (int i = 0; i < 8; i++) {
+        // see LinkDirection in SUMOXMLDefinitions.h
+        if ((turnSigns & (1 << i)) != 0) {
+            result.push_back((LinkDirection)(1 << i));
+        }
+    }
+    return result;
+}
+
+bool
+NBEdge::applyTurnSigns() {
+    // build a map of target edges and lanes
+    std::vector<const NBEdge*> targets;
+    std::map<const NBEdge*, std::vector<int> > toLaneMap;
+    for (const Connection& c : myConnections) {
+        if (myLanes[c.fromLane].turnSigns != 0) {
+            if (std::find(targets.begin(), targets.end(), c.toEdge) == targets.end()) {
+                targets.push_back(c.toEdge);
+            }
+            toLaneMap[c.toEdge].push_back(c.toLane);
+        }
+    }
+    // might be unsorted due to bike lane connections
+    for (auto& item : toLaneMap) {
+        std::sort(item.second.begin(), item.second.end());
+    }
+
+    // check number of distinct signed directions and count the number of signs for each direction
+    std::map<LinkDirection, int> signCons;
+    int allDirs = 0;
+    for (const Lane& lane : myLanes) {
+        allDirs |= lane.turnSigns;
+        for (LinkDirection dir : decodeTurnSigns(lane.turnSigns)) {
+            signCons[dir]++;
+        }
+    }
+    if ((allDirs & (int)LinkDirection::NODIR) != 0) {
+        targets.push_back(nullptr); // dead end
+    }
+
+    // build a mapping from sign directions to targets
+    std::vector<LinkDirection> signedDirs = decodeTurnSigns(allDirs);
+    std::map<LinkDirection, const NBEdge*> dirMap;
+    if (signedDirs.size() > targets.size()) {
+        WRITE_WARNINGF("Cannot apply turn sign information for edge '%' because there are % signed directions but only % targets", getID(), signedDirs.size(), targets.size());
+        return false;
+    } else if (signedDirs.size() < targets.size()) {
+        // we need to drop some targets (i.e. turn-around)
+        // use sumo-directions as a guide
+        std::vector<LinkDirection> sumoDirs;
+        for (const NBEdge* to : targets) {
+            sumoDirs.push_back(myTo->getDirection(this, to));
+        }
+        // remove targets to the left
+        bool checkMore = true;
+        while (signedDirs.size() < targets.size() && checkMore) {
+            checkMore = false;
+            //std::cout << getID() << " sumoDirs=" << joinToString(sumoDirs, ",") << " signedDirs=" << joinToString(signedDirs, ",") << "\n";
+            if (sumoDirs.back() != signedDirs.back()) {
+                targets.pop_back();
+                sumoDirs.pop_back();
+                checkMore = true;
+            }
+        }
+        // remove targets to the right
+        checkMore = true;
+        while (signedDirs.size() < targets.size() && checkMore) {
+            checkMore = false;
+            if (sumoDirs.front() != signedDirs.front()) {
+                targets.erase(targets.begin());
+                sumoDirs.erase(sumoDirs.begin());
+                checkMore = true;
+            }
+        }
+        // remove targets by permissions
+        int i = 0;
+        while (signedDirs.size() < targets.size() && i < (int)targets.size()) {
+            if (targets[i] != nullptr && (targets[i]->getPermissions() & SVC_PASSENGER) == 0) {
+                targets.erase(targets.begin() + i);
+                sumoDirs.erase(sumoDirs.begin() + i);
+            } else {
+                i++;
+            }
+        }
+        if (signedDirs.size() != targets.size()) {
+            WRITE_WARNINGF("Cannot apply turn sign information for edge '%' because there are % signed directions and % targets (after target pruning)", getID(), signedDirs.size(), targets.size());
+            return false;
+        }
+    }
+    // directions and connections are both sorted from right to left
+    for (int i = 0; i < (int)signedDirs.size(); i++) {
+        dirMap[signedDirs[i]] = targets[i];
+    }
+    // check whether we have enough target lanes for a each signed direction
+    for (auto item : signCons) {
+        const LinkDirection dir = item.first;
+        if (dir == LinkDirection::NODIR) {
+            continue;
+        }
+        const NBEdge* to = dirMap[dir];
+        std::vector<int>& knownTargets = toLaneMap[to];
+        if ((int)knownTargets.size() < item.second) {
+            int candidates = to->getNumLanesThatAllow(SVC_PASSENGER);
+            if (candidates < item.second) {
+                WRITE_WARNINGF("Cannot apply turn sign information for edge '%' because there are % signed connections with directions '%' but target edge '%' has only % suitable lanes",
+                        getID(), item.second, toString(dir), to->getID(), candidates);
+                return false;
+            }
+            int i;
+            int iInc;
+            int iEnd;
+            if (dir > LinkDirection::STRAIGHT) {
+                // set more targets on the left
+                i = to->getNumLanes() - 1;
+                iInc = -1;
+                iEnd = -1;
+            } else {
+                // set more targets on the right
+                i = 0;
+                iInc = 1;
+                iEnd = to->getNumLanes();
+            }
+            while ((int)knownTargets.size() < item.second && i != iEnd) {
+                if ((to->getPermissions(i) & SVC_PASSENGER) != 0) {
+                    if (std::find(knownTargets.begin(), knownTargets.end(), i) == knownTargets.end()) {
+                        knownTargets.push_back(i);
+                    }
+                }
+                i += iInc;
+            }
+            if ((int)knownTargets.size() != item.second) {
+                WRITE_WARNINGF("Cannot apply turn sign information for edge '%' because not enough target lanes could be determined for direction '%'", getID(), toString(dir));
+                return false;
+            }
+            std::sort(knownTargets.begin(), knownTargets.end());
+        }
+    }
+
+    std::map<const NBEdge*, int> toLaneIndex; // implicitly starting at 0
+    for (int i = 0; i < getNumLanes(); i++) {
+        const int turnSigns = myLanes[i].turnSigns;
+        // no turnSigns are given for bicycle lanes and sidewalks
+        if (turnSigns != 0) {
+            // clear existing connections
+            for (auto it = myConnections.begin(); it != myConnections.end();) {
+                if (it->fromLane == i) {
+                    it = myConnections.erase(it);
+                } else {
+                    it++;
+                }
+            }
+            // add new connections
+            for (LinkDirection dir : decodeTurnSigns(turnSigns)) {
+                NBEdge* to = const_cast<NBEdge*>(dirMap[dir]);
+                if (to != nullptr) {
+                    setConnection(i, to, toLaneMap[to][toLaneIndex[to]++], Lane2LaneInfoType::VALIDATED, true);
+                }
+            }
+        }
+    }
+    sortOutgoingConnectionsByAngle();
+    sortOutgoingConnectionsByIndex();
+    return true;
+}
+
+
 bool
 NBEdge::recheckLanes() {
 #ifdef DEBUG_CONNECTION_GUESSING
@@ -2496,96 +2667,101 @@ NBEdge::recheckLanes() {
         }
     }
     if (myStep != EdgeBuildingStep::LANES2LANES_DONE && myStep != EdgeBuildingStep::LANES2LANES_USER) {
-        // check #1:
-        // If there is a lane with no connections and any neighbour lane has
-        //  more than one connections, try to move one of them.
-        // This check is only done for edges which connections were assigned
-        //  using the standard algorithm.
-        for (int i = 0; i < (int)myLanes.size(); i++) {
-            if (connNumbersPerLane[i] == 0 && !isForbidden(getPermissions((int)i))) {
-                // dead-end lane found
-                bool hasDeadEnd = true;
-                // find lane with two connections or more to the right of the current lane
-                for (int i2 = i - 1; hasDeadEnd && i2 >= 0; i2--) {
-                    if (getPermissions(i) != getPermissions(i2)) {
-                        break;
-                    }
-                    if (connNumbersPerLane[i2] > 1) {
-                        connNumbersPerLane[i2]--;
-                        for (int i3 = i2; i3 != i; i3++) {
-                            moveConnectionToLeft(i3);
-                            sortOutgoingConnectionsByAngle();
-                            sortOutgoingConnectionsByIndex();
-                        }
-                        hasDeadEnd = false;
-                    }
-                }
-                if (hasDeadEnd) {
-                    // find lane with two connections or more to the left of the current lane
-                    for (int i2 = i + 1; hasDeadEnd && i2 < getNumLanes(); i2++) {
+        //if (myLanes.back().turnSigns != 0 && myTurnSignTarget != myTo->getID()) {
+        //    std::cout << getID() << " tst=" << myTurnSignTarget << " to=" << myTo->getID() << "\n";
+        //}
+        if (myLanes.back().turnSigns == 0 || myTurnSignTarget != myTo->getID() || !applyTurnSigns()) {
+            // check #1:
+            // If there is a lane with no connections and any neighbour lane has
+            //  more than one connections, try to move one of them.
+            // This check is only done for edges which connections were assigned
+            //  using the standard algorithm.
+            for (int i = 0; i < (int)myLanes.size(); i++) {
+                if (connNumbersPerLane[i] == 0 && !isForbidden(getPermissions((int)i))) {
+                    // dead-end lane found
+                    bool hasDeadEnd = true;
+                    // find lane with two connections or more to the right of the current lane
+                    for (int i2 = i - 1; hasDeadEnd && i2 >= 0; i2--) {
                         if (getPermissions(i) != getPermissions(i2)) {
                             break;
                         }
                         if (connNumbersPerLane[i2] > 1) {
                             connNumbersPerLane[i2]--;
-                            for (int i3 = i2; i3 != i; i3--) {
-                                moveConnectionToRight(i3);
+                            for (int i3 = i2; i3 != i; i3++) {
+                                moveConnectionToLeft(i3);
                                 sortOutgoingConnectionsByAngle();
                                 sortOutgoingConnectionsByIndex();
                             }
                             hasDeadEnd = false;
                         }
                     }
+                    if (hasDeadEnd) {
+                        // find lane with two connections or more to the left of the current lane
+                        for (int i2 = i + 1; hasDeadEnd && i2 < getNumLanes(); i2++) {
+                            if (getPermissions(i) != getPermissions(i2)) {
+                                break;
+                            }
+                            if (connNumbersPerLane[i2] > 1) {
+                                connNumbersPerLane[i2]--;
+                                for (int i3 = i2; i3 != i; i3--) {
+                                    moveConnectionToRight(i3);
+                                    sortOutgoingConnectionsByAngle();
+                                    sortOutgoingConnectionsByIndex();
+                                }
+                                hasDeadEnd = false;
+                            }
+                        }
+                    }
                 }
             }
-        }
-        // check restrictions
-        for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end();) {
-            Connection& c = *i;
-            const SVCPermissions common = getPermissions(c.fromLane) & c.toEdge->getPermissions(c.toLane);
-            if (common == SVC_PEDESTRIAN || getPermissions(c.fromLane) == SVC_PEDESTRIAN) {
-                // these are computed in NBNode::buildWalkingAreas
-                i = myConnections.erase(i);
-            } else if (common == 0) {
-                // no common permissions.
-                // try to find a suitable target lane to the right
-                const int origToLane = c.toLane;
-                c.toLane = -1; // ignore this connection when calling hasConnectionTo
-                int toLane = origToLane;
-                while (toLane > 0
-                        && (getPermissions(c.fromLane) & c.toEdge->getPermissions(toLane)) == 0
-                        && !hasConnectionTo(c.toEdge, toLane)
-                      ) {
-                    toLane--;
-                }
-                if ((getPermissions(c.fromLane) & c.toEdge->getPermissions(toLane)) != 0
-                        && !hasConnectionTo(c.toEdge, toLane)) {
-                    c.toLane = toLane;
-                    ++i;
-                } else {
-                    // try to find a suitable target lane to the left
-                    toLane = origToLane;
-                    while (toLane < (int)c.toEdge->getNumLanes() - 1
+            // check restrictions
+            for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end();) {
+                Connection& c = *i;
+                const SVCPermissions common = getPermissions(c.fromLane) & c.toEdge->getPermissions(c.toLane);
+                if (common == SVC_PEDESTRIAN || getPermissions(c.fromLane) == SVC_PEDESTRIAN) {
+                    // these are computed in NBNode::buildWalkingAreas
+                    i = myConnections.erase(i);
+                } else if (common == 0) {
+                    // no common permissions.
+                    // try to find a suitable target lane to the right
+                    const int origToLane = c.toLane;
+                    c.toLane = -1; // ignore this connection when calling hasConnectionTo
+                    int toLane = origToLane;
+                    while (toLane > 0
                             && (getPermissions(c.fromLane) & c.toEdge->getPermissions(toLane)) == 0
                             && !hasConnectionTo(c.toEdge, toLane)
                           ) {
-                        toLane++;
+                        toLane--;
                     }
                     if ((getPermissions(c.fromLane) & c.toEdge->getPermissions(toLane)) != 0
                             && !hasConnectionTo(c.toEdge, toLane)) {
                         c.toLane = toLane;
                         ++i;
                     } else {
-                        // no alternative target found
-                        i = myConnections.erase(i);
+                        // try to find a suitable target lane to the left
+                        toLane = origToLane;
+                        while (toLane < (int)c.toEdge->getNumLanes() - 1
+                                && (getPermissions(c.fromLane) & c.toEdge->getPermissions(toLane)) == 0
+                                && !hasConnectionTo(c.toEdge, toLane)
+                              ) {
+                            toLane++;
+                        }
+                        if ((getPermissions(c.fromLane) & c.toEdge->getPermissions(toLane)) != 0
+                                && !hasConnectionTo(c.toEdge, toLane)) {
+                            c.toLane = toLane;
+                            ++i;
+                        } else {
+                            // no alternative target found
+                            i = myConnections.erase(i);
+                        }
                     }
+                } else if (isRailway(getPermissions(c.fromLane)) && isRailway(c.toEdge->getPermissions(c.toLane))
+                        && isTurningDirectionAt(c.toEdge))  {
+                    // do not allow sharp rail turns
+                    i = myConnections.erase(i);
+                } else {
+                    ++i;
                 }
-            } else if (isRailway(getPermissions(c.fromLane)) && isRailway(c.toEdge->getPermissions(c.toLane))
-                       && isTurningDirectionAt(c.toEdge))  {
-                // do not allow sharp rail turns
-                i = myConnections.erase(i);
-            } else {
-                ++i;
             }
         }
     }
@@ -3418,6 +3594,7 @@ NBEdge::append(NBEdge* e) {
             }
         }
         myLanes[i].connectionsDone = e->myLanes[i].connectionsDone;
+        myLanes[i].turnSigns = e->myLanes[i].turnSigns;
     }
     if (e->getLength() > myLength) {
         // possibly some lane attributes differ (when using option geometry.remove.min-length)
@@ -3439,6 +3616,7 @@ NBEdge::append(NBEdge* e) {
     myConnectionsToDelete = e->myConnectionsToDelete;
     // set the node
     myTo = e->myTo;
+    myTurnSignTarget = e->myTurnSignTarget;
     myToBorder = e->myToBorder;
     if (e->knowsParameter("origTo")) {
         setParameter("origTo", e->getParameter("origTo"));

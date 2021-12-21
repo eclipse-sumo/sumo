@@ -78,6 +78,52 @@ GNEDetectorE2::~GNEDetectorE2() {
 }
 
 
+void 
+GNEDetectorE2::writeAdditional(OutputDevice& device) const {
+    device.openTag(getTagProperty().getTag());
+    device.writeAttr(SUMO_ATTR_ID, getID());
+    if (!myAdditionalName.empty()) {
+        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
+    }
+    // continue depending of E2 type
+    if (myTagProperty.getTag() == SUMO_TAG_E2DETECTOR) {
+        device.writeAttr(SUMO_ATTR_LANE, getParentLanes().front()->getID());
+        device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane);
+        device.writeAttr(SUMO_ATTR_LENGTH, toString(myEndPositionOverLane - myPositionOverLane));
+    } else {
+        device.writeAttr(SUMO_ATTR_LANES, getAttribute(SUMO_ATTR_LANES));
+        device.writeAttr(SUMO_ATTR_POSITION, myPositionOverLane);
+        device.writeAttr(SUMO_ATTR_ENDPOS, myEndPositionOverLane);
+    }
+    if (myTrafficLight.size() > 0) {
+        device.writeAttr(SUMO_ATTR_TLID, myTrafficLight);
+    } else {
+        device.writeAttr(SUMO_ATTR_FREQUENCY, time2string(myFreq));
+    }
+    if (myFilename.size() > 0) {
+        device.writeAttr(SUMO_ATTR_FILE, myFilename);
+    }
+    if (myVehicleTypes.size() > 0) {
+        device.writeAttr(SUMO_ATTR_VTYPES, myVehicleTypes);
+    }
+    if (getAttribute(SUMO_ATTR_HALTING_TIME_THRESHOLD) != myTagProperty.getDefaultValue(SUMO_ATTR_HALTING_TIME_THRESHOLD)) {
+        device.writeAttr(SUMO_ATTR_HALTING_TIME_THRESHOLD, mySpeedThreshold);
+    }
+    if (getAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD) != myTagProperty.getDefaultValue(SUMO_ATTR_HALTING_SPEED_THRESHOLD)) {
+        device.writeAttr(SUMO_ATTR_HALTING_SPEED_THRESHOLD, mySpeedThreshold);
+    }
+    if (getAttribute(SUMO_ATTR_JAM_DIST_THRESHOLD) != myTagProperty.getDefaultValue(SUMO_ATTR_JAM_DIST_THRESHOLD)) {
+        device.writeAttr(SUMO_ATTR_JAM_DIST_THRESHOLD, mySpeedThreshold);
+    }
+    if (myFriendlyPosition) {
+        device.writeAttr(SUMO_ATTR_FRIENDLY_POS, true);
+    }
+    // write parameters (Always after children to avoid problems with additionals.xsd)
+    writeParams(device);
+    device.closeTag();
+}
+
+
 bool
 GNEDetectorE2::isAdditionalValid() const {
     if (getParentLanes().size() == 1) {

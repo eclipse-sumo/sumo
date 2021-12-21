@@ -28,6 +28,8 @@
 
 #include "GNEEdgeType.h"
 #include "GNELaneType.h"
+#include "GNEEdgeTemplate.h"
+#include "GNELaneTemplate.h"
 
 
 // ===========================================================================
@@ -45,10 +47,6 @@ GNEEdgeType::GNEEdgeType(const GNEEdgeType* edgeType) :
     GNENetworkElement(edgeType->getNet(), edgeType->getID(), GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}),
     Parameterised(edgeType->getParametersMap()),
     NBTypeCont::EdgeTypeDefinition(edgeType) {
-    // create laneTypes
-    for (const auto &laneType : edgeType->getLaneTypes()) {
-        myLaneTypes.push_back(new GNELaneType(laneType));
-    }
 }
 
 
@@ -83,6 +81,34 @@ GNEEdgeType::GNEEdgeType(GNENet* net, const std::string& ID, const NBTypeCont::E
     restrictions = edgeType->restrictions;
     attrs = edgeType->attrs;
     laneTypeDefinitions = edgeType->laneTypeDefinitions;
+}
+
+
+void
+GNEEdgeType::copyTemplate(const GNEEdgeTemplate *edgeTemplate) {
+    // copy all edge attributes
+    setAttribute(SUMO_ATTR_NUMLANES, edgeTemplate->getAttribute(SUMO_ATTR_NUMLANES));
+    setAttribute(SUMO_ATTR_SPEED, edgeTemplate->getAttribute(SUMO_ATTR_SPEED));
+    setAttribute(SUMO_ATTR_ALLOW, edgeTemplate->getAttribute(SUMO_ATTR_ALLOW));
+    setAttribute(SUMO_ATTR_DISALLOW, edgeTemplate->getAttribute(SUMO_ATTR_DISALLOW));
+    setAttribute(SUMO_ATTR_SPREADTYPE, edgeTemplate->getAttribute(SUMO_ATTR_SPREADTYPE));
+    if (canParse<double>(edgeTemplate->getAttribute(SUMO_ATTR_WIDTH))) {
+        setAttribute(SUMO_ATTR_WIDTH, edgeTemplate->getAttribute(SUMO_ATTR_WIDTH));
+    }
+    setAttribute(SUMO_ATTR_PRIORITY, edgeTemplate->getAttribute(SUMO_ATTR_PRIORITY));
+    setAttribute(GNE_ATTR_PARAMETERS, edgeTemplate->getAttribute(GNE_ATTR_PARAMETERS));
+    // copy lane attributes
+    for (int i = 0; i < (int)edgeTemplate->getLaneTemplates().size(); i++) {
+        if (canParse<double>(edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_SPEED))) {
+            myLaneTypes.at(i)->setAttribute(SUMO_ATTR_SPEED, edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_SPEED));
+        }
+        myLaneTypes.at(i)->setAttribute(SUMO_ATTR_ALLOW, edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_ALLOW));
+        myLaneTypes.at(i)->setAttribute(SUMO_ATTR_DISALLOW, edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_DISALLOW));
+        if (canParse<double>(edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_WIDTH))) {
+            myLaneTypes.at(i)->setAttribute(SUMO_ATTR_WIDTH, edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_WIDTH));
+        }
+        myLaneTypes.at(i)->setAttribute(GNE_ATTR_PARAMETERS, edgeTemplate->getLaneTemplates().at(i)->getAttribute(GNE_ATTR_PARAMETERS));
+    }
 }
 
 
@@ -312,9 +338,13 @@ GNEEdgeType::getACParametersMap() const {
 void
 GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID:
+        case SUMO_ATTR_ID: {
+            // update comboBox
+            myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->updateIDinComboBox(getID(), value);
+            // update ID
             myNet->getAttributeCarriers()->updateEdgeTypeID(this, value);
             break;
+        }
         case SUMO_ATTR_NUMLANES: {
             const int numLanes = parse<int>(value);
             // add new lanes
@@ -402,6 +432,7 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
     // update edge selector
     if (myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->shown()) {
         myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeAttributes()->refreshAttributesCreator();
+        myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getLaneTypeSelector()->refreshLaneTypeSelector();
     }
 }
 

@@ -42,25 +42,25 @@ GNEContainerFrame::GNEContainerFrame(FXHorizontalFrame* horizontalFrameParent, G
     myContainerBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
     // create tag Selector modul for containers
-    myContainerTagSelector = new GNEFrameModuls::TagSelector(this, GNETagProperties::TagType::CONTAINER, SUMO_TAG_CONTAINER);
+    myContainerTagSelector = new GNEFrameModules::TagSelector(this, GNETagProperties::TagType::CONTAINER, SUMO_TAG_CONTAINER);
 
     // create container types selector modul
-    myPTypeSelector = new GNEFrameModuls::DemandElementSelector(this, SUMO_TAG_PTYPE);
+    myPTypeSelector = new GNEFrameModules::DemandElementSelector(this, SUMO_TAG_PTYPE);
 
     // create container attributes
-    myContainerAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
+    myContainerAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
 
     // create tag Selector modul for container plans
-    myContainerPlanTagSelector = new GNEFrameModuls::TagSelector(this, GNETagProperties::TagType::CONTAINERPLAN, GNE_TAG_TRANSPORT_EDGE);
+    myContainerPlanTagSelector = new GNEFrameModules::TagSelector(this, GNETagProperties::TagType::CONTAINERPLAN, GNE_TAG_TRANSPORT_EDGE);
 
     // create container plan attributes
-    myContainerPlanAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
+    myContainerPlanAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
 
     // Create Netedit parameter
-    myNeteditAttributes = new GNEFrameAttributesModuls::NeteditAttributes(this);
+    myNeteditAttributes = new GNEFrameAttributeModules::NeteditAttributes(this);
 
-    // create PathCreator Modul
-    myPathCreator = new GNEFrameModuls::PathCreator(this);
+    // create PathCreator Module
+    myPathCreator = new GNEFrameModules::PathCreator(this);
 
     // limit path creator to pedestrians
     myPathCreator->setVClass(SVC_PEDESTRIAN);
@@ -137,7 +137,7 @@ GNEContainerFrame::addContainer(const GNEViewNetHelper::ObjectsUnderCursor& obje
 }
 
 
-GNEFrameModuls::PathCreator*
+GNEFrameModules::PathCreator*
 GNEContainerFrame::getPathCreator() const {
     return myPathCreator;
 }
@@ -156,9 +156,9 @@ GNEContainerFrame::tagSelected() {
         if (myPTypeSelector->getCurrentDemandElement()) {
             // show container attributes depending of myContainerPlanTagSelector
             if (myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopContainer()) {
-                myContainerAttributes->showAttributesCreatorModul(myContainerTagSelector->getCurrentTemplateAC(), {SUMO_ATTR_DEPARTPOS});
+                myContainerAttributes->showAttributesCreatorModule(myContainerTagSelector->getCurrentTemplateAC(), {SUMO_ATTR_DEPARTPOS});
             } else {
-                myContainerAttributes->showAttributesCreatorModul(myContainerTagSelector->getCurrentTemplateAC(), {});
+                myContainerAttributes->showAttributesCreatorModule(myContainerTagSelector->getCurrentTemplateAC(), {});
             }
             // show container plan tag selector
             myContainerPlanTagSelector->showTagSelector();
@@ -171,33 +171,33 @@ GNEContainerFrame::tagSelected() {
                     myPathCreator->setVClass(SVC_PEDESTRIAN);
                 }
                 // show container plan attributes
-                myContainerPlanAttributes->showAttributesCreatorModul(myContainerPlanTagSelector->getCurrentTemplateAC(), {});
+                myContainerPlanAttributes->showAttributesCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC(), {});
                 // show Netedit attributes modul
-                myNeteditAttributes->showNeteditAttributesModul(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty());
+                myNeteditAttributes->showNeteditAttributesModule(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty());
                 // show edge path creator modul
-                myPathCreator->showPathCreatorModul(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
+                myPathCreator->showPathCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
             } else {
                 // hide modules
-                myContainerPlanAttributes->hideAttributesCreatorModul();
-                myNeteditAttributes->hideNeteditAttributesModul();
-                myPathCreator->hidePathCreatorModul();
+                myContainerPlanAttributes->hideAttributesCreatorModule();
+                myNeteditAttributes->hideNeteditAttributesModule();
+                myPathCreator->hidePathCreatorModule();
             }
         } else {
             // hide modules
             myContainerPlanTagSelector->hideTagSelector();
-            myContainerAttributes->hideAttributesCreatorModul();
-            myContainerPlanAttributes->hideAttributesCreatorModul();
-            myNeteditAttributes->hideNeteditAttributesModul();
-            myPathCreator->hidePathCreatorModul();
+            myContainerAttributes->hideAttributesCreatorModule();
+            myContainerPlanAttributes->hideAttributesCreatorModule();
+            myNeteditAttributes->hideNeteditAttributesModule();
+            myPathCreator->hidePathCreatorModule();
         }
     } else {
         // hide all moduls if container isn't valid
         myPTypeSelector->hideDemandElementSelector();
         myContainerPlanTagSelector->hideTagSelector();
-        myContainerAttributes->hideAttributesCreatorModul();
-        myContainerPlanAttributes->hideAttributesCreatorModul();
-        myNeteditAttributes->hideNeteditAttributesModul();
-        myPathCreator->hidePathCreatorModul();
+        myContainerAttributes->hideAttributesCreatorModule();
+        myContainerPlanAttributes->hideAttributesCreatorModule();
+        myNeteditAttributes->hideNeteditAttributesModule();
+        myPathCreator->hidePathCreatorModule();
     }
 }
 
@@ -207,9 +207,9 @@ GNEContainerFrame::demandElementSelected() {
     if (myPTypeSelector->getCurrentDemandElement()) {
         // show container attributes depending of myContainerPlanTagSelector
         if (myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopContainer()) {
-            myContainerAttributes->showAttributesCreatorModul(myContainerTagSelector->getCurrentTemplateAC(), {SUMO_ATTR_DEPARTPOS});
+            myContainerAttributes->showAttributesCreatorModule(myContainerTagSelector->getCurrentTemplateAC(), {SUMO_ATTR_DEPARTPOS});
         } else {
-            myContainerAttributes->showAttributesCreatorModul(myContainerTagSelector->getCurrentTemplateAC(), {});
+            myContainerAttributes->showAttributesCreatorModule(myContainerTagSelector->getCurrentTemplateAC(), {});
         }
         // show container plan tag selector
         myContainerPlanTagSelector->showTagSelector();
@@ -222,24 +222,24 @@ GNEContainerFrame::demandElementSelected() {
                 myPathCreator->setVClass(SVC_PEDESTRIAN);
             }
             // show container plan attributes
-            myContainerPlanAttributes->showAttributesCreatorModul(myContainerPlanTagSelector->getCurrentTemplateAC(), {});
+            myContainerPlanAttributes->showAttributesCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC(), {});
             // show Netedit attributes modul
-            myNeteditAttributes->showNeteditAttributesModul(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty());
+            myNeteditAttributes->showNeteditAttributesModule(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty());
             // show edge path creator modul
-            myPathCreator->showPathCreatorModul(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
+            myPathCreator->showPathCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
         } else {
             // hide modules
-            myContainerPlanAttributes->hideAttributesCreatorModul();
-            myNeteditAttributes->hideNeteditAttributesModul();
-            myPathCreator->hidePathCreatorModul();
+            myContainerPlanAttributes->hideAttributesCreatorModule();
+            myNeteditAttributes->hideNeteditAttributesModule();
+            myPathCreator->hidePathCreatorModule();
         }
     } else {
         // hide modules
         myContainerPlanTagSelector->hideTagSelector();
-        myContainerAttributes->hideAttributesCreatorModul();
-        myContainerPlanAttributes->hideAttributesCreatorModul();
-        myNeteditAttributes->hideNeteditAttributesModul();
-        myPathCreator->hidePathCreatorModul();
+        myContainerAttributes->hideAttributesCreatorModule();
+        myContainerPlanAttributes->hideAttributesCreatorModule();
+        myNeteditAttributes->hideNeteditAttributesModule();
+        myPathCreator->hidePathCreatorModule();
     }
 }
 

@@ -54,6 +54,7 @@ public:
      */
     MSPhasedTrafficLightLogic(MSTLLogicControl& tlcontrol,
                               const std::string& id, const std::string& programID,
+                              const SUMOTime offset,
                               const TrafficLightType logicType,
                               const Phases& phases, int step, SUMOTime delay,
                               const std::map<std::string, std::string>& parameters);

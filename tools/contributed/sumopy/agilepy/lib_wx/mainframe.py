@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,7 +14,7 @@
 
 # @file    mainframe.py
 # @author  Joerg Schweizer
-# @date
+# @date    2012
 
 
 import wx
@@ -74,7 +74,7 @@ def make_moduleguilist(appdir, moduleguilist, modulesdir):
         is_noimport = (modulename in ['__init__.py', ]) | (modulename.split('.')[-1] == 'pyc')
         is_dir = os.path.isdir(os.path.join(appdir, modulesdir, modulename))
 
-        # print '  modulename',modulename,is_noimport,is_dir
+        # print '  GUI modulename',modulename,is_noimport,is_dir
         if (not is_noimport) & is_dir:
 
             lib = __import__(modulesdir+'.'+modulename)
@@ -83,9 +83,8 @@ def make_moduleguilist(appdir, moduleguilist, modulesdir):
             # has  module gui support specified in __init__.py
             if hasattr(module, 'get_wxgui'):
                 wxgui = module.get_wxgui()
-                # print '    wxgui',wxgui
                 if wxgui is not None:
-                    # print '  append',(wxgui.get_initpriority(), wxgui)
+                    # print '  append',(wxgui.get_initpriority(), wxgui.get_ident())
                     moduleguilist.append((wxgui.get_initpriority(), wxgui))
 
 
@@ -205,7 +204,7 @@ class AgileMainframe(AgileToolbarFrameMixin, wx.Frame):
     Simple wx frame with some special features.
     """
 
-    def __init__(self, parent=None,   title='mainframe',
+    def __init__(self, parent=None,   title='mainframe', appname=None,
                  moduledirs=[], args=[], appdir='',
                  is_maximize=False, is_centerscreen=True,
                  pos=wx.DefaultPosition, size=wx.DefaultSize,
@@ -218,8 +217,13 @@ class AgileMainframe(AgileToolbarFrameMixin, wx.Frame):
         # Forcing a specific style on the window.
         #   Should this include styles passed?
 
-        wx.Frame.__init__(self, parent, wx.ID_ANY, title,
+        if appname is not None:
+            self.appname = appname
+        else:
+            self.appname = title
+        wx.Frame.__init__(self, parent, wx.ID_ANY, self.appname,
                           pos, size=size, style=style, name=name)
+
         #super(GLFrame, self).__init__(parent, id, title, pos, size, style, name)
         self._splitter = MainSplitter(self)
         self._views = {}
@@ -300,6 +304,9 @@ class AgileMainframe(AgileToolbarFrameMixin, wx.Frame):
         #wx.EVT_BUTTON(self, 1003, self.on_close)
         # wx.EVT_CLOSE(self, self.on_close)
         #wx.EVT_IDLE(self, self.on_idle)
+
+    def set_title(self, titlename):
+        self.SetTitle(self.appname+' - '+titlename)
 
     def refresh_moduleguis(self):
         # print 'refresh_moduleguis',len(self._moduleguis)

@@ -341,6 +341,9 @@ public:
         return myVehicle;
     }
 
+    /// @brief gets the size multiplier value according to the current scheme index
+    double getScaleValue(const GUIVisualizationSettings& s, int activeScheme) const;
+
     /// @brief sets the color according to the current scheme index and some vehicle function
     static bool setFunctionalColor(int activeScheme, const MSBaseVehicle* veh, RGBColor& col);
 

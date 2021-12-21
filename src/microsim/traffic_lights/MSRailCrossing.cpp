@@ -41,7 +41,7 @@
 MSRailCrossing::MSRailCrossing(MSTLLogicControl& tlcontrol,
                                const std::string& id, const std::string& programID, SUMOTime delay,
                                const std::map<std::string, std::string>& parameters) :
-    MSSimpleTrafficLightLogic(tlcontrol, id, programID, TrafficLightType::RAIL_CROSSING, Phases(), 0, delay, parameters) {
+    MSSimpleTrafficLightLogic(tlcontrol, id, programID, 0, TrafficLightType::RAIL_CROSSING, Phases(), 0, delay, parameters) {
     // dummy phase, used to avoid crashing in MSTrafficLightLogic::setTrafficLightSignals()
     myPhases.push_back(new MSPhaseDefinition(1, std::string(SUMO_MAX_CONNECTIONS, 'X')));
     myDefaultCycleTime = 1;

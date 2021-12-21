@@ -42,25 +42,25 @@ GNEPersonFrame::GNEPersonFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
     myPersonBaseObject(new CommonXMLStructure::SumoBaseObject(nullptr)) {
 
     // create tag Selector modul for persons
-    myPersonTagSelector = new GNEFrameModuls::TagSelector(this, GNETagProperties::TagType::PERSON, SUMO_TAG_PERSON);
+    myPersonTagSelector = new GNEFrameModules::TagSelector(this, GNETagProperties::TagType::PERSON, SUMO_TAG_PERSON);
 
     // create person types selector modul
-    myPTypeSelector = new GNEFrameModuls::DemandElementSelector(this, SUMO_TAG_PTYPE);
+    myPTypeSelector = new GNEFrameModules::DemandElementSelector(this, SUMO_TAG_PTYPE);
 
     // create person attributes
-    myPersonAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
+    myPersonAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
 
     // create tag Selector modul for person plans
-    myPersonPlanTagSelector = new GNEFrameModuls::TagSelector(this, GNETagProperties::TagType::PERSONPLAN, GNE_TAG_PERSONTRIP_EDGE);
+    myPersonPlanTagSelector = new GNEFrameModules::TagSelector(this, GNETagProperties::TagType::PERSONPLAN, GNE_TAG_PERSONTRIP_EDGE);
 
     // create person plan attributes
-    myPersonPlanAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
+    myPersonPlanAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
 
     // Create Netedit parameter
-    myNeteditAttributes = new GNEFrameAttributesModuls::NeteditAttributes(this);
+    myNeteditAttributes = new GNEFrameAttributeModules::NeteditAttributes(this);
 
-    // create PathCreator Modul
-    myPathCreator = new GNEFrameModuls::PathCreator(this);
+    // create PathCreator Module
+    myPathCreator = new GNEFrameModules::PathCreator(this);
 
     // limit path creator to pedestrians
     myPathCreator->setVClass(SVC_PEDESTRIAN);
@@ -154,7 +154,7 @@ GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnd
 }
 
 
-GNEFrameModuls::PathCreator*
+GNEFrameModules::PathCreator*
 GNEPersonFrame::getPathCreator() const {
     return myPathCreator;
 }
@@ -173,22 +173,22 @@ GNEPersonFrame::tagSelected() {
         if (myPTypeSelector->getCurrentDemandElement()) {
             // show person attributes depending of myPersonPlanTagSelector
             if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopPerson()) {
-                myPersonAttributes->showAttributesCreatorModul(myPersonTagSelector->getCurrentTemplateAC(), {SUMO_ATTR_DEPARTPOS});
+                myPersonAttributes->showAttributesCreatorModule(myPersonTagSelector->getCurrentTemplateAC(), {SUMO_ATTR_DEPARTPOS});
             } else {
-                myPersonAttributes->showAttributesCreatorModul(myPersonTagSelector->getCurrentTemplateAC(), {});
+                myPersonAttributes->showAttributesCreatorModule(myPersonTagSelector->getCurrentTemplateAC(), {});
             }
             // show person plan tag selector
             myPersonPlanTagSelector->showTagSelector();
             // now check if person plan selected is valid
             if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != SUMO_TAG_NOTHING) {
                 // show person plan attributes
-                myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTemplateAC(), {});
+                myPersonPlanAttributes->showAttributesCreatorModule(myPersonPlanTagSelector->getCurrentTemplateAC(), {});
                 // show Netedit attributes modul
-                myNeteditAttributes->showNeteditAttributesModul(myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty());
+                myNeteditAttributes->showNeteditAttributesModule(myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty());
                 // show path creator depending of tag
                 if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopPerson() || 
                     (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() == GNE_TAG_WALK_ROUTE)) {
-                    myPathCreator->hidePathCreatorModul();
+                    myPathCreator->hidePathCreatorModule();
                 } else {
                     // update VClass of myPathCreator depending if person is a ride
                     if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isRide()) {
@@ -197,30 +197,30 @@ GNEPersonFrame::tagSelected() {
                         myPathCreator->setVClass(SVC_PEDESTRIAN);
                     }
                     // show edge path creator modul
-                    myPathCreator->showPathCreatorModul(myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
+                    myPathCreator->showPathCreatorModule(myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
                 }
             } else {
                 // hide modules
-                myPersonPlanAttributes->hideAttributesCreatorModul();
-                myNeteditAttributes->hideNeteditAttributesModul();
-                myPathCreator->hidePathCreatorModul();
+                myPersonPlanAttributes->hideAttributesCreatorModule();
+                myNeteditAttributes->hideNeteditAttributesModule();
+                myPathCreator->hidePathCreatorModule();
             }
         } else {
             // hide modules
             myPersonPlanTagSelector->hideTagSelector();
-            myPersonAttributes->hideAttributesCreatorModul();
-            myPersonPlanAttributes->hideAttributesCreatorModul();
-            myNeteditAttributes->hideNeteditAttributesModul();
-            myPathCreator->hidePathCreatorModul();
+            myPersonAttributes->hideAttributesCreatorModule();
+            myPersonPlanAttributes->hideAttributesCreatorModule();
+            myNeteditAttributes->hideNeteditAttributesModule();
+            myPathCreator->hidePathCreatorModule();
         }
     } else {
         // hide all moduls if person isn't valid
         myPTypeSelector->hideDemandElementSelector();
         myPersonPlanTagSelector->hideTagSelector();
-        myPersonAttributes->hideAttributesCreatorModul();
-        myPersonPlanAttributes->hideAttributesCreatorModul();
-        myNeteditAttributes->hideNeteditAttributesModul();
-        myPathCreator->hidePathCreatorModul();
+        myPersonAttributes->hideAttributesCreatorModule();
+        myPersonPlanAttributes->hideAttributesCreatorModule();
+        myNeteditAttributes->hideNeteditAttributesModule();
+        myPathCreator->hidePathCreatorModule();
     }
 }
 
@@ -230,9 +230,9 @@ GNEPersonFrame::demandElementSelected() {
     if (myPTypeSelector->getCurrentDemandElement()) {
         // show person attributes depending of myPersonPlanTagSelector
         if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopPerson()) {
-            myPersonAttributes->showAttributesCreatorModul(myPersonTagSelector->getCurrentTemplateAC(), {SUMO_ATTR_DEPARTPOS});
+            myPersonAttributes->showAttributesCreatorModule(myPersonTagSelector->getCurrentTemplateAC(), {SUMO_ATTR_DEPARTPOS});
         } else {
-            myPersonAttributes->showAttributesCreatorModul(myPersonTagSelector->getCurrentTemplateAC(), {});
+            myPersonAttributes->showAttributesCreatorModule(myPersonTagSelector->getCurrentTemplateAC(), {});
         }
         // show person plan tag selector
         myPersonPlanTagSelector->showTagSelector();
@@ -245,24 +245,24 @@ GNEPersonFrame::demandElementSelected() {
                 myPathCreator->setVClass(SVC_PEDESTRIAN);
             }
             // show person plan attributes
-            myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTemplateAC(), {});
+            myPersonPlanAttributes->showAttributesCreatorModule(myPersonPlanTagSelector->getCurrentTemplateAC(), {});
             // show Netedit attributes modul
-            myNeteditAttributes->showNeteditAttributesModul(myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty());
+            myNeteditAttributes->showNeteditAttributesModule(myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty());
             // show edge path creator modul
-            myPathCreator->showPathCreatorModul(myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
+            myPathCreator->showPathCreatorModule(myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
         } else {
             // hide modules
-            myPersonPlanAttributes->hideAttributesCreatorModul();
-            myNeteditAttributes->hideNeteditAttributesModul();
-            myPathCreator->hidePathCreatorModul();
+            myPersonPlanAttributes->hideAttributesCreatorModule();
+            myNeteditAttributes->hideNeteditAttributesModule();
+            myPathCreator->hidePathCreatorModule();
         }
     } else {
         // hide modules
         myPersonPlanTagSelector->hideTagSelector();
-        myPersonAttributes->hideAttributesCreatorModul();
-        myPersonPlanAttributes->hideAttributesCreatorModul();
-        myNeteditAttributes->hideNeteditAttributesModul();
-        myPathCreator->hidePathCreatorModul();
+        myPersonAttributes->hideAttributesCreatorModule();
+        myPersonPlanAttributes->hideAttributesCreatorModule();
+        myNeteditAttributes->hideNeteditAttributesModule();
+        myPathCreator->hidePathCreatorModule();
     }
 }
 

@@ -172,16 +172,16 @@ MSTLLogicControl::TLSLogicVariants::setStateInstantiatingOnline(MSTLLogicControl
     // build only once...
     MSTrafficLightLogic* logic = getLogic(TRACI_PROGRAM);
     if (logic == nullptr) {
-        MSPhaseDefinition* phase = new MSPhaseDefinition(DELTA_T, state, -1);
+        MSPhaseDefinition* phase = new MSPhaseDefinition(DELTA_T, state);
         std::vector<MSPhaseDefinition*> phases;
         phases.push_back(phase);
-        logic = new MSSimpleTrafficLightLogic(tlc, myCurrentProgram->getID(), TRACI_PROGRAM, TrafficLightType::STATIC, phases, 0,
+        logic = new MSSimpleTrafficLightLogic(tlc, myCurrentProgram->getID(), TRACI_PROGRAM, 0, TrafficLightType::STATIC, phases, 0,
                                               MSNet::getInstance()->getCurrentTimeStep() + DELTA_T,
                                               std::map<std::string, std::string>());
         addLogic(TRACI_PROGRAM, logic, true, true);
         MSNet::getInstance()->createTLWrapper(logic);
     } else {
-        MSPhaseDefinition nphase(DELTA_T, state, -1);
+        MSPhaseDefinition nphase(DELTA_T, state);
         *(dynamic_cast<MSSimpleTrafficLightLogic*>(logic)->getPhases()[0]) = nphase;
         switchTo(tlc, TRACI_PROGRAM);
     }

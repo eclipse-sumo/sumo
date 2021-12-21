@@ -1,4 +1,3 @@
-Loading configuration ... done.
  Retrying in 1 seconds
 old lanechangemode 011001010101
 old speedmode 31
@@ -37,4 +36,4 @@ trying to change lateral position by -0.20...
 trying to change lateral position by -0.20...
 [015] lane 1, lateral pos: -0.80
 [016] Vehicle 'collider' has arrived at destination
-Print ended at step 17
+Print ended at step 17.0

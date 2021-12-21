@@ -231,15 +231,18 @@ class Connection:
             args.append(v)
             if parameters is not None and v in parameters:
                 if isinstance(parameters[v], tuple):
-                    f, a = parameters[v]
+                    format += parameters[v][0]
+                    for a in parameters[v][1:]:
+                        args.append(a)
                 elif isinstance(parameters[v], int):
-                    f, a = "i", parameters[v]
+                    format += "i"
+                    args.append(parameters[v])
                 elif isinstance(parameters[v], float):
-                    f, a = "d", parameters[v]
+                    format += "d"
+                    args.append(parameters[v])
                 else:
-                    f, a = "s", parameters[v]
-                format += f
-                args.append(a)
+                    format += "s"
+                    args.append(parameters[v])
         result = self._sendCmd(cmdID, (begin, end), objID, format, *args)
         if varIDs:
             objectID, response = self._readSubscription(result)

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-12-15 21:40:03 by Eclipse SUMO sumo Version v1_11_0+0566-4633220
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml,input_additional2.add.xml,input_additional3.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.exit-times value="true"/>
+        <vehroute-output.cost value="true"/>
+        <vehroute-output.route-length value="true"/>
+        <vehroute-output.write-unfinished value="true"/>
+        <stop-output value="stopinfos.xml"/>
+        <stop-output.write-unfinished value="true"/>
+    </output>
+
+    <time>
+        <end value="500"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <gui_only>
+        <gui-settings-file value="settings.xml"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="occupy0.0" type="car" depart="0.00" departSpeed="13.89" speedFactor="1.00" routeLength="49.90">
+        <route cost="0.00" savings="0.00" edges="A2A3" exitTimes="-1"/>
+    </vehicle>
+
+    <vehicle id="occupy1.0" type="car" depart="0.00" departSpeed="13.89" speedFactor="1.00" routeLength="49.90">
+        <route cost="0.00" savings="0.00" edges="D0D1" exitTimes="-1"/>
+    </vehicle>
+
+    <vehicle id="ego.0" type="car" depart="2.00" departSpeed="13.89" speedFactor="1.00" routeLength="1045.28">
+        <routeDistribution>
+            <route cost="21.14" savings="0.00" replacedOnEdge="A2A3" reason="parkA2A3:parkingAreaReroute" replacedAtTime="17.00" probability="0" edges="A0A1 A1A2 A2A3" routeLength="288.50"/>
+            <route cost="101.48" savings="-94.79" replacedOnEdge="D0D1" reason="parkD0D1:parkingAreaReroute" replacedAtTime="68.00" probability="0" edges="A0A1 A1A2 A2A3 A3B3 B3C3 C3C2 C2C1 C1C0 C0D0 D0D1 D1D2 D2C2 C2B2 B2A2 A2A3" routeLength="1478.74"/>
+            <route cost="60.09" savings="-10.01" replacedOnEdge="D1D2" reason="parkD1D2:parkingAreaReroute" replacedAtTime="76.00" probability="0" edges="A0A1 A1A2 A2A3 A3B3 B3C3 C3C2 C2C1 C1C0 C0D0 D0D1 D1D2 D2D3 D3C3 C3B3 B3A3 A3A2 A2A3" routeLength="1680.34"/>
+            <route cost="42.72" savings="10.01" edges="A0A1 A1A2 A2A3 A3B3 B3C3 C3C2 C2C1 C1C0 C0D0 D0D1 D1D2 D2C2 C2B2 B2A2 A2A3" exitTimes="9.00 17.00 23.00 31.00 38.00 45.00 52.00 61.00 68.00 76.00 -1 -1 -1 -1 -1"/>
+        </routeDistribution>
+    </vehicle>
+
+</routes>

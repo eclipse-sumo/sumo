@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,9 +14,11 @@
 
 # @file    wxmisc.py
 # @author  Joerg Schweizer
-# @date
+# @date    2012
 
 
+import zlib
+import cPickle
 import sys
 import os
 import types
@@ -844,6 +846,7 @@ class AgileStatusbar(wx.StatusBar):
             self.Reposition()
 
     # reposition the checkbox
+
     def Reposition(self):
         # print 1,rect
         rect = self.GetFieldRect(self._ind_fields['progress'])
@@ -874,8 +877,6 @@ def get_bitmap(name, size=22):
 
 
 # These are some functions for bitmaps of icons.
-import cPickle
-import zlib
 
 
 def GetHandData():

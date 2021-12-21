@@ -37,7 +37,7 @@ FXDEFMAP(GNEElementSet) GNEElementSetMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEElementSet, FXGroupBox, GNEElementSetMap, ARRAYNUMBER(GNEElementSetMap))
+FXIMPLEMENT(GNEElementSet, FXGroupBoxModule, GNEElementSetMap, ARRAYNUMBER(GNEElementSetMap))
 
 // ===========================================================================
 // method definitions
@@ -45,13 +45,13 @@ FXIMPLEMENT(GNEElementSet, FXGroupBox, GNEElementSetMap, ARRAYNUMBER(GNEElementS
 
 GNEElementSet::GNEElementSet(GNESelectorFrame* selectorFrameParent, Supermode supermode,
                              SumoXMLTag defaultTag, SumoXMLAttr defaultAttr, const std::string& defaultValue) :
-    FXGroupBox(selectorFrameParent->getContentFrame(), "Element Set", GUIDesignGroupBoxFrame),
+    FXGroupBoxModule(selectorFrameParent->getContentFrame(), "Element Set"),
     mySelectorFrameParent(selectorFrameParent),
     myMatchAttribute(nullptr),
     myMatchGenericDataAttribute(nullptr),
     myCurrentSet(Type::INVALID) {
     // Create MatchTagBox for tags and fill it
-    mySetComboBox = new MFXIconComboBox(this, GUIDesignComboBoxNCol, this, MID_CHOOSEN_ELEMENTS, GUIDesignComboBox);
+    mySetComboBox = new MFXIconComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_CHOOSEN_ELEMENTS, GUIDesignComboBox);
     // continue depending of supermode
     if (supermode == Supermode::NETWORK) {
         // append elements

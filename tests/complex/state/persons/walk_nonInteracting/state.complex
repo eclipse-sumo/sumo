@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2021-12-07 21:09:48 by Eclipse SUMO sumo Version v1_11_0+0377-337d5b1
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+        <save-state.times value="50"/>
+        <save-state.files value="state.xml"/>
+        <save-state.transportables value="true"/>
+    </output>
+
+    <processing>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_11_0+0377-337d5b1" time="50.00" type="micro">
+    <route id="r1" state="1" edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
+    <delay number="0" begin="0" end="0" depart="0.00" time="0.00"/>
+    <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
+    <vType id="DEFAULT_VEHTYPE" length="3.00" minGap="2.00" maxSpeed="10.00" impatience="0.50" accel="0.8" decel="4.5" sigma="0"/>
+    <transportables type="person" state="3 3 0 0 0 0 0 0 0 0">
+        <person id="walk_route" type="DEFAULT_PEDTYPE" depart="1.00" state="0 1 1000 1 2000 2000 154468">
+            <walk edges="2/1to1/1 3/1to2/1"/>
+        </person>
+        <person id="walk_route_id" type="DEFAULT_PEDTYPE" depart="0.00" state="0 1 0 0 0 0 272704">
+            <walk edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
+        </person>
+        <person id="walk_trip" type="DEFAULT_PEDTYPE" depart="2.00" state="131072 1 2000 0 2000 2000 286038">
+            <walk edges="3/1to2/1 1/1to2/1 1/1to0/1"/>
+        </person>
+    </transportables>
+    <tlLogic id="0/0" programID="0" phase="2" duration="16000"/>
+    <tlLogic id="0/1" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="0/2" programID="0" phase="2" duration="16000"/>
+    <tlLogic id="1/0" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="1/1" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="1/2" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="2/0" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="2/1" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="2/2" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="3/0" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="3/1" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="3/2" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="4/0" programID="0" phase="2" duration="16000"/>
+    <tlLogic id="4/1" programID="0" phase="4" duration="7000"/>
+    <tlLogic id="4/2" programID="0" phase="2" duration="16000"/>
+</snapshot>

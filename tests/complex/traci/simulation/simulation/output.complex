@@ -1,8 +1,7 @@
-Loading configuration ... done.
 loaded? False
  Retrying in 1 seconds
-version at start (20, 'SUMO v1_10_0+0078-a46dff9')
-version (20, 'SUMO v1_10_0+0078-a46dff9')
+version at start (20, 'SUMO v1_11_0+0462-d030828f8b9')
+version (20, 'SUMO v1_11_0+0462-d030828f8b9')
 loaded? True
 endTime 42.0
 {114: ('horiz', 'horiz1'), 116: ()}
@@ -52,15 +51,15 @@ deltaT 1.0
 boundary ((0.0, 0.0), (3500.0, 3904.56))
 convertRoad2D (-1.22, 3903.52)
 convertRoad3D (-1.22, 3903.52, 2.0)
-convertRoadGeo (12.014678141843579, 48.121449189819344)
-convertRoadGeoAlt (12.014678141843579, 48.121449189819344, 2.0)
+convertRoadGeo (12.014678141837997, 48.121449189894975)
+convertRoadGeoAlt (12.014678141837997, 48.121449189894975, 2.0)
 convertRoad2D length (667.2699999999995, 3124.688)
-convert2DGeo (12.023018905467282, 48.09105459770769)
-convertGeo2D (-1619.5653987218393, -9550.720807247795)
+convert2DGeo (12.023018905461857, 48.09105459778215)
+convertGeo2D (-1619.565396778169, -9550.720808432437)
 convert2DRoad ('o', 2906.189220451069, 0)
-convertGeoRoad ('o', 1012.1569021973628, 0)
-convertGeoRoadBus ('o', 1012.1569021973628, 0)
-convertGeoRoadBusDisallowed ('2o', 8027.707319230139, 0)
+convertGeoRoad ('o', 1012.1569043554978, 0)
+convertGeoRoadBus ('o', 1012.1569043554978, 0)
+convertGeoRoadBusDisallowed ('2o', 8027.707315024791, 0)
 distance2D 10.0
 drivingDistance2D 6.48934561332
 distanceRoad 5131.87897232

@@ -55,6 +55,7 @@ public:
      * @param[in] tlcontrol The tls control responsible for this tls
      * @param[in] id This tls' id
      * @param[in] programID This tls' sub-id (program id)
+     * @param[in] offset the time offset of the program
      * @param[in] logicType This tls' type (static, actuated etc.)
      * @param[in] delay The time to wait before the first switch
      * @param[in] phases Definitions of the phases
@@ -64,6 +65,7 @@ public:
      */
     MSSimpleTrafficLightLogic(MSTLLogicControl& tlcontrol,
                               const std::string& id, const std::string& programID,
+                              const SUMOTime offset,
                               const TrafficLightType logicType,
                               const Phases& phases, int step, SUMOTime delay,
                               const std::map<std::string, std::string>& parameters);
@@ -193,6 +195,8 @@ public:
     /** @brief Saves the current tls states into the given stream
         */
     virtual void saveState(OutputDevice& /*out*/) const;
+
+    virtual SUMOTime mapTimeInCycle(SUMOTime t) const;
 
 protected:
     /// @brief The list of phases this logic uses

@@ -811,8 +811,8 @@ NWWriter_SUMO::writeInternalConnections(OutputDevice& into, const NBNode& n) {
                     linkIndex2 = c.tlLinkIndex2;
                     tlID = c.tlID;
                 }
-                writeInternalConnection(into, c.id, c.toEdge->getID(), c.internalLaneIndex, c.toLane, c.viaID + "_0", dir, tlID, linkIndex2, c.visibility);
-                writeInternalConnection(into, c.viaID, c.toEdge->getID(), 0, c.toLane, "", dir);
+                writeInternalConnection(into, c.id, c.toEdge->getID(), c.internalLaneIndex, c.toLane, c.viaID + "_0", dir, tlID, linkIndex2, false, c.visibility);
+                writeInternalConnection(into, c.viaID, c.toEdge->getID(), 0, c.toLane, "", dir, "", NBConnection::InvalidTlIndex, n.brakeForCrossingOnExit(c.toEdge));
             } else {
                 // no internal split
                 writeInternalConnection(into, c.id, c.toEdge->getID(), c.internalLaneIndex, c.toLane, "", dir);
@@ -828,7 +828,9 @@ void
 NWWriter_SUMO::writeInternalConnection(OutputDevice& into,
                                        const std::string& from, const std::string& to,
                                        int fromLane, int toLane, const std::string& via,
-                                       LinkDirection dir, const std::string& tlID, int linkIndex,
+                                       LinkDirection dir,
+                                       const std::string& tlID, int linkIndex,
+                                       bool minor,
                                        double visibility) {
     into.openTag(SUMO_TAG_CONNECTION);
     into.writeAttr(SUMO_ATTR_FROM, from);
@@ -844,7 +846,7 @@ NWWriter_SUMO::writeInternalConnection(OutputDevice& into,
         into.writeAttr(SUMO_ATTR_TLLINKINDEX, linkIndex);
     }
     into.writeAttr(SUMO_ATTR_DIR, dir);
-    into.writeAttr(SUMO_ATTR_STATE, (via != "" ? "m" : "M"));
+    into.writeAttr(SUMO_ATTR_STATE, ((via != "" || minor) ? "m" : "M"));
     if (visibility != NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE) {
         into.writeAttr(SUMO_ATTR_VISIBILITY_DISTANCE, visibility);
     }

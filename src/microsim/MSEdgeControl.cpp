@@ -288,6 +288,9 @@ MSEdgeControl::changeLanes(const SUMOTime t) {
                             toAdd.push_back(lane);
                             lu.amActive = true;
                         }
+                        if (MSGlobals::gLateralResolution > 0) {
+                            lane->sortManeuverReservations();
+                        }
                     }
 #ifdef PARALLEL_CHANGE_LANES
                 }
@@ -308,6 +311,9 @@ MSEdgeControl::changeLanes(const SUMOTime t) {
                     toAdd.push_back(l);
                     lu.amActive = true;
                 }
+                if (MSGlobals::gLateralResolution > 0) {
+                    l->sortManeuverReservations();
+                }
             }
         }
     }
@@ -316,12 +322,6 @@ MSEdgeControl::changeLanes(const SUMOTime t) {
     MSGlobals::gComputeLC = false;
     for (std::vector<MSLane*>::iterator i = toAdd.begin(); i != toAdd.end(); ++i) {
         myActiveLanes.push_front(*i);
-    }
-    if (MSGlobals::gLateralResolution > 0) {
-        // sort maneuver reservations
-        for (LaneUsageVector::iterator it = myLanes.begin(); it != myLanes.end(); ++it) {
-            (*it).lane->sortManeuverReservations();
-        }
     }
 }
 

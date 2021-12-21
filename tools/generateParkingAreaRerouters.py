@@ -367,6 +367,8 @@ def generate_rerouters_process(parameters):
         used = set()
         if parameters['prefer_visible']:
             for distance, parking in list_of_dist:
+                if parameters['all_parking_areas'][parking].get('capacity') < parameters['min_capacity']:
+                    continue
                 if len(temp_rerouters) > parameters['num_alternatives']:
                     break
                 if isVisible(pid, parking, distance, sumo_net,
@@ -398,6 +400,7 @@ def generate_rerouters_process(parameters):
             if parking in used:
                 found += 1
                 continue
+
             if parameters['all_parking_areas'][parking].get('capacity') < parameters['min_capacity']:
                 continue
             # optionally enforce distance distribution

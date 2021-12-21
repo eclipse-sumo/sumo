@@ -880,7 +880,12 @@ Vehicle::getMinGap(const std::string& vehID) {
 
 double
 Vehicle::getMinGapLat(const std::string& vehID) {
-    return Helper::getVehicleType(vehID).getMinGapLat();
+    try {
+        return StringUtils::toDouble(getParameter(vehID, "laneChangeModel.minGapLat"));
+    } catch (const TraCIException&) {
+        // legacy behavior
+        return Helper::getVehicleType(vehID).getMinGapLat();
+    }
 }
 
 
@@ -1872,7 +1877,12 @@ Vehicle::setTau(const std::string& vehID, double tau) {
 
 void
 Vehicle::setMinGapLat(const std::string& vehID, double minGapLat) {
-    Helper::getVehicle(vehID)->getSingularType().setMinGapLat(minGapLat);
+    try {
+        setParameter(vehID, "laneChangeModel.minGapLat", toString(minGapLat));
+    } catch (TraCIException&) {
+        // legacy behavior
+        Helper::getVehicle(vehID)->getSingularType().setMinGapLat(minGapLat);
+    }
 }
 
 
@@ -2304,6 +2314,8 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
             return wrapper->wrapDouble(objID, variable, getStopArrivalDelay(objID));
         case VAR_TIMELOSS:
             return wrapper->wrapDouble(objID, variable, getTimeLoss(objID));
+        case VAR_MINGAP_LAT:
+            return wrapper->wrapDouble(objID, variable, getMinGapLat(objID));
         case VAR_LEADER: {
             paramData->readUnsignedByte();
             const double dist = paramData->readDouble();

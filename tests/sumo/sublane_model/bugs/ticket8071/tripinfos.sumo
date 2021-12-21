@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jan 12 11:31:50 2021 by Eclipse SUMO sumo Version v1_8_0+0473-c629315
+<!-- generated on 2021-12-10 14:18:01 by Eclipse SUMO sumo Version v1_11_0+0480-562403d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -40,7 +40,7 @@ SPDX-License-Identifier: EPL-2.0
     <tripinfo id="f0.10" depart="50.00" departLane="beg_1" departPos="6.60" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="147.00" arrivalLane="end_0" arrivalPos="200.00" arrivalPosLat="1.40" arrivalSpeed="10.94" duration="97.00" routeLength="993.40" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="12.88" rerouteNo="0" devices="tripinfo_f0.10 bluelight_f0.10" vType="emg" speedFactor="0.85" vaporized="">
         <bluelight/>
     </tripinfo>
-    <tripinfo id="f0.16" depart="80.00" departLane="beg_0" departPos="6.60" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="191.00" arrivalLane="end_0" arrivalPos="200.00" arrivalPosLat="1.40" arrivalSpeed="10.33" duration="111.00" routeLength="993.40" waitingTime="3.00" waitingCount="1" stopTime="0.00" timeLoss="18.98" rerouteNo="0" devices="tripinfo_f0.16 bluelight_f0.16" vType="emg" speedFactor="0.78" vaporized="">
+    <tripinfo id="f0.16" depart="80.00" departLane="beg_0" departPos="6.60" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="190.00" arrivalLane="end_0" arrivalPos="200.00" arrivalPosLat="1.40" arrivalSpeed="10.33" duration="110.00" routeLength="993.40" waitingTime="1.00" waitingCount="1" stopTime="0.00" timeLoss="18.14" rerouteNo="0" devices="tripinfo_f0.16 bluelight_f0.16" vType="emg" speedFactor="0.78" vaporized="">
         <bluelight/>
     </tripinfo>
 </tripinfos>

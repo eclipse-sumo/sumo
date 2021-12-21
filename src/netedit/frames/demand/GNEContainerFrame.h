@@ -55,7 +55,7 @@ public:
     bool addContainer(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 
     /// @brief get PathCreator modul
-    GNEFrameModuls::PathCreator* getPathCreator() const;
+    GNEFrameModules::PathCreator* getPathCreator() const;
 
 protected:
     /// @brief Tag selected in TagSelector
@@ -75,25 +75,25 @@ private:
     CommonXMLStructure::SumoBaseObject* myContainerBaseObject;
 
     /// @brief container tag selector (used to select diffent kind of containers)
-    GNEFrameModuls::TagSelector* myContainerTagSelector;
+    GNEFrameModules::TagSelector* myContainerTagSelector;
 
     /// @brief Container Type selectors
-    GNEFrameModuls::DemandElementSelector* myPTypeSelector;
+    GNEFrameModules::DemandElementSelector* myPTypeSelector;
 
     /// @brief container plan selector (used to select diffent kind of container plan)
-    GNEFrameModuls::TagSelector* myContainerPlanTagSelector;
+    GNEFrameModules::TagSelector* myContainerPlanTagSelector;
 
     /// @brief internal vehicle attributes
-    GNEFrameAttributesModuls::AttributesCreator* myContainerAttributes;
+    GNEFrameAttributeModules::AttributesCreator* myContainerAttributes;
 
     /// @brief internal container plan attributes
-    GNEFrameAttributesModuls::AttributesCreator* myContainerPlanAttributes;
+    GNEFrameAttributeModules::AttributesCreator* myContainerPlanAttributes;
 
     /// @brief Netedit parameter
-    GNEFrameAttributesModuls::NeteditAttributes* myNeteditAttributes;
+    GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes;
 
     /// @brief edge path creator (used for Walks, rides and trips)
-    GNEFrameModuls::PathCreator* myPathCreator;
+    GNEFrameModules::PathCreator* myPathCreator;
 
     /// @brief build container and return it (note: function includes a call to begin(...), but NOT a call to end(...))
     GNEDemandElement* buildContainer();

@@ -1,6 +1,9 @@
 # test --lanechange.duration with opposite-direction driving
 continuous
 
+# test interaction with slopes
+slope
+
 # tests for stopping on the opposite side
 stop_opposite
 

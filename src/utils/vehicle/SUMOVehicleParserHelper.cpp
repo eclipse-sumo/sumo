@@ -649,7 +649,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, S
         double calibratorSpeed = attrs.get<double>(SUMO_ATTR_SPEED, ret->id.c_str(), ok);
         if (!ok) {
             handleVehicleError(true, ret);
-        } else if (calibratorSpeed >= 0) {
+        } else if (calibratorSpeed >= 0 || calibratorSpeed == -1) {
             ret->parametersSet |= VEHPARS_CALIBRATORSPEED_SET;
             ret->calibratorSpeed = calibratorSpeed;
         } else {

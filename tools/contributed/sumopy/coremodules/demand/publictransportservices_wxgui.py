@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,7 +14,7 @@
 
 # @file    publictransportservices_wxgui.py
 # @author  Joerg Schweizer
-# @date
+# @date   2012
 
 import wx
 import agilepy.lib_base.classman as cm
@@ -24,7 +24,7 @@ from agilepy.lib_wx.objpanel import ObjPanel
 from agilepy.lib_base.processes import Process
 from agilepy.lib_wx.processdialog import ProcessDialog
 from coremodules.network.network import SumoIdsConf, MODES
-#import publictransportservices as pt
+import publictransportservices as pt
 
 
 class PublicTransportWxGuiMixin:
@@ -59,23 +59,80 @@ class PublicTransportWxGuiMixin:
                             bitmap=self.get_icon("route3_24px.png"),
                             )
 
-        menubar.append_item('demand/public transport/build links',
+        menubar.append_item('demand/public transport/build links...',
                             self.on_build_links,
-                            info='Build servive links of public transport network.',
+                            info='Build public transport links of public transport network.',
                             bitmap=self.get_icon("route3_24px.png"),
                             )
 
+        menubar.append_item('demand/public transport/filter lines...',
+                            self.on_filter_lines,
+                            )
+
+        menubar.append_item('demand/public transport/check initial stops',
+                            self.on_check_initial_stops,
+                            )
+
     def on_build_links(self, event=None):
-        self._demand.ptlines.ptlinks.get_value().build()
-        self._mainframe.browse_obj(self._demand.ptlines.ptlinks.get_value())
-        if event:
-            event.Skip()
+        ptlinks = self._demand.ptlines.ptlinks.get_value()
+        p = pt.PtNetbuilder('ptnetbuilder', ptlinks, logger=self._mainframe.get_logger())
+        # self._demand.ptlines.ptlinks.get_value().build()
+
+        dlg = ProcessDialog(self._mainframe, p, immediate_apply=True)
+
+        dlg.CenterOnScreen()
+
+        # this does not return until the dialog is closed.
+        val = dlg.ShowModal()
+        # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+        # print '  status =',dlg.get_status()
+        if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+            # print ">>>>>>>>>Unsuccessful\n"
+            dlg.Destroy()
+
+        if dlg.get_status() == 'success':
+            # print ">>>>>>>>>successful\n"
+            # apply current widget values to scenario instance
+            dlg.apply()
+            dlg.Destroy()
+
+            self._mainframe.browse_obj(ptlinks)
+
+    def on_filter_lines(self, event=None):
+        p = pt.PtLinefilter('ptlinefilter', self._demand.ptlines, logger=self._mainframe.get_logger())
+        # self._demand.ptlines.ptlinks.get_value().build()
+
+        dlg = ProcessDialog(self._mainframe, p, immediate_apply=True)
+
+        dlg.CenterOnScreen()
+
+        # this does not return until the dialog is closed.
+        val = dlg.ShowModal()
+        # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
+        # print '  status =',dlg.get_status()
+        if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
+            # print ">>>>>>>>>Unsuccessful\n"
+            dlg.Destroy()
+
+        if dlg.get_status() == 'success':
+            # print ">>>>>>>>>successful\n"
+            # apply current widget values to scenario instance
+            dlg.apply()
+            dlg.Destroy()
+
+            self._mainframe.browse_obj(self._demand.ptlines)
 
     def on_guess_routes(self, event=None):
         self._demand.ptlines.guess_routes()
         self._mainframe.browse_obj(self._demand.ptlines)
-        if event:
-            event.Skip()
+
+    def on_check_initial_stops(self, event=None):
+        """Check whether initial stops are connected with the route.
+        Rand reconnect if necessary. This method is used as work around for a bug
+        in the PT line creation from GTFS.
+        """
+        self._demand.ptlines.check_initial_stops()
+        self._mainframe.browse_obj(self._demand.ptlines)
 
     def on_clear_ptlines(self, event=None):
         """
@@ -83,8 +140,6 @@ class PublicTransportWxGuiMixin:
         """
         self._demand.ptlines.clear()
         self._mainframe.browse_obj(self._demand.ptlines)
-        if event:
-            event.Skip()
 
 
 class AddPtlineTool(SelectTool):

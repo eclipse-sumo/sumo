@@ -22,6 +22,9 @@ stop_at_position_slack
 # 10 vehicles driving in a queue. The first one stops for a while and then all vehicles start up again
 queue_stop_start
 
+# a platton of vehicles follows a slow leader
+follow_slow
+
 # test model behaviour in jam situations
 jam_resolution
 
@@ -51,4 +54,7 @@ EIDM
 Wiedemann
 W99
 KraussPS
+
+# CACC model tests
+CACC
 bugs

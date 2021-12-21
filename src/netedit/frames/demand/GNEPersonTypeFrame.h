@@ -42,7 +42,7 @@ public:
     // class PersonTypeSelector
     // ===========================================================================
 
-    class PersonTypeSelector : protected FXGroupBox {
+    class PersonTypeSelector : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEPersonTypeFrame::PersonTypeSelector)
 
@@ -86,7 +86,7 @@ public:
     // class PersonTypeEditor
     // ===========================================================================
 
-    class PersonTypeEditor : protected FXGroupBox {
+    class PersonTypeEditor : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEPersonTypeFrame::PersonTypeEditor)
 
@@ -98,13 +98,13 @@ public:
         ~PersonTypeEditor();
 
         /// @brief show PersonTypeEditor modul
-        void showPersonTypeEditorModul();
+        void showPersonTypeEditorModule();
 
         /// @brief hide PersonTypeEditor box
-        void hidePersonTypeEditorModul();
+        void hidePersonTypeEditorModule();
 
         /// @brief update PersonTypeEditor modul
-        void refreshPersonTypeEditorModul();
+        void refreshPersonTypeEditorModule();
 
         /// @name FOX-callbacks
         /// @{
@@ -165,7 +165,7 @@ private:
     PersonTypeSelector* myPersonTypeSelector;
 
     /// @brief editorinternal person type attributes
-    GNEFrameAttributesModuls::AttributesEditor* myPersonTypeAttributesEditor;
+    GNEFrameAttributeModules::AttributesEditor* myPersonTypeAttributesEditor;
 
     /// @brief Vehicle Type editor (Create, copy, etc.)
     PersonTypeEditor* myPersonTypeEditor;

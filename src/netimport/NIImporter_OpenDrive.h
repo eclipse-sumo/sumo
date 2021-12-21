@@ -644,6 +644,11 @@ protected:
 
     static bool hasNonLinearElevation(OpenDriveEdge& e);
 
+    /// transform Poly3 into a list of offsets, adding intermediate points to geom if needed
+    static std::vector<double> discretizeOffsets(PositionVector& geom, const std::vector<OpenDriveLaneOffset>& offsets, const std::string& id); 
+
+    static void addOffsets(bool left, PositionVector& geom, const std::vector<OpenDriveLaneOffset>& offsets, const std::string& id, std::vector<double>& result); 
+
     /** @brief Rechecks lane sections of the given edges
      *
      *
@@ -680,5 +685,17 @@ protected:
     static StringBijection<int>::Entry openDriveAttrs[];
 
 
+    class LaneSorter {
+    public:
+        /// constructor
+        explicit LaneSorter() {}
+
+        /// comparing operation
+        int operator()(const OpenDriveLane& a, const OpenDriveLane& b) const {
+            // sort from the reference line outwards (desceding order of sumo lane ids)
+            return abs(a.id) < abs(b.id);
+        }
+
+    };
 
 };

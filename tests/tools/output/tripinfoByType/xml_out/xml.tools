@@ -1,4 +1,13 @@
-<tripinfosByType attribute="timeLoss">
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2021-12-06 21:21:23.090671 by tripinfoByType.py v1_11_0+0352-2baa2d6
+<configuration>
+    <attribute value="timeLoss"/>
+    <output value="out.xml"/>
+    <tripinfo-file value="tripinfos.xml"/>
+</configuration>
+
+-->
+<tripinfosByType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfosByType_file.xsd">
     <typeInfo vType="bike_bicycle" count="55" min="5.87" minVeh="bike53" max="188.74" maxVeh="bike42" mean="63.95836363636364" Q1="31.03" median="57.7" Q3="85.86"/>
     <typeInfo vType="pt_bus" count="22" min="30.51" minVeh="pt_bus_265:0.0" max="335.15" maxVeh="pt_bus_N40:1.0" mean="185.53090909090906" Q1="125.81" median="209.23" Q3="221.59"/>
     <typeInfo vType="pt_light_rail" count="23" min="31.5" minVeh="pt_light_rail_S25:1.0" max="389.94" maxVeh="pt_light_rail_S9:0.0" mean="99.23000000000002" Q1="32.38" median="56.16" Q3="169.94"/>

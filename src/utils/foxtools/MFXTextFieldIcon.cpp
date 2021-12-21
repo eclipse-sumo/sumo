@@ -20,16 +20,6 @@
 
 #include "MFXTextFieldIcon.h"
 
-// Map
-FXDEFMAP(MFXTextFieldIcon) MFXTextFieldIconMap[] = {
-    FXMAPFUNC(SEL_PAINT,  0,  MFXTextFieldIcon::onPaint),
-
-};
-
-
-// Object implementation
-FXIMPLEMENT(MFXTextFieldIcon, FXTextField, MFXTextFieldIconMap, ARRAYNUMBER(MFXTextFieldIconMap))
-
 
 MFXTextFieldIcon::MFXTextFieldIcon(FXComposite* p, FXint ncols, FXObject* tgt, FXSelector sel, FXuint opt, FXint x, FXint y, FXint w, FXint h, FXint pl, FXint pr, FXint pt, FXint pb) :
     FXTextField(p, ncols, tgt, sel, opt, x, y, w, h, pl, pr, pt, pb),
@@ -48,42 +38,6 @@ MFXTextFieldIcon::resetTextField() {
     setText("");
     setBackColor(FXRGB(255, 255, 255));
     setIcon(nullptr);
-}
-
-
-long
-MFXTextFieldIcon::onPaint(FXObject*, FXSelector, void* ptr) {
-    FXEvent* ev = (FXEvent*)ptr;
-    FXDCWindow dc(this, ev);
-    const FXint iconWidth = myIcon ? myIcon->getWidth() + 4 : 0;
-    // Draw frame
-    drawFrame(dc, 0, 0, width, height);
-    // Gray background if disabled
-    if (isEnabled()) {
-        dc.setForeground(backColor);
-    } else {
-        dc.setForeground(baseColor);
-    }
-    // Draw background
-    dc.fillRectangle(border, border, width - (border << 1), height - (border << 1));
-    // Draw text, clipped against frame interior
-    dc.setClipRectangle(border, border, width - (border << 1), height - (border << 1));
-    // draw text depending of icon
-    drawIconTextRange(dc, iconWidth, 0, contents.length());
-    // Draw caret
-    if (flags & FLAG_CARET) {
-        const int xx = coord(cursor) - 1;
-        dc.setForeground(cursorColor);
-        dc.fillRectangle(xx, padtop + border, 1, height - padbottom - padtop - (border << 1));
-        dc.fillRectangle(xx - 2, padtop + border, 5, 1);
-        dc.fillRectangle(xx - 2, height - border - padbottom - 1, 5, 1);
-    }
-    return 1;
-}
-
-
-MFXTextFieldIcon::MFXTextFieldIcon() :
-    myIcon(nullptr) {
 }
 
 

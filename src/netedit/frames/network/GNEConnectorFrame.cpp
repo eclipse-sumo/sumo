@@ -51,8 +51,8 @@ FXDEFMAP(GNEConnectorFrame::ConnectionOperations) ConnectionOperationsMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNEConnectorFrame::ConnectionModifications, FXGroupBox, ConnectionModificationsMap, ARRAYNUMBER(ConnectionModificationsMap))
-FXIMPLEMENT(GNEConnectorFrame::ConnectionOperations,    FXGroupBox, ConnectionOperationsMap,    ARRAYNUMBER(ConnectionOperationsMap))
+FXIMPLEMENT(GNEConnectorFrame::ConnectionModifications, FXGroupBoxModule, ConnectionModificationsMap, ARRAYNUMBER(ConnectionModificationsMap))
+FXIMPLEMENT(GNEConnectorFrame::ConnectionOperations,    FXGroupBoxModule, ConnectionOperationsMap,    ARRAYNUMBER(ConnectionOperationsMap))
 
 
 // ===========================================================================
@@ -64,9 +64,9 @@ FXIMPLEMENT(GNEConnectorFrame::ConnectionOperations,    FXGroupBox, ConnectionOp
 // ---------------------------------------------------------------------------
 
 GNEConnectorFrame::CurrentLane::CurrentLane(GNEConnectorFrame* connectorFrameParent) :
-    FXGroupBox(connectorFrameParent->myContentFrame, "Lane", GUIDesignGroupBoxFrame) {
+    FXGroupBoxModule(connectorFrameParent->myContentFrame, "Lane") {
     // create lane label
-    myCurrentLaneLabel = new FXLabel(this, "No lane selected", 0, GUIDesignLabelLeft);
+    myCurrentLaneLabel = new FXLabel(getCollapsableFrame(), "No lane selected", 0, GUIDesignLabelLeft);
 }
 
 
@@ -87,18 +87,18 @@ GNEConnectorFrame::CurrentLane::updateCurrentLaneLabel(const std::string& laneID
 // ---------------------------------------------------------------------------
 
 GNEConnectorFrame::ConnectionModifications::ConnectionModifications(GNEConnectorFrame* connectorFrameParent) :
-    FXGroupBox(connectorFrameParent->myContentFrame, "Modifications", GUIDesignGroupBoxFrame),
+    FXGroupBoxModule(connectorFrameParent->myContentFrame, "Modifications"),
     myConnectorFrameParent(connectorFrameParent) {
 
     // Create "Cancel" button
-    myCancelButton = new FXButton(this, "Cancel\t\tDiscard connection modifications (Esc)",
+    myCancelButton = new FXButton(getCollapsableFrame(), "Cancel\t\tDiscard connection modifications (Esc)",
                                   GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_CANCEL, GUIDesignButton);
     // Create "OK" button
-    mySaveButton = new FXButton(this, "OK\t\tSave connection modifications (Enter)",
+    mySaveButton = new FXButton(getCollapsableFrame(), "OK\t\tSave connection modifications (Enter)",
                                 GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_OK, GUIDesignButton);
 
     // Create checkbox for protect routes
-    myProtectRoutesCheckBox = new FXCheckButton(this, "Protect routes", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
+    myProtectRoutesCheckBox = new FXCheckButton(getCollapsableFrame(), "Protect routes", this, MID_GNE_SET_ATTRIBUTE, GUIDesignCheckButton);
 }
 
 
@@ -149,26 +149,26 @@ GNEConnectorFrame::ConnectionModifications::onCmdSaveModifications(FXObject*, FX
 // ---------------------------------------------------------------------------
 
 GNEConnectorFrame::ConnectionOperations::ConnectionOperations(GNEConnectorFrame* connectorFrameParent) :
-    FXGroupBox(connectorFrameParent->myContentFrame, "Operations", GUIDesignGroupBoxFrame),
+    FXGroupBoxModule(connectorFrameParent->myContentFrame, "Operations"),
     myConnectorFrameParent(connectorFrameParent) {
 
     // Create "Select Dead Ends" button
-    mySelectDeadEndsButton = new FXButton(this, "Select Dead Ends\t\tSelects all lanes that have no outgoing connection (clears previous selection)",
+    mySelectDeadEndsButton = new FXButton(getCollapsableFrame(), "Select Dead Ends\t\tSelects all lanes that have no outgoing connection (clears previous selection)",
                                           0, this, MID_GNE_CONNECTORFRAME_SELECTDEADENDS, GUIDesignButton);
     // Create "Select Dead Starts" button
-    mySelectDeadStartsButton = new FXButton(this, "Select Dead Starts\t\tSelects all lanes that have no incoming connection (clears previous selection)",
+    mySelectDeadStartsButton = new FXButton(getCollapsableFrame(), "Select Dead Starts\t\tSelects all lanes that have no incoming connection (clears previous selection)",
                                             0, this, MID_GNE_CONNECTORFRAME_SELECTDEADSTARTS, GUIDesignButton);
     // Create "Select Conflicts" button
-    mySelectConflictsButton = new FXButton(this, "Select Conflicts\t\tSelects all lanes with more than one incoming connection from the same edge (clears previous selection)",
+    mySelectConflictsButton = new FXButton(getCollapsableFrame(), "Select Conflicts\t\tSelects all lanes with more than one incoming connection from the same edge (clears previous selection)",
                                            0, this, MID_GNE_CONNECTORFRAME_SELECTCONFLICTS, GUIDesignButton);
     // Create "Select Edges which may always pass" button
-    mySelectPassingButton = new FXButton(this, "Select Passing\t\tSelects all lanes with a connection that has has the 'pass' attribute set",
+    mySelectPassingButton = new FXButton(getCollapsableFrame(), "Select Passing\t\tSelects all lanes with a connection that has has the 'pass' attribute set",
                                          0, this, MID_GNE_CONNECTORFRAME_SELECTPASS, GUIDesignButton);
     // Create "Clear Selected" button
-    myClearSelectedButton = new FXButton(this, "Clear Selected\t\tClears all connections of all selected objects",
+    myClearSelectedButton = new FXButton(getCollapsableFrame(), "Clear Selected\t\tClears all connections of all selected objects",
                                          0, this, MID_CHOOSEN_CLEAR, GUIDesignButton);
     // Create "Reset Selected" button
-    myResetSelectedButton = new FXButton(this, "Reset Selected\t\tRecomputes connections at all selected junctions",
+    myResetSelectedButton = new FXButton(getCollapsableFrame(), "Reset Selected\t\tRecomputes connections at all selected junctions",
                                          0, this, MID_CHOOSEN_RESET, GUIDesignButton);
 }
 
@@ -306,10 +306,10 @@ GNEConnectorFrame::ConnectionOperations::onCmdResetSelectedConnections(FXObject*
 // ---------------------------------------------------------------------------
 
 GNEConnectorFrame::ConnectionSelection::ConnectionSelection(GNEConnectorFrame* connectorFrameParent) :
-    FXGroupBox(connectorFrameParent->myContentFrame, "Selection", GUIDesignGroupBoxFrame) {
+    FXGroupBoxModule(connectorFrameParent->myContentFrame, "Selection") {
     // create Selection Hint
-    myHoldShiftLabel = new FXLabel(this, "Hold <SHIFT> while clicking\nto create unyielding\nconnections (pass=true).", 0, GUIDesignLabelFrameInformation);
-    myHoldControlLabel = new FXLabel(this, "Hold <CTRL> while clicking\nto create conflicting\nconnections (i.e. at zipper\nnodes or with incompatible\npermissions)", 0, GUIDesignLabelFrameInformation);
+    myHoldShiftLabel = new FXLabel(getCollapsableFrame(), "Hold <SHIFT> while clicking\nto create unyielding\nconnections (pass=true).", 0, GUIDesignLabelFrameInformation);
+    myHoldControlLabel = new FXLabel(getCollapsableFrame(), "Hold <CTRL> while clicking\nto create conflicting\nconnections (i.e. at zipper\nnodes or with incompatible\npermissions)", 0, GUIDesignLabelFrameInformation);
 }
 
 
@@ -319,33 +319,33 @@ GNEConnectorFrame::ConnectionSelection::~ConnectionSelection() {}
 // GNEConnectorFrame::ConnectionLegend - methods
 // ---------------------------------------------------------------------------
 
-GNEConnectorFrame::ConnectionLegend::ConnectionLegend(GNEConnectorFrame* connectorFrameParent) :
-    FXGroupBox(connectorFrameParent->myContentFrame, "Legend", GUIDesignGroupBoxFrame) {
+GNEConnectorFrame::Legend::Legend(GNEConnectorFrame* connectorFrameParent) :
+    FXGroupBoxModule(connectorFrameParent->myContentFrame, "Information") {
 
     // create possible target label
-    FXLabel* possibleTargetLabel = new FXLabel(this, "Possible Target", 0, GUIDesignLabelLeft);
+    FXLabel* possibleTargetLabel = new FXLabel(getCollapsableFrame(), "Possible Target", 0, GUIDesignLabelLeft);
     possibleTargetLabel->setBackColor(MFXUtils::getFXColor(connectorFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.possible));
     possibleTargetLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
 
     // create source label
-    FXLabel* sourceLabel = new FXLabel(this, "Source lane", 0, GUIDesignLabelLeft);
+    FXLabel* sourceLabel = new FXLabel(getCollapsableFrame(), "Source lane", 0, GUIDesignLabelLeft);
     sourceLabel->setBackColor(MFXUtils::getFXColor(connectorFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.source));
 
     // create target label
-    FXLabel* targetLabel = new FXLabel(this, "Target lane", 0, GUIDesignLabelLeft);
+    FXLabel* targetLabel = new FXLabel(getCollapsableFrame(), "Target lane", 0, GUIDesignLabelLeft);
     targetLabel->setBackColor(MFXUtils::getFXColor(connectorFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.target));
 
     // create target (pass) label
-    FXLabel* targetPassLabel = new FXLabel(this, "Target (pass)", 0, GUIDesignLabelLeft);
+    FXLabel* targetPassLabel = new FXLabel(getCollapsableFrame(), "Target (pass)", 0, GUIDesignLabelLeft);
     targetPassLabel->setBackColor(MFXUtils::getFXColor(connectorFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.special));
 
     // create conflict label
-    FXLabel* conflictLabel = new FXLabel(this, "Conflict", 0, GUIDesignLabelLeft);
+    FXLabel* conflictLabel = new FXLabel(getCollapsableFrame(), "Conflict", 0, GUIDesignLabelLeft);
     conflictLabel->setBackColor(MFXUtils::getFXColor(connectorFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.conflict));
 }
 
 
-GNEConnectorFrame::ConnectionLegend::~ConnectionLegend() {}
+GNEConnectorFrame::Legend::~Legend() {}
 
 // ---------------------------------------------------------------------------
 // GNEConnectorFrame - methods
@@ -368,7 +368,7 @@ GNEConnectorFrame::GNEConnectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     myConnectionSelection = new ConnectionSelection(this);
 
     // create connection legend modul
-    myConnectionLegend = new ConnectionLegend(this);
+    myLegend = new Legend(this);
 }
 
 

@@ -1,3 +1,4 @@
+ Retrying in 1 seconds
 PersonId: 
  ('HeadingBusstop1', 'HeadingBusstop2', 'HeadingBusstop3', 'HeadingBusstop5')
 PickupList:
@@ -14,4 +15,3 @@ pickup:  ('taxiV0', 'taxiV5')
 Taxifleet-Status
 empty:  ('taxiV15',)
 pickup:  ('taxiV0', 'taxiV5', 'taxiV10')
-Loading configuration ... done.

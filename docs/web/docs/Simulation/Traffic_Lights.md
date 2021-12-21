@@ -351,6 +351,26 @@ To define a max-gap value that differs from the default you can use a param with
    <param key="max-gap:gneE42_2" value="2"/>
 ```
 
+### Coordination
+
+Actuated phases (minDur != maxDur) can be coordinated by adding attributes 'earliestEnd' and 'latestEnd'.
+If these values are used, each step in the traffic light plan is assigned a 'timeInCycle' value depending on the value of param 'coordinated' (default 'false').
+
+- coordinated=true:  timeInCycle = *(simulationTime - offset) % cycleTime*  (where cycleTime is the sum of all phase durations)
+- coordinated=false: timeInCycle = *time since last switching into phase 0*
+
+If 'earliestEnd' is set, a phase can not end while *timeInCycle < earliestEnd* (effectively increasing minDur)
+If 'latestEnd' is set, a phase cannot be prolonged when *timeInCycle = latestEnd* (effectively reducing maxDir).
+
+```
+<tlLogic id="0" programID="my_program" offset="10" type="actuated">
+  <param key="coordinated" value="true"/>
+
+  <phase duration="31" minDur="5" maxDur="45" state="GGggrrrrGGggrrrr" earliestEnd="10" latestEnd="50"/>
+  ...
+</tlLogic>
+```
+
 ### Dynamic Phase Selection (Phase Skipping)
 When a phase uses attribute 'next' with a list of indices. The next phase is chosen dynamically based on the detector status of all candidate phases according to the following algorithm:
 

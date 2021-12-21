@@ -267,7 +267,7 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, long long int att
             dev.writeOptionalAttr(SUMO_ATTR_WAITINGTIME, waitSeconds, attributeMask);
             dev.writeOptionalAttr(SUMO_ATTR_TIMELOSS, timeLoss, attributeMask);
             dev.writeOptionalAttr(SUMO_ATTR_SPEED, travelledDistance / sampleSeconds, attributeMask);
-            dev.writeOptionalAttr(SUMO_ATTR_SPEEDREL, travelledDistance / sampleSeconds / speedLimit, attributeMask);
+            dev.writeOptionalAttr(SUMO_ATTR_SPEEDREL, speedLimit == 0. ? 0. : travelledDistance / sampleSeconds / speedLimit, attributeMask);
         }
         dev.writeOptionalAttr(SUMO_ATTR_DEPARTED, nVehDeparted, attributeMask);
         dev.writeOptionalAttr(SUMO_ATTR_ARRIVED, nVehArrived, attributeMask);
@@ -294,7 +294,7 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, long long int att
             dev.writeOptionalAttr(SUMO_ATTR_WAITINGTIME, waitSeconds, attributeMask);
             dev.writeOptionalAttr(SUMO_ATTR_TIMELOSS, timeLoss, attributeMask);
             dev.writeOptionalAttr(SUMO_ATTR_SPEED, travelledDistance / sampleSeconds, attributeMask);
-            dev.writeOptionalAttr(SUMO_ATTR_SPEEDREL, travelledDistance / sampleSeconds / speedLimit, attributeMask);
+            dev.writeOptionalAttr(SUMO_ATTR_SPEEDREL, speedLimit == 0. ? 0. : travelledDistance / sampleSeconds / speedLimit, attributeMask);
         } else {
             double traveltime = myParent->myMaxTravelTime;
             if (frontTravelledDistance > NUMERICAL_EPS) {
@@ -310,12 +310,12 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, long long int att
             dev.writeOptionalAttr(SUMO_ATTR_WAITINGTIME, waitSeconds, attributeMask);
             dev.writeOptionalAttr(SUMO_ATTR_TIMELOSS, timeLoss, attributeMask);
             dev.writeOptionalAttr(SUMO_ATTR_SPEED, travelledDistance / sampleSeconds, attributeMask);
-            dev.writeOptionalAttr(SUMO_ATTR_SPEEDREL, travelledDistance / sampleSeconds / speedLimit, attributeMask);
+            dev.writeOptionalAttr(SUMO_ATTR_SPEEDREL, speedLimit == 0. ? 0. : travelledDistance / sampleSeconds / speedLimit, attributeMask);
         }
     } else if (defaultTravelTime >= 0.) {
         dev.writeOptionalAttr(SUMO_ATTR_TRAVELTIME, defaultTravelTime, attributeMask);
         dev.writeOptionalAttr(SUMO_ATTR_SPEED, myLaneLength / defaultTravelTime, attributeMask);
-        dev.writeOptionalAttr(SUMO_ATTR_SPEEDREL, myLaneLength / defaultTravelTime / speedLimit, attributeMask);
+        dev.writeOptionalAttr(SUMO_ATTR_SPEEDREL, speedLimit == 0. ? 0. : myLaneLength / defaultTravelTime / speedLimit, attributeMask);
     }
     dev.writeOptionalAttr(SUMO_ATTR_DEPARTED, nVehDeparted, attributeMask);
     dev.writeOptionalAttr(SUMO_ATTR_ARRIVED, nVehArrived, attributeMask);

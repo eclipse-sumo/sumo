@@ -227,6 +227,7 @@ GUIPerson::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("stage index", true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getStageIndexDescription));
     ret->mkItem("start edge [id]", true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getFromEdgeID));
     ret->mkItem("dest edge [id]", true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getDestinationEdgeID));
+    ret->mkItem("dest stop [id]", true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getDestinationStopID));
     ret->mkItem("arrivalPos [m]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getStageArrivalPos));
     ret->mkItem("edge [id]", true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getEdgeID));
     ret->mkItem("position [m]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getEdgePos));
@@ -234,6 +235,8 @@ GUIPerson::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("speed factor", false, getSpeedFactor());
     ret->mkItem("angle [degree]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getNaviDegree));
     ret->mkItem("waiting time [s]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getWaitingSeconds));
+    ret->mkItem("vehicle [id]", true, new FunctionBindingString<GUIPerson>(this, &GUIPerson::getVehicleID));
+    ret->mkItem("stop duration [s]", true, new FunctionBinding<GUIPerson, double>(this, &GUIPerson::getStopDuration));
     ret->mkItem("desired depart [s]", false, time2string(getParameter().depart));
     // close building
     ret->closeBuilding(&getParameter());
@@ -598,6 +601,50 @@ GUIPerson::getDestinationEdgeID() const {
         return "arrived";
     }
     return getDestination()->getID();
+}
+
+
+std::string
+GUIPerson::getDestinationStopID() const {
+    FXMutexLock locker(myLock);
+    if (hasArrived()) {
+        return "";
+    }
+    MSStoppingPlace* destStop = getCurrentStage()->getDestinationStop();
+    if (destStop != nullptr) {
+        return destStop->getID();
+    } else {
+        return "";
+    }
+}
+
+
+std::string
+GUIPerson::getVehicleID() const {
+    FXMutexLock locker(myLock);
+    if (hasArrived()) {
+        return "";
+    }
+    SUMOVehicle* veh = getCurrentStage()->getVehicle();
+    if (veh != nullptr) {
+        return veh->getID();
+    } else {
+        return "";
+    }
+}
+
+
+double
+GUIPerson::getStopDuration() const {
+    FXMutexLock locker(myLock);
+    if (hasArrived()) {
+        return -1;
+    }
+    if (getCurrentStage()->getStageType() == MSStageType::WAITING) {
+        return STEPS2TIME(dynamic_cast<MSStageWaiting*>(getCurrentStage())->getStopEnd() - SIMSTEP);
+    } else {
+        return -1;
+    }
 }
 
 

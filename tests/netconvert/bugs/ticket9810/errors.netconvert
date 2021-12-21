@@ -1,0 +1,6 @@
+Warning: Ambiguity in turnarounds computation at junction 'gneJ0'.
+Warning: Ambiguity in turnarounds computation at junction 'gneJ4'.
+Warning: Ambiguity in turnarounds computation at junction 'gneJ5'.
+Warning: Ambiguity in turnarounds computation at junction 'gneJ6'.
+Warning: Speed of straight connection 'gneE177_0->gneE62_0' reduced by 5.18 due to turning radius of 13.80 (length=3.35, angle=29.29).
+Warning: Speed of straight connection 'gneE34_0->gneE53_0' reduced by 5.16 due to turning radius of 13.85 (length=3.84, angle=31.33).

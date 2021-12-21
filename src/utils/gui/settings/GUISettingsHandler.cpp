@@ -145,6 +145,7 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             mySettings.edgeParam = attrs.getStringSecure("edgeParam", mySettings.edgeParam);
             mySettings.laneParam = attrs.getStringSecure("laneParam", mySettings.laneParam);
             mySettings.vehicleParam = attrs.getStringSecure("vehicleParam", mySettings.vehicleParam);
+            mySettings.vehicleScaleParam = attrs.getStringSecure("vehicleScaleParam", mySettings.vehicleScaleParam);
             mySettings.vehicleTextParam = attrs.getStringSecure("vehicleTextParam", mySettings.vehicleTextParam);
             mySettings.edgeData = attrs.getStringSecure("edgeData", mySettings.edgeData);
             mySettings.edgeValueHideCheck = StringUtils::toBool(attrs.getStringSecure("edgeValueHideCheck", toString(mySettings.edgeValueHideCheck)));
@@ -202,6 +203,9 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
                     myCurrentScaleScheme = mySettings.edgeScaler.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
                 }
             }
+            if (myCurrentColorer == SUMO_TAG_VIEWSETTINGS_VEHICLES) {
+                myCurrentScaleScheme = mySettings.vehicleScaler.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
+            }
             if (myCurrentScaleScheme && !myCurrentScaleScheme->isFixed()) {
                 myCurrentScaleScheme->setInterpolated(attrs.getOpt<bool>(SUMO_ATTR_INTERPOLATED, nullptr, ok, false));
                 myCurrentScaleScheme->clear();
@@ -226,6 +230,7 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             break;
         case SUMO_TAG_VIEWSETTINGS_VEHICLES:
             mySettings.vehicleColorer.setActive(StringUtils::toInt(attrs.getStringSecure("vehicleMode", "0")));
+            mySettings.vehicleScaler.setActive(StringUtils::toInt(attrs.getStringSecure("vehicleScaleMode", "0")));
             mySettings.vehicleQuality = StringUtils::toInt(attrs.getStringSecure("vehicleQuality", toString(mySettings.vehicleQuality)));
             mySettings.showBlinker = StringUtils::toBool(attrs.getStringSecure("showBlinker", toString(mySettings.showBlinker)));
             mySettings.drawMinGap = StringUtils::toBool(attrs.getStringSecure("drawMinGap", toString(mySettings.drawMinGap)));

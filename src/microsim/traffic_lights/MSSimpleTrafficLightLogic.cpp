@@ -39,14 +39,14 @@
 // member method definitions
 // ===========================================================================
 MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(MSTLLogicControl& tlcontrol,
-        const std::string& id, const std::string& programID, const TrafficLightType logicType, const Phases& phases,
+        const std::string& id, const std::string& programID, const SUMOTime offset, const TrafficLightType logicType, const Phases& phases,
         int step, SUMOTime delay,
         const std::map<std::string, std::string>& parameters) :
-    MSTrafficLightLogic(tlcontrol, id, programID, logicType, delay, parameters),
+    MSTrafficLightLogic(tlcontrol, id, programID, offset, logicType, delay, parameters),
     myPhases(phases),
     myStep(step) {
-    for (int i = 0; i < (int)myPhases.size(); i++) {
-        myDefaultCycleTime += myPhases[i]->duration;
+    for (const MSPhaseDefinition* phase : myPhases) {
+        myDefaultCycleTime += phase->duration;
     }
 }
 
@@ -178,6 +178,12 @@ MSSimpleTrafficLightLogic::getIndexFromOffset(SUMOTime offset) const {
         }
     }
     return 0;
+}
+
+
+SUMOTime
+MSSimpleTrafficLightLogic::mapTimeInCycle(SUMOTime t) const {
+    return (t - myPhases[0]->myLastSwitch) % myDefaultCycleTime;
 }
 
 

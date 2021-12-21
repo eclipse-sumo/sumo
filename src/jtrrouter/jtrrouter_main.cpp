@@ -239,6 +239,9 @@ main(int argc, char** argv) {
         ret = 1;
 #endif
     }
+    if (oc.exists("unsorted-input") && oc.getBool("unsorted-input")) {
+        WRITE_WARNING("Input file is unsorted. Please use option --unsorted-input");
+    }
     delete net;
     SystemFrame::close();
     if (ret == 0) {

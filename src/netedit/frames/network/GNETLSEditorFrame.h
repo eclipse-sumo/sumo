@@ -48,7 +48,7 @@ public:
     // class TLSJunction
     // ===========================================================================
 
-    class TLSJunction : protected FXGroupBox {
+    class TLSJunction : public FXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -81,7 +81,7 @@ public:
     // class TLSDefinition
     // ===========================================================================
 
-    class TLSDefinition : protected FXGroupBox {
+    class TLSDefinition : public FXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -102,7 +102,7 @@ public:
     // class TLSAttributes
     // ===========================================================================
 
-    class TLSAttributes : protected FXGroupBox {
+    class TLSAttributes : public FXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -174,7 +174,7 @@ public:
     // class TLSPhases
     // ===========================================================================
 
-    class TLSPhases : protected FXGroupBox {
+    class TLSPhases : public FXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -227,7 +227,7 @@ public:
     // class TLSModifications
     // ===========================================================================
 
-    class TLSModifications : protected FXGroupBox {
+    class TLSModifications : public FXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -260,7 +260,7 @@ public:
     // class TLSFile
     // ===========================================================================
 
-    class TLSFile : protected FXGroupBox {
+    class TLSFile : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNETLSEditorFrame::TLSFile)
 
@@ -445,7 +445,7 @@ protected:
 
 private:
     /// @brief Overlapped Inspection
-    GNEFrameModuls::OverlappedInspection* myOverlappedInspection;
+    GNEFrameModules::OverlappedInspection* myOverlappedInspection;
 
     /// @brief modul for TLS Junction
     GNETLSEditorFrame::TLSJunction* myTLSJunction;

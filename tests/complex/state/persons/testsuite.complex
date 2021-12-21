@@ -1,0 +1,14 @@
+# test walking person
+walk
+
+# test pedestrian model 'nonInteracting'
+walk_nonInteracting
+
+# test riding person
+ride
+
+# test riding person
+ride_carTriggered
+
+# test stopping person	
+stop

@@ -5,6 +5,10 @@ set(netedit_elements_network_SRCS
    GNEEdge.cpp
    GNELane.h
    GNELane.cpp
+   GNEEdgeTemplate.h
+   GNEEdgeTemplate.cpp
+   GNELaneTemplate.h
+   GNELaneTemplate.cpp
    GNEInternalLane.h
    GNEInternalLane.cpp
    GNEConnection.h

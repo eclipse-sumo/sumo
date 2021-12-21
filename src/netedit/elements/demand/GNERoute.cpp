@@ -175,18 +175,20 @@ GNERoute::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 void
 GNERoute::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_ROUTE);
+    // write id only for non-embedded routes
+    if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
+        device.writeAttr(SUMO_ATTR_ID, getID());
+    }
     device.writeAttr(SUMO_ATTR_EDGES, parseIDs(getParentEdges()));
     device.writeAttr(SUMO_ATTR_COLOR, toString(myColor));
     if (myRepeat != 0) {
         device.writeAttr(SUMO_ATTR_REPEAT, toString(myRepeat));
     }
     if (myCycleTime != 0) {
-        device.writeAttr(SUMO_ATTR_CYCLETIME, toString(myCycleTime));
+        device.writeAttr(SUMO_ATTR_CYCLETIME, time2string(myCycleTime));
     }
-    // write extra attributes depending if is an embedded route
+    // write stops associated to this route (not for embedded routes)
     if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
-        device.writeAttr(SUMO_ATTR_ID, getID());
-        // write stops associated to this route
         for (const auto& stop : getChildDemandElements()) {
             if (stop->getTagProperty().isStop()) {
                 stop->writeDemandElement(device);

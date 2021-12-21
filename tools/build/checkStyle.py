@@ -91,10 +91,10 @@ class PropertyReader(xml.sax.handler.ContentHandler):
 
     """Reads the svn properties of files as written by svn pl -v --xml"""
 
-    def __init__(self, doFix, doPep, doLicense):
+    def __init__(self, doFix, doPep, license_attrs):
         self._fix = doFix
         self._pep = doPep
-        self._license = doFix or doLicense
+        self._license = dict([e.split(":") for e in license_attrs.split(",")]) if license_attrs else None
         self._file = ""
         self._property = None
         self._value = ""
@@ -169,23 +169,26 @@ class PropertyReader(xml.sax.handler.ContentHandler):
         if ext in (".py", ".pyw"):
             if lines[0][:2] == '#!':
                 idx += 1
-                if lines[0] not in ('#!/usr/bin/env python\n', '#!/usr/bin/env python3\n'):
+                if lines[0] not in ('#!/usr/bin/env python\n', '#!/usr/bin/env python3\n', '#!/usr/bin/env python2\n'):
                     print(self._file, "wrong shebang")
                     if self._fix:
                         lines[0] = '#!/usr/bin/env python\n'
                         self._haveFixed = True
             if lines[idx][:5] == '# -*-':
                 idx += 1
-            end = lines.index("\n", idx)
+            end = lines.index("\n", idx) if "\n" in lines else idx
             if len(lines) < 13:
                 print(self._file, "is too short (%s lines, at least 13 required for valid header)" % len(lines))
-                return
-            year = lines[idx + 1][16:20]
+                if not self._license:
+                    return
+            year = lines[idx + 1][16:20] if len(lines) > idx + 1 else ""
+            if self._license:
+                year = self._license.get("year", "2001")
             license = EPL_HEADER.replace("//   ", "# ").replace("// ", "# ").replace("\n//", "")
             license = license.replace("2001", year).replace(SEPARATOR, "")
             newLicense = EPL_GPL_HEADER.replace("//   ", "# ").replace("// ", "# ").replace("\n//", "")
             newLicense = newLicense.replace("2001", year).replace(SEPARATOR, "")
-            if "module" in lines[idx + 2]:
+            if len(lines) > idx + 4 and "module" in lines[idx + 2]:
                 fileLicense = "".join(lines[idx:idx + 2]) + "".join(lines[idx + 4:end])
             else:
                 fileLicense = "".join(lines[idx:end])
@@ -200,11 +203,21 @@ class PropertyReader(xml.sax.handler.ContentHandler):
                     end += 4
                     self._haveFixed = True
             elif fileLicense != newLicense:
-                print(self._file, "different license:")
-                print(fileLicense)
-                if options.verbose:
-                    print("!!%s!!" % os.path.commonprefix([fileLicense, license]))
-                    print(license)
+                if self._license:
+                    lines[idx:idx] = newLicense.splitlines(True) + ["\n",
+                                                                    "# @file    %s\n" % os.path.basename(self._file),
+                                                                    "# @author  %s\n" % self._license.get("author", ""),
+                                                                    "# @date    %s\n" % self._license.get("date", ""),
+                                                                    "\n"]
+                    if "module" in self._license:
+                        lines[idx+2:idx+2] = ["# %s\n" % l for l in self._license["module"].split('\\n')]
+                    self._haveFixed = True
+                else:
+                    print(self._file, "different license:")
+                    print(fileLicense)
+                    if options.verbose:
+                        print("!!%s!!" % os.path.commonprefix([fileLicense, license]))
+                        print(license)
             self.checkDoxyLines(lines, end + 1, "#")
         if self._haveFixed:
             open(self._file, "w").write("".join(lines))
@@ -308,8 +321,8 @@ optParser.add_option("-v", "--verbose", action="store_true",
                      default=False, help="tell me what you are doing")
 optParser.add_option("-f", "--fix", action="store_true",
                      default=False, help="fix invalid svn properties, run astyle and autopep8")
-optParser.add_option("-l", "--license", action="store_true",
-                     default=False, help="fix license only")
+optParser.add_option("-l", "--license",
+                     help="fix / insert license (needs at least one of the attributes module, author, year, date)")
 optParser.add_option("-s", "--skip-pep", action="store_true",
                      default=False, help="skip autopep8 and flake8 tests")
 optParser.add_option("-d", "--directory", help="check given subdirectory of sumo tree")

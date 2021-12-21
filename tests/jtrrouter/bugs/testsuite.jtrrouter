@@ -10,3 +10,6 @@ ticket99
 # Tests for ticket328 (incorrect calculations of exit times in *.rou.alt.xml)
 ticket328
 ticket3443
+
+#Test for warning for unsorted input flows
+ticket9327

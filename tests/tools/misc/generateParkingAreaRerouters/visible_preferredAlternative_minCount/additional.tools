@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2021-12-15 11:36:03.008035 by generateParkingAreaRerouters.py v1_11_0+0558-2adbc4b9646
+<configuration>
+    <min-capacity-visibility-true value="10"/>
+    <max-distance-alternatives value="1000.0"/>
+    <max-distance-visibility-true value="10.0"/>
+    <min-capacity value="20"/>
+    <max-number-alternatives value="2"/>
+    <output value="out.add.xml"/>
+    <parking-areas value="input_additional.add.xml"/>
+    <prefer-visible value="True"/>
+    <sumo-net value="net.net.xml"/>
+</configuration>
+
+-->
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <rerouter id="pB" edges="b">
+        <interval begin="0.0" end="86400">
+            <!-- in order of distance --> 
+            <parkingAreaReroute id="pB" visible="true"/> <!-- dist: 0.0 -->
+        </interval>
+    </rerouter>
+
+    <rerouter id="pC" edges="c">
+        <interval begin="0.0" end="86400">
+            <!-- in order of distance --> 
+            <parkingAreaReroute id="pC" visible="true"/> <!-- dist: 0.0 -->
+        </interval>
+    </rerouter>
+
+    <rerouter id="pD" edges="d">
+        <interval begin="0.0" end="86400">
+            <!-- in order of distance --> 
+            <parkingAreaReroute id="pD" visible="true"/> <!-- dist: 0.0 -->
+        </interval>
+    </rerouter>
+
+    <rerouter id="pE" edges="e">
+        <interval begin="0.0" end="86400">
+            <!-- in order of distance --> 
+            <parkingAreaReroute id="pE" visible="true"/> <!-- dist: 0.0 -->
+        </interval>
+    </rerouter>
+</additional>

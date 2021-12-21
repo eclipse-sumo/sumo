@@ -50,7 +50,7 @@ class GNEAttributeCarrier : public GNEReferenceCounter {
     /// @brief declare friend class
     friend class GNEChange_Attribute;
     friend class GNEChange_EnableAttribute;
-    friend class GNEFrameAttributesModuls;
+    friend class GNEFrameAttributeModules;
 
 public:
 
@@ -178,47 +178,27 @@ public:
      */
     std::string getAlternativeValueForDisabledAttributes(SumoXMLAttr key) const;
 
-    /// @name Certain attributes and ACs (for example, connections) can be either loaded or guessed. The following static variables are used to remark it.
-    /// @{
-    /// @brief feature is still unchanged after being loaded (implies approval)
-    static const std::string FEATURE_LOADED;
-
-    /// @brief feature has been reguessed (may still be unchanged be we can't tell (yet)
-    static const std::string FEATURE_GUESSED;
-
-    /// @brief feature has been manually modified (implies approval)
-    static const std::string FEATURE_MODIFIED;
-
-    /// @brief feature has been approved but not changed (i.e. after being reguessed)
-    static const std::string FEATURE_APPROVED;
-    /// @}
-
-    /// @brief max number of attributes allowed for every tag
-    static const size_t MAXNUMBEROFATTRIBUTES;
-
-    /// @brief invalid double position
-    static const double INVALID_POSITION;
-
     /// @brief method for getting the attribute in the context of object selection
     virtual std::string getAttributeForSelection(SumoXMLAttr key) const;
 
     /// @brief get tag assigned to this object in string format
     const std::string& getTagStr() const;
 
-    /// @brief get Tag Property assigned to this object
-    const GNETagProperties& getTagProperty() const;
-
     /// @brief get FXIcon associated to this AC
     FXIcon* getIcon() const;
 
-    /// @brief get Tag Properties
-    static const GNETagProperties& getTagProperties(SumoXMLTag tag);
+    /// @brief get tagProperty associated with this Attribute Carrier
+    const GNETagProperties& getTagProperty() const;
 
-    /// @brief get tags of all editable element types
-    static const std::vector<GNETagProperties> allowedAttributeProperties(const bool onlyDrawables);
+    bool isTemplate() const {
+        return myIsTemplate;
+    }
 
-    /// @brief get tagProperties of all editable element types using TagProperty Type (NetworkEditMode::NETWORKELEMENT, ADDITIONALELEMENT, etc.)
-    static const std::vector<std::pair<GNETagProperties, std::string> > getAllowedTagPropertiesByCategory(const int tagPropertyCategory, const bool onlyDrawables);
+    /// @brief get tagProperty associated to the given tag
+    static const GNETagProperties& getTagProperty(SumoXMLTag tag);
+
+    /// @brief get tagProperties associated to the given GNETagProperties::TagType (NETWORKELEMENT, ADDITIONALELEMENT, VEHICLE, etc.)
+    static const std::vector<GNETagProperties> getTagPropertiesByType(const int tagPropertyCategory);
 
     /// @brief true if a value of type T can be parsed from string
     template<typename T>
@@ -266,71 +246,26 @@ public:
     /// @brief check if lanes are consecutives
     static bool lanesConsecutives(const std::vector<GNELane*>& lanes);
 
-    /// @brief Parse attribute from XML and show warnings if there are problems parsing it
-    template <typename T>
-    static T parseAttributeFromXML(const SUMOSAXAttributes& attrs, const std::string& objectID, const SumoXMLTag tag, const SumoXMLAttr attribute, bool& abort) {
-        bool parsedOk = true;
-        // declare string values
-        std::string defaultValue, parsedAttribute, warningMessage;
-        // obtain tag properties
-        const auto& tagProperties = getTagProperties(tag);
-        // first check if attribute is deprecated
-        if (tagProperties.isAttributeDeprecated(attribute)) {
-            // show warning if deprecateda ttribute is in the SUMOSAXAttributes
-            if (attrs.hasAttribute(attribute)) {
-                WRITE_WARNING("Attribute " + toString(attribute) + "' of " + tagProperties.getTagStr() + " is deprecated and will not be loaded.");
-            }
-            // return a dummy value
-            return parse<T>("");
-        }
-        // now check if we're obtaining attribute of an object with an already parsed ID
-        if (objectID != "") {
-            warningMessage = tagProperties.getTagStr() + " with ID '" + objectID + "'";
-        } else {
-            warningMessage = tagProperties.getTagStr();
-        }
-        // obtain attribute properties (Only for improving efficiency)
-        const auto& attrProperties = tagProperties.getAttributeProperties(attribute);
-        // set a special default value for numerical and boolean attributes (To avoid errors parsing)
-        if (attrProperties.isNumerical() || attrProperties.isBool()) {
-            defaultValue = "0";
-        } else if (attrProperties.isColor()) {
-            defaultValue = "black";
-        } else if (attrProperties.isposition()) {
-            defaultValue = "0,0";
-        }
-        // first check that attribute exists in XML
-        if (attrs.hasAttribute(attribute)) {
-            // First check if attribute can be parsed to string
-            parsedAttribute = attrs.get<std::string>(attribute, objectID.c_str(), parsedOk, false);
-            // check parsed attribute
-            if (!checkParsedAttribute(tagProperties, attrProperties, attribute, defaultValue, parsedAttribute, warningMessage)) {
-                abort = true;
-            }
-        } else if (tagProperties.canMaskXYZPositions() && (attribute == SUMO_ATTR_POSITION)) {
-            // obtain masked position attribute
-            if (!parseMaskedPositionAttribute(attrs, objectID, tagProperties, attrProperties, parsedAttribute, warningMessage)) {
-                abort = true;
-            }
-        } else {
-            // if attribute is optional and has a default value, obtain it. In other case, abort.
-            if (attrProperties.isOptional()) {
-                parsedAttribute = attrProperties.getDefaultValue();
-            } else {
-                WRITE_WARNING("Essential " + attrProperties.getDescription() + " attribute '" + toString(attribute) + "' of " +
-                              warningMessage +  " is missing; " + tagProperties.getTagStr() + " cannot be created");
-                // abort parsing (and creation) of element
-                abort = true;
-                // set default value (To avoid errors in parse<T>(parsedAttribute))
-                parsedAttribute = defaultValue;
-            }
-        }
-        // return parsed attribute
-        return parse<T>(parsedAttribute);
-    }
+    /// @name Certain attributes and ACs (for example, connections) can be either loaded or guessed. The following static variables are used to remark it.
+    /// @{
+    /// @brief feature is still unchanged after being loaded (implies approval)
+    static const std::string FEATURE_LOADED;
+
+    /// @brief feature has been reguessed (may still be unchanged be we can't tell (yet)
+    static const std::string FEATURE_GUESSED;
+
+    /// @brief feature has been manually modified (implies approval)
+    static const std::string FEATURE_MODIFIED;
+
+    /// @brief feature has been approved but not changed (i.e. after being reguessed)
+    static const std::string FEATURE_APPROVED;
+    /// @}
+
+    /// @brief max number of attributes allowed for every tag
+    static const size_t MAXNUMBEROFATTRIBUTES;
 
 protected:
-    /// @brief the xml tag to which this attribute carrier corresponds
+    /// @brief reference to tagProperty associated with this attribute carrier
     const GNETagProperties& myTagProperty;
 
     /// @brief pointer to net
@@ -339,8 +274,8 @@ protected:
     /// @brief boolean to check if this AC is selected (instead of GUIGlObjectStorage)
     bool mySelected;
 
-    /// @brief dummy TagProperty used for reference some elements (for Example, dummyEdge)
-    static GNETagProperties dummyTagProperty;
+    /// @brief whether the current object is a template object (not drawn in the view)
+    bool myIsTemplate;
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
@@ -348,6 +283,9 @@ private:
 
     /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
     virtual void toogleAttribute(SumoXMLAttr key, const bool value, const int previousParameters) = 0;
+
+    /// @brief reset attributes to their default values without undo-redo (used in GNEFrameAttributeModules)
+    void resetAttributes();
 
     /// @brief fill Attribute Carriers
     static void fillAttributeCarriers();
@@ -422,18 +360,10 @@ private:
     static void fillCommonContainerAttributes(SumoXMLTag currentTag);
 
     /// @brief fill stop person attributes
-    static void fillCommonStopAttributes(SumoXMLTag currentTag, const bool parking);
+    static void fillCommonStopAttributes(SumoXMLTag currentTag);
 
     /// @brief fill Data elements
     static void fillDataElements();
-
-    /// @brief parse and check attribute (note: This function is only to improve legilibility)
-    static bool checkParsedAttribute(const GNETagProperties& tagProperties, const GNEAttributeProperties& attrProperties, const SumoXMLAttr attribute,
-                                     std::string& defaultValue, std::string& parsedAttribute, std::string& warningMessage);
-
-    /// @brief parse and check masked  (note: This function is only to improve legilibility)
-    static bool parseMaskedPositionAttribute(const SUMOSAXAttributes& attrs, const std::string& objectID, const GNETagProperties& tagProperties,
-            const GNEAttributeProperties& attrProperties, std::string& parsedAttribute, std::string& warningMessage);
 
     /// @brief map with the tags properties
     static std::map<SumoXMLTag, GNETagProperties> myTagProperties;

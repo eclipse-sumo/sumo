@@ -416,6 +416,10 @@ protected:
     double myKeepRightParam;
     double myOppositeParam;
     double mySublaneParam;
+    // @brief minimum lateral gap
+    double myMinGapLat;
+    // @brief preferred lateral alignment
+    double myLatAlignment;
     // @brief willingness to encroach on other vehicles laterally (pushing them around)
     double myPushy;
     // @brief willingness to undercut longitudinal safe gaps

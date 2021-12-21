@@ -141,6 +141,8 @@ enum SumoXMLTag {
     SUMO_TAG_VTYPEPROBE,
     /// @brief root element of a route file
     SUMO_TAG_ROUTES,
+    /// @brief a single trip definition (used by router)
+    SUMO_TAG_TRIP,
     /// @brief description of a vehicle
     SUMO_TAG_VEHICLE,
     /// @brief description of a vehicle type
@@ -165,8 +167,6 @@ enum SumoXMLTag {
     SUMO_TAG_TLLOGIC,
     /// @brief a single phase description
     SUMO_TAG_PHASE,
-    /// @brief a single trip definition (used by router)
-    SUMO_TAG_TRIP,
     /// @brief a single trip definition that uses TAZs (used in NETEDIT)
     SUMO_TAG_TRIP_TAZ,
     /// @brief a flow definitio nusing a from-to edges instead of a route (used by router)
@@ -981,6 +981,10 @@ enum SumoXMLAttr {
     SUMO_ATTR_MINDURATION,
     /// @brief maximum duration of a phase
     SUMO_ATTR_MAXDURATION,
+    /// @brief The minimum time within the cycle for switching (for coordinated actuation)
+    SUMO_ATTR_EARLIEST_END,
+    /// @brief The maximum time within the cycle for switching (for coordinated actuation)
+    SUMO_ATTR_LATEST_END,
     /// @brief vehicle extension time of a phase
     SUMO_ATTR_VEHICLEEXTENSION,
     /// @brief yellow duration of a phase
@@ -1469,21 +1473,21 @@ enum LinkState {
  */
 enum class LinkDirection {
     /// @brief The link is a (hard) right direction
-    RIGHT = 0,
+    RIGHT = 1 << 0,
     /// @brief The link is a partial right direction
-    PARTRIGHT,
+    PARTRIGHT = 1 << 1,
     /// @brief The link is a straight direction
-    STRAIGHT,
+    STRAIGHT = 1 << 2,
     /// @brief The link is a partial left direction
-    PARTLEFT,
+    PARTLEFT = 1 << 3,
     /// @brief The link is a (hard) left direction
-    LEFT,
+    LEFT = 1 << 4,
     /// @brief The link is a 180 degree turn
-    TURN,
+    TURN = 1 << 5,
     /// @brief The link is a 180 degree turn (left-hand network)
-    TURN_LEFTHAND,
+    TURN_LEFTHAND = 1 << 6,
     /// @brief The link has no direction (is a dead end link)
-    NODIR
+    NODIR = 1 << 7
 };
 
 

@@ -36,7 +36,7 @@ public:
     // class GEOPOICreator
     // ===========================================================================
 
-    class GEOPOICreator : protected FXGroupBox {
+    class GEOPOICreator : public FXGroupBoxModule {
         /// @brief FOX-declaration
         FXDECLARE(GNEPolygonFrame::GEOPOICreator)
 
@@ -47,11 +47,11 @@ public:
         /// @brief destructor
         ~GEOPOICreator();
 
-        /// @brief Show list of GEOPOICreator Modul
-        void showGEOPOICreatorModul();
+        /// @brief Show list of GEOPOICreator Module
+        void showGEOPOICreatorModule();
 
-        /// @brief hide GEOPOICreator Modul
-        void hideGEOPOICreatorModul();
+        /// @brief hide GEOPOICreator Module
+        void hideGEOPOICreatorModule();
 
         /// @name FOX-callbacks
         /// @{
@@ -114,7 +114,7 @@ public:
     static std::string getIdsSelected(const FXList* list);
 
     /// @brief get drawing mode editor
-    GNEFrameModuls::DrawingShape* getDrawingShapeModul() const;
+    GNEFrameModules::DrawingShape* getDrawingShapeModule() const;
 
 protected:
     /// @brief SumoBaseObject used for create shape
@@ -137,16 +137,16 @@ protected:
 
 private:
     /// @brief shape tag selector
-    GNEFrameModuls::TagSelector* myShapeTagSelector;
+    GNEFrameModules::TagSelector* myShapeTagSelector;
 
     /// @brief shape internal attributes
-    GNEFrameAttributesModuls::AttributesCreator* myShapeAttributes;
+    GNEFrameAttributeModules::AttributesCreator* myShapeAttributes;
 
     /// @brief Netedit parameter
-    GNEFrameAttributesModuls::NeteditAttributes* myNeteditAttributes;
+    GNEFrameAttributeModules::NeteditAttributes* myNeteditAttributes;
 
     /// @brief Drawing shape
-    GNEFrameModuls::DrawingShape* myDrawingShape;
+    GNEFrameModules::DrawingShape* myDrawingShape;
 
     /// @brief GEOPOICreator
     GEOPOICreator* myGEOPOICreator;

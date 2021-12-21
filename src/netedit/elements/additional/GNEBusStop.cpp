@@ -76,17 +76,14 @@ GNEBusStop::writeAdditional(OutputDevice& device) const {
     if (myFriendlyPosition) {
         device.writeAttr(SUMO_ATTR_FRIENDLY_POS, "true");
     }
-    if (myLines.size() > 0) {
+    if (getAttribute(SUMO_ATTR_LINES) != myTagProperty.getDefaultValue(SUMO_ATTR_LINES)) {
         device.writeAttr(SUMO_ATTR_LINES, toString(myLines));
     }
-    if (myPersonCapacity != 6) {
+    if (getAttribute(SUMO_ATTR_PERSON_CAPACITY) != myTagProperty.getDefaultValue(SUMO_ATTR_PERSON_CAPACITY)) {
         device.writeAttr(SUMO_ATTR_PERSON_CAPACITY, myPersonCapacity);
     }
-    if (myParkingLength > 0) {
+    if (getAttribute(SUMO_ATTR_PARKING_LENGTH) != myTagProperty.getDefaultValue(SUMO_ATTR_PARKING_LENGTH)) {
         device.writeAttr(SUMO_ATTR_PARKING_LENGTH, myParkingLength);
-    }
-    if (myColor.isValid()) {
-        device.writeAttr(SUMO_ATTR_COLOR, myColor);
     }
     // write all access
     for (const auto& access : getChildAdditionals()) {
@@ -157,7 +154,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // set base color
             GLHelper::setColor(baseColor);
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, stopWidth);
+            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myAdditionalGeometry, stopWidth * MIN2(1.0, busStopExaggeration));
             // draw detail
             if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, busStopExaggeration)) {
                 // draw lines
@@ -335,9 +332,15 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             // update microsimID
             setMicrosimID(value);
-            // Change IDs of all access children
+            // change IDs of all access children
             for (const auto& access : getChildAdditionals()) {
                 access->setMicrosimID(getID());
+            }
+            // enable save demand elements if there are stops
+            for (const auto &stop : getChildDemandElements()) {
+                if (stop->getTagProperty().isStop() || stop->getTagProperty().isStopPerson()) {
+                    myNet->requireSaveDemandElements(true);
+                }
             }
             break;
         case SUMO_ATTR_LANE:

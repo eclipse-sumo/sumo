@@ -39,19 +39,19 @@ GNEContainerPlanFrame::GNEContainerPlanFrame(FXHorizontalFrame* horizontalFrameP
     myRouteHandler("", viewNet->getNet(), true) {
 
     // create container types selector modul
-    myContainerSelector = new GNEFrameModuls::DemandElementSelector(this, {GNETagProperties::TagType::CONTAINER});
+    myContainerSelector = new GNEFrameModules::DemandElementSelector(this, {GNETagProperties::TagType::CONTAINER});
 
     // Create tag selector for container plan
-    myContainerPlanTagSelector = new GNEFrameModuls::TagSelector(this, GNETagProperties::TagType::CONTAINERPLAN, GNE_TAG_TRANSPORT_EDGE);
+    myContainerPlanTagSelector = new GNEFrameModules::TagSelector(this, GNETagProperties::TagType::CONTAINERPLAN, GNE_TAG_TRANSPORT_EDGE);
 
     // Create container parameters
-    myContainerPlanAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
+    myContainerPlanAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
 
-    // create myPathCreator Modul
-    myPathCreator = new GNEFrameModuls::PathCreator(this);
+    // create myPathCreator Module
+    myPathCreator = new GNEFrameModules::PathCreator(this);
 
     // Create HierarchicalElementTree modul
-    myContainerHierarchy = new GNEFrameModuls::HierarchicalElementTree(this);
+    myContainerHierarchy = new GNEFrameModules::HierarchicalElementTree(this);
 }
 
 
@@ -79,8 +79,8 @@ GNEContainerPlanFrame::show() {
         // hide all moduls except helpCreation
         myContainerSelector->hideDemandElementSelector();
         myContainerPlanTagSelector->hideTagSelector();
-        myContainerPlanAttributes->hideAttributesCreatorModul();
-        myPathCreator->hidePathCreatorModul();
+        myContainerPlanAttributes->hideAttributesCreatorModule();
+        myPathCreator->hidePathCreatorModule();
         myContainerHierarchy->hideHierarchicalElementTree();
     }
     // show frame
@@ -129,7 +129,7 @@ GNEContainerPlanFrame::addContainerPlanElement(const GNEViewNetHelper::ObjectsUn
 }
 
 
-GNEFrameModuls::PathCreator*
+GNEFrameModules::PathCreator*
 GNEContainerPlanFrame::getPathCreator() const {
     return myPathCreator;
 }
@@ -145,25 +145,25 @@ GNEContainerPlanFrame::tagSelected() {
         // Obtain current container plan tag (only for improve code legibility)
         SumoXMLTag containerPlanTag = myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
         // show container attributes
-        myContainerPlanAttributes->showAttributesCreatorModul(myContainerPlanTagSelector->getCurrentTemplateAC(), {});
+        myContainerPlanAttributes->showAttributesCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC(), {});
         // get previous container plan
         GNEEdge* previousEdge = myContainerSelector->getContainerPlanPreviousEdge();
         // set path creator mode depending if previousEdge exist
         if (previousEdge) {
             // set path creator mode
-            myPathCreator->showPathCreatorModul(containerPlanTag, true, false);
+            myPathCreator->showPathCreatorModule(containerPlanTag, true, false);
             // add previous edge
             myPathCreator->addEdge(previousEdge, false, false);
         } else {
             // set path creator mode
-            myPathCreator->showPathCreatorModul(containerPlanTag, false, false);
+            myPathCreator->showPathCreatorModule(containerPlanTag, false, false);
         }
         // show container hierarchy
         myContainerHierarchy->showHierarchicalElementTree(myContainerSelector->getCurrentDemandElement());
     } else {
         // hide moduls if tag selecte isn't valid
-        myContainerPlanAttributes->hideAttributesCreatorModul();
-        myPathCreator->hidePathCreatorModul();
+        myContainerPlanAttributes->hideAttributesCreatorModule();
+        myPathCreator->hidePathCreatorModule();
         myContainerHierarchy->hideHierarchicalElementTree();
     }
 }
@@ -180,15 +180,15 @@ GNEContainerPlanFrame::demandElementSelected() {
             // call tag selected
             tagSelected();
         } else {
-            myContainerPlanAttributes->hideAttributesCreatorModul();
-            myPathCreator->hidePathCreatorModul();
+            myContainerPlanAttributes->hideAttributesCreatorModule();
+            myPathCreator->hidePathCreatorModule();
             myContainerHierarchy->hideHierarchicalElementTree();
         }
     } else {
         // hide moduls if container selected isn't valid
         myContainerPlanTagSelector->hideTagSelector();
-        myContainerPlanAttributes->hideAttributesCreatorModul();
-        myPathCreator->hidePathCreatorModul();
+        myContainerPlanAttributes->hideAttributesCreatorModule();
+        myPathCreator->hidePathCreatorModule();
         myContainerHierarchy->hideHierarchicalElementTree();
     }
 }

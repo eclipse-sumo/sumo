@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,7 +14,7 @@
 
 # @file    shapeformat.py
 # @author  Joerg Schweizer
-# @date
+# @date   2012
 
 
 import time
@@ -191,15 +191,15 @@ def get_proj4_from_shapefile(filepath):
 
     shapefilepath = os.path.join(dirname, basename)
 
-    projparams = ''
     projfilepath = shapefilepath+'.prj'
+    proj4 = ''
     if not os.path.isfile(projfilepath):
         projfilepath = shapefilepath+'.PRJ'
 
     if os.path.isfile(projfilepath):
         prj_file = open(projfilepath, 'r')
         prj_txt = prj_file.read()
-        proj4 = ''
+
         if IS_GDAL:
             srs = osr.SpatialReference()
             if srs.ImportFromWkt(prj_txt):
@@ -276,115 +276,185 @@ def get_fieldinfo(field):
 
 
 class ShapefileImporter(Process):
-    def __init__(self,  filepath,
-                 coordsconfig,
-                 map_attrconfig2shapeattr=None,
-                 attrconfigs=None,
-                 ident='shapefileimporter', parent=None,
-                 name='Shapefile importer',
-                 info='Import of shape files',
+    def __init__(self,  ident='shapefileimporter', parent=None,
+                 name='Shape file importer',
+                 filepath='',
+                 coordsattr='',
+                 attrnames_to_shapeattrs={},
+                 info='Import of shape files in parent datastructure.',
                  logger=None,
                  **kwargs):
-
-        self._filepath = filepath
-        self._sf = get_shapefile(filepath)
-        projparams_shape = get_proj4_from_shapefile(filepath)
-        projparams_target_default = self.guess_targetproj()
 
         print 'ShapefileImporter.__init__', filepath  # ,projparams_target_default, projparams_shape
         self._init_common(ident,
                           parent=parent,
                           name=name,
                           logger=logger,
-                          info='Import workouts and GPS points of a European cycling challange.',
+                          info=info,
                           )
 
         attrsman = self.set_attrsman(cm.Attrsman(self))
 
-        # if projparams_target == '':
-        #    projparams_target = ''
-        #    is_guess_targetproj = True
-        #    is_use_shapeproj = False
+        self.filepath = attrsman.add(cm.AttrConf('filepath', filepath,
+                                                 groupnames=['options'],
+                                                 perm='rw',
+                                                 name='Shape file',
+                                                 wildcards='Shape file (*.shp)|*.shp|All files (*.*)|*.*',
+                                                 metatype='filepath',
+                                                 info="""File path of shape file. Note that only the file with the extention ".shp" needs to be selected. Attention: all file extensions must be in small letters, for example .shp .dbf, shx, etc""",
+                                                 ))
 
-        #projparams_shape = projparams_shapefile
+        # print 'self.filepath',self.filepath
+        attrsman_parent = parent.get_attrsman()
+        self._coordsconfig = attrsman_parent.get_config(coordsattr)
 
-        self.make_fieldinfo()
+        for attrname, shapeattr_default in attrnames_to_shapeattrs.iteritems():
+            config = attrsman_parent.get_config(attrname)
+            fieldname = 'fieldname_'+attrname
+            setattr(self, fieldname,
+                    attrsman.add(cm.AttrConf(fieldname, shapeattr_default,
+                                             groupnames=['options', 'field names'],
+                                             perm='rw',
+                                             attrname_orig=attrname,
+                                             name='Field for '+config.get_name(),
+                                             info='Field name for the following attribute: '+config.get_info(),
+                                             )))
 
-        # self.id_mode = attrsman.add(am.AttrConf('id_mode',  modechoices['bicycle'],
-        #                                groupnames = ['options'],
-        #                                choices = modechoices,
-        #                                name = 'Mode',
-        #                                info = 'Transport mode to be matched.',
-        #                                ))
-
-        self.filepath = attrsman.add(
-            cm.AttrConf('filepath', filepath,
-                        groupnames=['parameters'],
-                        perm='r',
-                        name='Shape file',
-                        wildcards='Shape file (*.shp)|*.shp',
-                        metatype='filepath',
-                        info="""File path of shape file.""",
-                        ))
-
-        self.projparams_shape = attrsman.add(cm.AttrConf('projparams_shape', projparams_shape,
-                                                         groupnames=['parameters', ],
+        self.projparams_shape = attrsman.add(cm.AttrConf('projparams_shape', kwargs.get("projparams_shape", ''),
+                                                         groupnames=['options', ],
                                                          perm='rw',
                                                          name='Shape projection',
-                                                         info='Projection4 parameters of shape data.',
+                                                         info='Projection4 parameters of shape data. If blank then shape file projection is used or if not present, projection will be guessed from shape coordinates.',
                                                          ))
 
-        self.is_guess_targetproj = attrsman.add(cm.AttrConf('is_guess_targetproj', kwargs.get("is_guess_targetproj", True),
-                                                            groupnames=['parameters', ],
-                                                            perm='r',
-                                                            name='Guess target projection?',
-                                                            info='If selected, target projection will be guessed based on coordinates of the shapefile.',
-                                                            ))
+        # self.projparams_target = attrsman.add(cm.AttrConf(  'projparams_target', kwargs.get("projparams_target",''),
+        #                                                groupnames = ['options',],
+        #                                                perm='rw',
+        #                                                name = 'Target projection',
+        #                                                info = 'Projection4 parameters of target, where the coordinates are imported. These are typically the scenario coordinates.',
+        #                                                ))
 
-        self.projparams_target = attrsman.add(cm.AttrConf('projparams_target', kwargs.get("projparams_target", projparams_target_default),
-                                                          groupnames=['parameters', ],
-                                                          perm='r',
-                                                          name='Target projection',
-                                                          info='Projection4 parameters of target, where the coordinates are imported. These are typically the scenario coordinates.',
-                                                          ))
-
+        self._projparams_target = kwargs.get("projparams_target", '')
         self.is_use_shapeproj = attrsman.add(cm.AttrConf('is_use_shapeproj', kwargs.get("is_use_shapeproj", False),
-                                                         groupnames=['parameters', ],
-                                                         perm='r',
+                                                         groupnames=['options', ],
+                                                         perm='rw',
                                                          name='Use shapefile projection?',
                                                          info='If selected, projection in shape file will be used to interpret projection. If not selected, target projection will be used.',
                                                          ))
 
         self.is_use_targetproj = attrsman.add(cm.AttrConf('is_use_targetproj', kwargs.get("is_use_targetproj", True),
-                                                          groupnames=['parameters', ],
-                                                          perm='r',
+                                                          groupnames=['options', ],
+                                                          perm='rw',
                                                           name='Use target projection?',
                                                           info='If selected, target will be used to interpret projection.',
                                                           ))
 
-        self.is_autoffset = attrsman.add(cm.AttrConf('is_autoffset', kwargs.get("is_autoffset", True),
-                                                     groupnames=['parameters', ],
-                                                     perm='r',
+        self.is_probe_offset = attrsman.add(cm.AttrConf('is_probe_offset', kwargs.get("is_probe_offset", False),
+                                                        groupnames=['options', ],
+                                                        perm='rw',
+                                                        name='Probe offset?',
+                                                        info="""With probe offset, a specific coordinate from the shap-map and the target-map will be used to calculate the offset. 
+                                                                  This requires the coordinates of a dedicated point of the shape file and of the target.
+                                                                  This method can be used if there is an unknon offset in the shape map coordinate system.
+                                                                  """,
+                                                        ))
+
+        self.x_probe_shape = attrsman.add(cm.AttrConf('x_probe_shape', kwargs.get("x_probe_shape", 0.0),
+                                                      groupnames=['options', ],
+                                                      perm='rw',
+                                                      name='Probed x coord of shape',
+                                                      unit='m',
+                                                      info='Probed x coord of shape-map.',
+                                                      ))
+
+        self.y_probe_shape = attrsman.add(cm.AttrConf('y_probe_shape', kwargs.get("y_probe_shape", 0.0),
+                                                      groupnames=['options', ],
+                                                      perm='rw',
+                                                      name='Probed y coord shape',
+                                                      unit='m',
+                                                      info='Probed y coord of shape-map.',
+                                                      ))
+
+        self.x_probe_target = attrsman.add(cm.AttrConf('x_probe_target', kwargs.get("x_probe_target", 0.0),
+                                                       groupnames=['options', ],
+                                                       perm='rw',
+                                                       name='Probed x coord of target',
+                                                       unit='m',
+                                                       info='Probed x coord of target-map.',
+                                                       ))
+
+        self.y_probe_target = attrsman.add(cm.AttrConf('y_probe_target', kwargs.get("y_probe_target", 0.0),
+                                                       groupnames=['options', ],
+                                                       perm='rw',
+                                                       name='Probed y coord target',
+                                                       unit='m',
+                                                       info='Probed y coord of target-map.',
+                                                       ))
+
+        self.is_autoffset = attrsman.add(cm.AttrConf('is_autoffset', kwargs.get("is_autoffset", False),
+                                                     groupnames=['options', ],
+                                                     perm='rw',
                                                      name='Auto offset?',
                                                      info='If selected, offset will be determined automatically.',
                                                      ))
 
-        self.offset = attrsman.add(cm.AttrConf('offset', kwargs.get("offset", np.array([0.0, 0.0, 0.0], dtype=np.float32)),
-                                               groupnames=['parameters', ],
-                                               perm='r',
-                                               name='Offset',
-                                               info='Network offset in WEP coordinates',
-                                               ))
+        # self.offset = attrsman.add(cm.AttrConf(  'offset', kwargs.get("offset",np.array([0.0,0.0,0.0],dtype = np.float32)),
+        #                                                groupnames = ['options',],
+        #                                                perm='r',
+        #                                                name = 'Offset',
+        #                                                unit = 'm',
+        #                                                info = 'Network offset in WEP coordinates',
+        #                                                ))
 
-        self._coordsconfig = coordsconfig
+        self._offset = kwargs.get("offset", np.array([0.0, 0.0, 0.0], dtype=np.float32))
 
-        if map_attrconfig2shapeattr is None:
-            # generate attrconfs with group 'options'
-            # and default attrconfmap
-            self._map_attrconfig2shapeattr = {}
+        self.is_limit_to_boundaries = attrsman.add(cm.AttrConf('is_limit_to_boundaries', kwargs.get("is_limit_to_boundaries", True),
+                                                               groupnames=['options', ],
+                                                               perm='rw',
+                                                               name='Limit to boundaries?',
+                                                               info='Import only shapes that fit into the given boundaries.',
+                                                               ))
 
-        else:
-            self._map_attrconfig2shapeattr = map_attrconfig2shapeattr
+        # self.boundaries = attrsman.add(cm.AttrConf(  'boundaries',kwargs.get('boundaries',np.array([0.0,0.0,0.0,0.0],dtype = np.float32)) ,
+        #                                groupnames = ['options',],
+        #                                perm='r',
+        #                                name = 'Boundaries',
+        #                                unit = 'm',
+        #                                info = 'Area limiting boundaries',
+        #                                ))
+        self.boundaries = kwargs.get('boundaries', np.array([0.0, 0.0, 0.0, 0.0], dtype=np.float32))
+        # if map_attrconfig2shapeattr is None:
+        #    # generate attrconfs with group 'options'
+        #    # and default attrconfmap
+        #    self._map_attrconfig2shapeattr = {}
+        #
+        # else:
+        #    self._map_attrconfig2shapeattr = map_attrconfig2shapeattr
+
+    def inboundaries(self, points, x_border=0.0, y_border=0.0):
+        """
+        Tests if the given points are in
+        the  boundaries.
+
+        Returns a binary vector with one element for each point
+        If an element is True then the corrisponding 
+        point in within the networks bounding box. 
+        Otherwise the point is outside.
+        Elevation is ignored.
+        Format of points:
+         [[x1,y1,z1],[x2,y2,z2],...]
+
+
+
+        """
+        # print 'inboundaries'
+        # print '  self',self.boundaries
+        # print '  points',type(points),points
+        # print ' return',( (self.boundaries[2] >= BB[0]) & (self.boundaries[0] <= BB[2]) &
+        #     (self.boundaries[3] >= BB[1]) & (self.boundaries[1] <= BB[3]) )
+
+        return ((self.boundaries[2]-x_border >= points[:, 0]) & (self.boundaries[0]+x_border <= points[:, 0]) &
+                (self.boundaries[3]-y_border >= points[:, 1]) & (self.boundaries[1]+y_border <= points[:, 1]))
 
     def make_fieldinfo(self):
 
@@ -396,43 +466,49 @@ class ShapefileImporter(Process):
             self._fieldinfo[attrname] = (ind_field-1, default, dtype, digits_fraction)
 
     def get_projections(self):
+        print 'get_projections IS_PROJ', IS_PROJ
+        print 'self.projparams_shape', self.projparams_shape, 'self._projparams_target', self._projparams_target
 
-        proj1 = None
-        proj2 = None
+        proj_shape = None
+        proj_target = None
 
-        if self.is_guess_targetproj:
-            self.projparams_target = self.guess_targetproj()
+        if self.is_use_shapeproj & (self.projparams_shape == ''):
+            print '   no shape projection given'
+            self.projparams_shape = get_proj4_from_shapefile(self.filepath)
+            print '     from prj file projparams_shape', self.projparams_shape
+            if self.projparams_shape == '':
+                # no results from shapefile info, let's try to guess
+                self.projparams_shape = self.guess_shapeproj()
+                print '     from guessing projparams_shape', self.projparams_shape
+
+        # if self.is_guess_targetproj:
+        #        self.projparams_target = self.guess_targetproj()
         # print 'get_projections'
         # print '  projparams_shape',self.projparams_shape
         # print '  projparams_target',self.projparams_target
         if IS_PROJ:
-            try:
-                proj_shape = pyproj.Proj(self.projparams_shape)
-            except:
-                proj_shape = None
+            if self.is_use_shapeproj:
 
-            try:
-                proj_target = pyproj.Proj(self.projparams_target)
-            except:
-                proj_target = None
+                try:
+                    print '  use projparams_shape =*%s*' % self.projparams_shape, type(str(self.projparams_shape)), pyproj.Proj(str(self.projparams_shape))
+                    proj_shape = pyproj.Proj(str(self.projparams_shape))
+                except:
+                    proj_shape = None
 
-            if self.is_use_targetproj & (proj_target is not None):
-                if (self.is_use_shapeproj) & (proj_shape is not None):
-                    proj1 = proj_shape
-                    proj2 = proj_target
-                else:
-                    proj1 = proj_target
+            if self.is_use_targetproj:
+                try:
+                    print '  use projparams_target =*%s*' % self._projparams_target, type(str(self._projparams_target)), pyproj.Proj(str(self._projparams_target))
+                    proj_target = pyproj.Proj(str(self._projparams_target))
+                except:
+                    proj_target = None
 
-            elif (self.is_use_shapeproj) & (proj_shape is not None):
-                proj1 = proj_shape
-
-            return proj1, proj2, self.offset
+            return proj_shape, proj_target, self._offset
 
         else:
             # no projection available
             return None, None, self.offset
 
-    def guess_targetproj(self):
+    def guess_shapeproj(self):
         shapes = self._sf.shapes()
         #shapetype = shapes[3].shapeType
         shape_rec = self._sf.shapeRecord(0)
@@ -440,73 +516,116 @@ class ShapefileImporter(Process):
         return guess_utm_from_coord(points[0])
 
     def _get_attrconfs_shapeinds(self):
+        attrsman_parent = self.parent.get_attrsman()
         attrconfs = []
         shapeinds = []
-        for attrconf, shapeattrname in self._map_attrconfig2shapeattr.iteritems():
-            attrconfs.append(attrconf)
-            shapeinds.append(self._fieldinfo[shapeattrname][0])
+
+        for fieldconf in self.get_attrsman().get_group('field names'):
+
+            shapeattrname = fieldconf.get_value()
+            attrconf = attrsman_parent.get_config(fieldconf.attrname_orig)
+
+            if self._fieldinfo.has_key(shapeattrname):
+                attrconfs.append(attrconf)
+                shapeinds.append(self._fieldinfo[shapeattrname][0])
+
+        # for attrconf, shapeattrname in self._map_attrconfig2shapeattr.iteritems():
+        #    attrconfs.append(attrconf)
+        #    shapeinds.append(self._fieldinfo[shapeattrname][0])
         return attrconfs, shapeinds
 
     def is_ready(self):
         return True
 
     def import_shapes(self):
+        print 'import_shapes'
 
         shapes = self._sf.shapes()
         shapetype = shapes[3].shapeType
         records = self._sf.records()
         n_records = len(records)
         if n_records == 0:
-            return False
+            return [], 0
 
-        proj_shape, proj_target, offset = self.get_projections()
+        proj_shape, proj_target, offset_target = self.get_projections()
 
-        if proj_shape is None:
-            return []
+        # print '  proj_shape',proj_shape,'proj_target',proj_target
+        if self.is_use_shapeproj & (proj_shape is None):
+            print 'WARNING: import_shapes, no shape projection'
+            return [], 0
+        if self.is_use_targetproj & (proj_target is None):
+            print 'WARNING: import_shapes, no target projection'
+            return [], 0
 
-        if self.is_autoffset:
-            offset = np.array([0.0, 0.0, 0.0], dtype=np.float32)
+        offset = np.array([0.0, 0.0, 0.0], dtype=np.float32)
 
+        if self.is_probe_offset:
+            offset[0:2] = (+self.x_probe_target-self.x_probe_shape, self.y_probe_target-self.y_probe_shape)
+
+        elif not self.is_autoffset:
+            offset[0:2] = offset_target
+
+        # print '  x_probe_target',self.x_probe_target,'x_probe_shape',self.x_probe_shape
+        # print '  y_probe_target',self.y_probe_target,'y_probe_shape',self.y_probe_shape
+
+        # print '  offset',offset
+        # print '  offset_target',offset_target
         coordsconfig = self._coordsconfig
         ids = coordsconfig.get_manager().add_rows(n_records)
-        print 'import_shape n_records', n_records, shapetype
+        print '  n_records', n_records, shapetype
 
-        if shapetype == 3:
+        if (shapetype == 3) | (shapetype == 5):  # poliline = 3, polygon = 5
             for ind_rec, id_attr in zip(xrange(n_records), ids):
-                print '  ind_rec', ind_rec
+                # print '  ind_rec',ind_rec,'id_attr',id_attr
                 shape_rec = self._sf.shapeRecord(ind_rec)
                 points = shape_rec.shape.points
-                print '  points', points
+                # print '  points',points
                 n_points = len(points)
                 shape = np.zeros((n_points, 3), dtype=np.float32) + offset
-                if proj_target is not None:
+                if self.is_use_targetproj & self.is_use_shapeproj:
                     for ind, point in zip(xrange(n_points), points):
                         shape[ind, 0:2] += np.array(pyproj.transform(proj_shape, proj_target, point[0], point[1]))
-                else:
+
+                elif self.is_use_targetproj:
+                    for ind, point in zip(xrange(n_points), points):
+                        shape[ind, 0:2] += proj_target(point[0], point[1])
+
+                elif self.is_use_shapeproj:
                     for ind, point in zip(xrange(n_points), points):
                         shape[ind, 0:2] += proj_shape(point[0], point[1])
 
+                else:  # no projection
+                    for ind, point in zip(xrange(n_points), points):
+                        shape[ind, 0:2] += (point[0], point[1])
+
                 coordsconfig[id_attr] = list(shape)
+                # print '  coords=',coordsconfig[id_attr]
 
         elif shapetype == 1:
             for ind_rec, id_attr in zip(xrange(n_records), ids):
-                print '  ind_rec', ind_rec, id_attr
+                # print '  ind_rec',ind_rec,id_attr
                 shape_rec = self._sf.shapeRecord(ind_rec)
                 points = shape_rec.shape.points
-                print '  points', points
+                # print '  points',points
                 n_points = len(points)
                 vert = offset.copy()
                 point = points[0]
-                if proj_target is not None:
+                if self.is_use_targetproj & self.is_use_shapeproj:
                     x, y = pyproj.transform(proj_shape, proj_target, point[0], point[1])
                     # print '  x,y',x,y
                     vert[0:2] += [x, y]
                     #shape[0:2] = pyproj.transform(proj_shape, proj_target ,point[0], point[1])
-                else:
+                elif self.is_use_targetproj:
+                    x, y = proj_target(point[0], point[1])
+                    vert[0:2] += [x, y]
+
+                elif self.is_use_shapeproj:
                     x, y = proj_shape(point[0], point[1])
                     # print '  x,y',x,y
                     vert[0:2] += [x, y]
                     #vert[0:2] = proj_shape(point[0], point[1])
+                else:  # no projection
+                    vert[0:2] += [point[0], point[1]]
 
                 # print ' vert',vert
                 coordsconfig[id_attr] = vert
@@ -518,387 +637,96 @@ class ShapefileImporter(Process):
                 # print '  x_min,y_min,z_min',x_min,y_min,z_min
 
                 coordsconfig.set_value(coords-np.min(coords, 0))
-        #
-        return ids
+
+            # print '  coords=',coordsconfig.get_value()
+        return ids, shapetype
 
     def do(self):
         print self.ident+'.do'
         #fields = self._sf.fields
         #records = self._sf.records()
+
+        if os.path.isfile(self.filepath):
+            self._sf = get_shapefile(self.filepath)
+
+        else:
+            return 'WARNING: shape file not found', self.filepath
+            return False
+
+        self.make_fieldinfo()
+
         attrconfs, shapeinds = self._get_attrconfs_shapeinds()
 
         # import shape info
-        ids = self.import_shapes()
+        ids, shapetype = self.import_shapes()
+
+        if len(ids) == 0:
+            print 'WARNING: import_shapes failed'
+            return False
 
         n_attrs = len(attrconfs)
         n_records = len(ids)
 
         # import no attributes from table
         if (n_attrs == 0) | (n_records == 0):
-            return True  # successfully imported no data
+            print 'WARNING: successfully imported no data'
+            return True
         shaperecords = self._sf.shapeRecord
 
-        print '  attrconfs', attrconfs
-        print '  shapeinds', shapeinds
-        print '  fieldinfo', self._fieldinfo
+        # print '  attrconfs',attrconfs
+        # print '  shapeinds',shapeinds
+        # print '  fieldinfo',self._fieldinfo
 
-        # return True
+        self.import_data(shaperecords, ids, attrconfs, shapeinds)
 
-        return self.import_data(shaperecords, ids, attrconfs, shapeinds)
+        # check if shapes are inside network boundary
+        if self.is_limit_to_boundaries:
 
-    def import_data(self, shaperecords, ids, attrconfs, shapeinds):
+            if shapetype == 1:  # shape are points
+                ids_outside = ids[np.logical_not(self.inboundaries(self._coordsconfig[ids]))]
 
-        n_records = len(ids)
+            else:
+                # polygon type shape
+                ids_outside = []
+                for id_shape, shape in zip(ids, self._coordsconfig[ids]):
+                    # print ' before bcheck:shape',shape
+                    if not np.any(self.inboundaries(np.array(shape, dtype=np.float32))):
+                        ids_outside.append(id_shape)
 
-        values_invalid = ['NULL', '\n']
-        for ind_rec, id_attr in zip(xrange(n_records), ids):
-            shape_rec = shaperecords(ind_rec)
-
-            # print '  shape_rec',id_attr,shape_rec.record
-            # use first field as id, but will also be a regular attribute
-            #id_egde = shape_rec.record[0]
-            #attrrow = {}
-            # print '\n id_egde',id_egde
-            for ind_sfield, attrconf in zip(shapeinds, attrconfs):
-                # for i,field in zip(xrange(n),fields[1:]):
-                val = shape_rec.record[ind_sfield]
-                # print '    ind_sfield',ind_sfield,'attrname',attrconf.attrname,'type',type(val),'>>%s<<'%(repr(val))
-                if val not in values_invalid:
-                    attrconf[id_attr] = val
-
-
-class OxNodesImporter(ShapefileImporter):
-    def __init__(self,  filepath, oximporter, **kwargs):
-        net = oximporter.get_scenario().net
-        ShapefileImporter.__init__(self, filepath,
-                                   net.nodes.coords,
-                                   parent=oximporter,
-                                   map_attrconfig2shapeattr={
-                                       net.nodes.ids_sumo: 'osmid',
-                                       net.nodes.types: 'highway'},
-                                   #logger = kwargs['logger'],
-                                   **kwargs)
-
-    def import_data(self, shaperecords, ids, attrconfs, shapeinds):
-        net = self.parent.get_scenario().net
-        nodetypes = net.nodes.types
-        typemap = nodetypes.choices
-
-        sep = ';'
-        # "priority":0,
-        # "traffic_light":1,
-        # "right_before_left":2,
-        # "unregulated":3,
-        # "priority_stop":4,
-        # "traffic_light_unregulated":5,
-        # "allway_stop":6,
-        # "rail_signal":7,
-        # "zipper":8,
-        # "traffic_light_right_on_red":9,
-        # "rail_crossing":10,
-        # "dead_end":11,
-
-        map_shapetype_sumotype = {
-            'motorway_junction': typemap['zipper'],
-            'crossing': typemap['rail_crossing'],
-            'traffic_signals': typemap['traffic_light'],
-        }
-
-        n_records = len(ids)
-
-        values_invalid = ['NULL', '\n']
-        for ind_rec, id_attr in zip(xrange(n_records), ids):
-            shape_rec = shaperecords(ind_rec)
-
-            # print '  shape_rec',id_attr,shape_rec.record
-            # use first field as id, but will also be a regular attribute
-            #id_egde = shape_rec.record[0]
-            #attrrow = {}
-            # print '\n id_egde',id_egde
-            for ind_sfield, attrconf in zip(shapeinds, attrconfs):
-                # for i,field in zip(xrange(n),fields[1:]):
-                val = shape_rec.record[ind_sfield]
-                if attrconf == nodetypes:
-                    elements = val.split(sep)
-                    for element in elements:
-                        if element in map_shapetype_sumotype:
-                            nodetypes[id_attr] = map_shapetype_sumotype[element]
-                            break
-
-                else:
-                    # map_shapetype_sumotype
-                    # print '    ind_sfield',ind_sfield,'attrname',attrconf.attrname,'type',type(val),'>>%s<<'%(repr(val))
-
-                    if val not in values_invalid:
-                        attrconf[id_attr] = val
-
-
-class OxEdgesImporter(ShapefileImporter):
-    def __init__(self,  filepath, oximporter, **kwargs):
-        net = oximporter.get_scenario().net
-        ShapefileImporter.__init__(self, filepath,
-                                   net.edges.shapes,
-                                   parent=oximporter,
-                                   map_attrconfig2shapeattr={\
-                                       # net.edges.ids_sumo:'osmid',
-                                       # net.edges.types:'highway',
-                                       # net.edges.nums_lanes:'lanes',
-                                       net.edges.lengths: 'length',
-                                       net.edges.widths: 'width',
-                                       net.edges.names: 'name',
-                                   },
-                                   **kwargs)
-
-        # self._map_shapeattr_func = {\
-        #                            'to':self.set_tonode,
-        #                            'from':self.set_fromnode,
-        #                            'maxspeed':self.set_speed_max,
-        #                            }
-
-    def import_shapes(self):
-
-        shapes = self._sf.shapes()
-        shapetype = shapes[3].shapeType
-        records = self._sf.records()
-        n_records = len(records)
-        if n_records == 0:
-            return False
-
-        proj_shape, proj_target, offset = self.get_projections()
-
-        if proj_shape is None:
-            return False
-
-        if self.is_autoffset:
-            offset = np.array([0.0, 0.0, 0.0], dtype=np.float32)
-
-        coordsconfig = self._coordsconfig
-        ids = coordsconfig.get_manager().add_rows(n_records)
-        print 'import_shape n_records', n_records, shapetype
-
-        if shapetype == 3:
-            for ind_rec, id_attr in zip(xrange(n_records), ids):
-                print '  ind_rec', ind_rec
-                shape_rec = self._sf.shapeRecord(ind_rec)
-                points = shape_rec.shape.points
-                print '  points', points
-                n_points = len(points)
-                shape = np.zeros((n_points, 3), dtype=np.float32) + offset
-                if proj_target is not None:
-                    for ind, point in zip(xrange(n_points), points):
-                        shape[ind, 0:2] += np.array(pyproj.transform(proj_shape, proj_target, point[0], point[1]))
-                else:
-                    for ind, point in zip(xrange(n_points), points):
-                        shape[ind, 0:2] += proj_shape(point[0], point[1])
-
-                coordsconfig[id_attr] = list(shape)
-
-        elif shapetype == 1:
-            for ind_rec, id_attr in zip(xrange(n_records), ids):
-                print '  ind_rec', ind_rec, id_attr
-                shape_rec = self._sf.shapeRecord(ind_rec)
-                points = shape_rec.shape.points
-                print '  points', points
-                n_points = len(points)
-                vert = offset.copy()
-                point = points[0]
-                if proj_target is not None:
-                    x, y = pyproj.transform(proj_shape, proj_target, point[0], point[1])
-                    # print '  x,y',x,y
-                    vert[0:2] += [x, y]
-                    #shape[0:2] = pyproj.transform(proj_shape, proj_target ,point[0], point[1])
-                else:
-                    x, y = proj_shape(point[0], point[1])
-                    # print '  x,y',x,y
-                    vert[0:2] += [x, y]
-                    #vert[0:2] = proj_shape(point[0], point[1])
-
-                # print ' vert',vert
-                coordsconfig[id_attr] = vert
-
-            if self.is_autoffset:
-                coords = coordsconfig.get_value()
-
-                x_min, y_min, z_min = np.min(coords, 0)
-                # print '  x_min,y_min,z_min',x_min,y_min,z_min
-
-                coordsconfig.set_value(coords-np.min(coords, 0))
-        #
-        return ids
-
-    def make_structure(self):
-        """
-        Make a dictionary self._structure
-        with shape row index as key
-        and lane data as value.
-        Lane data has the following format:
-        ([])
-
-        """
-        net = self.parent.get_scenario().net
-        fieldinfo = self._fieldinfo
-
-        ind_highway = fieldinfo['highway']
-        ind_oneway = fieldinfo['oneway']
-        ind_lanes = fieldinfo['lanes']
-        ind_maxspeed = fieldinfo['maxspeed']
-
-        shapes = self._sf.shapes()
-        shapetype = shapes[3].shapeType
-        records = self._sf.records()
-        n_records = len(records)
-        if n_records == 0:
-            return False
-        for ind_rec, id_attr in zip(xrange(n_records), ids):
-            pass
-
-    def do(self):
-        print self.ident+'.do'
-        #fields = self._sf.fields
-        #records = self._sf.records()
-        attrconfs, shapeinds = self._get_attrconfs_shapeinds()
-
-        # import shape info
-        ids = self.import_shapes()
-
-        n_attrs = len(attrconfs)
-        n_records = len(ids)
-
-        # import no attributes from table
-        if (n_attrs == 0) | (n_records == 0):
-            return True  # successfully imported no data
-        shaperecords = self._sf.shapeRecord
-
-        print '  attrconfs', attrconfs
-        print '  shapeinds', shapeinds
-        print '  fieldinfo', self._fieldinfo
-
-        # return True
-
-        return self.import_data(shaperecords, ids, attrconfs, shapeinds)
-
-    def import_data(self, shaperecords, ids, attrconfs, shapeinds):
-        net = self.parent.get_scenario().net
-        fieldinfo = self._fieldinfo
-
-        #funcs = []
-        #funcshapeinds = []
-
-        # for attrconf, func in self._map_shapeattr_func.iteritems():
-        #    funcs.append(attrconf)
-        #    shapeinds.append(self._fieldinfo[shapeattrname][0])
-
-        ind_from = fieldinfo['from']
-        ind_to = fieldinfo['to']
-        ind_highway = fieldinfo['highway']
-        ind_oneway = fieldinfo['oneway']
-        ind_lanes = fieldinfo['lanes']
-        ind_maxspeed = fieldinfo['maxspeed']
-
-        n_records = len(ids)
-        ids_fromnode = net.edges.ids_fromnode
-        ids_tonode = net.edges.ids_tonode
-        speeds_max = net.edges.speeds_max
-        nums_lanes = net.edges.nums_lanes
-
-        nodemap = net.nodes.get_indexmap()
-        sep = ';'
-        sepc = ','
-        values_invalid = ['NULL', '\n']
-        for ind_rec, id_edge in zip(xrange(n_records), ids):
-            shape_rec = shaperecords(ind_rec)
-            for ind_sfield, attrconf in zip(shapeinds, attrconfs):
-                # for i,field in zip(xrange(n),fields[1:]):
-                val = shape_rec.record[ind_sfield]
-                if val not in values_invalid:
-                    attrconf[id_edge] = val
-
-            ids_fromnode[id_edge] = nodemap[shape_rec[ind_from]]
-            ids_tonode[id_edge] = nodemap[shape_rec[ind_from]]
-
-            val = shape_rec[ind_maxspeed]
-            if val not in values_invalid:
-                speeds_max[id_edge] = float(val)/3.6
-
-            val = shape_rec[ind_lanes]
-            n_lanes = 1
-            if val.isdigit():
-                n_lanes = int(val)
-
-            elif val not in values_invalid:
-                lanedata = shape_rec[val].split(sep)
-                if len(lanedata) > 0:
-                    pass
+            print '  ids_outside', ids_outside
+            self.parent.del_rows(ids_outside)
 
         return True
 
+    def import_data(self, shaperecords, ids, attrconfs, shapeinds):
+        print 'import_data'
+        n_records = len(ids)
+        objecttype = np.dtype(np.object)  # np.dtype(np.zeros(1,dtype = np.object))
+        values_invalid = ['NULL', '\n']
+        for ind_rec, id_attr in zip(xrange(n_records), ids):
+            shape_rec = shaperecords(ind_rec)
 
-class OxImporter(Process):
-    def __init__(self,   scenario,
-                 nodeshapefilepath, edgeshapefilepath, polyshapefilepath,
-                 ident='oximporter',
-                 name='OSMnx importer',
-                 info='Import of network imported with the help of osmnx.',
-                 logger=None, **kwargs):
+            # print '  shape_rec',id_attr,shape_rec.record
+            # use first field as id, but will also be a regular attribute
+            #id_egde = shape_rec.record[0]
+            #attrrow = {}
+            # print '\n id_egde',id_egde
+            for ind_sfield, attrconf in zip(shapeinds, attrconfs):
+                # for i,field in zip(xrange(n),fields[1:]):
+                val = shape_rec.record[ind_sfield]
+                # print '    ind_sfield',ind_sfield,'attrname',attrconf.attrname,'type',type(val),'>>%s<<'%(repr(val)) ,attrconf.get_value().dtype,attrconf.get_value().dtype is objecttype
+                if val not in values_invalid:
+                    if attrconf.get_value().dtype is objecttype:
+                        # print '    if destination is object then force to string'
+                        if type(val) in cm.NUMERICTYPES:
+                            # this is to avoid floats as object type
+                            attrconf[id_attr] = str(int(val))
+                        else:
+                            attrconf[id_attr] = str(val)
+                        # print '      type=',type(attrconf[id_attr])
+                    else:
+                        attrconf[id_attr] = val
 
-        print 'OxImporter.__init__'
-
-        self._init_common(ident,
-                          parent=scenario,
-                          name=name,
-                          logger=logger,
-                          info=info,
-                          )
-
-        attrsman = self.set_attrsman(cm.Attrsman(self))
-
-        # self.id_mode = attrsman.add(am.AttrConf('id_mode',  modechoices['bicycle'],
-        #                                groupnames = ['options'],
-        #                                choices = modechoices,
-        #                                name = 'Mode',
-        #                                info = 'Transport mode to be matched.',
-        #                                ))
-
-        self.nodeshapefilepath = attrsman.add(
-            cm.AttrConf('nodeshapefilepath', nodeshapefilepath,
-                        groupnames=['options'],
-                        perm='r',
-                        name='Node shape file',
-                        wildcards='Node Shape file (*.shp)|*.shp',
-                        metatype='filepath',
-                        info="""File path of node shape file.""",
-                        ))
-
-        # def import_xnet(net, nodeshapefilepath, edgeshapefilepath, polyshapefilepath):
-        #import_nodeshapes(net, nodeshapefilepath)
-
-    def get_scenario(self):
-        return self.parent
-
-    def do(self):
-        print self.ident+'.do'
-
-        projparams_target = self.parent.net.get_projparams()
-        if projparams_target in ("", "!"):
-            # net has no valid projection
-            projparams_target = ""
-            is_guess_targetproj = True
-        else:
-            is_guess_targetproj = True
-
-        OxNodesImporter(self.nodeshapefilepath, self,
-                        projparams_target=projparams_target,
-                        is_guess_targetproj=is_guess_targetproj,
-                        logger=self.get_logger(),
-                        ).do()
-
-        # ShapefileImporter(  self.nodeshapefilepath,
-        #                    self.parent.net.nodes.coords,
-        #                    map_attrconfig2shapeattr = {},
-        #                    projparams_target = projparams_target,
-        #                    is_guess_targetproj = is_guess_targetproj,
-        #                    logger = self.get_logger(),
-        #                    ).do()
         return True
 
 
@@ -1158,9 +986,21 @@ class Shapedata(am.ArrayObjman):
         else:
             self.filepath.set_value(filepath)
 
+        basefilepath = self.get_basefilepath(filepath)
+        print 'import_shapefile *%s*' % (basefilepath), type(str(basefilepath))
+        sf = shapefile.Reader(str(basefilepath))
+
+        shapes = sf.shapes()
+        self.shapetype = shapes[3].shapeType
+        fields = sf.fields
+        records = sf.records()
+
         if projparams == None:
             # here we could guess from shapes
-            projparams = "+init=EPSG:23032"
+            #projparams ="+init=EPSG:23032"
+            shape_rec = sf.shapeRecord(0)
+            points = shape_rec.shape.points
+            projparams = guess_utm_from_coord(points[0])
 
         if projparams_target != None:
             proj_target = pyproj.Proj(projparams_target)
@@ -1175,14 +1015,6 @@ class Shapedata(am.ArrayObjman):
             # no projection possible
             proj_target = None
             proj_shape = None
-
-        print 'import_shapefile *%s*' % (basefilepath), type(str(basefilepath))
-        sf = shapefile.Reader(str(basefilepath))
-
-        shapes = sf.shapes()
-        self.shapetype = shapes[3].shapeType
-        fields = sf.fields
-        records = sf.records()
 
         attrnames = []
         for field in fields[1:]:
@@ -1381,5 +1213,59 @@ def facilities_to_shapefile(facilities, filepath, dataname='facilitydata',
             getattr(shapedata, shapeattrname)[ids_shape] = getattr(facilities, netattrname)[ids_fac]
 
     shapedata.adjust_fieldlength()
+    shapedata.export_shapefile()
+    return True
+
+
+def zones_to_shapefile(zones, filepath, dataname='zonedata',
+                       is_access=True, parent=None, log=None):
+    """
+    Export network edges to shapefile.
+    """
+    net = zones.parent.facilities.get_net()
+    shapedata = Shapedata(parent, dataname, name='Facilities shape data',
+                          filepath=filepath,
+                          shapetype=SHAPETYPES['PolyLine'],
+                          projparams_shape=net.get_projparams(),
+                          offset=net.get_offset(), log=log)
+
+    #attrname, ftype, flen, fdigit = field
+    attrlist = [
+        ('id', 'id', 'ID_ZON', 'N', 32, 0),
+        # ~ ('names_extended','id','ID_NAM','N',32,0),
+        ('ids_landusetype', 'id', 'ID_LANTYPE', 'N', 12, 5),
+        ('areas', 'id', 'AREAS', 'N', 12, 5),
+
+        # ('n_edges','id','N_EDGES','N',12,5),
+        # ('share_roads_surface','id','SH_ROAD_SURF','N',12,5),
+        # ('share_exclusive_cyclingroads','id','SHARE_EXCL_BIKE','N',12,5),
+        # ('av_priority_roads','id','AV_ROAD_PRI','N',12,5),
+        # ('density_intersection','id','DENS_INTER','N',12,5),
+        # ('density_trafficlight','id','DENS_TL','N',12,5),
+        # ('share_facilities','id','SHARE_FAC','N',12,5),
+        # ('share_residential','id','SHARE_RES','N',12,5),
+        # ('share_commercial','id','SHARE_COM','N',12,5),
+        # ('share_industrial','id','SHARE_IND','N',12,5),
+        # ('share_leisure','id','SHARE_LEI','N',12,5),
+        # ('entropies','id','ENTROPY','N',12,5),
+    ]
+
+    print 'zones_to_shapefile', filepath
+
+    for attr in attrlist:
+        shapedata.add_field(attr[2:])
+
+    ids_zon = zones.get_ids()
+
+    ids_shape = shapedata.add_rows(len(ids_zon))
+    # print '  shapedata.ID_ARC',shapedata.ID_ARC,'dir',dir(shapedata.ID_ARC)
+    shapedata.ID_ZON[ids_shape] = ids_zon
+    shapedata.shapes[ids_shape] = zones.shapes[ids_zon]
+    # ~ shapedata.ID_ZON[ids_shape] = ids_zon
+    for netattrname, gettype, shapeattrname, x1, x2, x3 in attrlist:
+        if netattrname not in ('id',):
+            getattr(shapedata, shapeattrname)[ids_shape] = getattr(zones, netattrname)[ids_zon]
+
+    # ~ shapedata.adjust_fieldlength()
     shapedata.export_shapefile()
     return True

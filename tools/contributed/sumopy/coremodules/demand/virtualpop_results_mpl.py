@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,18 +14,289 @@
 
 # @file    virtualpop_results_mpl.py
 # @author  Joerg Schweizer
-# @date
+# @date   2012
 
 import os
 import numpy as np
 from collections import OrderedDict
-# import  matplotlib as mpl
+#import  matplotlib as mpl
 from agilepy.lib_base.geometry import *
 from coremodules.misc.matplottools import *
 import agilepy.lib_base.classman as cm
 import agilepy.lib_base.arrayman as am
 from agilepy.lib_base.geometry import *
 from agilepy.lib_base.processes import Process
+
+
+class IteratePlotter(PlotoptionsMixin, Process):
+    def __init__(self, scenario, name='Virtualpopulation Iterate Matplotlob Plotter',
+                 info="""Creates plots to show results from iteratively executed simulation runs with the virtual population. 
+                             The data is produced by the script script_vp_iterate.py
+                             The result data must also be loaded into the scenario.
+                             """,
+                 logger=None, **kwargs):
+
+        self._init_common('virtualpopiterateplotter', parent=scenario,
+                          name=name,
+                          info=info, logger=logger)
+
+        print 'VirtualpopIteratePlotter.__init__', self.parent
+        attrsman = self.get_attrsman()
+
+        self.is_strategy_share = attrsman.add(cm.AttrConf('is_strategy_share', kwargs.get('is_strategy_share', True),
+                                                          groupnames=['options', 'plots'],
+                                                          name='Plot shares',
+                                                          plotfunction=self.plot_strategy_share,
+                                                          info=self.plot_strategy_share.__doc__,
+                                                          ))
+
+        self.is_strategy_time_est_tot = attrsman.add(cm.AttrConf('is_strategy_time_est_tot', kwargs.get('is_strategy_time_est_tot', True),
+                                                                 groupnames=['options', 'plots'],
+                                                                 name='Plot total est times',
+                                                                 plotfunction=self.plot_strategy_time_tot_est,
+                                                                 info='',
+                                                                 ))
+
+        self.is_strategy_time_tot = attrsman.add(cm.AttrConf('is_strategy_time_tot', kwargs.get('is_strategy_time_tot', True),
+                                                             groupnames=['options', 'plots'],
+                                                             name='Plot total times',
+                                                             plotfunction=self.plot_strategy_time_tot,
+                                                             info='Plot effective times for each stategy over iterations.',
+                                                             ))
+
+        self.is_strategy_changes = attrsman.add(cm.AttrConf('is_strategy_changes', kwargs.get('is_strategy_changes', True),
+                                                            groupnames=['options', 'plots'],
+                                                            name='Plot total changes',
+                                                            plotfunction=self.plot_strategy_changes,
+                                                            info=self.plot_strategy_changes.__doc__,
+                                                            ))
+
+        self.add_plotoptions_lineplot(**kwargs)
+        self.add_save_options(**kwargs)
+
+    def show(self):
+        print 'show'
+        # if self.axis  is None:
+        self.init_figures()
+        plt.rc('lines', linewidth=self.width_line)
+        # plt.rc('axes', prop_cycle=(cycler('color', ['r', 'g', 'b', 'y']) +
+        #                    cycler('linestyle', ['-', '--', ':', '-.'])))
+
+        for plotattr in self.get_attrsman().get_group('plots'):
+            print '  ', plotattr.attrname, plotattr.get_value()
+            if plotattr.get_value():
+                plotattr.plotfunction()
+
+        # if not self.is_save:
+        show_plot()
+
+    def get_scenario(self):
+        return self.parent
+
+    def get_resultattrconf(self, attrname):
+        scenario = self.get_scenario()
+        simresults = scenario.simulation.results
+        vpiterstats = simresults.get_resultobj('vpiterstats')
+        return getattr(vpiterstats, attrname)
+
+    def plot_strategy_share(self):
+        """
+        Plot total est times for each stategy over iterations.
+        """
+        print 'plot_strategy_share'
+        scenario = self.get_scenario()
+        simresults = scenario.simulation.results
+        vpiterstats = simresults.get_resultobj('vpiterstats')
+        iters = vpiterstats.get_ids()
+
+        fig = self.create_figure()
+        ax = fig.add_subplot(111)
+
+        # sum total triptimes
+        virtualpop = scenario.demand.virtualpop
+        strategies = virtualpop.get_strategies()
+        ids_strat = strategies.get_ids()
+        trips_tot = np.zeros(len(iters), dtype=np.float32)
+        for id_strat, strategy in zip(ids_strat, strategies.strategies[ids_strat]):
+            trips_tot += self.get_resultattrconf(vpiterstats.get_stratcountattr(strategy))[iters]
+
+        # plots for each strategy
+        i = 0
+        for id_strat, strategy in zip(ids_strat, strategies.strategies[ids_strat]):
+            ident_strat = strategy.get_ident()
+            name_strat = strategy.get_name()
+            counts = self.get_resultattrconf(vpiterstats.get_stratcountattr(strategy))
+            print '  name_strat', name_strat, 'counts', counts
+            if np.any(counts[iters] > 0):
+                ax.plot(iters, 1.0*counts[iters]/trips_tot*100,
+                        label=name_strat,
+                        color=get_color(i),
+                        linestyle='-',
+                        linewidth=self.width_line,
+                        marker=get_marker(i),
+                        markersize=self.size_marker,
+                        alpha=self.alpha_results,
+                        )
+                i += 1
+
+        # for attrconf in vpiterstats.get_group('est. times'):
+
+        ax.legend(loc='best', shadow=True, fontsize=self.size_labelfont)
+        ax.grid(self.is_grid)
+        if self.is_show_title:
+            ax.set_title('Strategy shares', fontsize=self.size_titlefont)
+
+        ax.set_xlabel('Iterations', fontsize=self.size_labelfont)
+        ax.set_ylabel('Share [%]', fontsize=self.size_labelfont)
+        ax.tick_params(axis='x', labelsize=int(0.8*self.size_labelfont))
+        ax.tick_params(axis='y', labelsize=int(0.8*self.size_labelfont))
+        # fig.tight_layout()
+        if self.is_save:
+            # rootname of figure will be rootfilename of scenario
+            self.save_fig('fig_shares')
+
+    def plot_strategy_changes(self):
+        """'Plot strategy changes over iterations."""
+        print 'plot_strategy_changes'
+        scenario = self.get_scenario()
+        simresults = scenario.simulation.results
+        vpiterstats = simresults.get_resultobj('vpiterstats')
+        iters = vpiterstats.get_ids()
+
+        fig = self.create_figure()
+        ax = fig.add_subplot(111)
+
+        ax.plot(iters, vpiterstats.numbers_changes[iters],
+                #label = 'All strategies',
+                color=self.color_line,
+                linestyle='-',
+                linewidth=self.width_line+1,
+                marker='s', markersize=self.size_marker,
+                )
+
+        ax.grid(self.is_grid)
+        if self.is_show_title:
+            ax.set_title('Strategy changes', fontsize=self.size_titlefont)
+
+        ax.set_xlabel('Iterations', fontsize=self.size_labelfont)
+        ax.set_ylabel('Number of changes', fontsize=self.size_labelfont)
+        ax.tick_params(axis='x', labelsize=int(0.8*self.size_labelfont))
+        ax.tick_params(axis='y', labelsize=int(0.8*self.size_labelfont))
+        # fig.tight_layout()
+        if self.is_save:
+            # rootname of figure will be rootfilename of scenario
+            self.save_fig('fig_changes')
+
+    def plot_strategy_time_tot_est(self):
+        print 'plot_strategy_time_tot_est'
+        scenario = self.get_scenario()
+        simresults = scenario.simulation.results
+        vpiterstats = simresults.get_resultobj('vpiterstats')
+        iters = vpiterstats.get_ids()
+
+        fig = self.create_figure()
+        ax = fig.add_subplot(111)
+
+        ax.plot(iters, vpiterstats.times_tot_est[iters]/3600,
+                label='All strategies',
+                color='k',
+                linestyle='-',
+                linewidth=self.width_line+1,
+                # marker = 's', markersize = 4*self.width_line,
+                )
+
+        # plot total times for each strategy
+        virtualpop = scenario.demand.virtualpop
+        strategies = virtualpop.get_strategies()
+        ids_strat = strategies.get_ids()
+        i = 0
+        for id_strat, strategy in zip(ids_strat, strategies.strategies[ids_strat]):
+            ident_strat = strategy.get_ident()
+            name_strat = strategy.get_name()
+            times_tot = self.get_resultattrconf(vpiterstats.get_stratesttimeattr(strategy))
+            # print '  times_tot',times_tot
+            if np.any(times_tot[iters] > 0):
+                ax.plot(iters, times_tot[iters]/3600,
+                        label=name_strat,
+                        color=get_color(i),
+                        linestyle='-',
+                        linewidth=self.width_line,
+                        marker=get_marker(i),
+                        markersize=self.size_marker,
+                        alpha=self.alpha_results,
+                        )
+                i += 1
+
+        # for attrconf in vpiterstats.get_group('est. times'):
+
+        ax.legend(loc='best', shadow=True, fontsize=self.size_labelfont)
+        ax.grid(self.is_grid)
+        if self.is_show_title:
+            ax.set_title('Total est. travel times by strategy', fontsize=self.size_titlefont)
+
+        ax.set_xlabel('Iterations', fontsize=self.size_labelfont)
+        ax.set_ylabel('Tot. est. travel times [h]', fontsize=self.size_labelfont)
+        ax.tick_params(axis='x', labelsize=int(0.8*self.size_labelfont))
+        ax.tick_params(axis='y', labelsize=int(0.8*self.size_labelfont))
+        # fig.tight_layout()
+        if self.is_save:
+            # rootname of figure will be rootfilename of scenario
+            self.save_fig('fig_time_tot_est')
+
+    def plot_strategy_time_tot(self):
+        print 'plot_strategy_time_tot'
+        scenario = self.get_scenario()
+        simresults = scenario.simulation.results
+        vpiterstats = simresults.get_resultobj('vpiterstats')
+        iters = vpiterstats.get_ids()  # not suppress last
+
+        fig = self.create_figure()
+        ax = fig.add_subplot(111)
+
+        ax.plot(iters, vpiterstats.times_tot[iters]/3600,
+                label='All strategies',
+                color='k',
+                linestyle='-',
+                linewidth=self.width_line+1,
+                # marker = 's', markersize = 4*self.width_line,
+                )
+
+        # plot total times for each strategy
+        virtualpop = scenario.demand.virtualpop
+        strategies = virtualpop.get_strategies()
+        ids_strat = strategies.get_ids()
+        i = 0
+        for id_strat, strategy in zip(ids_strat, strategies.strategies[ids_strat]):
+            ident_strat = strategy.get_ident()
+            name_strat = strategy.get_name()
+            times_tot = self.get_resultattrconf(vpiterstats.get_strattimeattr(strategy))
+            # print '  times_tot',times_tot
+            if np.any(times_tot > 0):
+                ax.plot(iters, times_tot[iters]/3600,
+                        label=name_strat,
+                        color=get_color(i),
+                        linestyle='-',
+                        linewidth=self.width_line,
+                        marker=get_marker(i),
+                        markersize=self.size_marker,
+                        alpha=self.alpha_results,
+                        )
+                i += 1
+
+        # for attrconf in vpiterstats.get_group('est. times'):
+
+        ax.legend(loc='best', shadow=True, fontsize=self.size_labelfont)
+        ax.grid(self.is_grid)
+        if self.is_show_title:
+            ax.set_title('Total travel times by strategy', fontsize=self.size_titlefont)
+        ax.set_xlabel('Iterations', fontsize=self.size_labelfont)
+        ax.set_ylabel('Tot. travel times [h]', fontsize=self.size_labelfont)
+        ax.tick_params(axis='x', labelsize=int(0.8*self.size_labelfont))
+        ax.tick_params(axis='y', labelsize=int(0.8*self.size_labelfont))
+        # fig.tight_layout()
+        if self.is_save:
+            # rootname of figure will be rootfilename of scenario
+            self.save_fig('fig_time_tot')
 
 
 class StrategyPlotter(PlotoptionsMixin, Process):
@@ -81,40 +352,6 @@ class StrategyPlotter(PlotoptionsMixin, Process):
                                                      info='Size of time intervals in histograms.',
                                                      ))
 
-        # self.add_plotoptions(**kwargs)
-        self.is_title = attrsman.add(cm.AttrConf('is_title', kwargs.get('is_title', True),
-                                                 groupnames=['options'],
-                                                 name='Show title',
-                                                 info='Show title of diagrams.',
-                                                 ))
-
-        self.size_titlefont = attrsman.add(cm.AttrConf('size_titlefont', kwargs.get('size_titlefont', 32),
-                                                       groupnames=['options'],
-                                                       name='Title fontsize',
-                                                       info='Title fontsize.',
-                                                       ))
-
-        self.size_labelfont = attrsman.add(cm.AttrConf('size_labelfont', kwargs.get('size_labelfont', 24),
-                                                       groupnames=['options'],
-                                                       name='Label fontsize',
-                                                       info='Label fontsize.',
-                                                       ))
-
-        self.width_line = attrsman.add(cm.AttrConf('width_line', kwargs.get('width_line', 2),
-                                                   groupnames=['options'],
-                                                   perm='wr',
-                                                   name='Line width',
-                                                   info='Width of plotted lines.',
-                                                   ))
-
-        self.color_line = attrsman.add(cm.AttrConf('color_line', kwargs.get('color_line', np.array([0, 0, 0, 1], dtype=np.float32)),
-                                                   groupnames=['options'],
-                                                   perm='wr',
-                                                   metatype='color',
-                                                   name='Line color',
-                                                   info='Color of line in various diagrams.',
-                                                   ))
-
         self.color_chart = attrsman.add(cm.AttrConf('color_chart', kwargs.get('color_chart', np.array([0.3, 0.1, 0.9, 1], dtype=np.float32)),
                                                     groupnames=['options'],
                                                     perm='wr',
@@ -123,12 +360,7 @@ class StrategyPlotter(PlotoptionsMixin, Process):
                                                     info='Main Color of chart bars.',
                                                     ))
 
-        self.is_grid = attrsman.add(cm.AttrConf('is_grid', kwargs.get('is_grid', True),
-                                                groupnames=['options'],
-                                                name='Show grid?',
-                                                info='If True, shows a grid on the graphical representation.',
-                                                ))
-
+        self.add_plotoptions_lineplot(**kwargs)
         self.add_save_options(**kwargs)
 
     def show(self):
@@ -177,13 +409,13 @@ class StrategyPlotter(PlotoptionsMixin, Process):
         inds_plot = np.arange(len(index_strat[inds_nz]))
         bar_width = 0.45
         opacity = 0.5
-        # error_config = {'ecolor': '0.3'}
+        #error_config = {'ecolor': '0.3'}
 
         rects = ax.barh(inds_plot, values[inds][inds_nz],
                         # align='center',
                         alpha=opacity,
                         height=bar_width, color=colors[inds][inds_nz],  # self.color_chart,
-                        # yerr=std_women, error_kw=error_config,
+                        #yerr=std_women, error_kw=error_config,
                         linewidth=self.width_line,
                         # facecolor=colors[inds][inds_nz],
                         )
@@ -192,9 +424,9 @@ class StrategyPlotter(PlotoptionsMixin, Process):
         ax.set_yticklabels(names_strat[inds][inds_nz])
         ax.legend()
 
-        # ax.legend(loc='best',shadow=True, fontsize=self.size_labelfont)
+        #ax.legend(loc='best',shadow=True, fontsize=self.size_labelfont)
         ax.grid(self.is_grid)
-        if self.is_title:
+        if self.is_show_title:
             ax.set_title('Strategy shares', fontsize=self.size_titlefont)
         ax.set_xlabel('Share', fontsize=self.size_labelfont)
         ax.set_ylabel('Strategies', fontsize=self.size_labelfont)
@@ -239,13 +471,13 @@ class StrategyPlotter(PlotoptionsMixin, Process):
 
         bar_width = 0.45
         opacity = 0.5
-        # error_config = {'ecolor': '0.3'}
+        #error_config = {'ecolor': '0.3'}
 
         rects = ax.barh(inds_plot, values[inds][inds_nz],
                         # align='center',
                         alpha=opacity,
                         height=bar_width, color=colors[inds][inds_nz],
-                        # yerr=std_women, error_kw=error_config,
+                        #yerr=std_women, error_kw=error_config,
                         linewidth=self.width_line,
                         # facecolor=colors[inds][inds_nz],
                         )
@@ -254,9 +486,9 @@ class StrategyPlotter(PlotoptionsMixin, Process):
         ax.set_yticklabels(names_strat[inds][inds_nz])
         ax.legend()
 
-        # ax.legend(loc='best',shadow=True, fontsize=self.size_labelfont)
+        #ax.legend(loc='best',shadow=True, fontsize=self.size_labelfont)
         ax.grid(self.is_grid)
-        if self.is_title:
+        if self.is_show_title:
             ax.set_title('Mean estimated travel time of strategies', fontsize=self.size_titlefont)
 
         ax.set_xlabel('Mean est. time [s]', fontsize=self.size_labelfont)
@@ -317,7 +549,7 @@ class StrategyPlotter(PlotoptionsMixin, Process):
             if len(timefactors) > 0:
                 x_max = max(x_max, np.max(timefactors))
 
-        # bins = np.linspace(x_min,x_max,self.n_bins)
+        #bins = np.linspace(x_min,x_max,self.n_bins)
         bins = np.arange(x_min, x_max, self.timeint_bins)
         if len(bins) > 0:
             for id_strat, timefactors in strategytimefactors.iteritems():
@@ -337,7 +569,7 @@ class StrategyPlotter(PlotoptionsMixin, Process):
 
             ax.legend(loc='best', shadow=True, fontsize=self.size_labelfont)
             ax.grid(self.is_grid)
-            if self.is_title:
+            if self.is_show_title:
                 ax.set_title('Estimated time factor with respect to fastest strategy', fontsize=self.size_titlefont)
             ax.set_xlabel('Estimated time factor', fontsize=self.size_labelfont)
             ax.set_ylabel('Probability distribution', fontsize=self.size_labelfont)
@@ -402,7 +634,7 @@ class StrategyPlotter(PlotoptionsMixin, Process):
             if len(timefactors) > 0:
                 x_max = max(x_max, np.max(timefactors))
 
-        # bins = np.linspace(x_min,x_max,self.n_bins)
+        #bins = np.linspace(x_min,x_max,self.n_bins)
         bins = np.arange(x_min, x_max, self.timeint_bins)
         if len(bins) > 0:
             for id_strat, timefactors in strategytimefactors.iteritems():
@@ -422,7 +654,7 @@ class StrategyPlotter(PlotoptionsMixin, Process):
 
             ax.legend(loc='best', shadow=True, fontsize=self.size_labelfont)
             ax.grid(self.is_grid)
-            if self.is_title:
+            if self.is_show_title:
                 ax.set_title('Time factor with respect to fastest strategy', fontsize=self.size_titlefont)
             ax.set_xlabel('Time factor', fontsize=self.size_labelfont)
             ax.set_ylabel('Probability distribution', fontsize=self.size_labelfont)

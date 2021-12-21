@@ -127,6 +127,8 @@ public:
     /// @brief Definition of a storage for durations
     typedef std::vector<SUMOTime> DurationsVector;
 
+    /// @brief Definition of a storage for indices
+    typedef std::vector<int> IndexVector;
 
     /**
      * @class GUITLLogicPhasesTrackerPanel
@@ -193,6 +195,12 @@ private:
     /// @brief The list of phase durations
     DurationsVector myDurations;
 
+    /// @brief The time within the cycle for the current phase
+    DurationsVector myTimeInCycle;
+
+    /// @brief The index of the current phase
+    IndexVector myPhaseIndex;
+
     /// @brief The panel to draw on
     GUITLLogicPhasesTrackerPanel* myPanel;
 
@@ -234,6 +242,27 @@ private:
     /// @brief The offset changer (tracking mode)
     FXRealSpinner* myBeginOffset;
 
+    /// @brief The time mode
+    FXComboBox* myTimeMode;
+
+    /// @brief Whether green durations are printed
+    FXCheckButton* myGreenMode;
+
+    /// @brief Whether phase names shall be printed instead of indices
+    FXCheckButton* myIndexMode;
+
+    /// @brief y-Position of previously opened window
+    static int myLastY;
+
+private:
+
+    void initToolBar();
+    void initTimeMode();
+    void initGreenMode();
+    void initIndexMode();
+
+    void saveSettings();
+    void loadSettings();
 
 protected:
     /// protected constructor for FOX

@@ -1,0 +1,3 @@
+Warning: Routing algorith CH does not support dynamic closing of edges
+Warning: Teleporting vehicle 'tripClosedAlready'; waited too long (wrong lane), lane='middle_0', time=1345.00.
+Warning: Vehicle 'tripClosedAlready' ends teleporting on edge 'end', time 1364.00.

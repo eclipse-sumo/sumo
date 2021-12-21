@@ -1,0 +1,12 @@
+Warning: Vehicle 'f.2' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=43.00.
+Warning: Vehicle 'f.3' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=45.00.
+Warning: Vehicle 'f.4' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=46.00.
+Warning: Vehicle 'f.5' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=47.00.
+Warning: Vehicle 'f.6' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=50.00.
+Warning: Teleporting vehicle 'f.6'; collision with vehicle 'f.5', lane='gneE0_0', gap=-3.78, time=50.00 stage=move.
+Warning: Vehicle 'f.6' teleports beyond arrival edge 'gneE0', time 50.00.
+Warning: Vehicle 'f.7' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=51.00.
+Warning: Vehicle 'f.8' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=52.00.
+Warning: Teleporting vehicle 'f.8'; collision with vehicle 'f.7', lane='gneE0_0', gap=-1.74, time=52.00 stage=move.
+Warning: Vehicle 'f.8' teleports beyond arrival edge 'gneE0', time 52.00.
+Warning: Vehicle 'f.9' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=53.00.

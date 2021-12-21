@@ -712,8 +712,7 @@ NBFrame::checkOptions() {
     }
     if (oc.getFloat("junctions.small-radius") > oc.getFloat("default.junctions.radius") && oc.getFloat("default.junctions.radius") >= 0) {
         if (!oc.isDefault("junctions.small-radius")) {
-            WRITE_ERROR("option 'default.junctions.radius' cannot be smaller than option 'junctions.small-radius'");
-            ok = false;
+            WRITE_WARNING("option 'default.junctions.radius' is smaller than option 'junctions.small-radius'");
         } else {
             oc.set("junctions.small-radius", oc.getValueString("default.junctions.radius"));
         }

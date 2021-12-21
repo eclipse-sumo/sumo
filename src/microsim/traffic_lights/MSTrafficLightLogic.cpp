@@ -107,10 +107,11 @@ MSTrafficLightLogic::SwitchCommand::shiftTime(SUMOTime currentTime, SUMOTime exe
  * member method definitions
  * ----------------------------------------------------------------------- */
 MSTrafficLightLogic::MSTrafficLightLogic(MSTLLogicControl& tlcontrol, const std::string& id,
-        const std::string& programID, const TrafficLightType logicType, const SUMOTime delay,
+        const std::string& programID, const SUMOTime offset, const TrafficLightType logicType, const SUMOTime delay,
         const std::map<std::string, std::string>& parameters) :
     Named(id), Parameterised(parameters),
     myProgramID(programID),
+    myOffset(offset),
     myLogicType(logicType),
     myCurrentDurationIncrement(-1),
     myDefaultCycleTime(0),
@@ -473,6 +474,17 @@ void MSTrafficLightLogic::initMesoTLSPenalties() {
 void
 MSTrafficLightLogic::ignoreLinkIndex(int pos) {
     myIgnoredIndices.insert(pos);
+}
+
+SUMOTime
+MSTrafficLightLogic::getTimeInCycle() const {
+    return mapTimeInCycle(SIMSTEP);
+}
+
+
+SUMOTime
+MSTrafficLightLogic::mapTimeInCycle(SUMOTime t) const {
+    return (t - myOffset) % myDefaultCycleTime;
 }
 
 

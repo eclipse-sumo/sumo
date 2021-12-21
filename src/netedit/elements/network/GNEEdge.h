@@ -23,7 +23,6 @@
 
 #include <netbuild/NBEdge.h>
 #include <netedit/elements/GNECandidateElement.h>
-#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/gui/div/GUIGeometry.h>
 #include <utils/gui/div/GUIDottedGeometry.h>
 
@@ -40,6 +39,7 @@ class GNEConnection;
 class GNERouteProbe;
 class GNECrossing;
 class GNEEdgeType;
+class GNEEdgeTemplate;
 
 // ===========================================================================
 // class definitions
@@ -224,7 +224,7 @@ public:
     void remakeGNEConnections();
 
     /// @brief copy edge attributes from edgetemplate
-    void copyTemplate(const GNEInspectorFrame::TemplateEditor::EdgeTemplate* edgeTemplate, GNEUndoList* undoList);
+    void copyTemplate(const GNEEdgeTemplate* edgeTemplate, GNEUndoList* undoList);
 
     /// @brief copy edge attributes from edgeType
     void copyEdgeType(const GNEEdgeType* edgeType, GNEUndoList* undoList);

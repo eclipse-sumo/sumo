@@ -95,11 +95,12 @@ below.
   \[<https://wiki.openstreetmap.org/wiki/Key:usage> usage information
   for railways (main,branch,industrial,...). This typemap only works
   in combination with other typemaps.
-- **osmBidiRailNetconvert.typ.xml**. Changes the default from
+- **osmNetconvertBidiRail.typ.xml**. Changes the default from
   uni-directional railroads to bi-directional railroads. This may be
   useful in some regions of the world where OSM contributors used
   this style of date representation. The use of this typemap supplants
   the older option **--osm.railway.oneway-default** {{DT_BOOL}}.
+- **osmNetconvertAirport.typ.xml**. Imports aeroways (runway, taxiway, etc.)
 
 !!! caution
     When specifying a typemap using the option **--type-files**, the defaults are not loaded. To achieve the desired types, the user should load the default typemap along with the desired modification (**--type-files <SUMO_HOME\>/data/typemap/osmNetconvert.typ.xml,<SUMO_HOME\>/data/typemap/osmNetconvertUrbanDe.typ.xml**) or create a fully specified typemap file by himself.
@@ -111,6 +112,18 @@ The first will evaluate the [bike=yes/no tags](https://wiki.openstreetmap.org/wi
 as well as oneway information for bicycles. This usually applies only to the permissions
 for existing lanes and streets. If you want to add further bike lanes use the bicycle
 type map mentioned above.
+
+### Pedestrian Traffic
+
+By default only footpaths (osm ways dedicated for pedestrian use) are imported.
+To import all sidewalk related information, the option **--sidewalks** can be set. Alternatively, sidwalks can be added heuristically via typemaps (see above) or [guessing-options](../../Simulation/Pedestrians.md#generating_a_network_with_sidewalks)
+
+### Lane-To-Lane Connections
+
+By default, lane-to-lane connections are guessed by [netconvert](../../netconvert.md) and only turning restrictions are loaded from OSM to influence connection generation. When setting option **--osm.turn-lanes**, the turn direction road markings form OSM are evaluated to guide connection generation.
+
+!!! caution
+    At roads where some lanes have turn markings and others do not, the unmarked lanes are interpreted as through-lanes. This may not be correct in all cases.
 
 # Importing additional Polygons (Buildings, Water, etc.)
 

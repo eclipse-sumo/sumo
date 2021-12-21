@@ -1,7 +1,7 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2016-2021 German Aerospace Center (DLR) and others.
 # SUMOPy module
-# Copyright (C) 2012-2017 University of Bologna - DICAM
+# Copyright (C) 2012-2021 University of Bologna - DICAM
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -14,7 +14,7 @@
 
 # @file    test_classman_classes.py
 # @author  Joerg Schweizer
-# @date
+# @date    2012
 
 """
 Test for callsman
@@ -206,7 +206,7 @@ class TestClass(BaseObjman):
                                                  xmltag='workdirpath',
                                                  ))
 
-        self.access = attrsman.add(AttrConf('access', ['bus', 'bike', 'tram'],
+        self.access = attrsman.add(ListConf('access', ['bus', 'bike', 'tram'],
                                             groupnames=['state'],
                                             perm='rw',
                                             is_save=True,
@@ -264,6 +264,35 @@ class TestClass(BaseObjman):
                                                name='Pos OK',
                                                info='True if position greater than thhreshold.',
                                                ))
+        self.testlist = attrsman.add(ListConf('testlist', ['1', 'dd', 'cvc'],
+                                              groupnames=['state'],
+                                              choices=['1', 'dd', 'cvc', 'dddd', 'eeeee'],
+                                              perm='rw',
+                                              is_save=True,
+                                              name='Test list',
+                                              info='This is a test list',
+                                              xmltag='testList',
+                                              ))
+
+        self.testlist_dict = attrsman.add(ListConf('testlist_dict', [1, 2, 3],
+                                                   groupnames=['state'],
+                                                   choices={'aa': 1, 'bb': 2, 'ccc': 3, 'dddd': 4, 'eeeee': 5},
+                                                   perm='rw',
+                                                   is_save=True,
+                                                   name='Dictchoice Test list',
+                                                   info='This is a Dictchoice test list',
+                                                   xmltag='testList',
+                                                   ))
+
+        self.testlist_read = attrsman.add(ListConf('testlist_read', [1, 2, 3],
+                                                   groupnames=['state'],
+                                                   choices={'aa': 1, 'bb': 2, 'ccc': 3, 'dddd': 4, 'eeeee': 5},
+                                                   perm='r',
+                                                   is_save=True,
+                                                   name='Readonly Test list',
+                                                   info='This is a readonly test list',
+                                                   xmltag='testList',
+                                                   ))
 
         attrsman.print_attrs()
 

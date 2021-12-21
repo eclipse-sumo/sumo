@@ -40,6 +40,7 @@
 #include "ROLane.h"
 #include "ROPerson.h"
 
+const std::string ROPerson::PlanItem::UNDEFINED_STOPPING_PLACE;
 
 // ===========================================================================
 // method definitions
@@ -59,9 +60,11 @@ ROPerson::~ROPerson() {
 void
 ROPerson::addTrip(std::vector<PlanItem*>& plan, const std::string& id,
                   const ROEdge* const from, const ROEdge* const to, const SVCPermissions modeSet,
-                  const std::string& vTypes, const double departPos, const double arrivalPos,
-                  const std::string& busStop, double walkFactor, const std::string& group) {
-    PersonTrip* trip = new PersonTrip(from, to, modeSet, departPos, arrivalPos, busStop, walkFactor, group);
+                  const std::string& vTypes,
+                  const double departPos, const std::string& stopOrigin,
+                  const double arrivalPos, const std::string& busStop,
+                  double walkFactor, const std::string& group) {
+    PersonTrip* trip = new PersonTrip(from, to, modeSet, departPos, stopOrigin, arrivalPos, busStop, walkFactor, group);
     RONet* net = RONet::getInstance();
     SUMOVehicleParameter pars;
     pars.departProcedure = DEPART_TRIGGERED;
@@ -113,7 +116,7 @@ void
 ROPerson::addRide(std::vector<PlanItem*>& plan, const ROEdge* const from, const ROEdge* const to, const std::string& lines,
                   double arrivalPos, const std::string& destStop, const std::string& group) {
     if (plan.empty() || plan.back()->isStop()) {
-        plan.push_back(new PersonTrip());
+        plan.push_back(new PersonTrip(to, destStop));
     }
     plan.back()->addTripItem(new Ride(-1, from, to, lines, group, -1., arrivalPos, -1., destStop));
 }
@@ -122,7 +125,7 @@ ROPerson::addRide(std::vector<PlanItem*>& plan, const ROEdge* const from, const 
 void
 ROPerson::addWalk(std::vector<PlanItem*>& plan, const ConstROEdgeVector& edges, const double duration, const double speed, const double departPos, const double arrivalPos, const std::string& busStop) {
     if (plan.empty() || plan.back()->isStop()) {
-        plan.push_back(new PersonTrip());
+        plan.push_back(new PersonTrip(edges.back(), busStop));
     }
     plan.back()->addTripItem(new Walk(-1, edges, -1., duration, speed, departPos, arrivalPos, busStop));
 }
@@ -221,7 +224,7 @@ ROPerson::Walk::saveAsXML(OutputDevice& os, const bool extended, OptionsCont& op
 
 ROPerson::PlanItem*
 ROPerson::PersonTrip::clone() const {
-    PersonTrip* result = new PersonTrip(from, to, modes, dep, arr, stopDest, walkFactor, group);
+    PersonTrip* result = new PersonTrip(from, to, modes, dep, stopOrigin, arr, stopDest, walkFactor, group);
     for (auto* item : myTripItems) {
         result->myTripItems.push_back(item->clone());
     }
@@ -327,7 +330,9 @@ ROPerson::computeIntermodal(SUMOTime time, const RORouterProvider& provider,
                             PersonTrip* const trip, const ROVehicle* const veh, MsgHandler* const errorHandler) {
     const double speed = getType()->maxSpeed * trip->getWalkFactor();
     std::vector<ROIntermodalRouter::TripItem> result;
-    provider.getIntermodalRouter().compute(trip->getOrigin(), trip->getDestination(), trip->getDepartPos(), trip->getArrivalPos(), trip->getStopDest(),
+    provider.getIntermodalRouter().compute(trip->getOrigin(), trip->getDestination(),
+                                           trip->getDepartPos(), trip->getStopOrigin(),
+                                           trip->getArrivalPos(), trip->getStopDest(),
                                            speed, veh, trip->getModes(), time, result);
     bool carUsed = false;
     SUMOTime start = time;

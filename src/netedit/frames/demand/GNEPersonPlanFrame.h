@@ -56,7 +56,7 @@ public:
     bool addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 
     /// @brief get path creator modul
-    GNEFrameModuls::PathCreator* getPathCreator() const;
+    GNEFrameModules::PathCreator* getPathCreator() const;
 
 protected:
     /// @brief Tag selected in TagSelector
@@ -73,17 +73,17 @@ private:
     GNERouteHandler myRouteHandler;
 
     /// @brief Person selectors
-    GNEFrameModuls::DemandElementSelector* myPersonSelector;
+    GNEFrameModules::DemandElementSelector* myPersonSelector;
 
     /// @brief personPlan selector
-    GNEFrameModuls::TagSelector* myPersonPlanTagSelector;
+    GNEFrameModules::TagSelector* myPersonPlanTagSelector;
 
     /// @brief internal vehicle attributes
-    GNEFrameAttributesModuls::AttributesCreator* myPersonPlanAttributes;
+    GNEFrameAttributeModules::AttributesCreator* myPersonPlanAttributes;
 
     /// @brief Path Creator
-    GNEFrameModuls::PathCreator* myPathCreator;
+    GNEFrameModules::PathCreator* myPathCreator;
 
     /// @brief Person Hierarchy
-    GNEFrameModuls::HierarchicalElementTree* myPersonHierarchy;
+    GNEFrameModules::HierarchicalElementTree* myPersonHierarchy;
 };

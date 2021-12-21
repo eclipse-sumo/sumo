@@ -128,7 +128,7 @@ def runMethod(inputFile, outputFile, writer, options, further={}):
     further["orig-ids"] = options.orig_ids
     further["ignore-gaps"] = options.ignore_gaps
     if options.base >= 0:
-        further["base-date"] = datetime.datetime.fromtimestamp(options.base)
+        further["base-date"] = datetime.datetime.utcfromtimestamp(options.base)
     else:
         further["base-date"] = datetime.datetime.now().replace(hour=0,
                                                                minute=0, second=0, microsecond=0)

@@ -39,8 +39,8 @@ GNERerouter::GNERerouter(GNENet* net) :
     myProbability(0),
     myOff(false),
     myTimeThreshold(0) {
-    // update centering boundary without updating grid
-    updateCenteringBoundary(false);
+    // reset default values
+    resetDefaultValues();
 }
 
 

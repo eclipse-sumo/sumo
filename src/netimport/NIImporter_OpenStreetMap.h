@@ -232,6 +232,9 @@ protected:
         bool myCurrentIsPlatform;
         /// @brief Information whether this is railway is electrified
         bool myCurrentIsElectrified;
+        /// @brief turning direction (arrows printed on the road)
+        std::vector<int> myTurnSignsForward;
+        std::vector<int> myTurnSignsBackward;
 
     private:
         /// invalidated assignment operator
@@ -289,6 +292,8 @@ private:
     /// @brief import sidewalks
     bool myImportSidewalks;
 
+    /// @brief import turning signals (turn:lanes) to guide connection building
+    bool myImportTurnSigns;
 
     /** @brief Builds an NBNode
      *
@@ -316,11 +321,14 @@ private:
      * @param[in] passed The list of passed nodes (geometry information)
      * @param[in] osmNodes Container of node definitions for getting information about nodes from
      * @param[in, out] The NetBuilder instance
+     * @param[in] first The first node of the way
+     * @param[in] last The last node of the way
      * @return the new index if the edge is split
      * @exception ProcessError If the edge could not be added to the container
      */
     int insertEdge(Edge* e, int index, NBNode* from, NBNode* to,
-                   const std::vector<long long int>& passed, NBNetBuilder& nb);
+                   const std::vector<long long int>& passed, NBNetBuilder& nb,
+                   const NBNode* first, const NBNode* last);
 
     /// @brief reconstruct elevation from layer info
     void reconstructLayerElevation(double layerElevation, NBNetBuilder& nb);
@@ -344,6 +352,7 @@ protected:
 
     static void applyChangeProhibition(NBEdge* e, int changeProhibition);
     void applyLaneUseInformation(NBEdge* e, const std::vector<SVCPermissions>& laneUse);
+    void applyTurnSigns(NBEdge* e, const std::vector<int>& turnSigns);
 
     /**
      * @class NodesHandler

@@ -341,6 +341,9 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 %}
 
 
+%include "std_shared_ptr.i"
+%shared_ptr(libsumo::TraCIPhase)
+
 // replacing vector instances of standard types, see https://stackoverflow.com/questions/8469138
 %include "std_string.i"
 %include "std_vector.i"
