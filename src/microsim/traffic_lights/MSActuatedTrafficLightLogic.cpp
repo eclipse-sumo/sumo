@@ -535,6 +535,7 @@ MSActuatedTrafficLightLogic::trySwitch() {
     assert(myStep >= 0);
     //stores the time the phase started
     if (myStep != origStep) {
+        myPhases[origStep]->myLastEnd = now;
         myPhases[myStep]->myLastSwitch = now;
         actDuration = 0;
     }
@@ -812,10 +813,20 @@ MSActuatedTrafficLightLogic::getEarliest() const {
     if (earliest == MSPhaseDefinition::UNSPECIFIED_DURATION) {
         return 0;
     } else {
-        const SUMOTime lastResetInCycle = mapTimeInCycle(myPhases[0]->myLastSwitch);
-        if (lastResetInCycle > earliest) {
-            // switch in the next cycle
+        if (getCurrentPhaseDef().myLastEnd > SIMSTEP - getTimeInCycle()) {
+            // phase should not end twice in the same cycle
             earliest += myDefaultCycleTime;
+        } else {
+            SUMOTime latest = getCurrentPhaseDef().latestEnd;
+            if (latest != MSPhaseDefinition::UNSPECIFIED_DURATION) {
+                if (latest < earliest) {
+                    latest += myDefaultCycleTime;
+                }
+                if (latest < SIMSTEP + getCurrentPhaseDef().minDuration) {
+                    // cannot terminate phase between earliest and latest -> move end into next cycle
+                    earliest += myDefaultCycleTime;
+                }
+            }
         }
         const SUMOTime maxRemaining = getCurrentPhaseDef().maxDuration - (SIMSTEP - getCurrentPhaseDef().myLastSwitch);
         return MIN2(earliest - getTimeInCycle(), maxRemaining);

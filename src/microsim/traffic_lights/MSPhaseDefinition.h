@@ -74,6 +74,9 @@ public:
     /// @brief Stores the timestep of the last on-switched of the phase
     SUMOTime myLastSwitch;
 
+    /// @brief Stores the timestep when the previous instance of this phase was switched off
+    SUMOTime myLastEnd;
+
     /// @brief The index of the phase that suceeds this one (or -1)
     std::vector<int> nextPhases;
 
@@ -123,6 +126,7 @@ public:
         earliestEnd(UNSPECIFIED_DURATION),
         latestEnd(UNSPECIFIED_DURATION),
         myLastSwitch(UNSPECIFIED_DURATION),
+        myLastEnd(UNSPECIFIED_DURATION),
         name(_name),
         yellow(UNSPECIFIED_DURATION),
         red(UNSPECIFIED_DURATION),
