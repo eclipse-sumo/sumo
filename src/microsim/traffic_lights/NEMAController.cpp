@@ -72,7 +72,6 @@ NEMALogic::NEMALogic(MSTLLogicControl& tlcontrol,
     ring2 = getParameter("ring2", "");
     barriers = getParameter("barrierPhases", "");
     coordinates = getParameter("coordinatePhases", getParameter("barrier2Phases",""));
-    // offset = (StringUtils::toDouble(getParameter("offset", "0")));
     offset = STEPS2TIME(_offset);
     myNextOffset = offset;
     whetherOutputState = StringUtils::toBool(getParameter("whetherOutputState", "false"));
