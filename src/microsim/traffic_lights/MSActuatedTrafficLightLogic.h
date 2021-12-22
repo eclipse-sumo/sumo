@@ -174,7 +174,7 @@ protected:
     SUMOTime getLinkMinDuration(int target) const;
 
     /// @brief the minimum duration for keeping the current phase when considering 'earliestEnd'
-    SUMOTime getEarliest() const;
+    SUMOTime getEarliest(SUMOTime prevStart) const;
 
     /// @brief the maximum duratin for keeping the current phase when considering 'latestEnd'
     SUMOTime getLatest() const;
