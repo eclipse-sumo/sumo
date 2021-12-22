@@ -836,7 +836,7 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
         phase->maxDuration = phase->duration;
     }
 
-    phase->myLastSwitch = string2time(OptionsCont::getOptions().getString("begin")); // SUMOTime-option
+    phase->myLastSwitch = string2time(OptionsCont::getOptions().getString("begin")) - 1; // SUMOTime-option
     myJunctionControlBuilder.addPhase(phase);
 }
 

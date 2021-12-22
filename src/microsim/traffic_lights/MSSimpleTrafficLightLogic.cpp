@@ -48,6 +48,9 @@ MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(MSTLLogicControl& tlcontrol
     for (const MSPhaseDefinition* phase : myPhases) {
         myDefaultCycleTime += phase->duration;
     }
+    if (myStep < (int)myPhases.size()) {
+        myPhases[myStep]->myLastSwitch = SIMSTEP;
+    }
 }
 
 
