@@ -427,6 +427,8 @@ SUMOVehicleParameter::parseDepartSpeed(const std::string& val, const std::string
         dsd = DepartSpeedDefinition::LIMIT;
     } else if (val == "last") {
         dsd = DepartSpeedDefinition::LAST;
+    } else if (val == "avg") {
+        dsd = DepartSpeedDefinition::AVG;
     } else {
         try {
             speed = StringUtils::toDouble(val);
