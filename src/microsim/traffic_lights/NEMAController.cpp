@@ -55,10 +55,10 @@ NEMALogic::NEMALogic(MSTLLogicControl& tlcontrol,
                      const std::string& id, const std::string& programID,
                      const SUMOTime _offset,
                      const Phases& phases,
-                     int step, SUMOTime delay,
+                     int /*step*/, SUMOTime /*delay*/,
                      const std::map<std::string, std::string>& parameter,
                      const std::string& basePath) :
-    MSSimpleTrafficLightLogic(tlcontrol, id, programID, _offset, TrafficLightType::NEMA, phases, step, delay, parameter),
+    MSSimpleTrafficLightLogic(tlcontrol, id, programID, _offset, TrafficLightType::NEMA, phases, 0, phases.front()->minDuration + SIMSTEP, parameter),
     myPhase(phases[0]->duration, phases[0]->getState()) {
     myDetectorLength = StringUtils::toDouble(getParameter("detector-length", "20"));
     myDetectorLengthLeftTurnLane = StringUtils::toDouble(getParameter("detector-length-leftTurnLane", "20"));

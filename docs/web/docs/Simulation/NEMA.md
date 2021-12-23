@@ -28,7 +28,7 @@ looks like this:
 
 ```
 <add>
-    <tlLogic id="2881" offset="0" programID="NEMA" type="NEMA">
+    <tlLogic id="2881" offset="0" programID="NEMA" type="NEMA" offset="10">
         <param key="detector-length" value="20"/>
         <param key="detector-length-leftTurnLane" value="10"/>
         <param key="total-cycle-length" value="120"/>
@@ -36,8 +36,7 @@ looks like this:
         <param key="ring2" value="0,4,0,6"/>
         <param key="barrierPhases" value="4,4"/>
         <param key="coordinate-mode" value="true"/>
-        <param key="coordinatePhases" value="2,6"/>
-        <param key="offset" value="10" />
+        <param key="barrier2Phases" value="2,6"/>        
         <param key="whetherOutputState" value="true"/>
 
         <phase duration="99" minDur="6"  maxDur="16" vehext="2" yellow="4" red="1" name="1" state="grrrrrrGGrrr"/>
@@ -57,7 +56,7 @@ The following attributes/elements are used within the tlLogic element:
 | **id**         | id (string)                           | The id of the traffic light. This must be an existing traffic light id in the .net.xml file. Typically the id for a traffic light is identical with the junction id. The name may be obtained by right-clicking the red/green bars in front of a controlled intersection. |
 | **type**       | NEMA (string) | This value should be kept as *NEMA* to activate the NEMA-phase controller module   |
 | **programID**  | id (string)                           | The id of the traffic light program.   |
-| **offset**     | int     | The offset value here will be overwritten by the param *offset* below|
+| **offset**     | int     | The offset value in seconds. Default to *0*. Only effective when the controller is in coordinated mode. The reference to the offset is always the end of the coordinated phases.
 
 ## <param\> Attributes
 
@@ -72,8 +71,7 @@ The following parameters are used to set the NEMA diagram:
 | **ring2**  | string    | The phase numbers in ring 2 seperated by comma (','). Fill *0* if a phase does not exist. Repeat the ring 1 phases of the side of barrier if that side of barrier does not have any phases.|
 | **barrierPhases**  | string    | One set of phases, seperated by comma (','), that need to end together. This defines a barrier. Usually phase 4 and 8, i.e., "4,8".|
 | **coordinate-mode**  | bool (true or false)    | Default to *false*. True if the controller is in coordinated mode.|
-| **coordinatePhases**  | string    | One set of phases, seperated by comma (','), that need to end together. This defines another barrier. If in coordinated mode, this set of phases are the coordinated phases. Usually phase 2 and 6, i.e., "2,6".|
-| **offset**  | double    | The offset value in seconds. Default to *0*. Only effective when the controller is in coordinated mode. The reference to the offset is always the end of the coordinated phases.|
+| **barrier2Phases**  | string    | One set of phases, seperated by comma (','), that need to end together. This defines another barrier. If in coordinated mode, this set of phases are the coordinated phases. Usually phase 2 and 6, i.e., "2,6".|
 |**whetherOutputState**  | bool (true or false)    | Whether record the signal phase change events. This could be used for generating Automated Traffic Signal Performance Measures (ATSPM).|
 |**show-detectors**  | bool (true or false)    | It controls whether generated detectors will be visible or hidden in sumo-gui. The default for all traffic lights can be set with option --tls.actuated.show-detectors. It is also possible to toggle this value from within the GUI by right-clicking on a traffic light.
 

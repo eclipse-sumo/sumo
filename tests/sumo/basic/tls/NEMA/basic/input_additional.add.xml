@@ -1,6 +1,6 @@
 
 <add>
-    <tlLogic id="2881" offset="0" programID="NEMA" type="NEMA">
+    <tlLogic id="2881" offset="10" programID="NEMA" type="NEMA">
         <param key="detector-length" value="20"/>
         <param key="detector-length-leftTurnLane" value="10"/>
         <param key="total-cycle-length" value="120"/>
@@ -9,7 +9,6 @@
         <param key="barrierPhases" value="4,4"/>
         <param key="coordinatePhases" value="2,6"/>
         <param key="coordinate-mode" value="true"/>
-        <param key="offset" value="10" />
         <param key="whetherOutputState" value="true"/>
 
         <phase duration="99" minDur="6"  maxDur="16" vehext="300" yellow="4" red="1" name="1" state="grrrrrrGGrrr"/>

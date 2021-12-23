@@ -283,16 +283,15 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         if (simpleTLLogic == nullptr) {
             return;
         }
-        const MSSimpleTrafficLightLogic::Phases& phases = simpleTLLogic->getPhases();
-        MSSimpleTrafficLightLogic::Phases::const_iterator j;
         myLastTime = 0;
         myBeginTime = 0;
-        for (j = phases.begin(); j != phases.end(); ++j) {
-            myPhases.push_back(*(*j));
-            myDurations.push_back((*j)->duration);
+        int idx = 0;
+        for (MSPhaseDefinition* const phase : simpleTLLogic->getPhases()) {
+            myPhases.push_back(*phase);
+            myDurations.push_back(phase->duration);
             myTimeInCycle.push_back(myLastTime);
-            myPhaseIndex.push_back(j - phases.begin());
-            myLastTime += (*j)->duration;
+            myPhaseIndex.push_back(idx++);
+            myLastTime += phase->duration;
         }
         if (myLastTime <= myBeginTime) {
             WRITE_ERROR("Overflow in time computation occurred.");
@@ -615,8 +614,8 @@ GUITLLogicPhasesTrackerWindow::loadSettings() {
     setWidth(MAX2(getApp()->reg().readIntEntry("TL_TRACKER", "width", 700), minSize));
     myBeginOffset->setValue(getApp()->reg().readIntEntry("TL_TRACKER", "timeRange", (int)myBeginOffset->getValue()));
     myTimeMode->setCurrentItem(getApp()->reg().readIntEntry("TL_TRACKER", "timeMode", myTimeMode->getCurrentItem()));
-    myGreenMode->setCheck(getApp()->reg().readIntEntry("TL_TRACKER", "greenMode", (int)(myGreenMode->getCheck() != FALSE)));
-    myIndexMode->setCheck(getApp()->reg().readIntEntry("TL_TRACKER", "indexMode", (int)(myIndexMode->getCheck() != FALSE)));
+    myGreenMode->setCheck((bool)getApp()->reg().readIntEntry("TL_TRACKER", "greenMode", (int)(myGreenMode->getCheck() != FALSE)));
+    myIndexMode->setCheck((bool)getApp()->reg().readIntEntry("TL_TRACKER", "indexMode", (int)(myIndexMode->getCheck() != FALSE)));
 }
 
 /****************************************************************************/

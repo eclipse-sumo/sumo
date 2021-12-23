@@ -6,3 +6,9 @@ pulsedTraffic
 
 # all flows (at B0 andC0) achieve full saturation
 saturatedTraffic
+
+# saturated traffic in west-east direction and no other traffic
+saturatedWE
+
+# saturated traffic in north-south direction and no other traffic
+saturatedNS
