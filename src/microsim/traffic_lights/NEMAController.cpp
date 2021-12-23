@@ -547,12 +547,21 @@ std::string NEMALogic::combineStates(std::string state1, std::string state2) {
         char ch1 = state1[i];
         char ch2 = state2[i];
 
+        // check through this order. 'G' overwrite 'g'.
         if (ch1 == 'G' || ch2 == 'G') {
             output += 'G';
         } else if (ch1 == 'g' || ch2 == 'g') {
             output += 'g';
+        } else if (ch1 == 's' || ch2 == 's') {
+            output += 's';
         } else if (ch1 == 'y' || ch2 == 'y') {
             output += 'y';
+        } else if (ch1 == 'u' || ch2 == 'u') {
+            output += 'u';
+        } else if (ch1 == 'O' || ch2 == 'O') {
+            output += 'O';
+        } else if (ch1 == 'o' || ch2 == 'o') {
+            output += 'o';
         } else {
             output += 'r';
         }
