@@ -1,0 +1,57 @@
+Index: sumo-1.11.0/docs/examples/runAll.py
+===================================================================
+--- sumo-1.11.0.orig/docs/examples/runAll.py
++++ sumo-1.11.0/docs/examples/runAll.py
+@@ -87,19 +87,19 @@ for d, p in [
+     (r"sumo/sublane_model", subprocess.Popen([join(SUMO_HOME, "bin", "sumo"), "--write-license", "--default.speeddev", "0", "--no-step-log", "--net-file=net.net.xml", "--routes=input_routes.rou.xml", "--lateral-resolution", "0.64", "--tripinfo-output", "tripinfos.xml", "--duration-log.statistics"], cwd=join(THIS_DIR, r"sumo/sublane_model"))),
+     (r"sumo/sublane_model", subprocess.Popen([join(SUMO_HOME, "bin", "sumo"), "--write-license", "--default.speeddev", "0", "--step-method.ballistic", "--no-step-log", "--net-file=net.net.xml", "--routes=input_routes.rou.xml", "--lateral-resolution", "0.64", "--tripinfo-output", "tripinfos.xml", "--duration-log.statistics"], cwd=join(THIS_DIR, r"sumo/sublane_model"))),
+     (r"sumo/model_railroad", subprocess.Popen([join(SUMO_HOME, "bin", "sumo"), "--write-license", "--default.speeddev", "0", "--railsignal-block-output", "railsignal_blocks.xml", "-c", "sumo.sumocfg", "-e", "3600"], cwd=join(THIS_DIR, r"sumo/model_railroad"))),
+-    (r"tools/dua-iterate", subprocess.Popen(["python", join(SUMO_HOME, "tools/assign/duaIterate.py"), "-n", "input_net.net.xml", "-t", "input_trips.trips.xml", "-l", "5"], cwd=join(THIS_DIR, r"tools/dua-iterate"))),
+-    (r"tools/flowrouter", subprocess.Popen(["python", join(SUMO_HOME, "tools/detector/flowrouter.py"), "-n", "input_net.net.xml", "-d", "input_detectors.det.xml", "-f", "input_flows.txt", "--verbose"], cwd=join(THIS_DIR, r"tools/flowrouter"))),
+-    (r"tools/traceExporter", subprocess.Popen(["python", join(SUMO_HOME, "tools/traceExporter.py"), "-i", "fcd.xml", "-n", "net.net.xml", "--ns2mobility-output", "mobilityfile.tcl"], cwd=join(THIS_DIR, r"tools/traceExporter"))),
+-    (r"tutorial/circles", subprocess.Popen(["python", "./runner.py"], cwd=join(THIS_DIR, r"../tutorial/circles"))),
+-    (r"tutorial/city_mobil", subprocess.Popen(["python", "./runner.py"], cwd=join(THIS_DIR, r"../tutorial/city_mobil"))),
+-    (r"tutorial/hello", subprocess.Popen(["python", "./runner.py"], cwd=join(THIS_DIR, r"../tutorial/hello"))),
+-    (r"tutorial/manhattan", subprocess.Popen(["python", "./runner.py"], cwd=join(THIS_DIR, r"../tutorial/manhattan"))),
+-    (r"tutorial/output_parsing", subprocess.Popen(["python", "./runner.py"], cwd=join(THIS_DIR, r"../tutorial/output_parsing"))),
+-    (r"tutorial/quickstart", subprocess.Popen(["python", "./runner.py"], cwd=join(THIS_DIR, r"../tutorial/quickstart"))),
+-    (r"tutorial/sumolympics", subprocess.Popen(["python", "./runner.py"], cwd=join(THIS_DIR, r"../tutorial/sumolympics"))),
+-    (r"tutorial/traci_pedestrian_crossing", subprocess.Popen(["python", "./runner.py", "--nogui"], cwd=join(THIS_DIR, r"../tutorial/traci_pedestrian_crossing"))),
+-    (r"tutorial/traci_taxi", subprocess.Popen(["python", "./runner.py"], cwd=join(THIS_DIR, r"../tutorial/traci_taxi"))),
+-    (r"tutorial/traci_tls", subprocess.Popen(["python", "./runner.py", "--nogui"], cwd=join(THIS_DIR, r"../tutorial/traci_tls"))),
++    (r"tools/dua-iterate", subprocess.Popen([sys.executable, join(SUMO_HOME, "tools/assign/duaIterate.py"), "-n", "input_net.net.xml", "-t", "input_trips.trips.xml", "-l", "5"], cwd=join(THIS_DIR, r"tools/dua-iterate"))),
++    (r"tools/flowrouter", subprocess.Popen([sys.executable, join(SUMO_HOME, "tools/detector/flowrouter.py"), "-n", "input_net.net.xml", "-d", "input_detectors.det.xml", "-f", "input_flows.txt", "--verbose"], cwd=join(THIS_DIR, r"tools/flowrouter"))),
++    (r"tools/traceExporter", subprocess.Popen([sys.executable, join(SUMO_HOME, "tools/traceExporter.py"), "-i", "fcd.xml", "-n", "net.net.xml", "--ns2mobility-output", "mobilityfile.tcl"], cwd=join(THIS_DIR, r"tools/traceExporter"))),
++    (r"tutorial/circles", subprocess.Popen([sys.executable, "./runner.py"], cwd=join(THIS_DIR, r"../tutorial/circles"))),
++    (r"tutorial/city_mobil", subprocess.Popen([sys.executable, "./runner.py"], cwd=join(THIS_DIR, r"../tutorial/city_mobil"))),
++    (r"tutorial/hello", subprocess.Popen([sys.executable, "./runner.py"], cwd=join(THIS_DIR, r"../tutorial/hello"))),
++    (r"tutorial/manhattan", subprocess.Popen([sys.executable, "./runner.py"], cwd=join(THIS_DIR, r"../tutorial/manhattan"))),
++    (r"tutorial/output_parsing", subprocess.Popen([sys.executable, "./runner.py"], cwd=join(THIS_DIR, r"../tutorial/output_parsing"))),
++    (r"tutorial/quickstart", subprocess.Popen([sys.executable, "./runner.py"], cwd=join(THIS_DIR, r"../tutorial/quickstart"))),
++    (r"tutorial/sumolympics", subprocess.Popen([sys.executable, "./runner.py"], cwd=join(THIS_DIR, r"../tutorial/sumolympics"))),
++    (r"tutorial/traci_pedestrian_crossing", subprocess.Popen([sys.executable, "./runner.py", "--nogui"], cwd=join(THIS_DIR, r"../tutorial/traci_pedestrian_crossing"))),
++    (r"tutorial/traci_taxi", subprocess.Popen([sys.executable, "./runner.py"], cwd=join(THIS_DIR, r"../tutorial/traci_taxi"))),
++    (r"tutorial/traci_tls", subprocess.Popen([sys.executable, "./runner.py", "--nogui"], cwd=join(THIS_DIR, r"../tutorial/traci_tls"))),
+ ]:
+     if p.wait() != 0:
+         print("Error: '%s' failed for '%s'!" % (" ".join(p.args), d))
+Index: sumo-1.11.0/docs/tutorial/city_mobil/runner.py
+===================================================================
+--- sumo-1.11.0.orig/docs/tutorial/city_mobil/runner.py
++++ sumo-1.11.0/docs/tutorial/city_mobil/runner.py
+@@ -20,10 +20,11 @@ from __future__ import absolute_import
+ from __future__ import print_function
+ 
+ import os
++import sys
+ import subprocess
+ 
+ os.chdir('data')
+-subprocess.call(["python", "createNet.py"])
+-subprocess.call(["python", "simpleManager.py", "-t"])
+-subprocess.call(["python", "agentManager.py", "-t"])
+-subprocess.call(["python", "createNetTaxi.py"])
++subprocess.call([sys.executable, "createNet.py"])
++subprocess.call([sys.executable, "simpleManager.py", "-t"])
++subprocess.call([sys.executable, "agentManager.py", "-t"])
++subprocess.call([sys.executable, "createNetTaxi.py"])

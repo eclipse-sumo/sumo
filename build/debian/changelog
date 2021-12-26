@@ -1,3 +1,9 @@
+sumo (1.11.0-4) focal; urgency=medium
+
+  * fixing example runner
+
+ -- Michael Behrisch <oss@behrisch.de>  Sun, 26 Dec 2021 10:43:24 +0100
+
 sumo (1.11.0-1) focal; urgency=medium
 
   * new upstream version
