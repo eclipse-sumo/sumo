@@ -434,9 +434,11 @@ MSVehicleControl::getVType(const std::string& id, SumoRNG* rng, bool readOnly) {
         }
         return it2->second->get(rng);
     }
-    if (id == DEFAULT_VTYPE_ID && !readOnly) {
+    if (id == DEFAULT_VTYPE_ID && !readOnly && myDefaultVTypeMayBeDeleted) {
+        it->second->check();
         myDefaultVTypeMayBeDeleted = false;
-    } else if (id == DEFAULT_PEDTYPE_ID && !readOnly) {
+    } else if (id == DEFAULT_PEDTYPE_ID && !readOnly && myDefaultPedTypeMayBeDeleted) {
+        it->second->check();
         myDefaultPedTypeMayBeDeleted = false;
     }
     return it->second;
