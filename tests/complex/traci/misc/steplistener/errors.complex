@@ -1,1 +1,1 @@
-Warning: Value of tau=0.1 in car following model 'carFollowing-Krauss' lower than simulation step size may cause collisions
+Warning: Value of tau=0.10 in vehicle type 'badDriver' lower than simulation step size may cause collisions.
