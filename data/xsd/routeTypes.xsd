@@ -676,6 +676,8 @@
                     <xsd:enumeration value="max"/>
                     <xsd:enumeration value="desired"/>
                     <xsd:enumeration value="speedLimit"/>
+                    <xsd:enumeration value="last"/>
+                    <xsd:enumeration value="avg"/>
                 </xsd:restriction>
             </xsd:simpleType> 
         </xsd:union>

@@ -8,7 +8,7 @@
     <tlLogic id="2881" offset="10" programID="NEMA" type="NEMA">
         <param key="detector-length" value="20"/>
         <param key="detector-length-leftTurnLane" value="10"/>
-        <param key="total-cycle-length" value="120"/>
+        <param key="cycle-length" value="120"/>
         <param key="ring1" value="0,4,1,2"/>
         <param key="ring2" value="0,4,0,6"/>
         <param key="barrierPhases" value="4,4"/>

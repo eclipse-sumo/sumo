@@ -587,6 +587,7 @@ private:
     ///        larger than the desired time headway.
     bool myWarnedActionStepLengthTauOnce;
     bool myWarnedActionStepLengthBallisticOnce;
+    bool myWarnedStepLengthTauOnce;
 
     /// @brief the running index
     const int myIndex;

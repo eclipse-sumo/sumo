@@ -1,5 +1,5 @@
-Warning: Value of tau=0.5 in car following model 'carFollowing-Krauss' lower than simulation step size may cause collisions
-Warning: Value of tau=0.5 in car following model 'carFollowing-Krauss' lower than simulation step size may cause collisions
+Warning: Value of tau=0.50 in vehicle type 'leader' lower than simulation step size may cause collisions.
+Warning: Value of tau=0.50 in vehicle type 'follower' lower than simulation step size may cause collisions.
 Warning: Vehicle 'follower.0'; collision with vehicle 'leader', lane='middle_0', gap=-0.03, time=39.00 stage=move.
 Warning: Vehicle 'follower.0' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=40.00.
 Warning: Vehicle 'follower.1' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=40.00.

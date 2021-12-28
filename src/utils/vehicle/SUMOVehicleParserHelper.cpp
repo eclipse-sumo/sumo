@@ -1139,14 +1139,6 @@ SUMOVehicleParserHelper::parseCFMParams(SUMOVTypeParameter* into, const SumoXMLT
                     default:
                         break;
                 }
-                // special check for TAU attribute
-                if (it == SUMO_ATTR_TAU) {
-                    // check tau in time format
-                    if ((string2time(parsedCFMAttribute) < DELTA_T) && gSimulation) {
-                        WRITE_WARNING("Value of tau=" + parsedCFMAttribute + " in car following model '" +
-                                      toString(into->cfModel) + "' lower than simulation step size may cause collisions");
-                    }
-                }
                 // add parsedCFMAttribute to cfParameter
                 into->cfParameter[it] = parsedCFMAttribute;
             }

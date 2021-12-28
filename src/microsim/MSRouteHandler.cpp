@@ -844,6 +844,7 @@ MSRouteHandler::addFlowTransportable(SUMOTime depart, MSVehicleType* type, const
 void
 MSRouteHandler::closeVType() {
     MSVehicleType* vehType = MSVehicleType::build(*myCurrentVType);
+    vehType->check();
     if (!MSNet::getInstance()->getVehicleControl().addVType(vehType)) {
         const std::string id = vehType->getID();
         delete vehType;

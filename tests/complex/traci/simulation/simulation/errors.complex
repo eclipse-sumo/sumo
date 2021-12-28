@@ -1,4 +1,4 @@
-Warning: Value of tau=0.1 in car following model 'carFollowing-Krauss' lower than simulation step size may cause collisions
+Warning: Value of tau=0.10 in vehicle type 'badDriver' lower than simulation step size may cause collisions.
 Error: Answered with error to command 0xcb: Setting simulation parameter 'foo.bla' is not supported for object id 'foo'. Use empty id for generic network parameters
 Error: Answered with error to command 0xab: Simulation parameter 'foo.bla' is not supported for object id 'foo'. Use empty id for generic network parameters
 Error: Answered with error to command 0xab: Invalid chargingStation parameter 'bla'

@@ -50,3 +50,11 @@ speed_desired
 # departSpeed="speedLimit" 
 # (should not lower speed)
 speed_speedLimit
+
+# departSpeed="last" 
+# should use speed of the last vehicle (increases flow due to homegeneous insertion speeds)
+speed_last
+
+# departSpeed="avg" 
+# should use the avg speed on the lane (increases flow due to homegeneous insertion speeds)
+speed_avg

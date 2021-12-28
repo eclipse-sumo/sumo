@@ -206,7 +206,11 @@ enum class DepartSpeedDefinition {
     /// @brief The maximum lane speed is used (speedLimit * speedFactor)
     DESIRED,
     /// @brief The maximum lane speed is used (speedLimit)
-    LIMIT
+    LIMIT,
+    /// @brief The speed of the last vehicle. Fallback to DepartSpeedDefinition::DESIRED if there is no vehicle on the departLane yet.
+    LAST,
+    /// @brief The average speed on the lane. Fallback to DepartSpeedDefinition::DESIRED if there is no vehicle on the departLane yet.
+    AVG
 };
 
 

@@ -63,6 +63,7 @@ MSVehicleType::MSVehicleType(const SUMOVTypeParameter& parameter) :
     myParameter(parameter),
     myWarnedActionStepLengthTauOnce(false),
     myWarnedActionStepLengthBallisticOnce(false),
+    myWarnedStepLengthTauOnce(false),
     myIndex(myNextIndex++),
     myCarFollowModel(nullptr),
     myOriginalType(nullptr) {
@@ -354,7 +355,6 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
     }
     // init Rail visualization parameters
     vtype->myParameter.initRailVisualizationParameters();
-    vtype->check();
     return vtype;
 }
 
@@ -414,6 +414,12 @@ MSVehicleType::check() {
         }
         WRITE_WARNINGF("Action step length '%' is used for vehicle type '%' but step-method.ballistic was not set." + warning2
                        , STEPS2TIME(myParameter.actionStepLength), getID())
+    }
+    if (!myWarnedStepLengthTauOnce && TS > getCarFollowModel().getHeadwayTime()
+            && !MSGlobals::gUseMesoSim) {
+        myWarnedStepLengthTauOnce = true;
+        WRITE_WARNINGF("Value of tau=% in vehicle type '%' lower than simulation step size may cause collisions.",
+                       getCarFollowModel().getHeadwayTime(), getID());
     }
 }
 

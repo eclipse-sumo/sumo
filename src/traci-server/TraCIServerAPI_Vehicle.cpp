@@ -956,6 +956,10 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     departSpeed = "desired";
                 } else if (-departSpeedCode == (int)DepartSpeedDefinition::LIMIT) {
                     departSpeed = "speedLimit";
+                } else if (-departSpeedCode == (int)DepartSpeedDefinition::LAST) {
+                    departSpeed = "last";
+                } else if (-departSpeedCode == (int)DepartSpeedDefinition::AVG) {
+                    departSpeed = "avg";
                 }
 
                 int departLaneCode;

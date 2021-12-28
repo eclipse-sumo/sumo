@@ -215,10 +215,10 @@ for d, p in [
                 if app == "netgen":
                     call = ['join(SUMO_HOME, "bin", "netgenerate")'] + ['"%s"' % a for a in appOptions]
                 elif app == "tools":
-                    call = ['"python"'] + ['"%s"' % a for a in appOptions]
+                    call = ['sys.executable'] + ['"%s"' % a for a in appOptions]
                     call[1] = 'join(SUMO_HOME, "%s")' % appOptions[0]
                 elif app == "complex":
-                    call = ['"python"']
+                    call = ['sys.executable']
                     for a in appOptions:
                         if a.endswith(".py"):
                             if os.path.exists(join(testPath, os.path.basename(a))):
