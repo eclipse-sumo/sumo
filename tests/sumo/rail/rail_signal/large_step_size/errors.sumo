@@ -1,0 +1,2 @@
+Warning: Value of tau=1.00 in vehicle type 'railFast' lower than simulation step size may cause collisions.
+Warning: Value of tau=1.00 in vehicle type 'railSlow' lower than simulation step size may cause collisions.
