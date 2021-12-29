@@ -265,7 +265,11 @@ protected:
     double yellowTime[8] {};
     double redTime[8] {};
     double phaseStartTime[8] {};
+    double forceOffs[8] {};
+    double phaseCutOffs[8] {};
     double phaseExpectedDuration[8] {};
+
+    bool fixForceOff;
 
     double phaseEndTimeR1, phaseEndTimeR2;
     bool wait4R1Green, wait4R2Green;

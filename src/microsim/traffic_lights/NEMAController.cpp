@@ -73,6 +73,7 @@ NEMALogic::NEMALogic(MSTLLogicControl& tlcontrol,
     ring2 = getParameter("ring2", "");
     barriers = getParameter("barrierPhases", "");
     coordinates = getParameter("coordinatePhases", getParameter("barrier2Phases",""));
+    fixForceOff = StringUtils::toBool(getParameter("fixForceOff", "false"));
     offset = STEPS2TIME(_offset);
     myNextOffset = offset;
     whetherOutputState = StringUtils::toBool(getParameter("whetherOutputState", "false"));
@@ -89,7 +90,9 @@ NEMALogic::NEMALogic(MSTLLogicControl& tlcontrol,
     std::cout << "coordinates = " << coordinates << std::endl;
     std::cout << "offset = " << offset << std::endl;
     std::cout << "whetherOutputState = " << whetherOutputState << std::endl;
+    std::cout << "myShowDetectors = " << myShowDetectors << std::endl;
     std::cout << "coordinateMode = " << coordinateMode << std::endl;
+    std::cout << "fixForceOff = " << fixForceOff << std::endl;
     std::cout << "You reach the end of constructor" << std::endl;
     std::cout << "****************************************\n";
 #endif
@@ -149,6 +152,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
 #endif
     }
 
+
 #ifdef DEBUG_NEMA
     //print to check the phase2ControllerLanesMap
     for (auto item : phase2ControllerLanesMap) {
@@ -164,6 +168,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
     //init rings
     rings.push_back(readParaFromString(ring1));
     rings.push_back(readParaFromString(ring2));
+
 
 
 #ifdef DEBUG_NEMA
@@ -194,8 +199,9 @@ NEMALogic::init(NLDetectorBuilder& nb) {
 
     for (int i = 0; (int)rings[0].size(); i++) {
         if (rings[0][i] != 0) {
-            // std::cout << i << std::endl;
-            // std::cout << "rings[0][i] = " << rings[0][i] << std::endl;
+            #ifdef DEBUG_NEMA
+            std::cout << "rings[0]["<<i<<"] = " << rings[0][i] << std::endl;
+            #endif
             activeRing1Index = i;
             activeRing1Phase = rings[0][activeRing1Index];
             break;
@@ -203,13 +209,97 @@ NEMALogic::init(NLDetectorBuilder& nb) {
     }
     for (int i = 0; (int)rings[1].size(); i++) {
         if (rings[1][i] != 0) {
-            // std::cout << i << std::endl;
-            // std::cout << "rings[0][i] = " << rings[1][i] << std::endl;
+            #ifdef DEBUG_NEMA
+            std::cout << "rings[1]["<<i<<"] = " << rings[1][i] << std::endl;
+            #endif
             activeRing2Index = i;
             activeRing2Phase = rings[1][activeRing2Index];
             break;
         }
     }
+    int initialIndexRing [2] = { activeRing1Index, activeRing2Index};
+    // calculate force offs
+    for (int ringNumber = 0; ringNumber<2;ringNumber++){
+        int length = (int)rings[ringNumber].size();
+        int i = initialIndexRing[ringNumber];
+        int aPhaseNumber = rings[ringNumber][i];
+        int aPhaseIndex = aPhaseNumber -1;
+        int nPhaseIndex = aPhaseIndex; //next phase
+        int nPhaseNumber = aPhaseNumber;
+        forceOffs[aPhaseNumber-1]=maxGreen[aPhaseNumber-1];
+
+        #ifdef DEBUG_NEMA
+        std::cout << "Phase  "<<aPhaseNumber <<": force off "<<forceOffs[aPhaseNumber-1]<<std::endl;
+        #endif
+        for (int i = initialIndexRing[ringNumber]+1; i < length; i++) {
+            nPhaseNumber = rings[ringNumber][i];
+            nPhaseIndex = nPhaseNumber -1;
+            // std::cout <<" ring "<<ringNumber <<" i: "<<i<< " phase: "<<nPhaseNumber<< std::endl;
+            if (nPhaseNumber != 0){
+                forceOffs[nPhaseIndex] = forceOffs[aPhaseIndex] + maxGreen[nPhaseIndex] + yellowTime[aPhaseIndex]+redTime[aPhaseIndex];
+                aPhaseNumber = nPhaseNumber;
+                aPhaseIndex = nPhaseIndex;
+
+                #ifdef DEBUG_NEMA
+                std::cout << "- Phase "<<aPhaseNumber <<": force off "<<forceOffs[aPhaseIndex]<<std::endl;
+                #endif
+            }
+        }
+    }
+
+    // calculate initial phases based on in cycle clock
+    for (int ringNumber = 0; ringNumber<2;ringNumber++){
+        int length = (int)rings[ringNumber].size();
+        for (int i = initialIndexRing[ringNumber]; i < length; i++) {
+            int aPhaseIndex = rings[ringNumber][i]-1;
+            if (aPhaseIndex != -1){
+                phaseCutOffs[aPhaseIndex] = forceOffs[aPhaseIndex]-minGreen[aPhaseIndex];
+                #ifdef DEBUG_NEMA
+                std::cout << "Phase "<<aPhaseIndex+1<<" cut off is "<<phaseCutOffs[aPhaseIndex]<<std::endl;
+                #endif
+            }
+        }
+    }
+    
+    // find the current in cycle time
+    SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
+    double currentTimeInSecond = STEPS2TIME(now);
+    double currentInCycleTime = ModeCycle(currentTimeInSecond - cycleRefPoint - offset, myCycleLength);
+
+    // find the initial phases
+    for (int ringNumber = 0; ringNumber<2;ringNumber++){
+        int length = (int)rings[ringNumber].size();
+        int aPhaseIndex;
+        bool found=false;
+        for (int i = initialIndexRing[ringNumber]; i < length; i++) {
+            aPhaseIndex = rings[ringNumber][i]-1;
+            if (aPhaseIndex != -1){
+                if (currentInCycleTime<phaseCutOffs[aPhaseIndex]){
+                    #ifdef DEBUG_NEMA
+                    std::cout<<"current in cycle time "<<currentInCycleTime<<" phase: "<<aPhaseIndex<<std::endl;
+                    #endif
+                    found = true;
+                    break;
+                }
+            }
+        }
+        if (!found){
+            aPhaseIndex =rings[ringNumber][initialIndexRing[ringNumber]]-1; // if the break didn't get triggered, go back to the beginning.
+        }
+        #ifdef DEBUG_NEMA
+        std::cout<<"current in cycle time "<<currentInCycleTime<<" ring "<<ringNumber<< " aphase: "<<aPhaseIndex+1<<std::endl;
+        #endif
+        if (ringNumber == 0){
+            activeRing1Index = aPhaseIndex;
+            activeRing1Phase = activeRing1Index + 1;
+        }
+        else{
+            activeRing2Index = aPhaseIndex;
+            activeRing2Phase = activeRing2Index + 1;
+        }
+    }
+
+
 
 #ifdef DEBUG_NEMA
     //print to check the rings and barriers active phase
@@ -605,28 +695,53 @@ NEMALogic::NEMA_control() {
     //controller starts
     SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
     double currentTimeInSecond = STEPS2TIME(now);
+
+    //I didn't use getTimeInCycle(). This is because the cycle reference point may change in the future.
+    double currentInCycleTime = ModeCycle(currentTimeInSecond - cycleRefPoint - offset, myCycleLength);
+    #ifdef DEBUG_NEMA
+    //print to check
+    std::cout << "current time in cycle:\t"<< currentInCycleTime << "\t"<< "phases: "<<R1State<<'\t'<<R2State<< std::endl;
+    #endif
     //int R1Phase = activeRing1Phase;
     int R1Phase = R1State;
     int R1Index = R1Phase - 1;
 
     double durationR1 = currentTimeInSecond - phaseStartTime[R1Index];
+    double phaseStartTimeInCycleR1 = ModeCycle(phaseStartTime[R1Index] - cycleRefPoint - offset, myCycleLength);
     //ensure minGreen for each phase
     phaseExpectedDuration[R1Index] = MAX2(phaseExpectedDuration[R1Index], minGreen[R1Index]);
     if (R1Phase != r1coordinatePhase) {
         if (isDetectorActivated(R1Phase)) {
             phaseExpectedDuration[R1Index] = MAX2(phaseExpectedDuration[R1Index], durationR1 + vehExt[R1Index]);
-            phaseExpectedDuration[R1Index] = MIN2(phaseExpectedDuration[R1Index], maxGreen[R1Index]);
+            if(fixForceOff){
+                phaseExpectedDuration[R1Index] = MIN2(phaseExpectedDuration[R1Index], ModeCycle(forceOffs[R1Index]-phaseStartTimeInCycleR1,myCycleLength));
+                #ifdef DEBUG_NEMA
+                std::cout<<"R1 phase "<<R1State<<" forceOff "<<forceOffs[R1Index]<<"\tphase start "<<phaseStartTimeInCycleR1<<std::endl;
+                #endif
+            }
+            else{
+                phaseExpectedDuration[R1Index] = MIN2(phaseExpectedDuration[R1Index], maxGreen[R1Index]);
+            }
         }
     }
 
     int R2Phase = R2State;
     int R2Index = R2Phase - 1;
     double durationR2 = currentTimeInSecond - phaseStartTime[R2Index];
+    double phaseStartTimeInCycleR2 = ModeCycle(phaseStartTime[R2Index] - cycleRefPoint - offset, myCycleLength);
     phaseExpectedDuration[R2Index] = MAX2(phaseExpectedDuration[R2Index], minGreen[R2Index]);
     if (R2Phase != r2coordinatePhase && R2Phase >= 5) {
         if (isDetectorActivated(R2Phase)) {
             phaseExpectedDuration[R2Index] = MAX2(phaseExpectedDuration[R2Index], durationR2 + vehExt[R2Index]);
-            phaseExpectedDuration[R2Index] = MIN2(phaseExpectedDuration[R2Index], maxGreen[R2Index]);
+            if (fixForceOff){
+                phaseExpectedDuration[R2Index] = MIN2(phaseExpectedDuration[R2Index], ModeCycle(forceOffs[R2Index]-phaseStartTimeInCycleR2,myCycleLength));
+                #ifdef DEBUG_NEMA
+                std::cout<<"R2 phase "<<R1State<<" forceOff "<<forceOffs[R2Index]<<"\tphase start "<<phaseStartTimeInCycleR2<<std::endl;
+                #endif
+            }
+            else{
+                phaseExpectedDuration[R2Index] = MIN2(phaseExpectedDuration[R2Index], maxGreen[R2Index]);
+            }
         }
     }
 
@@ -780,7 +895,7 @@ int NEMALogic::nextPhase(std::vector<int> ring, int currentPhase) {
 //b should be the base of mode
 double NEMALogic::ModeCycle(double a, double b) {
     double c = a - b;
-    while (c > b) {
+    while (c >= b) {
         c = c - b;
     }
     while (c < 0) { //should be minimum green (or may be  not)
