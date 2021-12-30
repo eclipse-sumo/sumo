@@ -168,7 +168,7 @@ For the entire ChargingStation:
 | Name               | Type   | Description                                                 |
 | ------------------ | ------ | ----------------------------------------------------------- |
 | id                 | string | ChargingStation ID                                          |
-| totalEnergyCharged | float  | Total energy charged in W during the entire simulation      |
+| totalEnergyCharged | float  | Total energy charged in Wh during the entire simulation      |
 | chargingSteps      | int    | Number of steps in which charginStation was charging energy |
 
 For the current charging vehicle
@@ -177,7 +177,7 @@ For the current charging vehicle
 | ----------------------------- | ------ | ------------------------------------------------------------- |
 | id                            | string | ID of vehicle that is charging in these charging stop         |
 | type                          | string | type of vehicle                                               |
-| totalEnergyChargedIntoVehicle | double | Energy charged during these charging stop                     |
+| totalEnergyChargedIntoVehicle | double | Energy charged (in Wh) during these charging stop                     |
 | chargingBegin                 | float  | TimeStep in which vehicle starts with the charge (in seconds) |
 | chargingEnd                   | float  | TimeStep in which vehicle ends with the charge (in seconds)   |
 
