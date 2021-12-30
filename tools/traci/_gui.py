@@ -136,7 +136,7 @@ class GuiDomain(Domain):
         return self._getUniversal(tc.VAR_SELECT, objID, "s", objType)
 
     def toggleSelection(self, objID, objType="vehicle"):
-        """toggleSelection(string, string) -> int
+        """toggleSelection(string, string) -> None
         Toggle selection status for the object of the given type and id
         """
         self._setCmd(tc.VAR_SELECT, objID, "s", objType)
