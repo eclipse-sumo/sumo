@@ -235,7 +235,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                 const int logicSize = logic->getLogicSize();
                 std::vector<int> tlIndex;
                 for (int u = 0; u < logicSize; u++) {
-                    const MSLogicJunction::LinkBits& response =  logic->getResponseFor(u);
+                    const MSLogicJunction::LinkBits& response = logic->getResponseFor(u);
                     for (int v = 0; v < logicSize; v++) {
                         if (response.test(v)) {
                             if (logic->getResponseFor(v).test(u)) {

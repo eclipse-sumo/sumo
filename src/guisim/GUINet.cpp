@@ -142,11 +142,9 @@ GUINet::getContainerControl() {
 
 void
 GUINet::initTLMap() {
-    // get the list of loaded tl-logics
-    const std::vector<MSTrafficLightLogic*>& logics = getTLSControl().getAllLogics();
-    // go through the logics
-    for (std::vector<MSTrafficLightLogic*>::const_iterator i = logics.begin(); i != logics.end(); ++i) {
-        createTLWrapper(*i);
+    // go through the loaded tl-logics
+    for (MSTrafficLightLogic* const tll : getTLSControl().getAllLogics()) {
+        createTLWrapper(tll);
     }
 }
 
@@ -174,7 +172,6 @@ GUINet::createTLWrapper(MSTrafficLightLogic* tll) {
     }
     myGrid.addAdditionalGLObject(tllw);
     myLogics2Wrapper[tll] = tllw;
-    return;
 }
 
 
