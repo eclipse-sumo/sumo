@@ -558,8 +558,8 @@ public:
 
     /** @brief Returns the maximum next velocity for stopping within gap
      * @param[in] gap The (netto) distance to the desired stopping point
-     * @param[in] currentSpeed The current speed of the ego vehicle
      * @param[in] decel The desired deceleration rate
+     * @param[in] currentSpeed The current speed of the ego vehicle
      * @param[in] onInsertion Indicator whether the call is triggered during vehicle insertion
      * @param[in] headway The desired time headway to be included in the calculations (default argument -1 induces the use of myHeadway)
      */
@@ -570,8 +570,10 @@ public:
      * when using the semi-implicit Euler update
      * @param[in] gap The (netto) distance to the LEADER
      * @param[in] decel The desired deceleration rate
+     * @param[in] onInsertion Indicator whether the call is triggered during vehicle insertion
+     * @param[in] headway The desired time headway to be included in the calculations (-1 induces the use of myHeadway)
      */
-    double maximumSafeStopSpeedEuler(double gap, double decel, double headway = -1) const;
+    double maximumSafeStopSpeedEuler(double gap, double decel, bool onInsertion, double headway) const;
 
 
     /** @brief Returns the maximum next velocity for stopping within gap

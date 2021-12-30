@@ -713,12 +713,12 @@ MSCFModel::estimateSpeedAfterDistance(const double dist, const double v, const d
 
 
 double
-MSCFModel::maximumSafeStopSpeed(double g /*gap*/, double decel, double v /*currentSpeed*/, bool onInsertion, double headway) const {
+MSCFModel::maximumSafeStopSpeed(double gap, double decel, double currentSpeed, bool onInsertion, double headway) const {
     double vsafe;
     if (MSGlobals::gSemiImplicitEulerUpdate) {
-        vsafe = maximumSafeStopSpeedEuler(g, decel, headway);
+        vsafe = maximumSafeStopSpeedEuler(gap, decel, onInsertion, headway);
     } else {
-        vsafe = maximumSafeStopSpeedBallistic(g, decel, v, onInsertion, headway);
+        vsafe = maximumSafeStopSpeedBallistic(gap, decel, currentSpeed, onInsertion, headway);
     }
 
 //    if (myDecel != myEmergencyDecel) {
@@ -763,16 +763,12 @@ MSCFModel::maximumSafeStopSpeed(double g /*gap*/, double decel, double v /*curre
 
 
 double
-MSCFModel::maximumSafeStopSpeedEuler(double gap, double decel, double headway) const {
-    gap -= NUMERICAL_EPS; // lots of code relies on some slack XXX: it shouldn't...
-    if (gap <= 0) {
-        return 0;
-    }
-    const double g = gap;
+MSCFModel::maximumSafeStopSpeedEuler(double gap, double decel, bool /* onInsertion */, double headway) const {
+    // decrease gap slightly (to avoid passing end of lane by values of magnitude ~1e-12, when exact stop is required)
+    const double g = MAX2(0., gap - NUMERICAL_EPS);
     const double b = ACCEL2SPEED(decel);
     const double t = headway >= 0 ? headway : myHeadwayTime;
     const double s = TS;
-
 
     // h = the distance that would be covered if it were possible to stop
     // exactly after gap and decelerate with b every simulation step
@@ -787,13 +783,14 @@ MSCFModel::maximumSafeStopSpeedEuler(double gap, double decel, double headway) c
     const double x = n * b + r;
     assert(x >= 0);
     return x;
+//    return onInsertion ? x + b: x; // see #2574
 }
 
 
 double
-MSCFModel::maximumSafeStopSpeedBallistic(double g /*gap*/, double decel, double v /*currentSpeed*/, bool onInsertion, double headway) const {
+MSCFModel::maximumSafeStopSpeedBallistic(double gap, double decel, double currentSpeed, bool onInsertion, double headway) const {
     // decrease gap slightly (to avoid passing end of lane by values of magnitude ~1e-12, when exact stop is required)
-    g = MAX2(0., g - NUMERICAL_EPS);
+    const double g = MAX2(0., gap - NUMERICAL_EPS);
     headway = headway >= 0 ? headway : myHeadwayTime;
 
     // (Leo) Note that in contrast to the Euler update, for the ballistic update
@@ -820,7 +817,7 @@ MSCFModel::maximumSafeStopSpeedBallistic(double g /*gap*/, double decel, double 
     // still allows us to stop in time.
 
     const double tau = headway == 0 ? TS : headway;
-    const double v0 = MAX2(0., v);
+    const double v0 = MAX2(0., currentSpeed);
     // We first consider the case that a stop has to take place within time tau
     if (v0 * tau >= 2 * g) {
         if (g == 0.) {
