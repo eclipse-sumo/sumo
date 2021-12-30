@@ -838,7 +838,7 @@ MSNet::clearState(const SUMOTime step) {
         }
     }
     myInserter->clearState();
-    myVehicleControl->clearState();
+    myVehicleControl->clearState(true);
     MSVehicleTransfer::getInstance()->clearState();
     MSRoute::dict_clearState(); // delete all routes after vehicles are deleted
     myLogics->clearState();

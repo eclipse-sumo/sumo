@@ -427,6 +427,7 @@ extern const std::string DEFAULT_PEDTYPE_ID;
 extern const std::string DEFAULT_BIKETYPE_ID;
 extern const std::string DEFAULT_CONTAINERTYPE_ID;
 extern const std::string DEFAULT_TAXITYPE_ID;
+extern const std::set<std::string> DEFAULT_VTYPES;
 
 extern const double DEFAULT_VEH_PROB; // !!! does this belong here?
 

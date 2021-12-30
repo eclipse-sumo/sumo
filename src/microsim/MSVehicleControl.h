@@ -80,9 +80,6 @@ public:
     /// @brief Destructor
     virtual ~MSVehicleControl();
 
-    /// @brief create default types
-    void initDefaultTypes();
-
     /// @name Vehicle creation
     /// @{
 
@@ -493,7 +490,7 @@ public:
     void saveState(OutputDevice& out);
 
     /** @brief Remove all vehicles before quick-loading state */
-    void clearState();
+    void clearState(const bool reinit);
     /// @}
 
     /// @brief discount vehicles that were removed during state loading
@@ -531,6 +528,9 @@ public:
     }
 
 private:
+    /// @brief create default types
+    void initDefaultTypes();
+
     /** @brief Checks whether the vehicle type (distribution) may be added
      *
      * This method checks also whether the default type may still be replaced
@@ -623,20 +623,8 @@ private:
     /// @brief Inverse lookup from vehicle type to distributions it is a member of
     std::map<std::string, std::set<std::string>> myVTypeToDist;
 
-    /// @brief Whether the default vehicle type was already used or can still be replaced
-    bool myDefaultVTypeMayBeDeleted;
-
-    /// @brief Whether the default pedestrian type was already used or can still be replaced
-    bool myDefaultPedTypeMayBeDeleted;
-
-    /// @brief Whether the default container type was already used or can still be replaced
-    bool myDefaultContainerTypeMayBeDeleted;
-
-    /// @brief Whether the default bicycle type was already used or can still be replaced
-    bool myDefaultBikeTypeMayBeDeleted;
-
-    /// @brief Whether the default taxi type was already used or can still be replaced
-    bool myDefaultTaxiTypeMayBeDeleted;
+    /// @brief the default vehicle types which may still be replaced
+    std::set<std::string> myReplaceableDefaultVTypes;
 
     /// the number of vehicles waiting for persons or containers contained in myWaiting which can only continue by being triggered
     int myWaitingForTransportable;
@@ -662,10 +650,10 @@ private:
 
 private:
     /// @brief invalidated copy constructor
-    MSVehicleControl(const MSVehicleControl& s);
+    MSVehicleControl(const MSVehicleControl& s) = delete;
 
     /// @brief invalidated assignment operator
-    MSVehicleControl& operator=(const MSVehicleControl& s);
+    MSVehicleControl& operator=(const MSVehicleControl& s) = delete;
 
 
 };
