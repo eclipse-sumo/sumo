@@ -765,7 +765,10 @@ MSCFModel::maximumSafeStopSpeed(double gap, double decel, double currentSpeed, b
 double
 MSCFModel::maximumSafeStopSpeedEuler(double gap, double decel, bool /* onInsertion */, double headway) const {
     // decrease gap slightly (to avoid passing end of lane by values of magnitude ~1e-12, when exact stop is required)
-    const double g = MAX2(0., gap - NUMERICAL_EPS);
+    const double g = gap - NUMERICAL_EPS;
+    if (g < 0.) {
+        return 0.;
+    }
     const double b = ACCEL2SPEED(decel);
     const double t = headway >= 0 ? headway : myHeadwayTime;
     const double s = TS;
