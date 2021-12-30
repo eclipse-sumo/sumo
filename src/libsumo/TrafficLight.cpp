@@ -687,6 +687,7 @@ TrafficLight::setProgramLogic(const std::string& tlsID, const TraCILogic& logic)
         // XXX pass GUIDetectorBuilder when running with gui
         NLDetectorBuilder db(*MSNet::getInstance());
         tlLogic->init(db);
+        MSNet::getInstance()->createTLWrapper(tlLogic);
     } else {
         static_cast<MSSimpleTrafficLightLogic*>(vars.getLogic(logic.programID))->setPhases(phases, logic.currentPhaseIndex);
     }
