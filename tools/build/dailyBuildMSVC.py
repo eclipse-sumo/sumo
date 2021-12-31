@@ -194,7 +194,7 @@ for platform in ["x64"]:
                 shutil.copytree(os.path.join(SUMO_HOME, "docs"), installDir)
                 shutil.copy(os.path.join(buildDir, "src", "version.h"), os.path.join(installDir, "include"))
                 status.printLog("Creating sumo.zip.", log)
-                shutil.make_archive(binaryZip, 'zip', installDir)
+                shutil.make_archive(binaryZip, 'zip', buildDir, installBase)
                 shutil.copy(binaryZip, options.remoteDir)
                 if options.suffix == "":
                     # installers only for the vanilla build
