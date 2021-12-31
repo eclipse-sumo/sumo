@@ -188,7 +188,7 @@ for platform in ["x64"]:
         if ret == 0:
             installDir = glob.glob(os.path.join(buildDir, "sumo-*"))[0]
             installBase = os.path.basename(installDir)
-            binaryZip = os.path.join(options.remote_dir, "%s-%s%s.zip" % (installBase, plat, options.suffix))
+            binaryZip = os.path.join(options.remoteDir, "sumo-%s%s-%s.zip" % (plat, options.suffix, installBase[5:]))
             try:
                 for f in (glob.glob(os.path.join(SUMO_HOME, "*.md")) +
                           [os.path.join(SUMO_HOME, n) for n in ("AUTHORS", "ChangeLog", "LICENSE")]):
@@ -221,7 +221,7 @@ for platform in ["x64"]:
             if ret == 0:
                 status.printLog("Creating sumoDebug.zip.", debugLog)
                 try:
-                    with zipfile.ZipFile(binaryZip.replace(".zip", "Debug.zip"), 'w', zipfile.ZIP_DEFLATED) as zipf:
+                    with zipfile.ZipFile(binaryZip.replace(plat, plat + "Debug"), 'w', zipfile.ZIP_DEFLATED) as zipf:
                         for ext in ("*D.exe", "*.dll", "*D.pdb"):
                             for f in glob.glob(os.path.join(SUMO_HOME, "bin", ext)):
                                 zipf.write(f, os.path.join(installBase, "bin", os.path.basename(f)))
