@@ -74,17 +74,15 @@ def runTests(options, env, gitrev, log, debugSuffix=""):
     if not options.tests:
         return
     prefix = env["FILEPREFIX"] + debugSuffix
-    env["SUMO_BATCH_RESULT"] = os.path.join(
-        options.rootDir, prefix + "batch_result")
+    env["SUMO_BATCH_RESULT"] = os.path.join(options.rootDir, prefix + "batch_result")
     env["SUMO_REPORT"] = os.path.join(options.remoteDir, prefix + "report")
-    env["TEXTTEST_TMP"] = os.path.join(
-        options.rootDir, prefix + "texttesttmp")
-    env["TEXTTEST_HOME"] = os.path.join(options.rootDir, options.testsDir)
+    env["TEXTTEST_TMP"] = os.path.join(options.rootDir, prefix + "texttesttmp")
+    env["TEXTTEST_HOME"] = os.path.join(SUMO_HOME, "tests")
     shutil.rmtree(env["TEXTTEST_TMP"], True)
     if not os.path.exists(env["SUMO_REPORT"]):
         os.makedirs(env["SUMO_REPORT"])
     for name in BINARIES:
-        binary = os.path.join(options.rootDir, options.binDir, name + debugSuffix + ".exe")
+        binary = os.path.join(SUMO_HOME, "bin", name + debugSuffix + ".exe")
         if name == "sumo-gui":
             if os.path.exists(binary):
                 env["GUISIM_BINARY"] = binary
@@ -188,7 +186,7 @@ for platform in ["x64"]:
         if ret == 0:
             installDir = glob.glob(os.path.join(buildDir, "sumo-*"))[0]
             installBase = os.path.basename(installDir)
-            binaryZip = os.path.join(options.remoteDir, "sumo-%s%s-%s.zip" % (plat, options.suffix, installBase[5:]))
+            binaryZip = os.path.join(buildDir, "sumo-%s%s-%s.zip" % (plat, options.suffix, installBase[5:]))
             try:
                 for f in (glob.glob(os.path.join(SUMO_HOME, "*.md")) +
                           [os.path.join(SUMO_HOME, n) for n in ("AUTHORS", "ChangeLog", "LICENSE")]):
@@ -197,10 +195,12 @@ for platform in ["x64"]:
                 shutil.copy(os.path.join(buildDir, "src", "version.h"), os.path.join(installDir, "include"))
                 status.printLog("Creating sumo.zip.", log)
                 shutil.make_archive(binaryZip, 'zip', installDir)
+                shutil.copy(binaryZip, options.remoteDir)
                 if options.suffix == "":
                     # installers only for the vanilla build
                     status.printLog("Creating sumo.msi.", log)
                     wix.buildMSI(binaryZip, binaryZip.replace(".zip", ".msi"), log=log)
+                    shutil.copy(binaryZip.replace(".zip", ".msi"), options.remoteDir)
             except Exception as ziperr:
                 status.printLog("Warning: Could not zip to %s (%s)!" % (binaryZip, ziperr), log)
         status.printLog("Creating sumo-game.zip.", log)
