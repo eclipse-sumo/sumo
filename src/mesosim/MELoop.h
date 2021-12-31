@@ -23,6 +23,7 @@
 #include <vector>
 #include <map>
 #include <utils/common/SUMOTime.h>
+#include <microsim/MSMoveReminder.h>
 
 
 // ===========================================================================
