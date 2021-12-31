@@ -176,9 +176,9 @@ for platform in ["x64"]:
         buildDir = generateCMake(generator, platform, log, options.suffix == "extra", options.python)
         ret = subprocess.call(["cmake", "--build", ".", "--config", "Release"],
                               cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
-        subprocess.call(["cmake", "--build", ".", "--target", "lisum"],
+        subprocess.call(["cmake", "--build", ".", "--config", "Release", "--target", "lisum"],
                         cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
-        subprocess.call(["cmake", "--build", ".", "--target", "userdoc", "examples"],
+        subprocess.call(["cmake", "--build", ".", "--config", "Release", "--target", "userdoc", "examples"],
                         cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
         subprocess.call(["cmake", "--install", "."],
                         cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
@@ -186,16 +186,16 @@ for platform in ["x64"]:
         if options.msvc_version != "msvc16":
             plat += options.msvc_version
         if ret == 0:
+            installDir = glob.glob(os.path.join(buildDir, "sumo-*"))[0]
+            installBase = os.path.basename(installDir)
+            binaryZip = os.path.join(options.remote_dir, "%s-%s%s.zip" % (installBase, plat, options.suffix))
             try:
-                installDir = glob.glob(os.path.join(buildDir, "sumo-*"))[0]
-                installBase = os.path.basename(installDir)
                 for f in (glob.glob(os.path.join(SUMO_HOME, "*.md")) +
                           [os.path.join(SUMO_HOME, n) for n in ("AUTHORS", "ChangeLog", "LICENSE")]):
                     shutil.copy(f, installDir)
                 shutil.copytree(os.path.join(SUMO_HOME, "docs"), installDir)
                 shutil.copy(os.path.join(buildDir, "src", "version.h"), os.path.join(installDir, "include"))
                 status.printLog("Creating sumo.zip.", log)
-                binaryZip = os.path.join(options.remote_dir, "%s-%s%s.zip" % (installBase, plat, options.suffix))
                 shutil.make_archive(binaryZip, 'zip', installDir)
                 if options.suffix == "":
                     # installers only for the vanilla build
