@@ -183,26 +183,30 @@ for platform in ["x64"]:
         plat = platform.lower().replace("x", "win")
         if options.msvc_version != "msvc16":
             plat += options.msvc_version
+        for d in glob.glob(os.path.join(buildDir, "sumo-*")):
+            if os.path.isdir(d):
+                installDir = d
+        installBase = os.path.basename(installDir)
+        binaryZip = os.path.join(buildDir, "sumo-%s%s-%s" % (plat, options.suffix, installBase[5:]))
         if ret == 0:
-            installDir = glob.glob(os.path.join(buildDir, "sumo-*"))[0]
-            installBase = os.path.basename(installDir)
-            binaryZip = os.path.join(buildDir, "sumo-%s%s-%s.zip" % (plat, options.suffix, installBase[5:]))
             try:
                 for f in (glob.glob(os.path.join(SUMO_HOME, "*.md")) +
                           [os.path.join(SUMO_HOME, n) for n in ("AUTHORS", "ChangeLog", "LICENSE")]):
                     shutil.copy(f, installDir)
-                shutil.copytree(os.path.join(SUMO_HOME, "docs"), installDir)
+                shutil.copytree(os.path.join(SUMO_HOME, "docs"), os.path.join(installDir, "docs"))
                 shutil.copy(os.path.join(buildDir, "src", "version.h"), os.path.join(installDir, "include"))
                 status.printLog("Creating sumo.zip.", log)
                 shutil.make_archive(binaryZip, 'zip', buildDir, installBase)
-                shutil.copy(binaryZip, options.remoteDir)
+                shutil.copy(binaryZip + ".zip", options.remoteDir)
                 if options.suffix == "":
                     # installers only for the vanilla build
                     status.printLog("Creating sumo.msi.", log)
-                    wix.buildMSI(binaryZip, binaryZip.replace(".zip", ".msi"), log=log)
-                    shutil.copy(binaryZip.replace(".zip", ".msi"), options.remoteDir)
+                    wix.buildMSI(binaryZip + ".zip", binaryZip + ".msi", log=log)
+                    shutil.copy(binaryZip + ".msi", options.remoteDir)
             except Exception as ziperr:
-                status.printLog("Warning: Could not zip to %s (%s)!" % (binaryZip, ziperr), log)
+                status.printLog("Warning: Could not zip to %s.zip (%s)!" % (binaryZip, ziperr), log)
+        binaryZip += ".zip"
+
         status.printLog("Creating sumo-game.zip.", log)
         try:
             try:
@@ -213,8 +217,10 @@ for platform in ["x64"]:
                 subprocess.call(["cmake", "--build", ".", "--target", "game"],
                                 cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
                 shutil.move(os.path.join(buildDir, "sumo-game.zip"), binaryZip.replace("sumo-", "sumo-game-"))
+            shutil.copy(binaryZip.replace("sumo-", "sumo-game-"), options.remoteDir)
         except Exception as e:
             status.printLog("Warning: Could not create nightly sumo-game.zip! (%s)" % e, log)
+
         with open(makeAllLog, 'a') as debugLog:
             ret = subprocess.call(["cmake", "--build", ".", "--config", "Debug"],
                                   cwd=buildDir, stdout=debugLog, stderr=subprocess.STDOUT)
@@ -229,6 +235,7 @@ for platform in ["x64"]:
                             zipf.write(f, os.path.join(installBase, f[len(SUMO_HOME):]))
                 except IOError as ziperr:
                     status.printLog("Warning: Could not zip to %s (%s)!" % (binaryZip, ziperr), debugLog)
+
         status.printLog("Running tests.", log)
         runTests(options, env, gitrev, log)
     with open(statusLog, 'w') as log:
