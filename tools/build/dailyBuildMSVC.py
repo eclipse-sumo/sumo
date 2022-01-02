@@ -233,6 +233,7 @@ for platform in ["x64"]:
                                 zipf.write(f, os.path.join(installBase, "bin", os.path.basename(f)))
                         for f in glob.glob(os.path.join(SUMO_HOME, "tools", "lib*", "*lib*.p*")):
                             zipf.write(f, os.path.join(installBase, f[len(SUMO_HOME):]))
+                    shutil.copy(binaryZip.replace(plat, plat + "Debug"), options.remoteDir)
                 except IOError as ziperr:
                     status.printLog("Warning: Could not zip to %s (%s)!" % (binaryZip, ziperr), debugLog)
 
