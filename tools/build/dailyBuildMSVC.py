@@ -162,6 +162,9 @@ for platform in ["x64"]:
             os.remove(f)
         except Exception:
             pass
+    for d in (glob.glob(os.path.join(SUMO_HOME, "bin", "osgPlugins*")) +
+              glob.glob(os.path.join(SUMO_HOME, "tools", "*.egg-info"))):
+        shutil.rmtree(d, ignore_errors=True)
     for d in glob.glob(os.path.join(SUMO_HOME, "docs", "*")):
         if os.path.basename(d) in ('examples', 'javadoc', 'man', 'pydoc', 'tutorial', 'userdoc'):
             shutil.rmtree(d, ignore_errors=True)

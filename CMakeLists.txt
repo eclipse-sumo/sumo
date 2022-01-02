@@ -439,6 +439,7 @@ install(DIRECTORY tools/ DESTINATION ${DATA_PATH}tools
         PATTERN "traci4matlab/src" EXCLUDE
         PATTERN "__pycache__" EXCLUDE
         PATTERN "*.pyc" EXCLUDE
+        PATTERN "*.egg-info" EXCLUDE
         PATTERN ".git" EXCLUDE)
 if (DATA_PATH)
     install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ../../bin \$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/${DATA_PATH}bin)")
