@@ -7,4 +7,5 @@
 --tripinfo-output.write-unfinished
 --vehroute-output vehroutes.xml
 --vehroute-output.write-unfinished
+--stop-output stopinfos.xml
 -e 1000

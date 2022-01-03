@@ -33,11 +33,7 @@
 </configuration>
 -->
 
-<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="p0" depart="5.00" type="DEFAULT_PEDTYPE">
-        <ride waitingTime="81.00" vehicle="trip_1" depart="86.00" arrival="128.00" arrivalPos="285.60" duration="42.00" routeLength="477.60" timeLoss="8.62"/>
-    </personinfo>
-    <tripinfo id="trip_1" depart="0.00" departLane="A2B2_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="1000.00" routeLength="10692.10" waitingTime="9.00" waitingCount="2" stopTime="61.00" timeLoss="160.58" rerouteNo="54" devices="vehroute_trip_1 tripinfo_trip_1 routing_trip_1 taxi_trip_1 person_trip_1" vType="taxi" speedFactor="1.03" vaporized="end">
-        <taxi customers="1" occupiedDistance="477.60" occupiedTime="44.00"/>
-    </tripinfo>
-</tripinfos>
+<stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
+    <stopinfo id="trip_1" type="taxi" lane="A2B2_1" pos="110.00" parking="1" started="85.00" ended="86.00" delay="-1.00" initialPersons="0" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="trip_1" type="taxi" lane="B2C2_1" pos="285.60" parking="1" started="128.00" ended="188.00" delay="-1.00" initialPersons="1" loadedPersons="0" unloadedPersons="1" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+</stops>
