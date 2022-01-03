@@ -6278,31 +6278,26 @@ MSVehicle::addTraciStop(SUMOVehicleParameter::Stop stop, std::string& errorMsg) 
 
 
 bool
-MSVehicle::handleCollisionStop(MSStop& stop, const bool collision, const double distToStop, const std::string& errorMsgStart, std::string& errorMsg) {
+MSVehicle::handleCollisionStop(MSStop& stop, const double distToStop, const std::string& errorMsgStart, std::string& errorMsg) {
     if (myCurrEdge == stop.edge && distToStop + POSITION_EPS < getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getMaxDecel(), 0)) {
-        if (collision) {
-            if (distToStop < getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getEmergencyDecel(), 0)) {
-                double vNew = getCarFollowModel().maximumSafeStopSpeed(distToStop, getCarFollowModel().getMaxDecel(), getSpeed(), false, 0);
-                //std::cout << SIMTIME << " veh=" << getID() << " v=" << myState.mySpeed << " distToStop=" << distToStop
-                //    << " vMinNex=" << getCarFollowModel().minNextSpeed(getSpeed(), this)
-                //    << " bg1=" << getCarFollowModel().brakeGap(myState.mySpeed)
-                //    << " bg2=" << getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getEmergencyDecel(), 0)
-                //    << " vNew=" << vNew
-                //    << "\n";
-                myState.mySpeed = MIN2(myState.mySpeed, vNew + ACCEL2SPEED(getCarFollowModel().getEmergencyDecel()));
-                myState.myPos = MIN2(myState.myPos, stop.pars.endPos);
-                myCachedPosition = Position::INVALID;
-                if (myState.myPos < myType->getLength()) {
-                    computeFurtherLanes(myLane, myState.myPos, true);
-                    myAngle = computeAngle();
-                    if (myLaneChangeModel->isOpposite()) {
-                        myAngle += M_PI;
-                    }
+        if (distToStop < getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getEmergencyDecel(), 0)) {
+            double vNew = getCarFollowModel().maximumSafeStopSpeed(distToStop, getCarFollowModel().getMaxDecel(), getSpeed(), false, 0);
+            //std::cout << SIMTIME << " veh=" << getID() << " v=" << myState.mySpeed << " distToStop=" << distToStop
+            //    << " vMinNex=" << getCarFollowModel().minNextSpeed(getSpeed(), this)
+            //    << " bg1=" << getCarFollowModel().brakeGap(myState.mySpeed)
+            //    << " bg2=" << getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getEmergencyDecel(), 0)
+            //    << " vNew=" << vNew
+            //    << "\n";
+            myState.mySpeed = MIN2(myState.mySpeed, vNew + ACCEL2SPEED(getCarFollowModel().getEmergencyDecel()));
+            myState.myPos = MIN2(myState.myPos, stop.pars.endPos);
+            myCachedPosition = Position::INVALID;
+            if (myState.myPos < myType->getLength()) {
+                computeFurtherLanes(myLane, myState.myPos, true);
+                myAngle = computeAngle();
+                if (myLaneChangeModel->isOpposite()) {
+                    myAngle += M_PI;
                 }
             }
-        } else {
-            errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stop.pars.lane + "' is too close to brake.";
-            return false;
         }
     }
     return true;
