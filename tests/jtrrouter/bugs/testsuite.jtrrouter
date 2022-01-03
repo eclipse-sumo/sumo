@@ -11,5 +11,8 @@ ticket99
 ticket328
 ticket3443
 
-#Test for warning for unsorted input flows
+# Test for warning for unsorted input flows
 ticket9327
+
+# test for vType interpretation
+ticket9864
