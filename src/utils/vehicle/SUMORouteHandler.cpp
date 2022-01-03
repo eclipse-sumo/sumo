@@ -59,7 +59,7 @@ bool
 SUMORouteHandler::checkLastDepart() {
     if (myVehicleParameter->departProcedure == DEPART_GIVEN) {
         if (myVehicleParameter->depart < myLastDepart) {
-            WRITE_WARNING("Route file should be sorted by departure time, ignoring '" + myVehicleParameter->id + "'!");
+            WRITE_WARNINGF("Route file should be sorted by departure time, ignoring '%'!", myVehicleParameter->id);
             return false;
         }
     }

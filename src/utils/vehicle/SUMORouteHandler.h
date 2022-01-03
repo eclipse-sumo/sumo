@@ -191,7 +191,7 @@ protected:
     //@}
 
     /// @brief Checks whether the route file is sorted by departure time if needed
-    bool checkLastDepart();
+    virtual bool checkLastDepart();
 
     /// @brief save last depart (only to be used if vehicle is not discarded)
     void registerLastDepart();

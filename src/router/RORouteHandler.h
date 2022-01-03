@@ -66,6 +66,9 @@ public:
     /// @brief standard destructor
     virtual ~RORouteHandler();
 
+    /// @brief Checks whether the route file is sorted by departure time if needed
+    bool checkLastDepart();
+
 protected:
     /// @name inherited from GenericSAXHandler
     //@{
@@ -236,6 +239,9 @@ protected:
     /// @brief maximum distance when map-matching
     const double myMapMatchingDistance;
     const bool myMapMatchJunctions;
+
+    /// @brief whether input is read all at once (no sorting check is necessary)
+    const bool myUnsortedInput;
 
     /// @brief The currently parsed distribution of vehicle types (probability->vehicle type)
     RandomDistributor<SUMOVTypeParameter*>* myCurrentVTypeDistribution;
