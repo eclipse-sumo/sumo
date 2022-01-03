@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-01-03 15:14:22 by Eclipse SUMO sumo Version v1_11_0+0719-7e16a6b
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+        <tripinfo-output.write-unfinished value="true"/>
+    </output>
+
+    <time>
+        <end value="1000"/>
+    </time>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <taxi_device>
+        <device.taxi.dispatch-period value="10"/>
+        <device.taxi.idle-algorithm value="randomCircling"/>
+    </taxi_device>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="trip_1" depart="0.00" departLane="A2B2_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="111.00" arrivalLane="B2C2_1" arrivalPos="285.60" arrivalSpeed="1.30" duration="111.00" routeLength="582.50" waitingTime="3.00" waitingCount="1" stopTime="60.00" timeLoss="10.19" rerouteNo="2" devices="tripinfo_trip_1 routing_trip_1 taxi_trip_1" vType="taxi" speedFactor="1.03" vaporized="">
+        <taxi customers="0" occupiedDistance="0.00" occupiedTime="0.00"/>
+    </tripinfo>
+    <personinfo id="p0" depart="5.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="995.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="285.60" duration="-1" routeLength="-1.00" timeLoss="-1"/>
+    </personinfo>
+</tripinfos>

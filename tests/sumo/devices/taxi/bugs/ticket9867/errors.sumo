@@ -1,0 +1,1 @@
+Warning: Could not add taxi stop for vehicle 'trip_1' to pickup p0 (0). time=10.00 error=stop for vehicle 'trip_1' on lane 'A2B2_1' is too close to brake.

@@ -1,0 +1,8 @@
+{CLEAR}
+--no-step-log --no-duration-log --net-file=net.net.xml
+-r input_routes.rou.xml
+--device.taxi.dispatch-period 10
+--device.taxi.idle-algorithm randomCircling
+--tripinfo-output tripinfos.xml
+--tripinfo-output.write-unfinished
+-e 1000
