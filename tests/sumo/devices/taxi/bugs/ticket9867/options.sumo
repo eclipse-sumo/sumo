@@ -5,4 +5,6 @@
 --device.taxi.idle-algorithm randomCircling
 --tripinfo-output tripinfos.xml
 --tripinfo-output.write-unfinished
+--vehroute-output vehroutes.xml
+--vehroute-output.write-unfinished
 -e 1000
