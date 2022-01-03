@@ -14,5 +14,8 @@ ticket3443
 # Test for warning for unsorted input flows
 ticket9327
 
+# Test handling unsorted input flows with option --unosorted-input
+ticket9327b
+
 # test for vType interpretation
 ticket9864

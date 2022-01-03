@@ -20,6 +20,7 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <processing>
+        <unsorted-input value="true"/>
         <no-internal-links value="true"/>
         <accept-all-destinations value="true"/>
     </processing>

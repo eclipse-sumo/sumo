@@ -3,3 +3,4 @@
 --accept-all-destinations
 --departlane=random
 --turns=input_turns.turns.xml
+--unsorted-input
