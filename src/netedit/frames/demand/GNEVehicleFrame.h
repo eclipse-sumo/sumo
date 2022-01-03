@@ -86,6 +86,9 @@ public:
      */
     bool addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 
+    /// @brief get vehicle tag selector (needed for transform vehicles)
+    GNEFrameModules::TagSelector* getVehicleTagSelector() const;
+
     /// @brief get PathCreator modul
     GNEFrameModules::PathCreator* getPathCreator() const;
 

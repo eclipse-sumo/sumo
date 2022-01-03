@@ -21,7 +21,9 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewparent.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
+#include <netedit/frames/demand/GNEVehicleFrame.h>
 
 #include "GNEContainer.h"
 #include "GNEPerson.h"
@@ -1317,18 +1319,15 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
         net->deleteDemandElement(originalVehicle, net->getViewNet()->getUndoList());
         // change depart
         if ((vehicleParameters.tag == SUMO_TAG_TRIP) || (vehicleParameters.tag == SUMO_TAG_VEHICLE) || (vehicleParameters.tag == GNE_TAG_VEHICLE_WITHROUTE)) {
+            // get template flow
+            const auto templateFlow = net->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getTemplateAC(GNE_TAG_FLOW_ROUTE);
             // set flow parameters
             vehicleParameters.repetitionEnd = vehicleParameters.depart + string2time("3600");
-            vehicleParameters.repetitionNumber = 1800;
-            vehicleParameters.repetitionOffset = 2;
-            vehicleParameters.repetitionProbability = 0.5;
+            vehicleParameters.repetitionNumber = GNEAttributeCarrier::parse<int>(templateFlow->getAttribute(SUMO_ATTR_NUMBER));
+            vehicleParameters.repetitionOffset = string2time(templateFlow->getAttribute(SUMO_ATTR_PERIOD));
+            vehicleParameters.repetitionProbability = GNEAttributeCarrier::parse<double>(templateFlow->getAttribute(SUMO_ATTR_PROB));
             // by default, number and end enabled
-            vehicleParameters.parametersSet |= VEHPARS_NUMBER_SET;
-            vehicleParameters.parametersSet |= VEHPARS_END_SET;
-            // ... and other disabled
-            vehicleParameters.parametersSet &= ~VEHPARS_VPH_SET;
-            vehicleParameters.parametersSet &= ~VEHPARS_PERIOD_SET;
-            vehicleParameters.parametersSet &= ~VEHPARS_PROB_SET;
+            vehicleParameters.parametersSet = GNEAttributeCarrier::parse<int>(templateFlow->getAttribute(GNE_ATTR_FLOWPARAMETERS));
         }
         // check if new vehicle must have an embedded route
         if (createEmbeddedRoute) {
@@ -1470,18 +1469,15 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
         }
         // change depart
         if ((vehicleParameters.tag == SUMO_TAG_TRIP) || (vehicleParameters.tag == SUMO_TAG_VEHICLE) || (vehicleParameters.tag == GNE_TAG_VEHICLE_WITHROUTE)) {
+            // get template flow
+            const auto templateFlow = net->getViewNet()->getViewParent()->getVehicleFrame()->getVehicleTagSelector()->getTemplateAC(GNE_TAG_FLOW_ROUTE);
             // set flow parameters
             vehicleParameters.repetitionEnd = vehicleParameters.depart + string2time("3600");
-            vehicleParameters.repetitionNumber = 1800;
-            vehicleParameters.repetitionOffset = 2;
-            vehicleParameters.repetitionProbability = 0.5;
+            vehicleParameters.repetitionNumber = GNEAttributeCarrier::parse<int>(templateFlow->getAttribute(SUMO_ATTR_NUMBER));
+            vehicleParameters.repetitionOffset = string2time(templateFlow->getAttribute(SUMO_ATTR_PERIOD));
+            vehicleParameters.repetitionProbability = GNEAttributeCarrier::parse<double>(templateFlow->getAttribute(SUMO_ATTR_PROB));
             // by default, number and end enabled
-            vehicleParameters.parametersSet |= VEHPARS_NUMBER_SET;
-            vehicleParameters.parametersSet |= VEHPARS_END_SET;
-            // ... and other disabled
-            vehicleParameters.parametersSet &= ~VEHPARS_VPH_SET;
-            vehicleParameters.parametersSet &= ~VEHPARS_PERIOD_SET;
-            vehicleParameters.parametersSet &= ~VEHPARS_PROB_SET;
+            vehicleParameters.parametersSet = GNEAttributeCarrier::parse<int>(templateFlow->getAttribute(GNE_ATTR_FLOWPARAMETERS));
         }
         // change tag in vehicle parameters
         vehicleParameters.tag = SUMO_TAG_FLOW;

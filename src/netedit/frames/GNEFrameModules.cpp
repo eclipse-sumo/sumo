@@ -175,6 +175,18 @@ GNEFrameModules::TagSelector::hideTagSelector() {
 
 
 GNEAttributeCarrier*
+GNEFrameModules::TagSelector::getTemplateAC(SumoXMLTag tag) const {
+    // clear myACTemplates and myTagsMatchBox
+    for (const auto &ACTemplate : myACTemplates) {
+        if (ACTemplate->getAC()->getTagProperty().getTag() == tag) {
+            return ACTemplate->getAC();
+        }
+    }
+    return nullptr;
+}
+
+
+GNEAttributeCarrier*
 GNEFrameModules::TagSelector::getCurrentTemplateAC() const {
     return myCurrentTemplateAC;
 }

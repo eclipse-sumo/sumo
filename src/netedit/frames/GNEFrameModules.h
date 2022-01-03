@@ -62,6 +62,9 @@ public:
         /// @brief hide item selector
         void hideTagSelector();
 
+        /// @brief get templateAC
+        GNEAttributeCarrier *getTemplateAC(SumoXMLTag tag) const;
+
         /// @brief get current templateAC
         GNEAttributeCarrier *getCurrentTemplateAC() const;
 

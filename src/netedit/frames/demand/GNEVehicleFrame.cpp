@@ -263,6 +263,12 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
 }
 
 
+GNEFrameModules::TagSelector* 
+GNEVehicleFrame::getVehicleTagSelector() const {
+    return myVehicleTagSelector;
+}
+
+
 GNEFrameModules::PathCreator*
 GNEVehicleFrame::getPathCreator() const {
     return myPathCreator;
