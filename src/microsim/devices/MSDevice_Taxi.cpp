@@ -46,6 +46,8 @@
 #include "MSDevice_Taxi.h"
 
 //#define DEBUG_DISPATCH
+
+//#define DEBUG_COND (myHolder.isSelected())
 #define DEBUG_COND (true)
 
 // ===========================================================================
@@ -462,6 +464,33 @@ MSDevice_Taxi::prepareStop(ConstMSEdgeVector& edges,
     if (stopPos < lastPos && stopPos + NUMERICAL_EPS >= lastPos) {
         stopPos = lastPos;
     }
+
+    if (stops.empty()) {
+        // check brakeGap
+        double distToStop = stopPos - lastPos;
+        const double brakeGap = myHolder.getBrakeGap();
+        if (myHolder.getLane() != nullptr && myHolder.getLane()->isInternal()) {
+            distToStop += myHolder.getLane()->getLength();
+        }
+        if (stopEdge != edges.back()) {
+            distToStop += edges.back()->getLength();
+            if (distToStop < brakeGap) {
+                // the distance between current edge and stop edge may be small
+                SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = MSRoutingEngine::getRouterTT(myHolder.getRNGIndex(), myHolder.getVClass());
+                ConstMSEdgeVector toFirstStop;
+                router.compute(edges.back(), stopEdge, &myHolder, SIMTIME, toFirstStop, true);
+                for (int i = 1; i < (int)toFirstStop.size() - 1; i++) {
+                    distToStop += toFirstStop[i]->getLength();
+                }
+            }
+        }
+        if (distToStop < brakeGap) {
+            // circle back to stopEdge
+            //std::cout << SIMTIME << " taxi=" << getID() << " brakeGap=" << brakeGap << " distToStop=" << distToStop << "\n";
+            edges.push_back(stopEdge);
+        }
+    }
+
     if (stopEdge == edges.back() && !stops.empty()) {
         if (stopPos >= lastPos && stopPos <= stops.back().endPos) {
             // no new stop and no adaption needed
