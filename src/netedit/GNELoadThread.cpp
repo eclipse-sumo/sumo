@@ -221,6 +221,8 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("new", new Option_Bool(false)); // !!!
     oc.addDescription("new", "Input", "Start with a new network");
 
+    // files
+
     oc.doRegister("additional-files", 'a', new Option_FileName());
     oc.addSynonyme("additional-files", "additional");
     oc.addDescription("additional-files", "Netedit", "Load additional and shapes descriptions from FILE(s)");
@@ -248,14 +250,76 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("edgeTypes-output", new Option_String());
     oc.addDescription("edgeTypes-output", "Netedit", "file in which edgeTypes must be saved");
 
+    // network prefixes
+
     oc.doRegister("node-prefix", new Option_String("J"));
     oc.addDescription("node-prefix", "Netedit", "prefix for node naming");
 
     oc.doRegister("edge-prefix", new Option_String("E"));
-    oc.addDescription("edge-prefix", "Netedit", "prefix for edge naming naming");
+    oc.addDescription("edge-prefix", "Netedit", "prefix for edge naming");
 
     oc.doRegister("edge-infix", new Option_String(""));
     oc.addDescription("edge-infix", "Netedit", "enable edge-infix (<fromNodeID><infix><toNodeID>)");
+
+    // additional prefixes
+
+    oc.doRegister("parkingArea-prefix", new Option_String("pa"));
+    oc.addDescription("parkingArea-prefix", "Netedit", "prefix for parkingArea naming");
+
+    oc.doRegister("busStop-prefix", new Option_String("bs"));
+    oc.addDescription("busStop-prefix", "Netedit", "prefix for busStop naming");
+
+    oc.doRegister("trainStop-prefix", new Option_String("ts"));
+    oc.addDescription("trainStop-prefix", "Netedit", "prefix for trainStop naming");
+
+    oc.doRegister("containerStop-prefix", new Option_String("ct"));
+    oc.addDescription("containerStop-prefix", "Netedit", "prefix for containerStop naming");
+
+    oc.doRegister("chargingStation-prefix", new Option_String("cs"));
+    oc.addDescription("chargingStation-prefix", "Netedit", "prefix for chargingStation naming");
+
+    oc.doRegister("rerouter-prefix", new Option_String("rr"));
+    oc.addDescription("rerouter-prefix", "Netedit", "prefix for rerouter naming");
+
+    oc.doRegister("calibrator-prefix", new Option_String("ca"));
+    oc.addDescription("calibrator-prefix", "Netedit", "prefix for calibrator naming");
+
+    oc.doRegister("routeProbe-prefix", new Option_String("rp"));
+    oc.addDescription("routeProbe-prefix", "Netedit", "prefix for routeProbe naming");
+
+    oc.doRegister("vss-prefix", new Option_String("vs"));
+    oc.addDescription("vss-prefix", "Netedit", "prefix for vss naming");
+
+    oc.doRegister("polygon-prefix", new Option_String("po"));
+    oc.addDescription("polygon-prefix", "Netedit", "prefix for polygon naming");
+
+    oc.doRegister("poi-prefix", new Option_String("poi"));
+    oc.addDescription("poi-prefix", "Netedit", "prefix for poi naming");
+
+    // demand prefixes
+
+    oc.doRegister("route-prefix", new Option_String("r"));
+    oc.addDescription("route-prefix", "Netedit", "prefix for route naming");
+
+    oc.doRegister("vType-prefix", new Option_String("t"));
+    oc.addDescription("vType-prefix", "Netedit", "prefix for vType naming");
+
+    oc.doRegister("vehicle-prefix", new Option_String("v"));
+    oc.addDescription("vehicle-prefix", "Netedit", "prefix for vehicle naming");
+
+    oc.doRegister("trip-prefix", new Option_String("t"));
+    oc.addDescription("trip-prefix", "Netedit", "prefix for trip naming");
+
+    oc.doRegister("flow-prefix", new Option_String("f"));
+    oc.addDescription("flow-prefix", "Netedit", "prefix for flow naming");
+
+    oc.doRegister("person-prefix", new Option_String("p"));
+    oc.addDescription("person-prefix", "Netedit", "prefix for person naming");
+
+    oc.doRegister("container-prefix", new Option_String("c"));
+    oc.addDescription("container-prefix", "Netedit", "prefix for container naming");
+
+    // drawing
 
     oc.doRegister("disable-laneIcons", new Option_Bool(false));
     oc.addDescription("disable-laneIcons", "Visualisation", "Disable icons of special lanes");
