@@ -37,6 +37,7 @@
 #define ICON_SPACING        4   // Spacing between icon and label
 #define COMBOBOX_INS_MASK   (COMBOBOX_REPLACE | COMBOBOX_INSERT_BEFORE | COMBOBOX_INSERT_AFTER | COMBOBOX_INSERT_FIRST | COMBOBOX_INSERT_LAST)
 #define COMBOBOX_MASK       (COMBOBOX_STATIC | COMBOBOX_INS_MASK)
+#define ICON_HEIGHT         20
 
 // Map
 FXDEFMAP(MFXIconComboBox) MFXIconComboBoxMap[] = {
@@ -132,7 +133,7 @@ MFXIconComboBox::MFXIconComboBox(FXComposite* p, FXint cols, FXObject* tgt, FXSe
         myTextFieldIcon->setEditable(FALSE);
     }
     myPane = new FXPopup(this, FRAME_LINE);
-    myList = new FXList(myPane, this, MFXIconComboBox::ID_LIST, LIST_BROWSESELECT | LIST_AUTOSELECT | LAYOUT_FILL_X | LAYOUT_FILL_Y | SCROLLERS_TRACK | HSCROLLER_NEVER);
+    myList = new FXList(myPane, this, MFXIconComboBox::ID_LIST, LIST_BROWSESELECT | LIST_AUTOSELECT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | SCROLLERS_TRACK | HSCROLLER_NEVER);
     if (options & COMBOBOX_STATIC) {
         myList->setScrollStyle(SCROLLERS_TRACK | HSCROLLING_OFF);
     }
@@ -274,6 +275,8 @@ MFXIconComboBox::getNumVisible() const {
 void
 MFXIconComboBox::setNumVisible(FXint nvis) {
     myList->setNumVisible(nvis);
+    // set height manually (due icons)
+    myList->setHeight(nvis * ICON_HEIGHT);
 }
 
 
