@@ -6,3 +6,6 @@ end_of_work
 
 # handle taz while random circling
 taz
+
+# use a ride definition to call a taxi
+short_edges
