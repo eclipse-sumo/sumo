@@ -1254,6 +1254,8 @@ enum SumoXMLAttr {
     GNE_ATTR_DATASET,
     /// @brief parameters "key1=value1|key2=value2|...|keyN=valueN"
     GNE_ATTR_PARAMETERS,
+    /// @brief flow parameters (integer for mask end, number, etc...)
+    GNE_ATTR_FLOWPARAMETERS,
     /// @brief min source (used only by TAZs)
     GNE_ATTR_MIN_SOURCE,
     /// @brief min sink (used only by TAZs)

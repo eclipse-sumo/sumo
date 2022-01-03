@@ -877,6 +877,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "parentItem",                         GNE_ATTR_PARENT },
     { "dataSet",                            GNE_ATTR_DATASET },
     { "genericParameter",                   GNE_ATTR_PARAMETERS },
+    { "flowParameter",                      GNE_ATTR_FLOWPARAMETERS },
     { "defaultVTypeModified",               GNE_ATTR_DEFAULT_VTYPE_MODIFIED },
     { "centerAfterCreation",                GNE_ATTR_CENTER_AFTER_CREATION },
     { "toBusStop",                          GNE_ATTR_TO_BUSSTOP },

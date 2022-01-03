@@ -243,7 +243,7 @@ public:
         ~AttributesCreatorFlow();
 
         /// @brief show AttributesCreatorFlow modul
-        void showAttributesCreatorFlowModule(const bool persons);
+        void showAttributesCreatorFlowModule();
 
         /// @brief hide group box
         void hideAttributesCreatorFlowModule();
@@ -306,8 +306,8 @@ public:
         /// @brief textField for 'probability' attribute
         FXTextField* myValueProbabilityTextField = nullptr;
 
-        /// @brief variable used to save current flow configuration
-        int myFlowParameters;
+        /// @brief per hours attr
+        SumoXMLAttr myPerHourAttr = SUMO_ATTR_NOTHING;
     };
 
     // ===========================================================================

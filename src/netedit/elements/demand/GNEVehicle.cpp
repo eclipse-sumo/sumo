@@ -258,6 +258,9 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net) :
     SUMOVehicleParameter() {
     // reset default values
     resetDefaultValues();
+    // set end and vehPerHours
+    toogleAttribute(SUMO_ATTR_END, 1, 0);
+    toogleAttribute(SUMO_ATTR_VEHSPERHOUR, 1, 0);
 }
 
 
@@ -1159,6 +1162,8 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
+        case GNE_ATTR_FLOWPARAMETERS:
+            return toString(parametersSet);
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
