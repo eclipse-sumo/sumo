@@ -1180,7 +1180,7 @@ public:
      */
     bool addTraciStop(SUMOVehicleParameter::Stop stop, std::string& errorMsg);
 
-    bool handleCollisionStop(MSStop& stop, const double distToStop, const std::string& errorMsgStart, std::string& errorMsg);
+    bool handleCollisionStop(MSStop& stop, const double distToStop);
 
     /**
     * resumes a vehicle from stopping

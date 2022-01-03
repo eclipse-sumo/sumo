@@ -6278,7 +6278,7 @@ MSVehicle::addTraciStop(SUMOVehicleParameter::Stop stop, std::string& errorMsg) 
 
 
 bool
-MSVehicle::handleCollisionStop(MSStop& stop, const double distToStop, const std::string& errorMsgStart, std::string& errorMsg) {
+MSVehicle::handleCollisionStop(MSStop& stop, const double distToStop) {
     if (myCurrEdge == stop.edge && distToStop + POSITION_EPS < getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getMaxDecel(), 0)) {
         if (distToStop < getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getEmergencyDecel(), 0)) {
             double vNew = getCarFollowModel().maximumSafeStopSpeed(distToStop, getCarFollowModel().getMaxDecel(), getSpeed(), false, 0);

@@ -538,7 +538,7 @@ public:
 
     //@}
 
-    virtual bool handleCollisionStop(MSStop& stop, const double distToStop, const std::string& errorMsgStart, std::string& errorMsg);
+    virtual bool handleCollisionStop(MSStop& stop, const double distToStop);
 
     /** @brief Returns whether the vehicle is at a stop
      * @return Whether the vehicle has stopped

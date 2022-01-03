@@ -868,11 +868,9 @@ MSBaseVehicle::saveState(OutputDevice& out) {
 
 
 bool
-MSBaseVehicle::handleCollisionStop(MSStop& stop, const double distToStop, const std::string& errorMsgStart, std::string& errorMsg) {
+MSBaseVehicle::handleCollisionStop(MSStop& stop, const double distToStop) {
     UNUSED_PARAMETER(stop);
     UNUSED_PARAMETER(distToStop);
-    UNUSED_PARAMETER(errorMsgStart);
-    UNUSED_PARAMETER(errorMsg);
     return true;
 }
 
@@ -1103,7 +1101,7 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
     //if (!stop.parking && (myCurrEdge == stop.edge && myState.myPos > stop.endPos - getCarFollowModel().brakeGap(myState.mySpeed))) {
     const double endPosOffset = stop.lane->getEdge().isInternal() ? (*stop.edge)->getLength() : 0;
     const double distToStop = stop.pars.endPos + endPosOffset - getPositionOnLane();
-    if (collision && !handleCollisionStop(stop, distToStop, errorMsgStart, errorMsg)) {
+    if (collision && !handleCollisionStop(stop, distToStop)) {
         return false;
     }
     if (!hasDeparted() && myCurrEdge == stop.edge) {
