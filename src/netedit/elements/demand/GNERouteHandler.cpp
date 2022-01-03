@@ -1317,13 +1317,15 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
         net->deleteDemandElement(originalVehicle, net->getViewNet()->getUndoList());
         // change depart
         if ((vehicleParameters.tag == SUMO_TAG_TRIP) || (vehicleParameters.tag == SUMO_TAG_VEHICLE) || (vehicleParameters.tag == GNE_TAG_VEHICLE_WITHROUTE)) {
-            // set end
-            vehicleParameters.repetitionEnd = vehicleParameters.depart + 3600;
-            // set number
+            // set flow parameters
+            vehicleParameters.repetitionEnd = vehicleParameters.depart + string2time("3600");
             vehicleParameters.repetitionNumber = 1800;
+            vehicleParameters.repetitionOffset = 2;
+            vehicleParameters.repetitionProbability = 0.5;
+            // by default, number and end enabled
             vehicleParameters.parametersSet |= VEHPARS_NUMBER_SET;
-            // unset parameters
-            vehicleParameters.parametersSet &= ~VEHPARS_END_SET;
+            vehicleParameters.parametersSet |= VEHPARS_END_SET;
+            // ... and other disabled
             vehicleParameters.parametersSet &= ~VEHPARS_VPH_SET;
             vehicleParameters.parametersSet &= ~VEHPARS_PERIOD_SET;
             vehicleParameters.parametersSet &= ~VEHPARS_PROB_SET;
@@ -1468,13 +1470,15 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
         }
         // change depart
         if ((vehicleParameters.tag == SUMO_TAG_TRIP) || (vehicleParameters.tag == SUMO_TAG_VEHICLE) || (vehicleParameters.tag == GNE_TAG_VEHICLE_WITHROUTE)) {
-            // set end
-            vehicleParameters.repetitionEnd = vehicleParameters.depart + 3600;
-            // set number
+            // set flow parameters
+            vehicleParameters.repetitionEnd = vehicleParameters.depart + string2time("3600");
             vehicleParameters.repetitionNumber = 1800;
+            vehicleParameters.repetitionOffset = 2;
+            vehicleParameters.repetitionProbability = 0.5;
+            // by default, number and end enabled
             vehicleParameters.parametersSet |= VEHPARS_NUMBER_SET;
-            // unset parameters
-            vehicleParameters.parametersSet &= ~VEHPARS_END_SET;
+            vehicleParameters.parametersSet |= VEHPARS_END_SET;
+            // ... and other disabled
             vehicleParameters.parametersSet &= ~VEHPARS_VPH_SET;
             vehicleParameters.parametersSet &= ~VEHPARS_PERIOD_SET;
             vehicleParameters.parametersSet &= ~VEHPARS_PROB_SET;
