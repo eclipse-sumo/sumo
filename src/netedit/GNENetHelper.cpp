@@ -36,6 +36,7 @@
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
+#include <utils/options/OptionsCont.h>
 
 #include "GNENetHelper.h"
 
@@ -1046,12 +1047,35 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedAdditionals() const {
 
 
 std::string
-GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag type) const {
+GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
+    // obtain option container
+    OptionsCont& oc = OptionsCont::getOptions();
+    // get prefix
+    std::string prefix;
+    if (tag == SUMO_TAG_BUS_STOP) {
+        prefix = oc.getString("busStop-prefix");
+    } else if (tag == SUMO_TAG_TRAIN_STOP) {
+        prefix = oc.getString("trainStop-prefix");
+    } else if (tag == SUMO_TAG_CONTAINER_STOP) {
+        prefix = oc.getString("containerStop-prefix");
+    } else if (tag == SUMO_TAG_CHARGING_STATION) {
+        prefix = oc.getString("chargingStation-prefix");
+    } else if (tag == SUMO_TAG_PARKING_AREA) {
+        prefix = oc.getString("parkingArea-prefix");
+    } else if (tag == SUMO_TAG_REROUTER) {
+        prefix = oc.getString("rerouter-prefix");
+    } else if ((tag == SUMO_TAG_CALIBRATOR) || (tag == SUMO_TAG_CALIBRATOR)) {
+        prefix = oc.getString("calibrator-prefix");
+    } else if (tag == SUMO_TAG_ROUTEPROBE) {
+        prefix = oc.getString("routeProbe-prefix");
+    } else if (tag == SUMO_TAG_VSS) {
+        prefix = oc.getString("vss-prefix");
+    }
     int counter = 0;
-    while (retrieveAdditional(type, toString(type) + "_" + toString(counter), false) != nullptr) {
+    while (retrieveAdditional(tag, prefix + "_" + toString(counter), false) != nullptr) {
         counter++;
     }
-    return (toString(type) + "_" + toString(counter));
+    return (prefix + "_" + toString(counter));
 }
 
 
@@ -1108,19 +1132,27 @@ GNENetHelper::AttributeCarriers::getShapes() const {
 std::string
 GNENetHelper::AttributeCarriers::generateShapeID(SumoXMLTag tag) const {
     int counter = 0;
+        // obtain option container
+    OptionsCont& oc = OptionsCont::getOptions();
+    // get prefix
+    std::string prefix;
+    if (tag == SUMO_TAG_POLY) {
+        prefix = oc.getString("polygon-prefix");
+    } else {
+        prefix = oc.getString("poi-prefix");
+    }
     // generate tag depending of shape tag
     if (tag == SUMO_TAG_POLY) {
         // Polys and TAZs share namespace
-        while ((retrieveShape(SUMO_TAG_POLY, toString(tag) + "_" + toString(counter), false) != nullptr) ||
-                (retrieveTAZElement(SUMO_TAG_TAZ, toString(tag) + "_" + toString(counter), false) != nullptr)) {
+        while ((retrieveShape(SUMO_TAG_POLY, prefix + "_" + toString(counter), false) != nullptr) ||
+               (retrieveTAZElement(SUMO_TAG_TAZ, prefix + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
         return (toString(tag) + "_" + toString(counter));
     } else {
-        const std::string POI = toString(SUMO_TAG_POI);
-        while ((retrieveShape(SUMO_TAG_POI, POI + "_" + toString(counter), false) != nullptr) ||
-                (retrieveShape(GNE_TAG_POILANE, POI + "_" + toString(counter), false) != nullptr) ||
-                (retrieveShape(GNE_TAG_POIGEO, POI + "_" + toString(counter), false) != nullptr)) {
+        while ((retrieveShape(SUMO_TAG_POI, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveShape(GNE_TAG_POILANE, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveShape(GNE_TAG_POIGEO, prefix + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
         return (toString(tag) + "_" + toString(counter));
@@ -1370,44 +1402,66 @@ GNENetHelper::AttributeCarriers::getNumberOfDemandElements() const {
 
 std::string
 GNENetHelper::AttributeCarriers::generateDemandElementID(SumoXMLTag tag) const {
+    // obtain option container
+    OptionsCont& oc = OptionsCont::getOptions();
     // declare flags
     const bool isVehicle = ((tag == SUMO_TAG_VEHICLE) || (tag == SUMO_TAG_TRIP) || (tag == GNE_TAG_VEHICLE_WITHROUTE));
     const bool isFlow = ((tag == GNE_TAG_FLOW_ROUTE) || (tag == SUMO_TAG_FLOW) || (tag == GNE_TAG_FLOW_WITHROUTE));
     const bool isPerson = ((tag == SUMO_TAG_PERSON) || (tag == SUMO_TAG_PERSONFLOW));
+    const bool isContainer = ((tag == SUMO_TAG_PERSON) || (tag == SUMO_TAG_PERSONFLOW));
+    // get prefix
+    std::string prefix;
+    if (tag == SUMO_TAG_ROUTE) {
+        prefix = oc.getString("route-prefix");
+    } else if (tag == SUMO_TAG_TYPE) {
+        prefix = oc.getString("vType-prefix");
+    } else if (tag == SUMO_TAG_TRIP) {
+        prefix = oc.getString("trip-prefix");
+    } else if (isVehicle) {
+        prefix = oc.getString("vehicle-prefix");
+    } else if (isFlow) {
+        prefix = oc.getString("flow-prefix");
+    } else if (isPerson) {
+        prefix = oc.getString("person-prefix");
+    } else if (isContainer) {
+        prefix = oc.getString("container-prefix");
+    }
     // declare counter
     int counter = 0;
     if (isVehicle || isFlow) {
-        // get vehicle tag in string format
-        const std::string tagStr = isVehicle ? toString(SUMO_TAG_VEHICLE) : toString(SUMO_TAG_FLOW);
         // special case for vehicles (Vehicles, Flows, Trips and routeFlows share nameSpaces)
-        while ((retrieveDemandElement(SUMO_TAG_VEHICLE, tagStr + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(SUMO_TAG_TRIP, tagStr + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(GNE_TAG_VEHICLE_WITHROUTE, tagStr + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(GNE_TAG_FLOW_ROUTE, tagStr + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(SUMO_TAG_FLOW, tagStr + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(GNE_TAG_FLOW_WITHROUTE, tagStr + "_" + toString(counter), false) != nullptr)) {
+        while ((retrieveDemandElement(SUMO_TAG_VEHICLE, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveDemandElement(SUMO_TAG_TRIP, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveDemandElement(GNE_TAG_VEHICLE_WITHROUTE, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveDemandElement(GNE_TAG_FLOW_ROUTE, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveDemandElement(SUMO_TAG_FLOW, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveDemandElement(GNE_TAG_FLOW_WITHROUTE, prefix + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
         // return new vehicle ID
-        return (tagStr + "_" + toString(counter));
+        return (prefix + "_" + toString(counter));
     } else if (isPerson) {
-        // get person tag in string format
-        const std::string tagStr = toString(tag);
         // special case for persons (person and personFlows share nameSpaces)
-        while ((retrieveDemandElement(SUMO_TAG_PERSON, tagStr + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(SUMO_TAG_PERSONFLOW, tagStr + "_" + toString(counter), false) != nullptr)) {
+        while ((retrieveDemandElement(SUMO_TAG_PERSON, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveDemandElement(SUMO_TAG_PERSONFLOW, prefix + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
         // return new person ID
-        return (tagStr + "_" + toString(counter));
+        return (prefix + "_" + toString(counter));
+    } else if (isContainer) {
+        // special case for containers (container and containerFlows share nameSpaces)
+        while ((retrieveDemandElement(SUMO_TAG_CONTAINER, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveDemandElement(SUMO_TAG_CONTAINERFLOW, prefix + "_" + toString(counter), false) != nullptr)) {
+            counter++;
+        }
+        // return new container ID
+        return (prefix + "_" + toString(counter));
     } else {
-        // get tag in string format
-        const std::string tagStr = toString(tag);
-        while (retrieveDemandElement(tag, tagStr + "_" + toString(counter), false) != nullptr) {
+        while (retrieveDemandElement(tag, prefix + "_" + toString(counter), false) != nullptr) {
             counter++;
         }
         // return new element ID
-        return (tagStr + "_" + toString(counter));
+        return (prefix + "_" + toString(counter));
     }
 }
 

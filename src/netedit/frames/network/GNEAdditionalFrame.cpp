@@ -145,12 +145,12 @@ GNEAdditionalFrame::SelectorParentLanes::stopConsecutiveLaneSelector() {
     myAdditionalFrameParent->myNeteditAttributes->getNeteditAttributesAndValues(myAdditionalFrameParent->myBaseAdditional, nullptr);
     // Check if ID has to be generated
     if (!myAdditionalFrameParent->myBaseAdditional->hasStringAttribute(SUMO_ATTR_ID)) {
-        myAdditionalFrameParent->myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, myAdditionalFrameParent->generateID(nullptr));
+        myAdditionalFrameParent->myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, myAdditionalFrameParent->getViewNet()->getNet()->getAttributeCarriers()->generateAdditionalID(tagProperties.getTag()));
     }
     // obtain lane IDs
     std::vector<std::string> laneIDs;
-    for (auto i : mySelectedLanes) {
-        laneIDs.push_back(i.first->getID());
+    for (const auto &selectedlane : mySelectedLanes) {
+        laneIDs.push_back(selectedlane.first->getID());
     }
     myAdditionalFrameParent->myBaseAdditional->addStringListAttribute(SUMO_ATTR_LANES, laneIDs);
     // Obtain clicked position over first lane
@@ -1218,36 +1218,6 @@ GNEAdditionalFrame::createBaseAdditionalObject(const GNETagProperties& tagProper
 }
 
 
-std::string
-GNEAdditionalFrame::generateID(GNENetworkElement* networkElement) const {
-    // obtain current number of additionals to generate a new index faster
-    int additionalIndex = (int)myViewNet->getNet()->getAttributeCarriers()->getAdditionals().at(myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty().getTag()).size();
-    // obtain tag Properties (only for improve code legilibility
-    const auto& tagProperties = myAdditionalTagSelector->getCurrentTemplateAC()->getTagProperty();
-    // get attribute carriers
-    const auto& attributeCarriers = myViewNet->getNet()->getAttributeCarriers();
-    if (networkElement) {
-        // special case for vaporizers
-        if (tagProperties.getTag() == SUMO_TAG_VAPORIZER) {
-            return networkElement->getID();
-        } else {
-            // generate ID using networkElement
-            while (attributeCarriers->retrieveAdditional(tagProperties.getTag(), tagProperties.getTagStr() + "_" + networkElement->getID() + "_" + toString(additionalIndex), false) != nullptr) {
-                additionalIndex++;
-            }
-            return tagProperties.getTagStr() + "_" + networkElement->getID() + "_" + toString(additionalIndex);
-        }
-    } else {
-        // generate ID without networkElement
-        while (attributeCarriers->retrieveAdditional(tagProperties.getTag(), tagProperties.getTagStr() + "_" + toString(additionalIndex), false) != nullptr) {
-            additionalIndex++;
-        }
-        return tagProperties.getTagStr() + "_" + toString(additionalIndex);
-    }
-}
-
-
-
 bool
 GNEAdditionalFrame::buildAdditionalCommonAttributes(const GNETagProperties& tagProperties) {
     // If additional has a interval defined by a begin or end, check that is valid
@@ -1299,7 +1269,7 @@ GNEAdditionalFrame::buildAdditionalOverEdge(GNELane* lane, const GNETagPropertie
         myBaseAdditional->addStringAttribute(SUMO_ATTR_EDGE, lane->getParentEdge()->getID());
         // Check if ID has to be generated
         if (!myBaseAdditional->hasStringAttribute(SUMO_ATTR_ID)) {
-            myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, generateID(lane->getParentEdge()));
+            myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(tagProperties.getTag()));
         }
     } else {
         return false;
@@ -1337,7 +1307,7 @@ GNEAdditionalFrame::buildAdditionalOverLane(GNELane* lane, const GNETagPropertie
         myBaseAdditional->addStringAttribute(SUMO_ATTR_LANE, lane->getID());
         // Check if ID has to be generated
         if (!myBaseAdditional->hasStringAttribute(SUMO_ATTR_ID)) {
-            myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, generateID(lane));
+            myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(tagProperties.getTag()));
         }
     } else {
         return false;
@@ -1375,7 +1345,7 @@ bool
 GNEAdditionalFrame::buildAdditionalOverView(const GNETagProperties& tagProperties) {
     // Check if ID has to be generated
     if (!myBaseAdditional->hasStringAttribute(SUMO_ATTR_ID)) {
-        myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, generateID(nullptr));
+        myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(tagProperties.getTag()));
     }
     // Obtain position as the clicked position over view
     const Position viewPos = myViewNet->snapToActiveGrid(myViewNet->getPositionInformation());

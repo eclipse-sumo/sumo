@@ -381,9 +381,6 @@ private:
     // @brief create baseAdditionalObject
     bool createBaseAdditionalObject(const GNETagProperties& tagProperty);
 
-    /// @brief generate a ID for an additiona element
-    std::string generateID(GNENetworkElement* networkElement) const;
-
     /// @brief build common additional attributes
     bool buildAdditionalCommonAttributes(const GNETagProperties& tagValues);
 

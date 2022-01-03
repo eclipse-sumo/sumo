@@ -263,9 +263,6 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
 
     // additional prefixes
 
-    oc.doRegister("parkingArea-prefix", new Option_String("pa"));
-    oc.addDescription("parkingArea-prefix", "Netedit", "prefix for parkingArea naming");
-
     oc.doRegister("busStop-prefix", new Option_String("bs"));
     oc.addDescription("busStop-prefix", "Netedit", "prefix for busStop naming");
 
@@ -277,6 +274,9 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
 
     oc.doRegister("chargingStation-prefix", new Option_String("cs"));
     oc.addDescription("chargingStation-prefix", "Netedit", "prefix for chargingStation naming");
+
+    oc.doRegister("parkingArea-prefix", new Option_String("pa"));
+    oc.addDescription("parkingArea-prefix", "Netedit", "prefix for parkingArea naming");
 
     oc.doRegister("rerouter-prefix", new Option_String("rr"));
     oc.addDescription("rerouter-prefix", "Netedit", "prefix for rerouter naming");
