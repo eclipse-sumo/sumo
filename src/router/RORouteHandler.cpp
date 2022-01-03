@@ -1270,8 +1270,9 @@ RORouteHandler::getLaneTree() {
 bool
 RORouteHandler::checkLastDepart() {
     if (!myUnsortedInput) {
-        SUMORouteHandler::checkLastDepart();
+        return SUMORouteHandler::checkLastDepart();
     }
+    return true;
 }
 
 /****************************************************************************/
