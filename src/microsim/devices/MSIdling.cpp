@@ -105,7 +105,7 @@ MSIdling_RandomCircling::idle(MSDevice_Taxi* taxi) {
     const int routeLength = (int)edges.size();
     while (routePos + 1 < routeLength && (remainingEdges < 2 || remainingDist < 200)) {
         const MSEdge* edge = edges[routePos];
-        remainingDist = edge->getLength();
+        remainingDist += edge->getLength();
         remainingEdges++;
         routePos++;
         newEdges.push_back(edge);
