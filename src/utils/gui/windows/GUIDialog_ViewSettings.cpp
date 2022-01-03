@@ -1014,7 +1014,7 @@ GUIDialog_ViewSettings::onCmdExportSetting(FXObject*, FXSelector, void* /*data*/
         if (!mySettings->netedit && mySaveBreakpoints->getCheck()) {
             for (SUMOTime t : myParent->retrieveBreakpoints()) {
                 dev.openTag(SUMO_TAG_BREAKPOINT);
-                dev.writeAttr(SUMO_ATTR_VALUE, time2string(t));
+                dev.writeAttr(SUMO_ATTR_TIME, time2string(t));
                 dev.closeTag();
             }
         }
