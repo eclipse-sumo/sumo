@@ -230,6 +230,7 @@ GUIVehicle::getTypeParameterWindow(GUIMainWindow& app,
     ret->mkItem("apparent deceleration [m/s^2]", false, getCarFollowModel().getApparentDecel());
     ret->mkItem("imperfection (sigma)", false, getCarFollowModel().getImperfection());
     ret->mkItem("desired headway (tau)", false, getCarFollowModel().getHeadwayTime());
+    ret->mkItem("speedFactor", false, myType->getParameter().speedFactor.toStr(gPrecision));
     if (myType->getParameter().wasSet(VTYPEPARS_ACTIONSTEPLENGTH_SET)) {
         ret->mkItem("action step length [s]", false, myType->getActionStepLengthSecs());
     }
