@@ -22,6 +22,8 @@ title: ChangeLog
   - Fixed bug where parkingReroute failed due to invalid rerouteOrigin. Issue #9778
   - Fixed inconsistent arrival times for trains approaching red and green signals. Issue #9788
   - Fixed slow sublane simulation on large networks with only a few vehicles. Issue #9816
+  - Fixed emergency braking of carFollowModel CACC at small step lengths. Issue #9831
+  - Setting **--step-length** > 1 now raises a warning for default tau. Issue #1375
   
 - netedit
   - Fixed bug preventing inspection of tazRelelations. Issue #9728
@@ -51,15 +53,18 @@ title: ChangeLog
 - duarouter
   - Option **--write-costs** now also applies to walks/rides, Option **--route-length** now applies to normal vehicles. Issue #9698
   - Fixed invalid error on mismatch between ride destination stop and vehicle destination stop. Issue #9730
+  - Fixed invalid route output when using option **--remove-loops** on routes with multiple loops. Issue #9837
   
 - jtrrouter
   - Unsorted flows now trigger a warning. Issue #9327
 
 - traci
+  - New programgs created via 'trafficlight.setProgramLogic' now support GUI access. Issue #549
   - turn subscription filter no longer crashes when crossings are present in foe lanes. Issue #9630
   - Fixed crash when calling vehicle.rerouteParkingArea for newly added vehicle. Issue #9755
   - Fixed invalid warnings when adding turn/lanes filter with context domain person. Issue #9760
   - TraCI server no longer hangs when trying to add a subscription filter without previous vehicle subscription. Issue #9770
+  - Fixed memory leak in libsumo::TrafficLight::getCompleteRedYellowGreenDefinition. Issue #9818
 
 - tools
   - generateParkingAreaRerouters.py: fixed distance bias against long parkingAreas. Issue #9644
@@ -80,7 +85,8 @@ title: ChangeLog
   - Added attribute speedRelative to edgeData output. Issue #9601
   - Option **--fcd-output.attributes** can now be used to active non-standard attributes (i.e. acceleration). Issue #9625
   - Rerouting period can now be customized via `<param key="device.rerouting.period" value="X"/>` in vType or vehicle. Issue #9646  
-  - Detector processing now takes less time if their output file is set to 'NUL'. Issue #7772, #9620 
+  - Detector processing now takes less time if their output file is set to 'NUL'. Issue #7772, #9620
+  - Vehicle attribute [departSpeed](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#departspeed) now supports the values 'last' and 'avg'. Issue #2024
   - parking search:
     - Parking search now supports `<param key="parking.anywhere" value="X"/>` which permit using free parkingArea along the way after doing unsuccessful  parkingAreaReroute x times. Issue #9577
     - Parking search now supports `<param key="parking.frustration" value="X"/>` which increases the preference for visibly free parkingAreas over time. Issue 9657
@@ -93,7 +99,10 @@ title: ChangeLog
   - Can now color roads "by free parking spaces". Issue #9643
   - Traffic light parameter dialog now includes cycle duration, timeInCycle, earliestEnd and latestEnd. Issue #9784
   - Phase Tracker window now shows switch times, can configure time style and optionally print durations. Issue #9785
+  - Phase Tracker now remembers position and size. Issue #9826
+  - Phase Tracker now shows phase index or phase name. Issue #9836
   - Added context menu entry to open map location in an online map. Issue #9787
+  - Vehicle size can now be scaled by attribute. Issue #9567
 
 - netedit
   - Add images for the guiShapes in the vType attributes editor. Issue #9457
@@ -111,6 +120,7 @@ title: ChangeLog
 - meso
   - Fixed invalid stop arrival time in meso. Issue #9713  
   - Fixed invalid ride depart time and route length when starting directly after stop. Issue #9560
+  - No more warnings about small tau. Issue #9505
 
 - duarouter
   - can now write route costs in regular route output. Issue #9667
@@ -127,11 +137,15 @@ title: ChangeLog
   - randomTrips.py now supports option **--random-depart** to randomize departure times. Issue #9735
   - tripinfoByType.py: now supports option **--interval** to aggregated data by depart time (or by arrival time with option **--by-arrivals**) Issue #9746
   - netdiff.py: now supports option **--plain-geo** to write locational diffs in geo coordinates. Issue #9808
+  - netdiff.py: now also writes diff for edge type file. Issue #9807
+  - implausibleRoutes.py: now supports option **--xml-output** to write route scores for post-processing. Issue #9862
 
 ### Miscellaneous
 
+- Traffic light type 'NEMA' now uses attribute 'offset' instead of param key="offset". Issue #9804
 - Speed up Visual Studio build with sccache (only works with Ninja not with Visual Studio projects). Issue #9290
 - The text "Loading configuration" is printed now only if **--verbose** is given. Issue #9743
+- The download 'sumo-all.zip' is no longer provided (use git clone instead). Issue #9794
 - Updated Eigen library Issue #9613
 - Updated GDAL library Issue #9614
 - Updated gtest library Issue #9616
