@@ -98,7 +98,7 @@ Distribution_Parameterized::isValidDescription(const std::string& description) {
 
 double
 Distribution_Parameterized::sample(SumoRNG* which) const {
-    if (myParameter[1] == 0.) {
+    if (myParameter[1] <= 0.) {
         return myParameter[0];
     }
     double val = RandHelper::randNorm(myParameter[0], myParameter[1], which);
@@ -115,7 +115,7 @@ Distribution_Parameterized::sample(SumoRNG* which) const {
 
 double
 Distribution_Parameterized::getMax() const {
-    if (myParameter[1] == 0.) {
+    if (myParameter[1] <= 0.) {
         return myParameter[0];
     }
     return myParameter.size() > 3 ? myParameter[3] : std::numeric_limits<double>::infinity();

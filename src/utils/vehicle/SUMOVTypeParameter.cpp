@@ -299,7 +299,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
             speedFactor.getParameter()[1] = defaultSpeedDev;
         }
     } else {
-        speedFactor.getParameter()[1] = 0;
+        speedFactor.getParameter()[1] = -1;
     }
     setManoeuverAngleTimes(vclass);
 }
