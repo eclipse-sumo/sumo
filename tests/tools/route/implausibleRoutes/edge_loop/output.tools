@@ -1,5 +1,5 @@
 Success.
 score	route	(airDistRatio, detourRatio, detour, shortestDist, airDist, edgeLoop, nodeLoop)
 6.1452908	0	(3.0, 3.0013908205841444, 14.389999999999997, 100.0, 100.0, True, True)
-overall implausiblity: count 1, min 6.15 (0), max 6.15 (0), mean 6.15 Q1 6.15, median 6.15, Q3 6.15
-implausiblity above threshold: count 1, min 6.15 (0), max 6.15 (0), mean 6.15 Q1 6.15, median 6.15, Q3 6.15
+overall implausiblity: count 1, min 6.15 (0), max 6.15 (0), mean 6.15, Q1 6.15, median 6.15, Q3 6.15
+implausiblity above threshold: count 1, min 6.15 (0), max 6.15 (0), mean 6.15, Q1 6.15, median 6.15, Q3 6.15

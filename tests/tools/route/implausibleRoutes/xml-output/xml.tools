@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2022-01-03 08:40:12.605912 by implausibleRoutes.py v1_11_0+0686-44d43e2
+<configuration>
+    <network value="input_net.net.xml"/>
+    <routeFiles value="routes.rou.xml"/>
+    <xml-output value="out.xml"/>
+</configuration>
+
+-->
+<implausibleRoutes>
+    <route id="0" edges="A0toA1 A1toA2 A2toB2 B2toC2 C2toC1 C1toC0" score="4.6439"/>
+</implausibleRoutes>

@@ -3,6 +3,7 @@ default
 # standalone routes
 standalone
 restriction-output
+xml-output
 
 # only rate by mininimu distance
 min-dist
