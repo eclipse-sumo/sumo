@@ -40,6 +40,7 @@
 // ===========================================================================
 #define DEBUG_COND (vehicle->getLaneChangeModel().debugVehicle())
 //#define DEBUG_COND (vehicle->getID() == "disabled")
+//#define DEBUG_COND true
 //#define DEBUG_DECISION
 //#define DEBUG_ACTIONSTEPS
 //#define DEBUG_STATE
@@ -484,7 +485,7 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
         laneAngle += M_PI;
     }
 #ifdef DEBUG_MANEUVER
-    if (vehicle->getLaneChangeModel().debugVehicle()) {
+    if (DEBUG_COND) {
         std::cout << SIMTIME << " startChangeSublane"
                   << " oldLane=" << from->lane->getID()
                   << " newLane=" << to->lane->getID()
@@ -506,10 +507,13 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     vehicle->setAngle(laneAngle + changeAngle, completedManeuver);
 
     // check if a traci maneuver must continue
-    if ((vehicle->getLaneChangeModel().getOwnState() & LCA_TRACI) != 0) {
-        if (vehicle->getLaneChangeModel().debugVehicle()) {
+    // getOwnState is reset to 0 when changing lanes so we use the stored reason
+    if ((reason & LCA_TRACI) != 0) {
+#ifdef DEBUG_MANEUVER
+        if (DEBUG_COND) {
             std::cout << SIMTIME << " continue TraCI-maneuver remainingLatDist=" << vehicle->getLaneChangeModel().getManeuverDist() << "\n";
         }
+#endif
         vehicle->getInfluencer().setSublaneChange(vehicle->getLaneChangeModel().getManeuverDist());
     }
     from->lane->requireCollisionCheck();
