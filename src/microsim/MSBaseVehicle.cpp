@@ -235,7 +235,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
         if (stops.size() > 0) {
             const double sourcePos = onInit ? 0 : getPositionOnLane();
             // avoid superfluous waypoints for first and last edge
-            const bool skipFirst = stops.front() == source && sourcePos <= firstPos;
+            const bool skipFirst = stops.front() == source && sourcePos + getBrakeGap() <= firstPos;
             const bool skipLast = stops.back() == sink && myArrivalPos >= lastPos;
 #ifdef DEBUG_REROUTE
             if (DEBUG_COND) {
@@ -451,7 +451,7 @@ MSBaseVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bo
     } else {
         // recheck old stops
         MSRouteIterator searchStart = myCurrEdge;
-        double lastPos = getPositionOnLane();
+        double lastPos = getPositionOnLane() + getBrakeGap();
         if (getLane() != nullptr && getLane()->isInternal()
                 && myStops.size() > 0 && !myStops.front().lane->isInternal()) {
             // searchStart is still incoming to the intersection so lastPos
