@@ -12,6 +12,9 @@ changeLane
 # same tests as in changeLane suite but with sublane model
 changeLane_subLane
 
+# various tests for changeSublane (using sublane model)
+changeSublane
+
 # Tests the openGap() method.
 openGap
 
