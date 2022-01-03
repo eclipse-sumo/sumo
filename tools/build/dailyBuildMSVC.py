@@ -208,19 +208,14 @@ for platform in ["x64"]:
                     shutil.copy(binaryZip + ".msi", options.remoteDir)
             except Exception as ziperr:
                 status.printLog("Warning: Could not zip to %s.zip (%s)!" % (binaryZip, ziperr), log)
-        binaryZip += ".zip"
 
+        gameZip = os.path.join(buildDir, "sumo-game-%s%s-%s.zip" % (plat, options.suffix, installBase[5:]))
         status.printLog("Creating sumo-game.zip.", log)
         try:
-            try:
-                import py2exe  # noqa
-                setup = os.path.join(SUMO_HOME, 'tools', 'game', 'setup.py')
-                subprocess.call(['python', setup, binaryZip], stdout=log, stderr=subprocess.STDOUT)
-            except ImportError:
-                subprocess.call(["cmake", "--build", ".", "--target", "game"],
-                                cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
-                shutil.move(os.path.join(buildDir, "sumo-game.zip"), binaryZip.replace("sumo-", "sumo-game-"))
-            shutil.copy(binaryZip.replace("sumo-", "sumo-game-"), options.remoteDir)
+            subprocess.call(["cmake", "--build", ".", "--target", "game"],
+                            cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
+            shutil.move(os.path.join(buildDir, "sumo-game.zip"), gameZip)
+            shutil.copy(gameZip, options.remoteDir)
         except Exception as e:
             status.printLog("Warning: Could not create nightly sumo-game.zip! (%s)" % e, log)
 
@@ -228,17 +223,16 @@ for platform in ["x64"]:
             ret = subprocess.call(["cmake", "--build", ".", "--config", "Debug"],
                                   cwd=buildDir, stdout=debugLog, stderr=subprocess.STDOUT)
             if ret == 0:
+                debugZip = os.path.join(buildDir, "sumo-%s%sDebug-%s.zip" % (plat, options.suffix, installBase[5:]))
                 status.printLog("Creating sumoDebug.zip.", debugLog)
                 try:
-                    with zipfile.ZipFile(binaryZip.replace(plat, plat + "Debug"), 'w', zipfile.ZIP_DEFLATED) as zipf:
+                    with zipfile.ZipFile(debugZip, 'w', zipfile.ZIP_DEFLATED) as zipf:
                         for ext in ("*D.exe", "*.dll", "*D.pdb"):
                             for f in glob.glob(os.path.join(SUMO_HOME, "bin", ext)):
                                 zipf.write(f, os.path.join(installBase, "bin", os.path.basename(f)))
-                        for f in glob.glob(os.path.join(SUMO_HOME, "tools", "lib*", "*lib*.p*")):
-                            zipf.write(f, os.path.join(installBase, f[len(SUMO_HOME):]))
-                    shutil.copy(binaryZip.replace(plat, plat + "Debug"), options.remoteDir)
+                    shutil.copy(debugZip, options.remoteDir)
                 except IOError as ziperr:
-                    status.printLog("Warning: Could not zip to %s (%s)!" % (binaryZip, ziperr), debugLog)
+                    status.printLog("Warning: Could not zip to %s (%s)!" % (debugZip, ziperr), debugLog)
 
         status.printLog("Running tests.", log)
         runTests(options, env, gitrev, log)
