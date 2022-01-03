@@ -602,7 +602,9 @@ GNEFrameAttributeModules::AttributesCreator::getAttributesAndValues(CommonXMLStr
         }
     }
     // add extra flow attributes (only will updated if myAttributesCreatorFlow is shown)
-    myAttributesCreatorFlow->setFlowParameters(baseObject);
+    if (myAttributesCreatorFlow->shownAttributesCreatorFlowModule()) {
+        myAttributesCreatorFlow->setFlowParameters(baseObject);
+    }
 }
 
 
@@ -788,6 +790,12 @@ GNEFrameAttributeModules::AttributesCreatorFlow::showAttributesCreatorFlowModule
 void
 GNEFrameAttributeModules::AttributesCreatorFlow::hideAttributesCreatorFlowModule() {
     hide();
+}
+
+
+bool
+GNEFrameAttributeModules::AttributesCreatorFlow::shownAttributesCreatorFlowModule() const {
+    return shown();
 }
 
 

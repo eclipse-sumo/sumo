@@ -248,6 +248,9 @@ public:
         /// @brief hide group box
         void hideAttributesCreatorFlowModule();
 
+        /// @brief shown AttributesCreatorFlow modul
+        bool shownAttributesCreatorFlowModule() const;
+
         /// @brief refresh AttributesCreatorFlow
         void refreshAttributesCreatorFlow();
 
