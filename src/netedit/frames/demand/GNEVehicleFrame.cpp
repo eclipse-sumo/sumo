@@ -329,9 +329,8 @@ GNEVehicleFrame::createPath() {
     myVehicleBaseObject->clear();
     // obtain tag (only for improve code legibility)
     SumoXMLTag vehicleTag = myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
-    const bool embebbedRoute = ((vehicleTag == GNE_TAG_VEHICLE_WITHROUTE) || (vehicleTag == GNE_TAG_FLOW_WITHROUTE));
     // check number of edges
-    if ((myPathCreator->getSelectedEdges().size() > 1) || (myPathCreator->getSelectedEdges().size() > 0 && embebbedRoute)) {
+    if (myPathCreator->getSelectedEdges().size() > 0) {
         // Updated myVehicleBaseObject
         myVehicleAttributes->getAttributesAndValues(myVehicleBaseObject, false);
         // Check if ID has to be generated
