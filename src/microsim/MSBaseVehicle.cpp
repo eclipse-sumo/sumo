@@ -1073,20 +1073,21 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
             stop.edge = std::find(prevStopEdge, myRoute->end(), stopEdge);
         }
     }
+    if (stop.edge == myRoute->end()) {
+        errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stop.lane->getID() + "' is not downstream the current route.";
+        return false;
+    }
+
     const bool sameEdgeAsLastStop = prevStopEdge == stop.edge && prevEdge == &stop.lane->getEdge();
-    if (stop.edge == myRoute->end() || prevStopEdge > stop.edge ||
+    if (prevStopEdge > stop.edge ||
             // a collision-stop happens after vehicle movement and may move the
             // vehicle backwards on it's lane (prevStopPos is the vehicle position)
             (sameEdgeAsLastStop && prevStopPos > stop.pars.endPos && !collision)
             || (stop.lane->getEdge().isInternal() && stop.lane->getNextNormal() != *(stop.edge + 1))) {
-        if (stop.edge != myRoute->end()) {
-            // check if the edge occurs again later in the route
-            MSRouteIterator next = stop.edge + 1;
-            return addStop(stopPar, errorMsg, untilOffset, collision, &next);
-        }
-        errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stop.lane->getID() + "' is not downstream the current route.";
+        // check if the edge occurs again later in the route
         //std::cout << " could not add stop " << errorMsgStart << " prevStops=" << myStops.size() << " searchStart=" << (*searchStart - myRoute->begin()) << " route=" << toString(myRoute->getEdges())  << "\n";
-        return false;
+        MSRouteIterator next = stop.edge + 1;
+        return addStop(stopPar, errorMsg, untilOffset, collision, &next);
     }
     // David.C:
     //if (!stop.parking && (myCurrEdge == stop.edge && myState.myPos > stop.endPos - getCarFollowModel().brakeGap(myState.mySpeed))) {
