@@ -1148,14 +1148,14 @@ GNENetHelper::AttributeCarriers::generateShapeID(SumoXMLTag tag) const {
                (retrieveTAZElement(SUMO_TAG_TAZ, prefix + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
-        return (toString(tag) + "_" + toString(counter));
+        return (prefix + "_" + toString(counter));
     } else {
         while ((retrieveShape(SUMO_TAG_POI, prefix + "_" + toString(counter), false) != nullptr) ||
                 (retrieveShape(GNE_TAG_POILANE, prefix + "_" + toString(counter), false) != nullptr) ||
                 (retrieveShape(GNE_TAG_POIGEO, prefix + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
-        return (toString(tag) + "_" + toString(counter));
+        return (prefix + "_" + toString(counter));
     }
 }
 
