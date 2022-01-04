@@ -129,7 +129,11 @@ GNELane::getLaneGeometry() const {
 
 const PositionVector&
 GNELane::getLaneShape() const {
-    return myParentEdge->getNBEdge()->getLaneShape(myIndex);
+    if (myParentEdge->getNBEdge()->getLaneStruct(myIndex).customShape.size() > 0) {
+        return myParentEdge->getNBEdge()->getLaneStruct(myIndex).customShape;
+    } else {
+        return myParentEdge->getNBEdge()->getLaneShape(myIndex);
+    }
 }
 
 
@@ -153,15 +157,9 @@ GNELane::updateGeometry() {
     //double length = myParentEdge->getLength(); // @todo see ticket #448
     // may be different from length
     // Obtain lane shape of NBEdge
-    myLaneGeometry.updateGeometry(myParentEdge->getNBEdge()->getLaneShape(myIndex));
+    myLaneGeometry.updateGeometry(getLaneShape());
     // update connections
     myLane2laneConnections.updateLane2laneConnection();
-    // update dotted lane geometry
-    /*
-        if (myNet->getViewNet()) {
-            myDottedLaneGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(), this);
-        }
-    */
     // update shapes parents associated with this lane
     for (const auto& shape : getParentShapes()) {
         shape->updateGeometry();
@@ -1713,7 +1711,7 @@ double
 GNELane::getLengthGeometryFactor() const {
     // factor should not be 0
     if (myParentEdge->getNBEdge()->getFinalLength() > 0) {
-        return MAX2(POSITION_EPS, (myParentEdge->getNBEdge()->getLaneShape(myIndex).length() / myParentEdge->getNBEdge()->getFinalLength()));
+        return MAX2(POSITION_EPS, (getLaneShape().length() / myParentEdge->getNBEdge()->getFinalLength()));
     } else {
         return POSITION_EPS;
     };
