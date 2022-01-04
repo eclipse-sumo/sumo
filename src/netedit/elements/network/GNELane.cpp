@@ -508,7 +508,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     // translate to front (note: Special case)
     if (myNet->getViewNet()->getFrontAttributeCarrier() == myParentEdge) {
         glTranslated(0, 0, GLO_DOTTEDCONTOUR_FRONT);
-    } else if (myLaneGeometry.getShape().length2D() <= (s.neteditSizeSettings.junctionBubbleRadius *2)) {
+    } else if (myLaneGeometry.getShape().length2D() <= (s.neteditSizeSettings.junctionBubbleRadius * 2)) {
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_JUNCTION + 0.5);
     } else {
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_LANE);
@@ -568,9 +568,29 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         const auto& laneStopOffset = myParentEdge->getNBEdge()->getLaneStruct(myIndex).laneStopOffset;
         if (laneStopOffset.isDefined() && (laneStopOffset.getPermissions() & SVC_PASSENGER) != 0) {
             drawLaneStopOffset(s, laneStopOffset.getOffset());
-        }
+        }        
         // Pop layer matrix
         GLHelper::popMatrix();
+        // if shape is being edited, draw point and green line
+        if (myShapeEdited) {
+            // psuh shape edited matrix
+            GLHelper::pushMatrix();
+            // translate
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_JUNCTION + 1);
+            // set selected edge color
+            GLHelper::setColor(s.colorSettings.editShapeColor);
+            // draw again to show the selected edge
+            GUIGeometry::drawLaneGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), {}, 0.25);
+            // move front
+            glTranslated(0, 0, 1);
+            // color
+            const RGBColor darkerColor = s.colorSettings.editShapeColor.changedBrightness(-32);
+            // draw geometry points
+            GUIGeometry::drawGeometryPoints(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry.getShape(), darkerColor, RGBColor::BLACK,
+                                            s.neteditSizeSettings.laneGeometryPointRadius, 1, myNet->getViewNet()->getNetworkViewOptions().editingElevation(), true);
+            // Pop shape edited matrix
+            GLHelper::popMatrix();
+        }
         // Pop lane Name
         GLHelper::popName();
         // Pop edge Name
