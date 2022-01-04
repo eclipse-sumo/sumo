@@ -1776,6 +1776,7 @@ GNELane::buildLaneOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* 
         new FXMenuCascade(ret, "lane operations", nullptr, laneOperations);
     }
     GUIDesigns::buildFXMenuCommand(laneOperations, "Duplicate lane", nullptr, &parent, MID_GNE_LANE_DUPLICATE);
+    GUIDesigns::buildFXMenuCommand(ret, "Set custom lane shape", nullptr, &parent, MID_GNE_LANE_EDIT_SHAPE);
     FXMenuCommand* resetCustomShape = GUIDesigns::buildFXMenuCommand(laneOperations, "reset custom shape", nullptr, &parent, MID_GNE_LANE_RESET_CUSTOMSHAPE);
     if (!differentLaneShapes) {
         resetCustomShape->disable();

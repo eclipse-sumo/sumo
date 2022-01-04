@@ -233,6 +233,9 @@ public:
     /// @brief duplicate selected lane
     long onCmdDuplicateLane(FXObject*, FXSelector, void*);
 
+    /// @brief edit lane shape
+    long onCmdEditLaneShape(FXObject*, FXSelector, void*);
+
     /// @brief reset custom shapes of selected lanes
     long onCmdResetLaneCustomShape(FXObject*, FXSelector, void*);
 

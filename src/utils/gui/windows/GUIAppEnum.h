@@ -1122,6 +1122,8 @@ enum {
 
     /// @brief duplicate a lane
     MID_GNE_LANE_DUPLICATE,
+    /// @brief edit lane shape
+    MID_GNE_LANE_EDIT_SHAPE,
     /// @brief reset custom shape
     MID_GNE_LANE_RESET_CUSTOMSHAPE,
     /// @brief reset opposite lane

@@ -164,6 +164,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGE_RESET_LENGTH,                       GNEViewNet::onCmdResetLength),
     // Lanes
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_DUPLICATE,                          GNEViewNet::onCmdDuplicateLane),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_EDIT_SHAPE,                         GNEViewNet::onCmdEditLaneShape),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_RESET_CUSTOMSHAPE,                  GNEViewNet::onCmdResetLaneCustomShape),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_RESET_OPPOSITELANE,                 GNEViewNet::onCmdResetOppositeLane),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_TRANSFORM_SIDEWALK,                 GNEViewNet::onCmdLaneOperation),
@@ -2296,6 +2297,20 @@ GNEViewNet::onCmdDuplicateLane(FXObject*, FXSelector, void*) {
             myUndoList->end();
         }
     }
+    return 1;
+}
+
+
+long 
+GNEViewNet::onCmdEditLaneShape(FXObject*, FXSelector, void*) {
+    // Obtain lane under mouse
+    GNELane* lane = getLaneAtPopupPosition();
+    if (lane) {
+        myEditNetworkElementShapes.startEditCustomShape(lane);
+    }
+    // destroy pop-up and update view Net
+    destroyPopup();
+    setFocus();
     return 1;
 }
 
