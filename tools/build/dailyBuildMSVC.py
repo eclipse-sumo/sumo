@@ -27,7 +27,6 @@ from __future__ import absolute_import
 from __future__ import print_function
 import io
 import datetime
-import optparse
 import os
 import glob
 import subprocess
@@ -35,7 +34,6 @@ import zipfile
 import shutil
 import sys
 
-import filterDebugDLL
 import status
 import wix
 
@@ -126,7 +124,7 @@ def generateCMake(generator, platform, log, checkOptionalLibs, python):
     return buildDir
 
 
-optParser = optparse.OptionParser()
+optParser = sumolib.options.ArgumentParser()
 optParser.add_option("-r", "--root-dir", dest="rootDir",
                      default=r"D:\Sumo", help="root for git and log output")
 optParser.add_option("-s", "--suffix", default="", help="suffix to the fileprefix")
@@ -141,7 +139,7 @@ optParser.add_option("-c", "--msvc-version", default="msvc16",
                      help="Visual Studio version to use (either msvc12 or msvc16)")
 optParser.add_option("-u", "--repositories", default="git",
                      help="repositories to update")
-(options, args) = optParser.parse_args()
+options = optParser.parse_args()
 
 
 for platform in ["x64"]:
