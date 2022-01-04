@@ -1413,7 +1413,7 @@ GNENetHelper::AttributeCarriers::generateDemandElementID(SumoXMLTag tag) const {
     std::string prefix;
     if (tag == SUMO_TAG_ROUTE) {
         prefix = oc.getString("route-prefix");
-    } else if (tag == SUMO_TAG_TYPE) {
+    } else if (tag == SUMO_TAG_VTYPE) {
         prefix = oc.getString("vType-prefix");
     } else if (tag == SUMO_TAG_TRIP) {
         prefix = oc.getString("trip-prefix");
@@ -1515,7 +1515,7 @@ GNENetHelper::AttributeCarriers::addDefaultVTypes() {
     defaultPersonType->incRef("GNENet::DEFAULT_PEDTYPE_ID");
 
     // Create default container Type (it has to be created here due myViewNet was previously nullptr)
-    GNEType* defaultContainerType = new GNEType(myNet, DEFAULT_CONTAINERTYPE_ID, SVC_PEDESTRIAN);
+    GNEType* defaultContainerType = new GNEType(myNet, DEFAULT_CONTAINERTYPE_ID, SVC_IGNORING);
     myDemandElements.at(defaultContainerType->getTagProperty().getTag()).insert(defaultContainerType);
     defaultContainerType->incRef("GNENet::DEFAULT_CONTAINERTYPE_ID");
 }
