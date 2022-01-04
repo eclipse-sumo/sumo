@@ -131,6 +131,7 @@ This Documentation is continuously updated and always refers to the latest devel
 - [Vehicle speed](Simulation/VehicleSpeed.md)
 - [Vehicle insertion](Simulation/VehicleInsertion.md)
 - [Vehicle permissions (access restrictions)](Simulation/VehiclePermissions.md)
+- [Road capacity](Simulation/RoadCapacity.md)
 - [Intersection dynamics](Simulation/Intersections.md)
 - [Randomness](Simulation/Randomness.md)
 - [Routing and Re-routing](Simulation/Routing.md)
