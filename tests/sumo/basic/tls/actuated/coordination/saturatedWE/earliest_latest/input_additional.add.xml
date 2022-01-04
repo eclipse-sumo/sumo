@@ -2,7 +2,7 @@
     <tlLogic id="C0" type="actuated" programID="custom" offset="0">
         <phase duration="42" state="GGggrrrrGGggrrrr" minDur="5" maxDur="60" earliestEnd="10" latestEnd="60"/>
         <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
-        <phase duration="42" state="rrrrGGggrrrrGGgg" minDur="5" maxDur="60" earliestEnd="30" atestEnd="90"/>
+        <phase duration="42" state="rrrrGGggrrrrGGgg" minDur="5" maxDur="60" earliestEnd="30" latestEnd="90"/>
         <phase duration="3"  state="rrrryyyyrrrryyyy"/>
     </tlLogic>
 </additional>
