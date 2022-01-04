@@ -4688,7 +4688,10 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         case NetworkEditMode::NETWORK_MOVE: {
             // first swap lane to edges if mySelectEdges is enabled and shift key isn't pressed
             if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
-                myObjectsUnderCursor.swapLane2Edge();
+                // swap lane to edge (except if we're editing a shape lane)
+                if (!(myObjectsUnderCursor.getLaneFront() && myObjectsUnderCursor.getLaneFront()->isShapeEdited())) {
+                    myObjectsUnderCursor.swapLane2Edge();
+                }
                 // update AC under cursor
                 AC = myObjectsUnderCursor.getAttributeCarrierFront();
             }

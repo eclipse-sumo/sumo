@@ -951,6 +951,16 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveNetworkElementShape() {
         } else {
             return false;
         }
+    } else if (myViewNet->myObjectsUnderCursor.getLaneFront() && (myViewNet->myObjectsUnderCursor.getLaneFront() == editedElement)) {
+        // get move operation
+        GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getLaneFront()->getMoveOperation();
+        // continue if move operation is valid
+        if (moveOperation) {
+            myMoveOperations.push_back(moveOperation);
+            return true;
+        } else {
+            return false;
+        }
     } else if (myViewNet->myObjectsUnderCursor.getCrossingFront() && (myViewNet->myObjectsUnderCursor.getCrossingFront() == editedElement)) {
         // get move operation
         GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getCrossingFront()->getMoveOperation();

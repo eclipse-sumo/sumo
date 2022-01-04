@@ -83,6 +83,7 @@ const RGBColor GUIVisualizationCandidateColorSettings::conflict(255, 255, 0, 255
 const double GUIVisualizationNeteditSizeSettings::junctionBubbleRadius(4);
 const double GUIVisualizationNeteditSizeSettings::junctionGeometryPointRadius(1);
 const double GUIVisualizationNeteditSizeSettings::edgeGeometryPointRadius(1.2);
+const double GUIVisualizationNeteditSizeSettings::laneGeometryPointRadius(1);
 const double GUIVisualizationNeteditSizeSettings::connectionGeometryPointRadius(0.8);
 const double GUIVisualizationNeteditSizeSettings::crossingGeometryPointRadius(1);
 const double GUIVisualizationNeteditSizeSettings::polygonGeometryPointRadius(1.2);

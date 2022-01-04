@@ -289,6 +289,9 @@ struct GUIVisualizationNeteditSizeSettings {
     /// @brief moving edge geometry point radius
     static const double edgeGeometryPointRadius;
 
+    /// @brief moving lane geometry point radius
+    static const double laneGeometryPointRadius;
+
     /// @brief moving connection geometry point radius
     static const double connectionGeometryPointRadius;
 

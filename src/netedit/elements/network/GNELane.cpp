@@ -241,14 +241,40 @@ GNELane::getPositionInView() const {
 
 GNEMoveOperation*
 GNELane::getMoveOperation() {
-    // currently Lane shapes cannot be edited
-    return nullptr;
+    // edit depending if shape is being edited
+    if (isShapeEdited()) {
+        // calculate move shape operation
+        return calculateMoveShapeOperation(getLaneShape(), myNet->getViewNet()->getPositionInformation(),
+                                           myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.laneGeometryPointRadius, true);
+    } else {
+        return nullptr;
+    }
 }
 
 
 void
-GNELane::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
-    // currently unused
+GNELane::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
+    // edit depending if shape is being edited
+    if (isShapeEdited()) {
+        // get original shape
+        PositionVector shape = getLaneShape();
+        // check shape size
+        if (shape.size() > 2) {
+            // obtain index
+            int index = shape.indexOfClosest(clickedPosition);
+            // get snap radius
+            const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.laneGeometryPointRadius;
+            // check if we have to create a new index
+            if ((index != -1) && shape[index].distanceSquaredTo2D(clickedPosition) < (snap_radius * snap_radius)) {
+                // remove geometry point
+                shape.erase(shape.begin() + index);
+                // commit new shape
+                undoList->begin(GUIIcon::CROSSING, "remove geometry point of " + getTagStr());
+                undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(shape)));
+                undoList->end();
+            }
+        }
+    }
 }
 
 
@@ -1111,14 +1137,20 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNELane::setMoveShape(const GNEMoveResult& /*moveResult*/) {
-    // currently unused
+GNELane::setMoveShape(const GNEMoveResult& moveResult) {
+    // set custom shape
+    myParentEdge->getNBEdge()->getLaneStruct(myIndex).customShape = moveResult.shapeToUpdate;
+    // update geometry
+    updateGeometry();
 }
 
 
 void
-GNELane::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
-    // currently unused
+GNELane::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
+    // commit new shape
+    undoList->begin(GUIIcon::LANE, "moving " + toString(SUMO_ATTR_CUSTOMSHAPE) + " of " + getTagStr());
+    undoList->changeAttribute(new GNEChange_Attribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(moveResult.shapeToUpdate)));
+    undoList->end();
 }
 
 
@@ -1857,12 +1889,6 @@ GNELane::buildRechableOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMe
         FXMenuCommand* menuCommand = GUIDesigns::buildFXMenuCommand(ret, "Select reachable (compute junctions)", nullptr, nullptr, 0);
         menuCommand->handle(&parent, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
     }
-}
-
-
-void
-removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
-    // currently unused
 }
 
 /****************************************************************************/
