@@ -145,6 +145,7 @@ title: ChangeLog
 - Traffic light type 'NEMA' now uses attribute 'offset' instead of param key="offset". Issue #9804
 - Speed up Visual Studio build with sccache (only works with Ninja not with Visual Studio projects). Issue #9290
 - The text "Loading configuration" is printed now only if **--verbose** is given. Issue #9743
+- vType attribute 'minGapLat' is now stored for each vehicle ([similar to other lane change model attributes](TraCI/Change_Vehicle_State.md#relationship_between_lanechange_model_attributes_and_vtypes)). Issue #9769
 - The download 'sumo-all.zip' is no longer provided (use git clone instead). Issue #9794
 - Updated Eigen library Issue #9613
 - Updated GDAL library Issue #9614
