@@ -878,6 +878,9 @@ The parameters are set within the `<vType>`:
 !!! note
     parameter 'lcMaxSpeedLatStanding' will not be applied when a vehicle is at the end of its lane (to ensure that there are no deadlocks).
 
+!!! caution
+    Modifying and Retrieving lane change model attributes via TraCI [works different from other vType attributes](TraCI/Change_Vehicle_State.md#relationship_between_lanechange_model_attributes_and_vtypes)
+
 ## Junction Model Parameters
 
 The behavior at intersections may be configured with the parameters
