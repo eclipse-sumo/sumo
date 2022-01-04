@@ -96,6 +96,7 @@ By default, the next attempt happens 2 seconds after the first vehicle has depar
 - insert with a fixed departSpeed (numerical value) and set option **--ignore-route-errors**.
   Vehicles will be inserted with unsafe speeds at the specified time
   if emergency-braking would still allow collision-free dynamics
+- inserted vehicles with a homogeneous departSpeed by setting `departSpeed="last"` or departSpeed="avg"`
 - use
   [traci.vehicle.moveTo](../TraCI/Change_Vehicle_State.md#move_to_0x5c)
   or
