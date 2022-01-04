@@ -45,3 +45,6 @@ meso
 
 # parallelization tests
 parallel
+
+# test insertion capacity for different options and departure attributes
+insertionCapacity
