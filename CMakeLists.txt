@@ -423,7 +423,9 @@ else ()
     set(DATA_PATH "share/sumo/")
 endif ()
 install(DIRECTORY bin/ DESTINATION bin
-        FILES_MATCHING PATTERN "*.(bat|dll)"
+        FILES_MATCHING
+        PATTERN "*.bat"
+        PATTERN "*.dll"
         PATTERN "*d.dll" EXCLUDE
         PATTERN "gtest*.dll" EXCLUDE
         PATTERN "FOXDLLD-1.6.dll" EXCLUDE)
