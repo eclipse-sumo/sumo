@@ -114,11 +114,8 @@ public:
         /// @brief Called when "Vreate Vehicle Type" button is clicked
         long onCmdCreateType(FXObject*, FXSelector, void*);
 
-        /// @brief Called when "Delete Vehicle Type" button is clicked
-        long onCmdDeleteType(FXObject*, FXSelector, void*);
-
-        /// @brief Called when "Delete Vehicle Type" button is clicked
-        long onCmdResetType(FXObject*, FXSelector, void*);
+        /// @brief Called when "Delete/Reset Vehicle Type" button is clicked
+        long onCmdDeleteResetType(FXObject*, FXSelector, void*);
 
         /// @brief Called when "Copy Vehicle Type" button is clicked
         long onCmdCopyType(FXObject*, FXSelector, void*);
@@ -127,6 +124,12 @@ public:
     protected:
         FOX_CONSTRUCTOR(TypeEditor)
 
+        /// @brief reset type
+        void resetType();
+
+        /// @brief delete type
+        void deleteType();
+
     private:
         /// @brief pointer to vehicle type Frame Parent
         GNETypeFrame* myTypeFrameParent;
@@ -134,11 +137,8 @@ public:
         /// @brief "create vehicle type" button
         FXButton* myCreateTypeButton;
 
-        /// @brief "delete vehicle type" button
-        FXButton* myDeleteTypeButton;
-
-        /// @brief "delete default vehicle type" button
-        FXButton* myResetDefaultTypeButton;
+        /// @brief "delete/reset vehicle type" button
+        FXButton* myDeleteResetTypeButton;
 
         /// @brief "copy vehicle type"
         FXButton* myCopyTypeButton;
