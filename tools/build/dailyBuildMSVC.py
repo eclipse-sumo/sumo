@@ -201,11 +201,9 @@ for platform in ["x64"]:
                 status.printLog("Creating sumo.zip.", log)
                 shutil.make_archive(binaryZip, 'zip', buildDir, installBase)
                 shutil.copy(binaryZip + ".zip", options.remoteDir)
-                if options.suffix == "":
-                    # installers only for the vanilla build
-                    status.printLog("Creating sumo.msi.", log)
-                    wix.buildMSI(binaryZip + ".zip", binaryZip + ".msi", log=log)
-                    shutil.copy(binaryZip + ".msi", options.remoteDir)
+                status.printLog("Creating sumo.msi.", log)
+                wix.buildMSI(binaryZip + ".zip", binaryZip + ".msi", log=log)
+                shutil.copy(binaryZip + ".msi", options.remoteDir)
             except Exception as ziperr:
                 status.printLog("Warning: Could not zip to %s.zip (%s)!" % (binaryZip, ziperr), log)
 
