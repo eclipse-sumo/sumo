@@ -536,7 +536,7 @@ call](../TraCI/GenericParameters.md#set_parameter).
 
 # Relationship between lanechange model attributes and vTypes
 
-All [lanechange model attributes](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.html#lane-changing_models) are initialized from the vehicles vType and then stored in the individual lane change model instance of each vehicle. This has important consequences
+All [lanechange model attributes](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#lane-changing_models) are initialized from the vehicles vType and then stored in the individual lane change model instance of each vehicle. This has important consequences
 
 - setting a new vType for a vehicle doesn't affect lane change model attributes (the vehicle keeps using it's individual values)
 - changing lane change model attributes on the vType of a vehicle does not affect the vehicle (the vehicle keeps using it's individual values)
