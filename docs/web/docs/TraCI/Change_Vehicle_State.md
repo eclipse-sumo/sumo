@@ -534,6 +534,17 @@ call](../TraCI/GenericParameters.md#set_parameter).
   laneChangeModel](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#lane-changing_models)
   of the vehicle. i.e. *lcStrategic*)
 
+# Relationship between lanechange model attributes and vTypes
+
+All [lanechange model attributes](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.html#lane-changing_models) are initialized from the vehicles vType and then stored in the individual lane change model instance of each vehicle. This has important consequences
+
+- setting a new vType for a vehicle doesn't affect lane change model attributes (the vehicle keeps using it's individual values)
+- changing lane change model attributes on the vType of a vehicle does not affect the vehicle (the vehicle keeps using it's individual values)
+- changing lane change model attributes for a vehicle does not affect it's vType (and instead changes the individual values of the vehicle)
+
+!!! caution
+    Attribute 'minGapLat' also counts as a lanechange model attribute since version 1.12.0
+
 # Application order of traci commands and simulation step
 
 Step **n**:
