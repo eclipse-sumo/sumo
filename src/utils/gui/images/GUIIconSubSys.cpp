@@ -230,7 +230,7 @@
 #include "options.xpm"
 
 #include "junction.xpm"
-#include "type.xpm"
+#include "edgetype.xpm"
 #include "lanetype.xpm"
 #include "edge.xpm"
 #include "lane.xpm"
@@ -594,7 +594,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::OPTIONS] = new FXXPMIcon(a, options_xpm);
 
     myIcons[GUIIcon::JUNCTION] = new FXXPMIcon(a, junction_xpm);
-    myIcons[GUIIcon::TYPE] = new FXXPMIcon(a, type_xpm);
+    myIcons[GUIIcon::EDGETYPE] = new FXXPMIcon(a, edgetype_xpm);
     myIcons[GUIIcon::LANETYPE] = new FXXPMIcon(a, lanetype_xpm);
     myIcons[GUIIcon::EDGE] = new FXXPMIcon(a, edge_xpm);
     myIcons[GUIIcon::LANE] = new FXXPMIcon(a, lane_xpm);

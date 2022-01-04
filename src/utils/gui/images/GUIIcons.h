@@ -331,7 +331,7 @@ enum class GUIIcon {
     /// @name NETEDIT network elements icons
     /// @{
     JUNCTION,
-    TYPE,
+    EDGETYPE,
     LANETYPE,
     EDGE,
     LANE,

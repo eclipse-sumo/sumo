@@ -929,7 +929,7 @@ GNEAttributeCarrier::fillNetworkElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::NETWORKELEMENT,
                                       GNETagProperties::NOTDRAWABLE | GNETagProperties::NOTSELECTABLE,
-                                      GUIIcon::TYPE, currentTag);
+                                      GUIIcon::EDGETYPE, currentTag);
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
