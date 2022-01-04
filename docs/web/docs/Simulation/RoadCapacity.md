@@ -17,9 +17,9 @@ lane changing dynamics.
 The capacity of a single lane is inversely proportional to time headways
 between successive vehicles. Assuming homogeneous traffic and equal headways:
 
-`capacity = 3600 / grosTimeHeadway`
+`capacity = 3600 / grossTimeHeadway`
 
-Where `grosTimeHeadway` denotes the time it takes for two successive vehicle
+Where `grossTimeHeadway` denotes the time it takes for two successive vehicle
 front-bumpers to pass the same location.
 
 In constrast `netTimeHeadway` denotes the time it takes for the follower vehicles
@@ -31,7 +31,7 @@ The exact time headways observered in the simulation depend on the used
 carFollowModel and it's parameters. The easiest case to analyze is the one where all
 vehicles drive at the same speed *s*.
 
-Let `grosHeadway` denote the distance between successive vehicle front-bumpers
+Let `grossHeadway` denote the distance between successive vehicle front-bumpers
 and `netHeadway` denote the distance from follower front-bumper to leader
 rear-bumper.
 
@@ -47,12 +47,12 @@ Assuming that all vehicles are driving at at constant speed *s*, the following
 headways hold for 'Krauss':
 
 - `netHeadway = minGap + tau * s`
-- `grosHeadway = length + minGap + tau * s`
+- `grossHeadway = length + minGap + tau * s`
 
 From this we can directly compute the time headways:
 
 - `netTimeHeadway = minGap / s + tau`
-- `grosTimeHeadway = (length + minGap) / s + tau`
+- `grossTimeHeadway = (length + minGap) / s + tau`
 
 Due to length and minGap, the capacity of a road depends on it's speed limit (whereas
 the tau component is independent of speed).
