@@ -3098,16 +3098,6 @@ GNEAttributeCarrier::fillTAZElements() {
 
 void
 GNEAttributeCarrier::fillDemandElements() {
-    // first VClass separate between vehicles and persons
-    std::vector<std::string> vClassesVehicles, vClassesPersons;
-    auto vClasses = SumoVehicleClassStrings.getStrings();
-    for (const auto& i : vClasses) {
-        if (i == SumoVehicleClassStrings.getString(SVC_PEDESTRIAN)) {
-            vClassesPersons.push_back(i);
-        } else {
-            vClassesVehicles.push_back(i);
-        }
-    }
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
 
@@ -3199,7 +3189,7 @@ GNEAttributeCarrier::fillDemandElements() {
                                               GNEAttributeProperties::VCLASS | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
                                               "An abstract vehicle class",
                                               "passenger");
-        attrProperty.setDiscreteValues(vClassesVehicles);
+        attrProperty.setDiscreteValues(SumoVehicleClassStrings.getStrings());
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_COLOR,
@@ -3354,64 +3344,6 @@ GNEAttributeCarrier::fillDemandElements() {
 
         // fill VType Lane Change Model Parameters (implemented in a separated function to improve code legibility)
         fillLaneChangingModelAttributes(currentTag);
-    }
-    currentTag = SUMO_TAG_PTYPE;
-    {
-        // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::VTYPE,
-                                      GNETagProperties::NOTDRAWABLE | GNETagProperties::NOTSELECTABLE,
-                                      GUIIcon::TYPE, SUMO_TAG_VTYPE, {});
-
-        // set values of attributes
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                                              "The id of PersonType");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_VCLASS,
-                                              GNEAttributeProperties::VCLASS | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
-                                              "An abstract person class",
-                                              "pedestrian");
-        attrProperty.setDiscreteValues(vClassesPersons);
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_COLOR,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::COLOR | GNEAttributeProperties::DEFAULTVALUE,
-                                              "This person type's color",
-                                              "");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_WIDTH,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE,
-                                              "The person's width [m] (only used for drawing)");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_LENGTH,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE,
-                                              "The person's netto-length (length) [m]");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_MINGAP,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE,
-                                              "Empty space after leader [m]");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_MAXSPEED,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE,
-                                              "The person's maximum velocity [m/s]");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_JM_DRIVE_AFTER_RED_TIME,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::DEFAULTVALUE,
-                                              "This value causes persons to violate a red light if the duration of the red phase is lower than the given threshold.",
-                                              "-1");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_IMGFILE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::FILENAME | GNEAttributeProperties::DEFAULTVALUE,
-                                              "Image file for rendering persons of this type (should be grayscale to allow functional coloring)");
-        myTagProperties[currentTag].addAttribute(attrProperty);
     }
 }
 

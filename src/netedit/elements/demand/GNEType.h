@@ -35,10 +35,10 @@ public:
     GNEType(SumoXMLTag tag, GNENet* net);
 
     /// @brief constructor for default VTypes
-    GNEType(GNENet* net, const std::string& vTypeID, const SUMOVehicleClass& defaultVClass, SumoXMLTag tag);
+    GNEType(GNENet* net, const std::string& vTypeID, const SUMOVehicleClass& defaultVClass);
 
-    /// @brief constructor
-    GNEType(GNENet* net, const SUMOVTypeParameter& vTypeParameter, SumoXMLTag tag);
+    /// @brief parameter constructor
+    GNEType(GNENet* net, const SUMOVTypeParameter& vTypeParameter);
 
     /// @brief copy constructor
     GNEType(GNENet* net, const std::string& vTypeID, GNEType* vTypeOriginal);

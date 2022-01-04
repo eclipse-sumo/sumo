@@ -145,10 +145,8 @@ enum SumoXMLTag {
     SUMO_TAG_TRIP,
     /// @brief description of a vehicle
     SUMO_TAG_VEHICLE,
-    /// @brief description of a vehicle type
+    /// @brief description of a vehicle/person/container type
     SUMO_TAG_VTYPE,
-    /// @brief description of a person type (used in NETEDIT)
-    SUMO_TAG_PTYPE,
     /// @brief begin/end of the description of a route
     SUMO_TAG_ROUTE,
     /// @brief description of a logic request within the junction

@@ -90,7 +90,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "trip",                           SUMO_TAG_TRIP },
     { "vehicle",                        SUMO_TAG_VEHICLE },
     { "vType",                          SUMO_TAG_VTYPE },
-    { "pType",                          SUMO_TAG_PTYPE },
     { "route",                          SUMO_TAG_ROUTE },
     { "request",                        SUMO_TAG_REQUEST },
     { "source",                         SUMO_TAG_SOURCE },

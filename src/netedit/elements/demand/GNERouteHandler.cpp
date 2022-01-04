@@ -58,17 +58,15 @@ GNERouteHandler::~GNERouteHandler() {
 
 void
 GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVTypeParameter& vTypeParameter) {
-    // first check if we're creating a vType or a pType
-    SumoXMLTag vTypeTag = (vTypeParameter.vehicleClass == SVC_PEDESTRIAN) ? SUMO_TAG_PTYPE : SUMO_TAG_VTYPE;
-    // check if loaded vType/pType is a default vtype
-    if ((vTypeParameter.id == DEFAULT_VTYPE_ID) || (vTypeParameter.id == DEFAULT_PEDTYPE_ID) || (vTypeParameter.id == DEFAULT_BIKETYPE_ID)) {
+    // check if loaded type is a default type
+    if (DEFAULT_VTYPES.count(vTypeParameter.id) > 0) {
         // overwrite default vehicle type
-        GNEType::overwriteVType(myNet->getAttributeCarriers()->retrieveDemandElement(vTypeTag, vTypeParameter.id, false), vTypeParameter, myNet->getViewNet()->getUndoList());
-    } else if (myNet->getAttributeCarriers()->retrieveDemandElement(vTypeTag, vTypeParameter.id, false) != nullptr) {
-        WRITE_ERROR("There is another " + toString(vTypeTag) + " with the same ID='" + vTypeParameter.id + "'.");
+        GNEType::overwriteVType(myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vTypeParameter.id, false), vTypeParameter, myNet->getViewNet()->getUndoList());
+    } else if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vTypeParameter.id, false) != nullptr) {
+        WRITE_ERROR("There is another " + toString(SUMO_TAG_VTYPE) + " with the same ID='" + vTypeParameter.id + "'.");
     } else {
         // create vType/pType using myCurrentVType
-        GNEDemandElement* vType = new GNEType(myNet, vTypeParameter, vTypeTag);
+        GNEDemandElement* vType = new GNEType(myNet, vTypeParameter);
         if (myUndoDemandElements) {
             myNet->getViewNet()->getUndoList()->begin(GUIIcon::TYPE, "add " + vType->getTagStr());
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vType, true), true);
@@ -339,21 +337,21 @@ void
 GNERouteHandler::buildPerson(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& personParameters) {
     // first check if ID is duplicated
     if (!isPersonIdDuplicated(myNet, personParameters.id)) {
-        // obtain routes and vtypes
-        GNEDemandElement* pType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PTYPE, personParameters.vtypeid, false);
-        if (pType == nullptr) {
+        // obtain type
+        GNEDemandElement* type = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, personParameters.vtypeid, false);
+        if (type == nullptr) {
             WRITE_ERROR("Invalid person type '" + personParameters.vtypeid + "' used in " + toString(personParameters.tag) + " '" + personParameters.id + "'.");
         } else {
             // create person using personParameters
-            GNEDemandElement* person = new GNEPerson(SUMO_TAG_PERSON, myNet, pType, personParameters);
+            GNEDemandElement* person = new GNEPerson(SUMO_TAG_PERSON, myNet, type, personParameters);
             if (myUndoDemandElements) {
                 myNet->getViewNet()->getUndoList()->begin(person->getTagProperty().getGUIIcon(), "add " + person->getTagStr());
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(person, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertDemandElement(person);
-                // set person as child of pType and Route
-                pType->addChildElement(person);
+                // set person as child of type
+                type->addChildElement(person);
                 person->incRef("buildPerson");
             }
         }
@@ -365,21 +363,21 @@ void
 GNERouteHandler::buildPersonFlow(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& personFlowParameters) {
     // first check if ID is duplicated
     if (!isPersonIdDuplicated(myNet, personFlowParameters.id)) {
-        // obtain routes and vtypes
-        GNEDemandElement* pType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PTYPE, personFlowParameters.vtypeid, false);
-        if (pType == nullptr) {
+        // obtain type
+        GNEDemandElement* type = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, personFlowParameters.vtypeid, false);
+        if (type == nullptr) {
             WRITE_ERROR("Invalid personFlow type '" + personFlowParameters.vtypeid + "' used in " + toString(personFlowParameters.tag) + " '" + personFlowParameters.id + "'.");
         } else {
             // create personFlow using personFlowParameters
-            GNEDemandElement* personFlow = new GNEPerson(SUMO_TAG_PERSONFLOW, myNet, pType, personFlowParameters);
+            GNEDemandElement* personFlow = new GNEPerson(SUMO_TAG_PERSONFLOW, myNet, type, personFlowParameters);
             if (myUndoDemandElements) {
                 myNet->getViewNet()->getUndoList()->begin(personFlow->getTagProperty().getGUIIcon(), "add " + personFlow->getTagStr());
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personFlow, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertDemandElement(personFlow);
-                // set personFlow as child of pType and Route
-                pType->addChildElement(personFlow);
+                // set personFlow as child of type
+                type->addChildElement(personFlow);
                 personFlow->incRef("buildPersonFlow");
             }
         }
@@ -558,21 +556,21 @@ void
 GNERouteHandler::buildContainer(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& containerParameters) {
     // first check if ID is duplicated
     if (!isContainerIdDuplicated(myNet, containerParameters.id)) {
-        // obtain routes and vtypes
-        GNEDemandElement* pType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PTYPE, containerParameters.vtypeid, false);
-        if (pType == nullptr) {
+        // obtain type
+        GNEDemandElement* type = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, containerParameters.vtypeid, false);
+        if (type == nullptr) {
             WRITE_ERROR("Invalid container type '" + containerParameters.vtypeid + "' used in " + toString(containerParameters.tag) + " '" + containerParameters.id + "'.");
         } else {
             // create container using containerParameters
-            GNEDemandElement* container = new GNEContainer(SUMO_TAG_CONTAINER, myNet, pType, containerParameters);
+            GNEDemandElement* container = new GNEContainer(SUMO_TAG_CONTAINER, myNet, type, containerParameters);
             if (myUndoDemandElements) {
                 myNet->getViewNet()->getUndoList()->begin(GUIIcon::CONTAINER, "add " + container->getTagStr());
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(container, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertDemandElement(container);
-                // set container as child of pType and Route
-                pType->addChildElement(container);
+                // set container as child of type
+                type->addChildElement(container);
                 container->incRef("buildContainer");
             }
         }
@@ -584,21 +582,21 @@ void
 GNERouteHandler::buildContainerFlow(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& containerFlowParameters) {
     // first check if ID is duplicated
     if (!isContainerIdDuplicated(myNet, containerFlowParameters.id)) {
-        // obtain routes and vtypes
-        GNEDemandElement* pType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PTYPE, containerFlowParameters.vtypeid, false);
-        if (pType == nullptr) {
+        // obtain type
+        GNEDemandElement* type = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, containerFlowParameters.vtypeid, false);
+        if (type == nullptr) {
             WRITE_ERROR("Invalid containerFlow type '" + containerFlowParameters.vtypeid + "' used in " + toString(containerFlowParameters.tag) + " '" + containerFlowParameters.id + "'.");
         } else {
             // create containerFlow using containerFlowParameters
-            GNEDemandElement* containerFlow = new GNEContainer(SUMO_TAG_CONTAINERFLOW, myNet, pType, containerFlowParameters);
+            GNEDemandElement* containerFlow = new GNEContainer(SUMO_TAG_CONTAINERFLOW, myNet, type, containerFlowParameters);
             if (myUndoDemandElements) {
                 myNet->getViewNet()->getUndoList()->begin(GUIIcon::CONTAINERFLOW, "add " + containerFlow->getTagStr());
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(containerFlow, true), true);
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertDemandElement(containerFlow);
-                // set containerFlow as child of pType and Route
-                pType->addChildElement(containerFlow);
+                // set containerFlow as child of type
+                type->addChildElement(containerFlow);
                 containerFlow->incRef("buildContainerFlow");
             }
         }

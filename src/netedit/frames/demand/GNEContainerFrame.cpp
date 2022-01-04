@@ -45,7 +45,7 @@ GNEContainerFrame::GNEContainerFrame(FXHorizontalFrame* horizontalFrameParent, G
     myContainerTagSelector = new GNEFrameModules::TagSelector(this, GNETagProperties::TagType::CONTAINER, SUMO_TAG_CONTAINER);
 
     // create container types selector modul
-    myPTypeSelector = new GNEFrameModules::DemandElementSelector(this, SUMO_TAG_PTYPE);
+    myPTypeSelector = new GNEFrameModules::DemandElementSelector(this, SUMO_TAG_VTYPE);
 
     // create container attributes
     myContainerAttributes = new GNEFrameAttributeModules::AttributesCreator(this);

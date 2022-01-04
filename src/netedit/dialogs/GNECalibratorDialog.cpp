@@ -226,7 +226,7 @@ long
 GNECalibratorDialog::onCmdAddFlow(FXObject*, FXSelector, void*) {
     // get routes and vTypes
     const auto& routes = myEditedAdditional->getNet()->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE);
-    GNEDemandElement* defaultVType = myEditedAdditional->getNet()->getViewNet()->getNet()->getAttributeCarriers()->getDefaultVType();
+    GNEDemandElement* defaultVType = myEditedAdditional->getNet()->getViewNet()->getNet()->getAttributeCarriers()->getDefaultType();
     // only add flow if there is at least a GNERoute (There is always a Vehicle Type)
     if (routes.size() > 0) {
         // create new calibrator and configure it with GNECalibratorFlowDialog
@@ -267,7 +267,7 @@ long
 GNECalibratorDialog::onCmdAddVehicleType(FXObject*, FXSelector, void*) {
     // create a new Vehicle Type and configure it with GNEVehicleTypeDialog
     std::string vehicleTypeID = myEditedAdditional->getNet()->getViewNet()->getNet()->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_VTYPE);
-    GNEVehicleTypeDialog(new GNEType(myEditedAdditional->getNet(), vehicleTypeID, SVC_PASSENGER, SUMO_TAG_VTYPE), false);
+    GNEVehicleTypeDialog(new GNEType(myEditedAdditional->getNet(), vehicleTypeID, SVC_PASSENGER), false);
     // update vehicle types table
     updateVehicleTypeTable();
     return 1;

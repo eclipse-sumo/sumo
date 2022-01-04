@@ -440,7 +440,6 @@ GNEFrameModules::TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagPr
             myAC = new GNERoute(tagProperty.getTag(), net);
             break;
         case SUMO_TAG_VTYPE:
-        case SUMO_TAG_PTYPE:
             myAC = new GNEType(tagProperty.getTag(), net);
             break;
         case SUMO_TAG_VEHICLE:
@@ -582,9 +581,6 @@ GNEFrameModules::DemandElementSelector::showDemandElementSelector() {
         if (myDemandElementTags.at(0) == SUMO_TAG_VTYPE) {
             const auto defaultVType = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID);
             myDemandElementsMatchBox->setItem(defaultVType->getID().c_str(), defaultVType->getIcon());
-        } else if (myDemandElementTags.at(0) == SUMO_TAG_PTYPE) {
-            const auto defaultPType = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_PEDTYPE_ID);
-            myDemandElementsMatchBox->setItem(defaultPType->getID().c_str(), defaultPType->getIcon());
         }
     }
     onCmdSelectDemandElement(nullptr, 0, nullptr);
@@ -612,26 +608,19 @@ GNEFrameModules::DemandElementSelector::refreshDemandElementSelector() {
     myDemandElementsMatchBox->clearItems();
     // fill myTypeMatchBox with list of demand elements
     for (const auto& demandElementTag : myDemandElementTags) {
-        // special case for VTypes and PTypes
+        // special case for VTypes
         if (demandElementTag == SUMO_TAG_VTYPE) {
-            // add default Vehicle an Bike types in the first and second positions
+            // add default  types in the first positions
             myDemandElementsMatchBox->appendIconItem(DEFAULT_VTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::TYPE));
             myDemandElementsMatchBox->appendIconItem(DEFAULT_BIKETYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::TYPE));
+            myDemandElementsMatchBox->appendIconItem(DEFAULT_TAXITYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::TYPE));
+            myDemandElementsMatchBox->appendIconItem(DEFAULT_PEDTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::TYPE));
+            myDemandElementsMatchBox->appendIconItem(DEFAULT_CONTAINERTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::TYPE));
             // add rest of vTypes
             for (const auto& vType : demandElements.at(demandElementTag)) {
                 // avoid insert duplicated default vType
-                if ((vType->getID() != DEFAULT_VTYPE_ID) && (vType->getID() != DEFAULT_BIKETYPE_ID)) {
+                if (DEFAULT_VTYPES.count(vType->getID()) == 0) {
                     myDemandElementsMatchBox->appendIconItem(vType->getID().c_str(), vType->getIcon());
-                }
-            }
-        } else if (demandElementTag == SUMO_TAG_PTYPE) {
-            // add default Person type in the firs
-            myDemandElementsMatchBox->appendIconItem(DEFAULT_PEDTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::TYPE));
-            // add rest of pTypes
-            for (const auto& pType : demandElements.at(demandElementTag)) {
-                // avoid insert duplicated default pType
-                if (pType->getID() != DEFAULT_PEDTYPE_ID) {
-                    myDemandElementsMatchBox->appendIconItem(pType->getID().c_str(), pType->getIcon());
                 }
             }
         } else {
@@ -659,9 +648,7 @@ GNEFrameModules::DemandElementSelector::refreshDemandElementSelector() {
     } else {
         // set first element in the list as myCurrentDemandElement (Special case for default person and vehicle type)
         if (myDemandElementsMatchBox->getItem(0).text() == DEFAULT_VTYPE_ID) {
-            myCurrentDemandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDefaultVType();
-        } else if (myDemandElementsMatchBox->getItem(0).text() == DEFAULT_PEDTYPE_ID) {
-            myCurrentDemandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDefaultPType();
+            myCurrentDemandElement = myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDefaultType();
         } else {
             // disable myCurrentDemandElement
             myCurrentDemandElement = nullptr;

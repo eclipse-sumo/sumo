@@ -456,11 +456,8 @@ struct GNENetHelper {
         /// @brief generate demand element id
         std::string generateDemandElementID(SumoXMLTag tag) const;
 
-        /// @brief get default vType
-        GNEDemandElement* getDefaultVType() const;
-
-        /// @brief get default personType
-        GNEDemandElement* getDefaultPType() const;
+        /// @brief get default type
+        GNEDemandElement* getDefaultType() const;
 
         /// @brief clear demand elements
         void clearDemandElements();

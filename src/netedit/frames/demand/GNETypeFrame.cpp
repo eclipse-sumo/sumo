@@ -65,11 +65,12 @@ GNETypeFrame::TypeSelector::TypeSelector(GNETypeFrame* typeFrameParent) :
     // Create FXComboBox
     myTypeMatchBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // add default Vehicle an Bike types in the first and second positions
-    myTypeMatchBox->appendItem(DEFAULT_VTYPE_ID.c_str());
-    myTypeMatchBox->appendItem(DEFAULT_BIKETYPE_ID.c_str());
+    for (const auto &defaultvType : DEFAULT_VTYPES) {
+        myTypeMatchBox->appendItem(defaultvType.c_str());
+    }
     // fill myTypeMatchBox with list of VTypes IDs
     for (const auto& vType : myTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
-        if ((vType->getID() != DEFAULT_VTYPE_ID) && (vType->getID() != DEFAULT_BIKETYPE_ID)) {
+        if (DEFAULT_VTYPES.count(vType->getID()) == 0) {
             myTypeMatchBox->appendItem(vType->getID().c_str());
         }
     }
@@ -108,11 +109,12 @@ GNETypeFrame::TypeSelector::refreshTypeSelector() {
     // clear items
     myTypeMatchBox->clearItems();
     // add default Vehicle an Bike types in the first and second positions
-    myTypeMatchBox->appendItem(DEFAULT_VTYPE_ID.c_str());
-    myTypeMatchBox->appendItem(DEFAULT_BIKETYPE_ID.c_str());
+    for (const auto &defaultvType : DEFAULT_VTYPES) {
+        myTypeMatchBox->appendItem(defaultvType.c_str());
+    }
     // fill myTypeMatchBox with list of VTypes IDs
     for (const auto& vType : myTypeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
-        if ((vType->getID() != DEFAULT_VTYPE_ID) && (vType->getID() != DEFAULT_BIKETYPE_ID)) {
+        if (DEFAULT_VTYPES.count(vType->getID()) == 0) {
             myTypeMatchBox->appendItem(vType->getID().c_str());
         }
     }
@@ -263,7 +265,7 @@ GNETypeFrame::TypeEditor::onCmdCreateType(FXObject*, FXSelector, void*) {
     // obtain a new valid Type ID
     const std::string typeID = myTypeFrameParent->myViewNet->getNet()->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_VTYPE);
     // create new vehicle type
-    GNEDemandElement* type = new GNEType(myTypeFrameParent->myViewNet->getNet(), typeID, SUMO_TAG_VTYPE);
+    GNEDemandElement* type = new GNEType(myTypeFrameParent->myViewNet->getNet(), typeID);
     // add it using undoList (to allow undo-redo)
     myTypeFrameParent->myViewNet->getUndoList()->begin(GUIIcon::TYPE, "create vehicle type");
     myTypeFrameParent->myViewNet->getUndoList()->add(new GNEChange_DemandElement(type, true), true);
@@ -334,6 +336,12 @@ GNETypeFrame::TypeEditor::onCmdResetType(FXObject*, FXSelector, void*) {
         myTypeFrameParent->myTypeSelector->getCurrentType()->setAttribute(SUMO_ATTR_VCLASS, toString(SVC_PASSENGER), myTypeFrameParent->myViewNet->getUndoList());
     } else if (myTypeFrameParent->myTypeSelector->getCurrentType()->getAttribute(SUMO_ATTR_ID) == DEFAULT_BIKETYPE_ID) {
         myTypeFrameParent->myTypeSelector->getCurrentType()->setAttribute(SUMO_ATTR_VCLASS, toString(SVC_BICYCLE), myTypeFrameParent->myViewNet->getUndoList());
+    } else if (myTypeFrameParent->myTypeSelector->getCurrentType()->getAttribute(SUMO_ATTR_ID) == DEFAULT_TAXITYPE_ID) {
+        myTypeFrameParent->myTypeSelector->getCurrentType()->setAttribute(SUMO_ATTR_VCLASS, toString(SVC_TAXI), myTypeFrameParent->myViewNet->getUndoList());
+    } else if (myTypeFrameParent->myTypeSelector->getCurrentType()->getAttribute(SUMO_ATTR_ID) == DEFAULT_PEDTYPE_ID) {
+        myTypeFrameParent->myTypeSelector->getCurrentType()->setAttribute(SUMO_ATTR_VCLASS, toString(SVC_PEDESTRIAN), myTypeFrameParent->myViewNet->getUndoList());
+    } else if (myTypeFrameParent->myTypeSelector->getCurrentType()->getAttribute(SUMO_ATTR_ID) == DEFAULT_CONTAINERTYPE_ID) {
+        myTypeFrameParent->myTypeSelector->getCurrentType()->setAttribute(SUMO_ATTR_VCLASS, toString(SVC_PEDESTRIAN), myTypeFrameParent->myViewNet->getUndoList());
     }
     // change special attribute GNE_ATTR_DEFAULT_VTYPE_MODIFIED
     myTypeFrameParent->myTypeSelector->getCurrentType()->setAttribute(GNE_ATTR_DEFAULT_VTYPE_MODIFIED, "false", myTypeFrameParent->myViewNet->getUndoList());

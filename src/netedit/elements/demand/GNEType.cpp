@@ -42,8 +42,8 @@ GNEType::GNEType(SumoXMLTag tag, GNENet* net) :
 }
 
 
-GNEType::GNEType(GNENet* net, const std::string& vTypeID, const SUMOVehicleClass& defaultVClass, SumoXMLTag tag) :
-    GNEDemandElement(vTypeID, net, GLO_VTYPE, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+GNEType::GNEType(GNENet* net, const std::string& vTypeID, const SUMOVehicleClass& defaultVClass) :
+    GNEDemandElement(vTypeID, net, GLO_VTYPE, SUMO_TAG_VTYPE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
         {}, {}, {}, {}, {}, {}, {}, {}),
     SUMOVTypeParameter(vTypeID),
     myDefaultVehicleType(true),
@@ -56,17 +56,12 @@ GNEType::GNEType(GNENet* net, const std::string& vTypeID, const SUMOVehicleClass
 }
 
 
-GNEType::GNEType(GNENet* net, const SUMOVTypeParameter& vTypeParameter, SumoXMLTag tag) :
-    GNEDemandElement(vTypeParameter.id, net, GLO_VTYPE, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+GNEType::GNEType(GNENet* net, const SUMOVTypeParameter& vTypeParameter) :
+    GNEDemandElement(vTypeParameter.id, net, GLO_VTYPE, SUMO_TAG_VTYPE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
         {}, {}, {}, {}, {}, {}, {}, {}),
     SUMOVTypeParameter(vTypeParameter),
     myDefaultVehicleType(false),
     myDefaultVehicleTypeModified(false) {
-    // if we're creating a Person Type, set manually VClass
-    if (tag == SUMO_TAG_PTYPE) {
-        vehicleClass = SVC_PEDESTRIAN;
-        parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
-    }
     // init Rail Visualization Parameters
     initRailVisualizationParameters();
 }
@@ -653,9 +648,7 @@ GNEType::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             // Vtypes and PTypes shares namespace
-            if (SUMOXMLDefinitions::isValidVehicleID(value) &&
-                    (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) == nullptr) &&
-                    (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PTYPE, value, false) == nullptr)) {
+            if (SUMOXMLDefinitions::isValidVehicleID(value) && (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) == nullptr)) {
                 return true;
             } else {
                 return false;

@@ -1467,24 +1467,13 @@ GNENetHelper::AttributeCarriers::generateDemandElementID(SumoXMLTag tag) const {
 
 
 GNEDemandElement*
-GNENetHelper::AttributeCarriers::getDefaultVType() const {
+GNENetHelper::AttributeCarriers::getDefaultType() const {
     for (const auto& vType : myDemandElements.at(SUMO_TAG_VTYPE)) {
         if (vType->getID() == DEFAULT_VTYPE_ID) {
             return vType;
         }
     }
     throw ProcessError("Default vType doesn't exist");
-}
-
-
-GNEDemandElement*
-GNENetHelper::AttributeCarriers::getDefaultPType() const {
-    for (const auto& pType : myDemandElements.at(SUMO_TAG_PTYPE)) {
-        if (pType->getID() == DEFAULT_PEDTYPE_ID) {
-            return pType;
-        }
-    }
-    throw ProcessError("Default pType doesn't exist");
 }
 
 
@@ -1506,19 +1495,29 @@ GNENetHelper::AttributeCarriers::clearDemandElements() {
 void
 GNENetHelper::AttributeCarriers::addDefaultVTypes() {
     // Create default vehicle Type (it has to be created here due myViewNet was previously nullptr)
-    GNEType* defaultVehicleType = new GNEType(myNet, DEFAULT_VTYPE_ID, SVC_PASSENGER, SUMO_TAG_VTYPE);
+    GNEType* defaultVehicleType = new GNEType(myNet, DEFAULT_VTYPE_ID, SVC_PASSENGER);
     myDemandElements.at(defaultVehicleType->getTagProperty().getTag()).insert(defaultVehicleType);
     defaultVehicleType->incRef("GNENet::DEFAULT_VEHTYPE");
 
     // Create default Bike Type (it has to be created here due myViewNet was previously nullptr)
-    GNEType* defaultBikeType = new GNEType(myNet, DEFAULT_BIKETYPE_ID, SVC_BICYCLE, SUMO_TAG_VTYPE);
+    GNEType* defaultBikeType = new GNEType(myNet, DEFAULT_BIKETYPE_ID, SVC_BICYCLE);
     myDemandElements.at(defaultBikeType->getTagProperty().getTag()).insert(defaultBikeType);
     defaultBikeType->incRef("GNENet::DEFAULT_BIKETYPE_ID");
 
+    // Create default taxi Type (it has to be created here due myViewNet was previously nullptr)
+    GNEType* defaultTaxiType = new GNEType(myNet, DEFAULT_TAXITYPE_ID, SVC_TAXI);
+    myDemandElements.at(defaultBikeType->getTagProperty().getTag()).insert(defaultTaxiType);
+    defaultTaxiType->incRef("GNENet::DEFAULT_TAXITYPE_ID");
+
     // Create default person Type (it has to be created here due myViewNet was previously nullptr)
-    GNEType* defaultPersonType = new GNEType(myNet, DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN, SUMO_TAG_PTYPE);
+    GNEType* defaultPersonType = new GNEType(myNet, DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN);
     myDemandElements.at(defaultPersonType->getTagProperty().getTag()).insert(defaultPersonType);
     defaultPersonType->incRef("GNENet::DEFAULT_PEDTYPE_ID");
+
+    // Create default container Type (it has to be created here due myViewNet was previously nullptr)
+    GNEType* defaultContainerType = new GNEType(myNet, DEFAULT_CONTAINERTYPE_ID, SVC_PEDESTRIAN);
+    myDemandElements.at(defaultContainerType->getTagProperty().getTag()).insert(defaultContainerType);
+    defaultContainerType->incRef("GNENet::DEFAULT_CONTAINERTYPE_ID");
 }
 
 

@@ -846,7 +846,7 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_TYPE:
-            replaceDemandElementParent(SUMO_TAG_PTYPE, value, 0);
+            replaceDemandElementParent(SUMO_TAG_VTYPE, value, 0);
             // set manually vtypeID (needed for saving)
             vtypeid = value;
             break;

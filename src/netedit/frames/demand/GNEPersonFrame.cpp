@@ -45,7 +45,7 @@ GNEPersonFrame::GNEPersonFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
     myPersonTagSelector = new GNEFrameModules::TagSelector(this, GNETagProperties::TagType::PERSON, SUMO_TAG_PERSON);
 
     // create person types selector modul
-    myPTypeSelector = new GNEFrameModules::DemandElementSelector(this, SUMO_TAG_PTYPE);
+    myPTypeSelector = new GNEFrameModules::DemandElementSelector(this, SUMO_TAG_VTYPE);
 
     // create person attributes
     myPersonAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
