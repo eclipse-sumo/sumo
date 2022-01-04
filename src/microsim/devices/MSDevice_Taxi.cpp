@@ -478,7 +478,7 @@ MSDevice_Taxi::prepareStop(ConstMSEdgeVector& edges,
                 // the distance between current edge and stop edge may be small
                 SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = MSRoutingEngine::getRouterTT(myHolder.getRNGIndex(), myHolder.getVClass());
                 ConstMSEdgeVector toFirstStop;
-                router.compute(edges.back(), stopEdge, &myHolder, SIMTIME, toFirstStop, true);
+                router.compute(edges.back(), stopEdge, &myHolder, SIMSTEP, toFirstStop, true);
                 for (int i = 1; i < (int)toFirstStop.size() - 1; i++) {
                     distToStop += toFirstStop[i]->getLength();
                 }
