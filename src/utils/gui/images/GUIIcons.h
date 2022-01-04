@@ -51,6 +51,16 @@ enum class GUIIcon {
     CLEARMESSAGEWINDOW,
     /// @}
 
+    /// @brief basic operations
+    /// @{
+
+    CUT,
+    COPY,
+    PASTE,
+
+    /// @}
+
+
     /// @name simulation control icons
     /// @{
     START,

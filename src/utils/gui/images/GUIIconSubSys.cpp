@@ -179,6 +179,8 @@
 #include "lanegreenverge.xpm"
 
 #include "cut.xpm"
+#include "copy.xpm"
+#include "paste.xpm"
 #include "ext.xpm"
 #include "tracker.xpm"
 #include "hall_of_fame.xpm"
@@ -410,6 +412,10 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::FULL_SCREEN] = new FXXPMIcon(a, full_screen_xpm);
     myIcons[GUIIcon::HALL_OF_FAME] = new FXXPMIcon(a, hall_of_fame_xpm);   /** temporal? **/
     myIcons[GUIIcon::CLEARMESSAGEWINDOW] = new FXXPMIcon(a, clear_message_window_xpm);
+
+    myIcons[GUIIcon::CUT] = new FXXPMIcon(a, cut_xpm);
+    myIcons[GUIIcon::COPY] = new FXXPMIcon(a, copy_xpm);
+    myIcons[GUIIcon::PASTE] = new FXXPMIcon(a, paste_xpm);
 
     myIcons[GUIIcon::APP_TRACKER] = new FXXPMIcon(a, app_tracker_xpm);
     myIcons[GUIIcon::APP_FINDER] = new FXXPMIcon(a, app_finder_xpm);
