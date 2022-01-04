@@ -4116,6 +4116,7 @@ MSVehicle::executeMove() {
                 MSLane* oldOpposite = oldLane->getOpposite();
                 if (oldOpposite != nullptr) {
                     myFurtherLanes.push_back(oldOpposite);
+                    myFurtherLanesPosLat.push_back(0);
                     // small value since the lane is going in the other direction
                     myState.myBackPos = getLength() - myState.myPos;
                     myAngle = computeAngle();
