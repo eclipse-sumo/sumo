@@ -507,10 +507,10 @@ GNEFrameModules::TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagPr
 // GNEFrameModules::DemandElementSelector - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameModules::DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag) :
+GNEFrameModules::DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag, GNEDemandElement *defaultElement) :
     FXGroupBoxModule(frameParent->myContentFrame, ("Parent " + toString(demandElementTag)).c_str()),
     myFrameParent(frameParent),
-    myCurrentDemandElement(nullptr),
+    myCurrentDemandElement(defaultElement),
     myDemandElementTags({demandElementTag}) {
     // Create MFXIconComboBox
     myDemandElementsMatchBox = new MFXIconComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);

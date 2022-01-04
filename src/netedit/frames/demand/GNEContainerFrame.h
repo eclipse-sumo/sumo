@@ -78,7 +78,7 @@ private:
     GNEFrameModules::TagSelector* myContainerTagSelector;
 
     /// @brief Container Type selectors
-    GNEFrameModules::DemandElementSelector* myPTypeSelector;
+    GNEFrameModules::DemandElementSelector* myTypeSelector;
 
     /// @brief container plan selector (used to select diffent kind of container plan)
     GNEFrameModules::TagSelector* myContainerPlanTagSelector;

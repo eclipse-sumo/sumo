@@ -105,8 +105,8 @@ GNEVehicleFrame::GNEVehicleFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     // Create item Selector modul for vehicles
     myVehicleTagSelector = new GNEFrameModules::TagSelector(this, GNETagProperties::TagType::VEHICLE, SUMO_TAG_TRIP);
 
-    // Create vehicle type selector
-    myVTypeSelector = new GNEFrameModules::DemandElementSelector(this, SUMO_TAG_VTYPE);
+    // Create vehicle type selector and set DEFAULT_VTYPE_ID as default element
+    myTypeSelector = new GNEFrameModules::DemandElementSelector(this, SUMO_TAG_VTYPE, viewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_VTYPE_ID));
 
     // Create vehicle parameters
     myVehicleAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
@@ -157,7 +157,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
         return false;
     }
     // now check if VType is valid
-    if (myVTypeSelector->getCurrentDemandElement() == nullptr) {
+    if (myTypeSelector->getCurrentDemandElement() == nullptr) {
         myViewNet->setStatusBarText("Current selected vehicle type isn't valid.");
         return false;
     }
@@ -173,7 +173,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
         myVehicleBaseObject->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateDemandElementID(vehicleTag));
     }
     // add VType
-    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myVTypeSelector->getCurrentDemandElement()->getID());
+    myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myTypeSelector->getCurrentDemandElement()->getID());
     // set route or edges depending of vehicle type
     if ((vehicleTag == SUMO_TAG_VEHICLE) || (vehicleTag == GNE_TAG_FLOW_ROUTE)) {
         // get route
@@ -191,7 +191,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
             // check if departSpeed is valid
             if (myVehicleBaseObject->hasStringAttribute(SUMO_ATTR_DEPARTSPEED) && GNEAttributeCarrier::canParse<double>(myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPARTSPEED))) {
                 double departSpeed = GNEAttributeCarrier::parse<double>(myVehicleBaseObject->getStringAttribute(SUMO_ATTR_DEPARTSPEED));
-                if (departSpeed >= myVTypeSelector->getCurrentDemandElement()->getAttributeDouble(SUMO_ATTR_MAXSPEED)) {
+                if (departSpeed >= myTypeSelector->getCurrentDemandElement()->getAttributeDouble(SUMO_ATTR_MAXSPEED)) {
                     myViewNet->setStatusBarText("Invalid " + toString(SUMO_ATTR_DEPARTSPEED));
                     return false;
                 }
@@ -282,7 +282,7 @@ void
 GNEVehicleFrame::tagSelected() {
     if (myVehicleTagSelector->getCurrentTemplateAC()) {
         // show vehicle type selector modul
-        myVTypeSelector->showDemandElementSelector();
+        myTypeSelector->showDemandElementSelector();
         // show path creator modul
         if ((myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != SUMO_TAG_VEHICLE) &&
                 (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != GNE_TAG_FLOW_ROUTE)) {
@@ -290,7 +290,7 @@ GNEVehicleFrame::tagSelected() {
         }
     } else {
         // hide all moduls if vehicle isn't valid
-        myVTypeSelector->hideDemandElementSelector();
+        myTypeSelector->hideDemandElementSelector();
         myVehicleAttributes->hideAttributesCreatorModule();
         myHelpCreation->hideHelpCreation();
     }
@@ -299,11 +299,11 @@ GNEVehicleFrame::tagSelected() {
 
 void
 GNEVehicleFrame::demandElementSelected() {
-    if (myVTypeSelector->getCurrentDemandElement()) {
+    if (myTypeSelector->getCurrentDemandElement()) {
         // show vehicle attributes modul
         myVehicleAttributes->showAttributesCreatorModule(myVehicleTagSelector->getCurrentTemplateAC(), {});
         // set current VTypeClass in TripCreator
-        myPathCreator->setVClass(myVTypeSelector->getCurrentDemandElement()->getVClass());
+        myPathCreator->setVClass(myTypeSelector->getCurrentDemandElement()->getVClass());
         // show path creator modul
         if ((myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != SUMO_TAG_VEHICLE) &&
                 (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != GNE_TAG_FLOW_ROUTE)) {
@@ -311,6 +311,12 @@ GNEVehicleFrame::demandElementSelected() {
         }
         // show help creation
         myHelpCreation->showHelpCreation();
+        // show warning if we have selected a vType oriented to pedestrians or containers
+        if (myTypeSelector->getCurrentDemandElement()->getVClass() == SVC_PEDESTRIAN) {
+            WRITE_WARNING("Current selected vType is oriented to pedestrians");
+        } else if (myTypeSelector->getCurrentDemandElement()->getVClass() == SVC_IGNORING) {
+            WRITE_WARNING("Current selected vType is oriented to containers");
+        }
     } else {
         // hide all moduls if selected item isn't valid
         myVehicleAttributes->hideAttributesCreatorModule();
@@ -338,7 +344,7 @@ GNEVehicleFrame::createPath() {
             myVehicleBaseObject->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateDemandElementID(vehicleTag));
         }
         // add VType
-        myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myVTypeSelector->getCurrentDemandElement()->getID());
+        myVehicleBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myTypeSelector->getCurrentDemandElement()->getID());
         // extract via attribute
         std::vector<std::string> viaEdges;
         for (int i = 1; i < ((int)myPathCreator->getSelectedEdges().size() - 1); i++) {

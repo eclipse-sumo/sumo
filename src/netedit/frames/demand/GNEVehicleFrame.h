@@ -113,7 +113,7 @@ private:
     GNEFrameModules::TagSelector* myVehicleTagSelector;
 
     /// @brief Vehicle Type selectors
-    GNEFrameModules::DemandElementSelector* myVTypeSelector;
+    GNEFrameModules::DemandElementSelector* myTypeSelector;
 
     /// @brief internal vehicle attributes
     GNEFrameAttributeModules::AttributesCreator* myVehicleAttributes;

@@ -44,8 +44,8 @@ GNEContainerFrame::GNEContainerFrame(FXHorizontalFrame* horizontalFrameParent, G
     // create tag Selector modul for containers
     myContainerTagSelector = new GNEFrameModules::TagSelector(this, GNETagProperties::TagType::CONTAINER, SUMO_TAG_CONTAINER);
 
-    // create container types selector modul
-    myPTypeSelector = new GNEFrameModules::DemandElementSelector(this, SUMO_TAG_VTYPE);
+    // create container types selector modul and set DEFAULT_CONTAINERTYPE_ID as default element
+    myTypeSelector = new GNEFrameModules::DemandElementSelector(this, SUMO_TAG_VTYPE, viewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, DEFAULT_CONTAINERTYPE_ID));
 
     // create container attributes
     myContainerAttributes = new GNEFrameAttributeModules::AttributesCreator(this);
@@ -76,7 +76,7 @@ void
 GNEContainerFrame::show() {
     // refresh tag selector
     myContainerTagSelector->refreshTagSelector();
-    myPTypeSelector->refreshDemandElementSelector();
+    myTypeSelector->refreshDemandElementSelector();
     myContainerPlanTagSelector->refreshTagSelector();
     // update VClass of myPathCreator
     if (myContainerPlanTagSelector->getCurrentTemplateAC() && 
@@ -115,7 +115,7 @@ GNEContainerFrame::addContainer(const GNEViewNetHelper::ObjectsUnderCursor& obje
         return false;
     }
     // now check that pType is valid
-    if (myPTypeSelector->getCurrentDemandElement() == nullptr) {
+    if (myTypeSelector->getCurrentDemandElement() == nullptr) {
         myViewNet->setStatusBarText("Current selected container type isn't valid.");
         return false;
     }
@@ -151,9 +151,9 @@ GNEContainerFrame::tagSelected() {
     // first check if container is valid
     if (myContainerTagSelector->getCurrentTemplateAC()) {
         // show PType selector and container plan selector
-        myPTypeSelector->showDemandElementSelector();
+        myTypeSelector->showDemandElementSelector();
         // check if current container type selected is valid
-        if (myPTypeSelector->getCurrentDemandElement()) {
+        if (myTypeSelector->getCurrentDemandElement()) {
             // show container attributes depending of myContainerPlanTagSelector
             if (myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopContainer()) {
                 myContainerAttributes->showAttributesCreatorModule(myContainerTagSelector->getCurrentTemplateAC(), {SUMO_ATTR_DEPARTPOS});
@@ -192,7 +192,7 @@ GNEContainerFrame::tagSelected() {
         }
     } else {
         // hide all moduls if container isn't valid
-        myPTypeSelector->hideDemandElementSelector();
+        myTypeSelector->hideDemandElementSelector();
         myContainerPlanTagSelector->hideTagSelector();
         myContainerAttributes->hideAttributesCreatorModule();
         myContainerPlanAttributes->hideAttributesCreatorModule();
@@ -204,7 +204,7 @@ GNEContainerFrame::tagSelected() {
 
 void
 GNEContainerFrame::demandElementSelected() {
-    if (myPTypeSelector->getCurrentDemandElement()) {
+    if (myTypeSelector->getCurrentDemandElement()) {
         // show container attributes depending of myContainerPlanTagSelector
         if (myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopContainer()) {
             myContainerAttributes->showAttributesCreatorModule(myContainerTagSelector->getCurrentTemplateAC(), {SUMO_ATTR_DEPARTPOS});
@@ -227,6 +227,12 @@ GNEContainerFrame::demandElementSelected() {
             myNeteditAttributes->showNeteditAttributesModule(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty());
             // show edge path creator modul
             myPathCreator->showPathCreatorModule(myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
+            // show warning if we have selected a vType oriented to persons or vehicles
+            if (myTypeSelector->getCurrentDemandElement()->getVClass() == SVC_PEDESTRIAN) {
+                WRITE_WARNING("Current selected vType is oriented to persons");
+            } else if (myTypeSelector->getCurrentDemandElement()->getVClass() != SVC_IGNORING) {
+                WRITE_WARNING("Current selected vType is oriented to vehicles");
+            }
         } else {
             // hide modules
             myContainerPlanAttributes->hideAttributesCreatorModule();
@@ -293,7 +299,7 @@ GNEContainerFrame::buildContainer() {
         myContainerBaseObject->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateDemandElementID(containerTag));
     }
     // add pType parameter
-    myContainerBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myPTypeSelector->getCurrentDemandElement()->getID());
+    myContainerBaseObject->addStringAttribute(SUMO_ATTR_TYPE, myTypeSelector->getCurrentDemandElement()->getID());
     // check if we're creating a container or containerFlow
     if (containerTag == SUMO_TAG_CONTAINER) {
         // Add parameter departure

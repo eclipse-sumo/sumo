@@ -78,7 +78,7 @@ private:
     GNEFrameModules::TagSelector* myPersonTagSelector;
 
     /// @brief Person Type selectors
-    GNEFrameModules::DemandElementSelector* myPTypeSelector;
+    GNEFrameModules::DemandElementSelector* myTypeSelector;
 
     /// @brief person plan selector (used to select diffent kind of person plan)
     GNEFrameModules::TagSelector* myPersonPlanTagSelector;

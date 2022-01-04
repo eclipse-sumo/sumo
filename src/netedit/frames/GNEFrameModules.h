@@ -137,7 +137,7 @@ public:
 
     public:
         /// @brief constructor with a single tag
-        DemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag);
+        DemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag, GNEDemandElement *defaultElement = nullptr);
 
         /// @brief constructor with tag type
         DemandElementSelector(GNEFrame* frameParent, const std::vector<GNETagProperties::TagType>& tagTypes);
