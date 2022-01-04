@@ -89,8 +89,6 @@ enum class DemandEditMode {
     DEMAND_VEHICLETYPES,
     ///@brief Mode for editing stops
     DEMAND_STOP,
-    ///@brief Mode for editing person types
-    DEMAND_PERSONTYPES,
     ///@brief Mode for editing person
     DEMAND_PERSON,
     ///@brief Mode for editing person plan
@@ -1201,9 +1199,6 @@ struct GNEViewNetHelper {
 
         /// @brief chekable button for edit mode create stops
         MFXCheckableButton* stopButton;
-
-        /// @brief chekable button for edit mode create person type
-        MFXCheckableButton* personTypeButton;
 
         /// @brief chekable button for edit mode create persons
         MFXCheckableButton* personButton;

@@ -34,7 +34,6 @@
 #include <netedit/frames/demand/GNEContainerPlanFrame.h>
 #include <netedit/frames/demand/GNEPersonFrame.h>
 #include <netedit/frames/demand/GNEPersonPlanFrame.h>
-#include <netedit/frames/demand/GNEPersonTypeFrame.h>
 #include <netedit/frames/demand/GNERouteFrame.h>
 #include <netedit/frames/demand/GNEStopFrame.h>
 #include <netedit/frames/demand/GNEVehicleFrame.h>
@@ -274,12 +273,6 @@ GNEViewParent::getVehicleTypeFrame() const {
 GNEStopFrame*
 GNEViewParent::getStopFrame() const {
     return myDemandFrames.stopFrame;
-}
-
-
-GNEPersonTypeFrame*
-GNEViewParent::getPersonTypeFrame() const {
-    return myDemandFrames.personTypeFrame;
 }
 
 
@@ -886,7 +879,6 @@ GNEViewParent::DemandFrames::DemandFrames() :
     vehicleFrame(nullptr),
     vehicleTypeFrame(nullptr),
     stopFrame(nullptr),
-    personTypeFrame(nullptr),
     personFrame(nullptr),
     personPlanFrame(nullptr),
     containerFrame(nullptr),
@@ -900,7 +892,6 @@ GNEViewParent::DemandFrames::buildDemandFrames(GNEViewParent* viewParent, GNEVie
     vehicleFrame = new GNEVehicleFrame(viewParent->myFramesArea, viewNet);
     vehicleTypeFrame = new GNEVehicleTypeFrame(viewParent->myFramesArea, viewNet);
     stopFrame = new GNEStopFrame(viewParent->myFramesArea, viewNet);
-    personTypeFrame = new GNEPersonTypeFrame(viewParent->myFramesArea, viewNet);
     personFrame = new GNEPersonFrame(viewParent->myFramesArea, viewNet);
     personPlanFrame = new GNEPersonPlanFrame(viewParent->myFramesArea, viewNet);
     containerFrame = new GNEContainerFrame(viewParent->myFramesArea, viewNet);
@@ -914,7 +905,6 @@ GNEViewParent::DemandFrames::hideDemandFrames() {
     vehicleFrame->hide();
     vehicleTypeFrame->hide();
     stopFrame->hide();
-    personTypeFrame->hide();
     personFrame->hide();
     personPlanFrame->hide();
     containerFrame->hide();
@@ -929,7 +919,6 @@ GNEViewParent::DemandFrames::setDemandFramesWidth(int frameWidth) {
     vehicleFrame->setFrameWidth(frameWidth);
     vehicleTypeFrame->setFrameWidth(frameWidth);
     stopFrame->setFrameWidth(frameWidth);
-    personTypeFrame->setFrameWidth(frameWidth);
     personFrame->setFrameWidth(frameWidth);
     personPlanFrame->setFrameWidth(frameWidth);
     containerFrame->setFrameWidth(frameWidth);
@@ -947,8 +936,6 @@ GNEViewParent::DemandFrames::isDemandFrameShown() const {
     } else if (vehicleTypeFrame->shown()) {
         return true;
     } else if (stopFrame->shown()) {
-        return true;
-    } else if (personTypeFrame->shown()) {
         return true;
     } else if (personFrame->shown()) {
         return true;
@@ -973,8 +960,6 @@ GNEViewParent::DemandFrames::getCurrentShownFrame() const {
         return vehicleFrame;
     } else if (vehicleTypeFrame->shown()) {
         return vehicleTypeFrame;
-    } else if (personTypeFrame->shown()) {
-        return personTypeFrame;
     } else if (stopFrame->shown()) {
         return stopFrame;
     } else if (personFrame->shown()) {

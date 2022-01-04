@@ -162,8 +162,8 @@ GUIShortcutsSubSys::buildNETEDITAccelerators(GNEApplicationWindow* GNEApp) {
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_v), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_V_MODES_VEHICLE));
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_V), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_V_MODES_VEHICLE));
 
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_w), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_W_MODES_PROHIBITION_PERSONTYPE));
-    GNEApp->getAccelTable()->addAccel(parseKey(KEY_W), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_W_MODES_PROHIBITION_PERSONTYPE));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_w), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_W_MODES_PROHIBITION));
+    GNEApp->getAccelTable()->addAccel(parseKey(KEY_W), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_W_MODES_PROHIBITION));
 
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_z), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_Z_MODES_TAZ_TAZREL));
     GNEApp->getAccelTable()->addAccel(parseKey(KEY_Z), GNEApp, FXSEL(SEL_COMMAND, MID_HOTKEY_Z_MODES_TAZ_TAZREL));

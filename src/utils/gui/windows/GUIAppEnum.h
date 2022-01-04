@@ -65,8 +65,8 @@ enum {
     MID_HOTKEY_T_MODES_TLS_VTYPE,
     /// @brief hotkey for mode create vehicles
     MID_HOTKEY_V_MODES_VEHICLE,
-    /// @brief hotkey for mode editing connection prohibitions AND person types
-    MID_HOTKEY_W_MODES_PROHIBITION_PERSONTYPE,
+    /// @brief hotkey for mode editing connection prohibitions
+    MID_HOTKEY_W_MODES_PROHIBITION,
     /// @brief hotkey for mode editing TAZ and TAZRel
     MID_HOTKEY_Z_MODES_TAZ_TAZREL,
 

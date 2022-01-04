@@ -3117,7 +3117,7 @@ GNEViewNetHelper::NetworkCheckableButtons::buildNetworkCheckableButtons() {
     // prohibition mode
     prohibitionButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
             "\tset prohibition mode\tMode for editing connection prohibitions. (W)",
-            GUIIconSubSys::getIcon(GUIIcon::MODEPROHIBITION), myViewNet, MID_HOTKEY_W_MODES_PROHIBITION_PERSONTYPE, GUIDesignMFXCheckableButton);
+            GUIIconSubSys::getIcon(GUIIcon::MODEPROHIBITION), myViewNet, MID_HOTKEY_W_MODES_PROHIBITION, GUIDesignMFXCheckableButton);
     prohibitionButton->create();
     // traffic light mode
     trafficLightButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
@@ -3214,7 +3214,6 @@ GNEViewNetHelper::DemandCheckableButtons::DemandCheckableButtons(GNEViewNet* vie
     vehicleButton(nullptr),
     vehicleTypeButton(nullptr),
     stopButton(nullptr),
-    personTypeButton(nullptr),
     personButton(nullptr),
     personPlanButton(nullptr),
     containerButton(nullptr),
@@ -3250,12 +3249,6 @@ GNEViewNetHelper::DemandCheckableButtons::buildDemandCheckableButtons() {
                                         "\tcreate stop mode\tMode for creating stops. (A)",
                                         GUIIconSubSys::getIcon(GUIIcon::MODESTOP), myViewNet, MID_HOTKEY_A_MODES_ADDITIONAL_STOP, GUIDesignMFXCheckableButton);
     stopButton->create();
-    // person type mode
-    personTypeButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-            "\tcreate person type mode\tMode for creating person types. (W)",
-            GUIIconSubSys::getIcon(GUIIcon::MODEPERSONTYPE), myViewNet, MID_HOTKEY_W_MODES_PROHIBITION_PERSONTYPE, GUIDesignMFXCheckableButton);
-    personTypeButton->create();
-    personTypeButton->disable();
     // person mode
     personButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
                                           "\tcreate person mode\tMode for creating persons. (P)",
@@ -3288,8 +3281,6 @@ GNEViewNetHelper::DemandCheckableButtons::showDemandCheckableButtons() {
     vehicleButton->show();
     vehicleTypeButton->show();
     stopButton->show();
-    personTypeButton->show();
-    personTypeButton->disable();
     personButton->show();
     personPlanButton->show();
     containerButton->show();
@@ -3304,7 +3295,6 @@ GNEViewNetHelper::DemandCheckableButtons::hideDemandCheckableButtons() {
     vehicleButton->hide();
     vehicleTypeButton->hide();
     stopButton->hide();
-    personTypeButton->hide();
     personButton->hide();
     personPlanButton->hide();
     containerButton->hide();
@@ -3319,7 +3309,6 @@ GNEViewNetHelper::DemandCheckableButtons::disableDemandCheckableButtons() {
     vehicleButton->setChecked(false);
     vehicleTypeButton->setChecked(false);
     stopButton->setChecked(false);
-    personTypeButton->setChecked(false);
     personButton->setChecked(false);
     personPlanButton->setChecked(false);
     containerButton->setChecked(false);
@@ -3334,7 +3323,6 @@ GNEViewNetHelper::DemandCheckableButtons::updateDemandCheckableButtons() {
     vehicleButton->update();
     vehicleTypeButton->update();
     stopButton->update();
-    personTypeButton->update();
     personButton->update();
     personPlanButton->update();
     containerButton->update();

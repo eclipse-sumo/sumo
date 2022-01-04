@@ -40,7 +40,6 @@
 #include <netedit/frames/demand/GNEContainerPlanFrame.h>
 #include <netedit/frames/demand/GNEPersonFrame.h>
 #include <netedit/frames/demand/GNEPersonPlanFrame.h>
-#include <netedit/frames/demand/GNEPersonTypeFrame.h>
 #include <netedit/frames/demand/GNERouteFrame.h>
 #include <netedit/frames/demand/GNEStopFrame.h>
 #include <netedit/frames/demand/GNEVehicleFrame.h>
@@ -96,7 +95,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_S_MODES_SELECT,                       GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_T_MODES_TLS_VTYPE,                    GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_V_MODES_VEHICLE,                      GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_W_MODES_PROHIBITION_PERSONTYPE,       GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_W_MODES_PROHIBITION,                  GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_Z_MODES_TAZ_TAZREL,                   GNEViewNet::onCmdSetMode),
     // Network view options
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_TOGGLEGRID,           GNEViewNet::onCmdToggleShowGrid),
@@ -1651,7 +1650,7 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_P_MODES_POLYGON_PERSON:
                 myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_POLYGON);
                 break;
-            case MID_HOTKEY_W_MODES_PROHIBITION_PERSONTYPE:
+            case MID_HOTKEY_W_MODES_PROHIBITION:
                 myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_PROHIBITION);
                 break;
             default:
@@ -4085,14 +4084,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myCurrentFrame = myViewParent->getStopFrame();
             // set checkable button
             myDemandCheckableButtons.stopButton->setChecked(true);
-            break;
-        case DemandEditMode::DEMAND_PERSONTYPES:
-            myViewParent->getPersonTypeFrame()->show();
-            myViewParent->getPersonTypeFrame()->focusUpperElement();
-            myCurrentFrame = myViewParent->getPersonTypeFrame();
-            // set checkable button
-            myDemandCheckableButtons.personTypeButton->setChecked(true);
-            myDemandCheckableButtons.personTypeButton->disable();
             break;
         case DemandEditMode::DEMAND_PERSON:
             myViewParent->getPersonFrame()->show();

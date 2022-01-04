@@ -51,7 +51,6 @@ class GNEProhibitionFrame;
 class GNETAZFrame;
 class GNETLSEditorFrame;
 // demand frames
-class GNEPersonTypeFrame;
 class GNEPersonFrame;
 class GNEPersonPlanFrame;
 class GNEContainerFrame;
@@ -162,9 +161,6 @@ public:
 
     /// @brief get frame for DEMAND_STOP
     GNEStopFrame* getStopFrame() const;
-
-    /// @brief get frame for DEMAND_PERSONTYPE
-    GNEPersonTypeFrame* getPersonTypeFrame() const;
 
     /// @brief get frame for DEMAND_PERSON
     GNEPersonFrame* getPersonFrame() const;
@@ -349,9 +345,6 @@ protected:
 
         /// @brief frame for DEMAND_STOP
         GNEStopFrame* stopFrame;
-
-        /// @brief frame for DEMAND_PERSONTYPE
-        GNEPersonTypeFrame* personTypeFrame;
 
         /// @brief frame for DEMAND_PERSON
         GNEPersonFrame* personFrame;
