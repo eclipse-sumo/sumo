@@ -75,3 +75,28 @@ reasons
 
 The following table shows road capacities that can be achieved at vehicle
 insertion depending on the used vType and insertion parameters.
+
+| sigma | speedDev | departSpeed | capacity | capacity <br/> --step-length 0.1 | capacity <br/> --extrapolate-departpos | capacity <br/> --step-length 0.1 <br/> --extrapolate-departpos |
+| ----- | -------- | ----------- | -------- | ---------- | -------- | -------- |
+| 0.5 | 0.1 | 0 | 1198 | 1368 | 1198 | 1368 |
+| 0.5 | 0.1 | max | 1635 | 2183 | 1653 | 2186 |
+| 0.5 | 0.1 | desired | 1522 | 2052 | 1921 | 2154 |
+| 0.5 | 0.1 | avg | 1933 | 2206 | 1974 | 2217 |
+| 0.5 | 0 | 0 | 1200 | 1368 | 1200 | 1368 |
+| 0.5 | 0 | max | 1643 | 2188 | 1664 | 2188 |
+| 0.5 | 0 | desired | 1800 | 2400 | 2128 | 2441 |
+| 0.5 | 0 | avg | 1800 | 2400 | 2142 | 2446 |
+| 0 | 0.1 | 0 | 1440 | 1500 | 1440 | 1500 |
+| 0 | 0.1 | max | 2075 | 2276 | 2087 | 2276 |
+| 0 | 0.1 | desired | 1663 | 2080 | 2190 | 2183 |
+| 0 | 0.1 | avg | 2199 | 2238 | 2235 | 2243 |
+| 0 | 0 | 0 | 1440 | 1500 | 1440 | 1500 |
+| 0 | 0 | max | 2073 | 2489 | 2083 | 2489 |
+| 0 | 0 | desired | 1800 | 2400 | 2482 | 2483 |
+| 0 | 0 | avg | 1800 | 2400 | 2482 | 2483 |
+
+
+Comments
+
+- default departSpeed is '0' which gives the worst possible insertion capacity
+- step-length has a side effect on the average speed reduction from sigma (this is an implementation problem that should be fixed eventually)
