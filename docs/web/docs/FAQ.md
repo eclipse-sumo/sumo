@@ -894,6 +894,8 @@ To increase flows even further the following settings can be used
 - `<vType sigma="0" minGap="1" length="3" .../>`
 - `<vType tau="0.5" .../>` (should not be lower than step-length)
 
+See [table of insertion capacity achievable with different options and insertion attributes](Simulation/RoadCapacity.md#further_headway_effects).
+
 ### How do I insert vehicles with a fixed density?
 
 To start a simulation with 65 evenly-spaced vehicles on a specific lane
