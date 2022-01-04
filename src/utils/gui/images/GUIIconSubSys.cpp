@@ -271,8 +271,7 @@
 #include "tazedge.xpm"
 
 #include "route.xpm"
-#include "vtype.xpm"
-#include "ptype.xpm"
+#include "type.xpm"
 #include "vehicle.xpm"
 #include "trip.xpm"
 #include "flow.xpm"
@@ -635,8 +634,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::TAZEDGE] = new FXXPMIcon(a, tazedge_xpm);
 
     myIcons[GUIIcon::ROUTE] = new FXXPMIcon(a, route_xpm);
-    myIcons[GUIIcon::VTYPE] = new FXXPMIcon(a, vtype_xpm);
-    myIcons[GUIIcon::PTYPE] = new FXXPMIcon(a, ptype_xpm);
+    myIcons[GUIIcon::TYPE] = new FXXPMIcon(a, type_xpm);
     myIcons[GUIIcon::VEHICLE] = new FXXPMIcon(a, vehicle_xpm);
     myIcons[GUIIcon::TRIP] = new FXXPMIcon(a, trip_xpm);
     myIcons[GUIIcon::FLOW] = new FXXPMIcon(a, flow_xpm);

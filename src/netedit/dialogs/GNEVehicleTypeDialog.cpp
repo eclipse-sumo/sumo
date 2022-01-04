@@ -625,7 +625,7 @@ void
 GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::openImageFileDialog() {
     // get the new image file
     FXFileDialog opendialog(this, "Open Image");
-    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::VTYPE));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::TYPE));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("All files (*)");
     if (gCurrentFolder.length() != 0) {
@@ -652,7 +652,7 @@ void
 GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::openOSGFileDialog() {
     // get the new file name
     FXFileDialog opendialog(this, "Open OSG File");
-    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::VTYPE));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::TYPE));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("OSG file (*.obj)");
     if (gCurrentFolder.length() != 0) {

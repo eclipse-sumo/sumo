@@ -265,7 +265,7 @@ GNETypeFrame::TypeEditor::onCmdCreateType(FXObject*, FXSelector, void*) {
     // create new vehicle type
     GNEDemandElement* type = new GNEType(myTypeFrameParent->myViewNet->getNet(), typeID, SUMO_TAG_VTYPE);
     // add it using undoList (to allow undo-redo)
-    myTypeFrameParent->myViewNet->getUndoList()->begin(GUIIcon::VTYPE, "create vehicle type");
+    myTypeFrameParent->myViewNet->getUndoList()->begin(GUIIcon::TYPE, "create vehicle type");
     myTypeFrameParent->myViewNet->getUndoList()->add(new GNEChange_DemandElement(type, true), true);
     myTypeFrameParent->myViewNet->getUndoList()->end();
     // set created vehicle type in selector
@@ -298,7 +298,7 @@ GNETypeFrame::TypeEditor::onCmdDeleteType(FXObject*, FXSelector, void*) {
             }
         } else {
             // begin undo list operation
-            myTypeFrameParent->myViewNet->getUndoList()->begin(GUIIcon::VTYPE, "delete vehicle type");
+            myTypeFrameParent->myViewNet->getUndoList()->begin(GUIIcon::TYPE, "delete vehicle type");
             // remove vehicle type (and all of their children)
             myTypeFrameParent->myViewNet->getNet()->deleteDemandElement(myTypeFrameParent->myTypeSelector->getCurrentType(),
                     myTypeFrameParent->myViewNet->getUndoList());
@@ -307,7 +307,7 @@ GNETypeFrame::TypeEditor::onCmdDeleteType(FXObject*, FXSelector, void*) {
         }
     } else {
         // begin undo list operation
-        myTypeFrameParent->myViewNet->getUndoList()->begin(GUIIcon::VTYPE, "delete vehicle type");
+        myTypeFrameParent->myViewNet->getUndoList()->begin(GUIIcon::TYPE, "delete vehicle type");
         // remove vehicle type (and all of their children)
         myTypeFrameParent->myViewNet->getNet()->deleteDemandElement(myTypeFrameParent->myTypeSelector->getCurrentType(),
                 myTypeFrameParent->myViewNet->getUndoList());
@@ -321,7 +321,7 @@ GNETypeFrame::TypeEditor::onCmdDeleteType(FXObject*, FXSelector, void*) {
 long
 GNETypeFrame::TypeEditor::onCmdResetType(FXObject*, FXSelector, void*) {
     // begin reset default vehicle type values
-    myTypeFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::VTYPE, "reset default vehicle type values");
+    myTypeFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::TYPE, "reset default vehicle type values");
     // reset all values of default vehicle type
     for (const auto& i : GNEAttributeCarrier::getTagProperty(SUMO_TAG_VTYPE)) {
         // change all attributes with "" to reset it (except ID and vClass)
@@ -356,7 +356,7 @@ GNETypeFrame::TypeEditor::onCmdCopyType(FXObject*, FXSelector, void*) {
         // create a new Type based on the current selected vehicle type
         GNEDemandElement* typeCopy = new GNEType(myTypeFrameParent->myViewNet->getNet(), typeID, vType);
         // begin undo list operation
-        myTypeFrameParent->myViewNet->getUndoList()->begin(GUIIcon::VTYPE, "copy vehicle type");
+        myTypeFrameParent->myViewNet->getUndoList()->begin(GUIIcon::TYPE, "copy vehicle type");
         // add it using undoList (to allow undo-redo)
         myTypeFrameParent->myViewNet->getUndoList()->add(new GNEChange_DemandElement(typeCopy, true), true);
         // end undo list operation

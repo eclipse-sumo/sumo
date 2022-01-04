@@ -615,8 +615,8 @@ GNEFrameModules::DemandElementSelector::refreshDemandElementSelector() {
         // special case for VTypes and PTypes
         if (demandElementTag == SUMO_TAG_VTYPE) {
             // add default Vehicle an Bike types in the first and second positions
-            myDemandElementsMatchBox->appendIconItem(DEFAULT_VTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
-            myDemandElementsMatchBox->appendIconItem(DEFAULT_BIKETYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
+            myDemandElementsMatchBox->appendIconItem(DEFAULT_VTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::TYPE));
+            myDemandElementsMatchBox->appendIconItem(DEFAULT_BIKETYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::TYPE));
             // add rest of vTypes
             for (const auto& vType : demandElements.at(demandElementTag)) {
                 // avoid insert duplicated default vType
@@ -626,7 +626,7 @@ GNEFrameModules::DemandElementSelector::refreshDemandElementSelector() {
             }
         } else if (demandElementTag == SUMO_TAG_PTYPE) {
             // add default Person type in the firs
-            myDemandElementsMatchBox->appendIconItem(DEFAULT_PEDTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::PTYPE));
+            myDemandElementsMatchBox->appendIconItem(DEFAULT_PEDTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::TYPE));
             // add rest of pTypes
             for (const auto& pType : demandElements.at(demandElementTag)) {
                 // avoid insert duplicated default pType

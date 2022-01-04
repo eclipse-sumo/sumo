@@ -70,7 +70,7 @@ GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* /*sumoBase
         // create vType/pType using myCurrentVType
         GNEDemandElement* vType = new GNEType(myNet, vTypeParameter, vTypeTag);
         if (myUndoDemandElements) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::VTYPE, "add " + vType->getTagStr());
+            myNet->getViewNet()->getUndoList()->begin(GUIIcon::TYPE, "add " + vType->getTagStr());
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vType, true), true);
             myNet->getViewNet()->getUndoList()->end();
         } else {
