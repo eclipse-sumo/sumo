@@ -813,13 +813,27 @@ GUIBaseVehicle::getScaleValue(const GUIVisualizationSettings& s, int activeSchem
             }
         case 6:
             return myVehicle.getNumberReroutes();
-        case 7:
-            return myVehicle.getTimeLossSeconds();
+        case 7: {
+            MSVehicle* microVeh = dynamic_cast<MSVehicle*>(&myVehicle);
+            return (microVeh != nullptr
+                    ? (microVeh->getLaneChangeModel().isOpposite() ? -100 : microVeh->getBestLaneOffset())
+                    : 0);
+        }
         case 8:
+            return myVehicle.getAcceleration();
+        case 9: {
+            MSVehicle* microVeh = dynamic_cast<MSVehicle*>(&myVehicle);
+            return (microVeh != nullptr ? microVeh->getTimeGapOnLane() : 0);
+        }
+        case 10:
+            return myVehicle.getDepartDelay();
+        case 11:
+            return myVehicle.getTimeLossSeconds();
+        case 12:
             return myVehicle.getStopDelay();
-        case 9:
+        case 13:
             return myVehicle.getStopArrivalDelay();
-        case 10: // by numerical param value
+        case 14: // by numerical param value
             std::string error;
             std::string val = myVehicle.getPrefixedParameter(s.vehicleScaleParam, error);
             try {
