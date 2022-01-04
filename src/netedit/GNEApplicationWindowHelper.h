@@ -300,8 +300,8 @@ struct GNEApplicationWindowHelper {
             /// @brief menu command for vehicle mode
             FXMenuCommand* vehicleMode;
 
-            /// @brief menu command for vehicle type mode
-            FXMenuCommand* vehicleTypeMode;
+            /// @brief menu command for type mode
+            FXMenuCommand* typeMode;
 
             /// @brief menu command for stop mode
             FXMenuCommand* stopMode;

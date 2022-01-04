@@ -20,7 +20,7 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
-#include <netedit/frames/demand/GNEVehicleTypeFrame.h>
+#include <netedit/frames/demand/GNETypeFrame.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNEViewNet.h>
 
@@ -83,8 +83,8 @@ GNEChange_DemandElement::undo() {
         restoreHierarchicalContainers();
     }
     // update vehicle type selector if demand element is a VType and vehicle type Frame is shown
-    if ((myDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && myDemandElement->getNet()->getViewNet()->getViewParent()->getVehicleTypeFrame()->shown()) {
-        myDemandElement->getNet()->getViewNet()->getViewParent()->getVehicleTypeFrame()->getVehicleTypeSelector()->refreshVehicleTypeSelector();
+    if ((myDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && myDemandElement->getNet()->getViewNet()->getViewParent()->getTypeFrame()->shown()) {
+        myDemandElement->getNet()->getViewNet()->getViewParent()->getTypeFrame()->getVehicleTypeSelector()->refreshVehicleTypeSelector();
     }
     // update stack labels
     if (myOriginalHierarchicalContainer.getParents<std::vector<GNEEdge*> >().size() > 0) {
@@ -121,8 +121,8 @@ GNEChange_DemandElement::redo() {
         removeElementFromParentsAndChildren(myDemandElement);
     }
     // update vehicle type selector if demand element is a VType and vehicle type Frame is shown
-    if ((myDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && myDemandElement->getNet()->getViewNet()->getViewParent()->getVehicleTypeFrame()->shown()) {
-        myDemandElement->getNet()->getViewNet()->getViewParent()->getVehicleTypeFrame()->getVehicleTypeSelector()->refreshVehicleTypeSelector();
+    if ((myDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && myDemandElement->getNet()->getViewNet()->getViewParent()->getTypeFrame()->shown()) {
+        myDemandElement->getNet()->getViewNet()->getViewParent()->getTypeFrame()->getVehicleTypeSelector()->refreshVehicleTypeSelector();
     }
     // update stack labels
     if (myOriginalHierarchicalContainer.getParents<std::vector<GNEEdge*> >().size() > 0) {

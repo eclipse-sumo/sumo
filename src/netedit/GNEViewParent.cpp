@@ -37,7 +37,7 @@
 #include <netedit/frames/demand/GNERouteFrame.h>
 #include <netedit/frames/demand/GNEStopFrame.h>
 #include <netedit/frames/demand/GNEVehicleFrame.h>
-#include <netedit/frames/demand/GNEVehicleTypeFrame.h>
+#include <netedit/frames/demand/GNETypeFrame.h>
 #include <netedit/frames/network/GNEAdditionalFrame.h>
 #include <netedit/frames/network/GNEConnectorFrame.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
@@ -264,8 +264,8 @@ GNEViewParent::getVehicleFrame() const {
 }
 
 
-GNEVehicleTypeFrame*
-GNEViewParent::getVehicleTypeFrame() const {
+GNETypeFrame*
+GNEViewParent::getTypeFrame() const {
     return myDemandFrames.vehicleTypeFrame;
 }
 
@@ -890,7 +890,7 @@ void
 GNEViewParent::DemandFrames::buildDemandFrames(GNEViewParent* viewParent, GNEViewNet* viewNet) {
     routeFrame = new GNERouteFrame(viewParent->myFramesArea, viewNet);
     vehicleFrame = new GNEVehicleFrame(viewParent->myFramesArea, viewNet);
-    vehicleTypeFrame = new GNEVehicleTypeFrame(viewParent->myFramesArea, viewNet);
+    vehicleTypeFrame = new GNETypeFrame(viewParent->myFramesArea, viewNet);
     stopFrame = new GNEStopFrame(viewParent->myFramesArea, viewNet);
     personFrame = new GNEPersonFrame(viewParent->myFramesArea, viewNet);
     personPlanFrame = new GNEPersonPlanFrame(viewParent->myFramesArea, viewNet);

@@ -387,7 +387,7 @@ GNEApplicationWindowHelper::ModesMenuCommands::NetworkMenuCommands::buildNetwork
                       GUIIconSubSys::getIcon(GUIIcon::MODEPROHIBITION), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_W_MODES_PROHIBITION);
     TLSMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
               "&Traffic light mode", "T", "Modes traffic lights over junctions.",
-              GUIIconSubSys::getIcon(GUIIcon::MODETLS), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_T_MODES_TLS_VTYPE);
+              GUIIconSubSys::getIcon(GUIIcon::MODETLS), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_T_MODES_TLS_TYPE);
     additionalMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
                      "&Additional mode", "A", "Create additional elements.",
                      GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_A_MODES_ADDITIONAL_STOP);
@@ -410,7 +410,7 @@ GNEApplicationWindowHelper::ModesMenuCommands::DemandMenuCommands::DemandMenuCom
     moveMode(nullptr),
     routeMode(nullptr),
     vehicleMode(nullptr),
-    vehicleTypeMode(nullptr),
+    typeMode(nullptr),
     stopMode(nullptr),
     personMode(nullptr),
     personPlanMode(nullptr),
@@ -425,7 +425,7 @@ GNEApplicationWindowHelper::ModesMenuCommands::DemandMenuCommands::showDemandMen
     moveMode->show();
     routeMode->show();
     vehicleMode->show();
-    vehicleTypeMode->show();
+    typeMode->show();
     stopMode->show();
     personMode->show();
     personPlanMode->show();
@@ -439,7 +439,7 @@ GNEApplicationWindowHelper::ModesMenuCommands::DemandMenuCommands::hideDemandMen
     moveMode->hide();
     routeMode->hide();
     vehicleMode->hide();
-    vehicleTypeMode->hide();
+    typeMode->hide();
     stopMode->hide();
     personMode->hide();
     personPlanMode->hide();
@@ -460,9 +460,9 @@ GNEApplicationWindowHelper::ModesMenuCommands::DemandMenuCommands::buildDemandMe
     vehicleMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
                   "Vehicle mode", "V", "Create vehicles.",
                   GUIIconSubSys::getIcon(GUIIcon::MODEVEHICLE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_V_MODES_VEHICLE);
-    vehicleTypeMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
-                      "Vehicle type mode", "T", "Create vehicle types.",
-                      GUIIconSubSys::getIcon(GUIIcon::MODEVEHICLETYPE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_T_MODES_TLS_VTYPE);
+    typeMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
+                      "Type mode", "T", "Create types (vehicles, person an containers).",
+                      GUIIconSubSys::getIcon(GUIIcon::MODETYPE), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_T_MODES_TLS_TYPE);
     stopMode = GUIDesigns::buildFXMenuCommandShortcut(modesMenu,
                "Stop mode", "A", "Create stops.",
                GUIIconSubSys::getIcon(GUIIcon::MODESTOP), myModesMenuCommandsParent->myGNEApp, MID_HOTKEY_A_MODES_ADDITIONAL_STOP);

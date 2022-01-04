@@ -58,7 +58,7 @@ class GNEContainerPlanFrame;
 class GNERouteFrame;
 class GNEStopFrame;
 class GNEVehicleFrame;
-class GNEVehicleTypeFrame;
+class GNETypeFrame;
 // data frames
 class GNEGenericDataFrame;
 class GNEEdgeDataFrame;
@@ -157,7 +157,7 @@ public:
     GNEVehicleFrame* getVehicleFrame() const;
 
     /// @brief get frame for DEMAND_VEHICLETYPE
-    GNEVehicleTypeFrame* getVehicleTypeFrame() const;
+    GNETypeFrame* getTypeFrame() const;
 
     /// @brief get frame for DEMAND_STOP
     GNEStopFrame* getStopFrame() const;
@@ -341,7 +341,7 @@ protected:
         GNEVehicleFrame* vehicleFrame;
 
         /// @brief frame for DEMAND_VEHICLETYPE
-        GNEVehicleTypeFrame* vehicleTypeFrame;
+        GNETypeFrame* vehicleTypeFrame;
 
         /// @brief frame for DEMAND_STOP
         GNEStopFrame* stopFrame;

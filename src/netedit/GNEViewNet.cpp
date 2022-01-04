@@ -43,7 +43,7 @@
 #include <netedit/frames/demand/GNERouteFrame.h>
 #include <netedit/frames/demand/GNEStopFrame.h>
 #include <netedit/frames/demand/GNEVehicleFrame.h>
-#include <netedit/frames/demand/GNEVehicleTypeFrame.h>
+#include <netedit/frames/demand/GNETypeFrame.h>
 #include <netedit/frames/network/GNEAdditionalFrame.h>
 #include <netedit/frames/network/GNEConnectorFrame.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
@@ -93,7 +93,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_P_MODES_POLYGON_PERSON,               GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_R_MODES_CROSSING_ROUTE_EDGERELDATA,   GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_S_MODES_SELECT,                       GNEViewNet::onCmdSetMode),
-    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_T_MODES_TLS_VTYPE,                    GNEViewNet::onCmdSetMode),
+    FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_T_MODES_TLS_TYPE,                     GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_V_MODES_VEHICLE,                      GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_W_MODES_PROHIBITION,                  GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_Z_MODES_TAZ_TAZREL,                   GNEViewNet::onCmdSetMode),
@@ -1635,7 +1635,7 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_C_MODES_CONNECT_PERSONPLAN:
                 myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_CONNECT);
                 break;
-            case MID_HOTKEY_T_MODES_TLS_VTYPE:
+            case MID_HOTKEY_T_MODES_TLS_TYPE:
                 myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_TLS);
                 break;
             case MID_HOTKEY_A_MODES_ADDITIONAL_STOP:
@@ -1683,17 +1683,12 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
             case MID_HOTKEY_V_MODES_VEHICLE:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_VEHICLE);
                 break;
-            case MID_HOTKEY_T_MODES_TLS_VTYPE:
-                myEditModes.setDemandEditMode(DemandEditMode::DEMAND_VEHICLETYPES);
+            case MID_HOTKEY_T_MODES_TLS_TYPE:
+                myEditModes.setDemandEditMode(DemandEditMode::DEMAND_TYPE);
                 break;
             case MID_HOTKEY_A_MODES_ADDITIONAL_STOP:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_STOP);
                 break;
-/*
-            case MID_HOTKEY_W_MODES_PROHIBITION_PERSONTYPE:
-                myEditModes.setDemandEditMode(DemandEditMode::DEMAND_PERSONTYPES);
-                break;
-*/
             case MID_HOTKEY_P_MODES_POLYGON_PERSON:
                 myEditModes.setDemandEditMode(DemandEditMode::DEMAND_PERSON);
                 break;
@@ -4071,12 +4066,12 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // set checkable button
             myDemandCheckableButtons.vehicleButton->setChecked(true);
             break;
-        case DemandEditMode::DEMAND_VEHICLETYPES:
-            myViewParent->getVehicleTypeFrame()->show();
-            myViewParent->getVehicleTypeFrame()->focusUpperElement();
-            myCurrentFrame = myViewParent->getVehicleTypeFrame();
+        case DemandEditMode::DEMAND_TYPE:
+            myViewParent->getTypeFrame()->show();
+            myViewParent->getTypeFrame()->focusUpperElement();
+            myCurrentFrame = myViewParent->getTypeFrame();
             // set checkable button
-            myDemandCheckableButtons.vehicleTypeButton->setChecked(true);
+            myDemandCheckableButtons.typeButton->setChecked(true);
             break;
         case DemandEditMode::DEMAND_STOP:
             myViewParent->getStopFrame()->show();

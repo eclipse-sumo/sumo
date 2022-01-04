@@ -13,8 +13,8 @@ set(netedit_frames_demand_SRCS
    GNEContainerPlanFrame.cpp
    GNEVehicleFrame.h
    GNEVehicleFrame.cpp
-   GNEVehicleTypeFrame.h
-   GNEVehicleTypeFrame.cpp
+   GNETypeFrame.h
+   GNETypeFrame.cpp
    )
 
 add_library(netedit_frames_demand STATIC ${netedit_frames_demand_SRCS})

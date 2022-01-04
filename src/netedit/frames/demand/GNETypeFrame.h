@@ -11,11 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEVehicleTypeFrame.h
+/// @file    GNETypeFrame.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Feb 2018
 ///
-// The Widget for edit Vehicle Type elements
+// The Widget for edit Type elements (vehicle, person and container)
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -32,9 +32,9 @@ class GNEVehicle;
 // class definitions
 // ===========================================================================
 /**
- * @class GNEVehicleTypeFrame
+ * @class GNETypeFrame
  */
-class GNEVehicleTypeFrame : public GNEFrame {
+class GNETypeFrame : public GNEFrame {
 
 public:
 
@@ -44,11 +44,11 @@ public:
 
     class VehicleTypeSelector : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNEVehicleTypeFrame::VehicleTypeSelector)
+        FXDECLARE(GNETypeFrame::VehicleTypeSelector)
 
     public:
         /// @brief constructor
-        VehicleTypeSelector(GNEVehicleTypeFrame* vehicleTypeFrameParent);
+        VehicleTypeSelector(GNETypeFrame* vehicleTypeFrameParent);
 
         /// @brief destructor
         ~VehicleTypeSelector();
@@ -76,7 +76,7 @@ public:
 
     private:
         /// @brief pointer to Frame Parent
-        GNEVehicleTypeFrame* myVehicleTypeFrameParent;
+        GNETypeFrame* myTypeFrameParent;
 
         /// @brief pointer to current vehicle type
         GNEDemandElement* myCurrentVehicleType;
@@ -91,11 +91,11 @@ public:
 
     class VehicleTypeEditor : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNEVehicleTypeFrame::VehicleTypeEditor)
+        FXDECLARE(GNETypeFrame::VehicleTypeEditor)
 
     public:
         /// @brief constructor
-        VehicleTypeEditor(GNEVehicleTypeFrame* vehicleTypeFrameParent);
+        VehicleTypeEditor(GNETypeFrame* vehicleTypeFrameParent);
 
         /// @brief destructor
         ~VehicleTypeEditor();
@@ -129,7 +129,7 @@ public:
 
     private:
         /// @brief pointer to vehicle type Frame Parent
-        GNEVehicleTypeFrame* myVehicleTypeFrameParent;
+        GNETypeFrame* myTypeFrameParent;
 
         /// @brief "create vehicle type" button
         FXButton* myCreateVehicleTypeButton;
@@ -148,10 +148,10 @@ public:
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
      */
-    GNEVehicleTypeFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
+    GNETypeFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
 
     /// @brief Destructor
-    ~GNEVehicleTypeFrame();
+    ~GNETypeFrame();
 
     /// @brief show Frame
     void show();

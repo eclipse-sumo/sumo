@@ -301,7 +301,7 @@ enum class GUIIcon {
     /// @{
     MODEROUTE,
     MODEVEHICLE,
-    MODEVEHICLETYPE,
+    MODETYPE,
     MODESTOP,
     MODEPERSON,
     MODEPERSONPLAN,
