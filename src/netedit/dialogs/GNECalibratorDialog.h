@@ -30,7 +30,7 @@
 class GNECalibrator;
 class GNERoute;
 class GNECalibratorFlow;
-class GNEVehicleType;
+class GNEType;
 
 // ===========================================================================
 // class definitions

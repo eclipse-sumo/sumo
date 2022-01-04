@@ -35,7 +35,7 @@
 #include "GNETranship.h"
 #include "GNETransport.h"
 #include "GNEVehicle.h"
-#include "GNEVehicleType.h"
+#include "GNEType.h"
 #include "GNEWalk.h"
 
 
@@ -63,12 +63,12 @@ GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* /*sumoBase
     // check if loaded vType/pType is a default vtype
     if ((vTypeParameter.id == DEFAULT_VTYPE_ID) || (vTypeParameter.id == DEFAULT_PEDTYPE_ID) || (vTypeParameter.id == DEFAULT_BIKETYPE_ID)) {
         // overwrite default vehicle type
-        GNEVehicleType::overwriteVType(myNet->getAttributeCarriers()->retrieveDemandElement(vTypeTag, vTypeParameter.id, false), vTypeParameter, myNet->getViewNet()->getUndoList());
+        GNEType::overwriteVType(myNet->getAttributeCarriers()->retrieveDemandElement(vTypeTag, vTypeParameter.id, false), vTypeParameter, myNet->getViewNet()->getUndoList());
     } else if (myNet->getAttributeCarriers()->retrieveDemandElement(vTypeTag, vTypeParameter.id, false) != nullptr) {
         WRITE_ERROR("There is another " + toString(vTypeTag) + " with the same ID='" + vTypeParameter.id + "'.");
     } else {
         // create vType/pType using myCurrentVType
-        GNEDemandElement* vType = new GNEVehicleType(myNet, vTypeParameter, vTypeTag);
+        GNEDemandElement* vType = new GNEType(myNet, vTypeParameter, vTypeTag);
         if (myUndoDemandElements) {
             myNet->getViewNet()->getUndoList()->begin(GUIIcon::VTYPE, "add " + vType->getTagStr());
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vType, true), true);

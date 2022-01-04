@@ -27,7 +27,7 @@
 #include <netedit/elements/additional/GNEPoly.h>
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/data/GNEDataInterval.h>
-#include <netedit/elements/demand/GNEVehicleType.h>
+#include <netedit/elements/demand/GNEType.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEEdgeTemplate.h>
@@ -1506,17 +1506,17 @@ GNENetHelper::AttributeCarriers::clearDemandElements() {
 void
 GNENetHelper::AttributeCarriers::addDefaultVTypes() {
     // Create default vehicle Type (it has to be created here due myViewNet was previously nullptr)
-    GNEVehicleType* defaultVehicleType = new GNEVehicleType(myNet, DEFAULT_VTYPE_ID, SVC_PASSENGER, SUMO_TAG_VTYPE);
+    GNEType* defaultVehicleType = new GNEType(myNet, DEFAULT_VTYPE_ID, SVC_PASSENGER, SUMO_TAG_VTYPE);
     myDemandElements.at(defaultVehicleType->getTagProperty().getTag()).insert(defaultVehicleType);
     defaultVehicleType->incRef("GNENet::DEFAULT_VEHTYPE");
 
     // Create default Bike Type (it has to be created here due myViewNet was previously nullptr)
-    GNEVehicleType* defaultBikeType = new GNEVehicleType(myNet, DEFAULT_BIKETYPE_ID, SVC_BICYCLE, SUMO_TAG_VTYPE);
+    GNEType* defaultBikeType = new GNEType(myNet, DEFAULT_BIKETYPE_ID, SVC_BICYCLE, SUMO_TAG_VTYPE);
     myDemandElements.at(defaultBikeType->getTagProperty().getTag()).insert(defaultBikeType);
     defaultBikeType->incRef("GNENet::DEFAULT_BIKETYPE_ID");
 
     // Create default person Type (it has to be created here due myViewNet was previously nullptr)
-    GNEVehicleType* defaultPersonType = new GNEVehicleType(myNet, DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN, SUMO_TAG_PTYPE);
+    GNEType* defaultPersonType = new GNEType(myNet, DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN, SUMO_TAG_PTYPE);
     myDemandElements.at(defaultPersonType->getTagProperty().getTag()).insert(defaultPersonType);
     defaultPersonType->incRef("GNENet::DEFAULT_PEDTYPE_ID");
 }

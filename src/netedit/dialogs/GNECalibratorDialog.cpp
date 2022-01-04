@@ -29,7 +29,7 @@
 #include <netedit/elements/demand/GNERoute.h>
 #include <netedit/elements/additional/GNECalibrator.h>
 #include <netedit/elements/additional/GNECalibratorFlow.h>
-#include <netedit/elements/demand/GNEVehicleType.h>
+#include <netedit/elements/demand/GNEType.h>
 
 #include "GNECalibratorDialog.h"
 #include "GNECalibratorFlowDialog.h"
@@ -267,7 +267,7 @@ long
 GNECalibratorDialog::onCmdAddVehicleType(FXObject*, FXSelector, void*) {
     // create a new Vehicle Type and configure it with GNEVehicleTypeDialog
     std::string vehicleTypeID = myEditedAdditional->getNet()->getViewNet()->getNet()->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_VTYPE);
-    GNEVehicleTypeDialog(new GNEVehicleType(myEditedAdditional->getNet(), vehicleTypeID, SVC_PASSENGER, SUMO_TAG_VTYPE), false);
+    GNEVehicleTypeDialog(new GNEType(myEditedAdditional->getNet(), vehicleTypeID, SVC_PASSENGER, SUMO_TAG_VTYPE), false);
     // update vehicle types table
     updateVehicleTypeTable();
     return 1;

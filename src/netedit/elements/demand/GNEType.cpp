@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEVehicleType.cpp
+/// @file    GNEType.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2019
 ///
@@ -22,14 +22,14 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/emissions/PollutantsInterface.h>
 
-#include "GNEVehicleType.h"
+#include "GNEType.h"
 
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
-GNEVehicleType::GNEVehicleType(SumoXMLTag tag, GNENet* net) :
+GNEType::GNEType(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_VTYPE, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
         {}, {}, {}, {}, {}, {}, {}, {}),
     SUMOVTypeParameter(""),
@@ -42,7 +42,7 @@ GNEVehicleType::GNEVehicleType(SumoXMLTag tag, GNENet* net) :
 }
 
 
-GNEVehicleType::GNEVehicleType(GNENet* net, const std::string& vTypeID, const SUMOVehicleClass& defaultVClass, SumoXMLTag tag) :
+GNEType::GNEType(GNENet* net, const std::string& vTypeID, const SUMOVehicleClass& defaultVClass, SumoXMLTag tag) :
     GNEDemandElement(vTypeID, net, GLO_VTYPE, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
         {}, {}, {}, {}, {}, {}, {}, {}),
     SUMOVTypeParameter(vTypeID),
@@ -56,7 +56,7 @@ GNEVehicleType::GNEVehicleType(GNENet* net, const std::string& vTypeID, const SU
 }
 
 
-GNEVehicleType::GNEVehicleType(GNENet* net, const SUMOVTypeParameter& vTypeParameter, SumoXMLTag tag) :
+GNEType::GNEType(GNENet* net, const SUMOVTypeParameter& vTypeParameter, SumoXMLTag tag) :
     GNEDemandElement(vTypeParameter.id, net, GLO_VTYPE, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
         {}, {}, {}, {}, {}, {}, {}, {}),
     SUMOVTypeParameter(vTypeParameter),
@@ -72,7 +72,7 @@ GNEVehicleType::GNEVehicleType(GNENet* net, const SUMOVTypeParameter& vTypeParam
 }
 
 
-GNEVehicleType::GNEVehicleType(GNENet* net, const std::string& vTypeID, GNEVehicleType* vTypeOriginal) :
+GNEType::GNEType(GNENet* net, const std::string& vTypeID, GNEType* vTypeOriginal) :
     GNEDemandElement(vTypeID, net, GLO_VTYPE, vTypeOriginal->getTagProperty().getTag(), GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
         {}, {}, {}, {}, {}, {}, {}, {}),
     SUMOVTypeParameter(*vTypeOriginal),
@@ -85,17 +85,17 @@ GNEVehicleType::GNEVehicleType(GNENet* net, const std::string& vTypeID, GNEVehic
 }
 
 
-GNEVehicleType::~GNEVehicleType() {}
+GNEType::~GNEType() {}
 
 
 GNEMoveOperation*
-GNEVehicleType::getMoveOperation() {
+GNEType::getMoveOperation() {
     return nullptr;
 }
 
 
 void
-GNEVehicleType::writeDemandElement(OutputDevice& device) const {
+GNEType::writeDemandElement(OutputDevice& device) const {
     // only write default vehicle types if it was modified
     if (myDefaultVehicleType) {
         if (myDefaultVehicleTypeModified) {
@@ -108,19 +108,19 @@ GNEVehicleType::writeDemandElement(OutputDevice& device) const {
 
 
 SUMOVehicleClass
-GNEVehicleType::getVClass() const {
+GNEType::getVClass() const {
     return vehicleClass;
 }
 
 
 const RGBColor&
-GNEVehicleType::getColor() const {
+GNEType::getColor() const {
     return color;
 }
 
 
 void
-GNEVehicleType::updateGeometry() {
+GNEType::updateGeometry() {
     // update geometry of all childrens
     for (const auto& i : getChildDemandElements()) {
         i->updateGeometry();
@@ -129,76 +129,76 @@ GNEVehicleType::updateGeometry() {
 
 
 Position
-GNEVehicleType::getPositionInView() const {
+GNEType::getPositionInView() const {
     return Position();
 }
 
 
 std::string
-GNEVehicleType::getParentName() const {
+GNEType::getParentName() const {
     return myNet->getMicrosimID();
 }
 
 
 double
-GNEVehicleType::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
+GNEType::getExaggeration(const GUIVisualizationSettings& /*s*/) const {
     return 1;
 }
 
 
 Boundary
-GNEVehicleType::getCenteringBoundary() const {
+GNEType::getCenteringBoundary() const {
     // Vehicle Types doesn't have boundaries
     return Boundary(-0.1, -0.1, 0.1, 0.1);
 }
 
 
 void
-GNEVehicleType::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
+GNEType::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted
 }
 
 
 void
-GNEVehicleType::drawGL(const GUIVisualizationSettings&) const {
+GNEType::drawGL(const GUIVisualizationSettings&) const {
     // Vehicle Types aren't draw
 }
 
 
 void
-GNEVehicleType::computePathElement() {
+GNEType::computePathElement() {
     // nothing to compute
 }
 
 
 void
-GNEVehicleType::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+GNEType::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
     // vehicleTypes don't use drawPartialGL
 }
 
 
 void
-GNEVehicleType::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*fromLane*/, const GNELane* /*toLane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
+GNEType::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*fromLane*/, const GNELane* /*toLane*/, const GNEPathManager::Segment* /*segment*/, const double /*offsetFront*/) const {
     // vehicleTypes don't use drawPartialGL
 }
 
 
 GNELane*
-GNEVehicleType::getFirstPathLane() const {
+GNEType::getFirstPathLane() const {
     // vehicle types don't use lanes
     return nullptr;
 }
 
 
 GNELane*
-GNEVehicleType::getLastPathLane() const {
+GNEType::getLastPathLane() const {
     // vehicle types don't use lanes
     return nullptr;
 }
 
 
 std::string
-GNEVehicleType::getAttribute(SumoXMLAttr key) const {
+GNEType::getAttribute(SumoXMLAttr key) const {
     // obtain default values depending of vehicle class
     VClassDefaultValues defaultValues(vehicleClass);
     switch (key) {
@@ -466,7 +466,7 @@ GNEVehicleType::getAttribute(SumoXMLAttr key) const {
 
 
 double
-GNEVehicleType::getAttributeDouble(SumoXMLAttr key) const {
+GNEType::getAttributeDouble(SumoXMLAttr key) const {
     // obtain default values depending of vehicle class
     VClassDefaultValues defaultValues(vehicleClass);
     switch (key) {
@@ -507,13 +507,13 @@ GNEVehicleType::getAttributeDouble(SumoXMLAttr key) const {
 
 
 Position
-GNEVehicleType::getAttributePosition(SumoXMLAttr key) const {
+GNEType::getAttributePosition(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have a Position attribute of type '" + toString(key) + "'");
 }
 
 
 void
-GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+GNEType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     GNEChange_Attribute* vTypeChangeAttributeForced = nullptr;
     if (value == getAttribute(key)) {
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
@@ -645,7 +645,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
 
 
 bool
-GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
+GNEType::isValid(SumoXMLAttr key, const std::string& value) {
     // a empty value is always valid except for IDs
     if ((key != SUMO_ATTR_ID) && value.empty()) {
         return true;
@@ -831,19 +831,19 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEVehicleType::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
+GNEType::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     // nothing to enable
 }
 
 
 void
-GNEVehicleType::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
+GNEType::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     // nothing to disable
 }
 
 
 bool
-GNEVehicleType::isAttributeEnabled(SumoXMLAttr key) const {
+GNEType::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             if ((id == DEFAULT_VTYPE_ID) || (id == DEFAULT_PEDTYPE_ID) || (id == DEFAULT_BIKETYPE_ID)) {
@@ -878,25 +878,25 @@ GNEVehicleType::isAttributeEnabled(SumoXMLAttr key) const {
 
 
 std::string
-GNEVehicleType::getPopUpID() const {
+GNEType::getPopUpID() const {
     return getTagStr();
 }
 
 
 std::string
-GNEVehicleType::getHierarchyName() const {
+GNEType::getHierarchyName() const {
     return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) ;
 }
 
 
 const std::map<std::string, std::string>&
-GNEVehicleType::getACParametersMap() const {
+GNEType::getACParametersMap() const {
     return getParametersMap();
 }
 
 
 void
-GNEVehicleType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVTypeParameter, GNEUndoList* undoList) {
+GNEType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVTypeParameter, GNEUndoList* undoList) {
     // open undo list and overwritte all values of default VType
     undoList->begin(vType->getTagProperty().getGUIIcon(), "update default " + vType->getTagStr() + " '" + DEFAULT_VTYPE_ID + "'");
     // CFM values
@@ -1205,7 +1205,7 @@ GNEVehicleType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter
 // ===========================================================================
 
 void
-GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
+GNEType::setAttribute(SumoXMLAttr key, const std::string& value) {
     // obtain default values depending of vehicle class
     VClassDefaultValues defaultValues(vehicleClass);
     switch (key) {
@@ -1679,25 +1679,25 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEVehicleType::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
+GNEType::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
     throw InvalidArgument("Nothing to enable");
 }
 
 
 void
-GNEVehicleType::setMoveShape(const GNEMoveResult& /*moveResult*/) {
+GNEType::setMoveShape(const GNEMoveResult& /*moveResult*/) {
     // vehicleTypes cannot be moved
 }
 
 
 void
-GNEVehicleType::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
+GNEType::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
     // vehicleTypes cannot be moved
 }
 
 
 void
-GNEVehicleType::updateDefaultVClassAttributes(const VClassDefaultValues& defaultValues) {
+GNEType::updateDefaultVClassAttributes(const VClassDefaultValues& defaultValues) {
     if (!wasSet(VTYPEPARS_LENGTH_SET)) {
         length = defaultValues.length;
     }

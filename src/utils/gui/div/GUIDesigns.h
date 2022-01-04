@@ -53,7 +53,7 @@ class FXMenuCheckIcon;
 /// @brief text field with thick frame and width 50 and limited to doubles
 #define GUIDesignTextFielWidth50Real    (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | TEXTFIELD_REAL), 0, 0, 50, GUIDesignHeight, 2, 2, 2, 2
 
-/// @brief text field with thick frame, width of 180 (Used in GNEVehicleType)
+/// @brief text field with thick frame, width of 180 (Used in type frame)
 #define GUIDesignTextFielWidth180       (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 180, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief Num of column of text field
@@ -266,7 +266,7 @@ class FXMenuCheckIcon;
 /// @brief Combo box static     (cannot be edited) extended over the matrix column
 #define GUIDesignComboBoxAttribute          (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
-/// @brief comboBox with thick frame, width 180 (Used in GNEVehicleType)
+/// @brief comboBox with thick frame, width 180 (Used in GNEType)
 #define GUIDesignComboBoxWidth180           (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 180, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief comboBox with thick frame, width 120

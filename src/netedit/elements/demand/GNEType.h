@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEVehicleType.h
+/// @file    GNEType.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2018
 ///
@@ -27,27 +27,24 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
-/**
- * @class GNEVehicleType
- * vehicleType vehicleType used by GNECalibrators
- */
-class GNEVehicleType : public GNEDemandElement, public SUMOVTypeParameter {
+
+class GNEType : public GNEDemandElement, public SUMOVTypeParameter {
 
 public:
     /// @brief default constructor
-    GNEVehicleType(SumoXMLTag tag, GNENet* net);
+    GNEType(SumoXMLTag tag, GNENet* net);
 
     /// @brief constructor for default VTypes
-    GNEVehicleType(GNENet* net, const std::string& vTypeID, const SUMOVehicleClass& defaultVClass, SumoXMLTag tag);
+    GNEType(GNENet* net, const std::string& vTypeID, const SUMOVehicleClass& defaultVClass, SumoXMLTag tag);
 
     /// @brief constructor
-    GNEVehicleType(GNENet* net, const SUMOVTypeParameter& vTypeParameter, SumoXMLTag tag);
+    GNEType(GNENet* net, const SUMOVTypeParameter& vTypeParameter, SumoXMLTag tag);
 
     /// @brief copy constructor
-    GNEVehicleType(GNENet* net, const std::string& vTypeID, GNEVehicleType* vTypeOriginal);
+    GNEType(GNENet* net, const std::string& vTypeID, GNEType* vTypeOriginal);
 
     /// @brief destructor
-    ~GNEVehicleType();
+    ~GNEType();
 
     /**@brief get move operation
      * @note returned GNEMoveOperation can be nullptr
@@ -198,14 +195,14 @@ public:
     /// @brief get parameters map
     const std::map<std::string, std::string>& getACParametersMap() const;
 
-    /// @brief overwrite all values of GNEVehicleType with a SUMOVTypeParameter
+    /// @brief overwrite all values of GNEType with a SUMOVTypeParameter
     static void overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVTypeParameter, GNEUndoList* undoList);
 
 protected:
-    /// @brief flag to check if this GNEVehicleType is a default vehicle Type (For Vehicles, Pedestrians...)
+    /// @brief flag to check if this GNEType is a default vehicle Type (For Vehicles, Pedestrians...)
     bool myDefaultVehicleType;
 
-    /// @brief flag to check if this default GNEVehicleType was modified
+    /// @brief flag to check if this default GNEType was modified
     bool myDefaultVehicleTypeModified;
 
 private:
@@ -225,8 +222,8 @@ private:
     void updateDefaultVClassAttributes(const VClassDefaultValues& defaultValues);
 
     /// @brief Invalidated copy constructor.
-    GNEVehicleType(GNEVehicleType*) = delete;
+    GNEType(GNEType*) = delete;
 
     /// @brief Invalidated assignment operator
-    GNEVehicleType* operator=(GNEVehicleType*) = delete;
+    GNEType* operator=(GNEType*) = delete;
 };
