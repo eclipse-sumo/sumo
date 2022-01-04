@@ -74,7 +74,7 @@ reasons
 - vehicles are not always in a configuration of minimum following distances. Care must be taken especially for [vehicle insertion](Simulation/VehicleInsertion.md#effect_of_simulation_step-length)
 
 The following table shows road capacities that can be achieved at vehicle
-insertion depending on the used vType and insertion parameters.
+insertion depending on the used vType and insertion parameters. The road speed limit was 16.66m/s which gives a theoretical capacity of 2482 veh/hour.
 
 | sigma | speedDev | departSpeed | capacity | capacity <br/> --step-length 0.1 | capacity <br/> --extrapolate-departpos | capacity <br/> --step-length 0.1 <br/> --extrapolate-departpos |
 | ----- | -------- | ----------- | -------- | ---------- | -------- | -------- |
