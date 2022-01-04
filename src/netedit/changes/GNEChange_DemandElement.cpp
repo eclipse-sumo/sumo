@@ -84,7 +84,7 @@ GNEChange_DemandElement::undo() {
     }
     // update vehicle type selector if demand element is a VType and vehicle type Frame is shown
     if ((myDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && myDemandElement->getNet()->getViewNet()->getViewParent()->getTypeFrame()->shown()) {
-        myDemandElement->getNet()->getViewNet()->getViewParent()->getTypeFrame()->getVehicleTypeSelector()->refreshVehicleTypeSelector();
+        myDemandElement->getNet()->getViewNet()->getViewParent()->getTypeFrame()->getTypeSelector()->refreshTypeSelector();
     }
     // update stack labels
     if (myOriginalHierarchicalContainer.getParents<std::vector<GNEEdge*> >().size() > 0) {
@@ -122,7 +122,7 @@ GNEChange_DemandElement::redo() {
     }
     // update vehicle type selector if demand element is a VType and vehicle type Frame is shown
     if ((myDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && myDemandElement->getNet()->getViewNet()->getViewParent()->getTypeFrame()->shown()) {
-        myDemandElement->getNet()->getViewNet()->getViewParent()->getTypeFrame()->getVehicleTypeSelector()->refreshVehicleTypeSelector();
+        myDemandElement->getNet()->getViewNet()->getViewParent()->getTypeFrame()->getTypeSelector()->refreshTypeSelector();
     }
     // update stack labels
     if (myOriginalHierarchicalContainer.getParents<std::vector<GNEEdge*> >().size() > 0) {

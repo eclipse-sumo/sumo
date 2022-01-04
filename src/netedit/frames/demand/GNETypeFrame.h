@@ -39,31 +39,31 @@ class GNETypeFrame : public GNEFrame {
 public:
 
     // ===========================================================================
-    // class VehicleTypeSelector
+    // class TypeSelector
     // ===========================================================================
 
-    class VehicleTypeSelector : public FXGroupBoxModule {
+    class TypeSelector : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNETypeFrame::VehicleTypeSelector)
+        FXDECLARE(GNETypeFrame::TypeSelector)
 
     public:
         /// @brief constructor
-        VehicleTypeSelector(GNETypeFrame* vehicleTypeFrameParent);
+        TypeSelector(GNETypeFrame* typeFrameParent);
 
         /// @brief destructor
-        ~VehicleTypeSelector();
+        ~TypeSelector();
 
         /// @brief get current Vehicle Type
-        GNEDemandElement* getCurrentVehicleType() const;
+        GNEDemandElement* getCurrentType() const;
 
         /// @brief set current Vehicle Type
-        void setCurrentVehicleType(GNEDemandElement* vType);
+        void setCurrentType(GNEDemandElement* vType);
 
         /// @brief refresh vehicle type selector
-        void refreshVehicleTypeSelector();
+        void refreshTypeSelector();
 
         /// @brief refresh vehicle type selector (only IDs, without refreshing attributes)
-        void refreshVehicleTypeSelectorIDs();
+        void refreshTypeSelectorIDs();
 
         /// @name FOX-callbacks
         /// @{
@@ -72,76 +72,76 @@ public:
         /// @}
 
     protected:
-        FOX_CONSTRUCTOR(VehicleTypeSelector)
+        FOX_CONSTRUCTOR(TypeSelector)
 
     private:
         /// @brief pointer to Frame Parent
         GNETypeFrame* myTypeFrameParent;
 
         /// @brief pointer to current vehicle type
-        GNEDemandElement* myCurrentVehicleType;
+        GNEDemandElement* myCurrentType;
 
         /// @brief comboBox with the list of vTypes
         FXComboBox* myTypeMatchBox;
     };
 
     // ===========================================================================
-    // class VehicleTypeEditor
+    // class TypeEditor
     // ===========================================================================
 
-    class VehicleTypeEditor : public FXGroupBoxModule {
+    class TypeEditor : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNETypeFrame::VehicleTypeEditor)
+        FXDECLARE(GNETypeFrame::TypeEditor)
 
     public:
         /// @brief constructor
-        VehicleTypeEditor(GNETypeFrame* vehicleTypeFrameParent);
+        TypeEditor(GNETypeFrame* typeFrameParent);
 
         /// @brief destructor
-        ~VehicleTypeEditor();
+        ~TypeEditor();
 
-        /// @brief show VehicleTypeEditor modul
-        void showVehicleTypeEditorModule();
+        /// @brief show TypeEditor modul
+        void showTypeEditorModule();
 
-        /// @brief hide VehicleTypeEditor box
-        void hideVehicleTypeEditorModule();
+        /// @brief hide TypeEditor box
+        void hideTypeEditorModule();
 
-        /// @brief update VehicleTypeEditor modul
-        void refreshVehicleTypeEditorModule();
+        /// @brief update TypeEditor modul
+        void refreshTypeEditorModule();
 
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when "Vreate Vehicle Type" button is clicked
-        long onCmdCreateVehicleType(FXObject*, FXSelector, void*);
+        long onCmdCreateType(FXObject*, FXSelector, void*);
 
         /// @brief Called when "Delete Vehicle Type" button is clicked
-        long onCmdDeleteVehicleType(FXObject*, FXSelector, void*);
+        long onCmdDeleteType(FXObject*, FXSelector, void*);
 
         /// @brief Called when "Delete Vehicle Type" button is clicked
-        long onCmdResetVehicleType(FXObject*, FXSelector, void*);
+        long onCmdResetType(FXObject*, FXSelector, void*);
 
         /// @brief Called when "Copy Vehicle Type" button is clicked
-        long onCmdCopyVehicleType(FXObject*, FXSelector, void*);
+        long onCmdCopyType(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
-        FOX_CONSTRUCTOR(VehicleTypeEditor)
+        FOX_CONSTRUCTOR(TypeEditor)
 
     private:
         /// @brief pointer to vehicle type Frame Parent
         GNETypeFrame* myTypeFrameParent;
 
         /// @brief "create vehicle type" button
-        FXButton* myCreateVehicleTypeButton;
+        FXButton* myCreateTypeButton;
 
         /// @brief "delete vehicle type" button
-        FXButton* myDeleteVehicleTypeButton;
+        FXButton* myDeleteTypeButton;
 
         /// @brief "delete default vehicle type" button
-        FXButton* myResetDefaultVehicleTypeButton;
+        FXButton* myResetDefaultTypeButton;
 
         /// @brief "copy vehicle type"
-        FXButton* myCopyVehicleTypeButton;
+        FXButton* myCopyTypeButton;
     };
 
     /**@brief Constructor
@@ -157,7 +157,7 @@ public:
     void show();
 
     /// @brief get vehicle type selector
-    VehicleTypeSelector* getVehicleTypeSelector() const;
+    TypeSelector* getTypeSelector() const;
 
 protected:
     /// @brief function called after set a valid attribute in AttributeCreator/AttributeEditor/ParametersEditor/...
@@ -168,14 +168,14 @@ protected:
 
 private:
     /// @brief vehicle type selector
-    VehicleTypeSelector* myVehicleTypeSelector;
+    TypeSelector* myTypeSelector;
 
     /// @brief editorinternal vehicle type attributes
-    GNEFrameAttributeModules::AttributesEditor* myVehicleTypeAttributesEditor;
+    GNEFrameAttributeModules::AttributesEditor* myTypeAttributesEditor;
 
     /// @brief modul for open extended attributes dialog
     GNEFrameAttributeModules::AttributesEditorExtended* myAttributesEditorExtended;
 
     /// @brief Vehicle Type editor (Create, copy, etc.)
-    VehicleTypeEditor* myVehicleTypeEditor;
+    TypeEditor* myTypeEditor;
 };
