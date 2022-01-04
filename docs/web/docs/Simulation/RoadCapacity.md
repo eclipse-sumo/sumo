@@ -61,7 +61,7 @@ At high road speeds, the tau component is the dominant factor whereas length and
 The following graph shows the ideal time headways and road capacities for different
 road speeds with the default model parameters for length, minGap and tau.
 
-![capacity.png](images/capacity.png "road capacity and time headways")
+![capacity.png](../images/capacity.png "road capacity and time headways")
 
 # Further headway effects
 
