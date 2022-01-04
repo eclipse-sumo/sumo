@@ -128,3 +128,4 @@ By default, the next attempt happens 2 seconds after the first vehicle has depar
 - The departure edge can be determined at run-time when using [Traffic
   Assignment Zones
   (TAZ)](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#traffic_assignement_zones_taz)
+- [Table of insertion capacity achievable with different options and insertion attributes](RoadCapacity.md#further_headway_effects)
