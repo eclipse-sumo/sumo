@@ -533,6 +533,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     vehicleSize(1),
     vehicleName(false, 60, RGBColor(204, 153, 0, 255)),
     vehicleValue(false, 80, RGBColor::CYAN),
+    vehicleScaleValue(false, 80, RGBColor::GREY),
     vehicleText(false, 80, RGBColor::RED),
     personQuality(0),
     personSize(1),
@@ -1723,6 +1724,9 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     vehicleValue.print(dev, "vehicleValue");
     dev.lf();
     dev << "                 ";
+    vehicleScaleValue.print(dev, "vehicleScaleValue");
+    dev.lf();
+    dev << "                 ";
     vehicleText.print(dev, "vehicleText");
     vehicleColorer.save(dev);
     vehicleScaler.save(dev);
@@ -2018,6 +2022,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (vehicleValue != v2.vehicleValue) {
+        return false;
+    }
+    if (vehicleScaleValue != v2.vehicleScaleValue) {
         return false;
     }
     if (vehicleText != v2.vehicleText) {

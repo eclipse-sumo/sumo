@@ -242,6 +242,7 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             mySettings.vehicleSize = parseSizeSettings("vehicle", attrs, mySettings.vehicleSize);
             mySettings.vehicleName = parseTextSettings("vehicleName", attrs, mySettings.vehicleName);
             mySettings.vehicleValue = parseTextSettings("vehicleValue", attrs, mySettings.vehicleValue);
+            mySettings.vehicleScaleValue = parseTextSettings("vehicleScaleValue", attrs, mySettings.vehicleScaleValue);
             mySettings.vehicleText = parseTextSettings("vehicleText", attrs, mySettings.vehicleText);
             myCurrentColorer = element;
             break;

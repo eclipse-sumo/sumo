@@ -393,7 +393,7 @@ protected:
                *myJunctionIndexPanel, *myTLIndexPanel,
                *myJunctionIDPanel, *myJunctionNamePanel, *myInternalJunctionNamePanel,
                *myTLSPhaseIndexPanel, *myTLSPhaseNamePanel,
-               *myVehicleNamePanel, *myVehicleValuePanel, *myVehicleTextPanel,
+               *myVehicleNamePanel, *myVehicleValuePanel, *myVehicleScaleValuePanel, *myVehicleTextPanel,
                *myPersonNamePanel, *myPersonValuePanel,
                *myContainerNamePanel,
                *myAddNamePanel, *myAddFullNamePanel,

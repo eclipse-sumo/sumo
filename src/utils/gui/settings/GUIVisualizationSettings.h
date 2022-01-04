@@ -766,7 +766,7 @@ public:
     GUIVisualizationSizeSettings vehicleSize;
 
     // Setting bundles for optional drawing vehicle names or color value
-    GUIVisualizationTextSettings vehicleName, vehicleValue, vehicleText;
+    GUIVisualizationTextSettings vehicleName, vehicleValue, vehicleScaleValue, vehicleText;
 
     /// @}
 
