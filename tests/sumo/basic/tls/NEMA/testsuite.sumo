@@ -3,3 +3,6 @@ basic
 
 # Copy of basic
 custom_detector
+
+# inputs that should be reported as problematic
+errors
