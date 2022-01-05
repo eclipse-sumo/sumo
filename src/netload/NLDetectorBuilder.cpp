@@ -99,7 +99,7 @@ NLDetectorBuilder::buildInductLoop(const std::string& id,
     // get and check the lane
     MSLane* clane = getLaneChecking(lane, SUMO_TAG_E1DETECTOR, id);
     // get and check the position
-    pos = getPositionChecking(pos, clane, friendlyPos, id);
+    pos = getPositionChecking(pos, clane, friendlyPos, SUMO_TAG_E1DETECTOR, id);
     // build the loop
     MSDetectorFileOutput* loop = createInductLoop(id, clane, pos, vTypes, detectPersons);
     // add the file output
@@ -115,7 +115,7 @@ NLDetectorBuilder::buildInstantInductLoop(const std::string& id,
     // get and check the lane
     MSLane* clane = getLaneChecking(lane, SUMO_TAG_INSTANT_INDUCTION_LOOP, id);
     // get and check the position
-    pos = getPositionChecking(pos, clane, friendlyPos, id);
+    pos = getPositionChecking(pos, clane, friendlyPos, SUMO_TAG_INSTANT_INDUCTION_LOOP, id);
     // build the loop
     MSDetectorFileOutput* loop = createInstantInductLoop(id, clane, pos, device, vTypes);
     // add the file output
@@ -301,7 +301,7 @@ NLDetectorBuilder::addE3Entry(const std::string& lane,
     }
     MSLane* clane = getLaneChecking(lane, SUMO_TAG_E3DETECTOR, myE3Definition->myID);
     // get and check the position
-    pos = getPositionChecking(pos, clane, friendlyPos, myE3Definition->myID);
+    pos = getPositionChecking(pos, clane, friendlyPos, SUMO_TAG_DET_ENTRY, myE3Definition->myID);
     // build and save the entry
     myE3Definition->myEntries.push_back(MSCrossSection(clane, pos));
 }
@@ -315,7 +315,7 @@ NLDetectorBuilder::addE3Exit(const std::string& lane,
     }
     MSLane* clane = getLaneChecking(lane, SUMO_TAG_E3DETECTOR, myE3Definition->myID);
     // get and check the position
-    pos = getPositionChecking(pos, clane, friendlyPos, myE3Definition->myID);
+    pos = getPositionChecking(pos, clane, friendlyPos, SUMO_TAG_DET_EXIT, myE3Definition->myID);
     // build and save the exit
     myE3Definition->myExits.push_back(MSCrossSection(clane, pos));
 }
@@ -427,6 +427,7 @@ NLDetectorBuilder::createE3Detector(const std::string& id,
 
 double
 NLDetectorBuilder::getPositionChecking(double pos, MSLane* lane, bool friendlyPos,
+                                       SumoXMLTag tag,
                                        const std::string& detid) {
     // check whether it is given from the end
     if (pos < 0) {
@@ -437,14 +438,14 @@ NLDetectorBuilder::getPositionChecking(double pos, MSLane* lane, bool friendlyPo
         if (friendlyPos) {
             pos = lane->getLength();
         } else {
-            throw InvalidArgument("The position of detector '" + detid + "' lies beyond the lane's '" + lane->getID() + "' end.");
+            throw InvalidArgument("The position of " + toString(tag) + " '" + detid + "' lies beyond the lane's '" + lane->getID() + "' end.");
         }
     }
     if (pos < 0) {
         if (friendlyPos) {
             pos = 0.;
         } else {
-            throw InvalidArgument("The position of detector '" + detid + "' lies before the lane's '" + lane->getID() + "' begin.");
+            throw InvalidArgument("The position of " + toString(tag) + "  '" + detid + "' lies before the lane's '" + lane->getID() + "' begin.");
         }
     }
     return pos;

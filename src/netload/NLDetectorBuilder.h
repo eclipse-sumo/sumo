@@ -438,6 +438,7 @@ protected:
      * @exception InvalidArgument If the defined position is invalid
      */
     double getPositionChecking(double pos, MSLane* lane, bool friendlyPos,
+                               SumoXMLTag tag,
                                const std::string& detid);
 
 
