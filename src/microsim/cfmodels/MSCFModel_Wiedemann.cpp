@@ -22,6 +22,9 @@
 // Andre Stebens - Traffic simulation with the Wiedemann model
 // Werner - Integration von Fahrzeugfolge- und Fahrstreifenwechselmodellen in die Nachtfahrsimulation LucidDrive
 // Olstam, Tapani - Comparison of Car-following models
+// Higgs, B. et.al - Analysis of theWiedemann car following model over different speeds using naturalistic data.
+// Ahmed, H.U.; Huang, Y.; Lu, P. - A Review of Car-Following Models and Modeling Tools forHuman and Autonomous-Ready Driving Behaviors in Micro-Simulation
+
 /****************************************************************************/
 #include <config.h>
 
@@ -39,6 +42,9 @@
 
 // magic constant proposed by Wiedemann (based on real world measurements)
 const double MSCFModel_Wiedemann::D_MAX = 150;
+
+#define B_MIN_MULT 0
+#define B_MIN_ADD  -1
 
 
 // ===========================================================================
@@ -69,8 +75,8 @@ MSCFModel_Wiedemann::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 
 
 double
-MSCFModel_Wiedemann::followSpeed(const MSVehicle* const veh, double /* speed */, double gap2pred, double predSpeed, double /*predMaxDecel*/, const MSVehicle* const /*pred*/) const {
-    return _v(veh, predSpeed, gap2pred);
+MSCFModel_Wiedemann::followSpeed(const MSVehicle* const veh, double /* speed */, double gap2pred, double predSpeed, double /*predMaxDecel*/, const MSVehicle* const pred) const {
+    return _v(veh, predSpeed, gap2pred, pred != nullptr ? pred->getAcceleration() : 0);
 }
 
 
@@ -108,7 +114,7 @@ MSCFModel_Wiedemann::getSecureGap(const MSVehicle* const veh, const MSVehicle* c
 
 
 double
-MSCFModel_Wiedemann::_v(const MSVehicle* veh, double predSpeed, double gap) const {
+MSCFModel_Wiedemann::_v(const MSVehicle* veh, double predSpeed, double gap, double predDecel) const {
     const VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
     const double dx = gap + myType->getLength(); // wiedemann uses brutto gap
     const double v = veh->getSpeed();
@@ -129,7 +135,7 @@ MSCFModel_Wiedemann::_v(const MSVehicle* veh, double predSpeed, double gap) cons
     double accel;
     int branch = 0;
     if (dx <= abx) {
-        accel = emergency(dv, dx);
+        accel = emergency(dv, dx, predDecel, v, gap, abx, bx);
         branch = 1;
     } else if (dx < sdx) {
         if (dv > cldv) {
@@ -198,14 +204,17 @@ MSCFModel_Wiedemann::approaching(double dv, double dx, double abx) const {
 
 
 double
-MSCFModel_Wiedemann::emergency(double dv, double  dx) const {
+MSCFModel_Wiedemann::emergency(double dv, double dx, double predDecel, double v, double gap, double abx, double bx) const {
     // wiedemann assumes that dx will always be larger than myAX (sumo may
     // violate this assumption when crashing (-:
+    //
+    // predDecel is called b_(n-1) in the literature
+
     if (dx > myAX) {
-        double accel = 0.5 * dv * dv / (myAX - dx); // + predAccel at t-reaction_time if this is value is above a treshold
-        // one would assume that in an emergency accel must be negative. However the
-        // wiedemann formula allows for accel = 0 whenever dv = 0
-        assert(accel <= 0);
+        const double bmin = B_MIN_ADD + B_MIN_MULT * v;
+        const double accel = (0.5 * dv * dv / (myAX - dx)
+                + predDecel 
+                + bmin * (abx - gap) / bx);
         return accel;
     } else {
         return -myEmergencyDecel;
