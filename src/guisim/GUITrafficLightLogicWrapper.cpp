@@ -126,6 +126,7 @@ GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdSwitchTL
     FXObject*, FXSelector /*sel*/, void*) {
     assert(myObject->getType() == GLO_TLLOGIC);
     static_cast<GUITrafficLightLogicWrapper*>(myObject)->switchTLSLogic(-1);
+    myParent->update();
     return 1;
 }
 
@@ -135,6 +136,7 @@ GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdSwitchTL
     FXObject*, FXSelector sel, void*) {
     assert(myObject->getType() == GLO_TLLOGIC);
     static_cast<GUITrafficLightLogicWrapper*>(myObject)->switchTLSLogic(FXSELID(sel) - MID_SWITCH);
+    myParent->update();
     return 1;
 }
 
