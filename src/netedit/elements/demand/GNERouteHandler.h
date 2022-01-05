@@ -200,6 +200,9 @@ public:
     static void setFlowParameters(const SumoXMLAttr attribute, int& parameters);
 
 protected:
+    /// @brief parse junction
+    GNEJunction* parseJunction(const SumoXMLTag tag, const std::string& junctionID) const;
+
     /// @brief parse edge
     GNEEdge* parseEdge(const SumoXMLTag tag, const std::string& edgeID) const;
 
