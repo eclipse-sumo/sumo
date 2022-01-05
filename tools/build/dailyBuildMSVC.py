@@ -135,7 +135,7 @@ optParser.add_option("-n", "--no-tests", dest="tests", action="store_false",
 optParser.add_option("-x", "--x64only", action="store_true",
                      default=False, help="skip debug build")
 optParser.add_option("-p", "--python", help="path to python interpreter to use")
-optParser.add_option("-c", "--msvc-version", default="msvc16",
+optParser.add_option("--msvc-version", default="msvc16",
                      help="Visual Studio version to use (either msvc12 or msvc16)")
 optParser.add_option("-u", "--repositories", default="git",
                      help="repositories to update")
