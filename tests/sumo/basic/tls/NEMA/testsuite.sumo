@@ -4,5 +4,8 @@ basic
 # Copy of basic
 custom_detector
 
+# test param fixForceOff for different demand levels
+fixForceOff
+
 # inputs that should be reported as problematic
 errors
