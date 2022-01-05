@@ -165,6 +165,9 @@ private:
     /// @brief The vehicle's minimum acceleration [m/s^2] // also b_null
     const double myMinAccel;
 
+    /// @brief The maximum deceleration when approaching
+    const double myMaxApproachingDecel;
+
     /// @brief free-flow distance in m
     static const double D_MAX;
     /// @}

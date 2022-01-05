@@ -34,7 +34,7 @@
 #include <microsim/MSLane.h>
 #include <utils/common/RandHelper.h>
 
-#define DEBUG_V
+//#define DEBUG_V
 
 // ===========================================================================
 // static members
@@ -45,7 +45,8 @@ const double MSCFModel_Wiedemann::D_MAX = 150;
 
 #define B_MIN_MULT 0
 #define B_MIN_ADD  -1
-
+#define PRED_DECEL_MULT 0.5
+#define PRED_DECEL_MULT_EMERGENCY 0.55
 
 // ===========================================================================
 // method definitions
@@ -56,7 +57,9 @@ MSCFModel_Wiedemann::MSCFModel_Wiedemann(const MSVehicleType* vtype) :
     myEstimation(vtype->getParameter().getCFParam(SUMO_ATTR_CF_WIEDEMANN_ESTIMATION, 0.5)),
     myAX(vtype->getLength() + 1. + 2. * mySecurity),
     myCX(25. *(1. + mySecurity + myEstimation)),
-    myMinAccel(0.2 * myAccel) { // +noise?
+    myMinAccel(0.2 * myAccel),
+    myMaxApproachingDecel((myDecel + myEmergencyDecel) / 2)
+{
     // Wiedemann does not drive very precise and may violate minGap on occasion
     myCollisionMinGapFactor = vtype->getParameter().getCFParam(SUMO_ATTR_COLLISION_MINGAP_FACTOR, 0.1);
 }
@@ -162,13 +165,12 @@ MSCFModel_Wiedemann::_v(const MSVehicle* veh, double predSpeed, double gap, doub
     accel = MAX2(MIN2(accel, myAccel), -myEmergencyDecel);
     const double vNew = MAX2(0., v + ACCEL2SPEED(accel)); // don't allow negative speeds
 #ifdef DEBUG_V
-    if (veh->isSelected()) {
+    if (veh->isSelected() && !MSGlobals::gComputeLC) {
         std::cout << SIMTIME << " Wiedemann::_v veh=" << veh->getID()
-                  << " predSpeed=" << predSpeed << " gap=" << gap
+                  << " v=" << v << " pV=" << predSpeed << " pA=" << predAccel << " gap=" << gap
                   << " dv=" << dv << " dx=" << dx << " ax=" << myAX << " bx=" << bx << " abx=" << abx
                   << " sdx=" << sdx << " sdv=" << sdv << " cldv=" << cldv << " opdv=" << opdv
-                  << " branch=" << branch
-                  << " rawAccel=" << rawAccel
+                  << " branch=" << branch << " rawAccel=" << rawAccel
                   << " accel=" << accel << " vNew=" << vNew << "\n";
     }
 #endif
@@ -199,7 +201,10 @@ double
 MSCFModel_Wiedemann::approaching(double dv, double dx, double abx, double predAccel) const {
     // there is singularity in the formula. we do the sanity check outside
     assert(abx < dx);
-    return 0.5 * dv * dv / (abx - dx); // + predAccel;
+    // @note: the original model does not have a limit on maximum deceleration here.
+    // We add this to avoid cascading emergency deceleration
+    // also, the multiplier on predAccel is always 1 in the original model
+    return MAX2(0.5 * dv * dv / (abx - dx) + predAccel * PRED_DECEL_MULT, -myMaxApproachingDecel);
 }
 
 
@@ -208,12 +213,12 @@ MSCFModel_Wiedemann::emergency(double dv, double dx, double predAccel, double v,
     // wiedemann assumes that dx will always be larger than myAX (sumo may
     // violate this assumption when crashing (-:
     //
-    // predAccel is called b_(n-1) in the literature
+    // predAccel is called b_(n-1) in the literature and it's multipleir is always 1
 
     if (dx > myAX) {
         const double bmin = B_MIN_ADD + B_MIN_MULT * v;
         const double accel = (0.5 * dv * dv / (myAX - dx)
-                + predAccel 
+                + predAccel * PRED_DECEL_MULT_EMERGENCY 
                 + bmin * (abx - gap) / bx);
         return accel;
     } else {
