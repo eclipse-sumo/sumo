@@ -2406,6 +2406,11 @@ GNEFrameModules::PathCreator::showPathCreatorModule(SumoXMLTag element, const bo
             myCreationMode |= START_EDGE;
             myCreationMode |= END_EDGE;
             break;
+        case GNE_TAG_TRIP_JUNCTIONS:
+        case GNE_TAG_FLOW_JUNCTIONS:
+            myCreationMode |= START_JUNCTION;
+            myCreationMode |= END_JUNCTION;
+            myCreationMode |= ONLY_FROMTO;
         // walk edges
         case GNE_TAG_WALK_EDGES:
             myCreationMode |= SHOW_CANDIDATE_EDGES;
@@ -2429,6 +2434,12 @@ GNEFrameModules::PathCreator::showPathCreatorModule(SumoXMLTag element, const bo
             myCreationMode |= ONLY_FROMTO;
             myCreationMode |= END_BUSSTOP;
             break;
+        // junction->junction
+        case GNE_TAG_PERSONTRIP_JUNCTIONS:
+        case GNE_TAG_WALK_JUNCTIONS:
+            myCreationMode |= START_JUNCTION;
+            myCreationMode |= END_JUNCTION;
+            myCreationMode |= ONLY_FROMTO;
         // stops
         case GNE_TAG_STOPPERSON_BUSSTOP:
             myCreationMode |= SINGLE_ELEMENT;
@@ -2483,6 +2494,57 @@ GNEFrameModules::PathCreator::setVClass(SUMOVehicleClass vClass) {
     myVClass = vClass;
     // update edge colors
     updateEdgeColors();
+}
+
+
+bool 
+GNEFrameModules::PathCreator::addJunction(GNEJunction *junction, const bool shiftKeyPressed, const bool controlKeyPressed) {
+    // check if junctions are allowed
+    if (((myCreationMode & START_JUNCTION) + (myCreationMode & END_JUNCTION)) == 0) {
+        return false;
+    }
+    // check if only an junction is allowed
+    if ((myCreationMode & SINGLE_ELEMENT) && (mySelectedJunctions.size() == 1)) {
+        return false;
+    }
+    // continue depending of number of selected edge
+    if (mySelectedJunctions.size() > 0) {
+        // check double junctions
+        if (mySelectedJunctions.back() == junction) {
+            // Write warning
+            WRITE_WARNING("Double junctions aren't allowed");
+            // abort add junction
+            return false;
+        }
+    }
+    // check number of junctions
+    if (mySelectedJunctions.size() == 2 && (myCreationMode & Mode::ONLY_FROMTO)) {
+        // Write warning
+        WRITE_WARNING("Only two junctions are allowed");
+        // abort add junction
+        return false;
+    }
+    // All checks ok, then add it in selected elements
+    mySelectedJunctions.push_back(junction);
+    // enable abort route button
+    myAbortCreationButton->enable();
+    // enable finish button
+    myFinishCreationButton->enable();
+    // disable undo/redo
+    myFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->disableUndoRedo("route creation");
+    // enable or disable remove last junction button
+    if (mySelectedJunctions.size() > 1) {
+        myRemoveLastInsertedElement->enable();
+    } else {
+        myRemoveLastInsertedElement->disable();
+    }
+    // recalculate path
+    recalculatePath();
+    // update info route label
+    updateInfoRouteLabel();
+    // update junction colors
+    // updateJunctionColors();
+    return true;
 }
 
 
@@ -2567,9 +2629,15 @@ GNEFrameModules::PathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed,
 }
 
 
-std::vector<GNEEdge*>
+const std::vector<GNEEdge*>& 
 GNEFrameModules::PathCreator::getSelectedEdges() const {
     return mySelectedEdges;
+}
+
+
+const std::vector<GNEJunction*>& 
+GNEFrameModules::PathCreator::getSelectedJunctions() const {
+    return mySelectedJunctions;
 }
 
 
@@ -2799,7 +2867,7 @@ GNEFrameModules::PathCreator::createPath() {
 void
 GNEFrameModules::PathCreator::abortPathCreation() {
     // first check that there is elements
-    if ((mySelectedEdges.size() > 0) || myToStoppingPlace || myRoute) {
+    if ((mySelectedJunctions.size() > 0) || (mySelectedEdges.size() > 0) || myToStoppingPlace || myRoute) {
         // unblock undo/redo
         myFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->enableUndoRedo();
         // clear edges
@@ -2925,7 +2993,8 @@ GNEFrameModules::PathCreator::clearPath() {
     for (const auto& edge : myFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
         edge.second->resetCandidateFlags();
     }
-    // clear edges, additionals and route
+    // clear junction, edges, additionals and route
+    mySelectedJunctions.clear();
     mySelectedEdges.clear();
     myToStoppingPlace = nullptr;
     myRoute = nullptr;

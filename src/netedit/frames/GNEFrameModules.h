@@ -620,11 +620,17 @@ public:
         /// @brief set vClass
         void setVClass(SUMOVehicleClass vClass);
 
+        /// @brief add junction
+        bool addJunction(GNEJunction *junction, const bool shiftKeyPressed, const bool controlKeyPressed);
+
         /// @brief add edge
         bool addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool controlKeyPressed);
 
-        /// @brief get current selected additionals
-        std::vector<GNEEdge*> getSelectedEdges() const;
+        /// @brief get current selected edges
+        const std::vector<GNEEdge*> &getSelectedEdges() const;
+
+        /// @brief get current selected junctions
+        const std::vector<GNEJunction*> &getSelectedJunctions() const;
 
         /// @brief add stoppingPlace
         bool addStoppingPlace(GNEAdditional* stoppingPlace, const bool shiftKeyPressed, const bool controlKeyPressed);
@@ -686,12 +692,14 @@ public:
             NONCONSECUTIVE_EDGES    = 1 << 1,   // Path's edges aren't consecutives
             START_EDGE              = 1 << 2,   // Path begins in an edge
             END_EDGE                = 1 << 3,   // Path ends in an edge
-            SINGLE_ELEMENT          = 1 << 4,   // Path only had one element
-            ONLY_FROMTO             = 1 << 5,   // Path only had two elements (first and last)
-            END_BUSSTOP             = 1 << 6,   // Path ends in a busStop
-            ROUTE                   = 1 << 7,   // Path uses a route
-            REQUIRE_FIRSTELEMENT    = 1 << 8,   // Path start always in a previous element
-            SHOW_CANDIDATE_EDGES    = 1 << 9,   // disable candidate edges
+            START_JUNCTION          = 1 << 4,   // Path begins in an edge
+            END_JUNCTION            = 1 << 5,   // Path ends in an edge
+            SINGLE_ELEMENT          = 1 << 6,   // Path only had one element
+            ONLY_FROMTO             = 1 << 7,   // Path only had two elements (first and last)
+            END_BUSSTOP             = 1 << 8,   // Path ends in a busStop
+            ROUTE                   = 1 << 9,   // Path uses a route
+            REQUIRE_FIRSTELEMENT    = 1 << 10,  // Path start always in a previous element
+            SHOW_CANDIDATE_EDGES    = 1 << 11,  // disable candidate edges
         };
 
         /// @brief update InfoRouteLabel
@@ -717,6 +725,9 @@ public:
 
         /// @brief current creation mode
         int myCreationMode;
+
+        /// @brief vector with selected junctions
+        std::vector<GNEJunction*> mySelectedJunctions;
 
         /// @brief vector with selected edges
         std::vector<GNEEdge*> mySelectedEdges;
