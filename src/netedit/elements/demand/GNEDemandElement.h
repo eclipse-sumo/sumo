@@ -380,11 +380,20 @@ protected:
 
     /// @}
 
+    /// @name replace parent elements
+    /// @{
+
     /// @brief replace demand parent edges
     void replaceDemandParentEdges(const std::string& value);
 
     /// @brief replace demand parent lanes
     void replaceDemandParentLanes(const std::string& value);
+
+    /// @brief replace the first parent junction
+    void replaceFirstParentJunction(const std::string& value);
+
+    /// @brief replace the last parent junction
+    void replaceLastParentJunction(const std::string& value);
 
     /// @brief replace the first parent edge
     void replaceFirstParentEdge(const std::string& value);
@@ -400,6 +409,8 @@ protected:
 
     /// @brief replace demand element parent
     void replaceDemandElementParent(SumoXMLTag tag, const std::string& value, const int parentIndex);
+
+    /// @}
 
 private:
     /**@brief check restriction with the number of children

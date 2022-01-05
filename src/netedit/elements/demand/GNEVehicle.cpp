@@ -319,6 +319,20 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleTyp
 }
 
 
+GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEJunction* fromJunction, GNEJunction* toJunction) :
+    GNEDemandElement(vehicleID, net, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+        {fromJunction, toJunction}, {}, {}, {}, {}, {}, {vehicleType}, {}),
+    SUMOVehicleParameter() {
+}
+
+
+GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, GNEDemandElement* vehicleType, GNEJunction* fromJunction, GNEJunction* toJunction, const SUMOVehicleParameter& vehicleParameters) :
+    GNEDemandElement(vehicleParameters.id, net, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+        {fromJunction, toJunction}, {}, {}, {}, {}, {}, {vehicleType}, {}),
+    SUMOVehicleParameter(vehicleParameters) {
+}
+
+
 GNEVehicle::~GNEVehicle() {}
 
 
@@ -1125,7 +1139,7 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
             } else {
                 return "";
             }
-        // Specific of Trips
+        // Specific of from-to edge
         case SUMO_ATTR_FROM:
             return getParentEdges().front()->getID();
         case SUMO_ATTR_TO:
@@ -1144,7 +1158,12 @@ GNEVehicle::getAttribute(SumoXMLAttr key) const {
             } else {
                 return toString(arrivalEdge);
             }
-        // Specific of routeFlows
+        // Specific of from-to junctions
+        case SUMO_ATTR_FROMJUNCTION:
+            return getParentJunctions().front()->getID();
+        case SUMO_ATTR_TOJUNCTION:
+            return getParentJunctions().back()->getID();
+        // Specific of flows
         case SUMO_ATTR_BEGIN:
             return time2string(depart);
         case SUMO_ATTR_END:
@@ -1265,13 +1284,16 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         // Specific of vehicles
         case SUMO_ATTR_DEPART:
         case SUMO_ATTR_ROUTE:
-        // Specific of Trips
+        // Specific of from-to edges
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
         case SUMO_ATTR_VIA:
         case SUMO_ATTR_DEPARTEDGE:
         case SUMO_ATTR_ARRIVALEDGE:
-        // Specific of routeFlows
+        // Specific of from-to junctions
+        case SUMO_ATTR_FROMJUNCTION:
+        case SUMO_ATTR_TOJUNCTION:
+        // Specific of flows
         case SUMO_ATTR_BEGIN:
         case SUMO_ATTR_END:
         case SUMO_ATTR_NUMBER:
@@ -1403,7 +1425,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return true;
             }
-        // Specific of Trips
+        // Specific of from-to edges
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
             return SUMOXMLDefinitions::isValidNetID(value) && (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr);
@@ -1434,7 +1456,11 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return canParse<std::vector<GNEEdge*> >(myNet, value, false);
             }
-        // Specific of routeFlows
+        // Specific of from-to junctions
+        case SUMO_ATTR_FROMJUNCTION:
+        case SUMO_ATTR_TOJUNCTION:
+            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->getAttributeCarriers()->retrieveJunction(value, false) != nullptr);
+        // Specific of flows
         case SUMO_ATTR_BEGIN:
             if (canParse<double>(value)) {
                 return (parse<double>(value) >= 0);
@@ -1881,7 +1907,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             updateGeometry();
             updateSpreadStackGeometry = true;
             break;
-        // Specific of Trips and flow
+        // Specific of from-to edges
         case SUMO_ATTR_FROM: {
             // change first edge
             replaceFirstParentEdge(value);
@@ -1945,7 +1971,24 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         }
-        // Specific of routeFlows
+        // Specific of from-to junctions
+        case SUMO_ATTR_FROMJUNCTION: {
+            // change first junction
+            replaceFirstParentJunction(value);
+            // compute vehicle
+            computePathElement();
+            updateSpreadStackGeometry = true;
+            break;
+        }
+        case SUMO_ATTR_TOJUNCTION: {
+            // change last junction
+            replaceLastParentJunction(value);
+            // compute vehicle
+            computePathElement();
+            updateSpreadStackGeometry = true;
+            break;
+        }
+        // Specific of flows
         case SUMO_ATTR_BEGIN: {
             depart = string2time(value);
             break;

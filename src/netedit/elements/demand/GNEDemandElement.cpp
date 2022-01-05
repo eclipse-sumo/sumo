@@ -815,6 +815,24 @@ GNEDemandElement::replaceDemandParentLanes(const std::string& value) {
 
 
 void
+GNEDemandElement::replaceFirstParentJunction(const std::string& value) {
+    std::vector<GNEJunction*> parentJunctions = getParentJunctions();
+    parentJunctions[0] = myNet->getAttributeCarriers()->retrieveJunction(value);
+    // replace parent junctions
+    replaceParentElements(this, parentJunctions);
+}
+
+
+void
+GNEDemandElement::replaceLastParentJunction(const std::string& value) {
+    std::vector<GNEJunction*> parentJunctions = getParentJunctions();
+    parentJunctions[(int)parentJunctions.size() - 1] = myNet->getAttributeCarriers()->retrieveJunction(value);
+    // replace parent junctions
+    replaceParentElements(this, parentJunctions);
+}
+
+
+void
 GNEDemandElement::replaceFirstParentEdge(const std::string& value) {
     std::vector<GNEEdge*> parentEdges = getParentEdges();
     parentEdges[0] = myNet->getAttributeCarriers()->retrieveEdge(value);
