@@ -1362,16 +1362,26 @@ NBEdgeCont::guessRoundabouts() {
                 e = left;
             }
         } while (doLoop);
-#ifdef DEBUG_GUESS_ROUNDABOUT
-        gDebugFlag1 = false;
-#endif
         if (doLoop) {
             // check form factor to avoid elongated shapes (circle: 1, square: ~0.79)
+#ifdef DEBUG_GUESS_ROUNDABOUT
+            if (gDebugFlag1) {
+                std::cout << " formFactor=" << formFactor(loopEdges) << "\n";
+            }
+#endif
             if (formFactor(loopEdges) > 0.6) {
                 // collected edges are marked in markRoundabouts
                 myGuessedRoundabouts.insert(EdgeSet(loopEdges.begin(), loopEdges.end()));
+#ifdef DEBUG_GUESS_ROUNDABOUT
+                if (gDebugFlag1) {
+                    std::cout << " foundRoundabout=" << toString(loopEdges) << "\n";
+                }
+#endif
             }
         }
+#ifdef DEBUG_GUESS_ROUNDABOUT
+        gDebugFlag1 = false;
+#endif
     }
     return (int)myGuessedRoundabouts.size();
 }
