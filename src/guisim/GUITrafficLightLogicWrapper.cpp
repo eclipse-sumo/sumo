@@ -169,7 +169,7 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow& app,
         std::vector<MSTrafficLightLogic*>::const_iterator i;
         int index = 0;
         for (i = logics.begin(); i != logics.end(); ++i, ++index) {
-            if (!vars.isActive(*i)) {
+            if (!vars.isActive(*i) && dynamic_cast<MSOffTrafficLightLogic*>(*i) == nullptr) {
                 GUIDesigns::buildFXMenuCommand(ret, ("Switch to '" + (*i)->getProgramID() + "'").c_str(),
                                                GUIIconSubSys::getIcon(GUIIcon::FLAG_MINUS), ret, (FXSelector)(MID_SWITCH + index));
             }
