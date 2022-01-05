@@ -22,12 +22,12 @@ between successive vehicles. Assuming homogeneous traffic and equal headways:
 Where `grossTimeHeadway` denotes the time it takes for two successive vehicle
 front-bumpers to pass the same location.
 
-In constrast `netTimeHeadway` denotes the time it takes for the follower vehicles
+In contrast `netTimeHeadway` denotes the time it takes for the follower vehicles
 front-bumper to reach the location of the leaders rear-bumper.
 
 # Computing Headways
 
-The exact time headways observered in the simulation depend on the used
+The exact time headways observed in the simulation depend on the used
 carFollowModel and it's parameters. The easiest case to analyze is the one where all
 vehicles drive at the same speed *s*.
 
@@ -39,7 +39,7 @@ For the default 'Krauss'-Model, the following vType attributes are relevant for
 the minimum time headway (corresponding to maximum flow and hence lane
 capacity):
 
-- *length*: the phyiscal length of a vehicle in m (default 5)
+- *length*: the physical length of a vehicle in m (default 5)
 - *minGap*: the minimum gap between vehicles in a standing queue in m (default 2.5)
 - *tau*: the desired minimum time headway in seconds (default 1)
 
@@ -69,9 +69,9 @@ The above computation only holds for vehicles driving at constant speeds and
 with minimum distances. This rarely occurs in a simulation for the following
 reasons
 
-- vehicles have different desired speeds ([modeled as a speedFactor distribution](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#speed_distributions))
-- vehicles have randomized slow-downs ([depending on the carFollowModel](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#car-following_models)).
-- vehicles are not always in a configuration of minimum following distances. Care must be taken especially for [vehicle insertion](Simulation/VehicleInsertion.md#effect_of_simulation_step-length)
+- vehicles have different desired speeds ([modeled as a speedFactor distribution](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#speed_distributions))
+- vehicles have randomized slow-downs ([depending on the carFollowModel](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#car-following_models)).
+- vehicles are not always in a configuration of minimum following distances. Care must be taken especially for [vehicle insertion](VehicleInsertion.md#effect_of_simulation_step-length)
 
 The following table shows road capacities that can be achieved at vehicle
 insertion depending on the used vType and insertion parameters. The road speed limit was 16.66m/s which gives a theoretical capacity of 2482 veh/hour.
