@@ -73,6 +73,15 @@ public:
      */
     GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEDemandElement* route, double arrivalPosition);
 
+    /**@brief parameter constructor for person junction->junction
+     * @param[in] viewNet view in which this Walk is placed
+     * @param[in] personParent person parent
+     * @param[in] fromJunction from junction
+     * @param[in] toJunction to junction
+     * @param[in] arrivalPosition arrival position on the destination junction
+     */
+    GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEJunction* fromJunction, GNEJunction* toJunction, double arrivalPosition);
+
     /// @brief destructor
     ~GNEWalk();
 

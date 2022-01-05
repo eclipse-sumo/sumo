@@ -71,6 +71,13 @@ GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEDemandElement* 
 }
 
 
+GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEJunction* fromJunction, GNEJunction* toJunction, double arrivalPosition) :
+    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_JUNCTIONS, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+        {fromJunction, toJunction}, {}, {}, {}, {}, {}, {personParent}, {}),
+    myArrivalPosition(arrivalPosition) {
+}
+
+
 GNEWalk::~GNEWalk() {}
 
 
@@ -267,7 +274,7 @@ GNEWalk::computePathElement() {
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
         // calculate consecutive path using route edges
         myNet->getPathManager()->calculateConsecutivePathEdges(this, getVClass(), getParentDemandElements().back()->getParentEdges());
-    } else {
+    } else if (getParentEdges().size() > 0) {
         // get first and last person plane
         lanes = {getFirstPathLane(), getLastPathLane()};
         // calculate path
@@ -297,6 +304,8 @@ GNEWalk::getFirstPathLane() const {
     // check if this walk is over a route
     if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
         return getParentDemandElements().at(1)->getParentEdges().front()->getLaneByAllowedVClass(SVC_PEDESTRIAN);
+    } else if (getParentJunctions().size() > 0) {
+        throw ProcessError("This walk use junctions");
     } else {
         return getParentEdges().front()->getLaneByAllowedVClass(SVC_PEDESTRIAN);
     }
@@ -310,6 +319,8 @@ GNEWalk::getLastPathLane() const {
         return getParentDemandElements().at(1)->getParentEdges().back()->getLaneByAllowedVClass(SVC_PEDESTRIAN);
     } else if (getParentAdditionals().size() > 0) {
         return getParentAdditionals().front()->getParentLanes().front();
+    } else if (getParentJunctions().size() > 0) {
+        throw ProcessError("This walk use junctions");
     } else {
         return getParentEdges().back()->getLaneByDisallowedVClass(SVC_PEDESTRIAN);
     }
@@ -334,6 +345,10 @@ GNEWalk::getAttribute(SumoXMLAttr key) const {
             } else {
                 return getParentEdges().back()->getID();
             }
+        case SUMO_ATTR_FROMJUNCTION:
+            return getParentJunctions().front()->getID();
+        case SUMO_ATTR_TOJUNCTION:
+            return getParentJunctions().back()->getID();
         case GNE_ATTR_TO_BUSSTOP:
             return getParentAdditionals().back()->getID();
         case SUMO_ATTR_EDGES:
@@ -363,7 +378,9 @@ double
 GNEWalk::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ARRIVALPOS:
-            if (myArrivalPosition != -1) {
+            if (getParentJunctions().size() > 0) {
+                return 0;
+            } else if (myArrivalPosition != -1) {
                 return myArrivalPosition;
             } else {
                 return (getLastPathLane()->getLaneShape().length() - POSITION_EPS);
@@ -378,15 +395,19 @@ Position
 GNEWalk::getAttributePosition(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ARRIVALPOS: {
-            // get lane shape
-            const PositionVector& laneShape = getLastPathLane()->getLaneShape();
-            // continue depending of arrival position
-            if (myArrivalPosition == 0) {
-                return laneShape.front();
-            } else if ((myArrivalPosition == -1) || (myArrivalPosition >= laneShape.length2D())) {
-                return laneShape.back();
+            if (getParentJunctions().size() > 0) {
+                return getParentJunctions().back()->getPositionInView();
             } else {
-                return laneShape.positionAtOffset2D(myArrivalPosition);
+                // get lane shape
+                const PositionVector& laneShape = getLastPathLane()->getLaneShape();
+                // continue depending of arrival position
+                if (myArrivalPosition == 0) {
+                    return laneShape.front();
+                } else if ((myArrivalPosition == -1) || (myArrivalPosition >= laneShape.length2D())) {
+                    return laneShape.back();
+                } else {
+                    return laneShape.positionAtOffset2D(myArrivalPosition);
+                }
             }
         }
         default:
@@ -404,13 +425,15 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
                 undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             }
         break;
+        case SUMO_ATTR_FROMJUNCTION:
         case SUMO_ATTR_ARRIVALPOS:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         // special case for "to" attributes
-        case SUMO_ATTR_TO: {
+        case SUMO_ATTR_TO:
+        case SUMO_ATTR_TOJUNCTION: {
             if (myTagProperty.getTag() != GNE_TAG_WALK_ROUTE) {
                 // get next personPlan
                 GNEDemandElement* nextPersonPlan = getParentDemandElements().at(0)->getNextChildDemandElement(this);
@@ -494,6 +517,9 @@ GNEWalk::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
+        case SUMO_ATTR_FROMJUNCTION:
+        case SUMO_ATTR_TOJUNCTION:
+            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->getAttributeCarriers()->retrieveEdge(value, false) != nullptr);
         case GNE_ATTR_TO_BUSSTOP:
             return (myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
         case SUMO_ATTR_EDGES:
@@ -595,6 +621,18 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_TO:
             // change last edge
             replaceLastParentEdge(value);
+            // compute walk
+            computePathElement();
+            break;
+        case SUMO_ATTR_FROMJUNCTION:
+            // change first junction
+            replaceFirstParentJunction(value);
+            // compute walk
+            computePathElement();
+            break;
+        case SUMO_ATTR_TOJUNCTION:
+            // change last junction
+            replaceLastParentJunction(value);
             // compute walk
             computePathElement();
             break;
