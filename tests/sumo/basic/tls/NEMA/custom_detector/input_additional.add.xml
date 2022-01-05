@@ -20,10 +20,9 @@
         <param key="17276_2" value="customDet3"/>
         <param key="17276_3" value="customDet4"/>
 
-
-        <phase duration="99" minDur="6"  maxDur="16" vehext="300" yellow="4" red="1" name="1" state="grrrrrrGGrrr"/>
-        <phase duration="99" minDur="10" maxDur="67" vehext="300" yellow="4" red="1" name="2" state="grrrrrrrrGGG"/>
-        <phase duration="99" minDur="10" maxDur="21" vehext="400" yellow="4" red="1.5" name="4" state="GGGGGrrrrrrr"/>
-        <phase duration="99" minDur="10" maxDur="94" vehext="300" yellow="4" red="1" name="6" state="grrrrGGrrrrr"/>
+        <phase duration="99" minDur="6"  maxDur="16" vehext="3" yellow="4"   red="1"   name="1" state="srrrrrrGGrrr"/>
+        <phase duration="99" minDur="10" maxDur="67" vehext="3" yellow="4"   red="1"   name="2" state="srrrrrrrrGGG"/>
+        <phase duration="99" minDur="10" maxDur="21" vehext="4" yellow="4.5" red="1.5" name="4" state="GGGGGrrrrrrr"/>
+        <phase duration="99" minDur="10" maxDur="88" vehext="3" yellow="4"   red="1"   name="6" state="srrrrGGrrrrr"/>
     </tlLogic>
 </add>
