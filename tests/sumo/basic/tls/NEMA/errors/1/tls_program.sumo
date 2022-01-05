@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-05 08:04:15 by Eclipse SUMO sumo Version v1_11_0+0777-b486125
+<!-- generated on 2022-01-05 08:24:53 by Eclipse SUMO sumo Version v1_11_0+0780-56b449e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,43 +39,7 @@ SPDX-License-Identifier: EPL-2.0
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <tlLogic id="2881" type="static" programID="NEMA">
-        <phase duration="6.00"  state="grrrrrrGGrrr" name="4+4"/>
-        <phase duration="4.00"  state="GGGGGrrrrrrr" name="4+4"/>
-        <phase duration="4.00"  state="yyyyyrrrrrrr" name="4+4"/>
-        <phase duration="2.00"  state="rrrrrrrrrrrr" name="4+4"/>
-        <phase duration="16.00" state="grrrrGGGGrrr" name="1+6"/>
-        <phase duration="4.00"  state="grrrrGGyyrrr" name="1+6"/>
-        <phase duration="1.00"  state="grrrrGGrrrrr" name="1+6"/>
-        <phase duration="88.00" state="grrrrGGrrGGG" name="2+6"/>
-        <phase duration="4.00"  state="yrrrryyrryyy" name="2+6"/>
-        <phase duration="1.00"  state="rrrrrrrrrrrr" name="2+6"/>
-        <phase duration="21.00" state="GGGGGrrrrrrr" name="4+4"/>
-        <phase duration="4.00"  state="yyyyyrrrrrrr" name="4+4"/>
-        <phase duration="2.00"  state="rrrrrrrrrrrr" name="4+4"/>
-        <phase duration="16.00" state="grrrrGGGGrrr" name="1+6"/>
-        <phase duration="4.00"  state="grrrrGGyyrrr" name="1+6"/>
-        <phase duration="1.00"  state="grrrrGGrrrrr" name="1+6"/>
-        <phase duration="67.00" state="grrrrGGrrGGG" name="2+6"/>
-        <phase duration="4.00"  state="yrrrryyrryyy" name="2+6"/>
-        <phase duration="1.00"  state="rrrrrrrrrrrr" name="2+6"/>
-        <phase duration="21.00" state="GGGGGrrrrrrr" name="4+4"/>
-        <phase duration="4.00"  state="yyyyyrrrrrrr" name="4+4"/>
-        <phase duration="2.00"  state="rrrrrrrrrrrr" name="4+4"/>
-        <phase duration="16.00" state="grrrrGGGGrrr" name="1+6"/>
-        <phase duration="4.00"  state="grrrrGGyyrrr" name="1+6"/>
-        <phase duration="1.00"  state="grrrrGGrrrrr" name="1+6"/>
-        <phase duration="67.00" state="grrrrGGrrGGG" name="2+6"/>
-        <phase duration="4.00"  state="yrrrryyrryyy" name="2+6"/>
-        <phase duration="1.00"  state="rrrrrrrrrrrr" name="2+6"/>
-        <phase duration="21.00" state="GGGGGrrrrrrr" name="4+4"/>
-        <phase duration="4.00"  state="yyyyyrrrrrrr" name="4+4"/>
-        <phase duration="2.00"  state="rrrrrrrrrrrr" name="4+4"/>
-        <phase duration="16.00" state="grrrrGGGGrrr" name="1+6"/>
-        <phase duration="4.00"  state="grrrrGGyyrrr" name="1+6"/>
-        <phase duration="1.00"  state="grrrrGGrrrrr" name="1+6"/>
-        <phase duration="67.00" state="grrrrGGrrGGG" name="2+6"/>
-        <phase duration="4.00"  state="yrrrryyrryyy" name="2+6"/>
-        <phase duration="1.00"  state="rrrrrrrrrrrr" name="2+6"/>
-        <phase duration="10.00" state="GGGGGrrrrrrr" name="4+4"/>
+        <phase duration="6.00"  state="grrrrrrGGrrr" name="4+6"/>
+        <phase duration="494.00" state="GGGGGGGrrrrr" name="4+6"/>
     </tlLogic>
 </additional>
