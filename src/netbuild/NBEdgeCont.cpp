@@ -1298,6 +1298,17 @@ NBEdgeCont::guessRoundabouts() {
 #endif
                 break;
             }
+            if (loadedRoundaboutEdges.count(left) != 0) {
+                // found loaded roundabout, ignore
+                doLoop = false;
+#ifdef DEBUG_GUESS_ROUNDABOUT
+                if (gDebugFlag1) {
+                    std::cout << " foundLoadedRoundabout\n";
+                }
+                gDebugFlag1 = false;
+#endif
+                break;
+            }
             NBContHelper::nextCW(edges, me);
             NBEdge* nextLeft = *me;
             double angle = fabs(NBHelpers::relAngle(e->getAngleAtNode(e->getToNode()), left->getAngleAtNode(e->getToNode())));
