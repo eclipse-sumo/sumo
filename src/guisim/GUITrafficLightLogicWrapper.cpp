@@ -35,6 +35,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
+#include <microsim/traffic_lights/MSOffTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSActuatedTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSDelayBasedTrafficLightLogic.h>
 #include <microsim/traffic_lights/NEMAController.h>
@@ -175,7 +176,10 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow& app,
         }
         new FXMenuSeparator(ret);
     }
-    GUIDesigns::buildFXMenuCommand(ret, "Switch off", GUIIconSubSys::getIcon(GUIIcon::FLAG_MINUS), ret, MID_SWITCH_OFF);
+    MSOffTrafficLightLogic* offLogic = dynamic_cast<MSOffTrafficLightLogic*>(&myTLLogic);
+    if (offLogic == nullptr) {
+        GUIDesigns::buildFXMenuCommand(ret, "Switch off", GUIIconSubSys::getIcon(GUIIcon::FLAG_MINUS), ret, MID_SWITCH_OFF);
+    }
     GUIDesigns::buildFXMenuCommand(ret, "Track Phases", nullptr, ret, MID_TRACKPHASES);
     GUIDesigns::buildFXMenuCommand(ret, "Show Phases", nullptr, ret, MID_SHOWPHASES);
     MSActuatedTrafficLightLogic* act = dynamic_cast<MSActuatedTrafficLightLogic*>(&myTLLogic);
