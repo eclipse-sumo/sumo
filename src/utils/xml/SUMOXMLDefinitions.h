@@ -394,34 +394,40 @@ enum SumoXMLTag {
     GNE_TAG_VSS_SYMBOL,
     /// @brief description of a vehicle with an embedded route (used in NETEDIT)
     GNE_TAG_VEHICLE_WITHROUTE,
+    /// @brief a trip between junctions
+    GNE_TAG_TRIP_JUNCTIONS,
     /// @brief embedded route (used in NETEDIT)
     GNE_TAG_ROUTE_EMBEDDED,
     /// @brief a flow definition using a route instead of a from-to edges route (used in NETEDIT)
     GNE_TAG_FLOW_ROUTE,
     /// @brief description of a vehicle with an embedded route (used in NETEDIT)
     GNE_TAG_FLOW_WITHROUTE,
-    // person trips
+    /// @brief a flow between junctions
+    GNE_TAG_FLOW_JUNCTIONS,
+    // @brief person trips
     GNE_TAG_PERSONTRIP_EDGE,
     GNE_TAG_PERSONTRIP_BUSSTOP,
-    // walks
+    GNE_TAG_PERSONTRIP_JUNCTIONS,
+    // @brief walks
     GNE_TAG_WALK_EDGE,
     GNE_TAG_WALK_BUSSTOP,
     GNE_TAG_WALK_EDGES,
     GNE_TAG_WALK_ROUTE,
-    // rides
+    GNE_TAG_WALK_JUNCTIONS,
+    // @brief rides
     GNE_TAG_RIDE_EDGE,
     GNE_TAG_RIDE_BUSSTOP,
-    // person stops
+    // @brief person stops
     GNE_TAG_STOPPERSON_BUSSTOP,
     GNE_TAG_STOPPERSON_EDGE,
-    // person trips
+    // @brief person trips
     GNE_TAG_TRANSPORT_EDGE,
     GNE_TAG_TRANSPORT_CONTAINERSTOP,
-    // walks
+    // @brief walks
     GNE_TAG_TRANSHIP_EDGE,
     GNE_TAG_TRANSHIP_CONTAINERSTOP,
     GNE_TAG_TRANSHIP_EDGES,
-    // container stops
+    // @brief container stops
     GNE_TAG_STOPCONTAINER_CONTAINERSTOP,
     GNE_TAG_STOPCONTAINER_EDGE,
     /// @}

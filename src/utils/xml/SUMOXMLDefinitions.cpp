@@ -246,17 +246,21 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "rerouterSymbol",                 GNE_TAG_REROUTER_SYMBOL },
     { "variableSpeedSignSymbol",        GNE_TAG_VSS_SYMBOL },
     { "vehicleWithRoute",               GNE_TAG_VEHICLE_WITHROUTE },
+    { "tripJunctions",                  GNE_TAG_TRIP_JUNCTIONS },
     { "routeEmbedded",                  GNE_TAG_ROUTE_EMBEDDED },
     { "flowRoute",                      GNE_TAG_FLOW_ROUTE },
     { "flowWithRoute",                  GNE_TAG_FLOW_WITHROUTE },
+    { "flowJunctions",                  GNE_TAG_FLOW_JUNCTIONS },
     // GNE Person trips
     { "personTrip: edge->edge",         GNE_TAG_PERSONTRIP_EDGE },
     { "personTrip: edge->busStop",      GNE_TAG_PERSONTRIP_BUSSTOP },
+    { "personTrip: junctions",          GNE_TAG_PERSONTRIP_JUNCTIONS },
     // GNE Walks
     { "walk: edge->edge",               GNE_TAG_WALK_EDGE },
     { "walk: edge->busStop",            GNE_TAG_WALK_BUSSTOP },
     { "walk: edges",                    GNE_TAG_WALK_EDGES },
     { "walk: route",                    GNE_TAG_WALK_ROUTE },
+    { "walk: junctions",                GNE_TAG_WALK_JUNCTIONS },
     // GNE Rides
     { "ride: edge->edge",               GNE_TAG_RIDE_EDGE },
     { "ride: edge->busStop",            GNE_TAG_RIDE_BUSSTOP },
