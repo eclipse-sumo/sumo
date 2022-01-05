@@ -68,6 +68,7 @@ NILoader::~NILoader() {}
 
 void
 NILoader::load(OptionsCont& oc) {
+    bool ok = true;
     // load types first
     NIXMLTypesHandler* handler =
         new NIXMLTypesHandler(myNetBuilder.getTypeCont());
@@ -79,9 +80,9 @@ NILoader::load(OptionsCont& oc) {
         if (oc.isSet("opendrive-files")) {
             files.push_back(opendriveTypemap);
         }
-        NITypeLoader::load(handler, files, "types", true);
+        ok &= NITypeLoader::load(handler, files, "types", true);
     } else {
-        NITypeLoader::load(handler, oc.getStringVector("type-files"), "types");
+        ok &= NITypeLoader::load(handler, oc.getStringVector("type-files"), "types");
     }
     // try to load height data so it is ready for use by other importers
     NBHeightMapper::loadIfSet(oc);
@@ -106,7 +107,7 @@ NILoader::load(OptionsCont& oc) {
     if (oc.getBool("railway.signals.discard")) {
         myNetBuilder.getNodeCont().discardRailSignals();
     }
-    loadXML(oc);
+    ok &= loadXML(oc);
     // check the loaded structures
     if (myNetBuilder.getNodeCont().size() == 0) {
         throw ProcessError("No nodes loaded.");
@@ -115,6 +116,9 @@ NILoader::load(OptionsCont& oc) {
         throw ProcessError("No edges loaded.");
     }
     if (!myNetBuilder.getEdgeCont().checkConsistency(myNetBuilder.getNodeCont())) {
+        throw ProcessError();
+    }
+    if (!ok && !oc.getBool("ignore-errors")) {
         throw ProcessError();
     }
     // report loaded structures
