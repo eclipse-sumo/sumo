@@ -136,14 +136,14 @@ private:
     /* @brief the main enty point for the speed computation
      * @param[in] gap The netto gap (front bumper of ego to back bumper of leader)
      */
-    double _v(const MSVehicle* veh, double predSpeed, double gap, double predDecel) const;
+    double _v(const MSVehicle* veh, double predSpeed, double gap, double predAccel) const;
 
     /// @name acceleration based on the 'driving regime'
     /// @{
     double fullspeed(double v, double vpref, double dx, double bx) const; // also 'WUNSCH'
     double following(double sign) const; // also 'FOLGEN'
-    double approaching(double dv, double dx, double abx) const;  // also 'BREMSBX'
-    double emergency(double dv, double dx, double predDecel, double v, double gap, double abx, double bx) const; // also 'BREMSAX'
+    double approaching(double dv, double dx, double abx, double predAccel) const;  // also 'BREMSBX'
+    double emergency(double dv, double dx, double predAccel, double v, double gap, double abx, double bx) const; // also 'BREMSAX'
     /// @}
 
 private:

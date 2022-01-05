@@ -34,7 +34,7 @@
 #include <microsim/MSLane.h>
 #include <utils/common/RandHelper.h>
 
-//#define DEBUG_V
+#define DEBUG_V
 
 // ===========================================================================
 // static members
@@ -114,7 +114,7 @@ MSCFModel_Wiedemann::getSecureGap(const MSVehicle* const veh, const MSVehicle* c
 
 
 double
-MSCFModel_Wiedemann::_v(const MSVehicle* veh, double predSpeed, double gap, double predDecel) const {
+MSCFModel_Wiedemann::_v(const MSVehicle* veh, double predSpeed, double gap, double predAccel) const {
     const VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
     const double dx = gap + myType->getLength(); // wiedemann uses brutto gap
     const double v = veh->getSpeed();
@@ -135,11 +135,11 @@ MSCFModel_Wiedemann::_v(const MSVehicle* veh, double predSpeed, double gap, doub
     double accel;
     int branch = 0;
     if (dx <= abx) {
-        accel = emergency(dv, dx, predDecel, v, gap, abx, bx);
+        accel = emergency(dv, dx, predAccel, v, gap, abx, bx);
         branch = 1;
     } else if (dx < sdx) {
         if (dv > cldv) {
-            accel = approaching(dv, dx, abx);
+            accel = approaching(dv, dx, abx, predAccel);
             branch = 2;
         } else if (dv > opdv) {
             accel = following(vars->accelSign);
@@ -150,7 +150,7 @@ MSCFModel_Wiedemann::_v(const MSVehicle* veh, double predSpeed, double gap, doub
         }
     } else {
         if (dv > sdv && dx < dmax) { //@note other versions have an disjunction instead of conjunction
-            accel = approaching(dv, dx, abx);
+            accel = approaching(dv, dx, abx, predAccel);
             branch = 5;
         } else {
             accel = fullspeed(v, vpref, dx, abx);
@@ -196,24 +196,24 @@ MSCFModel_Wiedemann::following(double sign) const {
 
 
 double
-MSCFModel_Wiedemann::approaching(double dv, double dx, double abx) const {
+MSCFModel_Wiedemann::approaching(double dv, double dx, double abx, double predAccel) const {
     // there is singularity in the formula. we do the sanity check outside
     assert(abx < dx);
-    return 0.5 * dv * dv / (abx - dx); // + predAccel at t-reaction_time if this is value is above a treshold
+    return 0.5 * dv * dv / (abx - dx); // + predAccel;
 }
 
 
 double
-MSCFModel_Wiedemann::emergency(double dv, double dx, double predDecel, double v, double gap, double abx, double bx) const {
+MSCFModel_Wiedemann::emergency(double dv, double dx, double predAccel, double v, double gap, double abx, double bx) const {
     // wiedemann assumes that dx will always be larger than myAX (sumo may
     // violate this assumption when crashing (-:
     //
-    // predDecel is called b_(n-1) in the literature
+    // predAccel is called b_(n-1) in the literature
 
     if (dx > myAX) {
         const double bmin = B_MIN_ADD + B_MIN_MULT * v;
         const double accel = (0.5 * dv * dv / (myAX - dx)
-                + predDecel 
+                + predAccel 
                 + bmin * (abx - gap) / bx);
         return accel;
     } else {
