@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-05 12:17:47 by Eclipse SUMO sumo Version v1_11_0+0798-7634140
+<!-- generated on 2022-01-05 15:24:11 by Eclipse SUMO sumo Version v1_11_0+0806-bc5b6c8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -287,7 +287,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="29.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="286.23" speed="46.71"/>
+                <vehicle id="follower" pos="283.98" speed="44.46"/>
                 <vehicle id="leader" pos="438.29" speed="25.84"/>
             </lane>
         </edge>
@@ -295,7 +295,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="30.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="331.04" speed="44.81"/>
+                <vehicle id="follower" pos="324.72" speed="40.74"/>
                 <vehicle id="leader" pos="459.63" speed="21.34"/>
             </lane>
         </edge>
@@ -303,7 +303,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="31.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="372.84" speed="41.80"/>
+                <vehicle id="follower" pos="361.30" speed="36.59"/>
                 <vehicle id="leader" pos="476.48" speed="16.84"/>
             </lane>
         </edge>
@@ -311,7 +311,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="32.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="410.02" speed="37.19"/>
+                <vehicle id="follower" pos="393.24" speed="31.93"/>
                 <vehicle id="leader" pos="488.82" speed="12.34"/>
             </lane>
         </edge>
@@ -319,7 +319,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="33.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="440.25" speed="30.23"/>
+                <vehicle id="follower" pos="419.88" speed="26.64"/>
                 <vehicle id="leader" pos="496.66" speed="7.84"/>
             </lane>
         </edge>
@@ -327,7 +327,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="34.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="463.48" speed="23.23"/>
+                <vehicle id="follower" pos="440.77" speed="20.89"/>
                 <vehicle id="leader" pos="500.00" speed="3.34"/>
             </lane>
         </edge>
@@ -335,7 +335,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="35.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="479.71" speed="16.23"/>
+                <vehicle id="follower" pos="455.91" speed="15.14"/>
                 <vehicle id="leader" pos="500.00" speed="0.00"/>
             </lane>
         </edge>
@@ -343,7 +343,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="36.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="488.94" speed="9.23"/>
+                <vehicle id="follower" pos="465.31" speed="9.39"/>
                 <vehicle id="leader" pos="500.00" speed="0.00"/>
             </lane>
         </edge>
@@ -351,7 +351,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="37.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="491.16" speed="2.23"/>
+                <vehicle id="follower" pos="471.53" speed="6.22"/>
                 <vehicle id="leader" pos="500.00" speed="0.00"/>
             </lane>
         </edge>
@@ -359,7 +359,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="38.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="491.16" speed="0.00"/>
+                <vehicle id="follower" pos="475.86" speed="4.33"/>
                 <vehicle id="leader" pos="500.00" speed="0.00"/>
             </lane>
         </edge>
@@ -367,7 +367,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="39.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="491.68" speed="0.52"/>
+                <vehicle id="follower" pos="478.98" speed="3.13"/>
                 <vehicle id="leader" pos="500.00" speed="0.00"/>
             </lane>
         </edge>
@@ -375,7 +375,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="40.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="491.68" speed="0.00"/>
+                <vehicle id="follower" pos="481.30" speed="2.32"/>
                 <vehicle id="leader" pos="502.60" speed="2.60"/>
             </lane>
         </edge>
@@ -383,7 +383,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="41.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="492.20" speed="0.52"/>
+                <vehicle id="follower" pos="484.14" speed="2.84"/>
                 <vehicle id="leader" pos="507.80" speed="5.20"/>
             </lane>
         </edge>
@@ -391,7 +391,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="42.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="493.24" speed="1.04"/>
+                <vehicle id="follower" pos="487.50" speed="3.36"/>
                 <vehicle id="leader" pos="515.60" speed="7.80"/>
             </lane>
         </edge>
@@ -399,7 +399,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="43.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="494.80" speed="1.56"/>
+                <vehicle id="follower" pos="491.38" speed="3.88"/>
                 <vehicle id="leader" pos="526.00" speed="10.40"/>
             </lane>
         </edge>
@@ -407,7 +407,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="44.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="498.96" speed="4.16"/>
+                <vehicle id="follower" pos="497.86" speed="6.48"/>
                 <vehicle id="leader" pos="539.00" speed="13.00"/>
             </lane>
         </edge>
@@ -415,7 +415,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="45.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="505.72" speed="6.76"/>
+                <vehicle id="follower" pos="506.94" speed="9.08"/>
                 <vehicle id="leader" pos="554.60" speed="15.60"/>
             </lane>
         </edge>
@@ -423,7 +423,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="46.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="515.08" speed="9.36"/>
+                <vehicle id="follower" pos="518.62" speed="11.68"/>
                 <vehicle id="leader" pos="572.80" speed="18.20"/>
             </lane>
         </edge>
@@ -431,7 +431,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="47.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="527.04" speed="11.96"/>
+                <vehicle id="follower" pos="532.90" speed="14.28"/>
                 <vehicle id="leader" pos="593.60" speed="20.80"/>
             </lane>
         </edge>
@@ -439,7 +439,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="48.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="541.60" speed="14.56"/>
+                <vehicle id="follower" pos="549.78" speed="16.88"/>
                 <vehicle id="leader" pos="617.00" speed="23.40"/>
             </lane>
         </edge>
@@ -447,7 +447,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="49.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="558.76" speed="17.16"/>
+                <vehicle id="follower" pos="569.26" speed="19.48"/>
                 <vehicle id="leader" pos="643.00" speed="26.00"/>
             </lane>
         </edge>
@@ -455,7 +455,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="50.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="578.52" speed="19.76"/>
+                <vehicle id="follower" pos="591.34" speed="22.08"/>
                 <vehicle id="leader" pos="671.60" speed="28.60"/>
             </lane>
         </edge>
@@ -463,7 +463,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="51.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="600.88" speed="22.36"/>
+                <vehicle id="follower" pos="616.02" speed="24.68"/>
                 <vehicle id="leader" pos="702.80" speed="31.20"/>
             </lane>
         </edge>
@@ -471,7 +471,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="52.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="625.84" speed="24.96"/>
+                <vehicle id="follower" pos="643.30" speed="27.28"/>
                 <vehicle id="leader" pos="736.60" speed="33.80"/>
             </lane>
         </edge>
@@ -479,7 +479,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="53.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="653.40" speed="27.56"/>
+                <vehicle id="follower" pos="673.18" speed="29.88"/>
                 <vehicle id="leader" pos="773.00" speed="36.40"/>
             </lane>
         </edge>
@@ -487,7 +487,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="54.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="683.56" speed="30.16"/>
+                <vehicle id="follower" pos="705.66" speed="32.48"/>
                 <vehicle id="leader" pos="812.00" speed="39.00"/>
             </lane>
         </edge>
@@ -495,7 +495,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="55.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="716.32" speed="32.76"/>
+                <vehicle id="follower" pos="740.74" speed="35.08"/>
                 <vehicle id="leader" pos="853.60" speed="41.60"/>
             </lane>
         </edge>
@@ -503,7 +503,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="56.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="751.68" speed="35.36"/>
+                <vehicle id="follower" pos="778.26" speed="37.52"/>
                 <vehicle id="leader" pos="897.80" speed="44.20"/>
             </lane>
         </edge>
@@ -511,7 +511,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="57.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="789.44" speed="37.75"/>
+                <vehicle id="follower" pos="817.80" speed="39.54"/>
                 <vehicle id="leader" pos="944.60" speed="46.80"/>
             </lane>
         </edge>
@@ -519,7 +519,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="58.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="829.17" speed="39.73"/>
+                <vehicle id="follower" pos="859.02" speed="41.22"/>
                 <vehicle id="leader" pos="994.00" speed="49.40"/>
             </lane>
         </edge>
@@ -527,21 +527,21 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="59.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="870.55" speed="41.38"/>
+                <vehicle id="follower" pos="901.64" speed="42.63"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="60.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="914.53" speed="43.98"/>
+                <vehicle id="follower" pos="946.87" speed="45.23"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="61.00">
         <edge id="middle">
             <lane id="middle_0">
-                <vehicle id="follower" pos="961.11" speed="46.58"/>
+                <vehicle id="follower" pos="994.69" speed="47.83"/>
             </lane>
         </edge>
     </timestep>
