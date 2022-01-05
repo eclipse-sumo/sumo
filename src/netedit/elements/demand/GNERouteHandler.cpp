@@ -286,6 +286,12 @@ GNERouteHandler::buildTrip(const CommonXMLStructure::SumoBaseObject* /*sumoBaseO
 }
 
 
+void 
+GNERouteHandler::buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
+                           const std::string& fromJunctionID, const std::string& toJunctionID) {
+    //
+}
+
 void
 GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters,
                            const std::string& fromEdgeID, const std::string& toEdgeID, const std::vector<std::string>& viaIDs) {
@@ -330,6 +336,13 @@ GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* /*sumoBaseO
             flow->computePathElement();
         }
     }
+}
+
+
+void 
+GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
+                           const std::string& fromJunctionID, const std::string& toJunctionID) {
+    //
 }
 
 

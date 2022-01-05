@@ -76,13 +76,21 @@ public:
     /// @brief build a flow over an existent route
     virtual void buildFlowOverRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters) = 0;
 
-    /// @brief build trip
+    /// @brief build trip (from-to edges)
     virtual void buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
                            const std::string& fromEdgeID, const std::string& toEdgeID, const std::vector<std::string>& viaIDs) = 0;
 
-    /// @brief build flow
+    /// @brief build trip (from-to junctions)
+    virtual void buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
+                           const std::string& fromJunctionID, const std::string& toJunctionID) = 0;
+
+    /// @brief build flow (from-to edges)
     virtual void buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
                            const std::string& fromEdgeID, const std::string& toEdgeID, const std::vector<std::string>& viaIDs) = 0;
+
+    /// @brief build flow (from-to junctions)
+    virtual void buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
+                           const std::string& fromJunctionID, const std::string& toJunctionID) = 0;
 
     /// @brief build person
     virtual void buildPerson(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& personParameters) = 0;

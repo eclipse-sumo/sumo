@@ -90,9 +90,17 @@ public:
     void buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
                    const std::string& fromEdgeID, const std::string& toEdgeID, const std::vector<std::string>& viaIDs);
 
+    /// @brief build trip
+    void buildTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
+                   const std::string& fromJunctionID, const std::string& toJunctionID);
+
     /// @brief build flow
     void buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
                    const std::string& fromEdgeID, const std::string& toEdgeID, const std::vector<std::string>& viaIDs);
+
+    /// @brief build flow
+    void buildFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& vehicleParameters,
+                   const std::string& fromJunctionID, const std::string& toJunctionID);
 
     /// @brief build person
     void buildPerson(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& personParameters);
