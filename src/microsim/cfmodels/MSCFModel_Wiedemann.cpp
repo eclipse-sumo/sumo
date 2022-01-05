@@ -123,26 +123,36 @@ MSCFModel_Wiedemann::_v(const MSVehicle* veh, double predSpeed, double gap) cons
     const double sdv = sdv_root * sdv_root;
     const double cldv = sdv * ex * ex;
     const double opdv = cldv * (-1 - 2 * RandHelper::randNorm(0.5, 0.15, veh->getRNG()));
+    // D_MAX is too low to brake safely when driving at speeds above 36m/s
+    const double dmax = MAX2(D_MAX, brakeGap(v, myDecel, 0));
     // select the regime, get new acceleration, compute new speed based
     double accel;
+    int branch = 0;
     if (dx <= abx) {
         accel = emergency(dv, dx);
+        branch = 1;
     } else if (dx < sdx) {
         if (dv > cldv) {
             accel = approaching(dv, dx, abx);
+            branch = 2;
         } else if (dv > opdv) {
             accel = following(vars->accelSign);
+            branch = 3;
         } else {
             accel = fullspeed(v, vpref, dx, abx);
+            branch = 4;
         }
     } else {
-        if (dv > sdv && dx < D_MAX) { //@note other versions have an disjunction instead of conjunction
+        if (dv > sdv && dx < dmax) { //@note other versions have an disjunction instead of conjunction
             accel = approaching(dv, dx, abx);
+            branch = 5;
         } else {
             accel = fullspeed(v, vpref, dx, abx);
+            branch = 6;
         }
     }
     // since we have hard constrainst on accel we may as well use them here
+    const double rawAccel = accel;
     accel = MAX2(MIN2(accel, myAccel), -myEmergencyDecel);
     const double vNew = MAX2(0., v + ACCEL2SPEED(accel)); // don't allow negative speeds
 #ifdef DEBUG_V
@@ -151,6 +161,8 @@ MSCFModel_Wiedemann::_v(const MSVehicle* veh, double predSpeed, double gap) cons
                   << " predSpeed=" << predSpeed << " gap=" << gap
                   << " dv=" << dv << " dx=" << dx << " ax=" << myAX << " bx=" << bx << " abx=" << abx
                   << " sdx=" << sdx << " sdv=" << sdv << " cldv=" << cldv << " opdv=" << opdv
+                  << " branch=" << branch
+                  << " rawAccel=" << rawAccel
                   << " accel=" << accel << " vNew=" << vNew << "\n";
     }
 #endif
