@@ -254,7 +254,7 @@ public:
     };
 
     /// @brief Constructor for parameter editor inspector
-    GNEMultipleParametersDialog(GNEInspectorFrame::ParametersEditorInspector* parametersEditorInspector);
+    GNEMultipleParametersDialog(GNEInspectorFrame::ParametersEditor* parametersEditorInspector);
 
     /// @brief destructor
     ~GNEMultipleParametersDialog();
@@ -275,8 +275,8 @@ protected:
     /// @brief FOX need this
     FOX_CONSTRUCTOR(GNEMultipleParametersDialog)
 
-    /// @brief pointer to ParametersEditorInspector
-    GNEInspectorFrame::ParametersEditorInspector* myParametersEditorInspector;
+    /// @brief pointer to ParametersEditor
+    GNEInspectorFrame::ParametersEditor* myParametersEditor;
 
     /// @brief pointer to parameters values
     ParametersValues* myParametersValues;

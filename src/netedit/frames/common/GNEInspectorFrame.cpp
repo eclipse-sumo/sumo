@@ -67,9 +67,9 @@ FXDEFMAP(GNEInspectorFrame::TemplateEditor) TemplateEditorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F3_TEMPLATE_CLEAR, GNEInspectorFrame::TemplateEditor::onCmdClearTemplate),
 };
 
-FXDEFMAP(GNEInspectorFrame::ParametersEditorInspector) ParametersEditorInspectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OPEN_PARAMETERS_DIALOG, GNEInspectorFrame::ParametersEditorInspector::onCmdEditParameters),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEInspectorFrame::ParametersEditorInspector::onCmdSetParameters)
+FXDEFMAP(GNEInspectorFrame::ParametersEditor) ParametersEditorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OPEN_PARAMETERS_DIALOG, GNEInspectorFrame::ParametersEditor::onCmdEditParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEInspectorFrame::ParametersEditor::onCmdSetParameters)
 };
 
 FXDEFMAP(GNEInspectorFrame::AdditionalDialog) AdditionalDialogMap[] = {
@@ -81,7 +81,7 @@ FXIMPLEMENT(GNEInspectorFrame,                              FXVerticalFrame,    
 FXIMPLEMENT(GNEInspectorFrame::NeteditAttributesEditor,     FXGroupBoxModule,         NeteditAttributesEditorMap,     ARRAYNUMBER(NeteditAttributesEditorMap))
 FXIMPLEMENT(GNEInspectorFrame::GEOAttributesEditor,         FXGroupBoxModule,         GEOAttributesEditorMap,         ARRAYNUMBER(GEOAttributesEditorMap))
 FXIMPLEMENT(GNEInspectorFrame::TemplateEditor,              FXGroupBoxModule,         TemplateEditorMap,              ARRAYNUMBER(TemplateEditorMap))
-FXIMPLEMENT(GNEInspectorFrame::ParametersEditorInspector,   FXGroupBoxModule,         ParametersEditorInspectorMap,   ARRAYNUMBER(ParametersEditorInspectorMap))
+FXIMPLEMENT(GNEInspectorFrame::ParametersEditor,   FXGroupBoxModule,         ParametersEditorMap,   ARRAYNUMBER(ParametersEditorMap))
 FXIMPLEMENT(GNEInspectorFrame::AdditionalDialog,            FXGroupBoxModule,         AdditionalDialogMap,            ARRAYNUMBER(AdditionalDialogMap))
 
 
@@ -663,10 +663,10 @@ GNEInspectorFrame::TemplateEditor::updateButtons() {
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrameAttributeModules::ParametersEditorInspector - methods
+// GNEFrameAttributeModules::ParametersEditor - methods
 // ---------------------------------------------------------------------------
 
-GNEInspectorFrame::ParametersEditorInspector::ParametersEditorInspector(GNEInspectorFrame* inspectorFrameParent) :
+GNEInspectorFrame::ParametersEditor::ParametersEditor(GNEInspectorFrame* inspectorFrameParent) :
     FXGroupBoxModule(inspectorFrameParent->myContentFrame, "Parameters"),
     myInspectorFrameParent(inspectorFrameParent) {
     // create textfield and buttons
@@ -675,16 +675,16 @@ GNEInspectorFrame::ParametersEditorInspector::ParametersEditorInspector(GNEInspe
 }
 
 
-GNEInspectorFrame::ParametersEditorInspector::~ParametersEditorInspector() {}
+GNEInspectorFrame::ParametersEditor::~ParametersEditor() {}
 
 
 void
-GNEInspectorFrame::ParametersEditorInspector::showParametersEditorInspector() {
+GNEInspectorFrame::ParametersEditor::showParametersEditor() {
     // firt check if there is
     if ((myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) &&
             myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().hasParameters()) {
-        // refresh ParametersEditorInspector
-        refreshParametersEditorInspector();
+        // refresh ParametersEditor
+        refreshParametersEditor();
         // show groupbox
         show();
     } else {
@@ -694,14 +694,14 @@ GNEInspectorFrame::ParametersEditorInspector::showParametersEditorInspector() {
 
 
 void
-GNEInspectorFrame::ParametersEditorInspector::hideParametersEditorInspector() {
+GNEInspectorFrame::ParametersEditor::hideParametersEditor() {
     // hide groupbox
     hide();
 }
 
 
 void
-GNEInspectorFrame::ParametersEditorInspector::refreshParametersEditorInspector() {
+GNEInspectorFrame::ParametersEditor::refreshParametersEditor() {
     // get front AC
     const GNEAttributeCarrier* frontAC = myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0 ? myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().front() : nullptr;
     // continue depending of frontAC
@@ -736,13 +736,13 @@ GNEInspectorFrame::ParametersEditorInspector::refreshParametersEditorInspector()
 
 
 GNEInspectorFrame*
-GNEInspectorFrame::ParametersEditorInspector::getInspectorFrameParent() const {
+GNEInspectorFrame::ParametersEditor::getInspectorFrameParent() const {
     return myInspectorFrameParent;
 }
 
 
 long
-GNEInspectorFrame::ParametersEditorInspector::onCmdEditParameters(FXObject*, FXSelector, void*) {
+GNEInspectorFrame::ParametersEditor::onCmdEditParameters(FXObject*, FXSelector, void*) {
     // get front AC
     const GNEAttributeCarrier* frontAC = myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0 ? myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().front() : nullptr;
     // continue depending of frontAC
@@ -757,7 +757,7 @@ GNEInspectorFrame::ParametersEditorInspector::onCmdEditParameters(FXObject*, FXS
                 // update frame parent after attribute sucesfully set
                 myInspectorFrameParent->attributeUpdated();
                 // Refresh parameter EditorInspector
-                refreshParametersEditorInspector();
+                refreshParametersEditor();
             } else {
                 // write debug information
                 WRITE_DEBUG("Cancel multiple parameters dialog");
@@ -771,7 +771,7 @@ GNEInspectorFrame::ParametersEditorInspector::onCmdEditParameters(FXObject*, FXS
                 // update frame parent after attribute sucesfully set
                 myInspectorFrameParent->attributeUpdated();
                 // Refresh parameter EditorInspector
-                refreshParametersEditorInspector();
+                refreshParametersEditor();
             } else {
                 // write debug information
                 WRITE_DEBUG("Cancel single parameters dialog");
@@ -783,7 +783,7 @@ GNEInspectorFrame::ParametersEditorInspector::onCmdEditParameters(FXObject*, FXS
 
 
 long
-GNEInspectorFrame::ParametersEditorInspector::onCmdSetParameters(FXObject*, FXSelector, void*) {
+GNEInspectorFrame::ParametersEditor::onCmdSetParameters(FXObject*, FXSelector, void*) {
     const auto& ACs = myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
     // get front AC
     GNEAttributeCarrier* frontAC = ACs.size() > 0 ? ACs.front() : nullptr;
@@ -928,7 +928,7 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     myGEOAttributesEditor = new GEOAttributesEditor(this);
 
     // create parameters Editor modul
-    myParametersEditorInspector = new ParametersEditorInspector(this);
+    myParametersEditor = new ParametersEditor(this);
 
     // create additional dialog
     myAdditionalDialog = new AdditionalDialog(this);
@@ -1105,7 +1105,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
     myAttributesEditor->hideAttributesEditorModule();
     myNeteditAttributesEditor->hideNeteditAttributesEditor();
     myGEOAttributesEditor->hideGEOAttributesEditor();
-    myParametersEditorInspector->hideParametersEditorInspector();
+    myParametersEditor->hideParametersEditor();
     myAdditionalDialog->hideAdditionalDialog();
     myTemplateEditor->hideTemplateEditor();
     myHierarchicalElementTree->hideHierarchicalElementTree();
@@ -1155,7 +1155,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
         myGEOAttributesEditor->showGEOAttributesEditor();
 
         // show parameters editor
-        myParametersEditorInspector->showParametersEditorInspector();
+        myParametersEditor->showParametersEditor();
 
         // show additional dialog
         myAdditionalDialog->showAdditionalDialog();
@@ -1265,7 +1265,7 @@ GNEInspectorFrame::updateFrameAfterUndoRedo() {
     // refresh Attribute Editor
     myAttributesEditor->refreshAttributeEditor(false, false);
     // refresh parametersEditor
-    myParametersEditorInspector->refreshParametersEditorInspector();
+    myParametersEditor->refreshParametersEditor();
     // refresh AC Hierarchy
     myHierarchicalElementTree->refreshHierarchicalElementTree();
 }

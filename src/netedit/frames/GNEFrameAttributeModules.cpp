@@ -73,9 +73,9 @@ FXDEFMAP(GNEFrameAttributeModules::AttributesEditorExtended) AttributesEditorExt
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEFrameAttributeModules::AttributesEditorExtended::onCmdOpenDialog)
 };
 
-FXDEFMAP(GNEFrameAttributeModules::ParametersEditorCreator) ParametersEditorCreatorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OPEN_PARAMETERS_DIALOG, GNEFrameAttributeModules::ParametersEditorCreator::onCmdEditParameters),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameAttributeModules::ParametersEditorCreator::onCmdSetParameters)
+FXDEFMAP(GNEFrameAttributeModules::GenericDataAttributes) GenericDataAttributesMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OPEN_PARAMETERS_DIALOG, GNEFrameAttributeModules::GenericDataAttributes::onCmdEditParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameAttributeModules::GenericDataAttributes::onCmdSetParameters)
 };
 
 FXDEFMAP(GNEFrameAttributeModules::DrawingShape) DrawingShapeMap[] = {
@@ -97,7 +97,7 @@ FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditorRow,          FXHorizontal
 FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditor,             FXGroupBoxModule,         AttributesEditorMap,            ARRAYNUMBER(AttributesEditorMap))
 FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditorFlow,         FXGroupBoxModule,         AttributesEditorFlowMap,        ARRAYNUMBER(AttributesEditorFlowMap))
 FXIMPLEMENT(GNEFrameAttributeModules::AttributesEditorExtended,     FXGroupBoxModule,         AttributesEditorExtendedMap,    ARRAYNUMBER(AttributesEditorExtendedMap))
-FXIMPLEMENT(GNEFrameAttributeModules::ParametersEditorCreator,      FXGroupBoxModule,         ParametersEditorCreatorMap,     ARRAYNUMBER(ParametersEditorCreatorMap))
+FXIMPLEMENT(GNEFrameAttributeModules::GenericDataAttributes,      FXGroupBoxModule,         GenericDataAttributesMap,     ARRAYNUMBER(GenericDataAttributesMap))
 FXIMPLEMENT(GNEFrameAttributeModules::DrawingShape,                 FXGroupBoxModule,         DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
 FXIMPLEMENT(GNEFrameAttributeModules::NeteditAttributes,            FXGroupBoxModule,         NeteditAttributesMap,           ARRAYNUMBER(NeteditAttributesMap))
 
@@ -2120,52 +2120,52 @@ GNEFrameAttributeModules::AttributesEditorExtended::onCmdOpenDialog(FXObject*, F
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrameAttributeModules::ParametersEditorCreator - methods
+// GNEFrameAttributeModules::GenericDataAttributes - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameAttributeModules::ParametersEditorCreator::ParametersEditorCreator(GNEFrame* frameParent) :
-    FXGroupBoxModule(frameParent->myContentFrame, "Parameters"),
+GNEFrameAttributeModules::GenericDataAttributes::GenericDataAttributes(GNEFrame* frameParent) :
+    FXGroupBoxModule(frameParent->myContentFrame, "Attributes"),
     myFrameParent(frameParent) {
     // create textfield and buttons
     myTextFieldParameters = new FXTextField(getCollapsableFrame(), GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    myButtonEditParameters = new FXButton(getCollapsableFrame(), "Edit parameters", nullptr, this, MID_GNE_OPEN_PARAMETERS_DIALOG, GUIDesignButton);
+    myButtonEditParameters = new FXButton(getCollapsableFrame(), "Edit attributes", nullptr, this, MID_GNE_OPEN_PARAMETERS_DIALOG, GUIDesignButton);
 }
 
 
-GNEFrameAttributeModules::ParametersEditorCreator::~ParametersEditorCreator() {}
+GNEFrameAttributeModules::GenericDataAttributes::~GenericDataAttributes() {}
 
 
 void
-GNEFrameAttributeModules::ParametersEditorCreator::showParametersEditorCreator() {
-    // refresh ParametersEditorCreator
-    refreshParametersEditorCreator();
+GNEFrameAttributeModules::GenericDataAttributes::showGenericDataAttributes() {
+    // refresh GenericDataAttributes
+    refreshGenericDataAttributes();
     // show groupbox
     show();
 }
 
 
 void
-GNEFrameAttributeModules::ParametersEditorCreator::hideParametersEditorCreator() {
+GNEFrameAttributeModules::GenericDataAttributes::hideGenericDataAttributes() {
     // hide groupbox
     hide();
 }
 
 
 void
-GNEFrameAttributeModules::ParametersEditorCreator::refreshParametersEditorCreator() {
+GNEFrameAttributeModules::GenericDataAttributes::refreshGenericDataAttributes() {
     myTextFieldParameters->setText(getParametersStr().c_str());
     myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
 }
 
 
 const std::map<std::string, std::string>&
-GNEFrameAttributeModules::ParametersEditorCreator::getParametersMap() const {
+GNEFrameAttributeModules::GenericDataAttributes::getParametersMap() const {
     return myParameters;
 }
 
 
 std::string
-GNEFrameAttributeModules::ParametersEditorCreator::getParametersStr() const {
+GNEFrameAttributeModules::GenericDataAttributes::getParametersStr() const {
     std::string result;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
     for (const auto& parameter : myParameters) {
@@ -2180,7 +2180,7 @@ GNEFrameAttributeModules::ParametersEditorCreator::getParametersStr() const {
 
 
 std::vector<std::pair<std::string, std::string> >
-GNEFrameAttributeModules::ParametersEditorCreator::getParameters() const {
+GNEFrameAttributeModules::GenericDataAttributes::getParameters() const {
     std::vector<std::pair<std::string, std::string> > result;
     // Generate a vector string using the following structure: "<key1,value1>, <key2, value2>,...
     for (const auto& parameter : myParameters) {
@@ -2191,7 +2191,7 @@ GNEFrameAttributeModules::ParametersEditorCreator::getParameters() const {
 
 
 void
-GNEFrameAttributeModules::ParametersEditorCreator::setParameters(const std::vector<std::pair<std::string, std::string> >& parameters) {
+GNEFrameAttributeModules::GenericDataAttributes::setParameters(const std::vector<std::pair<std::string, std::string> >& parameters) {
     // declare result string
     std::string result;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
@@ -2208,20 +2208,20 @@ GNEFrameAttributeModules::ParametersEditorCreator::setParameters(const std::vect
 
 
 GNEFrame*
-GNEFrameAttributeModules::ParametersEditorCreator::getFrameParent() const {
+GNEFrameAttributeModules::GenericDataAttributes::getFrameParent() const {
     return myFrameParent;
 }
 
 
 long
-GNEFrameAttributeModules::ParametersEditorCreator::onCmdEditParameters(FXObject*, FXSelector, void*) {
+GNEFrameAttributeModules::GenericDataAttributes::onCmdEditParameters(FXObject*, FXSelector, void*) {
     // write debug information
     WRITE_DEBUG("Open single parameters dialog");
     if (GNESingleParametersDialog(this).execute()) {
         // write debug information
         WRITE_DEBUG("Close single parameters dialog");
         // Refresh parameter EditorCreator
-        refreshParametersEditorCreator();
+        refreshGenericDataAttributes();
     } else {
         // write debug information
         WRITE_DEBUG("Cancel single parameters dialog");
@@ -2231,7 +2231,7 @@ GNEFrameAttributeModules::ParametersEditorCreator::onCmdEditParameters(FXObject*
 
 
 long
-GNEFrameAttributeModules::ParametersEditorCreator::onCmdSetParameters(FXObject*, FXSelector, void*) {
+GNEFrameAttributeModules::GenericDataAttributes::onCmdSetParameters(FXObject*, FXSelector, void*) {
     // clear current existent parameters
     myParameters.clear();
     // check if current given string is valid

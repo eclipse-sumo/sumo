@@ -61,7 +61,7 @@ GNEEdgeDataFrame::addEdgeData(const GNEViewNetHelper::ObjectsUnderCursor& object
         CommonXMLStructure::SumoBaseObject* genericDataBaseObject = new CommonXMLStructure::SumoBaseObject(intervalBaseObject);
         // finally create edgeData
         GNEDataHandler dataHandler(myViewNet->getNet(), "", true);
-        dataHandler.buildEdgeData(genericDataBaseObject, objectsUnderCursor.getEdgeFront()->getID(), myParametersEditorCreator->getParametersMap());
+        dataHandler.buildEdgeData(genericDataBaseObject, objectsUnderCursor.getEdgeFront()->getID(), myGenericDataAttributes->getParametersMap());
         // delete intervalBaseObject (and genericDataBaseObject)
         delete intervalBaseObject;
         // edgeData created, then return true

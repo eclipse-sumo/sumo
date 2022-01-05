@@ -563,28 +563,28 @@ public:
     };
 
     // ===========================================================================
-    // class ParametersEditorCreator
+    // class GenericDataAttributes
     // ===========================================================================
 
-    class ParametersEditorCreator : public FXGroupBoxModule {
+    class GenericDataAttributes : public FXGroupBoxModule {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributeModules::ParametersEditorCreator)
+        FXDECLARE(GNEFrameAttributeModules::GenericDataAttributes)
 
     public:
         /// @brief constructor
-        ParametersEditorCreator(GNEFrame* frameParent);
+        GenericDataAttributes(GNEFrame* frameParent);
 
         /// @brief destructor
-        ~ParametersEditorCreator();
+        ~GenericDataAttributes();
 
         /// @brief show netedit attributes EditorCreator
-        void showParametersEditorCreator();
+        void showGenericDataAttributes();
 
         /// @brief hide netedit attributes EditorCreator
-        void hideParametersEditorCreator();
+        void hideGenericDataAttributes();
 
         /// @brief refresh netedit attributes
-        void refreshParametersEditorCreator();
+        void refreshGenericDataAttributes();
 
         /// @brief get parameters as map
         const std::map<std::string, std::string>& getParametersMap() const;
@@ -611,7 +611,7 @@ public:
         /// @}
 
     protected:
-        FOX_CONSTRUCTOR(ParametersEditorCreator)
+        FOX_CONSTRUCTOR(GenericDataAttributes)
 
     private:
         /// @brief pointer to frame parent

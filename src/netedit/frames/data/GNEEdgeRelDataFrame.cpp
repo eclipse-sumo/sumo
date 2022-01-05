@@ -64,7 +64,7 @@ GNEEdgeRelDataFrame::createPath() {
         CommonXMLStructure::SumoBaseObject* edgeRelationData = new CommonXMLStructure::SumoBaseObject(dataIntervalObject);
         // create EdgeRelationData
         dataHandler.buildEdgeRelationData(edgeRelationData, myPathCreator->getSelectedEdges().front()->getID(),
-                                          myPathCreator->getSelectedEdges().back()->getID(), myParametersEditorCreator->getParametersMap());
+                                          myPathCreator->getSelectedEdges().back()->getID(), myGenericDataAttributes->getParametersMap());
         // abort path creation
         myPathCreator->abortPathCreation();
         delete dataIntervalObject;

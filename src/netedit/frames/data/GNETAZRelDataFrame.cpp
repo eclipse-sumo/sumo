@@ -129,7 +129,7 @@ GNETAZRelDataFrame::buildTAZRelationData() {
             // create TAZRelData
             CommonXMLStructure::SumoBaseObject* TAZRelData = new CommonXMLStructure::SumoBaseObject(dataIntervalObject);
             // finally create TAZRelationData
-            dataHandler.buildTAZRelationData(TAZRelData, myFirstTAZ->getID(), mySecondTAZ->getID(), myParametersEditorCreator->getParametersMap());
+            dataHandler.buildTAZRelationData(TAZRelData, myFirstTAZ->getID(), mySecondTAZ->getID(), myGenericDataAttributes->getParametersMap());
             delete dataIntervalObject;
             // reset both TAZs
             myFirstTAZ = nullptr;
