@@ -3527,7 +3527,7 @@ GNEAttributeCarrier::fillVehicleElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::VEHICLE,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::VEHICLE | GNETagProperties::FLOW,
                                       0,
                                       GUIIcon::FLOW, currentTag);
         myTagProperties[currentTag].setFieldString("flow (from-to edges)");
@@ -3569,7 +3569,7 @@ GNEAttributeCarrier::fillVehicleElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::VEHICLE,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::VEHICLE | GNETagProperties::FLOW,
                                       0,
                                       GUIIcon::FLOW_JUNCTIONS, currentTag);
         myTagProperties[currentTag].setFieldString("flow (from-to junctions)");
@@ -3606,7 +3606,7 @@ GNEAttributeCarrier::fillVehicleElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::VEHICLE,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::VEHICLE | GNETagProperties::FLOW,
                                       0,
                                       GUIIcon::ROUTEFLOW, SUMO_TAG_FLOW, {});
         myTagProperties[currentTag].setFieldString("flow (over route)");
@@ -3648,7 +3648,7 @@ GNEAttributeCarrier::fillVehicleElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::VEHICLE,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::VEHICLE | GNETagProperties::FLOW,
                                       GNETagProperties::EMBEDDED_ROUTE,
                                       GUIIcon::ROUTEFLOW, SUMO_TAG_FLOW);
         myTagProperties[currentTag].setFieldString("flow (embedded route)");
@@ -3832,7 +3832,7 @@ GNEAttributeCarrier::fillPersonElements() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSON,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSON | GNETagProperties::FLOW,
                                       0,
                                       GUIIcon::PERSONFLOW, currentTag);
 

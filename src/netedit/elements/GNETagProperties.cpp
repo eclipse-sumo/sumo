@@ -339,6 +339,12 @@ GNETagProperties::isStop() const {
 
 
 bool
+GNETagProperties::isFlow() const {
+    return (myTagType & FLOW) != 0;
+}
+
+
+bool
 GNETagProperties::isPerson() const {
     return (myTagType & PERSON) != 0;
 }
