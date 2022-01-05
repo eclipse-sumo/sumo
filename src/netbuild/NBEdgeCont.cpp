@@ -1216,7 +1216,6 @@ NBEdgeCont::guessRoundabouts() {
         NBNode* const to = e->getToNode();
         if (e->getTurnDestination() == nullptr
                 && to->getConnectionTo(e->getFromNode()) == nullptr
-                && loadedRoundaboutEdges.count(e) == 0
                 && (e->getPermissions() & valid) != 0) {
             candidates.insert(e);
         }
@@ -1298,17 +1297,6 @@ NBEdgeCont::guessRoundabouts() {
 #endif
                 break;
             }
-            if (loadedRoundaboutEdges.count(left) != 0) {
-                // found loaded roundabout, ignore
-                doLoop = false;
-#ifdef DEBUG_GUESS_ROUNDABOUT
-                if (gDebugFlag1) {
-                    std::cout << " foundLoadedRoundabout\n";
-                }
-                gDebugFlag1 = false;
-#endif
-                break;
-            }
             NBContHelper::nextCW(edges, me);
             NBEdge* nextLeft = *me;
             double angle = fabs(NBHelpers::relAngle(e->getAngleAtNode(e->getToNode()), left->getAngleAtNode(e->getToNode())));
@@ -1382,12 +1370,26 @@ NBEdgeCont::guessRoundabouts() {
 #endif
             if (formFactor(loopEdges) > 0.6) {
                 // collected edges are marked in markRoundabouts
-                myGuessedRoundabouts.insert(EdgeSet(loopEdges.begin(), loopEdges.end()));
+                EdgeSet guessed(loopEdges.begin(), loopEdges.end());
+                if (loadedRoundaboutEdges.count(loopEdges.front()) != 0) {
+                    if (find(myRoundabouts.begin(), myRoundabouts.end(), guessed) == myRoundabouts.end()) {
+                        for (auto it = myRoundabouts.begin(); it != myRoundabouts.end(); it++) {
+                            if ((*it).count(loopEdges.front()) != 0) {
+                                WRITE_WARNINGF("Replacing loaded roundabout '%s' with '%s'", toString(*it), toString(guessed));
+                                myRoundabouts.erase(it);
+                                break;
+                            }
+                        }
+                        myGuessedRoundabouts.insert(guessed);
+                    }
+                } else {
+                    myGuessedRoundabouts.insert(guessed);
 #ifdef DEBUG_GUESS_ROUNDABOUT
-                if (gDebugFlag1) {
-                    std::cout << " foundRoundabout=" << toString(loopEdges) << "\n";
-                }
+                    if (gDebugFlag1) {
+                        std::cout << " foundRoundabout=" << toString(loopEdges) << "\n";
+                    }
 #endif
+                }
             }
         }
 #ifdef DEBUG_GUESS_ROUNDABOUT
