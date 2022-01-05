@@ -83,8 +83,8 @@ GNEWalk::~GNEWalk() {}
 
 GNEMoveOperation*
 GNEWalk::getMoveOperation() {
-    // avoid move person plan that ends in busStop
-    if (getParentAdditionals().size() > 0) {
+    // avoid move person plan that ends in busStop or junction
+    if ((getParentAdditionals().size() > 0) || (getParentJunctions().size() > 0)) {
         return nullptr;
     }
     // get geometry end pos
@@ -143,12 +143,16 @@ GNEWalk::writeDemandElement(OutputDevice& device) const {
         // check if from attribute is enabled
         if (isAttributeEnabled(SUMO_ATTR_FROM)) {
             device.writeAttr(SUMO_ATTR_FROM, getParentEdges().front()->getID());
+        } else if (isAttributeEnabled(SUMO_ATTR_FROMJUNCTION)) {
+            device.writeAttr(SUMO_ATTR_FROMJUNCTION, getParentJunctions().front()->getID());
         }
-        // write to depending if personplan ends in a busStop
+        // write to depending if personplan ends in a busStop, edge or junction
         if (getParentAdditionals().size() > 0) {
             device.writeAttr(SUMO_ATTR_BUS_STOP, getParentAdditionals().back()->getID());
-        } else {
+        } else if (getParentEdges().size() > 0) {
             device.writeAttr(SUMO_ATTR_TO, getParentEdges().back()->getID());
+        } else {
+            device.writeAttr(SUMO_ATTR_TOJUNCTION, getParentJunctions().back()->getID());
         }
     }
     // avoid writte arrival positions in walk to busStop
@@ -569,10 +573,12 @@ GNEWalk::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
 
 bool
 GNEWalk::isAttributeEnabled(SumoXMLAttr key) const {
-    if (key == SUMO_ATTR_FROM) {
-        return (getParentDemandElements().at(0)->getPreviousChildDemandElement(this) == nullptr);
-    } else {
-        return true;
+    switch (key) {
+        case SUMO_ATTR_FROM:
+        case SUMO_ATTR_FROMJUNCTION:
+            return (getParentDemandElements().at(0)->getPreviousChildDemandElement(this) == nullptr);
+        default:
+            return true;
     }
 }
 
@@ -587,6 +593,8 @@ std::string
 GNEWalk::getHierarchyName() const {
     if (myTagProperty.getTag() == GNE_TAG_WALK_EDGE) {
         return "walk: " + getParentEdges().front()->getID() + " -> " + getParentEdges().back()->getID();
+    } else if (myTagProperty.getTag() == GNE_TAG_WALK_JUNCTIONS) {
+        return "walk: " + getParentJunctions().front()->getID() + " -> " + getParentJunctions().back()->getID();
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP) {
         return "walk: " + getParentEdges().front()->getID() + " -> " + getParentAdditionals().back()->getID();
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_EDGES) {
