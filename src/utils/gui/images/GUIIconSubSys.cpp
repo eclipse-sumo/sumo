@@ -276,7 +276,9 @@
 #include "type.xpm"
 #include "vehicle.xpm"
 #include "trip.xpm"
+#include "tripjunctions.xpm"
 #include "flow.xpm"
+#include "flowjunctions.xpm"
 #include "routeflow.xpm"
 #include "stopelement.xpm"
 #include "person.xpm"
@@ -645,7 +647,9 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::TYPE] = new FXXPMIcon(a, type_xpm);
     myIcons[GUIIcon::VEHICLE] = new FXXPMIcon(a, vehicle_xpm);
     myIcons[GUIIcon::TRIP] = new FXXPMIcon(a, trip_xpm);
+    myIcons[GUIIcon::TRIP_JUNCTIONS] = new FXXPMIcon(a, tripjunctions_xpm);
     myIcons[GUIIcon::FLOW] = new FXXPMIcon(a, flow_xpm);
+    myIcons[GUIIcon::FLOW_JUNCTIONS] = new FXXPMIcon(a, flowjunctions_xpm);
     myIcons[GUIIcon::ROUTEFLOW] = new FXXPMIcon(a, routeflow_xpm);
     myIcons[GUIIcon::STOPELEMENT] = new FXXPMIcon(a, stopelement_xpm);
     myIcons[GUIIcon::PERSON] = new FXXPMIcon(a, person_xpm);
