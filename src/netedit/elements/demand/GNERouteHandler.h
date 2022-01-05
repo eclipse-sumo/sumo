@@ -110,11 +110,13 @@ public:
 
     /// @brief build person trip
     void buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& toEdgeID,
-                         const std::string& toBusStopID, double arrivalPos, const std::vector<std::string>& types, const std::vector<std::string>& modes);
+                         const std::string& fromJunctionID, const std::string& toJunctionID, const std::string& toBusStopID, double arrivalPos, 
+                         const std::vector<std::string>& types, const std::vector<std::string>& modes);
 
     /// @brief build walk
     void buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& toEdgeID,
-                   const std::string& toBusStopID, const std::vector<std::string>& edgeIDs, const std::string& routeID, double arrivalPos);
+                   const std::string& fromJunctionID, const std::string& toJunctionID, const std::string& toBusStopID,
+                   const std::vector<std::string>& edgeIDs, const std::string& routeID, double arrivalPos);
 
     /// @brief build ride
     void buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& toEdgeID,
