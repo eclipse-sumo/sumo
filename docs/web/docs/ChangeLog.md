@@ -26,7 +26,7 @@ title: ChangeLog
   - Setting **--step-length** > 1 now raises a warning for default tau. Issue #1375
   
 - netedit
-  - Fixed bug preventing inspection of tazRelelations. Issue #9728
+  - Fixed bug preventing inspection of tazRelations. Issue #9728
   - splitting and merging edges with custom length now preserves total length. Issue #9617
   - can now load parkingAreaReroute without probability attribute. Issue #9640
   - Fixed invalid weights of sinks and sources when loading taz from file. Issue #9672
@@ -59,7 +59,7 @@ title: ChangeLog
   - Unsorted flows now trigger a warning. Issue #9327
 
 - traci
-  - New programgs created via 'trafficlight.setProgramLogic' now support GUI access. Issue #549
+  - New programs created via 'trafficlight.setProgramLogic' now support GUI access. Issue #549
   - turn subscription filter no longer crashes when crossings are present in foe lanes. Issue #9630
   - Fixed crash when calling vehicle.rerouteParkingArea for newly added vehicle. Issue #9755
   - Fixed invalid warnings when adding turn/lanes filter with context domain person. Issue #9760
@@ -73,14 +73,14 @@ title: ChangeLog
   - generateRailSignalConstraints.py: Now handles intermediate parking stops. Issue #9806
 
 - Miscellaneous
-  - Specifiying NUL output on the command line finally works. Issue #3400
+  - Specifying NUL output on the command line finally works. Issue #3400
   - Fixed unhelpful error message when defining invalid color in XML input. Issue #9623
   - Time output beyond 25 days now works correctly with all compilers. Issue #8912
   
 ### Enhancements
 
 - simulation
-  - Persons are now included in saved simualtion state when setting option **--save-state.transportables**. Issue #2792
+  - Persons are now included in saved simulation state when setting option **--save-state.transportables**. Issue #2792
   - Actuated traffic lights now support attributes 'earliestEnd', 'latestEnd' to configure coordination. Issue #9748
   - Added attribute speedRelative to edgeData output. Issue #9601
   - Option **--fcd-output.attributes** can now be used to active non-standard attributes (i.e. acceleration). Issue #9625
@@ -127,7 +127,7 @@ title: ChangeLog
 
 - tools
   - routeSampler.py: Option **--prefix** now also applies to route ids. Issue #9634
-  - generateParkingAreaRerouters.py: added option **--prefer-visible** which prefers visible alteranatives regardless of distance. Issue #9642
+  - generateParkingAreaRerouters.py: added option **--prefer-visible** which prefers visible alternatives regardless of distance. Issue #9642
   - generateParkingAreaRerouters.py: added option **--distribute** which sets a distance distribution for the given number of alternatives (instead of always using the closest parkingAreas). Issue #9566
   - generateParkingAreaRerouters.py: added option **--visible-ids** to set visible parkingAreas explicitly. Issue #9669
   - addStops2Routes.py: Can now generate stationary traffic to fill each parkingArea to a configurable occupancy. Issue #9660
@@ -218,7 +218,7 @@ title: ChangeLog
   - network mode: other
     - Copying one of several traffic light programs now copies the correct one. Issue #7963
     - Adding a bicycle lane via lane context menu now respects option **--default.bikelane-width** Issue #9073
-    - Fixed missung turnaround after adding bike lane. Issue #9079
+    - Fixed missing turnaround after adding bike lane. Issue #9079
     - Fixed invalid drawing style for lane that allows tram and bus. Issue #9089
     - Fixed invalid edge type attributes in saved network. Issue #9070
     - Fixed invalid linkIndex2 for indirect left turn after modifying an existing turn. Issue #9102    
@@ -249,7 +249,7 @@ title: ChangeLog
   - Fixed slow stepping on windows when the simulation has little to do. Issue #6371
   - Fixed unresponsive UI on linux when the simulation has little to do. Issue #9028
   - Speed mode in vehicle parameter dialog now shows all 6 bits. Issue #9078
-  - Option **--no-warnings** now supresses warnings from actuated tls. Issue #9104
+  - Option **--no-warnings** now suppresses warnings from actuated tls. Issue #9104
   - Fixed crash on pressing "recalibrate rainbow" button when taz files are loaded. #9119
   - Fixed invalid error when defining step-length with human readable time. Issue #9196
   - Coloring by edgeData is now working in meso. Issue #9215
@@ -257,7 +257,7 @@ title: ChangeLog
   - Color values for 'color by edge data' are now loaded from settings file. Issue #9462
   - Small text placement fixes. Issue #9477, #9476, #9467
   - Fixed freezing in person simulation. Issue #9468
-  - Fixed crash when loading edgeData with inconsisten interval times. Issue #9502
+  - Fixed crash when loading edgeData with inconsistent interval times. Issue #9502
 
 - netconvert
   - Connection attribute visibility is now working if the connection has an internal junction. Issue #8953
@@ -268,7 +268,7 @@ title: ChangeLog
   - Option **--no-turnarounds.geometry** now ignores pedestrian paths and bike paths that attach to the main road. Issue #9068
   - Fixed missing tlType in plain .nod.xml output. Issue #9281
   - Fixed invalid network when importing OSM with 'nan' values for maxspeed. Issue #9302
-  - Fixed crash when loading joined traffic lights togher with option **--tls.join**. Issue #9299
+  - Fixed crash when loading joined traffic lights together with option **--tls.join**. Issue #9299
   - Fixed errors and invalid shape when converting short roads with arc-geometry from OpenDRIVE. Issue #9332
   - Option **--flatten** now works for OpenDRIVE input. Issue #9447
   - Option **--geometry.min-dist** no longer changes OpenDRIVE topology. Issue #9448
@@ -323,8 +323,8 @@ title: ChangeLog
   - Fixed warning "splitting vector close to end" when using subscription filter. Issue #9404
   - Fixed invalid expected vehicle number after failed vehicle.add. Issue #9456
   - Fixed crash when using libtraci repeatedly. Issue #9478
-  - 'traci.vehicle.getLaneChangeState' no longer inclues 'TraCI' in the 'state-without-traci' component. Issue #9492
-  - Fixeds bug where command 'traci.vehicle.changeLane' was ignored in sublane simulation. Issue #9147, #9493
+  - 'traci.vehicle.getLaneChangeState' no longer includes 'TraCI' in the 'state-without-traci' component. Issue #9492
+  - Fixed bug where command 'traci.vehicle.changeLane' was ignored in sublane simulation. Issue #9147, #9493
   - Function 'traci.vehicle.replaceStop' no longer fails while on junction. Issue #9467
   - Fixed invalid stop duration reported after updating duration with setStop. Issue #9522
   - Added missing convenience functions in traci.vehicle (i.e. 'isAtBusstop' to libsumo and libtraci python bindings. Issue #9591
@@ -479,7 +479,7 @@ title: ChangeLog
   - [generateParkingAreaRerouters.py](Tools/Misc.md#generateparkingarearerouterspy)
     - added option **--opposite-visible** to ensure that parking areas on the opposite direction road are visible. Issue #9372   
     - now runs much faster. Issue #9379    
-  - routeSampler.py: added option **--min-count** to set mininum number of counting locations for each used route. Issue #9415
+  - routeSampler.py: added option **--min-count** to set minimum number of counting locations for each used route. Issue #9415
   - Added tool [scheduleStats.py](Tools/Railways.md#schedulestatspy) to analyze deviations between loaded public transport schedules and simulation timing. Issue #8420
   - Added tool [plotXMLAttributes.py](Tools/Visualization.md#plotxmlattributespy) to generated 2D-plots from arbitrary attribute of XML files. Issue #9403
   - osmTaxiStop.py: added option **--fleet-size** to generated a taxi fleet along with the stops. Issue #9116
@@ -532,7 +532,7 @@ title: ChangeLog
   - Fixed briefly invisible vehicle while passing short internal edge. Issue #8749 (regression in 1.9.0)
   - Drawing parkingAreas with large roadsideCapacity no longer causes the gui to slow down. Issue #8400
   - Fixed invalid window size after using "restore" button. Issue #8826
-  - Fixed flickering whiile vehicles drive on the opposite side. Issue #8887
+  - Fixed flickering while vehicles drive on the opposite side. Issue #8887
   - Invisible vehicles (alpha=0) no longer register clicks. Issue #8913
   - Fixed invalid position of size-exaggerated persons at a size-exaggerated busStop. Issue #8883
   - Fixed hidden context menu near the screen border. Issue #8860
