@@ -445,7 +445,7 @@ void
 MSActuatedTrafficLightLogic::activateProgram() {
     MSTrafficLightLogic::activateProgram();
     for (InductLoopInfo& loopInfo : myInductLoops) {
-        loopInfo.loop->setVisible(true);
+        loopInfo.loop->setVisible(myShowDetectors);
     }
 }
 

@@ -119,6 +119,7 @@ GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdShowDete
             }
         }
     }
+    myParent->update();
     return 1;
 }
 
