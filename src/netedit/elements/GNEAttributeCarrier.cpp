@@ -3360,7 +3360,7 @@ GNEAttributeCarrier::fillVehicleElements() {
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::VEHICLE,
                                       0,
                                       GUIIcon::TRIP, currentTag);
-        myTagProperties[currentTag].setFieldString("trip");
+        myTagProperties[currentTag].setFieldString("trip (from-to edges)");
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -3387,6 +3387,46 @@ GNEAttributeCarrier::fillVehicleElements() {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_VIA,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::LIST,
                                               "List of intermediate edge ids which shall be part of the " + toString(currentTag));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        // add common attributes
+        fillCommonVehicleAttributes(currentTag);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_DEPART,
+                                              GNEAttributeProperties::COMPLEX | GNEAttributeProperties::DEFAULTVALUE,
+                                              "The departure time of the (first) " + toString(currentTag) + " which is generated using this " + toString(currentTag) + " definition",
+                                              "0.00");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    currentTag = GNE_TAG_TRIP_JUNCTIONS;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::VEHICLE,
+                                      0,
+                                      GUIIcon::TRIP_JUNCTIONS, currentTag);
+        myTagProperties[currentTag].setFieldString("trip (from-to junctions)");
+
+        // set values of attributes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
+                                              "The name of " + toString(currentTag) + "s that will be generated using this trip definition");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              "The id of the " + toString(currentTag) + " type to use for this " + toString(currentTag),
+                                              DEFAULT_VTYPE_ID);
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_FROMJUNCTION,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              "The name of the junction the " + toString(currentTag) + " starts at");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_TOJUNCTION,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              "The name of the junction the " + toString(currentTag) + " ends at");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         // add common attributes
@@ -3490,7 +3530,7 @@ GNEAttributeCarrier::fillVehicleElements() {
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::VEHICLE,
                                       0,
                                       GUIIcon::FLOW, currentTag);
-        myTagProperties[currentTag].setFieldString("flow (from-to)");
+        myTagProperties[currentTag].setFieldString("flow (from-to edges)");
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -3517,6 +3557,43 @@ GNEAttributeCarrier::fillVehicleElements() {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_VIA,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY | GNEAttributeProperties::LIST,
                                               "List of intermediate edge ids which shall be part of the " + toString(currentTag));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        // add common attributes
+        fillCommonVehicleAttributes(currentTag);
+
+        // add flow attributes
+        fillCommonFlowAttributes(currentTag, SUMO_ATTR_VEHSPERHOUR);
+    }
+    currentTag = GNE_TAG_FLOW_JUNCTIONS;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::VEHICLE,
+                                      0,
+                                      GUIIcon::FLOW_JUNCTIONS, currentTag);
+        myTagProperties[currentTag].setFieldString("flow (from-to junctions)");
+
+        // set values of attributes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
+                                              "The name of the " + toString(currentTag));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              "The id of the " + toString(currentTag) + " type to use for this " + toString(currentTag),
+                                              DEFAULT_VTYPE_ID);
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_FROMJUNCTION,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              "The name of the junction the " + toString(currentTag) + " starts at");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_TOJUNCTION,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              "The name of the junction the " + toString(currentTag) + " ends at");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         // add common attributes
@@ -4063,7 +4140,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::PERSONTRIP,
                                       GNETagProperties::CHILD,
-                                      GUIIcon::PERSONTRIP_BUSSTOP, SUMO_TAG_PERSONTRIP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
+                                      GUIIcon::PERSONTRIP_FROMTO, SUMO_TAG_PERSONTRIP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
         // from edge
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -4119,6 +4196,34 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                               "List of possible traffic modes. Walking is always possible regardless of this value");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
+    currentTag = GNE_TAG_PERSONTRIP_JUNCTIONS;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::PERSONTRIP,
+                                      GNETagProperties::CHILD,
+                                      GUIIcon::PERSONTRIP_JUNCTIONS, SUMO_TAG_PERSONTRIP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
+        // from edge
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_FROMJUNCTION,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              "The name of the junction the " + toString(currentTag) + " starts at");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+        // to edge
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_TOJUNCTION,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              "The name of the junction the " + toString(currentTag) + " ends at");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+        // vTypes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_VTYPES,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
+                                              "List of possible vehicle types to take");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+        // modes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_MODES,
+                                              GNEAttributeProperties::COMPLEX | GNEAttributeProperties::DEFAULTVALUE,
+                                              "List of possible traffic modes. Walking is always possible regardless of this value");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
 }
 
 
@@ -4133,7 +4238,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::WALK,
                                       GNETagProperties::CHILD,
-                                      GUIIcon::WALK_BUSSTOP, SUMO_TAG_WALK, { SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW });
+                                      GUIIcon::WALK_FROMTO, SUMO_TAG_WALK, { SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW });
         // from edge
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
@@ -4205,6 +4310,25 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
                                               "Arrival position on the destination edge",
                                               "-1");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    
+    currentTag = GNE_TAG_WALK_JUNCTIONS;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::WALK,
+                                      GNETagProperties::CHILD,
+                                      GUIIcon::WALK_JUNCTIONS, SUMO_TAG_WALK, { SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW });
+        // from edge
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_FROMJUNCTION,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              "The name of the junction the " + toString(currentTag) + " starts at");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+        // to edge
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_TOJUNCTION,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+                                              "The name of the junction the " + toString(currentTag) + " ends at");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
 }

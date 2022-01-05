@@ -447,7 +447,9 @@ GNEFrameModules::TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagPr
         case GNE_TAG_FLOW_ROUTE:
         case GNE_TAG_FLOW_WITHROUTE:
         case SUMO_TAG_TRIP:
+        case GNE_TAG_TRIP_JUNCTIONS:
         case SUMO_TAG_FLOW:
+        case GNE_TAG_FLOW_JUNCTIONS:
             myAC = new GNEVehicle(tagProperty.getTag(), net);
             break;
         case SUMO_TAG_STOP_LANE:
@@ -480,12 +482,14 @@ GNEFrameModules::TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagPr
             break;
         case GNE_TAG_PERSONTRIP_EDGE:
         case GNE_TAG_PERSONTRIP_BUSSTOP:
+        case GNE_TAG_PERSONTRIP_JUNCTIONS:
             myAC = new GNEPersonTrip(tagProperty.getTag(), net);
             break;
         case GNE_TAG_WALK_EDGE:
         case GNE_TAG_WALK_BUSSTOP:
         case GNE_TAG_WALK_EDGES:
         case GNE_TAG_WALK_ROUTE:
+        case GNE_TAG_WALK_JUNCTIONS:
             myAC = new GNEWalk(tagProperty.getTag(), net);
             break;
         case GNE_TAG_RIDE_EDGE:
