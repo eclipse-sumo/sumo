@@ -223,7 +223,7 @@ def compound_object(element_name, attrnames, warn=False):
 
 
 def parse(xmlfile, element_names, element_attrs={}, attr_conversions={},
-          heterogeneous=True, warn=False):
+          heterogeneous=True, warn=False, encoding="utf8"):
     """
     Parses the given element_names from xmlfile and yield compound objects for
     their xml subtrees (no extra objects are returned if element_names appear in
@@ -250,7 +250,7 @@ def parse(xmlfile, element_names, element_attrs={}, attr_conversions={},
     if isinstance(element_names, str):
         element_names = [element_names]
     elementTypes = {}
-    for _, parsenode in ET.iterparse(_open(xmlfile, None)):
+    for _, parsenode in ET.iterparse(_open(xmlfile, encoding)):
         if parsenode.tag in element_names:
             yield _get_compound_object(parsenode, elementTypes,
                                        parsenode.tag, element_attrs,
@@ -331,7 +331,10 @@ def _createRecordAndPattern(element_name, attrnames, warn, optional, extra=None)
 def _open(xmlfile, encoding="utf8"):
     if isinstance(xmlfile, str):
         if xmlfile.endswith(".gz"):
-            return gzip.open(xmlfile, "rt")
+            if sys.version_info.major == 3:
+                return gzip.open(xmlfile, "rt", encoding=encoding)
+            else:
+                return gzip.open(xmlfile, "rt")
         if encoding is not None:
             return io.open(xmlfile, encoding=encoding)
     return xmlfile
