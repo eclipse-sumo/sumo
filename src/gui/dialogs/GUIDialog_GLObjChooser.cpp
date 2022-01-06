@@ -34,8 +34,6 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
 #include <gui/GUISUMOViewParent.h>
-#include <netedit/GNEViewParent.h>
-
 #include "GUIDialog_GLObjChooser.h"
 
 

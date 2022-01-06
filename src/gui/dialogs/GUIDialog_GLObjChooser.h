@@ -22,14 +22,13 @@
 #pragma once
 #include <config.h>
 
-#include "GUIDialog_ChooserAbstract.h"
+#include <utils/gui/windows/GUIDialog_ChooserAbstract.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class GUISUMOViewParent;
-class GNEViewParent;
 class GUIGlChildWindow;
 class GUIGlObjectStorage;
 class GUIGlObject;

@@ -18,8 +18,6 @@ set(utils_gui_windows_STAT_SRCS
    GUISUMOAbstractView.h
    GUIDialog_ChooserAbstract.cpp
    GUIDialog_ChooserAbstract.h
-   GUIDialog_GLObjChooser.cpp
-   GUIDialog_GLObjChooser.h
 )
 
 add_library(utils_gui_windows STATIC ${utils_gui_windows_STAT_SRCS})
