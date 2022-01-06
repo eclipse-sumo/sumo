@@ -977,7 +977,12 @@ MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) {
             } else if (fun == "a") {
                 const MSInductLoop* det = dynamic_cast<const MSInductLoop*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).get(arg));
                 if (det == nullptr) {
-                    throw ProcessError("Unknown detector '" + arg + "' in expression '" + expr + "'");
+                    const MSE2Collector* det2 = dynamic_cast<const MSE2Collector*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_LANE_AREA_DETECTOR).get(arg));
+                    if (det2 == nullptr) {
+                        throw ProcessError("Unknown detector '" + arg + "' in expression '" + expr + "'");
+                    } else {
+                        return det2->getCurrentVehicleNumber() > 0;
+                    }
                 } else {
                     return det->getTimeSinceLastDetection() == 0;
                 }
