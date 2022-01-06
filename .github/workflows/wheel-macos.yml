@@ -19,9 +19,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-10.15, macos-11]
-        python_version: [3.6, 3.7, 3.8, 3.9]
-    runs-on: ${{ matrix.os }}
+#        os: [macos-10.15, macos-11]
+        python_version: [3.6, 3.7, 3.8, 3.9, '3.10']
+#    runs-on: ${{ matrix.os }}
+    runs-on: macos-10.15
 
     steps:
     - name: Cloning SUMO
@@ -49,15 +50,11 @@ jobs:
       run: |
         cd sumo
         python3 -m pip install scikit-build
+        python3 tools/build/setup-sumo.py -j 4 bdist_wheel
         python3 tools/build/setup-libsumo.py bdist_wheel
         python3 tools/build/setup-libtraci.py bdist_wheel
-
-    - name: Building SUMO wheels
-      if: matrix.python_version == '3.8'
-      run: |
-        cd sumo
-        python3 tools/build/setup-sumo.py -j 4 bdist_wheel
-        mv dist/eclipse_sumo-* `echo dist/eclipse_sumo-* | sed 's/cp38-cp38/py2.py3-none/'`
+        if [[ "${{ matrix.python_version }}" != "3.8" ]]; then rm dist/eclipse_sumo-*; fi
+        if [[ "${{ matrix.python_version }}" == "3.8" ]]; then mv dist/eclipse_sumo-* `echo dist/eclipse_sumo-* | sed 's/cp38-cp38/py2.py3-none/'`; fi
 
     - name: Uploading artifacts (Python wheels)
       uses: actions/upload-artifact@v1
