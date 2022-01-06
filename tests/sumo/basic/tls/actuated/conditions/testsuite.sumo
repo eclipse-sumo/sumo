@@ -9,3 +9,6 @@ custom_gapOut_condID
 
 # only switch to side direction on request
 request_or_skip
+
+# only switch to side direction on request but use an E2 detector for this.
+request_or_skip_E2
