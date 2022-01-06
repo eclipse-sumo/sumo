@@ -26,6 +26,7 @@ import glob
 import shutil
 
 import version
+import status
 
 SUMO_VERSION = version.get_pep440_version().replace("post", "")
 INPUT_DEFAULT = r"S:\daily\sumo-win64-git.zip"
@@ -38,12 +39,11 @@ SKIP_FILES = ["osmWebWizard.py", "sumo-gui.exe",
               "netedit.exe", "start-command-line.bat"]
 
 
-def buildFragment(wixBin, sourceDir, targetLabel, tmpDir, log=None):
+def buildFragment(wixBin, sourceDir, targetLabel, tmpDir):
     base = os.path.basename(sourceDir)
-    subprocess.call([os.path.join(wixBin, "heat.exe"), "dir", sourceDir,
-                     "-cg", base, "-gg", "-dr", targetLabel, "-sreg",
-                     "-out", os.path.join(tmpDir, base + "RawFragment.wxs")],
-                    stdout=log, stderr=log)
+    status.log_subprocess([os.path.join(wixBin, "heat.exe"), "dir", sourceDir,
+                           "-cg", base, "-gg", "-dr", targetLabel, "-sreg",
+                           "-out", os.path.join(tmpDir, base + "RawFragment.wxs")])
     fragIn = open(os.path.join(tmpDir, base + "RawFragment.wxs"))
     fragOut = open(os.path.join(tmpDir, base + "Fragment.wxs"), "w")
     skip = 0
@@ -62,7 +62,7 @@ def buildFragment(wixBin, sourceDir, targetLabel, tmpDir, log=None):
 
 def buildMSI(sourceZip=INPUT_DEFAULT, outFile=OUTPUT_DEFAULT,
              wixBin=WIX_DEFAULT, wxsPattern=WXS_DEFAULT,
-             license=LICENSE, log=None):
+             license=LICENSE):
     tmpDir = tempfile.mkdtemp()
     zipfile.ZipFile(sourceZip).extractall(tmpDir)
     sumoRoot = glob.glob(os.path.join(tmpDir, "sumo-*"))[0]

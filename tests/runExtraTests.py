@@ -19,10 +19,10 @@
 import optparse
 import os
 import subprocess
-import sys
+import logging
 
 
-def run(suffix, args, out=sys.stdout, guiTests=False, console=False, chrouter=True):
+def run(suffix, args, guiTests=False, chrouter=True):
     if type(args) is list:
         args = " ".join(args)
     if os.name != "posix":
@@ -50,8 +50,12 @@ def run(suffix, args, out=sys.stdout, guiTests=False, console=False, chrouter=Tr
         pass
     if guiTests:
         apps += ",sumo.meso.gui,sumo.gui.osg"
-    subprocess.call("%s %s -a %s" % ("texttest", args, apps), env=env,
-                    stdout=out, stderr=out, shell=True)
+    process = subprocess.Popen("%s %s -a %s" % ("texttest", args, apps), env=env, 
+                               stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
+    with process.stdout:
+        for line in process.stdout:
+            logging.info(line)
+    process.wait()
 
 
 if __name__ == "__main__":
@@ -60,8 +64,5 @@ if __name__ == "__main__":
                          help="suffix to the fileprefix")
     optParser.add_option("-g", "--gui", default=False,
                          action="store_true", help="run gui tests")
-    optParser.add_option("-c", "--console", default=False,
-                         action="store_true", help="run texttest console interface")
     (options, args) = optParser.parse_args()
-    run(options.suffix, ["-" + a for a in args],
-        guiTests=options.gui, console=options.console)
+    run(options.suffix, ["-" + a for a in args], options.gui)

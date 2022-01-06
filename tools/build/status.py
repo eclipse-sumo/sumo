@@ -27,6 +27,7 @@ import io
 from os.path import basename, commonprefix
 from datetime import datetime
 import logging
+import logging.handlers
 
 
 def killall(debugSuffix, binaries):
@@ -38,16 +39,28 @@ def killall(debugSuffix, binaries):
             bins.remove(task[0])
 
 
-def log_subprocess_output(process):
+def set_rotating_log(filename):
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    try:
+        handler = logging.handlers.TimedRotatingFileHandler(filename, when="midnight", backupCount=5)
+        logger.addHandler(handler)
+        return handler
+    except Exception as e:
+        logger.error(e)
+        return None
+
+
+def log_subprocess(call, env=None, cwd=None):
+    process = subprocess.Popen(call, env=env, cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
     with process.stdout:
         for line in process.stdout:
             logging.info(line)
-    process.wait()
+    return process.wait()
 
 
-def printLog(msg, log):
-    print(u"%s: %s" % (datetime.now(), msg), file=log)
-    log.flush()
+def printLog(msg):
+    logging.getLogger().info(u"%s: %s" % (datetime.datetime.now(), msg))
 
 
 def findErrors(line, warnings, errors, failed):
