@@ -10,7 +10,7 @@ title: ChangeLog
   - Fixed bug where persons could enter the wrong vehicle and thereby cause a taxis simulation to crash. Issue #9821, #9733 (regression in 1.11.0)
   - tripId is now updated again when passing waypoints. Issue #9751 (regression in 1.11.0)
   - calibrator speed -1 no longer triggers error. Issue #9767 (regression in 1.11.0)
-  - Fixed invalid error on taxi dispatch. Issue #9695
+  - Fixed invalid error on taxi dispatch. Issue #9695, #9867
   - Fix person model bug where person enters jammed state without good reason. Issue #9717
   - Fixed crash on opposite direction driving (at looped road). Issue #9718
   - Opposite direction overtaking now takes into account slopes. Issue #9719
@@ -24,6 +24,9 @@ title: ChangeLog
   - Fixed slow sublane simulation on large networks with only a few vehicles. Issue #9816
   - Fixed emergency braking of carFollowModel CACC at small step lengths. Issue #9831
   - Setting **--step-length** > 1 now raises a warning for default tau. Issue #1375
+  - Fixed superfluous route extension for taxi with idle-algorithm 'randomCircling'. Issue #9866
+  - Fixed collisions and emergency braking for Wiedemann carFollowModel. Issue #1351, #5715, #9832
+  - CarFollowModel EIDM now respects emergencyDecel. Issue #9618
   
 - netedit
   - Fixed bug preventing inspection of tazRelations. Issue #9728
@@ -35,6 +38,9 @@ title: ChangeLog
   - In create-edge mode: shift-click to split edge now takes into account active grid. Issue #9624
   - Fixed crash on undo after resetting connections. Issue #9673
   - Stop attribute "triggered" now supports symbolic string values. Issue #9563
+  - Fixed missing 'end' attribute when converting trip to flow. Issue #9834
+  - The name prefixes for all created additional elements can now be configured and their defaults have been shortened. Issue #9666
+  - Fixed invalid weights when loading source or sink weight for taz edge. Issue #9672
 
 - sumo-gui
   - Fixed crash when using guiShape "truck/trailer" or "truck/semitrailer" for short vehicles. #9682 (regression in 1.11.0)
@@ -42,6 +48,7 @@ title: ChangeLog
   - Fixed meso vehicle tracking focus. Issue #9711
   - Exaggerating stopping place size only increases symbol size. Issue #9370
   - Fixed invisible rerouter on short edge. Issue #9779
+  - Fixed invalid detector visibility when switching actuated traffic light program on. Issue #9877
 
 - netconvert
   - Fixed invalid LaneLink index in OpenDRIVE export. Issue #9637
@@ -49,14 +56,18 @@ title: ChangeLog
   - Fixed invalid internal junction location. Issue #9381
   - Fixed intersection rules that could cause emergency braking at pedestrian crossing. Issue #9671
   - Fixed invalid error when loading projections with '+geogrids' entry on windows. Issue #9766
+  - Fixed invalid handling of loaded roundabouts when the network is modified. Issue #9810
+  - Network building now aborts when a type file could not be loaded. Issue #9392
 
 - duarouter
   - Option **--write-costs** now also applies to walks/rides, Option **--route-length** now applies to normal vehicles. Issue #9698
   - Fixed invalid error on mismatch between ride destination stop and vehicle destination stop. Issue #9730
   - Fixed invalid route output when using option **--remove-loops** on routes with multiple loops. Issue #9837
+  - Fixed inconsistent vType defaults for speedFactor. Issue #9864
   
 - jtrrouter
   - Unsorted flows now trigger a warning. Issue #9327
+  - Fixed inconsistent vType defaults for speedFactor. Issue #9864  
 
 - traci
   - New programs created via 'trafficlight.setProgramLogic' now support GUI access. Issue #549
@@ -65,6 +76,7 @@ title: ChangeLog
   - Fixed invalid warnings when adding turn/lanes filter with context domain person. Issue #9760
   - TraCI server no longer hangs when trying to add a subscription filter without previous vehicle subscription. Issue #9770
   - Fixed memory leak in libsumo::TrafficLight::getCompleteRedYellowGreenDefinition. Issue #9818
+  - Fixed bug where calling changeSublane with high values 'latDist' value, causes exaggerated maneuverDistance. Issue #9863
 
 - tools
   - generateParkingAreaRerouters.py: fixed distance bias against long parkingAreas. Issue #9644
@@ -103,11 +115,14 @@ title: ChangeLog
   - Phase Tracker now shows phase index or phase name. Issue #9836
   - Added context menu entry to open map location in an online map. Issue #9787
   - Vehicle size can now be scaled by attribute. Issue #9567
+  - Added speedFactor to vehicle type parameter dialog. Issue #9865
 
 - netedit
   - Add images for the guiShapes in the vType attributes editor. Issue #9457
   - All output elements now write 'id' as their first attribute. Issue #9664
   - All elements of a side frame can now be collapsed/expanded. Issue #6034
+  - Trips with a single edge can now be created. Issue #9758
+  - Added lane context menu function "set custom shape". Issue #9741
 
 - netconvert
   - OSM: import of public transport now supports share_taxi (PUJ) and minibus. Issue #9708
@@ -142,6 +157,7 @@ title: ChangeLog
 
 ### Miscellaneous
 
+- Added [documentation on road capacity and headways](Simulation/RoadCapacity.md). Issue #9870
 - Traffic light type 'NEMA' now uses attribute 'offset' instead of param key="offset". Issue #9804
 - Speed up Visual Studio build with sccache (only works with Ninja not with Visual Studio projects). Issue #9290
 - The text "Loading configuration" is printed now only if **--verbose** is given. Issue #9743
