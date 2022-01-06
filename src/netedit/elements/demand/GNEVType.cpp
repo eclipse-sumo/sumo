@@ -22,7 +22,7 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/emissions/PollutantsInterface.h>
 
-#include "GNEType.h"
+#include "GNEVType.h"
 
 
 // ===========================================================================

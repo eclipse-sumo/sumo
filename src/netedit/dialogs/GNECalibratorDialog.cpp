@@ -29,7 +29,7 @@
 #include <netedit/elements/demand/GNERoute.h>
 #include <netedit/elements/additional/GNECalibrator.h>
 #include <netedit/elements/additional/GNECalibratorFlow.h>
-#include <netedit/elements/demand/GNEType.h>
+#include <netedit/elements/demand/GNEVType.h>
 
 #include "GNECalibratorDialog.h"
 #include "GNECalibratorFlowDialog.h"

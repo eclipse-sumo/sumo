@@ -63,7 +63,7 @@
 #include <netedit/elements/demand/GNETranship.h>
 #include <netedit/elements/demand/GNETransport.h>
 #include <netedit/elements/demand/GNEVehicle.h>
-#include <netedit/elements/demand/GNEType.h>
+#include <netedit/elements/demand/GNEVType.h>
 #include <netedit/elements/demand/GNEWalk.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>

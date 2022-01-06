@@ -5,8 +5,8 @@ set(netedit_elements_demand_SRCS
    GNEDemandElement.cpp
    GNERoute.h
    GNERoute.cpp
-   GNEType.h
-   GNEType.cpp
+   GNEVType.h
+   GNEVType.cpp
    GNEVehicle.h
    GNEVehicle.cpp
    GNEStop.h

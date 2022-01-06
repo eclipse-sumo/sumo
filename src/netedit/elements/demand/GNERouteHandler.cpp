@@ -35,7 +35,7 @@
 #include "GNETranship.h"
 #include "GNETransport.h"
 #include "GNEVehicle.h"
-#include "GNEType.h"
+#include "GNEVType.h"
 #include "GNEWalk.h"
 
 
