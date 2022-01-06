@@ -389,6 +389,7 @@ enum class GUIIcon {
     /// @{
     ROUTE,
     TYPE,
+    VTYPEDISTRIBUTION,
     VEHICLE,
     TRIP,
     TRIP_JUNCTIONS,
