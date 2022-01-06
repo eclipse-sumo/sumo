@@ -529,8 +529,12 @@ GNEVehicle::getColor() const {
 void
 GNEVehicle::updateGeometry() {
     if (getParentJunctions().size() > 0) {
+        // calculate rotation between both junctions
+        const Position posA = getParentJunctions().front()->getPositionInView();
+        const Position posB = getParentJunctions().back()->getPositionInView();
+        const double rot = ((double)atan2((posB.x() - posA.x()), (posA.y() - posB.y())) * (double) -180.0 / (double)M_PI);
         // update Geometry
-        myDemandElementGeometry.updateSinglePosGeometry(getParentJunctions().front()->getPositionInView(), -90);
+        myDemandElementGeometry.updateSinglePosGeometry(getParentJunctions().front()->getPositionInView(), rot);
     } else {
         // get first path lane
         const GNELane* firstPathLane = getFirstPathLane();
