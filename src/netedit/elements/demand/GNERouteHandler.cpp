@@ -58,7 +58,9 @@ GNERouteHandler::~GNERouteHandler() {
 
 
 void
-GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVTypeParameter& vTypeParameter) {
+GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVTypeParameter& vTypeParameter) {
+    // check vTypeDistribution
+    const bool vTypeDistribution = sumoBaseObject->getParentSumoBaseObject() && (sumoBaseObject->getParentSumoBaseObject()->getTag() == SUMO_TAG_VTYPE_DISTRIBUTION);
     // check if loaded type is a default type
     if (DEFAULT_VTYPES.count(vTypeParameter.id) > 0) {
         // overwrite default vehicle type
@@ -71,9 +73,16 @@ GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* /*sumoBase
         if (myUndoDemandElements) {
             myNet->getViewNet()->getUndoList()->begin(GUIIcon::TYPE, "add " + vType->getTagStr());
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vType, true), true);
+            // check if place this vType within a vTypeDistribution
+            if (vTypeDistribution) {
+                vType->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), myNet->getViewNet()->getUndoList());
+            }
             myNet->getViewNet()->getUndoList()->end();
         } else {
             myNet->getAttributeCarriers()->insertDemandElement(vType);
+            if (vTypeDistribution) {
+                vType->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID));
+            }
             vType->incRef("buildVType");
         }
     }

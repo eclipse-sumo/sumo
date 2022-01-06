@@ -145,7 +145,7 @@ RouteHandler::endParseAttributes() {
         case SUMO_TAG_ROUTE:
             // only parse non-embedded routes
             if (!obj->getStringAttribute(SUMO_ATTR_ID).empty()) {
-                // parse object and all their childrens
+                // parse route and all their childrens
                 parseSumoBaseObject(obj);
                 // delete object (and all of their childrens)
                 delete obj;
@@ -153,6 +153,14 @@ RouteHandler::endParseAttributes() {
             break;
         // demand elements
         case SUMO_TAG_VTYPE:
+            // only parse vTypes without distributions
+            if (obj->getParentSumoBaseObject() == nullptr) {
+                // parse vType and all their childrens
+                parseSumoBaseObject(obj);
+                // delete object (and all of their childrens)
+                delete obj;
+            }
+            break;
         case SUMO_TAG_VTYPE_DISTRIBUTION:
         case SUMO_TAG_TRIP:
         case SUMO_TAG_VEHICLE:

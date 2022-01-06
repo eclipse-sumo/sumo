@@ -522,6 +522,7 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
     }
     switch (key) {
         case SUMO_ATTR_ID:
+        case GNE_ATTR_VTYPE_DISTRIBUTION:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
         // CFM Attributes
@@ -622,7 +623,6 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case SUMO_ATTR_LOCOMOTIVE_LENGTH:
         case SUMO_ATTR_CARRIAGE_GAP:
         case GNE_ATTR_PARAMETERS:
-        case GNE_ATTR_VTYPE_DISTRIBUTION:
             // if we change the original value of a default vehicle Type, change also flag "myDefaultVehicleType"
             if (myDefaultVehicleType) {
                 vTypeChangeAttributeForced = new GNEChange_Attribute(this, GNE_ATTR_DEFAULT_VTYPE_MODIFIED, "true");
