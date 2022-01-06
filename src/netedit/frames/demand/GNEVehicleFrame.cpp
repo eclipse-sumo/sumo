@@ -305,20 +305,20 @@ void
 GNEVehicleFrame::demandElementSelected() {
     if (myTypeSelector->getCurrentDemandElement()) {
         // get tag
-        SumoXMLTag tag = myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
+        SumoXMLTag vehicleTag = myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
         // show vehicle attributes modul
         myVehicleAttributes->showAttributesCreatorModule(myVehicleTagSelector->getCurrentTemplateAC(), {});
         // clear colors
         myPathCreator->clearJunctionColors();
         myPathCreator->clearEdgeColors();
         // check if use junctions
-        if ((tag == GNE_TAG_TRIP_JUNCTIONS) || (tag == GNE_TAG_FLOW_JUNCTIONS)) {
+        if ((vehicleTag == GNE_TAG_TRIP_JUNCTIONS) || (vehicleTag == GNE_TAG_FLOW_JUNCTIONS)) {
             myPathCreator->updateJunctionColors();
         } else {
             // set current VTypeClass in TripCreator
             myPathCreator->setVClass(myTypeSelector->getCurrentDemandElement()->getVClass());
             // show path creator modul
-            if ((tag != SUMO_TAG_VEHICLE) && (tag != GNE_TAG_FLOW_ROUTE)) {
+            if ((vehicleTag != SUMO_TAG_VEHICLE) && (vehicleTag != GNE_TAG_FLOW_ROUTE)) {
                 myPathCreator->showPathCreatorModule(myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
             }
         }
