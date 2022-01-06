@@ -412,14 +412,17 @@ MSActuatedTrafficLightLogic::initSwitchingRules() {
     for (int i = 0; i < (int)myPhases.size(); i++) {
         SwitchingRules sr;
         MSPhaseDefinition* phase = myPhases[i];
-        if (phase->nextPhases.size() == 0) {
-            phase->nextPhases.push_back((i + 1) % (int)myPhases.size());
+        std::vector<int> nextPhases = phase->nextPhases;
+        if (nextPhases.size() == 0) {
+            nextPhases.push_back((i + 1) % (int)myPhases.size());
         }
-        for (int next : phase->nextPhases) {
+        for (int next : nextPhases) {
             if (next >= 0 && next < (int)myPhases.size()) {
                 const MSPhaseDefinition* nextPhase = myPhases[next];
                 if (nextPhase->earlyTarget != "" || nextPhase->finalTarget != "") {
                     sr.enabled = true;
+                    // simplifies later code
+                    phase->nextPhases = nextPhases;
                 }
             }
         }
