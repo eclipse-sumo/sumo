@@ -4998,8 +4998,11 @@ MSVehicle::leaveLane(const MSMoveReminder::Notification reason, const MSLane* ap
         myAmOnNet = false;
         myWaitingTime = 0;
     }
-    if (reason != MSMoveReminder::NOTIFICATION_PARKING && resumeFromStopping() && myPastStops.back().speed <= 0) {
-        WRITE_WARNING("Vehicle '" + getID() + "' aborts stop.");
+    if (reason != MSMoveReminder::NOTIFICATION_PARKING && resumeFromStopping()) {
+        myStopDist = std::numeric_limits<double>::max();
+        if (myPastStops.back().speed <= 0) {
+            WRITE_WARNING("Vehicle '" + getID() + "' aborts stop.");
+        }
     }
     if (reason != MSMoveReminder::NOTIFICATION_PARKING && reason != MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
         while (!myStops.empty() && myStops.front().edge == myCurrEdge && &myStops.front().lane->getEdge() == &myLane->getEdge()) {
