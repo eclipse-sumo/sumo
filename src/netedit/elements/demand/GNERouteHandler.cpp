@@ -36,6 +36,7 @@
 #include "GNETransport.h"
 #include "GNEVehicle.h"
 #include "GNEVType.h"
+#include "GNEVTypeDistribution.h"
 #include "GNEWalk.h"
 
 
@@ -80,10 +81,54 @@ GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* /*sumoBase
 
 
 void
-GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& /*id*/, 
-                                        const std::vector<std::string>& /*vTypes*/) {
-    // unsuported
-    WRITE_ERROR("NETEDIT doesn't support vType distributions");
+GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, 
+                                        const std::vector<std::string>& vTypes) {
+    // first check conditions
+    if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, id, false) != nullptr) {
+        WRITE_ERROR("There is another " + toString(SUMO_TAG_VTYPE) + " with the same ID='" + id + "'.");
+    } else if (vTypes.empty() && sumoBaseObject->getSumoBaseObjectChildren().empty()) {
+        WRITE_ERROR(toString(SUMO_TAG_VTYPE_DISTRIBUTION) + " need at least one " + toString(SUMO_TAG_VTYPE));
+    } else {
+        bool checkVTypesOK = true;
+        // check vTypes
+        for (const auto &vType : vTypes) {
+            if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vType, false) == nullptr) {
+                WRITE_ERROR(toString(SUMO_TAG_VTYPE) + " with id '" + vType + "' doesn't exist in " + toString(SUMO_TAG_VTYPE_DISTRIBUTION) + " '" + id + "'");
+                checkVTypesOK = false;
+            }
+        }
+        // now check childrens
+        for (const auto & child : sumoBaseObject->getSumoBaseObjectChildren()) {
+            if (child->hasStringAttribute(SUMO_ATTR_ID) == false) {
+                WRITE_ERROR("Invalid definition for " + toString(SUMO_TAG_VTYPE) + " in " + toString(SUMO_TAG_VTYPE_DISTRIBUTION) + " '" + id + "'");
+                checkVTypesOK = false;
+            } else if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, child->getStringAttribute(SUMO_ATTR_ID), false) != nullptr) {
+                WRITE_ERROR(toString(SUMO_TAG_VTYPE) + " with id '" + child->getStringAttribute(SUMO_ATTR_ID) + "' cannot be created in " + toString(SUMO_TAG_VTYPE_DISTRIBUTION) + " '" + id + "'");
+                checkVTypesOK = false;
+            }
+        }
+        // if all ok, then create vTypeDistribution
+        if (checkVTypesOK) {
+            GNEVTypeDistribution *vTypeDistribution = new GNEVTypeDistribution(myNet, id);
+            if (myUndoDemandElements) {
+                myNet->getViewNet()->getUndoList()->begin(GUIIcon::TYPE, "add " + vTypeDistribution->getTagStr());
+                myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vTypeDistribution, true), true);
+                // set this vTypeDistribution as parent of the other vTypes
+                for (const auto &vTypeID : vTypes) {
+                    auto vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vTypeID);
+                    vType->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION, id, myNet->getViewNet()->getUndoList());
+                }
+                myNet->getViewNet()->getUndoList()->end();
+            } else {
+                myNet->getAttributeCarriers()->insertDemandElement(vTypeDistribution);
+                vTypeDistribution->incRef("buildVType");
+                for (const auto &vTypeID : vTypes) {
+                    auto vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vTypeID);
+                    vType->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION, id);
+                }
+            }
+        }
+    }
 }
 
 
