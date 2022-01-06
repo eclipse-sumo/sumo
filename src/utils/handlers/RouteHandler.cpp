@@ -182,7 +182,8 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
             break;
         case SUMO_TAG_VTYPE_DISTRIBUTION:
             buildVTypeDistribution(obj,
-                                   obj->getStringAttribute(SUMO_ATTR_ID));
+                                   obj->getStringAttribute(SUMO_ATTR_ID),
+                                   obj->getStringListAttribute(SUMO_ATTR_VTYPES));
             break;
         // route
         case SUMO_TAG_ROUTE:
@@ -360,11 +361,14 @@ RouteHandler::parseVTypeDistribution(const SUMOSAXAttributes& attrs) {
     bool parsedOk = true;
     // needed attributes
     const std::string ID = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);
+    // optional attributes
+    const std::vector<std::string> vTypes = attrs.getOptStringVector(SUMO_ATTR_VTYPES, ID.c_str(), parsedOk);
     if (parsedOk) {
         // set tag
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_VTYPE_DISTRIBUTION);
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, ID);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_VTYPES, vTypes);
     }
 }
 

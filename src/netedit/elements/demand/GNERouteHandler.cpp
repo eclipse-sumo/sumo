@@ -80,7 +80,8 @@ GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* /*sumoBase
 
 
 void
-GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& /*id*/) {
+GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const std::string& /*id*/, 
+                                        const std::vector<std::string>& /*vTypes*/) {
     // unsuported
     WRITE_ERROR("NETEDIT doesn't support vType distributions");
 }
