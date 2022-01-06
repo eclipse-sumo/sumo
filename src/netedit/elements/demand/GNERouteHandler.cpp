@@ -71,7 +71,7 @@ GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseOb
         // create vType/pType using myCurrentVType
         GNEDemandElement* vType = new GNEVType(myNet, vTypeParameter);
         if (myUndoDemandElements) {
-            myNet->getViewNet()->getUndoList()->begin(GUIIcon::TYPE, "add " + vType->getTagStr());
+            myNet->getViewNet()->getUndoList()->begin(GUIIcon::VTYPE, "add " + vType->getTagStr());
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vType, true), true);
             // check if place this vType within a vTypeDistribution
             if (vTypeDistribution) {
@@ -120,7 +120,7 @@ GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject
         if (checkVTypesOK) {
             GNEVTypeDistribution *vTypeDistribution = new GNEVTypeDistribution(myNet, id);
             if (myUndoDemandElements) {
-                myNet->getViewNet()->getUndoList()->begin(GUIIcon::TYPE, "add " + vTypeDistribution->getTagStr());
+                myNet->getViewNet()->getUndoList()->begin(GUIIcon::VTYPEDISTRIBUTION, "add " + vTypeDistribution->getTagStr());
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vTypeDistribution, true), true);
                 // set this vTypeDistribution as parent of the other vTypes
                 for (const auto &vTypeID : vTypes) {
