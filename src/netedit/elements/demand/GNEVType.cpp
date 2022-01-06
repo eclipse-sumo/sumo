@@ -444,6 +444,13 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
             }
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
+        // other
+        case GNE_ATTR_VTYPE_DISTRIBUTION:
+            if (getParentDemandElements().empty()) {
+                return "";
+            } else {
+                return getParentDemandElements().front()->getID();
+            }
         case GNE_ATTR_DEFAULT_VTYPE:
             return toString((getID() == DEFAULT_VTYPE_ID) ||
                             (getID() == DEFAULT_PEDTYPE_ID) ||
@@ -615,6 +622,7 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case SUMO_ATTR_LOCOMOTIVE_LENGTH:
         case SUMO_ATTR_CARRIAGE_GAP:
         case GNE_ATTR_PARAMETERS:
+        case GNE_ATTR_VTYPE_DISTRIBUTION:
             // if we change the original value of a default vehicle Type, change also flag "myDefaultVehicleType"
             if (myDefaultVehicleType) {
                 vTypeChangeAttributeForced = new GNEChange_Attribute(this, GNE_ATTR_DEFAULT_VTYPE_MODIFIED, "true");
@@ -761,8 +769,8 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
             return canParseVehicleClasses(value);
         case SUMO_ATTR_EMISSIONCLASS:
             // check if given value correspond to a string of PollutantsInterface::getAllClassesStr()
-            for (const auto& i : PollutantsInterface::getAllClassesStr()) {
-                if (value == i) {
+            for (const auto& eClass : PollutantsInterface::getAllClassesStr()) {
+                if (value == eClass) {
                     return true;
                 }
             }
@@ -811,6 +819,12 @@ GNEVType::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
+        case GNE_ATTR_VTYPE_DISTRIBUTION:
+            if (value.empty()) {
+                return true;
+            } else {
+                return (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, value, false) == nullptr);
+            }
         case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
             if (myDefaultVehicleType) {
                 return canParse<bool>(value);
@@ -1188,6 +1202,9 @@ GNEVType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVT
     }
     if (parametersStr != vType->getAttribute(GNE_ATTR_PARAMETERS)) {
         vType->setAttribute(GNE_ATTR_PARAMETERS, parametersStr, undoList);
+    }
+    if (parametersStr != vType->getAttribute(GNE_ATTR_VTYPE_DISTRIBUTION)) {
+        vType->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION, parametersStr, undoList);
     }
     // close undo list
     undoList->end();
@@ -1657,6 +1674,9 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_PARAMETERS:
             setParametersStr(value);
+            break;
+        case GNE_ATTR_VTYPE_DISTRIBUTION:
+            setVTypeDistributionParent(value);
             break;
         case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
             myDefaultVehicleTypeModified = parse<bool>(value);
