@@ -153,6 +153,7 @@ RouteHandler::endParseAttributes() {
             break;
         // demand elements
         case SUMO_TAG_VTYPE:
+        case SUMO_TAG_VTYPE_DISTRIBUTION:
         case SUMO_TAG_TRIP:
         case SUMO_TAG_VEHICLE:
         case SUMO_TAG_FLOW:
