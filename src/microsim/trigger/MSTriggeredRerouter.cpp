@@ -1071,13 +1071,18 @@ MSTriggeredRerouter::addParkValues(SUMOVehicle& veh, double brakeGap, bool newDe
                 WRITE_WARNING("Invalid distance computation for vehicle '" + veh.getID() + "' to parkingArea '" + pa->getID() + "' at time " + time2string(SIMSTEP));
             }
 
-            //std::cout << SIMTIME << " veh=" << veh.getID() << " candidate=" << pa->getID()
-            //    << " distanceTo=" << parkValues["distanceto"]
-            //    << " brakeGap=" << brakeGap
-            //    << " routeToPark=" << toString(edgesToPark)
-            //    << " fromPos=" << veh.getPositionOnLane()
-            //    << " tPos=" << pa->getBeginLanePosition()
-            //    << "\n";
+#ifdef DEBUG_PARKING
+                if (DEBUGCOND && false) {
+                    std::cout "      " << veh.getID() << " candidate=" << pa->getID()
+                        << " distanceTo=" << parkValues["distanceto"]
+                        << " brakeGap=" << brakeGap
+                        << " routeToPark=" << toString(edgesToPark)
+                        << " fromPos=" << veh.getPositionOnLane()
+                        << " tPos=" << pa->getBeginLanePosition()
+                        << "\n";
+                }
+#endif
+
             const double distToEnd = parkValues["distanceto"] - toPos + pa->getEndLanePosition();
             if (distToEnd < brakeGap) {
                 veh.rememberParkingAreaScore(pa, "tooClose");
