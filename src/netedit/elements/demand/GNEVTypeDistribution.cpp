@@ -28,8 +28,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEVTypeDistribution::GNEVTypeDistribution(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_VTYPE, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+GNEVTypeDistribution::GNEVTypeDistribution(GNENet* net) :
+    GNEDemandElement("", net, GLO_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
         {}, {}, {}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
@@ -37,7 +37,7 @@ GNEVTypeDistribution::GNEVTypeDistribution(SumoXMLTag tag, GNENet* net) :
 
 
 GNEVTypeDistribution::GNEVTypeDistribution(GNENet* net, const std::string& vTypeID) :
-    GNEDemandElement(vTypeID, net, GLO_VTYPE, SUMO_TAG_VTYPE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+    GNEDemandElement(vTypeID, net, GLO_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
         {}, {}, {}, {}, {}, {}, {}, {}) {
 }
 

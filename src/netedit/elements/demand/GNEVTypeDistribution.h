@@ -31,7 +31,7 @@ class GNEVTypeDistribution : public GNEDemandElement {
 
 public:
     /// @brief default constructor
-    GNEVTypeDistribution(SumoXMLTag tag, GNENet* net);
+    GNEVTypeDistribution(GNENet* net);
 
     /// @brief parameter constructor
     GNEVTypeDistribution(GNENet* net, const std::string& vTypeID);
