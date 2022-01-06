@@ -1404,11 +1404,8 @@ std::string
 GNENetHelper::AttributeCarriers::generateDemandElementID(SumoXMLTag tag) const {
     // obtain option container
     OptionsCont& oc = OptionsCont::getOptions();
-    // declare flags
-    const bool isVehicle = ((tag == SUMO_TAG_VEHICLE) || (tag == SUMO_TAG_TRIP) || (tag == GNE_TAG_VEHICLE_WITHROUTE));
-    const bool isFlow = ((tag == GNE_TAG_FLOW_ROUTE) || (tag == SUMO_TAG_FLOW) || (tag == GNE_TAG_FLOW_WITHROUTE));
-    const bool isPerson = ((tag == SUMO_TAG_PERSON) || (tag == SUMO_TAG_PERSONFLOW));
-    const bool isContainer = ((tag == SUMO_TAG_PERSON) || (tag == SUMO_TAG_PERSONFLOW));
+    // get tag property
+    const auto tagProperty = GNEAttributeCarrier::getTagProperty(tag);
     // get prefix
     std::string prefix;
     if (tag == SUMO_TAG_ROUTE) {
@@ -1417,41 +1414,43 @@ GNENetHelper::AttributeCarriers::generateDemandElementID(SumoXMLTag tag) const {
         prefix = oc.getString("vType-prefix");
     } else if (tag == SUMO_TAG_TRIP) {
         prefix = oc.getString("trip-prefix");
-    } else if (isVehicle) {
+    } else if (tagProperty.isVehicle() && !tagProperty.isFlow()) {
         prefix = oc.getString("vehicle-prefix");
-    } else if (isFlow) {
+    } else if (tagProperty.isFlow()) {
         prefix = oc.getString("flow-prefix");
-    } else if (isPerson) {
+    } else if (tagProperty.isPerson()) {
         prefix = oc.getString("person-prefix");
-    } else if (isContainer) {
+    } else if (tagProperty.isContainer()) {
         prefix = oc.getString("container-prefix");
     }
     // declare counter
     int counter = 0;
-    if (isVehicle || isFlow) {
-        // special case for vehicles (Vehicles, Flows, Trips and routeFlows share nameSpaces)
+    if (tagProperty.isVehicle() || tagProperty.isFlow()) {
+        // check all vehicles, because share nameSpaces
         while ((retrieveDemandElement(SUMO_TAG_VEHICLE, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(SUMO_TAG_TRIP, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(GNE_TAG_VEHICLE_WITHROUTE, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(GNE_TAG_FLOW_ROUTE, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(SUMO_TAG_FLOW, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(GNE_TAG_FLOW_WITHROUTE, prefix + "_" + toString(counter), false) != nullptr)) {
+               (retrieveDemandElement(SUMO_TAG_TRIP, prefix + "_" + toString(counter), false) != nullptr) ||
+               (retrieveDemandElement(GNE_TAG_VEHICLE_WITHROUTE, prefix + "_" + toString(counter), false) != nullptr) ||
+               (retrieveDemandElement(GNE_TAG_TRIP_JUNCTIONS, prefix + "_" + toString(counter), false) != nullptr) ||
+               (retrieveDemandElement(GNE_TAG_FLOW_ROUTE, prefix + "_" + toString(counter), false) != nullptr) ||
+               (retrieveDemandElement(SUMO_TAG_FLOW, prefix + "_" + toString(counter), false) != nullptr) ||
+               (retrieveDemandElement(GNE_TAG_FLOW_WITHROUTE, prefix + "_" + toString(counter), false) != nullptr) ||
+               (retrieveDemandElement(GNE_TAG_FLOW_JUNCTIONS, prefix + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
         // return new vehicle ID
         return (prefix + "_" + toString(counter));
-    } else if (isPerson) {
+    } else if (tagProperty.isPerson()) {
         // special case for persons (person and personFlows share nameSpaces)
         while ((retrieveDemandElement(SUMO_TAG_PERSON, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(SUMO_TAG_PERSONFLOW, prefix + "_" + toString(counter), false) != nullptr)) {
+               (retrieveDemandElement(SUMO_TAG_PERSONFLOW, prefix + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
         // return new person ID
         return (prefix + "_" + toString(counter));
-    } else if (isContainer) {
+    } else if (tagProperty.isContainer()) {
         // special case for containers (container and containerFlows share nameSpaces)
         while ((retrieveDemandElement(SUMO_TAG_CONTAINER, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveDemandElement(SUMO_TAG_CONTAINERFLOW, prefix + "_" + toString(counter), false) != nullptr)) {
+               (retrieveDemandElement(SUMO_TAG_CONTAINERFLOW, prefix + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
         // return new container ID
