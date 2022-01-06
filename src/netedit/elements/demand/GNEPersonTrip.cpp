@@ -244,13 +244,24 @@ void
 GNEPersonTrip::drawGL(const GUIVisualizationSettings& s) const {
     // force draw path
     myNet->getPathManager()->forceDrawPath(s, this);
+    // special case for junction walks
+    if (getParentJunctions().size() > 0) {
+        // get person parent
+        const GNEDemandElement* personParent = getParentDemandElements().front();
+        if ((personParent->getChildDemandElements().size() > 0) && (personParent->getChildDemandElements().front() == this)) {
+            personParent->drawGL(s);
+        }
+    }
 }
 
 
 void
 GNEPersonTrip::computePathElement() {
-    // calculate path
-    myNet->getPathManager()->calculatePathLanes(this, SVC_PEDESTRIAN, {getFirstPathLane(), getLastPathLane()});
+    // avoid calculate for junctions
+    if (getParentJunctions().empty()) {
+        // calculate path
+        myNet->getPathManager()->calculatePathLanes(this, SVC_PEDESTRIAN, {getFirstPathLane(), getLastPathLane()});
+    }
     // update geometry
     updateGeometry();
 }

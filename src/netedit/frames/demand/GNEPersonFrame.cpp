@@ -148,6 +148,8 @@ GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnd
             myPathCreator->removeRoute();
         }
         return result;
+    } else if (clickedACTag == SUMO_TAG_JUNCTION) {
+        return myPathCreator->addJunction(objectsUnderCursor.getJunctionFront(), mouseButtonKeyPressed.shiftKeyPressed(), mouseButtonKeyPressed.controlKeyPressed());
     } else {
         return false;
     }

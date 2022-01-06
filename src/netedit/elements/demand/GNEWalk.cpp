@@ -264,25 +264,36 @@ void
 GNEWalk::drawGL(const GUIVisualizationSettings& s) const {
     // force draw path
     myNet->getPathManager()->forceDrawPath(s, this);
+    // special case for junction walks
+    if (getParentJunctions().size() > 0) {
+        // get person parent
+        const GNEDemandElement* personParent = getParentDemandElements().front();
+        if ((personParent->getChildDemandElements().size() > 0) && (personParent->getChildDemandElements().front() == this)) {
+            personParent->drawGL(s);
+        }
+    }
 }
 
 
 void
 GNEWalk::computePathElement() {
-    // declare lane vector
-    std::vector<GNELane*> lanes;
-    // update lanes depending of walk tag
-    if (myTagProperty.getTag() == GNE_TAG_WALK_EDGES) {
-        // calculate consecutive path using parent edges
-        myNet->getPathManager()->calculateConsecutivePathEdges(this, getVClass(), getParentEdges());
-    } else if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
-        // calculate consecutive path using route edges
-        myNet->getPathManager()->calculateConsecutivePathEdges(this, getVClass(), getParentDemandElements().back()->getParentEdges());
-    } else if (getParentEdges().size() > 0) {
-        // get first and last person plane
-        lanes = {getFirstPathLane(), getLastPathLane()};
-        // calculate path
-        myNet->getPathManager()->calculatePathLanes(this, getVClass(), lanes);
+    // avoid calculate for junctions
+    if (getParentJunctions().empty()) {
+        // declare lane vector
+        std::vector<GNELane*> lanes;
+        // update lanes depending of walk tag
+        if (myTagProperty.getTag() == GNE_TAG_WALK_EDGES) {
+            // calculate consecutive path using parent edges
+            myNet->getPathManager()->calculateConsecutivePathEdges(this, getVClass(), getParentEdges());
+        } else if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
+            // calculate consecutive path using route edges
+            myNet->getPathManager()->calculateConsecutivePathEdges(this, getVClass(), getParentDemandElements().back()->getParentEdges());
+        } else if (getParentEdges().size() > 0) {
+            // get first and last person plane
+            lanes = {getFirstPathLane(), getLastPathLane()};
+            // calculate path
+            myNet->getPathManager()->calculatePathLanes(this, getVClass(), lanes);
+        }
     }
     // update geometry
     updateGeometry();

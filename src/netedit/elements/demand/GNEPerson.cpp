@@ -535,6 +535,8 @@ GNEPerson::getAttributePosition(SumoXMLAttr key) const {
             // first check if first person plan is a stop
             if (personPlan->getTagProperty().isStopPerson()) {
                 return personPlan->getPositionInView();
+            } else if (personPlan->getParentJunctions().size() > 0) {
+                return personPlan->getParentJunctions().front()->getPositionInView();
             } else {
                 // declare lane lane
                 GNELane* lane = nullptr;
