@@ -7,6 +7,9 @@ custom_gapOut
 # change time gap condition for one phase (functionality as above but with a condition element)
 custom_gapOut_condID
 
+# same as above but with parentheses
+parentheses
+
 # only switch to side direction on request
 request_or_skip
 
