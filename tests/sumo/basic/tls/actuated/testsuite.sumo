@@ -1,3 +1,6 @@
+# test custom switching conditions
+conditions
+
 # test actuated coordination
 coordination
 basic

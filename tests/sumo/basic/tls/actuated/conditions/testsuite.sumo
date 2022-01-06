@@ -1,0 +1,5 @@
+# default switching rules using custom detectors
+default
+
+# change time gap condition for one phase
+custom_gapOut
