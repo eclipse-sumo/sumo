@@ -671,7 +671,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
 
     } else {
         double bestDist = std::numeric_limits<double>::max();
-        const double brakeGap = veh.getBrakeGap();
+        const double brakeGap = veh.getBrakeGap(true);
         for (ParkingAreaVisible& item : parks) {
             if (item.second) {
                 MSParkingArea* pa = item.first;
@@ -767,7 +767,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
 
         const std::vector<double>& probs = rerouteDef->parkProbs.getProbs();
 
-        const double brakeGap = veh.getBrakeGap();
+        const double brakeGap = veh.getBrakeGap(true);
 
         if (onTheWay != nullptr) {
             // compute new route

@@ -1895,8 +1895,8 @@ MSVehicle::stopsAtEdge(const MSEdge* edge) const {
 }
 
 double
-MSVehicle::getBrakeGap() const {
-    return getCarFollowModel().brakeGap(getSpeed(), getCarFollowModel().getMaxDecel(), 0);
+MSVehicle::getBrakeGap(bool delayed) const {
+    return getCarFollowModel().brakeGap(getSpeed(), getCarFollowModel().getMaxDecel(), delayed ? getCarFollowModel().getHeadwayTime() : 0);
 }
 
 
