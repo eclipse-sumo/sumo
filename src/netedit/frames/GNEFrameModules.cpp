@@ -2462,8 +2462,13 @@ GNEFrameModules::PathCreator::showPathCreatorModule(SumoXMLTag element, const bo
     }
     // check if show path creator
     if (showPathCreator) {
-        // update edge colors
-        updateEdgeColors();
+        // update colors
+        if (myCreationMode & SHOW_CANDIDATE_EDGES) {
+            updateEdgeColors();
+        }
+        if (myCreationMode & START_JUNCTION) {
+            updateEdgeColors();
+        }
         // recalc before show (to avoid graphic problems)
         recalc();
         // show modul
@@ -2544,7 +2549,7 @@ GNEFrameModules::PathCreator::addJunction(GNEJunction *junction, const bool /* s
     // update info route label
     updateInfoRouteLabel();
     // update junction colors
-    // updateJunctionColors();
+    updateJunctionColors();
     return true;
 }
 
@@ -2736,11 +2741,32 @@ GNEFrameModules::PathCreator::drawCandidateEdgesWithSpecialColor() const {
 
 
 void
+GNEFrameModules::PathCreator::updateJunctionColors() {
+    // reset all flags
+    for (const auto& junction : myFrameParent->myViewNet->getNet()->getAttributeCarriers()->getJunctions()) {
+        junction.second->resetCandidateFlags();
+        junction.second->setPossibleCandidate(true);
+    }
+    // set selected junctions
+    if (mySelectedJunctions.size() > 0) {
+        // mark selected eges
+        for (const auto& junction : mySelectedJunctions) {
+            junction->resetCandidateFlags();
+            junction->setSourceCandidate(true);
+        }
+        // finally mark last selected element as target
+        mySelectedJunctions.back()->resetCandidateFlags();
+        mySelectedJunctions.back()->setTargetCandidate(true);
+    }
+    // update view net
+    myFrameParent->myViewNet->updateViewNet();
+}
+
+
+void
 GNEFrameModules::PathCreator::updateEdgeColors() {
     // reset all flags
-    for (const auto& edge : myFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
-        edge.second->resetCandidateFlags();
-    }
+    clearEdgeColors();
     // set reachability
     if (mySelectedEdges.size() > 0) {
         // only coloring edges if checkbox "show candidate edges" is enabled
@@ -2778,6 +2804,24 @@ GNEFrameModules::PathCreator::updateEdgeColors() {
     }
     // update view net
     myFrameParent->myViewNet->updateViewNet();
+}
+
+
+void
+GNEFrameModules::PathCreator::clearJunctionColors() {
+    // reset all junction flags
+    for (const auto& junction : myFrameParent->myViewNet->getNet()->getAttributeCarriers()->getJunctions()) {
+        junction.second->resetCandidateFlags();
+    }
+}
+
+
+void
+GNEFrameModules::PathCreator::clearEdgeColors() {
+    // reset all junction flags
+    for (const auto& edge : myFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
+        edge.second->resetCandidateFlags();
+    }
 }
 
 
@@ -2990,10 +3034,9 @@ GNEFrameModules::PathCreator::updateInfoRouteLabel() {
 
 void
 GNEFrameModules::PathCreator::clearPath() {
-    // reset all flags
-    for (const auto& edge : myFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
-        edge.second->resetCandidateFlags();
-    }
+    /// reset flags
+    clearJunctionColors();
+    clearEdgeColors();
     // clear junction, edges, additionals and route
     mySelectedJunctions.clear();
     mySelectedEdges.clear();

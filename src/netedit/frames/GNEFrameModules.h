@@ -653,8 +653,17 @@ public:
         /// @brief draw candidate edges with special color (Only for candidates, special and conflicted)
         bool drawCandidateEdgesWithSpecialColor() const;
 
+        /// @brief update junction colors
+        void updateJunctionColors();
+
         /// @brief update edge colors
         void updateEdgeColors();
+
+        /// @brief clear junction colors
+        void clearJunctionColors();
+
+        /// @brief clear edge colors
+        void clearEdgeColors();
 
         /// @brief draw temporal route
         void drawTemporalRoute(const GUIVisualizationSettings& s) const;
