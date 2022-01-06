@@ -221,6 +221,7 @@
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
             <xsd:element name="phase" type="phaseType"/>
             <xsd:element name="param" type="paramType"/>
+            <xsd:element name="condition" type="conditionType"/>
         </xsd:choice>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="type" type="tlTypeType" use="optional"/>
@@ -243,6 +244,8 @@
         <xsd:attribute name="maxDur" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="earliestEnd" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="latestEnd" type="nonNegativeFloatType" use="optional"/>
+        <xsd:attribute name="earlyTarget" type="xsd:string" use="optional"/>
+        <xsd:attribute name="finalTarget" type="xsd:string" use="optional"/>
         <xsd:attribute name="yellow" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="red" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="vehext" type="nonNegativeFloatType" use="optional"/>
@@ -262,6 +265,11 @@
             </xsd:simpleType>
         </xsd:attribute>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="conditionType">
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
     </xsd:complexType>
 
     <xsd:complexType name="paramType">
