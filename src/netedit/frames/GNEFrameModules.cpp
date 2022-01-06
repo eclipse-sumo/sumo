@@ -64,6 +64,7 @@
 #include <netedit/elements/demand/GNETransport.h>
 #include <netedit/elements/demand/GNEVehicle.h>
 #include <netedit/elements/demand/GNEVType.h>
+#include <netedit/elements/demand/GNEVTypeDistribution.h>
 #include <netedit/elements/demand/GNEWalk.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
@@ -440,7 +441,10 @@ GNEFrameModules::TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagPr
             myAC = new GNERoute(tagProperty.getTag(), net);
             break;
         case SUMO_TAG_VTYPE:
-            myAC = new GNEVType(tagProperty.getTag(), net);
+            myAC = new GNEVType(net);
+            break;
+        case SUMO_TAG_VTYPE_DISTRIBUTION:
+            myAC = new GNEVTypeDistribution(net);
             break;
         case SUMO_TAG_VEHICLE:
         case GNE_TAG_VEHICLE_WITHROUTE:
