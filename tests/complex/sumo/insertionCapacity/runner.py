@@ -24,22 +24,21 @@ import sys
 
 SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
 sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
-
-from sumolib.xml import parse
-
-sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(
-    os.path.dirname(sys.argv[0]), '..', '..', '..', '..', 'bin', 'sumo'))
+from sumolib import checkBinary  # noqa
+from sumolib.xml import parse  # noqa
 
 
-ROUTE_TEMPLATE = (
-"""
+sumoBinary = checkBinary('sumo')
+
+
+ROUTE_TEMPLATE = """
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="type1" sigma="%s" speedDev="%s"/>
     <flow id="flow_0" type="type1" begin="0.00" end="3600.00" number="3600" departSpeed="%s">
         <route edges="E0"/>
     </flow>
 </routes>
-""")
+"""  # noqa
 
 
 values = []
@@ -48,17 +47,17 @@ for stepLength in [1, 0.1]:
         for sigma, speedDev in [(0.5, 0.1), (0, 0)]:
             for departSpeed in ['0', 'max', 'desired', 'avg']:
                 routes = ROUTE_TEMPLATE % (sigma, speedDev, departSpeed)
-               
+
                 open('input_routes.rou.xml', 'w').write(routes)
                 subprocess.call([sumoBinary,
-                    '-n', 'input_net.net.xml',
-                    '-r', 'input_routes.rou.xml',
-                    '--no-step-log',
-                    '--statistic-output', 'statistic.xml',
-                    '--max-depart-delay', '5',
-                    '-e', '3600',
-                    '--step-length', str(stepLength),
-                    '--extrapolate-departpos', extrapolateDepartPos])
+                                 '-n', 'input_net.net.xml',
+                                 '-r', 'input_routes.rou.xml',
+                                 '--no-step-log',
+                                 '--statistic-output', 'statistic.xml',
+                                 '--max-depart-delay', '5',
+                                 '-e', '3600',
+                                 '--step-length', str(stepLength),
+                                 '--extrapolate-departpos', extrapolateDepartPos])
 
                 inserted = list(parse('statistic.xml', 'vehicles'))[0].inserted
                 values.append((inserted, stepLength, extrapolateDepartPos, sigma, speedDev, departSpeed))
@@ -75,5 +74,3 @@ with open('log2.txt', 'w') as outf:
     outf.write("stepLength exDP sigma speedDev departSpeed\n")
     for record in values:
         outf.write(" ".join(map(str, record[1:])) + "\n")
-
-
