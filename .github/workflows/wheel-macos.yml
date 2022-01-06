@@ -1,0 +1,53 @@
+name: macos
+
+on: 
+  push:            # run on push events
+    paths-ignore:  # but ignore everything in the docs subfolder 
+      - 'docs/**'
+    branches:
+      - '**'
+    tags:
+      - '*'
+  pull_request:    # run on pull requests
+    paths-ignore:  # but ignore everything in the docs subfolder 
+      - 'docs/**'
+  schedule:
+    - cron:  '25 2 * * *'
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-10.15, macos-11]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - name: Cloning SUMO
+      uses: actions/checkout@v2
+      with:
+        path: sumo
+        fetch-depth: 0
+
+    - name: Fetching SUMO tags
+      run: |
+        cd sumo
+        git fetch --tags --force
+
+    - name: Preparing Build System
+      run: |
+        brew install --cask xquartz
+        brew install xerces-c fox proj gdal gl2ps
+
+    - name: Building Python wheels
+      run: |
+        cd sumo
+        python3 -m pip install scikit-build
+        python3 tools/build/setup-sumo.py bdist_wheel
+        python3 tools/build/setup-libsumo.py bdist_wheel
+
+    - name: Uploading artifacts (Python wheels)
+      uses: actions/upload-artifact@v1
+      with:
+        name: python-wheels
+        path: sumo/dist
