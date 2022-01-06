@@ -11,6 +11,8 @@ three modes: (i) speed (or cruising) control, (ii) gap-closing control
 and (iii) gap control. A fourth mode (i.e. collision avoidance mode) has
 been introduced within the project [TransAID](https://www.transaid.eu).
 
+see also [CACC model](CACC.md).
+
 ## Speed control mode
 
 The speed control mode is designed to maintain the pre-defined by the
@@ -52,6 +54,9 @@ negative.
 - The model is primarily intended for use in specific traffic
   situations.
 - When there is no leader vehicle, the model uses the same speed as the Krauss model to approach junctions and speed limits
+
+!!! caution
+    The model is known to produce collisions at the default step-length of 1s. Better results can be achieved by setting a lower step length.
 
 ## References
 
