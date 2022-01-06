@@ -324,9 +324,9 @@ void
 GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters,
                            const std::string& fromEdgeID, const std::string& toEdgeID, const std::vector<std::string>& viaIDs) {
     // parse edges
-    const auto fromEdge = parseEdge(SUMO_TAG_TRIP, fromEdgeID);
-    const auto toEdge = parseEdge(SUMO_TAG_TRIP, toEdgeID);
-    const auto via = parseEdges(SUMO_TAG_TRIP, viaIDs);
+    const auto fromEdge = parseEdge(SUMO_TAG_FLOW, fromEdgeID);
+    const auto toEdge = parseEdge(SUMO_TAG_FLOW, toEdgeID);
+    const auto via = parseEdges(SUMO_TAG_FLOW, viaIDs);
     // check if exist another vehicle with the same ID (note: Vehicles, Flows and Trips share namespace)
     if (fromEdge && toEdge && !isVehicleIdDuplicated(myNet, vehicleParameters.id)) {
         // obtain  vtypes
