@@ -1494,27 +1494,27 @@ GNENetHelper::AttributeCarriers::clearDemandElements() {
 void
 GNENetHelper::AttributeCarriers::addDefaultVTypes() {
     // Create default vehicle Type (it has to be created here due myViewNet was previously nullptr)
-    GNEType* defaultVehicleType = new GNEType(myNet, DEFAULT_VTYPE_ID, SVC_PASSENGER);
+    GNEVType* defaultVehicleType = new GNEVType(myNet, DEFAULT_VTYPE_ID, SVC_PASSENGER);
     myDemandElements.at(defaultVehicleType->getTagProperty().getTag()).insert(defaultVehicleType);
     defaultVehicleType->incRef("GNENet::DEFAULT_VEHTYPE");
 
     // Create default Bike Type (it has to be created here due myViewNet was previously nullptr)
-    GNEType* defaultBikeType = new GNEType(myNet, DEFAULT_BIKETYPE_ID, SVC_BICYCLE);
+    GNEVType* defaultBikeType = new GNEVType(myNet, DEFAULT_BIKETYPE_ID, SVC_BICYCLE);
     myDemandElements.at(defaultBikeType->getTagProperty().getTag()).insert(defaultBikeType);
     defaultBikeType->incRef("GNENet::DEFAULT_BIKETYPE_ID");
 
     // Create default taxi Type (it has to be created here due myViewNet was previously nullptr)
-    GNEType* defaultTaxiType = new GNEType(myNet, DEFAULT_TAXITYPE_ID, SVC_TAXI);
+    GNEVType* defaultTaxiType = new GNEVType(myNet, DEFAULT_TAXITYPE_ID, SVC_TAXI);
     myDemandElements.at(defaultBikeType->getTagProperty().getTag()).insert(defaultTaxiType);
     defaultTaxiType->incRef("GNENet::DEFAULT_TAXITYPE_ID");
 
     // Create default person Type (it has to be created here due myViewNet was previously nullptr)
-    GNEType* defaultPersonType = new GNEType(myNet, DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN);
+    GNEVType* defaultPersonType = new GNEVType(myNet, DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN);
     myDemandElements.at(defaultPersonType->getTagProperty().getTag()).insert(defaultPersonType);
     defaultPersonType->incRef("GNENet::DEFAULT_PEDTYPE_ID");
 
     // Create default container Type (it has to be created here due myViewNet was previously nullptr)
-    GNEType* defaultContainerType = new GNEType(myNet, DEFAULT_CONTAINERTYPE_ID, SVC_IGNORING);
+    GNEVType* defaultContainerType = new GNEVType(myNet, DEFAULT_CONTAINERTYPE_ID, SVC_IGNORING);
     myDemandElements.at(defaultContainerType->getTagProperty().getTag()).insert(defaultContainerType);
     defaultContainerType->incRef("GNENet::DEFAULT_CONTAINERTYPE_ID");
 }

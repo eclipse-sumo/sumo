@@ -440,7 +440,7 @@ GNEFrameModules::TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagPr
             myAC = new GNERoute(tagProperty.getTag(), net);
             break;
         case SUMO_TAG_VTYPE:
-            myAC = new GNEType(tagProperty.getTag(), net);
+            myAC = new GNEVType(tagProperty.getTag(), net);
             break;
         case SUMO_TAG_VEHICLE:
         case GNE_TAG_VEHICLE_WITHROUTE:

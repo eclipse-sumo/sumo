@@ -261,7 +261,7 @@ GNETypeFrame::TypeEditor::onCmdCreateType(FXObject*, FXSelector, void*) {
     // obtain a new valid Type ID
     const std::string typeID = myTypeFrameParent->myViewNet->getNet()->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_VTYPE);
     // create new vehicle type
-    GNEDemandElement* type = new GNEType(myTypeFrameParent->myViewNet->getNet(), typeID);
+    GNEDemandElement* type = new GNEVType(myTypeFrameParent->myViewNet->getNet(), typeID);
     // add it using undoList (to allow undo-redo)
     myTypeFrameParent->myViewNet->getUndoList()->begin(GUIIcon::TYPE, "create vehicle type");
     myTypeFrameParent->myViewNet->getUndoList()->add(new GNEChange_DemandElement(type, true), true);
@@ -291,11 +291,11 @@ GNETypeFrame::TypeEditor::onCmdCopyType(FXObject*, FXSelector, void*) {
     // obtain a new valid Type ID
     const std::string typeID = myTypeFrameParent->myViewNet->getNet()->getAttributeCarriers()->generateDemandElementID(SUMO_TAG_VTYPE);
     // obtain vehicle type in which new Type will be based
-    GNEType* vType = dynamic_cast<GNEType*>(myTypeFrameParent->myTypeSelector->getCurrentType());
+    GNEVType* vType = dynamic_cast<GNEVType*>(myTypeFrameParent->myTypeSelector->getCurrentType());
     // check that vType exist
     if (vType) {
         // create a new Type based on the current selected vehicle type
-        GNEDemandElement* typeCopy = new GNEType(myTypeFrameParent->myViewNet->getNet(), typeID, vType);
+        GNEDemandElement* typeCopy = new GNEVType(myTypeFrameParent->myViewNet->getNet(), typeID, vType);
         // begin undo list operation
         myTypeFrameParent->myViewNet->getUndoList()->begin(GUIIcon::TYPE, "copy vehicle type");
         // add it using undoList (to allow undo-redo)

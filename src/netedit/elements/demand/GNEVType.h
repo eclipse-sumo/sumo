@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEType.h
+/// @file    GNEVType.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2018
 ///
@@ -28,23 +28,23 @@
 // class definitions
 // ===========================================================================
 
-class GNEType : public GNEDemandElement, public SUMOVTypeParameter {
+class GNEVType : public GNEDemandElement, public SUMOVTypeParameter {
 
 public:
     /// @brief default constructor
-    GNEType(SumoXMLTag tag, GNENet* net);
+    GNEVType(SumoXMLTag tag, GNENet* net);
 
     /// @brief constructor for default VTypes
-    GNEType(GNENet* net, const std::string& vTypeID, const SUMOVehicleClass& defaultVClass);
+    GNEVType(GNENet* net, const std::string& vTypeID, const SUMOVehicleClass& defaultVClass);
 
     /// @brief parameter constructor
-    GNEType(GNENet* net, const SUMOVTypeParameter& vTypeParameter);
+    GNEVType(GNENet* net, const SUMOVTypeParameter& vTypeParameter);
 
     /// @brief copy constructor
-    GNEType(GNENet* net, const std::string& vTypeID, GNEType* vTypeOriginal);
+    GNEVType(GNENet* net, const std::string& vTypeID, GNEVType* vTypeOriginal);
 
     /// @brief destructor
-    ~GNEType();
+    ~GNEVType();
 
     /**@brief get move operation
      * @note returned GNEMoveOperation can be nullptr
@@ -195,14 +195,14 @@ public:
     /// @brief get parameters map
     const std::map<std::string, std::string>& getACParametersMap() const;
 
-    /// @brief overwrite all values of GNEType with a SUMOVTypeParameter
+    /// @brief overwrite all values of GNEVType with a SUMOVTypeParameter
     static void overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVTypeParameter, GNEUndoList* undoList);
 
 protected:
-    /// @brief flag to check if this GNEType is a default vehicle Type (For Vehicles, Pedestrians...)
+    /// @brief flag to check if this GNEVType is a default vehicle Type (For Vehicles, Pedestrians...)
     bool myDefaultVehicleType;
 
-    /// @brief flag to check if this default GNEType was modified
+    /// @brief flag to check if this default GNEVType was modified
     bool myDefaultVehicleTypeModified;
 
 private:
@@ -222,8 +222,8 @@ private:
     void updateDefaultVClassAttributes(const VClassDefaultValues& defaultValues);
 
     /// @brief Invalidated copy constructor.
-    GNEType(GNEType*) = delete;
+    GNEVType(GNEVType*) = delete;
 
     /// @brief Invalidated assignment operator
-    GNEType* operator=(GNEType*) = delete;
+    GNEVType* operator=(GNEVType*) = delete;
 };
