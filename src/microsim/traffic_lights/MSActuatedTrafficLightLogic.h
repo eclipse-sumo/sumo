@@ -118,6 +118,9 @@ public:
     SUMOTime mapTimeInCycle(SUMOTime t) const;
 
 protected:
+    /// @brief initialize custom switching rules
+    void initSwitchingRules();
+
     struct InductLoopInfo {
         InductLoopInfo(MSInductLoop* _loop, int numPhases, double _maxGap):
             loop(_loop),
@@ -154,8 +157,17 @@ protected:
     bool hasMajor(const std::string& state, const LaneVector& lanes) const;
     /// @}
 
-    /// @brief select am candidate phases based on detector states
+    /// @brief select among candidate phases based on detector states
     int decideNextPhase();
+
+    /// @brief select among candidate phases based on detector states and custom switching rules
+    int decideNextPhaseCustom(bool mustSwitch);
+
+    /// @brief evaluate custom switching condition
+    double evalExpression(const std::string& condition);
+
+    /// @brief evaluate atomic expression
+    double evalAtomicExpression(const std::string& expr);
 
     int getDetectorPriority(const InductLoopInfo& loopInfo) const;
 
@@ -228,4 +240,10 @@ protected:
 
     /// @brief whether the next switch time was requested via TraCI
     bool myTraCISwitch;
+
+    struct SwitchingRules {
+        bool enabled = false;
+    };
+
+    std::vector<SwitchingRules> mySwitchingRules;
 };

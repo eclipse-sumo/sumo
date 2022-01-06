@@ -38,6 +38,7 @@
 #include <microsim/MSEdge.h>
 #include <netload/NLDetectorBuilder.h>
 #include <utils/common/StringUtils.h>
+#include <utils/common/StringTokenizer.h>
 
 //#define DEBUG_DETECTORS
 //#define DEBUG_PHASE_SELECTION
@@ -402,6 +403,28 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
         myLinkGreenTimes = std::vector<SUMOTime>(myNumLinks, 0);
     }
     //std::cout << SIMTIME << " linkMaxGreenTimes=" << toString(myLinkMaxGreenTimes) << "\n";
+    initSwitchingRules();
+}
+
+
+void
+MSActuatedTrafficLightLogic::initSwitchingRules() {
+    for (int i = 0; i < (int)myPhases.size(); i++) {
+        SwitchingRules sr;
+        MSPhaseDefinition* phase = myPhases[i];
+        if (phase->nextPhases.size() == 0) {
+            phase->nextPhases.push_back((i + 1) % (int)myPhases.size());
+        }
+        for (int next : phase->nextPhases) {
+            if (next >= 0 && next < (int)myPhases.size()) {
+                const MSPhaseDefinition* nextPhase = myPhases[next];
+                if (nextPhase->earlyTarget != "" || nextPhase->finalTarget != "") {
+                    sr.enabled = true;
+                }
+            }
+        }
+        mySwitchingRules.push_back(sr);
+    }
 }
 
 
@@ -499,33 +522,38 @@ MSActuatedTrafficLightLogic::trySwitch() {
         //std::cout << SIMTIME << " greenTimes=" << toString(myLinkGreenTimes) << "\n";
     }
     myLastTrySwitchTime = now;
-    const double detectionGap = gapControl();
-    const bool multiTarget = myPhases[myStep]->nextPhases.size() > 1 && myPhases[myStep]->nextPhases.front() >= 0;
-#ifdef DEBUG_PHASE_SELECTION
-    if (DEBUG_COND) {
-        std::cout << SIMTIME << " p=" << myStep << " trySwitch dGap=" << detectionGap << " multi=" << multiTarget << "\n";
-    }
-#endif
-    if (detectionGap < std::numeric_limits<double>::max() && !multiTarget && !myTraCISwitch) {
-        return duration(detectionGap);
-    }
-    myTraCISwitch = false;
     // decide the next phase
+    const bool multiTarget = myPhases[myStep]->nextPhases.size() > 1 && myPhases[myStep]->nextPhases.front() >= 0;
     const int origStep = myStep;
     int nextStep = myStep;
     SUMOTime actDuration = now - myPhases[myStep]->myLastSwitch;
-    if (multiTarget) {
-        nextStep = decideNextPhase();
+
+    if (mySwitchingRules[myStep].enabled) {
+        const bool mustSwitch = MIN2(getCurrentPhaseDef().maxDuration - actDuration, getLatest()) == 0;
+        nextStep = decideNextPhaseCustom(mustSwitch);
     } else {
-        if (myPhases[myStep]->nextPhases.size() == 1 && myPhases[myStep]->nextPhases.front() >= 0) {
-            nextStep = myPhases[myStep]->nextPhases.front();
+        // default algorithm
+        const double detectionGap = gapControl();
+#ifdef DEBUG_PHASE_SELECTION
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " p=" << myStep << " trySwitch dGap=" << detectionGap << " multi=" << multiTarget << "\n";
+        }
+#endif
+        if (detectionGap < std::numeric_limits<double>::max() && !multiTarget && !myTraCISwitch) {
+            return duration(detectionGap);
+        }
+        if (multiTarget) {
+            nextStep = decideNextPhase();
         } else {
-            nextStep++;
+            if (myPhases[myStep]->nextPhases.size() == 1 && myPhases[myStep]->nextPhases.front() >= 0) {
+                nextStep = myPhases[myStep]->nextPhases.front();
+            } else {
+                nextStep = (myStep + 1) % (int)myPhases.size();
+            }
         }
     }
-    if (nextStep == (int)myPhases.size()) {
-        nextStep = 0;
-    }
+
+    myTraCISwitch = false;
     SUMOTime linkMinDur = getLinkMinDuration(getTarget(nextStep));
     if (linkMinDur > 0) {
         // for multiTarget, the current phase must be extended but if another
@@ -692,7 +720,7 @@ MSActuatedTrafficLightLogic::getTarget(int step) {
             }
             step = myPhases[step]->nextPhases.front();
         } else {
-            step = (step + 1) % myPhases.size();
+            step = (step + 1) % (int)myPhases.size();
         }
         if (step == origStep) {
             WRITE_WARNING("At actuated tlLogic '" + getID() + "', infinite transition loop from phase " + toString(origStep));
@@ -855,6 +883,106 @@ MSActuatedTrafficLightLogic::getLatest() const {
             }
         }
         return MAX2(SUMOTime(0), latest - getTimeInCycle());
+    }
+}
+
+
+int
+MSActuatedTrafficLightLogic::decideNextPhaseCustom(bool mustSwitch) {
+    for (int next : getCurrentPhaseDef().nextPhases) {
+        const MSPhaseDefinition* phase = myPhases[next];
+        const std::string& condition = mustSwitch ? phase->finalTarget : phase->earlyTarget;
+        if (condition != "" && evalExpression(condition)) {
+            return next;
+        }
+    }
+    return mustSwitch ? getCurrentPhaseDef().nextPhases.back() : myStep;
+}
+
+
+double
+MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) {
+    std::vector<std::string> tokens = StringTokenizer(condition).getVector();
+    //std::cout << SIMTIME << " tokens(" << tokens.size() << ")=" << toString(tokens) << "\n";
+    if (tokens.size() == 3) {
+        // infix expression
+        const double a = evalAtomicExpression(tokens[0]);
+        const double b = evalAtomicExpression(tokens[2]);
+        const std::string& o = tokens[1];
+        if (o == "=" || o == "==") {
+            return (double)(a == b);
+        } else if (o == "<") {
+            return (double)(a < b);
+        } else if (o == ">") {
+            return (double)(a > b);
+        } else if (o == "<=") {
+            return (double)(a <= b);
+        } else if (o == ">=") {
+            return (double)(a >= b);
+        } else if (o == "!=") {
+            return (double)(a != b);
+        } else if (o == "or" || o == "oder" || o == "v") {
+            return (double)(a || b);
+        } else if (o == "and" || o == "und" || o == "^") {
+            return (double)(a && b);
+        } else if (o == "+") {
+            return (double)(a + b);
+        } else if (o == "-") {
+            return (double)(a + b);
+        } else if (o == "*") {
+            return (double)(a * b);
+        } else if (o == "/") {
+            return (double)(a / b);
+        } else if (o == "**") {
+            return (double)pow(a, b);
+        } else  {
+            throw ProcessError("Unsupported operator '" + o + "' in ' condition " + condition + "'");
+        }
+    } else if (tokens.size() == 1) {
+        return evalAtomicExpression(tokens[0]);
+    } else {
+        throw ProcessError("Parsing expressions with " + toString(tokens.size()) + " elements ('" + condition + "') is not supported");
+    }
+    return true;
+}
+
+double
+MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) {
+    if (expr.size() == 0) {
+        throw ProcessError("Invalid empty expression");
+    } else if (expr[0] == '!') {
+        return !(bool)evalAtomicExpression(expr.substr(1));
+    } else {
+        // check for 'operator:'
+        size_t pos = expr.find(':');
+        if (pos == std::string::npos) {
+            if (myConditions.count(expr) != 0) {
+                // symbol lookup
+                return evalExpression(myConditions[expr]);
+            } else {
+                return StringUtils::toDouble(expr);
+            }
+        } else {
+            const std::string fun = expr.substr(0, pos);
+            const std::string arg = expr.substr(pos + 1);
+            if (fun == "z") {
+                const MSInductLoop* det = dynamic_cast<const MSInductLoop*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).get(arg));
+                if (det == nullptr) {
+                    throw ProcessError("Unknown detector '" + arg + "' in expression '" + expr + "'");
+                } else {
+                    return det->getTimeSinceLastDetection();
+                }
+            } else if (fun == "a") {
+                const MSInductLoop* det = dynamic_cast<const MSInductLoop*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).get(arg));
+                if (det == nullptr) {
+                    throw ProcessError("Unknown detector '" + arg + "' in expression '" + expr + "'");
+                } else {
+                    return det->getTimeSinceLastDetection() == 0;
+                }
+            } else {
+                throw ProcessError("Unsupported function '" + fun + "' in expression '" + expr + "'");
+            }
+        }
     }
 }
 
