@@ -136,42 +136,28 @@ MSCFModel_Wiedemann::_v(const MSVehicle* veh, double predSpeed, double gap, doub
     const double dmax = MAX2(D_MAX, brakeGap(v, myDecel, 0));
     // select the regime, get new acceleration, compute new speed based
     double accel;
-#ifdef DEBUG_V
     int branch = 0;
-#endif
     if (dx <= abx) {
         accel = emergency(dv, dx, predAccel, v, gap, abx, bx);
-#ifdef DEBUG_V
         branch = 1;
-#endif
     } else if (dx < sdx) {
         if (dv > cldv) {
             accel = approaching(dv, dx, abx, predAccel);
-#ifdef DEBUG_V
             branch = 2;
-#endif
         } else if (dv > opdv) {
             accel = following(vars->accelSign);
-#ifdef DEBUG_V
             branch = 3;
-#endif
         } else {
             accel = fullspeed(v, vpref, dx, abx);
-#ifdef DEBUG_V
             branch = 4;
-#endif
         }
     } else {
         if (dv > sdv && dx < dmax) { //@note other versions have an disjunction instead of conjunction
             accel = approaching(dv, dx, abx, predAccel);
-#ifdef DEBUG_V
             branch = 5;
-#endif
         } else {
             accel = fullspeed(v, vpref, dx, abx);
-#ifdef DEBUG_V
             branch = 6;
-#endif
         }
     }
     // since we have hard constraints on accel we may as well use them here
@@ -189,6 +175,8 @@ MSCFModel_Wiedemann::_v(const MSVehicle* veh, double predSpeed, double gap, doub
                   << " branch=" << branch << " rawAccel=" << rawAccel
                   << " accel=" << accel << " vNew=" << vNew << "\n";
     }
+#else
+    UNUSED_PARAMETER(branch);
 #endif
     return vNew;
 }
