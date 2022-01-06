@@ -12,6 +12,8 @@ cruising) control, (ii) gap-closing control and (iii) gap control. A
 fourth mode (i.e. collision avoidance mode) has been introduced within
 the project [TransAID](https://www.transaid.eu).
 
+see also [ACC model](ACC.md).
+
 ## Speed control mode
 
 The speed control mode is designed to maintain the pre-defined by the
