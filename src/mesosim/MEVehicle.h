@@ -186,7 +186,8 @@ public:
     bool resumeFromStopping();
 
     /// @brief get distance for coming to a stop (used for rerouting checks)
-    double getBrakeGap() const {
+    double getBrakeGap(bool delayed = false) const {
+        UNUSED_PARAMETER(delayed);
         return 0;
     }
 

@@ -347,7 +347,7 @@ public:
     virtual SUMOTime getTimeLoss() const = 0;
 
     /// @brief get distance for coming to a stop (used for rerouting checks)
-    virtual double getBrakeGap() const = 0;
+    virtual double getBrakeGap(bool delayed = false) const = 0;
 
     /// @brief Returns this vehicles impatience
     virtual double getImpatience() const = 0;
