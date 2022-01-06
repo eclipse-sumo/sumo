@@ -2412,6 +2412,7 @@ GNEFrameModules::PathCreator::showPathCreatorModule(SumoXMLTag element, const bo
             myCreationMode |= END_JUNCTION;
             myCreationMode |= ONLY_FROMTO;
             break;
+        // walk edges
         case GNE_TAG_WALK_EDGES:
             myCreationMode |= SHOW_CANDIDATE_EDGES;
             myCreationMode |= START_EDGE;
@@ -2825,19 +2826,16 @@ GNEFrameModules::PathCreator::clearEdgeColors() {
 }
 
 
-#if defined(_MSC_VER) && _MSC_VER == 1800
-#pragma warning(push)
-#pragma warning(disable: 4100) // do not warn about "unused" parameters which get optimized away
-#endif
 void
 GNEFrameModules::PathCreator::drawTemporalRoute(const GUIVisualizationSettings& s) const {
+    const double lineWidth = 0.35;
+    const double lineWidthin = 0.25;
+    // Add a draw matrix
+    GLHelper::pushMatrix();
+    // Start with the drawing of the area traslating matrix to origin
+    glTranslated(0, 0, GLO_MAX - 0.1);
+    // check if draw bewteen junction or edges
     if (myPath.size() > 0) {
-        const double lineWidth = 0.35;
-        const double lineWidthin = 0.25;
-        // Add a draw matrix
-        GLHelper::pushMatrix();
-        // Start with the drawing of the area traslating matrix to origin
-        glTranslated(0, 0, GLO_MAX - 0.1);
         // set first color
         GLHelper::setColor(RGBColor::GREY);
         // iterate over path
@@ -2893,13 +2891,23 @@ GNEFrameModules::PathCreator::drawTemporalRoute(const GUIVisualizationSettings& 
                 }
             }
         }
-        // Pop last matrix
-        GLHelper::popMatrix();
+    } else if (mySelectedJunctions.size() > 0) {
+        // set color
+        GLHelper::setColor(RGBColor::ORANGE);
+        // draw line between junctions
+        for (int i = 0; i < (int)mySelectedJunctions.size() - 1; i++) {
+            // get two points
+            const Position posA = mySelectedJunctions.at(i)->getPositionInView();
+            const Position posB = mySelectedJunctions.at(i+1)->getPositionInView();
+            const double rot = ((double)atan2((posB.x() - posA.x()), (posA.y() - posB.y())) * (double) 180.0 / (double)M_PI);
+            const double len = posA.distanceTo2D(posB);
+            // draw line
+            GLHelper::drawBoxLine(posA, rot, len, 0.25);
+        }
     }
+    // Pop last matrix
+    GLHelper::popMatrix();
 }
-#if defined(_MSC_VER) && _MSC_VER == 1800
-#pragma warning(pop)
-#endif
 
 
 void
