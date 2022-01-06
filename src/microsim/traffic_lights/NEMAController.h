@@ -235,6 +235,10 @@ protected:
     std::vector<int> barrierPhaseIndecies;
     std::vector<int> coordinatePhaseIndecies;
 
+    bool minRecalls[8] {};
+    bool maxRecalls[8] {};
+    bool recall[8] {};
+
     // std::vector<std::vector<int>> barriers;
     //init 0 and then 1,2,3,0
     //redundant need to remove

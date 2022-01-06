@@ -71,6 +71,34 @@ NEMALogic::NEMALogic(MSTLLogicControl& tlcontrol,
     myVehicleTypes = getParameter("vTypes", "");
     ring1 = getParameter("ring1", "");
     ring2 = getParameter("ring2", "");
+
+    std::vector<int> VecMinRecall = readParaFromString(getParameter("minRecall",""));
+    for (int i = 0; i < (int)VecMinRecall.size(); i++){
+        minRecalls[VecMinRecall[i]-1]=true;
+        recall[VecMinRecall[i]-1]=true;
+    }
+    
+    std::vector<int> VecMaxRecall = readParaFromString(getParameter("maxRecall",""));
+    for (int i = 0; i < (int)VecMaxRecall.size(); i++){
+        maxRecalls[VecMaxRecall[i]-1]=true;
+        recall[VecMaxRecall[i]-1]=true;
+    }
+    
+#ifdef DEBUG_NEMA
+    std::cout<<"minRecall: ";
+    for (int i = 0; i<8;i++)
+    {
+        std::cout<<minRecalls[i]<<'\t';
+    }
+    std::cout<<std::endl;
+    
+    std::cout<<"maxRecall: ";
+    for (int i = 0; i<8;i++)
+    {
+        std::cout<<maxRecalls[i]<<'\t';
+    }
+    std::cout<<std::endl;
+#endif
     barriers = getParameter("barrierPhases", "");
     coordinates = getParameter("coordinatePhases", getParameter("barrier2Phases",""));
     fixForceOff = StringUtils::toBool(getParameter("fixForceOff", "false"));
@@ -708,7 +736,12 @@ NEMALogic::NEMA_control() {
     double durationR1 = currentTimeInSecond - phaseStartTime[R1Index];
     double phaseStartTimeInCycleR1 = ModeCycle(phaseStartTime[R1Index] - cycleRefPoint - offset, myCycleLength);
     //ensure minGreen for each phase
-    phaseExpectedDuration[R1Index] = MAX2(phaseExpectedDuration[R1Index], minGreen[R1Index]);
+    if (maxRecalls[R1Index]){
+        phaseExpectedDuration[R1Index]=maxGreen[R1Index];
+    }
+    else{
+        phaseExpectedDuration[R1Index] = MAX2(phaseExpectedDuration[R1Index], minGreen[R1Index]);
+    }
     if (R1Phase != r1coordinatePhase) {
         if (isDetectorActivated(R1Phase)) {
             phaseExpectedDuration[R1Index] = MAX2(phaseExpectedDuration[R1Index], durationR1 + vehExt[R1Index]);
@@ -728,7 +761,13 @@ NEMALogic::NEMA_control() {
     int R2Index = R2Phase - 1;
     double durationR2 = currentTimeInSecond - phaseStartTime[R2Index];
     double phaseStartTimeInCycleR2 = ModeCycle(phaseStartTime[R2Index] - cycleRefPoint - offset, myCycleLength);
-    phaseExpectedDuration[R2Index] = MAX2(phaseExpectedDuration[R2Index], minGreen[R2Index]);
+    
+    if (maxRecalls[R2Index]){
+        phaseExpectedDuration[R2Index]=maxGreen[R2Index];
+    }
+    else{
+        phaseExpectedDuration[R2Index] = MAX2(phaseExpectedDuration[R2Index], minGreen[R2Index]);
+    }
     if (R2Phase != r2coordinatePhase && R2Phase >= 5) {
         if (isDetectorActivated(R2Phase)) {
             phaseExpectedDuration[R2Index] = MAX2(phaseExpectedDuration[R2Index], durationR2 + vehExt[R2Index]);
@@ -879,8 +918,17 @@ int NEMALogic::nextPhase(std::vector<int> ring, int currentPhase) {
     for (int i = 0; i < length * 2; i++) {
         if (flag == 1) {
             if (ring[i % length] != 0) {
-                nphase = ring[i % length];
-                break;
+                int tempPhase = ring[i % length];
+                if (recall[tempPhase-1] or isDetectorActivated(tempPhase)){
+                    nphase=tempPhase;
+                    break;
+                }
+                
+#ifdef DEBUG_NEMA
+                else{
+                    std::cout<<"phase "<<tempPhase<<" was skipped"<<std::endl;
+                }
+#endif
             }
         }
         if (ring[i % length] == currentPhase) {
