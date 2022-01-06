@@ -187,12 +187,11 @@ public:
     /// @brief get FXIcon associated to this AC
     FXIcon* getIcon() const;
 
+    /// @brief check if this AC is template
+    bool isTemplate() const;
+
     /// @brief get tagProperty associated with this Attribute Carrier
     const GNETagProperties& getTagProperty() const;
-
-    bool isTemplate() const {
-        return myIsTemplate;
-    }
 
     /// @brief get tagProperty associated to the given tag
     static const GNETagProperties& getTagProperty(SumoXMLTag tag);

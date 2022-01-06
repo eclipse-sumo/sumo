@@ -1,3 +1,5 @@
+#include "GNEAttributeCarrier.h"
+#include "GNEAttributeCarrier.h"
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 // Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
@@ -581,6 +583,12 @@ GNEAttributeCarrier::getIcon() const {
         fillAttributeCarriers();
     }
     return GUIIconSubSys::getIcon(myTagProperty.getGUIIcon());
+}
+
+
+bool 
+GNEAttributeCarrier::isTemplate() const {
+    return myIsTemplate;
 }
 
 
@@ -3404,7 +3412,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::VEHICLE,
                                       0,
-                                      GUIIcon::TRIP_JUNCTIONS, currentTag);
+                                      GUIIcon::TRIP_JUNCTIONS, SUMO_TAG_TRIP);
         myTagProperties[currentTag].setFieldString("trip (from-to junctions)");
 
         // set values of attributes
@@ -3571,7 +3579,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::VEHICLE | GNETagProperties::FLOW,
                                       0,
-                                      GUIIcon::FLOW_JUNCTIONS, currentTag);
+                                      GUIIcon::FLOW_JUNCTIONS, SUMO_TAG_FLOW);
         myTagProperties[currentTag].setFieldString("flow (from-to junctions)");
 
         // set values of attributes
