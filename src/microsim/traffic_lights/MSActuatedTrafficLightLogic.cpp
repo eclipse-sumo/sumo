@@ -529,7 +529,7 @@ MSActuatedTrafficLightLogic::trySwitch() {
     SUMOTime actDuration = now - myPhases[myStep]->myLastSwitch;
 
     if (mySwitchingRules[myStep].enabled) {
-        const bool mustSwitch = MIN2(getCurrentPhaseDef().maxDuration - actDuration, getLatest()) == 0;
+        const bool mustSwitch = MIN2(getCurrentPhaseDef().maxDuration - actDuration, getLatest()) <= 0;
         nextStep = decideNextPhaseCustom(mustSwitch);
     } else {
         // default algorithm
@@ -892,6 +892,7 @@ MSActuatedTrafficLightLogic::decideNextPhaseCustom(bool mustSwitch) {
     for (int next : getCurrentPhaseDef().nextPhases) {
         const MSPhaseDefinition* phase = myPhases[next];
         const std::string& condition = mustSwitch ? phase->finalTarget : phase->earlyTarget;
+        //std::cout << SIMTIME << " mustSwitch=" << mustSwitch << " condition=" << condition << "\n";
         if (condition != "" && evalExpression(condition)) {
             return next;
         }
@@ -909,6 +910,7 @@ MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) {
         const double a = evalAtomicExpression(tokens[0]);
         const double b = evalAtomicExpression(tokens[2]);
         const std::string& o = tokens[1];
+        //std::cout << SIMTIME << " o=" << o << " a=" << a << " b=" << b << "\n";
         if (o == "=" || o == "==") {
             return (double)(a == b);
         } else if (o == "<") {
