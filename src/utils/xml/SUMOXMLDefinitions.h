@@ -171,6 +171,8 @@ enum SumoXMLTag {
     SUMO_TAG_TLLOGIC,
     /// @brief a single phase description
     SUMO_TAG_PHASE,
+    /// @brief a condition for phase switching
+    SUMO_TAG_CONDITION,
     /// @brief a single trip definition that uses TAZs (used in NETEDIT)
     SUMO_TAG_TRIP_TAZ,
     /// @brief a flow definitio nusing a from-to edges instead of a route (used by router)
@@ -989,6 +991,10 @@ enum SumoXMLAttr {
     SUMO_ATTR_EARLIEST_END,
     /// @brief The maximum time within the cycle for switching (for coordinated actuation)
     SUMO_ATTR_LATEST_END,
+    /// @brief The condition expression for an early switch into this phase
+    SUMO_ATTR_EARLY_TARGET,
+    /// @brief The condition expression for switching into this phase when the active phase must end
+    SUMO_ATTR_FINAL_TARGET,
     /// @brief vehicle extension time of a phase
     SUMO_ATTR_VEHICLEEXTENSION,
     /// @brief yellow duration of a phase
