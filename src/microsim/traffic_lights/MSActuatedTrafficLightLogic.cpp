@@ -903,6 +903,18 @@ MSActuatedTrafficLightLogic::decideNextPhaseCustom(bool mustSwitch) {
 
 double
 MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) {
+    const size_t bracketOpen = condition.find('(');
+    if (bracketOpen != std::string::npos) {
+        const size_t bracketClose = condition.rfind(')');
+        if (bracketOpen == std::string::npos || bracketClose < bracketOpen) {
+            throw ProcessError("Unmatched parentheses in condition " + condition + "'");
+        }
+        std::string cond2 = condition;
+        const std::string inBracket = condition.substr(bracketOpen + 1, bracketClose - bracketOpen - 1);
+        double bracketVal = evalExpression(inBracket);
+        cond2.replace(bracketOpen, bracketClose - bracketOpen + 1, toString(bracketVal));
+        return evalExpression(cond2);
+    }
     std::vector<std::string> tokens = StringTokenizer(condition).getVector();
     //std::cout << SIMTIME << " tokens(" << tokens.size() << ")=" << toString(tokens) << "\n";
     if (tokens.size() == 3) {
@@ -956,7 +968,7 @@ MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) {
         return !(bool)evalAtomicExpression(expr.substr(1));
     } else {
         // check for 'operator:'
-        size_t pos = expr.find(':');
+        const size_t pos = expr.find(':');
         if (pos == std::string::npos) {
             if (myConditions.count(expr) != 0) {
                 // symbol lookup
