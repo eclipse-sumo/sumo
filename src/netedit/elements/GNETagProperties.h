@@ -51,7 +51,7 @@ public:
         STOPPINGPLACE =     1 << 6,  // StoppingPlaces (BusStops, ChargingStations...)
         DETECTOR =          1 << 7,  // Detectors (E1, E2...)
         // sub demand elements
-        VTYPE =             1 << 8,  // Vehicle types (vType and pTye)
+        VTYPE =             1 << 8,  // Vehicle types (vType and vTypeDistribution)
         VEHICLE =           1 << 9,  // Vehicles (Vehicles, trips, flows...)
         ROUTE =             1 << 10, // Routes and embedded routes
         STOP =              1 << 11, // Stops
