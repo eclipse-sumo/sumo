@@ -194,7 +194,8 @@ for platform in ["x64"]:
                 for f in (glob.glob(os.path.join(SUMO_HOME, "*.md")) +
                           [os.path.join(SUMO_HOME, n) for n in ("AUTHORS", "ChangeLog", "LICENSE")]):
                     shutil.copy(f, installDir)
-                shutil.copytree(os.path.join(SUMO_HOME, "docs"), os.path.join(installDir, "docs"))
+                shutil.copytree(os.path.join(SUMO_HOME, "docs"), os.path.join(installDir, "docs"),
+                                ignore=shutil.ignore_patterns('web'))
                 shutil.copy(os.path.join(buildDir, "src", "version.h"), os.path.join(installDir, "include"))
                 status.printLog("Creating sumo.zip.", log)
                 shutil.make_archive(binaryZip, 'zip', buildDir, installBase)
