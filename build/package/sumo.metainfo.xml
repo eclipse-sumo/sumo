@@ -3,7 +3,7 @@
     <id>org.eclipse.SUMO</id>
     <launchable type="desktop-id">org.eclipse.SUMO.desktop</launchable>
     <name>SUMO</name>
-    <summary>clipse Simulation of Urban Mobility - A Microscopic Traffic Simulation</summary>
+    <summary>Eclipse Simulation of Urban Mobility - A Microscopic Traffic Simulation</summary>
     <metadata_license>CC0-1.0</metadata_license>
     <project_license>EPL-2.0</project_license>
     <description>
