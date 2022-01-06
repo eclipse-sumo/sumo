@@ -1,4 +1,4 @@
-name: macos
+name: macos-wheels
 
 on: 
   push:            # run on push events
@@ -20,6 +20,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-10.15, macos-11]
+        python_version: [3.6, 3.7, 3.8, 3.9]
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -34,17 +35,29 @@ jobs:
         cd sumo
         git fetch --tags --force
 
+    - name: Set up Python ${{ matrix.python_version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python_version }}
+
     - name: Preparing Build System
       run: |
         brew install --cask xquartz
         brew install xerces-c fox proj gdal gl2ps
 
-    - name: Building Python wheels
+    - name: Building Libsumo wheels
       run: |
         cd sumo
         python3 -m pip install scikit-build
-        python3 tools/build/setup-sumo.py bdist_wheel
         python3 tools/build/setup-libsumo.py bdist_wheel
+        python3 tools/build/setup-libtraci.py bdist_wheel
+
+    - name: Building SUMO wheels
+      if: matrix.python_version == '3.8'
+      run: |
+        cd sumo
+        python3 tools/build/setup-sumo.py -j 4 bdist_wheel
+        mv dist/eclipse_sumo-* `echo dist/eclipse_sumo-* | sed 's/cp38-cp38/py2.py3-none/'`
 
     - name: Uploading artifacts (Python wheels)
       uses: actions/upload-artifact@v1
