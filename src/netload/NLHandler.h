@@ -242,6 +242,8 @@ private:
     /// adds a phase to the traffic lights logic currently build
     void addPhase(const SUMOSAXAttributes& attrs);
 
+    /// adds a switching condition to the traffic lights logic currently build
+    void addCondition(const SUMOSAXAttributes& attrs);
 
     /// opens a junction for processing
     virtual void openJunction(const SUMOSAXAttributes& attrs);

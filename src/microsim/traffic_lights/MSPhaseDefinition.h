@@ -71,6 +71,12 @@ public:
     /// @brief The maximum time within the cycle for switching (for coordinated actuation)
     SUMOTime latestEnd;
 
+    /// @brief The condition expression for an early switch into this phase
+    std::string earlyTarget;
+
+    /// @brief The condition expression for switching into this phase when the active phase must end
+    std::string finalTarget;
+
     /// @brief Stores the timestep of the last on-switched of the phase
     SUMOTime myLastSwitch;
 

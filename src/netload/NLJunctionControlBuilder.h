@@ -168,6 +168,13 @@ public:
      */
     void addPhase(MSPhaseDefinition* phase);
 
+    /** @brief Adds a condition to the currently built traffic lights logic
+     *
+     * @param[in] id the condition id
+     * @param[in] value the condition expression
+     */
+    bool addCondition(const std::string& id, const std::string& value);
+
     /** @brief Returns a previously build tls logic
      *
      * @param[in] id The ID of the tls logic to return
@@ -328,6 +335,9 @@ protected:
 
     /// @brief The current phase definitions for a simple traffic light
     MSSimpleTrafficLightLogic::Phases myActivePhases;
+
+    /// @brief The current switching conditions for an actuated traffic light
+    std::map<std::string, std::string> myActiveConditions;
 
     /// @brief The size of the request
     int myRequestSize;

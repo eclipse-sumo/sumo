@@ -65,9 +65,11 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
         const Phases& phases,
         int step, SUMOTime delay,
         const std::map<std::string, std::string>& parameter,
-        const std::string& basePath) :
+        const std::string& basePath,
+        const std::map<std::string, std::string>& conditions) :
     MSSimpleTrafficLightLogic(tlcontrol, id, programID, offset, TrafficLightType::ACTUATED, phases, step, delay, parameter),
     myLastTrySwitchTime(0),
+    myConditions(conditions),
     myTraCISwitch(false)
 {
     myCoordinated = StringUtils::toBool(getParameter("coordinated", "false"));

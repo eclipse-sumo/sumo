@@ -114,6 +114,9 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_PHASE:
                 addPhase(attrs);
                 break;
+            case SUMO_TAG_CONDITION:
+                addCondition(attrs);
+                break;
             case SUMO_TAG_CONNECTION:
                 addConnection(attrs);
                 break;
@@ -790,6 +793,8 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
     phase->earliestEnd = attrs.getOptSUMOTimeReporting(SUMO_ATTR_EARLIEST_END, id.c_str(), ok, tDefault);
     phase->latestEnd = attrs.getOptSUMOTimeReporting(SUMO_ATTR_LATEST_END, id.c_str(), ok, tDefault);
     phase->nextPhases = attrs.getOptIntVector(SUMO_ATTR_NEXT, id.c_str(), ok);
+    phase->earlyTarget = attrs.getOpt<std::string>(SUMO_ATTR_EARLY_TARGET, id.c_str(), ok, "");
+    phase->finalTarget = attrs.getOpt<std::string>(SUMO_ATTR_FINAL_TARGET, id.c_str(), ok, "");
     phase->name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
 
     phase->vehext= attrs.getOptSUMOTimeReporting(SUMO_ATTR_VEHICLEEXTENSION, id.c_str(), ok, tDefault);
@@ -838,6 +843,17 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
 
     phase->myLastSwitch = string2time(OptionsCont::getOptions().getString("begin")) - 1; // SUMOTime-option
     myJunctionControlBuilder.addPhase(phase);
+}
+
+
+void
+NLHandler::addCondition(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
+    const std::string value = attrs.get<std::string>(SUMO_ATTR_VALUE, id.c_str(), ok);
+    if (!myJunctionControlBuilder.addCondition(id, value)) {
+        WRITE_ERROR("Duplicate condition '" + id + "' in tlLogic '" + myJunctionControlBuilder.getActiveKey() + "'");
+    };
 }
 
 

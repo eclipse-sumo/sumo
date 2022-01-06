@@ -296,7 +296,7 @@ NLJunctionControlBuilder::closeTrafficLightLogic(const std::string& basePath) {
             tlLogic = new MSActuatedTrafficLightLogic(getTLLogicControlToUse(),
                     myActiveKey, myActiveProgram, myOffset,
                     myActivePhases, step, (*i)->minDuration + myNet.getCurrentTimeStep(),
-                    myAdditionalParameter, basePath);
+                    myAdditionalParameter, basePath, myActiveConditions);
             break;
         case TrafficLightType::NEMA:
             tlLogic = new NEMALogic(getTLLogicControlToUse(),
@@ -410,6 +410,7 @@ NLJunctionControlBuilder::initTrafficLightLogic(const std::string& id, const std
     myActiveKey = id;
     myActiveProgram = programID;
     myActivePhases.clear();
+    myActiveConditions.clear();
     myAbsDuration = 0;
     myRequestSize = NO_REQUEST_SIZE;
     myLogicType = type;
@@ -426,6 +427,16 @@ NLJunctionControlBuilder::addPhase(MSPhaseDefinition* phase) {
     myAbsDuration += phase->duration;
 }
 
+
+bool
+NLJunctionControlBuilder::addCondition(const std::string& id, const std::string& value) {
+    if (myActiveConditions.count(id) == 0) {
+        myActiveConditions[id] = value;
+        return true;
+    } else {
+        return false;
+    }
+}
 
 void
 NLJunctionControlBuilder::closeJunctionLogic() {

@@ -62,7 +62,8 @@ public:
                                 const MSSimpleTrafficLightLogic::Phases& phases,
                                 int step, SUMOTime delay,
                                 const std::map<std::string, std::string>& parameter,
-                                const std::string& basePath);
+                                const std::string& basePath,
+                                const std::map<std::string, std::string>& conditions = std::map<std::string, std::string>());
 
 
     /** @brief Initialises the tls with information about incoming lanes
@@ -221,6 +222,9 @@ protected:
     std::vector<SUMOTime> myLinkMaxGreenTimes;
     /// @brief minimum consecutive time that the given link must remain green
     std::vector<SUMOTime> myLinkMinGreenTimes;
+
+    /// @brief The custom switching conditions
+    std::map<std::string, std::string> myConditions;
 
     /// @brief whether the next switch time was requested via TraCI
     bool myTraCISwitch;
