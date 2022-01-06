@@ -3207,6 +3207,11 @@ GNEAttributeCarrier::fillDemandElements() {
                                               "The id of VehicleType");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = GNEAttributeProperties(GNE_ATTR_VTYPE_DISTRIBUTION,
+                                              GNEAttributeProperties::STRING,
+                                              "Vehicle Type Distribution");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         attrProperty = GNEAttributeProperties(SUMO_ATTR_VCLASS,
                                               GNEAttributeProperties::VCLASS | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUE,
                                               "An abstract vehicle class",
