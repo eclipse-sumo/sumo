@@ -833,7 +833,7 @@ GUIBaseVehicle::getScaleValue(const GUIVisualizationSettings& s, int activeSchem
             return (microVeh != nullptr ? microVeh->getTimeGapOnLane() : 0);
         }
         case 10:
-            return myVehicle.getDepartDelay();
+            return STEPS2TIME(myVehicle.getDepartDelay());
         case 11:
             return myVehicle.getTimeLossSeconds();
         case 12:

@@ -221,8 +221,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
     // calculate force offs
     for (int ringNumber = 0; ringNumber<2;ringNumber++){
         int length = (int)rings[ringNumber].size();
-        int i = initialIndexRing[ringNumber];
-        int aPhaseNumber = rings[ringNumber][i];
+        int aPhaseNumber = rings[ringNumber][initialIndexRing[ringNumber]];
         int aPhaseIndex = aPhaseNumber -1;
         int nPhaseIndex = aPhaseIndex; //next phase
         int nPhaseNumber = aPhaseNumber;
@@ -269,7 +268,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
     // find the initial phases
     for (int ringNumber = 0; ringNumber<2;ringNumber++){
         int length = (int)rings[ringNumber].size();
-        int aPhaseIndex;
+        int aPhaseIndex = -1;
         bool found=false;
         for (int i = initialIndexRing[ringNumber]; i < length; i++) {
             aPhaseIndex = rings[ringNumber][i]-1;

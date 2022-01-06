@@ -2411,7 +2411,7 @@ GNEFrameModules::PathCreator::showPathCreatorModule(SumoXMLTag element, const bo
             myCreationMode |= START_JUNCTION;
             myCreationMode |= END_JUNCTION;
             myCreationMode |= ONLY_FROMTO;
-        // walk edges
+            break;
         case GNE_TAG_WALK_EDGES:
             myCreationMode |= SHOW_CANDIDATE_EDGES;
             myCreationMode |= START_EDGE;
@@ -2440,6 +2440,7 @@ GNEFrameModules::PathCreator::showPathCreatorModule(SumoXMLTag element, const bo
             myCreationMode |= START_JUNCTION;
             myCreationMode |= END_JUNCTION;
             myCreationMode |= ONLY_FROMTO;
+            break;
         // stops
         case GNE_TAG_STOPPERSON_BUSSTOP:
             myCreationMode |= SINGLE_ELEMENT;
@@ -2498,7 +2499,7 @@ GNEFrameModules::PathCreator::setVClass(SUMOVehicleClass vClass) {
 
 
 bool 
-GNEFrameModules::PathCreator::addJunction(GNEJunction *junction, const bool shiftKeyPressed, const bool controlKeyPressed) {
+GNEFrameModules::PathCreator::addJunction(GNEJunction *junction, const bool /* shiftKeyPressed */, const bool /* controlKeyPressed */) {
     // check if junctions are allowed
     if (((myCreationMode & START_JUNCTION) + (myCreationMode & END_JUNCTION)) == 0) {
         return false;

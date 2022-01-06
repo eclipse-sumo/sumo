@@ -456,7 +456,7 @@ GNERouteHandler::buildPersonFlow(const CommonXMLStructure::SumoBaseObject* /*sum
 
 void
 GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& toEdgeID,
-                                 const std::string& fromJunctionID, const std::string& toJunctionID, const std::string& toBusStopID, double arrivalPos, 
+                                 const std::string& /* fromJunctionID */, const std::string& /* toJunctionID */, const std::string& toBusStopID, double arrivalPos,
                                  const std::vector<std::string>& types, const std::vector<std::string>& modes) {
     // first parse parents
     GNEDemandElement* personParent = getPersonParent(sumoBaseObject);
@@ -502,7 +502,7 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
 
 void
 GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& toEdgeID,
-                           const std::string& fromJunctionID, const std::string& toJunctionID, const std::string& toBusStopID, 
+                           const std::string& /* fromJunctionID */, const std::string& /* toJunctionID */, const std::string& toBusStopID,
                            const std::vector<std::string>& edgeIDs, const std::string& routeID, double arrivalPos) {
     // first parse parents
     GNEDemandElement* personParent = getPersonParent(sumoBaseObject);
