@@ -29,8 +29,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEVType::GNEVType(SumoXMLTag tag, GNENet* net) :
-    GNEDemandElement("", net, GLO_VTYPE, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+GNEVType::GNEVType(GNENet* net) :
+    GNEDemandElement("", net, GLO_VTYPE, SUMO_TAG_VTYPE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
         {}, {}, {}, {}, {}, {}, {}, {}),
     SUMOVTypeParameter(""),
     myDefaultVehicleType(true),
