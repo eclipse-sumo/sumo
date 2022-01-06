@@ -1587,6 +1587,26 @@ GNEJunction::setColor(const GUIVisualizationSettings& s, bool bubble) const {
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
         color = s.junctionColorer.getScheme().getColor(6);
     }
+    // special color for source candidate junction
+    if (mySourceCandidate) {
+        color = s.candidateColorSettings.source;
+    }
+    // special color for target candidate junction
+    if (myTargetCandidate) {
+        color = s.candidateColorSettings.target;
+    }
+    // special color for special candidate junction
+    if (mySpecialCandidate) {
+        color = s.candidateColorSettings.special;
+    }
+    // special color for possible candidate junction
+    if (myPossibleCandidate) {
+        color = s.candidateColorSettings.possible;
+    }
+    // special color for conflicted candidate junction
+    if (myConflictedCandidate) {
+        color = s.candidateColorSettings.conflict;
+    }
     // return color
     return color;
 }

@@ -20,9 +20,11 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
-#include "GNENetworkElement.h"
 
+#include <netedit/elements/GNECandidateElement.h>
 #include <netbuild/NBNode.h>
+
+#include "GNENetworkElement.h"
 
 // ===========================================================================
 // class declarations
@@ -43,7 +45,7 @@ class GNEConnection;
  *  is computed using the junction's position to which an offset of 1m to each
  *  side is added.
  */
-class GNEJunction : public GNENetworkElement {
+class GNEJunction : public GNENetworkElement, public GNECandidateElement {
 
     /// @brief Declare friend class
     friend class GNEChange_TLS;
