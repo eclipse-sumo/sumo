@@ -1,5 +1,3 @@
-#include "GNEAttributeCarrier.h"
-#include "GNEAttributeCarrier.h"
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 // Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
