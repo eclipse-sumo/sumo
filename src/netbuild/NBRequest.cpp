@@ -827,7 +827,8 @@ NBRequest::oppositeLeftTurnConflict(const NBEdge* from, const NBEdge::Connection
         return false;
     };
 
-    double width2 = prohibitorCon.toEdge->getLaneWidth(prohibitorCon.toLane) / 2;
+    const double width1 = MIN2(from->getLaneWidth(con.fromLane) / 2, OptionsCont::getOptions().getFloat("internal-junctions.vehicle-width") / 2);
+    const double width2 = prohibitorCon.toEdge->getLaneWidth(prohibitorCon.toLane) / 2;
     PositionVector shape = con.shape;
     shape.append(con.viaShape);
     PositionVector otherShape = prohibitorCon.shape;
@@ -836,7 +837,7 @@ NBRequest::oppositeLeftTurnConflict(const NBEdge* from, const NBEdge::Connection
         // no internal lanes built
         return false;
     }
-    const double minDV = NBEdge::firstIntersection(shape, otherShape, width2);
+    const double minDV = NBEdge::firstIntersection(shape, otherShape, width1, width2);
     if (minDV < shape.length() - POSITION_EPS && minDV > POSITION_EPS) {
         // break symmetry using edge id
         return foes || from->getID() < prohibitorFrom->getID();

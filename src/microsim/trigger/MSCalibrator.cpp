@@ -561,8 +561,7 @@ MSCalibrator::VehicleRemover::notifyEnter(SUMOTrafficObject& veh, Notification /
                         << " vaporizing " << vehicle->getID() << " to clear jam\n";
 #endif
             if (!myParent->myHaveWarnedAboutClearingJam) {
-                WRITE_WARNING("Clearing jam at calibrator '" + myParent->getID() + "' at time "
-                              + time2string(MSNet::getInstance()->getCurrentTimeStep()));
+                WRITE_WARNINGF("Clearing jam at calibrator '%' at time=%.", myParent->getID(), time2string(SIMSTEP));
                 myParent->myHaveWarnedAboutClearingJam = true;
             }
             if (myParent->scheduleRemoval(&veh)) {
@@ -644,7 +643,7 @@ MSCalibrator::setFlow(SUMOTime begin, SUMOTime end, double vehsPerHour, double s
     auto it = myCurrentStateInterval;
     while (it != myIntervals.end()) {
         if (it->begin > begin) {
-            throw ProcessError("Cannot set flow for calibrator '" + getID() + "' with begin time " + time2string(begin) + " in the past.");
+            throw ProcessError("Cannot set flow for calibrator '" + getID() + "' with begin time=" + time2string(begin) + " in the past.");
         } else if (it->begin == begin && it->end == end) {
             // update current interval
             AspiredState& state = const_cast<AspiredState&>(*it);

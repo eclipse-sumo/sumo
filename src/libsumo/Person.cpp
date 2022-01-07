@@ -518,8 +518,8 @@ Person::add(const std::string& personID, const std::string& edgeID, double pos, 
         vehicleParams.depart = MSNet::getInstance()->getCurrentTimeStep();
     } else if (depart < MSNet::getInstance()->getCurrentTimeStep()) {
         vehicleParams.depart = MSNet::getInstance()->getCurrentTimeStep();
-        WRITE_WARNING("Departure time " + toString(departInSecs) + " for person '" + personID
-                      + "' is in the past; using current time " + time2string(vehicleParams.depart) + " instead.");
+        WRITE_WARNING("Departure time=" + toString(departInSecs) + " for person '" + personID
+                      + "' is in the past; using current time=" + time2string(vehicleParams.depart) + " instead.");
     } else {
         vehicleParams.depart = depart;
     }

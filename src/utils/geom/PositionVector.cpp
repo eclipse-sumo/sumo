@@ -1124,7 +1124,7 @@ PositionVector::move2side(double amount, double maxExtension) {
         return;
     }
     removeDoublePoints(POSITION_EPS, true);
-    if (length2D() == 0) {
+    if (length2D() == 0 || amount == 0) {
         return;
     }
     PositionVector shape;

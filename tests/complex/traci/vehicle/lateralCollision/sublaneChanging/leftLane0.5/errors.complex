@@ -1,8 +1,8 @@
 Warning: Teleporting vehicle 'collider'; collision with vehicle 'left', lane='e1_2', gap=-7.50', latGap=-0.40, time=5.00 stage=laneChange.
 Warning: Teleporting vehicle 'left'; collision with vehicle 'collider', lane='e1_2', gap=-7.50', latGap=-0.40, time=5.00 stage=laneChange.
-Warning: Vehicle 'collider' ends teleporting on edge 'e2', time 6.00.
-Warning: Vehicle 'left' ends teleporting on edge 'e2', time 6.00.
+Warning: Vehicle 'collider' ends teleporting on edge 'e2', time=6.00.
+Warning: Vehicle 'left' ends teleporting on edge 'e2', time=6.00.
 Warning: Teleporting vehicle 'collider'; collision with vehicle 'left', lane='e3_2', gap=-7.50', latGap=-0.40, time=11.00 stage=laneChange.
 Warning: Teleporting vehicle 'left'; collision with vehicle 'collider', lane='e3_2', gap=-7.50', latGap=-0.40, time=11.00 stage=laneChange.
-Warning: Vehicle 'collider' ends teleporting on edge 'e4', time 11.00.
-Warning: Vehicle 'left' ends teleporting on edge 'e4', time 11.00.
+Warning: Vehicle 'collider' ends teleporting on edge 'e4', time=11.00.
+Warning: Vehicle 'left' ends teleporting on edge 'e4', time=11.00.

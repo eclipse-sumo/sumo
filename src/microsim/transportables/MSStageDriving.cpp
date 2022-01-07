@@ -182,7 +182,7 @@ MSStageDriving::getStageSummary(const bool isPerson) const {
                               " stop '" + getDestinationStop()->getID() + "'" + (
                                   getDestinationStop()->getMyName() != "" ? " (" + getDestinationStop()->getMyName() + ")" : ""));
     const std::string intended = myIntendedVehicleID != "" ?
-                                 " (vehicle " + myIntendedVehicleID + " at time " + time2string(myIntendedDepart) + ")" :
+                                 " (vehicle " + myIntendedVehicleID + " at time=" + time2string(myIntendedDepart) + ")" :
                                  "";
     const std::string modeName = isPerson ? "driving" : "transported";
     return isWaiting4Vehicle() ?

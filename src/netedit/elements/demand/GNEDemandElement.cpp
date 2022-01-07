@@ -883,6 +883,16 @@ GNEDemandElement::replaceDemandElementParent(SumoXMLTag tag, const std::string& 
 }
 
 
+void
+GNEDemandElement::setVTypeDistributionParent(const std::string& value) {
+    std::vector<GNEDemandElement*> parents;
+    if (value.size() > 0) {
+        parents.push_back(myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, value));
+    }
+    replaceParentElements(this, parents);
+}
+
+
 bool
 GNEDemandElement::checkChildDemandElementRestriction() const {
     // throw exception because this function mus be implemented in child (see GNEE3Detector)

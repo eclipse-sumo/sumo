@@ -619,11 +619,11 @@ GNEFrameModules::DemandElementSelector::refreshDemandElementSelector() {
         // special case for VTypes
         if (demandElementTag == SUMO_TAG_VTYPE) {
             // add default  types in the first positions
-            myDemandElementsMatchBox->appendIconItem(DEFAULT_VTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::TYPE));
-            myDemandElementsMatchBox->appendIconItem(DEFAULT_BIKETYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::TYPE));
-            myDemandElementsMatchBox->appendIconItem(DEFAULT_TAXITYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::TYPE));
-            myDemandElementsMatchBox->appendIconItem(DEFAULT_PEDTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::TYPE));
-            myDemandElementsMatchBox->appendIconItem(DEFAULT_CONTAINERTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::TYPE));
+            myDemandElementsMatchBox->appendIconItem(DEFAULT_VTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
+            myDemandElementsMatchBox->appendIconItem(DEFAULT_BIKETYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
+            myDemandElementsMatchBox->appendIconItem(DEFAULT_TAXITYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
+            myDemandElementsMatchBox->appendIconItem(DEFAULT_PEDTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
+            myDemandElementsMatchBox->appendIconItem(DEFAULT_CONTAINERTYPE_ID.c_str(), GUIIconSubSys::getIcon(GUIIcon::VTYPE));
             // add rest of vTypes
             for (const auto& vType : demandElements.at(demandElementTag)) {
                 // avoid insert duplicated default vType
@@ -2935,7 +2935,9 @@ GNEFrameModules::PathCreator::abortPathCreation() {
         myRemoveLastInsertedElement->disable();
         // update info route label
         updateInfoRouteLabel();
-        // update reachability
+        // update junction colors
+        updateJunctionColors();
+        // update edge colors
         updateEdgeColors();
         // update view (to see the new route)
         myFrameParent->getViewNet()->updateViewNet();
@@ -2965,7 +2967,9 @@ GNEFrameModules::PathCreator::removeLastElement() {
         recalculatePath();
         // update info route label
         updateInfoRouteLabel();
-        // update reachability
+        // update junction colors
+        updateJunctionColors();
+        // update edge colors
         updateEdgeColors();
         // update view
         myFrameParent->myViewNet->updateViewNet();

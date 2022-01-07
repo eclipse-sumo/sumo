@@ -112,7 +112,7 @@ public:
         while (backDist > 0) {
             const E* prev = getStraightPredecessor(start);
             if (prev == nullptr) {
-                //WRITE_WARNING("Could not determine back edge for vehicle '" + vehicle->getID() + "' when routing from edge '" + from->getID() + "' at time " + time2string(msTime));
+                //WRITE_WARNING("Could not determine back edge for vehicle '" + vehicle->getID() + "' when routing from edge '" + from->getID() + "' at time=" + time2string(msTime));
                 break;
             }
             backDist -= prev->getLength();

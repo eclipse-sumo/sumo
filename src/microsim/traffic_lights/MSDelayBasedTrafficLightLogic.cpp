@@ -143,7 +143,7 @@ MSDelayBasedTrafficLightLogic::proposeProlongation(const SUMOTime actDuration, c
                 for (const MSE2Collector::VehicleInfo* const iv : vehInfos) {
                     if (iv->accumulatedTimeLoss > myTimeLossThreshold && iv->distToDetectorEnd > 0) {
                         const SUMOTime estimatedTimeToJunction = TIME2STEPS((iv->distToDetectorEnd) / lane->getSpeedLimit());
-                        if (actDuration + estimatedTimeToJunction  <= maxDuration) {
+                        if (actDuration + estimatedTimeToJunction  <= maxDuration && getLatest() > 0) {
                             // only prolong if vehicle has a chance to pass until max duration is reached
                             prolongation = MAX2(prolongation, estimatedTimeToJunction);
                         }
@@ -235,16 +235,14 @@ MSDelayBasedTrafficLightLogic::trySwitch() {
         }
     }
     // Don't prolong... switch to the next phase
-    myStep++;
-    assert(myStep <= (int)myPhases.size());
-    if (myStep == (int)myPhases.size()) {
-        myStep = 0;
-    }
+    const SUMOTime prevStart = myPhases[myStep]->myLastSwitch;
+    myStep = (myStep + 1) % (int)myPhases.size();
+    myPhases[myStep]->myLastSwitch = SIMSTEP;
     MSPhaseDefinition* newPhase = myPhases[myStep];
     //stores the time the phase started
     newPhase->myLastSwitch = MSNet::getInstance()->getCurrentTimeStep();
     // set the next event
-    return newPhase->minDuration;
+    return MAX2(newPhase->minDuration, getEarliest(prevStart));
 }
 
 void

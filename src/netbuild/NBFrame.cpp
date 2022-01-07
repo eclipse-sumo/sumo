@@ -367,6 +367,10 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addDescription("junctions.higher-speed", "Junctions",
                       "Use maximum value of incoming and outgoing edge speed on junction instead of average");
 
+    oc.doRegister("internal-junctions.vehicle-width", new Option_Float(1.8));
+    oc.addDescription("internal-junctions.vehicle-width", "Junctions",
+                      "Assumed vehicle width for computing internal junction positions");
+
     oc.doRegister("rectangular-lane-cut", new Option_Bool(false));
     oc.addDescription("rectangular-lane-cut", "Junctions", "Forces rectangular cuts between lanes and intersections");
 

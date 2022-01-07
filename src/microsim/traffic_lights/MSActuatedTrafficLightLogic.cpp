@@ -27,7 +27,6 @@
 #include <utility>
 #include <vector>
 #include <bitset>
-#include <microsim/MSEventControl.h>
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/output/MSInductLoop.h>
 #include <microsim/MSGlobals.h>
@@ -43,6 +42,15 @@
 //#define DEBUG_DETECTORS
 //#define DEBUG_PHASE_SELECTION
 #define DEBUG_COND (getID()=="C")
+
+// ===========================================================================
+// static members
+// ===========================================================================
+const std::vector<std::string> MSActuatedTrafficLightLogic::OPERATOR_PRECEDENCE({
+        "**", "*", "/", "+", "-", "%",
+        "=", "==", "!=", "<", ">", "<=", ">=",
+        "and", "or",
+        });
 
 // ===========================================================================
 // parameter defaults definitions
@@ -73,7 +81,6 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
     myConditions(conditions),
     myTraCISwitch(false)
 {
-    myCoordinated = StringUtils::toBool(getParameter("coordinated", "false"));
     myMaxGap = StringUtils::toDouble(getParameter("max-gap", DEFAULT_MAX_GAP));
     myPassingTime = StringUtils::toDouble(getParameter("passing-time", DEFAULT_PASSING_TIME));
     myDetectorGap = StringUtils::toDouble(getParameter("detector-gap", DEFAULT_DETECTOR_GAP));
@@ -82,12 +89,6 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
     myFile = FileHelpers::checkForRelativity(getParameter("file", "NUL"), basePath);
     myFreq = TIME2STEPS(StringUtils::toDouble(getParameter("freq", "300")));
     myVehicleTypes = getParameter("vTypes", "");
-    SUMOTime earliest = SIMSTEP + getEarliest(-1);
-    if (earliest > getNextSwitchTime()) {
-        mySwitchCommand->deschedule(this);
-        mySwitchCommand = new SwitchCommand(tlcontrol, this, earliest);
-        MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(mySwitchCommand, earliest);
-    }
 }
 
 
@@ -412,14 +413,17 @@ MSActuatedTrafficLightLogic::initSwitchingRules() {
     for (int i = 0; i < (int)myPhases.size(); i++) {
         SwitchingRules sr;
         MSPhaseDefinition* phase = myPhases[i];
-        if (phase->nextPhases.size() == 0) {
-            phase->nextPhases.push_back((i + 1) % (int)myPhases.size());
+        std::vector<int> nextPhases = phase->nextPhases;
+        if (nextPhases.size() == 0) {
+            nextPhases.push_back((i + 1) % (int)myPhases.size());
         }
-        for (int next : phase->nextPhases) {
+        for (int next : nextPhases) {
             if (next >= 0 && next < (int)myPhases.size()) {
                 const MSPhaseDefinition* nextPhase = myPhases[next];
                 if (nextPhase->earlyTarget != "" || nextPhase->finalTarget != "") {
                     sr.enabled = true;
+                    // simplifies later code
+                    phase->nextPhases = nextPhases;
                 }
             }
         }
@@ -529,7 +533,7 @@ MSActuatedTrafficLightLogic::trySwitch() {
     SUMOTime actDuration = now - myPhases[myStep]->myLastSwitch;
 
     if (mySwitchingRules[myStep].enabled) {
-        const bool mustSwitch = MIN2(getCurrentPhaseDef().maxDuration - actDuration, getLatest()) == 0;
+        const bool mustSwitch = MIN2(getCurrentPhaseDef().maxDuration - actDuration, getLatest()) <= 0;
         nextStep = decideNextPhaseCustom(mustSwitch);
     } else {
         // default algorithm
@@ -830,68 +834,12 @@ MSActuatedTrafficLightLogic::getLinkMinDuration(int target) const {
     return result;
 }
 
-SUMOTime
-MSActuatedTrafficLightLogic::mapTimeInCycle(SUMOTime t) const {
-        return (myCoordinated
-                ? (t - myOffset) % myDefaultCycleTime
-                : (t - myPhases[0]->myLastSwitch) % myDefaultCycleTime);
-}
-
-
-SUMOTime
-MSActuatedTrafficLightLogic::getEarliest(SUMOTime prevStart) const {
-    SUMOTime earliest = getCurrentPhaseDef().earliestEnd;
-    if (earliest == MSPhaseDefinition::UNSPECIFIED_DURATION) {
-        return 0;
-    } else {
-        if (prevStart >= SIMSTEP - getTimeInCycle()) {
-            // phase was started and ended once already in the current cycle
-            // it should not end a second time in the same cycle
-            earliest += myDefaultCycleTime;
-            //std::cout << SIMTIME << " tl=" << getID() << " getEarliest phase=" << myStep << " started Twice - move into next cycle\n";
-        } else {
-            SUMOTime latest = getCurrentPhaseDef().latestEnd;
-            if (latest != MSPhaseDefinition::UNSPECIFIED_DURATION) {
-                const SUMOTime minEnd = getTimeInCycle() + getCurrentPhaseDef().minDuration;
-                if (latest > earliest && latest < minEnd) {
-                    // cannot terminate phase between earliest and latest -> move end into next cycle
-                    earliest += myDefaultCycleTime;
-                } else if (latest < earliest && latest >= minEnd) {
-                    // can ignore earliest since it counts from the previous cycle
-                    earliest -= myDefaultCycleTime;
-                }
-                //std::cout << SIMTIME << " tl=" << getID() << " getEarliest phase=" << myStep << " latest=" << STEPS2TIME(latest) << " minEnd=" << STEPS2TIME(minEnd) << " earliest=" << STEPS2TIME(earliest) << "\n";
-            }
-        }
-        const SUMOTime maxRemaining = getCurrentPhaseDef().maxDuration - (SIMSTEP - getCurrentPhaseDef().myLastSwitch);
-        return MIN2(earliest - getTimeInCycle(), maxRemaining);
-    }
-}
-
-
-SUMOTime
-MSActuatedTrafficLightLogic::getLatest() const {
-    const SUMOTime latest = getCurrentPhaseDef().latestEnd;
-    if (latest == MSPhaseDefinition::UNSPECIFIED_DURATION) {
-        return SUMOTime_MAX; // no restriction
-    } else {
-        if (latest < myPhases[myStep]->earliestEnd) {
-            const SUMOTime running = SIMSTEP - getCurrentPhaseDef().myLastSwitch;
-            if (running < getTimeInCycle()) {
-                // phase was started in the current cycle so the restriction does not apply yet
-                return SUMOTime_MAX;
-            }
-        }
-        return MAX2(SUMOTime(0), latest - getTimeInCycle());
-    }
-}
-
-
 int
 MSActuatedTrafficLightLogic::decideNextPhaseCustom(bool mustSwitch) {
     for (int next : getCurrentPhaseDef().nextPhases) {
         const MSPhaseDefinition* phase = myPhases[next];
         const std::string& condition = mustSwitch ? phase->finalTarget : phase->earlyTarget;
+        //std::cout << SIMTIME << " mustSwitch=" << mustSwitch << " condition=" << condition << "\n";
         if (condition != "" && evalExpression(condition)) {
             return next;
         }
@@ -902,48 +850,103 @@ MSActuatedTrafficLightLogic::decideNextPhaseCustom(bool mustSwitch) {
 
 double
 MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) {
+    const size_t bracketOpen = condition.find('(');
+    if (bracketOpen != std::string::npos) {
+        // find matching closing bracket
+        size_t bracketClose = std::string::npos;
+        int open = 1;
+        for (size_t i = bracketOpen + 1; i < condition.size(); i++) {
+            if (condition[i] == '(') {
+                open++;
+            } else if (condition[i] == ')') {
+                open--;
+                if (open == 0) {
+                    bracketClose = i;
+                    break;
+                }
+            }
+        }
+        if (bracketOpen == std::string::npos) {
+            throw ProcessError("Unmatched parentheses in condition " + condition + "'");
+        }
+        std::string cond2 = condition;
+        const std::string inBracket = condition.substr(bracketOpen + 1, bracketClose - bracketOpen - 1);
+        double bracketVal = evalExpression(inBracket);
+        cond2.replace(bracketOpen, bracketClose - bracketOpen + 1, toString(bracketVal));
+        return evalExpression(cond2);
+    }
     std::vector<std::string> tokens = StringTokenizer(condition).getVector();
     //std::cout << SIMTIME << " tokens(" << tokens.size() << ")=" << toString(tokens) << "\n";
-    if (tokens.size() == 3) {
+    if (tokens.size() == 0) {
+        throw ProcessError("Invalid empty condition '" + condition + "'");
+    } else if (tokens.size() == 1) {
+        return evalAtomicExpression(tokens[0]);
+    } else if (tokens.size() == 2) {
+        if (tokens[0] == "not") {
+            return !(bool)(evalAtomicExpression(tokens[1]));
+        } else {
+            throw ProcessError("Unsupported condition '" + condition + "'");
+        }
+    } else if (tokens.size() == 3) {
         // infix expression
         const double a = evalAtomicExpression(tokens[0]);
         const double b = evalAtomicExpression(tokens[2]);
         const std::string& o = tokens[1];
-        if (o == "=" || o == "==") {
-            return (double)(a == b);
-        } else if (o == "<") {
-            return (double)(a < b);
-        } else if (o == ">") {
-            return (double)(a > b);
-        } else if (o == "<=") {
-            return (double)(a <= b);
-        } else if (o == ">=") {
-            return (double)(a >= b);
-        } else if (o == "!=") {
-            return (double)(a != b);
-        } else if (o == "or" || o == "oder" || o == "v") {
-            return (double)(a || b);
-        } else if (o == "and" || o == "und" || o == "^") {
-            return (double)(a && b);
-        } else if (o == "+") {
-            return (double)(a + b);
-        } else if (o == "-") {
-            return (double)(a + b);
-        } else if (o == "*") {
-            return (double)(a * b);
-        } else if (o == "/") {
-            return (double)(a / b);
-        } else if (o == "**") {
-            return (double)pow(a, b);
-        } else  {
-            throw ProcessError("Unsupported operator '" + o + "' in ' condition " + condition + "'");
-        }
-    } else if (tokens.size() == 1) {
-        return evalAtomicExpression(tokens[0]);
+        //std::cout << SIMTIME << " o=" << o << " a=" << a << " b=" << b << "\n";
+        return evalTernaryExpression(a, o, b, condition);
     } else {
+        const int iEnd = tokens.size() - 1;
+        for (const std::string& o : OPERATOR_PRECEDENCE) {
+            for (int i = 1; i < iEnd; i++) {
+                if (tokens[i] == o) {
+                    const double val = evalTernaryExpression(
+                            evalAtomicExpression(tokens[i - 1]), o,
+                            evalAtomicExpression(tokens[i + 1]), condition);
+                    std::vector<std::string> newTokens(tokens.begin(), tokens.begin() + (i - 1));
+                    newTokens.push_back(toString(val));
+                    newTokens.insert(newTokens.end(), tokens.begin() + (i + 2), tokens.end());
+                    return evalExpression(toString(newTokens));
+                }
+            }
+        }
         throw ProcessError("Parsing expressions with " + toString(tokens.size()) + " elements ('" + condition + "') is not supported");
     }
     return true;
+}
+
+double
+MSActuatedTrafficLightLogic::evalTernaryExpression(double a, const std::string& o, double b, const std::string& condition) {
+    if (o == "=" || o == "==") {
+        return (double)(a == b);
+    } else if (o == "<") {
+        return (double)(a < b);
+    } else if (o == ">") {
+        return (double)(a > b);
+    } else if (o == "<=") {
+        return (double)(a <= b);
+    } else if (o == ">=") {
+        return (double)(a >= b);
+    } else if (o == "!=") {
+        return (double)(a != b);
+    } else if (o == "or") {
+        return (double)(a || b);
+    } else if (o == "and") {
+        return (double)(a && b);
+    } else if (o == "+") {
+        return (double)(a + b);
+    } else if (o == "-") {
+        return (double)(a + b);
+    } else if (o == "*") {
+        return (double)(a * b);
+    } else if (o == "/") {
+        return (double)(a / b);
+    } else if (o == "%") {
+        return fmod(a, b);
+    } else if (o == "**") {
+        return (double)pow(a, b);
+    } else  {
+        throw ProcessError("Unsupported operator '" + o + "' in condition '" + condition + "'");
+    }
 }
 
 double
@@ -952,9 +955,11 @@ MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) {
         throw ProcessError("Invalid empty expression");
     } else if (expr[0] == '!') {
         return !(bool)evalAtomicExpression(expr.substr(1));
+    } else if (expr[0] == '-') {
+        return -evalAtomicExpression(expr.substr(1));
     } else {
         // check for 'operator:'
-        size_t pos = expr.find(':');
+        const size_t pos = expr.find(':');
         if (pos == std::string::npos) {
             if (myConditions.count(expr) != 0) {
                 // symbol lookup
@@ -975,7 +980,12 @@ MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) {
             } else if (fun == "a") {
                 const MSInductLoop* det = dynamic_cast<const MSInductLoop*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).get(arg));
                 if (det == nullptr) {
-                    throw ProcessError("Unknown detector '" + arg + "' in expression '" + expr + "'");
+                    const MSE2Collector* det2 = dynamic_cast<const MSE2Collector*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_LANE_AREA_DETECTOR).get(arg));
+                    if (det2 == nullptr) {
+                        throw ProcessError("Unknown detector '" + arg + "' in expression '" + expr + "'");
+                    } else {
+                        return det2->getCurrentVehicleNumber() > 0;
+                    }
                 } else {
                     return det->getTimeSinceLastDetection() == 0;
                 }

@@ -145,7 +145,7 @@ NLBuilder::build() {
             }
         } else {
             if (stateTime != string2time(myOptions.getString("begin"))) {
-                WRITE_WARNING("State was written at a different time " + time2string(stateTime) + " than the begin time " + myOptions.getString("begin") + "!");
+                WRITE_WARNING("State was written at a different time=" + time2string(stateTime) + " than the begin time " + myOptions.getString("begin") + "!");
                 stateBeginMismatch = true;
             }
         }

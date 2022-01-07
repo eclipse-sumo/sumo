@@ -25,11 +25,9 @@ hard coded into this script.
 """
 from __future__ import absolute_import
 from __future__ import print_function
-import io
 import datetime
 import os
 import glob
-import subprocess
 import zipfile
 import shutil
 import sys
@@ -68,7 +66,7 @@ def repositoryUpdate(options):
     return gitrev
 
 
-def runTests(options, env, gitrev, log, debugSuffix=""):
+def runTests(options, env, gitrev, debugSuffix=""):
     if not options.tests:
         return
     prefix = env["FILEPREFIX"] + debugSuffix
@@ -220,17 +218,17 @@ def main(options, platform="x64"):
 if __name__ == "__main__":
     optParser = sumolib.options.ArgumentParser()
     optParser.add_option("-r", "--root-dir", dest="rootDir",
-                        default=r"D:\Sumo", help="root for git and log output")
+                         default=r"D:\Sumo", help="root for git and log output")
     optParser.add_option("-s", "--suffix", default="", help="suffix to the fileprefix")
     optParser.add_option("-m", "--remote-dir", dest="remoteDir", default="S:\\daily",
-                        help="directory to move the results to")
+                         help="directory to move the results to")
     optParser.add_option("-n", "--no-tests", dest="tests", action="store_false",
-                        default=True, help="skip tests")
+                         default=True, help="skip tests")
     optParser.add_option("-x", "--x64only", action="store_true",
-                        default=False, help="skip debug build")
+                         default=False, help="skip debug build")
     optParser.add_option("-p", "--python", help="path to python interpreter to use")
     optParser.add_option("--msvc-version", default="msvc16",
-                        help="Visual Studio version to use (either msvc12 or msvc16)")
+                         help="Visual Studio version to use (either msvc12 or msvc16)")
     optParser.add_option("-u", "--repositories", default="git",
-                        help="repositories to update")
+                         help="repositories to update")
     main(optParser.parse_args())

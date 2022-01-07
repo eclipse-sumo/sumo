@@ -717,7 +717,7 @@ void MSSwarmTrafficLightLogic::decidePolicy() {
             SUMOTime step = MSNet::getInstance()->getCurrentTimeStep();
             std::ostringstream phero_str;
             phero_str << " (pheroIn= " << pheroIn << " ,pheroOut= " << pheroOut << " )";
-            WRITE_MESSAGE("TL " + getID() + " time " + time2string(step) + " Policy: " + newPolicy->getName() + phero_str.str() + " OldPolicy: " + oldPolicy->getName() + " id " + getID() + " .");
+            WRITE_MESSAGE("TL " + getID() + " time=" + time2string(step) + " Policy: " + newPolicy->getName() + phero_str.str() + " OldPolicy: " + oldPolicy->getName() + " id " + getID() + " .");
 #endif
             if (oldPolicy->getName().compare("Congestion") == 0) {
                 congestion_steps = 0;
@@ -727,7 +727,7 @@ void MSSwarmTrafficLightLogic::decidePolicy() {
             std::ostringstream phero_str;
             phero_str << " (pheroIn= " << pheroIn << " ,pheroOut= " << pheroOut << " )";
             SUMOTime step = MSNet::getInstance()->getCurrentTimeStep();
-            WRITE_MESSAGE("TL " + getID() + " time " + time2string(step) + " Policy: Nochanges" + phero_str.str() + " OldPolicy: " + oldPolicy->getName() + " id " + getID() + " .");
+            WRITE_MESSAGE("TL " + getID() + " time=" + time2string(step) + " Policy: Nochanges" + phero_str.str() + " OldPolicy: " + oldPolicy->getName() + " id " + getID() + " .");
 #endif
         }
 

@@ -327,7 +327,7 @@ MSSOTLTrafficLightLogic::isThresholdPassed() {
 #ifdef SWARM_DEBUG
             SUMOTime step = MSNet::getInstance()->getCurrentTimeStep();
             std::ostringstream threshold_str;
-            //	threshold_str <<"\tTL " +getID()<<" time " +time2string(step)<< "(getThreshold()= " << getThreshold()
+            //	threshold_str <<"\tTL " +getID()<<" time=" +time2string(step)<< "(getThreshold()= " << getThreshold()
             //		<< ", targetPhaseCTS= " << iterator->second << " )" << " phase="<<getPhase(iterator->first).getState();
             threshold_str << getCurrentPhaseDef().getState() << ";" << time2string(step) << ";" << getThreshold()
                           << ";" << iterator->second << ";" << getPhase(iterator->first).getState() << ";"

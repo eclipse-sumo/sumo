@@ -2324,9 +2324,19 @@ GNENet::saveDemandElementsConfirmed(const std::string& filename) {
     device.writeXMLHeader("routes", "routes_file.xsd", std::map<SumoXMLAttr, std::string>(), false);
     // declare map for saving demand elements sorted by ID
     std::map<std::string, GNEDemandElement*> sortedDemandElements;
-    // first  write all types
+    // first  write all vTypeDistributions (and their vTypes)
+    for (const auto& vTypeDistribution : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE_DISTRIBUTION)) {
+        sortedDemandElements[vTypeDistribution->getID()] = vTypeDistribution;
+    }
+    for (const auto& demandElement : sortedDemandElements) {
+        demandElement.second->writeDemandElement(device);
+    }
+    sortedDemandElements.clear();
+    // now write all vType without vTypeDistributions
     for (const auto& vType : myAttributeCarriers->getDemandElements().at(SUMO_TAG_VTYPE)) {
-        sortedDemandElements[vType->getID()] = vType;
+        if (vType->getParentDemandElements().empty()) {
+            sortedDemandElements[vType->getID()] = vType;
+        }
     }
     for (const auto& demandElement : sortedDemandElements) {
         demandElement.second->writeDemandElement(device);

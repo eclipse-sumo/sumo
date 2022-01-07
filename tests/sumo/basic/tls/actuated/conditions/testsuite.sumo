@@ -3,3 +3,18 @@ default
 
 # change time gap condition for one phase
 custom_gapOut
+
+# change time gap condition for one phase (functionality as above but with a condition element)
+custom_gapOut_condID
+
+# same as above but with parentheses
+parentheses
+
+# test expressions with more than 3 (unbracketed) terms
+multi_term
+
+# only switch to side direction on request
+request_or_skip
+
+# only switch to side direction on request but use an E2 detector for this.
+request_or_skip_E2
