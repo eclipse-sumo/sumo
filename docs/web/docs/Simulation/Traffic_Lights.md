@@ -406,7 +406,8 @@ attributes 'earlyTarget' and 'finalTarget' to define logical expressions.
 If the controller is in an actuated phase (minDur < maxDur) and could switch
 into a new phase, the attribute 'earlyTarget' of the new phase is evaluated. If
 the expression evalutes to 'true', the controller switches into the new phase.
-Otherwise it remains in the current phase.
+Otherwise it remains in the current phase. If the current phase has multiple successors (attribute 'next'),
+the candidates are evaluated from left to right and the first candidate where 'earlyTarget' evaluates to true is used.
 
 If the controller has reached the maximum duration of it's current phase and
 multiple successor phases are defined with attribute 'next', the
