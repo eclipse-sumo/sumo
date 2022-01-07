@@ -47,6 +47,7 @@ FXDEFMAP(GUIDialog_ChooserAbstract) GUIDialog_ChooserAbstractMap[] = {
     FXMAPFUNC(SEL_CHANGED,  MID_CHOOSER_TEXT,           GUIDialog_ChooserAbstract::onChgText),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_TEXT,           GUIDialog_ChooserAbstract::onCmdText),
     FXMAPFUNC(SEL_KEYPRESS, MID_CHOOSER_LIST,           GUIDialog_ChooserAbstract::onListKeyPress),
+    FXMAPFUNC(SEL_CHANGED,  MID_CHOOSER_LIST,           GUIDialog_ChooserAbstract::onChgList),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_FILTER,         GUIDialog_ChooserAbstract::onCmdFilter),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_FILTER_SUBSTR,  GUIDialog_ChooserAbstract::onCmdFilterSubstr),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_INVERT,         GUIDialog_ChooserAbstract::onCmdToggleSelection),
@@ -95,18 +96,23 @@ GUIDialog_ChooserAbstract::GUIDialog_ChooserAbstract(GUIGlChildWindow* windowsPa
     new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);
     new FXButton(layoutRight, "&Close\t\t", GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_CANCEL, GUIDesignChooserButtons);
     myCountLabel = new FXLabel(layoutRight, "placeholder", nullptr, LAYOUT_BOTTOM | LAYOUT_FILL_X | JUSTIFY_LEFT);
+    myInstantCenter = new FXCheckButton(layoutRight, "auto-center");
+    myInstantCenter->setCheck(getApp()->reg().readIntEntry("LOCATOR", "autoCenter", FALSE));
     refreshList(ids);
     // add child in windowsParent
     myWindowsParent->getParent()->addChild(this);
     // create and show dialog
     create();
     show();
+
+    getApp()->reg().writeIntEntry("TL_TRACKER", "x", getX());
 }
 
 
 GUIDialog_ChooserAbstract::~GUIDialog_ChooserAbstract() {
     // remove child from windowsParent
     myWindowsParent->getParent()->removeChild(this);
+    getApp()->reg().writeIntEntry("LOCATOR", "autoCenter", myInstantCenter->getCheck());
 }
 
 
@@ -156,6 +162,17 @@ GUIDialog_ChooserAbstract::onCmdClose(FXObject*, FXSelector, void*) {
     return 1;
 }
 
+long
+GUIDialog_ChooserAbstract::onChgList(FXObject*, FXSelector, void*) {
+    // mouse-click toggles item selection but changked current item with
+    // keyboard does not affect select
+    // Enabling the line blow toggles the behavior
+    //myList->selectItem(myList->getCurrentItem());
+    if (myInstantCenter->getCheck()) {
+        onCmdCenter(nullptr, 0, nullptr);
+    }
+    return 1;
+}
 
 long
 GUIDialog_ChooserAbstract::onChgText(FXObject*, FXSelector, void*) {
