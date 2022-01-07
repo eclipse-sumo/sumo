@@ -360,7 +360,13 @@ If these values are used, each step in the traffic light plan is assigned a 'tim
 - coordinated=false: timeInCycle = *time since last switching into phase 0*
 
 If 'earliestEnd' is set, a phase can not end while *timeInCycle < earliestEnd* (effectively increasing minDur)
-If 'latestEnd' is set, a phase cannot be prolonged when *timeInCycle = latestEnd* (effectively reducing maxDir).
+If 'latestEnd' is set, a phase cannot be prolonged when *timeInCycle = latestEnd* (effectively reducing maxDur).
+
+When setting 'latestEnd' < 'earliestEnd', the phase can be extended into the next cycle.
+If both values are defined and a phase has already started and ended in the
+current cycle, both values will be shifted into the next cycle to avoid having a
+phase run more than once in the same cycle (this only happens when param
+'coordinated' is set to 'true').
 
 ```
 <tlLogic id="0" programID="my_program" offset="10" type="actuated">
