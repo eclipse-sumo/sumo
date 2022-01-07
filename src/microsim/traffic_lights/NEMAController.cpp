@@ -723,10 +723,10 @@ NEMALogic::NEMA_control() {
     SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
     double currentTimeInSecond = STEPS2TIME(now);
 
-    //I didn't use getTimeInCycle(). This is because the cycle reference point may change in the future.
-    //double currentInCycleTime = ModeCycle(currentTimeInSecond - cycleRefPoint - offset, myCycleLength);
     #ifdef DEBUG_NEMA
     //print to check
+    //I didn't use getTimeInCycle(). This is because the cycle reference point may change in the future.
+    double currentInCycleTime = ModeCycle(currentTimeInSecond - cycleRefPoint - offset, myCycleLength);
     std::cout << "current time in cycle:\t"<< currentInCycleTime << "\t"<< "phases: "<<R1State<<'\t'<<R2State<< std::endl;
     #endif
     //int R1Phase = activeRing1Phase;
@@ -935,7 +935,13 @@ int NEMALogic::nextPhase(std::vector<int> ring, int currentPhase) {
             flag = 1;
         }
     }
-    return nphase;
+    if (nphase !=0){
+        return nphase;
+    }
+    else{
+        return currentPhase;
+    }
+
 
 }
 
