@@ -10,6 +10,9 @@ custom_gapOut_condID
 # same as above but with parentheses
 parentheses
 
+# test expressions with more than 3 (unbracketed) terms
+multi_term
+
 # only switch to side direction on request
 request_or_skip
 
