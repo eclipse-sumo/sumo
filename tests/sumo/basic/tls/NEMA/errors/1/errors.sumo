@@ -11,14 +11,14 @@ Warning: Vehicle 'SB_L.41' performs emergency braking with decel=-9.00 wished=4.
 Warning: Vehicle 'WB_T.55' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=290.00.
 Warning: Vehicle 'SB_R.28' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=306.00.
 Warning: Teleporting vehicle 'EB_T.0'; waited too long (yield), lane='-16480_0', time=316.00.
-Warning: Vehicle 'EB_T.0' ends teleporting on edge '-17276', time 316.00.
+Warning: Vehicle 'EB_T.0' ends teleporting on edge '-17276', time=316.00.
 Warning: Vehicle 'WB_T.60' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=319.00.
 Warning: Teleporting vehicle 'EB_T.1'; waited too long (yield), lane='-16480_0', time=319.00.
-Warning: Vehicle 'EB_T.1' ends teleporting on edge '-17276', time 319.00.
+Warning: Vehicle 'EB_T.1' ends teleporting on edge '-17276', time=319.00.
 Warning: Teleporting vehicle 'WB_L.0'; waited too long (yield), lane='17276_2', time=322.00.
-Warning: Vehicle 'WB_L.0' ends teleporting on edge '-16037', time 322.00.
+Warning: Vehicle 'WB_L.0' ends teleporting on edge '-16037', time=322.00.
 Warning: Teleporting vehicle 'WB_L.1'; waited too long (yield), lane='17276_3', time=349.00.
-Warning: Vehicle 'WB_L.1' ends teleporting on edge '-16037', time 349.00.
+Warning: Vehicle 'WB_L.1' ends teleporting on edge '-16037', time=349.00.
 Warning: Vehicle 'SB_R.38' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=417.00.
 Warning: Vehicle 'WB_T.81' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=424.00.
 Warning: Vehicle 'SB_R.41' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=437.00.
