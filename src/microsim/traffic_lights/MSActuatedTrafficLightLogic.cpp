@@ -853,55 +853,6 @@ MSActuatedTrafficLightLogic::mapTimeInCycle(SUMOTime t) const {
 }
 
 
-SUMOTime
-MSActuatedTrafficLightLogic::getEarliest(SUMOTime prevStart) const {
-    SUMOTime earliest = getCurrentPhaseDef().earliestEnd;
-    if (earliest == MSPhaseDefinition::UNSPECIFIED_DURATION) {
-        return 0;
-    } else {
-        if (prevStart >= SIMSTEP - getTimeInCycle()) {
-            // phase was started and ended once already in the current cycle
-            // it should not end a second time in the same cycle
-            earliest += myDefaultCycleTime;
-            //std::cout << SIMTIME << " tl=" << getID() << " getEarliest phase=" << myStep << " started Twice - move into next cycle\n";
-        } else {
-            SUMOTime latest = getCurrentPhaseDef().latestEnd;
-            if (latest != MSPhaseDefinition::UNSPECIFIED_DURATION) {
-                const SUMOTime minEnd = getTimeInCycle() + getCurrentPhaseDef().minDuration;
-                if (latest > earliest && latest < minEnd) {
-                    // cannot terminate phase between earliest and latest -> move end into next cycle
-                    earliest += myDefaultCycleTime;
-                } else if (latest < earliest && latest >= minEnd) {
-                    // can ignore earliest since it counts from the previous cycle
-                    earliest -= myDefaultCycleTime;
-                }
-                //std::cout << SIMTIME << " tl=" << getID() << " getEarliest phase=" << myStep << " latest=" << STEPS2TIME(latest) << " minEnd=" << STEPS2TIME(minEnd) << " earliest=" << STEPS2TIME(earliest) << "\n";
-            }
-        }
-        const SUMOTime maxRemaining = getCurrentPhaseDef().maxDuration - (SIMSTEP - getCurrentPhaseDef().myLastSwitch);
-        return MIN2(earliest - getTimeInCycle(), maxRemaining);
-    }
-}
-
-
-SUMOTime
-MSActuatedTrafficLightLogic::getLatest() const {
-    const SUMOTime latest = getCurrentPhaseDef().latestEnd;
-    if (latest == MSPhaseDefinition::UNSPECIFIED_DURATION) {
-        return SUMOTime_MAX; // no restriction
-    } else {
-        if (latest < myPhases[myStep]->earliestEnd) {
-            const SUMOTime running = SIMSTEP - getCurrentPhaseDef().myLastSwitch;
-            if (running < getTimeInCycle()) {
-                // phase was started in the current cycle so the restriction does not apply yet
-                return SUMOTime_MAX;
-            }
-        }
-        return MAX2(SUMOTime(0), latest - getTimeInCycle());
-    }
-}
-
-
 int
 MSActuatedTrafficLightLogic::decideNextPhaseCustom(bool mustSwitch) {
     for (int next : getCurrentPhaseDef().nextPhases) {

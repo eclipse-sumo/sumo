@@ -188,12 +188,6 @@ protected:
     /// @brief the minimum duratin for keeping the current phase due to linkMinDur constraints
     SUMOTime getLinkMinDuration(int target) const;
 
-    /// @brief the minimum duration for keeping the current phase when considering 'earliestEnd'
-    SUMOTime getEarliest(SUMOTime prevStart) const;
-
-    /// @brief the maximum duratin for keeping the current phase when considering 'latestEnd'
-    SUMOTime getLatest() const;
-
 protected:
     /// @brief A map from phase to induction loops to be used for gap control
     InductLoopMap myInductLoopsForPhase;
