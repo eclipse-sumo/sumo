@@ -135,9 +135,13 @@ GNEVehicleFrame::show() {
 
 void
 GNEVehicleFrame::hide() {
-    // reset candidate edges
+    // reset edge candidates
     for (const auto& edge : myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
         edge.second->resetCandidateFlags();
+    }
+    // reset junctioncandidates
+    for (const auto& junction : myViewNet->getNet()->getAttributeCarriers()->getJunctions()) {
+        junction.second->resetCandidateFlags();
     }
     // hide frame
     GNEFrame::hide();

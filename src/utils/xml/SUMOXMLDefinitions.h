@@ -1298,6 +1298,8 @@ enum SumoXMLAttr {
     GNE_ATTR_STOPOFFSET,
     /// @brief stop exceptions (virtual, used by edge and lanes)
     GNE_ATTR_STOPOEXCEPTION,
+    /// @brief vehicle type distribution
+    GNE_ATTR_VTYPE_DISTRIBUTION,
 
     // @}
 

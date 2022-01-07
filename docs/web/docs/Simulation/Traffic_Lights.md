@@ -328,6 +328,8 @@ each lanes maximum speed).
 - **show-detectors** controls whether generated detectors will be visible or hidden in [sumo-gui](../sumo-gui.md). The default for all traffic lights can be set with option **--tls.actuated.show-detectors**. It is also possible to toggle this value from within the GUI by right-clicking on a traffic light.
 - parameters **vTypes**, **file** and **freq** have the same meaning as for [regular
 induction loop detectors](../Simulation/Output/Induction_Loops_Detectors_(E1).md).
+- **coordinated** (true/false) Influence there reference point for time-in-cycle when using [coordination](#coordination)
+- **cycleTime** sets the cycle time (in s) when using [coordination](#coordination). Defaults to the sum of all phase 'durations' values.
 
 Some parameters are only used when a signal plan with [dynamic phase selection](#dynamic_phase_selection_phase_skipping) is active:
 
@@ -356,15 +358,22 @@ To define a max-gap value that differs from the default you can use a param with
 Actuated phases (minDur != maxDur) can be coordinated by adding attributes 'earliestEnd' and 'latestEnd'.
 If these values are used, each step in the traffic light plan is assigned a 'timeInCycle' value depending on the value of param 'coordinated' (default 'false').
 
-- coordinated=true:  timeInCycle = *(simulationTime - offset) % cycleTime*  (where cycleTime is the sum of all phase durations)
+- coordinated=true:  timeInCycle = *(simulationTime - offset) % cycleTime*  (where cycleTime is taken from the param with key=cycleTime)
 - coordinated=false: timeInCycle = *time since last switching into phase 0*
 
 If 'earliestEnd' is set, a phase can not end while *timeInCycle < earliestEnd* (effectively increasing minDur)
-If 'latestEnd' is set, a phase cannot be prolonged when *timeInCycle = latestEnd* (effectively reducing maxDir).
+If 'latestEnd' is set, a phase cannot be prolonged when *timeInCycle = latestEnd* (effectively reducing maxDur).
+
+When setting 'latestEnd' < 'earliestEnd', the phase can be extended into the next cycle.
+If both values are defined and a phase has already started and ended in the
+current cycle, both values will be shifted into the next cycle to avoid having a
+phase run more than once in the same cycle (this only happens when param
+'coordinated' is set to 'true').
 
 ```
 <tlLogic id="0" programID="my_program" offset="10" type="actuated">
   <param key="coordinated" value="true"/>
+  <param key="cycleTime value="60"/>
 
   <phase duration="31" minDur="5" maxDur="45" state="GGggrrrrGGggrrrr" earliestEnd="10" latestEnd="50"/>
   ...
@@ -387,6 +396,71 @@ Examples for this type of traffic light logic can be found in [{{SUMO}}/tests/su
 
 The helper script [tls_buildTransitions.py] can be used to generate such logics from simplified definitions.
 
+### Custom Switching Rules
+
+By default, all detectors use the same time gaps and there are pre-defined rules
+that govern which detectors are used or ignored in each phase. If more
+flexibility is needed, custom conditions can be defined by using the phase
+attributes 'earlyTarget' and 'finalTarget' to define logical expressions.
+
+If the controller is in an actuated phase (minDur < maxDur) and could switch
+into a new phase, the attribute 'earlyTarget' of the new phase is evaluated. If
+the expression evalutes to 'true', the controller switches into the new phase.
+Otherwise it remains in the current phase. If the current phase has multiple successors (attribute 'next'),
+the candidates are evaluated from left to right and the first candidate where 'earlyTarget' evaluates to true is used.
+
+If the controller has reached the maximum duration of it's current phase and
+multiple successor phases are defined with attribute 'next', the
+attribute 'finalTarget' of all candidate phases is evaluated from left to right.
+The first phase where the expression evaluates to 'true' is used.
+Otherwise, the rightmost phase in the next-list is used.
+
+The following elements are permitted in an expression for attributes
+'earlyTarget' and 'finalTarget':
+
+- numbers
+- comparators <,>,=,<=,>=
+- mathematical operators +,-,*,/,**
+- logical operators 'or', 'and', '!'
+- parentheses (,)
+- pre-defined functions:
+  - 'z:DETID': returns the time gap since the last vehicle detection for inductionLoop detector with id 'DETID'
+  - 'a:DETID': returns true (1) if a vehicle is on detector with id 'DETID' and
+    false (0) otherwise. Supports inductionLoop and laneAreaDetectors.
+- Symbolic names for [pre-defined expressions](#named_expressions)
+
+The following constraints apply to expressions:
+
+- all elements of an expression must be separated by a space character (' ')
+  with the exception of the operator '!' (logical negation) which must precede it's operand without a space.
+
+#### Named Expressions
+
+To organize expressions, the element `<condition>` may be used as a child element
+of `<tlLogic>`:
+
+```
+<tlLogic id="example" type="actuated" ...>
+   <condition id="C3" value="z:det5 > 5"/>
+   <condition id="C4" value="C3 and z:det6 < 2"/>
+   ...
+```
+
+- condition id must be an alphanumeric string without spaces and withtout the ':'-character
+- value may be any expression which is permitted for 'earlyTarget' or 'finalTarget'
+
+#### Example
+
+```
+<tlLogic id="example" type="actuated" ...>
+   <condition id="C3" value="z:det5 > 5"/>
+   <condition id="C4" value="C3 and z:det6 < 2"/>
+   <condition id="C5" value=".../>
+   <phase ... next="1 2"/>
+   <phase ... earlyTarget="C3" finalTarget="!C4"/>
+   <phase ... earlyTarget="(z:det0 > 3) and (z:det2 <= 4)" finalTarget="C5 or (z:det3 = 0)"/>
+</tlLogic>
+```
 
 ### Visualization
 By setting the sumo option **--tls.actuated.show-detectors** the default visibility of detectors can be

@@ -15,7 +15,7 @@ Warning: No route for vehicle 'flow_maybe_detour.11' found.
 Warning: Teleporting vehicle 'flow_maybe_detour.0'; waited too long (wrong lane), lane='middle_0', time=113.00.
 Warning: No connection between edge 'beg' and edge 'rend' found.
 Warning: No route for vehicle 'flow_maybe_detour.13' found.
-Warning: Vehicle 'flow_maybe_detour.0' ends teleporting on edge 'rend', time 132.00.
+Warning: Vehicle 'flow_maybe_detour.0' ends teleporting on edge 'rend', time=132.00.
 Warning: No connection between edge 'beg' and edge 'rend' found.
 Warning: No route for vehicle 'flow_maybe_detour.14' found.
 Warning: No connection between edge 'beg' and edge 'rend' found.
@@ -23,4 +23,4 @@ Warning: No route for vehicle 'flow_maybe_detour.16' found.
 Warning: Teleporting vehicle 'flow_maybe_detour.1'; waited too long (wrong lane), lane='middle_0', time=166.00.
 Warning: No connection between edge 'beg' and edge 'rend' found.
 Warning: No route for vehicle 'flow_maybe_detour.18' found.
-Warning: Vehicle 'flow_maybe_detour.1' ends teleporting on edge 'rend', time 185.00.
+Warning: Vehicle 'flow_maybe_detour.1' ends teleporting on edge 'rend', time=185.00.

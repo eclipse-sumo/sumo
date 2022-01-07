@@ -52,6 +52,9 @@ class GNEJunction;
 class GNEDemandElement : public GUIGlObject, public GNEHierarchicalElement, public GNEMoveElement, public GNEPathManager::PathElement {
 
 public:
+    /// @brief friend declaration (needed for vTypes)
+    friend class GNERouteHandler;
+
     /**@brief Constructor
      * @param[in] id Gl-id of the demand element element (Must be unique)
      * @param[in] net pointer to GNEViewNet of this demand element element belongs
@@ -409,7 +412,10 @@ protected:
 
     /// @brief replace demand element parent
     void replaceDemandElementParent(SumoXMLTag tag, const std::string& value, const int parentIndex);
-
+    
+    /// @brief set VTypeDistribution parent
+    void setVTypeDistributionParent(const std::string& value);
+    
     /// @}
 
 private:

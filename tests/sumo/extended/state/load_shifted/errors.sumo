@@ -1,1 +1,2 @@
-Warning: State was written at a different time 1000.00 than the begin time 0!
+Warning: State was written at a different time=1000.00 than the begin time 0!
+Warning: State was written with sumo version v1_8_0+0648-16ba97d7de (present: v1_11_0+0899-0c1c88d871c)!

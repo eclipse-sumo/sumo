@@ -35,3 +35,4 @@ version_6.1
 
 # overwriting edge type
 type
+duplicate_id_ignore

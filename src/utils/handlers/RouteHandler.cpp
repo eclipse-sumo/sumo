@@ -145,7 +145,7 @@ RouteHandler::endParseAttributes() {
         case SUMO_TAG_ROUTE:
             // only parse non-embedded routes
             if (!obj->getStringAttribute(SUMO_ATTR_ID).empty()) {
-                // parse object and all their childrens
+                // parse route and all their childrens
                 parseSumoBaseObject(obj);
                 // delete object (and all of their childrens)
                 delete obj;
@@ -153,6 +153,15 @@ RouteHandler::endParseAttributes() {
             break;
         // demand elements
         case SUMO_TAG_VTYPE:
+            // only parse vTypes without distributions
+            if (obj->getParentSumoBaseObject() && 
+                (obj->getParentSumoBaseObject()->getTag() != SUMO_TAG_VTYPE_DISTRIBUTION)) {
+                // parse vType and all their childrens
+                parseSumoBaseObject(obj);
+                // delete object (and all of their childrens)
+                delete obj;
+            }
+            break;
         case SUMO_TAG_VTYPE_DISTRIBUTION:
         case SUMO_TAG_TRIP:
         case SUMO_TAG_VEHICLE:
@@ -191,7 +200,7 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
             if (obj->getStringAttribute(SUMO_ATTR_ID).empty()) {
                 buildEmbeddedRoute(obj,
                                    obj->getStringListAttribute(SUMO_ATTR_EDGES),
-                                   obj->getColorAttribute(SUMO_ATTR_COLOR),
+                                   obj->getStringAttribute(SUMO_ATTR_COLOR),
                                    obj->getIntAttribute(SUMO_ATTR_REPEAT),
                                    obj->getTimeAttribute(SUMO_ATTR_CYCLETIME),
                                    obj->getParameters());
@@ -200,7 +209,7 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
                            obj->getStringAttribute(SUMO_ATTR_ID),
                            obj->getVClass(),
                            obj->getStringListAttribute(SUMO_ATTR_EDGES),
-                           obj->getColorAttribute(SUMO_ATTR_COLOR),
+                           obj->getStringAttribute(SUMO_ATTR_COLOR),
                            obj->getIntAttribute(SUMO_ATTR_REPEAT),
                            obj->getTimeAttribute(SUMO_ATTR_CYCLETIME),
                            obj->getParameters());
@@ -400,7 +409,7 @@ RouteHandler::parseRoute(const SUMOSAXAttributes& attrs) {
             myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ID, id);
             myCommonXMLStructure.getCurrentSumoBaseObject()->setVClass(vClass);
             myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_EDGES, edges);
-            myCommonXMLStructure.getCurrentSumoBaseObject()->addColorAttribute(SUMO_ATTR_COLOR, color);
+            myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_COLOR, attrs.hasAttribute(SUMO_ATTR_COLOR)? toString(color) : "");
             myCommonXMLStructure.getCurrentSumoBaseObject()->addIntAttribute(SUMO_ATTR_REPEAT, repeat);
             myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_CYCLETIME, cycleTime);
         }

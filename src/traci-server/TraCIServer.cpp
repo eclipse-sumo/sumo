@@ -620,7 +620,7 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
             while (myCurrentSocket != mySockets.end()) {
 #ifdef DEBUG_MULTI_CLIENTS
                 std::cout << "  current socket: " << myCurrentSocket->second->socket
-                          << " with target time " << myCurrentSocket->second->targetTime
+                          << " with target time=" << myCurrentSocket->second->targetTime
                           << std::endl;
 #endif
 
@@ -628,7 +628,7 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step) {
                     // this client must wait
 #ifdef DEBUG_MULTI_CLIENTS
                     std::cout <<  "       skipping client " << myCurrentSocket->second->socket
-                              << " with target time " << myCurrentSocket->second->targetTime << std::endl;
+                              << " with target time=" << myCurrentSocket->second->targetTime << std::endl;
 #endif
                     myCurrentSocket++;
                     continue;
@@ -979,7 +979,7 @@ void
 TraCIServer::postProcessSimulationStep() {
     SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
 #ifdef DEBUG_MULTI_CLIENTS
-    std::cout << "   postProcessSimulationStep() at time " << t << std::endl;
+    std::cout << "   postProcessSimulationStep() at time=" << t << std::endl;
 #endif
     writeStatusCmd(libsumo::CMD_SIMSTEP, libsumo::RTYPE_OK, "");
     int noActive = 0;

@@ -388,7 +388,8 @@ enum class GUIIcon {
     /// @name NETEDIT Demand elements icons
     /// @{
     ROUTE,
-    TYPE,
+    VTYPE,
+    VTYPEDISTRIBUTION,
     VEHICLE,
     TRIP,
     TRIP_JUNCTIONS,

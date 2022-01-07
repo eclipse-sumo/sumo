@@ -204,13 +204,20 @@ public:
     static bool canParse(const std::string& string) {
         try {
             GNEAttributeCarrier::parse<T>(string);
+        } catch (EmptyData&) {
+            // general
+            return false;
         } catch (NumberFormatException&) {
+            // numbers
             return false;
         } catch (TimeFormatException&) {
-            return false;
-        } catch (EmptyData&) {
+            // time
             return false;
         } catch (BoolFormatException&) {
+            // booleans
+            return false;
+        } catch (InvalidArgument&) {
+            // colors
             return false;
         }
         return true;

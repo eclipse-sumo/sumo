@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-08-25 10:32:01 by Eclipse SUMO netgenerate Version v1_10_0+0213-4059ee3
+<!-- generated on 2022-01-07 15:16:08 by Eclipse SUMO netgenerate Version v1_11_0+0923-12a7c70
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -512,6 +512,9 @@
 
         <!-- Use maximum value of incoming and outgoing edge speed on junction instead of average -->
         <junctions.higher-speed value="false" type="BOOL"/>
+
+        <!-- Assumed vehicle width for computing internal junction positions -->
+        <internal-junctions.vehicle-width value="0" type="FLOAT"/>
 
         <!-- Forces rectangular cuts between lanes and intersections -->
         <rectangular-lane-cut value="false" type="BOOL"/>

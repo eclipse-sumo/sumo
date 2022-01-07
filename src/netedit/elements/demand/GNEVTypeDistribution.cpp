@@ -53,7 +53,13 @@ GNEVTypeDistribution::getMoveOperation() {
 
 void
 GNEVTypeDistribution::writeDemandElement(OutputDevice& device) const {
-
+    device.openTag(getTagProperty().getTag());
+    device.writeAttr(SUMO_ATTR_ID, getID());
+    // write all vTypes
+    for (const auto &vType : getChildDemandElements()) {
+        vType->writeDemandElement(device);
+    }
+    device.closeTag();
 }
 
 
@@ -149,7 +155,6 @@ GNEVTypeDistribution::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getID();
-        
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }

@@ -37,7 +37,6 @@
 // ===========================================================================
 class NLDetectorBuilder;
 
-
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -114,9 +113,6 @@ public:
     /**@brief Sets a parameter and updates internal constants */
     void setParameter(const std::string& key, const std::string& value);
 
-    /// @brief map the given time into the current cycle
-    SUMOTime mapTimeInCycle(SUMOTime t) const;
-
 protected:
     /// @brief initialize custom switching rules
     void initSwitchingRules();
@@ -167,6 +163,9 @@ protected:
     double evalExpression(const std::string& condition);
 
     /// @brief evaluate atomic expression
+    double evalTernaryExpression(double a, const std::string& o, double b, const std::string& condition);
+
+    /// @brief evaluate atomic expression
     double evalAtomicExpression(const std::string& expr);
 
     int getDetectorPriority(const InductLoopInfo& loopInfo) const;
@@ -186,21 +185,11 @@ protected:
     /// @brief the minimum duratin for keeping the current phase due to linkMinDur constraints
     SUMOTime getLinkMinDuration(int target) const;
 
-    /// @brief the minimum duration for keeping the current phase when considering 'earliestEnd'
-    SUMOTime getEarliest(SUMOTime prevStart) const;
-
-    /// @brief the maximum duratin for keeping the current phase when considering 'latestEnd'
-    SUMOTime getLatest() const;
-
 protected:
     /// @brief A map from phase to induction loops to be used for gap control
     InductLoopMap myInductLoopsForPhase;
 
     std::vector<InductLoopInfo> myInductLoops;
-
-    /// @brief whether coordination parameters earliestEnd, latestEnd are
-    //compared to absolute simulation time or timeInCycle
-    bool myCoordinated;
 
     /// The maximum gap to check in seconds
     double myMaxGap;
@@ -246,4 +235,6 @@ protected:
     };
 
     std::vector<SwitchingRules> mySwitchingRules;
+
+    static const std::vector<std::string> OPERATOR_PRECEDENCE;
 };
