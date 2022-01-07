@@ -154,7 +154,8 @@ RouteHandler::endParseAttributes() {
         // demand elements
         case SUMO_TAG_VTYPE:
             // only parse vTypes without distributions
-            if (obj->getParentSumoBaseObject() == nullptr) {
+            if (obj->getParentSumoBaseObject() && 
+                (obj->getParentSumoBaseObject()->getTag() != SUMO_TAG_VTYPE_DISTRIBUTION)) {
                 // parse vType and all their childrens
                 parseSumoBaseObject(obj);
                 // delete object (and all of their childrens)
