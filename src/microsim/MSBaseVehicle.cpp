@@ -1171,7 +1171,7 @@ MSBaseVehicle::addStops(const bool ignoreStopErrors, MSRouteIterator* searchStar
 bool
 MSBaseVehicle::haveValidStopEdges() const {
     MSRouteIterator start = myCurrEdge;
-    const std::string err = "for vehicle '" + getID() + "' at time " + time2string(MSNet::getInstance()->getCurrentTimeStep());
+    const std::string err = "for vehicle '" + getID() + "' at time=" + time2string(SIMSTEP);
     int i = 0;
     bool ok = true;
     double lastPos = getPositionOnLane();

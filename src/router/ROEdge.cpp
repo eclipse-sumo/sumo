@@ -199,7 +199,7 @@ ROEdge::getTravelTime(const ROVehicle* const veh, double time) const {
             return MAX2(getMinimumTravelTime(veh), lineTT);
         } else {
             if (!myHaveTTWarned) {
-                WRITE_WARNING("No interval matches passed time " + toString(time)  + " in edge '" + myID + "'.\n Using edge's length / max speed.");
+                WRITE_WARNINGF("No interval matches passed time=% in edge '%'.\n Using edge's length / max speed.", time, myID);
                 myHaveTTWarned = true;
             }
         }
@@ -225,7 +225,7 @@ ROEdge::getStoredEffort(double time, double& ret) const {
     if (myUsingETimeLine) {
         if (!myEfforts.describesTime(time)) {
             if (!myHaveEWarned) {
-                WRITE_WARNING("No interval matches passed time " + toString(time)  + " in edge '" + myID + "'.\n Using edge's length / edge's speed.");
+                WRITE_WARNINGF("No interval matches passed time=% in edge '%'.\n Using edge's length / edge's speed.", time, myID);
                 myHaveEWarned = true;
             }
             return false;

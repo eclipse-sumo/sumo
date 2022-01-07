@@ -792,7 +792,7 @@ MSFrame::checkOptions() {
         try {
             const SUMOTime saveT = string2time(timeStr);
             if (end > 0 && saveT >= end) {
-                WRITE_WARNING("The save-state.time " + timeStr + " will not be used before simulation end at " + time2string(end));
+                WRITE_WARNING("The save-state time=" + timeStr + " will not be used before simulation end at " + time2string(end) + ".");
             } else {
                 checkStepLengthMultiple(saveT, " for save-state.times", deltaT);
             }

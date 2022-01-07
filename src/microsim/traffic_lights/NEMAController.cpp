@@ -274,9 +274,9 @@ NEMALogic::init(NLDetectorBuilder& nb) {
             aPhaseIndex = rings[ringNumber][i]-1;
             if (aPhaseIndex != -1){
                 if (currentInCycleTime<phaseCutOffs[aPhaseIndex]){
-                    #ifdef DEBUG_NEMA
-                    std::cout<<"current in cycle time "<<currentInCycleTime<<" phase: "<<aPhaseIndex<<std::endl;
-                    #endif
+#ifdef DEBUG_NEMA
+                    std::cout<<"current in cycle time="<<currentInCycleTime<<" phase: "<<aPhaseIndex<<std::endl;
+#endif
                     found = true;
                     break;
                 }
@@ -286,7 +286,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
             aPhaseIndex =rings[ringNumber][initialIndexRing[ringNumber]]-1; // if the break didn't get triggered, go back to the beginning.
         }
         #ifdef DEBUG_NEMA
-        std::cout<<"current in cycle time "<<currentInCycleTime<<" ring "<<ringNumber<< " aphase: "<<aPhaseIndex+1<<std::endl;
+        std::cout<<"current in cycle time="<<currentInCycleTime<<" ring "<<ringNumber<< " aphase: "<<aPhaseIndex+1<<std::endl;
         #endif
         if (ringNumber == 0){
             activeRing1Index = aPhaseIndex;
