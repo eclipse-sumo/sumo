@@ -35,7 +35,9 @@
 GNEGeneralHandler::GNEGeneralHandler(GNENet* net, const std::string& file, const bool allowUndoRedo) :
     GeneralHandler(file),
     myAdditionalHandler(net, allowUndoRedo),
-    myDemandHandler(file, net, allowUndoRedo) {
+    myDemandHandler(file, net, allowUndoRedo),
+    myAdditionalTagFlag(false),
+    myDemandTagFlag(false) {
 }
 
 
@@ -44,19 +46,29 @@ GNEGeneralHandler::~GNEGeneralHandler() {}
 
 void
 GNEGeneralHandler::beginTag(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
-    // parse additional elements
-    myAdditionalHandler.beginParseAttributes(tag, attrs);
-    // parse demand elements
-    myDemandHandler.beginParseAttributes(tag, attrs);
+    // reset both flags
+    myAdditionalTagFlag = false;
+    myDemandTagFlag = false;
+    // try to parse additional or demand element
+    if (myAdditionalHandler.beginParseAttributes(tag, attrs)) {
+        myAdditionalTagFlag = true;
+    } else if (myDemandHandler.beginParseAttributes(tag, attrs)) {
+        myDemandTagFlag = true;
+    }
 }
 
 
 void
 GNEGeneralHandler::endTag() {
-    // end parse additional elements
-    myAdditionalHandler.endParseAttributes();
-    // end parse demand elements
-    myDemandHandler.endParseAttributes();
+    // check flags
+    if (myAdditionalTagFlag) {
+        // end parse additional elements
+        myAdditionalHandler.endParseAttributes();
+    }
+    if (myDemandTagFlag) {
+        // end parse demand elements
+        myDemandHandler.endParseAttributes();
+    }
 }
 
 /****************************************************************************/

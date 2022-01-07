@@ -46,7 +46,7 @@ RouteHandler::RouteHandler(const std::string& filename, const bool hardFail) :
 RouteHandler::~RouteHandler() {}
 
 
-void
+bool
 RouteHandler::beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
     // open SUMOBaseOBject
     myCommonXMLStructure.openSUMOBaseOBject();
@@ -124,12 +124,13 @@ RouteHandler::beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attr
             }
             default:
                 // nested CFM attributes
-                parseNestedCFM(tag, attrs);
+                return parseNestedCFM(tag, attrs);
                 break;
         }
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     }
+    return true;
 }
 
 
@@ -812,7 +813,7 @@ RouteHandler::parseParameters(const SUMOSAXAttributes& attrs) {
 }
 
 
-void
+bool
 RouteHandler::parseNestedCFM(const SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
     // get vehicle type Base object
     const auto vTypeObject = myCommonXMLStructure.getCurrentSumoBaseObject()->getParentSumoBaseObject();
@@ -824,12 +825,14 @@ RouteHandler::parseNestedCFM(const SumoXMLTag tag, const SUMOSAXAttributes& attr
         // parse nested CFM attributes
         if (SUMOVehicleParserHelper::parseCFMParams(&vType, tag, attrs, true)) {
             vTypeObject->setVehicleTypeParameter(&vType);
+            return true;
         } else if (myHardFail) {
             throw ProcessError("Invalid parsing embedded VType");
         } else {
             WRITE_ERROR("Invalid parsing embedded VType");
         }
     }
+    return false;
 }
 
 

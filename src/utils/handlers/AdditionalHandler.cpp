@@ -38,7 +38,7 @@ AdditionalHandler::AdditionalHandler() {}
 AdditionalHandler::~AdditionalHandler() {}
 
 
-void
+bool
 AdditionalHandler::beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
     // open SUMOBaseOBject
     myCommonXMLStructure.openSUMOBaseOBject();
@@ -157,11 +157,14 @@ AdditionalHandler::beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes&
                 parseParameters(attrs);
                 break;
             default:
+                // tag cannot be parsed in AdditionalHandler
+                return false;
                 break;
         }
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     }
+    return true;
 }
 
 

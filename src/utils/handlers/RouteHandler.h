@@ -40,7 +40,7 @@ public:
     ~RouteHandler();
 
     /// @brief begin parse attributes
-    void beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attrs);
+    bool beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attrs);
 
     /// @brief end parse attributes
     void endParseAttributes();
@@ -209,7 +209,7 @@ private:
     void parseParameters(const SUMOSAXAttributes& attrs);
 
     /// @brief parse nested CarFollowingModel
-    void parseNestedCFM(const SumoXMLTag tag, const SUMOSAXAttributes& attrs);
+    bool parseNestedCFM(const SumoXMLTag tag, const SUMOSAXAttributes& attrs);
 
     /// @}
 

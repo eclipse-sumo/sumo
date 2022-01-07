@@ -37,7 +37,7 @@ public:
     ~AdditionalHandler();
 
     /// @brief begin parse attributes
-    void beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attrs);
+    bool beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attrs);
 
     /// @brief end parse attributes
     void endParseAttributes();

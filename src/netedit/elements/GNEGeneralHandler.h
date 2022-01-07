@@ -58,6 +58,12 @@ private:
     /// @brief demand handler
     GNERouteHandler myDemandHandler;
 
+    /// @brief Additional tag flag
+    bool myAdditionalTagFlag;
+
+    /// @brief Demand tag flag
+    bool myDemandTagFlag;
+
     /// @brief start element
     void beginTag(SumoXMLTag tag, const SUMOSAXAttributes& attrs);
 
