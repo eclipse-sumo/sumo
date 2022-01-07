@@ -29,7 +29,6 @@ import datetime
 import optparse
 import os
 import glob
-import subprocess
 import sys
 
 import status

@@ -54,15 +54,16 @@ def set_rotating_log(filename, remove=None):
 
 
 def log_subprocess(call, env=None, cwd=None):
-    process = subprocess.Popen(call, env=env, cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
+    process = subprocess.Popen(call, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                               shell=True, cwd=cwd, env=env)
     with process.stdout:
         for line in process.stdout:
-            logging.info(line)
+            logging.info(line.rstrip().decode("ascii", "ignore"))
     return process.wait()
 
 
 def printLog(msg):
-    logging.getLogger().info(u"%s: %s" % (datetime.now(), msg))
+    logging.info(u"%s: %s" % (datetime.now(), msg))
 
 
 def findErrors(line, warnings, errors, failed):
