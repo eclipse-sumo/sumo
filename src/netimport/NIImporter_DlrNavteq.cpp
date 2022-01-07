@@ -236,7 +236,11 @@ NIImporter_DlrNavteq::NodesHandler::report(const std::string& result) {
         NBNode* n = new NBNode(id, geoms[0]);
         if (!myNodeCont.insert(n)) {
             delete n;
-            throw ProcessError("Could not add node '" + id + "'.");
+            if (OptionsCont::getOptions().getBool("ignore-errors")) {
+                WRITE_WARNINGF("Could not add add node '%'", id);
+            } else {
+                throw ProcessError("Could not add node '" + id + "'.");
+            }
         }
     } else {
         myGeoms[id] = geoms;
