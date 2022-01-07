@@ -214,6 +214,9 @@ protected:
     /// @brief The current step
     int myStep;
 
+    /// @brief whether coordination parameters earliestEnd, latestEnd are
+    //compared to absolute simulation time or timeInCycle
+    bool myCoordinated;
 
 private:
     /// @brief frees memory responsibilities

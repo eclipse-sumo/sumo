@@ -113,9 +113,6 @@ public:
     /**@brief Sets a parameter and updates internal constants */
     void setParameter(const std::string& key, const std::string& value);
 
-    /// @brief map the given time into the current cycle
-    SUMOTime mapTimeInCycle(SUMOTime t) const;
-
 protected:
     /// @brief initialize custom switching rules
     void initSwitchingRules();
@@ -193,10 +190,6 @@ protected:
     InductLoopMap myInductLoopsForPhase;
 
     std::vector<InductLoopInfo> myInductLoops;
-
-    /// @brief whether coordination parameters earliestEnd, latestEnd are
-    //compared to absolute simulation time or timeInCycle
-    bool myCoordinated;
 
     /// The maximum gap to check in seconds
     double myMaxGap;

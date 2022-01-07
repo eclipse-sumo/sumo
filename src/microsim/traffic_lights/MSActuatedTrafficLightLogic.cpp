@@ -27,7 +27,6 @@
 #include <utility>
 #include <vector>
 #include <bitset>
-#include <microsim/MSEventControl.h>
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/output/MSInductLoop.h>
 #include <microsim/MSGlobals.h>
@@ -82,10 +81,6 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
     myConditions(conditions),
     myTraCISwitch(false)
 {
-    if (knowsParameter(toString(SUMO_ATTR_CYCLETIME))) {
-        myDefaultCycleTime = TIME2STEPS(StringUtils::toDouble(getParameter(toString(SUMO_ATTR_CYCLETIME), "")));
-    }
-    myCoordinated = StringUtils::toBool(getParameter("coordinated", "false"));
     myMaxGap = StringUtils::toDouble(getParameter("max-gap", DEFAULT_MAX_GAP));
     myPassingTime = StringUtils::toDouble(getParameter("passing-time", DEFAULT_PASSING_TIME));
     myDetectorGap = StringUtils::toDouble(getParameter("detector-gap", DEFAULT_DETECTOR_GAP));
@@ -94,12 +89,6 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
     myFile = FileHelpers::checkForRelativity(getParameter("file", "NUL"), basePath);
     myFreq = TIME2STEPS(StringUtils::toDouble(getParameter("freq", "300")));
     myVehicleTypes = getParameter("vTypes", "");
-    SUMOTime earliest = SIMSTEP + getEarliest(-1);
-    if (earliest > getNextSwitchTime()) {
-        mySwitchCommand->deschedule(this);
-        mySwitchCommand = new SwitchCommand(tlcontrol, this, earliest);
-        MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(mySwitchCommand, earliest);
-    }
 }
 
 
@@ -844,14 +833,6 @@ MSActuatedTrafficLightLogic::getLinkMinDuration(int target) const {
     }
     return result;
 }
-
-SUMOTime
-MSActuatedTrafficLightLogic::mapTimeInCycle(SUMOTime t) const {
-        return (myCoordinated
-                ? (t - myOffset) % myDefaultCycleTime
-                : (t - myPhases[0]->myLastSwitch) % myDefaultCycleTime);
-}
-
 
 int
 MSActuatedTrafficLightLogic::decideNextPhaseCustom(bool mustSwitch) {

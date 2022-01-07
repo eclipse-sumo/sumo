@@ -28,8 +28,10 @@
 #include <vector>
 #include <bitset>
 #include <sstream>
+#include <utils/common/StringUtils.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSEventControl.h>
 #include "MSTLLogicControl.h"
 #include "MSTrafficLightLogic.h"
 #include "MSSimpleTrafficLightLogic.h"
@@ -50,6 +52,17 @@ MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(MSTLLogicControl& tlcontrol
     }
     if (myStep < (int)myPhases.size()) {
         myPhases[myStep]->myLastSwitch = SIMSTEP;
+    }
+    // the following initializations are only used by 'actuated' and 'delay_based' but do not affect 'static'
+    if (knowsParameter(toString(SUMO_ATTR_CYCLETIME))) {
+        myDefaultCycleTime = TIME2STEPS(StringUtils::toDouble(getParameter(toString(SUMO_ATTR_CYCLETIME), "")));
+    }
+    myCoordinated = StringUtils::toBool(getParameter("coordinated", "false"));
+    SUMOTime earliest = SIMSTEP + getEarliest(-1);
+    if (earliest > getNextSwitchTime()) {
+        mySwitchCommand->deschedule(this);
+        mySwitchCommand = new SwitchCommand(tlcontrol, this, earliest);
+        MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(mySwitchCommand, earliest);
     }
 }
 
@@ -186,8 +199,12 @@ MSSimpleTrafficLightLogic::getIndexFromOffset(SUMOTime offset) const {
 
 SUMOTime
 MSSimpleTrafficLightLogic::mapTimeInCycle(SUMOTime t) const {
-    return (t - myPhases[0]->myLastSwitch) % myDefaultCycleTime;
+    return (myCoordinated
+            ? (t - myOffset) % myDefaultCycleTime
+            : (t - myPhases[0]->myLastSwitch) % myDefaultCycleTime);
 }
+
+
 
 
 SUMOTime
