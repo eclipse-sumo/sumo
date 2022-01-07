@@ -72,7 +72,7 @@ NEMALogic::NEMALogic(MSTLLogicControl& tlcontrol,
     ring1 = getParameter("ring1", "");
     ring2 = getParameter("ring2", "");
 
-    std::vector<int> VecMinRecall = readParaFromString(getParameter("minRecall","2,6"));
+    std::vector<int> VecMinRecall = readParaFromString(getParameter("minRecall","1,2,3,4,5,6,7,8"));
     for (int i = 0; i < (int)VecMinRecall.size(); i++){
         minRecalls[VecMinRecall[i]-1]=true;
         recall[VecMinRecall[i]-1]=true;
