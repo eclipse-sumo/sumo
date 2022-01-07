@@ -76,6 +76,7 @@ GNERoute::GNERoute(SumoXMLTag tag, GNENet* net) :
         {}, {}, {}, {}, {}, {}, {}, {}),
     Parameterised(),
     myColor(RGBColor::YELLOW),
+    myCustomColor(false),
     myRepeat(0),
     myCycleTime(0),
     myVClass(SVC_PASSENGER) {
@@ -90,6 +91,7 @@ GNERoute::GNERoute(GNENet* net) :
         {}, {}, {}, {}, {}, {}, {}, {}),
     Parameterised(),
     myColor(RGBColor::YELLOW),
+    myCustomColor(false),
     myRepeat(0),
     myCycleTime(0),
     myVClass(SVC_PASSENGER) {
@@ -105,6 +107,7 @@ GNERoute::GNERoute(GNENet* net, const std::string& id, SUMOVehicleClass vClass, 
         {}, edges, {}, {}, {}, {}, {}, {}),
     Parameterised(parameters),
     myColor(color.empty()? RGBColor::YELLOW : parse<RGBColor>(color)),
+    myCustomColor(!color.empty()),
     myRepeat(repeat),
     myCycleTime(cycleTime),
     myVClass(vClass) {
@@ -118,6 +121,7 @@ GNERoute::GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const std::vect
         {}, edges, {}, {}, {}, {}, {vehicleParent}, {}),
     Parameterised(parameters),
     myColor(color.empty()? RGBColor::YELLOW : parse<RGBColor>(color)),
+    myCustomColor(!color.empty()),
     myRepeat(repeat),
     myCycleTime(cycleTime),
     myVClass(vehicleParent->getVClass()) {
@@ -130,6 +134,7 @@ GNERoute::GNERoute(GNEDemandElement* route) :
         {}, route->getParentEdges(), {}, {}, {}, {}, {}, {}),
     Parameterised(),
     myColor(route->getColor()),
+    myCustomColor(!route->getAttribute(SUMO_ATTR_COLOR).empty()),
     myRepeat(parse<int>(route->getAttribute(SUMO_ATTR_REPEAT))),
     myCycleTime(parse<SUMOTime>(route->getAttribute(SUMO_ATTR_CYCLETIME))),
     myVClass(route->getVClass()) {
@@ -180,7 +185,9 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_ID, getID());
     }
     device.writeAttr(SUMO_ATTR_EDGES, parseIDs(getParentEdges()));
-    device.writeAttr(SUMO_ATTR_COLOR, toString(myColor));
+    if (myCustomColor) {
+        device.writeAttr(SUMO_ATTR_COLOR, toString(myColor));
+    }
     if (myRepeat != 0) {
         device.writeAttr(SUMO_ATTR_REPEAT, toString(myRepeat));
     }
@@ -237,7 +244,15 @@ GNERoute::getVClass() const {
 
 const RGBColor&
 GNERoute::getColor() const {
-    return myColor;
+    if (myCustomColor) {
+        return myColor;
+    } else if (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) {
+        return getParentDemandElements().front()->getColor();
+    } else if (getChildDemandElements().size() > 0) {
+        return getChildDemandElements().front()->getColor();
+    } else {
+        return RGBColor::YELLOW;
+    }
 }
 
 
@@ -513,7 +528,11 @@ GNERoute::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_EDGES:
             return parseIDs(getParentEdges());
         case SUMO_ATTR_COLOR:
-            return toString(myColor);
+            if (myCustomColor) {
+                return toString(myColor);
+            } else {
+                return "";
+            }
         case SUMO_ATTR_REPEAT:
             return toString(myRepeat);
         case SUMO_ATTR_CYCLETIME:
@@ -617,7 +636,11 @@ GNERoute::isValid(SumoXMLAttr key, const std::string& value) {
                 return false;
             }
         case SUMO_ATTR_COLOR:
-            return canParse<RGBColor>(value);
+            if (value.empty()) {
+                return true;
+            } else {
+                return canParse<RGBColor>(value);
+            }
         case SUMO_ATTR_REPEAT:
             return canParse<int>(value);
         case SUMO_ATTR_CYCLETIME:
@@ -720,7 +743,12 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
             computePathElement();
             break;
         case SUMO_ATTR_COLOR:
-            myColor = parse<RGBColor>(value);
+            if (value.empty()) {
+                myCustomColor = false;
+            } else {
+                myCustomColor = true;
+                myColor = parse<RGBColor>(value);
+            }
             break;
         case SUMO_ATTR_REPEAT:
             myRepeat = parse<int>(value);

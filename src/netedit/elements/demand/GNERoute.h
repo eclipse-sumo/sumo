@@ -279,6 +279,9 @@ protected:
     /// @brief route color
     RGBColor myColor;
 
+    /// @brief flag for enable/disable color
+    bool myCustomColor;
+
     /// @brief repeat
     int myRepeat;
 
