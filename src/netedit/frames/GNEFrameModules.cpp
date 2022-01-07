@@ -2935,7 +2935,9 @@ GNEFrameModules::PathCreator::abortPathCreation() {
         myRemoveLastInsertedElement->disable();
         // update info route label
         updateInfoRouteLabel();
-        // update reachability
+        // update junction colors
+        updateJunctionColors();
+        // update edge colors
         updateEdgeColors();
         // update view (to see the new route)
         myFrameParent->getViewNet()->updateViewNet();
@@ -2965,7 +2967,9 @@ GNEFrameModules::PathCreator::removeLastElement() {
         recalculatePath();
         // update info route label
         updateInfoRouteLabel();
-        // update reachability
+        // update junction colors
+        updateJunctionColors();
+        // update edge colors
         updateEdgeColors();
         // update view
         myFrameParent->myViewNet->updateViewNet();
