@@ -39,10 +39,12 @@ def killall(debugSuffix, binaries):
             bins.remove(task[0])
 
 
-def set_rotating_log(filename):
+def set_rotating_log(filename, remove=None):
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
     try:
+        if remove:
+            logger.removeHandler(remove)
         handler = logging.handlers.TimedRotatingFileHandler(filename, when="midnight", backupCount=5)
         logger.addHandler(handler)
         return handler
@@ -60,7 +62,7 @@ def log_subprocess(call, env=None, cwd=None):
 
 
 def printLog(msg):
-    logging.getLogger().info(u"%s: %s" % (datetime.datetime.now(), msg))
+    logging.getLogger().info(u"%s: %s" % (datetime.now(), msg))
 
 
 def findErrors(line, warnings, errors, failed):

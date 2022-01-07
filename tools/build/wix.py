@@ -18,7 +18,6 @@
 
 from __future__ import absolute_import
 import optparse
-import subprocess
 import zipfile
 import os
 import tempfile
@@ -66,12 +65,12 @@ def buildMSI(sourceZip=INPUT_DEFAULT, outFile=OUTPUT_DEFAULT,
     tmpDir = tempfile.mkdtemp()
     zipfile.ZipFile(sourceZip).extractall(tmpDir)
     sumoRoot = glob.glob(os.path.join(tmpDir, "sumo-*"))[0]
-    fragments = [buildFragment(wixBin, os.path.join(
-        sumoRoot, d), "INSTALLDIR", tmpDir, log) for d in ["bin", "data", "share", "include", "tools"]]
+    fragments = [buildFragment(wixBin, os.path.join(sumoRoot, d), "INSTALLDIR", tmpDir)
+                 for d in ["bin", "data", "share", "include", "tools"]]
     for d in ["userdoc", "pydoc", "javadoc", "tutorial", "examples"]:
         docDir = os.path.join(sumoRoot, "docs", d)
         if os.path.exists(docDir):
-            fragments.append(buildFragment(wixBin, docDir, "DOCDIR", tmpDir, log))
+            fragments.append(buildFragment(wixBin, docDir, "DOCDIR", tmpDir))
     for wxs in glob.glob(wxsPattern):
         with open(os.path.join(tmpDir, os.path.basename(wxs)), "w") as wxsOut:
             dataDir = os.path.dirname(license)
@@ -81,12 +80,10 @@ def buildMSI(sourceZip=INPUT_DEFAULT, outFile=OUTPUT_DEFAULT,
                                                  dialogbg=os.path.join(dataDir, "dlgbmp.bmp"),
                                                  webwizico=os.path.join(dataDir, "webWizard.ico")))
         fragments.append(wxsOut.name)
-    subprocess.call([os.path.join(wixBin, "candle.exe"), "-o", tmpDir + "\\"] + fragments,
-                    stdout=log, stderr=log)
+    status.log_subprocess([os.path.join(wixBin, "candle.exe"), "-o", tmpDir + "\\"] + fragments)
     wixObj = [f.replace(".wxs", ".wixobj") for f in fragments]
-    subprocess.call([os.path.join(wixBin, "light.exe"), "-sw1076",
-                     "-ext", "WixUIExtension", "-o", outFile] + wixObj,
-                    stdout=log, stderr=log)
+    status.log_subprocess([os.path.join(wixBin, "light.exe"), "-sw1076",
+                           "-ext", "WixUIExtension", "-o", outFile] + wixObj)
     shutil.rmtree(tmpDir, True)  # comment this out when debugging
 
 

@@ -25,11 +25,9 @@ hard coded into this script.
 """
 from __future__ import absolute_import
 from __future__ import print_function
-import io
 import datetime
 import os
 import glob
-import subprocess
 import zipfile
 import shutil
 import sys
