@@ -48,6 +48,7 @@ FXDEFMAP(GUIDialog_ChooserAbstract) GUIDialog_ChooserAbstractMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_TEXT,           GUIDialog_ChooserAbstract::onCmdText),
     FXMAPFUNC(SEL_KEYPRESS, MID_CHOOSER_LIST,           GUIDialog_ChooserAbstract::onListKeyPress),
     FXMAPFUNC(SEL_CHANGED,  MID_CHOOSER_LIST,           GUIDialog_ChooserAbstract::onChgList),
+    FXMAPFUNC(SEL_DESELECTED, MID_CHOOSER_LIST,         GUIDialog_ChooserAbstract::onChgListSel),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_FILTER,         GUIDialog_ChooserAbstract::onCmdFilter),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_FILTER_SUBSTR,  GUIDialog_ChooserAbstract::onCmdFilterSubstr),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_INVERT,         GUIDialog_ChooserAbstract::onCmdToggleSelection),
@@ -166,11 +167,17 @@ long
 GUIDialog_ChooserAbstract::onChgList(FXObject*, FXSelector, void*) {
     // mouse-click toggles item selection but changked current item with
     // keyboard does not affect select
-    // Enabling the line blow toggles the behavior
-    //myList->selectItem(myList->getCurrentItem());
+    // Enabling the line blow toggles the behavior (which must be fixed via onChgListSel)
+    myList->selectItem(myList->getCurrentItem());
     if (myInstantCenter->getCheck()) {
         onCmdCenter(nullptr, 0, nullptr);
     }
+    return 1;
+}
+
+long
+GUIDialog_ChooserAbstract::onChgListSel(FXObject*, FXSelector, void*) {
+    myList->selectItem(myList->getCurrentItem());
     return 1;
 }
 
