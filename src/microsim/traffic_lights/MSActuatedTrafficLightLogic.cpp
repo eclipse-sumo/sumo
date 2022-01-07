@@ -82,6 +82,9 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
     myConditions(conditions),
     myTraCISwitch(false)
 {
+    if (knowsParameter(toString(SUMO_ATTR_CYCLETIME))) {
+        myDefaultCycleTime = TIME2STEPS(StringUtils::toDouble(getParameter(toString(SUMO_ATTR_CYCLETIME), "")));
+    }
     myCoordinated = StringUtils::toBool(getParameter("coordinated", "false"));
     myMaxGap = StringUtils::toDouble(getParameter("max-gap", DEFAULT_MAX_GAP));
     myPassingTime = StringUtils::toDouble(getParameter("passing-time", DEFAULT_PASSING_TIME));

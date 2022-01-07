@@ -62,7 +62,7 @@ NEMALogic::NEMALogic(MSTLLogicControl& tlcontrol,
     myPhase(phases[0]->duration, phases[0]->getState()) {
     myDetectorLength = StringUtils::toDouble(getParameter("detector-length", "20"));
     myDetectorLengthLeftTurnLane = StringUtils::toDouble(getParameter("detector-length-leftTurnLane", "20"));
-    myCycleLength = (StringUtils::toDouble(getParameter("total-cycle-length", getParameter("cycle-length", "60"))));
+    myCycleLength = (StringUtils::toDouble(getParameter("total-cycle-length", getParameter("cycle-length", getParameter(toString(SUMO_ATTR_CYCLETIME), "60")))));
     myNextCycleLength = myCycleLength;
     myDefaultCycleTime = TIME2STEPS(myCycleLength);
     myShowDetectors = StringUtils::toBool(getParameter("show-detectors", toString(OptionsCont::getOptions().getBool("tls.actuated.show-detectors"))));
