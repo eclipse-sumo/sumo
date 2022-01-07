@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-12-06 13:41:44 by Eclipse SUMO netconvert Version v1_11_0+0325-5284e00
+<!-- generated on 2022-01-07 16:21:18 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -55,16 +55,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":29215077_0_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="11.11" length="16.03" shape="98.04,99.12 94.14,96.39 91.44,94.57 88.64,92.90 84.47,90.62"/>
     </edge>
     <edge id=":29215077_1" function="internal">
-        <lane id=":29215077_1_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="9.22" length="3.45" shape="98.04,99.12 96.79,97.45 96.53,96.11"/>
+        <lane id=":29215077_1_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="9.22" length="2.09" shape="98.04,99.12 96.79,97.45"/>
     </edge>
     <edge id=":29215077_2" function="internal">
-        <lane id=":29215077_2_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="3.65" length="2.34" shape="98.04,99.12 97.51,97.78 97.64,96.90"/>
+        <lane id=":29215077_2_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="3.65" length="1.44" shape="98.04,99.12 97.51,97.78"/>
     </edge>
     <edge id=":29215077_10" function="internal">
-        <lane id=":29215077_10_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="9.22" length="10.26" shape="96.53,96.11 96.27,94.70 96.48,90.88 97.43,85.97"/>
+        <lane id=":29215077_10_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="9.22" length="11.63" shape="96.79,97.45 96.27,94.70 96.48,90.88 97.43,85.97"/>
     </edge>
     <edge id=":29215077_11" function="internal">
-        <lane id=":29215077_11_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="3.65" length="2.34" shape="97.64,96.90 98.43,96.47 99.87,96.50"/>
+        <lane id=":29215077_11_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="3.65" length="3.23" shape="97.51,97.78 97.64,96.90 98.43,96.47 99.87,96.50"/>
     </edge>
     <edge id=":29215077_3" function="internal">
         <lane id=":29215077_3_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="6.40" length="5.99" shape="86.22,87.92 89.20,89.08 91.54,89.02 91.90,88.75"/>
@@ -73,13 +73,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":29215077_4_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="11.11" length="16.14" shape="86.22,87.92 90.42,90.22 93.23,91.91 95.95,93.75 99.87,96.50"/>
     </edge>
     <edge id=":29215077_5" function="internal">
-        <lane id=":29215077_5_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="3.65" length="2.22" shape="86.22,87.92 86.79,89.25 86.71,90.01"/>
+        <lane id=":29215077_5_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="3.65" length="1.45" shape="86.22,87.92 86.79,89.25"/>
     </edge>
     <edge id=":29215077_12" function="internal">
         <lane id=":29215077_12_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="6.40" length="4.42" shape="91.90,88.75 93.25,87.73 94.32,85.22"/>
     </edge>
     <edge id=":29215077_13" function="internal">
-        <lane id=":29215077_13_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="3.65" length="2.47" shape="86.71,90.01 86.69,90.14 85.92,90.60 84.47,90.62"/>
+        <lane id=":29215077_13_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="3.65" length="3.24" shape="86.79,89.25 86.69,90.14 85.92,90.60 84.47,90.62"/>
     </edge>
     <edge id=":29215077_6" function="internal">
         <lane id=":29215077_6_0" index="0" disallow="pedestrian rail_urban rail rail_electric" speed="8.55" length="9.43" shape="90.10,101.66 90.46,98.35 89.65,95.40 87.78,93.00"/>
@@ -198,10 +198,10 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction id="cluster_2531313425_2531313439" type="dead_end" x="45.74" y="224.07" incLanes="" intLanes="" shape="44.04,223.17 35.74,218.77"/>
 
-    <junction id=":29215077_10_0" type="internal" x="96.53" y="96.11" incLanes=":29215077_1_0 194962398#2_1 246044848#1_1 246044848#1_2" intLanes=":29215077_3_0 :29215077_4_0 :29215077_7_0 :29215077_7_1 :29215077_9_0 :29215077_c0_0 :29215077_c1_0"/>
-    <junction id=":29215077_11_0" type="internal" x="97.64" y="96.90" incLanes=":29215077_2_0 194962398#2_1 246044848#1_2" intLanes=":29215077_4_0 :29215077_9_0 :29215077_c0_0 :29215077_c0_0"/>
+    <junction id=":29215077_10_0" type="internal" x="96.79" y="97.45" incLanes=":29215077_1_0 194962398#2_1 246044848#1_1 246044848#1_2" intLanes=":29215077_3_0 :29215077_4_0 :29215077_7_0 :29215077_7_1 :29215077_9_0 :29215077_c0_0 :29215077_c1_0"/>
+    <junction id=":29215077_11_0" type="internal" x="97.51" y="97.78" incLanes=":29215077_2_0 194962398#2_1 246044848#1_2" intLanes=":29215077_4_0 :29215077_9_0 :29215077_c0_0 :29215077_c0_0"/>
     <junction id=":29215077_12_0" type="internal" x="91.90" y="88.75" incLanes=":29215077_3_0" intLanes=":29215077_1_0 :29215077_7_0 :29215077_7_1 :29215077_c1_0 :29215077_c2_0"/>
-    <junction id=":29215077_13_0" type="internal" x="86.71" y="90.01" incLanes=":29215077_5_0 -4615548_1 246044848#1_1" intLanes=":29215077_0_0 :29215077_6_0 :29215077_c2_0 :29215077_c2_0"/>
+    <junction id=":29215077_13_0" type="internal" x="86.79" y="89.25" incLanes=":29215077_5_0 -4615548_1 246044848#1_1" intLanes=":29215077_0_0 :29215077_6_0 :29215077_c2_0 :29215077_c2_0"/>
     <junction id=":29215077_14_0" type="internal" x="87.78" y="93.00" incLanes=":29215077_6_0" intLanes=":29215077_0_0 :29215077_5_0 :29215077_c2_0 :29215077_c3_0"/>
 
     <connection from="-194962398#2" to="194962398#2" fromLane="1" toLane="1" via=":735963263_0_0" dir="t" state="="/>

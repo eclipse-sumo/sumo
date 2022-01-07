@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 18 12:55:00 2020 by Eclipse SUMO netconvert Version v1_8_0+0322-9e90ceffd9
+<!-- generated on 2022-01-07 16:20:58 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -87,19 +87,19 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":56455689_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="12.08" length="5.48" shape="1921.35,840.92 1920.76,842.42 1920.22,843.40 1919.48,844.25 1918.30,845.35"/>
     </edge>
     <edge id=":56455689_1" function="internal">
-        <lane id=":56455689_1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="3.65" length="2.34" shape="1921.35,840.92 1920.18,841.76 1919.29,841.86"/>
+        <lane id=":56455689_1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="3.65" length="1.44" shape="1921.35,840.92 1920.18,841.76"/>
     </edge>
     <edge id=":56455689_4" function="internal">
-        <lane id=":56455689_4_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="3.65" length="2.34" shape="1919.29,841.86 1918.68,841.20 1918.35,839.80"/>
+        <lane id=":56455689_4_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="3.65" length="3.23" shape="1920.18,841.76 1919.29,841.86 1918.68,841.20 1918.35,839.80"/>
     </edge>
     <edge id=":56455689_2" function="internal">
         <lane id=":56455689_2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="10.31" length="3.95" shape="1916.14,842.99 1917.00,842.20 1917.53,841.59 1917.92,840.88 1918.35,839.80"/>
     </edge>
     <edge id=":56455689_3" function="internal">
-        <lane id=":56455689_3_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="3.65" length="2.34" shape="1916.14,842.99 1917.57,842.77 1918.40,843.09"/>
+        <lane id=":56455689_3_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="3.65" length="1.44" shape="1916.14,842.99 1917.57,842.77"/>
     </edge>
     <edge id=":56455689_5" function="internal">
-        <lane id=":56455689_5_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="3.65" length="2.34" shape="1918.40,843.09 1918.64,843.95 1918.30,845.35"/>
+        <lane id=":56455689_5_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="3.65" length="3.23" shape="1917.57,842.77 1918.40,843.09 1918.64,843.95 1918.30,845.35"/>
     </edge>
     <edge id=":cluster_32444587_6273887394_0" function="internal">
         <lane id=":cluster_32444587_6273887394_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="6.52" length="8.56" shape="1803.53,820.02 1801.23,819.68 1799.32,820.14 1797.81,821.38 1796.70,823.42"/>
@@ -188,8 +188,8 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <junction id=":56455689_4_0" type="internal" x="1919.29" y="841.86" incLanes=":56455689_1_0 239924883_0" intLanes=":56455689_2_0"/>
-    <junction id=":56455689_5_0" type="internal" x="1918.40" y="843.09" incLanes=":56455689_3_0 -4930543#0_0" intLanes=":56455689_0_0"/>
+    <junction id=":56455689_4_0" type="internal" x="1920.18" y="841.76" incLanes=":56455689_1_0 239924883_0" intLanes=":56455689_2_0"/>
+    <junction id=":56455689_5_0" type="internal" x="1917.57" y="842.77" incLanes=":56455689_3_0 -4930543#0_0" intLanes=":56455689_0_0"/>
 
     <connection from="-239924883" to="-304426109#0" fromLane="0" toLane="0" via=":cluster_32444587_6273887394_0_0" dir="r" state="M"/>
     <connection from="-239924883" to="239924883" fromLane="0" toLane="0" via=":cluster_32444587_6273887394_1_0" dir="t" state="m"/>

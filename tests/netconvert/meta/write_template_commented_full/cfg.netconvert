@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-07 15:15:09 by Eclipse SUMO netconvert Version v1_11_0+0923-12a7c70
+<!-- generated on 2022-01-07 16:20:35 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -652,7 +652,7 @@
         <junctions.higher-speed value="false" type="BOOL"/>
 
         <!-- Assumed vehicle width for computing internal junction positions -->
-        <internal-junctions.vehicle-width value="0" type="FLOAT"/>
+        <internal-junctions.vehicle-width value="1.8" type="FLOAT"/>
 
         <!-- Forces rectangular cuts between lanes and intersections -->
         <rectangular-lane-cut value="false" type="BOOL"/>

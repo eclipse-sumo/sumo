@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-12-06 13:59:28 by Eclipse SUMO netconvert Version v1_11_0+0328-1fa2b75766a
+<!-- generated on 2022-01-07 16:21:02 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -105,10 +105,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":cluster_1802245009_335683858_3_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="11.11" length="26.77" shape="37.58,34.31 37.82,60.99"/>
     </edge>
     <edge id=":cluster_1802245009_335683858_5" function="internal">
-        <lane id=":cluster_1802245009_335683858_5_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="6.79" length="3.32" shape="37.58,34.31 37.11,36.16 36.00,37.03"/>
+        <lane id=":cluster_1802245009_335683858_5_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="6.79" length="1.91" shape="37.58,34.31 37.11,36.16"/>
     </edge>
     <edge id=":cluster_1802245009_335683858_10" function="internal">
-        <lane id=":cluster_1802245009_335683858_10_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="6.79" length="7.41" shape="36.00,37.03 35.50,37.42 32.73,38.09 28.81,38.16"/>
+        <lane id=":cluster_1802245009_335683858_10_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="6.79" length="8.81" shape="37.11,36.16 35.50,37.42 32.73,38.09 28.81,38.16"/>
     </edge>
     <edge id=":cluster_1802245009_335683858_6" function="internal">
         <lane id=":cluster_1802245009_335683858_6_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="10.59" length="18.63" shape="34.62,60.97 34.29,51.10 33.21,44.01 32.59,42.55"/>
@@ -203,7 +203,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <junction id=":cluster_1802245009_335683858_8_0" type="internal" x="42.14" y="57.00" incLanes=":cluster_1802245009_335683858_0_0" intLanes=":cluster_1802245009_335683858_3_0 :cluster_1802245009_335683858_3_1 :cluster_1802245009_335683858_c0_0 :cluster_1802245009_335683858_c3_0"/>
     <junction id=":cluster_1802245009_335683858_9_0" type="internal" x="34.99" y="38.45" incLanes=":cluster_1802245009_335683858_2_0" intLanes=":cluster_1802245009_335683858_3_0 :cluster_1802245009_335683858_3_1 :cluster_1802245009_335683858_5_0 :cluster_1802245009_335683858_7_0 :cluster_1802245009_335683858_c0_0 :cluster_1802245009_335683858_c1_0"/>
-    <junction id=":cluster_1802245009_335683858_10_0" type="internal" x="36.00" y="37.03" incLanes=":cluster_1802245009_335683858_5_0 -324752524_1" intLanes=":cluster_1802245009_335683858_1_0 :cluster_1802245009_335683858_2_0 :cluster_1802245009_335683858_6_0 :cluster_1802245009_335683858_7_0 :cluster_1802245009_335683858_c1_0 :cluster_1802245009_335683858_c2_0"/>
+    <junction id=":cluster_1802245009_335683858_10_0" type="internal" x="37.11" y="36.16" incLanes=":cluster_1802245009_335683858_5_0 -324752524_1" intLanes=":cluster_1802245009_335683858_1_0 :cluster_1802245009_335683858_2_0 :cluster_1802245009_335683858_6_0 :cluster_1802245009_335683858_7_0 :cluster_1802245009_335683858_c1_0 :cluster_1802245009_335683858_c2_0"/>
     <junction id=":cluster_1802245009_335683858_11_0" type="internal" x="32.59" y="42.55" incLanes=":cluster_1802245009_335683858_6_0" intLanes=":cluster_1802245009_335683858_1_0 :cluster_1802245009_335683858_5_0 :cluster_1802245009_335683858_c2_0 :cluster_1802245009_335683858_c3_0"/>
 
     <connection from="-324752524" to="177308083" fromLane="1" toLane="1" via=":cluster_1802245009_335683858_6_0" tl="cluster_1802245009_335683858" linkIndex="6" dir="r" state="o"/>

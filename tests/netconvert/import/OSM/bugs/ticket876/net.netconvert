@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:42 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-01-07 16:21:04 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -97,10 +97,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":354915999_1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="12.54" shape="125.12,204.30 118.84,193.45"/>
     </edge>
     <edge id=":354915999_2" function="internal">
-        <lane id=":354915999_2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="3.65" length="2.34" shape="125.12,204.30 125.14,202.85 125.60,202.08"/>
+        <lane id=":354915999_2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="3.65" length="1.44" shape="125.12,204.30 125.14,202.85"/>
     </edge>
     <edge id=":354915999_5" function="internal">
-        <lane id=":354915999_5_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="3.65" length="2.34" shape="125.60,202.08 126.49,201.99 127.81,202.56"/>
+        <lane id=":354915999_5_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="3.65" length="3.23" shape="125.14,202.85 125.60,202.08 126.49,201.99 127.81,202.56"/>
     </edge>
     <edge id=":354915999_3" function="internal">
         <lane id=":354915999_3_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="12.70" length="9.43" shape="126.87,193.46 126.63,196.27 126.38,198.28 126.60,200.16 127.81,202.56"/>
@@ -120,10 +120,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":354916004_2_2" index="2" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="20.95" shape="81.30,114.54 83.88,120.13 84.88,124.30 85.86,128.49 88.35,134.12"/>
     </edge>
     <edge id=":354916004_5" function="internal">
-        <lane id=":354916004_5_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="3.65" length="2.34" shape="78.53,116.14 78.43,117.57 77.94,118.32"/>
+        <lane id=":354916004_5_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="3.65" length="1.44" shape="78.53,116.14 78.43,117.57"/>
     </edge>
     <edge id=":354916004_7" function="internal">
-        <lane id=":354916004_7_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="3.65" length="2.34" shape="77.94,118.32 77.04,118.37 75.75,117.73"/>
+        <lane id=":354916004_7_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="3.65" length="3.23" shape="78.43,117.57 77.94,118.32 77.04,118.37 75.75,117.73"/>
     </edge>
     <edge id=":354916004_6" function="internal">
         <lane id=":354916004_6_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.99" length="3.82" shape="73.91,122.94 73.91,121.82 73.80,121.04 73.52,120.31 72.98,119.32"/>
@@ -443,8 +443,8 @@ SPDX-License-Identifier: EPL-2.0
         <request index="7" response="00000000" foes="00110011" cont="0"/>
     </junction>
 
-    <junction id=":354915999_5_0" type="internal" x="125.60" y="202.08" incLanes=":354915999_2_0 -198357402#1_0 31721330#0_0" intLanes=":354915999_3_0 :354915999_4_0"/>
-    <junction id=":354916004_7_0" type="internal" x="77.94" y="118.32" incLanes=":354916004_5_0 26409859#0_0 31721333#0_0" intLanes=":354916004_0_0 :354916004_6_0"/>
+    <junction id=":354915999_5_0" type="internal" x="125.14" y="202.85" incLanes=":354915999_2_0 -198357402#1_0 31721330#0_0" intLanes=":354915999_3_0 :354915999_4_0"/>
+    <junction id=":354916004_7_0" type="internal" x="78.43" y="117.57" incLanes=":354916004_5_0 26409859#0_0 31721333#0_0" intLanes=":354916004_0_0 :354916004_6_0"/>
 
     <connection from="-142766510#3" to="142766510#0" fromLane="0" toLane="0" via=":1562373096_0_0" dir="t" state="M"/>
     <connection from="-150222604#5" to="150222604#0" fromLane="0" toLane="0" via=":5270718858_0_0" dir="t" state="M"/>

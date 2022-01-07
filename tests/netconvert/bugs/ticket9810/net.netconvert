@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-06 00:07:46 by Eclipse SUMO netconvert Version v1_11_0+0826-eedf4113067
+<!-- generated on 2022-01-07 16:21:23 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -44,10 +44,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":gneJ0_0_0" index="0" allow="custom1" speed="13.89" length="8.66" width="1.50" shape="630.61,134.66 633.35,142.87"/>
     </edge>
     <edge id=":gneJ0_1" function="internal">
-        <lane id=":gneJ0_1_0" index="0" allow="custom1" speed="2.50" length="1.10" width="1.50" shape="630.61,134.66 630.42,135.31 630.12,135.60"/>
+        <lane id=":gneJ0_1_0" index="0" allow="custom1" speed="2.50" length="2.03" width="1.50" shape="630.61,134.66 630.42,135.31 630.12,135.60 629.70,135.53 629.30,135.21"/>
     </edge>
     <edge id=":gneJ0_6" function="internal">
-        <lane id=":gneJ0_6_0" index="0" allow="custom1" speed="2.50" length="1.10" width="1.50" shape="630.12,135.60 629.70,135.53 629.18,135.11"/>
+        <lane id=":gneJ0_6_0" index="0" allow="custom1" speed="2.50" length="0.16" width="1.50" shape="629.30,135.21 629.18,135.11"/>
     </edge>
     <edge id=":gneJ0_2" function="internal">
         <lane id=":gneJ0_2_0" index="0" allow="custom1" speed="13.89" length="8.66" width="1.50" shape="630.61,134.66 633.35,142.87"/>
@@ -59,10 +59,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":gneJ0_4_0" index="0" allow="custom1" speed="9.03" length="8.16" width="1.50" shape="628.30,142.99 629.17,141.09 629.60,139.15 629.61,137.15 629.18,135.11"/>
     </edge>
     <edge id=":gneJ0_5" function="internal">
-        <lane id=":gneJ0_5_0" index="0" allow="custom1" speed="4.79" length="4.80" width="1.50" shape="628.30,142.99 629.80,140.94 631.13,140.24 631.80,140.61"/>
+        <lane id=":gneJ0_5_0" index="0" allow="custom1" speed="4.79" length="5.15" width="1.50" shape="628.30,142.99 629.80,140.94 631.13,140.24 632.11,140.77"/>
     </edge>
     <edge id=":gneJ0_7" function="internal">
-        <lane id=":gneJ0_7_0" index="0" allow="custom1" speed="4.79" length="2.83" width="1.50" shape="631.80,140.61 632.32,140.89 633.35,142.87"/>
+        <lane id=":gneJ0_7_0" index="0" allow="custom1" speed="4.79" length="2.48" width="1.50" shape="632.11,140.77 632.32,140.89 633.35,142.87"/>
     </edge>
     <edge id=":gneJ101_0" function="internal">
         <lane id=":gneJ101_0_0" index="0" allow="custom1" speed="6.16" length="6.38" width="1.50" shape="332.44,276.68 330.86,276.79 329.52,277.39 328.40,278.46 327.52,280.01"/>
@@ -80,10 +80,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":gneJ119_0_0" index="0" allow="custom1" speed="11.50" length="4.48" width="1.50" shape="20.35,55.03 21.60,55.49 22.48,55.77 23.39,55.87 24.70,55.77"/>
     </edge>
     <edge id=":gneJ119_1" function="internal">
-        <lane id=":gneJ119_1_0" index="0" allow="custom1" speed="4.83" length="1.84" width="1.50" shape="21.93,58.06 22.25,57.16 22.82,56.48"/>
+        <lane id=":gneJ119_1_0" index="0" allow="custom1" speed="4.83" length="1.61" width="1.50" shape="21.93,58.06 22.25,57.16 22.67,56.65"/>
     </edge>
     <edge id=":gneJ119_2" function="internal">
-        <lane id=":gneJ119_2_0" index="0" allow="custom1" speed="4.83" length="2.03" width="1.50" shape="22.82,56.48 23.63,56.02 24.70,55.77"/>
+        <lane id=":gneJ119_2_0" index="0" allow="custom1" speed="4.83" length="2.26" width="1.50" shape="22.67,56.65 22.82,56.48 23.63,56.02 24.70,55.77"/>
     </edge>
     <edge id=":gneJ121_0" function="internal">
         <lane id=":gneJ121_0_0" index="0" allow="custom1" speed="10.61" length="10.08" width="1.50" shape="42.39,32.37 39.90,30.87 38.48,29.38 37.56,27.46 36.60,24.64"/>
@@ -131,16 +131,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":gneJ4_0_0" index="0" allow="custom1" speed="13.89" length="8.24" width="1.50" shape="622.64,114.21 621.88,111.90 621.21,110.36 620.26,108.96 618.71,107.09"/>
     </edge>
     <edge id=":gneJ4_1" function="internal">
-        <lane id=":gneJ4_1_0" index="0" allow="custom1" speed="2.22" length="0.75" width="1.50" shape="622.64,114.21 623.35,113.99"/>
+        <lane id=":gneJ4_1_0" index="0" allow="custom1" speed="2.22" length="0.74" width="1.50" shape="622.64,114.21 623.34,113.99"/>
     </edge>
     <edge id=":gneJ4_2" function="internal">
-        <lane id=":gneJ4_2_0" index="0" allow="custom1" speed="2.50" length="1.10" width="1.50" shape="622.64,114.21 622.83,113.57 623.13,113.28"/>
+        <lane id=":gneJ4_2_0" index="0" allow="custom1" speed="2.50" length="1.85" width="1.50" shape="622.64,114.21 622.83,113.57 623.13,113.28 623.54,113.34 623.80,113.55"/>
     </edge>
     <edge id=":gneJ4_9" function="internal">
-        <lane id=":gneJ4_9_0" index="0" allow="custom1" speed="2.22" length="0.75" width="1.50" shape="623.35,113.99 624.07,113.77"/>
+        <lane id=":gneJ4_9_0" index="0" allow="custom1" speed="2.22" length="0.76" width="1.50" shape="623.34,113.99 624.07,113.77"/>
     </edge>
     <edge id=":gneJ4_10" function="internal">
-        <lane id=":gneJ4_10_0" index="0" allow="custom1" speed="2.50" length="1.10" width="1.50" shape="623.13,113.28 623.54,113.34 624.07,113.77"/>
+        <lane id=":gneJ4_10_0" index="0" allow="custom1" speed="2.50" length="0.34" width="1.50" shape="623.80,113.55 624.07,113.77"/>
     </edge>
     <edge id=":gneJ4_3" function="internal">
         <lane id=":gneJ4_3_0" index="0" allow="custom1" speed="13.89" length="8.84" width="1.50" shape="619.85,106.12 621.52,108.13 622.53,109.63 623.26,111.28 624.07,113.77"/>
@@ -149,10 +149,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":gneJ4_4_0" index="0" allow="custom1" speed="13.89" length="8.84" width="1.50" shape="619.85,106.12 621.52,108.13 622.53,109.63 623.26,111.28 624.07,113.77"/>
     </edge>
     <edge id=":gneJ4_5" function="internal">
-        <lane id=":gneJ4_5_0" index="0" allow="custom1" speed="2.50" length="1.10" width="1.50" shape="619.85,106.12 619.93,106.79 619.77,107.17"/>
+        <lane id=":gneJ4_5_0" index="0" allow="custom1" speed="2.50" length="1.89" width="1.50" shape="619.85,106.12 619.93,106.79 619.77,107.17 619.36,107.27 619.00,107.17"/>
     </edge>
     <edge id=":gneJ4_11" function="internal">
-        <lane id=":gneJ4_11_0" index="0" allow="custom1" speed="2.50" length="1.10" width="1.50" shape="619.77,107.17 619.36,107.27 618.71,107.09"/>
+        <lane id=":gneJ4_11_0" index="0" allow="custom1" speed="2.50" length="0.30" width="1.50" shape="619.00,107.17 618.71,107.09"/>
     </edge>
     <edge id=":gneJ4_6" function="internal">
         <lane id=":gneJ4_6_0" index="0" allow="custom1" speed="13.89" length="8.84" width="1.50" shape="619.85,106.12 621.52,108.13 622.53,109.63 623.26,111.28 624.07,113.77"/>
@@ -167,16 +167,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":gneJ5_0_0" index="0" allow="custom1" speed="13.32" length="3.25" width="1.50" shape="607.69,94.12 607.06,93.39 606.58,92.93 606.03,92.55 605.19,92.08"/>
     </edge>
     <edge id=":gneJ5_1" function="internal">
-        <lane id=":gneJ5_1_0" index="0" allow="custom1" speed="2.22" length="0.75" width="1.50" shape="607.69,94.12 608.26,93.63"/>
+        <lane id=":gneJ5_1_0" index="0" allow="custom1" speed="2.22" length="0.74" width="1.50" shape="607.69,94.12 608.25,93.64"/>
     </edge>
     <edge id=":gneJ5_2" function="internal">
-        <lane id=":gneJ5_2_0" index="0" allow="custom1" speed="2.50" length="1.10" width="1.50" shape="607.69,94.12 607.61,93.44 607.77,93.06"/>
+        <lane id=":gneJ5_2_0" index="0" allow="custom1" speed="2.50" length="1.80" width="1.50" shape="607.69,94.12 607.61,93.44 607.77,93.06 608.18,92.96 608.46,93.04"/>
     </edge>
     <edge id=":gneJ5_9" function="internal">
-        <lane id=":gneJ5_9_0" index="0" allow="custom1" speed="2.22" length="0.75" width="1.50" shape="608.26,93.63 608.83,93.15"/>
+        <lane id=":gneJ5_9_0" index="0" allow="custom1" speed="2.22" length="0.76" width="1.50" shape="608.25,93.64 608.83,93.15"/>
     </edge>
     <edge id=":gneJ5_10" function="internal">
-        <lane id=":gneJ5_10_0" index="0" allow="custom1" speed="2.50" length="1.10" width="1.50" shape="607.77,93.06 608.18,92.96 608.83,93.15"/>
+        <lane id=":gneJ5_10_0" index="0" allow="custom1" speed="2.50" length="0.39" width="1.50" shape="608.46,93.04 608.83,93.15"/>
     </edge>
     <edge id=":gneJ5_3" function="internal">
         <lane id=":gneJ5_3_0" index="0" allow="custom1" speed="13.89" length="3.80" width="1.50" shape="605.91,90.76 606.89,91.32 607.53,91.76 608.09,92.30 608.83,93.15"/>
@@ -185,10 +185,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":gneJ5_4_0" index="0" allow="custom1" speed="13.89" length="3.80" width="1.50" shape="605.91,90.76 606.89,91.32 607.53,91.76 608.09,92.30 608.83,93.15"/>
     </edge>
     <edge id=":gneJ5_5" function="internal">
-        <lane id=":gneJ5_5_0" index="0" allow="custom1" speed="2.50" length="1.10" width="1.50" shape="605.91,90.76 606.23,91.36 606.21,91.78"/>
+        <lane id=":gneJ5_5_0" index="0" allow="custom1" speed="2.50" length="1.94" width="1.50" shape="605.91,90.76 606.23,91.36 606.21,91.78 605.87,92.02 605.44,92.06"/>
     </edge>
     <edge id=":gneJ5_11" function="internal">
-        <lane id=":gneJ5_11_0" index="0" allow="custom1" speed="2.50" length="1.10" width="1.50" shape="606.21,91.78 605.87,92.02 605.19,92.08"/>
+        <lane id=":gneJ5_11_0" index="0" allow="custom1" speed="2.50" length="0.25" width="1.50" shape="605.44,92.06 605.19,92.08"/>
     </edge>
     <edge id=":gneJ5_6" function="internal">
         <lane id=":gneJ5_6_0" index="0" allow="custom1" speed="13.89" length="3.80" width="1.50" shape="605.91,90.76 606.89,91.32 607.53,91.76 608.09,92.30 608.83,93.15"/>
@@ -203,19 +203,19 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":gneJ52_0_0" index="0" allow="custom1" speed="8.73" length="3.84" width="1.50" shape="566.36,812.33 566.13,811.22 565.88,810.47 565.45,809.81 564.71,808.95"/>
     </edge>
     <edge id=":gneJ52_1" function="internal">
-        <lane id=":gneJ52_1_0" index="0" allow="custom1" speed="2.50" length="1.10" width="1.50" shape="566.36,812.33 566.62,811.71 566.95,811.45"/>
+        <lane id=":gneJ52_1_0" index="0" allow="custom1" speed="2.50" length="2.00" width="1.50" shape="566.36,812.33 566.62,811.71 566.95,811.45 567.35,811.56 567.69,811.90"/>
     </edge>
     <edge id=":gneJ52_4" function="internal">
-        <lane id=":gneJ52_4_0" index="0" allow="custom1" speed="2.50" length="1.10" width="1.50" shape="566.95,811.45 567.35,811.56 567.83,812.04"/>
+        <lane id=":gneJ52_4_0" index="0" allow="custom1" speed="2.50" length="0.19" width="1.50" shape="567.69,811.90 567.83,812.04"/>
     </edge>
     <edge id=":gneJ52_2" function="internal">
         <lane id=":gneJ52_2_0" index="0" allow="custom1" speed="6.49" length="3.77" width="1.50" shape="568.53,808.50 567.95,809.44 567.68,810.17 567.65,810.95 567.83,812.04"/>
     </edge>
     <edge id=":gneJ52_3" function="internal">
-        <lane id=":gneJ52_3_0" index="0" allow="custom1" speed="4.32" length="2.70" width="1.50" shape="568.53,808.50 567.63,809.53 566.69,809.95 566.40,809.90"/>
+        <lane id=":gneJ52_3_0" index="0" allow="custom1" speed="4.32" length="2.99" width="1.50" shape="568.53,808.50 567.63,809.53 566.69,809.95 566.11,809.84"/>
     </edge>
     <edge id=":gneJ52_5" function="internal">
-        <lane id=":gneJ52_5_0" index="0" allow="custom1" speed="4.32" length="1.99" width="1.50" shape="566.40,809.90 565.72,809.76 564.71,808.95"/>
+        <lane id=":gneJ52_5_0" index="0" allow="custom1" speed="4.32" length="1.69" width="1.50" shape="566.11,809.84 565.72,809.76 564.71,808.95"/>
     </edge>
     <edge id=":gneJ53_0" function="internal">
         <lane id=":gneJ53_0_0" index="0" allow="custom1" speed="10.55" length="9.81" width="1.50" shape="559.06,802.77 557.27,800.56 556.43,798.74 556.21,796.69 556.24,793.79"/>
@@ -227,16 +227,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":gneJ6_0_0" index="0" allow="custom1" speed="7.79" length="8.08" width="1.50" shape="593.07,85.42 591.13,84.62 589.20,84.37 587.28,84.65 585.35,85.47"/>
     </edge>
     <edge id=":gneJ6_1" function="internal">
-        <lane id=":gneJ6_1_0" index="0" allow="custom1" speed="2.22" length="0.75" width="1.50" shape="593.07,85.42 593.43,84.76"/>
+        <lane id=":gneJ6_1_0" index="0" allow="custom1" speed="2.22" length="0.66" width="1.50" shape="593.07,85.42 593.39,84.84"/>
     </edge>
     <edge id=":gneJ6_2" function="internal">
-        <lane id=":gneJ6_2_0" index="0" allow="custom1" speed="2.50" length="1.10" width="1.50" shape="593.07,85.42 592.76,84.82 592.77,84.40"/>
+        <lane id=":gneJ6_2_0" index="0" allow="custom1" speed="2.50" length="1.67" width="1.50" shape="593.07,85.42 592.76,84.82 592.77,84.40 593.12,84.16 593.28,84.15"/>
     </edge>
     <edge id=":gneJ6_6" function="internal">
-        <lane id=":gneJ6_6_0" index="0" allow="custom1" speed="2.22" length="0.75" width="1.50" shape="593.43,84.76 593.79,84.10"/>
+        <lane id=":gneJ6_6_0" index="0" allow="custom1" speed="2.22" length="0.84" width="1.50" shape="593.39,84.84 593.79,84.10"/>
     </edge>
     <edge id=":gneJ6_7" function="internal">
-        <lane id=":gneJ6_7_0" index="0" allow="custom1" speed="2.50" length="1.10" width="1.50" shape="592.77,84.40 593.12,84.16 593.79,84.10"/>
+        <lane id=":gneJ6_7_0" index="0" allow="custom1" speed="2.50" length="0.52" width="1.50" shape="593.28,84.15 593.79,84.10"/>
     </edge>
     <edge id=":gneJ6_3" function="internal">
         <lane id=":gneJ6_3_0" index="0" allow="custom1" speed="8.48" length="9.61" width="1.50" shape="584.61,84.17 586.90,83.19 589.19,82.85 591.49,83.16 593.79,84.10"/>
@@ -245,10 +245,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":gneJ6_4_0" index="0" allow="custom1" speed="8.48" length="9.61" width="1.50" shape="584.61,84.17 586.90,83.19 589.19,82.85 591.49,83.16 593.79,84.10"/>
     </edge>
     <edge id=":gneJ6_5" function="internal">
-        <lane id=":gneJ6_5_0" index="0" allow="custom1" speed="2.50" length="1.10" width="1.50" shape="584.61,84.17 585.29,84.21 585.64,84.45"/>
+        <lane id=":gneJ6_5_0" index="0" allow="custom1" speed="2.50" length="2.05" width="1.50" shape="584.61,84.17 585.29,84.21 585.64,84.45 585.66,84.87 585.42,85.35"/>
     </edge>
     <edge id=":gneJ6_8" function="internal">
-        <lane id=":gneJ6_8_0" index="0" allow="custom1" speed="2.50" length="1.10" width="1.50" shape="585.64,84.45 585.66,84.87 585.35,85.47"/>
+        <lane id=":gneJ6_8_0" index="0" allow="custom1" speed="2.50" length="0.14" width="1.50" shape="585.42,85.35 585.35,85.47"/>
     </edge>
     <edge id=":gneJ65_0" function="internal">
         <lane id=":gneJ65_0_0" index="0" allow="custom1" speed="13.89" length="6.75" width="1.50" shape="46.68,50.56 44.91,57.07"/>
@@ -338,19 +338,19 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":sz_7_0_0" index="0" allow="custom1" speed="13.89" length="3.40" width="1.50" shape="548.64,106.33 545.62,107.91"/>
     </edge>
     <edge id=":sz_7_1" function="internal">
-        <lane id=":sz_7_1_0" index="0" allow="custom1" speed="2.50" length="1.10" width="1.50" shape="548.64,106.33 547.96,106.29 547.61,106.05"/>
+        <lane id=":sz_7_1_0" index="0" allow="custom1" speed="2.50" length="1.96" width="1.50" shape="548.64,106.33 547.96,106.29 547.61,106.05 547.59,105.63 547.79,105.24"/>
     </edge>
     <edge id=":sz_7_4" function="internal">
-        <lane id=":sz_7_4_0" index="0" allow="custom1" speed="2.50" length="1.10" width="1.50" shape="547.61,106.05 547.59,105.63 547.90,105.03"/>
+        <lane id=":sz_7_4_0" index="0" allow="custom1" speed="2.50" length="0.23" width="1.50" shape="547.79,105.24 547.90,105.03"/>
     </edge>
     <edge id=":sz_7_2" function="internal">
         <lane id=":sz_7_2_0" index="0" allow="custom1" speed="9.92" length="3.31" width="1.50" shape="544.77,105.97 545.75,105.89 546.41,105.76 547.04,105.50 547.90,105.03"/>
     </edge>
     <edge id=":sz_7_3" function="internal">
-        <lane id=":sz_7_3_0" index="0" allow="custom1" speed="3.91" length="2.71" width="1.50" shape="544.77,105.97 547.00,105.94 547.45,106.11"/>
+        <lane id=":sz_7_3_0" index="0" allow="custom1" speed="3.91" length="1.54" width="1.50" shape="544.77,105.97 546.31,105.95"/>
     </edge>
     <edge id=":sz_7_5" function="internal">
-        <lane id=":sz_7_5_0" index="0" allow="custom1" speed="3.91" length="3.32" width="1.50" shape="547.45,106.11 547.89,106.26 547.43,106.92 545.62,107.91"/>
+        <lane id=":sz_7_5_0" index="0" allow="custom1" speed="3.91" length="4.49" width="1.50" shape="546.31,105.95 547.00,105.94 547.89,106.26 547.43,106.92 545.62,107.91"/>
     </edge>
 
     <edge id="-gneE107" from="gneJ65" to="gneJ93" priority="-1" type="highway.prt">
@@ -638,22 +638,22 @@ SPDX-License-Identifier: EPL-2.0
         <request index="3" response="0001" foes="0001" cont="1"/>
     </junction>
 
-    <junction id=":gneJ0_6_0" type="internal" x="630.12" y="135.60" incLanes=":gneJ0_1_0 gneE3_0 gneE58_0" intLanes=":gneJ0_2_0 :gneJ0_3_0 :gneJ0_4_0"/>
-    <junction id=":gneJ0_7_0" type="internal" x="631.80" y="140.61" incLanes=":gneJ0_5_0 -gneE4_0" intLanes=":gneJ0_0_0 :gneJ0_2_0"/>
-    <junction id=":gneJ119_2_0" type="internal" x="22.82" y="56.48" incLanes=":gneJ119_1_0 gneE170_0" intLanes=":gneJ119_0_0"/>
-    <junction id=":gneJ4_9_0" type="internal" x="623.35" y="113.99" incLanes=":gneJ4_1_0 -gneE5_0" intLanes=":gneJ4_3_0 :gneJ4_4_0 :gneJ4_6_0 :gneJ4_7_0"/>
-    <junction id=":gneJ4_10_0" type="internal" x="623.13" y="113.28" incLanes=":gneJ4_2_0 -gneE5_0 gneE59_0" intLanes=":gneJ4_4_0 :gneJ4_7_0"/>
-    <junction id=":gneJ4_11_0" type="internal" x="619.77" y="107.17" incLanes=":gneJ4_5_0 gneE4_0 gneE59_0" intLanes=":gneJ4_0_0 :gneJ4_6_0 :gneJ4_7_0 :gneJ4_8_0"/>
-    <junction id=":gneJ5_9_0" type="internal" x="608.26" y="93.63" incLanes=":gneJ5_1_0 -gneE6_0" intLanes=":gneJ5_3_0 :gneJ5_4_0 :gneJ5_6_0 :gneJ5_7_0"/>
-    <junction id=":gneJ5_10_0" type="internal" x="607.77" y="93.06" incLanes=":gneJ5_2_0 -gneE6_0 gneE60_0" intLanes=":gneJ5_4_0 :gneJ5_7_0"/>
-    <junction id=":gneJ5_11_0" type="internal" x="606.21" y="91.78" incLanes=":gneJ5_5_0 gneE5_0 gneE60_0" intLanes=":gneJ5_0_0 :gneJ5_6_0 :gneJ5_7_0 :gneJ5_8_0"/>
-    <junction id=":gneJ52_4_0" type="internal" x="566.95" y="811.45" incLanes=":gneJ52_1_0 gneE56_0" intLanes=":gneJ52_2_0"/>
-    <junction id=":gneJ52_5_0" type="internal" x="566.40" y="809.90" incLanes=":gneJ52_3_0 gneE34_0" intLanes=":gneJ52_0_0"/>
-    <junction id=":gneJ6_6_0" type="internal" x="593.43" y="84.76" incLanes=":gneJ6_1_0 -gneE185_0" intLanes=":gneJ6_3_0 :gneJ6_4_0"/>
-    <junction id=":gneJ6_7_0" type="internal" x="592.77" y="84.40" incLanes=":gneJ6_2_0 -gneE185_0" intLanes=":gneJ6_4_0"/>
-    <junction id=":gneJ6_8_0" type="internal" x="585.64" y="84.45" incLanes=":gneJ6_5_0 gneE6_0" intLanes=":gneJ6_0_0"/>
-    <junction id=":sz_7_4_0" type="internal" x="547.61" y="106.05" incLanes=":sz_7_1_0 gneE114_0" intLanes=":sz_7_2_0"/>
-    <junction id=":sz_7_5_0" type="internal" x="547.45" y="106.11" incLanes=":sz_7_3_0 gneE7_0" intLanes=":sz_7_0_0"/>
+    <junction id=":gneJ0_6_0" type="internal" x="629.30" y="135.21" incLanes=":gneJ0_1_0 gneE3_0 gneE58_0" intLanes=":gneJ0_2_0 :gneJ0_3_0 :gneJ0_4_0"/>
+    <junction id=":gneJ0_7_0" type="internal" x="632.11" y="140.77" incLanes=":gneJ0_5_0 -gneE4_0" intLanes=":gneJ0_0_0 :gneJ0_2_0"/>
+    <junction id=":gneJ119_2_0" type="internal" x="22.67" y="56.65" incLanes=":gneJ119_1_0 gneE170_0" intLanes=":gneJ119_0_0"/>
+    <junction id=":gneJ4_9_0" type="internal" x="623.34" y="113.99" incLanes=":gneJ4_1_0 -gneE5_0" intLanes=":gneJ4_3_0 :gneJ4_4_0 :gneJ4_6_0 :gneJ4_7_0"/>
+    <junction id=":gneJ4_10_0" type="internal" x="623.80" y="113.55" incLanes=":gneJ4_2_0 -gneE5_0 gneE59_0" intLanes=":gneJ4_4_0 :gneJ4_7_0"/>
+    <junction id=":gneJ4_11_0" type="internal" x="619.00" y="107.17" incLanes=":gneJ4_5_0 gneE4_0 gneE59_0" intLanes=":gneJ4_0_0 :gneJ4_6_0 :gneJ4_7_0 :gneJ4_8_0"/>
+    <junction id=":gneJ5_9_0" type="internal" x="608.25" y="93.64" incLanes=":gneJ5_1_0 -gneE6_0" intLanes=":gneJ5_3_0 :gneJ5_4_0 :gneJ5_6_0 :gneJ5_7_0"/>
+    <junction id=":gneJ5_10_0" type="internal" x="608.46" y="93.04" incLanes=":gneJ5_2_0 -gneE6_0 gneE60_0" intLanes=":gneJ5_4_0 :gneJ5_7_0"/>
+    <junction id=":gneJ5_11_0" type="internal" x="605.44" y="92.06" incLanes=":gneJ5_5_0 gneE5_0 gneE60_0" intLanes=":gneJ5_0_0 :gneJ5_6_0 :gneJ5_7_0 :gneJ5_8_0"/>
+    <junction id=":gneJ52_4_0" type="internal" x="567.69" y="811.90" incLanes=":gneJ52_1_0 gneE56_0" intLanes=":gneJ52_2_0"/>
+    <junction id=":gneJ52_5_0" type="internal" x="566.11" y="809.84" incLanes=":gneJ52_3_0 gneE34_0" intLanes=":gneJ52_0_0"/>
+    <junction id=":gneJ6_6_0" type="internal" x="593.39" y="84.84" incLanes=":gneJ6_1_0 -gneE185_0" intLanes=":gneJ6_3_0 :gneJ6_4_0"/>
+    <junction id=":gneJ6_7_0" type="internal" x="593.28" y="84.15" incLanes=":gneJ6_2_0 -gneE185_0" intLanes=":gneJ6_4_0"/>
+    <junction id=":gneJ6_8_0" type="internal" x="585.42" y="85.35" incLanes=":gneJ6_5_0 gneE6_0" intLanes=":gneJ6_0_0"/>
+    <junction id=":sz_7_4_0" type="internal" x="547.79" y="105.24" incLanes=":sz_7_1_0 gneE114_0" intLanes=":sz_7_2_0"/>
+    <junction id=":sz_7_5_0" type="internal" x="546.31" y="105.95" incLanes=":sz_7_3_0 gneE7_0" intLanes=":sz_7_0_0"/>
 
     <connection from="-gneE107" to="gneE179" fromLane="0" toLane="0" via=":gneJ93_3_0" dir="r" state="M"/>
     <connection from="-gneE107" to="gneE193" fromLane="0" toLane="0" via=":gneJ93_4_0" dir="l" state="M"/>

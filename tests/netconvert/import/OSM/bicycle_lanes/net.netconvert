@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-09-07 12:27:55 by Eclipse SUMO netconvert Version v1_10_0+0544-e2f47533c3f
+<!-- generated on 2022-01-07 16:21:02 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -113,14 +113,14 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":2627346845_7_0" index="0" allow="bicycle" speed="13.89" length="9.40" width="1.50" shape="3155.19,147.98 3164.54,146.93"/>
     </edge>
     <edge id=":2627346845_8" function="internal">
-        <lane id=":2627346845_8_0" index="0" allow="bicycle" speed="9.50" length="9.57" shape="3155.19,147.98 3158.08,148.82 3160.43,152.06 3161.22,154.50"/>
+        <lane id=":2627346845_8_0" index="0" allow="bicycle" speed="9.50" length="8.67" shape="3155.19,147.98 3158.08,148.82 3160.43,152.06 3160.94,153.64"/>
     </edge>
     <edge id=":2627346845_9" function="internal">
         <lane id=":2627346845_9_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric ship" speed="13.89" length="9.40" shape="3155.46,150.31 3164.80,149.27"/>
         <lane id=":2627346845_9_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric ship" speed="13.89" length="9.40" shape="3155.81,153.49 3165.15,152.45"/>
     </edge>
     <edge id=":2627346845_11" function="internal">
-        <lane id=":2627346845_11_0" index="0" allow="bicycle" speed="9.50" length="11.49" shape="3161.22,154.50 3162.24,157.70 3163.51,165.73"/>
+        <lane id=":2627346845_11_0" index="0" allow="bicycle" speed="9.50" length="12.40" shape="3160.94,153.64 3162.24,157.70 3163.51,165.73"/>
     </edge>
     <edge id=":35215949_0" function="internal">
         <lane id=":35215949_0_0" index="0" allow="bicycle" speed="2.68" length="1.46" width="1.00" shape="615.85,551.88 616.05,551.47 616.28,551.32 616.55,551.41 616.84,551.76"/>
@@ -253,7 +253,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
 
-    <junction id=":2627346845_11_0" type="internal" x="3161.22" y="154.50" incLanes=":2627346845_8_0 -190083608#1_1 -190083608#1_2 -190083608#1_3" intLanes=":2627346845_1_0 :2627346845_2_0 :2627346845_3_0 :2627346845_4_0 :2627346845_4_1 :2627346845_4_2 :2627346845_9_0 :2627346845_9_1"/>
+    <junction id=":2627346845_11_0" type="internal" x="3160.94" y="153.64" incLanes=":2627346845_8_0 -190083608#1_1 -190083608#1_2 -190083608#1_3" intLanes=":2627346845_1_0 :2627346845_2_0 :2627346845_3_0 :2627346845_4_0 :2627346845_4_1 :2627346845_4_2 :2627346845_9_0 :2627346845_9_1"/>
 
     <connection from="-153959895" to="22721677#1" fromLane="1" toLane="0" via=":1665723004_0_0" dir="r" state="m"/>
     <connection from="-153959895" to="153959895" fromLane="1" toLane="1" via=":1665723004_1_0" dir="t" state="m"/>

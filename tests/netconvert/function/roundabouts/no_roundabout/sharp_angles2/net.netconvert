@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:49 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-01-07 16:21:10 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -52,10 +52,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":54525860_0_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="15.17" shape="4228.28,2540.89 4223.04,2541.45 4220.22,2540.51 4219.81,2538.05 4221.81,2534.09"/>
     </edge>
     <edge id=":54525860_1" function="internal">
-        <lane id=":54525860_1_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="5.62" shape="4226.62,2536.68 4222.11,2539.08 4221.62,2539.16"/>
+        <lane id=":54525860_1_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="4.75" shape="4226.62,2536.68 4222.43,2538.91"/>
     </edge>
     <edge id=":54525860_2" function="internal">
-        <lane id=":54525860_2_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="7.76" shape="4221.62,2539.16 4219.80,2539.45 4219.70,2537.79 4221.81,2534.09"/>
+        <lane id=":54525860_2_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="8.62" shape="4222.43,2538.91 4222.11,2539.08 4219.80,2539.45 4219.70,2537.79 4221.81,2534.09"/>
     </edge>
     <edge id=":54525871_0" function="internal">
         <lane id=":54525871_0_0" index="0" allow="emergency passenger hov taxi bus delivery truck" speed="13.89" length="8.91" shape="4252.60,2511.70 4254.83,2510.42 4256.06,2509.11 4257.04,2507.50 4258.50,2505.28"/>
@@ -176,7 +176,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="54525882" type="dead_end" x="4296.89" y="2572.94" incLanes="" intLanes="" shape="4297.60,2565.57 4294.42,2565.96 4293.68,2566.27 4291.16,2568.25"/>
     <junction id="54525903" type="dead_end" x="4331.69" y="2716.03" incLanes="51800087_0 51800087_1" intLanes="" shape="4334.82,2715.37 4328.56,2716.69"/>
 
-    <junction id=":54525860_2_0" type="internal" x="4221.62" y="2539.16" incLanes=":54525860_1_0 -51800062_0" intLanes=":54525860_0_0"/>
+    <junction id=":54525860_2_0" type="internal" x="4222.43" y="2538.91" incLanes=":54525860_1_0 -51800062_0" intLanes=":54525860_0_0"/>
 
     <connection from="-51800054" to="-51800056" fromLane="0" toLane="0" via=":54525875_0_0" dir="s" state="M"/>
     <connection from="-51800054" to="51800053" fromLane="0" toLane="0" via=":54525875_1_0" dir="l" state="M"/>

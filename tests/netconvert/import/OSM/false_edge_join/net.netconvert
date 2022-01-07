@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 14 11:32:40 2020 by Eclipse SUMO netconvert Version v1_8_0+0240-6f1f621077
+<!-- generated on 2022-01-07 16:21:01 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -123,10 +123,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":49613629_0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="20.10" length="15.21" shape="234.63,3595.65 231.34,3580.83"/>
     </edge>
     <edge id=":49613629_2" function="internal">
-        <lane id=":49613629_2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="10.62" length="4.29" shape="234.63,3595.65 234.74,3592.72 235.35,3591.50"/>
+        <lane id=":49613629_2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="10.62" length="2.79" shape="234.63,3595.65 234.74,3592.86"/>
     </edge>
     <edge id=":49613629_8" function="internal">
-        <lane id=":49613629_8_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="10.62" length="13.18" shape="235.35,3591.50 236.37,3589.45 239.51,3585.84 244.16,3581.88"/>
+        <lane id=":49613629_8_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="10.62" length="14.68" shape="234.74,3592.86 234.74,3592.72 236.37,3589.45 239.51,3585.84 244.16,3581.88"/>
     </edge>
     <edge id=":49613629_3" function="internal">
         <lane id=":49613629_3_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.78" length="11.70" shape="246.10,3584.43 243.38,3586.86 241.60,3589.30 240.76,3591.75 240.86,3594.20"/>
@@ -324,7 +324,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="49615901" type="dead_end" x="449.80" y="3723.41" incLanes="-6040380_0" intLanes="" shape="449.80,3723.41 452.33,3721.45 449.80,3723.41"/>
     <junction id="49616450" type="dead_end" x="285.10" y="3784.62" incLanes="-6034273#0_0 -6034273#0_1" intLanes="" shape="285.10,3784.62 291.22,3782.74 285.10,3784.62"/>
 
-    <junction id=":49613629_8_0" type="internal" x="235.35" y="3591.50" incLanes=":49613629_2_0 -6034273#1_0 -6034273#1_1" intLanes=":49613629_4_0 :49613629_5_0 :49613629_6_0 :49613629_6_1"/>
+    <junction id=":49613629_8_0" type="internal" x="234.74" y="3592.86" incLanes=":49613629_2_0 -6034273#1_0 -6034273#1_1" intLanes=":49613629_4_0 :49613629_5_0 :49613629_6_0 :49613629_6_1"/>
 
     <connection from="-14" to="38232899#0" fromLane="0" toLane="0" via=":450601528_0_0" dir="s" state="M"/>
     <connection from="-14" to="38232899#0" fromLane="1" toLane="1" via=":450601528_0_1" dir="s" state="M"/>
