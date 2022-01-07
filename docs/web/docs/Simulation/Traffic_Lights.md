@@ -436,7 +436,7 @@ To organize expressions, the element `<condition>` may be used as a child elemen
 of `<tlLogic>`:
 
 ```
-<tlLogic id="example" type="actuated ...>
+<tlLogic id="example" type="actuated" ...>
    <condition id="C3" value="z:det5 > 5"/>
    <condition id="C4" value="C3 and z:det6 < 2"/>
    ...
@@ -448,7 +448,7 @@ of `<tlLogic>`:
 #### Example
 
 ```
-<tlLogic id="example" type="actuated>
+<tlLogic id="example" type="actuated" ...>
    <condition id="C3" value="z:det5 > 5"/>
    <condition id="C4" value="C3 and z:det6 < 2"/>
    <condition id="C5" value=".../>
