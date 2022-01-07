@@ -1654,6 +1654,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                 int index = 0;
                 std::vector<PositionVector> otherShapes;
                 const double width1 = MIN2(interalJunctionVehicleWidth / 2, getLaneWidth(con.fromLane) / 2);
+                const double width1OppositeLeft = 0; // using width1 changes a lot of curves even though they are rarely responsible for collisions
                 for (const NBEdge* i2 : n.getIncomingEdges()) {
                     for (const Connection& k2 : i2->getConnections()) {
                         if (k2.toEdge == nullptr) {
@@ -1669,7 +1670,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                         LinkDirection dir2 = n.getDirection(i2, k2.toEdge);
                         bool needsCont = !isRailway(conPermissions) && n.needsCont(this, i2, con, k2);
                         const bool avoidIntersectCandidate = !foes && bothLeftTurns(dir, i2, dir2);
-                        bool oppositeLeftIntersect = avoidIntersectCandidate && haveIntersection(n, shape, i2, k2, numPoints, width1, width2);
+                        bool oppositeLeftIntersect = avoidIntersectCandidate && haveIntersection(n, shape, i2, k2, numPoints, width1OppositeLeft, width2);
                         int shapeFlag = 0;
                         SVCPermissions warn = SVCAll & ~(SVC_PEDESTRIAN | SVC_BICYCLE | SVC_DELIVERY | SVC_RAIL_CLASSES);
                         // do not warn if only bicycles, pedestrians or delivery vehicles are involved as this is a typical occurence
@@ -1683,7 +1684,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                             shapeFlag = NBNode::AVOID_INTERSECTING_LEFT_TURNS;
                             PositionVector origShape = shape;
                             shape = n.computeInternalLaneShape(this, con, numPoints, myTo, shapeFlag);
-                            oppositeLeftIntersect = haveIntersection(n, shape, i2, k2, numPoints, width1, width2, shapeFlag);
+                            oppositeLeftIntersect = haveIntersection(n, shape, i2, k2, numPoints, width1OppositeLeft, width2, shapeFlag);
                             if (oppositeLeftIntersect
                                     && (conPermissions & (SVCAll & ~(SVC_BICYCLE | SVC_PEDESTRIAN))) == 0) {
                                 shape = origShape;
@@ -1693,7 +1694,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                                         || avoidedIntersectingLeftOriginLane < con.fromLane) {
                                     for (const PositionVector& otherShape : otherShapes) {
                                         const bool secondIntersection = con.indirectLeft && this == i2 && con.fromLane == k2.fromLane;
-                                        const double minDV = firstIntersection(shape, otherShape, width1, width2,
+                                        const double minDV = firstIntersection(shape, otherShape, width1OppositeLeft, width2,
                                                                                "Could not compute intersection of conflicting internal lanes at node '" + myTo->getID() + "'", secondIntersection);
                                         if (minDV < shape.length() - POSITION_EPS && minDV > POSITION_EPS) { // !!!?
                                             assert(minDV >= 0);
