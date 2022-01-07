@@ -1413,7 +1413,7 @@ public:
     void debugPrintConnections(bool outgoing = true, bool incoming = false) const;
 
     /// @brief compute the first intersection point between the given lane geometries considering their rspective widths
-    static double firstIntersection(const PositionVector& v1, const PositionVector& v2, double width2, const std::string& error = "", bool secondIntersection = false);
+    static double firstIntersection(const PositionVector& v1, const PositionVector& v2, double width1, double width2, const std::string& error = "", bool secondIntersection = false);
 
     /** returns a modified version of laneShape which starts at the outside of startNode. laneShape may be shorted or extended
      * @note see [wiki:Developer/Network_Building_Process]
@@ -1636,7 +1636,7 @@ private:
     /// @brief determine conflict between opposite left turns
     bool bothLeftTurns(LinkDirection dir, const NBEdge* otherFrom, LinkDirection dir2) const;
     bool haveIntersection(const NBNode& n, const PositionVector& shape, const NBEdge* otherFrom, const NBEdge::Connection& otherCon,
-                          int numPoints, double width2, int shapeFlag = 0) const;
+                          int numPoints, double width1, double width2, int shapeFlag = 0) const;
 
     /// @brief returns whether any lane already allows the given vclass exclusively
     bool hasRestrictedLane(SUMOVehicleClass vclass) const;
