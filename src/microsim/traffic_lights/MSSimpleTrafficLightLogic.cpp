@@ -58,11 +58,13 @@ MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(MSTLLogicControl& tlcontrol
         myDefaultCycleTime = TIME2STEPS(StringUtils::toDouble(getParameter(toString(SUMO_ATTR_CYCLETIME), "")));
     }
     myCoordinated = StringUtils::toBool(getParameter("coordinated", "false"));
-    SUMOTime earliest = SIMSTEP + getEarliest(-1);
-    if (earliest > getNextSwitchTime()) {
-        mySwitchCommand->deschedule(this);
-        mySwitchCommand = new SwitchCommand(tlcontrol, this, earliest);
-        MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(mySwitchCommand, earliest);
+    if (myPhases.size() > 0) {
+        SUMOTime earliest = SIMSTEP + getEarliest(-1);
+        if (earliest > getNextSwitchTime()) {
+            mySwitchCommand->deschedule(this);
+            mySwitchCommand = new SwitchCommand(tlcontrol, this, earliest);
+            MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(mySwitchCommand, earliest);
+        }
     }
 }
 
