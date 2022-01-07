@@ -99,12 +99,12 @@ GNERoute::GNERoute(GNENet* net) :
 
 
 GNERoute::GNERoute(GNENet* net, const std::string& id, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges,
-                   const RGBColor& color, const int repeat, const SUMOTime cycleTime, const std::map<std::string, std::string>& parameters) :
+                   const std::string& color, const int repeat, const SUMOTime cycleTime, const std::map<std::string, std::string>& parameters) :
     GNEDemandElement(id, net, GLO_ROUTE, SUMO_TAG_ROUTE,
         GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
         {}, edges, {}, {}, {}, {}, {}, {}),
     Parameterised(parameters),
-    myColor(color),
+    myColor(color.empty()? RGBColor::YELLOW : parse<RGBColor>(color)),
     myRepeat(repeat),
     myCycleTime(cycleTime),
     myVClass(vClass) {
@@ -112,12 +112,12 @@ GNERoute::GNERoute(GNENet* net, const std::string& id, SUMOVehicleClass vClass, 
 
 
 GNERoute::GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>& edges,
-                   const RGBColor& color, const int repeat, const SUMOTime cycleTime, const std::map<std::string, std::string>& parameters) :
+                   const std::string& color, const int repeat, const SUMOTime cycleTime, const std::map<std::string, std::string>& parameters) :
     GNEDemandElement(vehicleParent, net, GLO_ROUTE, GNE_TAG_ROUTE_EMBEDDED,
         GNEPathManager::PathElement::Options::DEMAND_ELEMENT | GNEPathManager::PathElement::Options::ROUTE,
         {}, edges, {}, {}, {}, {}, {vehicleParent}, {}),
     Parameterised(parameters),
-    myColor(color),
+    myColor(color.empty()? RGBColor::YELLOW : parse<RGBColor>(color)),
     myRepeat(repeat),
     myCycleTime(cycleTime),
     myVClass(vehicleParent->getVClass()) {
