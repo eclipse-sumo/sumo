@@ -224,6 +224,9 @@ GUIDialog_ChooserAbstract::onListKeyPress(FXObject*, FXSelector, void* ptr) {
     FXEvent* event = (FXEvent*)ptr;
     if (event->code == KEY_Return) {
         onCmdText(nullptr, 0, nullptr);
+        if ((event->state & CONTROLMASK) != 0) {
+            close(true);
+        }
         return 1;
     }
     // let other elements handle the keypress
