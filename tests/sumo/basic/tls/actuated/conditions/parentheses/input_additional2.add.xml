@@ -6,7 +6,7 @@
         <phase duration="6"  state="rGrrrGrr" minDur="5" maxDur="60" />
         <phase duration="3"  state="ryrrryrr"/>
         <phase duration="33" state="rrGgrrGg" minDur="5" maxDur="60" />
-        <phase duration="3"  state="rrygrryg" earlyTarget="C1 and (1 = 1)"/>
+        <phase duration="3"  state="rrygrryg" earlyTarget="(C1 or (not 5)) and (1 = 1)"/>
         <phase duration="6"  state="rrrGrrrG" minDur="5" maxDur="60" />
         <phase duration="3"  state="rrryrrry"/>
 
