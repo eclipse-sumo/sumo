@@ -908,8 +908,21 @@ double
 MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) {
     const size_t bracketOpen = condition.find('(');
     if (bracketOpen != std::string::npos) {
-        const size_t bracketClose = condition.rfind(')');
-        if (bracketOpen == std::string::npos || bracketClose < bracketOpen) {
+        // find matching closing bracket
+        size_t bracketClose = std::string::npos;
+        int open = 1;
+        for (size_t i = bracketOpen + 1; i < condition.size(); i++) {
+            if (condition[i] == '(') {
+                open++;
+            } else if (condition[i] == ')') {
+                open--;
+                if (open == 0) {
+                    bracketClose = i;
+                    break;
+                }
+            }
+        }
+        if (bracketOpen == std::string::npos) {
             throw ProcessError("Unmatched parentheses in condition " + condition + "'");
         }
         std::string cond2 = condition;
@@ -920,7 +933,15 @@ MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) {
     }
     std::vector<std::string> tokens = StringTokenizer(condition).getVector();
     //std::cout << SIMTIME << " tokens(" << tokens.size() << ")=" << toString(tokens) << "\n";
-    if (tokens.size() == 3) {
+    if (tokens.size() == 1) {
+        return evalAtomicExpression(tokens[0]);
+    } else if (tokens.size() == 2) {
+        if (tokens[0] == "not") {
+            return !(bool)(evalAtomicExpression(tokens[1]));
+        } else {
+            throw ProcessError("Unsupported condition '" + condition + "'");
+        }
+    } else if (tokens.size() == 3) {
         // infix expression
         const double a = evalAtomicExpression(tokens[0]);
         const double b = evalAtomicExpression(tokens[2]);
@@ -953,10 +974,8 @@ MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) {
         } else if (o == "**") {
             return (double)pow(a, b);
         } else  {
-            throw ProcessError("Unsupported operator '" + o + "' in ' condition " + condition + "'");
+            throw ProcessError("Unsupported operator '" + o + "' in condition '" + condition + "'");
         }
-    } else if (tokens.size() == 1) {
-        return evalAtomicExpression(tokens[0]);
     } else {
         throw ProcessError("Parsing expressions with " + toString(tokens.size()) + " elements ('" + condition + "') is not supported");
     }
