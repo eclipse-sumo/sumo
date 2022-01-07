@@ -37,7 +37,6 @@
 // ===========================================================================
 class NLDetectorBuilder;
 
-
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -167,6 +166,9 @@ protected:
     double evalExpression(const std::string& condition);
 
     /// @brief evaluate atomic expression
+    double evalTernaryExpression(double a, const std::string& o, double b, const std::string& condition);
+
+    /// @brief evaluate atomic expression
     double evalAtomicExpression(const std::string& expr);
 
     int getDetectorPriority(const InductLoopInfo& loopInfo) const;
@@ -246,4 +248,6 @@ protected:
     };
 
     std::vector<SwitchingRules> mySwitchingRules;
+
+    static const std::vector<std::string> OPERATOR_PRECEDENCE;
 };

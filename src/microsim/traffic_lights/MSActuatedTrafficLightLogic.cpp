@@ -45,6 +45,15 @@
 #define DEBUG_COND (getID()=="C")
 
 // ===========================================================================
+// static members
+// ===========================================================================
+const std::vector<std::string> MSActuatedTrafficLightLogic::OPERATOR_PRECEDENCE({
+        "**", "*", "/", "+", "-", "%",
+        "=", "==", "!=", "<", ">", "<=", ">=",
+        "and", "or",
+        });
+
+// ===========================================================================
 // parameter defaults definitions
 // ===========================================================================
 #define DEFAULT_MAX_GAP "3.0"
@@ -933,7 +942,9 @@ MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) {
     }
     std::vector<std::string> tokens = StringTokenizer(condition).getVector();
     //std::cout << SIMTIME << " tokens(" << tokens.size() << ")=" << toString(tokens) << "\n";
-    if (tokens.size() == 1) {
+    if (tokens.size() == 0) {
+        throw ProcessError("Invalid empty condition '" + condition + "'");
+    } else if (tokens.size() == 1) {
         return evalAtomicExpression(tokens[0]);
     } else if (tokens.size() == 2) {
         if (tokens[0] == "not") {
@@ -947,39 +958,60 @@ MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) {
         const double b = evalAtomicExpression(tokens[2]);
         const std::string& o = tokens[1];
         //std::cout << SIMTIME << " o=" << o << " a=" << a << " b=" << b << "\n";
-        if (o == "=" || o == "==") {
-            return (double)(a == b);
-        } else if (o == "<") {
-            return (double)(a < b);
-        } else if (o == ">") {
-            return (double)(a > b);
-        } else if (o == "<=") {
-            return (double)(a <= b);
-        } else if (o == ">=") {
-            return (double)(a >= b);
-        } else if (o == "!=") {
-            return (double)(a != b);
-        } else if (o == "or" || o == "oder" || o == "v") {
-            return (double)(a || b);
-        } else if (o == "and" || o == "und" || o == "^") {
-            return (double)(a && b);
-        } else if (o == "+") {
-            return (double)(a + b);
-        } else if (o == "-") {
-            return (double)(a + b);
-        } else if (o == "*") {
-            return (double)(a * b);
-        } else if (o == "/") {
-            return (double)(a / b);
-        } else if (o == "**") {
-            return (double)pow(a, b);
-        } else  {
-            throw ProcessError("Unsupported operator '" + o + "' in condition '" + condition + "'");
-        }
+        return evalTernaryExpression(a, o, b, condition);
     } else {
+        const int iEnd = tokens.size() - 1;
+        for (const std::string& o : OPERATOR_PRECEDENCE) {
+            for (int i = 1; i < iEnd; i++) {
+                if (tokens[i] == o) {
+                    const double val = evalTernaryExpression(
+                            evalAtomicExpression(tokens[i - 1]), o,
+                            evalAtomicExpression(tokens[i + 1]), condition);
+                    std::vector<std::string> newTokens(tokens.begin(), tokens.begin() + (i - 1));
+                    newTokens.push_back(toString(val));
+                    newTokens.insert(newTokens.end(), tokens.begin() + (i + 2), tokens.end());
+                    return evalExpression(toString(newTokens));
+                }
+            }
+        }
         throw ProcessError("Parsing expressions with " + toString(tokens.size()) + " elements ('" + condition + "') is not supported");
     }
     return true;
+}
+
+double
+MSActuatedTrafficLightLogic::evalTernaryExpression(double a, const std::string& o, double b, const std::string& condition) {
+    if (o == "=" || o == "==") {
+        return (double)(a == b);
+    } else if (o == "<") {
+        return (double)(a < b);
+    } else if (o == ">") {
+        return (double)(a > b);
+    } else if (o == "<=") {
+        return (double)(a <= b);
+    } else if (o == ">=") {
+        return (double)(a >= b);
+    } else if (o == "!=") {
+        return (double)(a != b);
+    } else if (o == "or") {
+        return (double)(a || b);
+    } else if (o == "and") {
+        return (double)(a && b);
+    } else if (o == "+") {
+        return (double)(a + b);
+    } else if (o == "-") {
+        return (double)(a + b);
+    } else if (o == "*") {
+        return (double)(a * b);
+    } else if (o == "/") {
+        return (double)(a / b);
+    } else if (o == "%") {
+        return fmod(a, b);
+    } else if (o == "**") {
+        return (double)pow(a, b);
+    } else  {
+        throw ProcessError("Unsupported operator '" + o + "' in condition '" + condition + "'");
+    }
 }
 
 double
@@ -988,6 +1020,8 @@ MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) {
         throw ProcessError("Invalid empty expression");
     } else if (expr[0] == '!') {
         return !(bool)evalAtomicExpression(expr.substr(1));
+    } else if (expr[0] == '-') {
+        return -evalAtomicExpression(expr.substr(1));
     } else {
         // check for 'operator:'
         const size_t pos = expr.find(':');
