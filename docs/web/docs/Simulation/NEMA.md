@@ -36,8 +36,11 @@ looks like this:
         <param key="ring2" value="0,4,0,6"/>
         <param key="barrierPhases" value="4,4"/>
         <param key="coordinate-mode" value="true"/>
-        <param key="barrier2Phases" value="2,6"/>        
+        <param key="barrier2Phases" value="2,6"/>     
+        <param key="minRecall" value="2,6"/>     
+        <param key="maxRecall" value=""/>     
         <param key="whetherOutputState" value="true"/>
+        <param key="fixForceOff" value="false"/>
 
         <phase duration="99" minDur="6"  maxDur="16" vehext="2" yellow="4" red="1" name="1" state="grrrrrrGGrrr"/>
         <phase duration="99" minDur="10" maxDur="67" vehext="2" yellow="4" red="1" name="2" state="grrrrrrrrGGG"/>
@@ -72,7 +75,10 @@ The following parameters are used to set the NEMA diagram:
 | **barrierPhases**  | string    | One set of phases, seperated by comma (','), that need to end together. This defines a barrier. Usually phase 4 and 8, i.e., "4,8".|
 | **coordinate-mode**  | bool (true or false)    | Default to *false*. True if the controller is in coordinated mode.|
 | **barrier2Phases**  | string    | One set of phases, seperated by comma (','), that need to end together. This defines another barrier. If in coordinated mode, this set of phases are the coordinated phases. Usually phase 2 and 6, i.e., "2,6".|
-|**whetherOutputState**  | bool (true or false)    | Whether record the signal phase change events. This could be used for generating Automated Traffic Signal Performance Measures (ATSPM).|
+| **minRecall**  | string    | One set of phases, seperated by comma (','), that will get activated no matter if the corresponding detectors will be activated or not. The duration of the phase activation will be between minDur and maxDur of the phase. E.g., "2,6". The value will be default to "1,2,3,4,5,6,7,8" if not set (all the existing phases will be called).|
+| **maxRecall**  | string    | One set of phases, seperated by comma (','), that will get activated no matter if the corresponding detectors will be activated or not. The duration of the phase activation will be the maxDur of the phase. If you set all the phases to have maxRecall, the controller will behave as a fixed time controller with the green times being the maxDur of the phases. The value will be default to empty ("") if not set.|
+|**fixForceOff**  | bool (true or false)    | If true, the controller will be in fixed force-off mode. If false, the controller will be in floating force-off mode. The value will be default to false if not set.|
+|**whetherOutputState**  | bool (true or false)    | Whether record the signal phase change events. This could be used for generating Automated Traffic Signal Performance Measures (ATSPM). The value will be default to false if not set.|
 |**show-detectors**  | bool (true or false)    | It controls whether generated detectors will be visible or hidden in sumo-gui. The default for all traffic lights can be set with option --tls.actuated.show-detectors. It is also possible to toggle this value from within the GUI by right-clicking on a traffic light.
 
 ## <phase\> Attributes
