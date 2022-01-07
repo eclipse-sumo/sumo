@@ -919,7 +919,7 @@ int NEMALogic::nextPhase(std::vector<int> ring, int currentPhase) {
         if (flag == 1) {
             if (ring[i % length] != 0) {
                 int tempPhase = ring[i % length];
-                if (recall[tempPhase-1] or isDetectorActivated(tempPhase)){
+                if (recall[tempPhase-1] || isDetectorActivated(tempPhase)){
                     nphase=tempPhase;
                     break;
                 }
