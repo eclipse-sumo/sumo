@@ -328,6 +328,8 @@ each lanes maximum speed).
 - **show-detectors** controls whether generated detectors will be visible or hidden in [sumo-gui](../sumo-gui.md). The default for all traffic lights can be set with option **--tls.actuated.show-detectors**. It is also possible to toggle this value from within the GUI by right-clicking on a traffic light.
 - parameters **vTypes**, **file** and **freq** have the same meaning as for [regular
 induction loop detectors](../Simulation/Output/Induction_Loops_Detectors_(E1).md).
+- **coordinated** (true/false) Influence there reference point for time-in-cycle when using [coordination](#coordination)
+- **cycleTime** sets the cycle time (in s) when using [coordination](#coordination). Defaults to the sum of all phase 'durations' values.
 
 Some parameters are only used when a signal plan with [dynamic phase selection](#dynamic_phase_selection_phase_skipping) is active:
 
@@ -356,7 +358,7 @@ To define a max-gap value that differs from the default you can use a param with
 Actuated phases (minDur != maxDur) can be coordinated by adding attributes 'earliestEnd' and 'latestEnd'.
 If these values are used, each step in the traffic light plan is assigned a 'timeInCycle' value depending on the value of param 'coordinated' (default 'false').
 
-- coordinated=true:  timeInCycle = *(simulationTime - offset) % cycleTime*  (where cycleTime is the sum of all phase durations)
+- coordinated=true:  timeInCycle = *(simulationTime - offset) % cycleTime*  (where cycleTime is taken from the param with key=cycleTime)
 - coordinated=false: timeInCycle = *time since last switching into phase 0*
 
 If 'earliestEnd' is set, a phase can not end while *timeInCycle < earliestEnd* (effectively increasing minDur)
@@ -371,6 +373,7 @@ phase run more than once in the same cycle (this only happens when param
 ```
 <tlLogic id="0" programID="my_program" offset="10" type="actuated">
   <param key="coordinated" value="true"/>
+  <param key="cycleTime value="60"/>
 
   <phase duration="31" minDur="5" maxDur="45" state="GGggrrrrGGggrrrr" earliestEnd="10" latestEnd="50"/>
   ...
