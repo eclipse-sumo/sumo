@@ -56,7 +56,7 @@ SUMOVehicleParameter*
 SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attrs, const bool hardFail, const bool needID,
         const SUMOTime beginDefault, const SUMOTime endDefault) {
     // first parse ID
-    std::string id = parseID(attrs, tag);
+    const std::string id = attrs.hasAttribute(SUMO_ATTR_ID)? parseID(attrs, tag) : "";
     // check if ID is valid
     if (!needID || !id.empty()) {
         if (needID && !SUMOXMLDefinitions::isValidVehicleID(id)) {
