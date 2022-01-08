@@ -98,7 +98,7 @@ GUIDialog_ChooserAbstract::GUIDialog_ChooserAbstract(GUIGlChildWindow* windowsPa
     new FXButton(layoutRight, "&Close\t\t", GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_CANCEL, GUIDesignChooserButtons);
     myCountLabel = new FXLabel(layoutRight, "placeholder", nullptr, LAYOUT_BOTTOM | LAYOUT_FILL_X | JUSTIFY_LEFT);
     myInstantCenter = new FXCheckButton(layoutRight, "auto-center");
-    myInstantCenter->setCheck(getApp()->reg().readIntEntry("LOCATOR", "autoCenter", FALSE));
+    myInstantCenter->setCheck(getApp()->reg().readIntEntry("LOCATOR", "autoCenter", 0) == 1);
     refreshList(ids);
     // add child in windowsParent
     myWindowsParent->getParent()->addChild(this);
