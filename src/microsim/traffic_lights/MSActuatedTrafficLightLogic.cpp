@@ -939,6 +939,10 @@ MSActuatedTrafficLightLogic::evalTernaryExpression(double a, const std::string& 
     } else if (o == "*") {
         return a * b;
     } else if (o == "/") {
+        if (b == 0) {
+            WRITE_ERROR("Division by 0 in condition '" + condition + "'");
+            return 0;
+        }
         return a / b;
     } else if (o == "%") {
         return fmod(a, b);
