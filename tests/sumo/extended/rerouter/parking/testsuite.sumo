@@ -64,3 +64,6 @@ reroute_fullparking
 
 # vehicle moves passed rerouter edge in a single step (#9780)
 reroute_on_junction
+
+# test what happens if brakeGap prevents the vehicle from taken the first free space.
+brakeGap_beyond_firstSpace
