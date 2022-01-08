@@ -21,8 +21,11 @@
 #include <config.h>
 
 #include <vector>
+#include <cassert>
+#include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/Named.h>
 #include <utils/common/SUMOTime.h>
+#include <microsim/MSMoveReminder.h>
 
 
 // ===========================================================================
@@ -30,7 +33,6 @@
 // ===========================================================================
 class MSEdge;
 class MSLink;
-class MSMoveReminder;
 class MSDetectorFileOutput;
 class MSVehicleControl;
 class MEVehicle;
@@ -48,6 +50,21 @@ class MESegment : public Named {
 public:
     static const double DO_NOT_PATCH_JAM_THRESHOLD;
     static const int PARKING_QUEUE = -1;
+
+    /// @brief edge type specific meso parameters
+    struct MesoEdgeType {
+        SUMOTime tauff;
+        SUMOTime taufj;
+        SUMOTime taujf;
+        SUMOTime taujj;
+        double jamThreshold;
+        bool junctionControl;
+        double tlsPenalty;
+        double tlsFlowPenalty;
+        SUMOTime minorPenalty;
+        bool overtaking;
+    };
+
 
 private:
     class Queue {
@@ -132,10 +149,10 @@ public:
               const double length, const double speed,
               const int idx,
               const bool multiQueue,
-              const MSNet::MesoEdgeType& edgeTyp);
+              const MesoEdgeType& edgeTyp);
 
     /// @brief set model parameters (may be updated from additional file after network loading is complete)
-    void initSegment(const MSNet::MesoEdgeType& edgeType, const MSEdge& parent);
+    void initSegment(const MesoEdgeType& edgeType, const MSEdge& parent);
 
     /// @name Measure collection
     /// @{

@@ -46,6 +46,7 @@
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSRailSignal.h>
 #include <microsim/traffic_lights/MSRailSignalConstraint.h>
+#include <mesosim/MESegment.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/geom/GeoConvHelper.h>
@@ -1517,7 +1518,7 @@ NLHandler::addRoundabout(const SUMOSAXAttributes& attrs) {
 void
 NLHandler::addMesoEdgeType(const SUMOSAXAttributes& attrs) {
     bool ok = true;
-    MSNet::MesoEdgeType edgeType = myNet.getMesoType(""); // init defaults
+    MESegment::MesoEdgeType edgeType = myNet.getMesoType(""); // init defaults
     edgeType.tauff = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MESO_TAUFF, myCurrentTypeID.c_str(), ok, edgeType.tauff);
     edgeType.taufj = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MESO_TAUFJ, myCurrentTypeID.c_str(), ok, edgeType.taufj);
     edgeType.taujf = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MESO_TAUJF, myCurrentTypeID.c_str(), ok, edgeType.taujf);

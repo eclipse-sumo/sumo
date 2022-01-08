@@ -91,7 +91,7 @@ MESegment::MESegment(const std::string& id,
                      const double length, const double speed,
                      const int idx,
                      const bool multiQueue,
-                     const MSNet::MesoEdgeType& edgeType):
+                     const MesoEdgeType& edgeType):
     Named(id), myEdge(parent), myNextSegment(next),
     myLength(length), myIndex(idx),
     myTau_length(SCALED_TAU(TIME2STEPS(1)) / MAX2(MESO_MIN_SPEED, speed)),
@@ -126,7 +126,7 @@ MESegment::MESegment(const std::string& id,
 }
 
 void
-MESegment::initSegment(const MSNet::MesoEdgeType& edgeType, const MSEdge& parent) {
+MESegment::initSegment(const MesoEdgeType& edgeType, const MSEdge& parent) {
 
     const bool multiQueue = myQueues.size() > 1;
 

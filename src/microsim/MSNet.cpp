@@ -343,16 +343,16 @@ MSNet::getRestrictions(const std::string& id) const {
 }
 
 void
-MSNet::addMesoType(const std::string& typeID, const MesoEdgeType& edgeType) {
+MSNet::addMesoType(const std::string& typeID, const MESegment::MesoEdgeType& edgeType) {
     myMesoEdgeTypes[typeID] = edgeType;
 }
 
-const MSNet::MesoEdgeType&
+const MESegment::MesoEdgeType&
 MSNet::getMesoType(const std::string& typeID) {
     if (myMesoEdgeTypes.count(typeID) == 0) {
         // init defaults
         const OptionsCont& oc = OptionsCont::getOptions();
-        MesoEdgeType edgeType;
+        MESegment::MesoEdgeType edgeType;
         edgeType.tauff = string2time(oc.getString("meso-tauff"));
         edgeType.taufj = string2time(oc.getString("meso-taufj"));
         edgeType.taujf = string2time(oc.getString("meso-taujf"));

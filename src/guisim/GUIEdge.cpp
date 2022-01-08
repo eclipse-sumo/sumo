@@ -218,7 +218,7 @@ GUIParameterTableWindow*
 GUIEdge::getTypeParameterWindow(GUIMainWindow& app,
                                 GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
-    const MSNet::MesoEdgeType& edgeType = MSNet::getInstance()->getMesoType(getEdgeType());
+    const MESegment::MesoEdgeType& edgeType = MSNet::getInstance()->getMesoType(getEdgeType());
     // add items
     ret->mkItem("Type Information:", false, "");
     ret->mkItem("type [id]", false, getEdgeType());

@@ -32,6 +32,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSGlobals.h>
+#include <mesosim/MESegment.h>
 #include "MSTLLogicControl.h"
 #include "MSTrafficLightLogic.h"
 
@@ -443,7 +444,7 @@ void MSTrafficLightLogic::initMesoTLSPenalties() {
         for (int k = 0; k < (int)myLinks[j].size(); ++k) {
             MSLink* link = myLinks[j][k];
             MSEdge& edge = link->getLaneBefore()->getEdge();
-            const MSNet::MesoEdgeType& edgeType = MSNet::getInstance()->getMesoType(edge.getEdgeType());
+            const MESegment::MesoEdgeType& edgeType = MSNet::getInstance()->getMesoType(edge.getEdgeType());
             double greenFraction = (durationSeconds - totalRedDuration[j]) / durationSeconds;
             if (edgeType.tlsFlowPenalty == 0) {
                 greenFraction = 1;

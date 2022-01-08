@@ -276,7 +276,7 @@ MELoop::numSegmentsFor(const double length, const double sLength) {
 
 void
 MELoop::buildSegmentsFor(const MSEdge& e, const OptionsCont& oc) {
-    const MSNet::MesoEdgeType& edgeType = MSNet::getInstance()->getMesoType(e.getEdgeType());
+    const MESegment::MesoEdgeType& edgeType = MSNet::getInstance()->getMesoType(e.getEdgeType());
     const double length = e.getLength();
     const int numSegments = numSegmentsFor(length, oc.getFloat("meso-edgelength"));
     const double slength = length / (double)numSegments;
@@ -300,7 +300,7 @@ MELoop::buildSegmentsFor(const MSEdge& e, const OptionsCont& oc) {
 void
 MELoop::updateSegementsForEdge(const MSEdge& e) {
     if (e.getNumericalID() < (int)myEdges2FirstSegments.size()) {
-        const MSNet::MesoEdgeType& edgeType = MSNet::getInstance()->getMesoType(e.getEdgeType());
+        const MESegment::MesoEdgeType& edgeType = MSNet::getInstance()->getMesoType(e.getEdgeType());
         MESegment* s = myEdges2FirstSegments[e.getNumericalID()];
         while (s != nullptr) {
             s->initSegment(edgeType, e);
