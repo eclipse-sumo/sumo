@@ -15,7 +15,7 @@ on:
     - cron:  '25 2 * * *'
 
 jobs:
-  build:
+  build-wheels:
     strategy:
       fail-fast: false
       matrix:
@@ -62,8 +62,21 @@ jobs:
         name: python-wheels
         path: sumo/dist
 
+  publish-wheels:
+#    if: github.repository == 'eclipse/sumo' && (github.event_name == 'schedule' || startsWith(github.ref, 'refs/tags'))
+    needs: [build-wheels]
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/download-artifact@v2
+
+    - name: Moving artifacts
+      run: |
+        ls -lR
+        mkdir dist
+        mv ./*-wheels/* dist
+
     - name: Publish to Test PyPI
-      if: github.repository == 'eclipse/sumo' && (github.event_name == 'schedule' || startsWith(github.ref, 'refs/tags'))
       uses: pypa/gh-action-pypi-publish@master
       with:
         password: ${{ secrets.TEST_PYPI_TOKEN }}
@@ -71,7 +84,7 @@ jobs:
         skip_existing: true
 
     - name: Publish to PyPI
-      if: github.repository == 'eclipse/sumo' && startsWith(github.ref, 'refs/tags')
+      if: startsWith(github.ref, 'refs/tags')
       uses: pypa/gh-action-pypi-publish@master
       with:
         password: ${{ secrets.PYPI_TOKEN }}
