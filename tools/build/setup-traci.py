@@ -34,6 +34,7 @@ setup(
     license='EPL-2.0',
     description="The pure python version of the TraCI API to communicate with the traffic simulation Eclipse SUMO",
     long_description=open(os.path.join(os.path.dirname(package_dir), 'README.md')).read(),
+    long_description_content_type='text/markdown',
 
     classifiers=[
         'Development Status :: 5 - Production/Stable',
