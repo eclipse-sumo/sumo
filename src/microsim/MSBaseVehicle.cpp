@@ -53,7 +53,7 @@
 
 //#define DEBUG_REROUTE
 //#define DEBUG_ADD_STOP
-//#define DEBUG_COND (getID() == "follower")
+//#define DEBUG_COND (getID() == "")
 //#define DEBUG_COND (true)
 //#define DEBUG_REPLACE_ROUTE
 #define DEBUG_COND (isSelected())

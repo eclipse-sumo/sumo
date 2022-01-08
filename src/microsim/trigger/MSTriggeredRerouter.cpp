@@ -1001,7 +1001,7 @@ MSTriggeredRerouter::addParkValues(SUMOVehicle& veh, double brakeGap, bool newDe
 
 #ifdef DEBUG_PARKING
     if (DEBUGCOND) {
-        //std::cout << "    altPA=" << pa->getID() << " vehEdge=" << veh.getEdge()->getID() << " parkEdge " << parkEdge->getID() << " edgesToPark=" << edgesToPark.size() << "\n";
+        std::cout << "    altPA=" << pa->getID() << " vehEdge=" << veh.getEdge()->getID() << " parkEdge " << parkEdge->getID() << " edgesToPark=" << edgesToPark.size() << "\n";
     }
 #endif
 
@@ -1074,8 +1074,8 @@ MSTriggeredRerouter::addParkValues(SUMOVehicle& veh, double brakeGap, bool newDe
             }
 
 #ifdef DEBUG_PARKING
-                if (DEBUGCOND && false) {
-                    std::cout "      " << veh.getID() << " candidate=" << pa->getID()
+                if (DEBUGCOND) {
+                    std::cout << "      " << veh.getID() << " candidate=" << pa->getID()
                         << " distanceTo=" << parkValues["distanceto"]
                         << " brakeGap=" << brakeGap
                         << " routeToPark=" << toString(edgesToPark)

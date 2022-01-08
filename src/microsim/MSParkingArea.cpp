@@ -179,14 +179,12 @@ MSParkingArea::getLastFreeLotGUIAngle() const {
 
 
 double
-MSParkingArea::getLastFreePos(const SUMOVehicle& forVehicle) const {
+MSParkingArea::getLastFreePos(const SUMOVehicle& forVehicle, double brakePos) const {
     if (myCapacity == (int)myEndPositions.size()) {
         // keep enough space so that  parking vehicles can leave
         return myLastFreePos - forVehicle.getVehicleType().getMinGap() - POSITION_EPS;
     } else {
-        // XXX if (forVehicle.getLane() == myLane && forVehicle.getPositionOnLane() > myLastFreePos) {
-        //        find freePos beyond vehicle position }
-        return myLastFreePos;
+        return MAX2(myLastFreePos, MIN2(myEndPos, brakePos));
     }
 }
 

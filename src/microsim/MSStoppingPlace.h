@@ -133,9 +133,11 @@ public:
 
     /** @brief Returns the last free position on this stop
      *
+     * @param[in] forVehicle The vehicle that wants to stop here
+     * @param[in] brakePos the first position on the stop lane that the vehicle can stop at
      * @return The last free position of this bus stop
      */
-    double getLastFreePos(const SUMOVehicle& forVehicle) const;
+    double getLastFreePos(const SUMOVehicle& forVehicle, double brakePos = 0) const;
 
     /// @brief return whether the given vehicle fits at the given position
     bool fits(double pos, const SUMOVehicle& veh) const;

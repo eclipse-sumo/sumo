@@ -98,7 +98,7 @@ MSStoppingPlace::enter(SUMOVehicle* veh, bool parking) {
 
 
 double
-MSStoppingPlace::getLastFreePos(const SUMOVehicle& forVehicle) const {
+MSStoppingPlace::getLastFreePos(const SUMOVehicle& forVehicle, double /*brakePos*/) const {
     if (myLastFreePos != myEndPos) {
         const double vehGap = forVehicle.getVehicleType().getMinGap();
         double pos = myLastFreePos - vehGap;

@@ -133,7 +133,7 @@ public:
     SUMOTime updateOccupancy(SUMOTime currentTime);
 
     /// @brief Returns the last free position on this stop
-    double getLastFreePos(const SUMOVehicle& forVehicle) const;
+    double getLastFreePos(const SUMOVehicle& forVehicle, double brakePos = 0) const;
 
     /** @brief Returns the last free position on this stop including
      * reservatiosn from the current lane and time step

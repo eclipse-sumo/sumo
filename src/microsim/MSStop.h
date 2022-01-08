@@ -103,6 +103,8 @@ public:
     /// @brief initialize attributes from the given stop parameters
     void initPars(const SUMOVehicleParameter::Stop& stopPar);
 
+    const MSEdge* getEdge() const;
+
 private:
     /// @brief Invalidated assignment operator
     MSStop& operator=(const MSStop& src) = delete;
