@@ -895,7 +895,7 @@ MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) {
         //std::cout << SIMTIME << " o=" << o << " a=" << a << " b=" << b << "\n";
         return evalTernaryExpression(a, o, b, condition);
     } else {
-        const int iEnd = tokens.size() - 1;
+        const int iEnd = (int)tokens.size() - 1;
         for (const std::string& o : OPERATOR_PRECEDENCE) {
             for (int i = 1; i < iEnd; i++) {
                 if (tokens[i] == o) {
@@ -928,22 +928,22 @@ MSActuatedTrafficLightLogic::evalTernaryExpression(double a, const std::string& 
         return (double)(a >= b);
     } else if (o == "!=") {
         return (double)(a != b);
-    } else if (o == "or") {
+    } else if (o == "or" || o == "||") {
         return (double)(a || b);
-    } else if (o == "and") {
+    } else if (o == "and" || o == "&&") {
         return (double)(a && b);
     } else if (o == "+") {
-        return (double)(a + b);
+        return a + b;
     } else if (o == "-") {
-        return (double)(a + b);
+        return a + b;
     } else if (o == "*") {
-        return (double)(a * b);
+        return a * b;
     } else if (o == "/") {
-        return (double)(a / b);
+        return a / b;
     } else if (o == "%") {
         return fmod(a, b);
-    } else if (o == "**") {
-        return (double)pow(a, b);
+    } else if (o == "**" || o == "^") {
+        return pow(a, b);
     } else  {
         throw ProcessError("Unsupported operator '" + o + "' in condition '" + condition + "'");
     }
