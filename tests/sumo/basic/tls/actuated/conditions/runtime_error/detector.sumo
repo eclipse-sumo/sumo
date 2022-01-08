@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-06 21:36:50 by Eclipse SUMO sumo Version v1_11_0+0873-0b54bb7
+<!-- generated on 2022-01-08 12:16:10 by Eclipse SUMO sumo Version v1_11_0+0950-9062b48
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -18,6 +18,10 @@ SPDX-License-Identifier: EPL-2.0
         <write-license value="true"/>
     </output>
 
+    <time>
+        <end value="50"/>
+    </time>
+
     <processing>
         <default.speeddev value="0"/>
     </processing>
@@ -34,12 +38,12 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1_file.xsd">
-    <interval begin="0.00" end="1047.00" id="NC0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="0.00" end="1047.00" id="NC1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="0.00" end="1047.00" id="EC0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="0.00" end="1047.00" id="EC1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="0.00" end="1047.00" id="SC0" nVehContrib="25" flow="85.96" occupancy="1.44" speed="10.23" harmonicMeanSpeed="8.27" length="5.00" nVehEntered="25"/>
-    <interval begin="0.00" end="1047.00" id="SC1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="0.00" end="1047.00" id="WC0" nVehContrib="250" flow="859.60" occupancy="32.04" speed="11.98" harmonicMeanSpeed="3.73" length="5.00" nVehEntered="250"/>
-    <interval begin="0.00" end="1047.00" id="WC1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
+    <interval begin="0.00" end="50.00" id="NC0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
+    <interval begin="0.00" end="50.00" id="NC1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
+    <interval begin="0.00" end="50.00" id="EC0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
+    <interval begin="0.00" end="50.00" id="EC1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
+    <interval begin="0.00" end="50.00" id="SC0" nVehContrib="1" flow="72.00" occupancy="0.84" speed="11.92" harmonicMeanSpeed="11.92" length="5.00" nVehEntered="1"/>
+    <interval begin="0.00" end="50.00" id="SC1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
+    <interval begin="0.00" end="50.00" id="WC0" nVehContrib="7" flow="504.00" occupancy="5.04" speed="13.89" harmonicMeanSpeed="13.89" length="5.00" nVehEntered="7"/>
+    <interval begin="0.00" end="50.00" id="WC1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
 </detector>
