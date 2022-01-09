@@ -81,6 +81,18 @@ repositories include a nightly build as well (called sumo-git).
 - [CentOS 7 repository](http://download.opensuse.org/repositories/science:/dlr/CentOS_7/)
 - [CentOS 8 repository](http://download.opensuse.org/repositories/science:/dlr/CentOS_8/)
 
+Adding the repository and installing (the quick and dirty way without checking GPG keys!) looks like this for yum on CentOS 7:
+```
+yum-config-manager --add-repo=https://download.opensuse.org/repositories/science:/dlr/CentOS_7/
+yum install -y --nogpgcheck epel-release
+yum install -y --nogpgcheck sumo
+```
+and like this for zypper on openSUSE Leap 15.3:
+```
+zypper ar http://download.opensuse.org/repositories/science:/dlr/15.3/ science:dlr
+zypper in sumo
+```
+
 Ubuntu, Debian and Arch users please see the community repositories above.
 
 ## macOS
