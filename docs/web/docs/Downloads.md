@@ -85,13 +85,14 @@ Adding the repository and installing (the quick and dirty way without checking G
 ```
 yum-config-manager --add-repo=https://download.opensuse.org/repositories/science:/dlr/CentOS_7/
 yum install -y --nogpgcheck epel-release
-yum install -y --nogpgcheck sumo
+yum install -y --nogpgcheck sumo-{{Version}}
 ```
 and like this for zypper on openSUSE Leap 15.3:
 ```
 zypper ar http://download.opensuse.org/repositories/science:/dlr/15.3/ science:dlr
-zypper in sumo
+zypper in sumo={{Version}}
 ```
+I you leave out the version number it will install the latest nightly build.
 
 Ubuntu, Debian and Arch users please see the community repositories above.
 
