@@ -3096,8 +3096,9 @@ MSLane::incoming_lane_priority_sorter::operator()(const IncomingLaneInfo& laneIn
             break;
         }
     }
-    // if one link is subordinate, the other must be priorized
-    assert(priorized1 || priorized2);
+    // if one link is subordinate, the other must be priorized (except for
+    // traffic lights where mutual response is permitted to handle stuck-on-red
+    // situation)
     if (priorized1 != priorized2) {
         return priorized1;
     }
