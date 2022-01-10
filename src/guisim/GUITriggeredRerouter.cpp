@@ -392,15 +392,16 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::GUITriggeredRerouterEdge(GUIEdge
     const std::vector<MSLane*>& lanes = edge->getLanes();
     myFGPositions.reserve(lanes.size());
     myFGRotations.reserve(lanes.size());
-    for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
-        if (((*i)->getPermissions() & ~SVC_PEDESTRIAN) == 0) {
+    for (const MSLane* lane : lanes) {
+        if ((lane->getPermissions() & ~SVC_PEDESTRIAN) == 0) {
             continue;
         }
-        const PositionVector& v = (*i)->getShape();
+        const PositionVector& v = lane->getShape();
         const double pos = edgeType == REROUTER_TRIGGER_EDGE ? MAX2(0.0, v.length() - 6) : MIN2(v.length(), 3.0);
         myFGPositions.push_back(v.positionAtOffset(pos));
         myFGRotations.push_back(-v.rotationDegreeAtOffset(pos));
         myBoundary.add(myFGPositions.back());
+        myHalfWidths.push_back(lane->getWidth() * 0.5 * 0.875);
     }
 }
 
@@ -478,6 +479,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
             for (int i = 0; i < (int)myFGPositions.size(); ++i) {
                 const Position& pos = myFGPositions[i];
                 double rot = myFGRotations[i];
+                const double w = myHalfWidths[i];
                 GLHelper::pushMatrix();
                 glTranslated(pos.x(), pos.y(), 0);
                 glRotated(rot, 0, 0, 1);
@@ -488,16 +490,16 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
                 glBegin(GL_TRIANGLES);
                 glColor3d(1, .8f, 0);
                 // base
-                glVertex2d(0 - 1.4, 0);
-                glVertex2d(0 - 1.4, 6);
-                glVertex2d(0 + 1.4, 6);
-                glVertex2d(0 + 1.4, 0);
-                glVertex2d(0 - 1.4, 0);
-                glVertex2d(0 + 1.4, 6);
+                glVertex2d(0 - w, 0);
+                glVertex2d(0 - w, 6);
+                glVertex2d(0 + w, 6);
+                glVertex2d(0 + w, 0);
+                glVertex2d(0 - w, 0);
+                glVertex2d(0 + w, 6);
                 glEnd();
 
                 // draw "U"
-                GLHelper::drawText("U", Position(0, 2), .1, 3, RGBColor::BLACK, 180);
+                GLHelper::drawText("U", Position(0, 2), .1, 3 * (w / 1.4), RGBColor::BLACK, 180);
 
                 // draw Probability
                 GLHelper::drawText((toString((int)(prob * 100)) + "%").c_str(), Position(0, 4), .1, 0.7, RGBColor::BLACK, 180);
@@ -512,6 +514,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
                 for (int i = 0; i < (int)myFGPositions.size(); ++i) {
                     const Position& pos = myFGPositions[i];
                     double rot = myFGRotations[i];
+                const double w = myHalfWidths[i];
                     GLHelper::pushMatrix();
                     glTranslated(pos.x(), pos.y(), 0);
                     glRotated(rot, 0, 0, 1);
@@ -523,10 +526,10 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
                     glColor3d(0, 1, 1);
                     // base
                     glVertex2d(0 - 0.0, 0);
-                    glVertex2d(0 - 1.4, 6);
-                    glVertex2d(0 + 1.4, 6);
+                    glVertex2d(0 - w, 6);
+                    glVertex2d(0 + w, 6);
                     glVertex2d(0 + 0.0, 0);
-                    glVertex2d(0 + 1.4, 6);
+                    glVertex2d(0 + w, 6);
                     glEnd();
 
                     // draw "P"

@@ -213,6 +213,9 @@ public:
         /// The boundary of this rerouter
         Boundary myBoundary;
 
+        /// The sign half-widths
+        std::vector<double> myHalfWidths;
+
         /// @brief the index for this in edge in routeProbs
         int myDistIndex;
     };
