@@ -1420,9 +1420,9 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                         // make a detailed check
                         PositionVector boundingPoly = collider->getBoundingPoly();
                         if (collider->getBoundingPoly(myCheckJunctionCollisionMinGap).overlapsWith(victim->getBoundingPoly())) {
-                            // junction leader is the victim
+                            // junction leader is the victim (collider must still be on junction)
                             assert(isInternal());
-                            if (victim->isLeader(myLinks.front(), collider)) {
+                            if (victim->getLane()->isInternal() && victim->isLeader(myLinks.front(), collider)) {
                                 foeLane->handleCollisionBetween(timestep, stage, victim, collider, -1, 0, toRemove, toTeleport);
                             } else {
                                 handleCollisionBetween(timestep, stage, collider, victim, -1, 0, toRemove, toTeleport);
