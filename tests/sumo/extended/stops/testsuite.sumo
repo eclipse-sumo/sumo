@@ -10,6 +10,9 @@ errors
 # Tests whether stops can be handled
 simple_stop
 
+# define stop at start of edge
+close_to_start
+
 # tests  behavior when duration 0 is set
 duration_0
 
