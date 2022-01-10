@@ -61,7 +61,11 @@ GNERerouterSymbol::updateGeometry() {
     // clear geometries
     mySymbolGeometries.clear();
     // iterate over all lanes
+    NBEdge* nbe = getParentEdges().front()->getNBEdge();
     for (const auto& lane : getParentEdges().front()->getLanes()) {
+        if ((nbe->getPermissions(lane->getIndex()) & ~SVC_PEDESTRIAN) == 0) {
+            continue;
+        }
         // declare geometry
         GUIGeometry symbolGeometry;
         // update it with lane and pos over lane
