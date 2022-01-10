@@ -331,10 +331,9 @@ def _createRecordAndPattern(element_name, attrnames, warn, optional, extra=None)
 def _open(xmlfile, encoding="utf8"):
     if isinstance(xmlfile, str):
         if xmlfile.endswith(".gz"):
-            if sys.version_info.major == 3 and encoding is None:
-                return gzip.open(xmlfile, "rt", encoding="utf8")
-            else:
-                return gzip.open(xmlfile, "rt")
+            if encoding is None:
+                return gzip.open(xmlfile, "r")
+            return gzip.open(xmlfile, "rt")
         if encoding is not None:
             return io.open(xmlfile, encoding=encoding)
     return xmlfile
