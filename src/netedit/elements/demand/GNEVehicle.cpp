@@ -431,9 +431,18 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
     }
     // write parameters
     writeParams(device);
-    // write child demand elements associated to this vehicle
-    for (const auto& i : getChildDemandElements()) {
-        i->writeDemandElement(device);
+    // write route elements associated to this vehicle
+    if (getChildDemandElements().size() > 0) {
+        if (getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED) {
+            // write embedded route
+            getChildDemandElements().front()->writeDemandElement(device);
+            // write stops
+            writeSortedStops(device, getChildDemandElements().front()->getParentEdges());
+        } else {
+            for (const auto& route : getChildDemandElements()) {
+                route->writeDemandElement(device);
+            }
+        }
     }
     // close vehicle tag
     device.closeTag();

@@ -418,6 +418,24 @@ protected:
     
     /// @}
 
+    /// @brief struct for writting sorted stops
+    struct SortedStops {
+        /// @brief constructor
+        SortedStops(GNEEdge* edge_);
+
+        /// @brief add (and sort) stop
+        void addStop(const GNEDemandElement* stop);
+
+        /// @brief route's edge
+        const GNEEdge* edge;
+
+        /// @brief stops sorted by end position
+        std::vector<std::pair<double, const GNEDemandElement*> > myStops;
+    };
+
+    /// @brief write sorted stops
+    void writeSortedStops(OutputDevice& device, const std::vector<GNEEdge*> &edges) const;
+
 private:
     /**@brief check restriction with the number of children
      * @throw ProcessError if itis called without be reimplemented in child class

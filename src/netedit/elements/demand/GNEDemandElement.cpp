@@ -899,4 +899,55 @@ GNEDemandElement::checkChildDemandElementRestriction() const {
     throw ProcessError("Calling non-implemented function checkChildDemandElementRestriction during saving of " + getTagStr() + ". It muss be reimplemented in child class");
 }
 
+
+GNEDemandElement::SortedStops::SortedStops(GNEEdge* edge_) :
+    edge(edge_) {
+}
+
+
+void 
+GNEDemandElement::SortedStops::addStop(const GNEDemandElement* stop) {
+    myStops.push_back(std::make_pair(stop->getAttributeDouble(SUMO_ATTR_ENDPOS), stop));
+    // sort stops
+    std::sort(myStops.begin(), myStops.end());
+}
+
+
+void 
+GNEDemandElement::writeSortedStops(OutputDevice& device, const std::vector<GNEEdge*> &edges) const {
+    std::vector<GNEDemandElement*> stops;
+    // get stops
+    for (const auto& stop : getChildDemandElements()) {
+        if (stop->getTagProperty().isStop()) {
+            stops.push_back(stop);
+        }
+    }
+    // create SortedStops
+    std::vector<SortedStops> sortedStops;
+    for (const auto &edge : edges) {
+        sortedStops.push_back(SortedStops(edge));
+    }
+    // iterate over all stops and insert it in sortedStops
+    for (const auto &stop : stops) {
+        bool stopLoop = false;
+        // iterate over sortedStops
+        for (auto it = sortedStops.begin(); (it != sortedStops.end()) && !stopLoop; it++) {
+            if ((stop->getParentAdditionals().size() > 0) && (stop->getParentAdditionals().front()->getParentLanes().front()->getParentEdge() == it->edge)) {
+                it->addStop(stop);
+                stopLoop = true;
+            } else if ((stop->getParentLanes().size() > 0) && (stop->getParentLanes().front()->getParentEdge() == it->edge)) {
+                it->addStop(stop);
+                stopLoop = true;
+            }
+        }
+    }
+    // finally write stops
+    for (const auto &sortedStop : sortedStops) {
+        for (const auto &stop : sortedStop.myStops) {
+            stop.second->writeDemandElement(device);
+        }
+    }
+}
+
+
 /****************************************************************************/

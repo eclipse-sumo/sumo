@@ -194,13 +194,9 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
     if (myCycleTime != 0) {
         device.writeAttr(SUMO_ATTR_CYCLETIME, time2string(myCycleTime));
     }
-    // write stops associated to this route (not for embedded routes)
+    // write sorted stops
     if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
-        for (const auto& stop : getChildDemandElements()) {
-            if (stop->getTagProperty().isStop()) {
-                stop->writeDemandElement(device);
-            }
-        }
+        writeSortedStops(device, getParentEdges());
     }
     // write parameters
     writeParams(device);
