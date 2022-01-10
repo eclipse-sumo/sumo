@@ -7,6 +7,6 @@
         <stop parkingArea="A" duration="200.00"/>
     </flow>
     <trip id="blocker" type="car" depart="100" from="SC" to="CN">
-        <stop lane="SC_0" endPos="10" duration="100"/>
+        <stop lane="SC_3" endPos="10" duration="100"/>
     </trip>
 </routes>
