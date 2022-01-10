@@ -741,6 +741,9 @@ private:
     /// @brief whether this connection is an indirect turning movement
     const bool myAmIndirect;
 
+    /// @brief the turning radius for this link or doublemax for straight links
+    double myRadius;
+
     /// @brief the junction to which this link belongs
     MSJunction* myJunction;
 

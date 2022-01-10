@@ -106,6 +106,7 @@ MSLink::MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection di
     myParallelRight(nullptr),
     myParallelLeft(nullptr),
     myAmIndirect(indirect),
+    myRadius(std::numeric_limits<double>::max()),
     myJunction(nullptr) {
 
     if (MSGlobals::gLateralResolution > 0) {
@@ -322,6 +323,22 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                     mySublaneFoeLanes.push_back(link->getViaLane());
                 }
             }
+        }
+    }
+    if (myInternalLaneBefore != nullptr) {
+        const double angle = fabs(GeomHelper::angleDiff(
+                    myLaneBefore->getNormalPredecessorLane()->getShape().angleAt2D(-2),
+                    myLane->getShape().angleAt2D(0)));
+        if (angle > 0) {
+            double length = myInternalLaneBefore->getShape().length2D();
+            if (myInternalLaneBefore->getIncomingLanes().size() == 1 &&
+                    myInternalLaneBefore->getIncomingLanes()[0].lane->isInternal()) {
+                length += myInternalLaneBefore->getIncomingLanes()[0].lane->getShape().length2D();
+            } else if (myInternalLane != nullptr) {
+                length += myInternalLane->getShape().length2D();
+            }
+            myRadius = length / angle;
+            //std::cout << getDescription() << " a=" << RAD2DEG(angle) << " l=" << length << " r=" << myRadius << "\n";
         }
     }
 }
