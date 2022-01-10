@@ -89,6 +89,10 @@ GNEDetectorE3::writeAdditional(OutputDevice& device) const {
     if (getAttribute(SUMO_ATTR_HALTING_SPEED_THRESHOLD) != myTagProperty.getDefaultValue(SUMO_ATTR_HALTING_SPEED_THRESHOLD)) {
         device.writeAttr(SUMO_ATTR_HALTING_SPEED_THRESHOLD, mySpeedThreshold);
     }
+    // write all entry/exits
+    for (const auto& access : getChildAdditionals()) {
+        access->writeAdditional(device);
+    }
     // write parameters (Always after children to avoid problems with additionals.xsd)
     writeParams(device);
     device.closeTag();

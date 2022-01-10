@@ -85,7 +85,7 @@ GNEContainerStop::writeAdditional(OutputDevice& device) const {
     if (getAttribute(SUMO_ATTR_PARKING_LENGTH) != myTagProperty.getDefaultValue(SUMO_ATTR_PARKING_LENGTH)) {
         device.writeAttr(SUMO_ATTR_PARKING_LENGTH, myParkingLength);
     }
-    if (myColor.isValid()) {
+    if (getAttribute(SUMO_ATTR_COLOR).size() > 0) {
         device.writeAttr(SUMO_ATTR_COLOR, myColor);
     }
     // write parameters (Always after children to avoid problems with additionals.xsd)

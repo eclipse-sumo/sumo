@@ -80,7 +80,7 @@ GNEDetectorE2::~GNEDetectorE2() {
 
 void 
 GNEDetectorE2::writeAdditional(OutputDevice& device) const {
-    device.openTag(getTagProperty().getTag());
+    device.openTag(SUMO_TAG_E2DETECTOR);
     device.writeAttr(SUMO_ATTR_ID, getID());
     if (!myAdditionalName.empty()) {
         device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));

@@ -69,12 +69,12 @@ GNEVaporizer::getMoveOperation() {
 void 
 GNEVaporizer::writeAdditional(OutputDevice& device) const {
     device.openTag(getTagProperty().getTag());
-    device.writeAttr(SUMO_ATTR_EDGE, getID());
+    device.writeAttr(SUMO_ATTR_ID, getID());
     if (!myAdditionalName.empty()) {
         device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
     }
-    device.writeAttr(SUMO_ATTR_BEGIN, myBegin);
-    device.writeAttr(SUMO_ATTR_END, myEnd);
+    device.writeAttr(SUMO_ATTR_BEGIN, time2string(myBegin));
+    device.writeAttr(SUMO_ATTR_END, time2string(myEnd));
     // write parameters (Always after children to avoid problems with additionals.xsd)
     writeParams(device);
     device.closeTag();

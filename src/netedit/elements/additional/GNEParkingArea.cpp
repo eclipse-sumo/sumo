@@ -93,8 +93,10 @@ GNEParkingArea::writeAdditional(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_LENGTH, myLength);
     }
     // write all parking spaces
-    for (const auto& access : getChildAdditionals()) {
-        access->writeAdditional(device);
+    for (const auto& space : getChildAdditionals()) {
+        if (space->getTagProperty().getTag() == SUMO_TAG_PARKING_SPACE) {
+            space->writeAdditional(device);
+        }
     }
     // write parameters (Always after children to avoid problems with additionals.xsd)
     writeParams(device);
