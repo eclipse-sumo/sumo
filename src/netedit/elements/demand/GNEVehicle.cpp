@@ -411,7 +411,7 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_TOJUNCTION, getParentJunctions().back()->getID());
     }
     // write specific routeFlow/flow attributes
-    if ((myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE) || (myTagProperty.getTag() == GNE_TAG_FLOW_WITHROUTE) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
+    if (myTagProperty.isFlow()) {
         // write routeFlow values depending if it was set
         if (isAttributeEnabled(SUMO_ATTR_END)) {
             device.writeAttr(SUMO_ATTR_END, time2string(repetitionEnd));
