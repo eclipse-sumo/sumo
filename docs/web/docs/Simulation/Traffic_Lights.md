@@ -437,7 +437,7 @@ The following constraints apply to expressions:
 #### Named Expressions
 
 To organize expressions, the element `<condition>` may be used as a child element
-of `<tlLogic>`:
+of `<tlLogic>` to define named expressions that can be referenced in other expressions:
 
 ```
 <tlLogic id="example" type="actuated" ...>
