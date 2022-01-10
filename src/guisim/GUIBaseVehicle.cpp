@@ -1049,19 +1049,22 @@ GUIBaseVehicle::drawAction_drawPersonsAndContainers(const GUIVisualizationSettin
         }
     }
 #ifdef DRAW_BOUNDING_BOX
-    GLHelper::pushName(getGlID());
-    GLHelper::pushMatrix();
-    glTranslated(0, 0, getType());
-    PositionVector boundingBox = getBoundingBox();
-    boundingBox.push_back(boundingBox.front());
-    PositionVector smallBB = getBoundingPoly();
-    glColor3d(0, .8, 0);
-    GLHelper::drawLine(boundingBox);
-    glColor3d(0.5, .8, 0);
-    GLHelper::drawLine(smallBB);
-    //GLHelper::drawBoxLines(getBoundingBox(), 0.5);
-    GLHelper::popMatrix();
-    GLHelper::popName();
+    if (!MSGlobals::gUseMesoSim) {
+        MSVehicle& microVeh = dynamic_cast<MSVehicle&>(myVehicle);
+        GLHelper::pushName(getGlID());
+        GLHelper::pushMatrix();
+        glTranslated(0, 0, getType());
+        PositionVector smallBB = microVeh.getBoundingPoly();
+        glColor3d(0.5, .8, 0);
+        GLHelper::drawBoxLines(smallBB, 0.3);
+        glTranslated(0, 0, 0.1);
+        PositionVector boundingBox = microVeh.getBoundingBox();
+        boundingBox.push_back(boundingBox.front());
+        glColor3d(1, 0, 0);
+        GLHelper::drawBoxLines(boundingBox,0.15);
+        GLHelper::popMatrix();
+        GLHelper::popName();
+    }
 #endif
 }
 
