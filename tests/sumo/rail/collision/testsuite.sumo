@@ -1,6 +1,9 @@
 # as above but without rail signals
 crossing_tracks_collision
 
+# detect collision between train ends (without checking junction collisions)
+crossing_tracks_collision_noJunction
+
 # unsafe train insertion with an oncoming train beyond the insertion lookahead-horizon.
 frontal_collision
 
