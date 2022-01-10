@@ -80,7 +80,7 @@ public:
      * @param[in] cycleType the times will be shifted forward by 'cycleTime' on each repeat
      * @param[in] parameters generic parameters
      */
-    GNERoute(GNENet* net, const std::string& id, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges, const std::string& color,
+    GNERoute(GNENet* net, const std::string& id, SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges, const RGBColor& color,
              const int repeat, const SUMOTime cycleTime, const std::map<std::string, std::string>& parameters);
 
     /**@brief parameter constructor for embedded routes
@@ -92,7 +92,7 @@ public:
      * @param[in] cycleType the times will be shifted forward by 'cycleTime' on each repeat
      * @param[in] parameters generic parameters
      */
-    GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>& edges, const std::string& color,
+    GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const std::vector<GNEEdge*>& edges, const RGBColor& color,
              const int repeat, const SUMOTime cycleTime, const std::map<std::string, std::string>& parameters);
 
     /// @brief copy constructor (used to create a route based on the parameters of other GNERoute)

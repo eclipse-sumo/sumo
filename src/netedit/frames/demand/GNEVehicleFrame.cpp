@@ -418,7 +418,7 @@ GNEVehicleFrame::createPath() {
                 embeddedRouteObject->setTag(SUMO_TAG_ROUTE);
                 embeddedRouteObject->addStringAttribute(SUMO_ATTR_ID, "");
                 embeddedRouteObject->addStringListAttribute(SUMO_ATTR_EDGES, routeEdges);
-                embeddedRouteObject->addColorAttribute(SUMO_ATTR_COLOR, RGBColor::CYAN),
+                embeddedRouteObject->addColorAttribute(SUMO_ATTR_COLOR, RGBColor::INVISIBLE),
                                     embeddedRouteObject->addIntAttribute(SUMO_ATTR_REPEAT, 0),
                                     embeddedRouteObject->addTimeAttribute(SUMO_ATTR_CYCLETIME, 0),
                                     // parse route
@@ -480,7 +480,7 @@ GNEVehicleFrame::createPath() {
                 embeddedRouteObject->setTag(SUMO_TAG_ROUTE);
                 embeddedRouteObject->addStringAttribute(SUMO_ATTR_ID, "");
                 embeddedRouteObject->addStringListAttribute(SUMO_ATTR_EDGES, routeEdges);
-                embeddedRouteObject->addColorAttribute(SUMO_ATTR_COLOR, RGBColor::CYAN),
+                embeddedRouteObject->addColorAttribute(SUMO_ATTR_COLOR, RGBColor::INVISIBLE),
                                     embeddedRouteObject->addIntAttribute(SUMO_ATTR_REPEAT, 0),
                                     embeddedRouteObject->addTimeAttribute(SUMO_ATTR_CYCLETIME, 0),
                                     // parse route

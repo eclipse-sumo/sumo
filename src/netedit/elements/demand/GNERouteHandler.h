@@ -70,12 +70,12 @@ public:
 
     /// @brief build route
     void buildRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, SUMOVehicleClass vClass,
-                    const std::vector<std::string>& edgeIDs, const std::string& color, const int repeat, const SUMOTime cycleTime,
+                    const std::vector<std::string>& edgeIDs, const RGBColor& color, const int repeat, const SUMOTime cycleTime,
                     const std::map<std::string, std::string>& routeParameters);
 
     /// @brief build embedded route
     void buildEmbeddedRoute(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::vector<std::string>& edgeIDs,
-                            const std::string& color, const int repeat, const SUMOTime cycleTime,
+                            const RGBColor& color, const int repeat, const SUMOTime cycleTime,
                             const std::map<std::string, std::string>& routeParameters);
 
     /// @brief build route distribution

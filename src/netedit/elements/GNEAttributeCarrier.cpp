@@ -1504,8 +1504,7 @@ GNEAttributeCarrier::fillAdditionals() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_COLOR,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::COLOR | GNEAttributeProperties::DEFAULTVALUE,
-                                              "The RGBA color with which the busStop shall be displayed",
-                                              "");
+                                              "The RGBA color with which the busStop shall be displayed");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
     }
@@ -1567,8 +1566,7 @@ GNEAttributeCarrier::fillAdditionals() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_COLOR,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::COLOR | GNEAttributeProperties::DEFAULTVALUE,
-                                              "The RGBA color with which the trainStop shall be displayed",
-                                              "");
+                                              "The RGBA color with which the trainStop shall be displayed");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
     }
@@ -1662,8 +1660,7 @@ GNEAttributeCarrier::fillAdditionals() {
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_COLOR,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::COLOR | GNEAttributeProperties::DEFAULTVALUE,
-                                              "The RGBA color with which the containerStop shall be displayed",
-                                              "");
+                                              "The RGBA color with which the containerStop shall be displayed");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_CHARGING_STATION;
