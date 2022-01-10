@@ -1,2 +1,2 @@
-Warning: Teleporting vehicle '0.0'; waited too long, from edge '1/0to1/1':0, time 15.13.
-Warning: Vehicle '0.0' ends teleporting on edge '2/1to2/2':0, time 21.64.
+Warning: Teleporting vehicle '0.0'; waited too long, from edge '1/0to1/1':0, time=15.13.
+Warning: Vehicle '0.0' ends teleporting on edge '2/1to2/2':0, time=21.64.

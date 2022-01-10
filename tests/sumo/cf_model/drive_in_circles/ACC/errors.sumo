@@ -717,8 +717,8 @@ Warning: Vehicle '0.56' performs emergency braking with decel=-9.00 wished=4.50 
 Warning: Vehicle '0.57' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1502.00.
 Warning: Vehicle '0.58' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1502.00.
 Warning: Vehicle '0.59' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1502.00.
-Warning: Vehicle '0.61' ends teleporting on edge '4/1to5/1', time 1502.00.
-Warning: Vehicle '0.126' ends teleporting on edge '4/1to5/1', time 1503.00.
+Warning: Vehicle '0.61' ends teleporting on edge '4/1to5/1', time=1502.00.
+Warning: Vehicle '0.126' ends teleporting on edge '4/1to5/1', time=1503.00.
 Warning: Vehicle '0.63' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1506.00.
 Warning: Vehicle '0.67' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1511.00.
 Warning: Vehicle '0.68' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1512.00.
@@ -849,8 +849,8 @@ Warning: Vehicle '0.206' performs emergency braking with decel=-9.00 wished=4.50
 Warning: Vehicle '0.207' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1677.00.
 Warning: Vehicle '0.208' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1678.00.
 Warning: Vehicle '0.209' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1679.00.
-Warning: Vehicle '0.235' ends teleporting on edge '3/1to4/1', time 1680.00.
-Warning: Vehicle '0.264' ends teleporting on edge '3/1to4/1', time 1682.00.
+Warning: Vehicle '0.235' ends teleporting on edge '3/1to4/1', time=1680.00.
+Warning: Vehicle '0.264' ends teleporting on edge '3/1to4/1', time=1682.00.
 Warning: Vehicle '0.216' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1683.00.
 Warning: Vehicle '0.217' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1684.00.
 Warning: Vehicle '0.219' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1687.00.
@@ -991,7 +991,7 @@ Warning: Vehicle '0.364' performs emergency braking with decel=-9.00 wished=4.50
 Warning: Vehicle '0.365' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1857.00.
 Warning: Vehicle '0.366' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1858.00.
 Warning: Vehicle '0.367' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1859.00.
-Warning: Vehicle '0.358' ends teleporting on edge '2/1to3/1', time 1860.00.
+Warning: Vehicle '0.358' ends teleporting on edge '2/1to3/1', time=1860.00.
 Warning: Vehicle '0.368' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1861.00.
 Warning: Vehicle '0.373' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1862.00.
 Warning: Vehicle '0.374' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1863.00.
@@ -1267,7 +1267,7 @@ Warning: Vehicle '0.263' performs emergency braking with decel=-9.00 wished=4.50
 Warning: Vehicle '0.265' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2214.00.
 Warning: Vehicle '0.266' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2216.00.
 Warning: Vehicle '0.271' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2217.00.
-Warning: Vehicle '0.236' ends teleporting on edge '10/1to1/1', time 2217.00.
+Warning: Vehicle '0.236' ends teleporting on edge '10/1to1/1', time=2217.00.
 Warning: Vehicle '0.272' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2218.00.
 Warning: Vehicle '0.273' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2219.00.
 Warning: Vehicle '0.276' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2223.00.
@@ -1403,10 +1403,10 @@ Warning: Vehicle '0.418' performs emergency braking with decel=-9.00 wished=4.50
 Warning: Vehicle '0.1' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2392.00.
 Warning: Vehicle '0.3' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2393.00.
 Warning: Vehicle '0.5' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2394.00.
-Warning: Vehicle '0.4' ends teleporting on edge '9/1to10/1', time 2395.00.
+Warning: Vehicle '0.4' ends teleporting on edge '9/1to10/1', time=2395.00.
 Warning: Vehicle '0.6' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2396.00.
 Warning: Vehicle '0.13' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2398.00.
-Warning: Vehicle '0.392' ends teleporting on edge '9/1to10/1', time 2398.00.
+Warning: Vehicle '0.392' ends teleporting on edge '9/1to10/1', time=2398.00.
 Warning: Vehicle '0.14' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2399.00.
 Warning: Vehicle '0.17' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2403.00.
 Warning: Vehicle '0.18' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2404.00.
@@ -1549,8 +1549,8 @@ Warning: Vehicle '0.164' performs emergency braking with decel=-9.00 wished=4.50
 Warning: Vehicle '0.165' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2572.00.
 Warning: Vehicle '0.167' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2572.00.
 Warning: Vehicle '0.168' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2572.00.
-Warning: Vehicle '0.144' ends teleporting on edge '8/1to9/1', time 2572.00.
-Warning: Vehicle '0.166' ends teleporting on edge '8/1to9/1', time 2573.00.
+Warning: Vehicle '0.144' ends teleporting on edge '8/1to9/1', time=2572.00.
+Warning: Vehicle '0.166' ends teleporting on edge '8/1to9/1', time=2573.00.
 Warning: Vehicle '0.171' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2576.00.
 Warning: Vehicle '0.172' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2577.00.
 Warning: Vehicle '0.174' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2580.00.
@@ -1689,9 +1689,9 @@ Warning: Vehicle '0.323' performs emergency braking with decel=-9.00 wished=4.50
 Warning: Vehicle '0.324' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2748.00.
 Warning: Vehicle '0.325' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2750.00.
 Warning: Vehicle '0.331' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2751.00.
-Warning: Vehicle '0.257' ends teleporting on edge '7/1to8/1', time 2751.00.
+Warning: Vehicle '0.257' ends teleporting on edge '7/1to8/1', time=2751.00.
 Warning: Vehicle '0.332' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2752.00.
-Warning: Vehicle '0.284' ends teleporting on edge '7/1to8/1', time 2752.00.
+Warning: Vehicle '0.284' ends teleporting on edge '7/1to8/1', time=2752.00.
 Warning: Vehicle '0.333' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2753.00.
 Warning: Vehicle '0.336' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2757.00.
 Warning: Vehicle '0.337' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=2758.00.
