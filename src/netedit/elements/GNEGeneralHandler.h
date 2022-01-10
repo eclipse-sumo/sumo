@@ -52,17 +52,30 @@ public:
     ~GNEGeneralHandler();
 
 private:
+    /// @brief tagType
+    struct TagType {
+        /// @brief constructor
+        TagType(SumoXMLTag tag, const bool additional_, const bool demand_);
+        
+        /// @brief tagType is additional
+        const bool additional;
+
+        /// @brief tagType is demand
+        const bool demand;
+
+    private:
+        /// @brief tag (used only for debugging purposed)
+        const SumoXMLTag myTag;
+    };
+
+    /// @brief queue with the inserted tags
+    std::list<TagType> myQueue;
+
     /// @brief additional handler
     GNEAdditionalHandler myAdditionalHandler;
 
     /// @brief demand handler
     GNERouteHandler myDemandHandler;
-
-    /// @brief Additional tag flag
-    bool myAdditionalTagFlag;
-
-    /// @brief Demand tag flag
-    bool myDemandTagFlag;
 
     /// @brief start element
     void beginTag(SumoXMLTag tag, const SUMOSAXAttributes& attrs);

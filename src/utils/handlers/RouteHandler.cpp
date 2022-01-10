@@ -125,7 +125,6 @@ RouteHandler::beginParseAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attr
             default:
                 // nested CFM attributes
                 return parseNestedCFM(tag, attrs);
-                break;
         }
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
@@ -505,6 +504,8 @@ RouteHandler::parseFlow(const SUMOSAXAttributes& attrs) {
     // first parse flow
     SUMOVehicleParameter* flowParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_FLOW, attrs, myHardFail, true, myFlowBeginDefault, myFlowEndDefault);
     if (flowParameter) {
+        // set vehicle parameters
+        myCommonXMLStructure.getCurrentSumoBaseObject()->setVehicleParameter(flowParameter);
         // check from/to edge/junction
         if (attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_FROMJUNCTION)) {
             WRITE_ERROR("Attributes 'from' and 'fromJunction' cannot be defined together");
@@ -512,15 +513,13 @@ RouteHandler::parseFlow(const SUMOSAXAttributes& attrs) {
             WRITE_ERROR("Attributes 'to' and 'toJunction' cannot be defined together");
         } else if (attrs.hasAttribute(SUMO_ATTR_FROM) && attrs.hasAttribute(SUMO_ATTR_TO)) {
             // from-to attributes
-            const std::string from = attrs.getOpt<std::string>(SUMO_ATTR_FROM, flowParameter->id.c_str(), parsedOk, "");
-            const std::string to = attrs.getOpt<std::string>(SUMO_ATTR_TO, flowParameter->id.c_str(), parsedOk, "");
+            const std::string from = attrs.get<std::string>(SUMO_ATTR_FROM, flowParameter->id.c_str(), parsedOk);
+            const std::string to = attrs.get<std::string>(SUMO_ATTR_TO, flowParameter->id.c_str(), parsedOk);
             // optional attributes
             const std::vector<std::string> via = attrs.getOptStringVector(SUMO_ATTR_VIA, flowParameter->id.c_str(), parsedOk);
             if (parsedOk) {
                 // set tag
                 myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_FLOW);
-                // set vehicle parameters
-                myCommonXMLStructure.getCurrentSumoBaseObject()->setVehicleParameter(flowParameter);
                 // add other attributes
                 myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROM, from);
                 myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TO, to);
@@ -528,19 +527,27 @@ RouteHandler::parseFlow(const SUMOSAXAttributes& attrs) {
             }
         } else if (attrs.hasAttribute(SUMO_ATTR_FROMJUNCTION) && attrs.hasAttribute(SUMO_ATTR_TOJUNCTION)) {
             // from-to attributes
-            const std::string fromJunction = attrs.getOpt<std::string>(SUMO_ATTR_FROMJUNCTION, flowParameter->id.c_str(), parsedOk, "");
-            const std::string toJunction = attrs.getOpt<std::string>(SUMO_ATTR_TOJUNCTION, flowParameter->id.c_str(), parsedOk, "");
+            const std::string fromJunction = attrs.get<std::string>(SUMO_ATTR_FROMJUNCTION, flowParameter->id.c_str(), parsedOk);
+            const std::string toJunction = attrs.get<std::string>(SUMO_ATTR_TOJUNCTION, flowParameter->id.c_str(), parsedOk);
             if (parsedOk) {
                 // set tag
                 myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_FLOW);
-                // set vehicle parameters
-                myCommonXMLStructure.getCurrentSumoBaseObject()->setVehicleParameter(flowParameter);
                 // add other attributes
                 myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_FROMJUNCTION, fromJunction);
                 myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_TOJUNCTION, toJunction);
             }
+        } else if (attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
+            // from-to attributes
+            const std::string route = attrs.get<std::string>(SUMO_ATTR_ROUTE, flowParameter->id.c_str(), parsedOk);
+            if (parsedOk) {
+                // set tag
+                myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_FLOW);
+                // add other attributes
+                myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_ROUTE, route);
+            }
         } else {
-            WRITE_ERROR("flow definition needs either 'from/to' or 'fromJunction/toJunction'");
+            // set tag
+            myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_FLOW);
         }
         // delete flow parameter (because in XMLStructure we have a copy)
         delete flowParameter;
