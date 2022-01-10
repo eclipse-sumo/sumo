@@ -1287,7 +1287,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                                   //<< " stateRight=" << toString((LaneChangeAction)leader->getLaneChangeModel().getSavedState(-1).second)
                                   << "\n";
                     }
-                    if (leaderBackDist + foeCrossingWidth < 0 && !sameTarget) {
+                    if (pastTheCrossingPoint && !sameTarget) {
                         // leader is completely past the crossing point
                         // or there is no crossing point
                         continue; // next vehicle
