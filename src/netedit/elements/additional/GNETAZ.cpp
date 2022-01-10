@@ -174,9 +174,14 @@ GNETAZ::writeTAZElement(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_NAME, getShapeName());
     }
     device.writeAttr(SUMO_ATTR_COLOR, getShapeColor());
-    // write all TAZ Source/sinks
+    // sort all Source/Sinks by ID
+    std::map<std::pair<std::string, SumoXMLTag>, GNETAZElement*> sortedSourceSinks;
     for (const auto& sourceSink : getChildTAZElements()) {
-        sourceSink->writeTAZElement(device);
+        sortedSourceSinks[std::make_pair(sourceSink->getAttribute(SUMO_ATTR_EDGE), sourceSink->getTagProperty().getTag())] = sourceSink;
+    }
+    // write all TAZ Source/sinks
+    for (const auto& sortedSourceSink : sortedSourceSinks) {
+        sortedSourceSink.second->writeTAZElement(device);
     }
     // write params
     GNETAZElement::writeParams(device);
