@@ -6147,20 +6147,20 @@ MSVehicle::getBoundingBox(double offset) const {
 
 PositionVector
 MSVehicle::getBoundingPoly(double offset) const {
-    // XXX implement more types
+    PositionVector result;
+    PositionVector centerLine;
+    centerLine.push_back(getPosition());
+    centerLine.push_back(getBackPosition());
+    if (offset != 0) {
+        centerLine.extrapolate2D(offset);
+    }
     switch (myType->getGuiShape()) {
         case SVS_PASSENGER:
         case SVS_PASSENGER_SEDAN:
         case SVS_PASSENGER_HATCHBACK:
         case SVS_PASSENGER_WAGON:
         case SVS_PASSENGER_VAN: {
-            PositionVector result;
-            PositionVector centerLine;
-            centerLine.push_back(getPosition());
-            centerLine.push_back(getBackPosition());
-            if (offset != 0) {
-                centerLine.extrapolate2D(offset);
-            }
+            // box with corners cut off
             PositionVector line1 = centerLine;
             PositionVector line2 = centerLine;
             line1.move2side(MAX2(0.0, 0.3 * myType->getWidth() + offset));
@@ -6176,11 +6176,19 @@ MSVehicle::getBoundingPoly(double offset) const {
             result.push_back(line2[1]);
             result.push_back(line2[0]);
             result.push_back(line1[0]);
-            return result;
         }
+        break;
         default:
-            return getBoundingBox(offset);
+            // box
+            PositionVector line = centerLine;
+            line.move2side(MAX2(0.0, 0.5 * myType->getWidth() + offset));
+            result.push_back(line[0]);
+            result.push_back(line[1]);
+            line.move2side(MIN2(0.0, -myType->getWidth() - offset));
+            result.push_back(line[1]);
+            result.push_back(line[0]);
     }
+    return result;
 }
 
 
