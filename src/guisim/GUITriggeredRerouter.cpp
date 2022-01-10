@@ -393,6 +393,9 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::GUITriggeredRerouterEdge(GUIEdge
     myFGPositions.reserve(lanes.size());
     myFGRotations.reserve(lanes.size());
     for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
+        if (((*i)->getPermissions() & ~SVC_PEDESTRIAN) == 0) {
+            continue;
+        }
         const PositionVector& v = (*i)->getShape();
         const double pos = edgeType == REROUTER_TRIGGER_EDGE ? MAX2(0.0, v.length() - 6) : MIN2(v.length(), 3.0);
         myFGPositions.push_back(v.positionAtOffset(pos));
