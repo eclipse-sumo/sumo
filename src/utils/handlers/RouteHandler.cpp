@@ -140,43 +140,45 @@ RouteHandler::endParseAttributes() {
     // close SUMOBaseOBject
     myCommonXMLStructure.closeSUMOBaseOBject();
     // check tag
-    switch (obj->getTag()) {
-        // specia case for route (because can be embedded)
-        case SUMO_TAG_ROUTE:
-            // only parse non-embedded routes
-            if (!obj->getStringAttribute(SUMO_ATTR_ID).empty()) {
-                // parse route and all their childrens
+    if (obj) {
+        switch (obj->getTag()) {
+            // specia case for route (because can be embedded)
+            case SUMO_TAG_ROUTE:
+                // only parse non-embedded routes
+                if (!obj->getStringAttribute(SUMO_ATTR_ID).empty()) {
+                    // parse route and all their childrens
+                    parseSumoBaseObject(obj);
+                    // delete object (and all of their childrens)
+                    delete obj;
+                }
+                break;
+            // demand elements
+            case SUMO_TAG_VTYPE:
+                // only parse vTypes without distributions
+                if (obj->getParentSumoBaseObject() && 
+                    (obj->getParentSumoBaseObject()->getTag() != SUMO_TAG_VTYPE_DISTRIBUTION)) {
+                    // parse vType and all their childrens
+                    parseSumoBaseObject(obj);
+                    // delete object (and all of their childrens)
+                    delete obj;
+                }
+                break;
+            case SUMO_TAG_VTYPE_DISTRIBUTION:
+            case SUMO_TAG_TRIP:
+            case SUMO_TAG_VEHICLE:
+            case SUMO_TAG_FLOW:
+            case SUMO_TAG_PERSON:
+            case SUMO_TAG_PERSONFLOW:
+            case SUMO_TAG_CONTAINER:
+            case SUMO_TAG_CONTAINERFLOW:
+                // parse object and all their childrens
                 parseSumoBaseObject(obj);
                 // delete object (and all of their childrens)
                 delete obj;
-            }
-            break;
-        // demand elements
-        case SUMO_TAG_VTYPE:
-            // only parse vTypes without distributions
-            if (obj->getParentSumoBaseObject() && 
-                (obj->getParentSumoBaseObject()->getTag() != SUMO_TAG_VTYPE_DISTRIBUTION)) {
-                // parse vType and all their childrens
-                parseSumoBaseObject(obj);
-                // delete object (and all of their childrens)
-                delete obj;
-            }
-            break;
-        case SUMO_TAG_VTYPE_DISTRIBUTION:
-        case SUMO_TAG_TRIP:
-        case SUMO_TAG_VEHICLE:
-        case SUMO_TAG_FLOW:
-        case SUMO_TAG_PERSON:
-        case SUMO_TAG_PERSONFLOW:
-        case SUMO_TAG_CONTAINER:
-        case SUMO_TAG_CONTAINERFLOW:
-            // parse object and all their childrens
-            parseSumoBaseObject(obj);
-            // delete object (and all of their childrens)
-            delete obj;
-            break;
-        default:
-            break;
+                break;
+            default:
+                break;
+        }
     }
 }
 

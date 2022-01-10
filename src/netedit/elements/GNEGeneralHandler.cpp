@@ -65,7 +65,7 @@ GNEGeneralHandler::beginTag(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
                 // try to parse additional or demand element depending of last inserted tag
                 if (myQueue.back().additional && myAdditionalHandler.beginParseAttributes(tag, attrs)) {
                     myQueue.push_back(TagType(tag, true, false));
-                } else if (!myQueue.back().additional && !myQueue.back().demand && myDemandHandler.beginParseAttributes(tag, attrs)) {
+                } else if (myDemandHandler.beginParseAttributes(tag, attrs)) {
                     myQueue.push_back(TagType(tag, false, true));
                 } else {
                     myQueue.push_back(TagType(tag, false, false));
@@ -101,12 +101,14 @@ GNEGeneralHandler::endTag() {
     } else if (myQueue.back().demand) {
         // end parse demand elements
         myDemandHandler.endParseAttributes();
+    } else {
+        WRITE_ERROR(toString(myQueue.back().tag) + " cannot be processed either with additional handler nor with demand handler");
     }
 }
 
 
-GNEGeneralHandler::TagType::TagType(SumoXMLTag tag, const bool additional_, const bool demand_) :
-    myTag(tag),
+GNEGeneralHandler::TagType::TagType(SumoXMLTag tag_, const bool additional_, const bool demand_) :
+    tag(tag_),
     additional(additional_),
     demand(demand_) {
 }

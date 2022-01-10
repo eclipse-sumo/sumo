@@ -55,17 +55,16 @@ private:
     /// @brief tagType
     struct TagType {
         /// @brief constructor
-        TagType(SumoXMLTag tag, const bool additional_, const bool demand_);
+        TagType(SumoXMLTag tag, const bool additional, const bool demand);
         
+        /// @brief tag related with this TagType
+        const SumoXMLTag tag;
+
         /// @brief tagType is additional
         const bool additional;
 
         /// @brief tagType is demand
         const bool demand;
-
-    private:
-        /// @brief tag (used only for debugging purposed)
-        const SumoXMLTag myTag;
     };
 
     /// @brief queue with the inserted tags
