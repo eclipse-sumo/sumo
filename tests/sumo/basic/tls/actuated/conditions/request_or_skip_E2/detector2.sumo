@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-01-10 08:18:40 by Eclipse SUMO sumo Version v1_11_0+0965-e677021
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e2_file.xsd">
+   <interval begin="0.00" end="1053.00" id="SC0b" sampledSeconds="315.60" nVehEntered="25" nVehLeft="25" nVehSeen="25" meanSpeed="1.19" meanTimeLoss="11.54" meanOccupancy="10.45" maxOccupancy="50.00" meanMaxJamLengthInVehicles="0.24" meanMaxJamLengthInMeters="0.83" maxJamLengthInVehicles="1" maxJamLengthInMeters="3.50" jamLengthInVehiclesSum="249" jamLengthInMetersSum="872.00" meanHaltingDuration="23.64" maxHaltingDuration="39.00" haltingDurationSum="260.00" meanIntervalHaltingDuration="23.64" maxIntervalHaltingDuration="39.00" intervalHaltingDurationSum="260.00" startedHalts="11.00" meanVehicleNumber="0.32" maxVehicleNumber="2" />
+</detector>

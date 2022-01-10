@@ -1,6 +1,6 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 
-    <e2Detector id="SC0b" lane="SC_0" endPos="-10" length="10" freq="3600" file="detector.xml"/>
+    <e2Detector id="SC0b" lane="SC_0" endPos="-10" length="10" freq="3600" file="detector2.xml"/>
 
     <tlLogic id="C" type="actuated" programID="P1" offset="0">
         <phase duration="33" state="GgrrGgrr" minDur="5" maxDur="60" />
