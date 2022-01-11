@@ -209,31 +209,37 @@ protected:
     };
 
     /// @brief view net
-    GNEViewNet* myViewNet;
+    GNEViewNet* myViewNet = nullptr;
 
     /// @brief main frame
-    FXVerticalFrame* myMainFrame;
+    FXVerticalFrame* myMainFrame = nullptr;
+
+    /// @brief vertical left frame
+    FXVerticalFrame* myLeftFrame = nullptr;
+
+    /// @brief vertical right frame
+    FXVerticalFrame* myRightFrame = nullptr;
 
     /// @brief list with the demand elements
-    DemandList* myDemandList;
+    DemandList* myDemandList = nullptr;
 
     /// @brief fix route options
-    FixRouteOptions* myFixRouteOptions;
+    FixRouteOptions* myFixRouteOptions = nullptr;
 
     /// @brief fix vehicle options
-    FixVehicleOptions* myFixVehicleOptions;
+    FixVehicleOptions* myFixVehicleOptions = nullptr;
 
     /// @brief fix stop options
-    FixStopOptions* myFixStopOptions;
+    FixStopOptions* myFixStopOptions = nullptr;
 
     /// @brief fix person plan options
-    FixPersonPlanOptions* myFixPersonPlanOptions;
+    FixPersonPlanOptions* myFixPersonPlanOptions = nullptr;
 
     /// @brief accept button
-    FXButton* myAcceptButton;
+    FXButton* myAcceptButton = nullptr;
 
     /// @brief cancel button
-    FXButton* myCancelButton;
+    FXButton* myCancelButton = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.
