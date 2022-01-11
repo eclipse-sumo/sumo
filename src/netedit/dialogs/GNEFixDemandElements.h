@@ -84,7 +84,7 @@ protected:
     };
 
     /// @brief groupbox for all radio buttons related with fix route options
-    class FixRouteOptions : protected FXGroupBox {
+    class FixRouteOptions : public FXGroupBoxModule {
 
     public:
         /// @brief constructor
@@ -110,7 +110,7 @@ protected:
     };
 
     /// @brief groupbox for all radio buttons related with fix vehicle options
-    class FixVehicleOptions : protected FXGroupBox {
+    class FixVehicleOptions : public FXGroupBoxModule {
 
     public:
         /// @brief constructor

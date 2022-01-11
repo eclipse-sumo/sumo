@@ -230,7 +230,7 @@ GNEFixDemandElements::onCmdCancel(FXObject*, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNEFixDemandElements::DemandList::DemandList(GNEFixDemandElements* fixDemandElementsDialogParents, const std::vector<GNEDemandElement*>& invalidDemandElements) :
-    FXGroupBox(fixDemandElementsDialogParents->myMainFrame, "Routes and Vehicles with conflicts", GUIDesignGroupBoxFrameFill) {
+    FXGroupBox(fixDemandElementsDialogParents->myMainFrame, "Demand elements with conflicts", GUIDesignGroupBoxFrameFill) {
     // Create table, copy intervals and update table
     myTable = new FXTable(this, this, MID_GNE_FIXSTOPPINGPLACES_CHANGE, GUIDesignTableAdditionals);
     myTable->setSelBackColor(FXRGBA(255, 255, 255, 255));
@@ -365,7 +365,7 @@ GNEFixDemandElements::DemandList::DemandList(GNEFixDemandElements* fixDemandElem
 // ---------------------------------------------------------------------------
 
 GNEFixDemandElements::FixRouteOptions::FixRouteOptions(GNEFixDemandElements* fixDemandElementsDialogParents) :
-    FXGroupBox(fixDemandElementsDialogParents->myMainFrame, "Solution for routes", GUIDesignGroupBoxFrame) {
+    FXGroupBoxModule(fixDemandElementsDialogParents->myMainFrame, "Solution for routes", false) {
     // create horizontal frames for radio buttons
     FXHorizontalFrame* radioButtonsFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     // create radio button for remove invalid routes
@@ -420,7 +420,7 @@ GNEFixDemandElements::FixRouteOptions::disableFixRouteOptions() {
 // ---------------------------------------------------------------------------
 
 GNEFixDemandElements::FixVehicleOptions::FixVehicleOptions(GNEFixDemandElements* fixDemandElementsDialogParents) :
-    FXGroupBox(fixDemandElementsDialogParents->myMainFrame, "Solution for vehicles", GUIDesignGroupBoxFrame) {
+    FXGroupBoxModule(fixDemandElementsDialogParents->myMainFrame, "Solution for vehicles", false) {
     // create horizontal frames for radio buttons
     FXHorizontalFrame* radioButtonsFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     // create radio button for remove invalid vehicles
@@ -475,7 +475,7 @@ GNEFixDemandElements::FixVehicleOptions::disableFixVehicleOptions() {
 // ---------------------------------------------------------------------------
 
 GNEFixDemandElements::FixStopOptions::FixStopOptions(GNEFixDemandElements* fixDemandElementsDialogParents) :
-    FXGroupBoxModule(fixDemandElementsDialogParents->myMainFrame, "Select a solution for stops", false) {
+    FXGroupBoxModule(fixDemandElementsDialogParents->myMainFrame, "Solution for stops", false) {
     // create horizontal frames for radio buttons
     FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     // create Vertical Frame for left options
@@ -543,7 +543,7 @@ GNEFixDemandElements::FixStopOptions::disableFixStopOptions() {
 // ---------------------------------------------------------------------------
 
 GNEFixDemandElements::FixPersonPlanOptions::FixPersonPlanOptions(GNEFixDemandElements* fixDemandElementsDialogParents) :
-    FXGroupBoxModule(fixDemandElementsDialogParents->myMainFrame, "Select a solution for person plans", false) {
+    FXGroupBoxModule(fixDemandElementsDialogParents->myMainFrame, "Solution for person plans", false) {
     // create horizontal frames for radio buttons
     FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     // create Vertical Frame for left options
