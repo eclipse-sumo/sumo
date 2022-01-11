@@ -38,8 +38,7 @@ title: ChangeLog
   - In create-edge mode: shift-click to split edge now takes into account active grid. Issue #9624
   - Fixed crash on undo after resetting connections. Issue #9673
   - Stop attribute "triggered" now supports symbolic string values. Issue #9563
-  - Fixed missing 'end' attribute when converting trip to flow. Issue #9834
-  - The name prefixes for all created additional elements can now be configured and their defaults have been shortened. Issue #9666
+  - Fixed missing 'end' attribute when converting trip to flow. Issue #9834  
   - Fixed invalid weights when loading source or sink weight for taz edge. Issue #9672
 
 - sumo-gui
@@ -118,6 +117,7 @@ title: ChangeLog
   - Added speedFactor to vehicle type parameter dialog. Issue #9865
 
 - netedit
+  - The name prefixes for all created additional elements can now be configured and their defaults have been shortened. Issue #9666
   - Add images for the guiShapes in the vType attributes editor. Issue #9457
   - All output elements now write 'id' as their first attribute. Issue #9664
   - All elements of a side frame can now be collapsed/expanded. Issue #6034
