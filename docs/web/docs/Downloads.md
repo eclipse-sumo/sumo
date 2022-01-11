@@ -2,39 +2,31 @@
 title: Downloads
 ---
 
-## SUMO - Latest Release (Version {{Version}})
+# SUMO - Latest Release (Version {{Version}})
 
-**Release date: {{ReleaseDate}} (updated 15.12.2021)**
+**Release date:** {{ReleaseDate}} (updated 15.12.2021)
 
-### MS Windows binaries
+## Windows
 
-Contains the binaries (64 bit), all dlls needed, the examples,
+Binaries (64 bit), all dlls needed, the examples,
 tools, and documentation in HTML format. For an explanation of the contents and the
-licensing, especially concerning the "extra" build, see [the notes below](Downloads.md#note_on_licensing)
+licensing (especially concerning the "extra" build), see [the notes below](Downloads.md#note_on_licensing).
 
 <ul>
-<li>Download 64 bit installer: <a class="no-arrow-link" href="https://sumo.dlr.de/releases/{{Version}}/sumo-win64-{{Version}}.msi">sumo-win64-{{Version}}.msi </a><span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-win64-{{Version}}.msi","r");?></span></li>
-<li>Download 64 bit zip: <a class="no-arrow-link" href="https://sumo.dlr.de/releases/{{Version}}/sumo-win64-{{Version}}.zip">sumo-win64-{{Version}}.zip </a><span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-win64-{{Version}}.zip","r");?></span></li>
-<li>Download 64 bit zip with all extras: <a class="no-arrow-link" href="https://sumo.dlr.de/releases/{{Version}}/sumo-win64extra-{{Version}}.zip">sumo-win64extra-{{Version}}.zip </a><span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-win64extra-{{Version}}.zip","r");?></span></li>
+<li>Download 64-bit installer: <a class="no-arrow-link" href="https://sumo.dlr.de/releases/{{Version}}/sumo-win64-{{Version}}.msi">sumo-win64-{{Version}}.msi </a><span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-win64-{{Version}}.msi","r");?></span></li>
+<li>Download 64-bit zip: <a class="no-arrow-link" href="https://sumo.dlr.de/releases/{{Version}}/sumo-win64-{{Version}}.zip">sumo-win64-{{Version}}.zip </a><span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-win64-{{Version}}.zip","r");?></span></li>
+<li>Download 64-bit zip with all extras: <a class="no-arrow-link" href="https://sumo.dlr.de/releases/{{Version}}/sumo-win64extra-{{Version}}.zip">sumo-win64extra-{{Version}}.zip </a><span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-win64extra-{{Version}}.zip","r");?></span></li>
 </ul>
 
-Please note that due to the [log4j vulnerability](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-44228) the lisum-gui.jar in the distribution 1.11.0 has been replaced. Up to 15.12.2021 it contained a vulnerable version of the library. All other files are as in the original release. You can also download an updated [lisum-gui.jar directly](https://sumo.dlr.de/daily/lisum-gui.jar). Please note that no other part of SUMO (not even lisum-core.jar) is affected.
+!!! note
+    Please note that due to the [log4j vulnerability](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-44228) the `lisum-gui.jar` in the distribution 1.11.0 has been replaced. Up to 15.12.2021 it contained a vulnerable version of the library. All other files are as in the original release. You can also download an updated [lisum-gui.jar directly](https://sumo.dlr.de/daily/lisum-gui.jar). Please note that no other part of SUMO (not even lisum-core.jar) is affected.
 
 ### SUMO-Game
 
-<ul><li>MS Windows binaries: <a class="no-arrow-link" href="https://sumo.dlr.de/releases/{{Version}}/sumo-game-{{Version}}.zip">sumo-game-{{Version}}.zip </a><span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-game-{{Version}}.zip","r");?></span></li></ul>
+<ul><li>Windows binaries: <a class="no-arrow-link" href="https://sumo.dlr.de/releases/{{Version}}/sumo-game-{{Version}}.zip">sumo-game-{{Version}}.zip </a><span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-game-{{Version}}.zip","r");?></span></li></ul>
 
-### Sources
 
-Includes sources, examples, and CMake-files for creating Visual Studio
-solutions or Linux Makefiles. Does not contain tests. Download as:
-
-<ul>
-<li><a class="no-arrow-link" href="https://sumo.dlr.de/releases/{{Version}}/sumo-src-{{Version}}.tar.gz">sumo-src-{{Version}}.tar.gz </a><span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-src-{{Version}}.tar.gz","r");?></span></li>
-<li><a class="no-arrow-link" href="https://sumo.dlr.de/releases/{{Version}}/sumo-src-{{Version}}.zip">sumo-src-{{Version}}.zip </a><span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-src-{{Version}}.zip","r");?></span></li>
-</ul>
-
-## Linux binaries
+## Linux
 
 The community maintains several repositories notably at the 
 [open build service](https://build.opensuse.org/project/show/science:dlr).
@@ -63,7 +55,7 @@ the distribution or you will need them from another repository (you may
 try one of the build service repositories here too, e.g.
 [Application:Geo](https://download.opensuse.org/repositories/Application:/Geo/)).
 At the moment there is no documentation included in the packages. The
-repositories include a nightly build as well (called sumo-git).
+repositories include a nightly build as well (called ***sumo-git***).
 
 - [openSUSE Leap 42.3 repository](http://download.opensuse.org/repositories/science:/dlr/openSUSE_Leap_42.3/)
 - [openSUSE Leap 15.0 repository](http://download.opensuse.org/repositories/science:/dlr/openSUSE_Leap_15.0/)
@@ -82,13 +74,13 @@ repositories include a nightly build as well (called sumo-git).
 - [CentOS 7 repository](http://download.opensuse.org/repositories/science:/dlr/CentOS_7/)
 - [CentOS 8 repository](http://download.opensuse.org/repositories/science:/dlr/CentOS_8/)
 
-Adding the repository and installing (the quick and dirty way without checking GPG keys!) looks like this for yum on CentOS 7:
+Adding the repository and installing (the quick and dirty way without checking GPG keys!) looks like this, for yum on CentOS 7:
 ```
 yum-config-manager --add-repo=https://download.opensuse.org/repositories/science:/dlr/CentOS_7/
 yum install -y --nogpgcheck epel-release
 yum install -y --nogpgcheck sumo-{{Version}}
 ```
-and like this for zypper on openSUSE Leap 15.3:
+and like this, for zypper on openSUSE Leap 15.3:
 ```
 zypper ar http://download.opensuse.org/repositories/science:/dlr/15.3/ science:dlr
 zypper in sumo={{Version}}
@@ -122,14 +114,25 @@ These launchers allow you to select **sumo-gui** as the default application to o
 !!! caution "Important notice"
     In order to use the launchers, make sure you have installed SUMO beforehand (any version) and have set the [SUMO_HOME](Basics/Basic_Computer_Skills.md#sumo_home) environment variable.
 
+## Sources
+
+Download the sources, examples, and CMake-files for creating Visual Studio
+solutions or Linux Makefiles. This download does not contain tests. Download as:
+
+<ul>
+<li><a class="no-arrow-link" href="https://sumo.dlr.de/releases/{{Version}}/sumo-src-{{Version}}.tar.gz">sumo-src-{{Version}}.tar.gz </a><span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-src-{{Version}}.tar.gz","r");?></span></li>
+<li><a class="no-arrow-link" href="https://sumo.dlr.de/releases/{{Version}}/sumo-src-{{Version}}.zip">sumo-src-{{Version}}.zip </a><span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-src-{{Version}}.zip","r");?></span></li>
+</ul>
+
 ## Python packages / Virtual environments
 
 Starting with SUMO 1.8.0 the installation is also possible from the [Python packaging index](https://pypi.org/project/eclipse-sumo/).
-You can install either the applications: `pip install eclipse-sumo` or only traci, libsumo or sumolib, e.g. `pip install libsumo`.
-This should work for Windows and all Linux versions which are more recent than 2014 but currently not for macOS.
+
+You can install either the applications: `pip install eclipse-sumo` or only traci (`pip install traci`), libsumo (`pip install libsumo`) or sumolib (`pip install sumolib`).
+
+This should work for Windows and all Linux versions which are more recent than 2014 - but currently not for macOS.
 The applications are available for Python 2 and Python 3, libsumo only for Python 3.5 and above. This gives an easy way to test
-a new SUMO version via [virtual environments](https://docs.python.org/3/library/venv.html) 
- or a nightly build using the following commands (on Linux):
+a new SUMO version via [virtual environments](https://docs.python.org/3/library/venv.html) or a nightly build using the following commands (on Linux):
 ```
 python -m venv sumo_test
 cd sumo_test
@@ -137,16 +140,7 @@ cd sumo_test
 pip install eclipse-sumo
 ```
 
-## SUMO - Alternative download and older releases
-
-All releases can also be obtained via the [sourceforge download portal](https://sourceforge.net/projects/sumo/files/sumo/).
-If you want to try out an older version you can also use the virtual environment approach above with a fixed version, e.g.
-`pip install eclipse-sumo=1.9.0` (works only for 1.8.0 and later).
-
-If you need a complete zipped snapshot of the repository (including tests) for an older version have a look at the tags in your
-local repoository or at [GitHub tags](https://github.com/eclipse/sumo/tags).
-
-## SUMO - Latest Development Version
+# SUMO - Latest Development Version
 
 SUMO is under active development. You can find a continuously updated
 list of bug-fixes and enhancements at our
@@ -156,9 +150,9 @@ you to use the latest version from our [code repository](https://github.com/ecli
 
 Every push to our main branch also triggers a build for Windows, Linux and macOS. The results can be found
 by clicking on the [relevant commit here](https://github.com/eclipse/sumo/actions) and downloading the
-appropriate file for your platform.
+appropriate file for your platform (you may need to sign in to GitHub).
 
-### Nightly Snapshots
+## Nightly Snapshots
 
 <div><span class="badge badge-pill badge-dark"><?php getNightlyFreshness("sumo-win64-git.zip");?></span></div>
 
@@ -170,16 +164,19 @@ packages can be obtained:
 <li>Sources: <a class="no-arrow-link" href="https://sumo.dlr.de/daily/sumo-src-git.tar.gz">https://sumo.dlr.de/daily/sumo-src-git.tar.gz </a><span class="badge badge-pill badge-light"><?php getFileDate("sumo-src-git.tar.gz","d");?></span> <span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-src-git.tar.gz","d");?></span></li>
 <li>Sources: <a class="no-arrow-link" href="https://sumo.dlr.de/daily/sumo-src-git.zip">https://sumo.dlr.de/daily/sumo-src-git.zip </a><span class="badge badge-pill badge-light"><?php getFileDate("sumo-src-git.zip","d");?></span> <span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-src-git.zip","d");?></span></li>
 <li>Sources and static HTML documentation: <a class="no-arrow-link" href="https://sumo.dlr.de/daily/sumo_git.orig.tar.gz">https://sumo.dlr.de/daily/sumo_git.orig.tar.gz </a><span class="badge badge-pill badge-light"><?php getFileDate("sumo_git.orig.tar.gz","d");?></span> <span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-all-git.tar.gz","d");?></span></li>
-<li>Windows, 64bit: <a class="no-arrow-link" href="https://sumo.dlr.de/daily/sumo-win64-git.zip">https://sumo.dlr.de/daily/sumo-win64-git.zip </a><span class="badge badge-pill badge-light"><?php getFileDate("sumo-win64-git.zip","d");?></span> <span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-win64-git.zip","d");?></span></li>
-<li>Windows 64bit binaries of the SUMO game: <a class="no-arrow-link" href="https://sumo.dlr.de/daily/sumo-game-win64-git.zip">https://sumo.dlr.de/daily/sumo-game-win64-git.zip </a><span class="badge badge-pill badge-light"><?php getFileDate("sumo-game-win64-git.zip","d");?></span> <span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-game-win64-git.zip","d");?></span></li>
-<li>Windows installer, 64bit: <a class="no-arrow-link" href="https://sumo.dlr.de/daily/sumo-win64-git.msi">https://sumo.dlr.de/daily/sumo-win64-git.msi </a><span class="badge badge-pill badge-light"><?php getFileDate("sumo-win64-git.msi","d");?></span> <span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-win64-git.msi","d");?></span></li>
-<li>Windows 64bit with GDAL, FFmpeg, OSG, GL2PS, SWIG: <a class="no-arrow-link" href="https://sumo.dlr.de/daily/sumo-win64extra-git.zip">https://sumo.dlr.de/daily/sumo-win64extra-git.zip </a><span class="badge badge-pill badge-light"><?php getFileDate("sumo-win64extra-git.zip","d");?></span> <span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-win64extra-git.zip","d");?></span></li>
-<li>Windows 64bit debug version: <a class="no-arrow-link" href="https://sumo.dlr.de/daily/sumo-win64Debug-git.zip">https://sumo.dlr.de/daily/sumo-win64Debug-git.zip </a><span class="badge badge-pill badge-light"><?php getFileDate("sumo-win64Debug-git.zip","d");?></span> <span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-win64Debug-git.zip","d");?></span></li>
+<li>Windows 64-bit: <a class="no-arrow-link" href="https://sumo.dlr.de/daily/sumo-win64-git.zip">https://sumo.dlr.de/daily/sumo-win64-git.zip </a><span class="badge badge-pill badge-light"><?php getFileDate("sumo-win64-git.zip","d");?></span> <span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-win64-git.zip","d");?></span></li>
+<li>Windows 64-bit binaries of the SUMO game: <a class="no-arrow-link" href="https://sumo.dlr.de/daily/sumo-game-win64-git.zip">https://sumo.dlr.de/daily/sumo-game-win64-git.zip </a><span class="badge badge-pill badge-light"><?php getFileDate("sumo-game-win64-git.zip","d");?></span> <span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-game-win64-git.zip","d");?></span></li>
+<li>Windows installer, 64-bit: <a class="no-arrow-link" href="https://sumo.dlr.de/daily/sumo-win64-git.msi">https://sumo.dlr.de/daily/sumo-win64-git.msi </a><span class="badge badge-pill badge-light"><?php getFileDate("sumo-win64-git.msi","d");?></span> <span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-win64-git.msi","d");?></span></li>
+<li>Windows 64-bit with GDAL, FFmpeg, OSG, GL2PS, SWIG: <a class="no-arrow-link" href="https://sumo.dlr.de/daily/sumo-win64extra-git.zip">https://sumo.dlr.de/daily/sumo-win64extra-git.zip </a><span class="badge badge-pill badge-light"><?php getFileDate("sumo-win64extra-git.zip","d");?></span> <span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-win64extra-git.zip","d");?></span></li>
+<li>Windows 64-bit debug version: <a class="no-arrow-link" href="https://sumo.dlr.de/daily/sumo-win64Debug-git.zip">https://sumo.dlr.de/daily/sumo-win64Debug-git.zip </a><span class="badge badge-pill badge-light"><?php getFileDate("sumo-win64Debug-git.zip","d");?></span> <span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-win64Debug-git.zip","d");?></span></li>
 </ul>
 
 The nightly builds are also available from the [Python packaging index test instance](https://test.pypi.org/project/eclipse-sumo/).
-To install the latest nightly version use `pip install -i https://test.pypi.org/simple/ eclipse-sumo`. Although this is a python
-package it contains all compiled SUMO binaries and should be fully functional for Windows and recent Linux.
+To install the latest nightly version use:
+```
+pip install -i https://test.pypi.org/simple/ eclipse-sumo
+```
+Although this is a python package, it contains all compiled SUMO binaries and should be fully functional for Windows and recent Linux.
 
 The Linux [repositories](#repositories) at the open build service contain a nightly build as well.
 This is unfortunately not the case for the Debian, Ubuntu and Arch versions.
@@ -192,11 +189,22 @@ analysis](https://sumo.dlr.de/daily/lcov/html/) are generated every
 night.
 
 !!! caution
-    The available windows binary packages may lag behind the [latest Git revision](https://github.com/eclipse/sumo/commits/main) due to being compiled only once per day (around midnight, Berlin time).
+    The available Windows binary packages may lag behind the [latest Git revision](https://github.com/eclipse/sumo/commits/main) due to being compiled only once per day (around midnight, Berlin time).
 
-### Direct repository access
+# SUMO - Older releases and alternative download
 
-You can get very latest sources directly from our Git repository, see
+All releases can also be obtained via the [sourceforge download portal](https://sourceforge.net/projects/sumo/files/sumo/).
+If you want to try out an older version you can also use the virtual environment approach (explained above) with a fixed version, e.g.
+`pip install eclipse-sumo=1.9.0` (works only for 1.8.0 and later).
+
+If you need a complete zipped snapshot of the repository (including tests) for an older version have a look at the tags in your
+local repository or at [GitHub tags](https://github.com/eclipse/sumo/tags).
+
+# Other
+
+## Direct repository access
+
+You can get the very latest sources directly from our Git repository, see
 [the FAQ on repository access](FAQ.md#how_do_i_access_the_code_repository).
 Normally, they should compile and complete our test suite successfully.
 To assess the current state of the build, you may take a look at the
@@ -216,7 +224,7 @@ listed in the table below.
 ## Dependencies for developers
 
 For the Windows platform you can retrieve all dependencies by cloning
-this repository <https://github.com/DLR-TS/SUMOLibraries>, if you want
+this repository: <https://github.com/DLR-TS/SUMOLibraries>, if you want
 to develop with Visual Studio. If you just want to run SUMO, use the
 binary downloads above which already contain the runtime dependencies.
 
@@ -226,7 +234,7 @@ binary downloads above which already contain the runtime dependencies.
 - [traffic data](Data/Traffic_Data.md)
 - [Test cases](Tutorials/index.md#using_examples_from_the_test_suite)
 
-## Note on Licensing
+# Note on Licensing
 
 SUMO is licensed under the
 [EPL-2.0](https://eclipse.org/legal/epl-v20.html) with GPL v2 or later as a secondary license option using only [open
