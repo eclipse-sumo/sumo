@@ -174,3 +174,15 @@ directions. To make a unidirectional track usable in both directions,
 3. optionally: use inspect mode and enable 'show connections' (Alt+5). Click on the zipper connections (brown) and customize 'visibilityDistance' to set the range where vehicles start zipper merging.
 
 ![](../images/neteditZipper.png)
+
+## Simplify TLS program state after changing connections
+
+After deleting connections at a junction of type traffic_light, the traffic light program will remain unchanged by default.
+This stability implies that the length of the phase state may be longer than needed and the list of used can contain gaps (where the unused states are).
+To clean up the states:
+
+1. enter traffic light mode (T)
+2. click on the junction
+3. press the 'Clean States' button (this shortens the state and re-assigns indices to controlled connections)
+4. save the program
+5. recompute the network (F5) to see updated tls indices (when inspecting connections or drawing 'tls link index')
