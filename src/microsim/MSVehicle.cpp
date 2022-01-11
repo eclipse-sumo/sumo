@@ -5367,6 +5367,16 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                 }
             }
 
+            // TODO: add a likelihood parameter for whether bike paths are used or even better: add optional vs mandatory bike path
+            if (myType->getVehicleClass() == SVC_BICYCLE) {
+                for (std::vector<LaneQ>::iterator j = clanes.begin(); j != clanes.end(); ++j) {
+                    if (isBikepath(j->lane->getPermissions())) {
+                        bestThisIndex = j - clanes.begin();
+                        break;
+                    }
+                }
+            }
+
         } else {
             // only needed in case of disconnected routes
             int bestNextIndex = 0;
