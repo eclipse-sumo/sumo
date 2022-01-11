@@ -6527,6 +6527,10 @@ MSVehicle::isLeader(const MSLink* link, const MSVehicle* veh) const {
         // if this vehicle is not yet on the junction, every vehicle is a leader
         return true;
     }
+    if (veh->getLaneChangeModel().hasBlueLight()) {
+        // blue light device automatically gets right of way
+        return true;
+    }
     const MSLane* foeLane = veh->getLane();
     if (foeLane->isInternal()) {
         if (foeLane->getEdge().getFromJunction() == link->getJunction()) {
