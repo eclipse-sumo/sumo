@@ -436,8 +436,11 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
         if (getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED) {
             // write embedded route
             getChildDemandElements().front()->writeDemandElement(device);
-            // write stops
-            writeSortedStops(device, getChildDemandElements().front()->getParentEdges());
+            // write sorted stops
+            const auto sortedStops = getSortedStops(getChildDemandElements().front()->getParentEdges());
+            for (const auto& stop : sortedStops) {
+                stop->writeDemandElement(device);
+            }
         } else {
             for (const auto& route : getChildDemandElements()) {
                 route->writeDemandElement(device);
@@ -465,6 +468,17 @@ GNEVehicle::isDemandElementValid() const {
             return false;
         }
     } else if (getChildDemandElements().size() > 0 && (getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED)) {
+        // get sorted stops and check number
+        std::vector<GNEDemandElement*> embeddedRouteStops;
+        for (const auto &routeChild : getChildDemandElements()) {
+            if (routeChild->getTagProperty().isStop()) {
+                embeddedRouteStops.push_back(routeChild);
+            }
+        }
+        const auto sortedStops = getSortedStops(getChildDemandElements().front()->getParentEdges());
+        if (sortedStops.size() != embeddedRouteStops.size()) {
+            return false;
+        }
         // check if exist a valid path using embebbed route edges
         if (myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getParentDemandElements().at(0)->getVClass(), getChildDemandElements().front()->getParentEdges()).size() > 0) {
             return true;
@@ -501,6 +515,17 @@ GNEVehicle::getDemandElementProblem() const {
         // there is connections bewteen all edges, then all ok
         return "";
     } else if (getChildDemandElements().size() > 0 && (getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED)) {
+        // get sorted stops and check number
+        std::vector<GNEDemandElement*> embeddedRouteStops;
+        for (const auto &routeChild : getChildDemandElements()) {
+            if (routeChild->getTagProperty().isStop()) {
+                embeddedRouteStops.push_back(routeChild);
+            }
+        }
+        const auto sortedStops = getSortedStops(getChildDemandElements().front()->getParentEdges());
+        if (sortedStops.size() != embeddedRouteStops.size()) {
+            return toString(embeddedRouteStops.size() - sortedStops.size()) + " stops are outside of embedded route (downstream)";
+        }
         // get embebbed route edges
         const std::vector<GNEEdge*>& routeEdges = getChildDemandElements().front()->getParentEdges();
         // check if exist at least a connection between every edge

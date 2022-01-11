@@ -196,7 +196,10 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
     }
     // write sorted stops
     if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
-        writeSortedStops(device, getParentEdges());
+        const auto sortedStops = getSortedStops(getParentEdges());
+        for (const auto& stop : sortedStops) {
+            stop->writeDemandElement(device);
+        }
     }
     // write parameters
     writeParams(device);
@@ -207,6 +210,18 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
 
 bool
 GNERoute::isDemandElementValid() const {
+    // get sorted stops and check number
+    std::vector<GNEDemandElement*> stops;
+    for (const auto &routeChild : getChildDemandElements()) {
+        if (routeChild->getTagProperty().isStop()) {
+            stops.push_back(routeChild);
+        }
+    }
+    const auto sortedStops = getSortedStops(getParentEdges());
+    if (sortedStops.size() != stops.size()) {
+        return false;
+    }
+    // check parent edges
     if ((getParentEdges().size() == 2) && (getParentEdges().at(0) == getParentEdges().at(1))) {
         // from and to are the same edges, then return true
         return true;
@@ -221,6 +236,17 @@ GNERoute::isDemandElementValid() const {
 
 std::string
 GNERoute::getDemandElementProblem() const {
+    // get sorted stops and check number
+    std::vector<GNEDemandElement*> stops;
+    for (const auto &routeChild : getChildDemandElements()) {
+        if (routeChild->getTagProperty().isStop()) {
+            stops.push_back(routeChild);
+        }
+    }
+    const auto sortedStops = getSortedStops(getParentEdges());
+    if (sortedStops.size() != stops.size()) {
+        return toString(stops.size() - sortedStops.size()) + " stops are outside of route (downstream)";
+    }
     // return string with the problem obtained from isRouteValid
     return isRouteValid(getParentEdges());
 }

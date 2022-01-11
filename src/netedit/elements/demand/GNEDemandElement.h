@@ -433,8 +433,8 @@ protected:
         std::vector<std::pair<double, const GNEDemandElement*> > myStops;
     };
 
-    /// @brief write sorted stops
-    void writeSortedStops(OutputDevice& device, const std::vector<GNEEdge*> &edges) const;
+    /// @brief get sorted stops
+    std::vector<const GNEDemandElement*> getSortedStops(const std::vector<GNEEdge*> &edges) const;
 
 private:
     /**@brief check restriction with the number of children

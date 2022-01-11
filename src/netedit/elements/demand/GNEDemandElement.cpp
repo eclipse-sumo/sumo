@@ -913,8 +913,8 @@ GNEDemandElement::SortedStops::addStop(const GNEDemandElement* stop) {
 }
 
 
-void 
-GNEDemandElement::writeSortedStops(OutputDevice& device, const std::vector<GNEEdge*> &edges) const {
+std::vector<const GNEDemandElement*> 
+GNEDemandElement::getSortedStops(const std::vector<GNEEdge*> &edges) const {
     std::vector<GNEDemandElement*> stops;
     // get stops
     for (const auto& stop : getChildDemandElements()) {
@@ -941,12 +941,14 @@ GNEDemandElement::writeSortedStops(OutputDevice& device, const std::vector<GNEEd
             }
         }
     }
-    // finally write stops
+    // finally return sorted stops
+    std::vector<const GNEDemandElement*> solution;
     for (const auto &sortedStop : sortedStops) {
         for (const auto &stop : sortedStop.myStops) {
-            stop.second->writeDemandElement(device);
+            solution.push_back(stop.second);
         }
     }
+    return solution;
 }
 
 
