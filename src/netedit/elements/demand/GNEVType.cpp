@@ -105,10 +105,10 @@ GNEVType::writeDemandElement(OutputDevice& device) const {
 }
 
 
-GNEDemandElement::DemandElementProblem 
+GNEDemandElement::Problem 
 GNEVType::isDemandElementValid() const {
     // currently vTypes don't have problems
-    return GNEDemandElement::DemandElementProblem::NOTHING;
+    return GNEDemandElement::Problem::OK;
 }
 
 

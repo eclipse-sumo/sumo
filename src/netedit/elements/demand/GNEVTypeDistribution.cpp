@@ -63,10 +63,10 @@ GNEVTypeDistribution::writeDemandElement(OutputDevice& device) const {
 }
 
 
-GNEDemandElement::DemandElementProblem 
+GNEDemandElement::Problem 
 GNEVTypeDistribution::isDemandElementValid() const {
     // currently vTypeDistributions don't have problems
-    return GNEDemandElement::DemandElementProblem::NOTHING;
+    return GNEDemandElement::Problem::OK;
 }
 
 

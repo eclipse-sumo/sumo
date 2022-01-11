@@ -56,13 +56,13 @@ public:
     friend class GNERouteHandler;
 
     /// @brief enum class for demandElement problem
-    enum class DemandElementProblem {
-        NOTHING,
-        INVALID_PATH,
-        DISCONNECTED_PLAN,
-        INVALID_PLAN,
-        INVALID_STOPPOSITION,
-        STOP_DOWNSTREAM,
+    enum class Problem {
+        OK,                     // There is no problem
+        INVALID_ELEMENT,        // Element is invalid (for example, a route without edges)
+        INVALID_PATH,           // Path (route, trip... ) is not valid (i.e is empty)
+        DISCONNECTED_PLAN,      // Plan element (person, containers) is't connected with the previous or next plan
+        INVALID_STOPPOSITION,   // StopPosition is invalid (only used in stops over edges or lanes
+        STOP_DOWNSTREAM,        // Stops don't follow their route parent
     };
 
     /**@brief Constructor
@@ -170,7 +170,7 @@ public:
     virtual void writeDemandElement(OutputDevice& device) const = 0;
 
     /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in children)
-    virtual DemandElementProblem isDemandElementValid() const = 0;
+    virtual Problem isDemandElementValid() const = 0;
 
     /// @brief return a string with the current demand element problem (by default empty, can be reimplemented in children)
     virtual std::string getDemandElementProblem() const = 0;
@@ -383,7 +383,7 @@ protected:
                                const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const;
 
     /// @brief check if person plan is valid
-    DemandElementProblem isPersonPlanValid() const;
+    Problem isPersonPlanValid() const;
 
     /// @brief get person plan problem
     std::string getPersonPlanProblem() const;

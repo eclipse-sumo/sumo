@@ -169,7 +169,7 @@ GNEStop::writeDemandElement(OutputDevice& device) const {
 }
 
 
-GNEDemandElement::DemandElementProblem
+GNEDemandElement::Problem
 GNEStop::isDemandElementValid() const {
     if (myTagProperty.isStopPerson() || myTagProperty.isStopContainer()) {
         // get lane
@@ -189,18 +189,18 @@ GNEStop::isDemandElementValid() const {
             if ((endPosFixed <= getParentEdges().front()->getNBEdge()->getFinalLength()) && (endPosFixed > 0)) {
                 return isPersonPlanValid();
             } else {
-                return DemandElementProblem::INVALID_STOPPOSITION;
+                return Problem::INVALID_STOPPOSITION;
             }
         } else {
-            return DemandElementProblem::INVALID_PLAN;
+            return Problem::INVALID_ELEMENT;
         }
     } else {
         // only Stops placed over lanes can be invalid
         if (myTagProperty.getTag() != SUMO_TAG_STOP_LANE) {
-            return DemandElementProblem::NOTHING;
+            return Problem::OK;
         } else if (friendlyPos) {
             // with friendly position enabled position are "always fixed"
-            return DemandElementProblem::NOTHING;
+            return Problem::OK;
         } else {
             // obtain lane length
             double laneLength = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength() * getParentLanes().front()->getLengthGeometryFactor();
@@ -216,9 +216,9 @@ GNEStop::isDemandElementValid() const {
             }
             // check values
             if ((startPosCopy >= 0) && (endPosCopy <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) && ((endPosCopy - startPosCopy) >= POSITION_EPS)) {
-                return DemandElementProblem::NOTHING;
+                return Problem::OK;
             } else {
-                return DemandElementProblem::INVALID_STOPPOSITION;
+                return Problem::INVALID_STOPPOSITION;
             }
         }
     }

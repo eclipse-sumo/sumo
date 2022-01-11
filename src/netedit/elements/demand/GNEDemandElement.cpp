@@ -646,7 +646,7 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
 }
 
 
-GNEDemandElement::DemandElementProblem 
+GNEDemandElement::Problem 
 GNEDemandElement::isPersonPlanValid() const {
     // get previous child
     const auto previousChild = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
@@ -676,7 +676,7 @@ GNEDemandElement::isPersonPlanValid() const {
         }
         // compare both edges
         if (previousEdge != firstEdge) {
-            return DemandElementProblem::DISCONNECTED_PLAN;
+            return Problem::DISCONNECTED_PLAN;
         }
     }
     // get next child
@@ -707,11 +707,11 @@ GNEDemandElement::isPersonPlanValid() const {
         }
         // compare both edges
         if (nextEdge != lastEdge) {
-            return DemandElementProblem::DISCONNECTED_PLAN;
+            return Problem::DISCONNECTED_PLAN;
         }
     }
     // all ok, then return true
-    return DemandElementProblem::NOTHING;
+    return Problem::OK;
 }
 
 

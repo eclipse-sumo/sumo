@@ -167,8 +167,8 @@ GNEFixDemandElements::onCmdAccept(FXObject*, FXSelector, void*) {
         } else if (myFixStopOptions->fixPositionsAndSave->getCheck() == TRUE) {
             myViewNet->getUndoList()->begin(GUIIcon::STOP, "fix positions of invalid stops");
             // iterate over invalid stops to fix positions
-            for (auto i : myDemandList->myInvalidStops) {
-                i->fixDemandElementProblem();
+            for (const auto &stop : myDemandList->myInvalidStops) {
+                stop->fixDemandElementProblem();
             }
             myViewNet->getUndoList()->end();
         } else if (myFixStopOptions->selectInvalidStopsAndCancel->getCheck() == TRUE) {

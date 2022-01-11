@@ -262,10 +262,10 @@ GNEPerson::writeDemandElement(OutputDevice& device) const {
 }
 
 
-GNEDemandElement::DemandElementProblem
+GNEDemandElement::Problem
 GNEPerson::isDemandElementValid() const {
     // a single person is always valid
-    return DemandElementProblem::NOTHING;
+    return Problem::OK;
 }
 
 

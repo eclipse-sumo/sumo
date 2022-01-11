@@ -57,7 +57,7 @@ public:
     void writeDemandElement(OutputDevice& device) const;
 
     /// @brief check if current demand element is valid to be writed into XML
-    DemandElementProblem isDemandElementValid() const;
+    Problem isDemandElementValid() const;
 
     /// @brief return a string with the current demand element problem
     std::string getDemandElementProblem() const;

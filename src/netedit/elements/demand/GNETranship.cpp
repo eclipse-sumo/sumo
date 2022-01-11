@@ -157,22 +157,22 @@ GNETranship::writeDemandElement(OutputDevice& device) const {
 }
 
 
-GNEDemandElement::DemandElementProblem
+GNEDemandElement::Problem
 GNETranship::isDemandElementValid() const {
     if (getParentEdges().size() == 2) {
         if (getParentEdges().at(0) == getParentEdges().at(1)) {
             // from and to are the same edges, then path is valid
-            return DemandElementProblem::NOTHING;
+            return Problem::OK;
         } else {
             // check if exist a route between parent edges
             if (myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getParentDemandElements().at(0)->getVClass(), getParentEdges()).size() > 0) {
-                return DemandElementProblem::NOTHING;
+                return Problem::OK;
             } else {
-                return DemandElementProblem::INVALID_PATH;
+                return Problem::INVALID_PATH;
             }
         }
     } else {
-        return DemandElementProblem::INVALID_PLAN;
+        return Problem::INVALID_ELEMENT;
     }
 }
 

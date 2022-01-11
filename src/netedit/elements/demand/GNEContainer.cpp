@@ -262,10 +262,10 @@ GNEContainer::writeDemandElement(OutputDevice& device) const {
 }
 
 
-GNEDemandElement::DemandElementProblem
+GNEDemandElement::Problem
 GNEContainer::isDemandElementValid() const {
     // a single container is always valid
-    return DemandElementProblem::NOTHING;
+    return Problem::OK;
 }
 
 

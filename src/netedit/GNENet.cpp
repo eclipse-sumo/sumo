@@ -1709,19 +1709,19 @@ GNENet::cleanInvalidDemandElements(GNEUndoList* undoList) {
                                   myAttributeCarriers->getDemandElements().at(SUMO_TAG_TRIP).size());
     // iterate over routes
     for (const auto& route : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
-        if (route->isDemandElementValid() != GNEDemandElement::DemandElementProblem::NOTHING) {
+        if (route->isDemandElementValid() != GNEDemandElement::Problem::OK) {
             invalidDemandElements.push_back(route);
         }
     }
     // iterate over flows
     for (const auto& flow : myAttributeCarriers->getDemandElements().at(SUMO_TAG_FLOW)) {
-        if (flow->isDemandElementValid() != GNEDemandElement::DemandElementProblem::NOTHING) {
+        if (flow->isDemandElementValid() != GNEDemandElement::Problem::OK) {
             invalidDemandElements.push_back(flow);
         }
     }
     // iterate over trip
     for (const auto& trip : myAttributeCarriers->getDemandElements().at(SUMO_TAG_TRIP)) {
-        if (trip->isDemandElementValid() != GNEDemandElement::DemandElementProblem::NOTHING) {
+        if (trip->isDemandElementValid() != GNEDemandElement::Problem::OK) {
             invalidDemandElements.push_back(trip);
         }
     }
@@ -2077,7 +2077,7 @@ GNENet::saveDemandElements(const std::string& filename) {
             // compute before check if demand element is valid
             demandElement->computePathElement();
             // check if has to be fixed
-            if (demandElement->isDemandElementValid() != GNEDemandElement::DemandElementProblem::NOTHING) {
+            if (demandElement->isDemandElementValid() != GNEDemandElement::Problem::OK) {
                 invalidSingleLaneDemandElements.push_back(demandElement);
             }
         }
