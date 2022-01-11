@@ -237,15 +237,15 @@ GNEFixDemandElements::DemandList::DemandList(GNEFixDemandElements* fixDemandElem
     myTable->setSelTextColor(FXRGBA(0, 0, 0, 255));
     myTable->setEditable(false);
     // separate demand elements in three groups
-    for (const auto& i : invalidDemandElements) {
-        if (i->getTagProperty().isVehicle()) {
-            myInvalidVehicles.push_back(i);
-        } else if (i->getTagProperty().isStop() || i->getTagProperty().isStopPerson()) {
-            myInvalidStops.push_back(i);
-        } else if (i->getTagProperty().isPersonPlan()) {
-            myInvalidPersonPlans.push_back(i);
+    for (const auto& demandElement : invalidDemandElements) {
+        if (demandElement->getTagProperty().isVehicle()) {
+            myInvalidVehicles.push_back(demandElement);
+        } else if (demandElement->getTagProperty().isStop() || demandElement->getTagProperty().isStopPerson()) {
+            myInvalidStops.push_back(demandElement);
+        } else if (demandElement->getTagProperty().isPersonPlan()) {
+            myInvalidPersonPlans.push_back(demandElement);
         } else {
-            myInvalidRoutes.push_back(i);
+            myInvalidRoutes.push_back(demandElement);
         }
     }
     // clear table
@@ -359,24 +359,34 @@ GNEFixDemandElements::DemandList::DemandList(GNEFixDemandElements* fixDemandElem
     }
 }
 
+// ---------------------------------------------------------------------------
+// GNEFixDemandElements::FixOptions - methods
+// ---------------------------------------------------------------------------
+
+GNEFixDemandElements::FixOptions::FixOptions(FXVerticalFrame* frameParent, const std::string &title) :
+    FXGroupBoxModule(frameParent, title, false) {
+    // create horizontal frame
+    FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    // create vertical frames
+    myLeftFrame = new FXVerticalFrame(horizontalFrame, GUIDesignAuxiliarVerticalFrame);
+    myRightFrame = new FXVerticalFrame(horizontalFrame, GUIDesignAuxiliarVerticalFrame);
+}
 
 // ---------------------------------------------------------------------------
 // GNEFixDemandElements::FixRouteOptions - methods
 // ---------------------------------------------------------------------------
 
-GNEFixDemandElements::FixRouteOptions::FixRouteOptions(GNEFixDemandElements* fixDemandElementsDialogParents) :
-    FXGroupBoxModule(fixDemandElementsDialogParents->myMainFrame, "Solution for routes", false) {
-    // create horizontal frames for radio buttons
-    FXHorizontalFrame* radioButtonsFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
-    // create radio button for remove invalid routes
-    removeInvalidRoutes = new FXRadioButton(radioButtonsFrame, "Remove invalid routes",
-                                            fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    // create radio button for save invalid routes
-    saveInvalidRoutes = new FXRadioButton(radioButtonsFrame, "Save invalid routes",
-                                          fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    // create radio button for select invalid routes
-    selectInvalidRoutesAndCancel = new FXRadioButton(radioButtonsFrame, "Select invalid routes",
-            fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+GNEFixDemandElements::FixRouteOptions::FixRouteOptions(GNEFixDemandElements* fixDemandElementsParent) :
+    FixOptions(fixDemandElementsParent->myMainFrame, "Routes") {
+    // Remove invalid routes
+    removeInvalidRoutes = new FXRadioButton(myLeftFrame, "Remove invalid routes",
+        fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // Save invalid routes
+    saveInvalidRoutes = new FXRadioButton(myLeftFrame, "Save invalid routes",
+        fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // Select invalid routes
+    selectInvalidRoutesAndCancel = new FXRadioButton(myRightFrame, "Select invalid routes",
+            fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // leave option "removeInvalidRoutes" as default
     removeInvalidRoutes->setCheck(true);
 }
@@ -419,19 +429,17 @@ GNEFixDemandElements::FixRouteOptions::disableFixRouteOptions() {
 // GNEFixDemandElements::FixVehicleOptions - methods
 // ---------------------------------------------------------------------------
 
-GNEFixDemandElements::FixVehicleOptions::FixVehicleOptions(GNEFixDemandElements* fixDemandElementsDialogParents) :
-    FXGroupBoxModule(fixDemandElementsDialogParents->myMainFrame, "Solution for vehicles", false) {
-    // create horizontal frames for radio buttons
-    FXHorizontalFrame* radioButtonsFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
-    // create radio button for remove invalid vehicles
-    removeInvalidVehicles = new FXRadioButton(radioButtonsFrame, "Remove invalid vehicles",
-            fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    // create radio button for save invalid vehicles
-    saveInvalidVehicles = new FXRadioButton(radioButtonsFrame, "Save invalid vehicles",
-                                            fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    // create radio button for select invalid vehicles
-    selectInvalidVehiclesAndCancel = new FXRadioButton(radioButtonsFrame, "Select invalid vehicle",
-            fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+GNEFixDemandElements::FixVehicleOptions::FixVehicleOptions(GNEFixDemandElements* fixDemandElementsParent) :
+    FixOptions(fixDemandElementsParent->myMainFrame, "Vehicles") {
+    // Remove invalid vehicles
+    removeInvalidVehicles = new FXRadioButton(myLeftFrame, "Remove invalid vehicles",
+        fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // Save invalid vehicles
+    saveInvalidVehicles = new FXRadioButton(myLeftFrame, "Save invalid vehicles",
+        fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // Select invalid vehicle
+    selectInvalidVehiclesAndCancel = new FXRadioButton(myRightFrame, "Select invalid vehicle",
+        fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // leave option "buildConnectionBetweenLanes" and "removeInvalidRoutes" as default
     removeInvalidVehicles->setCheck(true);
 }
@@ -474,22 +482,20 @@ GNEFixDemandElements::FixVehicleOptions::disableFixVehicleOptions() {
 // GNEFixDemandElements::FixStopOptions - methods
 // ---------------------------------------------------------------------------
 
-GNEFixDemandElements::FixStopOptions::FixStopOptions(GNEFixDemandElements* fixDemandElementsDialogParents) :
-    FXGroupBoxModule(fixDemandElementsDialogParents->myMainFrame, "Solution for stops", false) {
-    // create horizontal frames for radio buttons
-    FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
-    // create Vertical Frame for left options
-    FXVerticalFrame* RadioButtonsLeft = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
-    activateFriendlyPositionAndSave = new FXRadioButton(RadioButtonsLeft, "Activate friendlyPos and save",
-            fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    saveInvalid = new FXRadioButton(RadioButtonsLeft, "Save invalid positions",
-                                    fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    // create Vertical Frame for right options
-    FXVerticalFrame* RadioButtonsRight = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
-    selectInvalidStopsAndCancel = new FXRadioButton(RadioButtonsRight, "Select invalid Stops",
-            fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    fixPositionsAndSave = new FXRadioButton(RadioButtonsRight, "Fix positions and save",
-                                            fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+GNEFixDemandElements::FixStopOptions::FixStopOptions(GNEFixDemandElements* fixDemandElementsParent) :
+    FixOptions(fixDemandElementsParent->myMainFrame, "Stops") {
+    // Activate friendlyPos and save
+    activateFriendlyPositionAndSave = new FXRadioButton(myLeftFrame, "Activate friendlyPos and save",
+        fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // Save invalid position
+    saveInvalid = new FXRadioButton(myLeftFrame, "Save invalid positions",
+        fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // Select invalid Stops
+    selectInvalidStopsAndCancel = new FXRadioButton(myRightFrame, "Select invalid Stops",
+        fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // Fix positions and save
+    fixPositionsAndSave = new FXRadioButton(myRightFrame, "Fix positions and save",
+        fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // leave option "activateFriendlyPositionAndSave" as default
     activateFriendlyPositionAndSave->setCheck(true);
 }
@@ -542,20 +548,17 @@ GNEFixDemandElements::FixStopOptions::disableFixStopOptions() {
 // GNEFixDemandElements::FixPersonPlanOptions - methods
 // ---------------------------------------------------------------------------
 
-GNEFixDemandElements::FixPersonPlanOptions::FixPersonPlanOptions(GNEFixDemandElements* fixDemandElementsDialogParents) :
-    FXGroupBoxModule(fixDemandElementsDialogParents->myMainFrame, "Solution for person plans", false) {
-    // create horizontal frames for radio buttons
-    FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
-    // create Vertical Frame for left options
-    FXVerticalFrame* RadioButtonsLeft = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
-    deletePersonPlan = new FXRadioButton(RadioButtonsLeft, "Delete person plan",
-                                         fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    saveInvalid = new FXRadioButton(RadioButtonsLeft, "Save invalid person plans",
-                                    fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    // create Vertical Frame for right options
-    FXVerticalFrame* RadioButtonsRight = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
-    selectInvalidPersonPlansAndCancel = new FXRadioButton(RadioButtonsRight, "Select invalid person plans",
-            fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+GNEFixDemandElements::FixPersonPlanOptions::FixPersonPlanOptions(GNEFixDemandElements* fixDemandElementsParent) :
+    FixOptions(fixDemandElementsParent->myMainFrame, "Person/container plans") {
+    // Delete person plan
+    deletePersonPlan = new FXRadioButton(myLeftFrame, "Delete person plan",
+        fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // Save invalid person plans
+    saveInvalid = new FXRadioButton(myLeftFrame, "Save invalid person plans",
+        fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+    // Select invalid person plans
+    selectInvalidPersonPlansAndCancel = new FXRadioButton(myRightFrame, "Select invalid person plans",
+        fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // leave option "activateFriendlyPositionAndSave" as default
     deletePersonPlan->setCheck(true);
 }

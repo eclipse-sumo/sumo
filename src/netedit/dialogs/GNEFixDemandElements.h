@@ -60,6 +60,9 @@ public:
     /// @}
 
 protected:
+    /// @brief FOX need this
+    FOX_CONSTRUCTOR(GNEFixDemandElements)
+
     /// @brief groupbox for list
     class DemandList : protected FXGroupBox {
 
@@ -83,12 +86,27 @@ protected:
         FXTable* myTable;
     };
 
-    /// @brief groupbox for all radio buttons related with fix route options
-    class FixRouteOptions : public FXGroupBoxModule {
+    /// @brief general GroupBox for fix options
+    class FixOptions : public FXGroupBoxModule {
 
     public:
         /// @brief constructor
-        FixRouteOptions(GNEFixDemandElements* fixDemandElementsDialogParents);
+        FixOptions(FXVerticalFrame* frameParent, const std::string &title);
+
+        /// @brief vertical left frame
+        FXVerticalFrame* myLeftFrame = nullptr;
+
+        /// @brief vertical right frame
+        FXVerticalFrame* myRightFrame = nullptr;
+    };
+
+
+    /// @brief groupbox for all radio buttons related with fix route options
+    class FixRouteOptions : public FixOptions {
+
+    public:
+        /// @brief constructor
+        FixRouteOptions(GNEFixDemandElements* fixDemandElementsParent);
 
         /// @brief select option
         void selectOption(FXObject* option);
@@ -110,11 +128,11 @@ protected:
     };
 
     /// @brief groupbox for all radio buttons related with fix vehicle options
-    class FixVehicleOptions : public FXGroupBoxModule {
+    class FixVehicleOptions : public FixOptions {
 
     public:
         /// @brief constructor
-        FixVehicleOptions(GNEFixDemandElements* fixDemandElementsDialogParents);
+        FixVehicleOptions(GNEFixDemandElements* fixDemandElementsParent);
 
         /// @brief select option
         void selectOption(FXObject* option);
@@ -136,11 +154,11 @@ protected:
     };
 
     /// @brief groupbox for all radio buttons related with fix stop options
-    class FixStopOptions : public FXGroupBoxModule {
+    class FixStopOptions : public FixOptions {
 
     public:
         /// @brief build Position Options
-        FixStopOptions(GNEFixDemandElements* fixDemandElementsDialogParents);
+        FixStopOptions(GNEFixDemandElements* fixDemandElementsParent);
 
         /// @brief select option
         void selectOption(FXObject* option);
@@ -165,11 +183,11 @@ protected:
     };
 
     /// @brief groupbox for all radio buttons related with fix person plan options
-    class FixPersonPlanOptions : public FXGroupBoxModule {
+    class FixPersonPlanOptions : public FixOptions {
 
     public:
         /// @brief build Position Options
-        FixPersonPlanOptions(GNEFixDemandElements* fixDemandElementsDialogParents);
+        FixPersonPlanOptions(GNEFixDemandElements* fixDemandElementsParent);
 
         /// @brief select option
         void selectOption(FXObject* option);
@@ -189,8 +207,6 @@ protected:
         /// @brief Option "Select invalid person plans and cancel"
         FXRadioButton* selectInvalidPersonPlansAndCancel;
     };
-
-    FOX_CONSTRUCTOR(GNEFixDemandElements)
 
     /// @brief view net
     GNEViewNet* myViewNet;
