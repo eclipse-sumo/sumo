@@ -252,6 +252,8 @@ GUITLLogicPhasesTrackerWindow::initToolBar() {
 
     if (myAmInTrackingMode) {
         myDetectorMode = new FXCheckButton(myToolBar, "detectors", this, MID_SIMSTEP);
+    } else {
+        myDetectorMode = nullptr;
     }
 }
 
