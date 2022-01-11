@@ -155,15 +155,6 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     myAmInTrackingMode(true)
 {
     initToolBar();
-    // interval manipulation
-    new FXLabel(myToolBar, "Range (s):", nullptr, LAYOUT_CENTER_Y);
-    myBeginOffset = new FXRealSpinner(myToolBar, 10, this, MID_SIMSTEP, LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
-    //myBeginOffset->setFormatString("%.0f");
-    //myBeginOffset->setIncrements(1, 10, 100);
-    myBeginOffset->setIncrement(10);
-    myBeginOffset->setRange(60, 3600);
-    myBeginOffset->setValue(240);
-    initDisplayOptions();
     //
     myConnector = new GLObjectValuePassConnector<std::pair<SUMOTime, MSPhaseDefinition> >(wrapper, src, this);
     app.addChild(this);
@@ -196,7 +187,6 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
 {
     myConnector = nullptr;
     initToolBar();
-    initDisplayOptions();
     app.addChild(this);
     for (int i = 0; i < (int)myTLLogic->getLinks().size(); ++i) {
         myLinkNames.push_back(toString<int>(i));
@@ -233,10 +223,18 @@ GUITLLogicPhasesTrackerWindow::initToolBar() {
     myToolBarDrag = new FXToolBarShell(this, GUIDesignToolBar);
     myToolBar = new FXToolBar(this, myToolBarDrag, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | FRAME_RAISED);
     new FXToolBarGrip(myToolBar, myToolBar, FXToolBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-}
 
-void
-GUITLLogicPhasesTrackerWindow::initDisplayOptions() {
+    if (myAmInTrackingMode) {
+        // interval manipulation
+        new FXLabel(myToolBar, "Range (s):", nullptr, LAYOUT_CENTER_Y);
+        myBeginOffset = new FXRealSpinner(myToolBar, 10, this, MID_SIMSTEP, LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
+        //myBeginOffset->setFormatString("%.0f");
+        //myBeginOffset->setIncrements(1, 10, 100);
+        myBeginOffset->setIncrement(10);
+        myBeginOffset->setRange(60, 3600);
+        myBeginOffset->setValue(240);
+    }
+
     new FXLabel(myToolBar, "Time Style:", nullptr, LAYOUT_CENTER_Y);
     myTimeMode = new FXComboBox(myToolBar, 20, this, MID_SIMSTEP, GUIDesignViewSettingsComboBox1);
     myTimeMode->appendItem("Seconds");
@@ -246,6 +244,10 @@ GUITLLogicPhasesTrackerWindow::initDisplayOptions() {
 
     myGreenMode = new FXCheckButton(myToolBar, "green durations", this, MID_SIMSTEP);
     myIndexMode = new FXCheckButton(myToolBar, "phase names", this, MID_SIMSTEP);
+
+    if (myAmInTrackingMode) {
+        myDetectorMode = new FXCheckButton(myToolBar, "detectors", this, MID_SIMSTEP);
+    }
 }
 
 
@@ -585,6 +587,7 @@ GUITLLogicPhasesTrackerWindow::saveSettings() {
     getApp()->reg().writeIntEntry("TL_TRACKER", "timeMode", myTimeMode->getCurrentItem());
     getApp()->reg().writeIntEntry("TL_TRACKER", "greenMode", (int)(myGreenMode->getCheck() != FALSE));
     getApp()->reg().writeIntEntry("TL_TRACKER", "indexMode", (int)(myIndexMode->getCheck() != FALSE));
+    getApp()->reg().writeIntEntry("TL_TRACKER", "detectorMode", (int)(myDetectorMode->getCheck() != FALSE));
 }
 
 
@@ -608,6 +611,7 @@ GUITLLogicPhasesTrackerWindow::loadSettings() {
     myTimeMode->setCurrentItem(getApp()->reg().readIntEntry("TL_TRACKER", "timeMode", myTimeMode->getCurrentItem()));
     myGreenMode->setCheck((bool)getApp()->reg().readIntEntry("TL_TRACKER", "greenMode", (int)(myGreenMode->getCheck() != FALSE)));
     myIndexMode->setCheck((bool)getApp()->reg().readIntEntry("TL_TRACKER", "indexMode", (int)(myIndexMode->getCheck() != FALSE)));
+    myDetectorMode->setCheck((bool)getApp()->reg().readIntEntry("TL_TRACKER", "detectorMode", (int)(myDetectorMode->getCheck() != FALSE)));
 }
 
 /****************************************************************************/

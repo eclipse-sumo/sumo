@@ -251,13 +251,15 @@ private:
     /// @brief Whether phase names shall be printed instead of indices
     FXCheckButton* myIndexMode;
 
+    /// @brief Whether detector states are drawn
+    FXCheckButton* myDetectorMode;
+
     /// @brief y-Position of previously opened window
     static int myLastY;
 
 private:
 
     void initToolBar();
-    void initDisplayOptions();
 
     void saveSettings();
     void loadSettings();
