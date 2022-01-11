@@ -224,9 +224,11 @@ private:
 
     /// @brief The index of the first phase that fits into the window
     int myFirstPhase2Show;
+    int myFirstDet2Show;
 
     /// @brief The offset to draw the first phase (left offset)
     SUMOTime myFirstPhaseOffset;
+    SUMOTime myFirstDetOffset;
 
     /// @brief The time the diagram begins at
     SUMOTime myFirstTime2Show;

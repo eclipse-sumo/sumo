@@ -283,6 +283,8 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     myFirstPhase2Show = 0;
     myFirstPhaseOffset = 0;
     SUMOTime leftOffset = 0;
+    myFirstDet2Show = 0;
+    myFirstDetOffset = 0;
     myFirstTime2Show = 0;
     if (!myAmInTrackingMode) {
         myPhases.clear();
@@ -334,6 +336,26 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
                 leftOffset = beginOffset - durs;
             }
         }
+        if (myDetectorDurations.size() != 0) {
+            SUMOTime durs = 0;
+            int phaseOffset = (int)myDetectorDurations.size() - 1;
+            DurationsVector::reverse_iterator i = myDetectorDurations.rbegin();
+            while (i != myDetectorDurations.rend()) {
+                if (durs + (*i) > beginOffset) {
+                    myFirstDet2Show = phaseOffset;
+                    myFirstDetOffset = (durs + (*i)) - beginOffset;
+                    break;
+                }
+                durs += (*i);
+                phaseOffset--;
+                ++i;
+            }
+            if (i == myDetectorDurations.rend()) {
+                // there are too few information stored;
+                myFirstDet2Show = 0;
+                myFirstDetOffset = 0;
+            }
+        }
     }
     // begin drawing
     glMatrixMode(GL_PROJECTION);
@@ -357,6 +379,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     const double h16 = 16. / panelHeight;
     const double h20 = 20. / panelHeight;
     const double h60 = 70. / panelHeight;
+    const double h80 = 75. / panelHeight;
     const double w30 = 30 / panelWidth;
     double h = 1. - hTop;
     // draw the line below indices
@@ -469,6 +492,52 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         x = x2;
         // all further phases are drawn in full
         fpo = 0;
+    }
+
+
+    if (myDetectorMode != nullptr && myDetectorMode->getCheck() != FALSE) {
+        const double hStart = h - h80;
+        x = 31. / panelWidth;
+        ta = (double) leftOffset / panelWidth;
+        ta *= barWidth / ((double)(myLastTime - myBeginTime));
+        x += ta;
+        DetectorStatesVector::iterator di = myDetectorStates.begin() + myFirstDet2Show;
+        SUMOTime fpo = myFirstDetOffset;
+
+        // start drawing
+        glColor3d(0.7, 0.7, 0.7);
+        for (DurationsVector::iterator pd = myDetectorDurations.begin() + myFirstDet2Show; pd != myDetectorDurations.end(); ++pd) {
+            SUMOTime i = 30;
+            // the first phase may be drawn incompletely
+            SUMOTime duration = *pd - fpo;
+            // compute the height and the width of the phase
+            h = hStart;
+            double a = (double) duration / panelWidth;
+            a *= barWidth / ((double)(myLastTime - myBeginTime));
+            const double x2 = x + a;
+            //std::cout << SIMTIME << " detStates=" << toString(*di) << "\n";
+            // go through the detectors
+            for (int j : *di) {
+                if (j == 1) {
+                    // draw a thick block
+                    glBegin(GL_QUADS);
+                    glVertex2d(x, h - h16);
+                    glVertex2d(x, h);
+                    glVertex2d(x2, h);
+                    glVertex2d(x2, h - h16);
+                    glEnd();
+                }
+                // proceed to next link
+                h -= h20;
+            }
+            // proceed to next phase
+            i += duration;
+            ++di;
+            ++ii;
+            x = x2;
+            // all further phases are drawn in full
+            fpo = 0;
+        }
     }
     // allow value addition
     myLock.unlock();
