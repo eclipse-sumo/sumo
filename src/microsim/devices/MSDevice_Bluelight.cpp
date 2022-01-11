@@ -128,19 +128,18 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     //std::string currentEdgeID = veh.getEdge()->getID();
     //use edges on the way of the emergency vehicle
-    std::vector<const MSLane*> myUpcomingLanes = ego.getUpcomingLanesUntil(myReactionDist);
-    std::vector<const MSEdge*> myUpcomingEdges;
-    std::set<std::string> myUpcomingVehicles;
+    std::vector<const MSEdge*> upcomingEdges;
+    std::set<std::string> upcomingVehicles;
     std::set<std::string> lastStepInfluencedVehicles = myInfluencedVehicles;
     //get edgeIDs from Lanes
-    for (const MSLane* const l :  myUpcomingLanes) {
-        myUpcomingEdges.push_back(&l->getEdge());
+    for (const MSLane* const l : ego.getUpcomingLanesUntil(myReactionDist)) {
+        upcomingEdges.push_back(&l->getEdge());
     }
 
-    for (const MSEdge* const e : myUpcomingEdges) {
-        //inform all vehicles on myUpcomingEdges
+    for (const MSEdge* const e : upcomingEdges) {
+        //inform all vehicles on upcomingEdges
         for (const SUMOVehicle* v : e->getVehicles()) {
-            myUpcomingVehicles.insert(v->getID());
+            upcomingVehicles.insert(v->getID());
             if (lastStepInfluencedVehicles.count(v->getID()) > 0) {
                 lastStepInfluencedVehicles.erase(v->getID());
             }
@@ -157,14 +156,14 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
         }
     }
 
-    for (std::string vehID : myUpcomingVehicles) {
+    for (std::string vehID : upcomingVehicles) {
         MSVehicle* veh2 = dynamic_cast<MSVehicle*>(vc.getVehicle(vehID));
         assert(veh2 != nullptr);
         if (veh2->getLane() == nullptr) {
             continue;
         }
         //Vehicle only from edge should react
-        if (std::find(myUpcomingEdges.begin(), myUpcomingEdges.end(), &veh2->getLane()->getEdge()) != myUpcomingEdges.end()) { //currentEdgeID == veh2->getEdge()->getID())
+        if (std::find(upcomingEdges.begin(), upcomingEdges.end(), &veh2->getLane()->getEdge()) != upcomingEdges.end()) { //currentEdgeID == veh2->getEdge()->getID())
             if (veh2->getDevice(typeid(MSDevice_Bluelight)) != nullptr) {
                 // emergency vehicles should not react
                 continue;
@@ -255,15 +254,15 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
     }
     // ego is at the end of its current lane and cannot continue
     const double distToEnd = ego.getLane()->getLength() - ego.getPositionOnLane();
-    //std::cout << SIMTIME << " " << getID() << " lane=" << ego.getLane()->getID() << " pos=" << ego.getPositionOnLane() << " distToEnd=" << distToEnd << " conts=" << toString(ego.getBestLanesContinuation()) << " furtherEdges=" << myUpcomingEdges.size() << "\n";
+    //std::cout << SIMTIME << " " << getID() << " lane=" << ego.getLane()->getID() << " pos=" << ego.getPositionOnLane() << " distToEnd=" << distToEnd << " conts=" << toString(ego.getBestLanesContinuation()) << " furtherEdges=" << upcomingEdges.size() << "\n";
     if (ego.getBestLanesContinuation().size() == 1 && distToEnd <= POSITION_EPS
             // route continues
-            && myUpcomingEdges.size() > 1) {
+            && upcomingEdges.size() > 1) {
         const MSEdge* currentEdge = &ego.getLane()->getEdge();
         // move onto the intersection as if there was a connection from the current lane
-        const MSEdge* next = currentEdge->getInternalFollowingEdge(myUpcomingEdges[1]);
+        const MSEdge* next = currentEdge->getInternalFollowingEdge(upcomingEdges[1]);
         if (next == nullptr) {
-            next = myUpcomingEdges[1];
+            next = upcomingEdges[1];
         }
         // pick the lane that causes the minimizes lateral jump
         const std::vector<MSLane*>* allowed = next->allowedLanes(ego.getVClass());
