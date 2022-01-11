@@ -1000,6 +1000,16 @@ MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) {
     }
 }
 
+
+std::vector<const MSInductLoop*>
+MSActuatedTrafficLightLogic::getDetectors() const {
+    std::vector<const MSInductLoop*> result;
+    for (auto li : myInductLoops) {
+        result.push_back(li.loop);
+    }
+    return result;
+}
+
 void
 MSActuatedTrafficLightLogic::setParameter(const std::string& key, const std::string& value) {
     // some pre-defined parameters can be updated at runtime

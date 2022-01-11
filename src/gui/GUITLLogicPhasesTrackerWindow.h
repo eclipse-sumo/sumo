@@ -130,6 +130,9 @@ public:
     /// @brief Definition of a storage for indices
     typedef std::vector<int> IndexVector;
 
+    /// @brief Definition of a storage for detector states
+    typedef std::vector<std::vector<int > > DetectorStatesVector;
+
     /**
      * @class GUITLLogicPhasesTrackerPanel
      * @brief The canvas for the visualisation of phases
@@ -200,6 +203,9 @@ private:
 
     /// @brief The index of the current phase
     IndexVector myPhaseIndex;
+
+    /// @brief The state of all used detectors of the current phase
+    DetectorStatesVector myDetectorStates;
 
     /// @brief The panel to draw on
     GUITLLogicPhasesTrackerPanel* myPanel;

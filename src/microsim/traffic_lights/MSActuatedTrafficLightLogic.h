@@ -113,6 +113,9 @@ public:
     /**@brief Sets a parameter and updates internal constants */
     void setParameter(const std::string& key, const std::string& value);
 
+    /// @brief retrieve all detectors used by this program
+    std::vector<const MSInductLoop*> getDetectors() const;
+
 protected:
     /// @brief initialize custom switching rules
     void initSwitchingRules();

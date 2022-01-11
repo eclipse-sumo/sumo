@@ -40,6 +40,7 @@
 class MSNet;
 class MSLink;
 class MSTLLogicControl;
+class MSInductLoop;
 class NLDetectorBuilder;
 
 
@@ -366,6 +367,12 @@ public:
 
     /// @brief whether the given link index ever turns 'G'
     virtual bool getsMajorGreen(int linkIndex) const;
+
+
+    /// @brief return all detectors that affect this traffic light
+    virtual std::vector<const MSInductLoop*> getDetectors() const {
+        return std::vector<const MSInductLoop*>();
+    }
 
     /// @brief return vehicles that block the intersection/rail signal for vehicles that wish to pass the given linkIndex
     virtual VehicleVector getBlockingVehicles(int linkIndex) {
