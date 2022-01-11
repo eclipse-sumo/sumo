@@ -702,6 +702,12 @@ class VehicleDomain(Domain):
         The dist parameter defines the minimum lookahead, 0 calculates a lookahead from the brake gap.
         Note that the returned leader may be further away than the given dist and that the vehicle
         will only look on its current best lanes and not look beyond the end of its final route edge.
+
+        In the case where no leader is found, the function returns 'None'.
+        This special case is deprecated. The future behavior is to return the
+        pair ("", -1) when no leader is found.
+        The function 'traci.setLegacyGetLeader(bool) can be used to switch
+        between both behaviors.
         """
         return self._getUniversal(tc.VAR_LEADER, vehID, "d", dist)
 
