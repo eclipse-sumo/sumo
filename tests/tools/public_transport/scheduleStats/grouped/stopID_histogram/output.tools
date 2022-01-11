@@ -1,16 +1,16 @@
 Parsed 8 stops
 Parsed 8 stopinfos
 Found 8 matches
-depart delay:stop_a: count 1, min 0.0 (t0_stop_a), max 0.0 (t0_stop_a), mean 0.0 Q1 0.0, median 0.0, Q3 0.0, mean_abs 0.0, median_abs 0.0
-depart delay:stop_e: count 1, min 0.0 (t1_stop_e), max 0.0 (t1_stop_e), mean 0.0 Q1 0.0, median 0.0, Q3 0.0, mean_abs 0.0, median_abs 0.0
-depart delay:stop_f: count 1, min 0.0 (t2_stop_f), max 0.0 (t2_stop_f), mean 0.0 Q1 0.0, median 0.0, Q3 0.0, mean_abs 0.0, median_abs 0.0
-depart delay:stop_c: count 2, min 0.0 (t0_stop_c), max 109.0 (t2_stop_c), mean 54.5 Q1 0.0, median 109.0, Q3 109.0, mean_abs 54.5, median_abs 109.0
-depart delay:stop_c2: count 2, min 0.0 (t1_stop_c2), max 149.0 (t3_stop_c2), mean 74.5 Q1 0.0, median 149.0, Q3 149.0, mean_abs 74.5, median_abs 149.0
-depart delay:stop_i: count 1, min 176.0 (t3_stop_i), max 176.0 (t3_stop_i), mean 176.0 Q1 176.0, median 176.0, Q3 176.0, mean_abs 176.0, median_abs 176.0
+depart delay:stop_a: count 1, min 0.0 (t0_stop_a), max 0.0 (t0_stop_a), mean 0.0, Q1 0.0, median 0.0, Q3 0.0, mean_abs 0.0, median_abs 0.0
+depart delay:stop_e: count 1, min 0.0 (t1_stop_e), max 0.0 (t1_stop_e), mean 0.0, Q1 0.0, median 0.0, Q3 0.0, mean_abs 0.0, median_abs 0.0
+depart delay:stop_f: count 1, min 0.0 (t2_stop_f), max 0.0 (t2_stop_f), mean 0.0, Q1 0.0, median 0.0, Q3 0.0, mean_abs 0.0, median_abs 0.0
+depart delay:stop_c: count 2, min 0.0 (t0_stop_c), max 109.0 (t2_stop_c), mean 54.5, Q1 0.0, median 109.0, Q3 109.0, mean_abs 54.5, median_abs 109.0
+depart delay:stop_c2: count 2, min 0.0 (t1_stop_c2), max 149.0 (t3_stop_c2), mean 74.5, Q1 0.0, median 149.0, Q3 149.0, mean_abs 74.5, median_abs 149.0
+depart delay:stop_i: count 1, min 176.0 (t3_stop_i), max 176.0 (t3_stop_i), mean 176.0, Q1 176.0, median 176.0, Q3 176.0, mean_abs 176.0, median_abs 176.0
 
 histogram of mean depart delay grouped by [stopID]:
   0: 3
  55: 1
  75: 1
 175: 1
-mean depart delay grouped by [stopID]: count 6, min 0.0 (stop_a), max 176.0 (stop_i), mean 50.8 Q1 0.0, median 54.5, Q3 74.5, mean_abs 50.8, median_abs 54.5
+mean depart delay grouped by [stopID]: count 6, min 0.0 (stop_a), max 176.0 (stop_i), mean 50.8, Q1 0.0, median 54.5, Q3 74.5, mean_abs 50.8, median_abs 54.5
