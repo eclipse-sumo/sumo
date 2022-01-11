@@ -148,10 +148,12 @@ FXIMPLEMENT(GUITLLogicPhasesTrackerWindow, FXMainWindow, GUITLLogicPhasesTracker
 GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     GUIMainWindow& app,
     MSTrafficLightLogic& logic, GUITrafficLightLogicWrapper& wrapper,
-    ValueSource<std::pair<SUMOTime, MSPhaseDefinition> >* src)
-    : FXMainWindow(app.getApp(), "TLS-Tracker", nullptr, nullptr, DECOR_ALL,
-                   20, 20, 300, 200),
-      myApplication(&app), myTLLogic(&logic), myAmInTrackingMode(true) {
+    ValueSource<std::pair<SUMOTime, MSPhaseDefinition> >* src) :
+    FXMainWindow(app.getApp(), "TLS-Tracker", nullptr, nullptr, DECOR_ALL, 20, 20, 300, 200),
+    myApplication(&app),
+    myTLLogic(&logic),
+    myAmInTrackingMode(true)
+{
     initToolBar();
     // interval manipulation
     new FXLabel(myToolBar, "Range (s):", nullptr, LAYOUT_CENTER_Y);
@@ -174,23 +176,26 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
         new FXVerticalFrame(this,
                             FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y,
                             0, 0, 0, 0, 0, 0, 0, 0);
-    myPanel = new
-    GUITLLogicPhasesTrackerPanel(glcanvasFrame, *myApplication, *this);
+    myPanel = new GUITLLogicPhasesTrackerPanel(glcanvasFrame, *myApplication, *this);
     setTitle((logic.getID() + " - " + logic.getProgramID() + " - tracker").c_str());
     setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TLSTRACKER));
-    setHeight((FXint)(myTLLogic->getLinks().size() * 20 + 30 + 8 + 30 + 60));
+    const int height = myTLLogic->getLinks().size() * 20 + 30 + 8 + 30 + 60;
+    setHeight(height);
     loadSettings();
 }
 
 
 GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
-    GUIMainWindow& app,
-    MSTrafficLightLogic& logic, GUITrafficLightLogicWrapper& /*wrapper*/,
-    const MSSimpleTrafficLightLogic::Phases& /*phases*/)
-    : FXMainWindow(app.getApp(), "TLS-Tracker", nullptr, nullptr, DECOR_ALL,
-                   20, 20, 300, 200),
-      myApplication(&app), myTLLogic(&logic), myAmInTrackingMode(false),
-      myToolBarDrag(nullptr), myBeginOffset(nullptr) {
+        GUIMainWindow& app,
+        MSTrafficLightLogic& logic, GUITrafficLightLogicWrapper& /*wrapper*/,
+        const MSSimpleTrafficLightLogic::Phases& /*phases*/) :
+    FXMainWindow(app.getApp(), "TLS-Tracker", nullptr, nullptr, DECOR_ALL, 20, 20, 300, 200),
+    myApplication(&app),
+    myTLLogic(&logic),
+    myAmInTrackingMode(false),
+    myToolBarDrag(nullptr),
+    myBeginOffset(nullptr)
+{
     myConnector = nullptr;
     initToolBar();
     initTimeMode();
@@ -204,11 +209,11 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
         new FXVerticalFrame(this,
                             FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y,
                             0, 0, 0, 0, 0, 0, 0, 0);
-    myPanel = new
-    GUITLLogicPhasesTrackerPanel(glcanvasFrame, *myApplication, *this);
+    myPanel = new GUITLLogicPhasesTrackerPanel(glcanvasFrame, *myApplication, *this);
     setTitle((logic.getID() + " - " + logic.getProgramID() + " - phases").c_str());
     setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TLSTRACKER));
-    setHeight((FXint)(myTLLogic->getLinks().size() * 20 + 30 + 8 + 30 + 60));
+    const int height = myTLLogic->getLinks().size() * 20 + 30 + 8 + 30 + 60;
+    setHeight(height);
     setWidth(700);
 }
 
