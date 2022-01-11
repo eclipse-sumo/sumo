@@ -452,20 +452,24 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
 }
 
 
-bool
+GNEDemandElement::DemandElementProblem
 GNEVehicle::isDemandElementValid() const {
     // only trips or flows can have problems
     if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
         // check path
-        return myNet->getPathManager()->isPathValid(this);
+        if (myNet->getPathManager()->isPathValid(this)) {
+            return DemandElementProblem::NOTHING;
+        } else {
+            return DemandElementProblem::INVALID_PATH;
+        }
     } else if ((myTagProperty.getTag() == GNE_TAG_TRIP_JUNCTIONS) || (myTagProperty.getTag() == GNE_TAG_FLOW_JUNCTIONS)) {
-        return true;
+        return DemandElementProblem::NOTHING;
     } else if (getParentDemandElements().size() == 2) {
         // check if exist a valid path using route parent edges
         if (myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getParentDemandElements().at(0)->getVClass(), getParentDemandElements().at(1)->getParentEdges()).size() > 0) {
-            return true;
+            return DemandElementProblem::NOTHING;
         } else {
-            return false;
+            return DemandElementProblem::INVALID_PATH;
         }
     } else if (getChildDemandElements().size() > 0 && (getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED)) {
         // get sorted stops and check number
@@ -477,16 +481,16 @@ GNEVehicle::isDemandElementValid() const {
         }
         const auto sortedStops = getSortedStops(getChildDemandElements().front()->getParentEdges());
         if (sortedStops.size() != embeddedRouteStops.size()) {
-            return false;
+            return DemandElementProblem::STOP_DOWNSTREAM;
         }
         // check if exist a valid path using embebbed route edges
         if (myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getParentDemandElements().at(0)->getVClass(), getChildDemandElements().front()->getParentEdges()).size() > 0) {
-            return true;
+            return DemandElementProblem::NOTHING;
         } else {
-            return false;
+            return DemandElementProblem::INVALID_PATH;
         }
     } else {
-        return false;
+        return DemandElementProblem::INVALID_PLAN;
     }
 }
 

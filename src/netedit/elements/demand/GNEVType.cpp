@@ -105,6 +105,25 @@ GNEVType::writeDemandElement(OutputDevice& device) const {
 }
 
 
+GNEDemandElement::DemandElementProblem 
+GNEVType::isDemandElementValid() const {
+    // currently vTypes don't have problems
+    return GNEDemandElement::DemandElementProblem::NOTHING;
+}
+
+
+std::string 
+GNEVType::getDemandElementProblem() const {
+    return "";
+}
+
+
+void 
+GNEVType::fixDemandElementProblem() {
+    // nothing to fix
+}
+
+
 SUMOVehicleClass
 GNEVType::getVClass() const {
     return vehicleClass;

@@ -161,7 +161,7 @@ GNEPersonTrip::writeDemandElement(OutputDevice& device) const {
 }
 
 
-bool
+GNEDemandElement::DemandElementProblem
 GNEPersonTrip::isDemandElementValid() const {
     return isPersonPlanValid();
 }

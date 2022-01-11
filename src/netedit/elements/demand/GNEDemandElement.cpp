@@ -172,24 +172,6 @@ GNEDemandElement::updateDemandElementSpreadGeometry(const GNELane* lane, const d
 }
 
 
-bool
-GNEDemandElement::isDemandElementValid() const {
-    return true;
-}
-
-
-std::string
-GNEDemandElement::getDemandElementProblem() const {
-    return "";
-}
-
-
-void
-GNEDemandElement::fixDemandElementProblem() {
-    throw InvalidArgument(getTagStr() + " cannot fix any problem");
-}
-
-
 void
 GNEDemandElement::openDemandElementDialog() {
     throw InvalidArgument(getTagStr() + " doesn't have an demand element dialog");
@@ -664,7 +646,7 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
 }
 
 
-bool 
+GNEDemandElement::DemandElementProblem 
 GNEDemandElement::isPersonPlanValid() const {
     // get previous child
     const auto previousChild = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
@@ -694,7 +676,7 @@ GNEDemandElement::isPersonPlanValid() const {
         }
         // compare both edges
         if (previousEdge != firstEdge) {
-            return false;
+            return DemandElementProblem::DISCONNECTED_PLAN;
         }
     }
     // get next child
@@ -725,11 +707,11 @@ GNEDemandElement::isPersonPlanValid() const {
         }
         // compare both edges
         if (nextEdge != lastEdge) {
-            return false;
+            return DemandElementProblem::DISCONNECTED_PLAN;
         }
     }
     // all ok, then return true
-    return true;
+    return DemandElementProblem::NOTHING;
 }
 
 

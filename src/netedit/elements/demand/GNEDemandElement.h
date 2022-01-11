@@ -55,6 +55,16 @@ public:
     /// @brief friend declaration (needed for vTypes)
     friend class GNERouteHandler;
 
+    /// @brief enum class for demandElement problem
+    enum class DemandElementProblem {
+        NOTHING,
+        INVALID_PATH,
+        DISCONNECTED_PLAN,
+        INVALID_PLAN,
+        INVALID_STOPPOSITION,
+        STOP_DOWNSTREAM,
+    };
+
     /**@brief Constructor
      * @param[in] id Gl-id of the demand element element (Must be unique)
      * @param[in] net pointer to GNEViewNet of this demand element element belongs
@@ -160,13 +170,13 @@ public:
     virtual void writeDemandElement(OutputDevice& device) const = 0;
 
     /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in children)
-    virtual bool isDemandElementValid() const;
+    virtual DemandElementProblem isDemandElementValid() const = 0;
 
     /// @brief return a string with the current demand element problem (by default empty, can be reimplemented in children)
-    virtual std::string getDemandElementProblem() const;
+    virtual std::string getDemandElementProblem() const = 0;
 
     /// @brief fix demand element problem (by default throw an exception, has to be reimplemented in children)
-    virtual void fixDemandElementProblem();
+    virtual void fixDemandElementProblem() = 0;
     /// @}
 
     /**@brief open DemandElement Dialog
@@ -373,7 +383,7 @@ protected:
                                const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const;
 
     /// @brief check if person plan is valid
-    bool isPersonPlanValid() const;
+    DemandElementProblem isPersonPlanValid() const;
 
     /// @brief get person plan problem
     std::string getPersonPlanProblem() const;

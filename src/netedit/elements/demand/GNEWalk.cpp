@@ -169,7 +169,7 @@ GNEWalk::writeDemandElement(OutputDevice& device) const {
 }
 
 
-bool
+GNEDemandElement::DemandElementProblem
 GNEWalk::isDemandElementValid() const {
     return isPersonPlanValid();
 }

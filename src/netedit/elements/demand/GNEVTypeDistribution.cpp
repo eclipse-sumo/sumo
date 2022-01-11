@@ -63,6 +63,25 @@ GNEVTypeDistribution::writeDemandElement(OutputDevice& device) const {
 }
 
 
+GNEDemandElement::DemandElementProblem 
+GNEVTypeDistribution::isDemandElementValid() const {
+    // currently vTypeDistributions don't have problems
+    return GNEDemandElement::DemandElementProblem::NOTHING;
+}
+
+
+std::string 
+GNEVTypeDistribution::getDemandElementProblem() const {
+    return "";
+}
+
+
+void 
+GNEVTypeDistribution::fixDemandElementProblem() {
+    // nothing to fix
+}
+
+
 SUMOVehicleClass
 GNEVTypeDistribution::getVClass() const {
     return SVC_IGNORING;

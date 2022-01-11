@@ -208,7 +208,7 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
 }
 
 
-bool
+GNEDemandElement::DemandElementProblem
 GNERoute::isDemandElementValid() const {
     // get sorted stops and check number
     std::vector<GNEDemandElement*> stops;
@@ -219,17 +219,21 @@ GNERoute::isDemandElementValid() const {
     }
     const auto sortedStops = getSortedStops(getParentEdges());
     if (sortedStops.size() != stops.size()) {
-        return false;
+        return DemandElementProblem::STOP_DOWNSTREAM;
     }
     // check parent edges
     if ((getParentEdges().size() == 2) && (getParentEdges().at(0) == getParentEdges().at(1))) {
         // from and to are the same edges, then return true
-        return true;
+        return DemandElementProblem::NOTHING;
     } else if (getParentEdges().size() > 0) {
         // check that exist a connection between every edge
-        return isRouteValid(getParentEdges()).empty();
+        if (isRouteValid(getParentEdges()).size() > 0) {
+            return DemandElementProblem::INVALID_PATH;
+        } else {
+            return DemandElementProblem::NOTHING;
+        }
     } else {
-        return false;
+        return DemandElementProblem::INVALID_PLAN;
     }
 }
 
