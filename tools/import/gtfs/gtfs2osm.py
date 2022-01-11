@@ -306,9 +306,9 @@ def repair_routes(options, net):
             line_dir = get_line_dir(line_orig, line_dest)
 
             osm_routes[ptline.id] = (ptline.attr_name, ptline.line, ptline.type, line_dir)
-            dua_file.write('    <trip id="%s" type="%s" depart="0" via="%s"/>\n' %
+            dua_file.write(u'    <trip id="%s" type="%s" depart="0" via="%s"/>\n' %
                            (ptline.id, ptline.type, (" ").join(route_edges)))
-        dua_file.write("</routes>\n")
+        dua_file.write(u"</routes>\n")
 
     if options.verbose:
         print("%s routes read, discarded for wrong mode: %s, outside of net %s, keeping %s" %
@@ -514,7 +514,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
     if options.verbose:
         print("Generates stops and routes output")
 
-    with open(options.additional_output, 'w', encoding="utf8") as output_file:
+    with io.open(options.additional_output, 'w', encoding="utf8") as output_file:
         sumolib.xml.writeHeader(output_file, root="additional")
         for stop, value in map_stops.items():
             name, lane, start_pos, end_pos, v_type = value[:5]
@@ -543,7 +543,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
     sequence_errors = []
 
     if options.vtype_output:
-        with open(options.vtype_output, 'w', encoding="utf8") as vout:
+        with io.open(options.vtype_output, 'w', encoding="utf8") as vout:
             sumolib.xml.writeHeader(vout, root="additional")
             for osm_type, sumo_class in OSM2SUMO_MODES.items():
                 if osm_type in options.modes:
@@ -551,7 +551,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
                                (osm_type, sumo_class))
             vout.write(u'</additional>\n')
 
-    with open(options.route_output, 'w', encoding="utf8") as output_file:
+    with io.open(options.route_output, 'w', encoding="utf8") as output_file:
         sumolib.xml.writeHeader(output_file, root="routes")
         numDays = options.end // 86401
         start_time = pd.to_timedelta(time.strftime('%H:%M:%S', time.gmtime(options.begin)))
@@ -634,7 +634,7 @@ def write_gtfs_osm_outputs(options, map_routes, map_stops, missing_stops, missin
     # -----------------------   Save missing data ------------------
     if any([missing_stops, missing_lines, sequence_errors]):
         print("Not all given gtfs elements have been mapped, see %s for more information" % options.warning_output)  # noqa
-        with open(options.warning_output, 'w', encoding="utf8") as output_file:
+        with io.open(options.warning_output, 'w', encoding="utf8") as output_file:
             output_file.write('<missingElements>\n')
             for stop in sorted(set(missing_stops)):
                 output_file.write('    <stop id="%s" name="%s" ptLine="%s"/>\n' % stop)
