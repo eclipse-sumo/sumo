@@ -31,6 +31,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSLink.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/MSVehicleControl.h>
@@ -134,8 +135,15 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
     std::vector<const MSEdge*> upcomingEdges;
     std::set<MSVehicle*, ComparatorIdLess> upcomingVehicles;
     std::set<std::string> lastStepInfluencedVehicles = myInfluencedVehicles;
+    std::vector<MSLink*> upcomingLinks;
+    double affectedJunctionDist = ego.getPositionOnLane() + myReactionDist;
     for (const MSLane* const l : ego.getUpcomingLanesUntil(myReactionDist)) {
         upcomingEdges.push_back(&l->getEdge());
+
+        affectedJunctionDist -= l->getLength();
+        if (affectedJunctionDist > 0 && l->isInternal()) {
+            upcomingLinks.push_back(l->getIncomingLanes()[0].viaLink);
+        }
     }
 
     for (const MSEdge* const e : upcomingEdges) {
@@ -251,6 +259,33 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
             }
         }
     }
+    // make upcoming junction foes slow down
+    for (MSLink* link : upcomingLinks) {
+        auto avi = link->getApproaching(&ego);
+        MSLink::BlockingFoes blockingFoes;
+        link->opened(avi.arrivalTime, avi.arrivalSpeed, avi.arrivalSpeed, ego.getLength(),
+                0, ego.getCarFollowModel().getMaxDecel(), ego.getWaitingTime(), ego.getLateralPositionOnLane(), &blockingFoes, true, &ego);
+        const SUMOTime timeToArrival = avi.arrivalTime - SIMSTEP;
+        for (const SUMOVehicle* foe : blockingFoes) {
+            const double dist = ego.getPosition().distanceTo2D(foe->getPosition());
+            if (dist < myReactionDist) {
+                MSVehicle* microFoe = dynamic_cast<MSVehicle*>(const_cast<SUMOVehicle*>(foe));
+                if (microFoe->getDevice(typeid(MSDevice_Bluelight)) != nullptr) {
+                    // emergency vehicles should not react
+                    continue;
+                }
+                const double timeToBrake = foe->getSpeed() / 4.5;
+                if (timeToArrival < TIME2STEPS(timeToBrake + 1)) {;
+                    std::vector<std::pair<SUMOTime, double> > speedTimeLine;
+                    speedTimeLine.push_back(std::make_pair(SIMSTEP, foe->getSpeed()));
+                    speedTimeLine.push_back(std::make_pair(avi.arrivalTime, 0));
+                    microFoe->getInfluencer().setSpeedTimeLine(speedTimeLine);
+                    //std::cout << SIMTIME << " foe=" << foe->getID() << " dist=" << dist << " timeToBrake= " << timeToBrake << " ttA=" << STEPS2TIME(timeToArrival) << "\n";
+                }
+            }
+        }
+    }
+
     // ego is at the end of its current lane and cannot continue
     const double distToEnd = ego.getLane()->getLength() - ego.getPositionOnLane();
     //std::cout << SIMTIME << " " << getID() << " lane=" << ego.getLane()->getID() << " pos=" << ego.getPositionOnLane() << " distToEnd=" << distToEnd << " conts=" << toString(ego.getBestLanesContinuation()) << " furtherEdges=" << upcomingEdges.size() << "\n";
