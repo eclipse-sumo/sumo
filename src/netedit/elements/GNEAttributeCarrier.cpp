@@ -213,7 +213,7 @@ GNEAttributeCarrier::parse(const std::string& string) {
 template<> SUMOVehicleShape
 GNEAttributeCarrier::parse(const std::string& string) {
     if ((string == "unknown") || (!SumoVehicleShapeStrings.hasString(string))) {
-        return SVS_UNKNOWN;
+        return SUMOVehicleShape::UNKNOWN;
     } else {
         return SumoVehicleShapeStrings.get(string);
     }

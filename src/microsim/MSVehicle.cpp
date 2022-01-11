@@ -6131,12 +6131,12 @@ MSVehicle::getBoundingBox(double offset) const {
     PositionVector centerLine;
     centerLine.push_back(getPosition());
     switch (myType->getGuiShape()) {
-        case SVS_BUS_FLEXIBLE:
-        case SVS_RAIL:
-        case SVS_RAIL_CAR:
-        case SVS_RAIL_CARGO:
-        case SVS_TRUCK_SEMITRAILER:
-        case SVS_TRUCK_1TRAILER: {
+        case SUMOVehicleShape::BUS_FLEXIBLE:
+        case SUMOVehicleShape::RAIL:
+        case SUMOVehicleShape::RAIL_CAR:
+        case SUMOVehicleShape::RAIL_CARGO:
+        case SUMOVehicleShape::TRUCK_SEMITRAILER:
+        case SUMOVehicleShape::TRUCK_1TRAILER: {
             for (MSLane* lane : myFurtherLanes) {
                 centerLine.push_back(lane->getShape().back());
             }
@@ -6159,11 +6159,11 @@ MSVehicle::getBoundingBox(double offset) const {
 PositionVector
 MSVehicle::getBoundingPoly(double offset) const {
     switch (myType->getGuiShape()) {
-        case SVS_PASSENGER:
-        case SVS_PASSENGER_SEDAN:
-        case SVS_PASSENGER_HATCHBACK:
-        case SVS_PASSENGER_WAGON:
-        case SVS_PASSENGER_VAN: {
+        case SUMOVehicleShape::PASSENGER:
+        case SUMOVehicleShape::PASSENGER_SEDAN:
+        case SUMOVehicleShape::PASSENGER_HATCHBACK:
+        case SUMOVehicleShape::PASSENGER_WAGON:
+        case SUMOVehicleShape::PASSENGER_VAN: {
             // box with corners cut off
             PositionVector result;
             PositionVector centerLine;

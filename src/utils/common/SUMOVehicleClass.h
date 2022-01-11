@@ -45,67 +45,67 @@ class SUMOSAXAttributes;
  * @enum SUMOVehicleShape
  * @brief Definition of vehicle classes to differ between different appearences
  */
-enum SUMOVehicleShape {
+enum class SUMOVehicleShape {
     /// @brief not defined
-    SVS_UNKNOWN,
+    UNKNOWN,
     /// @brief render as a pedestrian
-    SVS_PEDESTRIAN,
+    PEDESTRIAN,
     /// @brief render as a bicycle
-    SVS_BICYCLE,
+    BICYCLE,
     /// @brief render as a moped
-    SVS_MOPED,
+    MOPED,
     /// @brief render as a motorcycle
-    SVS_MOTORCYCLE,
+    MOTORCYCLE,
     /// @brief render as a passenger vehicle
-    SVS_PASSENGER,
+    PASSENGER,
     /// @brief render as a sedan passenger vehicle ("Stufenheck")
-    SVS_PASSENGER_SEDAN,
+    PASSENGER_SEDAN,
     /// @brief render as a hatchback passenger vehicle ("Fliessheck")
-    SVS_PASSENGER_HATCHBACK,
+    PASSENGER_HATCHBACK,
     /// @brief render as a wagon passenger vehicle ("Combi")
-    SVS_PASSENGER_WAGON,
+    PASSENGER_WAGON,
     /// @brief render as a van
-    SVS_PASSENGER_VAN,
+    PASSENGER_VAN,
     /// @brief automated car (with cruise controllers)
-    //SVS_PASSENGER_AUTOMATED,
+    //PASSENGER_AUTOMATED,
     /// @brief render as a delivery vehicle
-    SVS_DELIVERY,
+    DELIVERY,
     /// @brief render as a transport vehicle
-    SVS_TRUCK,
+    TRUCK,
     /// @brief render as a semi-trailer transport vehicle ("Sattelschlepper")
-    SVS_TRUCK_SEMITRAILER,
+    TRUCK_SEMITRAILER,
     /// @brief render as a transport vehicle with one trailer
-    SVS_TRUCK_1TRAILER,
+    TRUCK_1TRAILER,
     /// @brief render as a bus
-    SVS_BUS,
+    BUS,
     /// @brief render as a coach
-    SVS_BUS_COACH,
+    BUS_COACH,
     /// @brief render as a flexible city bus
-    SVS_BUS_FLEXIBLE,
+    BUS_FLEXIBLE,
     /// @brief render as a trolley bus
-    SVS_BUS_TROLLEY,
+    BUS_TROLLEY,
     /// @brief render as a rail
-    SVS_RAIL,
+    RAIL,
     /// @brief render as a (city) rail without locomotive
-    SVS_RAIL_CAR,
+    RAIL_CAR,
     /// @brief render as a cargo train
-    SVS_RAIL_CARGO,
+    RAIL_CARGO,
     /// @brief render as a (futuristic) e-vehicle
-    SVS_E_VEHICLE,
+    E_VEHICLE,
     /// @brief render as a giant ant
-    SVS_ANT,
+    ANT,
     /// @brief render as a arbitrary ship
-    SVS_SHIP,
+    SHIP,
     /// @brief render as an emergency vehicle
-    SVS_EMERGENCY,
+    EMERGENCY,
     /// @brief render as a fire brigade
-    SVS_FIREBRIGADE,
+    FIREBRIGADE,
     /// @brief render as a police car
-    SVS_POLICE,
+    POLICE,
     /// @brief render as a rickshaw
-    SVS_RICKSHAW,
+    RICKSHAW,
     /// @brief render as a scooter
-    SVS_SCOOTER
+    SCOOTER
 };
 
 

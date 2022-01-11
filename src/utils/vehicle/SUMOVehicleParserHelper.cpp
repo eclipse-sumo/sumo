@@ -814,7 +814,7 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
         }
         if (attrs.hasAttribute(SUMO_ATTR_GUISHAPE)) {
             vType->shape = parseGuiShape(attrs, vType->id);
-            if (vType->shape != SVS_UNKNOWN) {
+            if (vType->shape != SUMOVehicleShape::UNKNOWN) {
                 vType->parametersSet |= VTYPEPARS_SHAPE_SET;
             }
         }
@@ -1580,7 +1580,7 @@ SUMOVehicleParserHelper::parseGuiShape(const SUMOSAXAttributes& attrs, const std
         return result;
     } else {
         WRITE_ERROR("The shape '" + vclassS + "' for " + attrs.getObjectType() + " '" + id + "' is not known.");
-        return SVS_UNKNOWN;
+        return SUMOVehicleShape::UNKNOWN;
     }
 }
 

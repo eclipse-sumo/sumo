@@ -94,7 +94,7 @@ GUIBasePersonHelper::drawAction_drawAsImage(const double angle, const double len
         const SUMOVehicleShape guiShape, const double exaggeration) {
     // first check if filename isn't empty
     if (file != "") {
-        if (guiShape == SVS_PEDESTRIAN) {
+        if (guiShape == SUMOVehicleShape::PEDESTRIAN) {
             glRotated(RAD2DEG(angle + M_PI / 2.), 0, 0, 1);
         }
         int textureID = GUITexturesHelper::getTextureID(file);

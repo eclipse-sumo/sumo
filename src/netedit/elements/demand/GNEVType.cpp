@@ -1549,7 +1549,7 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_GUISHAPE:
-            if (!value.empty() && (value != toString(defaultValues.shape))) {
+            if (!value.empty() && (value != SumoVehicleShapeStrings.getString(defaultValues.shape))) {
                 shape = getVehicleShapeID(value);
                 // mark parameter as set
                 parametersSet |= VTYPEPARS_SHAPE_SET;

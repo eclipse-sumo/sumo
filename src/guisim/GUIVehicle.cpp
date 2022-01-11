@@ -329,8 +329,8 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
         carriageLength = carriageLengthWithGap - carriageGap;
     }
     const int firstPassengerCarriage = defaultLength == locomotiveLength || numCarriages == 1 || (getVClass() & SVC_RAIL_CLASSES) == 0 ? 0 : 1;
-    const int noPersonsBackCarriages = (getVehicleType().getGuiShape() == SVS_TRUCK_SEMITRAILER || getVehicleType().getGuiShape() == SVS_TRUCK_1TRAILER) && numCarriages > 1 ? 1 : 0;
-    const int firstContainerCarriage = numCarriages == 1 || getVehicleType().getGuiShape() == SVS_TRUCK_1TRAILER ? 0 : 1;
+    const int noPersonsBackCarriages = (getVehicleType().getGuiShape() == SUMOVehicleShape::TRUCK_SEMITRAILER || getVehicleType().getGuiShape() == SUMOVehicleShape::TRUCK_1TRAILER) && numCarriages > 1 ? 1 : 0;
+    const int firstContainerCarriage = numCarriages == 1 || getVehicleType().getGuiShape() == SUMOVehicleShape::TRUCK_1TRAILER ? 0 : 1;
     const int seatsPerCarriage = (int)ceil(getVType().getPersonCapacity() / (numCarriages - firstPassengerCarriage - noPersonsBackCarriages));
     const int containersPerCarriage = (int)ceil(getVType().getContainerCapacity() / (numCarriages - firstContainerCarriage));
     // lane on which the carriage front is situated
@@ -402,8 +402,8 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
         glRotated(angle, 0, 0, 1);
         if (!asImage || !GUIBaseVehicleHelper::drawAction_drawVehicleAsImage(s, getVType().getImgFile(), this, getVType().getWidth(), curCLength / exaggeration)) {
             switch (getVType().getGuiShape()) {
-                case SVS_TRUCK_SEMITRAILER:
-                case SVS_TRUCK_1TRAILER:
+                case SUMOVehicleShape::TRUCK_SEMITRAILER:
+                case SUMOVehicleShape::TRUCK_1TRAILER:
                     if (i == 0) {
                         GUIBaseVehicleHelper::drawAction_drawVehicleAsPoly(s, getVType().getGuiShape(), getVType().getWidth() * exaggeration, curCLength, i);
                     } else {
@@ -435,7 +435,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
         carriageOffset -= (curCLength + carriageGap);
         carriageBackOffset -= carriageLengthWithGap;
     }
-    if (getVType().getGuiShape() == SVS_RAIL_CAR) {
+    if (getVType().getGuiShape() == SUMOVehicleShape::RAIL_CAR) {
         GLHelper::pushMatrix();
         glTranslated(front.x(), front.y(), getType());
         glRotated(angle, 0, 0, 1);

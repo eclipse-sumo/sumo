@@ -85,49 +85,49 @@ std::set<std::string> deprecatedVehicleClassesSeen;
 
 
 static StringBijection<SUMOVehicleShape>::Entry sumoVehicleShapeStringInitializer[] = {
-    {"pedestrian",            SVS_PEDESTRIAN},
-    {"bicycle",               SVS_BICYCLE},
-    {"moped",                 SVS_MOPED},
-    {"motorcycle",            SVS_MOTORCYCLE},
-    {"passenger",             SVS_PASSENGER},
-    {"passenger/sedan",       SVS_PASSENGER_SEDAN},
-    {"passenger/hatchback",   SVS_PASSENGER_HATCHBACK},
-    {"passenger/wagon",       SVS_PASSENGER_WAGON},
-    {"passenger/van",         SVS_PASSENGER_VAN},
-    {"delivery",              SVS_DELIVERY},
-    {"transport",             SVS_TRUCK}, // !!! deprecated
-    {"truck",                 SVS_TRUCK},
-    {"transport/semitrailer", SVS_TRUCK_SEMITRAILER}, // !!! deprecated
-    {"truck/semitrailer",     SVS_TRUCK_SEMITRAILER},
-    {"transport/trailer",     SVS_TRUCK_1TRAILER}, // !!! deprecated
-    {"truck/trailer",         SVS_TRUCK_1TRAILER},
-    {"bus/city",              SVS_BUS}, // !!! deprecated
-    {"bus",                   SVS_BUS},
-    {"bus/overland",          SVS_BUS_COACH}, // !!! deprecated
-    {"bus/coach",             SVS_BUS_COACH},
-    {"bus/flexible",          SVS_BUS_FLEXIBLE},
-    {"bus/trolley",           SVS_BUS_TROLLEY},
-    {"rail/slow",             SVS_RAIL}, // !!! deprecated
-    {"rail/fast",             SVS_RAIL}, // !!! deprecated
-    {"rail",                  SVS_RAIL},
-    {"rail/light",            SVS_RAIL_CAR}, // !!! deprecated
-    {"rail/city",             SVS_RAIL_CAR}, // !!! deprecated
-    {"rail/railcar",          SVS_RAIL_CAR},
-    {"rail/cargo",            SVS_RAIL_CARGO},
-    {"evehicle",              SVS_E_VEHICLE},
-    {"ant",                   SVS_ANT},
-    {"ship",                  SVS_SHIP},
-    {"emergency",             SVS_EMERGENCY},
-    {"firebrigade",           SVS_FIREBRIGADE},
-    {"police",                SVS_POLICE},
-    {"rickshaw",              SVS_RICKSHAW },
-    {"scooter",               SVS_SCOOTER},
-    {"",                      SVS_UNKNOWN}
+    {"pedestrian",            SUMOVehicleShape::PEDESTRIAN},
+    {"bicycle",               SUMOVehicleShape::BICYCLE},
+    {"moped",                 SUMOVehicleShape::MOPED},
+    {"motorcycle",            SUMOVehicleShape::MOTORCYCLE},
+    {"passenger",             SUMOVehicleShape::PASSENGER},
+    {"passenger/sedan",       SUMOVehicleShape::PASSENGER_SEDAN},
+    {"passenger/hatchback",   SUMOVehicleShape::PASSENGER_HATCHBACK},
+    {"passenger/wagon",       SUMOVehicleShape::PASSENGER_WAGON},
+    {"passenger/van",         SUMOVehicleShape::PASSENGER_VAN},
+    {"delivery",              SUMOVehicleShape::DELIVERY},
+    {"transport",             SUMOVehicleShape::TRUCK}, // !!! deprecated
+    {"truck",                 SUMOVehicleShape::TRUCK},
+    {"transport/semitrailer", SUMOVehicleShape::TRUCK_SEMITRAILER}, // !!! deprecated
+    {"truck/semitrailer",     SUMOVehicleShape::TRUCK_SEMITRAILER},
+    {"transport/trailer",     SUMOVehicleShape::TRUCK_1TRAILER}, // !!! deprecated
+    {"truck/trailer",         SUMOVehicleShape::TRUCK_1TRAILER},
+    {"bus/city",              SUMOVehicleShape::BUS}, // !!! deprecated
+    {"bus",                   SUMOVehicleShape::BUS},
+    {"bus/overland",          SUMOVehicleShape::BUS_COACH}, // !!! deprecated
+    {"bus/coach",             SUMOVehicleShape::BUS_COACH},
+    {"bus/flexible",          SUMOVehicleShape::BUS_FLEXIBLE},
+    {"bus/trolley",           SUMOVehicleShape::BUS_TROLLEY},
+    {"rail/slow",             SUMOVehicleShape::RAIL}, // !!! deprecated
+    {"rail/fast",             SUMOVehicleShape::RAIL}, // !!! deprecated
+    {"rail",                  SUMOVehicleShape::RAIL},
+    {"rail/light",            SUMOVehicleShape::RAIL_CAR}, // !!! deprecated
+    {"rail/city",             SUMOVehicleShape::RAIL_CAR}, // !!! deprecated
+    {"rail/railcar",          SUMOVehicleShape::RAIL_CAR},
+    {"rail/cargo",            SUMOVehicleShape::RAIL_CARGO},
+    {"evehicle",              SUMOVehicleShape::E_VEHICLE},
+    {"ant",                   SUMOVehicleShape::ANT},
+    {"ship",                  SUMOVehicleShape::SHIP},
+    {"emergency",             SUMOVehicleShape::EMERGENCY},
+    {"firebrigade",           SUMOVehicleShape::FIREBRIGADE},
+    {"police",                SUMOVehicleShape::POLICE},
+    {"rickshaw",              SUMOVehicleShape::RICKSHAW },
+    {"scooter",               SUMOVehicleShape::SCOOTER},
+    {"",                      SUMOVehicleShape::UNKNOWN}
 };
 
 
 StringBijection<SUMOVehicleShape> SumoVehicleShapeStrings(
-    sumoVehicleShapeStringInitializer, SVS_UNKNOWN, false);
+    sumoVehicleShapeStringInitializer, SUMOVehicleShape::UNKNOWN, false);
 
 // ===========================================================================
 // static values used for cached

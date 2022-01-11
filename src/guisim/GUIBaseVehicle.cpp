@@ -470,7 +470,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
             case 2:
                 drawCarriages = drawAction_drawVehicleAsPolyWithCarriagges(s, scaledLength);
                 // draw flashing blue light for emergency vehicles
-                if (getVType().getGuiShape() == SVS_EMERGENCY) {
+                if (getVType().getGuiShape() == SUMOVehicleShape::EMERGENCY) {
                     glTranslated(0, 0, .1);
                     drawAction_drawVehicleBlueLight();
                 }
@@ -517,22 +517,22 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
         if (s.showBlinker) {
             glTranslated(0, 0, .1);
             switch (getVType().getGuiShape()) {
-                case SVS_PEDESTRIAN:
-                case SVS_BICYCLE:
-                case SVS_SCOOTER:
-                case SVS_ANT:
-                case SVS_SHIP:
-                case SVS_RAIL:
-                case SVS_RAIL_CARGO:
-                case SVS_RAIL_CAR:
+                case SUMOVehicleShape::PEDESTRIAN:
+                case SUMOVehicleShape::BICYCLE:
+                case SUMOVehicleShape::SCOOTER:
+                case SUMOVehicleShape::ANT:
+                case SUMOVehicleShape::SHIP:
+                case SUMOVehicleShape::RAIL:
+                case SUMOVehicleShape::RAIL_CARGO:
+                case SUMOVehicleShape::RAIL_CAR:
                     break;
-                case SVS_MOTORCYCLE:
-                case SVS_MOPED:
+                case SUMOVehicleShape::MOTORCYCLE:
+                case SUMOVehicleShape::MOPED:
                     drawAction_drawVehicleBlinker(scaledLength);
                     drawAction_drawVehicleBrakeLight(scaledLength, true);
                     break;
                 default:
-                    // only SVS_RAIL_CAR has blinkers and brake lights but they are drawn along with the carriages
+                    // only SUMOVehicleShape::RAIL_CAR has blinkers and brake lights but they are drawn along with the carriages
                     if (!drawCarriages) {
                         drawAction_drawVehicleBlinker(scaledLength);
                         drawAction_drawVehicleBrakeLight(scaledLength);
@@ -701,17 +701,17 @@ GUIBaseVehicle::setFunctionalColor(int activeScheme, const MSBaseVehicle* veh, R
     switch (activeScheme) {
         case 0: {
             //test for emergency vehicle
-            if (veh->getVehicleType().getGuiShape() == SVS_EMERGENCY) {
+            if (veh->getVehicleType().getGuiShape() == SUMOVehicleShape::EMERGENCY) {
                 col = RGBColor::WHITE;
                 return true;
             }
             //test for firebrigade
-            if (veh->getVehicleType().getGuiShape() == SVS_FIREBRIGADE) {
+            if (veh->getVehicleType().getGuiShape() == SUMOVehicleShape::FIREBRIGADE) {
                 col = RGBColor::RED;
                 return true;
             }
             //test for police car
-            if (veh->getVehicleType().getGuiShape() == SVS_POLICE) {
+            if (veh->getVehicleType().getGuiShape() == SUMOVehicleShape::POLICE) {
                 col = RGBColor::BLUE;
                 return true;
             }
