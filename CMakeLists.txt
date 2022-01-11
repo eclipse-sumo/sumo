@@ -422,6 +422,10 @@ if (SKBUILD OR MSVC)
 else ()
     set(DATA_PATH "share/sumo/")
 endif ()
+if (SKBUILD)
+    set(EXCLUDE_LIBSUMO "libsumo")
+    set(EXCLUDE_LIBTRACI "libtraci")
+endif ()
 install(DIRECTORY bin/ DESTINATION bin
         FILES_MATCHING
         PATTERN "*.bat"
@@ -437,6 +441,8 @@ install(DIRECTORY tools/ DESTINATION ${DATA_PATH}tools
         PATTERN "lisum-core" EXCLUDE
         PATTERN "lisum-gui" EXCLUDE
         PATTERN "sumolib4matlab/src" EXCLUDE
+        PATTERN "${EXCLUDE_LIBSUMO}" EXCLUDE
+        PATTERN "${EXCLUDE_LIBTRACI}" EXCLUDE
         PATTERN "traas" EXCLUDE
         PATTERN "traci4matlab/src" EXCLUDE
         PATTERN "__pycache__" EXCLUDE
