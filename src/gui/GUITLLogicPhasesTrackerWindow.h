@@ -257,9 +257,7 @@ private:
 private:
 
     void initToolBar();
-    void initTimeMode();
-    void initGreenMode();
-    void initIndexMode();
+    void initDisplayOptions();
 
     void saveSettings();
     void loadSettings();

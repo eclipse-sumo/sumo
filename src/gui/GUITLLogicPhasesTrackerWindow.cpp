@@ -163,9 +163,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     myBeginOffset->setIncrement(10);
     myBeginOffset->setRange(60, 3600);
     myBeginOffset->setValue(240);
-    initTimeMode();
-    initGreenMode();
-    initIndexMode();
+    initDisplayOptions();
     //
     myConnector = new GLObjectValuePassConnector<std::pair<SUMOTime, MSPhaseDefinition> >(wrapper, src, this);
     app.addChild(this);
@@ -198,9 +196,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
 {
     myConnector = nullptr;
     initToolBar();
-    initTimeMode();
-    initGreenMode();
-    initIndexMode();
+    initDisplayOptions();
     app.addChild(this);
     for (int i = 0; i < (int)myTLLogic->getLinks().size(); ++i) {
         myLinkNames.push_back(toString<int>(i));
@@ -240,27 +236,18 @@ GUITLLogicPhasesTrackerWindow::initToolBar() {
 }
 
 void
-GUITLLogicPhasesTrackerWindow::initTimeMode() {
+GUITLLogicPhasesTrackerWindow::initDisplayOptions() {
     new FXLabel(myToolBar, "Time Style:", nullptr, LAYOUT_CENTER_Y);
     myTimeMode = new FXComboBox(myToolBar, 20, this, MID_SIMSTEP, GUIDesignViewSettingsComboBox1);
     myTimeMode->appendItem("Seconds");
     myTimeMode->appendItem("MM:SS");
     myTimeMode->appendItem("Time in cycle");
     myTimeMode->setNumVisible(3);
+
+    myGreenMode = new FXCheckButton(myToolBar, "green durations", this, MID_SIMSTEP);
+    myIndexMode = new FXCheckButton(myToolBar, "phase names", this, MID_SIMSTEP);
 }
 
-
-void
-GUITLLogicPhasesTrackerWindow::initGreenMode() {
-    new FXLabel(myToolBar, "Show green durations:", nullptr, LAYOUT_CENTER_Y);
-    myGreenMode = new FXCheckButton(myToolBar, "", this, MID_SIMSTEP);
-}
-
-void
-GUITLLogicPhasesTrackerWindow::initIndexMode() {
-    new FXLabel(myToolBar, "phase names:", nullptr, LAYOUT_CENTER_Y);
-    myIndexMode = new FXCheckButton(myToolBar, "", this, MID_SIMSTEP);
-}
 
 void
 GUITLLogicPhasesTrackerWindow::create() {
