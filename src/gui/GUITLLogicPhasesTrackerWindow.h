@@ -207,6 +207,9 @@ private:
     /// @brief The state of all used detectors of the current phase
     DetectorStatesVector myDetectorStates;
 
+    /// @brief The list of detector state durations
+    DurationsVector myDetectorDurations;
+
     /// @brief The panel to draw on
     GUITLLogicPhasesTrackerPanel* myPanel;
 
@@ -217,6 +220,7 @@ private:
      *
      * This holds an enumeration only - used to avoid time consuming string representation of ints */
     std::vector<std::string> myLinkNames;
+    std::vector<std::string> myDetectorNames;
 
     /// @brief The index of the first phase that fits into the window
     int myFirstPhase2Show;
@@ -269,6 +273,12 @@ private:
 
     void saveSettings();
     void loadSettings();
+
+    /// @brief compute required windowHeight
+    int computeHeight();
+
+    /// draw row title
+    void drawNames(const std::vector<std::string>& names, double fontHeight, double fontWidth, double height, double width, double& h);
 
 protected:
     /// protected constructor for FOX
