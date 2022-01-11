@@ -131,7 +131,7 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
     std::vector<const MSLane*> myUpcomingLanes = ego.getUpcomingLanesUntil(myReactionDist);
     std::vector<const MSEdge*> myUpcomingEdges;
     std::set<std::string> myUpcomingVehicles;
-    std::set<std::string> lastStepInfluencedVehicles = influencedVehicles;
+    std::set<std::string> lastStepInfluencedVehicles = myInfluencedVehicles;
     //get edgeIDs from Lanes
     for (const MSLane* const l :  myUpcomingLanes) {
         myUpcomingEdges.push_back(&l->getEdge());
@@ -146,12 +146,12 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
             }
         }
     }
-    // reset all vehicles that were in influencedVehicles in the previous step but not in the current step todo refactor
+    // reset all vehicles that were in myInfluencedVehicles in the previous step but not in the current step todo refactor
     for (auto elem : lastStepInfluencedVehicles) {
-        influencedVehicles.erase(elem);
-        std::map<std::string, std::string>::iterator it = influencedTypes.find(elem);
+        myInfluencedVehicles.erase(elem);
+        std::map<std::string, std::string>::iterator it = myInfluencedTypes.find(elem);
         MSVehicle* veh2 = dynamic_cast<MSVehicle*>(vc.getVehicle(elem));
-        if (veh2 != nullptr && it != influencedTypes.end()) {
+        if (veh2 != nullptr && it != myInfluencedTypes.end()) {
             // The vehicle gets back its old VehicleType after the emergency vehicle have passed them
             resetVehicle(veh2, it->second);
         }
@@ -171,7 +171,7 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
             }
             const int numLanes = (int)veh2->getLane()->getEdge().getNumLanes();
             //make sure that vehicle are still building the a rescue lane
-            if (influencedVehicles.count(veh2->getID()) > 0) {
+            if (myInfluencedVehicles.count(veh2->getID()) > 0) {
                 //Vehicle gets a new Vehicletype to change the alignment and the lanechange options
                 MSVehicleType& t = veh2->getSingularType();
                 //Setting the lateral alignment to build a rescue lane
@@ -189,7 +189,7 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
 
             double distanceDelta = veh.getPosition().distanceTo(veh2->getPosition());
             //emergency vehicle has to slow down when entering the resuce lane
-            if (distanceDelta <= 10 && veh.getID() != veh2->getID() && influencedVehicles.count(veh2->getID()) > 0 && veh2->getSpeed() < 1) {
+            if (distanceDelta <= 10 && veh.getID() != veh2->getID() && myInfluencedVehicles.count(veh2->getID()) > 0 && veh2->getSpeed() < 1) {
                 // set ev speed to 20 km/h 0 5.56 m/s
                 std::vector<std::pair<SUMOTime, double> > speedTimeLine;
                 speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), veh.getSpeed()));
@@ -199,7 +199,7 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
 
             // the perception of the sound of the siren should be around 25 meters
             // todo only vehicles in front of the emergency vehicle should react
-            if (distanceDelta <= myReactionDist && veh.getID() != veh2->getID() && influencedVehicles.count(veh2->getID()) == 0) {
+            if (distanceDelta <= myReactionDist && veh.getID() != veh2->getID() && myInfluencedVehicles.count(veh2->getID()) == 0) {
                 //online a percentage of vehicles should react to the emergency vehicle to make the behaviour more realistic
                 double reaction = RandHelper::rand();
                 MSVehicle::Influencer& lanechange = veh2->getInfluencer();
@@ -213,8 +213,8 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
                     reactionProb = 0.577;
                 }
                 if (reaction < reactionProb) {
-                    influencedVehicles.insert(veh2->getID());
-                    influencedTypes.insert(std::make_pair(veh2->getID(), veh2->getVehicleType().getID()));
+                    myInfluencedVehicles.insert(veh2->getID());
+                    myInfluencedTypes.insert(std::make_pair(veh2->getID(), veh2->getVehicleType().getID()));
 
                     //Vehicle gets a new Vehicletype to change the alignment and the lanechange options
                     MSVehicleType& t = veh2->getSingularType();
@@ -240,12 +240,12 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
             }
 
         } else { //if vehicle is passed all vehicles which had to react should get their state back after they leave the communication range
-            if (influencedVehicles.count(veh2->getID()) > 0) {
+            if (myInfluencedVehicles.count(veh2->getID()) > 0) {
                 double distanceDelta = veh.getPosition().distanceTo(veh2->getPosition());
                 if (distanceDelta > myReactionDist && veh.getID() != veh2->getID()) {
-                    influencedVehicles.erase(veh2->getID());
-                    std::map<std::string, std::string>::iterator it = influencedTypes.find(veh2->getID());
-                    if (it != influencedTypes.end()) {
+                    myInfluencedVehicles.erase(veh2->getID());
+                    std::map<std::string, std::string>::iterator it = myInfluencedTypes.find(veh2->getID());
+                    if (it != myInfluencedTypes.end()) {
                         // The vehicle gets back its old VehicleType after the emergency vehicle have passed them
                         resetVehicle(veh2, it->second);
                     }
