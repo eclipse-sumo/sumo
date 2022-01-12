@@ -74,6 +74,9 @@ protected:
         void setInvalidElements(const std::vector<GNEDemandElement*> &invalidElements);
 
     protected:
+        /// @brief save contents
+        bool saveContents() const;
+
         /// @brief vertical left frame
         FXVerticalFrame* myLeftFrame = nullptr;
 

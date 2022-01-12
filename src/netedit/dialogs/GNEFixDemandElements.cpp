@@ -233,7 +233,7 @@ GNEFixDemandElements::onCmdCancel(FXObject*, FXSelector, void*) {
 // ---------------------------------------------------------------------------
 
 GNEFixDemandElements::FixOptions::FixOptions(FXVerticalFrame* frameParent, const std::string &title) :
-    FXGroupBoxModule(frameParent, title, false) {
+    FXGroupBoxModule(frameParent, title, FXGroupBoxModule::Options::SAVE) {
     // Create table
     myTable = new FXTable(this, this, MID_TABLE, GUIDesignTableFixElements);
     // create horizontal frame
@@ -281,6 +281,11 @@ GNEFixDemandElements::FixOptions::setInvalidElements(const std::vector<GNEDemand
         item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
         myTable->setItem(i, 2, item);
     }
+}
+
+bool
+GNEFixDemandElements::FixOptions::saveContents() const {
+    return false;
 }
 
 // ---------------------------------------------------------------------------
