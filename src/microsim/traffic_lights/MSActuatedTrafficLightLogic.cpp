@@ -849,7 +849,7 @@ MSActuatedTrafficLightLogic::decideNextPhaseCustom(bool mustSwitch) {
 
 
 double
-MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) {
+MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) const {
     const size_t bracketOpen = condition.find('(');
     if (bracketOpen != std::string::npos) {
         // find matching closing bracket
@@ -915,7 +915,7 @@ MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) {
 }
 
 double
-MSActuatedTrafficLightLogic::evalTernaryExpression(double a, const std::string& o, double b, const std::string& condition) {
+MSActuatedTrafficLightLogic::evalTernaryExpression(double a, const std::string& o, double b, const std::string& condition) const {
     if (o == "=" || o == "==") {
         return (double)(a == b);
     } else if (o == "<") {
@@ -954,7 +954,7 @@ MSActuatedTrafficLightLogic::evalTernaryExpression(double a, const std::string& 
 }
 
 double
-MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) {
+MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) const {
     if (expr.size() == 0) {
         throw ProcessError("Invalid empty expression");
     } else if (expr[0] == '!') {
@@ -965,9 +965,10 @@ MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) {
         // check for 'operator:'
         const size_t pos = expr.find(':');
         if (pos == std::string::npos) {
-            if (myConditions.count(expr) != 0) {
+            auto it = myConditions.find(expr);
+            if (it != myConditions.end()) {
                 // symbol lookup
-                return evalExpression(myConditions[expr]);
+                return evalExpression(it->second);
             } else {
                 return StringUtils::toDouble(expr);
             }
@@ -1014,6 +1015,15 @@ MSActuatedTrafficLightLogic::getDetectors() const {
     std::vector<const MSInductLoop*> result;
     for (auto li : myInductLoops) {
         result.push_back(li.loop);
+    }
+    return result;
+}
+
+std::map<std::string, double>
+MSActuatedTrafficLightLogic::getConditions() const {
+    std::map<std::string, double> result;
+    for (auto item : myConditions) {
+        result[item.first] = evalExpression(item.second);
     }
     return result;
 }

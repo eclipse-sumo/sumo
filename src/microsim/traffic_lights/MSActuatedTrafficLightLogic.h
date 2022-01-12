@@ -116,6 +116,9 @@ public:
     /// @brief retrieve all detectors used by this program
     std::vector<const MSInductLoop*> getDetectors() const;
 
+    /// @brief return all named conditions defined for this traffic light
+    std::map<std::string, double> getConditions() const; 
+
 protected:
     /// @brief initialize custom switching rules
     void initSwitchingRules();
@@ -163,13 +166,13 @@ protected:
     int decideNextPhaseCustom(bool mustSwitch);
 
     /// @brief evaluate custom switching condition
-    double evalExpression(const std::string& condition);
+    double evalExpression(const std::string& condition) const;
 
     /// @brief evaluate atomic expression
-    double evalTernaryExpression(double a, const std::string& o, double b, const std::string& condition);
+    double evalTernaryExpression(double a, const std::string& o, double b, const std::string& condition) const;
 
     /// @brief evaluate atomic expression
-    double evalAtomicExpression(const std::string& expr);
+    double evalAtomicExpression(const std::string& expr) const;
 
     int getDetectorPriority(const InductLoopInfo& loopInfo) const;
 

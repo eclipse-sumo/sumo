@@ -374,6 +374,11 @@ public:
         return std::vector<const MSInductLoop*>();
     }
 
+    /// @brief return all named conditions defined for this traffic light
+    virtual std::map<std::string, double> getConditions() const {
+        return std::map<std::string, double>();
+    }
+
     /// @brief return vehicles that block the intersection/rail signal for vehicles that wish to pass the given linkIndex
     virtual VehicleVector getBlockingVehicles(int linkIndex) {
         UNUSED_PARAMETER(linkIndex);
