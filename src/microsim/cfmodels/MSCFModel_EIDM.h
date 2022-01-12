@@ -262,6 +262,15 @@ private:
     };
 
 private:
+
+    /** @brief Applies dawdling / driving error
+    * @param[in] veh The ego vehicle
+    * @param[in] vMin The minimum possible speed in the next time step (not used in EIDM, because vehicle )
+    * @param[in] vMax The maximal possible speed in the next time step (not used in EIDM)
+    * @return The corrected speed with dawdling / driving error
+    */
+    double patchSpeedBeforeLCEIDM(const MSVehicle* veh, double vMin, double vMax, VehicleVariables* vars) const;
+
     // @brief contains the main CF-model calculations
     double _v(const MSVehicle* const veh, const double gap2pred, const double mySpeed,
               const double predSpeed, const double desSpeed, const bool respectMinGap, const int update) const;
