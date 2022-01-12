@@ -158,11 +158,11 @@ protected:
     };
 
     /// @brief groupbox for all radio buttons related with fix stop options
-    class FixStopOptions : public FixOptions {
+    class FixStopPositionOptions : public FixOptions {
 
     public:
         /// @brief build Position Options
-        FixStopOptions(GNEFixDemandElements* fixDemandElementsParent);
+        FixStopPositionOptions(GNEFixDemandElements* fixDemandElementsParent);
 
         /// @brief select option
         void selectOption(FXObject* option);
@@ -248,7 +248,7 @@ protected:
     FixVehicleOptions* myFixVehicleOptions = nullptr;
 
     /// @brief fix stop options
-    FixStopOptions* myFixStopOptions = nullptr;
+    FixStopPositionOptions* myFixStopPositionOptions = nullptr;
 
     /// @brief fix person plan options
     FixPersonPlanOptions* myFixPersonPlanOptions = nullptr;

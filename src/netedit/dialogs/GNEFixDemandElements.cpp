@@ -65,7 +65,7 @@ GNEFixDemandElements::GNEFixDemandElements(GNEViewNet* viewNet, const std::vecto
     // create fix vehicle  options
     myFixVehicleOptions = new FixVehicleOptions(this);
     // create fix stops options
-    myFixStopOptions = new FixStopOptions(this);
+    myFixStopPositionOptions = new FixStopPositionOptions(this);
     // create fix person plans options
     myFixPersonPlanOptions = new FixPersonPlanOptions(this);
     // create buttons
@@ -87,7 +87,7 @@ GNEFixDemandElements::GNEFixDemandElements(GNEViewNet* viewNet, const std::vecto
     // fill options
     myFixRouteOptions->setInvalidElements(invalidRoutes);
     myFixVehicleOptions->setInvalidElements(invalidVehicles);
-    myFixStopOptions->setInvalidElements(invalidStops);
+    myFixStopPositionOptions->setInvalidElements(invalidStops);
     myFixPersonPlanOptions->setInvalidElements(invalidPlans);
 }
 
@@ -100,7 +100,7 @@ long
 GNEFixDemandElements::onCmdSelectOption(FXObject* obj, FXSelector, void*) {
     myFixRouteOptions->selectOption(obj);
     myFixVehicleOptions->selectOption(obj);
-    myFixStopOptions->selectOption(obj);
+    myFixStopPositionOptions->selectOption(obj);
     myFixPersonPlanOptions->selectOption(obj);
     return 1;
 }
@@ -160,7 +160,7 @@ GNEFixDemandElements::onCmdAccept(FXObject*, FXSelector, void*) {
     }
     // check options for stops
     if (myDemandList->myInvalidStops.size() > 0) {
-        if (myFixStopOptions->activateFriendlyPositionAndSave->getCheck() == TRUE) {
+        if (myFixStopPositionOptions->activateFriendlyPositionAndSave->getCheck() == TRUE) {
             // begin undo list
             myViewNet->getUndoList()->begin(GUIIcon::STOP, "change " + toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid stops");
             // iterate over invalid stops to enable friendly position
@@ -168,14 +168,14 @@ GNEFixDemandElements::onCmdAccept(FXObject*, FXSelector, void*) {
                 i->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
             }
             myViewNet->getUndoList()->end();
-        } else if (myFixStopOptions->fixPositionsAndSave->getCheck() == TRUE) {
+        } else if (myFixStopPositionOptions->fixPositionsAndSave->getCheck() == TRUE) {
             myViewNet->getUndoList()->begin(GUIIcon::STOP, "fix positions of invalid stops");
             // iterate over invalid stops to fix positions
             for (const auto &stop : myDemandList->myInvalidStops) {
                 stop->fixDemandElementProblem();
             }
             myViewNet->getUndoList()->end();
-        } else if (myFixStopOptions->selectInvalidStopsAndCancel->getCheck() == TRUE) {
+        } else if (myFixStopPositionOptions->selectInvalidStopsAndCancel->getCheck() == TRUE) {
             myViewNet->getUndoList()->begin(GUIIcon::STOP, "select invalid stops");
             // iterate over invalid stops to select all elements
             for (auto i : myDemandList->myInvalidStops) {
@@ -309,7 +309,7 @@ GNEFixDemandElements::FixOptions::saveContents() const {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Opening FXMessageBox 'Saving list of conflicted items sucesfully'");
         // open message box error
-        FXMessageBox::information(myTable, MBOX_OK, "Saving sucesfully", "%s", "List of comflicted items was saved sucesfully");
+        FXMessageBox::information(myTable, MBOX_OK, "Saving sucesfully", "%s", "List of conflicted items was sucesfully saved");
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Closed FXMessageBox 'Saving list of conflicted items sucesfully' with 'OK'");
     } catch (IOError& e) {
@@ -336,7 +336,7 @@ GNEFixDemandElements::FixRouteOptions::FixRouteOptions(GNEFixDemandElements* fix
     saveInvalidRoutes = new FXRadioButton(myLeftFrame, "Save invalid routes",
         fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Select invalid routes
-    selectInvalidRoutesAndCancel = new FXRadioButton(myRightFrame, "Select invalid routes",
+    selectInvalidRoutesAndCancel = new FXRadioButton(myRightFrame, "Select conflicted routes",
         fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Remove stops out of route
     removeStopsOutOfRoute = new FXCheckButton(myRightFrame, "Remove stops out of route",
@@ -396,7 +396,7 @@ GNEFixDemandElements::FixVehicleOptions::FixVehicleOptions(GNEFixDemandElements*
     saveInvalidVehicles = new FXRadioButton(myLeftFrame, "Save invalid vehicles",
         fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Select invalid vehicle
-    selectInvalidVehiclesAndCancel = new FXRadioButton(myRightFrame, "Select invalid vehicle",
+    selectInvalidVehiclesAndCancel = new FXRadioButton(myRightFrame, "Select conflicted vehicle",
         fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Remove stops out of route
     removeStopsOutOfRoute = new FXCheckButton(myRightFrame, "Remove stops out of route",
@@ -444,11 +444,11 @@ GNEFixDemandElements::FixVehicleOptions::disableOptions() {
 }
 
 // ---------------------------------------------------------------------------
-// GNEFixDemandElements::FixStopOptions - methods
+// GNEFixDemandElements::FixStopPositionOptions - methods
 // ---------------------------------------------------------------------------
 
-GNEFixDemandElements::FixStopOptions::FixStopOptions(GNEFixDemandElements* fixDemandElementsParent) :
-    FixOptions(fixDemandElementsParent->myRightFrame, "Stops") {
+GNEFixDemandElements::FixStopPositionOptions::FixStopPositionOptions(GNEFixDemandElements* fixDemandElementsParent) :
+    FixOptions(fixDemandElementsParent->myRightFrame, "Stop positions") {
     // Activate friendlyPos and save
     activateFriendlyPositionAndSave = new FXRadioButton(myLeftFrame, "Activate friendlyPos and save",
         fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
@@ -456,7 +456,7 @@ GNEFixDemandElements::FixStopOptions::FixStopOptions(GNEFixDemandElements* fixDe
     saveInvalid = new FXRadioButton(myLeftFrame, "Save invalid positions",
         fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Select invalid Stops
-    selectInvalidStopsAndCancel = new FXRadioButton(myRightFrame, "Select invalid Stops",
+    selectInvalidStopsAndCancel = new FXRadioButton(myRightFrame, "Select conflicted Stops",
         fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Fix positions and save
     fixPositionsAndSave = new FXRadioButton(myRightFrame, "Fix positions and save",
@@ -467,7 +467,7 @@ GNEFixDemandElements::FixStopOptions::FixStopOptions(GNEFixDemandElements* fixDe
 
 
 void
-GNEFixDemandElements::FixStopOptions::selectOption(FXObject* option) {
+GNEFixDemandElements::FixStopPositionOptions::selectOption(FXObject* option) {
     if (option == activateFriendlyPositionAndSave) {
         activateFriendlyPositionAndSave->setCheck(true);
         fixPositionsAndSave->setCheck(false);
@@ -493,7 +493,7 @@ GNEFixDemandElements::FixStopOptions::selectOption(FXObject* option) {
 
 
 void
-GNEFixDemandElements::FixStopOptions::enableOptions() {
+GNEFixDemandElements::FixStopPositionOptions::enableOptions() {
     activateFriendlyPositionAndSave->enable();
     fixPositionsAndSave->enable();
     saveInvalid->enable();
@@ -502,7 +502,7 @@ GNEFixDemandElements::FixStopOptions::enableOptions() {
 
 
 void
-GNEFixDemandElements::FixStopOptions::disableOptions() {
+GNEFixDemandElements::FixStopPositionOptions::disableOptions() {
     activateFriendlyPositionAndSave->disable();
     fixPositionsAndSave->disable();
     saveInvalid->disable();
@@ -522,7 +522,7 @@ GNEFixDemandElements::FixPersonPlanOptions::FixPersonPlanOptions(GNEFixDemandEle
     saveInvalid = new FXRadioButton(myLeftFrame, "Save invalid person plans",
         fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Select invalid person plans
-    selectInvalidPersonPlansAndCancel = new FXRadioButton(myRightFrame, "Select invalid person plans",
+    selectInvalidPersonPlansAndCancel = new FXRadioButton(myRightFrame, "Select conflicted person plans",
         fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // leave option "activateFriendlyPositionAndSave" as default
     deletePersonPlan->setCheck(true);
