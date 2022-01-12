@@ -280,7 +280,7 @@ private:
     int computeHeight();
 
     /// draw row title
-    void drawNames(const std::vector<std::string>& names, double fontHeight, double fontWidth, double height, double width, double& h);
+    void drawNames(const std::vector<std::string>& names, double fontHeight, double fontWidth, double height, double width, double& h, int extraLines);
 
 protected:
     /// protected constructor for FOX

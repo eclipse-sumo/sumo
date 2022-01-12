@@ -391,7 +391,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     glVertex2d(1, h);
     glEnd();
     // draw the link names and the lines dividing them
-    drawNames(myLinkNames, fontHeight, fontWidth, h20, w30, h);
+    drawNames(myLinkNames, fontHeight, fontWidth, h20, w30, h, 0);
     glBegin(GL_LINES);
     glVertex2d(0, h + h20);
     glVertex2d(1.0, h + h20);
@@ -413,7 +413,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         glVertex2d(0, h);
         glVertex2d(1.0, h);
         glEnd();
-        drawNames(myDetectorNames, fontHeight * 0.7, fontWidth * 0.7, h20, w30, h);
+        drawNames(myDetectorNames, fontHeight * 0.7, fontWidth * 0.7, h20, w30, h, 3);
         // draw the names closure (vertical line)
         glColor3d(1, 1, 1);
         glBegin(GL_LINES);
@@ -507,7 +507,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         SUMOTime fpo = myFirstDetOffset;
 
         // start drawing
-        glColor3d(0.7, 0.7, 0.7);
+        glColor3d(0.7, 0.7, 1.0);
         for (DurationsVector::iterator pd = myDetectorDurations.begin() + myFirstDet2Show; pd != myDetectorDurations.end(); ++pd) {
             SUMOTime i = 30;
             // the first phase may be drawn incompletely
@@ -544,7 +544,6 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     // allow value addition
     myLock.unlock();
 
-    glColor3d(1, 1, 1);
     if (myPhases.size() != 0) {
         const double timeRange = STEPS2TIME(myLastTime - myBeginTime);
         SUMOTime tickDist = TIME2STEPS(10);
@@ -591,11 +590,24 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
             GLHelper::drawText(timeStr, Position(0, 0), 1, fontHeight, RGBColor::WHITE, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
             glTranslated(-glpos + w / 2., -glh + h20 * ticShift, 0);
 
+            // draw tic
+            glColor3d(1, 1, 1);
             glBegin(GL_LINES);
             glVertex2d(glpos, glh);
             glVertex2d(glpos, glh - ticSize * ticShift);
             glEnd();
 
+            // draw vertical lines for detectors on each phase switch
+            if (myDetectorMode != nullptr && myDetectorMode->getCheck() != FALSE && glpos >= w30) {
+                glColor3d(0.4, 0.4, 0.4);
+                glBegin(GL_LINES);
+                glVertex2d(glpos, glh - h60);
+                glVertex2d(glpos, 0);
+                glEnd();
+            }
+
+
+            // draw vertical line for cycle reset
             if (timeInCycle == 0 || timeInCycle < lastTimeInCycle) {
                 const double cycle0pos = glpos - STEPS2TIME(timeInCycle) * barWidth / timeRange / panelWidth;
                 if (cycle0pos >= 31 / panelWidth) {
@@ -607,6 +619,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
                     glColor3d(1, 1, 1);
                 }
             }
+
             lastTimeInCycle = timeInCycle;
 
             tickDist = *pd;
@@ -621,8 +634,10 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
 
 
 void
-GUITLLogicPhasesTrackerWindow::drawNames(const std::vector<std::string>& names, double fontHeight, double fontWidth, double height, double width, double& h) {
+GUITLLogicPhasesTrackerWindow::drawNames(const std::vector<std::string>& names, double fontHeight, double fontWidth, double height, double width, double& h, int extraLines) {
+    int i = 0;
     for (const std::string& name : names) {
+        glColor3d(1, 1, 1);
         // draw the bar
         glBegin(GL_LINES);
         glVertex2d(0, h);
@@ -632,7 +647,16 @@ GUITLLogicPhasesTrackerWindow::drawNames(const std::vector<std::string>& names, 
         glTranslated(0, h - height, 0);
         GLHelper::drawText(name, Position(0, 0), 1, fontHeight, RGBColor::WHITE, 0, FONS_ALIGN_LEFT | FONS_ALIGN_BOTTOM, fontWidth);
         glTranslated(0, -h + height, 0);
+
+        if (extraLines > 0 && i > 0 && i % extraLines == 0) {
+            glColor3d(0.4, 0.4, 0.4);
+            glBegin(GL_LINES);
+            glVertex2d(width, h);
+            glVertex2d(1.0, h);
+            glEnd();
+        }
         h -= height;
+        i++;
     }
     h -= height;
 }
