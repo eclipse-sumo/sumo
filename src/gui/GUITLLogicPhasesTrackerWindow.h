@@ -279,8 +279,11 @@ private:
     /// @brief compute required windowHeight
     int computeHeight();
 
-    /// draw row title
+    /// @brief draw row title
     void drawNames(const std::vector<std::string>& names, double fontHeight, double fontWidth, double height, double width, double& h, int extraLines);
+
+    /// @brief find time in cycle based on myTimeInCycle
+    SUMOTime findTimeInCycle(SUMOTime t);
 
 protected:
     /// protected constructor for FOX

@@ -604,7 +604,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
                 glColor3d(0.4, 0.4, 0.4);
                 glBegin(GL_LINES);
                 glVertex2d(glpos, glh - h60);
-                glVertex2d(glpos, 0);
+                glVertex2d(glpos, glh - h60 - myDetectorNames.size() * h20);
                 glEnd();
             }
 
@@ -655,14 +655,10 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
             }
             const double ticSize = 4. / panelHeight;
             while (pos < panelWidth + 50.) {
-                SUMOTime timeInCycle = myTLLogic->mapTimeInCycle(currTime);
-                if (timeInCycle < 0) {
-                    timeInCycle += myTLLogic->getDefaultCycleTime();
-                }
                 const std::string timeStr = (mmSS
                         ? StringUtils::padFront(toString((currTime % 3600000) / 60000), 2, '0') + ":"
                         + StringUtils::padFront(toString((currTime % 60000) / 1000), 2, '0')
-                        : toString((int)STEPS2TIME(cycleTime ? timeInCycle : currTime)));
+                        : toString((int)STEPS2TIME(cycleTime ? findTimeInCycle(currTime) : currTime)));
                 const double w = 10 * timeStr.size() / panelWidth;
                 glTranslated(glpos - w / 2., glh - h20, 0);
                 GLHelper::drawText(timeStr, Position(0, 0), 1, fontHeight, RGBColor::WHITE, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
@@ -711,6 +707,29 @@ GUITLLogicPhasesTrackerWindow::drawNames(const std::vector<std::string>& names, 
     h -= height;
 }
 
+
+SUMOTime
+GUITLLogicPhasesTrackerWindow::findTimeInCycle(SUMOTime t) {
+    // find latest cycle reset before t
+    int i = myPhases.size() - 1;
+    SUMOTime lookBack = myLastTime - t - myDurations.back();
+    //std::cout << SIMTIME << " findTimeInCycle t=" << STEPS2TIME(t)
+    //    << " last=" << STEPS2TIME(myLastTime)
+    //    << " lastDur=" << STEPS2TIME(myDurations.back())
+    //    << " lookBack=" << STEPS2TIME(lookBack)
+    //    << " i0=" << i;
+    // look backwards through the phases until to the first cycle crossing before t
+    while (lookBack > 0 && i >= 0) {
+        i--;
+        lookBack -= myDurations[i];
+    }
+    SUMOTime timeInCycle = myTimeInCycle[i < 0 ? 0 : i];
+    //std::cout << " iF=" << i << " lookBack2=" << STEPS2TIME(lookBack) << " tic=" << STEPS2TIME(timeInCycle) << "\n";
+    if (lookBack <= 0) {
+        return timeInCycle - lookBack;
+    }
+    return myTLLogic->mapTimeInCycle(t);
+}
 
 void
 GUITLLogicPhasesTrackerWindow::addValue(std::pair<SUMOTime, MSPhaseDefinition> def) {
