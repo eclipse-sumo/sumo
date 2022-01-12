@@ -687,15 +687,18 @@ std::string NEMALogic::combineStates(std::string state1, std::string state2) {
     return output;
 }
 
-bool NEMALogic::isDetectorActivated(int phaseIndex) {
-
-    for (auto det : phase2DetectorMap.find(phaseIndex)->second) {
-        if (det->getCurrentVehicleNumber() > 0) {
-            return true;
+bool NEMALogic::isDetectorActivated(int phaseNumber) const{
+    if ( phase2DetectorMap.find(phaseNumber) == phase2DetectorMap.end() ) {
+        return false;
+    } 
+    else {    
+        for (auto det : phase2DetectorMap.find(phaseNumber)->second) {
+            if (det->getCurrentVehicleNumber() > 0) {
+                return true;
+            }
         }
+        return false;
     }
-
-    return false;
 }
 
 const MSPhaseDefinition&
@@ -1053,6 +1056,28 @@ int NEMALogic::string2int(std::string s) {
     ss >> ret;
     return ret;
 }
+
+
+const std::string
+NEMALogic::getParameter(const std::string& key, const std::string defaultValue) const {
+    if (StringUtils::startsWith(key, "NEMA.")) {
+        if (key == "NEMA.phaseCall") {
+            std::string out_str=std::to_string(isDetectorActivated(1));
+            for (int i = 2; i<=8; i++)
+            {
+                out_str+=",";
+                out_str+=std::to_string(isDetectorActivated(i));
+            }
+            return out_str;
+        } else {
+            return "";
+        }
+    }
+    else {
+        return Parameterised::getParameter(key, defaultValue);
+    }
+}
+
 
 void
 NEMALogic::setParameter(const std::string& key, const std::string& value) {
