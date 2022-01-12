@@ -31,9 +31,6 @@ public:
     /// @brief constructor
     FXGroupBoxModule(FXVerticalFrame* contentFrame, const std::string &text, const bool collapsible = true);
 
-    /// @brief constructor with specific size
-    FXGroupBoxModule(FXVerticalFrame* contentFrame, const std::string &text, const int width, const int height, const bool collapsible = true);
-
     /// @brief destructor
     ~FXGroupBoxModule();
 
@@ -52,9 +49,6 @@ public:
 protected:
     /// @brief FOX need this
     FXGroupBoxModule();
-
-    /// @brief constructor
-    void constructor(const std::string &text, const bool collapsible);
 
 private:
     /// @brief vertical collapsable frame
