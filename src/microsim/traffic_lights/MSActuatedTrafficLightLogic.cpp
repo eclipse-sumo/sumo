@@ -400,11 +400,11 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             myLinkMinGreenTimes[link] = string2time(kv.second);
         }
     }
-    if (myLinkMaxGreenTimes.size() > 0 || myLinkMinGreenTimes.size() > 0) {
+    initSwitchingRules();
+    if (myLinkMaxGreenTimes.size() > 0 || myLinkMinGreenTimes.size() > 0 || mySwitchingRules.size() > 0) {
         myLinkGreenTimes = std::vector<SUMOTime>(myNumLinks, 0);
     }
     //std::cout << SIMTIME << " linkMaxGreenTimes=" << toString(myLinkMaxGreenTimes) << "\n";
-    initSwitchingRules();
 }
 
 
@@ -993,6 +993,14 @@ MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) {
                 } else {
                     return det->getTimeSinceLastDetection() == 0;
                 }
+            } else if (fun == "g") {
+                try {
+                    int linkIndex = StringUtils::toInt(arg);
+                    if (linkIndex >= 0 && linkIndex < myNumLinks) {
+                        return STEPS2TIME(myLinkGreenTimes[linkIndex]);
+                    }
+                } catch (NumberFormatException&) { }
+                throw ProcessError("Invalid link index '" + arg + "' in expression '" + expr + "'");
             } else {
                 throw ProcessError("Unsupported function '" + fun + "' in expression '" + expr + "'");
             }
