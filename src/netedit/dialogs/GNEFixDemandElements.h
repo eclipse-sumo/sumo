@@ -63,29 +63,6 @@ protected:
     /// @brief FOX need this
     FOX_CONSTRUCTOR(GNEFixDemandElements)
 
-    /// @brief groupbox for list
-    class DemandList : protected FXGroupBox {
-
-    public:
-        /// @brief constructor
-        DemandList(GNEFixDemandElements* fixDemandElementsDialogParents, const std::vector<GNEDemandElement*>& invalidDemandElements);
-
-        /// @brief vector with the invalid routes
-        std::vector<GNEDemandElement*> myInvalidRoutes;
-
-        /// @brief vector with the invalid vehicles
-        std::vector<GNEDemandElement*> myInvalidVehicles;
-
-        /// @brief vector with the invalid stops
-        std::vector<GNEDemandElement*> myInvalidStops;
-
-        /// @brief vector with the invalid person plans
-        std::vector<GNEDemandElement*> myInvalidPersonPlans;
-
-        /// @brief list with the demand elements
-        FXTable* myTable;
-    };
-
     /// @brief general GroupBox for fix options
     class FixOptions : public FXGroupBoxModule {
 
@@ -93,11 +70,22 @@ protected:
         /// @brief constructor
         FixOptions(FXVerticalFrame* frameParent, const std::string &title);
 
+        /// @brief set invalid demand elements
+        void setInvalidElements(const std::vector<GNEDemandElement*> &invalidElements);
+
+    protected:
         /// @brief vertical left frame
         FXVerticalFrame* myLeftFrame = nullptr;
 
         /// @brief vertical right frame
         FXVerticalFrame* myRightFrame = nullptr;
+
+    private:
+        /// @brief Table with the demand elements
+        FXTable* myTable = nullptr;
+
+        /// @brief vector with the invalid demand elements
+        std::vector<GNEDemandElement*> myInvalidElements;
     };
 
 
@@ -219,9 +207,6 @@ protected:
 
     /// @brief vertical right frame
     FXVerticalFrame* myRightFrame = nullptr;
-
-    /// @brief list with the demand elements
-    DemandList* myDemandList = nullptr;
 
     /// @brief fix route options
     FixRouteOptions* myFixRouteOptions = nullptr;
