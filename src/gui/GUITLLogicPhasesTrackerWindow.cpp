@@ -271,7 +271,7 @@ GUITLLogicPhasesTrackerWindow::computeHeight() {
     if (myAmInTrackingMode) {
         int height = myTLLogic->getLinks().size() * 20 + 30 + 8 + 30 + 60;
         if (myDetectorMode->getCheck()) {
-            height += myTLLogic->getDetectors().size() * 20 + 10;
+            height += myTLLogic->getDetectors().size() * 20 + 30;
         }
         return height;
     } else {
@@ -381,7 +381,8 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     const double h16 = 16. / panelHeight;
     const double h20 = 20. / panelHeight;
     const double h60 = 70. / panelHeight;
-    const double h80 = 75. / panelHeight;
+    const double h75 = 75. / panelHeight;
+    const double h80 = 90. / panelHeight;
     const double w30 = 30 / panelWidth;
     double h = 1. - hTop;
     // draw the line below indices
@@ -414,11 +415,15 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         glVertex2d(1.0, h);
         glEnd();
         drawNames(myDetectorNames, fontHeight * 0.7, fontWidth * 0.7, h20, w30, h, 3);
+        glBegin(GL_LINES);
+        glVertex2d(0, h + h20);
+        glVertex2d(1.0, h + h20);
+        glEnd();
         // draw the names closure (vertical line)
         glColor3d(1, 1, 1);
         glBegin(GL_LINES);
         glVertex2d(30. / panelWidth, hTop);
-        glVertex2d(30. / panelWidth, h);
+        glVertex2d(30. / panelWidth, h + h20);
         glEnd();
     }
 
@@ -498,7 +503,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
 
 
     if (myDetectorMode != nullptr && myDetectorMode->getCheck() != FALSE) {
-        const double hStart = h - h80;
+        const double hStart = h - h75;
         x = 31. / panelWidth;
         ta = (double) leftOffset / panelWidth;
         ta *= barWidth / ((double)(myLastTime - myBeginTime));
@@ -617,12 +622,62 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
             }
 
             lastTimeInCycle = timeInCycle;
-
             tickDist = *pd;
             const double a = STEPS2TIME(tickDist) * barWidth / timeRange;
             glpos += a / panelWidth;
             currTime += tickDist;
+        }
 
+        // draw bottom time bar with fixed spacing
+        if (myDetectorMode != nullptr && myDetectorMode->getCheck() != FALSE && glpos >= w30) {
+            glColor3d(1, 1, 1);
+            SUMOTime tickDist = TIME2STEPS(10);
+            // patch distances - hack
+            double t = myBeginOffset != nullptr ? myBeginOffset->getValue() : STEPS2TIME(myLastTime - myBeginTime);
+            while (t > barWidth / 4.) {
+                tickDist += TIME2STEPS(10);
+                t -= barWidth / 4.;
+            }
+            double glh = (double)(1.0 - (myLinkNames.size() + myDetectorNames.size()) * h20 - h80);
+            SUMOTime currTime = myFirstTime2Show;
+            int pos = 31;
+            double glpos = (double) pos / panelWidth;
+            if (leftOffset > 0) {
+                const double a = STEPS2TIME(leftOffset) * barWidth / timeRange;
+                pos += a;
+                glpos += a / panelWidth;
+                currTime += leftOffset;
+            } else if (myFirstPhaseOffset > 0) {
+                const double a = -STEPS2TIME(myBeginTime % tickDist) * barWidth / timeRange;
+                pos += a;
+                glpos += a / panelWidth;
+                currTime = myBeginTime - (myBeginTime % tickDist);
+            }
+            const double ticSize = 4. / panelHeight;
+            while (pos < panelWidth + 50.) {
+                SUMOTime timeInCycle = myTLLogic->mapTimeInCycle(currTime);
+                if (timeInCycle < 0) {
+                    timeInCycle += myTLLogic->getDefaultCycleTime();
+                }
+                const std::string timeStr = (mmSS
+                        ? StringUtils::padFront(toString((currTime % 3600000) / 60000), 2, '0') + ":"
+                        + StringUtils::padFront(toString((currTime % 60000) / 1000), 2, '0')
+                        : toString((int)STEPS2TIME(cycleTime ? timeInCycle : currTime)));
+                const double w = 10 * timeStr.size() / panelWidth;
+                glTranslated(glpos - w / 2., glh - h20, 0);
+                GLHelper::drawText(timeStr, Position(0, 0), 1, fontHeight, RGBColor::WHITE, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
+                glTranslated(-glpos + w / 2., -glh + h20, 0);
+
+                glBegin(GL_LINES);
+                glVertex2d(glpos, glh);
+                glVertex2d(glpos, glh - ticSize);
+                glEnd();
+
+                const double a = STEPS2TIME(tickDist) * barWidth / STEPS2TIME(myLastTime - myBeginTime);
+                pos += (int) a;
+                glpos += a / panelWidth;
+                currTime += tickDist;
+            }
         }
     }
 }
@@ -632,7 +687,6 @@ void
 GUITLLogicPhasesTrackerWindow::drawNames(const std::vector<std::string>& names, double fontHeight, double fontWidth, double height, double width, double& h, int extraLines) {
     int i = 0;
     for (const std::string& name : names) {
-        glColor3d(1, 1, 1);
         // draw the bar
         glBegin(GL_LINES);
         glVertex2d(0, h);
@@ -649,6 +703,7 @@ GUITLLogicPhasesTrackerWindow::drawNames(const std::vector<std::string>& names, 
             glVertex2d(width, h);
             glVertex2d(1.0, h);
             glEnd();
+            glColor3d(1, 1, 1);
         }
         h -= height;
         i++;
