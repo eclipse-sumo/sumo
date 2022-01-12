@@ -297,9 +297,14 @@ GNEFixDemandElements::FixRouteOptions::FixRouteOptions(GNEFixDemandElements* fix
         fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
     // Select invalid routes
     selectInvalidRoutesAndCancel = new FXRadioButton(myRightFrame, "Select invalid routes",
-            fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+        fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
+    // Remove stops out of route
+    removeStopsOutOfRoute = new FXCheckButton(myRightFrame, "Remove stops out of route",
+        fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignCheckButtonFix);
     // leave option "removeInvalidRoutes" as default
     removeInvalidRoutes->setCheck(true);
+    // ... and remove stops out of route
+    removeStopsOutOfRoute->setCheck(TRUE);
 }
 
 
@@ -351,8 +356,13 @@ GNEFixDemandElements::FixVehicleOptions::FixVehicleOptions(GNEFixDemandElements*
     // Select invalid vehicle
     selectInvalidVehiclesAndCancel = new FXRadioButton(myRightFrame, "Select invalid vehicle",
         fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignRadioButtonFix);
-    // leave option "buildConnectionBetweenLanes" and "removeInvalidRoutes" as default
-    removeInvalidVehicles->setCheck(true);
+    // Remove stops out of route
+    removeStopsOutOfRoute = new FXCheckButton(myRightFrame, "Remove stops out of route",
+        fixDemandElementsParent, MID_CHOOSEN_OPERATION, GUIDesignCheckButtonFix);
+    // by default remove invalid vehicles
+    removeInvalidVehicles->setCheck(TRUE);
+    // ... and remove stops out of route
+    removeStopsOutOfRoute->setCheck(TRUE);
 }
 
 

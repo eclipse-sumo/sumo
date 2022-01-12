@@ -112,6 +112,9 @@ protected:
 
         /// @brief Option "Select invalid routes and cancel"
         FXRadioButton* selectInvalidRoutesAndCancel;
+        
+        /// @brief Option "Remove stops out of route"
+        FXCheckButton* removeStopsOutOfRoute;
     };
 
     /// @brief groupbox for all radio buttons related with fix vehicle options
@@ -138,6 +141,9 @@ protected:
 
         /// @brief Option "Select invalid vehicles and cancel"
         FXRadioButton* selectInvalidVehiclesAndCancel;
+
+        /// @brief Option "Remove stops out of route"
+        FXCheckButton* removeStopsOutOfRoute;
     };
 
     /// @brief groupbox for all radio buttons related with fix stop options
