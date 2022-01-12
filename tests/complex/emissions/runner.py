@@ -55,6 +55,7 @@ for i, ec in enumerate(emissionClasses):
             "--phemlight-path", PHEMLIGHTp, "--kmh", "--compute-a"]
     if drivingCycle[-4:] == ".dri":
         call += ["--timeline-file.skip", "3", "--timeline-file.separator", ","]
+    call += sys.argv[2:]
     retCode = subprocess.call(call)
     sys.stdout.flush()
     sys.stderr.flush()
