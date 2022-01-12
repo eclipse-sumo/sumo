@@ -196,7 +196,10 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
     }
     // write sorted stops
     if (myTagProperty.getTag() == SUMO_TAG_ROUTE) {
-        writeSortedStops(device, getParentEdges());
+        const auto sortedStops = getSortedStops(getParentEdges());
+        for (const auto& stop : sortedStops) {
+            stop->writeDemandElement(device);
+        }
     }
     // write parameters
     writeParams(device);
@@ -205,22 +208,49 @@ GNERoute::writeDemandElement(OutputDevice& device) const {
 }
 
 
-bool
+GNEDemandElement::Problem
 GNERoute::isDemandElementValid() const {
+    // get sorted stops and check number
+    std::vector<GNEDemandElement*> stops;
+    for (const auto &routeChild : getChildDemandElements()) {
+        if (routeChild->getTagProperty().isStop()) {
+            stops.push_back(routeChild);
+        }
+    }
+    const auto sortedStops = getSortedStops(getParentEdges());
+    if (sortedStops.size() != stops.size()) {
+        return Problem::STOP_DOWNSTREAM;
+    }
+    // check parent edges
     if ((getParentEdges().size() == 2) && (getParentEdges().at(0) == getParentEdges().at(1))) {
         // from and to are the same edges, then return true
-        return true;
+        return Problem::OK;
     } else if (getParentEdges().size() > 0) {
         // check that exist a connection between every edge
-        return isRouteValid(getParentEdges()).empty();
+        if (isRouteValid(getParentEdges()).size() > 0) {
+            return Problem::INVALID_PATH;
+        } else {
+            return Problem::OK;
+        }
     } else {
-        return false;
+        return Problem::INVALID_ELEMENT;
     }
 }
 
 
 std::string
 GNERoute::getDemandElementProblem() const {
+    // get sorted stops and check number
+    std::vector<GNEDemandElement*> stops;
+    for (const auto &routeChild : getChildDemandElements()) {
+        if (routeChild->getTagProperty().isStop()) {
+            stops.push_back(routeChild);
+        }
+    }
+    const auto sortedStops = getSortedStops(getParentEdges());
+    if (sortedStops.size() != stops.size()) {
+        return toString(stops.size() - sortedStops.size()) + " stops are outside of route (downstream)";
+    }
     // return string with the problem obtained from isRouteValid
     return isRouteValid(getParentEdges());
 }
@@ -771,7 +801,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 void
 GNERoute::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
-    throw InvalidArgument("Nothing to enable");
+    // nothing to toogle
 }
 
 

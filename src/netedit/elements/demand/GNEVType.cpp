@@ -105,6 +105,25 @@ GNEVType::writeDemandElement(OutputDevice& device) const {
 }
 
 
+GNEDemandElement::Problem 
+GNEVType::isDemandElementValid() const {
+    // currently vTypes don't have problems
+    return GNEDemandElement::Problem::OK;
+}
+
+
+std::string 
+GNEVType::getDemandElementProblem() const {
+    return "";
+}
+
+
+void 
+GNEVType::fixDemandElementProblem() {
+    // nothing to fix
+}
+
+
 SUMOVehicleClass
 GNEVType::getVClass() const {
     return vehicleClass;
@@ -1549,7 +1568,7 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_GUISHAPE:
-            if (!value.empty() && (value != toString(defaultValues.shape))) {
+            if (!value.empty() && (value != SumoVehicleShapeStrings.getString(defaultValues.shape))) {
                 shape = getVehicleShapeID(value);
                 // mark parameter as set
                 parametersSet |= VTYPEPARS_SHAPE_SET;
@@ -1806,7 +1825,7 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 void
 GNEVType::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
-    throw InvalidArgument("Nothing to enable");
+    // nothing to toogle
 }
 
 

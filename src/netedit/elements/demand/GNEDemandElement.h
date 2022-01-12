@@ -55,6 +55,16 @@ public:
     /// @brief friend declaration (needed for vTypes)
     friend class GNERouteHandler;
 
+    /// @brief enum class for demandElement problems
+    enum class Problem {
+        OK,                     // There is no problem
+        INVALID_ELEMENT,        // Element is invalid (for example, a route without edges)
+        INVALID_PATH,           // Path (route, trip... ) is not valid (i.e is empty)
+        DISCONNECTED_PLAN,      // Plan element (person, containers) is not connected with the previous or next plan
+        INVALID_STOPPOSITION,   // StopPosition is invalid (only used in stops over edges or lanes
+        STOP_DOWNSTREAM,        // Stops don't follow their route parent
+    };
+
     /**@brief Constructor
      * @param[in] id Gl-id of the demand element element (Must be unique)
      * @param[in] net pointer to GNEViewNet of this demand element element belongs
@@ -160,13 +170,13 @@ public:
     virtual void writeDemandElement(OutputDevice& device) const = 0;
 
     /// @brief check if current demand element is valid to be writed into XML (by default true, can be reimplemented in children)
-    virtual bool isDemandElementValid() const;
+    virtual Problem isDemandElementValid() const = 0;
 
     /// @brief return a string with the current demand element problem (by default empty, can be reimplemented in children)
-    virtual std::string getDemandElementProblem() const;
+    virtual std::string getDemandElementProblem() const = 0;
 
     /// @brief fix demand element problem (by default throw an exception, has to be reimplemented in children)
-    virtual void fixDemandElementProblem();
+    virtual void fixDemandElementProblem() = 0;
     /// @}
 
     /**@brief open DemandElement Dialog
@@ -343,6 +353,9 @@ public:
     /// @brief get personPlan start position
     const Position getBeginPosition(const double pedestrianDepartPos) const;
 
+    /// @brief get invalid stops
+    std::vector<GNEDemandElement*> getInvalidStops() const;
+
 protected:
     /// @brief demand element geometry (also called "stacked geometry")
     GUIGeometry myDemandElementGeometry;
@@ -373,7 +386,7 @@ protected:
                                const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const;
 
     /// @brief check if person plan is valid
-    bool isPersonPlanValid() const;
+    Problem isPersonPlanValid() const;
 
     /// @brief get person plan problem
     std::string getPersonPlanProblem() const;
@@ -433,8 +446,8 @@ protected:
         std::vector<std::pair<double, const GNEDemandElement*> > myStops;
     };
 
-    /// @brief write sorted stops
-    void writeSortedStops(OutputDevice& device, const std::vector<GNEEdge*> &edges) const;
+    /// @brief get sorted stops
+    std::vector<const GNEDemandElement*> getSortedStops(const std::vector<GNEEdge*> &edges) const;
 
 private:
     /**@brief check restriction with the number of children

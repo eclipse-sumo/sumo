@@ -145,10 +145,10 @@ private:
 
 private:
     // @brief collects all vehicleIDs which had to react to the emergency vehicle
-    std::set<std::string> influencedVehicles;
+    std::set<std::string> myInfluencedVehicles;
 
     // @brief collects all VehicleTypes of the vehicles which had to react to the emergency vehicle
-    std::map<std::string, std::string> influencedTypes;
+    std::map<std::string, std::string> myInfluencedTypes;
 
     /// @brief reaction distance of other vehicle (i.e. due to different noise levels of the siren)
     double myReactionDist;

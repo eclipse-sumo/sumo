@@ -1902,6 +1902,7 @@ GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject*, FXSelector, void*) {
                 sumogui = "\"" + newPath + "\"";
             }
         }
+        // declare comand
         std::string cmd = sumogui + " --registry-viewport" + " -n "  + "\"" + OptionsCont::getOptions().getString("output-file") + "\"";
         // obtainer options container
         OptionsCont& oc = OptionsCont::getOptions();
@@ -1912,6 +1913,11 @@ GNEApplicationWindow::onCmdOpenSUMOGUI(FXObject*, FXSelector, void*) {
         // if load demand is enabled, add it to command
         if ((myEditMenuCommands.loadDemandInSUMOGUI->getCheck() == TRUE) && (oc.getString("route-files").size() > 0)) {
             cmd += " -r \"" + oc.getString("route-files") + "\"";
+        }
+        // if we have trips or flow over junctions, add option junction-taz
+        if ((myNet->getAttributeCarriers()->getDemandElements().at(GNE_TAG_TRIP_JUNCTIONS).size() > 0) || 
+            (myNet->getAttributeCarriers()->getDemandElements().at(GNE_TAG_FLOW_JUNCTIONS).size() > 0)) {
+            cmd += " --junction-taz";
         }
         // start in background
 #ifndef WIN32

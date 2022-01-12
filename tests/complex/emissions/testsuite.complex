@@ -4,3 +4,6 @@ nefz_phemlight
 
 # Battery model
 nefz_energy
+
+# Battery model, load additional params from vType
+nefz_energy_vtype

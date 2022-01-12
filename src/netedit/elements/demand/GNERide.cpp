@@ -141,7 +141,7 @@ GNERide::writeDemandElement(OutputDevice& device) const {
 }
 
 
-bool
+GNEDemandElement::Problem
 GNERide::isDemandElementValid() const {
     return isPersonPlanValid();
 }
@@ -538,7 +538,7 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 void
 GNERide::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
-    throw InvalidArgument("Nothing to enable");
+    // nothing to toogle
 }
 
 

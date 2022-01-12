@@ -291,8 +291,34 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
         myStopAttributes->showWarningMessage();
         return false;
     }
-    // get parent
+    // get stop parent
     const GNEDemandElement* stopParent = myStopParentSelector->getCurrentDemandElement();
+    // if stopParent is a route, check that stop is placed over a route's edge
+    if (stopParent->isRoute() && lane) {
+        bool found = false;
+        for (const auto &edge : stopParent->getParentEdges()) {
+            if (edge == lane->getParentEdge()) {
+                found = true;
+            }
+        }
+        if (!found) {
+            WRITE_WARNING("Stop must be placed over a route's edge");
+            return false;
+        }
+    }
+    // same if stoParent is a vehicle/flow with embedded route
+    if (stopParent->getChildDemandElements().size() > 0 && stopParent->getChildDemandElements().front()->getTagProperty().isRoute() && lane) {
+        bool found = false;
+        for (const auto &edge : stopParent->getChildDemandElements().front()->getParentEdges()) {
+            if (edge == lane->getParentEdge()) {
+                found = true;
+            }
+        }
+        if (!found) {
+            WRITE_WARNING("Stop must be placed over an embeded route's edge");
+            return false;
+        }
+    }
     // set parent tag and id
     myStopParentBaseObject->setTag(stopParent->getTagProperty().getTag());
     myStopParentBaseObject->addStringAttribute(SUMO_ATTR_ID, stopParent->getID());

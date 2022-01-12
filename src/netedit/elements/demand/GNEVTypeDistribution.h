@@ -49,6 +49,15 @@ public:
      */
     void writeDemandElement(OutputDevice& device) const;
 
+    /// @brief check if current demand element is valid to be writed into XML
+    Problem isDemandElementValid() const;
+
+    /// @brief return a string with the current demand element problem
+    std::string getDemandElementProblem() const;
+
+    /// @brief fix demand element problem
+    void fixDemandElementProblem();
+
     /// @name members and functions relative to elements common to all demand elements
     /// @{
     /// @brief obtain VClass related with this demand element

@@ -2,12 +2,14 @@ set(emissionsDrivingCycle_SRCS
    emissionsDrivingCycle_main.cpp
    TrajectoriesHandler.cpp
    TrajectoriesHandler.h
+   VTypesHandler.cpp
+   VTypesHandler.h
 )
 
 add_executable(emissionsDrivingCycle ${emissionsDrivingCycle_SRCS})
 set_target_properties(emissionsDrivingCycle PROPERTIES OUTPUT_NAME emissionsDrivingCycle${BINARY_SUFFIX})
 set_target_properties(emissionsDrivingCycle PROPERTIES OUTPUT_NAME_DEBUG emissionsDrivingCycle${BINARY_SUFFIX}D)
-target_link_libraries(emissionsDrivingCycle utils_emissions foreign_phemlight ${commonlibs})
+target_link_libraries(emissionsDrivingCycle utils_vehicle utils_emissions foreign_phemlight ${commonlibs})
 add_dependencies(emissionsDrivingCycle generate-version-h install_dll)
 
 add_executable(emissionsMap emissionsMap_main.cpp)

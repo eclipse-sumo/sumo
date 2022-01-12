@@ -19,5 +19,8 @@ request_or_skip
 # only switch to side direction on request but use an E2 detector for this.
 request_or_skip_E2
 
+# test condition for the running green duration of a link
+linkGreen
+
 # ruggedization on encountering mathematical undefined expressions
 runtime_error

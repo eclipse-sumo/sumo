@@ -157,23 +157,22 @@ GNETranship::writeDemandElement(OutputDevice& device) const {
 }
 
 
-bool
+GNEDemandElement::Problem
 GNETranship::isDemandElementValid() const {
     if (getParentEdges().size() == 2) {
         if (getParentEdges().at(0) == getParentEdges().at(1)) {
             // from and to are the same edges, then path is valid
-            return true;
+            return Problem::OK;
         } else {
             // check if exist a route between parent edges
-            return (myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getParentDemandElements().at(0)->getVClass(), getParentEdges()).size() > 0);
+            if (myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getParentDemandElements().at(0)->getVClass(), getParentEdges()).size() > 0) {
+                return Problem::OK;
+            } else {
+                return Problem::INVALID_PATH;
+            }
         }
-        /*
-            } else if (getPath().size() > 0) {
-                // if path edges isn't empty, then there is a valid route
-                return true;
-        */
     } else {
-        return false;
+        return Problem::INVALID_ELEMENT;
     }
 }
 
@@ -638,7 +637,7 @@ GNETranship::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 void
 GNETranship::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
-    throw InvalidArgument("Nothing to enable");
+    // nothing to toogle
 }
 
 

@@ -63,6 +63,25 @@ GNEVTypeDistribution::writeDemandElement(OutputDevice& device) const {
 }
 
 
+GNEDemandElement::Problem 
+GNEVTypeDistribution::isDemandElementValid() const {
+    // currently vTypeDistributions don't have problems
+    return GNEDemandElement::Problem::OK;
+}
+
+
+std::string 
+GNEVTypeDistribution::getDemandElementProblem() const {
+    return "";
+}
+
+
+void 
+GNEVTypeDistribution::fixDemandElementProblem() {
+    // nothing to fix
+}
+
+
 SUMOVehicleClass
 GNEVTypeDistribution::getVClass() const {
     return SVC_IGNORING;
@@ -258,7 +277,7 @@ GNEVTypeDistribution::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 void
 GNEVTypeDistribution::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
-    throw InvalidArgument("Nothing to enable");
+    // nothing to toogle
 }
 
 

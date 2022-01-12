@@ -611,6 +611,16 @@ enum {
 
     /// @}
 
+    /// @name groupBoxModule messages
+    /// @{
+    /// @brief collapse groupBoxModule
+    MID_GROUPBOXMODULE_COLLAPSE,
+    /// @brief save contents
+    MID_GROUPBOXMODULE_SAVE,
+    /// @brief load contents
+    MID_GROUPBOXMODULE_LOAD,
+    /// @}
+
     /// @name Toolbar file messages
     /// @{
 

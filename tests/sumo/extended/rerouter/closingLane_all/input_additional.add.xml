@@ -8,7 +8,7 @@
     </rerouter>
     <!-- without vss, there would be emergency stops and collisions when the
          closing activates -->
-    <variableSpeedSign id="slow_down_before_lane_closing" lanes="middle_0 middle_1">
+    <variableSpeedSign id="slow_down_before_lane_closing" lanes="middle_0 middle_1 middle_2">
         <step time="10" speed="2"/>
         <step time="20"/>
     </variableSpeedSign>

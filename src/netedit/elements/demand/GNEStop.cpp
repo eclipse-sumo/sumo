@@ -169,7 +169,7 @@ GNEStop::writeDemandElement(OutputDevice& device) const {
 }
 
 
-bool
+GNEDemandElement::Problem
 GNEStop::isDemandElementValid() const {
     if (myTagProperty.isStopPerson() || myTagProperty.isStopContainer()) {
         // get lane
@@ -179,7 +179,7 @@ GNEStop::isDemandElementValid() const {
             return isPersonPlanValid();
         } else if (friendlyPos) {
             // with friendly position enabled position are "always fixed"
-            return isPersonPlanValid();;
+            return isPersonPlanValid();
         } else if (firstLane != nullptr) {
             // obtain lane length
             const double laneLength = getParentEdges().front()->getNBEdge()->getFinalLength() * firstLane->getLengthGeometryFactor();
@@ -189,18 +189,18 @@ GNEStop::isDemandElementValid() const {
             if ((endPosFixed <= getParentEdges().front()->getNBEdge()->getFinalLength()) && (endPosFixed > 0)) {
                 return isPersonPlanValid();
             } else {
-                return false;
+                return Problem::INVALID_STOPPOSITION;
             }
         } else {
-            return false;
+            return Problem::INVALID_ELEMENT;
         }
     } else {
         // only Stops placed over lanes can be invalid
         if (myTagProperty.getTag() != SUMO_TAG_STOP_LANE) {
-            return true;
+            return Problem::OK;
         } else if (friendlyPos) {
             // with friendly position enabled position are "always fixed"
-            return true;
+            return Problem::OK;
         } else {
             // obtain lane length
             double laneLength = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength() * getParentLanes().front()->getLengthGeometryFactor();
@@ -215,7 +215,11 @@ GNEStop::isDemandElementValid() const {
                 endPosCopy += laneLength;
             }
             // check values
-            return ((startPosCopy >= 0) && (endPosCopy <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) && ((endPosCopy - startPosCopy) >= POSITION_EPS));
+            if ((startPosCopy >= 0) && (endPosCopy <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) && ((endPosCopy - startPosCopy) >= POSITION_EPS)) {
+                return Problem::OK;
+            } else {
+                return Problem::INVALID_STOPPOSITION;
+            }
         }
     }
 }

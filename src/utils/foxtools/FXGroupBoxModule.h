@@ -28,8 +28,16 @@ class FXGroupBoxModule : protected FXVerticalFrame {
     FXDECLARE(FXGroupBoxModule)
 
 public:
+    /// @brief GroupBoxModule options
+    enum Options {
+        NOTHING =       1 << 0, // Collapsible groupBox
+        COLLAPSIBLE =   1 << 1, // Collapsible groupBox
+        SAVE =          1 << 2, // Save contents
+        LOAD =          1 << 3, // Load contents
+    };
+
     /// @brief constructor
-    FXGroupBoxModule(FXVerticalFrame* contentFrame, const std::string &text, const bool collapsible = true);
+    FXGroupBoxModule(FXVerticalFrame* contentFrame, const std::string &text, const int options = Options::COLLAPSIBLE);
 
     /// @brief destructor
     ~FXGroupBoxModule();
@@ -43,14 +51,32 @@ public:
     /// @brief draw FXGroupBoxModule
     long onPaint(FXObject*,FXSelector,void*);
 
-    /// @brief draw FXGroupBoxModule
-    long onCollapseButton(FXObject*,FXSelector,void*);
+    /// @brief collapse GroupBoxModule
+    long onCmdCollapseButton(FXObject*,FXSelector,void*);
+
+    /// @brief save contents
+    long onCmdSaveButton(FXObject*,FXSelector,void*);
+
+    /// @brief load contents
+    long onCmdLoadButton(FXObject*,FXSelector,void*);
 
 protected:
     /// @brief FOX need this
     FXGroupBoxModule();
 
+    /// @brief save contents (can be reimplemented in children)
+    virtual bool saveContents() const;
+
+    /// @brief load contents (can be reimplemented in children)
+    virtual bool loadContents() const;
+
+    /// @brief enable or disable save buttons
+    void toogleSaveButton(const bool value);
+
 private:
+    /// @brief GroupBoxModule options
+    const int myOptions;
+
     /// @brief vertical collapsable frame
     FXVerticalFrame *myCollapsableFrame = nullptr;
 
@@ -59,6 +85,12 @@ private:
 
     /// @brief button for collapse elements
     FXButton *myCollapseButton = nullptr;
+
+    /// @brief button for save elements
+    FXButton *mySaveButton = nullptr;
+
+    /// @brief button for load elements
+    FXButton *myLoadButton = nullptr;
 
     /// @brief flag to check if this groupbox is collapsed
     bool myCollapsed;

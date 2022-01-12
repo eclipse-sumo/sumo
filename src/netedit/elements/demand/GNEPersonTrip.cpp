@@ -161,7 +161,7 @@ GNEPersonTrip::writeDemandElement(OutputDevice& device) const {
 }
 
 
-bool
+GNEDemandElement::Problem
 GNEPersonTrip::isDemandElementValid() const {
     return isPersonPlanValid();
 }
@@ -601,7 +601,7 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 void
 GNEPersonTrip::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
-    throw InvalidArgument("Nothing to enable");
+    // nothing to toogle
 }
 
 

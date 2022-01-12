@@ -172,24 +172,6 @@ GNEDemandElement::updateDemandElementSpreadGeometry(const GNELane* lane, const d
 }
 
 
-bool
-GNEDemandElement::isDemandElementValid() const {
-    return true;
-}
-
-
-std::string
-GNEDemandElement::getDemandElementProblem() const {
-    return "";
-}
-
-
-void
-GNEDemandElement::fixDemandElementProblem() {
-    throw InvalidArgument(getTagStr() + " cannot fix any problem");
-}
-
-
 void
 GNEDemandElement::openDemandElementDialog() {
     throw InvalidArgument(getTagStr() + " doesn't have an demand element dialog");
@@ -395,6 +377,40 @@ GNEDemandElement::getBeginPosition(const double pedestrianDepartPos) const {
         } else {
             return Position(0, 0);
         }
+    }
+}
+
+
+std::vector<GNEDemandElement*>
+GNEDemandElement::getInvalidStops() const {
+    // get stops
+    std::vector<GNEDemandElement*> stops;
+    for (const auto &stop : getChildDemandElements()) {
+        if (stop->getTagProperty().getTag() == SUMO_TAG_STOP_LANE) {
+            stops.push_back(stop);
+        }
+    }
+    // check stops
+    if (stops.empty()) {
+        return stops;
+    } else {
+        // get sorted stops
+        std::vector<const GNEDemandElement*> sortedStops;
+        // continue depending of route
+        if (getTagProperty().getTag() == SUMO_TAG_ROUTE) {
+            sortedStops = getSortedStops(getParentEdges());
+        } else if (getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED) {
+            sortedStops = getSortedStops(getChildDemandElements().front()->getParentEdges());
+        }
+        // iterate over sortedStops
+        for (const auto &sortedStop : sortedStops) {
+            const auto it = std::find(stops.begin(), stops.end(), sortedStop);
+            if (it != stops.end()) {
+                stops.erase(it);
+            }
+        }
+        // return stops not found in sortedStops
+        return stops;
     }
 }
 
@@ -628,7 +644,7 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
         // Start with the drawing of the area traslating matrix to origin
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType(), offsetFront);
         // check if draw lane2lane connection or a red line
-        if (fromLane->getLane2laneConnections().exist(toLane)) {
+        if (fromLane && fromLane->getLane2laneConnections().exist(toLane)) {
             // obtain lane2lane geometry
             const GUIGeometry& lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
             // Set person plan color
@@ -664,7 +680,7 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
 }
 
 
-bool 
+GNEDemandElement::Problem 
 GNEDemandElement::isPersonPlanValid() const {
     // get previous child
     const auto previousChild = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
@@ -694,7 +710,7 @@ GNEDemandElement::isPersonPlanValid() const {
         }
         // compare both edges
         if (previousEdge != firstEdge) {
-            return false;
+            return Problem::DISCONNECTED_PLAN;
         }
     }
     // get next child
@@ -725,11 +741,11 @@ GNEDemandElement::isPersonPlanValid() const {
         }
         // compare both edges
         if (nextEdge != lastEdge) {
-            return false;
+            return Problem::DISCONNECTED_PLAN;
         }
     }
     // all ok, then return true
-    return true;
+    return Problem::OK;
 }
 
 
@@ -762,7 +778,7 @@ GNEDemandElement::getPersonPlanProblem() const {
             firstEdge = getParentDemandElements().at(1)->getParentEdges().front();
         }
         // compare both edges
-        if (previousEdge != firstEdge) {
+        if (previousEdge && firstEdge && (previousEdge != firstEdge)) {
             return "Edge '" + previousEdge->getID() + "' is not consecutive with edge '" + firstEdge->getID() + "'";
         }
     }
@@ -793,7 +809,7 @@ GNEDemandElement::getPersonPlanProblem() const {
             lastEdge = getParentDemandElements().at(1)->getParentEdges().back();
         }
         // compare both edges
-        if (nextEdge != lastEdge) {
+        if (nextEdge && lastEdge && (nextEdge != lastEdge)) {
             return "Edge '" + lastEdge->getID() + "' is not consecutive with edge '" + nextEdge->getID() + "'";
         }
     }
@@ -913,8 +929,8 @@ GNEDemandElement::SortedStops::addStop(const GNEDemandElement* stop) {
 }
 
 
-void 
-GNEDemandElement::writeSortedStops(OutputDevice& device, const std::vector<GNEEdge*> &edges) const {
+std::vector<const GNEDemandElement*> 
+GNEDemandElement::getSortedStops(const std::vector<GNEEdge*> &edges) const {
     std::vector<GNEDemandElement*> stops;
     // get stops
     for (const auto& stop : getChildDemandElements()) {
@@ -941,12 +957,14 @@ GNEDemandElement::writeSortedStops(OutputDevice& device, const std::vector<GNEEd
             }
         }
     }
-    // finally write stops
+    // finally return sorted stops
+    std::vector<const GNEDemandElement*> solution;
     for (const auto &sortedStop : sortedStops) {
         for (const auto &stop : sortedStop.myStops) {
-            stop.second->writeDemandElement(device);
+            solution.push_back(stop.second);
         }
     }
+    return solution;
 }
 
 
