@@ -265,8 +265,8 @@ private:
 
     /** @brief Applies dawdling / driving error
     * @param[in] veh The ego vehicle
-    * @param[in] vMin The minimum possible speed in the next time step (not used in EIDM, because vehicle )
-    * @param[in] vMax The maximal possible speed in the next time step (not used in EIDM)
+    * @param[in] vMin The minimum possible speed in the next time step
+    * @param[in] vMax The wanted speed in the next time step
     * @return The corrected speed with dawdling / driving error
     */
     double patchSpeedBeforeLCEIDM(const MSVehicle* veh, double vMin, double vMax, VehicleVariables* vars) const;
