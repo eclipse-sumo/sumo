@@ -644,7 +644,7 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
         // Start with the drawing of the area traslating matrix to origin
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType(), offsetFront);
         // check if draw lane2lane connection or a red line
-        if (fromLane->getLane2laneConnections().exist(toLane)) {
+        if (fromLane && fromLane->getLane2laneConnections().exist(toLane)) {
             // obtain lane2lane geometry
             const GUIGeometry& lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
             // Set person plan color
@@ -778,7 +778,7 @@ GNEDemandElement::getPersonPlanProblem() const {
             firstEdge = getParentDemandElements().at(1)->getParentEdges().front();
         }
         // compare both edges
-        if (previousEdge != firstEdge) {
+        if (previousEdge && firstEdge && (previousEdge != firstEdge)) {
             return "Edge '" + previousEdge->getID() + "' is not consecutive with edge '" + firstEdge->getID() + "'";
         }
     }
@@ -809,7 +809,7 @@ GNEDemandElement::getPersonPlanProblem() const {
             lastEdge = getParentDemandElements().at(1)->getParentEdges().back();
         }
         // compare both edges
-        if (nextEdge != lastEdge) {
+        if (nextEdge && lastEdge && (nextEdge != lastEdge)) {
             return "Edge '" + lastEdge->getID() + "' is not consecutive with edge '" + nextEdge->getID() + "'";
         }
     }
