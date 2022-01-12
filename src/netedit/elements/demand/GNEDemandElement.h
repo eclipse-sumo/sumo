@@ -55,12 +55,12 @@ public:
     /// @brief friend declaration (needed for vTypes)
     friend class GNERouteHandler;
 
-    /// @brief enum class for demandElement problem
+    /// @brief enum class for demandElement problems
     enum class Problem {
         OK,                     // There is no problem
         INVALID_ELEMENT,        // Element is invalid (for example, a route without edges)
         INVALID_PATH,           // Path (route, trip... ) is not valid (i.e is empty)
-        DISCONNECTED_PLAN,      // Plan element (person, containers) is't connected with the previous or next plan
+        DISCONNECTED_PLAN,      // Plan element (person, containers) is not connected with the previous or next plan
         INVALID_STOPPOSITION,   // StopPosition is invalid (only used in stops over edges or lanes
         STOP_DOWNSTREAM,        // Stops don't follow their route parent
     };
