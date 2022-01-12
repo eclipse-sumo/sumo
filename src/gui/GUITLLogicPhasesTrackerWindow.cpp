@@ -559,17 +559,14 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         // current begin time
         // time ticks
         SUMOTime currTime = myFirstTime2Show;
-        int pos = 31;// + /*!!!currTime*/ - myFirstTime2Show;
-        double glpos = (double) pos / panelWidth;
+        double glpos = (double) 31 / panelWidth;
         const double ticSize = 4. / panelHeight;
         if (leftOffset > 0) {
             const double a = STEPS2TIME(leftOffset) * barWidth / timeRange;
-            pos += (int) a;
             glpos += a / panelWidth;
             currTime += leftOffset;
         } else if (myFirstPhaseOffset > 0) {
             const double a = STEPS2TIME(-myFirstPhaseOffset) * barWidth / timeRange;
-            pos += (int) a;
             glpos += a / panelWidth;
             currTime -= myFirstPhaseOffset;
         }
@@ -606,7 +603,6 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
                 glEnd();
             }
 
-
             // draw vertical line for cycle reset
             if (timeInCycle == 0 || timeInCycle < lastTimeInCycle) {
                 const double cycle0pos = glpos - STEPS2TIME(timeInCycle) * barWidth / timeRange / panelWidth;
@@ -624,7 +620,6 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
 
             tickDist = *pd;
             const double a = STEPS2TIME(tickDist) * barWidth / timeRange;
-            pos += (int) a;
             glpos += a / panelWidth;
             currTime += tickDist;
 
