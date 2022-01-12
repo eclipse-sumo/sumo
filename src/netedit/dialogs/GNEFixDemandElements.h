@@ -84,6 +84,12 @@ protected:
         FXVerticalFrame* myRightFrame = nullptr;
 
     private:
+        /// @brief enable options
+        virtual void enableOptions() = 0;
+
+        /// @brief disable options
+        virtual void disableOptions() = 0;
+
         /// @brief Table with the demand elements
         FXTable* myTable = nullptr;
 
@@ -101,12 +107,6 @@ protected:
         /// @brief select option
         void selectOption(FXObject* option);
 
-        /// @brief enable position options
-        void enableFixRouteOptions();
-
-        /// @brief disable position options
-        void disableFixRouteOptions();
-
         /// @brief Option "Remove invalid routes"
         FXRadioButton* removeInvalidRoutes;
 
@@ -118,6 +118,13 @@ protected:
         
         /// @brief Option "Remove stops out of route"
         FXCheckButton* removeStopsOutOfRoute;
+
+    private:
+        /// @brief enable route options
+        void enableOptions();
+
+        /// @brief disable route options
+        void disableOptions();
     };
 
     /// @brief groupbox for all radio buttons related with fix vehicle options
@@ -129,13 +136,7 @@ protected:
 
         /// @brief select option
         void selectOption(FXObject* option);
-
-        /// @brief enable consecutive lane options
-        void enableFixVehicleOptions();
-
-        /// @brief disable consecutive lane options
-        void disableFixVehicleOptions();
-
+        
         /// @brief Option "remove invalid elements"
         FXRadioButton* removeInvalidVehicles;
 
@@ -147,6 +148,13 @@ protected:
 
         /// @brief Option "Remove stops out of route"
         FXCheckButton* removeStopsOutOfRoute;
+
+    private:
+        /// @brief enable vehicle options
+        void enableOptions();
+
+        /// @brief disable vehicle options
+        void disableOptions();
     };
 
     /// @brief groupbox for all radio buttons related with fix stop options
@@ -159,12 +167,6 @@ protected:
         /// @brief select option
         void selectOption(FXObject* option);
 
-        /// @brief enable position options
-        void enableFixStopOptions();
-
-        /// @brief disable position options
-        void disableFixStopOptions();
-
         /// @brief Option "Activate friendlyPos and save"
         FXRadioButton* activateFriendlyPositionAndSave;
 
@@ -176,6 +178,13 @@ protected:
 
         /// @brief Option "Select invalid stops and cancel"
         FXRadioButton* selectInvalidStopsAndCancel;
+
+    private:
+        /// @brief enable stop options
+        void enableOptions();
+
+        /// @brief disable stop options
+        void disableOptions();
     };
 
     /// @brief groupbox for all radio buttons related with fix person plan options
@@ -187,13 +196,7 @@ protected:
 
         /// @brief select option
         void selectOption(FXObject* option);
-
-        /// @brief enable position options
-        void enableFixPersonPlanOptions();
-
-        /// @brief disable position options
-        void disableFixPersonPlanOptions();
-
+        
         /// @brief Option "delete person plan"
         FXRadioButton* deletePersonPlan;
 
@@ -202,6 +205,13 @@ protected:
 
         /// @brief Option "Select invalid person plans and cancel"
         FXRadioButton* selectInvalidPersonPlansAndCancel;
+
+    private:
+        /// @brief enable personPlan options
+        void enableOptions();
+
+        /// @brief disable personPlan options
+        void disableOptions();
     };
 
     /// @brief horizontal frame for buttons
@@ -211,6 +221,7 @@ protected:
         /// @brief build Position Options
         Buttons(GNEFixDemandElements* fixDemandElementsParent);
 
+    private:
         /// @brief accept button
         FXButton* myAcceptButton = nullptr;
 

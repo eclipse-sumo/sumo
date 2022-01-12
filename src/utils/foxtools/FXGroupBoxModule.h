@@ -71,7 +71,7 @@ protected:
     virtual bool loadContents() const;
 
     /// @brief enable or disable save buttons
-    void setSaveButton(const bool value);
+    void toogleSaveButton(const bool value);
 
 private:
     /// @brief GroupBoxModule options

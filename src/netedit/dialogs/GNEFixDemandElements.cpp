@@ -241,8 +241,6 @@ GNEFixDemandElements::FixOptions::FixOptions(FXVerticalFrame* frameParent, const
     // create vertical frames
     myLeftFrame = new FXVerticalFrame(horizontalFrame, GUIDesignAuxiliarVerticalFrame);
     myRightFrame = new FXVerticalFrame(horizontalFrame, GUIDesignAuxiliarVerticalFrame);
-    // reset table
-    setInvalidElements({});
 }
 
 
@@ -281,11 +279,48 @@ GNEFixDemandElements::FixOptions::setInvalidElements(const std::vector<GNEDemand
         item->setJustify(FXTableItem::LEFT | FXTableItem::CENTER_Y);
         myTable->setItem(i, 2, item);
     }
+    // check if enable or disable options
+    if (invalidElements.size() > 0) {
+        enableOptions();
+        toogleSaveButton(true);
+    } else {
+        disableOptions();
+        toogleSaveButton(false);
+    }
 }
 
 bool
 GNEFixDemandElements::FixOptions::saveContents() const {
-    return false;
+    const FXString file = MFXUtils::getFilename2Write(myTable,
+                          "Save list of conflicted items", ".txt",
+                          GUIIconSubSys::getIcon(GUIIcon::SAVE), gCurrentFolder);
+    if (file == "") {
+        return false;
+    }
+    try {
+        // open output device
+        OutputDevice& dev = OutputDevice::getDevice(file.text());
+        // get invalid element ID and problem 
+        for (const auto& invalidElement : myInvalidElements) {
+            dev << invalidElement->getID() << ":" << invalidElement->getDemandElementProblem() << "\n";
+        }
+        // close output device
+        dev.close();
+        // write warning if netedit is running in testing mode
+        WRITE_DEBUG("Opening FXMessageBox 'Saving list of conflicted items sucesfully'");
+        // open message box error
+        FXMessageBox::information(myTable, MBOX_OK, "Saving sucesfully", "%s", "List of comflicted items was saved sucesfully");
+        // write warning if netedit is running in testing mode
+        WRITE_DEBUG("Closed FXMessageBox 'Saving list of conflicted items sucesfully' with 'OK'");
+    } catch (IOError& e) {
+        // write warning if netedit is running in testing mode
+        WRITE_DEBUG("Opening FXMessageBox 'error saving list of conflicted items'");
+        // open message box error
+        FXMessageBox::error(myTable, MBOX_OK, "Saving list of conflicted items failed", "%s", e.what());
+        // write warning if netedit is running in testing mode
+        WRITE_DEBUG("Closed FXMessageBox 'error saving list of conflicted items' with 'OK'");
+    }
+    return true;
 }
 
 // ---------------------------------------------------------------------------
@@ -332,18 +367,20 @@ GNEFixDemandElements::FixRouteOptions::selectOption(FXObject* option) {
 
 
 void
-GNEFixDemandElements::FixRouteOptions::enableFixRouteOptions() {
+GNEFixDemandElements::FixRouteOptions::enableOptions() {
     removeInvalidRoutes->enable();
     saveInvalidRoutes->enable();
     selectInvalidRoutesAndCancel->enable();
+    removeStopsOutOfRoute->enable();
 }
 
 
 void
-GNEFixDemandElements::FixRouteOptions::disableFixRouteOptions() {
+GNEFixDemandElements::FixRouteOptions::disableOptions() {
     removeInvalidRoutes->disable();
     saveInvalidRoutes->disable();
     selectInvalidRoutesAndCancel->disable();
+    removeStopsOutOfRoute->disable();
 }
 
 // ---------------------------------------------------------------------------
@@ -390,18 +427,20 @@ GNEFixDemandElements::FixVehicleOptions::selectOption(FXObject* option) {
 
 
 void
-GNEFixDemandElements::FixVehicleOptions::enableFixVehicleOptions() {
+GNEFixDemandElements::FixVehicleOptions::enableOptions() {
     removeInvalidVehicles->enable();
     saveInvalidVehicles->enable();
     selectInvalidVehiclesAndCancel->enable();
+    removeStopsOutOfRoute->enable();
 }
 
 
 void
-GNEFixDemandElements::FixVehicleOptions::disableFixVehicleOptions() {
+GNEFixDemandElements::FixVehicleOptions::disableOptions() {
     removeInvalidVehicles->disable();
     saveInvalidVehicles->disable();
     selectInvalidVehiclesAndCancel->disable();
+    removeStopsOutOfRoute->disable();
 }
 
 // ---------------------------------------------------------------------------
@@ -454,7 +493,7 @@ GNEFixDemandElements::FixStopOptions::selectOption(FXObject* option) {
 
 
 void
-GNEFixDemandElements::FixStopOptions::enableFixStopOptions() {
+GNEFixDemandElements::FixStopOptions::enableOptions() {
     activateFriendlyPositionAndSave->enable();
     fixPositionsAndSave->enable();
     saveInvalid->enable();
@@ -463,7 +502,7 @@ GNEFixDemandElements::FixStopOptions::enableFixStopOptions() {
 
 
 void
-GNEFixDemandElements::FixStopOptions::disableFixStopOptions() {
+GNEFixDemandElements::FixStopOptions::disableOptions() {
     activateFriendlyPositionAndSave->disable();
     fixPositionsAndSave->disable();
     saveInvalid->disable();
@@ -510,7 +549,7 @@ GNEFixDemandElements::FixPersonPlanOptions::selectOption(FXObject* option) {
 
 
 void
-GNEFixDemandElements::FixPersonPlanOptions::enableFixPersonPlanOptions() {
+GNEFixDemandElements::FixPersonPlanOptions::enableOptions() {
     deletePersonPlan->enable();
     saveInvalid->enable();
     selectInvalidPersonPlansAndCancel->enable();
@@ -518,7 +557,7 @@ GNEFixDemandElements::FixPersonPlanOptions::enableFixPersonPlanOptions() {
 
 
 void
-GNEFixDemandElements::FixPersonPlanOptions::disableFixPersonPlanOptions() {
+GNEFixDemandElements::FixPersonPlanOptions::disableOptions() {
     deletePersonPlan->disable();
     saveInvalid->disable();
     selectInvalidPersonPlansAndCancel->disable();
