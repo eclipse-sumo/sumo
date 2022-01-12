@@ -427,6 +427,7 @@ The following elements are permitted in an expression for attributes
   - 'z:DETID': returns the time gap since the last vehicle detection for inductionLoop detector with id 'DETID'
   - 'a:DETID': returns true (1) if a vehicle is on detector with id 'DETID' and
     false (0) otherwise. Supports inductionLoop and laneAreaDetectors.
+  - 'g:TLSINDEX': returns current green duration in seconds for link with the given index
 - Symbolic names for [pre-defined expressions](#named_expressions)
 
 The following constraints apply to expressions:
@@ -443,6 +444,7 @@ of `<tlLogic>` to define named expressions that can be referenced in other expre
 <tlLogic id="example" type="actuated" ...>
    <condition id="C3" value="z:det5 > 5"/>
    <condition id="C4" value="C3 and z:det6 < 2"/>
+   <condition id="C5" value="g:3 > 20"/>
    ...
 ```
 
