@@ -41,9 +41,11 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
 #include <utils/emissions/PollutantsInterface.h>
+#include <utils/emissions/EnergyParams.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/importio/LineReader.h>
 #include "TrajectoriesHandler.h"
+#include "VTypesHandler.h"
 
 
 // ===========================================================================
@@ -82,9 +84,14 @@ main(int argc, char** argv) {
     oc.addSynonyme("amitran", "netstate-file");
     oc.addDescription("netstate-file", "Input", "Defines the netstate, route and trajectory files to read the driving cycles from.");
 
+    oc.doRegister("additional-files", new Option_FileName());
+    oc.addDescription("additional-files", "Input", "Load emission parameters (vTypes) from FILE(s)");
+
     oc.doRegister("emission-class", 'e', new Option_String("unknown"));
     oc.addDescription("emission-class", "Input", "Defines for which emission class the emissions shall be generated. ");
 
+    oc.doRegister("vtype", new Option_String());
+    oc.addDescription("vtype", "Input", "Defines the vehicle type to use for emission parameters.");
 
     oc.addOptionSubTopic("Processing");
     oc.doRegister("compute-a", 'a', new Option_Bool(false));
@@ -123,6 +130,12 @@ main(int argc, char** argv) {
     oc.addOptionSubTopic("Emissions");
     oc.doRegister("phemlight-path", new Option_FileName(StringVector({ "./PHEMlight/" })));
     oc.addDescription("phemlight-path", "Emissions", "Determines where to load PHEMlight definitions from.");
+
+    oc.doRegister("begin", new Option_String("0", "TIME"));
+    oc.addDescription("begin", "Processing", "Defines the begin time in seconds;");
+
+    oc.doRegister("end", new Option_String("-1", "TIME"));
+    oc.addDescription("end", "Processing", "Defines the end time in seconds;");
 
     SystemFrame::addReportOptions(oc);
     oc.doRegister("quiet", 'q', new Option_Bool(false));
@@ -165,9 +178,30 @@ main(int argc, char** argv) {
             (*sumOut) << "Vehicle,Cycle,Time,Speed,Gradient,Acceleration,FC,FCel,CO2,NOx,CO,HC,PM" << std::endl;
         }
 
+        EnergyParams energyParams;
+        std::map<std::string, SUMOVTypeParameter*> vTypes;
+        if (oc.isSet("vtype")) {
+            if (!oc.isSet("additional-files")) {
+                throw ProcessError("Option --vtype requires option --additional-files for loading vehicle types");
+            }
+            if (!oc.isUsableFileList("additional-files")) {
+                throw ProcessError();
+            }
+            for (auto file : oc.getStringVector("additional-files")) {
+                VTypesHandler typesHandler(file, vTypes);
+                if (!XMLSubSys::runParser(typesHandler, file)) {
+                    throw ProcessError("Loading of " + file + " failed.");
+                }
+            }
+            if (vTypes.count(oc.getString("vtype")) == 0) {
+                throw ProcessError("Vehicle type '" + oc.getString("vtype") + "' is not defined");
+            }
+            energyParams = EnergyParams(vTypes[oc.getString("vtype")]);
+        }
+
         const SUMOEmissionClass defaultClass = PollutantsInterface::getClassByName(oc.getString("emission-class"));
         const bool computeA = oc.getBool("compute-a") || oc.getBool("compute-a.forward");
-        TrajectoriesHandler handler(computeA, oc.getBool("compute-a.forward"), oc.getBool("compute-a.zero-correction"), defaultClass, oc.getFloat("slope"), out, xmlOut);
+        TrajectoriesHandler handler(computeA, oc.getBool("compute-a.forward"), oc.getBool("compute-a.zero-correction"), defaultClass, &energyParams, oc.getFloat("slope"), out, xmlOut);
 
         if (oc.isSet("timeline-file")) {
             int skip = oc.getBool("skip-first") ? 1 : oc.getInt("timeline-file.skip");
@@ -201,7 +235,7 @@ main(int argc, char** argv) {
                         }
                         double a = !computeA && st.hasNext() ? StringUtils::toDouble(st.next()) : TrajectoriesHandler::INVALID_VALUE;
                         double s = haveSlope && st.hasNext() ? StringUtils::toDouble(st.next()) : TrajectoriesHandler::INVALID_VALUE;
-                        if (handler.writeEmissions(*out, "", defaultClass, t, v, a, s)) {
+                        if (handler.writeEmissions(*out, "", defaultClass, &energyParams, t, v, a, s)) {
                             l += v;
                             totalA += a;
                             totalS += s;
@@ -231,6 +265,7 @@ main(int argc, char** argv) {
             handler.writeSums(std::cout, "");
         }
         delete sumOut;
+
     } catch (InvalidArgument& e) {
         MsgHandler::getErrorInstance()->inform(e.what());
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);

@@ -24,6 +24,7 @@
 #include <utility>
 #include <utils/xml/SUMOSAXHandler.h>
 
+class EnergyParams;
 
 // ===========================================================================
 // class definitions
@@ -45,6 +46,7 @@ public:
      */
     TrajectoriesHandler(const bool computeA, const bool computeAForward, const bool accelZeroCorrection,
                         const SUMOEmissionClass defaultClass,
+                        EnergyParams* params,
                         const double defaultSlope, std::ostream* stdOut, OutputDevice* xmlOut);
 
 
@@ -52,16 +54,18 @@ public:
     ~TrajectoriesHandler();
 
     const PollutantsInterface::Emissions computeEmissions(const std::string id,
-            const SUMOEmissionClass c, double& v,
+            const SUMOEmissionClass c, EnergyParams* params, double& v,
             double& a, double& s);
 
     bool writeEmissions(std::ostream& o, const std::string id,
                         const SUMOEmissionClass c,
+                        EnergyParams* params,
                         double t, double& v,
                         double& a, double& s);
 
     bool writeXMLEmissions(const std::string id,
                            const SUMOEmissionClass c,
+                           EnergyParams* params,
                            SUMOTime t, double& v,
                            double a = INVALID_VALUE, double s = INVALID_VALUE);
 
@@ -93,6 +97,7 @@ private:
     const bool myComputeAForward;
     const bool myAccelZeroCorrection;
     const SUMOEmissionClass myDefaultClass;
+    EnergyParams* myParams;
     const double myDefaultSlope;
     std::ostream* myStdOut;
     OutputDevice* myXMLOut;

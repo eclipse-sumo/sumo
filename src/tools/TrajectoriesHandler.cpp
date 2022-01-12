@@ -26,6 +26,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/emissions/PollutantsInterface.h>
+#include <utils/emissions/EnergyParams.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/xml/SUMOSAXHandler.h>
@@ -37,10 +38,15 @@
 // method definitions
 // ===========================================================================
 TrajectoriesHandler::TrajectoriesHandler(const bool computeA, const bool computeAForward,
-        const bool accelZeroCorrection, const SUMOEmissionClass defaultClass,
-        const double defaultSlope, std::ostream* stdOut, OutputDevice* xmlOut)
-    : SUMOSAXHandler(""), myComputeA(computeA), myComputeAForward(computeAForward), myAccelZeroCorrection(accelZeroCorrection), myDefaultClass(defaultClass),
-      myDefaultSlope(defaultSlope), myStdOut(stdOut), myXMLOut(xmlOut), myCurrentTime(-1), myStepSize(TS) {}
+        const bool accelZeroCorrection, const SUMOEmissionClass defaultClass, EnergyParams* params,
+        const double defaultSlope, std::ostream* stdOut, OutputDevice* xmlOut) :
+    SUMOSAXHandler(""),
+    myComputeA(computeA),
+    myComputeAForward(computeAForward),
+    myAccelZeroCorrection(accelZeroCorrection),
+    myDefaultClass(defaultClass),
+    myParams(params),
+    myDefaultSlope(defaultSlope), myStdOut(stdOut), myXMLOut(xmlOut), myCurrentTime(-1), myStepSize(TS) {}
 
 
 TrajectoriesHandler::~TrajectoriesHandler() {}
@@ -62,7 +68,7 @@ TrajectoriesHandler::myStartElement(int element,
                 double v = attrs.getFloat(SUMO_ATTR_SPEED);
                 double a = INVALID_VALUE;
                 double s = INVALID_VALUE;
-                writeEmissions(std::cout, attrs.getString(SUMO_ATTR_ID), myDefaultClass, STEPS2TIME(myCurrentTime), v, a, s);
+                writeEmissions(std::cout, attrs.getString(SUMO_ATTR_ID), myDefaultClass, myParams, STEPS2TIME(myCurrentTime), v, a, s);
             } else {
                 const std::string acId = attrs.getString(SUMO_ATTR_ACTORCONFIG);
                 const std::string id = attrs.getString(SUMO_ATTR_ID);
@@ -94,10 +100,10 @@ TrajectoriesHandler::myStartElement(int element,
             double s = attrs.hasAttribute(SUMO_ATTR_SLOPE) ? RAD2DEG(asin(attrs.get<double>(SUMO_ATTR_SLOPE, id.c_str(), ok) / 10000.)) : INVALID_VALUE;
             const SUMOTime time = attrs.getOpt<int>(SUMO_ATTR_TIME, id.c_str(), ok, INVALID_VALUE);
             if (myXMLOut != nullptr) {
-                writeXMLEmissions(id, c, time, v, a, s);
+                writeXMLEmissions(id, c, nullptr, time, v, a, s);
             }
             if (myStdOut != nullptr) {
-                writeEmissions(*myStdOut, id, c, STEPS2TIME(time), v, a, s);
+                writeEmissions(*myStdOut, id, c, nullptr, STEPS2TIME(time), v, a, s);
             }
             break;
         }
@@ -109,6 +115,7 @@ TrajectoriesHandler::myStartElement(int element,
 
 const PollutantsInterface::Emissions
 TrajectoriesHandler::computeEmissions(const std::string id, const SUMOEmissionClass c,
+                                      EnergyParams* params,
                                       double& v, double& a, double& s) {
 
     if (myComputeA) {
@@ -131,7 +138,7 @@ TrajectoriesHandler::computeEmissions(const std::string id, const SUMOEmissionCl
     if (s == INVALID_VALUE) {
         s = myDefaultSlope;
     }
-    const PollutantsInterface::Emissions result = PollutantsInterface::computeAll(c, v, a, s);
+    const PollutantsInterface::Emissions result = PollutantsInterface::computeAll(c, v, a, s, params);
     mySums[id].addScaled(result, myStepSize);
     if (id != "") {
         mySums[""].addScaled(result, myStepSize);
@@ -143,6 +150,7 @@ TrajectoriesHandler::computeEmissions(const std::string id, const SUMOEmissionCl
 bool
 TrajectoriesHandler::writeEmissions(std::ostream& o, const std::string id,
                                     const SUMOEmissionClass c,
+                                    EnergyParams* params,
                                     double t, double& v,
                                     double& a, double& s) {
     if (myComputeA && myLastV.count(id) == 0) {
@@ -156,7 +164,7 @@ TrajectoriesHandler::writeEmissions(std::ostream& o, const std::string id,
         s = myLastSlope[id];
         myLastSlope[id] = nextS;
     }
-    const PollutantsInterface::Emissions e = computeEmissions(id, c, v, a, s);
+    const PollutantsInterface::Emissions e = computeEmissions(id, c, params, v, a, s);
     o << t << ";" << v << ";" << a << ";" << s << ";"
       << e.CO << ";" << e.CO2 << ";" << e.HC << ";" << e.PMx << ";"
       << e.NOx << ";" << e.fuel << ";" << e.electricity << std::endl;
@@ -167,6 +175,7 @@ TrajectoriesHandler::writeEmissions(std::ostream& o, const std::string id,
 bool
 TrajectoriesHandler::writeXMLEmissions(const std::string id,
                                        const SUMOEmissionClass c,
+                                       EnergyParams* params,
                                        SUMOTime t, double& v,
                                        double a, double s) {
     if (myComputeA && myLastV.count(id) == 0) {
@@ -180,7 +189,7 @@ TrajectoriesHandler::writeXMLEmissions(const std::string id,
         myCurrentTime = t;
         myXMLOut->openTag(SUMO_TAG_TIMESTEP).writeAttr(SUMO_ATTR_TIME, time2string(t));
     }
-    const PollutantsInterface::Emissions e = computeEmissions(id, c, v, a, s);
+    const PollutantsInterface::Emissions e = computeEmissions(id, c, params, v, a, s);
     myXMLOut->openTag("vehicle").writeAttr("id", id).writeAttr("eclass", PollutantsInterface::getName(c));
     myXMLOut->writeAttr("CO2", e.CO2).writeAttr("CO", e.CO).writeAttr("HC", e.HC).writeAttr("NOx", e.NOx);
     myXMLOut->writeAttr("PMx", e.PMx).writeAttr("fuel", e.fuel).writeAttr("electricity", e.electricity);
