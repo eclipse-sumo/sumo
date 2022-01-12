@@ -46,6 +46,189 @@ FXIMPLEMENT(GNEFixDemandElements, FXDialogBox, GNEFixDemandElementsMap, ARRAYNUM
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
+// GNEFixDemandElements - methods
+// ---------------------------------------------------------------------------
+
+GNEFixDemandElements::GNEFixDemandElements(GNEViewNet* viewNet, const std::vector<GNEDemandElement*>& invalidDemandElements) :
+    FXDialogBox(viewNet->getApp(), "Fix demand elements problems", GUIDesignDialogBoxExplicit(800, 620)),
+    myViewNet(viewNet) {
+    // set busStop icon for this dialog
+    setIcon(GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND));
+    // create main frame
+    myMainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
+    // create frames for options
+    FXHorizontalFrame* optionsFrame = new FXHorizontalFrame(myMainFrame, GUIDesignAuxiliarFrame);
+    myLeftFrame = new FXVerticalFrame(optionsFrame, GUIDesignAuxiliarFrame);
+    myRightFrame = new FXVerticalFrame(optionsFrame, GUIDesignAuxiliarFrame);
+    // create fix route options
+    myFixRouteOptions = new FixRouteOptions(this);
+    // create fix vehicle  options
+    myFixVehicleOptions = new FixVehicleOptions(this);
+    // create fix stops options
+    myFixStopOptions = new FixStopOptions(this);
+    // create fix person plans options
+    myFixPersonPlanOptions = new FixPersonPlanOptions(this);
+    // create buttons
+    myButtons = new Buttons(this);
+    // split invalidDemandElements in four groups
+    std::vector<GNEDemandElement*> invalidRoutes, invalidVehicles, invalidStops, invalidPlans;
+    // fill groups
+    for (const auto &invalidDemandElement : invalidDemandElements) {
+        if (invalidDemandElement->getTagProperty().isRoute()) {
+            invalidRoutes.push_back(invalidDemandElement);
+        } else if (invalidDemandElement->getTagProperty().isVehicle()) {
+            invalidVehicles.push_back(invalidDemandElement);
+        } else if (invalidDemandElement->getTagProperty().isStop()) {
+            invalidStops.push_back(invalidDemandElement);
+        } else {
+            invalidPlans.push_back(invalidDemandElement);
+        }
+    }
+    // fill options
+    myFixRouteOptions->setInvalidElements(invalidRoutes);
+    myFixVehicleOptions->setInvalidElements(invalidVehicles);
+    myFixStopOptions->setInvalidElements(invalidStops);
+    myFixPersonPlanOptions->setInvalidElements(invalidPlans);
+}
+
+
+GNEFixDemandElements::~GNEFixDemandElements() {
+}
+
+
+long
+GNEFixDemandElements::onCmdSelectOption(FXObject* obj, FXSelector, void*) {
+    myFixRouteOptions->selectOption(obj);
+    myFixVehicleOptions->selectOption(obj);
+    myFixStopOptions->selectOption(obj);
+    myFixPersonPlanOptions->selectOption(obj);
+    return 1;
+}
+
+
+long
+GNEFixDemandElements::onCmdAccept(FXObject*, FXSelector, void*) {
+    bool continueSaving = true;
+/*
+    // check options for invalid routes
+    if (myDemandList->myInvalidRoutes.size() > 0) {
+        if (myFixRouteOptions->removeInvalidRoutes->getCheck() == TRUE) {
+            // begin undo list
+            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "delete invalid routes");
+            // iterate over invalid routes to delete it
+            for (auto i : myDemandList->myInvalidRoutes) {
+                myViewNet->getNet()->deleteDemandElement(i, myViewNet->getUndoList());
+            }
+            // end undo list
+            myViewNet->getUndoList()->end();
+        } else if (myFixRouteOptions->selectInvalidRoutesAndCancel->getCheck() == TRUE) {
+            // begin undo list
+            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "select invalid routes");
+            // iterate over invalid single lane elements to select all elements
+            for (auto i : myDemandList->myInvalidRoutes) {
+                i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+            }
+            // end undo list
+            myViewNet->getUndoList()->end();
+            // abort saving
+            continueSaving = false;
+        }
+    }
+    // check options for invalid vehicles
+    if (myDemandList->myInvalidVehicles.size() > 0) {
+        if (myFixVehicleOptions->removeInvalidVehicles->getCheck() == TRUE) {
+            // begin undo list
+            myViewNet->getUndoList()->begin(GUIIcon::VEHICLE, "delete invalid vehicles");
+            // iterate over invalid stops to delete it
+            for (auto i : myDemandList->myInvalidVehicles) {
+                myViewNet->getNet()->deleteDemandElement(i, myViewNet->getUndoList());
+            }
+            // end undo list
+            myViewNet->getUndoList()->end();
+        } else if (myFixVehicleOptions->selectInvalidVehiclesAndCancel->getCheck() == TRUE) {
+            // begin undo list
+            myViewNet->getUndoList()->begin(GUIIcon::VEHICLE, "select invalid vehicles");
+            // iterate over invalid single lane elements to select all elements
+            for (auto i : myDemandList->myInvalidVehicles) {
+                i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+            }
+            // end undo list
+            myViewNet->getUndoList()->end();
+            // abort saving
+            continueSaving = false;
+        }
+    }
+    // check options for stops
+    if (myDemandList->myInvalidStops.size() > 0) {
+        if (myFixStopOptions->activateFriendlyPositionAndSave->getCheck() == TRUE) {
+            // begin undo list
+            myViewNet->getUndoList()->begin(GUIIcon::STOP, "change " + toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid stops");
+            // iterate over invalid stops to enable friendly position
+            for (auto i : myDemandList->myInvalidStops) {
+                i->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
+            }
+            myViewNet->getUndoList()->end();
+        } else if (myFixStopOptions->fixPositionsAndSave->getCheck() == TRUE) {
+            myViewNet->getUndoList()->begin(GUIIcon::STOP, "fix positions of invalid stops");
+            // iterate over invalid stops to fix positions
+            for (const auto &stop : myDemandList->myInvalidStops) {
+                stop->fixDemandElementProblem();
+            }
+            myViewNet->getUndoList()->end();
+        } else if (myFixStopOptions->selectInvalidStopsAndCancel->getCheck() == TRUE) {
+            myViewNet->getUndoList()->begin(GUIIcon::STOP, "select invalid stops");
+            // iterate over invalid stops to select all elements
+            for (auto i : myDemandList->myInvalidStops) {
+                i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+            }
+            // end undo list
+            myViewNet->getUndoList()->end();
+            // abort saving
+            continueSaving = false;
+        }
+    }
+    // check options for person plans
+    if (myDemandList->myInvalidPersonPlans.size() > 0) {
+        if (myFixPersonPlanOptions->deletePersonPlan->getCheck() == TRUE) {
+            // begin undo list
+            myViewNet->getUndoList()->begin("change " + toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid person plans");
+            // iterate over invalid person plans to enable friendly position
+            for (auto i : myDemandList->myInvalidPersonPlans) {
+                i->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
+            }
+            myViewNet->getUndoList()->end();
+        } else if (myFixPersonPlanOptions->selectInvalidPersonPlansAndCancel->getCheck() == TRUE) {
+            myViewNet->getUndoList()->begin(GUIIcon::MODEPERSONPLAN, "select invalid person plans");
+            // iterate over invalid person plans to select all elements
+            for (auto i : myDemandList->myInvalidPersonPlans) {
+                i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+            }
+            // end undo list
+            myViewNet->getUndoList()->end();
+            // abort saving
+            continueSaving = false;
+        }
+    }
+    */
+    if (continueSaving) {
+        // stop modal with TRUE (continue saving)
+        getApp()->stopModal(this, TRUE);
+    } else {
+        // stop modal with TRUE (abort saving)
+        getApp()->stopModal(this, FALSE);
+    }
+    return 1;
+}
+
+
+long
+GNEFixDemandElements::onCmdCancel(FXObject*, FXSelector, void*) {
+    // Stop Modal (abort saving)
+    getApp()->stopModal(this, FALSE);
+    return 1;
+}
+
+// ---------------------------------------------------------------------------
 // GNEFixDemandElements::FixOptions - methods
 // ---------------------------------------------------------------------------
 
@@ -58,6 +241,7 @@ GNEFixDemandElements::FixOptions::FixOptions(FXVerticalFrame* frameParent, const
     // create vertical frames
     myLeftFrame = new FXVerticalFrame(horizontalFrame, GUIDesignAuxiliarVerticalFrame);
     myRightFrame = new FXVerticalFrame(horizontalFrame, GUIDesignAuxiliarVerticalFrame);
+    // reset table
     setInvalidElements({});
 }
 
@@ -75,7 +259,7 @@ GNEFixDemandElements::FixOptions::setInvalidElements(const std::vector<GNEDemand
     myTable->setVisibleColumns(4);
     myTable->setColumnWidth(0, GUIDesignHeight);
     myTable->setColumnWidth(1, 150);
-    myTable->setColumnWidth(2, 112);
+    myTable->setColumnWidth(2, 200);
     myTable->setColumnText(0, "");
     myTable->setColumnText(1, toString(SUMO_ATTR_ID).c_str());
     myTable->setColumnText(2, "Conflict");
@@ -326,191 +510,16 @@ GNEFixDemandElements::FixPersonPlanOptions::disableFixPersonPlanOptions() {
 }
 
 // ---------------------------------------------------------------------------
-// GNEFixDemandElements - methods
+// GNEFixDemandElements::Buttons - methods
 // ---------------------------------------------------------------------------
 
-GNEFixDemandElements::GNEFixDemandElements(GNEViewNet* viewNet, const std::vector<GNEDemandElement*>& invalidDemandElements) :
-    FXDialogBox(viewNet->getApp(), "Fix demand elements problems", GUIDesignDialogBoxExplicit(800, 620)),
-    myViewNet(viewNet) {
-    // set busStop icon for this dialog
-    setIcon(GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND));
-    // create main frame
-    myMainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
-    // create frames for options
-    FXHorizontalFrame* optionsFrame = new FXHorizontalFrame(myMainFrame, GUIDesignAuxiliarFrame);
-    myLeftFrame = new FXVerticalFrame(optionsFrame, GUIDesignAuxiliarFrame);
-    myRightFrame = new FXVerticalFrame(optionsFrame, GUIDesignAuxiliarFrame);
-    // create fix route options
-    myFixRouteOptions = new FixRouteOptions(this);
-    // create fix vehicle  options
-    myFixVehicleOptions = new FixVehicleOptions(this);
-    // create fix stops options
-    myFixStopOptions = new FixStopOptions(this);
-    // create fix person plans options
-    myFixPersonPlanOptions = new FixPersonPlanOptions(this);
-/*
-    // check if fix route options has to be disabled
-    if (myDemandList->myInvalidRoutes.empty()) {
-        myFixRouteOptions->disableFixRouteOptions();
-    }
-    // check if fix vehicle options has to be disabled
-    if (myDemandList->myInvalidVehicles.empty()) {
-        myFixVehicleOptions->disableFixVehicleOptions();
-    }
-    // check if fix stop options has to be disabled
-    if (myDemandList->myInvalidStops.empty()) {
-        myFixStopOptions->disableFixStopOptions();
-    }
-    // check if fix person plan options has to be disabled
-    if (myDemandList->myInvalidPersonPlans.empty()) {
-        myFixPersonPlanOptions->disableFixPersonPlanOptions();
-    }
-*/
-    // create dialog buttons bot centered
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(myMainFrame, GUIDesignHorizontalFrame);
-    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    myAcceptButton = new FXButton(buttonsFrame, FXWindow::tr("&Accept"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
-    myCancelButton = new FXButton(buttonsFrame, FXWindow::tr("&Cancel"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
-    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
+ GNEFixDemandElements::Buttons::Buttons(GNEFixDemandElements* fixDemandElementsParent) :
+    FXHorizontalFrame(fixDemandElementsParent->myMainFrame, GUIDesignHorizontalFrame) {
+    new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myAcceptButton = new FXButton(this, FXWindow::tr("&Accept"), GUIIconSubSys::getIcon(GUIIcon::ACCEPT), fixDemandElementsParent, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
+    myCancelButton = new FXButton(this, FXWindow::tr("&Cancel"), GUIIconSubSys::getIcon(GUIIcon::CANCEL), fixDemandElementsParent, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
+    new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     // set focus in accept button
     myAcceptButton->setFocus();
 }
-
-
-GNEFixDemandElements::~GNEFixDemandElements() {
-}
-
-
-long
-GNEFixDemandElements::onCmdSelectOption(FXObject* obj, FXSelector, void*) {
-    myFixRouteOptions->selectOption(obj);
-    myFixVehicleOptions->selectOption(obj);
-    myFixStopOptions->selectOption(obj);
-    myFixPersonPlanOptions->selectOption(obj);
-    return 1;
-}
-
-
-long
-GNEFixDemandElements::onCmdAccept(FXObject*, FXSelector, void*) {
-    bool continueSaving = true;
-/*
-    // check options for invalid routes
-    if (myDemandList->myInvalidRoutes.size() > 0) {
-        if (myFixRouteOptions->removeInvalidRoutes->getCheck() == TRUE) {
-            // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "delete invalid routes");
-            // iterate over invalid routes to delete it
-            for (auto i : myDemandList->myInvalidRoutes) {
-                myViewNet->getNet()->deleteDemandElement(i, myViewNet->getUndoList());
-            }
-            // end undo list
-            myViewNet->getUndoList()->end();
-        } else if (myFixRouteOptions->selectInvalidRoutesAndCancel->getCheck() == TRUE) {
-            // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::ROUTE, "select invalid routes");
-            // iterate over invalid single lane elements to select all elements
-            for (auto i : myDemandList->myInvalidRoutes) {
-                i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
-            }
-            // end undo list
-            myViewNet->getUndoList()->end();
-            // abort saving
-            continueSaving = false;
-        }
-    }
-    // check options for invalid vehicles
-    if (myDemandList->myInvalidVehicles.size() > 0) {
-        if (myFixVehicleOptions->removeInvalidVehicles->getCheck() == TRUE) {
-            // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::VEHICLE, "delete invalid vehicles");
-            // iterate over invalid stops to delete it
-            for (auto i : myDemandList->myInvalidVehicles) {
-                myViewNet->getNet()->deleteDemandElement(i, myViewNet->getUndoList());
-            }
-            // end undo list
-            myViewNet->getUndoList()->end();
-        } else if (myFixVehicleOptions->selectInvalidVehiclesAndCancel->getCheck() == TRUE) {
-            // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::VEHICLE, "select invalid vehicles");
-            // iterate over invalid single lane elements to select all elements
-            for (auto i : myDemandList->myInvalidVehicles) {
-                i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
-            }
-            // end undo list
-            myViewNet->getUndoList()->end();
-            // abort saving
-            continueSaving = false;
-        }
-    }
-    // check options for stops
-    if (myDemandList->myInvalidStops.size() > 0) {
-        if (myFixStopOptions->activateFriendlyPositionAndSave->getCheck() == TRUE) {
-            // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::STOP, "change " + toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid stops");
-            // iterate over invalid stops to enable friendly position
-            for (auto i : myDemandList->myInvalidStops) {
-                i->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
-            }
-            myViewNet->getUndoList()->end();
-        } else if (myFixStopOptions->fixPositionsAndSave->getCheck() == TRUE) {
-            myViewNet->getUndoList()->begin(GUIIcon::STOP, "fix positions of invalid stops");
-            // iterate over invalid stops to fix positions
-            for (const auto &stop : myDemandList->myInvalidStops) {
-                stop->fixDemandElementProblem();
-            }
-            myViewNet->getUndoList()->end();
-        } else if (myFixStopOptions->selectInvalidStopsAndCancel->getCheck() == TRUE) {
-            myViewNet->getUndoList()->begin(GUIIcon::STOP, "select invalid stops");
-            // iterate over invalid stops to select all elements
-            for (auto i : myDemandList->myInvalidStops) {
-                i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
-            }
-            // end undo list
-            myViewNet->getUndoList()->end();
-            // abort saving
-            continueSaving = false;
-        }
-    }
-    // check options for person plans
-    if (myDemandList->myInvalidPersonPlans.size() > 0) {
-        if (myFixPersonPlanOptions->deletePersonPlan->getCheck() == TRUE) {
-            // begin undo list
-            myViewNet->getUndoList()->begin("change " + toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid person plans");
-            // iterate over invalid person plans to enable friendly position
-            for (auto i : myDemandList->myInvalidPersonPlans) {
-                i->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
-            }
-            myViewNet->getUndoList()->end();
-        } else if (myFixPersonPlanOptions->selectInvalidPersonPlansAndCancel->getCheck() == TRUE) {
-            myViewNet->getUndoList()->begin(GUIIcon::MODEPERSONPLAN, "select invalid person plans");
-            // iterate over invalid person plans to select all elements
-            for (auto i : myDemandList->myInvalidPersonPlans) {
-                i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
-            }
-            // end undo list
-            myViewNet->getUndoList()->end();
-            // abort saving
-            continueSaving = false;
-        }
-    }
-    */
-    if (continueSaving) {
-        // stop modal with TRUE (continue saving)
-        getApp()->stopModal(this, TRUE);
-    } else {
-        // stop modal with TRUE (abort saving)
-        getApp()->stopModal(this, FALSE);
-    }
-    return 1;
-}
-
-
-long
-GNEFixDemandElements::onCmdCancel(FXObject*, FXSelector, void*) {
-    // Stop Modal (abort saving)
-    getApp()->stopModal(this, FALSE);
-    return 1;
-}
-
 /****************************************************************************/

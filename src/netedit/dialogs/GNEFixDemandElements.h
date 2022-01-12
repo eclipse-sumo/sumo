@@ -88,7 +88,6 @@ protected:
         std::vector<GNEDemandElement*> myInvalidElements;
     };
 
-
     /// @brief groupbox for all radio buttons related with fix route options
     class FixRouteOptions : public FixOptions {
 
@@ -196,6 +195,20 @@ protected:
         FXRadioButton* selectInvalidPersonPlansAndCancel;
     };
 
+    /// @brief horizontal frame for buttons
+    class Buttons : public FXHorizontalFrame {
+
+    public:
+        /// @brief build Position Options
+        Buttons(GNEFixDemandElements* fixDemandElementsParent);
+
+        /// @brief accept button
+        FXButton* myAcceptButton = nullptr;
+
+        /// @brief cancel button
+        FXButton* myCancelButton = nullptr;
+    };
+
     /// @brief view net
     GNEViewNet* myViewNet = nullptr;
 
@@ -220,11 +233,8 @@ protected:
     /// @brief fix person plan options
     FixPersonPlanOptions* myFixPersonPlanOptions = nullptr;
 
-    /// @brief accept button
-    FXButton* myAcceptButton = nullptr;
-
-    /// @brief cancel button
-    FXButton* myCancelButton = nullptr;
+    /// @brief buttons
+    Buttons* myButtons = nullptr;
 
 private:
     /// @brief Invalidated copy constructor.
