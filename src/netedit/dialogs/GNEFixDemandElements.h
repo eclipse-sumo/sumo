@@ -68,10 +68,13 @@ protected:
 
     public:
         /// @brief constructor
-        FixOptions(FXVerticalFrame* frameParent, const std::string &title);
+        FixOptions(FXVerticalFrame* frameParent, const std::string &title, GNEViewNet *viewNet);
 
         /// @brief set invalid demand elements
         void setInvalidElements(const std::vector<GNEDemandElement*> &invalidElements);
+
+        /// @brief fix elements
+        virtual void fixElements(bool &abortSaving) = 0;
 
     protected:
         /// @brief save contents
@@ -83,6 +86,12 @@ protected:
         /// @brief vertical right frame
         FXVerticalFrame* myRightFrame = nullptr;
 
+        /// @brief pointer to viewNet
+        GNEViewNet *myViewNet;
+
+        /// @brief vector with the invalid demand elements
+        std::vector<GNEDemandElement*> myInvalidElements;
+
     private:
         /// @brief enable options
         virtual void enableOptions() = 0;
@@ -92,9 +101,6 @@ protected:
 
         /// @brief Table with the demand elements
         FXTable* myTable = nullptr;
-
-        /// @brief vector with the invalid demand elements
-        std::vector<GNEDemandElement*> myInvalidElements;
     };
 
     /// @brief groupbox for all radio buttons related with fix route options
@@ -102,10 +108,13 @@ protected:
 
     public:
         /// @brief constructor
-        FixRouteOptions(GNEFixDemandElements* fixDemandElementsParent);
+        FixRouteOptions(GNEFixDemandElements* fixDemandElementsParent, GNEViewNet* viewNet);
 
         /// @brief select option
         void selectOption(FXObject* option);
+
+        /// @brief fix elements
+        void fixElements(bool &abortSaving);
 
         /// @brief Option "Remove invalid routes"
         FXRadioButton* removeInvalidRoutes;
@@ -132,10 +141,13 @@ protected:
 
     public:
         /// @brief constructor
-        FixVehicleOptions(GNEFixDemandElements* fixDemandElementsParent);
+        FixVehicleOptions(GNEFixDemandElements* fixDemandElementsParent, GNEViewNet* viewNet);
 
         /// @brief select option
         void selectOption(FXObject* option);
+
+        /// @brief fix elements
+        void fixElements(bool &abortSaving);
         
         /// @brief Option "remove invalid elements"
         FXRadioButton* removeInvalidVehicles;
@@ -146,8 +158,8 @@ protected:
         /// @brief Option "Select invalid vehicles and cancel"
         FXRadioButton* selectInvalidVehiclesAndCancel;
 
-        /// @brief Option "Remove stops out of route"
-        FXCheckButton* removeStopsOutOfRoute;
+        /// @brief Option "Remove stops out of vehicle"
+        FXCheckButton* removeStopsOutOfVehicle;
 
     private:
         /// @brief enable vehicle options
@@ -162,10 +174,13 @@ protected:
 
     public:
         /// @brief build Position Options
-        FixStopPositionOptions(GNEFixDemandElements* fixDemandElementsParent);
+        FixStopPositionOptions(GNEFixDemandElements* fixDemandElementsParent, GNEViewNet* viewNet);
 
         /// @brief select option
         void selectOption(FXObject* option);
+
+        /// @brief fix elements
+        void fixElements(bool &abortSaving);
 
         /// @brief Option "Activate friendlyPos and save"
         FXRadioButton* activateFriendlyPositionAndSave;
@@ -192,10 +207,13 @@ protected:
 
     public:
         /// @brief build Position Options
-        FixPersonPlanOptions(GNEFixDemandElements* fixDemandElementsParent);
+        FixPersonPlanOptions(GNEFixDemandElements* fixDemandElementsParent, GNEViewNet* viewNet);
 
         /// @brief select option
         void selectOption(FXObject* option);
+
+        /// @brief fix elements
+        void fixElements(bool &abortSaving);
         
         /// @brief Option "delete person plan"
         FXRadioButton* deletePersonPlan;
