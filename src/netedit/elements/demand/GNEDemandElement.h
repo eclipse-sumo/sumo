@@ -353,6 +353,9 @@ public:
     /// @brief get personPlan start position
     const Position getBeginPosition(const double pedestrianDepartPos) const;
 
+    /// @brief get invalid stops
+    std::vector<GNEDemandElement*> getInvalidStops() const;
+
 protected:
     /// @brief demand element geometry (also called "stacked geometry")
     GUIGeometry myDemandElementGeometry;

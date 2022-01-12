@@ -381,6 +381,40 @@ GNEDemandElement::getBeginPosition(const double pedestrianDepartPos) const {
 }
 
 
+std::vector<GNEDemandElement*>
+GNEDemandElement::getInvalidStops() const {
+    // get stops
+    std::vector<GNEDemandElement*> stops;
+    for (const auto &stop : getChildDemandElements()) {
+        if (stop->getTagProperty().getTag() == SUMO_TAG_STOP_LANE) {
+            stops.push_back(stop);
+        }
+    }
+    // check stops
+    if (stops.empty()) {
+        return stops;
+    } else {
+        // get sorted stops
+        std::vector<const GNEDemandElement*> sortedStops;
+        // continue depending of route
+        if (getTagProperty().getTag() == SUMO_TAG_ROUTE) {
+            sortedStops = getSortedStops(getParentEdges());
+        } else if (getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED) {
+            sortedStops = getSortedStops(getChildDemandElements().front()->getParentEdges());
+        }
+        // iterate over sortedStops
+        for (const auto &sortedStop : sortedStops) {
+            const auto it = std::find(stops.begin(), stops.end(), sortedStop);
+            if (it != stops.end()) {
+                stops.erase(it);
+            }
+        }
+        // return stops not found in sortedStops
+        return stops;
+    }
+}
+
+
 bool
 GNEDemandElement::drawPersonPlan() const {
     // check conditions
