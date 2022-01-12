@@ -133,6 +133,9 @@ public:
     /// @brief Definition of a storage for detector states
     typedef std::vector<std::vector<int > > DetectorStatesVector;
 
+    /// @brief Definition of a storage for condition states
+    typedef std::vector<std::vector<int > > ConditionStatesVector;
+
     /**
      * @class GUITLLogicPhasesTrackerPanel
      * @brief The canvas for the visualisation of phases
@@ -206,9 +209,11 @@ private:
 
     /// @brief The state of all used detectors of the current phase
     DetectorStatesVector myDetectorStates;
+    ConditionStatesVector myConditionStates;
 
     /// @brief The list of detector state durations
     DurationsVector myDetectorDurations;
+    DurationsVector myConditionDurations;
 
     /// @brief The panel to draw on
     GUITLLogicPhasesTrackerPanel* myPanel;
@@ -221,14 +226,17 @@ private:
      * This holds an enumeration only - used to avoid time consuming string representation of ints */
     std::vector<std::string> myLinkNames;
     std::vector<std::string> myDetectorNames;
+    std::vector<std::string> myConditionNames;
 
     /// @brief The index of the first phase that fits into the window
     int myFirstPhase2Show;
     int myFirstDet2Show;
+    int myFirstCond2Show;
 
     /// @brief The offset to draw the first phase (left offset)
     SUMOTime myFirstPhaseOffset;
     SUMOTime myFirstDetOffset;
+    SUMOTime myFirstCondOffset;
 
     /// @brief The time the diagram begins at
     SUMOTime myFirstTime2Show;
@@ -265,6 +273,9 @@ private:
 
     /// @brief Whether detector states are drawn
     FXCheckButton* myDetectorMode;
+
+    /// @brief Whether detector states are drawn
+    FXCheckButton* myConditionMode;
 
     /// @brief y-Position of previously opened window
     static int myLastY;
