@@ -268,15 +268,11 @@ GUITLLogicPhasesTrackerWindow::create() {
 
 int
 GUITLLogicPhasesTrackerWindow::computeHeight() {
-    if (myAmInTrackingMode) {
-        int height = myTLLogic->getLinks().size() * 20 + 30 + 8 + 30 + 60;
-        if (myDetectorMode->getCheck()) {
-            height += myTLLogic->getDetectors().size() * 20 + 30;
-        }
-        return height;
-    } else {
-        return myTLLogic->getLinks().size() * 20 + 30 + 8 + 30 + 60;
+    int newHeight = (int)myTLLogic->getLinks().size() * 20 + 30 + 8 + 30 + 60;
+    if (myAmInTrackingMode && myDetectorMode->getCheck()) {
+        newHeight += (int)myTLLogic->getDetectors().size() * 20 + 10;
     }
+    return newHeight;
 }
 
 void
@@ -409,7 +405,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     // optionally draw detector names
     if (myDetectorMode != nullptr && myDetectorMode->getCheck() != FALSE) {
         h -= h60;
-        const double hTop = h;
+        const double top = h;
         glBegin(GL_LINES);
         glVertex2d(0, h);
         glVertex2d(1.0, h);
@@ -422,7 +418,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         // draw the names closure (vertical line)
         glColor3d(1, 1, 1);
         glBegin(GL_LINES);
-        glVertex2d(30. / panelWidth, hTop);
+        glVertex2d(30. / panelWidth, top);
         glVertex2d(30. / panelWidth, h + h20);
         glEnd();
     }
@@ -509,7 +505,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         ta *= barWidth / ((double)(myLastTime - myBeginTime));
         x += ta;
         DetectorStatesVector::iterator di = myDetectorStates.begin() + myFirstDet2Show;
-        SUMOTime fpo = myFirstDetOffset;
+        fpo = myFirstDetOffset;
 
         // start drawing
         glColor3d(0.7, 0.7, 1.0);
@@ -644,12 +640,12 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
             double glpos = (double) pos / panelWidth;
             if (leftOffset > 0) {
                 const double a = STEPS2TIME(leftOffset) * barWidth / timeRange;
-                pos += a;
+                pos += (int)a;
                 glpos += a / panelWidth;
                 currTime += leftOffset;
             } else if (myFirstPhaseOffset > 0) {
                 const double a = -STEPS2TIME(myBeginTime % tickDist) * barWidth / timeRange;
-                pos += a;
+                pos += (int)a;
                 glpos += a / panelWidth;
                 currTime = myBeginTime - (myBeginTime % tickDist);
             }
@@ -680,38 +676,38 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
 
 
 void
-GUITLLogicPhasesTrackerWindow::drawNames(const std::vector<std::string>& names, double fontHeight, double fontWidth, double height, double width, double& h, int extraLines) {
+GUITLLogicPhasesTrackerWindow::drawNames(const std::vector<std::string>& names, double fontHeight, double fontWidth, double divHeight, double divWidth, double& h, int extraLines) {
     int i = 0;
     for (const std::string& name : names) {
         // draw the bar
         glBegin(GL_LINES);
         glVertex2d(0, h);
-        glVertex2d(width, h);
+        glVertex2d(divWidth, h);
         glEnd();
         // draw the name
-        glTranslated(0, h - height, 0);
+        glTranslated(0, h - divHeight, 0);
         GLHelper::drawText(name, Position(0, 0), 1, fontHeight, RGBColor::WHITE, 0, FONS_ALIGN_LEFT | FONS_ALIGN_BOTTOM, fontWidth);
-        glTranslated(0, -h + height, 0);
+        glTranslated(0, -h + divHeight, 0);
 
         if (extraLines > 0 && i > 0 && i % extraLines == 0) {
             glColor3d(0.4, 0.4, 0.4);
             glBegin(GL_LINES);
-            glVertex2d(width, h);
+            glVertex2d(divWidth, h);
             glVertex2d(1.0, h);
             glEnd();
             glColor3d(1, 1, 1);
         }
-        h -= height;
+        h -= divHeight;
         i++;
     }
-    h -= height;
+    h -= divHeight;
 }
 
 
 SUMOTime
 GUITLLogicPhasesTrackerWindow::findTimeInCycle(SUMOTime t) {
     // find latest cycle reset before t
-    int i = myPhases.size() - 1;
+    int i = (int)myPhases.size() - 1;
     SUMOTime lookBack = myLastTime - t - myDurations.back();
     //std::cout << SIMTIME << " findTimeInCycle t=" << STEPS2TIME(t)
     //    << " last=" << STEPS2TIME(myLastTime)

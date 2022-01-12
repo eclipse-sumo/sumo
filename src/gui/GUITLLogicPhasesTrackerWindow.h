@@ -280,7 +280,7 @@ private:
     int computeHeight();
 
     /// @brief draw row title
-    void drawNames(const std::vector<std::string>& names, double fontHeight, double fontWidth, double height, double width, double& h, int extraLines);
+    void drawNames(const std::vector<std::string>& names, double fontHeight, double fontWidth, double divHeight, double divWidth, double& h, int extraLines);
 
     /// @brief find time in cycle based on myTimeInCycle
     SUMOTime findTimeInCycle(SUMOTime t);
