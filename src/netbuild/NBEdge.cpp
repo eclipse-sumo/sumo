@@ -381,7 +381,24 @@ NBEdge::NBEdge(const std::string& id, NBNode* from, NBNode* to, const NBEdge* tp
 
 
 NBEdge::NBEdge() :
-    Named("DUMMY") {
+    Named("DUMMY"),
+    myStep(EdgeBuildingStep::INIT),
+    myFrom(nullptr), myTo(nullptr),
+    myStartAngle(0), myEndAngle(0), myTotalAngle(0),
+    myPriority(0), mySpeed(0),
+    myDistance(0),
+    myTurnDestination(nullptr),
+    myPossibleTurnDestination(nullptr),
+    myFromJunctionPriority(-1), myToJunctionPriority(-1),
+    myLaneSpreadFunction(LaneSpreadFunction::RIGHT),
+    myEndOffset(0),
+    myEdgeStopOffset(StopOffset()),
+    myLaneWidth(0),
+    myLoadedLength(UNSPECIFIED_LOADED_LENGTH),
+    myAmInTLS(false),
+    myAmMacroscopicConnector(false),
+    mySignalPosition(Position::INVALID),
+    mySignalNode(nullptr) {
 }
 
 
