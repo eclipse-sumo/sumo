@@ -291,15 +291,27 @@ public:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(SelectionHierarchy)
 
+        /// @brief comboBox for parents
+        FXComboBox* myParentsComboBox = nullptr;
+
+        /// @brief comboBox for children
+        FXComboBox* myChildrenComboBox = nullptr;
+
+        /// @brief select parents button
+        FXButton* mySelectParentsButton = nullptr;
+
+        /// @brief unselect parents button
+        FXButton* myUnselectParentsButton = nullptr;
+
+        /// @brief select children button
+        FXButton* mySelectChildrenButton = nullptr;
+
+        /// @brief unselect parents button
+        FXButton* myUnselectChildrenButton = nullptr;
+
     private:
         /// @brief pointer to Selector Frame Parent
         GNESelectorFrame* mySelectorFrameParent;
-
-        /// @brief comboBox for parents
-        FXComboBox myParentsComboBox;
-
-        /// @brief comboBox for children
-        FXComboBox myChildrenComboBox;
 
         /// @brief Invalidated copy constructor.
         SelectionHierarchy(const SelectionHierarchy&) = delete;

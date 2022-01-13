@@ -1000,19 +1000,26 @@ GNESelectorFrame::SelectionOperation::askContinueIfLock() const {
 GNESelectorFrame::SelectionHierarchy::SelectionHierarchy(GNESelectorFrame* selectorFrameParent) :
     FXGroupBoxModule(selectorFrameParent->myContentFrame, "Hierarchy operations"),
     mySelectorFrameParent(selectorFrameParent) {
+    // create label for parents
+    new FXLabel(getCollapsableFrame(), "Select parents", nullptr, GUIDesignLabelThickCenter);
+    // Create FXComboBox for parent comboBox
+    myParentsComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SELECT, GUIDesignComboBox);
     // create parent buttons
     FXHorizontalFrame* parentButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // Create "select" Button
-    new FXButton(parentButtons, "Select", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_SELECTORFRAME_SELECTCHILDREN, GUIDesignButton);
+    mySelectParentsButton = new FXButton(parentButtons, "Select", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_SELECTORFRAME_SELECTCHILDREN, GUIDesignButton);
     // Create "unselect" Button
-    new FXButton(parentButtons, "Unselect", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_SELECTORFRAME_UNSELECTCHILDREN, GUIDesignButton);
-    
+    myUnselectParentsButton = new FXButton(parentButtons, "Unselect", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_SELECTORFRAME_UNSELECTCHILDREN, GUIDesignButton);
+    // create label for parents
+    new FXLabel(getCollapsableFrame(), "Select children", nullptr, GUIDesignLabelThickCenter);
+    // Create FXComboBox for parent comboBox
+    myChildrenComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SELECT, GUIDesignComboBox);
     // create children buttons
     FXHorizontalFrame* childrenButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // Create "select" Button
-    new FXButton(childrenButtons, "Select", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_SELECTORFRAME_SELECTCHILDREN, GUIDesignButton);
+    mySelectChildrenButton = new FXButton(childrenButtons, "Select", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_SELECTORFRAME_SELECTCHILDREN, GUIDesignButton);
     // Create "unselect" Button
-    new FXButton(childrenButtons, "Unselect", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_SELECTORFRAME_UNSELECTCHILDREN, GUIDesignButton);
+    myUnselectChildrenButton = new FXButton(childrenButtons, "Unselect", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_SELECTORFRAME_UNSELECTCHILDREN, GUIDesignButton);
 }
 
 
