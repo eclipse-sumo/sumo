@@ -273,49 +273,23 @@ public:
         /// @name FOX-callbacks
         /// @{
 
-        /**@brief Called when the user presses the Load-button
-         * @note Opens a file dialog and forces the parent to load the list of selected
-         * objects when a file was chosen. Rebuilds the list, then, and redraws itself.
-         */
-        long onCmdLoad(FXObject*, FXSelector, void*);
+        /// @brief called when user press select parents button
+        long onCmdSelectParents(FXObject*, FXSelector, void*);
 
-        /** @brief Called when the user presses the Save-button
-         * @note Opens a file dialog and forces the selection container to save the list
-           of selected objects when a file was chosen. If the saveing failed, a message window is shown.
-         */
-        long onCmdSave(FXObject*, FXSelector, void*);
+        /// @brief called when user press unselect parents button
+        long onCmdUnselectParents(FXObject*, FXSelector, void*);
 
-        /**@brief Called when the user presses the Clear-button
-         * @note Clear the internal list and calls GUISelectedStorage::clear and repaints itself
-         */
-        long onCmdClear(FXObject*, FXSelector, void*);
+        /// @brief called when user press select childrens button
+        long onCmdSelectChildren(FXObject*, FXSelector, void*);
 
-        /**@brief Called when the user presses the delete-button
-         */
-        long onCmdDelete(FXObject*, FXSelector, void*);
-
-        /**@brief Called when the user presses the Invert-button
-         * @note invert the selection and repaints itself
-         */
-        long onCmdInvert(FXObject*, FXSelector, void*);
+        /// @brief called when user press unselect childrens button
+        long onCmdUnselectChildren(FXObject*, FXSelector, void*);
 
         /// @}
 
     protected:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(SelectionHierarchy)
-
-        /// @brief process network element selection
-        bool processNetworkElementSelection(const bool onlyCount, const bool onlyUnselect, bool& ignoreLocking);
-
-        /// @brief process demand element selection
-        bool processDemandElementSelection(const bool onlyCount, const bool onlyUnselect, bool& ignoreLocking);
-
-        /// @brief process data element selection
-        bool processDataElementSelection(const bool onlyCount, const bool onlyUnselect, bool& ignoreLocking);
-
-        /// @brief ask if continue due locking
-        bool askContinueIfLock() const;
 
     private:
         /// @brief pointer to Selector Frame Parent

@@ -895,6 +895,14 @@ enum {
     MID_GNE_SELECTORFRAME_SETBEGIN,
     /// @brief end text field
     MID_GNE_SELECTORFRAME_SETEND,
+    /// @brief select parents
+    MID_GNE_SELECTORFRAME_SELECTPARENTS,
+    /// @brief unselect parents
+    MID_GNE_SELECTORFRAME_UNSELECTPARENTS,
+    /// @brief select children
+    MID_GNE_SELECTORFRAME_SELECTCHILDREN,
+    /// @brief unselect children
+    MID_GNE_SELECTORFRAME_UNSELECTCHILDREN,
 
     /// @}
 
