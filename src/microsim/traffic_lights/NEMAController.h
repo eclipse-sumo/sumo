@@ -112,7 +112,7 @@ public:
 
     std::string combineStates(std::string state1, std::string state2);
 
-    bool isDetectorActivated(int phaseIndex);
+    bool isDetectorActivated(int phaseIndex) const;
 
     int nextPhase(std::vector<int> ring, int currentPhase);
 
@@ -147,6 +147,9 @@ public:
 
     /// @brief try to set the given parameter. Parameters prefixed with 'NEMA.' control functionality
     void setParameter(const std::string& key, const std::string& value) override; 
+    
+    /// @brief try to get the value of the given parameter. Parameters prefixed with 'NEMA.' control functionality
+    const std::string getParameter(const std::string& key, const std::string defaultValue = "") const override;
 
 protected:
     // create a small datatype for mapping detector to phase index
