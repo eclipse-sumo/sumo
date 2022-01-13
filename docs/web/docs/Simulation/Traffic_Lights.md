@@ -373,7 +373,7 @@ phase run more than once in the same cycle (this only happens when param
 ```
 <tlLogic id="0" programID="my_program" offset="10" type="actuated">
   <param key="coordinated" value="true"/>
-  <param key="cycleTime value="60"/>
+  <param key="cycleTime" value="60"/>
 
   <phase duration="31" minDur="5" maxDur="45" state="GGggrrrrGGggrrrr" earliestEnd="10" latestEnd="50"/>
   ...
