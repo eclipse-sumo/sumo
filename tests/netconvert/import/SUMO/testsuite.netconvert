@@ -108,3 +108,6 @@ elevation
 
 # load a network with junction names and write it to plain-xml and .net.xml
 junction_name
+
+# use stored option in network (#4397)
+internalJunctionVehicleWidth
