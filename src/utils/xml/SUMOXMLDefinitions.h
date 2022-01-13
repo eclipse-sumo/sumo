@@ -1622,11 +1622,11 @@ enum LaneChangeAction {
 
 
 /// @enum LaneChangeModel
-enum LaneChangeModel {
-    LCM_DK2008,
-    LCM_LC2013,
-    LCM_SL2015,
-    LCM_DEFAULT
+enum class LaneChangeModel {
+    DK2008,
+    LC2013,
+    SL2015,
+    DEFAULT
 };
 
 /// @enum train types

@@ -94,7 +94,7 @@
 // member method definitions
 // ===========================================================================
 MSLCM_LC2013::MSLCM_LC2013(MSVehicle& v) :
-    MSAbstractLaneChangeModel(v, LCM_LC2013),
+    MSAbstractLaneChangeModel(v, LaneChangeModel::LC2013),
     mySpeedGainProbability(0),
     myKeepRightProbability(0),
     myLeadingBlockerLength(0),

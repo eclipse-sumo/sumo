@@ -5194,7 +5194,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
     }
     if (nextStopEdge != myRoute->end()) {
         // make sure that the "wrong" lanes get a penalty. (penalty needs to be
-        // large enough to overcome a magic threshold in MSLCM_DK2004.cpp:383)
+        // large enough to overcome a magic threshold in MSLaneChangeModel::DK2004.cpp:383)
         nextStopPos = MAX2(POSITION_EPS, MIN2((double)nextStopPos, (double)(nextStopLane->getLength() - 2 * POSITION_EPS)));
         if (nextStopLane->isInternal()) {
             // switch to the correct lane before entering the intersection

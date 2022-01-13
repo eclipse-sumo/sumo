@@ -442,7 +442,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
     }
     glScaled(upscale, upscaleLength, 1);
     /*
-        MSLCM_DK2004 &m2 = static_cast<MSLCM_DK2004&>(veh->getLaneChangeModel());
+        MSLaneChangeModel::DK2004 &m2 = static_cast<MSLaneChangeModel::DK2004&>(veh->getLaneChangeModel());
         if((m2.getState()&LCA_URGENT)!=0) {
             glColor3d(1, .4, .4);
         } else if((m2.getState()&LCA_SPEEDGAIN)!=0) {
@@ -544,7 +544,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
         if (s.drawLaneChangePreference) {
             /*
                if(gSelected.isSelected(GLO_VEHICLE, veh->getGlID())) {
-               MSLCM_DK2004 &m = static_cast<MSLCM_DK2004&>(veh->getLaneChangeModel());
+               MSLaneChangeModel::DK2004 &m = static_cast<MSLaneChangeModel::DK2004&>(veh->getLaneChangeModel());
                glColor3d(.5, .5, 1);
                glBegin(GL_LINES);
                glVertex2f(0, 0);

@@ -50,7 +50,7 @@
 // member method definitions
 // ===========================================================================
 MSLCM_DK2008::MSLCM_DK2008(MSVehicle& v)
-    : MSAbstractLaneChangeModel(v, LCM_DK2008),
+    : MSAbstractLaneChangeModel(v, LaneChangeModel::DK2008),
       myChangeProbability(0),
       myLeadingBlockerLength(0), myLeftSpace(0) {}
 

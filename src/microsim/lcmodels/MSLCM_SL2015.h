@@ -41,7 +41,7 @@ public:
 
     /// @brief Returns the model's id
     LaneChangeModel getModelID() const override {
-        return LCM_SL2015;
+        return LaneChangeModel::SL2015;
     }
 
     /// @brief init cached parameters derived directly from model parameters

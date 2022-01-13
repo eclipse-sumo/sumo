@@ -1435,7 +1435,7 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
         // compute the remaining distance that can be driven on the opposite side
         // this value will put into oppositeLength of the opposite lanes
         // @note: length counts from the start of the current lane
-        // @note: see MSLCM_LC2013::_wantsChange @1092 (isOpposite()
+        // @note: see MSLaneChangeModel::LC2013::_wantsChange @1092 (isOpposite()
         // position on the target lane
         const double forwardPos = source->getOppositePos(vehicle->getPositionOnLane());
 

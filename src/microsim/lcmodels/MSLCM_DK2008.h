@@ -43,7 +43,7 @@ public:
 
     /// @brief Returns the model's id
     LaneChangeModel getModelID() const {
-        return LCM_DK2008;
+        return LaneChangeModel::DK2008;
     }
 
     /** @brief Called to examine whether the vehicle wants to change

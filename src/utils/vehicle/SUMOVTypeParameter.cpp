@@ -259,7 +259,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
       shape(SUMOVehicleShape::UNKNOWN),
       osgFile("car-normal-citrus.obj"),
       cfModel(SUMO_TAG_CF_KRAUSS),
-      lcModel(LCM_DEFAULT),
+      lcModel(LaneChangeModel::DEFAULT),
       maxSpeedLat(1.0),
       latAlignmentOffset(0.0),
       latAlignmentProcedure(LatAlignmentDefinition::CENTER),

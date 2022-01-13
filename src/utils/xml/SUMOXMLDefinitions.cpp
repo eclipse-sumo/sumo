@@ -1065,10 +1065,10 @@ StringBijection<TrafficLightLayout>::Entry SUMOXMLDefinitions::trafficLightLayou
 
 
 StringBijection<LaneChangeModel>::Entry SUMOXMLDefinitions::laneChangeModelValues[] = {
-    { "DK2008",     LCM_DK2008 },
-    { "LC2013",     LCM_LC2013 },
-    { "SL2015",     LCM_SL2015 },
-    { "default",    LCM_DEFAULT } //< must be the last one
+    { "DK2008",     LaneChangeModel::DK2008 },
+    { "LC2013",     LaneChangeModel::LC2013 },
+    { "SL2015",     LaneChangeModel::SL2015 },
+    { "default",    LaneChangeModel::DEFAULT } //< must be the last one
 };
 
 StringBijection<SumoXMLTag>::Entry SUMOXMLDefinitions::carFollowModelValues[] = {
@@ -1163,7 +1163,7 @@ StringBijection<TrafficLightLayout> SUMOXMLDefinitions::TrafficLightLayouts(
     SUMOXMLDefinitions::trafficLightLayoutValues, TrafficLightLayout::DEFAULT);
 
 StringBijection<LaneChangeModel> SUMOXMLDefinitions::LaneChangeModels(
-    SUMOXMLDefinitions::laneChangeModelValues, LCM_DEFAULT);
+    SUMOXMLDefinitions::laneChangeModelValues, LaneChangeModel::DEFAULT);
 
 StringBijection<SumoXMLTag> SUMOXMLDefinitions::CarFollowModels(
     SUMOXMLDefinitions::carFollowModelValues, SUMO_TAG_CF_WIEDEMANN);

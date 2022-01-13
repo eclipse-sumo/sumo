@@ -114,7 +114,7 @@
 // member method definitions
 // ===========================================================================
 MSLCM_SL2015::MSLCM_SL2015(MSVehicle& v) :
-    MSAbstractLaneChangeModel(v, LCM_SL2015),
+    MSAbstractLaneChangeModel(v, LaneChangeModel::SL2015),
     mySpeedGainProbabilityRight(0),
     mySpeedGainProbabilityLeft(0),
     myKeepRightProbability(0),
