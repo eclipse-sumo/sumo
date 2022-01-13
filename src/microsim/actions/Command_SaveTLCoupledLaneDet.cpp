@@ -37,7 +37,7 @@
 Command_SaveTLCoupledLaneDet::Command_SaveTLCoupledLaneDet(MSTLLogicControl::TLSLogicVariants& tlls,
         MSDetectorFileOutput* dtf, SUMOTime begin, OutputDevice& device, const MSLink* link)
     : Command_SaveTLCoupledDet(tlls, dtf, begin, device),
-      myLink(link), myLastState(LinkState::TL_RED),
+      myLink(link), myLastState(LINKSTATE_TL_RED),
       myHadOne(false) {
     execute();
 }
@@ -53,13 +53,13 @@ Command_SaveTLCoupledLaneDet::execute() {
         return;
     }
     myHadOne = true;
-    if (myLastState == LinkState::TL_RED && myLink->getState() != LinkState::TL_RED) {
+    if (myLastState == LINKSTATE_TL_RED && myLink->getState() != LINKSTATE_TL_RED) {
         SUMOTime end = MSNet::getInstance()->getCurrentTimeStep();
         if (myStartTime != end) {
             myDetector->writeXMLOutput(myDevice, myStartTime, end);
             myStartTime = end;
         }
-    } else if (myLink->getState() == LinkState::TL_RED) {
+    } else if (myLink->getState() == LINKSTATE_TL_RED) {
         myDetector->reset();
         myStartTime = MSNet::getInstance()->getCurrentTimeStep();
     }

@@ -124,7 +124,7 @@ MSDelayBasedTrafficLightLogic::proposeProlongation(const SUMOTime actDuration, c
     // iterate over green lanes, eventually increase the proposed prolongationTime to the estimated passing time for each lane.
     for (int i = 0; i < (int) state.size(); i++)  {
         // this lane index corresponds to a non-green time
-        bool igreen = state[i] == (char)LinkState::TL_GREEN_MAJOR || state[i] == (char)LinkState::TL_GREEN_MINOR;
+        bool igreen = state[i] == LINKSTATE_TL_GREEN_MAJOR || state[i] == LINKSTATE_TL_GREEN_MINOR;
         for (const MSLane* const lane : getLanesAt(i)) {
             std::map<const MSLane*, MSE2Collector*>::iterator it = myLaneDetectors.find(lane);
             if (it == myLaneDetectors.end()) {

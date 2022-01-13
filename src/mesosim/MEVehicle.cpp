@@ -180,7 +180,7 @@ void
 MEVehicle::setApproaching(MSLink* link) {
     if (link != nullptr) {
         const double speed = getSpeed();
-        link->setApproaching(this, getEventTime() + (link->getState() == LinkState::ALLWAY_STOP ?
+        link->setApproaching(this, getEventTime() + (link->getState() == LINKSTATE_ALLWAY_STOP ?
                              (SUMOTime)RandHelper::rand((int)2) : 0), // tie braker
                              speed, speed, true,
                              getEventTime(), speed, getWaitingTime(),

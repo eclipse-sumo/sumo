@@ -49,7 +49,7 @@ public:
      * @param[in] shape The shape of the lane
      * @param[in] tlIndex The tl-index of the lane
      */
-    GNEInternalLane(GNETLSEditorFrame* editor, const GNEJunction* junctionParent, const std::string& id, const PositionVector& shape, int tlIndex, LinkState state = LinkState::DEADEND);
+    GNEInternalLane(GNETLSEditorFrame* editor, const GNEJunction* junctionParent, const std::string& id, const PositionVector& shape, int tlIndex, LinkState state = LINKSTATE_DEADEND);
 
     /// @brief Destructor
     ~GNEInternalLane();
@@ -118,10 +118,10 @@ public:
     int getTLIndex() const;
 
     /// @brief long names for link states
-    static const StringBijection<LinkState> LinkStateNames;
+    static const StringBijection<FXuint> LinkStateNames;
 
     /// @brief return the color for each linkstate
-    static RGBColor colorForLinksState(LinkState state);
+    static RGBColor colorForLinksState(FXuint state);
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
@@ -172,7 +172,7 @@ private:
     GUIGeometry myInternalLaneGeometry;
 
     /// @brief the state of the link (used for visualization)
-    LinkState myState;
+    FXuint myState;
     FXDataTarget myStateTarget;
 
     /// @brief the original state of the link (used for tracking modification)
@@ -191,7 +191,7 @@ private:
     GUIGLObjectPopupMenu* myPopup;
 
     /// @brief linkstates names values
-    static StringBijection<LinkState>::Entry linkStateNamesValues[];
+    static StringBijection<FXuint>::Entry linkStateNamesValues[];
 
 private:
     /// @brief set attribute after validation

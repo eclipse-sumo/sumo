@@ -85,7 +85,7 @@ MSLink::MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection di
     myTLIndex(tlIndex),
     myLogic(logic),
     myState(state),
-    myLastGreenState(LinkState::TL_GREEN_MINOR),
+    myLastGreenState(LINKSTATE_TL_GREEN_MINOR),
     myOffState(state),
     myLastStateChange(SUMOTime_MIN / 2), // a large negative value, but avoid overflows when subtracting
     myDirection(dir),
@@ -617,13 +617,13 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
             }
         }
     }
-    if ((havePriority() || lastWasContMajorGreen()) && myState != LinkState::ZIPPER) {
+    if ((havePriority() || lastWasContMajorGreen()) && myState != LINKSTATE_ZIPPER) {
         // priority usually means the link is open but there are exceptions:
         // zipper still needs to collect foes
         // sublane model could have detected a conflict
         return collectFoes == nullptr || collectFoes->size() == 0;
     }
-    if ((myState == LinkState::STOP || myState == LinkState::ALLWAY_STOP) && waitingTime == 0) {
+    if ((myState == LINKSTATE_STOP || myState == LINKSTATE_ALLWAY_STOP) && waitingTime == 0) {
         return false;
     }
 
@@ -717,7 +717,7 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
     if (!avi.willPass) {
         return false;
     }
-    if (myState == LinkState::ALLWAY_STOP) {
+    if (myState == LINKSTATE_ALLWAY_STOP) {
         assert(waitingTime > 0);
         if (waitingTime > avi.waitingTime) {
             return false;
@@ -727,7 +727,7 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
         }
     }
     const SUMOTime foeArrivalTime = (SUMOTime)((1.0 - impatience) * avi.arrivalTime + impatience * avi.arrivalTimeBraking);
-    const SUMOTime lookAhead = (myState == LinkState::ZIPPER
+    const SUMOTime lookAhead = (myState == LINKSTATE_ZIPPER
                                 ? myLookaheadTimeZipper
                                 : (ego == nullptr
                                    ? myLookaheadTime
@@ -830,7 +830,7 @@ MSLink::setTLState(LinkState state, SUMOTime t) {
 bool
 MSLink::isCont() const {
     // when a traffic light is switched off minor roads have their cont status revoked
-    return myState != LinkState::TL_OFF_BLINKING ? myAmCont : myAmContOff;
+    return myState != LINKSTATE_TL_OFF_BLINKING ? myAmCont : myAmContOff;
 }
 
 
@@ -851,7 +851,7 @@ MSLink::lastWasContMajor() const {
                 return true;
             }
             if (myHavePedestrianCrossingFoe) {
-                return predLink->getLastGreenState() == LinkState::TL_GREEN_MAJOR;
+                return predLink->getLastGreenState() == LINKSTATE_TL_GREEN_MAJOR;
             } else {
                 return predLink->haveYellow();
             }
@@ -873,7 +873,7 @@ MSLink::lastWasContMajorGreen() const {
             assert(pred2 != nullptr);
             const MSLink* const predLink = pred2->getLinkTo(pred);
             assert(predLink != nullptr);
-            return predLink->getState() == LinkState::TL_GREEN_MAJOR || predLink->getState() == LinkState::TL_RED;
+            return predLink->getState() == LINKSTATE_TL_GREEN_MAJOR || predLink->getState() == LINKSTATE_TL_RED;
         }
     }
 }
@@ -1500,7 +1500,7 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
                        SUMOTime arrivalTime,
                        BlockingFoes* collectFoes) const {
     if (myFoeLinks.size() == 0) {
-        // link should have LinkState::MAJOR in this case
+        // link should have LINKSTATE_MAJOR in this case
         assert(false);
         return vSafe;
     } else if (myFoeLinks.size() > 1) {
@@ -1656,7 +1656,7 @@ MSLink::checkContOff() const {
     // we check whether there is any major link from this edge
     for (const MSLane* cand : myLaneBefore->getEdge().getLanes()) {
         for (const MSLink* link : cand->getLinkCont()) {
-            if (link->getOffState() == LinkState::TL_OFF_NOSIGNAL) {
+            if (link->getOffState() == LINKSTATE_TL_OFF_NOSIGNAL) {
                 return true;
             }
         }

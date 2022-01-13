@@ -846,7 +846,7 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
                         (*it).customTLIndex = conn.tlLinkIndex;
                     } else {
                         LinkState state = SUMOXMLDefinitions::LinkStates.get(attrs.get<std::string>(SUMO_ATTR_STATE, nullptr, ok));
-                        (*it).priority = state == LinkState::MAJOR;
+                        (*it).priority = state == LINKSTATE_MAJOR;
                     }
                 }
             }

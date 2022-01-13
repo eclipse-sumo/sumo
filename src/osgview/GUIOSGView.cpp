@@ -81,7 +81,7 @@ operator<<(std::ostream& os, const osg::Vec3d& v) {
 // ===========================================================================
 
 GUIOSGView::Command_TLSChange::Command_TLSChange(const MSLink* const link, osg::Switch* switchNode)
-    : myLink(link), mySwitch(switchNode), myLastState(LinkState::TL_OFF_NOSIGNAL) {
+    : myLink(link), mySwitch(switchNode), myLastState(LINKSTATE_TL_OFF_NOSIGNAL) {
     execute();
 }
 
@@ -92,18 +92,18 @@ GUIOSGView::Command_TLSChange::~Command_TLSChange() {}
 void
 GUIOSGView::Command_TLSChange::execute() {
     switch (myLink->getState()) {
-        case LinkState::TL_GREEN_MAJOR:
-        case LinkState::TL_GREEN_MINOR:
+        case LINKSTATE_TL_GREEN_MAJOR:
+        case LINKSTATE_TL_GREEN_MINOR:
             mySwitch->setSingleChildOn(0);
             break;
-        case LinkState::TL_YELLOW_MAJOR:
-        case LinkState::TL_YELLOW_MINOR:
+        case LINKSTATE_TL_YELLOW_MAJOR:
+        case LINKSTATE_TL_YELLOW_MINOR:
             mySwitch->setSingleChildOn(1);
             break;
-        case LinkState::TL_RED:
+        case LINKSTATE_TL_RED:
             mySwitch->setSingleChildOn(2);
             break;
-        case LinkState::TL_REDYELLOW:
+        case LINKSTATE_TL_REDYELLOW:
             mySwitch->setSingleChildOn(3);
             break;
         default:

@@ -373,22 +373,22 @@ public:
      * @return Whether the link has a large priority
      */
     inline bool havePriority() const {
-        return (char)myState >= 'A' && (char)myState <= 'Z';
+        return myState >= 'A' && myState <= 'Z';
     }
 
     /** @brief Returns whether this link is blocked by a red (or redyellow) traffic light
      * @return Whether the link has a red light
      */
     inline bool haveRed() const {
-        return myState == LinkState::TL_RED || myState == LinkState::TL_REDYELLOW;
+        return myState == LINKSTATE_TL_RED || myState == LINKSTATE_TL_REDYELLOW;
     }
 
     inline bool haveYellow() const {
-        return myState == LinkState::TL_YELLOW_MINOR || myState == LinkState::TL_YELLOW_MAJOR;
+        return myState == LINKSTATE_TL_YELLOW_MINOR || myState == LINKSTATE_TL_YELLOW_MAJOR;
     }
 
     inline bool haveGreen() const {
-        return myState == LinkState::TL_GREEN_MAJOR || myState == LinkState::TL_GREEN_MINOR;
+        return myState == LINKSTATE_TL_GREEN_MAJOR || myState == LINKSTATE_TL_GREEN_MINOR;
     }
 
     inline bool isTLSControlled() const {

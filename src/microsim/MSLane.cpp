@@ -790,10 +790,10 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             // have to stop at junction
             std::string errorMsg = "";
             const LinkState state = (*link)->getState();
-            if (state == LinkState::MINOR
-                    || state == LinkState::EQUAL
-                    || state == LinkState::STOP
-                    || state == LinkState::ALLWAY_STOP) {
+            if (state == LINKSTATE_MINOR
+                    || state == LINKSTATE_EQUAL
+                    || state == LINKSTATE_STOP
+                    || state == LINKSTATE_ALLWAY_STOP) {
                 // no sense in trying later
                 errorMsg = "unpriorised junction too close";
             } else if ((*link)->getTLLogic() != nullptr && !(*link)->getTLLogic()->getsMajorGreen((*link)->getTLIndex())) {
@@ -2728,7 +2728,7 @@ LinkState
 MSLane::getIncomingLinkState() const {
     const MSLane* const pred = getLogicalPredecessorLane();
     if (pred == nullptr) {
-        return LinkState::DEADEND;
+        return LINKSTATE_DEADEND;
     } else {
         return pred->getLinkTo(this)->getState();
     }

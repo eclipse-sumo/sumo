@@ -39,20 +39,20 @@ FXIMPLEMENT(GNEInternalLane, FXDelegator, 0, 0)
 // static member definitions
 // ===========================================================================
 
-StringBijection<LinkState>::Entry GNEInternalLane::linkStateNamesValues[] = {
-    { "Green-Major",    LinkState::TL_GREEN_MAJOR },
-    { "Green-Minor",    LinkState::TL_GREEN_MINOR },
-    { "Yellow-Major",   LinkState::TL_YELLOW_MAJOR },
-    { "Yellow-Minor",   LinkState::TL_YELLOW_MINOR },
-    { "Red",            LinkState::TL_RED },
-    { "Red-Yellow",     LinkState::TL_REDYELLOW },
-    { "Stop",           LinkState::STOP },
-    { "Off",            LinkState::TL_OFF_NOSIGNAL },
-    { "Off-Blinking",   LinkState::TL_OFF_BLINKING },
+StringBijection<FXuint>::Entry GNEInternalLane::linkStateNamesValues[] = {
+    { "Green-Major",    LINKSTATE_TL_GREEN_MAJOR },
+    { "Green-Minor",    LINKSTATE_TL_GREEN_MINOR },
+    { "Yellow-Major",   LINKSTATE_TL_YELLOW_MAJOR },
+    { "Yellow-Minor",   LINKSTATE_TL_YELLOW_MINOR },
+    { "Red",            LINKSTATE_TL_RED },
+    { "Red-Yellow",     LINKSTATE_TL_REDYELLOW },
+    { "Stop",           LINKSTATE_STOP },
+    { "Off",            LINKSTATE_TL_OFF_NOSIGNAL },
+    { "Off-Blinking",   LINKSTATE_TL_OFF_BLINKING },
 };
 
-const StringBijection<LinkState> GNEInternalLane::LinkStateNames(
-    GNEInternalLane::linkStateNamesValues, LinkState::TL_OFF_BLINKING);
+const StringBijection<FXuint> GNEInternalLane::LinkStateNames(
+    GNEInternalLane::linkStateNamesValues, LINKSTATE_TL_OFF_BLINKING);
 
 // ===========================================================================
 // method definitions
@@ -61,13 +61,13 @@ const StringBijection<LinkState> GNEInternalLane::LinkStateNames(
 GNEInternalLane::GNEInternalLane(GNETLSEditorFrame* editor, const GNEJunction* junctionParent,
                                  const std::string& id, const PositionVector& shape, int tlIndex, LinkState state) :
     GNENetworkElement(junctionParent->getNet(), id, GLO_TLLOGIC, GNE_TAG_INTERNAL_LANE,
-        {}, {}, {}, {}, {}, {}, {}, {}),
-    myJunctionParent(junctionParent),
-    myState(state),
-    /*myStateTarget((FXuint)(char)myState),*/
-    myEditor(editor),
-    myTlIndex(tlIndex),
-    myPopup(nullptr) {
+{}, {}, {}, {}, {}, {}, {}, {}),
+myJunctionParent(junctionParent),
+myState(state),
+myStateTarget(myState),
+myEditor(editor),
+myTlIndex(tlIndex),
+myPopup(nullptr) {
     // calculate internal lane geometry
     myInternalLaneGeometry.updateGeometry(shape);
     // update centering boundary without updating grid
@@ -77,12 +77,12 @@ GNEInternalLane::GNEInternalLane(GNETLSEditorFrame* editor, const GNEJunction* j
 
 GNEInternalLane::GNEInternalLane() :
     GNENetworkElement(nullptr, "dummyInternalLane", GLO_TLLOGIC, GNE_TAG_INTERNAL_LANE,
-        {}, {}, {}, {}, {}, {}, {}, {}),
-    myJunctionParent(nullptr),
-    myState(LinkState::ALLWAY_STOP),
-    myEditor(0),
-    myTlIndex(0),
-    myPopup(nullptr) {
+{}, {}, {}, {}, {}, {}, {}, {}),
+myJunctionParent(nullptr),
+myState(0),
+myEditor(0),
+myTlIndex(0),
+myPopup(nullptr) {
 }
 
 
@@ -117,7 +117,7 @@ GNEInternalLane::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndo
 long
 GNEInternalLane::onDefault(FXObject* obj, FXSelector sel, void* data) {
     if (myEditor != nullptr) {
-        LinkState before = myState;
+        FXuint before = myState;
         myStateTarget.handle(obj, sel, data);
         if (myState != before) {
             myEditor->handleChange(this);
@@ -185,9 +185,9 @@ GNEInternalLane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     if ((myEditor != nullptr) && (myEditor->getViewNet()->getEditModes().isCurrentSupermodeNetwork())) {
         const std::vector<std::string> names = LinkStateNames.getStrings();
         for (std::vector<std::string>::const_iterator it = names.begin(); it != names.end(); it++) {
-            LinkState state = LinkStateNames.get(*it);
+            FXuint state = LinkStateNames.get(*it);
             std::string origHint = ((LinkState)state == myOrigState ? " (original)" : "");
-            FXMenuRadio* mc = new FXMenuRadio(myPopup, (*it + origHint).c_str(), this, FXDataTarget::ID_OPTION + (FXuint)state);
+            FXMenuRadio* mc = new FXMenuRadio(myPopup, (*it + origHint).c_str(), this, FXDataTarget::ID_OPTION + state);
             mc->setSelBackColor(MFXUtils::getFXColor(colorForLinksState(state)));
             mc->setBackColor(MFXUtils::getFXColor(colorForLinksState(state)));
         }
@@ -220,13 +220,13 @@ GNEInternalLane::updateCenteringBoundary(const bool /*updateGrid*/) {
 
 
 RGBColor
-GNEInternalLane::colorForLinksState(LinkState state) {
-    if (state == LinkState::TL_YELLOW_MINOR) {
+GNEInternalLane::colorForLinksState(FXuint state) {
+    if (state == LINKSTATE_TL_YELLOW_MINOR) {
         // special case (default gui does not distinguish between yellow major/minor
         return RGBColor(179, 179, 0, 255);
     } else {
         try {
-            return GUIVisualizationSettings::getLinkColor(state);
+            return GUIVisualizationSettings::getLinkColor((LinkState)state);
         } catch (ProcessError&) {
             WRITE_WARNING("invalid link state='" + toString(state) + "'");
             return RGBColor::BLACK;

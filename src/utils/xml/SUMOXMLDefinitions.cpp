@@ -995,35 +995,34 @@ StringBijection<PersonMode>::Entry SUMOXMLDefinitions::personModeValuesInitializ
 };
 
 StringBijection<LinkState>::Entry SUMOXMLDefinitions::linkStateValues[] = {
-    { "G", LinkState::TL_GREEN_MAJOR },
-    { "g", LinkState::TL_GREEN_MINOR },
-    { "r", LinkState::TL_RED },
-    { "u", LinkState::TL_REDYELLOW },
-    { "Y", LinkState::TL_YELLOW_MAJOR },
-    { "y", LinkState::TL_YELLOW_MINOR },
-    { "o", LinkState::TL_OFF_BLINKING },
-    { "O", LinkState::TL_OFF_NOSIGNAL },
-    { "M", LinkState::MAJOR },
-    { "m", LinkState::MINOR },
-    { "=", LinkState::EQUAL },
-    { "s", LinkState::STOP },
-    { "w", LinkState::ALLWAY_STOP },
-    { "Z", LinkState::ZIPPER },
-    { "-", LinkState::DEADEND } //< must be the last one
+    { "G", LINKSTATE_TL_GREEN_MAJOR },
+    { "g", LINKSTATE_TL_GREEN_MINOR },
+    { "r", LINKSTATE_TL_RED },
+    { "u", LINKSTATE_TL_REDYELLOW },
+    { "Y", LINKSTATE_TL_YELLOW_MAJOR },
+    { "y", LINKSTATE_TL_YELLOW_MINOR },
+    { "o", LINKSTATE_TL_OFF_BLINKING },
+    { "O", LINKSTATE_TL_OFF_NOSIGNAL },
+    { "M", LINKSTATE_MAJOR },
+    { "m", LINKSTATE_MINOR },
+    { "=", LINKSTATE_EQUAL },
+    { "s", LINKSTATE_STOP },
+    { "w", LINKSTATE_ALLWAY_STOP },
+    { "Z", LINKSTATE_ZIPPER },
+    { "-", LINKSTATE_DEADEND } //< must be the last one
 };
 
 const char SUMOXMLDefinitions::AllowedTLS_linkStatesInitializer[] = {
-    (char)LinkState::TL_GREEN_MAJOR,
-    (char)LinkState::TL_GREEN_MINOR,
-    (char)LinkState::STOP, // used for SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED
-    (char)LinkState::TL_RED,
-    (char)LinkState::TL_REDYELLOW,
-    (char)LinkState::TL_YELLOW_MAJOR,
-    (char)LinkState::TL_YELLOW_MINOR,
-    (char)LinkState::TL_OFF_BLINKING,
-    (char)LinkState::TL_OFF_NOSIGNAL
+    LINKSTATE_TL_GREEN_MAJOR,
+    LINKSTATE_TL_GREEN_MINOR,
+    LINKSTATE_STOP, // used for SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED
+    LINKSTATE_TL_RED,
+    LINKSTATE_TL_REDYELLOW,
+    LINKSTATE_TL_YELLOW_MAJOR,
+    LINKSTATE_TL_YELLOW_MINOR,
+    LINKSTATE_TL_OFF_BLINKING,
+    LINKSTATE_TL_OFF_NOSIGNAL
 };
-
 const std::string SUMOXMLDefinitions::ALLOWED_TLS_LINKSTATES(AllowedTLS_linkStatesInitializer, 9);
 
 StringBijection<LinkDirection>::Entry SUMOXMLDefinitions::linkDirectionValues[] = {
@@ -1152,7 +1151,7 @@ StringBijection<PersonMode> SUMOXMLDefinitions::PersonModeValues(
     SUMOXMLDefinitions::personModeValuesInitializer, PersonMode::PUBLIC);
 
 StringBijection<LinkState> SUMOXMLDefinitions::LinkStates(
-    SUMOXMLDefinitions::linkStateValues, LinkState::DEADEND);
+    SUMOXMLDefinitions::linkStateValues, LINKSTATE_DEADEND);
 
 StringBijection<LinkDirection> SUMOXMLDefinitions::LinkDirections(
     SUMOXMLDefinitions::linkDirectionValues, LinkDirection::NODIR);

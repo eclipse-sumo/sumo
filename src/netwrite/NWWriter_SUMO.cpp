@@ -201,7 +201,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     device.writeAttr(SUMO_ATTR_TLLINKINDEX, nextCrossing.tlLinkIndex);
                 }
                 device.writeAttr(SUMO_ATTR_DIR, LinkDirection::STRAIGHT);
-                device.writeAttr(SUMO_ATTR_STATE, nextCrossing.priority ? LinkState::MAJOR : LinkState::MINOR);
+                device.writeAttr(SUMO_ATTR_STATE, nextCrossing.priority ? LINKSTATE_MAJOR : LINKSTATE_MINOR);
                 device.closeTag();
             }
             // optional connections from/to sidewalk
@@ -776,7 +776,7 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
             const LinkState linkState = from.getToNode()->getLinkState(
                                             &from, c.toEdge, c.fromLane, c.toLane, c.mayDefinitelyPass, c.tlID);
             into.writeAttr(SUMO_ATTR_STATE, linkState);
-            if (linkState == LinkState::MINOR
+            if (linkState == LINKSTATE_MINOR
                     && c.visibility == NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE
                     && c.toEdge->getJunctionPriority(c.toEdge->getToNode()) == NBEdge::JunctionPriority::ROUNDABOUT) {
                 const double visibilityDistance = OptionsCont::getOptions().getFloat("roundabouts.visibility-distance");

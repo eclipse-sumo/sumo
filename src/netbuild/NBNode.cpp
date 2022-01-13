@@ -1011,7 +1011,7 @@ NBNode::computeKeepClear() {
                 for (NBEdge::Connection& c : connections) {
                     if (c.keepClear == KEEPCLEAR_UNSPECIFIED && myRequest->hasConflictAtLink(linkIndex)) {
                         const LinkState linkState = getLinkState(incoming, c.toEdge, c.fromLane, c.toLane, c.mayDefinitelyPass, c.tlID);
-                        if (linkState == LinkState::MAJOR) {
+                        if (linkState == LINKSTATE_MAJOR) {
                             c.keepClear = KEEPCLEAR_FALSE;
                         }
                     }
@@ -2281,22 +2281,22 @@ LinkState
 NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane, int toLane,
                      bool mayDefinitelyPass, const std::string& tlID) const {
     if (myType == SumoXMLNodeType::RAIL_CROSSING && isRailway(incoming->getPermissions())) {
-        return LinkState::MAJOR; // the trains must run on time
+        return LINKSTATE_MAJOR; // the trains must run on time
     }
     if (tlID != "") {
-        return mustBrake(incoming, outgoing, fromlane, toLane, true) ? LinkState::TL_OFF_BLINKING : LinkState::TL_OFF_NOSIGNAL;
+        return mustBrake(incoming, outgoing, fromlane, toLane, true) ? LINKSTATE_TL_OFF_BLINKING : LINKSTATE_TL_OFF_NOSIGNAL;
     }
     if (outgoing == nullptr) { // always off
-        return LinkState::TL_OFF_NOSIGNAL;
+        return LINKSTATE_TL_OFF_NOSIGNAL;
     }
     if (myType == SumoXMLNodeType::RIGHT_BEFORE_LEFT) {
-        return LinkState::EQUAL; // all the same
+        return LINKSTATE_EQUAL; // all the same
     }
     if (myType == SumoXMLNodeType::ALLWAY_STOP) {
-        return LinkState::ALLWAY_STOP; // all drive, first one to arrive may drive first
+        return LINKSTATE_ALLWAY_STOP; // all drive, first one to arrive may drive first
     }
     if (myType == SumoXMLNodeType::ZIPPER && mustBrake(incoming, outgoing, fromlane, toLane, false)) {
-        return LinkState::ZIPPER;
+        return LINKSTATE_ZIPPER;
     }
     if (!mayDefinitelyPass
             && mustBrake(incoming, outgoing, fromlane, toLane, true)
@@ -2304,10 +2304,10 @@ NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane, int
             && (!incoming->isInsideTLS() || getDirection(incoming, outgoing) != LinkDirection::STRAIGHT)
             // avoid linkstate minor at pure railway nodes
             && !NBNodeTypeComputer::isRailwayNode(this)) {
-        return myType == SumoXMLNodeType::PRIORITY_STOP ? LinkState::STOP : LinkState::MINOR; // minor road
+        return myType == SumoXMLNodeType::PRIORITY_STOP ? LINKSTATE_STOP : LINKSTATE_MINOR; // minor road
     }
     // traffic lights are not regarded here
-    return LinkState::MAJOR;
+    return LINKSTATE_MAJOR;
 }
 
 bool

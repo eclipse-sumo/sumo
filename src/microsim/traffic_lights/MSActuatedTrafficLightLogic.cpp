@@ -213,7 +213,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     for (const MSPhaseDefinition* phase : myPhases) {
         const std::string& state = phase->getState();
         for (int i = 0; i < numLinks; i++)  {
-            if (state[i] == (char)LinkState::TL_GREEN_MAJOR) {
+            if (state[i] == LINKSTATE_TL_GREEN_MAJOR) {
                 neverMajor[i] = false;
             }
         }
@@ -254,14 +254,14 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             std::map<MSInductLoop*, std::set<int> > loopLinks;
 
             for (int i = 0; i < numLinks; i++)  {
-                if (state[i] == (char)LinkState::TL_GREEN_MAJOR
-                        || (state[i] == (char)LinkState::TL_GREEN_MINOR
+                if (state[i] == LINKSTATE_TL_GREEN_MAJOR
+                        || (state[i] == LINKSTATE_TL_GREEN_MINOR
                             && (((neverMajor[i] || turnaround[i])  // check1a, 1d
                                  && hasMajor(state, getLanesAt(i))) // check1b
                                 || oneLane[i])) // check1c
                    ) {
                     greenLinks.insert(i);
-                    if (state[i] == (char)LinkState::TL_GREEN_MAJOR || !turnaround[i]) {
+                    if (state[i] == LINKSTATE_TL_GREEN_MAJOR || !turnaround[i]) {
                         actuatedLinks.insert(i);
                     }
                 }
@@ -438,7 +438,7 @@ MSActuatedTrafficLightLogic::getMinimumMinDuration(MSLane* lane) const {
     for (const MSPhaseDefinition* phase : myPhases) {
         const std::string& state = phase->getState();
         for (int i = 0; i < (int)state.size(); i++)  {
-            if (state[i] == (char)LinkState::TL_GREEN_MAJOR || state[i] == (char)LinkState::TL_GREEN_MINOR) {
+            if (state[i] == LINKSTATE_TL_GREEN_MAJOR || state[i] == LINKSTATE_TL_GREEN_MINOR) {
                 for (MSLane* cand : getLanesAt(i)) {
                     if (lane == cand) {
                         if (phase->isActuted()) {
@@ -455,7 +455,7 @@ MSActuatedTrafficLightLogic::getMinimumMinDuration(MSLane* lane) const {
 bool
 MSActuatedTrafficLightLogic::hasMajor(const std::string& state, const LaneVector& lanes) const {
     for (int i = 0; i < (int)state.size(); i++) {
-        if (state[i] == (char)LinkState::TL_GREEN_MAJOR) {
+        if (state[i] == LINKSTATE_TL_GREEN_MAJOR) {
             for (MSLane* cand : getLanesAt(i)) {
                 for (MSLane* lane : lanes) {
                     if (lane == cand) {

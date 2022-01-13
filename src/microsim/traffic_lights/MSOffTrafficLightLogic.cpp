@@ -70,9 +70,9 @@ MSOffTrafficLightLogic::rebuildPhase() {
         bool foundMinor = false;
         for (const MSLink* l : myLinks[i]) {
             /// @note. all links for the same index should have the same
-            if ((char)l->getOffState() == 'o') {
+            if (l->getOffState() == 'o') {
                 foundMinor = true;
-            } else if ((char)l->getOffState() == 'O') {
+            } else if (l->getOffState() == 'O') {
                 foundMajor = true;
             } else {
                 WRITE_WARNING("Invalid 'off'-state for link " + toString(l->getIndex()) + " at junction '" + l->getJunction()->getID() + "'");
