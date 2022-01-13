@@ -295,6 +295,12 @@ public:
         /// @brief pointer to Selector Frame Parent
         GNESelectorFrame* mySelectorFrameParent;
 
+        /// @brief comboBox for parents
+        FXComboBox myParentsComboBox;
+
+        /// @brief comboBox for children
+        FXComboBox myChildrenComboBox;
+
         /// @brief Invalidated copy constructor.
         SelectionHierarchy(const SelectionHierarchy&) = delete;
 

@@ -1000,22 +1000,19 @@ GNESelectorFrame::SelectionOperation::askContinueIfLock() const {
 GNESelectorFrame::SelectionHierarchy::SelectionHierarchy(GNESelectorFrame* selectorFrameParent) :
     FXGroupBoxModule(selectorFrameParent->myContentFrame, "Hierarchy operations"),
     mySelectorFrameParent(selectorFrameParent) {
-    // tabular buttons, see GNETLSEditorFrame
-
-    FXHorizontalFrame* selectionButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    FXVerticalFrame* col1 = new FXVerticalFrame(selectionButtons, LAYOUT_FILL_X, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); // left button columm
-    FXVerticalFrame* col2 = new FXVerticalFrame(selectionButtons, LAYOUT_FILL_X, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); // right button column
-
-    // Create "Clear List" Button
-    new FXButton(col1, "Clear\t\tDeselect all objects (hotkey: ESC)", nullptr, this, MID_CHOOSEN_CLEAR, GUIDesignButton);
-    // Create "Invert" Button
-    new FXButton(col2, "Invert\t\tInvert selection status of all objects", nullptr, this, MID_CHOOSEN_INVERT, GUIDesignButton);
-    // Create "Save" Button
-    new FXButton(col1, "Save\t\tSave ids of currently selected objects to a file.", nullptr, this, MID_CHOOSEN_SAVE, GUIDesignButton);
-    // Create "Load" Button
-    new FXButton(col2, "Load\t\tLoad ids from a file according to the current modfication mode.", nullptr, this, MID_CHOOSEN_LOAD, GUIDesignButton);
-    // Create "Delete" Button
-    new FXButton(col1, "Delete\t\tDelete all selected objects (hotkey: DEL)", nullptr, this, MID_CHOOSEN_DELETE, GUIDesignButton);
+    // create parent buttons
+    FXHorizontalFrame* parentButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+    // Create "select" Button
+    new FXButton(parentButtons, "Select", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_SELECTORFRAME_SELECTCHILDREN, GUIDesignButton);
+    // Create "unselect" Button
+    new FXButton(parentButtons, "Unselect", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_SELECTORFRAME_UNSELECTCHILDREN, GUIDesignButton);
+    
+    // create children buttons
+    FXHorizontalFrame* childrenButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+    // Create "select" Button
+    new FXButton(childrenButtons, "Select", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_SELECTORFRAME_SELECTCHILDREN, GUIDesignButton);
+    // Create "unselect" Button
+    new FXButton(childrenButtons, "Unselect", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_SELECTORFRAME_UNSELECTCHILDREN, GUIDesignButton);
 }
 
 
