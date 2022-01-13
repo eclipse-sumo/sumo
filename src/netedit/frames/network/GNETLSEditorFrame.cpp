@@ -469,7 +469,7 @@ GNETLSEditorFrame::onCmdPhaseSwitch(FXObject*, FXSelector, void*) {
     for (auto it : myInternalLanes) {
         int tlIndex = it.first;
         std::vector<GNEInternalLane*> lanes = it.second;
-        LinkState state = LINKSTATE_DEADEND;
+        LinkState state = LinkState::DEADEND;
         if (tlIndex >= 0 && tlIndex < (int)phase.state.size()) {
             state = (LinkState)phase.state[tlIndex];
         }
@@ -518,9 +518,9 @@ GNETLSEditorFrame::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
     bool haveGreen = false;
     bool haveYellow = false;
     for (char c : state) {
-        if (c == LINKSTATE_TL_GREEN_MAJOR || c == LINKSTATE_TL_GREEN_MINOR) {
+        if (c == (char)LinkState::TL_GREEN_MAJOR || c == (char)LinkState::TL_GREEN_MINOR) {
             haveGreen = true;
-        } else if (c == LINKSTATE_TL_YELLOW_MAJOR || c == LINKSTATE_TL_YELLOW_MINOR) {
+        } else if (c == (char)LinkState::TL_YELLOW_MAJOR || c == (char)LinkState::TL_YELLOW_MINOR) {
             haveYellow = true;
         }
     }
@@ -529,10 +529,10 @@ GNETLSEditorFrame::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
         // guess left-mover state
         duration = TIME2STEPS(oc.getInt("tls.left-green.time"));
         for (int i = 0; i < (int)state.size(); i++) {
-            if (state[i] == LINKSTATE_TL_YELLOW_MAJOR || state[i] == LINKSTATE_TL_YELLOW_MINOR) {
-                state[i] = LINKSTATE_TL_RED;
-            } else if (state[i] == LINKSTATE_TL_GREEN_MINOR) {
-                state[i] = LINKSTATE_TL_GREEN_MAJOR;
+            if (state[i] == (char)LinkState::TL_YELLOW_MAJOR || state[i] == (char)LinkState::TL_YELLOW_MINOR) {
+                state[i] = (char)LinkState::TL_RED;
+            } else if (state[i] == (char)LinkState::TL_GREEN_MINOR) {
+                state[i] = (char)LinkState::TL_GREEN_MAJOR;
             }
         }
     } else if (haveGreen) {
@@ -540,11 +540,11 @@ GNETLSEditorFrame::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
         myEditedDef->setParticipantsInformation();
         duration = TIME2STEPS(myEditedDef->computeBrakingTime(oc.getFloat("tls.yellow.min-decel")));
         for (int i = 0; i < (int)state.size(); i++) {
-            if (state[i] == LINKSTATE_TL_GREEN_MAJOR || state[i] == LINKSTATE_TL_GREEN_MINOR) {
+            if (state[i] == (char)LinkState::TL_GREEN_MAJOR || state[i] == (char)LinkState::TL_GREEN_MINOR) {
                 if (crossingIndices.count(i) == 0) {
-                    state[i] = LINKSTATE_TL_YELLOW_MINOR;
+                    state[i] = (char)LinkState::TL_YELLOW_MINOR;
                 } else {
-                    state[i] = LINKSTATE_TL_RED;
+                    state[i] = (char)LinkState::TL_RED;
                 }
             }
         }
@@ -552,8 +552,8 @@ GNETLSEditorFrame::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
         duration = TIME2STEPS(oc.isDefault("tls.allred.time") ? 2 :  oc.getInt("tls.allred.time"));
         // guess all-red state
         for (int i = 0; i < (int)state.size(); i++) {
-            if (state[i] == LINKSTATE_TL_YELLOW_MAJOR || state[i] == LINKSTATE_TL_YELLOW_MINOR) {
-                state[i] = LINKSTATE_TL_RED;
+            if (state[i] == (char)LinkState::TL_YELLOW_MAJOR || state[i] == (char)LinkState::TL_YELLOW_MINOR) {
+                state[i] = (char)LinkState::TL_RED;
             }
         }
     }
@@ -561,8 +561,8 @@ GNETLSEditorFrame::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
     const int nextIndex = myTLSPhases->getPhaseTable()->getNumRows() > newIndex ? newIndex : 0;
     const std::string state2 = myTLSPhases->getPhaseTable()->getItemText(nextIndex, fixedDuration() ? 1 : 3).text();
     for (int i = 0; i < (int)state.size(); i++) {
-        if ((oldState[i] == LINKSTATE_TL_GREEN_MAJOR || oldState[i] == LINKSTATE_TL_GREEN_MINOR)
-                && (state2[i] == LINKSTATE_TL_GREEN_MAJOR || state2[i] == LINKSTATE_TL_GREEN_MINOR)) {
+        if ((oldState[i] == (char)LinkState::TL_GREEN_MAJOR || oldState[i] == (char)LinkState::TL_GREEN_MINOR)
+                && (state2[i] == (char)LinkState::TL_GREEN_MAJOR || state2[i] == (char)LinkState::TL_GREEN_MINOR)) {
             state[i] = oldState[i];
         }
     }

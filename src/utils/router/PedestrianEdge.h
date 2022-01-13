@@ -88,8 +88,8 @@ public:
     double getTravelTime(const IntermodalTrip<E, N, V>* const trip, double time) const {
         const double length = getPartialLength(trip);
         double tlsDelay = 0;
-        // @note pedestrian traffic lights should never have LINKSTATE_TL_REDYELLOW
-        if (this->getEdge()->isCrossing() && myLane->getIncomingLinkState() == LINKSTATE_TL_RED) {
+        // @note pedestrian traffic lights should never have LinkState::TL_REDYELLOW
+        if (this->getEdge()->isCrossing() && myLane->getIncomingLinkState() == LinkState::TL_RED) {
             // red traffic lights occurring later in the route may be green by the time we arrive
             tlsDelay += MAX2(double(0), TL_RED_PENALTY - (time - STEPS2TIME(trip->departTime)));
         }

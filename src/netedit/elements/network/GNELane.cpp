@@ -451,28 +451,28 @@ GNELane::drawLane2LaneConnections() const {
     for (auto it : connections) {
         const LinkState state = node->getLinkState(myParentEdge->getNBEdge(), it.toEdge, it.fromLane, it.toLane, it.mayDefinitelyPass, it.tlID);
         switch (state) {
-            case LINKSTATE_TL_OFF_NOSIGNAL:
+            case LinkState::TL_OFF_NOSIGNAL:
                 glColor3d(1, 1, 0);
                 break;
-            case LINKSTATE_TL_OFF_BLINKING:
+            case LinkState::TL_OFF_BLINKING:
                 glColor3d(0, 1, 1);
                 break;
-            case LINKSTATE_MAJOR:
+            case LinkState::MAJOR:
                 glColor3d(1, 1, 1);
                 break;
-            case LINKSTATE_MINOR:
+            case LinkState::MINOR:
                 glColor3d(.4, .4, .4);
                 break;
-            case LINKSTATE_STOP:
+            case LinkState::STOP:
                 glColor3d(.7, .4, .4);
                 break;
-            case LINKSTATE_EQUAL:
+            case LinkState::EQUAL:
                 glColor3d(.7, .7, .7);
                 break;
-            case LINKSTATE_ALLWAY_STOP:
+            case LinkState::ALLWAY_STOP:
                 glColor3d(.7, .7, 1);
                 break;
-            case LINKSTATE_ZIPPER:
+            case LinkState::ZIPPER:
                 glColor3d(.75, .5, 0.25);
                 break;
             default:
@@ -763,8 +763,8 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
                 GUIDesigns::buildFXMenuCommand(ret, "Select state for all links from this edge:", nullptr, nullptr, 0);
                 const std::vector<std::string> names = GNEInternalLane::LinkStateNames.getStrings();
                 for (auto it : names) {
-                    FXuint state = GNEInternalLane::LinkStateNames.get(it);
-                    FXMenuRadio* mc = new FXMenuRadio(ret, it.c_str(), this, FXDataTarget::ID_OPTION + state);
+                    auto state = GNEInternalLane::LinkStateNames.get(it);
+                    FXMenuRadio* mc = new FXMenuRadio(ret, it.c_str(), this, FXDataTarget::ID_OPTION + (char)state);
                     mc->setSelBackColor(MFXUtils::getFXColor(GNEInternalLane::colorForLinksState(state)));
                     mc->setBackColor(MFXUtils::getFXColor(GNEInternalLane::colorForLinksState(state)));
                 }
@@ -1435,7 +1435,7 @@ GNELane::drawLaneStopOffset(const GUIVisualizationSettings& s, const double offs
     const Position& end = getLaneShape().back();
     const Position& f = getLaneShape()[-2];
     const double rot = RAD2DEG(atan2((end.x() - f.x()), (f.y() - end.y())));
-    GLHelper::setColor(s.getLinkColor(LINKSTATE_MAJOR));
+    GLHelper::setColor(s.getLinkColor(LinkState::MAJOR));
     GLHelper::pushMatrix();
     glTranslated(end.x(), end.y(), 1);
     glRotated(rot, 0, 0, 1);

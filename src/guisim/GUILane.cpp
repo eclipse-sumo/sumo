@@ -310,7 +310,7 @@ GUILane::drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) con
         const Position& end = myShape.back();
         const Position& f = myShape[-2];
         const double rot = RAD2DEG(atan2((end.x() - f.x()), (f.y() - end.y())));
-        GLHelper::setColor(s.getLinkColor(LINKSTATE_MAJOR));
+        GLHelper::setColor(s.getLinkColor(LinkState::MAJOR));
         GLHelper::pushMatrix();
         glTranslated(end.x(), end.y(), 0);
         glRotated(rot, 0, 0, 1);
@@ -335,7 +335,7 @@ GUILane::drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, cons
         if (static_cast<GUIEdge*>(myEdge)->showDeadEnd()) {
             GLHelper::setColor(GUIVisualizationColorSettings::SUMO_color_DEADEND_SHOW);
         } else {
-            GLHelper::setColor(GUIVisualizationSettings::getLinkColor(LINKSTATE_DEADEND));
+            GLHelper::setColor(GUIVisualizationSettings::getLinkColor(LinkState::DEADEND));
         }
         GLHelper::pushMatrix();
         glTranslated(end.x(), end.y(), 0);
@@ -353,25 +353,25 @@ GUILane::drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, cons
         glRotated(rot, 0, 0, 1);
         // select glID
         switch (link->getState()) {
-            case LINKSTATE_TL_GREEN_MAJOR:
-            case LINKSTATE_TL_GREEN_MINOR:
-            case LINKSTATE_TL_RED:
-            case LINKSTATE_TL_REDYELLOW:
-            case LINKSTATE_TL_YELLOW_MAJOR:
-            case LINKSTATE_TL_YELLOW_MINOR:
-            case LINKSTATE_TL_OFF_BLINKING:
-            case LINKSTATE_TL_OFF_NOSIGNAL:
+            case LinkState::TL_GREEN_MAJOR:
+            case LinkState::TL_GREEN_MINOR:
+            case LinkState::TL_RED:
+            case LinkState::TL_REDYELLOW:
+            case LinkState::TL_YELLOW_MAJOR:
+            case LinkState::TL_YELLOW_MINOR:
+            case LinkState::TL_OFF_BLINKING:
+            case LinkState::TL_OFF_NOSIGNAL:
                 GLHelper::pushName(net.getLinkTLID(link));
                 break;
-            case LINKSTATE_MAJOR:
-            case LINKSTATE_MINOR:
-            case LINKSTATE_EQUAL:
+            case LinkState::MAJOR:
+            case LinkState::MINOR:
+            case LinkState::EQUAL:
             default:
                 GLHelper::pushName(getGlID());
                 break;
         }
         GLHelper::setColor(GUIVisualizationSettings::getLinkColor(link->getState(), s.realisticLinkRules));
-        if (!(drawAsRailway(s) || drawAsWaterway(s)) || link->getState() != LINKSTATE_MAJOR) {
+        if (!(drawAsRailway(s) || drawAsWaterway(s)) || link->getState() != LinkState::MAJOR) {
             // the white bar should be the default for most railway
             // links and looks ugly so we do not draw it
             double scale = isInternal() ? 0.5 : 1;
@@ -410,7 +410,7 @@ GUILane::drawArrows() const {
     for (const MSLink* const link : myLinks) {
         LinkDirection dir = link->getDirection();
         LinkState state = link->getState();
-        if (state == LINKSTATE_DEADEND || dir == LinkDirection::NODIR) {
+        if (state == LinkState::DEADEND || dir == LinkDirection::NODIR) {
             continue;
         }
         switch (dir) {

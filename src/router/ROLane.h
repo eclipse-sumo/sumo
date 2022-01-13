@@ -105,7 +105,7 @@ public:
 
     /// @brief get the state of the link from the logical predecessor to this lane (ignored for routing)
     inline LinkState getIncomingLinkState() const {
-        return LINKSTATE_MAJOR;
+        return LinkState::MAJOR;
     }
 
     inline bool allowsVehicleClass(SUMOVehicleClass vclass) const {

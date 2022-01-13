@@ -513,8 +513,8 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
             // draw the bar (red is drawn as a line)
             GLHelper::setColor(GUIVisualizationSettings::getLinkColor(state));
             switch (state) {
-                case LINKSTATE_TL_RED:
-                case LINKSTATE_TL_REDYELLOW:
+                case LinkState::TL_RED:
+                case LinkState::TL_REDYELLOW:
                     // draw a thin line
                     glBegin(GL_QUADS);
                     glVertex2d(x, h - h11);
@@ -533,7 +533,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
                     glEnd();
                     break;
             }
-            if (myGreenMode->getCheck() != FALSE && (state == LINKSTATE_TL_GREEN_MINOR || state == LINKSTATE_TL_GREEN_MAJOR)) {
+            if (myGreenMode->getCheck() != FALSE && (state == LinkState::TL_GREEN_MINOR || state == LinkState::TL_GREEN_MAJOR)) {
                 GLHelper::drawText(toString((int)STEPS2TIME(*pd)), Position(x, h - h9), 0, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
             }
             // proceed to next link

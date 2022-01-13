@@ -51,7 +51,7 @@ GNEConnection::GNEConnection(GNELane* from, GNELane* to) :
 {}, {}, {}, {}, {}, {}, {}, {}),
 myFromLane(from),
 myToLane(to),
-myLinkState(LINKSTATE_TL_OFF_NOSIGNAL),
+myLinkState(LinkState::TL_OFF_NOSIGNAL),
 mySpecialColor(nullptr),
 myShapeDeprecated(true) {
     // update centering boundary without updating grid

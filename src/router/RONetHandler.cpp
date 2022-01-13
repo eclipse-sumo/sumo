@@ -319,7 +319,7 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
         from->addSuccessor(to, via, dir);
         via->addSuccessor(to, nullptr, dir);
         LinkState state = SUMOXMLDefinitions::LinkStates.get(attrs.get<std::string>(SUMO_ATTR_STATE, nullptr, ok));
-        if (state == LINKSTATE_MINOR || state == LINKSTATE_EQUAL || state == LINKSTATE_STOP || state == LINKSTATE_ALLWAY_STOP) {
+        if (state == LinkState::MINOR || state == LinkState::EQUAL || state == LinkState::STOP || state == LinkState::ALLWAY_STOP) {
             via->setTimePenalty(myMinorPenalty);
         }
     }

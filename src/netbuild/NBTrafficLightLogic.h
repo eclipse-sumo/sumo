@@ -163,7 +163,7 @@ public:
     /* @brief changes state size either by cutting of at the end or by adding
      * new states at the end
     */
-    void setStateLength(int numLinks, LinkState fill = LINKSTATE_TL_RED);
+    void setStateLength(int numLinks, LinkState fill = LinkState::TL_RED);
 
     /// @brief remove the index from all phase states
     void deleteStateIndex(int index);

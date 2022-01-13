@@ -488,7 +488,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
     for (const MSPhaseDefinition* phase : myPhases) {
         const std::string& state = phase->getState();
         for (int i = 0; i < numLinks; i++) {
-            if (state[i] == LINKSTATE_TL_GREEN_MAJOR) {
+            if (state[i] == (char)LinkState::TL_GREEN_MAJOR) {
                 neverMajor[i] = false;
             }
         }
@@ -518,8 +518,8 @@ NEMALogic::init(NLDetectorBuilder& nb) {
             std::map<MSE2Collector*, std::set<int>> detectorLinks;
 
             for (int i = 0; i < numLinks; i++)  {
-                if (state[i] == LINKSTATE_TL_GREEN_MAJOR
-                        || (state[i] == LINKSTATE_TL_GREEN_MINOR
+                if (state[i] == (char)LinkState::TL_GREEN_MAJOR
+                        || (state[i] == (char)LinkState::TL_GREEN_MINOR
                             && ((neverMajor[i]  // check1a
                                  && hasMajor(state, getLanesAt(i))) // check1b
                                 || oneLane[i])) // check1c
@@ -1004,7 +1004,7 @@ std::set<std::string> NEMALogic::getLaneIDsFromNEMAState(std::string state) {
 bool NEMALogic::isLeftTurnLane(const MSLane* const lane) const {
     const std::vector<MSLink*> links = lane->getLinkCont();
     if (links.size() == 1 && links.front()->getDirection() == LinkDirection::LEFT) {
-        return true;;
+        return true;
     }
     return false;
 }
@@ -1012,7 +1012,7 @@ bool NEMALogic::isLeftTurnLane(const MSLane* const lane) const {
 bool
 NEMALogic::hasMajor(const std::string& state, const LaneVector& lanes) const {
     for (int i = 0; i < (int)state.size(); i++) {
-        if (state[i] == LINKSTATE_TL_GREEN_MAJOR) {
+        if (state[i] == (char)LinkState::TL_GREEN_MAJOR) {
             for (MSLane* cand : getLanesAt(i)) {
                 for (MSLane* lane : lanes) {
                     if (lane == cand) {

@@ -1447,37 +1447,37 @@ enum class PersonMode {
  *  enum values are assigned so that chars can be cast back to linkstates
  *  @todo fix redundancy
  */
-enum LinkState {
+enum class LinkState : char {
     /// @brief The link has green light, may pass
-    LINKSTATE_TL_GREEN_MAJOR = 'G',
+    TL_GREEN_MAJOR = 'G',
     /// @brief The link has green light, has to brake
-    LINKSTATE_TL_GREEN_MINOR = 'g',
+    TL_GREEN_MINOR = 'g',
     /// @brief The link has red light (must brake)
-    LINKSTATE_TL_RED = 'r',
+    TL_RED = 'r',
     /// @brief The link has red light (must brake) but indicates upcoming green
-    LINKSTATE_TL_REDYELLOW = 'u',
+    TL_REDYELLOW = 'u',
     /// @brief The link has yellow light, may pass
-    LINKSTATE_TL_YELLOW_MAJOR = 'Y',
+    TL_YELLOW_MAJOR = 'Y',
     /// @brief The link has yellow light, has to brake anyway
-    LINKSTATE_TL_YELLOW_MINOR = 'y',
+    TL_YELLOW_MINOR = 'y',
     /// @brief The link is controlled by a tls which is off and blinks, has to brake
-    LINKSTATE_TL_OFF_BLINKING = 'o',
+    TL_OFF_BLINKING = 'o',
     /// @brief The link is controlled by a tls which is off, not blinking, may pass
-    LINKSTATE_TL_OFF_NOSIGNAL = 'O',
+    TL_OFF_NOSIGNAL = 'O',
     /// @brief This is an uncontrolled, major link, may pass
-    LINKSTATE_MAJOR = 'M',
+    MAJOR = 'M',
     /// @brief This is an uncontrolled, minor link, has to brake
-    LINKSTATE_MINOR = 'm',
+    MINOR = 'm',
     /// @brief This is an uncontrolled, right-before-left link
-    LINKSTATE_EQUAL = '=',
+    EQUAL = '=',
     /// @brief This is an uncontrolled, minor link, has to stop
-    LINKSTATE_STOP = 's',
+    STOP = 's',
     /// @brief This is an uncontrolled, all-way stop link.
-    LINKSTATE_ALLWAY_STOP = 'w',
+    ALLWAY_STOP = 'w',
     /// @brief This is an uncontrolled, zipper-merge link
-    LINKSTATE_ZIPPER = 'Z',
+    ZIPPER = 'Z',
     /// @brief This is a dead end link
-    LINKSTATE_DEADEND = '-'
+    DEADEND = '-'
 };
 
 /**
@@ -1757,8 +1757,6 @@ public:
 
     /// @brief all allowed characters for phase state
     static const std::string ALLOWED_TLS_LINKSTATES;
-
-
 
 private:
     /// @brief containers for the different SUMOXMLDefinitions

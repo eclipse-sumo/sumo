@@ -2182,38 +2182,38 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
 const RGBColor&
 GUIVisualizationSettings::getLinkColor(const LinkState& ls, bool realistic) {
     switch (ls) {
-        case LINKSTATE_TL_GREEN_MAJOR:
+        case LinkState::TL_GREEN_MAJOR:
             return SUMO_color_TL_GREEN_MAJOR;
-        case LINKSTATE_TL_GREEN_MINOR:
+        case LinkState::TL_GREEN_MINOR:
             return SUMO_color_TL_GREEN_MINOR;
-        case LINKSTATE_TL_RED:
+        case LinkState::TL_RED:
             return SUMO_color_TL_RED;
-        case LINKSTATE_TL_REDYELLOW:
+        case LinkState::TL_REDYELLOW:
             return SUMO_color_TL_REDYELLOW;
-        case LINKSTATE_TL_YELLOW_MAJOR:
+        case LinkState::TL_YELLOW_MAJOR:
             return SUMO_color_TL_YELLOW_MAJOR;
-        case LINKSTATE_TL_YELLOW_MINOR:
+        case LinkState::TL_YELLOW_MINOR:
             return SUMO_color_TL_YELLOW_MINOR;
-        case LINKSTATE_TL_OFF_BLINKING:
+        case LinkState::TL_OFF_BLINKING:
             return SUMO_color_TL_OFF_BLINKING;
-        case LINKSTATE_TL_OFF_NOSIGNAL:
+        case LinkState::TL_OFF_NOSIGNAL:
             return SUMO_color_TL_OFF_NOSIGNAL;
-        case LINKSTATE_MAJOR:
+        case LinkState::MAJOR:
             return realistic ? RGBColor::INVISIBLE : SUMO_color_MAJOR;
-        case LINKSTATE_MINOR:
+        case LinkState::MINOR:
             return realistic ? SUMO_color_MAJOR :  SUMO_color_MINOR;
-        case LINKSTATE_EQUAL:
+        case LinkState::EQUAL:
             return SUMO_color_EQUAL;
-        case LINKSTATE_STOP:
+        case LinkState::STOP:
             return realistic ? SUMO_color_MAJOR : SUMO_color_STOP;
-        case LINKSTATE_ALLWAY_STOP:
+        case LinkState::ALLWAY_STOP:
             return realistic ? SUMO_color_MAJOR : SUMO_color_ALLWAY_STOP;
-        case LINKSTATE_ZIPPER:
+        case LinkState::ZIPPER:
             return realistic ? RGBColor::INVISIBLE : SUMO_color_ZIPPER;
-        case LINKSTATE_DEADEND:
+        case LinkState::DEADEND:
             return SUMO_color_DEADEND;
         default:
-            throw ProcessError("No color defined for LinkState '" + std::string(ls, 1) + "'");
+            throw ProcessError("No color defined for LinkState '" + std::string((char)ls, 1) + "'");
     }
 }
 

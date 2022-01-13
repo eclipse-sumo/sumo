@@ -323,8 +323,8 @@ GUITrafficLightLogicWrapper::drawGL(const GUIVisualizationSettings& s) const {
             while (phaseIdx != curPhaseIdx) {
                 const std::string& state = phases[phaseIdx]->getState();
                 for (int linkIdx = 0; linkIdx < (int)state.size(); linkIdx++) {
-                    if ((LinkState)state[linkIdx] == LINKSTATE_TL_GREEN_MINOR ||
-                            (LinkState)state[linkIdx] == LINKSTATE_TL_GREEN_MAJOR) {
+                    if ((LinkState)state[linkIdx] == LinkState::TL_GREEN_MINOR ||
+                            (LinkState)state[linkIdx] == LinkState::TL_GREEN_MAJOR) {
                         nextGreen.push_back(linkIdx);
                     }
                 }
@@ -343,9 +343,9 @@ GUITrafficLightLogicWrapper::drawGL(const GUIVisualizationSettings& s) const {
                     glTranslated(pos.x(), pos.y(), GLO_MAX);
                     double rot = RAD2DEG((*it_lane)->getShape().angleAt2D((int)(*it_lane)->getShape().size() - 2)) - 90;
                     glRotated(rot, 0, 0, 1);
-                    GLHelper::setColor(s.getLinkColor(LINKSTATE_TL_RED));
+                    GLHelper::setColor(s.getLinkColor(LinkState::TL_RED));
                     GLHelper::drawFilledCircle((*it_lane)->getWidth() / 2., 8, -90, 90);
-                    GLHelper::setColor(s.getLinkColor(LINKSTATE_TL_YELLOW_MAJOR));
+                    GLHelper::setColor(s.getLinkColor(LinkState::TL_YELLOW_MAJOR));
                     GLHelper::drawFilledCircle((*it_lane)->getWidth() / 2., 8, 90, 270);
                     GLHelper::popMatrix();
                 }
