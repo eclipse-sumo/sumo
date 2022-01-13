@@ -217,16 +217,16 @@ public:
     //// @brief check if two positions crosses
     bool crosses(const Position& p1, const Position& p2) const;
 
-    //// @brief add a position
+    //// @brief add an offset to all positions
     void add(double xoff, double yoff, double zoff);
 
-    //// @brief substract a position
+    //// @brief add an offset to all positions
     void add(const Position& offset);
 
-    //// @brief add a position
+    //// @brief subtract an offset from all positions
     void sub(double xoff, double yoff, double zoff);
 
-    //// @brief substract a position
+    //// @brief subtract an offset from all positions
     void sub(const Position& offset);
 
     //// @brief adds a position without modifying the vector itself but returning the result
