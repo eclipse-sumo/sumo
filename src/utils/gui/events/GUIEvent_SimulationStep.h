@@ -35,7 +35,7 @@ class GUIEvent_SimulationStep : public GUIEvent {
 public:
     /// constructor
     GUIEvent_SimulationStep()
-        : GUIEvent(EVENT_SIMULATION_STEP) { }
+        : GUIEvent(GUIEventType::SIMULATION_STEP) { }
 
     /// destructor
     ~GUIEvent_SimulationStep() { }

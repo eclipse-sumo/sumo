@@ -221,23 +221,23 @@ GUIMessageWindow::appendMsg(GUIEventType eType, const std::string& msg) {
     // build the styled message
     FXint style = 1;
     switch (eType) {
-        case EVENT_DEBUG_OCCURRED:
+        case GUIEventType::DEBUG_OCCURRED:
             // color: blue
             style = 0;
             break;
-        case EVENT_GLDEBUG_OCCURRED:
+        case GUIEventType::GLDEBUG_OCCURRED:
             // color: fuchsia
             style = 7;
             break;
-        case EVENT_ERROR_OCCURRED:
+        case GUIEventType::ERROR_OCCURRED:
             // color: red
             style = 2;
             break;
-        case EVENT_WARNING_OCCURRED:
+        case GUIEventType::WARNING_OCCURRED:
             // color: yellow
             style = 3;
             break;
-        case EVENT_MESSAGE_OCCURRED:
+        case GUIEventType::MESSAGE_OCCURRED:
             // color: green
             style = 1;
             break;
@@ -321,11 +321,11 @@ void
 GUIMessageWindow::registerMsgHandlers() {
     if (myMessageRetriever == nullptr) {
         // initialize only if registration is requested
-        myMessageRetriever = new MsgOutputDevice(this, EVENT_MESSAGE_OCCURRED);
-        myErrorRetriever = new MsgOutputDevice(this, EVENT_ERROR_OCCURRED);
-        myDebugRetriever = new MsgOutputDevice(this, EVENT_DEBUG_OCCURRED);
-        myGLDebugRetriever = new MsgOutputDevice(this, EVENT_GLDEBUG_OCCURRED);
-        myWarningRetriever = new MsgOutputDevice(this, EVENT_WARNING_OCCURRED);
+        myMessageRetriever = new MsgOutputDevice(this, GUIEventType::MESSAGE_OCCURRED);
+        myErrorRetriever = new MsgOutputDevice(this, GUIEventType::ERROR_OCCURRED);
+        myDebugRetriever = new MsgOutputDevice(this, GUIEventType::DEBUG_OCCURRED);
+        myGLDebugRetriever = new MsgOutputDevice(this, GUIEventType::GLDEBUG_OCCURRED);
+        myWarningRetriever = new MsgOutputDevice(this, GUIEventType::WARNING_OCCURRED);
     }
     MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
     MsgHandler::getDebugInstance()->addRetriever(myDebugRetriever);

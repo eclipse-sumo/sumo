@@ -131,7 +131,7 @@ protected:
     FXString myPreviousText;
 
 protected:
-    MFXEditableTable() { }
+    FOX_CONSTRUCTOR(MFXEditableTable)
 
 };
 

@@ -53,7 +53,7 @@ public:
                               const std::vector<std::string>& settingsFiles,
                               const bool osgView,
                               const bool viewportFromRegistry)
-        : GUIEvent(EVENT_SIMULATION_LOADED),
+        : GUIEvent(GUIEventType::SIMULATION_LOADED),
           myNet(net), myBegin(startTime), myEnd(endTime),
           myFile(file), mySettingsFiles(settingsFiles),
           myOsgView(osgView),

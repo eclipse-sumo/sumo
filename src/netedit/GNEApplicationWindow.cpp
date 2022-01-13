@@ -985,14 +985,14 @@ GNEApplicationWindow::eventOccurred() {
         myEvents.pop();
         // process
         switch (e->getOwnType()) {
-            case EVENT_SIMULATION_LOADED:
+            case GUIEventType::SIMULATION_LOADED:
                 handleEvent_NetworkLoaded(e);
                 break;
-            case EVENT_MESSAGE_OCCURRED:
-            case EVENT_WARNING_OCCURRED:
-            case EVENT_ERROR_OCCURRED:
-            case EVENT_DEBUG_OCCURRED:
-            case EVENT_GLDEBUG_OCCURRED:
+            case GUIEventType::MESSAGE_OCCURRED:
+            case GUIEventType::WARNING_OCCURRED:
+            case GUIEventType::ERROR_OCCURRED:
+            case GUIEventType::DEBUG_OCCURRED:
+            case GUIEventType::GLDEBUG_OCCURRED:
                 handleEvent_Message(e);
                 break;
             default:
@@ -2407,7 +2407,7 @@ GNEApplicationWindow::onCmdSaveAsPlainXML(FXObject*, FXSelector, void*) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'Error saving plainXML' with 'OK'");
         }
-        myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Plain XML saved with prefix '" + prefix + "'.\n");
+        myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "Plain XML saved with prefix '" + prefix + "'.\n");
         myMessageWindow->addSeparator();
         if (wasSet) {
             oc.resetWritable();
@@ -2458,7 +2458,7 @@ GNEApplicationWindow::onCmdSaveJoined(FXObject*, FXSelector, void*) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'error saving joined' with 'OK'");
         }
-        myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Joined junctions saved to '" + fileWithExtension + "'.\n");
+        myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "Joined junctions saved to '" + fileWithExtension + "'.\n");
         myMessageWindow->addSeparator();
         if (wasSet) {
             oc.resetWritable();
@@ -2949,7 +2949,7 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject*, FXSelector, void*) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox 'error saving network' with 'OK'");
         }
-        myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Network saved in " + oc.getString("output-file") + ".\n");
+        myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "Network saved in " + oc.getString("output-file") + ".\n");
         // After saveing a net sucesfully, add it into Recent Nets list.
         myMenuBarFile.myRecentNetsAndConfigs.appendFile(oc.getString("output-file").c_str());
         myMessageWindow->addSeparator();
@@ -2998,7 +2998,7 @@ GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject*, FXSelector, void*) {
         try {
             myNet->computeNetwork(this, true); // GNEChange_TLS does not triggere GNENet:requireRecompute
             myNet->saveTLSPrograms(oc.getString("TLSPrograms-output"));
-            myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "TLS Programs saved in " + oc.getString("TLSPrograms-output") + ".\n");
+            myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "TLS Programs saved in " + oc.getString("TLSPrograms-output") + ".\n");
             myFileMenuCommands.saveTLSPrograms->disable();
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
@@ -3055,7 +3055,7 @@ GNEApplicationWindow::onCmdSaveEdgeTypes(FXObject*, FXSelector, void*) {
         getApp()->beginWaitCursor();
         try {
             myNet->saveEdgeTypes(oc.getString("edgeTypes-output"));
-            myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "EdgeType saved in " + oc.getString("edgeTypes-output") + ".\n");
+            myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "EdgeType saved in " + oc.getString("edgeTypes-output") + ".\n");
             myFileMenuCommands.saveEdgeTypes->disable();
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
@@ -3253,7 +3253,7 @@ GNEApplicationWindow::onCmdSaveAdditionals(FXObject*, FXSelector, void*) {
             // compute before saving (for detectors positions)
             myNet->computeNetwork(this);
             myNet->saveAdditionals(oc.getString("additional-files"));
-            myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Additionals saved in " + oc.getString("additional-files") + ".\n");
+            myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "Additionals saved in " + oc.getString("additional-files") + ".\n");
             myFileMenuCommands.saveAdditionals->disable();
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
@@ -3422,7 +3422,7 @@ GNEApplicationWindow::onCmdSaveDemandElements(FXObject*, FXSelector, void*) {
         getApp()->beginWaitCursor();
         try {
             myNet->saveDemandElements(oc.getString("route-files"));
-            myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Demand elements saved in " + oc.getString("route-files") + ".\n");
+            myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "Demand elements saved in " + oc.getString("route-files") + ".\n");
             myFileMenuCommands.saveDemandElements->disable();
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
@@ -3609,7 +3609,7 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject*, FXSelector, void*) {
         getApp()->beginWaitCursor();
         try {
             myNet->saveDataElements(oc.getString("data-files"));
-            myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "Data elements saved in " + oc.getString("data-files") + ".\n");
+            myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED, "Data elements saved in " + oc.getString("data-files") + ".\n");
             myFileMenuCommands.saveDataElements->disable();
         } catch (IOError& e) {
             // write warning if netedit is running in testing mode
