@@ -1,5 +1,11 @@
 nefz_hbefa2
 nefz_hbefa3
+
+# compute acceleration
+nefz_hbefa3_onlySpeed
+
+# use ',' instead of ';'
+nefz_hbefa3_separator
 nefz_phemlight
 
 # Battery model
