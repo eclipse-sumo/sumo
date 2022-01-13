@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-07 16:21:04 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
+<!-- generated on 2022-01-13 18:07:53 by Eclipse SUMO netconvert Version v1_11_0+1099-62db5cfca0a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -1183,7 +1183,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="lit" value="yes"/>
     </edge>
     <edge id="51260001#0" from="654064445" to="923228375" priority="1" type="highway.footway" spreadType="center">
-        <lane id="51260001#0_0" index="0" allow="pedestrian" speed="2.78" length="3.06" width="2.00" shape="545.36,119.55 542.41,118.74"/>
+        <lane id="51260001#0_0" index="0" allow="pedestrian" speed="2.78" length="0.20" width="2.00" shape="546.44,119.85 546.25,119.80"/>
         <param key="area" value="yes"/>
         <param key="area:highway" value="footway"/>
         <param key="highway" value="footway"/>
@@ -1578,7 +1578,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="2" response="0000" foes="0010" cont="0"/>
         <request index="3" response="0001" foes="0001" cont="0"/>
     </junction>
-    <junction id="923228375" type="right_before_left" x="540.64" y="118.25" incLanes="496730533#5_0 51260001#0_0 -496730533#6_0" intLanes=":923228375_0_0 :923228375_1_0 :923228375_2_0 :923228375_3_0" shape="538.78,120.91 540.77,120.80 542.14,119.70 542.67,117.77 540.75,120.35 542.75,120.24 543.42,117.45 539.96,115.43 539.36,116.16 539.00,116.37 538.61,116.49 538.18,116.50 537.71,116.42 537.19,118.35">
+    <junction id="923228375" type="right_before_left" x="540.64" y="118.25" incLanes="496730533#5_0 51260001#0_0 -496730533#6_0" intLanes=":923228375_0_0 :923228375_1_0 :923228375_2_0 :923228375_3_0" shape="538.78,120.91 540.77,120.80 547.07,121.06 547.60,119.13 540.75,120.35 542.75,120.24 543.42,117.45 539.96,115.43 539.36,116.16 539.00,116.37 538.61,116.49 538.18,116.50 537.71,116.42 537.19,118.35">
         <request index="0" response="0000" foes="1000" cont="0"/>
         <request index="1" response="0100" foes="0100" cont="0"/>
         <request index="2" response="0000" foes="0010" cont="0"/>
