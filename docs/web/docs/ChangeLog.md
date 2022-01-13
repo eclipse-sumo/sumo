@@ -124,7 +124,6 @@ title: ChangeLog
   - All text setting now have the checkbox "only for selected" to display text selectively. Issue #9574
   - Added vehicle setting "show parking info" which labels parking memory (block time and scores) for vehicles with active route visualization. Also, the vehicle is labeled with the number of parking reroutes since the last successful parkingArea stop. Issue #9572
   - Can now color roads "by free parking spaces". Issue #9643  
-  - add detector state to phase tracker (optional) #9887
   - Added context menu entry to open map location in an online map. Issue #9787
   - Vehicle size can now be scaled by attribute. Issue #9567
   - Added speedFactor to vehicle type parameter dialog. Issue #9865
