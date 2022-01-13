@@ -159,6 +159,9 @@ protected:
     bool hasMajor(const std::string& state, const LaneVector& lanes) const;
     /// @}
 
+    /// @brief recompute running green durations
+    void updateLinkGreenTimes();
+
     /// @brief select among candidate phases based on detector states
     int decideNextPhase();
 
@@ -223,6 +226,10 @@ protected:
 
     /// @brief last time trySwitch was called
     SUMOTime myLastTrySwitchTime;
+
+    /// @brief whether updateLinkGreenTimes is necessary
+    bool myHaveUpdatedLinkGreenTimes;
+
     /// @brief consecutive time that the given link index has been green
     std::vector<SUMOTime> myLinkGreenTimes;
     /// @brief maximum consecutive time that the given link may remain green

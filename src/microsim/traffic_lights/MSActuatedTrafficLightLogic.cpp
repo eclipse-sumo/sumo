@@ -513,17 +513,9 @@ MSActuatedTrafficLightLogic::trySwitch() {
     // considere here. RiLSA recommends to set minDuration in a way that lets all vehicles pass the detector
     SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
     if (myLinkGreenTimes.size() > 0) {
+        myHaveUpdatedLinkGreenTimes = false;
         // constraints exist, record green time durations for each link
-        const std::string& state = getCurrentPhaseDef().getState();
-        SUMOTime lastDuration = now - myLastTrySwitchTime;
-        for (int i = 0; i < myNumLinks; i++) {
-            if (state[i] == 'G' || state[i] == 'g') {
-                myLinkGreenTimes[i] += lastDuration;
-            } else {
-                myLinkGreenTimes[i] = 0;
-            }
-        }
-        //std::cout << SIMTIME << " greenTimes=" << toString(myLinkGreenTimes) << "\n";
+        updateLinkGreenTimes();
     }
     myLastTrySwitchTime = now;
     // decide the next phase
@@ -556,6 +548,8 @@ MSActuatedTrafficLightLogic::trySwitch() {
             }
         }
     }
+
+    myHaveUpdatedLinkGreenTimes = false;  // gui calls at the end of the step should use updated states
 
     myTraCISwitch = false;
     SUMOTime linkMinDur = getLinkMinDuration(getTarget(nextStep));
@@ -654,6 +648,22 @@ MSActuatedTrafficLightLogic::gapControl() {
     return result;
 }
 
+void
+MSActuatedTrafficLightLogic::updateLinkGreenTimes() {
+    if (!myHaveUpdatedLinkGreenTimes) {
+        const std::string& state = getCurrentPhaseDef().getState();
+        SUMOTime lastDuration = SIMSTEP - myLastTrySwitchTime;
+        for (int i = 0; i < myNumLinks; i++) {
+            if (state[i] == 'G' || state[i] == 'g') {
+                myLinkGreenTimes[i] += lastDuration;
+            } else {
+                myLinkGreenTimes[i] = 0;
+            }
+        }
+        myHaveUpdatedLinkGreenTimes = true;
+    }
+    //std::cout << SIMTIME << " greenTimes=" << toString(myLinkGreenTimes) << "\n";
+}
 
 int
 MSActuatedTrafficLightLogic::decideNextPhase() {
@@ -998,6 +1008,11 @@ MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) const
                 try {
                     int linkIndex = StringUtils::toInt(arg);
                     if (linkIndex >= 0 && linkIndex < myNumLinks) {
+                        // times are only updated at the start of a phase where
+                        // switching is possible (i.e. not during minDur).
+                        // If somebody is looking at those values in the tracker
+                        // this would be confusing
+                        const_cast<MSActuatedTrafficLightLogic*>(this)->updateLinkGreenTimes();
                         return STEPS2TIME(myLinkGreenTimes[linkIndex]);
                     }
                 } catch (NumberFormatException&) { }
