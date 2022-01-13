@@ -78,7 +78,6 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
         const std::map<std::string, std::string>& conditions) :
     MSSimpleTrafficLightLogic(tlcontrol, id, programID, offset, TrafficLightType::ACTUATED, phases, step, delay, parameter),
     myLastTrySwitchTime(0),
-    myLastLinkGreenUpdateTime(0),
     myConditions(conditions),
     myTraCISwitch(false)
 {
@@ -515,7 +514,7 @@ MSActuatedTrafficLightLogic::trySwitch() {
     SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
     if (myLinkGreenTimes.size() > 0) {
         // constraints exist, record green time durations for each link
-        updateLinkGreenTimes();
+        updateLinkGreenTimes(myLinkGreenTimes);
     }
     myLastTrySwitchTime = now;
     // decide the next phase
@@ -647,20 +646,16 @@ MSActuatedTrafficLightLogic::gapControl() {
 }
 
 void
-MSActuatedTrafficLightLogic::updateLinkGreenTimes() {
-    if (myLastLinkGreenUpdateTime < SIMSTEP) {
-        const std::string& state = getCurrentPhaseDef().getState();
-        SUMOTime lastDuration = SIMSTEP - myLastTrySwitchTime;
-        for (int i = 0; i < myNumLinks; i++) {
-            if (state[i] == 'G' || state[i] == 'g') {
-                myLinkGreenTimes[i] += lastDuration;
-            } else {
-                myLinkGreenTimes[i] = 0;
-            }
+MSActuatedTrafficLightLogic::updateLinkGreenTimes(std::vector<SUMOTime>& into) const {
+    const std::string& state = getCurrentPhaseDef().getState();
+    SUMOTime lastDuration = SIMSTEP - myLastTrySwitchTime;
+    for (int i = 0; i < myNumLinks; i++) {
+        if (state[i] == 'G' || state[i] == 'g') {
+            into[i] += lastDuration;
+        } else {
+            into[i] = 0;
         }
-        myLastLinkGreenUpdateTime = SIMSTEP;
     }
-    //std::cout << SIMTIME << " greenTimes=" << toString(myLinkGreenTimes) << "\n";
 }
 
 int
@@ -1006,12 +1001,18 @@ MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) const
                 try {
                     int linkIndex = StringUtils::toInt(arg);
                     if (linkIndex >= 0 && linkIndex < myNumLinks) {
-                        // times are only updated at the start of a phase where
-                        // switching is possible (i.e. not during minDur).
-                        // If somebody is looking at those values in the tracker
-                        // this would be confusing
-                        const_cast<MSActuatedTrafficLightLogic*>(this)->updateLinkGreenTimes();
-                        return STEPS2TIME(myLinkGreenTimes[linkIndex]);
+                        if (myLastTrySwitchTime < SIMSTEP) {
+                            // times are only updated at the start of a phase where
+                            // switching is possible (i.e. not during minDur).
+                            // If somebody is looking at those values in the tracker
+                            // this would be confusing
+                            std::vector<SUMOTime> tmp(myNumLinks, 0);
+                            updateLinkGreenTimes(tmp);
+                            const SUMOTime currentGreen = tmp[linkIndex];
+                            return currentGreen == 0 ? 0 : STEPS2TIME(myLinkGreenTimes[linkIndex] + currentGreen);
+                        } else {
+                            return STEPS2TIME(myLinkGreenTimes[linkIndex]);
+                        }
                     }
                 } catch (NumberFormatException&) { }
                 throw ProcessError("Invalid link index '" + arg + "' in expression '" + expr + "'");

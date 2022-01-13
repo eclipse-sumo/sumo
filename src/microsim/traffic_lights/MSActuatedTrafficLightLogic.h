@@ -160,7 +160,7 @@ protected:
     /// @}
 
     /// @brief recompute running green durations
-    void updateLinkGreenTimes();
+    void updateLinkGreenTimes(std::vector<SUMOTime>& into) const;
 
     /// @brief select among candidate phases based on detector states
     int decideNextPhase();
@@ -226,7 +226,6 @@ protected:
 
     /// @brief last time trySwitch was called
     SUMOTime myLastTrySwitchTime;
-    SUMOTime myLastLinkGreenUpdateTime;
 
     /// @brief consecutive time that the given link index has been green
     std::vector<SUMOTime> myLinkGreenTimes;
