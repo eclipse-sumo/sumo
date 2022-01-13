@@ -1070,7 +1070,7 @@ NEMALogic::getParameter(const std::string& key, const std::string defaultValue) 
             }
             return out_str;
         } else {
-            return "";
+            throw InvalidArgument("Unsupported parameter '" + key + "' for NEMA controller '" + getID() + "'");
         }
     }
     else {

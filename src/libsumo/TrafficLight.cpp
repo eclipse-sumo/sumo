@@ -584,7 +584,11 @@ TrafficLight::getVehicleByTripId(const std::string tripOrVehID) {
 
 std::string
 TrafficLight::getParameter(const std::string& tlsID, const std::string& paramName) {
-    return Helper::getTLS(tlsID).getActive()->getParameter(paramName, "");
+    MSTrafficLightLogic* tll = Helper::getTLS(tlsID).getActive();
+    if (StringUtils::startsWith(paramName, "NEMA.") && tll->getLogicType() != TrafficLightType::NEMA) {
+        throw TraCIException("'" + tlsID + "' is not a NEMA controller");
+    }
+    return tll->getParameter(paramName, "");
 }
 
 
