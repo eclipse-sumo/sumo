@@ -332,7 +332,9 @@ NBPTStopCont::replaceEdge(const std::string& edgeID, const EdgeVector& replaceme
             myPTStopLookup[item.second->getEdgeId()].push_back(item.second);
         }
     }
-    for (NBPTStop* stop : myPTStopLookup[edgeID]) {
+    // make a copy because the vector gets modified
+    const std::vector<NBPTStop*> stops = myPTStopLookup[edgeID];
+    for (NBPTStop* stop : stops) {
         if (!stop->replaceEdge(edgeID, replacement)) {
             WRITE_WARNINGF("Could not re-assign pt stop '%' after replacing edge '%'.", stop->getID(), edgeID);
         } else {
