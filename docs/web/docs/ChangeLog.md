@@ -27,6 +27,12 @@ title: ChangeLog
   - Fixed superfluous route extension for taxi with idle-algorithm 'randomCircling'. Issue #9866
   - Fixed collisions and emergency braking for Wiedemann carFollowModel. Issue #1351, #5715, #9832
   - CarFollowModel EIDM now respects emergencyDecel. Issue #9618
+  - Stop positions between 0 and 0.1 can now be defined. Issue #9915
+  - Fixed invalid collider/victim classification for junction collision. Issue #9916
+  - Fixed collision on junction when long vehicle cuts a corner. Issue #4431
+  - Fixned invalid junction collision warning. Issue #9920
+  - Fixed junction collision when bluelight vehicle drives on red. Issue #9919
+  - Fixed bug in driving speed calculation for EIDM. Issue #9878
   
 - netedit
   - Fixed bug preventing inspection of tazRelations. Issue #9728
@@ -40,6 +46,8 @@ title: ChangeLog
   - Stop attribute "triggered" now supports symbolic string values. Issue #9563
   - Fixed missing 'end' attribute when converting trip to flow. Issue #9834  
   - Fixed invalid weights when loading source or sink weight for taz edge. Issue #9672
+  - Routes now longer have a color unless set by the user. Issue #9512
+  - Routes with invalid stops (invalid order or edge) now trigger a dialog for corrections on saving. Issue #9921
 
 - sumo-gui
   - Fixed crash when using guiShape "truck/trailer" or "truck/semitrailer" for short vehicles. #9682 (regression in 1.11.0)
@@ -48,8 +56,11 @@ title: ChangeLog
   - Exaggerating stopping place size only increases symbol size. Issue #9370
   - Fixed invisible rerouter on short edge. Issue #9779
   - Fixed invalid detector visibility when switching actuated traffic light program on. Issue #9877
+  - Fixed keyboard navigation in locate object dialogs. Issue #9740
+  - Rerouter symbols are no longer drawn on sidewalks. Issue #9908
 
 - netconvert
+  - Fixed unsafe location of internal junctions that were causing collisions in the simulation. Positioning can be controleld with option **--internal-junctions.vehicle-width** and setting this to 0 restores legacy behavior. Issue #4397
   - Fixed invalid LaneLink index in OpenDRIVE export. Issue #9637
   - Fixed invalid network when importing public transport and sidewalks. Issue #9701 (regression in 1.10.0)
   - Fixed invalid internal junction location. Issue #9381
@@ -57,6 +68,7 @@ title: ChangeLog
   - Fixed invalid error when loading projections with '+geogrids' entry on windows. Issue #9766
   - Fixed invalid handling of loaded roundabouts when the network is modified. Issue #9810
   - Network building now aborts when a type file could not be loaded. Issue #9392
+  - Option **--ignore-errors** now ignores duplicate node ids in dlr-navteq input. Issue #8581
 
 - duarouter
   - Option **--write-costs** now also applies to walks/rides, Option **--route-length** now applies to normal vehicles. Issue #9698
@@ -82,6 +94,8 @@ title: ChangeLog
   - routeSampler.py: warning message instead of crash when trying to load an empty interval. Issue #9754
   - addStopsToRoutes.py: Now handles disallowed vClass and vTypes with undefined vClass. Issue #9792
   - generateRailSignalConstraints.py: Now handles intermediate parking stops. Issue #9806
+  - Fixed encoding problems in osmTaxiStop.py #9893
+  - [emissionsDrivingCycle](Tools/Emissions.md#emissionsdrivingcycle) now permits loading of [electric vehicle params](Models/Electric.md#defining_electric_vehicles) via the new options **--vtype** and **--additional-files**. Issue #9930
 
 - Miscellaneous
   - Specifying NUL output on the command line finally works. Issue #3400
@@ -92,12 +106,14 @@ title: ChangeLog
 
 - simulation
   - Persons are now included in saved simulation state when setting option **--save-state.transportables**. Issue #2792
-  - Actuated traffic lights now support attributes 'earliestEnd', 'latestEnd' to configure coordination. Issue #9748
+  - Traffic lights of type 'actuated' and 'delay_based' now support attributes 'earliestEnd', 'latestEnd' and param 'cycleTime' to configure coordination. Issue #9748, #9885, #9889
+  - Traffic lights of type 'actuated' now support [custom logical conditions](Simulation/Traffic_Lights.md#custom_switching_rules) for switching. Issue #9890
   - Added attribute speedRelative to edgeData output. Issue #9601
   - Option **--fcd-output.attributes** can now be used to active non-standard attributes (i.e. acceleration). Issue #9625
   - Rerouting period can now be customized via `<param key="device.rerouting.period" value="X"/>` in vType or vehicle. Issue #9646  
   - Detector processing now takes less time if their output file is set to 'NUL'. Issue #7772, #9620
   - Vehicle attribute [departSpeed](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#departspeed) now supports the values 'last' and 'avg'. Issue #2024
+  - Traffic light type 'NEMA' now supports param 'fixForceOff' which permits non-coordinated phases to use the unused time of previous phases. Issue #9848
   - parking search:
     - Parking search now supports `<param key="parking.anywhere" value="X"/>` which permit using free parkingArea along the way after doing unsuccessful  parkingAreaReroute x times. Issue #9577
     - Parking search now supports `<param key="parking.frustration" value="X"/>` which increases the preference for visibly free parkingAreas over time. Issue 9657
@@ -107,22 +123,30 @@ title: ChangeLog
 - sumo-gui
   - All text setting now have the checkbox "only for selected" to display text selectively. Issue #9574
   - Added vehicle setting "show parking info" which labels parking memory (block time and scores) for vehicles with active route visualization. Also, the vehicle is labeled with the number of parking reroutes since the last successful parkingArea stop. Issue #9572
-  - Can now color roads "by free parking spaces". Issue #9643
-  - Traffic light parameter dialog now includes cycle duration, timeInCycle, earliestEnd and latestEnd. Issue #9784
-  - Phase Tracker window now shows switch times, can configure time style and optionally print durations. Issue #9785
-  - Phase Tracker now remembers position and size. Issue #9826
-  - Phase Tracker now shows phase index or phase name. Issue #9836
+  - Can now color roads "by free parking spaces". Issue #9643  
+  - add detector state to phase tracker (optional) #9887
   - Added context menu entry to open map location in an online map. Issue #9787
   - Vehicle size can now be scaled by attribute. Issue #9567
   - Added speedFactor to vehicle type parameter dialog. Issue #9865
+  - Traffic light parameter dialog now includes cycle duration, timeInCycle, earliestEnd and latestEnd. Issue #9784
+  - Phase Tracker window enhancements:
+    - shows switch times with configure style (seconds, MM:SS, time-in-cycle). Issue #9785
+    - optionally shows green phase durations.
+    - remembers window position and size. Issue #9826
+    - shows phase index or phase name. Issue #9836
+    - optionally draws states of actuation detectors. Issue #9887
+    - optionally draws states of custom switching conditions. Issue #9928
 
 - netedit
+  - Trips and flows between junctions (fromJunction, toJunction) are now supported. Issue #9081
   - The name prefixes for all created additional elements can now be configured and their defaults have been shortened. Issue #9666
   - Add images for the guiShapes in the vType attributes editor. Issue #9457
   - All output elements now write 'id' as their first attribute. Issue #9664
   - All elements of a side frame can now be collapsed/expanded. Issue #6034
   - Trips with a single edge can now be created. Issue #9758
   - Added lane context menu function "set custom shape". Issue #9741
+  - Loading and setting of vTypeDistributions is now supported. Issue #9435
+  - List of issues from 'demand element problems'-dialog can now be saved to file. Issue #7868
 
 - netconvert
   - OSM: import of public transport now supports share_taxi (PUJ) and minibus. Issue #9708
@@ -157,6 +181,7 @@ title: ChangeLog
 
 ### Miscellaneous
 
+- SUMO can now be installed from python wheels. This provides up to date [release](Downloads.md#python_packages_virtual_environments) and nightly versions (via test.pypi.org) for all platforms. #4639
 - Added [documentation on road capacity and headways](Simulation/RoadCapacity.md). Issue #9870
 - Traffic light type 'NEMA' now uses attribute 'offset' instead of param key="offset". Issue #9804
 - Speed up Visual Studio build with sccache (only works with Ninja not with Visual Studio projects). Issue #9290
