@@ -1,5 +1,5 @@
 Eclipse SUMO jtrrouter Version v1_8_0+0635-4f1a99aa91
  Build features: Windows-10.0.17763 AMD64 MSVC 19.28.29336.0 Release Proj GUI SWIG GDAL FFmpeg OSG GL2PS
- Copyright (C) 2001-2021 German Aerospace Center (DLR) and others; https://sumo.dlr.de
+ Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
  License EPL-2.0: Eclipse Public License Version 2 <https://eclipse.org/legal/epl-v20.html>
  Use --help to get the list of options.
