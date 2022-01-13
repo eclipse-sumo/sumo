@@ -66,4 +66,3 @@ title: Developer
 - [SUMO on Travis](https://travis-ci.org/eclipse/sumo) (legacy)
 - [SUMO brew formula on Github Actions](https://github.com/DLR-TS/homebrew-sumo/actions)
 - [SUMO on OpenHub](https://www.openhub.net/p/sumo/)
-- [SUMO on codeclimate](https://codeclimate.com/github/DLR-TS/sumo)
