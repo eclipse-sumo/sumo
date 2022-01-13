@@ -54,6 +54,7 @@ int GUITLLogicPhasesTrackerWindow::myLastY(-1);
 FXDEFMAP(GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel) GUITLLogicPhasesTrackerPanelMap[] = {
     FXMAPFUNC(SEL_CONFIGURE, 0, GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onConfigure),
     FXMAPFUNC(SEL_PAINT,     0, GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onPaint),
+    FXMAPFUNC(SEL_MOTION,    0, GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onMouseMove),
 
 };
 
@@ -66,10 +67,11 @@ FXIMPLEMENT(GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel, FXGLCan
  * GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel-methods
  * ----------------------------------------------------------------------- */
 GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::GUITLLogicPhasesTrackerPanel(
-    FXComposite* c, GUIMainWindow& app,
-    GUITLLogicPhasesTrackerWindow& parent)
-    : FXGLCanvas(c, app.getGLVisual(), app.getBuildGLCanvas(), (FXObject*) nullptr, (FXSelector) 0, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y/*, 0, 0, 300, 200*/),
-      myParent(&parent) {}
+        FXComposite* c, GUIMainWindow& app,
+        GUITLLogicPhasesTrackerWindow& parent) :
+    FXGLCanvas(c, app.getGLVisual(), app.getBuildGLCanvas(), (FXObject*) nullptr, (FXSelector) 0, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y/*, 0, 0, 300, 200*/),
+    myParent(&parent)
+{}
 
 
 GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::~GUITLLogicPhasesTrackerPanel() {}
@@ -129,6 +131,15 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onPaint(
 }
 
 
+long
+GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onMouseMove(
+    FXObject*, FXSelector, void* data) {
+    FXEvent* event = (FXEvent*) data;
+    myMousePos.setx(event->win_x);
+    myMousePos.sety(event->win_y);
+    onPaint(nullptr, 0, nullptr);
+    return 1;
+}
 
 /* -------------------------------------------------------------------------
  * GUITLLogicPhasesTrackerWindow - FOX callback mapping
@@ -558,13 +569,13 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         h -= h75;
         if (myDetectorMode->getCheck()) {
             glColor3d(0.7, 0.7, 1.0);
-            drawAdditionalStates(myDetectorStates, myDetectorDurations, myFirstDetOffset, myFirstDet2Show, h,
+            drawAdditionalStates(caller, myDetectorStates, myDetectorDurations, myFirstDetOffset, myFirstDet2Show, h,
                     panelWidth, leftOffset, barWidth, stateHeight, h20, h);
             h -= h35;
         }
         if (myConditionMode->getCheck()) {
             glColor3d(0.9, 0.6, 0.9);
-            drawAdditionalStates(myConditionStates, myConditionDurations, myFirstCondOffset, myFirstCond2Show, h,
+            drawAdditionalStates(caller, myConditionStates, myConditionDurations, myFirstCondOffset, myFirstCond2Show, h,
                     panelWidth, leftOffset, barWidth, stateHeight, h20, h);
         }
     }
@@ -744,7 +755,8 @@ GUITLLogicPhasesTrackerWindow::drawNames(const std::vector<std::string>& names, 
 
 
 void
-GUITLLogicPhasesTrackerWindow::drawAdditionalStates(const AdditionalStatesVector& states,
+GUITLLogicPhasesTrackerWindow::drawAdditionalStates(GUITLLogicPhasesTrackerPanel& caller,
+        const AdditionalStatesVector& states,
         const DurationsVector& durations, SUMOTime firstOffset, int first2Show, double hStart,
         double panelWidth, double leftOffset, double barWidth, double stateHeight, double h20, double& h) {
     double x = 31. / panelWidth;
@@ -754,6 +766,9 @@ GUITLLogicPhasesTrackerWindow::drawAdditionalStates(const AdditionalStatesVector
     auto di = states.begin() + first2Show;
     SUMOTime fpo = firstOffset;
 
+    double mx = caller.getMousePos().x() / caller.getWidth();
+    double my = 1 - caller.getMousePos().y() / caller.getHeight();
+    std::string tooltip = "";
     // start drawing
     for (auto pd = durations.begin() + first2Show; pd != durations.end(); ++pd) {
         SUMOTime i = 30;
@@ -764,10 +779,11 @@ GUITLLogicPhasesTrackerWindow::drawAdditionalStates(const AdditionalStatesVector
         double a = (double) duration / panelWidth;
         a *= barWidth / ((double)(myLastTime - myBeginTime));
         const double x2 = x + a;
+        const bool tooltipX = x < mx && mx < x2;
         //std::cout << SIMTIME << " detStates=" << toString(*di) << "\n";
         // go through the detectors
         for (int j : *di) {
-            if (j == 1) {
+            if (j != 0) {
                 // draw a thick block
                 glBegin(GL_QUADS);
                 glVertex2d(x, h - stateHeight);
@@ -775,6 +791,12 @@ GUITLLogicPhasesTrackerWindow::drawAdditionalStates(const AdditionalStatesVector
                 glVertex2d(x2, h);
                 glVertex2d(x2, h - stateHeight);
                 glEnd();
+                if (tooltipX) {
+                    const bool tooltipY = (h - stateHeight) < my && my < h;
+                    if (tooltipY) {
+                        tooltip = toString(j);
+                    }
+                }
             }
             // proceed to next link
             h -= h20;
@@ -785,6 +807,10 @@ GUITLLogicPhasesTrackerWindow::drawAdditionalStates(const AdditionalStatesVector
         x = x2;
         // all further phases are drawn in full
         fpo = 0;
+    }
+    if (tooltip != "") {
+        // delay tool tip drawing until all bars are drawn to prevent overwriting
+        GLHelper::drawText(tooltip, Position(mx, my), 0, h20, RGBColor::YELLOW, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, 20 / caller.getWidth());
     }
 }
 
@@ -829,7 +855,7 @@ GUITLLogicPhasesTrackerWindow::addValue(std::pair<SUMOTime, MSPhaseDefinition> d
         myDurations.back() += DELTA_T;
     }
     // updated detector states
-    std::vector<int> detectorStates;
+    std::vector<double> detectorStates;
     for (const MSInductLoop* det : myTLLogic->getDetectors()) {
         detectorStates.push_back(det->getOccupancy() > 0 ? 1 : 0);
     }
@@ -840,9 +866,9 @@ GUITLLogicPhasesTrackerWindow::addValue(std::pair<SUMOTime, MSPhaseDefinition> d
         myDetectorDurations.back() += DELTA_T;
     }
     // updated condition states
-    std::vector<int> conditionStates;
+    std::vector<double> conditionStates;
     for (auto item : myTLLogic->getConditions()) {
-        conditionStates.push_back(item.second > 0 ? 1 : 0);
+        conditionStates.push_back(item.second);
     }
     if (myConditionStates.size() == 0 || myConditionStates.back() != conditionStates) {
         myConditionStates.push_back(conditionStates);

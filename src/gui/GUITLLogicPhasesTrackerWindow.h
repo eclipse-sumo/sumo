@@ -117,7 +117,9 @@ public:
 
     /// @brief called on a simulation step
     long onSimStep(FXObject* sender, FXSelector sel, void* ptr);
+
     /// }
+
 
 
 public:
@@ -131,7 +133,7 @@ public:
     typedef std::vector<int> IndexVector;
 
     /// @brief Definition of a storage for detector and condition states
-    typedef std::vector<std::vector<int > > AdditionalStatesVector;
+    typedef std::vector<std::vector<double > > AdditionalStatesVector;
 
     /**
      * @class GUITLLogicPhasesTrackerPanel
@@ -165,12 +167,20 @@ public:
 
         /// @brief called if the widget shall be repainted
         long onPaint(FXObject*, FXSelector, void*);
+
+        /// @brief called on mouse movement (for updating tooltip)
+        long onMouseMove(FXObject*, FXSelector, void*);
         /// }
 
+        const Position& getMousePos() const {
+            return myMousePos;
+        }; 
 
     private:
         /// @brief The parent window
         GUITLLogicPhasesTrackerWindow* myParent;
+
+        Position myMousePos;
 
     protected:
         /// @brief protected constructor for FOX
@@ -291,7 +301,9 @@ private:
     void drawNames(const std::vector<std::string>& names, double fontHeight, double fontWidth, double divHeight, double divWidth, double& h, int extraLines);
 
     /// @brief draw detector and condition states
-    void drawAdditionalStates(const AdditionalStatesVector& states, const DurationsVector& durations, SUMOTime firstOffset, int first2Show, double hStart,
+    void drawAdditionalStates(GUITLLogicPhasesTrackerPanel& caller,
+            const AdditionalStatesVector& states, const DurationsVector& durations,
+            SUMOTime firstOffset, int first2Show, double hStart,
             double panelWidth, double leftOffset, double barWidth, double stateHeight, double h20, double& h);
 
     /// @brief find time in cycle based on myTimeInCycle
