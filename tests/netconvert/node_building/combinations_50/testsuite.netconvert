@@ -1,6 +1,9 @@
 # all edges 50km/h, one lane/dir
 test1
 
+# legacy positioning of internal junctions
+test1_internalJunctionWidth0
+
 # two 30km/h, one lane/dir
 test2
 
