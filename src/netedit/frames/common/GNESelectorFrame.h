@@ -256,6 +256,79 @@ public:
     };
 
     // ===========================================================================
+    // class SelectionHierarchy
+    // ===========================================================================
+
+    class SelectionHierarchy : public FXGroupBoxModule {
+        /// @brief FOX-declaration
+        FXDECLARE(GNESelectorFrame::SelectionHierarchy)
+
+    public:
+        /// @brief constructor
+        SelectionHierarchy(GNESelectorFrame* selectorFrameParent);
+
+        /// @brief destructor
+        ~SelectionHierarchy();
+
+        /// @name FOX-callbacks
+        /// @{
+
+        /**@brief Called when the user presses the Load-button
+         * @note Opens a file dialog and forces the parent to load the list of selected
+         * objects when a file was chosen. Rebuilds the list, then, and redraws itself.
+         */
+        long onCmdLoad(FXObject*, FXSelector, void*);
+
+        /** @brief Called when the user presses the Save-button
+         * @note Opens a file dialog and forces the selection container to save the list
+           of selected objects when a file was chosen. If the saveing failed, a message window is shown.
+         */
+        long onCmdSave(FXObject*, FXSelector, void*);
+
+        /**@brief Called when the user presses the Clear-button
+         * @note Clear the internal list and calls GUISelectedStorage::clear and repaints itself
+         */
+        long onCmdClear(FXObject*, FXSelector, void*);
+
+        /**@brief Called when the user presses the delete-button
+         */
+        long onCmdDelete(FXObject*, FXSelector, void*);
+
+        /**@brief Called when the user presses the Invert-button
+         * @note invert the selection and repaints itself
+         */
+        long onCmdInvert(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief FOX need this
+        FOX_CONSTRUCTOR(SelectionHierarchy)
+
+        /// @brief process network element selection
+        bool processNetworkElementSelection(const bool onlyCount, const bool onlyUnselect, bool& ignoreLocking);
+
+        /// @brief process demand element selection
+        bool processDemandElementSelection(const bool onlyCount, const bool onlyUnselect, bool& ignoreLocking);
+
+        /// @brief process data element selection
+        bool processDataElementSelection(const bool onlyCount, const bool onlyUnselect, bool& ignoreLocking);
+
+        /// @brief ask if continue due locking
+        bool askContinueIfLock() const;
+
+    private:
+        /// @brief pointer to Selector Frame Parent
+        GNESelectorFrame* mySelectorFrameParent;
+
+        /// @brief Invalidated copy constructor.
+        SelectionHierarchy(const SelectionHierarchy&) = delete;
+
+        /// @brief Invalidated assignment operator.
+        SelectionHierarchy& operator=(const SelectionHierarchy&) = delete;
+    };
+
+    // ===========================================================================
     // class Legend
     // ===========================================================================
 
@@ -339,6 +412,9 @@ private:
 
     /// @brief modul for selection operations
     GNESelectorFrame::SelectionOperation* mySelectionOperation = nullptr;
+
+    /// @brief modul for selection hierarchy
+    GNESelectorFrame::SelectionHierarchy* mySelectionHierarchy = nullptr;
 
     /// @brief information modul
     GNESelectorFrame::Information* myInformation = nullptr;
