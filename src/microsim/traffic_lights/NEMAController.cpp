@@ -745,7 +745,7 @@ NEMALogic::NEMA_control() {
     else{
         phaseExpectedDuration[R1Index] = MAX2(phaseExpectedDuration[R1Index], minGreen[R1Index]);
     }
-    if (R1Phase != r1coordinatePhase) {
+    if (R1Phase != r1coordinatePhase || (!coordinateMode && vehExt[R1Index] > 0)) {
         if (isDetectorActivated(R1Phase)) {
             phaseExpectedDuration[R1Index] = MAX2(phaseExpectedDuration[R1Index], durationR1 + vehExt[R1Index]);
             if(fixForceOff){
@@ -771,7 +771,7 @@ NEMALogic::NEMA_control() {
     else{
         phaseExpectedDuration[R2Index] = MAX2(phaseExpectedDuration[R2Index], minGreen[R2Index]);
     }
-    if (R2Phase != r2coordinatePhase && R2Phase >= 5) {
+    if ((R2Phase != r2coordinatePhase && R2Phase >= 5) || (R2Phase >= 5 && !coordinateMode && vehExt[R2Index] > 0)) {
         if (isDetectorActivated(R2Phase)) {
             phaseExpectedDuration[R2Index] = MAX2(phaseExpectedDuration[R2Index], durationR2 + vehExt[R2Index]);
             if (fixForceOff){
