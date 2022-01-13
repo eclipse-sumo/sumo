@@ -130,7 +130,7 @@ Starting with SUMO 1.8.0 the installation is also possible from the [Python pack
 
 You can install either the applications: `pip install eclipse-sumo` or only traci (`pip install traci`), libsumo (`pip install libsumo`) or sumolib (`pip install sumolib`).
 
-This should work for Windows and all Linux versions which are more recent than 2014 - but currently not for macOS.
+This should work for Windows, macOS and all Linux versions which are more recent than 2014.
 The applications are available for Python 2 and Python 3, libsumo only for Python 3.5 and above. This gives an easy way to test
 a new SUMO version via [virtual environments](https://docs.python.org/3/library/venv.html) or a nightly build using the following commands (on Linux):
 ```
