@@ -406,7 +406,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     const double h9 = 9. / panelHeight;
     const double hTop = 20. / panelHeight;
     const double h11 = 11. / panelHeight;
-    const double h16 = 16. / panelHeight;
+    const double stateHeight = 16. / panelHeight;
     const double h20 = 20. / panelHeight;
     const double h30 = 15. / panelHeight;
     const double h35 = 34. / panelHeight;
@@ -526,10 +526,10 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
                 default:
                     // draw a thick block
                     glBegin(GL_QUADS);
-                    glVertex2d(x, h - h16);
+                    glVertex2d(x, h - stateHeight);
                     glVertex2d(x, h);
                     glVertex2d(x2, h);
-                    glVertex2d(x2, h - h16);
+                    glVertex2d(x2, h - stateHeight);
                     glEnd();
                     break;
             }
@@ -555,92 +555,14 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
 
     if (myAmInTrackingMode) {
         if (myDetectorMode->getCheck() != FALSE) {
-            const double hStart = h - h75;
-            x = 31. / panelWidth;
-            ta = (double) leftOffset / panelWidth;
-            ta *= barWidth / ((double)(myLastTime - myBeginTime));
-            x += ta;
-            DetectorStatesVector::iterator di = myDetectorStates.begin() + myFirstDet2Show;
-            fpo = myFirstDetOffset;
-
-            // start drawing
             glColor3d(0.7, 0.7, 1.0);
-            for (DurationsVector::iterator pd = myDetectorDurations.begin() + myFirstDet2Show; pd != myDetectorDurations.end(); ++pd) {
-                SUMOTime i = 30;
-                // the first phase may be drawn incompletely
-                SUMOTime duration = *pd - fpo;
-                // compute the height and the width of the phase
-                h = hStart;
-                double a = (double) duration / panelWidth;
-                a *= barWidth / ((double)(myLastTime - myBeginTime));
-                const double x2 = x + a;
-                //std::cout << SIMTIME << " detStates=" << toString(*di) << "\n";
-                // go through the detectors
-                for (int j : *di) {
-                    if (j == 1) {
-                        // draw a thick block
-                        glBegin(GL_QUADS);
-                        glVertex2d(x, h - h16);
-                        glVertex2d(x, h);
-                        glVertex2d(x2, h);
-                        glVertex2d(x2, h - h16);
-                        glEnd();
-                    }
-                    // proceed to next link
-                    h -= h20;
-                }
-                // proceed to next phase
-                i += duration;
-                ++di;
-                ++ii;
-                x = x2;
-                // all further phases are drawn in full
-                fpo = 0;
-            }
+            drawAdditionalStates(myDetectorStates, myDetectorDurations, myFirstDetOffset, myFirstDet2Show, h - h75,
+                    panelWidth, leftOffset, barWidth, stateHeight, h20, h);
         }
         if (myConditionMode->getCheck() != FALSE) {
-            const double hStart = h - h35;
-            x = 31. / panelWidth;
-            ta = (double) leftOffset / panelWidth;
-            ta *= barWidth / ((double)(myLastTime - myBeginTime));
-            x += ta;
-            ConditionStatesVector::iterator di = myConditionStates.begin() + myFirstCond2Show;
-            fpo = myFirstCondOffset;
-
-            // start drawing
             glColor3d(0.9, 0.6, 0.9);
-            for (DurationsVector::iterator pd = myConditionDurations.begin() + myFirstCond2Show; pd != myConditionDurations.end(); ++pd) {
-                SUMOTime i = 30;
-                // the first phase may be drawn incompletely
-                SUMOTime duration = *pd - fpo;
-                // compute the height and the width of the phase
-                h = hStart;
-                double a = (double) duration / panelWidth;
-                a *= barWidth / ((double)(myLastTime - myBeginTime));
-                const double x2 = x + a;
-                //std::cout << SIMTIME << " condStates=" << toString(*di) << "\n";
-                // go through the conditions
-                for (int j : *di) {
-                    if (j == 1) {
-                        // draw a thick block
-                        glBegin(GL_QUADS);
-                        glVertex2d(x, h - h16);
-                        glVertex2d(x, h);
-                        glVertex2d(x2, h);
-                        glVertex2d(x2, h - h16);
-                        glEnd();
-                    }
-                    // proceed to next link
-                    h -= h20;
-                }
-                // proceed to next phase
-                i += duration;
-                ++di;
-                ++ii;
-                x = x2;
-                // all further phases are drawn in full
-                fpo = 0;
-            }
+            drawAdditionalStates(myConditionStates, myConditionDurations, myFirstCondOffset, myFirstCond2Show, h - h35,
+                    panelWidth, leftOffset, barWidth, stateHeight, h20, h);
         }
     }
     // allow value addition
@@ -804,6 +726,51 @@ GUITLLogicPhasesTrackerWindow::drawNames(const std::vector<std::string>& names, 
     h -= divHeight;
 }
 
+
+void
+GUITLLogicPhasesTrackerWindow::drawAdditionalStates(const AdditionalStatesVector& states,
+        const DurationsVector& durations, SUMOTime firstOffset, int first2Show, double hStart,
+        double panelWidth, double leftOffset, double barWidth, double stateHeight, double h20, double& h) {
+    double x = 31. / panelWidth;
+    double ta = leftOffset / panelWidth;
+    ta *= barWidth / ((double)(myLastTime - myBeginTime));
+    x += ta;
+    auto di = states.begin() + first2Show;
+    SUMOTime fpo = firstOffset;
+
+    // start drawing
+    for (auto pd = durations.begin() + first2Show; pd != durations.end(); ++pd) {
+        SUMOTime i = 30;
+        // the first phase may be drawn incompletely
+        SUMOTime duration = *pd - fpo;
+        // compute the height and the width of the phase
+        h = hStart;
+        double a = (double) duration / panelWidth;
+        a *= barWidth / ((double)(myLastTime - myBeginTime));
+        const double x2 = x + a;
+        //std::cout << SIMTIME << " detStates=" << toString(*di) << "\n";
+        // go through the detectors
+        for (int j : *di) {
+            if (j == 1) {
+                // draw a thick block
+                glBegin(GL_QUADS);
+                glVertex2d(x, h - stateHeight);
+                glVertex2d(x, h);
+                glVertex2d(x2, h);
+                glVertex2d(x2, h - stateHeight);
+                glEnd();
+            }
+            // proceed to next link
+            h -= h20;
+        }
+        // proceed to next phase
+        i += duration;
+        ++di;
+        x = x2;
+        // all further phases are drawn in full
+        fpo = 0;
+    }
+}
 
 SUMOTime
 GUITLLogicPhasesTrackerWindow::findTimeInCycle(SUMOTime t) {

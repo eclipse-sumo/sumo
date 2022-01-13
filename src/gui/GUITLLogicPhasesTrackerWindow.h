@@ -130,11 +130,8 @@ public:
     /// @brief Definition of a storage for indices
     typedef std::vector<int> IndexVector;
 
-    /// @brief Definition of a storage for detector states
-    typedef std::vector<std::vector<int > > DetectorStatesVector;
-
-    /// @brief Definition of a storage for condition states
-    typedef std::vector<std::vector<int > > ConditionStatesVector;
+    /// @brief Definition of a storage for detector and condition states
+    typedef std::vector<std::vector<int > > AdditionalStatesVector;
 
     /**
      * @class GUITLLogicPhasesTrackerPanel
@@ -208,8 +205,8 @@ private:
     IndexVector myPhaseIndex;
 
     /// @brief The state of all used detectors of the current phase
-    DetectorStatesVector myDetectorStates;
-    ConditionStatesVector myConditionStates;
+    AdditionalStatesVector myDetectorStates;
+    AdditionalStatesVector myConditionStates;
 
     /// @brief The list of detector state durations
     DurationsVector myDetectorDurations;
@@ -292,6 +289,10 @@ private:
 
     /// @brief draw row title
     void drawNames(const std::vector<std::string>& names, double fontHeight, double fontWidth, double divHeight, double divWidth, double& h, int extraLines);
+
+    /// @brief draw detector and condition states
+    void drawAdditionalStates(const AdditionalStatesVector& states, const DurationsVector& durations, SUMOTime firstOffset, int first2Show, double hStart,
+            double panelWidth, double leftOffset, double barWidth, double stateHeight, double h20, double& h);
 
     /// @brief find time in cycle based on myTimeInCycle
     SUMOTime findTimeInCycle(SUMOTime t);
