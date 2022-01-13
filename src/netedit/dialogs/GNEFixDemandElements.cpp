@@ -115,85 +115,7 @@ GNEFixDemandElements::onCmdAccept(FXObject*, FXSelector, void*) {
     myFixVehicleOptions->fixElements(abortSaving);
     myFixStopPositionOptions->fixElements(abortSaving);
     myFixPersonPlanOptions->fixElements(abortSaving);
-/*
-    // check options for invalid routes
-
-    // check options for invalid vehicles
-    if (myDemandList->myInvalidVehicles.size() > 0) {
-        if (myFixVehicleOptions->removeInvalidVehicles->getCheck() == TRUE) {
-            // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::VEHICLE, "delete invalid vehicles");
-            // iterate over invalid stops to delete it
-            for (auto i : myDemandList->myInvalidVehicles) {
-                myViewNet->getNet()->deleteDemandElement(i, myViewNet->getUndoList());
-            }
-            // end undo list
-            myViewNet->getUndoList()->end();
-        } else if (myFixVehicleOptions->selectInvalidVehiclesAndCancel->getCheck() == TRUE) {
-            // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::VEHICLE, "select invalid vehicles");
-            // iterate over invalid single lane elements to select all elements
-            for (auto i : myDemandList->myInvalidVehicles) {
-                i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
-            }
-            // end undo list
-            myViewNet->getUndoList()->end();
-            // abort saving
-            continueSaving = false;
-        }
-    }
-    // check options for stops
-    if (myDemandList->myInvalidStops.size() > 0) {
-        if (myFixStopPositionOptions->activateFriendlyPositionAndSave->getCheck() == TRUE) {
-            // begin undo list
-            myViewNet->getUndoList()->begin(GUIIcon::STOP, "change " + toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid stops");
-            // iterate over invalid stops to enable friendly position
-            for (auto i : myDemandList->myInvalidStops) {
-                i->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
-            }
-            myViewNet->getUndoList()->end();
-        } else if (myFixStopPositionOptions->fixPositionsAndSave->getCheck() == TRUE) {
-            myViewNet->getUndoList()->begin(GUIIcon::STOP, "fix positions of invalid stops");
-            // iterate over invalid stops to fix positions
-            for (const auto &stop : myDemandList->myInvalidStops) {
-                stop->fixDemandElementProblem();
-            }
-            myViewNet->getUndoList()->end();
-        } else if (myFixStopPositionOptions->selectInvalidStopsAndCancel->getCheck() == TRUE) {
-            myViewNet->getUndoList()->begin(GUIIcon::STOP, "select invalid stops");
-            // iterate over invalid stops to select all elements
-            for (auto i : myDemandList->myInvalidStops) {
-                i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
-            }
-            // end undo list
-            myViewNet->getUndoList()->end();
-            // abort saving
-            continueSaving = false;
-        }
-    }
-    // check options for person plans
-    if (myDemandList->myInvalidPersonPlans.size() > 0) {
-        if (myFixPersonPlanOptions->deletePersonPlan->getCheck() == TRUE) {
-            // begin undo list
-            myViewNet->getUndoList()->begin("change " + toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid person plans");
-            // iterate over invalid person plans to enable friendly position
-            for (auto i : myDemandList->myInvalidPersonPlans) {
-                i->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
-            }
-            myViewNet->getUndoList()->end();
-        } else if (myFixPersonPlanOptions->selectInvalidPersonPlansAndCancel->getCheck() == TRUE) {
-            myViewNet->getUndoList()->begin(GUIIcon::MODEPERSONPLAN, "select invalid person plans");
-            // iterate over invalid person plans to select all elements
-            for (auto i : myDemandList->myInvalidPersonPlans) {
-                i->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
-            }
-            // end undo list
-            myViewNet->getUndoList()->end();
-            // abort saving
-            continueSaving = false;
-        }
-    }
-    */
+    // check if abort saving
     if (abortSaving) {
         // stop modal with TRUE (abort saving)
         getApp()->stopModal(this, FALSE);
@@ -571,7 +493,35 @@ GNEFixDemandElements::FixStopPositionOptions::selectOption(FXObject* option) {
 
 void 
 GNEFixDemandElements::FixStopPositionOptions::fixElements(bool &abortSaving) {
-    //
+    // check options for stops
+    if (myInvalidElements.size() > 0) {
+        if (activateFriendlyPositionAndSave->getCheck() == TRUE) {
+            // begin undo list
+            myViewNet->getUndoList()->begin(GUIIcon::STOP, "change " + toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid stops");
+            // iterate over invalid stops to enable friendly position
+            for (const auto &stop : myInvalidElements) {
+                stop->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
+            }
+            myViewNet->getUndoList()->end();
+        } else if (fixPositionsAndSave->getCheck() == TRUE) {
+            myViewNet->getUndoList()->begin(GUIIcon::STOP, "fix positions of invalid stops");
+            // iterate over invalid stops to fix positions
+            for (const auto &stop : myInvalidElements) {
+                stop->fixDemandElementProblem();
+            }
+            myViewNet->getUndoList()->end();
+        } else if (selectInvalidStopsAndCancel->getCheck() == TRUE) {
+            myViewNet->getUndoList()->begin(GUIIcon::STOP, "select invalid stops");
+            // iterate over invalid stops to select all elements
+            for (const auto &stop : myInvalidElements) {
+                stop->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+            }
+            // end undo list
+            myViewNet->getUndoList()->end();
+            // abort saving
+            abortSaving = true;
+        }
+    }
 }
 
 
@@ -633,7 +583,28 @@ GNEFixDemandElements::FixPersonPlanOptions::selectOption(FXObject* option) {
 
 void 
 GNEFixDemandElements::FixPersonPlanOptions::fixElements(bool &abortSaving) {
-    //
+    // check options for person plans
+    if (myInvalidElements.size() > 0) {
+        if (deletePersonPlan->getCheck() == TRUE) {
+            // begin undo list
+            myViewNet->getUndoList()->begin(GUIIcon::MODEPERSONPLAN, "delete invalid person plans");
+            // remove all invalid person plans
+            for (const auto &personPlan : myInvalidElements) {
+                myViewNet->getNet()->deleteDemandElement(personPlan, myViewNet->getUndoList());
+            }
+            myViewNet->getUndoList()->end();
+        } else if (selectInvalidPersonPlansAndCancel->getCheck() == TRUE) {
+            myViewNet->getUndoList()->begin(GUIIcon::MODEPERSONPLAN, "select invalid person plans");
+            // iterate over invalid person plans to select all elements
+            for (const auto &personPlan : myInvalidElements) {
+                personPlan->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
+            }
+            // end undo list
+            myViewNet->getUndoList()->end();
+            // abort saving
+            abortSaving = false;
+        }
+    }
 }
 
 
