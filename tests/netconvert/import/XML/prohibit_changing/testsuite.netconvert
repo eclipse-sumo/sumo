@@ -12,3 +12,6 @@ lane_prohibit_changing_modify2
 
 # ignore given prohibitions if they create a dead-end lane
 avoid_deadend
+
+# ignore given prohibitions if they create an implausible off-ramp
+avoid_deadend2
