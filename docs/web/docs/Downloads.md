@@ -126,7 +126,7 @@ solutions or Linux Makefiles. This download does not contain tests. Download as:
 
 ## Python packages / Virtual environments
 
-Starting with SUMO 1.8.0 the installation is also possible from the [Python packaging index](https://pypi.org/project/eclipse-sumo/).
+Starting with SUMO 1.8.0 (for MacOS since 1.12.0) the installation is also possible from the [Python packaging index](https://pypi.org/project/eclipse-sumo/).
 
 You can install either the applications: `pip install eclipse-sumo` or only traci (`pip install traci`), libsumo (`pip install libsumo`) or sumolib (`pip install sumolib`).
 
@@ -141,7 +141,7 @@ pip install eclipse-sumo
 ```
 
 !!! caution "MacOS dependencies"
-    In order to use the wheels on python you meed to have all the dependencies installed and up to date via brew for instance by following the [standard installation](Installing/index.md#macos) once.
+    In order to use the wheels on python you need to have all the dependencies installed and up to date via brew for instance by following the [standard installation](Installing/index.md#macos) once.
 
 # SUMO - Latest Development Version
 
