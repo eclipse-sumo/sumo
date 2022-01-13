@@ -278,6 +278,18 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("parkingArea-prefix", new Option_String("pa"));
     oc.addDescription("parkingArea-prefix", "Netedit", "prefix for parkingArea naming");
 
+    oc.doRegister("e1Detector-prefix", new Option_String("e1"));
+    oc.addDescription("e1Detector-prefix", "Netedit", "prefix for e1Detector naming");
+
+    oc.doRegister("e2Detector-prefix", new Option_String("e2"));
+    oc.addDescription("e2Detector-prefix", "Netedit", "prefix for e2Detector naming");
+
+    oc.doRegister("e3Detector-prefix", new Option_String("e3"));
+    oc.addDescription("e3Detector-prefix", "Netedit", "prefix for e3Detector naming");
+
+    oc.doRegister("e1InstantDetector-prefix", new Option_String("e1i"));
+    oc.addDescription("e1InstantDetector-prefix", "Netedit", "prefix for e1InstantDetector naming");
+
     oc.doRegister("rerouter-prefix", new Option_String("rr"));
     oc.addDescription("rerouter-prefix", "Netedit", "prefix for rerouter naming");
 
