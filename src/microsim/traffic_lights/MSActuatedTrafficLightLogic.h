@@ -226,9 +226,7 @@ protected:
 
     /// @brief last time trySwitch was called
     SUMOTime myLastTrySwitchTime;
-
-    /// @brief whether updateLinkGreenTimes is necessary
-    bool myHaveUpdatedLinkGreenTimes;
+    SUMOTime myLastLinkGreenUpdateTime;
 
     /// @brief consecutive time that the given link index has been green
     std::vector<SUMOTime> myLinkGreenTimes;

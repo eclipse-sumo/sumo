@@ -78,6 +78,7 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
         const std::map<std::string, std::string>& conditions) :
     MSSimpleTrafficLightLogic(tlcontrol, id, programID, offset, TrafficLightType::ACTUATED, phases, step, delay, parameter),
     myLastTrySwitchTime(0),
+    myLastLinkGreenUpdateTime(0),
     myConditions(conditions),
     myTraCISwitch(false)
 {
@@ -513,7 +514,6 @@ MSActuatedTrafficLightLogic::trySwitch() {
     // considere here. RiLSA recommends to set minDuration in a way that lets all vehicles pass the detector
     SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
     if (myLinkGreenTimes.size() > 0) {
-        myHaveUpdatedLinkGreenTimes = false;
         // constraints exist, record green time durations for each link
         updateLinkGreenTimes();
     }
@@ -548,8 +548,6 @@ MSActuatedTrafficLightLogic::trySwitch() {
             }
         }
     }
-
-    myHaveUpdatedLinkGreenTimes = false;  // gui calls at the end of the step should use updated states
 
     myTraCISwitch = false;
     SUMOTime linkMinDur = getLinkMinDuration(getTarget(nextStep));
@@ -650,7 +648,7 @@ MSActuatedTrafficLightLogic::gapControl() {
 
 void
 MSActuatedTrafficLightLogic::updateLinkGreenTimes() {
-    if (!myHaveUpdatedLinkGreenTimes) {
+    if (myLastLinkGreenUpdateTime < SIMSTEP) {
         const std::string& state = getCurrentPhaseDef().getState();
         SUMOTime lastDuration = SIMSTEP - myLastTrySwitchTime;
         for (int i = 0; i < myNumLinks; i++) {
@@ -660,7 +658,7 @@ MSActuatedTrafficLightLogic::updateLinkGreenTimes() {
                 myLinkGreenTimes[i] = 0;
             }
         }
-        myHaveUpdatedLinkGreenTimes = true;
+        myLastLinkGreenUpdateTime = SIMSTEP;
     }
     //std::cout << SIMTIME << " greenTimes=" << toString(myLinkGreenTimes) << "\n";
 }
