@@ -2834,14 +2834,16 @@ NBEdge::recheckLanes() {
     // avoid deadend due to change prohibitions
     if (getNumLanes() > 1 && myConnections.size() > 0) {
         for (int i = 0; i < (int)myLanes.size(); i++) {
-            if (connNumbersPerLane[i] == 0 && getPermissions(i) != SVC_PEDESTRIAN && !isForbidden(getPermissions(i))) {
-                Lane& lane = myLanes[i];
+            Lane& lane = myLanes[i];
+            if ((connNumbersPerLane[i] == 0 || ((lane.accelRamp || (i > 0 && myLanes[i - 1].accelRamp && connNumbersPerLane[i - 1] > 0))
+                            && getSuccessors(SVC_PASSENGER).size() > 1))
+                        && getPermissions(i) != SVC_PEDESTRIAN && !isForbidden(getPermissions(i))) {
                 const bool forbiddenLeft = lane.changeLeft != SVCAll && lane.changeLeft != SVC_IGNORING && lane.changeLeft != SVC_UNSPECIFIED;
                 const bool forbiddenRight = lane.changeRight != SVCAll && lane.changeRight != SVC_IGNORING && lane.changeRight != SVC_UNSPECIFIED;
                 if (forbiddenLeft && (i == 0 || forbiddenRight)) {
                     lane.changeLeft = SVC_UNSPECIFIED;
                     WRITE_WARNING("Ignoring changeLeft prohibition for '" + getLaneID(i) + "' to avoid dead-end");
-                } else if (forbiddenRight && i == getNumLanes() - 1) {
+                } else if (forbiddenRight && (i == getNumLanes() - 1 || (i > 0 && myLanes[i - 1].accelRamp))) {
                     lane.changeRight = SVC_UNSPECIFIED;
                     WRITE_WARNING("Ignoring changeRight prohibition for '" + getLaneID(i) + "' to avoid dead-end");
                 }
