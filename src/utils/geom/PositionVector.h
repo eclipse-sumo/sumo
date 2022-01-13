@@ -224,9 +224,6 @@ public:
     void add(const Position& offset);
 
     //// @brief subtract an offset from all positions
-    void sub(double xoff, double yoff, double zoff);
-
-    //// @brief subtract an offset from all positions
     void sub(const Position& offset);
 
     //// @brief adds a position without modifying the vector itself but returning the result
