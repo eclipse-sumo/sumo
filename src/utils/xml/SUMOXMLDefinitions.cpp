@@ -1115,14 +1115,14 @@ StringBijection<LaneChangeAction>::Entry SUMOXMLDefinitions::laneChangeActionVal
 };
 
 StringBijection<TrainType>::Entry SUMOXMLDefinitions::trainTypeValues[] = {
-    { "NGT400",     TRAINTYPE_NGT400 },
-    { "NGT400_16",  TRAINTYPE_NGT400_16 },
-    { "RB425",      TRAINTYPE_RB425 },
-    { "RB628",      TRAINTYPE_RB628 },
-    { "ICE1",       TRAINTYPE_ICE1 },
-    { "REDosto7",   TRAINTYPE_REDOSTO7 },
-    { "Freight",    TRAINTYPE_FREIGHT },
-    { "ICE3",       TRAINTYPE_ICE3 }
+    { "NGT400",     TrainType::NGT400 },
+    { "NGT400_16",  TrainType::NGT400_16 },
+    { "RB425",      TrainType::RB425 },
+    { "RB628",      TrainType::RB628 },
+    { "ICE1",       TrainType::ICE1 },
+    { "REDosto7",   TrainType::REDOSTO7 },
+    { "Freight",    TrainType::FREIGHT },
+    { "ICE3",       TrainType::ICE3 }
 };
 
 
@@ -1172,7 +1172,7 @@ StringBijection<LaneChangeAction> SUMOXMLDefinitions::LaneChangeActions(
     SUMOXMLDefinitions::laneChangeActionValues, LCA_UNKNOWN);
 
 StringBijection<TrainType> SUMOXMLDefinitions::TrainTypes(
-    SUMOXMLDefinitions::trainTypeValues, TRAINTYPE_ICE3);
+    SUMOXMLDefinitions::trainTypeValues, TrainType::ICE3);
 
 
 std::string

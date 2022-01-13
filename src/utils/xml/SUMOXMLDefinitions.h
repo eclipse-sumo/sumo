@@ -1617,7 +1617,7 @@ enum LaneChangeAction {
     // !!! never used LCA_KEEP2 = 1 << 25,
     LCA_AMBACKBLOCKER = 1 << 26,
     LCA_AMBACKBLOCKER_STANDING = 1 << 27
-                                 /// @}
+    /// @}
 };
 
 
@@ -1630,16 +1630,16 @@ enum class LaneChangeModel {
 };
 
 /// @enum train types
-enum TrainType {
-    TRAINTYPE_NGT400,
-    TRAINTYPE_NGT400_16,
-    TRAINTYPE_RB425,
-    TRAINTYPE_RB628,
-    TRAINTYPE_ICE1,
-    TRAINTYPE_REDOSTO7,
-    TRAINTYPE_FREIGHT,
-    TRAINTYPE_ICE3,
-    TRAINTYPE_UNKNOWN
+enum class TrainType {
+    NGT400,
+    NGT400_16,
+    RB425,
+    RB628,
+    ICE1,
+    REDOSTO7,
+    FREIGHT,
+    ICE3,
+    UNKNOWN
 };
 
 // @}
