@@ -327,6 +327,14 @@ class TrafficLightDomain(Domain):
         """
         self._setCmd(tc.TL_PROGRAM, tlsID, "s", programID)
 
+    def getNemaPhaseCalls(self,tlsID):
+        """getNemaPhaseCalls(string) -> list(string)
+        Get the vehicle calls for the phases. 
+        The output is vehicle calls (coming from the detectors) for the phases.
+        """
+        vehCallStr = self.getParameter(tlsID, "NEMA.phaseCall")
+        return vehCallStr.split(",")
+
     def setNemaSplits(self, tlsID, splits):
         """setNemaSplits(string, list(string)) -> None
         Set a new set of splits to the given NEMA-controller.
@@ -340,14 +348,7 @@ class TrafficLightDomain(Domain):
         if type(splits) == list:
             splits = ' '.join(map(str, splits))
         self.setParameter(tlsID, "NEMA.splits", splits)
-    def getNemaPhaseCalls(self,tlsID):
 
-        """getNemaPhaseCalls(string) -> list(string)
-        Get the vehicle calls for the phases. 
-        The output is vehicle calls (coming from the detectors) for the phases.
-        """
-        vehCallStr=self.getParameter(tlsID, "NEMA.phaseCall")
-        return vehCallStr.split(",")
     def setNemaMaxGreens(self, tlsID, maxGreens):
         """setNemaMaxGreens(string, list(string)) -> None
         Set a new set of splits to the given NEMA-controller.
