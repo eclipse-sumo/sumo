@@ -3488,7 +3488,6 @@ NBEdge::clearControllingTLInformation() {
 PositionVector
 NBEdge::getCWBoundaryLine(const NBNode& n) const {
     PositionVector ret;
-    double width;
     int lane;
     if (myFrom == (&n)) {
         // outgoing
@@ -3499,8 +3498,7 @@ NBEdge::getCWBoundaryLine(const NBNode& n) const {
         lane = getFirstAllowedLaneIndex(NBNode::BACKWARD);
         ret = myLanes[lane].shape.reverse();
     }
-    width = getLaneWidth(lane);
-    ret.move2side(width * 0.5);
+    ret.move2side(getLaneWidth(lane) / 2.);
     return ret;
 }
 
@@ -3508,7 +3506,6 @@ NBEdge::getCWBoundaryLine(const NBNode& n) const {
 PositionVector
 NBEdge::getCCWBoundaryLine(const NBNode& n) const {
     PositionVector ret;
-    double width;
     int lane;
     if (myFrom == (&n)) {
         // outgoing
@@ -3519,8 +3516,7 @@ NBEdge::getCCWBoundaryLine(const NBNode& n) const {
         lane = getFirstAllowedLaneIndex(NBNode::FORWARD);
         ret = myLanes[lane].shape.reverse();
     }
-    width = getLaneWidth(lane);
-    ret.move2side(-width * 0.5);
+    ret.move2side(-getLaneWidth(lane) / 2.);
     return ret;
 }
 

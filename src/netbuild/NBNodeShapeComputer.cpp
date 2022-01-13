@@ -43,7 +43,7 @@
 #define EXT 100.0
 #define EXT2 10.0
 
-// foot- and bicycle paths as well as pure service roads should not get larget junctions
+// foot and bicycle paths as well as pure service roads should not get large junctions
 // railways also do have have junctions with sharp turns so can be excluded
 const SVCPermissions NBNodeShapeComputer::SVC_LARGE_TURN(
     SVCAll & ~(SVC_BICYCLE | SVC_PEDESTRIAN | SVC_DELIVERY | SVC_RAIL_CLASSES));
@@ -379,30 +379,32 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
         }
     }
 
-    for (i = newAll.begin(); i != newAll.end(); ++i) {
-        if (distances.find(*i) == distances.end()) {
+    for (NBEdge* const edge : newAll) {
+        if (distances.find(edge) == distances.end()) {
             assert(false);
-            distances[*i] = EXT;
+            distances[edge] = EXT;
         }
     }
+    // because of lane spread right the crossing point may be identical to the junction center and thus the distance is exactly EXT
+    const double off = EXT - NUMERICAL_EPS;
     // prevent inverted node shapes
     // (may happen with near-parallel edges)
     const double minDistSum = 2 * (EXT + myRadius);
-    for (i = newAll.begin(); i != newAll.end(); ++i) {
-        if (distances[*i] < EXT && (*i)->hasDefaultGeometryEndpointAtNode(&myNode)) {
+    for (NBEdge* const edge : newAll) {
+        if (distances[edge] < off && edge->hasDefaultGeometryEndpointAtNode(&myNode)) {
             for (EdgeVector::const_iterator j = newAll.begin(); j != newAll.end(); ++j) {
-                if (distances[*j] > EXT && (*j)->hasDefaultGeometryEndpointAtNode(&myNode) && distances[*i] + distances[*j] < minDistSum) {
-                    const double angleDiff = fabs(NBHelpers::relAngle((*i)->getAngleAtNode(&myNode), (*j)->getAngleAtNode(&myNode)));
+                if (distances[*j] > off && (*j)->hasDefaultGeometryEndpointAtNode(&myNode) && distances[edge] + distances[*j] < minDistSum) {
+                    const double angleDiff = fabs(NBHelpers::relAngle(edge->getAngleAtNode(&myNode), (*j)->getAngleAtNode(&myNode)));
                     if (angleDiff > 160 || angleDiff < 20) {
 #ifdef DEBUG_NODE_SHAPE
                         if (DEBUGCOND) {
-                            std::cout << "   increasing dist for i=" << (*i)->getID() << " because of j=" << (*j)->getID() << " jDist=" << distances[*j]
-                                      << "  oldI=" << distances[*i] << " newI=" << minDistSum - distances[*j]
+                            std::cout << "   increasing dist for i=" << edge->getID() << " because of j=" << (*j)->getID() << " jDist=" << distances[*j]
+                                      << "  oldI=" << distances[edge] << " newI=" << minDistSum - distances[*j]
                                       << " angleDiff=" << angleDiff
-                                      << " geomI=" << (*i)->getGeometry() << " geomJ=" << (*j)->getGeometry() << "\n";
+                                      << " geomI=" << edge->getGeometry() << " geomJ=" << (*j)->getGeometry() << "\n";
                         }
 #endif
-                        distances[*i] = minDistSum - distances[*j];
+                        distances[edge] = minDistSum - distances[*j];
                     }
                 }
             }
@@ -592,7 +594,7 @@ NBNodeShapeComputer::computeEdgeBoundaries(const EdgeVector& edges,
         GeomsMap& geomsCCW,
         GeomsMap& geomsCW) {
     // compute boundary lines and extend it by EXT m
-    for (NBEdge* edge : edges) {
+    for (NBEdge* const edge : edges) {
         // store current edge's boundary as current ccw/cw boundary
         try {
             geomsCCW[edge] = edge->getCCWBoundaryLine(myNode);
@@ -613,7 +615,7 @@ NBNodeShapeComputer::computeEdgeBoundaries(const EdgeVector& edges,
         if (geomsCW[edge].length2D() < NUMERICAL_EPS) {
             geomsCW[edge] = edge->getGeometry();
         }
-        // extend the boundary by extroplating it by EXT m
+        // extend the boundary by extrapolating it by EXT m
         geomsCCW[edge].extrapolate2D(EXT, true);
         geomsCW[edge].extrapolate2D(EXT, true);
         geomsCCW[edge].extrapolate(EXT2, false, true);
