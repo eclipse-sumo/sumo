@@ -416,6 +416,8 @@ private:
     bool myGeomAvoidOverlap;
     /// @brief higherSpeed  option for loaded network
     bool myJunctionsHigherSpeed;
+    /// @brief custom settings for internal junction computation
+    double myInternalJunctionsVehicleWidth;
 
     /// @brief loaded roundabout edges
     std::vector<std::vector<std::string> > myRoundabouts;
