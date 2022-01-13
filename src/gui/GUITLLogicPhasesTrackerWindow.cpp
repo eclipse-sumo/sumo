@@ -440,7 +440,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     if (myAmInTrackingMode) {
         // optionally draw detector names
         h -= h60;
-        if (myDetectorMode->getCheck() != FALSE) {
+        if (myDetectorMode->getCheck()) {
             const double top = h;
             glBegin(GL_LINES);
             glVertex2d(0, h);
@@ -460,7 +460,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
             h -= h30;
         }
         // optionally draw condition names
-        if (myConditionMode->getCheck() != FALSE) {
+        if (myConditionMode->getCheck()) {
             const double top = h;
             glBegin(GL_LINES);
             glVertex2d(0, h);
@@ -507,7 +507,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         const double x2 = x + a;
 
         // go through the links
-        const bool phaseNames = myIndexMode->getCheck() != FALSE;
+        const bool phaseNames = myIndexMode->getCheck();
         for (int j = 0; j < (int) myTLLogic->getLinks().size(); ++j) {
             // determine the current link's color
             LinkState state = pi->getSignalState(j);
@@ -534,7 +534,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
                     glEnd();
                     break;
             }
-            if (myGreenMode->getCheck() != FALSE && (state == LinkState::TL_GREEN_MINOR || state == LinkState::TL_GREEN_MAJOR)) {
+            if (myGreenMode->getCheck() && (state == LinkState::TL_GREEN_MINOR || state == LinkState::TL_GREEN_MAJOR)) {
                 GLHelper::drawText(toString((int)STEPS2TIME(*pd)), Position(x, h - h9), 0, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
             }
             // proceed to next link
@@ -556,13 +556,13 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
 
     if (myAmInTrackingMode) {
         h -= h75;
-        if (myDetectorMode->getCheck() != FALSE) {
+        if (myDetectorMode->getCheck()) {
             glColor3d(0.7, 0.7, 1.0);
             drawAdditionalStates(myDetectorStates, myDetectorDurations, myFirstDetOffset, myFirstDet2Show, h,
                     panelWidth, leftOffset, barWidth, stateHeight, h20, h);
             h -= h35;
         }
-        if (myConditionMode->getCheck() != FALSE) {
+        if (myConditionMode->getCheck()) {
             glColor3d(0.9, 0.6, 0.9);
             drawAdditionalStates(myConditionStates, myConditionDurations, myFirstCondOffset, myFirstCond2Show, h,
                     panelWidth, leftOffset, barWidth, stateHeight, h20, h);
@@ -624,7 +624,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
             // draw vertical lines for detectors and conditions on each phase switch
             if (myAmInTrackingMode) {
                 double hStart = glh - h60;
-                if (myDetectorMode->getCheck() != FALSE && glpos >= w30) {
+                if (myDetectorMode->getCheck() && glpos >= w30) {
                     glColor3d(0.4, 0.4, 0.4);
                     glBegin(GL_LINES);
                     glVertex2d(glpos, hStart);
@@ -633,7 +633,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
                     glEnd();
                     hStart -= h35;
                 }
-                if (myConditionMode->getCheck() != FALSE && glpos >= w30) {
+                if (myConditionMode->getCheck() && glpos >= w30) {
                     glColor3d(0.4, 0.4, 0.4);
                     glBegin(GL_LINES);
                     glVertex2d(glpos, hStart);
@@ -894,10 +894,10 @@ GUITLLogicPhasesTrackerWindow::saveSettings() {
     getApp()->reg().writeIntEntry("TL_TRACKER", "width", getWidth());
     getApp()->reg().writeIntEntry("TL_TRACKER", "timeRange", (int)myBeginOffset->getValue());
     getApp()->reg().writeIntEntry("TL_TRACKER", "timeMode", myTimeMode->getCurrentItem());
-    getApp()->reg().writeIntEntry("TL_TRACKER", "greenMode", (int)(myGreenMode->getCheck() != FALSE));
-    getApp()->reg().writeIntEntry("TL_TRACKER", "indexMode", (int)(myIndexMode->getCheck() != FALSE));
-    getApp()->reg().writeIntEntry("TL_TRACKER", "detectorMode", (int)(myDetectorMode->getCheck() != FALSE));
-    getApp()->reg().writeIntEntry("TL_TRACKER", "conditionMode", (int)(myConditionMode->getCheck() != FALSE));
+    getApp()->reg().writeIntEntry("TL_TRACKER", "greenMode", (int)(myGreenMode->getCheck()));
+    getApp()->reg().writeIntEntry("TL_TRACKER", "indexMode", (int)(myIndexMode->getCheck()));
+    getApp()->reg().writeIntEntry("TL_TRACKER", "detectorMode", (int)(myDetectorMode->getCheck()));
+    getApp()->reg().writeIntEntry("TL_TRACKER", "conditionMode", (int)(myConditionMode->getCheck()));
 }
 
 
@@ -919,10 +919,10 @@ GUITLLogicPhasesTrackerWindow::loadSettings() {
     setWidth(MAX2(getApp()->reg().readIntEntry("TL_TRACKER", "width", 700), minSize));
     myBeginOffset->setValue(getApp()->reg().readIntEntry("TL_TRACKER", "timeRange", (int)myBeginOffset->getValue()));
     myTimeMode->setCurrentItem(getApp()->reg().readIntEntry("TL_TRACKER", "timeMode", myTimeMode->getCurrentItem()));
-    myGreenMode->setCheck((bool)getApp()->reg().readIntEntry("TL_TRACKER", "greenMode", (int)(myGreenMode->getCheck() != FALSE)));
-    myIndexMode->setCheck((bool)getApp()->reg().readIntEntry("TL_TRACKER", "indexMode", (int)(myIndexMode->getCheck() != FALSE)));
-    myDetectorMode->setCheck((bool)getApp()->reg().readIntEntry("TL_TRACKER", "detectorMode", (int)(myDetectorMode->getCheck() != FALSE)));
-    myConditionMode->setCheck((bool)getApp()->reg().readIntEntry("TL_TRACKER", "conditionMode", (int)(myConditionMode->getCheck() != FALSE)));
+    myGreenMode->setCheck((bool)getApp()->reg().readIntEntry("TL_TRACKER", "greenMode", (int)(myGreenMode->getCheck())));
+    myIndexMode->setCheck((bool)getApp()->reg().readIntEntry("TL_TRACKER", "indexMode", (int)(myIndexMode->getCheck())));
+    myDetectorMode->setCheck((bool)getApp()->reg().readIntEntry("TL_TRACKER", "detectorMode", (int)(myDetectorMode->getCheck())));
+    myConditionMode->setCheck((bool)getApp()->reg().readIntEntry("TL_TRACKER", "conditionMode", (int)(myConditionMode->getCheck())));
 }
 
 /****************************************************************************/
