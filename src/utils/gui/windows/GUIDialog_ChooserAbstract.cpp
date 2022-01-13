@@ -97,6 +97,8 @@ GUIDialog_ChooserAbstract::GUIDialog_ChooserAbstract(GUIGlChildWindow* windowsPa
     new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);
     new FXButton(layoutRight, "&Close\t\t", GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_CANCEL, GUIDesignChooserButtons);
     myCountLabel = new FXLabel(layoutRight, "placeholder", nullptr, LAYOUT_BOTTOM | LAYOUT_FILL_X | JUSTIFY_LEFT);
+    myCaseSensitive = new FXCheckButton(layoutRight, "case-sensitive search");
+    myCaseSensitive->setCheck(getApp()->reg().readIntEntry("LOCATOR", "caseSensitive", 0) == 1);
     myInstantCenter = new FXCheckButton(layoutRight, "auto-center");
     myInstantCenter->setCheck(getApp()->reg().readIntEntry("LOCATOR", "autoCenter", 0) == 1);
     refreshList(ids);
@@ -114,6 +116,7 @@ GUIDialog_ChooserAbstract::~GUIDialog_ChooserAbstract() {
     // remove child from windowsParent
     myWindowsParent->getParent()->removeChild(this);
     getApp()->reg().writeIntEntry("LOCATOR", "autoCenter", myInstantCenter->getCheck());
+    getApp()->reg().writeIntEntry("LOCATOR", "caseSensitive", myCaseSensitive->getCheck());
 }
 
 
@@ -183,19 +186,28 @@ GUIDialog_ChooserAbstract::onChgListSel(FXObject*, FXSelector, void*) {
 
 long
 GUIDialog_ChooserAbstract::onChgText(FXObject*, FXSelector, void*) {
+    const bool caseSensitive = myCaseSensitive->getCheck() == TRUE;
     int id = -1;
     if (myLocateByName || myHaveFilteredSubstring) {
         // findItem does not support substring search
         const int numItems = myList->getNumItems();
-        FXString t = myTextEntry->getText().lower();
+        FXString t = myTextEntry->getText();
+        if (!caseSensitive) {
+            t = t.lower();
+        }
         for (int i = 0; i < numItems; i++) {
-            if (myList->getItemText(i).lower().find(t) >= 0) {
+            FXString t2 = myList->getItemText(i);
+            if (!caseSensitive) {
+                t2 = t2.lower();
+            }
+            if (t2.find(t) >= 0) {
                 id = i;
                 break;
             }
         }
     } else {
-        id = myList->findItem(myTextEntry->getText(), -1, SEARCH_PREFIX);
+        const int caseOpt = caseSensitive ? 0 : SEARCH_IGNORECASE;
+        id = myList->findItem(myTextEntry->getText(), -1, SEARCH_PREFIX | caseOpt);
     }
     if (id < 0) {
         if (myList->getNumItems() > 0) {
@@ -259,11 +271,19 @@ GUIDialog_ChooserAbstract::onCmdFilter(FXObject*, FXSelector, void*) {
 
 long
 GUIDialog_ChooserAbstract::onCmdFilterSubstr(FXObject*, FXSelector, void*) {
+    const bool caseSensitive = myCaseSensitive->getCheck() == TRUE;
     std::vector<GUIGlID> selectedGlIDs;
     const int numItems = myList->getNumItems();
-    FXString t = myTextEntry->getText().lower();
+    FXString t = myTextEntry->getText();
+    if (!caseSensitive) {
+        t = t.lower();
+    }
     for (int i = 0; i < numItems; i++) {
-        if (myList->getItemText(i).lower().find(t) >= 0) {
+        FXString t2 = myList->getItemText(i);
+        if (!caseSensitive) {
+            t2 = t2.lower();
+        }
+        if (t2.find(t) >= 0) {
             const GUIGlID glID = *static_cast<GUIGlID*>(myList->getItemData(i));
             selectedGlIDs.push_back(glID);
         }

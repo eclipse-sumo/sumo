@@ -173,6 +173,9 @@ private:
     /// @brief label for declaring list size
     FXLabel* myCountLabel;
 
+    /// @brief Whether search is case sensitive
+    FXCheckButton* myCaseSensitive;
+
     /// @brief Whether each change in the list should re-center the view
     FXCheckButton* myInstantCenter;
 
