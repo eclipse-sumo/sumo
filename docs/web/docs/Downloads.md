@@ -131,7 +131,7 @@ Starting with SUMO 1.8.0 the installation is also possible from the [Python pack
 You can install either the applications: `pip install eclipse-sumo` or only traci (`pip install traci`), libsumo (`pip install libsumo`) or sumolib (`pip install sumolib`).
 
 This should work for Windows, macOS and all Linux versions which are more recent than 2014.
-The applications are available for Python 2 and Python 3, libsumo only for Python 3.5 and above. This gives an easy way to test
+The applications are available for Python 2 and Python 3, libsumo only for Python 3.6 and above. This gives an easy way to test
 a new SUMO version via [virtual environments](https://docs.python.org/3/library/venv.html) or a nightly build using the following commands (on Linux):
 ```
 python -m venv sumo_test
@@ -139,6 +139,9 @@ cd sumo_test
 . bin/activate
 pip install eclipse-sumo
 ```
+
+!!! caution "MacOS dependencies"
+    In order to use the wheels on python you meed to have all the dependencies installed and up to date via brew for instance by following the [standard installation](Installing/index.md#macos) once.
 
 # SUMO - Latest Development Version
 
@@ -176,7 +179,7 @@ To install the latest nightly version use:
 ```
 pip install -i https://test.pypi.org/simple/ eclipse-sumo
 ```
-Although this is a python package, it contains all compiled SUMO binaries and should be fully functional for Windows and recent Linux.
+Although this is a python package, it contains all compiled SUMO binaries and should be fully functional (see the requirements in [the section above](#python_packages_virtual_environments)).
 
 The Linux [repositories](#repositories) at the open build service contain a nightly build as well.
 This is unfortunately not the case for the Debian, Ubuntu and Arch versions.
