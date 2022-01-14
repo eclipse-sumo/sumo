@@ -239,6 +239,8 @@ GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
             }
         case GNE_ATTR_PARENT:
             return getParentAdditionals().at(0)->getID();
+        case GNE_ATTR_SELECTED:
+            return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return SUMOVehicleParameter::getParametersStr();
         default:
@@ -304,6 +306,7 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value, GNEUn
         case SUMO_ATTR_REROUTE:
         case SUMO_ATTR_DEPARTPOS_LAT:
         case SUMO_ATTR_ARRIVALPOS_LAT:
+        case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
@@ -412,6 +415,8 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return canParse<double>(value);
             }
+        case GNE_ATTR_SELECTED:
+            return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
         default:
@@ -655,6 +660,13 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
                 parametersSet &= ~VEHPARS_ARRIVALPOSLAT_SET;
             }
             parseArrivalPosLat(value, toString(SUMO_TAG_VEHICLE), id, arrivalPosLat, arrivalPosLatProcedure, error);
+            break;
+        case GNE_ATTR_SELECTED:
+            if (parse<bool>(value)) {
+                selectAttributeCarrier();
+            } else {
+                unselectAttributeCarrier();
+            }
             break;
         case GNE_ATTR_PARAMETERS:
             SUMOVehicleParameter::setParametersStr(value);
