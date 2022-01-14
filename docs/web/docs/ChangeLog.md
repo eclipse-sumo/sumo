@@ -182,6 +182,7 @@ title: ChangeLog
 
 - SUMO can now be installed from python wheels. This provides up to date [release](Downloads.md#python_packages_virtual_environments) and nightly versions (via test.pypi.org) for all platforms. #4639
 - Added [documentation on road capacity and headways](Simulation/RoadCapacity.md). Issue #9870
+- Added [documentation for signal plan visualization](Simulation/Traffic_Lights.md#signal_plan_visualization)
 - Traffic light type 'NEMA' now uses attribute 'offset' instead of param key="offset". Issue #9804
 - Speed up Visual Studio build with sccache (only works with Ninja not with Visual Studio projects). Issue #9290
 - The text "Loading configuration" is printed now only if **--verbose** is given. Issue #9743
