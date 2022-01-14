@@ -35,6 +35,11 @@ traci.start([sumoBinary,
              ] + sys.argv[1:])
 
 vehID = "v0"
+try:
+    print("delay before departure", traci.vehicle.getStopDelay(vehID))
+except traci.TraCIException:
+    pass
+    
 traci.simulationStep()
 traci.vehicle.subscribe(vehID, [tc.VAR_STOP_DELAY, tc.VAR_STOP_ARRIVALDELAY])
 while traci.simulation.getMinExpectedNumber() > 0:
