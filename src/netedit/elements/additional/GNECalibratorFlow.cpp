@@ -99,20 +99,27 @@ GNECalibratorFlow::getMoveOperation() {
 
 void
 GNECalibratorFlow::updateGeometry() {
-    // use geometry of calibrator parent
-    myAdditionalGeometry = getParentAdditionals().front()->getAdditionalGeometry();
+    // update centering boundary (needed for centering)
+    updateCenteringBoundary(false);
 }
 
 
 Position
 GNECalibratorFlow::getPositionInView() const {
-    return getParentAdditionals().front()->getPositionInView();
+    // get rerouter parent position
+    Position signPosition = getParentAdditionals().front()->getPositionInView();
+    // set position depending of indexes
+    signPosition.add(4.5, (getDrawPositionIndex() * -1) + 1, 0);
+    // return signPosition
+    return signPosition;
 }
 
 
 void
 GNECalibratorFlow::updateCenteringBoundary(const bool /*updateGrid*/) {
-    myAdditionalBoundary = getParentAdditionals().front()->getCenteringBoundary();
+    myAdditionalBoundary.reset();
+    myAdditionalBoundary.add(getPositionInView());
+    myAdditionalBoundary.grow(5);
 }
 
 
@@ -129,8 +136,10 @@ GNECalibratorFlow::getParentName() const {
 
 
 void
-GNECalibratorFlow::drawGL(const GUIVisualizationSettings& /* s */) const {
-    // Currently This additional isn't drawn
+GNECalibratorFlow::drawGL(const GUIVisualizationSettings& s) const {
+    // draw rerouter interval as listed attribute
+    drawListedAddtional(s, getParentAdditionals().front()->getPositionInView(),
+                        0, 0, s.additionalSettings.calibratorColor, RGBColor::BLACK, GUITexture::VARIABLESPEEDSIGN_STEP, "Flow: " + getID());
 }
 
 

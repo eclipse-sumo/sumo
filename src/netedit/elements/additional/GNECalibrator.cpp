@@ -244,9 +244,19 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
             }
             // pop name
             GLHelper::popName();
+            // draw additional ID
+            drawAdditionalID(s);
+            // iterate over additionals and check if drawn
+            for (const auto& calibratorFlow : getChildAdditionals()) {
+                // if rerouter or their intevals are selected, then draw
+                if (myNet->getViewNet()->getNetworkViewOptions().showSubAdditionals() ||
+                        isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(this) ||
+                        calibratorFlow->isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(calibratorFlow) ||
+                        (myNet->getViewNet()->getFrontAttributeCarrier() == calibratorFlow)) {
+                    calibratorFlow->drawGL(s);
+                }
+            }
         }
-        // draw additional ID
-        drawAdditionalID(s);
     }
 }
 
@@ -410,8 +420,6 @@ GNECalibrator::getHierarchyName() const {
 // ===========================================================================
 
 void GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const double exaggeration, const Position& pos, const double rot) const {
-    // draw parent and child lines
-    drawParentChildLines(s, s.additionalSettings.connectionColor);
     // push layer matrix
     GLHelper::pushMatrix();
     // translate to front
