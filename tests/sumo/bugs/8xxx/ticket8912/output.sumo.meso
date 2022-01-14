@@ -1,0 +1,7 @@
+Loading net-file from 'net2.net.xml' ... done (5ms).
+Loading done.
+Simulation version v1_11_0+1159-1cf7001 started with time: 25:00:00:00
+Simulation ended at time: 25:00:00:15
+Reason: All vehicles have left the simulation.
+DijkstraRouter answered 1 queries and explored 3.00 edges on average.
+DijkstraRouter spent 0.00s answering queries (0.00ms on average).
