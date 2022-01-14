@@ -68,6 +68,12 @@ enum class GUIIcon {
     STEP,
     /// @}
 
+    /// @name select icons
+    /// @{
+    SELECT,
+    UNSELECT,
+    /// @}
+
     /// @name simulation view icons
     /// @{
     MICROVIEW,

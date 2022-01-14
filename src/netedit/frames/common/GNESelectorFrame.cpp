@@ -1008,9 +1008,9 @@ GNESelectorFrame::SelectionHierarchy::SelectionHierarchy(GNESelectorFrame* selec
     // create parent buttons
     FXHorizontalFrame* parentButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // Create "select" Button
-    mySelectParentsButton = new FXButton(parentButtons, "Select", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_SELECTORFRAME_PARENTS, GUIDesignButton);
+    mySelectParentsButton = new FXButton(parentButtons, "Select", GUIIconSubSys::getIcon(GUIIcon::SELECT), this, MID_GNE_SELECTORFRAME_PARENTS, GUIDesignButton);
     // Create "unselect" Button
-    myUnselectParentsButton = new FXButton(parentButtons, "Unselect", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_SELECTORFRAME_PARENTS, GUIDesignButton);
+    myUnselectParentsButton = new FXButton(parentButtons, "Unselect", GUIIconSubSys::getIcon(GUIIcon::UNSELECT), this, MID_GNE_SELECTORFRAME_PARENTS, GUIDesignButton);
     // create label for parents
     new FXLabel(getCollapsableFrame(), "Select children", nullptr, GUIDesignLabelThickCenter);
     // Create FXComboBox for parent comboBox
@@ -1018,9 +1018,9 @@ GNESelectorFrame::SelectionHierarchy::SelectionHierarchy(GNESelectorFrame* selec
     // create children buttons
     FXHorizontalFrame* childrenButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // Create "select" Button
-    mySelectChildrenButton = new FXButton(childrenButtons, "Select", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_SELECTORFRAME_CHILDREN, GUIDesignButton);
+    mySelectChildrenButton = new FXButton(childrenButtons, "Select", GUIIconSubSys::getIcon(GUIIcon::SELECT), this, MID_GNE_SELECTORFRAME_CHILDREN, GUIDesignButton);
     // Create "unselect" Button
-    myUnselectChildrenButton = new FXButton(childrenButtons, "Unselect", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_SELECTORFRAME_CHILDREN, GUIDesignButton);
+    myUnselectChildrenButton = new FXButton(childrenButtons, "Unselect", GUIIconSubSys::getIcon(GUIIcon::UNSELECT), this, MID_GNE_SELECTORFRAME_CHILDREN, GUIDesignButton);
     // fill comboBoxes
     for (const auto &item : myItems) {
         myParentsComboBox->appendItem(item.second.c_str());
