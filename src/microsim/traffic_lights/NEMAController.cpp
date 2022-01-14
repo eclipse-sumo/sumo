@@ -995,6 +995,11 @@ int NEMALogic::getBarrier(int phase, int ring){
     return barrier;
 }
 
+int NEMALogic::findBarrier(int phase, int ring){
+    
+}
+
+
 
 void NEMALogic::nextPhaseWrapper(int currentR1Phase, int currentR2Phase, bool toUpdateR1, bool toUpdateR2, int& newPhase1, int& newPhase2) {
 
@@ -1012,30 +1017,16 @@ void NEMALogic::nextPhaseWrapper(int currentR1Phase, int currentR2Phase, bool to
     // Only 1 or both can be !toUpdate (otherwise we wouldn't be in this situation)
     if (!toUpdateR1){
         int r1Barrier = getBarrier(currentR1Phase, 0);
-        localRings[1].clear();
-        // Create a subset of phases that are on my side of the barrier
-        for (int phase : rings[1]){
-            if (getBarrier(phase, 1) == r1Barrier) {
-                localRings[1].push_back(phase);
-            };
-        };
-        // Distance doesn't matter here, as I am passing a subset of available phases
         int _ = nextPhase(localRings[1], currentR2Phase);
         newPhase2 = currentR2Phase;
-
     } else if (!toUpdateR2){
         int r2Barrier = getBarrier(currentR2Phase, 1);
-        localRings[0].clear();
-        for (int phase : rings[0]){
-            if (getBarrier(phase, 0) == r2Barrier) {
-                localRings[0].push_back(phase);
-            };
-        };
         int _ = nextPhase(localRings[0], currentR1Phase);
         newPhase1 = currentR1Phase; 
     } else {
         int r1Distance = nextPhase(localRings[0], currentR1Phase);
         int r2Distance = nextPhase(localRings[0], currentR2Phase);
+        currentR1Phase
         if (r1Distance < r2Distance){
             int r1Barrier =  getBarrier(currentR1Phase, 0);
 
