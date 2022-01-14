@@ -449,7 +449,7 @@ of `<tlLogic>` to define named expressions that can be referenced in other expre
    ...
 ```
 
-- condition id must be an alphanumeric string without spaces and withtout the ':'-character
+- condition id must be an alphanumeric string without spaces and without the ':'-character
 - value may be any expression which is permitted for 'earlyTarget' or 'finalTarget'
 
 Condition values can be [visualized](Traffic_Lights.md#track_phases) while the simulation is running. It may be useful to add extra conditions that are only used for debugging purposes.
