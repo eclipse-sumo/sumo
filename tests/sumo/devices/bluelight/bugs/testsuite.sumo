@@ -1,5 +1,8 @@
 ticket7134
 
+# bluelight device with short final edge should not crash
+ticket7473
+
 # cars block the rescue lane
 ticket8071
 
