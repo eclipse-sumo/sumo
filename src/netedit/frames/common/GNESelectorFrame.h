@@ -301,9 +301,9 @@ public:
             JUNCTION,
             EDGE,
             LANE,
-            CONNECTION,
-            CROSSING,
             ADDITIONAL,
+            SHAPE,
+            TAZ,
             DEMAND,
             DATA,
             NOTHING,
@@ -336,9 +336,9 @@ public:
             std::make_pair(Selection::JUNCTION, "junction"),
             std::make_pair(Selection::EDGE, "edge"),
             std::make_pair(Selection::LANE, "lane"),
-            std::make_pair(Selection::CONNECTION, "crossing"),
-            std::make_pair(Selection::CROSSING, "connection"),
             std::make_pair(Selection::ADDITIONAL, "additionalElements"),
+            std::make_pair(Selection::SHAPE, "shapeElements"),
+            std::make_pair(Selection::TAZ, "TAZElements"),
             std::make_pair(Selection::DEMAND, "demandElements"),
             std::make_pair(Selection::DATA, "dataElements")
         };
@@ -346,8 +346,8 @@ public:
         /// @brief current selected parent
         Selection myCurrentSelectedParent;
 
-        /// @brief current selected children
-        Selection myCurrentSelectedChildren;
+        /// @brief current selected child
+        Selection myCurrentSelectedChild;
 
         /// @brief Invalidated copy constructor.
         SelectionHierarchy(const SelectionHierarchy&) = delete;
