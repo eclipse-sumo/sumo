@@ -428,6 +428,7 @@ The following elements are permitted in an expression for attributes
   - 'a:DETID': returns true (1) if a vehicle is on detector with id 'DETID' and
     false (0) otherwise. Supports inductionLoop and laneAreaDetectors.
   - 'g:TLSINDEX': returns current green duration in seconds for link with the given index
+  - 'r:TLSINDEX': returns current red duration in seconds for link with the given index
 - Symbolic names for [pre-defined expressions](#named_expressions)
 
 The following constraints apply to expressions:
