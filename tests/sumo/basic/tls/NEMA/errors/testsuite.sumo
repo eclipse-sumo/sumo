@@ -1,2 +1,5 @@
 # old 'basic' test, problem exposed via #9880 (inconsistent maxDur)
 1
+
+# provided by Max (#9940)
+4way_error
