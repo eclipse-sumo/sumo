@@ -259,7 +259,7 @@ GUIGeometry::adjustStartPosGeometricPath(double& startPos, const PositionVector&
 
 void
 GUIGeometry::drawGeometry(const GUIVisualizationSettings& s, const Position& mousePos,
-                          const GUIGeometry& geometry, const double width) {
+                          const GUIGeometry& geometry, const double width, double offset) {
     // continue depending of draw for position selection
     if (s.drawForPositionSelection) {
         // obtain position over lane relative to mouse position
@@ -279,7 +279,7 @@ GUIGeometry::drawGeometry(const GUIVisualizationSettings& s, const Position& mou
         // draw line (needed for zoom out)
         GLHelper::drawLine(geometry.getShape());
     } else {
-        GLHelper::drawBoxLines(geometry.getShape(), geometry.getShapeRotations(), geometry.getShapeLengths(), width);
+        GLHelper::drawBoxLines(geometry.getShape(), geometry.getShapeRotations(), geometry.getShapeLengths(), width, 0, offset);
     }
 }
 

@@ -646,30 +646,32 @@ GNELane::drawChildren(const GUIVisualizationSettings& s) const {
 void
 GNELane::drawMarkings(const GUIVisualizationSettings& s, const double exaggeration, const bool drawRailway) const {
     if (s.laneShowBorders && (exaggeration == 1) && !drawRailway) {
-        // get half lane width
         const double myHalfLaneWidth = myParentEdge->getNBEdge()->getLaneWidth(myIndex) / 2;
-        // push matrix
         GLHelper::pushMatrix();
-        // move top
         glTranslated(0, 0, 0.1);
         // optionally draw inverse markings
+        bool haveChangeProhibitions = false;
         if (myIndex > 0 && (myParentEdge->getNBEdge()->getPermissions(myIndex - 1) & myParentEdge->getNBEdge()->getPermissions(myIndex)) != 0) {
             const bool cl = myParentEdge->getNBEdge()->allowsChangingLeft(myIndex - 1, SVC_PASSENGER);
             const bool cr = myParentEdge->getNBEdge()->allowsChangingRight(myIndex, SVC_PASSENGER);
             GLHelper::drawInverseMarkings(myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(),
                     3, 6, myHalfLaneWidth, cl, cr, s.lefthand, exaggeration);
+            haveChangeProhibitions = !(cl && cr);
         }
-        // pop matrix
         GLHelper::popMatrix();
-        // push background matrix
         GLHelper::pushMatrix();
-        // move back
-        glTranslated(0, 0, -0.1);
+        if (haveChangeProhibitions) {
+            // highlightchange prohibitions
+            glTranslated(0, 0, -0.05);
+            GLHelper::setColor(RGBColor::ORANGE);
+            const double offset = myHalfLaneWidth * exaggeration * (s.lefthand ? -1 : 1);
+            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry, (myHalfLaneWidth * 0.5) * exaggeration, offset);
+            glTranslated(0, 0, +0.05);
+        }
         // draw white boundings and white markings
+        glTranslated(0, 0, -0.1);
         GLHelper::setColor(RGBColor::WHITE);
-        // draw geometry
         GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry, (myHalfLaneWidth + SUMO_const_laneMarkWidth) * exaggeration);
-        // pop background matrix
         GLHelper::popMatrix();
     }
 }

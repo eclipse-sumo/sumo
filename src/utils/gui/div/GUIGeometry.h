@@ -90,7 +90,7 @@ public:
                                  const std::vector<double>& lengths, const std::vector<RGBColor>& colors, double width, const bool onlyContour = false);
 
     /// @brief draw geometry
-    static void drawGeometry(const GUIVisualizationSettings& s, const Position& mousePos, const GUIGeometry& geometry, const double width);
+    static void drawGeometry(const GUIVisualizationSettings& s, const Position& mousePos, const GUIGeometry& geometry, const double width, double offset = 0);
 
     /// @brief draw contour geometry
     static void drawContourGeometry(const GUIGeometry& geometry, const double width, const bool drawExtremes = false);
