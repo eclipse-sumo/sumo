@@ -845,3 +845,41 @@ using **getAllProgramLogics** and then modify it.
 SUMO can load multiple traffic light programs from the *.net.mxl* file
 and from [additional files](#defining_new_tls-programs). Using
 the TraCI function **setProgram**, a script can switch between them.
+
+# Signal Plan Visualization
+
+In [sumo-gui](../sumo-gui.md), right-clicking on a traffic light allows opening up a menu that contains the items 'Show Phases' and 'Track Phases'.
+These items open up new windows which are explained below
+
+## Show Phases
+
+This shows the signal states of all controlled links for the complete list of defined phases. Here, time is on the x-axis and there is one row for each link index. The time axis in the bottom shows the time of each phase change starting at 0.
+
+The time can be switched between the following styles
+- **Seconds**: absolute simulation time in seconds
+- **MM::SS**: current minute and second (values repeat every hour)
+- **Time in Cycle**: current second within the traffic light cycle (resets either when starting phase 0 or in some alignment to absolute simulation time).
+
+Optionally, the green phase durations can be written for every phase. 
+The top row contains the phase index but it is possible to change this so it shows phase names instead. (phase names are optional, and only the names of 'Green' phases are shown for brevity)
+
+![show_phases.png](../images/show_phases.png
+"Show Phases Window")
+
+!!! note
+    All phases will be shown in definition order. This may be different from their operational sequence if phase attribute 'next' is used.
+
+## Track Phases
+
+This shows the evoluation of signal states for all controlled links for the last X seconds of operation (set via the 'Range' value). The basic layout is the same as for the 'Show Phases' Window. 
+
+The following additional features may be activated via checkboxes:
+
+- **detector**: shows activation states of all [detectors that are controlling this traffic light](Traffic_Lights.md#detectors)
+- **conditions**: shows the boolean value of [conditions that are defined for this traffic light](Simulation/Traffic_Lights.md#named_expressions). A colored block wil be drawn when the numerical value of the condition is different from zero.
+
+!!! note
+    When the mouse is placed over an active condition block, the numerical value of the condition will be shown.
+
+![track_phases.png](../images/track_phases.png
+"Track Phases Window")
