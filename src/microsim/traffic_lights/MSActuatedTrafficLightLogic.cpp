@@ -1002,7 +1002,7 @@ MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) const
                             // If somebody is looking at those values in the tracker
                             // this would be confusing
                             const LinkState ls = getCurrentPhaseDef().getSignalState(linkIndex);
-                            if (ls == LinkState::TL_GREEN_MAJOR || ls == LinkState::TL_GREEN_MINOR) {
+                            if (ls == LINKSTATE_TL_GREEN_MAJOR || ls == LINKSTATE_TL_GREEN_MINOR) {
                                 const SUMOTime currentGreen = SIMSTEP - myLastTrySwitchTime;
                                 return STEPS2TIME(myLinkGreenTimes[linkIndex] + currentGreen);
                             } else {
