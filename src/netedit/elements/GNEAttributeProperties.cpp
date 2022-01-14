@@ -449,12 +449,6 @@ GNEAttributeProperties::isActivatable() const {
 
 
 bool
-GNEAttributeProperties::isComplex() const {
-    return (myAttributeProperty & COMPLEX) != 0;
-}
-
-
-bool
 GNEAttributeProperties::isFlowDefinition() const {
     return (myAttributeProperty & FLOWDEFINITION) != 0;
 }

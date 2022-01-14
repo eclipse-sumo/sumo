@@ -68,9 +68,8 @@ public:
         EXTENDED =          1 << 20,    // Attribute is extended (in Frame will not be shown, but is editable in a Dialog, see VType attributes)
         UPDATEGEOMETRY =    1 << 21,    // Attribute require update geometry at the end of function setAttribute(...)
         ACTIVATABLE =       1 << 22,    // Attribute can be switch on/off using a checkbox in frame
-        COMPLEX =           1 << 23,    // Attribute is complex: Require a special function to check if the given value is valid
-        FLOWDEFINITION =    1 << 24,    // Attribute is part of a flow definition (Number, vehsPerHour...)
-        AUTOMATICID =       1 << 25,    // Attribute id can generate their own ID (used by additionals, vehicles, etc...)
+        FLOWDEFINITION =    1 << 23,    // Attribute is part of a flow definition (Number, vehsPerHour...)
+        AUTOMATICID =       1 << 24,    // Attribute id can generate their own ID (used by additionals, vehicles, etc...)
     };
 
     /// @brief default constructor
@@ -207,9 +206,6 @@ public:
 
     /// @brief return true if atribute is activatable
     bool isActivatable() const;
-
-    /// @brief return true if atribute is complex
-    bool isComplex() const;
 
     /// @brief return true if atribute is part of a flow definition
     bool isFlowDefinition() const;
