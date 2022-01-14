@@ -369,6 +369,9 @@ protected:
     /// @brief replace demand element parent
     void replaceDemandElementParent(SumoXMLTag tag, const std::string& value, const int parentIndex);
 
+    /// @brief set vTypeParent parent (used in CalibratorFlow)
+    void setVTypeParent(const std::string& value);
+
     /// @brief shift lane index
     void shiftLaneIndex();
 

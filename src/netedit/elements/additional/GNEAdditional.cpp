@@ -600,6 +600,21 @@ GNEAdditional::replaceDemandElementParent(SumoXMLTag tag, const std::string& val
 
 
 void
+GNEAdditional::setVTypeParent(const std::string& value) {
+    std::vector<GNEDemandElement*> parents;
+    // add route
+    if (getParentDemandElements().size() > 0) {
+        parents.push_back(getParentDemandElements().front());
+    }
+    // continue depending of value
+    if (value.size() > 0) {
+        parents.push_back(myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, value));
+    }
+    replaceParentElements(this, parents);
+}
+
+
+void
 GNEAdditional::shiftLaneIndex() {
     // get new lane parent vector
     std::vector<GNELane*> newLane = {getParentLanes().front()->getParentEdge()->getLanes().at(getParentLanes().front()->getIndex() + 1)};

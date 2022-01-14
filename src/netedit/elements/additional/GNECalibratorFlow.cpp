@@ -38,9 +38,9 @@ GNECalibratorFlow::GNECalibratorFlow(GNENet* net) :
 }
 
 
-GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route) :
+GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* route, GNEDemandElement* vehicleType) :
     GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_FLOW_CALIBRATOR, "",
-        {}, {}, {}, {calibratorParent}, {}, {}, {vehicleType, route}, {},
+        {}, {}, {}, {calibratorParent}, {}, {}, {route, vehicleType}, {},
     std::map<std::string, std::string>()),
     SUMOVehicleParameter() {
     // update centering boundary without updating grid
@@ -48,9 +48,9 @@ GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandE
 }
 
 
-GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters) :
+GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* route, GNEDemandElement* vehicleType, const SUMOVehicleParameter& vehicleParameters) :
     GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_FLOW_CALIBRATOR, "",
-        {}, {}, {}, {calibratorParent}, {}, {}, {vehicleType, route}, {},
+        {}, {}, {}, {calibratorParent}, {}, {}, {route, vehicleType}, {},
     std::map<std::string, std::string>()),
     SUMOVehicleParameter(vehicleParameters) {
     // update centering boundary without updating grid
@@ -65,8 +65,10 @@ void
 GNECalibratorFlow::writeAdditional(OutputDevice& device) const {
     // open tag
     device.openTag(SUMO_TAG_FLOW);
+    // write route
+    device.writeAttr(SUMO_ATTR_ROUTE, getParentDemandElements().at(0)->getID());
     // attribute VType musn't be written if is DEFAULT_VTYPE_ID
-    if (getParentDemandElements().at(0)->getID() == DEFAULT_VTYPE_ID) {
+    if ((getParentDemandElements().size() > 1) && getParentDemandElements().at(1)->getID() == DEFAULT_VTYPE_ID) {
         // unset VType parameter
         parametersSet &= ~VEHPARS_VTYPE_SET;
         // write vehicle attributes (VType will not be written)
@@ -77,8 +79,6 @@ GNECalibratorFlow::writeAdditional(OutputDevice& device) const {
         // write vehicle attributes, including VType
         write(device, OptionsCont::getOptions(), myTagProperty.getXMLTag(), getParentDemandElements().at(0)->getID());
     }
-    // write route
-    device.writeAttr(SUMO_ATTR_ROUTE, getParentDemandElements().at(1)->getID());
     // VPH
     if (isAttributeEnabled(SUMO_ATTR_VEHSPERHOUR)) {
         device.writeAttr(SUMO_ATTR_VEHSPERHOUR, 3600. / STEPS2TIME(repetitionOffset));
@@ -139,9 +139,9 @@ GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getID();
-        case SUMO_ATTR_TYPE:
-            return getParentDemandElements().at(0)->getID();
         case SUMO_ATTR_ROUTE:
+            return getParentDemandElements().at(0)->getID();
+        case SUMO_ATTR_TYPE:
             return getParentDemandElements().at(1)->getID();
         case SUMO_ATTR_VEHSPERHOUR:
             if (wasSet(VEHPARS_VPH_SET)) {
@@ -287,8 +287,8 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value, GNEUn
     }
     switch (key) {
         case SUMO_ATTR_ID:
-        case SUMO_ATTR_TYPE:
         case SUMO_ATTR_ROUTE:
+        case SUMO_ATTR_TYPE:
         case SUMO_ATTR_COLOR:
         case SUMO_ATTR_VEHSPERHOUR:
         case SUMO_ATTR_SPEED:
@@ -469,17 +469,12 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
             setMicrosimID(value);
             break;
         case SUMO_ATTR_TYPE:
-            if (getParentDemandElements().size() > 0) {
-                replaceDemandElementParent(SUMO_TAG_VTYPE, value, 0);
-            }
+            setVTypeParent(value);
             // set manually vtypeID (needed for saving)
             vtypeid = value;
             break;
         case SUMO_ATTR_ROUTE:
-            if (getParentDemandElements().size() == 2) {
-                replaceDemandElementParent(SUMO_TAG_ROUTE, value, 1);
-                updateGeometry();
-            }
+            replaceDemandElementParent(SUMO_TAG_ROUTE, value, 0);
             break;
         case SUMO_ATTR_VEHSPERHOUR:
             repetitionOffset = TIME2STEPS(3600 / parse<double>(value));
