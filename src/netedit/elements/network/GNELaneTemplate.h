@@ -34,6 +34,9 @@ public:
     /// @brief Destructor.
     ~GNELaneTemplate();
 
+    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
+    GNEHierarchicalElement* getHierarchicalElement();
+
     /// @name Function related with graphics
     /// @{
     /// @brief get ID (all Attribute Carriers have one)

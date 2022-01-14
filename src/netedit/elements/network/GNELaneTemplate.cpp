@@ -37,6 +37,12 @@ GNELaneTemplate::~GNELaneTemplate() {
 }
 
 
+GNEHierarchicalElement* 
+GNELaneTemplate::getHierarchicalElement() {
+    return nullptr;
+}
+
+
 const std::string& 
 GNELaneTemplate::getID() const {
     return myLane->getID();

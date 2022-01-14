@@ -78,7 +78,10 @@ public:
     /// @brief check if attribute carrier must be drawn using selecting color.
     bool drawUsingSelectColor() const;
 
-    /// @name Function related with graphics (must be implemented in all childs)
+    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
+    virtual GNEHierarchicalElement* getHierarchicalElement() = 0;
+
+    /// @name Function related with graphics (must be implemented in all children)
     /// @{
     /// @brief get ID (all Attribute Carriers have one)
     virtual const std::string& getID() const = 0;

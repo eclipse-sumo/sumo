@@ -43,6 +43,12 @@ GNEEdgeTemplate::~GNEEdgeTemplate() {
 }
 
 
+GNEHierarchicalElement* 
+GNEEdgeTemplate::getHierarchicalElement() {
+    return nullptr;
+}
+
+
 const std::vector<GNELaneTemplate*>&
 GNEEdgeTemplate::getLaneTemplates() const {
     return myLaneTemplates;

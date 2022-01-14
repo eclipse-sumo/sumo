@@ -84,6 +84,9 @@ public:
     /// @brief Destructor
     ~GNEDataSet();
 
+    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
+    GNEHierarchicalElement* getHierarchicalElement();
+
     /// @brief get ID
     const std::string& getID() const;
 

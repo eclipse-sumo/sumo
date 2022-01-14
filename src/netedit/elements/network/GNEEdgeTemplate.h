@@ -40,6 +40,9 @@ public:
     /// @brief Destructor.
     ~GNEEdgeTemplate();
 
+    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
+    GNEHierarchicalElement* getHierarchicalElement();
+
     /// @brief get vector with the lane templates of this edge
     const std::vector<GNELaneTemplate*> &getLaneTemplates() const;
 

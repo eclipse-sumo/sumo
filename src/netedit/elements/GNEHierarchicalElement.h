@@ -66,6 +66,11 @@ public:
     /// @brief Destructor
     ~GNEHierarchicalElement();
 
+    /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
+    GNEHierarchicalElement* getHierarchicalElement() {
+        return this;
+    }
+
     /// @name Functions related with geometry of element
     /// @{
     /// @brief update pre-computed geometry information
