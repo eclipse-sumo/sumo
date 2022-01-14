@@ -114,11 +114,10 @@ public:
 
     bool isDetectorActivated(int phaseIndex) const;
 
-    int nextPhase(std::vector<int> ring, int currentPhase);
+    int nextPhase(std::vector<int> ring, int& currentPhase);
 
     // Max added temporarily
-    void nextPhaseWrapper(int currentR1Index, int currentR2Index, bool toUpdateR1, bool toUpdateR2, int& newPhase1, int& newPhase2);
-    int getBarrier(int desiredPhase, int ring);
+    void nextPhaseWrapper(int currentR1Index, int currentR2Index, bool toUpdateR1, bool toUpdateR2);
 
     double ModeCycle(double a, double b);
 
@@ -187,7 +186,7 @@ protected:
     //convert "1" to int 1
     int string2int(std::string s);
 
-// protected:
+    // protected:
     detectorMap myDetectorForPhase;
 
     std::vector<DetectorInfo> myDetectorInfoVector;
@@ -248,8 +247,13 @@ protected:
       {{3, 4}, {1, 2}},
       {{7, 8}, {5, 6}}  
     }
-    */    
-    std::vector<std::vector<std::vector<int>>> myRingBarrierMapping;
+    */
+    std::vector<std::vector<int>> myRingBarrierMapping[2];
+
+    // myNextPhase needs to be presevered in memory because the phase is calculated at start of yellow 
+    // but not implementend until the end of red 
+    int myNextPhaseR1;
+    int myNextPhaseR2;
 
     bool minRecalls[8] {};
     bool maxRecalls[8] {};
@@ -316,5 +320,9 @@ protected:
 
     /// @brief virtual phase that holds the current state
     MSPhaseDefinition myPhase;
+
+    /// helps to construct myRingBarrierMapping 
+    void NEMALogic::constructBarrierMap(int ring, std::vector<std::vector<int>> &barrierMap);
+    int findBarrier(int desiredPhase, int ring);
 
 };
