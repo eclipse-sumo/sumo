@@ -345,6 +345,13 @@ public:
                               const std::vector<double>& lengths,
                               double length, double spacing, double halfWidth, bool drawForSelection);
 
+    /// @bried draw the space between markings (in road color)
+    static void drawInverseMarkings(const PositionVector& geom,
+        const std::vector<double>& rots,
+        const std::vector<double>& lengths,
+        double maxLength, double spacing,
+        double halfWidth, bool cl, bool cr, bool lefthand, double scale);
+
     /// @brief draw vertex numbers for the given shape (in a random color)
     static void debugVertices(const PositionVector& shape, double size, double layer = 256);
 
