@@ -226,6 +226,7 @@ protected:
 
     /// @brief consecutive time that the given link index has been green
     std::vector<SUMOTime> myLinkGreenTimes;
+    std::vector<SUMOTime> myLinkRedTimes;
     /// @brief maximum consecutive time that the given link may remain green
     std::vector<SUMOTime> myLinkMaxGreenTimes;
     /// @brief minimum consecutive time that the given link must remain green
