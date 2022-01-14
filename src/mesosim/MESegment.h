@@ -107,9 +107,13 @@ private:
             myBlockTime = t;
         }
 
+        inline void setPermissions(SVCPermissions p) {
+            myPermissions = p;
+        }
+
     private:
         /// The vClass permissions for this queue
-        const SVCPermissions myPermissions;
+        SVCPermissions myPermissions;
 
         std::vector<MEVehicle*> myVehicles;
 
@@ -461,6 +465,9 @@ public:
      * @return The time penalty
      */
     SUMOTime getLinkPenalty(const MEVehicle* veh) const;
+
+    /// @brief called when permissions change due to Rerouter or TraCI 
+    void updatePermissions();
 
 private:
     bool overtake();

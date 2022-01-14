@@ -285,6 +285,11 @@ MSEdge::rebuildAllowedLanes() {
     for (MSEdge* pred : myPredecessors) {
         pred->rebuildAllowedTargets(false);
     }
+    if (MSGlobals::gUseMesoSim) {
+        for (MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*this); s != nullptr; s = s->getNextSegment()) {
+            s->updatePermissions();
+        }
+    }
 }
 
 

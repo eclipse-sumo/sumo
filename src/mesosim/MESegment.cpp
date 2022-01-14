@@ -174,6 +174,17 @@ MESegment::MESegment(const std::string& id):
 }
 
 
+void
+MESegment::updatePermissions() {
+    if (myQueues.size() > 1) {
+        for (MSLane* lane : myEdge.getLanes()) {
+            myQueues.back().setPermissions(lane->getPermissions());
+        }
+    } else {
+        myQueues.back().setPermissions(myEdge.getPermissions());
+    }
+}
+
 
 void
 MESegment::recomputeJamThreshold(double jamThresh) {
@@ -250,12 +261,16 @@ MESegment::prepareDetectorForWriting(MSMoveReminder& data) {
 
 SUMOTime
 MESegment::hasSpaceFor(const MEVehicle* const veh, const SUMOTime entryTime, int& qIdx, const bool init) const {
+    SUMOTime earliestEntry = SUMOTime_MAX;
     qIdx = 0;
     if (myNumVehicles == 0 && myQueues.size() == 1) {
         // we have always space for at least one vehicle
-        return entryTime;
+        if (myQueues.front().allows(veh->getVClass())) {
+            return entryTime;
+        }  else {
+            return earliestEntry;
+        }
     }
-    SUMOTime earliestEntry = SUMOTime_MAX;
     const SUMOVehicleClass svc = veh->getVClass();
     int minSize = std::numeric_limits<int>::max();
     const MSEdge* const succ = myNextSegment == nullptr ? veh->succEdge(1) : nullptr;
