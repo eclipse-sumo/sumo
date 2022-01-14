@@ -55,6 +55,7 @@ FXDEFMAP(GNESelectorFrame::SelectionOperation) SelectionOperationMap[] = {
 };
 
 FXDEFMAP(GNESelectorFrame::SelectionHierarchy) SelectionHierarchyMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,                         GNESelectorFrame::SelectionHierarchy::onCmdSelectItem),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTPARENTS,    GNESelectorFrame::SelectionHierarchy::onCmdSelectParents),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_UNSELECTPARENTS,  GNESelectorFrame::SelectionHierarchy::onCmdUnselectParents),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTCHILDREN,   GNESelectorFrame::SelectionHierarchy::onCmdSelectChildren),
@@ -999,7 +1000,9 @@ GNESelectorFrame::SelectionOperation::askContinueIfLock() const {
 
 GNESelectorFrame::SelectionHierarchy::SelectionHierarchy(GNESelectorFrame* selectorFrameParent) :
     FXGroupBoxModule(selectorFrameParent->myContentFrame, "Hierarchy operations"),
-    mySelectorFrameParent(selectorFrameParent) {
+    mySelectorFrameParent(selectorFrameParent),
+    myCurrentSelectedParent(Selection::ALL),
+    myCurrentSelectedChildren(Selection::ALL) {
     // create label for parents
     new FXLabel(getCollapsableFrame(), "Select parents", nullptr, GUIDesignLabelThickCenter);
     // Create FXComboBox for parent comboBox
@@ -1020,10 +1023,64 @@ GNESelectorFrame::SelectionHierarchy::SelectionHierarchy(GNESelectorFrame* selec
     mySelectChildrenButton = new FXButton(childrenButtons, "Select", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_SELECTORFRAME_SELECTCHILDREN, GUIDesignButton);
     // Create "unselect" Button
     myUnselectChildrenButton = new FXButton(childrenButtons, "Unselect", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_SELECTORFRAME_UNSELECTCHILDREN, GUIDesignButton);
+    // fill comboBoxes
+    for (const auto &item : myItems) {
+        myParentsComboBox->appendItem(item.second.c_str());
+        myChildrenComboBox->appendItem(item.second.c_str());
+    }
+    myParentsComboBox->setNumVisible(5);
+    myChildrenComboBox->setNumVisible(5);
 }
 
 
 GNESelectorFrame::SelectionHierarchy::~SelectionHierarchy() {}
+
+
+long
+GNESelectorFrame::SelectionHierarchy::onCmdSelectItem(FXObject* obj, FXSelector, void*) {
+    if (obj == myParentsComboBox) {
+        for (const auto &item : myItems) {
+            if (item.second == myParentsComboBox->getText().text()) {
+                // enable buttons
+                mySelectParentsButton->enable();
+                myUnselectParentsButton->enable();
+                // change text color
+                myParentsComboBox->setTextColor(FXRGB(0, 0, 0));
+                // set current selected parent
+                myCurrentSelectedParent = item.first;
+                return 1;
+            }
+        }
+        // item not found
+        myCurrentSelectedParent = Selection::NOTHING;
+        // disable buttons
+        mySelectParentsButton->disable();
+        myUnselectParentsButton->disable();
+        myParentsComboBox->setTextColor(FXRGB(255, 0, 0));
+        return 1;
+    } else if (obj == myChildrenComboBox) {
+        for (const auto &item : myItems) {
+            if (item.second == myChildrenComboBox->getText().text()) {
+                // enable buttons
+                mySelectChildrenButton->enable();
+                myUnselectChildrenButton->enable();
+                // change text color
+                myChildrenComboBox->setTextColor(FXRGB(0, 0, 0));
+                // set current selected parent
+                myCurrentSelectedParent = item.first;
+                return 1;
+            }
+        }
+        // item not found
+        myCurrentSelectedParent = Selection::NOTHING;
+        // disable buttons
+        mySelectChildrenButton->disable();
+        myUnselectChildrenButton->disable();
+        myChildrenComboBox->setTextColor(FXRGB(255, 0, 0));
+        return 1;
+    }
+    return 0;
+}
 
 
 long

@@ -273,6 +273,9 @@ public:
         /// @name FOX-callbacks
         /// @{
 
+        /// @brief called when user select an item in comboBox
+        long onCmdSelectItem(FXObject* obj, FXSelector, void*);
+
         /// @brief called when user press select parents button
         long onCmdSelectParents(FXObject*, FXSelector, void*);
 
@@ -290,6 +293,24 @@ public:
     protected:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(SelectionHierarchy)
+
+    private:
+        /// @brief enum used in comboBox
+        enum class Selection {
+            ALL,
+            JUNCTION,
+            EDGE,
+            LANE,
+            CONNECTION,
+            CROSSING,
+            ADDITIONAL,
+            DEMAND,
+            DATA,
+            NOTHING,
+        };
+
+        /// @brief pointer to Selector Frame Parent
+        GNESelectorFrame* mySelectorFrameParent;
 
         /// @brief comboBox for parents
         FXComboBox* myParentsComboBox = nullptr;
@@ -309,9 +330,24 @@ public:
         /// @brief unselect parents button
         FXButton* myUnselectChildrenButton = nullptr;
 
-    private:
-        /// @brief pointer to Selector Frame Parent
-        GNESelectorFrame* mySelectorFrameParent;
+        // @brief items
+        const std::vector<std::pair<Selection, std::string> > myItems = {
+            std::make_pair(Selection::ALL, "all"),
+            std::make_pair(Selection::JUNCTION, "junction"),
+            std::make_pair(Selection::EDGE, "edge"),
+            std::make_pair(Selection::LANE, "lane"),
+            std::make_pair(Selection::CONNECTION, "crossing"),
+            std::make_pair(Selection::CROSSING, "connection"),
+            std::make_pair(Selection::ADDITIONAL, "additionalElements"),
+            std::make_pair(Selection::DEMAND, "demandElements"),
+            std::make_pair(Selection::DATA, "dataElements")
+        };
+
+        /// @brief current selected parent
+        Selection myCurrentSelectedParent;
+
+        /// @brief current selected children
+        Selection myCurrentSelectedChildren;
 
         /// @brief Invalidated copy constructor.
         SelectionHierarchy(const SelectionHierarchy&) = delete;
