@@ -116,6 +116,10 @@ public:
 
     int nextPhase(std::vector<int> ring, int currentPhase);
 
+    // Max added temporarily
+    void nextPhaseWrapper(int currentR1Index, int currentR2Index, bool toUpdateR1, bool toUpdateR2, int& newPhase1, int& newPhase2);
+    int getBarrier(int desiredPhase, int ring);
+
     double ModeCycle(double a, double b);
 
     std::string transitionState(std::string curState, int RYG);
@@ -237,6 +241,15 @@ protected:
     //size = 2. 0->ring1 1->ring2
     std::vector<int> barrierPhaseIndecies;
     std::vector<int> coordinatePhaseIndecies;
+
+    /*
+    This serves as a mapping to speed up phaseSelection
+    {
+      {{3, 4}, {1, 2}},
+      {{7, 8}, {5, 6}}  
+    }
+    */    
+    std::vector<std::vector<std::vector<int>>> myRingBarrierMapping;
 
     bool minRecalls[8] {};
     bool maxRecalls[8] {};
