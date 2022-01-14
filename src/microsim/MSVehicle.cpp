@@ -6951,11 +6951,16 @@ MSVehicle::manoeuvreIsComplete() const {
 double
 MSVehicle::estimateTimeToNextStop() const {
     if (hasStops()) {
+        MSLane* lane = myLane;
+        if (lane == nullptr) {
+            // not in network
+            lane = getEdge()->getLanes()[0];
+        }
         const MSStop& stop = myStops.front();
         auto it = myCurrEdge + 1;
         // drive to end of current edge
-        double dist = (myLane->getLength() - getPositionOnLane());
-        double travelTime = myLane->getEdge().getMinimumTravelTime(this) * dist / myLane->getLength();
+        double dist = (lane->getLength() - getPositionOnLane());
+        double travelTime = lane->getEdge().getMinimumTravelTime(this) * dist / lane->getLength();
         // drive until stop edge
         while (it != myRoute->end() && it < stop.edge) {
             travelTime += (*it)->getMinimumTravelTime(this);
@@ -6963,7 +6968,7 @@ MSVehicle::estimateTimeToNextStop() const {
             it++;
         }
         // drive up to the stop position
-        const double stopEdgeDist = stop.pars.endPos - (myLane == stop.lane ? myLane->getLength() : 0);
+        const double stopEdgeDist = stop.pars.endPos - (lane == stop.lane ? lane->getLength() : 0);
         dist += stopEdgeDist;
         travelTime += stop.lane->getEdge().getMinimumTravelTime(this) * (stopEdgeDist / stop.lane->getLength());
         // estimate time loss due to acceleration and deceleration
