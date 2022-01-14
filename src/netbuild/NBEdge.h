@@ -732,6 +732,12 @@ public:
     /// @brief get lane indices that allow the given permissions
     int getNumLanesThatAllow(SVCPermissions permissions) const;
 
+    /** @brief Returns whether the given vehicle class may change left from this lane */
+    bool allowsChangingLeft(int lane, SUMOVehicleClass vclass) const;
+
+    /** @brief Returns whether the given vehicle class may change left from this lane */
+    bool allowsChangingRight(int lane, SUMOVehicleClass vclass) const;
+
     /// @brief return the angle for computing pedestrian crossings at the given node
     double getCrossingAngle(NBNode* node);
 

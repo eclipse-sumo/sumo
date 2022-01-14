@@ -648,39 +648,16 @@ GNELane::drawMarkings(const GUIVisualizationSettings& s, const double exaggerati
     if (s.laneShowBorders && (exaggeration == 1) && !drawRailway) {
         // get half lane width
         const double myHalfLaneWidth = myParentEdge->getNBEdge()->getLaneWidth(myIndex) / 2;
-        const int lefthand = s.lefthand ? -1 : 1;
         // push matrix
         GLHelper::pushMatrix();
         // move top
         glTranslated(0, 0, 0.1);
         // optionally draw inverse markings
         if (myIndex > 0 && (myParentEdge->getNBEdge()->getPermissions(myIndex - 1) & myParentEdge->getNBEdge()->getPermissions(myIndex)) != 0) {
-            // calculate marking witdhs
-            const double markinWidthA = (myHalfLaneWidth + SUMO_const_laneMarkWidth) * exaggeration * lefthand;
-            const double markinWidthB = (myHalfLaneWidth - SUMO_const_laneMarkWidth) * exaggeration * lefthand;
-            // iterate over lane shape
-            for (int i = 0; i < (int) myLaneGeometry.getShape().size() - 1; ++i) {
-                // push matrix
-                GLHelper::pushMatrix();
-                // move to gemetry point
-                glTranslated(myLaneGeometry.getShape()[i].x(), myLaneGeometry.getShape()[i].y(), 0.1);
-                // rotate
-                glRotated(myLaneGeometry.getShapeRotations()[i], 0, 0, 1);
-                // calculate subLengths
-                for (double subLengths = 0; subLengths < myLaneGeometry.getShapeLengths()[i]; subLengths += 6) {
-                    // calculate lenght
-                    const double length = MIN2((double)3, myLaneGeometry.getShapeLengths()[i] - subLengths);
-                    // draw rectangle
-                    glBegin(GL_QUADS);
-                    glVertex2d(-markinWidthA, -subLengths);
-                    glVertex2d(-markinWidthA, -subLengths - length);
-                    glVertex2d(-markinWidthB, -subLengths - length);
-                    glVertex2d(-markinWidthB, -subLengths);
-                    glEnd();
-                }
-                // pop matrix
-                GLHelper::popMatrix();
-            }
+            const bool cl = myParentEdge->getNBEdge()->allowsChangingLeft(myIndex - 1, SVC_PASSENGER);
+            const bool cr = myParentEdge->getNBEdge()->allowsChangingRight(myIndex, SVC_PASSENGER);
+            GLHelper::drawInverseMarkings(myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(),
+                    3, 6, myHalfLaneWidth, cl, cr, s.lefthand, exaggeration);
         }
         // pop matrix
         GLHelper::popMatrix();

@@ -4158,6 +4158,18 @@ NBEdge::getNumLanesThatAllow(SVCPermissions permissions) const {
     return result;
 }
 
+bool
+NBEdge::allowsChangingLeft(int lane, SUMOVehicleClass vclass) const {
+    assert(lane >= 0 && lane < getNumLanes());
+    return myLanes[lane].changeLeft == SVC_UNSPECIFIED ? true : (myLanes[lane].changeLeft & vclass) == vclass;
+}
+
+bool
+NBEdge::allowsChangingRight(int lane, SUMOVehicleClass vclass) const {
+    assert(lane >= 0 && lane < getNumLanes());
+    return myLanes[lane].changeRight == SVC_UNSPECIFIED ? true : (myLanes[lane].changeRight & vclass) == vclass;
+}
+
 double
 NBEdge::getCrossingAngle(NBNode* node) {
     double angle = getAngleAtNode(node) + (getFromNode() == node ? 180.0 : 0.0);
