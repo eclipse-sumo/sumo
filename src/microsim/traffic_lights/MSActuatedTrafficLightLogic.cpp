@@ -514,7 +514,15 @@ MSActuatedTrafficLightLogic::trySwitch() {
     SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
     if (myLinkGreenTimes.size() > 0) {
         // constraints exist, record green time durations for each link
-        updateLinkGreenTimes(myLinkGreenTimes);
+        const std::string& state = getCurrentPhaseDef().getState();
+        SUMOTime lastDuration = SIMSTEP - myLastTrySwitchTime;
+        for (int i = 0; i < myNumLinks; i++) {
+            if (state[i] == 'G' || state[i] == 'g') {
+                myLinkGreenTimes[i] += lastDuration;
+            } else {
+                myLinkGreenTimes[i] = 0;
+            }
+        }
     }
     myLastTrySwitchTime = now;
     // decide the next phase
@@ -643,19 +651,6 @@ MSActuatedTrafficLightLogic::gapControl() {
         }
     }
     return result;
-}
-
-void
-MSActuatedTrafficLightLogic::updateLinkGreenTimes(std::vector<SUMOTime>& into) const {
-    const std::string& state = getCurrentPhaseDef().getState();
-    SUMOTime lastDuration = SIMSTEP - myLastTrySwitchTime;
-    for (int i = 0; i < myNumLinks; i++) {
-        if (state[i] == 'G' || state[i] == 'g') {
-            into[i] += lastDuration;
-        } else {
-            into[i] = 0;
-        }
-    }
 }
 
 int
@@ -1006,10 +1001,13 @@ MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) const
                             // switching is possible (i.e. not during minDur).
                             // If somebody is looking at those values in the tracker
                             // this would be confusing
-                            std::vector<SUMOTime> tmp(myNumLinks, 0);
-                            updateLinkGreenTimes(tmp);
-                            const SUMOTime currentGreen = tmp[linkIndex];
-                            return currentGreen == 0 ? 0 : STEPS2TIME(myLinkGreenTimes[linkIndex] + currentGreen);
+                            const LinkState ls = getCurrentPhaseDef().getSignalState(linkIndex);
+                            if (ls == LinkState::TL_GREEN_MAJOR || ls == LinkState::TL_GREEN_MINOR) {
+                                const SUMOTime currentGreen = SIMSTEP - myLastTrySwitchTime;
+                                return STEPS2TIME(myLinkGreenTimes[linkIndex] + currentGreen);
+                            } else {
+                                return 0;
+                            }
                         } else {
                             return STEPS2TIME(myLinkGreenTimes[linkIndex]);
                         }

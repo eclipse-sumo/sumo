@@ -159,9 +159,6 @@ protected:
     bool hasMajor(const std::string& state, const LaneVector& lanes) const;
     /// @}
 
-    /// @brief recompute running green durations
-    void updateLinkGreenTimes(std::vector<SUMOTime>& into) const;
-
     /// @brief select among candidate phases based on detector states
     int decideNextPhase();
 
