@@ -460,7 +460,7 @@ Condition values can be [visualized](Traffic_Lights.md#track_phases) while the s
 <tlLogic id="example" type="actuated" ...>
    <condition id="C3" value="z:det5 > 5"/>
    <condition id="C4" value="C3 and z:det6 < 2"/>
-   <condition id="C5" value=".../>
+   <condition id="C5" value="r:0 > 60"/>
    <phase ... next="1 2"/>
    <phase ... earlyTarget="C3" finalTarget="!C4"/>
    <phase ... earlyTarget="(z:det0 > 3) and (z:det2 <= 4)" finalTarget="C5 or (z:det3 = 0)"/>
