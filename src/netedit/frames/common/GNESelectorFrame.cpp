@@ -55,11 +55,9 @@ FXDEFMAP(GNESelectorFrame::SelectionOperation) SelectionOperationMap[] = {
 };
 
 FXDEFMAP(GNESelectorFrame::SelectionHierarchy) SelectionHierarchyMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,                         GNESelectorFrame::SelectionHierarchy::onCmdSelectItem),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTPARENTS,    GNESelectorFrame::SelectionHierarchy::onCmdSelectParents),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_UNSELECTPARENTS,  GNESelectorFrame::SelectionHierarchy::onCmdUnselectParents),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTCHILDREN,   GNESelectorFrame::SelectionHierarchy::onCmdSelectChildren),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_UNSELECTCHILDREN, GNESelectorFrame::SelectionHierarchy::onCmdUnselectChildren),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,                 GNESelectorFrame::SelectionHierarchy::onCmdSelectItem),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_PARENTS,  GNESelectorFrame::SelectionHierarchy::onCmdParents),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_CHILDREN, GNESelectorFrame::SelectionHierarchy::onCmdChildren),
 };
 
 // Object implementation
@@ -1010,9 +1008,9 @@ GNESelectorFrame::SelectionHierarchy::SelectionHierarchy(GNESelectorFrame* selec
     // create parent buttons
     FXHorizontalFrame* parentButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // Create "select" Button
-    mySelectParentsButton = new FXButton(parentButtons, "Select", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_SELECTORFRAME_SELECTPARENTS, GUIDesignButton);
+    mySelectParentsButton = new FXButton(parentButtons, "Select", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_SELECTORFRAME_PARENTS, GUIDesignButton);
     // Create "unselect" Button
-    myUnselectParentsButton = new FXButton(parentButtons, "Unselect", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_SELECTORFRAME_UNSELECTPARENTS, GUIDesignButton);
+    myUnselectParentsButton = new FXButton(parentButtons, "Unselect", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_SELECTORFRAME_PARENTS, GUIDesignButton);
     // create label for parents
     new FXLabel(getCollapsableFrame(), "Select children", nullptr, GUIDesignLabelThickCenter);
     // Create FXComboBox for parent comboBox
@@ -1020,9 +1018,9 @@ GNESelectorFrame::SelectionHierarchy::SelectionHierarchy(GNESelectorFrame* selec
     // create children buttons
     FXHorizontalFrame* childrenButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
     // Create "select" Button
-    mySelectChildrenButton = new FXButton(childrenButtons, "Select", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_SELECTORFRAME_SELECTCHILDREN, GUIDesignButton);
+    mySelectChildrenButton = new FXButton(childrenButtons, "Select", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_SELECTORFRAME_CHILDREN, GUIDesignButton);
     // Create "unselect" Button
-    myUnselectChildrenButton = new FXButton(childrenButtons, "Unselect", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_SELECTORFRAME_UNSELECTCHILDREN, GUIDesignButton);
+    myUnselectChildrenButton = new FXButton(childrenButtons, "Unselect", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_SELECTORFRAME_CHILDREN, GUIDesignButton);
     // fill comboBoxes
     for (const auto &item : myItems) {
         myParentsComboBox->appendItem(item.second.c_str());
@@ -1084,7 +1082,7 @@ GNESelectorFrame::SelectionHierarchy::onCmdSelectItem(FXObject* obj, FXSelector,
 
 
 long
-GNESelectorFrame::SelectionHierarchy::onCmdSelectParents(FXObject*, FXSelector, void*) {
+GNESelectorFrame::SelectionHierarchy::onCmdParents(FXObject* obj, FXSelector, void*) {
     // get selected elements
     const auto selectedACs = mySelectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getSelectedAttributeCarriers(true);
     // check if there is selected ACs
@@ -1119,10 +1117,6 @@ GNESelectorFrame::SelectionHierarchy::onCmdSelectParents(FXObject*, FXSelector, 
             if ((myCurrentSelectedParent == Selection::ALL) || (myCurrentSelectedParent == Selection::SHAPE)) {
                 HEToSelect.insert(HEToSelect.end(), HE->getParentShapes().begin(), HE->getParentShapes().end());
             }
-            // TAZ
-            if ((myCurrentSelectedParent == Selection::ALL) || (myCurrentSelectedParent == Selection::TAZ)) {
-                HEToSelect.insert(HEToSelect.end(), HE->getParentTAZElements().begin(), HE->getParentTAZElements().end());
-            }
             // demand
             if ((myCurrentSelectedParent == Selection::ALL) || (myCurrentSelectedParent == Selection::DEMAND)) {
                 HEToSelect.insert(HEToSelect.end(), HE->getParentDemandElements().begin(), HE->getParentDemandElements().end());
@@ -1135,23 +1129,22 @@ GNESelectorFrame::SelectionHierarchy::onCmdSelectParents(FXObject*, FXSelector, 
         // select HE
         if (HEToSelect.size() > 0) {
             for (const auto &HE : HEToSelect) {
-                HE->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+                if (obj == mySelectParentsButton) {
+                    HE->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+                } else {
+                    HE->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->getViewNet()->getUndoList());
+                }
             } 
         }
+        // update viewNet
+        mySelectorFrameParent->getViewNet()->update();
     }
     return 1;
 }
 
 
-long 
-GNESelectorFrame::SelectionHierarchy::onCmdUnselectParents(FXObject*, FXSelector, void*) {
-    //
-    return 1;
-}
-
-
 long
-GNESelectorFrame::SelectionHierarchy::onCmdSelectChildren(FXObject*, FXSelector, void*) {
+GNESelectorFrame::SelectionHierarchy::onCmdChildren(FXObject* obj, FXSelector, void*) {
     // get selected elements
     const auto selectedACs = mySelectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getSelectedAttributeCarriers(true);
     // check if there is selected ACs
@@ -1201,10 +1194,6 @@ GNESelectorFrame::SelectionHierarchy::onCmdSelectChildren(FXObject*, FXSelector,
             if ((myCurrentSelectedChild == Selection::ALL) || (myCurrentSelectedChild == Selection::SHAPE)) {
                 HEToSelect.insert(HEToSelect.end(), HE->getChildShapes().begin(), HE->getChildShapes().end());
             }
-            // TAZ
-            if ((myCurrentSelectedChild == Selection::ALL) || (myCurrentSelectedChild == Selection::TAZ)) {
-                HEToSelect.insert(HEToSelect.end(), HE->getChildTAZElements().begin(), HE->getChildTAZElements().end());
-            }
             // demand
             if ((myCurrentSelectedChild == Selection::ALL) || (myCurrentSelectedChild == Selection::DEMAND)) {
                 HEToSelect.insert(HEToSelect.end(), HE->getChildDemandElements().begin(), HE->getChildDemandElements().end());
@@ -1217,17 +1206,16 @@ GNESelectorFrame::SelectionHierarchy::onCmdSelectChildren(FXObject*, FXSelector,
         // select HE
         if (HEToSelect.size() > 0) {
             for (const auto &HE : HEToSelect) {
-                HE->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+                if (obj == mySelectChildrenButton) {
+                    HE->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+                } else {
+                    HE->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+                }
             } 
         }
+        // update viewNet
+        mySelectorFrameParent->getViewNet()->update();
     }
-    return 1;
-}
-
-
-long 
-GNESelectorFrame::SelectionHierarchy::onCmdUnselectChildren(FXObject*, FXSelector, void*) {
-    //
     return 1;
 }
 

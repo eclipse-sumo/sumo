@@ -276,17 +276,11 @@ public:
         /// @brief called when user select an item in comboBox
         long onCmdSelectItem(FXObject* obj, FXSelector, void*);
 
-        /// @brief called when user press select parents button
-        long onCmdSelectParents(FXObject*, FXSelector, void*);
+        /// @brief called when user press select/unselect parents button
+        long onCmdParents(FXObject* obj, FXSelector, void*);
 
-        /// @brief called when user press unselect parents button
-        long onCmdUnselectParents(FXObject*, FXSelector, void*);
-
-        /// @brief called when user press select childrens button
-        long onCmdSelectChildren(FXObject*, FXSelector, void*);
-
-        /// @brief called when user press unselect childrens button
-        long onCmdUnselectChildren(FXObject*, FXSelector, void*);
+        /// @brief called when user press select/unselect children button
+        long onCmdChildren(FXObject* obj, FXSelector, void*);
 
         /// @}
 
@@ -303,7 +297,6 @@ public:
             LANE,
             ADDITIONAL,
             SHAPE,
-            TAZ,
             DEMAND,
             DATA,
             NOTHING,
@@ -338,7 +331,6 @@ public:
             std::make_pair(Selection::LANE, "lane"),
             std::make_pair(Selection::ADDITIONAL, "additionalElements"),
             std::make_pair(Selection::SHAPE, "shapeElements"),
-            std::make_pair(Selection::TAZ, "TAZElements"),
             std::make_pair(Selection::DEMAND, "demandElements"),
             std::make_pair(Selection::DATA, "dataElements")
         };
