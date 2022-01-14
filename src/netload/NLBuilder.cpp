@@ -277,7 +277,17 @@ NLBuilder::init(const bool isLibsumo) {
         return nullptr;
     }
     SystemFrame::checkOptions();
-    XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"), oc.getString("xml-validation.routes"));
+    std::string validation = oc.getString("xml-validation");
+    std::string routeValidation = oc.getString("xml-validation.routes");
+    if (isLibsumo) {
+        if (oc.isDefault("xml-validation")) {
+            validation = "never";
+        }
+        if (oc.isDefault("xml-validation.routes")) {
+            routeValidation = "never";
+        }
+    }
+    XMLSubSys::setValidation(validation, oc.getString("xml-validation.net"), routeValidation);
     if (!MSFrame::checkOptions()) {
         throw ProcessError();
     }
