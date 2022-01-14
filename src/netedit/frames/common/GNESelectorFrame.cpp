@@ -1136,6 +1136,8 @@ GNESelectorFrame::SelectionHierarchy::onCmdParents(FXObject* obj, FXSelector, vo
                 }
             } 
         }
+        // update information label
+        mySelectorFrameParent->mySelectionInformation->updateInformationLabel();
         // update viewNet
         mySelectorFrameParent->getViewNet()->update();
     }
@@ -1209,10 +1211,12 @@ GNESelectorFrame::SelectionHierarchy::onCmdChildren(FXObject* obj, FXSelector, v
                 if (obj == mySelectChildrenButton) {
                     HE->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
                 } else {
-                    HE->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+                    HE->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->getViewNet()->getUndoList());
                 }
             } 
         }
+        // update information label
+        mySelectorFrameParent->mySelectionInformation->updateInformationLabel();
         // update viewNet
         mySelectorFrameParent->getViewNet()->update();
     }
