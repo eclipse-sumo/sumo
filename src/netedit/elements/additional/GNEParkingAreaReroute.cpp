@@ -226,7 +226,11 @@ GNEParkingAreaReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
             myVisible = parse<bool>(value);
             break;
         case GNE_ATTR_SELECTED:
-            setParametersStr(value);
+            if (parse<bool>(value)) {
+                selectAttributeCarrier();
+            } else {
+                unselectAttributeCarrier();
+            }
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
