@@ -6,4 +6,5 @@
 --colors k --ylim 0,125
 --title "New European Driving Cycle (NEDC)" --titlesize 16
 -o image.png,image.svg 
+--blind
 tools/visualization/plot_csv_timeline.py
