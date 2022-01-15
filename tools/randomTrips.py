@@ -490,7 +490,8 @@ def main(options):
                 options.min_distance, options.max_distance, options.maxtries,
                 options.junctionTaz)
             combined_attrs = options.tripattrs
-            if options.fringeattrs and source_edge.is_fringe(source_edge._incoming, checkJunctions=options.fringeJunctions):
+            if options.fringeattrs and source_edge.is_fringe(
+                    source_edge._incoming, checkJunctions=options.fringeJunctions):
                 combined_attrs += " " + options.fringeattrs
             if options.junctionTaz:
                 attrFrom = ' fromJunction="%s"' % source_edge.getFromNode().getID()

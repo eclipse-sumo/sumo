@@ -327,9 +327,9 @@ class TrafficLightDomain(Domain):
         """
         self._setCmd(tc.TL_PROGRAM, tlsID, "s", programID)
 
-    def getNemaPhaseCalls(self,tlsID):
+    def getNemaPhaseCalls(self, tlsID):
         """getNemaPhaseCalls(string) -> list(string)
-        Get the vehicle calls for the phases. 
+        Get the vehicle calls for the phases.
         The output is vehicle calls (coming from the detectors) for the phases.
         """
         vehCallStr = self.getParameter(tlsID, "NEMA.phaseCall")
