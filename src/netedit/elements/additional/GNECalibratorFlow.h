@@ -44,10 +44,10 @@ public:
     GNECalibratorFlow(GNENet* net);
 
     /// @brief default constructor (used only in GNECalibratorDialog)
-    GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route);
+    GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* route, GNEDemandElement* vehicleType);
 
     /// @brief parameter constructor
-    GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters);
+    GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* route, GNEDemandElement* vehicleType, const SUMOVehicleParameter& vehicleParameters);
 
     /// @brief destructor
     ~GNECalibratorFlow();

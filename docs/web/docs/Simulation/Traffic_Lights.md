@@ -428,6 +428,7 @@ The following elements are permitted in an expression for attributes
   - 'a:DETID': returns true (1) if a vehicle is on detector with id 'DETID' and
     false (0) otherwise. Supports inductionLoop and laneAreaDetectors.
   - 'g:TLSINDEX': returns current green duration in seconds for link with the given index
+  - 'r:TLSINDEX': returns current red duration in seconds for link with the given index
 - Symbolic names for [pre-defined expressions](#named_expressions)
 
 The following constraints apply to expressions:
@@ -448,7 +449,7 @@ of `<tlLogic>` to define named expressions that can be referenced in other expre
    ...
 ```
 
-- condition id must be an alphanumeric string without spaces and withtout the ':'-character
+- condition id must be an alphanumeric string without spaces and without the ':'-character
 - value may be any expression which is permitted for 'earlyTarget' or 'finalTarget'
 
 Condition values can be [visualized](Traffic_Lights.md#track_phases) while the simulation is running. It may be useful to add extra conditions that are only used for debugging purposes.
@@ -459,7 +460,7 @@ Condition values can be [visualized](Traffic_Lights.md#track_phases) while the s
 <tlLogic id="example" type="actuated" ...>
    <condition id="C3" value="z:det5 > 5"/>
    <condition id="C4" value="C3 and z:det6 < 2"/>
-   <condition id="C5" value=".../>
+   <condition id="C5" value="r:0 > 60"/>
    <phase ... next="1 2"/>
    <phase ... earlyTarget="C3" finalTarget="!C4"/>
    <phase ... earlyTarget="(z:det0 > 3) and (z:det2 <= 4)" finalTarget="C5 or (z:det3 = 0)"/>

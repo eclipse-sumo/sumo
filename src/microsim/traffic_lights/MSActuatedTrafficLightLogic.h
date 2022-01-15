@@ -114,7 +114,7 @@ public:
     void setParameter(const std::string& key, const std::string& value);
 
     /// @brief retrieve all detectors used by this program
-    std::vector<const MSInductLoop*> getDetectors() const;
+    std::vector<const MSDetectorFileOutput*> getDetectors() const;
 
     /// @brief return all named conditions defined for this traffic light
     std::map<std::string, double> getConditions() const; 
@@ -226,6 +226,7 @@ protected:
 
     /// @brief consecutive time that the given link index has been green
     std::vector<SUMOTime> myLinkGreenTimes;
+    std::vector<SUMOTime> myLinkRedTimes;
     /// @brief maximum consecutive time that the given link may remain green
     std::vector<SUMOTime> myLinkMaxGreenTimes;
     /// @brief minimum consecutive time that the given link must remain green

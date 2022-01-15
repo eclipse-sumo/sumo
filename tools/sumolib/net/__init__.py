@@ -662,6 +662,9 @@ class NetReader(handler.ContentHandler):
                                                       attrs['incLanes'].split(" "), intLanes)
                 self._currentNode.setShape(
                     convertShape(attrs.get('shape', '')))
+                if 'fringe' in attrs:
+                    self._currentNode._fringe = attrs['fringe']
+
         if name == 'succ' and self._withConnections:  # deprecated
             if attrs['edge'][0] != ':':
                 self._currentEdge = self._net.getEdge(attrs['edge'])

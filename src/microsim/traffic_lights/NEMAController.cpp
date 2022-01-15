@@ -712,6 +712,17 @@ bool NEMALogic::isDetectorActivated(int phaseNumber) const{
     }
 }
 
+
+std::vector<const MSDetectorFileOutput*>
+NEMALogic::getDetectors() const {
+    std::vector<const MSDetectorFileOutput*> result;
+    for (auto item : myDetectorLaneMap) {
+        result.push_back(item.first);
+    }
+    return result;
+}
+
+
 const MSPhaseDefinition&
 NEMALogic::getCurrentPhaseDef() const {
     return myPhase;
@@ -958,6 +969,7 @@ int NEMALogic::nextPhase(std::vector<int> ring, int& currentPhase) {
     int flag = 0;
     int nphase = 0; // next phase
     int i = 0; // i represents the distance
+    int myIndex = 0;
     for (i = 0; i < length * 2; i++) {
         if (flag == 1) {
             if (ring[i % length] != 0) {
@@ -976,6 +988,7 @@ int NEMALogic::nextPhase(std::vector<int> ring, int& currentPhase) {
         }
         if (ring[i % length] == currentPhase) {
             flag = 1;
+            myIndex = i;
         }
     }
     if (nphase !=0){
@@ -984,7 +997,7 @@ int NEMALogic::nextPhase(std::vector<int> ring, int& currentPhase) {
     }
     else{
         // this should only occur in the subset
-        currentPhase = ring[(i % length + 1)];
+        currentPhase = ring[myIndex % length + 1];
         return i;
     }
 }
@@ -1023,16 +1036,21 @@ int NEMALogic::findBarrier(int phase, int ring) {
 void NEMALogic::nextPhaseWrapper(int R1Phase, int R2Phase, bool toUpdateR1, bool toUpdateR2) {
     // Only 1 or both can be !toUpdate (otherwise we wouldn't be in this situation)
     if (!toUpdateR1){
+        int r1BarrierNum = findBarrier(R1Phase, 0);
+        nextPhase(myRingBarrierMapping[1][r1BarrierNum], R2Phase);
         // If we aren't updating both, the search range is only the subset of values on the same side of the barrier
-        int r1Barrier = findBarrier(R1Phase, 0);
-        nextPhase(myRingBarrierMapping[1][r1Barrier], R2Phase);
+        // Actually, I believe that in any other mode than fully-actuated, the next phase must be the barrier.
+        // fully-actuated behavior will be captured in setting of toUpdateR1 etc... 
+        // The next phase is as simple as moving to the barrier, as the 
+        // myNextPhaseR2 = r1BarrierNum > 0? r2barrier: r2coordinatePhase;
         myNextPhaseR2 = R2Phase;
     } else if (!toUpdateR2){
-        int r2Barrier = findBarrier(R2Phase, 0);
-        nextPhase(myRingBarrierMapping[0][r2Barrier], R1Phase);
-        myNextPhaseR1 = R1Phase; 
+        int r2BarrierNum = findBarrier(R2Phase, 1);
+        nextPhase(myRingBarrierMapping[0][r2BarrierNum], R1Phase);
+        // myNextPhaseR1 = r2BarrierNum > 0? r1barrier: r1coordinatePhase;
+        myNextPhaseR1 = R1Phase;
     } else {
-        // Both can be updated. We should take the change requiring the least distance travelled, 
+        // Both can be updated. We should take the change requiring the least distance travelled around the loop, 
         // and then recalculate the other ring if it is not in the same barrier
         int localR1Phase = R1Phase;
         int localR2Phase = R2Phase;

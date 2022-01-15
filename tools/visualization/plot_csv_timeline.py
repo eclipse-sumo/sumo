@@ -38,7 +38,7 @@ import matplotlib.pyplot as plt  # noqa
 
 def readValues(file, verbose, columns):
     ret = {}
-    with open(file, 'rb') as f:
+    with open(file) as f:
         if verbose:
             print("Reading '%s'..." % f)
         reader = csv.reader(f, delimiter=';')

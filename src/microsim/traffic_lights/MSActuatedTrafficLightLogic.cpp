@@ -403,6 +403,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     initSwitchingRules();
     if (myLinkMaxGreenTimes.size() > 0 || myLinkMinGreenTimes.size() > 0 || mySwitchingRules.size() > 0) {
         myLinkGreenTimes = std::vector<SUMOTime>(myNumLinks, 0);
+        myLinkRedTimes = std::vector<SUMOTime>(myNumLinks, 0);
     }
     //std::cout << SIMTIME << " linkMaxGreenTimes=" << toString(myLinkMaxGreenTimes) << "\n";
 }
@@ -521,6 +522,11 @@ MSActuatedTrafficLightLogic::trySwitch() {
                 myLinkGreenTimes[i] += lastDuration;
             } else {
                 myLinkGreenTimes[i] = 0;
+            }
+            if (state[i] == 'r' || state[i] == 'u') {
+                myLinkRedTimes[i] += lastDuration;
+            } else {
+                myLinkRedTimes[i] = 0;
             }
         }
     }
@@ -992,24 +998,26 @@ MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) const
                 } else {
                     return det->getTimeSinceLastDetection() == 0;
                 }
-            } else if (fun == "g") {
+            } else if (fun == "g" || fun == "r") {
                 try {
                     int linkIndex = StringUtils::toInt(arg);
                     if (linkIndex >= 0 && linkIndex < myNumLinks) {
+                        const std::vector<SUMOTime>& times = fun == "g" ? myLinkGreenTimes : myLinkRedTimes;
                         if (myLastTrySwitchTime < SIMSTEP) {
                             // times are only updated at the start of a phase where
                             // switching is possible (i.e. not during minDur).
                             // If somebody is looking at those values in the tracker
                             // this would be confusing
                             const LinkState ls = getCurrentPhaseDef().getSignalState(linkIndex);
-                            if (ls == LINKSTATE_TL_GREEN_MAJOR || ls == LINKSTATE_TL_GREEN_MINOR) {
+                            if ((fun == "g" && (ls == LINKSTATE_TL_GREEN_MAJOR || ls == LINKSTATE_TL_GREEN_MINOR))
+                                    || (fun == "r" && (ls == LINKSTATE_TL_RED || ls == LINKSTATE_TL_REDYELLOW))) {
                                 const SUMOTime currentGreen = SIMSTEP - myLastTrySwitchTime;
-                                return STEPS2TIME(myLinkGreenTimes[linkIndex] + currentGreen);
+                                return STEPS2TIME(times[linkIndex] + currentGreen);
                             } else {
                                 return 0;
                             }
                         } else {
-                            return STEPS2TIME(myLinkGreenTimes[linkIndex]);
+                            return STEPS2TIME(times[linkIndex]);
                         }
                     }
                 } catch (NumberFormatException&) { }
@@ -1022,9 +1030,9 @@ MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) const
 }
 
 
-std::vector<const MSInductLoop*>
+std::vector<const MSDetectorFileOutput*>
 MSActuatedTrafficLightLogic::getDetectors() const {
-    std::vector<const MSInductLoop*> result;
+    std::vector<const MSDetectorFileOutput*> result;
     for (auto li : myInductLoops) {
         result.push_back(li.loop);
     }

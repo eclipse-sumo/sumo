@@ -35,6 +35,7 @@ class Node:
         self._intLanes = intLanes
         self._shape3D = None
         self._shape = None
+        self._fringe = None
         self._params = {}
 
     def getID(self):
@@ -132,6 +133,9 @@ class Node:
 
     def getType(self):
         return self._type
+
+    def getFringe(self):
+        return self._fringe
 
     def getConnections(self, source=None, target=None):
         if source:

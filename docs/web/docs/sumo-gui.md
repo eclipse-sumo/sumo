@@ -182,7 +182,7 @@ The following additional functions are available via right-click:
 - Close for traffic (edges and lanes)
 - Set speed limit (variable speed sign)
 - Switch programs (traffic lights)
-- [Visualize Signal Plans](Simulation/Traffic_Lights.html#signal_plan_visualization) (traffic lights)
+- [Visualize Signal Plans](Simulation/Traffic_Lights.md#signal_plan_visualization) (traffic lights)
 
 ## Selecting Objects
 

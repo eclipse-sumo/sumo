@@ -22,5 +22,8 @@ request_or_skip_E2
 # test condition for the running green duration of a link
 linkGreen
 
+# test condition for the running red duration of a link
+linkRed
+
 # ruggedization on encountering mathematical undefined expressions
 runtime_error

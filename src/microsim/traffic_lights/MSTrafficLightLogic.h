@@ -40,7 +40,7 @@
 class MSNet;
 class MSLink;
 class MSTLLogicControl;
-class MSInductLoop;
+class MSDetectorFileOutput;
 class NLDetectorBuilder;
 
 
@@ -370,8 +370,8 @@ public:
 
 
     /// @brief return all detectors that affect this traffic light
-    virtual std::vector<const MSInductLoop*> getDetectors() const {
-        return std::vector<const MSInductLoop*>();
+    virtual std::vector<const MSDetectorFileOutput*> getDetectors() const {
+        return std::vector<const MSDetectorFileOutput*>();
     }
 
     /// @brief return all named conditions defined for this traffic light

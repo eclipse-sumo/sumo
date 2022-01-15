@@ -153,6 +153,10 @@ public:
     /** @brief Remove all vehicles before quick-loading state */
     virtual void clearState() {};
 
+    virtual int getCurrentVehicleNumber() const {
+        return -1;
+    }
+
 protected:
     /// @brief The vehicle types to look for (empty means all)
     std::set<std::string> myVehicleTypes;

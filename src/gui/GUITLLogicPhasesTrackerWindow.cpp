@@ -172,7 +172,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     for (int i = 0; i < (int)myTLLogic->getLinks().size(); ++i) {
         myLinkNames.push_back(toString<int>(i));
     }
-    for (const MSInductLoop* det : myTLLogic->getDetectors()) {
+    for (const MSDetectorFileOutput* det : myTLLogic->getDetectors()) {
         std::string detID = det->getID();
         if (detID.size() > 4) {
             detID = detID.substr(detID.size() - 4);
@@ -856,8 +856,8 @@ GUITLLogicPhasesTrackerWindow::addValue(std::pair<SUMOTime, MSPhaseDefinition> d
     }
     // updated detector states
     std::vector<double> detectorStates;
-    for (const MSInductLoop* det : myTLLogic->getDetectors()) {
-        detectorStates.push_back(det->getOccupancy() > 0 ? 1 : 0);
+    for (const MSDetectorFileOutput* det : myTLLogic->getDetectors()) {
+        detectorStates.push_back(det->getCurrentVehicleNumber());
     }
     if (myDetectorStates.size() == 0 || myDetectorStates.back() != detectorStates) {
         myDetectorStates.push_back(detectorStates);

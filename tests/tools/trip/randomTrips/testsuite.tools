@@ -23,6 +23,9 @@ short_fringe
 # detected the fringe despite turnarounds
 fringe_factor_turnarounds
 
+# use junction attribute 'fringe' for fringe classification
+fringe-junctions
+
 # modify the edge probability based on the edge position relative to the network center to promote a given direction of travel
 angle
 
