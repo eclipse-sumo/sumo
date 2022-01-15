@@ -701,6 +701,17 @@ bool NEMALogic::isDetectorActivated(int phaseNumber) const{
     }
 }
 
+
+std::vector<const MSDetectorFileOutput*>
+NEMALogic::getDetectors() const {
+    std::vector<const MSDetectorFileOutput*> result;
+    for (auto item : myDetectorLaneMap) {
+        result.push_back(item.first);
+    }
+    return result;
+}
+
+
 const MSPhaseDefinition&
 NEMALogic::getCurrentPhaseDef() const {
     return myPhase;

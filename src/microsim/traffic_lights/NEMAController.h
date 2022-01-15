@@ -52,7 +52,7 @@ public:
     typedef std::map<MSLane*, MSE2Collector*> LaneDetectorMap;
 
     /// @brief Definition of a map from detectors to corresponding lanes
-    typedef std::map<MSE2Collector*, MSLane*> DetectorLaneMap;
+    typedef std::map<MSE2Collector*, MSLane*, ComparatorIdLess> DetectorLaneMap;
 
     /** @brief Constructor
      * @param[in] tlcontrol The tls control responsible for this tls
@@ -106,6 +106,9 @@ public:
     std::map<int, std::vector<MSE2Collector*>>* getPhase2DetectorMap() {
         return &phase2DetectorMap;
     }
+
+    /// @brief retrieve all detectors used by this program
+    std::vector<const MSDetectorFileOutput*> getDetectors() const;
 
     // control logic
     std::string NEMA_control();
