@@ -369,9 +369,9 @@ public:
     virtual bool getsMajorGreen(int linkIndex) const;
 
 
-    /// @brief return all detectors that affect this traffic light
-    virtual std::vector<const MSDetectorFileOutput*> getDetectors() const {
-        return std::vector<const MSDetectorFileOutput*>();
+    /// @brief return activation state of all detectors that affect this traffic light
+    virtual std::map<std::string, double> getDetectorStates() const {
+        return std::map<std::string, double>();
     }
 
     /// @brief return all named conditions defined for this traffic light

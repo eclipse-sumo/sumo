@@ -454,7 +454,9 @@ of `<tlLogic>` to define named expressions that can be referenced in other expre
 
 Condition values can be [visualized](Traffic_Lights.md#track_phases) while the simulation is running. It may be useful to add extra conditions that are only used for debugging purposes.
 
-#### Example
+#### Examples
+
+#### Diverse Logical Conditions
 
 ```
 <tlLogic id="example" type="actuated" ...>
@@ -465,6 +467,37 @@ Condition values can be [visualized](Traffic_Lights.md#track_phases) while the s
    <phase ... earlyTarget="C3" finalTarget="!C4"/>
    <phase ... earlyTarget="(z:det0 > 3) and (z:det2 <= 4)" finalTarget="C5 or (z:det3 = 0)"/>
 </tlLogic>
+```
+
+#### Default Gap Controlog Logic
+
+The default gap control logic, replicated with custom conditions. For brevity, all detectors have been replaced with custom detectors to obtain shorter detector IDs. A complete scenario including network and detector definitions can be downloaded [here](https://sumo.dlr.de/extractTest.php?path=sumo/basic/tls/actuated/conditions/replicate_default):
+
+```
+<tlLogic id="C" type="actuated" programID="P1" offset="0">
+        <phase duration="33" state="GgrrGgrr" minDur="5" maxDur="60" />
+        <phase duration="3"  state="ygrrygrr" earlyTarget="NS"/>
+        <phase duration="6"  state="rGrrrGrr" minDur="5" maxDur="60" />
+        <phase duration="3"  state="ryrrryrr" earlyTarget="NSL"/>
+        <phase duration="33" state="rrGgrrGg" minDur="5" maxDur="60" />
+        <phase duration="3"  state="rrygrryg" earlyTarget="EW"/>
+        <phase duration="6"  state="rrrGrrrG" minDur="5" maxDur="60" />
+        <phase duration="3"  state="rrryrrry" earlyTarget="EWL"/>
+
+        <condition id="NS"  value="z:NC0 > 3 and z:SC0 > 3"/>
+        <condition id="NSL" value="z:NC1 > 3 and z:SC1 > 3"/>
+        <condition id="EW"  value="z:WC0 > 3 and z:EC0 > 3"/>
+        <condition id="EWL" value="z:WC1 > 3 and z:EC1 > 3"/>
+
+        <param key="NC_0" value="NC0"/>
+        <param key="NC_1" value="NC1"/>
+        <param key="EC_0" value="EC0"/>
+        <param key="EC_1" value="EC1"/>
+        <param key="SC_0" value="SC0"/>
+        <param key="SC_1" value="SC1"/>
+        <param key="WC_0" value="WC0"/>
+        <param key="WC_1" value="WC1"/>
+    </tlLogic>
 ```
 
 ### Visualization
