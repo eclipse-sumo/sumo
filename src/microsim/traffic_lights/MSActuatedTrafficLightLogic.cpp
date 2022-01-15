@@ -1030,9 +1030,9 @@ MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) const
 }
 
 
-std::vector<const MSInductLoop*>
+std::vector<const MSDetectorFileOutput*>
 MSActuatedTrafficLightLogic::getDetectors() const {
-    std::vector<const MSInductLoop*> result;
+    std::vector<const MSDetectorFileOutput*> result;
     for (auto li : myInductLoops) {
         result.push_back(li.loop);
     }

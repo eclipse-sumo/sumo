@@ -114,7 +114,7 @@ public:
     void setParameter(const std::string& key, const std::string& value);
 
     /// @brief retrieve all detectors used by this program
-    std::vector<const MSInductLoop*> getDetectors() const;
+    std::vector<const MSDetectorFileOutput*> getDetectors() const;
 
     /// @brief return all named conditions defined for this traffic light
     std::map<std::string, double> getConditions() const; 
