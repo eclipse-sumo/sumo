@@ -28,8 +28,9 @@
 #include <map>
 #include <microsim/MSEventControl.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
-#include "MSSimpleTrafficLightLogic.h"
+#include <microsim/output/MSDetectorControl.h>
 #include <microsim/output/MSInductLoop.h>
+#include "MSSimpleTrafficLightLogic.h"
 
 
 // ===========================================================================
@@ -191,6 +192,24 @@ protected:
     /// @brief the minimum duratin for keeping the current phase due to linkMinDur constraints
     SUMOTime getLinkMinDuration(int target) const;
 
+    template<typename T, SumoXMLTag Tag>
+    const T* retrieveDetExpression(const std::string& arg, const std::string& expr, bool tryPrefix) const {
+        const T* det = dynamic_cast<const T*>(
+                MSNet::getInstance()->getDetectorControl().getTypedDetectors(Tag).get(
+                    (tryPrefix ? myDetectorPrefix : "") + arg));
+        if (det == nullptr) {
+            if (tryPrefix) {
+                // try again without prefix
+                return retrieveDetExpression<T, Tag>(arg, expr, false);
+            } else {
+                throw ProcessError("Unknown detector '" + arg + "' in expression '" + expr + "'");
+            }
+        } else {
+            return det;
+        }
+    }
+
+
 protected:
     /// @brief A map from phase to induction loops to be used for gap control
     InductLoopMap myInductLoopsForPhase;
@@ -243,6 +262,8 @@ protected:
     };
 
     std::vector<SwitchingRules> mySwitchingRules;
+
+    const std::string myDetectorPrefix;
 
     static const std::vector<std::string> OPERATOR_PRECEDENCE;
 };
