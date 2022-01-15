@@ -702,11 +702,11 @@ bool NEMALogic::isDetectorActivated(int phaseNumber) const{
 }
 
 
-std::vector<const MSDetectorFileOutput*>
-NEMALogic::getDetectors() const {
-    std::vector<const MSDetectorFileOutput*> result;
+std::map<std::string, double>
+NEMALogic::getDetectorStates() const {
+    std::map<std::string, double> result;
     for (auto item : myDetectorLaneMap) {
-        result.push_back(item.first);
+        result[item.first->getID()] = item.first->getCurrentVehicleNumber();
     }
     return result;
 }

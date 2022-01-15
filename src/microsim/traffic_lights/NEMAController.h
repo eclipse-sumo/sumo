@@ -108,7 +108,7 @@ public:
     }
 
     /// @brief retrieve all detectors used by this program
-    std::vector<const MSDetectorFileOutput*> getDetectors() const;
+    std::map<std::string, double> getDetectorStates() const;
 
     // control logic
     std::string NEMA_control();
@@ -149,8 +149,8 @@ public:
     }
 
     /// @brief try to set the given parameter. Parameters prefixed with 'NEMA.' control functionality
-    void setParameter(const std::string& key, const std::string& value) override; 
-    
+    void setParameter(const std::string& key, const std::string& value) override;
+
     /// @brief try to get the value of the given parameter. Parameters prefixed with 'NEMA.' control functionality
     const std::string getParameter(const std::string& key, const std::string defaultValue = "") const override;
 

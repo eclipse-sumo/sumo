@@ -172,8 +172,8 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     for (int i = 0; i < (int)myTLLogic->getLinks().size(); ++i) {
         myLinkNames.push_back(toString<int>(i));
     }
-    for (const MSDetectorFileOutput* det : myTLLogic->getDetectors()) {
-        std::string detID = det->getID();
+    for (auto item : myTLLogic->getDetectorStates()) {
+        std::string detID = item.first;
         if (detID.size() > 4) {
             detID = detID.substr(detID.size() - 4);
         }
@@ -288,7 +288,7 @@ GUITLLogicPhasesTrackerWindow::computeHeight() {
     if (myAmInTrackingMode) {
         newHeight += 20; // time bar
         if (myDetectorMode->getCheck()) {
-            newHeight += (int)myTLLogic->getDetectors().size() * 20 + 5;
+            newHeight += (int)myTLLogic->getDetectorStates().size() * 20 + 5;
         }
         if (myConditionMode->getCheck()) {
             newHeight += (int)myTLLogic->getConditions().size() * 20 + 5;
@@ -856,8 +856,8 @@ GUITLLogicPhasesTrackerWindow::addValue(std::pair<SUMOTime, MSPhaseDefinition> d
     }
     // updated detector states
     std::vector<double> detectorStates;
-    for (const MSDetectorFileOutput* det : myTLLogic->getDetectors()) {
-        detectorStates.push_back(det->getCurrentVehicleNumber());
+    for (auto item : myTLLogic->getDetectorStates()) {
+        detectorStates.push_back(item.second);
     }
     if (myDetectorStates.size() == 0 || myDetectorStates.back() != detectorStates) {
         myDetectorStates.push_back(detectorStates);

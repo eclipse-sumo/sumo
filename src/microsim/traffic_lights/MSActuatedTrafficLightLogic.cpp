@@ -1030,11 +1030,11 @@ MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) const
 }
 
 
-std::vector<const MSDetectorFileOutput*>
-MSActuatedTrafficLightLogic::getDetectors() const {
-    std::vector<const MSDetectorFileOutput*> result;
+std::map<std::string, double>
+MSActuatedTrafficLightLogic::getDetectorStates() const {
+    std::map<std::string, double> result;
     for (auto li : myInductLoops) {
-        result.push_back(li.loop);
+        result[li.loop->getID()] = li.loop->getOccupancy() > 0 ? 1 : 0;
     }
     return result;
 }
