@@ -112,4 +112,5 @@ echo `grep -ci 'warn[iu]ng:' $MAKEALLLOG` warnings >> $STATUSLOG
 echo "--" >> $STATUSLOG
 
 basename $TESTLOG >> $STATUSLOG
+date >> $STATUSLOG
 echo "--" >> $STATUSLOG
