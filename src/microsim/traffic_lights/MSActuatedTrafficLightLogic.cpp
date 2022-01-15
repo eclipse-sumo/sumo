@@ -127,6 +127,9 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     // build the induct loops
     std::map<const MSLane*, MSInductLoop*> laneInductLoopMap;
     std::map<MSInductLoop*, const MSLane*> inductLoopLaneMap; // in case loops are placed further upstream
+    int detEdgeIndex = -1;
+    int detLaneIndex = 0;
+    MSEdge* prevDetEdge = nullptr;
     for (LaneVector& lanes : myLanes) {
         for (MSLane* lane : lanes) {
             if (noVehicles(lane->getPermissions())) {
@@ -147,6 +150,13 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             double ilpos;
             double inductLoopPosition;
             MSInductLoop* loop = nullptr;
+            if (&lane->getEdge() != prevDetEdge) {
+                detEdgeIndex++;
+                detLaneIndex = 0;
+                prevDetEdge = &lane->getEdge();
+            } else {
+                detLaneIndex++;
+            }
             if (customID == "") {
                 double speed = lane->getSpeedLimit();
                 inductLoopPosition = MIN2(
@@ -164,7 +174,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                     ilpos = 0;
                 }
                 // Build the induct loop and set it into the container
-                std::string id = "TLS" + myID + "_" + myProgramID + "_InductLoopOn_" + lane->getID();
+                std::string id = myID + "_" + myProgramID + "_D" + toString(detEdgeIndex) + "." + toString(detLaneIndex);
                 loop = static_cast<MSInductLoop*>(nb.createInductLoop(id, placementLane, ilpos, myVehicleTypes, (int)PersonMode::NONE, myShowDetectors));
                 MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop, myFile, myFreq);
             } else if (customID == NO_DETECTOR) {
