@@ -46,7 +46,7 @@
 
 #define INVALID_POSITION std::numeric_limits<double>::max() // tl added
 
-#define DEBUG_NEMA
+// #define DEBUG_NEMA
 
 // ===========================================================================
 // method definitions
@@ -851,19 +851,19 @@ NEMALogic::NEMA_control() {
     }
 
     // Calculate the next phase with knowledge of both rings
-    // Next Phase should be calculated at the start of yellow
+    // Next Phase should be calculated at the start of red or aka the last step of yellow
     bool calculate = false;
     if (wait4R1Green || wait4R2Green) {
-        if ((currentTimeInSecond - phaseEndTimeR1 < yellowTime[R1Index]) && (R1RYG != 0)){
-            R1RYG = 0; //yellow
+        if ((currentTimeInSecond - phaseEndTimeR1 < (yellowTime[R1Index] + redTime[R1Index])) && (R1RYG == 0)){
+            R1RYG = -1; //red
             calculate = true;
         }
-        if ((currentTimeInSecond - phaseEndTimeR2 < yellowTime[R2Index]) && (R2RYG != 0)){
-            R2RYG = 0; //yellow
+        if (((currentTimeInSecond - phaseEndTimeR2) < (yellowTime[R2Index] + redTime[R2Index])) && (R2RYG == 0)){
+            R2RYG = -1; //red
             calculate = true;
         }
 
-        // Only calculate the next phase once, at the beginning of yellow. 
+        // Only calculate the next phase once, at the end of yellow. 
         // It's done here because it needs to know if one or both rings want to transisiton
         if (calculate){
             nextPhaseWrapper(R1Phase, R2Phase, wait4R1Green, wait4R2Green);
