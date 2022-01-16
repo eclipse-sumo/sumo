@@ -46,7 +46,7 @@
 
 #define INVALID_POSITION std::numeric_limits<double>::max() // tl added
 
-#define DEBUG_NEMA
+// #define DEBUG_NEMA
 
 // ===========================================================================
 // method definitions
@@ -715,7 +715,7 @@ NEMALogic::trySwitch() {
         myStep = 1 - myStep;
     }
     //std::cout << SIMTIME << " " << myPhase.getState() << "\n";
-    return TIME2STEPS(.1);
+    return TIME2STEPS(1);
 }
 
 

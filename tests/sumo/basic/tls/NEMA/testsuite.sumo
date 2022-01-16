@@ -9,3 +9,6 @@ fixForceOff
 
 # inputs that should be reported as problematic
 errors
+
+# fully actuated mode tests
+fully_actuated
