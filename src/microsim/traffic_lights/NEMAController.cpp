@@ -831,6 +831,34 @@ NEMALogic::NEMA_control() {
         phaseExpectedDuration[R1Index] = 0;
         wait4R1Green = true;
     }
+
+    // Logic for Green Rest & Green Transfer
+    // This requires a detector check. If the next desired phase is the current phase, 
+    // do not cycle through Y -> R -> G. It should only be entered when the lights are green
+    if ((EndCurrentPhaseR1 && R1RYG == 1) || (EndCurrentPhaseR2 && R2RYG == 1)){
+        if (!coordinateMode && EndCurrentPhaseR1 && EndCurrentPhaseR2){
+            // entry point to green rest. First check detector status, then determine if this should be up next.
+            if ((nextPhase(rings[0], R1Phase) == R1Phase) && (nextPhase(rings[1], R2Phase) == R2Phase)){
+                // mark that the phases are not desired to end
+                EndCurrentPhaseR1 = false;
+                EndCurrentPhaseR2 = false;
+                wait4R1Green = false;
+                wait4R2Green = false;
+
+                // Timing update. This logic should be checked the next step, so only add the simulation timestep
+                // phaseExpectedDuration[R1Index] = TS;
+                // phaseExpectedDuration[R2Index] = TS;
+                phaseEndTimeR1 += TS;
+                phaseEndTimeR2 += TS;
+
+                // setting the phase start time to current time - the minimum timer 
+                // will still allow the phase to be extended with vehicle detection
+                phaseStartTime[R1Index] = currentTimeInSecond - minGreen[R1Index];
+                phaseStartTime[R2Index] = currentTimeInSecond - minGreen[R2Index];
+            }
+        }
+    }
+
     //enter transtion phase for Ring1
     if (wait4R1Green) {
         if (currentTimeInSecond - phaseEndTimeR1 < yellowTime[R1Index]) {
