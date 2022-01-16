@@ -430,7 +430,7 @@ The following elements are permitted in an expression for attributes
 - logical operators 'or', 'and', '!'
 - parentheses (,)
 - pre-defined functions:
-  - 'z:DETID': returns the time gap since the last vehicle detection for inductionLoop detector with id 'DETID' or id 'TLSID_PROGRAMID_DETID' (DETID may ommmit the the [prefix 'TLSID_PROGRAMID_'](Simulation/Traffic_Lights.md#detectors))
+  - 'z:DETID': returns the time gap since the last vehicle detection for inductionLoop detector with id 'DETID' or id 'TLSID_PROGRAMID_DETID' (DETID may ommmit the the [prefix 'TLSID_PROGRAMID_'](#detectors))
   - 'a:DETID': returns true (1) if a vehicle is on detector with id 'DETID' and
     false (0) otherwise. Supports inductionLoop and laneAreaDetectors. Also supports omitting the prefix of the detector id. (see 'z:')
   - 'g:TLSINDEX': returns current green duration in seconds for link with the given index
