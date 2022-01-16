@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -38,9 +38,9 @@ GNECalibratorFlow::GNECalibratorFlow(GNENet* net) :
 }
 
 
-GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route) :
+GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* route, GNEDemandElement* vehicleType) :
     GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_FLOW_CALIBRATOR, "",
-        {}, {}, {}, {calibratorParent}, {}, {}, {vehicleType, route}, {},
+        {}, {}, {}, {calibratorParent}, {}, {}, {route, vehicleType}, {},
     std::map<std::string, std::string>()),
     SUMOVehicleParameter() {
     // update centering boundary without updating grid
@@ -48,9 +48,9 @@ GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandE
 }
 
 
-GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters) :
+GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* route, GNEDemandElement* vehicleType, const SUMOVehicleParameter& vehicleParameters) :
     GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_FLOW_CALIBRATOR, "",
-        {}, {}, {}, {calibratorParent}, {}, {}, {vehicleType, route}, {},
+        {}, {}, {}, {calibratorParent}, {}, {}, {route, vehicleType}, {},
     std::map<std::string, std::string>()),
     SUMOVehicleParameter(vehicleParameters) {
     // update centering boundary without updating grid
@@ -65,8 +65,10 @@ void
 GNECalibratorFlow::writeAdditional(OutputDevice& device) const {
     // open tag
     device.openTag(SUMO_TAG_FLOW);
+    // write route
+    device.writeAttr(SUMO_ATTR_ROUTE, getParentDemandElements().at(0)->getID());
     // attribute VType musn't be written if is DEFAULT_VTYPE_ID
-    if (getParentDemandElements().at(0)->getID() == DEFAULT_VTYPE_ID) {
+    if ((getParentDemandElements().size() > 1) && getParentDemandElements().at(1)->getID() == DEFAULT_VTYPE_ID) {
         // unset VType parameter
         parametersSet &= ~VEHPARS_VTYPE_SET;
         // write vehicle attributes (VType will not be written)
@@ -77,8 +79,6 @@ GNECalibratorFlow::writeAdditional(OutputDevice& device) const {
         // write vehicle attributes, including VType
         write(device, OptionsCont::getOptions(), myTagProperty.getXMLTag(), getParentDemandElements().at(0)->getID());
     }
-    // write route
-    device.writeAttr(SUMO_ATTR_ROUTE, getParentDemandElements().at(1)->getID());
     // VPH
     if (isAttributeEnabled(SUMO_ATTR_VEHSPERHOUR)) {
         device.writeAttr(SUMO_ATTR_VEHSPERHOUR, 3600. / STEPS2TIME(repetitionOffset));
@@ -99,20 +99,27 @@ GNECalibratorFlow::getMoveOperation() {
 
 void
 GNECalibratorFlow::updateGeometry() {
-    // use geometry of calibrator parent
-    myAdditionalGeometry = getParentAdditionals().front()->getAdditionalGeometry();
+    // update centering boundary (needed for centering)
+    updateCenteringBoundary(false);
 }
 
 
 Position
 GNECalibratorFlow::getPositionInView() const {
-    return getParentAdditionals().front()->getPositionInView();
+    // get rerouter parent position
+    Position signPosition = getParentAdditionals().front()->getPositionInView();
+    // set position depending of indexes
+    signPosition.add(4.5, (getDrawPositionIndex() * -1) + 1, 0);
+    // return signPosition
+    return signPosition;
 }
 
 
 void
 GNECalibratorFlow::updateCenteringBoundary(const bool /*updateGrid*/) {
-    myAdditionalBoundary = getParentAdditionals().front()->getCenteringBoundary();
+    myAdditionalBoundary.reset();
+    myAdditionalBoundary.add(getPositionInView());
+    myAdditionalBoundary.grow(5);
 }
 
 
@@ -129,8 +136,10 @@ GNECalibratorFlow::getParentName() const {
 
 
 void
-GNECalibratorFlow::drawGL(const GUIVisualizationSettings& /* s */) const {
-    // Currently This additional isn't drawn
+GNECalibratorFlow::drawGL(const GUIVisualizationSettings& s) const {
+    // draw rerouter interval as listed attribute
+    drawListedAddtional(s, getParentAdditionals().front()->getPositionInView(),
+                        0, 0, s.additionalSettings.calibratorColor, RGBColor::BLACK, GUITexture::VARIABLESPEEDSIGN_STEP, "Flow: " + getID());
 }
 
 
@@ -139,9 +148,9 @@ GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getID();
-        case SUMO_ATTR_TYPE:
-            return getParentDemandElements().at(0)->getID();
         case SUMO_ATTR_ROUTE:
+            return getParentDemandElements().at(0)->getID();
+        case SUMO_ATTR_TYPE:
             return getParentDemandElements().at(1)->getID();
         case SUMO_ATTR_VEHSPERHOUR:
             if (wasSet(VEHPARS_VPH_SET)) {
@@ -239,6 +248,8 @@ GNECalibratorFlow::getAttribute(SumoXMLAttr key) const {
             }
         case GNE_ATTR_PARENT:
             return getParentAdditionals().at(0)->getID();
+        case GNE_ATTR_SELECTED:
+            return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return SUMOVehicleParameter::getParametersStr();
         default:
@@ -285,8 +296,8 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value, GNEUn
     }
     switch (key) {
         case SUMO_ATTR_ID:
-        case SUMO_ATTR_TYPE:
         case SUMO_ATTR_ROUTE:
+        case SUMO_ATTR_TYPE:
         case SUMO_ATTR_COLOR:
         case SUMO_ATTR_VEHSPERHOUR:
         case SUMO_ATTR_SPEED:
@@ -304,6 +315,7 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value, GNEUn
         case SUMO_ATTR_REROUTE:
         case SUMO_ATTR_DEPARTPOS_LAT:
         case SUMO_ATTR_ARRIVALPOS_LAT:
+        case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
@@ -412,6 +424,8 @@ GNECalibratorFlow::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return canParse<double>(value);
             }
+        case GNE_ATTR_SELECTED:
+            return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
         default:
@@ -464,17 +478,12 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
             setMicrosimID(value);
             break;
         case SUMO_ATTR_TYPE:
-            if (getParentDemandElements().size() > 0) {
-                replaceDemandElementParent(SUMO_TAG_VTYPE, value, 0);
-            }
+            setVTypeParent(value);
             // set manually vtypeID (needed for saving)
             vtypeid = value;
             break;
         case SUMO_ATTR_ROUTE:
-            if (getParentDemandElements().size() == 2) {
-                replaceDemandElementParent(SUMO_TAG_ROUTE, value, 1);
-                updateGeometry();
-            }
+            replaceDemandElementParent(SUMO_TAG_ROUTE, value, 0);
             break;
         case SUMO_ATTR_VEHSPERHOUR:
             repetitionOffset = TIME2STEPS(3600 / parse<double>(value));
@@ -655,6 +664,13 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
                 parametersSet &= ~VEHPARS_ARRIVALPOSLAT_SET;
             }
             parseArrivalPosLat(value, toString(SUMO_TAG_VEHICLE), id, arrivalPosLat, arrivalPosLatProcedure, error);
+            break;
+        case GNE_ATTR_SELECTED:
+            if (parse<bool>(value)) {
+                selectAttributeCarrier();
+            } else {
+                unselectAttributeCarrier();
+            }
             break;
         case GNE_ATTR_PARAMETERS:
             SUMOVehicleParameter::setParametersStr(value);

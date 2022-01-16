@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -107,9 +107,13 @@ private:
             myBlockTime = t;
         }
 
+        inline void setPermissions(SVCPermissions p) {
+            myPermissions = p;
+        }
+
     private:
         /// The vClass permissions for this queue
-        const SVCPermissions myPermissions;
+        SVCPermissions myPermissions;
 
         std::vector<MEVehicle*> myVehicles;
 
@@ -461,6 +465,9 @@ public:
      * @return The time penalty
      */
     SUMOTime getLinkPenalty(const MEVehicle* veh) const;
+
+    /// @brief called when permissions change due to Rerouter or TraCI 
+    void updatePermissions();
 
 private:
     bool overtake();

@@ -180,8 +180,9 @@ The following additional functions are available via right-click:
 - Select junction foe vehicles (vehicles). Requires coloring vehicles
   *by selection* to be visible
 - Close for traffic (edges and lanes)
-- Switch programs (traffic lights)
 - Set speed limit (variable speed sign)
+- Switch programs (traffic lights)
+- [Visualize Signal Plans](Simulation/Traffic_Lights.md#signal_plan_visualization) (traffic lights)
 
 ## Selecting Objects
 

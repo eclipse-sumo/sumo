@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2010-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -111,6 +111,8 @@ def get_options(args=None):
     optParser.add_argument("--allow-fringe.min-length", type=float, dest="allow_fringe_min_length",
                            help="Allow departing on edges that leave the network and arriving on edges " +
                            "that enter the network, if they have at least the given length")
+    optParser.add_argument("--fringe-junctions", action="store_true", dest="fringeJunctions",
+                           default=False, help="Determine fringe edges based on junction attribute 'fringe'")
     optParser.add_argument("--min-distance", type=float, dest="min_distance",
                            default=0.0, help="require start and end edges for each trip to be at least <FLOAT> m apart")
     optParser.add_argument("--max-distance", type=float, dest="max_distance",
@@ -263,27 +265,32 @@ class RandomTripGenerator:
 def get_prob_fun(options, fringe_bonus, fringe_forbidden, max_length):
     # fringe_bonus None generates intermediate way points
     def edge_probability(edge):
+        bonus_connections = None if fringe_bonus is None else getattr(edge, fringe_bonus)
+        forbidden_connections = None if fringe_forbidden is None else getattr(edge, fringe_forbidden)
         if options.vclass and not edge.allows(options.vclass):
             return 0  # not allowed
         if fringe_bonus is None and edge.is_fringe() and not options.pedestrians:
             return 0  # not suitable as intermediate way point
-        if (fringe_forbidden is not None and edge.is_fringe(getattr(edge, fringe_forbidden)) and
+        if (fringe_forbidden is not None and
+                edge.is_fringe(forbidden_connections) and
                 not options.pedestrians and
                 (options.allow_fringe_min_length is None or edge.getLength() < options.allow_fringe_min_length)):
             return 0  # the wrong kind of fringe
-        if (fringe_bonus is not None and options.viaEdgeTypes is not None and not edge.is_fringe() and
+        if (fringe_bonus is not None and options.viaEdgeTypes is not None and
+                not edge.is_fringe(bonus_connections, checkJunctions=options.fringeJunctions) and
                 edge.getType() in options.viaEdgeTypes):
             return 0  # the wrong type of edge (only allows depart and arrival on the fringe)
         prob = 1
         if options.length:
-            if options.fringe_factor != 1.0 and fringe_bonus is not None and edge.is_fringe():
+            if (options.fringe_factor != 1.0 and fringe_bonus is not None and
+                    edge.is_fringe(bonus_connections, checkJunctions=options.fringeJunctions)):
                 # short fringe edges should not suffer a penalty
                 prob *= max_length
             else:
                 prob *= edge.getLength()
         if options.lanes:
             prob *= edge.getLaneNumber()
-        if edge.is_fringe():
+        if edge.is_fringe(bonus_connections, checkJunctions=options.fringeJunctions):
             prob *= (edge.getSpeed() ** options.fringe_speed_exponent)
         else:
             prob *= (edge.getSpeed() ** options.speed_exponent)
@@ -291,7 +298,7 @@ def get_prob_fun(options, fringe_bonus, fringe_forbidden, max_length):
                 not options.pedestrians and
                 fringe_bonus is not None and
                 edge.getSpeed() > options.fringe_threshold and
-                edge.is_fringe(getattr(edge, fringe_bonus))):
+                edge.is_fringe(bonus_connections, checkJunctions=options.fringeJunctions)):
             prob *= options.fringe_factor
         if options.edgeParam is not None:
             prob *= float(edge.getParam(options.edgeParam, 1.0))
@@ -483,7 +490,8 @@ def main(options):
                 options.min_distance, options.max_distance, options.maxtries,
                 options.junctionTaz)
             combined_attrs = options.tripattrs
-            if options.fringeattrs and source_edge.is_fringe(source_edge._incoming):
+            if options.fringeattrs and source_edge.is_fringe(
+                    source_edge._incoming, checkJunctions=options.fringeJunctions):
                 combined_attrs += " " + options.fringeattrs
             if options.junctionTaz:
                 attrFrom = ' fromJunction="%s"' % source_edge.getFromNode().getID()

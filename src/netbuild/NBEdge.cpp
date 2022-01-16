@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -2834,14 +2834,16 @@ NBEdge::recheckLanes() {
     // avoid deadend due to change prohibitions
     if (getNumLanes() > 1 && myConnections.size() > 0) {
         for (int i = 0; i < (int)myLanes.size(); i++) {
-            if (connNumbersPerLane[i] == 0 && getPermissions(i) != SVC_PEDESTRIAN && !isForbidden(getPermissions(i))) {
-                Lane& lane = myLanes[i];
+            Lane& lane = myLanes[i];
+            if ((connNumbersPerLane[i] == 0 || ((lane.accelRamp || (i > 0 && myLanes[i - 1].accelRamp && connNumbersPerLane[i - 1] > 0))
+                            && getSuccessors(SVC_PASSENGER).size() > 1))
+                        && getPermissions(i) != SVC_PEDESTRIAN && !isForbidden(getPermissions(i))) {
                 const bool forbiddenLeft = lane.changeLeft != SVCAll && lane.changeLeft != SVC_IGNORING && lane.changeLeft != SVC_UNSPECIFIED;
                 const bool forbiddenRight = lane.changeRight != SVCAll && lane.changeRight != SVC_IGNORING && lane.changeRight != SVC_UNSPECIFIED;
                 if (forbiddenLeft && (i == 0 || forbiddenRight)) {
                     lane.changeLeft = SVC_UNSPECIFIED;
                     WRITE_WARNING("Ignoring changeLeft prohibition for '" + getLaneID(i) + "' to avoid dead-end");
-                } else if (forbiddenRight && i == getNumLanes() - 1) {
+                } else if (forbiddenRight && (i == getNumLanes() - 1 || (i > 0 && myLanes[i - 1].accelRamp))) {
                     lane.changeRight = SVC_UNSPECIFIED;
                     WRITE_WARNING("Ignoring changeRight prohibition for '" + getLaneID(i) + "' to avoid dead-end");
                 }
@@ -4154,6 +4156,18 @@ NBEdge::getNumLanesThatAllow(SVCPermissions permissions) const {
         }
     }
     return result;
+}
+
+bool
+NBEdge::allowsChangingLeft(int lane, SUMOVehicleClass vclass) const {
+    assert(lane >= 0 && lane < getNumLanes());
+    return myLanes[lane].changeLeft == SVC_UNSPECIFIED ? true : (myLanes[lane].changeLeft & vclass) == vclass;
+}
+
+bool
+NBEdge::allowsChangingRight(int lane, SUMOVehicleClass vclass) const {
+    assert(lane >= 0 && lane < getNumLanes());
+    return myLanes[lane].changeRight == SVC_UNSPECIFIED ? true : (myLanes[lane].changeRight & vclass) == vclass;
 }
 
 double

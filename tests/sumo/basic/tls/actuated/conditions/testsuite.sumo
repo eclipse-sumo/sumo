@@ -1,6 +1,9 @@
 # default switching rules using custom detectors
 default
 
+# use custom switching rules to replicate the default behavior
+replicate_default
+
 # change time gap condition for one phase
 custom_gapOut
 
@@ -21,6 +24,9 @@ request_or_skip_E2
 
 # test condition for the running green duration of a link
 linkGreen
+
+# test condition for the running red duration of a link
+linkRed
 
 # ruggedization on encountering mathematical undefined expressions
 runtime_error

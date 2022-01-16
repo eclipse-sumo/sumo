@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -88,8 +88,8 @@ public:
     double getTravelTime(const IntermodalTrip<E, N, V>* const trip, double time) const {
         const double length = getPartialLength(trip);
         double tlsDelay = 0;
-        // @note pedestrian traffic lights should never have LinkState::TL_REDYELLOW
-        if (this->getEdge()->isCrossing() && myLane->getIncomingLinkState() == LinkState::TL_RED) {
+        // @note pedestrian traffic lights should never have LINKSTATE_TL_REDYELLOW
+        if (this->getEdge()->isCrossing() && myLane->getIncomingLinkState() == LINKSTATE_TL_RED) {
             // red traffic lights occurring later in the route may be green by the time we arrive
             tlsDelay += MAX2(double(0), TL_RED_PENALTY - (time - STEPS2TIME(trip->departTime)));
         }

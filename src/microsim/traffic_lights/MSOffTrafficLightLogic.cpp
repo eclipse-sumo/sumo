@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -70,9 +70,9 @@ MSOffTrafficLightLogic::rebuildPhase() {
         bool foundMinor = false;
         for (const MSLink* l : myLinks[i]) {
             /// @note. all links for the same index should have the same
-            if ((char)l->getOffState() == 'o') {
+            if (l->getOffState() == 'o') {
                 foundMinor = true;
-            } else if ((char)l->getOffState() == 'O') {
+            } else if (l->getOffState() == 'O') {
                 foundMajor = true;
             } else {
                 WRITE_WARNING("Invalid 'off'-state for link " + toString(l->getIndex()) + " at junction '" + l->getJunction()->getID() + "'");

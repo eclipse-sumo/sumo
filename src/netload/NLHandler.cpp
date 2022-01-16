@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -1288,7 +1288,7 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
         const int toLaneIdx = attrs.get<int>(SUMO_ATTR_TO_LANE, nullptr, ok);
         LinkDirection dir = parseLinkDir(attrs.get<std::string>(SUMO_ATTR_DIR, nullptr, ok));
         LinkState state = parseLinkState(attrs.get<std::string>(SUMO_ATTR_STATE, nullptr, ok));
-        const double foeVisibilityDistance = attrs.getOpt<double>(SUMO_ATTR_VISIBILITY_DISTANCE, nullptr, ok, state == LinkState::ZIPPER ? 100 : 4.5);
+        const double foeVisibilityDistance = attrs.getOpt<double>(SUMO_ATTR_VISIBILITY_DISTANCE, nullptr, ok, state == LINKSTATE_ZIPPER ? 100 : 4.5);
         const bool keepClear = attrs.getOpt<bool>(SUMO_ATTR_KEEP_CLEAR, nullptr, ok, true);
         const bool indirect = attrs.getOpt<bool>(SUMO_ATTR_INDIRECT, nullptr, ok, false);
         std::string tlID = attrs.getOpt<std::string>(SUMO_ATTR_TLID, nullptr, ok, "");
@@ -1387,7 +1387,7 @@ NLHandler::parseLinkState(const std::string& state) {
     } else {
         if (state == "t") { // legacy networks
             // WRITE_WARNING("Obsolete link state 't'. Use 'o' instead");
-            return LinkState::TL_OFF_BLINKING;
+            return LINKSTATE_TL_OFF_BLINKING;
         } else {
             throw InvalidArgument("Unrecognised link state '" + state + "'.");
         }

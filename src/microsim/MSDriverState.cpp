@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -700,14 +700,14 @@ MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifferenc
 //    case SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED: {
 //        // TODO: Take into account traffic light state?
 ////        switch (linkState) {
-////        case LinkState::TL_GREEN_MAJOR:
-////        case LinkState::TL_GREEN_MINOR:
-////        case LinkState::TL_RED:
-////        case LinkState::TL_REDYELLOW:
-////        case LinkState::TL_YELLOW_MAJOR:
-////        case LinkState::TL_YELLOW_MINOR:
-////        case LinkState::TL_OFF_BLINKING:
-////        case LinkState::TL_OFF_NOSIGNAL:
+////        case LINKSTATE_TL_GREEN_MAJOR:
+////        case LINKSTATE_TL_GREEN_MINOR:
+////        case LINKSTATE_TL_RED:
+////        case LINKSTATE_TL_REDYELLOW:
+////        case LINKSTATE_TL_YELLOW_MAJOR:
+////        case LINKSTATE_TL_YELLOW_MINOR:
+////        case LINKSTATE_TL_OFF_BLINKING:
+////        case LINKSTATE_TL_OFF_NOSIGNAL:
 ////        default:
 ////        }
 //        result += INTEGRATION_DEMAND_JUNCTION_TLS;
@@ -877,28 +877,28 @@ MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifferenc
 //    case SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED: {
 //        // Take into account traffic light state
 //        switch (linkState) {
-//        case LinkState::TL_GREEN_MAJOR:
+//        case LINKSTATE_TL_GREEN_MAJOR:
 //            result = 0;
 //            break;
-//        case LinkState::TL_GREEN_MINOR:
+//        case LINKSTATE_TL_GREEN_MINOR:
 //            result = 0.2*(1. + 0.1*v);
 //            break;
-//        case LinkState::TL_RED:
+//        case LINKSTATE_TL_RED:
 //            result = 0.1*(1. + 0.1*v);
 //            break;
-//        case LinkState::TL_REDYELLOW:
+//        case LINKSTATE_TL_REDYELLOW:
 //            result = 0.2*(1. + 0.1*v);
 //            break;
-//        case LinkState::TL_YELLOW_MAJOR:
+//        case LINKSTATE_TL_YELLOW_MAJOR:
 //            result = 0.1*(1. + 0.1*v);
 //            break;
-//        case LinkState::TL_YELLOW_MINOR:
+//        case LINKSTATE_TL_YELLOW_MINOR:
 //            result = 0.2*(1. + 0.1*v);
 //            break;
-//        case LinkState::TL_OFF_BLINKING:
+//        case LINKSTATE_TL_OFF_BLINKING:
 //            result = 0.3*(1. + 0.1*v);
 //            break;
-//        case LinkState::TL_OFF_NOSIGNAL:
+//        case LINKSTATE_TL_OFF_NOSIGNAL:
 //            result = 0.2*(1. + 0.1*v);
 //        }
 //    }

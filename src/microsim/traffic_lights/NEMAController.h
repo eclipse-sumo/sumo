@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -52,7 +52,7 @@ public:
     typedef std::map<MSLane*, MSE2Collector*> LaneDetectorMap;
 
     /// @brief Definition of a map from detectors to corresponding lanes
-    typedef std::map<MSE2Collector*, MSLane*> DetectorLaneMap;
+    typedef std::map<MSE2Collector*, MSLane*, ComparatorIdLess> DetectorLaneMap;
 
     /** @brief Constructor
      * @param[in] tlcontrol The tls control responsible for this tls
@@ -107,6 +107,9 @@ public:
         return &phase2DetectorMap;
     }
 
+    /// @brief retrieve all detectors used by this program
+    std::map<std::string, double> getDetectorStates() const;
+
     // control logic
     std::string NEMA_control();
 
@@ -146,8 +149,8 @@ public:
     }
 
     /// @brief try to set the given parameter. Parameters prefixed with 'NEMA.' control functionality
-    void setParameter(const std::string& key, const std::string& value) override; 
-    
+    void setParameter(const std::string& key, const std::string& value) override;
+
     /// @brief try to get the value of the given parameter. Parameters prefixed with 'NEMA.' control functionality
     const std::string getParameter(const std::string& key, const std::string defaultValue = "") const override;
 

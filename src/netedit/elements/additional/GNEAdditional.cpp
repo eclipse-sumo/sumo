@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -596,6 +596,21 @@ GNEAdditional::replaceDemandElementParent(SumoXMLTag tag, const std::string& val
     parentDemandElements[parentIndex] = myNet->getAttributeCarriers()->retrieveDemandElement(tag, value);
     // replace parent demand elements
     replaceParentElements(this, parentDemandElements);
+}
+
+
+void
+GNEAdditional::setVTypeParent(const std::string& value) {
+    std::vector<GNEDemandElement*> parents;
+    // add route
+    if (getParentDemandElements().size() > 0) {
+        parents.push_back(getParentDemandElements().front());
+    }
+    // continue depending of value
+    if (value.size() > 0) {
+        parents.push_back(myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, value));
+    }
+    replaceParentElements(this, parents);
 }
 
 

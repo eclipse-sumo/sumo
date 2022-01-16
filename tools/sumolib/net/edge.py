@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2011-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -236,12 +236,19 @@ class Edge:
     def getBidi(self):
         return self._bidi
 
-    def is_fringe(self, connections=None):
+    def is_fringe(self, connections=None, checkJunctions=False):
         """true if this edge has no incoming or no outgoing connections (except turnarounds)
            If connections is given, only those connections are considered"""
         if connections is None:
-            return self.is_fringe(self._incoming) or self.is_fringe(self._outgoing)
+            return (self.is_fringe(self._incoming, checkJunctions) or
+                    self.is_fringe(self._outgoing, checkJunctions))
         else:
+            if checkJunctions:
+                assert(connections is not None)
+                if connections == self._incoming:
+                    return self.getFromNode().getFringe() is not None
+                elif connections == self._outgoing:
+                    return self.getToNode().getFringe() is not None
             cons = sum([c for c in connections.values()], [])
             return len([c for c in cons if c._direction != Connection.LINKDIR_TURN]) == 0
 

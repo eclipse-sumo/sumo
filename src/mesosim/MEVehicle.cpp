@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -180,7 +180,7 @@ void
 MEVehicle::setApproaching(MSLink* link) {
     if (link != nullptr) {
         const double speed = getSpeed();
-        link->setApproaching(this, getEventTime() + (link->getState() == LinkState::ALLWAY_STOP ?
+        link->setApproaching(this, getEventTime() + (link->getState() == LINKSTATE_ALLWAY_STOP ?
                              (SUMOTime)RandHelper::rand((int)2) : 0), // tie braker
                              speed, speed, true,
                              getEventTime(), speed, getWaitingTime(),

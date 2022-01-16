@@ -1,5 +1,5 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -662,6 +662,9 @@ class NetReader(handler.ContentHandler):
                                                       attrs['incLanes'].split(" "), intLanes)
                 self._currentNode.setShape(
                     convertShape(attrs.get('shape', '')))
+                if 'fringe' in attrs:
+                    self._currentNode._fringe = attrs['fringe']
+
         if name == 'succ' and self._withConnections:  # deprecated
             if attrs['edge'][0] != ':':
                 self._currentEdge = self._net.getEdge(attrs['edge'])

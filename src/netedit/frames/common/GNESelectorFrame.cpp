@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -55,10 +55,9 @@ FXDEFMAP(GNESelectorFrame::SelectionOperation) SelectionOperationMap[] = {
 };
 
 FXDEFMAP(GNESelectorFrame::SelectionHierarchy) SelectionHierarchyMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTPARENTS,    GNESelectorFrame::SelectionHierarchy::onCmdSelectParents),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_UNSELECTPARENTS,  GNESelectorFrame::SelectionHierarchy::onCmdUnselectParents),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_SELECTCHILDREN,   GNESelectorFrame::SelectionHierarchy::onCmdSelectChildren),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_UNSELECTCHILDREN, GNESelectorFrame::SelectionHierarchy::onCmdUnselectChildren),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECT,                 GNESelectorFrame::SelectionHierarchy::onCmdSelectItem),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_PARENTS,  GNESelectorFrame::SelectionHierarchy::onCmdParents),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SELECTORFRAME_CHILDREN, GNESelectorFrame::SelectionHierarchy::onCmdChildren),
 };
 
 // Object implementation
@@ -999,23 +998,36 @@ GNESelectorFrame::SelectionOperation::askContinueIfLock() const {
 
 GNESelectorFrame::SelectionHierarchy::SelectionHierarchy(GNESelectorFrame* selectorFrameParent) :
     FXGroupBoxModule(selectorFrameParent->myContentFrame, "Hierarchy operations"),
-    mySelectorFrameParent(selectorFrameParent) {
-    // tabular buttons, see GNETLSEditorFrame
-
-    FXHorizontalFrame* selectionButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
-    FXVerticalFrame* col1 = new FXVerticalFrame(selectionButtons, LAYOUT_FILL_X, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); // left button columm
-    FXVerticalFrame* col2 = new FXVerticalFrame(selectionButtons, LAYOUT_FILL_X, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); // right button column
-
-    // Create "Clear List" Button
-    new FXButton(col1, "Clear\t\tDeselect all objects (hotkey: ESC)", nullptr, this, MID_CHOOSEN_CLEAR, GUIDesignButton);
-    // Create "Invert" Button
-    new FXButton(col2, "Invert\t\tInvert selection status of all objects", nullptr, this, MID_CHOOSEN_INVERT, GUIDesignButton);
-    // Create "Save" Button
-    new FXButton(col1, "Save\t\tSave ids of currently selected objects to a file.", nullptr, this, MID_CHOOSEN_SAVE, GUIDesignButton);
-    // Create "Load" Button
-    new FXButton(col2, "Load\t\tLoad ids from a file according to the current modfication mode.", nullptr, this, MID_CHOOSEN_LOAD, GUIDesignButton);
-    // Create "Delete" Button
-    new FXButton(col1, "Delete\t\tDelete all selected objects (hotkey: DEL)", nullptr, this, MID_CHOOSEN_DELETE, GUIDesignButton);
+    mySelectorFrameParent(selectorFrameParent),
+    myCurrentSelectedParent(Selection::ALL),
+    myCurrentSelectedChild(Selection::ALL) {
+    // create label for parents
+    new FXLabel(getCollapsableFrame(), "Select parents", nullptr, GUIDesignLabelThickCenter);
+    // Create FXComboBox for parent comboBox
+    myParentsComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SELECT, GUIDesignComboBox);
+    // create parent buttons
+    FXHorizontalFrame* parentButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+    // Create "select" Button
+    mySelectParentsButton = new FXButton(parentButtons, "Select", GUIIconSubSys::getIcon(GUIIcon::SELECT), this, MID_GNE_SELECTORFRAME_PARENTS, GUIDesignButton);
+    // Create "unselect" Button
+    myUnselectParentsButton = new FXButton(parentButtons, "Unselect", GUIIconSubSys::getIcon(GUIIcon::UNSELECT), this, MID_GNE_SELECTORFRAME_PARENTS, GUIDesignButton);
+    // create label for parents
+    new FXLabel(getCollapsableFrame(), "Select children", nullptr, GUIDesignLabelThickCenter);
+    // Create FXComboBox for parent comboBox
+    myChildrenComboBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SELECT, GUIDesignComboBox);
+    // create children buttons
+    FXHorizontalFrame* childrenButtons = new FXHorizontalFrame(getCollapsableFrame(), GUIDesignAuxiliarHorizontalFrame);
+    // Create "select" Button
+    mySelectChildrenButton = new FXButton(childrenButtons, "Select", GUIIconSubSys::getIcon(GUIIcon::SELECT), this, MID_GNE_SELECTORFRAME_CHILDREN, GUIDesignButton);
+    // Create "unselect" Button
+    myUnselectChildrenButton = new FXButton(childrenButtons, "Unselect", GUIIconSubSys::getIcon(GUIIcon::UNSELECT), this, MID_GNE_SELECTORFRAME_CHILDREN, GUIDesignButton);
+    // fill comboBoxes
+    for (const auto &item : myItems) {
+        myParentsComboBox->appendItem(item.second.c_str());
+        myChildrenComboBox->appendItem(item.second.c_str());
+    }
+    myParentsComboBox->setNumVisible(5);
+    myChildrenComboBox->setNumVisible(5);
 }
 
 
@@ -1023,29 +1035,191 @@ GNESelectorFrame::SelectionHierarchy::~SelectionHierarchy() {}
 
 
 long
-GNESelectorFrame::SelectionHierarchy::onCmdSelectParents(FXObject*, FXSelector, void*) {
-    //
-    return 1;
+GNESelectorFrame::SelectionHierarchy::onCmdSelectItem(FXObject* obj, FXSelector, void*) {
+    if (obj == myParentsComboBox) {
+        for (const auto &item : myItems) {
+            if (item.second == myParentsComboBox->getText().text()) {
+                // enable buttons
+                mySelectParentsButton->enable();
+                myUnselectParentsButton->enable();
+                // change text color
+                myParentsComboBox->setTextColor(FXRGB(0, 0, 0));
+                // set current selected parent
+                myCurrentSelectedParent = item.first;
+                return 1;
+            }
+        }
+        // item not found
+        myCurrentSelectedParent = Selection::NOTHING;
+        // disable buttons
+        mySelectParentsButton->disable();
+        myUnselectParentsButton->disable();
+        myParentsComboBox->setTextColor(FXRGB(255, 0, 0));
+        return 1;
+    } else if (obj == myChildrenComboBox) {
+        for (const auto &item : myItems) {
+            if (item.second == myChildrenComboBox->getText().text()) {
+                // enable buttons
+                mySelectChildrenButton->enable();
+                myUnselectChildrenButton->enable();
+                // change text color
+                myChildrenComboBox->setTextColor(FXRGB(0, 0, 0));
+                // set current selected parent
+                myCurrentSelectedChild = item.first;
+                return 1;
+            }
+        }
+        // item not found
+        myCurrentSelectedChild = Selection::NOTHING;
+        // disable buttons
+        mySelectChildrenButton->disable();
+        myUnselectChildrenButton->disable();
+        myChildrenComboBox->setTextColor(FXRGB(255, 0, 0));
+        return 1;
+    }
+    return 0;
 }
 
 
-long 
-GNESelectorFrame::SelectionHierarchy::onCmdUnselectParents(FXObject*, FXSelector, void*) {
-    //
+long
+GNESelectorFrame::SelectionHierarchy::onCmdParents(FXObject* obj, FXSelector, void*) {
+    // get selected elements
+    const auto selectedACs = mySelectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getSelectedAttributeCarriers(true);
+    // check if there is selected ACs
+    if ((selectedACs.size() > 0) && (myCurrentSelectedParent != Selection::NOTHING)) {
+        // vector of hierarchical elements to select
+        std::vector<GNEHierarchicalElement*> HEToSelect;
+        for (const auto & selectedAC : selectedACs) {
+            // get hierarchical element
+            const auto HE = selectedAC->getHierarchicalElement();
+            // junctions
+            if ((myCurrentSelectedParent == Selection::ALL) || (myCurrentSelectedParent == Selection::JUNCTION)) {
+                HEToSelect.insert(HEToSelect.end(), HE->getParentJunctions().begin(), HE->getParentJunctions().end());
+            }
+            // edges
+            if ((myCurrentSelectedParent == Selection::ALL) || (myCurrentSelectedParent == Selection::EDGE)) {
+                if (selectedAC->getTagProperty().getTag() == SUMO_TAG_LANE) {
+                    // special case for lanes
+                    HEToSelect.push_back(dynamic_cast<GNELane*>(selectedAC)->getParentEdge());
+                } else {
+                    HEToSelect.insert(HEToSelect.end(), HE->getParentEdges().begin(), HE->getParentEdges().end());
+                }
+            }
+            // lanes
+            if ((myCurrentSelectedParent == Selection::ALL) || (myCurrentSelectedParent == Selection::LANE)) {
+                HEToSelect.insert(HEToSelect.end(), HE->getParentLanes().begin(), HE->getParentLanes().end());
+            }
+            // additional
+            if ((myCurrentSelectedParent == Selection::ALL) || (myCurrentSelectedParent == Selection::ADDITIONAL)) {
+                HEToSelect.insert(HEToSelect.end(), HE->getParentAdditionals().begin(), HE->getParentAdditionals().end());
+            }
+            // shape
+            if ((myCurrentSelectedParent == Selection::ALL) || (myCurrentSelectedParent == Selection::SHAPE)) {
+                HEToSelect.insert(HEToSelect.end(), HE->getParentShapes().begin(), HE->getParentShapes().end());
+            }
+            // demand
+            if ((myCurrentSelectedParent == Selection::ALL) || (myCurrentSelectedParent == Selection::DEMAND)) {
+                HEToSelect.insert(HEToSelect.end(), HE->getParentDemandElements().begin(), HE->getParentDemandElements().end());
+            }
+            // data
+            if ((myCurrentSelectedParent == Selection::ALL) || (myCurrentSelectedParent == Selection::DATA)) {
+                HEToSelect.insert(HEToSelect.end(), HE->getParentGenericDatas().begin(), HE->getParentGenericDatas().end());
+            }
+        }
+        // select HE
+        if (HEToSelect.size() > 0) {
+            for (const auto &HE : HEToSelect) {
+                if (obj == mySelectParentsButton) {
+                    HE->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+                } else {
+                    HE->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->getViewNet()->getUndoList());
+                }
+            } 
+        }
+        // update information label
+        mySelectorFrameParent->mySelectionInformation->updateInformationLabel();
+        // update viewNet
+        mySelectorFrameParent->getViewNet()->update();
+    }
     return 1;
 }
 
 
 long
-GNESelectorFrame::SelectionHierarchy::onCmdSelectChildren(FXObject*, FXSelector, void*) {
-    //
-    return 1;
-}
-
-
-long 
-GNESelectorFrame::SelectionHierarchy::onCmdUnselectChildren(FXObject*, FXSelector, void*) {
-    //
+GNESelectorFrame::SelectionHierarchy::onCmdChildren(FXObject* obj, FXSelector, void*) {
+    // get selected elements
+    const auto selectedACs = mySelectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getSelectedAttributeCarriers(true);
+    // check if there is selected ACs
+    if ((selectedACs.size() > 0) && (myCurrentSelectedChild != Selection::NOTHING)) {
+        // vector of hierarchical elements to select
+        std::vector<GNEHierarchicalElement*> HEToSelect;
+        for (const auto & selectedAC : selectedACs) {
+            // get hierarchical element
+            const auto HE = selectedAC->getHierarchicalElement();
+            // junctions
+            if ((myCurrentSelectedChild == Selection::ALL) || (myCurrentSelectedChild == Selection::JUNCTION)) {
+                if (selectedAC->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
+                    // special case for junction
+                    const auto junction = dynamic_cast<GNEJunction*>(selectedAC);
+                    // insert edges
+                    HEToSelect.insert(HEToSelect.end(), junction->getGNEIncomingEdges().begin(), junction->getGNEIncomingEdges().end());
+                    HEToSelect.insert(HEToSelect.end(), junction->getGNEOutgoingEdges().begin(), junction->getGNEOutgoingEdges().end());
+                } else {
+                    HEToSelect.insert(HEToSelect.end(), HE->getChildJunctions().begin(), HE->getChildJunctions().end());
+                }
+            }
+            // edges
+            if ((myCurrentSelectedChild == Selection::ALL) || (myCurrentSelectedChild == Selection::EDGE)) {
+                if (selectedAC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+                    // special case for edges
+                    const auto edge = dynamic_cast<GNEEdge*>(selectedAC);
+                    // insert lanes
+                    HEToSelect.insert(HEToSelect.end(), edge->getLanes().begin(), edge->getLanes().end());
+                } else {
+                    HEToSelect.insert(HEToSelect.end(), HE->getChildEdges().begin(), HE->getChildEdges().end());
+                }
+            }
+            // lanes
+            if ((myCurrentSelectedChild == Selection::ALL) || (myCurrentSelectedChild == Selection::LANE)) {
+                HEToSelect.insert(HEToSelect.end(), HE->getChildLanes().begin(), HE->getChildLanes().end());
+            }
+            // additional
+            if ((myCurrentSelectedChild == Selection::ALL) || (myCurrentSelectedChild == Selection::ADDITIONAL)) {
+                // avoid insert symbols
+                for (const auto &additionalChild : HE->getChildAdditionals()) {
+                    if (!additionalChild->getTagProperty().isSymbol()) {
+                        HEToSelect.push_back(additionalChild);
+                    }
+                }
+            }
+            // shape
+            if ((myCurrentSelectedChild == Selection::ALL) || (myCurrentSelectedChild == Selection::SHAPE)) {
+                HEToSelect.insert(HEToSelect.end(), HE->getChildShapes().begin(), HE->getChildShapes().end());
+            }
+            // demand
+            if ((myCurrentSelectedChild == Selection::ALL) || (myCurrentSelectedChild == Selection::DEMAND)) {
+                HEToSelect.insert(HEToSelect.end(), HE->getChildDemandElements().begin(), HE->getChildDemandElements().end());
+            }
+            // data
+            if ((myCurrentSelectedChild == Selection::ALL) || (myCurrentSelectedChild == Selection::DATA)) {
+                HEToSelect.insert(HEToSelect.end(), HE->getChildGenericDatas().begin(), HE->getChildGenericDatas().end());
+            }
+        }
+        // select HE
+        if (HEToSelect.size() > 0) {
+            for (const auto &HE : HEToSelect) {
+                if (obj == mySelectChildrenButton) {
+                    HE->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
+                } else {
+                    HE->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->getViewNet()->getUndoList());
+                }
+            } 
+        }
+        // update information label
+        mySelectorFrameParent->mySelectionInformation->updateInformationLabel();
+        // update viewNet
+        mySelectorFrameParent->getViewNet()->update();
+    }
     return 1;
 }
 

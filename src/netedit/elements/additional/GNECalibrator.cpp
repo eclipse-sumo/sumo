@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -244,9 +244,19 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
             }
             // pop name
             GLHelper::popName();
+            // draw additional ID
+            drawAdditionalID(s);
+            // iterate over additionals and check if drawn
+            for (const auto& calibratorFlow : getChildAdditionals()) {
+                // if rerouter or their intevals are selected, then draw
+                if (myNet->getViewNet()->getNetworkViewOptions().showSubAdditionals() ||
+                        isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(this) ||
+                        calibratorFlow->isAttributeCarrierSelected() || myNet->getViewNet()->isAttributeCarrierInspected(calibratorFlow) ||
+                        (myNet->getViewNet()->getFrontAttributeCarrier() == calibratorFlow)) {
+                    calibratorFlow->drawGL(s);
+                }
+            }
         }
-        // draw additional ID
-        drawAdditionalID(s);
     }
 }
 
@@ -410,8 +420,6 @@ GNECalibrator::getHierarchyName() const {
 // ===========================================================================
 
 void GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const double exaggeration, const Position& pos, const double rot) const {
-    // draw parent and child lines
-    drawParentChildLines(s, s.additionalSettings.connectionColor);
     // push layer matrix
     GLHelper::pushMatrix();
     // translate to front

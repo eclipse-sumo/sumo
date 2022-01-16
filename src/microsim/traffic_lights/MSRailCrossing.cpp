@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -64,10 +64,10 @@ MSRailCrossing::init(NLDetectorBuilder&) {
     myYellowTime = string2time(getParameter("yellow-time", "5"));
     delete myPhases.front();
     myPhases.clear();
-    myPhases.push_back(new MSPhaseDefinition(1, std::string(myLinks.size(), (char)LinkState::TL_GREEN_MAJOR)));
-    myPhases.push_back(new MSPhaseDefinition(myYellowTime, std::string(myLinks.size(), (char)LinkState::TL_YELLOW_MINOR)));
-    myPhases.push_back(new MSPhaseDefinition(1, std::string(myLinks.size(), (char)LinkState::TL_RED)));
-    myPhases.push_back(new MSPhaseDefinition(myOpeningTime, std::string(myLinks.size(), (char)LinkState::TL_REDYELLOW)));
+    myPhases.push_back(new MSPhaseDefinition(1, std::string(myLinks.size(), LINKSTATE_TL_GREEN_MAJOR)));
+    myPhases.push_back(new MSPhaseDefinition(myYellowTime, std::string(myLinks.size(), LINKSTATE_TL_YELLOW_MINOR)));
+    myPhases.push_back(new MSPhaseDefinition(1, std::string(myLinks.size(), LINKSTATE_TL_RED)));
+    myPhases.push_back(new MSPhaseDefinition(myOpeningTime, std::string(myLinks.size(), LINKSTATE_TL_REDYELLOW)));
     // init phases
     updateCurrentPhase();
     setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());

@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -310,7 +310,7 @@ GUILane::drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) con
         const Position& end = myShape.back();
         const Position& f = myShape[-2];
         const double rot = RAD2DEG(atan2((end.x() - f.x()), (f.y() - end.y())));
-        GLHelper::setColor(s.getLinkColor(LinkState::MAJOR));
+        GLHelper::setColor(s.getLinkColor(LINKSTATE_MAJOR));
         GLHelper::pushMatrix();
         glTranslated(end.x(), end.y(), 0);
         glRotated(rot, 0, 0, 1);
@@ -335,7 +335,7 @@ GUILane::drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, cons
         if (static_cast<GUIEdge*>(myEdge)->showDeadEnd()) {
             GLHelper::setColor(GUIVisualizationColorSettings::SUMO_color_DEADEND_SHOW);
         } else {
-            GLHelper::setColor(GUIVisualizationSettings::getLinkColor(LinkState::DEADEND));
+            GLHelper::setColor(GUIVisualizationSettings::getLinkColor(LINKSTATE_DEADEND));
         }
         GLHelper::pushMatrix();
         glTranslated(end.x(), end.y(), 0);
@@ -353,25 +353,25 @@ GUILane::drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, cons
         glRotated(rot, 0, 0, 1);
         // select glID
         switch (link->getState()) {
-            case LinkState::TL_GREEN_MAJOR:
-            case LinkState::TL_GREEN_MINOR:
-            case LinkState::TL_RED:
-            case LinkState::TL_REDYELLOW:
-            case LinkState::TL_YELLOW_MAJOR:
-            case LinkState::TL_YELLOW_MINOR:
-            case LinkState::TL_OFF_BLINKING:
-            case LinkState::TL_OFF_NOSIGNAL:
+            case LINKSTATE_TL_GREEN_MAJOR:
+            case LINKSTATE_TL_GREEN_MINOR:
+            case LINKSTATE_TL_RED:
+            case LINKSTATE_TL_REDYELLOW:
+            case LINKSTATE_TL_YELLOW_MAJOR:
+            case LINKSTATE_TL_YELLOW_MINOR:
+            case LINKSTATE_TL_OFF_BLINKING:
+            case LINKSTATE_TL_OFF_NOSIGNAL:
                 GLHelper::pushName(net.getLinkTLID(link));
                 break;
-            case LinkState::MAJOR:
-            case LinkState::MINOR:
-            case LinkState::EQUAL:
+            case LINKSTATE_MAJOR:
+            case LINKSTATE_MINOR:
+            case LINKSTATE_EQUAL:
             default:
                 GLHelper::pushName(getGlID());
                 break;
         }
         GLHelper::setColor(GUIVisualizationSettings::getLinkColor(link->getState(), s.realisticLinkRules));
-        if (!(drawAsRailway(s) || drawAsWaterway(s)) || link->getState() != LinkState::MAJOR) {
+        if (!(drawAsRailway(s) || drawAsWaterway(s)) || link->getState() != LINKSTATE_MAJOR) {
             // the white bar should be the default for most railway
             // links and looks ugly so we do not draw it
             double scale = isInternal() ? 0.5 : 1;
@@ -410,7 +410,7 @@ GUILane::drawArrows() const {
     for (const MSLink* const link : myLinks) {
         LinkDirection dir = link->getDirection();
         LinkState state = link->getState();
-        if (state == LinkState::DEADEND || dir == LinkDirection::NODIR) {
+        if (state == LINKSTATE_DEADEND || dir == LinkDirection::NODIR) {
             continue;
         }
         switch (dir) {
@@ -732,40 +732,7 @@ GUILane::drawMarkings(const GUIVisualizationSettings& s, double scale) const {
     if (myIndex > 0 && (myEdge->getLanes()[myIndex - 1]->getPermissions() & myPermissions) != 0) {
         const bool cl = myEdge->getLanes()[myIndex - 1]->allowsChangingLeft(SVC_PASSENGER);
         const bool cr = allowsChangingRight(SVC_PASSENGER);
-        double mw = (myHalfLaneWidth + SUMO_const_laneMarkWidth * (cl ? 0.6 : 0.2)) * scale;
-        double mw2 = (myHalfLaneWidth - SUMO_const_laneMarkWidth * (cr ? 0.6 : 0.2)) * scale;
-        if (cl || cr) {
-            if (MSGlobals::gLefthand) {
-                mw *= -1;
-                mw2 *= -1;
-            }
-            int e = (int) getShape().size() - 1;
-            for (int i = 0; i < e; ++i) {
-                GLHelper::pushMatrix();
-                glTranslated(getShape()[i].x(), getShape()[i].y(), 2.1);
-                glRotated(myShapeRotations[i], 0, 0, 1);
-                for (double t = 0; t < myShapeLengths[i]; t += 6) {
-                    const double length = MIN2((double)3, myShapeLengths[i] - t);
-                    glBegin(GL_QUADS);
-                    glVertex2d(-mw, -t);
-                    glVertex2d(-mw, -t - length);
-                    glVertex2d(-mw2, -t - length);
-                    glVertex2d(-mw2, -t);
-                    glEnd();
-                    if (!cl || !cr) {
-                        // draw inverse marking between asymmetrical lane markings
-                        const double length2 = MIN2((double)6, myShapeLengths[i] - t);
-                        glBegin(GL_QUADS);
-                        glVertex2d(-myHalfLaneWidth + 0.02, -t - length2);
-                        glVertex2d(-myHalfLaneWidth + 0.02, -t - length);
-                        glVertex2d(-myHalfLaneWidth - 0.02, -t - length);
-                        glVertex2d(-myHalfLaneWidth - 0.02, -t - length2);
-                        glEnd();
-                    }
-                }
-                GLHelper::popMatrix();
-            }
-        }
+        GLHelper::drawInverseMarkings(getShape(), myShapeRotations, myShapeLengths, 3, 6, myHalfLaneWidth, cl, cr, MSGlobals::gLefthand, scale);
     }
     // draw white boundings and white markings
     glColor3d(1, 1, 1);

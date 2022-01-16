@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -895,14 +895,10 @@ enum {
     MID_GNE_SELECTORFRAME_SETBEGIN,
     /// @brief end text field
     MID_GNE_SELECTORFRAME_SETEND,
-    /// @brief select parents
-    MID_GNE_SELECTORFRAME_SELECTPARENTS,
-    /// @brief unselect parents
-    MID_GNE_SELECTORFRAME_UNSELECTPARENTS,
-    /// @brief select children
-    MID_GNE_SELECTORFRAME_SELECTCHILDREN,
-    /// @brief unselect children
-    MID_GNE_SELECTORFRAME_UNSELECTCHILDREN,
+    /// @brief select/unselect parents
+    MID_GNE_SELECTORFRAME_PARENTS,
+    /// @brief select/unselect children
+    MID_GNE_SELECTORFRAME_CHILDREN,
 
     /// @}
 

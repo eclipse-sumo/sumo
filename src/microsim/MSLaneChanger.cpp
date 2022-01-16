@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -1388,7 +1388,7 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
             const MSLane* const prev = *(it - 1);
             if (prev != nullptr) {
                 const MSLink* link = prev->getLinkTo(*it);
-                if (link == nullptr || link->getState() == LinkState::ZIPPER
+                if (link == nullptr || link->getState() == LINKSTATE_ZIPPER
                         || (link->getDirection() != LinkDirection::STRAIGHT && vehicle->getVehicleType().getVehicleClass() != SVC_EMERGENCY)
                         || (!link->havePriority()
                             // consider traci-influence

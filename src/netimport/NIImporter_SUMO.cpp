@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -846,7 +846,7 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
                         (*it).customTLIndex = conn.tlLinkIndex;
                     } else {
                         LinkState state = SUMOXMLDefinitions::LinkStates.get(attrs.get<std::string>(SUMO_ATTR_STATE, nullptr, ok));
-                        (*it).priority = state == LinkState::MAJOR;
+                        (*it).priority = state == LINKSTATE_MAJOR;
                     }
                 }
             }

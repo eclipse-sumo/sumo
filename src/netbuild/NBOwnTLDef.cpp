@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -586,10 +586,10 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                         // patch previous yellow and allred phase
                         int yellowIndex = (int)logic->getPhases().size() - 1;
                         if (allRedTime > 0) {
-                            logic->setPhaseState(yellowIndex--, i1, LinkState::TL_RED);
+                            logic->setPhaseState(yellowIndex--, i1, LINKSTATE_TL_RED);
                         }
                         if (brakingTime > 0) {
-                            logic->setPhaseState(yellowIndex, i1, LinkState::TL_YELLOW_MINOR);
+                            logic->setPhaseState(yellowIndex, i1, LINKSTATE_TL_YELLOW_MINOR);
                         }
                     }
                 }
@@ -1127,7 +1127,7 @@ NBOwnTLDef::addPedestrianScramble(NBTrafficLightLogic* logic, int noLinksAll, SU
         const std::string state = phases[i].state;
         for (int j = 0; j < (int)crossings.size(); ++j) {
             LinkState ls = (LinkState)state[vehLinks + j];
-            if (ls == LinkState::TL_GREEN_MAJOR || ls == LinkState::TL_GREEN_MINOR) {
+            if (ls == LINKSTATE_TL_GREEN_MAJOR || ls == LINKSTATE_TL_GREEN_MINOR) {
                 foundGreen[j] = true;
             }
         }
@@ -1206,9 +1206,9 @@ NBOwnTLDef::fixSuperfluousYellow(NBTrafficLightLogic* logic) const {
         for (int i2 = 0; i2 < p; ++i2) {
             LinkState cur = (LinkState)logic->getPhases()[i2].state[i1];
             LinkState next = (LinkState)logic->getPhases()[(i2 + 1) % p].state[i1];
-            if (cur == LinkState::TL_YELLOW_MINOR
-                    && (prev == LinkState::TL_GREEN_MAJOR || prev == LinkState::TL_YELLOW_MINOR)
-                    && next == LinkState::TL_GREEN_MAJOR) {
+            if (cur == LINKSTATE_TL_YELLOW_MINOR
+                    && (prev == LINKSTATE_TL_GREEN_MAJOR || prev == LINKSTATE_TL_YELLOW_MINOR)
+                    && next == LINKSTATE_TL_GREEN_MAJOR) {
                 logic->setPhaseState(i2, i1, prev);
             }
             prev = cur;
@@ -1233,7 +1233,7 @@ NBOwnTLDef::deactivateAlwaysGreen(NBTrafficLightLogic* logic) const {
     for (int i1 = 0; i1 < n; ++i1) {
         if (alwaysGreen[i1]) {
             for (int i2 = 0; i2 < p; ++i2) {
-                logic->setPhaseState(i2, i1, LinkState::TL_OFF_NOSIGNAL);
+                logic->setPhaseState(i2, i1, LINKSTATE_TL_OFF_NOSIGNAL);
             }
         }
     }
@@ -1247,7 +1247,7 @@ NBOwnTLDef::deactivateInsideEdges(NBTrafficLightLogic* logic, const EdgeVector& 
     for (int i1 = 0; i1 < n; ++i1) {
         if (fromEdges[i1]->isInsideTLS()) {
             for (int i2 = 0; i2 < p; ++i2) {
-                logic->setPhaseState(i2, i1, LinkState::TL_OFF_NOSIGNAL);
+                logic->setPhaseState(i2, i1, LINKSTATE_TL_OFF_NOSIGNAL);
             }
         }
     }

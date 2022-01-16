@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -2569,7 +2569,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                 std::cout << "   slowedDownForMinor maxSpeedAtVisDist=" << maxSpeedAtVisibilityDist << " maxArrivalSpeed=" << maxArrivalSpeed << " arrivalSpeed=" << arrivalSpeed << "\n";
             }
 #endif
-        } else if ((*link)->getState() == LinkState::EQUAL && myWaitingTime > 0) {
+        } else if ((*link)->getState() == LINKSTATE_EQUAL && myWaitingTime > 0) {
             // check for deadlock (circular yielding)
             //std::cout << SIMTIME << " veh=" << getID() << " check rbl-deadlock\n";
             std::pair<const SUMOVehicle*, const MSLink*> blocker = (*link)->getFirstApproachingFoe(*link);
@@ -3126,7 +3126,7 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
                                            canBrake ? getImpatience() : 1,
                                            getCarFollowModel().getMaxDecel(),
                                            getWaitingTime(), getLateralPositionOnLane(),
-                                           ls == LinkState::ZIPPER ? &collectFoes : nullptr,
+                                           ls == LINKSTATE_ZIPPER ? &collectFoes : nullptr,
                                            ignoreRedLink, this));
             if (opened && myLaneChangeModel->getShadowLane() != nullptr) {
                 const MSLink* const parallelLink = dpi.myLink->getParallelLink(myLaneChangeModel->getShadowDirection());
@@ -3214,7 +3214,7 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
                     }
 #endif
                 }
-            } else if (link->getState() == LinkState::ZIPPER) {
+            } else if (link->getState() == LINKSTATE_ZIPPER) {
                 vSafeZipper = MIN2(vSafeZipper,
                                    link->getZipperSpeed(this, dpi.myDistance, dpi.myVLinkPass, dpi.myArrivalTime, &collectFoes));
             } else {
@@ -4641,7 +4641,7 @@ MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lf
             if (leftSpace < 0/* && item.myLink->willHaveBlockedFoe()*/) {
                 double impatienceCorrection = 0;
                 /*
-                if(item.myLink->getState()==LinkState::MINOR) {
+                if(item.myLink->getState()==LINKSTATE_MINOR) {
                     impatienceCorrection = MAX2(0., STEPS2TIME(myWaitingTime));
                 }
                 */
@@ -4687,7 +4687,7 @@ MSVehicle::setApproachingForAllLinks(const SUMOTime t) {
     removeApproachingInformation(myLFLinkLanesPrev);
     for (DriveProcessItem& dpi : myLFLinkLanes) {
         if (dpi.myLink != nullptr) {
-            if (dpi.myLink->getState() == LinkState::ALLWAY_STOP) {
+            if (dpi.myLink->getState() == LINKSTATE_ALLWAY_STOP) {
                 dpi.myArrivalTime += (SUMOTime)RandHelper::rand((int)2, getRNG()); // tie braker
             }
             dpi.myLink->setApproaching(this, dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
@@ -6087,7 +6087,7 @@ MSVehicle::unsafeLinkAhead(const MSLane* lane) const {
         DriveItemVector::const_iterator di = myLFLinkLanes.begin();
         while (!lane->isLinkEnd(link) && seen <= dist) {
             if (!lane->getEdge().isInternal()
-                    && (((*link)->getState() == LinkState::ZIPPER && seen < (*link)->getFoeVisibilityDistance())
+                    && (((*link)->getState() == LINKSTATE_ZIPPER && seen < (*link)->getFoeVisibilityDistance())
                         || !(*link)->havePriority())) {
                 // find the drive item corresponding to this link
                 bool found = false;
@@ -6951,11 +6951,16 @@ MSVehicle::manoeuvreIsComplete() const {
 double
 MSVehicle::estimateTimeToNextStop() const {
     if (hasStops()) {
+        MSLane* lane = myLane;
+        if (lane == nullptr) {
+            // not in network
+            lane = getEdge()->getLanes()[0];
+        }
         const MSStop& stop = myStops.front();
         auto it = myCurrEdge + 1;
         // drive to end of current edge
-        double dist = (myLane->getLength() - getPositionOnLane());
-        double travelTime = myLane->getEdge().getMinimumTravelTime(this) * dist / myLane->getLength();
+        double dist = (lane->getLength() - getPositionOnLane());
+        double travelTime = lane->getEdge().getMinimumTravelTime(this) * dist / lane->getLength();
         // drive until stop edge
         while (it != myRoute->end() && it < stop.edge) {
             travelTime += (*it)->getMinimumTravelTime(this);
@@ -6963,7 +6968,7 @@ MSVehicle::estimateTimeToNextStop() const {
             it++;
         }
         // drive up to the stop position
-        const double stopEdgeDist = stop.pars.endPos - (myLane == stop.lane ? myLane->getLength() : 0);
+        const double stopEdgeDist = stop.pars.endPos - (lane == stop.lane ? lane->getLength() : 0);
         dist += stopEdgeDist;
         travelTime += stop.lane->getEdge().getMinimumTravelTime(this) * (stopEdgeDist / stop.lane->getLength());
         // estimate time loss due to acceleration and deceleration

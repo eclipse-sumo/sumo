@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2002-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -28,8 +28,9 @@
 #include <map>
 #include <microsim/MSEventControl.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
-#include "MSSimpleTrafficLightLogic.h"
+#include <microsim/output/MSDetectorControl.h>
 #include <microsim/output/MSInductLoop.h>
+#include "MSSimpleTrafficLightLogic.h"
 
 
 // ===========================================================================
@@ -114,10 +115,10 @@ public:
     void setParameter(const std::string& key, const std::string& value);
 
     /// @brief retrieve all detectors used by this program
-    std::vector<const MSInductLoop*> getDetectors() const;
+    std::map<std::string, double> getDetectorStates() const;
 
     /// @brief return all named conditions defined for this traffic light
-    std::map<std::string, double> getConditions() const; 
+    std::map<std::string, double> getConditions() const;
 
 protected:
     /// @brief initialize custom switching rules
@@ -159,9 +160,6 @@ protected:
     bool hasMajor(const std::string& state, const LaneVector& lanes) const;
     /// @}
 
-    /// @brief recompute running green durations
-    void updateLinkGreenTimes();
-
     /// @brief select among candidate phases based on detector states
     int decideNextPhase();
 
@@ -193,6 +191,24 @@ protected:
 
     /// @brief the minimum duratin for keeping the current phase due to linkMinDur constraints
     SUMOTime getLinkMinDuration(int target) const;
+
+    template<typename T, SumoXMLTag Tag>
+    const T* retrieveDetExpression(const std::string& arg, const std::string& expr, bool tryPrefix) const {
+        const T* det = dynamic_cast<const T*>(
+                MSNet::getInstance()->getDetectorControl().getTypedDetectors(Tag).get(
+                    (tryPrefix ? myDetectorPrefix : "") + arg));
+        if (det == nullptr) {
+            if (tryPrefix) {
+                // try again without prefix
+                return retrieveDetExpression<T, Tag>(arg, expr, false);
+            } else {
+                throw ProcessError("Unknown detector '" + arg + "' in expression '" + expr + "'");
+            }
+        } else {
+            return det;
+        }
+    }
+
 
 protected:
     /// @brief A map from phase to induction loops to be used for gap control
@@ -226,10 +242,10 @@ protected:
 
     /// @brief last time trySwitch was called
     SUMOTime myLastTrySwitchTime;
-    SUMOTime myLastLinkGreenUpdateTime;
 
     /// @brief consecutive time that the given link index has been green
     std::vector<SUMOTime> myLinkGreenTimes;
+    std::vector<SUMOTime> myLinkRedTimes;
     /// @brief maximum consecutive time that the given link may remain green
     std::vector<SUMOTime> myLinkMaxGreenTimes;
     /// @brief minimum consecutive time that the given link must remain green
@@ -246,6 +262,8 @@ protected:
     };
 
     std::vector<SwitchingRules> mySwitchingRules;
+
+    const std::string myDetectorPrefix;
 
     static const std::vector<std::string> OPERATOR_PRECEDENCE;
 };

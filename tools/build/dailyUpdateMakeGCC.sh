@@ -1,6 +1,6 @@
 #!/bin/bash
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2021 German Aerospace Center (DLR) and others.
+# Copyright (C) 2008-2022 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -75,7 +75,12 @@ if test -e $SUMO_BINDIR/sumo -a $SUMO_BINDIR/sumo -nt build/$FILEPREFIX/Makefile
     tests/runTests.sh -b $FILEPREFIX -name $TESTLABEL &> $TESTLOG
     if which Xvfb &>/dev/null; then
       tests/runTests.sh -a sumo.gui -b $FILEPREFIX -name $TESTLABEL >> $TESTLOG 2>&1
-      tests/runNeteditDailyTests.sh -b $FILEPREFIX -name $TESTLABEL >> $TESTLOG 2>&1
+      if test "$FILEPREFIX" == "gcc4_64"; then
+        tests/runNeteditDailyTests.sh -b $FILEPREFIX -name $TESTLABEL >> $TESTLOG 2>&1
+      fi
+      if test "$FILEPREFIX" == "coverage_gcc4_64"; then
+        tests/runTests.sh -a netedit.gui -b $FILEPREFIX -name $TESTLABEL >> $TESTLOG 2>&1
+      fi
     fi
   fi
   tests/runTests.sh -b $FILEPREFIX -name $TESTLABEL -coll >> $TESTLOG 2>&1
@@ -104,4 +109,8 @@ else
   echo "make with all options failed" | tee -a $STATUSLOG; tail -20 $MAKEALLLOG
 fi
 echo `grep -ci 'warn[iu]ng:' $MAKEALLLOG` warnings >> $STATUSLOG
+echo "--" >> $STATUSLOG
+
+basename $TESTLOG >> $STATUSLOG
+date >> $STATUSLOG
 echo "--" >> $STATUSLOG

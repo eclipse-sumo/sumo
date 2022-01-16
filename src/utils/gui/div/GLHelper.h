@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -344,6 +344,13 @@ public:
                               const std::vector<double>& rots,
                               const std::vector<double>& lengths,
                               double length, double spacing, double halfWidth, bool drawForSelection);
+
+    /// @bried draw the space between markings (in road color)
+    static void drawInverseMarkings(const PositionVector& geom,
+        const std::vector<double>& rots,
+        const std::vector<double>& lengths,
+        double maxLength, double spacing,
+        double halfWidth, bool cl, bool cr, bool lefthand, double scale);
 
     /// @brief draw vertex numbers for the given shape (in a random color)
     static void debugVertices(const PositionVector& shape, double size, double layer = 256);

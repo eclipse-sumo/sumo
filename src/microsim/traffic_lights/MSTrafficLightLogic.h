@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -40,7 +40,7 @@
 class MSNet;
 class MSLink;
 class MSTLLogicControl;
-class MSInductLoop;
+class MSDetectorFileOutput;
 class NLDetectorBuilder;
 
 
@@ -369,9 +369,9 @@ public:
     virtual bool getsMajorGreen(int linkIndex) const;
 
 
-    /// @brief return all detectors that affect this traffic light
-    virtual std::vector<const MSInductLoop*> getDetectors() const {
-        return std::vector<const MSInductLoop*>();
+    /// @brief return activation state of all detectors that affect this traffic light
+    virtual std::map<std::string, double> getDetectorStates() const {
+        return std::map<std::string, double>();
     }
 
     /// @brief return all named conditions defined for this traffic light

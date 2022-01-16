@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -259,7 +259,7 @@ GUIGeometry::adjustStartPosGeometricPath(double& startPos, const PositionVector&
 
 void
 GUIGeometry::drawGeometry(const GUIVisualizationSettings& s, const Position& mousePos,
-                          const GUIGeometry& geometry, const double width) {
+                          const GUIGeometry& geometry, const double width, double offset) {
     // continue depending of draw for position selection
     if (s.drawForPositionSelection) {
         // obtain position over lane relative to mouse position
@@ -279,7 +279,7 @@ GUIGeometry::drawGeometry(const GUIVisualizationSettings& s, const Position& mou
         // draw line (needed for zoom out)
         GLHelper::drawLine(geometry.getShape());
     } else {
-        GLHelper::drawBoxLines(geometry.getShape(), geometry.getShapeRotations(), geometry.getShapeLengths(), width);
+        GLHelper::drawBoxLines(geometry.getShape(), geometry.getShapeRotations(), geometry.getShapeLengths(), width, 0, offset);
     }
 }
 

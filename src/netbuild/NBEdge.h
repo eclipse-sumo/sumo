@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -731,6 +731,12 @@ public:
 
     /// @brief get lane indices that allow the given permissions
     int getNumLanesThatAllow(SVCPermissions permissions) const;
+
+    /** @brief Returns whether the given vehicle class may change left from this lane */
+    bool allowsChangingLeft(int lane, SUMOVehicleClass vclass) const;
+
+    /** @brief Returns whether the given vehicle class may change left from this lane */
+    bool allowsChangingRight(int lane, SUMOVehicleClass vclass) const;
 
     /// @brief return the angle for computing pedestrian crossings at the given node
     double getCrossingAngle(NBNode* node);

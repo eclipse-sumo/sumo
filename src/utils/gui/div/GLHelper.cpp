@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -736,6 +736,49 @@ GLHelper::drawCrossTies(const PositionVector& geom,
         GLHelper::popMatrix();
     }
     GLHelper::popMatrix();
+}
+
+void
+GLHelper::drawInverseMarkings(const PositionVector& geom,
+        const std::vector<double>& rots,
+        const std::vector<double>& lengths,
+        double maxLength, double spacing,
+        double halfWidth, bool cl, bool cr, bool lefthand, double scale) {
+
+    double mw = (halfWidth + SUMO_const_laneMarkWidth * (cl ? 0.6 : 0.2)) * scale;
+    double mw2 = (halfWidth - SUMO_const_laneMarkWidth * (cr ? 0.6 : 0.2)) * scale;
+    if (cl || cr) {
+        if (lefthand) {
+            mw *= -1;
+            mw2 *= -1;
+        }
+        int e = (int) geom.size() - 1;
+        for (int i = 0; i < e; ++i) {
+            GLHelper::pushMatrix();
+            glTranslated(geom[i].x(), geom[i].y(), 2.1);
+            glRotated(rots[i], 0, 0, 1);
+            for (double t = 0; t < lengths[i]; t += spacing) {
+                const double length = MIN2((double)maxLength, lengths[i] - t);
+                glBegin(GL_QUADS);
+                glVertex2d(-mw, -t);
+                glVertex2d(-mw, -t - length);
+                glVertex2d(-mw2, -t - length);
+                glVertex2d(-mw2, -t);
+                glEnd();
+                if (!cl || !cr) {
+                    // draw inverse marking between asymmetrical lane markings
+                    const double length2 = MIN2((double)6, lengths[i] - t);
+                    glBegin(GL_QUADS);
+                    glVertex2d(-halfWidth + 0.02, -t - length2);
+                    glVertex2d(-halfWidth + 0.02, -t - length);
+                    glVertex2d(-halfWidth - 0.02, -t - length);
+                    glVertex2d(-halfWidth - 0.02, -t - length2);
+                    glEnd();
+                }
+            }
+            GLHelper::popMatrix();
+        }
+    }
 }
 
 

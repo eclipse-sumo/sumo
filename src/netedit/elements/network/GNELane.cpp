@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -451,28 +451,28 @@ GNELane::drawLane2LaneConnections() const {
     for (auto it : connections) {
         const LinkState state = node->getLinkState(myParentEdge->getNBEdge(), it.toEdge, it.fromLane, it.toLane, it.mayDefinitelyPass, it.tlID);
         switch (state) {
-            case LinkState::TL_OFF_NOSIGNAL:
+            case LINKSTATE_TL_OFF_NOSIGNAL:
                 glColor3d(1, 1, 0);
                 break;
-            case LinkState::TL_OFF_BLINKING:
+            case LINKSTATE_TL_OFF_BLINKING:
                 glColor3d(0, 1, 1);
                 break;
-            case LinkState::MAJOR:
+            case LINKSTATE_MAJOR:
                 glColor3d(1, 1, 1);
                 break;
-            case LinkState::MINOR:
+            case LINKSTATE_MINOR:
                 glColor3d(.4, .4, .4);
                 break;
-            case LinkState::STOP:
+            case LINKSTATE_STOP:
                 glColor3d(.7, .4, .4);
                 break;
-            case LinkState::EQUAL:
+            case LINKSTATE_EQUAL:
                 glColor3d(.7, .7, .7);
                 break;
-            case LinkState::ALLWAY_STOP:
+            case LINKSTATE_ALLWAY_STOP:
                 glColor3d(.7, .7, 1);
                 break;
-            case LinkState::ZIPPER:
+            case LINKSTATE_ZIPPER:
                 glColor3d(.75, .5, 0.25);
                 break;
             default:
@@ -646,53 +646,32 @@ GNELane::drawChildren(const GUIVisualizationSettings& s) const {
 void
 GNELane::drawMarkings(const GUIVisualizationSettings& s, const double exaggeration, const bool drawRailway) const {
     if (s.laneShowBorders && (exaggeration == 1) && !drawRailway) {
-        // get half lane width
         const double myHalfLaneWidth = myParentEdge->getNBEdge()->getLaneWidth(myIndex) / 2;
-        const int lefthand = s.lefthand ? -1 : 1;
-        // push matrix
         GLHelper::pushMatrix();
-        // move top
         glTranslated(0, 0, 0.1);
         // optionally draw inverse markings
+        bool haveChangeProhibitions = false;
         if (myIndex > 0 && (myParentEdge->getNBEdge()->getPermissions(myIndex - 1) & myParentEdge->getNBEdge()->getPermissions(myIndex)) != 0) {
-            // calculate marking witdhs
-            const double markinWidthA = (myHalfLaneWidth + SUMO_const_laneMarkWidth) * exaggeration * lefthand;
-            const double markinWidthB = (myHalfLaneWidth - SUMO_const_laneMarkWidth) * exaggeration * lefthand;
-            // iterate over lane shape
-            for (int i = 0; i < (int) myLaneGeometry.getShape().size() - 1; ++i) {
-                // push matrix
-                GLHelper::pushMatrix();
-                // move to gemetry point
-                glTranslated(myLaneGeometry.getShape()[i].x(), myLaneGeometry.getShape()[i].y(), 0.1);
-                // rotate
-                glRotated(myLaneGeometry.getShapeRotations()[i], 0, 0, 1);
-                // calculate subLengths
-                for (double subLengths = 0; subLengths < myLaneGeometry.getShapeLengths()[i]; subLengths += 6) {
-                    // calculate lenght
-                    const double length = MIN2((double)3, myLaneGeometry.getShapeLengths()[i] - subLengths);
-                    // draw rectangle
-                    glBegin(GL_QUADS);
-                    glVertex2d(-markinWidthA, -subLengths);
-                    glVertex2d(-markinWidthA, -subLengths - length);
-                    glVertex2d(-markinWidthB, -subLengths - length);
-                    glVertex2d(-markinWidthB, -subLengths);
-                    glEnd();
-                }
-                // pop matrix
-                GLHelper::popMatrix();
-            }
+            const bool cl = myParentEdge->getNBEdge()->allowsChangingLeft(myIndex - 1, SVC_PASSENGER);
+            const bool cr = myParentEdge->getNBEdge()->allowsChangingRight(myIndex, SVC_PASSENGER);
+            GLHelper::drawInverseMarkings(myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(),
+                    3, 6, myHalfLaneWidth, cl, cr, s.lefthand, exaggeration);
+            haveChangeProhibitions = !(cl && cr);
         }
-        // pop matrix
         GLHelper::popMatrix();
-        // push background matrix
         GLHelper::pushMatrix();
-        // move back
-        glTranslated(0, 0, -0.1);
+        if (haveChangeProhibitions) {
+            // highlightchange prohibitions
+            glTranslated(0, 0, -0.05);
+            GLHelper::setColor(RGBColor::ORANGE);
+            const double offset = myHalfLaneWidth * exaggeration * (s.lefthand ? -1 : 1);
+            GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry, (myHalfLaneWidth * 0.5) * exaggeration, offset);
+            glTranslated(0, 0, +0.05);
+        }
         // draw white boundings and white markings
+        glTranslated(0, 0, -0.1);
         GLHelper::setColor(RGBColor::WHITE);
-        // draw geometry
         GUIGeometry::drawGeometry(s, myNet->getViewNet()->getPositionInformation(), myLaneGeometry, (myHalfLaneWidth + SUMO_const_laneMarkWidth) * exaggeration);
-        // pop background matrix
         GLHelper::popMatrix();
     }
 }
@@ -763,8 +742,8 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
                 GUIDesigns::buildFXMenuCommand(ret, "Select state for all links from this edge:", nullptr, nullptr, 0);
                 const std::vector<std::string> names = GNEInternalLane::LinkStateNames.getStrings();
                 for (auto it : names) {
-                    auto state = GNEInternalLane::LinkStateNames.get(it);
-                    FXMenuRadio* mc = new FXMenuRadio(ret, it.c_str(), this, FXDataTarget::ID_OPTION + (char)state);
+                    FXuint state = GNEInternalLane::LinkStateNames.get(it);
+                    FXMenuRadio* mc = new FXMenuRadio(ret, it.c_str(), this, FXDataTarget::ID_OPTION + state);
                     mc->setSelBackColor(MFXUtils::getFXColor(GNEInternalLane::colorForLinksState(state)));
                     mc->setBackColor(MFXUtils::getFXColor(GNEInternalLane::colorForLinksState(state)));
                 }
@@ -1435,7 +1414,7 @@ GNELane::drawLaneStopOffset(const GUIVisualizationSettings& s, const double offs
     const Position& end = getLaneShape().back();
     const Position& f = getLaneShape()[-2];
     const double rot = RAD2DEG(atan2((end.x() - f.x()), (f.y() - end.y())));
-    GLHelper::setColor(s.getLinkColor(LinkState::MAJOR));
+    GLHelper::setColor(s.getLinkColor(LINKSTATE_MAJOR));
     GLHelper::pushMatrix();
     glTranslated(end.x(), end.y(), 1);
     glRotated(rot, 0, 0, 1);

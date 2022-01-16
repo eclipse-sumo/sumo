@@ -295,9 +295,15 @@ Each lane incoming to the traffic light will receive a detector. However, not al
 In the current implementation, detectors for actuation are only used if all connections from the detector lane gets the unconditional green light ('G') in a particular phase. This is done to prevent useless phase extensions when the first vehicle on a given lane is not allowed to drive.
 A simple fix is often the provide dedicate left turn lanes.
 
+The detector names take the form `TLSID_PROGRAMID_EDGEINDEX.LANEINDEX` where
+
+- **TLSID** is the id of the tlLogic element
+- **PROGRAMID** is the value attribute 'programID'
+- **EDGEINDEX** is a running index that starts at 0 for edge that approaches tls linkIndex 0 (typically the northern approach)
+- **LANEINDEX** is a running index for the current edge that starts at the first vehicular lane (sidewalks do not count)
+
 !!! note
     Sumo will issue a warning of the form "... has no controlling detector" if a phase or link index does not have usable detectors.
-
 
 ### Example
 
@@ -424,10 +430,11 @@ The following elements are permitted in an expression for attributes
 - logical operators 'or', 'and', '!'
 - parentheses (,)
 - pre-defined functions:
-  - 'z:DETID': returns the time gap since the last vehicle detection for inductionLoop detector with id 'DETID'
+  - 'z:DETID': returns the time gap since the last vehicle detection for inductionLoop detector with id 'DETID' or id 'TLSID_PROGRAMID_DETID' (DETID may ommmit the the [prefix 'TLSID_PROGRAMID_'](#detectors))
   - 'a:DETID': returns true (1) if a vehicle is on detector with id 'DETID' and
-    false (0) otherwise. Supports inductionLoop and laneAreaDetectors.
+    false (0) otherwise. Supports inductionLoop and laneAreaDetectors. Also supports omitting the prefix of the detector id. (see 'z:')
   - 'g:TLSINDEX': returns current green duration in seconds for link with the given index
+  - 'r:TLSINDEX': returns current red duration in seconds for link with the given index
 - Symbolic names for [pre-defined expressions](#named_expressions)
 
 The following constraints apply to expressions:
@@ -448,21 +455,50 @@ of `<tlLogic>` to define named expressions that can be referenced in other expre
    ...
 ```
 
-- condition id must be an alphanumeric string without spaces and withtout the ':'-character
+- condition id must be an alphanumeric string without spaces and without the ':'-character
 - value may be any expression which is permitted for 'earlyTarget' or 'finalTarget'
 
-#### Example
+Condition values can be [visualized](Traffic_Lights.md#track_phases) while the simulation is running. It may be useful to add extra conditions that are only used for debugging purposes.
+
+#### Examples
+
+#### Diverse Logical Conditions
 
 ```
 <tlLogic id="example" type="actuated" ...>
-   <condition id="C3" value="z:det5 > 5"/>
-   <condition id="C4" value="C3 and z:det6 < 2"/>
-   <condition id="C5" value=".../>
+   <condition id="C3" value="z:Det2.0 > 5"/>
+   <condition id="C4" value="C3 and z:Det0.0 < 2"/>
+   <condition id="C5" value="r:0 > 60"/>
    <phase ... next="1 2"/>
    <phase ... earlyTarget="C3" finalTarget="!C4"/>
-   <phase ... earlyTarget="(z:det0 > 3) and (z:det2 <= 4)" finalTarget="C5 or (z:det3 = 0)"/>
+   <phase ... earlyTarget="(z:D2.0 > 3) and (z:D3.1 <= 4)" finalTarget="C5 or (z:Det3.1 = 0)"/>
 </tlLogic>
 ```
+
+#### Default Gap Control Logic
+
+The default gap control logic, replicated with custom conditions. A complete scenario including network and detector definitions can be downloaded [here](https://sumo.dlr.de/extractTest.php?path=sumo/basic/tls/actuated/conditions/replicate_default):
+
+```
+<tlLogic id="C" type="actuated" programID="P1" offset="0">
+        <phase duration="33" state="GgrrGgrr" minDur="5" maxDur="60" />
+        <phase duration="3"  state="ygrrygrr" earlyTarget="NS"/>
+        <phase duration="6"  state="rGrrrGrr" minDur="5" maxDur="60" />
+        <phase duration="3"  state="ryrrryrr" earlyTarget="NSL"/>
+        <phase duration="33" state="rrGgrrGg" minDur="5" maxDur="60" />
+        <phase duration="3"  state="rrygrryg" earlyTarget="EW"/>
+        <phase duration="6"  state="rrrGrrrG" minDur="5" maxDur="60" />
+        <phase duration="3"  state="rrryrrry" earlyTarget="EWL"/>
+
+        <condition id="NS"  value="z:D0.0 > 3 and z:D2.0 > 3"/>
+        <condition id="NSL" value="z:D0.1 > 3 and z:D2.1 > 3"/>
+        <condition id="EW"  value="z:D1.0 > 3 and z:D3.0 > 3"/>
+        <condition id="EWL" value="z:D1.1 > 3 and z:D3.1 > 3"/>
+    </tlLogic>
+```
+
+!!! note
+    The the expression 'z:D0.0' retrieves the detection gap of detector 'C_PI_D0.0' but the prefix 'C_PI_' may be omitted.
 
 ### Visualization
 By setting the sumo option **--tls.actuated.show-detectors** the default visibility of detectors can be
@@ -845,3 +881,41 @@ using **getAllProgramLogics** and then modify it.
 SUMO can load multiple traffic light programs from the *.net.mxl* file
 and from [additional files](#defining_new_tls-programs). Using
 the TraCI function **setProgram**, a script can switch between them.
+
+# Signal Plan Visualization
+
+In [sumo-gui](../sumo-gui.md), right-clicking on a traffic light allows opening up a menu that contains the items 'Show Phases' and 'Track Phases'.
+These items open up new windows which are explained below
+
+## Show Phases
+
+This shows the signal states of all controlled links for the complete list of defined phases. Here, time is on the x-axis and there is one row for each link index. The time axis in the bottom shows the time of each phase change starting at 0.
+
+The time can be switched between the following styles
+- **Seconds**: absolute simulation time in seconds
+- **MM::SS**: current minute and second (values repeat every hour)
+- **Time in Cycle**: current second within the traffic light cycle (resets either when starting phase 0 or in some alignment to absolute simulation time).
+
+Optionally, the green phase durations can be written for every phase. 
+The top row contains the phase index but it is possible to change this so it shows phase names instead. (phase names are optional, and only the names of 'Green' phases are shown for brevity)
+
+![show_phases.png](../images/show_phases.png
+"Show Phases Window")
+
+!!! note
+    All phases will be shown in definition order. This may be different from their operational sequence if phase attribute 'next' is used.
+
+## Track Phases
+
+This shows the evoluation of signal states for all controlled links for the last X seconds of operation (set via the 'Range' value). The basic layout is the same as for the 'Show Phases' Window. 
+
+The following additional features may be activated via checkboxes:
+
+- **detector**: shows activation states of all [detectors that are controlling this traffic light](Traffic_Lights.md#detectors)
+- **conditions**: shows the boolean value of [conditions that are defined for this traffic light](Traffic_Lights.md#named_expressions). A colored block wil be drawn when the numerical value of the condition is different from zero.
+
+!!! note
+    When the mouse is placed over an active condition block, the numerical value of the condition will be shown.
+
+![track_phases.png](../images/track_phases.png
+"Track Phases Window")

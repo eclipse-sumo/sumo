@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -90,7 +90,7 @@ public:
                                  const std::vector<double>& lengths, const std::vector<RGBColor>& colors, double width, const bool onlyContour = false);
 
     /// @brief draw geometry
-    static void drawGeometry(const GUIVisualizationSettings& s, const Position& mousePos, const GUIGeometry& geometry, const double width);
+    static void drawGeometry(const GUIVisualizationSettings& s, const Position& mousePos, const GUIGeometry& geometry, const double width, double offset = 0);
 
     /// @brief draw contour geometry
     static void drawContourGeometry(const GUIGeometry& geometry, const double width, const bool drawExtremes = false);

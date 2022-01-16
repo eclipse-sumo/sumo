@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -488,7 +488,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
     for (const MSPhaseDefinition* phase : myPhases) {
         const std::string& state = phase->getState();
         for (int i = 0; i < numLinks; i++) {
-            if (state[i] == (char)LinkState::TL_GREEN_MAJOR) {
+            if (state[i] == LINKSTATE_TL_GREEN_MAJOR) {
                 neverMajor[i] = false;
             }
         }
@@ -518,8 +518,8 @@ NEMALogic::init(NLDetectorBuilder& nb) {
             std::map<MSE2Collector*, std::set<int>> detectorLinks;
 
             for (int i = 0; i < numLinks; i++)  {
-                if (state[i] == (char)LinkState::TL_GREEN_MAJOR
-                        || (state[i] == (char)LinkState::TL_GREEN_MINOR
+                if (state[i] == LINKSTATE_TL_GREEN_MAJOR
+                        || (state[i] == LINKSTATE_TL_GREEN_MINOR
                             && ((neverMajor[i]  // check1a
                                  && hasMajor(state, getLanesAt(i))) // check1b
                                 || oneLane[i])) // check1c
@@ -700,6 +700,17 @@ bool NEMALogic::isDetectorActivated(int phaseNumber) const{
         return false;
     }
 }
+
+
+std::map<std::string, double>
+NEMALogic::getDetectorStates() const {
+    std::map<std::string, double> result;
+    for (auto item : myDetectorLaneMap) {
+        result[item.first->getID()] = item.first->getCurrentVehicleNumber();
+    }
+    return result;
+}
+
 
 const MSPhaseDefinition&
 NEMALogic::getCurrentPhaseDef() const {
@@ -1004,7 +1015,7 @@ std::set<std::string> NEMALogic::getLaneIDsFromNEMAState(std::string state) {
 bool NEMALogic::isLeftTurnLane(const MSLane* const lane) const {
     const std::vector<MSLink*> links = lane->getLinkCont();
     if (links.size() == 1 && links.front()->getDirection() == LinkDirection::LEFT) {
-        return true;
+        return true;;
     }
     return false;
 }
@@ -1012,7 +1023,7 @@ bool NEMALogic::isLeftTurnLane(const MSLane* const lane) const {
 bool
 NEMALogic::hasMajor(const std::string& state, const LaneVector& lanes) const {
     for (int i = 0; i < (int)state.size(); i++) {
-        if (state[i] == (char)LinkState::TL_GREEN_MAJOR) {
+        if (state[i] == LINKSTATE_TL_GREEN_MAJOR) {
             for (MSLane* cand : getLanesAt(i)) {
                 for (MSLane* lane : lanes) {
                     if (lane == cand) {

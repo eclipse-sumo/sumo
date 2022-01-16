@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2021 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2022 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -167,9 +167,9 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                 // warn about transitions from green to red without intermediate yellow
                 bool haveWarned = false;
                 for (int j = 0; j < (int)MIN3(state1.size(), state2.size(), myLanes.size()) && !haveWarned; ++j) {
-                    if ((LinkState)state2[j] == LinkState::TL_RED
-                            && ((LinkState)state1[j] == LinkState::TL_GREEN_MAJOR
-                                || (LinkState)state1[j] == LinkState::TL_GREEN_MINOR)) {
+                    if ((LinkState)state2[j] == LINKSTATE_TL_RED
+                            && ((LinkState)state1[j] == LINKSTATE_TL_GREEN_MAJOR
+                                || (LinkState)state1[j] == LINKSTATE_TL_GREEN_MINOR)) {
                         for (LaneVector::const_iterator it = myLanes[j].begin(); it != myLanes[j].end(); ++it) {
                             if ((*it)->getPermissions() != SVC_PEDESTRIAN) {
                                 if (getLogicType() != TrafficLightType::NEMA) {
@@ -187,7 +187,7 @@ MSTrafficLightLogic::init(NLDetectorBuilder&) {
                 // warn about links that never get the green light
                 for (int j = 0; j < (int)state1.size(); ++j) {
                     LinkState ls = (LinkState)state1[j];
-                    if (ls == LinkState::TL_GREEN_MAJOR || ls == LinkState::TL_GREEN_MINOR) {
+                    if (ls == LINKSTATE_TL_GREEN_MAJOR || ls == LINKSTATE_TL_GREEN_MINOR) {
                         foundGreen[j] = true;
                     }
                 }
@@ -421,8 +421,8 @@ void MSTrafficLightLogic::initMesoTLSPenalties() {
         duration += phases[i]->duration;
         // warn about transitions from green to red without intermediate yellow
         for (int j = 0; j < numLinks; ++j) {
-            if ((LinkState)state[j] == LinkState::TL_RED
-                    || (LinkState)state[j] == LinkState::TL_REDYELLOW) {
+            if ((LinkState)state[j] == LINKSTATE_TL_RED
+                    || (LinkState)state[j] == LINKSTATE_TL_REDYELLOW) {
                 redDuration[j] += STEPS2TIME(phases[i]->duration);
                 totalRedDuration[j] += STEPS2TIME(phases[i]->duration);
             } else if (redDuration[j] > 0) {
@@ -512,7 +512,7 @@ MSTrafficLightLogic::getsMajorGreen(int linkIndex) const {
         for (const MSPhaseDefinition* p : getPhases()) {
             const std::string& s = p->getState();
             assert(linkIndex < (int)s.size());
-            if (s[linkIndex] == (char)LinkState::TL_GREEN_MAJOR) {
+            if (s[linkIndex] == LINKSTATE_TL_GREEN_MAJOR) {
                 return true;
             }
         }
