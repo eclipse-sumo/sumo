@@ -295,9 +295,15 @@ Each lane incoming to the traffic light will receive a detector. However, not al
 In the current implementation, detectors for actuation are only used if all connections from the detector lane gets the unconditional green light ('G') in a particular phase. This is done to prevent useless phase extensions when the first vehicle on a given lane is not allowed to drive.
 A simple fix is often the provide dedicate left turn lanes.
 
+The detector names take the form `TLSID_PROGRAMID_EDGEINDEX.LANEINDEX` where
+
+- **TLSID** is the id of the tlLogic element
+- **PROGRAMID** is the value attribute 'programID'
+- **EDGEINDEX** is a running index that starts at 0 for edge that approaches tls linkIndex 0 (typically the northern approach)
+- **LANEINDEX** is a running index for the current edge that starts at the first vehicular lane (sidewalks do not count)
+
 !!! note
     Sumo will issue a warning of the form "... has no controlling detector" if a phase or link index does not have usable detectors.
-
 
 ### Example
 
@@ -424,9 +430,9 @@ The following elements are permitted in an expression for attributes
 - logical operators 'or', 'and', '!'
 - parentheses (,)
 - pre-defined functions:
-  - 'z:DETID': returns the time gap since the last vehicle detection for inductionLoop detector with id 'DETID'
+  - 'z:DETID': returns the time gap since the last vehicle detection for inductionLoop detector with id 'DETID' or id 'TLSID_PROGRAMID_DETID' (DETID may ommmit the the [prefix 'TLSID_PROGRAMID_'](Simulation/Traffic_Lights.md#detectors))
   - 'a:DETID': returns true (1) if a vehicle is on detector with id 'DETID' and
-    false (0) otherwise. Supports inductionLoop and laneAreaDetectors.
+    false (0) otherwise. Supports inductionLoop and laneAreaDetectors. Also supports omitting the prefix of the detector id. (see 'z:')
   - 'g:TLSINDEX': returns current green duration in seconds for link with the given index
   - 'r:TLSINDEX': returns current red duration in seconds for link with the given index
 - Symbolic names for [pre-defined expressions](#named_expressions)
@@ -460,18 +466,18 @@ Condition values can be [visualized](Traffic_Lights.md#track_phases) while the s
 
 ```
 <tlLogic id="example" type="actuated" ...>
-   <condition id="C3" value="z:det5 > 5"/>
-   <condition id="C4" value="C3 and z:det6 < 2"/>
+   <condition id="C3" value="z:Det2.0 > 5"/>
+   <condition id="C4" value="C3 and z:Det0.0 < 2"/>
    <condition id="C5" value="r:0 > 60"/>
    <phase ... next="1 2"/>
    <phase ... earlyTarget="C3" finalTarget="!C4"/>
-   <phase ... earlyTarget="(z:det0 > 3) and (z:det2 <= 4)" finalTarget="C5 or (z:det3 = 0)"/>
+   <phase ... earlyTarget="(z:D2.0 > 3) and (z:D3.1 <= 4)" finalTarget="C5 or (z:Det3.1 = 0)"/>
 </tlLogic>
 ```
 
-#### Default Gap Controlog Logic
+#### Default Gap Control Logic
 
-The default gap control logic, replicated with custom conditions. For brevity, all detectors have been replaced with custom detectors to obtain shorter detector IDs. A complete scenario including network and detector definitions can be downloaded [here](https://sumo.dlr.de/extractTest.php?path=sumo/basic/tls/actuated/conditions/replicate_default):
+The default gap control logic, replicated with custom conditions. A complete scenario including network and detector definitions can be downloaded [here](https://sumo.dlr.de/extractTest.php?path=sumo/basic/tls/actuated/conditions/replicate_default):
 
 ```
 <tlLogic id="C" type="actuated" programID="P1" offset="0">
@@ -484,21 +490,15 @@ The default gap control logic, replicated with custom conditions. For brevity, a
         <phase duration="6"  state="rrrGrrrG" minDur="5" maxDur="60" />
         <phase duration="3"  state="rrryrrry" earlyTarget="EWL"/>
 
-        <condition id="NS"  value="z:NC0 > 3 and z:SC0 > 3"/>
-        <condition id="NSL" value="z:NC1 > 3 and z:SC1 > 3"/>
-        <condition id="EW"  value="z:WC0 > 3 and z:EC0 > 3"/>
-        <condition id="EWL" value="z:WC1 > 3 and z:EC1 > 3"/>
-
-        <param key="NC_0" value="NC0"/>
-        <param key="NC_1" value="NC1"/>
-        <param key="EC_0" value="EC0"/>
-        <param key="EC_1" value="EC1"/>
-        <param key="SC_0" value="SC0"/>
-        <param key="SC_1" value="SC1"/>
-        <param key="WC_0" value="WC0"/>
-        <param key="WC_1" value="WC1"/>
+        <condition id="NS"  value="z:D0.0 > 3 and z:D2.0 > 3"/>
+        <condition id="NSL" value="z:D0.1 > 3 and z:D2.1 > 3"/>
+        <condition id="EW"  value="z:D1.0 > 3 and z:D3.0 > 3"/>
+        <condition id="EWL" value="z:D1.1 > 3 and z:D3.1 > 3"/>
     </tlLogic>
 ```
+
+!!! note
+    The the expression 'z:D0.0' retrieves the detection gap of detector 'C_PI_D0.0' but the prefix 'C_PI_' may be omitted.
 
 ### Visualization
 By setting the sumo option **--tls.actuated.show-detectors** the default visibility of detectors can be
