@@ -53,12 +53,12 @@ Create a routes-file `autobahn.rou.xml` with the following content:
 <routes>
     <vType id="normal_car" vClass="passenger" maxSpeed="40" speedFactor="0.9" speedDev="0.2" sigma="0.5" />
     <vType id="sporty_car" vClass="passenger" maxSpeed="60" speedFactor="1.3" speedDev="0.1" sigma="0.1" />
-    <vType id="trailer" vClass="trailer"  maxSpeed="30" speedFactor="1.1" speedDev="0.1" />
-    <vType id="coach" vClass="coach"  maxSpeed="30" speedFactor="1." speedDev="0.1" />
-    <flow id="normal" type="normal_car" begin="0" end="5000" number="5000" from="entry" to="exit" departPos="last" departLane="best" />
-    <flow id="sporty" type="sporty_car" begin="0" end="5000" number="300" from="entry" to="exit" departPos="last" departLane="best" />
-    <flow id="coach" type="coach" begin="0" end="5000" number="300" from="entry" to="exit" departPos="last" departLane="best" />
-    <flow id="trailer" type="trailer" begin="0" end="5000" number="700" from="entry" to="exit" departPos="last" departLane="best" />
+    <vType id="trailer" vClass="trailer"  maxSpeed="30" speedFactor="1" speedDev="0.05" />
+    <vType id="coach" vClass="coach"  maxSpeed="30" speedFactor="1" speedDev="0.05" />
+    <flow id="normal" type="normal_car" begin="0" end="5000" number="5000" from="entry" to="exit" departSpeed="avg" departLane="best" />
+    <flow id="sporty" type="sporty_car" begin="0" end="5000" number="300" from="entry" to="exit" departSpeed="avg" departLane="best" />
+    <flow id="coach" type="coach" begin="0" end="5000" number="300" from="entry" to="exit" departSpeed="avg" departLane="best" />
+    <flow id="trailer" type="trailer" begin="0" end="5000" number="700" from="entry" to="exit" departSpeed="avg" departLane="best" />
 </routes>
 ```
 
