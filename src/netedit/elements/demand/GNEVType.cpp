@@ -426,7 +426,7 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
                     return toString(latAlignmentOffset);
                 }
             } else {
-                return myTagProperty.getDefaultValue(SUMO_ATTR_LATALIGNMENT);
+                return toString(defaultValues.latAlignmentProcedure);
             }
         case SUMO_ATTR_MINGAP_LAT:
             if (wasSet(VTYPEPARS_MINGAP_LAT_SET)) {
@@ -1693,13 +1693,13 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_LATALIGNMENT:
-            if (!value.empty() && (value != myTagProperty.getDefaultValue(key))) {
+            if (!value.empty() && (value != toString(defaultValues.latAlignmentProcedure))) {
                 parseLatAlignment(value, latAlignmentOffset, latAlignmentProcedure);
                 // mark parameter as set
                 parametersSet |= VTYPEPARS_LATALIGNMENT_SET;
             } else {
                 // set default value
-                parseLatAlignment(myTagProperty.getDefaultValue(key), latAlignmentOffset, latAlignmentProcedure);
+                parseLatAlignment(toString(defaultValues.latAlignmentProcedure), latAlignmentOffset, latAlignmentProcedure);
                 // unset parameter
                 parametersSet &= ~VTYPEPARS_LATALIGNMENT_SET;
             }
