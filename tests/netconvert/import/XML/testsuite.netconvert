@@ -61,11 +61,13 @@ junctionLogic
 
 # tests for roundabouts specified via xml
 roundabout
-
 connection_guessing
 
 # test load public transport related files
 public_transport
+
+# check classification of link direction
+link_direction
 
 # declared edge length should be writen back into the plain-output
 loaded_length
@@ -87,6 +89,7 @@ distance
 
 # import junction name from plain xml
 junction_name
+
 # import params from plain xml
 params
 
