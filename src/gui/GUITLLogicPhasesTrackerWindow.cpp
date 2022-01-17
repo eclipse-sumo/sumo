@@ -78,8 +78,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::~GUITLLogicPhasesTr
 
 
 long
-GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onConfigure(
-    FXObject*, FXSelector, void*) {
+GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onConfigure(FXObject*, FXSelector, void*) {
     if (makeCurrent()) {
         int widthInPixels = getWidth();
         int heightInPixels = getHeight();
@@ -132,9 +131,8 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onPaint(
 
 
 long
-GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onMouseMove(
-    FXObject*, FXSelector, void* data) {
-    FXEvent* event = (FXEvent*) data;
+GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onMouseMove(FXObject*, FXSelector, void* ptr) {
+    FXEvent* event = (FXEvent*) ptr;
     myMousePos.setx(event->win_x);
     myMousePos.sety(event->win_y);
     onPaint(nullptr, 0, nullptr);
@@ -587,13 +585,13 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         if (myDetectorMode->getCheck()) {
             glColor3d(0.7, 0.7, 1.0);
             drawAdditionalStates(caller, myDetectorStates, myDetectorDurations, myFirstDetOffset, myFirstDet2Show, h,
-                    panelWidth, leftOffset, barWidth, stateHeight, h20, h);
+                    panelWidth, (double)leftOffset, barWidth, stateHeight, h20, h);
             h -= h35;
         }
         if (myConditionMode->getCheck()) {
             glColor3d(0.9, 0.6, 0.9);
             drawAdditionalStates(caller, myConditionStates, myConditionDurations, myFirstCondOffset, myFirstCond2Show, h,
-                    panelWidth, leftOffset, barWidth, stateHeight, h20, h);
+                    panelWidth, (double)leftOffset, barWidth, stateHeight, h20, h);
         }
     }
     // allow value addition
@@ -707,18 +705,18 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         // draw bottom time bar with fixed spacing
         if (myAmInTrackingMode && (myDetectorMode->getCheck() || myConditionMode->getCheck()) && glpos >= w30) {
             glColor3d(1, 1, 1);
-            SUMOTime tickDist = TIME2STEPS(10);
+            tickDist = TIME2STEPS(10);
             // patch distances - hack
-            double t = myBeginOffset != nullptr ? myBeginOffset->getValue() : STEPS2TIME(myLastTime - myBeginTime);
+            t = myBeginOffset != nullptr ? myBeginOffset->getValue() : STEPS2TIME(myLastTime - myBeginTime);
             while (t > barWidth / 4.) {
                 tickDist += TIME2STEPS(10);
                 t -= barWidth / 4.;
             }
-            double glh = (double)(1.0 - myLinkNames.size() * h20 - h80);
+            glh = (double)(1.0 - myLinkNames.size() * h20 - h80);
             glh -= h20 * (myDetectorMode->getCheck() ? myDetectorNames.size() : myConditionNames.size());
-            SUMOTime currTime = myFirstTime2Show;
+            currTime = myFirstTime2Show;
             int pos = 31;
-            double glpos = (double) pos / panelWidth;
+            glpos = (double) pos / panelWidth;
             if (leftOffset > 0) {
                 const double a = STEPS2TIME(leftOffset) * barWidth / timeRange;
                 pos += (int)a;
@@ -730,7 +728,6 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
                 glpos += a / panelWidth;
                 currTime = myBeginTime - (myBeginTime % tickDist);
             }
-            const double ticSize = 4. / panelHeight;
             while (pos < panelWidth + 50.) {
                 const std::string timeStr = (mmSS
                         ? StringUtils::padFront(toString((currTime % 3600000) / 60000), 2, '0') + ":"
@@ -813,7 +810,7 @@ GUITLLogicPhasesTrackerWindow::drawAdditionalStates(GUITLLogicPhasesTrackerPanel
         const bool tooltipX = x < mx && mx < x2;
         //std::cout << SIMTIME << " detStates=" << toString(*di) << "\n";
         // go through the detectors
-        for (int j : *di) {
+        for (double j : *di) {
             if (j != 0) {
                 // draw a thick block
                 glBegin(GL_QUADS);
@@ -825,7 +822,7 @@ GUITLLogicPhasesTrackerWindow::drawAdditionalStates(GUITLLogicPhasesTrackerPanel
                 if (tooltipX) {
                     const bool tooltipY = (h - stateHeight) < my && my < h;
                     if (tooltipY) {
-                        tooltip = toString(j);
+                        tooltip = toString((int)j);
                     }
                 }
             }

@@ -184,10 +184,6 @@ public:
      */
     double getOccupancy() const;
 
-    int getCurrentVehicleNumber() const {
-        return getEnteredNumber(0);
-    }
-
     /** @brief Returns the number of vehicles that have passed the detector
      *
      * If a vehicle is on the detector, 1 is returned. If a vehicle has passed the detector
