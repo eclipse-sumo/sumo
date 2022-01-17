@@ -756,7 +756,7 @@ NEMALogic::NEMA_control() {
     else{
         phaseExpectedDuration[R1Index] = MAX2(phaseExpectedDuration[R1Index], minGreen[R1Index]);
     }
-    if (R1Phase != r1coordinatePhase || (!coordinateMode && vehExt[R1Index] > 0)) {
+    if ((R1Phase != r1coordinatePhase) || (!coordinateMode && vehExt[R1Index] > 0)) {
         if (isDetectorActivated(R1Phase)) {
             phaseExpectedDuration[R1Index] = MAX2(phaseExpectedDuration[R1Index], durationR1 + vehExt[R1Index]);
             if(fixForceOff){
@@ -833,11 +833,11 @@ NEMALogic::NEMA_control() {
     }
 
     // Logic for Green Rest & Green Transfer
-    // This requires a detector check. If the next desired phase is the current phase, 
-    // do not cycle through Y -> R -> G. It should only be entered when the lights are green
+    // This requires a detector check. It should only be entered when the lights are green
     if ((EndCurrentPhaseR1 && R1RYG == 1) || (EndCurrentPhaseR2 && R2RYG == 1)){
         if (!coordinateMode && EndCurrentPhaseR1 && EndCurrentPhaseR2){
             // entry point to green rest. First check detector status, then determine if this should be up next.
+            // Green rest is effectively the same as being perpetually past the minimum green timer but not changing
             if ((nextPhase(rings[0], R1Phase) == R1Phase) && (nextPhase(rings[1], R2Phase) == R2Phase)){
                 // mark that the phases are not desired to end
                 EndCurrentPhaseR1 = false;
@@ -845,9 +845,8 @@ NEMALogic::NEMA_control() {
                 wait4R1Green = false;
                 wait4R2Green = false;
 
-                // Timing update. This logic should be checked the next step, so only add the simulation timestep
-                // phaseExpectedDuration[R1Index] = TS;
-                // phaseExpectedDuration[R2Index] = TS;
+                // Timing update. This logic should be checked the next step, so only add the simulation timestep.
+                // Potential that this needs to be extended in the future.
                 phaseEndTimeR1 += TS;
                 phaseEndTimeR2 += TS;
 
