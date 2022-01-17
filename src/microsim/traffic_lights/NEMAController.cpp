@@ -830,12 +830,16 @@ NEMALogic::NEMA_control() {
     }
     if (EndCurrentPhaseR2 && (R2Phase == r2barrier)) {
         if (!EndCurrentPhaseR1 || R1Phase != r1barrier) {
-            EndCurrentPhaseR2 = false;
+            // This logic is flawed. The controller should be able to transition from [3, 8] -> [2, 6] even 
+            // when the controller has a barrier at [4, 8] 
+            // Not sure why this was implemented
+            // EndCurrentPhaseR2 = false;
+            
         }
     }
     if (EndCurrentPhaseR2 && (R2Phase == r2coordinatePhase)) {
         if (!EndCurrentPhaseR1 || R1Phase != r1coordinatePhase) {
-            EndCurrentPhaseR2 = false;
+            // EndCurrentPhaseR2 = false;
         }
     }
     if (EndCurrentPhaseR1 && (!wait4R1Green)) {

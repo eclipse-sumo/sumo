@@ -15,3 +15,6 @@ fully_actuated
 
 # test green rest
 green_rest
+
+# test green transfer
+green_transfer
