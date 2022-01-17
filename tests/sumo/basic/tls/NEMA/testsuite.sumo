@@ -12,9 +12,6 @@ errors
 
 # fully actuated mode tests
 fully_actuated
-<<<<<<< HEAD
-=======
 
 # test green rest
 green_rest
->>>>>>> upstream/main
