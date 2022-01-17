@@ -74,7 +74,7 @@ GUIDialog_ChooserAbstract::GUIDialog_ChooserAbstract(GUIGlChildWindow* windowsPa
     FXHorizontalFrame* hbox = new FXHorizontalFrame(this, GUIDesignAuxiliarFrame);
     // build the list
     FXVerticalFrame* layoutLeft = new FXVerticalFrame(hbox, GUIDesignChooserLayoutLeft);
-    myTextEntry = new FXTextField(layoutLeft, 0, this, MID_CHOOSER_TEXT, GUIDesignChooserTextField);
+    myTextEntry = new FXTextField(layoutLeft, 0, this, MID_CHOOSER_TEXT, TEXTFIELD_ENTER_ONLY | GUIDesignChooserTextField);
     FXVerticalFrame* layoutList = new FXVerticalFrame(layoutLeft, GUIDesignChooserLayoutList);
     myList = new FXList(layoutList, this, MID_CHOOSER_LIST, GUIDesignChooserListSingle);
     // build the buttons
