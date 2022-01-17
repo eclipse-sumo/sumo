@@ -600,7 +600,7 @@ MSStageMoving::getEdge() const {
     if (myCurrentInternalEdge != nullptr) {
         return myCurrentInternalEdge;
     } else {
-        return *myRouteStep;
+        return myRouteStep == myRoute.end() ? nullptr : *myRouteStep;;
     }
 }
 
