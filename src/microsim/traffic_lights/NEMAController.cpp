@@ -106,6 +106,7 @@ NEMALogic::NEMALogic(MSTLLogicControl& tlcontrol,
     myNextOffset = offset;
     whetherOutputState = StringUtils::toBool(getParameter("whetherOutputState", "false"));
     coordinateMode = StringUtils::toBool(getParameter("coordinate-mode", "false"));
+    greenTransfer = StringUtils::toBool(getParameter("greenTransfer", "true"));
     //print to check
 #ifdef DEBUG_NEMA
     std::cout << "JunctionID = " << myID << std::endl;
@@ -121,6 +122,7 @@ NEMALogic::NEMALogic(MSTLLogicControl& tlcontrol,
     std::cout << "myShowDetectors = " << myShowDetectors << std::endl;
     std::cout << "coordinateMode = " << coordinateMode << std::endl;
     std::cout << "fixForceOff = " << fixForceOff << std::endl;
+    std::cout << "greenTransfer = " << greenTransfer << std::endl;
     std::cout << "You reach the end of constructor" << std::endl;
     std::cout << "****************************************\n";
 #endif
@@ -767,7 +769,7 @@ NEMALogic::NEMA_control() {
     else{
         phaseExpectedDuration[R1Index] = MAX2(phaseExpectedDuration[R1Index], minGreen[R1Index]);
     }
-    if ((R1Phase != r1coordinatePhase) || (!coordinateMode && vehExt[R1Index] > 0)) {
+    if (((R1Phase != r1coordinatePhase) || (!coordinateMode && vehExt[R1Index] > 0)) && (R1RYG == 1)) {
         if (isDetectorActivated(R1Phase)) {
             phaseExpectedDuration[R1Index] = MAX2(phaseExpectedDuration[R1Index], durationR1 + vehExt[R1Index]);
             if(fixForceOff){
@@ -793,7 +795,7 @@ NEMALogic::NEMA_control() {
     else{
         phaseExpectedDuration[R2Index] = MAX2(phaseExpectedDuration[R2Index], minGreen[R2Index]);
     }
-    if ((R2Phase != r2coordinatePhase && R2Phase >= 5) || (R2Phase >= 5 && !coordinateMode && vehExt[R2Index] > 0)) {
+    if (((R2Phase != r2coordinatePhase && R2Phase >= 5) || (R2Phase >= 5 && !coordinateMode && vehExt[R2Index] > 0)) && (R2RYG == 1)) {
         if (isDetectorActivated(R2Phase)) {
             phaseExpectedDuration[R2Index] = MAX2(phaseExpectedDuration[R2Index], durationR2 + vehExt[R2Index]);
             if (fixForceOff){
@@ -816,12 +818,32 @@ NEMALogic::NEMA_control() {
     if (durationR2 >= phaseExpectedDuration[R2Index]) {
         EndCurrentPhaseR2 = true;
     }
+    if (EndCurrentPhaseR1 && (R1Phase == r1barrier)) {
+        if (!(EndCurrentPhaseR2 && R2Phase == r2barrier)) {
+            //update expectedDuration
+            EndCurrentPhaseR1 = false;
+        }
+    }
+    if (EndCurrentPhaseR1 && (R1Phase == r1coordinatePhase)) {
+        if (!EndCurrentPhaseR2 || R2Phase != r2coordinatePhase) {
+            EndCurrentPhaseR1 = false;
+        }
+    }
+    if (EndCurrentPhaseR2 && (R2Phase == r2barrier)) {
+        if (!EndCurrentPhaseR1 || R1Phase != r1barrier) {
+            EndCurrentPhaseR2 = false;
+        }
+    }
+    if (EndCurrentPhaseR2 && (R2Phase == r2coordinatePhase)) {
+        if (!EndCurrentPhaseR1 || R1Phase != r1coordinatePhase) {
+            EndCurrentPhaseR2 = false;
+        }
+    }
     if (EndCurrentPhaseR1 && (!wait4R1Green)) {
         phaseEndTimeR1 = currentTimeInSecond;
         phaseExpectedDuration[R1Index] = 0;
         wait4R1Green = true;
     }
-
     //Enter transition phase in Ring2
     if (EndCurrentPhaseR2 && (!wait4R2Green)) {
         phaseEndTimeR2 = currentTimeInSecond;
@@ -829,7 +851,6 @@ NEMALogic::NEMA_control() {
         wait4R2Green = true;
     }
 
-    
     // Logic for Green Rest & Green Transfer
     // This requires a detector check. It should only be entered when the lights are green
     if ((EndCurrentPhaseR1 && R1RYG == 1) || (EndCurrentPhaseR2 && R2RYG == 1)){
@@ -839,7 +860,7 @@ NEMALogic::NEMA_control() {
             int tempR1Phase = R1Phase;
             nextPhase(rings[0], tempR1Phase);
 
-            int tempR2Phase;
+            int tempR2Phase = R2Phase;
             nextPhase(rings[1], tempR2Phase);
 
             if ((tempR1Phase == R1Phase) && (tempR2Phase == R2Phase)){
@@ -860,7 +881,33 @@ NEMALogic::NEMA_control() {
                 phaseStartTime[R2Index] = currentTimeInSecond - minGreen[R2Index];
             }
         }
+        if (!(EndCurrentPhaseR1 && EndCurrentPhaseR2) && greenTransfer){
+            // Entry to green transfer. One of the phases is ready to end but the other isn't
+            // Not sure if this needs to be a user choice or default behavior
+            if (EndCurrentPhaseR1){
+                // We need to check if the detector is activated on the other sequential phase inside of the barrier
+                // Difference is that the extention time does nothing in green transfer
+                // This is the same as perpetually being past the maximum timer but not transitioning
+                // Recalls do take effect here 
+                int barrier = findBarrier(R1Phase, 0);
+                int potentialNextPhase = myRingBarrierMapping[0][barrier].back();
+                if (!isDetectorActivated(potentialNextPhase) && !recall[potentialNextPhase - 1]){
+                    EndCurrentPhaseR1 = false;
+                    wait4R1Green = false;
+                    phaseEndTimeR1 += TS;
+                } 
+            }else{
+                int barrier = findBarrier(R2Phase, 1);
+                int potentialNextPhase = myRingBarrierMapping[1][barrier].back();
+                if (!isDetectorActivated(potentialNextPhase) && !recall[potentialNextPhase - 1]){
+                    EndCurrentPhaseR2 = false;
+                    wait4R2Green = false;
+                    phaseEndTimeR2 += TS;
+                } 
+            }
+        }
     }
+
 
     // Calculate the next phase with knowledge of both rings
     // Next Phase should be calculated at the start of red or aka the last step of yellow
