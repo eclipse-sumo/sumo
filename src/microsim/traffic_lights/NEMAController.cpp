@@ -106,6 +106,7 @@ NEMALogic::NEMALogic(MSTLLogicControl& tlcontrol,
     myNextOffset = offset;
     whetherOutputState = StringUtils::toBool(getParameter("whetherOutputState", "false"));
     coordinateMode = StringUtils::toBool(getParameter("coordinate-mode", "false"));
+    greenTransfer = StringUtils::toBool(getParameter("greenTransfer", "false"));
     //print to check
 #ifdef DEBUG_NEMA
     std::cout << "JunctionID = " << myID << std::endl;
@@ -867,7 +868,7 @@ NEMALogic::NEMA_control() {
                 phaseStartTime[R2Index] = currentTimeInSecond - minGreen[R2Index];
             }
         }
-        if (!(EndCurrentPhaseR1 && EndCurrentPhaseR2)){
+        if (!(EndCurrentPhaseR1 && EndCurrentPhaseR2) && greenTransfer){
             // Entry to green transfer. One of the phases is ready to end but the other isn't
             // Not sure if this needs to be a user choice or default behavior
             if (EndCurrentPhaseR1){
