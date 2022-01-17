@@ -836,7 +836,13 @@ NEMALogic::NEMA_control() {
         if (!coordinateMode && EndCurrentPhaseR1 && EndCurrentPhaseR2){
             // entry point to green rest. First check detector status, then determine if this should be up next.
             // Green rest is effectively the same as being perpetually past the minimum green timer but not changing
-            if ((nextPhase(rings[0], R1Phase) == R1Phase) && (nextPhase(rings[1], R2Phase) == R2Phase)){
+            int tempR1Phase = R1Phase;
+            nextPhase(rings[0], tempR1Phase);
+
+            int tempR2Phase;
+            nextPhase(rings[1], tempR2Phase);
+
+            if ((tempR1Phase == R1Phase) && (tempR2Phase == R2Phase)){
                 // mark that the phases are not desired to end
                 EndCurrentPhaseR1 = false;
                 EndCurrentPhaseR2 = false;
