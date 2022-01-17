@@ -816,27 +816,6 @@ NEMALogic::NEMA_control() {
     if (durationR2 >= phaseExpectedDuration[R2Index]) {
         EndCurrentPhaseR2 = true;
     }
-    if (EndCurrentPhaseR1 && (R1Phase == r1barrier)) {
-        if (!(EndCurrentPhaseR2 && R2Phase == r2barrier)) {
-            //update expectedDuration
-            EndCurrentPhaseR1 = false;
-        }
-    }
-    if (EndCurrentPhaseR1 && (R1Phase == r1coordinatePhase)) {
-        if (!EndCurrentPhaseR2 || R2Phase != r2coordinatePhase) {
-            EndCurrentPhaseR1 = false;
-        }
-    }
-    if (EndCurrentPhaseR2 && (R2Phase == r2barrier)) {
-        if (!EndCurrentPhaseR1 || R1Phase != r1barrier) {
-            EndCurrentPhaseR2 = false;
-        }
-    }
-    if (EndCurrentPhaseR2 && (R2Phase == r2coordinatePhase)) {
-        if (!EndCurrentPhaseR1 || R1Phase != r1coordinatePhase) {
-            EndCurrentPhaseR2 = false;
-        }
-    }
     if (EndCurrentPhaseR1 && (!wait4R1Green)) {
         phaseEndTimeR1 = currentTimeInSecond;
         phaseExpectedDuration[R1Index] = 0;
@@ -881,11 +860,11 @@ NEMALogic::NEMA_control() {
     // Next Phase should be calculated at the start of red or aka the last step of yellow
     bool calculate = false;
     if (wait4R1Green || wait4R2Green) {
-        if ((currentTimeInSecond - phaseEndTimeR1 < (yellowTime[R1Index] + redTime[R1Index])) && (R1RYG == 0)){
+        if ((currentTimeInSecond - phaseEndTimeR1 >= yellowTime[R1Index]) && (R1RYG == 0)){
             R1RYG = -1; //red
             calculate = true;
         }
-        if (((currentTimeInSecond - phaseEndTimeR2) < (yellowTime[R2Index] + redTime[R2Index])) && (R2RYG == 0)){
+        if ((currentTimeInSecond - phaseEndTimeR2 >= yellowTime[R2Index]) && (R2RYG == 0)){
             R2RYG = -1; //red
             calculate = true;
         }
@@ -1036,7 +1015,7 @@ void NEMALogic::constructBarrierMap(int ring, std::vector<std::vector<int>> &bar
     for (int localPhase : rings[ring]){
         if (!flag){
             barrierOne.push_back(localPhase);
-            if ((localPhase == r1coordinatePhase && ring == 0) || (localPhase == r2coordinatePhase && ring == 1)){
+            if (((localPhase == r1coordinatePhase || localPhase == r1barrier) && ring == 0) || ((localPhase == r2coordinatePhase || localPhase == r2barrier) && ring == 1)){
               flag = 1;
             };
         } else {
