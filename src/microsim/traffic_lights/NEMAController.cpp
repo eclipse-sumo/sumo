@@ -856,6 +856,21 @@ NEMALogic::NEMA_control() {
                 phaseStartTime[R2Index] = currentTimeInSecond - minGreen[R2Index];
             }
         }
+        if (!(EndCurrentPhaseR1 && EndCurrentPhaseR2)){
+            // Entry to green transfer. One of the phases is ready to end but the other isn't
+            // Not sure if this needs to be a user choice or default behavior
+            if (EndCurrentPhaseR1){
+                // We need to check if the detector is activated on the other sequential phase inside of the barrier
+                // This will change slightly when the next phase is served by the 
+                // Difference is that the extention time does nothing in green transfer
+                // This is the same as perpetually being past the maximum timer but not transitioning
+                if (nextPhase(rings[0], R1Phase) == R1Phase){
+                    EndCurrentPhaseR1 = false;
+                    wait4R1Green = false;
+                    phaseEndTimeR1 += TS;
+                } 
+            }
+        }
     }
 
     //enter transtion phase for Ring1
