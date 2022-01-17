@@ -599,6 +599,12 @@ GLHelper::getDottedcontourColors(const int size) {
 }
 
 
+double
+GLHelper::getTextWidth(const std::string& text, double size) {
+    return size / myFontSize * fonsTextBounds(myFont, 0, 0, text.c_str(), nullptr, nullptr);
+}
+
+
 void
 GLHelper::drawText(const std::string& text, const Position& pos, const double layer, const double size,
                    const RGBColor& col, const double angle, const int align, double width) {
