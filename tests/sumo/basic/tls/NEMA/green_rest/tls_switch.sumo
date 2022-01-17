@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-17 08:08:55 by Eclipse SUMO sumo Version v1_11_0+1195-172f090acd3
+<!-- generated on 2022-01-17 14:43:28 by Eclipse SUMO GUI Version v1_11_0+1237-50e8dfeca1e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -51,44 +51,44 @@ SPDX-License-Identifier: EPL-2.0
    <tlsSwitch id="2881" programID="NEMA" fromLane="-905_1" toLane="-16037_1" begin="84.00" end="99.00" duration="15.00"/>
    <tlsSwitch id="2881" programID="NEMA" fromLane="-905_1" toLane="-17276_0" begin="84.00" end="99.00" duration="15.00"/>
    <tlsSwitch id="2881" programID="NEMA" fromLane="-905_2" toLane="-17276_1" begin="84.00" end="99.00" duration="15.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="17276_0" toLane="16480_0" begin="105.00" end="128.00" duration="23.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="17276_1" toLane="16480_1" begin="105.00" end="128.00" duration="23.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="-16480_0" toLane="-16037_0" begin="105.00" end="128.00" duration="23.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="-16480_0" toLane="-17276_0" begin="105.00" end="128.00" duration="23.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="-16480_1" toLane="-17276_1" begin="105.00" end="128.00" duration="23.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_0" toLane="16480_0" begin="133.00" end="154.00" duration="21.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_0" toLane="-16037_0" begin="133.00" end="154.00" duration="21.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_1" toLane="-16037_1" begin="133.00" end="154.00" duration="21.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_1" toLane="-17276_0" begin="133.00" end="154.00" duration="21.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_2" toLane="-17276_1" begin="133.00" end="154.00" duration="21.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="17276_0" toLane="16480_0" begin="160.00" end="170.00" duration="10.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="17276_1" toLane="16480_1" begin="160.00" end="170.00" duration="10.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="-16480_0" toLane="-16037_0" begin="160.00" end="170.00" duration="10.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="-16480_0" toLane="-17276_0" begin="160.00" end="170.00" duration="10.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="-16480_1" toLane="-17276_1" begin="160.00" end="170.00" duration="10.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_0" toLane="16480_0" begin="175.00" end="185.00" duration="10.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_0" toLane="-16037_0" begin="175.00" end="185.00" duration="10.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_1" toLane="-16037_1" begin="175.00" end="185.00" duration="10.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_1" toLane="-17276_0" begin="175.00" end="185.00" duration="10.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_2" toLane="-17276_1" begin="175.00" end="185.00" duration="10.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="17276_0" toLane="16480_0" begin="191.00" end="201.00" duration="10.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="17276_1" toLane="16480_1" begin="191.00" end="201.00" duration="10.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="-16480_0" toLane="-16037_0" begin="191.00" end="201.00" duration="10.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="-16480_0" toLane="-17276_0" begin="191.00" end="201.00" duration="10.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="-16480_1" toLane="-17276_1" begin="191.00" end="201.00" duration="10.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_0" toLane="16480_0" begin="206.00" end="216.00" duration="10.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_0" toLane="-16037_0" begin="206.00" end="216.00" duration="10.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_1" toLane="-16037_1" begin="206.00" end="216.00" duration="10.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_1" toLane="-17276_0" begin="206.00" end="216.00" duration="10.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_2" toLane="-17276_1" begin="206.00" end="216.00" duration="10.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="17276_0" toLane="16480_0" begin="222.00" end="232.00" duration="10.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="17276_1" toLane="16480_1" begin="222.00" end="232.00" duration="10.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="-16480_0" toLane="-16037_0" begin="222.00" end="232.00" duration="10.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="-16480_0" toLane="-17276_0" begin="222.00" end="232.00" duration="10.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="-16480_1" toLane="-17276_1" begin="222.00" end="232.00" duration="10.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_0" toLane="16480_0" begin="237.00" end="257.00" duration="20.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_0" toLane="-16037_0" begin="237.00" end="257.00" duration="20.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_1" toLane="-16037_1" begin="237.00" end="257.00" duration="20.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_1" toLane="-17276_0" begin="237.00" end="257.00" duration="20.00"/>
-   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_2" toLane="-17276_1" begin="237.00" end="257.00" duration="20.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="17276_0" toLane="16480_0" begin="105.00" end="115.00" duration="10.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="17276_1" toLane="16480_1" begin="105.00" end="115.00" duration="10.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="-16480_0" toLane="-16037_0" begin="105.00" end="115.00" duration="10.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="-16480_0" toLane="-17276_0" begin="105.00" end="115.00" duration="10.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="-16480_1" toLane="-17276_1" begin="105.00" end="115.00" duration="10.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_0" toLane="16480_0" begin="120.00" end="130.00" duration="10.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_0" toLane="-16037_0" begin="120.00" end="130.00" duration="10.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_1" toLane="-16037_1" begin="120.00" end="130.00" duration="10.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_1" toLane="-17276_0" begin="120.00" end="130.00" duration="10.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_2" toLane="-17276_1" begin="120.00" end="130.00" duration="10.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="17276_0" toLane="16480_0" begin="136.00" end="146.00" duration="10.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="17276_1" toLane="16480_1" begin="136.00" end="146.00" duration="10.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="-16480_0" toLane="-16037_0" begin="136.00" end="146.00" duration="10.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="-16480_0" toLane="-17276_0" begin="136.00" end="146.00" duration="10.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="-16480_1" toLane="-17276_1" begin="136.00" end="146.00" duration="10.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_0" toLane="16480_0" begin="151.00" end="162.00" duration="11.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_0" toLane="-16037_0" begin="151.00" end="162.00" duration="11.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_1" toLane="-16037_1" begin="151.00" end="162.00" duration="11.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_1" toLane="-17276_0" begin="151.00" end="162.00" duration="11.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_2" toLane="-17276_1" begin="151.00" end="162.00" duration="11.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="17276_0" toLane="16480_0" begin="168.00" end="178.00" duration="10.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="17276_1" toLane="16480_1" begin="168.00" end="178.00" duration="10.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="-16480_0" toLane="-16037_0" begin="168.00" end="178.00" duration="10.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="-16480_0" toLane="-17276_0" begin="168.00" end="178.00" duration="10.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="-16480_1" toLane="-17276_1" begin="168.00" end="178.00" duration="10.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_0" toLane="16480_0" begin="183.00" end="193.00" duration="10.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_0" toLane="-16037_0" begin="183.00" end="193.00" duration="10.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_1" toLane="-16037_1" begin="183.00" end="193.00" duration="10.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_1" toLane="-17276_0" begin="183.00" end="193.00" duration="10.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_2" toLane="-17276_1" begin="183.00" end="193.00" duration="10.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="17276_0" toLane="16480_0" begin="199.00" end="209.00" duration="10.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="17276_1" toLane="16480_1" begin="199.00" end="209.00" duration="10.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="-16480_0" toLane="-16037_0" begin="199.00" end="209.00" duration="10.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="-16480_0" toLane="-17276_0" begin="199.00" end="209.00" duration="10.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="-16480_1" toLane="-17276_1" begin="199.00" end="209.00" duration="10.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_0" toLane="16480_0" begin="214.00" end="225.00" duration="11.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_0" toLane="-16037_0" begin="214.00" end="225.00" duration="11.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_1" toLane="-16037_1" begin="214.00" end="225.00" duration="11.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_1" toLane="-17276_0" begin="214.00" end="225.00" duration="11.00"/>
+   <tlsSwitch id="2881" programID="NEMA" fromLane="-905_2" toLane="-17276_1" begin="214.00" end="225.00" duration="11.00"/>
 </tlsSwitches>

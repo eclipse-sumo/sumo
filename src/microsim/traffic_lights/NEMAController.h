@@ -328,4 +328,6 @@ protected:
     void constructBarrierMap(int ring, std::vector<std::vector<int>> &barrierMap);
     int findBarrier(int desiredPhase, int ring);
 
+    // Green Transfer Option
+    bool greenTransfer;
 };
