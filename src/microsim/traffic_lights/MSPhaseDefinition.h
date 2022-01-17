@@ -212,7 +212,7 @@ public:
      * @return Whether the given phase definition differs
      */
     bool operator!=(const MSPhaseDefinition& pd) {
-        return myState != pd.myState;
+        return myState != pd.myState || name != pd.name;
     }
 
 
