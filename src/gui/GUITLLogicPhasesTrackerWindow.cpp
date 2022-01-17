@@ -243,8 +243,8 @@ GUITLLogicPhasesTrackerWindow::initToolBar() {
 
     if (myAmInTrackingMode) {
         // interval manipulation
-        new FXLabel(myToolBar, "Range (s):", nullptr, LAYOUT_CENTER_Y);
-        myBeginOffset = new FXRealSpinner(myToolBar, 10, this, MID_SIMSTEP, LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
+        new FXLabel(myToolBar, "range (s):", nullptr, LAYOUT_CENTER_Y);
+        myBeginOffset = new FXRealSpinner(myToolBar, 4, this, MID_SIMSTEP, LAYOUT_TOP | FRAME_SUNKEN | FRAME_THICK);
         //myBeginOffset->setFormatString("%.0f");
         //myBeginOffset->setIncrements(1, 10, 100);
         myBeginOffset->setIncrement(10);
@@ -252,14 +252,20 @@ GUITLLogicPhasesTrackerWindow::initToolBar() {
         myBeginOffset->setValue(240);
     }
 
-    new FXLabel(myToolBar, "Time Style:", nullptr, LAYOUT_CENTER_Y);
-    myTimeMode = new FXComboBox(myToolBar, 20, this, MID_SIMSTEP, GUIDesignViewSettingsComboBox1);
-    myTimeMode->appendItem("Seconds");
+    new FXLabel(myToolBar, "time style:", nullptr, LAYOUT_CENTER_Y);
+    myTimeMode = new FXComboBox(myToolBar, 11, this, MID_SIMSTEP, GUIDesignViewSettingsComboBox1);
+    myTimeMode->appendItem("seconds");
     myTimeMode->appendItem("MM:SS");
-    myTimeMode->appendItem("Time in cycle");
+    myTimeMode->appendItem("time in cycle");
     myTimeMode->setNumVisible(3);
 
-    myGreenMode = new FXCheckButton(myToolBar, "green durations", this, MID_SIMSTEP);
+    new FXLabel(myToolBar, "green time", nullptr, LAYOUT_CENTER_Y);
+    myGreenMode = new FXComboBox(myToolBar, 6, this, MID_SIMSTEP, GUIDesignViewSettingsComboBox1);
+    myGreenMode->appendItem("off");
+    myGreenMode->appendItem("phase");
+    myGreenMode->appendItem("running");
+    myGreenMode->setNumVisible(3);
+
     myIndexMode = new FXCheckButton(myToolBar, "phase names", this, MID_SIMSTEP);
 
     if (myAmInTrackingMode) {
@@ -508,6 +514,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
     double spaceForName = 0;
 
     // start drawing
+    std::vector<SUMOTime> runningGreen(myTLLogic->getLinks().size(), 0);
     for (DurationsVector::iterator pd = myDurations.begin() + myFirstPhase2Show; pd != myDurations.end(); ++pd) {
         SUMOTime i = 30;
         // the first phase may be drawn incompletely
@@ -545,12 +552,36 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
                     glEnd();
                     break;
             }
-            if (myGreenMode->getCheck() != FALSE && (state == LINKSTATE_TL_GREEN_MINOR || state == LINKSTATE_TL_GREEN_MAJOR)) {
-                GLHelper::drawText(toString((int)STEPS2TIME(*pd)), Position(x, h - h9), 0, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
+            if (myGreenMode->getCurrentItem() != 0) {
+                SUMOTime drawnDuration = 0;
+                double xOffset = 0;
+                if (state == LINKSTATE_TL_GREEN_MINOR || state == LINKSTATE_TL_GREEN_MAJOR) {
+                    if (myGreenMode->getCurrentItem() == 1) {
+                        drawnDuration = *pd;
+                    } else {
+                        runningGreen[j] += *pd;
+                        if (pd + 1 == myDurations.end()) {
+                            drawnDuration = runningGreen[j];
+                            xOffset =  -(drawnDuration - *pd)/ panelWidth * (barWidth / ((double)(myLastTime - myBeginTime)));
+                        }
+                    }
+                } else {
+                    if (runningGreen[j] > 0) {
+                        drawnDuration = runningGreen[j];
+                        xOffset =  -drawnDuration / panelWidth * (barWidth / ((double)(myLastTime - myBeginTime)));
+                    }
+                    runningGreen[j] = 0;
+                }
+                if (drawnDuration > 0) {
+                    GLHelper::drawText(toString((int)STEPS2TIME(drawnDuration)),
+                            Position(x + xOffset, h - h9),
+                            0, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
+                }
             }
             // proceed to next link
             h -= h20;
         }
+
         // draw phase index / name (no names for intermediate)
         std::string name = phaseNames ? pi->getName() : toString(*ii);
         if (name != lastName) {
@@ -948,7 +979,7 @@ GUITLLogicPhasesTrackerWindow::saveSettings() {
     getApp()->reg().writeIntEntry("TL_TRACKER", "width", getWidth());
     getApp()->reg().writeIntEntry("TL_TRACKER", "timeRange", (int)myBeginOffset->getValue());
     getApp()->reg().writeIntEntry("TL_TRACKER", "timeMode", myTimeMode->getCurrentItem());
-    getApp()->reg().writeIntEntry("TL_TRACKER", "greenMode", (int)(myGreenMode->getCheck()));
+    getApp()->reg().writeIntEntry("TL_TRACKER", "greenMode", (myGreenMode->getCurrentItem()));
     getApp()->reg().writeIntEntry("TL_TRACKER", "indexMode", (int)(myIndexMode->getCheck()));
     getApp()->reg().writeIntEntry("TL_TRACKER", "detectorMode", (int)(myDetectorMode->getCheck()));
     getApp()->reg().writeIntEntry("TL_TRACKER", "conditionMode", (int)(myConditionMode->getCheck()));
@@ -973,7 +1004,7 @@ GUITLLogicPhasesTrackerWindow::loadSettings() {
     setWidth(MAX2(getApp()->reg().readIntEntry("TL_TRACKER", "width", 700), minSize));
     myBeginOffset->setValue(getApp()->reg().readIntEntry("TL_TRACKER", "timeRange", (int)myBeginOffset->getValue()));
     myTimeMode->setCurrentItem(getApp()->reg().readIntEntry("TL_TRACKER", "timeMode", myTimeMode->getCurrentItem()));
-    myGreenMode->setCheck((bool)getApp()->reg().readIntEntry("TL_TRACKER", "greenMode", (int)(myGreenMode->getCheck())));
+    myGreenMode->setCurrentItem((bool)getApp()->reg().readIntEntry("TL_TRACKER", "greenMode", (int)(myGreenMode->getCurrentItem())));
     myIndexMode->setCheck((bool)getApp()->reg().readIntEntry("TL_TRACKER", "indexMode", (int)(myIndexMode->getCheck())));
     myDetectorMode->setCheck((bool)getApp()->reg().readIntEntry("TL_TRACKER", "detectorMode", (int)(myDetectorMode->getCheck())));
     myConditionMode->setCheck((bool)getApp()->reg().readIntEntry("TL_TRACKER", "conditionMode", (int)(myConditionMode->getCheck())));

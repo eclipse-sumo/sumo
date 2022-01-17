@@ -273,7 +273,7 @@ private:
     FXComboBox* myTimeMode;
 
     /// @brief Whether green durations are printed
-    FXCheckButton* myGreenMode;
+    FXComboBox* myGreenMode;
 
     /// @brief Whether phase names shall be printed instead of indices
     FXCheckButton* myIndexMode;
