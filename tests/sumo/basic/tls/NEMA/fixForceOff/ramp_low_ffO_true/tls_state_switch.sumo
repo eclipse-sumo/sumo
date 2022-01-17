@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-05 08:24:53 by Eclipse SUMO sumo Version v1_11_0+0780-56b449e
+<!-- generated on 2022-01-17 09:18:59 by Eclipse SUMO sumo Version v1_11_0+1214-564319817ef
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -294,9 +294,9 @@ SPDX-License-Identifier: EPL-2.0
     <tlsState time="3440.00" id="2881" programID="01" phase="0" state="srrryyrryyy" name="2+6"/>
     <tlsState time="3444.00" id="2881" programID="01" phase="1" state="rrrrrrrrrrr" name="2+6"/>
     <tlsState time="3445.00" id="2881" programID="01" phase="0" state="GGGGrrrrrrr" name="4+4"/>
-    <tlsState time="3465.00" id="2881" programID="01" phase="1" state="yyyyrrrrrrr" name="4+4"/>
-    <tlsState time="3470.00" id="2881" programID="01" phase="0" state="rrrrrrrrrrr" name="4+4"/>
-    <tlsState time="3471.00" id="2881" programID="01" phase="1" state="srrrGGGGrrr" name="1+6"/>
+    <tlsState time="3455.00" id="2881" programID="01" phase="1" state="yyyyrrrrrrr" name="4+4"/>
+    <tlsState time="3460.00" id="2881" programID="01" phase="0" state="rrrrrrrrrrr" name="4+4"/>
+    <tlsState time="3461.00" id="2881" programID="01" phase="1" state="srrrGGGGrrr" name="1+6"/>
     <tlsState time="3488.00" id="2881" programID="01" phase="0" state="srrrGGyyrrr" name="1+6"/>
     <tlsState time="3492.00" id="2881" programID="01" phase="1" state="srrrGGrrrrr" name="1+6"/>
     <tlsState time="3493.00" id="2881" programID="01" phase="0" state="srrrGGrrGGG" name="2+6"/>
@@ -324,14 +324,7 @@ SPDX-License-Identifier: EPL-2.0
     <tlsState time="3815.00" id="2881" programID="01" phase="0" state="yyyyrrrrrrr" name="4+4"/>
     <tlsState time="3820.00" id="2881" programID="01" phase="1" state="rrrrrrrrrrr" name="4+4"/>
     <tlsState time="3821.00" id="2881" programID="01" phase="0" state="srrrGGGGrrr" name="1+6"/>
-    <tlsState time="3848.00" id="2881" programID="01" phase="1" state="srrrGGyyrrr" name="1+6"/>
-    <tlsState time="3852.00" id="2881" programID="01" phase="0" state="srrrGGrrrrr" name="1+6"/>
-    <tlsState time="3853.00" id="2881" programID="01" phase="1" state="srrrGGrrGGG" name="2+6"/>
-    <tlsState time="3920.00" id="2881" programID="01" phase="0" state="srrryyrryyy" name="2+6"/>
-    <tlsState time="3924.00" id="2881" programID="01" phase="1" state="rrrrrrrrrrr" name="2+6"/>
-    <tlsState time="3925.00" id="2881" programID="01" phase="0" state="GGGGrrrrrrr" name="4+4"/>
-    <tlsState time="3935.00" id="2881" programID="01" phase="1" state="yyyyrrrrrrr" name="4+4"/>
-    <tlsState time="3940.00" id="2881" programID="01" phase="0" state="rrrrrrrrrrr" name="4+4"/>
-    <tlsState time="3941.00" id="2881" programID="01" phase="1" state="srrrGGGGrrr" name="1+6"/>
-    <tlsState time="3968.00" id="2881" programID="01" phase="0" state="srrrGGyyrrr" name="1+6"/>
+    <tlsState time="3846.00" id="2881" programID="01" phase="1" state="srrrGGyyrrr" name="1+6"/>
+    <tlsState time="3850.00" id="2881" programID="01" phase="0" state="srrrGGrrrrr" name="1+6"/>
+    <tlsState time="3851.00" id="2881" programID="01" phase="1" state="srrrGGrrGGG" name="2+6"/>
 </tlsStates>
