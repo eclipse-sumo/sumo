@@ -15,6 +15,9 @@ fully_actuated
 
 # test green rest
 green_rest
+<<<<<<< HEAD
 
 # test green transfer
 green_transfer
+=======
+>>>>>>> upstream/main

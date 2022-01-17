@@ -952,10 +952,10 @@ def modifyAttribute(attributeNumber, value, overlapped):
     focusOnFrame()
     # jump to attribute depending if it's a overlapped element
     if overlapped:
-        for _ in range(attributeNumber + 5):
+        for _ in range(attributeNumber + 7):
             typeTab()
     else:
-        for _ in range(attributeNumber + 1):
+        for _ in range(attributeNumber + 2):
             typeTab()
     # paste the new value
     pasteIntoTextField(value)
@@ -1082,10 +1082,10 @@ def createCrossing(hasTLS):
     focusOnFrame()
     # jump to create crossing button depending of hasTLS
     if hasTLS:
-        for _ in range(6):
+        for _ in range(10):
             typeTab()
     else:
-        for _ in range(7):
+        for _ in range(11):
             typeTab()
     # type space to create crossing
     typeSpace()
@@ -1098,7 +1098,7 @@ def modifyCrossingDefaultValue(numtabs, value):
     # focus current frame
     focusOnFrame()
     # jump to value
-    for _ in range(numtabs + 1):
+    for _ in range(numtabs + 4):
         typeTab()
     # paste the new value
     pasteIntoTextField(value)
@@ -1113,7 +1113,7 @@ def modifyCrossingDefaultBoolValue(numtabs):
     # focus current frame
     focusOnFrame()
     # jump to value
-    for _ in range(numtabs + 1):
+    for _ in range(numtabs + 4):
         typeTab()
     # type space to change value
     typeSpace()
@@ -1127,11 +1127,11 @@ def crossingClearEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
     focusOnFrame()
     if(useSelectedEdges and thereIsSelectedEdges):
         # jump to clear button
-        for _ in range(1):
+        for _ in range(4):
             typeTab()
     else:
         # jump to clear button
-        for _ in range(1):
+        for _ in range(3):
             typeTab()
     # type space to activate button
     typeSpace()
@@ -1145,11 +1145,11 @@ def crossingInvertEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
     focusOnFrame()
     if(useSelectedEdges and thereIsSelectedEdges):
         # jump to clear button
-        for _ in range(1):
+        for _ in range(4):
             typeTab()
     else:
         # jump to clear button
-        for _ in range(2):
+        for _ in range(3):
             typeTab()
     # type space to activate button
     typeSpace()
@@ -1217,16 +1217,17 @@ def additionalMode():
     time.sleep(DELAY_CHANGEMODE)
 
 
-def changeElement(additional):
+def changeElement(element):
     """
     @brief change element (Additional, shape, vehicle...)
     """
     # focus current frame
     focusOnFrame()
     # go to first editable element of frame
-    typeTab()
+    for _ in range(2):
+        typeTab()
     # paste the new value
-    pasteIntoTextField(additional)
+    pasteIntoTextField(element)
     # type enter to save change
     typeEnter()
 

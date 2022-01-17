@@ -303,6 +303,9 @@ public:
     /// @brief gets the gl-color
     static RGBColor getColor();
 
+    /// @brief get required width of text
+    static double getTextWidth(const std::string& text, double size);
+
     /* @brief draw Text with given parameters
      * when width is not given (negative) the font is scaled proportionally in
      * height and width according to size.
