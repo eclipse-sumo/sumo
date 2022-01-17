@@ -115,9 +115,7 @@ ROPerson::addTrip(std::vector<PlanItem*>& plan, const std::string& id,
 void
 ROPerson::addRide(std::vector<PlanItem*>& plan, const ROEdge* const from, const ROEdge* const to, const std::string& lines,
                   double arrivalPos, const std::string& destStop, const std::string& group) {
-    if (plan.empty() || plan.back()->isStop()) {
-        plan.push_back(new PersonTrip(to, destStop));
-    }
+    plan.push_back(new PersonTrip(to, destStop));
     plan.back()->addTripItem(new Ride(-1, from, to, lines, group, -1., arrivalPos, -1., destStop));
 }
 
