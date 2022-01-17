@@ -818,30 +818,28 @@ NEMALogic::NEMA_control() {
         EndCurrentPhaseR2 = true;
     }
     if (EndCurrentPhaseR1 && (R1Phase == r1barrier)) {
-        if (!(EndCurrentPhaseR2 && R2Phase == r2barrier)) {
-            //update expectedDuration
+        if (!EndCurrentPhaseR2) {
             EndCurrentPhaseR1 = false;
         }
     }
     if (EndCurrentPhaseR1 && (R1Phase == r1coordinatePhase)) {
-        if (!EndCurrentPhaseR2 || R2Phase != r2coordinatePhase) {
+        if (!EndCurrentPhaseR2) {
+            // This basically says that you can't go backwards from a coordinated phase
             EndCurrentPhaseR1 = false;
         }
     }
-    if (EndCurrentPhaseR2 && (R2Phase == r2barrier)) {
-        if (!EndCurrentPhaseR1 || R1Phase != r1barrier) {
-            // This logic is flawed. The controller should be able to transition from [3, 8] -> [2, 6] even 
-            // when the controller has a barrier at [4, 8] 
-            // Not sure why this was implemented
-            // EndCurrentPhaseR2 = false;
-            
-        }
-    }
     if (EndCurrentPhaseR2 && (R2Phase == r2coordinatePhase)) {
-        if (!EndCurrentPhaseR1 || R1Phase != r1coordinatePhase) {
-            // EndCurrentPhaseR2 = false;
+        if (!EndCurrentPhaseR1) {
+            EndCurrentPhaseR2 = false;
         }
     }
+    if (EndCurrentPhaseR2 && (R2Phase == r2barrier) ) {
+        // The second or allows the light to transition from [3, 8] to [2, 6] if not in a coordincted
+        if (!EndCurrentPhaseR1 ){
+            EndCurrentPhaseR2 = false;
+        }
+    }
+
     if (EndCurrentPhaseR1 && (!wait4R1Green)) {
         phaseEndTimeR1 = currentTimeInSecond;
         phaseExpectedDuration[R1Index] = 0;
@@ -854,7 +852,11 @@ NEMALogic::NEMA_control() {
         if (!coordinateMode && EndCurrentPhaseR1 && EndCurrentPhaseR2){
             // entry point to green rest. First check detector status, then determine if this should be up next.
             // Green rest is effectively the same as being perpetually past the minimum green timer but not changing
-            if ((nextPhase(rings[0], R1Phase) == R1Phase) && (nextPhase(rings[1], R2Phase) == R2Phase)){
+            int tempR1Phase = R1Phase;
+            nextPhase(rings[0], tempR1Phase);
+            int tempR2Phase = R2Phase;
+            nextPhase(rings[1], tempR2Phase);
+            if ((tempR1Phase == R1Phase) && (tempR2Phase == R2Phase)){
                 // mark that the phases are not desired to end
                 EndCurrentPhaseR1 = false;
                 EndCurrentPhaseR2 = false;
