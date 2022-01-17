@@ -45,7 +45,7 @@ def get_options(args=None):
     parser.add_argument("-o", "--output-file", dest="output",
                         help="output edgeData FILE (mandatory)", metavar="FILE")
     parser.add_argument("-q", "--flow-columns", dest="flowcols", default="qPKW,qLKW",
-                        help="which columns contains flows", metavar="STRING")
+                        help="which columns contains flows (specified via column header)", metavar="STRING")
     parser.add_argument("-b", "--begin", default=0,
                         help="custom begin time (minutes or H:M:S)")
     parser.add_argument("-e", "--end", default=1440,

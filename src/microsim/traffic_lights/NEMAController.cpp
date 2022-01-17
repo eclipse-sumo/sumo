@@ -767,7 +767,7 @@ NEMALogic::NEMA_control() {
     else{
         phaseExpectedDuration[R1Index] = MAX2(phaseExpectedDuration[R1Index], minGreen[R1Index]);
     }
-    if (R1Phase != r1coordinatePhase) {
+    if ((R1Phase != r1coordinatePhase) || (!coordinateMode && vehExt[R1Index] > 0)) {
         if (isDetectorActivated(R1Phase)) {
             phaseExpectedDuration[R1Index] = MAX2(phaseExpectedDuration[R1Index], durationR1 + vehExt[R1Index]);
             if(fixForceOff){
@@ -793,7 +793,7 @@ NEMALogic::NEMA_control() {
     else{
         phaseExpectedDuration[R2Index] = MAX2(phaseExpectedDuration[R2Index], minGreen[R2Index]);
     }
-    if (R2Phase != r2coordinatePhase && R2Phase >= 5) {
+    if ((R2Phase != r2coordinatePhase && R2Phase >= 5) || (R2Phase >= 5 && !coordinateMode && vehExt[R2Index] > 0)) {
         if (isDetectorActivated(R2Phase)) {
             phaseExpectedDuration[R2Index] = MAX2(phaseExpectedDuration[R2Index], durationR2 + vehExt[R2Index]);
             if (fixForceOff){
@@ -850,6 +850,33 @@ NEMALogic::NEMA_control() {
         wait4R2Green = true;
     }
 
+    
+    // Logic for Green Rest & Green Transfer
+    // This requires a detector check. It should only be entered when the lights are green
+    if ((EndCurrentPhaseR1 && R1RYG == 1) || (EndCurrentPhaseR2 && R2RYG == 1)){
+        if (!coordinateMode && EndCurrentPhaseR1 && EndCurrentPhaseR2){
+            // entry point to green rest. First check detector status, then determine if this should be up next.
+            // Green rest is effectively the same as being perpetually past the minimum green timer but not changing
+            if ((nextPhase(rings[0], R1Phase) == R1Phase) && (nextPhase(rings[1], R2Phase) == R2Phase)){
+                // mark that the phases are not desired to end
+                EndCurrentPhaseR1 = false;
+                EndCurrentPhaseR2 = false;
+                wait4R1Green = false;
+                wait4R2Green = false;
+
+                // Timing update. This logic should be checked the next step, so only add the simulation timestep.
+                // Potential that this needs to be extended in the future.
+                phaseEndTimeR1 += TS;
+                phaseEndTimeR2 += TS;
+
+                // setting the phase start time to current time - the minimum timer 
+                // will still allow the phase to be extended with vehicle detection
+                phaseStartTime[R1Index] = currentTimeInSecond - minGreen[R1Index];
+                phaseStartTime[R2Index] = currentTimeInSecond - minGreen[R2Index];
+            }
+        }
+    }
+
     // Calculate the next phase with knowledge of both rings
     // Next Phase should be calculated at the start of red or aka the last step of yellow
     bool calculate = false;
@@ -869,7 +896,6 @@ NEMALogic::NEMA_control() {
             nextPhaseWrapper(R1Phase, R2Phase, wait4R1Green, wait4R2Green);
         }
     }
-
 
     //enter transtion phase for Ring1
     if (wait4R1Green) {

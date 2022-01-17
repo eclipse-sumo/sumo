@@ -27,7 +27,6 @@
 #include <utility>
 #include <vector>
 #include <bitset>
-#include <microsim/output/MSDetectorControl.h>
 #include <microsim/output/MSInductLoop.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSNet.h>
@@ -79,7 +78,8 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
     MSSimpleTrafficLightLogic(tlcontrol, id, programID, offset, TrafficLightType::ACTUATED, phases, step, delay, parameter),
     myLastTrySwitchTime(0),
     myConditions(conditions),
-    myTraCISwitch(false)
+    myTraCISwitch(false),
+    myDetectorPrefix(id + "_" + programID + "_")
 {
     myMaxGap = StringUtils::toDouble(getParameter("max-gap", DEFAULT_MAX_GAP));
     myPassingTime = StringUtils::toDouble(getParameter("passing-time", DEFAULT_PASSING_TIME));
@@ -127,6 +127,9 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     // build the induct loops
     std::map<const MSLane*, MSInductLoop*> laneInductLoopMap;
     std::map<MSInductLoop*, const MSLane*> inductLoopLaneMap; // in case loops are placed further upstream
+    int detEdgeIndex = -1;
+    int detLaneIndex = 0;
+    MSEdge* prevDetEdge = nullptr;
     for (LaneVector& lanes : myLanes) {
         for (MSLane* lane : lanes) {
             if (noVehicles(lane->getPermissions())) {
@@ -147,6 +150,13 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             double ilpos;
             double inductLoopPosition;
             MSInductLoop* loop = nullptr;
+            if (&lane->getEdge() != prevDetEdge) {
+                detEdgeIndex++;
+                detLaneIndex = 0;
+                prevDetEdge = &lane->getEdge();
+            } else {
+                detLaneIndex++;
+            }
             if (customID == "") {
                 double speed = lane->getSpeedLimit();
                 inductLoopPosition = MIN2(
@@ -164,7 +174,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                     ilpos = 0;
                 }
                 // Build the induct loop and set it into the container
-                std::string id = "TLS" + myID + "_" + myProgramID + "_InductLoopOn_" + lane->getID();
+                std::string id = myDetectorPrefix + "D" + toString(detEdgeIndex) + "." + toString(detLaneIndex);
                 loop = static_cast<MSInductLoop*>(nb.createInductLoop(id, placementLane, ilpos, myVehicleTypes, (int)PersonMode::NONE, myShowDetectors));
                 MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop, myFile, myFreq);
             } else if (customID == NO_DETECTOR) {
@@ -980,23 +990,12 @@ MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) const
             const std::string fun = expr.substr(0, pos);
             const std::string arg = expr.substr(pos + 1);
             if (fun == "z") {
-                const MSInductLoop* det = dynamic_cast<const MSInductLoop*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).get(arg));
-                if (det == nullptr) {
-                    throw ProcessError("Unknown detector '" + arg + "' in expression '" + expr + "'");
-                } else {
-                    return det->getTimeSinceLastDetection();
-                }
+                return retrieveDetExpression<MSInductLoop, SUMO_TAG_INDUCTION_LOOP>(arg, expr, true)->getTimeSinceLastDetection();
             } else if (fun == "a") {
-                const MSInductLoop* det = dynamic_cast<const MSInductLoop*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).get(arg));
-                if (det == nullptr) {
-                    const MSE2Collector* det2 = dynamic_cast<const MSE2Collector*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_LANE_AREA_DETECTOR).get(arg));
-                    if (det2 == nullptr) {
-                        throw ProcessError("Unknown detector '" + arg + "' in expression '" + expr + "'");
-                    } else {
-                        return det2->getCurrentVehicleNumber() > 0;
-                    }
-                } else {
-                    return det->getTimeSinceLastDetection() == 0;
+                try {
+                    return retrieveDetExpression<MSInductLoop, SUMO_TAG_INDUCTION_LOOP>(arg, expr, true)->getTimeSinceLastDetection() == 0;
+                } catch (ProcessError&) {
+                    return retrieveDetExpression<MSE2Collector, SUMO_TAG_LANE_AREA_DETECTOR>(arg, expr, true)->getCurrentVehicleNumber() > 0;
                 }
             } else if (fun == "g" || fun == "r") {
                 try {

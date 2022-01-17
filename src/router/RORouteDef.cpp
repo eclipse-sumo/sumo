@@ -224,8 +224,10 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         int lastMandatory = 0;
         for (ConstROEdgeVector::const_iterator i = targets.begin() + 1;
                 i != targets.end() && nextMandatory != mandatory.end(); ++i) {
-            if ((*(i - 1))->isConnectedTo(**i, veh.getVClass())) {
-                newEdges.push_back(*i);
+          const ROEdge* prev = *(i - 1);
+          const ROEdge* cur = *i;
+            if (prev->isConnectedTo(*cur, veh.getVClass()) && (!isRailway(veh.getVClass()) || prev->getBidiEdge() != cur)) {
+                newEdges.push_back(cur);
             } else {
                 if (initialSize > 2) {
                     // only inform if the input is (probably) not a trip

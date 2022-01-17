@@ -136,7 +136,7 @@ GNENetHelper::AttributeCarriers::~AttributeCarriers() {
             // decrease reference manually (because it was increased manually in GNERouteHandler)
             demandElement->decRef();
             // show extra information for tests (except for default IDs)
-            if ((demandElement->getID() != DEFAULT_VTYPE_ID) && (demandElement->getID() != DEFAULT_BIKETYPE_ID) && (demandElement->getID() != DEFAULT_PEDTYPE_ID)) {
+            if (DEFAULT_VTYPES.count(demandElement->getID()) == 0) {
                 WRITE_DEBUG("Deleting unreferenced " + demandElement->getTagStr() + " in AttributeCarriers destructor");
             }
             delete demandElement;

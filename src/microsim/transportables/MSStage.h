@@ -466,7 +466,8 @@ public:
     MSStageMoving(const std::vector<const MSEdge*>& route, MSStoppingPlace* toStop, const double speed,
                   const double departPos, const double arrivalPos, const double departPosLat, const int departLane, MSStageType type) :
         MSStage(route.back(), toStop, arrivalPos, type),
-        myState(nullptr), myRoute(route), mySpeed(speed), myDepartPos(departPos),
+        myState(nullptr), myRoute(route), myRouteStep(myRoute.begin()),
+        mySpeed(speed), myDepartPos(departPos),
         myDepartPosLat(departPosLat), myDepartLane(departLane) {}
 
     /// destructor

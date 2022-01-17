@@ -3,3 +3,6 @@ reversal_possible
 
 # vehicle cannot reverse because there is insufficient space after the switch
 reversal_impossible
+
+# ensure reversal check even for consecutive stop edges
+stop_reverse_stop

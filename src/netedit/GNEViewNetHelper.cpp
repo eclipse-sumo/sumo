@@ -1610,6 +1610,8 @@ GNEViewNetHelper::TestingMode::drawTestingElements(GUIMainWindow* mainWindow) {
         GLHelper::pushMatrix();
         const double size = myViewNet->p2m(32);
         Position center = myViewNet->screenPos2NetPos(8, 8);
+        // magenta
+        GLHelper::pushMatrix();
         GLHelper::setColor(RGBColor::MAGENTA);
         glTranslated(center.x(), center.y(), GLO_TESTELEMENT);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -1620,8 +1622,34 @@ GNEViewNetHelper::TestingMode::drawTestingElements(GUIMainWindow* mainWindow) {
         glVertex2d(size, 0);
         glEnd();
         GLHelper::popMatrix();
+        // blue
         GLHelper::pushMatrix();
+        GLHelper::setColor(RGBColor::BLUE);
+        glTranslated(center.x(), center.y(), GLO_TESTELEMENT + 1);
+        glScaled(0.7, 0.7, 0);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        glBegin(GL_QUADS);
+        glVertex2d(0, 0);
+        glVertex2d(0, -size);
+        glVertex2d(size, -size);
+        glVertex2d(size, 0);
+        glEnd();
+        GLHelper::popMatrix();
+        // yellow
+        GLHelper::pushMatrix();
+        GLHelper::setColor(RGBColor::YELLOW);
+        glTranslated(center.x(), center.y(), GLO_TESTELEMENT + 2);
+        glScaled(0.4, 0.4, 0);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        glBegin(GL_QUADS);
+        glVertex2d(0, 0);
+        glVertex2d(0, -size);
+        glVertex2d(size, -size);
+        glVertex2d(size, 0);
+        glEnd();
+        GLHelper::popMatrix();
         // show box with the current position relative to pink square
+        GLHelper::pushMatrix();
         Position posRelative = myViewNet->screenPos2NetPos(myViewNet->getWidth() - 40, myViewNet->getHeight() - 20);
         // adjust cursor position (24,25) to show exactly the same position as in function netedit.leftClick(match, X, Y)
         GLHelper::drawTextBox(toString(myViewNet->getWindowCursorPosition().x() - 24) + " " + toString(myViewNet->getWindowCursorPosition().y() - 25), posRelative, GLO_TESTELEMENT, myViewNet->p2m(20), RGBColor::BLACK, RGBColor::WHITE);

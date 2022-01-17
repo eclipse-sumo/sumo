@@ -1,23 +1,25 @@
 /* XPM */
 static const char *access_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"16 16 1 1",
-"U c None",
+"16 16 3 1",
+"  c None",
+". c #4CAA32",
+"o c #FFEB00",
 /* pixels */
-"UUUUUUUUUUUUUUUU",
-"UUUUUUUUUUUUUUUU",
-"UUUUUUUUUUUUUUUU",
-"UUUUUUUUUUUUUUUU",
-"UUUUUUUUUUUUUUUU",
-"UUUUUUUUUUUUUUUU",
-"UUUUUUUUUUUUUUUU",
-"UUUUUUUUUUUUUUUU",
-"UUUUUUUUUUUUUUUU",
-"UUUUUUUUUUUUUUUU",
-"UUUUUUUUUUUUUUUU",
-"UUUUUUUUUUUUUUUU",
-"UUUUUUUUUUUUUUUU",
-"UUUUUUUUUUUUUUUU",
-"UUUUUUUUUUUUUUUU",
-"UUUUUUUUUUUUUUUU"
+"                ",
+"                ",
+"       .....    ",
+"     .........  ",
+"    ........... ",
+"    ........... ",
+"   ......o......",
+".........oo.....",
+".....ooooooo....",
+".........oo.....",
+"   ......o......",
+"    ........... ",
+"    ........... ",
+"     .........  ",
+"       .....    ",
+"                "
 };

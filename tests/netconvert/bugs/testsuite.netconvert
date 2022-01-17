@@ -130,9 +130,3 @@ ticket8899
 
 # duplicated roundabout
 ticket9810
-
-# wrong junction position on left turn simple continuation
-ticket9874
-
-# wrong junction position on right turn simple continuation
-ticket9874b
