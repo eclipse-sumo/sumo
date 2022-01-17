@@ -1068,7 +1068,7 @@ void NEMALogic::constructBarrierMap(int ring, std::vector<std::vector<int>> &bar
     for (int localPhase : rings[ring]){
         if (!flag){
             barrierOne.push_back(localPhase);
-            if ((localPhase == r1coordinatePhase && ring == 0) || (localPhase == r2coordinatePhase && ring == 1)){
+            if (((localPhase == r1coordinatePhase || localPhase == r1barrier) && ring == 0) || ((localPhase == r2coordinatePhase || localPhase == r2barrier) && ring == 1)){
               flag = 1;
             };
         } else {
