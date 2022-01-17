@@ -2264,7 +2264,9 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
         }
     } else {
         // check whether any other edge goes further to the left
-        if (angle < -90) {
+        if (angle < -170 && incoming->getGeometry().reverse() == outgoing->getGeometry()) {
+          return leftHand ? LinkDirection::TURN_LEFTHAND : LinkDirection::TURN;
+        } else if (angle < -90) {
             return LinkDirection::LEFT;
         }
         NBEdge* outCCW = getNextCompatibleOutgoing(incoming, vehPerm, itOut, leftHand);
