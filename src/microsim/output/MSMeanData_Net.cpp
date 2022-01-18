@@ -21,18 +21,21 @@
 /****************************************************************************/
 #include <config.h>
 
+#ifdef HAVE_FOX
+#include <utils/common/ScopedLocker.h>
+#endif
+#include <utils/common/SUMOTime.h>
+#include <utils/common/ToString.h>
+#include <utils/iodevices/OutputDevice.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
-#include <utils/common/SUMOTime.h>
-#include <utils/common/ToString.h>
-#include <utils/iodevices/OutputDevice.h>
-#include "MSMeanData_Net.h"
-
 #include <microsim/MSGlobals.h>
 #include <mesosim/MELoop.h>
 #include <mesosim/MESegment.h>
+#include "MSMeanData_Net.h"
+
 
 // ===========================================================================
 // debug constants
@@ -181,7 +184,7 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOTrafficObject& veh, double
     if ((myParent == nullptr || myParent->vehicleApplies(veh)) && (
                 getLane() == nullptr || !veh.isVehicle() || getLane() == static_cast<MSVehicle&>(veh).getLane())) {
 #ifdef HAVE_FOX
-        FXConditionalLock lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
+        ScopedLocker<> lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
 #endif
         if (MSGlobals::gUseMesoSim) {
             removeFromVehicleUpdateValues(veh);
@@ -216,7 +219,7 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyEnter(SUMOTrafficObject& veh, MSMove
     if (myParent == nullptr || myParent->vehicleApplies(veh)) {
         if (getLane() == nullptr || !veh.isVehicle() || getLane() == static_cast<MSVehicle&>(veh).getLane()) {
 #ifdef HAVE_FOX
-            FXConditionalLock lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
+            ScopedLocker<> lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
 #endif
             if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
                 ++nVehDeparted;

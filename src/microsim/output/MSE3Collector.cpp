@@ -24,7 +24,9 @@
 #include <config.h>
 
 #include <algorithm>
-
+#ifdef HAVE_FOX
+#include <utils/common/ScopedLocker.h>
+#endif
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSNet.h>
@@ -74,7 +76,7 @@ MSE3Collector::MSE3EntryReminder::notifyEnter(SUMOTrafficObject& veh, Notificati
         const double posOnLane = veh.getBackPositionOnLane(enteredLane) + veh.getVehicleType().getLength();
         if (myLane == enteredLane && posOnLane > myPosition) {
 #ifdef HAVE_FOX
-            FXConditionalLock lock(myCollector.myContainerMutex, MSGlobals::gNumSimThreads > 1);
+            ScopedLocker<> lock(myCollector.myContainerMutex, MSGlobals::gNumSimThreads > 1);
 #endif
             const auto& itVeh = myCollector.myEnteredContainer.find(&veh);
             if (itVeh == myCollector.myEnteredContainer.end() ||
@@ -107,7 +109,7 @@ MSE3Collector::MSE3EntryReminder::notifyMove(SUMOTrafficObject& veh, double oldP
     }
 #endif
 #ifdef HAVE_FOX
-    FXConditionalLock lock(myCollector.myContainerMutex, MSGlobals::gNumSimThreads > 1);
+    ScopedLocker<> lock(myCollector.myContainerMutex, MSGlobals::gNumSimThreads > 1);
 #endif
     if ((myCollector.myEnteredContainer.find(&veh) == myCollector.myEnteredContainer.end() ||
             (veh.isPerson() && dynamic_cast<const MSTransportable&>(veh).getDirection() != MSPModel::FORWARD))
@@ -152,7 +154,7 @@ MSE3Collector::MSE3EntryReminder::notifyLeave(SUMOTrafficObject& veh, double, MS
 #endif
     if (reason >= MSMoveReminder::NOTIFICATION_ARRIVED) {
 #ifdef HAVE_FOX
-        FXConditionalLock lock(myCollector.myContainerMutex, MSGlobals::gNumSimThreads > 1);
+        ScopedLocker<> lock(myCollector.myContainerMutex, MSGlobals::gNumSimThreads > 1);
 #endif
         if (myCollector.myEnteredContainer.erase(&veh) > 0) {
             WRITE_WARNING("Vehicle '" + veh.getID() + "' arrived inside " + toString(SUMO_TAG_E3DETECTOR) + " '" + myCollector.getID() + "'.");
@@ -220,7 +222,7 @@ MSE3Collector::MSE3LeaveReminder::notifyMove(SUMOTrafficObject& veh, double oldP
         return true;
     }
 #ifdef HAVE_FOX
-    FXConditionalLock lock(myCollector.myContainerMutex, MSGlobals::gNumSimThreads > 1);
+    ScopedLocker<> lock(myCollector.myContainerMutex, MSGlobals::gNumSimThreads > 1);
 #endif
     const double oldSpeed = veh.getPreviousSpeed();
     if (oldPos < myPosition) {
@@ -276,7 +278,7 @@ MSE3Collector::MSE3LeaveReminder::notifyLeave(SUMOTrafficObject&  veh, double /*
         return false;
     }
 #ifdef HAVE_FOX
-    FXConditionalLock lock(myCollector.myContainerMutex, MSGlobals::gNumSimThreads > 1);
+    ScopedLocker<> lock(myCollector.myContainerMutex, MSGlobals::gNumSimThreads > 1);
 #endif
     if (reason == MSMoveReminder::NOTIFICATION_TELEPORT) {
         WRITE_WARNING("Vehicle '" + veh.getID() + "' teleported from " + toString(SUMO_TAG_E3DETECTOR) + " '" + myCollector.getID() + "'.");

@@ -3,7 +3,6 @@ set(utils_foxtools_STAT_SRCS
    fxexdefs.h
    FXBaseObject.cpp
    FXBaseObject.h
-   FXConditionalLock.h
    FXLCDLabel.cpp
    FXLCDLabel.h
    FXLinkLabel.cpp

@@ -24,6 +24,9 @@
 
 #include <string>
 #include <algorithm>
+#ifdef HAVE_FOX
+#include <utils/common/ScopedLocker.h>
+#endif
 #include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/Command.h>
@@ -421,7 +424,7 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
 
     if (rerouteDef->parkProbs.getOverallProb() > 0) {
 #ifdef HAVE_FOX
-        FXConditionalLock lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
+        ScopedLocker<> lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
 #endif
         bool newDestination = false;
         ConstMSEdgeVector newRoute;

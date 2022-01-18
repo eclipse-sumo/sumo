@@ -40,10 +40,9 @@
 #include <vector>
 #include <ctime>
 
-#include "trigger/MSTrigger.h"
-#include "trigger/MSCalibrator.h"
-#include "traffic_lights/MSTLLogicControl.h"
-#include "MSVehicleControl.h"
+#ifdef HAVE_FOX
+#include <utils/common/ScopedLocker.h>
+#endif
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/common/SysUtils.h>
@@ -89,14 +88,17 @@
 #include <microsim/transportables/MSPModel.h>
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/traffic_lights/MSRailSignal.h>
 #include <microsim/traffic_lights/MSRailSignalConstraint.h>
 #include <microsim/traffic_lights/MSRailSignalControl.h>
+#include <microsim/traffic_lights/MSTLLogicControl.h>
+#include <microsim/trigger/MSCalibrator.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include <microsim/trigger/MSOverheadWire.h>
+#include <microsim/trigger/MSTrigger.h>
 #include <utils/router/FareModul.h>
 
-#include <microsim/transportables/MSTransportableControl.h>
 #include "MSEdgeControl.h"
 #include "MSJunctionControl.h"
 #include "MSInsertionControl.h"
@@ -106,6 +108,7 @@
 #include "MSJunction.h"
 #include "MSJunctionLogic.h"
 #include "MSLane.h"
+#include "MSVehicleControl.h"
 #include "MSVehicleTransfer.h"
 #include "MSRoute.h"
 #include "MSGlobals.h"
@@ -1140,7 +1143,7 @@ MSNet::removeVehicleStateListener(VehicleStateListener* listener) {
 void
 MSNet::informVehicleStateListener(const SUMOVehicle* const vehicle, VehicleState to, const std::string& info) {
 #ifdef HAVE_FOX
-    FXConditionalLock lock(myVehicleStateListenerMutex, MSGlobals::gNumThreads > 1);
+    ScopedLocker<> lock(myVehicleStateListenerMutex, MSGlobals::gNumThreads > 1);
 #endif
     for (VehicleStateListener* const listener : myVehicleStateListeners) {
         listener->vehicleStateChanged(vehicle, to, info);
@@ -1168,7 +1171,7 @@ MSNet::removeTransportableStateListener(TransportableStateListener* listener) {
 void
 MSNet::informTransportableStateListener(const MSTransportable* const transportable, TransportableState to, const std::string& info) {
 #ifdef HAVE_FOX
-    FXConditionalLock lock(myTransportableStateListenerMutex, MSGlobals::gNumThreads > 1);
+    ScopedLocker<> lock(myTransportableStateListenerMutex, MSGlobals::gNumThreads > 1);
 #endif
     for (TransportableStateListener* const listener : myTransportableStateListeners) {
         listener->transportableStateChanged(transportable, to, info);

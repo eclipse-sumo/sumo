@@ -39,7 +39,7 @@
 #include <cassert>
 #include <algorithm>
 #ifdef HAVE_FOX
-#include <utils/foxtools/FXConditionalLock.h>
+#include <utils/common/ScopedLocker.h>
 #endif
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
@@ -622,7 +622,7 @@ MSE2Collector::notifyMove(SUMOTrafficObject& veh, double oldPos,
         return keep;
     }
 #ifdef HAVE_FOX
-    FXConditionalLock lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
+    ScopedLocker<> lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
 #endif
     VehicleInfoMap::iterator vi = myVehicleInfos.find(veh.getID());
     assert(vi != myVehicleInfos.end()); // all vehicles calling notifyMove() should have called notifyEnter() before
@@ -704,7 +704,7 @@ MSE2Collector::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/, MSMoveRem
 #endif
 
 #ifdef HAVE_FOX
-    FXConditionalLock lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
+    ScopedLocker<> lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
 #endif
     if (reason == MSMoveReminder::NOTIFICATION_JUNCTION && !veh.isPerson()) {
         // vehicle left lane via junction, unsubscription and registering in myLeftVehicles when
@@ -806,7 +806,7 @@ MSE2Collector::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification 
 #endif
 
 #ifdef HAVE_FOX
-    FXConditionalLock lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
+    ScopedLocker<> lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
 #endif
     const std::string& vehID = veh.getID();
     VehicleInfoMap::iterator vi = myVehicleInfos.find(vehID);

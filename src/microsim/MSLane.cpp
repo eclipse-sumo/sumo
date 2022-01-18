@@ -42,7 +42,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #ifdef HAVE_FOX
-#include <utils/foxtools/FXConditionalLock.h>
+#include <utils/common/ScopedLocker.h>
 #endif
 #include <utils/options/OptionsCont.h>
 #include <utils/emissions/HelpersHarmonoise.h>
@@ -284,7 +284,7 @@ MSLane::setPartialOccupation(MSVehicle* v) {
 #endif
     // XXX update occupancy here?
 #ifdef HAVE_FOX
-    FXConditionalLock lock(myPartialOccupatorMutex, MSGlobals::gNumSimThreads > 1);
+    ScopedLocker<> lock(myPartialOccupatorMutex, MSGlobals::gNumSimThreads > 1);
 #endif
     //assert(std::find(myPartialVehicles.begin(), myPartialVehicles.end(), v) == myPartialVehicles.end());
     myPartialVehicles.push_back(v);
@@ -295,7 +295,7 @@ MSLane::setPartialOccupation(MSVehicle* v) {
 void
 MSLane::resetPartialOccupation(MSVehicle* v) {
 #ifdef HAVE_FOX
-    FXConditionalLock lock(myPartialOccupatorMutex, MSGlobals::gNumSimThreads > 1);
+    ScopedLocker<> lock(myPartialOccupatorMutex, MSGlobals::gNumSimThreads > 1);
 #endif
 #ifdef DEBUG_CONTEXT
     if (DEBUG_COND2(v)) {
@@ -1168,7 +1168,7 @@ MSLane::getLastVehicleInformation(const MSVehicle* ego, double latOffset, double
         }
         if (ego == nullptr && minPos == 0) {
 #ifdef HAVE_FOX
-            FXConditionalLock lock(myLeaderInfoMutex, MSGlobals::gNumSimThreads > 1);
+            ScopedLocker<> lock(myLeaderInfoMutex, MSGlobals::gNumSimThreads > 1);
 #endif
             // update cached value
             myLeaderInfo = leaderTmp;
@@ -1197,7 +1197,7 @@ MSLane::getLastVehicleInformation(const MSVehicle* ego, double latOffset, double
 const MSLeaderInfo
 MSLane::getFirstVehicleInformation(const MSVehicle* ego, double latOffset, bool onlyFrontOnLane, double maxPos, bool allowCached) const {
 #ifdef HAVE_FOX
-    FXConditionalLock lock(myFollowerInfoMutex, MSGlobals::gNumSimThreads > 1);
+    ScopedLocker<> lock(myFollowerInfoMutex, MSGlobals::gNumSimThreads > 1);
 #endif
     if (myFollowerInfoTime < MSNet::getInstance()->getCurrentTimeStep() || ego != nullptr || maxPos < myLength || !allowCached || onlyFrontOnLane) {
         // XXX separate cache for onlyFrontOnLane = true
@@ -2692,7 +2692,7 @@ MSLane::getCanonicalPredecessorLane() const {
     const auto bestLane = std::min_element(myIncomingLanes.begin(), myIncomingLanes.end(), incoming_lane_priority_sorter(this));
     {
 #ifdef HAVE_FOX
-        FXConditionalLock lock(myLeaderInfoMutex, MSGlobals::gNumSimThreads > 1);
+        ScopedLocker<> lock(myLeaderInfoMutex, MSGlobals::gNumSimThreads > 1);
 #endif
         myCanonicalPredecessorLane = bestLane->lane;
     }

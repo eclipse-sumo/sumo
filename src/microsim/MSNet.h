@@ -44,10 +44,6 @@
 #include <mesosim/MESegment.h>
 #include "MSJunction.h"
 
-#ifdef HAVE_FOX
-#include <utils/foxtools/FXConditionalLock.h>
-#endif
-
 
 // ===========================================================================
 // class declarations

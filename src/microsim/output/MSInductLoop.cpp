@@ -28,6 +28,9 @@
 #include <cassert>
 #include <numeric>
 #include <utility>
+#ifdef HAVE_FOX
+#include <utils/common/ScopedLocker.h>
+#endif
 #include <utils/common/WrappingCommand.h>
 #include <utils/common/ToString.h>
 #include <microsim/MSEventControl.h>
@@ -71,7 +74,7 @@ MSInductLoop::~MSInductLoop() {
 void
 MSInductLoop::reset() {
 #ifdef HAVE_FOX
-    FXConditionalLock lock(myNotificationMutex, myNeedLock);
+    ScopedLocker<> lock(myNotificationMutex, myNeedLock);
 #endif
     myEnteredVehicleNumber = 0;
     myLastVehicleDataCont = myVehicleDataCont;
@@ -91,7 +94,7 @@ MSInductLoop::notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSL
         }
         if (veh.getPositionOnLane() >= myPosition) {
 #ifdef HAVE_FOX
-            FXConditionalLock lock(myNotificationMutex, myNeedLock);
+            ScopedLocker<> lock(myNotificationMutex, myNeedLock);
 #endif
             myVehiclesOnDet[&veh] = SIMTIME;
             myEnteredVehicleNumber++;
@@ -117,7 +120,7 @@ MSInductLoop::notifyMove(SUMOTrafficObject& veh, double oldPos,
         return keep;
     }
 #ifdef HAVE_FOX
-    FXConditionalLock lock(myNotificationMutex, myNeedLock);
+    ScopedLocker<> lock(myNotificationMutex, myNeedLock);
 #endif
     const double oldSpeed = veh.getPreviousSpeed();
     if (newPos >= myPosition && oldPos < myPosition) {
@@ -162,7 +165,7 @@ MSInductLoop::notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder
     }
     if (reason != MSMoveReminder::NOTIFICATION_JUNCTION || (veh.isPerson() && myDetectPersons != (int)PersonMode::NONE)) {
 #ifdef HAVE_FOX
-        FXConditionalLock lock(myNotificationMutex, myNeedLock);
+        ScopedLocker<> lock(myNotificationMutex, myNeedLock);
 #endif
         const std::map<SUMOTrafficObject*, double>::iterator it = myVehiclesOnDet.find(&veh);
         if (it != myVehiclesOnDet.end()) {
@@ -322,7 +325,7 @@ MSInductLoop::notifyMovePerson(MSTransportable* p, int dir, double pos) {
 std::vector<MSInductLoop::VehicleData>
 MSInductLoop::collectVehiclesOnDet(SUMOTime tMS, bool includeEarly, bool leaveTime, bool forOccupancy) const {
 #ifdef HAVE_FOX
-    FXConditionalLock lock(myNotificationMutex, myNeedLock);
+    ScopedLocker<> lock(myNotificationMutex, myNeedLock);
 #endif
     const double t = STEPS2TIME(tMS);
     std::vector<VehicleData> ret;

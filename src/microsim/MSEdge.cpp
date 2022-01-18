@@ -28,6 +28,9 @@
 #include <algorithm>
 #include <iostream>
 #include <cassert>
+#ifdef HAVE_FOX
+#include <utils/common/ScopedLocker.h>
+#endif
 #include <utils/common/StringTokenizer.h>
 #include <utils/options/OptionsCont.h>
 #include <microsim/devices/MSRoutingEngine.h>
@@ -1071,7 +1074,7 @@ MSEdge::getSuccessors(SUMOVehicleClass vClass) const {
         return mySuccessors;
     }
 #ifdef HAVE_FOX
-    FXConditionalLock lock(mySuccessorMutex, MSGlobals::gNumThreads > 1);
+    ScopedLocker<> lock(mySuccessorMutex, MSGlobals::gNumThreads > 1);
 #endif
     std::map<SUMOVehicleClass, MSEdgeVector>::iterator i = myClassesSuccessorMap.find(vClass);
     if (i == myClassesSuccessorMap.end()) {
@@ -1101,7 +1104,7 @@ MSEdge::getViaSuccessors(SUMOVehicleClass vClass) const {
         return myViaSuccessors;
     }
 #ifdef HAVE_FOX
-    FXConditionalLock lock(mySuccessorMutex, MSGlobals::gNumThreads > 1);
+    ScopedLocker<> lock(mySuccessorMutex, MSGlobals::gNumThreads > 1);
 #endif
     auto i = myClassesViaSuccessorMap.find(vClass);
     if (i != myClassesViaSuccessorMap.end()) {
@@ -1214,7 +1217,7 @@ MSEdge::isSuperposable(const MSEdge* other) {
 void
 MSEdge::addWaiting(SUMOVehicle* vehicle) const {
 #ifdef HAVE_FOX
-    FXConditionalLock lock(myWaitingMutex, MSGlobals::gNumSimThreads > 1);
+    ScopedLocker<> lock(myWaitingMutex, MSGlobals::gNumSimThreads > 1);
 #endif
     myWaiting.push_back(vehicle);
 }
@@ -1223,7 +1226,7 @@ MSEdge::addWaiting(SUMOVehicle* vehicle) const {
 void
 MSEdge::removeWaiting(const SUMOVehicle* vehicle) const {
 #ifdef HAVE_FOX
-    FXConditionalLock lock(myWaitingMutex, MSGlobals::gNumSimThreads > 1);
+    ScopedLocker<> lock(myWaitingMutex, MSGlobals::gNumSimThreads > 1);
 #endif
     std::vector<SUMOVehicle*>::iterator it = std::find(myWaiting.begin(), myWaiting.end(), vehicle);
     if (it != myWaiting.end()) {
@@ -1235,7 +1238,7 @@ MSEdge::removeWaiting(const SUMOVehicle* vehicle) const {
 SUMOVehicle*
 MSEdge::getWaitingVehicle(MSTransportable* transportable, const double position) const {
 #ifdef HAVE_FOX
-    FXConditionalLock lock(myWaitingMutex, MSGlobals::gNumSimThreads > 1);
+    ScopedLocker<> lock(myWaitingMutex, MSGlobals::gNumSimThreads > 1);
 #endif
     for (SUMOVehicle* const vehicle : myWaiting) {
         if (transportable->isWaitingFor(vehicle)) {

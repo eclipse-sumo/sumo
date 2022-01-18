@@ -25,6 +25,9 @@
 #include <cassert>
 #include <numeric>
 #include <utility>
+#ifdef HAVE_FOX
+#include <utils/common/ScopedLocker.h>
+#endif
 #include <utils/common/WrappingCommand.h>
 #include <utils/common/ToString.h>
 #include <microsim/MSEventControl.h>
@@ -67,7 +70,7 @@ MSInstantInductLoop::notifyMove(SUMOTrafficObject& veh, double oldPos,
         return true;
     }
 #ifdef HAVE_FOX
-    FXConditionalLock lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
+    ScopedLocker<> lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
 #endif
 
     const double oldSpeed = veh.getPreviousSpeed();

@@ -24,6 +24,9 @@
 #include <config.h>
 
 #include <limits>
+#ifdef HAVE_FOX
+#include <utils/common/ScopedLocker.h>
+#endif
 #include <utils/common/SUMOTime.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringTokenizer.h>
@@ -246,7 +249,7 @@ MSMeanData::MeanDataValues::notifyMove(SUMOTrafficObject& veh, double oldPos, do
 //    const double travelledDistanceVehicleOnLane = timeOnLane*newSpeed;
 
 #ifdef HAVE_FOX
-    FXConditionalLock lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
+    ScopedLocker<> lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
 #endif
     notifyMoveInternal(veh, frontOnLane, timeOnLane, (enterSpeed + leaveSpeedFront) / 2., (enterSpeed + leaveSpeed) / 2., travelledDistanceFrontOnLane, travelledDistanceVehicleOnLane, meanLengthOnLane);
     return ret;
