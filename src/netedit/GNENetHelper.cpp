@@ -1068,11 +1068,11 @@ GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
         prefix = oc.getString("e2Detector-prefix");
     } else if (tag == SUMO_TAG_E3DETECTOR) {
         prefix = oc.getString("e3Detector-prefix");
-    } else if (tag == SUMO_TAG_INDUCTION_LOOP) {
+    } else if (tag == SUMO_TAG_INSTANT_INDUCTION_LOOP) {
         prefix = oc.getString("e1InstantDetector-prefix");
     } else if (tag == SUMO_TAG_REROUTER) {
         prefix = oc.getString("rerouter-prefix");
-    } else if ((tag == SUMO_TAG_CALIBRATOR) || (tag == SUMO_TAG_CALIBRATOR)) {
+    } else if ((tag == SUMO_TAG_CALIBRATOR) || (tag == SUMO_TAG_LANECALIBRATOR)) {
         prefix = oc.getString("calibrator-prefix");
     } else if (tag == SUMO_TAG_ROUTEPROBE) {
         prefix = oc.getString("routeProbe-prefix");
@@ -1080,8 +1080,16 @@ GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
         prefix = oc.getString("vss-prefix");
     }
     int counter = 0;
-    while (retrieveAdditional(tag, prefix + "_" + toString(counter), false) != nullptr) {
-        counter++;
+    // special case for calibrators
+    if ((tag == SUMO_TAG_CALIBRATOR) || (tag == SUMO_TAG_LANECALIBRATOR)) {
+        while ((retrieveAdditional(SUMO_TAG_CALIBRATOR, prefix + "_" + toString(counter), false) != nullptr) ||
+               (retrieveAdditional(SUMO_TAG_LANECALIBRATOR, prefix + "_" + toString(counter), false) != nullptr)) {
+            counter++;
+        }
+    } else {
+        while ((retrieveAdditional(tag, prefix + "_" + toString(counter), false) != nullptr)) {
+            counter++;
+        }
     }
     return (prefix + "_" + toString(counter));
 }
