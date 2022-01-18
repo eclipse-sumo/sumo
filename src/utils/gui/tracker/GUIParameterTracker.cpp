@@ -188,13 +188,10 @@ GUIParameterTracker::onCmdSave(FXObject*, FXSelector, void*) {
         OutputDevice& dev = OutputDevice::getDevice(file.text());
         // write header
         std::vector<TrackerValueDesc*>::iterator i;
-        dev << "# ";
+        dev << "# Time";
         for (i = myTracked.begin(); i != myTracked.end(); ++i) {
-            if (i != myTracked.begin()) {
-                dev << ';';
-            }
             TrackerValueDesc* tvd = *i;
-            dev << tvd->getName();
+            dev << ';' << tvd->getName();
         }
         dev << '\n';
         // count entries
@@ -208,16 +205,17 @@ GUIParameterTracker::onCmdSave(FXObject*, FXSelector, void*) {
             tvd->unlockValues();
         }
         // write entries
+        SUMOTime t = myTracked.empty() ? 0 : myTracked.front()->getRecordingBegin();
+        SUMOTime dt = myTracked.empty() ? DELTA_T : myTracked.front()->getAggregationSpan();
         for (int j = 0; j < max; j++) {
+            dev << time2string(t);
             for (i = myTracked.begin(); i != myTracked.end(); ++i) {
-                if (i != myTracked.begin()) {
-                    dev << ';';
-                }
                 TrackerValueDesc* tvd = *i;
-                dev << tvd->getAggregatedValues()[j];
+                dev << ';' << tvd->getAggregatedValues()[j];
                 tvd->unlockValues();
             }
             dev << '\n';
+            t += dt;
         }
         dev.close();
     } catch (IOError& e) {
