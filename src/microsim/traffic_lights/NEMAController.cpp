@@ -881,6 +881,18 @@ NEMALogic::NEMA_control() {
                 // will still allow the phase to be extended with vehicle detection
                 phaseStartTime[R1Index] = currentTimeInSecond - minGreen[R1Index];
                 phaseStartTime[R2Index] = currentTimeInSecond - minGreen[R2Index];
+            } else if (tempR1Phase == R1Phase){
+                if (findBarrier(tempR1Phase, 0) == findBarrier(tempR2Phase, 1)){
+                    EndCurrentPhaseR1 = false;
+                    wait4R1Green = false;
+                    phaseEndTimeR1 += TS;
+                }
+            } else if (tempR2Phase == R2Phase){
+                if (findBarrier(tempR1Phase, 0) == findBarrier(tempR2Phase, 1)){
+                    EndCurrentPhaseR2 = false;
+                    wait4R2Green = false;
+                    phaseEndTimeR2 += TS;
+                }
             }
         }
         if (!(EndCurrentPhaseR1 && EndCurrentPhaseR2) && greenTransfer){
