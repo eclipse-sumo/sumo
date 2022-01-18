@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-17 08:08:55 by Eclipse SUMO sumo Version v1_11_0+1195-172f090acd3
+<!-- generated on 2022-01-17 19:53:32 by Eclipse SUMO sumo Version v1_11_0+1223-fb0f78147da
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -35,8 +35,7 @@ SPDX-License-Identifier: EPL-2.0
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <tlLogic id="2881" type="static" programID="NEMA">
-        <phase duration="6.00"  state="srrrrrrGGrrr" name="4+4"/>
-        <phase duration="4.00"  state="GGGGGrrrrrrr" name="4+4"/>
+        <phase duration="10.00" state="GGGGGrrrrrrr" name="4+4"/>
         <phase duration="5.00"  state="yyyyyrrrrrrr" name="4+4"/>
         <phase duration="1.00"  state="rrrrrrrrrrrr" name="4+4"/>
         <phase duration="63.00" state="srrrrGGrrGGG" name="2+6"/>
@@ -45,10 +44,16 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="15.00" state="GGGGGrrrrrrr" name="4+4"/>
         <phase duration="5.00"  state="yyyyyrrrrrrr" name="4+4"/>
         <phase duration="1.00"  state="rrrrrrrrrrrr" name="4+4"/>
-        <phase duration="23.00" state="srrrrGGrrGGG" name="2+6"/>
+        <phase duration="10.00" state="srrrrGGrrGGG" name="2+6"/>
         <phase duration="4.00"  state="srrrryyrryyy" name="2+6"/>
         <phase duration="1.00"  state="rrrrrrrrrrrr" name="2+6"/>
-        <phase duration="21.00" state="GGGGGrrrrrrr" name="4+4"/>
+        <phase duration="10.00" state="GGGGGrrrrrrr" name="4+4"/>
+        <phase duration="5.00"  state="yyyyyrrrrrrr" name="4+4"/>
+        <phase duration="1.00"  state="rrrrrrrrrrrr" name="4+4"/>
+        <phase duration="10.00" state="srrrrGGrrGGG" name="2+6"/>
+        <phase duration="4.00"  state="srrrryyrryyy" name="2+6"/>
+        <phase duration="1.00"  state="rrrrrrrrrrrr" name="2+6"/>
+        <phase duration="11.00" state="GGGGGrrrrrrr" name="4+4"/>
         <phase duration="5.00"  state="yyyyyrrrrrrr" name="4+4"/>
         <phase duration="1.00"  state="rrrrrrrrrrrr" name="4+4"/>
         <phase duration="10.00" state="srrrrGGrrGGG" name="2+6"/>
@@ -60,13 +65,9 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="10.00" state="srrrrGGrrGGG" name="2+6"/>
         <phase duration="4.00"  state="srrrryyrryyy" name="2+6"/>
         <phase duration="1.00"  state="rrrrrrrrrrrr" name="2+6"/>
-        <phase duration="10.00" state="GGGGGrrrrrrr" name="4+4"/>
+        <phase duration="11.00" state="GGGGGrrrrrrr" name="4+4"/>
         <phase duration="5.00"  state="yyyyyrrrrrrr" name="4+4"/>
         <phase duration="1.00"  state="rrrrrrrrrrrr" name="4+4"/>
-        <phase duration="10.00" state="srrrrGGrrGGG" name="2+6"/>
-        <phase duration="4.00"  state="srrrryyrryyy" name="2+6"/>
-        <phase duration="1.00"  state="rrrrrrrrrrrr" name="2+6"/>
-        <phase duration="20.00" state="GGGGGrrrrrrr" name="4+4"/>
-        <phase duration="2.00"  state="yyyyyrrrrrrr" name="4+4"/>
+        <phase duration="6.00"  state="srrrrGGrrGGG" name="2+6"/>
     </tlLogic>
 </additional>
