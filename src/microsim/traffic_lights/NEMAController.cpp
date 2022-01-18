@@ -1027,7 +1027,6 @@ int NEMALogic::nextPhase(std::vector<int> ring, int currentPhase, int& distance)
     int flag = 0;
     int nphase = 0; // next phase
     int i = 0; // i represents the distance
-    int myIndex = 0;
     for (i = 0; i < length * 2; i++) {
         if (flag == 1) {
             if (ring[i % length] != 0) {
@@ -1046,7 +1045,6 @@ int NEMALogic::nextPhase(std::vector<int> ring, int currentPhase, int& distance)
         }
         if (ring[i % length] == currentPhase) {
             flag = 1;
-            myIndex = i;
         }
     }
     if (nphase !=0){
@@ -1077,7 +1075,7 @@ void NEMALogic::constructBarrierMap(int ring, std::vector<std::vector<int>> &bar
     };
     barrierMap.push_back(barrierOne);
     barrierMap.push_back(barrierTwo);
-};
+}
 
 int NEMALogic::findBarrier(int phase, int ring) {
     int barrier = 0;
@@ -1120,7 +1118,7 @@ std::tuple<int, int> NEMALogic::getNextPhases(int R1Phase, int R2Phase, bool toU
         };
     };
     return std::make_tuple(nextR1Phase, nextR2Phase);
-};
+}
 
 //b should be the base of mode
 double NEMALogic::ModeCycle(double a, double b) {
