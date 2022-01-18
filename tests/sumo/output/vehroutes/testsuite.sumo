@@ -1,3 +1,5 @@
+transportable
+
 # no traffic, just plain output
 no_vehicles
 
@@ -67,12 +69,6 @@ write_unfinished_exit_times
 # write vehroutes for vehicles which have not arrived at simulation end
 write_unfinished_routeLength
 
-# output of person route
-with_person
-
-# output of person route
-write_unfinished_person
-
 # output of stops
 with_stops
 
@@ -87,16 +83,6 @@ dua
 
 # one vehicle with a single route that is written with costs
 dua_trip
-
-# public transport and walk possible
-person_route_length
-person_write_unfinished
-person_exit_times
-person_ride_parkingArea
-
-# test loading stages will all kinds of stopping places
-person_stoppingPlaces
-container_exit_times
 
 # sorting without public transport
 no_pt_lines_sorted
