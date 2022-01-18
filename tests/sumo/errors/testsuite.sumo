@@ -65,3 +65,6 @@ invalid_color
 
 # test error on invalid color input
 invalid_color_name
+
+# test for #5875
+empty_line
