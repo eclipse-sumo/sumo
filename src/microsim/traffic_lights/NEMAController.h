@@ -108,7 +108,7 @@ public:
     }
 
     /// @brief retrieve all detectors used by this program
-    std::map<std::string, double> getDetectorStates() const;
+    std::map<std::string, double> getDetectorStates() const override;
 
     // control logic
     std::string NEMA_control();
