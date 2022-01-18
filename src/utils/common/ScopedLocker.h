@@ -22,17 +22,29 @@
 
 
 // ===========================================================================
+// class declarations
+// ===========================================================================
+namespace FX { class FXMutex; }
+
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
  * @class ScopedLocker
  * @brief A scoped lock which only triggers on condition
  */
-template<typename T=FXMutex, bool IGNORE_COND=false>
+template<typename T=FX::FXMutex, bool IGNORE_COND=false>
 class ScopedLocker {
 public:
+
+#ifdef _MSC_VER
+#pragma warning(push)
+// ignore constant conditional expression (C4127) warnings
+#pragma warning(disable: 4127)
+#endif
     /// Construct & lock associated mutex if the condition is true
-    ScopedLocker(T& m, const bool condition)
+    ScopedLocker(T& m, const bool condition=true)
         : myMutex(m), myCondition(condition) {
         if (IGNORE_COND || condition) {
             m.lock();
@@ -45,6 +57,9 @@ public:
             myMutex.unlock();
         }
     }
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 
 private:
     T& myMutex;
