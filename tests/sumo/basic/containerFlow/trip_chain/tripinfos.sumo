@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-10-01 21:41:30 by Eclipse SUMO sumo Version v1_10_0+1164-7d4c2ab
+<!-- generated on 2022-01-18 17:02:22 by Eclipse SUMO sumo Version v1_11_0+1250-df02d0a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -50,20 +50,20 @@ SPDX-License-Identifier: EPL-2.0
         <transport waitingTime="359.00" vehicle="train0" depart="471.00" arrival="579.00" arrivalPos="60.00" duration="108.00" routeLength="190.08" timeLoss="5.33"/>
         <tranship depart="579.00" departPos="60.00" arrival="641.00" arrivalPos="45.00" duration="62.00" routeLength="86.11" maxSpeed="1.39"/>
         <stop duration="20.00" arrival="661.00" arrivalPos="45.00" actType="singing"/>
-        <transport waitingTime="201.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="92.00" duration="-1" routeLength="-1.00" timeLoss="-1"/>
+        <transport waitingTime="201.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
     </containerinfo>
     <containerinfo id="container.1" depart="0.25" type="DEFAULT_CONTAINERTYPE">
         <tranship depart="1.00" departPos="0.00" arrival="112.00" arrivalPos="55.00" duration="111.00" routeLength="154.17" maxSpeed="1.39"/>
         <transport waitingTime="359.00" vehicle="train0" depart="471.00" arrival="669.00" arrivalPos="60.00" duration="198.00" routeLength="190.08" timeLoss="5.33"/>
         <tranship depart="669.00" departPos="60.00" arrival="731.00" arrivalPos="45.00" duration="62.00" routeLength="86.11" maxSpeed="1.39"/>
         <stop duration="20.00" arrival="751.00" arrivalPos="45.00" actType="singing"/>
-        <transport waitingTime="111.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="92.00" duration="-1" routeLength="-1.00" timeLoss="-1"/>
+        <transport waitingTime="111.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
     </containerinfo>
     <containerinfo id="container.3" depart="0.75" type="DEFAULT_CONTAINERTYPE">
         <tranship depart="1.00" departPos="0.00" arrival="112.00" arrivalPos="55.00" duration="111.00" routeLength="154.17" maxSpeed="1.39"/>
         <transport waitingTime="359.00" vehicle="train0" depart="471.00" arrival="759.00" arrivalPos="60.00" duration="288.00" routeLength="190.08" timeLoss="5.33"/>
         <tranship depart="759.00" departPos="60.00" arrival="821.00" arrivalPos="45.00" duration="62.00" routeLength="86.11" maxSpeed="1.39"/>
         <stop duration="20.00" arrival="841.00" arrivalPos="45.00" actType="singing"/>
-        <transport waitingTime="21.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="92.00" duration="-1" routeLength="-1.00" timeLoss="-1"/>
+        <transport waitingTime="21.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
     </containerinfo>
 </tripinfos>

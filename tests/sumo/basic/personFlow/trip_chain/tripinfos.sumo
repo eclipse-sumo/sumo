@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-10-01 21:18:12 by Eclipse SUMO sumo Version v1_10_0+1164-7d4c2ab
+<!-- generated on 2022-01-18 17:02:21 by Eclipse SUMO sumo Version v1_11_0+1250-df02d0a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -50,20 +50,20 @@ SPDX-License-Identifier: EPL-2.0
         <ride waitingTime="116.00" vehicle="train0" depart="120.00" arrival="139.00" arrivalPos="60.00" duration="19.00" routeLength="190.08" timeLoss="5.33"/>
         <walk depart="139.00" departPos="60.00" arrival="142.00" arrivalPos="45.00" duration="3.00" routeLength="77.00" timeLoss="1.61" maxSpeed="55.56"/>
         <stop duration="20.00" arrival="162.00" arrivalPos="45.00" actType="singing"/>
-        <ride waitingTime="30.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="92.00" duration="-1" routeLength="-1.00" timeLoss="-1"/>
+        <ride waitingTime="30.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
     </personinfo>
     <personinfo id="person.0" depart="0.00" type="DEFAULT_PEDTYPE">
         <walk depart="0.00" departPos="80.00" arrival="3.00" arrivalPos="55.00" duration="3.00" routeLength="65.50" timeLoss="1.82" maxSpeed="55.56"/>
         <ride waitingTime="117.00" vehicle="train0" depart="120.00" arrival="139.00" arrivalPos="60.00" duration="19.00" routeLength="190.08" timeLoss="5.33"/>
         <walk depart="139.00" departPos="60.00" arrival="142.00" arrivalPos="45.00" duration="3.00" routeLength="77.00" timeLoss="1.61" maxSpeed="55.56"/>
         <stop duration="20.00" arrival="162.00" arrivalPos="45.00" actType="singing"/>
-        <ride waitingTime="30.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="92.00" duration="-1" routeLength="-1.00" timeLoss="-1"/>
+        <ride waitingTime="30.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
     </personinfo>
     <personinfo id="person.3" depart="0.75" type="DEFAULT_PEDTYPE">
         <walk depart="1.00" departPos="80.00" arrival="4.00" arrivalPos="55.00" duration="3.00" routeLength="65.50" timeLoss="1.82" maxSpeed="55.56"/>
         <ride waitingTime="116.00" vehicle="train0" depart="120.00" arrival="140.00" arrivalPos="60.00" duration="20.00" routeLength="190.08" timeLoss="5.33"/>
         <walk depart="140.00" departPos="60.00" arrival="143.00" arrivalPos="45.00" duration="3.00" routeLength="77.00" timeLoss="1.61" maxSpeed="55.56"/>
         <stop duration="20.00" arrival="163.00" arrivalPos="45.00" actType="singing"/>
-        <ride waitingTime="29.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="92.00" duration="-1" routeLength="-1.00" timeLoss="-1"/>
+        <ride waitingTime="29.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
     </personinfo>
 </tripinfos>
