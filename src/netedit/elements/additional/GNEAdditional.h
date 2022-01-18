@@ -369,9 +369,6 @@ protected:
     /// @brief replace demand element parent
     void replaceDemandElementParent(SumoXMLTag tag, const std::string& value, const int parentIndex);
 
-    /// @brief set vTypeParent parent (used in CalibratorFlow)
-    void setVTypeParent(const std::string& value);
-
     /// @brief shift lane index
     void shiftLaneIndex();
 
@@ -401,7 +398,7 @@ private:
     virtual void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) = 0;
 
     /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_EnableAttribute)
-    void toogleAttribute(SumoXMLAttr key, const bool value, const int previousParameters);
+    virtual void toogleAttribute(SumoXMLAttr key, const bool value, const int previousParameters);
 
     /// @brief draw geometry point
     static void drawSemiCircleGeometryPoint(const GNEViewNet* viewNet, const Position& pos, const double rot, const RGBColor& baseColor,

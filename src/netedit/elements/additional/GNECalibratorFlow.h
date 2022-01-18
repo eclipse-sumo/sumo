@@ -44,10 +44,10 @@ public:
     GNECalibratorFlow(GNENet* net);
 
     /// @brief default constructor (used only in GNECalibratorDialog)
-    GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* route, GNEDemandElement* vehicleType);
+    GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route);
 
     /// @brief parameter constructor
-    GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* route, GNEDemandElement* vehicleType, const SUMOVehicleParameter& vehicleParameters);
+    GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters);
 
     /// @brief destructor
     ~GNECalibratorFlow();
@@ -141,6 +141,9 @@ private:
 
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
+
+    /// @brief toogle attribute
+    void toogleAttribute(SumoXMLAttr key, const bool value, const int previousParameters);
 
     /// @brief Invalidated copy constructor.
     GNECalibratorFlow(const GNECalibratorFlow&) = delete;
