@@ -116,7 +116,7 @@ step 4.0
      jamLengthVeh 0
      jamLengthMet 0.0
 parameter 42
-parameter from XML 
+parameter from XML 1338
 laneareas ('det0', 'det1')
 lanearea count 2
 subscriptionResults:  {16: 1}
