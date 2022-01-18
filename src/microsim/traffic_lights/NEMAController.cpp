@@ -603,6 +603,10 @@ NEMALogic::init(NLDetectorBuilder& nb) {
             WRITE_WARNINGF("At NEMA tlLogic '%, linkIndex % has no controlling detector", getID(), toString(i));
         }
     }
+
+    std::string state1 = transitionState(currentR1State, 1);
+    std::string state2 = transitionState(currentR2State, 1);
+    myPhase.setState(combineStates(state1, state2));
     myPhase.setName(toString(activeRing1Phase) + "+" + toString(activeRing2Phase));
 
 #ifdef DEBUG_NEMA
@@ -1052,7 +1056,7 @@ int NEMALogic::nextPhase(std::vector<int> ring, int currentPhase, int& distance)
     else{
         // this should only occur in the subset
         distance = i + 1;
-        return ring[myIndex % length + 1];
+        return ring[length - 1];
     }
 }
 
