@@ -23,3 +23,6 @@ edge_type
 
 # tests for lane queues in meso 
 lane_queue
+
+# ignoring lanes by vclass
+ignore_lanes

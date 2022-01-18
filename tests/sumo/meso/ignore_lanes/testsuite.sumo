@@ -1,0 +1,8 @@
+# remove bicycle lane by default
+plain
+
+# keep all lanes
+remove_none
+
+# remove bicycle and bus lane
+remove_bus

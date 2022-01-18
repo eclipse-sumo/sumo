@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<edges version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="E0" from="J0" to="J1" numLanes="4">
+        <lane index="0" allow="bicycle"/>
+        <lane index="1" allow="bus"/>
+        <lane index="2"/>
+        <lane index="3"/>
+    </edge>
+</edges>
