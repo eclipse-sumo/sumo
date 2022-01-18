@@ -5367,11 +5367,15 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                 }
             }
 
-            // TODO: add a likelihood parameter for whether bike paths are used or even better: add optional vs mandatory bike path
+            // bikes ought to consider bike paths the best lanes in any case
             if (myType->getVehicleClass() == SVC_BICYCLE) {
                 for (std::vector<LaneQ>::iterator j = clanes.begin(); j != clanes.end(); ++j) {
                     if (isBikepath(j->lane->getPermissions())) {
                         bestThisIndex = j - clanes.begin();
+                        for (std::vector<LaneQ>::iterator l = clanes.begin(); l != clanes.end(); ++l) {
+                            (*l).bestLaneOffset = j - l;
+                            (*l).length = bestLength;
+                        }
                         break;
                     }
                 }
