@@ -333,7 +333,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
                 glPushMatrix();
                 glColor3d(0, 0, 1);
                 glTranslated(xn, yn, 0);
-                glScaled(20.0 / myWidthInPixels, 300.0 / myHeightInPixels, 0);
+                glScaled(20.0 / myWidthInPixels, 10.0 * desc.getRange() / myHeightInPixels, 0);
                 GLHelper::drawFilledCircle(1, 8);
                 glColor4ub(red, green, blue, 255);
                 glPopMatrix();
