@@ -146,14 +146,16 @@ GUIParameterTableWindow::onLeftBtnPress(FXObject* sender, FXSelector sel, void* 
         if (i->dynamic() && i->getdoubleSourceCopy() != nullptr) {
             // open tracker directly
             const std::string trackerName = i->getName() + " from " + myObject->getFullName();
-            GUIParameterTracker* tr = new GUIParameterTracker(*myApplication, trackerName);
             TrackerValueDesc* newTracked = new TrackerValueDesc(i->getName(), RGBColor::BLACK, myApplication->getCurrentSimTime(), myApplication->getTrackerInterval());
-            tr->addTracked(*myObject, i->getdoubleSourceCopy(), newTracked);
-            tr->setX(getX() + getWidth() + 10);
-            tr->setY(myTrackerY);
-            tr->create();
-            tr->show();
-            myTrackerY = (myTrackerY + tr->getHeight() + 20) % getApp()->getRootWindow()->getHeight();
+            if (!GUIParameterTracker::addTrackedMultiplot(*myObject, i->getdoubleSourceCopy(), newTracked)) {
+                GUIParameterTracker* tr = new GUIParameterTracker(*myApplication, trackerName);
+                tr->addTracked(*myObject, i->getdoubleSourceCopy(), newTracked);
+                tr->setX(getX() + getWidth() + 10);
+                tr->setY(myTrackerY);
+                tr->create();
+                tr->show();
+                myTrackerY = (myTrackerY + tr->getHeight() + 20) % getApp()->getRootWindow()->getHeight();
+            }
         }
     }
     return FXMainWindow::onLeftBtnPress(sender, sel, eventData);

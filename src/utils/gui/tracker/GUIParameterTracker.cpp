@@ -44,17 +44,22 @@
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GUIParameterTracker) GUIParameterTrackerMap[] = {
-    FXMAPFUNC(SEL_CONFIGURE, 0,                       GUIParameterTracker::onConfigure),
-    FXMAPFUNC(SEL_PAINT,     0,                       GUIParameterTracker::onPaint),
-    FXMAPFUNC(SEL_COMMAND,   MID_SIMSTEP,             GUIParameterTracker::onSimStep),
+    FXMAPFUNC(SEL_CONFIGURE, 0,                                            GUIParameterTracker::onConfigure),
+    FXMAPFUNC(SEL_PAINT,     0,                                            GUIParameterTracker::onPaint),
+    FXMAPFUNC(SEL_COMMAND,   MID_SIMSTEP,                                  GUIParameterTracker::onSimStep),
+    FXMAPFUNC(SEL_COMMAND,   GUIParameterTracker::MID_MULTIPLOT,           GUIParameterTracker::onMultiPlot),
     FXMAPFUNC(SEL_COMMAND,   GUIParameterTracker::MID_AGGREGATIONINTERVAL, GUIParameterTracker::onCmdChangeAggregation),
-    FXMAPFUNC(SEL_COMMAND,   GUIParameterTracker::MID_SAVE, GUIParameterTracker::onCmdSave),
+    FXMAPFUNC(SEL_COMMAND,   GUIParameterTracker::MID_SAVE,                GUIParameterTracker::onCmdSave),
 
 };
 
 // Macro for the GLTestApp class hierarchy implementation
 FXIMPLEMENT(GUIParameterTracker, FXMainWindow, GUIParameterTrackerMap, ARRAYNUMBER(GUIParameterTrackerMap))
 
+// ===========================================================================
+// static value definitions
+// ===========================================================================
+std::set<GUIParameterTracker*> GUIParameterTracker::myMultiPlots;
 
 
 // ===========================================================================
@@ -102,6 +107,7 @@ GUIParameterTracker::buildToolBar() {
     // save button
     new FXButton(myToolBar, "\t\tSave the data...",
                  GUIIconSubSys::getIcon(GUIIcon::SAVE), this, GUIParameterTracker::MID_SAVE, GUIDesignButtonToolbar);
+
     // aggregation interval combo
     myAggregationInterval =
         new FXComboBox(myToolBar, 8, this, MID_AGGREGATIONINTERVAL,
@@ -113,6 +119,18 @@ GUIParameterTracker::buildToolBar() {
     myAggregationInterval->appendItem("30min");
     myAggregationInterval->appendItem("60min");
     myAggregationInterval->setNumVisible(6);
+
+    myMultiPlot = new FXCheckButton(myToolBar, "Multiplot", this, MID_MULTIPLOT);
+    myMultiPlot->setCheck(false);
+}
+
+
+bool
+GUIParameterTracker::addTrackedMultiplot(GUIGlObject& o, ValueSource<double>* src, TrackerValueDesc* newTracked) {
+    for (GUIParameterTracker* tr : myMultiPlots) {
+        tr->addTracked(o, src, newTracked);
+    }
+    return myMultiPlots.size() > 0;
 }
 
 
@@ -224,6 +242,16 @@ GUIParameterTracker::onCmdSave(FXObject*, FXSelector, void*) {
     return 1;
 }
 
+
+long
+GUIParameterTracker::onMultiPlot(FXObject*, FXSelector, void*) {
+    if (myMultiPlot->getCheck()) {
+        myMultiPlots.insert(this);
+    } else {
+        myMultiPlots.erase(this);
+    }
+    return 1;
+}
 
 /* -------------------------------------------------------------------------
  * GUIParameterTracker::GUIParameterTrackerPanel-methods

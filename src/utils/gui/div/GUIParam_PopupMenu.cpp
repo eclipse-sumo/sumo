@@ -61,11 +61,13 @@ GUIParam_PopupMenuInterface::~GUIParam_PopupMenuInterface() {
 long
 GUIParam_PopupMenuInterface::onCmdOpenTracker(FXObject*, FXSelector, void*) {
     std::string trackerName = myVarName + " from " + myObject->getFullName();
-    GUIParameterTracker* tr = new GUIParameterTracker(*myApplication, trackerName);
     TrackerValueDesc* newTracked = new TrackerValueDesc(myVarName, RGBColor::BLACK, myApplication->getCurrentSimTime(), myApplication->getTrackerInterval());
-    tr->addTracked(*myObject, mySource->copy(), newTracked);
-    tr->create();
-    tr->show();
+    if (!GUIParameterTracker::addTrackedMultiplot(*myObject, mySource->copy(), newTracked)) {
+        GUIParameterTracker* tr = new GUIParameterTracker(*myApplication, trackerName);
+        tr->addTracked(*myObject, mySource->copy(), newTracked);
+        tr->create();
+        tr->show();
+    }
     return 1;
 }
 

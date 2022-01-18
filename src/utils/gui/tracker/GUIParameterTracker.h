@@ -52,6 +52,8 @@ public:
         MID_AGGREGATIONINTERVAL = FXMainWindow::ID_LAST,
         /// @brief Save the current values
         MID_SAVE,
+        /// @brief toggle multiplot
+        MID_MULTIPLOT,
         /// @brief end-of-enum
         ID_LAST
     };
@@ -93,12 +95,19 @@ public:
     /// @brief Called on a simulation step
     long onSimStep(FXObject*, FXSelector, void*);
 
+    /// @brief Called on a simulation step
+    long onMultiPlot(FXObject*, FXSelector, void*);
+
     /// @brief Called when the aggregation interval (combo) has been changed
     long onCmdChangeAggregation(FXObject*, FXSelector, void*);
 
     /// @brief Called when the data shall be saved
     long onCmdSave(FXObject*, FXSelector, void*);
     /// @}
+
+
+    /// @brief all value source to multiplot trackers
+    static bool addTrackedMultiplot(GUIGlObject& o, ValueSource<double>* src, TrackerValueDesc* newTracked);
 
 public:
     /**
@@ -178,7 +187,6 @@ private:
     /// @brief Builds the tool bar
     void buildToolBar();
 
-
 protected:
     /// @brief The main application
     GUIMainWindow* myApplication;
@@ -203,6 +211,12 @@ protected:
 
     /// @brief The tracker tool bar
     FXToolBar* myToolBar;
+
+    /// @brief Whether phase names shall be printed instead of indices
+    FXCheckButton* myMultiPlot;
+
+    /// @brief all trackers that are opened for plotting multiple values
+    static std::set<GUIParameterTracker*> myMultiPlots;
 
 protected:
     FOX_CONSTRUCTOR(GUIParameterTracker)
