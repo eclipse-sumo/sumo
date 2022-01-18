@@ -154,10 +154,13 @@ GNELane::updateGeometry() {
     // Clear texture containers
     myLaneRestrictedTexturePositions.clear();
     myLaneRestrictedTextureRotations.clear();
-    //double length = myParentEdge->getLength(); // @todo see ticket #448
-    // may be different from length
+    // get lane shape and extend if is too short
+    auto laneShape = getLaneShape();
+    if (laneShape.length2D() < 1) {
+        laneShape.extrapolate2D(1 - laneShape.length2D());
+    }
     // Obtain lane shape of NBEdge
-    myLaneGeometry.updateGeometry(getLaneShape());
+    myLaneGeometry.updateGeometry(laneShape);
     // update connections
     myLane2laneConnections.updateLane2laneConnection();
     // update shapes parents associated with this lane
