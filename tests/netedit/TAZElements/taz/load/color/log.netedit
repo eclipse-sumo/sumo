@@ -1,2 +1,2 @@
-Error: Attribute 'color' in definition of taz 'TAZ_1' is empty.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.TAZ.taz.28Jun132936.2443/netedit.daily.TAZ.taz/TAZElements/taz/load/color/input_additionals.add.xml failed.
+Error: Invalid color definition 'dummycolor'
+Error: Loading of C:\Users\palva\.texttest\tmp\netedit.gui.18Jan114657.13884\netedit.gui\TAZElements\taz\load\color\input_additionals.add.xml failed.

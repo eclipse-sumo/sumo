@@ -4,26 +4,18 @@ GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 38.00,-12.00,62.0
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Inserting generic parameter 'key1|value1' into poi
-Debug: Inserting generic parameter 'key1|value1' into 
-Error: Attribute 'key' is missing in definition of a param.
-Error: Attribute 'key' is missing in definition of a param.
 Error: Attribute 'key' is missing in definition of a param.
 Error: Attribute 'key' is missing in definition of a param.
 Error: Attribute 'key' in definition of a param is empty.
-Error: Attribute 'key' in definition of a param is empty.
+Debug: Inserting generic parameter '$$key with spaces%%|value4' into poi
 Debug: Inserting generic parameter 'key1|value5' into poi
-Debug: Inserting generic parameter 'key1|value5' into 
 Debug: Inserting generic parameter 'key2|' into poi
-Debug: Inserting generic parameter 'key2|' into 
 Debug: Inserting generic parameter 'key2|' into poi
-Debug: Inserting generic parameter 'key2|' into 
 Debug: Inserting generic parameter 'key3|$$value with spaces%%' into poi
-Debug: Inserting generic parameter 'key3|$$value with spaces%%' into 
 Debug: Inserting generic parameter 'keyFinal|valueFinal' into poi
-Debug: Inserting generic parameter 'keyFinal|valueFinal' into 
 Debug: Adding poi 'POI_0' into viewNet
 GLDebug: 	Inserted poi:POI_0 into SUMORTree with boundary -40.00,20.00,-20.00,40.00
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov161516.13432\netedit.gui\shapeElements\poi\load\parameters\input_additionals.add.xml failed.
+Error: Loading of C:\Users\palva\.texttest\tmp\netedit.gui.18Jan114657.13884\netedit.gui\shapeElements\poi\load\parameters\input_additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

@@ -16,7 +16,6 @@ GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.6
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
 Debug: Adding route 'route_0' in GNEChange_DemandElement
-Error: Attribute 'id' is missing in definition of flow
 Error: flow cannot be created
 Error: Attribute 'id' in definition of a flow is empty.
 Error: Invalid flow id ''.
@@ -25,7 +24,7 @@ Error: Invalid flow id 'id with spaces'. Contains invalid characters.
 Error: flow cannot be created
 Debug: Adding flowRoute 'flow_valid' in GNEChange_DemandElement
 Error: There is another flowRoute with the same ID='flow_valid'.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Nov111153.3052\netedit.gui\demandElements\routeflow\load\id\input_routes.rou.xml failed.
+Error: Loading of C:\Users\palva\.texttest\tmp\netedit.gui.18Jan114657.13884\netedit.gui\demandElements\routeflow\load\id\input_routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -2.00,8.00,22.00,32.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 58.00,8.00,82.00,32.00

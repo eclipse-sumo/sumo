@@ -1,2 +1,2 @@
-Error: Attribute 'color' in definition of poi 'POI_1' is empty.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Nov161346.42572\netedit.gui\shapeElements\poi\load\color\input_additionals.add.xml failed.
+Error: Invalid color definition 'dummycolor'
+Error: Loading of C:\Users\palva\.texttest\tmp\netedit.gui.18Jan114657.13884\netedit.gui\shapeElements\poi\load\color\input_additionals.add.xml failed.

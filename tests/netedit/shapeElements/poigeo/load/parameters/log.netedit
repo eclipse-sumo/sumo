@@ -1,9 +1,4 @@
 Error: Attribute 'key' is missing in definition of a param.
 Error: Attribute 'key' is missing in definition of a param.
-Error: Attribute 'key' is missing in definition of a param.
-Error: Attribute 'key' is missing in definition of a param.
 Error: Attribute 'key' in definition of a param is empty.
-Error: Attribute 'key' in definition of a param is empty.
-Warning: Error parsing key from poi generic parameter. Key contains invalid characters.
-Warning: Error parsing key from  generic parameter. Key contains invalid characters
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.12Nov091513.1800\netedit.gui\shapeElements\poigeo\load\parameters\input_additionals.add.xml failed.
+Error: Loading of C:\Users\palva\.texttest\tmp\netedit.gui.18Jan114657.13884\netedit.gui\shapeElements\poigeo\load\parameters\input_additionals.add.xml failed.
