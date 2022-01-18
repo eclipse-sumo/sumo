@@ -459,12 +459,10 @@ MSDevice_Vehroutes::generateOutputForUnfinished() {
 
 
 void
-MSDevice_Vehroutes::registerTransportableDepart() {
+MSDevice_Vehroutes::registerTransportableDepart(SUMOTime depart) {
+    myDepartureCounts[depart]++;
 }
 
-void
-MSDevice_Vehroutes::registerTransportableArrival() {
-}
 
 void
 MSDevice_Vehroutes::writeSortedOutput(OutputDevice& routeOut, SUMOTime depart, const std::string& id, const std::string& xmlOutput) {

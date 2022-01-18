@@ -27,15 +27,16 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/iodevices/OutputDevice_String.h>
 #include <utils/options/OptionsCont.h>
-#include <microsim/MSNet.h>
-#include <microsim/MSEdge.h>
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/transportables/MSStageDriving.h>
-#include <microsim/MSVehicle.h>
-#include <microsim/MSStoppingPlace.h>
 #include <microsim/transportables/MSPModel_NonInteracting.h>
 #include <microsim/transportables/MSPModel_Striping.h>
 #include <microsim/transportables/MSTransportableControl.h>
+#include <microsim/devices/MSDevice_Vehroutes.h>
+#include <microsim/MSNet.h>
+#include <microsim/MSEdge.h>
+#include <microsim/MSVehicle.h>
+#include <microsim/MSStoppingPlace.h>
 
 
 // ===========================================================================
@@ -106,15 +107,23 @@ MSTransportableControl::get(const std::string& id) const {
 
 void
 MSTransportableControl::erase(MSTransportable* transportable) {
-    if (OptionsCont::getOptions().isSet("tripinfo-output")) {
+    const OptionsCont& oc = OptionsCont::getOptions();
+    if (oc.isSet("tripinfo-output")) {
         transportable->tripInfoOutput(OutputDevice::getDeviceByOption("tripinfo-output"));
-    } else if (OptionsCont::getOptions().getBool("duration-log.statistics")) {
+    } else if (oc.getBool("duration-log.statistics")) {
         // collecting statistics is a sideffect
         OutputDevice_String dev;
         transportable->tripInfoOutput(dev);
     }
-    if (OptionsCont::getOptions().isSet("vehroute-output")) {
-        transportable->routeOutput(OutputDevice::getDeviceByOption("vehroute-output"), OptionsCont::getOptions().getBool("vehroute-output.route-length"));
+    if (oc.isSet("vehroute-output")) {
+        if (oc.getBool("vehroute-output.sorted")) {
+            OutputDevice_String od(1);
+            transportable->routeOutput(od, oc.getBool("vehroute-output.route-length"));
+            MSDevice_Vehroutes::writeSortedOutput(OutputDevice::getDeviceByOption("vehroute-output"),
+                    transportable->getDeparture(), transportable->getID(), od.getString());
+        } else {
+            transportable->routeOutput(OutputDevice::getDeviceByOption("vehroute-output"), oc.getBool("vehroute-output.route-length"));
+        }
     }
     const std::map<std::string, MSTransportable*>::iterator i = myTransportables.find(transportable->getID());
     if (i != myTransportables.end()) {
@@ -155,6 +164,9 @@ MSTransportableControl::checkWaiting(MSNet* net, const SUMOTime time) {
                 myRunningNumber++;
                 MSNet::getInstance()->informTransportableStateListener(t,
                         isPerson ? MSNet::TransportableState::PERSON_DEPARTED : MSNet::TransportableState::CONTAINER_DEPARTED);
+                if (OptionsCont::getOptions().getBool("vehroute-output.sorted")) {
+                    MSDevice_Vehroutes::registerTransportableDepart(time);
+                }
             } else {
                 erase(t);
             }

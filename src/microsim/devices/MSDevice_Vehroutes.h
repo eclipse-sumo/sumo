@@ -143,8 +143,8 @@ public:
     */
     void loadState(const SUMOSAXAttributes& attrs);
 
-    static void registerTransportableDepart();
-    static void registerTransportableArrival();
+    static void registerTransportableDepart(SUMOTime depart);
+    static void writeSortedOutput(OutputDevice& routeOut, SUMOTime depart, const std::string& id, const std::string& xmlOutput);
 
 private:
     /** @brief Constructor
@@ -176,7 +176,6 @@ private:
     void addRoute(const std::string& info);
 
 
-    static void writeSortedOutput(OutputDevice& routeOut, SUMOTime depart, const std::string& id, const std::string& xmlOutput);
 
 
 private:

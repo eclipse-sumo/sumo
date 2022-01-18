@@ -141,6 +141,9 @@ public:
     /// logs depart time of the current stage
     void setDeparted(SUMOTime now);
 
+    /// logs depart time of the current stage
+    SUMOTime getDeparture() const;
+
     /// Returns the current destination.
     const MSEdge* getDestination() const {
         return (*myStep)->getDestination();

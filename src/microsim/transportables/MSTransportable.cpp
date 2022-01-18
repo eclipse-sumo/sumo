@@ -136,6 +136,15 @@ MSTransportable::setDeparted(SUMOTime now) {
     (*myStep)->setDeparted(now);
 }
 
+SUMOTime
+MSTransportable::getDeparture() const {
+    if (myPlan->size() > 1 && (*myPlan)[1]->getDeparted() >= 0) {
+        return (*myPlan)[1]->getDeparted();
+    }
+    return -1;
+}
+
+
 double
 MSTransportable::getEdgePos() const {
     return (*myStep)->getEdgePos(MSNet::getInstance()->getCurrentTimeStep());
