@@ -56,6 +56,7 @@ FXDEFMAP(GUIParameterTracker) GUIParameterTrackerMap[] = {
 FXIMPLEMENT(GUIParameterTracker, FXMainWindow, GUIParameterTrackerMap, ARRAYNUMBER(GUIParameterTrackerMap))
 
 
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -144,7 +145,6 @@ GUIParameterTracker::onSimStep(FXObject*, FXSelector, void*) {
     return 1;
 }
 
-
 long
 GUIParameterTracker::onCmdChangeAggregation(FXObject*, FXSelector, void*) {
     int index = myAggregationInterval->getCurrentItem();
@@ -232,6 +232,7 @@ GUIParameterTracker::onCmdSave(FXObject*, FXSelector, void*) {
  * ----------------------------------------------------------------------- */
 FXDEFMAP(GUIParameterTracker::GUIParameterTrackerPanel) GUIParameterTrackerPanelMap[] = {
     FXMAPFUNC(SEL_CONFIGURE, 0, GUIParameterTracker::GUIParameterTrackerPanel::onConfigure),
+    FXMAPFUNC(SEL_MOTION,    0, GUIParameterTracker::GUIParameterTrackerPanel::onMouseMove),
     FXMAPFUNC(SEL_PAINT,     0, GUIParameterTracker::GUIParameterTrackerPanel::onPaint),
 
 };
@@ -306,8 +307,12 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
         glVertex2d(2.0, yp);
         glEnd();
     }
+
     const std::vector<double>& values = desc.getAggregatedValues();
     double latest = 0;
+    double mx = (2 * myMouseX / myWidthInPixels - 1) / 0.8 + 1;
+    int mIndex = 0;
+    double mouseValue = std::numeric_limits<double>::max();
     if (values.size() < 2) {
         GLHelper::popMatrix();
         desc.unlockValues();
@@ -324,6 +329,17 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
         for (; i != values.end(); i++) {
             double yn = (*i);
             double xn = xp + xStep;
+            if (xp < mx && mx < xn) {
+                mouseValue = yp;
+                mIndex = i - values.begin() - 1;
+                glPushMatrix();
+                glColor3d(0, 0, 1);
+                glTranslated(xn, yn, 0);
+                glScaled(20.0 / myWidthInPixels, 300.0 / myHeightInPixels, 0);
+                GLHelper::drawFilledCircle(1, 8);
+                glColor4ub(red, green, blue, 255);
+                glPopMatrix();
+            }
             glBegin(GL_LINES);
             glVertex2d(xp, yp);
             glVertex2d(xn, yn);
@@ -373,6 +389,19 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
     glTranslated(-0.98, -(p + .02), 0);
     GLHelper::drawText(toString(latest), Position(0, 0), 1, fontHeight, RGBColor::RED, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
     glTranslated(0.98, p + .02, 0);
+
+    // draw moused value
+    if (mouseValue != std::numeric_limits<double>::max()) {
+        p = (double) 0.8 -
+            ((double) 1.6 / (desc.getMax() - desc.getMin()) * (mouseValue - desc.getMin()));
+        glTranslated(-0.98, -(p + .02), 0);
+        GLHelper::drawText(toString(mouseValue), Position(0, 0), 1, fontHeight, RGBColor::BLUE, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
+        glTranslated(0.98, p + .02, 0);
+
+        const std::string mouseTime = time2string(beginStep + static_cast<SUMOTime>(mIndex * desc.getAggregationSpan()));
+        glTranslated(1.6 * mIndex / values.size() - 1, -0.9, 0);
+        GLHelper::drawText(mouseTime, Position(0, 0), 1, fontHeight, RGBColor::BLUE, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
+    }
 
 }
 
@@ -430,6 +459,16 @@ GUIParameterTracker::GUIParameterTrackerPanel::onPaint(FXObject*,
     }
     return 1;
 }
+
+
+long
+GUIParameterTracker::GUIParameterTrackerPanel::onMouseMove(FXObject*, FXSelector, void* ptr) {
+    FXEvent* event = (FXEvent*) ptr;
+    myMouseX = event->win_x;
+    update();
+    return 1;
+}
+
 
 
 /****************************************************************************/

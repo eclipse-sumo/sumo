@@ -100,7 +100,6 @@ public:
     long onCmdSave(FXObject*, FXSelector, void*);
     /// @}
 
-
 public:
     /**
      * @class GUIParameterTrackerPanel
@@ -135,8 +134,9 @@ public:
         /// Called if the window shall be repainted
         long onPaint(FXObject*, FXSelector, void*);
 
-        /// Called on a simulation step
-        long onSimStep(FXObject* sender, FXSelector, void*);
+        /// @brief called on mouse movement (for updating moused value)
+        long onMouseMove(FXObject*, FXSelector, void*);
+
         /// @}
 
 
@@ -161,6 +161,10 @@ public:
 
         /// @brief The main application
         GUIMainWindow* myApplication;
+
+        /// @brief latest mouse position
+        double myMouseX;
+
 
     protected:
         FOX_CONSTRUCTOR(GUIParameterTrackerPanel)
