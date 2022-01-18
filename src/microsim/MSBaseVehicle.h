@@ -867,7 +867,7 @@ public:
         myNumberParkingReroutes = value;
     }
 
-    typedef std::map<const MSParkingArea*, PaMemory> ParkingMemory;
+    typedef std::map<const MSParkingArea*, PaMemory, ComparatorIdLess> ParkingMemory;
     const ParkingMemory* getParkingMemory() const {
         return myParkingMemory;
     }
