@@ -223,13 +223,13 @@ MSPerson::MSPersonStage_Walking::tripInfoOutput(OutputDevice& os, const MSTransp
     }
     MSDevice_Tripinfo::addPedestrianData(distance, duration, timeLoss);
     os.openTag("walk");
-    os.writeAttr("depart", time2string(myDeparted));
+    os.writeAttr("depart", myDeparted >= 0 ? time2string(myDeparted) : "-1");
     os.writeAttr("departPos", myDepartPos);
     os.writeAttr("arrival", myArrived >= 0 ? time2string(myArrived) : "-1");
-    os.writeAttr("arrivalPos", myArrivalPos);
+    os.writeAttr("arrivalPos", myArrived >= 0 ? toString(myArrivalPos) : "-1");
     os.writeAttr("duration", myDeparted < 0 ? "-1" :
                  time2string(myArrived >= 0 ? duration : MSNet::getInstance()->getCurrentTimeStep() - myDeparted));
-    os.writeAttr("routeLength", distance);
+    os.writeAttr("routeLength", myArrived >= 0 ? toString(distance) : "-1");
     os.writeAttr("timeLoss", time2string(timeLoss));
     os.writeAttr("maxSpeed", maxSpeed);
     os.closeTag();

@@ -298,10 +298,10 @@ MSStageDriving::tripInfoOutput(OutputDevice& os, const MSTransportable* const tr
     os.writeAttr("vehicle", myVehicleID);
     os.writeAttr("depart", myDeparted >= 0 ? time2string(myDeparted) : "-1");
     os.writeAttr("arrival", myArrived >= 0 ? time2string(myArrived) : "-1");
-    os.writeAttr("arrivalPos", toString(getArrivalPos()));
+    os.writeAttr("arrivalPos", myArrived >= 0 ? toString(getArrivalPos()) : "-1");
     os.writeAttr("duration", myArrived >= 0 ? time2string(duration) :
                  (myDeparted >= 0 ? time2string(now - myDeparted) : "-1"));
-    os.writeAttr("routeLength", myVehicleDistance);
+    os.writeAttr("routeLength", myArrived >= 0 || myVehicle != nullptr ? toString(getDistance()) : "-1");
     os.writeAttr("timeLoss", myArrived >= 0 ? time2string(myTimeLoss) : "-1");
     os.closeTag();
 }
