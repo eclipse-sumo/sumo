@@ -82,6 +82,7 @@ MSE2Collector::MSE2Collector(const std::string& id,
     myCurrentMeanSpeed(0),
     myCurrentMeanLength(0),
     myCurrentJamNo(0),
+    myCurrentMaxJamLengthInMeters(0),
     myCurrentJamLengthInMeters(0),
     myCurrentJamLengthInVehicles(0),
     myCurrentHaltingsNumber(0) {
