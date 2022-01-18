@@ -45,7 +45,7 @@ class MSRouteProbe;
  * @class MSCalibrator
  * @brief Calibrates the flow on a segment to a specified one
  */
-class MSCalibrator : public MSTrigger, public MSRouteHandler, public Command, public MSDetectorFileOutput, public Parameterised {
+class MSCalibrator : public MSTrigger, public MSRouteHandler, public Command, public MSDetectorFileOutput {
 public:
     /** constructor */
     MSCalibrator(const std::string& id,

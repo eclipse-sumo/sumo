@@ -28,6 +28,7 @@
 #include <set>
 
 #include <utils/common/Named.h>
+#include <utils/common/Parameterised.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/FileHelpers.h>
 #include <microsim/MSNet.h>
@@ -58,7 +59,7 @@ enum DetectorUsage {
  * Pure virtual base class for classes (e.g. MSInductLoop) that should produce
  *  XML-output.
  */
-class MSDetectorFileOutput : public Named {
+class MSDetectorFileOutput : public Named, public Parameterised {
 public:
     /// @brief Constructor
     MSDetectorFileOutput(const std::string& id, const std::string& vTypes, const int detectPersons = false);

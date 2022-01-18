@@ -56,7 +56,7 @@ class MSTransportable;
  *  out-cross-section. Vehicles passing the out-cross-section without having
  *  passed the in-cross-section are not detected.
  */
-class MSE3Collector : public MSDetectorFileOutput, public Parameterised {
+class MSE3Collector : public MSDetectorFileOutput {
 public:
     /**
      * @class MSE3EntryReminder
