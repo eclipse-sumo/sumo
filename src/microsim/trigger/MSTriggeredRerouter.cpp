@@ -822,7 +822,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
             if (paOccupancy < pa->getCapacity()) {
                 if (addParkValues(veh, brakeGap, newDestination, pa, paOccupancy, probs[i], router, parkAreas, newRoutes, parkApproaches, maxValues)) {
                     numAlternatives++;
-                };
+                }
             } else if (visible) {
                 // might only be visible now (i.e. because it's on the other
                 // side of the street), so we should remember this for later.
@@ -831,7 +831,22 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
         }
         if (numAlternatives == 0) {
             // use parkingArea with lowest blockedTime
-            std::sort(blockedTimes.begin(), blockedTimes.end());
+            std::sort(blockedTimes.begin(), blockedTimes.end(),
+                [](std::tuple<SUMOTime, MSParkingArea*, int> const& t1, std::tuple<SUMOTime, MSParkingArea*, int> const& t2) {
+                    if (std::get<0>(t1) < std::get<0>(t2)) {
+                        return true;
+                    }
+                    if (std::get<0>(t1) == std::get<0>(t2)) {
+                        if (std::get<1>(t1)->getID() < std::get<1>(t2)->getID()) {
+                            return true;
+                        }
+                        if (std::get<1>(t1)->getID() == std::get<1>(t2)->getID()) {
+                            return std::get<2>(t1) < std::get<2>(t2);
+                        }
+                    }
+                    return false;
+                }
+            );
             for (auto item : blockedTimes) {
                 MSParkingArea* pa = std::get<1>(item);
                 double prob = probs[std::get<2>(item)];
@@ -853,12 +868,16 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
                     }
                     SUMOTime dummy = veh.sawBlockedParkingArea(pav.first, true);
                     if (dummy < 0) {
-                        // randomomize among the unvisited
-                        dummy = TIME2STEPS(RandHelper::rand() * -1000);
+                        // randomize among the unvisited
+                        dummy = -RandHelper::rand(1000000);
                     }
                     candidates.push_back(std::make_pair(dummy, pav.first));
                 }
-                std::sort(candidates.begin(), candidates.end());
+                std::sort(candidates.begin(), candidates.end(),
+                    [](std::tuple<SUMOTime, MSParkingArea*> const& t1, std::tuple<SUMOTime, MSParkingArea*> const& t2) {
+                        return std::get<0>(t1) < std::get<0>(t2) || (std::get<0>(t1) == std::get<0>(t2) && std::get<1>(t1)->getID() < std::get<1>(t2)->getID());
+                    }
+                );
                 for (auto item : candidates) {
                     MSParkingArea* pa = item.second;
                     if (addParkValues(veh, brakeGap, newDestination, pa, 0, 1, router, parkAreas, newRoutes, parkApproaches, maxValues)) {
