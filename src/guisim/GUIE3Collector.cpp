@@ -83,7 +83,7 @@ GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("haltings [#]", true,
                 new FunctionBinding<MSE3Collector, int>(&myDetector, &MSE3Collector::getCurrentHaltingNumber));
     // close building
-    ret->closeBuilding();
+    ret->closeBuilding(&myDetector);
     return ret;
 }
 

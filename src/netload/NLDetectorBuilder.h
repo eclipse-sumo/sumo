@@ -85,8 +85,9 @@ public:
      * @param[in] friendlyPos Whether the position information shall be used "friendly" (see user docs)
      * @param[in] vTypes which vehicle types are considered
      * @exception InvalidArgument If one of the values is invalid
+     * @return The created detector
      */
-    void buildInductLoop(const std::string& id,
+    Parameterised* buildInductLoop(const std::string& id,
                          const std::string& lane, double pos, SUMOTime splInterval,
                          const std::string& device, bool friendlyPos,
                          const std::string& vTypes, int detectPersons);
@@ -106,8 +107,9 @@ public:
      * @param[in] device The output device the detector shall write into
      * @param[in] friendlyPos Whether the position information shall be used "friendly" (see user docs)
      * @exception InvalidArgument If one of the values is invalid
+     * @return The created detector
      */
-    void buildInstantInductLoop(const std::string& id,
+    Parameterised* buildInstantInductLoop(const std::string& id,
                                 const std::string& lane, double pos,
                                 const std::string& device, bool friendlyPos,
                                 const std::string& vTypes);
@@ -126,13 +128,13 @@ public:
     *   @todo Add parameter showDetector to indicate whether the detector should be visible in the GUI
     *
     */
-    void buildE2Detector(const std::string& id, MSLane* lane, double pos, double endPos, double length,
+    Parameterised* buildE2Detector(const std::string& id, MSLane* lane, double pos, double endPos, double length,
                          const std::string& device, SUMOTime frequency,
                          SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
                          const std::string& vTypes, int detectPersons, bool friendlyPos, bool showDetector,
                          MSTLLogicControl::TLSLogicVariants* tlls = 0, MSLane* toLane = 0);
 
-    void buildE2Detector(const std::string& id, std::vector<MSLane*> lanes, double pos, double endPos,
+    Parameterised* buildE2Detector(const std::string& id, std::vector<MSLane*> lanes, double pos, double endPos,
                          const std::string& device, SUMOTime frequency,
                          SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
                          const std::string& vTypes, int detectPersons, bool friendlyPos, bool showDetector,
@@ -152,7 +154,7 @@ public:
      * @param[in] haltingSpeedThreshold Detector parameter: the speed a vehicle's speed must be below to be assigned as jammed
      * @exception InvalidArgument If one of the values is invalid
      */
-    void beginE3Detector(const std::string& id, const std::string& device, SUMOTime splInterval,
+    Parameterised* beginE3Detector(const std::string& id, const std::string& device, SUMOTime splInterval,
                          double haltingSpeedThreshold, SUMOTime haltingTimeThreshold,
                          const std::string& vTypes, int detectPersons, bool openEntry);
 
@@ -346,32 +348,12 @@ public:
     /// @}
 
 
-
-    /** @brief Builds an e2 detector that lies on only one lane
-     *
-     * @param[in] id The id the detector shall have
-     * @param[in] usage Information how the detector is used within the simulation
-     * @param[in] lane The lane the detector is placed at
-     * @param[in] pos The position on the lane the detector is placed at
-     * @param[in] length The length the detector has
-     * @param[in] haltingTimeThreshold Detector parameter: the time a vehicle's speed must be below haltingSpeedThreshold to be assigned as jammed
-     * @param[in] haltingSpeedThreshold Detector parameter: the speed a vehicle's speed must be below to be assigned as jammed
-     * @param[in] jamDistThreshold Detector parameter: the distance between two vehicles in order to not count them to one jam
-     * @todo Check whether this method is really needful
-     */
-    MSE2Collector* buildSingleLaneE2Det(const std::string& id,
-                                        DetectorUsage usage, MSLane* lane, double pos, double length,
-                                        SUMOTime haltingTimeThreshold, double haltingSpeedThreshold,
-                                        double jamDistThreshold,
-                                        const std::string& vTypes);
-
-
 protected:
     /**
      * @class E3DetectorDefinition
      * @brief Holds the incoming definitions of an e3 detector unless the detector is build.
      */
-    class E3DetectorDefinition {
+    class E3DetectorDefinition : public Parameterised {
     public:
         /** @brief Constructor
          * @param[in] id The id the detector shall have
@@ -386,7 +368,7 @@ protected:
                              const std::string& vTypes, int detectPersons, bool openEntry);
 
         /// @brief Destructor
-        ~E3DetectorDefinition();
+        virtual ~E3DetectorDefinition();
 
         /// @brief The id of the detector
         const std::string myID;

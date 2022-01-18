@@ -330,9 +330,17 @@ NLHandler::myEndElement(int element) {
         case SUMO_TAG_RAILSIGNAL_CONSTRAINTS:
             myConstrainedSignal = nullptr;
             break;
+        case SUMO_TAG_E1DETECTOR:
+        case SUMO_TAG_INDUCTION_LOOP:
+        case SUMO_TAG_INSTANT_INDUCTION_LOOP:
+        case SUMO_TAG_E2DETECTOR:
+        case SUMO_TAG_LANE_AREA_DETECTOR:
+            myLastParameterised.pop_back();
+            break;
         case SUMO_TAG_E3DETECTOR:
         case SUMO_TAG_ENTRY_EXIT_DETECTOR:
             endE3Detector();
+            myLastParameterised.pop_back();
             break;
         case SUMO_TAG_PARKING_AREA:
             myTriggerBuilder.endParkingArea();
@@ -886,9 +894,10 @@ NLHandler::addE1Detector(const SUMOSAXAttributes& attrs) {
         return;
     }
     try {
-        myDetectorBuilder.buildInductLoop(id, lane, position, frequency,
+        Parameterised* det = myDetectorBuilder.buildInductLoop(id, lane, position, frequency,
                                           FileHelpers::checkForRelativity(file, getFileName()),
                                           friendlyPos, vTypes, detectPersons);
+        myLastParameterised.push_back(det);
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     } catch (IOError& e) {
@@ -914,7 +923,8 @@ NLHandler::addInstantE1Detector(const SUMOSAXAttributes& attrs) {
         return;
     }
     try {
-        myDetectorBuilder.buildInstantInductLoop(id, lane, position, FileHelpers::checkForRelativity(file, getFileName()), friendlyPos, vTypes);
+        Parameterised* det = myDetectorBuilder.buildInstantInductLoop(id, lane, position, FileHelpers::checkForRelativity(file, getFileName()), friendlyPos, vTypes);
+        myLastParameterised.push_back(det);
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     } catch (IOError& e) {
@@ -1143,21 +1153,22 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
         WRITE_ERROR(e.what());
     }
 
+    Parameterised* det;
     // Build detector
     if (lanesGiven) {
         // specification by a lane sequence
-        myDetectorBuilder.buildE2Detector(id, clanes, position, endPosition, filename, frequency,
+        det = myDetectorBuilder.buildE2Detector(id, clanes, position, endPosition, filename, frequency,
                                           haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold,
                                           vTypes, detectPersons, friendlyPos, showDetector,
                                           tlls, cToLane);
     } else {
         // specification by start or end lane
-        myDetectorBuilder.buildE2Detector(id, clane, position, endPosition, length, filename, frequency,
+        det = myDetectorBuilder.buildE2Detector(id, clane, position, endPosition, length, filename, frequency,
                                           haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold,
                                           vTypes, detectPersons, friendlyPos, showDetector,
                                           tlls, cToLane);
     }
-
+    myLastParameterised.push_back(det);
 }
 
 
@@ -1185,9 +1196,10 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes& attrs) {
         return;
     }
     try {
-        myDetectorBuilder.beginE3Detector(id,
+        Parameterised* det = myDetectorBuilder.beginE3Detector(id,
                                           FileHelpers::checkForRelativity(file, getFileName()),
                                           frequency, haltingSpeedThreshold, haltingTimeThreshold, vTypes, detectPersons, openEntry);
+        myLastParameterised.push_back(det);
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     } catch (IOError& e) {

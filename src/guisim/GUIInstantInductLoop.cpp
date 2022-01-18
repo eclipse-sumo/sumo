@@ -95,7 +95,7 @@ GUIInstantInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("lane", false, myDetector.getLane()->getID());
     // values
     // close building
-    ret->closeBuilding();
+    ret->closeBuilding(&myDetector);
     return ret;
 }
 

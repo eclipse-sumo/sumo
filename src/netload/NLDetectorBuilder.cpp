@@ -90,7 +90,7 @@ NLDetectorBuilder::~NLDetectorBuilder() {
 }
 
 
-void
+Parameterised*
 NLDetectorBuilder::buildInductLoop(const std::string& id,
                                    const std::string& lane, double pos, SUMOTime splInterval,
                                    const std::string& device, bool friendlyPos,
@@ -104,10 +104,11 @@ NLDetectorBuilder::buildInductLoop(const std::string& id,
     MSDetectorFileOutput* loop = createInductLoop(id, clane, pos, vTypes, detectPersons);
     // add the file output
     myNet.getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop, device, splInterval);
+    return loop;
 }
 
 
-void
+Parameterised*
 NLDetectorBuilder::buildInstantInductLoop(const std::string& id,
         const std::string& lane, double pos,
         const std::string& device, bool friendlyPos,
@@ -120,10 +121,11 @@ NLDetectorBuilder::buildInstantInductLoop(const std::string& id,
     MSDetectorFileOutput* loop = createInstantInductLoop(id, clane, pos, device, vTypes);
     // add the file output
     myNet.getDetectorControl().add(SUMO_TAG_INSTANT_INDUCTION_LOOP, loop);
+    return loop;
 }
 
 
-void
+Parameterised*
 NLDetectorBuilder::buildE2Detector(const std::string& id, MSLane* lane, double pos, double endPos, double length,
                                    const std::string& device, SUMOTime frequency,
                                    SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
@@ -199,10 +201,11 @@ NLDetectorBuilder::buildE2Detector(const std::string& id, MSLane* lane, double p
         det =  createE2Detector(id, DU_USER_DEFINED, lane, pos, endPos, length, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, detectPersons, showDetector);
         myNet.getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det, device, frequency);
     }
-
+    return det;
 }
 
-void
+
+Parameterised*
 NLDetectorBuilder::buildE2Detector(const std::string& id, std::vector<MSLane*> lanes, double pos, double endPos,
                                    const std::string& device, SUMOTime frequency,
                                    SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
@@ -277,12 +280,12 @@ NLDetectorBuilder::buildE2Detector(const std::string& id, std::vector<MSLane*> l
         det = createE2Detector(id, DU_USER_DEFINED, lanes, pos, endPos, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, vTypes, detectPersons, showDetector);
         myNet.getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det, device, frequency);
     }
-
+    return det;
 }
 
 
 
-void
+Parameterised*
 NLDetectorBuilder::beginE3Detector(const std::string& id,
                                    const std::string& device, SUMOTime splInterval,
                                    double haltingSpeedThreshold,
@@ -290,6 +293,7 @@ NLDetectorBuilder::beginE3Detector(const std::string& id,
                                    const std::string& vTypes, int detectPersons, bool openEntry) {
     checkSampleInterval(splInterval, SUMO_TAG_E3DETECTOR, id);
     myE3Definition = new E3DetectorDefinition(id, device, haltingSpeedThreshold, haltingTimeThreshold, splInterval, vTypes, detectPersons, openEntry);
+    return myE3Definition;
 }
 
 
@@ -343,6 +347,7 @@ NLDetectorBuilder::endE3Detector() {
                                     myE3Definition->myHaltingSpeedThreshold, myE3Definition->myHaltingTimeThreshold,
                                     myE3Definition->myVehicleTypes, myE3Definition->myDetectPersons,
                                     myE3Definition->myOpenEntry);
+        det->updateParameters(myE3Definition->getParametersMap());
         // add to net
         myNet.getDetectorControl().add(SUMO_TAG_ENTRY_EXIT_DETECTOR, det, myE3Definition->myDevice, myE3Definition->mySampleInterval);
     } else

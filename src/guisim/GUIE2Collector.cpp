@@ -143,7 +143,7 @@ GUIE2Collector::MyWrapper::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("started halts [#]", true,
                 new FunctionBinding<MSE2Collector, int>(&myDetector, &MSE2Collector::getCurrentStartedHalts));
     // close building
-    ret->closeBuilding();
+    ret->closeBuilding(&myDetector);
     return ret;
 }
 
