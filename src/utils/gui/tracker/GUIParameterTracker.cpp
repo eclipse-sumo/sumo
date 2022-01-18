@@ -155,6 +155,7 @@ GUIParameterTracker::addTracked(GUIGlObject& o, ValueSource<double>* src,
     myTracked.push_back(newTracked);
     // build connection (is automatically set into an execution map)
     myValuePassers.push_back(new GLObjectValuePassConnector<double>(o, src, newTracked));
+    update();
 }
 
 
@@ -316,6 +317,14 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
     const double fontWidth = 0.1 * 300. / myWidthInPixels;
     const double fontHeight = 0.1 * 300. /  myHeightInPixels;
     const bool isMultiPlot = myParent->myTracked.size() > 1;
+    const std::vector<double>& values = desc.getAggregatedValues();
+    if (values.size() < 2) {
+        // draw name
+        glTranslated(-.9, 0.9, 0);
+        GLHelper::drawText(desc.getName(), Position((double)index / myParent->myTracked.size(), 0), 1, fontHeight, col, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
+        desc.unlockValues();
+        return;
+    }
     //
     // apply scaling
     GLHelper::pushMatrix();
@@ -346,48 +355,41 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
         glEnd();
     }
 
-    const std::vector<double>& values = desc.getAggregatedValues();
     double latest = 0;
     double mx = (2 * myMouseX / myWidthInPixels - 1) / 0.8 + 1;
     int mIndex = 0;
     double mouseValue = std::numeric_limits<double>::max();
-    if (values.size() < 2) {
-        GLHelper::popMatrix();
-        desc.unlockValues();
-        return;
-    } else {
-        latest = values.back();
-        // init values
-        const double xStep = 2.0 / (double) values.size();
-        std::vector<double>::const_iterator i = values.begin();
-        double yp = (*i);
-        double xp = 0;
-        i++;
-        GLHelper::setColor(col);
-        for (; i != values.end(); i++) {
-            double yn = (*i);
-            double xn = xp + xStep;
-            if (xp < mx && mx < xn) {
-                mouseValue = yp;
-                mIndex = i - values.begin() - 1;
-                glPushMatrix();
-                GLHelper::setColor(isMultiPlot ? col.changedBrightness(-40).changedAlpha(-100) : RGBColor::BLUE);
-                glTranslated(xn, yn, 0);
-                glScaled(20.0 / myWidthInPixels, 10.0 * desc.getRange() / myHeightInPixels, 0);
-                GLHelper::drawFilledCircle(1, 8);
-                GLHelper::setColor(col);
-                glPopMatrix();
-            }
-            glBegin(GL_LINES);
-            glVertex2d(xp, yp);
-            glVertex2d(xn, yn);
-            glEnd();
-            yp = yn;
-            xp = xn;
+    latest = values.back();
+    // init values
+    const double xStep = 2.0 / (double) values.size();
+    std::vector<double>::const_iterator i = values.begin();
+    double yp = (*i);
+    double xp = 0;
+    i++;
+    GLHelper::setColor(col);
+    for (; i != values.end(); i++) {
+        double yn = (*i);
+        double xn = xp + xStep;
+        if (xp < mx && mx < xn) {
+            mouseValue = yp;
+            mIndex = i - values.begin() - 1;
+            glPushMatrix();
+            GLHelper::setColor(isMultiPlot ? col.changedBrightness(-40).changedAlpha(-100) : RGBColor::BLUE);
+            glTranslated(xn, yn, 0);
+            glScaled(20.0 / myWidthInPixels, 10.0 * desc.getRange() / myHeightInPixels, 0);
+            GLHelper::drawFilledCircle(1, 8);
+            GLHelper::setColor(col);
+            glPopMatrix();
         }
-        desc.unlockValues();
-        GLHelper::popMatrix();
+        glBegin(GL_LINES);
+        glVertex2d(xp, yp);
+        glVertex2d(xn, yn);
+        glEnd();
+        yp = yn;
+        xp = xn;
     }
+    desc.unlockValues();
+    GLHelper::popMatrix();
 
     // draw value bounderies and descriptions
     GLHelper::setColor(col);
