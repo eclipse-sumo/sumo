@@ -17,6 +17,14 @@ noconflict_parking
 2lanes_3opposite
 
 # stopping on the opposite side without other traffic,
+# 
+2lanes_3opposite_sidewalk
+
+# stopping on the opposite side without other traffic,
+# 
+1lanes_3opposite_multimodal
+
+# stopping on the opposite side without other traffic,
 # need to cross 3 opposite lanes.
 2lanes_3opposite_long
 

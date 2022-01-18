@@ -1,0 +1,10 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+
+    <route id="r0" edges="a"/>
+
+    <vehicle id="ego" route="r0" departPos="0"  depart="0">
+        <stop lane="a_1" duration="10" endPos="60"/>
+    </vehicle>
+
+</routes>

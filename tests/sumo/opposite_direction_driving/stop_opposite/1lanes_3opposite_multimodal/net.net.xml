@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-01-18 17:49:31 by Eclipse SUMO netedit Version v1_11_0+1254-f7b2781
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,200.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="-a" from="E" to="W" priority="1">
+        <lane id="-a_0" index="0" allow="pedestrian" speed="13.89" length="200.00" width="2.00" shape="200.00,5.20 0.00,5.20"/>
+        <lane id="-a_1" index="1" allow="bicycle" speed="13.89" length="200.00" width="1.00" shape="200.00,3.70 0.00,3.70"/>
+        <lane id="-a_2" index="2" disallow="pedestrian" speed="13.89" length="200.00" shape="200.00,1.60 0.00,1.60">
+            <neigh lane="a_0"/>
+        </lane>
+    </edge>
+    <edge id="a" from="W" to="E" priority="1">
+        <lane id="a_0" index="0" speed="13.89" length="200.00" shape="0.00,-1.60 200.00,-1.60">
+            <neigh lane="-a_2"/>
+        </lane>
+    </edge>
+
+    <junction id="E" type="dead_end" x="200.00" y="0.00" incLanes="a_0" intLanes="" shape="200.00,0.00 200.00,-3.20 200.00,0.00"/>
+    <junction id="W" type="dead_end" x="0.00" y="0.00" incLanes="-a_0 -a_1 -a_2" intLanes="" shape="0.00,0.00 0.00,6.20 0.00,0.00"/>
+
+</net>
