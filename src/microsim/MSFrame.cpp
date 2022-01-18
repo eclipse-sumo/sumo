@@ -436,7 +436,7 @@ MSFrame::fillOptions() {
 
     oc.doRegister("default.carfollowmodel", new Option_String("Krauss"));
     oc.addDescription("default.carfollowmodel", "Processing", "Select default car following model (Krauss, IDM, ...)");
-    oc.addSynonyme("default.carfollowmodel", "carfollow.model", false);
+    oc.addSynonyme("default.carfollowmodel", "carfollow.model");
 
     oc.doRegister("default.speeddev", new Option_Float(-1));
     oc.addDescription("default.speeddev", "Processing", "Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class");
@@ -592,6 +592,9 @@ MSFrame::fillOptions() {
     oc.addDescription("meso-multi-queue", "Mesoscopic", "Enable multiple queues at edge ends");
     oc.doRegister("meso-lane-queue", new Option_Bool(false));
     oc.addDescription("meso-lane-queue", "Mesoscopic", "Enable separate queues for every lane");
+    oc.doRegister("meso-ignore-lanes-by-vclass", new Option_StringVector(StringVector({ "pedestrian", "bicycle" })));
+    oc.addDescription("meso-ignore-lanes-by-vclass", "Mesoscopic", "Do not build queues (or reduce capacity) for lanes allowing only the given vclasses");
+    oc.addSynonyme("meso-ignore-lanes-by-vclass", "meso.ignore-lanes.by-vclass");
     oc.doRegister("meso-junction-control", new Option_Bool(false));
     oc.addDescription("meso-junction-control", "Mesoscopic", "Enable mesoscopic traffic light and priority junction handling");
     oc.doRegister("meso-junction-control.limited", new Option_Bool(false));

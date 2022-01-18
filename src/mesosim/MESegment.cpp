@@ -43,8 +43,6 @@
 #define DEFAULT_VEH_LENGTH_WITH_GAP (SUMOVTypeParameter::getDefault().length + SUMOVTypeParameter::getDefault().minGap)
 // avoid division by zero when driving very slowly
 #define MESO_MIN_SPEED (0.05)
-// divide tau by lane number unless we have multiple queues
-#define SCALED_TAU(x) (multiQueue ? x : (SUMOTime)(x / parent.getLanes().size()))
 
 //#define DEBUG_OPENED
 //#define DEBUG_JAMTHRESHOLD
@@ -91,22 +89,29 @@ MESegment::MESegment(const std::string& id,
                      const double length, const double speed,
                      const int idx,
                      const bool multiQueue,
-                     const MesoEdgeType& edgeType):
+                     const MesoEdgeType& edgeType,
+                     const SVCPermissions ignoreVClasses):
     Named(id), myEdge(parent), myNextSegment(next),
     myLength(length), myIndex(idx),
-    myTau_length(SCALED_TAU(TIME2STEPS(1)) / MAX2(MESO_MIN_SPEED, speed)),
-    myCapacity(length * parent.getLanes().size()),
-    myQueueCapacity(multiQueue ? length : length * parent.getLanes().size()),
+    myTau_length(TIME2STEPS(1) / MAX2(MESO_MIN_SPEED, speed)),
     myNumVehicles(0),
     myLastHeadway(TIME2STEPS(-1)),
     myMeanSpeed(speed),
     myLastMeanSpeedUpdate(SUMOTime_MIN) {
 
-    if (multiQueue) {
-        const std::vector<MSLane*>& lanes = parent.getLanes();
-        for (MSLane* const l : lanes) {
-            myQueues.push_back(Queue(l->getPermissions()));
+    const std::vector<MSLane*>& lanes = parent.getLanes();
+    int usableLanes = 0;
+    for (MSLane* const l : lanes) {
+        const SVCPermissions allow = ((l->getPermissions() | ignoreVClasses) == ignoreVClasses) ? 0 : l->getPermissions();
+        if (multiQueue) {
+            myQueues.push_back(allow);
         }
+        if (allow != 0) {
+            usableLanes++;
+        }
+    }
+    myCapacity = length * usableLanes;
+    if (multiQueue) {
         if (next == nullptr) {
             for (const MSEdge* const edge : parent.getSuccessors()) {
                 const std::vector<MSLane*>* const allowed = parent.allowedLanes(*edge);
@@ -118,8 +123,11 @@ MESegment::MESegment(const std::string& id,
                 }
             }
         }
+        myQueueCapacity = length;
     } else {
         myQueues.push_back(Queue(parent.getPermissions()));
+        myQueueCapacity = myCapacity;
+        myTau_length /= usableLanes;
     }
 
     initSegment(edgeType, parent);
@@ -128,13 +136,11 @@ MESegment::MESegment(const std::string& id,
 void
 MESegment::initSegment(const MesoEdgeType& edgeType, const MSEdge& parent) {
 
-    const bool multiQueue = myQueues.size() > 1;
-
     // Eissfeldt p. 90 and 151 ff.
-    myTau_ff = SCALED_TAU(edgeType.tauff);
-    myTau_fj = SCALED_TAU(edgeType.taufj);
-    myTau_jf = SCALED_TAU(edgeType.taujf);
-    myTau_jj = SCALED_TAU(edgeType.taujj);
+    myTau_ff = (SUMOTime)(edgeType.tauff * myLength / myCapacity + 0.5);
+    myTau_fj = (SUMOTime)(edgeType.taufj * myLength / myCapacity + 0.5);
+    myTau_jf = (SUMOTime)(edgeType.taujf * myLength / myCapacity + 0.5);
+    myTau_jj = (SUMOTime)(edgeType.taujj * myLength / myCapacity + 0.5);
 
     myJunctionControl = myNextSegment == nullptr && (edgeType.junctionControl || MELoop::isEnteringRoundabout(parent));
     myTLSPenalty = ((edgeType.tlsPenalty > 0 || edgeType.tlsFlowPenalty > 0) &&
@@ -169,8 +175,7 @@ MESegment::MESegment(const std::string& id):
     myMinorPenalty(0),
     myJunctionControl(false),
     myOvertaking(false),
-    myTau_length(1),
-    myCapacity(0), myQueueCapacity(0) {
+    myTau_length(1) {
 }
 
 

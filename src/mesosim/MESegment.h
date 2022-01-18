@@ -139,21 +139,17 @@ public:
      * @param[in] length The segment's length
      * @param[in] speed The speed allowed on this segment
      * @param[in] idx The running index of this segment within the segment's edge
-     * @param[in] tauff The factor for free-free headway time
-     * @param[in] taufj The factor for free-jam headway time
-     * @param[in] taujf The factor for jam-free headway time
-     * @param[in] taujj The factor for jam-jam headway time
-     * @param[in] jamThresh percentage of occupied space before the segment is jammed
      * @param[in] multiQueue whether to install multiple queues on this segment
-     * @param[in] junctionControl whether junction control is enabled on this segment
-     * @todo recheck the id; using a ':' as divider is not really nice
+     * @param[in] edgeType edge type specific meso parameters such as the different taus
+     * @param[in] ignoreVClasses the vehicle classes to ignore when building queues / calculating capacity
      */
     MESegment(const std::string& id,
               const MSEdge& parent, MESegment* next,
               const double length, const double speed,
               const int idx,
               const bool multiQueue,
-              const MesoEdgeType& edgeTyp);
+              const MesoEdgeType& edgeType,
+              const SVCPermissions ignoreVClasses);
 
     /// @brief set model parameters (may be updated from additional file after network loading is complete)
     void initSegment(const MesoEdgeType& edgeType, const MSEdge& parent);
@@ -538,10 +534,10 @@ private:
     double myTau_length;
 
     /// @brief The number of lanes represented by the queue * the length of the lane
-    const double myCapacity;
+    double myCapacity = 0.;
 
     /// @brief The number of lanes represented by the queue * the length of the lane
-    double myQueueCapacity;
+    double myQueueCapacity = 0.;
 
     /// @brief The space (in m) which needs to be occupied before the segment is considered jammed
     double myJamThreshold;
