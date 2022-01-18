@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_10_0+2269-cf425462595
+Eclipse SUMO sumo Version v1_11_0+1222-4acc24c9a7b
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -713,6 +713,9 @@ Mesoscopic Options:
                                         (default)
   --meso-multi-queue                   Enable multiple queues at edge ends
   --meso-lane-queue                    Enable separate queues for every lane
+  --meso-ignore-lanes-by-vclass STR[]  Do not build queues (or reduce capacity)
+                                        for lanes allowing only the given
+                                        vclasses
   --meso-junction-control              Enable mesoscopic traffic light and
                                         priority junction handling
   --meso-junction-control.limited      Enable mesoscopic traffic light and
@@ -770,6 +773,8 @@ GUI Only Options:
                                         position
   --tracker-interval TIME              The aggregation period for value tracker
                                         windows
+  --osg-view                           Start with an OpenSceneGraph view
+                                        instead of the regular 2D view
   --gui-testing                        Enable overlay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                         GUI-Testing

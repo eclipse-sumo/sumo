@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-14 16:54:28 by Eclipse SUMO sumo Version v1_10_0+2269-cf425462595
+<!-- generated on 2022-01-18 08:48:15 by Eclipse SUMO sumo Version v1_11_0+1222-4acc24c9a7b
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -387,6 +387,7 @@
         <meso-jam-threshold value="-1" type="FLOAT" help="Minimum percentage of occupied space to consider a segment jammed. A negative argument causes thresholds to be computed based on edge speed and tauff (default)"/>
         <meso-multi-queue value="true" type="BOOL" help="Enable multiple queues at edge ends"/>
         <meso-lane-queue value="false" type="BOOL" help="Enable separate queues for every lane"/>
+        <meso-ignore-lanes-by-vclass value="pedestrian,bicycle" synonymes="meso.ignore-lanes.by-vclass" type="STR[]" help="Do not build queues (or reduce capacity) for lanes allowing only the given vclasses"/>
         <meso-junction-control value="false" type="BOOL" help="Enable mesoscopic traffic light and priority junction handling"/>
         <meso-junction-control.limited value="false" type="BOOL" help="Enable mesoscopic traffic light and priority junction handling for saturated links. This prevents faulty traffic lights from hindering flow in low-traffic situations"/>
         <meso-tls-penalty value="0" type="FLOAT" help="Apply scaled travel time penalties when driving across tls controlled junctions based on green split instead of checking actual phases"/>
@@ -417,6 +418,7 @@
         <window-size value="" type="STR[]" help="Create initial window with the given x,y size"/>
         <window-pos value="" type="STR[]" help="Create initial window at the given x,y position"/>
         <tracker-interval value="1" type="TIME" help="The aggregation period for value tracker windows"/>
+        <osg-view value="false" type="BOOL" help="Start with an OpenSceneGraph view instead of the regular 2D view"/>
         <gui-testing value="false" type="BOOL" help="Enable overlay for screen recognition"/>
         <gui-testing-debug value="false" type="BOOL" help="Enable output messages during GUI-Testing"/>
         <gui-testing.setting-output value="" type="FILE" help="Save gui settings in the given settings output file"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-14 16:54:27 by Eclipse SUMO sumo Version v1_10_0+2269-cf425462595
+<!-- generated on 2022-01-18 08:48:15 by Eclipse SUMO sumo Version v1_11_0+1222-4acc24c9a7b
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -1017,6 +1017,9 @@
         <!-- Enable separate queues for every lane -->
         <meso-lane-queue value="false" type="BOOL"/>
 
+        <!-- Do not build queues (or reduce capacity) for lanes allowing only the given vclasses -->
+        <meso-ignore-lanes-by-vclass value="pedestrian,bicycle" synonymes="meso.ignore-lanes.by-vclass" type="STR[]"/>
+
         <!-- Enable mesoscopic traffic light and priority junction handling -->
         <meso-junction-control value="false" type="BOOL"/>
 
@@ -1094,6 +1097,9 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="TIME"/>
+
+        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
+        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable overlay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>
