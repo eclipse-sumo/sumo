@@ -1060,7 +1060,8 @@ to set the integrated graphics as preferred. (Thanks @palvarezlopez for finding 
 
 There is a know problem in Windows 10 with scaling and flickering in certain applications. 
 If scaling is greater than 100%, a flickering may appear in SUMO-GUI and NETEDIT during mouse movement.
-The only known solution is leaving Scaling at 100%
+The only known solution is leaving Scaling at 100%. Another cause is the use of a modern graphics card. 
+If your computer supports it, run SUMO using the integrated graphics card (Control panel->NVidia Control Panel->Select integrated graphid card->apply)
 
 ### Missing Characters in Parameter Dialogs (i.e. Chinese Street names) on Linux
 
