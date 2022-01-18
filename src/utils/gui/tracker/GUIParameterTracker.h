@@ -156,9 +156,9 @@ public:
 
         /** @brief Draws a single value
          * @param[in] desc The tracked values to draw
-         * @param[in] namePos Position to display the name at (currently unused)
+         * @param[in] index Mulitplot index
          */
-        void drawValue(TrackerValueDesc& desc, double namePos);
+        void drawValue(TrackerValueDesc& desc, const RGBColor& col, int index);
 
 
     private:
@@ -217,6 +217,7 @@ protected:
 
     /// @brief all trackers that are opened for plotting multiple values
     static std::set<GUIParameterTracker*> myMultiPlots;
+    static std::vector<RGBColor> myColors;
 
 protected:
     FOX_CONSTRUCTOR(GUIParameterTracker)

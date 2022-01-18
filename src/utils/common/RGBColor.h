@@ -94,6 +94,9 @@ public:
      */
     RGBColor changedBrightness(int change, int toChange = 3) const;
 
+    /// @brief Returns a new color with altered opacity
+    RGBColor changedAlpha(int change) const;
+
     /** @brief Returns a new color with altered brightness
      * @param[in] factor The multiplicative change applied to all color channels (within bounds)
      * @return The new color

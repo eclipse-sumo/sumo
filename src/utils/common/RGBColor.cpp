@@ -215,6 +215,14 @@ RGBColor::changedBrightness(int change, int toChange) const {
     }
 }
 
+
+RGBColor
+RGBColor::changedAlpha(int change) const {
+    int alpha = MIN2(MAX2((int)myAlpha + change, 0), 255);
+    return RGBColor(myRed, myGreen, myBlue, alpha);
+}
+
+
 RGBColor
 RGBColor::multiply(double factor) const {
     const unsigned char red = (unsigned char)floor(MIN2(MAX2(myRed * factor, 0.0), 255.0) + 0.5);

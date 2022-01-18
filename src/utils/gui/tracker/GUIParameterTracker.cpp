@@ -60,6 +60,7 @@ FXIMPLEMENT(GUIParameterTracker, FXMainWindow, GUIParameterTrackerMap, ARRAYNUMB
 // static value definitions
 // ===========================================================================
 std::set<GUIParameterTracker*> GUIParameterTracker::myMultiPlots;
+std::vector<RGBColor> GUIParameterTracker::myColors;
 
 
 // ===========================================================================
@@ -75,10 +76,16 @@ GUIParameterTracker::GUIParameterTracker(GUIMainWindow& app,
     myPanel = new GUIParameterTrackerPanel(glcanvasFrame, *myApplication, *this);
     setTitle(name.c_str());
     setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TRACKER));
+
+    if (myColors.size() == 0) {
+        myColors = {RGBColor::BLACK, RGBColor::GREEN, RGBColor::RED, RGBColor::BLUE, RGBColor::ORANGE, RGBColor::CYAN, RGBColor::MAGENTA};
+
+    }
 }
 
 
 GUIParameterTracker::~GUIParameterTracker() {
+    myMultiPlots.erase(this);
     myApplication->removeChild(this);
     for (std::vector<TrackerValueDesc*>::iterator i1 = myTracked.begin(); i1 != myTracked.end(); i1++) {
         delete (*i1);
@@ -127,7 +134,15 @@ GUIParameterTracker::buildToolBar() {
 
 bool
 GUIParameterTracker::addTrackedMultiplot(GUIGlObject& o, ValueSource<double>* src, TrackerValueDesc* newTracked) {
+    bool first = true;
     for (GUIParameterTracker* tr : myMultiPlots) {
+        if (first) {
+            first = false;
+        } else {
+            // each Tracker gets its own copy to simplify cleanup
+            newTracked = new TrackerValueDesc(newTracked->getName(), RGBColor::BLACK, newTracked->getRecordingBegin(), newTracked->getAggregationSpan());
+            src = src->copy();
+        }
         tr->addTracked(o, src, newTracked);
     }
     return myMultiPlots.size() > 0;
@@ -285,21 +300,22 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValues() {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glDisable(GL_TEXTURE_2D);
-    int run = 0;
-    for (std::vector<TrackerValueDesc*>::iterator i = myParent->myTracked.begin(); i != myParent->myTracked.end(); i++) {
-        TrackerValueDesc* desc = *i;
-        drawValue(*desc,
-                  (double) myWidthInPixels / (double) myParent->myTracked.size() * (double) run);
-        run++;
+    for (int i = 0; i < (int)myParent->myTracked.size(); i++) {
+        TrackerValueDesc* desc = myParent->myTracked[i];
+        glPushMatrix();
+        drawValue(*desc, myColors[i % myColors.size()], i);
+        glPopMatrix();
     }
 }
 
 
 void
 GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
-        double /*namePos*/) {
+        const RGBColor& col,
+        int index) {
     const double fontWidth = 0.1 * 300. / myWidthInPixels;
     const double fontHeight = 0.1 * 300. /  myHeightInPixels;
+    const bool isMultiPlot = myParent->myTracked.size() > 1;
     //
     // apply scaling
     GLHelper::pushMatrix();
@@ -311,10 +327,6 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
     glScaled(1.0, ys, 1.0);
     glTranslated(-1.0, -desc.getYCenter(), 0);
 
-    // set color
-    const unsigned char red = desc.getColor().red();
-    const unsigned char green = desc.getColor().green();
-    const unsigned char blue = desc.getColor().blue();
     // draw value bounderies
     // draw minimum boundary
     glBegin(GL_LINES);
@@ -325,7 +337,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
     glVertex2d(0, desc.getMax());
     glVertex2d(2.0, desc.getMax());
     glEnd();
-    glColor4ub(red, green, blue, 77);
+    GLHelper::setColor(col.changedAlpha(-178));
     for (int a = 1; a < 6; a++) {
         const double yp = desc.getRange() / 6.0 * (double) a + desc.getMin();
         glBegin(GL_LINES);
@@ -351,7 +363,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
         double yp = (*i);
         double xp = 0;
         i++;
-        glColor4ub(red, green, blue, 255);
+        GLHelper::setColor(col);
         for (; i != values.end(); i++) {
             double yn = (*i);
             double xn = xp + xStep;
@@ -359,11 +371,11 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
                 mouseValue = yp;
                 mIndex = i - values.begin() - 1;
                 glPushMatrix();
-                glColor3d(0, 0, 1);
+                GLHelper::setColor(isMultiPlot ? col.changedBrightness(-40).changedAlpha(-100) : RGBColor::BLUE);
                 glTranslated(xn, yn, 0);
                 glScaled(20.0 / myWidthInPixels, 10.0 * desc.getRange() / myHeightInPixels, 0);
                 GLHelper::drawFilledCircle(1, 8);
-                glColor4ub(red, green, blue, 255);
+                GLHelper::setColor(col);
                 glPopMatrix();
             }
             glBegin(GL_LINES);
@@ -378,7 +390,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
     }
 
     // draw value bounderies and descriptions
-    glColor3b(red, green, blue);
+    GLHelper::setColor(col);
 
     // draw min time
     SUMOTime beginStep = desc.getRecordingBegin();
@@ -396,24 +408,24 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
 
     // draw min value
     glTranslated(-0.98, -0.82, 0);
-    GLHelper::drawText(toString(desc.getMin()), Position(0, 0), 1, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
+    GLHelper::drawText(toString(desc.getMin()), Position(0, index * fontHeight), 1, fontHeight, col, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
     glTranslated(0.98, 0.82, 0);
 
     // draw max value
     glTranslated(-0.98, 0.78, 0);
-    GLHelper::drawText(toString(desc.getMax()), Position(0, 0), 1, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
+    GLHelper::drawText(toString(desc.getMax()), Position(0, -index * fontHeight), 1, fontHeight, col, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
     glTranslated(0.98, -0.78, 0);
 
     // draw name
     glTranslated(-0.98, .92, 0);
-    GLHelper::drawText(desc.getName(), Position(0, 0), 1, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
+    GLHelper::drawText(desc.getName(), Position((double)index / myParent->myTracked.size(), 0), 1, fontHeight, col, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
     glTranslated(0.98, -.92, 0);
 
     // draw current value (with contrasting color)
     double p = (double) 0.8 -
                ((double) 1.6 / (desc.getMax() - desc.getMin()) * (latest - desc.getMin()));
     glTranslated(-0.98, -(p + .02), 0);
-    GLHelper::drawText(toString(latest), Position(0, 0), 1, fontHeight, RGBColor::RED, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
+    GLHelper::drawText(toString(latest), Position(isMultiPlot ? 0.1 : 0, 0), 1, fontHeight, isMultiPlot ? col.changedBrightness(50) : RGBColor::RED, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
     glTranslated(0.98, p + .02, 0);
 
     // draw moused value
@@ -421,12 +433,15 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
         p = (double) 0.8 -
             ((double) 1.6 / (desc.getMax() - desc.getMin()) * (mouseValue - desc.getMin()));
         glTranslated(-0.98, -(p + .02), 0);
-        GLHelper::drawText(toString(mouseValue), Position(0, 0), 1, fontHeight, RGBColor::BLUE, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
+        GLHelper::drawText(toString(mouseValue), Position(isMultiPlot ? 0.1 : 0, 0), 1, fontHeight, isMultiPlot ? col.changedBrightness(-40) : RGBColor::BLUE, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
         glTranslated(0.98, p + .02, 0);
 
-        const std::string mouseTime = time2string(beginStep + static_cast<SUMOTime>(mIndex * desc.getAggregationSpan()));
-        glTranslated(1.6 * mIndex / values.size() - 1, -0.9, 0);
-        GLHelper::drawText(mouseTime, Position(0, 0), 1, fontHeight, RGBColor::BLUE, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
+        if (index == 0) {
+            // time is the same for all plots so we only draw it once
+            const std::string mouseTime = time2string(beginStep + static_cast<SUMOTime>(mIndex * desc.getAggregationSpan()));
+            glTranslated(1.6 * mIndex / values.size() - 0.8, -0.9, 0);
+            GLHelper::drawText(mouseTime, Position(0, 0), 1, fontHeight, isMultiPlot ? col.changedBrightness(-40) : RGBColor::BLUE, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
+        }
     }
 
 }
