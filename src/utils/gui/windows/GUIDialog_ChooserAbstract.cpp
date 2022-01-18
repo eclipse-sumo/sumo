@@ -247,6 +247,9 @@ GUIDialog_ChooserAbstract::onListKeyPress(FXObject*, FXSelector, void* ptr) {
             close(true);
         }
         return 1;
+    } else if (event->code == KEY_Left || (event->code == KEY_Up && myList->getCurrentItem() == 0)) {
+        myTextEntry->setFocus();
+        return 1;
     }
     // let other elements handle the keypress
     return 0;
