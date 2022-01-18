@@ -58,7 +58,7 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <containerStop id="containerStop_gneE0_0_0" lane="gneE0_0" startPos="16.00" endPos="26.00"/>
-    <containerStop id="containerStop_gneE0_0_1" lane="gneE0_0" startPos="4.00" endPos="14.00"/>
-    <containerStop id="containerStop_gneE0_0_2" lane="gneE0_0" startPos="31.00" endPos="41.00"/>
+    <containerStop id="ct_0" lane="gneE0_0" startPos="16.00" endPos="26.00"/>
+    <containerStop id="ct_1" lane="gneE0_0" startPos="4.00" endPos="14.00"/>
+    <containerStop id="ct_2" lane="gneE0_0" startPos="31.00" endPos="41.00"/>
 </additional>

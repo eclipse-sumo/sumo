@@ -47,7 +47,7 @@ netedit.changeDefaultValue(3, ";;;;;;;;;;;;;;;;")
 netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid ID (duplicated
-netedit.changeDefaultValue(3, "trainStop_gneE0_0_0")
+netedit.changeDefaultValue(3, "ts_0")
 
 # create trainStop in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)

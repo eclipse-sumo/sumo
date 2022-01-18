@@ -58,7 +58,7 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <chargingStation id="chargingStation_gneE0_0_0" lane="gneE0_0" startPos="44.00" endPos="49.00"/>
-    <chargingStation id="chargingStation_gneE0_0_1" lane="gneE0_0" startPos="9.00" endPos="14.00"/>
-    <chargingStation id="chargingStation_gneE0_0_2" lane="gneE0_0" startPos="33.50" endPos="38.50"/>
+    <chargingStation id="cs_0" lane="gneE0_0" startPos="44.00" endPos="49.00"/>
+    <chargingStation id="cs_1" lane="gneE0_0" startPos="9.00" endPos="14.00"/>
+    <chargingStation id="cs_2" lane="gneE0_0" startPos="33.50" endPos="38.50"/>
 </additional>

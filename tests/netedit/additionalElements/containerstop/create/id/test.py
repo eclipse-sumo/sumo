@@ -47,7 +47,7 @@ netedit.changeDefaultValue(3, ";;;;;;;;;;;;;;;;")
 netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid ID (duplicated
-netedit.changeDefaultValue(3, "containerStop_gneE0_0_0")
+netedit.changeDefaultValue(3, "ct_0")
 
 # create containerStop in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)

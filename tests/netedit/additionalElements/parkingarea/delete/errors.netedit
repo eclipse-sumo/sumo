@@ -9,8 +9,8 @@ Debug: Adding parkingArea 'parkingArea_1' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingArea_1 into SUMORTree with boundary 17.00,-5.40,53.00,14.60
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'parkingArea' in TagSelector
-Debug: Adding parkingArea 'parkingArea_gneE0_0_2' in GNEChange_Additional
-GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_2 into SUMORTree with boundary 3.80,-14.80,40.20,5.20
+Debug: Adding parkingArea 'pa_2' in GNEChange_Additional
+GLDebug: 	Inserted parkingArea:pa_2 into SUMORTree with boundary 3.80,-14.80,40.20,5.20
 Debug: Removing parkingArea 'parkingArea_1' in GNEChange_Additional
 GLDebug: 	Removed object parkingArea:parkingArea_1 from SUMORTree with boundary 17.00,-5.40,53.00,14.60
 Debug: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
@@ -45,8 +45,8 @@ Debug: Adding parkingArea 'parkingArea_1' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingArea_1 into SUMORTree with boundary 17.00,-5.40,53.00,14.60
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing parkingArea 'parkingArea_gneE0_0_2' in GNEChange_Additional
-GLDebug: 	Removed object parkingArea:parkingArea_gneE0_0_2 from SUMORTree with boundary 3.80,-14.80,40.20,5.20
+Debug: Removing parkingArea 'pa_2' in GNEChange_Additional
+GLDebug: 	Removed object parkingArea:pa_2 from SUMORTree with boundary 3.80,-14.80,40.20,5.20
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing parkingArea 'parkingArea_1' in GNEChange_Additional
@@ -54,7 +54,7 @@ GLDebug: 	Removed object parkingArea:parkingArea_1 from SUMORTree with boundary 
 Debug: Removing parkingArea 'parkingArea_0' in GNEChange_Additional
 GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 19.40,-14.60,55.40,5.40
 Debug: Deleting unreferenced parkingArea 'parkingArea_0'
-Debug: Deleting unreferenced parkingArea 'parkingArea_gneE0_0_2'
+Debug: Deleting unreferenced parkingArea 'pa_2'
 Debug: Deleting unreferenced parkingArea 'parkingArea_1'
 Debug: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in removeConnection()

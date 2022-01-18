@@ -44,7 +44,7 @@ netedit.changeDefaultBoolValue(2)
 netedit.leftClick(referencePosition, 160, 245)
 
 # set a invalid  id (duplicated)
-netedit.changeDefaultValue(3, "e1Detector_gneE0_0_0")
+netedit.changeDefaultValue(3, "e1_0")
 
 # try to create E1 with invalid id
 netedit.leftClick(referencePosition, 180, 245)

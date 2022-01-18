@@ -57,5 +57,5 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <e1Detector id="e1Detector_gneE0_0_0" lane="gneE0_0" pos="33.00" freq="300.00" file="e1Detector_gneE0_0_0.xml" vTypes="private passenger taxi bus"/>
+    <e1Detector id="e1_0" lane="gneE0_0" pos="33.00" freq="300.00" file="e1_0.xml" vTypes="private passenger taxi bus"/>
 </additional>

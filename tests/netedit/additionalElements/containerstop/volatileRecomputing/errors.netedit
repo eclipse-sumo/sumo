@@ -15,7 +15,7 @@ Debug: Selected item 'personTrip: edge->edge' in TagSelector
 Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
 Debug: Selected item 'personTrip: edge->edge' in TagSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Adding containerStop 'containerStop_gneE0_0_0' in GNEChange_Additional
+Debug: Adding containerStop 'ct_0' in GNEChange_Additional
 Debug: Adding containerStop 'containerStop_gneE1_0_1' in GNEChange_Additional
 Debug: Adding containerStop 'containerStop_gneE2_0_7' in GNEChange_Additional
 Debug: Adding containerStop 'containerStop_gneE2_1_6' in GNEChange_Additional
@@ -44,7 +44,7 @@ Debug: Deleting unreferenced containerStop 'containerStop_gneE2_2_5'
 Debug: Deleting unreferenced containerStop 'containerStop_gneE2_1_6'
 Debug: Deleting unreferenced containerStop 'containerStop_gneE2_0_7'
 Debug: Deleting unreferenced containerStop 'containerStop_gneE1_0_1'
-Debug: Deleting unreferenced containerStop 'containerStop_gneE0_0_0'
+Debug: Deleting unreferenced containerStop 'ct_0'
 GLDebug: initJunctionsAndEdges function called in computeAndUpdate(...) due recomputing with volatile options
 GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -10.00,-15.20,10.00,15.20
 GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 40.00,-15.20,60.00,15.20

@@ -4,7 +4,7 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 e1Detector
 TestFunctions: Clicked over position 444 - 413
 TestFunctions: Clicked over position 464 - 413
-e1Detector_gneE0_0_0
+e1_0
 TestFunctions: Clicked over position 484 - 413
 ;;;
 TestFunctions: Clicked over position 504 - 413

@@ -58,7 +58,7 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="busStop_gneE0_0_0" lane="gneE0_0" startPos="24.00" endPos="34.00">
+    <busStop id="bs_0" lane="gneE0_0" startPos="24.00" endPos="34.00">
         <access lane="gneE1_0" pos="29.00"/>
     </busStop>
 </additional>

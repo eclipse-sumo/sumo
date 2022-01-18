@@ -60,7 +60,7 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <parkingArea id="parkingArea_gneE0_0_7" lane="gneE0_0" startPos="22.00" endPos="32.00" length="5.00">
+    <parkingArea id="pa_7" lane="gneE0_0" startPos="22.00" endPos="32.00" length="5.00">
         <space x="-10.00" y="39.00" z="1.00"/>
     </parkingArea>
     <parkingArea id="parkingArea_gneE1_0_6" lane="gneE1_0" startPos="19.00" endPos="29.00" length="5.00">

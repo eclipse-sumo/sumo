@@ -58,5 +58,5 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <e2Detector id="e2Detector_gneE0_0_0" lane="gneE0_0" pos="19.00" length="10.00" freq="300.00" file="e2Detector_gneE0_0_0.xml"/>
+    <e2Detector id="e2_0" lane="gneE0_0" pos="19.00" length="10.00" freq="300.00" file="e2_0.xml"/>
 </additional>

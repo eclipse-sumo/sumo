@@ -58,7 +58,7 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <trainStop id="trainStop_gneE0_0_0" lane="gneE0_0" startPos="44.00" endPos="49.00"/>
-    <trainStop id="trainStop_gneE0_0_1" lane="gneE0_0" startPos="9.00" endPos="14.00"/>
-    <trainStop id="trainStop_gneE0_0_2" lane="gneE0_0" startPos="33.50" endPos="38.50"/>
+    <trainStop id="ts_0" lane="gneE0_0" startPos="44.00" endPos="49.00"/>
+    <trainStop id="ts_1" lane="gneE0_0" startPos="9.00" endPos="14.00"/>
+    <trainStop id="ts_2" lane="gneE0_0" startPos="33.50" endPos="38.50"/>
 </additional>
