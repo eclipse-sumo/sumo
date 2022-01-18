@@ -915,7 +915,8 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
         undoList->add(new GNEChange_Crossing(secondPart->getToJunction(), nbC, true), true);
     }
     // Split geometry of all child additional
-    for (const auto& additional : edge->getChildAdditionals()) {
+    auto childAdditionals = edge->getChildAdditionals();
+    for (const auto& additional : childAdditionals) {
         additional->splitEdgeGeometry(edgeSplitPosition, edge, secondPart, undoList);
     }
     // Split geometry of all child lane additional
@@ -925,7 +926,8 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
         }
     }
     // Split geometry of all child demand elements
-    for (const auto& demandElement : edge->getChildDemandElements()) {
+    auto childDemandElements = edge->getChildDemandElements();
+    for (const auto& demandElement : childDemandElements) {
         demandElement->splitEdgeGeometry(edgeSplitPosition, edge, secondPart, undoList);
     }
     // Split geometry of all child lane demand elements
