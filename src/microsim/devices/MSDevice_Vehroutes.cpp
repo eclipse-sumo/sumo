@@ -402,18 +402,7 @@ MSDevice_Vehroutes::writeOutput(const bool hasArrived) const {
     od.closeTag();
     od.lf();
     if (mySorted) {
-        myRouteInfos[tmp.depart][myHolder.getID()] = od.getString();
-        myDepartureCounts[tmp.depart]--;
-        std::map<const SUMOTime, int>::iterator it = myDepartureCounts.begin();
-        while (it != myDepartureCounts.end() && it->second == 0) {
-            std::map<const std::string, std::string>& infos = myRouteInfos[it->first];
-            for (std::map<const std::string, std::string>::const_iterator it2 = infos.begin(); it2 != infos.end(); ++it2) {
-                routeOut << it2->second;
-            }
-            myRouteInfos.erase(it->first);
-            myDepartureCounts.erase(it);
-            it = myDepartureCounts.begin();
-        }
+        writeSortedOutput(routeOut, tmp.depart, myHolder.getID(), od.getString());
     } else {
         routeOut << od.getString();
     }
@@ -468,6 +457,30 @@ MSDevice_Vehroutes::generateOutputForUnfinished() {
     }
 }
 
+
+void
+MSDevice_Vehroutes::registerTransportableDepart() {
+}
+
+void
+MSDevice_Vehroutes::registerTransportableArrival() {
+}
+
+void
+MSDevice_Vehroutes::writeSortedOutput(OutputDevice& routeOut, SUMOTime depart, const std::string& id, const std::string& xmlOutput) {
+    myRouteInfos[depart][id] = xmlOutput;
+    myDepartureCounts[depart]--;
+    std::map<const SUMOTime, int>::iterator it = myDepartureCounts.begin();
+    while (it != myDepartureCounts.end() && it->second == 0) {
+        std::map<const std::string, std::string>& infos = myRouteInfos[it->first];
+        for (std::map<const std::string, std::string>::const_iterator it2 = infos.begin(); it2 != infos.end(); ++it2) {
+            routeOut << it2->second;
+        }
+        myRouteInfos.erase(it->first);
+        myDepartureCounts.erase(it);
+        it = myDepartureCounts.begin();
+    }
+}
 
 void
 MSDevice_Vehroutes::saveState(OutputDevice& out) const {
