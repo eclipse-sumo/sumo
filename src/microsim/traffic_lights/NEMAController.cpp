@@ -106,7 +106,7 @@ NEMALogic::NEMALogic(MSTLLogicControl& tlcontrol,
     myNextOffset = offset;
     whetherOutputState = StringUtils::toBool(getParameter("whetherOutputState", "false"));
     coordinateMode = StringUtils::toBool(getParameter("coordinate-mode", "false"));
-    greenTransfer = StringUtils::toBool(getParameter("greenTransfer", "false"));
+    greenTransfer = StringUtils::toBool(getParameter("greenTransfer", "true"));
     //print to check
 #ifdef DEBUG_NEMA
     std::cout << "JunctionID = " << myID << std::endl;
@@ -842,12 +842,13 @@ NEMALogic::NEMA_control() {
             EndCurrentPhaseR2 = false;
         }
     }
+
+    // Falling Edge of Green
     if (EndCurrentPhaseR1 && (!wait4R1Green)) {
         phaseEndTimeR1 = currentTimeInSecond;
         phaseExpectedDuration[R1Index] = 0;
         wait4R1Green = true;
     }
-    //Enter transition phase in Ring2
     if (EndCurrentPhaseR2 && (!wait4R2Green)) {
         phaseEndTimeR2 = currentTimeInSecond;
         phaseExpectedDuration[R2Index] = 0;
@@ -857,67 +858,50 @@ NEMALogic::NEMA_control() {
     // Logic for Green Rest & Green Transfer
     // This requires a detector check. It should only be entered when the lights are green
     if ((EndCurrentPhaseR1 && R1RYG == 1) || (EndCurrentPhaseR2 && R2RYG == 1)){
-        if (!coordinateMode && EndCurrentPhaseR1 && EndCurrentPhaseR2){
-            // entry point to green rest. First check detector status, then determine if this should be up next.
-            // Green rest is effectively the same as being perpetually past the minimum green timer but not changing
-            int d = 0; // we don't care about the distance here
-            int tempR1Phase = nextPhase(rings[0], R1Phase, d);
-            int tempR2Phase = nextPhase(rings[1], R2Phase, d);
+        // Calculate the potential next phases. 
+        // Have to do it here and below because the "final" traffic light check is at the end of yellow
+        int tempR1Phase;
+        int tempR2Phase;
+        std::tie(tempR1Phase, tempR2Phase) = getNextPhases(R1Phase, R2Phase, wait4R1Green, wait4R2Green);
+        // entry point to green rest. First check detector status, then determine if this should be up next.
+        // Green rest is effectively the same as being perpetually past the minimum green timer but not changing
+        if ((tempR1Phase == R1Phase && EndCurrentPhaseR1) && (tempR2Phase == R2Phase && EndCurrentPhaseR2) && !coordinateMode){
+            // mark that the phases are not desired to end
+            EndCurrentPhaseR1 = false;
+            EndCurrentPhaseR2 = false;
 
-            if ((tempR1Phase == R1Phase) && (tempR2Phase == R2Phase)){
-                // mark that the phases are not desired to end
+            wait4R1Green = false;
+            wait4R2Green = false;
+
+            // Timing update. This logic should be checked the next step, so only add the simulation timestep.
+            // Potential that this needs to be extended in the future.
+            phaseEndTimeR1 += TS;
+            phaseEndTimeR2 += TS;
+
+            // setting the phase start time to current time - the minimum timer 
+            // will still allow the phase to be extended with vehicle detection
+            phaseStartTime[R1Index] = currentTimeInSecond - minGreen[R1Index];
+            phaseStartTime[R2Index] = currentTimeInSecond - minGreen[R2Index];
+        } else if ((tempR1Phase == R1Phase) && (tempR2Phase != R2Phase) && greenTransfer){
+            // Entry Point to the Green Transfer Logic
+            if (findBarrier(tempR1Phase, 0) == findBarrier(tempR2Phase, 1)){
                 EndCurrentPhaseR1 = false;
-                EndCurrentPhaseR2 = false;
-
                 wait4R1Green = false;
-                wait4R2Green = false;
-
-                // Timing update. This logic should be checked the next step, so only add the simulation timestep.
-                // Potential that this needs to be extended in the future.
                 phaseEndTimeR1 += TS;
-                phaseEndTimeR2 += TS;
-
-                // setting the phase start time to current time - the minimum timer 
-                // will still allow the phase to be extended with vehicle detection
-                phaseStartTime[R1Index] = currentTimeInSecond - minGreen[R1Index];
-                phaseStartTime[R2Index] = currentTimeInSecond - minGreen[R2Index];
-            } else if (tempR1Phase == R1Phase){
-                if (findBarrier(tempR1Phase, 0) == findBarrier(tempR2Phase, 1)){
-                    EndCurrentPhaseR1 = false;
-                    wait4R1Green = false;
-                    phaseEndTimeR1 += TS;
-                }
-            } else if (tempR2Phase == R2Phase){
-                if (findBarrier(tempR1Phase, 0) == findBarrier(tempR2Phase, 1)){
-                    EndCurrentPhaseR2 = false;
-                    wait4R2Green = false;
-                    phaseEndTimeR2 += TS;
+                if (tempR1Phase == r1barrier || tempR1Phase == r1coordinatePhase){
+                    // This is because you can't cross the barrier and until both are ready to end
+                    phaseExpectedDuration[R1Index] = phaseExpectedDuration[tempR2Phase - 1] + yellowTime[tempR2Phase - 1] + redTime[tempR2Phase - 1];
                 }
             }
-        }
-        if (!(EndCurrentPhaseR1 && EndCurrentPhaseR2) && greenTransfer){
-            // Entry to green transfer. One of the phases is ready to end but the other isn't
-            // Not sure if this needs to be a user choice or default behavior
-            if (EndCurrentPhaseR1){
-                // We need to check if the detector is activated on the other sequential phase inside of the barrier
-                // Difference is that the extention time does nothing in green transfer
-                // This is the same as perpetually being past the maximum timer but not transitioning
-                // Recalls do take effect here 
-                int barrier = findBarrier(R1Phase, 0);
-                int potentialNextPhase = myRingBarrierMapping[0][barrier].back();
-                if (!isDetectorActivated(potentialNextPhase) && !recall[potentialNextPhase - 1]){
-                    EndCurrentPhaseR1 = false;
-                    wait4R1Green = false;
-                    phaseEndTimeR1 += TS;
-                } 
-            }else{
-                int barrier = findBarrier(R2Phase, 1);
-                int potentialNextPhase = myRingBarrierMapping[1][barrier].back();
-                if (!isDetectorActivated(potentialNextPhase) && !recall[potentialNextPhase - 1]){
-                    EndCurrentPhaseR2 = false;
-                    wait4R2Green = false;
-                    phaseEndTimeR2 += TS;
-                } 
+        } else if ((tempR1Phase != R1Phase) && (tempR2Phase == R2Phase) && greenTransfer){
+            if (findBarrier(tempR1Phase, 0) == findBarrier(tempR2Phase, 1)){
+                EndCurrentPhaseR2 = false;
+                wait4R2Green = false;
+                phaseEndTimeR2 += TS;
+                if (tempR2Phase == r2barrier || tempR2Phase == r2coordinatePhase){
+                    // This is because you can't cross the barrier and until both are ready to end
+                    phaseExpectedDuration[R2Index] = phaseExpectedDuration[tempR1Phase - 1] + yellowTime[tempR1Phase - 1] + redTime[tempR1Phase - 1];
+                }
             }
         }
     }
