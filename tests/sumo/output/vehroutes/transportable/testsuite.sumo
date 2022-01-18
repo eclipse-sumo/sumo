@@ -13,3 +13,6 @@ person_ride_parkingArea
 # test loading stages will all kinds of stopping places
 person_stoppingPlaces
 container_exit_times
+
+# Copy of walk_departPos_random
+walk_departPos_random
