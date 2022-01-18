@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-28 20:47:06 by Eclipse SUMO sumo Version v1_11_0+0163-a125215
+<!-- generated on 2022-01-18 22:48:43 by Eclipse SUMO sumo Version v1_11_0+1259-97479eb207d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -98,5 +98,5 @@ SPDX-License-Identifier: EPL-2.0
     <stopinfo id="paD1C1.0" type="DEFAULT_VEHTYPE" lane="D1C1_0" pos="90.60" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paD1C1"/>
     <stopinfo id="paC0D0.0" type="DEFAULT_VEHTYPE" lane="C0D0_0" pos="92.10" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paC0D0"/>
     <stopinfo id="paA0A1.0" type="DEFAULT_VEHTYPE" lane="A0A1_0" pos="92.10" parking="1" started="1.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paA0A1"/>
-    <stopinfo id="ego.0" type="car" lane="D3D2_0" pos="92.10" parking="1" started="134.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paD3D2"/>
+    <stopinfo id="ego.0" type="car" lane="D3D2_0" pos="92.10" parking="1" started="200.00" ended="-1" delay="-1.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="paD3D2"/>
 </stops>
