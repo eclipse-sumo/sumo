@@ -79,7 +79,7 @@ if test -e $SUMO_BINDIR/sumo -a $SUMO_BINDIR/sumo -nt build/$FILEPREFIX/Makefile
         tests/runNeteditDailyTests.sh -b $FILEPREFIX -name $TESTLABEL >> $TESTLOG 2>&1
       fi
       if test "$FILEPREFIX" == "coverage_gcc4_64"; then
-        tests/runTests.sh -a netedit.gui -b $FILEPREFIX -name $TESTLABEL >> $TESTLOG 2>&1
+#        tests/runTests.sh -a netedit.gui -b $FILEPREFIX -name $TESTLABEL >> $TESTLOG 2>&1
       fi
     fi
   fi
