@@ -8,7 +8,7 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,5.20,60.00,30.00
 GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary -10.00,10.00,60.00,34.80
 Debug: Selected item 'busStop' in TagSelector
-Debug: Adding busStop 'busStop_gneE2_1_0' in GNEChange_Additional
+Debug: Adding busStop 'bs_0' in GNEChange_Additional
 Debug: Setting new attribute
 Debug: Value '-5' for attribute startPos of busStop isn't valid
 Debug: Value '400' for attribute startPos of busStop isn't valid
@@ -21,11 +21,11 @@ Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing busStop 'busStop_gneE2_1_0' in GNEChange_Additional
+Debug: Removing busStop 'bs_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding busStop 'busStop_gneE2_1_0' in GNEChange_Additional
+Debug: Adding busStop 'bs_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
@@ -82,7 +82,7 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,5.20,60.00,30.00
 GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary -10.00,10.00,60.00,34.80
-Debug: Deleting unreferenced busStop 'busStop_gneE2_1_0'
+Debug: Deleting unreferenced busStop 'bs_0'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

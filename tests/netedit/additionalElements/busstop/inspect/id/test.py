@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("busStop")
 
 # change reference to center
-netedit.changeDefaultValue(11, "reference center")
+netedit.changeDefaultValue(15, "reference center")
 
 # create busStop 1 in mode "reference center"
 netedit.leftClick(referencePosition, 250, 170)
@@ -50,7 +50,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 190)
 
 # Change parameter id with a non valid value (Duplicated ID)
-netedit.modifyAttribute(0, "busStop_gneE2_1_1", True)
+netedit.modifyAttribute(0, "bs_1", True)
 
 # Change parameter id with a non valid value (Invalid ID)
 netedit.modifyAttribute(0, "Id with spaces", True)

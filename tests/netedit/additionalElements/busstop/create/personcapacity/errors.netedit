@@ -1,6 +1,6 @@
 Debug: Selected item 'busStop' in TagSelector
-Debug: Invalid input parameter of busStop: 'personCapacity' cannot be negative
-Debug: Invalid input parameter of busStop: 'personCapacity' doesn't have a valid 'int' format
+Debug: Invalid input parameter of busStop
+Debug: Invalid input parameter of busStop
 Debug: Adding busStop 'bs_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

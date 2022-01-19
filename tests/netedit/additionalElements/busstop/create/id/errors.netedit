@@ -1,7 +1,7 @@
 Debug: Selected item 'busStop' in TagSelector
 Debug: Adding busStop 'bs_0' in GNEChange_Additional
-Debug: Invalid input parameter of busStop: invalid id used in id
-Error: Could not build busStop with ID 'bs_0' in netedit; declared twice.
+Debug: Invalid input parameter of busStop
+Debug: Invalid input parameter of busStop
 Debug: Adding busStop 'custom_ID' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
