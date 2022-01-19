@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-19 22:45:59 by Eclipse SUMO netconvert Version v1_11_0+1302-26dd5bf
+<!-- generated on 2022-01-19 22:57:25 by Eclipse SUMO netconvert Version v1_11_0+1303-027f5d3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -104,9 +104,11 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <tlLogic id="C" type="static" programID="0" offset="0">
-        <phase duration="77" state="GGGG"/>
-        <phase duration="3"  state="yyyy"/>
-        <phase duration="15" state="rrrr"/>
+        <phase duration="77" state="GGGGrrrr"/>
+        <phase duration="3"  state="yyyyrrrr"/>
+        <phase duration="5"  state="rrrrGGGG"/>
+        <phase duration="5"  state="rrrrGrrG"/>
+        <phase duration="5"  state="rrrrrrrr"/>
     </tlLogic>
 
     <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="EC_0 EC_1 SC_0 WC_0 WC_1 :C_w2_0 :C_w1_0" intLanes=":C_0_0 :C_0_1 :C_2_0 :C_2_1 :C_c0_0 :C_c1_0" shape="100.00,110.90 104.00,110.90 105.50,109.40 105.50,90.60 104.00,89.10 100.00,89.10 98.50,90.60 98.50,109.40" radius="5.00">
@@ -140,10 +142,10 @@ SPDX-License-Identifier: EPL-2.0
     <connection from=":E_0" to="EC" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from=":W_0" to="WC" fromLane="0" toLane="1" dir="t" state="M"/>
 
-    <connection from=":C_c0" to=":C_w0" fromLane="0" toLane="0" tl="C" linkIndex="3" dir="s" state="M"/>
-    <connection from=":C_c1" to=":C_w2" fromLane="0" toLane="0" tl="C" linkIndex="5" dir="s" state="M"/>
+    <connection from=":C_c0" to=":C_w0" fromLane="0" toLane="0" tl="C" linkIndex="5" dir="s" state="M"/>
+    <connection from=":C_c1" to=":C_w2" fromLane="0" toLane="0" tl="C" linkIndex="7" dir="s" state="M"/>
     <connection from=":C_w0" to="CN" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":C_w1" to=":C_c1" fromLane="0" toLane="0" tl="C" linkIndex="4" dir="s" state="M"/>
+    <connection from=":C_w1" to=":C_c1" fromLane="0" toLane="0" tl="C" linkIndex="6" dir="s" state="M"/>
     <connection from="SC" to=":C_w1" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":C_w2" to=":C_c0" fromLane="0" toLane="0" tl="C" linkIndex="2" dir="s" state="M"/>
+    <connection from=":C_w2" to=":C_c0" fromLane="0" toLane="0" tl="C" linkIndex="4" dir="s" state="M"/>
 </net>
