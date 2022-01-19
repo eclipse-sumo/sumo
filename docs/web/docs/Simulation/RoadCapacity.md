@@ -8,8 +8,8 @@ The capacity of a road is typically expressed as vehicles/hour and describes the
 maximum traffic flow that a road can handle.
 
 As a rule of thumb, the capacity of a multi-lane road is the product of the
-capacity of a single lane multiplied by the number of lanes. The exact relation
-ship is more complex and depends on the distribution of vehicle speeds and the
+capacity of a single lane multiplied by the number of lanes. The exact relationship
+is more complex and depends on the distribution of vehicle speeds and the
 lane changing dynamics.
 
 # Lane Capacity
