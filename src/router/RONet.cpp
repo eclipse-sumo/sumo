@@ -290,12 +290,8 @@ RONet::openOutput(const OptionsCont& options) {
     }
     if (options.isSet("vtype-output")) {
         myTypesOutput = &OutputDevice::getDevice(options.getString("vtype-output"));
-        if (myTypesOutput->isNull()) {
-            myTypesOutput = nullptr;
-        } else {
-            myTypesOutput->writeHeader<ROEdge>(SUMO_TAG_ROUTES);
-            myTypesOutput->writeAttr("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance").writeAttr("xsi:noNamespaceSchemaLocation", "http://sumo.dlr.de/xsd/routes_file.xsd");
-        }
+        myTypesOutput->writeHeader<ROEdge>(SUMO_TAG_ROUTES);
+        myTypesOutput->writeAttr("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance").writeAttr("xsi:noNamespaceSchemaLocation", "http://sumo.dlr.de/xsd/routes_file.xsd");
     }
 }
 
