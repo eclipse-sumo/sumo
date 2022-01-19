@@ -462,6 +462,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::onConfigure(FXObject*,
             glDisable(GL_LIGHTING);
             glDisable(GL_LINE_SMOOTH);
             glEnable(GL_BLEND);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
             glEnable(GL_ALPHA_TEST);
             glDisable(GL_COLOR_MATERIAL);
             glLineWidth(1);
@@ -489,6 +490,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::onPaint(FXObject*,
             glDisable(GL_LIGHTING);
             glDisable(GL_LINE_SMOOTH);
             glEnable(GL_BLEND);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
             glEnable(GL_ALPHA_TEST);
             glDisable(GL_COLOR_MATERIAL);
             glLineWidth(1);
