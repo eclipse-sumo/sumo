@@ -288,9 +288,9 @@ For route generation it may be relevant to know whether a particular junction or
 - outer: this junction is connected to additional edges in the real world. It is part of the outer boundary of the network
 - inner: this junction is connected to additional edges in the real world. It lies within the network but other roads (i.e. with a lower road class) were removed from the simulation
 
-The fringe attribut can be determined automatically for the outer fringe based on the pareto frontier by setting netconvert option **--fringe.guess**. It is also set automatically by [netgenerate](netgenerate.md) when option **--attach-length** is used. Editing the attribute in [netedit](netedit.md) is also supported.
+The fringe attribut can be determined automatically for the outer fringe based on the pareto frontier by setting netconvert option **--fringe.guess**. It is also set automatically by [netgenerate](../netgenerate.md) when option **--attach-length** is used. Editing the attribute in [netedit](../netedit.md) is also supported.
 
-The 'fringe' attribute is used by [randomTrips.py](Tools/Trip.md#randomtripspy) when setting option --fringe-junctions.
+The 'fringe' attribute is used by [randomTrips.py](../Tools/Trip.md#randomtripspy) when setting option **--fringe-junctions**.
 
 ## Joining Nodes
 
