@@ -37,7 +37,7 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect busstops
+# inspect trainstops
 netedit.leftClick(referencePosition, 160, 270)
 
 # Set lines

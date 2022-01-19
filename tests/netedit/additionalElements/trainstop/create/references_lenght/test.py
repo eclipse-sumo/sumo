@@ -37,13 +37,13 @@ netedit.changeElement("trainStop")
 # set invalid lenght (dummy)
 netedit.changeDefaultValue(17, "dummyLenght")
 
-# try to create busstop with invalid lenght
+# try to create trainstop with invalid lenght
 netedit.leftClick(referencePosition, 500, 250)
 
 # set invalid lenght (negative)
 netedit.changeDefaultValue(17, "-20")
 
-# try to create busstop with invalid lenght
+# try to create trainstop with invalid lenght
 netedit.leftClick(referencePosition, 500, 250)
 
 # Change length

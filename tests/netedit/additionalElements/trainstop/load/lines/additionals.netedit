@@ -4,11 +4,11 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug124629.4172\netedit.gui\additionalElements\busstop\load\lines\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug124629.4172\netedit.gui\additionalElements\trainstop\load\lines\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug124629.4172\netedit.gui\additionalElements\busstop\load\lines\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug124629.4172\netedit.gui\additionalElements\trainstop\load\lines\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,28 +30,28 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug124629.4172\netedit.gui\additionalElements\busstop\load\lines\additionals.xml"/>
-        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug124629.4172\netedit.gui\additionalElements\busstop\load\lines\additionals.xml"/>
-        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug124629.4172\netedit.gui\additionalElements\busstop\load\lines\routes.xml"/>
-        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug124629.4172\netedit.gui\additionalElements\busstop\load\lines\routes.xml"/>
-        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug124629.4172\netedit.gui\additionalElements\busstop\load\lines\datas.xml"/>
-        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug124629.4172\netedit.gui\additionalElements\busstop\load\lines\datas.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug124629.4172\netedit.gui\additionalElements\trainstop\load\lines\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug124629.4172\netedit.gui\additionalElements\trainstop\load\lines\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug124629.4172\netedit.gui\additionalElements\trainstop\load\lines\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug124629.4172\netedit.gui\additionalElements\trainstop\load\lines\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug124629.4172\netedit.gui\additionalElements\trainstop\load\lines\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug124629.4172\netedit.gui\additionalElements\trainstop\load\lines\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug124629.4172\netedit.gui\additionalElements\busstop\load\lines\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug124629.4172\netedit.gui\additionalElements\trainstop\load\lines\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug124629.4172\netedit.gui\additionalElements\busstop\load\lines\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug124629.4172\netedit.gui\additionalElements\trainstop\load\lines\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug124629.4172\netedit.gui\additionalElements\busstop\load\lines\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.30Aug124629.4172\netedit.gui\additionalElements\trainstop\load\lines\log.txt"/>
     </report>
 
 </configuration>

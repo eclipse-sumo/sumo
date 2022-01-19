@@ -4,11 +4,11 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan091401.10504\netedit.gui\additionalElements\busstop\inspect\lines\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan091401.10504\netedit.gui\additionalElements\trainstop\inspect\lines\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan091401.10504\netedit.gui\additionalElements\busstop\inspect\lines\net.net.xml"/>
+        <output-file value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan091401.10504\netedit.gui\additionalElements\trainstop\inspect\lines\net.net.xml"/>
     </output>
 
     <processing>
@@ -31,27 +31,27 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan091401.10504\netedit.gui\additionalElements\busstop\inspect\lines\additionals.xml"/>
-        <additionals-output value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan091401.10504\netedit.gui\additionalElements\busstop\inspect\lines\additionals.xml"/>
-        <route-files value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan091401.10504\netedit.gui\additionalElements\busstop\inspect\lines\routes.xml"/>
-        <demandelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan091401.10504\netedit.gui\additionalElements\busstop\inspect\lines\routes.xml"/>
-        <data-files value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan091401.10504\netedit.gui\additionalElements\busstop\inspect\lines\datas.xml"/>
-        <dataelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan091401.10504\netedit.gui\additionalElements\busstop\inspect\lines\datas.xml"/>
+        <additional-files value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan091401.10504\netedit.gui\additionalElements\trainstop\inspect\lines\additionals.xml"/>
+        <additionals-output value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan091401.10504\netedit.gui\additionalElements\trainstop\inspect\lines\additionals.xml"/>
+        <route-files value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan091401.10504\netedit.gui\additionalElements\trainstop\inspect\lines\routes.xml"/>
+        <demandelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan091401.10504\netedit.gui\additionalElements\trainstop\inspect\lines\routes.xml"/>
+        <data-files value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan091401.10504\netedit.gui\additionalElements\trainstop\inspect\lines\datas.xml"/>
+        <dataelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan091401.10504\netedit.gui\additionalElements\trainstop\inspect\lines\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan091401.10504\netedit.gui\additionalElements\busstop\inspect\lines\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan091401.10504\netedit.gui\additionalElements\trainstop\inspect\lines\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan091401.10504\netedit.gui\additionalElements\busstop\inspect\lines\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan091401.10504\netedit.gui\additionalElements\trainstop\inspect\lines\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan091401.10504\netedit.gui\additionalElements\busstop\inspect\lines\log.txt"/>
+        <error-log value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan091401.10504\netedit.gui\additionalElements\trainstop\inspect\lines\log.txt"/>
     </report>
 
 </configuration>

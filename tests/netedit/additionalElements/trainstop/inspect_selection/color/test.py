@@ -37,7 +37,7 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect busstops
+# inspect trainstops
 netedit.leftClick(referencePosition, 160, 270)
 
 # Change parameter 2 with a non valid value (dummy)
