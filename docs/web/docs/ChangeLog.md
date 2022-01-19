@@ -33,6 +33,11 @@ title: ChangeLog
   - Fixned invalid junction collision warning. Issue #9920
   - Fixed junction collision when bluelight vehicle drives on red. Issue #9919
   - Fixed bug in driving speed calculation for EIDM. Issue #9878
+  - Fixed missing access stage after ride to busStop. Issue #9958
+  - Detector `<param>`s are noW loaded. Issue #9578
+  - Various NEMA fixes. Issue #9965, #9971, #9940
+  - Fixed invalid tripinfo for persons that did not finish their plan by simulation end. Issue #8461
+  - When setting option **--vehroute-output.sorted**, all persons are now sorted. Issue #9929
   
 - netedit
   - Fixed bug preventing inspection of tazRelations. Issue #9728
@@ -47,7 +52,10 @@ title: ChangeLog
   - Fixed missing 'end' attribute when converting trip to flow. Issue #9834  
   - Fixed invalid weights when loading source or sink weight for taz edge. Issue #9672
   - Routes now longer have a color unless set by the user. Issue #9512
+  - Stops can no longer be created on edges that do not belong to the route. Issue #9923
   - Routes with invalid stops (invalid order or edge) now trigger a dialog for corrections on saving. Issue #9921
+  - TLS mode now always shows the correct connection shape. Issue #9962
+  - When splitting an edge, all routes passing that edge are now adapted. Issue #9511
 
 - sumo-gui
   - Fixed crash when using guiShape "truck/trailer" or "truck/semitrailer" for short vehicles. #9682 (regression in 1.11.0)
@@ -58,6 +66,8 @@ title: ChangeLog
   - Fixed invalid detector visibility when switching actuated traffic light program on. Issue #9877
   - Fixed keyboard navigation in locate object dialogs. Issue #9740
   - Rerouter symbols are no longer drawn on sidewalks. Issue #9908
+  - Fixed verious inconsistences in the TLS Phase tracker. Issue #9963
+  - Fixed occasional freezing during person simulation. Issue #9973
 
 - netconvert
   - Fixed unsafe location of internal junctions that were causing collisions in the simulation. Positioning can be controleld with option **--internal-junctions.vehicle-width** and setting this to 0 restores legacy behavior. Issue #4397
@@ -69,12 +79,24 @@ title: ChangeLog
   - Fixed invalid handling of loaded roundabouts when the network is modified. Issue #9810
   - Network building now aborts when a type file could not be loaded. Issue #9392
   - Option **--ignore-errors** now ignores duplicate node ids in dlr-navteq input. Issue #8581
+  - Reduced variation between platforms. Issue #9874
+  - Fixed invalid connectivity at motorway ramp when importing OSM lane change prohibitions. Issue #9939
+  - Fixed invalid link direction when there are multiple turnaround edges. Issue #9957
+
+- meso
+  - Fixed invalid stop arrival time in meso. Issue #9713  
+  - Fixed invalid ride depart time and route length when starting directly after stop. Issue #9560
+  - No more warnings about small tau. Issue #9505
+  - Dynamically modified road permissions (i.e. closingReroute with disallow) are no longer ignored and can cause jamming. Issue #9950
+  - Fixed invalid capacity in intermodal scenario. Issue #8167
 
 - duarouter
   - Option **--write-costs** now also applies to walks/rides, Option **--route-length** now applies to normal vehicles. Issue #9698
   - Fixed invalid error on mismatch between ride destination stop and vehicle destination stop. Issue #9730
   - Fixed invalid route output when using option **--remove-loops** on routes with multiple loops. Issue #9837
   - Fixed inconsistent vType defaults for speedFactor. Issue #9864
+  - Fixed inconsistent railway routing results for stops on consecutive bidi-edges. Issue #9949
+  - Fixed inconsistent handling of personTrips and explicit trip items. Issue #5821
   
 - jtrrouter
   - Unsorted flows now trigger a warning. Issue #9327
@@ -88,6 +110,7 @@ title: ChangeLog
   - TraCI server no longer hangs when trying to add a subscription filter without previous vehicle subscription. Issue #9770
   - Fixed memory leak in libsumo::TrafficLight::getCompleteRedYellowGreenDefinition. Issue #9818
   - Fixed bug where calling changeSublane with high values 'latDist' value, causes exaggerated maneuverDistance. Issue #9863
+  - Fixed crash when calling getStopDelay for a vehicle that isn't in the network. Issue #9944
 
 - tools
   - generateParkingAreaRerouters.py: fixed distance bias against long parkingAreas. Issue #9644
@@ -96,6 +119,7 @@ title: ChangeLog
   - generateRailSignalConstraints.py: Now handles intermediate parking stops. Issue #9806
   - Fixed encoding problems in osmTaxiStop.py #9893
   - [emissionsDrivingCycle](Tools/Emissions.md#emissionsdrivingcycle) now permits loading of [electric vehicle params](Models/Electric.md#defining_electric_vehicles) via the new options **--vtype** and **--additional-files**. Issue #9930
+  - plot_csv_timeline.py now supports python3. Issue #9951
 
 - Miscellaneous
   - Specifying NUL output on the command line finally works. Issue #3400
@@ -113,7 +137,12 @@ title: ChangeLog
   - Rerouting period can now be customized via `<param key="device.rerouting.period" value="X"/>` in vType or vehicle. Issue #9646  
   - Detector processing now takes less time if their output file is set to 'NUL'. Issue #7772, #9620
   - Vehicle attribute [departSpeed](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#departspeed) now supports the values 'last' and 'avg'. Issue #2024
-  - Traffic light type 'NEMA' now supports param 'fixForceOff' which permits non-coordinated phases to use the unused time of previous phases. Issue #9848
+  - Traffic light type 'NEMA':
+    -  now supports param 'fixForceOff' which permits non-coordinated phases to use the unused time of previous phases. Issue #9848
+    -  Added "fully actuated" operation support. Issue #9933
+    -  Added "Rest in Green" functionality when not in coordinated mode. Issue #9937, #9968
+    -  Supporting phase skipping. Issue #9897
+    -  Supporting Green Transfer. Issue #9954
   - parking search:
     - Parking search now supports `<param key="parking.anywhere" value="X"/>` which permit using free parkingArea along the way after doing unsuccessful  parkingAreaReroute x times. Issue #9577
     - Parking search now supports `<param key="parking.frustration" value="X"/>` which increases the preference for visibly free parkingAreas over time. Issue 9657
@@ -127,14 +156,19 @@ title: ChangeLog
   - Added context menu entry to open map location in an online map. Issue #9787
   - Vehicle size can now be scaled by attribute. Issue #9567
   - Added speedFactor to vehicle type parameter dialog. Issue #9865
+  - The locate dialog has improved keyboard navigation, optional case-sensitivity and optional auto-centering. Issue #9902, #9876
   - Traffic light parameter dialog now includes cycle duration, timeInCycle, earliestEnd and latestEnd. Issue #9784
+  - Parameter Tracker window enhancements:
+    - The value at the cursor position is now highlighted and printed. Issue #9976
+    - When saving data, the time values are now included. Issue #9977
+    - Plotting multiple values in the same window is now supported by activating 'Multiplot' and starting more plots. Issue #9984
   - Phase Tracker window enhancements:
     - shows switch times with configure style (seconds, MM:SS, time-in-cycle). Issue #9785
     - optionally shows green phase durations.
     - remembers window position and size. Issue #9826
     - shows phase index or phase name. Issue #9836
-    - optionally draws states of actuation detectors. Issue #9887
-    - optionally draws states of custom switching conditions. Issue #9928
+    - optionally draws states of actuation detectors. Issue #9887, #9952
+    - optionally draws states of custom switching conditions. Issue #9928    
 
 - netedit
   - Trips and flows between junctions (fromJunction, toJunction) are now supported. Issue #9081
@@ -146,6 +180,9 @@ title: ChangeLog
   - Added lane context menu function "set custom shape". Issue #9741
   - Loading and setting of vTypeDistributions is now supported. Issue #9435
   - List of issues from 'demand element problems'-dialog can now be saved to file. Issue #7868
+  - Lane chang prohibitions (changeLeft, changeRight) are now visualized. Issue #9942
+  - Selections can now be modified based on object hierarchy (i.e. to selection junctions for all selected edges). Issue #9524
+  - Improved visibility for short edges. Issue #9434
 
 - netconvert
   - OSM: import of public transport now supports share_taxi (PUJ) and minibus. Issue #9708
@@ -155,11 +192,6 @@ title: ChangeLog
   - Added option **--opendrive.lane-shapes** which uses custom lane shapes to account for spacing of discarded lanes. Issue #4913  
   - Added option **--railway.topology.extend-priority** which extrapolates directional priorities in an all-bidi network based on initial priorities. Issue #9683
    
-- meso
-  - Fixed invalid stop arrival time in meso. Issue #9713  
-  - Fixed invalid ride depart time and route length when starting directly after stop. Issue #9560
-  - No more warnings about small tau. Issue #9505
-
 - duarouter
   - can now write route costs in regular route output. Issue #9667
 
@@ -177,6 +209,7 @@ title: ChangeLog
   - netdiff.py: now supports option **--plain-geo** to write locational diffs in geo coordinates. Issue #9808
   - netdiff.py: now also writes diff for edge type file. Issue #9807
   - implausibleRoutes.py: now supports option **--xml-output** to write route scores for post-processing. Issue #9862
+  - randomTrips.py: now support option **--fringe-junctions** to determine the fringe from [junction attribute 'fringe'](Networks/PlainXML.md#fringe). Issue #9948
 
 ### Miscellaneous
 
@@ -184,6 +217,7 @@ title: ChangeLog
 - Added [documentation on road capacity and headways](Simulation/RoadCapacity.md). Issue #9870
 - Added [documentation for signal plan visualization](Simulation/Traffic_Lights.md#signal_plan_visualization)
 - Traffic light type 'NEMA' now uses attribute 'offset' instead of param key="offset". Issue #9804
+- The [generated detector names for actuated traffic lights](Simulation/Traffic_Lights.md#detectors) have been simplified. Issue #9955
 - Speed up Visual Studio build with sccache (only works with Ninja not with Visual Studio projects). Issue #9290
 - The text "Loading configuration" is printed now only if **--verbose** is given. Issue #9743
 - vType attribute 'minGapLat' is now stored for each vehicle ([similar to other lane change model attributes](TraCI/Change_Vehicle_State.md#relationship_between_lanechange_model_attributes_and_vtypes)). Issue #9769
