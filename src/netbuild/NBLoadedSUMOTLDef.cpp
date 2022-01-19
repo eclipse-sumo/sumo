@@ -708,7 +708,6 @@ void
 NBLoadedSUMOTLDef::ungroupSignals() {
     NBConnectionVector defaultOrdering;
     collectAllLinks(defaultOrdering);
-    myTLLogic->setStateLength((int)myControlledLinks.size());
     std::vector<std::string> states; // organized per link rather than phase
     int index = 0;
     for (NBConnection& c : defaultOrdering) {
@@ -719,13 +718,14 @@ NBLoadedSUMOTLDef::ungroupSignals() {
     for (NBNode* n : myControlledNodes) {
         for (NBNode::Crossing* c : n->getCrossings()) {
             states.push_back(getStates(c->tlLinkIndex));
-            c->tlLinkIndex = index++;
+            c->customTLIndex = index++;
             if (c->tlLinkIndex2 != NBConnection::InvalidTlIndex) {
                 states.push_back(getStates(c->tlLinkIndex2));
-                c->tlLinkIndex2 = index++;
+                c->customTLIndex2 = index++;
             }
         }
     }
+    myTLLogic->setStateLength(index);
     for (int i = 0; i < (int)states.size(); i++) {
         for (int p = 0; p < (int)states[i].size(); p++) {
             myTLLogic->setPhaseState(p, i, (LinkState)states[i][p]);
