@@ -51,3 +51,6 @@ group-signals_crossings
 
 # set distinct tls index for every connection
 ungroup-signals
+
+# give every link it's own tls index
+ungroup-signals_crossings
