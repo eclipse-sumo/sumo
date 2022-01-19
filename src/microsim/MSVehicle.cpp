@@ -6022,9 +6022,9 @@ MSVehicle::lateralDistanceToLane(const int offset) const {
         if (latPos + halfVehWidth > halfCurrentLaneWidth) {
             // correct overlapping left
             latLaneDist = halfCurrentLaneWidth - latPos - halfVehWidth;
-        } else if (latPos - halfVehWidth < - halfCurrentLaneWidth) {
-            // correct overlapping left
-            latLaneDist = halfCurrentLaneWidth - latPos + halfVehWidth;
+        } else if (latPos - halfVehWidth < -halfCurrentLaneWidth) {
+            // correct overlapping right
+            latLaneDist = -halfCurrentLaneWidth - latPos + halfVehWidth;
         }
     } else if (offset == -1) {
         latLaneDist = rightLimit - (getWidth() + NUMERICAL_EPS);
