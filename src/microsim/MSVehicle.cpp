@@ -6015,8 +6015,9 @@ MSVehicle::lateralDistanceToLane(const int offset) const {
     const double halfCurrentLaneWidth = 0.5 * myLane->getWidth();
     const double halfVehWidth = 0.5 * (getWidth() + NUMERICAL_EPS);
     const double latPos = getLateralPositionOnLane();
-    double leftLimit = halfCurrentLaneWidth - halfVehWidth - latPos;
-    double rightLimit = -halfCurrentLaneWidth + halfVehWidth - latPos;
+    const double oppositeSign = getLaneChangeModel().isOpposite() ? -1 : 1;
+    double leftLimit = halfCurrentLaneWidth - halfVehWidth - oppositeSign * latPos;
+    double rightLimit = -halfCurrentLaneWidth + halfVehWidth - oppositeSign * latPos;
     double latLaneDist = 0;  // minimum distance to move the vehicle fully onto the new lane
     if (offset == 0) {
         if (latPos + halfVehWidth > halfCurrentLaneWidth) {
@@ -6026,6 +6027,7 @@ MSVehicle::lateralDistanceToLane(const int offset) const {
             // correct overlapping right
             latLaneDist = -halfCurrentLaneWidth - latPos + halfVehWidth;
         }
+        latLaneDist *= oppositeSign;
     } else if (offset == -1) {
         latLaneDist = rightLimit - (getWidth() + NUMERICAL_EPS);
     } else if (offset == 1) {
