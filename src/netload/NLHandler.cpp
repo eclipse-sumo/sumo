@@ -282,6 +282,7 @@ NLHandler::myStartElement(int element,
                 break;
         }
     } catch (InvalidArgument& e) {
+        myCurrentIsBroken = true;
         WRITE_ERROR(e.what());
     }
     MSRouteHandler::myStartElement(element, attrs);
@@ -335,12 +336,16 @@ NLHandler::myEndElement(int element) {
         case SUMO_TAG_INSTANT_INDUCTION_LOOP:
         case SUMO_TAG_E2DETECTOR:
         case SUMO_TAG_LANE_AREA_DETECTOR:
-            myLastParameterised.pop_back();
+            if (!myCurrentIsBroken) {
+                myLastParameterised.pop_back();
+            }
             break;
         case SUMO_TAG_E3DETECTOR:
         case SUMO_TAG_ENTRY_EXIT_DETECTOR:
             endE3Detector();
-            myLastParameterised.pop_back();
+            if (!myCurrentIsBroken) {
+                myLastParameterised.pop_back();
+            }
             break;
         case SUMO_TAG_PARKING_AREA:
             myTriggerBuilder.endParkingArea();
@@ -862,16 +867,18 @@ NLHandler::addCondition(const SUMOSAXAttributes& attrs) {
     const std::string value = attrs.get<std::string>(SUMO_ATTR_VALUE, id.c_str(), ok);
     if (!myJunctionControlBuilder.addCondition(id, value)) {
         WRITE_ERROR("Duplicate condition '" + id + "' in tlLogic '" + myJunctionControlBuilder.getActiveKey() + "'");
-    };
+    }
 }
 
 
 void
 NLHandler::addE1Detector(const SUMOSAXAttributes& attrs) {
+    myCurrentIsBroken = false;
     bool ok = true;
     // get the id, report an error if not given or empty...
-    std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
     if (!ok) {
+        myCurrentIsBroken = true;
         return;
     }
     const SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
@@ -887,10 +894,12 @@ NLHandler::addE1Detector(const SUMOSAXAttributes& attrs) {
             detectPersons |= (int)SUMOXMLDefinitions::PersonModeValues.get(mode);
         } else {
             WRITE_ERROR("Invalid person mode '" + mode + "' in E1 detector definition '" + id + "'");
+            myCurrentIsBroken = true;
             return;
         }
     }
     if (!ok) {
+        myCurrentIsBroken = true;
         return;
     }
     try {
@@ -899,8 +908,10 @@ NLHandler::addE1Detector(const SUMOSAXAttributes& attrs) {
                                           friendlyPos, vTypes, detectPersons);
         myLastParameterised.push_back(det);
     } catch (InvalidArgument& e) {
+        myCurrentIsBroken = true;
         WRITE_ERROR(e.what());
     } catch (IOError& e) {
+        myCurrentIsBroken = true;
         WRITE_ERROR(e.what());
     }
 }
@@ -908,10 +919,12 @@ NLHandler::addE1Detector(const SUMOSAXAttributes& attrs) {
 
 void
 NLHandler::addInstantE1Detector(const SUMOSAXAttributes& attrs) {
+    myCurrentIsBroken = false;
     bool ok = true;
     // get the id, report an error if not given or empty...
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
     if (!ok) {
+        myCurrentIsBroken = true;
         return;
     }
     const double position = attrs.get<double>(SUMO_ATTR_POSITION, id.c_str(), ok);
@@ -920,6 +933,7 @@ NLHandler::addInstantE1Detector(const SUMOSAXAttributes& attrs) {
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok);
     const std::string vTypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
     if (!ok) {
+        myCurrentIsBroken = true;
         return;
     }
     try {
@@ -930,6 +944,7 @@ NLHandler::addInstantE1Detector(const SUMOSAXAttributes& attrs) {
     } catch (IOError& e) {
         WRITE_ERROR(e.what());
     }
+    myCurrentIsBroken = true;
 }
 
 
@@ -980,7 +995,7 @@ NLHandler::addRouteProbeDetector(const SUMOSAXAttributes& attrs) {
 
 void
 NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
-
+    myCurrentIsBroken = false;
     // check whether this is a detector connected to a tls and optionally to a link
     bool ok = true;
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
@@ -1010,10 +1025,12 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
             detectPersons |= (int)SUMOXMLDefinitions::PersonModeValues.get(mode);
         } else {
             WRITE_ERROR("Invalid person mode '" + mode + "' in E2 detector definition '" + id + "'");
+            myCurrentIsBroken = true;
             return;
         }
     }
     if (!ok) {
+        myCurrentIsBroken = true;
         return;
     }
 
@@ -1120,6 +1137,7 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
     if (!lsaGiven) {
         frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
         if (!ok) {
+            myCurrentIsBroken = true;
             return;
         }
     } else {
@@ -1174,6 +1192,7 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
 
 void
 NLHandler::beginE3Detector(const SUMOSAXAttributes& attrs) {
+    myCurrentIsBroken = false;
     bool ok = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
     const SUMOTime frequency = attrs.getSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok);
@@ -1189,10 +1208,12 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes& attrs) {
             detectPersons |= (int)SUMOXMLDefinitions::PersonModeValues.get(mode);
         } else {
             WRITE_ERROR("Invalid person mode '" + mode + "' in E3 detector definition '" + id + "'");
+            myCurrentIsBroken = true;
             return;
         }
     }
     if (!ok) {
+        myCurrentIsBroken = true;
         return;
     }
     try {
@@ -1201,8 +1222,10 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes& attrs) {
                                           frequency, haltingSpeedThreshold, haltingTimeThreshold, vTypes, detectPersons, openEntry);
         myLastParameterised.push_back(det);
     } catch (InvalidArgument& e) {
+        myCurrentIsBroken = true;
         WRITE_ERROR(e.what());
     } catch (IOError& e) {
+        myCurrentIsBroken = true;
         WRITE_ERROR(e.what());
     }
 }
