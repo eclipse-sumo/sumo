@@ -971,10 +971,10 @@ def modifyBoolAttribute(attributeNumber, overlapped):
     focusOnFrame()
     # jump to attribute depending if it's a overlapped element
     if overlapped:
-        for _ in range(attributeNumber + 5):
+        for _ in range(attributeNumber + 7):
             typeTab()
     else:
-        for _ in range(attributeNumber + 1):
+        for _ in range(attributeNumber + 2):
             typeTab()
     # type SPACE to change value
     typeSpace()
@@ -1564,7 +1564,7 @@ def changeAutomaticallyDeleteAdditionals(referencePosition):
     # select delete mode again to set mode
     deleteMode()
     # jump to checkbox
-    for _ in range(2):
+    for _ in range(4):
         typeTab()
     # type SPACE to change value
     typeSpace()
@@ -1577,7 +1577,7 @@ def changeProtectTAZElements(referencePosition):
     # select delete mode again to set mode
     deleteMode()
     # jump to checkbox
-    for _ in range(3):
+    for _ in range(5):
         typeTab()
     # type SPACE to change value
     typeSpace()
@@ -1590,7 +1590,7 @@ def changeProtectShapeElements(referencePosition):
     # select delete mode again to set mode
     deleteMode()
     # jump to checkbox
-    for _ in range(4):
+    for _ in range(6):
         typeTab()
     # type SPACE to change value
     typeSpace()
@@ -1603,7 +1603,7 @@ def changeProtectDemandElements(referencePosition):
     # select delete mode again to set mode
     deleteMode()
     # jump to checkbox
-    for _ in range(5):
+    for _ in range(7):
         typeTab()
     # type SPACE to change value
     typeSpace()
@@ -1616,7 +1616,7 @@ def changeProtectDataElements(referencePosition):
     # select delete mode again to set mode
     deleteMode()
     # jump to checkbox
-    for _ in range(6):
+    for _ in range(8):
         typeTab()
     # type SPACE to change value
     typeSpace()
@@ -1843,7 +1843,7 @@ def selectionClear():
     """
     # focus current frame
     focusOnFrame()
-    for _ in range(15):
+    for _ in range(21):
         typeTab()
     # type space to select clear option
     typeSpace()
@@ -1857,7 +1857,7 @@ def selectionInvert():
     """
     # focus current frame
     focusOnFrame()
-    for _ in range(18):
+    for _ in range(24):
         typeTab()
     # type space to select invert operation
     typeSpace()
