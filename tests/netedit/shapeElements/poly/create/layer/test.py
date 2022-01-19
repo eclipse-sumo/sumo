@@ -35,19 +35,19 @@ netedit.shapeMode()
 netedit.changeElement("poly")
 
 # change layer (invalid)
-netedit.changeDefaultValue(7, "dummyLayer")
+netedit.changeDefaultValue(9, "dummyLayer")
 
 # try to create polygon
 netedit.createSquaredTAZ(referencePosition, 182, 130, 200, True)
 
 # change layer (valid, negative)
-netedit.changeDefaultValue(7, "-2.5")
+netedit.changeDefaultValue(9, "-2.5")
 
 # create polygon
 netedit.createSquaredPoly(referencePosition, 282, 130, 200, True)
 
 # change layer (valid)
-netedit.changeDefaultValue(7, "3")
+netedit.changeDefaultValue(9, "3")
 
 # create polygon
 netedit.createSquaredPoly(referencePosition, 382, 130, 200, True)

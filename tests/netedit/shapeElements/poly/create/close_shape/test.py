@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.shapeMode()
 
 # change close shape
-netedit.changeDefaultBoolValue(14)
+netedit.changeDefaultBoolValue(16)
 
 # create open polygon that will be automatically closed
 netedit.createSquaredPoly(referencePosition, 182, 130, 200, False)
