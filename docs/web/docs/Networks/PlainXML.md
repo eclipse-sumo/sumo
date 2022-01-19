@@ -108,6 +108,7 @@ certain meaning and value range:
 | shape           | List of positions; each position is encoded in x,y or x,y,z in meters (do not separate the numbers with a space\!).                                                                                                       | A custom shape for that node. If less than two positions are given, netconvert will reset that node to use a computed shape.                       |
 | keepClear       | bool                                                                                                                                                                                                                      | Whether the [junction-blocking-heuristic](../Simulation/Intersections.md#junction_blocking) should be activated at this node *(default true)* |
 | rightOfWay      | string                                                                                                                                                                                                                    | Set algorithm for computing [\#Right-of-way](#right-of-way). Allowed values are *default* and *edgePriority*                            |
+| fringe      | string                                                                                                                                                                                                                    | Clarify whether this junction is on the [nework fringe](#fringe). Allowed values are *default*, *outer* and *inner*      |
 | controlledInner | list of edge ids                                                                                                                                                                                                          | Edges which shall be controlled by a joined TLS despite being incoming as well as outgoing to the jointly controlled nodes                         |
 
 !!! note
@@ -278,6 +279,18 @@ If a vehicle is braking in the simulation, the responsible foe vehicle
 
 !!! caution
     Never attempt to modify the junction logic within a ***.net.xml*** file manually as there are subtle inter-dependencies with other data structures in the network. Nevertheless, it may be useful to [look into the .net.xml to understand right-of-way](../Networks/SUMO_Road_Networks.md#requests)
+
+## Fringe
+
+For route generation it may be relevant to know whether a particular junction or edge is at boundary of a network where other roads (that exist in the real world) were cut off. This can specified using the 'fringe' attrribute:
+
+- default: this junction is not part of the fringe
+- outer: this junction is connected to additional edges in the real world. It is part of the outer boundary of the network
+- inner: this junction is connected to additional edges in the real world. It lies within the network but other roads (i.e. with a lower road class) were removed from the simulation
+
+The fringe attribut can be determined automatically for the outer fringe based on the pareto frontier by setting netconvert option **--fringe.guess**. It is also set automatically by [netgenerate](netgenerate.md) when option **--attach-length** is used. Editing the attribute in [netedit](netedit.md) is also supported.
+
+The 'fringe' attribute is used by [randomTrips.py](Tools/Trip.md#randomtripspy) when setting option --fringe-junctions.
 
 ## Joining Nodes
 
