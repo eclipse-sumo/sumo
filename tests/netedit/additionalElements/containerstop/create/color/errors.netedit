@@ -1,7 +1,6 @@
-Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'containerStop' in TagSelector
 Debug: Adding containerStop 'ct_0' in GNEChange_Additional
-Debug: Invalid input parameter of containerStop: 'color' doesn't have a valid 'RBGColor' format
+Debug: Invalid input parameter of containerStop
 Debug: Adding containerStop 'ct_1' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

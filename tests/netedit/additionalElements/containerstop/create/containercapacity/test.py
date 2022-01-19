@@ -34,20 +34,20 @@ netedit.additionalMode()
 # select containerStop
 netedit.changeElement("containerStop")
 
-# set invalid container number
-netedit.changeDefaultValue(6, "-2")
+# set invalid person number
+netedit.changeDefaultValue(8, "-2")
 
 # try to create containerStop
 netedit.leftClick(referencePosition, 250, 250)
 
-# set invalid container number
-netedit.changeDefaultValue(6, "7.5")
+# set invalid person number
+netedit.changeDefaultValue(8, "7.5")
 
 # try to create containerStop
 netedit.leftClick(referencePosition, 250, 250)
 
-# set invalid container number
-netedit.changeDefaultValue(6, "3")
+# set invalid person number
+netedit.changeDefaultValue(8, "3")
 
 # create containerStop in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)

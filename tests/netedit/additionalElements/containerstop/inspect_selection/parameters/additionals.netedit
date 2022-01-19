@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-15 11:00:52 by Eclipse SUMO netedit Version v1_10_0+2275-583c902ea9d
+<!-- generated on 2021-08-30 15:19:35 by Eclipse SUMO netedit Version v1_10_0+0381-df20e58b5b
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Nov103110.7676\netedit.gui\additionalElements\containerstop\inspect_selection\parameters\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_30Aug145801.5884\netedit.gui\additionalElements\containerstop\inspect_selection\parameters\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Nov103110.7676\netedit.gui\additionalElements\containerstop\inspect_selection\parameters\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_30Aug145801.5884\netedit.gui\additionalElements\containerstop\inspect_selection\parameters\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,39 +30,39 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Nov103110.7676\netedit.gui\additionalElements\containerstop\inspect_selection\parameters\additionals.xml"/>
-        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Nov103110.7676\netedit.gui\additionalElements\containerstop\inspect_selection\parameters\additionals.xml"/>
-        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Nov103110.7676\netedit.gui\additionalElements\containerstop\inspect_selection\parameters\routes.xml"/>
-        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Nov103110.7676\netedit.gui\additionalElements\containerstop\inspect_selection\parameters\routes.xml"/>
-        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Nov103110.7676\netedit.gui\additionalElements\containerstop\inspect_selection\parameters\datas.xml"/>
-        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Nov103110.7676\netedit.gui\additionalElements\containerstop\inspect_selection\parameters\datas.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_30Aug145801.5884\netedit.gui\additionalElements\containerstop\inspect_selection\parameters\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_30Aug145801.5884\netedit.gui\additionalElements\containerstop\inspect_selection\parameters\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_30Aug145801.5884\netedit.gui\additionalElements\containerstop\inspect_selection\parameters\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_30Aug145801.5884\netedit.gui\additionalElements\containerstop\inspect_selection\parameters\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_30Aug145801.5884\netedit.gui\additionalElements\containerstop\inspect_selection\parameters\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_30Aug145801.5884\netedit.gui\additionalElements\containerstop\inspect_selection\parameters\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Nov103110.7676\netedit.gui\additionalElements\containerstop\inspect_selection\parameters\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_30Aug145801.5884\netedit.gui\additionalElements\containerstop\inspect_selection\parameters\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Nov103110.7676\netedit.gui\additionalElements\containerstop\inspect_selection\parameters\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_30Aug145801.5884\netedit.gui\additionalElements\containerstop\inspect_selection\parameters\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Nov103110.7676\netedit.gui\additionalElements\containerstop\inspect_selection\parameters\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_30Aug145801.5884\netedit.gui\additionalElements\containerstop\inspect_selection\parameters\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <containerStop id="containerStopA" lane="gneE0_0" startPos="5.00" endPos="10.00" name="containerStop" friendlyPos="1" lines="line1 line2" containerCapacity="10" parkingLength="12.00">
+    <containerStop id="containerStopA" name="containerStop" lane="gneE0_0" startPos="5.00" endPos="10.00" friendlyPos="true" lines="line1 line2" containerCapacity="10" parkingLength="12.00">
         <param key="keyFinal1" value="value1"/>
         <param key="keyFinal2" value="value2"/>
         <param key="keyFinal3" value="value3"/>
     </containerStop>
-    <containerStop id="containerStopB" lane="gneE0_0" startPos="15.00" endPos="20.00" name="containerStop" lines="line3 line4" containerCapacity="20" parkingLength="15.00">
+    <containerStop id="containerStopB" name="containerStop" lane="gneE0_0" startPos="15.00" endPos="20.00" lines="line3 line4" containerCapacity="20" parkingLength="15.00">
         <param key="keyFinal1" value="value1"/>
         <param key="keyFinal2" value="value2"/>
         <param key="keyFinal3" value="value3"/>

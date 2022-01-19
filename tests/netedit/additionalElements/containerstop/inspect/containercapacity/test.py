@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("containerStop")
 
 # change reference to center
-netedit.changeDefaultValue(11, "reference center")
+netedit.changeDefaultValue(15, "reference center")
 
 # create containerStop in mode "reference center"
 netedit.leftClick(referencePosition, 250, 170)
@@ -47,7 +47,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 190)
 
 # Change parameter containerCapacity with a non valid value (throw warning)
-netedit.modifyAttribute(7, "dummycontainerCapacity", True)
+netedit.modifyAttribute(7, "dummyPersonCapacity", True)
 
 # Change parameter containerCapacity with a valid value
 netedit.modifyAttribute(7, "-7", True)

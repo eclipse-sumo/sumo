@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-15 10:47:28 by Eclipse SUMO netedit Version v1_10_0+2275-583c902ea9d
+<!-- generated on 2022-01-19 11:50:35 by Eclipse SUMO netedit Version v1_11_0+1273-140530bb1dd
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Nov103110.7676\netedit.gui\additionalElements\containerstop\inspect\friendlypos\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan114930.14484\netedit.gui\additionalElements\containerstop\inspect\friendlypos\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Nov103110.7676\netedit.gui\additionalElements\containerstop\inspect\friendlypos\net.net.xml"/>
+        <output-file value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan114930.14484\netedit.gui\additionalElements\containerstop\inspect\friendlypos\net.net.xml"/>
     </output>
 
     <processing>
@@ -31,32 +31,32 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Nov103110.7676\netedit.gui\additionalElements\containerstop\inspect\friendlypos\additionals.xml"/>
-        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Nov103110.7676\netedit.gui\additionalElements\containerstop\inspect\friendlypos\additionals.xml"/>
-        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Nov103110.7676\netedit.gui\additionalElements\containerstop\inspect\friendlypos\routes.xml"/>
-        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Nov103110.7676\netedit.gui\additionalElements\containerstop\inspect\friendlypos\routes.xml"/>
-        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Nov103110.7676\netedit.gui\additionalElements\containerstop\inspect\friendlypos\datas.xml"/>
-        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Nov103110.7676\netedit.gui\additionalElements\containerstop\inspect\friendlypos\datas.xml"/>
+        <additional-files value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan114930.14484\netedit.gui\additionalElements\containerstop\inspect\friendlypos\additionals.xml"/>
+        <additionals-output value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan114930.14484\netedit.gui\additionalElements\containerstop\inspect\friendlypos\additionals.xml"/>
+        <route-files value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan114930.14484\netedit.gui\additionalElements\containerstop\inspect\friendlypos\routes.xml"/>
+        <demandelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan114930.14484\netedit.gui\additionalElements\containerstop\inspect\friendlypos\routes.xml"/>
+        <data-files value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan114930.14484\netedit.gui\additionalElements\containerstop\inspect\friendlypos\datas.xml"/>
+        <dataelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan114930.14484\netedit.gui\additionalElements\containerstop\inspect\friendlypos\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Nov103110.7676\netedit.gui\additionalElements\containerstop\inspect\friendlypos\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan114930.14484\netedit.gui\additionalElements\containerstop\inspect\friendlypos\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Nov103110.7676\netedit.gui\additionalElements\containerstop\inspect\friendlypos\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan114930.14484\netedit.gui\additionalElements\containerstop\inspect\friendlypos\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Nov103110.7676\netedit.gui\additionalElements\containerstop\inspect\friendlypos\log.txt"/>
+        <error-log value="C:\Users\palva\.texttest\tmp\netedit.gui.19Jan114930.14484\netedit.gui\additionalElements\containerstop\inspect\friendlypos\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <containerStop id="containerStop_gneE2_1_0" lane="gneE2_1" startPos="12.00" endPos="22.00" friendlyPos="1"/>
+    <containerStop id="ct_0" lane="gneE2_1" startPos="12.00" endPos="22.00" friendlyPos="true"/>
 </additional>

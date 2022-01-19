@@ -31,7 +31,7 @@
                 <entry color="grey" threshold="32.00" name="pedestrian"/>
                 <entry color="10,10,10" threshold="64.00" name="passenger"/>
                 <entry color="166,147,26" threshold="256.00" name="taxi"/>
-                <entry color="40,100,40" threshold="512.00" name="container"/>
+                <entry color="40,100,40" threshold="512.00" name="bus"/>
                 <entry color="80,80,80" threshold="2080.00" name="pedestrian_delivery"/>
                 <entry color="192,66,44" threshold="65536.00" name="bicycle"/>
                 <entry color="150,200,200" threshold="8388608.00" name="waterway"/>
@@ -108,7 +108,7 @@
                 <entry color="204,204,204" threshold="0.00"/>
                 <entry color="red" threshold="1.00"/>
             </colorScheme>
-            <colorScheme name="by abs distance (kilometrage)" interpolated="1">
+            <colorScheme name="by act distance (kilometrage)" interpolated="1">
                 <entry color="204,204,204" threshold="0.00"/>
                 <entry color="red" threshold="1.00"/>
             </colorScheme>
@@ -124,13 +124,13 @@
                 <entry color="yellow"/>
             </colorScheme>
         </vehicles>
-        <containers containerMode="0" containerQuality="0" container_minSize="1.00" container_exaggeration="1.00" container_constantSize="0" container_constantSizeSelected="0"
-                 containerName_show="0" containerName_size="60.00" containerName_color="0,153,204" containerName_bgColor="128,0,0,0" containerName_constantSize="1"
-                  containerValue_show="0" containerValue_size="80.00" containerValue_color="cyan" containerValue_bgColor="128,0,0,0" containerValue_constantSize="1">
+        <persons personMode="0" personQuality="0" person_minSize="1.00" person_exaggeration="1.00" person_constantSize="0" person_constantSizeSelected="0"
+                 personName_show="0" personName_size="60.00" personName_color="0,153,204" personName_bgColor="128,0,0,0" personName_constantSize="1"
+                  personValue_show="0" personValue_size="80.00" personValue_color="cyan" personValue_bgColor="128,0,0,0" personValue_constantSize="1">
             <colorScheme name="uniform">
                 <entry color="yellow"/>
             </colorScheme>
-        </containers>
+        </persons>
         <containers containerMode="0" containerQuality="0" container_minSize="1.00" container_exaggeration="1.00" container_constantSize="0" container_constantSizeSelected="0"
                  containerName_show="0" containerName_size="60.00" containerName_color="0,153,204" containerName_bgColor="128,0,0,0" containerName_constantSize="1">
             <colorScheme name="uniform">

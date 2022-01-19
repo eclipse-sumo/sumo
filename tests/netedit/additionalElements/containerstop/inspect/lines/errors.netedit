@@ -1,14 +1,5 @@
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'personTrip: edge->edge' in TagSelector
-Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
-Debug: Selected item 'personTrip: edge->edge' in TagSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'containerStop' in TagSelector
-Debug: Adding containerStop 'containerStop_gneE2_1_0' in GNEChange_Additional
+Debug: Adding containerStop 'ct_0' in GNEChange_Additional
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -19,10 +10,10 @@ Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing containerStop 'containerStop_gneE2_1_0' in GNEChange_Additional
+Debug: Removing containerStop 'ct_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding containerStop 'containerStop_gneE2_1_0' in GNEChange_Additional
+Debug: Adding containerStop 'ct_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
@@ -38,7 +29,7 @@ Debug: Created crossing ':gneJ0_c1' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
 Debug: Additionals saved
-Debug: Deleting unreferenced containerStop 'containerStop_gneE2_1_0'
+Debug: Deleting unreferenced containerStop 'ct_0'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
