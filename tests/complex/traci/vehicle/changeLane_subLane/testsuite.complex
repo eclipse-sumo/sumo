@@ -15,3 +15,6 @@ changeRelative
 
 # test reaction to an invalid changeRelative command in a network that allows opposite direction driving (#6576)
 changeRelative_invalid
+
+# move fully into the current lane
+changeCurrent

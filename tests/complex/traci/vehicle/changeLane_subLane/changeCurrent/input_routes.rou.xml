@@ -1,0 +1,5 @@
+<routes>
+    <vType id="t0" latAlignment="arbitrary"/>
+    <route id="r0" edges="gneE0"/>
+    <vehicle id="v0" type="t0" route="r0" depart="0" departLane="1" departPosLat="-1"/>
+</routes>
