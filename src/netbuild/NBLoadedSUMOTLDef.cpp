@@ -689,6 +689,19 @@ NBLoadedSUMOTLDef::groupSignals() {
     cleanupStates();
     //std::cout << "oldMaxIndex=" << maxIndex << " newMaxIndex=" << getMaxIndex() << " unused=" << toString(unusedIndices) << "\n";
     setTLControllingInformation();
+    // patch crossing indices
+    for (NBNode* n : myControlledNodes) {
+        for (NBNode::Crossing* c : n->getCrossings()) {
+            for (int i = (int)unusedIndices.size() - 1; i >= 0; i--) {
+                if (c->customTLIndex > i) {
+                    c->customTLIndex--;
+                }
+                if (c->customTLIndex2 > i) {
+                    c->customTLIndex2--;
+                }
+            }
+        }
+    }
 }
 
 void
