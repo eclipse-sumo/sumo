@@ -238,6 +238,10 @@ MSDevice::equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::s
     } else if (v.getVehicleType().getParameter().knowsParameter(key)) {
         parameterGiven = true;
         haveByParameter = StringUtils::toBool(v.getVehicleType().getParameter().getParameter(key, "false"));
+    } else if (v.getVehicleType().getParameter().knowsParameter(prefix + ".probability")) {
+        // override global options
+        numberGiven = true;
+        haveByNumber = RandHelper::rand(&myEquipmentRNG) < StringUtils::toDouble(v.getVehicleType().getParameter().getParameter(prefix + ".probability", "0"));
     }
     //std::cout << " deviceName=" << deviceName << " holder=" << v.getID()
     //    << " nameGiven=" << nameGiven << " haveByName=" << haveByName
