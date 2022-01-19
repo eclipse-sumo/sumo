@@ -4,11 +4,11 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Nov092430.10176\netedit.gui\additionalElements\trainstop\create\color\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Nov092430.10176\netedit.gui\additionalElements\busstop\create\color\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Nov092430.10176\netedit.gui\additionalElements\trainstop\create\color\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Nov092430.10176\netedit.gui\additionalElements\busstop\create\color\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,27 +30,27 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Nov092430.10176\netedit.gui\additionalElements\trainstop\create\color\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Nov092430.10176\netedit.gui\additionalElements\trainstop\create\color\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Nov092430.10176\netedit.gui\additionalElements\trainstop\create\color\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Nov092430.10176\netedit.gui\additionalElements\trainstop\create\color\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Nov092430.10176\netedit.gui\additionalElements\trainstop\create\color\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Nov092430.10176\netedit.gui\additionalElements\trainstop\create\color\datas.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Nov092430.10176\netedit.gui\additionalElements\busstop\create\color\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Nov092430.10176\netedit.gui\additionalElements\busstop\create\color\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Nov092430.10176\netedit.gui\additionalElements\busstop\create\color\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Nov092430.10176\netedit.gui\additionalElements\busstop\create\color\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Nov092430.10176\netedit.gui\additionalElements\busstop\create\color\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Nov092430.10176\netedit.gui\additionalElements\busstop\create\color\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Nov092430.10176\netedit.gui\additionalElements\trainstop\create\color\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Nov092430.10176\netedit.gui\additionalElements\busstop\create\color\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Nov092430.10176\netedit.gui\additionalElements\trainstop\create\color\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Nov092430.10176\netedit.gui\additionalElements\busstop\create\color\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Nov092430.10176\netedit.gui\additionalElements\trainstop\create\color\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Nov092430.10176\netedit.gui\additionalElements\busstop\create\color\log.txt"/>
     </report>
 
 </configuration>

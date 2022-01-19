@@ -37,7 +37,7 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect trainstops
+# inspect busstops
 netedit.leftClick(referencePosition, 160, 270)
 
 # Set friendlyPos

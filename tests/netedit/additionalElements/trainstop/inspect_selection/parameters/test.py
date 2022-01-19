@@ -37,11 +37,11 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect trainstops
+# inspect busstops
 netedit.leftClick(referencePosition, 160, 270)
 
 # check parameters
-netedit.checkParameters(referencePosition, 8, False)
+netedit.checkParameters(referencePosition, 9, False)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

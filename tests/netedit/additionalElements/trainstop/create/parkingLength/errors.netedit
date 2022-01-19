@@ -1,15 +1,6 @@
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'personTrip: edge->edge' in TagSelector
-Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
-Debug: Selected item 'personTrip: edge->edge' in TagSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'trainStop' in TagSelector
-Debug: Invalid input parameter of trainStop: 'parkingLength' doesn't have a valid 'float' format
-Error: Could not build trainStop with ID 'ts_0' in netedit; attribute parkingLength cannot be negative.
+Debug: Invalid input parameter of trainStop
+Debug: Invalid input parameter of trainStop
 Debug: Adding trainStop 'ts_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

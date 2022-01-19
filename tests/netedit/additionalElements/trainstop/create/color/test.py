@@ -35,19 +35,19 @@ netedit.additionalMode()
 netedit.changeElement("trainStop")
 
 # set invalid person number
-netedit.changeColorUsingDialog(8, 5)
+netedit.changeColorUsingDialog(10, 5)
 
 # try to create trainStop
 netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid person number
-netedit.changeDefaultValue(9, "Vlue")
+netedit.changeDefaultValue(11, "Vlue")
 
 # try to create trainStop
 netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid person number
-netedit.changeDefaultValue(9, "red")
+netedit.changeDefaultValue(11, "red")
 
 # create trainStop in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)

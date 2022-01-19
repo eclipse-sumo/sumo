@@ -37,11 +37,11 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect trainstops
+# inspect busstops
 netedit.leftClick(referencePosition, 160, 270)
 
 # Set name
-netedit.modifyAttribute(0, "common trainStop Name", False)
+netedit.modifyAttribute(0, "common TrainStop Name", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)
