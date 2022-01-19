@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-18 07:54:37 by Eclipse SUMO sumo Version v1_11_0+1224-cba59d1
+<!-- generated on 2022-01-19 22:13:55 by Eclipse SUMO sumo Version v1_11_0+1299-0d4808d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,13 +39,9 @@ SPDX-License-Identifier: EPL-2.0
 
 <tlsStates xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tlsstates_file.xsd">
     <tlsState time="0.00" id="2881" programID="NEMA" phase="0" state="GGGGGGGrrrrr" name="4+6"/>
-    <tlsState time="10.00" id="2881" programID="NEMA" phase="1" state="yyyyyyyrrrrr" name="4+6"/>
-    <tlsState time="14.00" id="2881" programID="NEMA" phase="0" state="rrrrrrrrrrrr" name="4+6"/>
-    <tlsState time="15.00" id="2881" programID="NEMA" phase="1" state="grrrrGGrrrrr" name="4+6"/>
-    <tlsState time="16.00" id="2881" programID="NEMA" phase="0" state="grrrrGGGGrrr" name="1+6"/>
-    <tlsState time="32.00" id="2881" programID="NEMA" phase="1" state="grrrrGGyyrrr" name="1+6"/>
-    <tlsState time="36.00" id="2881" programID="NEMA" phase="0" state="grrrrGGrrrrr" name="1+6"/>
-    <tlsState time="37.00" id="2881" programID="NEMA" phase="1" state="grrrrGGrrGGG" name="2+6"/>
+    <tlsState time="10.00" id="2881" programID="NEMA" phase="1" state="gyyyyGGrrrrr" name="4+6"/>
+    <tlsState time="14.00" id="2881" programID="NEMA" phase="0" state="grrrrGGrrrrr" name="4+6"/>
+    <tlsState time="16.00" id="2881" programID="NEMA" phase="1" state="grrrrGGrrGGG" name="2+6"/>
     <tlsState time="125.00" id="2881" programID="NEMA" phase="0" state="yrrrryyrryyy" name="2+6"/>
     <tlsState time="129.00" id="2881" programID="NEMA" phase="1" state="rrrrrrrrrrrr" name="2+6"/>
     <tlsState time="130.00" id="2881" programID="NEMA" phase="0" state="GGGGGrrrrrrr" name="4+4"/>
