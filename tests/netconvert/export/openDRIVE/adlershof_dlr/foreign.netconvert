@@ -39,7 +39,14 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Mon Nov 29 12:56:58 2021" north="767.39" south="0.00" east="1737.68" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="DATE" north="767.39" south="0.00" east="1737.68" west="0.00">
+        <geoReference>
+ <![CDATA[
+ +proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs
+]]>
+        </geoReference>
+        <offset x="-399345.66" y="-5809365.64" z="0.00" hdg="0"/>
+    </header>
     <road name="Teltowkanalbrücke" length="56.06086751" id="870" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>

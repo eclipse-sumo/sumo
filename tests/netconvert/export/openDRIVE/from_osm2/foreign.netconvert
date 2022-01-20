@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-02 14:57:05 by Eclipse SUMO netconvert Version v1_10_0+1846-87b5ddb
+<!-- generated on 2022-01-20 10:20:14 by Eclipse SUMO netconvert Version v1_11_0+1311-3b280bc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -36,7 +36,14 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Nov  2 14:57:05 2021" north="284.53" south="0.00" east="1103.40" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Thu Jan 20 10:20:14 2022" north="284.53" south="0.00" east="1103.40" west="0.00">
+        <geoReference>
+ <![CDATA[
+ +proj=utm +zone=51 +ellps=WGS84 +datum=WGS84 +units=m +no_defs
+]]>
+        </geoReference>
+        <offset x="-353137.24" y="-3455639.81" z="0.00" hdg="0"/>
+    </header>
     <road name="延安高架" length="344.91017735" id="30" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
