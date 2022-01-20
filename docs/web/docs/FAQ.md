@@ -191,27 +191,31 @@ always use the latest version of SUMO.
   See above but **please** give enough details when asking on the
   mailing list.
 
-### What should I do to get helpful answers on the mailing list?
+### What should I do to get helpful answers on the mailing list or on the issue tracker?
 
 - Make your question specific
   - avoid vague terms.
   - Always name the SUMO version to which your question applies
   - Include relevant warnings/errors/stack-traces in your question
-    (please copy the text and avoid screenshots to reproduce text
-    messages). When sending screenshots of sumo-gui, please include the whole screen so the application version and simulation time are visible.
+- whenever possible copy text rather than screenshots of text
+- When sending screenshots of sumo-gui or netedit, please include the whole screen so the application version and simulation time are visible.
+- Attach scenario files including .sumocfg as a zip archive
+- describe what you are trying to accomplish
+- describe how what you see differs from your expectations
 - Phrase your question using familiar terms (not everyone is an expert
 in your domain).
-- Don't ask for too many things in a single post.
+- Don't ask for too many things in a single post / issue.
 - Do some research on your own before you post the question (otherwise
 you may appear to be lazy).
   - read the FAQ
   - read the documentation
   - check out the [Tutorials](Tutorials/index.md)
-  - do a web search (past questions and answers from the mailing
-    list can be found by google)
+  - do a web search (past questions and answers from the mailing list can be found by google)
+  - describe which documentation you used, especially when [your experience doesn't match the documentation](#why_does_sumo_not_behave_as_documented_in_this_wiki)
 - Do not ask the same thing twice in a short span of time. If you are
 in a hurry and cannot get an answer, try to change your question
 according to the above suggestions.
+- if you put your question into an issue an the issue was closed, put your follow-up questions into the closed issue rather than open an new issue
 - Be polite
 - Good Example questions:
   - How can I get data X out of SUMO?
