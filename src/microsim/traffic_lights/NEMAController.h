@@ -103,8 +103,12 @@ public:
 
     void setShowDetectors(bool show);
 
-    std::map<int, std::vector<MSE2Collector*>>* getPhase2DetectorMap() {
-        return &phase2DetectorMap;
+    std::map<int, std::vector<MSE2Collector*>> getPhase2DetectorMap() {
+        std::map<int, std::vector<MSE2Collector*>> temp;
+        for (auto const& detectInfo : phase2DetectorMap){
+            temp[detectInfo.first] = detectInfo.second.detectors;
+        }
+        return temp;
     }
 
     /// @brief retrieve all detectors used by this program
@@ -115,7 +119,7 @@ public:
 
     std::string combineStates(std::string state1, std::string state2);
 
-    bool isDetectorActivated(int phaseIndex) const;
+    bool isDetectorActivated(int phaseNumber, int depth) const;
 
     int nextPhase(std::vector<int> ring, int phaseNum, int& distance,  bool sameAllowed);
 
@@ -252,6 +256,23 @@ protected:
     */
     std::vector<std::vector<int>> myRingBarrierMapping[2];
 
+    // Creating a small extensible datatype for including information about the phase's detectors
+    // this is different than DetectorInfo, as it is per-phase not per-detector.
+    // Purpose is that when we check detectors, we may need to have per-detector settings handy
+    struct phaseDetectorInfo {
+        phaseDetectorInfo(): 
+            detectors(),
+            cpdTarget(),
+            cpdSource()
+        {}
+         phaseDetectorInfo(int _cross_phase_source):
+            cpdSource(_cross_phase_source)
+        {}
+        std::vector<MSE2Collector*> detectors = {nullptr};
+        int cpdTarget = 0;
+        int cpdSource = 0;
+    };
+
     // myNextPhase needs to be presevered in memory because the phase is calculated at start of yellow 
     // but not implementend until the end of red 
     int myNextPhaseR1;
@@ -276,13 +297,15 @@ protected:
 
     /*
     {
-        {1 : {det1, det2 ...}},
-        {2 : {det3}},
-        ...
-        {8 : {...}}
+        {1 : phaseDetectorInfo{
+                detectors: {det1, det2, ...},
+                crossPhaseDetector: 6
+            },
+        },
+        {2 : ...
     }
     */
-    std::map<int, std::vector<MSE2Collector*>> phase2DetectorMap;
+    std::map<int, phaseDetectorInfo> phase2DetectorMap;
 
     double minGreen[8] {};
     double maxGreen[8] {};
