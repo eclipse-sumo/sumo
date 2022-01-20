@@ -3505,6 +3505,8 @@ MSLCM_SL2015::getParameter(const std::string& key) const {
         return toString(myMinGapLat);
     } else if (key == toString(SUMO_ATTR_LCA_PUSHY)) {
         return toString(myPushy);
+    } else if (key == toString(SUMO_ATTR_LCA_PUSHYGAP)) {
+        return toString((myPushy - 1) * myMinGapLat);
     } else if (key == toString(SUMO_ATTR_LCA_ASSERTIVE)) {
         return toString(myAssertive);
     } else if (key == toString(SUMO_ATTR_LCA_IMPATIENCE)) {
@@ -3581,6 +3583,8 @@ MSLCM_SL2015::setParameter(const std::string& key, const std::string& value) {
         myMinGapLat = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_PUSHY)) {
         myPushy = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_PUSHYGAP)) {
+        myPushy = 1 - doubleValue / myMinGapLat;
     } else if (key == toString(SUMO_ATTR_LCA_ASSERTIVE)) {
         myAssertive = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_IMPATIENCE)) {
