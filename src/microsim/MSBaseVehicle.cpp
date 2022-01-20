@@ -1214,9 +1214,12 @@ MSBaseVehicle::haveValidStopEdges() const {
                 WRITE_ERROR(prefix + "used invalid (relative) route index " + toString(it2 - myCurrEdge) + " expected after " + toString(start - myCurrEdge) + " " + err);
                 ok = false;
             } else {
-                if (it != stop.edge && endPos >= lastPos) {
-                    WRITE_WARNING(prefix + "is used in " + toString(stop.edge - myCurrEdge) + " edges but first encounter is in "
-                                  + toString(it - myCurrEdge) + " edges " + err);
+                if (it != stop.edge) {
+                    double brakeGap = i == 0 ? getBrakeGap() : 0;
+                    if (endPos >= lastPos + brakeGap) {
+                        WRITE_WARNING(prefix + "is used in " + toString(stop.edge - myCurrEdge) + " edges but first encounter is in "
+                                + toString(it - myCurrEdge) + " edges " + err);
+                    }
                 }
                 start = stop.edge;
             }
