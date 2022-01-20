@@ -183,7 +183,7 @@ void
 MESegment::updatePermissions() {
     if (myQueues.size() > 1) {
         for (MSLane* lane : myEdge.getLanes()) {
-            myQueues.back().setPermissions(lane->getPermissions());
+            myQueues[lane->getIndex()].setPermissions(lane->getPermissions());
         }
     } else {
         myQueues.back().setPermissions(myEdge.getPermissions());
