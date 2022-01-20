@@ -126,6 +126,26 @@ NEMALogic::NEMALogic(MSTLLogicControl& tlcontrol,
     std::cout << "You reach the end of constructor" << std::endl;
     std::cout << "****************************************\n";
 #endif
+
+    // construct the phaseDetectorMapping. In the future this could hold more parameters, such as lock in time or delay
+    for (auto p: readParaFromString(ring1)){
+        // #TODO clean up this string mess
+        std::string cps = "crossPhaseSwitching:";
+        int crossPhase = StringUtils::toInt(getParameter(cps.append(std::to_string(p)), "0"));
+        phase2DetectorMap[p] = phaseDetectorInfo(crossPhase);
+    }
+    for (auto p: readParaFromString(ring2)){
+        std::string cps = "crossPhaseSwitching:";
+        int crossPhase = StringUtils::toInt(getParameter(cps.append(std::to_string(p)), "0"));
+        phase2DetectorMap[p] = phaseDetectorInfo(crossPhase);
+    }
+    // Construct the Cross Mapping
+    for (auto const& phaseDetectInfo : phase2DetectorMap){
+        if (phaseDetectInfo.second.cpdSource > 0){
+            phase2DetectorMap.find(phaseDetectInfo.second.cpdSource) -> second.cpdTarget = phaseDetectInfo.first;
+        }
+    }
+
 }
 
 NEMALogic::~NEMALogic() { }
@@ -428,7 +448,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
             detector = myLaneDetectorMap[lane];
             detectors.push_back(detector);
         }
-        phase2DetectorMap[NEMAPhaseIndex] = detectors;
+        phase2DetectorMap.find(NEMAPhaseIndex) -> second.detectors = detectors;
     }
 #ifdef DEBUG_NEMA
     // print to check phase2DetectorMap
@@ -704,15 +724,25 @@ std::string NEMALogic::combineStates(std::string state1, std::string state2) {
     return output;
 }
 
-bool NEMALogic::isDetectorActivated(int phaseNumber) const{
-    if ( phase2DetectorMap.find(phaseNumber) == phase2DetectorMap.end() ) {
+bool NEMALogic::isDetectorActivated(int phaseNumber, int depth) const{
+    if ( phase2DetectorMap.find(phaseNumber) == phase2DetectorMap.end()) {
         return false;
     } 
-    else {    
-        for (auto det : phase2DetectorMap.find(phaseNumber)->second) {
+    else {
+        auto const& detectInfo = phase2DetectorMap.find(phaseNumber)->second;
+        if ((phaseNumber != R1State) && (phaseNumber != R2State) && depth < 1){
+            // If I am not the active phase & my target is an active phase, don't report when I am called for my own phase 
+            if ((detectInfo.cpdTarget == R1State && R1RYG == 1) || (detectInfo.cpdTarget == R2State && R2RYG == 1)){
+                return false;
+            }
+        }
+        for (auto det : detectInfo.detectors) {
             if (det->getCurrentVehicleNumber() > 0) {
                 return true;
             }
+        }
+        if (detectInfo.cpdSource > 0 && depth < 1){
+            return isDetectorActivated(detectInfo.cpdSource, depth + 1);
         }
         return false;
     }
