@@ -10,9 +10,6 @@ riders
 # complex test scenario by Mirco
 complex
 
-# block on road line while using parkingArea
-onRoad
-
 # parkingArea is too short for the given roadsideCapacity (lots overlap)
 roadsideCapacity_short
 
