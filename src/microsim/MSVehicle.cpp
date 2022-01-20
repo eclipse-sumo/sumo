@@ -1661,6 +1661,8 @@ MSVehicle::processNextStop(double currentVelocity) {
                     }
                 } else if (stop.parkingarea->getOccupancyIncludingBlocked() >= stop.parkingarea->getCapacity()) {
                     fitsOnStoppingPlace = false;
+                } else if (stop.parkingarea->parkOnRoad() && stop.parkingarea->getLotIndex(this) < 0) {
+                    fitsOnStoppingPlace = false;
                 }
             }
             const double targetPos = myState.myPos + myStopDist + (stop.pars.speed > 0 ? (stop.pars.startPos - stop.pars.endPos) : 0);

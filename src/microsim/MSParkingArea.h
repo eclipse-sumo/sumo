@@ -87,6 +87,9 @@ public:
     /// @brief whether vehicles park on the road
     bool parkOnRoad() const;
 
+    /// @brief compute lot for this vehicle
+    int getLotIndex(const SUMOVehicle* veh) const;
+
     /** @brief Returns the area occupancy
      *
      * @return The occupancy computed as number of vehicles in myEndPositions

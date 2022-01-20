@@ -183,14 +183,19 @@ double
 MSParkingArea::getLastFreePos(const SUMOVehicle& forVehicle, double brakePos) const {
     if (myCapacity == (int)myEndPositions.size()) {
         // keep enough space so that  parking vehicles can leave
+#ifdef DEBUG_GET_LAST_FREE_POS
+            if (DEBUG_COND2(forVehicle)) {
+                std::cout << SIMTIME << " getLastFreePos veh=" << forVehicle.getID() << " allOccupied\n";
+            }
+#endif
         return myLastFreePos - forVehicle.getVehicleType().getMinGap() - POSITION_EPS;
     } else {
         const double minPos = MIN2(myEndPos, brakePos);
         if (myLastFreePos >= minPos) {
 #ifdef DEBUG_GET_LAST_FREE_POS
-        if (DEBUG_COND2(forVehicle)) {
-            std::cout << SIMTIME << " getLastFreePos veh=" << forVehicle.getID() << " brakePos=" << brakePos << " myEndPos=" << myEndPos << " using myLastFreePos=" << myLastFreePos << "\n";
-        }
+            if (DEBUG_COND2(forVehicle)) {
+                std::cout << SIMTIME << " getLastFreePos veh=" << forVehicle.getID() << " brakePos=" << brakePos << " myEndPos=" << myEndPos << " using myLastFreePos=" << myLastFreePos << "\n";
+            }
 #endif
             return myLastFreePos;
         } else {
@@ -289,6 +294,29 @@ MSParkingArea::getManoeuverAngle(const SUMOVehicle& forVehicle) const {
     return 0;
 }
 
+int
+MSParkingArea::getLotIndex(const SUMOVehicle* veh) const {
+    if (veh->getPositionOnLane() > myLastFreePos) {
+        // vehicle has gone past myLastFreePos and we need to find the actual lot
+        int closestLot = 0;
+        for (int i = 0; i < (int)mySpaceOccupancies.size(); i++) {
+            const LotSpaceDefinition lsd = mySpaceOccupancies[i];
+            if (lsd.vehicle == nullptr) {
+                closestLot = i;
+                if (lsd.endPos >= veh->getPositionOnLane()) {
+                    return i;
+                }
+            }
+        }
+        // for on-road parking we need to be precise
+        return myOnRoad ? -1 : closestLot;
+    }
+    if (myOnRoad && myLastFreePos - veh->getPositionOnLane() > POSITION_EPS) {
+        // for on-road parking we need to be precise
+        return -1;
+    }
+    return myLastFreeLot;
+}
 
 void
 MSParkingArea::enter(SUMOVehicle* veh) {
@@ -298,24 +326,14 @@ MSParkingArea::enter(SUMOVehicle* veh) {
         myUpdateEvent = new WrappingCommand<MSParkingArea>(this, &MSParkingArea::updateOccupancy);
         MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myUpdateEvent);
     }
-    int lotIndex = myLastFreeLot;
-    if (veh->getPositionOnLane() > myLastFreePos) {
-        // vehicle has gone past myLastFreePos and we need to find the actual lot
-        int closestLot = 0;
-        for (int i = 0; i < (int)mySpaceOccupancies.size(); i++) {
-            const LotSpaceDefinition lsd = mySpaceOccupancies[i];
-            if (lsd.vehicle == nullptr) {
-                closestLot = i;
-                if (lsd.endPos >= veh->getPositionOnLane()) {
-                    lotIndex = i;
-                    break;
-                }
-            }
-        }
-        if (lotIndex == myLastFreeLot) {
-            lotIndex = closestLot;
-        }
+    int lotIndex = getLotIndex(veh);
+    if (lotIndex < 0) {
+        WRITE_WARNING("Unsuitable parking position for vehicle '" + veh->getID() + "' at parkingArea '" + getID() + "' time=" + time2string(SIMSTEP));
+        lotIndex = myLastFreeLot;
     }
+#ifdef DEBUG_GET_LAST_FREE_POS
+    ((SUMOVehicleParameter&)veh->getParameter()).setParameter("lotIndex", toString(lotIndex));
+#endif
     assert(myLastFreePos >= 0);
     assert(lotIndex < (int)mySpaceOccupancies.size());
     mySpaceOccupancies[lotIndex].vehicle = veh;
@@ -455,7 +473,7 @@ MSParkingArea::getLastFreePosWithReservation(SUMOTime t, const SUMOVehicle& forV
             } else {
 #ifdef DEBUG_RESERVATIONS
                 if (DEBUG_COND2(forVehicle)) std::cout << SIMTIME << " pa=" << getID() << " freePosRes veh=" << forVehicle.getID()
-                                                           << " res=" << myReservations << " resTime=" << myReservationTime << " reserved full, maxLen=" << myReservationMaxLength << " endPos=" << mySpaceOccupancies[0].myEndPos << "\n";
+                                                           << " res=" << myReservations << " resTime=" << myReservationTime << " reserved full, maxLen=" << myReservationMaxLength << " endPos=" << mySpaceOccupancies[0].endPos << "\n";
 #endif
                 return (mySpaceOccupancies[0].endPos
                         - myReservationMaxLength
