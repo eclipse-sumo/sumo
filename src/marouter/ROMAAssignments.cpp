@@ -258,11 +258,12 @@ ROMAAssignments::incremental(const int numIter, const bool verbose) {
     }
     lastBegin = -1;
     for (std::vector<int>::const_iterator offset = intervals.begin(); offset != intervals.end(); offset++) {
-        std::vector<ODCell*>::const_iterator cellsEnd = myMatrix.getCells().end();
+        std::vector<ODCell*>::const_iterator firstCell = myMatrix.getCells().begin() + (*offset);
+        std::vector<ODCell*>::const_iterator lastCell = myMatrix.getCells().end();
         if (offset != intervals.end() - 1) {
-            cellsEnd = myMatrix.getCells().begin() + (*(offset + 1));
+            lastCell = myMatrix.getCells().begin() + (*(offset + 1));
         }
-        const SUMOTime intervalStart = (*(myMatrix.getCells().begin() + (*offset)))->begin;
+        const SUMOTime intervalStart = (*firstCell)->begin;
         if (verbose) {
             WRITE_MESSAGE(" starting interval " + time2string(intervalStart));
         }
@@ -273,13 +274,17 @@ ROMAAssignments::incremental(const int numIter, const bool verbose) {
                 loadedTravelTimes[edge] = edge->getTravelTime(myDefaultVehicle, STEPS2TIME(intervalStart));
             }
         }
+        if (loadedTravelTimes.empty()) {
+            // we don't have loaded travel times for this interval but we may have set ourselves some for the interval before but no need to warn
+            ROEdge::disableTimelineWarning();
+        }
         for (int t = 0; t < numIter; t++) {
             if (verbose) {
                 WRITE_MESSAGE("  starting iteration " + toString(t));
             }
             std::string lastOrigin = "";
             int workerIndex = 0;
-            for (std::vector<ODCell*>::const_iterator i = myMatrix.getCells().begin() + (*offset); i != cellsEnd; i++) {
+            for (std::vector<ODCell*>::const_iterator i = firstCell; i != lastCell; i++) {
                 ODCell* const c = *i;
                 const double linkFlow = c->vehicleNumber / numIter;
                 const SUMOTime begin = myAdditiveTraffic ? myBegin : c->begin;
@@ -310,7 +315,7 @@ ROMAAssignments::incremental(const int numIter, const bool verbose) {
                 myNet.getThreadPool().waitAll();
             }
 #endif
-            for (std::vector<ODCell*>::const_iterator i = myMatrix.getCells().begin() + (*offset); i != cellsEnd; i++) {
+            for (std::vector<ODCell*>::const_iterator i = firstCell; i != lastCell; i++) {
                 ODCell* const c = *i;
                 const double linkFlow = c->vehicleNumber / numIter;
                 const SUMOTime begin = myAdditiveTraffic ? myBegin : c->begin;

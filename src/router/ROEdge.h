@@ -493,6 +493,10 @@ public:
         myInterpolate = interpolate;
     }
 
+    static void disableTimelineWarning() {
+        myHaveTTWarned = true;
+    }
+
     /// @brief return the coordinates of the center of the given stop
     static const Position getStopPosition(const SUMOVehicleParameter::Stop& stop);
 
