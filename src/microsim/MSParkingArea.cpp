@@ -294,13 +294,31 @@ void
 MSParkingArea::enter(SUMOVehicle* veh) {
     double beg = veh->getPositionOnLane() + veh->getVehicleType().getMinGap();
     double end = veh->getPositionOnLane() - veh->getVehicleType().getLength();
-    assert(myLastFreePos >= 0);
-    assert(myLastFreeLot < (int)mySpaceOccupancies.size());
     if (myUpdateEvent == nullptr) {
         myUpdateEvent = new WrappingCommand<MSParkingArea>(this, &MSParkingArea::updateOccupancy);
         MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myUpdateEvent);
     }
-    mySpaceOccupancies[myLastFreeLot].vehicle = veh;
+    int lotIndex = myLastFreeLot;
+    if (veh->getPositionOnLane() > myLastFreePos) {
+        // vehicle has gone past myLastFreePos and we need to find the actual lot
+        int closestLot = 0;
+        for (int i = 0; i < (int)mySpaceOccupancies.size(); i++) {
+            const LotSpaceDefinition lsd = mySpaceOccupancies[i];
+            if (lsd.vehicle == nullptr) {
+                closestLot = i;
+                if (lsd.endPos >= veh->getPositionOnLane()) {
+                    lotIndex = i;
+                    break;
+                }
+            }
+        }
+        if (lotIndex == myLastFreeLot) {
+            lotIndex = closestLot;
+        }
+    }
+    assert(myLastFreePos >= 0);
+    assert(lotIndex < (int)mySpaceOccupancies.size());
+    mySpaceOccupancies[lotIndex].vehicle = veh;
     myEndPositions[veh] = std::pair<double, double>(beg, end);
     computeLastFreePos();
     // current search ends here
