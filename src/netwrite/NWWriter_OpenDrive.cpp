@@ -88,20 +88,24 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     device.writeAttr("maxJunc", nc.size());
     device.writeAttr("maxPrg", 0);
     */
-    device.closeTag();
     // write optional geo reference
     const GeoConvHelper& gch = GeoConvHelper::getFinal();
     if (gch.usingGeoProjection()) {
-        if (gch.getOffsetBase() == Position(0, 0)) {
-            device.openTag("geoReference");
-            device.writePreformattedTag(" <![CDATA[\n "
-                                        + gch.getProjString()
-                                        + "\n]]>\n");
+        device.openTag("geoReference");
+        device.writePreformattedTag(" <![CDATA[\n "
+                + gch.getProjString()
+                + "\n]]>\n");
+        device.closeTag();
+        if (gch.getOffsetBase() != Position(0, 0)) {
+            device.openTag("offset");
+            device.writeAttr("x", gch.getOffsetBase().x());
+            device.writeAttr("y", gch.getOffsetBase().y());
+            device.writeAttr("z", gch.getOffsetBase().z());
+            device.writeAttr("hdg", 0);
             device.closeTag();
-        } else {
-            WRITE_WARNING("Could not write OpenDRIVE geoReference. Only unshifted Coordinate systems are supported (offset=" + toString(gch.getOffsetBase()) + ")");
         }
     }
+    device.closeTag();
 
     // write normal edges (road)
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
