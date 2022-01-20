@@ -6,3 +6,6 @@ different_durations
 
 # vehicles with different stop durations stop sequentially
 long_lots
+
+# not enough parking spaces
+congestion
