@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2022-01-20 12:25:24 by Eclipse SUMO netedit Version v1_11_0+1322-818a675
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <flow id="f_0" begin="0.00" end="100" probability="0.1" departLane="1">
+        <route edges="E0"/>
+        <stop parkingArea="pa_0" duration="60"/>
+    </flow>
+    <flow id="f_1" begin="0.00" end="100" probability="0.1" departLane="1">
+        <route edges="E0"/>
+        <stop parkingArea="pa_0" duration="120"/>
+    </flow>
+</routes>
