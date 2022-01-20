@@ -1,11 +1,3 @@
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'personTrip: edge->edge' in TagSelector
-Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
-Debug: Selected item 'personTrip: edge->edge' in TagSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding busStop 'busStop_gneE1_0_0' in GNEChange_Additional
 Debug: Adding chargingStation 'chargingStation_gneE1_0_0' in GNEChange_Additional
 Debug: Adding containerStop 'containerStop_gneE1_0_0' in GNEChange_Additional
@@ -27,6 +19,7 @@ Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
 Debug: Additionals saved
+Debug: demand elements saved
 Debug: Deleting unreferenced variableSpeedSignSymbol 'variableSpeedSign_0'
 Debug: Deleting unreferenced variableSpeedSign 'variableSpeedSign_0'
 Debug: Deleting unreferenced rerouterSymbol 'rerouter_0'
@@ -44,6 +37,7 @@ Debug: Deleting unreferenced e1Detector 'e1Detector_gneE1_0_0'
 Debug: Deleting unreferenced containerStop 'containerStop_gneE1_0_0'
 Debug: Deleting unreferenced chargingStation 'chargingStation_gneE1_0_0'
 Debug: Deleting unreferenced busStop 'busStop_gneE1_0_0'
+Error: routes cannot be processed either with additional handler nor with demand handler
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_1togneE1_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_1togneE0_1' in retrieveGNEConnection()

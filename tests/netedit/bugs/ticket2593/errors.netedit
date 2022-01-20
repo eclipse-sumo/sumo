@@ -1,11 +1,11 @@
 Debug: Selected item 'busStop' in TagSelector
-Debug: Adding busStop 'busStop_gneE0_0_0' in GNEChange_Additional
+Debug: Adding busStop 'bs_0' in GNEChange_Additional
 Debug: Opening FXMessageBox 'Save additionals before quit'
 Debug: Closed FXMessageBox 'Save additionals before quit' with 'Yes'
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Additionals saved
-Debug: Deleting unreferenced busStop 'busStop_gneE0_0_0'
+Debug: Deleting unreferenced busStop 'bs_0'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
@@ -16,12 +16,12 @@ Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 Debug: Selected item 'busStop' in TagSelector
-Debug: Adding busStop 'busStop_gneE0_0_0' in GNEChange_Additional
+Debug: Adding busStop 'bs_0' in GNEChange_Additional
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Opening FXMessageBox 'Save additionals before quit'
 Debug: Closed FXMessageBox 'Save additionals before quit' with 'Quit'
-Debug: Deleting unreferenced busStop 'busStop_gneE0_0_0'
+Debug: Deleting unreferenced busStop 'bs_0'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
@@ -32,11 +32,11 @@ Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 Debug: Selected item 'busStop' in TagSelector
-Debug: Adding busStop 'busStop_gneE0_0_0' in GNEChange_Additional
+Debug: Adding busStop 'bs_0' in GNEChange_Additional
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Additionals saved
-Debug: Deleting unreferenced busStop 'busStop_gneE0_0_0'
+Debug: Deleting unreferenced busStop 'bs_0'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
