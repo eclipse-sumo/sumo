@@ -724,7 +724,7 @@ std::string NEMALogic::combineStates(std::string state1, std::string state2) {
     return output;
 }
 
-bool NEMALogic::isDetectorActivated(int phaseNumber, int depth) const{
+bool NEMALogic::isDetectorActivated(int phaseNumber, int depth = 0) const{
     if ( phase2DetectorMap.find(phaseNumber) == phase2DetectorMap.end()) {
         return false;
     } 
@@ -1136,7 +1136,7 @@ std::tuple<int, int> NEMALogic::getNextPhases(int R1Phase, int R2Phase, bool toU
         if ((r1Distance <= r2Distance) && (r1Barrier != r2Barrier)){
             nextR2Phase = nextPhase(myRingBarrierMapping[1][r1Barrier], R2Phase, r2Distance, stayOk);
         } else if ((r1Distance > r2Distance) && (r1Barrier != r2Barrier)){
-            nextR1Phase = nextPhase(myRingBarrierMapping[0][r2Barrier], R1Phase, r1Distance, stayOk;
+            nextR1Phase = nextPhase(myRingBarrierMapping[0][r2Barrier], R1Phase, r1Distance, stayOk);
         };
     };
     return std::make_tuple(nextR1Phase, nextR2Phase);
