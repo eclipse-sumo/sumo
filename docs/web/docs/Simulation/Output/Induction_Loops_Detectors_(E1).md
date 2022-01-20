@@ -98,6 +98,7 @@ loop**
 ## Further Notes
 
 - [Simulated induction loops can be accessed using
-  TraCI](../../TraCI/Induction_Loop_Value_Retrieval.md)
+  TraCI](../../TraCI/Induction_Loop_Value_Retrieval.md). If no XML output is
+  needed, the attribute `file="NUL"` may be used.
 - You can generate detector definitions automatically. See [output
   tools](../../Tools/Output.md) for more information.

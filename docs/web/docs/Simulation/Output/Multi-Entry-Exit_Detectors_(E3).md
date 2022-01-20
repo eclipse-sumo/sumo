@@ -110,7 +110,8 @@ in the following table.
 - All measurements concerning durations refer to the end of the
   relevant interval
 - Simulated multi-entry-exit detectors can be accessed using
-  [TraCI](../../TraCI/Multi-Entry-Exit_Detectors_Value_Retrieval.md)
+  [TraCI](../../TraCI/Multi-Entry-Exit_Detectors_Value_Retrieval.md). If no XML output is
+  needed, the attribute `file="NUL"` may be used.
 - You can generate detector definitions automatically. See [output
   tools](../../Tools/Output.md) for more information.
 - The simulation does not check whether the area defined by the

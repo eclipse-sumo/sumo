@@ -159,6 +159,9 @@ The values are described in the following table.
 
 # Further notes
 
+- [Simulated lane area detectors can be accessed using
+  TraCI](../../TraCI/Lane_Area_Detector_Value_Retrieval.md). If no XML output is
+  needed, the attribute `file="NUL"` may be used.
 - You can generate detector definitions automatically. See [output
 tools](../../Tools/Output.md) for more information.
 - The mean speed given by the detector is rather the length divided by
