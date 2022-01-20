@@ -69,17 +69,6 @@
 #include "ROMARouteHandler.h"
 #include "ROMAEdge.h"
 
-// ===========================================================================
-// method declaration
-// ===========================================================================
-
-void initNet(RONet& net, ROLoader& loader, OptionsCont& oc);
-double getTravelTime(const ROEdge* const edge, const ROVehicle* const veh, double time);
-void computeAllPairs(RONet& net, OptionsCont& oc);
-void writeInterval(OutputDevice& dev, const SUMOTime begin, const SUMOTime end, const RONet& net, const ROVehicle* const veh);
-void writeInterval(OutputDevice& dev, const SUMOTime begin, const SUMOTime end, const RONet& net, const ROVehicle* const veh);
-void computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix);
-
 
 // ===========================================================================
 // Method implementation
@@ -147,37 +136,6 @@ computeAllPairs(RONet& net, OptionsCont& oc) {
             }
         }
     }
-}
-
-
-/**
- * Writes the travel times for a single interval
- */
-void
-writeInterval(OutputDevice& dev, const SUMOTime begin, const SUMOTime end, const RONet& net, const ROMAAssignments& a) {
-    dev.openTag(SUMO_TAG_INTERVAL).writeAttr(SUMO_ATTR_BEGIN, time2string(begin)).writeAttr(SUMO_ATTR_END, time2string(end));
-    for (std::map<std::string, ROEdge*>::const_iterator i = net.getEdgeMap().begin(); i != net.getEdgeMap().end(); ++i) {
-        ROMAEdge* edge = static_cast<ROMAEdge*>(i->second);
-        if (edge->getFunction() == SumoXMLEdgeFunc::NORMAL) {
-            dev.openTag(SUMO_TAG_EDGE).writeAttr(SUMO_ATTR_ID, edge->getID());
-            const double traveltime = edge->getTravelTime(a.getDefaultVehicle(), STEPS2TIME(begin));
-            const double speed = edge->getLength() / traveltime;
-            const double flow = edge->getFlow(STEPS2TIME(begin));
-            const double timeGap = STEPS2TIME(end - begin) / flow;
-            const double spaceGap = timeGap * speed;
-            const double density = 1000.0 / spaceGap;
-            const double laneDensity = density / edge->getNumLanes();
-            dev.writeAttr(SUMO_ATTR_TRAVELTIME, traveltime);
-            dev.writeAttr(SUMO_ATTR_SPEED, speed);
-            dev.writeAttr(SUMO_ATTR_SPEEDREL, speed / edge->getSpeedLimit());
-            dev.writeAttr(SUMO_ATTR_ENTERED, flow);
-            dev.writeAttr(SUMO_ATTR_DENSITY, density);
-            dev.writeAttr(SUMO_ATTR_LANEDENSITY, laneDensity);
-            dev.writeAttr("flowCapacityRatio", 100. * flow / a.getCapacity(edge));
-            dev.closeTag();
-        }
-    }
-    dev.closeTag();
 }
 
 
@@ -262,9 +220,11 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
             matrix.applyCurve(matrix.parseTimeLine(oc.getStringVector("timeline"), oc.getBool("timeline.day-in-hours")));
         }
         matrix.sortByBeginTime();
+        bool haveOutput = OutputDevice::createDeviceByOption("netload-output", "meandata");
         ROVehicle defaultVehicle(SUMOVehicleParameter(), nullptr, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID), &net);
         ROMAAssignments a(begin, end, oc.getBool("additive-traffic"), oc.getFloat("weight-adaption"),
-                          oc.getInt("max-alternatives"), oc.getBool("capacities.default"), net, matrix, *router);
+                          oc.getInt("max-alternatives"), oc.getBool("capacities.default"), net, matrix, *router,
+                          haveOutput ? &OutputDevice::getDeviceByOption("netload-output") : nullptr);
         a.resetFlows();
 #ifdef HAVE_FOX
         // this is just to init the CHRouter with the default vehicle
@@ -286,7 +246,6 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                   oc.getInt("paths"), oc.getFloat("paths.penalty"), oc.getFloat("tolerance"), oc.getString("route-choice-method"));
         }
         // update path costs and output
-        bool haveOutput = false;
         OutputDevice* dev = net.getRouteOutput();
         if (dev != nullptr) {
             std::vector<std::string> tazParamKeys;
@@ -357,23 +316,6 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
             }
             for (std::map<SUMOTime, std::string>::const_iterator desc = sortedOut.begin(); desc != sortedOut.end(); ++desc) {
                 dev->writePreformattedTag(desc->second);
-            }
-            haveOutput = true;
-        }
-        if (OutputDevice::createDeviceByOption("netload-output", "meandata")) {
-            if (oc.getBool("additive-traffic")) {
-                writeInterval(OutputDevice::getDeviceByOption("netload-output"), begin, end, net, a);
-            } else {
-                SUMOTime lastCell = 0;
-                for (std::vector<ODCell*>::const_iterator i = matrix.getCells().begin(); i != matrix.getCells().end(); ++i) {
-                    if ((*i)->end > lastCell) {
-                        lastCell = (*i)->end;
-                    }
-                }
-                const SUMOTime interval = string2time(OptionsCont::getOptions().getString("aggregation-interval"));
-                for (SUMOTime start = begin; start < MIN2(end, lastCell); start += interval) {
-                    writeInterval(OutputDevice::getDeviceByOption("netload-output"), start, start + interval, net, a);
-                }
             }
             haveOutput = true;
         }

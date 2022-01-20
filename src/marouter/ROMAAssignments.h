@@ -50,7 +50,8 @@ public:
     /// Constructor
     ROMAAssignments(const SUMOTime begin, const SUMOTime end, const bool additiveTraffic,
                     const double adaptionFactor, const int maxAlternatives, const bool defaultCapacities,
-                    RONet& net, ODMatrix& matrix, SUMOAbstractRouter<ROEdge, ROVehicle>& router);
+                    RONet& net, ODMatrix& matrix, SUMOAbstractRouter<ROEdge, ROVehicle>& router,
+                    OutputDevice* netloadOutput);
 
     /// Destructor
     ~ROMAAssignments();
@@ -67,6 +68,9 @@ public:
 
     // @brief clear effort storage
     void resetFlows();
+
+    // @brief Writes the travel times for a single interval
+    void writeInterval(const SUMOTime begin, const SUMOTime end);
 
     // @brief incremental method
     void incremental(const int numIter, const bool verbose);
@@ -137,6 +141,7 @@ private:
     SUMOAbstractRouter<ROEdge, ROVehicle>& myRouter;
     static std::map<const ROEdge* const, double> myPenalties;
     ROVehicle* myDefaultVehicle;
+    OutputDevice* const myNetloadOutput;
 
 #ifdef HAVE_FOX
 private:
