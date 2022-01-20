@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12.02.2021 10:47:17 by Eclipse SUMO netedit Version v1_8_0+1126-1b9d3d35b1
+<!-- generated on 2022-01-20 08:43:01 by Eclipse SUMO netedit Version v1_11_0+1305-0448234e9dc
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Feb104151.14204\netedit.gui\netElements\edges\inspect\from\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan083525.15752\netedit.gui\netElements\edges\inspect\from\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Feb104151.14204\netedit.gui\netElements\edges\inspect\from\net.net.xml"/>
+        <output-file value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan083525.15752\netedit.gui\netElements\edges\inspect\from\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,27 +30,27 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Feb104151.14204\netedit.gui\netElements\edges\inspect\from\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Feb104151.14204\netedit.gui\netElements\edges\inspect\from\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Feb104151.14204\netedit.gui\netElements\edges\inspect\from\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Feb104151.14204\netedit.gui\netElements\edges\inspect\from\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Feb104151.14204\netedit.gui\netElements\edges\inspect\from\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Feb104151.14204\netedit.gui\netElements\edges\inspect\from\datas.xml"/>
+        <additional-files value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan083525.15752\netedit.gui\netElements\edges\inspect\from\additionals.xml"/>
+        <additionals-output value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan083525.15752\netedit.gui\netElements\edges\inspect\from\additionals.xml"/>
+        <route-files value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan083525.15752\netedit.gui\netElements\edges\inspect\from\routes.xml"/>
+        <demandelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan083525.15752\netedit.gui\netElements\edges\inspect\from\routes.xml"/>
+        <data-files value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan083525.15752\netedit.gui\netElements\edges\inspect\from\datas.xml"/>
+        <dataelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan083525.15752\netedit.gui\netElements\edges\inspect\from\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Feb104151.14204\netedit.gui\netElements\edges\inspect\from\gui-settings.xml"/>
-        <window-size value="700,500"/>
+        <gui-settings-file value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan083525.15752\netedit.gui\netElements\edges\inspect\from\gui-settings.xml"/>
+        <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Feb104151.14204\netedit.gui\netElements\edges\inspect\from\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan083525.15752\netedit.gui\netElements\edges\inspect\from\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Feb104151.14204\netedit.gui\netElements\edges\inspect\from\log.txt"/>
+        <error-log value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan083525.15752\netedit.gui\netElements\edges\inspect\from\log.txt"/>
     </report>
 
 </configuration>
@@ -64,10 +64,10 @@
         <lane id=":gneJ0_0_0" index="0" speed="11.95" length="32.96" shape="-1.60,5.28 0.33,2.27 6.11,0.12 15.74,-1.17 29.23,-1.60"/>
     </edge>
     <edge id=":gneJ0_1" function="internal">
-        <lane id=":gneJ0_1_0" index="0" speed="10.30" length="5.32" shape="-1.60,5.28 0.79,2.35 2.33,2.41"/>
+        <lane id=":gneJ0_1_0" index="0" speed="10.30" length="2.29" shape="-1.60,5.28 -0.15,3.51"/>
     </edge>
     <edge id=":gneJ0_4" function="internal">
-        <lane id=":gneJ0_4_0" index="0" speed="10.30" length="25.90" shape="2.33,2.41 7.17,2.58 16.35,5.12 27.16,9.14"/>
+        <lane id=":gneJ0_4_0" index="0" speed="10.30" length="28.94" shape="-0.15,3.51 0.79,2.35 7.17,2.58 16.35,5.12 27.16,9.14"/>
     </edge>
     <edge id=":gneJ0_2" function="internal">
         <lane id=":gneJ0_2_0" index="0" speed="5.78" length="13.17" shape="29.23,1.60 24.56,1.89 22.86,2.74 24.12,4.17 28.35,6.17"/>
@@ -82,10 +82,10 @@
         <lane id=":gneJ1_1_0" index="0" speed="6.08" length="7.74" shape="46.80,-1.60 48.90,-1.30 50.40,-0.40 51.30,1.10 51.60,3.20"/>
     </edge>
     <edge id=":gneJ1_2" function="internal">
-        <lane id=":gneJ1_2_0" index="0" speed="3.65" length="2.66" shape="46.80,-1.60 48.00,-0.80 48.40,0.00 48.26,0.29"/>
+        <lane id=":gneJ1_2_0" index="0" speed="3.65" length="1.44" shape="46.80,-1.60 48.00,-0.80"/>
     </edge>
     <edge id=":gneJ1_3" function="internal">
-        <lane id=":gneJ1_3_0" index="0" speed="3.65" length="2.01" shape="48.26,0.29 48.00,0.80 46.80,1.60"/>
+        <lane id=":gneJ1_3_0" index="0" speed="3.65" length="3.23" shape="48.00,-0.80 48.40,0.00 48.00,0.80 46.80,1.60"/>
     </edge>
     <edge id=":gneJ2_0" function="internal">
         <lane id=":gneJ2_0_0" index="0" speed="6.86" length="10.16" shape="4.70,24.80 1.94,24.41 -0.03,23.23 -1.21,21.26 -1.60,18.50"/>
@@ -149,8 +149,8 @@
         <request index="3" response="0000" foes="0011" cont="0"/>
     </junction>
 
-    <junction id=":gneJ0_4_0" type="internal" x="2.33" y="2.41" incLanes=":gneJ0_1_0 gneE1_0" intLanes=":gneJ0_3_0"/>
-    <junction id=":gneJ1_3_0" type="internal" x="48.26" y="0.29" incLanes=":gneJ1_2_0 gneE4_0" intLanes=":gneJ1_0_0"/>
+    <junction id=":gneJ0_4_0" type="internal" x="-0.15" y="3.51" incLanes=":gneJ0_1_0 gneE1_0" intLanes=":gneJ0_3_0"/>
+    <junction id=":gneJ1_3_0" type="internal" x="48.00" y="-0.80" incLanes=":gneJ1_2_0 gneE4_0" intLanes=":gneJ1_0_0"/>
 
     <connection from="gneE0" to="gneE5" fromLane="0" toLane="0" via=":gneJ1_1_0" dir="l" state="M"/>
     <connection from="gneE0" to="gneE1" fromLane="0" toLane="0" via=":gneJ1_2_0" dir="t" state="m"/>

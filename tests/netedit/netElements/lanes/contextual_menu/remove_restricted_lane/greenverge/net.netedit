@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 26.03.2019 14:16:35 by Eclipse SUMO netedit Version v1_1_0+1328-1ffdf7a53c
+<!-- generated on 2022-01-20 11:04:01 by Eclipse SUMO netedit Version v1_11_0+1305-0448234e9dc
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_26Mar082046.2968/netedit.gui/netElements/lanes/contextual_menu/remove_restricted_lane/greenverge\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan105448.15600\netedit.gui\netElements\lanes\contextual_menu\remove_restricted_lane\greenverge\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_26Mar082046.2968/netedit.gui/netElements/lanes/contextual_menu/remove_restricted_lane/greenverge\net.net.xml"/>
+        <output-file value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan105448.15600\netedit.gui\netElements\lanes\contextual_menu\remove_restricted_lane\greenverge\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -29,24 +30,28 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_26Mar082046.2968/netedit.gui/netElements/lanes/contextual_menu/remove_restricted_lane/greenverge\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_26Mar082046.2968/netedit.gui/netElements/lanes/contextual_menu/remove_restricted_lane/greenverge\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_26Mar082046.2968/netedit.gui/netElements/lanes/contextual_menu/remove_restricted_lane/greenverge\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_26Mar082046.2968/netedit.gui/netElements/lanes/contextual_menu/remove_restricted_lane/greenverge\routes.xml"/>
+        <additional-files value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan105448.15600\netedit.gui\netElements\lanes\contextual_menu\remove_restricted_lane\greenverge\additionals.xml"/>
+        <additionals-output value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan105448.15600\netedit.gui\netElements\lanes\contextual_menu\remove_restricted_lane\greenverge\additionals.xml"/>
+        <route-files value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan105448.15600\netedit.gui\netElements\lanes\contextual_menu\remove_restricted_lane\greenverge\routes.xml"/>
+        <demandelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan105448.15600\netedit.gui\netElements\lanes\contextual_menu\remove_restricted_lane\greenverge\routes.xml"/>
+        <data-files value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan105448.15600\netedit.gui\netElements\lanes\contextual_menu\remove_restricted_lane\greenverge\datas.xml"/>
+        <dataelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan105448.15600\netedit.gui\netElements\lanes\contextual_menu\remove_restricted_lane\greenverge\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_26Mar082046.2968/netedit.gui/netElements/lanes/contextual_menu/remove_restricted_lane/greenverge\gui-settings.xml"/>
-        <window-size value="700,500"/>
+        <gui-settings-file value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan105448.15600\netedit.gui\netElements\lanes\contextual_menu\remove_restricted_lane\greenverge\gui-settings.xml"/>
+        <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan105448.15600\netedit.gui\netElements\lanes\contextual_menu\remove_restricted_lane\greenverge\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_26Mar082046.2968/netedit.gui/netElements/lanes/contextual_menu/remove_restricted_lane/greenverge\log.txt"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\palva\.texttest\tmp\netedit.gui.20Jan105448.15600\netedit.gui\netElements\lanes\contextual_menu\remove_restricted_lane\greenverge\log.txt"/>
     </report>
 
 </configuration>
@@ -63,10 +68,10 @@
         <lane id=":gneJ0_1_0" index="0" speed="3.90" length="2.58" shape="3.20,1.60 2.50,1.70 2.00,2.00 1.70,2.50 1.60,3.20"/>
     </edge>
     <edge id=":gneJ0_2" function="internal">
-        <lane id=":gneJ0_2_0" index="0" speed="3.65" length="2.08" shape="3.20,1.60 2.00,0.80 1.71,0.23"/>
+        <lane id=":gneJ0_2_0" index="0" speed="3.65" length="1.30" shape="3.20,1.60 2.12,0.88"/>
     </edge>
     <edge id=":gneJ0_3" function="internal">
-        <lane id=":gneJ0_3_0" index="0" speed="3.65" length="2.59" shape="1.71,0.23 1.60,-0.00 2.00,-0.80 3.20,-1.60"/>
+        <lane id=":gneJ0_3_0" index="0" speed="3.65" length="3.37" shape="2.12,0.88 2.00,0.80 1.60,0.00 2.00,-0.80 3.20,-1.60"/>
     </edge>
     <edge id=":gneJ1_0" function="internal">
         <lane id=":gneJ1_0_0" index="0" speed="3.90" length="2.58" shape="48.40,3.20 48.30,2.50 48.00,2.00 47.50,1.70 46.80,1.60"/>
@@ -75,10 +80,10 @@
         <lane id=":gneJ1_1_0" index="0" speed="6.08" length="7.74" shape="46.80,-1.60 48.90,-1.30 50.40,-0.40 51.30,1.10 51.60,3.20"/>
     </edge>
     <edge id=":gneJ1_2" function="internal">
-        <lane id=":gneJ1_2_0" index="0" speed="3.65" length="2.66" shape="46.80,-1.60 48.00,-0.80 48.40,0.00 48.26,0.29"/>
+        <lane id=":gneJ1_2_0" index="0" speed="3.65" length="1.44" shape="46.80,-1.60 48.00,-0.80"/>
     </edge>
     <edge id=":gneJ1_3" function="internal">
-        <lane id=":gneJ1_3_0" index="0" speed="3.65" length="2.01" shape="48.26,0.29 48.00,0.80 46.80,1.60"/>
+        <lane id=":gneJ1_3_0" index="0" speed="3.65" length="3.23" shape="48.00,-0.80 48.40,0.00 48.00,0.80 46.80,1.60"/>
     </edge>
     <edge id=":gneJ2_0" function="internal">
         <lane id=":gneJ2_0_0" index="0" speed="6.08" length="7.76" shape="4.70,21.60 1.94,21.41 -0.02,20.83 -1.21,19.86 -1.60,18.50"/>
@@ -119,15 +124,15 @@
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="001" foes="001" cont="1"/>
     </junction>
-    <junction id="gneJ2" type="priority" x="0.00" y="20.00" incLanes="-gneE2_0 gneE9_0" intLanes=":gneJ2_0_0" shape="4.70,23.20 4.70,20.00 3.87,19.83 3.58,19.63 3.37,19.33 3.24,18.96 3.20,18.50 -3.20,18.50 -2.32,21.11 -1.23,22.03 0.31,22.68 2.29,23.07">
+    <junction id="gneJ2" type="priority" x="0.00" y="20.00" incLanes="-gneE2_0 gneE9_0" intLanes=":gneJ2_0_0" shape="4.70,23.20 4.70,20.00 3.87,19.83 3.57,19.62 3.37,19.33 3.24,18.96 3.20,18.50 -3.20,18.50 -2.32,21.11 -1.23,22.03 0.31,22.68 2.29,23.07">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="gneJ3" type="priority" x="50.00" y="20.00" incLanes="gneE5_0" intLanes=":gneJ3_0_0" shape="53.20,18.50 46.80,18.50 46.63,19.33 46.42,19.63 46.13,19.83 45.76,19.96 45.30,20.00 45.30,23.20 47.71,23.07 49.69,22.68 51.23,22.03 52.32,21.11 52.98,19.94">
+    <junction id="gneJ3" type="priority" x="50.00" y="20.00" incLanes="gneE5_0" intLanes=":gneJ3_0_0" shape="53.20,18.50 46.80,18.50 46.63,19.33 46.42,19.62 46.13,19.83 45.76,19.96 45.30,20.00 45.30,23.20 47.71,23.07 49.69,22.68 51.23,22.03 52.32,21.11 52.98,19.94">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <junction id=":gneJ0_3_0" type="internal" x="1.71" y="0.23" incLanes=":gneJ0_2_0 gneE8_0" intLanes=":gneJ0_0_0"/>
-    <junction id=":gneJ1_3_0" type="internal" x="48.26" y="0.29" incLanes=":gneJ1_2_0 gneE4_0" intLanes=":gneJ1_0_0"/>
+    <junction id=":gneJ0_3_0" type="internal" x="2.12" y="0.88" incLanes=":gneJ0_2_0 gneE8_0" intLanes=":gneJ0_0_0"/>
+    <junction id=":gneJ1_3_0" type="internal" x="48.00" y="-0.80" incLanes=":gneJ1_2_0 gneE4_0" intLanes=":gneJ1_0_0"/>
 
     <connection from="-gneE2" to="gneE8" fromLane="0" toLane="0" via=":gneJ2_0_0" dir="l" state="M"/>
     <connection from="gneE0" to="gneE5" fromLane="0" toLane="0" via=":gneJ1_1_0" dir="l" state="M"/>
