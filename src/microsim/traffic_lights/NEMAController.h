@@ -103,12 +103,12 @@ public:
 
     void setShowDetectors(bool show);
 
-    std::map<int, std::vector<MSE2Collector*>>* getPhase2DetectorMap() {
+    std::map<int, std::vector<MSE2Collector*>> getPhase2DetectorMap() {
         std::map<int, std::vector<MSE2Collector*>> temp;
         for (auto const& detectInfo : phase2DetectorMap){
             temp[detectInfo.first] = detectInfo.second.detectors;
         }
-        return &temp;
+        return temp;
     }
 
     /// @brief retrieve all detectors used by this program
