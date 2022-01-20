@@ -105,6 +105,7 @@ protected:
         OPENDRIVE_TAG_SPEED,
         OPENDRIVE_TAG_ELEVATION,
         OPENDRIVE_TAG_GEOREFERENCE,
+        OPENDRIVE_TAG_OFFSET,
         OPENDRIVE_TAG_OBJECT,
         OPENDRIVE_TAG_REPEAT
     };
@@ -602,6 +603,7 @@ private:
     ContactPoint myCurrentContactPoint;
     bool myConnectionWasEmpty;
     std::map<std::string, OpenDriveSignal> mySignals;
+    Position myOffset;
 
     static bool myImportAllTypes;
     static bool myImportWidths;

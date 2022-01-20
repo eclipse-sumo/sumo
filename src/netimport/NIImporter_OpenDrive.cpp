@@ -95,6 +95,7 @@ StringBijection<int>::Entry NIImporter_OpenDrive::openDriveTags[] = {
     { "speed",            NIImporter_OpenDrive::OPENDRIVE_TAG_SPEED },
     { "elevation",        NIImporter_OpenDrive::OPENDRIVE_TAG_ELEVATION },
     { "geoReference",     NIImporter_OpenDrive::OPENDRIVE_TAG_GEOREFERENCE },
+    { "offset",           NIImporter_OpenDrive::OPENDRIVE_TAG_OFFSET },
     { "object",           NIImporter_OpenDrive::OPENDRIVE_TAG_OBJECT },
     { "repeat",           NIImporter_OpenDrive::OPENDRIVE_TAG_REPEAT },
 
@@ -2033,7 +2034,7 @@ NIImporter_OpenDrive::OpenDriveEdge::getPriority(OpenDriveXMLTag dir) const {
 // ---------------------------------------------------------------------------
 NIImporter_OpenDrive::NIImporter_OpenDrive(const NBTypeCont& tc, std::map<std::string, OpenDriveEdge*>& edges)
     : GenericSAXHandler(openDriveTags, OPENDRIVE_TAG_NOTHING, openDriveAttrs, OPENDRIVE_ATTR_NOTHING, "opendrive"),
-      myTypeContainer(tc), myCurrentEdge("", "", "", -1), myEdges(edges) {
+      myTypeContainer(tc), myCurrentEdge("", "", "", -1), myEdges(edges), myOffset(0, 0) {
 }
 
 
@@ -2055,6 +2056,15 @@ NIImporter_OpenDrive::myStartElement(int element,
                 WRITE_WARNING("Given openDrive file '" + getFileName() + "' uses version " + toString(majorVersion) + "." + toString(minorVersion) + ";\n Version 1.2 is supported.");
             }
             */
+        }
+        break;
+        case OPENDRIVE_TAG_OFFSET: {
+            double x = attrs.get<double>(OPENDRIVE_ATTR_X, "offset", ok);
+            double y = attrs.get<double>(OPENDRIVE_ATTR_Y, "offset", ok);
+            myOffset.set(x, y);
+            if (GeoConvHelper::getNumLoaded()) {
+                GeoConvHelper::getLoaded().moveConvertedBy(x, y);
+            }
         }
         break;
         case OPENDRIVE_TAG_ROAD: {
@@ -2384,12 +2394,11 @@ NIImporter_OpenDrive::myCharacters(int element, const std::string& cdata) {
                 GeoConvHelper* result = nullptr;
                 Boundary convBoundary;
                 Boundary origBoundary;
-                Position networkOffset(0, 0);
                 // XXX read values from the header
                 convBoundary.add(Position(0, 0));
                 origBoundary.add(Position(0, 0));
                 try {
-                    result = new GeoConvHelper(proj, networkOffset, origBoundary, convBoundary);
+                    result = new GeoConvHelper(proj, myOffset, origBoundary, convBoundary);
                     GeoConvHelper::setLoaded(*result);
                 } catch (ProcessError& e) {
                     WRITE_ERROR("Could not set projection. (" + std::string(e.what()) + ")");
