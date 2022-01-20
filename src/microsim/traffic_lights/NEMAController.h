@@ -103,12 +103,12 @@ public:
 
     void setShowDetectors(bool show);
 
-    std::map<int, std::vector<MSE2Collector*>>* getPhase2DetectorMap() {
+    std::map<int, std::vector<MSE2Collector*>> getPhase2DetectorMap() {
         std::map<int, std::vector<MSE2Collector*>> temp;
         for (auto const& detectInfo : phase2DetectorMap){
             temp[detectInfo.first] = detectInfo.second.detectors;
         }
-        return &temp;
+        return temp;
     }
 
     /// @brief retrieve all detectors used by this program
@@ -119,7 +119,7 @@ public:
 
     std::string combineStates(std::string state1, std::string state2);
 
-    bool NEMALogic::isDetectorActivated(int phaseNumber, int depth) const;
+    bool isDetectorActivated(int phaseNumber, int depth) const;
 
     int nextPhase(std::vector<int> ring, int phaseNum, int& distance,  bool sameAllowed);
 
