@@ -3529,6 +3529,12 @@ MSLCM_SL2015::getParameter(const std::string& key) const {
         return toString(myRoundaboutBonus);
     } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_SPEED)) {
         return toString(myCooperativeSpeed);
+    } else if (key == toString(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING)) {
+        return toString(myMaxSpeedLatStanding);
+    } else if (key == toString(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR)) {
+        return toString(myMaxSpeedLatFactor);
+    } else if (key == toString(SUMO_ATTR_LCA_MAXDISTLATSTANDING)) {
+        return toString(myMaxDistLatStanding);
         // access to internal state for debugging in sumo-gui (not documented since it may change at any time)
     } else if (key == "speedGainProbabilityRight") {
         return toString(mySpeedGainProbabilityRight);
@@ -3602,6 +3608,12 @@ MSLCM_SL2015::setParameter(const std::string& key, const std::string& value) {
         myRoundaboutBonus = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_SPEED)) {
         myCooperativeSpeed = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING)) {
+        myMaxSpeedLatStanding = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR)) {
+        myMaxSpeedLatFactor = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_MAXDISTLATSTANDING)) {
+        myMaxDistLatStanding = doubleValue;
     } else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
     }

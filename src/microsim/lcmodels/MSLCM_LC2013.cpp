@@ -2050,6 +2050,12 @@ MSLCM_LC2013::getParameter(const std::string& key) const {
         return toString(myRoundaboutBonus);
     } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_SPEED)) {
         return toString(myCooperativeSpeed);
+    } else if (key == toString(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING)) {
+        return toString(myMaxSpeedLatStanding);
+    } else if (key == toString(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR)) {
+        return toString(myMaxSpeedLatFactor);
+    } else if (key == toString(SUMO_ATTR_LCA_MAXDISTLATSTANDING)) {
+        return toString(myMaxDistLatStanding);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
 }
@@ -2091,6 +2097,12 @@ MSLCM_LC2013::setParameter(const std::string& key, const std::string& value) {
         myRoundaboutBonus = doubleValue;
     } else if (key == toString(SUMO_ATTR_LCA_COOPERATIVE_SPEED)) {
         myCooperativeSpeed = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING)) {
+        myMaxSpeedLatStanding = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR)) {
+        myMaxSpeedLatFactor = doubleValue;
+    } else if (key == toString(SUMO_ATTR_LCA_MAXDISTLATSTANDING)) {
+        myMaxDistLatStanding = doubleValue;
     } else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for laneChangeModel of type '" + toString(myModel) + "'");
     }
