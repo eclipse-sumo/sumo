@@ -304,12 +304,15 @@ bool
 ROMAFrame::checkOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
     if (oc.isSet("assignment-method") && oc.getString("assignment-method") != "incremental" && oc.getString("assignment-method") != "UE" && oc.getString("assignment-method") != "SUE") {
-        WRITE_ERROR("invalid assignment method");
+        WRITE_ERROR("Invalid assignment method '" + oc.getString("assignment-method") + "'.");
         return false;
     }
     if (oc.getString("route-choice-method") != "gawron" && oc.getString("route-choice-method") != "logit" && oc.getString("route-choice-method") != "lohse") {
-        WRITE_ERROR("invalid route choice method");
+        WRITE_ERROR("Invalid route choice method '" + oc.getString("route-choice-method") + "'.");
         return false;
+    }
+    if (oc.getInt("paths") > 1 && (oc.getString("routing-algorithm") == "CH" || oc.getString("routing-algorithm") == "CHWrapper")) {
+        WRITE_WARNING("Contraction hierarchies do not work with k shortest path search (please use a different routing algorithm)!");
     }
     return true;
 }
