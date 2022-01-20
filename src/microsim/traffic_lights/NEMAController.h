@@ -117,9 +117,9 @@ public:
 
     bool isDetectorActivated(int phaseIndex) const;
 
-    int nextPhase(std::vector<int> ring, int phaseNum, int& distance);
+    int nextPhase(std::vector<int> ring, int phaseNum, int& distance,  bool sameAllowed);
 
-    std::tuple<int, int> getNextPhases(int currentR1Index, int currentR2Index, bool toUpdateR1, bool toUpdateR2);
+    std::tuple<int, int> getNextPhases(int currentR1Index, int currentR2Index, bool toUpdateR1, bool toUpdateR2, bool stayOk = false);
 
     double ModeCycle(double a, double b);
 
