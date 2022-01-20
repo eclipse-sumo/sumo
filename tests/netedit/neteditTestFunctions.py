@@ -1721,12 +1721,12 @@ def selectItems(elementClass, elementType, attribute, value):
     # focus current frame
     focusOnFrame()
     # jump to elementClass
-    for _ in range(5):
+    for _ in range(8):
         typeTab()
     # paste the new elementClass
     pasteIntoTextField(elementClass)
     # jump to element
-    for _ in range(2):
+    for _ in range(3):
         typeTab()
     # paste the new elementType
     pasteIntoTextField(elementType)
