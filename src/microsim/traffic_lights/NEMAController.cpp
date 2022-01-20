@@ -46,7 +46,7 @@
 
 #define INVALID_POSITION std::numeric_limits<double>::max() // tl added
 
-// #define DEBUG_NEMA
+#define DEBUG_NEMA
 
 // ===========================================================================
 // method definitions
@@ -462,7 +462,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
     std::cout << "Print to check phase2DetectorMap" << std::endl;
     for (auto item : phase2DetectorMap) {
         std::cout << "The NEMA phase index = " << item.first << " has detectors: \n";
-        for (auto det : item.second) {
+        for (auto det : item.second.detectors) {
             std::cout << '\t' << det->getID() << std::endl;
         }
     }
@@ -833,7 +833,7 @@ NEMALogic::trySwitch() {
         myStep = 1 - myStep;
     }
     //std::cout << SIMTIME << " " << myPhase.getState() << "\n";
-    return TIME2STEPS(1);
+    return TIME2STEPS(TS);
 }
 
 
