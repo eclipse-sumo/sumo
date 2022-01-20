@@ -823,22 +823,23 @@ NEMALogic::NEMA_control() {
         EndCurrentPhaseR2 = true;
     }
     if (EndCurrentPhaseR1 && (R1Phase == r1barrier)) {
-        if (!EndCurrentPhaseR2) {
+        // Don't think about transitioning myself until partner has finished a transition. 
+        if (!EndCurrentPhaseR2 || R2RYG != 1) {
             EndCurrentPhaseR1 = false;
         }
     }
     if (EndCurrentPhaseR1 && (R1Phase == r1coordinatePhase)) {
-        if (!EndCurrentPhaseR2) {
+        if (!EndCurrentPhaseR2 || R2RYG != 1) {
             EndCurrentPhaseR1 = false;
         }
     }
     if (EndCurrentPhaseR2 && (R2Phase == r2barrier)) {
-        if (!EndCurrentPhaseR1) {
+        if (!EndCurrentPhaseR1 || R1RYG != 1) {
             EndCurrentPhaseR2 = false;
         }
     }
     if (EndCurrentPhaseR2 && (R2Phase == r2coordinatePhase)) {
-        if (!EndCurrentPhaseR1) {
+        if (!EndCurrentPhaseR1 || R1RYG != 1) {
             EndCurrentPhaseR2 = false;
         }
     }
@@ -862,48 +863,38 @@ NEMALogic::NEMA_control() {
         // Have to do it here and below because the "final" traffic light check is at the end of yellow
         int tempR1Phase;
         int tempR2Phase;
-        std::tie(tempR1Phase, tempR2Phase) = getNextPhases(R1Phase, R2Phase, wait4R1Green, wait4R2Green);
+        // Get the next phases, with the first option being staying in the current phase
+        std::tie(tempR1Phase, tempR2Phase) = getNextPhases(R1Phase, R2Phase, wait4R1Green, wait4R2Green, true);
         // entry point to green rest. First check detector status, then determine if this should be up next.
         // Green rest is effectively the same as being perpetually past the minimum green timer but not changing
         if ((tempR1Phase == R1Phase && EndCurrentPhaseR1) && (tempR2Phase == R2Phase && EndCurrentPhaseR2) && !coordinateMode){
             // mark that the phases are not desired to end
             EndCurrentPhaseR1 = false;
             EndCurrentPhaseR2 = false;
-
             wait4R1Green = false;
             wait4R2Green = false;
-
             // Timing update. This logic should be checked the next step, so only add the simulation timestep.
             // Potential that this needs to be extended in the future.
             phaseEndTimeR1 += TS;
             phaseEndTimeR2 += TS;
-
             // setting the phase start time to current time - the minimum timer 
             // will still allow the phase to be extended with vehicle detection
             phaseStartTime[R1Index] = currentTimeInSecond - minGreen[R1Index];
             phaseStartTime[R2Index] = currentTimeInSecond - minGreen[R2Index];
-        } else if ((tempR1Phase == R1Phase) && (tempR2Phase != R2Phase) && greenTransfer){
+        } else if ((((tempR1Phase == R1Phase) && (tempR2Phase != R2Phase)) || (tempR1Phase == R1Phase && !EndCurrentPhaseR2)) && greenTransfer){
             // Entry Point to the Green Transfer Logic
             if (findBarrier(tempR1Phase, 0) == findBarrier(tempR2Phase, 1)){
                 EndCurrentPhaseR1 = false;
                 wait4R1Green = false;
                 phaseEndTimeR1 += TS;
-                if (tempR1Phase == r1barrier || tempR1Phase == r1coordinatePhase){
-                    // This is because you can't cross the barrier and until both are ready to end
-                    phaseExpectedDuration[R1Index] = phaseExpectedDuration[tempR2Phase - 1] + yellowTime[tempR2Phase - 1] + redTime[tempR2Phase - 1];
-                }
             }
-        } else if ((tempR1Phase != R1Phase) && (tempR2Phase == R2Phase) && greenTransfer){
+        } else if ((((tempR1Phase != R1Phase) && (tempR2Phase == R2Phase)) || (tempR2Phase == R2Phase && !EndCurrentPhaseR1)) && greenTransfer){
             if (findBarrier(tempR1Phase, 0) == findBarrier(tempR2Phase, 1)){
                 EndCurrentPhaseR2 = false;
                 wait4R2Green = false;
                 phaseEndTimeR2 += TS;
-                if (tempR2Phase == r2barrier || tempR2Phase == r2coordinatePhase){
-                    // This is because you can't cross the barrier and until both are ready to end
-                    phaseExpectedDuration[R2Index] = phaseExpectedDuration[tempR1Phase - 1] + yellowTime[tempR1Phase - 1] + redTime[tempR1Phase - 1];
-                }
             }
-        }
+        } 
     }
 
 
@@ -919,7 +910,6 @@ NEMALogic::NEMA_control() {
             R2RYG = -1; //red
             calculate = true;
         }
-
         if (calculate){
             std::tie(myNextPhaseR1, myNextPhaseR2) = getNextPhases(R1Phase, R2Phase, wait4R1Green, wait4R2Green);
         }
@@ -1017,12 +1007,12 @@ NEMALogic::NEMA_control() {
     return outputState;
 }
 
-int NEMALogic::nextPhase(std::vector<int> ring, int currentPhase, int& distance) {
-
+int NEMALogic::nextPhase(std::vector<int> ring, int currentPhase, int& distance, bool sameAllowed) {
     int length = (int)ring.size();
     int flag = 0;
     int nphase = 0; // next phase
     int i = 0; // i represents the distance
+    int matching_i = 0;
     for (i = 0; i < length * 2; i++) {
         if (flag == 1) {
             if (ring[i % length] != 0) {
@@ -1041,6 +1031,7 @@ int NEMALogic::nextPhase(std::vector<int> ring, int currentPhase, int& distance)
         }
         if (ring[i % length] == currentPhase) {
             flag = 1;
+            matching_i = i;
         }
     }
     if (nphase !=0){
@@ -1049,8 +1040,13 @@ int NEMALogic::nextPhase(std::vector<int> ring, int currentPhase, int& distance)
     }
     else{
         // this should only occur in the subset
-        distance = i + 1;
-        return ring[length - 1];
+        if (sameAllowed){
+            distance = i;
+            return ring[matching_i % length];
+        } else {
+            distance = i + 1;
+            return ring[(matching_i + 1) % length];
+        }
     }
 }
 
@@ -1085,32 +1081,32 @@ int NEMALogic::findBarrier(int phase, int ring) {
 }
 
 
-std::tuple<int, int> NEMALogic::getNextPhases(int R1Phase, int R2Phase, bool toUpdateR1, bool toUpdateR2) {
+std::tuple<int, int> NEMALogic::getNextPhases(int R1Phase, int R2Phase, bool toUpdateR1, bool toUpdateR2, bool stayOk) {
     // Only 1 or both can be !toUpdate (otherwise we wouldn't be in this situation)
     int nextR1Phase = R1Phase;
     int nextR2Phase = R2Phase;
     if (!toUpdateR1){
         int r1BarrierNum = findBarrier(R1Phase, 0);
         int d = 0;
-        nextR2Phase = nextPhase(myRingBarrierMapping[1][r1BarrierNum], R2Phase, d);
+        nextR2Phase = nextPhase(myRingBarrierMapping[1][r1BarrierNum], R2Phase, d, stayOk);
         // If we aren't updating both, the search range is only the subset of values on the same side of the barrier;
     } else if (!toUpdateR2){
         int r2BarrierNum = findBarrier(R2Phase, 1);
         int d = 0;
-        nextR1Phase = nextPhase(myRingBarrierMapping[0][r2BarrierNum], R1Phase, d);
+        nextR1Phase = nextPhase(myRingBarrierMapping[0][r2BarrierNum], R1Phase, d, stayOk);
     } else {
         // Both can be updated. We should take the change requiring the least distance travelled around the loop, 
         // and then recalculate the other ring if it is not in the same barrier
         int r1Distance = 0;
         int r2Distance = 0;
-        nextR1Phase = nextPhase(rings[0], R1Phase, r1Distance);
-        nextR2Phase = nextPhase(rings[1], R2Phase, r2Distance);
+        nextR1Phase = nextPhase(rings[0], R1Phase, r1Distance, stayOk);
+        nextR2Phase = nextPhase(rings[1], R2Phase, r2Distance, stayOk);
         int r1Barrier = findBarrier(nextR1Phase, 0);
         int r2Barrier = findBarrier(nextR2Phase, 1);
         if ((r1Distance <= r2Distance) && (r1Barrier != r2Barrier)){
-            nextR2Phase = nextPhase(myRingBarrierMapping[1][r1Barrier], R2Phase, r2Distance);
+            nextR2Phase = nextPhase(myRingBarrierMapping[1][r1Barrier], R2Phase, r2Distance, stayOk);
         } else if ((r1Distance > r2Distance) && (r1Barrier != r2Barrier)){
-            nextR1Phase = nextPhase(myRingBarrierMapping[0][r2Barrier], R1Phase, r1Distance);
+            nextR1Phase = nextPhase(myRingBarrierMapping[0][r2Barrier], R1Phase, r1Distance, stayOk);
         };
     };
     return std::make_tuple(nextR1Phase, nextR2Phase);
