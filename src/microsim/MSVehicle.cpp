@@ -2224,7 +2224,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             double endPos = stop.getEndPos(*this) + NUMERICAL_EPS;
             if (stop.parkingarea != nullptr) {
                 // leave enough space so parking vehicles can exit
-                endPos = stop.parkingarea->getLastFreePosWithReservation(t, *this);
+                const double brakePos = getBrakeGap() + lane->getLength() - seen;
+                endPos = stop.parkingarea->getLastFreePosWithReservation(t, *this, brakePos);
             } else if (isWaypoint && !stop.reached) {
                 endPos = stop.pars.startPos;
             }

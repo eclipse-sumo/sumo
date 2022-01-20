@@ -140,7 +140,7 @@ public:
      *
      * @return The last free position of this bus stop
      */
-    double getLastFreePosWithReservation(SUMOTime t, const SUMOVehicle& forVehicle);
+    double getLastFreePosWithReservation(SUMOTime t, const SUMOVehicle& forVehicle, double brakePos);
 
     /// @brief Returns the position of parked vehicle
     Position getVehiclePosition(const SUMOVehicle& forVehicle) const;

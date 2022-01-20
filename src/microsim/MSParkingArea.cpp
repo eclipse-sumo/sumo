@@ -34,6 +34,7 @@
 #include "MSGlobals.h"
 
 //#define DEBUG_RESERVATIONS
+//#define DEBUG_GET_LAST_FREE_POS
 //#define DEBUG_COND2(obj) (obj.getID() == "v.3")
 #define DEBUG_COND2(obj) (obj.isSelected())
 
@@ -184,7 +185,34 @@ MSParkingArea::getLastFreePos(const SUMOVehicle& forVehicle, double brakePos) co
         // keep enough space so that  parking vehicles can leave
         return myLastFreePos - forVehicle.getVehicleType().getMinGap() - POSITION_EPS;
     } else {
-        return MAX2(myLastFreePos, MIN2(myEndPos, brakePos));
+        const double minPos = MIN2(myEndPos, brakePos);
+        if (myLastFreePos >= minPos) {
+#ifdef DEBUG_GET_LAST_FREE_POS
+        if (DEBUG_COND2(forVehicle)) {
+            std::cout << SIMTIME << " getLastFreePos veh=" << forVehicle.getID() << " brakePos=" << brakePos << " myEndPos=" << myEndPos << " using myLastFreePos=" << myLastFreePos << "\n";
+        }
+#endif
+            return myLastFreePos;
+        } else {
+            // find free pos after minPos
+            for (const auto& lsd : mySpaceOccupancies) {
+                if (lsd.vehicle == nullptr && lsd.endPos >= minPos) {
+#ifdef DEBUG_GET_LAST_FREE_POS
+                    if (DEBUG_COND2(forVehicle)) {
+                        std::cout << SIMTIME << " getLastFreePos veh=" << forVehicle.getID() << " brakePos=" << brakePos << " myEndPos=" << myEndPos << " nextFreePos=" << lsd.endPos << "\n";
+                    }
+#endif
+                    return lsd.endPos;
+                }
+            }
+            // shouldn't happen. No good solution seems possible
+#ifdef DEBUG_GET_LAST_FREE_POS
+            if (DEBUG_COND2(forVehicle)) {
+                std::cout << SIMTIME << " getLastFreePos veh=" << forVehicle.getID() << " brakePos=" << brakePos << " myEndPos=" << myEndPos << " noGoodFreePos blockedAt=" << brakePos << "\n";
+            }
+#endif
+            return brakePos;
+        }
     }
 }
 
@@ -362,7 +390,7 @@ MSParkingArea::computeLastFreePos() {
 
 
 double
-MSParkingArea::getLastFreePosWithReservation(SUMOTime t, const SUMOVehicle& forVehicle) {
+MSParkingArea::getLastFreePosWithReservation(SUMOTime t, const SUMOVehicle& forVehicle, double brakePos) {
     if (forVehicle.getLane() != &myLane) {
         // for different lanes, do not consider reservations to avoid lane-order
         // dependency in parallel simulation
@@ -375,7 +403,7 @@ MSParkingArea::getLastFreePosWithReservation(SUMOTime t, const SUMOVehicle& forV
             // ensure that the vehicle reaches the rerouter lane
             return MAX2(myBegPos, MIN2(POSITION_EPS, myEndPos));
         } else {
-            return getLastFreePos(forVehicle);
+            return getLastFreePos(forVehicle, brakePos);
         }
     }
     if (t > myReservationTime) {
@@ -392,7 +420,7 @@ MSParkingArea::getLastFreePosWithReservation(SUMOTime t, const SUMOVehicle& forV
                 myReservationMaxLength = MAX2(myReservationMaxLength, lsd.vehicle->getVehicleType().getLength());
             }
         }
-        return getLastFreePos(forVehicle);
+        return getLastFreePos(forVehicle, brakePos);
     } else {
         if (myCapacity > getOccupancy() + myReservations) {
 #ifdef DEBUG_RESERVATIONS
@@ -402,10 +430,10 @@ MSParkingArea::getLastFreePosWithReservation(SUMOTime t, const SUMOVehicle& forV
 #endif
             myReservations++;
             myReservationMaxLength = MAX2(myReservationMaxLength, forVehicle.getVehicleType().getLength());
-            return getLastFreePos(forVehicle);
+            return getLastFreePos(forVehicle, brakePos);
         } else {
             if (myCapacity == 0) {
-                return getLastFreePos(forVehicle);
+                return getLastFreePos(forVehicle, brakePos);
             } else {
 #ifdef DEBUG_RESERVATIONS
                 if (DEBUG_COND2(forVehicle)) std::cout << SIMTIME << " pa=" << getID() << " freePosRes veh=" << forVehicle.getID()
