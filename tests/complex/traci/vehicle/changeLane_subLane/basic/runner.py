@@ -64,4 +64,8 @@ for i in range(10):
     reportState(vehID, 1)
     traci.simulationStep()
 
+print(traci.vehicle.getParameter(vehID, "laneChangeModel.minGapLat"))
+traci.vehicle.setParameter(vehID, "laneChangeModel.minGapLat", "0.1")
+print(traci.vehicle.getParameter(vehID, "laneChangeModel.minGapLat"))
+
 traci.close()
