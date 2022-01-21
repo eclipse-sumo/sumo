@@ -646,6 +646,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
 
 void
 NEMALogic::validate_timing(){
+    const bool ignoreErrors = StringUtils::toBool(getParameter("ignore-errors", "false"));
     //check cycle length
     for (int ringIndex = 0; ringIndex <= 1; ringIndex++){
         int lastPhasePositionIndex = (int)rings[ringIndex].size()-1;
@@ -657,29 +658,35 @@ NEMALogic::validate_timing(){
         double cycleLengthCalculated = forceOffs[lastPhaseIndex] + yellowTime[lastPhaseIndex] + redTime[lastPhaseIndex];
         if (coordinateMode && cycleLengthCalculated != myCycleLength){
             int ringNumber = ringIndex + 1;
-            throw  ProcessError("At NEMA tlLogic '" + getID() +"', Ring " + toString(ringNumber) + " does not add to cycle length.");
+            const std::string error = "At NEMA tlLogic '" + getID() + "', Ring " + toString(ringNumber) + " does not add to cycle length.";
+            if (ignoreErrors) {
+                WRITE_WARNING(error);
+            } else {
+                throw  ProcessError(error);
+            }
         }
     }
     // check barriers
     double ring1barrier1_length = forceOffs[r1barrier - 1] + yellowTime[r1barrier - 1] + redTime[r1barrier - 1];
     double ring2barrier1_length = forceOffs[r2barrier - 1] + yellowTime[r2barrier - 1] + redTime[r2barrier - 1];
     if (ring1barrier1_length != ring2barrier1_length){
-        if (coordinateMode) {
-            throw  ProcessError("At NEMA tlLogic '" + getID() + "', the phases before barrier 1 from both rings do not add up. (ring1="
-                    + toString(ring1barrier1_length) + ", ring2=" + toString(ring2barrier1_length) + ")");
-        }
-        else {
-            WRITE_WARNINGF("At NEMA tlLogic '%', the phases before barrier 1 from both rings do not add up.", getID());
+        const std::string error = "At NEMA tlLogic '" + getID() + "', the phases before barrier 1 from both rings do not add up. (ring1="
+                    + toString(ring1barrier1_length) + ", ring2=" + toString(ring2barrier1_length) + ")";
+        if (coordinateMode && !ignoreErrors) {
+            throw  ProcessError(error);
+        } else {
+            WRITE_WARNING(error);
         }
     }
     double ring1barrier2_length = forceOffs[r2coordinatePhase - 1] + yellowTime[r2coordinatePhase - 1] + redTime[r2coordinatePhase - 1];
     double ring2barrier2_length = forceOffs[r1coordinatePhase - 1] + yellowTime[r1coordinatePhase - 1] + redTime[r1coordinatePhase - 1];
     if (ring1barrier2_length != ring2barrier2_length){
-        if (coordinateMode) {
-            throw  ProcessError("At NEMA tlLogic '" + getID() + "', the phases before barrier 2 from both rings do not add up.");
-        }
-        else {
-            WRITE_WARNINGF("At NEMA tlLogic '%', the phases before barrier 2 from both rings do not add up.", getID());
+        const std::string error = "At NEMA tlLogic '" + getID() + "', the phases before barrier 2 from both rings do not add up. (ring1="
+                    + toString(ring1barrier2_length) + ", ring2=" + toString(ring2barrier2_length) + ")";
+        if (coordinateMode && !ignoreErrors) {
+            throw  ProcessError(error);
+        } else {
+            WRITE_WARNING(error);
         }
     }
     // no offset for non coordinated
