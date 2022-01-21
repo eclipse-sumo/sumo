@@ -110,7 +110,6 @@ MESegment::MESegment(const std::string& id,
             usableLanes++;
         }
     }
-    myCapacity = length * usableLanes;
     if (multiQueue) {
         if (next == nullptr) {
             for (const MSEdge* const edge : parent.getSuccessors()) {
@@ -126,21 +125,30 @@ MESegment::MESegment(const std::string& id,
         myQueueCapacity = length;
     } else {
         myQueues.push_back(Queue(parent.getPermissions()));
-        myQueueCapacity = myCapacity;
-        myTau_length /= usableLanes;
     }
 
-    initSegment(edgeType, parent);
+    initSegment(edgeType, parent, length * usableLanes);
 }
 
 void
-MESegment::initSegment(const MesoEdgeType& edgeType, const MSEdge& parent) {
+MESegment::initSegment(const MesoEdgeType& edgeType, const MSEdge& parent, const double capacity) {
 
-    // Eissfeldt p. 90 and 151 ff.
-    myTau_ff = (SUMOTime)(edgeType.tauff * myLength / myCapacity + 0.5);
-    myTau_fj = (SUMOTime)(edgeType.taufj * myLength / myCapacity + 0.5);
-    myTau_jf = (SUMOTime)(edgeType.taujf * myLength / myCapacity + 0.5);
-    myTau_jj = (SUMOTime)(edgeType.taujj * myLength / myCapacity + 0.5);
+    myCapacity = capacity;
+    if (myQueues.size() == 1) {
+        const double laneScale = capacity / myLength;
+        myQueueCapacity = capacity;
+        myTau_length = TIME2STEPS(1) / MAX2(MESO_MIN_SPEED, myMeanSpeed) / laneScale;
+        // Eissfeldt p. 90 and 151 ff.
+        myTau_ff = (SUMOTime)(edgeType.tauff / laneScale);
+        myTau_fj = (SUMOTime)(edgeType.taufj / laneScale);
+        myTau_jf = (SUMOTime)(edgeType.taujf / laneScale);
+        myTau_jj = (SUMOTime)(edgeType.taujj / laneScale);
+    } else {
+        myTau_ff = edgeType.tauff;
+        myTau_fj = edgeType.taufj;
+        myTau_jf = edgeType.taujf;
+        myTau_jj = edgeType.taujj;
+    }
 
     myJunctionControl = myNextSegment == nullptr && (edgeType.junctionControl || MELoop::isEnteringRoundabout(parent));
     myTLSPenalty = ((edgeType.tlsPenalty > 0 || edgeType.tlsFlowPenalty > 0) &&

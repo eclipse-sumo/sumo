@@ -91,7 +91,7 @@ public:
      * additional file
      * @param[in] e the edge to update
      */
-    void updateSegementsForEdge(const MSEdge& e);
+    void updateSegmentsForEdge(const MSEdge& e);
 
     /** @brief Get the segment for a given edge at a given position
      *

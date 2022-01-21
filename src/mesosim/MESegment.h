@@ -152,7 +152,7 @@ public:
               const SVCPermissions ignoreVClasses);
 
     /// @brief set model parameters (may be updated from additional file after network loading is complete)
-    void initSegment(const MesoEdgeType& edgeType, const MSEdge& parent);
+    void initSegment(const MesoEdgeType& edgeType, const MSEdge& parent, const double capacity);
 
     /// @name Measure collection
     /// @{
@@ -236,6 +236,14 @@ public:
      */
     inline double getLength() const {
         return myLength;
+    }
+
+    /** @brief Returns the sum of the lengths of all usable lanes of the segment in meters.
+     *
+     * @return the capacity of the segment
+     */
+    inline double getCapacity() const {
+        return myCapacity;
     }
 
     /** @brief Returns the occupany of the segment (the sum of the vehicle lengths + minGaps)

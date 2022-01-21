@@ -199,7 +199,7 @@ void
 MSEdge::updateMesoType() {
     assert(MSGlobals::gUseMesoSim);
     if (!myLanes->empty()) {
-        MSGlobals::gMesoNet->updateSegementsForEdge(*this);
+        MSGlobals::gMesoNet->updateSegmentsForEdge(*this);
     }
 }
 
