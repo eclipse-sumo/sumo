@@ -29,8 +29,8 @@ import pyperclip
 
 # define delay before every operation
 DELAY_KEY = 0.3
-DELAY_KEY_TAB = 0.3
-DELAY_MOUSE_MOVE = 0.3
+DELAY_KEY_TAB = 0.1
+DELAY_MOUSE_MOVE = 0.1
 DELAY_MOUSE_CLICK = 1
 DELAY_QUESTION = 3
 DELAY_RELOAD = 5
@@ -1659,9 +1659,13 @@ def lockSelection(glType):
     """
     # focus current frame
     focusOnFrame()
+    # move mouse
+    pyautogui.moveTo(550, 200)
+    # open Lock menu
+    typeTwoKeys('alt', 'o')
     # go to selected glType
     for _ in range(glType):
-        typeTab()
+        typeKey("down")
     # type enter to save change
     typeSpace()
 
@@ -1686,7 +1690,7 @@ def saveSelection():
     """
     focusOnFrame()
     # jump to save
-    for _ in range(16):
+    for _ in range(22):
         typeTab()
     typeSpace()
     # jump to filename TextField
@@ -1702,7 +1706,7 @@ def loadSelection():
     """
     focusOnFrame()
     # jump to save
-    for _ in range(19):
+    for _ in range(25):
         typeTab()
     typeSpace()
     # jump to filename TextField
@@ -1762,7 +1766,7 @@ def modificationModeAdd():
     # focus current frame
     focusOnFrame()
     # jump to mode "add"
-    for _ in range(1):
+    for _ in range(3):
         typeTab()
     # select it
     typeSpace()
@@ -1775,7 +1779,7 @@ def modificationModeRemove():
     # focus current frame
     focusOnFrame()
     # jump to mode "remove"
-    for _ in range(2):
+    for _ in range(4):
         typeTab()
     # select it
     typeSpace()
@@ -1788,7 +1792,7 @@ def modificationModeKeep():
     # focus current frame
     focusOnFrame()
     # jump to mode "keep"
-    for _ in range(3):
+    for _ in range(5):
         typeTab()
     # select it
     typeSpace()
@@ -1801,7 +1805,7 @@ def modificationModeReplace():
     # focus current frame
     focusOnFrame()
     # jump to mode "replace"
-    for _ in range(4):
+    for _ in range(6):
         typeTab()
     # select it
     typeSpace()
@@ -1829,7 +1833,7 @@ def selectionApply():
     """
     # focus current frame
     focusOnFrame()
-    for _ in range(12):
+    for _ in range(16):
         typeTab()
     # type space to select clear option
     typeSpace()
