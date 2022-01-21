@@ -671,10 +671,11 @@ NEMALogic::validate_timing(){
             WRITE_WARNINGF("At NEMA tlLogic '%', the phases before barrier 1 from both rings do not add up.", getID());
         }
     }
-    double ring1barrier2_length = forceOffs[r1barrier - 1] + yellowTime[r1barrier - 1] + redTime[r1barrier - 1];
+    double ring1barrier2_length = forceOffs[r2coordinatePhase - 1] + yellowTime[r2coordinatePhase - 1] + redTime[r2coordinatePhase - 1];
     double ring2barrier2_length = forceOffs[r1coordinatePhase - 1] + yellowTime[r1coordinatePhase - 1] + redTime[r1coordinatePhase - 1];
     if (ring1barrier2_length != ring2barrier2_length){
         if (coordinateMode) {
+            std::cout<<"ring1barrier2_length: "<<ring1barrier2_length<<"; ring2barrier2_length: "<<ring2barrier2_length<<std::endl;
             throw  ProcessError("At NEMA tlLogic '" + getID() + "', the phases before barrier 2 from both rings do not add up.");
         }
         else {
