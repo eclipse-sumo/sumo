@@ -46,7 +46,7 @@
 
 #define INVALID_POSITION std::numeric_limits<double>::max() // tl added
 
-#define DEBUG_NEMA
+// #define DEBUG_NEMA
 
 // ===========================================================================
 // method definitions
@@ -912,24 +912,24 @@ NEMALogic::NEMA_control() {
     if (durationR2 >= phaseExpectedDuration[R2Index]) {
         EndCurrentPhaseR2 = true;
     }
+    // Green rest can always transition, even if it is at the barrier 
     if (EndCurrentPhaseR1 && (R1Phase == r1barrier)) {
-        // Don't think about transitioning myself until partner has finished a transition. 
-        if (!EndCurrentPhaseR2 || R2RYG < GREEN) {
+        if ((!EndCurrentPhaseR2  || R2RYG < GREEN) && R1RYG != GREENREST) {
             EndCurrentPhaseR1 = false;
         }
     }
     if (EndCurrentPhaseR1 && (R1Phase == r1coordinatePhase)) {
-        if (!EndCurrentPhaseR2 || R2RYG < GREEN) {
+        if ((!EndCurrentPhaseR2 || R2RYG < GREEN) && R1RYG != GREENREST) {
             EndCurrentPhaseR1 = false;
         }
     }
     if (EndCurrentPhaseR2 && (R2Phase == r2barrier)) {
-        if (!EndCurrentPhaseR1 || R1RYG < GREEN) {
+        if ((!EndCurrentPhaseR1 || R1RYG < GREEN) && R2RYG != GREENREST) {
             EndCurrentPhaseR2 = false;
         }
     }
     if (EndCurrentPhaseR2 && (R2Phase == r2coordinatePhase)) {
-        if (!EndCurrentPhaseR1 || R1RYG < GREEN) {
+        if ((!EndCurrentPhaseR1 || R1RYG < GREEN) && R2RYG != GREENREST) {
             EndCurrentPhaseR2 = false;
         }
     }
@@ -985,12 +985,12 @@ NEMALogic::NEMA_control() {
                 EndCurrentPhaseR1 = false;
                 wait4R1Green = false;
                 phaseEndTimeR1 += TS;
-                R1RYG = GREENTRANSFER;
-                if (R1Phase == r1barrier || R1Phase == r1coordinatePhase){
+                if (R1Phase == r1barrier || R1Phase == r1coordinatePhase && R1RYG != GREENREST){
                     // If the "green transfer" is at the barrier, it can't actually move until the other phase is done
-                    phaseEndTimeR1 = phaseEndTimeR2;
-                    phaseExpectedDuration[R1Index] = phaseExpectedDuration[R2Index];
+                    phaseEndTimeR1 = currentTimeInSecond + phaseExpectedDuration[tempR2Phase - 1];
+                    phaseExpectedDuration[R1Index] = phaseExpectedDuration[tempR2Phase - 1];                
                 }
+                R1RYG = R1RYG == GREENREST? GREENREST : GREENTRANSFER;
             } 
         } else if (tempR2Phase == R2Phase && EndCurrentPhaseR2 && greenTransfer){ 
             if (!EndCurrentPhaseR1 || (tempR1Phase != R1Phase)){
@@ -998,12 +998,12 @@ NEMALogic::NEMA_control() {
                 EndCurrentPhaseR2 = false;
                 wait4R2Green = false;
                 phaseEndTimeR2 += TS;
-                R2RYG = GREENTRANSFER;
-                if (R1Phase == r1barrier || R1Phase == r1coordinatePhase){
+                if (R1Phase == r1barrier || R1Phase == r1coordinatePhase && R2RYG != GREENREST){
                     // If the "green transfer" is at the barrier, it can't actually move until the other phase is done
-                    phaseEndTimeR2 = phaseEndTimeR1;
-                    phaseExpectedDuration[R2Index] = phaseExpectedDuration[R1Index];
+                    phaseEndTimeR2 = currentTimeInSecond + phaseExpectedDuration[tempR1Phase - 1];
+                    phaseExpectedDuration[R2Index] = phaseExpectedDuration[tempR1Phase - 1];
                 }
+                R2RYG = R2RYG == GREENREST? GREENREST : GREENTRANSFER;
             }
         } 
     }

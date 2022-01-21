@@ -22,7 +22,8 @@
    <route id="ES" edges="2si 3o"/>
 
    <flow id="WN" route="WN" begin="80" probability="1" end="90"/>
+   <flow id="ES" route="ES" begin="93" probability="1" end="100"/>
    <flow id="EW" route="EW" begin="100" probability="0.5" end="200"/>
    <flow id="NS" route="NS" begin="120" probability="0.1" end="200"/>
-   
+   <flow id="WN_1" route="WN" begin="130" probability="1" end="140"/>
 </routes>
