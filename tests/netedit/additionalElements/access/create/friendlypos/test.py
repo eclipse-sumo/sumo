@@ -47,7 +47,7 @@ netedit.changeElement("access")
 netedit.changeDefaultBoolValue(3)
 
 # Create access
-netedit.selectAdditionalChild(5, 0)
+netedit.selectAdditionalChild(9, 0)
 netedit.leftClick(referencePosition, 50, 200)
 
 # Check undo redo

@@ -1,17 +1,11 @@
 Debug: Inserting generic parameter 'KeyA1|valueA1' into access
-Debug: Inserting generic parameter 'KeyA1|valueA1' into 
 Debug: Inserting generic parameter 'KeyA3|valueA2' into access
-Debug: Inserting generic parameter 'KeyA3|valueA2' into 
 Debug: Inserting generic parameter 'KeyA2|valueA3' into access
-Debug: Inserting generic parameter 'KeyA2|valueA3' into 
 Debug: Adding busStop 'busStopA' in GNEChange_Additional
 Debug: Adding access 'busStopA' in GNEChange_Additional
 Debug: Inserting generic parameter 'KeyB1|valueB1' into access
-Debug: Inserting generic parameter 'KeyB1|valueB1' into 
 Debug: Inserting generic parameter 'KeyB3|valueB2' into access
-Debug: Inserting generic parameter 'KeyB3|valueB2' into 
 Debug: Inserting generic parameter 'KeyB2|valueB3' into access
-Debug: Inserting generic parameter 'KeyB2|valueB3' into 
 Debug: Adding busStop 'busStopB' in GNEChange_Additional
 Debug: Adding access 'busStopB' in GNEChange_Additional
 Debug: Current Viewport values: 20.00, 0.00, 17.00. Zoom = '435.29'

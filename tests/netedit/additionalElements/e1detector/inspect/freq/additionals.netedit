@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 19.02.2021 09:51:47 by Eclipse SUMO netedit Version v1_8_0+1277-97d89271e5
+<!-- generated on 2022-01-21 12:05:48 by Eclipse SUMO netedit Version v1_11_0+1361-2e2855ec72d
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Feb094659.25500\netedit.gui\additionalElements\e1detector\inspect\freq\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan120011.13544\netedit.gui\additionalElements\e1detector\inspect\freq\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Feb094659.25500\netedit.gui\additionalElements\e1detector\inspect\freq\net.net.xml"/>
+        <output-file value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan120011.13544\netedit.gui\additionalElements\e1detector\inspect\freq\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,32 +30,32 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Feb094659.25500\netedit.gui\additionalElements\e1detector\inspect\freq\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Feb094659.25500\netedit.gui\additionalElements\e1detector\inspect\freq\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Feb094659.25500\netedit.gui\additionalElements\e1detector\inspect\freq\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Feb094659.25500\netedit.gui\additionalElements\e1detector\inspect\freq\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Feb094659.25500\netedit.gui\additionalElements\e1detector\inspect\freq\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Feb094659.25500\netedit.gui\additionalElements\e1detector\inspect\freq\datas.xml"/>
+        <additional-files value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan120011.13544\netedit.gui\additionalElements\e1detector\inspect\freq\additionals.xml"/>
+        <additionals-output value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan120011.13544\netedit.gui\additionalElements\e1detector\inspect\freq\additionals.xml"/>
+        <route-files value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan120011.13544\netedit.gui\additionalElements\e1detector\inspect\freq\routes.xml"/>
+        <demandelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan120011.13544\netedit.gui\additionalElements\e1detector\inspect\freq\routes.xml"/>
+        <data-files value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan120011.13544\netedit.gui\additionalElements\e1detector\inspect\freq\datas.xml"/>
+        <dataelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan120011.13544\netedit.gui\additionalElements\e1detector\inspect\freq\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Feb094659.25500\netedit.gui\additionalElements\e1detector\inspect\freq\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan120011.13544\netedit.gui\additionalElements\e1detector\inspect\freq\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Feb094659.25500\netedit.gui\additionalElements\e1detector\inspect\freq\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan120011.13544\netedit.gui\additionalElements\e1detector\inspect\freq\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Feb094659.25500\netedit.gui\additionalElements\e1detector\inspect\freq\log.txt"/>
+        <error-log value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan120011.13544\netedit.gui\additionalElements\e1detector\inspect\freq\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <e1Detector id="e1Detector_gneE1_0_0" lane="gneE1_0" pos="33.00" freq="120" file="e1Detector_gneE1_0_0.xml"/>
+    <e1Detector id="e1_0" lane="gneE1_0" pos="33.00" freq="120.00" file="e1_0.xml"/>
 </additional>

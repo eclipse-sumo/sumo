@@ -44,12 +44,8 @@ netedit.leftClick(referencePosition, 375, 250)
 netedit.changeElement("access")
 
 # Create Access
-netedit.selectAdditionalChild(5, 0)
+netedit.selectAdditionalChild(9, 0)
 netedit.leftClick(referencePosition, 200, 110)
-
-# Create second Access
-netedit.selectAdditionalChild(5, 0)
-netedit.leftClick(referencePosition, 200, 280)
 
 # go to inspect mode
 netedit.inspectMode()

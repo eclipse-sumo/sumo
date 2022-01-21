@@ -1,24 +1,24 @@
 Debug: Current Viewport values: 25.00, 20.00, 25.00. Zoom = '296.00'
 Debug: Selected item 'busStop' in TagSelector
-Debug: Adding busStop 'busStop_gneE2_1_0' in GNEChange_Additional
+Debug: Adding busStop 'bs_0' in GNEChange_Additional
 Debug: Selected item 'access' in TagSelector
-Debug: Adding access 'busStop_gneE2_1_0' in GNEChange_Additional
+Debug: Adding access 'bs_0' in GNEChange_Additional
 Debug: Setting new attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing access 'busStop_gneE2_1_0' in GNEChange_Additional
+Debug: Removing access 'bs_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing busStop 'busStop_gneE2_1_0' in GNEChange_Additional
+Debug: Removing busStop 'bs_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding busStop 'busStop_gneE2_1_0' in GNEChange_Additional
+Debug: Adding busStop 'bs_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding access 'busStop_gneE2_1_0' in GNEChange_Additional
+Debug: Adding access 'bs_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
@@ -31,8 +31,8 @@ Debug: Created crossing ':gneJ0_c1' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
 Debug: Additionals saved
-Debug: Deleting unreferenced access 'busStop_gneE2_1_0'
-Debug: Deleting unreferenced busStop 'busStop_gneE2_1_0'
+Debug: Deleting unreferenced access 'bs_0'
+Debug: Deleting unreferenced busStop 'bs_0'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

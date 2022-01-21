@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 19.10.2020 13:19:28 by Eclipse SUMO netedit Version v1_7_0+0644-c2b60a409c
+<!-- generated on 2022-01-21 13:30:14 by Eclipse SUMO netedit Version v1_11_0+1361-2e2855ec72d
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Oct130404.10580\netedit.gui\additionalElements\e3detector\inspect\freq\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan120011.13544\netedit.gui\additionalElements\e3detector\inspect\freq\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Oct130404.10580\netedit.gui\additionalElements\e3detector\inspect\freq\net.net.xml"/>
+        <output-file value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan120011.13544\netedit.gui\additionalElements\e3detector\inspect\freq\net.net.xml"/>
     </output>
 
     <processing>
@@ -19,6 +19,7 @@
     </processing>
 
     <junctions>
+        <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
         <junctions.limit-turn-speed value="5.5"/>
@@ -30,34 +31,34 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Oct130404.10580\netedit.gui\additionalElements\e3detector\inspect\freq\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Oct130404.10580\netedit.gui\additionalElements\e3detector\inspect\freq\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Oct130404.10580\netedit.gui\additionalElements\e3detector\inspect\freq\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Oct130404.10580\netedit.gui\additionalElements\e3detector\inspect\freq\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Oct130404.10580\netedit.gui\additionalElements\e3detector\inspect\freq\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Oct130404.10580\netedit.gui\additionalElements\e3detector\inspect\freq\datas.xml"/>
+        <additional-files value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan120011.13544\netedit.gui\additionalElements\e3detector\inspect\freq\additionals.xml"/>
+        <additionals-output value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan120011.13544\netedit.gui\additionalElements\e3detector\inspect\freq\additionals.xml"/>
+        <route-files value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan120011.13544\netedit.gui\additionalElements\e3detector\inspect\freq\routes.xml"/>
+        <demandelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan120011.13544\netedit.gui\additionalElements\e3detector\inspect\freq\routes.xml"/>
+        <data-files value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan120011.13544\netedit.gui\additionalElements\e3detector\inspect\freq\datas.xml"/>
+        <dataelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan120011.13544\netedit.gui\additionalElements\e3detector\inspect\freq\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Oct130404.10580\netedit.gui\additionalElements\e3detector\inspect\freq\gui-settings.xml"/>
-        <window-size value="700,500"/>
+        <gui-settings-file value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan120011.13544\netedit.gui\additionalElements\e3detector\inspect\freq\gui-settings.xml"/>
+        <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Oct130404.10580\netedit.gui\additionalElements\e3detector\inspect\freq\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan120011.13544\netedit.gui\additionalElements\e3detector\inspect\freq\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Oct130404.10580\netedit.gui\additionalElements\e3detector\inspect\freq\log.txt"/>
+        <error-log value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan120011.13544\netedit.gui\additionalElements\e3detector\inspect\freq\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <e3Detector id="e3Detector_0" pos="22.00,29.00" freq="120.00" file="e3Detector_0.xml">
+    <e3Detector id="e3_0" pos="22.00,29.00" freq="120.00" file="e3_0.xml">
         <detEntry lane="gneE3_0" pos="28.00"/>
         <detExit lane="gneE2_1" pos="22.00"/>
     </e3Detector>
