@@ -352,4 +352,8 @@ protected:
 
     // Green Transfer Option
     bool greenTransfer;
+
+    // handle error
+    void error_handle_not_set(std::string param_variable, std::string param_name);
+    void validate_timing();
 };

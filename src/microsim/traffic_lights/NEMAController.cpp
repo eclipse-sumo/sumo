@@ -107,6 +107,13 @@ NEMALogic::NEMALogic(MSTLLogicControl& tlcontrol,
     whetherOutputState = StringUtils::toBool(getParameter("whetherOutputState", "false"));
     coordinateMode = StringUtils::toBool(getParameter("coordinate-mode", "false"));
     greenTransfer = StringUtils::toBool(getParameter("greenTransfer", "true"));
+    
+    //missing parameter error
+    error_handle_not_set(ring1,"ring1");
+    error_handle_not_set(ring2,"ring2");
+    error_handle_not_set(barriers,"barrierPhases");
+    error_handle_not_set(coordinates,"barrier2Phases or coordinatePhases");
+
     //print to check
 #ifdef DEBUG_NEMA
     std::cout << "JunctionID = " << myID << std::endl;
@@ -629,11 +636,56 @@ NEMALogic::init(NLDetectorBuilder& nb) {
     myPhase.setState(combineStates(state1, state2));
     myPhase.setName(toString(activeRing1Phase) + "+" + toString(activeRing2Phase));
 
+
+    //validating timing
+    validate_timing();
 #ifdef DEBUG_NEMA
     //std::cout << "reach the end of init()\n";
 #endif
 }
 
+void
+NEMALogic::validate_timing(){
+    //check cycle length
+    for (int ringIndex = 0; ringIndex <= 1; ringIndex++){
+        int lastPhasePositionIndex = (int)rings[ringIndex].size()-1;
+        int lastPhase = rings[ringIndex][lastPhasePositionIndex];
+        if(lastPhase == 0){//should be enough
+            lastPhase = rings[ringIndex][lastPhasePositionIndex - 1];
+        }
+        int lastPhaseIndex = lastPhase - 1;
+        double cycleLengthCalculated = forceOffs[lastPhaseIndex] + yellowTime[lastPhaseIndex] + redTime[lastPhaseIndex];
+        if (coordinateMode && cycleLengthCalculated != myCycleLength){
+            int ringNumber = ringIndex + 1;
+            throw  ProcessError("At NEMA tlLogic '" + getID() +"', Ring " + toString(ringNumber) + " does not add to cycle length.");
+        }
+    }
+    // check barriers
+    double ring1barrier1_length = forceOffs[r1barrier - 1] + yellowTime[r1barrier - 1] + redTime[r1barrier - 1];
+    double ring2barrier1_length = forceOffs[r2barrier - 1] + yellowTime[r2barrier - 1] + redTime[r2barrier - 1];
+    if (ring1barrier1_length != ring2barrier1_length){
+        if (coordinateMode) {
+            throw  ProcessError("At NEMA tlLogic '" + getID() + "', the phases before barrier 1 from both rings do not add up.");
+        }
+        else {
+            WRITE_WARNINGF("At NEMA tlLogic '%', the phases before barrier 1 from both rings do not add up.", getID());
+        }
+    }
+    double ring1barrier2_length = forceOffs[r1barrier - 1] + yellowTime[r1barrier - 1] + redTime[r1barrier - 1];
+    double ring2barrier2_length = forceOffs[r1coordinatePhase - 1] + yellowTime[r1coordinatePhase - 1] + redTime[r1coordinatePhase - 1];
+    if (ring1barrier2_length != ring2barrier2_length){
+        if (coordinateMode) {
+            throw  ProcessError("At NEMA tlLogic '" + getID() + "', the phases before barrier 2 from both rings do not add up.");
+        }
+        else {
+            WRITE_WARNINGF("At NEMA tlLogic '%', the phases before barrier 2 from both rings do not add up.", getID());
+        }
+    }
+    // no offset for non coordinated
+    if (!coordinateMode && offset !=0){
+        WRITE_WARNINGF("NEMA tlLogic '%' is not coordinated but an offset was set.", getID());
+    }
+}
 
 void 
 NEMALogic::setNewSplits(std::vector<double> newSplits) {
@@ -696,7 +748,7 @@ std::vector<std::string> NEMALogic::string2vector(std::string s) {
 std::string NEMALogic::combineStates(std::string state1, std::string state2) {
     std::string output = "";
     if (state1.size() != state2.size()) {
-        throw ProcessError("Different sizes of NEMA phase states. Please check the NEMA XML");
+        throw ProcessError("At NEMA tlLogic '" + getID() +"', different sizes of NEMA phase states. Please check the NEMA XML");
     }
     for (int i = 0; i < (int)state1.size(); i++) {
         char ch1 = state1[i];
@@ -1300,4 +1352,11 @@ NEMALogic::setParameter(const std::string& key, const std::string& value) {
         }
     }
     Parameterised::setParameter(key, value);
+}
+
+void
+NEMALogic::error_handle_not_set(std::string param_variable, std::string param_name){
+    if (param_variable==""){
+        throw InvalidArgument("Please set " + param_name + " for NEMA tlLogic '" + getID() + "'");
+    }
 }
