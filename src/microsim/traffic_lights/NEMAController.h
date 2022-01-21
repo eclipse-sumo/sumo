@@ -177,6 +177,15 @@ protected:
 
     typedef std::vector<std::vector<DetectorInfo*>> detectorMap;
 
+    // Light Head State
+    enum lightState {
+        YELLOW = 0,
+        RED = 1,
+        GREEN = 2,
+        GREENTRANSFER = 3,
+        GREENREST = 4,
+    };
+    
     /// @brief return whether there is a major link from the given lane in the given phase
     bool hasMajor(const std::string& state, const LaneVector& lanes) const;
     /// @}
@@ -322,7 +331,7 @@ protected:
 
     double phaseEndTimeR1, phaseEndTimeR2;
     bool wait4R1Green, wait4R2Green;
-    int R1RYG, R2RYG;
+    lightState R1RYG, R2RYG;
     double cycleRefPoint;// missing update
     //activeR1phase
     int R1State, R2State;
