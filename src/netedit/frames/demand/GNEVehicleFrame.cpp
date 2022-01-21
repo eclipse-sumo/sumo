@@ -150,6 +150,10 @@ GNEVehicleFrame::hide() {
 
 bool
 GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed) {
+    // check template AC
+    if (myVehicleTagSelector->getCurrentTemplateAC() == nullptr) {
+        return false;
+    }
     // begin cleaning vehicle base object
     myVehicleBaseObject->clear();
     // obtain tag (only for improve code legibility)
