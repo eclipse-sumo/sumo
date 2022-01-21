@@ -36,7 +36,7 @@ netedit.forceSaveAdditionals()
 
 # try to select node gneJ0 and delete it (Error in element set)
 netedit.focusOnFrame()
-for x in range(0, 14):
+for x in range(0, 8):
     netedit.typeTab()
 
 # paste the new elementClass
@@ -47,14 +47,14 @@ netedit.typeEnter()
 
 # try to select node gneJ0 and delete it (Error in element type)
 netedit.focusOnFrame()
-for x in range(0, 14):
+for x in range(0, 8):
     netedit.typeTab()
 
 # paste the new elementClass
-netedit.pasteIntoTextField("network element")
+netedit.pasteIntoTextField("Network")
 
 # jump to element
-for x in range(0, 2):
+for x in range(0, 3):
     netedit.typeTab()
 
 # paste the new elementType
@@ -65,14 +65,14 @@ netedit.typeEnter()
 
 # try to select node gneJ0 and delete it (Error in set)
 netedit.focusOnFrame()
-for x in range(0, 14):
+for x in range(0, 8):
     netedit.typeTab()
 
 # paste the new elementClass
-netedit.pasteIntoTextField("network element")
+netedit.pasteIntoTextField("Network")
 
 # jump to element
-for x in range(0, 2):
+for x in range(0, 3):
     netedit.typeTab()
 
 # paste the new elementType
@@ -89,7 +89,7 @@ netedit.pasteIntoTextField("dummyAttribute")
 netedit.typeEnter()
 
 # try to select node gneJ0 and delete it (Error in type of element)
-netedit.selectItems("network element", "junction", "id", "gneJ0")
+netedit.selectItems("Network", "junction", "id", "gneJ0")
 netedit.deleteSelectedItems()
 
 # save network

@@ -35,7 +35,7 @@ netedit.selectMode()
 netedit.forceSaveAdditionals()
 
 # select all edges that allow passengers
-netedit.selectItems("network element", "edge", "allow", "passenger")
+netedit.selectItems("Network", "edge", "allow", "passenger")
 
 # save selection
 netedit.saveSelection()
