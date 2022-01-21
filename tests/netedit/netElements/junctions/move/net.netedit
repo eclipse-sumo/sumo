@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 19.08.2020 10:27:19 by Eclipse SUMO netedit Version v1_6_0+1660-ed095fdb90
+<!-- generated on 2022-01-21 15:21:03 by Eclipse SUMO netedit Version v1_11_0+1361-2e2855ec72d
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Aug102610.2940\netedit.gui\netElements\junctions\move\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\move\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Aug102610.2940\netedit.gui\netElements\junctions\move\net.net.xml"/>
+        <output-file value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\move\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,27 +30,27 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Aug102610.2940\netedit.gui\netElements\junctions\move\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Aug102610.2940\netedit.gui\netElements\junctions\move\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Aug102610.2940\netedit.gui\netElements\junctions\move\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Aug102610.2940\netedit.gui\netElements\junctions\move\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Aug102610.2940\netedit.gui\netElements\junctions\move\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Aug102610.2940\netedit.gui\netElements\junctions\move\datas.xml"/>
+        <additional-files value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\move\additionals.xml"/>
+        <additionals-output value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\move\additionals.xml"/>
+        <route-files value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\move\routes.xml"/>
+        <demandelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\move\routes.xml"/>
+        <data-files value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\move\datas.xml"/>
+        <dataelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\move\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Aug102610.2940\netedit.gui\netElements\junctions\move\gui-settings.xml"/>
-        <window-size value="700,500"/>
+        <gui-settings-file value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\move\gui-settings.xml"/>
+        <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Aug102610.2940\netedit.gui\netElements\junctions\move\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\move\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Aug102610.2940\netedit.gui\netElements\junctions\move\log.txt"/>
+        <error-log value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\move\log.txt"/>
     </report>
 
 </configuration>
@@ -64,10 +64,10 @@
         <lane id=":gneJ11_0_0" index="0" speed="13.89" length="19.54" shape="74.97,41.60 55.43,41.60"/>
     </edge>
     <edge id=":gneJ11_1" function="internal">
-        <lane id=":gneJ11_1_0" index="0" speed="13.89" length="6.11" shape="74.97,41.60 70.64,40.69 69.10,40.00"/>
+        <lane id=":gneJ11_1_0" index="0" speed="13.89" length="3.48" shape="74.97,41.60 71.56,40.88"/>
     </edge>
     <edge id=":gneJ11_6" function="internal">
-        <lane id=":gneJ11_6_0" index="0" speed="13.89" length="13.89" shape="69.10,40.00 65.66,38.47 60.85,35.72 56.99,33.25"/>
+        <lane id=":gneJ11_6_0" index="0" speed="13.89" length="16.51" shape="71.56,40.88 70.64,40.69 65.66,38.47 60.85,35.72 56.99,33.25"/>
     </edge>
     <edge id=":gneJ11_2" function="internal">
         <lane id=":gneJ11_2_0" index="0" speed="13.89" length="18.18" shape="58.77,30.59 62.35,32.98 66.55,35.53 70.91,37.57 74.97,38.40"/>
@@ -97,10 +97,10 @@
         <lane id=":gneJ13_2_0" index="0" speed="13.89" length="14.60" shape="91.60,11.90 91.60,26.50"/>
     </edge>
     <edge id=":gneJ13_3" function="internal">
-        <lane id=":gneJ13_3_0" index="0" speed="7.63" length="6.08" shape="91.60,11.90 90.98,16.19,0.04 90.00,17.63,0.05"/>
+        <lane id=":gneJ13_3_0" index="0" speed="7.63" length="4.33" shape="91.60,11.90 90.98,16.19,0.04"/>
     </edge>
     <edge id=":gneJ13_6" function="internal">
-        <lane id=":gneJ13_6_0" index="0" speed="7.63" length="9.14" shape="90.00,17.63,0.05 89.14,18.90,0.07 86.06,20.03,0.10 81.76,19.59,0.14"/>
+        <lane id=":gneJ13_6_0" index="0" speed="7.63" length="10.89" shape="90.98,16.19,0.04 89.14,18.90,0.07 86.06,20.03,0.10 81.76,19.59,0.14"/>
     </edge>
     <edge id=":gneJ13_4" function="internal">
         <lane id=":gneJ13_4_0" index="0" speed="6.04" length="9.07" shape="82.53,16.48 85.10,16.75 86.93,16.07 88.03,14.46 88.40,11.90"/>
@@ -151,10 +151,10 @@
         <lane id=":gneJ17_2_0" index="0" speed="13.89" length="15.16" shape="51.60,10.82 51.60,25.98"/>
     </edge>
     <edge id=":gneJ17_3" function="internal">
-        <lane id=":gneJ17_3_0" index="0" speed="7.44" length="6.46" shape="51.60,10.82 50.94,15.64 50.00,16.93"/>
+        <lane id=":gneJ17_3_0" index="0" speed="7.44" length="4.86" shape="51.60,10.82 50.94,15.64"/>
     </edge>
     <edge id=":gneJ17_6" function="internal">
-        <lane id=":gneJ17_6_0" index="0" speed="7.44" length="9.94" shape="50.00,16.93 48.97,18.33 45.68,18.89 41.08,17.33"/>
+        <lane id=":gneJ17_6_0" index="0" speed="7.44" length="11.54" shape="50.94,15.64 48.97,18.33 45.68,18.89 41.08,17.33"/>
     </edge>
     <edge id=":gneJ17_4" function="internal">
         <lane id=":gneJ17_4_0" index="0" speed="5.74" length="9.18" shape="42.51,14.46 45.09,15.34 46.93,15.03 48.03,13.52 48.40,10.82"/>
@@ -172,16 +172,16 @@
         <lane id=":gneJ19_0_0" index="0" speed="8.64" length="29.25" shape="36.90,19.85,1.40 31.46,13.68,1.40 30.17,6.62,1.40 33.02,0.81,1.40 39.99,-1.60,1.40"/>
     </edge>
     <edge id=":gneJ19_1" function="internal">
-        <lane id=":gneJ19_1_0" index="0" speed="6.92" length="5.36" shape="36.90,19.85,1.40 33.85,15.60,1.40 33.86,15.47,1.40"/>
+        <lane id=":gneJ19_1_0" index="0" speed="6.92" length="2.52" shape="36.90,19.85,1.40 35.43,17.81,1.40"/>
     </edge>
     <edge id=":gneJ19_2" function="internal">
-        <lane id=":gneJ19_2_0" index="0" speed="5.00" length="3.40" shape="36.90,19.85,1.40 35.49,17.63,1.40 35.64,16.87,1.40"/>
+        <lane id=":gneJ19_2_0" index="0" speed="5.00" length="2.15" shape="36.90,19.85,1.40 35.75,18.04,1.40"/>
     </edge>
     <edge id=":gneJ19_12" function="internal">
-        <lane id=":gneJ19_12_0" index="0" speed="6.92" length="14.71" shape="33.86,15.47,1.40 34.27,10.76,1.40 37.42,7.12,1.40 42.55,6.49,1.40"/>
+        <lane id=":gneJ19_12_0" index="0" speed="6.92" length="17.55" shape="35.43,17.81,1.40 33.85,15.60,1.40 34.27,10.76,1.40 37.42,7.12,1.40 42.55,6.49,1.40"/>
     </edge>
     <edge id=":gneJ19_13" function="internal">
-        <lane id=":gneJ19_13_0" index="0" speed="5.00" length="6.91" shape="35.64,16.87,1.40 35.98,15.08,1.40 37.78,13.30,1.40 40.33,13.38,1.40"/>
+        <lane id=":gneJ19_13_0" index="0" speed="5.00" length="8.16" shape="35.75,18.04,1.40 35.49,17.63,1.40 35.98,15.08,1.40 37.78,13.30,1.40 40.33,13.38,1.40"/>
     </edge>
     <edge id=":gneJ19_3" function="internal">
         <lane id=":gneJ19_3_0" index="0" speed="7.74" length="24.37" shape="38.83,16.20,1.40 33.88,11.55,1.40 32.37,5.64,1.40 34.38,0.56,1.40 39.99,-1.60,1.40"/>
@@ -452,12 +452,12 @@
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
 
-    <junction id=":gneJ11_6_0" type="internal" x="69.10" y="40.00" incLanes=":gneJ11_1_0 gneE15_0" intLanes=":gneJ11_3_0 :gneJ11_4_0 :gneJ11_5_0"/>
-    <junction id=":gneJ13_6_0" type="internal" x="90.00" y="17.63" z="0.05" incLanes=":gneJ13_3_0 gneE9_0" intLanes=":gneJ13_0_0 :gneJ13_1_0 :gneJ13_5_0"/>
+    <junction id=":gneJ11_6_0" type="internal" x="71.56" y="40.88" incLanes=":gneJ11_1_0 gneE15_0" intLanes=":gneJ11_3_0 :gneJ11_4_0 :gneJ11_5_0"/>
+    <junction id=":gneJ13_6_0" type="internal" x="90.98" y="16.19" z="0.04" incLanes=":gneJ13_3_0 gneE9_0" intLanes=":gneJ13_0_0 :gneJ13_1_0 :gneJ13_5_0"/>
     <junction id=":gneJ15_6_0" type="internal" x="68.50" y="-0.00" z="0.02" incLanes=":gneJ15_3_0 gneE11_0" intLanes=":gneJ15_1_0 :gneJ15_4_0 :gneJ15_5_0"/>
-    <junction id=":gneJ17_6_0" type="internal" x="50.00" y="16.93" incLanes=":gneJ17_3_0 -gneE14_0" intLanes=":gneJ17_0_0 :gneJ17_1_0 :gneJ17_5_0"/>
-    <junction id=":gneJ19_12_0" type="internal" x="33.86" y="15.47" z="1.40" incLanes=":gneJ19_1_0 -gneE18_0" intLanes=":gneJ19_3_0 :gneJ19_4_0 :gneJ19_8_0 :gneJ19_9_0 :gneJ19_10_0 :gneJ19_11_0"/>
-    <junction id=":gneJ19_13_0" type="internal" x="35.64" y="16.87" z="1.40" incLanes=":gneJ19_2_0 -gneE18_0" intLanes=":gneJ19_3_0 :gneJ19_4_0 :gneJ19_6_0 :gneJ19_7_0 :gneJ19_10_0 :gneJ19_11_0"/>
+    <junction id=":gneJ17_6_0" type="internal" x="50.94" y="15.64" incLanes=":gneJ17_3_0 -gneE14_0" intLanes=":gneJ17_0_0 :gneJ17_1_0 :gneJ17_5_0"/>
+    <junction id=":gneJ19_12_0" type="internal" x="35.43" y="17.81" z="1.40" incLanes=":gneJ19_1_0 -gneE18_0" intLanes=":gneJ19_3_0 :gneJ19_4_0 :gneJ19_8_0 :gneJ19_9_0 :gneJ19_10_0 :gneJ19_11_0"/>
+    <junction id=":gneJ19_13_0" type="internal" x="35.75" y="18.04" z="1.40" incLanes=":gneJ19_2_0 -gneE18_0" intLanes=":gneJ19_3_0 :gneJ19_4_0 :gneJ19_6_0 :gneJ19_7_0 :gneJ19_10_0 :gneJ19_11_0"/>
 
     <connection from="-gneE10" to="-gneE9" fromLane="0" toLane="0" via=":gneJ13_2_0" dir="s" state="M"/>
     <connection from="-gneE10" to="-gneE17" fromLane="0" toLane="0" via=":gneJ13_3_0" dir="l" state="m"/>
