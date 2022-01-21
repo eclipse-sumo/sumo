@@ -960,17 +960,17 @@ NBEdge::reduceGeometry(const double minDist) {
     // (very important for bidiRail)
     if (myFrom->getID() < myTo->getID()) {
         PositionVector reverse = myGeom.reverse();
-        reverse.removeDoublePoints(minDist, true);
+        reverse.removeDoublePoints(minDist, true, 0, 0, true);
         myGeom = reverse.reverse();
         for (Lane& lane : myLanes) {
             reverse = lane.customShape.reverse();
-            reverse.removeDoublePoints(minDist, true);
+            reverse.removeDoublePoints(minDist, true, 0, 0, true);
             lane.customShape = reverse.reverse();
         }
     } else {
-        myGeom.removeDoublePoints(minDist, true);
+        myGeom.removeDoublePoints(minDist, true, 0, 0, true);
         for (Lane& lane : myLanes) {
-            lane.customShape.removeDoublePoints(minDist, true);
+            lane.customShape.removeDoublePoints(minDist, true, 0, 0, true);
         }
     }
 }

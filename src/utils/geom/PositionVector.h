@@ -379,7 +379,7 @@ public:
      * @param[in] minDist The minimum accepted distance; default: POSITION_EPS
      * @param[in] assertLength Whether the result must at least contain two points (be a line); default: false, to ensure original behaviour
      */
-    void removeDoublePoints(double minDist = POSITION_EPS, bool assertLength = false, int beginOffset = 0, int endOffset = 0);
+    void removeDoublePoints(double minDist = POSITION_EPS, bool assertLength = false, int beginOffset = 0, int endOffset = 0, bool resample = false);
 
     /// @brief return whether two positions differ in z-coordinate
     bool hasElevation() const;

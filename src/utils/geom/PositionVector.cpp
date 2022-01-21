@@ -1352,7 +1352,7 @@ PositionVector::isNAN() const {
 
 
 void
-PositionVector::removeDoublePoints(double minDist, bool assertLength, int beginOffset, int endOffset) {
+PositionVector::removeDoublePoints(double minDist, bool assertLength, int beginOffset, int endOffset, bool resample) {
     int curSize = (int)size() - beginOffset - endOffset;
     if (curSize > 1) {
         iterator last = begin() + beginOffset;
@@ -1360,10 +1360,30 @@ PositionVector::removeDoublePoints(double minDist, bool assertLength, int beginO
             if (last->almostSame(*i, minDist)) {
                 if (i + 1 == end() - endOffset) {
                     // special case: keep the last point and remove the next-to-last
-                    erase(last);
-                    i = end() - endOffset;
+                    if (resample && last > begin() && (last - 1)->distanceTo(*i) >= 2 * minDist) {
+                        // resample rather than remove point after a long segment
+                        const double shiftBack = minDist - last->distanceTo(*i);
+                        //if (gDebugFlag1) std::cout << " resample endOffset beforeLast=" << *(last - 1) << " last=" << *last << " i=" << *i;
+                        (*last) = positionAtOffset(*(last - 1), *last, (last - 1)->distanceTo(*last) - shiftBack);
+                        //if (gDebugFlag1) std::cout << " lastNew=" << *last;
+                        last = i;
+                        ++i;
+                    } else {
+                        erase(last);
+                        i = end() - endOffset;
+                    }
                 } else {
-                    i = erase(i);
+                    if (resample && i + 1 != end() && last->distanceTo(*(i + 1)) >= 2 * minDist) {
+                        // resample rather than remove points before a long segment
+                        const double shiftForward = minDist - last->distanceTo(*i);
+                        //if (gDebugFlag1) std::cout << " resample last=" << *last << " i=" << *i << " next=" << *(i + 1);
+                        (*i) = positionAtOffset(*i, *(i + 1), shiftForward);
+                        //if (gDebugFlag1) std::cout << " iNew=" << *i << "\n";
+                        last = i;
+                        ++i;
+                    } else {
+                        i = erase(i);
+                    }
                 }
                 curSize--;
             } else {
