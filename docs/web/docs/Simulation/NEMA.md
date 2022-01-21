@@ -106,3 +106,12 @@ Certain signal timing parameters can be udpated during the simulation through Tr
 - **traci.trafficlight.setNemaCycleLength(tlsID, cycleLength)**: the cycle length may change when you update the splits/max green. You need to set the new cycle length to make the new timing work without problems.
 
 All the updates in the signal timing parameters in the NEMA-phase controller will happen after the current cycle ended.
+
+# Configuration Errors
+
+The following errors may be raised:
+
+- **the phases before barrier X from both rings do not add up**: EXPLANATION FORTHCOMING
+- **Ring X does not add to cycle length**: EXPLANATION FORTHCOMING
+
+To simulate misconfigured controllers, both errors may be ignored by setting `<param key="ignore-errors" value="true"/>`.
