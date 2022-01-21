@@ -2248,6 +2248,9 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
                 return angle > 0 ? LinkDirection::PARTRIGHT : LinkDirection::PARTLEFT;
             }
         }
+        if (angle > 0 && incoming->getJunctionPriority(this) == NBEdge::JunctionPriority::ROUNDABOUT) {
+            return angle > 15 ? LinkDirection::RIGHT : LinkDirection::PARTRIGHT;
+        }
         return LinkDirection::STRAIGHT;
     }
 
