@@ -665,13 +665,14 @@ NEMALogic::validate_timing(){
     double ring2barrier1_length = forceOffs[r2barrier - 1] + yellowTime[r2barrier - 1] + redTime[r2barrier - 1];
     if (ring1barrier1_length != ring2barrier1_length){
         if (coordinateMode) {
-            throw  ProcessError("At NEMA tlLogic '" + getID() + "', the phases before barrier 1 from both rings do not add up.");
+            throw  ProcessError("At NEMA tlLogic '" + getID() + "', the phases before barrier 1 from both rings do not add up. (ring1="
+                    + toString(ring1barrier1_length) + ", ring2=" + toString(ring2barrier1_length) + ")");
         }
         else {
             WRITE_WARNINGF("At NEMA tlLogic '%', the phases before barrier 1 from both rings do not add up.", getID());
         }
     }
-    double ring1barrier2_length = forceOffs[r1barrier - 1] + yellowTime[r1barrier - 1] + redTime[r1barrier - 1];
+    double ring1barrier2_length = forceOffs[r2coordinatePhase - 1] + yellowTime[r2coordinatePhase - 1] + redTime[r2coordinatePhase - 1];
     double ring2barrier2_length = forceOffs[r1coordinatePhase - 1] + yellowTime[r1coordinatePhase - 1] + redTime[r1coordinatePhase - 1];
     if (ring1barrier2_length != ring2barrier2_length){
         if (coordinateMode) {
