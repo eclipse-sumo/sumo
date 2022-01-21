@@ -580,7 +580,7 @@ NEMALogic::validate_timing(){
         double cycleLengthCalculated = 0;
         for (int p : rings[ringIndex]){
             if (p > 0){
-                myCycleLength += (maxGreen[p - 1] + yellowTime[p - 1] + redTime[p - 1]);
+                cycleLengthCalculated += (maxGreen[p - 1] + yellowTime[p - 1] + redTime[p - 1]);
             }
         }
         if (coordinateMode && cycleLengthCalculated != myCycleLength){
@@ -984,7 +984,6 @@ NEMALogic::NEMA_control() {
                 if (coordinateMode) {
                     phaseExpectedDuration[R2Phase - 1] = ModeCycle(myCycleLength - (currentTimeInSecond - cycleRefPoint - offset) - yellowTime[R2Phase - 1] - redTime[R2Phase - 1], myCycleLength);
                 }
-
             }
             wait4R2Green = false;
         }
@@ -1351,9 +1350,7 @@ NEMALogic::calculateForceOffsTS2(){
     }
 
     // Switch the Force Off Times to align with TS2 Cycle. 
-    double coord1Duration = maxGreen[r1coordinatePhase - 1]; //+ yellowTime[b4[0] - 1] + redTime[b4[0] - 1];
-    double coord2Duration = maxGreen[r2coordinatePhase - 1] ; //+ yellowTime[b4[1] - 1] + redTime[b4[1] - 1];
-    double minCoordTime = MIN2(forceOffs[r1coordinatePhase - 1] - coord1Duration, forceOffs[r2coordinatePhase - 1] - coord2Duration);
+    double minCoordTime = MIN2(forceOffs[r1coordinatePhase - 1] - maxGreen[r1coordinatePhase - 1], forceOffs[r2coordinatePhase - 1] - maxGreen[r2coordinatePhase - 1]);
 
     // loop rings individually
     for (int i = 0; i < 2; i++){
@@ -1378,28 +1375,42 @@ NEMALogic::calculateInitialPhases170(){
         for (int i = initialIndexRing[ringNumber]; i < length; i++) {
             int aPhaseIndex = rings[ringNumber][i]-1;
             if (aPhaseIndex != -1){
-                phaseCutOffs[aPhaseIndex] = forceOffs[aPhaseIndex]-minGreen[aPhaseIndex];
+                if (forceOffs[aPhaseIndex] - minGreen[aPhaseIndex] > 0){
+                    phaseCutOffs[aPhaseIndex] = forceOffs[aPhaseIndex] - minGreen[aPhaseIndex];
+                } else {
+                    phaseCutOffs[aPhaseIndex] = myCycleLength - forceOffs[aPhaseIndex] - minGreen[aPhaseIndex];
+                }
                 #ifdef DEBUG_NEMA
                 std::cout << "Phase "<<aPhaseIndex+1<<" cut off is "<<phaseCutOffs[aPhaseIndex]<<std::endl;
                 #endif
             }
         }
     }
-    
+
+    // sort phaseCutOffs in order, this is to adapt it to the TS2 algorithm. Type 170 should already be sorted.
+    // Slice Phase Cutoffs into Ring1 & Ring 2
+    std::vector<IntVector> localRings = rings;
+    for (int ringNumber = 0; ringNumber < 2; ringNumber++){
+        std::sort(localRings[ringNumber].begin(), localRings[ringNumber].end(), [&](int i, int j) 
+        { return phaseCutOffs[i - 1] < phaseCutOffs[j - 1]; });
+    }
+
+
+
     // find the current in cycle time
     SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
     double currentTimeInSecond = STEPS2TIME(now);
     double currentInCycleTime = ModeCycle(currentTimeInSecond - cycleRefPoint - offset, myCycleLength);
 
     // find the initial phases
-    for (int ringNumber = 0; ringNumber<2;ringNumber++){
-        int length = (int)rings[ringNumber].size();
+    for (int ringNumber = 0; ringNumber < 2; ringNumber++){
         int aPhaseIndex = -1;
-        bool found=false;
-        for (int i = initialIndexRing[ringNumber]; i < length; i++) {
-            aPhaseIndex = rings[ringNumber][i]-1;
-            if (aPhaseIndex != -1){
-                if (currentInCycleTime<phaseCutOffs[aPhaseIndex]){
+        bool found= false;
+        // This searches sorted
+        for (int p: localRings[ringNumber]) {
+            if (p > 0){
+                aPhaseIndex = p - 1;
+                if (currentInCycleTime < phaseCutOffs[p - 1]){
                     #ifdef DEBUG_NEMA
                     std::cout<<"current in cycle time="<<currentInCycleTime<<" phase: "<<aPhaseIndex<<std::endl;
                     #endif
@@ -1409,7 +1420,7 @@ NEMALogic::calculateInitialPhases170(){
             }
         }
         if (!found){
-            aPhaseIndex =rings[ringNumber][initialIndexRing[ringNumber]]-1; // if the break didn't get triggered, go back to the beginning.
+            aPhaseIndex = rings[ringNumber][initialIndexRing[ringNumber]]-1; // if the break didn't get triggered, go back to the beginning.
         }
         #ifdef DEBUG_NEMA
         std::cout<<"current in cycle time="<<currentInCycleTime<<" ring "<<ringNumber<< " aphase: "<<aPhaseIndex+1<<std::endl;
@@ -1430,3 +1441,4 @@ NEMALogic::calculateInitialPhasesTS2(){
     // I think this can be the same as 170, but we shall see
     calculateInitialPhases170();
 }
+
