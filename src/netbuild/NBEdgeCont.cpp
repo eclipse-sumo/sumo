@@ -55,7 +55,7 @@
 
 //#define DEBUG_GUESS_ROUNDABOUT
 //#define DEBUG_JOIN_TRAM
-#define DEBUG_EDGE_ID "301241681#2"
+#define DEBUG_EDGE_ID ""
 
 // ===========================================================================
 // method definitions
@@ -1237,11 +1237,11 @@ NBEdgeCont::guessRoundabouts() {
         loopEdges.push_back(e);
         bool doLoop = true;
 #ifdef DEBUG_GUESS_ROUNDABOUT
-        gDebugFlag1 = false;
+        gDebugFlag1 = e->getID() == DEBUG_EDGE_ID;
 #endif
         do {
 #ifdef DEBUG_GUESS_ROUNDABOUT
-            if (e->getID() == DEBUG_EDGE_ID || gDebugFlag1) {
+            if (gDebugFlag1) {
                 std::cout << " e=" << e->getID() << " loopEdges=" << toString(loopEdges) << "\n";
                 gDebugFlag1 = true;
             }
@@ -1273,7 +1273,7 @@ NBEdgeCont::guessRoundabouts() {
                 doLoop = false;
 #ifdef DEBUG_GUESS_ROUNDABOUT
                 if (gDebugFlag1) {
-                    std::cout << " turn\n";
+                    std::cout << " invalid turnAround e=" << e->getID() << " dest=" << Named::getIDSecure(e->getTurnDestination()) << "\n";
                 }
                 gDebugFlag1 = false;
 #endif
@@ -1303,7 +1303,7 @@ NBEdgeCont::guessRoundabouts() {
             double nextAngle = nextLeft == e ? 180 : fabs(NBHelpers::relAngle(e->getAngleAtNode(e->getToNode()), nextLeft->getAngleAtNode(e->getToNode())));
 #ifdef DEBUG_GUESS_ROUNDABOUT
             if (gDebugFlag1) {
-                std::cout << "   angle=" << angle << " nextAngle=" << nextAngle << "\n";
+                std::cout << "   e=" << e->getID() << " left=" << left->getID() << " nextLeft=" << nextLeft->getID() << " angle=" << angle << " nextAngle=" << nextAngle << " eLength=" << e->getLength() << " lLength=" << left->getLength() << " dist=" << e->getLaneShape(0).back().distanceTo2D(left->getLaneShape(0).front()) << "\n";
             }
 #endif
             if (angle >= 120
@@ -1319,7 +1319,7 @@ NBEdgeCont::guessRoundabouts() {
                 doLoop = false;
 #ifdef DEBUG_GUESS_ROUNDABOUT
                 if (gDebugFlag1) {
-                    std::cout << " angle=" << angle << "\n";
+                    std::cout << "     failed angle=" << angle << "\n";
                 }
                 gDebugFlag1 = false;
 #endif
