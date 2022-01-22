@@ -949,7 +949,7 @@ NEMALogic::NEMA_control() {
     // Logic for Green Rest & Green Transfer
     // This requires a detector check. It should only be entered when the lights are green
     // This logic doesn't need to enter at all if in coordinated mode and greenTransfer is disabled
-    if ((EndCurrentPhaseR1 && R1RYG >= GREEN) || (EndCurrentPhaseR2 && R2RYG >= GREEN) && (!coordinateMode || greenTransfer)){
+    if (((EndCurrentPhaseR1 && R1RYG >= GREEN) || (EndCurrentPhaseR2 && R2RYG >= GREEN)) && (!coordinateMode || greenTransfer)){
         // Calculate the potential next phases. 
         // Have to do it here and below because the "final" traffic light check is at the end of yellow
         int tempR1Phase;
@@ -985,7 +985,7 @@ NEMALogic::NEMA_control() {
                 EndCurrentPhaseR1 = false;
                 wait4R1Green = false;
                 phaseEndTimeR1 += TS;
-                if (R1Phase == r1barrier || R1Phase == r1coordinatePhase && R1RYG != GREENREST){
+                if ((R1Phase == r1barrier || R1Phase == r1coordinatePhase) && R1RYG != GREENREST){
                     // If the "green transfer" is at the barrier, it can't actually move until the other phase is done
                     phaseEndTimeR1 = currentTimeInSecond + phaseExpectedDuration[tempR2Phase - 1];
                     phaseExpectedDuration[R1Index] = phaseExpectedDuration[tempR2Phase - 1];                
@@ -998,7 +998,7 @@ NEMALogic::NEMA_control() {
                 EndCurrentPhaseR2 = false;
                 wait4R2Green = false;
                 phaseEndTimeR2 += TS;
-                if (R2Phase == r2barrier || R2Phase == r2coordinatePhase && R2RYG != GREENREST){
+                if ((R2Phase == r2barrier || R2Phase == r2coordinatePhase) && R2RYG != GREENREST){
                     // If the "green transfer" is at the barrier, it can't actually move until the other phase is done
                     phaseEndTimeR2 = currentTimeInSecond + phaseExpectedDuration[tempR1Phase - 1];
                     phaseExpectedDuration[R2Index] = phaseExpectedDuration[tempR1Phase - 1];
