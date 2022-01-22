@@ -1169,7 +1169,7 @@ PositionVector::move2side(double amount, double maxExtension) {
 
 
 void
-PositionVector::move2side(std::vector<double> amount, double maxExtension) {
+PositionVector::move2sideCustom(std::vector<double> amount, double maxExtension) {
     if (size() < 2) {
         return;
     }

@@ -426,7 +426,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         PositionVector geomWithOffset = e->geom;
         if (e->laneOffsets.size() > 0) {
             try {
-                geomWithOffset.move2side(e->laneOffsets);
+                geomWithOffset.move2sideCustom(e->laneOffsets);
                 //std::cout << " e=" << e->id << " offsets=" << e->laneOffsets << " geom=" << e->geom << " geom2=" << geomWithOffset << "\n";
             } catch (InvalidArgument&) {
                 WRITE_WARNING("Could not apply laneOffsets for edge '" + e->id + "'");
@@ -505,7 +505,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                         laneIndexMap[std::make_pair(currRight, sumoLaneIndex)] = (*k).id;
                         if (useOffsets) {
                             PositionVector laneShape = laneGeom;
-                            laneShape.move2side(offsets);
+                            laneShape.move2sideCustom(offsets);
                             currRight->getLaneStruct(sumoLaneIndex).customShape = laneShape;
                         }
                     } else if (customLaneShapes) {
@@ -558,7 +558,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                         laneIndexMap[std::make_pair(currLeft, sumoLaneIndex)] = (*k).id;
                         if (useOffsets) {
                             PositionVector laneShape = laneGeom;
-                            laneShape.move2side(offsets);
+                            laneShape.move2sideCustom(offsets);
                             currLeft->getLaneStruct(sumoLaneIndex).customShape = laneShape.reverse();
                         }
                     } else if (customLaneShapes) {
@@ -1144,7 +1144,7 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c,
                         s = finalS;
                     }
                     try {
-                        cn.shape.move2side(offsets);
+                        cn.shape.move2sideCustom(offsets);
                     } catch (InvalidArgument&) {
                         WRITE_WARNING("Could not import internal lane shape from edge '" + c.fromEdge + "' to edge '" + c.toEdge);
                         cn.shape.clear();
