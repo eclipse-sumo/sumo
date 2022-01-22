@@ -405,7 +405,7 @@ protected:
             case TS2:
                 return calculateForceOffsTS2();
             default:
-                break;
+                return calculateForceOffs170();
         }
     }
 
@@ -422,7 +422,8 @@ protected:
             case TS2:
                 return calculateInitialPhasesTS2();
             default:
-                break;
+                // Default to Type170
+                return calculateInitialPhases170();
         }
     }
 
@@ -438,7 +439,8 @@ protected:
             case TS2:
                 return coordModeCycleTS2(currentTime, phase);
             default:
-                break;
+                // Default to Type 170
+                return coordModeCycle170(currentTime, phase);
         }
     }
 };
