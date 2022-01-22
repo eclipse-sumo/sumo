@@ -563,7 +563,6 @@ NEMALogic::init(NLDetectorBuilder& nb) {
     myPhase.setState(combineStates(state1, state2));
     myPhase.setName(toString(activeRing1Phase) + "+" + toString(activeRing2Phase));
 
-
     //validating timing
     validate_timing();
 #ifdef DEBUG_NEMA
@@ -885,7 +884,8 @@ NEMALogic::NEMA_control() {
         std::tie(tempR1Phase, tempR2Phase) = getNextPhases(R1Phase, R2Phase, wait4R1Green, wait4R2Green, true);
         // entry point to green rest. First check detector status, then determine if this should be up next.
         // Green rest is effectively the same as being perpetually past the minimum green timer but not changing
-        if ((tempR1Phase == R1Phase && EndCurrentPhaseR1) && (tempR2Phase == R2Phase && EndCurrentPhaseR2) && !coordinateMode){
+        // Green Rest exists in Coordinate Mode too. TS2 allows Green Rest
+        if ((tempR1Phase == R1Phase && EndCurrentPhaseR1) && (tempR2Phase == R2Phase && EndCurrentPhaseR2) && (!coordinateMode || myCabinetType == TS2)){
             // mark that the phases are not desired to end
             EndCurrentPhaseR1 = false;
             EndCurrentPhaseR2 = false;
@@ -1471,5 +1471,6 @@ NEMALogic::coordModeCycle170(double currentTime, int phase){
 double
 NEMALogic::coordModeCycleTS2(double currentTime, int phase){
     // This puts the phase green for the rest of the cycle, plus the first bit in which it must be green
-    return ModeCycle(myCycleLength - (currentTime - cycleRefPoint - offset) - yellowTime[phase - 1] - redTime[phase - 1], myCycleLength) + forceOffs[phase - 1];  
+    // We don't need the yellow and red here because the force off already incorporates that.
+    return ModeCycle((myCycleLength + forceOffs[phase - 1]) - (currentTime - cycleRefPoint - offset), myCycleLength);  
 };
