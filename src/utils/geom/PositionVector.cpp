@@ -1120,6 +1120,7 @@ PositionVector::move2side(double amount, double maxExtension) {
         return;
     }
     PositionVector shape;
+    std::vector<int>  recheck;
     for (int i = 0; i < static_cast<int>(size()); i++) {
         if (i == 0) {
             const Position& from = (*this)[i];
@@ -1155,14 +1156,31 @@ PositionVector::move2side(double amount, double maxExtension) {
                 PositionVector l2(me - offsets2, to - offsets2);
                 Position meNew  = l1.intersectionPosition2D(l2[0], l2[1], maxExtension);
                 if (meNew == Position::INVALID) {
-                    throw InvalidArgument("no line intersection");
+                    recheck.push_back(i);
+                    continue;
                 }
                 meNew = meNew + Position(0, 0, me.z());
                 shape.push_back(meNew);
             }
             // copy original z value
             shape.back().set(shape.back().x(), shape.back().y(), me.z());
+            const double angle = localAngle(from, me, to);
+            if (fabs(angle) > NUMERICAL_EPS) {
+                const double radius = (from.distanceTo2D(me) + me.distanceTo2D(to)) / angle;
+                if (radius < 0 && -radius < amount * 1.8) {
+                    //std::cout << " i_" << angle << "_" << amount << "=" << from << " " << me << " " << to << "\n";
+                    recheck.push_back(i);
+                }
+            }
         }
+    }
+    if (recheck.size() > 0) {
+        // try to adjust positions to avoid clipping
+        shape = *this;
+        for (int i = recheck.size() - 1; i >= 0; i--) {
+            shape.erase(shape.begin() + recheck[i]);
+        }
+        shape.move2side(amount, maxExtension);
     }
     *this = shape;
 }
@@ -1216,7 +1234,7 @@ PositionVector::move2sideCustom(std::vector<double> amount, double maxExtension)
                 PositionVector l2(me - offsets2, to - offsets2);
                 Position meNew  = l1.intersectionPosition2D(l2[0], l2[1], maxExtension);
                 if (meNew == Position::INVALID) {
-                    throw InvalidArgument("no line intersection");
+                    continue;
                 }
                 meNew = meNew + Position(0, 0, me.z());
                 shape.push_back(meNew);
@@ -1226,6 +1244,11 @@ PositionVector::move2sideCustom(std::vector<double> amount, double maxExtension)
         }
     }
     *this = shape;
+}
+
+double
+PositionVector::localAngle(const Position& from, const Position& pos, const Position& to) {
+    return GeomHelper::angleDiff(from.angleTo2D(pos), pos.angleTo2D(to));
 }
 
 double
