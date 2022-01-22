@@ -50,7 +50,8 @@ for p in shapesParts:
             id += "_%s" % ids[id]
         shape.append(pos)
     else:
-        shape.append(p)
+        if ',' in p:
+            shape.append(p)
 
 if shape:
     shapes.append((id, shape))
