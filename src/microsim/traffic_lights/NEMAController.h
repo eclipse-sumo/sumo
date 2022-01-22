@@ -351,6 +351,32 @@ protected:
     std::string outputStateFilePath;
     std::ofstream outputStateFile;
     bool coordinateMode;
+    
+    // Cabinet Type
+    // #TODO write a parser to convert parameter to type 
+    enum cabinetType {
+        Type170,
+        TS2
+    };
+
+    // Store the cabinet type
+    cabinetType myCabinetType;
+
+    cabinetType parseCabinetType(std::string inputType){
+        std::string cleanString;
+        for (char & c : inputType){
+            if (isalpha(c) || isdigit(c)){
+                cleanString += (char)std::tolower(c);
+            }
+        }
+        if (cleanString == "type170"){
+            return Type170;
+        } else if (cleanString == "ts2"){
+            return TS2;
+        } else {
+            throw InvalidArgument("Please set cabinetType for NEMA tlLogic to either Type170 or TS2");
+        }
+    };
 
     /// @brief virtual phase that holds the current state
     MSPhaseDefinition myPhase;
@@ -365,4 +391,54 @@ protected:
     // handle error
     void error_handle_not_set(std::string param_variable, std::string param_name);
     void validate_timing();
+
+
+    // TS2 Specific Timing
+    void calculateForceOffsTS2();
+    // Type170 Specific Timing
+    void calculateForceOffs170(int r1StartIndex = 0, int r2StartIndex = 0);
+    // General Force Offs Function
+    void calculateForceOffs(){
+        switch (myCabinetType){
+            case Type170:
+                return calculateForceOffs170();
+            case TS2:
+                return calculateForceOffsTS2();
+            default:
+                break;
+        }
+    }
+
+
+    // TS2 Specific Initial Phases
+    void calculateInitialPhasesTS2();
+    // Type170 Specific Initial Phases
+    void calculateInitialPhases170();
+    // General Force Offs Function
+    void calculateInitialPhases(){
+        switch (myCabinetType){
+            case Type170:
+                return calculateInitialPhases170();
+            case TS2:
+                return calculateInitialPhasesTS2();
+            default:
+                break;
+        }
+    }
+
+    // TS2 Specific Coordinated Mode Cycle
+    double coordModeCycleTS2(double currentTime, int phase);
+    // Type170 Specific Coordinated Mode Cycle
+    double coordModeCycle170(double currentTime, int phase);
+    // General Force Offs Function
+    double coordModeCycle(double currentTime, int phase){
+        switch (myCabinetType){
+            case Type170:
+                return coordModeCycle170(currentTime, phase);
+            case TS2:
+                return coordModeCycleTS2(currentTime, phase);
+            default:
+                break;
+        }
+    }
 };
