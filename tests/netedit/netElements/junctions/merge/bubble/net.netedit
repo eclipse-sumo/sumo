@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02.10.2020 14:20:24 by Eclipse SUMO netedit Version v1_7_0+0438-f2a81700a9
+<!-- generated on 2022-01-21 15:23:27 by Eclipse SUMO netedit Version v1_11_0+1361-2e2855ec72d
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_02Okt141911.17760\netedit.gui\netElements\junctions\merge\bubble\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\merge\bubble\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_02Okt141911.17760\netedit.gui\netElements\junctions\merge\bubble\net.net.xml"/>
+        <output-file value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\merge\bubble\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,27 +30,27 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_02Okt141911.17760\netedit.gui\netElements\junctions\merge\bubble\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_02Okt141911.17760\netedit.gui\netElements\junctions\merge\bubble\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_02Okt141911.17760\netedit.gui\netElements\junctions\merge\bubble\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_02Okt141911.17760\netedit.gui\netElements\junctions\merge\bubble\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_02Okt141911.17760\netedit.gui\netElements\junctions\merge\bubble\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_02Okt141911.17760\netedit.gui\netElements\junctions\merge\bubble\datas.xml"/>
+        <additional-files value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\merge\bubble\additionals.xml"/>
+        <additionals-output value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\merge\bubble\additionals.xml"/>
+        <route-files value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\merge\bubble\routes.xml"/>
+        <demandelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\merge\bubble\routes.xml"/>
+        <data-files value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\merge\bubble\datas.xml"/>
+        <dataelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\merge\bubble\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_02Okt141911.17760\netedit.gui\netElements\junctions\merge\bubble\gui-settings.xml"/>
-        <window-size value="700,500"/>
+        <gui-settings-file value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\merge\bubble\gui-settings.xml"/>
+        <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_02Okt141911.17760\netedit.gui\netElements\junctions\merge\bubble\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\merge\bubble\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_02Okt141911.17760\netedit.gui\netElements\junctions\merge\bubble\log.txt"/>
+        <error-log value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan141234.13800\netedit.gui\netElements\junctions\merge\bubble\log.txt"/>
     </report>
 
 </configuration>
@@ -64,10 +64,10 @@
         <lane id=":gneJ1_0_0" index="0" speed="13.89" length="14.40" shape="38.40,57.20 38.40,42.80"/>
     </edge>
     <edge id=":gneJ1_1" function="internal">
-        <lane id=":gneJ1_1_0" index="0" speed="8.00" length="5.93" shape="38.40,57.20 38.95,53.35 40.00,51.60"/>
+        <lane id=":gneJ1_1_0" index="0" speed="8.00" length="4.07" shape="38.40,57.20 38.95,53.35 39.04,53.20"/>
     </edge>
     <edge id=":gneJ1_6" function="internal">
-        <lane id=":gneJ1_6_0" index="0" speed="8.00" length="8.26" shape="40.00,51.60 40.60,50.60 43.35,48.95 47.20,48.40"/>
+        <lane id=":gneJ1_6_0" index="0" speed="8.00" length="10.13" shape="39.04,53.20 40.60,50.60 43.35,48.95 47.20,48.40"/>
     </edge>
     <edge id=":gneJ1_2" function="internal">
         <lane id=":gneJ1_2_0" index="0" speed="6.51" length="9.03" shape="47.20,51.60 44.75,51.95 43.00,53.00 41.95,54.75 41.60,57.20"/>
@@ -120,7 +120,7 @@
     <junction id="gneJ5" type="dead_end" x="60.00" y="50.00" incLanes="gneE9_0" intLanes="" shape="60.00,50.00 60.00,46.80 60.00,50.00"/>
     <junction id="gneJ9" type="dead_end" x="-10.00" y="50.00" incLanes="gneE12_0" intLanes="" shape="-10.00,50.00 -11.19,52.97 -10.00,50.00"/>
 
-    <junction id=":gneJ1_6_0" type="internal" x="40.00" y="51.60" incLanes=":gneJ1_1_0 gneE5_0" intLanes=":gneJ1_3_0 :gneJ1_4_0 :gneJ1_5_0"/>
+    <junction id=":gneJ1_6_0" type="internal" x="39.04" y="53.20" incLanes=":gneJ1_1_0 gneE5_0" intLanes=":gneJ1_3_0 :gneJ1_4_0 :gneJ1_5_0"/>
 
     <connection from="gneE0" to="gneE4" fromLane="0" toLane="0" via=":gneJ1_0_0" dir="s" state="M"/>
     <connection from="gneE0" to="gneE9" fromLane="0" toLane="0" via=":gneJ1_1_0" dir="l" state="m"/>

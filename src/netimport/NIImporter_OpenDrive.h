@@ -361,6 +361,9 @@ protected:
         /// @brief the composite type built from all used lane types
         std::string rightType;
         std::string leftType;
+        /// @brief average width of removed inside lanes
+        double discardedInnerWidthLeft;
+        double discardedInnerWidthRight;
     };
 
 

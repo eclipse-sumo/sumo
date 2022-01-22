@@ -57,8 +57,8 @@
 //#define DEBUG_SPIRAL
 //#define DEBUG_INTERNALSHAPES
 
-#define DEBUG_COND(road) ((road)->id == "18")
-#define DEBUG_COND2(edgeID) (StringUtils::startsWith((edgeID), "-18."))
+#define DEBUG_COND(road) ((road)->id == "67")
+#define DEBUG_COND2(edgeID) (StringUtils::startsWith((edgeID), "67"))
 #define DEBUG_COND3(roadID) (roadID == "18")
 
 // ===========================================================================
@@ -489,9 +489,11 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             if ((*j).rightLaneNumber > 0) {
                 std::vector<double> offsets(geom.size(), 0);
                 bool useOffsets = false;
-                PositionVector laneGeom = geom;
+                PositionVector rightGeom = geom;
+                rightGeom.move2side((*j).discardedInnerWidthRight);
+                PositionVector laneGeom = rightGeom;
                 currRight = new NBEdge("-" + id, sFrom, sTo, (*j).rightType, defaultSpeed, (*j).rightLaneNumber, priorityR,
-                                       NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geom, LaneSpreadFunction::RIGHT, e->streetName, "", true);
+                                       NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, rightGeom, LaneSpreadFunction::RIGHT, e->streetName, "", true);
                 lanesBuilt = true;
                 std::vector<OpenDriveLane>& lanes = (*j).lanesByDir[OPENDRIVE_TAG_RIGHT];
                 std::sort(lanes.begin(), lanes.end(), LaneSorter());
@@ -540,9 +542,11 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             if ((*j).leftLaneNumber > 0) {
                 std::vector<double> offsets(geom.size(), 0);
                 bool useOffsets = false;
-                PositionVector laneGeom = geom;
+                PositionVector leftGeom = geom;
+                leftGeom.move2side(-(*j).discardedInnerWidthLeft);
+                PositionVector laneGeom = leftGeom;
                 currLeft = new NBEdge(id, sTo, sFrom, (*j).leftType, defaultSpeed, (*j).leftLaneNumber, priorityL,
-                                      NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geom.reverse(), LaneSpreadFunction::RIGHT, e->streetName, "", true);
+                                      NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, leftGeom.reverse(), LaneSpreadFunction::RIGHT, e->streetName, "", true);
                 lanesBuilt = true;
                 std::vector<OpenDriveLane>& lanes = (*j).lanesByDir[OPENDRIVE_TAG_LEFT];
                 std::sort(lanes.begin(), lanes.end(), LaneSorter());
@@ -1458,14 +1462,14 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
         }
         // add laneoffset
         if (e.offsets.size() > 0) {
-            e.laneOffsets = discretizeOffsets(e.geom, e.offsets, e.id); 
+            e.laneOffsets = discretizeOffsets(e.geom, e.offsets, e.id);
         }
         //std::cout << " loaded geometry " << e.id << "=" << e.geom << "\n";
     }
 }
 
 
-std::vector<double> 
+std::vector<double>
 NIImporter_OpenDrive::discretizeOffsets(PositionVector& geom, const std::vector<OpenDriveLaneOffset>& offsets, const std::string& id) {
     UNUSED_PARAMETER(id);
     std::vector<double> laneOffsets;
@@ -1844,19 +1848,24 @@ NIImporter_OpenDrive::OpenDriveLaneSection::OpenDriveLaneSection(double sArg) : 
 
 void
 NIImporter_OpenDrive::OpenDriveLaneSection::buildLaneMapping(const NBTypeCont& tc) {
+    discardedInnerWidthRight = 0;
     int sumoLane = 0;
     bool singleType = true;
     std::vector<std::string> types;
     const std::vector<OpenDriveLane>& dirLanesR = lanesByDir.find(OPENDRIVE_TAG_RIGHT)->second;
     for (std::vector<OpenDriveLane>::const_reverse_iterator i = dirLanesR.rbegin(); i != dirLanesR.rend(); ++i) {
         if (myImportAllTypes || (tc.knows((*i).type) && !tc.getEdgeTypeShallBeDiscarded((*i).type))) {
+            discardedInnerWidthRight = 0;
             laneMap[(*i).id] = sumoLane++;
             types.push_back((*i).type);
             if (types.front() != types.back()) {
                 singleType = false;
             }
+        } else {
+            discardedInnerWidthRight += (*i).width;
         }
     }
+    discardedInnerWidthLeft = 0;
     rightLaneNumber = sumoLane;
     rightType = sumoLane > 0 ? (singleType ? types.front() : joinToString(types, "|")) : "";
     sumoLane = 0;
@@ -1865,11 +1874,14 @@ NIImporter_OpenDrive::OpenDriveLaneSection::buildLaneMapping(const NBTypeCont& t
     const std::vector<OpenDriveLane>& dirLanesL = lanesByDir.find(OPENDRIVE_TAG_LEFT)->second;
     for (std::vector<OpenDriveLane>::const_iterator i = dirLanesL.begin(); i != dirLanesL.end(); ++i) {
         if (myImportAllTypes || (tc.knows((*i).type) && !tc.getEdgeTypeShallBeDiscarded((*i).type))) {
+            discardedInnerWidthLeft = 0;
             laneMap[(*i).id] = sumoLane++;
             types.push_back((*i).type);
             if (types.front() != types.back()) {
                 singleType = false;
             }
+        } else {
+            discardedInnerWidthLeft += (*i).width;
         }
     }
     leftLaneNumber = sumoLane;
