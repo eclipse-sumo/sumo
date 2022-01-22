@@ -416,4 +416,20 @@ protected:
                 break;
         }
     }
+
+    // TS2 Specific Coordinated Mode Cycle
+    double coordModeCycleTS2(double currentTime, int phase);
+    // Type170 Specific Coordinated Mode Cycle
+    double coordModeCycle170(double currentTime, int phase);
+    // General Force Offs Function
+    double coordModeCycle(double currentTime, int phase){
+        switch (myCabinetType){
+            case Type170:
+                return coordModeCycle170(currentTime, phase);
+            case TS2:
+                return coordModeCycleTS2(currentTime, phase);
+            default:
+                break;
+        }
+    }
 };

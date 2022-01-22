@@ -961,7 +961,7 @@ NEMALogic::NEMA_control() {
             R1State = R1Phase;
             if (R1Phase == r1coordinatePhase) {
                 if (coordinateMode) {
-                    phaseExpectedDuration[R1Phase - 1] = ModeCycle(myCycleLength - (currentTimeInSecond - cycleRefPoint - offset) - yellowTime[R1Phase - 1] - redTime[R1Phase - 1], myCycleLength);
+                    phaseExpectedDuration[R1Phase - 1] = coordModeCycle(currentTimeInSecond, R1Phase);
                 }
             }
             wait4R1Green = false;
@@ -982,7 +982,7 @@ NEMALogic::NEMA_control() {
             R2State = R2Phase;
             if (R2Phase == r2coordinatePhase) {
                 if (coordinateMode) {
-                    phaseExpectedDuration[R2Phase - 1] = ModeCycle(myCycleLength - (currentTimeInSecond - cycleRefPoint - offset) - yellowTime[R2Phase - 1] - redTime[R2Phase - 1], myCycleLength);
+                    phaseExpectedDuration[R2Phase - 1] = coordModeCycle(currentTimeInSecond, R2Phase);
                 }
             }
             wait4R2Green = false;
@@ -1442,3 +1442,13 @@ NEMALogic::calculateInitialPhasesTS2(){
     calculateInitialPhases170();
 }
 
+double
+NEMALogic::coordModeCycle170(double currentTime, int phase){
+    return ModeCycle(myCycleLength - (currentTime - cycleRefPoint - offset) - yellowTime[phase - 1] - redTime[phase - 1], myCycleLength);  
+};
+
+double
+NEMALogic::coordModeCycleTS2(double currentTime, int phase){
+    // This puts the phase green for the rest of the cycle, plus the first bit in which it must be green
+    return ModeCycle(myCycleLength - (currentTime - cycleRefPoint - offset) - yellowTime[phase - 1] - redTime[phase - 1], myCycleLength) + forceOffs[phase - 1];  
+};
