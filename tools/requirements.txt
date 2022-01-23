@@ -5,4 +5,5 @@ matplotlib
 pulp
 pyproj
 ezdxf
+scipy
 
