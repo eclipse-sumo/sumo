@@ -119,8 +119,6 @@ public:
 
     std::string combineStates(std::string state1, std::string state2);
 
-    bool isDetectorActivated(int phaseNumber, int depth) const;
-
     int nextPhase(std::vector<int> ring, int phaseNum, int& distance,  bool sameAllowed);
 
     std::tuple<int, int> getNextPhases(int currentR1Index, int currentR2Index, bool toUpdateR1, bool toUpdateR2, bool stayOk = false);
@@ -272,18 +270,24 @@ protected:
         phaseDetectorInfo():
             detectors(),
             cpdTarget(),
-            cpdSource()
+            cpdSource(),
+            detectActive(),
+            latching()
         {}
-        phaseDetectorInfo(int _cross_phase_source):
-            cpdSource(_cross_phase_source)
+         phaseDetectorInfo(int _cross_phase_source, bool _latching):
+            cpdSource(_cross_phase_source),
+            latching(_latching)
         {}
         std::vector<MSE2Collector*> detectors = {nullptr};
         int cpdTarget = 0;
         int cpdSource = 0;
+        bool detectActive = false;
+        bool latching = false;
     };
 
-    // myNextPhase needs to be presevered in memory because the phase is calculated at start of yellow
-    // but not implementend until the end of red
+    bool isDetectorActivated(int phaseNumber, phaseDetectorInfo phaseInfo, int depth) const;
+    // myNextPhase needs to be presevered in memory because the phase is calculated at start of yellow 
+    // but not implementend until the end of red 
     int myNextPhaseR1;
     int myNextPhaseR2;
 
@@ -443,4 +447,10 @@ protected:
                 return coordModeCycle170(currentTime, phase);
         }
     }
+    // read All Detectors
+    void checkDetectors();
+    // clear Detectors
+    void clearDetectors();
+    // read 1 detector state
+    bool readDetector(int phase);
 };

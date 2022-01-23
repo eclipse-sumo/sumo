@@ -134,17 +134,17 @@ NEMALogic::NEMALogic(MSTLLogicControl& tlcontrol,
 #endif
 
     // construct the phaseDetectorMapping. In the future this could hold more parameters, such as lock in time or delay
-    for (auto p : readParaFromString(ring1)) {
-        // #TODO clean up this string mess
-        std::string cps = "crossPhaseSwitching:";
-        int crossPhase = StringUtils::toInt(getParameter(cps.append(std::to_string(p)), "0"));
-        phase2DetectorMap[p] = phaseDetectorInfo(crossPhase);
+    for (int i; i < 2; i++){
+        for (auto p: readParaFromString(i < 1? ring1: ring2)){
+            // #TODO clean up this string mess
+            std::string cps = "crossPhaseSwitching:";
+            std::string latchstr = "latching";
+            int crossPhase = StringUtils::toInt(getParameter(cps.append(std::to_string(p)), "0"));
+            bool latching = StringUtils::toBool(getParameter(latchstr.append(std::to_string(p)), "false"));
+            phase2DetectorMap[p] = phaseDetectorInfo(crossPhase, latching);
+        }
     }
-    for (auto p : readParaFromString(ring2)) {
-        std::string cps = "crossPhaseSwitching:";
-        int crossPhase = StringUtils::toInt(getParameter(cps.append(std::to_string(p)), "0"));
-        phase2DetectorMap[p] = phaseDetectorInfo(crossPhase);
-    }
+
     // Construct the Cross Mapping
     for (auto const& phaseDetectInfo : phase2DetectorMap) {
         if (phaseDetectInfo.second.cpdSource > 0) {
@@ -708,14 +708,10 @@ std::string NEMALogic::combineStates(std::string state1, std::string state2) {
     return output;
 }
 
-bool NEMALogic::isDetectorActivated(int phaseNumber, int depth = 0) const {
-    if (phase2DetectorMap.find(phaseNumber) == phase2DetectorMap.end()) {
-        return false;
-    } else {
-        auto const& detectInfo = phase2DetectorMap.find(phaseNumber)->second;
-        if ((phaseNumber != R1State) && (phaseNumber != R2State) && depth < 1) {
-            // If I am not the active phase & my target is an active phase, don't report when I am called for my own phase
-            if ((detectInfo.cpdTarget == R1State && R1RYG >= GREEN) || (detectInfo.cpdTarget == R2State && R2RYG >= GREEN)) {
+bool NEMALogic::isDetectorActivated(int phaseNumber, phaseDetectorInfo detectInfo, int depth = 0) const{
+        if ((phaseNumber != R1State) && (phaseNumber != R2State) && depth < 1){
+            // If I am not the active phase & my target is an active phase, don't report when I am called for my own phase 
+            if ((detectInfo.cpdTarget == R1State && R1RYG >= GREEN) || (detectInfo.cpdTarget == R2State && R2RYG >= GREEN)){
                 return false;
             }
         }
@@ -724,11 +720,10 @@ bool NEMALogic::isDetectorActivated(int phaseNumber, int depth = 0) const {
                 return true;
             }
         }
-        if (detectInfo.cpdSource > 0 && depth < 1) {
-            return isDetectorActivated(detectInfo.cpdSource, depth + 1);
+        if (detectInfo.cpdSource > 0 && depth < 1){
+            return isDetectorActivated(detectInfo.cpdSource, phase2DetectorMap.find(phaseNumber)->second, depth + 1);
         }
         return false;
-    }
 }
 
 
@@ -767,6 +762,9 @@ NEMALogic::NEMA_control() {
     SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
     double currentTimeInSecond = STEPS2TIME(now);
 
+    // Read the detectors
+    checkDetectors();
+
 #ifdef DEBUG_NEMA
     //print to check
     //I didn't use getTimeInCycle(). This is because the cycle reference point may change in the future.
@@ -786,7 +784,7 @@ NEMALogic::NEMA_control() {
         phaseExpectedDuration[R1Index] = MAX2(phaseExpectedDuration[R1Index], minGreen[R1Index]);
     }
     if (((R1Phase != r1coordinatePhase) || (vehExt[R1Index] > 0 && !coordinateMode)) && (R1RYG == GREEN || R1RYG == GREENREST)) {
-        if (isDetectorActivated(R1Phase)) {
+        if (readDetector(R1Phase)) {
             phaseExpectedDuration[R1Index] = MAX2(phaseExpectedDuration[R1Index], durationR1 + vehExt[R1Index]);
             if (fixForceOff) {
                 phaseExpectedDuration[R1Index] = MIN2(phaseExpectedDuration[R1Index], ModeCycle(forceOffs[R1Index] - phaseStartTimeInCycleR1, myCycleLength));
@@ -810,7 +808,7 @@ NEMALogic::NEMA_control() {
         phaseExpectedDuration[R2Index] = MAX2(phaseExpectedDuration[R2Index], minGreen[R2Index]);
     }
     if ((((R2Phase != r2coordinatePhase && R2Phase >= 5) || ((R2Phase >= 5 && vehExt[R2Index] > 0) && !coordinateMode)) && (R2RYG == GREEN || R2RYG == GREENREST))) {
-        if (isDetectorActivated(R2Phase)) {
+        if (readDetector(R2Phase)) {
             phaseExpectedDuration[R2Index] = MAX2(phaseExpectedDuration[R2Index], durationR2 + vehExt[R2Index]);
             if (fixForceOff) {
                 phaseExpectedDuration[R2Index] = MIN2(phaseExpectedDuration[R2Index], ModeCycle(forceOffs[R2Index] - phaseStartTimeInCycleR2, myCycleLength));
@@ -1033,6 +1031,10 @@ NEMALogic::NEMA_control() {
         }
 
     }
+
+    // Clear the Detectors
+    clearDetectors();
+
     myPhase.setName(toString(R1Phase) + "+" + toString(R2Phase));
     return outputState;
 }
@@ -1047,7 +1049,7 @@ int NEMALogic::nextPhase(std::vector<int> ring, int currentPhase, int& distance,
         if (flag == 1) {
             if (ring[i % length] != 0) {
                 int tempPhase = ring[i % length];
-                if (recall[tempPhase - 1] || isDetectorActivated(tempPhase)) {
+                if (recall[tempPhase - 1] || readDetector(tempPhase)){
                     nphase = tempPhase;
                     break;
                 }
@@ -1255,10 +1257,11 @@ const std::string
 NEMALogic::getParameter(const std::string& key, const std::string defaultValue) const {
     if (StringUtils::startsWith(key, "NEMA.")) {
         if (key == "NEMA.phaseCall") {
-            std::string out_str = std::to_string(isDetectorActivated(1));
-            for (int i = 2; i <= 8; i++) {
-                out_str += ",";
-                out_str += std::to_string(isDetectorActivated(i));
+            std::string out_str=std::to_string(isDetectorActivated(1, phase2DetectorMap.find(1) -> second));
+            for (int i = 2; i<=8; i++)
+            {
+                out_str+=",";
+                out_str+=std::to_string(isDetectorActivated(i, phase2DetectorMap.find(i) -> second));
             }
             return out_str;
         } else {
@@ -1306,36 +1309,12 @@ NEMALogic::error_handle_not_set(std::string param_variable, std::string param_na
     }
 }
 
-
 void
-NEMALogic::calculateForceOffs170(int r1StartIndex, int r2StartIndex){
-
-    int initialIndexRing[2] = {r1StartIndex, r2StartIndex};
-
-    // calculate force offs with the rings in order
-    for (int ringNumber = 0; ringNumber<2;ringNumber++){
-        int length = (int)rings[ringNumber].size();
-        int aPhaseNumber = rings[ringNumber][initialIndexRing[ringNumber]];
-        int aPhaseIndex = aPhaseNumber - 1;
-        int nPhaseIndex = aPhaseIndex; //next phase
-        int nPhaseNumber = aPhaseNumber;
-        forceOffs[aPhaseNumber-1]=maxGreen[aPhaseNumber-1];
-        #ifdef DEBUG_NEMA
-        std::cout << "Phase  "<<aPhaseNumber <<": force off "<<forceOffs[aPhaseNumber-1]<<std::endl;
-        #endif
-        for (int i = initialIndexRing[ringNumber]+1; i < length; i++) {
-            nPhaseNumber = rings[ringNumber][i];
-            nPhaseIndex = nPhaseNumber -1;
-            // std::cout <<" ring "<<ringNumber <<" i: "<<i<< " phase: "<<nPhaseNumber<< std::endl;
-            if (nPhaseNumber != 0){
-                forceOffs[nPhaseIndex] = forceOffs[aPhaseIndex] + maxGreen[nPhaseIndex] + yellowTime[aPhaseIndex]+redTime[aPhaseIndex];
-                aPhaseNumber = nPhaseNumber;
-                aPhaseIndex = nPhaseIndex;
-
-                #ifdef DEBUG_NEMA
-                std::cout << "- Phase "<<aPhaseNumber <<": force off "<<forceOffs[aPhaseIndex]<<std::endl;
-                #endif
-            }
+NEMALogic::checkDetectors(){
+    for (auto p: phase2DetectorMap){
+        // I don't need to check again if the detector is already active
+        if (!p.second.detectActive){
+            p.second.detectActive = isDetectorActivated(p.first, p.second, 0);
         }
     }
 }
