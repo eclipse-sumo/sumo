@@ -1408,7 +1408,8 @@ NEMALogic::calculateInitialPhases170(){
         }
     }
 
-    // sort phaseCutOffs in order, this is to adapt it to the TS2 algorithm. Type 170 should already be sorted.
+    // sort phaseCutOffs in order, this is to adapt it to the TS2 algorithm. 
+    // Type 170 should already be sorted.
     // Slice Phase Cutoffs into Ring1 & Ring 2
     std::vector<IntVector> localRings = rings;
     for (int ringNumber = 0; ringNumber < 2; ringNumber++){
@@ -1416,7 +1417,7 @@ NEMALogic::calculateInitialPhases170(){
         { return phaseCutOffs[i - 1] < phaseCutOffs[j - 1]; });
     }
 
-    // find the current in cycle time
+    // find the current in cycle time.
     SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
     double currentTimeInSecond = STEPS2TIME(now);
     double currentInCycleTime = ModeCycle(currentTimeInSecond - cycleRefPoint - offset, myCycleLength);
