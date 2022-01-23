@@ -167,13 +167,13 @@ def splitFiles(routeFiles, typesFile, routesPrefix, step, verbose, modifyID,
         prefix["so"] = routesPrefix.replace("mofr", "so")
     files = []
     sortedDeparts = []
-    pattern = re.compile('depart="([^"]+)"')
+    pattern = re.compile(u'depart="([^"]+)"')
     # pattern = re.compile('<vehicle.*depart="([0-9]+(\.[0-9]*)?)"')
     for routesIn in routeFiles:
         if verbose:
             print("Reading routes from", routesIn)
         if '.gz' in routesIn:
-            f = gzip.open(routesIn, 'rb')
+            f = gzip.open(routesIn, 'r')
         else:
             f = open(routesIn, 'r')
         while True:
