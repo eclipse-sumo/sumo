@@ -1345,20 +1345,7 @@ void
 NEMALogic::calculateForceOffsTS2(){
     // TS2 "0" cycle time is the start of the "first" coordinated phases.
     // We can find this "0" point by first constructing the forceOffs in sequential order via the 170 method 
-
-    // calculateForceOffs170(r1coordinatePhase - 1, (r2coordinatePhase - 1) % (int)rings[1].size());
     calculateForceOffs170(0, 0);
-
-    // Find phase before Coordinated Phase. C++ makes this so nasty or I just suck at it lol
-    int b4[2];
-    for (int i = 0; i < 2; i++){
-        for (int j = 0; (int)rings[i].size() * 2; i++){
-            if (rings[i][(j + 1) % (int)rings[i].size()] == coordinatePhaseIndecies[i]){
-                b4[i] = rings[i][j % (int)rings[i].size()];
-                break;
-            }
-        }
-    }
 
     // Switch the Force Off Times to align with TS2 Cycle. 
     double minCoordTime = MIN2(forceOffs[r1coordinatePhase - 1] - maxGreen[r1coordinatePhase - 1], forceOffs[r2coordinatePhase - 1] - maxGreen[r2coordinatePhase - 1]);
