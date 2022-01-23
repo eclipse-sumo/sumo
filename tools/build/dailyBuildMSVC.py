@@ -169,6 +169,8 @@ def main(options, platform="x64"):
                 shutil.copy(f, installDir)
             if options.suffix == "extra":
                 shutil.copy(os.path.join(SUMO_HOME, "build", "wix", "gpl-2.0.txt"), os.path.join(installDir, "LICENSE"))
+            for f in glob.glob(os.path.join(SUMO_HOME, "bin", "*.jar")):
+                shutil.copy(f, os.path.join(installDir, "bin"))
             shutil.copytree(os.path.join(SUMO_HOME, "docs"), os.path.join(installDir, "docs"),
                             ignore=shutil.ignore_patterns('web'))
             shutil.copy(os.path.join(buildDir, "src", "version.h"), os.path.join(installDir, "include"))
