@@ -38,6 +38,8 @@
 #include "GeomHelper.h"
 #include "Boundary.h"
 
+//#define DEBUG_MOVE2SIDE
+
 // ===========================================================================
 // static members
 // ===========================================================================
@@ -1127,12 +1129,18 @@ PositionVector::move2side(double amount, double maxExtension) {
             const Position& to = (*this)[i + 1];
             if (from != to) {
                 shape.push_back(from - sideOffset(from, to, amount));
+#ifdef DEBUG_MOVE2SIDE
+                if (gDebugFlag1) std::cout << " " << i << "a=" << shape.back() << "\n";
+#endif
             }
         } else if (i == static_cast<int>(size()) - 1) {
             const Position& from = (*this)[i - 1];
             const Position& to = (*this)[i];
             if (from != to) {
                 shape.push_back(to - sideOffset(from, to, amount));
+#ifdef DEBUG_MOVE2SIDE
+                if (gDebugFlag1) std::cout << " " << i << "b=" << shape.back() << "\n";
+#endif
             }
         } else {
             const Position& from = (*this)[i - 1];
@@ -1144,11 +1152,17 @@ PositionVector::move2side(double amount, double maxExtension) {
             if (fabs(extrapolateDev) < POSITION_EPS) {
                 // parallel case, just shift the middle point
                 shape.push_back(me - sideOffset(from, to, amount));
+#ifdef DEBUG_MOVE2SIDE
+                if (gDebugFlag1) std::cout << " " << i << "c=" << shape.back() << "\n";
+#endif
             } else if (fabs(extrapolateDev - 2 * me.distanceTo2D(to)) < POSITION_EPS) {
                 // counterparallel case, just shift the middle point
                 PositionVector fromMe2(from, me);
                 fromMe2.extrapolate2D(amount);
                 shape.push_back(fromMe2[1]);
+#ifdef DEBUG_MOVE2SIDE
+                if (gDebugFlag1) std::cout << " " << i << "d=" << shape.back() << " " << i << "_from=" << from << " " << i << "_me=" << me << " " << i << "_to=" << to << "\n";
+#endif
             } else {
                 Position offsets = sideOffset(from, me, amount);
                 Position offsets2 = sideOffset(me, to, amount);
@@ -1161,6 +1175,9 @@ PositionVector::move2side(double amount, double maxExtension) {
                 }
                 meNew = meNew + Position(0, 0, me.z());
                 shape.push_back(meNew);
+#ifdef DEBUG_MOVE2SIDE
+                if (gDebugFlag1) std::cout << " " << i << "e=" << shape.back() << "\n";
+#endif
             }
             // copy original z value
             shape.back().set(shape.back().x(), shape.back().y(), me.z());
@@ -1170,8 +1187,10 @@ PositionVector::move2side(double amount, double maxExtension) {
                                        ? MIN2(from.distanceTo2D(me), me.distanceTo2D(to)) * 2
                                        : (from.distanceTo2D(me) + me.distanceTo2D(to)));
                 const double radius = length / angle;
+#ifdef DEBUG_MOVE2SIDE
+                if (gDebugFlag1) std::cout << " i=" << i << " a=" << RAD2DEG(angle) << " l=" << length << " r=" << radius << " t=" << amount * 1.8 << "\n";
+#endif
                 if (radius < 0 && -radius < amount * 1.8) {
-                    //std::cout << " i_" << angle << "_" << amount << "=" << from << " " << me << " " << to << "\n";
                     recheck.push_back(i);
                 }
             }
