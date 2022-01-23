@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-09-07 12:27:59 by Eclipse SUMO netconvert Version v1_10_0+0544-e2f47533c3f
+<!-- generated on 2022-01-23 13:10:25 by Eclipse SUMO netconvert Version v1_11_0+1383-87ad85f7aa6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -1395,7 +1395,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="2070634635" type="dead_end" x="864.05" y="519.22" incLanes="" intLanes="" shape="863.06,519.33 865.05,519.11"/>
     <junction id="2070634637" type="dead_end" x="867.89" y="550.65" incLanes="196772425#2_0 196648124#0_0" intLanes="" shape="870.48,551.36 870.25,549.37 869.40,549.29 869.08,549.11 868.84,548.84 868.67,548.47 868.57,548.01 866.58,548.26 866.52,549.10 866.35,549.41 866.09,549.64 865.73,549.80 865.28,549.88 865.46,551.87"/>
     <junction id="2070634638" type="dead_end" x="857.71" y="551.58" incLanes="" intLanes="" shape="857.80,552.58 857.62,550.59"/>
-    <junction id="2071334290" type="dead_end" x="813.31" y="455.35" incLanes="196841085_0" intLanes="" shape="812.32,455.47 814.31,455.24"/>
+    <junction id="2071334290" type="dead_end" x="813.31" y="455.35" incLanes="196841085_0" intLanes="" shape="812.32,455.47 814.50,455.22"/>
     <junction id="2071334292" type="priority" x="814.90" y="457.28" incLanes="196841084_0" intLanes="" shape="816.56,459.15 816.21,455.16 814.31,455.24 813.48,458.38 814.63,458.56 815.02,458.77 815.41,458.98 815.89,459.13">
         <request index="0" response="0" foes="0"/>
     </junction>
