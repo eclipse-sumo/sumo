@@ -1190,7 +1190,7 @@ PositionVector::move2side(double amount, double maxExtension) {
 #ifdef DEBUG_MOVE2SIDE
                 if (gDebugFlag1) std::cout << " i=" << i << " a=" << RAD2DEG(angle) << " l=" << length << " r=" << radius << " t=" << amount * 1.8 << "\n";
 #endif
-                if (radius < 0 && -radius < amount * 1.8) {
+                if ((radius < 0 && -radius < amount * 1.8) || fabs(RAD2DEG(angle)) > 170)  {
                     recheck.push_back(i);
                 }
             }
