@@ -106,6 +106,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--write-trips** {{DT_BOOL}} | Write trips instead of vehicles (for validating trip input); *default:* **false** |
 | **--write-trips.geo** {{DT_BOOL}} | Write trips with geo-coordinates; *default:* **false** |
 | **--write-trips.junctions** {{DT_BOOL}} | Write trips with fromJunction and toJunction; *default:* **false** |
+| **--write-costs** {{DT_BOOL}} | Include the cost attribute in route output; *default:* **false** |
 | **--exit-times** {{DT_BOOL}} | Write exit times (weights) for each edge; *default:* **false** |
 | **--route-length** {{DT_BOOL}} | Include total route length in the output; *default:* **false** |
 
