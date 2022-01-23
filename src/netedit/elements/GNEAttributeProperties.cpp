@@ -110,7 +110,7 @@ GNEAttributeProperties::setDiscreteValues(const std::vector<std::string>& discre
 }
 
 
-void 
+void
 GNEAttributeProperties::setDefaultActivated(const bool value) {
     if (isActivatable()) {
         myDefaultActivated = value;

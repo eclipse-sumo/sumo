@@ -1083,7 +1083,7 @@ GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
     // special case for calibrators
     if ((tag == SUMO_TAG_CALIBRATOR) || (tag == SUMO_TAG_LANECALIBRATOR)) {
         while ((retrieveAdditional(SUMO_TAG_CALIBRATOR, prefix + "_" + toString(counter), false) != nullptr) ||
-               (retrieveAdditional(SUMO_TAG_LANECALIBRATOR, prefix + "_" + toString(counter), false) != nullptr)) {
+                (retrieveAdditional(SUMO_TAG_LANECALIBRATOR, prefix + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
     } else {
@@ -1148,7 +1148,7 @@ GNENetHelper::AttributeCarriers::getShapes() const {
 std::string
 GNENetHelper::AttributeCarriers::generateShapeID(SumoXMLTag tag) const {
     int counter = 0;
-        // obtain option container
+    // obtain option container
     OptionsCont& oc = OptionsCont::getOptions();
     // get prefix
     std::string prefix;
@@ -1161,7 +1161,7 @@ GNENetHelper::AttributeCarriers::generateShapeID(SumoXMLTag tag) const {
     if (tag == SUMO_TAG_POLY) {
         // Polys and TAZs share namespace
         while ((retrieveShape(SUMO_TAG_POLY, prefix + "_" + toString(counter), false) != nullptr) ||
-               (retrieveTAZElement(SUMO_TAG_TAZ, prefix + "_" + toString(counter), false) != nullptr)) {
+                (retrieveTAZElement(SUMO_TAG_TAZ, prefix + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
         return (prefix + "_" + toString(counter));
@@ -1444,13 +1444,13 @@ GNENetHelper::AttributeCarriers::generateDemandElementID(SumoXMLTag tag) const {
     if (tagProperty.isVehicle() || tagProperty.isFlow()) {
         // check all vehicles, because share nameSpaces
         while ((retrieveDemandElement(SUMO_TAG_VEHICLE, prefix + "_" + toString(counter), false) != nullptr) ||
-               (retrieveDemandElement(SUMO_TAG_TRIP, prefix + "_" + toString(counter), false) != nullptr) ||
-               (retrieveDemandElement(GNE_TAG_VEHICLE_WITHROUTE, prefix + "_" + toString(counter), false) != nullptr) ||
-               (retrieveDemandElement(GNE_TAG_TRIP_JUNCTIONS, prefix + "_" + toString(counter), false) != nullptr) ||
-               (retrieveDemandElement(GNE_TAG_FLOW_ROUTE, prefix + "_" + toString(counter), false) != nullptr) ||
-               (retrieveDemandElement(SUMO_TAG_FLOW, prefix + "_" + toString(counter), false) != nullptr) ||
-               (retrieveDemandElement(GNE_TAG_FLOW_WITHROUTE, prefix + "_" + toString(counter), false) != nullptr) ||
-               (retrieveDemandElement(GNE_TAG_FLOW_JUNCTIONS, prefix + "_" + toString(counter), false) != nullptr)) {
+                (retrieveDemandElement(SUMO_TAG_TRIP, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveDemandElement(GNE_TAG_VEHICLE_WITHROUTE, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveDemandElement(GNE_TAG_TRIP_JUNCTIONS, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveDemandElement(GNE_TAG_FLOW_ROUTE, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveDemandElement(SUMO_TAG_FLOW, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveDemandElement(GNE_TAG_FLOW_WITHROUTE, prefix + "_" + toString(counter), false) != nullptr) ||
+                (retrieveDemandElement(GNE_TAG_FLOW_JUNCTIONS, prefix + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
         // return new vehicle ID
@@ -1458,7 +1458,7 @@ GNENetHelper::AttributeCarriers::generateDemandElementID(SumoXMLTag tag) const {
     } else if (tagProperty.isPerson()) {
         // special case for persons (person and personFlows share nameSpaces)
         while ((retrieveDemandElement(SUMO_TAG_PERSON, prefix + "_" + toString(counter), false) != nullptr) ||
-               (retrieveDemandElement(SUMO_TAG_PERSONFLOW, prefix + "_" + toString(counter), false) != nullptr)) {
+                (retrieveDemandElement(SUMO_TAG_PERSONFLOW, prefix + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
         // return new person ID
@@ -1466,7 +1466,7 @@ GNENetHelper::AttributeCarriers::generateDemandElementID(SumoXMLTag tag) const {
     } else if (tagProperty.isContainer()) {
         // special case for containers (container and containerFlows share nameSpaces)
         while ((retrieveDemandElement(SUMO_TAG_CONTAINER, prefix + "_" + toString(counter), false) != nullptr) ||
-               (retrieveDemandElement(SUMO_TAG_CONTAINERFLOW, prefix + "_" + toString(counter), false) != nullptr)) {
+                (retrieveDemandElement(SUMO_TAG_CONTAINERFLOW, prefix + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
         // return new container ID

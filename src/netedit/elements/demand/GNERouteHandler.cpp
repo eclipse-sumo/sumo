@@ -90,7 +90,7 @@ GNERouteHandler::buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseOb
 
 
 void
-GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, 
+GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
                                         const std::vector<std::string>& vTypes) {
     // first check conditions
     if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, id, false) != nullptr) {
@@ -100,14 +100,14 @@ GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject
     } else {
         bool checkVTypesOK = true;
         // check vTypes
-        for (const auto &vType : vTypes) {
+        for (const auto& vType : vTypes) {
             if (myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vType, false) == nullptr) {
                 WRITE_ERROR(toString(SUMO_TAG_VTYPE) + " with id '" + vType + "' doesn't exist in " + toString(SUMO_TAG_VTYPE_DISTRIBUTION) + " '" + id + "'");
                 checkVTypesOK = false;
             }
         }
         // now check childrens
-        for (const auto & child : sumoBaseObject->getSumoBaseObjectChildren()) {
+        for (const auto& child : sumoBaseObject->getSumoBaseObjectChildren()) {
             if (child->hasStringAttribute(SUMO_ATTR_ID) == false) {
                 WRITE_ERROR("Invalid definition for " + toString(SUMO_TAG_VTYPE) + " in " + toString(SUMO_TAG_VTYPE_DISTRIBUTION) + " '" + id + "'");
                 checkVTypesOK = false;
@@ -118,12 +118,12 @@ GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject
         }
         // if all ok, then create vTypeDistribution
         if (checkVTypesOK) {
-            GNEVTypeDistribution *vTypeDistribution = new GNEVTypeDistribution(myNet, id);
+            GNEVTypeDistribution* vTypeDistribution = new GNEVTypeDistribution(myNet, id);
             if (myUndoDemandElements) {
                 myNet->getViewNet()->getUndoList()->begin(GUIIcon::VTYPEDISTRIBUTION, "add " + vTypeDistribution->getTagStr());
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vTypeDistribution, true), true);
                 // set this vTypeDistribution as parent of the other vTypes
-                for (const auto &vTypeID : vTypes) {
+                for (const auto& vTypeID : vTypes) {
                     auto vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vTypeID);
                     vType->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION, id, myNet->getViewNet()->getUndoList());
                 }
@@ -131,7 +131,7 @@ GNERouteHandler::buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject
             } else {
                 myNet->getAttributeCarriers()->insertDemandElement(vTypeDistribution);
                 vTypeDistribution->incRef("buildVType");
-                for (const auto &vTypeID : vTypes) {
+                for (const auto& vTypeID : vTypes) {
                     auto vType = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE, vTypeID);
                     vType->setAttribute(GNE_ATTR_VTYPE_DISTRIBUTION, id);
                 }
@@ -341,7 +341,7 @@ GNERouteHandler::buildTrip(const CommonXMLStructure::SumoBaseObject* /*sumoBaseO
 }
 
 
-void 
+void
 GNERouteHandler::buildTrip(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters,
                            const std::string& fromJunctionID, const std::string& toJunctionID) {
     // parse junctions
@@ -422,7 +422,7 @@ GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* /*sumoBaseO
 }
 
 
-void 
+void
 GNERouteHandler::buildFlow(const CommonXMLStructure::SumoBaseObject* /*sumoBaseObject*/, const SUMOVehicleParameter& vehicleParameters,
                            const std::string& fromJunctionID, const std::string& toJunctionID) {
     // parse junctions
@@ -1018,8 +1018,8 @@ GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
 
 
 bool
-GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent, GNEFrameAttributeModules::AttributesCreator* personPlanAttributes, 
-        GNEFrameModules::PathCreator* pathCreator, const bool centerAfterCreation) {
+GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent, GNEFrameAttributeModules::AttributesCreator* personPlanAttributes,
+                                 GNEFrameModules::PathCreator* pathCreator, const bool centerAfterCreation) {
     // clear and set person object
     myPlanObject->clear();
     myPlanObject->setTag(personParent->getTagProperty().getTag());
@@ -1198,8 +1198,8 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
             throw InvalidArgument("Invalid person plan tag");
     }
     // get person
-    const auto person = myNet->getAttributeCarriers()->retrieveDemandElement(personPlanObject->getParentSumoBaseObject()->getTag(), 
-        personPlanObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
+    const auto person = myNet->getAttributeCarriers()->retrieveDemandElement(personPlanObject->getParentSumoBaseObject()->getTag(),
+                        personPlanObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
     if (person) {
         // compute person (and all person plans)
         person->computePathElement();

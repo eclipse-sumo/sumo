@@ -155,8 +155,8 @@ RouteHandler::endParseAttributes() {
             // demand elements
             case SUMO_TAG_VTYPE:
                 // only parse vTypes without distributions
-                if (obj->getParentSumoBaseObject() && 
-                    (obj->getParentSumoBaseObject()->getTag() != SUMO_TAG_VTYPE_DISTRIBUTION)) {
+                if (obj->getParentSumoBaseObject() &&
+                        (obj->getParentSumoBaseObject()->getTag() != SUMO_TAG_VTYPE_DISTRIBUTION)) {
                     // parse vType and all their childrens
                     parseSumoBaseObject(obj);
                     // delete object (and all of their childrens)
@@ -224,7 +224,7 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
         // vehicles
         case SUMO_TAG_TRIP:
             if (obj->hasStringAttribute(SUMO_ATTR_FROM) &&
-                obj->hasStringAttribute(SUMO_ATTR_TO)) {
+                    obj->hasStringAttribute(SUMO_ATTR_TO)) {
                 // build trip with from-to edges
                 buildTrip(obj,
                           obj->getVehicleParameter(),

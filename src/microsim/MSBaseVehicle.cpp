@@ -1080,7 +1080,7 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
     }
 
     const bool tooClose = (prevStopEdge == stop.edge && prevEdge == &stop.lane->getEdge() &&
-        prevStopPos + (iter == myStops.begin() ? getBrakeGap() : 0) > stop.pars.endPos + POSITION_EPS);
+                           prevStopPos + (iter == myStops.begin() ? getBrakeGap() : 0) > stop.pars.endPos + POSITION_EPS);
 
     if (prevStopEdge > stop.edge ||
             // a collision-stop happens after vehicle movement and may move the
@@ -1218,7 +1218,7 @@ MSBaseVehicle::haveValidStopEdges() const {
                     double brakeGap = i == 0 ? getBrakeGap() : 0;
                     if (endPos >= lastPos + brakeGap) {
                         WRITE_WARNING(prefix + "is used in " + toString(stop.edge - myCurrEdge) + " edges but first encounter is in "
-                                + toString(it - myCurrEdge) + " edges " + err);
+                                      + toString(it - myCurrEdge) + " edges " + err);
                     }
                 }
                 start = stop.edge;

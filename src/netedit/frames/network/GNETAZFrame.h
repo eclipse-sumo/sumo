@@ -426,8 +426,8 @@ public:
         /// @brief pointer to GNETAZFrame parent
         GNETAZFrame* myTAZFrameParent;
 
-        /// @brief TAZ 
-        GNETAZ *myTAZTemplate;
+        /// @brief TAZ
+        GNETAZ* myTAZTemplate;
 
         /// @brief Button for open color editor
         FXButton* myColorEditor;

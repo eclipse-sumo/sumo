@@ -272,7 +272,7 @@ public:
     void move2side(double amount, double maxExtension = 100);
 
     /// @brief move position vector to side using a custom offset for each geometry point
-    void move2side(std::vector<double> amount, double maxExtension = 100);
+    void move2sideCustom(std::vector<double> amount, double maxExtension = 100);
 
     /// @brief get angle in certain position of position vector
     double angleAt2D(int pos) const;
@@ -418,6 +418,8 @@ public:
 
     /// @brief return a bezier interpolation
     PositionVector bezier(int numPoints);
+
+    static double localAngle(const Position& from, const Position& pos, const Position& to);
 
 private:
     /// @brief return whether the line segments defined by Line p11,p12 and Line p21,p22 intersect

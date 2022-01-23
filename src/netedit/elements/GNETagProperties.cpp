@@ -188,7 +188,7 @@ GNETagProperties::getFieldString() const {
 
 
 void
-GNETagProperties::setFieldString(const std::string &fieldString) {
+GNETagProperties::setFieldString(const std::string& fieldString) {
     myFieldString = fieldString;
 }
 

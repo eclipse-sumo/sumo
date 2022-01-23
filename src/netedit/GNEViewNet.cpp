@@ -2301,7 +2301,7 @@ GNEViewNet::onCmdDuplicateLane(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 GNEViewNet::onCmdEditLaneShape(FXObject*, FXSelector, void*) {
     // Obtain lane under mouse
     GNELane* lane = getLaneAtPopupPosition();

@@ -28,7 +28,7 @@
 // members methods
 // ===========================================================================
 
-GNEEdgeTemplate::GNEEdgeTemplate(const GNEEdge *edge) :
+GNEEdgeTemplate::GNEEdgeTemplate(const GNEEdge* edge) :
     GNEAttributeCarrier(SUMO_TAG_EDGE, edge->getNet()),
     myEdge(edge) {
     // update lane templates
@@ -37,13 +37,13 @@ GNEEdgeTemplate::GNEEdgeTemplate(const GNEEdge *edge) :
 
 
 GNEEdgeTemplate::~GNEEdgeTemplate() {
-    for (const auto &laneTemplate : myLaneTemplates) {
+    for (const auto& laneTemplate : myLaneTemplates) {
         delete laneTemplate;
     }
 }
 
 
-GNEHierarchicalElement* 
+GNEHierarchicalElement*
 GNEEdgeTemplate::getHierarchicalElement() {
     return nullptr;
 }
@@ -58,23 +58,23 @@ GNEEdgeTemplate::getLaneTemplates() const {
 void
 GNEEdgeTemplate::updateLaneTemplates() {
     // first remove all laneTemplates
-    for (const auto &laneTemplate : myLaneTemplates) {
+    for (const auto& laneTemplate : myLaneTemplates) {
         delete laneTemplate;
     }
     // now set new laneTemplates
-    for (const auto &lane : myEdge->getLanes()) {
+    for (const auto& lane : myEdge->getLanes()) {
         myLaneTemplates.push_back(new GNELaneTemplate(lane));
     }
 }
 
 
-const std::string& 
+const std::string&
 GNEEdgeTemplate::getID() const {
     return myEdge->getID();
 }
 
 
-GUIGlObject* 
+GUIGlObject*
 GNEEdgeTemplate::getGUIGlObject() {
     return nullptr;
 }
@@ -88,7 +88,7 @@ GNEEdgeTemplate::updateGeometry() {
 
 std::string
 GNEEdgeTemplate::getAttribute(SumoXMLAttr key) const {
-        return myEdge->getAttribute(key);
+    return myEdge->getAttribute(key);
 }
 
 
@@ -103,13 +103,13 @@ GNEEdgeTemplate::isValid(SumoXMLAttr /*key*/, const std::string& /*value*/) {
     throw InvalidArgument("cannot be called in templates");
 }
 
-void 
+void
 GNEEdgeTemplate::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     throw InvalidArgument("cannot be called in templates");
 }
 
 
-void 
+void
 GNEEdgeTemplate::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     throw InvalidArgument("cannot be called in templates");
 }
@@ -127,13 +127,13 @@ GNEEdgeTemplate::isAttributeComputed(SumoXMLAttr /*key*/) const {
 }
 
 
-std::string 
+std::string
 GNEEdgeTemplate::getPopUpID() const {
     return myEdge->getPopUpID();
 }
 
 
-std::string 
+std::string
 GNEEdgeTemplate::getHierarchyName() const {
     return myEdge->getHierarchyName();
 }
@@ -153,7 +153,7 @@ GNEEdgeTemplate::setAttribute(SumoXMLAttr /*key*/, const std::string& /*value*/)
     throw InvalidArgument("cannot be called in templates");
 }
 
-void 
+void
 GNEEdgeTemplate::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
     throw InvalidArgument("cannot be called in templates");
 }

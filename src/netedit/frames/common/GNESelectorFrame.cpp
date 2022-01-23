@@ -1022,7 +1022,7 @@ GNESelectorFrame::SelectionHierarchy::SelectionHierarchy(GNESelectorFrame* selec
     // Create "unselect" Button
     myUnselectChildrenButton = new FXButton(childrenButtons, "Unselect", GUIIconSubSys::getIcon(GUIIcon::UNSELECT), this, MID_GNE_SELECTORFRAME_CHILDREN, GUIDesignButton);
     // fill comboBoxes
-    for (const auto &item : myItems) {
+    for (const auto& item : myItems) {
         myParentsComboBox->appendItem(item.second.c_str());
         myChildrenComboBox->appendItem(item.second.c_str());
     }
@@ -1037,7 +1037,7 @@ GNESelectorFrame::SelectionHierarchy::~SelectionHierarchy() {}
 long
 GNESelectorFrame::SelectionHierarchy::onCmdSelectItem(FXObject* obj, FXSelector, void*) {
     if (obj == myParentsComboBox) {
-        for (const auto &item : myItems) {
+        for (const auto& item : myItems) {
             if (item.second == myParentsComboBox->getText().text()) {
                 // enable buttons
                 mySelectParentsButton->enable();
@@ -1057,7 +1057,7 @@ GNESelectorFrame::SelectionHierarchy::onCmdSelectItem(FXObject* obj, FXSelector,
         myParentsComboBox->setTextColor(FXRGB(255, 0, 0));
         return 1;
     } else if (obj == myChildrenComboBox) {
-        for (const auto &item : myItems) {
+        for (const auto& item : myItems) {
             if (item.second == myChildrenComboBox->getText().text()) {
                 // enable buttons
                 mySelectChildrenButton->enable();
@@ -1089,7 +1089,7 @@ GNESelectorFrame::SelectionHierarchy::onCmdParents(FXObject* obj, FXSelector, vo
     if ((selectedACs.size() > 0) && (myCurrentSelectedParent != Selection::NOTHING)) {
         // vector of hierarchical elements to select
         std::vector<GNEHierarchicalElement*> HEToSelect;
-        for (const auto & selectedAC : selectedACs) {
+        for (const auto& selectedAC : selectedACs) {
             // get hierarchical element
             const auto HE = selectedAC->getHierarchicalElement();
             // junctions
@@ -1128,13 +1128,13 @@ GNESelectorFrame::SelectionHierarchy::onCmdParents(FXObject* obj, FXSelector, vo
         }
         // select HE
         if (HEToSelect.size() > 0) {
-            for (const auto &HE : HEToSelect) {
+            for (const auto& HE : HEToSelect) {
                 if (obj == mySelectParentsButton) {
                     HE->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
                 } else {
                     HE->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->getViewNet()->getUndoList());
                 }
-            } 
+            }
         }
         // update information label
         mySelectorFrameParent->mySelectionInformation->updateInformationLabel();
@@ -1153,7 +1153,7 @@ GNESelectorFrame::SelectionHierarchy::onCmdChildren(FXObject* obj, FXSelector, v
     if ((selectedACs.size() > 0) && (myCurrentSelectedChild != Selection::NOTHING)) {
         // vector of hierarchical elements to select
         std::vector<GNEHierarchicalElement*> HEToSelect;
-        for (const auto & selectedAC : selectedACs) {
+        for (const auto& selectedAC : selectedACs) {
             // get hierarchical element
             const auto HE = selectedAC->getHierarchicalElement();
             // junctions
@@ -1186,7 +1186,7 @@ GNESelectorFrame::SelectionHierarchy::onCmdChildren(FXObject* obj, FXSelector, v
             // additional
             if ((myCurrentSelectedChild == Selection::ALL) || (myCurrentSelectedChild == Selection::ADDITIONAL)) {
                 // avoid insert symbols
-                for (const auto &additionalChild : HE->getChildAdditionals()) {
+                for (const auto& additionalChild : HE->getChildAdditionals()) {
                     if (!additionalChild->getTagProperty().isSymbol()) {
                         HEToSelect.push_back(additionalChild);
                     }
@@ -1207,13 +1207,13 @@ GNESelectorFrame::SelectionHierarchy::onCmdChildren(FXObject* obj, FXSelector, v
         }
         // select HE
         if (HEToSelect.size() > 0) {
-            for (const auto &HE : HEToSelect) {
+            for (const auto& HE : HEToSelect) {
                 if (obj == mySelectChildrenButton) {
                     HE->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->getViewNet()->getUndoList());
                 } else {
                     HE->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->getViewNet()->getUndoList());
                 }
-            } 
+            }
         }
         // update information label
         mySelectorFrameParent->mySelectionInformation->updateInformationLabel();

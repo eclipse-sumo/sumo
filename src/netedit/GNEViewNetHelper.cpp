@@ -3279,8 +3279,8 @@ GNEViewNetHelper::DemandCheckableButtons::buildDemandCheckableButtons() {
     vehicleButton->create();
     // type mode
     typeButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-            "\tcreate type mode\tMode for creating types (vehicles, person and containers). (T)",
-            GUIIconSubSys::getIcon(GUIIcon::MODETYPE), myViewNet, MID_HOTKEY_T_MODES_TLS_TYPE, GUIDesignMFXCheckableButton);
+                                        "\tcreate type mode\tMode for creating types (vehicles, person and containers). (T)",
+                                        GUIIconSubSys::getIcon(GUIIcon::MODETYPE), myViewNet, MID_HOTKEY_T_MODES_TLS_TYPE, GUIDesignMFXCheckableButton);
     typeButton->create();
     // stop mode
     stopButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,

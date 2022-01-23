@@ -29,7 +29,7 @@ class GNELaneTemplate : public GNEAttributeCarrier {
 
 public:
     /// @brief Constructor
-    GNELaneTemplate(const GNELane *lane);
+    GNELaneTemplate(const GNELane* lane);
 
     /// @brief Destructor.
     ~GNELaneTemplate();
@@ -108,7 +108,7 @@ public:
 
 protected:
     /// @brief pointer to original lane
-    const GNELane *myLane;
+    const GNELane* myLane;
 
 private:
     /// @brief set attribute after validation

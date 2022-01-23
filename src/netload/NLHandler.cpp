@@ -811,8 +811,8 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
     phase->finalTarget = attrs.getOpt<std::string>(SUMO_ATTR_FINAL_TARGET, id.c_str(), ok, "");
     phase->name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
 
-    phase->vehext= attrs.getOptSUMOTimeReporting(SUMO_ATTR_VEHICLEEXTENSION, id.c_str(), ok, tDefault);
-    phase->yellow= attrs.getOptSUMOTimeReporting(SUMO_ATTR_YELLOW, id.c_str(), ok, tDefault);
+    phase->vehext = attrs.getOptSUMOTimeReporting(SUMO_ATTR_VEHICLEEXTENSION, id.c_str(), ok, tDefault);
+    phase->yellow = attrs.getOptSUMOTimeReporting(SUMO_ATTR_YELLOW, id.c_str(), ok, tDefault);
     phase->red = attrs.getOptSUMOTimeReporting(SUMO_ATTR_RED, id.c_str(), ok, tDefault);
 
     if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
@@ -904,8 +904,8 @@ NLHandler::addE1Detector(const SUMOSAXAttributes& attrs) {
     }
     try {
         Parameterised* det = myDetectorBuilder.buildInductLoop(id, lane, position, frequency,
-                                          FileHelpers::checkForRelativity(file, getFileName()),
-                                          friendlyPos, vTypes, detectPersons);
+                             FileHelpers::checkForRelativity(file, getFileName()),
+                             friendlyPos, vTypes, detectPersons);
         myLastParameterised.push_back(det);
     } catch (InvalidArgument& e) {
         myCurrentIsBroken = true;
@@ -1176,15 +1176,15 @@ NLHandler::addE2Detector(const SUMOSAXAttributes& attrs) {
     if (lanesGiven) {
         // specification by a lane sequence
         det = myDetectorBuilder.buildE2Detector(id, clanes, position, endPosition, filename, frequency,
-                                          haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold,
-                                          vTypes, detectPersons, friendlyPos, showDetector,
-                                          tlls, cToLane);
+                                                haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold,
+                                                vTypes, detectPersons, friendlyPos, showDetector,
+                                                tlls, cToLane);
     } else {
         // specification by start or end lane
         det = myDetectorBuilder.buildE2Detector(id, clane, position, endPosition, length, filename, frequency,
-                                          haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold,
-                                          vTypes, detectPersons, friendlyPos, showDetector,
-                                          tlls, cToLane);
+                                                haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold,
+                                                vTypes, detectPersons, friendlyPos, showDetector,
+                                                tlls, cToLane);
     }
     myLastParameterised.push_back(det);
 }
@@ -1218,8 +1218,8 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes& attrs) {
     }
     try {
         Parameterised* det = myDetectorBuilder.beginE3Detector(id,
-                                          FileHelpers::checkForRelativity(file, getFileName()),
-                                          frequency, haltingSpeedThreshold, haltingTimeThreshold, vTypes, detectPersons, openEntry);
+                             FileHelpers::checkForRelativity(file, getFileName()),
+                             frequency, haltingSpeedThreshold, haltingTimeThreshold, vTypes, detectPersons, openEntry);
         myLastParameterised.push_back(det);
     } catch (InvalidArgument& e) {
         myCurrentIsBroken = true;

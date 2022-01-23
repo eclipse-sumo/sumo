@@ -82,12 +82,17 @@ tcpip from 2012-09-28 (n/a)
 * Project: https://github.com/itm/shawn
 * Source: https://github.com/itm/shawn/tree/master/src/apps/tcpip
 
-Xerces-C++ (3.2.0)
+Wix Installation Framework Templates (3.6)
+
+* License: CPL-1.0
+* Project: https://github.com/AnalogJ/Wix3.6Toolset
+* Source: https://github.com/AnalogJ/Wix3.6Toolset/tree/master/RC0-source/wix36-sources/src/ext/UIExtension/wixlib
+
+Xerces-C++ (3.2.3)
 
 * License: Apache-2.0
 * Project: http://xerces.apache.org/xerces-c/
-* Source:
-   http://mirror.softaculous.com/apache//xerces/c/3/sources/xerces-c-3.2.0.tar.gz
+* Source: https://dlcdn.apache.org/xerces/c/3/sources/xerces-c-3.2.3.tar.gz
 
 ## Cryptography
 

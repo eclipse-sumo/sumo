@@ -165,7 +165,7 @@ TrackerValueDesc::setAggregationSpan(SUMOTime as) {
 
 SUMOTime
 TrackerValueDesc::getAggregationSpan() const {
-    return (SUMOTime)(myAggregationInterval) * DELTA_T;
+    return myAggregationInterval * DELTA_T;
 }
 
 

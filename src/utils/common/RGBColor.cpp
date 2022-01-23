@@ -219,7 +219,7 @@ RGBColor::changedBrightness(int change, int toChange) const {
 RGBColor
 RGBColor::changedAlpha(int change) const {
     int alpha = MIN2(MAX2((int)myAlpha + change, 0), 255);
-    return RGBColor(myRed, myGreen, myBlue, alpha);
+    return RGBColor(myRed, myGreen, myBlue, (unsigned char)alpha);
 }
 
 

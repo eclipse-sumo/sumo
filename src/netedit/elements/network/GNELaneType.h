@@ -40,7 +40,7 @@ public:
     GNELaneType(GNEEdgeType* edgeTypeParent);
 
     /// @brief Copy constructor
-    GNELaneType(GNEEdgeType* edgeTypeParent, const NBTypeCont::LaneTypeDefinition &laneType);
+    GNELaneType(GNEEdgeType* edgeTypeParent, const NBTypeCont::LaneTypeDefinition& laneType);
 
     /// @brief Destructor.
     ~GNELaneType();

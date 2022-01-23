@@ -48,12 +48,12 @@ FXIMPLEMENT(FXGroupBoxModule, FXVerticalFrame, FXGroupBoxModuleMap, ARRAYNUMBER(
 // method definitions
 // ===========================================================================
 
-FXGroupBoxModule::FXGroupBoxModule(FXVerticalFrame* contentFrame, const std::string &text, const int options) :
+FXGroupBoxModule::FXGroupBoxModule(FXVerticalFrame* contentFrame, const std::string& text, const int options) :
     FXVerticalFrame(contentFrame, GUIDesignHorizontalFrame),
     myOptions(options),
     myCollapsed(false) {
     // build button and labels
-    FXHorizontalFrame *headerFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* headerFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     if (myOptions & Options::COLLAPSIBLE) {
         myCollapseButton = new FXButton(headerFrame, "", GUIIconSubSys::getIcon(GUIIcon::COLLAPSE), this, MID_GROUPBOXMODULE_COLLAPSE, GUIDesignButtonFXGroupBoxModule);
     }
@@ -72,13 +72,13 @@ FXGroupBoxModule::FXGroupBoxModule(FXVerticalFrame* contentFrame, const std::str
 FXGroupBoxModule::~FXGroupBoxModule() {}
 
 
-void 
+void
 FXGroupBoxModule::setText(const std::string& text) {
     myLabel->setText(text.c_str());
 }
 
 
-FXVerticalFrame* 
+FXVerticalFrame*
 FXGroupBoxModule::getCollapsableFrame() {
     return myCollapsableFrame;
 }
@@ -86,7 +86,7 @@ FXGroupBoxModule::getCollapsableFrame() {
 
 long
 FXGroupBoxModule::onPaint(FXObject*, FXSelector, void* ptr) {
-    FXEvent *event = (FXEvent*)ptr;
+    FXEvent* event = (FXEvent*)ptr;
     FXDCWindow dc(this, event);
     // Paint background
     dc.setForeground(backColor);
@@ -97,7 +97,7 @@ FXGroupBoxModule::onPaint(FXObject*, FXSelector, void* ptr) {
 }
 
 
-long 
+long
 FXGroupBoxModule::onCmdCollapseButton(FXObject*, FXSelector, void*) {
     if (myCollapsed) {
         myCollapsed = false;
@@ -113,13 +113,13 @@ FXGroupBoxModule::onCmdCollapseButton(FXObject*, FXSelector, void*) {
 }
 
 
-long 
+long
 FXGroupBoxModule::onCmdSaveButton(FXObject*, FXSelector, void*) {
     return saveContents();
 }
 
 
-long 
+long
 FXGroupBoxModule::onCmdLoadButton(FXObject*, FXSelector, void*) {
     return loadContents();
 }
@@ -138,14 +138,14 @@ FXGroupBoxModule::saveContents() const {
 }
 
 
-bool 
+bool
 FXGroupBoxModule::loadContents() const {
     // nothing to do
     return false;
 }
 
 
-void 
+void
 FXGroupBoxModule::toogleSaveButton(const bool value) {
     if (mySaveButton) {
         if (value) {

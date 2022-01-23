@@ -141,7 +141,7 @@ public:
         myCommit(false),
         myUndefined(false),
         myState(state)
-        {}
+    {}
 
 
     /// @brief Destructor

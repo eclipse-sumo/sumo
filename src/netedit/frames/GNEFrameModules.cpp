@@ -156,7 +156,7 @@ GNEFrameModules::TagSelector::TagSelector(GNEFrame* frameParent, GNETagPropertie
 
 GNEFrameModules::TagSelector::~TagSelector() {
     // clear myACTemplates and myTagsMatchBox
-    for (const auto &ACTemplate : myACTemplates) {
+    for (const auto& ACTemplate : myACTemplates) {
         delete ACTemplate;
     }
     myACTemplates.clear();
@@ -178,7 +178,7 @@ GNEFrameModules::TagSelector::hideTagSelector() {
 GNEAttributeCarrier*
 GNEFrameModules::TagSelector::getTemplateAC(SumoXMLTag ACTag) const {
     // clear myACTemplates and myTagsMatchBox
-    for (const auto &ACTemplate : myACTemplates) {
+    for (const auto& ACTemplate : myACTemplates) {
         if (ACTemplate->getAC()->getTagProperty().getTag() == ACTag) {
             return ACTemplate->getAC();
         }
@@ -247,7 +247,7 @@ GNEFrameModules::TagSelector::setCurrentTagType(GNETagProperties::TagType tagTyp
             throw ProcessError("invalid tag property");
     }
     // clear myACTemplates and myTagsMatchBox
-    for (const auto &ACTemplate : myACTemplates) {
+    for (const auto& ACTemplate : myACTemplates) {
         delete ACTemplate;
     }
     myACTemplates.clear();
@@ -255,7 +255,7 @@ GNEFrameModules::TagSelector::setCurrentTagType(GNETagProperties::TagType tagTyp
     // get tag properties
     const auto tagProperties = GNEAttributeCarrier::getTagPropertiesByType(myTagType);
     // fill myACTemplates and myTagsMatchBox
-    for (const auto &tagProperty : tagProperties) {
+    for (const auto& tagProperty : tagProperties) {
         if ((!onlyDrawables || tagProperty.isDrawable()) && (!tagProperty.requireProj() || proj)) {
             myACTemplates.push_back(new ACTemplate(myFrameParent->getViewNet()->getNet(), tagProperty));
             myTagsMatchBox->appendIconItem(tagProperty.getFieldString().c_str(), GUIIconSubSys::getIcon(tagProperty.getGUIIcon()), tagProperty.getBackGroundColor());
@@ -339,7 +339,7 @@ GNEFrameModules::TagSelector::ACTemplate::getAC() const {
 
 GNEFrameModules::TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagProperty) :
     myAC(nullptr) {
-    // create attribute carrier depending of 
+    // create attribute carrier depending of
     switch (tagProperty.getTag()) {
         // additional elements
         case SUMO_TAG_BUS_STOP:
@@ -507,7 +507,7 @@ GNEFrameModules::TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagPr
 }
 
 
- GNEFrameModules::TagSelector::ACTemplate::~ACTemplate() {
+GNEFrameModules::TagSelector::ACTemplate::~ACTemplate() {
     delete myAC;
 }
 
@@ -515,7 +515,7 @@ GNEFrameModules::TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagPr
 // GNEFrameModules::DemandElementSelector - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameModules::DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag, GNEDemandElement *defaultElement) :
+GNEFrameModules::DemandElementSelector::DemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag, GNEDemandElement* defaultElement) :
     FXGroupBoxModule(frameParent->myContentFrame, ("Parent " + toString(demandElementTag)).c_str()),
     myFrameParent(frameParent),
     myCurrentDemandElement(defaultElement),
@@ -2508,8 +2508,8 @@ GNEFrameModules::PathCreator::setVClass(SUMOVehicleClass vClass) {
 }
 
 
-bool 
-GNEFrameModules::PathCreator::addJunction(GNEJunction *junction, const bool /* shiftKeyPressed */, const bool /* controlKeyPressed */) {
+bool
+GNEFrameModules::PathCreator::addJunction(GNEJunction* junction, const bool /* shiftKeyPressed */, const bool /* controlKeyPressed */) {
     // check if junctions are allowed
     if (((myCreationMode & START_JUNCTION) + (myCreationMode & END_JUNCTION)) == 0) {
         return false;
@@ -2640,13 +2640,13 @@ GNEFrameModules::PathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed,
 }
 
 
-const std::vector<GNEEdge*>& 
+const std::vector<GNEEdge*>&
 GNEFrameModules::PathCreator::getSelectedEdges() const {
     return mySelectedEdges;
 }
 
 
-const std::vector<GNEJunction*>& 
+const std::vector<GNEJunction*>&
 GNEFrameModules::PathCreator::getSelectedJunctions() const {
     return mySelectedJunctions;
 }
@@ -2902,7 +2902,7 @@ GNEFrameModules::PathCreator::drawTemporalRoute(const GUIVisualizationSettings& 
         for (int i = 0; i < (int)mySelectedJunctions.size() - 1; i++) {
             // get two points
             const Position posA = mySelectedJunctions.at(i)->getPositionInView();
-            const Position posB = mySelectedJunctions.at(i+1)->getPositionInView();
+            const Position posB = mySelectedJunctions.at(i + 1)->getPositionInView();
             const double rot = ((double)atan2((posB.x() - posA.x()), (posA.y() - posB.y())) * (double) 180.0 / (double)M_PI);
             const double len = posA.distanceTo2D(posB);
             // draw line

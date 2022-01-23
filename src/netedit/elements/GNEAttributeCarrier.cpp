@@ -106,9 +106,9 @@ GNEAttributeCarrier::drawUsingSelectColor() const {
 }
 
 
-void 
+void
 GNEAttributeCarrier::resetDefaultValues() {
-    for (const auto &attrProperty: myTagProperty) {
+    for (const auto& attrProperty : myTagProperty) {
         if (attrProperty.hasDefaultValue()) {
             setAttribute(attrProperty.getAttr(), attrProperty.getDefaultValue());
             if (attrProperty.isActivatable()) {
@@ -584,7 +584,7 @@ GNEAttributeCarrier::getIcon() const {
 }
 
 
-bool 
+bool
 GNEAttributeCarrier::isTemplate() const {
     return myIsTemplate;
 }
@@ -797,9 +797,9 @@ GNEAttributeCarrier::getTagPropertiesByType(const int tagPropertyCategory) {
 // private
 // ===========================================================================
 
-void 
+void
 GNEAttributeCarrier::resetAttributes() {
-    for (const auto &attrProperty : myTagProperty) {
+    for (const auto& attrProperty : myTagProperty) {
         if (attrProperty.hasDefaultValue()) {
             setAttribute(attrProperty.getAttr(), attrProperty.getDefaultValue());
         }
@@ -983,19 +983,19 @@ GNEAttributeCarrier::fillNetworkElements() {
                                               "Lane width for all lanes of this edge in meters (used for visualization)",
                                               "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
-/*
-        implement in #9725
+        /*
+                implement in #9725
 
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_SIDEWALKWIDTH,
-                                              GNEAttributeProperties::FLOAT,
-                                              "The width of the sidewalk that should be added as an additional lane");
-        myTagProperties[currentTag].addAttribute(attrProperty);
+                attrProperty = GNEAttributeProperties(SUMO_ATTR_SIDEWALKWIDTH,
+                                                      GNEAttributeProperties::FLOAT,
+                                                      "The width of the sidewalk that should be added as an additional lane");
+                myTagProperties[currentTag].addAttribute(attrProperty);
 
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_BIKELANEWIDTH,
-                                              GNEAttributeProperties::FLOAT,
-                                              "The width of the bike lane that should be added as an additional lane");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-*/
+                attrProperty = GNEAttributeProperties(SUMO_ATTR_BIKELANEWIDTH,
+                                                      GNEAttributeProperties::FLOAT,
+                                                      "The width of the bike lane that should be added as an additional lane");
+                myTagProperties[currentTag].addAttribute(attrProperty);
+        */
     }
     currentTag = SUMO_TAG_LANETYPE;
     {
@@ -2403,7 +2403,7 @@ GNEAttributeCarrier::fillAdditionals() {
 
         // fill common vehicle attributes
         fillCommonVehicleAttributes(currentTag);
-        
+
         // optional attributes (at least one must be defined)
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE | GNEAttributeProperties::ACTIVATABLE,
@@ -3630,7 +3630,7 @@ GNEAttributeCarrier::fillVehicleElements() {
                                       0,
                                       GUIIcon::ROUTEFLOW, SUMO_TAG_FLOW, {}, FXRGBA(210, 233, 255, 255));
         myTagProperties[currentTag].setFieldString("flow (over route)");
-        
+
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::AUTOMATICID,
@@ -4332,7 +4332,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
                                               "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
-    
+
     currentTag = GNE_TAG_WALK_JUNCTIONS;
     {
         // set values of tag
@@ -5134,9 +5134,9 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag) {
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_PARKING,
-                                            GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                            "whether the vehicle stops on the road or beside ",
-                                            "false");
+                                          GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
+                                          "whether the vehicle stops on the road or beside ",
+                                          "false");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_ACTTYPE,

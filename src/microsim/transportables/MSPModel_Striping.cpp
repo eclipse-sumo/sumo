@@ -1542,7 +1542,7 @@ MSPModel_Striping::PState::PState():
 }
 
 
-MSPModel_Striping::PState::PState(MSPerson* person, MSStageMoving* stage, std::istringstream* in): 
+MSPModel_Striping::PState::PState(MSPerson* person, MSStageMoving* stage, std::istringstream* in):
     myPerson(person),
     myStage(stage),
     myLane(nullptr),
@@ -1559,13 +1559,13 @@ MSPModel_Striping::PState::PState(MSPerson* person, MSStageMoving* stage, std::i
         int nextDir;
 
         (*in) >> laneID
-            >> myRelX >> myRelY >> myDir >> mySpeed >> mySpeedLat >> myWaitingToEnter >> myWaitingTime 
-            >> wapLaneFrom >> wapLaneTo
-            >> myAmJammed
-            >> nextLaneID
-            >> nextLinkFrom
-            >> nextLinkTo
-            >> nextDir;
+              >> myRelX >> myRelY >> myDir >> mySpeed >> mySpeedLat >> myWaitingToEnter >> myWaitingTime
+              >> wapLaneFrom >> wapLaneTo
+              >> myAmJammed
+              >> nextLaneID
+              >> nextLinkFrom
+              >> nextLinkTo
+              >> nextDir;
 
 
         myLane = MSLane::dictionary(laneID);
@@ -1632,11 +1632,11 @@ MSPModel_Striping::PState::saveState(std::ostringstream& out) {
         nextLinkTo = myNLI.link->getViaLaneOrLane()->getID();
     }
     out << " " << myLane->getID()
-        << " " << myRelX 
-        << " " << myRelY 
-        << " " << myDir 
-        << " " << mySpeed 
-        << " " << mySpeedLat 
+        << " " << myRelX
+        << " " << myRelY
+        << " " << myDir
+        << " " << mySpeed
+        << " " << mySpeedLat
         << " " << myWaitingToEnter
         << " " << myWaitingTime
         << " " << wapLaneFrom

@@ -70,8 +70,8 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
                const double height, const std::string& name, const std::map<std::string, std::string>& parameters) :
     PointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, friendlyPos, posLat, layer, angle, imgFile, relativePath, width, height, name, parameters),
     GNEShape(id, net, GLO_POI, GNE_TAG_POILANE,
-        {}, {}, {lane}, {}, {}, {}, {}, {}
-    ) {
+{}, {}, {lane}, {}, {}, {}, {}, {}
+        ) {
     // update geometry (needed for POILanes)
     updateGeometry();
     // update centering boundary without updating grid

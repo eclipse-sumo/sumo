@@ -87,8 +87,7 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myDefaultSpreadType(toString(LaneSpreadFunction::RIGHT)),
       myGeomAvoidOverlap(true),
       myJunctionsHigherSpeed(false),
-      myInternalJunctionsVehicleWidth(OptionsCont::getOptions().getFloat("internal-junctions.vehicle-width"))
-{
+      myInternalJunctionsVehicleWidth(OptionsCont::getOptions().getFloat("internal-junctions.vehicle-width")) {
 }
 
 

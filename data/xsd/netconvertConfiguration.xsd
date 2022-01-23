@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-17 21:30:04 by Eclipse SUMO netconvert Version v1_10_0+2298-58e4f3bc8d3
+<!-- generated on 2022-01-23 14:36:27 by Eclipse SUMO netconvert Version v1_11_0+1386-3dcddef099b
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -276,6 +276,7 @@
             <xsd:element name="junctions.limit-turn-speed.warn.turn" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="junctions.small-radius" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="junctions.higher-speed" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="internal-junctions.vehicle-width" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="rectangular-lane-cut" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="check-lane-foes.roundabout" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="check-lane-foes.all" type="boolOptionType" minOccurs="0"/>
@@ -316,6 +317,7 @@
             <xsd:element name="railway.topology.all-bidi" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="railway.topology.all-bidi.input-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="railway.topology.direction-priority" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="railway.topology.extend-priority" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="railway.access-distance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="railway.max-accesses" type="intOptionType" minOccurs="0"/>
             <xsd:element name="railway.access-factor" type="floatOptionType" minOccurs="0"/>
@@ -334,6 +336,7 @@
             <xsd:element name="osm.lane-access" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.bike-access" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.sidewalks" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="osm.turn-lanes" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.stop-output.length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="osm.stop-output.length.bus" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="osm.stop-output.length.tram" type="floatOptionType" minOccurs="0"/>
@@ -377,6 +380,8 @@
             <xsd:element name="opendrive.advance-stopline" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="opendrive.min-width" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="opendrive.internal-shapes" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="opendrive.position-ids" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="opendrive.lane-shapes" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

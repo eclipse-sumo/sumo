@@ -425,10 +425,10 @@ protected:
 
     /// @brief replace demand element parent
     void replaceDemandElementParent(SumoXMLTag tag, const std::string& value, const int parentIndex);
-    
+
     /// @brief set VTypeDistribution parent
     void setVTypeDistributionParent(const std::string& value);
-    
+
     /// @}
 
     /// @brief struct for writting sorted stops
@@ -447,7 +447,7 @@ protected:
     };
 
     /// @brief get sorted stops
-    std::vector<const GNEDemandElement*> getSortedStops(const std::vector<GNEEdge*> &edges) const;
+    std::vector<const GNEDemandElement*> getSortedStops(const std::vector<GNEEdge*>& edges) const;
 
 private:
     /**@brief check restriction with the number of children

@@ -79,8 +79,8 @@ GNEContainerFrame::show() {
     myTypeSelector->refreshDemandElementSelector();
     myContainerPlanTagSelector->refreshTagSelector();
     // update VClass of myPathCreator
-    if (myContainerPlanTagSelector->getCurrentTemplateAC() && 
-        myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isTransportPlan()) {
+    if (myContainerPlanTagSelector->getCurrentTemplateAC() &&
+            myContainerPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isTransportPlan()) {
         myPathCreator->setVClass(SVC_PASSENGER);
     } else {
         myPathCreator->setVClass(SVC_PEDESTRIAN);

@@ -121,7 +121,7 @@ GNEDataSet::GNEDataSet(GNENet* net, const std::string dataSetID) :
 GNEDataSet::~GNEDataSet() {}
 
 
-GNEHierarchicalElement* 
+GNEHierarchicalElement*
 GNEDataSet::getHierarchicalElement() {
     return nullptr;
 }

@@ -167,6 +167,10 @@ def main(options, platform="x64"):
             for f in (glob.glob(os.path.join(SUMO_HOME, "*.md")) +
                       [os.path.join(SUMO_HOME, n) for n in ("AUTHORS", "ChangeLog", "LICENSE")]):
                 shutil.copy(f, installDir)
+            if options.suffix == "extra":
+                shutil.copy(os.path.join(SUMO_HOME, "build", "wix", "gpl-2.0.txt"), os.path.join(installDir, "LICENSE"))
+            for f in glob.glob(os.path.join(SUMO_HOME, "bin", "*.jar")):
+                shutil.copy(f, os.path.join(installDir, "bin"))
             shutil.copytree(os.path.join(SUMO_HOME, "docs"), os.path.join(installDir, "docs"),
                             ignore=shutil.ignore_patterns('web'))
             shutil.copy(os.path.join(buildDir, "src", "version.h"), os.path.join(installDir, "include"))
@@ -174,7 +178,11 @@ def main(options, platform="x64"):
             shutil.make_archive(binaryZip, 'zip', buildDir, installBase)
             shutil.copy(binaryZip + ".zip", options.remoteDir)
             status.printLog("Creating sumo.msi.")
-            wix.buildMSI(binaryZip + ".zip", binaryZip + ".msi")
+            if options.suffix == "extra":
+                wix.buildMSI(binaryZip + ".zip", binaryZip + ".msi",
+                             license=os.path.join(SUMO_HOME, "build", "wix", "gpl-2.0.rtf"))
+            else:
+                wix.buildMSI(binaryZip + ".zip", binaryZip + ".msi")
             shutil.copy(binaryZip + ".msi", options.remoteDir)
         except Exception as ziperr:
             status.printLog("Warning: Could not zip to %s.zip (%s)!" % (binaryZip, ziperr))

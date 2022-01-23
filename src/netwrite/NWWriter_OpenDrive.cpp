@@ -93,8 +93,8 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     if (gch.usingGeoProjection()) {
         device.openTag("geoReference");
         device.writePreformattedTag(" <![CDATA[\n "
-                + gch.getProjString()
-                + "\n]]>\n");
+                                    + gch.getProjString()
+                                    + "\n]]>\n");
         device.closeTag();
         if (gch.getOffsetBase() != Position(0, 0)) {
             device.openTag("offset");

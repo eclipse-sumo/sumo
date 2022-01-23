@@ -122,7 +122,7 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
                                               ego.getVehicleType().getParameter().getLCParamString(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD, "5"));
         try {
             ego.getLaneChangeModel().setParameter(toString(SUMO_ATTR_MINGAP_LAT),
-                    toString(ego.getVehicleType().getMinGapLat()));
+                                                  toString(ego.getVehicleType().getMinGapLat()));
         } catch (InvalidArgument&) {
             // not supported by the current laneChangeModel
         }
@@ -189,8 +189,8 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
                 t.setPreferredLateralAlignment(align);
 #ifdef DEBUG_BLUELIGHT_RESCUELANE
                 std::cout << "Refresh alignment for vehicle: " << veh2->getID()
-                    << " laneIndex=" << veh2->getLane()->getIndex() << " numLanes=" << numLanes
-                    << " alignment=" << toString(align) << "\n";
+                          << " laneIndex=" << veh2->getLane()->getIndex() << " numLanes=" << numLanes
+                          << " alignment=" << toString(align) << "\n";
 #endif
             }
 
@@ -233,8 +233,8 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
                     // disable strategic lane-changing
 #ifdef DEBUG_BLUELIGHT_RESCUELANE
                     std::cout << SIMTIME << " device=" << getID() << " formingRescueLane=" << veh2->getID()
-                        << " laneIndex=" << veh2->getLane()->getIndex() << " numLanes=" << numLanes
-                        << " alignment=" << toString(align) << "\n";
+                              << " laneIndex=" << veh2->getLane()->getIndex() << " numLanes=" << numLanes
+                              << " alignment=" << toString(align) << "\n";
 #endif
                     std::vector<std::string> influencedBy = StringTokenizer(veh2->getParameter().getParameter(INFLUENCED_BY, "")).getVector();
                     if (std::find(influencedBy.begin(), influencedBy.end(), myHolder.getID()) == influencedBy.end()) {
@@ -264,7 +264,7 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
         auto avi = link->getApproaching(&ego);
         MSLink::BlockingFoes blockingFoes;
         link->opened(avi.arrivalTime, avi.arrivalSpeed, avi.arrivalSpeed, ego.getLength(),
-                0, ego.getCarFollowModel().getMaxDecel(), ego.getWaitingTime(), ego.getLateralPositionOnLane(), &blockingFoes, true, &ego);
+                     0, ego.getCarFollowModel().getMaxDecel(), ego.getWaitingTime(), ego.getLateralPositionOnLane(), &blockingFoes, true, &ego);
         const SUMOTime timeToArrival = avi.arrivalTime - SIMSTEP;
         for (const SUMOVehicle* foe : blockingFoes) {
             const double dist = ego.getPosition().distanceTo2D(foe->getPosition());
@@ -275,7 +275,8 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
                     continue;
                 }
                 const double timeToBrake = foe->getSpeed() / 4.5;
-                if (timeToArrival < TIME2STEPS(timeToBrake + 1)) {;
+                if (timeToArrival < TIME2STEPS(timeToBrake + 1)) {
+                    ;
                     std::vector<std::pair<SUMOTime, double> > speedTimeLine;
                     speedTimeLine.push_back(std::make_pair(SIMSTEP, foe->getSpeed()));
                     speedTimeLine.push_back(std::make_pair(avi.arrivalTime, 0));

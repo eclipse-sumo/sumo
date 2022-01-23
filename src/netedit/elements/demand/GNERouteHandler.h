@@ -65,7 +65,7 @@ public:
     void buildVType(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVTypeParameter& vTypeParameter);
 
     /// @brief build vType distribution
-    void buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, 
+    void buildVTypeDistribution(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id,
                                 const std::vector<std::string>& vTypes);
 
     /// @brief build route
@@ -111,7 +111,7 @@ public:
 
     /// @brief build person trip
     void buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& toEdgeID,
-                         const std::string& fromJunctionID, const std::string& toJunctionID, const std::string& toBusStopID, double arrivalPos, 
+                         const std::string& fromJunctionID, const std::string& toJunctionID, const std::string& toBusStopID, double arrivalPos,
                          const std::vector<std::string>& types, const std::vector<std::string>& modes);
 
     /// @brief build walk

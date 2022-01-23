@@ -1617,7 +1617,7 @@ enum LaneChangeAction {
     // !!! never used LCA_KEEP2 = 1 << 25,
     LCA_AMBACKBLOCKER = 1 << 26,
     LCA_AMBACKBLOCKER_STANDING = 1 << 27
-    /// @}
+                                 /// @}
 };
 
 

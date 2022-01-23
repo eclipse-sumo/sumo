@@ -37,7 +37,7 @@ public:
     };
 
     /// @brief constructor
-    FXGroupBoxModule(FXVerticalFrame* contentFrame, const std::string &text, const int options = Options::COLLAPSIBLE);
+    FXGroupBoxModule(FXVerticalFrame* contentFrame, const std::string& text, const int options = Options::COLLAPSIBLE);
 
     /// @brief destructor
     ~FXGroupBoxModule();
@@ -49,16 +49,16 @@ public:
     FXVerticalFrame* getCollapsableFrame();
 
     /// @brief draw FXGroupBoxModule
-    long onPaint(FXObject*,FXSelector,void*);
+    long onPaint(FXObject*, FXSelector, void*);
 
     /// @brief collapse GroupBoxModule
-    long onCmdCollapseButton(FXObject*,FXSelector,void*);
+    long onCmdCollapseButton(FXObject*, FXSelector, void*);
 
     /// @brief save contents
-    long onCmdSaveButton(FXObject*,FXSelector,void*);
+    long onCmdSaveButton(FXObject*, FXSelector, void*);
 
     /// @brief load contents
-    long onCmdLoadButton(FXObject*,FXSelector,void*);
+    long onCmdLoadButton(FXObject*, FXSelector, void*);
 
 protected:
     /// @brief FOX need this
@@ -78,19 +78,19 @@ private:
     const int myOptions;
 
     /// @brief vertical collapsable frame
-    FXVerticalFrame *myCollapsableFrame = nullptr;
+    FXVerticalFrame* myCollapsableFrame = nullptr;
 
     /// @brief label used in non collapsable FXGroupBoxModule
-    FXLabel *myLabel = nullptr;
+    FXLabel* myLabel = nullptr;
 
     /// @brief button for collapse elements
-    FXButton *myCollapseButton = nullptr;
+    FXButton* myCollapseButton = nullptr;
 
     /// @brief button for save elements
-    FXButton *mySaveButton = nullptr;
+    FXButton* mySaveButton = nullptr;
 
     /// @brief button for load elements
-    FXButton *myLoadButton = nullptr;
+    FXButton* myLoadButton = nullptr;
 
     /// @brief flag to check if this groupbox is collapsed
     bool myCollapsed;

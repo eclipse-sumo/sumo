@@ -67,8 +67,8 @@ FXIMPLEMENT(GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel, FXGLCan
  * GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel-methods
  * ----------------------------------------------------------------------- */
 GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::GUITLLogicPhasesTrackerPanel(
-        FXComposite* c, GUIMainWindow& app,
-        GUITLLogicPhasesTrackerWindow& parent) :
+    FXComposite* c, GUIMainWindow& app,
+    GUITLLogicPhasesTrackerWindow& parent) :
     FXGLCanvas(c, app.getGLVisual(), app.getBuildGLCanvas(), (FXObject*) nullptr, (FXSelector) 0, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y/*, 0, 0, 300, 200*/),
     myParent(&parent)
 {}
@@ -164,8 +164,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     FXMainWindow(app.getApp(), "TLS-Tracker", nullptr, nullptr, DECOR_ALL, 20, 20, 300, 200),
     myApplication(&app),
     myTLLogic(&logic),
-    myAmInTrackingMode(true)
-{
+    myAmInTrackingMode(true) {
     initToolBar();
     myConnector = new GLObjectValuePassConnector<std::pair<SUMOTime, MSPhaseDefinition> >(wrapper, src, this);
     app.addChild(this);
@@ -195,16 +194,15 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
 
 
 GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
-        GUIMainWindow& app,
-        MSTrafficLightLogic& logic, GUITrafficLightLogicWrapper& /*wrapper*/,
-        const MSSimpleTrafficLightLogic::Phases& /*phases*/) :
+    GUIMainWindow& app,
+    MSTrafficLightLogic& logic, GUITrafficLightLogicWrapper& /*wrapper*/,
+    const MSSimpleTrafficLightLogic::Phases& /*phases*/) :
     FXMainWindow(app.getApp(), "TLS-Tracker", nullptr, nullptr, DECOR_ALL, 20, 20, 300, 200),
     myApplication(&app),
     myTLLogic(&logic),
     myAmInTrackingMode(false),
     myToolBarDrag(nullptr),
-    myBeginOffset(nullptr)
-{
+    myBeginOffset(nullptr) {
     myConnector = nullptr;
     initToolBar();
     app.addChild(this);
@@ -564,7 +562,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
                         runningGreen[j] += *pd;
                         if (pd + 1 == myDurations.end()) {
                             drawnDuration = runningGreen[j];
-                            xOffset =  -(drawnDuration - *pd)/ panelWidth * (barWidth / ((double)(myLastTime - myBeginTime)));
+                            xOffset =  -(drawnDuration - *pd) / panelWidth * (barWidth / ((double)(myLastTime - myBeginTime)));
                         }
                     }
                 } else {
@@ -576,8 +574,8 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
                 }
                 if (drawnDuration > 0) {
                     GLHelper::drawText(toString((int)STEPS2TIME(drawnDuration)),
-                            Position(x + xOffset, h - h9),
-                            0, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
+                                       Position(x + xOffset, h - h9),
+                                       0, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
                 }
             }
             // proceed to next link
@@ -618,13 +616,13 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
         if (myDetectorMode->getCheck()) {
             glColor3d(0.7, 0.7, 1.0);
             drawAdditionalStates(caller, myDetectorStates, myDetectorDurations, myFirstDetOffset, myFirstDet2Show, h,
-                    panelWidth, (double)leftOffset, barWidth, stateHeight, h20, h);
+                                 panelWidth, (double)leftOffset, barWidth, stateHeight, h20, h);
             h -= h35;
         }
         if (myConditionMode->getCheck()) {
             glColor3d(0.9, 0.6, 0.9);
             drawAdditionalStates(caller, myConditionStates, myConditionDurations, myFirstCondOffset, myFirstCond2Show, h,
-                    panelWidth, (double)leftOffset, barWidth, stateHeight, h20, h);
+                                 panelWidth, (double)leftOffset, barWidth, stateHeight, h20, h);
         }
     }
     // allow value addition
@@ -763,9 +761,9 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel& caller) 
             }
             while (pos < panelWidth + 50.) {
                 const std::string timeStr = (mmSS
-                        ? StringUtils::padFront(toString((currTime % 3600000) / 60000), 2, '0') + ":"
-                        + StringUtils::padFront(toString((currTime % 60000) / 1000), 2, '0')
-                        : toString((int)STEPS2TIME(cycleTime ? findTimeInCycle(currTime) : currTime)));
+                                             ? StringUtils::padFront(toString((currTime % 3600000) / 60000), 2, '0') + ":"
+                                             + StringUtils::padFront(toString((currTime % 60000) / 1000), 2, '0')
+                                             : toString((int)STEPS2TIME(cycleTime ? findTimeInCycle(currTime) : currTime)));
                 const double w = 10 * timeStr.size() / panelWidth;
                 glTranslated(glpos - w / 2., glh - h20, 0);
                 GLHelper::drawText(timeStr, Position(0, 0), 1, fontHeight, RGBColor::WHITE, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
@@ -997,8 +995,8 @@ GUITLLogicPhasesTrackerWindow::loadSettings() {
                       getApp()->getRootWindow()->getWidth() - minSize)));
     if (myLastY == -1) {
         myLastY = MAX2(minTitlebarHeight,
-              MIN2(getApp()->reg().readIntEntry("TL_TRACKER", "y", 150),
-                   getApp()->getRootWindow()->getHeight() - minSize));
+                       MIN2(getApp()->reg().readIntEntry("TL_TRACKER", "y", 150),
+                            getApp()->getRootWindow()->getHeight() - minSize));
     } else {
         myLastY += getHeight() + 20;
     }

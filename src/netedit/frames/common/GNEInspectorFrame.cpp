@@ -558,7 +558,7 @@ GNEInspectorFrame::TemplateEditor::setEdgeTemplate(const GNEEdge* edge) {
     if (edge) {
         myEdgeTemplate = new GNEEdgeTemplate(edge);
         // use template by default
-         myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getViewParent()->getCreateEdgeFrame()->setUseEdgeTemplate();
+        myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getViewParent()->getCreateEdgeFrame()->setUseEdgeTemplate();
     }
 }
 
@@ -643,7 +643,7 @@ GNEInspectorFrame::TemplateEditor::updateButtons() {
     // enable or disable clear buttons depending of myEdgeTemplate
     if (myEdgeTemplate) {
         // get inspected ACs
-        const auto &ACs = myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
+        const auto& ACs = myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
         // update caption of copy button
         if (ACs.size() == 1) {
             myCopyTemplateButton->setText(("Copy '" + myEdgeTemplate->getID() + "' into edge '" + ACs.front()->getID() + "'").c_str());

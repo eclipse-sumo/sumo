@@ -160,7 +160,6 @@ public:
          */
         void drawValue(TrackerValueDesc& desc, const RGBColor& col, int index);
 
-
     private:
         /// @brief The parent window
         GUIParameterTracker* myParent;
@@ -168,12 +167,8 @@ public:
         /// @brief the sizes of the window
         int myWidthInPixels, myHeightInPixels;
 
-        /// @brief The main application
-        GUIMainWindow* myApplication;
-
         /// @brief latest mouse position
         double myMouseX;
-
 
     protected:
         FOX_CONSTRUCTOR(GUIParameterTrackerPanel)

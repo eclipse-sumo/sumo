@@ -825,7 +825,7 @@ GNETLSEditorFrame::buildInternalLanes(NBTrafficLightDefinition* tlDef) {
                 shape.append(con.viaShape);
             } catch (ProcessError&) {
                 shape = link.getFrom()->getToNode()->computeInternalLaneShape(link.getFrom(), NBEdge::Connection(link.getFromLane(),
-                            link.getTo(), link.getToLane()), NUM_POINTS);
+                        link.getTo(), link.getToLane()), NUM_POINTS);
             }
             if (shape.length() < 2) {
                 // enlarge shape to ensure visibility

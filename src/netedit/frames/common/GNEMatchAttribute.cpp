@@ -114,7 +114,7 @@ GNEMatchAttribute::showMatchAttribute(const GNEElementSet::Type type) {
     }
     // now filter to allow only drawables and proj
     myTagPropertiesString.clear();
-    for (const auto &tagProperty : tagPropertiesStrings) {
+    for (const auto& tagProperty : tagPropertiesStrings) {
         if (tagProperty.isDrawable() && (!tagProperty.requireProj() || proj)) {
             myTagPropertiesString.push_back(tagProperty);
         }

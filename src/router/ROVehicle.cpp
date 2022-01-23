@@ -222,7 +222,7 @@ ROVehicle::saveAsXML(OutputDevice& os, OutputDevice* const typeos, bool asAltern
         if (it == mySavedRoutes.end()) {
             routeID = "r" + toString(mySavedRoutes.size());
             myRoute->getUsedRoute()->writeXMLDefinition(os, this, writeCosts, false, writeExit,
-                                                        writeLength, routeID);
+                    writeLength, routeID);
             mySavedRoutes[edges] = routeID;
         } else {
             routeID = it->second;

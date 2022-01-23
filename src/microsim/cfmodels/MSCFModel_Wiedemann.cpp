@@ -58,8 +58,7 @@ MSCFModel_Wiedemann::MSCFModel_Wiedemann(const MSVehicleType* vtype) :
     myAX(vtype->getLength() + 1. + 2. * mySecurity),
     myCX(25. *(1. + mySecurity + myEstimation)),
     myMinAccel(0.2 * myAccel),
-    myMaxApproachingDecel((myDecel + myEmergencyDecel) / 2)
-{
+    myMaxApproachingDecel((myDecel + myEmergencyDecel) / 2) {
     // Wiedemann does not drive very precise and may violate minGap on occasion
     myCollisionMinGapFactor = vtype->getParameter().getCFParam(SUMO_ATTR_COLLISION_MINGAP_FACTOR, 0.1);
 }
@@ -222,8 +221,8 @@ MSCFModel_Wiedemann::emergency(double dv, double dx, double predAccel, double v,
     if (dx > myAX) {
         const double bmin = B_MIN_ADD + B_MIN_MULT * v;
         const double accel = (0.5 * dv * dv / (myAX - dx)
-                + predAccel * PRED_DECEL_MULT_EMERGENCY 
-                + bmin * (abx - gap) / bx);
+                              + predAccel * PRED_DECEL_MULT_EMERGENCY
+                              + bmin * (abx - gap) / bx);
         return accel;
     } else {
         return -myEmergencyDecel;

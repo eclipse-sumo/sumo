@@ -2015,7 +2015,7 @@ NBEdge::bothLeftTurns(LinkDirection dir, const NBEdge* otherFrom, LinkDirection 
 
 bool
 NBEdge::haveIntersection(const NBNode& n, const PositionVector& shape, const NBEdge* otherFrom, const NBEdge::Connection& otherCon, int numPoints,
-        double width1, double width2, int shapeFlag) const {
+                         double width1, double width2, int shapeFlag) const {
     const PositionVector otherShape = n.computeInternalLaneShape(otherFrom, otherCon, numPoints, 0, shapeFlag);
     const double minDV = firstIntersection(shape, otherShape, width1, width2);
     return minDV < shape.length() - POSITION_EPS && minDV > POSITION_EPS;
@@ -2620,7 +2620,7 @@ NBEdge::applyTurnSigns() {
             int candidates = to->getNumLanesThatAllow(SVC_PASSENGER);
             if (candidates < item.second) {
                 WRITE_WARNINGF("Cannot apply turn sign information for edge '%' because there are % signed connections with directions '%' but target edge '%' has only % suitable lanes",
-                        getID(), item.second, toString(dir), to->getID(), candidates);
+                               getID(), item.second, toString(dir), to->getID(), candidates);
                 return false;
             }
             int i;
@@ -2799,7 +2799,7 @@ NBEdge::recheckLanes() {
                         }
                     }
                 } else if (isRailway(getPermissions(c.fromLane)) && isRailway(c.toEdge->getPermissions(c.toLane))
-                        && isTurningDirectionAt(c.toEdge))  {
+                           && isTurningDirectionAt(c.toEdge))  {
                     // do not allow sharp rail turns
                     i = myConnections.erase(i);
                 } else {
@@ -2836,8 +2836,8 @@ NBEdge::recheckLanes() {
         for (int i = 0; i < (int)myLanes.size(); i++) {
             Lane& lane = myLanes[i];
             if ((connNumbersPerLane[i] == 0 || ((lane.accelRamp || (i > 0 && myLanes[i - 1].accelRamp && connNumbersPerLane[i - 1] > 0))
-                            && getSuccessors(SVC_PASSENGER).size() > 1))
-                        && getPermissions(i) != SVC_PEDESTRIAN && !isForbidden(getPermissions(i))) {
+                                                && getSuccessors(SVC_PASSENGER).size() > 1))
+                    && getPermissions(i) != SVC_PEDESTRIAN && !isForbidden(getPermissions(i))) {
                 const bool forbiddenLeft = lane.changeLeft != SVCAll && lane.changeLeft != SVC_IGNORING && lane.changeLeft != SVC_UNSPECIFIED;
                 const bool forbiddenRight = lane.changeRight != SVCAll && lane.changeRight != SVC_IGNORING && lane.changeRight != SVC_UNSPECIFIED;
                 if (forbiddenLeft && (i == 0 || forbiddenRight)) {

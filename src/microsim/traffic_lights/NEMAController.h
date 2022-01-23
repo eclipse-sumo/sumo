@@ -105,7 +105,7 @@ public:
 
     std::map<int, std::vector<MSE2Collector*>> getPhase2DetectorMap() {
         std::map<int, std::vector<MSE2Collector*>> temp;
-        for (auto const& detectInfo : phase2DetectorMap){
+        for (auto const& detectInfo : phase2DetectorMap) {
             temp[detectInfo.first] = detectInfo.second.detectors;
         }
         return temp;
@@ -185,7 +185,7 @@ protected:
         GREENTRANSFER = 3,
         GREENREST = 4,
     };
-    
+
     /// @brief return whether there is a major link from the given lane in the given phase
     bool hasMajor(const std::string& state, const LaneVector& lanes) const;
     /// @}
@@ -260,7 +260,7 @@ protected:
     This serves as a mapping to speed up phaseSelection
     {
       {{3, 4}, {1, 2}},
-      {{7, 8}, {5, 6}}  
+      {{7, 8}, {5, 6}}
     }
     */
     std::vector<std::vector<int>> myRingBarrierMapping[2];
@@ -269,12 +269,12 @@ protected:
     // this is different than DetectorInfo, as it is per-phase not per-detector.
     // Purpose is that when we check detectors, we may need to have per-detector settings handy
     struct phaseDetectorInfo {
-        phaseDetectorInfo(): 
+        phaseDetectorInfo():
             detectors(),
             cpdTarget(),
             cpdSource()
         {}
-         phaseDetectorInfo(int _cross_phase_source):
+        phaseDetectorInfo(int _cross_phase_source):
             cpdSource(_cross_phase_source)
         {}
         std::vector<MSE2Collector*> detectors = {nullptr};
@@ -282,8 +282,8 @@ protected:
         int cpdSource = 0;
     };
 
-    // myNextPhase needs to be presevered in memory because the phase is calculated at start of yellow 
-    // but not implementend until the end of red 
+    // myNextPhase needs to be presevered in memory because the phase is calculated at start of yellow
+    // but not implementend until the end of red
     int myNextPhaseR1;
     int myNextPhaseR2;
 
@@ -381,8 +381,8 @@ protected:
     /// @brief virtual phase that holds the current state
     MSPhaseDefinition myPhase;
 
-    /// helps to construct myRingBarrierMapping 
-    void constructBarrierMap(int ring, std::vector<std::vector<int>> &barrierMap);
+    /// helps to construct myRingBarrierMapping
+    void constructBarrierMap(int ring, std::vector<std::vector<int>>& barrierMap);
     int findBarrier(int desiredPhase, int ring);
 
     // Green Transfer Option

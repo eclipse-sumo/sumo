@@ -337,7 +337,7 @@ GNEEdge::updateCenteringBoundary(const bool updateGrid) {
     for (const auto& lane : myLanes) {
         myBoundary.add(lane->getCenteringBoundary());
         // add parkingArea boundaris
-        for (const auto &additional : lane->getChildAdditionals()) {
+        for (const auto& additional : lane->getChildAdditionals()) {
             if (additional->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA) {
                 myBoundary.add(additional->getCenteringBoundary());
             }
@@ -895,7 +895,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
     // get template editor
     GNEInspectorFrame::TemplateEditor* templateEditor = myNet->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor();
     // check if we have to update template
-    const bool updateTemplate = templateEditor->getEdgeTemplate()? (templateEditor->getEdgeTemplate()->getID() == getID()) : false;
+    const bool updateTemplate = templateEditor->getEdgeTemplate() ? (templateEditor->getEdgeTemplate()->getID() == getID()) : false;
     switch (key) {
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_ENDOFFSET:
@@ -1492,19 +1492,19 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
     // get template editor
     GNEInspectorFrame::TemplateEditor* templateEditor = myNet->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor();
     // check if we have to update template
-    const bool updateTemplate = templateEditor->getEdgeTemplate()? (templateEditor->getEdgeTemplate()->getID() == getID()) : false;
+    const bool updateTemplate = templateEditor->getEdgeTemplate() ? (templateEditor->getEdgeTemplate()->getID() == getID()) : false;
     switch (key) {
         case SUMO_ATTR_ID:
             myNet->getAttributeCarriers()->updateEdgeID(this, value);
             // enable save demand elements if there are stops
-            for (const auto &stop : getChildDemandElements()) {
+            for (const auto& stop : getChildDemandElements()) {
                 if (stop->getTagProperty().isStop() || stop->getTagProperty().isStopPerson()) {
                     myNet->requireSaveDemandElements(true);
                 }
             }
             // also for lanes
-            for (const auto &lane : myLanes) {
-                for (const auto &stop : lane->getChildDemandElements()) {
+            for (const auto& lane : myLanes) {
+                for (const auto& stop : lane->getChildDemandElements()) {
                     if (stop->getTagProperty().isStop() || stop->getTagProperty().isStopPerson()) {
                         myNet->requireSaveDemandElements(true);
                     }

@@ -946,7 +946,7 @@ GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*, FXSelector, void* /*data*/) 
         index = mySchemeName->appendItem(name.c_str());
         myParent->getColoringSchemesCombo()->appendItem(name.c_str());
         myParent->getColoringSchemesCombo()->setCurrentItem(
-                myParent->getColoringSchemesCombo()->findItem(name.c_str()));
+            myParent->getColoringSchemesCombo()->findItem(name.c_str()));
     }
     gSchemeStorage.add(tmpSettings);
     mySchemeName->setItemText(index, name.c_str());

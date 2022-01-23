@@ -196,7 +196,7 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
         if (myStopParentBaseObject->getTag() != SUMO_TAG_NOTHING) {
             myRouteHandler.buildStop(myStopParentBaseObject->getSumoBaseObjectChildren().front(),
                                      myStopParentBaseObject->getSumoBaseObjectChildren().front()->getStopParameter());
-            // show all trips 
+            // show all trips
             if (myStopTagSelector->getCurrentTemplateAC()->getTagProperty().isStop()) {
                 myViewNet->getDemandViewOptions().menuCheckShowAllTrips->setChecked(TRUE);
             } else {
@@ -296,7 +296,7 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
     // if stopParent is a route, check that stop is placed over a route's edge
     if (stopParent->isRoute() && lane) {
         bool found = false;
-        for (const auto &edge : stopParent->getParentEdges()) {
+        for (const auto& edge : stopParent->getParentEdges()) {
             if (edge == lane->getParentEdge()) {
                 found = true;
             }
@@ -309,7 +309,7 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
     // same if stoParent is a vehicle/flow with embedded route
     if (stopParent->getChildDemandElements().size() > 0 && stopParent->getChildDemandElements().front()->getTagProperty().isRoute() && lane) {
         bool found = false;
-        for (const auto &edge : stopParent->getChildDemandElements().front()->getParentEdges()) {
+        for (const auto& edge : stopParent->getChildDemandElements().front()->getParentEdges()) {
             if (edge == lane->getParentEdge()) {
                 found = true;
             }

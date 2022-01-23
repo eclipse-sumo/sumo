@@ -184,9 +184,9 @@ MSParkingArea::getLastFreePos(const SUMOVehicle& forVehicle, double brakePos) co
     if (myCapacity == (int)myEndPositions.size()) {
         // keep enough space so that  parking vehicles can leave
 #ifdef DEBUG_GET_LAST_FREE_POS
-            if (DEBUG_COND2(forVehicle)) {
-                std::cout << SIMTIME << " getLastFreePos veh=" << forVehicle.getID() << " allOccupied\n";
-            }
+        if (DEBUG_COND2(forVehicle)) {
+            std::cout << SIMTIME << " getLastFreePos veh=" << forVehicle.getID() << " allOccupied\n";
+        }
 #endif
         return myLastFreePos - forVehicle.getVehicleType().getMinGap() - POSITION_EPS;
     } else {

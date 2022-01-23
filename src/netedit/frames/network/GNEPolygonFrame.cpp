@@ -358,7 +358,7 @@ GNEPolygonFrame::processClick(const Position& clickedPosition, const GNEViewNetH
                 return true;
             } else {
                 return false;
-            }  
+            }
         }
     }
     myViewNet->setStatusBarText("Current selected shape isn't valid.");

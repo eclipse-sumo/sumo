@@ -746,10 +746,10 @@ GLHelper::drawCrossTies(const PositionVector& geom,
 
 void
 GLHelper::drawInverseMarkings(const PositionVector& geom,
-        const std::vector<double>& rots,
-        const std::vector<double>& lengths,
-        double maxLength, double spacing,
-        double halfWidth, bool cl, bool cr, bool lefthand, double scale) {
+                              const std::vector<double>& rots,
+                              const std::vector<double>& lengths,
+                              double maxLength, double spacing,
+                              double halfWidth, bool cl, bool cr, bool lefthand, double scale) {
 
     double mw = (halfWidth + SUMO_const_laneMarkWidth * (cl ? 0.6 : 0.2)) * scale;
     double mw2 = (halfWidth - SUMO_const_laneMarkWidth * (cr ? 0.6 : 0.2)) * scale;

@@ -71,7 +71,7 @@ FXIMPLEMENT(GNESingleParametersDialog::ParametersOperations,    FXGroupBox,     
 // GNESingleParametersDialog::ParametersValues - methods
 // ---------------------------------------------------------------------------
 
-GNESingleParametersDialog::ParametersValues::ParametersValues(FXHorizontalFrame* frame, const std::string &name) :
+GNESingleParametersDialog::ParametersValues::ParametersValues(FXHorizontalFrame* frame, const std::string& name) :
     FXGroupBox(frame, name.c_str(), GUIDesignGroupBoxFrameFill) {
     // create labels for keys and values
     FXHorizontalFrame* horizontalFrameLabels = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
@@ -672,7 +672,7 @@ GNESingleParametersDialog::onCmdReset(FXObject*, FXSelector, void*) {
 
 
 void
-GNESingleParametersDialog::constructor(const std::string &name) {
+GNESingleParametersDialog::constructor(const std::string& name) {
     // set vehicle icon for this dialog
     setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TABLE));
     // create main frame

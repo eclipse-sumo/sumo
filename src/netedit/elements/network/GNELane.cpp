@@ -571,7 +571,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         const auto& laneStopOffset = myParentEdge->getNBEdge()->getLaneStruct(myIndex).laneStopOffset;
         if (laneStopOffset.isDefined() && (laneStopOffset.getPermissions() & SVC_PASSENGER) != 0) {
             drawLaneStopOffset(s, laneStopOffset.getOffset());
-        }        
+        }
         // Pop layer matrix
         GLHelper::popMatrix();
         // if shape is being edited, draw point and green line
@@ -658,7 +658,7 @@ GNELane::drawMarkings(const GUIVisualizationSettings& s, const double exaggerati
             const bool cl = myParentEdge->getNBEdge()->allowsChangingLeft(myIndex - 1, SVC_PASSENGER);
             const bool cr = myParentEdge->getNBEdge()->allowsChangingRight(myIndex, SVC_PASSENGER);
             GLHelper::drawInverseMarkings(myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(),
-                    3, 6, myHalfLaneWidth, cl, cr, s.lefthand, exaggeration);
+                                          3, 6, myHalfLaneWidth, cl, cr, s.lefthand, exaggeration);
             haveChangeProhibitions = !(cl && cr);
         }
         GLHelper::popMatrix();
@@ -1044,7 +1044,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
     // get template editor
     GNEInspectorFrame::TemplateEditor* templateEditor = myNet->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor();
     // check if we have to update template
-    const bool updateTemplate = templateEditor->getEdgeTemplate()? (templateEditor->getEdgeTemplate()->getID() == myParentEdge->getID()) : false;
+    const bool updateTemplate = templateEditor->getEdgeTemplate() ? (templateEditor->getEdgeTemplate()->getID() == myParentEdge->getID()) : false;
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_INDEX:

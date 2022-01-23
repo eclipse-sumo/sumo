@@ -33,9 +33,10 @@ import ctypes
 from xml.sax import make_parser, handler
 from collections import defaultdict
 from optparse import OptionParser
-import gzip
 
-sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools', 'detector'))
+sys.path += [os.path.join(os.environ['SUMO_HOME'], 'tools'),
+             os.path.join(os.environ['SUMO_HOME'], 'tools', 'detector')]
+import sumolib
 from detector import DetectorReader, LaneMap  # noqa
 
 
@@ -167,15 +168,12 @@ def splitFiles(routeFiles, typesFile, routesPrefix, step, verbose, modifyID,
         prefix["so"] = routesPrefix.replace("mofr", "so")
     files = []
     sortedDeparts = []
-    pattern = re.compile('depart="([^"]+)"')
+    pattern = re.compile(u'depart="([^"]+)"')
     # pattern = re.compile('<vehicle.*depart="([0-9]+(\.[0-9]*)?)"')
     for routesIn in routeFiles:
         if verbose:
             print("Reading routes from", routesIn)
-        if '.gz' in routesIn:
-            f = gzip.open(routesIn, 'rb')
-        else:
-            f = open(routesIn, 'r')
+        f = sumolib.xml._open(routesIn)
         while True:
             pos = f.tell()
             line = f.readline()
