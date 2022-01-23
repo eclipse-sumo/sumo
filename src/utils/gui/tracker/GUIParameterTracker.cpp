@@ -140,7 +140,8 @@ GUIParameterTracker::addTrackedMultiplot(GUIGlObject& o, ValueSource<double>* sr
             first = false;
         } else {
             // each Tracker gets its own copy to simplify cleanup
-            newTracked = new TrackerValueDesc(newTracked->getName(), RGBColor::BLACK, newTracked->getRecordingBegin(), newTracked->getAggregationSpan());
+            newTracked = new TrackerValueDesc(newTracked->getName(), RGBColor::BLACK, newTracked->getRecordingBegin(),
+                                              STEPS2TIME(newTracked->getAggregationSpan()));
             src = src->copy();
         }
         tr->addTracked(o, src, newTracked);
@@ -205,8 +206,8 @@ GUIParameterTracker::onCmdChangeAggregation(FXObject*, FXSelector, void*) {
         default:
             throw 1;
     }
-    for (std::vector<TrackerValueDesc*>::iterator i1 = myTracked.begin(); i1 != myTracked.end(); i1++) {
-        (*i1)->setAggregationSpan(TIME2STEPS(aggInt));
+    for (TrackerValueDesc* const tvd : myTracked) {
+        tvd->setAggregationSpan(TIME2STEPS(aggInt));
     }
     return 1;
 }
@@ -288,7 +289,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::GUIParameterTrackerPanel(
     FXComposite* c, GUIMainWindow& app,
     GUIParameterTracker& parent)
     : FXGLCanvas(c, app.getGLVisual(), app.getBuildGLCanvas(), (FXObject*) nullptr, (FXSelector) 0, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 300, 200),
-      myParent(&parent), myApplication(&app) {}
+      myParent(&parent) {}
 
 
 GUIParameterTracker::GUIParameterTrackerPanel::~GUIParameterTrackerPanel() {}
@@ -357,7 +358,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
 
     double latest = 0;
     double mx = (2 * myMouseX / myWidthInPixels - 1) / 0.8 + 1;
-    int mIndex = 0;
+    int mIndex = -1;
     double mouseValue = std::numeric_limits<double>::max();
     latest = values.back();
     // init values
@@ -372,7 +373,6 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
         double xn = xp + xStep;
         if (xp < mx && mx < xn) {
             mouseValue = yp;
-            mIndex = i - values.begin() - 1;
             glPushMatrix();
             GLHelper::setColor(isMultiPlot ? col.changedBrightness(-40).changedAlpha(-100) : RGBColor::BLUE);
             glTranslated(xn, yn, 0);
@@ -387,6 +387,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
         glEnd();
         yp = yn;
         xp = xn;
+        mIndex++;
     }
     desc.unlockValues();
     GLHelper::popMatrix();
