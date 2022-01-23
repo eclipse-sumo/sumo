@@ -291,7 +291,7 @@ public:
      */
     class PersonTrip : public PlanItem {
     public:
-        PersonTrip(const ROEdge* _to, const std::string _stopDest) : 
+        PersonTrip(const ROEdge* _to, const std::string _stopDest) :
             from(0), to(_to), modes(SVC_PEDESTRIAN), dep(0), arr(0), stopDest(_stopDest), walkFactor(1.0) {}
         PersonTrip(const ROEdge* const _from, const ROEdge* const _to, const SVCPermissions modeSet,
                    const double departPos, const std::string& _stopOrigin, const double arrivalPos, const std::string& _stopDest, double _walkFactor, const std::string& _group) :

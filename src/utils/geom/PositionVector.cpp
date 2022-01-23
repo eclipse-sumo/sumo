@@ -1167,8 +1167,8 @@ PositionVector::move2side(double amount, double maxExtension) {
             const double angle = localAngle(from, me, to);
             if (fabs(angle) > NUMERICAL_EPS) {
                 const double length = (i == 1 || i + 2 == (int)size()
-                        ? MIN2(from.distanceTo2D(me), me.distanceTo2D(to)) * 2
-                        : (from.distanceTo2D(me) + me.distanceTo2D(to)));
+                                       ? MIN2(from.distanceTo2D(me), me.distanceTo2D(to)) * 2
+                                       : (from.distanceTo2D(me) + me.distanceTo2D(to)));
                 const double radius = length / angle;
                 if (radius < 0 && -radius < amount * 1.8) {
                     //std::cout << " i_" << angle << "_" << amount << "=" << from << " " << me << " " << to << "\n";

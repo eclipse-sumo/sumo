@@ -144,7 +144,7 @@ public:
         /// @brief menu command for transform all selected vehicles to flow
         FXMenuCommand* myTransformAllVehiclesToFlow;
     };
-    
+
     /// @brief default constructor
     GNEVehicle(SumoXMLTag tag, GNENet* net);
 

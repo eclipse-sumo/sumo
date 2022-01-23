@@ -61,7 +61,7 @@ public:
 
     public:
         /// @brief constructor
-        ParametersValues(FXHorizontalFrame* frame, const std::string &name);
+        ParametersValues(FXHorizontalFrame* frame, const std::string& name);
 
         /// @brief destructor
         ~ParametersValues();
@@ -296,7 +296,7 @@ protected:
 
 private:
     /// @brief auxiliar constructor
-    void constructor(const std::string &name);
+    void constructor(const std::string& name);
 
     /// @brief Invalidated copy constructor.
     GNESingleParametersDialog(const GNESingleParametersDialog&) = delete;

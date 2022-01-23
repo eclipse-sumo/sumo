@@ -558,7 +558,7 @@ MSMeanData::writeEdge(OutputDevice& dev,
             MeanDataValues& meanData = **lane;
             if (writePrefix(dev, meanData, SUMO_TAG_LANE, meanData.getLane()->getID())) {
                 meanData.write(dev, myWrittenAttributes, stopTime - startTime, 1.f, meanData.getLane()->getSpeedLimit(),
-                        myPrintDefaults ? meanData.getLane()->getLength() / meanData.getLane()->getSpeedLimit() : -1.);
+                               myPrintDefaults ? meanData.getLane()->getLength() / meanData.getLane()->getSpeedLimit() : -1.);
             }
             meanData.reset(true);
         }
@@ -570,7 +570,7 @@ MSMeanData::writeEdge(OutputDevice& dev,
             MeanDataValues& meanData = **edgeValues.begin();
             if (writePrefix(dev, meanData, SUMO_TAG_EDGE, edge->getID())) {
                 meanData.write(dev, myWrittenAttributes, stopTime - startTime, (double)edge->getLanes().size(), edge->getSpeedLimit(),
-                        myPrintDefaults ? edge->getLength() / edge->getSpeedLimit() : -1.);
+                               myPrintDefaults ? edge->getLength() / edge->getSpeedLimit() : -1.);
             }
             meanData.reset(true);
         } else {
@@ -582,7 +582,7 @@ MSMeanData::writeEdge(OutputDevice& dev,
             }
             if (writePrefix(dev, *sumData, SUMO_TAG_EDGE, getEdgeID(edge))) {
                 sumData->write(dev, myWrittenAttributes, stopTime - startTime, (double)edge->getLanes().size(), edge->getSpeedLimit(),
-                        myPrintDefaults ? edge->getLength() / edge->getSpeedLimit() : -1.);
+                               myPrintDefaults ? edge->getLength() / edge->getSpeedLimit() : -1.);
             }
             delete sumData;
         }

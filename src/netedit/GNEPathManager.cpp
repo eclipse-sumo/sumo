@@ -319,7 +319,7 @@ GNEPathManager::PathCalculator::calculateDijkstraPath(const SUMOVehicleClass vCl
 }
 
 
-std::vector<GNEEdge*> 
+std::vector<GNEEdge*>
 GNEPathManager::PathCalculator::calculateDijkstraPath(const SUMOVehicleClass /*vClass*/, const GNEJunction* /*fromJunction*/, const GNEJunction* /*toJunction*/) const {
     // implement path between junction here
     return std::vector<GNEEdge*> ();

@@ -385,7 +385,7 @@ std::vector<GNEDemandElement*>
 GNEDemandElement::getInvalidStops() const {
     // get stops
     std::vector<GNEDemandElement*> stops;
-    for (const auto &stop : getChildDemandElements()) {
+    for (const auto& stop : getChildDemandElements()) {
         if (stop->getTagProperty().getTag() == SUMO_TAG_STOP_LANE) {
             stops.push_back(stop);
         }
@@ -403,7 +403,7 @@ GNEDemandElement::getInvalidStops() const {
             sortedStops = getSortedStops(getChildDemandElements().front()->getParentEdges());
         }
         // iterate over sortedStops
-        for (const auto &sortedStop : sortedStops) {
+        for (const auto& sortedStop : sortedStops) {
             const auto it = std::find(stops.begin(), stops.end(), sortedStop);
             if (it != stops.end()) {
                 stops.erase(it);
@@ -680,7 +680,7 @@ GNEDemandElement::drawPersonPlanPartial(const bool drawPlan, const GUIVisualizat
 }
 
 
-GNEDemandElement::Problem 
+GNEDemandElement::Problem
 GNEDemandElement::isPersonPlanValid() const {
     // get previous child
     const auto previousChild = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
@@ -698,7 +698,7 @@ GNEDemandElement::isPersonPlanValid() const {
         }
         // get first edge
         GNEEdge* firstEdge = nullptr;
-        // check edge 
+        // check edge
         if (getParentLanes().size() == 1) {
             firstEdge = getParentLanes().front()->getParentEdge();
         } else if (getParentEdges().size() > 0) {
@@ -729,7 +729,7 @@ GNEDemandElement::isPersonPlanValid() const {
         }
         // get last edge
         GNEEdge* lastEdge = nullptr;
-        // check edge 
+        // check edge
         if (getParentLanes().size() == 1) {
             lastEdge = getParentLanes().front()->getParentEdge();
         } else if (getParentAdditionals().size() == 1) {
@@ -749,7 +749,7 @@ GNEDemandElement::isPersonPlanValid() const {
 }
 
 
-std::string 
+std::string
 GNEDemandElement::getPersonPlanProblem() const {
     // get previous child
     const auto previousChild = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
@@ -767,7 +767,7 @@ GNEDemandElement::getPersonPlanProblem() const {
         }
         // get first edge
         GNEEdge* firstEdge = nullptr;
-        // check edge 
+        // check edge
         if (getParentLanes().size() == 1) {
             firstEdge = getParentLanes().front()->getParentEdge();
         } else if (getParentEdges().size() > 0) {
@@ -798,7 +798,7 @@ GNEDemandElement::getPersonPlanProblem() const {
         }
         // get last edge
         GNEEdge* lastEdge = nullptr;
-        // check edge 
+        // check edge
         if (getParentLanes().size() == 1) {
             lastEdge = getParentLanes().front()->getParentEdge();
         } else if (getParentAdditionals().size() == 1) {
@@ -921,7 +921,7 @@ GNEDemandElement::SortedStops::SortedStops(GNEEdge* edge_) :
 }
 
 
-void 
+void
 GNEDemandElement::SortedStops::addStop(const GNEDemandElement* stop) {
     myStops.push_back(std::make_pair(stop->getAttributeDouble(SUMO_ATTR_ENDPOS), stop));
     // sort stops
@@ -929,8 +929,8 @@ GNEDemandElement::SortedStops::addStop(const GNEDemandElement* stop) {
 }
 
 
-std::vector<const GNEDemandElement*> 
-GNEDemandElement::getSortedStops(const std::vector<GNEEdge*> &edges) const {
+std::vector<const GNEDemandElement*>
+GNEDemandElement::getSortedStops(const std::vector<GNEEdge*>& edges) const {
     std::vector<GNEDemandElement*> stops;
     // get stops
     for (const auto& stop : getChildDemandElements()) {
@@ -940,11 +940,11 @@ GNEDemandElement::getSortedStops(const std::vector<GNEEdge*> &edges) const {
     }
     // create SortedStops
     std::vector<SortedStops> sortedStops;
-    for (const auto &edge : edges) {
+    for (const auto& edge : edges) {
         sortedStops.push_back(SortedStops(edge));
     }
     // iterate over all stops and insert it in sortedStops
-    for (const auto &stop : stops) {
+    for (const auto& stop : stops) {
         bool stopLoop = false;
         // iterate over sortedStops
         for (auto it = sortedStops.begin(); (it != sortedStops.end()) && !stopLoop; it++) {
@@ -959,8 +959,8 @@ GNEDemandElement::getSortedStops(const std::vector<GNEEdge*> &edges) const {
     }
     // finally return sorted stops
     std::vector<const GNEDemandElement*> solution;
-    for (const auto &sortedStop : sortedStops) {
-        for (const auto &stop : sortedStop.myStops) {
+    for (const auto& sortedStop : sortedStops) {
+        for (const auto& stop : sortedStop.myStops) {
             solution.push_back(stop.second);
         }
     }

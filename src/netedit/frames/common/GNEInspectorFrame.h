@@ -195,7 +195,7 @@ public:
         void hideTemplateEditor();
 
         /// @brief get edge template (to copy attributes from)
-        GNEEdgeTemplate *getEdgeTemplate() const;
+        GNEEdgeTemplate* getEdgeTemplate() const;
 
         /// @brief set edge template
         void setEdgeTemplate(const GNEEdge* edge);
@@ -242,7 +242,7 @@ public:
         FXButton* myClearTemplateButton;
 
         /// @brief edge Template
-        GNEEdgeTemplate *myEdgeTemplate;
+        GNEEdgeTemplate* myEdgeTemplate;
     };
 
     // ===========================================================================

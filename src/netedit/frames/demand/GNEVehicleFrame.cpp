@@ -251,7 +251,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
                 }
             }
             // center view after creation
-            const auto *vehicle = myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(myVehicleBaseObject->getTag(), myVehicleBaseObject->getStringAttribute(SUMO_ATTR_ID), false);
+            const auto* vehicle = myViewNet->getNet()->getAttributeCarriers()->retrieveDemandElement(myVehicleBaseObject->getTag(), myVehicleBaseObject->getStringAttribute(SUMO_ATTR_ID), false);
             if (vehicle && !myViewNet->getVisibleBoundary().around(vehicle->getPositionInView())) {
                 myViewNet->centerTo(vehicle->getPositionInView(), false);
             }
@@ -275,7 +275,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
 }
 
 
-GNEFrameModules::TagSelector* 
+GNEFrameModules::TagSelector*
 GNEVehicleFrame::getVehicleTagSelector() const {
     return myVehicleTagSelector;
 }

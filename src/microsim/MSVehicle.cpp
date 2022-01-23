@@ -2441,8 +2441,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             }
             // signal that is passed in the current step does not count
             foundRailSignal |= ((*link)->getTLLogic() != nullptr
-                    && (*link)->getTLLogic()->getLogicType() == TrafficLightType::RAIL_SIGNAL
-                    && seen > SPEED2DIST(v));
+                                && (*link)->getTLLogic()->getLogicType() == TrafficLightType::RAIL_SIGNAL
+                                && seen > SPEED2DIST(v));
         }
 
         bool canReverseEventually = false;
@@ -4111,7 +4111,7 @@ MSVehicle::executeMove() {
             if (!myLaneChangeModel->hasBlueLight()) {
                 // unusual overtaking at junctions is ok for emergency vehicles
                 WRITE_WARNING("Unexpected end of opposite lane for vehicle '" + getID() + "' at lane '" + myLane->getID() + "', time=" +
-                        time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                              time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
             }
             myLaneChangeModel->changedToOpposite();
             if (myState.myPos < getLength()) {
@@ -6147,7 +6147,8 @@ MSVehicle::getBoundingBox(double offset) const {
             }
             break;
         }
-        default: break;
+        default:
+            break;
     }
     centerLine.push_back(getBackPosition());
     if (offset != 0) {

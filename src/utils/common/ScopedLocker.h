@@ -24,7 +24,9 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-namespace FX { class FXMutex; }
+namespace FX {
+class FXMutex;
+}
 
 
 // ===========================================================================
@@ -34,7 +36,7 @@ namespace FX { class FXMutex; }
  * @class ScopedLocker
  * @brief A scoped lock which only triggers on condition
  */
-template<typename T=FX::FXMutex, bool IGNORE_COND=false>
+template<typename T = FX::FXMutex, bool IGNORE_COND = false>
 class ScopedLocker {
 public:
 
@@ -44,7 +46,7 @@ public:
 #pragma warning(disable: 4127)
 #endif
     /// Construct & lock associated mutex if the condition is true
-    ScopedLocker(T& m, const bool condition=true)
+    ScopedLocker(T& m, const bool condition = true)
         : myMutex(m), myCondition(condition) {
         if (IGNORE_COND || condition) {
             m.lock();

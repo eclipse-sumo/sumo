@@ -1318,7 +1318,7 @@ Helper::applySubscriptionFilterLateralDistanceSinglePass(const Subscription& s, 
         SUMOTrafficObject* obj = getTrafficObject(s.contextDomain, *i);
         double minPerpendicularDist = combinedShape.distance2D(obj->getPosition(), true);
 #ifdef DEBUG_SURROUNDING
-        std::cout << (isDownstream? "DOWN" : "UP") << " obj " << obj->getID() << " perpendicular dist=" << minPerpendicularDist << " filterLateralDist=" << s.filterLateralDist << "\n";
+        std::cout << (isDownstream ? "DOWN" : "UP") << " obj " << obj->getID() << " perpendicular dist=" << minPerpendicularDist << " filterLateralDist=" << s.filterLateralDist << "\n";
 #endif
         if ((minPerpendicularDist != GeomHelper::INVALID_OFFSET) && (minPerpendicularDist <= s.filterLateralDist)) {
             vehs.insert(obj);

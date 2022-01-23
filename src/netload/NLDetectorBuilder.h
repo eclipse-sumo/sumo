@@ -88,9 +88,9 @@ public:
      * @return The created detector
      */
     Parameterised* buildInductLoop(const std::string& id,
-                         const std::string& lane, double pos, SUMOTime splInterval,
-                         const std::string& device, bool friendlyPos,
-                         const std::string& vTypes, int detectPersons);
+                                   const std::string& lane, double pos, SUMOTime splInterval,
+                                   const std::string& device, bool friendlyPos,
+                                   const std::string& vTypes, int detectPersons);
 
 
     /** @brief Builds an instantenous induction and adds it to the net
@@ -110,9 +110,9 @@ public:
      * @return The created detector
      */
     Parameterised* buildInstantInductLoop(const std::string& id,
-                                const std::string& lane, double pos,
-                                const std::string& device, bool friendlyPos,
-                                const std::string& vTypes);
+                                          const std::string& lane, double pos,
+                                          const std::string& device, bool friendlyPos,
+                                          const std::string& vTypes);
 
 
 
@@ -129,16 +129,16 @@ public:
     *
     */
     Parameterised* buildE2Detector(const std::string& id, MSLane* lane, double pos, double endPos, double length,
-                         const std::string& device, SUMOTime frequency,
-                         SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                         const std::string& vTypes, int detectPersons, bool friendlyPos, bool showDetector,
-                         MSTLLogicControl::TLSLogicVariants* tlls = 0, MSLane* toLane = 0);
+                                   const std::string& device, SUMOTime frequency,
+                                   SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
+                                   const std::string& vTypes, int detectPersons, bool friendlyPos, bool showDetector,
+                                   MSTLLogicControl::TLSLogicVariants* tlls = 0, MSLane* toLane = 0);
 
     Parameterised* buildE2Detector(const std::string& id, std::vector<MSLane*> lanes, double pos, double endPos,
-                         const std::string& device, SUMOTime frequency,
-                         SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
-                         const std::string& vTypes, int detectPersons, bool friendlyPos, bool showDetector,
-                         MSTLLogicControl::TLSLogicVariants* tlls = 0, MSLane* toLane = 0);
+                                   const std::string& device, SUMOTime frequency,
+                                   SUMOTime haltingTimeThreshold, double haltingSpeedThreshold, double jamDistThreshold,
+                                   const std::string& vTypes, int detectPersons, bool friendlyPos, bool showDetector,
+                                   MSTLLogicControl::TLSLogicVariants* tlls = 0, MSLane* toLane = 0);
 
 
     /** @brief Stores temporary the initial information about an e3 detector to build
@@ -155,8 +155,8 @@ public:
      * @exception InvalidArgument If one of the values is invalid
      */
     Parameterised* beginE3Detector(const std::string& id, const std::string& device, SUMOTime splInterval,
-                         double haltingSpeedThreshold, SUMOTime haltingTimeThreshold,
-                         const std::string& vTypes, int detectPersons, bool openEntry);
+                                   double haltingSpeedThreshold, SUMOTime haltingTimeThreshold,
+                                   const std::string& vTypes, int detectPersons, bool openEntry);
 
 
     /** @brief Builds an entry point of an e3 detector

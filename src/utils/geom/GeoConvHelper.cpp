@@ -95,9 +95,9 @@ GeoConvHelper::GeoConvHelper(const std::string& proj, const Position& offset,
 void
 GeoConvHelper::initProj(const std::string& proj) {
 #ifdef PROJ_VERSION_MAJOR
-        myProjection = proj_create(PJ_DEFAULT_CTX, proj.c_str());
+    myProjection = proj_create(PJ_DEFAULT_CTX, proj.c_str());
 #else
-        myProjection = pj_init_plus(proj.c_str());
+    myProjection = pj_init_plus(proj.c_str());
 #endif
 }
 #endif

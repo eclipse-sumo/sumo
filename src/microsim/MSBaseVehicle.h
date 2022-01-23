@@ -848,7 +848,7 @@ public:
     SUMOTime sawBlockedParkingArea(const MSParkingArea* pa, bool local) const;
 
     /// @brief score only needed when running with gui
-    void rememberParkingAreaScore(const MSParkingArea* pa, const std::string& score); 
+    void rememberParkingAreaScore(const MSParkingArea* pa, const std::string& score);
     void resetParkingAreaScores();
 
     /// @brief store information for a single parking area

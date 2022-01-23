@@ -514,7 +514,7 @@ GUITriggeredRerouter::GUITriggeredRerouterEdge::drawGL(const GUIVisualizationSet
                 for (int i = 0; i < (int)myFGPositions.size(); ++i) {
                     const Position& pos = myFGPositions[i];
                     double rot = myFGRotations[i];
-                const double w = myHalfWidths[i];
+                    const double w = myHalfWidths[i];
                     GLHelper::pushMatrix();
                     glTranslated(pos.x(), pos.y(), 0);
                     glRotated(rot, 0, 0, 1);

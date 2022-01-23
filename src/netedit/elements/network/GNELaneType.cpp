@@ -35,14 +35,14 @@
 
 GNELaneType::GNELaneType(GNEEdgeType* edgeTypeParent) :
     GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANE, SUMO_TAG_LANETYPE, {}, {}, {}, {}, {}, {}, {}, {}),
-    myEdgeTypeParent(edgeTypeParent) {
+myEdgeTypeParent(edgeTypeParent) {
 }
 
 
-GNELaneType::GNELaneType(GNEEdgeType* edgeTypeParent, const NBTypeCont::LaneTypeDefinition &laneType) :
+GNELaneType::GNELaneType(GNEEdgeType* edgeTypeParent, const NBTypeCont::LaneTypeDefinition& laneType) :
     GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANE, SUMO_TAG_LANETYPE, {}, {}, {}, {}, {}, {}, {}, {}),
-    NBTypeCont::LaneTypeDefinition(laneType),
-    myEdgeTypeParent(edgeTypeParent) {
+NBTypeCont::LaneTypeDefinition(laneType),
+myEdgeTypeParent(edgeTypeParent) {
 }
 
 
@@ -132,7 +132,7 @@ GNELaneType::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ALLOW:
             if ((permissions == SVCAll) || (permissions == -1)) {
                 return "all";
-            } else if  (permissions == 0) {
+            } else if (permissions == 0) {
                 return "";
             } else {
                 return getVehicleClassNames(permissions);

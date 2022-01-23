@@ -46,10 +46,10 @@
 // static members
 // ===========================================================================
 const std::vector<std::string> MSActuatedTrafficLightLogic::OPERATOR_PRECEDENCE({
-        "**", "^", "*", "/", "+", "-", "%",
-        "=", "==", "!=", "<", ">", "<=", ">=",
-        "and", "&&", "or", "||",
-        });
+    "**", "^", "*", "/", "+", "-", "%",
+    "=", "==", "!=", "<", ">", "<=", ">=",
+    "and", "&&", "or", "||",
+});
 
 // ===========================================================================
 // parameter defaults definitions
@@ -79,8 +79,7 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
     myLastTrySwitchTime(0),
     myConditions(conditions),
     myTraCISwitch(false),
-    myDetectorPrefix(id + "_" + programID + "_")
-{
+    myDetectorPrefix(id + "_" + programID + "_") {
     myMaxGap = StringUtils::toDouble(getParameter("max-gap", DEFAULT_MAX_GAP));
     myPassingTime = StringUtils::toDouble(getParameter("passing-time", DEFAULT_PASSING_TIME));
     myDetectorGap = StringUtils::toDouble(getParameter("detector-gap", DEFAULT_DETECTOR_GAP));
@@ -651,7 +650,7 @@ MSActuatedTrafficLightLogic::gapControl() {
 #ifdef DEBUG_PHASE_SELECTION
         if (DEBUG_COND) {
             std::cout << SIMTIME << " actDuration=" << STEPS2TIME(actDuration) << " maxDur=" << STEPS2TIME(getCurrentPhaseDef().maxDuration)
-                    << " maxLinkDurationReached=" << maxLinkDurationReached() << " latest=" << STEPS2TIME(getLatest()) << "\n";
+                      << " maxLinkDurationReached=" << maxLinkDurationReached() << " latest=" << STEPS2TIME(getLatest()) << "\n";
         }
 #endif
         return result; // end current phase
@@ -914,8 +913,8 @@ MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) const 
             for (int i = 1; i < iEnd; i++) {
                 if (tokens[i] == o) {
                     const double val = evalTernaryExpression(
-                            evalAtomicExpression(tokens[i - 1]), o,
-                            evalAtomicExpression(tokens[i + 1]), condition);
+                                           evalAtomicExpression(tokens[i - 1]), o,
+                                           evalAtomicExpression(tokens[i + 1]), condition);
                     std::vector<std::string> newTokens(tokens.begin(), tokens.begin() + (i - 1));
                     newTokens.push_back(toString(val));
                     newTokens.insert(newTokens.end(), tokens.begin() + (i + 2), tokens.end());

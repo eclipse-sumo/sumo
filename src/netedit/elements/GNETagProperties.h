@@ -123,10 +123,10 @@ public:
     void addDeprecatedAttribute(SumoXMLAttr attr);
 
     /// @brief get field string (by default tag in string format)
-    const std::string &getFieldString() const;
+    const std::string& getFieldString() const;
 
     /// @brief set field that will be drawn in TextFields/ComboBox/etc,
-    void setFieldString(const std::string &fieldString);
+    void setFieldString(const std::string& fieldString);
 
     /// @brief get background color
     unsigned int getBackGroundColor() const;

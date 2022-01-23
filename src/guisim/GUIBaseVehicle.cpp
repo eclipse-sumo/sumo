@@ -817,7 +817,7 @@ GUIBaseVehicle::getScaleValue(const GUIVisualizationSettings& s, int activeSchem
         case 5: {
             MSVehicle* microVeh = dynamic_cast<MSVehicle*>(&myVehicle);
             return (microVeh != nullptr ? microVeh->getLane()->getVehicleMaxSpeed(microVeh) : myVehicle.getEdge()->getVehicleMaxSpeed(&myVehicle));
-            }
+        }
         case 6:
             return myVehicle.getNumberReroutes();
         case 7: {
@@ -854,7 +854,7 @@ GUIBaseVehicle::getScaleValue(const GUIVisualizationSettings& s, int activeSchem
                     return StringUtils::toBool(val);
                 } catch (BoolFormatException&) {
                     WRITE_WARNING("Vehicle parameter '" + myVehicle.getParameter().getParameter(s.vehicleScaleParam, "0")
-                            + "' key '" + s.vehicleScaleParam + "' is not a number for vehicle '" + myVehicle.getID() + "'");
+                                  + "' key '" + s.vehicleScaleParam + "' is not a number for vehicle '" + myVehicle.getID() + "'");
                     return -1;
                 }
             }
@@ -1061,7 +1061,7 @@ GUIBaseVehicle::drawAction_drawPersonsAndContainers(const GUIVisualizationSettin
         PositionVector boundingBox = microVeh.getBoundingBox();
         boundingBox.push_back(boundingBox.front());
         glColor3d(1, 0, 0);
-        GLHelper::drawBoxLines(boundingBox,0.15);
+        GLHelper::drawBoxLines(boundingBox, 0.15);
         GLHelper::popMatrix();
         GLHelper::popName();
     }

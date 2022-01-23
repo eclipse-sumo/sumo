@@ -34,10 +34,10 @@
 
 GNEVType::GNEVType(GNENet* net) :
     GNEDemandElement("", net, GLO_VTYPE, SUMO_TAG_VTYPE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {}, {}, {}, {}, {}, {}, {}),
-    SUMOVTypeParameter(""),
-    myDefaultVehicleType(true),
-    myDefaultVehicleTypeModified(false) {
+{}, {}, {}, {}, {}, {}, {}, {}),
+SUMOVTypeParameter(""),
+myDefaultVehicleType(true),
+myDefaultVehicleTypeModified(false) {
     // reset default values
     resetDefaultValues();
     // init Rail Visualization Parameters
@@ -47,10 +47,10 @@ GNEVType::GNEVType(GNENet* net) :
 
 GNEVType::GNEVType(GNENet* net, const std::string& vTypeID, const SUMOVehicleClass& defaultVClass) :
     GNEDemandElement(vTypeID, net, GLO_VTYPE, SUMO_TAG_VTYPE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {}, {}, {}, {}, {}, {}, {}),
-    SUMOVTypeParameter(vTypeID),
-    myDefaultVehicleType(true),
-    myDefaultVehicleTypeModified(false) {
+{}, {}, {}, {}, {}, {}, {}, {}),
+SUMOVTypeParameter(vTypeID),
+myDefaultVehicleType(true),
+myDefaultVehicleTypeModified(false) {
     // set default vehicle class
     vehicleClass = defaultVClass;
     parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
@@ -61,10 +61,10 @@ GNEVType::GNEVType(GNENet* net, const std::string& vTypeID, const SUMOVehicleCla
 
 GNEVType::GNEVType(GNENet* net, const SUMOVTypeParameter& vTypeParameter) :
     GNEDemandElement(vTypeParameter.id, net, GLO_VTYPE, SUMO_TAG_VTYPE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {}, {}, {}, {}, {}, {}, {}),
-    SUMOVTypeParameter(vTypeParameter),
-    myDefaultVehicleType(false),
-    myDefaultVehicleTypeModified(false) {
+{}, {}, {}, {}, {}, {}, {}, {}),
+SUMOVTypeParameter(vTypeParameter),
+myDefaultVehicleType(false),
+myDefaultVehicleTypeModified(false) {
     // init Rail Visualization Parameters
     initRailVisualizationParameters();
 }
@@ -72,10 +72,10 @@ GNEVType::GNEVType(GNENet* net, const SUMOVTypeParameter& vTypeParameter) :
 
 GNEVType::GNEVType(GNENet* net, const std::string& vTypeID, GNEVType* vTypeOriginal) :
     GNEDemandElement(vTypeID, net, GLO_VTYPE, vTypeOriginal->getTagProperty().getTag(), GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {}, {}, {}, {}, {}, {}, {}),
-    SUMOVTypeParameter(*vTypeOriginal),
-    myDefaultVehicleType(false),
-    myDefaultVehicleTypeModified(false) {
+{}, {}, {}, {}, {}, {}, {}, {}),
+SUMOVTypeParameter(*vTypeOriginal),
+myDefaultVehicleType(false),
+myDefaultVehicleTypeModified(false) {
     // change manually the ID (to avoid to use the ID of vTypeOriginal)
     id = vTypeID;
     // init Rail Visualization Parameters
@@ -105,20 +105,20 @@ GNEVType::writeDemandElement(OutputDevice& device) const {
 }
 
 
-GNEDemandElement::Problem 
+GNEDemandElement::Problem
 GNEVType::isDemandElementValid() const {
     // currently vTypes don't have problems
     return GNEDemandElement::Problem::OK;
 }
 
 
-std::string 
+std::string
 GNEVType::getDemandElementProblem() const {
     return "";
 }
 
 
-void 
+void
 GNEVType::fixDemandElementProblem() {
     // nothing to fix
 }
@@ -1254,7 +1254,7 @@ GNEVType::editVTypeDistribution(const std::string& vTypeDistributionID, GNEUndoL
             if (vTypeDistribution->getChildDemandElements().size() == 1) {
                 // ask if remove vTypeDistribution
                 if (askRemoveVTypeDistribution(vTypeDistribution->getID())) {
-                    undoList->begin(GUIIcon::VTYPEDISTRIBUTION, "remove "+ toString(SUMO_TAG_VTYPE_DISTRIBUTION));
+                    undoList->begin(GUIIcon::VTYPEDISTRIBUTION, "remove " + toString(SUMO_TAG_VTYPE_DISTRIBUTION));
                     // clear attribute
                     undoList->changeAttribute(new GNEChange_Attribute(this, GNE_ATTR_VTYPE_DISTRIBUTION, ""));
                     // remove vType Distribution
@@ -1270,14 +1270,14 @@ GNEVType::editVTypeDistribution(const std::string& vTypeDistributionID, GNEUndoL
         // check if vTypeDistribution exist
         const auto vTypeDistribution = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_VTYPE_DISTRIBUTION, vTypeDistributionID, false);
         // get current vTypeDistribution parent
-        const auto vTypeDistributionParent = (getParentDemandElements().size() > 0)? getParentDemandElements().front() : nullptr;
+        const auto vTypeDistributionParent = (getParentDemandElements().size() > 0) ? getParentDemandElements().front() : nullptr;
         if (vTypeDistribution) {
             // add in vTypeDistribution
             undoList->changeAttribute(new GNEChange_Attribute(this, GNE_ATTR_VTYPE_DISTRIBUTION, vTypeDistributionID));
         } else if (vTypeDistributionParent && (vTypeDistributionParent->getChildDemandElements().size() == 1)) {
             // ask if remove vTypeDistribution
             if (askRemoveVTypeDistribution(vTypeDistributionParent->getID())) {
-                undoList->begin(GUIIcon::VTYPEDISTRIBUTION, "add/remove "+ toString(SUMO_TAG_VTYPE_DISTRIBUTION));
+                undoList->begin(GUIIcon::VTYPEDISTRIBUTION, "add/remove " + toString(SUMO_TAG_VTYPE_DISTRIBUTION));
                 // clear attribute
                 undoList->changeAttribute(new GNEChange_Attribute(this, GNE_ATTR_VTYPE_DISTRIBUTION, ""));
                 // remove old vTypeDistribution
@@ -1289,7 +1289,7 @@ GNEVType::editVTypeDistribution(const std::string& vTypeDistributionID, GNEUndoL
                 undoList->end();
             }
         } else {
-            undoList->begin(GUIIcon::VTYPEDISTRIBUTION, "add "+ toString(SUMO_TAG_VTYPE_DISTRIBUTION));
+            undoList->begin(GUIIcon::VTYPEDISTRIBUTION, "add " + toString(SUMO_TAG_VTYPE_DISTRIBUTION));
             // create newTypeDistribution
             undoList->add(new GNEChange_DemandElement(new GNEVTypeDistribution(myNet, vTypeDistributionID), true), true);
             // set new vTypeDistribution
@@ -1300,14 +1300,14 @@ GNEVType::editVTypeDistribution(const std::string& vTypeDistributionID, GNEUndoL
 }
 
 
-bool 
+bool
 GNEVType::askAddVTypeDistribution(const std::string& vTypeDistribution) const {
     // show warning in gui testing debug mode
     WRITE_DEBUG("Opening FXMessageBox 'add vTypeDistribution'");
     // Ask confirmation to user
     const FXuint answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO,
-                                                    ("Add " + toString(SUMO_TAG_VTYPE_DISTRIBUTION) + "s").c_str(), "%s",
-                                                    (toString(SUMO_TAG_VTYPE_DISTRIBUTION) + " '" + vTypeDistribution + "' doesn't exist. Create?").c_str());
+                          ("Add " + toString(SUMO_TAG_VTYPE_DISTRIBUTION) + "s").c_str(), "%s",
+                          (toString(SUMO_TAG_VTYPE_DISTRIBUTION) + " '" + vTypeDistribution + "' doesn't exist. Create?").c_str());
     if (answer == 1) { // 1:yes, 2:no, 4:esc
         WRITE_DEBUG("Closed FXMessageBox 'add vTypeDistribution' with 'yes'");
         return true;
@@ -1324,14 +1324,14 @@ GNEVType::askAddVTypeDistribution(const std::string& vTypeDistribution) const {
 }
 
 
-bool 
+bool
 GNEVType::askRemoveVTypeDistribution(const std::string& vTypeDistribution) const {
     // show warning in gui testing debug mode
     WRITE_DEBUG("Opening FXMessageBox 'remove vTypeDistribution'");
     // Ask confirmation to user
     const FXuint answer = FXMessageBox::question(myNet->getViewNet()->getApp(), MBOX_YES_NO,
-                                                    ("Remove " + toString(SUMO_TAG_VTYPE_DISTRIBUTION)).c_str(), "%s",
-                                                    ("Changing attribute will remove " + toString(SUMO_TAG_VTYPE_DISTRIBUTION) + " '" + vTypeDistribution + "'. Continue?").c_str());
+                          ("Remove " + toString(SUMO_TAG_VTYPE_DISTRIBUTION)).c_str(), "%s",
+                          ("Changing attribute will remove " + toString(SUMO_TAG_VTYPE_DISTRIBUTION) + " '" + vTypeDistribution + "'. Continue?").c_str());
     if (answer == 1) { // 1:yes, 2:no, 4:esc
         WRITE_DEBUG("Closed FXMessageBox 'remove vTypeDistribution' with 'yes'");
         return true;

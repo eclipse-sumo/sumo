@@ -195,8 +195,8 @@ protected:
     template<typename T, SumoXMLTag Tag>
     const T* retrieveDetExpression(const std::string& arg, const std::string& expr, bool tryPrefix) const {
         const T* det = dynamic_cast<const T*>(
-                MSNet::getInstance()->getDetectorControl().getTypedDetectors(Tag).get(
-                    (tryPrefix ? myDetectorPrefix : "") + arg));
+                           MSNet::getInstance()->getDetectorControl().getTypedDetectors(Tag).get(
+                               (tryPrefix ? myDetectorPrefix : "") + arg));
         if (det == nullptr) {
             if (tryPrefix) {
                 // try again without prefix

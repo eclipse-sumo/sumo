@@ -36,10 +36,10 @@
 
 GNERouteProbe::GNERouteProbe(GNENet* net) :
     GNEAdditional("", net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, "",
-        {}, {}, {}, {}, {}, {}, {}, {},
-    std::map<std::string, std::string>()),
+{}, {}, {}, {}, {}, {}, {}, {},
+std::map<std::string, std::string>()),
     myFrequency(0),
-    myBegin(0) {
+myBegin(0) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -48,11 +48,11 @@ GNERouteProbe::GNERouteProbe(GNENet* net) :
 GNERouteProbe::GNERouteProbe(const std::string& id, GNENet* net, GNEEdge* edge, const SUMOTime frequency, const std::string& name,
                              const std::string& filename, SUMOTime begin, const std::map<std::string, std::string>& parameters) :
     GNEAdditional(id, net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, name,
-        {}, {edge}, {}, {}, {}, {}, {}, {},
-    parameters),
-    myFrequency(frequency),
-    myFilename(filename),
-    myBegin(begin) {
+{}, {edge}, {}, {}, {}, {}, {}, {},
+parameters),
+myFrequency(frequency),
+myFilename(filename),
+myBegin(begin) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }

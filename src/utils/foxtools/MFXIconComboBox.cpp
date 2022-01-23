@@ -397,9 +397,9 @@ MFXIconComboBox::prependItem(const FXString& text, void* ptr) {
     FXint index = myList->prependItem(text, NULL, ptr);
     if (isItemCurrent(0)) {
         myTextFieldIcon->setText(text);
-        myTextFieldIcon->setBackColor(FXRGB(255,255,255));
+        myTextFieldIcon->setBackColor(FXRGB(255, 255, 255));
         myIconLabel->setIcon(nullptr);
-        myIconLabel->setBackColor(FXRGB(255,255,255));
+        myIconLabel->setBackColor(FXRGB(255, 255, 255));
     }
     recalc();
     return index;
@@ -421,7 +421,7 @@ MFXIconComboBox::moveItem(FXint newindex, FXint oldindex) {
             myTextFieldIcon->setText(" ");
         }
         myIconLabel->setIcon(nullptr);
-        myIconLabel->setBackColor(FXRGB(255,255,255));
+        myIconLabel->setBackColor(FXRGB(255, 255, 255));
     }
     recalc();
     return newindex;
@@ -440,7 +440,7 @@ MFXIconComboBox::removeItem(FXint index) {
             myTextFieldIcon->setText(FXString::null);
         }
         myIconLabel->setIcon(nullptr);
-        myIconLabel->setBackColor(FXRGB(255,255,255));
+        myIconLabel->setBackColor(FXRGB(255, 255, 255));
     }
     recalc();
 }

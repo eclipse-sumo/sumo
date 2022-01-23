@@ -650,9 +650,9 @@ protected:
     static bool hasNonLinearElevation(OpenDriveEdge& e);
 
     /// transform Poly3 into a list of offsets, adding intermediate points to geom if needed
-    static std::vector<double> discretizeOffsets(PositionVector& geom, const std::vector<OpenDriveLaneOffset>& offsets, const std::string& id); 
+    static std::vector<double> discretizeOffsets(PositionVector& geom, const std::vector<OpenDriveLaneOffset>& offsets, const std::string& id);
 
-    static void addOffsets(bool left, PositionVector& geom, const std::vector<OpenDriveLaneOffset>& offsets, const std::string& id, std::vector<double>& result); 
+    static void addOffsets(bool left, PositionVector& geom, const std::vector<OpenDriveLaneOffset>& offsets, const std::string& id, std::vector<double>& result);
 
     /** @brief Rechecks lane sections of the given edges
      *

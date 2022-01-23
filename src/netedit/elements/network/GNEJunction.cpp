@@ -369,8 +369,8 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         // force draw bubbles if we enabled option in checkbox of viewNet
         drawBubble = true;
     }
-    if ((myNBNode->getShape().area() < 4) && (mySourceCandidate || myTargetCandidate || 
-        mySpecialCandidate | myPossibleCandidate || myConflictedCandidate)) {
+    if ((myNBNode->getShape().area() < 4) && (mySourceCandidate || myTargetCandidate ||
+            mySpecialCandidate | myPossibleCandidate || myConflictedCandidate)) {
         // force draw if this junction is a candidate
         drawBubble = true;
     }

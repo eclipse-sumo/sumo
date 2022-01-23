@@ -54,7 +54,7 @@ NBTypeCont::LaneTypeDefinition::LaneTypeDefinition(const EdgeTypeDefinition* edg
 }
 
 
-NBTypeCont::LaneTypeDefinition::LaneTypeDefinition(const double _speed, const double _width, SVCPermissions _permissions, const std::set<SumoXMLAttr> &_attrs) :
+NBTypeCont::LaneTypeDefinition::LaneTypeDefinition(const double _speed, const double _width, SVCPermissions _permissions, const std::set<SumoXMLAttr>& _attrs) :
     speed(_speed),
     permissions(_permissions),
     width(_width),
@@ -91,11 +91,11 @@ NBTypeCont::EdgeTypeDefinition::EdgeTypeDefinition() :
 
 
 NBTypeCont::EdgeTypeDefinition::EdgeTypeDefinition(const EdgeTypeDefinition* edgeType) :
-    speed(edgeType->speed), 
+    speed(edgeType->speed),
     priority(edgeType->priority),
     permissions(edgeType->permissions),
     spreadType(edgeType->spreadType),
-    oneWay(edgeType->oneWay), 
+    oneWay(edgeType->oneWay),
     discard(edgeType->discard),
     width(edgeType->width),
     widthResolution(edgeType->widthResolution),

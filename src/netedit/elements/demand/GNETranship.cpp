@@ -36,10 +36,10 @@
 
 GNETranship::GNETranship(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_TRANSHIP, tag, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {}, {}, {}, {}, {}, {}, {}),
-    mySpeed(0),
-    myDepartPosition(0),
-    myArrivalPosition(0) {
+{}, {}, {}, {}, {}, {}, {}, {}),
+mySpeed(0),
+myDepartPosition(0),
+myArrivalPosition(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -48,20 +48,20 @@ GNETranship::GNETranship(SumoXMLTag tag, GNENet* net) :
 GNETranship::GNETranship(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEEdge* toEdge,
                          const double speed, const double departPosition, const double arrivalPosition) :
     GNEDemandElement(containerParent, net, GLO_TRANSHIP, GNE_TAG_TRANSHIP_EDGE, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {fromEdge, toEdge}, {}, {}, {}, {}, {containerParent}, {}),
-    mySpeed(speed),
-    myDepartPosition(departPosition),
-    myArrivalPosition(arrivalPosition) {
+{}, {fromEdge, toEdge}, {}, {}, {}, {}, {containerParent}, {}),
+mySpeed(speed),
+myDepartPosition(departPosition),
+myArrivalPosition(arrivalPosition) {
 }
 
 
 GNETranship::GNETranship(GNENet* net, GNEDemandElement* containerParent, GNEEdge* fromEdge, GNEAdditional* toContainerStop,
                          const double speed, const double departPosition, const double arrivalPosition) :
     GNEDemandElement(containerParent, net, GLO_TRANSHIP, GNE_TAG_TRANSHIP_CONTAINERSTOP, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {fromEdge}, {}, {toContainerStop}, {}, {}, {containerParent}, {}),
-    mySpeed(speed),
-    myDepartPosition(departPosition),
-    myArrivalPosition(arrivalPosition) {
+{}, {fromEdge}, {}, {toContainerStop}, {}, {}, {containerParent}, {}),
+mySpeed(speed),
+myDepartPosition(departPosition),
+myArrivalPosition(arrivalPosition) {
 }
 
 

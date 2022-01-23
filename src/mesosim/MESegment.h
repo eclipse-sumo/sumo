@@ -470,7 +470,7 @@ public:
      */
     SUMOTime getLinkPenalty(const MEVehicle* veh) const;
 
-    /// @brief called when permissions change due to Rerouter or TraCI 
+    /// @brief called when permissions change due to Rerouter or TraCI
     void updatePermissions();
 
 private:

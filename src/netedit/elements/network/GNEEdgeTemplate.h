@@ -35,7 +35,7 @@ class GNEEdgeTemplate : public GNEAttributeCarrier {
 
 public:
     /// @brief Constructor
-    GNEEdgeTemplate(const GNEEdge *edge);
+    GNEEdgeTemplate(const GNEEdge* edge);
 
     /// @brief Destructor.
     ~GNEEdgeTemplate();
@@ -44,7 +44,7 @@ public:
     GNEHierarchicalElement* getHierarchicalElement();
 
     /// @brief get vector with the lane templates of this edge
-    const std::vector<GNELaneTemplate*> &getLaneTemplates() const;
+    const std::vector<GNELaneTemplate*>& getLaneTemplates() const;
 
     /// @brief update lane templates
     void updateLaneTemplates();
@@ -120,7 +120,7 @@ public:
 
 protected:
     /// @brief pointer to original edge
-    const GNEEdge *myEdge;
+    const GNEEdge* myEdge;
 
     /// @brief vector with the lane templates of this edge
     std::vector<GNELaneTemplate*> myLaneTemplates;

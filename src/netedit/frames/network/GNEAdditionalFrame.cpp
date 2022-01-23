@@ -149,7 +149,7 @@ GNEAdditionalFrame::SelectorParentLanes::stopConsecutiveLaneSelector() {
     }
     // obtain lane IDs
     std::vector<std::string> laneIDs;
-    for (const auto &selectedlane : mySelectedLanes) {
+    for (const auto& selectedlane : mySelectedLanes) {
         laneIDs.push_back(selectedlane.first->getID());
     }
     myAdditionalFrameParent->myBaseAdditional->addStringListAttribute(SUMO_ATTR_LANES, laneIDs);

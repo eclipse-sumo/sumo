@@ -65,7 +65,7 @@ public:
         LaneTypeDefinition(const EdgeTypeDefinition* edgeTypeDefinition);
 
         /// @brief parameter constructor
-        LaneTypeDefinition(const double speed, const double width, SVCPermissions permissions, const std::set<SumoXMLAttr> &attrs);
+        LaneTypeDefinition(const double speed, const double width, SVCPermissions permissions, const std::set<SumoXMLAttr>& attrs);
 
         /// @brief copy constructor
         LaneTypeDefinition(const LaneTypeDefinition* laneTypeDefinition);

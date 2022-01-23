@@ -79,8 +79,8 @@ GNEPersonFrame::show() {
     myTypeSelector->refreshDemandElementSelector();
     myPersonPlanTagSelector->refreshTagSelector();
     // update VClass of myPathCreator
-    if (myPersonPlanTagSelector->getCurrentTemplateAC() && 
-        myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isRide()) {
+    if (myPersonPlanTagSelector->getCurrentTemplateAC() &&
+            myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isRide()) {
         myPathCreator->setVClass(SVC_PASSENGER);
     } else {
         myPathCreator->setVClass(SVC_PEDESTRIAN);
@@ -188,8 +188,8 @@ GNEPersonFrame::tagSelected() {
                 // show Netedit attributes modul
                 myNeteditAttributes->showNeteditAttributesModule(myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty());
                 // show path creator depending of tag
-                if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopPerson() || 
-                    (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() == GNE_TAG_WALK_ROUTE)) {
+                if (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().isStopPerson() ||
+                        (myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() == GNE_TAG_WALK_ROUTE)) {
                     myPathCreator->hidePathCreatorModule();
                 } else {
                     // update VClass of myPathCreator depending if person is a ride
@@ -284,8 +284,8 @@ GNEPersonFrame::createPath() {
         myViewNet->setStatusBarText("Invalid " + myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " parameters.");
     } else {
         // begin undo-redo operation
-        myViewNet->getUndoList()->begin(myPersonTagSelector->getCurrentTemplateAC()->getTagProperty().getGUIIcon(), "create " + 
-                                        myPersonTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " and " + 
+        myViewNet->getUndoList()->begin(myPersonTagSelector->getCurrentTemplateAC()->getTagProperty().getGUIIcon(), "create " +
+                                        myPersonTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr() + " and " +
                                         myPersonPlanTagSelector->getCurrentTemplateAC()->getTagProperty().getTagStr());
         // create person
         GNEDemandElement* person = buildPerson();

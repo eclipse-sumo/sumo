@@ -68,13 +68,13 @@ protected:
 
     public:
         /// @brief constructor
-        FixOptions(FXVerticalFrame* frameParent, const std::string &title, GNEViewNet *viewNet);
+        FixOptions(FXVerticalFrame* frameParent, const std::string& title, GNEViewNet* viewNet);
 
         /// @brief set invalid demand elements
-        void setInvalidElements(const std::vector<GNEDemandElement*> &invalidElements);
+        void setInvalidElements(const std::vector<GNEDemandElement*>& invalidElements);
 
         /// @brief fix elements
-        virtual void fixElements(bool &abortSaving) = 0;
+        virtual void fixElements(bool& abortSaving) = 0;
 
     protected:
         /// @brief save contents
@@ -87,7 +87,7 @@ protected:
         FXVerticalFrame* myRightFrame = nullptr;
 
         /// @brief pointer to viewNet
-        GNEViewNet *myViewNet;
+        GNEViewNet* myViewNet;
 
         /// @brief vector with the invalid demand elements
         std::vector<GNEDemandElement*> myInvalidElements;
@@ -114,7 +114,7 @@ protected:
         void selectOption(FXObject* option);
 
         /// @brief fix elements
-        void fixElements(bool &abortSaving);
+        void fixElements(bool& abortSaving);
 
         /// @brief Option "Remove invalid routes"
         FXRadioButton* removeInvalidRoutes;
@@ -124,7 +124,7 @@ protected:
 
         /// @brief Option "Select invalid routes and cancel"
         FXRadioButton* selectInvalidRoutesAndCancel;
-        
+
         /// @brief Option "Remove stops out of route"
         FXCheckButton* removeStopsOutOfRoute;
 
@@ -147,8 +147,8 @@ protected:
         void selectOption(FXObject* option);
 
         /// @brief fix elements
-        void fixElements(bool &abortSaving);
-        
+        void fixElements(bool& abortSaving);
+
         /// @brief Option "remove invalid elements"
         FXRadioButton* removeInvalidVehicles;
 
@@ -180,7 +180,7 @@ protected:
         void selectOption(FXObject* option);
 
         /// @brief fix elements
-        void fixElements(bool &abortSaving);
+        void fixElements(bool& abortSaving);
 
         /// @brief Option "Activate friendlyPos and save"
         FXRadioButton* activateFriendlyPositionAndSave;
@@ -213,8 +213,8 @@ protected:
         void selectOption(FXObject* option);
 
         /// @brief fix elements
-        void fixElements(bool &abortSaving);
-        
+        void fixElements(bool& abortSaving);
+
         /// @brief Option "delete person plan"
         FXRadioButton* deletePersonPlan;
 

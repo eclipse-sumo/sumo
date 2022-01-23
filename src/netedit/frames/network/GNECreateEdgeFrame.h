@@ -59,7 +59,7 @@ public:
         void refreshEdgeTypeSelector();
 
         /// @brief update id in comboBox
-        void updateIDinComboBox(const std::string &oldID, const std::string &newID);
+        void updateIDinComboBox(const std::string& oldID, const std::string& newID);
 
         /// @brief check if we have to use edge template
         bool useEdgeTemplate() const;
@@ -111,7 +111,7 @@ public:
     private:
         /// @brief pointer to createEdgeFrameParent
         GNECreateEdgeFrame* myCreateEdgeFrameParent;
-    
+
         /// @brief default edge type
         GNEEdgeType* myDefaultEdgeType;
 
@@ -187,7 +187,7 @@ public:
     private:
         /// @brief pointer to createEdgeFrameParent
         GNECreateEdgeFrame* myCreateEdgeFrameParent;
-    
+
         /// @brief lane index
         int myLaneIndex;
         /// @brief ComboBox for lane types

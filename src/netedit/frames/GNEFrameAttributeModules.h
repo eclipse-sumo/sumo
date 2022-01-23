@@ -162,7 +162,7 @@ public:
         ~AttributesCreator();
 
         /// @brief show AttributesCreator modul
-        void showAttributesCreatorModule(GNEAttributeCarrier *templateAC, const std::vector<SumoXMLAttr>& hiddenAttributes);
+        void showAttributesCreatorModule(GNEAttributeCarrier* templateAC, const std::vector<SumoXMLAttr>& hiddenAttributes);
 
         /// @brief hide group box
         void hideAttributesCreatorModule();
@@ -174,7 +174,7 @@ public:
         void getAttributesAndValues(CommonXMLStructure::SumoBaseObject* baseObject, bool includeAll) const;
 
         /// @brief get current template AC
-        GNEAttributeCarrier *getCurrentTemplateAC() const;
+        GNEAttributeCarrier* getCurrentTemplateAC() const;
 
         /// @brief check if parameters of attributes are valid
         bool areValuesValid() const;
@@ -212,7 +212,7 @@ public:
         AttributesCreatorFlow* myAttributesCreatorFlow = nullptr;
 
         /// @brief current templateAC
-        GNEAttributeCarrier *myTemplateAC;
+        GNEAttributeCarrier* myTemplateAC;
 
         /// @brief hidden attributes
         std::vector<SumoXMLAttr> myHiddenAttributes;

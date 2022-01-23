@@ -41,8 +41,8 @@
 
 GNEPoly::GNEPoly(GNENet* net) :
     SUMOPolygon("", "", RGBColor::BLACK, {}, false, false, 0, 0, 0, "", false, "", std::map<std::string, std::string>()),
-    GNEShape("", net, GLO_POLYGON, SUMO_TAG_POLY, {}, {}, {}, {}, {}, {}, {}, {}),
-    mySimplifiedShape(false) {
+            GNEShape("", net, GLO_POLYGON, SUMO_TAG_POLY, {}, {}, {}, {}, {}, {}, {}, {}),
+mySimplifiedShape(false) {
     // reset default values
     resetDefaultValues();
 }
@@ -53,7 +53,7 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
                  const std::map<std::string, std::string>& parameters) :
     SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name, parameters),
     GNEShape(id, net, GLO_POLYGON, SUMO_TAG_POLY, {}, {}, {}, {}, {}, {}, {}, {}),
-    mySimplifiedShape(false) {
+mySimplifiedShape(false) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
     // check if imgFile is valid

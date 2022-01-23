@@ -185,7 +185,7 @@ public:
         GNECrossingFrame* myCrossingFrameParent;
 
         /// @brief crossing template
-        GNECrossing *myCrossingTemplate;
+        GNECrossing* myCrossingTemplate;
 
         /// @brief current selected edges
         std::vector<GNEEdge*> myCurrentSelectedEdges;

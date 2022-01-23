@@ -31,8 +31,8 @@
 
 GNECalibratorFlow::GNECalibratorFlow(GNENet* net) :
     GNEAdditional("", net, GLO_CALIBRATOR, GNE_TAG_FLOW_CALIBRATOR, "",
-        {}, {}, {}, {}, {}, {}, {}, {},
-    std::map<std::string, std::string>()) {
+{}, {}, {}, {}, {}, {}, {}, {},
+std::map<std::string, std::string>()) {
     // reset default values
     resetDefaultValues();
     // set VPH and speed enabled
@@ -43,9 +43,9 @@ GNECalibratorFlow::GNECalibratorFlow(GNENet* net) :
 
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route) :
     GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_FLOW_CALIBRATOR, "",
-        {}, {}, {}, {calibratorParent}, {}, {}, {vehicleType, route}, {},
-    std::map<std::string, std::string>()),
-    SUMOVehicleParameter() {
+{}, {}, {}, {calibratorParent}, {}, {}, {vehicleType, route}, {},
+std::map<std::string, std::string>()),
+SUMOVehicleParameter() {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -53,9 +53,9 @@ GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandE
 
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters) :
     GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_FLOW_CALIBRATOR, "",
-        {}, {}, {}, {calibratorParent}, {}, {}, {vehicleType, route}, {},
-    std::map<std::string, std::string>()),
-    SUMOVehicleParameter(vehicleParameters) {
+{}, {}, {}, {calibratorParent}, {}, {}, {vehicleType, route}, {},
+std::map<std::string, std::string>()),
+SUMOVehicleParameter(vehicleParameters) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -82,7 +82,7 @@ GNECalibratorFlow::writeAdditional(OutputDevice& device) const {
         // close vehicle tag
         device.closeTag();
     } else {
-        WRITE_WARNING(toString(GNE_TAG_FLOW_CALIBRATOR) + " of  calibrator '" +  getParentAdditionals().front()->getID() + 
+        WRITE_WARNING(toString(GNE_TAG_FLOW_CALIBRATOR) + " of  calibrator '" +  getParentAdditionals().front()->getID() +
                       "' cannot be written. Either type or vehsPerHour or speed must be enabled");
     }
 }
@@ -676,13 +676,13 @@ GNECalibratorFlow::setMoveShape(const GNEMoveResult& /*moveResult*/) {
     // nothing to do
 }
 
-void 
+void
 GNECalibratorFlow::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
     // nothing to do
 }
 
 
-void 
+void
 GNECalibratorFlow::toogleAttribute(SumoXMLAttr key, const bool value, const int /*previousParameters*/) {
     switch (key) {
         case SUMO_ATTR_TYPE:

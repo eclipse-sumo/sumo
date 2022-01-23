@@ -30,7 +30,7 @@
 
 GNEVTypeDistribution::GNEVTypeDistribution(GNENet* net) :
     GNEDemandElement("", net, GLO_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {}, {}, {}, {}, {}, {}, {}) {
+{}, {}, {}, {}, {}, {}, {}, {}) {
     // reset default values
     resetDefaultValues();
 }
@@ -38,7 +38,7 @@ GNEVTypeDistribution::GNEVTypeDistribution(GNENet* net) :
 
 GNEVTypeDistribution::GNEVTypeDistribution(GNENet* net, const std::string& vTypeID) :
     GNEDemandElement(vTypeID, net, GLO_VTYPE, SUMO_TAG_VTYPE_DISTRIBUTION, GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-        {}, {}, {}, {}, {}, {}, {}, {}) {
+{}, {}, {}, {}, {}, {}, {}, {}) {
 }
 
 
@@ -56,27 +56,27 @@ GNEVTypeDistribution::writeDemandElement(OutputDevice& device) const {
     device.openTag(getTagProperty().getTag());
     device.writeAttr(SUMO_ATTR_ID, getID());
     // write all vTypes
-    for (const auto &vType : getChildDemandElements()) {
+    for (const auto& vType : getChildDemandElements()) {
         vType->writeDemandElement(device);
     }
     device.closeTag();
 }
 
 
-GNEDemandElement::Problem 
+GNEDemandElement::Problem
 GNEVTypeDistribution::isDemandElementValid() const {
     // currently vTypeDistributions don't have problems
     return GNEDemandElement::Problem::OK;
 }
 
 
-std::string 
+std::string
 GNEVTypeDistribution::getDemandElementProblem() const {
     return "";
 }
 
 
-void 
+void
 GNEVTypeDistribution::fixDemandElementProblem() {
     // nothing to fix
 }
@@ -201,7 +201,7 @@ GNEVTypeDistribution::setAttribute(SumoXMLAttr key, const std::string& value, GN
         case SUMO_ATTR_ID:
             undoList->changeAttribute(new GNEChange_Attribute(this, key, value));
             break;
-        
+
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }

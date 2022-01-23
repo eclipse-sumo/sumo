@@ -51,14 +51,28 @@ public:
     ~VTypesHandler();
 
     void closeVType();
-    void openVehicleTypeDistribution(const SUMOSAXAttributes& attrs) { UNUSED_PARAMETER(attrs); }
+    void openVehicleTypeDistribution(const SUMOSAXAttributes& attrs) {
+        UNUSED_PARAMETER(attrs);
+    }
     void closeVehicleTypeDistribution() {}
-    void openRoute(const SUMOSAXAttributes& attrs) { UNUSED_PARAMETER(attrs); }
-    void openFlow(const SUMOSAXAttributes& attrs) { UNUSED_PARAMETER(attrs); }
-    void openRouteFlow(const SUMOSAXAttributes& attrs) { UNUSED_PARAMETER(attrs); }
-    void openTrip(const SUMOSAXAttributes& attrs) { UNUSED_PARAMETER(attrs); }
-    void closeRoute(const bool mayBeDisconnected = false) { UNUSED_PARAMETER(mayBeDisconnected); }
-    void openRouteDistribution(const SUMOSAXAttributes& attrs) { UNUSED_PARAMETER(attrs); }
+    void openRoute(const SUMOSAXAttributes& attrs) {
+        UNUSED_PARAMETER(attrs);
+    }
+    void openFlow(const SUMOSAXAttributes& attrs) {
+        UNUSED_PARAMETER(attrs);
+    }
+    void openRouteFlow(const SUMOSAXAttributes& attrs) {
+        UNUSED_PARAMETER(attrs);
+    }
+    void openTrip(const SUMOSAXAttributes& attrs) {
+        UNUSED_PARAMETER(attrs);
+    }
+    void closeRoute(const bool mayBeDisconnected = false) {
+        UNUSED_PARAMETER(mayBeDisconnected);
+    }
+    void openRouteDistribution(const SUMOSAXAttributes& attrs) {
+        UNUSED_PARAMETER(attrs);
+    }
     void closeRouteDistribution() {}
     void closeVehicle() {}
     void closePerson() {}
@@ -67,14 +81,30 @@ public:
     void closeContainerFlow() {}
     void closeFlow() {}
     void closeTrip() {}
-    void addStop(const SUMOSAXAttributes& attrs) { UNUSED_PARAMETER(attrs); }
-    void addPersonTrip(const SUMOSAXAttributes& attrs) { UNUSED_PARAMETER(attrs); }
-    void addWalk(const SUMOSAXAttributes& attrs) { UNUSED_PARAMETER(attrs); }
-    void addPerson(const SUMOSAXAttributes& attrs) { UNUSED_PARAMETER(attrs); }
-    void addRide(const SUMOSAXAttributes& attrs) { UNUSED_PARAMETER(attrs); }
-    void addContainer(const SUMOSAXAttributes& attrs) { UNUSED_PARAMETER(attrs); }
-    void addTransport(const SUMOSAXAttributes& attrs) { UNUSED_PARAMETER(attrs); }
-    void addTranship(const SUMOSAXAttributes& attrs) { UNUSED_PARAMETER(attrs); }
+    void addStop(const SUMOSAXAttributes& attrs) {
+        UNUSED_PARAMETER(attrs);
+    }
+    void addPersonTrip(const SUMOSAXAttributes& attrs) {
+        UNUSED_PARAMETER(attrs);
+    }
+    void addWalk(const SUMOSAXAttributes& attrs) {
+        UNUSED_PARAMETER(attrs);
+    }
+    void addPerson(const SUMOSAXAttributes& attrs) {
+        UNUSED_PARAMETER(attrs);
+    }
+    void addRide(const SUMOSAXAttributes& attrs) {
+        UNUSED_PARAMETER(attrs);
+    }
+    void addContainer(const SUMOSAXAttributes& attrs) {
+        UNUSED_PARAMETER(attrs);
+    }
+    void addTransport(const SUMOSAXAttributes& attrs) {
+        UNUSED_PARAMETER(attrs);
+    }
+    void addTranship(const SUMOSAXAttributes& attrs) {
+        UNUSED_PARAMETER(attrs);
+    }
 
 protected:
 

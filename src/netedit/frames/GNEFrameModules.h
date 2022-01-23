@@ -63,10 +63,10 @@ public:
         void hideTagSelector();
 
         /// @brief get templateAC
-        GNEAttributeCarrier *getTemplateAC(SumoXMLTag ACTag) const;
+        GNEAttributeCarrier* getTemplateAC(SumoXMLTag ACTag) const;
 
         /// @brief get current templateAC
-        GNEAttributeCarrier *getCurrentTemplateAC() const;
+        GNEAttributeCarrier* getCurrentTemplateAC() const;
 
         /// @brief set current type manually
         void setCurrentTagType(GNETagProperties::TagType tagType, const bool onlyDrawables, const bool notifyFrameParent = true);
@@ -102,8 +102,8 @@ public:
 
         private:
             /// @brief editedAC
-            GNEAttributeCarrier *myAC;
-            
+            GNEAttributeCarrier* myAC;
+
             /// @brief Invalidated copy constructor.
             ACTemplate(const ACTemplate&) = delete;
 
@@ -121,7 +121,7 @@ public:
         MFXIconComboBox* myTagsMatchBox;
 
         /// @brief current templateAC;
-        GNEAttributeCarrier *myCurrentTemplateAC;
+        GNEAttributeCarrier* myCurrentTemplateAC;
 
         /// @brief list with ACTemplates
         std::vector<ACTemplate*> myACTemplates;
@@ -137,7 +137,7 @@ public:
 
     public:
         /// @brief constructor with a single tag
-        DemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag, GNEDemandElement *defaultElement = nullptr);
+        DemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag, GNEDemandElement* defaultElement = nullptr);
 
         /// @brief constructor with tag type
         DemandElementSelector(GNEFrame* frameParent, const std::vector<GNETagProperties::TagType>& tagTypes);
@@ -621,16 +621,16 @@ public:
         void setVClass(SUMOVehicleClass vClass);
 
         /// @brief add junction
-        bool addJunction(GNEJunction *junction, const bool shiftKeyPressed, const bool controlKeyPressed);
+        bool addJunction(GNEJunction* junction, const bool shiftKeyPressed, const bool controlKeyPressed);
 
         /// @brief add edge
         bool addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool controlKeyPressed);
 
         /// @brief get current selected edges
-        const std::vector<GNEEdge*> &getSelectedEdges() const;
+        const std::vector<GNEEdge*>& getSelectedEdges() const;
 
         /// @brief get current selected junctions
-        const std::vector<GNEJunction*> &getSelectedJunctions() const;
+        const std::vector<GNEJunction*>& getSelectedJunctions() const;
 
         /// @brief add stoppingPlace
         bool addStoppingPlace(GNEAdditional* stoppingPlace, const bool shiftKeyPressed, const bool controlKeyPressed);

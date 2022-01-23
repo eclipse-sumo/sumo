@@ -1625,7 +1625,7 @@ MSLaneChanger::foundHilltop(MSVehicle* vehicle, bool foundHill, double searchDis
 #ifdef DEBUG_CHANGE_OPPOSITE
                     if (DEBUG_COND) {
                         std::cout << "   cannot changeOpposite before the top of a hill searchDist=" << searchDist << " hillDrop=" << drop
-                            << " lastMax=" << lastMax << " lane=" << lane->getID() << " laneDist=" << laneDist << " z=" << z << "\n";
+                                  << " lastMax=" << lastMax << " lane=" << lane->getID() << " laneDist=" << laneDist << " z=" << z << "\n";
                     }
 #endif
                     return true;

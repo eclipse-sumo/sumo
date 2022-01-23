@@ -332,8 +332,8 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                 (!MSGlobals::gLefthand && myDirection != LinkDirection::RIGHT)
                 || (MSGlobals::gLefthand && myDirection != LinkDirection::LEFT))) {
         const double angle = fabs(GeomHelper::angleDiff(
-                    myLaneBefore->getNormalPredecessorLane()->getShape().angleAt2D(-2),
-                    myLane->getShape().angleAt2D(0)));
+                                      myLaneBefore->getNormalPredecessorLane()->getShape().angleAt2D(-2),
+                                      myLane->getShape().angleAt2D(0)));
         if (angle > 0) {
             double length = myInternalLaneBefore->getShape().length2D();
             if (myInternalLaneBefore->getIncomingLanes().size() == 1 &&

@@ -27,7 +27,7 @@
 // members methods
 // ===========================================================================
 
-GNELaneTemplate::GNELaneTemplate(const GNELane *lane) :
+GNELaneTemplate::GNELaneTemplate(const GNELane* lane) :
     GNEAttributeCarrier(SUMO_TAG_LANE, lane->getNet()),
     myLane(lane) {
 }
@@ -37,19 +37,19 @@ GNELaneTemplate::~GNELaneTemplate() {
 }
 
 
-GNEHierarchicalElement* 
+GNEHierarchicalElement*
 GNELaneTemplate::getHierarchicalElement() {
     return nullptr;
 }
 
 
-const std::string& 
+const std::string&
 GNELaneTemplate::getID() const {
     return myLane->getID();
 }
 
 
-GUIGlObject* 
+GUIGlObject*
 GNELaneTemplate::getGUIGlObject() {
     return nullptr;
 }
@@ -63,7 +63,7 @@ GNELaneTemplate::updateGeometry() {
 
 std::string
 GNELaneTemplate::getAttribute(SumoXMLAttr key) const {
-        return myLane->getAttribute(key);
+    return myLane->getAttribute(key);
 }
 
 
@@ -78,13 +78,13 @@ GNELaneTemplate::isValid(SumoXMLAttr /*key*/, const std::string& /*value*/) {
     throw InvalidArgument("cannot be called in templates");
 }
 
-void 
+void
 GNELaneTemplate::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     throw InvalidArgument("cannot be called in templates");
 }
 
 
-void 
+void
 GNELaneTemplate::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     throw InvalidArgument("cannot be called in templates");
 }
@@ -102,13 +102,13 @@ GNELaneTemplate::isAttributeComputed(SumoXMLAttr /*key*/) const {
 }
 
 
-std::string 
+std::string
 GNELaneTemplate::getPopUpID() const {
     return myLane->getPopUpID();
 }
 
 
-std::string 
+std::string
 GNELaneTemplate::getHierarchyName() const {
     return myLane->getHierarchyName();
 }
@@ -128,7 +128,7 @@ GNELaneTemplate::setAttribute(SumoXMLAttr /*key*/, const std::string& /*value*/)
     throw InvalidArgument("cannot be called in templates");
 }
 
-void 
+void
 GNELaneTemplate::toogleAttribute(SumoXMLAttr /*key*/, const bool /*value*/, const int /*previousParameters*/) {
     throw InvalidArgument("cannot be called in templates");
 }

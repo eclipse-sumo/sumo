@@ -697,7 +697,7 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
 #ifdef DEBUG_PARKING
         if (DEBUGCOND) {
             std::cout << SIMTIME << " rerouter=" << getID() << " veh=" << veh.getID()
-                << " dest=" << destParkArea->getID() << " parkAnywhere=" << parkAnywhere << " parkingReroutes=" << veh.getNumberParkingReroutes() << " alongTheWay=" << Named::getIDSecure(onTheWay) << "\n";
+                      << " dest=" << destParkArea->getID() << " parkAnywhere=" << parkAnywhere << " parkingReroutes=" << veh.getNumberParkingReroutes() << " alongTheWay=" << Named::getIDSecure(onTheWay) << "\n";
         }
 #endif
     }
@@ -832,21 +832,21 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
         if (numAlternatives == 0) {
             // use parkingArea with lowest blockedTime
             std::sort(blockedTimes.begin(), blockedTimes.end(),
-                [](std::tuple<SUMOTime, MSParkingArea*, int> const& t1, std::tuple<SUMOTime, MSParkingArea*, int> const& t2) {
-                    if (std::get<0>(t1) < std::get<0>(t2)) {
+            [](std::tuple<SUMOTime, MSParkingArea*, int> const & t1, std::tuple<SUMOTime, MSParkingArea*, int> const & t2) {
+                if (std::get<0>(t1) < std::get<0>(t2)) {
+                    return true;
+                }
+                if (std::get<0>(t1) == std::get<0>(t2)) {
+                    if (std::get<1>(t1)->getID() < std::get<1>(t2)->getID()) {
                         return true;
                     }
-                    if (std::get<0>(t1) == std::get<0>(t2)) {
-                        if (std::get<1>(t1)->getID() < std::get<1>(t2)->getID()) {
-                            return true;
-                        }
-                        if (std::get<1>(t1)->getID() == std::get<1>(t2)->getID()) {
-                            return std::get<2>(t1) < std::get<2>(t2);
-                        }
+                    if (std::get<1>(t1)->getID() == std::get<1>(t2)->getID()) {
+                        return std::get<2>(t1) < std::get<2>(t2);
                     }
-                    return false;
                 }
-            );
+                return false;
+            }
+                     );
             for (auto item : blockedTimes) {
                 MSParkingArea* pa = std::get<1>(item);
                 double prob = probs[std::get<2>(item)];
@@ -874,10 +874,10 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
                     candidates.push_back(std::make_pair(dummy, pav.first));
                 }
                 std::sort(candidates.begin(), candidates.end(),
-                    [](std::tuple<SUMOTime, MSParkingArea*> const& t1, std::tuple<SUMOTime, MSParkingArea*> const& t2) {
-                        return std::get<0>(t1) < std::get<0>(t2) || (std::get<0>(t1) == std::get<0>(t2) && std::get<1>(t1)->getID() < std::get<1>(t2)->getID());
-                    }
-                );
+                [](std::tuple<SUMOTime, MSParkingArea*> const & t1, std::tuple<SUMOTime, MSParkingArea*> const & t2) {
+                    return std::get<0>(t1) < std::get<0>(t2) || (std::get<0>(t1) == std::get<0>(t2) && std::get<1>(t1)->getID() < std::get<1>(t2)->getID());
+                }
+                         );
                 for (auto item : candidates) {
                     MSParkingArea* pa = item.second;
                     if (addParkValues(veh, brakeGap, newDestination, pa, 0, 1, router, parkAreas, newRoutes, parkApproaches, maxValues)) {
@@ -960,10 +960,10 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
                 parkingCost += weights[pc->first] * pc->second;
             }
             veh.rememberParkingAreaScore(it->first, toString(parkingCost)
-                    //+ " rfs=" + toString(parkValues["relfreespace"])
-                    //+ " dt=" + toString(parkValues["distanceto"])
-                    //+ " p=" + toString(parkValues["probability"])
-                    );
+                                         //+ " rfs=" + toString(parkValues["relfreespace"])
+                                         //+ " dt=" + toString(parkValues["distanceto"])
+                                         //+ " p=" + toString(parkValues["probability"])
+                                        );
 
             // get the parking area with minimum cost
             if (nearParkArea == nullptr || parkingCost < minParkingCost) {
@@ -999,13 +999,12 @@ MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterv
 
 bool
 MSTriggeredRerouter::addParkValues(SUMOVehicle& veh, double brakeGap, bool newDestination,
-        MSParkingArea* pa, double paOccupancy, double prob,
-        SUMOAbstractRouter<MSEdge, SUMOVehicle>& router,
-        MSParkingAreaMap_t& parkAreas,
-        std::map<MSParkingArea*, ConstMSEdgeVector>& newRoutes,
-        std::map<MSParkingArea*, ConstMSEdgeVector>& parkApproaches,
-        ParkingParamMap_t& maxValues) const
-{
+                                   MSParkingArea* pa, double paOccupancy, double prob,
+                                   SUMOAbstractRouter<MSEdge, SUMOVehicle>& router,
+                                   MSParkingAreaMap_t& parkAreas,
+                                   std::map<MSParkingArea*, ConstMSEdgeVector>& newRoutes,
+                                   std::map<MSParkingArea*, ConstMSEdgeVector>& parkApproaches,
+                                   ParkingParamMap_t& maxValues) const {
     // a map stores the parking values
     ParkingParamMap_t parkValues;
 
@@ -1088,7 +1087,7 @@ MSTriggeredRerouter::addParkValues(SUMOVehicle& veh, double brakeGap, bool newDe
                 toPos = MAX2(veh.getPositionOnLane(), toPos);
             }
             parkValues["distanceto"] = routeToPark.getDistanceBetween(veh.getPositionOnLane(), toPos,
-                    routeToPark.begin(), routeToPark.end() - 1, includeInternalLengths);
+                                       routeToPark.begin(), routeToPark.end() - 1, includeInternalLengths);
 
             if (parkValues["distanceto"] == std::numeric_limits<double>::max()) {
                 WRITE_WARNINGF("Invalid distance computation for vehicle '%' to parkingArea '%' at time=%.",
@@ -1096,15 +1095,15 @@ MSTriggeredRerouter::addParkValues(SUMOVehicle& veh, double brakeGap, bool newDe
             }
 
 #ifdef DEBUG_PARKING
-                if (DEBUGCOND) {
-                    std::cout << "      " << veh.getID() << " candidate=" << pa->getID()
-                        << " distanceTo=" << parkValues["distanceto"]
-                        << " brakeGap=" << brakeGap
-                        << " routeToPark=" << toString(edgesToPark)
-                        << " fromPos=" << veh.getPositionOnLane()
-                        << " tPos=" << pa->getBeginLanePosition()
-                        << "\n";
-                }
+            if (DEBUGCOND) {
+                std::cout << "      " << veh.getID() << " candidate=" << pa->getID()
+                          << " distanceTo=" << parkValues["distanceto"]
+                          << " brakeGap=" << brakeGap
+                          << " routeToPark=" << toString(edgesToPark)
+                          << " fromPos=" << veh.getPositionOnLane()
+                          << " tPos=" << pa->getBeginLanePosition()
+                          << "\n";
+            }
 #endif
 
             const double distToEnd = parkValues["distanceto"] - toPos + pa->getEndLanePosition();
@@ -1136,10 +1135,10 @@ MSTriggeredRerouter::addParkValues(SUMOVehicle& veh, double brakeGap, bool newDe
                 parkValues["timefrom"] = 0;
             } else {
                 MSRoute routeFromPark(route.getID() + "!frompark#1", edgesFromPark, false,
-                        &c == &RGBColor::DEFAULT_COLOR ? nullptr : new RGBColor(c), route.getStops());
+                                      &c == &RGBColor::DEFAULT_COLOR ? nullptr : new RGBColor(c), route.getStops());
                 // The distance from the new parking area to the end of the route
                 parkValues["distancefrom"] = routeFromPark.getDistanceBetween(pa->getBeginLanePosition(), routeFromPark.getLastEdge()->getLength(),
-                        routeFromPark.begin(), routeFromPark.end() - 1, includeInternalLengths);
+                                             routeFromPark.begin(), routeFromPark.end() - 1, includeInternalLengths);
                 if (parkValues["distancefrom"] == std::numeric_limits<double>::max()) {
                     WRITE_WARNINGF("Invalid distance computation for vehicle '%' from parkingArea '%' at time=%.",
                                    veh.getID(), pa->getID(), time2string(SIMSTEP));

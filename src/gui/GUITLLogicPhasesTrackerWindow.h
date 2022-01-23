@@ -174,7 +174,7 @@ public:
 
         const Position& getMousePos() const {
             return myMousePos;
-        }; 
+        };
 
     private:
         /// @brief The parent window
@@ -302,9 +302,9 @@ private:
 
     /// @brief draw detector and condition states
     void drawAdditionalStates(GUITLLogicPhasesTrackerPanel& caller,
-            const AdditionalStatesVector& states, const DurationsVector& durations,
-            SUMOTime firstOffset, int first2Show, double hStart,
-            double panelWidth, double leftOffset, double barWidth, double stateHeight, double h20, double& h);
+                              const AdditionalStatesVector& states, const DurationsVector& durations,
+                              SUMOTime firstOffset, int first2Show, double hStart,
+                              double panelWidth, double leftOffset, double barWidth, double stateHeight, double h20, double& h);
 
     /// @brief find time in cycle based on myTimeInCycle
     SUMOTime findTimeInCycle(SUMOTime t);

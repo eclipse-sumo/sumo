@@ -298,7 +298,7 @@ GNEFrameAttributeModules::AttributesCreatorRow::refreshRow() {
         } else if (myAttrProperties.isDiscrete()) {
             // fill textField
             myValueComboBox->clearItems();
-            for (const auto &item : myAttrProperties.getDiscreteValues()) {
+            for (const auto& item : myAttrProperties.getDiscreteValues()) {
                 myValueComboBox->appendItem(item.c_str());
             }
             myValueComboBox->setNumVisible(myValueComboBox->getNumItems());
@@ -322,7 +322,7 @@ GNEFrameAttributeModules::AttributesCreatorRow::refreshRow() {
 }
 
 
-void 
+void
 GNEFrameAttributeModules::AttributesCreatorRow::disableRow() {
     myAttributeLabel->disable();
     myEnableAttributeCheckButton->disable();
@@ -444,7 +444,7 @@ GNEFrameAttributeModules::AttributesCreatorRow::onCmdOpenAttributeDialog(FXObjec
     } else if ((myAttrProperties.getAttr() == SUMO_ATTR_ALLOW) || (myAttrProperties.getAttr() == SUMO_ATTR_DISALLOW)) {
         // get allow string
         std::string allow = myValueTextField->getText().text();
-        // get accept changes 
+        // get accept changes
         bool acceptChanges = false;
         // opena allowDisallow dialog
         GNEAllowDisallow(myAttributesCreatorParent->getFrameParent()->getViewNet(), &allow, &acceptChanges).execute();
@@ -480,9 +480,9 @@ GNEFrameAttributeModules::AttributesCreatorRow::isValidID() const {
     if (myAttrProperties.getTagPropertyParent().isAdditionalElement()) {
         return (myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->retrieveAdditional(
                     myAttrProperties.getTagPropertyParent().getTag(), myValueTextField->getText().text(), false) == nullptr);
-    } else if (myAttrProperties.getTagPropertyParent().isDemandElement()) { 
+    } else if (myAttrProperties.getTagPropertyParent().isDemandElement()) {
         return (myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->retrieveAdditional(
-                myAttrProperties.getTagPropertyParent().getTag(), myValueTextField->getText().text(), false) == nullptr);
+                    myAttrProperties.getTagPropertyParent().getTag(), myValueTextField->getText().text(), false) == nullptr);
     } else {
         throw ProcessError("Unsuported additional ID");
     }
@@ -511,7 +511,7 @@ GNEFrameAttributeModules::AttributesCreator::~AttributesCreator() {}
 
 
 void
-GNEFrameAttributeModules::AttributesCreator::showAttributesCreatorModule(GNEAttributeCarrier *templateAC, const std::vector<SumoXMLAttr>& hiddenAttributes) {
+GNEFrameAttributeModules::AttributesCreator::showAttributesCreatorModule(GNEAttributeCarrier* templateAC, const std::vector<SumoXMLAttr>& hiddenAttributes) {
     // destroy all rows
     for (auto& row : myAttributesCreatorRows) {
         // destroy and delete all rows
@@ -570,29 +570,29 @@ GNEFrameAttributeModules::AttributesCreator::getAttributesAndValues(CommonXMLStr
             if (rowEnabled && (includeAll || hasDefaultStaticValue || isFlowDefinitionAttribute || isActivatableAttribute)) {
                 // add attribute depending of type
                 if (attrProperties.isInt()) {
-                    const int intValue = GNEAttributeCarrier::canParse<int>(row->getValue())? GNEAttributeCarrier::parse<int>(row->getValue()) : GNEAttributeCarrier::parse<int>(attrProperties.getDefaultValue());
+                    const int intValue = GNEAttributeCarrier::canParse<int>(row->getValue()) ? GNEAttributeCarrier::parse<int>(row->getValue()) : GNEAttributeCarrier::parse<int>(attrProperties.getDefaultValue());
                     baseObject->addIntAttribute(attrProperties.getAttr(), intValue);
                 } else if (attrProperties.isFloat()) {
-                    const double doubleValue = GNEAttributeCarrier::canParse<double>(row->getValue())? GNEAttributeCarrier::parse<double>(row->getValue()) : GNEAttributeCarrier::parse<double>(attrProperties.getDefaultValue());
+                    const double doubleValue = GNEAttributeCarrier::canParse<double>(row->getValue()) ? GNEAttributeCarrier::parse<double>(row->getValue()) : GNEAttributeCarrier::parse<double>(attrProperties.getDefaultValue());
                     baseObject->addDoubleAttribute(attrProperties.getAttr(), doubleValue);
                 } else if (attrProperties.isBool()) {
-                    const bool boolValue = GNEAttributeCarrier::canParse<bool>(row->getValue())? GNEAttributeCarrier::parse<bool>(row->getValue()) : GNEAttributeCarrier::parse<bool>(attrProperties.getDefaultValue());
+                    const bool boolValue = GNEAttributeCarrier::canParse<bool>(row->getValue()) ? GNEAttributeCarrier::parse<bool>(row->getValue()) : GNEAttributeCarrier::parse<bool>(attrProperties.getDefaultValue());
                     baseObject->addBoolAttribute(attrProperties.getAttr(), boolValue);
                 } else if (attrProperties.isposition()) {
-                    const Position positionValue = GNEAttributeCarrier::canParse<Position>(row->getValue())? GNEAttributeCarrier::parse<Position>(row->getValue()) : GNEAttributeCarrier::parse<Position>(attrProperties.getDefaultValue());
+                    const Position positionValue = GNEAttributeCarrier::canParse<Position>(row->getValue()) ? GNEAttributeCarrier::parse<Position>(row->getValue()) : GNEAttributeCarrier::parse<Position>(attrProperties.getDefaultValue());
                     baseObject->addPositionAttribute(attrProperties.getAttr(), positionValue);
                 } else if (attrProperties.isSUMOTime()) {
-                    const SUMOTime timeValue = GNEAttributeCarrier::canParse<SUMOTime>(row->getValue())? GNEAttributeCarrier::parse<SUMOTime>(row->getValue()) : GNEAttributeCarrier::parse<SUMOTime>(attrProperties.getDefaultValue());
+                    const SUMOTime timeValue = GNEAttributeCarrier::canParse<SUMOTime>(row->getValue()) ? GNEAttributeCarrier::parse<SUMOTime>(row->getValue()) : GNEAttributeCarrier::parse<SUMOTime>(attrProperties.getDefaultValue());
                     baseObject->addTimeAttribute(attrProperties.getAttr(), timeValue);
                 } else if (attrProperties.isColor()) {
-                    const RGBColor colorValue = GNEAttributeCarrier::canParse<RGBColor>(row->getValue())? GNEAttributeCarrier::parse<RGBColor>(row->getValue()) : GNEAttributeCarrier::parse<RGBColor>(attrProperties.getDefaultValue());
+                    const RGBColor colorValue = GNEAttributeCarrier::canParse<RGBColor>(row->getValue()) ? GNEAttributeCarrier::parse<RGBColor>(row->getValue()) : GNEAttributeCarrier::parse<RGBColor>(attrProperties.getDefaultValue());
                     baseObject->addColorAttribute(attrProperties.getAttr(), colorValue);
                 } else if (attrProperties.isList()) {
                     if (attrProperties.isposition()) {
-                        const PositionVector positionVectorValue = GNEAttributeCarrier::canParse<PositionVector>(row->getValue())? GNEAttributeCarrier::parse<PositionVector>(row->getValue()) : GNEAttributeCarrier::parse<PositionVector>(attrProperties.getDefaultValue());
+                        const PositionVector positionVectorValue = GNEAttributeCarrier::canParse<PositionVector>(row->getValue()) ? GNEAttributeCarrier::parse<PositionVector>(row->getValue()) : GNEAttributeCarrier::parse<PositionVector>(attrProperties.getDefaultValue());
                         baseObject->addPositionVectorAttribute(attrProperties.getAttr(), positionVectorValue);
                     } else {
-                        const std::vector<std::string> stringVectorValue = GNEAttributeCarrier::canParse<std::vector<std::string> >(row->getValue())? GNEAttributeCarrier::parse<std::vector<std::string> >(row->getValue()) : GNEAttributeCarrier::parse<std::vector<std::string> >(attrProperties.getDefaultValue());
+                        const std::vector<std::string> stringVectorValue = GNEAttributeCarrier::canParse<std::vector<std::string> >(row->getValue()) ? GNEAttributeCarrier::parse<std::vector<std::string> >(row->getValue()) : GNEAttributeCarrier::parse<std::vector<std::string> >(attrProperties.getDefaultValue());
                         baseObject->addStringListAttribute(attrProperties.getAttr(), stringVectorValue);
                     }
                 } else {
@@ -630,7 +630,7 @@ GNEFrameAttributeModules::AttributesCreator::showWarningMessage(std::string extr
 }
 
 
-void 
+void
 GNEFrameAttributeModules::AttributesCreator::refreshAttributesCreator() {
     // just refresh row without creating new rows
     if (shown() && myTemplateAC) {
@@ -639,10 +639,10 @@ GNEFrameAttributeModules::AttributesCreator::refreshAttributesCreator() {
 }
 
 
-void 
+void
 GNEFrameAttributeModules::AttributesCreator::disableAttributesCreator() {
     // disable all rows
-    for (const auto &row : myAttributesCreatorRows) {
+    for (const auto& row : myAttributesCreatorRows) {
         if (row) {
             row->disableRow();
         }

@@ -49,8 +49,7 @@ GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
     GNEPathManager::PathElement(GNEPathManager::PathElement::Options::ADDITIONAL_ELEMENT),
     Parameterised(parameters),
-    myAdditionalName(additionalName)
-{
+    myAdditionalName(additionalName) {
     myIsTemplate = (id == "");
 }
 

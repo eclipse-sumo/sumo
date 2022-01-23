@@ -64,7 +64,7 @@ GNETypeFrame::TypeSelector::TypeSelector(GNETypeFrame* typeFrameParent) :
     // Create FXComboBox
     myTypeMatchBox = new FXComboBox(getCollapsableFrame(), GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
     // add default Vehicle an Bike types in the first and second positions
-    for (const auto &defaultvType : DEFAULT_VTYPES) {
+    for (const auto& defaultvType : DEFAULT_VTYPES) {
         myTypeMatchBox->appendItem(defaultvType.c_str());
     }
     // fill myTypeMatchBox with list of VTypes IDs
@@ -108,7 +108,7 @@ GNETypeFrame::TypeSelector::refreshTypeSelector() {
     // clear items
     myTypeMatchBox->clearItems();
     // add default Vehicle an Bike types in the first and second positions
-    for (const auto &defaultvType : DEFAULT_VTYPES) {
+    for (const auto& defaultvType : DEFAULT_VTYPES) {
         myTypeMatchBox->appendItem(defaultvType.c_str());
     }
     // fill myTypeMatchBox with list of VTypes IDs
@@ -313,7 +313,7 @@ GNETypeFrame::TypeEditor::onCmdCopyType(FXObject*, FXSelector, void*) {
 }
 
 
-void 
+void
 GNETypeFrame::TypeEditor::resetType() {
     // begin reset default vehicle type values
     myTypeFrameParent->getViewNet()->getUndoList()->begin(GUIIcon::VTYPE, "reset default vehicle type values");
@@ -345,7 +345,7 @@ GNETypeFrame::TypeEditor::resetType() {
 }
 
 
-void 
+void
 GNETypeFrame::TypeEditor::deleteType() {
     // show question dialog if vtype has already assigned vehicles
     if (myTypeFrameParent->myTypeSelector->getCurrentType()->getChildDemandElements().size() > 0) {

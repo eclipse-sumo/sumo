@@ -36,10 +36,10 @@
 
 GNEDetectorE2::GNEDetectorE2(SumoXMLTag tag, GNENet* net) :
     GNEDetector("", net, GLO_E2DETECTOR, tag, 0, 0, {}, "", {}, "", false, std::map<std::string, std::string>()),
-    myEndPositionOverLane(0),
-    myTimeThreshold(0),
-    mySpeedThreshold(0),
-    myJamThreshold(0) {
+            myEndPositionOverLane(0),
+            myTimeThreshold(0),
+            mySpeedThreshold(0),
+myJamThreshold(0) {
     // reset default values
     resetDefaultValues();
 }
@@ -49,12 +49,14 @@ GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNENet* net, 
                              const std::string& trafficLight, const std::string& filename, const std::vector<std::string>& vehicleTypes, const std::string& name,
                              SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos,
                              const std::map<std::string, std::string>& parameters) :
-    GNEDetector(id, net, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, pos, freq, {lane}, filename, vehicleTypes, name, friendlyPos, parameters),
-    myEndPositionOverLane(pos + length),
-    myTimeThreshold(timeThreshold),
-    mySpeedThreshold(speedThreshold),
-    myJamThreshold(jamThreshold),
-    myTrafficLight(trafficLight) {
+    GNEDetector(id, net, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, pos, freq, {
+    lane
+}, filename, vehicleTypes, name, friendlyPos, parameters),
+myEndPositionOverLane(pos + length),
+myTimeThreshold(timeThreshold),
+mySpeedThreshold(speedThreshold),
+myJamThreshold(jamThreshold),
+myTrafficLight(trafficLight) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -78,7 +80,7 @@ GNEDetectorE2::~GNEDetectorE2() {
 }
 
 
-void 
+void
 GNEDetectorE2::writeAdditional(OutputDevice& device) const {
     device.openTag(SUMO_TAG_E2DETECTOR);
     device.writeAttr(SUMO_ATTR_ID, getID());

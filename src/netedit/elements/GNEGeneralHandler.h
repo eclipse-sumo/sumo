@@ -56,7 +56,7 @@ private:
     struct TagType {
         /// @brief constructor
         TagType(SumoXMLTag tag, const bool additional, const bool demand);
-        
+
         /// @brief tag related with this TagType
         const SumoXMLTag tag;
 
