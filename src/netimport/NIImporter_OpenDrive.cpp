@@ -56,10 +56,11 @@
 //#define DEBUG_CONNECTIONS
 //#define DEBUG_SPIRAL
 //#define DEBUG_INTERNALSHAPES
+//#define DEBUG_SHAPE
 
-#define DEBUG_COND(road) ((road)->id == "67")
+#define DEBUG_COND(road) ((road)->id == "32")
 #define DEBUG_COND2(edgeID) (StringUtils::startsWith((edgeID), "67"))
-#define DEBUG_COND3(roadID) (roadID == "18")
+#define DEBUG_COND3(roadID) (roadID == "32")
 
 // ===========================================================================
 // definitions
@@ -432,6 +433,9 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 WRITE_WARNING("Could not apply laneOffsets for edge '" + e->id + "'");
             }
         }
+#ifdef DEBUG_SHAPE
+        if (DEBUG_COND3(e->id)) std::cout << " geomWithOffset=" << geomWithOffset << "\n";
+#endif
         const double length2D = geomWithOffset.length2D();
         double cF = length2D == 0 ? 1 : e->length / length2D;
         NBEdge* prevRight = nullptr;
@@ -490,7 +494,16 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 std::vector<double> offsets(geom.size(), 0);
                 bool useOffsets = false;
                 PositionVector rightGeom = geom;
+#ifdef DEBUG_SHAPE
+                if (DEBUG_COND3(e->id)) gDebugFlag1 = true;
+#endif
                 rightGeom.move2side((*j).discardedInnerWidthRight);
+#ifdef DEBUG_SHAPE
+                if (DEBUG_COND3(e->id)) {
+                    std::cout << " -" << id << "_geom=" << geom << " -" << id << "_rightGeom=" << rightGeom << "\n";
+                    gDebugFlag1 = false;
+                }
+#endif
                 PositionVector laneGeom = rightGeom;
                 currRight = new NBEdge("-" + id, sFrom, sTo, (*j).rightType, defaultSpeed, (*j).rightLaneNumber, priorityR,
                                        NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, rightGeom, LaneSpreadFunction::RIGHT, e->streetName, "", true);
@@ -545,6 +558,9 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 PositionVector leftGeom = geom;
                 leftGeom.move2side(-(*j).discardedInnerWidthLeft);
                 PositionVector laneGeom = leftGeom;
+#ifdef DEBUG_SHAPE
+                if (DEBUG_COND3(e->id)) std::cout << " " << id << "_geom=" << geom << " " << id << "_leftGeom=" << leftGeom << "\n";
+#endif
                 currLeft = new NBEdge(id, sTo, sFrom, (*j).leftType, defaultSpeed, (*j).leftLaneNumber, priorityL,
                                       NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, leftGeom.reverse(), LaneSpreadFunction::RIGHT, e->streetName, "", true);
                 lanesBuilt = true;
@@ -1429,6 +1445,9 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
             // avoid length-1 geometry due to almostSame check
             e.geom.push_back(last);
         }
+#ifdef DEBUG_SHAPE
+        if (DEBUG_COND3(e.id)) std::cout << " initialGeom=" << e.geom << "\n";
+#endif
         if (oc.exists("geometry.min-dist") && !oc.isDefault("geometry.min-dist")) {
             // simplify geometry for both directions consistently but ensure
             // that start and end angles are preserved
@@ -1436,6 +1455,9 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
                 e.geom.removeDoublePoints(oc.getFloat("geometry.min-dist"), true, 1, 1, true);
             }
         }
+#ifdef DEBUG_SHAPE
+        if (DEBUG_COND3(e.id)) std::cout << " reducedGeom=" << e.geom << "\n";
+#endif
         if (!NBNetBuilder::transformCoordinates(e.geom)) {
             WRITE_ERROR("Unable to project coordinates for edge '" + e.id + "'.");
         }
