@@ -63,6 +63,63 @@ on("ready", function(){
         new Settings("Ships", "ship", 40, 2)
     ];
 
+    function RoadTypes(){
+        this.init.apply(this, arguments);
+    }
+
+    RoadTypes.prototype = {
+        init: function (category, typeList) {
+            var node = elem("<div>", {className: "container"});
+            var header = elem("<h4>", {textContent: category});
+            node.append(header);
+
+            var types = elem("<div>", {className: "roadTypes"});
+            var label = elem("<label>");
+
+            for (var i = 0; i < typeList.length; i++) {
+                console.log(typeList[i]);
+
+                label = elem("<label>", {textContent: typeList[i]});
+                this.roadTypeCheck = elem("<input>",{type: "checkbox", checked:true, id: String(i)});
+
+                label.append(this.roadTypeCheck);
+                types.append(label);
+            }
+
+            node.append(types);
+            elem("#road-types").append(node);
+        },
+
+        // toJSON: function () {
+        //     if (this.enable.checked) {
+        //         return {
+        //             fringeFactor: parseFloat(this.fringeFactor.value),
+        //             count: parseFloat(this.count.value)
+        //         };
+        //     }
+        //
+        //     return null;
+        // }
+    };
+
+    const categories = {};
+    categories["Highway"] = ["motorway", "trunk", "primary","secondary", "tertiary", "unclassified", "residential",
+        "living_street", "unsurfaced", "service", "motorway_link", "trunk_link", "primary_link", "secondary_link",
+        "tertiary_link", "raceway", "bus_guideway"];
+    categories["Pedestrians"] = ["track", "footway", "pedestrian", "path", "bridleway", "cycleway", "step", "steps",
+        "stairs"];              //"Pedestrians" has also the "highway" key in OSM, this is gonna be transformed later
+    categories["Railway"] = ["preserved", "tram", "subway", "light_rail", "rail", "highspeed"];
+    categories["Aeroway"] = ["stopway", "parking_position", "taxiway", "taxilane", "runway", "highway_strip"]
+    categories["Waterway"] = ["river", "canal"];
+    categories["Route"] = ["ferry"];
+
+    var roadClasses = [];
+
+    for (const [key, value] of Object.entries(categories)) {
+        console.log(key, value);
+        roadClasses.push(new RoadTypes(key, value));
+    }
+
     var activeTab = null;
 
     /**
@@ -462,6 +519,7 @@ on("ready", function(){
             decal: elem("#decal").checked,
             carOnlyNetwork: elem("#carOnlyNetwork").checked,
             vehicles: {}
+            // roadTypes:{}                                                            // sab-inf
         };
 
         // calculates the coordinates of the rectangle if area-picking is active
@@ -483,8 +541,14 @@ on("ready", function(){
                 data.vehicles[vehicleClass.internal] = result;
         });
 
+        // roadClasses.forEach(function(roadType){                           // sab-inf
+        //     var result = roadType.toJSON();
+        //     if(result)
+        //         data.roadTypes[roadType.internal] = result;
+        // });
+
         try {
-            socket.send(JSON.stringify(data));
+            socket.send(JSON.stringify(data));                                 // data is transferred here to socket
         } catch(e){
             return;
         }
