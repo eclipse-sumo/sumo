@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-17 21:30:03 by Eclipse SUMO duarouter Version v1_10_0+2298-58e4f3bc8d3
+<!-- generated on 2022-01-23 14:36:26 by Eclipse SUMO duarouter Version v1_11_0+1386-3dcddef099b
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -50,6 +50,7 @@
             <xsd:element name="write-trips" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="write-trips.geo" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="write-trips.junctions" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="write-costs" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="exit-times" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="route-length" type="boolOptionType" minOccurs="0"/>
         </xsd:all>

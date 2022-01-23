@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-20 16:24:10 by Eclipse SUMO sumo Version v1_10_0+2469-a1350458121
+<!-- generated on 2022-01-23 14:36:27 by Eclipse SUMO sumo Version v1_11_0+1386-3dcddef099b
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -452,6 +452,7 @@
             <xsd:element name="meso-jam-threshold" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="meso-multi-queue" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="meso-lane-queue" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="meso-ignore-lanes-by-vclass" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="meso-junction-control" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="meso-junction-control.limited" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="meso-tls-penalty" type="floatOptionType" minOccurs="0"/>
