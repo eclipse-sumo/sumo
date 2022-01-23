@@ -396,7 +396,6 @@ protected:
     void error_handle_not_set(std::string param_variable, std::string param_name);
     void validate_timing();
 
-
     // TS2 Specific Timing
     void calculateForceOffsTS2();
     // Type170 Specific Timing

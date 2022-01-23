@@ -765,7 +765,7 @@ NEMALogic::NEMA_control() {
     // Read the detectors
     checkDetectors();
 
-#ifdef DEBUG_NEMA
+    #ifdef DEBUG_NEMA
     //print to check
     //I didn't use getTimeInCycle(). This is because the cycle reference point may change in the future.
     double currentInCycleTime = ModeCycle(currentTimeInSecond - cycleRefPoint - offset, myCycleLength);
@@ -1413,6 +1413,16 @@ NEMALogic::calculateInitialPhases170(){
 }
 
 void
+NEMALogic::clearDetectors(){
+    for (auto p: phase2DetectorMap){
+        // If the detector isn't latching then it is marked as off
+        if (!p.second.latching){
+            p.second.detectActive = false;
+        }
+    }
+}
+
+void
 NEMALogic::calculateInitialPhasesTS2(){
     // Modifications where made to 170 algorithm so that it works with both.
     calculateInitialPhases170();
@@ -1429,3 +1439,8 @@ NEMALogic::coordModeCycleTS2(double currentTime, int phase){
     // We don't need the yellow and red here because the force off already incorporates that.
     return ModeCycle((myCycleLength + forceOffs[phase - 1]) - (currentTime - cycleRefPoint - offset), myCycleLength);  
 };
+
+bool
+NEMALogic::readDetector(int phase){
+    return phase2DetectorMap.find(phase) -> second.detectActive;
+}
