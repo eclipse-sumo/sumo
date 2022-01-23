@@ -341,9 +341,9 @@ TEST_F(PositionVectorTest, test_method_move2side) {
         vec3.push_back(Position(3, 0, 0));
         vec3.push_back(Position(1, 0, 0));
         vec3.move2side(.5);
+        // clipping removal eliminates the middle point
         EXPECT_EQ(Position(0, -.5), vec3[0]);
-        EXPECT_EQ(Position(3.5, 0), vec3[1]);
-        EXPECT_EQ(Position(1, .5), vec3[2]);
+        EXPECT_EQ(Position(1, -.5), vec3[1]);
     }
     // bad input: subsequent identical points
     {
