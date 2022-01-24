@@ -233,7 +233,6 @@ title: ChangeLog
 ### Miscellaneous
 
 - SUMO can now be installed from python wheels. This provides up to date [release](Downloads.md#python_packages_virtual_environments) and nightly versions (via test.pypi.org) for all platforms. #4639
-- TraaS is no longer part of the release distribution due to being obsolete. #9975
 - Added [documentation on road capacity and headways](Simulation/RoadCapacity.md). Issue #9870
 - Added [documentation for signal plan visualization](Simulation/Traffic_Lights.md#signal_plan_visualization)
 - Traffic light type 'NEMA' now uses attribute 'offset' instead of param key="offset". Issue #9804
@@ -245,6 +244,7 @@ title: ChangeLog
 - Updated Eigen library Issue #9613
 - Updated GDAL library Issue #9614
 - Updated gtest library Issue #9616
+- The ubuntu ppa now contains ARM builds as well
 
 ## Version 1.11.0 (23.11.2021)
 
