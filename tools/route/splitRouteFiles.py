@@ -36,7 +36,7 @@ from optparse import OptionParser
 
 sys.path += [os.path.join(os.environ['SUMO_HOME'], 'tools'),
              os.path.join(os.environ['SUMO_HOME'], 'tools', 'detector')]
-import sumolib
+import sumolib  # noqa
 from detector import DetectorReader, LaneMap  # noqa
 
 
