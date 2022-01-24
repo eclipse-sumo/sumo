@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-10 14:43:31 by Eclipse SUMO netedit Version v1_10_0+2101-523138ef22f
+<!-- generated on 2022-01-24 11:29:21 by Eclipse SUMO netedit Version v1_11_0+1406-7e5d074504a
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <flow id="customID" begin="0.00" from="gneE2" to="gneE5" end="3600.00" number="1800"/>
+    <flow id="customID" begin="0.00" from="gneE2" to="gneE5" end="3600.00" vehsPerHour="1800.00"/>
     <trip id="duplicatedVehicle" depart="0.00" from="gneE8" to="gneE9"/>
 </routes>

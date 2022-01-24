@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.vehicleMode()
 
 # change vehicle
-netedit.changeElement("flow (from-to)")
+netedit.changeElement("flow (from-to edges)")
 
 # create flow using two edges
 netedit.leftClick(referencePosition, 274, 392)
