@@ -58,6 +58,7 @@
 // ===========================================================================
 MSEdge::DictType MSEdge::myDict;
 MSEdgeVector MSEdge::myEdges;
+SVCPermissions MSEdge::myMesoIgnoredVClasses(0);
 
 
 // ===========================================================================
@@ -265,8 +266,12 @@ MSEdge::rebuildAllowedLanes() {
     myMinimumPermissions = SVCAll;
     myCombinedPermissions = 0;
     for (MSLane* const lane : *myLanes) {
-        myMinimumPermissions &= lane->getPermissions();
-        myCombinedPermissions |= lane->getPermissions();
+        // same dedicated lanes are ignored in meso to avoid capacity errors.
+        // Here we have to make sure that vehicles which are set to depart on
+        // such lanes trigger an error.
+        SVCPermissions allow = getMesoPermissions(lane->getPermissions());
+        myMinimumPermissions &= allow;
+        myCombinedPermissions |= allow;
     }
     // rebuild myAllowed
     myAllowed.clear();

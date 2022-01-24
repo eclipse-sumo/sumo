@@ -283,14 +283,10 @@ MELoop::buildSegmentsFor(const MSEdge& e, const OptionsCont& oc) {
     MESegment* newSegment = nullptr;
     MESegment* nextSegment = nullptr;
     const bool laneQueue = oc.getBool("meso-lane-queue");
-    SVCPermissions ignoreVClasses = 0;
-    for (const std::string& vClass : oc.getStringVector("meso-ignore-lanes-by-vclass")) {
-        ignoreVClasses |= parseVehicleClasses(vClass);
-    }
     bool multiQueue = laneQueue || (oc.getBool("meso-multi-queue") && e.getLanes().size() > 1 && e.getNumSuccessors() > 1);
     for (int s = numSegments - 1; s >= 0; s--) {
         std::string id = e.getID() + ":" + toString(s);
-        newSegment = new MESegment(id, e, nextSegment, slength, e.getLanes()[0]->getSpeedLimit(), s, multiQueue, edgeType, ignoreVClasses);
+        newSegment = new MESegment(id, e, nextSegment, slength, e.getLanes()[0]->getSpeedLimit(), s, multiQueue, edgeType);
         multiQueue = laneQueue;
         nextSegment = newSegment;
     }

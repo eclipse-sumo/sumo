@@ -33,6 +33,7 @@
 #include <microsim/MSEdgeControl.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/options/OptionsCont.h>
 #include "NLBuilder.h"
 #include "NLEdgeControlBuilder.h"
 #include <utils/iodevices/OutputDevice.h>
@@ -178,6 +179,9 @@ NLEdgeControlBuilder::closeLane() {
 
 MSEdgeControl*
 NLEdgeControlBuilder::build(double networkVersion) {
+    if (MSGlobals::gUseMesoSim && !OptionsCont::getOptions().getBool("meso-lane-queue")) {
+        MSEdge::setMesoIgnoredVClasses(parseVehicleClasses(OptionsCont::getOptions().getStringVector("meso-ignore-lanes-by-vclass")));
+    }
     for (MSEdgeVector::iterator i1 = myEdges.begin(); i1 != myEdges.end(); i1++) {
         (*i1)->closeBuilding();
     }
