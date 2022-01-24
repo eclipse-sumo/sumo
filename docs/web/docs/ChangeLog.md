@@ -11,10 +11,7 @@ title: ChangeLog
   - tripId is now updated again when passing waypoints. Issue #9751 (regression in 1.11.0)
   - calibrator speed -1 no longer triggers error. Issue #9767 (regression in 1.11.0)
   - Fixed invalid error on taxi dispatch. Issue #9695, #9867
-  - Fix person model bug where person enters jammed state without good reason. Issue #9717
-  - Fixed crash on opposite direction driving (at looped road). Issue #9718
-  - Opposite direction overtaking now takes into account slopes. Issue #9719
-  - Fixed collision during opposite direction driving near junction. Issue #9721
+  - Fix person model bug where person enters jammed state without good reason. Issue #9717  
   - Fixed invalid error on mismatch between ride destination stop and vehicle destination stop. Issue #9712
   - Parking search no longer stalls when all current alternatives are known to be full. Issue #9678
   - Fixed crash when retrieving detected persons with an active vTypes filter. Issue #9772
@@ -27,17 +24,23 @@ title: ChangeLog
   - Fixed superfluous route extension for taxi with idle-algorithm 'randomCircling'. Issue #9866
   - Fixed collisions and emergency braking for Wiedemann carFollowModel. Issue #1351, #5715, #9832
   - CarFollowModel EIDM now respects emergencyDecel. Issue #9618
+  - Fixed bug in driving speed calculation for EIDM. Issue #9878
   - Stop positions between 0 and 0.1 can now be defined. Issue #9915
   - Fixed invalid collider/victim classification for junction collision. Issue #9916
   - Fixed collision on junction when long vehicle cuts a corner. Issue #4431
   - Fixned invalid junction collision warning. Issue #9920
-  - Fixed junction collision when bluelight vehicle drives on red. Issue #9919
-  - Fixed bug in driving speed calculation for EIDM. Issue #9878
+  - Fixed junction collision when bluelight vehicle drives on red. Issue #9919  
   - Fixed missing access stage after ride to busStop. Issue #9958
   - Detector `<param>`s are noW loaded. Issue #9578
-  - Various NEMA fixes. Issue #9965, #9971, #9940
+  - Various NEMA fixes. Issue #9965, #9971, #9940, #9987
   - Fixed invalid tripinfo for persons that did not finish their plan by simulation end. Issue #8461
   - When setting option **--vehroute-output.sorted**, all persons are now sorted. Issue #9929
+  - Fixed deadlock at parkingArea with `onRoad="true"`. Issue #10005
+  - opposite direction driving
+    - Fixed crash on opposite direction driving (at looped road). Issue #9718
+    - Opposite direction overtaking now takes into account slopes. Issue #9719
+    - Fixed collision during opposite direction driving near junction. Issue #9721
+    - Fixed invalid maneuver distance when returning from opposite side. Issue #9536
   
 - netedit
   - Fixed bug preventing inspection of tazRelations. Issue #9728
@@ -70,8 +73,7 @@ title: ChangeLog
   - Fixed occasional freezing during person simulation. Issue #9973
 
 - netconvert
-  - Fixed unsafe location of internal junctions that were causing collisions in the simulation. Positioning can be controleld with option **--internal-junctions.vehicle-width** and setting this to 0 restores legacy behavior. Issue #4397
-  - Fixed invalid LaneLink index in OpenDRIVE export. Issue #9637
+  - Fixed unsafe location of internal junctions that were causing collisions in the simulation. Positioning can be controleld with option **--internal-junctions.vehicle-width** and setting this to 0 restores legacy behavior. Issue #4397  
   - Fixed invalid network when importing public transport and sidewalks. Issue #9701 (regression in 1.10.0)
   - Fixed invalid internal junction location. Issue #9381
   - Fixed intersection rules that could cause emergency braking at pedestrian crossing. Issue #9671
@@ -82,12 +84,20 @@ title: ChangeLog
   - Reduced variation between platforms. Issue #9874
   - Fixed invalid connectivity at motorway ramp when importing OSM lane change prohibitions. Issue #9939
   - Fixed invalid link direction when there are multiple turnaround edges. Issue #9957
+  - Options **--tls.group-signals** and **--tls.ungroup-signals** now work for pedestrian crossings. Issue #9521, #9997
+  - Fixed invalid permissions when leaving multi--lane-roundabout from inner lane. Issue #10017
+  - invalid edge geometry after trying to patch very short edge #10018
+  - OpenDRIVE
+    - Fixed invalid LaneLink index in OpenDRIVE export. Issue #9637
+    - Fixed too sparse geometry in OpenDRIVE import when using --geometry.min-dist. Issue #10012
+    - Fixed geometry affected by spacing of non-driving lanes. Issue #4913
+    - Several geometry fixes that mostly affect OpenDRIVE: #10018, #1498
 
 - meso
   - Fixed invalid stop arrival time in meso. Issue #9713  
   - Fixed invalid ride depart time and route length when starting directly after stop. Issue #9560
   - No more warnings about small tau. Issue #9505
-  - Dynamically modified road permissions (i.e. closingReroute with disallow) are no longer ignored and can cause jamming. Issue #9950
+  - Dynamically modified road permissions (i.e. closingReroute with disallow and closingLaneReroute) are no longer ignored and can cause jamming. Issue #9950, #10010
   - Fixed invalid capacity in intermodal scenario. Issue #8167
 
 - duarouter
@@ -97,10 +107,14 @@ title: ChangeLog
   - Fixed inconsistent vType defaults for speedFactor. Issue #9864
   - Fixed inconsistent railway routing results for stops on consecutive bidi-edges. Issue #9949
   - Fixed inconsistent handling of personTrips and explicit trip items. Issue #5821
+  - Setting **--vtype-output NUL** now discards vtypes. Issue #9991
   
 - jtrrouter
   - Unsorted flows now trigger a warning. Issue #9327
   - Fixed inconsistent vType defaults for speedFactor. Issue #9864  
+
+- marouter
+  - Fixed wrong begin and end times in marouter output with additive traffic. Issue #10004
 
 - traci
   - New programs created via 'trafficlight.setProgramLogic' now support GUI access. Issue #549
@@ -120,6 +134,7 @@ title: ChangeLog
   - Fixed encoding problems in osmTaxiStop.py #9893
   - [emissionsDrivingCycle](Tools/Emissions.md#emissionsdrivingcycle) now permits loading of [electric vehicle params](Models/Electric.md#defining_electric_vehicles) via the new options **--vtype** and **--additional-files**. Issue #9930
   - plot_csv_timeline.py now supports python3. Issue #9951
+  - splitroutefiles.py can now handle gzipped input on Windows. Issue #8807
 
 - Miscellaneous
   - Specifying NUL output on the command line finally works. Issue #3400
@@ -191,9 +206,13 @@ title: ChangeLog
   - Simplified edge and junction names in OpenDRIVE import. (i.e. '42' instead of '42.0.00'). The option **--opendrive.position-ids** is provided for backward compatibility.  #9463
   - Added option **--opendrive.lane-shapes** which uses custom lane shapes to account for spacing of discarded lanes. Issue #4913  
   - Added option **--railway.topology.extend-priority** which extrapolates directional priorities in an all-bidi network based on initial priorities. Issue #9683
+  - OpenDRIVE export and import now supports writing and reading the `<offset>` element for handling shifted geo references. Issue #4417, #10006
    
 - duarouter
   - can now write route costs in regular route output. Issue #9667
+
+- TraCI
+  - 'traci.vehicle.getParameter' and 'setParameter' now support all laneChangeModel paramters. Issue #10011
 
 - tools
   - routeSampler.py: Option **--prefix** now also applies to route ids. Issue #9634
@@ -214,6 +233,7 @@ title: ChangeLog
 ### Miscellaneous
 
 - SUMO can now be installed from python wheels. This provides up to date [release](Downloads.md#python_packages_virtual_environments) and nightly versions (via test.pypi.org) for all platforms. #4639
+- TraaS is no longer part of the release distribution due to being obsolete. #9975
 - Added [documentation on road capacity and headways](Simulation/RoadCapacity.md). Issue #9870
 - Added [documentation for signal plan visualization](Simulation/Traffic_Lights.md#signal_plan_visualization)
 - Traffic light type 'NEMA' now uses attribute 'offset' instead of param key="offset". Issue #9804
