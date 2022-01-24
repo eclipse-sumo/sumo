@@ -260,6 +260,13 @@ MSEdge::addToAllowed(const SVCPermissions permissions, std::shared_ptr<const std
 }
 
 
+SVCPermissions
+MSEdge::getMesoPermissions(SVCPermissions p, SVCPermissions ignoreIgnored) {
+    SVCPermissions ignored = myMesoIgnoredVClasses & ~ignoreIgnored;
+    return (p | ignored) == ignored ? 0 : p;
+}
+
+
 void
 MSEdge::rebuildAllowedLanes() {
     // rebuild myMinimumPermissions and myCombinedPermissions
@@ -269,7 +276,7 @@ MSEdge::rebuildAllowedLanes() {
         // same dedicated lanes are ignored in meso to avoid capacity errors.
         // Here we have to make sure that vehicles which are set to depart on
         // such lanes trigger an error.
-        SVCPermissions allow = getMesoPermissions(lane->getPermissions());
+        SVCPermissions allow = getMesoPermissions(lane->getPermissions(), SVC_PEDESTRIAN);
         myMinimumPermissions &= allow;
         myCombinedPermissions |= allow;
     }
