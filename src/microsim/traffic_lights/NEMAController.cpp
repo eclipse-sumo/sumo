@@ -1298,7 +1298,11 @@ NEMALogic::getParameter(const std::string& key, const std::string defaultValue) 
             for (int i = 2; i<=8; i++)
             {
                 out_str+=",";
-                out_str+=std::to_string(isDetectorActivated(i, phase2DetectorMap.find(i) -> second));
+                if (phase2DetectorMap.find(i) != phase2DetectorMap.end()) {
+                    out_str+=std::to_string(isDetectorActivated(i, phase2DetectorMap.find(i) -> second));
+                } else {
+                    out_str+=std::to_string(false);
+                }
             }
             return out_str;
         } else {
