@@ -59,7 +59,7 @@ The following attributes/elements are used within the tlLogic element:
 | **id**         | id (string)                           | The id of the traffic light. This must be an existing traffic light id in the .net.xml file. Typically the id for a traffic light is identical with the junction id. The name may be obtained by right-clicking the red/green bars in front of a controlled intersection. |
 | **type**       | NEMA (string) | This value should be kept as *NEMA* to activate the NEMA-phase controller module   |
 | **programID**  | id (string)                           | The id of the traffic light program.   |
-| **offset**     | int     | The offset value in seconds. Default to *0*. Only effective when the controller is in coordinated mode. The reference to the offset is always the end of the coordinated phases.
+| **offset**     | int     | The offset value in seconds. Default to *0*. Only effective when the controller is in coordinated mode. The reference to the offset is dependent on the controller cabinent type, which is configured via the *cabinentType* parameter below.
 
 ## <param\> Attributes
 
@@ -80,6 +80,7 @@ The following parameters are used to set the NEMA diagram:
 |**fixForceOff**  | bool (true or false)    | If true, the controller will be in fixed force-off mode. This permits non-coordinated phases to use the unused time of previous phases. If false, the controller will be in floating force-off mode. default *false*|
 |**whetherOutputState**  | bool (true or false)    | Whether record the signal phase change events. This could be used for generating Automated Traffic Signal Performance Measures (ATSPM). The value will be default to false if not set.|
 |**show-detectors**  | bool (true or false)    | It controls whether generated detectors will be visible or hidden in sumo-gui. The default for all traffic lights can be set with option --tls.actuated.show-detectors. It is also possible to toggle this value from within the GUI by right-clicking on a traffic light.
+|**cabinetType**  | string (TS2 or Type 170)    | It controls the type of controller used. NEMA TS2 controllers reference the coordinated *offset* to the beginning of the 1st coordinated phase. Type 170 controllers reference the coordinated *offset* to the beginning of yellow on the coordinated phase. default *Type 170*.|
 
 ## <phase\> Attributes
 
