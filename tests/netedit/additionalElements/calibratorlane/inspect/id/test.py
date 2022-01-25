@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.additionalMode()
 
 # select calibrator
-netedit.changeElement("laneCalibrator")
+netedit.changeElement("calibratorLane")
 
 # create first calibrator
 netedit.leftClick(referencePosition, 245, 140)
@@ -47,7 +47,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 368, 225)
 
 # Change parameter id with a non valid value (Duplicated ID)
-netedit.modifyAttribute(0, "laneCalibrator_gneE3_0", True)
+netedit.modifyAttribute(0, "calibratorLane_gneE3_0", True)
 
 # Change parameter id with a non valid value (Invalid ID)
 netedit.modifyAttribute(0, "Id with spaces", True)

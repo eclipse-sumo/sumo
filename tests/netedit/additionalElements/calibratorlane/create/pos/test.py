@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.additionalMode()
 
 # select calibrator
-netedit.changeElement("laneCalibrator")
+netedit.changeElement("calibratorLane")
 
 # change position with an invalid value (dummy)
 netedit.changeDefaultValue(3, "dummyValue")

@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.additionalMode()
 
 # select calibrator
-netedit.changeElement("laneCalibrator")
+netedit.changeElement("calibratorLane")
 
 # change center veiw
 netedit.changeDefaultBoolValue(11)

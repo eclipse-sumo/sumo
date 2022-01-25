@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select calibrator
-netedit.changeElement("laneCalibrator")
+netedit.changeElement("calibratorLane")
 
 # change frequency with an invalid value (dummy)
 netedit.changeDefaultValue(4, "dummyFreq")

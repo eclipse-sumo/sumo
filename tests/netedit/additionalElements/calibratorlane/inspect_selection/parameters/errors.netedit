@@ -1,20 +1,20 @@
 Debug: Adding routeProbe 'RouteProbeA' in GNEChange_Additional
 Debug: Adding routeProbe 'RouteProbeB' in GNEChange_Additional
 Debug: Adding routeProbe 'customRouteProbeName' in GNEChange_Additional
-Debug: Inserting generic parameter 'KeyA1|valueA1' into laneCalibrator
+Debug: Inserting generic parameter 'KeyA1|valueA1' into calibratorLane
 Debug: Inserting generic parameter 'KeyA1|valueA1' into 
-Debug: Inserting generic parameter 'KeyA3|valueA2' into laneCalibrator
+Debug: Inserting generic parameter 'KeyA3|valueA2' into calibratorLane
 Debug: Inserting generic parameter 'KeyA3|valueA2' into 
-Debug: Inserting generic parameter 'KeyA2|valueA3' into laneCalibrator
+Debug: Inserting generic parameter 'KeyA2|valueA3' into calibratorLane
 Debug: Inserting generic parameter 'KeyA2|valueA3' into 
-Debug: Adding laneCalibrator 'calibratorA' in GNEChange_Additional
-Debug: Inserting generic parameter 'KeyB1|valueB1' into laneCalibrator
+Debug: Adding calibratorLane 'calibratorA' in GNEChange_Additional
+Debug: Inserting generic parameter 'KeyB1|valueB1' into calibratorLane
 Debug: Inserting generic parameter 'KeyB1|valueB1' into 
-Debug: Inserting generic parameter 'KeyB3|valueB2' into laneCalibrator
+Debug: Inserting generic parameter 'KeyB3|valueB2' into calibratorLane
 Debug: Inserting generic parameter 'KeyB3|valueB2' into 
-Debug: Inserting generic parameter 'KeyB2|valueB3' into laneCalibrator
+Debug: Inserting generic parameter 'KeyB2|valueB3' into calibratorLane
 Debug: Inserting generic parameter 'KeyB2|valueB3' into 
-Debug: Adding laneCalibrator 'calibratorB' in GNEChange_Additional
+Debug: Adding calibratorLane 'calibratorB' in GNEChange_Additional
 Debug: Setting new attribute
 Debug: Setting new attribute
 Debug: Setting new attribute
@@ -87,8 +87,8 @@ Debug: Restoring previous attribute
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing laneCalibrator 'calibratorB' in GNEChange_Additional
-Debug: Removing laneCalibrator 'calibratorA' in GNEChange_Additional
+Debug: Removing calibratorLane 'calibratorB' in GNEChange_Additional
+Debug: Removing calibratorLane 'calibratorA' in GNEChange_Additional
 Debug: Removing routeProbe 'customRouteProbeName' in GNEChange_Additional
 Debug: Removing routeProbe 'RouteProbeB' in GNEChange_Additional
 Debug: Removing routeProbe 'RouteProbeA' in GNEChange_Additional
@@ -98,8 +98,8 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding routeProbe 'RouteProbeA' in GNEChange_Additional
 Debug: Adding routeProbe 'RouteProbeB' in GNEChange_Additional
 Debug: Adding routeProbe 'customRouteProbeName' in GNEChange_Additional
-Debug: Adding laneCalibrator 'calibratorA' in GNEChange_Additional
-Debug: Adding laneCalibrator 'calibratorB' in GNEChange_Additional
+Debug: Adding calibratorLane 'calibratorA' in GNEChange_Additional
+Debug: Adding calibratorLane 'calibratorB' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
@@ -153,8 +153,8 @@ Debug: Created crossing ':gneJ0_c1' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
 Debug: Additionals saved
-Debug: Deleting unreferenced laneCalibrator 'calibratorB'
-Debug: Deleting unreferenced laneCalibrator 'calibratorA'
+Debug: Deleting unreferenced calibratorLane 'calibratorB'
+Debug: Deleting unreferenced calibratorLane 'calibratorA'
 Debug: Deleting unreferenced routeProbe 'customRouteProbeName'
 Debug: Deleting unreferenced routeProbe 'RouteProbeB'
 Debug: Deleting unreferenced routeProbe 'RouteProbeA'
