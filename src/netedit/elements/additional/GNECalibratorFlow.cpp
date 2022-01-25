@@ -32,7 +32,7 @@
 // ===========================================================================
 
 GNECalibratorFlow::GNECalibratorFlow(GNENet* net) :
-    GNEAdditional("", net, GLO_CALIBRATOR, GNE_TAG_FLOW_CALIBRATOR, "",
+    GNEAdditional("", net, GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, "",
         {}, {}, {}, {}, {}, {}, {}, {},
     std::map<std::string, std::string>()) {
     // reset default values
@@ -44,7 +44,7 @@ GNECalibratorFlow::GNECalibratorFlow(GNENet* net) :
 
 
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route) :
-    GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_FLOW_CALIBRATOR, "",
+    GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, "",
         {}, {}, {}, {calibratorParent}, {}, {}, {vehicleType, route}, {},
     std::map<std::string, std::string>()),
     SUMOVehicleParameter() {
@@ -54,7 +54,7 @@ GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandE
 
 
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters) :
-    GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_FLOW_CALIBRATOR, "",
+    GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, "",
         {}, {}, {}, {calibratorParent}, {}, {}, {vehicleType, route}, {},
     std::map<std::string, std::string>()),
 SUMOVehicleParameter(vehicleParameters) {
@@ -84,7 +84,7 @@ GNECalibratorFlow::writeAdditional(OutputDevice& device) const {
         // close vehicle tag
         device.closeTag();
     } else {
-        WRITE_WARNING(toString(GNE_TAG_FLOW_CALIBRATOR) + " of  calibrator '" +  getParentAdditionals().front()->getID() +
+        WRITE_WARNING(toString(GNE_TAG_CALIBRATOR_FLOW) + " of  calibrator '" +  getParentAdditionals().front()->getID() +
                       "' cannot be written. Either type or vehsPerHour or speed must be enabled");
     }
 }

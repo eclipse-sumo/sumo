@@ -1181,7 +1181,7 @@ GNEAdditionalFrame::createBaseAdditionalObject(const GNETagProperties& tagProper
     // check if baseAdditionalTag has to be updated
     if (baseAdditionalTag == GNE_TAG_E2DETECTOR_MULTILANE) {
         baseAdditionalTag = SUMO_TAG_E2DETECTOR;
-    } else if (baseAdditionalTag == GNE_TAG_FLOW_CALIBRATOR) {
+    } else if (baseAdditionalTag == GNE_TAG_CALIBRATOR_FLOW) {
         baseAdditionalTag = SUMO_TAG_FLOW;
     }
     // check if additional is child

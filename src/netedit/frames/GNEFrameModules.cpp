@@ -388,7 +388,7 @@ GNEFrameModules::TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagPr
         case SUMO_TAG_LANECALIBRATOR:
             myAC = new GNECalibrator(tagProperty.getTag(), net);
             break;
-        case GNE_TAG_FLOW_CALIBRATOR:
+        case GNE_TAG_CALIBRATOR_FLOW:
             myAC = new GNECalibratorFlow(net);
             break;
         case SUMO_TAG_REROUTER:

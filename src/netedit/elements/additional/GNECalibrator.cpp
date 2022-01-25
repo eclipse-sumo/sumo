@@ -142,7 +142,7 @@ GNECalibrator::writeAdditional(OutputDevice& device) const {
     }
     // write calibrator flows
     for (const auto& calibratorFlow : getChildAdditionals()) {
-        if (calibratorFlow->getTagProperty().getTag() == GNE_TAG_FLOW_CALIBRATOR) {
+        if (calibratorFlow->getTagProperty().getTag() == GNE_TAG_CALIBRATOR_FLOW) {
             calibratorFlow->writeAdditional(device);
         }
     }
