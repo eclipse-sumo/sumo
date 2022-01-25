@@ -580,7 +580,12 @@ GNEAttributeCarrier::getIcon() const {
     if (myTagProperties.size() == 0) {
         fillAttributeCarriers();
     }
-    return GUIIconSubSys::getIcon(myTagProperty.getGUIIcon());
+    // special case for vClass icons
+    if (myTagProperty.vClassIcon()) {
+        return getVClassIcon(SumoVehicleClassStrings.get(getAttribute(SUMO_ATTR_VCLASS)));
+    } else {
+        return GUIIconSubSys::getIcon(myTagProperty.getGUIIcon());
+    }
 }
 
 
@@ -5255,6 +5260,69 @@ GNEAttributeCarrier::fillDataElements() {
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
                                               "The name of the TAZ the " + toString(currentTag) + " ends at");
         myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+}
+
+
+FXIcon* 
+GNEAttributeCarrier::getVClassIcon(const SUMOVehicleClass vc) {
+    switch (vc) {
+        case SVC_IGNORING:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_IGNORING);
+        case SVC_PRIVATE:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_PRIVATE);
+        case SVC_EMERGENCY:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_EMERGENCY);
+        case SVC_AUTHORITY:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_AUTHORITY);
+        case SVC_ARMY:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_ARMY);
+        case SVC_VIP:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_VIP);
+        case SVC_PEDESTRIAN:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_PEDESTRIAN);
+        case SVC_PASSENGER:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_PASSENGER);
+        case SVC_HOV:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_HOV);
+        case SVC_TAXI:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_TAXI);
+        case SVC_BUS:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_BUS);
+        case SVC_COACH:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_COACH);
+        case SVC_DELIVERY:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_DELIVERY);
+        case SVC_TRUCK:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_TRUCK);
+        case SVC_TRAILER:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_TRAILER);
+        case SVC_MOTORCYCLE:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_MOTORCYCLE);
+        case SVC_MOPED:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_MOPED);
+        case SVC_BICYCLE:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_BICYCLE);
+        case SVC_E_VEHICLE:
+            return GUIIconSubSys::getIcon(GUIIcon::VSHAPE_E_VEHICLE);
+        case SVC_TRAM:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_TRAM);
+        case SVC_RAIL_URBAN:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_RAIL_URBAN);
+        case SVC_RAIL:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_RAIL);
+        case SVC_RAIL_ELECTRIC:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_RAIL_ELECTRIC);
+        case SVC_RAIL_FAST:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_RAIL_FAST);
+        case SVC_SHIP:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SHIP);
+        case SVC_CUSTOM1:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_CUSTOM1);
+        case SVC_CUSTOM2:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_CUSTOM2);
+        default:
+            throw ProcessError("Invalid vClass");
     }
 }
 
