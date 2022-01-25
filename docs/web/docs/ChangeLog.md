@@ -52,8 +52,7 @@ title: ChangeLog
   - In create-edge mode: shift-click to split edge now takes into account active grid. Issue #9624
   - Fixed crash on undo after resetting connections. Issue #9673
   - Stop attribute "triggered" now supports symbolic string values. Issue #9563
-  - Fixed missing 'end' attribute when converting trip to flow. Issue #9834  
-  - Fixed invalid weights when loading source or sink weight for taz edge. Issue #9672
+  - Fixed missing 'end' attribute when converting trip to flow. Issue #9834    
   - Routes now longer have a color unless set by the user. Issue #9512
   - Stops can no longer be created on edges that do not belong to the route. Issue #9923
   - Routes with invalid stops (invalid order or edge) now trigger a dialog for corrections on saving. Issue #9921
@@ -69,14 +68,14 @@ title: ChangeLog
   - Fixed invalid detector visibility when switching actuated traffic light program on. Issue #9877
   - Fixed keyboard navigation in locate object dialogs. Issue #9740
   - Rerouter symbols are no longer drawn on sidewalks. Issue #9908
-  - Fixed verious inconsistences in the TLS Phase tracker. Issue #9963
+  - Fixed verious inconsistencies in the TLS Phase tracker. Issue #9963
   - Fixed occasional freezing during person simulation. Issue #9973
 
 - netconvert
   - Fixed unsafe location of internal junctions that were causing collisions in the simulation. Positioning can be controleld with option **--internal-junctions.vehicle-width** and setting this to 0 restores legacy behavior. Issue #4397  
   - Fixed invalid network when importing public transport and sidewalks. Issue #9701 (regression in 1.10.0)
   - Fixed invalid internal junction location. Issue #9381
-  - Fixed intersection rules that could cause emergency braking at pedestrian crossing. Issue #9671
+  - Fixed unsafe intersection rules that could cause emergency braking at pedestrian crossing. Issue #9671
   - Fixed invalid error when loading projections with '+geogrids' entry on windows. Issue #9766
   - Fixed invalid handling of loaded roundabouts when the network is modified. Issue #9810
   - Network building now aborts when a type file could not be loaded. Issue #9392
@@ -86,7 +85,7 @@ title: ChangeLog
   - Fixed invalid link direction when there are multiple turnaround edges. Issue #9957
   - Options **--tls.group-signals** and **--tls.ungroup-signals** now work for pedestrian crossings. Issue #9521, #9997
   - Fixed invalid permissions when leaving multi--lane-roundabout from inner lane. Issue #10017
-  - invalid edge geometry after trying to patch very short edge #10018
+  - invalid edge geometry after trying to patch very short edge. Issue #10018
   - OpenDRIVE
     - Fixed invalid LaneLink index in OpenDRIVE export. Issue #9637
     - Fixed too sparse geometry in OpenDRIVE import when using --geometry.min-dist. Issue #10012
@@ -97,7 +96,7 @@ title: ChangeLog
   - Fixed invalid stop arrival time in meso. Issue #9713  
   - Fixed invalid ride depart time and route length when starting directly after stop. Issue #9560
   - No more warnings about small tau. Issue #9505
-  - Dynamically modified road permissions (i.e. closingReroute with disallow and closingLaneReroute) are no longer ignored and can cause jamming. Issue #9950, #10010
+  - Dynamically modified road permissions (i.e. closingReroute with disallow and closingLaneReroute) are no longer ignored and can now cause jamming. Issue #9950, #10010
   - Fixed invalid capacity in intermodal scenario. Issue #8167
 
 - duarouter
@@ -123,7 +122,7 @@ title: ChangeLog
   - Fixed invalid warnings when adding turn/lanes filter with context domain person. Issue #9760
   - TraCI server no longer hangs when trying to add a subscription filter without previous vehicle subscription. Issue #9770
   - Fixed memory leak in libsumo::TrafficLight::getCompleteRedYellowGreenDefinition. Issue #9818
-  - Fixed bug where calling changeSublane with high values 'latDist' value, causes exaggerated maneuverDistance. Issue #9863
+  - Fixed bug where calling changeSublane with high 'latDist' value, causes exaggerated maneuverDistance. Issue #9863
   - Fixed crash when calling getStopDelay for a vehicle that isn't in the network. Issue #9944
 
 - tools
@@ -132,7 +131,6 @@ title: ChangeLog
   - addStopsToRoutes.py: Now handles disallowed vClass and vTypes with undefined vClass. Issue #9792
   - generateRailSignalConstraints.py: Now handles intermediate parking stops. Issue #9806
   - Fixed encoding problems in osmTaxiStop.py #9893
-  - [emissionsDrivingCycle](Tools/Emissions.md#emissionsdrivingcycle) now permits loading of [electric vehicle params](Models/Electric.md#defining_electric_vehicles) via the new options **--vtype** and **--additional-files**. Issue #9930
   - plot_csv_timeline.py now supports python3. Issue #9951
   - splitroutefiles.py can now handle gzipped input on Windows. Issue #8807
 
@@ -195,7 +193,7 @@ title: ChangeLog
   - Added lane context menu function "set custom shape". Issue #9741
   - Loading and setting of vTypeDistributions is now supported. Issue #9435
   - List of issues from 'demand element problems'-dialog can now be saved to file. Issue #7868
-  - Lane chang prohibitions (changeLeft, changeRight) are now visualized. Issue #9942
+  - Lane change prohibitions (changeLeft, changeRight) are now visualized. Issue #9942
   - Selections can now be modified based on object hierarchy (i.e. to selection junctions for all selected edges). Issue #9524
   - Improved visibility for short edges. Issue #9434
 
@@ -229,6 +227,7 @@ title: ChangeLog
   - netdiff.py: now also writes diff for edge type file. Issue #9807
   - implausibleRoutes.py: now supports option **--xml-output** to write route scores for post-processing. Issue #9862
   - randomTrips.py: now support option **--fringe-junctions** to determine the fringe from [junction attribute 'fringe'](Networks/PlainXML.md#fringe). Issue #9948
+  - [emissionsDrivingCycle](Tools/Emissions.md#emissionsdrivingcycle) now permits loading of [electric vehicle params](Models/Electric.md#defining_electric_vehicles) via the new options **--vtype** and **--additional-files**. Issue #9930
 
 ### Miscellaneous
 
