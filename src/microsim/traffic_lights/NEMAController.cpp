@@ -1360,6 +1360,38 @@ NEMALogic::checkDetectors(){
     }
 }
 
+void
+NEMALogic::calculateForceOffs170(int r1StartIndex, int r2StartIndex){
+
+    int initialIndexRing[2] = {r1StartIndex, r2StartIndex};
+
+    // calculate force offs with the rings in order
+    for (int ringNumber = 0; ringNumber<2;ringNumber++){
+        int length = (int)rings[ringNumber].size();
+        int aPhaseNumber = rings[ringNumber][initialIndexRing[ringNumber]];
+        int aPhaseIndex = aPhaseNumber - 1;
+        int nPhaseIndex = aPhaseIndex; //next phase
+        int nPhaseNumber = aPhaseNumber;
+        forceOffs[aPhaseNumber-1]=maxGreen[aPhaseNumber-1];
+        #ifdef DEBUG_NEMA
+        std::cout << "Phase  "<<aPhaseNumber <<": force off "<<forceOffs[aPhaseNumber-1]<<std::endl;
+        #endif
+        for (int i = initialIndexRing[ringNumber]+1; i < length; i++) {
+            nPhaseNumber = rings[ringNumber][i];
+            nPhaseIndex = nPhaseNumber -1;
+            // std::cout <<" ring "<<ringNumber <<" i: "<<i<< " phase: "<<nPhaseNumber<< std::endl;
+            if (nPhaseNumber != 0){
+                forceOffs[nPhaseIndex] = forceOffs[aPhaseIndex] + maxGreen[nPhaseIndex] + yellowTime[aPhaseIndex]+redTime[aPhaseIndex];
+                aPhaseNumber = nPhaseNumber;
+                aPhaseIndex = nPhaseIndex;
+
+                #ifdef DEBUG_NEMA
+                std::cout << "- Phase "<<aPhaseNumber <<": force off "<<forceOffs[aPhaseIndex]<<std::endl;
+                #endif
+            }
+        }
+    }
+}
 
 void
 NEMALogic::calculateForceOffsTS2(){
@@ -1454,17 +1486,6 @@ NEMALogic::calculateInitialPhases170(){
 }
 
 void
-NEMALogic::clearDetectors(){
-    for (auto &p: phase2DetectorMap){
-        // If the detector isn't latching then it is marked as off.
-        // If it is latching and the current green phase is the latching detectors phase, we can mark it as off as well
-        if ((!p.second.latching) || ((p.first == R1State) || (p.first == R2State))){
-            p.second.detectActive = false;
-        }
-    }
-}
-
-void
 NEMALogic::calculateInitialPhasesTS2(){
     // Modifications where made to 170 algorithm so that it works with both.
     calculateInitialPhases170();
@@ -1481,6 +1502,18 @@ NEMALogic::coordModeCycleTS2(double currentTime, int phase){
     // We don't need the yellow and red here because the force off already incorporates that.
     return ModeCycle((myCycleLength + forceOffs[phase - 1]) - (currentTime - cycleRefPoint - offset), myCycleLength);  
 };
+
+
+void
+NEMALogic::clearDetectors(){
+    for (auto &p: phase2DetectorMap){
+        // If the detector isn't latching then it is marked as off.
+        // If it is latching and the current green phase is the latching detectors phase, we can mark it as off as well
+        if ((!p.second.latching) || ((p.first == R1State) || (p.first == R2State))){
+            p.second.detectActive = false;
+        }
+    }
+}
 
 bool
 NEMALogic::readDetector(int phase){
