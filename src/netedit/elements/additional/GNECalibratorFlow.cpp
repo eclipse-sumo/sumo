@@ -31,8 +31,8 @@
 
 GNECalibratorFlow::GNECalibratorFlow(GNENet* net) :
     GNEAdditional("", net, GLO_CALIBRATOR, GNE_TAG_FLOW_CALIBRATOR, "",
-{}, {}, {}, {}, {}, {}, {}, {},
-std::map<std::string, std::string>()) {
+        {}, {}, {}, {}, {}, {}, {}, {},
+    std::map<std::string, std::string>()) {
     // reset default values
     resetDefaultValues();
     // set VPH and speed enabled
@@ -43,9 +43,9 @@ std::map<std::string, std::string>()) {
 
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route) :
     GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_FLOW_CALIBRATOR, "",
-{}, {}, {}, {calibratorParent}, {}, {}, {vehicleType, route}, {},
-std::map<std::string, std::string>()),
-SUMOVehicleParameter() {
+        {}, {}, {}, {calibratorParent}, {}, {}, {vehicleType, route}, {},
+    std::map<std::string, std::string>()),
+    SUMOVehicleParameter() {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -53,8 +53,8 @@ SUMOVehicleParameter() {
 
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters) :
     GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_FLOW_CALIBRATOR, "",
-{}, {}, {}, {calibratorParent}, {}, {}, {vehicleType, route}, {},
-std::map<std::string, std::string>()),
+        {}, {}, {}, {calibratorParent}, {}, {}, {vehicleType, route}, {},
+    std::map<std::string, std::string>()),
 SUMOVehicleParameter(vehicleParameters) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
@@ -137,7 +137,7 @@ void
 GNECalibratorFlow::drawGL(const GUIVisualizationSettings& s) const {
     // draw rerouter interval as listed attribute
     drawListedAddtional(s, getParentAdditionals().front()->getPositionInView(),
-                        0, 0, s.additionalSettings.calibratorColor, RGBColor::BLACK, GUITexture::VARIABLESPEEDSIGN_STEP, "Flow: " + getID());
+                        0.05, 1, s.additionalSettings.calibratorColor, RGBColor::BLACK, GUITexture::VARIABLESPEEDSIGN_STEP, "Flow: " + getID());
 }
 
 

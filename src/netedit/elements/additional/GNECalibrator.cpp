@@ -237,10 +237,10 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
             // begin push name
             GLHelper::pushName(getGlID());
             // draw first symbol
-            drawCalibratorSymbol(s, exaggeration, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front());
+            drawCalibratorSymbol(s, exaggeration, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front() + 90);
             // continue with the other symbols
             for (const auto& edgeCalibratorGeometry : myEdgeCalibratorGeometries) {
-                drawCalibratorSymbol(s, exaggeration, edgeCalibratorGeometry.getShape().front(), edgeCalibratorGeometry.getShapeRotations().front());
+                drawCalibratorSymbol(s, exaggeration, edgeCalibratorGeometry.getShape().front(), edgeCalibratorGeometry.getShapeRotations().front() + 90);
             }
             // pop name
             GLHelper::popName();
@@ -427,7 +427,7 @@ void GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, cons
     // translate to position
     glTranslated(pos.x(), pos.y(), 0);
     // rotate over lane
-    GUIGeometry::rotateOverLane(rot - 90);
+    GUIGeometry::rotateOverLane(rot);
     // scale
     glScaled(exaggeration, exaggeration, 1);
     // set drawing mode
@@ -468,14 +468,14 @@ void GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, cons
     if (myNet->getViewNet()->isAttributeCarrierInspected(this)) {
         GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::INSPECT, s, pos,
                 s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight * 0.5,
-                0, s.additionalSettings.calibratorHeight * -0.5,
-                rot + 90, exaggeration);
+                0, s.additionalSettings.calibratorHeight * 0.5,
+                rot, exaggeration);
     }
     if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
         GUIDottedGeometry::drawDottedSquaredShape(GUIDottedGeometry::DottedContourType::FRONT, s, pos,
                 s.additionalSettings.calibratorWidth, s.additionalSettings.calibratorHeight * 0.5,
-                0, s.additionalSettings.calibratorHeight * -0.5,
-                rot + 90, exaggeration);
+                0, s.additionalSettings.calibratorHeight * 0.5,
+                rot, exaggeration);
     }
 }
 
