@@ -1,9 +1,6 @@
 # test behavior when vehicles cannot drive
 deadlock
 
-# tests for dynamics at ramps leading to and from motorways
-ramps
-
 # tests for vehicle insertion (especially for high flows)
 insertion
 
