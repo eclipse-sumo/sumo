@@ -736,8 +736,9 @@ NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, double speed, O
         if (dAngle > straightThresh
                 && (length1 > longThresh || j == 1)
                 && (length2 > longThresh || j == (int)shape.size() - 2)) {
-            shape2.insertAtClosest(shape.positionAtOffset2D(offset + length1 - MIN2(length1 - POSITION_EPS, curveCutout)), false);
-            shape2.insertAtClosest(shape.positionAtOffset2D(offset + length1 + MIN2(length2 - POSITION_EPS, curveCutout)), false);
+            // NBNode::bezierControlPoints checks for minimum length of POSITION_EPS so we make sure there is no instability
+            shape2.insertAtClosest(shape.positionAtOffset2D(offset + length1 - MIN2(length1 - 2 * POSITION_EPS, curveCutout)), false);
+            shape2.insertAtClosest(shape.positionAtOffset2D(offset + length1 + MIN2(length2 - 2 * POSITION_EPS, curveCutout)), false);
             shape2.removeClosest(p1);
         }
         offset += length1;
