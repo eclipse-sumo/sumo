@@ -113,6 +113,10 @@ GNETagProperties::checkTagIntegrity() const {
     if (!isChild() && canBeReparent()) {
         throw FormatException("Only Child elements can be reparent");
     }
+    // check vClass icons
+    if (vClassIcon() && !hasAttribute(SUMO_ATTR_VCLASS)) {
+        throw FormatException("Tag requiere attribute SUMO_ATTR_VCLASS");
+    }
     // check integrity of all attributes
     for (const auto& attributeProperty : myAttributeProperties) {
         attributeProperty.checkAttributeIntegrity();
@@ -517,6 +521,12 @@ GNETagProperties::embebbedRoute() const {
 bool
 GNETagProperties::requireProj() const {
     return (myTagProperty & REQUIERE_PROJ) != 0;
+}
+
+
+bool
+GNETagProperties::vClassIcon() const {
+    return (myTagProperty & VCLASS_ICON) != 0;
 }
 
 
