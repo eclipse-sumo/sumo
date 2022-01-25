@@ -1072,7 +1072,7 @@ GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
         prefix = oc.getString("e1InstantDetector-prefix");
     } else if (tag == SUMO_TAG_REROUTER) {
         prefix = oc.getString("rerouter-prefix");
-    } else if ((tag == SUMO_TAG_CALIBRATOR) || (tag == SUMO_TAG_LANECALIBRATOR)) {
+    } else if ((tag == SUMO_TAG_CALIBRATOR) || (tag == GNE_TAG_CALIBRATOR_LANE)) {
         prefix = oc.getString("calibrator-prefix");
     } else if (tag == SUMO_TAG_ROUTEPROBE) {
         prefix = oc.getString("routeProbe-prefix");
@@ -1081,9 +1081,9 @@ GNENetHelper::AttributeCarriers::generateAdditionalID(SumoXMLTag tag) const {
     }
     int counter = 0;
     // special case for calibrators
-    if ((tag == SUMO_TAG_CALIBRATOR) || (tag == SUMO_TAG_LANECALIBRATOR)) {
+    if ((tag == SUMO_TAG_CALIBRATOR) || (tag == GNE_TAG_CALIBRATOR_LANE)) {
         while ((retrieveAdditional(SUMO_TAG_CALIBRATOR, prefix + "_" + toString(counter), false) != nullptr) ||
-                (retrieveAdditional(SUMO_TAG_LANECALIBRATOR, prefix + "_" + toString(counter), false) != nullptr)) {
+                (retrieveAdditional(GNE_TAG_CALIBRATOR_LANE, prefix + "_" + toString(counter), false) != nullptr)) {
             counter++;
         }
     } else {

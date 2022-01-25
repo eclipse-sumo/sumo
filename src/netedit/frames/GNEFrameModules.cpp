@@ -385,7 +385,7 @@ GNEFrameModules::TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagPr
             myAC = new GNEVariableSpeedSignStep(net);
             break;
         case SUMO_TAG_CALIBRATOR:
-        case SUMO_TAG_LANECALIBRATOR:
+        case GNE_TAG_CALIBRATOR_LANE:
             myAC = new GNECalibrator(tagProperty.getTag(), net);
             break;
         case GNE_TAG_CALIBRATOR_FLOW:

@@ -845,19 +845,19 @@ GNEInspectorFrame::AdditionalDialog::showAdditionalDialog() {
         // check AC
         if (AC->getTagProperty().getTag() == SUMO_TAG_REROUTER) {
             // update button
-            myOpenAdditionalDialog->setText("Open Rerouter dialog");
+            myOpenAdditionalDialog->setText("Open rerouter dialog");
             myOpenAdditionalDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::REROUTER));
             // show modul
             show();
         } else if (AC->getTagProperty().getTag() == SUMO_TAG_CALIBRATOR) {
             // update button
-            myOpenAdditionalDialog->setText("Open Calibrator dialog");
+            myOpenAdditionalDialog->setText("Open calibrator dialog");
             myOpenAdditionalDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR));
             // show modul
             show();
-        } else if (AC->getTagProperty().getTag() == SUMO_TAG_LANECALIBRATOR) {
+        } else if (AC->getTagProperty().getTag() == GNE_TAG_CALIBRATOR_LANE) {
             // update button
-            myOpenAdditionalDialog->setText("Open Lane Calibrator dialog");
+            myOpenAdditionalDialog->setText("Open calibrator lane dialog");
             myOpenAdditionalDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::CALIBRATOR));
             // show modul
             show();
@@ -892,7 +892,7 @@ GNEInspectorFrame::AdditionalDialog::onCmdOpenAdditionalDialog(FXObject*, FXSele
         if (AC->getTagProperty().getTag() == SUMO_TAG_REROUTER) {
             // Open rerouter dialog
             GNERerouterDialog(dynamic_cast<GNERerouter*>(AC));
-        } else if ((AC->getTagProperty().getTag() == SUMO_TAG_CALIBRATOR) || (AC->getTagProperty().getTag() == SUMO_TAG_LANECALIBRATOR)) {
+        } else if ((AC->getTagProperty().getTag() == SUMO_TAG_CALIBRATOR) || (AC->getTagProperty().getTag() == GNE_TAG_CALIBRATOR_LANE)) {
             // Open calibrator dialog
             GNECalibratorDialog(dynamic_cast<GNECalibrator*>(AC));
         } else if (AC->getTagProperty().getTag() == SUMO_TAG_VSS) {

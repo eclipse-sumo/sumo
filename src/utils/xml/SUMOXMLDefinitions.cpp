@@ -68,7 +68,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "edgeFollowDetector",             SUMO_TAG_EDGEFOLLOWDETECTOR },
     { "instantInductionLoop",           SUMO_TAG_INSTANT_INDUCTION_LOOP },
     { "calibrator",                     SUMO_TAG_CALIBRATOR },
-    { "laneCalibrator",                 SUMO_TAG_LANECALIBRATOR },
+    { "calibratorLane",                 GNE_TAG_CALIBRATOR_LANE },
     { "calibratorFlow",                 GNE_TAG_CALIBRATOR_FLOW },
     { "rerouter",                       SUMO_TAG_REROUTER },
     { "interval",                       SUMO_TAG_INTERVAL },

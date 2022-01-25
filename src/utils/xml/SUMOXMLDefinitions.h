@@ -103,8 +103,8 @@ enum SumoXMLTag {
     SUMO_TAG_INSTANT_INDUCTION_LOOP,
     /// @brief A calibrator placed over edge
     SUMO_TAG_CALIBRATOR,
-    /// @brief A calibrator placed over lane (used in netedit)
-    SUMO_TAG_LANECALIBRATOR,
+    /// @brief A calibrator placed over lane
+    GNE_TAG_CALIBRATOR_LANE,
     /// @brief a flow definition within in Calibrator
     GNE_TAG_CALIBRATOR_FLOW,
     /// @brief  A rerouter
