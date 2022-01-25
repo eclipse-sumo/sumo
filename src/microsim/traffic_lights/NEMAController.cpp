@@ -728,7 +728,7 @@ bool NEMALogic::isDetectorActivated(int phaseNumber, phaseDetectorInfo detectInf
             }
         }
         if (detectInfo.cpdSource > 0 && depth < 1){
-            return isDetectorActivated(detectInfo.cpdSource, phase2DetectorMap.find(phaseNumber)->second, depth + 1);
+            return isDetectorActivated(detectInfo.cpdSource, phase2DetectorMap.find(detectInfo.cpdSource) -> second, depth + 1);
         }
         return false;
 }
@@ -868,6 +868,21 @@ NEMALogic::NEMA_control() {
         phaseEndTimeR2 = currentTimeInSecond;
         phaseExpectedDuration[R2Index] = 0;
         wait4R2Green = true;
+    }
+
+    // catch the falling edge of green rest
+    if ((R1RYG == GREENREST && !wait4R1Green) || (R2RYG == GREENREST && !wait4R2Green)){
+        // will still allow the phase to be extended with vehicle detection
+        for (auto &p: phase2DetectorMap){
+            if (p.first != R1State && p.first != R2State && p.second.detectActive){
+                phaseStartTime[R1Index] = currentTimeInSecond - minGreen[R1Index];
+                phaseStartTime[R2Index] = currentTimeInSecond - minGreen[R2Index];
+                wait4R1Green = false;
+                wait4R2Green = false;
+                R1RYG = GREEN;
+                R2RYG = GREEN;
+            }
+        }
     }
 
     // Logic for Green Rest & Green Transfer
