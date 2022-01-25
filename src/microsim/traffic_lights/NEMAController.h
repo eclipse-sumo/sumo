@@ -285,7 +285,7 @@ protected:
         bool latching = false;
     };
 
-    bool isDetectorActivated(int phaseNumber, phaseDetectorInfo phaseInfo, int depth) const;
+    bool isDetectorActivated(int phaseNumber, const phaseDetectorInfo &phaseInfo, int depth) const;
     // myNextPhase needs to be presevered in memory because the phase is calculated at start of yellow 
     // but not implementend until the end of red 
     int myNextPhaseR1;
@@ -396,6 +396,13 @@ protected:
     void error_handle_not_set(std::string param_variable, std::string param_name);
     void validate_timing();
 
+    // read All Detectors
+    void checkDetectors();
+    // clear Detectors
+    void clearDetectors();
+    // read 1 detector state
+    bool readDetector(int phase);
+
     // TS2 Specific Timing
     void calculateForceOffsTS2();
     // Type170 Specific Timing
@@ -446,10 +453,4 @@ protected:
                 return coordModeCycle170(currentTime, phase);
         }
     }
-    // read All Detectors
-    void checkDetectors();
-    // clear Detectors
-    void clearDetectors();
-    // read 1 detector state
-    bool readDetector(int phase);
 };
