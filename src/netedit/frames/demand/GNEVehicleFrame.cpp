@@ -297,7 +297,7 @@ GNEVehicleFrame::tagSelected() {
         myTypeSelector->showDemandElementSelector();
         // show path creator modul
         if ((myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != SUMO_TAG_VEHICLE) &&
-                (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != GNE_TAG_FLOW_ROUTE)) {
+            (myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag() != GNE_TAG_FLOW_ROUTE)) {
             myPathCreator->showPathCreatorModule(myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
         }
     } else {
@@ -319,16 +319,11 @@ GNEVehicleFrame::demandElementSelected() {
         // clear colors
         myPathCreator->clearJunctionColors();
         myPathCreator->clearEdgeColors();
-        // check if use junctions
-        if ((vehicleTag == GNE_TAG_TRIP_JUNCTIONS) || (vehicleTag == GNE_TAG_FLOW_JUNCTIONS)) {
-            myPathCreator->updateJunctionColors();
-        } else {
-            // set current VTypeClass in TripCreator
-            myPathCreator->setVClass(myTypeSelector->getCurrentDemandElement()->getVClass());
-            // show path creator modul
-            if ((vehicleTag != SUMO_TAG_VEHICLE) && (vehicleTag != GNE_TAG_FLOW_ROUTE)) {
-                myPathCreator->showPathCreatorModule(myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
-            }
+        // set current VTypeClass in pathCreator
+        myPathCreator->setVClass(myTypeSelector->getCurrentDemandElement()->getVClass());
+        // show path creator modul (except for vehicles and flow over routes)
+        if ((vehicleTag != SUMO_TAG_VEHICLE) && (vehicleTag != GNE_TAG_FLOW_ROUTE)) {
+            myPathCreator->showPathCreatorModule(myVehicleTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(), false, false);
         }
         // show help creation
         myHelpCreation->showHelpCreation();

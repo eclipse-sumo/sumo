@@ -697,18 +697,19 @@ public:
 
         // @brief creation mode
         enum Mode {
-            CONSECUTIVE_EDGES       = 1 << 0,   // Path's edges are consecutives
-            NONCONSECUTIVE_EDGES    = 1 << 1,   // Path's edges aren't consecutives
-            START_EDGE              = 1 << 2,   // Path begins in an edge
-            END_EDGE                = 1 << 3,   // Path ends in an edge
-            START_JUNCTION          = 1 << 4,   // Path begins in an edge
-            END_JUNCTION            = 1 << 5,   // Path ends in an edge
-            SINGLE_ELEMENT          = 1 << 6,   // Path only had one element
-            ONLY_FROMTO             = 1 << 7,   // Path only had two elements (first and last)
-            END_BUSSTOP             = 1 << 8,   // Path ends in a busStop
-            ROUTE                   = 1 << 9,   // Path uses a route
-            REQUIRE_FIRSTELEMENT    = 1 << 10,  // Path start always in a previous element
-            SHOW_CANDIDATE_EDGES    = 1 << 11,  // disable candidate edges
+            CONSECUTIVE_EDGES        = 1 << 0,   // Path's edges are consecutives
+            NONCONSECUTIVE_EDGES     = 1 << 1,   // Path's edges aren't consecutives
+            START_EDGE               = 1 << 2,   // Path begins in an edge
+            END_EDGE                 = 1 << 3,   // Path ends in an edge
+            START_JUNCTION           = 1 << 4,   // Path begins in an edge
+            END_JUNCTION             = 1 << 5,   // Path ends in an edge
+            SINGLE_ELEMENT           = 1 << 6,   // Path only had one element
+            ONLY_FROMTO              = 1 << 7,   // Path only had two elements (first and last)
+            END_BUSSTOP              = 1 << 8,   // Path ends in a busStop
+            ROUTE                    = 1 << 9,   // Path uses a route
+            REQUIRE_FIRSTELEMENT     = 1 << 10,  // Path start always in a previous element
+            SHOW_CANDIDATE_EDGES     = 1 << 11,  // Show candidate edges
+            SHOW_CANDIDATE_JUNCTIONS = 1 << 12,  // show candidate junctions
         };
 
         /// @brief update InfoRouteLabel
