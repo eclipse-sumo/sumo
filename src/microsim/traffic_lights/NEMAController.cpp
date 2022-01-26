@@ -1112,11 +1112,11 @@ void NEMALogic::constructBarrierMap(int ring, std::vector<std::vector<int>>& bar
             barrierOne.push_back(localPhase);
             if (((localPhase == r1coordinatePhase || localPhase == r1barrier) && ring == 0) || ((localPhase == r2coordinatePhase || localPhase == r2barrier) && ring == 1)) {
                 flag = 1;
-            };
+            }
         } else {
             barrierTwo.push_back(localPhase);
         }
-    };
+    }
     barrierMap.push_back(barrierOne);
     barrierMap.push_back(barrierTwo);
 }
@@ -1175,8 +1175,8 @@ std::tuple<int, int> NEMALogic::getNextPhases(int R1Phase, int R2Phase, bool toU
             nextR2Phase = nextPhase(myRingBarrierMapping[1][r1Barrier], myRingBarrierMapping[1][r1Barrier].back(), r2Distance, true);
         } else if ((r1Distance > r2Distance) && (r1Barrier != r2Barrier)) {
             nextR1Phase = nextPhase(myRingBarrierMapping[0][r2Barrier], myRingBarrierMapping[0][r2Barrier].back(), r1Distance, true);
-        };
-    };
+        }
+    }
     return std::make_tuple(nextR1Phase, nextR2Phase);
 }
 
@@ -1236,7 +1236,7 @@ std::set<std::string> NEMALogic::getLaneIDsFromNEMAState(std::string state) {
 bool NEMALogic::isLeftTurnLane(const MSLane* const lane) const {
     const std::vector<MSLink*> links = lane->getLinkCont();
     if (links.size() == 1 && links.front()->getDirection() == LinkDirection::LEFT) {
-        return true;;
+        return true;
     }
     return false;
 }
@@ -1510,11 +1510,11 @@ NEMALogic::calculateInitialPhasesTS2(){
 double
 NEMALogic::coordModeCycle170(double currentTime, int phase){
     return ModeCycle(myCycleLength - (currentTime - cycleRefPoint - offset) - yellowTime[phase - 1] - redTime[phase - 1], myCycleLength);  
-};
+}
 
 double
 NEMALogic::coordModeCycleTS2(double currentTime, int phase){
     // This puts the phase green for the rest of the cycle, plus the first bit in which it must be green
     // We don't need the yellow and red here because the force off already incorporates that.
     return ModeCycle((myCycleLength + forceOffs[phase - 1]) - (currentTime - cycleRefPoint - offset), myCycleLength);  
-};
+}
