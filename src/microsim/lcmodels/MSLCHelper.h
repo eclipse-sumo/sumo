@@ -64,4 +64,12 @@ public:
      * @param[in,out] leadingBlockerLength: the length to reserve at the end of the lane
      */
     static void saveBlockerLength(const MSVehicle& veh, MSVehicle* blocker, int lcaCounter, double leftSpace, double& leadingBlockerLength);
+
+    /* @brief return saveable space 
+     * @param[in] requested The space that should be saved for another vehicle
+     * @param[in] leftSpace The remaining distance that can be driving without lane change
+     * @param[in] leadingBlockerLength: the length to has been reserved for other vehicles
+     * @return The space that can be reserved
+     */
+    static double saveBlockerLength(double requested, double leftSpace, double leadingBlockerLength);
 };

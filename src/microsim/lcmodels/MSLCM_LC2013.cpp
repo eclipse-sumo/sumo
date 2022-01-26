@@ -1974,6 +1974,12 @@ MSLCM_LC2013::getOppositeSafetyFactor() const {
     return myOppositeParam <= 0 ? std::numeric_limits<double>::max() : 1 / myOppositeParam;
 }
 
+double
+MSLCM_LC2013::saveBlockerLength(double length) {
+    myLeadingBlockerLength = MSLCHelper::saveBlockerLength(length, myLeftSpace, myLeadingBlockerLength);
+    return myLeadingBlockerLength;
+}
+
 std::string
 MSLCM_LC2013::getParameter(const std::string& key) const {
     if (key == toString(SUMO_ATTR_LCA_STRATEGIC_PARAM)) {

@@ -172,9 +172,7 @@ protected:
     void adaptSpeedToPedestrians(const MSLane* lane, double& v);
 
     /// @brief reserve space at the end of the lane to avoid dead locks
-    inline void saveBlockerLength(double length) override {
-        myLeadingBlockerLength = MAX2(length, myLeadingBlockerLength);
-    };
+    double saveBlockerLength(double length) override;
 
     inline bool amBlockingLeader() {
         return (myOwnState & LCA_AMBLOCKINGLEADER) != 0;

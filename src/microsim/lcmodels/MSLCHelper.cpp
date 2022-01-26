@@ -29,6 +29,9 @@
 // Debug flags
 // ===========================================================================
 //#define DEBUG_WANTS_CHANGE
+//#define DEBUG_SAVE_BLOCKER_LENGTH
+
+#define DEBUG_COND (veh.isSelected())
 
 
 // ===========================================================================
@@ -242,6 +245,8 @@ MSLCHelper::saveBlockerLength(const MSVehicle& veh,  MSVehicle* blocker, int lca
         } else {
             // we cannot save enough space for the blocker. It needs to save
             // space for ego instead
+            const double reserved = blocker->getLaneChangeModel().saveBlockerLength(veh.getVehicleType().getLengthWithGap());
+            UNUSED_PARAMETER(reserved);
 #ifdef DEBUG_SAVE_BLOCKER_LENGTH
             if (DEBUG_COND) {
                 std::cout << SIMTIME
@@ -249,15 +254,21 @@ MSLCHelper::saveBlockerLength(const MSVehicle& veh,  MSVehicle* blocker, int lca
                           << " blocker=" << Named::getIDSecure(blocker)
                           << " cannot save space=" << blocker->getVehicleType().getLengthWithGap()
                           << " potential=" << potential
+                          << " myReserved=" << leadingBlockerLength
+                          << " blockerReserves=" << reserved
                           << "\n";
             }
 #endif
-            blocker->getLaneChangeModel().saveBlockerLength(veh.getVehicleType().getLengthWithGap());
         }
     }
 }
 
 
+double
+MSLCHelper::saveBlockerLength(double requested, double leftSpace, double leadingBlockerLength) {
+    UNUSED_PARAMETER(leftSpace);
+    return MAX2(requested, leadingBlockerLength);
+}
 
 
 /****************************************************************************/

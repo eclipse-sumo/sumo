@@ -3720,4 +3720,10 @@ MSLCM_SL2015::wantsKeepRight(double keepRightProb) const {
     return keepRightProb * myKeepRightParam > MAX2(myChangeProbThresholdRight, mySpeedGainProbabilityLeft);
 }
 
+double
+MSLCM_SL2015::saveBlockerLength(double length) {
+    myLeadingBlockerLength = MSLCHelper::saveBlockerLength(length, myLeftSpace, myLeadingBlockerLength);
+    return myLeadingBlockerLength;
+}
+
 /****************************************************************************/
