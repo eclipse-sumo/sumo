@@ -1269,9 +1269,14 @@ MSLCM_SL2015::_wantsChangeSublane(
         // letting vehicles merge in at the end of the lane in case of counter-lane change, step#1
         //   if there is a leader and he wants to change to the opposite direction
         MSVehicle* neighLeadLongest = const_cast<MSVehicle*>(getLongest(neighLeaders).first);
-        MSLCHelper::saveBlockerLength(myVehicle, neighLeadLongest, lcaCounter, myLeftSpace, myLeadingBlockerLength);
+        bool canReserve = MSLCHelper::saveBlockerLength(myVehicle, neighLeadLongest, lcaCounter, myLeftSpace, myLeadingBlockerLength);
         if (*firstBlocked != neighLeadLongest) {
-            MSLCHelper::saveBlockerLength(myVehicle, *firstBlocked, lcaCounter, myLeftSpace, myLeadingBlockerLength);
+            canReserve &= MSLCHelper::saveBlockerLength(myVehicle, *firstBlocked, lcaCounter, myLeftSpace, myLeadingBlockerLength);
+        }
+        if (!canReserve && !isOpposite()) {
+            // we have a low-priority relief connection
+            // std::cout << SIMTIME << " veh=" << myVehicle.getID() << " cannotReserve for blockers\n";
+            myDontBrake = curr.bestContinuations.size() > 1;
         }
 
         std::vector<CLeaderDist> collectLeadBlockers;
