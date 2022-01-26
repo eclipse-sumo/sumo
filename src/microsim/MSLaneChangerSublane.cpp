@@ -642,6 +642,11 @@ MSLaneChangerSublane::checkChangeSublane(
     MSLeaderDistanceInfo followers = myCandi->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true);
     MSLeaderDistanceInfo blockers(vehicle->getLane(), vehicle, 0);
 
+    // break leader symmetry
+    if (laneOffset == -1 && neighLeaders.hasVehicles()) {
+        neighLeaders.moveSamePosTo(vehicle, neighFollowers);
+    }
+
 #ifdef DEBUG_SURROUNDING
     if (DEBUG_COND) std::cout << SIMTIME
                                   << " checkChangeSublane: veh=" << vehicle->getID()

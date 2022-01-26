@@ -1277,8 +1277,9 @@ MSLCM_SL2015::_wantsChangeSublane(
         //   if there is a leader and he wants to change to the opposite direction
         MSVehicle* neighLeadLongest = const_cast<MSVehicle*>(getLongest(neighLeaders).first);
         const bool canContinue = curr.bestContinuations.size() > 1;
+        if (DEBUG_COND) std::cout << SIMTIME << " veh=" << myVehicle.getID() << " neighLeaders=" << neighLeaders.toString() << " longest=" << Named::getIDSecure(neighLeadLongest) << " firstBlocked=" << Named::getIDSecure(*firstBlocked) << "\n";
         bool canReserve = MSLCHelper::saveBlockerLength(myVehicle, neighLeadLongest, lcaCounter, myLeftSpace, canContinue, myLeadingBlockerLength);
-        if (*firstBlocked != neighLeadLongest) {
+        if (*firstBlocked != neighLeadLongest && tieBrakeLeader(*firstBlocked)) {
             canReserve &= MSLCHelper::saveBlockerLength(myVehicle, *firstBlocked, lcaCounter, myLeftSpace, canContinue, myLeadingBlockerLength);
         }
         if (!canReserve && !isOpposite()) {
@@ -2138,19 +2139,30 @@ MSLCM_SL2015::computeSpeedGain(double latDistSublane, double defaultNextSpeed) c
 
 
 CLeaderDist
-MSLCM_SL2015::getLongest(const MSLeaderDistanceInfo& ldi) {
-    int iMax = 0;
+MSLCM_SL2015::getLongest(const MSLeaderDistanceInfo& ldi) const {
+    int iMax = -1;
     double maxLength = -1;
     for (int i = 0; i < ldi.numSublanes(); ++i) {
-        if (ldi[i].first != 0) {
-            const double length = ldi[i].first->getVehicleType().getLength();
-            if (length > maxLength) {
+        const MSVehicle* veh = ldi[i].first;
+        if (veh) {
+            const double length = veh->getVehicleType().getLength();
+            if (length > maxLength && tieBrakeLeader(veh)) {
                 maxLength = length;
                 iMax = i;
             }
         }
     }
-    return ldi[iMax];
+    return iMax >= 0 ? ldi[iMax] : std::make_pair(nullptr, -1);
+}
+
+
+bool
+MSLCM_SL2015::tieBrakeLeader(const MSVehicle* veh) const {
+    // tie braker if the leader is at the same lane position
+    return veh != nullptr && (veh->getPositionOnLane() != myVehicle.getPositionOnLane()
+        || veh->getSpeed() < myVehicle.getSpeed()
+        || &veh->getLane()->getEdge() != &myVehicle.getLane()->getEdge()
+        || veh->getLane()->getIndex() > myVehicle.getLane()->getIndex());
 }
 
 

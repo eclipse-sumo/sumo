@@ -177,6 +177,8 @@ public:
     /// @brief return vehicle with the smalles gap
     CLeaderDist getClosest() const;
 
+    void moveSamePosTo(const MSVehicle* ego, MSLeaderDistanceInfo& other);
+
 protected:
 
     std::vector<double> myDistances;

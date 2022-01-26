@@ -236,7 +236,9 @@ protected:
     int computeSublaneShift(const MSEdge* prevEdge, const MSEdge* curEdge);
 
     /// @brief get the longest vehicle in the given info
-    static CLeaderDist getLongest(const MSLeaderDistanceInfo& ldi);
+    CLeaderDist getLongest(const MSLeaderDistanceInfo& ldi) const;
+
+    bool tieBrakeLeader(const MSVehicle* veh) const;
 
     /// @brief get the slowest vehicle in the given info
     static CLeaderDist getSlowest(const MSLeaderDistanceInfo& ldi);
