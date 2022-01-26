@@ -53,13 +53,20 @@ MSCFModel_EIDM::MSCFModel_EIDM(const MSVehicleType* vtype) :
     MSCFModel(vtype), myDelta(vtype->getParameter().getCFParam(SUMO_ATTR_CF_IDM_DELTA, 4.)),
     myTwoSqrtAccelDecel(double(2 * sqrt(myAccel * myDecel))),
     myIterations(MAX2(1, int(TS / vtype->getParameter().getCFParam(SUMO_ATTR_CF_IDM_STEPPING, .25) + .5))),
-    myTPersDrive(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_T_PERSISTENCE_DRIVE, 3)), myTreaction(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_T_REACTION, 0.5)),
-    myTpreview(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD, 4)), myTPersEstimate(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_T_PERSISTENCE_ESTIMATE, 10)),
-    myCcoolness(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_C_COOLNESS, 0.99)), mySigmaleader(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_SIG_LEADER, 0.02)),
-    mySigmagap(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_SIG_GAP, 0.1)), mySigmaerror(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_SIG_ERROR, 0.1)),
-    myJerkmax(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_JERK_MAX, 3.)), myEpsilonacc(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_EPSILON_ACC, 1.)),
-    myTaccmax(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_T_ACC_MAX, 1.2)), myMflatness(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_M_FLATNESS, 2.)),
-    myMbegin(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_M_BEGIN, 0.7)), myUseVehDynamics(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS, 0))
+    myTPersDrive(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_T_PERSISTENCE_DRIVE, 3)),
+    myTreaction(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_T_REACTION, 0.5)),
+    myTpreview(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_T_LOOK_AHEAD, 4)),
+    myTPersEstimate(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_T_PERSISTENCE_ESTIMATE, 10)),
+    myCcoolness(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_C_COOLNESS, 0.99)),
+    mySigmaleader(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_SIG_LEADER, 0.02)),
+    mySigmagap(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_SIG_GAP, 0.1)),
+    mySigmaerror(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_SIG_ERROR, 0.1)),
+    myJerkmax(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_JERK_MAX, 3.)),
+    myEpsilonacc(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_EPSILON_ACC, 1.)),
+    myTaccmax(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_T_ACC_MAX, 1.2)),
+    myMflatness(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_M_FLATNESS, 2.)),
+    myMbegin(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_M_BEGIN, 0.7)),
+    myUseVehDynamics(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_USEVEHDYNAMICS, 0) == 1)
     //, myMaxVehPreview(vtype->getParameter().getCFParam(SUMO_ATTR_CF_EIDM_MAX_VEH_PREVIEW, 0))
 {
     // IDM does not drive very precise and may violate minGap on occasion

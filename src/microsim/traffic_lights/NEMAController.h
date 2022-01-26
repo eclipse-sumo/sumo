@@ -368,9 +368,9 @@ protected:
 
     cabinetType parseCabinetType(std::string inputType){
         std::string cleanString;
-        for (char & c : inputType){
+        for (const char& c : inputType){
             if (isalpha(c) || isdigit(c)){
-                cleanString += (char)std::tolower(c);
+                cleanString += (char)::tolower(c);
             }
         }
         if (cleanString == "type170"){
