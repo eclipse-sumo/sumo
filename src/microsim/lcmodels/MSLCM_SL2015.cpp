@@ -91,7 +91,7 @@
 //#define DEBUG_ACTIONSTEPS
 //#define DEBUG_SURROUNDING
 //#define DEBUG_COMMITTED_SPEED
-//#define DEBUG_PATCHSPEED
+#define DEBUG_PATCHSPEED
 //#define DEBUG_INFORM
 //#define DEBUG_ROUNDABOUTS
 //#define DEBUG_COOPERATE
@@ -323,7 +323,7 @@ MSLCM_SL2015::patchSpeed(const double min, const double wanted, const double max
 
 
 double
-MSLCM_SL2015::_patchSpeed(const double min, const double wanted, const double max, const MSCFModel& cfModel) {
+MSLCM_SL2015::_patchSpeed(double min, const double wanted, const double max, const MSCFModel& cfModel) {
     if (wanted <= 0) {
         return wanted;
     }
@@ -346,6 +346,13 @@ MSLCM_SL2015::_patchSpeed(const double min, const double wanted, const double ma
             double safe = cfModel.stopSpeed(&myVehicle, myVehicle.getSpeed(), space);
             // if we are approaching this place
             if (safe < wanted) {
+                if (safe < min) {
+                    const double vMinEmergency = myVehicle.getCarFollowModel().minNextSpeedEmergency(myVehicle.getSpeed(), &myVehicle);
+                    if (safe >= vMinEmergency) {
+                        // permit harder braking if needed and helpful
+                        min = MAX2(vMinEmergency, safe);
+                    }
+                }
 #ifdef DEBUG_PATCHSPEED
                 if (gDebugFlag2) {
                     std::cout << SIMTIME << " veh=" << myVehicle.getID() << " slowing down for leading blocker, safe=" << safe << (safe + NUMERICAL_EPS < min ? " (not enough)" : "") << "\n";
@@ -1269,14 +1276,15 @@ MSLCM_SL2015::_wantsChangeSublane(
         // letting vehicles merge in at the end of the lane in case of counter-lane change, step#1
         //   if there is a leader and he wants to change to the opposite direction
         MSVehicle* neighLeadLongest = const_cast<MSVehicle*>(getLongest(neighLeaders).first);
-        bool canReserve = MSLCHelper::saveBlockerLength(myVehicle, neighLeadLongest, lcaCounter, myLeftSpace, myLeadingBlockerLength);
+        const bool canContinue = curr.bestContinuations.size() > 1;
+        bool canReserve = MSLCHelper::saveBlockerLength(myVehicle, neighLeadLongest, lcaCounter, myLeftSpace, canContinue, myLeadingBlockerLength);
         if (*firstBlocked != neighLeadLongest) {
-            canReserve &= MSLCHelper::saveBlockerLength(myVehicle, *firstBlocked, lcaCounter, myLeftSpace, myLeadingBlockerLength);
+            canReserve &= MSLCHelper::saveBlockerLength(myVehicle, *firstBlocked, lcaCounter, myLeftSpace, canContinue, myLeadingBlockerLength);
         }
         if (!canReserve && !isOpposite()) {
             // we have a low-priority relief connection
             // std::cout << SIMTIME << " veh=" << myVehicle.getID() << " cannotReserve for blockers\n";
-            myDontBrake = curr.bestContinuations.size() > 1;
+            myDontBrake = canContinue;
         }
 
         std::vector<CLeaderDist> collectLeadBlockers;
@@ -3725,11 +3733,16 @@ MSLCM_SL2015::wantsKeepRight(double keepRightProb) const {
     return keepRightProb * myKeepRightParam > MAX2(myChangeProbThresholdRight, mySpeedGainProbabilityLeft);
 }
 
+
 double
-MSLCM_SL2015::saveBlockerLength(double length) {
+MSLCM_SL2015::saveBlockerLength(double length, double foeLeftSpace) {
     const bool canReserve = MSLCHelper::canSaveBlockerLength(myVehicle, length, myLeftSpace);
-    myLeadingBlockerLength = MAX2(length, myLeadingBlockerLength);
-    return canReserve;
+    if (canReserve || myLeftSpace > foeLeftSpace) {
+        myLeadingBlockerLength = MAX2(length, myLeadingBlockerLength);
+        return true;
+    } else {
+        return false;
+    }
 }
 
 /****************************************************************************/

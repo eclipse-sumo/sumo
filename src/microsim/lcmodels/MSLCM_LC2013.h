@@ -118,7 +118,7 @@ public:
 protected:
 
     /** helper function which contains the actual logic */
-    double _patchSpeed(const double min, const double wanted, const double max,
+    double _patchSpeed(double min, const double wanted, const double max,
                        const MSCFModel& cfModel);
 
     /// @brief helper function for doing the actual work
@@ -172,7 +172,7 @@ protected:
     void adaptSpeedToPedestrians(const MSLane* lane, double& v);
 
     /// @brief reserve space at the end of the lane to avoid dead locks
-    double saveBlockerLength(double length) override;
+    double saveBlockerLength(double length, double foeLeftSpace) override;
 
     inline bool amBlockingLeader() {
         return (myOwnState & LCA_AMBLOCKINGLEADER) != 0;

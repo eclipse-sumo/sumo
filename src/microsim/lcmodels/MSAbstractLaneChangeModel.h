@@ -497,7 +497,7 @@ public:
     void cleanupTargetLane();
 
     /// @brief reserve space at the end of the lane to avoid dead locks
-    virtual double saveBlockerLength(double length) {
+    virtual double saveBlockerLength(double length, double /*foeLeftSpace*/) {
         return length;
     }
 

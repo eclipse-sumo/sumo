@@ -217,7 +217,7 @@ MSLCHelper::getRoundaboutDistBonus(const MSVehicle& veh,
 
 
 bool
-MSLCHelper::saveBlockerLength(const MSVehicle& veh,  MSVehicle* blocker, int lcaCounter, double leftSpace, double& leadingBlockerLength) {
+MSLCHelper::saveBlockerLength(const MSVehicle& veh,  MSVehicle* blocker, int lcaCounter, double leftSpace, bool reliefConnection, double& leadingBlockerLength) {
 #ifdef DEBUG_SAVE_BLOCKER_LENGTH
     if (DEBUG_COND) {
         std::cout << SIMTIME
@@ -246,7 +246,8 @@ MSLCHelper::saveBlockerLength(const MSVehicle& veh,  MSVehicle* blocker, int lca
         } else {
             // we cannot save enough space for the blocker. It needs to save
             // space for ego instead
-            const bool canReserve = blocker->getLaneChangeModel().saveBlockerLength(veh.getVehicleType().getLengthWithGap());
+            const bool canReserve = blocker->getLaneChangeModel().saveBlockerLength(veh.getVehicleType().getLengthWithGap(), leftSpace);
+                    //reliefConnection ? std::numeric_limits<double>::max() : leftSpace);
 #ifdef DEBUG_SAVE_BLOCKER_LENGTH
             if (DEBUG_COND) {
                 std::cout << SIMTIME
@@ -259,6 +260,10 @@ MSLCHelper::saveBlockerLength(const MSVehicle& veh,  MSVehicle* blocker, int lca
                           << "\n";
             }
 #endif
+            if (!canReserve && !reliefConnection) {
+                // reserve anyway and try to avoid deadlock with emergency deceleration
+                leadingBlockerLength = MAX2(blocker->getVehicleType().getLengthWithGap(), leadingBlockerLength);
+            }
             return canReserve;
         }
     }
@@ -268,7 +273,10 @@ MSLCHelper::saveBlockerLength(const MSVehicle& veh,  MSVehicle* blocker, int lca
 
 bool
 MSLCHelper::canSaveBlockerLength(const MSVehicle& veh, double requested, double leftSpace) {
-    const double potential = leftSpace - veh.getCarFollowModel().brakeGap(veh.getSpeed(), veh.getCarFollowModel().getMaxDecel(), 0);
+    const double potential = leftSpace - veh.getCarFollowModel().brakeGap(veh.getSpeed(), veh.getCarFollowModel().getMaxDecel(), veh.getActionStepLength());
+#ifdef DEBUG_SAVE_BLOCKER_LENGTH
+    if (DEBUG_COND) std::cout << SIMTIME << " canSaveBlockerLength veh=" << veh.getID() << " requested=" << requested << " leftSpace=" << leftSpace << " potential=" << potential << "\n";
+#endif
     return potential >= requested;
 }
 

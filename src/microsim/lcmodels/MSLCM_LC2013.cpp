@@ -220,7 +220,7 @@ MSLCM_LC2013::patchSpeed(const double min, const double wanted, const double max
 
 
 double
-MSLCM_LC2013::_patchSpeed(const double min, const double wanted, const double max, const MSCFModel& cfModel) {
+MSLCM_LC2013::_patchSpeed(double min, const double wanted, const double max, const MSCFModel& cfModel) {
     int state = myOwnState;
 #ifdef DEBUG_PATCH_SPEED
     if (DEBUG_COND) {
@@ -251,6 +251,13 @@ MSLCM_LC2013::_patchSpeed(const double min, const double wanted, const double ma
             // if we are approaching this place
             if (safe < wanted) {
                 // return this speed as the speed to use
+                if (safe < min) {
+                    const double vMinEmergency = myVehicle.getCarFollowModel().minNextSpeedEmergency(myVehicle.getSpeed(), &myVehicle);
+                    if (safe >= vMinEmergency) {
+                        // permit harder braking if needed and helpful
+                        min = MAX2(vMinEmergency, safe);
+                    }
+                }
 #ifdef DEBUG_PATCH_SPEED
                 if (DEBUG_COND) {
                     std::cout << SIMTIME << " veh=" << myVehicle.getID() << " slowing down for leading blocker, safe=" << safe << (safe + NUMERICAL_EPS < min ? " (not enough)" : "") << "\n";
@@ -1440,14 +1447,15 @@ MSLCM_LC2013::_wantsChange(
 
         // letting vehicles merge in at the end of the lane in case of counter-lane change, step#1
         //   if there is a leader and he wants to change to the opposite direction
-        bool canReserve = MSLCHelper::saveBlockerLength(myVehicle, neighLead.first, lcaCounter, myLeftSpace, myLeadingBlockerLength);
+        const bool canContinue = curr.bestContinuations.size() > 1;
+        bool canReserve = MSLCHelper::saveBlockerLength(myVehicle, neighLead.first, lcaCounter, myLeftSpace, canContinue, myLeadingBlockerLength);
         if (*firstBlocked != neighLead.first) {
-            canReserve &= MSLCHelper::saveBlockerLength(myVehicle, *firstBlocked, lcaCounter, myLeftSpace, myLeadingBlockerLength);
+            canReserve &= MSLCHelper::saveBlockerLength(myVehicle, *firstBlocked, lcaCounter, myLeftSpace,  canContinue, myLeadingBlockerLength);
         }
         if (!canReserve && !isOpposite()) {
             // we have a low-priority relief connection
             // std::cout << SIMTIME << " veh=" << myVehicle.getID() << " cannotReserve for blockers\n";
-            myDontBrake = curr.bestContinuations.size() > 1;
+            myDontBrake = canContinue;
         }
 
         const int remainingLanes = MAX2(1, abs(bestLaneOffset));
@@ -1980,10 +1988,14 @@ MSLCM_LC2013::getOppositeSafetyFactor() const {
 }
 
 double
-MSLCM_LC2013::saveBlockerLength(double length) {
+MSLCM_LC2013::saveBlockerLength(double length, double foeLeftSpace) {
     const bool canReserve = MSLCHelper::canSaveBlockerLength(myVehicle, length, myLeftSpace);
-    myLeadingBlockerLength = MAX2(length, myLeadingBlockerLength);
-    return canReserve;
+    if (canReserve || myLeftSpace > foeLeftSpace) {
+        myLeadingBlockerLength = MAX2(length, myLeadingBlockerLength);
+        return true;
+    } else {
+        return false;
+    }
 }
 
 std::string
