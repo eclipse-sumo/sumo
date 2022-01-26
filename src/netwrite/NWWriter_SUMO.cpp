@@ -360,7 +360,8 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
                                                  successor.permissions & e->getPermissions(k.fromLane));
                 SVCPermissions changeLeft = k.changeLeft != SVC_UNSPECIFIED ? k.changeLeft : SVCAll;
                 SVCPermissions changeRight = k.changeRight != SVC_UNSPECIFIED ? k.changeRight : SVCAll;
-                const double width = n.isConstantWidthTransition() && e->getNumLanes() > k.toEdge->getNumLanes() ? e->getLaneWidth(k.fromLane) : successor.width;
+                const double width = (n.isConstantWidthTransition() && e->getNumLanes() > k.toEdge->getNumLanes()) || (
+                                        isBikepath(e->getPermissions(k.fromLane))) ? e->getLaneWidth(k.fromLane) : successor.width;
                 writeLane(into, k.getInternalLaneID(), k.vmax,
                           permissions, successor.preferred,
                           changeLeft, changeRight,
