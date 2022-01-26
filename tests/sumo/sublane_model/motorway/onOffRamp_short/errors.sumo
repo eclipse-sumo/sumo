@@ -1,8 +1,0 @@
-Warning: Teleporting vehicle 'f_0.1067'; waited too long (wrong lane), lane='E1_1', time=23463.00.
-Warning: Teleporting vehicle 'f_1.1123'; waited too long (wrong lane), lane='E1_0', time=23463.00.
-Warning: Vehicle 'f_1.1123' ends teleporting on edge 'E2', time=23463.00.
-Warning: Vehicle 'f_0.1067' ends teleporting on edge 'E4', time=23463.00.
-Warning: Teleporting vehicle 'f_1.4789'; waited too long (wrong lane), lane='E1_0', time=99133.00.
-Warning: Vehicle 'f_1.4789' ends teleporting on edge 'E2', time=99133.00.
-Warning: Teleporting vehicle 'f_1.4820'; waited too long (wrong lane), lane='E1_0', time=99588.00.
-Warning: Vehicle 'f_1.4820' ends teleporting on edge 'E2', time=99588.00.
