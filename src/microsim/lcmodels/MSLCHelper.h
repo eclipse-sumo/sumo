@@ -62,14 +62,14 @@ public:
      * @param[in] lcaCounter The lane change direction opposite to ego's current wish
      * @param[in] leftSpace The remaining distance that can be driving without lane change
      * @param[in,out] leadingBlockerLength: the length to reserve at the end of the lane
+     * @return Whether sufficient space has been reserved (by vehicle or blocker)
      */
-    static void saveBlockerLength(const MSVehicle& veh, MSVehicle* blocker, int lcaCounter, double leftSpace, double& leadingBlockerLength);
+    static bool saveBlockerLength(const MSVehicle& veh, MSVehicle* blocker, int lcaCounter, double leftSpace, double& leadingBlockerLength);
 
     /* @brief return saveable space 
      * @param[in] requested The space that should be saved for another vehicle
      * @param[in] leftSpace The remaining distance that can be driving without lane change
-     * @param[in] leadingBlockerLength: the length to has been reserved for other vehicles
-     * @return The space that can be reserved
+     * @return Whether the requested space can be reserved
      */
-    static double saveBlockerLength(double requested, double leftSpace, double leadingBlockerLength);
+    static bool canSaveBlockerLength(const MSVehicle& veh, double requested, double leftSpace);
 };

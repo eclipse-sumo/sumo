@@ -215,7 +215,7 @@ MSLCHelper::getRoundaboutDistBonus(const MSVehicle& veh,
 }
 
 
-void
+bool
 MSLCHelper::saveBlockerLength(const MSVehicle& veh,  MSVehicle* blocker, int lcaCounter, double leftSpace, double& leadingBlockerLength) {
 #ifdef DEBUG_SAVE_BLOCKER_LENGTH
     if (DEBUG_COND) {
@@ -245,8 +245,7 @@ MSLCHelper::saveBlockerLength(const MSVehicle& veh,  MSVehicle* blocker, int lca
         } else {
             // we cannot save enough space for the blocker. It needs to save
             // space for ego instead
-            const double reserved = blocker->getLaneChangeModel().saveBlockerLength(veh.getVehicleType().getLengthWithGap());
-            UNUSED_PARAMETER(reserved);
+            const bool canReserve = blocker->getLaneChangeModel().saveBlockerLength(veh.getVehicleType().getLengthWithGap());
 #ifdef DEBUG_SAVE_BLOCKER_LENGTH
             if (DEBUG_COND) {
                 std::cout << SIMTIME
@@ -255,19 +254,21 @@ MSLCHelper::saveBlockerLength(const MSVehicle& veh,  MSVehicle* blocker, int lca
                           << " cannot save space=" << blocker->getVehicleType().getLengthWithGap()
                           << " potential=" << potential
                           << " myReserved=" << leadingBlockerLength
-                          << " blockerReserves=" << reserved
+                          << " canReserve=" << canReserve
                           << "\n";
             }
 #endif
+            return canReserve;
         }
     }
+    return true;
 }
 
 
-double
-MSLCHelper::saveBlockerLength(double requested, double leftSpace, double leadingBlockerLength) {
-    UNUSED_PARAMETER(leftSpace);
-    return MAX2(requested, leadingBlockerLength);
+bool
+MSLCHelper::canSaveBlockerLength(const MSVehicle& veh, double requested, double leftSpace) {
+    const double potential = leftSpace - veh.getCarFollowModel().brakeGap(veh.getSpeed(), veh.getCarFollowModel().getMaxDecel(), 0);
+    return potential >= requested;
 }
 
 

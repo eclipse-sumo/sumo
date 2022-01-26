@@ -297,8 +297,8 @@ MSLCM_LC2013::_patchSpeed(const double min, const double wanted, const double ma
             }
         }
     }
-
-    if (gotOne && !myDontBrake) { // XXX: myDontBrake is initialized as false and seems not to be changed anywhere... What's its purpose???
+    // myDontBrake is used in counter-lane-change situations with relief connection
+    if (gotOne && !myDontBrake) {
 #ifdef DEBUG_PATCH_SPEED
         if (DEBUG_COND) {
             std::cout << SIMTIME << " veh=" << myVehicle.getID() << " got vSafe\n";
@@ -1440,10 +1440,14 @@ MSLCM_LC2013::_wantsChange(
 
         // letting vehicles merge in at the end of the lane in case of counter-lane change, step#1
         //   if there is a leader and he wants to change to the opposite direction
-        MSLCHelper::saveBlockerLength(myVehicle, neighLead.first, lcaCounter, myLeftSpace, myLeadingBlockerLength);
+        bool canReserve = MSLCHelper::saveBlockerLength(myVehicle, neighLead.first, lcaCounter, myLeftSpace, myLeadingBlockerLength);
         if (*firstBlocked != neighLead.first) {
-            MSLCHelper::saveBlockerLength(myVehicle, *firstBlocked, lcaCounter, myLeftSpace, myLeadingBlockerLength);
+            canReserve &= !MSLCHelper::saveBlockerLength(myVehicle, *firstBlocked, lcaCounter, myLeftSpace, myLeadingBlockerLength);
         }
+        //if (!canReserve) {
+        //    // we have a low-priority relief
+        //    myDontBrake = curr.bestContinuations.size() > 1;
+        //}
 
         const int remainingLanes = MAX2(1, abs(bestLaneOffset));
         const double urgency = isOpposite() ? OPPOSITE_URGENCY : URGENCY;
@@ -1976,8 +1980,9 @@ MSLCM_LC2013::getOppositeSafetyFactor() const {
 
 double
 MSLCM_LC2013::saveBlockerLength(double length) {
-    myLeadingBlockerLength = MSLCHelper::saveBlockerLength(length, myLeftSpace, myLeadingBlockerLength);
-    return myLeadingBlockerLength;
+    const bool canReserve = MSLCHelper::canSaveBlockerLength(myVehicle, length, myLeftSpace);
+    myLeadingBlockerLength = MAX2(length, myLeadingBlockerLength);
+    return canReserve;
 }
 
 std::string
