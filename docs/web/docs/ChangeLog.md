@@ -2,6 +2,15 @@
 title: ChangeLog
 ---
 
+## Git Main
+
+### Bugfixes
+
+### Enhancements
+
+- tools
+  - routeStats.py: Can use measures "speed", "speedKmh", "routeLength", the fast XML parser and filter by route length . Issue #10044
+
 ## Version 1.12.0 (25.01.2022)
 
 ### Bugfixes
