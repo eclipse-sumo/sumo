@@ -184,9 +184,6 @@ protected:
     /// @brief compute useful slowdowns for blocked vehicles
     int slowDownForBlocked(MSVehicle** blocked, int state);
 
-    /// @brief save space for vehicles which need to counter-lane-change
-    void saveBlockerLength(const MSVehicle* blocker, int lcaCounter);
-
     /// @brief reserve space at the end of the lane to avoid dead locks
     inline void saveBlockerLength(double length) override {
         myLeadingBlockerLength = MAX2(length, myLeadingBlockerLength);

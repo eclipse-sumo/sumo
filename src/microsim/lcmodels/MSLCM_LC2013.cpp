@@ -1440,9 +1440,9 @@ MSLCM_LC2013::_wantsChange(
 
         // letting vehicles merge in at the end of the lane in case of counter-lane change, step#1
         //   if there is a leader and he wants to change to the opposite direction
-        saveBlockerLength(neighLead.first, lcaCounter);
+        MSLCHelper::saveBlockerLength(myVehicle, neighLead.first, lcaCounter, myLeftSpace, myLeadingBlockerLength);
         if (*firstBlocked != neighLead.first) {
-            saveBlockerLength(*firstBlocked, lcaCounter);
+            MSLCHelper::saveBlockerLength(myVehicle, *firstBlocked, lcaCounter, myLeftSpace, myLeadingBlockerLength);
         }
 
         const int remainingLanes = MAX2(1, abs(bestLaneOffset));
@@ -1908,52 +1908,6 @@ MSLCM_LC2013::slowDownForBlocked(MSVehicle** blocked, int state) {
         }
     }
     return state;
-}
-
-
-void
-MSLCM_LC2013::saveBlockerLength(MSVehicle* blocker, int lcaCounter) {
-#ifdef DEBUG_SAVE_BLOCKER_LENGTH
-    if (DEBUG_COND) {
-        std::cout << SIMTIME
-                  << " veh=" << myVehicle.getID()
-                  << " saveBlockerLength blocker=" << Named::getIDSecure(blocker)
-                  << " bState=" << (blocker == 0 ? "None" : toString(blocker->getLaneChangeModel().getOwnState()))
-                  << "\n";
-    }
-#endif
-    if (blocker != nullptr && (blocker->getLaneChangeModel().getOwnState() & lcaCounter) != 0) {
-        // is there enough space in front of us for the blocker?
-        const double potential = myLeftSpace - myVehicle.getCarFollowModel().brakeGap(
-                                     myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel(), 0);
-        if (blocker->getVehicleType().getLengthWithGap() <= potential) {
-            // save at least his length in myLeadingBlockerLength
-            myLeadingBlockerLength = MAX2(blocker->getVehicleType().getLengthWithGap(), myLeadingBlockerLength);
-#ifdef DEBUG_SAVE_BLOCKER_LENGTH
-            if (DEBUG_COND) {
-                std::cout << SIMTIME
-                          << " veh=" << myVehicle.getID()
-                          << " blocker=" << Named::getIDSecure(blocker)
-                          << " saving myLeadingBlockerLength=" << myLeadingBlockerLength
-                          << "\n";
-            }
-#endif
-        } else {
-            // we cannot save enough space for the blocker. It needs to save
-            // space for ego instead
-#ifdef DEBUG_SAVE_BLOCKER_LENGTH
-            if (DEBUG_COND) {
-                std::cout << SIMTIME
-                          << " veh=" << myVehicle.getID()
-                          << " blocker=" << Named::getIDSecure(blocker)
-                          << " cannot save space=" << blocker->getVehicleType().getLengthWithGap()
-                          << " potential=" << potential
-                          << "\n";
-            }
-#endif
-            blocker->getLaneChangeModel().saveBlockerLength(myVehicle.getVehicleType().getLengthWithGap());
-        }
-    }
 }
 
 

@@ -212,5 +212,52 @@ MSLCHelper::getRoundaboutDistBonus(const MSVehicle& veh,
 }
 
 
+void
+MSLCHelper::saveBlockerLength(const MSVehicle& veh,  MSVehicle* blocker, int lcaCounter, double leftSpace, double& leadingBlockerLength) {
+#ifdef DEBUG_SAVE_BLOCKER_LENGTH
+    if (DEBUG_COND) {
+        std::cout << SIMTIME
+                  << " veh=" << veh.getID()
+                  << " saveBlockerLength blocker=" << Named::getIDSecure(blocker)
+                  << " bState=" << (blocker == 0 ? "None" : toString((LaneChangeAction)blocker->getLaneChangeModel().getOwnState()))
+                  << "\n";
+    }
+#endif
+    if (blocker != nullptr && (blocker->getLaneChangeModel().getOwnState() & lcaCounter) != 0) {
+        // is there enough space in front of us for the blocker?
+        const double potential = leftSpace - veh.getCarFollowModel().brakeGap(
+                                     veh.getSpeed(), veh.getCarFollowModel().getMaxDecel(), 0);
+        if (blocker->getVehicleType().getLengthWithGap() <= potential) {
+            // save at least his length in myLeadingBlockerLength
+            leadingBlockerLength = MAX2(blocker->getVehicleType().getLengthWithGap(), leadingBlockerLength);
+#ifdef DEBUG_SAVE_BLOCKER_LENGTH
+            if (DEBUG_COND) {
+                std::cout << SIMTIME
+                          << " veh=" << veh.getID()
+                          << " blocker=" << Named::getIDSecure(blocker)
+                          << " saving myLeadingBlockerLength=" << leadingBlockerLength
+                          << "\n";
+            }
+#endif
+        } else {
+            // we cannot save enough space for the blocker. It needs to save
+            // space for ego instead
+#ifdef DEBUG_SAVE_BLOCKER_LENGTH
+            if (DEBUG_COND) {
+                std::cout << SIMTIME
+                          << " veh=" << veh.getID()
+                          << " blocker=" << Named::getIDSecure(blocker)
+                          << " cannot save space=" << blocker->getVehicleType().getLengthWithGap()
+                          << " potential=" << potential
+                          << "\n";
+            }
+#endif
+            blocker->getLaneChangeModel().saveBlockerLength(veh.getVehicleType().getLengthWithGap());
+        }
+    }
+}
+
+
+
 
 /****************************************************************************/

@@ -168,9 +168,6 @@ protected:
     /// @brief anticipate future follow speed for the given leader
     double anticipateFollowSpeed(const std::pair<MSVehicle*, double>& leaderDist, double dist, double vMax, bool acceleratingLeader);
 
-    /// @brief save space for vehicles which need to counter-lane-change
-    void saveBlockerLength(MSVehicle* blocker, int lcaCounter);
-
     /// @brief react to pedestrians on the given lane
     void adaptSpeedToPedestrians(const MSLane* lane, double& v);
 
