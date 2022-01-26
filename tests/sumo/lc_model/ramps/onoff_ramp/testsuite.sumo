@@ -12,6 +12,10 @@
 2veh_cross_paths4
 
 # stress test with random 10000 vehicles weaving on a short on-off-ramp.
+# (see Issue #10028)
+short
+
+# stress test with random 10000 vehicles weaving on a short on-off-ramp.
 # Network has extra connection that should prevent deadlock.
 # (see Issue #10037)
 short_extraConnection
