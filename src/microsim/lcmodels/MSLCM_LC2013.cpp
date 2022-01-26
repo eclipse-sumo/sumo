@@ -1442,12 +1442,13 @@ MSLCM_LC2013::_wantsChange(
         //   if there is a leader and he wants to change to the opposite direction
         bool canReserve = MSLCHelper::saveBlockerLength(myVehicle, neighLead.first, lcaCounter, myLeftSpace, myLeadingBlockerLength);
         if (*firstBlocked != neighLead.first) {
-            canReserve &= !MSLCHelper::saveBlockerLength(myVehicle, *firstBlocked, lcaCounter, myLeftSpace, myLeadingBlockerLength);
+            canReserve &= MSLCHelper::saveBlockerLength(myVehicle, *firstBlocked, lcaCounter, myLeftSpace, myLeadingBlockerLength);
         }
-        //if (!canReserve) {
-        //    // we have a low-priority relief
-        //    myDontBrake = curr.bestContinuations.size() > 1;
-        //}
+        if (!canReserve && !isOpposite()) {
+            // we have a low-priority relief connection
+            // std::cout << SIMTIME << " veh=" << myVehicle.getID() << " cannotReserve for blockers\n";
+            myDontBrake = curr.bestContinuations.size() > 1;
+        }
 
         const int remainingLanes = MAX2(1, abs(bestLaneOffset));
         const double urgency = isOpposite() ? OPPOSITE_URGENCY : URGENCY;

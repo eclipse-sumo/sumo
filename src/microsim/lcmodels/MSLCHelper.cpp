@@ -32,6 +32,7 @@
 //#define DEBUG_SAVE_BLOCKER_LENGTH
 
 #define DEBUG_COND (veh.isSelected())
+//#define DEBUG_COND (true)
 
 
 // ===========================================================================
