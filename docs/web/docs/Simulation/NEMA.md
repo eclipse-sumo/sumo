@@ -2,7 +2,7 @@
 title: Traffic Lights with NEMA Phases
 ---
 
-The controller modules in [Traffic Lights](./Traffic_Lights.md) use a stage-based control structure. A phase is defined as a stage of all allowed movements at a time instance. However, traffic signal controllers used in North America widely use National Electrical Manufacturers Association (NEMA) phase definition. A NEMA phase is defined by a certain flow movement at an intersection. At one time, more than one NEMA phase could happen together as long as they do not conflict with each other. 
+The controller modules in [Traffic Lights](./Traffic_Lights.md) use a stage-based control structure. A phase is defined as a stage of all allowed movements at a time instance. However, traffic signal controllers used in North America widely use National Electrical Manufacturers Association (NEMA) phase definition. A NEMA phase is defined by a certain flow movement at an intersection. At one time, more than one NEMA phase could happen together as long as they do not conflict with each other.
 
 
 ![NEMA_phases.png](../images/NEMA_phases.png
@@ -14,7 +14,7 @@ SUMO now includes a controller module that is compatible with NEMA phases. The N
 
 # NEMA Phases
 
-We can visualize the NEMA phases and timings in Ring-and-Barrier structured NEMA diagrams. For one controller, only one phase from a ring can be activated at a time. Phases from different rings could be activated together as long as they are not from the different sides of a barrier. When a controller is operated in fixed-time control mode, we can model the NEMA phase timing as a corresponding stage-based control timing without any issues. When introducing actuation into the signal control, a Ring-and-Barrier structured traffic signal controller can be more flexible than stage-based controller by allowing different possible phase combinations. 
+We can visualize the NEMA phases and timings in Ring-and-Barrier structured NEMA diagrams. For one controller, only one phase from a ring can be activated at a time. Phases from different rings could be activated together as long as they are not from the different sides of a barrier. When a controller is operated in fixed-time control mode, we can model the NEMA phase timing as a corresponding stage-based control timing without any issues. When introducing actuation into the signal control, a Ring-and-Barrier structured traffic signal controller can be more flexible than stage-based controller by allowing different possible phase combinations.
 
 ![NEMA_diagram.png](../images/NEMA_diagram.png
 "NEMA_diagram.png")
@@ -23,9 +23,37 @@ Example: In the above NEMA diagram, we could see phase 1+5, 1+6, 2+6, 3+7, 3+8 a
 
 # Defining New NEMA phase timings
 
-You can load new definitions for NEMA-phase traffic controller as a part of an {{AdditionalFile}}. The signal timing could be updated in simulation through [TraCI functions](https://sumo.dlr.de/pydoc/traci._trafficlight.html#TrafficLightDomain-setNemaOffset). A definition of a traffic light program within an {{AdditionalFile}}
+You can load new definitions for NEMA-phase traffic controller as a part of an {{AdditionalFile}}. The signal timing could be updated in simulation through [TraCI functions](https://sumo.dlr.de/pydoc/traci._trafficlight.html#TrafficLightDomain-setNemaOffset). A definition of a traffic light program for a four-leg eight-phase intersection within an {{AdditionalFile}}
 looks like this:
 
+```
+<add>
+    <tlLogic id="2881" offset="0" programID="NEMA" type="NEMA" offset="10">
+        <param key="detector-length" value="20"/>
+        <param key="detector-length-leftTurnLane" value="10"/>
+        <param key="total-cycle-length" value="130"/>
+        <param key="ring1" value="3,4,1,2"/>
+        <param key="ring2" value="7,8,5,6"/>
+        <param key="barrierPhases" value="4,8"/>
+        <param key="coordinate-mode" value="true"/>
+        <param key="barrier2Phases" value="2,6"/>
+        <param key="minRecall" value="2,6"/>
+        <param key="maxRecall" value=""/>
+        <param key="whetherOutputState" value="true"/>
+        <param key="fixForceOff" value="false"/>
+        <phase duration="99" minDur="5"  maxDur="25" vehext="2" yellow="3" red="2" name="3" state="rrrrrrrrGrrr"/>
+        <phase duration="99" minDur="5"  maxDur="25" vehext="2" yellow="3" red="2" name="7" state="rrGrrrrrrrrr"/>
+        <phase duration="99" minDur="5" maxDur="30" vehext="2" yellow="3" red="2" name="4" state="GGrrrrrrrrrr"/>
+        <phase duration="99" minDur="5" maxDur="30" vehext="2" yellow="3" red="2" name="8" state="rrrrrrGGrrrr"/>
+        <phase duration="99" minDur="5"  maxDur="20" vehext="2" yellow="3" red="2" name="1" state="rrrrrGrrrrrr"/>
+        <phase duration="99" minDur="5"  maxDur="20" vehext="2" yellow="3" red="2" name="5" state="rrrrrrrrrrrG"/>
+        <phase duration="99" minDur="5"  maxDur="35" vehext="2" yellow="3" red="2" name="2" state="rrrrrrrrrGGr"/>
+        <phase duration="99" minDur="5"  maxDur="35" vehext="2" yellow="3" red="2" name="6" state="rrrGGrrrrrrr"/>
+    </tlLogic>
+</add>
+```
+
+For an intersection at a ramp, the traffic light program configuration could look like this:
 ```
 <add>
     <tlLogic id="2881" offset="0" programID="NEMA" type="NEMA" offset="10">
@@ -36,19 +64,23 @@ looks like this:
         <param key="ring2" value="0,4,0,6"/>
         <param key="barrierPhases" value="4,4"/>
         <param key="coordinate-mode" value="true"/>
-        <param key="barrier2Phases" value="2,6"/>     
-        <param key="minRecall" value="2,6"/>     
-        <param key="maxRecall" value=""/>     
+        <param key="barrier2Phases" value="2,6"/>
+        <param key="minRecall" value="2,6"/>
+        <param key="maxRecall" value=""/>
         <param key="whetherOutputState" value="true"/>
         <param key="fixForceOff" value="false"/>
 
-        <phase duration="99" minDur="6"  maxDur="16" vehext="2" yellow="4" red="1" name="1" state="grrrrrrGGrrr"/>
-        <phase duration="99" minDur="10" maxDur="67" vehext="2" yellow="4" red="1" name="2" state="grrrrrrrrGGG"/>
+        <phase duration="99" minDur="6"  maxDur="16" vehext="2" yellow="4" red="1" name="1" state="srrrrrrGGrrr"/>
+        <phase duration="99" minDur="10" maxDur="67" vehext="2" yellow="4" red="1" name="2" state="srrrrrrrrGGG"/>
         <phase duration="99" minDur="10" maxDur="22" vehext="2" yellow="3.5" red="1.5" name="4" state="GGGGGrrrrrrr"/>
-        <phase duration="99" minDur="10" maxDur="88" vehext="2" yellow="4" red="1" name="6" state="grrrrGGrrrrr"/>
+        <phase duration="99" minDur="10" maxDur="88" vehext="2" yellow="4" red="1" name="6" state="srrrrGGrrrrr"/>
     </tlLogic>
 </add>
 ```
+![NEMA_ramp_intersection.png](../images/NEMA_ramp_intersection.png
+"NEMA_ramp_intersection.png")
+
+Example: A ramp intersection which only has phases 1, 2, 4, and 6. Phase 4 controls the traffic from the off ramp.
 
 ## <tlLogic\> Attributes
 
