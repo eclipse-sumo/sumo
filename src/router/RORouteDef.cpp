@@ -95,9 +95,9 @@ RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router
                                    SUMOTime begin, const ROVehicle& veh) const {
     myNewRoute = false;
     const OptionsCont& oc = OptionsCont::getOptions();
+    const bool ignoreErrors = oc.getBool("ignore-errors");
     assert(myAlternatives[0]->getEdgeVector().size() > 0);
-    MsgHandler* mh = (OptionsCont::getOptions().getBool("ignore-errors") ?
-                      MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance());
+    MsgHandler* mh = ignoreErrors ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance();
     if (myAlternatives[0]->getFirst()->prohibits(&veh) && (!oc.getBool("repair.from")
             // do not try to reassign starting edge for trip input
             || myMayBeDisconnected || myAlternatives[0]->getEdgeVector().size() < 2)) {
@@ -131,8 +131,9 @@ RORouteDef::preComputeCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router
         }
         return;
     }
-    if (RouteCostCalculator<RORoute, ROEdge, ROVehicle>::getCalculator().skipRouteCalculation()
-            || OptionsCont::getOptions().getBool("remove-loops")) {
+    if ((RouteCostCalculator<RORoute, ROEdge, ROVehicle>::getCalculator().skipRouteCalculation()
+            || OptionsCont::getOptions().getBool("remove-loops"))
+            && (skipTripRouting || myAlternatives[myLastUsed]->isValid(veh, ignoreErrors))) {
         myPrecomputed = myAlternatives[myLastUsed];
     } else {
         // build a new route to test whether it is better
