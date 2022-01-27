@@ -180,9 +180,10 @@ departure which prevents all vehicles from driving blindly into the same
 jam and works pretty well empirically (for larger scenarios).
 
 The routes for this incremental assignment are computed using the
-[Automatic Routing / Routing
-Device](../Demand/Automatic_Routing.md) mechanism. Since this
-device allows for various configuration options, the script
+[Automatic Routing / Routing Device](../Demand/Automatic_Routing.md) mechanism. 
+It is also possible to enable periodic rerouting to allow increased reactivity to developing jams.
+
+Since automatic rerouting allows for various configuration options, the script
 [Tools/Assign\#one-shot.py](../Tools/Assign.md#one-shotpy) may be
 used to automatically try different parameter settings.
 
