@@ -521,4 +521,26 @@ MSTrafficLightLogic::getsMajorGreen(int linkIndex) const {
 
 }
 
+
+SUMOTime
+MSTrafficLightLogic::getCurrentMinDur() const {
+    return getCurrentPhaseDef().minDuration;
+}
+
+SUMOTime
+MSTrafficLightLogic::getCurrentMaxDur() const {
+    return getCurrentPhaseDef().maxDuration;
+}
+
+SUMOTime
+MSTrafficLightLogic::getCurrentEarliestEnd() const {
+    return getCurrentPhaseDef().earliestEnd;
+}
+
+SUMOTime
+MSTrafficLightLogic::getCurrentLatestEnd() const {
+    return getCurrentPhaseDef().latestEnd;
+}
+
+
 /****************************************************************************/
