@@ -573,7 +573,9 @@ MSActuatedTrafficLightLogic::trySwitch() {
         const double detectionGap = gapControl();
 #ifdef DEBUG_PHASE_SELECTION
         if (DEBUG_COND) {
-            std::cout << SIMTIME << " p=" << myStep << " trySwitch dGap=" << detectionGap << " multi=" << multiTarget << "\n";
+            std::cout << SIMTIME << " p=" << myStep
+                << " trySwitch dGap=" << (detectionGap == std::numeric_limits<double>::max() ? "inf" : toString(detectionGap))
+                << " multi=" << multiTarget << "\n";
         }
 #endif
         if (detectionGap < std::numeric_limits<double>::max() && !multiTarget && !myTraCISwitch) {
@@ -616,6 +618,13 @@ MSActuatedTrafficLightLogic::trySwitch() {
         }
     }
     // set the next event
+#ifdef DEBUG_PHASE_SELECTION
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " tl=" << getID() << " p=" << myStep
+            << " nextTryMinDur=" << STEPS2TIME(getCurrentPhaseDef().minDuration - actDuration)
+            << " nextTryEarliest=" << STEPS2TIME(getEarliest(prevStart)) << "\n";
+    }
+#endif
     return MAX3(TIME2STEPS(1), getCurrentPhaseDef().minDuration - actDuration, getEarliest(prevStart));
 }
 
