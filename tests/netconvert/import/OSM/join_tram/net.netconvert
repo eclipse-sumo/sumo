@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-15 10:41:51 by Eclipse SUMO netconvert Version v1_11_0+1177-eae070bf170
+<!-- generated on 2022-01-27 23:56:32 by Eclipse SUMO netconvert Version v1_12_0+0084-0d8fc346dad
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -2347,10 +2347,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":55043882_7_0" index="0" allow="pedestrian bicycle" speed="6.44" length="6.42" width="2.00" shape="2155.53,937.19 2154.34,936.27 2153.40,934.34 2152.96,931.61"/>
     </edge>
     <edge id=":55043882_2" function="internal">
-        <lane id=":55043882_2_0" index="0" allow="pedestrian bicycle" speed="4.69" length="4.54" shape="2154.96,931.50 2155.19,932.85 2155.71,933.80 2156.52,934.35 2157.61,934.50"/>
+        <lane id=":55043882_2_0" index="0" allow="pedestrian bicycle" speed="4.69" length="4.54" width="2.00" shape="2154.96,931.50 2155.19,932.85 2155.71,933.80 2156.52,934.35 2157.61,934.50"/>
     </edge>
     <edge id=":55043882_3" function="internal">
-        <lane id=":55043882_3_0" index="0" allow="pedestrian bicycle" speed="6.29" length="8.76" shape="2154.96,931.50 2154.83,934.26 2154.10,936.28 2152.76,937.54 2150.82,938.04"/>
+        <lane id=":55043882_3_0" index="0" allow="pedestrian bicycle" speed="6.29" length="8.76" width="2.00" shape="2154.96,931.50 2154.83,934.26 2154.10,936.28 2152.76,937.54 2150.82,938.04"/>
     </edge>
     <edge id=":55043882_4" function="internal">
         <lane id=":55043882_4_0" index="0" allow="pedestrian bicycle" speed="2.78" length="2.92" width="2.00" shape="2154.96,931.50 2154.50,932.27 2154.02,932.55 2153.50,932.33 2152.96,931.61"/>
