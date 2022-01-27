@@ -184,6 +184,9 @@ NEMALogic::init(NLDetectorBuilder& nb) {
         phaseExpectedDuration[i] = 0;
     }
 
+    // Make a temporary map of lane id to phase name
+    std::map<std::string, int> lane2Phase;
+
     //print to check
     //init minGreen, maxGreen, vehExt, red, and yellow
     for (MSPhaseDefinition* phase : myPhases) {
@@ -208,6 +211,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
         std::vector<std::string> laneIDs_vector;
         for (std::string laneID : laneIDs) {
             laneIDs_vector.push_back(laneID);
+            lane2Phase[laneID] = NEMAPhase;
         }
         phase2ControllerLanesMap[NEMAPhase] = laneIDs_vector;
 #ifdef DEBUG_NEMA
@@ -344,7 +348,11 @@ NEMALogic::init(NLDetectorBuilder& nb) {
                     //set the detector to be visible in gui
                     det->setVisible(myShowDetectors);
                 } else {
-                    std::string id = "TLS_" + myID + "_" + myProgramID + "_E2DetectorOnLane_" + lane->getID();
+                    int phaseNum = 0;
+                    if (lane2Phase.find(lane->getID()) != lane2Phase.end()){    
+                         phaseNumber = lane2Phase.find(lane->getID()) -> second;
+                    }
+                    std::string id = myID + "_" + myProgramID + "_D" + toString(phaseNumber) + "." + toString(lane->getIndex());
                     // std::cout << "The detectorID = " << id << std::endl;
                     //createE2Detector() method will lead to bad detector showing in sumo-gui
                     //so it is better to use build2Detector() rather than createE2Detector()
