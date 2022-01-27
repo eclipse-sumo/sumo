@@ -376,23 +376,23 @@ GUITrafficLightLogicWrapper::getCurrentDurationSeconds() const {
 
 int
 GUITrafficLightLogicWrapper::getCurrentMinDurSeconds() const {
-    return (int)STEPS2TIME(getActiveTLLogic()->getCurrentMinDur());
+    return (int)STEPS2TIME(getActiveTLLogic()->getMinDur());
 }
 
 int
 GUITrafficLightLogicWrapper::getCurrentMaxDurSeconds() const {
-    return (int)STEPS2TIME(getActiveTLLogic()->getCurrentMaxDur());
+    return (int)STEPS2TIME(getActiveTLLogic()->getMaxDur());
 }
 
 int
 GUITrafficLightLogicWrapper::getCurrentEarliestEndSeconds() const {
-    const SUMOTime earliestEnd = getActiveTLLogic()->getCurrentEarliestEnd();
+    const SUMOTime earliestEnd = getActiveTLLogic()->getEarliestEnd();
     return earliestEnd == MSPhaseDefinition::UNSPECIFIED_DURATION ? -1 : (int)STEPS2TIME(earliestEnd);
 }
 
 int
 GUITrafficLightLogicWrapper::getCurrentLatestEndSeconds() const {
-    const SUMOTime latestEnd = getActiveTLLogic()->getCurrentLatestEnd();
+    const SUMOTime latestEnd = getActiveTLLogic()->getLatestEnd();
     return latestEnd == MSPhaseDefinition::UNSPECIFIED_DURATION ? -1 : (int)STEPS2TIME(latestEnd);
 }
 

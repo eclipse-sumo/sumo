@@ -214,7 +214,7 @@ MSSimpleTrafficLightLogic::mapTimeInCycle(SUMOTime t) const {
 
 SUMOTime
 MSSimpleTrafficLightLogic::getEarliest(SUMOTime prevStart) const {
-    SUMOTime earliest = getCurrentPhaseDef().earliestEnd;
+    SUMOTime earliest = getEarliestEnd();
     if (earliest == MSPhaseDefinition::UNSPECIFIED_DURATION) {
         return 0;
     } else {
@@ -231,7 +231,7 @@ MSSimpleTrafficLightLogic::getEarliest(SUMOTime prevStart) const {
             }
 #endif
         } else {
-            SUMOTime latest = getCurrentPhaseDef().latestEnd;
+            SUMOTime latest = getLatestEnd();
             if (latest != MSPhaseDefinition::UNSPECIFIED_DURATION) {
                 const SUMOTime minRemaining = getCurrentPhaseDef().minDuration - (SIMSTEP - getCurrentPhaseDef().myLastSwitch);
                 const SUMOTime minEnd = getTimeInCycle() + minRemaining;
@@ -258,11 +258,11 @@ MSSimpleTrafficLightLogic::getEarliest(SUMOTime prevStart) const {
 
 SUMOTime
 MSSimpleTrafficLightLogic::getLatest() const {
-    const SUMOTime latest = getCurrentPhaseDef().latestEnd;
+    const SUMOTime latest = getLatestEnd();
     if (latest == MSPhaseDefinition::UNSPECIFIED_DURATION) {
         return SUMOTime_MAX; // no restriction
     } else {
-        if (latest < myPhases[myStep]->earliestEnd) {
+        if (latest < getEarliestEnd()) {
             const SUMOTime running = SIMSTEP - getCurrentPhaseDef().myLastSwitch;
             if (running < getTimeInCycle()) {
                 // phase was started in the current cycle so the restriction does not apply yet

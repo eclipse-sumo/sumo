@@ -523,23 +523,27 @@ MSTrafficLightLogic::getsMajorGreen(int linkIndex) const {
 
 
 SUMOTime
-MSTrafficLightLogic::getCurrentMinDur() const {
-    return getCurrentPhaseDef().minDuration;
+MSTrafficLightLogic::getMinDur(int step) const {
+    const MSPhaseDefinition& p = step < 0 ? getCurrentPhaseDef() : getPhase(step);
+    return p.minDuration;
 }
 
 SUMOTime
-MSTrafficLightLogic::getCurrentMaxDur() const {
-    return getCurrentPhaseDef().maxDuration;
+MSTrafficLightLogic::getMaxDur(int step) const {
+    const MSPhaseDefinition& p = step < 0 ? getCurrentPhaseDef() : getPhase(step);
+    return p.maxDuration;
 }
 
 SUMOTime
-MSTrafficLightLogic::getCurrentEarliestEnd() const {
-    return getCurrentPhaseDef().earliestEnd;
+MSTrafficLightLogic::getEarliestEnd(int step) const {
+    const MSPhaseDefinition& p = step < 0 ? getCurrentPhaseDef() : getPhase(step);
+    return p.earliestEnd;
 }
 
 SUMOTime
-MSTrafficLightLogic::getCurrentLatestEnd() const {
-    return getCurrentPhaseDef().latestEnd;
+MSTrafficLightLogic::getLatestEnd(int step) const {
+    const MSPhaseDefinition& p = step < 0 ? getCurrentPhaseDef() : getPhase(step);
+    return p.latestEnd;
 }
 
 

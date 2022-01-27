@@ -88,6 +88,11 @@ public:
     SUMOTime trySwitch();
     /// @}
 
+    SUMOTime getMinDur(int step = -1) const override;
+    SUMOTime getMaxDur(int step = -1) const override;
+    SUMOTime getEarliestEnd(int step = -1) const override;
+    SUMOTime getLatestEnd(int step = -1) const override;
+
     /// @name Changing phases and phase durations
     /// @{
 
@@ -122,6 +127,7 @@ public:
 
 protected:
     /// @brief initialize custom switching rules
+    void initAttributeOverride();
     void initSwitchingRules();
 
     struct InductLoopInfo {
@@ -208,7 +214,6 @@ protected:
             return det;
         }
     }
-
 
 protected:
     /// @brief A map from phase to induction loops to be used for gap control
