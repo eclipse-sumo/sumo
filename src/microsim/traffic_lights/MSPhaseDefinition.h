@@ -202,7 +202,7 @@ public:
         return (LinkState) myState[pos];
     }
 
-    inline bool isActuted() const {
+    inline bool isActuated() const {
         return minDuration != maxDuration || minDuration == OVERRIDE_DURATION;
     }
 
