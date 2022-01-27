@@ -644,7 +644,7 @@ public:
      * @return The width of the internal lane
      * @todo validity checks
      */
-    double NBEdge::getInternalLaneWidth(
+    double getInternalLaneWidth(
             const NBNode& node,
             const NBEdge::Connection& connection,
             const NBEdge::Lane& successor,
