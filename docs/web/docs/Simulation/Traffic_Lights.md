@@ -458,7 +458,10 @@ of `<tlLogic>` to define named expressions that can be referenced in other expre
 - condition id must be an alphanumeric string without spaces and without the ':'-character
 - value may be any expression which is permitted for 'earlyTarget' or 'finalTarget'
 
-Condition values can be [visualized](Traffic_Lights.md#track_phases) while the simulation is running. It may be useful to add extra conditions that are only used for debugging purposes.
+Condition values can be [visualized](Traffic_Lights.md#track_phases) while the simulation is running. By default all conditions are listed (if the corresponding visualization option is active). If many conditions are defined, it may be useful to list only a subset in the tracker window. For this purpose *either* one of the following `<param>`-definitions may be used as child element of the `<tlLogic>`:
+
+- `<param key="show-conditions" value="C1 C4"/>`: shows only the conditions with listed id.
+- `<param key="hide-conditions" value="C3 C4"/>`: shows only the conditions which are not listed
 
 #### Examples
 
