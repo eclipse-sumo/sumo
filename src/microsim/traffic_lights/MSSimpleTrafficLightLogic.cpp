@@ -218,7 +218,7 @@ MSSimpleTrafficLightLogic::getEarliest(SUMOTime prevStart) const {
     if (earliest == MSPhaseDefinition::UNSPECIFIED_DURATION) {
         return 0;
     } else {
-        if (prevStart >= SIMSTEP - getTimeInCycle()) {
+        if (prevStart >= SIMSTEP - getTimeInCycle() && prevStart < getCurrentPhaseDef().myLastEnd) {
             // phase was started and ended once already in the current cycle
             // it should not end a second time in the same cycle
             earliest += myDefaultCycleTime;
@@ -233,7 +233,8 @@ MSSimpleTrafficLightLogic::getEarliest(SUMOTime prevStart) const {
         } else {
             SUMOTime latest = getCurrentPhaseDef().latestEnd;
             if (latest != MSPhaseDefinition::UNSPECIFIED_DURATION) {
-                const SUMOTime minEnd = getTimeInCycle() + getCurrentPhaseDef().minDuration;
+                const SUMOTime minRemaining = getCurrentPhaseDef().minDuration - (SIMSTEP - getCurrentPhaseDef().myLastSwitch);
+                const SUMOTime minEnd = getTimeInCycle() + minRemaining;
                 if (latest > earliest && latest < minEnd) {
                     // cannot terminate phase between earliest and latest -> move end into next cycle
                     earliest += myDefaultCycleTime;
@@ -274,6 +275,10 @@ MSSimpleTrafficLightLogic::getLatest() const {
                 << " cycTime=" << STEPS2TIME(getTimeInCycle()) << " res=" << STEPS2TIME(latest - getTimeInCycle()) << "\n";
         }
 #endif
+        if (latest == myDefaultCycleTime && getTimeInCycle() == 0) {
+            // special case: end on cylce time wrap-around
+            return 0;
+        }
         return MAX2(SUMOTime(0), latest - getTimeInCycle());
     }
 }
