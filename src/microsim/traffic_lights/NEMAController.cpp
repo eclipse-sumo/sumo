@@ -348,7 +348,6 @@ NEMALogic::init(NLDetectorBuilder& nb) {
                     //set the detector to be visible in gui
                     det->setVisible(myShowDetectors);
                 } else {
-                    int phaseNum = 0;
                     if (lane2Phase.find(lane->getID()) != lane2Phase.end()){    
                          phaseNumber = lane2Phase.find(lane->getID()) -> second;
                     }
