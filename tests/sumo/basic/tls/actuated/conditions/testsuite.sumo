@@ -30,3 +30,6 @@ linkRed
 
 # ruggedization on encountering mathematical undefined expressions
 runtime_error
+
+# override minDur, maxDur, earliestEnd, latestEnd with conditions
+override_phaseAttrs
