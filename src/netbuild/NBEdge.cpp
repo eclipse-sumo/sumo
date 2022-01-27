@@ -3871,6 +3871,18 @@ NBEdge::getLaneWidth(int lane) const {
            : getLaneWidth() != UNSPECIFIED_WIDTH ? getLaneWidth() : SUMO_const_laneWidth;
 }
 
+double
+NBEdge::getInternalLaneWidth(
+    const NBNode& node,
+    const NBEdge::Connection& connection,
+    const NBEdge::Lane& successor,
+    bool isVia) const {
+    
+    return (!isVia && node.isConstantWidthTransition() && getNumLanes() > connection.toEdge->getNumLanes()) || (
+            isBikepath(getPermissions(connection.fromLane)) && (
+            getLaneWidth(connection.fromLane) < successor.width || successor.width == UNSPECIFIED_WIDTH)) ?
+            getLaneWidth(connection.fromLane) : successor.width; // e->getLaneWidth(k.fromLane) never returns -1 (UNSPECIFIED_WIDTH)
+}
 
 double
 NBEdge::getTotalWidth() const {
