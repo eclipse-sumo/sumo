@@ -88,6 +88,27 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
     myFile = FileHelpers::checkForRelativity(getParameter("file", "NUL"), basePath);
     myFreq = TIME2STEPS(StringUtils::toDouble(getParameter("freq", "300")));
     myVehicleTypes = getParameter("vTypes", "");
+
+    if (knowsParameter("hide-conditions")) {
+        if (getParameter("hide-conditions") != "all") {
+            std::vector<std::string> hidden = StringTokenizer(getParameter("hide-conditions", "")).getVector();
+            std::set<std::string> hiddenSet(hidden.begin(), hidden.end());
+            for (auto item : myConditions) {
+                if (hiddenSet.count(item.first) == 0) {
+                    myListedConditions.insert(item.first);
+                }
+            }
+        }
+    } else {
+        const bool showAll = getParameter("show-conditions", "all") == "all";
+        std::vector<std::string> shown = StringTokenizer(getParameter("show-conditions", "")).getVector();
+        std::set<std::string> shownSet(shown.begin(), shown.end());
+        for (auto item : myConditions) {
+            if (showAll || shownSet.count(item.first) != 0) {
+                myListedConditions.insert(item.first);
+            }
+        }
+    }
 }
 
 
@@ -1041,7 +1062,9 @@ std::map<std::string, double>
 MSActuatedTrafficLightLogic::getConditions() const {
     std::map<std::string, double> result;
     for (auto item : myConditions) {
-        result[item.first] = evalExpression(item.second);
+        if (myListedConditions.count(item.first) != 0) {
+            result[item.first] = evalExpression(item.second);
+        }
     }
     return result;
 }

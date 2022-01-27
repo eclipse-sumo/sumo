@@ -254,6 +254,10 @@ protected:
     /// @brief The custom switching conditions
     std::map<std::string, std::string> myConditions;
 
+
+    /// @brief the conditions which shall be listed in GUITLLogicPhasesTrackerWindow
+    std::set<std::string> myListedConditions;
+
     /// @brief whether the next switch time was requested via TraCI
     bool myTraCISwitch;
 
