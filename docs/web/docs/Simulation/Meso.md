@@ -211,7 +211,7 @@ differ somewhat:
     will be treated like `<edgeData>`-output.
   - [netstate-dump](../Simulation/Output/RawDump.md) will
     report vehicles as child elements of `<edge>` instead of `<lane>`.
-- Induction loops write attributes that are similar to meanData output
+- Induction loops write attributes that are similar to [`<edgeData>`-output](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md) output
 
 The following outputs are not supported:
 
