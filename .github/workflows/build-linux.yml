@@ -93,22 +93,6 @@ jobs:
         name: Linux-${{ matrix.compiler }}-${{ matrix.build_type }}
         path: sumo/bin
 
-    - name: Building FMU Compliance Checker
-      if: matrix.build_type == 'full'
-      run: |
-        git clone https://github.com/modelica-tools/FMUComplianceChecker.git fmuChecker
-        cd fmuChecker
-        mkdir build
-        cd build
-        cmake ..
-        make install test
-
-    - name: Checking sumo-fmi2.fmu
-      if: matrix.build_type == 'full'
-      run: |
-        cd sumo
-        ../fmuChecker/install/fmuCheck.linux64 bin/sumo-fmi2-linux64.fmu 
-
     - name: Uploading FMI 2.0 FMU artifacts
       if: matrix.build_type == 'full'
       uses: actions/upload-artifact@v1

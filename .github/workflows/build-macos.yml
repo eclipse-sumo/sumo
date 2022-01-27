@@ -79,22 +79,6 @@ jobs:
         name: macOS
         path: sumo/bin
 
-    - name: Building FMU Compliance Checker
-      run: |
-        # Runs only in Clang11 - minizip fails due to -Werror 
-        sudo xcode-select -s "/Applications/Xcode_11.7.app"
-        git clone --depth 1 https://github.com/modelica-tools/FMUComplianceChecker.git fmuChecker    
-        cd fmuChecker
-        mkdir build
-        cd build
-        cmake -Wno-dev .. 
-        cmake --build . --target install
-
-    - name: Checking sumo-fmi2.fmu
-      run: |
-        cd sumo
-        ../fmuChecker/install/fmuCheck.darwin64  bin/sumo-fmi2-darwin64.fmu    
-
     - name: Uploading FMI 2.0 FMU artifacts
       uses: actions/upload-artifact@v1
       with:
