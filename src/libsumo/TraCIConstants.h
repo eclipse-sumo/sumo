@@ -726,6 +726,9 @@ TRACI_CONST int VAR_LAST_INTERVAL_MEAN_HALTING_NUMBER = 0x20;
 // last interval vehicle count(get: e3)
 TRACI_CONST int VAR_LAST_INTERVAL_VEHICLE_NUMBER = 0x21;
 
+// last interval vehicle count(set, get: e1, e2)
+TRACI_CONST int VAR_VIRTUAL_DETECTION = 0x22;
+
 // last step person list (get: edges, vehicles)
 TRACI_CONST int LAST_STEP_PERSON_ID_LIST = 0x1a;
 
