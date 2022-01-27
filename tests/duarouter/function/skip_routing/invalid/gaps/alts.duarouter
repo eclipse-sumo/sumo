@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-27 07:55:24 by Eclipse SUMO duarouter Version v1_12_0+0057-06b42ce
+<!-- generated on 2022-01-27 08:19:14 by Eclipse SUMO duarouter Version v1_12_0+0058-fce0a9f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,8 +39,9 @@ SPDX-License-Identifier: EPL-2.0
         </routeDistribution>
     </vehicle>
     <vehicle id="left_gap" depart="0.00">
-        <routeDistribution last="0">
-            <route cost="108.11" probability="1.00000000" edges="beg beg2left left end rend"/>
+        <routeDistribution last="1">
+            <route cost="108.11" probability="0.50095601" edges="beg beg2left left end rend"/>
+            <route cost="125.90" probability="0.49904399" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="middle" depart="0.00">
@@ -50,7 +51,8 @@ SPDX-License-Identifier: EPL-2.0
     </vehicle>
     <vehicle id="middle_gap" depart="0.00">
         <routeDistribution last="0">
-            <route cost="107.91" probability="1.00000000" edges="beg middle rend"/>
+            <route cost="107.91" probability="0.50096726" edges="beg middle rend"/>
+            <route cost="125.90" probability="0.49903274" edges="beg middle end rend"/>
         </routeDistribution>
     </vehicle>
 </routes>
