@@ -240,10 +240,10 @@
 
     <xsd:complexType name="phaseType">
         <xsd:attribute name="duration" type="nonNegativeFloatType" use="required"/>
-        <xsd:attribute name="minDur" type="nonNegativeFloatType" use="optional"/>
-        <xsd:attribute name="maxDur" type="nonNegativeFloatType" use="optional"/>
-        <xsd:attribute name="earliestEnd" type="nonNegativeFloatType" use="optional"/>
-        <xsd:attribute name="latestEnd" type="nonNegativeFloatType" use="optional"/>
+        <xsd:attribute name="minDur" type="nonNegativeFloatTypeWithErrorValue" use="optional"/>
+        <xsd:attribute name="maxDur" type="nonNegativeFloatTypeWithErrorValue" use="optional"/>
+        <xsd:attribute name="earliestEnd" type="nonNegativeFloatTypeWithErrorValue" use="optional"/>
+        <xsd:attribute name="latestEnd" type="nonNegativeFloatTypeWithErrorValue" use="optional"/>
         <xsd:attribute name="earlyTarget" type="xsd:string" use="optional"/>
         <xsd:attribute name="finalTarget" type="xsd:string" use="optional"/>
         <xsd:attribute name="yellow" type="nonNegativeFloatType" use="optional"/>
