@@ -502,6 +502,35 @@ The default gap control logic, replicated with custom conditions. A complete sce
 
 !!! note
     The the expression 'z:D0.0' retrieves the detection gap of detector 'C_PI_D0.0' but the prefix 'C_PI_' may be omitted.
+    
+#### Overriding Phase Attributes with Expressions
+
+By default, the phase attributes 'minDur', 'maxDur', 'earliestEnd' and 'latestEnd' are defined numerically (or left undefined).
+It may be desireable to redefine these attributes with expressions (i.e. condition ids or condition values) for the following reasons:
+
+- the switching logic may be expressed more succinctly if these values can change dynamically during the signals operation
+- the phase definitions shall be reused for multiple programs and all variability shall be expressed in table of constants (defined via `<conditions>`s)
+
+To override these attributes, their value in the `<phase>` must be defined as `-1`. For each phase and attribute a corresponding condition must be defined with the `id = <ATTRNAME>:<PHASEINDEX>` as in the example below:
+
+```
+<tlLogic id="C" type="actuated" programID="P1" offset="0">
+        <phase duration="33" state="GgrrGgrr" minDur="10" maxDur="65" name="NS"/>
+        <phase duration="3"  state="ygrrygrr" earlyTarget="NS"/>
+        <phase duration="6"  state="rGrrrGrr" minDur="10" maxDur="65" name="NSL"/>
+        <phase duration="3"  state="ryrrryrr" earlyTarget="NSL"/>
+        <phase duration="33" state="rrGgrrGg" minDur="-1" maxDur="-1" name="EW" earliestEnd="-1" latestEnd="-1"/>
+        <phase duration="3"  state="rrygrryg" earlyTarget="EW"/>
+        <phase duration="6"  state="rrrGrrrG" minDur="10" maxDur="65" name="EWL"/>
+        <phase duration="3"  state="rrryrrry" earlyTarget="EWL"/>
+
+        <condition id="minDur:4"      value="10"/>
+        <condition id="maxDur:4"      value="65"/>
+        <condition id="earliestEnd:4" value="60"/>
+        <condition id="latestEnd:4"   value="80"/>
+
+    </tlLogic>
+```
 
 ### Visualization
 By setting the sumo option **--tls.actuated.show-detectors** the default visibility of detectors can be
