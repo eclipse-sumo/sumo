@@ -227,13 +227,11 @@ for logic in allLogics:
         for l in range(0, len(linkMap)):
             index = logic.links2index[linkMap[l]]
             d = logic.defs[index]
-            if d[i] == 'r':
-                state = state + "r"
-            elif d[i] == 'y' or d[i] == 'a':
+            if d[i] in 'rgyoOus':
+                state = state + d[i]
+            elif d[i] == 'a':
                 state = state + "y"
-            elif d[i] == 'g':
-                state = state + "g"
-            elif d[i] == 'o' or d[i] == 'x':
+            elif d[i] == 'x':
                 state = state + "o"
             else:
                 sys.stderr.write(
