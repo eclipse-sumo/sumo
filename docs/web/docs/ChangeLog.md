@@ -6,10 +6,40 @@ title: ChangeLog
 
 ### Bugfixes
 
+- Simulation
+  - Fixed deadlock at on-off-ramp despite relief connection. Issue #10037 (regression in 1.6.0)
+  - Fixed preventable deadlock in weaving situation by applying stronger braking. Issue #10028
+  - Fixed lane-changing related deadlock in sublane simulation. Issue #10054
+  - Fixed invalid switching for actuated traffic light in coordinated mode. Issue #10055
+  - Fixed failure to overtake extremely long vehicle. Issue #10060
+
+- netconvert
+  - Fixed crash when using option **--railway.topology.extend-priority**. Issue #10043
+  - Fixed platform dependency in OpenDRIVE export. Issue #10030
+  - Internal bicycle lanes which originate from a narrow bicycle lane are now narrow themselves. Issue  #10051
+
+- netedit
+  - Fixed invalid junction color after creating a trip (from/to). Issue #9980 (regression in 1.12.0)
+  
+- duarouter
+  - route errors are now detected when using option **--skip-new-routes**. Issue #6113
+
 ### Enhancements
+
+- Simulation
+  - The default lateral alignment of bicycles is now "right" instead of "center". Issue #9959
+  - Traffic light type 'NEMA' now supports TS1 and TS2 offsets as well as Type 170. Issue #10013
+  - Phase attributes 'minDur, maxDur, earliestEnd, latestEnd' can now be [overridden with condition-expressions](Simulation/Traffic_Lights.md#overriding_phase_attributes_with_expressions). Issue #10047
+
+- sumo-gui
+  - Enabled dpi awareness. Issue #9985
+  - Traffic light type 'actuated' now supports parameters 'show-conditions' and 'hide-conditions' to customize visulization in the [Phase Tracker Window](Simulation/Traffic_Lights.md#track_phases) Issue #10046
 
 - tools
   - routeStats.py: Can use measures "speed", "speedKmh", "routeLength", the fast XML parser and filter by route length . Issue #10044
+  - tls_csv2SUMO.py now supports the same signal states as the simulation. Issue #10063
+
+
 
 ## Version 1.12.0 (25.01.2022)
 
