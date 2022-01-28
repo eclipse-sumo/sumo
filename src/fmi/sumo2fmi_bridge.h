@@ -64,6 +64,7 @@ typedef struct {
 } ModelInstance;
 
 /* Declarations of utility functions */
+void        sumo2fmi_logEvent(ModelInstance* comp, const char* message, ...);
 void        sumo2fmi_logError(ModelInstance* comp, const char* message, ...);
 void        sumo2fmi_logMessage(ModelInstance* comp, int status, const char* category, const char* message, va_list args);
 

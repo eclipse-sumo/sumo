@@ -175,7 +175,9 @@ fmi2Status
 fmi2ExitInitializationMode(fmi2Component c) {
     ModelInstance *comp = (ModelInstance *)c;
 
+    sumo2fmi_logEvent(comp, "Calling libsumo with the following options: \"%s\"", comp->libsumoCallOptions);
     libsumo_load(comp->libsumoCallOptions);
+
     return fmi2OK;
 }
 

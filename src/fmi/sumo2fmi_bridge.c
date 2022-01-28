@@ -62,8 +62,22 @@ sumo2fmi_set_startValues(ModelInstance *comp) {
 }
 
 void
+sumo2fmi_logEvent(ModelInstance *comp, const char *message, ...) {
+    if (!comp->logEvents) {
+        return;
+    }
+
+    va_list args;
+    va_start(args, message);
+    sumo2fmi_logMessage(comp, fmi2OK, "logEvents", message, args);
+    va_end(args);
+}
+
+void
 sumo2fmi_logError(ModelInstance *comp, const char *message, ...) {
-    if (!comp->logErrors) return;
+    if (!comp->logErrors) {
+        return;
+    }
 
     va_list args;
     va_start(args, message);
