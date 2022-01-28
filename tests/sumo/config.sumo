@@ -52,6 +52,7 @@ tls_state_switch:tls_state_switch.xml
 tls_program:tls_program.xml
 physstates:physstates.xml
 cfg:config.cfg
+cfg:data/config.cfg
 fcd:fcd.xml
 full:full.xml
 vtk:vtk.txt
