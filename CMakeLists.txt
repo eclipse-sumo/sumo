@@ -414,6 +414,13 @@ if (MSVC)
     if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
         set(CMAKE_INSTALL_PREFIX "sumo-${PACKAGE_VERSION}")
     endif()
+    install(DIRECTORY bin/ DESTINATION bin
+            FILES_MATCHING
+            PATTERN "*.bat"
+            PATTERN "*.dll"
+            PATTERN "*d.dll" EXCLUDE
+            PATTERN "gtest*.dll" EXCLUDE
+            PATTERN "FOXDLLD-1.6.dll" EXCLUDE)
 else ()
     include(GNUInstallDirs)
 endif ()
@@ -426,13 +433,6 @@ if (SKBUILD)
     set(EXCLUDE_LIBSUMO "libsumo")
     set(EXCLUDE_LIBTRACI "libtraci")
 endif ()
-install(DIRECTORY bin/ DESTINATION bin
-        FILES_MATCHING
-        PATTERN "*.bat"
-        PATTERN "*.dll"
-        PATTERN "*d.dll" EXCLUDE
-        PATTERN "gtest*.dll" EXCLUDE
-        PATTERN "FOXDLLD-1.6.dll" EXCLUDE)
 install(DIRECTORY data/ DESTINATION ${DATA_PATH}data)
 install(DIRECTORY tools/ DESTINATION ${DATA_PATH}tools
         USE_SOURCE_PERMISSIONS
