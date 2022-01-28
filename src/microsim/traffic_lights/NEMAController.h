@@ -347,6 +347,7 @@ protected:
     std::map<int, std::vector<std::string>> phase2ControllerLanesMap;
 
     bool whetherOutputState;
+    bool ignoreErrors;
 
     std::string currentState;
     std::string currentR1State;

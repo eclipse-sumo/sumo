@@ -74,6 +74,7 @@ NEMALogic::NEMALogic(MSTLLogicControl& tlcontrol,
     ring1 = getParameter("ring1", "");
     ring2 = getParameter("ring2", "");
     myCabinetType = parseCabinetType(getParameter("cabinetType", "Type170"));
+    ignoreErrors = StringUtils::toBool(getParameter("ignore-errors", "false"));
 
     std::vector<int> VecMinRecall = readParaFromString(getParameter("minRecall", "1,2,3,4,5,6,7,8"));
     for (int i = 0; i < (int)VecMinRecall.size(); i++) {
@@ -155,9 +156,22 @@ NEMALogic::NEMALogic(MSTLLogicControl& tlcontrol,
     }
 
     // Construct the Cross Mapping
-    for (auto const& phaseDetectInfo : phase2DetectorMap) {
+    for (auto &phaseDetectInfo : phase2DetectorMap) {
         if (phaseDetectInfo.second.cpdSource > 0) {
-            phase2DetectorMap.find(phaseDetectInfo.second.cpdSource) -> second.cpdTarget = phaseDetectInfo.first;
+            // WRITE_WARNING(error);
+            // TODO: Handle 
+            if (phase2DetectorMap.find(phaseDetectInfo.second.cpdSource) != phase2DetectorMap.end()){    
+                phase2DetectorMap.find(phaseDetectInfo.second.cpdSource) -> second.cpdTarget = phaseDetectInfo.first;
+            } else {
+                phaseDetectInfo.second.cpdSource = 0;
+                std::string msg = "At NEMA tlLogic '" + getID() + "', the cross phase switching for phase " + toString(phaseDetectInfo.first) 
+                                    + " is not enabled because phase " + toString(phaseDetectInfo.second.cpdSource) + " does not exist"; 
+                if (!ignoreErrors){
+                    throw ProcessError(msg);
+                } else {
+                    WRITE_WARNING(msg)
+                }
+            }
         }
     }
 
@@ -586,7 +600,6 @@ NEMALogic::init(NLDetectorBuilder& nb) {
 
 void
 NEMALogic::validate_timing() {
-    const bool ignoreErrors = StringUtils::toBool(getParameter("ignore-errors", "false"));
     //check cycle length
     for (int ringIndex = 0; ringIndex <= 1; ringIndex++){
         // TS2 Force Offs don't go in order, so using a different method to check cycle time
