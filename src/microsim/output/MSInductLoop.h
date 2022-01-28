@@ -215,6 +215,10 @@ public:
     //@}
 
 
+    /* @brief Persistently overrides the measured time since detection with the given value. 
+     * Setting a negative value resets the override
+     */
+    void overrideTimeSinceDetection(double time);
 
     /// @name Methods inherited from MSDetectorFileOutput.
     /// @{
@@ -326,6 +330,9 @@ protected:
 
     /// @brief Leave-time of the last vehicle detected [s]
     double myLastLeaveTime;
+
+    /// @brief overrides the time since last detection
+    double myOverrideTime;
 
     /// @brief The number of entered vehicles
     int myEnteredVehicleNumber;
