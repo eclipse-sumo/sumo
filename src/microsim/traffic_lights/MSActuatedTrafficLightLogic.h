@@ -47,6 +47,11 @@ class NLDetectorBuilder;
  */
 class MSActuatedTrafficLightLogic : public MSSimpleTrafficLightLogic {
 public:
+
+    typedef std::map<std::string, std::string> ConditionMap;
+    typedef std::vector<std::tuple<std::string, std::string, std::string> > AssignmentMap;
+
+
     /** @brief Constructor
      * @param[in] tlcontrol The tls control responsible for this tls
      * @param[in] id This tls' id
@@ -63,7 +68,8 @@ public:
                                 int step, SUMOTime delay,
                                 const std::map<std::string, std::string>& parameter,
                                 const std::string& basePath,
-                                const std::map<std::string, std::string>& conditions = std::map<std::string, std::string>());
+                                const ConditionMap& conditions = ConditionMap(),
+                                const AssignmentMap& assignments = AssignmentMap());
 
 
     /** @brief Initialises the tls with information about incoming lanes
@@ -257,7 +263,10 @@ protected:
     std::vector<SUMOTime> myLinkMinGreenTimes;
 
     /// @brief The custom switching conditions
-    std::map<std::string, std::string> myConditions;
+    ConditionMap myConditions;
+
+    /// @brief The condition assignments
+    AssignmentMap myAssignments;
 
 
     /// @brief the conditions which shall be listed in GUITLLogicPhasesTrackerWindow

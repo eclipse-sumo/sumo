@@ -118,6 +118,9 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_CONDITION:
                 addCondition(attrs);
                 break;
+            case SUMO_TAG_ASSIGNMENT:
+                addAssignment(attrs);
+                break;
             case SUMO_TAG_CONNECTION:
                 addConnection(attrs);
                 break;
@@ -868,6 +871,16 @@ NLHandler::addCondition(const SUMOSAXAttributes& attrs) {
     if (!myJunctionControlBuilder.addCondition(id, value)) {
         WRITE_ERROR("Duplicate condition '" + id + "' in tlLogic '" + myJunctionControlBuilder.getActiveKey() + "'");
     }
+}
+
+
+void
+NLHandler::addAssignment(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
+    const std::string check = attrs.get<std::string>(SUMO_ATTR_CHECK, nullptr, ok);
+    const std::string value = attrs.get<std::string>(SUMO_ATTR_VALUE, id.c_str(), ok);
+    myJunctionControlBuilder.addAssignment(id, check, value);
 }
 
 
