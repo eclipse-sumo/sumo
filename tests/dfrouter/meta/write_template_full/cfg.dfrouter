@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 25 09:47:03 2021 by Eclipse SUMO dfrouter Version v1_8_0+1823-4a64b80d86
+<!-- generated on 2022-01-28 11:30:18 by Eclipse SUMO dfrouter Version v1_12_0+0087-1185162ac9e
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd">
@@ -8,6 +8,7 @@
     <configuration>
         <configuration-file value="" synonymes="c configuration" type="FILE" help="Loads the named config on startup"/>
         <save-configuration value="" synonymes="C save-config" type="FILE" help="Saves current configuration into FILE"/>
+        <save-configuration.relative value="false" synonymes="save-config.relative" type="BOOL" help="Enforce relative paths when saving the configuration"/>
         <save-template value="" type="FILE" help="Saves a configuration template (empty) into FILE"/>
         <save-schema value="" type="FILE" help="Saves the configuration schema into FILE"/>
         <save-commented value="false" synonymes="save-template.commented" type="BOOL" help="Adds comments to saved template, configuration, or schema"/>
