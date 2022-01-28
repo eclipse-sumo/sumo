@@ -455,8 +455,8 @@ of `<tlLogic>` to define named expressions that can be referenced in other expre
    ...
 ```
 
-- condition id must be an alphanumeric string without spaces and without the ':'-character
-- value may be any expression which is permitted for 'earlyTarget' or 'finalTarget'
+- **id** must be an alphanumeric string without spaces and without the ':'-character
+- **value** may be any expression which is permitted for 'earlyTarget' or 'finalTarget'
 
 Condition values can be [visualized](Traffic_Lights.md#track_phases) while the simulation is running. By default all conditions are listed (if the corresponding visualization option is active). If many conditions are defined, it may be useful to list only a subset in the tracker window. For this purpose *either* one of the following `<param>`-definitions may be used as child element of the `<tlLogic>`:
 
@@ -531,6 +531,30 @@ To override these attributes, their value in the `<phase>` must be defined as `-
 
     </tlLogic>
 ```
+
+#### Storing and modifying custom data
+
+The `<condition>` elements described above can be used to define complex expressions as well as numerical constants that control program operation.
+It may sometimes be useful to store and modify numerical values that persist over consecutive invocations of the control logic. To this end the element `<assignment>`  may be used as a child element of `<tlLogic>` to define conditional assignment of new values to [named expressions](#named_expressions):
+
+```
+<tlLogic id="example" type="actuated" ...>
+
+        <condition id="NS" value="0"/>
+        <condition id="nSw" value="0"/>
+
+        <assignment id="nSw" check="1" value="nSw + 1"/>
+        <assignment id="NS"  check="1" value="0"/>    
+        <assignment id="NS"  check="z:D0.0 > 3 and z:D2.0 > 3" value="1"/>
+   ...
+</tlLogic>
+```
+
+- **id** must be the id of a condition element
+- **check** may be any expression which is permitted for condition values
+- **value** may be any expression which is permitted for conditions values
+
+Every time the control logic is executed, all `assignment`s are executed in the order they are defined: If the the 'check'-expression evaluates to true (a non-0 value), the value of the condition with 'id' will be set to the result of evaluating the 'value'-expression.
 
 ### Visualization
 By setting the sumo option **--tls.actuated.show-detectors** the default visibility of detectors can be
