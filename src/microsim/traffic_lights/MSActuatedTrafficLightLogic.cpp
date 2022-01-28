@@ -615,6 +615,12 @@ MSActuatedTrafficLightLogic::trySwitch() {
     // @note any vehicles which arrived during the previous phases which are now waiting between the detector and the stop line are not
     // considere here. RiLSA recommends to set minDuration in a way that lets all vehicles pass the detector
     SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
+    for (const auto& assignment : myAssignments) {
+        if (evalExpression(std::get<1>(assignment))) {
+            myConditions[std::get<0>(assignment)] = toString(evalExpression(std::get<2>(assignment)));
+        }
+    }
+
     if (myLinkGreenTimes.size() > 0) {
         // constraints exist, record green time durations for each link
         const std::string& state = getCurrentPhaseDef().getState();
