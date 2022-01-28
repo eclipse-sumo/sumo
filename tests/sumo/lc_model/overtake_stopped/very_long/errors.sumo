@@ -1,4 +1,0 @@
-Warning: Teleporting vehicle 'f.0'; waited too long (wrong lane), lane='1f2_1', time=384.00.
-Warning: Vehicle 'f.0' teleports beyond arrival edge '1f2', time=384.00.
-Warning: Teleporting vehicle 'f.2'; waited too long (wrong lane), lane='1f2_1', time=385.00.
-Warning: Vehicle 'f.2' teleports beyond arrival edge '1f2', time=385.00.
