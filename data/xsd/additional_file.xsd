@@ -603,6 +603,7 @@
             <xsd:element name="phase" type="phaseType"/>
             <xsd:element name="param" type="paramType"/>
             <xsd:element name="condition" type="conditionType"/>
+            <xsd:element name="assignment" type="assignmentType"/>
         </xsd:choice>
         <xsd:attribute name="id" type="idType" use="required"/>
         <xsd:attribute name="type" type="tlTypeType" use="optional"/>

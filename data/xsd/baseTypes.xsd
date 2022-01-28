@@ -222,6 +222,7 @@
             <xsd:element name="phase" type="phaseType"/>
             <xsd:element name="param" type="paramType"/>
             <xsd:element name="condition" type="conditionType"/>
+            <xsd:element name="assignment" type="assignmentType"/>
         </xsd:choice>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="type" type="tlTypeType" use="optional"/>
@@ -269,6 +270,12 @@
 
     <xsd:complexType name="conditionType">
         <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="assignmentType">
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
+        <xsd:attribute name="check" type="xsd:string" use="required"/>
         <xsd:attribute name="value" type="xsd:string" use="required"/>
     </xsd:complexType>
 
