@@ -28,9 +28,12 @@
 
 #include <iostream>
 #include <algorithm>
+#include <utils/common/FileHelpers.h>
 #include <utils/common/StringTokenizer.h>
-#include <utils/geom/GeomHelper.h>
 #include <utils/common/StringUtils.h>
+#include <utils/geom/GeoConvHelper.h>
+#include <utils/geom/GeomHelper.h>
+#include <utils/geom/Position.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/vehicle/SUMOVehicle.h>
@@ -43,8 +46,6 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSJunctionControl.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
-#include <utils/geom/Position.h>
-#include <utils/geom/GeoConvHelper.h>
 #include "MSDevice_SSM.h"
 
 // ===========================================================================

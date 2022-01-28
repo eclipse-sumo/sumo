@@ -26,7 +26,7 @@
 #include <cmath>
 #include <string>
 #include <utils/common/StdDefs.h>
-#include <utils/common/FileHelpers.h>
+#include <utils/common/SUMOTime.h>
 
 #define INVALID_SPEED 299792458 + 1 // nothing can go faster than the speed of light!
 // Factor that the minimum emergency decel is increased by in corresponding situations

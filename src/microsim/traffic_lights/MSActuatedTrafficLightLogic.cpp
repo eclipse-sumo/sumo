@@ -27,16 +27,16 @@
 #include <utility>
 #include <vector>
 #include <bitset>
+#include <utils/common/FileHelpers.h>
+#include <utils/common/StringUtils.h>
+#include <utils/common/StringTokenizer.h>
 #include <microsim/output/MSInductLoop.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSNet.h>
-#include "MSTrafficLightLogic.h"
-#include "MSActuatedTrafficLightLogic.h"
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <netload/NLDetectorBuilder.h>
-#include <utils/common/StringUtils.h>
-#include <utils/common/StringTokenizer.h>
+#include "MSActuatedTrafficLightLogic.h"
 
 //#define DEBUG_DETECTORS
 //#define DEBUG_PHASE_SELECTION
