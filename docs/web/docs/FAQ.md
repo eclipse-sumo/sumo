@@ -873,6 +873,16 @@ The best course of action typically is to observe the simulation using
 [sumo-gui](sumo-gui.md) and figure out where the first jam
 develops.
 
+### Two vehicles want to change lanes in opposite directions and are blocking each other. How to prevent this?
+
+Drivers are highly conscious of strategic lane choice requirements and try to change onto the needed lane well in advance.
+There are several reasons why a counter-lane-change-deadlock can happen:
+
+- Vehicles are unable to enter the desired lane because the connection layout at preceeding junctions prevents it. This can be fixed by closely examining the connections ahead of the deadlock.
+- Vehicles are inserted on the wrong lane close to an intersection where they need to change lanes. To fix this, set the vehicle attribute `departLane="best"`
+- Vehicle streams must perform at weaving maneuver where they are forced to change lanes with limited space to do so. This often occurs at motorway ramps that compbine an on-ramp with an off-ramp with little distance in between. The danger of deadlocks can be removed by adding an additional network connection [as explained here](Simulation/Motorways.md#combined_on-off-ramps). Similar deadlocks may also occur at multi-lane roundabouts and the same solution of adding an extra connection (from the inside lane to the outside) applies.
+
+
 ### Why do the vehicles perform unexpected lane-changing maneuvers?
 
   This may be caused by invalid lane-to-lane connections. Check the
