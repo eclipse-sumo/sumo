@@ -245,6 +245,8 @@
         </xsd:attribute>
         <xsd:attribute name="source" type="xsd:string" use="required"/>
         <xsd:attribute name="dest" type="xsd:string" use="required"/>
+        <xsd:attribute name="saveDetectors" type="boolType" use="optional"/>
+        <xsd:attribute name="saveConditions" type="boolType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="WAUTType">

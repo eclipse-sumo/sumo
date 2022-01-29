@@ -90,6 +90,8 @@ NLDiscreteEventBuilder::buildSaveTLStateCommand(const SUMOSAXAttributes& attrs,
     bool ok = true;
     const std::string dest = attrs.getOpt<std::string>(SUMO_ATTR_DEST, nullptr, ok, "");
     const std::string source = attrs.getOpt<std::string>(SUMO_ATTR_SOURCE, nullptr, ok, "");
+    const bool saveDetectors = attrs.getOpt<bool>(SUMO_ATTR_SAVE_DETECTORS, nullptr, ok, false);
+    const bool saveConditions = attrs.getOpt<bool>(SUMO_ATTR_SAVE_CONDITIONS, nullptr, ok, false);
     // check the parameter
     if (dest == "" || !ok) {
         throw InvalidArgument("Incomplete description of an 'SaveTLSState'-action occurred.");
@@ -98,7 +100,8 @@ NLDiscreteEventBuilder::buildSaveTLStateCommand(const SUMOSAXAttributes& attrs,
         const std::vector<std::string> ids = myNet.getTLSControl().getAllTLIds();
         for (std::vector<std::string>::const_iterator tls = ids.begin(); tls != ids.end(); ++tls) {
             const MSTLLogicControl::TLSLogicVariants& logics = myNet.getTLSControl().get(*tls);
-            new Command_SaveTLSState(logics, OutputDevice::getDevice(FileHelpers::checkForRelativity(dest, basePath)));
+            new Command_SaveTLSState(logics, OutputDevice::getDevice(FileHelpers::checkForRelativity(dest, basePath)),
+                    saveDetectors, saveConditions);
         }
     } else {
         // get the logic
@@ -107,7 +110,8 @@ NLDiscreteEventBuilder::buildSaveTLStateCommand(const SUMOSAXAttributes& attrs,
         }
         const MSTLLogicControl::TLSLogicVariants& logics = myNet.getTLSControl().get(source);
         // build the action
-        new Command_SaveTLSState(logics, OutputDevice::getDevice(FileHelpers::checkForRelativity(dest, basePath)));
+        new Command_SaveTLSState(logics, OutputDevice::getDevice(FileHelpers::checkForRelativity(dest, basePath)),
+                saveDetectors, saveConditions);
     }
 }
 
