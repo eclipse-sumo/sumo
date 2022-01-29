@@ -83,6 +83,7 @@ public:
      * @brief A MSInductLoop-visualiser
      */
     class MyWrapper : public GUIDetectorWrapper {
+
     public:
         /// @brief Constructor
         MyWrapper(GUIInductLoop& detector, double pos);
@@ -103,9 +104,6 @@ public:
         GUIParameterTableWindow* getParameterWindow(
             GUIMainWindow& app, GUISUMOAbstractView& parent);
 
-        /// @brief return exaggeration asociated with this GLObject
-        double getExaggeration(const GUIVisualizationSettings& s) const;
-
         /** @brief Returns the boundary to which the view shall be centered in order to show the object
          *
          * @return The boundary the object is within
@@ -120,10 +118,17 @@ public:
         void drawGL(const GUIVisualizationSettings& s) const;
         //@}
 
-        /// @brief set (outline) color for extra visualiaztion
+        /// @brief set (outline) color for extra visualization
         void setSpecialColor(const RGBColor* color) {
             mySpecialColor = color;
         }
+
+    protected:
+        /// @brief whether this detector has an active virtual detector call
+        bool haveOverride() const override;
+
+        /// @brief toggle virtual detector call
+        void toggleOverride() const override;
 
     private:
         /// @brief The wrapped detector
