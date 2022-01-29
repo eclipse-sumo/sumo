@@ -418,7 +418,8 @@ MSMeanData::MSMeanData(const std::string& id,
                        const double maxTravelTime,
                        const double minSamples,
                        const std::string& vTypes,
-                       const std::string& writeAttributes) :
+                       const std::string& writeAttributes,
+                       const std::vector<MSEdge*>& edges) :
     MSDetectorFileOutput(id, vTypes, detectPersons),
     myMinSamples(minSamples),
     myMaxTravelTime(maxTravelTime),
@@ -427,6 +428,7 @@ MSMeanData::MSMeanData(const std::string& id,
     myDumpBegin(dumpBegin),
     myDumpEnd(dumpEnd),
     myInitTime(SUMOTime_MAX),
+    myEdges(edges),
     myPrintDefaults(printDefaults),
     myDumpInternal(withInternal),
     myTrackVehicles(trackVehicles),
@@ -437,44 +439,49 @@ MSMeanData::MSMeanData(const std::string& id,
 void
 MSMeanData::init() {
     myInitTime = MSNet::getInstance()->getCurrentTimeStep();
-    for (MSEdge* const edge : MSNet::getInstance()->getEdgeControl().getEdges()) {
-        if ((myDumpInternal || !edge->isInternal()) &&
-                ((detectPersons() && myDumpInternal) || (!edge->isCrossing() && !edge->isWalkingArea()))) {
-            myEdges.push_back(edge);
-            myMeasures.push_back(std::vector<MeanDataValues*>());
-            const std::vector<MSLane*>& lanes = edge->getLanes();
-            if (MSGlobals::gUseMesoSim) {
-                MeanDataValues* data;
-                if (myTrackVehicles) {
-                    data = new MeanDataValueTracker(nullptr, lanes[0]->getLength(), this);
-                } else {
-                    data = createValues(nullptr, lanes[0]->getLength(), false);
-                }
-                data->setDescription("meandata_" + edge->getID());
-                myMeasures.back().push_back(data);
-                MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
-                while (s != nullptr) {
-                    s->addDetector(data);
-                    s->prepareDetectorForWriting(*data);
-                    s = s->getNextSegment();
-                }
-                data->reset();
-                data->reset(true);
-                continue;
+    if (myEdges.empty()) {
+        // use all edges by default
+        for (MSEdge* const edge : MSNet::getInstance()->getEdgeControl().getEdges()) {
+            if ((myDumpInternal || !edge->isInternal()) &&
+                    ((detectPersons() && myDumpInternal) || (!edge->isCrossing() && !edge->isWalkingArea()))) {
+                myEdges.push_back(edge);
             }
-            if (myAmEdgeBased && myTrackVehicles) {
-                myMeasures.back().push_back(new MeanDataValueTracker(nullptr, lanes[0]->getLength(), this));
+        }
+    }
+    for (MSEdge* edge : myEdges) {
+        myMeasures.push_back(std::vector<MeanDataValues*>());
+        const std::vector<MSLane*>& lanes = edge->getLanes();
+        if (MSGlobals::gUseMesoSim) {
+            MeanDataValues* data;
+            if (myTrackVehicles) {
+                data = new MeanDataValueTracker(nullptr, lanes[0]->getLength(), this);
+            } else {
+                data = createValues(nullptr, lanes[0]->getLength(), false);
             }
-            for (MSLane* const lane : lanes) {
-                if (myTrackVehicles) {
-                    if (myAmEdgeBased) {
-                        lane->addMoveReminder(myMeasures.back().back());
-                    } else {
-                        myMeasures.back().push_back(new MeanDataValueTracker(lane, lane->getLength(), this));
-                    }
+            data->setDescription("meandata_" + edge->getID());
+            myMeasures.back().push_back(data);
+            MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
+            while (s != nullptr) {
+                s->addDetector(data);
+                s->prepareDetectorForWriting(*data);
+                s = s->getNextSegment();
+            }
+            data->reset();
+            data->reset(true);
+            continue;
+        }
+        if (myAmEdgeBased && myTrackVehicles) {
+            myMeasures.back().push_back(new MeanDataValueTracker(nullptr, lanes[0]->getLength(), this));
+        }
+        for (MSLane* const lane : lanes) {
+            if (myTrackVehicles) {
+                if (myAmEdgeBased) {
+                    lane->addMoveReminder(myMeasures.back().back());
                 } else {
-                    myMeasures.back().push_back(createValues(lane, lane->getLength(), true));
+                    myMeasures.back().push_back(new MeanDataValueTracker(lane, lane->getLength(), this));
                 }
+            } else {
+                myMeasures.back().push_back(createValues(lane, lane->getLength(), true));
             }
         }
     }

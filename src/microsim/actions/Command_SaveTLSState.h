@@ -49,7 +49,7 @@ public:
      * @param[in] od The output device to write the state into
      */
     Command_SaveTLSState(const MSTLLogicControl::TLSLogicVariants& logics,
-                         OutputDevice& od);
+                         OutputDevice& od, bool saveDetectors, bool saveConditions);
 
 
     /// @brief Destructor
@@ -77,6 +77,10 @@ private:
 
     /// @brief The traffic light logic to use
     const MSTLLogicControl::TLSLogicVariants& myLogics;
+
+    /// @brief additiona logging
+    const bool mySaveDetectors;
+    const bool mySaveConditions;
 
 
 private:

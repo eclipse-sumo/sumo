@@ -342,6 +342,17 @@ Some parameters are only used when a signal plan with [dynamic phase selection](
 - **inactive-threshold** (default 180): The parameter sets the time in s after which an inactive phase will be entered preferentially.
 - **linkMinDur:X** (where X is a traffic light index): This sets an additional minimum duration criterion based on individual signals rather than phase duration
 
+### Visualization
+By setting the sumo option **--tls.actuated.show-detectors** the default visibility of detectors can be
+set. Also, in [sumo-gui](../sumo-gui.md) detectors can be
+shown/hidden by right-clicking on an actuated traffic light and
+selecting the corresponding menu entry.
+
+The detectors used by an actuated traffic light will be colored to indicate their status:
+- green color indicates that the detector is used to determine the length of the current phase
+- white color indicates that the detector is not used in the current phase
+- red color indicates that a vehicle was detected since the last time at which the controlled links at that lane had a green light (only if these links are currently red)
+- 
 ### Custom Detectors
 To use custom detectors (i.e. for custom placement or output) additional parameters can be defined where KEY is a lane that is incoming to the traffic light and VALUE is a user-defined inductionLoop (that could also lie on another upstream lane).
 ```
@@ -402,10 +413,10 @@ Examples for this type of traffic light logic can be found in [{{SUMO}}/tests/su
 
 The helper script [tls_buildTransitions.py] can be used to generate such logics from simplified definitions.
 
-### Custom Switching Rules
+## Type 'actuated' with custom switching rules
 
-By default, all detectors use the same time gaps and there are pre-defined rules
-that govern which detectors are used or ignored in each phase. If more
+By default, all traffic light programs are governed by the same pre-defined rules
+that determine which detectors are used or ignored in each phase. If more
 flexibility is needed, custom conditions can be defined by using the phase
 attributes 'earlyTarget' and 'finalTarget' to define logical expressions.
 
@@ -442,7 +453,7 @@ The following constraints apply to expressions:
 - all elements of an expression must be separated by a space character (' ')
   with the exception of the operator '!' (logical negation) which must precede it's operand without a space.
 
-#### Named Expressions
+### Named Expressions
 
 To organize expressions, the element `<condition>` may be used as a child element
 of `<tlLogic>` to define named expressions that can be referenced in other expressions:
@@ -463,7 +474,7 @@ Condition values can be [visualized](Traffic_Lights.md#track_phases) while the s
 - `<param key="show-conditions" value="C1 C4"/>`: shows only the conditions with listed id.
 - `<param key="hide-conditions" value="C3 C4"/>`: shows only the conditions which are not listed
 
-#### Examples
+### Examples
 
 #### Diverse Logical Conditions
 
@@ -503,7 +514,7 @@ The default gap control logic, replicated with custom conditions. A complete sce
 !!! note
     The the expression 'z:D0.0' retrieves the detection gap of detector 'C_PI_D0.0' but the prefix 'C_PI_' may be omitted.
     
-#### Overriding Phase Attributes with Expressions
+### Overriding Phase Attributes with Expressions
 
 By default, the phase attributes 'minDur', 'maxDur', 'earliestEnd' and 'latestEnd' are defined numerically (or left undefined).
 It may be desireable to redefine these attributes with expressions (i.e. condition ids or condition values) for the following reasons:
@@ -532,7 +543,7 @@ To override these attributes, their value in the `<phase>` must be defined as `-
     </tlLogic>
 ```
 
-#### Storing and modifying custom data
+### Storing and modifying custom data
 
 The `<condition>` elements described above can be used to define complex expressions as well as numerical constants that control program operation.
 It may sometimes be useful to store and modify numerical values that persist over consecutive invocations of the control logic. To this end the element `<assignment>`  may be used as a child element of `<tlLogic>` to define conditional assignment of new values to [named expressions](#named_expressions):
@@ -555,18 +566,6 @@ It may sometimes be useful to store and modify numerical values that persist ove
 - **value** may be any expression which is permitted for conditions values
 
 Every time the control logic is executed, all `assignment`s are executed in the order they are defined: If the the 'check'-expression evaluates to true (a non-0 value), the value of the condition with 'id' will be set to the result of evaluating the 'value'-expression.
-
-### Visualization
-By setting the sumo option **--tls.actuated.show-detectors** the default visibility of detectors can be
-set. Also, in [sumo-gui](../sumo-gui.md) detectors can be
-shown/hidden by right-clicking on an actuated traffic light and
-selecting the corresponding menu entry.
-
-The detectors used by an actuated traffic light will be colored to indicate their status:
-- green color indicates that the detector is used to determine the length of the current phase
-- white color indicates that the detector is not used in the current phase
-- red color indicates that a vehicle was detected since the last time at which the controlled links at that lane had a green light (only if these links are currently red)
-
 
 
 ## Type 'delay_based'

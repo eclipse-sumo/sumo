@@ -112,7 +112,7 @@ flows:out.flows.xml
 routes:out.rou.xml
 routesA:outA.rou.xml
 routesB:outB.rou.xml
-tripinfos:4/tripinfo_004.xml
+tripinfos:004/tripinfo_004.xml
 additional:out.add.xml
 diff_nod:diff.nod.xml
 diff_edg:diff.edg.xml

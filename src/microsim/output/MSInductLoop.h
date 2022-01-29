@@ -212,6 +212,10 @@ public:
 
     ///@brief return last time a vehicle was on the detector
     SUMOTime getLastDetectionTime() const;
+
+    double getOverrideTime() const {
+        return myOverrideTime;
+    }
     //@}
 
 

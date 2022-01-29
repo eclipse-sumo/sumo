@@ -336,6 +336,10 @@ public:
         getOStream().flush();
     }
 
+    bool wroteHeader() const {
+        return myFormatter->wroteHeader();
+    }
+
 protected:
     /// @brief Returns the associated ostream
     virtual std::ostream& getOStream() = 0;

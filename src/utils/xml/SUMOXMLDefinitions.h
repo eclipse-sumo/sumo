@@ -1016,6 +1016,11 @@ enum SumoXMLAttr {
     /// @}
     SUMO_ATTR_CONSTRAINTS,
 
+    SUMO_ATTR_DETECTORS,
+    SUMO_ATTR_CONDITIONS,
+    SUMO_ATTR_SAVE_DETECTORS,
+    SUMO_ATTR_SAVE_CONDITIONS,
+
     /// @name Attributes for detectors
     /// @{
     /// @brief Information whether the detector shall be continued on the folowing lanes

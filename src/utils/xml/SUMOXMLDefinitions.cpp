@@ -681,6 +681,11 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "next",                   SUMO_ATTR_NEXT },
     { "foes",                   SUMO_ATTR_FOES },
     { "constraints",            SUMO_ATTR_CONSTRAINTS },
+    { "detectors",              SUMO_ATTR_DETECTORS },
+    { "conditions",             SUMO_ATTR_CONDITIONS },
+    { "saveDetectors",          SUMO_ATTR_SAVE_DETECTORS },
+    { "saveConditions",         SUMO_ATTR_SAVE_CONDITIONS },
+
     // E2 detector
     { "cont",                   SUMO_ATTR_CONT },
     { "contPos",                SUMO_ATTR_CONTPOS },

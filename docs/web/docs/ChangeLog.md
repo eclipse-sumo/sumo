@@ -183,7 +183,7 @@ title: ChangeLog
 - simulation
   - Persons are now included in saved simulation state when setting option **--save-state.transportables**. Issue #2792
   - Traffic lights of type 'actuated' and 'delay_based' now support attributes 'earliestEnd', 'latestEnd' and param 'cycleTime' to configure coordination. Issue #9748, #9885, #9889
-  - Traffic lights of type 'actuated' now support [custom logical conditions](Simulation/Traffic_Lights.md#custom_switching_rules) for switching. Issue #9890
+  - Traffic lights of type 'actuated' now support [custom logical conditions](Simulation/Traffic_Lights.md#type_actuated_with_custom_switching_rules) for switching. Issue #9890
   - Added attribute speedRelative to edgeData output. Issue #9601
   - Option **--fcd-output.attributes** can now be used to active non-standard attributes (i.e. acceleration). Issue #9625
   - Rerouting period can now be customized via `<param key="device.rerouting.period" value="X"/>` in vType or vehicle. Issue #9646  

@@ -136,6 +136,9 @@ public:
         into << " " << toString(attr) << "=\"" << toString(val, into.precision()) << "\"";
     }
 
+    bool wroteHeader() const {
+        return !myXMLStack.empty();
+    }
 
 private:
     /// @brief The stack of begun xml elements

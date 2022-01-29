@@ -1,12 +1,12 @@
 -------------------------------------------------------------------------------
-['C:\\Users\\behr_mi\\Projekte\\sumo\\repos\\sumo\\tests\\\\..\\bin\\duarouter.exe', '-c', '0/iteration_000_input_trips.duarcfg']
+['/home/micha/sumo/bin/duarouter', '-c', '000/iteration_000_input_trips.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['C:\\Users\\behr_mi\\Projekte\\sumo\\repos\\sumo\\tests\\\\..\\bin\\sumo.exe', '-c', '0\\iteration_000.sumocfg']
-Loading net-file from '0\../input_net.net.xml' ... done (3ms).
-Loading additional-files from '0\dua_dump_000.add.xml' ... done (22ms).
+['/home/micha/sumo/bin/sumo', '-c', '000/iteration_000.sumocfg']
+Loading net-file from '000/../input_net.net.xml' ... done (2ms).
+Loading additional-files from '000/dua_dump_000.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_11_0+0925-143d9107608 started with time: 0.00
+Simulation version v1_12_0+0117-4ae16ac6d24 started with time: 0.00
 Warning: Teleporting vehicle '0'; waited too long (yield), lane='beg_1', time=326.00.
 Warning: Vehicle '0' ends teleporting on edge 'beg2left', time=326.00.
 Warning: Teleporting vehicle '4'; waited too long (yield), lane='beg_1', time=708.00.
@@ -16,9 +16,9 @@ Warning: Vehicle '8' ends teleporting on edge 'beg2left', time=1119.00.
 Simulation ended at time: 1352.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 0.20s
- Real time factor: 6760
- UPS: 38825.000000
+ Duration: 0.13s
+ Real time factor: 10816
+ UPS: 62120.000000
 Vehicles: 
  Inserted: 10
  Running: 0
@@ -26,14 +26,14 @@ Vehicles:
 Teleports: 3 (Yield: 3)
 
 -------------------------------------------------------------------------------
-['C:\\Users\\behr_mi\\Projekte\\sumo\\repos\\sumo\\tests\\\\..\\bin\\duarouter.exe', '-c', '1/iteration_001_input_trips_000.duarcfg']
+['/home/micha/sumo/bin/duarouter', '-c', '001/iteration_001_input_trips_000.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['C:\\Users\\behr_mi\\Projekte\\sumo\\repos\\sumo\\tests\\\\..\\bin\\sumo.exe', '-c', '1\\iteration_001.sumocfg']
-Loading net-file from '1\../input_net.net.xml' ... done (2ms).
-Loading additional-files from '1\dua_dump_001.add.xml' ... done (6ms).
+['/home/micha/sumo/bin/sumo', '-c', '001/iteration_001.sumocfg']
+Loading net-file from '001/../input_net.net.xml' ... done (1ms).
+Loading additional-files from '001/dua_dump_001.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_11_0+0925-143d9107608 started with time: 0.00
+Simulation version v1_12_0+0117-4ae16ac6d24 started with time: 0.00
 Warning: Teleporting vehicle '0'; waited too long (yield), lane='beg_0', time=326.00.
 Warning: Vehicle '0' ends teleporting on edge 'middle', time=326.00.
 Warning: Teleporting vehicle '2'; waited too long (yield), lane='beg_1', time=347.00.
@@ -43,9 +43,9 @@ Warning: Vehicle '8' ends teleporting on edge 'middle', time=708.00.
 Simulation ended at time: 940.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 0.12s
- Real time factor: 8103.45
- UPS: 45887.931034
+ Duration: 0.09s
+ Real time factor: 10444.4
+ UPS: 59144.444444
 Vehicles: 
  Inserted: 10
  Running: 0
@@ -53,14 +53,14 @@ Vehicles:
 Teleports: 3 (Yield: 3)
 
 -------------------------------------------------------------------------------
-['C:\\Users\\behr_mi\\Projekte\\sumo\\repos\\sumo\\tests\\\\..\\bin\\duarouter.exe', '-c', '2/iteration_002_input_trips_001.duarcfg']
+['/home/micha/sumo/bin/duarouter', '-c', '002/iteration_002_input_trips_001.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['C:\\Users\\behr_mi\\Projekte\\sumo\\repos\\sumo\\tests\\\\..\\bin\\sumo.exe', '-c', '2\\iteration_002.sumocfg']
-Loading net-file from '2\../input_net.net.xml' ... done (3ms).
-Loading additional-files from '2\dua_dump_002.add.xml' ... done (10ms).
+['/home/micha/sumo/bin/sumo', '-c', '002/iteration_002.sumocfg']
+Loading net-file from '002/../input_net.net.xml' ... done (1ms).
+Loading additional-files from '002/dua_dump_002.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_11_0+0925-143d9107608 started with time: 0.00
+Simulation version v1_12_0+0117-4ae16ac6d24 started with time: 0.00
 Warning: Teleporting vehicle '0'; waited too long (yield), lane='beg_0', time=326.00.
 Warning: Vehicle '0' ends teleporting on edge 'middle', time=326.00.
 Warning: Teleporting vehicle '2'; waited too long (yield), lane='beg_1', time=347.00.
@@ -70,9 +70,9 @@ Warning: Vehicle '8' ends teleporting on edge 'middle', time=708.00.
 Simulation ended at time: 940.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 0.12s
- Real time factor: 7580.65
- UPS: 42927.419355
+ Duration: 0.09s
+ Real time factor: 10329.7
+ UPS: 58494.505495
 Vehicles: 
  Inserted: 10
  Running: 0
@@ -80,14 +80,14 @@ Vehicles:
 Teleports: 3 (Yield: 3)
 
 -------------------------------------------------------------------------------
-['C:\\Users\\behr_mi\\Projekte\\sumo\\repos\\sumo\\tests\\\\..\\bin\\duarouter.exe', '-c', '3/iteration_003_input_trips_002.duarcfg']
+['/home/micha/sumo/bin/duarouter', '-c', '003/iteration_003_input_trips_002.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['C:\\Users\\behr_mi\\Projekte\\sumo\\repos\\sumo\\tests\\\\..\\bin\\sumo.exe', '-c', '3\\iteration_003.sumocfg']
-Loading net-file from '3\../input_net.net.xml' ... done (2ms).
-Loading additional-files from '3\dua_dump_003.add.xml' ... done (2ms).
+['/home/micha/sumo/bin/sumo', '-c', '003/iteration_003.sumocfg']
+Loading net-file from '003/../input_net.net.xml' ... done (1ms).
+Loading additional-files from '003/dua_dump_003.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_11_0+0925-143d9107608 started with time: 0.00
+Simulation version v1_12_0+0117-4ae16ac6d24 started with time: 0.00
 Warning: Teleporting vehicle '0'; waited too long (yield), lane='beg_0', time=326.00.
 Warning: Vehicle '0' ends teleporting on edge 'middle', time=326.00.
 Warning: Teleporting vehicle '2'; waited too long (yield), lane='beg_1', time=347.00.
@@ -97,9 +97,9 @@ Warning: Vehicle '8' ends teleporting on edge 'middle', time=708.00.
 Simulation ended at time: 940.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 0.10s
- Real time factor: 9038.46
- UPS: 51182.692308
+ Duration: 0.09s
+ Real time factor: 10561.8
+ UPS: 59808.988764
 Vehicles: 
  Inserted: 10
  Running: 0
@@ -107,14 +107,14 @@ Vehicles:
 Teleports: 3 (Yield: 3)
 
 -------------------------------------------------------------------------------
-['C:\\Users\\behr_mi\\Projekte\\sumo\\repos\\sumo\\tests\\\\..\\bin\\duarouter.exe', '-c', '4/iteration_004_input_trips_003.duarcfg']
+['/home/micha/sumo/bin/duarouter', '-c', '004/iteration_004_input_trips_003.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['C:\\Users\\behr_mi\\Projekte\\sumo\\repos\\sumo\\tests\\\\..\\bin\\sumo.exe', '-c', '4\\iteration_004.sumocfg']
-Loading net-file from '4\../input_net.net.xml' ... done (2ms).
-Loading additional-files from '4\dua_dump_004.add.xml' ... done (4ms).
+['/home/micha/sumo/bin/sumo', '-c', '004/iteration_004.sumocfg']
+Loading net-file from '004/../input_net.net.xml' ... done (1ms).
+Loading additional-files from '004/dua_dump_004.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_11_0+0925-143d9107608 started with time: 0.00
+Simulation version v1_12_0+0117-4ae16ac6d24 started with time: 0.00
 Warning: Teleporting vehicle '0'; waited too long (yield), lane='beg_0', time=326.00.
 Warning: Vehicle '0' ends teleporting on edge 'middle', time=326.00.
 Warning: Teleporting vehicle '2'; waited too long (yield), lane='beg_1', time=347.00.
@@ -124,9 +124,9 @@ Warning: Vehicle '8' ends teleporting on edge 'middle', time=708.00.
 Simulation ended at time: 940.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 0.11s
- Real time factor: 8703.7
- UPS: 49287.037037
+ Duration: 0.17s
+ Real time factor: 5497.08
+ UPS: 31128.654971
 Vehicles: 
  Inserted: 10
  Running: 0
