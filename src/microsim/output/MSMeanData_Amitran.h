@@ -162,7 +162,8 @@ public:
                        const double maxTravelTime, const double minSamples,
                        const double haltSpeed, const std::string& vTypes,
                        const std::string& writeAttributes,
-                       const std::vector<MSEdge*>& edges);
+                       const std::vector<MSEdge*>& edges,
+                       bool aggregate);
 
 
     /// @brief Destructor
