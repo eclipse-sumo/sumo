@@ -586,10 +586,14 @@ NEMALogic::init(NLDetectorBuilder& nb) {
         }
     }
 
+    // Initial Phases
     std::string state1 = transitionState(currentR1State, GREEN);
     std::string state2 = transitionState(currentR2State, GREEN);
     myPhase.setState(combineStates(state1, state2));
     myPhase.setName(toString(activeRing1Phase) + "+" + toString(activeRing2Phase));
+    myNextPhaseR1 = 0;
+    myNextPhaseR2 = 0;
+
 
     //validating timing
     validate_timing();
@@ -779,7 +783,6 @@ NEMALogic::trySwitch() {
         // ensure that SwitchCommand::execute notices a change
         myStep = 1 - myStep;
     }
-    //std::cout << SIMTIME << " " << myPhase.getState() << "\n";
     return TIME2STEPS(TS);
 }
 
@@ -953,6 +956,10 @@ NEMALogic::NEMA_control() {
                     phaseExpectedDuration[R1Index] = phaseExpectedDuration[tempR2Phase - 1];
                 }
                 R1RYG = R1RYG == GREENREST ? GREENREST : GREENTRANSFER;
+                // Lock in the next R2 Phase
+                if (EndCurrentPhaseR2 && (tempR2Phase != R2Phase) && (myNextPhaseR2 == 0)){
+                    myNextPhaseR2 = tempR2Phase;
+                } 
             }
         } else if (tempR2Phase == R2Phase && EndCurrentPhaseR2 && greenTransfer) {
             if (!EndCurrentPhaseR1 || (tempR1Phase != R1Phase)) {
@@ -966,6 +973,10 @@ NEMALogic::NEMA_control() {
                     phaseExpectedDuration[R2Index] = phaseExpectedDuration[tempR1Phase - 1];
                 }
                 R2RYG = R2RYG == GREENREST ? GREENREST : GREENTRANSFER;
+                // Lock in the next R1 Phase
+                if (EndCurrentPhaseR1 && (tempR1Phase != R1Phase) && (myNextPhaseR1 == 0)){
+                    myNextPhaseR1 = tempR1Phase;
+                }
             }
         }
     }
@@ -984,7 +995,10 @@ NEMALogic::NEMA_control() {
             calculate = true;
         }
         if (calculate) {
-            std::tie(myNextPhaseR1, myNextPhaseR2) = getNextPhases(R1Phase, R2Phase, wait4R1Green, wait4R2Green);
+            // This forces the decision made in the phase extension logic to stick.
+            if ((myNextPhaseR1 == 0 && wait4R1Green) || (myNextPhaseR2 == 0 && wait4R2Green)){
+                std::tie(myNextPhaseR1, myNextPhaseR2) = getNextPhases(R1Phase, R2Phase, wait4R1Green, wait4R2Green);
+            }
         }
     }
 
@@ -996,7 +1010,7 @@ NEMALogic::NEMA_control() {
         } else if (currentTimeInSecond - phaseEndTimeR1 < (yellowTime[R1Index] + redTime[R1Index])) {
             R1RYG = RED; //red
             // TODO: remove the 0.5 (it has timing issues with <1 timesteps)
-            bool toUpdate = (currentTimeInSecond - phaseEndTimeR1) < yellowTime[R1Index] + 0.5;
+            bool toUpdate = (currentTimeInSecond - phaseEndTimeR1) < (yellowTime[R1Index] + TS / 2) ;
             if (R1Phase == r1coordinatePhase && toUpdate) {
                 for (int i = 0; i < 8; i++) {
                     maxGreen[i] = nextMaxGreen[i];
@@ -1021,6 +1035,7 @@ NEMALogic::NEMA_control() {
                 }
             }
             wait4R1Green = false;
+            myNextPhaseR1 = 0;
         }
     }
 
@@ -1042,6 +1057,7 @@ NEMALogic::NEMA_control() {
                 }
             }
             wait4R2Green = false;
+            myNextPhaseR2 = 0;
         }
     }
 
@@ -1156,11 +1172,19 @@ int NEMALogic::findBarrier(int phase, int ring) {
 
 
 std::tuple<int, int> NEMALogic::getNextPhases(int R1Phase, int R2Phase, bool toUpdateR1, bool toUpdateR2, bool stayOk) {
-    // Only 1 or both can be !toUpdate (otherwise we wouldn't be in this situation)
+    // If myNextPhase has already been set, pass that to the next phase logic. 
+    // If it hasn't (=0) then pass in the current phase
+    R1Phase = myNextPhaseR1 == 0 ? R1Phase : myNextPhaseR1; 
+    R2Phase = myNextPhaseR2 == 0 ? R2Phase : myNextPhaseR2;                
+    // If myNextPhase has already been set, tell the next phase algo that it CANNOT be changed
+    // Aka that wait4Green is false
+    toUpdateR1 = myNextPhaseR1 == 0 ? toUpdateR1 : false; 
+    toUpdateR2 = myNextPhaseR2 == 0 ? toUpdateR2 : false; 
     int nextR1Phase = R1Phase;
     int nextR2Phase = R2Phase;
     int currentR1Barrier = findBarrier(R1Phase, 0);
     int currentR2Barrier = findBarrier(R2Phase, 1);
+    // Only 1 or both can be !toUpdate (otherwise we wouldn't be in this situation)
     if (!toUpdateR1) {
         int d = 0;
         nextR2Phase = nextPhase(myRingBarrierMapping[1][currentR1Barrier], R2Phase, d, stayOk);
@@ -1202,7 +1226,10 @@ std::tuple<int, int> NEMALogic::getNextPhases(int R1Phase, int R2Phase, bool toU
             nextR1Phase = nextPhase(myRingBarrierMapping[0][r2Barrier], defaultPhase, r1Distance, true);
         }
     }
-    return std::make_tuple(nextR1Phase, nextR2Phase);
+    // Only actually keep the changes if the controller wants to transition the state
+    // We must do this because myNextPhaseR<1,2>Phase = 0 is special and indicates that 
+    // the next phase should be calculated the next time the phase is up to be checked
+    return std::make_tuple(toUpdateR1 ? nextR1Phase : 0, toUpdateR2 ? nextR2Phase : 0);
 }
 
 //b should be the base of mode
