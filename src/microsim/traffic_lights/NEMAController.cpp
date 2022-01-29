@@ -1194,9 +1194,12 @@ std::tuple<int, int> NEMALogic::getNextPhases(int R1Phase, int R2Phase, bool toU
         // If the initially calculated next phases end up on opposite sides of a barrier, regardless of whether I am at a barrier phase or not,  
         // recalculated the one with a longer travelled distance 
         else if ((r1Distance <= r2Distance) && (r1Barrier != r2Barrier)) {
-            nextR2Phase = nextPhase(myRingBarrierMapping[1][r1Barrier], myRingBarrierMapping[1][r1Barrier].back(), r2Distance, true);
+            // If the 
+            int defaultPhase = (R2RYG >= GREEN && currentR2Barrier == r1Barrier) ? R2Phase : myRingBarrierMapping[1][r1Barrier].back(); 
+            nextR2Phase = nextPhase(myRingBarrierMapping[1][r1Barrier], defaultPhase, r2Distance, true);
         } else if ((r1Distance > r2Distance) && (r1Barrier != r2Barrier)) {
-            nextR1Phase = nextPhase(myRingBarrierMapping[0][r2Barrier], myRingBarrierMapping[0][r2Barrier].back(), r1Distance, true);
+            int defaultPhase = (R1RYG >= GREEN && currentR1Barrier == r2Barrier) ? R1Phase : myRingBarrierMapping[0][r2Barrier].back();
+            nextR1Phase = nextPhase(myRingBarrierMapping[0][r2Barrier], defaultPhase, r1Distance, true);
         }
     }
     return std::make_tuple(nextR1Phase, nextR2Phase);
