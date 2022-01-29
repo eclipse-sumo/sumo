@@ -83,7 +83,7 @@ Command_SaveTLSState::execute(SUMOTime currentTime) {
         for (auto item : myLogics.getActive()->getDetectorStates()) {
             states.push_back((int)item.second);
         }
-        myOutputDevice.writeAttr(SUMO_ATTR_DETECTORS, joinToString(states, ""));
+        myOutputDevice.writeAttr(SUMO_ATTR_DETECTORS, joinToString(states, " "));
 
     }
     if (mySaveConditions) {
