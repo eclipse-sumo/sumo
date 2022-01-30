@@ -884,7 +884,7 @@ GUITLLogicPhasesTrackerWindow::findTimeInCycle(SUMOTime t) {
     //    << " lookBack=" << STEPS2TIME(lookBack)
     //    << " i0=" << i;
     // look backwards through the phases until to the first cycle crossing before t
-    while (lookBack > 0 && i >= 0) {
+    while (lookBack > 0 && i > 1) {
         i--;
         lookBack -= myDurations[i];
     }
