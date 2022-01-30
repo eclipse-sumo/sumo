@@ -760,6 +760,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "maxTraveltime",          SUMO_ATTR_MAX_TRAVELTIME },
     { "minSamples",             SUMO_ATTR_MIN_SAMPLES },
     { "writeAttributes",        SUMO_ATTR_WRITE_ATTRIBUTES },
+    { "edgesFile",              SUMO_ATTR_EDGESFILE },
     { "aggregate",              SUMO_ATTR_AGGREGATE },
 
     { "lon",                    SUMO_ATTR_LON },
