@@ -1289,6 +1289,7 @@ NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes& attrs, int objecttype) {
     const SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, id.c_str(), ok, string2time(OptionsCont::getOptions().getString("begin")));
     const SUMOTime end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, id.c_str(), ok, string2time(OptionsCont::getOptions().getString("end")));
     std::vector<std::string> edgeIDs = attrs.getOptStringVector(SUMO_ATTR_EDGES, id.c_str(), ok);
+    const std::string edgesFile = attrs.getOpt<std::string>(SUMO_ATTR_EDGESFILE, id.c_str(), ok, "");
     const bool aggregate = attrs.getOpt<bool>(SUMO_ATTR_AGGREGATE, id.c_str(), ok, false);
     if (!ok) {
         return;
@@ -1300,6 +1301,22 @@ NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes& attrs, int objecttype) {
         } else {
             WRITE_ERROR("Invalid person mode '" + mode + "' in edgeData definition '" + id + "'");
             return;
+        }
+    }
+    if (edgesFile != "") {
+        std::ifstream strm(edgesFile.c_str());
+        if (!strm.good()) {
+            throw ProcessError("Could not load names of edges for edgeData defintion '" + id + "' from '" + edgesFile + "'.");
+        }
+        while (strm.good()) {
+            std::string name;
+            strm >> name;
+            // maybe we're loading an edge-selection
+            if (StringUtils::startsWith(name, "edge:")) {
+                edgeIDs.push_back(name.substr(5));
+            } else if (name != "") {
+                edgeIDs.push_back(name);
+            }
         }
     }
     std::vector<MSEdge*> edges;
