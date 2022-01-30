@@ -1461,7 +1461,7 @@ MSE2Collector::reset() {
 int
 MSE2Collector::getCurrentVehicleNumber() const {
     int result = 0;
-    if (myOverideVehNumber > 0){
+    if (myOverideVehNumber >= 0){
         result = myOverideVehNumber;
     } else {
         for (VehicleInfoMap::const_iterator it = myVehicleInfos.begin(); it != myVehicleInfos.end(); it++) {

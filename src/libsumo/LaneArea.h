@@ -51,6 +51,8 @@ public:
     static double getLength(const std::string& detID);
     static int getLastStepVehicleNumber(const std::string& detID);
     static int getLastStepHaltingNumber(const std::string& detID);
+    
+    static void overrideVehicleNumber(const std::string& detID, int num);
 
     LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
