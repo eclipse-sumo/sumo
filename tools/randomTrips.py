@@ -619,11 +619,12 @@ def main(options):
     else:
         args += ['-v']
 
+    route_proc = None
     if options.routefile:
         args2 = args + ['-o', options.routefile]
         print("calling", " ".join(args2))
         sys.stdout.flush()
-        subprocess.call(args2)
+        route_proc = subprocess.Popen(args2)
         sys.stdout.flush()
 
     if options.validate:
@@ -638,6 +639,10 @@ def main(options):
         sys.stdout.flush()
         os.remove(options.tripfile)  # on windows, rename does not overwrite
         os.rename(tmpTrips, options.tripfile)
+
+    if route_proc:
+        route_proc.wait()
+        sys.stdout.flush()
 
     if options.weights_outprefix:
         idPrefix = ""
