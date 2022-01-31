@@ -569,6 +569,7 @@ It may sometimes be useful to store and modify numerical values that persist ove
 
 Every time the control logic is executed, all `assignment`s are executed in the order they are defined: If the the 'check'-expression evaluates to true (a non-0 value), the value of the condition with 'id' will be set to the result of evaluating the 'value'-expression.
 
+The test case [find_primes](https://sumo.dlr.de/extractTest.php?path=sumo/basic/tls/actuated/conditions/assignments/find_primes) computes all prime numbers below 100 inside the traffic light controller as a capability demonstration.
 
 ## Type 'delay_based'
 
