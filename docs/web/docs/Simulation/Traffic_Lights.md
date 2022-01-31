@@ -305,6 +305,8 @@ The detector names take the form `TLSID_PROGRAMID_EDGEINDEX.LANEINDEX` where
 !!! note
     Sumo will issue a warning of the form "... has no controlling detector" if a phase or link index does not have usable detectors.
 
+Detector activation states can optionally be written to the [TLS output](Output/Traffic_Lights.md#optional_output).
+
 ### Example
 
 ```
@@ -365,6 +367,8 @@ By assigning the special value `NO_DETECTOR`, the detector for a given lane key 
 
 !!! caution
     Custom detectors only work when the 'tlLogic' is loaded from an additional file.
+    
+Custom detector activation states can optionally be written to the [TLS output](Output/Traffic_Lights.md#optional_output).    
     
 ### Lane-specific max-gap
 To define a max-gap value that differs from the default you can use a param with `key="max-gap:<LANE_ID>"` where LANE_ID is a lane incoming to the traffic light (the detector might lie further upstream).
@@ -475,6 +479,8 @@ Condition values can be [visualized](Traffic_Lights.md#track_phases) while the s
 
 - `<param key="show-conditions" value="C1 C4"/>`: shows only the conditions with listed id.
 - `<param key="hide-conditions" value="C3 C4"/>`: shows only the conditions which are not listed
+
+The values of (visible) named expressions can optionally be written to the [TLS output](Output/Traffic_Lights.md#optional_output).
 
 ### Examples
 
@@ -627,6 +633,8 @@ To use custom detectors (i.e. for custom placement or output) additional paramet
 ```
 !!! caution
 Custom detectors only work when the 'tlLogic' is loaded from an additional file.
+
+Detector activation states (for default and custom detectors) can optionally be written to the [TLS output](Output/Traffic_Lights.md#optional_output).
 
 # Loading a new Program
 
