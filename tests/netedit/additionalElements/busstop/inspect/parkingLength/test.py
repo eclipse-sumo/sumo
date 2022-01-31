@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("busStop")
 
 # change reference to center
-netedit.changeDefaultValue(15, "reference center")
+netedit.changeDefaultValue(netedit.attrs.busStop.create.references, "reference center")
 
 # create busStop in mode "reference center"
 netedit.leftClick(referencePosition, 250, 170)
@@ -47,16 +47,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 190)
 
 # Change parameter lenght with a non valid value (throw warning)
-netedit.modifyAttribute(8, "dummylenght", True)
+netedit.modifyAttribute(netedit.attrs.busStop.inspect.parkingLength, "dummylenght", True)
 
 # Change parameter lenght with a valid value
-netedit.modifyAttribute(8, "-7", True)
+netedit.modifyAttribute(netedit.attrs.busStop.inspect.parkingLength, "-7", True)
 
 # Change parameter lenght with a valid value
-netedit.modifyAttribute(8, "2.5", True)
+netedit.modifyAttribute(netedit.attrs.busStop.inspect.parkingLength, "2.5", True)
 
 # Change parameter lenght with a valid value
-netedit.modifyAttribute(8, "10", True)
+netedit.modifyAttribute(netedit.attrs.busStop.inspect.parkingLength, "10", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

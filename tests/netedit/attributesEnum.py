@@ -19,11 +19,20 @@ class busStop:
         lane = 2
         startPos = 3
         endPos = 4
+        name = 5
+        friendlyPos = 6
+        lines = 7
+        personCapacity = 8
+        parkingLength = 9
+        colorDialog = 10        # missing
+        color = 11
+        parameters = 14
+    class inspectSelection():
         name = 1
-        friendlyPos = 1
-        lines = 1
-        personCapacity = 1
-        parkingLength = 1
-        color = 1
-        references = 1
-        length = 1
+        friendlyPos = 2
+        lines = 3
+        personCapacity = 4
+        parkingLength = 5
+        colorDialog = 6        # missing
+        color = 7
+        parameters = 10

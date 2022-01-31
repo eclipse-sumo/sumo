@@ -953,10 +953,10 @@ def modifyAttribute(attributeNumber, value, overlapped):
     focusOnFrame()
     # jump to attribute depending if it's a overlapped element
     if overlapped:
-        for _ in range(attributeNumber + 7):
+        for _ in range(attributeNumber + 6):
             typeTab()
     else:
-        for _ in range(attributeNumber + 2):
+        for _ in range(attributeNumber + 1):
             typeTab()
     # paste the new value
     pasteIntoTextField(value)
@@ -972,10 +972,10 @@ def modifyBoolAttribute(attributeNumber, overlapped):
     focusOnFrame()
     # jump to attribute depending if it's a overlapped element
     if overlapped:
-        for _ in range(attributeNumber + 7):
+        for _ in range(attributeNumber + 6):
             typeTab()
     else:
-        for _ in range(attributeNumber + 2):
+        for _ in range(attributeNumber + 1):
             typeTab()
     # type SPACE to change value
     typeSpace()
