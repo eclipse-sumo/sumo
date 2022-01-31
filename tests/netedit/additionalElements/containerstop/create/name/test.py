@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("containerStop")
 
 # set name
-netedit.changeDefaultValue(5, "custom bus stop name")
+netedit.changeDefaultValue(netedit.attrs.containerStop.create.name, "custom container stop name")
 
 # create containerStop in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)

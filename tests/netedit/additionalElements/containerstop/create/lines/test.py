@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("containerStop")
 
 # set own lines
-netedit.changeDefaultValue(7, "lineA lineB")
+netedit.changeDefaultValue(netedit.attrs.containerStop.create.lines, "lineA lineB")
 
 # create containerStop in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)

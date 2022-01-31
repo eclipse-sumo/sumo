@@ -35,31 +35,31 @@ netedit.additionalMode()
 netedit.changeElement("containerStop")
 
 # set invalid lenght (dummy)
-netedit.changeDefaultValue(17, "dummyLenght")
+netedit.changeDefaultValue(netedit.attrs.containerStop.create.length, "dummyLenght")
 
 # try to create containerstop with invalid lenght
 netedit.leftClick(referencePosition, 500, 250)
 
 # set invalid lenght (negative)
-netedit.changeDefaultValue(17, "-20")
+netedit.changeDefaultValue(netedit.attrs.containerStop.create.length, "-20")
 
 # try to create containerstop with invalid lenght
 netedit.leftClick(referencePosition, 500, 250)
 
 # Change length
-netedit.changeDefaultValue(17, "5")
+netedit.changeDefaultValue(netedit.attrs.containerStop.create.length, "5")
 
 # create containerStop in mode "reference left"
 netedit.leftClick(referencePosition, 500, 250)
 
 # change reference to right
-netedit.changeDefaultValue(15, "reference right")
+netedit.changeDefaultValue(netedit.attrs.containerStop.create.references, "reference right")
 
 # create containerStop in mode "reference right"
 netedit.leftClick(referencePosition, 230, 250)
 
 # change reference to center
-netedit.changeDefaultValue(15, "reference center")
+netedit.changeDefaultValue(netedit.attrs.containerStop.create.references, "reference center")
 
 # create containerStop in mode "reference center"
 netedit.leftClick(referencePosition, 425, 250)

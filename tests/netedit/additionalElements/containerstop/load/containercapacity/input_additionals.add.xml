@@ -4,7 +4,7 @@
     <containerStop id="containerStop_01" lane="gneE0_0" startPos="25" endPos="30" name="containerStop" friendlyPos="false"/>
     
     <!-- non valid format containerCapacity (dummy) -->
-    <containerStop id="containerStop_02" lane="gneE0_0" startPos="35" endPos="40" containerCapacity="dummyPersonCapacity" name="containerStop" friendlyPos="false"/>
+    <containerStop id="containerStop_02" lane="gneE0_0" startPos="35" endPos="40" containerCapacity="dummyContainerCapacity" name="containerStop" friendlyPos="false"/>
 	
 	<!-- non valid format containerCapacity (negative) -->
     <containerStop id="containerStop_03" lane="gneE0_0" startPos="35" endPos="40" containerCapacity="-7" name="containerStop" friendlyPos="false"/>
