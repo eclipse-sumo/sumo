@@ -458,19 +458,19 @@ protected:
     // TS2 Specific Coordinated Mode Cycle
     bool fitInCycleTS2(int phase,  int ringNum);
     // Type170 fitInCycle algorithm
-    bool fitInCycle170(int phase, int ringNum){
-        return true;
-    }
+    // bool fitInCycle170(int _phase, int _ringNum){
+    //     return true;
+    // }
     // 
     double fitInCycle(int phase, int ringNum){
         switch (myCabinetType){
             case Type170:
-                return fitInCycle170(phase, ringNum);
+                return true;
             case TS2:
                 return fitInCycleTS2(phase, ringNum);
             default:
                 // Default to Type 170
-                return fitInCycle170(phase, ringNum);
+                return true;
         }
     }
 };

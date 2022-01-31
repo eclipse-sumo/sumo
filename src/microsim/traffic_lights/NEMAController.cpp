@@ -594,7 +594,6 @@ NEMALogic::init(NLDetectorBuilder& nb) {
     myNextPhaseR1 = 0;
     myNextPhaseR2 = 0;
 
-
     //validating timing
     validate_timing();
 #ifdef DEBUG_NEMA
@@ -911,21 +910,25 @@ NEMALogic::NEMA_control() {
     }
 
     // Reset Green Rest to Green after arriving back at cycle beginning
-    if (coordinateMode && (R1RYG == GREENREST) && (R2RYG == GREENREST)){
+    if (coordinateMode && (R1RYG == GREENREST) && (R2RYG == GREENREST) && (myCabinetType == TS2)){
         double cycleTime = ModeCycle(currentTimeInSecond - cycleRefPoint - offset, myCycleLength);
-        if ((cycleTime >= 0) && (cycleTime < TS / 2)){
-            phaseExpectedDuration[R1Index] = coordModeCycle(currentTimeInSecond, R1Phase);
-            phaseExpectedDuration[R2Index] = coordModeCycle(currentTimeInSecond, R2Phase);
-            phaseStartTime[R1Index] = currentTimeInSecond;
-            phaseStartTime[R2Index] = currentTimeInSecond;
-            R1RYG = GREEN;
-            R2RYG = GREEN;
-            wait4R1Green = false;
-            wait4R2Green = false;
-            EndCurrentPhaseR1 = false;
-            EndCurrentPhaseR2 = false; 
+        for (auto& p: {R1Phase, R2Phase}){
+            if (cycleTime <= (forceOffs[p - 1] - maxGreen[p - 1] + TS / 2)){
+                phaseExpectedDuration[p - 1] = coordModeCycle(currentTimeInSecond, p);
+                phaseStartTime[p - 1] = currentTimeInSecond;
+                if (p == R1Phase){
+                    R1RYG = GREEN;
+                    wait4R1Green = false;
+                    EndCurrentPhaseR1 = false;
+                }else{
+                    R2RYG = GREEN;
+                    wait4R2Green = false;
+                    EndCurrentPhaseR2 = false;
+                }
+            }
         }
     }
+
     // Logic for Green Rest & Green Transfer
     // This requires a detector check. It should only be entered when the lights are green
     // This logic doesn't need to enter at all if in coordinated mode and greenTransfer is disabled
@@ -1603,23 +1606,24 @@ NEMALogic::fitInCycleTS2(int phase, int ringNum){
         bool iFit = true;
         double currentTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
         double timeLeftInCyle = myCycleLength - ModeCycle(currentTime - cycleRefPoint - offset, myCycleLength);
-        int endPhase = ringNum > 0? r2coordinatePhase:r1coordinatePhase;
-        // Find the path to the coordinate phase
-        // There has to be a more concise way to do this.
-        IntVector path;
+        int endPhase = ringNum > 0? r2coordinatePhase : r1coordinatePhase;
         int length = (int)rings[ringNum].size();
+
+        // Find the path to the coordinate phase. There has to be a more concise way to do this.
+        IntVector path;        
         bool log = false;
         for (int i = 0; i < length * 2; i++){
             if (log && (rings[ringNum][i % length] == endPhase)){
+                // Don't log the end phase
                 break;
-            }
-            if (log){
+            }else if (log){
                 path.push_back(i);
             } else if (rings[ringNum][i % length] == phase){
                 log = true;
                 path.push_back(i);
             }
         }
+
         // take the sum of the path
         double totalTime = 0;
         for (auto& ind: path){
