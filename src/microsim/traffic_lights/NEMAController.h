@@ -119,7 +119,7 @@ public:
 
     std::string combineStates(std::string state1, std::string state2);
 
-    int nextPhase(std::vector<int> ring, int phaseNum, int& distance,  bool sameAllowed);
+    int nextPhase(std::vector<int> ring, int phaseNum, int& distance,  bool sameAllowed, int ringNum);
 
     std::tuple<int, int> getNextPhases(int currentR1Index, int currentR2Index, bool toUpdateR1, bool toUpdateR2, bool stayOk = false);
 
@@ -347,6 +347,7 @@ protected:
     std::map<int, std::vector<std::string>> phase2ControllerLanesMap;
 
     bool whetherOutputState;
+    bool ignoreErrors;
 
     std::string currentState;
     std::string currentR1State;
@@ -451,6 +452,25 @@ protected:
             default:
                 // Default to Type 170
                 return coordModeCycle170(currentTime, phase);
+        }
+    }
+
+    // TS2 Specific fit in cycle algorithm
+    bool fitInCycleTS2(int phase,  int ringNum);
+    // Type170 fitInCycle algorithm
+    // bool fitInCycle170(int _phase, int _ringNum){
+    //     return true;
+    // }
+    // 
+    double fitInCycle(int phase, int ringNum){
+        switch (myCabinetType){
+            case Type170:
+                return true;
+            case TS2:
+                return fitInCycleTS2(phase, ringNum);
+            default:
+                // Default to Type 170
+                return true;
         }
     }
 };
