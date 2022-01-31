@@ -26,6 +26,7 @@ except ImportError:
 import pyautogui
 import time
 import pyperclip
+import attributesEnum as attrs #noqa
 
 # define delay before every operation
 DELAY_KEY = 0.3
@@ -1239,7 +1240,7 @@ def changeDefaultValue(numTabs, length):
     # focus current frame
     focusOnFrame()
     # go to length TextField
-    for _ in range(numTabs + 1):
+    for _ in range(numTabs):
         typeTab()
     # paste new length
     pasteIntoTextField(length)
@@ -1254,7 +1255,7 @@ def changeDefaultBoolValue(numTabs):
     # focus current frame
     focusOnFrame()
     # place cursor in check Box position
-    for _ in range(numTabs + 1):
+    for _ in range(numTabs):
         typeTab()
     # Change current value
     typeSpace()
@@ -1272,23 +1273,6 @@ def modifyStoppingPlaceLines(numTabs, numLines):
     # add lines using space
     for _ in range(numLines):
         typeSpace()
-
-
-def fillStoppingPlaceLines(numTabs, numLines):
-    """
-    @brief fill lines to stopping places
-    """
-    # focus current frame
-    focusOnFrame()
-    # place cursor in the first line
-    for _ in range(numTabs + 1):
-        typeTab()
-    # fill lines
-    for x in range(numLines):
-        # paste line and number
-        pasteIntoTextField("Line" + str(x))
-        # go to next field
-        typeTab()
 
 
 def selectAdditionalChild(numTabs, childNumber):
@@ -1973,7 +1957,7 @@ def changeColorUsingDialog(numTabs, color):
     # focus current frame
     focusOnFrame()
     # go to length TextField
-    for _ in range(numTabs + 1):
+    for _ in range(numTabs):
         typeTab()
     typeSpace()
     # go to list of colors TextField
