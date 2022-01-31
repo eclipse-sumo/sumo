@@ -149,6 +149,11 @@ LaneArea::makeWrapper() {
     return std::make_shared<Helper::SubscriptionWrapper>(handleVariable, mySubscriptionResults, myContextSubscriptionResults);
 }
 
+void
+LaneArea::overrideVehicleNumber(const std::string& detID, int num) {
+    getDetector(detID)->overrideVehicleNumber(num);
+}
+
 
 bool
 LaneArea::handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData) {
