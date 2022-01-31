@@ -56,7 +56,7 @@ the following meaning:
 ### Optional Output
 
 If the the attributes 'saveDetectors' or 'saveConditions' are set, additional attributes are written to the output.
-These attributes are only written for traffic lights [controlled by detectors](Traffic_Lights.md#traffic_lights_that_respond_to_traffic) and for traffic lights with [custom switching rules](Traffic_Lights.md#type_actuated_with_custom_switching_rules) respectively.
+These attributes are only written for traffic lights [controlled by detectors](../Traffic_Lights.md#traffic_lights_that_respond_to_traffic) and for traffic lights with [custom switching rules](../Traffic_Lights.md#type_actuated_with_custom_switching_rules) respectively.
 
 |Element    | Name           | Type           | Description                                                         |
 |-----------| -------------- | -------------- | ------------------------------------------------------------------- |
