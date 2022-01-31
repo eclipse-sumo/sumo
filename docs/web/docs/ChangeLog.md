@@ -21,6 +21,9 @@ title: ChangeLog
 - netedit
   - Fixed invalid junction color after creating a trip (from/to). Issue #9980 (regression in 1.12.0)
   
+- sumo-gui
+  - Fixed crash in phase tracker when annotating by 'time in cycle'. Issue #10069  
+  
 - duarouter
   - route errors are now detected when using option **--skip-new-routes**. Issue #6113
 
@@ -30,10 +33,17 @@ title: ChangeLog
   - The default lateral alignment of bicycles is now "right" instead of "center". Issue #9959
   - Traffic light type 'NEMA' now supports TS1 and TS2 offsets as well as Type 170. Issue #10013
   - Phase attributes 'minDur, maxDur, earliestEnd, latestEnd' can now be [overridden with condition-expressions](Simulation/Traffic_Lights.md#overriding_phase_attributes_with_expressions). Issue #10047
+  - Traffic lights with custom switching rules now support [custom runtime variables](Simulation/Traffic_Lights.md#storing_and_modifying_custom_data). Issue #10049
+  - Detector and condition states can now be included in [tls output](Simulation/Output/Traffic_Lights.md#optional_output). Issue #10065
+  - edgeData output now supports attributes 'edges' and 'edgesFile' to reduce the output to a configurable list of edges. Issues #10025
 
 - sumo-gui
   - Enabled dpi awareness. Issue #9985
   - Traffic light type 'actuated' now supports parameters 'show-conditions' and 'hide-conditions' to customize visulization in the [Phase Tracker Window](Simulation/Traffic_Lights.md#track_phases) Issue #10046
+  - Detectors can now be triggered from the context menu even if there are no vehicles on it. Issue #10067
+
+- traci
+  - Added function 'traci.inductionloop.overrideTimeSinceDetection' and 'traci.lanearea.overrideVehicleNumber' to trigger the detector without the need for vehicles and facilitate traffic light testing. Issue #10045, #10048  
 
 - tools
   - routeStats.py: Can use measures "speed", "speedKmh", "routeLength", the fast XML parser and filter by route length . Issue #10044
