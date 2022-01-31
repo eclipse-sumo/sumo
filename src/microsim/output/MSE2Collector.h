@@ -522,6 +522,9 @@ public:
     */
     void overrideVehicleNumber(int num);
 
+    double getOverrideVehNumber() const {
+        return myOverrideVehNumber;
+    }
 private:
 
     /** @brief checks whether the vehicle stands in a jam
