@@ -280,6 +280,16 @@ From the vehicle context menu, the current vehicle can be made to stop (at the e
 ## Removing Vehicles
 From the vehicle context menu, the current vehicle can be removed from the simulation.
 
+## Activating Detectors
+The following detectors support overriding detection From their context menu:
+
+- inductionLoops (e1Detector): overriding sets the time since detection to 0 (as if a vehicle is standing on the detector)
+- laneAreaDetector (e2Detector): overriding sets the vehicle number to 1
+
+If the override is active, the context menu allows to reset the override.
+
+Overriding detection can influnce the [operation of traffic lights](Simulation/Traffic_Lights.md#traffic_lights_that_respond_to_traffic) (type 'actuated' and 'NEMA'). For this it is useful, the [make their detectors visible](Simulation/Traffic_Lights.md#visualization).
+
 ## Planned Interactions
 
 In the future more interactions are planned for exploratory simulation:
