@@ -143,7 +143,7 @@ button:hover {
 }
 
 .container > .roadTypes, .roadTypes.open {
-    max-height: 200px;
+    max-height: 300px;
 }
 
 .container > .roadTypes, h4 + .roadTypes.open {

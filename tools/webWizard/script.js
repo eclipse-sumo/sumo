@@ -45,7 +45,6 @@ on("ready", function(){
                     count: parseFloat(this.count.value)
                 };
             }
-
             return null;
         }
     };
@@ -69,6 +68,9 @@ on("ready", function(){
 
     RoadTypes.prototype = {
         init: function (category, typeList) {
+            this.category = category;
+            this.typeList = typeList;
+
             var node = elem("<div>", {className: "container"});
             var header = elem("<h4>", {textContent: category});
             node.append(header);
@@ -80,7 +82,8 @@ on("ready", function(){
                 console.log(typeList[i]);
 
                 label = elem("<label>", {textContent: typeList[i]});
-                this.roadTypeCheck = elem("<input>",{type: "checkbox", checked:true, id: String(i)});
+                let roadTypeId = this.category + "_" + typeList[i]
+                this.roadTypeCheck = elem("<input>",{type: "checkbox", checked:true, id: roadTypeId});
 
                 label.append(this.roadTypeCheck);
                 types.append(label);
@@ -90,22 +93,24 @@ on("ready", function(){
             elem("#road-types").append(node);
         },
 
-        // toJSON: function () {
-        //     if (this.enable.checked) {
-        //         return {
-        //             fringeFactor: parseFloat(this.fringeFactor.value),
-        //             count: parseFloat(this.count.value)
-        //         };
-        //     }
-        //
-        //     return null;
-        // }
+        getEnabledTypeList: function () {
+            var retEnabledTypeList = [];
+            for (var j = 0; j < this.typeList.length; j++) {
+                var roadTypeId = this.category + "_" + this.typeList[j];
+                if (document.getElementById(roadTypeId).checked) {
+                    retEnabledTypeList.push(this.typeList[j]);
+                    if (this.typeList[j].match(/^(motorway|trunk|primary|secondary|tertiary)$/)) {
+                        retEnabledTypeList.push(this.typeList[j] + "_link");
+                    }
+                }
+            }
+            return retEnabledTypeList;
+        }
     };
 
     const categories = {};
     categories["Highway"] = ["motorway", "trunk", "primary","secondary", "tertiary", "unclassified", "residential",
-        "living_street", "unsurfaced", "service", "motorway_link", "trunk_link", "primary_link", "secondary_link",
-        "tertiary_link", "raceway", "bus_guideway"];
+        "living_street", "unsurfaced", "service", "raceway", "bus_guideway"];
     categories["Pedestrians"] = ["track", "footway", "pedestrian", "path", "bridleway", "cycleway", "step", "steps",
         "stairs"];              //"Pedestrians" has also the "highway" key in OSM, this is gonna be transformed later
     categories["Railway"] = ["preserved", "tram", "subway", "light_rail", "rail", "highspeed"];
@@ -518,8 +523,8 @@ on("ready", function(){
             leftHand: elem("#leftHand").checked,
             decal: elem("#decal").checked,
             carOnlyNetwork: elem("#carOnlyNetwork").checked,
-            vehicles: {}
-            // roadTypes:{}                                                            // sab-inf
+            vehicles: {},
+            roadTypes:{}                                                            // sab-inf
         };
 
         // calculates the coordinates of the rectangle if area-picking is active
@@ -541,14 +546,25 @@ on("ready", function(){
                 data.vehicles[vehicleClass.internal] = result;
         });
 
-        // roadClasses.forEach(function(roadType){                           // sab-inf
-        //     var result = roadType.toJSON();
-        //     if(result)
-        //         data.roadTypes[roadType.internal] = result;
-        // });
+        roadClasses.forEach(function(roadType){
+            var result = roadType.getEnabledTypeList();
+            if(result){
+                // in OSM "pedestrians" have also the key "highway", therefore we prepare the data accordingly
+                if(roadType.category == "Pedestrians" || roadType.category == "Highway"){
+                    try{
+                        data.roadTypes["Highway"] = data.roadTypes["Highway"].concat(result);
+                    }catch (e){
+                        if (e instanceof TypeError) {
+                            data.roadTypes["Highway"] = result;
+                        }
+                    }
+                }else
+                    data.roadTypes[roadType.category] = result;
+            }
+        });
 
         try {
-            socket.send(JSON.stringify(data));                                 // data is transferred here to socket
+            socket.send(JSON.stringify(data));
         } catch(e){
             return;
         }

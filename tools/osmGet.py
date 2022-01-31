@@ -23,6 +23,7 @@ import os
 import gzip
 import base64
 import ssl
+import json
 try:
     import httplib
     import urlparse
@@ -46,12 +47,12 @@ def readCompressed(conn, urlpath, query, filename):
     <osm-script timeout="240" element-limit="1073741824">
     <union>
        %s
-       <recurse type="node-relation" into="rels"/>
-       <recurse type="node-way"/>
-       <recurse type="way-relation"/>
+       <recurse type="node-relation" into="rels"/>      <!-- default querytype is node; src:node trg:relation store into variable "rels" -->
+       <recurse type="node-way"/>                       <!-- default querytype is node; srd:node trg:way store into default variable "_" --> 
+       <recurse type="way-relation"/>                   <!-- srd:way get from default variable "_" trg:relation store into default variable "_" --> 
     </union>
     <union>
-       <item/>
+       <item/>                                          <!-- the item ensures that the beforehand collected data "_" is included in the results of union -->
        <recurse type="way-node"/>
     </union>
     <print mode="body"/>
@@ -61,6 +62,28 @@ def readCompressed(conn, urlpath, query, filename):
     if response.status == 200:
         with open(filename, "wb") as out:
             out.write(response.read())
+
+    # <osm-script>
+    #     <union>
+    #         <query type="way">
+    #             <has-kv k="highway" regv="motorway|primary|secondary"/>
+    #             <bbox-query s="50.916454593599" w="6.9071388244629" n="50.965184155347" e="6.9926261901855"/>
+    #         </query>
+    #         <query type="relation">
+    #             <has-kv k="route" modv="" v="ferry"/>
+    #             <bbox-query s="50.916454593599" w="6.9071388244629" n="50.965184155347" e="6.9926261901855"/>
+    #         </query>
+    #         <query type="way">
+    #             <has-kv k="railway" modv="" regv="preserved|tram|subway|light_rail|rail|highspeed"/>
+    #             <bbox-query s="50.916454593599" w="6.9071388244629" n="50.965184155347" e="6.9926261901855"/>
+    #         </query>
+    #     </union>
+    #     <union>
+    #       <item/>
+    #           <recurse type="way-node"/>
+    #     </union>
+    #     <print e="" from="_" geometry="full" ids="yes" limit="" mode="body" n="" order="id" s="" w=""/>
+    # </osm-script>
 
 
 optParser = sumolib.options.ArgumentParser(description="Get network from OpenStreetMap")
@@ -76,6 +99,7 @@ optParser.add_argument("-u", "--url", default="www.overpass-api.de/api/interpret
 # alternatives: overpass.kumi.systems/api/interpreter, sumo.dlr.de/osm/api/interpreter
 optParser.add_argument("-w", "--wikidata", action="store_true", dest="wikidata",
                        default=False, help="get the corresponding wikidata")
+optParser.add_argument("-r", "--road_types", help="only delivers osm data to the specified road-types")
 
 
 def get(args=None):
@@ -124,6 +148,24 @@ def get(args=None):
         else:
             conn = httplib.HTTPConnection(url.hostname, url.port)
 
+    # prepare data for query
+    if options.road_types:
+        commonQueryStringKeyPart = "<has-kv k=%s"
+        commonQueryStringRegvPart = " regv=%s/>"
+        queryStrings = []
+        roadTypes = json.loads(options.road_types.replace("\'","\"").lower())
+        for category in roadTypes:
+            keyQueryString = commonQueryStringKeyPart % category
+            typeList = []
+            for type in roadTypes[category]:
+                typeList.append(type)
+            separator = "|"
+            typeListStringPerCategory = separator.join(typeList)
+            regvQueryString = commonQueryStringRegvPart % typeListStringPerCategory
+            finalQueryStringPerCategory = keyQueryString + regvQueryString
+            queryStrings.append(finalQueryStringPerCategory)
+
+    # TODO complete query strings
     if options.area:
         if options.area < 3600000000:
             options.area += 3600000000
