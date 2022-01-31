@@ -166,7 +166,14 @@ By setting the option **--weighted**. The sampling algorithm is changed. For eac
 until all counting locations have reached their measured count or there are no viable routes (routes which have all their passed counting locations below the input count)
 
 ## Optimization
-By default, routes will be sampled from the input route set until no further routes can be added without exceeding one of the counts. This may still leave some counts below their target values. At this point an ILP-Solver can be used to swap out routes and get closer to the target values or even reach the exact numbers.
+By default, routes will be sampled from the input route set until no further routes can be added without exceeding one of the counts. This may still leave some counts below their target values.
+
+The problem of selecting a multi-set of route so that all count values are matched can be formulated as an [Integer linear programming problem (ILP)](https://en.wikipedia.org/wiki/Integer_programming).
+
+RouteSampler computes an approximate solution to this ILP by relaxing it to a linear programming problem (LP) and passing it to an LP-solver library (scipy).
+  The resulting non-intgeral solution is then rounded to an integer solution.  
+It is often desirable to find an optimized solution that is close to the initial sampling-solution. This way, route probabilities that were part of the input can be maintained to some degree.
+
 By setting option **--optimize `<INT>`**. The number of times that a route is used can be changed by up to **`<INT>`** times. This defines a trade-off between using routes in the same distribution as found in the input and optimizing the counts.
 When setting option **--optimize full**. No constraints on the route distribution are set and any route can be used as often as needed to reach the counts.
         
