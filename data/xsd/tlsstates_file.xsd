@@ -9,6 +9,8 @@
                 <xsd:element minOccurs="0" maxOccurs="unbounded" ref="tlsState"/>
             </xsd:sequence>
         </xsd:complexType>
+        <xsd:attribute name="detectors" use="optional" type="xsd:string"/>
+        <xsd:attribute name="conditions" use="optional" type="xsd:string"/>
     </xsd:element>
 
     <xsd:element name="tlsState">
