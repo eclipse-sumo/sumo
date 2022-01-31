@@ -455,7 +455,7 @@ protected:
         }
     }
 
-    // TS2 Specific Coordinated Mode Cycle
+    // TS2 Specific fit in cycle algorithm
     bool fitInCycleTS2(int phase,  int ringNum);
     // Type170 fitInCycle algorithm
     // bool fitInCycle170(int _phase, int _ringNum){

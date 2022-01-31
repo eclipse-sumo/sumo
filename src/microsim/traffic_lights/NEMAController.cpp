@@ -939,13 +939,6 @@ NEMALogic::NEMA_control() {
         int tempR2Phase;
         // Get the next phases, with the first option being staying in the current phase
         std::tie(tempR1Phase, tempR2Phase) = getNextPhases(R1Phase, R2Phase, wait4R1Green, wait4R2Green, true);
-        // Protect Green Rest in Coordinate Mode from Going (2+6 -> 1+6). Green Rest in Coordinate mode can only cross the barier
-        if (coordinateMode && (myCabinetType == TS2) && ((R1RYG == GREENREST) || (R2RYG == GREENREST))){
-            if ((findBarrier(tempR1Phase, 0) == findBarrier(R1Phase, 0)) || (findBarrier(tempR2Phase, 1) == findBarrier(R2Phase, 1))){
-                tempR1Phase = R1Phase;
-                tempR2Phase = R2Phase;
-            }
-        }
         // entry point to green rest. First check detector status, then determine if this should be up next.
         // Green rest is effectively the same as being perpetually past the minimum green timer but not changing
         // Green Rest exists in Coordinate Mode too. TS2 allows Green Rest
@@ -1612,34 +1605,25 @@ NEMALogic::fitInCycleTS2(int phase, int ringNum){
     } else {
         bool iFit = true;
         double currentTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
-        double timeLeftInCyle = myCycleLength - ModeCycle(currentTime - cycleRefPoint - offset, myCycleLength);
-        int endPhase = ringNum > 0? r2coordinatePhase : r1coordinatePhase;
+        double timeInCycle = ModeCycle(currentTime - cycleRefPoint - offset, myCycleLength);
         int length = (int)rings[ringNum].size();
-
         // Find the path to the coordinate phase. There has to be a more concise way to do this.
-        IntVector path;        
-        bool log = false;
-        for (int i = 0; i < length * 2; i++){
-            if (log && (rings[ringNum][i % length] == endPhase)){
-                // Don't log the end phase
+        // Also log the point in front of me. If it can fit, then I should not mark myself as "fitting"
+        int proceedingPhase = 0;        
+        for (int i = 0; i < (length * 2 - 1); i++){
+            if (rings[ringNum][(i + 1) % length] == phase){
+                proceedingPhase = rings[ringNum][i % length];
                 break;
-            }else if (log){
-                path.push_back(i);
-            } else if (rings[ringNum][i % length] == phase){
-                log = true;
-                path.push_back(i);
             }
         }
-
-        // take the sum of the path
-        double totalTime = 0;
-        for (auto& ind: path){
-            int p = rings[ringNum][ind % length];
-            totalTime += (maxGreen[p] + yellowTime[p] + redTime[p]);
-            // If the total potential time is greater than the time left before the next coordinated phase MUST appear, do not serve me
-            if (totalTime > (timeLeftInCyle + (forceOffs[endPhase - 1] - maxGreen[endPhase - 1]))){
+        if (proceedingPhase > 0){
+            // if the proceeding phase fits, don't say I fit
+            double minStartTimeProceeding = forceOffs[proceedingPhase - 1] - maxGreen[proceedingPhase - 1];
+            double minStartTime = forceOffs[phase - 1] - maxGreen[phase - 1];
+            if (timeInCycle <= (minStartTimeProceeding > 0? minStartTimeProceeding : myCycleLength + minStartTimeProceeding)){
                 iFit = false;
-                break;
+            } else if (timeInCycle > (minStartTime > 0? minStartTime : myCycleLength + minStartTime)){
+                iFit = false;
             }
         }
         return iFit;
