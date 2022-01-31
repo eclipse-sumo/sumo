@@ -352,7 +352,9 @@ The detectors used by an actuated traffic light will be colored to indicate thei
 - green color indicates that the detector is used to determine the length of the current phase
 - white color indicates that the detector is not used in the current phase
 - red color indicates that a vehicle was detected since the last time at which the controlled links at that lane had a green light (only if these links are currently red)
-- 
+- magenta color indicates and active [override](../sumo-gui.md#activating_detectors)
+
+
 ### Custom Detectors
 To use custom detectors (i.e. for custom placement or output) additional parameters can be defined where KEY is a lane that is incoming to the traffic light and VALUE is a user-defined inductionLoop (that could also lie on another upstream lane).
 ```
