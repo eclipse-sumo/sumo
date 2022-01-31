@@ -58,6 +58,7 @@ class GUIVehicle;
 class GUIVehicleControl;
 class MSVehicleControl;
 class GUIMEVehicleControl;
+class Command;
 
 
 // ===========================================================================
@@ -344,6 +345,9 @@ public:
 
     /// @brief update view after simulation.loadState
     void updateGUI() const override;
+
+    /// @brief register custom hotkey action
+    void addHotkey(int key, Command* press, Command* release);
 
 private:
     /// @brief Initialises the tl-logic map and wrappers

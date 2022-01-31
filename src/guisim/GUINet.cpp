@@ -683,7 +683,8 @@ GUINet::isSelected(const MSTrafficLightLogic* tll) const {
     return it != myLogics2Wrapper.end() && gSelected.isSelected(GLO_TLLOGIC, it->second->getGlID());
 }
 
-void GUINet::updateGUI() const {
+void
+GUINet::updateGUI() const {
     try {
         // gui only
         GUIApplicationWindow* aw = static_cast<GUIApplicationWindow*>(GUIMainWindow::getInstance());
@@ -692,6 +693,15 @@ void GUINet::updateGUI() const {
     } catch (ProcessError&) { }
 }
 
+void
+GUINet::addHotkey(int key, Command* press, Command* release) {
+    try {
+        // gui only
+        GUIApplicationWindow* aw = static_cast<GUIApplicationWindow*>(GUIMainWindow::getInstance());
+        // update the view
+        aw->addHotkey(key, press, release);
+    } catch (ProcessError&) { }
+}
 
 
 #ifdef HAVE_OSG

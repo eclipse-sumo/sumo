@@ -23,15 +23,16 @@
 
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/geom/PositionVector.h>
-#include "GUIInductLoop.h"
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/globjects/GLIncludes.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/logging/FuncBinding_IntParam.h>
 #include <microsim/MSLane.h>
 #include <microsim/output/MSInductLoop.h>
 #include "GUIEdge.h"
-#include <utils/gui/globjects/GLIncludes.h>
+#include "Command_Hotkey_InductionLoop.h"
+#include "GUIInductLoop.h"
 
 
 // ===========================================================================
@@ -46,7 +47,8 @@ GUIInductLoop::GUIInductLoop(const std::string& id, MSLane* const lane,
     MSInductLoop(id, lane, position, vTypes, detectPersons, true),
     myWrapper(nullptr),
     myShow(show)
-{}
+{
+}
 
 
 GUIInductLoop::~GUIInductLoop() {}
@@ -54,6 +56,9 @@ GUIInductLoop::~GUIInductLoop() {}
 
 GUIDetectorWrapper*
 GUIInductLoop::buildDetectorGUIRepresentation() {
+    if (knowsParameter("hotkey")) {
+        Command_Hotkey_InductionLoop::registerHotkey(getParameter("hotkey"), this);
+    }
     // caller (GUINet) takes responsibility for pointer
     myWrapper = new MyWrapper(*this, myPosition);
     return myWrapper;
