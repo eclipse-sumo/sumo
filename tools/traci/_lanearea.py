@@ -102,7 +102,7 @@ class LaneAreaDomain(Domain):
 
     def overrideVehicleNumber(self, detID, vehNum):
         """overrideVehicleNumber(string, integer) -> None
-        Persistantly overrides the number of vehicles on the detector.
+        Persistently overrides the number of vehicles on the detector.
         Setting a negative value resets the override.
         """
         return self._setCmd(tc.VAR_VIRTUAL_DETECTION, detID, "i", vehNum)

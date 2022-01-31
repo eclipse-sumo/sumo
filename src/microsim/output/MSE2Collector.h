@@ -779,7 +779,7 @@ private:
 
     
     /// @brief stores the overriden (via Traci) number of vehicles on detector 
-    int myOverideVehNumber;
+    int myOverrideVehNumber;
 
 private:
     /// @brief Invalidated copy constructor.
