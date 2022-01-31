@@ -939,6 +939,13 @@ NEMALogic::NEMA_control() {
         int tempR2Phase;
         // Get the next phases, with the first option being staying in the current phase
         std::tie(tempR1Phase, tempR2Phase) = getNextPhases(R1Phase, R2Phase, wait4R1Green, wait4R2Green, true);
+        // Protect Green Rest in Coordinate Mode from Going (2+6 -> 1+6). Green Rest in Coordinate mode can only cross the barier
+        if (coordinateMode && (myCabinetType == TS2) && ((R1RYG == GREENREST) || (R2RYG == GREENREST))){
+            if ((findBarrier(tempR1Phase, 0) == findBarrier(R1Phase, 0)) || (findBarrier(tempR2Phase, 1) == findBarrier(R2Phase, 1))){
+                tempR1Phase = R1Phase;
+                tempR2Phase = R2Phase;
+            }
+        }
         // entry point to green rest. First check detector status, then determine if this should be up next.
         // Green rest is effectively the same as being perpetually past the minimum green timer but not changing
         // Green Rest exists in Coordinate Mode too. TS2 allows Green Rest
@@ -1582,8 +1589,8 @@ NEMALogic::calculateInitialPhasesTS2(){
     calculateInitialPhases170();
 
     // Set the phase expected duration to initialize correctly
-    phaseExpectedDuration[activeRing1Phase - 1] = coordModeCycleTS2(0, activeRing1Phase);
-    phaseExpectedDuration[activeRing2Phase - 1] = coordModeCycleTS2(0, activeRing2Phase);
+    phaseExpectedDuration[activeRing1Phase - 1] = activeRing1Phase == r1coordinatePhase? coordModeCycleTS2(0, activeRing1Phase) : minGreen[activeRing1Phase - 1];
+    phaseExpectedDuration[activeRing2Phase - 1] = activeRing2Phase == r2coordinatePhase? coordModeCycleTS2(0, activeRing2Phase) : minGreen[activeRing2Phase - 1];
 }
 
 double
