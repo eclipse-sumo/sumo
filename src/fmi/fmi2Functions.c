@@ -264,7 +264,7 @@ fmi2GetString(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, fmi2St
     }
     comp->freeMemory((void *)comp->bufferArray);
     comp->bufferArray = (fmi2String *)comp->allocateMemory(nvr, sizeof(fmi2String));
-    comp->bufferArrayLength = nvr;
+    comp->bufferArrayLength = (int)nvr;
 
     // Go through the list of arrays and save all requested values
     for (int i = 0; i < nvr; i++) {
