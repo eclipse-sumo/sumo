@@ -119,7 +119,7 @@ public:
 
     std::string combineStates(std::string state1, std::string state2);
 
-    int nextPhase(std::vector<int> ring, int phaseNum, int& distance,  bool sameAllowed);
+    int nextPhase(std::vector<int> ring, int phaseNum, int& distance,  bool sameAllowed, int ringNum);
 
     std::tuple<int, int> getNextPhases(int currentR1Index, int currentR2Index, bool toUpdateR1, bool toUpdateR2, bool stayOk = false);
 
@@ -452,6 +452,25 @@ protected:
             default:
                 // Default to Type 170
                 return coordModeCycle170(currentTime, phase);
+        }
+    }
+
+    // TS2 Specific Coordinated Mode Cycle
+    bool fitInCycleTS2(int phase,  int ringNum);
+    // Type170 fitInCycle algorithm
+    bool fitInCycle170(int phase, int ringNum){
+        return true;
+    }
+    // 
+    double fitInCycle(int phase, int ringNum){
+        switch (myCabinetType){
+            case Type170:
+                return fitInCycle170(phase, ringNum);
+            case TS2:
+                return fitInCycleTS2(phase, ringNum);
+            default:
+                // Default to Type 170
+                return fitInCycle170(phase, ringNum);
         }
     }
 };

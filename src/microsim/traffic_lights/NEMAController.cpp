@@ -910,6 +910,22 @@ NEMALogic::NEMA_control() {
         }
     }
 
+    // Reset Green Rest to Green after arriving back at cycle beginning
+    if (coordinateMode && (R1RYG == GREENREST) && (R2RYG == GREENREST)){
+        double cycleTime = ModeCycle(currentTimeInSecond - cycleRefPoint - offset, myCycleLength);
+        if ((cycleTime >= 0) && (cycleTime < TS / 2)){
+            phaseExpectedDuration[R1Index] = coordModeCycle(currentTimeInSecond, R1Phase);
+            phaseExpectedDuration[R2Index] = coordModeCycle(currentTimeInSecond, R2Phase);
+            phaseStartTime[R1Index] = currentTimeInSecond;
+            phaseStartTime[R2Index] = currentTimeInSecond;
+            R1RYG = GREEN;
+            R2RYG = GREEN;
+            wait4R1Green = false;
+            wait4R2Green = false;
+            EndCurrentPhaseR1 = false;
+            EndCurrentPhaseR2 = false; 
+        }
+    }
     // Logic for Green Rest & Green Transfer
     // This requires a detector check. It should only be entered when the lights are green
     // This logic doesn't need to enter at all if in coordinated mode and greenTransfer is disabled
@@ -941,6 +957,8 @@ NEMALogic::NEMA_control() {
             // Set my state to Green Rest
             R1RYG = GREENREST;
             R2RYG = GREENREST;
+
+            // reset the expected duration once we make it to the end of the c
 
         } else if (tempR1Phase == R1Phase && EndCurrentPhaseR1 && greenTransfer) {
             // This is the logic for green transfer on Ring 1
@@ -1099,7 +1117,7 @@ NEMALogic::NEMA_control() {
     return outputState;
 }
 
-int NEMALogic::nextPhase(std::vector<int> ring, int currentPhase, int& distance, bool sameAllowed) {
+int NEMALogic::nextPhase(std::vector<int> ring, int currentPhase, int& distance, bool sameAllowed, int ringNum) {
     int length = (int)ring.size();
     int flag = 0;
     int nphase = 0; // next phase
@@ -1111,8 +1129,10 @@ int NEMALogic::nextPhase(std::vector<int> ring, int currentPhase, int& distance,
                 distance ++;
                 int tempPhase = ring[i % length];
                 if (recall[tempPhase-1] || readDetector(tempPhase)){
-                    nphase=tempPhase;
-                    break;
+                    if (fitInCycle(tempPhase, ringNum)){
+                        nphase=tempPhase;
+                        break;
+                    }
                 }
 
 #ifdef DEBUG_NEMA
@@ -1187,18 +1207,18 @@ std::tuple<int, int> NEMALogic::getNextPhases(int R1Phase, int R2Phase, bool toU
     // Only 1 or both can be !toUpdate (otherwise we wouldn't be in this situation)
     if (!toUpdateR1) {
         int d = 0;
-        nextR2Phase = nextPhase(myRingBarrierMapping[1][currentR1Barrier], R2Phase, d, stayOk);
+        nextR2Phase = nextPhase(myRingBarrierMapping[1][currentR1Barrier], R2Phase, d, stayOk, 1);
         // If we aren't updating both, the search range is only the subset of values on the same side of the barrier;
     } else if (!toUpdateR2) {
         int d = 0;
-        nextR1Phase = nextPhase(myRingBarrierMapping[0][currentR2Barrier], R1Phase, d, stayOk);
+        nextR1Phase = nextPhase(myRingBarrierMapping[0][currentR2Barrier], R1Phase, d, stayOk, 0);
     } else {
         // Both can be updated. We should take the change requiring the least distance travelled around the loop,
         // and then recalculate the other ring if it is not in the same barrier
         int r1Distance = 0;
         int r2Distance = 0;
-        nextR1Phase = nextPhase(rings[0], R1Phase, r1Distance, stayOk);
-        nextR2Phase = nextPhase(rings[1], R2Phase, r2Distance, stayOk);
+        nextR1Phase = nextPhase(rings[0], R1Phase, r1Distance, stayOk, 0);
+        nextR2Phase = nextPhase(rings[1], R2Phase, r2Distance, stayOk, 1);
         int r1Barrier = findBarrier(nextR1Phase, 0);
         int r2Barrier = findBarrier(nextR2Phase, 1);
 
@@ -1209,10 +1229,10 @@ std::tuple<int, int> NEMALogic::getNextPhases(int R1Phase, int R2Phase, bool toU
         if (((R1Phase == r1coordinatePhase || R1Phase == r1barrier) || (R2Phase == r2coordinatePhase || R2Phase == r2barrier)) && (R1RYG < GREEN && R2RYG < GREEN)){
             // If either of my phase are at the barrier and have gone yellow, then both phases have to cross the barrier
             if (r1Barrier == currentR1Barrier){
-                nextR1Phase = nextPhase(myRingBarrierMapping[0][!currentR1Barrier], myRingBarrierMapping[0][!currentR1Barrier].back(), r1Distance, true);
+                nextR1Phase = nextPhase(myRingBarrierMapping[0][!currentR1Barrier], myRingBarrierMapping[0][!currentR1Barrier].back(), r1Distance, true, 0);
             } 
             if (r2Barrier == currentR2Barrier){
-                nextR2Phase = nextPhase(myRingBarrierMapping[1][!currentR2Barrier], myRingBarrierMapping[1][!currentR2Barrier].back(), r2Distance, true);
+                nextR2Phase = nextPhase(myRingBarrierMapping[1][!currentR2Barrier], myRingBarrierMapping[1][!currentR2Barrier].back(), r2Distance, true, 1);
             }
         }
         // If the initially calculated next phases end up on opposite sides of a barrier, regardless of whether I am at a barrier phase or not,  
@@ -1220,10 +1240,10 @@ std::tuple<int, int> NEMALogic::getNextPhases(int R1Phase, int R2Phase, bool toU
         else if ((r1Distance <= r2Distance) && (r1Barrier != r2Barrier)) {
             // If the 
             int defaultPhase = (R2RYG >= GREEN && currentR2Barrier == r1Barrier) ? R2Phase : myRingBarrierMapping[1][r1Barrier].back(); 
-            nextR2Phase = nextPhase(myRingBarrierMapping[1][r1Barrier], defaultPhase, r2Distance, true);
+            nextR2Phase = nextPhase(myRingBarrierMapping[1][r1Barrier], defaultPhase, r2Distance, true, 1);
         } else if ((r1Distance > r2Distance) && (r1Barrier != r2Barrier)) {
             int defaultPhase = (R1RYG >= GREEN && currentR1Barrier == r2Barrier) ? R1Phase : myRingBarrierMapping[0][r2Barrier].back();
-            nextR1Phase = nextPhase(myRingBarrierMapping[0][r2Barrier], defaultPhase, r1Distance, true);
+            nextR1Phase = nextPhase(myRingBarrierMapping[0][r2Barrier], defaultPhase, r1Distance, true, 0);
         }
     }
     // Only actually keep the changes if the controller wants to transition the state
@@ -1557,6 +1577,10 @@ void
 NEMALogic::calculateInitialPhasesTS2(){
     // Modifications where made to 170 algorithm so that it works with both.
     calculateInitialPhases170();
+
+    // Set the phase expected duration to initialize correctly
+    phaseExpectedDuration[activeRing1Phase - 1] = coordModeCycleTS2(0, activeRing1Phase);
+    phaseExpectedDuration[activeRing2Phase - 1] = coordModeCycleTS2(0, activeRing2Phase);
 }
 
 double
@@ -1568,5 +1592,46 @@ double
 NEMALogic::coordModeCycleTS2(double currentTime, int phase){
     // This puts the phase green for the rest of the cycle, plus the first bit in which it must be green
     // We don't need the yellow and red here because the force off already incorporates that.
-    return ModeCycle((myCycleLength + forceOffs[phase - 1]) - (currentTime - cycleRefPoint - offset), myCycleLength);  
+    return ModeCycle((myCycleLength + forceOffs[phase - 1]) - (currentTime - cycleRefPoint - offset), myCycleLength);
 }
+
+bool
+NEMALogic::fitInCycleTS2(int phase, int ringNum){
+    if (!coordinateMode || (R1RYG != GREENREST && R2RYG != GREENREST) || ((phase == r2coordinatePhase) || (phase == r1coordinatePhase))){
+        return true;
+    } else {
+        bool iFit = true;
+        double currentTime = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep());
+        double timeLeftInCyle = myCycleLength - ModeCycle(currentTime - cycleRefPoint - offset, myCycleLength);
+        int endPhase = ringNum > 0? r2coordinatePhase:r1coordinatePhase;
+        // Find the path to the coordinate phase
+        // There has to be a more concise way to do this.
+        IntVector path;
+        int length = (int)rings[ringNum].size();
+        bool log = false;
+        for (int i = 0; i < length * 2; i++){
+            if (log && (rings[ringNum][i % length] == endPhase)){
+                break;
+            }
+            if (log){
+                path.push_back(i);
+            } else if (rings[ringNum][i % length] == phase){
+                log = true;
+                path.push_back(i);
+            }
+        }
+        // take the sum of the path
+        double totalTime = 0;
+        for (auto& ind: path){
+            int p = rings[ringNum][ind % length];
+            totalTime += (maxGreen[p] + yellowTime[p] + redTime[p]);
+            // If the total potential time is greater than the time left before the next coordinated phase MUST appear, do not serve me
+            if (totalTime > (timeLeftInCyle + (forceOffs[endPhase - 1] - maxGreen[endPhase - 1]))){
+                iFit = false;
+                break;
+            }
+        }
+        return iFit;
+    }
+}
+
