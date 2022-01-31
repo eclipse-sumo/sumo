@@ -443,7 +443,7 @@ The following elements are permitted in an expression for attributes
 
 - numbers
 - comparators <,>,=,<=,>=
-- mathematical operators +,-,*,/,**
+- mathematical operators +,-,*,/,**,%
 - logical operators 'or', 'and', '!'
 - parentheses (,)
 - pre-defined functions:
