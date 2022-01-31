@@ -120,10 +120,10 @@ class chargingStation:
         friendlyPos = 7
         power = 8
         efficiency = 9
-        chargeInTrainsit = 10
+        chargeInTransit = 10
         chargeDelay = 11
-        references = 14
-        length = 15
+        references = 15
+        length = 17
     class inspect():
         id = 1
         lane = 2
@@ -133,7 +133,7 @@ class chargingStation:
         friendlyPos = 6
         power = 7
         efficiency = 8
-        chargeInTrainsit = 9
+        chargeInTransit = 9
         chargeDelay = 10
         parameters = 13
     class inspectSelection():
@@ -143,4 +143,4 @@ class chargingStation:
         efficiency = 4
         chargeInTrainsit = 5
         chargeDelay = 6
-        parameters = 10
+        parameters = 9

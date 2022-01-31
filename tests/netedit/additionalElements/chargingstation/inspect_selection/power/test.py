@@ -41,13 +41,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 150, 320)
 
 # Set invalid Power
-netedit.modifyAttribute(2, "dummyPower", True)
+netedit.modifyAttribute(netedit.attrs.chargingStation.inspectSelection.power, "dummyPower", True)
 
 # Set invalid Power
-netedit.modifyAttribute(2, "-1000", True)
+netedit.modifyAttribute(netedit.attrs.chargingStation.inspectSelection.power, "-1000", True)
 
 # Set Power
-netedit.modifyAttribute(2, "11000", True)
+netedit.modifyAttribute(netedit.attrs.chargingStation.inspectSelection.power, "11000", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)
