@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("trainStop")
 
 # change reference to center
-netedit.changeDefaultValue(15, "reference center")
+netedit.changeDefaultValue(netedit.attrs.trainStop.create.references, "reference center")
 
 # create trainStop in mode "reference center"
 netedit.leftClick(referencePosition, 250, 170)
@@ -47,16 +47,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 190)
 
 # Change parameter personCapacity with a non valid value (throw warning)
-netedit.modifyAttribute(7, "dummyPersonCapacity", True)
+netedit.modifyAttribute(netedit.attrs.trainStop.inspect.personCapacity, "dummyPersonCapacity", True)
 
 # Change parameter personCapacity with a valid value
-netedit.modifyAttribute(7, "-7", True)
+netedit.modifyAttribute(netedit.attrs.trainStop.inspect.personCapacity, "-7", True)
 
 # Change parameter personCapacity with a valid value
-netedit.modifyAttribute(7, "2.5", True)
+netedit.modifyAttribute(netedit.attrs.trainStop.inspect.personCapacity, "2.5", True)
 
 # Change parameter personCapacity with a valid value
-netedit.modifyAttribute(7, "10", True)
+netedit.modifyAttribute(netedit.attrs.trainStop.inspect.personCapacity, "10", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)
