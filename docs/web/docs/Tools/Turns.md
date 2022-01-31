@@ -177,6 +177,9 @@ It is often desirable to find an optimized solution that is close to the initial
 By setting option **--optimize `<INT>`**. The number of times that a route is used can be changed by up to **`<INT>`** times. This defines a trade-off between using routes in the same distribution as found in the input and optimizing the counts.
 When setting option **--optimize full**. No constraints on the route distribution are set and any route can be used as often as needed to reach the counts.
         
+The option **--minimize-vehicles <FLOAT>** can be used to configure a weighting term for simulataneously minimizing the total number of used routes (vehicles).
+  A higher value, favours solutions with few vehicles that pass multiple counting locations rather than more vehicles that pass fewer locations. Hard constraints on the minimum number of counting locations passed by each route can also be set with option **-min-count**.
+  
 !!! note
     Optimization requires [scipy](https://www.scipy.org/).
 
