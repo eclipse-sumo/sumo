@@ -402,7 +402,8 @@ MSDevice_Vehroutes::writeOutput(const bool hasArrived) const {
     od.closeTag();
     od.lf();
     if (mySorted) {
-        writeSortedOutput(routeOut, tmp.depart, myHolder.getID(), od.getString());
+        // numerical id reflects loading order
+        writeSortedOutput(routeOut, tmp.depart, toString(myHolder.getNumericalID()), od.getString());
     } else {
         routeOut << od.getString();
     }
