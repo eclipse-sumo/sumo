@@ -248,6 +248,15 @@ according to the above suggestions.
 
 ## TraCI
 
+### My [TraCI](TraCI.md)-program is to slow. What can I do?
+
+  TraCI communicates over sockets and this communication is slow. You can often reduce the number of TraCI commands via the following strategies.
+  
+  - store results that do not change (i.e. vehicle length) rather than retrieving them again repeatedly
+  - use [subscriptions](TraCI/Object_Variable_Subscription.md) or [context subscriptions](TraCI/Object_Context_Subscription.md) to reduce the number of 'get' commmands for things that you need in every step
+
+   Even larger gains can be hand by switching to [libsumo](Libsumo.md). This can be done with a single line of code and completely eliminates the slow socket communication. 
+
 ### My [TraCI](TraCI.md)-program is not working as intended. Can you help me debug it?
 
   Unfortunately, we do not have the resources to debug other peoples
