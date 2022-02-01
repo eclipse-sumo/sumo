@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_12_0+0087-1185162ac9e
+Eclipse SUMO sumo Version v1_12_0+0179-34fe5c8
  Copyright (C) 2001-2022 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -365,6 +365,8 @@ Routing Options:
   --persontrip.taxi.waiting-time TIME  Estimated time for taxi pickup
   --railway.max-train-length FLOAT     Use FLOAT as a maximum train length when
                                         initializing the railway router
+  --replay-rerouting                   Replay exact rerouting sequence from
+                                        vehroute-output
   --device.rerouting.probability FLOAT  The probability for a vehicle to have a
                                         'rerouting' device
   --device.rerouting.explicit STR[]    Assign a 'rerouting' device to named
@@ -771,8 +773,6 @@ GUI Only Options:
                                         position
   --tracker-interval TIME              The aggregation period for value tracker
                                         windows
-  --osg-view                           Start with an OpenSceneGraph view
-                                        instead of the regular 2D view
   --gui-testing                        Enable overlay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                         GUI-Testing
