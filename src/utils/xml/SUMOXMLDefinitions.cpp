@@ -762,6 +762,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "writeAttributes",        SUMO_ATTR_WRITE_ATTRIBUTES },
     { "edgesFile",              SUMO_ATTR_EDGESFILE },
     { "aggregate",              SUMO_ATTR_AGGREGATE },
+    { "numEdges",               SUMO_ATTR_NUMEDGES },
 
     { "lon",                    SUMO_ATTR_LON },
     { "lat",                    SUMO_ATTR_LAT },
