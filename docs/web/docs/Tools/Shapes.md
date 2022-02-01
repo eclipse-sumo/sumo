@@ -23,7 +23,7 @@ Converts a given CSV-file that contains a list of pois to an XML-file that may b
 <SUMO\>/tools/shape/CSV2polyconvertXML.py <CSV_FILE> <OUTPUT_FILE> <VALUENAME>[,<VALUENAME>]*
 ```
 
-- <CSV_FILE\>: CSV document to be coverted
+- <CSV_FILE\>: CSV document to be converted
 - <OUTPUT_FILE\>: POIs compatible with POLYCONVERT
 
 # pois2inductionLoops.py

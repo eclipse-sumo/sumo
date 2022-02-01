@@ -14,7 +14,7 @@ defined number of iteration steps. At least two files have to be given
 as input the script: a SUMO-network and a set of trip definitions. A
 stochastic user-equilibrium (UE)traffic state is not guaranteed after
 the assignment. Increasing the number of iteration steps increases the
-likelyhood of convergence to equilibrium.
+likelihood of convergence to equilibrium.
 
 Within each iteration step, the script generates a configuration file
 for the [duarouter](../duarouter.md) application and starts it with
@@ -115,7 +115,7 @@ where -m: matrix file name
       -z: district file name
       -t: name of the file containing traffic flow time series (optional); If not specified, the defined 
           daily matrix will be regularly divided into 24 hours.
-      -o: output directoy name and the respective path
+      -o: output directory name and the respective path
 ```
 
 ## costFunctionChecker.py

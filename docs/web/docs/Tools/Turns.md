@@ -59,7 +59,7 @@ The attributes for reading the counts from edge-data file can be set with option
 
 When using routeSampler as a replacement for [dfrouter](../dfrouter.md) or [flowrouter.py](Detector.md#flowrouterpy), the flow input files can be converted to edgeData files with the tool [edgeDataFromFlow.py](Detector.md#edgedatafromflowpy)
 
-For smaller scenarions it is often feasible to define edgeData files with [netedit edgeData mode (in the 'Data' supermode)](../Netedit/elementsData.md). Turn files can also be created with netedit using the edgeRelation mode (also part of the 'Data' supermode).
+For smaller scenarios it is often feasible to define edgeData files with [netedit edgeData mode (in the 'Data' supermode)](../Netedit/elementsData.md). Turn files can also be created with netedit using the edgeRelation mode (also part of the 'Data' supermode).
 
 In other cases it is necessary to write custom code for converting counting data into the required format.
 
@@ -116,7 +116,7 @@ python tools/routeSampler.py -n input_net.net.xml -r candidate.rou.xml -o out
   --attributes="departLane=\"best\" departSpeed=\"max\" departPos=\"random\""
 ```
 
-The above attriutes would make the vehicles be distributed randomly on their
+The above attributes would make the vehicles be distributed randomly on their
 starting edges and inserted with high speed on a reasonable lane.
 
 !!! note
@@ -160,7 +160,7 @@ By default, sampling will be performed iteratively by
 
 until all counting locations have reached their measured count or there are no viable routes (routes which have all their passed counting locations below the input count)
 
-By setting the option **--weighted**. The sampling algorithm is changed. For each route a probability value is loaded from the input. The probabilty can either be specified explicitly using route attribute 'probability' or implicitly if a route with the same sequence of edges appears multiple times in the the route input. Sampling will be performed iteratively by
+By setting the option **--weighted**. The sampling algorithm is changed. For each route a probability value is loaded from the input. The probability can either be specified explicitly using route attribute 'probability' or implicitly if a route with the same sequence of edges appears multiple times in the the route input. Sampling will be performed iteratively by
 1) selecting a random viable route sampled by probability
 
 until all counting locations have reached their measured count or there are no viable routes (routes which have all their passed counting locations below the input count)
@@ -171,13 +171,13 @@ By default, routes will be sampled from the input route set until no further rou
 The problem of selecting a multi-set of route so that all count values are matched can be formulated as an [Integer linear programming problem (ILP)](https://en.wikipedia.org/wiki/Integer_programming).
 
 RouteSampler computes an approximate solution to this ILP by relaxing it to a linear programming problem (LP) and passing it to an LP-solver library (scipy).
-  The resulting non-intgeral solution is then rounded to an integer solution.  
+  The resulting non-integral solution is then rounded to an integer solution.  
 It is often desirable to find an optimized solution that is close to the initial sampling-solution. This way, route probabilities that were part of the input can be maintained to some degree.
 
 By setting option **--optimize `<INT>`**. The number of times that a route is used can be changed by up to **`<INT>`** times. This defines a trade-off between using routes in the same distribution as found in the input and optimizing the counts.
 When setting option **--optimize full**. No constraints on the route distribution are set and any route can be used as often as needed to reach the counts.
         
-The option **--minimize-vehicles <FLOAT>** can be used to configure a weighting term for simulataneously minimizing the total number of used routes (vehicles).
+The option **--minimize-vehicles <FLOAT>** can be used to configure a weighting term for simultaneously minimizing the total number of used routes (vehicles).
   A higher value, favours solutions with few vehicles that pass multiple counting locations rather than more vehicles that pass fewer locations. Hard constraints on the minimum number of counting locations passed by each route can also be set with option **-min-count**.
   
 !!! note

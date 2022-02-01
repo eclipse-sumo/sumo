@@ -83,7 +83,7 @@ are child elements of plan definitions.
 You can define either a list of "edges" to travel or a "from" and a "to"
 edge. In the former case, only the first and the last edge will be
 considered. Instead of a "to" edge a container stop can be defined.
-If there is a move entry bevore, the "from" edge can be left.
+If there is a move entry before, the "from" edge can be left.
 The container will move straight from the first edge to last
 edge. In the latter case, the container will from straight from the edge
 "from" to the edge "to" or the container stop "containerStop".
@@ -91,7 +91,7 @@ edge. In the latter case, the container will from straight from the edge
 ## Stops
 
 Stops define a delay until the next element of a plan is started. They
-can be used to model containers beeing stored in a storage place,
+can be used to model containers being stored in a storage place,
 harbour or anything else. A [container
 stop](Logistics.md#container_stops) can be used to
 modal that storage place in the network (similar to a [bus stop for

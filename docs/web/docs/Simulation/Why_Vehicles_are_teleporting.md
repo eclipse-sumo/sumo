@@ -34,9 +34,9 @@ available space. Vehicle insertion will use depart method "free" (anywhere on th
 and attempt to insert the vehicle with it's maximum allowed speed.
 The insertion space must allow for all necessary safety gaps of the vehicle itself and it's follower vehicle, though the speed may be reduced if it helps with insertion.
 
-If the vehicle cannot be inserted immediately,it will be held outside the road network in a special 'teleporting-buffer' and (virtually) traverse the next edge with the average speed of that edge (minimum  m/s). After this virtual travel time has passend, the next attempt at re-inserting the vehicle into the network is made one edge further along it's route. This procedure repeats until the vehicle has been re-inserted or the end of the route is reached.
+If the vehicle cannot be inserted immediately,it will be held outside the road network in a special 'teleporting-buffer' and (virtually) traverse the next edge with the average speed of that edge (minimum  m/s). After this virtual travel time has passed, the next attempt at re-inserting the vehicle into the network is made one edge further along it's route. This procedure repeats until the vehicle has been re-inserted or the end of the route is reached.
 In the latter case, the vehicle is removed from the simulation.
-While the vehicle is in the teleporting buffer it remains invisble.
+While the vehicle is in the teleporting buffer it remains invisible.
 
 The threshold value can be configure
 using the option **--time-to-teleport** {{DT_INT}} which sets the time in seconds. If the value is not

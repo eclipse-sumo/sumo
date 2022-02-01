@@ -2,7 +2,7 @@
 title: Logistics
 ---
 
-The concept of logistics is mostly realised by
+The concept of logistics is mostly realized by
 [containers](Containers.md) and [container
 stops](#container_stops).
 

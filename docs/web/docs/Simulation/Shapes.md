@@ -30,7 +30,7 @@ or load the additional file interactively through the
 # Definitions
 
 The geometrical objects (POIs, polygons) are stored one by one into an
-"additional file". Currently, the root element may arbitary.
+"additional file". Currently, the root element may arbitrary.
 
 ## Polygon Definitions
 
@@ -56,13 +56,13 @@ These attributes have the following meanings:
 A point-of-interest is defined as following: `<poi id="<POLYGON_ID>" type="<TYPENAME>" color="<RED>,<GREEN>,<BLUE>" layer="<LAYER_NO>" [(x="<X_POS>" y="<Y_POS>") | (lane="<LANE_ID>" pos="<LANE_POS>")]/>`
 
 It means that the position a point-of-interest is located at may be
-given either using explicite x/y-coordinates or a lane name and a
+given either using explicit x/y-coordinates or a lane name and a
 position on this lane. So, the attributes have the following meanings:
 
 | Attribute Name        | Value Type  | Description                                                                                                                                                                                            |
 | --------------------- | ----------- | ---------------------------------------------------------------------------------- |
 | **id**                | id (string) | The id (a unique name) of the polygon                                                                                                                                                                  |
-| **color**             | color       | The color with which the poi shall be displayed; *<RED\>*, *<GREEN\>*, and *<BLUE\>* must be floating point numbers between 0 and 1. They are devided using a ',' (no space); optional, *default "1,0,0"* |
+| **color**             | color       | The color with which the poi shall be displayed; *<RED\>*, *<GREEN\>*, and *<BLUE\>* must be floating point numbers between 0 and 1. They are divided using a ',' (no space); optional, *default "1,0,0"* |
 | x<sup>(\*)</sup>      | float       | The position of the poi along the x-axis in meters                                                                                                                                                     |
 | y<sup>(\*)</sup>      | float       | The position of the poi along the y-axis in meters                                                                                                                                                     |
 | lane<sup>(\*)</sup>   | id (string) | The name of the lane the poi is located at; the lane must be a part of the loaded network                                                                                                              |

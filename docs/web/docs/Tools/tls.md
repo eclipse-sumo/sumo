@@ -27,7 +27,7 @@ sumo -n net.net.xml -r routes.rou.xml -a tlsOffsets.add.xml
 # tlsCycleAdaptation.py
 
 This script modifies the duration of green phases according to Websters
-formula to best accomodate a given traffic demand. Example call:
+formula to best accommodate a given traffic demand. Example call:
 
 ```
 python tools/tlsCycleAdaptation.py -n net.net.xml -r routes.rou.xml -o newTLS.add.xml
