@@ -186,7 +186,6 @@ class Builder(object):
             shutil.copy(data['osm'], self.files["osm"])
         else:
             self.report("Downloading map data")
-            #print(str(self.data["roadTypes"]))
             osmArgs = ["-b=" + (",".join(map(str, self.data["coords"]))), "-p", self.prefix, "-d", self.tmp,
                         "-r=" + str(self.data["roadTypes"])]
             if 'osmMirror' in self.data:

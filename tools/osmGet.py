@@ -42,49 +42,49 @@ except ImportError:
 import sumolib
 
 
-def readCompressed(conn, urlpath, query, filename):
+def readCompressed(conn, urlpath, query, roadTypesJSON, filename):
+    # generate query string for each road-type category
+    commonQueryStringKeyPart = "<has-kv k=\"%s\" modv=\"\""
+    commonQueryStringRegvPart = " v=\"%s\"/>"
+    finalQueryStrings = []
+    for category in roadTypesJSON:
+        keyQueryString = commonQueryStringKeyPart % category
+        for type in roadTypesJSON[category]:
+            valueQueryString = commonQueryStringRegvPart % type
+            finalRoadTypeStringPerType = keyQueryString + valueQueryString
+            #type="nwr"
+            commonQueryString = """
+            <query type="nwr">
+                %s
+                %s
+            </query>
+            """ % (finalRoadTypeStringPerType, query)
+            finalQueryStrings.append(commonQueryString)
+
+    separator = ""
+    unionQueryString = separator.join(finalQueryStrings)
+    print(unionQueryString)
+
+    # <recurse type="node-relation" into="rels"/>      <!-- default querytype is node; src:node trg:relation store into variable "rels" -->
+    # <recurse type="node-way"/>                       <!-- default querytype is node; srd:node trg:way store into default variable "_" -->
+    # <recurse type="way-relation"/>                   <!-- srd:way get from default variable "_" trg:relation store into default variable "_" -->
+
     conn.request("POST", "/" + urlpath, """
     <osm-script timeout="240" element-limit="1073741824">
     <union>
-       %s
-       <recurse type="node-relation" into="rels"/>      <!-- default querytype is node; src:node trg:relation store into variable "rels" -->
-       <recurse type="node-way"/>                       <!-- default querytype is node; srd:node trg:way store into default variable "_" --> 
-       <recurse type="way-relation"/>                   <!-- srd:way get from default variable "_" trg:relation store into default variable "_" --> 
+       %s                            
     </union>
     <union>
        <item/>                                          <!-- the item ensures that the beforehand collected data "_" is included in the results of union -->
        <recurse type="way-node"/>
     </union>
     <print mode="body"/>
-    </osm-script>""" % query)
+    </osm-script>""" % unionQueryString)
     response = conn.getresponse()
     print(response.status, response.reason)
     if response.status == 200:
         with open(filename, "wb") as out:
             out.write(response.read())
-
-    # <osm-script>
-    #     <union>
-    #         <query type="way">
-    #             <has-kv k="highway" regv="motorway|primary|secondary"/>
-    #             <bbox-query s="50.916454593599" w="6.9071388244629" n="50.965184155347" e="6.9926261901855"/>
-    #         </query>
-    #         <query type="relation">
-    #             <has-kv k="route" modv="" v="ferry"/>
-    #             <bbox-query s="50.916454593599" w="6.9071388244629" n="50.965184155347" e="6.9926261901855"/>
-    #         </query>
-    #         <query type="way">
-    #             <has-kv k="railway" modv="" regv="preserved|tram|subway|light_rail|rail|highspeed"/>
-    #             <bbox-query s="50.916454593599" w="6.9071388244629" n="50.965184155347" e="6.9926261901855"/>
-    #         </query>
-    #     </union>
-    #     <union>
-    #       <item/>
-    #           <recurse type="way-node"/>
-    #     </union>
-    #     <print e="" from="_" geometry="full" ids="yes" limit="" mode="body" n="" order="id" s="" w=""/>
-    # </osm-script>
-
 
 optParser = sumolib.options.ArgumentParser(description="Get network from OpenStreetMap")
 optParser.add_argument("-p", "--prefix", default="osm", help="for output file")
@@ -148,40 +148,24 @@ def get(args=None):
         else:
             conn = httplib.HTTPConnection(url.hostname, url.port)
 
-    # prepare data for query
-    if options.road_types:
-        commonQueryStringKeyPart = "<has-kv k=%s"
-        commonQueryStringRegvPart = " regv=%s/>"
-        queryStrings = []
-        roadTypes = json.loads(options.road_types.replace("\'","\"").lower())
-        for category in roadTypes:
-            keyQueryString = commonQueryStringKeyPart % category
-            typeList = []
-            for type in roadTypes[category]:
-                typeList.append(type)
-            separator = "|"
-            typeListStringPerCategory = separator.join(typeList)
-            regvQueryString = commonQueryStringRegvPart % typeListStringPerCategory
-            finalQueryStringPerCategory = keyQueryString + regvQueryString
-            queryStrings.append(finalQueryStringPerCategory)
-
-    # TODO complete query strings
-    if options.area:
+    if (options.area and options.road_types):
         if options.area < 3600000000:
             options.area += 3600000000
+        roadTypesJSON = json.loads(options.road_types.replace("\'","\"").lower())
         readCompressed(conn, url.path, '<area-query ref="%s"/>' %
-                       options.area, options.prefix + "_city.osm.xml")
-    if options.bbox or options.polygon:
+                       options.area, roadTypesJSON, options.prefix + "_city.osm.xml")
+    if ((options.bbox or options.polygon) and options.road_types):
+        roadTypesJSON = json.loads(options.road_types.replace("\'","\"").lower())
         if options.tiles == 1:
             readCompressed(conn, url.path, '<bbox-query n="%s" s="%s" w="%s" e="%s"/>' %
-                           (north, south, west, east), options.prefix + "_bbox.osm.xml")
+                           (north, south, west, east), roadTypesJSON, options.prefix + "_bbox.osm.xml")
         else:
             num = options.tiles
             b = west
             for i in range(num):
                 e = b + (east - west) / float(num)
                 readCompressed(conn, url.path, '<bbox-query n="%s" s="%s" w="%s" e="%s"/>' % (
-                    north, south, b, e), "%s%s_%s.osm.xml" % (options.prefix, i, num))
+                    north, south, b, e), roadTypesJSON,"%s%s_%s.osm.xml" % (options.prefix, i, num))
                 b = e
 
     conn.close()
