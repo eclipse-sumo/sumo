@@ -12,18 +12,17 @@
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    Command_Hotkey_InductionLoop.cpp
-/// @author  Daniel Krajzewicz
-/// @author  Michael Behrisch
-/// @date    15 Feb 2004
+/// @author  Jakob Erdmann
+/// @date    31 Jan 2022
 ///
-// Writes the state of the tls to a file (in each second)
+// Registers custom hotkey for overriding detector value
 /****************************************************************************/
 #include <config.h>
 
 #include <fxkeys.h>
-#include "Command_Hotkey_InductionLoop.h"
 #include <microsim/output/MSInductLoop.h>
 #include <guisim/GUINet.h>
+#include "Command_Hotkey_InductionLoop.h"
 
 
 // ===========================================================================

@@ -23,7 +23,6 @@
 #include <string>
 #include <map>
 #include <utils/common/Command.h>
-#include <microsim/output/MSInductLoop.h>
 
 
 // ===========================================================================
@@ -37,14 +36,14 @@ class MSInductLoop;
 // ===========================================================================
 /**
  * @class Command_Hotkey_InductionLoop
- * @brief Writes the state of the tls to a file (in each second)
+ * @brief Set/unsets inductionloop override 
  */
 class Command_Hotkey_InductionLoop : public Command {
 public:
     /** @brief Constructor
      *
-     * @param[in] tlls The logic to write state of
-     * @param[in] od The output device to write the state into
+     * @param[in] det The Detector to manipulate
+     * @param[in] set whether to set or unset the override
      */
     Command_Hotkey_InductionLoop(MSInductLoop* det, bool set);
 
