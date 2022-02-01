@@ -35,19 +35,19 @@ netedit.additionalMode()
 netedit.changeElement("chargingStation")
 
 # set invalid lenght (dummy)
-netedit.changeDefaultValue(netedit.attrs.chargingStation.create.length , "dummyLenght")
+netedit.changeDefaultValue(netedit.attrs.chargingStation.create.length, "dummyLenght")
 
 # try to create chargingStation with invalid lenght
 netedit.leftClick(referencePosition, 500, 250)
 
 # set invalid lenght (negative)
-netedit.changeDefaultValue(netedit.attrs.chargingStation.create.length , "-20")
+netedit.changeDefaultValue(netedit.attrs.chargingStation.create.length, "-20")
 
 # try to create chargingStation with invalid lenght
 netedit.leftClick(referencePosition, 500, 250)
 
 # Change length
-netedit.changeDefaultValue(netedit.attrs.chargingStation.create.length , "5")
+netedit.changeDefaultValue(netedit.attrs.chargingStation.create.length, "5")
 
 # create chargingStation in mode "reference left"
 netedit.leftClick(referencePosition, 500, 250)

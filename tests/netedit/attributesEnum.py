@@ -1,10 +1,26 @@
-from enum import Enum
+# -*- coding: utf-8 -*-
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Copyright (C) 2009-2022 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+
+# @file    attributesEnum.py
+# @author  Pablo Alvarez Lopez
+# @date    2022-01-31
 
 #--------------------------------
 # NETWORK
 #--------------------------------
 
 class lane:
+
     class inspect:
         speed = 1
         allowButton = 2             # missing
@@ -24,6 +40,7 @@ class lane:
         stopOffset = 16             # missing
         stopOffsetException = 17    # missing
         parameters = 21
+
     class inspectSelection:
         speed = 1
         allowButton = 2             # missing
@@ -48,6 +65,7 @@ class lane:
 
 # busStop
 class busStop:
+
     class create:
         idEnable = 5
         id = 6
@@ -60,6 +78,7 @@ class busStop:
         color = 12
         references = 16
         length = 18
+
     class inspect():
         id = 1
         lane = 2
@@ -73,6 +92,7 @@ class busStop:
         colorDialog = 10        # missing
         color = 11
         parameters = 14
+
     class inspectSelection():
         name = 1
         friendlyPos = 2
@@ -85,6 +105,7 @@ class busStop:
 
 # trainStop
 class trainStop:
+
     class create:
         idEnable = 5
         id = 6
@@ -97,6 +118,7 @@ class trainStop:
         color = 12
         references = 16
         length = 18
+
     class inspect():
         id = 1
         lane = 2
@@ -110,6 +132,7 @@ class trainStop:
         colorDialog = 10        # missing
         color = 11
         parameters = 14
+
     class inspectSelection():
         name = 1
         friendlyPos = 2
@@ -122,6 +145,7 @@ class trainStop:
         
 # containerStop
 class containerStop:
+
     class create:
         idEnable = 5
         id = 6
@@ -134,6 +158,7 @@ class containerStop:
         color = 12
         references = 16
         length = 18
+
     class inspect():
         id = 1
         lane = 2
@@ -147,6 +172,7 @@ class containerStop:
         colorDialog = 10        # missing
         color = 11
         parameters = 14
+
     class inspectSelection():
         name = 1
         friendlyPos = 2
@@ -159,6 +185,7 @@ class containerStop:
 
 # chargingStation
 class chargingStation:
+
     class create:
         idEnable = 5
         id = 6
@@ -170,6 +197,7 @@ class chargingStation:
         chargeDelay = 11
         references = 15
         length = 17
+
     class inspect():
         id = 1
         lane = 2
@@ -182,6 +210,7 @@ class chargingStation:
         chargeInTransit = 9
         chargeDelay = 10
         parameters = 13
+
     class inspectSelection():
         name = 1
         friendlyPos = 2
