@@ -75,6 +75,7 @@ collisions:collisions.xml
 ssm:ssm.xml
 summary:summary.xml
 statistics:statistics.xml
+statistics2:statistics2.xml
 
 [run_dependent_text]
 output:<!--{[->]}-->
@@ -114,6 +115,7 @@ collisions:<!--{[->]}-->
 ssm:<!--{[->]}-->
 summary:<!--{[->]}-->
 statistics:<!--{[->]}-->
+statistics2:<!--{[->]}-->
 lanechanges:<!--{[->]}-->
 state:<!--{[->]}-->
 state2:<!--{[->]}-->

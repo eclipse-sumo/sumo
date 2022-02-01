@@ -1,0 +1,46 @@
+Loading net-file from 'input_net.net.xml' ... done (27ms).
+Loading done.
+Simulation version v1_12_0+0175-e62a4bc started with time: 0.00
+Simulation ended at time: 1656.00
+Reason: All vehicles have left the simulation.
+Performance: 
+ Duration: 1.33s
+ Real time factor: 1245.11
+ UPS: 197146.616541
+Vehicles: 
+ Inserted: 832
+ Running: 0
+ Waiting: 0
+Statistics (avg):
+ RouteLength: 1172.52
+ Speed: 4.01
+ Duration: 315.15
+ WaitingTime: 152.13
+ TimeLoss: 227.64
+ DepartDelay: 50.85
+
+DijkstraRouter answered 5376 queries and explored 66.47 edges on average.
+DijkstraRouter spent 0.08s answering queries (0.01ms on average).
+Loading net-file from 'input_net.net.xml' ... done (24ms).
+Loading done.
+Simulation version v1_12_0+0175-e62a4bc started with time: 0.00
+Simulation ended at time: 1467.00
+Reason: All vehicles have left the simulation.
+Performance: 
+ Duration: 0.99s
+ Real time factor: 1480.32
+ UPS: 237327.951564
+Vehicles: 
+ Inserted: 832
+ Running: 0
+ Waiting: 0
+Statistics (avg):
+ RouteLength: 1172.59
+ Speed: 4.40
+ Duration: 282.68
+ WaitingTime: 129.19
+ TimeLoss: 195.20
+ DepartDelay: 8.50
+
+<     <vehicleTripStatistics routeLength="1172.52" speed="4.01" duration="315.15" waitingTime="152.13" timeLoss="227.64" departDelay="50.85" departDelayWaiting="-1.00" totalTravelTime="262205.00" totalDepartDelay="42304.00"/>
+>     <vehicleTripStatistics routeLength="1172.59" speed="4.40" duration="282.68" waitingTime="129.19" timeLoss="195.20" departDelay="8.50" departDelayWaiting="-1.00" totalTravelTime="235192.00" totalDepartDelay="7073.00"/>
