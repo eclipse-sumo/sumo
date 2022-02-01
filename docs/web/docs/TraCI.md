@@ -278,9 +278,6 @@ while traci.simulation.getMinExpectedNumber() > 0:
 ```
 
 - This script is able to process about 25000 vehicles per second.
-- Using [embedded
-  python](TraCI/Interfacing_TraCI_from_Python.md#embedded_python)
-  increases this to about 50000 vehicles per second
 - The same value retrieval can also be sped up to 50000 vehicles per
   second by using
   [subscriptions](TraCI/Object_Variable_Subscription.md):
@@ -300,8 +297,6 @@ simulation steps) the following running times were recorded:
 - without TraCI 8s
 - plain position retrieval 90s
 - retrieval using subscriptions 42s
-- retrieval using embedded python 46s
-- retrieval using subscriptions and embedded python 34s
 
 The C++ client performance is higher:
 
