@@ -199,6 +199,24 @@ public:
     //@}
 
 
+    void setSection(const int element, const bool seen) {
+        mySection = element;
+        mySectionSeen = seen;
+        mySectionOpen = seen;
+        mySectionEnded = false;
+    }
+
+    bool sectionFinished() const {
+        return mySectionEnded;
+    }
+
+    std::pair<int, SUMOSAXAttributes*> retrieveNextSectionStart() {
+        std::pair<int, SUMOSAXAttributes*> ret = myNextSectionStart;
+        myNextSectionStart.first = -1;
+        myNextSectionStart.second = nullptr;
+        return ret;
+    }
+
     // Reader needs access to myStartElement, myEndElement
     friend class SUMOSAXReader;
 
@@ -312,7 +330,21 @@ private:
     std::string myExpectedRoot;
 
     /// @brief whether the reader has already seen the root element
-    bool myRootSeen;
+    bool myRootSeen = false;
+
+    /// @brief The tag indicating the current section to parse
+    int mySection = -1;
+
+    /// @brief whether the reader has already seen the begin of the section
+    bool mySectionSeen = false;
+
+    /// @brief whether the reader has already seen the end of the section
+    bool mySectionEnded = false;
+
+    /// @brief whether an element of the current section is open
+    bool mySectionOpen = false;
+
+    std::pair<int, SUMOSAXAttributes*> myNextSectionStart;
 
 private:
     /// @brief invalidated copy constructor

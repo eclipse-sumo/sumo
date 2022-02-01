@@ -40,7 +40,8 @@ GenericSAXHandler::GenericSAXHandler(
     StringBijection<int>::Entry* tags, int terminatorTag,
     StringBijection<int>::Entry* attrs, int terminatorAttr,
     const std::string& file, const std::string& expectedRoot)
-    : myParentHandler(nullptr), myParentIndicator(SUMO_TAG_NOTHING), myFileName(file), myExpectedRoot(expectedRoot), myRootSeen(false) {
+    : myParentHandler(nullptr), myParentIndicator(SUMO_TAG_NOTHING), myFileName(file),
+      myExpectedRoot(expectedRoot), myNextSectionStart(-1, nullptr) {
     int i = 0;
     while (tags[i].key != terminatorTag) {
         myTagMap.insert(TagMap::value_type(tags[i].str, tags[i].key));
@@ -65,6 +66,7 @@ GenericSAXHandler::~GenericSAXHandler() {
     for (AttrMap::iterator i1 = myPredefinedTags.begin(); i1 != myPredefinedTags.end(); i1++) {
         delete[](*i1);
     }
+    delete myNextSectionStart.second;
 }
 
 
@@ -103,8 +105,18 @@ GenericSAXHandler::startElement(const XMLCh* const /*uri*/,
         WRITE_WARNING("Found root element '" + name + "' in file '" + getFileName() + "' (expected '" + myExpectedRoot + "').");
     }
     myRootSeen = true;
-    int element = convertTag(name);
     myCharactersVector.clear();
+    const int element = convertTag(name);
+    if (mySectionSeen && !mySectionOpen && element != mySection) {
+        mySectionEnded = true;
+        myNextSectionStart.first = element;
+        myNextSectionStart.second = new SUMOSAXAttributesImpl_Xerces(attrs, myPredefinedTags, myPredefinedTagsMML, name);
+        return;
+    }
+    if (element == mySection) {
+        mySectionSeen = true;
+        mySectionOpen = true;
+    }
     SUMOSAXAttributesImpl_Xerces na(attrs, myPredefinedTags, myPredefinedTagsMML, name);
     if (element == SUMO_TAG_INCLUDE) {
         std::string file = na.getString(SUMO_ATTR_HREF);
@@ -147,6 +159,9 @@ GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
             throw;
         }
         delete[] buf;
+    }
+    if (element == mySection) {
+        mySectionOpen = false;
     }
     if (element != SUMO_TAG_INCLUDE) {
         myEndElement(element);
