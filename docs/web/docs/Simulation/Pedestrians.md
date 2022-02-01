@@ -71,7 +71,7 @@ removed from all other lanes.
 
 ### Direct Import
 
-When importing [OSM](../Networks/Import/OpenStreetMap.md), the option **--osm.sidwalks** may be used to import sidwalks for all roads that carry this information.
+When importing [OSM](../Networks/Import/OpenStreetMap.md), the option **--osm.sidwalks** may be used to import sidewalks for all roads that carry this information.
 
 ### Type-base generation
 
@@ -107,7 +107,7 @@ given speed range. This is controlled by using the following [netconvert](../net
 
 ### Permission-based generation
 
-Option **--sidewalks.guess.from-permissons** {{DT_BOOL}} is suitable for networks which specify their edge permissions
+Option **--sidewalks.guess.from-permissions** {{DT_BOOL}} is suitable for networks which specify their edge permissions
 (such as [DlrNavteq](../Networks/Import/DlrNavteq.md)). It adds a
 sidewalk for all edges which allow pedestrians on any of their lanes.
 The option **--sidewalks.guess.exclude** {{DT_IDList}}[,{{DT_IDList}}\]\* applies here as well.
@@ -222,7 +222,7 @@ The tools [routeSampler](../Tools/Turns.md#routesamplerpy) and [flowrouter](../T
 # Pedestrian Models
 
 The pedestrian model to use can be selected by using the simulation
-option **--pedestrian.model** {{DT_STR}} with the available paramters being *nonInteracting* and
+option **--pedestrian.model** {{DT_STR}} with the available parameters being *nonInteracting* and
 *striping* (default is *striping*). The interface between the pedestrian
 model and the rest of the simulation was designed with the aim of having
 a high degree of freedom when implementing new models. It is planned to
@@ -272,7 +272,7 @@ direction of movement (preferring evasion to the right for oncoming
 pedestrians) and the expected distance the pedestrian will be able to
 walk in that stripe without a collision. The model assumes that the pedestrian
 can fit into a single strip when walking in it's center. When **--pedestrian.striping-width** {{DT_FLOAT}} 
-is lower than a given path width, 100% safety is not guaranteed on shared lanes, i.e. collisions may occour.
+is lower than a given path width, 100% safety is not guaranteed on shared lanes, i.e. collisions may occur.
 The warning to change the stripe-width will then be shown during simulation.
 
 During every simulation step, each pedestrian advances as fast as

@@ -175,7 +175,7 @@ greenFraction = MIN2(1.0, (cycleTime - redDuration) / cycleTime) / penalty))
 headway = defaultHeadway / greenFraction
 ```
 
-Note, that the maximum flow cannot exceed the value at permenant green light regardless of penalty value.
+Note, that the maximum flow cannot exceed the value at permanent green light regardless of penalty value.
 
 ### Penalty at uncontrolled intersections
 

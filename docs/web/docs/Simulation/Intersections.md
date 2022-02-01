@@ -114,7 +114,7 @@ Since version 0.25.0 the user also has the option for [customizing the presence 
 # Speed while passing the Intersection
 
 All the [rules for vehicle speed](VehicleSpeed.md)
-are applicable but there is an additioal feature to model speed
+are applicable but there is an additional feature to model speed
 reductions while turning. Since SUMO version 1.0, lane speeds within the
 intersection are reduced in accordance to their turning radius. This
 means, that vehicles will reduce their speed while turning according to

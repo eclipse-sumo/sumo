@@ -85,7 +85,7 @@ intervals.
 
 The *freq* attribute defines how often a check for inserting vehicles
 takes place. This value defaults to the simulation step-length. Larger
-values conserve computation time but may also lead to a tigher
+values conserve computation time but may also lead to a tighter
 clustering of inserted vehicles.
 
 The algorithm for deciding when exactly to insert (and remove) vehicles
