@@ -44,16 +44,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 326, 308)
 
 # Change lenght (invalid, empty)
-netedit.modifyAttribute(0, "", True)
+netedit.modifyAttribute(netedit.attrs.access.inspectSelection.length, "", True)
 
 # Change lenght (invalid, dummy)
-netedit.modifyAttribute(0, "dummyLenght", True)
+netedit.modifyAttribute(netedit.attrs.access.inspectSelection.length, "dummyLenght", True)
 
 # Change lenght (invalid, negative)
-netedit.modifyAttribute(0, "-7", True)
+netedit.modifyAttribute(netedit.attrs.access.inspectSelection.length, "-7", True)
 
 # Change lenght (valid)
-netedit.modifyAttribute(0, "5.5", True)
+netedit.modifyAttribute(netedit.attrs.access.inspectSelection.length, "5.5", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

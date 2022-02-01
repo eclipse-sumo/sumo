@@ -219,6 +219,22 @@ class chargingStation:
         chargeDelay = 6
         parameters = 9
 
+# access
+class access:
+
+    class create:
+        length = 5
+        friendlyPos = 6
+        parent = 9
+    class inspect:
+        lane = 1
+        pos = 2
+        length = 3
+        friendlyPos = 4
+    class inspectSelection:
+        length = 1
+        friendlyPos = 2
+
 #--------------------------------
 # DEMAND ELEMENTS
 #--------------------------------
