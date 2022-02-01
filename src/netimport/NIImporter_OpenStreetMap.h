@@ -499,7 +499,7 @@ protected:
         std::map<long long int, Edge*>& myPlatformShapesMap;
 
         /// @brief The currently built edge
-        Edge* myCurrentEdge;
+        Edge* myCurrentEdge = nullptr;
 
         /// @brief A map of non-numeric speed descriptions to their numeric values
         std::map<std::string, double> mySpeedMap;

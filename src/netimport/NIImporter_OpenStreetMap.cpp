@@ -146,7 +146,8 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
         nodesHandler.resetHierarchy();
         PROGRESS_BEGIN_MESSAGE("Parsing nodes from osm-file '" + file + "'");
         readers.push_back(XMLSubSys::getSAXReader(nodesHandler));
-        if (!readers.back()->parseFirst(file) || !readers.back()->parseSection(SUMO_TAG_NODE)) {
+        if (!readers.back()->parseFirst(file) || !readers.back()->parseSection(SUMO_TAG_NODE) ||
+            MsgHandler::getErrorInstance()->wasInformed()) {
             return;
         }
         if (nodesHandler.getDuplicateNodes() > 0) {
