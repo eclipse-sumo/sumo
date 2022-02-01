@@ -544,7 +544,7 @@ def main(options):
         return idx + 1
 
     with open(options.tripfile, 'w') as fouttrips:
-        sumolib.writeXMLHeader(fouttrips, "$Id$", "routes")  # noqa
+        sumolib.writeXMLHeader(fouttrips, "$Id$", "routes", options=options)  # noqa
         if options.vehicle_class:
             vTypeDef = '    <vType id="%s" vClass="%s"%s/>\n' % (
                 options.vtypeID, options.vehicle_class, vtypeattrs)
@@ -556,7 +556,7 @@ def main(options):
                 else:
                     options.additional += ",options.vtypeout"
                 with open(options.vtypeout, 'w') as fouttype:
-                    sumolib.writeXMLHeader(fouttype, "$Id$", "additional")  # noqa
+                    sumolib.writeXMLHeader(fouttype, "$Id$", "additional", options=options)  # noqa
                     fouttype.write(vTypeDef)
                     fouttype.write("</additional>\n")
             else:
