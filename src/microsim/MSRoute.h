@@ -174,6 +174,11 @@ public:
         return mySavings;
     }
 
+    /// @brief Returns the time at which this route was replaced (or -1)
+    SUMOTime getReplacedTime() const {
+        return myReplacedTime;
+    }
+
     /// @brief sets the period
     void setPeriod(SUMOTime period) {
         myPeriod = period;

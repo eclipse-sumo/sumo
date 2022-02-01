@@ -542,6 +542,9 @@ MSFrame::fillOptions() {
     oc.doRegister("railway.max-train-length", new Option_Float(1000.0));
     oc.addDescription("railway.max-train-length", "Routing", "Use FLOAT as a maximum train length when initializing the railway router");
 
+    oc.doRegister("replay-rerouting", new Option_Bool(false));
+    oc.addDescription("replay-rerouting", "Routing", "Replay exact rerouting sequence from vehroute-output");
+
     // devices
     oc.addOptionSubTopic("Emissions");
     oc.doRegister("phemlight-path", new Option_FileName(StringVector({ "./PHEMlight/" })));

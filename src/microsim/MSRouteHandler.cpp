@@ -32,6 +32,8 @@
 #include <microsim/MSInsertionControl.h>
 #include <microsim/MSStoppingPlace.h>
 #include <microsim/MSVehicleControl.h>
+#include <microsim/MSEventControl.h>
+#include <microsim/Command_RouteReplacement.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
@@ -59,7 +61,9 @@ MSRouteHandler::MSRouteHandler(const std::string& file, bool addVehiclesDirectly
     myCurrentVTypeDistribution(nullptr),
     myCurrentRouteDistribution(nullptr),
     myAmLoadingState(false),
-    myScaleSuffix(OptionsCont::getOptions().getString("scale-suffix")) {
+    myScaleSuffix(OptionsCont::getOptions().getString("scale-suffix")),
+    myReplayRerouting(OptionsCont::getOptions().getBool("replay-rerouting"))
+{
     myActiveRoute.reserve(100);
 }
 
@@ -511,7 +515,8 @@ MSRouteHandler::closeRouteDistribution() {
 void
 MSRouteHandler::closeVehicle() {
     // get nested route
-    const MSRoute* route = MSRoute::dictionary("!" + myVehicleParameter->id, &myParsingRNG);
+    const std::string embeddedRouteID = "!" + myVehicleParameter->id;
+    const MSRoute* route = MSRoute::dictionary(embeddedRouteID, &myParsingRNG);
     MSVehicleControl& vehControl = MSNet::getInstance()->getVehicleControl();
     if (myVehicleParameter->departProcedure == DEPART_GIVEN) {
         // let's check whether this vehicle had to depart before the simulation starts
@@ -607,6 +612,21 @@ MSRouteHandler::closeVehicle() {
             registerLastDepart();
             myVehicleParameter->depart += MSNet::getInstance()->getInsertionControl().computeRandomDepartOffset();
             vehControl.addVehicle(myVehicleParameter->id, vehicle);
+            if (myReplayRerouting) {
+                RandomDistributor<const MSRoute*>* rDist = MSRoute::distDictionary(embeddedRouteID);
+                if (rDist != nullptr) {
+                    std::string errorMsg;
+                    if (!vehicle->replaceRoute(rDist->getVals().front(), "replayRerouting", true, 0, true, true, &errorMsg)) {
+                        throw ProcessError("Replayed route replacement failed for vehicle '"
+                                + vehicle->getID() + "' on initial route at time=" + time2string(SIMSTEP)+ " (" + errorMsg + ").");
+                    }
+                    for (int i = 0; i < (int)rDist->getVals().size() - 1; i++) {
+                        MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(
+                                new Command_RouteReplacement(vehicle->getID(), rDist->getVals()[i + 1]),
+                                rDist->getVals()[i]->getReplacedTime());
+                    }
+                }
+            }
             int offset = 0;
             for (int i = 1; i < quota; i++) {
                 if (vehicle->getParameter().departProcedure == DEPART_GIVEN) {
