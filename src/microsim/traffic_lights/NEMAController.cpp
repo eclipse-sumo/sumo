@@ -57,10 +57,10 @@ NEMALogic::NEMALogic(MSTLLogicControl& tlcontrol,
                      const std::string& id, const std::string& programID,
                      const SUMOTime _offset,
                      const Phases& phases,
-                     int /*step*/, SUMOTime /*delay*/,
+                     int step, SUMOTime delay,
                      const std::map<std::string, std::string>& parameter,
                      const std::string& basePath) :
-    MSSimpleTrafficLightLogic(tlcontrol, id, programID, _offset, TrafficLightType::NEMA, phases, 0, phases.front()->minDuration + SIMSTEP, parameter),
+    MSSimpleTrafficLightLogic(tlcontrol, id, programID, _offset, TrafficLightType::NEMA, phases, step, delay, parameter),
     myPhase(phases[0]->duration, phases[0]->getState()) {
     myDetectorLength = StringUtils::toDouble(getParameter("detector-length", "20"));
     myDetectorLengthLeftTurnLane = StringUtils::toDouble(getParameter("detector-length-leftTurnLane", "20"));
@@ -75,7 +75,9 @@ NEMALogic::NEMALogic(MSTLLogicControl& tlcontrol,
     ring2 = getParameter("ring2", "");
     myCabinetType = parseCabinetType(getParameter("cabinetType", "Type170"));
     ignoreErrors = StringUtils::toBool(getParameter("ignore-errors", "false"));
-
+    // TODO: Create a parameter for this
+    cycleRefPoint = 0;
+    
     std::vector<int> VecMinRecall = readParaFromString(getParameter("minRecall", "1,2,3,4,5,6,7,8"));
     for (int i = 0; i < (int)VecMinRecall.size(); i++) {
         minRecalls[VecMinRecall[i] - 1] = true;
@@ -175,24 +177,15 @@ NEMALogic::NEMALogic(MSTLLogicControl& tlcontrol,
         }
     }
 
+    // Construct the NEMA specific timing data types and initial phases
+    constructTimingAndPhaseDefs();
+
 }
 
 NEMALogic::~NEMALogic() { }
 
 void
-NEMALogic::init(NLDetectorBuilder& nb) {
-    //init the base path for output state
-    outputStateFilePath = outputStateFilePath + "/" + myID + "_state_output";
-    // std::cout << "outputStaetFilePath = " << outputStateFilePath << std::endl;
-    //init cycleRefPoint
-    cycleRefPoint = 0;
-
-    //init outputStateFile
-    if (whetherOutputState) {
-        outputStateFile.open(outputStateFilePath);
-        outputStateFile << "Output state changes:\n";
-        outputStateFile.close();
-    }
+NEMALogic::constructTimingAndPhaseDefs(){
     //init phaseStartTime and phaseExpectedDuration
     int phaseNumber = 8;
     for (int i = 0; i < phaseNumber; i++) {
@@ -200,10 +193,6 @@ NEMALogic::init(NLDetectorBuilder& nb) {
         phaseExpectedDuration[i] = 0;
     }
 
-    // Make a temporary map of lane id to phase name
-    std::map<std::string, int> lane2Phase;
-
-    //print to check
     //init minGreen, maxGreen, vehExt, red, and yellow
     for (MSPhaseDefinition* phase : myPhases) {
         int NEMAPhase = string2int(phase->getName());
@@ -227,7 +216,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
         std::vector<std::string> laneIDs_vector;
         for (std::string laneID : laneIDs) {
             laneIDs_vector.push_back(laneID);
-            lane2Phase[laneID] = NEMAPhase;
+            myLanePhaseMap[laneID] = NEMAPhase;
         }
         phase2ControllerLanesMap[NEMAPhase] = laneIDs_vector;
 #ifdef DEBUG_NEMA
@@ -235,7 +224,7 @@ NEMALogic::init(NLDetectorBuilder& nb) {
 #endif
     }
 
-
+    
 #ifdef DEBUG_NEMA
     //print to check the phase2ControllerLanesMap
     for (auto item : phase2ControllerLanesMap) {
@@ -247,14 +236,11 @@ NEMALogic::init(NLDetectorBuilder& nb) {
     }
 #endif
 
-
     //init rings
     rings.push_back(readParaFromString(ring1));
     rings.push_back(readParaFromString(ring2));
 
-
-
-#ifdef DEBUG_NEMA
+    #ifdef DEBUG_NEMA
     //print to check
     for (int i = 0; i < (int)rings.size(); i++) {
         int count = 0;
@@ -334,6 +320,81 @@ NEMALogic::init(NLDetectorBuilder& nb) {
     }
 #endif
 
+    R1State = activeRing1Phase;
+    R2State = activeRing2Phase;
+
+    // set the next phase to current for initialization
+    myNextPhaseR1 = R1State;
+    myNextPhaseR2 = R2State;
+
+    // std::cout << "After init, R1State = " << R1State << std::endl;
+    // std::cout << "After init, R2State = " << R2State << std::endl;
+
+    R1RYG = GREEN;
+    R2RYG = GREEN;
+
+    wait4R1Green = false;
+    wait4R2Green = false;
+
+
+    // Create the barrier to phase mapping;
+    constructBarrierMap(0, myRingBarrierMapping[0]);
+    constructBarrierMap(1, myRingBarrierMapping[1]);
+
+
+#ifdef DEBUG_NEMA
+    std::cout << "After init, r1/r2 barrier phase = " << r1barrier << " and " << r2barrier << std::endl;
+    std::cout << "After init, r1/r2 coordinate phase = " << r1coordinatePhase << " and " << r2coordinatePhase << std::endl;
+#endif
+
+
+    currentState = "";
+    // currentR1State = myPhases[R1State - 1]->getState();
+    // currentR2State = myPhases[R2State - 1]->getState();
+    for (const MSPhaseDefinition* const p : myPhases) {
+        if (R1State == string2int(p->getName())) {
+            currentR1State = p->getState();
+        }
+        if (R2State == string2int(p->getName())) {
+            currentR2State = p->getState();
+        }
+    }
+
+#ifdef DEBUG_NEMA
+    std::cout << "R1State = " << R1State << " and its state = " << currentR1State << std::endl;
+    std::cout << "R2State = " << R2State << " and its state = " << currentR2State << std::endl;
+#endif
+        // Initial Phases
+    std::string state1 = transitionState(currentR1State, GREEN);
+    std::string state2 = transitionState(currentR2State, GREEN);
+    myPhase.setState(combineStates(state1, state2));
+    myPhase.setName(toString(activeRing1Phase) + "+" + toString(activeRing2Phase));
+    myNextPhaseR1 = 0;
+    myNextPhaseR2 = 0;
+
+    // myStep Should Start at 0
+    myStep = 0;
+
+    //validating timing
+    validate_timing();
+}
+
+void
+NEMALogic::init(NLDetectorBuilder& nb) {
+    //init the base path for output state
+    outputStateFilePath = outputStateFilePath + "/" + myID + "_state_output";
+    // std::cout << "outputStaetFilePath = " << outputStateFilePath << std::endl;
+    //init cycleRefPoint
+
+    //init outputStateFile
+    if (whetherOutputState) {
+        outputStateFile.open(outputStateFilePath);
+        outputStateFile << "Output state changes:\n";
+        outputStateFile.close();
+    }
+
+
+
     //init the traffic light
     MSTrafficLightLogic::init(nb);
     assert(myLanes.size() > 0);
@@ -364,8 +425,9 @@ NEMALogic::init(NLDetectorBuilder& nb) {
                     //set the detector to be visible in gui
                     det->setVisible(myShowDetectors);
                 } else {
-                    if (lane2Phase.find(lane->getID()) != lane2Phase.end()){    
-                         phaseNumber = lane2Phase.find(lane->getID()) -> second;
+                    int phaseNumber = 0;
+                    if (myLanePhaseMap.find(lane->getID()) != myLanePhaseMap.end()){    
+                         phaseNumber = myLanePhaseMap.find(lane->getID()) -> second;
                     }
                     std::string id = myID + "_" + myProgramID + "_D" + toString(phaseNumber) + "." + toString(lane->getIndex());
                     // std::cout << "The detectorID = " << id << std::endl;
@@ -426,50 +488,6 @@ NEMALogic::init(NLDetectorBuilder& nb) {
             std::cout << '\t' << det->getID() << std::endl;
         }
     }
-#endif
-
-    R1State = activeRing1Phase;
-    R2State = activeRing2Phase;
-
-    // set the next phase to current for initialization
-    myNextPhaseR1 = R1State;
-    myNextPhaseR2 = R2State;
-
-    // std::cout << "After init, R1State = " << R1State << std::endl;
-    // std::cout << "After init, R2State = " << R2State << std::endl;
-
-    R1RYG = GREEN;
-    R2RYG = GREEN;
-
-    wait4R1Green = false;
-    wait4R2Green = false;
-
-
-    // Create the barrier to phase mapping;
-    constructBarrierMap(0, myRingBarrierMapping[0]);
-    constructBarrierMap(1, myRingBarrierMapping[1]);
-
-
-#ifdef DEBUG_NEMA
-    std::cout << "After init, r1/r2 barrier phase = " << r1barrier << " and " << r2barrier << std::endl;
-    std::cout << "After init, r1/r2 coordinate phase = " << r1coordinatePhase << " and " << r2coordinatePhase << std::endl;
-#endif
-
-
-    currentState = "";
-    // currentR1State = myPhases[R1State - 1]->getState();
-    // currentR2State = myPhases[R2State - 1]->getState();
-    for (const MSPhaseDefinition* const p : myPhases) {
-        if (R1State == string2int(p->getName())) {
-            currentR1State = p->getState();
-        }
-        if (R2State == string2int(p->getName())) {
-            currentR2State = p->getState();
-        }
-    }
-#ifdef DEBUG_NEMA
-    std::cout << "R1State = " << R1State << " and its state = " << currentR1State << std::endl;
-    std::cout << "R2State = " << R2State << " and its state = " << currentR2State << std::endl;
 #endif
 
     //Do not delete. SUMO traffic logic check.
@@ -586,16 +604,6 @@ NEMALogic::init(NLDetectorBuilder& nb) {
         }
     }
 
-    // Initial Phases
-    std::string state1 = transitionState(currentR1State, GREEN);
-    std::string state2 = transitionState(currentR2State, GREEN);
-    myPhase.setState(combineStates(state1, state2));
-    myPhase.setName(toString(activeRing1Phase) + "+" + toString(activeRing2Phase));
-    myNextPhaseR1 = 0;
-    myNextPhaseR2 = 0;
-
-    //validating timing
-    validate_timing();
 #ifdef DEBUG_NEMA
     //std::cout << "reach the end of init()\n";
 #endif

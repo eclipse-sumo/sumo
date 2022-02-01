@@ -159,6 +159,9 @@ public:
     const std::string getParameter(const std::string& key, const std::string defaultValue = "") const override;
 
 protected:
+    /// @brief Initializes timing parameters and calculate initial phases
+    void constructTimingAndPhaseDefs();
+
     // create a small datatype for mapping detector to phase index
     // This is the one copied from MSActuatedTrafficLightLogic
     // not used in our controller, but it is here for meeting the SUMO default traffic logic light check
@@ -206,6 +209,9 @@ protected:
 
     /// @brief A map from lanes to detectors
     LaneDetectorMap myLaneDetectorMap;
+
+    /// @brief A map from lanes names to phases
+    std::map<std::string, int> myLanePhaseMap;
 
     /// @brief A map from detectors to lanes
     DetectorLaneMap myDetectorLaneMap;
