@@ -51,23 +51,20 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change vType with a valid value
-netedit.modifyAttribute(1, "bicycle", False)
+netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspect.toEdge, "bicycle", False)
 
 # change from with an invalid value
-netedit.modifyAttribute(3, "", False)
+netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspect.toEdge, "", False)
 
 # change from with an invalid value
-netedit.modifyAttribute(3, "dummyEdge", False)
+netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspect.toEdge, "dummyEdge", False)
 
 # change from with an valid value
-netedit.modifyAttribute(3, "gneJ7", False)
-
-# change from with an valid value
-netedit.modifyAttribute(3, "gneE8", False)
+netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspect.toEdge, "gneE4", False)
 
 # Check undo redo
-netedit.undo(referencePosition, 3)
-netedit.redo(referencePosition, 3)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save routes
 netedit.saveRoutes(referencePosition)
