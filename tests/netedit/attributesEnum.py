@@ -78,8 +78,7 @@ class busStop:
         color = 12
         references = 16
         length = 18
-
-    class inspect():
+    class inspect:
         id = 1
         lane = 2
         startPos = 3
@@ -92,8 +91,7 @@ class busStop:
         colorDialog = 10        # missing
         color = 11
         parameters = 14
-
-    class inspectSelection():
+    class inspectSelection:
         name = 1
         friendlyPos = 2
         lines = 3
@@ -118,8 +116,7 @@ class trainStop:
         color = 12
         references = 16
         length = 18
-
-    class inspect():
+    class inspect:
         id = 1
         lane = 2
         startPos = 3
@@ -132,8 +129,7 @@ class trainStop:
         colorDialog = 10        # missing
         color = 11
         parameters = 14
-
-    class inspectSelection():
+    class inspectSelection:
         name = 1
         friendlyPos = 2
         lines = 3
@@ -158,8 +154,7 @@ class containerStop:
         color = 12
         references = 16
         length = 18
-
-    class inspect():
+    class inspect:
         id = 1
         lane = 2
         startPos = 3
@@ -172,8 +167,7 @@ class containerStop:
         colorDialog = 10        # missing
         color = 11
         parameters = 14
-
-    class inspectSelection():
+    class inspectSelection:
         name = 1
         friendlyPos = 2
         lines = 3
@@ -197,8 +191,7 @@ class chargingStation:
         chargeDelay = 11
         references = 15
         length = 17
-
-    class inspect():
+    class inspect:
         id = 1
         lane = 2
         startPos = 3
@@ -210,8 +203,7 @@ class chargingStation:
         chargeInTransit = 9
         chargeDelay = 10
         parameters = 13
-
-    class inspectSelection():
+    class inspectSelection:
         name = 1
         friendlyPos = 2
         power = 3
@@ -219,3 +211,31 @@ class chargingStation:
         chargeInTrainsit = 5
         chargeDelay = 6
         parameters = 9
+
+#--------------------------------
+# DEMAND ELEMENTS
+#--------------------------------
+
+# route
+class route:
+    class create:
+        idEnable = 7
+        id = 8
+        colorButton = 8     # missing
+        color = 9
+        repeat = 10
+        cycletime = 11
+    class inspect:
+        id = 1
+        edges = 2
+        colorButton = 3     # missing
+        color = 4
+        repeat = 5
+        cycletime = 6
+        parameters = 9
+    class inspectSelection:
+        colorButton = 2
+        color = 3
+        repeat = 4
+        cycletime = 5
+        parameters = 8

@@ -1350,7 +1350,8 @@ def changeRouteMode(value):
     # focus current frame
     focusOnFrame()
     # jump to route mode
-    typeTab()
+    for _ in range(2):
+        typeTab()
     # paste the new value
     pasteIntoTextField(value)
     # type enter to save change

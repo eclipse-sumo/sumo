@@ -38,7 +38,7 @@ netedit.routeMode()
 netedit.changeRouteMode("non consecutive edges")
 
 # set invalid color
-netedit.changeDefaultValue(8, "dummyCicleType")
+netedit.changeDefaultValue(netedit.attrs.route.create.cycletime, "dummyCycleType")
 
 # try to create route using three edges
 netedit.leftClick(referencePosition, 274, 392)
@@ -48,13 +48,13 @@ netedit.leftClick(referencePosition, 570, 250)
 netedit.typeEnter()
 
 # set valid color
-netedit.changeDefaultValue(8, "-14.3")
+netedit.changeDefaultValue(netedit.attrs.route.create.cycletime, "-14.3")
 
 # press enter to create route
 netedit.typeEnter()
 
 # set valid color
-netedit.changeDefaultValue(8, "145.2")
+netedit.changeDefaultValue(netedit.attrs.route.create.cycletime, "145.2")
 
 # try to create route using three edges
 netedit.leftClick(referencePosition, 280, 55)
