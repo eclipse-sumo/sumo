@@ -5,6 +5,7 @@
  --vehroute-output.sorted
  --vehroute-output.intended-depart
  --device.rerouting.period 60
+ --precision 15
  -t
  --statistic-output statistics.xml
 :
@@ -13,6 +14,7 @@
  --no-step-log
  -t
  --statistic-output statistics2.xml
+ --replay-rerouting
 
 --compare statistics
 

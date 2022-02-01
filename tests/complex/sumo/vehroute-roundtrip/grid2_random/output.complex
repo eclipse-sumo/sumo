@@ -1,51 +1,36 @@
-Loading net-file from 'input_net.net.xml' ... done (26ms).
+Loading net-file from 'input_net.net.xml' ... done (27ms).
 Loading done.
-Simulation version v1_12_0+0175-e62a4bc started with time: 0.00
-Simulation ended at time: 1496.00
+Simulation version v1_12_0+0179-34fe5c8 started with time: 0.000
+Simulation ended at time: 1496.000
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 2.15s
- Real time factor: 694.522
- UPS: 171625.812442
+ Duration: 2.983s
+ Real time factor: 501.509
+ UPS: 123929.601073
 Vehicles: 
  Inserted: 2000
  Running: 0
  Waiting: 0
 Statistics (avg):
- RouteLength: 490.13
- Speed: 3.81
- Duration: 184.84
- WaitingTime: 105.72
- TimeLoss: 146.41
- DepartDelay: 7.14
+ RouteLength: 490.133959999999604
+ Speed: 3.806486378132298
+ Duration: 184.841000000000008
+ WaitingTime: 105.718500000000006
+ TimeLoss: 146.410444500000011
+ DepartDelay: 7.143500000000000
 
-DijkstraRouter answered 7246 queries and explored 40.33 edges on average.
-DijkstraRouter spent 0.07s answering queries (0.01ms on average).
-Loading net-file from 'input_net.net.xml' ... done (24ms).
+DijkstraRouter answered 7246 queries and explored 40.325420921887940 edges on average.
+DijkstraRouter spent 0.126s answering queries (0.017388904223020ms on average).
+Loading net-file from 'input_net.net.xml' ... done (25ms).
 Loading done.
-Simulation version v1_12_0+0175-e62a4bc started with time: 0.00
-Simulation ended at time: 1917.00
-Reason: All vehicles have left the simulation.
-Performance: 
- Duration: 2.23s
- Real time factor: 858.871
- UPS: 203387.096774
-Vehicles: 
- Inserted: 2000
- Running: 0
- Waiting: 0
-Teleports: 38 (Collisions: 1, Jam: 6, Yield: 25, Wrong Lane: 6)
-Statistics (avg):
- RouteLength: 489.66
- Speed: 3.84
- Duration: 226.98
- WaitingTime: 149.98
- TimeLoss: 188.19
- DepartDelay: 8.98
-
+Simulation version v1_12_0+0179-34fe5c8 started with time: 0.00
+<     <vehicles loaded="2000" inserted="2000" running="0" waiting="0"/>
+> </statistics>
 <     <teleports total="0" jam="0" yield="0" wrongLane="0"/>
->     <teleports total="38" jam="6" yield="25" wrongLane="6"/>
 <     <safety collisions="0" emergencyStops="0"/>
->     <safety collisions="1" emergencyStops="0"/>
-<     <vehicleTripStatistics routeLength="490.13" speed="3.81" duration="184.84" waitingTime="105.72" timeLoss="146.41" departDelay="7.14" departDelayWaiting="-1.00" totalTravelTime="369682.00" totalDepartDelay="14287.00"/>
->     <vehicleTripStatistics routeLength="489.66" speed="3.84" duration="226.98" waitingTime="149.98" timeLoss="188.19" departDelay="8.98" departDelayWaiting="-1.00" totalTravelTime="453958.00" totalDepartDelay="17954.00"/>
+<     <persons loaded="0" running="0" jammed="0"/>
+<     <vehicleTripStatistics routeLength="490.133959999999604" speed="3.806486378132298" duration="184.841000000000008" waitingTime="105.718500000000006" timeLoss="146.410444500000011" departDelay="7.143500000000000" departDelayWaiting="-1.000000000000000" totalTravelTime="369682.000" totalDepartDelay="14287.000"/>
+<     <pedestrianStatistics number="0" routeLength="0.000000000000000" duration="0.000000000000000" timeLoss="0.000000000000000"/>
+<     <rideStatistics number="0"/>
+<     <transportStatistics number="0"/>
+< </statistics>
