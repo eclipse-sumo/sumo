@@ -190,6 +190,9 @@ protected:
     int myActiveRouteRepeat;
     SUMOTime myActiveRoutePeriod;
 
+    /// @brief The type at which this route was replaced (from vehroute-output)
+    SUMOTime myActiveRouteReplacedAtTime;
+
     /// @brief The type of the current object
     ObjectTypeEnum myActiveType;
 

@@ -241,7 +241,7 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
         os.writeAttr("reason", myReplacedRoutes[index].info);
 
         // write the time at which the route was replaced
-        os.writeAttr("replacedAtTime", time2string(myReplacedRoutes[index].time));
+        os.writeAttr(SUMO_ATTR_REPLACED_AT_TIME, time2string(myReplacedRoutes[index].time));
         os.writeAttr(SUMO_ATTR_PROB, "0");
         OutputDevice_String edgesD;
         // always write the part that was actually driven and the rest of the current route that wasn't yet driven

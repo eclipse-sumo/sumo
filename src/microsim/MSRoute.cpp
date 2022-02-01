@@ -49,7 +49,8 @@ FXMutex MSRoute::myDictMutex(true);
 MSRoute::MSRoute(const std::string& id,
                  const ConstMSEdgeVector& edges,
                  const bool isPermanent, const RGBColor* const c,
-                 const std::vector<SUMOVehicleParameter::Stop>& stops) :
+                 const std::vector<SUMOVehicleParameter::Stop>& stops,
+                 SUMOTime replacedTime) :
     Named(id), myEdges(edges), myAmPermanent(isPermanent),
     myReferenceCounter(isPermanent ? 1 : 0),
     myColor(c),
@@ -57,7 +58,8 @@ MSRoute::MSRoute(const std::string& id,
     myCosts(-1),
     mySavings(0),
     myReroute(false),
-    myStops(stops) {}
+    myStops(stops),
+    myReplacedTime(replacedTime) {}
 
 
 MSRoute::~MSRoute() {
