@@ -32,6 +32,7 @@ traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"] + sys.argv[1:])
 
 loopID = "0"
 
+
 def check():
     print("%s timeSinceDet=%s occupancy=%s vehNum=%s vehIDs=%s meanLength=%s meanSpeed=%s vehData=%s" % (
         traci.simulation.getTime(),
@@ -47,6 +48,7 @@ def check():
 def ovr(time):
     print("override %s" % time)
     traci.inductionloop.overrideTimeSinceDetection(loopID, time)
+
 
 for step in range(3):
     check()

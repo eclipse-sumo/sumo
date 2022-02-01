@@ -94,7 +94,8 @@ def runSingle(startTime, endTime, validate, scalarVariable):
     time = startTime
     stepSize = modelDescription.defaultExperiment.stepSize
 
-    print("Simulating %s (model name '%s', FMI v%s)..." % (modelDescription.coSimulation.modelIdentifier, modelDescription.modelName, modelDescription.fmiVersion))
+    print("Simulating %s (model name '%s', FMI v%s)..." % (
+        modelDescription.coSimulation.modelIdentifier, modelDescription.modelName, modelDescription.fmiVersion))
 
     if scalarVariable == "vehicle.getParameterWithKey":
         fmu.setString([valueRefs['setGetterParameters']], ["ego meaningOfLife"])
@@ -118,7 +119,8 @@ def runSingle(startTime, endTime, validate, scalarVariable):
                 targetPos = (currentPos[0] + 10, currentPos[1])
                 print("currentPos =", currentPos)
                 print("targetPos =", targetPos)
-                fmu.setString([valueRefs['vehicle.moveToXY']], ["ego " + edgeID + " " + laneIndex + " " + str(targetPos[0]) + " " + str(targetPos[1])])
+                fmu.setString([valueRefs['vehicle.moveToXY']],
+                        ["ego " + edgeID + " " + laneIndex + " " + str(targetPos[0]) + " " + str(targetPos[1])])
 
         # perform one step
         fmu.doStep(currentCommunicationPoint=time, communicationStepSize=stepSize)
@@ -142,4 +144,10 @@ if len(sys.argv) < 5:
     print("Usage: runner <startTime> <endTime> <validateFMU> <ScalarVariable>")
     sys.exit("")
 sys.stdout.flush()
-runSingle(startTime=int(sys.argv[1]), endTime=int(sys.argv[2]), validate=bool(strtobool(sys.argv[3])), scalarVariable=sys.argv[4])
+
+startTime=int(sys.argv[1])
+endTime=int(sys.argv[2])
+validate=bool(strtobool(sys.argv[3]))
+scalarVariable=sys.argv[4]
+
+runSingle(startTime, endTime, validate, scalarVariable)
