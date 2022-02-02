@@ -20,10 +20,11 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <fxkeys.h>
+#include <utils/vehicle/SUMOVehicle.h>
+#include <microsim/MSNet.h>
+#include <microsim/MSVehicleControl.h>
 #include <microsim/MSRoute.h>
 #include <microsim/MSGlobals.h>
-#include <guisim/GUINet.h>
 #include "Command_RouteReplacement.h"
 
 
