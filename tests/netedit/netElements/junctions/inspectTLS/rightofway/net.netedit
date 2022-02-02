@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-02 11:56:18 by Eclipse SUMO netedit Version v1_12_0+0185-324357a1d93
+<!-- generated on 2022-02-02 12:54:30 by Eclipse SUMO netedit Version v1_12_0+0185-324357a1d93
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb113621.1136\netedit.gui\netElements\junctions\inspectTLS\rightofway\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb123421.7580\netedit.gui\netElements\junctions\inspectTLS\rightofway\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb113621.1136\netedit.gui\netElements\junctions\inspectTLS\rightofway\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb123421.7580\netedit.gui\netElements\junctions\inspectTLS\rightofway\net.net.xml"/>
     </output>
 
     <processing>
@@ -31,27 +31,27 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb113621.1136\netedit.gui\netElements\junctions\inspectTLS\rightofway\additionals.xml"/>
-        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb113621.1136\netedit.gui\netElements\junctions\inspectTLS\rightofway\additionals.xml"/>
-        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb113621.1136\netedit.gui\netElements\junctions\inspectTLS\rightofway\routes.xml"/>
-        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb113621.1136\netedit.gui\netElements\junctions\inspectTLS\rightofway\routes.xml"/>
-        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb113621.1136\netedit.gui\netElements\junctions\inspectTLS\rightofway\datas.xml"/>
-        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb113621.1136\netedit.gui\netElements\junctions\inspectTLS\rightofway\datas.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb123421.7580\netedit.gui\netElements\junctions\inspectTLS\rightofway\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb123421.7580\netedit.gui\netElements\junctions\inspectTLS\rightofway\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb123421.7580\netedit.gui\netElements\junctions\inspectTLS\rightofway\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb123421.7580\netedit.gui\netElements\junctions\inspectTLS\rightofway\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb123421.7580\netedit.gui\netElements\junctions\inspectTLS\rightofway\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb123421.7580\netedit.gui\netElements\junctions\inspectTLS\rightofway\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb113621.1136\netedit.gui\netElements\junctions\inspectTLS\rightofway\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb123421.7580\netedit.gui\netElements\junctions\inspectTLS\rightofway\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb113621.1136\netedit.gui\netElements\junctions\inspectTLS\rightofway\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb123421.7580\netedit.gui\netElements\junctions\inspectTLS\rightofway\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb113621.1136\netedit.gui\netElements\junctions\inspectTLS\rightofway\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb123421.7580\netedit.gui\netElements\junctions\inspectTLS\rightofway\log.txt"/>
     </report>
 
 </configuration>
@@ -216,6 +216,21 @@
         <lane id="8_1" index="1" speed="13.90" length="39.60" shape="100.00,51.60 60.40,51.60"/>
     </edge>
 
+    <tlLogic id="A" type="static" programID="0" offset="0">
+        <phase duration="82" state="G"/>
+        <phase duration="3"  state="y"/>
+        <phase duration="5"  state="r"/>
+    </tlLogic>
+    <tlLogic id="B" type="static" programID="0" offset="0">
+        <phase duration="82" state="G"/>
+        <phase duration="3"  state="y"/>
+        <phase duration="5"  state="r"/>
+    </tlLogic>
+    <tlLogic id="C" type="static" programID="0" offset="0">
+        <phase duration="82" state="G"/>
+        <phase duration="3"  state="y"/>
+        <phase duration="5"  state="r"/>
+    </tlLogic>
     <tlLogic id="Center" type="static" programID="0" offset="0">
         <phase duration="37" state="gGGggrrrrrgGGggrrrrrGG"/>
         <phase duration="5"  state="gGGggrrrrrgGGggrrrrrrr"/>
@@ -223,14 +238,19 @@
         <phase duration="42" state="rrrrrGGGggrrrrrGGGggrr"/>
         <phase duration="3"  state="rrrrryyyyyrrrrryyyyyrr"/>
     </tlLogic>
+    <tlLogic id="D" type="static" programID="0" offset="0">
+        <phase duration="82" state="G"/>
+        <phase duration="3"  state="y"/>
+        <phase duration="5"  state="r"/>
+    </tlLogic>
 
-    <junction id="A" type="priority" x="50.00" y="0.00" incLanes="1_0 1_1" intLanes=":A_0_0" shape="50.00,0.00 43.60,0.00 50.00,0.00">
+    <junction id="A" type="traffic_light" x="50.00" y="0.00" incLanes="1_0 1_1" intLanes=":A_0_0" shape="50.00,0.00 43.60,0.00 50.00,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="B" type="priority" x="50.00" y="100.00" incLanes="2_0 2_1" intLanes=":B_0_0" shape="50.00,100.00 56.40,100.00 50.00,100.00">
+    <junction id="B" type="traffic_light" x="50.00" y="100.00" incLanes="2_0 2_1" intLanes=":B_0_0" shape="50.00,100.00 56.40,100.00 50.00,100.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="C" type="priority" x="0.00" y="50.00" incLanes="3_0 3_1" intLanes=":C_0_0" shape="0.00,50.00 0.00,56.40 0.00,50.00">
+    <junction id="C" type="traffic_light" x="0.00" y="50.00" incLanes="3_0 3_1" intLanes=":C_0_0" shape="0.00,50.00 0.00,56.40 0.00,50.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="Center" type="traffic_light" x="50.00" y="50.00" incLanes="6_0 6_1 8_0 8_1 5_0 5_1 7_0 7_1 :Center_w2_0 :Center_w1_0" intLanes=":Center_20_0 :Center_1_0 :Center_1_1 :Center_21_0 :Center_22_0 :Center_5_0 :Center_6_0 :Center_6_1 :Center_23_0 :Center_24_0 :Center_25_0 :Center_11_0 :Center_11_1 :Center_26_0 :Center_27_0 :Center_15_0 :Center_16_0 :Center_16_1 :Center_28_0 :Center_29_0 :Center_c0_0 :Center_c1_0" shape="43.60,60.40 56.40,60.40 56.84,58.18 57.40,57.40 58.18,56.84 59.18,56.51 60.40,56.40 60.40,43.60 58.18,43.16 57.40,42.60 56.84,41.82 56.51,40.82 56.40,39.60 43.60,39.60 43.16,41.82 42.60,42.60 41.82,43.16 40.82,43.49 39.60,43.60 39.60,56.40 41.82,56.84 42.60,57.40 43.16,58.18 43.49,59.18" rightOfWay="edgePriority">
@@ -257,7 +277,7 @@
         <request index="20" response="0000000000000000000000" foes="0000110000011111101000" cont="0"/>
         <request index="21" response="0000000000000000000000" foes="0011111010000011000001" cont="0"/>
     </junction>
-    <junction id="D" type="priority" x="100.00" y="50.00" incLanes="4_0 4_1" intLanes=":D_0_0" shape="100.00,50.00 100.00,43.60 100.00,50.00">
+    <junction id="D" type="traffic_light" x="100.00" y="50.00" incLanes="4_0 4_1" intLanes=":D_0_0" shape="100.00,50.00 100.00,43.60 100.00,50.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
@@ -272,10 +292,10 @@
     <junction id=":Center_28_0" type="internal" x="44.56" y="49.11" incLanes=":Center_18_0 8_0 8_1" intLanes=":Center_1_0 :Center_1_1 :Center_3_0 :Center_4_0 :Center_5_0 :Center_6_0 :Center_6_1 :Center_11_0 :Center_11_1 :Center_13_0 :Center_c1_0"/>
     <junction id=":Center_29_0" type="internal" x="40.80" y="49.20" incLanes=":Center_19_0 5_1 6_0 8_0 8_1" intLanes=":Center_0_0 :Center_6_0 :Center_6_1 :Center_13_0 :Center_c1_0 :Center_c1_0"/>
 
-    <connection from="1" to="5" fromLane="1" toLane="1" via=":A_0_0" dir="t" state="M"/>
-    <connection from="2" to="6" fromLane="1" toLane="1" via=":B_0_0" dir="t" state="M"/>
-    <connection from="3" to="7" fromLane="1" toLane="1" via=":C_0_0" dir="t" state="M"/>
-    <connection from="4" to="8" fromLane="1" toLane="1" via=":D_0_0" dir="t" state="M"/>
+    <connection from="1" to="5" fromLane="1" toLane="1" via=":A_0_0" tl="A" linkIndex="0" dir="t" state="O"/>
+    <connection from="2" to="6" fromLane="1" toLane="1" via=":B_0_0" tl="B" linkIndex="0" dir="t" state="O"/>
+    <connection from="3" to="7" fromLane="1" toLane="1" via=":C_0_0" tl="C" linkIndex="0" dir="t" state="O"/>
+    <connection from="4" to="8" fromLane="1" toLane="1" via=":D_0_0" tl="D" linkIndex="0" dir="t" state="O"/>
     <connection from="5" to="4" fromLane="0" toLane="0" via=":Center_10_0" tl="Center" linkIndex="10" dir="r" state="o"/>
     <connection from="5" to="2" fromLane="0" toLane="0" via=":Center_11_0" tl="Center" linkIndex="11" dir="s" state="o"/>
     <connection from="5" to="2" fromLane="1" toLane="1" via=":Center_11_1" tl="Center" linkIndex="12" dir="s" state="o"/>

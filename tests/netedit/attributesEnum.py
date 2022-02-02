@@ -19,11 +19,92 @@
 # NETWORK
 #--------------------------------
 
+# junction
+class junction:
+
+    class inspect:
+        id = 1
+        pos = 2
+        type = 3
+        shape = 5
+        radius = 6
+        keepClear = 7
+        rightOfWay = 8
+        fringe = 10
+        name = 12
+        parameters = 15
+    class inspectTLS:
+        id = 1
+        pos = 2
+        type = 3
+        shape = 5
+        radius = 6
+        keepClear = 7
+        rightOfWay = 8
+        fringe = 10
+        name = 12
+        tlType = 13     # missing
+        tlLayout = 15   # missing
+        tl = 17         # missing
+        parameters = 20
+    class inspectSelection:
+        type = 3
+        radius = 4
+        keepClear = 5
+        rightOfWay = 6
+        fringe = 7
+        name = 8
+        parameters = 11
+
 # edge
 class edge:
 
     class inspect:
+        id = 1
+        fromEdge = 2
+        toEdge = 3
+        speed = 4
+        priority = 5
+        numLanes = 6
+        type = 7
+        allowedButton = 8       # missing
+        allowed = 9
+        disallowedButton = 10   # missing
+        disallowed = 11
+        shape = 12
         length = 13
+        spreadType = 14
+        name = 16
+        width = 17
+        endOffset = 18
+        shapeStart = 19
+        shapeEnd = 20
+        distance = 21               # missing
+        stopOffset = 22             # missing
+        stopExceptionButton = 23    # missing
+        stopException = 24          # missing
+        parameters = 27
+
+    class inspectSelection:
+        speed = 1
+        priority = 2
+        numLanes = 3
+        type = 4
+        allowedButton = 5       # missing
+        allowed = 6
+        disallowedButton = 7    # missing
+        disallowed = 8
+        length = 9
+        spreadType = 10
+        name = 12
+        width = 13
+        endOffset = 14
+        shapeStart = 15
+        shapeEnd = 16
+        stopOffset = 17             # missing
+        stopExceptionButton = 18    # missing
+        stopException = 19          # missing
+        parameters = 22
 
 # lane
 class lane:
