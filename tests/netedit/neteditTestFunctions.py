@@ -1472,8 +1472,8 @@ def changeStopParent(stopParent):
     """
     # focus current frame
     focusOnFrame()
-    # jump to stop parent
-    typeTab()
+    for _ in range(2):
+        typeTab()
     # paste the new stop parent
     pasteIntoTextField(stopParent)
     # type enter to save change
@@ -1487,7 +1487,7 @@ def changeStopType(stopType):
     # focus current frame
     focusOnFrame()
     # jump to stop type
-    for _ in range(3):
+    for _ in range(5):
         typeTab()
     # paste the new personPlan
     pasteIntoTextField(stopType)

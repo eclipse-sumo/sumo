@@ -48,7 +48,6 @@ netedit.selectAdditionalChild(netedit.attrs.access.create.parent, 0)
 netedit.leftClick(referencePosition, 200, 90)
 
 # Create second Access
-netedit.selectAdditionalChild(netedit.attrs.access.create.parent, 0)
 netedit.leftClick(referencePosition, 185, 268)
 
 # go to delete mode
