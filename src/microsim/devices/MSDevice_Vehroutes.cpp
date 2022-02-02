@@ -237,6 +237,10 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
         // write edge on which the vehicle was when the route was valid
         os.writeAttr("replacedOnEdge", (myReplacedRoutes[index].edge ?
                                         myReplacedRoutes[index].edge->getID() : ""));
+        if (myReplacedRoutes[index].lastRouteIndex > 0) {
+            // do not write the default
+            os.writeAttr(SUMO_ATTR_REPLACED_ON_INDEX, myReplacedRoutes[index].lastRouteIndex);
+        }
         // write the reason for replacement
         os.writeAttr("reason", myReplacedRoutes[index].info);
 
