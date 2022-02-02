@@ -38,7 +38,7 @@ netedit.forceSaveAdditionals()
 netedit.leftClick(referencePosition, 325, 250)
 
 # change type of junction
-netedit.modifyAttribute(2, "priority_stop", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspect.type, "priority_stop", False)
 
 # rebuild network
 netedit.rebuildNetwork()
