@@ -144,7 +144,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
         }
         nodesHandler.setFileName(file);
         nodesHandler.resetHierarchy();
-        PROGRESS_BEGIN_MESSAGE("Parsing nodes from osm-file '" + file + "'");
+        const long before = PROGRESS_BEGIN_TIME_MESSAGE("Parsing nodes from osm-file '" + file + "'");
         readers.push_back(XMLSubSys::getSAXReader(nodesHandler));
         if (!readers.back()->parseFirst(file) || !readers.back()->parseSection(SUMO_TAG_NODE) ||
             MsgHandler::getErrorInstance()->wasInformed()) {
@@ -153,7 +153,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
         if (nodesHandler.getDuplicateNodes() > 0) {
             WRITE_MESSAGE("Found and substituted " + toString(nodesHandler.getDuplicateNodes()) + " osm nodes.");
         }
-        PROGRESS_DONE_MESSAGE();
+        PROGRESS_TIME_MESSAGE(before);
     }
 
     // load edges, then
@@ -162,13 +162,13 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
     for (const std::string& file : files) {
         edgesHandler.setFileName(file);
         readers[idx]->setHandler(edgesHandler);
-        PROGRESS_BEGIN_MESSAGE("Parsing edges from osm-file '" + file + "'");
+        const long before = PROGRESS_BEGIN_TIME_MESSAGE("Parsing edges from osm-file '" + file + "'");
         if (!readers[idx]->parseSection(SUMO_TAG_WAY)) {
             // eof already reached, no relations
             delete readers[idx];
             readers[idx] = nullptr;
         }
-        PROGRESS_DONE_MESSAGE();
+        PROGRESS_TIME_MESSAGE(before);
         idx++;
     }
 
@@ -279,9 +279,9 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
         if (readers[idx] != nullptr) {
             relationHandler.setFileName(file);
             readers[idx]->setHandler(relationHandler);
-            PROGRESS_BEGIN_MESSAGE("Parsing relations from osm-file '" + file + "'");
+            const long before = PROGRESS_BEGIN_TIME_MESSAGE("Parsing relations from osm-file '" + file + "'");
             readers[idx]->parseSection(SUMO_TAG_RELATION);
-            PROGRESS_DONE_MESSAGE();
+            PROGRESS_TIME_MESSAGE(before);
             delete readers[idx];
         }
         idx++;
