@@ -98,7 +98,7 @@
 std::set<MSDevice_ToC*, ComparatorNumericalIdLess> MSDevice_ToC::myInstances = std::set<MSDevice_ToC*, ComparatorNumericalIdLess>();
 std::set<std::string> MSDevice_ToC::createdOutputFiles;
 int MSDevice_ToC::LCModeMRM = 768; // = 0b001100000000 - no autonomous changes, no speed adaptation
-SumoRNG MSDevice_ToC::myResponseTimeRNG;
+SumoRNG MSDevice_ToC::myResponseTimeRNG("toc");
 
 
 // ===========================================================================

@@ -4023,7 +4023,7 @@ MSLane::initRNGs(const OptionsCont& oc) {
     int seed = oc.getInt("seed");
     myRNGs.reserve(numRNGs); // this is needed for stable pointers on debugging
     for (int i = 0; i < numRNGs; i++) {
-        myRNGs.push_back(SumoRNG());
+        myRNGs.push_back(SumoRNG("lanes_" + toString(i)));
         RandHelper::initRand(&myRNGs.back(), random, seed++);
     }
 }

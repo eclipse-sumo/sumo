@@ -52,7 +52,9 @@ MSInsertionControl::MSInsertionControl(MSVehicleControl& vc,
     myMaxDepartDelay(maxDepartDelay),
     myEagerInsertionCheck(eagerInsertionCheck),
     myMaxVehicleNumber(maxVehicleNumber),
-    myPendingEmitsUpdateTime(SUMOTime_MIN) {
+    myPendingEmitsUpdateTime(SUMOTime_MIN),
+    myFlowRNG("flow")
+{
     myMaxRandomDepartOffset = randomDepartOffset;
     RandHelper::initRandGlobal(&myFlowRNG);
 }
