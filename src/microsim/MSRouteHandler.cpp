@@ -625,9 +625,14 @@ MSRouteHandler::closeVehicle() {
                 RandomDistributor<const MSRoute*>* rDist = MSRoute::distDictionary(embeddedRouteID);
                 if (rDist != nullptr) {
                     for (int i = 0; i < (int)rDist->getVals().size() - 1; i++) {
-                        MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(
-                                new Command_RouteReplacement(vehicle->getID(), rDist->getVals()[i + 1]),
-                                rDist->getVals()[i]->getReplacedTime());
+                        SUMOTime replacedAt = rDist->getVals()[i]->getReplacedTime();
+                        auto* cmd = new Command_RouteReplacement(vehicle->getID(), rDist->getVals()[i + 1]);
+                        if (i == 0 && replacedAt >= 0 && replacedAt == myVehicleParameter->depart) {
+                            // routing in the insertion step happens *after* insertion
+                            MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(cmd, replacedAt);
+                        } else {
+                            MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(cmd, replacedAt);
+                        }
                     }
                 }
             }
