@@ -516,7 +516,16 @@ void
 MSRouteHandler::closeVehicle() {
     // get nested route
     const std::string embeddedRouteID = "!" + myVehicleParameter->id;
-    const MSRoute* route = MSRoute::dictionary(embeddedRouteID, &myParsingRNG);
+    const MSRoute* route = nullptr;
+    if (myReplayRerouting) {
+        RandomDistributor<const MSRoute*>* rDist = MSRoute::distDictionary(embeddedRouteID);
+        if (rDist != nullptr && rDist->getVals().size() > 0) {
+            route = rDist->getVals().front();
+        }
+    }
+    if (route == nullptr) {
+        route = MSRoute::dictionary(embeddedRouteID, &myParsingRNG);
+    }
     MSVehicleControl& vehControl = MSNet::getInstance()->getVehicleControl();
     if (myVehicleParameter->departProcedure == DEPART_GIVEN) {
         // let's check whether this vehicle had to depart before the simulation starts
@@ -615,11 +624,6 @@ MSRouteHandler::closeVehicle() {
             if (myReplayRerouting) {
                 RandomDistributor<const MSRoute*>* rDist = MSRoute::distDictionary(embeddedRouteID);
                 if (rDist != nullptr) {
-                    std::string errorMsg;
-                    if (!vehicle->replaceRoute(rDist->getVals().front(), "replayRerouting", true, 0, true, true, &errorMsg)) {
-                        throw ProcessError("Replayed route replacement failed for vehicle '"
-                                + vehicle->getID() + "' on initial route at time=" + time2string(SIMSTEP)+ " (" + errorMsg + ").");
-                    }
                     for (int i = 0; i < (int)rDist->getVals().size() - 1; i++) {
                         MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(
                                 new Command_RouteReplacement(vehicle->getID(), rDist->getVals()[i + 1]),
