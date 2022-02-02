@@ -172,6 +172,11 @@ GNEStopFrame::show() {
 
 bool
 GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed) {
+    // first check stop type
+    if (myStopTagSelector->getCurrentTemplateAC() == nullptr) {
+        WRITE_WARNING("Selected Stop type isn't valid.");
+        return false;
+    }
     // check if we're selecting a new stop parent
     if (mouseButtonKeyPressed.shiftKeyPressed()) {
         if (objectsUnderCursor.getDemandElementFront() &&
@@ -183,7 +188,6 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCu
             WRITE_WARNING("Selected Stop parent isn't valid.");
             return false;
         }
-
     } else {
         // now check if stop parent selector is valid
         if (myStopParentSelector->getCurrentDemandElement() == nullptr) {
