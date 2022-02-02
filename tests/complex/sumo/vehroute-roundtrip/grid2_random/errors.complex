@@ -1,2 +1,2 @@
-Error: Replayed route replacement failed for vehicle '692' route=!692#1 time=406.00 (current edge '-C1D1' not found in new route).
+Error: Replayed route replacement failed for vehicle '1887' route=!1887#2 time=1203.00 (Vehicle is on junction-internal edge leading elsewhere).
 Quitting (on error).
