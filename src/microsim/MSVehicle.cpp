@@ -3617,6 +3617,8 @@ MSVehicle::updateTimeLoss(double vNext) {
 
 double
 MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) const {
+    const bool stopOk = (myStops.empty() || myStops.front().edge != myCurrEdge
+            || (myStops.front().pars.speed > 0 && myState.myPos > myStops.front().pars.endPos - 2 * POSITION_EPS));
 #ifdef DEBUG_REVERSE_BIDI
     if (DEBUG_COND) std::cout << SIMTIME  << " checkReversal lane=" << myLane->getID()
                                   << " pos=" << myState.myPos
@@ -3629,7 +3631,7 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
                                   << " normal=" << !myLane->isInternal()
                                   << " routeOK=" << ((myCurrEdge + 1) != myRoute->end())
                                   << " bidi=" << (myLane->getEdge().getBidiEdge() == *(myCurrEdge + 1))
-                                  << " stopOk=" << (myStops.empty() || myStops.front().edge != myCurrEdge)
+                                  << " stopOk=" << stopOk
                                   << "\n";
 #endif
     if ((getVClass() & SVC_RAIL_CLASSES) != 0
@@ -3639,7 +3641,7 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
             && (myCurrEdge + 1) != myRoute->end()
             && myLane->getEdge().getBidiEdge() == *(myCurrEdge + 1)
             // ensure there are no further stops on this edge
-            && (myStops.empty() || myStops.front().edge != myCurrEdge)
+            && stopOk
        ) {
         //if (isSelected()) std::cout << "   check1 passed\n";
 
