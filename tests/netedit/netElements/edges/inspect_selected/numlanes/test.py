@@ -53,19 +53,19 @@ netedit.forceSaveAdditionals()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 2 with a non valid value (empty lanes)
-netedit.modifyAttribute(2, "", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.numLanes, "", False)
 
 # Change parameter 2 with a non valid value (dummy lanes)
-netedit.modifyAttribute(2, "dummyLanes", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.numLanes, "dummyLanes", False)
 
 # Change parameter 2 with a non valid value (negative lanes)
-netedit.modifyAttribute(2, "-6", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.numLanes, "-6", False)
 
 # Change parameter 2 with a non valid value (float)
-netedit.modifyAttribute(2, "3.5", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.numLanes, "3.5", False)
 
 # Change parameter 2 with a valid value
-netedit.modifyAttribute(2, "4", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.numLanes, "4", False)
 
 # recompute
 netedit.rebuildNetwork()

@@ -41,13 +41,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 13 with a non valid value (dummy)
-netedit.modifyAttribute(13, "dummySpread", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.spreadType, "dummySpread", False)
 
 # Change parameter 13 with a non valid value (empty)
-netedit.modifyAttribute(13, "", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.spreadType, "", False)
 
 # Change parameter 13 with a valid value
-netedit.modifyAttribute(13, "center", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.spreadType, "center", False)
 
 # recompute
 netedit.rebuildNetwork()

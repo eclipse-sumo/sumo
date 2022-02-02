@@ -53,16 +53,16 @@ netedit.forceSaveAdditionals()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 1 with a non valid value (empty priority)
-netedit.modifyAttribute(1, "", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.priority, "", False)
 
 # Change parameter 1 with a non valid value (dummy priority)
-netedit.modifyAttribute(1, "dummyPriority", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.priority, "dummyPriority", False)
 
 # Change parameter 1 with a non valid value (negative priority)
-netedit.modifyAttribute(1, "-6", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.priority, "-6", False)
 
 # Change parameter 1 with a non valid value (float)
-netedit.modifyAttribute(1, "6.4", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.priority, "6.4", False)
 
 # recompute
 netedit.rebuildNetwork()

@@ -41,16 +41,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 1 with a non valid value (dummy Junction)
-netedit.modifyAttribute(1, "dummy_Junction", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.fromEdge, "dummy_Junction", False)
 
 # Change parameter 1 with a non valid value (empty Junction)
-netedit.modifyAttribute(1, "", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.fromEdge, "", False)
 
 # Change parameter 1 with a non valid value (same from Junction)
-netedit.modifyAttribute(1, "gneJ2", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.fromEdge, "gneJ2", False)
 
 # Change parameter 1 with a value
-netedit.modifyAttribute(1, "gneJ0", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.fromEdge, "gneJ0", False)
 
 # recompute
 netedit.rebuildNetwork()
