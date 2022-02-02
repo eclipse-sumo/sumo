@@ -50,7 +50,8 @@ MSRoute::MSRoute(const std::string& id,
                  const ConstMSEdgeVector& edges,
                  const bool isPermanent, const RGBColor* const c,
                  const std::vector<SUMOVehicleParameter::Stop>& stops,
-                 SUMOTime replacedTime) :
+                 SUMOTime replacedTime,
+                 int replacedIndex) :
     Named(id), myEdges(edges), myAmPermanent(isPermanent),
     myReferenceCounter(isPermanent ? 1 : 0),
     myColor(c),
@@ -59,7 +60,9 @@ MSRoute::MSRoute(const std::string& id,
     mySavings(0),
     myReroute(false),
     myStops(stops),
-    myReplacedTime(replacedTime) {}
+    myReplacedTime(replacedTime),
+    myReplacedIndex(replacedIndex)
+{}
 
 
 MSRoute::~MSRoute() {

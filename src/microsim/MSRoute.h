@@ -66,7 +66,8 @@ public:
     MSRoute(const std::string& id, const ConstMSEdgeVector& edges,
             const bool isPermanent, const RGBColor* const c,
             const std::vector<SUMOVehicleParameter::Stop>& stops,
-            SUMOTime replacedTime = -1);
+            SUMOTime replacedTime = -1,
+            int replacedIndex = 0);
 
     /// Destructor
     virtual ~MSRoute();
@@ -177,6 +178,11 @@ public:
     /// @brief Returns the time at which this route was replaced (or -1)
     SUMOTime getReplacedTime() const {
         return myReplacedTime;
+    }
+
+    /// @brief Returns the index at which this route was replaced
+    int getReplacedIndex() const {
+        return myReplacedIndex;
     }
 
     /// @brief sets the period
@@ -295,6 +301,8 @@ private:
     /// The time where this route was replaced with an alternative route (or -1)
     SUMOTime myReplacedTime;
 
+    /// The index where this route was replaced with an alternative route
+    int myReplacedIndex;
 
 private:
     /// Definition of the dictionary container

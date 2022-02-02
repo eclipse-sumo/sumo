@@ -288,6 +288,7 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
     myActiveRouteColor = attrs.hasAttribute(SUMO_ATTR_COLOR) ? new RGBColor(attrs.get<RGBColor>(SUMO_ATTR_COLOR, myActiveRouteID.c_str(), ok)) : nullptr;
     myActiveRouteRepeat = attrs.getOpt<int>(SUMO_ATTR_REPEAT, myActiveRouteID.c_str(), ok, 0);
     myActiveRouteReplacedAtTime = attrs.getOptSUMOTimeReporting(SUMO_ATTR_REPLACED_AT_TIME, myActiveRouteID.c_str(), ok, -1);
+    myActiveRouteReplacedIndex = attrs.getOpt<int>(SUMO_ATTR_REPLACED_ON_INDEX, myActiveRouteID.c_str(), ok, 0);
     myActiveRoutePeriod = attrs.getOptSUMOTimeReporting(SUMO_ATTR_CYCLETIME, myActiveRouteID.c_str(), ok,
                           // handle obsolete attribute name
                           attrs.getOptSUMOTimeReporting(SUMO_ATTR_PERIOD, myActiveRouteID.c_str(), ok, 0));
@@ -407,7 +408,8 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
         }
         MSRoute* route = new MSRoute(myActiveRouteID, myActiveRoute,
                                      myVehicleParameter == nullptr || myVehicleParameter->repetitionNumber >= 1,
-                                     myActiveRouteColor, myActiveRouteStops, myActiveRouteReplacedAtTime);
+                                     myActiveRouteColor, myActiveRouteStops,
+                                     myActiveRouteReplacedAtTime, myActiveRouteReplacedIndex);
         route->setPeriod(myActiveRoutePeriod);
         route->setCosts(myCurrentCosts);
         route->setReroute(mustReroute);

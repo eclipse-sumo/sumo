@@ -57,7 +57,8 @@ Command_RouteReplacement::execute(SUMOTime /*currentTime*/) {
             }
         }
         std::string errorMsg;
-        if (!veh->replaceRoute(myRoute, "replayRerouting", veh->getLane() == nullptr, 0, true, true, &errorMsg)) {
+        if (!veh->replaceRoute(myRoute, "replayRerouting", veh->getLane() == nullptr,
+                    veh->getRoute().getReplacedIndex(), true, true, &errorMsg)) {
             throw ProcessError(errorPrefix + " (" + errorMsg + ").");
         }
     }
