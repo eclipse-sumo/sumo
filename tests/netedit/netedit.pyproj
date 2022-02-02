@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{9d2b2484-6a0b-4f7e-8211-3bfe7705ae3b}</ProjectGuid>
+    <ProjectGuid>{f99daf8e-8616-4a21-81c1-49f9421771dd}</ProjectGuid>
     <ProjectHome />
     <StartupFile>attributesEnum.py</StartupFile>
     <SearchPath />
@@ -1701,6 +1701,47 @@
     <Compile Include="netElements\junctions\create\square_double\test.py" />
     <Compile Include="netElements\junctions\create\two_way\test.py" />
     <Compile Include="netElements\junctions\delete\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS\fringe\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS\id\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS\keepclear\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS\parameters\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS\pos\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS\radius\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS\rightofway\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS\shape\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS\type\allway_stop\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS\type\dead_end\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS\type\district\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS\type\internal\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS\type\priority\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS\type\priority_stop\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS\type\rail_crossing\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS\type\rail_signal\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS\type\right_before_left\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS\type\traffic_light\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS\type\traffic_light_right_on_red\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS\type\traffic_light_unregulated\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS\type\unknown\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS\type\unregulated\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS\type\zipper\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS_selected\fringe\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS_selected\keepclear\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS_selected\parameters\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS_selected\radius\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS_selected\rightofway\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS_selected\type\allway_stop\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS_selected\type\district\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS_selected\type\priority\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS_selected\type\priority_stop\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS_selected\type\rail_crossing\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS_selected\type\rail_signal\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS_selected\type\right_before_left\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS_selected\type\traffic_light\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS_selected\type\traffic_light_right_on_red\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS_selected\type\traffic_light_unregulated\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS_selected\type\unknown\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS_selected\type\unregulated\test.py" />
+    <Compile Include="netElements\junctions\inspectTLS_selected\type\zipper\test.py" />
     <Compile Include="netElements\junctions\inspect\fringe\test.py" />
     <Compile Include="netElements\junctions\inspect\id\test.py" />
     <Compile Include="netElements\junctions\inspect\keepclear\test.py" />
@@ -4037,6 +4078,51 @@
     <Folder Include="netElements\junctions\create\square_double" />
     <Folder Include="netElements\junctions\create\two_way" />
     <Folder Include="netElements\junctions\delete" />
+    <Folder Include="netElements\junctions\inspectTLS\" />
+    <Folder Include="netElements\junctions\inspectTLS\fringe" />
+    <Folder Include="netElements\junctions\inspectTLS\id" />
+    <Folder Include="netElements\junctions\inspectTLS\keepclear" />
+    <Folder Include="netElements\junctions\inspectTLS\parameters" />
+    <Folder Include="netElements\junctions\inspectTLS\pos" />
+    <Folder Include="netElements\junctions\inspectTLS\radius" />
+    <Folder Include="netElements\junctions\inspectTLS\rightofway" />
+    <Folder Include="netElements\junctions\inspectTLS\shape" />
+    <Folder Include="netElements\junctions\inspectTLS\type\" />
+    <Folder Include="netElements\junctions\inspectTLS\type\allway_stop" />
+    <Folder Include="netElements\junctions\inspectTLS\type\dead_end" />
+    <Folder Include="netElements\junctions\inspectTLS\type\district" />
+    <Folder Include="netElements\junctions\inspectTLS\type\internal" />
+    <Folder Include="netElements\junctions\inspectTLS\type\priority" />
+    <Folder Include="netElements\junctions\inspectTLS\type\priority_stop" />
+    <Folder Include="netElements\junctions\inspectTLS\type\rail_crossing" />
+    <Folder Include="netElements\junctions\inspectTLS\type\rail_signal" />
+    <Folder Include="netElements\junctions\inspectTLS\type\right_before_left" />
+    <Folder Include="netElements\junctions\inspectTLS\type\traffic_light" />
+    <Folder Include="netElements\junctions\inspectTLS\type\traffic_light_right_on_red" />
+    <Folder Include="netElements\junctions\inspectTLS\type\traffic_light_unregulated" />
+    <Folder Include="netElements\junctions\inspectTLS\type\unknown" />
+    <Folder Include="netElements\junctions\inspectTLS\type\unregulated" />
+    <Folder Include="netElements\junctions\inspectTLS\type\zipper" />
+    <Folder Include="netElements\junctions\inspectTLS_selected\" />
+    <Folder Include="netElements\junctions\inspectTLS_selected\fringe" />
+    <Folder Include="netElements\junctions\inspectTLS_selected\keepclear" />
+    <Folder Include="netElements\junctions\inspectTLS_selected\parameters" />
+    <Folder Include="netElements\junctions\inspectTLS_selected\radius" />
+    <Folder Include="netElements\junctions\inspectTLS_selected\rightofway" />
+    <Folder Include="netElements\junctions\inspectTLS_selected\type\" />
+    <Folder Include="netElements\junctions\inspectTLS_selected\type\allway_stop" />
+    <Folder Include="netElements\junctions\inspectTLS_selected\type\district" />
+    <Folder Include="netElements\junctions\inspectTLS_selected\type\priority" />
+    <Folder Include="netElements\junctions\inspectTLS_selected\type\priority_stop" />
+    <Folder Include="netElements\junctions\inspectTLS_selected\type\rail_crossing" />
+    <Folder Include="netElements\junctions\inspectTLS_selected\type\rail_signal" />
+    <Folder Include="netElements\junctions\inspectTLS_selected\type\right_before_left" />
+    <Folder Include="netElements\junctions\inspectTLS_selected\type\traffic_light" />
+    <Folder Include="netElements\junctions\inspectTLS_selected\type\traffic_light_right_on_red" />
+    <Folder Include="netElements\junctions\inspectTLS_selected\type\traffic_light_unregulated" />
+    <Folder Include="netElements\junctions\inspectTLS_selected\type\unknown" />
+    <Folder Include="netElements\junctions\inspectTLS_selected\type\unregulated" />
+    <Folder Include="netElements\junctions\inspectTLS_selected\type\zipper" />
     <Folder Include="netElements\junctions\inspect\" />
     <Folder Include="netElements\junctions\inspect\fringe" />
     <Folder Include="netElements\junctions\inspect\id" />
