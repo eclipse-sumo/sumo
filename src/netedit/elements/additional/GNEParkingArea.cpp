@@ -92,6 +92,9 @@ GNEParkingArea::writeAdditional(OutputDevice& device) const {
     if (getAttribute(SUMO_ATTR_LENGTH) != myTagProperty.getDefaultValue(SUMO_ATTR_LENGTH)) {
         device.writeAttr(SUMO_ATTR_LENGTH, myLength);
     }
+    if (getAttribute(SUMO_ATTR_ANGLE) != myTagProperty.getDefaultValue(SUMO_ATTR_ANGLE)) {
+        device.writeAttr(SUMO_ATTR_ANGLE, myAngle);
+    }
     // write all parking spaces
     for (const auto& space : getChildAdditionals()) {
         if (space->getTagProperty().getTag() == SUMO_TAG_PARKING_SPACE) {
@@ -372,7 +375,7 @@ GNEParkingArea::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
         case SUMO_ATTR_ROADSIDE_CAPACITY:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
+            return canParse<int>(value) && (parse<int>(value) >= 0);
         case SUMO_ATTR_ONROAD:
             return canParse<bool>(value);
         case SUMO_ATTR_WIDTH:
@@ -480,7 +483,11 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case SUMO_ATTR_LENGTH:
-            myLength = parse<double>(value);
+            if (value.empty()) {
+                myLength = 0;
+            } else {
+                myLength = parse<double>(value);
+            }
             // update geometry of all spaces
             for (const auto& space : getChildAdditionals()) {
                 space->updateGeometry();
