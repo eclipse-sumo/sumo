@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("parkingArea")
 
 # change reference to center
-netedit.changeDefaultValue(12, "reference center")
+netedit.changeDefaultValue(netedit.attrs.parkingArea.create.references, "reference center")
 
 # create parkingArea in mode "reference center"
 netedit.leftClick(referencePosition, 250, 170)
@@ -47,16 +47,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 200)
 
 # Change parameter RoadSideCapacity with a non valid value (dummy)
-netedit.modifyAttribute(6, "dummyRoadSideCapacity", True)
+netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.roadSideCapacity, "dummyRoadSideCapacity", True)
 
 # Change parameter RoadSideCapacity with a non valid value (double)
-netedit.modifyAttribute(6, "2.3", True)
+netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.roadSideCapacity, "2.3", True)
 
 # Change parameter RoadSideCapacity with a non valid value (negative)
-netedit.modifyAttribute(6, "-5", True)
+netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.roadSideCapacity, "-5", True)
 
 # Change parameter RoadSideCapacity with a non valid value (negative)
-netedit.modifyAttribute(6, "7", True)
+netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.roadSideCapacity, "7", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

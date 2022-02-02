@@ -21,7 +21,6 @@
 
 # junction
 class junction:
-
     class inspect:
         id = 1
         pos = 2
@@ -58,7 +57,6 @@ class junction:
 
 # edge
 class edge:
-
     class inspect:
         id = 1
         fromEdge = 2
@@ -84,7 +82,6 @@ class edge:
         stopExceptionButton = 23    # missing
         stopException = 24          # missing
         parameters = 27
-
     class inspectSelection:
         speed = 1
         priority = 2
@@ -108,7 +105,6 @@ class edge:
 
 # lane
 class lane:
-
     class inspect:
         speed = 1
         allowButton = 2             # missing
@@ -128,7 +124,6 @@ class lane:
         stopOffset = 16             # missing
         stopOffsetException = 17    # missing
         parameters = 21
-
     class inspectSelection:
         speed = 1
         allowButton = 2             # missing
@@ -153,7 +148,6 @@ class lane:
 
 # busStop
 class busStop:
-
     class create:
         idEnable = 5
         id = 6
@@ -191,7 +185,6 @@ class busStop:
 
 # trainStop
 class trainStop:
-
     class create:
         idEnable = 5
         id = 6
@@ -229,7 +222,6 @@ class trainStop:
         
 # containerStop
 class containerStop:
-
     class create:
         idEnable = 5
         id = 6
@@ -267,7 +259,6 @@ class containerStop:
 
 # chargingStation
 class chargingStation:
-
     class create:
         idEnable = 5
         id = 6
@@ -302,7 +293,6 @@ class chargingStation:
 
 # access
 class access:
-
     class create:
         length = 5
         friendlyPos = 6
@@ -315,6 +305,47 @@ class access:
     class inspectSelection:
         length = 1
         friendlyPos = 2
+
+
+# parkingArea
+class parkingArea:
+    class create:
+        idEnable = 5
+        id = 6
+        departPos = 6           # missing
+        name = 7
+        roadSideCapacity = 8
+        onRoad = 9
+        friendlyPos = 10
+        width = 11
+        length = 12
+        angle = 13
+        references = 17
+        referencesLength = 19
+    class inspect:
+        id = 1                  # missing
+        lane = 2
+        startPos = 3
+        endPos = 4
+        departPos = 5           # missing
+        name = 6
+        roadSideCapacity = 7
+        onRoad = 8
+        friendlyPos = 9
+        width = 10
+        length = 11
+        angle = 12
+        parameters = 15
+    class inspectSelection:
+        departPos = 1           # missing
+        name = 2
+        roadSideCapacity = 3
+        onRoad = 4
+        friendlyPos = 5
+        width = 6
+        length = 7
+        angle = 8
+        parameters = 11
 
 #--------------------------------
 # DEMAND ELEMENTS
