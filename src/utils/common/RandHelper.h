@@ -244,8 +244,8 @@ protected:
     static SumoRNG myRandomNumberGenerator;
 
 #ifdef DEBUG_RANDCALLS
-    static std::map<SumoRNG*, int> myRngId;
-    static int myDebugIndex;
+    static std::map<SumoRNG*, unsigned long long int> myRngId;
+    static unsigned long long int myDebugIndex;
 #endif
 
 };

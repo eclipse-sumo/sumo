@@ -31,8 +31,8 @@
 // ===========================================================================
 SumoRNG RandHelper::myRandomNumberGenerator;
 #ifdef DEBUG_RANDCALLS
-std::map<SumoRNG*, int> RandHelper::myRngId;
-int RandHelper::myDebugIndex(7);
+std::map<SumoRNG*, unsigned long long int> RandHelper::myRngId;
+unsigned long long int RandHelper::myDebugIndex(7);
 #endif
 
 
