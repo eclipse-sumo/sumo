@@ -1008,6 +1008,11 @@ NEMALogic::NEMA_control() {
                 }
             }
         }
+        // The unique cases have been caught by this point. If it makes it through the filter above, let the phase transition 
+        else if ((tempR1Phase > 0 && R1RYG > GREEN && wait4R1Green) || (tempR1Phase > 0 && R1RYG > GREEN && wait4R1Green)){
+            myNextPhaseR1 = tempR1Phase > 0? tempR1Phase : myNextPhaseR1;
+            myNextPhaseR2 = tempR2Phase > 0? tempR2Phase : myNextPhaseR2;
+        } 
     }
 
 
