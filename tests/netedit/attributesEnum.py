@@ -228,6 +228,40 @@ class connection:
         indirect = 19           # missing
         type = 20               # missing
         parameters = 22
+
+# crossing
+class crossing:
+    class create:
+        edges = 1
+        priority = 2
+        width = 3
+    class createTLS:
+        edges = 1
+        width = 2
+    class inspect:
+        edges = 1
+        priority = 2
+        width = 3
+        customShape = 4
+        parameters = 7
+    class inspectTLS:
+        edges = 1
+        priority = 2
+        width = 3
+        linkIndex = 4
+        linkIndex2 = 5
+        customShape = 6
+        parameters = 9
+    class inspectSelection:
+        priority = 1
+        width = 2
+        parameters = 5
+    class inspectSelectionTLS:
+        priority = 1
+        width = 2
+        linkIndex = 3
+        linkIndex2 = 4
+        parameters = 7
 #--------------------------------
 # ADDITIONALS
 #--------------------------------
@@ -578,3 +612,36 @@ class flowFromToEdge:
         arrivalPosLat = 14
         # flow attributes missing
         parameters = 26
+
+# stop (over additionals)
+class stop:
+    class create:
+        until = 0
+    class inspect:
+        durationEnable = 1
+        duration = 2
+        untilEnable = 3
+        extensionEnable = 4
+        triggered = 5
+        expected = 7
+        parking = 7
+        actTypeParking = 7
+        actType = 8
+    class inspectUntil:
+        untilEnable = 2
+        until = 3
+    class inspectExtension:
+        extensionEnable = 3
+        extension = 4
+    class inspectSelection:
+        durationEnable = 1
+        duration = 2
+        untilEnable = 3
+        until = 4
+        extensionEnable = 5
+        extension = 6
+        triggered = 7
+        expected = 9
+        parking = 9
+        actTypeParking = 9
+        actType = 10

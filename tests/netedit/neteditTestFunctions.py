@@ -1099,7 +1099,7 @@ def modifyCrossingDefaultValue(numtabs, value):
     # focus current frame
     focusOnFrame()
     # jump to value
-    for _ in range(numtabs + 4):
+    for _ in range(numtabs + 5):
         typeTab()
     # paste the new value
     pasteIntoTextField(value)
@@ -1114,7 +1114,7 @@ def modifyCrossingDefaultBoolValue(numtabs):
     # focus current frame
     focusOnFrame()
     # jump to value
-    for _ in range(numtabs + 4):
+    for _ in range(numtabs + 5):
         typeTab()
     # type space to change value
     typeSpace()
