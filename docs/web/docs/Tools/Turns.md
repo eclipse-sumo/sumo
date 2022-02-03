@@ -127,8 +127,8 @@ starting edges and inserted with high speed on a reasonable lane.
 To distinguish vehicles of different types, routeSampler may be run multiple times with different attributes. Note, that it is also necessary to set the option **--prefix** to prevent duplicate ids. The example below creates traffic consisting of cars and trucks using two edgedata files with distinct count values (stored in the default attribute 'entered').
 
 ```
-python tools/routeSampler.py --attributes="type=\"car\"" --edgedata-files carcounts.xml --prefix c -o cars.rou.xml -n net.net.xml -r candidate.rou.xml
-python tools/routeSampler.py --attributes="type=\"heavy\"" --edgedata-files truckcounts.xml --prefix t -o trucks.rou.xml  -n net.net.xml -r candidate.rou.xml
+python tools/routeSampler.py --attributes="type=\"car\"" --edgedata-files carcounts.xml --prefix c -o cars.rou.xml -r candidate.rou.xml
+python tools/routeSampler.py --attributes="type=\"heavy\"" --edgedata-files truckcounts.xml --prefix t -o trucks.rou.xml -r candidate.rou.xml
 ```
   
 Alternatively, the count values might also be stored in different attributes of the same file (i.e. 'count1', 'count2'):
