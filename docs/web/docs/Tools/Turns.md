@@ -134,8 +134,8 @@ python tools/routeSampler.py --attributes="type=\"heavy\"" --edgedata-files tru
 Alternatively, the count values might also be stored in different attributes of the same file (i.e. 'count1', 'count2'):
   
 ```
-python tools/routeSampler.py --attributes="type=\"car\"" --edgedata-files counts.xml --edgedata-attribute count1 --prefix c -o cars.rou.xml  -n net.net.xml -r candidate.rou.xml
-python tools/routeSampler.py --attributes="type=\"heavy\"" --edgedata-files counts.xml --edgedata-attribute count2 --prefix t -o trucks.rou.xml  -n net.net.xml -r candidate.rou.xml
+python tools/routeSampler.py --attributes="type=\"car\"" --edgedata-files counts.xml --edgedata-attribute count1 --prefix c -o cars.rou.xml -r candidate.rou.xml
+python tools/routeSampler.py --attributes="type=\"heavy\"" --edgedata-files counts.xml --edgedata-attribute count2 --prefix t -o trucks.rou.xml  -r  candidate.rou.xml
 ```
    
 When running the simulation, the types 'car' and 'heavy' (previously set as vehicle attributes), must be defined in an additional file which could look like the following example (types.add.xml):
