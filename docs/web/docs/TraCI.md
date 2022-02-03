@@ -151,6 +151,8 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
     simulation visualization
   - [Change Calibrator State](TraCI/Change_Calibrator_State.md) change the
     calibrator state 
+  - [Change inductionloop State](TraCI/Change_Inductionloop_State.md) change the
+    inductionloop state 
 - Subscriptions
   - [TraCI/Object Variable
     Subscription](TraCI/Object_Variable_Subscription.md)
