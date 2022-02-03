@@ -1197,7 +1197,7 @@ def saveConnectionEdit():
     # focus current frame
     focusOnFrame()
     # go to cancel button
-    for _ in range(2):
+    for _ in range(4):
         typeTab()
     # type space to press button
     typeSpace()

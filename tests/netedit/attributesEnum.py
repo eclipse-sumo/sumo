@@ -142,6 +142,92 @@ class lane:
         stopOffsetException = 15    # missing
         parameters = 19
 
+# connection
+class connection:
+    class inspect:
+        passC = 1
+        keepClear = 2
+        contPos = 3
+        uncontrolled = 4
+        visibility = 5
+        allowButton = 6         # missing
+        allow = 7               # missing
+        disallowButton = 8      # missing
+        disallow = 9            # missing
+        speed = 10
+        length = 11             # missing
+        customShape = 12    
+        changeLeftButton = 13   # missing
+        changeLeft = 14         # missing
+        changeRightButton = 15  # missing
+        changeRignt = 16        # missing
+        indirect = 17           # missing
+        type = 18               # missing
+        parameters = 21
+    class inspectTLS:
+        passC = 1
+        keepClear = 2
+        contPos = 3
+        uncontrolled = 4
+        visibility = 5
+        linkIndex = 6
+        linkIndex2 = 7          # missing
+        allowButton = 8         # missing
+        allow = 9               # missing
+        disallowButton = 10     # missing
+        disallow = 11           # missing
+        speed = 12
+        length = 13             # missing
+        customShape = 14
+        changeLeftButton = 15   # missing
+        changeLeft = 16         # missing
+        changeRightBtton = 17   # missing
+        changeRignt = 18        # missing
+        indirect = 19           # missing
+        type = 20               # missing
+        parameters = 23
+    class inspectSelection:
+        passC = 1
+        keepClear = 2
+        contPos = 3
+        uncontrolled = 4
+        visibility = 5
+        allowButton = 6         # missing
+        allow = 7               # missing
+        disallowButton = 8      # missing
+        disallow = 9            # missing
+        speed = 10
+        length = 11             # missing
+        customShape = 12    
+        changeLeftButton = 13   # missing
+        changeLeft = 14         # missing
+        changeRightButton = 15  # missing
+        changeRignt = 16        # missing
+        indirect = 17           # missing
+        type = 18               # missing
+        parameters = 20
+    class inspectSelectionTLS:
+        passC = 1
+        keepClear = 2
+        contPos = 3
+        uncontrolled = 4
+        visibility = 5
+        linkIndex = 6
+        linkIndex2 = 7          # missing
+        allowButton = 8         # missing
+        allow = 9               # missing
+        disallowButton = 10     # missing
+        disallow = 11           # missing
+        speed = 12
+        length = 13             # missing
+        customShape = 14
+        changeLeftButton = 15   # missing
+        changeLeft = 16         # missing
+        changeRightBtton = 17   # missing
+        changeRignt = 18        # missing
+        indirect = 19           # missing
+        type = 20               # missing
+        parameters = 22
 #--------------------------------
 # ADDITIONALS
 #--------------------------------
