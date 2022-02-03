@@ -468,6 +468,30 @@ class parkingArea:
         parameters = 11
 
 #--------------------------------
+# SHAPE ELEMENTS
+#--------------------------------
+
+class POI:
+    class create:
+        idEnable = 5
+        id = 6
+        colorButton = 6
+        color = 7
+        type = 8
+        name = 9
+        layer = 10
+        width = 11
+        height = 12
+        imgFile = 13
+        relativePath = 14
+        angle = 15
+    class inspect:
+        id = 1
+    class inspectSelection:
+        colorButton = 1
+
+
+#--------------------------------
 # DEMAND ELEMENTS
 #--------------------------------
 

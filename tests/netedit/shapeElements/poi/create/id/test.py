@@ -38,25 +38,26 @@ netedit.changeElement("poi")
 netedit.leftClick(referencePosition, 100, 50)
 
 # enable ID
-netedit.changeDefaultBoolValue(2)
+netedit.changeDefaultBoolValue(netedit.attrs.POI.create.idEnable)
 
 # create poi
 netedit.leftClick(referencePosition, 120, 50)
 
 # set invalid ID
-netedit.changeDefaultValue(3, ";;;;;;")
+netedit.changeDefaultValue(netedit.attrs.POI.create.id, ";;;;;;")
 
 # try to create poi
 netedit.leftClick(referencePosition, 140, 50)
 
 # set invalid ID
-netedit.changeDefaultValue(3, "POI_0")
+netedit.changeDefaultValue(netedit.attrs.POI.create.id, "poi_0")
 
 # try to create poi
 netedit.leftClick(referencePosition, 160, 50)
 
 # set invalid ID
-netedit.changeDefaultValue(3, "customID")
+netedit.changeDefaultBoolValue(netedit.attrs.POI.create.idEnable)
+netedit.changeDefaultValue(netedit.attrs.POI.create.id, "customID")
 
 # create POI
 netedit.leftClick(referencePosition, 180, 50)
