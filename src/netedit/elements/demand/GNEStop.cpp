@@ -827,7 +827,7 @@ GNEStop::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
         case SUMO_ATTR_EXTENSION:
         case SUMO_ATTR_EXPECTED:
         case SUMO_ATTR_EXPECTED_CONTAINERS:
-            undoList->add(new GNEChange_EnableAttribute(this, key, true));
+            undoList->add(new GNEChange_EnableAttribute(this, key, true), true);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -843,7 +843,7 @@ GNEStop::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
         case SUMO_ATTR_EXTENSION:
         case SUMO_ATTR_EXPECTED:
         case SUMO_ATTR_EXPECTED_CONTAINERS:
-            undoList->add(new GNEChange_EnableAttribute(this, key, false));
+            undoList->add(new GNEChange_EnableAttribute(this, key, false), true);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
