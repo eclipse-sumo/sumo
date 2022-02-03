@@ -41,31 +41,28 @@ netedit.stopMode()
 netedit.changeStopType("stopContainerStop")
 
 # create stop
-netedit.leftClick(referencePosition, 290, 175)
+netedit.leftClick(referencePosition, 290, 150)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect stop
-netedit.leftClick(referencePosition, 290, 175)
+netedit.leftClick(referencePosition, 290, 150)
 
 # change value
-netedit.modifyBoolAttribute(4, False)
+netedit.modifyAttribute(netedit.attrs.stop.inspect.triggered, "person", False)
 
 # change value
-netedit.modifyAttribute(5, "dummyValue", False)
+netedit.modifyAttribute(netedit.attrs.stop.inspect.expected, "dummyValue", False)
 
 # change value
-netedit.modifyAttribute(5, "", False)
+netedit.modifyAttribute(netedit.attrs.stop.inspect.expected, "", False)
 
 # change value
-netedit.modifyAttribute(5, ";;;;;", False)
+netedit.modifyAttribute(netedit.attrs.stop.inspect.expected, ";;;;;", False)
 
 # change value
-netedit.modifyAttribute(5, "ID1", False)
-
-# change value
-netedit.modifyAttribute(5, "ID2", False)
+netedit.modifyAttribute(netedit.attrs.stop.inspect.expected, "ID1", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)
