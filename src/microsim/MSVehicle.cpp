@@ -6755,10 +6755,10 @@ MSVehicle::getDriverState() const {
 
 
 void
-MSVehicle::setPreviousSpeed(double prevspeed) {
+MSVehicle::setPreviousSpeed(double prevspeed, int timefactor) {
     myState.mySpeed = MAX2(0., prevspeed);
     // also retcon acceleration
-    myAcceleration = SPEED2ACCEL(myState.mySpeed - myState.myPreviousSpeed);
+    myAcceleration = SPEED2ACCEL(myState.mySpeed - myState.myPreviousSpeed) / timefactor;
 }
 
 

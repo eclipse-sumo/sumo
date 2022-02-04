@@ -857,8 +857,12 @@ Vehicle::setSpeed(const std::string& vehID, double speed) {
 }
 
 void
-Vehicle::setPreviousSpeed(const std::string& vehID, double prevspeed) {
-    Dom::setDouble(libsumo::VAR_PREV_SPEED, vehID, prevspeed);
+Vehicle::setPreviousSpeed(const std::string& vehID, double prevspeed, int timefactor) {
+    tcpip::Storage content;
+    StoHelp::writeCompound(content, 2);
+    StoHelp::writeTypedDouble(content, prevspeed);
+    StoHelp::writeTypedInt(content, timefactor);
+    Dom::set(libsumo::VAR_PREV_SPEED, vehID, &content);
 }
 
 void

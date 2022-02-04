@@ -857,11 +857,27 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             }
             break;
             case libsumo::VAR_PREV_SPEED: {
+                if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting previous speed needs a compound object description.", outputStorage);
+                }
+                if (inputStorage.readInt() != 2) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting previous speed needs a compound object description of two items.", outputStorage);
+                }
                 double prevspeed = 0;
                 if (!server.readTypeCheckingDouble(inputStorage, prevspeed)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting previous speed requires a double.", outputStorage);
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The first previous speed parameter must be the speed given as a double.", outputStorage);
                 }
-                libsumo::Vehicle::setPreviousSpeed(id, prevspeed);
+                if (prevspeed < 0) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Previous speed must not be negative.", outputStorage);
+                }
+                int timefactor = 0;
+                if (!server.readTypeCheckingInt(inputStorage, timefactor)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The second previous speed parameter must be the timefactor given as an integer.", outputStorage);
+                }
+                if (timefactor < 1) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The timefactor must be a positive integer.", outputStorage);
+                }
+                libsumo::Vehicle::setPreviousSpeed(id, prevspeed, timefactor);
             }
             break;
             case libsumo::VAR_SPEEDSETMODE: {

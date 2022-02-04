@@ -165,7 +165,7 @@ public:
     static void deactivateGapControl(const std::string& vehID);
     static void requestToC(const std::string& vehID, double leadTime);
     static void setSpeed(const std::string& vehID, double speed);
-    static void setPreviousSpeed(const std::string& vehID, double prevspeed);
+    static void setPreviousSpeed(const std::string& vehID, double prevspeed, int timefactor);
     static void setSpeedMode(const std::string& vehID, int speedMode);
     static void setLaneChangeMode(const std::string& vehID, int laneChangeMode);
     static void setRoutingMode(const std::string& vehID, int routingMode);
