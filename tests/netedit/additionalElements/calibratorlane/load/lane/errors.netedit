@@ -6,7 +6,7 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Error: Calibrators need either an edge or a lane
 Error: Could not build calibrator in netedit; lane doesn't exist.
 Debug: Adding calibratorLane 'calibrator03' in GNEChange_Additional
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Nov122609.7216\netedit.gui\additionalElements\calibratorlane\load\lane\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Feb104854.7236\netedit.gui\additionalElements\calibratorlane\load\lane\input_additionals.add.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00

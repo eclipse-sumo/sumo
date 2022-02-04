@@ -1,21 +1,24 @@
-Error: Attribute 'edge' is missing in definition of routeProbe 'routeProbe_0'.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.16Nov122624.7328\netedit.gui\additionalElements\calibratorlane\create\routeprobe\input_additionals.add.xml failed.
-Debug: Selected item 'busStop' in TagSelector
+Debug: Adding routeProbe 'routeProbe_0' in GNEChange_Additional
 Debug: Selected item 'calibratorLane' in TagSelector
-Error: Could not build calibrator in netedit; routeProbe doesn't exist.
-Debug: Adding calibratorLane 'calibratorLane_gneE0_0_0' in GNEChange_Additional
+Debug: Invalid input parameter of calibratorLane
+Debug: Adding calibratorLane 'ca_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing calibratorLane 'calibratorLane_gneE0_0_0' in GNEChange_Additional
+Debug: Removing calibratorLane 'ca_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Removing routeProbe 'routeProbe_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding calibratorLane 'calibratorLane_gneE0_0_0' in GNEChange_Additional
+Debug: Adding routeProbe 'routeProbe_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Adding calibratorLane 'ca_0' in GNEChange_Additional
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Additionals saved
-Debug: Deleting unreferenced calibratorLane 'calibratorLane_gneE0_0_0'
+Debug: Deleting unreferenced calibratorLane 'ca_0'
+Debug: Deleting unreferenced routeProbe 'routeProbe_0'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

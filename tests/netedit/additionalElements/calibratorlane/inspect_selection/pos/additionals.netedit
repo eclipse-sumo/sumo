@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-16 13:21:24 by Eclipse SUMO netedit Version v1_10_0+2310-e230b72ef81
+<!-- generated on 2022-02-04 10:51:51 by Eclipse SUMO netedit Version v1_12_0+0256-60a21fb0d3f
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_16Nov130926.3500\netedit.gui\additionalElements\calibratorlane\inspect_selection\pos\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.3_from_04Feb101225.2988\netedit.gui\additionalElements\calibratorlane\inspect_selection\pos\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_16Nov130926.3500\netedit.gui\additionalElements\calibratorlane\inspect_selection\pos\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.3_from_04Feb101225.2988\netedit.gui\additionalElements\calibratorlane\inspect_selection\pos\net.net.xml"/>
     </output>
 
     <processing>
@@ -31,28 +31,28 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_16Nov130926.3500\netedit.gui\additionalElements\calibratorlane\inspect_selection\pos\additionals.xml"/>
-        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_16Nov130926.3500\netedit.gui\additionalElements\calibratorlane\inspect_selection\pos\additionals.xml"/>
-        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_16Nov130926.3500\netedit.gui\additionalElements\calibratorlane\inspect_selection\pos\routes.xml"/>
-        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_16Nov130926.3500\netedit.gui\additionalElements\calibratorlane\inspect_selection\pos\routes.xml"/>
-        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_16Nov130926.3500\netedit.gui\additionalElements\calibratorlane\inspect_selection\pos\datas.xml"/>
-        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_16Nov130926.3500\netedit.gui\additionalElements\calibratorlane\inspect_selection\pos\datas.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.3_from_04Feb101225.2988\netedit.gui\additionalElements\calibratorlane\inspect_selection\pos\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.3_from_04Feb101225.2988\netedit.gui\additionalElements\calibratorlane\inspect_selection\pos\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.3_from_04Feb101225.2988\netedit.gui\additionalElements\calibratorlane\inspect_selection\pos\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.3_from_04Feb101225.2988\netedit.gui\additionalElements\calibratorlane\inspect_selection\pos\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.3_from_04Feb101225.2988\netedit.gui\additionalElements\calibratorlane\inspect_selection\pos\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.3_from_04Feb101225.2988\netedit.gui\additionalElements\calibratorlane\inspect_selection\pos\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_16Nov130926.3500\netedit.gui\additionalElements\calibratorlane\inspect_selection\pos\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.3_from_04Feb101225.2988\netedit.gui\additionalElements\calibratorlane\inspect_selection\pos\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_16Nov130926.3500\netedit.gui\additionalElements\calibratorlane\inspect_selection\pos\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.3_from_04Feb101225.2988\netedit.gui\additionalElements\calibratorlane\inspect_selection\pos\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_16Nov130926.3500\netedit.gui\additionalElements\calibratorlane\inspect_selection\pos\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.3_from_04Feb101225.2988\netedit.gui\additionalElements\calibratorlane\inspect_selection\pos\log.txt"/>
     </report>
 
 </configuration>

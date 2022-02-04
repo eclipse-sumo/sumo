@@ -41,13 +41,13 @@ netedit.leftClick(referencePosition, 245, 180)
 netedit.inspectMode()
 
 # inspect calibrator
-netedit.leftClick(referencePosition, 355, 230)
+netedit.leftClick(referencePosition, 300, 230)
 
 # Change parameter id with a non valid value (non existent ID)
-netedit.modifyAttribute(1, "dummyEdge", True)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspect.edgeLane, "dummyEdge", True)
 
 # Change parameter id with a valid value
-netedit.modifyAttribute(1, "gneE3_0", True)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspect.edgeLane, "gneE3", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)
