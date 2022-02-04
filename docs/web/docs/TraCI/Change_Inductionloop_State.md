@@ -25,7 +25,7 @@ The message contents are as following:
 
 ### time (0x18)
 
-|         byte          |       integer        |        byte         |     string    |        byte         |    double    |         byte        |   double   |        byte         |    double    |         byte        |   double   |         byte        |   string   |        byte         |       string        |              byte              |         string          |              byte              |     string     |
-| :-------------------: | :------------------: | :-----------------: | :-----------: | :-----------------: | :----------: | :-----------------: | :--------: | :-----------------: | :----------: | :-----------------: | :--------: | :-----------------: | :--------: | :-----------------: | :-----------------: | :----------------------------: | :---------------------: | :----------------------------: | :------------: |
-| value type *compound* | item number (7 to 9) | value type *string* | calibrator ID | value type *double* |     begin    | value type *double* |     end    | value type *double* |  vehsPerHour | value type *double* |    speed   | value type *string* |  type id   | value type *string* |       route id      | value type *string* (optional) |       depart lane       | value type *string* (optional) |  depart speed  |
+|         byte          |        integer         |        byte         | string  |        byte         |       double        |
+| :-------------------: | :--------------------: | :-----------------: | :-----: | :-----------------: | :-----------------: |
+| value type *compound* | item number (always 2) | value type *string* | Loop ID | value type *double* | Time |
 
