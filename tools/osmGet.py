@@ -24,6 +24,8 @@ import gzip
 import base64
 import ssl
 import json
+from bs4 import BeautifulSoup
+
 try:
     import httplib
     import urlparse
@@ -41,33 +43,62 @@ except ImportError:
 
 import sumolib
 
+def readBuildingShapeKeysFromXML(keyValueDict, pathToXML):
+    with open(pathToXML, 'r') as osmPolyconvert:
+        kvd = keyValueDict
+        data = osmPolyconvert.read()
+        bs_data = BeautifulSoup(data, "xml")
+        b_polygon = bs_data.find_all("polygonType")
+        for polygon in b_polygon:
+            id = (polygon.get('id'))
+            keyValue = id.split('.')
+            try:
+                key = keyValue[0]
+                value = keyValue[1] # key without value throws IndexError
+                kvd[key] = list(set(kvd[key] + [value])) # kyd[key] could throw KeyError
+            except KeyError:
+                kvd[key] = [value]
+            except IndexError:
+                try:
+                    kvd[key] = list(set(kvd[key] + ['.'])) # kyd[key] could throw KeyError
+                except KeyError:
+                    kvd[key] = ['.']
+    return kvd
 
-def readCompressed(conn, urlpath, query, roadTypesJSON, filename):
+def readCompressed(conn, urlpath, query, roadTypesJSON, downloadShapesPolygon,filename):
     # generate query string for each road-type category
-    commonQueryStringKeyPart = "<has-kv k=\"%s\" modv=\"\""
+    commonQueryStringKeyPart = "<has-kv k=\"%s\" modv=\"not\""
     commonQueryStringRegvPart = " v=\"%s\"/>"
-    finalQueryStrings = []
+    queryString = []
+
     for category in roadTypesJSON:
         keyQueryString = commonQueryStringKeyPart % category
         for type in roadTypesJSON[category]:
             valueQueryString = commonQueryStringRegvPart % type
             finalRoadTypeStringPerType = keyQueryString + valueQueryString
-            #type="nwr"
-            commonQueryString = """
-            <query type="nwr">
-                %s
-                %s
-            </query>
-            """ % (finalRoadTypeStringPerType, query)
-            finalQueryStrings.append(commonQueryString)
+            queryString.append(finalRoadTypeStringPerType)
 
-    separator = ""
-    unionQueryString = separator.join(finalQueryStrings)
+    if downloadShapesPolygon == 'True':
+        keyValueDict = {}
+        keyValueDict = readBuildingShapeKeysFromXML(keyValueDict, "../data/typemap/osmPolyconvert.typ.xml")
+        keyValueDict = readBuildingShapeKeysFromXML(keyValueDict, "../data/typemap/osmPolyconvertRail.typ.xml")
+        for key, value in keyValueDict.items():
+            keyQueryString = commonQueryStringKeyPart % key
+            for val in value:
+                valueQueryString = commonQueryStringRegvPart % val
+                finalRoadTypeStringPerType = keyQueryString + valueQueryString
+                queryString.append(finalRoadTypeStringPerType)
+
+    separator = "\n"
+    unionQueryString = separator.join(queryString)
     print(unionQueryString)
 
-    # <recurse type="node-relation" into="rels"/>      <!-- default querytype is node; src:node trg:relation store into variable "rels" -->
-    # <recurse type="node-way"/>                       <!-- default querytype is node; srd:node trg:way store into default variable "_" -->
-    # <recurse type="way-relation"/>                   <!-- srd:way get from default variable "_" trg:relation store into default variable "_" -->
+    commonQueryString = """
+    <query type="wr">
+        %s
+        %s
+    </query>
+    """ % (unionQueryString, query)
 
     conn.request("POST", "/" + urlpath, """
     <osm-script timeout="240" element-limit="1073741824">
@@ -75,11 +106,11 @@ def readCompressed(conn, urlpath, query, roadTypesJSON, filename):
        %s                            
     </union>
     <union>
-       <item/>                                          <!-- the item ensures that the beforehand collected data "_" is included in the results of union -->
+       <item/>
        <recurse type="way-node"/>
     </union>
     <print mode="body"/>
-    </osm-script>""" % unionQueryString)
+    </osm-script>""" % commonQueryString)
     response = conn.getresponse()
     print(response.status, response.reason)
     if response.status == 200:
@@ -100,6 +131,7 @@ optParser.add_argument("-u", "--url", default="www.overpass-api.de/api/interpret
 optParser.add_argument("-w", "--wikidata", action="store_true", dest="wikidata",
                        default=False, help="get the corresponding wikidata")
 optParser.add_argument("-r", "--road_types", help="only delivers osm data to the specified road-types")
+optParser.add_argument("-s", "--shapes_polygon", help="determines if polygon data (buildings, areas , etc.) is downloaded")
 
 
 def get(args=None):
@@ -148,24 +180,31 @@ def get(args=None):
         else:
             conn = httplib.HTTPConnection(url.hostname, url.port)
 
+    # Initially "Add Polygon" Checkbox is True
+    downloadShapesPolygon = True
+    if options.shapes_polygon:
+        downloadShapesPolygon = options.shapes_polygon
+
     if (options.area and options.road_types):
         if options.area < 3600000000:
             options.area += 3600000000
         roadTypesJSON = json.loads(options.road_types.replace("\'","\"").lower())
         readCompressed(conn, url.path, '<area-query ref="%s"/>' %
-                       options.area, roadTypesJSON, options.prefix + "_city.osm.xml")
+                       options.area, roadTypesJSON, downloadShapesPolygon, options.prefix + "_city.osm.xml")
     if ((options.bbox or options.polygon) and options.road_types):
         roadTypesJSON = json.loads(options.road_types.replace("\'","\"").lower())
         if options.tiles == 1:
             readCompressed(conn, url.path, '<bbox-query n="%s" s="%s" w="%s" e="%s"/>' %
-                           (north, south, west, east), roadTypesJSON, options.prefix + "_bbox.osm.xml")
+                           (north, south, west, east), roadTypesJSON, downloadShapesPolygon,
+                           options.prefix + "_bbox.osm.xml")
         else:
             num = options.tiles
             b = west
             for i in range(num):
                 e = b + (east - west) / float(num)
                 readCompressed(conn, url.path, '<bbox-query n="%s" s="%s" w="%s" e="%s"/>' % (
-                    north, south, b, e), roadTypesJSON,"%s%s_%s.osm.xml" % (options.prefix, i, num))
+                    north, south, b, e), roadTypesJSON, downloadShapesPolygon,
+                               "%s%s_%s.osm.xml" % (options.prefix, i, num))
                 b = e
 
     conn.close()

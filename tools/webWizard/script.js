@@ -94,17 +94,17 @@ on("ready", function(){
         },
 
         getEnabledTypeList: function () {
-            var retEnabledTypeList = [];
+            var retDisabledTypeList = [];
             for (var j = 0; j < this.typeList.length; j++) {
                 var roadTypeId = this.category + "_" + this.typeList[j];
-                if (document.getElementById(roadTypeId).checked) {
-                    retEnabledTypeList.push(this.typeList[j]);
+                if (!document.getElementById(roadTypeId).checked) {
+                    retDisabledTypeList.push(this.typeList[j]);
                     if (this.typeList[j].match(/^(motorway|trunk|primary|secondary|tertiary)$/)) {
-                        retEnabledTypeList.push(this.typeList[j] + "_link");
+                        retDisabledTypeList.push(this.typeList[j] + "_link");
                     }
                 }
             }
-            return retEnabledTypeList;
+            return retDisabledTypeList;
         }
     };
 
@@ -112,7 +112,7 @@ on("ready", function(){
     categories["Highway"] = ["motorway", "trunk", "primary","secondary", "tertiary", "unclassified", "residential",
         "living_street", "unsurfaced", "service", "raceway", "bus_guideway"];
     categories["Pedestrians"] = ["track", "footway", "pedestrian", "path", "bridleway", "cycleway", "step", "steps",
-        "stairs"];              //"Pedestrians" has also the "highway" key in OSM, this is gonna be transformed later
+        "stairs"];              //"Pedestrians" has also the "highway" key in OSM, this will be transformed in startBuild()
     categories["Railway"] = ["preserved", "tram", "subway", "light_rail", "rail", "highspeed"];
     categories["Aeroway"] = ["stopway", "parking_position", "taxiway", "taxilane", "runway", "highway_strip"]
     categories["Waterway"] = ["river", "canal"];
