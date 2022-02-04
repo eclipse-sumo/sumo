@@ -426,7 +426,6 @@ class access:
         length = 1
         friendlyPos = 2
 
-
 # parkingArea
 class parkingArea:
     class create:
@@ -466,6 +465,55 @@ class parkingArea:
         length = 7
         angle = 8
         parameters = 11
+
+# entryExit
+class entryExit:
+    class create:
+        friendlyPos = 5
+    class inspect:
+        lane = 1
+        pos = 2
+        friendlyPos = 3
+        parameters = 6
+        parent = 10
+    class inspectSelection:
+        friendlyPos = 1
+        parameters = 4
+        parent = 7
+
+# calibrator
+class calibrator:
+    class create:
+        idEnable = 5
+        id = 6              # missing
+        pos = 6
+        frequency = 7
+        name = 8
+        routeProbe = 9
+        output = 10
+        jamTreshold = 11    # missing
+        vTypes = 12         # missing
+        center = 16
+    class inspect:
+        id = 1
+        edgeLane = 2
+        pos = 3
+        frequency = 4
+        name = 5
+        routeProbe = 6
+        output = 7
+        jamTreshold = 8     # missing
+        vTypes = 9          # missing
+        parameters = 12
+    class inspectSelection:
+        pos = 1
+        frequency = 2
+        name = 3
+        routeProbe = 4
+        output = 5
+        jamTreshold = 6     # missing
+        vTypes = 7          # missing
+        parameters = 10
 
 #--------------------------------
 # SHAPE ELEMENTS
