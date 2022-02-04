@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.routeMode()
 
 # set invalid color
-netedit.changeDefaultValue(6, "dummyColor")
+netedit.changeDefaultValue(netedit.attrs.route.create.color, "dummyColor")
 
 # try to create route using three edges
 netedit.leftClick(referencePosition, 274, 392)

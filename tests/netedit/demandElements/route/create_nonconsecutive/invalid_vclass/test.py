@@ -37,9 +37,8 @@ netedit.routeMode()
 # change to non consecutive mode
 netedit.changeRouteMode("non consecutive edges")
 
-# create busStop in mode "reference left"
+# create route using two edges
 netedit.leftClick(referencePosition, 274, 392)
-netedit.leftClick(referencePosition, 280, 55)
 netedit.leftClick(referencePosition, 190, 236)
 
 # press enter to create route
