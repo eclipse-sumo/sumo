@@ -358,7 +358,11 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_POSITION:
             if (canParse<double>(value)) {
                 // obtain position and check if is valid
-                double newPosition = parse<double>(value);
+                const double newPosition = parse<double>(value);
+                if (isTemplate()) {
+                    return (newPosition >= 0);
+                }
+                // get shape
                 PositionVector shape = (getParentLanes().size() > 0) ? getParentLanes().front()->getLaneShape() : getParentEdges().front()->getLanes().at(0)->getLaneShape();
                 if ((newPosition < 0) || (newPosition > shape.length())) {
                     return false;
