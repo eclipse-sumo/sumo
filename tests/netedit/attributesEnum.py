@@ -520,6 +520,7 @@ class calibrator:
 # SHAPE ELEMENTS
 #--------------------------------
 
+# POI
 class POI:
     class create:
         idEnable = 5
@@ -536,8 +537,74 @@ class POI:
         angle = 15
     class inspect:
         id = 1
+        pos = 2
+        colorButton = 3     # missing
+        color = 4
+        type = 5
+        name = 6
+        layer = 7
+        width = 8
+        height = 9
+        imgFile = 10
+        relativePath = 11
+        angle = 12
+        parameters = 15
     class inspectSelection:
-        colorButton = 1
+        colorButton = 1     # missing
+        color = 2
+        type = 3
+        name = 4
+        layer = 5
+        width = 6
+        height = 7
+        imgFile = 8
+        relativePath = 9
+        angle = 10
+        parameters = 13
+
+# POIGEO
+class POIGEO:
+    class create:
+        idEnable = 5
+        id = 6
+        colorButton = 6
+        color = 7
+        type = 8
+        name = 9
+        layer = 10
+        width = 11
+        height = 12
+        imgFile = 13
+        relativePath = 14
+        angle = 15
+        lonLat = 20         # missing
+    class inspect:
+        id = 1
+        lon = 2
+        lat = 3
+        colorButton = 4     # missing
+        color = 5
+        type = 6
+        name = 7
+        layer = 8
+        width = 9
+        height = 10
+        imgFile = 11
+        relativePath = 12
+        angle = 13
+        parameters = 16
+    class inspectSelection:
+        colorButton = 1     # missing
+        color = 2
+        type = 3
+        name = 4
+        layer = 5
+        width = 6
+        height = 7
+        imgFile = 8
+        relativePath = 9
+        angle = 10
+        parameters = 13
 
 
 #--------------------------------

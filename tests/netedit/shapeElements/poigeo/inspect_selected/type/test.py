@@ -40,8 +40,8 @@ netedit.inspectMode()
 # inspect first POI
 netedit.leftClick(referencePosition, 149, 53)
 
-# Change parameter 3 with a valid value
-netedit.modifyAttribute(3, "<<myOwnType>>", True)
+# Change parameter 4 with a valid value
+netedit.modifyAttribute(netedit.attrs.POIGEO.inspectSelection.type, "<<myOwnType>>", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)
