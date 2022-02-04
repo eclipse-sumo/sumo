@@ -44,16 +44,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 103, 57)
 
 # Change parameter 5 with a non valid value
-netedit.modifyAttribute(4, "dummyLayer", False)
+netedit.modifyAttribute(netedit.attrs.POI.inspectSelection.layer, "dummyLayer", False)
 
 # Change parameter 5 with a valid value (negative)
-netedit.modifyAttribute(4, "-2", False)
+netedit.modifyAttribute(netedit.attrs.POI.inspectSelection.layer, "-2", False)
 
 # Change parameter 5 with a valid value (default)
-netedit.modifyAttribute(4, "default", False)
+netedit.modifyAttribute(netedit.attrs.POI.inspectSelection.layer, "default", False)
 
 # Change parameter 5 with a valid value
-netedit.modifyAttribute(4, "2", False)
+netedit.modifyAttribute(netedit.attrs.POI.inspectSelection.layer, "2", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)
