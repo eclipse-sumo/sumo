@@ -94,17 +94,17 @@ on("ready", function(){
         },
 
         getEnabledTypeList: function () {
-            var retDisabledTypeList = [];
+            var retEnabledTypeList = [];
             for (var j = 0; j < this.typeList.length; j++) {
                 var roadTypeId = this.category + "_" + this.typeList[j];
-                if (!document.getElementById(roadTypeId).checked) {
-                    retDisabledTypeList.push(this.typeList[j]);
+                if (document.getElementById(roadTypeId).checked) {
+                    retEnabledTypeList.push(this.typeList[j]);
                     if (this.typeList[j].match(/^(motorway|trunk|primary|secondary|tertiary)$/)) {
-                        retDisabledTypeList.push(this.typeList[j] + "_link");
+                        retEnabledTypeList.push(this.typeList[j] + "_link");
                     }
                 }
             }
-            return retDisabledTypeList;
+            return retEnabledTypeList;
         }
     };
 

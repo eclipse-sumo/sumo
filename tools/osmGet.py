@@ -54,54 +54,68 @@ def readBuildingShapeKeysFromXML(keyValueDict, pathToXML):
             keyValue = id.split('.')
             try:
                 key = keyValue[0]
-                value = keyValue[1] # key without value throws IndexError
-                kvd[key] = list(set(kvd[key] + [value])) # kyd[key] could throw KeyError
+                value = keyValue[1]                             # key without value throws IndexError
+                kvd[key] = list(set(kvd[key] + [value]))        # kyd[key] could throw KeyError
             except KeyError:
                 kvd[key] = [value]
             except IndexError:
                 try:
-                    kvd[key] = list(set(kvd[key] + ['.'])) # kyd[key] could throw KeyError
+                    kvd[key] = list(set(kvd[key] + ['.']))      # kyd[key] could throw KeyError
                 except KeyError:
                     kvd[key] = ['.']
     return kvd
 
 def readCompressed(conn, urlpath, query, roadTypesJSON, downloadShapesPolygon,filename):
     # generate query string for each road-type category
-    commonQueryStringKeyPart = "<has-kv k=\"%s\" modv=\"not\""
-    commonQueryStringRegvPart = " v=\"%s\"/>"
-    queryString = []
+    commonQueryStringKeyPart = "<has-kv k=\"%s\" "
+    commonQueryStringRegvPart = "modv=\"\" regv=\"%s\"/>"
+    commonQueryStringOnlyKey = "/>"
+    queryStringNode = []
+
+    commonQueryStringNode = """
+    <query type="nwr">
+            %s
+            %s
+        </query>"""
 
     for category in roadTypesJSON:
         keyQueryString = commonQueryStringKeyPart % category
-        for type in roadTypesJSON[category]:
-            valueQueryString = commonQueryStringRegvPart % type
-            finalRoadTypeStringPerType = keyQueryString + valueQueryString
-            queryString.append(finalRoadTypeStringPerType)
+        typeList = []
+        if len(roadTypesJSON[category])>0:
+            for type in roadTypesJSON[category]:
+                typeList.append(type)
+            separator = "|"
+            typeListStringPerCategory = separator.join(typeList)
+            regvQueryString = commonQueryStringRegvPart % typeListStringPerCategory
+            finalQueryStringPerCategory = keyQueryString + regvQueryString
+            queryStringNode.append(commonQueryStringNode % (finalQueryStringPerCategory, query))
 
     if downloadShapesPolygon == 'True':
         keyValueDict = {}
         keyValueDict = readBuildingShapeKeysFromXML(keyValueDict, "../data/typemap/osmPolyconvert.typ.xml")
         keyValueDict = readBuildingShapeKeysFromXML(keyValueDict, "../data/typemap/osmPolyconvertRail.typ.xml")
-        for key, value in keyValueDict.items():
-            keyQueryString = commonQueryStringKeyPart % key
-            for val in value:
-                valueQueryString = commonQueryStringRegvPart % val
-                finalRoadTypeStringPerType = keyQueryString + valueQueryString
-                queryString.append(finalRoadTypeStringPerType)
+        for category, value in keyValueDict.items():
+            if category in roadTypesJSON:
+                continue
+            valuePerCategory = []
+            keyQueryString = commonQueryStringKeyPart % category
+            if ('.' in value):
+                finalQueryStringPerCategory = keyQueryString + commonQueryStringOnlyKey
+            else:
+                for val in value:
+                    valuePerCategory.append(val)
+                separator = "|"
+                valueStringPerCategory = separator.join(valuePerCategory)
+                regvQueryString = commonQueryStringRegvPart % valueStringPerCategory
+                finalQueryStringPerCategory = keyQueryString + regvQueryString
+
+            queryStringNode.append(commonQueryStringNode % (finalQueryStringPerCategory, query))
 
     separator = "\n"
-    unionQueryString = separator.join(queryString)
-    print(unionQueryString)
-
-    commonQueryString = """
-    <query type="wr">
-        %s
-        %s
-    </query>
-    """ % (unionQueryString, query)
+    unionQueryString = separator.join(queryStringNode)
 
     conn.request("POST", "/" + urlpath, """
-    <osm-script timeout="240" element-limit="1073741824">
+    <osm-script timeout="113" element-limit="1073741824">
     <union>
        %s                            
     </union>
@@ -110,7 +124,7 @@ def readCompressed(conn, urlpath, query, roadTypesJSON, downloadShapesPolygon,fi
        <recurse type="way-node"/>
     </union>
     <print mode="body"/>
-    </osm-script>""" % commonQueryString)
+    </osm-script>""" % unionQueryString)
     response = conn.getresponse()
     print(response.status, response.reason)
     if response.status == 200:
