@@ -17,13 +17,13 @@ changed and the parameter which must be given are also shown in the table. Setti
 
 | Variable | ValueType | Description | [Python Method](../TraCI/Interfacing_TraCI_from_Python.md) |
 |---------------------------|----------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------|
-| time (0x18) | compound (string, double), see below | Persistently overrides the measured time since detection with the given value. For details on induction loop detectors, see [Induction Loop](../Simulation/Output/Induction_Loops_Detectors_%28E1%29.md). | [overrideTimeSinceDetection](https://sumo.dlr.de/daily/pydoc/traci._inductionloop.html#InductionLoopDomain-overrideTimeSinceDetection) |
+| time (0x22) | compound (string, double), see below | Persistently overrides the measured time since detection with the given value. For details on induction loop detectors, see [Induction Loop](../Simulation/Output/Induction_Loops_Detectors_%28E1%29.md). | [overrideTimeSinceDetection](https://sumo.dlr.de/daily/pydoc/traci._inductionloop.html#InductionLoopDomain-overrideTimeSinceDetection) |
 
 # compound message details
 
 The message contents are as following:
 
-### time (0x18)
+### time (0x22)
 
 |         byte          |        integer         |        byte         | string  |        byte         |       double        |
 | :-------------------: | :--------------------: | :-----------------: | :-----: | :-----------------: | :-----------------: |
