@@ -7,9 +7,8 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,5.20,60.00,30.00
 GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary -10.00,10.00,60.00,34.80
-Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'calibrator' in TagSelector
-Debug: Adding calibrator 'calibrator_gneE2_0' in GNEChange_Additional
+Debug: Adding calibrator 'ca_0' in GNEChange_Additional
 Debug: Value 'dummyPos' for attribute pos of calibrator isn't valid
 Debug: Value '-12' for attribute pos of calibrator isn't valid
 Debug: Value '5000' for attribute pos of calibrator isn't valid
@@ -19,11 +18,11 @@ Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing calibrator 'calibrator_gneE2_0' in GNEChange_Additional
+Debug: Removing calibrator 'ca_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding calibrator 'calibrator_gneE2_0' in GNEChange_Additional
+Debug: Adding calibrator 'ca_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
@@ -77,7 +76,7 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,5.20,60.00,30.00
 GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary -10.00,10.00,60.00,34.80
-Debug: Deleting unreferenced calibrator 'calibrator_gneE2_0'
+Debug: Deleting unreferenced calibrator 'ca_0'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

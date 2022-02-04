@@ -2,8 +2,6 @@ default
 
 default_nocenter
 
-id
-
 pos
 
 freq
@@ -13,7 +11,3 @@ name
 routeprobe
 
 output
-
-jamThreshold
-
-vtypes
