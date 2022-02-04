@@ -132,7 +132,7 @@ public:
 
 protected:
     /** helper function which contains the actual logic */
-    double _patchSpeed(const double min, const double wanted, const double max,
+    double _patchSpeed(double min, const double wanted, const double max,
                        const MSCFModel& cfModel);
 
     /// @brief helper function for doing the actual work
@@ -184,13 +184,8 @@ protected:
     /// @brief compute useful slowdowns for blocked vehicles
     int slowDownForBlocked(MSVehicle** blocked, int state);
 
-    /// @brief save space for vehicles which need to counter-lane-change
-    void saveBlockerLength(const MSVehicle* blocker, int lcaCounter);
-
     /// @brief reserve space at the end of the lane to avoid dead locks
-    inline void saveBlockerLength(double length) override {
-        myLeadingBlockerLength = MAX2(length, myLeadingBlockerLength);
-    };
+    double saveBlockerLength(double length, double foeLeftSpace) override;
 
     inline bool amBlockingLeader() {
         return (myOwnState & LCA_AMBLOCKINGLEADER) != 0;
@@ -241,7 +236,9 @@ protected:
     int computeSublaneShift(const MSEdge* prevEdge, const MSEdge* curEdge);
 
     /// @brief get the longest vehicle in the given info
-    static CLeaderDist getLongest(const MSLeaderDistanceInfo& ldi);
+    CLeaderDist getLongest(const MSLeaderDistanceInfo& ldi) const;
+
+    bool tieBrakeLeader(const MSVehicle* veh) const;
 
     /// @brief get the slowest vehicle in the given info
     static CLeaderDist getSlowest(const MSLeaderDistanceInfo& ldi);

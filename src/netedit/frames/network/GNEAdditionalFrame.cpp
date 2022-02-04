@@ -1181,7 +1181,7 @@ GNEAdditionalFrame::createBaseAdditionalObject(const GNETagProperties& tagProper
     // check if baseAdditionalTag has to be updated
     if (baseAdditionalTag == GNE_TAG_E2DETECTOR_MULTILANE) {
         baseAdditionalTag = SUMO_TAG_E2DETECTOR;
-    } else if (baseAdditionalTag == GNE_TAG_FLOW_CALIBRATOR) {
+    } else if (baseAdditionalTag == GNE_TAG_CALIBRATOR_FLOW) {
         baseAdditionalTag = SUMO_TAG_FLOW;
     }
     // check if additional is child
@@ -1343,6 +1343,21 @@ GNEAdditionalFrame::buildAdditionalOverLane(GNELane* lane, const GNETagPropertie
 
 bool
 GNEAdditionalFrame::buildAdditionalOverView(const GNETagProperties& tagProperties) {
+    // disable intervals (temporal)
+    if ((tagProperties.getTag() == SUMO_TAG_INTERVAL) ||
+        (tagProperties.getTag() == SUMO_TAG_DEST_PROB_REROUTE) ||
+        (tagProperties.getTag() == SUMO_TAG_CLOSING_REROUTE) ||
+        (tagProperties.getTag() == SUMO_TAG_CLOSING_LANE_REROUTE) ||
+        (tagProperties.getTag() == SUMO_TAG_ROUTE_PROB_REROUTE) ||
+        (tagProperties.getTag() == SUMO_TAG_PARKING_AREA_REROUTE)) {
+        WRITE_WARNING("Currently unsuported. Create rerouter elements using rerouter dialog");
+        return false;
+    }
+        // disable intervals (temporal)
+    if (tagProperties.getTag() == SUMO_TAG_STEP) {
+        WRITE_WARNING("Currently unsuported. Create VSS steps elements using VSS dialog");
+        return false;
+    }
     // Check if ID has to be generated
     if (!myBaseAdditional->hasStringAttribute(SUMO_ATTR_ID)) {
         myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(tagProperties.getTag()));

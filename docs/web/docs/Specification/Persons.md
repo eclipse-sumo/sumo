@@ -31,7 +31,7 @@ below. Each person must have at least one stage in its plan.
 | departPos           | float(s)  | ≥0                 | -               | the distance along the edge that the person is created      |
 | type                | string    | any declared vType | DEFAULT_PEDTYPE | the type should have vClass pedestrian              |
 | width               | float (s) | ≥0                 | 0,48            | The person's width [m]        |
-| lenght              | float (s) | ≥0                 | 0,21            | The person's netto-length (length) (in m)       |
+| length              | float (s) | ≥0                 | 0,21            | The person's netto-length (length) (in m)       |
 | mingap              | float (s) | ≥0                 | 0,25            | Empty space after leader [m]                |
 | maxSpeed            | float (s) | ≥0                 | 1,39            | The person's maximum velocity (in m/s)             |
 | jmDriveAfterRedTime | float (s) | ≥0                 | -1              | This value causes persons to violate a red light if the duration of the red phase is lower than the given threshold. When set to 0, persons will always walk at yellow but will try to stop at red. If this behavior causes a person to walk so fast that stopping is not possible any more it will not attempt to stop. |
@@ -216,7 +216,7 @@ Additionally the first stage of the plan must be a `ride`. The `from` attribute 
 The vehicle is indicated by using only the vehicle ID for the `lines` attribute of the ride.
 
 ## Starting multiple persons in a vehicle
-To start the simulation of multiple persons with the same plan while riding in a vehicle, `personFlow` can be used. This only works for the distribution attribute `number`, which defines the number of persons insterted into the vehicle, and the attribute `begin="triggered"`. The `end` attribute is ignored or can be left.
+To start the simulation of multiple persons with the same plan while riding in a vehicle, `personFlow` can be used. This only works for the distribution attribute `number`, which defines the number of persons inserted into the vehicle, and the attribute `begin="triggered"`. The `end` attribute is ignored or can be left.
 Additionally the first stage of the plan must be a `ride`. The `from` attribute is not necessary, since the vehicle start position is already defined and used.
 The vehicle is indicated by using only the vehicle ID for the `lines` attribute of the ride.
 

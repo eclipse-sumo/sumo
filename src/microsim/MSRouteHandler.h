@@ -190,6 +190,12 @@ protected:
     int myActiveRouteRepeat;
     SUMOTime myActiveRoutePeriod;
 
+    /// @brief The time at which this route was replaced (from vehroute-output)
+    SUMOTime myActiveRouteReplacedAtTime;
+
+    /// @brief The index at which this route was replaced (from vehroute-output)
+    int myActiveRouteReplacedIndex;
+
     /// @brief The type of the current object
     ObjectTypeEnum myActiveType;
 
@@ -219,6 +225,9 @@ protected:
 
     /// @brief prefix when copying vehicles with --scale
     std::string myScaleSuffix;
+
+    /// @brief whether loaded rerouting events shall be replayed
+    bool myReplayRerouting;
 
     /// @brief A random number generator used to choose from vtype/route distributions and computing the speed factors
     static SumoRNG myParsingRNG;

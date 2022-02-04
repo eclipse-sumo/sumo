@@ -4,7 +4,7 @@ title: Downloads
 
 # SUMO - Latest Release (Version {{Version}})
 
-**Release date:** {{ReleaseDate}} (updated 15.12.2021)
+**Release date:** {{ReleaseDate}}
 
 ## Windows
 

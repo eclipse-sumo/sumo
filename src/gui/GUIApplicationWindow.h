@@ -42,6 +42,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class Command;
 class GUILoadThread;
 class GUIRunThread;
 class GUIMessageWindow;
@@ -300,6 +301,9 @@ public:
 
     const std::vector<SUMOTime> retrieveBreakpoints() const;
 
+    /// @brief register custom hotkey action
+    void addHotkey(int key, Command* press, Command* release);
+
 protected:
     virtual void addToWindowsMenu(FXMenuPane*) { }
 
@@ -455,4 +459,7 @@ protected:
     /// last time the simulation view was redrawn due to a simStep
     long myLastStepEventMillis;
 
+    /// @brief custom hotkeys
+    std::map<int, Command*> myHotkeyPress;
+    std::map<int, Command*> myHotkeyRelease;
 };

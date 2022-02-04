@@ -1,0 +1,4 @@
+FMU validation successful
+Simulating libsumofmi2 (model name 'SUMO', FMI v2.0)...
+key, value: 'meaningOfLife', '42'
+Print ended at step 60.0

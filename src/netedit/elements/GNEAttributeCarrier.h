@@ -374,6 +374,9 @@ private:
     /// @brief fill Data elements
     static void fillDataElements();
 
+    /// @brief returns icon associated to the given vClass
+    static FXIcon* getVClassIcon(const SUMOVehicleClass vc);
+
     /// @brief map with the tags properties
     static std::map<SumoXMLTag, GNETagProperties> myTagProperties;
 

@@ -1,0 +1,1 @@
+-c data/sumo.sumocfg --no-step-log -C data/config.cfg -n data/net.net.xml

@@ -411,8 +411,8 @@ def parse_fast_structured(xmlfile, element_name, attrnames, nested,
     returns objects where the child elements can be accessed by name (e.g. timestep.vehicle[0])
     as with the parse method. The returned object is not modifiable though.
     @Note: Every element must be on its own line and the attributes must appear in the given order.
-    @Example: parse_fast_collated('fcd.xml', 'timestep', ['time'],
-                                  {'vehicle': ['id', 'speed', 'lane'], 'person': ['id', 'speed', 'edge']}):
+    @Example: parse_fast_structured('fcd.xml', 'timestep', ['time'],
+                                    {'vehicle': ['id', 'speed', 'lane'], 'person': ['id', 'speed', 'edge']}):
     """
     Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional, nested.keys())
     re2 = [(elem,) + _createRecordAndPattern(elem, attr, warn, optional) for elem, attr in nested.items()]

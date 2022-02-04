@@ -27,16 +27,16 @@
 #include <utility>
 #include <vector>
 #include <bitset>
+#include <utils/common/FileHelpers.h>
+#include <utils/common/StringUtils.h>
+#include <utils/common/StringTokenizer.h>
 #include <microsim/output/MSInductLoop.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSNet.h>
-#include "MSTrafficLightLogic.h"
-#include "MSActuatedTrafficLightLogic.h"
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <netload/NLDetectorBuilder.h>
-#include <utils/common/StringUtils.h>
-#include <utils/common/StringTokenizer.h>
+#include "MSActuatedTrafficLightLogic.h"
 
 //#define DEBUG_DETECTORS
 //#define DEBUG_PHASE_SELECTION
@@ -74,10 +74,12 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
         int step, SUMOTime delay,
         const std::map<std::string, std::string>& parameter,
         const std::string& basePath,
-        const std::map<std::string, std::string>& conditions) :
+        const ConditionMap& conditions,
+        const AssignmentMap& assignments) :
     MSSimpleTrafficLightLogic(tlcontrol, id, programID, offset, TrafficLightType::ACTUATED, phases, step, delay, parameter),
     myLastTrySwitchTime(0),
     myConditions(conditions),
+    myAssignments(assignments),
     myTraCISwitch(false),
     myDetectorPrefix(id + "_" + programID + "_") {
     myMaxGap = StringUtils::toDouble(getParameter("max-gap", DEFAULT_MAX_GAP));
@@ -88,6 +90,25 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
     myFile = FileHelpers::checkForRelativity(getParameter("file", "NUL"), basePath);
     myFreq = TIME2STEPS(StringUtils::toDouble(getParameter("freq", "300")));
     myVehicleTypes = getParameter("vTypes", "");
+
+    if (knowsParameter("hide-conditions")) {
+        std::vector<std::string> hidden = StringTokenizer(getParameter("hide-conditions", "")).getVector();
+        std::set<std::string> hiddenSet(hidden.begin(), hidden.end());
+        for (auto item : myConditions) {
+            if (hiddenSet.count(item.first) == 0) {
+                myListedConditions.insert(item.first);
+            }
+        }
+    } else {
+        const bool showAll = getParameter("show-conditions", "") == "";
+        std::vector<std::string> shown = StringTokenizer(getParameter("show-conditions", "")).getVector();
+        std::set<std::string> shownSet(shown.begin(), shown.end());
+        for (auto item : myConditions) {
+            if (showAll || shownSet.count(item.first) != 0) {
+                myListedConditions.insert(item.first);
+            }
+        }
+    }
 }
 
 
@@ -96,6 +117,8 @@ MSActuatedTrafficLightLogic::~MSActuatedTrafficLightLogic() { }
 void
 MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     MSTrafficLightLogic::init(nb);
+    initAttributeOverride();
+    initSwitchingRules();
     if (myLanes.size() == 0) {
         // must be an older network
         WRITE_WARNING("Traffic light '" + getID() + "' does not control any links");
@@ -255,7 +278,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     for (const MSPhaseDefinition* phase : myPhases) {
         const int phaseIndex = (int)myInductLoopsForPhase.size();
         std::set<MSInductLoop*> loops;
-        if (phase->isActuted()) {
+        if (phase->isActuated()) {
             const std::string& state = phase->getState();
             // collect indices of all green links for the phase
             std::set<int> greenLinks;
@@ -409,12 +432,81 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             myLinkMinGreenTimes[link] = string2time(kv.second);
         }
     }
-    initSwitchingRules();
     if (myLinkMaxGreenTimes.size() > 0 || myLinkMinGreenTimes.size() > 0 || mySwitchingRules.size() > 0) {
         myLinkGreenTimes = std::vector<SUMOTime>(myNumLinks, 0);
         myLinkRedTimes = std::vector<SUMOTime>(myNumLinks, 0);
     }
     //std::cout << SIMTIME << " linkMaxGreenTimes=" << toString(myLinkMaxGreenTimes) << "\n";
+}
+
+SUMOTime
+MSActuatedTrafficLightLogic::getMinDur(int step) const {
+    step = step < 0 ? myStep : step;
+    const MSPhaseDefinition* p = myPhases[step];
+    return p->minDuration != MSPhaseDefinition::OVERRIDE_DURATION
+        ? p->minDuration
+        : TIME2STEPS(evalExpression(myConditions.find("minDur:" + toString(step))->second));
+}
+
+SUMOTime
+MSActuatedTrafficLightLogic::getMaxDur(int step) const {
+    step = step < 0 ? myStep : step;
+    const MSPhaseDefinition* p = myPhases[step];
+    return p->maxDuration != MSPhaseDefinition::OVERRIDE_DURATION
+        ? p->maxDuration
+        : TIME2STEPS(evalExpression(myConditions.find("maxDur:" + toString(step))->second));
+}
+
+SUMOTime
+MSActuatedTrafficLightLogic::getEarliestEnd(int step) const {
+    step = step < 0 ? myStep : step;
+    const MSPhaseDefinition* p = myPhases[step];
+    return p->earliestEnd != MSPhaseDefinition::OVERRIDE_DURATION
+        ? p->earliestEnd
+        : TIME2STEPS(evalExpression(myConditions.find("earliestEnd:" + toString(step))->second));
+}
+
+SUMOTime
+MSActuatedTrafficLightLogic::getLatestEnd(int step) const {
+    step = step < 0 ? myStep : step;
+    const MSPhaseDefinition* p = myPhases[step];
+    return p->latestEnd != MSPhaseDefinition::OVERRIDE_DURATION
+        ? p->latestEnd
+        : TIME2STEPS(evalExpression(myConditions.find("latestEnd:" + toString(step))->second));
+}
+
+
+void
+MSActuatedTrafficLightLogic::initAttributeOverride() {
+    const SUMOTime ovrd = MSPhaseDefinition::OVERRIDE_DURATION;
+    for (int i = 0; i < (int)myPhases.size(); i++) {
+        MSPhaseDefinition* phase = myPhases[i];
+        const std::string errorSuffix = "' for overiding attribute in phase " + toString(i) + " of tlLogic '" + getID() + "' in program '" + getProgramID() + "'.";
+        if (phase->minDuration == ovrd) {
+            const std::string cond = "minDur:" + toString(i);
+            if (myConditions.count(cond) == 0) {
+                throw ProcessError("Missing condition '" + cond + errorSuffix);
+            }
+        }
+        if (phase->maxDuration == ovrd) {
+            const std::string cond = "maxDur:" + toString(i);
+            if (myConditions.count(cond) == 0) {
+                throw ProcessError("Missing condition '" + cond + errorSuffix);
+            }
+        }
+        if (phase->earliestEnd == ovrd) {
+            const std::string cond = "earliestEnd:" + toString(i);
+            if (myConditions.count(cond) == 0) {
+                throw ProcessError("Missing condition '" + cond + errorSuffix);
+            }
+        }
+        if (phase->latestEnd == ovrd) {
+            const std::string cond = "latestEnd:" + toString(i);
+            if (myConditions.count(cond) == 0) {
+                throw ProcessError("Missing condition '" + cond + errorSuffix);
+            }
+        }
+    }
 }
 
 
@@ -445,14 +537,15 @@ MSActuatedTrafficLightLogic::initSwitchingRules() {
 SUMOTime
 MSActuatedTrafficLightLogic::getMinimumMinDuration(MSLane* lane) const {
     SUMOTime result = std::numeric_limits<SUMOTime>::max();
-    for (const MSPhaseDefinition* phase : myPhases) {
+    for (int pI = 0; pI < (int)myPhases.size(); pI++) {
+        const MSPhaseDefinition* phase = myPhases[pI];
         const std::string& state = phase->getState();
         for (int i = 0; i < (int)state.size(); i++)  {
             if (state[i] == LINKSTATE_TL_GREEN_MAJOR || state[i] == LINKSTATE_TL_GREEN_MINOR) {
                 for (MSLane* cand : getLanesAt(i)) {
                     if (lane == cand) {
-                        if (phase->isActuted()) {
-                            result = MIN2(result, phase->minDuration);
+                        if (phase->isActuated()) {
+                            result = MIN2(result, getMinDur(pI));
                         }
                     }
                 }
@@ -522,6 +615,12 @@ MSActuatedTrafficLightLogic::trySwitch() {
     // @note any vehicles which arrived during the previous phases which are now waiting between the detector and the stop line are not
     // considere here. RiLSA recommends to set minDuration in a way that lets all vehicles pass the detector
     SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
+    for (const auto& assignment : myAssignments) {
+        if (evalExpression(std::get<1>(assignment))) {
+            myConditions[std::get<0>(assignment)] = toString(evalExpression(std::get<2>(assignment)));
+        }
+    }
+
     if (myLinkGreenTimes.size() > 0) {
         // constraints exist, record green time durations for each link
         const std::string& state = getCurrentPhaseDef().getState();
@@ -547,14 +646,16 @@ MSActuatedTrafficLightLogic::trySwitch() {
     SUMOTime actDuration = now - myPhases[myStep]->myLastSwitch;
 
     if (mySwitchingRules[myStep].enabled) {
-        const bool mustSwitch = MIN2(getCurrentPhaseDef().maxDuration - actDuration, getLatest()) <= 0;
+        const bool mustSwitch = MIN2(getMaxDur() - actDuration, getLatest()) <= 0;
         nextStep = decideNextPhaseCustom(mustSwitch);
     } else {
         // default algorithm
         const double detectionGap = gapControl();
 #ifdef DEBUG_PHASE_SELECTION
         if (DEBUG_COND) {
-            std::cout << SIMTIME << " p=" << myStep << " trySwitch dGap=" << detectionGap << " multi=" << multiTarget << "\n";
+            std::cout << SIMTIME << " p=" << myStep
+                << " trySwitch dGap=" << (detectionGap == std::numeric_limits<double>::max() ? "inf" : toString(detectionGap))
+                << " multi=" << multiTarget << "\n";
         }
 #endif
         if (detectionGap < std::numeric_limits<double>::max() && !multiTarget && !myTraCISwitch) {
@@ -597,7 +698,14 @@ MSActuatedTrafficLightLogic::trySwitch() {
         }
     }
     // set the next event
-    return MAX3(TIME2STEPS(1), getCurrentPhaseDef().minDuration - actDuration, getEarliest(prevStart));
+#ifdef DEBUG_PHASE_SELECTION
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " tl=" << getID() << " p=" << myStep
+            << " nextTryMinDur=" << STEPS2TIME(getMinDur() - actDuration)
+            << " nextTryEarliest=" << STEPS2TIME(getEarliest(prevStart)) << "\n";
+    }
+#endif
+    return MAX3(TIME2STEPS(1), getMinDur() - actDuration, getEarliest(prevStart));
 }
 
 
@@ -608,7 +716,7 @@ MSActuatedTrafficLightLogic::duration(const double detectionGap) const {
     assert((int)myPhases.size() > myStep);
     const SUMOTime actDuration = MSNet::getInstance()->getCurrentTimeStep() - myPhases[myStep]->myLastSwitch;
     // ensure that minimum duration is kept
-    SUMOTime newDuration = getCurrentPhaseDef().minDuration - actDuration;
+    SUMOTime newDuration = getMinDur() - actDuration;
     // try to let the last detected vehicle pass the intersection (duration must be positive)
     newDuration = MAX3(newDuration, TIME2STEPS(myDetectorGap - detectionGap), SUMOTime(1));
     // cut the decimal places to ensure that phases always have integer duration
@@ -617,7 +725,7 @@ MSActuatedTrafficLightLogic::duration(const double detectionGap) const {
         newDuration = (totalDur / 1000 + 1) * 1000 - actDuration;
     }
     // ensure that the maximum duration is not exceeded
-    newDuration = MIN3(newDuration, getCurrentPhaseDef().maxDuration - actDuration, getLatest());
+    newDuration = MIN3(newDuration, getMaxDur() - actDuration, getLatest());
     return newDuration;
 }
 
@@ -1041,7 +1149,9 @@ std::map<std::string, double>
 MSActuatedTrafficLightLogic::getConditions() const {
     std::map<std::string, double> result;
     for (auto item : myConditions) {
-        result[item.first] = evalExpression(item.second);
+        if (myListedConditions.count(item.first) != 0) {
+            result[item.first] = evalExpression(item.second);
+        }
     }
     return result;
 }

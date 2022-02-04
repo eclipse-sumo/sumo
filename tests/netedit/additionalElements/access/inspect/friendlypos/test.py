@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, 375, 250)
 netedit.changeElement("access")
 
 # Create Access
-netedit.selectAdditionalChild(9, 0)
+netedit.selectAdditionalChild(netedit.attrs.access.create.parent, 0)
 netedit.leftClick(referencePosition, 200, 280)
 
 # go to inspect mode
@@ -54,7 +54,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 208, 280)
 
 # Change friendly position
-netedit.modifyBoolAttribute(3, True)
+netedit.modifyBoolAttribute(netedit.attrs.access.inspect.friendlyPos, True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

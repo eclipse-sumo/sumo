@@ -41,7 +41,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 160, 270)
 
 # Set person capacity
-netedit.modifyAttribute(3, "50", False)
+netedit.modifyAttribute(netedit.attrs.trainStop.inspectSelection.personCapacity, "50", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

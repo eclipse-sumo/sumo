@@ -497,8 +497,8 @@ public:
     void cleanupTargetLane();
 
     /// @brief reserve space at the end of the lane to avoid dead locks
-    virtual void saveBlockerLength(double length) {
-        UNUSED_PARAMETER(length);
+    virtual double saveBlockerLength(double length, double /*foeLeftSpace*/) {
+        return length;
     }
 
     void setShadowPartialOccupator(MSLane* lane) {

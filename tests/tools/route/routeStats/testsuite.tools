@@ -9,3 +9,6 @@ numEdges
 
 # compare two sets of routes for the same vehicles
 diff
+
+# get statistics on travel speed in route
+speed

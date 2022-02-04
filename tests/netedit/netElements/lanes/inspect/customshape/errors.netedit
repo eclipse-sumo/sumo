@@ -23,7 +23,7 @@ Debug: Disabled select edges throught alt + 4
 Error: Shape of a(n) user-supplied shape is broken: the position is neither x,y nor x,y,z.
 Debug: Value 'dummyShape' for attribute customShape of lane isn't valid
 Debug: Key F5 (Compute) pressed
-Debug: Value '13.112,16.22 34.19,16.11' for attribute endOffset of lane isn't valid
+Debug: Value '13.112,16.22 34.19,16.11' for attribute width of lane isn't valid
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

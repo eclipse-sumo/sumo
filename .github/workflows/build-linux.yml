@@ -83,7 +83,7 @@ jobs:
       if: matrix.build_type == 'full'
       run: |
         sudo apt-get install python3-pyproj python3-rtree python3-pandas python3-flake8 python3-autopep8
-        sudo pip3 install ezdxf pulp
+        sudo pip3 install ezdxf fmpy[complete] pulp
         cd sumo/cmake-build
         make CTEST_OUTPUT_ON_FAILURE=1 examples test
 
@@ -92,22 +92,6 @@ jobs:
       with:
         name: Linux-${{ matrix.compiler }}-${{ matrix.build_type }}
         path: sumo/bin
-
-    - name: Building FMU Compliance Checker
-      if: matrix.build_type == 'full'
-      run: |
-        git clone https://github.com/modelica-tools/FMUComplianceChecker.git fmuChecker
-        cd fmuChecker
-        mkdir build
-        cd build
-        cmake ..
-        make install test
-
-    - name: Checking sumo-fmi2.fmu
-      if: matrix.build_type == 'full'
-      run: |
-        cd sumo
-        ../fmuChecker/install/fmuCheck.linux64 bin/sumo-fmi2-linux64.fmu 
 
     - name: Uploading FMI 2.0 FMU artifacts
       if: matrix.build_type == 'full'

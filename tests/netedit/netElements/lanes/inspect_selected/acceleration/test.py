@@ -53,7 +53,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 95)
 
 # Change parameter 5 with a valid value
-netedit.modifyBoolAttribute(7, True)
+netedit.modifyBoolAttribute(netedit.attrs.lane.inspectSelection.acceleration, True)
 
 # recompute
 netedit.rebuildNetwork()

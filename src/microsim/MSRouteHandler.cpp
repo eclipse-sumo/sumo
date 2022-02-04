@@ -32,6 +32,8 @@
 #include <microsim/MSInsertionControl.h>
 #include <microsim/MSStoppingPlace.h>
 #include <microsim/MSVehicleControl.h>
+#include <microsim/MSEventControl.h>
+#include <microsim/Command_RouteReplacement.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
@@ -43,7 +45,7 @@
 // ===========================================================================
 // static members
 // ===========================================================================
-SumoRNG MSRouteHandler::myParsingRNG;
+SumoRNG MSRouteHandler::myParsingRNG("routehandler");
 
 
 // ===========================================================================
@@ -59,7 +61,9 @@ MSRouteHandler::MSRouteHandler(const std::string& file, bool addVehiclesDirectly
     myCurrentVTypeDistribution(nullptr),
     myCurrentRouteDistribution(nullptr),
     myAmLoadingState(false),
-    myScaleSuffix(OptionsCont::getOptions().getString("scale-suffix")) {
+    myScaleSuffix(OptionsCont::getOptions().getString("scale-suffix")),
+    myReplayRerouting(OptionsCont::getOptions().getBool("replay-rerouting"))
+{
     myActiveRoute.reserve(100);
 }
 
@@ -283,6 +287,8 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
     myActiveRouteProbability = attrs.getOpt<double>(SUMO_ATTR_PROB, myActiveRouteID.c_str(), ok, DEFAULT_VEH_PROB);
     myActiveRouteColor = attrs.hasAttribute(SUMO_ATTR_COLOR) ? new RGBColor(attrs.get<RGBColor>(SUMO_ATTR_COLOR, myActiveRouteID.c_str(), ok)) : nullptr;
     myActiveRouteRepeat = attrs.getOpt<int>(SUMO_ATTR_REPEAT, myActiveRouteID.c_str(), ok, 0);
+    myActiveRouteReplacedAtTime = attrs.getOptSUMOTimeReporting(SUMO_ATTR_REPLACED_AT_TIME, myActiveRouteID.c_str(), ok, -1);
+    myActiveRouteReplacedIndex = attrs.getOpt<int>(SUMO_ATTR_REPLACED_ON_INDEX, myActiveRouteID.c_str(), ok, 0);
     myActiveRoutePeriod = attrs.getOptSUMOTimeReporting(SUMO_ATTR_CYCLETIME, myActiveRouteID.c_str(), ok,
                           // handle obsolete attribute name
                           attrs.getOptSUMOTimeReporting(SUMO_ATTR_PERIOD, myActiveRouteID.c_str(), ok, 0));
@@ -402,7 +408,8 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
         }
         MSRoute* route = new MSRoute(myActiveRouteID, myActiveRoute,
                                      myVehicleParameter == nullptr || myVehicleParameter->repetitionNumber >= 1,
-                                     myActiveRouteColor, myActiveRouteStops);
+                                     myActiveRouteColor, myActiveRouteStops,
+                                     myActiveRouteReplacedAtTime, myActiveRouteReplacedIndex);
         route->setPeriod(myActiveRoutePeriod);
         route->setCosts(myCurrentCosts);
         route->setReroute(mustReroute);
@@ -510,7 +517,17 @@ MSRouteHandler::closeRouteDistribution() {
 void
 MSRouteHandler::closeVehicle() {
     // get nested route
-    const MSRoute* route = MSRoute::dictionary("!" + myVehicleParameter->id, &myParsingRNG);
+    const std::string embeddedRouteID = "!" + myVehicleParameter->id;
+    const MSRoute* route = nullptr;
+    if (myReplayRerouting) {
+        RandomDistributor<const MSRoute*>* rDist = MSRoute::distDictionary(embeddedRouteID);
+        if (rDist != nullptr && rDist->getVals().size() > 0) {
+            route = rDist->getVals().front();
+        }
+    }
+    if (route == nullptr) {
+        route = MSRoute::dictionary(embeddedRouteID, &myParsingRNG);
+    }
     MSVehicleControl& vehControl = MSNet::getInstance()->getVehicleControl();
     if (myVehicleParameter->departProcedure == DEPART_GIVEN) {
         // let's check whether this vehicle had to depart before the simulation starts
@@ -606,6 +623,21 @@ MSRouteHandler::closeVehicle() {
             registerLastDepart();
             myVehicleParameter->depart += MSNet::getInstance()->getInsertionControl().computeRandomDepartOffset();
             vehControl.addVehicle(myVehicleParameter->id, vehicle);
+            if (myReplayRerouting) {
+                RandomDistributor<const MSRoute*>* rDist = MSRoute::distDictionary(embeddedRouteID);
+                if (rDist != nullptr) {
+                    for (int i = 0; i < (int)rDist->getVals().size() - 1; i++) {
+                        SUMOTime replacedAt = rDist->getVals()[i]->getReplacedTime();
+                        auto* cmd = new Command_RouteReplacement(vehicle->getID(), rDist->getVals()[i + 1]);
+                        if (i == 0 && replacedAt >= 0 && replacedAt == myVehicleParameter->depart) {
+                            // routing in the insertion step happens *after* insertion
+                            MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(cmd, replacedAt);
+                        } else {
+                            MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(cmd, replacedAt);
+                        }
+                    }
+                }
+            }
             int offset = 0;
             for (int i = 1; i < quota; i++) {
                 if (vehicle->getParameter().departProcedure == DEPART_GIVEN) {

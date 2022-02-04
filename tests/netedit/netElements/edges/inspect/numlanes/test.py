@@ -41,19 +41,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 5 with a non valid value (empty lanes)
-netedit.modifyAttribute(5, "", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.numLanes, "", False)
 
 # Change parameter 5 with a non valid value (dummy lanes)
-netedit.modifyAttribute(5, "dummyLanes", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.numLanes, "dummyLanes", False)
 
 # Change parameter 5 with a non valid value (negative lanes)
-netedit.modifyAttribute(5, "-6", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.numLanes, "-6", False)
 
 # Change parameter 5 with a non valid value (float)
-netedit.modifyAttribute(5, "3.5", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.numLanes, "3.5", False)
 
 # Change parameter 5 with a valid value
-netedit.modifyAttribute(5, "4", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.numLanes, "4", False)
 
 # recompute
 netedit.rebuildNetwork()

@@ -1,0 +1,11 @@
+# some routes are disconnected
+gaps
+
+# no calculation of new routes but detect defect route
+gaps_alt
+
+# some routes are disconnected
+gaps_ignore
+
+# some routes are disconnected
+gaps_repair

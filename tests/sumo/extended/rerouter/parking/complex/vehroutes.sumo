@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 12 08:40:57 2020 by Eclipse SUMO Version v1_5_0+0668-3019609
+<!-- generated on 2022-02-02 12:22:13 by Eclipse SUMO sumo Version v1_12_0+0212-f27fcdc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -25,6 +30,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -113,7 +119,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <vehicle id="flow1.1" depart="5.00" arrival="597.00">
         <routeDistribution>
-            <route replacedOnEdge="b" reason="REROUTER_Via_Montespirello:parkingAreaReroute" replacedAtTime="249.00" probability="0" edges="a b c"/>
+            <route replacedOnEdge="b" replacedOnIndex="1" reason="REROUTER_Via_Montespirello:parkingAreaReroute" replacedAtTime="249.00" probability="0" edges="a b c"/>
             <route edges="a b -d f e -a a b c"/>
         </routeDistribution>
         <stop parkingArea="ParkAreaA" duration="200.00"/>
@@ -122,7 +128,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <vehicle id="flow1.2" depart="10.00" arrival="602.00">
         <routeDistribution>
-            <route replacedOnEdge="b" reason="REROUTER_Via_Montespirello:parkingAreaReroute" replacedAtTime="249.00" probability="0" edges="a b c"/>
+            <route replacedOnEdge="b" replacedOnIndex="1" reason="REROUTER_Via_Montespirello:parkingAreaReroute" replacedAtTime="249.00" probability="0" edges="a b c"/>
             <route edges="a b -d f e -a a b c"/>
         </routeDistribution>
         <stop parkingArea="ParkAreaA" duration="200.00"/>
@@ -131,7 +137,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <vehicle id="flow1.3" depart="15.00" arrival="607.00">
         <routeDistribution>
-            <route replacedOnEdge="b" reason="REROUTER_Via_Montespirello:parkingAreaReroute" replacedAtTime="249.00" probability="0" edges="a b c"/>
+            <route replacedOnEdge="b" replacedOnIndex="1" reason="REROUTER_Via_Montespirello:parkingAreaReroute" replacedAtTime="249.00" probability="0" edges="a b c"/>
             <route edges="a b -d f e -a a b c"/>
         </routeDistribution>
         <stop parkingArea="ParkAreaA" duration="200.00"/>
@@ -140,7 +146,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <vehicle id="flow1.4" depart="20.00" arrival="613.00">
         <routeDistribution>
-            <route replacedOnEdge="b" reason="REROUTER_Via_Montespirello:parkingAreaReroute" replacedAtTime="249.00" probability="0" edges="a b c"/>
+            <route replacedOnEdge="b" replacedOnIndex="1" reason="REROUTER_Via_Montespirello:parkingAreaReroute" replacedAtTime="249.00" probability="0" edges="a b c"/>
             <route edges="a b -d f e -a a b c"/>
         </routeDistribution>
         <stop parkingArea="ParkAreaA" duration="200.00"/>

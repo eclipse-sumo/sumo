@@ -331,6 +331,7 @@
 #include "vclass_rail_urban.xpm"
 #include "vclass_rail.xpm"
 #include "vclass_rail_electric.xpm"
+#include "vclass_rail_fast.xpm"
 #include "vclass_motorcycle.xpm"
 #include "vclass_moped.xpm"
 #include "vclass_bicycle.xpm"
@@ -339,6 +340,34 @@
 #include "vclass_ship.xpm"
 #include "vclass_custom1.xpm"
 #include "vclass_custom2.xpm"
+
+#include "vclass_small_ignoring.xpm"
+#include "vclass_small_private.xpm"
+#include "vclass_small_emergency.xpm"
+#include "vclass_small_authority.xpm"
+#include "vclass_small_army.xpm"
+#include "vclass_small_vip.xpm"
+#include "vclass_small_passenger.xpm"
+#include "vclass_small_hov.xpm"
+#include "vclass_small_taxi.xpm"
+#include "vclass_small_bus.xpm"
+#include "vclass_small_coach.xpm"
+#include "vclass_small_delivery.xpm"
+#include "vclass_small_truck.xpm"
+#include "vclass_small_trailer.xpm"
+#include "vclass_small_tram.xpm"
+#include "vclass_small_rail_urban.xpm"
+#include "vclass_small_rail.xpm"
+#include "vclass_small_rail_electric.xpm"
+#include "vclass_small_rail_fast.xpm"
+#include "vclass_small_motorcycle.xpm"
+#include "vclass_small_moped.xpm"
+#include "vclass_small_bicycle.xpm"
+#include "vclass_small_pedestrian.xpm"
+#include "vclass_small_evehicle.xpm"
+#include "vclass_small_ship.xpm"
+#include "vclass_small_custom1.xpm"
+#include "vclass_small_custom2.xpm"
 
 #include "vshape_pedestrian.xpm"
 #include "vshape_bicycle.xpm"
@@ -706,6 +735,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::VCLASS_RAIL_URBAN] = new FXXPMIcon(a, vclass_rail_urban_xpm);
     myIcons[GUIIcon::VCLASS_RAIL] = new FXXPMIcon(a, vclass_rail_xpm);
     myIcons[GUIIcon::VCLASS_RAIL_ELECTRIC] = new FXXPMIcon(a, vclass_rail_electric_xpm);
+    myIcons[GUIIcon::VCLASS_RAIL_FAST] = new FXXPMIcon(a, vclass_rail_fast_xpm);
     myIcons[GUIIcon::VCLASS_MOTORCYCLE] = new FXXPMIcon(a, vclass_motorcycle_xpm);
     myIcons[GUIIcon::VCLASS_MOPED] = new FXXPMIcon(a, vclass_moped_xpm);
     myIcons[GUIIcon::VCLASS_BICYCLE] = new FXXPMIcon(a, vclass_bicycle_xpm);
@@ -714,6 +744,34 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::VCLASS_SHIP] = new FXXPMIcon(a, vclass_ship_xpm);
     myIcons[GUIIcon::VCLASS_CUSTOM1] = new FXXPMIcon(a, vclass_custom1_xpm);
     myIcons[GUIIcon::VCLASS_CUSTOM2] = new FXXPMIcon(a, vclass_custom2_xpm);
+
+    myIcons[GUIIcon::VCLASS_SMALL_IGNORING] = new FXXPMIcon(a, vclass_small_ignoring_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_PRIVATE] = new FXXPMIcon(a, vclass_small_private_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_EMERGENCY] = new FXXPMIcon(a, vclass_small_emergency_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_AUTHORITY] = new FXXPMIcon(a, vclass_small_authority_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_ARMY] = new FXXPMIcon(a, vclass_small_army_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_VIP] = new FXXPMIcon(a, vclass_small_vip_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_PASSENGER] = new FXXPMIcon(a, vclass_small_passenger_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_HOV] = new FXXPMIcon(a, vclass_small_hov_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_TAXI] = new FXXPMIcon(a, vclass_small_taxi_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_BUS] = new FXXPMIcon(a, vclass_small_bus_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_COACH] = new FXXPMIcon(a, vclass_small_coach_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_DELIVERY] = new FXXPMIcon(a, vclass_small_delivery_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_TRUCK] = new FXXPMIcon(a, vclass_small_truck_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_TRAILER] = new FXXPMIcon(a, vclass_small_trailer_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_TRAM] = new FXXPMIcon(a, vclass_small_tram_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_RAIL_URBAN] = new FXXPMIcon(a, vclass_small_rail_urban_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_RAIL] = new FXXPMIcon(a, vclass_small_rail_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_RAIL_ELECTRIC] = new FXXPMIcon(a, vclass_small_rail_electric_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_RAIL_FAST] = new FXXPMIcon(a, vclass_small_rail_fast_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_MOTORCYCLE] = new FXXPMIcon(a, vclass_small_motorcycle_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_MOPED] = new FXXPMIcon(a, vclass_small_moped_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_BICYCLE] = new FXXPMIcon(a, vclass_small_bicycle_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_PEDESTRIAN] = new FXXPMIcon(a, vclass_small_pedestrian_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_EVEHICLE] = new FXXPMIcon(a, vclass_small_evehicle_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_SHIP] = new FXXPMIcon(a, vclass_small_ship_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_CUSTOM1] = new FXXPMIcon(a, vclass_small_custom1_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_CUSTOM2] = new FXXPMIcon(a, vclass_small_custom2_xpm);
 
     myIcons[GUIIcon::VSHAPE_PEDESTRIAN] = new FXXPMIcon(a, vshape_pedestrian_xpm);
     myIcons[GUIIcon::VSHAPE_BICYCLE] = new FXXPMIcon(a, vshape_bicycle_xpm);

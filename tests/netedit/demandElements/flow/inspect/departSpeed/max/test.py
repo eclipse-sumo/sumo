@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.vehicleMode()
 
 # change vehicle
-netedit.changeElement("flow (from-to)")
+netedit.changeElement("flow (from-to edges)")
 
 # create flow using two edges
 netedit.leftClick(referencePosition, 274, 392)
@@ -51,13 +51,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(9, "", False)
+netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspect.departSpeed, "", False)
 
 # change departSpeed with an invalid value
-netedit.modifyAttribute(9, "dummySpeed", False)
+netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspect.departSpeed, "dummySpeed", False)
 
 # change departSpeed with a valid value
-netedit.modifyAttribute(9, "max", False)
+netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspect.departSpeed, "max", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

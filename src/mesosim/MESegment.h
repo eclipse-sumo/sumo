@@ -141,15 +141,13 @@ public:
      * @param[in] idx The running index of this segment within the segment's edge
      * @param[in] multiQueue whether to install multiple queues on this segment
      * @param[in] edgeType edge type specific meso parameters such as the different taus
-     * @param[in] ignoreVClasses the vehicle classes to ignore when building queues / calculating capacity
      */
     MESegment(const std::string& id,
               const MSEdge& parent, MESegment* next,
               const double length, const double speed,
               const int idx,
               const bool multiQueue,
-              const MesoEdgeType& edgeType,
-              const SVCPermissions ignoreVClasses);
+              const MesoEdgeType& edgeType);
 
     /// @brief set model parameters (may be updated from additional file after network loading is complete)
     void initSegment(const MesoEdgeType& edgeType, const MSEdge& parent, const double capacity);

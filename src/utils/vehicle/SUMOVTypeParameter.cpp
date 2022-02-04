@@ -51,7 +51,8 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
     containerCapacity(0),
     osgFile("car-normal-citrus.obj"),
     carriageLength(-1),
-    locomotiveLength(-1) {
+    locomotiveLength(-1),
+    latAlignmentProcedure(LatAlignmentDefinition::CENTER) {
     // update default values
     switch (vclass) {
         case SVC_PEDESTRIAN:
@@ -72,6 +73,7 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             personCapacity = 1;
             emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "zero", vclass);
             speedFactor.getParameter()[1] = 0.1;
+            latAlignmentProcedure = LatAlignmentDefinition::RIGHT;
             break;
         case SVC_MOPED:
             maxSpeed = 60. / 3.6;
@@ -292,6 +294,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
     osgFile = defaultValues.osgFile;
     carriageLength = defaultValues.carriageLength;
     locomotiveLength = defaultValues.locomotiveLength;
+    latAlignmentProcedure = defaultValues.latAlignmentProcedure;
     // check if default speeddev was defined
     if (oc.exists("default.speeddev")) {
         const double defaultSpeedDev = oc.getFloat("default.speeddev");

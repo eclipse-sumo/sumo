@@ -212,9 +212,17 @@ public:
 
     ///@brief return last time a vehicle was on the detector
     SUMOTime getLastDetectionTime() const;
+
+    double getOverrideTime() const {
+        return myOverrideTime;
+    }
     //@}
 
 
+    /* @brief Persistently overrides the measured time since detection with the given value. 
+     * Setting a negative value resets the override
+     */
+    void overrideTimeSinceDetection(double time);
 
     /// @name Methods inherited from MSDetectorFileOutput.
     /// @{
@@ -326,6 +334,9 @@ protected:
 
     /// @brief Leave-time of the last vehicle detected [s]
     double myLastLeaveTime;
+
+    /// @brief overrides the time since last detection
+    double myOverrideTime;
 
     /// @brief The number of entered vehicles
     int myEnteredVehicleNumber;

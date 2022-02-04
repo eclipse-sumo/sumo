@@ -23,15 +23,16 @@
 
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/geom/PositionVector.h>
-#include "GUIInductLoop.h"
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/globjects/GLIncludes.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/logging/FuncBinding_IntParam.h>
 #include <microsim/MSLane.h>
 #include <microsim/output/MSInductLoop.h>
 #include "GUIEdge.h"
-#include <utils/gui/globjects/GLIncludes.h>
+#include "Command_Hotkey_InductionLoop.h"
+#include "GUIInductLoop.h"
 
 
 // ===========================================================================
@@ -46,7 +47,8 @@ GUIInductLoop::GUIInductLoop(const std::string& id, MSLane* const lane,
     MSInductLoop(id, lane, position, vTypes, detectPersons, true),
     myWrapper(nullptr),
     myShow(show)
-{}
+{
+}
 
 
 GUIInductLoop::~GUIInductLoop() {}
@@ -54,6 +56,9 @@ GUIInductLoop::~GUIInductLoop() {}
 
 GUIDetectorWrapper*
 GUIInductLoop::buildDetectorGUIRepresentation() {
+    if (knowsParameter("hotkey")) {
+        Command_Hotkey_InductionLoop::registerHotkey(getParameter("hotkey"), this);
+    }
     // caller (GUINet) takes responsibility for pointer
     myWrapper = new MyWrapper(*this, myPosition);
     return myWrapper;
@@ -75,7 +80,9 @@ GUIInductLoop::setSpecialColor(const RGBColor* color) {
 GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop& detector, double pos) :
     GUIDetectorWrapper(GLO_E1DETECTOR, detector.getID()),
     myDetector(detector), myPosition(pos),
-    mySpecialColor(nullptr) {
+    mySpecialColor(nullptr)
+{
+    mySupportsOverride = true;
     myFGPosition = detector.getLane()->geometryPositionAtOffset(pos);
     myBoundary.add(myFGPosition.x() + (double) 5.5, myFGPosition.y() + (double) 5.5);
     myBoundary.add(myFGPosition.x() - (double) 5.5, myFGPosition.y() - (double) 5.5);
@@ -84,12 +91,6 @@ GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop& detector, double pos) :
 
 
 GUIInductLoop::MyWrapper::~MyWrapper() {}
-
-
-double
-GUIInductLoop::MyWrapper::getExaggeration(const GUIVisualizationSettings& s) const {
-    return s.addSize.getExaggeration(s, this);
-}
 
 
 Boundary
@@ -154,7 +155,9 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     glVertex2d(0, -2 + .1);
     glEnd();
 
-    if (mySpecialColor == nullptr) {
+    if (haveOverride()) {
+        glColor3d(1, 0, 1);
+    } else if (mySpecialColor == nullptr) {
         glColor3d(1, 1, 1);
     } else {
         GLHelper::setColor(*mySpecialColor);
@@ -185,5 +188,20 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     GLHelper::popName();
 }
 
+
+bool
+GUIInductLoop::MyWrapper::haveOverride() const {
+    return myDetector.getOverrideTime() >= 0;
+}
+
+
+void
+GUIInductLoop::MyWrapper::toggleOverride() const {
+    if (haveOverride()) {
+        myDetector.overrideTimeSinceDetection(-1);
+    } else {
+        myDetector.overrideTimeSinceDetection(0);
+    }
+}
 
 /****************************************************************************/

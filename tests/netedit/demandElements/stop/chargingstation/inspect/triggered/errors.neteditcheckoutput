@@ -1,3 +1,5 @@
+Warning: Vehicle 'flow.0' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Vehicle 'flow.1' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
 Warning: Teleporting vehicle 'flow.2'; waited too long (jam), lane='gneE1_0', time=319.00.
 Warning: Vehicle 'flow.2' teleports beyond arrival edge 'gneE1', time=319.00.
 Warning: Vehicle 'flow.2' skips stop on lane 'gneE1_0' time=319.00.

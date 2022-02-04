@@ -58,5 +58,5 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <containerStop id="ct_0" name="Bus Stop Name" lane="gneE2_1" startPos="12.00" endPos="22.00"/>
+    <containerStop id="ct_0" name="Container Stop Name" lane="gneE2_1" startPos="12.00" endPos="22.00"/>
 </additional>

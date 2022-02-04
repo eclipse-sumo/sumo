@@ -3,6 +3,7 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 poiGeo
 <<poi_test>>
+custom type
 TestFunctions: Clicked over position 404 - 218
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168

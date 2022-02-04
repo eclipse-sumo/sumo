@@ -544,7 +544,7 @@ def main(options):
         return idx + 1
 
     with open(options.tripfile, 'w') as fouttrips:
-        sumolib.writeXMLHeader(fouttrips, "$Id$", "routes")  # noqa
+        sumolib.writeXMLHeader(fouttrips, "$Id$", "routes", options=options)  # noqa
         if options.vehicle_class:
             vTypeDef = '    <vType id="%s" vClass="%s"%s/>\n' % (
                 options.vtypeID, options.vehicle_class, vtypeattrs)
@@ -556,7 +556,7 @@ def main(options):
                 else:
                     options.additional += ",options.vtypeout"
                 with open(options.vtypeout, 'w') as fouttype:
-                    sumolib.writeXMLHeader(fouttype, "$Id$", "additional")  # noqa
+                    sumolib.writeXMLHeader(fouttype, "$Id$", "additional", options=options)  # noqa
                     fouttype.write(vTypeDef)
                     fouttype.write("</additional>\n")
             else:
@@ -619,11 +619,12 @@ def main(options):
     else:
         args += ['-v']
 
+    route_proc = None
     if options.routefile:
         args2 = args + ['-o', options.routefile]
         print("calling", " ".join(args2))
         sys.stdout.flush()
-        subprocess.call(args2)
+        route_proc = subprocess.Popen(args2)
         sys.stdout.flush()
 
     if options.validate:
@@ -638,6 +639,10 @@ def main(options):
         sys.stdout.flush()
         os.remove(options.tripfile)  # on windows, rename does not overwrite
         os.rename(tmpTrips, options.tripfile)
+
+    if route_proc:
+        route_proc.wait()
+        sys.stdout.flush()
 
     if options.weights_outprefix:
         idPrefix = ""

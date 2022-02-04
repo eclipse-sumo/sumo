@@ -1,9 +1,6 @@
 # Tests for importing trips with an empty vehicle class
 empty_vclass
 
-# no calculation of new routes but detect defect route
-skip_new_routes_defect
-
 # Tests what happens if the net is not given
 no_net
 

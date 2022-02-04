@@ -89,8 +89,7 @@ MESegment::MESegment(const std::string& id,
                      const double length, const double speed,
                      const int idx,
                      const bool multiQueue,
-                     const MesoEdgeType& edgeType,
-                     const SVCPermissions ignoreVClasses):
+                     const MesoEdgeType& edgeType):
     Named(id), myEdge(parent), myNextSegment(next),
     myLength(length), myIndex(idx),
     myTau_length(TIME2STEPS(1) / MAX2(MESO_MIN_SPEED, speed)),
@@ -102,9 +101,9 @@ MESegment::MESegment(const std::string& id,
     const std::vector<MSLane*>& lanes = parent.getLanes();
     int usableLanes = 0;
     for (MSLane* const l : lanes) {
-        const SVCPermissions allow = ((l->getPermissions() | ignoreVClasses) == ignoreVClasses) ? 0 : l->getPermissions();
+        const SVCPermissions allow = MSEdge::getMesoPermissions(l->getPermissions());
         if (multiQueue) {
-            myQueues.push_back(allow);
+            myQueues.push_back(Queue(allow));
         }
         if (allow != 0) {
             usableLanes++;

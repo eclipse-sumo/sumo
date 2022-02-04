@@ -40,8 +40,8 @@ e1instantdetector
 # calibrator
 calibrator
 
-# lanecalibrator
-lanecalibrator
+# calibratorlane
+calibratorlane
 
 # calibratorflow
 calibratorflow

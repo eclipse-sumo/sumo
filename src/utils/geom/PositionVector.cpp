@@ -1196,10 +1196,10 @@ PositionVector::move2side(double amount, double maxExtension) {
             }
         }
     }
-    if (recheck.size() > 0) {
+    if (!recheck.empty()) {
         // try to adjust positions to avoid clipping
         shape = *this;
-        for (int i = recheck.size() - 1; i >= 0; i--) {
+        for (int i = (int)recheck.size() - 1; i >= 0; i--) {
             shape.erase(shape.begin() + recheck[i]);
         }
         shape.move2side(amount, maxExtension);

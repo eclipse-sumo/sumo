@@ -90,6 +90,6 @@ This sets/removes the specified attribute on all tags (elements) in the input fi
 If option **--value** (**-v**) is not given, the attribute is removed. Otherwise it is added/modified to the given value.
 
 ```
-python tools/xml/tools/xml/changeAttrbiute.py -f INPUT_FILE -o OUTPUT_FILE -t TAG -a ATTRIBUTE [-v VALUE]
+python tools/xml/tools/xml/changeAttribute.py -f INPUT_FILE -o OUTPUT_FILE -t TAG -a ATTRIBUTE [-v VALUE]
 ```
 

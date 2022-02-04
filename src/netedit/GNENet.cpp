@@ -2211,9 +2211,9 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     for (const auto& calibrator : myAttributeCarriers->getAdditionals().at(SUMO_TAG_CALIBRATOR)) {
         sortedAdditionals.back()[calibrator->getID()] = calibrator;
     }
-    // laneCalibrator
-    for (const auto& laneCalibrator : myAttributeCarriers->getAdditionals().at(SUMO_TAG_LANECALIBRATOR)) {
-        sortedAdditionals.back()[laneCalibrator->getID()] = laneCalibrator;
+    // calibratorLane
+    for (const auto& calibratorLane : myAttributeCarriers->getAdditionals().at(GNE_TAG_CALIBRATOR_LANE)) {
+        sortedAdditionals.back()[calibratorLane->getID()] = calibratorLane;
     }
     // busStop
     sortedAdditionals.push_back(std::map<std::string, GNEAdditional*>());

@@ -53,16 +53,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 95)
 
 # Change parameter 0 with a non valid value (empty speed)
-netedit.modifyAttribute(0, "", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.speed, "", True)
 
 # Change parameter 0 with a non valid value (dummy speed)
-netedit.modifyAttribute(0, "dummySpeed", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.speed, "dummySpeed", True)
 
 # Change parameter 0 with a non valid value (negative speed)
-netedit.modifyAttribute(0, "-13", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.speed, "-13", True)
 
 # Change parameter 0 with a valid value
-netedit.modifyAttribute(0, "120.5", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.speed, "120.5", True)
 
 # recompute
 netedit.rebuildNetwork()

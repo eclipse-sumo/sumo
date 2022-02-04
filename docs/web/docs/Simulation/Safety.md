@@ -57,7 +57,7 @@ size (default 1s) when using the default Krauss model.
 ### Collisions related to lane-changing
 Collisions from lane-changing can be caused by unsafe lateral movements (side collisions) and by changing lanes in a way that creates unsafe following situations (rear-end collisions).
 
-Side collosions can be caused by
+Side collisions can be caused by
 - configuring lateral imperfection with vType parameter *lcSigma*
 - allowing lateral encroachment with vType parameter *lcPushy* (but this parameter itself will not cause collisions, only reduce lateral gaps in some situations, requires the sublane model)
 - *lcImpatience* (growing impatience permits lower lateral gaps when using the sublane model)
@@ -79,7 +79,7 @@ parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#junction_mod
     - vehicular foes as long as they are not in the way
     - any pedestrian foes
   - *junctionModel.ignoreIDs*: ignores all foes with the given ids  (set via [generic parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#transient_parameters))
-  - *junctionModel.ignoreTypess*: ignores all foes with the given types (set via [generic parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#transient_parameters))    
+  - *junctionModel.ignoreTypes*: ignores all foes with the given types (set via [generic parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#transient_parameters))    
 - yellow phases which are too short in relation to the vehicle speed
 (giving insufficient time to come to a stop). By default this causes
 strong braking (*Warning: emergency braking*) potentially followed
@@ -210,7 +210,7 @@ behavior. For a description see
   acceleration is assumed. (higher values cause reduced acceleration
   and thus decrease time gaps and safety)
 - jmTimegapMinor: Minimum time gap when passing a minor link ahead of
-  a prioritzed vehicle (lower values decrease safety)
+  a prioritized vehicle (lower values decrease safety)
 
 # Safety-Related Outputs
 

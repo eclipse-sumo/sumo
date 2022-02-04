@@ -119,12 +119,18 @@ title: netedit
 | Online documentation | F1   | Open the online documentation in the web browser |
 | About                | F12  | Open the about dialog                            |
 
-| Text edition shortcuts | Key      | Description                                      |
+| Text editing shortcuts | Key      | Description                                      |
 | ---------------------- | -------- | ------------------------------------------------ |
 | Cut                    | Ctrl + X | Cut selected text of a text field                |
 | Copy                   | Ctrl + C | Copy selected text of a text field               |
 | Paste                  | Ctrl + V | Paste previously cut/copied text in a text field |
 | Select all text        | Ctrl + A | Select all text in a text field                  |
+
+| Miscellaneous shortcuts | Key      | Description                                      |
+| ----------------------- | -------- | ------------------------------------------------ |
+| Grid  | Ctrl + G        | Toggle background gripd
+| Grid+ | Ctrl + PageUp   | Increase grid spacing               |
+| Grid- | Ctrl + PageDown | Reduce grid spacing               |
 
 
 **Toolbar shortcuts**   

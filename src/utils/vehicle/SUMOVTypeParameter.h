@@ -157,6 +157,9 @@ public:
         /// @brief the length of train locomotive
         double locomotiveLength;
 
+        /// @brief the lateral alignment procedure
+        LatAlignmentDefinition latAlignmentProcedure;
+
     private:
         /// @brief default constructor
         VClassDefaultValues();

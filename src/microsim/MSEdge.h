@@ -769,6 +769,11 @@ public:
     /** @brief Inserts IDs of all known edges into the given vector */
     static void insertIDs(std::vector<std::string>& into);
 
+    static SVCPermissions getMesoPermissions(SVCPermissions p, SVCPermissions ignoreIgnored = 0);
+
+    static void setMesoIgnoredVClasses(SVCPermissions ignored) {
+        myMesoIgnoredVClasses = ignored;
+    }
 
 public:
     /// @name Static parser helper
@@ -959,6 +964,8 @@ protected:
      * @deprecated Move to MSEdgeControl, make non-static
      */
     static MSEdgeVector myEdges;
+
+    static SVCPermissions myMesoIgnoredVClasses;
     /// @}
 
 

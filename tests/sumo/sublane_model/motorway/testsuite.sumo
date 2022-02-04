@@ -58,3 +58,12 @@ change_reason
 change_reason2
 overtaking_right_forbidden
 strategic_disable
+
+# stress test with random 10000 vehicles weaving on a short on-off-ramp.
+# (see Issue #10028)
+onOffRamp_short
+
+# stress test with random 10000 vehicles weaving on a short on-off-ramp.
+# Network has extra connection that should prevent deadlock.
+# (see Issue #10037)
+onOffRamp_short_extraConnection

@@ -24,5 +24,8 @@ measure
 routing
 repair
 
+# test option --skip-new-routes
+skip_routing
+
 # keep some or all of the old routes
 keep_routes

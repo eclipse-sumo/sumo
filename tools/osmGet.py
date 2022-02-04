@@ -115,7 +115,7 @@ def readCompressed(conn, urlpath, query, roadTypesJSON, downloadShapesPolygon,fi
     unionQueryString = separator.join(queryStringNode)
 
     conn.request("POST", "/" + urlpath, """
-    <osm-script timeout="113" element-limit="1073741824">
+    <osm-script timeout="240" element-limit="1073741824">
     <union>
        %s                            
     </union>
@@ -124,12 +124,16 @@ def readCompressed(conn, urlpath, query, roadTypesJSON, downloadShapesPolygon,fi
        <recurse type="way-node"/>
     </union>
     <print mode="body"/>
-    </osm-script>""" % unionQueryString)
+    </osm-script>""" % unionQueryString, headers={'Accept-Encoding': 'gzip'})
+
     response = conn.getresponse()
     print(response.status, response.reason)
     if response.status == 200:
         with open(filename, "wb") as out:
-            out.write(response.read())
+            if filename.endswith(".gz"):
+                out.write(response.read())
+            else:
+                out.write(gzip.decompress(response.read()))
 
 optParser = sumolib.options.ArgumentParser(description="Get network from OpenStreetMap")
 optParser.add_argument("-p", "--prefix", default="osm", help="for output file")
@@ -142,11 +146,12 @@ optParser.add_argument("-x", "--polygon", help="calculate bounding box from poly
 optParser.add_argument("-u", "--url", default="www.overpass-api.de/api/interpreter",
                        help="Download from the given OpenStreetMap server")
 # alternatives: overpass.kumi.systems/api/interpreter, sumo.dlr.de/osm/api/interpreter
-optParser.add_argument("-w", "--wikidata", action="store_true", dest="wikidata",
+optParser.add_argument("-w", "--wikidata", action="store_true",
                        default=False, help="get the corresponding wikidata")
 optParser.add_argument("-r", "--road_types", help="only delivers osm data to the specified road-types")
 optParser.add_argument("-s", "--shapes_polygon", help="determines if polygon data (buildings, areas , etc.) is downloaded")
-
+optParser.add_argument("-z", "--gzip", action="store_true",
+                       default=False, help="save gzipped output")
 
 def get(args=None):
     options = optParser.parse_args(args=args)
@@ -199,18 +204,19 @@ def get(args=None):
     if options.shapes_polygon:
         downloadShapesPolygon = options.shapes_polygon
 
+    suffix = ".osm.xml.gz" if options.gzip else ".osm.xml"
     if (options.area and options.road_types):
         if options.area < 3600000000:
             options.area += 3600000000
         roadTypesJSON = json.loads(options.road_types.replace("\'","\"").lower())
         readCompressed(conn, url.path, '<area-query ref="%s"/>' %
-                       options.area, roadTypesJSON, downloadShapesPolygon, options.prefix + "_city.osm.xml")
+                       options.area, roadTypesJSON, downloadShapesPolygon, options.prefix + "_city" + suffix)
     if ((options.bbox or options.polygon) and options.road_types):
         roadTypesJSON = json.loads(options.road_types.replace("\'","\"").lower())
         if options.tiles == 1:
             readCompressed(conn, url.path, '<bbox-query n="%s" s="%s" w="%s" e="%s"/>' %
                            (north, south, west, east), roadTypesJSON, downloadShapesPolygon,
-                           options.prefix + "_bbox.osm.xml")
+                           options.prefix + "_bbox" + suffix)
         else:
             num = options.tiles
             b = west
@@ -218,18 +224,18 @@ def get(args=None):
                 e = b + (east - west) / float(num)
                 readCompressed(conn, url.path, '<bbox-query n="%s" s="%s" w="%s" e="%s"/>' % (
                     north, south, b, e), roadTypesJSON, downloadShapesPolygon,
-                               "%s%s_%s.osm.xml" % (options.prefix, i, num))
+                               "%s%s_%s%s" % (options.prefix, i, num, suffix))
                 b = e
 
     conn.close()
     # extract the wiki data according to the wikidata-value in the extracted osm file
     if options.wikidata:
         filename = options.prefix + '.wikidata.xml.gz'
-        osmFile = options.prefix + "_bbox.osm.xml"
+        osmFile = options.prefix + "_bbox" + suffix
         codeSet = set()
         # deal with invalid characters
         bad_chars = [';', ':', '!', "*", ')', '(', '-', '_', '%', '&', '/', '=', '?', '$', '//', '\\', '#', '<', '>']
-        for line in open(osmFile, encoding='utf8'):
+        for line in sumolib.xml._open(osmFile, encoding='utf8'):
             subSet = set()
             if 'wikidata' in line and line.split('"')[3][0] == 'Q':
                 basicData = line.split('"')[3]

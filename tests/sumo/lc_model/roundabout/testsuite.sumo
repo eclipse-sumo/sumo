@@ -28,5 +28,14 @@ tls_2phase
 # roundabout with tls
 tls_actuated
 
+# alternative connection layout where the outer lane is only for exiting the roundabout.
+outer_exitOnly
+
+# alternative connection layout where the outer lane is only for exiting the roundabout. Also vehicles on the outerlane may not lane-change to the inner lane
+outer_exitOnly_noChangeRight
+
+# alternative connection layout with relief connections from the inside lane
+outer_exitMinor
+
 # test unusual lane and connection layout (#7738)
 many_lanes

@@ -38,22 +38,22 @@ netedit.changeElement("trainStop")
 netedit.leftClick(referencePosition, 250, 250)
 
 # enable ID
-netedit.changeDefaultBoolValue(4)
+netedit.changeDefaultBoolValue(netedit.attrs.trainStop.create.idEnable)
 
 # set invalid ID (duplicated
-netedit.changeDefaultValue(5, ";;;;;;;;;;;;;;;;")
+netedit.changeDefaultValue(netedit.attrs.trainStop.create.id, ";;;;;;;;;;;;;;;;")
 
 # create trainStop in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid ID (duplicated
-netedit.changeDefaultValue(5, "ts_0")
+netedit.changeDefaultValue(netedit.attrs.trainStop.create.id, "ts_0")
 
 # create trainStop in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid ID (duplicated
-netedit.changeDefaultValue(5, "custom_ID")
+netedit.changeDefaultValue(netedit.attrs.trainStop.create.id, "custom_ID")
 
 # create trainStop in mode "reference left"
 netedit.leftClick(referencePosition, 250, 250)

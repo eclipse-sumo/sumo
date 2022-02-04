@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("chargingStation")
 
 # change reference to center
-netedit.changeDefaultValue(10, "reference center")
+netedit.changeDefaultValue(netedit.attrs.chargingStation.create.references, "reference center")
 
 # create chargingStation in mode "reference center"
 netedit.leftClick(referencePosition, 250, 172)
@@ -47,13 +47,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 173)
 
 # Change parameter Power with a non valid value (dummy)
-netedit.modifyAttribute(6, "DummyPower", True)
+netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.power, "DummyPower", True)
 
 # Change parameter Power with a non valid value (negative)
-netedit.modifyAttribute(6, "-300", True)
+netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.power, "-300", True)
 
 # Change parameter Power with a valid value
-netedit.modifyAttribute(6, "500.5", True)
+netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.power, "500.5", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

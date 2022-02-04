@@ -122,6 +122,32 @@ public:
      */
     static std::string checkForRelativity(const std::string& filename, const std::string& basePath);
 
+    /** @brief Get the current working directory
+     *
+     * @return The working directory (pwd)
+     */
+    static std::string getCurrentDir();
+
+    /** @brief Splits the given file path into directory components.
+     * 
+     * The path gets normalized such that redundant "." and empty components are removed.
+     * Furthermore it will not contain a ".." after a directory name.
+     *
+     * @param[in] filename The path of a file
+     * @return the list parent directories
+     */
+    static std::vector<std::string> splitDirs(const std::string& filename);
+
+    /** @brief Fixes the relative path for the given filename in relation to the basePath (usually a config file).
+     *
+     * @param[in] filename The path of a file
+     * @param[in] basePath The path of another file referring to the former
+     * @param[in] force whether the replacement should be made even if the filename is absolute
+     * @param[in] curDir the current working dir (mainly for easier testing), "" will trigger a call of getCurrentDir
+     * @return the corrected relative file path
+     */
+    static std::string fixRelative(const std::string& filename, const std::string& basePath, const bool force, std::string curDir="");
+
     /// @brief prepend the given prefix to the last path component of the given file path
     static std::string prependToLastPathComponent(const std::string& prefix, const std::string& path);
 

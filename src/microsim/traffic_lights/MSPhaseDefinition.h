@@ -52,6 +52,7 @@ class MSPhaseDefinition {
 public:
 
     static const SUMOTime UNSPECIFIED_DURATION = -1;
+    static const SUMOTime OVERRIDE_DURATION = TIME2STEPS(-1);
 
     /// @brief The duration of the phase
     SUMOTime duration;
@@ -201,8 +202,8 @@ public:
         return (LinkState) myState[pos];
     }
 
-    inline bool isActuted() const {
-        return minDuration != maxDuration;
+    inline bool isActuated() const {
+        return minDuration != maxDuration || minDuration == OVERRIDE_DURATION;
     }
 
     /** @brief Comparison operator

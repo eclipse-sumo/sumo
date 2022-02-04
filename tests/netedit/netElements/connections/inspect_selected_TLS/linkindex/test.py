@@ -47,19 +47,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 228, 170)
 
 # Change linkIndex with an invalid value
-netedit.modifyAttribute(5, "dummyLinkIndex", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.linkIndex, "dummyLinkIndex", True)
 
 # Change linkIndex with an valid value
-netedit.modifyAttribute(5, "-2", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.linkIndex, "-2", True)
 
 # Change linkIndex with an valid value
-netedit.modifyAttribute(5, "0", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.linkIndex, "0", True)
 
 # Change linkIndex with an valid value (but big)
-netedit.modifyAttribute(5, "600", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.linkIndex, "600", True)
 
 # Change linkIndex with an valid value
-netedit.modifyAttribute(5, "12", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.linkIndex, "12", True)
 
 # rebuild
 netedit.rebuildNetwork()

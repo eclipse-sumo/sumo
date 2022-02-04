@@ -385,10 +385,10 @@ GNEFrameModules::TagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagPr
             myAC = new GNEVariableSpeedSignStep(net);
             break;
         case SUMO_TAG_CALIBRATOR:
-        case SUMO_TAG_LANECALIBRATOR:
+        case GNE_TAG_CALIBRATOR_LANE:
             myAC = new GNECalibrator(tagProperty.getTag(), net);
             break;
-        case GNE_TAG_FLOW_CALIBRATOR:
+        case GNE_TAG_CALIBRATOR_FLOW:
             myAC = new GNECalibratorFlow(net);
             break;
         case SUMO_TAG_REROUTER:
@@ -2412,6 +2412,7 @@ GNEFrameModules::PathCreator::showPathCreatorModule(SumoXMLTag element, const bo
             break;
         case GNE_TAG_TRIP_JUNCTIONS:
         case GNE_TAG_FLOW_JUNCTIONS:
+            myCreationMode |= SHOW_CANDIDATE_JUNCTIONS;
             myCreationMode |= START_JUNCTION;
             myCreationMode |= END_JUNCTION;
             myCreationMode |= ONLY_FROMTO;
@@ -2442,6 +2443,7 @@ GNEFrameModules::PathCreator::showPathCreatorModule(SumoXMLTag element, const bo
         // junction->junction
         case GNE_TAG_PERSONTRIP_JUNCTIONS:
         case GNE_TAG_WALK_JUNCTIONS:
+            myCreationMode |= SHOW_CANDIDATE_JUNCTIONS;
             myCreationMode |= START_JUNCTION;
             myCreationMode |= END_JUNCTION;
             myCreationMode |= ONLY_FROMTO;
@@ -2465,15 +2467,11 @@ GNEFrameModules::PathCreator::showPathCreatorModule(SumoXMLTag element, const bo
             showPathCreator = false;
             break;
     }
+    // update colors
+    updateEdgeColors();
+    updateJunctionColors();
     // check if show path creator
     if (showPathCreator) {
-        // update colors
-        if (myCreationMode & SHOW_CANDIDATE_EDGES) {
-            updateEdgeColors();
-        }
-        if (myCreationMode & START_JUNCTION) {
-            updateEdgeColors();
-        }
         // recalc before show (to avoid graphic problems)
         recalc();
         // show modul
@@ -2747,10 +2745,15 @@ GNEFrameModules::PathCreator::drawCandidateEdgesWithSpecialColor() const {
 
 void
 GNEFrameModules::PathCreator::updateJunctionColors() {
-    // reset all flags
-    for (const auto& junction : myFrameParent->myViewNet->getNet()->getAttributeCarriers()->getJunctions()) {
-        junction.second->resetCandidateFlags();
-        junction.second->setPossibleCandidate(true);
+    // clear junction colors
+    clearJunctionColors();
+    // check if show possible candidates
+    if (myCreationMode & SHOW_CANDIDATE_JUNCTIONS) {
+        // set candidate flags
+        for (const auto& junction : myFrameParent->myViewNet->getNet()->getAttributeCarriers()->getJunctions()) {
+            junction.second->resetCandidateFlags();
+            junction.second->setPossibleCandidate(true);
+        }
     }
     // set selected junctions
     if (mySelectedJunctions.size() > 0) {
@@ -2770,14 +2773,26 @@ GNEFrameModules::PathCreator::updateJunctionColors() {
 
 void
 GNEFrameModules::PathCreator::updateEdgeColors() {
-    // reset all flags
+    // clear edge colors
     clearEdgeColors();
+    // first check if show candidate edges
+    if (myShowCandidateEdges->getCheck() == TRUE && (myCreationMode & SHOW_CANDIDATE_EDGES)) {
+        // mark all edges that have at least one lane that allow given vClass
+        for (const auto& edge : myFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
+            if (edge.second->getNBEdge()->getNumLanesThatAllow(myVClass) > 0) {
+                edge.second->setPossibleCandidate(true);
+            } else {
+                edge.second->setSpecialCandidate(true);
+            }
+        }
+    }
     // set reachability
     if (mySelectedEdges.size() > 0) {
         // only coloring edges if checkbox "show candidate edges" is enabled
         if ((myShowCandidateEdges->getCheck() == TRUE) && (myCreationMode & SHOW_CANDIDATE_EDGES)) {
             // mark all edges as conflicted (to mark special candidates)
             for (const auto& edge : myFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
+                edge.second->resetCandidateFlags();
                 edge.second->setConflictedCandidate(true);
             }
             // set special candidates (Edges that are connected but aren't compatibles with current vClass
@@ -2797,15 +2812,6 @@ GNEFrameModules::PathCreator::updateEdgeColors() {
         // finally mark last selected element as target
         mySelectedEdges.back()->resetCandidateFlags();
         mySelectedEdges.back()->setTargetCandidate(true);
-    } else if (myShowCandidateEdges->getCheck() == TRUE && (myCreationMode & SHOW_CANDIDATE_EDGES)) {
-        // mark all edges that have at least one lane that allow given vClass
-        for (const auto& edge : myFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
-            if (edge.second->getNBEdge()->getNumLanesThatAllow(myVClass) > 0) {
-                edge.second->setPossibleCandidate(true);
-            } else {
-                edge.second->setSpecialCandidate(true);
-            }
-        }
     }
     // update view net
     myFrameParent->myViewNet->updateViewNet();

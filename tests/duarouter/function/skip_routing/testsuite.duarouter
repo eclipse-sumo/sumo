@@ -1,0 +1,12 @@
+# test option --skip-new-routes with invalid input
+invalid
+
+# plain rerouting
+default
+default_alt
+
+# skip rerouting
+skip
+
+# skip rerouting, .rou.alt.xml input
+skip_alt

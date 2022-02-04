@@ -118,7 +118,7 @@ public:
 protected:
 
     /** helper function which contains the actual logic */
-    double _patchSpeed(const double min, const double wanted, const double max,
+    double _patchSpeed(double min, const double wanted, const double max,
                        const MSCFModel& cfModel);
 
     /// @brief helper function for doing the actual work
@@ -168,16 +168,11 @@ protected:
     /// @brief anticipate future follow speed for the given leader
     double anticipateFollowSpeed(const std::pair<MSVehicle*, double>& leaderDist, double dist, double vMax, bool acceleratingLeader);
 
-    /// @brief save space for vehicles which need to counter-lane-change
-    void saveBlockerLength(MSVehicle* blocker, int lcaCounter);
-
     /// @brief react to pedestrians on the given lane
     void adaptSpeedToPedestrians(const MSLane* lane, double& v);
 
     /// @brief reserve space at the end of the lane to avoid dead locks
-    inline void saveBlockerLength(double length) override {
-        myLeadingBlockerLength = MAX2(length, myLeadingBlockerLength);
-    };
+    double saveBlockerLength(double length, double foeLeftSpace) override;
 
     inline bool amBlockingLeader() {
         return (myOwnState & LCA_AMBLOCKINGLEADER) != 0;

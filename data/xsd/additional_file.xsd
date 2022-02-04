@@ -230,6 +230,9 @@
         <xsd:attribute name="detectPersons" type="xsd:string" use="optional"/>
         <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
         <xsd:attribute name="writeAttributes" type="xsd:string" use="optional"/>
+        <xsd:attribute name="edges" type="xsd:string" use="optional"/>
+        <xsd:attribute name="edgesFile" type="xsd:string" use="optional"/>
+        <xsd:attribute name="aggregate" type="boolType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="timedEventType">
@@ -245,6 +248,8 @@
         </xsd:attribute>
         <xsd:attribute name="source" type="xsd:string" use="required"/>
         <xsd:attribute name="dest" type="xsd:string" use="required"/>
+        <xsd:attribute name="saveDetectors" type="boolType" use="optional"/>
+        <xsd:attribute name="saveConditions" type="boolType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="WAUTType">
@@ -603,6 +608,7 @@
             <xsd:element name="phase" type="phaseType"/>
             <xsd:element name="param" type="paramType"/>
             <xsd:element name="condition" type="conditionType"/>
+            <xsd:element name="assignment" type="assignmentType"/>
         </xsd:choice>
         <xsd:attribute name="id" type="idType" use="required"/>
         <xsd:attribute name="type" type="tlTypeType" use="optional"/>

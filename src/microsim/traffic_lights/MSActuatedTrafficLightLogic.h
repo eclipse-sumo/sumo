@@ -47,6 +47,11 @@ class NLDetectorBuilder;
  */
 class MSActuatedTrafficLightLogic : public MSSimpleTrafficLightLogic {
 public:
+
+    typedef std::map<std::string, std::string> ConditionMap;
+    typedef std::vector<std::tuple<std::string, std::string, std::string> > AssignmentMap;
+
+
     /** @brief Constructor
      * @param[in] tlcontrol The tls control responsible for this tls
      * @param[in] id This tls' id
@@ -63,7 +68,8 @@ public:
                                 int step, SUMOTime delay,
                                 const std::map<std::string, std::string>& parameter,
                                 const std::string& basePath,
-                                const std::map<std::string, std::string>& conditions = std::map<std::string, std::string>());
+                                const ConditionMap& conditions = ConditionMap(),
+                                const AssignmentMap& assignments = AssignmentMap());
 
 
     /** @brief Initialises the tls with information about incoming lanes
@@ -87,6 +93,11 @@ public:
      */
     SUMOTime trySwitch();
     /// @}
+
+    SUMOTime getMinDur(int step = -1) const override;
+    SUMOTime getMaxDur(int step = -1) const override;
+    SUMOTime getEarliestEnd(int step = -1) const override;
+    SUMOTime getLatestEnd(int step = -1) const override;
 
     /// @name Changing phases and phase durations
     /// @{
@@ -122,6 +133,7 @@ public:
 
 protected:
     /// @brief initialize custom switching rules
+    void initAttributeOverride();
     void initSwitchingRules();
 
     struct InductLoopInfo {
@@ -209,7 +221,6 @@ protected:
         }
     }
 
-
 protected:
     /// @brief A map from phase to induction loops to be used for gap control
     InductLoopMap myInductLoopsForPhase;
@@ -252,7 +263,14 @@ protected:
     std::vector<SUMOTime> myLinkMinGreenTimes;
 
     /// @brief The custom switching conditions
-    std::map<std::string, std::string> myConditions;
+    ConditionMap myConditions;
+
+    /// @brief The condition assignments
+    AssignmentMap myAssignments;
+
+
+    /// @brief the conditions which shall be listed in GUITLLogicPhasesTrackerWindow
+    std::set<std::string> myListedConditions;
 
     /// @brief whether the next switch time was requested via TraCI
     bool myTraCISwitch;

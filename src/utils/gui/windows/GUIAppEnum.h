@@ -608,6 +608,8 @@ enum {
     MID_CLOSE_EDGE,
     /// @brief add rerouter
     MID_ADD_REROUTER,
+    /// @brief toggle detector override
+    MID_VIRTUAL_DETECTOR,
 
     /// @}
 

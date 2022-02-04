@@ -21,6 +21,8 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/div/GLHelper.h>
 
 #include "GNECalibratorFlow.h"
 
@@ -30,9 +32,9 @@
 // ===========================================================================
 
 GNECalibratorFlow::GNECalibratorFlow(GNENet* net) :
-    GNEAdditional("", net, GLO_CALIBRATOR, GNE_TAG_FLOW_CALIBRATOR, "",
-{}, {}, {}, {}, {}, {}, {}, {},
-std::map<std::string, std::string>()) {
+    GNEAdditional("", net, GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, "",
+        {}, {}, {}, {}, {}, {}, {}, {},
+    std::map<std::string, std::string>()) {
     // reset default values
     resetDefaultValues();
     // set VPH and speed enabled
@@ -42,19 +44,19 @@ std::map<std::string, std::string>()) {
 
 
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route) :
-    GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_FLOW_CALIBRATOR, "",
-{}, {}, {}, {calibratorParent}, {}, {}, {vehicleType, route}, {},
-std::map<std::string, std::string>()),
-SUMOVehicleParameter() {
+    GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, "",
+        {}, {}, {}, {calibratorParent}, {}, {}, {vehicleType, route}, {},
+    std::map<std::string, std::string>()),
+    SUMOVehicleParameter() {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
 
 
 GNECalibratorFlow::GNECalibratorFlow(GNEAdditional* calibratorParent, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters) :
-    GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_FLOW_CALIBRATOR, "",
-{}, {}, {}, {calibratorParent}, {}, {}, {vehicleType, route}, {},
-std::map<std::string, std::string>()),
+    GNEAdditional(calibratorParent->getNet(), GLO_CALIBRATOR, GNE_TAG_CALIBRATOR_FLOW, "",
+        {}, {}, {}, {calibratorParent}, {}, {}, {vehicleType, route}, {},
+    std::map<std::string, std::string>()),
 SUMOVehicleParameter(vehicleParameters) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
@@ -82,7 +84,7 @@ GNECalibratorFlow::writeAdditional(OutputDevice& device) const {
         // close vehicle tag
         device.closeTag();
     } else {
-        WRITE_WARNING(toString(GNE_TAG_FLOW_CALIBRATOR) + " of  calibrator '" +  getParentAdditionals().front()->getID() +
+        WRITE_WARNING(toString(GNE_TAG_CALIBRATOR_FLOW) + " of  calibrator '" +  getParentAdditionals().front()->getID() +
                       "' cannot be written. Either type or vehsPerHour or speed must be enabled");
     }
 }
@@ -135,9 +137,16 @@ GNECalibratorFlow::getParentName() const {
 
 void
 GNECalibratorFlow::drawGL(const GUIVisualizationSettings& s) const {
+    // push rotation matrix
+    GLHelper::pushMatrix();
+    // move to parent additional position
+    glTranslated(getParentAdditionals().front()->getPositionInView().x(), getParentAdditionals().front()->getPositionInView().y(), 0);
+    // rotate
+    glRotated((-1 * getParentAdditionals().front()->getAdditionalGeometry().getShapeRotations().front()) + 180, 0, 0, 1);
     // draw rerouter interval as listed attribute
-    drawListedAddtional(s, getParentAdditionals().front()->getPositionInView(),
-                        0, 0, s.additionalSettings.calibratorColor, RGBColor::BLACK, GUITexture::VARIABLESPEEDSIGN_STEP, "Flow: " + getID());
+    drawListedAddtional(s, Position(0, 0), 0.05, 1, s.additionalSettings.calibratorColor, RGBColor::BLACK, GUITexture::VARIABLESPEEDSIGN_STEP, "Flow: " + getID());
+    // pop rotation matrix
+    GLHelper::popMatrix();
 }
 
 

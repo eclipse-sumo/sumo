@@ -21,14 +21,14 @@
 
 #include <cassert>
 #include <vector>
+#include <utils/common/FileHelpers.h>
+#include <utils/common/StringUtils.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSNet.h>
 #include <microsim/output/MSDetectorControl.h>
-#include "MSSimpleTrafficLightLogic.h"
-#include "MSDelayBasedTrafficLightLogic.h"
 #include <microsim/MSLane.h>
 #include <netload/NLDetectorBuilder.h>
-#include <utils/common/StringUtils.h>
+#include "MSDelayBasedTrafficLightLogic.h"
 
 #define INVALID_POSITION std::numeric_limits<double>::max()
 

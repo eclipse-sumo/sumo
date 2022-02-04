@@ -1,0 +1,6 @@
+# use custom switching rules to replicate the default behavior
+replicate_default
+
+# a traffic light program that computes all primes < 100
+# because we can!
+find_primes

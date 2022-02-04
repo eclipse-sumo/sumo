@@ -266,7 +266,7 @@ permit parking.
 
 In this case the vehicle either waits on the road until a parking space
 becomes available or it may reroute to an alternative parking area. For
-the latter behaviour a `parkingAreaReroute`-definition must be specified. This rerouter
+the latter behavior a `parkingAreaReroute`-definition must be specified. This rerouter
 definition defines a set of parking areas that may be mutually used as
 alternatives. Rerouting to another parking area is triggered in two
 cases:

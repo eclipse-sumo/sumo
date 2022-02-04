@@ -29,10 +29,9 @@
 // ===========================================================================
 // static member variables
 // ===========================================================================
-SumoRNG RandHelper::myRandomNumberGenerator;
+SumoRNG RandHelper::myRandomNumberGenerator("default");
 #ifdef DEBUG_RANDCALLS
-std::map<SumoRNG*, int> RandHelper::myRngId;
-int RandHelper::myDebugIndex(7);
+unsigned long long int RandHelper::myDebugIndex(7);
 #endif
 
 
@@ -60,9 +59,6 @@ RandHelper::initRand(SumoRNG* which, const bool random, const int seed) {
     if (which == nullptr) {
         which = &myRandomNumberGenerator;
     }
-#ifdef DEBUG_RANDCALLS
-    myRngId[which] = myRngId.size();
-#endif
     if (random) {
         which->seed((unsigned long)time(nullptr));
     } else {

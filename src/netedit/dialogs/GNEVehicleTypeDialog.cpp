@@ -1013,7 +1013,7 @@ GNEVehicleTypeDialog::VTypeAtributes::updateValues() {
     myVShapeRow->updateValues();
     // update rows
     myLaneChangeModel->updateValue();
-    myLatAlignment->updateValue();
+    myLatAlignment->updateValue(toString(defaultVTypeParameters.latAlignmentProcedure));
     myColor->updateValue();
     myLength->updateValue(toString(defaultVTypeParameters.length));
     myMinGap->updateValue(toString(defaultVTypeParameters.minGap));
@@ -1104,7 +1104,7 @@ GNEVehicleTypeDialog::VTypeAtributes::onCmdSetAttribute(FXObject*, FXSelector, v
     myOSGFile->setVariable(toString(defaultVTypeParameters.osgFile));
     // set attributes in rows
     myLaneChangeModel->setVariable();
-    myLatAlignment->setVariable();
+    myLatAlignment->setVariable(toString(defaultVTypeParameters.latAlignmentProcedure));
     myLength->setVariable(toString(defaultVTypeParameters.length));
     myMinGap->setVariable(toString(defaultVTypeParameters.minGap));
     myMaxSpeed->setVariable(toString(defaultVTypeParameters.maxSpeed));

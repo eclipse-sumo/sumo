@@ -47,7 +47,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 228, 170)
 
 # Change keepclear
-netedit.modifyBoolAttribute(1, True)
+netedit.modifyBoolAttribute(netedit.attrs.connection.inspectSelection.keepClear, True)
 
 # rebuild
 netedit.rebuildNetwork()

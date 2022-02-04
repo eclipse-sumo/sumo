@@ -4,4 +4,5 @@ Error: Could not build detExit in netedit; lane doesn't exist.
 Error: Could not build detExit in netedit; lane doesn't exist.
 Error: Could not build detExit in netedit; lane doesn't exist.
 Error: Could not build detExit in netedit; lane doesn't exist.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.15Jun151050.2480\netedit.gui\additionalElements\detexit\volatileRecomputing\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Feb115932.7648\netedit.gui\additionalElements\detexit\volatileRecomputing\input_additionals.add.xml failed.
+Error: routes cannot be processed either with additional handler nor with demand handler

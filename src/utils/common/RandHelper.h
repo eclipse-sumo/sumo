@@ -96,7 +96,10 @@ private:
 //class SumoRNG : public XoShiRo256PlusPlus {
 class SumoRNG : public std::mt19937 {
 public:
+    SumoRNG(const std::string& _id) : id(_id) {}
+
     unsigned long long int count = 0;
+    std::string id;
 };
 
 
@@ -127,7 +130,7 @@ public:
             std::cout << "DEBUG\n"; // for setting breakpoint
         }
         std::stringstream stream; // to reduce output interleaving from different threads
-        stream << " rng" << myRngId.find(rng)->second << " rand call=" << rng->count << " val=" << res << "\n";
+        stream << "rng " << rng->id << " call=" << rng->count << " val=" << res << "\n";
         std::cout << stream.str();
 #endif
         return res;
@@ -244,8 +247,7 @@ protected:
     static SumoRNG myRandomNumberGenerator;
 
 #ifdef DEBUG_RANDCALLS
-    static std::map<SumoRNG*, int> myRngId;
-    static int myDebugIndex;
+    static unsigned long long int myDebugIndex;
 #endif
 
 };

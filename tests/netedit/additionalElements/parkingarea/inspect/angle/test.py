@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("parkingArea")
 
 # change reference to center
-netedit.changeDefaultValue(12, "reference center")
+netedit.changeDefaultValue(netedit.attrs.parkingArea.create.references, "reference center")
 
 # create parkingArea in mode "reference center"
 netedit.leftClick(referencePosition, 250, 170)
@@ -47,16 +47,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 200)
 
 # Change parameter Angle with a non valid value (dummy)
-netedit.modifyAttribute(11, "dummyAngle", True)
+netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.angle, "dummyAngle", True)
 
 # Change parameter Angle with a valid value (negative)
-netedit.modifyAttribute(11, "-6", True)
+netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.angle, "-6", True)
 
 # Change parameter Angle with a valid value >360
-netedit.modifyAttribute(11, "500", True)
+netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.angle, "500", True)
 
 # Change parameter Angle with a valid value
-netedit.modifyAttribute(11, "32.5", True)
+netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.angle, "32.5", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)

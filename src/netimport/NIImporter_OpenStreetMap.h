@@ -377,6 +377,10 @@ protected:
             return myDuplicateNodes;
         }
 
+        void resetHierarchy() {
+            myHierarchyLevel = 0;
+        }
+
     protected:
         /// @name inherited from GenericSAXHandler
         //@{
@@ -402,7 +406,6 @@ protected:
 
 
     private:
-
         /// @brief The nodes container to fill
         std::map<long long int, NIOSMNode*>& myToFill;
 
@@ -496,10 +499,7 @@ protected:
         std::map<long long int, Edge*>& myPlatformShapesMap;
 
         /// @brief The currently built edge
-        Edge* myCurrentEdge;
-
-        /// @brief The element stack
-        std::vector<int> myParentElements;
+        Edge* myCurrentEdge = nullptr;
 
         /// @brief A map of non-numeric speed descriptions to their numeric values
         std::map<std::string, double> mySpeedMap;
@@ -584,9 +584,6 @@ protected:
 
         /// @brief The currently parsed relation
         long long int myCurrentRelation;
-
-        /// @brief The element stack
-        std::vector<int> myParentElements;
 
         /// @brief whether the currently parsed relation is a restriction
         bool myIsRestriction;

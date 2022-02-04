@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-07 16:20:51 by Eclipse SUMO netconvert Version v1_11_0+0928-18c1b433e84
+<!-- generated on 2022-01-27 23:56:18 by Eclipse SUMO netconvert Version v1_12_0+0084-0d8fc346dad
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -51,7 +51,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":F_0_0" index="0" allow="bicycle" speed="11.24" length="31.90" width="2.00" shape="189.75,55.22 185.59,53.86 180.20,56.23 173.55,62.33 165.66,72.17"/>
     </edge>
     <edge id=":F_1" function="internal">
-        <lane id=":F_1_0" index="0" allow="bicycle" speed="13.89" length="38.66" shape="189.75,55.22 182.46,50.27 173.09,45.44 163.76,40.58 156.58,35.51"/>
+        <lane id=":F_1_0" index="0" allow="bicycle" speed="13.89" length="38.66" width="2.00" shape="189.75,55.22 182.46,50.27 173.09,45.44 163.76,40.58 156.58,35.51"/>
     </edge>
     <edge id=":F_2" function="internal">
         <lane id=":F_2_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric ship" speed="12.01" length="6.62" shape="191.45,53.25 186.27,51.20 185.28,51.55"/>
@@ -75,7 +75,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":F_28_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric ship" speed="3.68" length="3.66" shape="191.14,52.15 191.05,51.82 191.28,50.93 192.12,50.58 193.60,50.76"/>
     </edge>
     <edge id=":F_6" function="internal">
-        <lane id=":F_6_0" index="0" allow="bicycle" speed="6.52" length="9.41" shape="194.66,42.04 192.97,44.38 192.30,46.54 192.64,48.52 194.00,50.32"/>
+        <lane id=":F_6_0" index="0" allow="bicycle" speed="6.52" length="9.41" width="2.00" shape="194.66,42.04 192.97,44.38 192.30,46.54 192.64,48.52 194.00,50.32"/>
     </edge>
     <edge id=":F_7" function="internal">
         <lane id=":F_7_0" index="0" allow="bicycle" speed="13.89" length="41.87" width="2.00" shape="194.66,42.04 185.71,51.30 178.44,58.12 172.03,64.43 165.66,72.17"/>

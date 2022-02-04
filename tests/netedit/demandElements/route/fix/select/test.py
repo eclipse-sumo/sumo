@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # show demand elements in network mode
-netedit.changeEditMode('1')
+netedit.changeEditMode('3')
 
 # Recompute
 netedit.rebuildNetwork()

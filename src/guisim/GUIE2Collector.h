@@ -158,6 +158,12 @@ public:
         /// @brief Returns the detector itself
         GUIE2Collector& getDetector();
 
+    protected:
+        /// @brief whether this detector has an active virtual detector call
+        bool haveOverride() const override;
+
+        /// @brief toggle virtual detector call
+        void toggleOverride() const override;
 
     private:
         /// @brief The wrapped detector

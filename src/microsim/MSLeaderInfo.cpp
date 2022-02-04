@@ -337,6 +337,21 @@ MSLeaderDistanceInfo::getClosest() const {
     return std::make_pair(veh, minGap);
 }
 
+
+void
+MSLeaderDistanceInfo::moveSamePosTo(const MSVehicle* ego, MSLeaderDistanceInfo& other) {
+    const double pos = ego->getPositionOnLane();
+    for (int i = 0; i < (int)myVehicles.size(); ++i) {
+        if (myVehicles[i] != nullptr && myDistances[i] < 0 && myVehicles[i]->getPositionOnLane() == pos
+                && &myVehicles[i]->getLane()->getEdge() == &ego->getLane()->getEdge()) {
+            other.myVehicles[i] = myVehicles[i];
+            other.myDistances[i] = myDistances[i];
+            myVehicles[i] = nullptr;
+            myDistances[i] = -1;
+        }
+    }
+}
+
 // ===========================================================================
 // MSCriticalFollowerDistanceInfo member method definitions
 // ===========================================================================

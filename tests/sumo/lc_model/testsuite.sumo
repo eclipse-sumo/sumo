@@ -1,3 +1,6 @@
+# tests for dynamics at ramps leading to and from motorways
+ramps
+
 # test vType attribute 'lcm'
 specify_lcm
 
@@ -23,9 +26,6 @@ speed_assistance
 
 # behavior when approaching a lane that is targeted twice from the same edge
 double_connection
-
-# tests for merging behavior on acceleration lane
-onRamp
 
 # test continuous lane change maneuvers
 continuous_lanechange

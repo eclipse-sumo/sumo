@@ -16,26 +16,18 @@ GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.6
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
 Debug: Adding route 'route_0' in GNEChange_DemandElement
-Debug: Inserting generic parameter 'key1|value1' into 
 Debug: Inserting generic parameter 'key1|value1' into vehicle
 Error: Attribute 'key' is missing in definition of a param.
 Error: Attribute 'key' is missing in definition of a param.
-Error: Attribute 'key' is missing in definition of a param.
-Error: Attribute 'key' is missing in definition of a param.
 Error: Attribute 'key' in definition of a param is empty.
-Error: Attribute 'key' in definition of a param is empty.
-Debug: Inserting generic parameter 'key1|value5' into 
+Debug: Inserting generic parameter '$$key with spaces%%|value4' into vehicle
 Debug: Inserting generic parameter 'key1|value5' into vehicle
-Debug: Inserting generic parameter 'key2|' into 
 Debug: Inserting generic parameter 'key2|' into vehicle
-Debug: Inserting generic parameter 'key2|' into 
 Debug: Inserting generic parameter 'key2|' into vehicle
-Debug: Inserting generic parameter 'key3|$$value with spaces%%' into 
 Debug: Inserting generic parameter 'key3|$$value with spaces%%' into vehicle
-Debug: Inserting generic parameter 'keyFinal|valueFinal' into 
 Debug: Inserting generic parameter 'keyFinal|valueFinal' into vehicle
 Debug: Adding vehicle 'vehicle_0' in GNEChange_DemandElement
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_10Nov083825.12136\netedit.gui\demandElements\vehicle\load\parameters\input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.02Feb085048.2108\netedit.gui\demandElements\vehicle\load\parameters\input_routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -2.00,8.00,22.00,32.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 58.00,8.00,82.00,32.00

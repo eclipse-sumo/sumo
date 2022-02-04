@@ -198,7 +198,7 @@ MSCFModel::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     assert(vNext <= vMax);
     // apply lane-changing related speed adaptations
     vNext = veh->getLaneChangeModel().patchSpeed(vMin, vNext, vMax, *this);
-    assert(vNext >= vMin);
+    assert(vNext >= vMinEmergency); // stronger braking is permitted in lane-changing related emergencies
     assert(vNext <= vMax);
 
 #ifdef DEBUG_FINALIZE_SPEED

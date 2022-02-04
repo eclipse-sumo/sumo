@@ -50,7 +50,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 225)
 
 # Change priority
-netedit.modifyBoolAttribute(0, True)
+netedit.modifyBoolAttribute(netedit.attrs.crossing.inspectSelectionTLS.priority, True)
 
 # rebuild network
 netedit.rebuildNetwork()

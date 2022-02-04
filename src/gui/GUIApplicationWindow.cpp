@@ -53,6 +53,7 @@
 
 #include <utils/common/ToString.h>
 #include <utils/common/RandHelper.h>
+#include <utils/common/Command.h>
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/foxtools/FXLCDLabel.h>
 #include <utils/foxtools/FXThreadEvent.h>
@@ -365,6 +366,12 @@ GUIApplicationWindow::~GUIApplicationWindow() {
         GUIEvent* e = myEvents.top();
         myEvents.pop();
         delete e;
+    }
+    for (auto item : myHotkeyPress) {
+        delete item.second;
+    }
+    for (auto item : myHotkeyRelease) {
+        delete item.second;
     }
 }
 
@@ -1580,6 +1587,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
             if (myDemandScaleSpinner->getValue() == 1 || !OptionsCont::getOptions().isDefault("scale")) {
                 myDemandScaleSpinner->setValue(OptionsCont::getOptions().getFloat("scale"));
             }
+            myRunThread->getNet().getVehicleControl().setScale(myDemandScaleSpinner->getValue());
         }
     }
     getApp()->endWaitCursor();
@@ -1921,11 +1929,25 @@ GUIApplicationWindow::updateTimeLCD(SUMOTime time) {
     myLCDLabel->setText(str.str().c_str());
 }
 
+void
+GUIApplicationWindow::addHotkey(int key, Command* press, Command* release) {
+    if (press != nullptr) {
+        myHotkeyPress[key] = press;
+    }
+    if (release != nullptr) {
+        myHotkeyRelease[key] = release;
+    }
+}
 
 long
 GUIApplicationWindow::onKeyPress(FXObject* o, FXSelector sel, void* ptr) {
     const long handled = FXMainWindow::onKeyPress(o, sel, ptr);
     if (handled == 0 && myMDIClient->numChildren() > 0) {
+        FXEvent* e = (FXEvent*) ptr;
+        auto it = myHotkeyPress.find(e->code);
+        if (it != myHotkeyPress.end()) {
+            it->second->execute(SIMSTEP);
+        }
         GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
         if (w != nullptr) {
             w->onKeyPress(nullptr, sel, ptr);
@@ -1939,6 +1961,11 @@ long
 GUIApplicationWindow::onKeyRelease(FXObject* o, FXSelector sel, void* ptr) {
     const long handled = FXMainWindow::onKeyRelease(o, sel, ptr);
     if (handled == 0 && myMDIClient->numChildren() > 0) {
+        FXEvent* e = (FXEvent*) ptr;
+        auto it = myHotkeyRelease.find(e->code);
+        if (it != myHotkeyRelease.end()) {
+            it->second->execute(SIMSTEP);
+        }
         GUISUMOViewParent* w = dynamic_cast<GUISUMOViewParent*>(myMDIClient->getActiveChild());
         if (w != nullptr) {
             w->onKeyRelease(nullptr, sel, ptr);

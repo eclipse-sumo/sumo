@@ -1,1 +1,6 @@
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Warning: Vehicle class 'bicycle' of vType 'bicycle' is set as ignored by option --meso-ignore-lanes-by-vclass to ensure default vehicle capacity. Set option --meso-lane-queue for multi-modal meso simulation
+Warning: Vehicle class 'bicycle' of vType 'bicycle_bikeboxleft' is set as ignored by option --meso-ignore-lanes-by-vclass to ensure default vehicle capacity. Set option --meso-lane-queue for multi-modal meso simulation
 Error: The lane ':C_28_0' for a stop is not known in vehicle 'SW_car'.
+Error: Vehicle 'WN_bike' has no valid route. Edge 'SN2' prohibits.
+Quitting (on error).

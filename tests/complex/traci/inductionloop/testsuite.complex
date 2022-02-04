@@ -1,6 +1,9 @@
 # Tests the inductionloop API
 inductionloop
 
+# test virtual detection
+override
+
 # Tests the inductionloop API
 persons_walk
 

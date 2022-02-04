@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb  8 17:15:19 2021 by Eclipse SUMO sumo Version v1_8_0+1040-a3e414f
+<!-- generated on 2022-01-27 00:42:02 by Eclipse SUMO sumo Version v1_12_0+0053-f4b5834
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,8 +46,5 @@ SPDX-License-Identifier: EPL-2.0
 
 <lanechanges>
     <change id="merge" type="t0" time="3.80" from="beg_0" to="beg_1" dir="1" speed="13.89" pos="52.78" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="0.40"/>
-    <change id="blocker1" type="t1" time="13.60" from="beg_1" to="beg_2" dir="1" speed="13.89" pos="188.90" reason="sublane" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="0.60"/>
-    <change id="blocker1" type="t1" time="18.50" from="end_1" to="end_0" dir="-1" speed="13.89" pos="56.97" reason="sublane" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="0.60"/>
-    <change id="blocker1" type="t1" time="19.20" from="end_0" to="end_1" dir="1" speed="13.89" pos="66.69" reason="sublane" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="0.50"/>
-    <change id="blocker1" type="t1" time="21.50" from="end_1" to="end_0" dir="-1" speed="13.89" pos="98.64" reason="sublane" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="0.60"/>
+    <change id="blocker1" type="t1" time="11.80" from="beg_1" to="beg_2" dir="1" speed="13.89" pos="163.90" reason="sublane" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="0.70"/>
 </lanechanges>

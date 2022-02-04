@@ -12,14 +12,6 @@ GLDebug: 	Inserted edge:5 into SUMORTree with boundary 40.00,-10.00,64.80,60.00
 GLDebug: 	Inserted edge:6 into SUMORTree with boundary 35.20,40.00,60.00,110.00
 GLDebug: 	Inserted edge:7 into SUMORTree with boundary -10.00,35.20,60.00,60.00
 GLDebug: 	Inserted edge:8 into SUMORTree with boundary 40.00,40.00,110.00,64.80
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Selected item 'personTrip: edge->edge' in TagSelector
-Debug: Selected item 'personTrip: edge->edge' in TagTypeSelector
-Debug: Selected item 'personTrip: edge->edge' in TagSelector
-Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:A from SUMORTree with boundary 38.00,-12.00,62.00,12.00
@@ -80,6 +72,7 @@ Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: Current Viewport values: 50.00, 50.00, 50.00. Zoom = '248.00'
 Debug: Value 'dummy Edges' for attribute edges of crossing isn't valid
 Debug: Setting new attribute
+Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:A from SUMORTree with boundary 33.60,-10.00,66.40,10.00
@@ -178,9 +171,12 @@ GLDebug: 	Inserted edge:8 into SUMORTree with boundary 40.00,40.00,110.00,64.80
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
+Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
+Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
+Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:A from SUMORTree with boundary 33.60,-10.00,66.40,10.00
@@ -215,9 +211,13 @@ GLDebug: 	Inserted edge:8 into SUMORTree with boundary 40.00,40.00,110.00,64.80
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
+Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
+Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute
+Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
+Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:A from SUMORTree with boundary 33.60,-10.00,66.40,10.00
 GLDebug: 	Removed object junction:B from SUMORTree with boundary 33.60,90.00,66.40,110.00
@@ -248,6 +248,8 @@ GLDebug: 	Inserted edge:5 into SUMORTree with boundary 40.00,-10.00,64.80,60.00
 GLDebug: 	Inserted edge:6 into SUMORTree with boundary 35.20,40.00,60.00,110.00
 GLDebug: 	Inserted edge:7 into SUMORTree with boundary -10.00,35.20,60.00,60.00
 GLDebug: 	Inserted edge:8 into SUMORTree with boundary 40.00,40.00,110.00,64.80
+Debug: Deleting unreferenced crossing ':Center_c1' in GNEChange_Attribute
+Debug: Deleting unreferenced crossing ':Center_c1' in GNEChange_Attribute
 Debug: Deleting unreferenced edge '1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '1_1' in GNEEdge destructor

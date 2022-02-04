@@ -267,6 +267,10 @@ public:
      */
     virtual const MSPhaseDefinition& getCurrentPhaseDef() const = 0;
 
+    virtual SUMOTime getMinDur(int step = -1) const;
+    virtual SUMOTime getMaxDur(int step = -1) const;
+    virtual SUMOTime getEarliestEnd(int step = -1) const;
+    virtual SUMOTime getLatestEnd(int step = -1) const;
 
     /** @brief Returns the cycle time (in ms)
      * @return The (maybe changing) cycle time of this tls

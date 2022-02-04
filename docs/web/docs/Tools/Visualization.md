@@ -97,7 +97,7 @@ The option **-t (--trajectory-type)** supports different attributes that can be 
 ### Available Attributes
 
 - **t**: Time in s
-- **d**: Distance driven (starts with 0 at the first fcd datapoint for each vehicle). Distance is computed based on speed using Euler-integration. Set optin **--ballistic** for [ballistic integration](../Simulation/Basic_Definition.md#defining_the_integration_method).
+- **d**: Distance driven (starts with 0 at the first fcd datapoint for each vehicle). Distance is computed based on speed using Euler-integration. Set option **--ballistic** for [ballistic integration](../Simulation/Basic_Definition.md#defining_the_integration_method).
 - **a**: Acceleration
 - **s**: Speed (m/s)
 - **i**: Vehicle angle (navigational degrees)
@@ -187,6 +187,7 @@ noise](../Simulation/Output/Lane-_or_Edge-based_Noise_Measures.md).
 **Options**
 
 Here the most important options are listed. Use **--help** to see all options.
+
 | Option                                               | Description                                         |
 |------------------------------------------------------|-----------------------------------------------------|
 | **-n** {{DT_FILE}}<br>**--net** {{DT_FILE}}                            | Defines the network to read                         |

@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, 375, 250)
 netedit.changeElement("access")
 
 # Create Access
-netedit.selectAdditionalChild(9, 0)
+netedit.selectAdditionalChild(netedit.attrs.access.create.parent, 0)
 netedit.leftClick(referencePosition, 200, 110)
 
 # go to inspect mode
@@ -54,16 +54,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 208, 280)
 
 # Change parameter lane with a non valid value (dummy Lane)
-netedit.modifyAttribute(0, "dummyLane", True)
+netedit.modifyAttribute(netedit.attrs.access.inspect.lane, "dummyLane", True)
 
 # Change parameter lane with a non valid value (Empty lane)
-netedit.modifyAttribute(0, "", True)
+netedit.modifyAttribute(netedit.attrs.access.inspect.lane, "", True)
 
 # Change parameter lane with a non valid value (There is another Access in the same edge)
-netedit.modifyAttribute(0, "gneE3_0", True)
+netedit.modifyAttribute(netedit.attrs.access.inspect.lane, "gneE3_0", True)
 
 # Change parameter lane with a valid value (other lane)
-netedit.modifyAttribute(0, "gneE1_0", True)
+netedit.modifyAttribute(netedit.attrs.access.inspect.lane, "gneE1_0", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

@@ -61,16 +61,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 280, 392)
 
 # Change parameter color with a non valid value (empty)
-netedit.modifyAttribute(3, "", False)
+netedit.modifyAttribute(netedit.attrs.route.inspectSelection.cycletime, "", False)
 
 # Change parameter color with a non valid value (dummy)
-netedit.modifyAttribute(3, "dummyCycle", False)
+netedit.modifyAttribute(netedit.attrs.route.inspectSelection.cycletime, "dummyCycle", False)
 
 # Change parameter color with a valid value
-netedit.modifyAttribute(3, "-12.4", False)
+netedit.modifyAttribute(netedit.attrs.route.inspectSelection.cycletime, "-12.4", False)
 
 # Change parameter color with a valid value
-netedit.modifyAttribute(3, "56.12", False)
+netedit.modifyAttribute(netedit.attrs.route.inspectSelection.cycletime, "56.12", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

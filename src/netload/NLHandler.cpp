@@ -118,6 +118,9 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_CONDITION:
                 addCondition(attrs);
                 break;
+            case SUMO_TAG_ASSIGNMENT:
+                addAssignment(attrs);
+                break;
             case SUMO_TAG_CONNECTION:
                 addConnection(attrs);
                 break;
@@ -872,6 +875,16 @@ NLHandler::addCondition(const SUMOSAXAttributes& attrs) {
 
 
 void
+NLHandler::addAssignment(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
+    const std::string check = attrs.get<std::string>(SUMO_ATTR_CHECK, nullptr, ok);
+    const std::string value = attrs.get<std::string>(SUMO_ATTR_VALUE, id.c_str(), ok);
+    myJunctionControlBuilder.addAssignment(id, check, value);
+}
+
+
+void
 NLHandler::addE1Detector(const SUMOSAXAttributes& attrs) {
     myCurrentIsBroken = false;
     bool ok = true;
@@ -1275,6 +1288,9 @@ NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes& attrs, int objecttype) {
     const SUMOTime frequency = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok, -1);
     const SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, id.c_str(), ok, string2time(OptionsCont::getOptions().getString("begin")));
     const SUMOTime end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, id.c_str(), ok, string2time(OptionsCont::getOptions().getString("end")));
+    std::vector<std::string> edgeIDs = attrs.getOptStringVector(SUMO_ATTR_EDGES, id.c_str(), ok);
+    const std::string edgesFile = attrs.getOpt<std::string>(SUMO_ATTR_EDGESFILE, id.c_str(), ok, "");
+    const bool aggregate = attrs.getOpt<bool>(SUMO_ATTR_AGGREGATE, id.c_str(), ok, false);
     if (!ok) {
         return;
     }
@@ -1287,13 +1303,38 @@ NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes& attrs, int objecttype) {
             return;
         }
     }
+    if (edgesFile != "") {
+        std::ifstream strm(edgesFile.c_str());
+        if (!strm.good()) {
+            throw ProcessError("Could not load names of edges for edgeData defintion '" + id + "' from '" + edgesFile + "'.");
+        }
+        while (strm.good()) {
+            std::string name;
+            strm >> name;
+            // maybe we're loading an edge-selection
+            if (StringUtils::startsWith(name, "edge:")) {
+                edgeIDs.push_back(name.substr(5));
+            } else if (name != "") {
+                edgeIDs.push_back(name);
+            }
+        }
+    }
+    std::vector<MSEdge*> edges;
+    for (const std::string& edgeID : edgeIDs) {
+        MSEdge* edge = MSEdge::dictionary(edgeID);
+        if (edge == nullptr) {
+            WRITE_ERROR("Unknown edge '" + edgeID + "' in edgeData definition '" + id + "'");
+            return;
+        }
+        edges.push_back(edge);
+    }
     try {
         myDetectorBuilder.createEdgeLaneMeanData(id, frequency, begin, end,
                 type, objecttype == SUMO_TAG_MEANDATA_LANE,
                 // equivalent to TplConvert::_2bool used in SUMOSAXAttributes::getBool
                 excludeEmpty[0] != 't' && excludeEmpty[0] != 'T' && excludeEmpty[0] != '1' && excludeEmpty[0] != 'x',
                 excludeEmpty == "defaults", withInternal, trackVehicles, detectPersons,
-                maxTravelTime, minSamples, haltingSpeedThreshold, vtypes, writeAttributes,
+                maxTravelTime, minSamples, haltingSpeedThreshold, vtypes, writeAttributes, edges, aggregate,
                 FileHelpers::checkForRelativity(file, getFileName()));
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());

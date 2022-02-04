@@ -636,6 +636,20 @@ public:
      */
     double getLaneWidth(int lane) const;
 
+    /** @brief Returns the width of the internal lane associated with the connection
+     * @param[in] node The node for which this edge is an incoming one
+     * @param[in] connection The connection from this edge to the successor lane
+     * @param[in] successor The outgoing lane of the connection
+     * @param[in] isVia Whether it is computing the Via stage
+     * @return The width of the internal lane
+     * @todo validity checks
+     */
+    double getInternalLaneWidth(
+            const NBNode& node,
+            const NBEdge::Connection& connection,
+            const NBEdge::Lane& successor,
+            bool isVia) const;
+
     /// @brief Returns the combined width of all lanes of this edge
     double getTotalWidth() const;
 

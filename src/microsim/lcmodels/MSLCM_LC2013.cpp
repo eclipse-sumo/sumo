@@ -220,7 +220,7 @@ MSLCM_LC2013::patchSpeed(const double min, const double wanted, const double max
 
 
 double
-MSLCM_LC2013::_patchSpeed(const double min, const double wanted, const double max, const MSCFModel& cfModel) {
+MSLCM_LC2013::_patchSpeed(double min, const double wanted, const double max, const MSCFModel& cfModel) {
     int state = myOwnState;
 #ifdef DEBUG_PATCH_SPEED
     if (DEBUG_COND) {
@@ -251,6 +251,13 @@ MSLCM_LC2013::_patchSpeed(const double min, const double wanted, const double ma
             // if we are approaching this place
             if (safe < wanted) {
                 // return this speed as the speed to use
+                if (safe < min) {
+                    const double vMinEmergency = myVehicle.getCarFollowModel().minNextSpeedEmergency(myVehicle.getSpeed(), &myVehicle);
+                    if (safe >= vMinEmergency) {
+                        // permit harder braking if needed and helpful
+                        min = MAX2(vMinEmergency, safe);
+                    }
+                }
 #ifdef DEBUG_PATCH_SPEED
                 if (DEBUG_COND) {
                     std::cout << SIMTIME << " veh=" << myVehicle.getID() << " slowing down for leading blocker, safe=" << safe << (safe + NUMERICAL_EPS < min ? " (not enough)" : "") << "\n";
@@ -297,8 +304,8 @@ MSLCM_LC2013::_patchSpeed(const double min, const double wanted, const double ma
             }
         }
     }
-
-    if (gotOne && !myDontBrake) { // XXX: myDontBrake is initialized as false and seems not to be changed anywhere... What's its purpose???
+    // myDontBrake is used in counter-lane-change situations with relief connection
+    if (gotOne && !myDontBrake) {
 #ifdef DEBUG_PATCH_SPEED
         if (DEBUG_COND) {
             std::cout << SIMTIME << " veh=" << myVehicle.getID() << " got vSafe\n";
@@ -519,7 +526,7 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
                 // not enough time to overtake?        (skipped for a stopped leader [currently only for ballistic update XXX: check if appropriate for euler, too, refs. #2575] to ensure that it can be overtaken if only enough space is exists) (Leo)
                 || (remainingSeconds < overtakeTime && (MSGlobals::gSemiImplicitEulerUpdate || !nv->isStopped())))
                 // opposite driving and must overtake
-                && !(isOpposite() && neighLead.second < 0 && neighLead.first->isStopped())) {
+                && (!neighLead.first->isStopped() || (isOpposite() && neighLead.second >= 0))) {
             // cannot overtake
             msgPass.informNeighLeader(new Info(std::numeric_limits<double>::max(), dir | LCA_AMBLOCKINGLEADER), &myVehicle);
             // slow down smoothly to follow leader
@@ -1440,9 +1447,15 @@ MSLCM_LC2013::_wantsChange(
 
         // letting vehicles merge in at the end of the lane in case of counter-lane change, step#1
         //   if there is a leader and he wants to change to the opposite direction
-        saveBlockerLength(neighLead.first, lcaCounter);
+        const bool canContinue = curr.bestContinuations.size() > 1;
+        bool canReserve = MSLCHelper::saveBlockerLength(myVehicle, neighLead.first, lcaCounter, myLeftSpace, canContinue, myLeadingBlockerLength);
         if (*firstBlocked != neighLead.first) {
-            saveBlockerLength(*firstBlocked, lcaCounter);
+            canReserve &= MSLCHelper::saveBlockerLength(myVehicle, *firstBlocked, lcaCounter, myLeftSpace,  canContinue, myLeadingBlockerLength);
+        }
+        if (!canReserve && !isOpposite()) {
+            // we have a low-priority relief connection
+            // std::cout << SIMTIME << " veh=" << myVehicle.getID() << " cannotReserve for blockers\n";
+            myDontBrake = canContinue;
         }
 
         const int remainingLanes = MAX2(1, abs(bestLaneOffset));
@@ -1912,52 +1925,6 @@ MSLCM_LC2013::slowDownForBlocked(MSVehicle** blocked, int state) {
 
 
 void
-MSLCM_LC2013::saveBlockerLength(MSVehicle* blocker, int lcaCounter) {
-#ifdef DEBUG_SAVE_BLOCKER_LENGTH
-    if (DEBUG_COND) {
-        std::cout << SIMTIME
-                  << " veh=" << myVehicle.getID()
-                  << " saveBlockerLength blocker=" << Named::getIDSecure(blocker)
-                  << " bState=" << (blocker == 0 ? "None" : toString(blocker->getLaneChangeModel().getOwnState()))
-                  << "\n";
-    }
-#endif
-    if (blocker != nullptr && (blocker->getLaneChangeModel().getOwnState() & lcaCounter) != 0) {
-        // is there enough space in front of us for the blocker?
-        const double potential = myLeftSpace - myVehicle.getCarFollowModel().brakeGap(
-                                     myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel(), 0);
-        if (blocker->getVehicleType().getLengthWithGap() <= potential) {
-            // save at least his length in myLeadingBlockerLength
-            myLeadingBlockerLength = MAX2(blocker->getVehicleType().getLengthWithGap(), myLeadingBlockerLength);
-#ifdef DEBUG_SAVE_BLOCKER_LENGTH
-            if (DEBUG_COND) {
-                std::cout << SIMTIME
-                          << " veh=" << myVehicle.getID()
-                          << " blocker=" << Named::getIDSecure(blocker)
-                          << " saving myLeadingBlockerLength=" << myLeadingBlockerLength
-                          << "\n";
-            }
-#endif
-        } else {
-            // we cannot save enough space for the blocker. It needs to save
-            // space for ego instead
-#ifdef DEBUG_SAVE_BLOCKER_LENGTH
-            if (DEBUG_COND) {
-                std::cout << SIMTIME
-                          << " veh=" << myVehicle.getID()
-                          << " blocker=" << Named::getIDSecure(blocker)
-                          << " cannot save space=" << blocker->getVehicleType().getLengthWithGap()
-                          << " potential=" << potential
-                          << "\n";
-            }
-#endif
-            blocker->getLaneChangeModel().saveBlockerLength(myVehicle.getVehicleType().getLengthWithGap());
-        }
-    }
-}
-
-
-void
 MSLCM_LC2013::adaptSpeedToPedestrians(const MSLane* lane, double& v) {
     if (lane->hasPedestrians()) {
 #ifdef DEBUG_WANTS_CHANGE
@@ -2018,6 +1985,17 @@ MSLCM_LC2013::getSafetyFactor() const {
 double
 MSLCM_LC2013::getOppositeSafetyFactor() const {
     return myOppositeParam <= 0 ? std::numeric_limits<double>::max() : 1 / myOppositeParam;
+}
+
+double
+MSLCM_LC2013::saveBlockerLength(double length, double foeLeftSpace) {
+    const bool canReserve = MSLCHelper::canSaveBlockerLength(myVehicle, length, myLeftSpace);
+    if (canReserve || myLeftSpace > foeLeftSpace) {
+        myLeadingBlockerLength = MAX2(length, myLeadingBlockerLength);
+        return true;
+    } else {
+        return false;
+    }
 }
 
 std::string

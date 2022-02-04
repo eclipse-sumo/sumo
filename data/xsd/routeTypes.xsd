@@ -786,6 +786,7 @@
         <xsd:attribute name="refId" type="xsd:string"/>
         <xsd:attribute name="reason" type="xsd:string"/>
         <xsd:attribute name="replacedOnEdge" type="xsd:string"/>
+        <xsd:attribute name="replacedOnIndex" type="nonNegativeFloatTypeWithErrorValue"/>
         <xsd:attribute name="replacedAtTime" type="nonNegativeFloatType"/>
         <xsd:attribute name="routeLength" type="nonNegativeFloatType" use="optional"/>
     </xsd:complexType>

@@ -36,6 +36,9 @@
 #include "MSTrafficLightLogic.h"
 #include "MSSimpleTrafficLightLogic.h"
 
+//#define DEBUG_COORDINATION
+#define DEBUG_COND (getID()=="C")
+
 
 // ===========================================================================
 // member method definitions
@@ -211,19 +214,27 @@ MSSimpleTrafficLightLogic::mapTimeInCycle(SUMOTime t) const {
 
 SUMOTime
 MSSimpleTrafficLightLogic::getEarliest(SUMOTime prevStart) const {
-    SUMOTime earliest = getCurrentPhaseDef().earliestEnd;
+    SUMOTime earliest = getEarliestEnd();
     if (earliest == MSPhaseDefinition::UNSPECIFIED_DURATION) {
         return 0;
     } else {
-        if (prevStart >= SIMSTEP - getTimeInCycle()) {
+        if (prevStart >= SIMSTEP - getTimeInCycle() && prevStart < getCurrentPhaseDef().myLastEnd) {
             // phase was started and ended once already in the current cycle
             // it should not end a second time in the same cycle
             earliest += myDefaultCycleTime;
-            //std::cout << SIMTIME << " tl=" << getID() << " getEarliest phase=" << myStep << " started Twice - move into next cycle\n";
+#ifdef DEBUG_COORDINATION
+            if (DEBUG_COND) {
+                std::cout << SIMTIME << " tl=" << getID() << " getEarliest phase=" << myStep
+                    << " prevStart= " << STEPS2TIME(prevStart)
+                    << " prevEnd= " << STEPS2TIME(getCurrentPhaseDef().myLastEnd)
+                    << " cycleStart=" << STEPS2TIME(SIMSTEP - getTimeInCycle()) << " started Twice - move into next cycle\n";
+            }
+#endif
         } else {
-            SUMOTime latest = getCurrentPhaseDef().latestEnd;
+            SUMOTime latest = getLatestEnd();
             if (latest != MSPhaseDefinition::UNSPECIFIED_DURATION) {
-                const SUMOTime minEnd = getTimeInCycle() + getCurrentPhaseDef().minDuration;
+                const SUMOTime minRemaining = getCurrentPhaseDef().minDuration - (SIMSTEP - getCurrentPhaseDef().myLastSwitch);
+                const SUMOTime minEnd = getTimeInCycle() + minRemaining;
                 if (latest > earliest && latest < minEnd) {
                     // cannot terminate phase between earliest and latest -> move end into next cycle
                     earliest += myDefaultCycleTime;
@@ -231,7 +242,12 @@ MSSimpleTrafficLightLogic::getEarliest(SUMOTime prevStart) const {
                     // can ignore earliest since it counts from the previous cycle
                     earliest -= myDefaultCycleTime;
                 }
-                //std::cout << SIMTIME << " tl=" << getID() << " getEarliest phase=" << myStep << " latest=" << STEPS2TIME(latest) << " minEnd=" << STEPS2TIME(minEnd) << " earliest=" << STEPS2TIME(earliest) << "\n";
+#ifdef DEBUG_COORDINATION
+                if (DEBUG_COND) {
+                    std::cout << SIMTIME << " tl=" << getID() << " getEarliest phase=" << myStep << " latest=" << STEPS2TIME(latest) << " minEnd="
+                        << STEPS2TIME(minEnd) << " earliest=" << STEPS2TIME(earliest) << "\n";
+                }
+#endif
             }
         }
         const SUMOTime maxRemaining = getCurrentPhaseDef().maxDuration - (SIMSTEP - getCurrentPhaseDef().myLastSwitch);
@@ -242,16 +258,26 @@ MSSimpleTrafficLightLogic::getEarliest(SUMOTime prevStart) const {
 
 SUMOTime
 MSSimpleTrafficLightLogic::getLatest() const {
-    const SUMOTime latest = getCurrentPhaseDef().latestEnd;
+    const SUMOTime latest = getLatestEnd();
     if (latest == MSPhaseDefinition::UNSPECIFIED_DURATION) {
         return SUMOTime_MAX; // no restriction
     } else {
-        if (latest < myPhases[myStep]->earliestEnd) {
+        if (latest < getEarliestEnd()) {
             const SUMOTime running = SIMSTEP - getCurrentPhaseDef().myLastSwitch;
             if (running < getTimeInCycle()) {
                 // phase was started in the current cycle so the restriction does not apply yet
                 return SUMOTime_MAX;
             }
+        }
+#ifdef DEBUG_COORDINATION
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " tl=" << getID() << " getLatest phase=" << myStep << " latest=" << STEPS2TIME(latest)
+                << " cycTime=" << STEPS2TIME(getTimeInCycle()) << " res=" << STEPS2TIME(latest - getTimeInCycle()) << "\n";
+        }
+#endif
+        if (latest == myDefaultCycleTime && getTimeInCycle() == 0) {
+            // special case: end on cylce time wrap-around
+            return 0;
         }
         return MAX2(SUMOTime(0), latest - getTimeInCycle());
     }

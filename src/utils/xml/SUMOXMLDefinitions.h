@@ -103,10 +103,10 @@ enum SumoXMLTag {
     SUMO_TAG_INSTANT_INDUCTION_LOOP,
     /// @brief A calibrator placed over edge
     SUMO_TAG_CALIBRATOR,
-    /// @brief A calibrator placed over lane (used in netedit)
-    SUMO_TAG_LANECALIBRATOR,
+    /// @brief A calibrator placed over lane
+    GNE_TAG_CALIBRATOR_LANE,
     /// @brief a flow definition within in Calibrator
-    GNE_TAG_FLOW_CALIBRATOR,
+    GNE_TAG_CALIBRATOR_FLOW,
     /// @brief  A rerouter
     SUMO_TAG_REROUTER,
     /// @brief an aggreagated-output interval
@@ -173,6 +173,8 @@ enum SumoXMLTag {
     SUMO_TAG_PHASE,
     /// @brief a condition for phase switching
     SUMO_TAG_CONDITION,
+    /// @brief a conditional variable assignment for phase switching
+    SUMO_TAG_ASSIGNMENT,
     /// @brief a single trip definition that uses TAZs (used in NETEDIT)
     SUMO_TAG_TRIP_TAZ,
     /// @brief a flow definitio nusing a from-to edges instead of a route (used by router)
@@ -870,6 +872,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_SAVINGS,
     SUMO_ATTR_EXITTIMES,
     SUMO_ATTR_PROB,
+    SUMO_ATTR_REPLACED_AT_TIME,
+    SUMO_ATTR_REPLACED_ON_INDEX,
     SUMO_ATTR_COUNT,
     SUMO_ATTR_PROBS,
     SUMO_ATTR_ROUTES,
@@ -995,6 +999,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_EARLY_TARGET,
     /// @brief The condition expression for switching into this phase when the active phase must end
     SUMO_ATTR_FINAL_TARGET,
+    /// @brief The expression for a condition assignment
+    SUMO_ATTR_CHECK,
     /// @brief vehicle extension time of a phase
     SUMO_ATTR_VEHICLEEXTENSION,
     /// @brief yellow duration of a phase
@@ -1011,6 +1017,11 @@ enum SumoXMLAttr {
     SUMO_ATTR_FOES,
     /// @}
     SUMO_ATTR_CONSTRAINTS,
+
+    SUMO_ATTR_DETECTORS,
+    SUMO_ATTR_CONDITIONS,
+    SUMO_ATTR_SAVE_DETECTORS,
+    SUMO_ATTR_SAVE_CONDITIONS,
 
     /// @name Attributes for detectors
     /// @{
@@ -1089,6 +1100,9 @@ enum SumoXMLAttr {
     SUMO_ATTR_MAX_TRAVELTIME,
     SUMO_ATTR_MIN_SAMPLES,
     SUMO_ATTR_WRITE_ATTRIBUTES,
+    SUMO_ATTR_EDGESFILE,
+    SUMO_ATTR_AGGREGATE,
+    SUMO_ATTR_NUMEDGES,
 
     SUMO_ATTR_LON,
     SUMO_ATTR_LAT,

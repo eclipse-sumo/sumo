@@ -248,6 +248,15 @@ according to the above suggestions.
 
 ## TraCI
 
+### My [TraCI](TraCI.md)-program is to slow. What can I do?
+
+  TraCI communicates over sockets and this communication is slow. You can often reduce the number of TraCI commands via the following strategies.
+  
+  - store results that do not change (i.e. vehicle length) rather than retrieving them again repeatedly
+  - use [subscriptions](TraCI/Object_Variable_Subscription.md) or [context subscriptions](TraCI/Object_Context_Subscription.md) to reduce the number of 'get' commmands for things that you need in every step
+
+   Even larger gains can be hand by switching to [libsumo](Libsumo.md). This can be done with a single line of code and completely eliminates the slow socket communication. 
+
 ### My [TraCI](TraCI.md)-program is not working as intended. Can you help me debug it?
 
   Unfortunately, we do not have the resources to debug other peoples
@@ -872,6 +881,16 @@ to use the [recommended import options](Networks/Import/OpenStreetMap.md#recomme
 The best course of action typically is to observe the simulation using
 [sumo-gui](sumo-gui.md) and figure out where the first jam
 develops.
+
+### Two vehicles want to change lanes in opposite directions and are blocking each other. How to prevent this?
+
+Drivers are highly conscious of strategic lane choice requirements and try to change onto the needed lane well in advance.
+There are several reasons why a counter-lane-change-deadlock can happen:
+
+- Vehicles are unable to enter the desired lane because the connection layout at preceeding junctions prevents it. This can be fixed by closely examining the connections ahead of the deadlock.
+- Vehicles are inserted on the wrong lane close to an intersection where they need to change lanes. To fix this, set the vehicle attribute `departLane="best"`
+- Vehicle streams must perform at weaving maneuver where they are forced to change lanes with limited space to do so. This often occurs at motorway ramps that compbine an on-ramp with an off-ramp with little distance in between. The danger of deadlocks can be removed by adding an additional network connection [as explained here](Simulation/Motorways.md#combined_on-off-ramps). Similar deadlocks may also occur at multi-lane roundabouts and the same solution of adding an extra connection (from the inside lane to the outside) applies.
+
 
 ### Why do the vehicles perform unexpected lane-changing maneuvers?
 

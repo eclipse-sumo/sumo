@@ -7,32 +7,22 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,5.20,60.00,30.00
 GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary -10.00,10.00,60.00,34.80
-Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'chargingStation' in TagSelector
-Debug: Adding chargingStation 'chargingStation_gneE2_1_0' in GNEChange_Additional
-Debug: Setting new attribute
-Debug: Value '5000' for attribute endPos of chargingStation isn't valid
-Debug: Value '2' for attribute endPos of chargingStation isn't valid
-Debug: Setting new attribute
+Debug: Adding chargingStation 'cs_0' in GNEChange_Additional
+Debug: Value '5000' for attribute efficiency of chargingStation isn't valid
+Debug: Value '2' for attribute efficiency of chargingStation isn't valid
+Debug: Value '30' for attribute efficiency of chargingStation isn't valid
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
+Debug: Removing chargingStation 'cs_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Removing chargingStation 'chargingStation_gneE2_1_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding chargingStation 'chargingStation_gneE2_1_0' in GNEChange_Additional
+Debug: Adding chargingStation 'cs_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -83,7 +73,7 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,5.20,60.00,30.00
 GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary -10.00,10.00,60.00,34.80
-Debug: Deleting unreferenced chargingStation 'chargingStation_gneE2_1_0'
+Debug: Deleting unreferenced chargingStation 'cs_0'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

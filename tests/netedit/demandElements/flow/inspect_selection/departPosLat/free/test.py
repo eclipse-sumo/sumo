@@ -37,17 +37,20 @@ netedit.selectMode()
 # select all using invert
 netedit.selectionInvert()
 
+# go to inspect mode
+netedit.inspectMode()
+
 # inspect vehicle
 netedit.leftClick(referencePosition, 330, 150)
 
 # change departPosLat with an invalid value
-netedit.modifyAttribute(12, "", False)
+netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspectSelection.departPosLat, "", False)
 
 # change departPosLat with an invalid value
-netedit.modifyAttribute(12, "dummyPosLat", False)
+netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspectSelection.departPosLat, "dummyPosLat", False)
 
 # change departPosLat with an valid value
-netedit.modifyAttribute(12, "free", False)
+netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspectSelection.departPosLat, "free", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

@@ -86,9 +86,9 @@
 //#define DEBUG_COND (getID() == "undefined")
 #define DEBUG_COND (isSelected())
 //#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "disabled"))
-#define DEBUG_COND2(obj) ((obj != 0 && (obj)->isSelected()))
+//#define DEBUG_COND2(obj) ((obj != 0 && (obj)->isSelected()))
 //#define DEBUG_COND (getID() == "ego")
-//#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "ego"))
+#define DEBUG_COND2(obj) ((obj != 0 && (obj)->getID() == "ego"))
 //#define DEBUG_COND2(obj) (true)
 
 
@@ -705,7 +705,9 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     if (DEBUG_COND2(aVehicle)) {
         std::cout << "\nIS_INSERTION_SUCCESS\n"
                   << SIMTIME  << " lane=" << getID()
-                  << " veh '" << aVehicle->getID() << "'\n";
+                  << " veh '" << aVehicle->getID()
+                  << " bestLanes=" << toString(aVehicle->getBestLanesContinuation(this))
+                  << "'\n";
     }
 #endif
 
@@ -4023,7 +4025,7 @@ MSLane::initRNGs(const OptionsCont& oc) {
     int seed = oc.getInt("seed");
     myRNGs.reserve(numRNGs); // this is needed for stable pointers on debugging
     for (int i = 0; i < numRNGs; i++) {
-        myRNGs.push_back(SumoRNG());
+        myRNGs.push_back(SumoRNG("lanes_" + toString(i)));
         RandHelper::initRand(&myRNGs.back(), random, seed++);
     }
 }

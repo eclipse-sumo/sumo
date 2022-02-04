@@ -44,16 +44,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 108, 50)
 
 # Change parameter 12 with a non valid value (dummy)
-netedit.modifyAttribute(12, "dummyAngle", False)
+netedit.modifyAttribute(netedit.attrs.POIGEO.inspect.angle, "dummyAngle", False)
 
 # Change parameter 12 with a valid value (negative)
-netedit.modifyAttribute(12, "-12", False)
+netedit.modifyAttribute(netedit.attrs.POIGEO.inspect.angle, "-12", False)
 
 # Change parameter 12 with a valid value (> 360)
-netedit.modifyAttribute(12, "500", False)
+netedit.modifyAttribute(netedit.attrs.POIGEO.inspect.angle, "500", False)
 
 # Change parameter 12 with a valid value
-netedit.modifyAttribute(12, "30", False)
+netedit.modifyAttribute(netedit.attrs.POIGEO.inspect.angle, "30", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)

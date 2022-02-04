@@ -237,11 +237,15 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
         // write edge on which the vehicle was when the route was valid
         os.writeAttr("replacedOnEdge", (myReplacedRoutes[index].edge ?
                                         myReplacedRoutes[index].edge->getID() : ""));
+        if (myReplacedRoutes[index].lastRouteIndex > 0) {
+            // do not write the default
+            os.writeAttr(SUMO_ATTR_REPLACED_ON_INDEX, myReplacedRoutes[index].lastRouteIndex);
+        }
         // write the reason for replacement
         os.writeAttr("reason", myReplacedRoutes[index].info);
 
         // write the time at which the route was replaced
-        os.writeAttr("replacedAtTime", time2string(myReplacedRoutes[index].time));
+        os.writeAttr(SUMO_ATTR_REPLACED_AT_TIME, time2string(myReplacedRoutes[index].time));
         os.writeAttr(SUMO_ATTR_PROB, "0");
         OutputDevice_String edgesD;
         // always write the part that was actually driven and the rest of the current route that wasn't yet driven
@@ -402,7 +406,8 @@ MSDevice_Vehroutes::writeOutput(const bool hasArrived) const {
     od.closeTag();
     od.lf();
     if (mySorted) {
-        writeSortedOutput(routeOut, tmp.depart, myHolder.getID(), od.getString());
+        // numerical id reflects loading order
+        writeSortedOutput(routeOut, tmp.depart, toString(myHolder.getNumericalID()), od.getString());
     } else {
         routeOut << od.getString();
     }

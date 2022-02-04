@@ -122,7 +122,7 @@ train can only leave by reversing direction. [netconvert](../netconvert.md) prov
 
 - **--railway.topology.output** {{DT_FILE}}: Identify problematic tracks (i.e. for manual correction).
 - **--railway.topology.repair** : Automatically fixes problems by analyzing rail network topology and adding bidirectional tracks
-- **--railway.topology.repair.minimal** : Applys automated fixes but only those which are needed for the operation loaded public transport lines
+- **--railway.topology.repair.minimal** : Apply automated fixes but only those which are needed for the operation loaded public transport lines
 - **--railway.topology.repair.connect-straight** : Allow bidirectional rail use wherever rails with opposite directions meet at a straight angle
 - **--railway.topology.repair.stop-turn** : Add turn-around connections at all loaded stops (to enable direction reversal).
 - **--railway.topology.all-bidi** : make all tracks usable in both directions.
@@ -308,7 +308,7 @@ Rail signals perform the following safety functions automatically
 - c) guard the track so that vehicles cannot enter bidirectional sections at the same time. This prevents head-on collisions.
 - d) prevent deadlocks on bidirectional sections
 
-Functionality **a)** corresponds to the "classic" safety behavior of rail signals ([PZB](https://en.wikipedia.org/wiki/Punktf%C3%B6rmige_Zugbeeinflussung)). When option **--railsignal-moving-block** is set or individual signals are configured with paramter *moving-block* (see below), feature **a)** is disabled and trains will use their configured carFollowModel (i.e. 'Rail') for distance keeping. This correspnds to the [LZB](https://en.wikipedia.org/wiki/Linienzugbeeinflussung) safety system.
+Functionality **a)** corresponds to the "classic" safety behavior of rail signals ([PZB](https://en.wikipedia.org/wiki/Punktf%C3%B6rmige_Zugbeeinflussung)). When option **--railsignal-moving-block** is set or individual signals are configured with parameter *moving-block* (see below), feature **a)** is disabled and trains will use their configured carFollowModel (i.e. 'Rail') for distance keeping. This corresponds to the [LZB](https://en.wikipedia.org/wiki/Linienzugbeeinflussung) safety system.
 
 To switch a single signal into LZB-mode, the following additional file may be loaded:
 ```
@@ -360,7 +360,7 @@ Furthermore the following functions are available for rail signals:
 Constraints can be queried and modified via TraCI:
 
 - getConstraints(self, tlsID, tripId=""): Returns the list of rail signal constraints for the given rail signal. If tripId is not "", only constraints with the given tripId are returned. Otherwise, all constraints are returned
-- getConstraintsByFoe(self, foeSignal, foeId=""): Returns the list of rail signal constraints that have the given rail signal id as their foeSignal. If foeId is not "", only constraints with the given foeId are returned. Otherwise, all constraints are returne
+- getConstraintsByFoe(self, foeSignal, foeId=""): Returns the list of rail signal constraints that have the given rail signal id as their foeSignal. If foeId is not "", only constraints with the given foeId are returned. Otherwise, all constraints are returned
 - swapConstraints(self, tlsID, tripId, foeSignal, foeId):  Reverse the given constraint and return list of new constraints that were created (by swapping) to avoid deadlock.
 - removeConstraints(self, tlsID, tripId, foeSignal, foeId): remove constraints with the given values. Any combination of inputs may be set to "" to act as a wildcard filter """
 

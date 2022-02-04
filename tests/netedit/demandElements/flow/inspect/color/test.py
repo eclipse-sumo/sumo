@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.vehicleMode()
 
 # change vehicle
-netedit.changeElement("flow (from-to)")
+netedit.changeElement("flow (from-to edges)")
 
 # create flow using two edges
 netedit.leftClick(referencePosition, 274, 392)
@@ -51,16 +51,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change color with an invalid value
-netedit.modifyAttribute(6, "", False)
+netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspect.color, "", False)
 
 # change color with an invalid value
-netedit.modifyAttribute(6, "dummyColor", False)
+netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspect.color, "dummyColor", False)
 
 # change color with an valid value
-netedit.modifyAttribute(6, "cyan", False)
+netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspect.color, "cyan", False)
 
 # change color with a valid value
-netedit.modifyAttribute(6, "12,13,14", False)
+netedit.modifyAttribute(netedit.attrs.flowFromToEdge.inspect.color, "12,13,14", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

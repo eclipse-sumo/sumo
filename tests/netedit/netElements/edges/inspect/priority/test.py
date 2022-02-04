@@ -41,16 +41,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 4 with a non valid value (empty priority)
-netedit.modifyAttribute(4, "", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.priority, "", False)
 
 # Change parameter 4 with a non valid value (dummy priority)
-netedit.modifyAttribute(4, "dummyPriority", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.priority, "dummyPriority", False)
 
 # Change parameter 4 with a non valid value (negative priority)
-netedit.modifyAttribute(4, "-6", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.priority, "-6", False)
 
 # Change parameter 4 with a non valid value (float)
-netedit.modifyAttribute(4, "6.4", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.priority, "6.4", False)
 
 # recompute
 netedit.rebuildNetwork()

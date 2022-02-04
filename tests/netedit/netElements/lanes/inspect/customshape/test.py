@@ -44,10 +44,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 165)
 
 # Change parameter 6 with an non valid value (dummy)
-netedit.modifyAttribute(8, "dummyShape", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspect.customShape, "dummyShape", True)
 
 # Change parameter 6 with a valid value (empty)
-netedit.modifyAttribute(8, "", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspect.customShape, "", True)
 
 # recompute
 netedit.rebuildNetwork()
@@ -56,7 +56,7 @@ netedit.rebuildNetwork()
 netedit.leftClick(referencePosition, 250, 165)
 
 # Change parameter 6 with a valid value
-netedit.modifyAttribute(6, "13.112,16.22 34.19,16.11", True)
+netedit.modifyAttribute(netedit.attrs.lane.inspect.customShape, "13.112,16.22 34.19,16.11", True)
 
 # recompute
 netedit.rebuildNetwork()

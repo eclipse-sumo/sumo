@@ -26,10 +26,11 @@ except ImportError:
 import pyautogui
 import time
 import pyperclip
+import attributesEnum as attrs #noqa
 
 # define delay before every operation
-DELAY_KEY = 0.3
-DELAY_KEY_TAB = 0.3
+DELAY_KEY = 0.1
+DELAY_KEY_TAB = 0.1
 DELAY_MOUSE_MOVE = 0.3
 DELAY_MOUSE_CLICK = 1
 DELAY_QUESTION = 3
@@ -952,10 +953,10 @@ def modifyAttribute(attributeNumber, value, overlapped):
     focusOnFrame()
     # jump to attribute depending if it's a overlapped element
     if overlapped:
-        for _ in range(attributeNumber + 7):
+        for _ in range(attributeNumber + 6):
             typeTab()
     else:
-        for _ in range(attributeNumber + 2):
+        for _ in range(attributeNumber + 1):
             typeTab()
     # paste the new value
     pasteIntoTextField(value)
@@ -971,10 +972,10 @@ def modifyBoolAttribute(attributeNumber, overlapped):
     focusOnFrame()
     # jump to attribute depending if it's a overlapped element
     if overlapped:
-        for _ in range(attributeNumber + 7):
+        for _ in range(attributeNumber + 6):
             typeTab()
     else:
-        for _ in range(attributeNumber + 2):
+        for _ in range(attributeNumber + 1):
             typeTab()
     # type SPACE to change value
     typeSpace()
@@ -1098,7 +1099,7 @@ def modifyCrossingDefaultValue(numtabs, value):
     # focus current frame
     focusOnFrame()
     # jump to value
-    for _ in range(numtabs + 4):
+    for _ in range(numtabs + 5):
         typeTab()
     # paste the new value
     pasteIntoTextField(value)
@@ -1113,7 +1114,7 @@ def modifyCrossingDefaultBoolValue(numtabs):
     # focus current frame
     focusOnFrame()
     # jump to value
-    for _ in range(numtabs + 4):
+    for _ in range(numtabs + 5):
         typeTab()
     # type space to change value
     typeSpace()
@@ -1196,7 +1197,7 @@ def saveConnectionEdit():
     # focus current frame
     focusOnFrame()
     # go to cancel button
-    for _ in range(2):
+    for _ in range(4):
         typeTab()
     # type space to press button
     typeSpace()
@@ -1239,7 +1240,7 @@ def changeDefaultValue(numTabs, length):
     # focus current frame
     focusOnFrame()
     # go to length TextField
-    for _ in range(numTabs + 1):
+    for _ in range(numTabs):
         typeTab()
     # paste new length
     pasteIntoTextField(length)
@@ -1254,7 +1255,7 @@ def changeDefaultBoolValue(numTabs):
     # focus current frame
     focusOnFrame()
     # place cursor in check Box position
-    for _ in range(numTabs + 1):
+    for _ in range(numTabs):
         typeTab()
     # Change current value
     typeSpace()
@@ -1272,23 +1273,6 @@ def modifyStoppingPlaceLines(numTabs, numLines):
     # add lines using space
     for _ in range(numLines):
         typeSpace()
-
-
-def fillStoppingPlaceLines(numTabs, numLines):
-    """
-    @brief fill lines to stopping places
-    """
-    # focus current frame
-    focusOnFrame()
-    # place cursor in the first line
-    for _ in range(numTabs + 1):
-        typeTab()
-    # fill lines
-    for x in range(numLines):
-        # paste line and number
-        pasteIntoTextField("Line" + str(x))
-        # go to next field
-        typeTab()
 
 
 def selectAdditionalChild(numTabs, childNumber):
@@ -1366,7 +1350,8 @@ def changeRouteMode(value):
     # focus current frame
     focusOnFrame()
     # jump to route mode
-    typeTab()
+    for _ in range(2):
+        typeTab()
     # paste the new value
     pasteIntoTextField(value)
     # type enter to save change
@@ -1380,7 +1365,7 @@ def changeRouteVClass(value):
     # focus current frame
     focusOnFrame()
     # jump to vClass
-    for _ in range(3):
+    for _ in range(4):
         typeTab()
     # paste the new value
     pasteIntoTextField(value)
@@ -1487,8 +1472,8 @@ def changeStopParent(stopParent):
     """
     # focus current frame
     focusOnFrame()
-    # jump to stop parent
-    typeTab()
+    for _ in range(2):
+        typeTab()
     # paste the new stop parent
     pasteIntoTextField(stopParent)
     # type enter to save change
@@ -1502,7 +1487,7 @@ def changeStopType(stopType):
     # focus current frame
     focusOnFrame()
     # jump to stop type
-    for _ in range(3):
+    for _ in range(5):
         typeTab()
     # paste the new personPlan
     pasteIntoTextField(stopType)
@@ -1889,7 +1874,7 @@ def createTLS():
     # focus current frame
     focusOnFrame()
     # type tab 2 times to jump to create TLS button
-    for _ in range(2):
+    for _ in range(4):
         typeTab()
     # create TLS
     typeSpace()
@@ -1973,7 +1958,7 @@ def changeColorUsingDialog(numTabs, color):
     # focus current frame
     focusOnFrame()
     # go to length TextField
-    for _ in range(numTabs + 1):
+    for _ in range(numTabs):
         typeTab()
     typeSpace()
     # go to list of colors TextField
