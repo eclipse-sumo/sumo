@@ -1365,7 +1365,7 @@ def changeRouteVClass(value):
     # focus current frame
     focusOnFrame()
     # jump to vClass
-    for _ in range(3):
+    for _ in range(4):
         typeTab()
     # paste the new value
     pasteIntoTextField(value)

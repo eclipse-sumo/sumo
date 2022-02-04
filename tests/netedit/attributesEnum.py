@@ -262,6 +262,7 @@ class crossing:
         linkIndex = 3
         linkIndex2 = 4
         parameters = 7
+
 #--------------------------------
 # ADDITIONALS
 #--------------------------------
@@ -561,11 +562,11 @@ class route:
         cycletime = 6
         parameters = 9
     class inspectSelection:
-        colorButton = 2
-        color = 3
-        repeat = 4
-        cycletime = 5
-        parameters = 8
+        colorButton = 1 # missing
+        color = 2
+        repeat = 3
+        cycletime = 4 
+        parameters = 7
 
 # trip (from-to edges)
 class tripFromToEdge:
