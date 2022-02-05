@@ -1114,7 +1114,7 @@ NBRailwayTopologyAnalyzer::extendDirectionPriority(NBNetBuilder& nb, bool fromUn
     // x-3 : edge is part of bidirectional track, both directions are indirect extensions of x-1 edges
     // x-4 : edge is reverse direction of an x-1 edge
 
-    EdgeSet bidi;
+    std::set<NBEdge*, ComparatorIdLess> bidi;
     EdgeSet uni;
     for (NBEdge* edge : nb.getEdgeCont().getAllEdges()) {
         if (isRailway(edge->getPermissions())) {
