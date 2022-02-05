@@ -130,7 +130,7 @@
   <node id='-118' timestamp='2009-04-08T20:37:13Z' visible='true' version='10' lat='48.8598845' lon='11.2453071' />
   <node id='-119' visible='true' lat='48.86926496459531' lon='11.22378129482755' />
   <node id='-122' timestamp='2009-04-08T20:37:13Z' visible='true' version='10' lat='48.85988' />
-  <node id='-123' visible='true' lat='48.869' lon='11.223' />
+  <node id='b-123' visible='true' lat='48.869' lon='11.223' />
   <tag k='highway' v='traffic_signals' />
   <way id='-120' action='modify' timestamp='2008-10-28T17:38:39Z' visible='true' version='15'>
     <nd ref='-82' />
