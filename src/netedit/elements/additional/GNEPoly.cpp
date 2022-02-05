@@ -54,17 +54,23 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
     SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath, name, parameters),
     GNEShape(id, net, GLO_POLYGON, SUMO_TAG_POLY, {}, {}, {}, {}, {}, {}, {}, {}),
 mySimplifiedShape(false) {
-    // update centering boundary without updating grid
-    updateCenteringBoundary(false);
     // check if imgFile is valid
     if (!imgFile.empty() && GUITexturesHelper::getTextureID(imgFile) == -1) {
         setShapeImgFile("");
     }
     // set GEO shape
     myGeoShape = myShape;
-    for (int i = 0; i < (int) myGeoShape.size(); i++) {
-        GeoConvHelper::getFinal().cartesian2geo(myGeoShape[i]);
+    if (geo) {
+        for (int i = 0; i < (int) myGeoShape.size(); i++) {
+            GeoConvHelper::getFinal().x2cartesian_const(myShape[i]);
+        }
+    } else {
+        for (int i = 0; i < (int) myGeoShape.size(); i++) {
+            GeoConvHelper::getFinal().cartesian2geo(myGeoShape[i]);
+        }
     }
+    // update centering boundary without updating grid
+    updateCenteringBoundary(false);
     // update geometry
     updateGeometry();
 }
