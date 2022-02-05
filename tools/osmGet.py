@@ -24,7 +24,6 @@ import gzip
 import base64
 import ssl
 import json
-from bs4 import BeautifulSoup
 
 try:
     import httplib
@@ -46,12 +45,8 @@ import sumolib
 def readBuildingShapeKeysFromXML(keyValueDict, pathToXML):
     with open(pathToXML, 'r') as osmPolyconvert:
         kvd = keyValueDict
-        data = osmPolyconvert.read()
-        bs_data = BeautifulSoup(data, "xml")
-        b_polygon = bs_data.find_all("polygonType")
-        for polygon in b_polygon:
-            id = (polygon.get('id'))
-            keyValue = id.split('.')
+        for polygon in sumolib.xml.parse(osmPolyconvert, 'polygonType'):
+            keyValue = polygon.id.split('.')
             try:
                 key = keyValue[0]
                 value = keyValue[1]                             # key without value throws IndexError
@@ -204,15 +199,16 @@ def get(args=None):
     if options.shapes_polygon:
         downloadShapesPolygon = options.shapes_polygon
 
+    if options.road_types:
+        roadTypesJSON = json.loads(options.road_types.replace("\'", "\"").lower())
+
     suffix = ".osm.xml.gz" if options.gzip else ".osm.xml"
     if (options.area and options.road_types):
         if options.area < 3600000000:
             options.area += 3600000000
-        roadTypesJSON = json.loads(options.road_types.replace("\'","\"").lower())
         readCompressed(conn, url.path, '<area-query ref="%s"/>' %
                        options.area, roadTypesJSON, downloadShapesPolygon, options.prefix + "_city" + suffix)
     if ((options.bbox or options.polygon) and options.road_types):
-        roadTypesJSON = json.loads(options.road_types.replace("\'","\"").lower())
         if options.tiles == 1:
             readCompressed(conn, url.path, '<bbox-query n="%s" s="%s" w="%s" e="%s"/>' %
                            (north, south, west, east), roadTypesJSON, downloadShapesPolygon,
