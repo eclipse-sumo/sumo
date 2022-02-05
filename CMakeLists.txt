@@ -9,7 +9,7 @@ option(PROFILING "Enable output of profiling data (applies to gcc/clang builds o
 option(PPROF "Link the pprof profiler library (applies to gcc/clang builds only)" false)
 option(COVERAGE "Enable output of coverage data (applies to gcc/clang builds only)" false)
 option(SUMO_UTILS "Enable generation of a shared library for the utility functions for option handling, XML parsing etc." false)
-option(FMI "Enable generation of an FMI library for SUMO" false)
+option(FMI "Enable generation of an FMI library for SUMO" true)
 set(BINARY_SUFFIX "" CACHE STRING "Append the suffix to every generated binary")
 set(COMPILE_DEFINITIONS "" CACHE STRING "Macros or defines to add when compiling")
 set(CCACHE_SUPPORT ON CACHE BOOL "Enable ccache support if installed")
