@@ -117,6 +117,8 @@ def readCompressed(conn, urlpath, query, roadTypesJSON, downloadShapesPolygon,fi
     <union>
        <item/>
        <recurse type="way-node"/>
+       <recurse type="node-relation"/>
+       <recurse type="way-relation"/>
     </union>
     <print mode="body"/>
     </osm-script>""" % unionQueryString, headers={'Accept-Encoding': 'gzip'})
