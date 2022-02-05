@@ -693,8 +693,7 @@ NIImporter_OpenStreetMap::NodesHandler::NodesHandler(std::map<long long int, NIO
         std::set<NIOSMNode*, CompareNodes>& uniqueNodes, const OptionsCont& oc) :
     SUMOSAXHandler("osm - file"),
     myToFill(toFill),
-    myLastNodeID(-1),
-    myIsInValidNodeTag(false),
+    myCurrentNode(nullptr),
     myHierarchyLevel(0),
     myUniqueNodes(uniqueNodes),
     myImportElevation(oc.getBool("osm.elevation")),
@@ -709,109 +708,97 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
     ++myHierarchyLevel;
     if (element == SUMO_TAG_NODE) {
         bool ok = true;
-        const long long int id = attrs.get<long long int>(SUMO_ATTR_ID, nullptr, ok);
+        myLastNodeID = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
         if (myHierarchyLevel != 2) {
-            WRITE_ERROR("Node element on wrong XML hierarchy level (id='" + toString(id)
-                        + "', level='" + toString(myHierarchyLevel) + "').");
+            WRITE_ERROR("Node element on wrong XML hierarchy level (id='" + myLastNodeID +
+                        "', level='" + toString(myHierarchyLevel) + "').");
             return;
         }
-        const std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
+        const std::string& action = attrs.getOpt<std::string>(SUMO_ATTR_ACTION, myLastNodeID.c_str(), ok, "");
         if (action == "delete" || !ok) {
             return;
         }
-        myLastNodeID = -1;
-        if (myToFill.find(id) == myToFill.end()) {
-            myLastNodeID = id;
-            // assume we are loading multiple files...
-            //  ... so we won't report duplicate nodes
-            bool ok2 = true;
-            double tlat, tlon;
-            std::istringstream lon(attrs.get<std::string>(SUMO_ATTR_LON, toString(id).c_str(), ok2));
-            if (!ok2) {
-                return;
+        try {
+            // we do not use attrs.get here to save some time on parsing
+            const long long int id = StringUtils::toLong(myLastNodeID);
+            myCurrentNode = nullptr;
+            if (myToFill.find(id) == myToFill.end()) {
+                // assume we are loading multiple files, so we won't report duplicate nodes
+                const double tlon = attrs.get<double>(SUMO_ATTR_LON, myLastNodeID.c_str(), ok);
+                const double tlat = attrs.get<double>(SUMO_ATTR_LAT, myLastNodeID.c_str(), ok);
+                if (!ok) {
+                    return;
+                }
+                myCurrentNode = new NIOSMNode(id, tlon, tlat);
+                auto similarNode = myUniqueNodes.find(myCurrentNode);
+                if (similarNode == myUniqueNodes.end()) {
+                    myUniqueNodes.insert(myCurrentNode);
+                } else {
+                    delete myCurrentNode;
+                    myCurrentNode = *similarNode;
+                    myDuplicateNodes++;
+                }
+                myToFill[id] = myCurrentNode;
             }
-            lon >> tlon;
-            if (lon.fail()) {
-                WRITE_ERROR("Node's '" + toString(id) + "' lon information is not numeric.");
-                return;
-            }
-            std::istringstream lat(attrs.get<std::string>(SUMO_ATTR_LAT, toString(id).c_str(), ok2));
-            if (!ok2) {
-                return;
-            }
-            lat >> tlat;
-            if (lat.fail()) {
-                WRITE_ERROR("Node's '" + toString(id) + "' lat information is not numeric.");
-                return;
-            }
-            auto* toAdd = new NIOSMNode(id, tlon, tlat);
-            myIsInValidNodeTag = true;
-
-            auto similarNode = myUniqueNodes.find(toAdd);
-            if (similarNode == myUniqueNodes.end()) {
-                myUniqueNodes.insert(toAdd);
-            } else {
-                delete toAdd;
-                toAdd = *similarNode;
-                myDuplicateNodes++;
-            }
-            myToFill[id] = toAdd;
+        } catch (FormatException&) {
+            WRITE_ERROR("Attribute 'id' in the definition of a node is not of type long long int.");
+            return;
         }
     }
-    if (element == SUMO_TAG_TAG && myIsInValidNodeTag) {
+    if (element == SUMO_TAG_TAG && myCurrentNode != nullptr) {
         if (myHierarchyLevel != 3) {
             WRITE_ERROR("Tag element on wrong XML hierarchy level.");
             return;
         }
         bool ok = true;
-        std::string key = attrs.get<std::string>(SUMO_ATTR_K, toString(myLastNodeID).c_str(), ok, false);
+        const std::string& key = attrs.get<std::string>(SUMO_ATTR_K, myLastNodeID.c_str(), ok, false);
         // we check whether the key is relevant (and we really need to transcode the value) to avoid hitting #1636
         if (key == "highway" || key == "ele" || key == "crossing" || key == "railway" || key == "public_transport"
                 || key == "name" || key == "train" || key == "bus" || key == "tram" || key == "light_rail" || key == "subway" || key == "station" || key == "noexit"
                 || StringUtils::startsWith(key, "railway:signal")
                 || StringUtils::startsWith(key, "railway:position")
            ) {
-            std::string value = attrs.get<std::string>(SUMO_ATTR_V, toString(myLastNodeID).c_str(), ok, false);
+            const std::string& value = attrs.get<std::string>(SUMO_ATTR_V, myLastNodeID.c_str(), ok, false);
             if (key == "highway" && value.find("traffic_signal") != std::string::npos) {
-                myToFill[myLastNodeID]->tlsControlled = true;
+                myCurrentNode->tlsControlled = true;
             } else if (key == "crossing" && value.find("traffic_signals") != std::string::npos) {
-                myToFill[myLastNodeID]->tlsControlled = true;
+                myCurrentNode->tlsControlled = true;
             } else if ((key == "noexit" && value == "yes")
                        || (key == "railway" && value == "buffer_stop")) {
-                myToFill[myLastNodeID]->railwayBufferStop = true;
+                myCurrentNode->railwayBufferStop = true;
             } else if (key == "railway" && value.find("crossing") != std::string::npos) {
-                myToFill[myLastNodeID]->railwayCrossing = true;
+                myCurrentNode->railwayCrossing = true;
             } else if (StringUtils::startsWith(key, "railway:signal") && (
                            value == "block" || value == "entry"  || value == "exit" || value == "intermediate")) {
-                myToFill[myLastNodeID]->railwaySignal = true;
-            } else if (StringUtils::startsWith(key, "railway:position") && value.size() > myToFill[myLastNodeID]->position.size()) {
+                myCurrentNode->railwaySignal = true;
+            } else if (StringUtils::startsWith(key, "railway:position") && value.size() > myCurrentNode->position.size()) {
                 // use the entry with the highest precision (more digits)
-                myToFill[myLastNodeID]->position = value;
+                myCurrentNode->position = value;
             } else if ((key == "public_transport" && value == "stop_position") ||
                        (key == "highway" && value == "bus_stop")) {
-                myToFill[myLastNodeID]->ptStopPosition = true;
-                if (myToFill[myLastNodeID]->ptStopLength == 0) {
+                myCurrentNode->ptStopPosition = true;
+                if (myCurrentNode->ptStopLength == 0) {
                     // default length
-                    myToFill[myLastNodeID]->ptStopLength = myOptionsCont.getFloat("osm.stop-output.length");
+                    myCurrentNode->ptStopLength = myOptionsCont.getFloat("osm.stop-output.length");
                 }
             } else if (key == "name") {
-                myToFill[myLastNodeID]->name = value;
+                myCurrentNode->name = value;
             } else if (myImportElevation && key == "ele") {
                 try {
                     const double elevation = StringUtils::toDouble(value);
                     if (ISNAN(elevation)) {
-                        WRITE_WARNINGF("Value of key '%' is invalid ('%') in node '%'.", key, value, toString(myLastNodeID));
+                        WRITE_WARNINGF("Value of key '%' is invalid ('%') in node '%'.", key, value, myLastNodeID);
                     } else {
-                        myToFill[myLastNodeID]->ele = elevation;
+                        myCurrentNode->ele = elevation;
                     }
                 } catch (...) {
-                    WRITE_WARNINGF("Value of key '%' is not numeric ('%') in node '%'.", key, value, toString(myLastNodeID));
+                    WRITE_WARNINGF("Value of key '%' is not numeric ('%') in node '%'.", key, value, myLastNodeID);
                 }
             } else if (key == "station") {
-                interpretTransportType(value, myToFill[myLastNodeID]);
+                interpretTransportType(value, myCurrentNode);
             } else {
                 // v="yes"
-                interpretTransportType(key, myToFill[myLastNodeID]);
+                interpretTransportType(key, myCurrentNode);
             }
         }
     }
@@ -821,8 +808,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
 void
 NIImporter_OpenStreetMap::NodesHandler::myEndElement(int element) {
     if (element == SUMO_TAG_NODE && myHierarchyLevel == 2) {
-        myLastNodeID = -1;
-        myIsInValidNodeTag = false;
+        myCurrentNode = nullptr;
     }
     --myHierarchyLevel;
 }
@@ -841,7 +827,7 @@ NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
     mySpeedMap["nan"] = MAXSPEED_UNGIVEN;
     mySpeedMap["sign"] = MAXSPEED_UNGIVEN;
     mySpeedMap["signals"] = MAXSPEED_UNGIVEN;
-    mySpeedMap["none"] = 142.; // Auswirkungen eines allgemeinen Tempolimits auf Autobahnen im Land Brandeburg (2007)
+    mySpeedMap["none"] = 142.; // Auswirkungen eines allgemeinen Tempolimits auf Autobahnen im Land Brandenburg (2007)
     mySpeedMap["no"] = 142.;
     mySpeedMap["walk"] = 5.;
     // https://wiki.openstreetmap.org/wiki/Key:source:maxspeed#Commonly_used_values

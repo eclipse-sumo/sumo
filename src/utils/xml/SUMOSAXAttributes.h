@@ -26,6 +26,7 @@
 #include <vector>
 #include <set>
 
+#include <utils/common/StringUtils.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/ToString.h>
 #include <utils/common/UtilExceptions.h>
@@ -178,7 +179,9 @@ public:
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      * @exception BoolFormatException If the attribute value can not be parsed to a bool
      */
-    virtual bool getBool(int id) const = 0;
+    inline bool getBool(int id) const {
+        return StringUtils::toBool(getString(id));
+    }
 
     /**
      * @brief Returns the int-value of the named (by its enum-value) attribute
@@ -195,7 +198,9 @@ public:
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      * @exception NumberFormatException If the attribute value can not be parsed to an int
      */
-    virtual int getInt(int id) const = 0;
+    inline int getInt(int id) const {
+        return StringUtils::toInt(getString(id));
+    }
 
 
     /**
@@ -213,7 +218,9 @@ public:
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      * @exception NumberFormatException If the attribute value can not be parsed to an int
      */
-    virtual long long int getLong(int id) const = 0;
+    virtual long long int getLong(int id) const {
+        return StringUtils::toLong(getString(id));
+    }
 
 
     /**
@@ -228,7 +235,7 @@ public:
      * @return The attribute's value as a string, if it could be read and parsed
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      */
-    virtual std::string getString(int id) const = 0;
+    virtual std::string getString(int id, bool* isPresent=nullptr) const = 0;
 
 
     /**
@@ -243,8 +250,7 @@ public:
      * @return The attribute's value as a string, if it could be read and parsed
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      */
-    virtual std::string getStringSecure(int id,
-                                        const std::string& def) const = 0;
+    virtual std::string getStringSecure(int id, const std::string& def) const = 0;
 
 
     /**
@@ -262,7 +268,9 @@ public:
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      * @exception NumberFormatException If the attribute value can not be parsed to an double
      */
-    virtual double getFloat(int id) const = 0;
+    inline double getFloat(int id) const {
+        return StringUtils::toDouble(getString(id));
+    }
 
 
     /**
@@ -320,35 +328,6 @@ public:
 
     /// @brief returns fringe type
     virtual FringeType getFringeType(bool& ok) const = 0;
-
-    /**
-     * @brief Returns the value of the named attribute
-     *
-     * Tries to retrieve the attribute from the the attribute list.
-     * @return The attribute's value as a RGBColor, if it could be read and parsed
-     */
-    virtual RGBColor getColor() const = 0;
-
-    /** @brief Tries to read given attribute assuming it is a Position
-     *
-     * @param[in] attr The id of the attribute to read
-     * @return The read value if given and not empty; empty position if an error occurred
-     */
-    virtual Position getPosition(int attr) const = 0;
-
-    /** @brief Tries to read given attribute assuming it is a PositionVector
-     *
-     * @param[in] attr The id of the attribute to read
-     * @return The read value if given and not empty; empty position vector if an error occurred
-     */
-    virtual PositionVector getShape(int attr) const = 0;
-
-    /** @brief Tries to read given attribute assuming it is a Boundary
-     *
-     * @param[in] attr The id of the attribute to read
-     * @return The read value if given and not empty; empty Boundary if an error occurred
-     */
-    virtual Boundary getBoundary(int attr) const = 0;
 
     /** @brief Tries to read given attribute assuming it is a string vector
      *
@@ -413,7 +392,7 @@ public:
 
 
 protected:
-    template <typename T> T getInternal(const int attr) const;
+    template <typename T> T fromString(const std::string& value) const;
     void emitUngivenError(const std::string& attrname, const char* objectid) const;
     void emitEmptyError(const std::string& attrname, const char* objectid) const;
     void emitFormatError(const std::string& attrname, const std::string& type, const char* objectid) const;
@@ -501,15 +480,16 @@ template<> struct invalid_return<std::vector<int> > {
 template <typename T>
 T SUMOSAXAttributes::get(int attr, const char* objectid,
                          bool& ok, bool report) const {
-    if (!hasAttribute(attr)) {
+    try {
+        bool isPresent = true;
+        const std::string& strAttr = getString(attr, &isPresent);
+        if (isPresent) {
+            return fromString<T>(strAttr);
+        }
         if (report) {
             emitUngivenError(getName(attr), objectid);
         }
         ok = false;
-        return invalid_return<T>::value;
-    }
-    try {
-        return getInternal<T>(attr);
     } catch (FormatException&) {
         if (report) {
             emitFormatError(getName(attr), "of type " + invalid_return<T>::type, objectid);
@@ -527,11 +507,13 @@ T SUMOSAXAttributes::get(int attr, const char* objectid,
 template <typename T>
 T SUMOSAXAttributes::getOpt(int attr, const char* objectid,
                             bool& ok, T defaultValue, bool report) const {
-    if (!hasAttribute(attr)) {
-        return defaultValue;
-    }
     try {
-        return getInternal<T>(attr);
+        bool isPresent = true;
+        const std::string& strAttr = getString(attr, &isPresent);
+        if (isPresent) {
+            return fromString<T>(strAttr);
+        }
+        return defaultValue;
     } catch (FormatException&) {
         if (report) {
             emitFormatError(getName(attr), "of type " + invalid_return<T>::type, objectid);

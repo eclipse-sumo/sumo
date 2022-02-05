@@ -49,27 +49,27 @@ SUMOSAXAttributes::SUMOSAXAttributes(const std::string& objectType):
 const std::string invalid_return<std::string>::value = "";
 const std::string invalid_return<std::string>::type = "string";
 template<>
-std::string SUMOSAXAttributes::getInternal(const int attr) const {
-    const std::string ret = getString(attr);
-    if (ret == "") {
+std::string SUMOSAXAttributes::fromString(const std::string& value) const {
+    if (value == "") {
         throw EmptyData();
     }
-    return ret;
+    return value;
 }
 
 
 SUMOTime
 SUMOSAXAttributes::getSUMOTimeReporting(int attr, const char* objectid,
                                         bool& ok, bool report) const {
-    if (!hasAttribute(attr)) {
-        if (report) {
-            emitUngivenError(getName(attr), objectid);
-        }
-        ok = false;
-        return -1;
-    }
     try {
-        const std::string val = getInternal<std::string>(attr);
+        bool isPresent = true;
+        const std::string& val = getString(attr, &isPresent);
+        if (!isPresent) {
+            if (report) {
+                emitUngivenError(getName(attr), objectid);
+            }
+            ok = false;
+            return -1;
+        }
         return string2time(val);
     } catch (EmptyData&) {
         if (report) {
@@ -88,11 +88,12 @@ SUMOSAXAttributes::getSUMOTimeReporting(int attr, const char* objectid,
 SUMOTime
 SUMOSAXAttributes::getOptSUMOTimeReporting(int attr, const char* objectid,
         bool& ok, SUMOTime defaultValue, bool report) const {
-    if (!hasAttribute(attr)) {
-        return defaultValue;
-    }
     try {
-        const std::string val = getInternal<std::string>(attr);
+        bool isPresent = true;
+        const std::string& val = getString(attr, &isPresent);
+        if (!isPresent) {
+            return defaultValue;
+        }
         return string2time(val);
     } catch (EmptyData&) {
         if (report) {
@@ -187,80 +188,138 @@ SUMOSAXAttributes::emitFormatError(const std::string& attrname, const std::strin
 const int invalid_return<int>::value = -1;
 const std::string invalid_return<int>::type = "int";
 template<>
-int SUMOSAXAttributes::getInternal(const int attr) const {
-    return getInt(attr);
+int SUMOSAXAttributes::fromString(const std::string& value) const {
+    return StringUtils::toInt(value);
 }
 
 
 const long long int invalid_return<long long int>::value = -1;
 const std::string invalid_return<long long int>::type = "long";
 template<>
-long long int SUMOSAXAttributes::getInternal(const int attr) const {
-    return getLong(attr);
+long long int SUMOSAXAttributes::fromString(const std::string& value) const {
+    return StringUtils::toLong(value);
 }
 
 
 const double invalid_return<double>::value = -1;
 const std::string invalid_return<double>::type = "float";
 template<>
-double SUMOSAXAttributes::getInternal(const int attr) const {
-    return getFloat(attr);
+double SUMOSAXAttributes::fromString(const std::string& value) const {
+    return StringUtils::toDouble(value);
 }
 
 
 const bool invalid_return<bool>::value = false;
 const std::string invalid_return<bool>::type = "bool";
 template<>
-bool SUMOSAXAttributes::getInternal(const int attr) const {
-    return getBool(attr);
+bool SUMOSAXAttributes::fromString(const std::string& value) const {
+    return StringUtils::toBool(value);
 }
 
 
 const RGBColor invalid_return<RGBColor>::value = RGBColor();
 const std::string invalid_return<RGBColor>::type = "color";
 template<>
-RGBColor SUMOSAXAttributes::getInternal(const int /* attr */) const {
-    return getColor();
+RGBColor SUMOSAXAttributes::fromString(const std::string& value) const {
+    return RGBColor::parseColor(value);
 }
 
 
 const Position invalid_return<Position>::value = Position();
 const std::string invalid_return<Position>::type = "Position";
 template<>
-Position SUMOSAXAttributes::getInternal(const int attr) const {
-    return getPosition(attr);
+Position SUMOSAXAttributes::fromString(const std::string& value) const {
+    StringTokenizer st(value);
+    // check StringTokenizer
+    while (st.hasNext()) {
+        // obtain position
+        StringTokenizer pos(st.next(), ",");
+        // check that position has X-Y or X-Y-Z
+        if ((pos.size() != 2) && (pos.size() != 3)) {
+            throw FormatException("position format");
+        }
+        // obtain x and y
+        double x = StringUtils::toDouble(pos.next());
+        double y = StringUtils::toDouble(pos.next());
+        // check if return a X-Y or a X-Y-Z Position
+        if (pos.size() == 2) {
+            return Position(x, y);
+        } else {
+            // obtain z
+            double z = StringUtils::toDouble(pos.next());
+            return Position(x, y, z);
+        }
+    }
+    // empty positions aren't allowed
+    throw FormatException("position format");
 }
 
 
 const PositionVector invalid_return<PositionVector>::value = PositionVector();
 const std::string invalid_return<PositionVector>::type = "PositionVector";
 template<>
-PositionVector SUMOSAXAttributes::getInternal(const int attr) const {
-    return getShape(attr);
+PositionVector SUMOSAXAttributes::fromString(const std::string& value) const {
+    StringTokenizer st(value);
+    PositionVector shape;
+    while (st.hasNext()) {
+        StringTokenizer pos(st.next(), ",");
+        if (pos.size() != 2 && pos.size() != 3) {
+            throw FormatException("shape format");
+        }
+        double x = StringUtils::toDouble(pos.next());
+        double y = StringUtils::toDouble(pos.next());
+        if (pos.size() == 2) {
+            shape.push_back(Position(x, y));
+        } else {
+            double z = StringUtils::toDouble(pos.next());
+            shape.push_back(Position(x, y, z));
+        }
+    }
+    return shape;
 }
 
 
 const Boundary invalid_return<Boundary>::value = Boundary();
 const std::string invalid_return<Boundary>::type = "Boundary";
 template<>
-Boundary SUMOSAXAttributes::getInternal(const int attr) const {
-    return getBoundary(attr);
+Boundary SUMOSAXAttributes::fromString(const std::string& value) const {
+    StringTokenizer st(value, ",");
+    if (st.size() != 4) {
+        throw FormatException("boundary format");
+    }
+    const double xmin = StringUtils::toDouble(st.next());
+    const double ymin = StringUtils::toDouble(st.next());
+    const double xmax = StringUtils::toDouble(st.next());
+    const double ymax = StringUtils::toDouble(st.next());
+    return Boundary(xmin, ymin, xmax, ymax);
 }
 
 
 const std::vector<std::string> invalid_return<std::vector<std::string> >::value = std::vector<std::string>();
 const std::string invalid_return<std::vector<std::string> >::type = "StringVector";
 template<>
-std::vector<std::string> SUMOSAXAttributes::getInternal(const int attr) const {
-    return getStringVector(attr);
+std::vector<std::string> SUMOSAXAttributes::fromString(const std::string& value) const {
+    const std::vector<std::string>& ret = StringTokenizer(value).getVector();
+    if (ret.empty()) {
+        throw EmptyData();
+    }
+    return ret;
 }
 
 
 const std::vector<int> invalid_return<std::vector<int> >::value = std::vector<int>();
 const std::string invalid_return<std::vector<int> >::type = "StringVector";
 template<>
-std::vector<int> SUMOSAXAttributes::getInternal(const int attr) const {
-    return getIntVector(attr);
+std::vector<int> SUMOSAXAttributes::fromString(const std::string& value) const {
+    const std::vector<std::string>& tmp = StringTokenizer(value).getVector();
+    if (tmp.empty()) {
+        throw EmptyData();
+    }
+    std::vector<int> ret;
+    for (const std::string& s : tmp) {
+        ret.push_back(StringUtils::toInt(s));
+    }
+    return ret;
 }
 
 

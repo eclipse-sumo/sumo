@@ -58,27 +58,14 @@ SUMOSAXAttributesImpl_Cached::hasAttribute(int id) const {
 }
 
 
-bool
-SUMOSAXAttributesImpl_Cached::getBool(int id) const {
-    return StringUtils::toBool(getAttributeValueSecure(id));
-}
-
-
-int
-SUMOSAXAttributesImpl_Cached::getInt(int id) const {
-    return StringUtils::toInt(getAttributeValueSecure(id));
-}
-
-
-long long int
-SUMOSAXAttributesImpl_Cached::getLong(int id) const {
-    return StringUtils::toLong(getAttributeValueSecure(id));
-}
-
-
 std::string
-SUMOSAXAttributesImpl_Cached::getString(int id) const {
-    return getAttributeValueSecure(id);
+SUMOSAXAttributesImpl_Cached::getString(int id, bool* isPresent) const {
+    const auto it = myAttrs.find(myPredefinedTagsMML[id]);
+    if (it != myAttrs.end()) {
+        return it->second;
+    }
+    *isPresent = false;
+    return "";
 }
 
 
@@ -86,12 +73,6 @@ std::string
 SUMOSAXAttributesImpl_Cached::getStringSecure(int id, const std::string& str) const {
     const std::string& result = getAttributeValueSecure(id);
     return result.size() == 0 ? str : result;
-}
-
-
-double
-SUMOSAXAttributesImpl_Cached::getFloat(int id) const {
-    return StringUtils::toDouble(getAttributeValueSecure(id));
 }
 
 
@@ -175,77 +156,6 @@ SUMOSAXAttributesImpl_Cached::getFringeType(bool& ok) const {
         ok = false;
     }
     return FringeType::DEFAULT;
-}
-
-RGBColor
-SUMOSAXAttributesImpl_Cached::getColor() const {
-    return RGBColor::parseColor(getString(SUMO_ATTR_COLOR));
-}
-
-
-Position
-SUMOSAXAttributesImpl_Cached::getPosition(int attr) const {
-    // declare string tokenizer
-    StringTokenizer st(getString(attr));
-    // check StringTokenizer
-    while (st.hasNext()) {
-        // obtain position
-        StringTokenizer pos(st.next(), ",");
-        // check that position has X-Y or X-Y-Z
-        if ((pos.size() != 2) && (pos.size() != 3)) {
-            throw FormatException("position format");
-        }
-        // obtain x and y
-        double x = StringUtils::toDouble(pos.next());
-        double y = StringUtils::toDouble(pos.next());
-        // check if return a X-Y or a X-Y-Z Position
-        if (pos.size() == 2) {
-            return Position(x, y);
-        } else {
-            // obtain z
-            double z = StringUtils::toDouble(pos.next());
-            return Position(x, y, z);
-        }
-    }
-    // empty positions aren't allowed
-    throw FormatException("position format");
-}
-
-
-PositionVector
-SUMOSAXAttributesImpl_Cached::getShape(int attr) const {
-    StringTokenizer st(getString(attr));
-    PositionVector shape;
-    while (st.hasNext()) {
-        StringTokenizer pos(st.next(), ",");
-        if (pos.size() != 2 && pos.size() != 3) {
-            throw FormatException("shape format");
-        }
-        double x = StringUtils::toDouble(pos.next());
-        double y = StringUtils::toDouble(pos.next());
-        if (pos.size() == 2) {
-            shape.push_back(Position(x, y));
-        } else {
-            double z = StringUtils::toDouble(pos.next());
-            shape.push_back(Position(x, y, z));
-        }
-    }
-    return shape;
-}
-
-
-Boundary
-SUMOSAXAttributesImpl_Cached::getBoundary(int attr) const {
-    std::string def = getString(attr);
-    StringTokenizer st(def, ",");
-    if (st.size() != 4) {
-        throw FormatException("boundary format");
-    }
-    const double xmin = StringUtils::toDouble(st.next());
-    const double ymin = StringUtils::toDouble(st.next());
-    const double xmax = StringUtils::toDouble(st.next());
-    const double ymax = StringUtils::toDouble(st.next());
-    return Boundary(xmin, ymin, xmax, ymax);
 }
 
 

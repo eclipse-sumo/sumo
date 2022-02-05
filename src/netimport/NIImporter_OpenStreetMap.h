@@ -74,7 +74,7 @@ protected:
     struct NIOSMNode {
         NIOSMNode(long long int _id, double _lon, double _lat)
             :
-            id(_id), lon(_lon), lat(_lat), ele(0),
+            id(_id), lon(_lon), lat(_lat), ele(0.),
             tlsControlled(false),
             railwayCrossing(false),
             railwaySignal(false),
@@ -82,7 +82,7 @@ protected:
             ptStopPosition(false), ptStopLength(0), name(""),
             permissions(SVC_IGNORING),
             positionMeters(std::numeric_limits<double>::max()),
-            node(0) { }
+            node(nullptr) { }
 
         /// @brief The node's id
         const long long int id;
@@ -409,11 +409,11 @@ protected:
         /// @brief The nodes container to fill
         std::map<long long int, NIOSMNode*>& myToFill;
 
-        /// @brief ID of the currently parsed node, for reporting mainly
-        long long int myLastNodeID;
+        /// @brief id of the currently parsed node
+        std::string myLastNodeID;
 
-        /// @brief Hierarchy helper for parsing a node's tags
-        bool myIsInValidNodeTag;
+        /// @brief the currently parsed node
+        NIOSMNode* myCurrentNode;
 
         /// @brief The current hierarchy level
         int myHierarchyLevel;

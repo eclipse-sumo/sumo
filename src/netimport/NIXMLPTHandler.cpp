@@ -203,10 +203,7 @@ NIXMLPTHandler::addPTLine(const SUMOSAXAttributes& attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_VCLASS)) {
         vClass = getVehicleClassID(attrs.get<std::string>(SUMO_ATTR_VCLASS, id.c_str(), ok));
     }
-    RGBColor color(false);
-    if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
-        color = attrs.getColor();
-    }
+    RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok, RGBColor(false));
     const int intervalS = attrs.getOpt<int>(SUMO_ATTR_PERIOD, id.c_str(), ok, -1);
     const std::string nightService = attrs.getStringSecure("nightService", "");
     myCurrentCompletion = StringUtils::toDouble(attrs.getStringSecure("completeness", "1"));
@@ -226,10 +223,7 @@ NIXMLPTHandler::addPTLineFromFlow(const SUMOSAXAttributes& attrs) {
     const std::string route = attrs.get<std::string>(SUMO_ATTR_ROUTE, id.c_str(), ok);
     SUMOVehicleClass vClass = NIImporter_OpenStreetMap::interpretTransportType(type);
     const int intervalS = attrs.getOpt<int>(SUMO_ATTR_PERIOD, id.c_str(), ok, -1);
-    RGBColor color(false);
-    if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
-        color = attrs.getColor();
-    }
+    RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, id.c_str(), ok, RGBColor(false));
     if (ok) {
         myCurrentLine = new NBPTLine(id, "", type, line, intervalS / 60, "", vClass, color);
         myCurrentLine->setEdges(myRouteEdges[route]);
