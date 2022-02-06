@@ -402,7 +402,7 @@ and simply type `git pull`.
 ### How to get an older version of SUMO?
 
   see
-  [Alternative download and older releases](Downloads.md#older-releases-and-alternative-download).
+  [Alternative download and older releases](Downloads.md#older_releases_and_alternative_download).
   On Linux, older versions [must be built from source](Installing/Linux_Build.md).
 
 ### How to check out revision 5499 (or any other outdated sumo)?
