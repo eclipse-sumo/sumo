@@ -19,9 +19,11 @@ Quitting (on error).
 Error: Edge's '2' from-node '' is not known.
 Quitting (on error).
 ------------------ net/edge[0]@function:a
- Wrong error code returned (0)!
+Error: Attribute 'function' in definition of edge '1' is not of type SumoXMLEdgeFunc.
+Quitting (on error).
 ------------------ net/edge[1]@function:a
- Wrong error code returned (0)!
+Error: Attribute 'function' in definition of edge '2' is not of type SumoXMLEdgeFunc.
+Quitting (on error).
 ------------------ net/edge[0]@id:
 Error: Attribute 'id' in definition of a edge is empty.
 Error: Found lane '1_0' not within edge element.
@@ -340,23 +342,23 @@ Error: Attribute 'id' is missing in definition of a junction.
 Error: Edge's '2' to-node '3' is not known.
 Quitting (on error).
 ------------------ net/junction[0]@type:
-Warning: Unknown node type for junction '1'.
- Wrong error code returned (0)!
+Error: Attribute 'type' in definition of junction '1' is not of type SumoXMLNodeType.
+Quitting (on error).
 ------------------ net/junction[1]@type:
-Warning: Unknown node type for junction '2'.
- Wrong error code returned (0)!
+Error: Attribute 'type' in definition of junction '2' is not of type SumoXMLNodeType.
+Quitting (on error).
 ------------------ net/junction[2]@type:
-Warning: Unknown node type for junction '3'.
- Wrong error code returned (0)!
+Error: Attribute 'type' in definition of junction '3' is not of type SumoXMLNodeType.
+Quitting (on error).
 ------------------ net/junction[0]@type:a
-Warning: Unknown node type for junction '1'.
- Wrong error code returned (0)!
+Error: Attribute 'type' in definition of junction '1' is not of type SumoXMLNodeType.
+Quitting (on error).
 ------------------ net/junction[1]@type:a
-Warning: Unknown node type for junction '2'.
- Wrong error code returned (0)!
+Error: Attribute 'type' in definition of junction '2' is not of type SumoXMLNodeType.
+Quitting (on error).
 ------------------ net/junction[2]@type:a
-Warning: Unknown node type for junction '3'.
- Wrong error code returned (0)!
+Error: Attribute 'type' in definition of junction '3' is not of type SumoXMLNodeType.
+Quitting (on error).
 ------------------ net/junction[0]@type:<remove>
  Wrong error code returned (0)!
 ------------------ net/junction[1]@type:<remove>
