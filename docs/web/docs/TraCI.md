@@ -149,12 +149,12 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
     simulation
   - [Change GUI State](TraCI/Change_GUI_State.md) change the
     simulation visualization
-  - [Change Calibrator State](TraCI/Change_Calibrator_State.md) change the
+  - [Change Calibrator State](TraCI/Change_Calibrator_State.md) change a
     calibrator state 
-  - [Change Inductionloop State](TraCI/Change_Inductionloop_State.md) change the
+  - [Change Inductionloop State](TraCI/Change_Inductionloop_State.md) change a
     inductionloop state
-  - [Change Lane Area Detector State](TraCI/Change_Lane_Area_Detector_State.md) change the
-    lane area detector state 
+  - [Change Lane Area Detector State](TraCI/Change_Lane_Area_Detector_State.md) change a
+    lane area detector state
 - Subscriptions
   - [TraCI/Object Variable
     Subscription](TraCI/Object_Variable_Subscription.md)
