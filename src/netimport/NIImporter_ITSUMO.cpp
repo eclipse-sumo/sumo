@@ -109,16 +109,17 @@ NIImporter_ITSUMO::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
      * Each file is parsed twice: first for nodes, second for edges. */
     std::vector<std::string> files = oc.getStringVector("itsumo-files");
     // load nodes, first
-    Handler Handler(nb);
+    Handler handler(nb);
+    handler.needsCharacterData();
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // nodes
         if (!FileHelpers::isReadable(*file)) {
             WRITE_ERROR("Could not open itsumo-file '" + *file + "'.");
             return;
         }
-        Handler.setFileName(*file);
+        handler.setFileName(*file);
         PROGRESS_BEGIN_MESSAGE("Parsing nodes from itsumo-file '" + *file + "'");
-        if (!XMLSubSys::runParser(Handler, *file)) {
+        if (!XMLSubSys::runParser(handler, *file)) {
             return;
         }
         PROGRESS_DONE_MESSAGE();

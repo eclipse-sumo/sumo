@@ -217,6 +217,10 @@ public:
         return ret;
     }
 
+    void needsCharacterData(const bool value=true) {
+        myCollectCharacterData = value;
+    }
+
     // Reader needs access to myStartElement, myEndElement
     friend class SUMOSAXReader;
 
@@ -328,6 +332,9 @@ private:
 
     /// @brief The root element to expect, empty string disables the check
     std::string myExpectedRoot;
+
+    /// @brief whether the reader should collect character data
+    bool myCollectCharacterData = false;
 
     /// @brief whether the reader has already seen the root element
     bool myRootSeen = false;

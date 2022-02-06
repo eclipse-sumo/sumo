@@ -185,7 +185,9 @@ GenericSAXHandler::registerParent(const int tag, GenericSAXHandler* handler) {
 void
 GenericSAXHandler::characters(const XMLCh* const chars,
                               const XERCES3_SIZE_t length) {
-    myCharactersVector.push_back(StringUtils::transcode(chars, (int)length));
+    if (myCollectCharacterData) {
+        myCharactersVector.push_back(StringUtils::transcode(chars, (int)length));
+    }
 }
 
 

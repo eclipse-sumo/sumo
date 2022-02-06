@@ -189,6 +189,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // build the handler
     std::map<std::string, OpenDriveEdge*> edges;
     NIImporter_OpenDrive handler(nb.getTypeCont(), edges);
+    handler.needsCharacterData();
     // parse file(s)
     std::vector<std::string> files = oc.getStringVector("opendrive-files");
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
@@ -2441,6 +2442,7 @@ NIImporter_OpenDrive::myCharacters(int element, const std::string& cdata) {
         } else {
             WRITE_WARNING("geoReference format '" + cdata + "' currently not supported");
         }
+        needsCharacterData(false);
     }
 }
 
