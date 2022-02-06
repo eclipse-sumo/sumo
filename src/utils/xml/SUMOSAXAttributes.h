@@ -98,7 +98,7 @@ public:
      * @return The read value if given and correct; the default value if the attribute does not exist;  -1 if an error occurred
      */
     template <typename T>
-    T getOpt(int attr, const char* objectid, bool& ok, T defaultValue, bool report = true) const;
+    T getOpt(int attr, const char* objectid, bool& ok, T defaultValue=T(), bool report = true) const;
 
 
     /** @brief Tries to read given attribute assuming it is a SUMOTime
@@ -302,58 +302,6 @@ public:
      */
     virtual std::string getStringSecure(const std::string& id,
                                         const std::string& def) const = 0;
-
-
-    /**
-     * @brief Returns the value of the named attribute
-     *
-     * Tries to retrieve the attribute from the the attribute list.
-     * @return The attribute's value as a string, if it could be read and parsed
-     */
-    virtual SumoXMLEdgeFunc getEdgeFunc(bool& ok) const = 0;
-
-
-    /**
-     * @brief Returns the value of the named attribute
-     *
-     * Tries to retrieve the attribute from the the attribute list.
-     * @return The attribute's value as a string, if it could be read and parsed
-     */
-    virtual SumoXMLNodeType getNodeType(bool& ok) const = 0;
-
-    /**
-     * @brief Returns the right-of-way method
-     */
-    virtual RightOfWay getRightOfWay(bool& ok) const = 0;
-
-    /// @brief returns fringe type
-    virtual FringeType getFringeType(bool& ok) const = 0;
-
-    /** @brief Tries to read given attribute assuming it is a string vector
-     *
-     * The behavior is similar to Python's string.split(), so multiple consecutive
-     *  whitespace do not generate empty strings and leading and trailing whitespace is silently omitted.
-     *
-     * @param[in] attr The id of the attribute to read
-     * @return The read value if given and not empty; empty vector if an error occurred
-     */
-    const std::vector<std::string> getStringVector(int attr) const;
-
-    /// @brief convenience function to avoid the default argument and the template stuff at getOpt<>
-    const std::vector<std::string> getOptStringVector(int attr, const char* objectid, bool& ok, bool report = true) const;
-
-    /** @brief Tries to read given attribute assuming it is an int vector
-     *
-     * The behavior is similar to Python's string.split(), so multiple consecutive
-     *  whitespace do not generate empty strings and leading and trailing whitespace is silently omitted.
-     *
-     * @param[in] attr The id of the attribute to read
-     * @return The read value if given and not empty; empty vector if an error occurred
-     */
-    const std::vector<int> getIntVector(int attr) const;
-
-    /// @brief convenience function to avoid the default argument and the template stuff at getOpt<>
-    const std::vector<int> getOptIntVector(int attr, const char* objectid, bool& ok, bool report = true) const;
     //}
 
 
@@ -363,7 +311,6 @@ public:
      * @return The name of the described attribute
      */
     virtual std::string getName(int attr) const = 0;
-
 
     /** @brief Prints all attribute names and values into the given stream
      *
@@ -375,12 +322,10 @@ public:
      */
     virtual std::vector<std::string> getAttributeNames() const = 0;
 
-
     /// @brief return the objecttype to which these attributes belong
     const std::string& getObjectType() const {
         return myObjectType;
     }
-
 
     friend std::ostream& operator<<(std::ostream& os, const SUMOSAXAttributes& src);
 
@@ -418,61 +363,6 @@ inline std::ostream& operator<<(std::ostream& os, const SUMOSAXAttributes& src) 
 
 template<typename X> struct invalid_return {
     static const X value;
-    static const std::string type;
-};
-
-template<> struct invalid_return<bool> {
-    static const bool value;
-    static const std::string type;
-};
-
-template<> struct invalid_return<int> {
-    static const int value;
-    static const std::string type;
-};
-
-template<> struct invalid_return<long long int> {
-    static const long long int value;
-    static const std::string type;
-};
-
-template<> struct invalid_return<double> {
-    static const double value;
-    static const std::string type;
-};
-
-template<> struct invalid_return<std::string> {
-    static const std::string value;
-    static const std::string type;
-};
-
-template<> struct invalid_return<RGBColor> {
-    static const RGBColor value;
-    static const std::string type;
-};
-
-template<> struct invalid_return<Position> {
-    static const Position value;
-    static const std::string type;
-};
-
-template<> struct invalid_return<PositionVector> {
-    static const PositionVector value;
-    static const std::string type;
-};
-
-template<> struct invalid_return<Boundary> {
-    static const Boundary value;
-    static const std::string type;
-};
-
-template<> struct invalid_return<std::vector<std::string> > {
-    static const std::vector<std::string> value;
-    static const std::string type;
-};
-
-template<> struct invalid_return<std::vector<int> > {
-    static const std::vector<int> value;
     static const std::string type;
 };
 

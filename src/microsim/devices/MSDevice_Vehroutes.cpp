@@ -546,7 +546,8 @@ MSDevice_Vehroutes::loadState(const SUMOSAXAttributes& attrs) {
         }
     }
     if (mySaveExits && attrs.hasAttribute(SUMO_ATTR_EXITTIMES)) {
-        for (const std::string& t : attrs.getStringVector(SUMO_ATTR_EXITTIMES)) {
+        bool ok = true;
+        for (const std::string& t : attrs.get<std::vector<std::string> >(SUMO_ATTR_EXITTIMES, nullptr, ok)) {
             myExits.push_back(StringUtils::toLong(t));
         }
     }

@@ -108,57 +108,6 @@ SUMOSAXAttributesImpl_Cached::getStringSecure(const std::string& id,
 }
 
 
-SumoXMLEdgeFunc
-SUMOSAXAttributesImpl_Cached::getEdgeFunc(bool& ok) const {
-    if (hasAttribute(SUMO_ATTR_FUNCTION)) {
-        std::string funcString = getString(SUMO_ATTR_FUNCTION);
-        if (SUMOXMLDefinitions::EdgeFunctions.hasString(funcString)) {
-            return SUMOXMLDefinitions::EdgeFunctions.get(funcString);
-        }
-        ok = false;
-    }
-    return SumoXMLEdgeFunc::NORMAL;
-}
-
-
-SumoXMLNodeType
-SUMOSAXAttributesImpl_Cached::getNodeType(bool& ok) const {
-    if (hasAttribute(SUMO_ATTR_TYPE)) {
-        std::string typeString = getString(SUMO_ATTR_TYPE);
-        if (SUMOXMLDefinitions::NodeTypes.hasString(typeString)) {
-            return SUMOXMLDefinitions::NodeTypes.get(typeString);
-        }
-        ok = false;
-    }
-    return SumoXMLNodeType::UNKNOWN;
-}
-
-
-RightOfWay
-SUMOSAXAttributesImpl_Cached::getRightOfWay(bool& ok) const {
-    if (hasAttribute(SUMO_ATTR_RIGHT_OF_WAY)) {
-        std::string rowString = getString(SUMO_ATTR_RIGHT_OF_WAY);
-        if (SUMOXMLDefinitions::RightOfWayValues.hasString(rowString)) {
-            return SUMOXMLDefinitions::RightOfWayValues.get(rowString);
-        }
-        ok = false;
-    }
-    return RightOfWay::DEFAULT;
-}
-
-FringeType
-SUMOSAXAttributesImpl_Cached::getFringeType(bool& ok) const {
-    if (hasAttribute(SUMO_ATTR_FRINGE)) {
-        std::string fringeString = getString(SUMO_ATTR_FRINGE);
-        if (SUMOXMLDefinitions::FringeTypeValues.hasString(fringeString)) {
-            return SUMOXMLDefinitions::FringeTypeValues.get(fringeString);
-        }
-        ok = false;
-    }
-    return FringeType::DEFAULT;
-}
-
-
 std::string
 SUMOSAXAttributesImpl_Cached::getName(int attr) const {
     assert(attr >= 0);

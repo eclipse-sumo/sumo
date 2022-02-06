@@ -125,43 +125,6 @@ public:
                                 const std::string& def) const;
     /// @}
 
-    /**
-     * @brief Returns the value of the named attribute
-     *
-     * Tries to retrieve the attribute from the the attribute list.
-     * @return The attribute's value as a SumoXMLEdgeFunc, if it could be read and parsed
-     */
-    SumoXMLEdgeFunc getEdgeFunc(bool& ok) const;
-
-    /**
-     * @brief Returns the value of the named attribute
-     *
-     * Tries to retrieve the attribute from the the attribute list.
-     * @return The attribute's value as a SumoXMLNodeType, if it could be read and parsed
-     */
-    SumoXMLNodeType getNodeType(bool& ok) const;
-
-    /// @brief returns rightOfWay method
-    RightOfWay getRightOfWay(bool& ok) const;
-
-    /// @brief returns fringe type
-    FringeType getFringeType(bool& ok) const;
-
-    /**
-     * @brief Returns the value of the named attribute
-     *
-     * Tries to retrieve the attribute from the the attribute list.
-     * @return The attribute's value as a RGBColor, if it could be read and parsed
-     */
-    RGBColor getColor() const;
-
-    /** @brief Tries to read given attribute assuming it is a PositionVector
-     *
-     * @param[in] attr The id of the attribute to read
-     * @return The read value if given and not empty; "" if an error occurred
-     */
-    PositionVector getShape(int attr) const;
-
     /** @brief Converts the given attribute id into a man readable string
      *
      * Returns a "?" if the attribute is not known.

@@ -241,7 +241,8 @@ NIXMLPTHandler::addPTLineRoute(const SUMOSAXAttributes& attrs) {
         WRITE_ERROR("Found route outside line definition");
         return;
     }
-    const std::vector<std::string>& edgeIDs = attrs.getStringVector(SUMO_ATTR_EDGES);
+    bool ok = true;
+    const std::vector<std::string>& edgeIDs = attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, nullptr, ok);
     EdgeVector edges;
     for (const std::string& edgeID : edgeIDs) {
         NBEdge* edge = myEdgeCont.retrieve(edgeID);
@@ -256,11 +257,12 @@ NIXMLPTHandler::addPTLineRoute(const SUMOSAXAttributes& attrs) {
     myCurrentLine->setEdges(edges);
 }
 
+
 void
 NIXMLPTHandler::addRoute(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     myCurrentRouteID = attrs.get<std::string>(SUMO_ATTR_ID, "route", ok);
-    const std::vector<std::string>& edgeIDs = attrs.getStringVector(SUMO_ATTR_EDGES);
+    const std::vector<std::string>& edgeIDs = attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, myCurrentRouteID.c_str(), ok);
     EdgeVector edges;
     for (const std::string& edgeID : edgeIDs) {
         NBEdge* edge = myEdgeCont.retrieve(edgeID);

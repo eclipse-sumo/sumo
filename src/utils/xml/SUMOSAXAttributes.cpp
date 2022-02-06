@@ -32,6 +32,13 @@
 #include <utils/geom/PositionVector.h>
 #include "SUMOSAXAttributes.h"
 
+#define INVALID_RETURN(TYPE) \
+template<> struct invalid_return<TYPE> { \
+    static const TYPE value; \
+    static const std::string type; \
+}; \
+const std::string invalid_return<TYPE>::type = #TYPE
+
 
 // ===========================================================================
 // static members
@@ -46,8 +53,8 @@ SUMOSAXAttributes::SUMOSAXAttributes(const std::string& objectType):
     myObjectType(objectType) {}
 
 
+INVALID_RETURN(std::string);
 const std::string invalid_return<std::string>::value = "";
-const std::string invalid_return<std::string>::type = "string";
 template<>
 std::string SUMOSAXAttributes::fromString(const std::string& value) const {
     if (value == "") {
@@ -109,40 +116,6 @@ SUMOSAXAttributes::getOptSUMOTimeReporting(int attr, const char* objectid,
 }
 
 
-const std::vector<std::string>
-SUMOSAXAttributes::getStringVector(int attr) const {
-    const std::vector<std::string>& ret = StringTokenizer(getString(attr)).getVector();
-    if (ret.empty()) {
-        throw EmptyData();
-    }
-    return ret;
-}
-
-
-const std::vector<std::string>
-SUMOSAXAttributes::getOptStringVector(int attr, const char* objectid, bool& ok, bool report) const {
-    return getOpt<std::vector<std::string> >(attr, objectid, ok, std::vector<std::string>(), report);
-}
-
-const std::vector<int>
-SUMOSAXAttributes::getIntVector(int attr) const {
-    const std::vector<std::string>& tmp = StringTokenizer(getString(attr)).getVector();
-    if (tmp.empty()) {
-        throw EmptyData();
-    }
-    std::vector<int> ret;
-    for (const std::string& s : tmp) {
-        ret.push_back(StringUtils::toInt(s));
-    }
-    return ret;
-}
-
-
-const std::vector<int>
-SUMOSAXAttributes::getOptIntVector(int attr, const char* objectid, bool& ok, bool report) const {
-    return getOpt<std::vector<int> >(attr, objectid, ok, std::vector<int>(), report);
-}
-
 void
 SUMOSAXAttributes::emitUngivenError(const std::string& attrname, const char* objectid) const {
     std::ostringstream oss;
@@ -185,48 +158,48 @@ SUMOSAXAttributes::emitFormatError(const std::string& attrname, const std::strin
 }
 
 
+INVALID_RETURN(int);
 const int invalid_return<int>::value = -1;
-const std::string invalid_return<int>::type = "int";
 template<>
 int SUMOSAXAttributes::fromString(const std::string& value) const {
     return StringUtils::toInt(value);
 }
 
 
+INVALID_RETURN(long long int);
 const long long int invalid_return<long long int>::value = -1;
-const std::string invalid_return<long long int>::type = "long";
 template<>
 long long int SUMOSAXAttributes::fromString(const std::string& value) const {
     return StringUtils::toLong(value);
 }
 
 
+INVALID_RETURN(double);
 const double invalid_return<double>::value = -1;
-const std::string invalid_return<double>::type = "float";
 template<>
 double SUMOSAXAttributes::fromString(const std::string& value) const {
     return StringUtils::toDouble(value);
 }
 
 
+INVALID_RETURN(bool);
 const bool invalid_return<bool>::value = false;
-const std::string invalid_return<bool>::type = "bool";
 template<>
 bool SUMOSAXAttributes::fromString(const std::string& value) const {
     return StringUtils::toBool(value);
 }
 
 
+INVALID_RETURN(RGBColor);
 const RGBColor invalid_return<RGBColor>::value = RGBColor();
-const std::string invalid_return<RGBColor>::type = "color";
 template<>
 RGBColor SUMOSAXAttributes::fromString(const std::string& value) const {
     return RGBColor::parseColor(value);
 }
 
 
+INVALID_RETURN(Position);
 const Position invalid_return<Position>::value = Position();
-const std::string invalid_return<Position>::type = "Position";
 template<>
 Position SUMOSAXAttributes::fromString(const std::string& value) const {
     StringTokenizer st(value);
@@ -255,8 +228,8 @@ Position SUMOSAXAttributes::fromString(const std::string& value) const {
 }
 
 
+INVALID_RETURN(PositionVector);
 const PositionVector invalid_return<PositionVector>::value = PositionVector();
-const std::string invalid_return<PositionVector>::type = "PositionVector";
 template<>
 PositionVector SUMOSAXAttributes::fromString(const std::string& value) const {
     StringTokenizer st(value);
@@ -279,8 +252,8 @@ PositionVector SUMOSAXAttributes::fromString(const std::string& value) const {
 }
 
 
+INVALID_RETURN(Boundary);
 const Boundary invalid_return<Boundary>::value = Boundary();
-const std::string invalid_return<Boundary>::type = "Boundary";
 template<>
 Boundary SUMOSAXAttributes::fromString(const std::string& value) const {
     StringTokenizer st(value, ",");
@@ -295,8 +268,52 @@ Boundary SUMOSAXAttributes::fromString(const std::string& value) const {
 }
 
 
+INVALID_RETURN(SumoXMLEdgeFunc);
+const SumoXMLEdgeFunc invalid_return<SumoXMLEdgeFunc>::value = SumoXMLEdgeFunc::NORMAL;
+template<>
+SumoXMLEdgeFunc SUMOSAXAttributes::fromString(const std::string& value) const {
+    if (SUMOXMLDefinitions::EdgeFunctions.hasString(value)) {
+        return SUMOXMLDefinitions::EdgeFunctions.get(value);
+    }
+    throw FormatException("SumoXMLEdgeFunc format");
+}
+
+
+INVALID_RETURN(SumoXMLNodeType);
+const SumoXMLNodeType invalid_return<SumoXMLNodeType>::value = SumoXMLNodeType::UNKNOWN;
+template<>
+SumoXMLNodeType SUMOSAXAttributes::fromString(const std::string& value) const {
+    if (SUMOXMLDefinitions::NodeTypes.hasString(value)) {
+        return SUMOXMLDefinitions::NodeTypes.get(value);
+    }
+    throw FormatException("SumoXMLNodeType format");
+}
+
+
+INVALID_RETURN(RightOfWay);
+const RightOfWay invalid_return<RightOfWay>::value = RightOfWay::DEFAULT;
+template<>
+RightOfWay SUMOSAXAttributes::fromString(const std::string& value) const {
+    if (SUMOXMLDefinitions::RightOfWayValues.hasString(value)) {
+        return SUMOXMLDefinitions::RightOfWayValues.get(value);
+    }
+    throw FormatException("RightOfWay format");
+}
+
+
+INVALID_RETURN(FringeType);
+const FringeType invalid_return<FringeType>::value = FringeType::DEFAULT;
+template<>
+FringeType SUMOSAXAttributes::fromString(const std::string& value) const {
+    if (SUMOXMLDefinitions::FringeTypeValues.hasString(value)) {
+        return SUMOXMLDefinitions::FringeTypeValues.get(value);
+    }
+    throw FormatException("FringeType format");
+}
+
+
+INVALID_RETURN(std::vector<std::string> );
 const std::vector<std::string> invalid_return<std::vector<std::string> >::value = std::vector<std::string>();
-const std::string invalid_return<std::vector<std::string> >::type = "StringVector";
 template<>
 std::vector<std::string> SUMOSAXAttributes::fromString(const std::string& value) const {
     const std::vector<std::string>& ret = StringTokenizer(value).getVector();
@@ -307,8 +324,8 @@ std::vector<std::string> SUMOSAXAttributes::fromString(const std::string& value)
 }
 
 
+INVALID_RETURN(std::vector<int> );
 const std::vector<int> invalid_return<std::vector<int> >::value = std::vector<int>();
-const std::string invalid_return<std::vector<int> >::type = "StringVector";
 template<>
 std::vector<int> SUMOSAXAttributes::fromString(const std::string& value) const {
     const std::vector<std::string>& tmp = StringTokenizer(value).getVector();

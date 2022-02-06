@@ -576,7 +576,7 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes& attrs) {
     myCurrentEdge->builtEdge = nullptr;
     myCurrentEdge->id = id;
     // get the function
-    myCurrentEdge->func = attrs.getEdgeFunc(ok);
+    myCurrentEdge->func = attrs.getOpt<SumoXMLEdgeFunc>(SUMO_ATTR_FUNCTION, id.c_str(), ok, SumoXMLEdgeFunc::NORMAL);
     if (myCurrentEdge->func == SumoXMLEdgeFunc::CROSSING) {
         // add the crossing but don't do anything else
         Crossing c(id);
@@ -719,15 +719,13 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
     if (id[0] == ':') { // internal node
         return;
     }
-    SumoXMLNodeType type = attrs.getNodeType(ok);
+    SumoXMLNodeType type = attrs.getOpt<SumoXMLNodeType>(SUMO_ATTR_TYPE, id.c_str(), ok, SumoXMLNodeType::UNKNOWN);
     if (ok) {
         if (type == SumoXMLNodeType::DEAD_END_DEPRECATED || type == SumoXMLNodeType::DEAD_END) {
             // dead end is a computed status. Reset this to unknown so it will
             // be corrected if additional connections are loaded
             type = SumoXMLNodeType::UNKNOWN;
         }
-    } else {
-        WRITE_WARNING("Unknown node type for junction '" + id + "'.");
     }
     Position pos = readPosition(attrs, id, ok);
     NBNetBuilder::transformCoordinate(pos, true, myLocation);
@@ -745,7 +743,7 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
         node->setRadius(attrs.get<double>(SUMO_ATTR_RADIUS, id.c_str(), ok));
     }
     // handle custom shape
-    if (attrs.getOpt<bool>(SUMO_ATTR_CUSTOMSHAPE, nullptr, ok, false)) {
+    if (attrs.getOpt<bool>(SUMO_ATTR_CUSTOMSHAPE, id.c_str(), ok, false)) {
         PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
         NBNetBuilder::transformCoordinates(shape);
         node->setCustomShape(shape);
@@ -754,12 +752,8 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
         // both types of nodes come without a tlLogic
         myRailSignals.insert(id);
     }
-    if (attrs.hasAttribute(SUMO_ATTR_RIGHT_OF_WAY)) {
-        node->setRightOfWay(attrs.getRightOfWay(ok));
-    }
-    if (attrs.hasAttribute(SUMO_ATTR_FRINGE)) {
-        node->setFringeType(attrs.getFringeType(ok));
-    }
+    node->setRightOfWay(attrs.getOpt<RightOfWay>(SUMO_ATTR_RIGHT_OF_WAY, id.c_str(), ok, node->getRightOfWay()));
+    node->setFringeType(attrs.getOpt<FringeType>(SUMO_ATTR_FRINGE, id.c_str(), ok, node->getFringeType()));
     if (attrs.hasAttribute(SUMO_ATTR_NAME)) {
         node->setName(attrs.get<std::string>(SUMO_ATTR_NAME, id.c_str(), ok));
     }
@@ -958,8 +952,8 @@ NIImporter_SUMO::addPhase(const SUMOSAXAttributes& attrs, NBLoadedSUMOTLDef* cur
     //  the minimum and maximum durations
     SUMOTime minDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MINDURATION, id.c_str(), ok, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
     SUMOTime maxDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MAXDURATION, id.c_str(), ok, NBTrafficLightDefinition::UNSPECIFIED_DURATION);
-    std::vector<int> nextPhases = attrs.getOptIntVector(SUMO_ATTR_NEXT, nullptr, ok);
-    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, nullptr, ok, "");
+    std::vector<int> nextPhases = attrs.getOpt<std::vector<int> >(SUMO_ATTR_NEXT, id.c_str(), ok);
+    const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, nullptr, ok);
     if (ok) {
         currentTL->addPhase(duration, state, minDuration, maxDuration, nextPhases, name);
     }
@@ -1024,10 +1018,10 @@ NIImporter_SUMO::parseProhibitionConnection(const std::string& attr, std::string
 
 void
 NIImporter_SUMO::addRoundabout(const SUMOSAXAttributes& attrs) {
-    if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-        myRoundabouts.push_back(attrs.getStringVector(SUMO_ATTR_EDGES));
-    } else {
-        WRITE_ERROR("Empty edges in roundabout.");
+    bool ok = true;
+    const std::vector<std::string>& edgeIDs = attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, nullptr, ok);
+    if (ok) {
+        myRoundabouts.push_back(edgeIDs);
     }
 }
 

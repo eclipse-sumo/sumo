@@ -403,10 +403,10 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
         return;
     }
     // parse the function
-    const SumoXMLEdgeFunc func = attrs.getEdgeFunc(ok);
+    const SumoXMLEdgeFunc func = attrs.getOpt<SumoXMLEdgeFunc>(SUMO_ATTR_FUNCTION, id.c_str(), ok, SumoXMLEdgeFunc::NORMAL);
     if (!ok) {
-        WRITE_ERROR("Edge '" + id + "' has an invalid type.");
         myCurrentIsBroken = true;
+        return;
     }
     // omit internal edges if not wished
     if (id[0] == ':') {
@@ -568,12 +568,7 @@ NLHandler::openJunction(const SUMOSAXAttributes& attrs) {
     double x = attrs.get<double>(SUMO_ATTR_X, id.c_str(), ok);
     double y = attrs.get<double>(SUMO_ATTR_Y, id.c_str(), ok);
     double z = attrs.getOpt<double>(SUMO_ATTR_Z, id.c_str(), ok, 0);
-    bool typeOK = true;
-    SumoXMLNodeType type = attrs.getNodeType(typeOK);
-    if (!typeOK) {
-        WRITE_ERROR("An unknown or invalid junction type occurred in junction '" + id + "'.");
-        ok = false;
-    }
+    const SumoXMLNodeType type = attrs.get<SumoXMLNodeType>(SUMO_ATTR_TYPE, id.c_str(), ok);
     std::string key = attrs.getOpt<std::string>(SUMO_ATTR_KEY, id.c_str(), ok, "");
     std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
     // incoming lanes
@@ -809,10 +804,10 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
     phase->maxDuration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_MAXDURATION, id.c_str(), ok, duration);
     phase->earliestEnd = attrs.getOptSUMOTimeReporting(SUMO_ATTR_EARLIEST_END, id.c_str(), ok, tDefault);
     phase->latestEnd = attrs.getOptSUMOTimeReporting(SUMO_ATTR_LATEST_END, id.c_str(), ok, tDefault);
-    phase->nextPhases = attrs.getOptIntVector(SUMO_ATTR_NEXT, id.c_str(), ok);
-    phase->earlyTarget = attrs.getOpt<std::string>(SUMO_ATTR_EARLY_TARGET, id.c_str(), ok, "");
-    phase->finalTarget = attrs.getOpt<std::string>(SUMO_ATTR_FINAL_TARGET, id.c_str(), ok, "");
-    phase->name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
+    phase->nextPhases = attrs.getOpt<std::vector<int> >(SUMO_ATTR_NEXT, id.c_str(), ok);
+    phase->earlyTarget = attrs.getOpt<std::string>(SUMO_ATTR_EARLY_TARGET, id.c_str(), ok);
+    phase->finalTarget = attrs.getOpt<std::string>(SUMO_ATTR_FINAL_TARGET, id.c_str(), ok);
+    phase->name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok);
 
     phase->vehext = attrs.getOptSUMOTimeReporting(SUMO_ATTR_VEHICLEEXTENSION, id.c_str(), ok, tDefault);
     phase->yellow = attrs.getOptSUMOTimeReporting(SUMO_ATTR_YELLOW, id.c_str(), ok, tDefault);
@@ -1288,7 +1283,7 @@ NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes& attrs, int objecttype) {
     const SUMOTime frequency = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok, -1);
     const SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, id.c_str(), ok, string2time(OptionsCont::getOptions().getString("begin")));
     const SUMOTime end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, id.c_str(), ok, string2time(OptionsCont::getOptions().getString("end")));
-    std::vector<std::string> edgeIDs = attrs.getOptStringVector(SUMO_ATTR_EDGES, id.c_str(), ok);
+    std::vector<std::string> edgeIDs = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_EDGES, id.c_str(), ok);
     const std::string edgesFile = attrs.getOpt<std::string>(SUMO_ATTR_EDGESFILE, id.c_str(), ok, "");
     const bool aggregate = attrs.getOpt<bool>(SUMO_ATTR_AGGREGATE, id.c_str(), ok, false);
     if (!ok) {
@@ -1518,17 +1513,15 @@ NLHandler::addDistrict(const SUMOSAXAttributes& attrs) {
         source->initialize(new std::vector<MSLane*>());
         sink->setOtherTazConnector(source);
         source->setOtherTazConnector(sink);
-        if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-            std::vector<std::string> desc = attrs.getStringVector(SUMO_ATTR_EDGES);
-            for (std::vector<std::string>::const_iterator i = desc.begin(); i != desc.end(); ++i) {
-                MSEdge* edge = MSEdge::dictionary(*i);
-                // check whether the edge exists
-                if (edge == nullptr) {
-                    throw InvalidArgument("The edge '" + *i + "' within district '" + myCurrentDistrictID + "' is not known.");
-                }
-                source->addSuccessor(edge);
-                edge->addSuccessor(sink);
+        const std::vector<std::string>& desc = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_EDGES, myCurrentDistrictID.c_str(), ok);
+        for (const std::string& eID : desc) {
+            MSEdge* edge = MSEdge::dictionary(eID);
+            // check whether the edge exists
+            if (edge == nullptr) {
+                throw InvalidArgument("The edge '" + eID + "' within district '" + myCurrentDistrictID + "' is not known.");
             }
+            source->addSuccessor(edge);
+            edge->addSuccessor(sink);
         }
         RGBColor color = attrs.getOpt<RGBColor>(SUMO_ATTR_COLOR, myCurrentDistrictID.c_str(), ok, RGBColor::parseColor("1.0,.33,.33"));
         const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, myCurrentDistrictID.c_str(), ok, "");
@@ -1575,18 +1568,17 @@ NLHandler::addDistrictEdge(const SUMOSAXAttributes& attrs, bool isSource) {
 
 void
 NLHandler::addRoundabout(const SUMOSAXAttributes& attrs) {
-    if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-        std::vector<std::string> edgeIDs = attrs.getStringVector(SUMO_ATTR_EDGES);
-        for (std::vector<std::string>::iterator it = edgeIDs.begin(); it != edgeIDs.end(); ++it) {
-            MSEdge* edge = MSEdge::dictionary(*it);
+    bool ok = true;
+    const std::vector<std::string>& edgeIDs = attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, nullptr, ok);
+    if (ok) {
+        for (const std::string& eID : edgeIDs) {
+            MSEdge* edge = MSEdge::dictionary(eID);
             if (edge == nullptr) {
-                WRITE_ERROR("Unknown edge '" + (*it) + "' in roundabout");
+                WRITE_ERROR("Unknown edge '" + eID + "' in roundabout");
             } else {
                 edge->markAsRoundabout();
             }
         }
-    } else {
-        WRITE_ERROR("Empty edges in roundabout.");
     }
 }
 

@@ -164,9 +164,8 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
     if (!ok) {
         throw ProcessError();
     }
-    const SumoXMLEdgeFunc func = attrs.getEdgeFunc(ok);
+    const SumoXMLEdgeFunc func = attrs.getOpt<SumoXMLEdgeFunc>(SUMO_ATTR_FUNCTION, myCurrentName.c_str(), ok, SumoXMLEdgeFunc::NORMAL);
     if (!ok) {
-        WRITE_ERROR("Edge '" + myCurrentName + "' has an unknown type.");
         return;
     }
     // get the edge
@@ -264,7 +263,8 @@ RONetHandler::parseJunction(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     // get the id, report an error if not given or empty...
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
-    if (attrs.getNodeType(ok) == SumoXMLNodeType::INTERNAL) {
+    const SumoXMLNodeType type = attrs.get<SumoXMLNodeType>(SUMO_ATTR_TYPE, id.c_str(), ok);
+    if (type == SumoXMLNodeType::INTERNAL) {
         return;
     }
     myUnseenNodeIDs.erase(id);
@@ -397,10 +397,10 @@ RONetHandler::parseDistrict(const SUMOSAXAttributes& attrs) {
     }
     myNet.addDistrict(myCurrentName, myEdgeBuilder.buildEdge(myCurrentName + "-source", nullptr, nullptr, 0), myEdgeBuilder.buildEdge(myCurrentName + "-sink", nullptr, nullptr, 0));
     if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
-        std::vector<std::string> desc = attrs.getStringVector(SUMO_ATTR_EDGES);
-        for (std::vector<std::string>::const_iterator i = desc.begin(); i != desc.end(); ++i) {
-            myNet.addDistrictEdge(myCurrentName, *i, true);
-            myNet.addDistrictEdge(myCurrentName, *i, false);
+        const std::vector<std::string>& desc = attrs.get<std::vector<std::string> >(SUMO_ATTR_EDGES, myCurrentName.c_str(), ok);
+        for (const std::string& eID : desc) {
+            myNet.addDistrictEdge(myCurrentName, eID, true);
+            myNet.addDistrictEdge(myCurrentName, eID, false);
         }
     }
 }
