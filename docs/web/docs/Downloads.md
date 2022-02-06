@@ -194,10 +194,12 @@ night.
 !!! caution
     The available Windows binary packages may lag behind the [latest Git revision](https://github.com/eclipse/sumo/commits/main) due to being compiled only once per day (around midnight, Berlin time).
 
-# SUMO - Older releases and alternative download
+# Older releases and alternative download
 
-All releases can also be obtained via the [sourceforge download portal](https://sourceforge.net/projects/sumo/files/sumo/).
-If you want to try out an older version you can also use the virtual environment approach (explained above) with a fixed version, e.g.
+The [release directory](https://sumo.dlr.de/releases/) contains all release files since 1.2.0.
+Those and older releases can also be obtained via the [sourceforge download portal](https://sourceforge.net/projects/sumo/files/sumo/).
+If you want to try out an older version you can also use the virtual environment approach
+([explained above](#python_packages_virtual_environments)) with a fixed version, e.g.
 `pip install eclipse-sumo=1.9.0` (works only for 1.8.0 and later).
 
 If you need a complete zipped snapshot of the repository (including tests) for an older version have a look at the tags in your
