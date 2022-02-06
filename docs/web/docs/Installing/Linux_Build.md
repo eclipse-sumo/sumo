@@ -242,7 +242,7 @@ sudo xargs rm -r $SUMO_HOME
 ## (Frequent) Rebuilds
 
 If you did a repository clone you can simply update it by doing `git pull`
-from inside the SUMO_HOME folder. Then change to the buil directory and run
+from inside the SUMO_HOME folder. Then change to the build directory and run
 `make -j $(nproc)` again.
 
 If your underlying system changed (updated libraries) or you experience other
