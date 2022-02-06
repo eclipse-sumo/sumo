@@ -87,8 +87,7 @@ std::set<std::string> PCLoaderOSM::initMyKeysToInclude() {
 }
 
 void
-PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill,
-                       PCTypeMap& tm) {
+PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) {
     if (!oc.isSet("osm-files")) {
         return;
     }
@@ -484,8 +483,9 @@ PCLoaderOSM::RelationsHandler::myStartElement(int element, const SUMOSAXAttribut
     // parse "relation" elements
     if (element == SUMO_TAG_RELATION) {
         myCurrentWays.clear();
-        const std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
-        if (action == "delete") {
+        bool ok = true;
+        const std::string& action = attrs.getOpt<std::string>(SUMO_ATTR_ACTION, nullptr, ok);
+        if (action == "delete" || !ok) {
             myCurrentRelation = nullptr;
         } else {
             myCurrentRelation = new PCOSMRelation();
@@ -575,7 +575,7 @@ PCLoaderOSM::EdgesHandler::myStartElement(int element, const SUMOSAXAttributes& 
     if (element == SUMO_TAG_WAY) {
         bool ok = true;
         const long long int id = attrs.get<long long int>(SUMO_ATTR_ID, nullptr, ok);
-        const std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
+        const std::string& action = attrs.getOpt<std::string>(SUMO_ATTR_ACTION, nullptr, ok);
         if (action == "delete" || !ok) {
             myCurrentEdge = nullptr;
             return;

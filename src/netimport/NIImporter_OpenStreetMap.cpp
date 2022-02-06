@@ -714,7 +714,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
                         "', level='" + toString(myHierarchyLevel) + "').");
             return;
         }
-        const std::string& action = attrs.getOpt<std::string>(SUMO_ATTR_ACTION, myLastNodeID.c_str(), ok, "");
+        const std::string& action = attrs.getOpt<std::string>(SUMO_ATTR_ACTION, myLastNodeID.c_str(), ok);
         if (action == "delete" || !ok) {
             return;
         }
@@ -722,7 +722,8 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
             // we do not use attrs.get here to save some time on parsing
             const long long int id = StringUtils::toLong(myLastNodeID);
             myCurrentNode = nullptr;
-            if (myToFill.find(id) == myToFill.end()) {
+            const auto insertionIt = myToFill.lower_bound(id);
+            if (insertionIt == myToFill.end() || insertionIt->first != id) {
                 // assume we are loading multiple files, so we won't report duplicate nodes
                 const double tlon = attrs.get<double>(SUMO_ATTR_LON, myLastNodeID.c_str(), ok);
                 const double tlat = attrs.get<double>(SUMO_ATTR_LAT, myLastNodeID.c_str(), ok);
@@ -738,7 +739,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
                     myCurrentNode = *similarNode;
                     myDuplicateNodes++;
                 }
-                myToFill[id] = myCurrentNode;
+                myToFill.emplace_hint(insertionIt, id, myCurrentNode);
             }
         } catch (FormatException&) {
             WRITE_ERROR("Attribute 'id' in the definition of a node is not of type long long int.");
@@ -924,7 +925,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
     if (element == SUMO_TAG_WAY) {
         bool ok = true;
         const long long int id = attrs.get<long long int>(SUMO_ATTR_ID, nullptr, ok);
-        std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
+        const std::string& action = attrs.getOpt<std::string>(SUMO_ATTR_ACTION, nullptr, ok);
         if (action == "delete" || !ok) {
             myCurrentEdge = nullptr;
             return;
@@ -1409,7 +1410,7 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element, const SUM
     if (element == SUMO_TAG_RELATION) {
         bool ok = true;
         myCurrentRelation = attrs.get<long long int>(SUMO_ATTR_ID, nullptr, ok);
-        const std::string action = attrs.hasAttribute("action") ? attrs.getStringSecure("action", "") : "";
+        const std::string& action = attrs.getOpt<std::string>(SUMO_ATTR_ACTION, nullptr, ok);
         if (action == "delete" || !ok) {
             myCurrentRelation = INVALID_ID;
         }
