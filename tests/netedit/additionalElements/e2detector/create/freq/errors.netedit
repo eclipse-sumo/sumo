@@ -1,7 +1,6 @@
-Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'e2Detector' in TagSelector
-Debug: Invalid input parameter of e2Detector: 'freq' doesn't have a valid SUMOTime format
-Debug: Invalid input parameter of e2Detector: 'freq' doesn't have a valid SUMOTime format
+Debug: Invalid input parameter of e2Detector
+Debug: Invalid input parameter of e2Detector
 Debug: Adding e2Detector 'e2_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()

@@ -35,25 +35,25 @@ netedit.additionalMode()
 netedit.changeElement("e2Detector")
 
 # set invalid  lenght (dummy)
-netedit.changeDefaultValue(3, "dummyLenght")
+netedit.changeDefaultValue(netedit.attrs.E2.create.length, "dummyLenght")
 
 # try to create E2 with invalid lenght
 netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid  lenght (0)
-netedit.changeDefaultValue(3, "0")
+netedit.changeDefaultValue(netedit.attrs.E2.create.length, "0")
 
 # try to create E2 with invalid lenght
 netedit.leftClick(referencePosition, 250, 250)
 
 # set invalid  lenght (negative)
-netedit.changeDefaultValue(3, "-12")
+netedit.changeDefaultValue(netedit.attrs.E2.create.length, "-12")
 
 # try to create E2 with invalid lenght
 netedit.leftClick(referencePosition, 250, 250)
 
 # set valid lenght
-netedit.changeDefaultValue(3, "5")
+netedit.changeDefaultValue(netedit.attrs.E2.create.length, "5")
 
 # create E2 with valid lenght
 netedit.leftClick(referencePosition, 250, 250)

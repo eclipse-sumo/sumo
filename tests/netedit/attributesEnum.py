@@ -467,6 +467,102 @@ class parkingArea:
         angle = 8
         parameters = 11
 
+# E1
+class E1:
+    class create:
+        idEnable = 5    # missing
+        id = 6          # missing
+        freq = 6
+        name = 7
+        file = 8
+        vTypes = 9 
+        friendlyPos = 10
+    class inspect:
+        id = 1
+        lane = 2
+        pos = 3
+        freq = 4
+        name = 5
+        file = 6
+        vTypes = 7
+        friendlyPos = 8
+        parameters = 11
+    class inspectSelection:
+        freq = 1
+        name = 2
+        file = 3
+        vTypes = 4
+        friendlyPos = 5
+        parameters = 8
+
+# E2
+class E2:
+    class create:
+        idEnable = 5
+        id = 6
+        length = 6
+        freq = 7
+        tl = 8
+        name = 9
+        file = 10
+        vTypes = 11 
+        timeThreshold = 12
+        speedThreshold = 13
+        jamThreshold= 14
+        friendlyPos = 15
+    class inspect:
+        id = 1
+        lane = 2
+        pos = 3
+        length = 4
+        freq = 5
+        tl = 6
+        name = 7
+        file = 8
+        vTypes = 9 
+        timeThreshold = 10
+        speedThreshold = 11
+        jamThreshold= 12
+        friendlyPos = 13
+        parameters = 16
+    class inspectSelection:
+        length = 1
+        freq = 2
+        tl = 3
+        name = 4
+        file = 5
+        vTypes = 6 
+        timeThreshold = 7
+        speedThreshold = 8
+        jamThreshold= 9
+        friendlyPos = 10
+        parameters = 13
+
+# E1Instant
+class E1Instant:
+    class create:
+        idEnable = 5
+        id = 6
+        name = 6
+        file = 7
+        vTypes = 8
+        friendlyPos = 9
+    class inspect:
+        id = 1
+        lane = 2
+        pos = 3
+        name = 4
+        file = 5
+        vTypes = 6
+        friendlyPos = 7
+        parameters = 10
+    class inspectSelection:
+        name = 1
+        file = 2
+        vTypes = 3
+        friendlyPos = 4
+        parameters = 7
+
 # entryExit
 class entryExit:
     class create:
@@ -606,6 +702,35 @@ class POIGEO:
         angle = 10
         parameters = 13
 
+#--------------------------------
+# TAZ ELEMENTS
+#--------------------------------
+
+# TAZ
+class TAZ:
+    class create:
+        center = 3
+        fill = 4
+        colorButton = 5
+        color = 6
+        name = 7
+        edgesWithin = 8
+    class inspect:
+        id = 1
+        shape = 2
+        center = 3
+        fill = 4
+        colorButton = 5         # missing
+        color = 6
+        name = 7
+        parameters = 10
+    class inspectSelection:
+        center = 1
+        fill = 2
+        colorButton = 3
+        color = 4
+        name = 5
+        parameters = 8
 
 #--------------------------------
 # DEMAND ELEMENTS

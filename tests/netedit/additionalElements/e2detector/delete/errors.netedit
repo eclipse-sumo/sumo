@@ -5,7 +5,6 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Adding e2Detector 'E2_01' in GNEChange_Additional
 Debug: Adding e2Detector 'E2_02' in GNEChange_Additional
-Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'e2Detector' in TagSelector
 Debug: Removing e2Detector 'E2_01' in GNEChange_Additional
 Debug: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
