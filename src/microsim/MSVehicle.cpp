@@ -6758,7 +6758,7 @@ void
 MSVehicle::setPreviousSpeed(double prevSpeed, double prevAcceleration) {
     myState.mySpeed = MAX2(0., prevSpeed);
     // also retcon acceleration
-    if (prevAcceleration != std::numeric_limits<int>::min()) {
+    if (prevAcceleration != std::numeric_limits<double>::min()) {
         myAcceleration = prevAcceleration;
     } else {
         myAcceleration = SPEED2ACCEL(myState.mySpeed - myState.myPreviousSpeed);

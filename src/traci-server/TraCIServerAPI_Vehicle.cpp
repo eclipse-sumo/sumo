@@ -858,7 +858,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             break;
             case libsumo::VAR_PREV_SPEED: {
                 double prevSpeed = 0;
-                double prevAcceleration = std::numeric_limits<int>::min();
+                double prevAcceleration = libsumo::INVALID_DOUBLE_VALUE;
                 int inputtype = inputStorage.readUnsignedByte();
                 if (inputtype == libsumo::TYPE_COMPOUND) {
                     // Setting previous speed with 2 parameters, uses a compound object description

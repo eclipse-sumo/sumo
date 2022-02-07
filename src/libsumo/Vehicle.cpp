@@ -1416,7 +1416,9 @@ Vehicle::setPreviousSpeed(const std::string& vehID, double prevSpeed, double pre
         WRITE_WARNING("setPreviousSpeed not yet implemented for meso");
         return;
     }
-
+    if (prevAcceleration == INVALID_DOUBLE_VALUE) {
+        prevAcceleration = std::numeric_limits<double>::min();
+    }
     veh->setPreviousSpeed(prevSpeed, prevAcceleration);
 }
 
