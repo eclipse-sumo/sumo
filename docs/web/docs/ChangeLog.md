@@ -12,6 +12,9 @@ title: ChangeLog
   - Fixed lane-changing related deadlock in sublane simulation. Issue #10054
   - Fixed invalid switching for actuated traffic light in coordinated mode. Issue #10055
   - Fixed failure to overtake extremely long vehicle. Issue #10060
+  - Various NEMA fixes. Issue #10081, #10082, #10090
+  - Sorted vehroute output now preserves the loarding order of vehicles that depart in the same simulation step. Issue #10087
+  - Fixed failing train reversal after waypoint. Issue #10093
 
 - netconvert
   - Fixed crash when using option **--railway.topology.extend-priority**. Issue #10043
@@ -19,10 +22,12 @@ title: ChangeLog
   - Internal bicycle lanes which originate from a narrow bicycle lane are now narrow themselves. Issue  #10051
 
 - netedit
+  - Fixed invalid geometry when loading geo-polygons. Issue #10101 (regression in 1.10.0)
   - Fixed invalid junction color after creating a trip (from/to). Issue #9980 (regression in 1.12.0)
   
 - sumo-gui
-  - Fixed crash in phase tracker when annotating by 'time in cycle'. Issue #10069  
+  - Fixed crash in phase tracker when annotating by 'time in cycle'. Issue #10069
+  - GUI-defined traffic scaling is now preserved on reload. Issue #10096
   
 - duarouter
   - route errors are now detected when using option **--skip-new-routes**. Issue #6113
@@ -36,11 +41,19 @@ title: ChangeLog
   - Traffic lights with custom switching rules now support [custom runtime variables](Simulation/Traffic_Lights.md#storing_and_modifying_custom_data). Issue #10049
   - Detector and condition states can now be included in [tls output](Simulation/Output/Traffic_Lights.md#optional_output). Issue #10065
   - edgeData output now supports attributes 'edges' and 'edgesFile' to reduce the output to a configurable list of edges. Issues #10025
+  - Vehroute-output now includes attribute 'replacedOnIndex' for routes that were replaced after departure to resolve ambiguity for looped routes. Issue #10092
+  - Added option **--replay-rerouting** to re-run scenarios from vehroute-output in the same way as the original run. Issue #3024
 
 - sumo-gui
   - Enabled dpi awareness. Issue #9985
   - Traffic light type 'actuated' now supports parameters 'show-conditions' and 'hide-conditions' to customize visulization in the [Phase Tracker Window](Simulation/Traffic_Lights.md#track_phases) Issue #10046
   - Detectors can now be triggered from the context menu even if there are no vehicles on it. Issue #10067
+
+- netconvert
+  - Improved speed of OSM import. Isse #8147
+
+- polyconvert
+  - Shapefile with geometry encoded as linestring2D is now supported. Issue #10100
 
 - traci
   - Added function 'traci.inductionloop.overrideTimeSinceDetection' and 'traci.lanearea.overrideVehicleNumber' to trigger the detector without the need for vehicles and facilitate traffic light testing. Issue #10045, #10048  
@@ -48,7 +61,8 @@ title: ChangeLog
 - tools
   - routeStats.py: Can use measures "speed", "speedKmh", "routeLength", the fast XML parser and filter by route length . Issue #10044
   - tls_csv2SUMO.py now supports the same signal states as the simulation. Issue #10063
-
+  - osmGet.py: allow filtering road types and shapes in OSM API query to reduce download size. Issue #7585
+  - osmWebWizard.py: can now select desired road types to reduce download size. Issue #7585
 
 
 ## Version 1.12.0 (25.01.2022)
