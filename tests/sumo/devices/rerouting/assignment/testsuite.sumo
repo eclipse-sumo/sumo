@@ -83,5 +83,8 @@ priority-factor
 # track separate speeds for bicycles
 bike-speeds
 
+# using stops and via at the same time
+stops_via
+
 # Errors on assignment
 errors
