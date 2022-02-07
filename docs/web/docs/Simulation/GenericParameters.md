@@ -36,10 +36,10 @@ Some parameters are *special* and affect (or reflect) simulation behavior in the
 - tracking the [public transport 'tripId' that may change at stops](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops).
 - setting [transient junction model parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#transient_parameters)
 - customizing [parking search traffic (cruising for parking)](Rerouter.md#rerouting_to_an_alternative_parking_area)
-- configuring [parameters of carFollowModels via TraCI](TraCI/Change_Vehicle_State.md#supported_lanechangemodel_parameters)
-- retrieving [parameters of carFollowModels via TraCI](TraCI/Vehicle_Value_Retrieval.md#supported_lanechangemodel_parameters)
-- configuring [device parameters via TraCI](TraCI/Change_Vehicle_State.md#supported_device_parameters)
-- retrieving [device parameters via TraCI](TraCI/Vehicle_Value_Retrieval.md#supported_device_parameters) (some devices have read-only parameters)
+- configuring [parameters of carFollowModels via TraCI](../TraCI/Change_Vehicle_State.md#supported_lanechangemodel_parameters)
+- retrieving [parameters of carFollowModels via TraCI](../TraCI/Vehicle_Value_Retrieval.md#supported_lanechangemodel_parameters)
+- configuring [device parameters via TraCI](../TraCI/Change_Vehicle_State.md#supported_device_parameters)
+- retrieving [device parameters via TraCI](../TraCI/Vehicle_Value_Retrieval.md#supported_device_parameters) (some devices have read-only parameters)
 
 
 Parameters are always defined as child elements of the respective
