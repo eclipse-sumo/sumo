@@ -639,11 +639,11 @@ use the Linux version or download the [nightly-extra version](https://sumo.dlr.d
 
 ### How can I edit lane attributes?
 
-see [inspecting lanes)(Netedit/editModesCommon.md#inspecting_lanes)
+see [inspecting lanes](Netedit/editModesCommon.md#inspecting_lanes)
   
 ### How can I edit connection attributes?
 
-see [inspecting connections] (Netedit/editModesCommon.md#inspecting_connections)
+see [inspecting connections](Netedit/editModesCommon.md#inspecting_connections)
 
 !!! note
     Connection mode is only used for adding and removing connections but not for editing connection attributes     
