@@ -4,4 +4,5 @@ Error: Could not build e1Detector in netedit; lane doesn't exist.
 Error: Could not build e1Detector in netedit; lane doesn't exist.
 Error: Could not build e1Detector in netedit; lane doesn't exist.
 Error: Could not build e1Detector in netedit; lane doesn't exist.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_15Jun133253.3116\netedit.gui\additionalElements\e1detector\volatileRecomputing\input_additionals.add.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb094135.2472\netedit.gui\additionalElements\e1detector\volatileRecomputing\input_additionals.add.xml failed.
+Error: routes cannot be processed either with additional handler nor with demand handler
