@@ -117,11 +117,15 @@ Newly generated grid nodes, will branch of in cardinal directions from existing 
 
 # Further Options
 
-All abstract network types share some command line options. As all
-networks may possess junctions, you are able to set the default type of
-junctions to build using the **--default-junction-type-option** (or **-j** for short). The following junction
-types are allowed in accordance to the junction types currently known by
-the simulation: priority, traffic_light.
+All abstract network types share some command line options. 
 
-Further, you can specify the default street type by using the same
-options as in the [netconvert](../netconvert.md)-application.
+- **--default-junction-type-option** (or **-j** for short): set the default [type of junctions](PlainXML.html#node_types). (i.e. 'priority', 'traffic_light' ,,,)
+- **--turn-lanes**: set number of turn lanes to generate at each junction
+- **--turn-lanes.length**: set length of generated turn lanes
+- **--perturb.x**: disturb node positions in x direction by a random amount between 0 and FLOAT
+- **--perturb.y**: disturb node positions in y direction by a random amount between 0 and FLOAT
+- **--perturb.z**: disturb node positions in z direction by a random amount between 0 and FLOAT
+
+Further, you can set default values for [streets](../netconvert.md#building_defaults) and [traffic lights](../netconvert.md#tls_building) by using the same
+options as in the [netconvert](../netconvert.md)-application. 
+Many other netconvert options such as **--lefthand** are also supported by netgenerated.
