@@ -43,9 +43,6 @@ if(APPLE)
   set(PLATFORM_FOLDER_NAME "darwin${BITS}")
 endif()
 
-set(libsumofmi2_model_description modelDescription.xml)
-set(libsumofmi2_lib_name "sumo-fmi2-${PLATFORM_FOLDER_NAME}.fmu")
-
 # Set the temporary folder name to collect the contents for the ZIP archive
 set(ZIP_BUILD_FOLDER_NAME "sumo-fmi2")
 
@@ -58,24 +55,20 @@ else()
   set(remove_options "")
 endif()
 
-add_custom_target(create_fmi2_zip
+###########################################################
+# Define the custom target FMI to have all of these files
+# built (also as part of ALL - but of course this happens
+# only when FMI is enabled)
+add_custom_target(fmi ALL
   # Remove the old directory (if exists) and create a new directory
   COMMAND ${CMAKE_COMMAND} -E ${remove_command} "${remove_options}" "${ZIP_BUILD_FOLDER_NAME}"
   COMMAND ${CMAKE_COMMAND} -E make_directory "${ZIP_BUILD_FOLDER_NAME}"
   # Copy the XML file with the model description
-  COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/${libsumofmi2_model_description}" "${ZIP_BUILD_FOLDER_NAME}"
+  COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/modelDescription.xml" "${ZIP_BUILD_FOLDER_NAME}"
   # Create the folder for the binaries and copy the library
   COMMAND ${CMAKE_COMMAND} -E make_directory "${ZIP_BUILD_FOLDER_NAME}/binaries/${PLATFORM_FOLDER_NAME}/"
-  COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_SOURCE_DIR}/bin/libsumofmi2${CMAKE_SHARED_LIBRARY_SUFFIX}" "${ZIP_BUILD_FOLDER_NAME}/binaries/${PLATFORM_FOLDER_NAME}/"
+  COMMAND ${CMAKE_COMMAND} -E copy ${SUMO_LIBRARIES_RELEASE_DLL} $<TARGET_FILE:libsumofmi2> "${ZIP_BUILD_FOLDER_NAME}/binaries/${PLATFORM_FOLDER_NAME}/"
   # Build the ZIP archive
-  COMMAND ${CMAKE_COMMAND} -E chdir "${ZIP_BUILD_FOLDER_NAME}" ${CMAKE_COMMAND} -E tar "cf" "${CMAKE_SOURCE_DIR}/bin/${libsumofmi2_lib_name}" --format=zip "."
+  COMMAND ${CMAKE_COMMAND} -E chdir "${ZIP_BUILD_FOLDER_NAME}" ${CMAKE_COMMAND} -E tar "cf" "${CMAKE_SOURCE_DIR}/bin/sumo-fmi2-${PLATFORM_FOLDER_NAME}.fmu" --format=zip "."
 )
-
-add_dependencies(create_fmi2_zip libsumofmi2)
-
-###########################################################
-# Define the custom target FMI to have all of these files
-# built (also as part of ALL - but of course the happens
-# only when FMI is enabled)
-add_custom_target(fmi ALL)
-add_dependencies(fmi libsumofmi2 create_fmi2_zip)
+add_dependencies(fmi libsumofmi2)
