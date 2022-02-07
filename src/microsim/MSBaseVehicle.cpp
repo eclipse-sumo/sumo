@@ -297,8 +297,16 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
             source = *s;
         }
     }
+    if (stops.empty() && source == sink && onInit
+            && myParameter->departPosProcedure == DepartPosDefinition::GIVEN
+            && myParameter->arrivalPosProcedure == ArrivalPosDefinition::GIVEN
+            && myParameter->departPos > myParameter->arrivalPos) {
+        router.computeLooped(source, sink, this, t, edges, silent);
+    } else {
+        router.compute(source, sink, this, t, edges, silent);
+    }
+
     // router.setHint(myCurrEdge, myRoute->end(), this, t);
-    router.compute(source, sink, this, t, edges, silent);
     if (edges.empty() && silent) {
         return;
     }
@@ -728,7 +736,7 @@ MSBaseVehicle::calculateArrivalParams(bool onInit) {
     const MSEdge* arrivalEdge = myParameter->arrivalEdge >= 0 ? myRoute->getEdges()[myParameter->arrivalEdge] : myRoute->getLastEdge();
     if (!onInit) {
         arrivalEdge = myRoute->getLastEdge();
-        // ingnore arrivalEdge parameter after rerouting
+        // ignore arrivalEdge parameter after rerouting
         const_cast<SUMOVehicleParameter*>(myParameter)->arrivalEdge = -1;
     }
     const std::vector<MSLane*>& lanes = arrivalEdge->getLanes();
