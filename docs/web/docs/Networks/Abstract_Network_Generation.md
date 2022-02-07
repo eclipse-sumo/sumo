@@ -9,7 +9,7 @@ The type of network you want to create must be stated with one of the
 following switches: **--grid**, **--spider** or **--rand**. You can supply the name of the network to
 generate using **--output** *<FILENAME\>* or **-o** *<FILENAME\>* for short, default "net.net.xml".
 
-## Grid-like Networks
+# Grid-like Networks
 
 You are able to describe how many junctions in x- and in y-direction you
 want to be build and how far from each other they should be. The
@@ -39,7 +39,7 @@ These calls will generate the following networks, respectively:
 ![](../images/Netgen_grid1.gif)
 ![](../images/Netgen_grid2.gif)
 
-## Spider-like Networks
+# Spider-like Networks
 
 Spider networks are defined by the number of axes dividing them
 (parameter **--spider.arm-number** or **--arms**, default is 13), the number of the circles they are made
@@ -78,7 +78,7 @@ These calls will generate the following networks, respectively:
 ![](../images/Netgen_spider1.gif)
 ![](../images/Netgen_spider2.gif)
 
-## Random Networks
+# Random Networks
 
 The random network generator does just what its name says, it builds
 random networks. Several settings may be changed:
@@ -107,7 +107,15 @@ This call will generate the following network:
 
 ![](../images/Netgen_random1.gif)
 
-## Further Options
+## Random Grids
+
+By setting the option **--rand.grid**, additional grid structure is enforce during random network generation. 
+Newly generated grid nodes, will branch of in cardinal directions from existing nodes at multiples of **--rand.min-distance** up to a distance of **--rand.max-distance**. Since new nodes are connected to multiple existing nodes, there will still be edges at arbitrary angles but the basic structure of the network is grid-like.
+
+![](../images/Netgen_random_grid1.png)
+![](../images/Netgen_random_grid2.png)
+
+# Further Options
 
 All abstract network types share some command line options. As all
 networks may possess junctions, you are able to set the default type of
