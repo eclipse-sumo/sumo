@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 14.09.2018 15:23:30 by Eclipse SUMO netedit Version UNKNOWN
+<!-- generated on 2022-02-07 14:32:52 by Eclipse SUMO netedit Version v1_12_0+0319-e0399fbff66
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_14Sep150304.3512/netedit.gui/additionalElements/e3detector/load/load_invalidchilds\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb134849.7880\netedit.gui\additionalElements\e3detector\load\invalidchilds\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_14Sep150304.3512/netedit.gui/additionalElements/e3detector/load/load_invalidchilds\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb134849.7880\netedit.gui\additionalElements\e3detector\load\invalidchilds\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -28,23 +30,28 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_14Sep150304.3512/netedit.gui/additionalElements/e3detector/load/load_invalidchilds\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_14Sep150304.3512/netedit.gui/additionalElements/e3detector/load/load_invalidchilds\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_14Sep150304.3512/netedit.gui/additionalElements/e3detector/load/load_invalidchilds\shapes.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb134849.7880\netedit.gui\additionalElements\e3detector\load\invalidchilds\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb134849.7880\netedit.gui\additionalElements\e3detector\load\invalidchilds\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb134849.7880\netedit.gui\additionalElements\e3detector\load\invalidchilds\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb134849.7880\netedit.gui\additionalElements\e3detector\load\invalidchilds\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb134849.7880\netedit.gui\additionalElements\e3detector\load\invalidchilds\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb134849.7880\netedit.gui\additionalElements\e3detector\load\invalidchilds\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_14Sep150304.3512/netedit.gui/additionalElements/e3detector/load/load_invalidchilds\gui-settings.xml"/>
-        <window-size value="700,500"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb134849.7880\netedit.gui\additionalElements\e3detector\load\invalidchilds\gui-settings.xml"/>
+        <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb134849.7880\netedit.gui\additionalElements\e3detector\load\invalidchilds\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_14Sep150304.3512/netedit.gui/additionalElements/e3detector/load/load_invalidchilds\log.txt"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb134849.7880\netedit.gui\additionalElements\e3detector\load\invalidchilds\log.txt"/>
     </report>
 
 </configuration>

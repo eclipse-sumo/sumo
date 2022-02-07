@@ -68,16 +68,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 110)
 
 # Change parameter id with a non valid value (Duplicated ID)
-netedit.modifyAttribute(0, "e3Detector_1", False)
+netedit.modifyAttribute(netedit.attrs.E3.inspect.id, "e3_1", False)
 
 # Change parameter id with a non valid value (invalid characters)
-netedit.modifyAttribute(0, ";;;;;;;;;;;;;;;;;", False)
+netedit.modifyAttribute(netedit.attrs.E3.inspect.id, ";;;;;;;;;;;;;;;;;", False)
 
 # Change parameter id with a valid value (with spaces)
-netedit.modifyAttribute(0, "Id with spaces", False)
+netedit.modifyAttribute(netedit.attrs.E3.inspect.id, "Id with spaces", False)
 
 # Change parameter id with a valid value
-netedit.modifyAttribute(0, "correctID", False)
+netedit.modifyAttribute(netedit.attrs.E3.inspect.id, "correctID", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 8)

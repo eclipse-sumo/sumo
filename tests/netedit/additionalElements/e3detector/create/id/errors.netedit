@@ -1,7 +1,6 @@
 Debug: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '296.00'
-Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'e3Detector' in TagSelector
-Debug: Invalid input parameter of e3Detector: invalid id used in id
+Debug: Invalid input parameter of e3Detector
 Debug: Adding e3Detector 'customID' in GNEChange_Additional
 Debug: Selected item 'detEntry' in TagSelector
 Debug: Adding detEntry 'customID' in GNEChange_Additional

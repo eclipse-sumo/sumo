@@ -41,13 +41,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 160, 245)
 
 # Set invalid speed speed treshold
-netedit.modifyAttribute(5, "dummySpeedTreshold", True)
+netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.speedThreshold, "dummySpeedTreshold", True)
 
 # Set invalid speed speed treshold
-netedit.modifyAttribute(5, "-3", True)
+netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.speedThreshold, "-3", True)
 
 # Set valid speed speed treshold
-netedit.modifyAttribute(5, "4", True)
+netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.speedThreshold, "4", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

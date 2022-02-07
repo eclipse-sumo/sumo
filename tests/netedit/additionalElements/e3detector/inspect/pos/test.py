@@ -61,13 +61,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 110)
 
 # Change parameter position with a non valid value (dummy position)
-netedit.modifyAttribute(1, "dummy position", False)
+netedit.modifyAttribute(netedit.attrs.E3.inspect.pos, "dummy position", False)
 
 # Change parameter position with a non valid value (empty)
-netedit.modifyAttribute(1, "", False)
+netedit.modifyAttribute(netedit.attrs.E3.inspect.pos, "", False)
 
 # Change parameter position with a valid value (different position)
-netedit.modifyAttribute(1, "25, 25", False)
+netedit.modifyAttribute(netedit.attrs.E3.inspect.pos, "25, 25", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 5)
