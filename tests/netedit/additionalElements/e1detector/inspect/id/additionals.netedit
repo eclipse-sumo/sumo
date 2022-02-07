@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-21 12:01:26 by Eclipse SUMO netedit Version v1_11_0+1361-2e2855ec72d
+<!-- generated on 2022-02-07 10:07:59 by Eclipse SUMO netedit Version v1_12_0+0293-22171d7ea39
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan120011.13544\netedit.gui\additionalElements\e1detector\inspect\id\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb100656.968\netedit.gui\additionalElements\e1detector\inspect\id\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan120011.13544\netedit.gui\additionalElements\e1detector\inspect\id\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb100656.968\netedit.gui\additionalElements\e1detector\inspect\id\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,27 +30,27 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan120011.13544\netedit.gui\additionalElements\e1detector\inspect\id\additionals.xml"/>
-        <additionals-output value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan120011.13544\netedit.gui\additionalElements\e1detector\inspect\id\additionals.xml"/>
-        <route-files value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan120011.13544\netedit.gui\additionalElements\e1detector\inspect\id\routes.xml"/>
-        <demandelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan120011.13544\netedit.gui\additionalElements\e1detector\inspect\id\routes.xml"/>
-        <data-files value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan120011.13544\netedit.gui\additionalElements\e1detector\inspect\id\datas.xml"/>
-        <dataelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan120011.13544\netedit.gui\additionalElements\e1detector\inspect\id\datas.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb100656.968\netedit.gui\additionalElements\e1detector\inspect\id\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb100656.968\netedit.gui\additionalElements\e1detector\inspect\id\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb100656.968\netedit.gui\additionalElements\e1detector\inspect\id\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb100656.968\netedit.gui\additionalElements\e1detector\inspect\id\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb100656.968\netedit.gui\additionalElements\e1detector\inspect\id\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb100656.968\netedit.gui\additionalElements\e1detector\inspect\id\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan120011.13544\netedit.gui\additionalElements\e1detector\inspect\id\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb100656.968\netedit.gui\additionalElements\e1detector\inspect\id\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan120011.13544\netedit.gui\additionalElements\e1detector\inspect\id\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb100656.968\netedit.gui\additionalElements\e1detector\inspect\id\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\palva\.texttest\tmp\netedit.gui.21Jan120011.13544\netedit.gui\additionalElements\e1detector\inspect\id\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb100656.968\netedit.gui\additionalElements\e1detector\inspect\id\log.txt"/>
     </report>
 
 </configuration>
@@ -58,4 +58,5 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <e1Detector id="correctID" lane="gneE1_0" pos="33.00" freq="300.00" file="e1_0.xml"/>
+    <e1Detector id="e1_1" lane="gneE1_0" pos="12.00" freq="300.00" file="e1_1.xml"/>
 </additional>

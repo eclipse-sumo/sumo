@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 19.02.2021 08:50:55 by Eclipse SUMO netedit Version v1_8_0+1277-97d89271e5
+<!-- generated on 2022-02-07 10:57:28 by Eclipse SUMO netedit Version v1_12_0+0293-22171d7ea39
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Feb084702.23160\netedit.gui\additionalElements\e1InstantDetector\create\vtypes\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb105256.6860\netedit.gui\additionalElements\e1instantdetector\create\vtypes\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Feb084702.23160\netedit.gui\additionalElements\e1InstantDetector\create\vtypes\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb105256.6860\netedit.gui\additionalElements\e1instantdetector\create\vtypes\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,32 +30,32 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Feb084702.23160\netedit.gui\additionalElements\e1InstantDetector\create\vtypes\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Feb084702.23160\netedit.gui\additionalElements\e1InstantDetector\create\vtypes\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Feb084702.23160\netedit.gui\additionalElements\e1InstantDetector\create\vtypes\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Feb084702.23160\netedit.gui\additionalElements\e1InstantDetector\create\vtypes\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Feb084702.23160\netedit.gui\additionalElements\e1InstantDetector\create\vtypes\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Feb084702.23160\netedit.gui\additionalElements\e1InstantDetector\create\vtypes\datas.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb105256.6860\netedit.gui\additionalElements\e1instantdetector\create\vtypes\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb105256.6860\netedit.gui\additionalElements\e1instantdetector\create\vtypes\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb105256.6860\netedit.gui\additionalElements\e1instantdetector\create\vtypes\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb105256.6860\netedit.gui\additionalElements\e1instantdetector\create\vtypes\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb105256.6860\netedit.gui\additionalElements\e1instantdetector\create\vtypes\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb105256.6860\netedit.gui\additionalElements\e1instantdetector\create\vtypes\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Feb084702.23160\netedit.gui\additionalElements\e1InstantDetector\create\vtypes\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb105256.6860\netedit.gui\additionalElements\e1instantdetector\create\vtypes\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Feb084702.23160\netedit.gui\additionalElements\e1InstantDetector\create\vtypes\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb105256.6860\netedit.gui\additionalElements\e1instantdetector\create\vtypes\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Feb084702.23160\netedit.gui\additionalElements\e1InstantDetector\create\vtypes\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb105256.6860\netedit.gui\additionalElements\e1instantdetector\create\vtypes\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <instantInductionLoop id="instantInductionLoop_gneE1_0_0" lane="gneE1_0" pos="17.00" file="instantInductionLoop_gneE1_0_0.xml" vTypes="type1 type2 type3"/>
+    <instantInductionLoop id="e1i_0" lane="gneE0_0" pos="33.00" file="e1i_0.xml" vTypes="private passenger taxi bus"/>
 </additional>

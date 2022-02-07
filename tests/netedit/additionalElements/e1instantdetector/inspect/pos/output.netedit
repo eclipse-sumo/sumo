@@ -4,7 +4,7 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 instantInductionLoop
 TestFunctions: Clicked over position 554 - 378
 TestFunctions: Clicked over position 554 - 378
-dummyFriendlyPos
+dummyPos
 -5
 400
 20

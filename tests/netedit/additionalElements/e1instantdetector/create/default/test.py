@@ -31,11 +31,11 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to additional mode
 netedit.additionalMode()
 
-# select E1
+# select E1Instant
 netedit.changeElement("instantInductionLoop")
 
 # create E1 with default parameters
-netedit.leftClick(referencePosition, 200, 210)
+netedit.leftClick(referencePosition, 200, 245)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

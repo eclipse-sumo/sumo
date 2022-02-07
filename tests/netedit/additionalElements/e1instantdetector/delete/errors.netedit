@@ -5,10 +5,9 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Adding instantInductionLoop 'instantInductionLoop_0' in GNEChange_Additional
 Debug: Adding instantInductionLoop 'instantInductionLoop_1' in GNEChange_Additional
-Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'instantInductionLoop' in TagSelector
-Debug: Adding instantInductionLoop 'instantInductionLoop_gneE1_0_2' in GNEChange_Additional
-Debug: Removing instantInductionLoop 'instantInductionLoop_gneE1_0_2' in GNEChange_Additional
+Debug: Adding instantInductionLoop 'e1i_0' in GNEChange_Additional
+Debug: Removing instantInductionLoop 'e1i_0' in GNEChange_Additional
 Debug: Removing instantInductionLoop 'instantInductionLoop_1' in GNEChange_Additional
 Debug: Removing instantInductionLoop 'instantInductionLoop_0' in GNEChange_Additional
 Debug: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'
@@ -45,12 +44,12 @@ Debug: Calling GNEUndoList::undo()
 Debug: Adding instantInductionLoop 'instantInductionLoop_1' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Adding instantInductionLoop 'instantInductionLoop_gneE1_0_2' in GNEChange_Additional
+Debug: Adding instantInductionLoop 'e1i_0' in GNEChange_Additional
 Debug: Opened FXMessageBox Problem deleting edge 'gneE0'
 Debug: Closed FXMessageBox Problem deleting edge 'gneE0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Removing instantInductionLoop 'instantInductionLoop_gneE1_0_2' in GNEChange_Additional
+Debug: Removing instantInductionLoop 'e1i_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Removing instantInductionLoop 'instantInductionLoop_1' in GNEChange_Additional
@@ -94,7 +93,7 @@ GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Deleting unreferenced edge 'gneE0' GNEChange_Edge
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
-Debug: Deleting unreferenced instantInductionLoop 'instantInductionLoop_gneE1_0_2'
+Debug: Deleting unreferenced instantInductionLoop 'e1i_0'
 Debug: Deleting unreferenced instantInductionLoop 'instantInductionLoop_1'
 Debug: Deleting unreferenced instantInductionLoop 'instantInductionLoop_0'
 Debug: Deleting unreferenced edge 'gneE1' in AttributeCarriers destructor

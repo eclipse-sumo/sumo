@@ -31,7 +31,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # go to additional mode
 netedit.additionalMode()
 
-# select E1
+# select E1Instant
 netedit.changeElement("instantInductionLoop")
 
 # create E1

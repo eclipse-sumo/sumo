@@ -38,13 +38,13 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect E1
-netedit.leftClick(referencePosition, 150, 245)
+netedit.leftClick(referencePosition, 150, 240)
 
 # Change parameter file with an non valid value
-netedit.modifyAttribute(1, "%%%;:..&&%$%$", True)
+netedit.modifyAttribute(netedit.attrs.E1Instant.inspectSelection.file, "%%%;:..&&%$%$", True)
 
 # Change parameter file with a valid value
-netedit.modifyAttribute(1, "myOwnOutput.txt", True)
+netedit.modifyAttribute(netedit.attrs.E1Instant.inspectSelection.file, "myOwnOutput.txt", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)
