@@ -861,23 +861,20 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting previous speed needs a compound object description.", outputStorage);
                 }
                 if (inputStorage.readInt() != 2) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting previous speed needs a compound object description of two items.", outputStorage);
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting previous speed needs a compound object description of one or two items.", outputStorage);
                 }
-                double prevspeed = 0;
-                if (!server.readTypeCheckingDouble(inputStorage, prevspeed)) {
+                double prevSpeed = 0;
+                if (!server.readTypeCheckingDouble(inputStorage, prevSpeed)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The first previous speed parameter must be the speed given as a double.", outputStorage);
                 }
-                if (prevspeed < 0) {
+                if (prevSpeed < 0) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Previous speed must not be negative.", outputStorage);
                 }
-                int timefactor = 0;
-                if (!server.readTypeCheckingInt(inputStorage, timefactor)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The second previous speed parameter must be the timefactor given as an integer.", outputStorage);
+                double prevAcceleration = 0;
+                if (!server.readTypeCheckingDouble(inputStorage, prevAcceleration)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The second previous speed parameter must be the acceleration given as an double.", outputStorage);
                 }
-                if (timefactor < 1) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The timefactor must be a positive integer.", outputStorage);
-                }
-                libsumo::Vehicle::setPreviousSpeed(id, prevspeed, timefactor);
+                libsumo::Vehicle::setPreviousSpeed(id, prevSpeed, prevAcceleration);
             }
             break;
             case libsumo::VAR_SPEEDSETMODE: {

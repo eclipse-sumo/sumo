@@ -1409,19 +1409,15 @@ Vehicle::setSpeed(const std::string& vehID, double speed) {
 }
 
 void
-Vehicle::setPreviousSpeed(const std::string& vehID, double prevspeed, int timefactor) {
+Vehicle::setPreviousSpeed(const std::string& vehID, double prevSpeed, double prevAcceleration) {
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
         WRITE_WARNING("setPreviousSpeed not yet implemented for meso");
         return;
     }
-	if (timefactor < 1) {
-		WRITE_WARNING("Timefactor must be a positive integer. Was set to 1");
-		timefactor = 1;
-	}
 
-    veh->setPreviousSpeed(prevspeed, timefactor);
+    veh->setPreviousSpeed(prevSpeed, prevAcceleration);
 }
 
 void
