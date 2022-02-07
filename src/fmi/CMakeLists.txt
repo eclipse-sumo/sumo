@@ -67,7 +67,7 @@ add_custom_target(fmi ALL
   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/modelDescription.xml" "${ZIP_BUILD_FOLDER_NAME}"
   # Create the folder for the binaries and copy the library
   COMMAND ${CMAKE_COMMAND} -E make_directory "${ZIP_BUILD_FOLDER_NAME}/binaries/${PLATFORM_FOLDER_NAME}/"
-  COMMAND ${CMAKE_COMMAND} -E copy ${SUMO_LIBRARIES_RELEASE_DLL} $<TARGET_FILE:libsumofmi2> "${ZIP_BUILD_FOLDER_NAME}/binaries/${PLATFORM_FOLDER_NAME}/"
+  COMMAND ${CMAKE_COMMAND} -E copy ${SUMO_LIBRARIES_RELEASE_DLL} $<TARGET_FILE:libsumofmi2> $<TARGET_FILE:libsumocpp> "${ZIP_BUILD_FOLDER_NAME}/binaries/${PLATFORM_FOLDER_NAME}/"
   # Build the ZIP archive
   COMMAND ${CMAKE_COMMAND} -E chdir "${ZIP_BUILD_FOLDER_NAME}" ${CMAKE_COMMAND} -E tar "cf" "${CMAKE_SOURCE_DIR}/bin/sumo-fmi2-${PLATFORM_FOLDER_NAME}.fmu" --format=zip "."
 )
