@@ -160,6 +160,8 @@ output:does not supply vehicle parameter
 errors:^This will probably
 errors:^[0-9]*\.*[0-9]*: WARNING:
 errors:^WARNING:
+errors:^UserWarning:
+errors:getNextStops
 
 
 [floating_point_tolerance]
