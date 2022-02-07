@@ -1128,6 +1128,8 @@ MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) const
                     }
                 } catch (NumberFormatException&) { }
                 throw ProcessError("Invalid link index '" + arg + "' in expression '" + expr + "'");
+            } else if (fun == "c") {
+                return STEPS2TIME(getTimeInCycle());
             } else {
                 throw ProcessError("Unsupported function '" + fun + "' in expression '" + expr + "'");
             }
