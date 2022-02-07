@@ -112,8 +112,8 @@ This call will generate the following network:
 By setting the option **--rand.grid**, additional grid structure is enforce during random network generation. 
 Newly generated grid nodes, will branch of in cardinal directions from existing nodes at multiples of **--rand.min-distance** up to a distance of **--rand.max-distance**. Since new nodes are connected to multiple existing nodes, there will still be edges at arbitrary angles but the basic structure of the network is grid-like.
 
-![](../images/Netgen_random_grid1.png =392x380)
-![](../images/Netgen_random_grid2.png =299x380)
+![](../images/Netgen_random_grid1.png =392x380){: style="height:380x;width:392px"}
+![](../images/Netgen_random_grid2.png =299x380){: style="height:380px;width:299px"}
 
 # Further Options
 
