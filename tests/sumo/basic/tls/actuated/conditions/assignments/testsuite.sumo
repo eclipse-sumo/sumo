@@ -1,6 +1,10 @@
-# use custom switching rules to replicate the default behavior
-replicate_default
-
 # a traffic light program that computes all primes < 100
 # because we can!
 find_primes
+
+# use custom switching rules to replicate the default behavior
+replicate_default
+
+# assign the values of pre-defined functions to conditions and write them in the tls state
+predefined_functions
+
