@@ -857,11 +857,36 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             }
             break;
             case libsumo::VAR_PREV_SPEED: {
-                double prevspeed = 0;
-                if (!server.readTypeCheckingDouble(inputStorage, prevspeed)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting previous speed requires a double.", outputStorage);
+                double prevSpeed = 0;
+                double prevAcceleration = std::numeric_limits<int>::min();
+                int inputtype = inputStorage.readUnsignedByte();
+                if (inputtype == libsumo::TYPE_COMPOUND) {
+                    // Setting previous speed with 2 parameters, uses a compound object description
+                    int parameterCount = inputStorage.readInt();
+                    if (parameterCount == 2) {
+                        if (!server.readTypeCheckingDouble(inputStorage, prevSpeed)) {
+                            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting previous speed using 2 parameters requires the previous speed as first parameter given as a double.", outputStorage);
+                        }
+                        if (!server.readTypeCheckingDouble(inputStorage, prevAcceleration)) {
+                            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting previous speed using 2 parameters requires the previous acceleration as second parameter given as a double.", outputStorage);
+                        }
+                    } else if (parameterCount == 1) {
+                        if (!server.readTypeCheckingDouble(inputStorage, prevSpeed)) {
+                            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting previous speed using 1 parameter requires the previous speed as first parameter given as a double.", outputStorage);
+                        }
+                    } else {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting previous speed requires 1 or 2 parameters.", outputStorage);
+                    }
+                } else if (inputtype == libsumo::TYPE_DOUBLE) {
+                    // Setting previous speed with 1 parameter (double), no compound object description
+                    prevSpeed = inputStorage.readDouble();
+                } else {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting previous speed requires 1 parameter given as a double or 2 parameters as compound object description.", outputStorage);
                 }
-                libsumo::Vehicle::setPreviousSpeed(id, prevspeed);
+                if (prevSpeed < 0) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Previous speed must not be negative.", outputStorage);
+                }
+                libsumo::Vehicle::setPreviousSpeed(id, prevSpeed, prevAcceleration);
             }
             break;
             case libsumo::VAR_SPEEDSETMODE: {

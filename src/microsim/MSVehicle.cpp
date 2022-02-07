@@ -3952,7 +3952,7 @@ MSVehicle::executeMove() {
 
 //#ifdef DEBUG_EXEC_MOVE
 //    if (DEBUG_COND) {
-//    	std::cout << "vSafe = " << toString(vSafe,12) << "\n" << std::endl;
+//        std::cout << "vSafe = " << toString(vSafe,12) << "\n" << std::endl;
 //    }
 //#endif
 
@@ -6755,10 +6755,14 @@ MSVehicle::getDriverState() const {
 
 
 void
-MSVehicle::setPreviousSpeed(double prevspeed) {
-    myState.mySpeed = MAX2(0., prevspeed);
+MSVehicle::setPreviousSpeed(double prevSpeed, double prevAcceleration) {
+    myState.mySpeed = MAX2(0., prevSpeed);
     // also retcon acceleration
-    myAcceleration = SPEED2ACCEL(myState.mySpeed - myState.myPreviousSpeed);
+    if (prevAcceleration != std::numeric_limits<int>::min()) {
+        myAcceleration = prevAcceleration;
+    } else {
+        myAcceleration = SPEED2ACCEL(myState.mySpeed - myState.myPreviousSpeed);
+    }
 }
 
 

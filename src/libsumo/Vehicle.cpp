@@ -1409,7 +1409,7 @@ Vehicle::setSpeed(const std::string& vehID, double speed) {
 }
 
 void
-Vehicle::setPreviousSpeed(const std::string& vehID, double prevspeed) {
+Vehicle::setPreviousSpeed(const std::string& vehID, double prevSpeed, double prevAcceleration) {
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
@@ -1417,7 +1417,7 @@ Vehicle::setPreviousSpeed(const std::string& vehID, double prevspeed) {
         return;
     }
 
-    veh->setPreviousSpeed(prevspeed);
+    veh->setPreviousSpeed(prevSpeed, prevAcceleration);
 }
 
 void

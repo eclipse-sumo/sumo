@@ -474,8 +474,9 @@ public:
 
     /** @brief Sets the influenced previous speed
      * @param[in] A double value with the speed that overwrites the previous speed
+     * @param[in] A double value with the acceleration that overwrites the previous acceleration
      */
-    void setPreviousSpeed(double prevspeed);
+    void setPreviousSpeed(double prevSpeed, double prevAcceleration);
 
 
     /** @brief Returns the vehicle's acceleration in m/s
