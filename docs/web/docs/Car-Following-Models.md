@@ -46,7 +46,7 @@ time to start breaking as well.
 
 The use of minGap with respect to the desired (minimum) time headway varies by model. I.e. the Krauss model selects a speed that ensures minGap can always be maintaned whereas other models may not do this.
 
-The real reaction time is fundamentallylimited by the simulation step size ([sumo](sumo.md) option **--step-length** {{DT_FLOAT}}),
+The real reaction time is fundamentally limited by the simulation step size ([sumo](sumo.md) option **--step-length** {{DT_FLOAT}}),
 resp. the action step length (option **--default.action-step-length** {{DT_FLOAT}}, parameter ). For that reason a
 value of tau below this step-size may lead to collisions if the leader
 suddenly starts braking hard. If tau is larger than step-size the
