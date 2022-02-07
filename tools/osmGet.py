@@ -20,6 +20,7 @@
 from __future__ import absolute_import
 from __future__ import print_function
 import os
+import sys
 import gzip
 import base64
 import ssl
@@ -41,6 +42,9 @@ except ImportError:
     HAVE_CERTIFI = False
 
 import sumolib
+
+THIS_DIR = os.path.abspath(os.path.dirname(__file__))
+TYPEMAP_DIR = os.path.join(THIS_DIR, "..", "data", "typemap")
 
 def readBuildingShapeKeysFromXML(keyValueDict, pathToXML):
     with open(pathToXML, 'r') as osmPolyconvert:
@@ -87,8 +91,10 @@ def readCompressed(conn, urlpath, query, roadTypesJSON, getShapes, filename):
 
     if getShapes:
         keyValueDict = {}
-        keyValueDict = readBuildingShapeKeysFromXML(keyValueDict, "../data/typemap/osmPolyconvert.typ.xml")
-        keyValueDict = readBuildingShapeKeysFromXML(keyValueDict, "../data/typemap/osmPolyconvertRail.typ.xml")
+        for typemap in ["osmPolyconvert.typ.xml", "osmPolyconvertRail.typ.xml"]:
+            keyValueDict = readBuildingShapeKeysFromXML( keyValueDict,
+                    os.path.join(TYPEMAP_DIR, typemap))
+
         for category, value in keyValueDict.items():
             if category in roadTypesJSON:
                 continue
