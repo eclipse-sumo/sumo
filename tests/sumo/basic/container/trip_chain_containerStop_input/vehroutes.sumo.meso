@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-07 13:04:06 by Eclipse SUMO sumo Version v1_12_0+0296-f036efb
+<!-- generated on 2022-02-07 13:04:08 by Eclipse SUMO sumo Version v1_12_0+0296-f036efb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -22,6 +22,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <output>
         <write-license value="true"/>
         <tripinfo-output value="tripinfos.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
     </output>
 
     <processing>
@@ -30,9 +31,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </processing>
 
     <report>
+        <verbose value="true"/>
         <xml-validation value="never"/>
         <xml-validation.routes value="never"/>
-        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -43,13 +44,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="v0" depart="0.00" departLane="" departPos="0.00" departSpeed="1.49" departDelay="0.00" arrival="96.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="13.89" duration="96.00" routeLength="500.00" waitingTime="0.00" waitingCount="0" stopTime="60.00" timeLoss="60.00" rerouteNo="0" devices="tripinfo_v0 person_v0" vType="train" speedFactor="1.00" vaporized=""/>
-    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE">
-        <walk depart="0.00" departPos="0.00" arrival="35.00" arrivalPos="48.40" duration="35.00" routeLength="48.40" timeLoss="0.15" maxSpeed="1.39"/>
-        <access stop="B" depart="35.00" arrival="53.00" duration="18.00" routeLength="25.05"/>
-        <ride waitingTime="7.80" vehicle="v0" depart="60.80" arrival="89.00" arrivalPos="400.00" duration="28.20" routeLength="400.00" timeLoss="0.00"/>
-        <access stop="D" depart="89.00" arrival="107.00" duration="18.00" routeLength="25.60"/>
-        <walk depart="107.00" departPos="44.50" arrival="111.00" arrivalPos="50.00" duration="4.00" routeLength="5.50" timeLoss="0.04" maxSpeed="1.39"/>
-    </personinfo>
-</tripinfos>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="train0" depart="50.00" arrival="194.00">
+        <route edges="1/4to1/3 1/3to0/3 0/3to0/4 0/4to1/4 1/4to1/3"/>
+        <stop containerStop="containerStop0" duration="10.00" until="120.00"/>
+        <stop containerStop="containerStop1" duration="10.00" until="180.00"/>
+    </vehicle>
+
+    <container id="container0" depart="0.00" arrival="288.00">
+        <tranship edges="2/3to1/3 1/3to0/3" containerStop="containerStop0" speed="1.39"/>
+        <transport from="1/3to0/3" to="0/4to1/4" containerStop="containerStop1" lines="train0"/>
+        <tranship edges="0/4to1/4 1/4to2/4" speed="1.39"/>
+        <stop lane="1/4to2/4_0" endPos="30.00" duration="20.00"/>
+        <transport from="1/4to2/4" to="3/4to4/4" arrivalPos="92.00" lines="car0"/>
+    </container>
+
+    <vehicle id="car0" depart="containerTriggered" departPos="0.00" arrival="288.00">
+        <route edges="1/4to2/4 2/4to3/4 3/4to4/4"/>
+        <stop lane="1/4to2/4_0" startPos="40.00" endPos="60.00" duration="20.00"/>
+    </vehicle>
+
+</routes>
