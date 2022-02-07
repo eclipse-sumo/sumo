@@ -60,7 +60,7 @@ def readBuildingShapeKeysFromXML(keyValueDict, pathToXML):
                     kvd[key] = ['.']
     return kvd
 
-def readCompressed(conn, urlpath, query, roadTypesJSON, downloadShapesPolygon,filename):
+def readCompressed(conn, urlpath, query, roadTypesJSON, getShapes, filename):
     # generate query string for each road-type category
     commonQueryStringKeyPart = "<has-kv k=\"%s\" "
     commonQueryStringRegvPart = "modv=\"\" regv=\"%s\"/>"
@@ -85,7 +85,7 @@ def readCompressed(conn, urlpath, query, roadTypesJSON, downloadShapesPolygon,fi
             finalQueryStringPerCategory = keyQueryString + regvQueryString
             queryStringNode.append(commonQueryStringNode % (finalQueryStringPerCategory, query))
 
-    if downloadShapesPolygon == 'True':
+    if getShapes:
         keyValueDict = {}
         keyValueDict = readBuildingShapeKeysFromXML(keyValueDict, "../data/typemap/osmPolyconvert.typ.xml")
         keyValueDict = readBuildingShapeKeysFromXML(keyValueDict, "../data/typemap/osmPolyconvertRail.typ.xml")
@@ -145,8 +145,10 @@ optParser.add_argument("-u", "--url", default="www.overpass-api.de/api/interpret
 # alternatives: overpass.kumi.systems/api/interpreter, sumo.dlr.de/osm/api/interpreter
 optParser.add_argument("-w", "--wikidata", action="store_true",
                        default=False, help="get the corresponding wikidata")
-optParser.add_argument("-r", "--road_types", help="only delivers osm data to the specified road-types")
-optParser.add_argument("-s", "--shapes_polygon", help="determines if polygon data (buildings, areas , etc.) is downloaded")
+optParser.add_argument("-r", "--road-types", dest="roadTypes",
+                       help="only delivers osm data to the specified road-types")
+optParser.add_argument("-s", "--shapes", action="store_true", default=False,
+                       help="determines if polygon data (buildings, areas , etc.) is downloaded")
 optParser.add_argument("-z", "--gzip", action="store_true",
                        default=False, help="save gzipped output")
 
@@ -196,24 +198,20 @@ def get(args=None):
         else:
             conn = httplib.HTTPConnection(url.hostname, url.port)
 
-    # Initially "Add Polygon" Checkbox is True
-    downloadShapesPolygon = True
-    if options.shapes_polygon:
-        downloadShapesPolygon = options.shapes_polygon
-
-    if options.road_types:
-        roadTypesJSON = json.loads(options.road_types.replace("\'", "\"").lower())
+    if options.roadTypes:
+        roadTypesJSON = json.loads(options.roadTypes.replace("\'", "\"").lower())
 
     suffix = ".osm.xml.gz" if options.gzip else ".osm.xml"
-    if (options.area and options.road_types):
+    if (options.area and options.roadTypes):
         if options.area < 3600000000:
             options.area += 3600000000
         readCompressed(conn, url.path, '<area-query ref="%s"/>' %
-                       options.area, roadTypesJSON, downloadShapesPolygon, options.prefix + "_city" + suffix)
-    if ((options.bbox or options.polygon) and options.road_types):
+                       options.area, roadTypesJSON, options.shapes, options.prefix + "_city" + suffix)
+    if ((options.bbox or options.polygon) and options.roadTypes):
         if options.tiles == 1:
             readCompressed(conn, url.path, '<bbox-query n="%s" s="%s" w="%s" e="%s"/>' %
-                           (north, south, west, east), roadTypesJSON, downloadShapesPolygon,
+                           (north, south, west, east), roadTypesJSON,
+                           options.shapes,
                            options.prefix + "_bbox" + suffix)
         else:
             num = options.tiles
@@ -221,7 +219,7 @@ def get(args=None):
             for i in range(num):
                 e = b + (east - west) / float(num)
                 readCompressed(conn, url.path, '<bbox-query n="%s" s="%s" w="%s" e="%s"/>' % (
-                    north, south, b, e), roadTypesJSON, downloadShapesPolygon,
+                    north, south, b, e), roadTypesJSON, options.shapes,
                                "%s%s_%s%s" % (options.prefix, i, num, suffix))
                 b = e
 
