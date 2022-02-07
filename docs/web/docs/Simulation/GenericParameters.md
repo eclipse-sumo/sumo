@@ -22,14 +22,17 @@ their XML definitions:
 Parameters support the following functionality
 
 - editing in [netedit](../Netedit/index.md#generic_parameters)
-- reading and writing [via TraCI](../TraCI/GenericParameters.md).
-- customizing the functionality of [actuated traffic lights](../Simulation/Traffic_Lights.md#additional_parameters)
-- configuring vehicle types for use with the [electric vehicle model](../Models/Electric.md)
-- [setting up devices on a per-vehicle basis](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices)
 - Supplying additional information to the user (via
   [sumo-gui](../sumo-gui.md) dialogs or when inspecting XML
   files)
+- reading and writing [via TraCI](../TraCI/GenericParameters.md).
 - retaining custom information when [saving and loading simulation state](SaveAndLoad.md)
+
+Some parameters are *special* and affect simulation behavior in the following ways:
+
+- [setting up devices on a per-vehicle basis](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices)
+- customizing the functionality of [actuated traffic lights](../Simulation/Traffic_Lights.md#additional_parameters)
+- configuring vehicle types for use with the [electric vehicle model](../Models/Electric.md)
 - tracking the [public transport 'tripId' that may change at stops](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops).
 - setting [transient junction model parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#transient_parameters)
 
