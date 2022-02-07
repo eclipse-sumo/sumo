@@ -26,6 +26,12 @@ else()
 endif()
 
 if(WIN32)
+  if (CMAKE_GENERATOR_PLATFORM STREQUAL "Win32")
+    set(BITS "32")
+  endif()
+  if (CMAKE_GENERATOR_PLATFORM STREQUAL "x64")
+    set(BITS "64")
+  endif()
   set(PLATFORM_FOLDER_NAME "win${BITS}")
 endif()
 
