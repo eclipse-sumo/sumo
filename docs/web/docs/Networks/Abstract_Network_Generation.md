@@ -128,4 +128,4 @@ All abstract network types share some command line options.
 
 Further, you can set default values for [streets](../netconvert.md#building_defaults) and [traffic lights](../netconvert.md#tls_building) by using the same
 options as in the [netconvert](../netconvert.md)-application. 
-Many other netconvert options such as **--lefthand** are also supported by netgenerated.
+Many other netconvert options such as **--lefthand** are also supported by netgenerate.
