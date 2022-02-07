@@ -49,19 +49,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 320, 250)
 
 # Change parameter lanes with a non valid value (dummy
-netedit.modifyAttribute(1, "dummyLane1 dummyLan2", True)
+netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.lanes, "dummyLane1 dummyLan2", True)
 
 # Change parameter lanes with a non valid value (Invalid ID)
-netedit.modifyAttribute(1, "Id with spaces", True)
+netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.lanes, "Id with spaces", True)
 
 # Change parameter lanes with a non valid value (single lane)
-netedit.modifyAttribute(1, "gneE4_0", True)
+netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.lanes, "gneE4_0", True)
 
 # Change parameter lanes with a non valid value (non consecutive lanes)
-netedit.modifyAttribute(1, "gneE0_0 gneE4_0", True)
+netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.lanes, "gneE0_0 gneE4_0", True)
 
 # Change parameter lanes with a valid value
-netedit.modifyAttribute(1, "gneE4_0 gneE5_0", True)
+netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.lanes, "gneE4_0 gneE5_0", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 31.08.2020 11:03:08 by Eclipse SUMO netedit Version v1_6_0+1844-a48d4a84d5
+<!-- generated on 2022-02-07 14:03:13 by Eclipse SUMO netedit Version v1_12_0+0319-e0399fbff66
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Aug110104.8016\netedit.gui\additionalElements\e2MultiLaneDetector\create\freq\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb135958.6428\netedit.gui\additionalElements\e2multilanedetector\create\freq\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Aug110104.8016\netedit.gui\additionalElements\e2MultiLaneDetector\create\freq\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb135958.6428\netedit.gui\additionalElements\e2multilanedetector\create\freq\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,32 +30,32 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Aug110104.8016\netedit.gui\additionalElements\e2MultiLaneDetector\create\freq\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Aug110104.8016\netedit.gui\additionalElements\e2MultiLaneDetector\create\freq\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Aug110104.8016\netedit.gui\additionalElements\e2MultiLaneDetector\create\freq\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Aug110104.8016\netedit.gui\additionalElements\e2MultiLaneDetector\create\freq\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Aug110104.8016\netedit.gui\additionalElements\e2MultiLaneDetector\create\freq\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Aug110104.8016\netedit.gui\additionalElements\e2MultiLaneDetector\create\freq\datas.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb135958.6428\netedit.gui\additionalElements\e2multilanedetector\create\freq\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb135958.6428\netedit.gui\additionalElements\e2multilanedetector\create\freq\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb135958.6428\netedit.gui\additionalElements\e2multilanedetector\create\freq\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb135958.6428\netedit.gui\additionalElements\e2multilanedetector\create\freq\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb135958.6428\netedit.gui\additionalElements\e2multilanedetector\create\freq\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb135958.6428\netedit.gui\additionalElements\e2multilanedetector\create\freq\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Aug110104.8016\netedit.gui\additionalElements\e2MultiLaneDetector\create\freq\gui-settings.xml"/>
-        <window-size value="700,500"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb135958.6428\netedit.gui\additionalElements\e2multilanedetector\create\freq\gui-settings.xml"/>
+        <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Aug110104.8016\netedit.gui\additionalElements\e2MultiLaneDetector\create\freq\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb135958.6428\netedit.gui\additionalElements\e2multilanedetector\create\freq\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Aug110104.8016\netedit.gui\additionalElements\e2MultiLaneDetector\create\freq\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.07Feb135958.6428\netedit.gui\additionalElements\e2multilanedetector\create\freq\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <e2Detector id="e2MultilaneDetector_0" lanes="gneE2_0 gneE3_0" pos="10.00" endPos="13.00" freq="120" file="e2MultilaneDetector_0.xml"/>
+    <e2Detector id="e2_0" lanes="gneE2_0 gneE3_0" pos="10.00" endPos="13.00" freq="120.00" file="e2_0.xml"/>
 </additional>

@@ -538,6 +538,93 @@ class E2:
         friendlyPos = 10
         parameters = 13
 
+# E2Multilane
+class E2Multilane:
+    class create:
+        idEnable = 5
+        id = 6
+        freq = 6
+        tl = 7
+        name = 8
+        file = 9
+        vTypes = 10 
+        timeThreshold = 11
+        speedThreshold = 12
+        jamThreshold= 13
+        friendlyPos = 14
+    class inspect:
+        id = 1
+        lanes = 2
+        pos = 3
+        endPos = 4
+        freq = 5
+        tl = 6
+        name = 7
+        file = 8
+        vTypes = 9 
+        timeThreshold = 10
+        speedThreshold = 11
+        jamThreshold= 12
+        friendlyPos = 13
+        parameters = 16
+    class inspectSelection:
+        freq = 1
+        tl = 2
+        name = 3
+        file = 4
+        vTypes = 5 
+        timeThreshold = 6
+        speedThreshold = 7
+        jamThreshold= 8
+        friendlyPos = 9
+        parameters = 12
+
+# E3
+class E3:
+    class create:
+        idEnable = 5
+        id = 6
+        freq = 6
+        name = 7
+        file = 8
+        vTypes = 9 
+        timeThreshold = 10
+        speedThreshold = 11
+    class inspect:
+        id = 1
+        pos = 2
+        freq = 3
+        name = 4
+        file = 5
+        vTypes = 6 
+        timeThreshold = 7
+        speedThreshold = 8
+        parameters = 11
+    class inspectSelection:
+        freq = 1
+        name = 2
+        file = 3
+        vTypes = 4 
+        timeThreshold = 5
+        speedThreshold = 6
+        parameters = 9
+
+# entryExit
+class entryExit:
+    class create:
+        friendlyPos = 5
+        parent = 8
+    class inspect:
+        lane = 1
+        pos = 2
+        friendlyPos = 3
+        parameters = 6
+        parent = 10
+    class inspectSelection:
+        friendlyPos = 1
+        parameters = 4
+        parent = 7
+
 # E1Instant
 class E1Instant:
     class create:
@@ -562,21 +649,6 @@ class E1Instant:
         vTypes = 3
         friendlyPos = 4
         parameters = 7
-
-# entryExit
-class entryExit:
-    class create:
-        friendlyPos = 5
-    class inspect:
-        lane = 1
-        pos = 2
-        friendlyPos = 3
-        parameters = 6
-        parent = 10
-    class inspectSelection:
-        friendlyPos = 1
-        parameters = 4
-        parent = 7
 
 # calibrator
 class calibrator:
