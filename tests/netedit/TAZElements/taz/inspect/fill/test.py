@@ -41,7 +41,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 182, 130)
 
 # Change boolean parameter 3
-netedit.modifyBoolAttribute(3, False)
+netedit.modifyBoolAttribute(netedit.attrs.TAZ.inspect.fill, False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)
