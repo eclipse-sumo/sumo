@@ -639,18 +639,11 @@ use the Linux version or download the [nightly-extra version](https://sumo.dlr.d
 
 ### How can I edit lane attributes?
 
-Either of the following can be used to inspect and edit lane attributes while in inspect mode (I):
-  
-- shift + leftClick on a lane
-- activate 'clicks select lanes' toggle button in the button bar (shortcut Alt + 4) and the leftClick on lanes
-- inspect an edge an then right-click a lane in the hierarchy view and select 'inspect'
+see [inspecting lanes)(Netedit/editModesCommon.md#inspecting_lanes)
   
 ### How can I edit connection attributes?
 
-After opening the network, junctions must be recomputed at least once (F5). Computation happens automatically when switching to connection mode or traffic light mode. After network computation, either of the following can be used to inspect and edit connection attributes while in inspect mode (I):
-    
-- activate 'show connections' toggle button in the button bar (shortcut Alt + 5) and the leftClick on connection
-- inspect an edge and then right-click a connection in the hierarchy view (lane->outgoing->connections) and select 'inspect'
+see [inspecting connections] (Netedit/editModesCommon.md#inspecting_connections)
 
 !!! note
     Connection mode is only used for adding and removing connections but not for editing connection attributes     
