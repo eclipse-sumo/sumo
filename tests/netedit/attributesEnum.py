@@ -47,13 +47,13 @@ class junction:
         tl = 17         # missing
         parameters = 20
     class inspectSelection:
-        type = 3
-        radius = 4
-        keepClear = 5
-        rightOfWay = 6
-        fringe = 7
-        name = 8
-        parameters = 11
+        type = 1
+        radius = 2
+        keepClear = 3
+        rightOfWay = 4
+        fringe = 5
+        name = 6
+        parameters = 9
 
 # edge
 class edge:
