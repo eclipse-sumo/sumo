@@ -56,6 +56,7 @@ MSRouteHandler::MSRouteHandler(const std::string& file, bool addVehiclesDirectly
     myActiveRouteRepeat(0),
     myActiveRoutePeriod(0),
     myActiveType(ObjectTypeEnum::UNDEFINED),
+    myHaveVia(false),
     myActiveTransportablePlan(nullptr),
     myAddVehiclesDirectly(addVehiclesDirectly),
     myCurrentVTypeDistribution(nullptr),
@@ -90,7 +91,6 @@ MSRouteHandler::resetActivePlanAndVehicleParameter() {
     myVehicleParameter = nullptr;
     myActiveTransportablePlan = nullptr;
     myActiveType = ObjectTypeEnum::UNDEFINED;
-    myActiveTypeName = "";
 }
 
 
@@ -142,6 +142,9 @@ MSRouteHandler::parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
         MSEdge::parseEdgesList(attrs.getOpt<std::string>(SUMO_ATTR_VIA, myVehicleParameter->id.c_str(), ok),
                                viaEdges, "for " + element + " '" + myVehicleParameter->id + "'");
     }
+    if (!viaEdges.empty()) {
+        myHaveVia = true;
+    }
     for (const MSEdge* e : viaEdges) {
         myActiveRoute.push_back(e);
         myVehicleParameter->via.push_back(e->getID());
@@ -180,6 +183,10 @@ MSRouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 && element != SUMO_TAG_RIDE && element != SUMO_TAG_TRANSPORT) {
             const std::string mode = myActiveType == ObjectTypeEnum::PERSON ? "ride" : "transport";
             throw ProcessError("Triggered departure for " + myActiveTypeName + " '" + myVehicleParameter->id + "' requires starting with a " + mode + ".");
+        }
+        if (myVehicleParameter == nullptr) {
+            myActiveTypeName = toString((SumoXMLTag)element);
+            myHaveVia = false;
         }
         SUMORouteHandler::myStartElement(element, attrs);
         switch (element) {
@@ -1257,6 +1264,11 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                 myActiveRoute.insert(myActiveRoute.begin() + myInsertStopEdgesAt, edge);
                 myInsertStopEdgesAt++;
             }
+        } else if (myHaveVia) {
+            // vias were loaded, check for consistency
+            if (std::find(myActiveRoute.begin(), myActiveRoute.end(), edge) == myActiveRoute.end()) {
+                WRITE_WARNING("Stop edge '" + edge->getID() + "' missing in attribute 'via' for " + myActiveTypeName + " '" + myVehicleParameter->id + "'");
+            }
         }
     } catch (ProcessError&) {
         deleteActivePlanAndVehicleParameter();
@@ -1463,7 +1475,6 @@ MSRouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
 void
 MSRouteHandler::addPerson(const SUMOSAXAttributes& /*attrs*/) {
     myActiveType = ObjectTypeEnum::PERSON;
-    myActiveTypeName = "person";
     checkTransportableType();
     myActiveTransportablePlan = new MSTransportable::MSTransportablePlan();
 }
@@ -1472,7 +1483,6 @@ MSRouteHandler::addPerson(const SUMOSAXAttributes& /*attrs*/) {
 void
 MSRouteHandler::addContainer(const SUMOSAXAttributes& /*attrs*/) {
     myActiveType = ObjectTypeEnum::CONTAINER;
-    myActiveTypeName = "container";
     checkTransportableType();
     myActiveTransportablePlan = new MSTransportable::MSTransportablePlan();
 }
