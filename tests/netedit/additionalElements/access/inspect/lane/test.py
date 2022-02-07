@@ -50,8 +50,8 @@ netedit.leftClick(referencePosition, 200, 110)
 # go to inspect mode
 netedit.inspectMode()
 
-# delete Access
-netedit.leftClick(referencePosition, 208, 280)
+# inspect Access
+netedit.leftClick(referencePosition, 210, 95)
 
 # Change parameter lane with a non valid value (dummy Lane)
 netedit.modifyAttribute(netedit.attrs.access.inspect.lane, "dummyLane", True)

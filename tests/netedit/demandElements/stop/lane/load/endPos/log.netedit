@@ -1,4 +1,4 @@
-Error: Attribute 'endPos' in definition of a stop is not of type float.
+Error: Attribute 'endPos' in definition of a stop is not of type double.
 Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop on lane 'gneE1_0'
 Error: Attribute 'endPos' in definition of a stop is empty.
 Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop on lane 'gneE1_0'
