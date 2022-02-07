@@ -248,7 +248,7 @@ MSInductLoop::getTimeSinceLastDetection() const {
 SUMOTime
 MSInductLoop::getLastDetectionTime() const {
     if (myOverrideTime >= 0) {
-        return SIMTIME - myOverrideTime;
+        return SIMSTEP - TIME2STEPS(myOverrideTime);
     }
     if (myVehiclesOnDet.size() != 0) {
         return MSNet::getInstance()->getCurrentTimeStep();
