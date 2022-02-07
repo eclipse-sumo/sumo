@@ -112,14 +112,14 @@ This call will generate the following network:
 By setting the option **--rand.grid**, additional grid structure is enforce during random network generation. 
 Newly generated grid nodes, will branch of in cardinal directions from existing nodes at multiples of **--rand.min-distance** up to a distance of **--rand.max-distance**. Since new nodes are connected to multiple existing nodes, there will still be edges at arbitrary angles but the basic structure of the network is grid-like.
 
-![](../images/Netgen_random_grid1.png =392x380){: style="height:380px"}
-![](../images/Netgen_random_grid2.png =299x380){: style="height:380px"}
+![](../images/Netgen_random_grid1.png){: style="height:380px"}
+![](../images/Netgen_random_grid2.png){: style="height:380px"}
 
 # Further Options
 
 All abstract network types share some command line options. 
 
-- **--default-junction-type-option** (or **-j** for short): set the default [type of junctions](PlainXML.html#node_types). (i.e. 'priority', 'traffic_light' ,,,)
+- **--default-junction-type-option** (or **-j** for short): set the default [type of junctions](PlainXML.md#node_types). (i.e. 'priority', 'traffic_light' ,,,)
 - **--turn-lanes**: set number of turn lanes to generate at each junction
 - **--turn-lanes.length**: set length of generated turn lanes
 - **--perturb.x**: disturb node positions in x direction by a random amount between 0 and FLOAT
