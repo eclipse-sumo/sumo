@@ -33,6 +33,7 @@ plugins:
   - macros
 
 markdown_extensions:
+  - attr_list
   - admonition
   - pymdownx.tilde
   - meta
