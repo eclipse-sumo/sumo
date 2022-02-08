@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2022-02-08 11:18:06.953516 by route2OD.py v1_12_0+0355-a67c6fe1aff
+<!-- generated on 2022-02-08 12:37:11.736198 by route2OD.py v1_12_0+0365-2492193
 <configuration>
-    <edge-od value="True"/>
-    <output-file value="ttest.xml"/>
+    <edge-relations value="True"/>
+    <output-file value="od.xml"/>
     <route-file value="input_routes.rou.xml"/>
     <taz-files value="input_additional.add.xml"/>
 </configuration>
@@ -13,8 +13,8 @@
         <edgeRelation from="A1A0" to="B0C0" count="1"/>
         <edgeRelation from="B1B0" to="C2C3" count="1"/>
         <edgeRelation from="B1B0" to="C4C3" count="1"/>
-        <edgeRelation from="B2B3" to="B1B0" count="1"/>
-        <edgeRelation from="C0D0" to="A1A0" count="1"/>
+        <edgeRelation from="B2B3" to="B1B0" count="101"/>
+        <edgeRelation from="C0D0" to="A1A0" count="2"/>
         <edgeRelation from="D0E0" to="A1A0" count="1"/>
         <edgeRelation from="D0E0" to="C3C2" count="1"/>
         <edgeRelation from="D2D3" to="D1D2" count="1"/>
