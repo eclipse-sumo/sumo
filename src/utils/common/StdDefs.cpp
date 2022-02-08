@@ -24,6 +24,7 @@
 // set by option --precision (see SystemFrame.cpp)
 int gPrecision = 2;
 int gPrecisionGeo = 6;
+int gPrecisionRandom = 4;
 bool gHumanReadableTime = false;
 bool gSimulation = false;
 double gWeightsRandomFactor = 1;
@@ -45,6 +46,11 @@ double roundBits(double x, int fractionBits) {
     return rounded / (1 << fractionBits);
 }
 
+double roundDecimal(double x, int precision) {
+    const double p =pow(10, precision);
+    const double x2 = x * p;
+    return (x2 < 0 ? ceil(x2 - 0.5) : floor(x2 + 0.5)) / p;
+}
 
 int
 getScalingQuota(double frac, int loaded) {

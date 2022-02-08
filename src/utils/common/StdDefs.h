@@ -121,6 +121,7 @@ ISNAN(T a) {
 /// the precision for floating point outputs
 extern int gPrecision;
 extern int gPrecisionGeo; // for lon,lat
+extern int gPrecisionRandom; // for randomized values (i.e. speedFactor)
 extern bool gHumanReadableTime;
 extern bool gSimulation; // whether the current application is sumo or sumo-gui (as opposed to a router)
 extern double gWeightsRandomFactor; // randomization for edge weights
@@ -142,6 +143,9 @@ double truncate(double x, int fractionBits);
 
 /// @brief round to the given number of mantissa bits beyond the given number
 double roundBits(double x, int fractionBits);
+
+/// @brief round to the given number of decimal digits
+double roundDecimal(double x, int precision);
 
 /** @brief Returns the number of instances of the current object that shall be emitted
  * given the number of loaded objects

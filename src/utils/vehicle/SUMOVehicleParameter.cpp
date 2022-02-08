@@ -168,7 +168,9 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
     }
     // individual speedFactor
     if (wasSet(VEHPARS_SPEEDFACTOR_SET)) {
+        dev.setPrecision(MAX2(gPrecisionRandom, gPrecision));
         dev.writeAttr(SUMO_ATTR_SPEEDFACTOR, speedFactor);
+        dev.setPrecision(gPrecision);
     }
     // speed (only used by calibrators)
     if (wasSet(VEHPARS_CALIBRATORSPEED_SET)) {
