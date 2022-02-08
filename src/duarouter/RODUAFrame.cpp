@@ -53,9 +53,7 @@ RODUAFrame::fillOptions() {
     oc.addOptionSubTopic("Time");
 
     // insert options
-    ROFrame::fillOptions(oc);
-    // to make the transition from --trip-files easier, but has a conflict with jtrrouter
-    oc.addSynonyme("route-files", "t", true);
+    ROFrame::fillOptions(oc, true);
     addImportOptions();
     addDUAOptions();
     // add rand options
@@ -88,29 +86,10 @@ RODUAFrame::addImportOptions() {
     oc.doRegister("write-costs", new Option_Bool(false));
     oc.addDescription("write-costs", "Output", "Include the cost attribute in route output");
 
-    // register import options
-    oc.doRegister("weight-files", 'w', new Option_FileName());
-    oc.addSynonyme("weight-files", "weights");
-    oc.addDescription("weight-files", "Input", "Read network weights from FILE(s)");
-
-    oc.doRegister("lane-weight-files", new Option_FileName());
-    oc.addDescription("lane-weight-files", "Input", "Read lane-based network weights from FILE(s)");
-
-    oc.doRegister("weight-attribute", 'x', new Option_String("traveltime"));
-    oc.addSynonyme("weight-attribute", "measure", true);
-    oc.addDescription("weight-attribute", "Input", "Name of the xml attribute which gives the edge weight");
-
     // register further processing options
     // ! The subtopic "Processing" must be initialised earlier !
-    oc.doRegister("weights.expand", new Option_Bool(false));
-    oc.addSynonyme("weights.expand", "expand-weights", true);
-    oc.addDescription("weights.expand", "Processing", "Expand weights behind the simulation's end");
-
     oc.doRegister("weights.random-factor", new Option_Float(1.));
     oc.addDescription("weights.random-factor", "Processing", "Edge weights for routing are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT)");
-
-    oc.doRegister("routing-algorithm", new Option_String("dijkstra"));
-    oc.addDescription("routing-algorithm", "Processing", "Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']");
 
     oc.doRegister("weight-period", new Option_String("3600", "TIME"));
     oc.addDescription("weight-period", "Processing", "Aggregation period for the given weight files; triggers rebuilding of Contraction Hierarchy");
@@ -159,11 +138,11 @@ RODUAFrame::addDUAOptions() {
     oc.doRegister("ptline-routing", new Option_Bool(false));
     oc.addDescription("ptline-routing", "Processing", "Route all public transport input");
 
-    oc.doRegister("logit", new Option_Bool(false)); // deprecated
-    oc.addDescription("logit", "Processing", "Use c-logit model (deprecated in favor of --route-choice-method logit)");
-
     oc.doRegister("route-choice-method", new Option_String("gawron"));
     oc.addDescription("route-choice-method", "Processing", "Choose a route choice method: gawron, logit, or lohse");
+
+    oc.doRegister("logit", new Option_Bool(false)); // deprecated
+    oc.addDescription("logit", "Processing", "Use c-logit model (deprecated in favor of --route-choice-method logit)");
 
     oc.doRegister("logit.beta", new Option_Float(double(-1)));
     oc.addSynonyme("logit.beta", "lBeta", true);
