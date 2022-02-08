@@ -194,12 +194,6 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                 if (toEdge == nullptr) { // removed by explicit list, vclass, ...
                     continue;
                 }
-                if (nbe->hasConnectionTo(toEdge, c.toLaneIdx)) {
-                    // do not warn if this is a duplicate connection when merging networks
-                    if (!nbe->hasConnectionTo(toEdge, c.toLaneIdx, fromLaneIndex)) {
-                        WRITE_WARNINGF("Target lane '%' has multiple connections from '%'.", toEdge->getLaneID(c.toLaneIdx), nbe->getID());
-                    }
-                }
                 // patch attribute uncontrolled for legacy networks where it is not set explicitly
                 bool uncontrolled = c.uncontrolled;
 
