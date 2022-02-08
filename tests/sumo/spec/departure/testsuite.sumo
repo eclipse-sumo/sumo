@@ -24,3 +24,6 @@ extrapolate_departpos
 
 # Errors on emission
 errors
+
+# tests selective removal of safety checks during insertion
+insertionChecks

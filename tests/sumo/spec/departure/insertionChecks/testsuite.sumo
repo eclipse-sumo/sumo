@@ -1,0 +1,8 @@
+# remove check on upcoming stop
+stop
+
+# remove check on gap to leader
+leaderGap
+
+# remove check on gap to follower
+followerGap
