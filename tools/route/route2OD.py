@@ -39,7 +39,7 @@ def get_options(args=None):
     optParser.add_argument("-r", "--route-file", dest="routefile",
                            help="define the input route file (mandatory)")
     optParser.add_argument("-a", "--taz-files", dest="tazfiles",
-                           help="define the files to load TAZ (districts) from (mandatory)")
+                           help="define the files to load TAZ (districts)")
     optParser.add_argument("-o", "--output-file", dest="outfile",
                            help="define the output filename (mandatory)")
     optParser.add_argument("-i", "--interval",
@@ -64,40 +64,41 @@ def get_options(args=None):
 
 def main(options):
     random.seed(options.seed)
-    edgeFromTaz = defaultdict(list)
-    edgeToTaz = defaultdict(list)
-    numTaz = 0
-    for tazfile in options.tazfiles:
-        for taz in sumolib.xml.parse(tazfile, 'taz'):
-            numTaz += 1
-            if taz.edges:
-                for edge in taz.edges.split():
-                    edgeFromTaz[edge].append(taz.id)
-                    edgeToTaz[edge].append(taz.id)
-            if taz.tazSource:
-                for source in taz.tazSource:
-                    edgeFromTaz[source.id].append(taz.id)
-            if taz.tazSink:
-                for sink in taz.tazSource:
-                    edgeToTaz[source.id].append(taz.id)
+    if not options.edgeod:
+        edgeFromTaz = defaultdict(list)
+        edgeToTaz = defaultdict(list)
+        numTaz = 0
+        for tazfile in options.tazfiles:
+            for taz in sumolib.xml.parse(tazfile, 'taz'):
+                numTaz += 1
+                if taz.edges:
+                    for edge in taz.edges.split():
+                        edgeFromTaz[edge].append(taz.id)
+                        edgeToTaz[edge].append(taz.id)
+                if taz.tazSource:
+                    for source in taz.tazSource:
+                        edgeFromTaz[source.id].append(taz.id)
+                if taz.tazSink:
+                    for sink in taz.tazSource:
+                        edgeToTaz[source.id].append(taz.id)
 
-    ambiguousSource = []
-    ambiguousSink = []
-    for edge, tazs in edgeFromTaz.items():
-        if len(tazs) > 1:
-            ambiguousSource.push_back(edge)
-    for edge, tazs in edgeToTaz.items():
-        if len(tazs) > 1:
-            ambiguousSink.push_back(edge)
+        ambiguousSource = []
+        ambiguousSink = []
+        for edge, tazs in edgeFromTaz.items():
+            if len(tazs) > 1:
+                ambiguousSource.push_back(edge)
+        for edge, tazs in edgeToTaz.items():
+            if len(tazs) > 1:
+                ambiguousSink.push_back(edge)
 
-    print("read %s TAZ" % numTaz)
+        print("read %s TAZ" % numTaz)
 
-    if len(ambiguousSource) > 0:
-        print("edges %s (total %s) are sources for more than one TAZ" %
-              (ambiguousSource[:5], len(ambiguousSource)))
-    if len(ambiguousSink) > 0:
-        print("edges %s (total %s) are sinks for more than one TAZ" %
-              (ambiguousSink[:5], len(ambiguousSink)))
+        if len(ambiguousSource) > 0:
+            print("edges %s (total %s) are sources for more than one TAZ" %
+                  (ambiguousSource[:5], len(ambiguousSource)))
+        if len(ambiguousSink) > 0:
+            print("edges %s (total %s) are sinks for more than one TAZ" %
+                  (ambiguousSink[:5], len(ambiguousSink)))
 
     class nl:  # nonlocal integral variables
         numFromNotFound = 0
@@ -106,33 +107,37 @@ def main(options):
         end = 0
 
     # begin -> od -> count
-    intervals = defaultdict(lambda: defaultdict(lambda: 0))
     if options.edgeod:
         intervals_edge = defaultdict(lambda: defaultdict(lambda: 0))
+    else:
+        intervals = defaultdict(lambda: defaultdict(lambda: 0))
     def addVehicle(vehID, fromEdge, toEdge, time, count=1):
         nl.numVehicles += count
-        fromTaz = None
-        toTaz = None
-        if fromEdge in edgeFromTaz:
-            fromTaz = random.choice(edgeFromTaz[fromEdge])
+        if options.interval is None:
+            intervalBegin = 0
         else:
-            nl.numFromNotFound += 1
-            if nl.numFromNotFound < 5:
-                print("No fromTaz found for edge '%s' of vehicle '%s' " % (fromEdge, vehID))
-        if toEdge in edgeToTaz:
-            toTaz = random.choice(edgeToTaz[toEdge])
-        else:
-            nl.numToNotFound += 1
-            if nl.numToNotFound < 5:
-                print("No toTaz found for edge '%s' of vehicle '%s' " % (toEdge, vehID))
-        if fromTaz and toTaz:
-            if options.interval is None:
-                intervalBegin = 0
-            else:
-                intervalBegin = int(time / options.interval) * options.interval
-            intervals[intervalBegin][(fromTaz, toTaz)] += count
+            intervalBegin = int(time / options.interval) * options.interval
+        
         if options.edgeod:
             intervals_edge[intervalBegin][(fromEdge, toEdge)] += count
+        else:
+            fromTaz = None
+            toTaz = None
+            if fromEdge in edgeFromTaz:
+                fromTaz = random.choice(edgeFromTaz[fromEdge])
+            else:
+                nl.numFromNotFound += 1
+                if nl.numFromNotFound < 5:
+                    print("No fromTaz found for edge '%s' of vehicle '%s' " % (fromEdge, vehID))
+            if toEdge in edgeToTaz:
+                toTaz = random.choice(edgeToTaz[toEdge])
+            else:
+                nl.numToNotFound += 1
+                if nl.numToNotFound < 5:
+                    print("No toTaz found for edge '%s' of vehicle '%s' " % (toEdge, vehID))
+            if fromTaz and toTaz:
+                intervals[intervalBegin][(fromTaz, toTaz)] += count
+
         nl.end = max(nl.end, time)
 
     for vehicle in sumolib.xml.parse(options.routefile, ['vehicle']):
@@ -170,38 +175,17 @@ def main(options):
             print("No edges found for flow '%s'" % flow.id)
 
     print("read %s vehicles" % nl.numVehicles)
-    if nl.numFromNotFound > 0 or nl.numToNotFound > 0:
-        print("No fromTaz found for %s edges and no toTaz found for %s edges" % (
-            nl.numFromNotFound, nl.numToNotFound))
+    if not options.edgeod:
+        if nl.numFromNotFound > 0 or nl.numToNotFound > 0:
+            print("No fromTaz found for %s edges and no toTaz found for %s edges" % (
+                nl.numFromNotFound, nl.numToNotFound))
 
     if nl.numVehicles > 0:
         numOD = 0
         distinctOD = set()
-        with open(options.outfile, 'w') as outf:
-            sumolib.writeXMLHeader(outf, "$Id$", "data", "datamode_file.xsd", options=options)  # noqa
-            for begin, tazRelations in intervals.items():
-                if options.interval is not None:
-                    end = begin + options.interval
-                else:
-                    end = nl.end + 1
-                outf.write(4 * ' ' + '<interval id="%s" begin="%s" end="%s">\n' % (
-                    options.intervalID, begin, end))
-                for od in sorted(tazRelations.keys()):
-                    numOD += 1
-                    distinctOD.add(od)
-                    outf.write(8 * ' ' + '<tazRelation from="%s" to="%s" count="%s"/>\n' % (
-                        od[0], od[1], tazRelations[od]))
-                outf.write(4 * ' ' + '</interval>\n')
-            outf.write('</data>\n')
-
-        print("Wrote %s OD-pairs (%s distinct) in %s intervals" % (
-            numOD, len(distinctOD), len(intervals)))
-
         if options.edgeod:
-            numOD = 0
             edgeOD = set()
-            outf = options.outfile[:-4] + '_edgeRelation.xml'
-            with open(outf, 'w') as outf:
+            with open(options.outfile, 'w') as outf:
                 sumolib.writeXMLHeader(outf, "$Id$", "data", "datamode_file.xsd", options=options)  # noqa
                 for begin, edgeRelations in intervals_edge.items():
                     if options.interval is not None:
@@ -219,7 +203,27 @@ def main(options):
                 outf.write('</data>\n')
 
             print("Wrote %s OD-pairs (%s edgeOD) in %s intervals" % (
-                numOD, len(edgeOD), len(intervals)))
+                numOD, len(edgeOD), len(intervals_edge)))
+        else:        
+            with open(options.outfile, 'w') as outf:
+                sumolib.writeXMLHeader(outf, "$Id$", "data", "datamode_file.xsd", options=options)  # noqa
+                for begin, tazRelations in intervals.items():
+                    if options.interval is not None:
+                        end = begin + options.interval
+                    else:
+                        end = nl.end + 1
+                    outf.write(4 * ' ' + '<interval id="%s" begin="%s" end="%s">\n' % (
+                        options.intervalID, begin, end))
+                    for od in sorted(tazRelations.keys()):
+                        numOD += 1
+                        distinctOD.add(od)
+                        outf.write(8 * ' ' + '<tazRelation from="%s" to="%s" count="%s"/>\n' % (
+                            od[0], od[1], tazRelations[od]))
+                    outf.write(4 * ' ' + '</interval>\n')
+                outf.write('</data>\n')
+
+            print("Wrote %s OD-pairs (%s distinct) in %s intervals" % (
+                numOD, len(distinctOD), len(intervals)))
         
         
 
