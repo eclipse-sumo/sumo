@@ -50,6 +50,7 @@ GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType
     GNEPathManager::PathElement(GNEPathManager::PathElement::Options::ADDITIONAL_ELEMENT),
     Parameterised(parameters),
     myAdditionalName(additionalName) {
+    // check if is template
     myIsTemplate = (id == "");
 }
 

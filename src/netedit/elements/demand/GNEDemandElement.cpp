@@ -56,6 +56,8 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, GUIGlObje
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
     GNEPathManager::PathElement(options),
     myStackedLabelNumber(0) {
+    // check if is template
+    myIsTemplate = (id == "");
 }
 
 

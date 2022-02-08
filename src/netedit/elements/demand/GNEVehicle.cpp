@@ -1388,6 +1388,8 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
             if (error.empty()) {
                 if (dummyDepartLaneProcedure != DepartLaneDefinition::GIVEN) {
                     return true;
+                } else if (isTemplate()) {
+                    return true;
                 } else {
                     return dummyDepartLane < (int)getFirstPathLane()->getParentEdge()->getLanes().size();
                 }
@@ -1409,6 +1411,8 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
             // if error is empty, check if depart speed is correct
             if (error.empty()) {
                 if (dummyDepartSpeedProcedure != DepartSpeedDefinition::GIVEN) {
+                    return true;
+                } else if (isTemplate()) {
                     return true;
                 } else {
                     return (dummyDepartSpeed <= getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_MAXSPEED));
