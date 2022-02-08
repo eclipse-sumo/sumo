@@ -498,7 +498,7 @@ MSLane::getDepartSpeed(const MSVehicle& veh, bool& patchSpeed) {
             patchSpeed = false;
             break;
         case DepartSpeedDefinition::RANDOM:
-            speed = RandHelper::rand(getVehicleMaxSpeed(&veh));
+            speed = roundDecimal(RandHelper::rand(getVehicleMaxSpeed(&veh)), gPrecisionRandom);
             patchSpeed = true;
             break;
         case DepartSpeedDefinition::MAX:
@@ -547,8 +547,10 @@ MSLane::getDepartPosLat(const MSVehicle& veh) {
             return -getWidth() * 0.5 + veh.getVehicleType().getWidth() * 0.5;
         case DepartPosLatDefinition::LEFT:
             return getWidth() * 0.5 - veh.getVehicleType().getWidth() * 0.5;
-        case DepartPosLatDefinition::RANDOM:
-            return RandHelper::rand(getWidth() - veh.getVehicleType().getWidth()) - getWidth() * 0.5 + veh.getVehicleType().getWidth() * 0.5;
+        case DepartPosLatDefinition::RANDOM: {
+            const double raw = RandHelper::rand(getWidth() - veh.getVehicleType().getWidth()) - getWidth() * 0.5 + veh.getVehicleType().getWidth() * 0.5;
+            return roundDecimal(raw, gPrecisionRandom);
+        }
         case DepartPosLatDefinition::CENTER:
         case DepartPosLatDefinition::DEFAULT:
         // @note:
@@ -578,7 +580,7 @@ MSLane::insertVehicle(MSVehicle& veh) {
             }
             break;
         case DepartPosDefinition::RANDOM:
-            pos = RandHelper::rand(getLength());
+            pos = roundDecimal(RandHelper::rand(getLength()), gPrecisionRandom);
             break;
         case DepartPosDefinition::RANDOM_FREE: {
             for (int i = 0; i < 10; i++) {

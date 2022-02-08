@@ -751,6 +751,9 @@ SUMOVehicleParameter::getDepartPos() const {
         case DepartPosDefinition::GIVEN:
             val = toString(departPos);
             break;
+        case DepartPosDefinition::GIVEN_RANDOM:
+            val = toString(departPos, MAX2(gPrecisionRandom, gPrecision));
+            break;
         case DepartPosDefinition::RANDOM:
             val = "random";
             break;
@@ -784,6 +787,9 @@ SUMOVehicleParameter::getDepartPosLat() const {
         case DepartPosLatDefinition::GIVEN:
             val = toString(departPos);
             break;
+        case DepartPosLatDefinition::GIVEN_RANDOM:
+            val = toString(departPos, MAX2(gPrecisionRandom, gPrecision));
+            break;
         case DepartPosLatDefinition::RANDOM:
             val = "random";
             break;
@@ -816,6 +822,9 @@ SUMOVehicleParameter::getDepartSpeed() const {
     switch (departSpeedProcedure) {
         case DepartSpeedDefinition::GIVEN:
             val = toString(departSpeed);
+            break;
+        case DepartSpeedDefinition::GIVEN_RANDOM:
+            val = toString(departSpeed, MAX2(gPrecisionRandom, gPrecision));
             break;
         case DepartSpeedDefinition::RANDOM:
             val = "random";

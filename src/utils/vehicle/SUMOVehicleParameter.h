@@ -151,7 +151,9 @@ enum class DepartPosDefinition {
     DEFAULT,
     /// @brief The position is given
     GIVEN,
-    /// @brief The position is chosen randomly
+    /// @brief The position is given
+    GIVEN_RANDOM,
+    /// @brief The position is set by the vehroute device
     RANDOM,
     /// @brief A free position is chosen
     FREE,
@@ -175,6 +177,8 @@ enum class DepartPosLatDefinition {
     DEFAULT,
     /// @brief The position is given
     GIVEN,
+    /// @brief The position is set by the vehroute device
+    GIVEN_RANDOM,
     /// @brief At the rightmost side of the lane
     RIGHT,
     /// @brief At the center of the lane
@@ -199,6 +203,8 @@ enum class DepartSpeedDefinition {
     DEFAULT,
     /// @brief The speed is given
     GIVEN,
+    /// @brief The speed is set by the vehroute device
+    GIVEN_RANDOM,
     /// @brief The speed is chosen randomly
     RANDOM,
     /// @brief The maximum safe speed is used

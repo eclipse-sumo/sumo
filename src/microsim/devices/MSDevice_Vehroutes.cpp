@@ -327,16 +327,22 @@ MSDevice_Vehroutes::writeOutput(const bool hasArrived) const {
             tmp.departLane = myDepartLane;
         }
         if (tmp.wasSet(VEHPARS_DEPARTPOSLAT_SET)) {
-            tmp.departPosLatProcedure = DepartPosLatDefinition::GIVEN;
+            tmp.departPosLatProcedure = (tmp.departPosLatProcedure == DepartPosLatDefinition::RANDOM
+                ? DepartPosLatDefinition::GIVEN_RANDOM
+                : DepartPosLatDefinition::GIVEN);
             tmp.departPosLat = myDepartPosLat;
         }
     }
     if (tmp.wasSet(VEHPARS_DEPARTPOS_SET)) {
-        tmp.departPosProcedure = DepartPosDefinition::GIVEN;
+        tmp.departPosProcedure = (tmp.departPosProcedure == DepartPosDefinition::RANDOM
+                ? DepartPosDefinition::GIVEN_RANDOM
+                : DepartPosDefinition::GIVEN);
         tmp.departPos = myDepartPos;
     }
     if (tmp.wasSet(VEHPARS_DEPARTSPEED_SET)) {
-        tmp.departSpeedProcedure = DepartSpeedDefinition::GIVEN;
+        tmp.departSpeedProcedure = (tmp.departSpeedProcedure == DepartSpeedDefinition::RANDOM
+                ? DepartSpeedDefinition::GIVEN_RANDOM
+                : DepartSpeedDefinition::GIVEN);
         tmp.departSpeed = myDepartSpeed;
     }
     if (oc.getBool("vehroute-output.speedfactor") ||
