@@ -39,7 +39,7 @@ def get_options(args=None):
     optParser.add_argument("-r", "--route-file", dest="routefile",
                            help="define the input route file (mandatory)")
     optParser.add_argument("-a", "--taz-files", dest="tazfiles",
-                           help="define the files to load TAZ (districts)")
+                           help="define the files to load TAZ (districts); it is mandatory when generating taz-based OD file")
     optParser.add_argument("-o", "--output-file", dest="outfile",
                            help="define the output filename (mandatory)")
     optParser.add_argument("-i", "--interval",
@@ -51,14 +51,15 @@ def get_options(args=None):
                            help="generate edgeRelations instead of tazRelations")
 
     options = optParser.parse_args(args=args)
-    if not options.routefile or not options.tazfiles or not options.outfile:
+    if not options.routefile or not options.outfile or (not options.edgeod and not options.tazfiles):
         optParser.print_help()
         sys.exit(1)
 
     if options.interval is not None:
         options.interval = parseTime(options.interval)
-
-    options.tazfiles = options.tazfiles.split()
+        
+    if not options.edgeod:
+        options.tazfiles = options.tazfiles.split()
     return options
 
 
