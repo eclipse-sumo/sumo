@@ -54,6 +54,14 @@ class junction:
         fringe = 5
         name = 6
         parameters = 9
+    class inspectSelectionTLS:
+        type = 1
+        radius = 2
+        keepClear = 3
+        rightOfWay = 4
+        fringe = 5
+        name = 6
+        parameters = 9
 
 # edge
 class edge:
@@ -950,7 +958,6 @@ class flowFromToEdge:
         # flow attributes missing
         parameters = 26
 
-
 # vehicle (over route)
 class vehicle:
     class create:
@@ -1010,6 +1017,63 @@ class vehicle:
         depart = 15
         parameters = 18
 
+# flow (over route)
+class routeflow:
+    class create:
+        type = 5
+        idEnable = 8        # missing
+        id = 9              # missing
+        colorButton = 9     # missing
+        color = 10
+        departLane = 11
+        departPos = 12
+        departSpeed = 13
+        arrivalLane = 14
+        arrivalPos = 15
+        arrivalSpeed = 16
+        line = 17
+        personNumber = 18
+        containerNumber = 19
+        departPosLat = 20
+        arrivalPosLat = 21
+    class inspect:
+        id = 1
+        type = 2
+        route = 3
+        departEdge = 4      # missing
+        arrivalEdge = 5     # missing
+        colorButton = 6     # missing
+        color = 7
+        departLane = 8
+        departPos = 9
+        departSpeed = 10
+        arrivalLane = 11
+        arrivalPos = 12
+        arrivalSpeed = 13
+        line = 14
+        personNumber = 15
+        containerNumber = 16
+        departPosLat = 17
+        arrivalPosLat = 18
+        # flow attributes missing
+        parameters = 30
+    class inspectSelection:
+        type = 1            # missing
+        colorButton = 2
+        color = 3
+        departLane = 4
+        departPos = 5
+        departSpeed = 6
+        arrivalLane = 7
+        arrivalPos = 8
+        arrivalSpeed = 9
+        line = 10
+        personNumber = 11
+        containerNumber = 12
+        departPosLat = 13
+        arrivalPosLat = 14
+        # flow attributes missing
+        parameters = 26
 
 # stop (over additionals)
 class stop:
