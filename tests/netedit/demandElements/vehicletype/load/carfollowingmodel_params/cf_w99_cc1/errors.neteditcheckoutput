@@ -1,0 +1,2 @@
+Warning: Value of tau=-3.00 in vehicle type 'vType1' lower than simulation step size may cause collisions.
+Warning: Value of tau=0.00 in vehicle type 'vType2' lower than simulation step size may cause collisions.
