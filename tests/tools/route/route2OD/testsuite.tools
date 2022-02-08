@@ -4,3 +4,6 @@ simple
 # load vehicles in standard form
 interval
 trips
+
+# generate edge-based OD
+edge
