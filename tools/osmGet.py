@@ -20,7 +20,6 @@
 from __future__ import absolute_import
 from __future__ import print_function
 import os
-import sys
 import gzip
 import base64
 import ssl
@@ -46,6 +45,7 @@ import sumolib
 THIS_DIR = os.path.abspath(os.path.dirname(__file__))
 TYPEMAP_DIR = os.path.join(THIS_DIR, "..", "data", "typemap")
 
+
 def readBuildingShapeKeysFromXML(keyValueDict, pathToXML):
     with open(pathToXML, 'r') as osmPolyconvert:
         kvd = keyValueDict
@@ -64,6 +64,7 @@ def readBuildingShapeKeysFromXML(keyValueDict, pathToXML):
                     kvd[key] = ['.']
     return kvd
 
+
 def readCompressed(conn, urlpath, query, roadTypesJSON, getShapes, filename):
     # generate query string for each road-type category
     commonQueryStringKeyPart = "<has-kv k=\"%s\" "
@@ -80,7 +81,7 @@ def readCompressed(conn, urlpath, query, roadTypesJSON, getShapes, filename):
     for category in roadTypesJSON:
         keyQueryString = commonQueryStringKeyPart % category
         typeList = []
-        if len(roadTypesJSON[category])>0:
+        if len(roadTypesJSON[category]) > 0:
             for type in roadTypesJSON[category]:
                 typeList.append(type)
             separator = "|"
@@ -92,8 +93,7 @@ def readCompressed(conn, urlpath, query, roadTypesJSON, getShapes, filename):
     if getShapes:
         keyValueDict = {}
         for typemap in ["osmPolyconvert.typ.xml", "osmPolyconvertRail.typ.xml"]:
-            keyValueDict = readBuildingShapeKeysFromXML( keyValueDict,
-                    os.path.join(TYPEMAP_DIR, typemap))
+            keyValueDict = readBuildingShapeKeysFromXML(keyValueDict, os.path.join(TYPEMAP_DIR, typemap))
 
         for category, value in keyValueDict.items():
             if category in roadTypesJSON:
@@ -118,7 +118,7 @@ def readCompressed(conn, urlpath, query, roadTypesJSON, getShapes, filename):
     conn.request("POST", "/" + urlpath, """
     <osm-script timeout="240" element-limit="1073741824">
     <union>
-       %s                            
+       %s
     </union>
     <union>
        <item/>
@@ -138,28 +138,33 @@ def readCompressed(conn, urlpath, query, roadTypesJSON, getShapes, filename):
             else:
                 out.write(gzip.decompress(response.read()))
 
-optParser = sumolib.options.ArgumentParser(description="Get network from OpenStreetMap")
-optParser.add_argument("-p", "--prefix", default="osm", help="for output file")
-optParser.add_argument("-b", "--bbox", help="bounding box to retrieve in geo coordinates west,south,east,north")
-optParser.add_argument("-t", "--tiles", type=int,
-                       default=1, help="number of tiles the output gets split into")
-optParser.add_argument("-d", "--output-dir", help="optional output directory (must already exist)")
-optParser.add_argument("-a", "--area", type=int, help="area id to retrieve")
-optParser.add_argument("-x", "--polygon", help="calculate bounding box from polygon data in file")
-optParser.add_argument("-u", "--url", default="www.overpass-api.de/api/interpreter",
-                       help="Download from the given OpenStreetMap server")
-# alternatives: overpass.kumi.systems/api/interpreter, sumo.dlr.de/osm/api/interpreter
-optParser.add_argument("-w", "--wikidata", action="store_true",
-                       default=False, help="get the corresponding wikidata")
-optParser.add_argument("-r", "--road-types", dest="roadTypes",
-                       help="only delivers osm data to the specified road-types")
-optParser.add_argument("-s", "--shapes", action="store_true", default=False,
-                       help="determines if polygon data (buildings, areas , etc.) is downloaded")
-optParser.add_argument("-z", "--gzip", action="store_true",
-                       default=False, help="save gzipped output")
+
+def get_options(args):
+    optParser = sumolib.options.ArgumentParser(description="Get network from OpenStreetMap")
+    optParser.add_argument("-p", "--prefix", default="osm", help="for output file")
+    optParser.add_argument("-b", "--bbox", help="bounding box to retrieve in geo coordinates west,south,east,north")
+    optParser.add_argument("-t", "--tiles", type=int,
+                           default=1, help="number of tiles the output gets split into")
+    optParser.add_argument("-d", "--output-dir", help="optional output directory (must already exist)")
+    optParser.add_argument("-a", "--area", type=int, help="area id to retrieve")
+    optParser.add_argument("-x", "--polygon", help="calculate bounding box from polygon data in file")
+    optParser.add_argument("-u", "--url", default="www.overpass-api.de/api/interpreter",
+                           help="Download from the given OpenStreetMap server")
+    # alternatives: overpass.kumi.systems/api/interpreter, sumo.dlr.de/osm/api/interpreter
+    optParser.add_argument("-w", "--wikidata", action="store_true",
+                           default=False, help="get the corresponding wikidata")
+    optParser.add_argument("-r", "--road-types", dest="roadTypes",
+                           help="only delivers osm data to the specified road-types")
+    optParser.add_argument("-s", "--shapes", action="store_true", default=False,
+                           help="determines if polygon data (buildings, areas , etc.) is downloaded")
+    optParser.add_argument("-z", "--gzip", action="store_true",
+                           default=False, help="save gzipped output")
+    options = optParser.parse_args(args=args)
+    return options;
+
 
 def get(args=None):
-    options = optParser.parse_args(args=args)
+    options = get_options(args)
     if not options.bbox and not options.area and not options.polygon:
         optParser.error("At least one of 'bbox' and 'area' and 'polygon' has to be set.")
     if options.polygon:
