@@ -1109,6 +1109,9 @@ MSActuatedTrafficLightLogic::evalAtomicExpression(const std::string& expr) const
                     int linkIndex = StringUtils::toInt(arg);
                     if (linkIndex >= 0 && linkIndex < myNumLinks) {
                         const std::vector<SUMOTime>& times = fun == "g" ? myLinkGreenTimes : myLinkRedTimes;
+                        if (times.empty()) {
+                            return 0;
+                        }
                         if (myLastTrySwitchTime < SIMSTEP) {
                             // times are only updated at the start of a phase where
                             // switching is possible (i.e. not during minDur).
