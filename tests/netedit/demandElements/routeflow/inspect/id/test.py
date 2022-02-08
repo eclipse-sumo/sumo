@@ -45,7 +45,7 @@ netedit.typeEnter()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# change vehicle
+# select flow over route
 netedit.changeElement("flow (over route)")
 
 # create vehicle
@@ -54,23 +54,23 @@ netedit.leftClick(referencePosition, 274, 392)
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect vehicle
+# inspect flow over route
 netedit.leftClick(referencePosition, 91, 392)
 
 # change ID with an invalid value
-netedit.modifyAttribute(0, "", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspect.id, "", True)
 
 # change ID with an invalid value
-netedit.modifyAttribute(0, ";;;;;;;;", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspect.id, ";;;;;;;;", True)
 
 # change ID with an invalid value
-netedit.modifyAttribute(0, "id with spaces", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspect.id, "id with spaces", True)
 
 # change ID with an invalid value
-netedit.modifyAttribute(0, "duplicatedVehicle", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspect.id, "duplicatedVehicle", True)
 
 # change ID with an invalid value (empty)
-netedit.modifyAttribute(0, "customID", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspect.id, "customID", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

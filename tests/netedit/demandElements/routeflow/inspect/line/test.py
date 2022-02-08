@@ -45,7 +45,7 @@ netedit.typeEnter()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# change vehicle
+# select flow over route
 netedit.changeElement("flow (over route)")
 
 # create vehicle
@@ -54,11 +54,11 @@ netedit.leftClick(referencePosition, 274, 392)
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect vehicle
+# inspect flow over route
 netedit.leftClick(referencePosition, 91, 392)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(13, "custom Line", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspect.line, "custom Line", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

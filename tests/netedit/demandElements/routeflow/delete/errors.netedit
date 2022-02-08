@@ -17,7 +17,7 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.0
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
 Error: Could not build route in netedit; edge doesn't exist.
 Debug: Adding route 'route_0' in GNEChange_DemandElement
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.10Nov111153.3052\netedit.gui\demandElements\routeflow\delete\input_routes.rou.xml failed.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb104649.8764\netedit.gui\demandElements\routeflow\delete\input_routes.rou.xml failed.
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -2.00,8.00,22.00,32.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 58.00,8.00,82.00,32.00
@@ -66,24 +66,23 @@ Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Key ENTER pressed
-Debug: Adding route 'route_1' in GNEChange_DemandElement
+Debug: Adding route 'r_0' in GNEChange_DemandElement
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
-Debug: Selected item 'trip' in TagSelector
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'flow (over route)' in TagSelector
-Debug: Adding flowRoute 'flow_0' in GNEChange_DemandElement
+Debug: Adding flowRoute 'f_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing flowRoute 'flow_0' in GNEChange_DemandElement
+Debug: Removing flowRoute 'f_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing route 'route_1' in GNEChange_DemandElement
+Debug: Removing route 'r_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing route 'route_0' in GNEChange_DemandElement
 Debug: Deleting unreferenced route 'route_0'
-Debug: Deleting unreferenced route 'route_1'
-Debug: Deleting unreferenced flowRoute 'flow_0'
+Debug: Deleting unreferenced route 'r_0'
+Debug: Deleting unreferenced flowRoute 'f_0'
 Debug: Removing connection 'gneE2_0->gneE4_1' from edge 'gneE2'
 Debug: Deleting unreferenced connection 'fromgneE2_0togneE4_1' in removeConnection()
 Debug: Removing connection 'gneE2_0->gneE4_0' from edge 'gneE2'

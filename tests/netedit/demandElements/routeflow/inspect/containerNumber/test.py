@@ -45,7 +45,7 @@ netedit.typeEnter()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# change vehicle
+# select flow over route
 netedit.changeElement("flow (over route)")
 
 # create vehicle
@@ -54,23 +54,23 @@ netedit.leftClick(referencePosition, 274, 392)
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect vehicle
+# inspect flow over route
 netedit.leftClick(referencePosition, 91, 392)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(15, "", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspect.containerNumber, "", True)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(15, "dummyNumber", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspect.containerNumber, "dummyNumber", True)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(15, "-5", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspect.containerNumber, "-5", True)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(15, "2.5", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspect.containerNumber, "2.5", True)
 
 # change containerNumber with an invalid value
-netedit.modifyAttribute(15, "3", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspect.containerNumber, "3", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

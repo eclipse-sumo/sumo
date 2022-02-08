@@ -45,7 +45,7 @@ netedit.typeEnter()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# change vehicle
+# select flow over route
 netedit.changeElement("flow (over route)")
 
 # create vehicle
@@ -54,20 +54,20 @@ netedit.leftClick(referencePosition, 274, 392)
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect vehicle
+# inspect flow over route
 netedit.leftClick(referencePosition, 91, 392)
 
 # change color with an invalid value
-netedit.modifyAttribute(6, "", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspect.color, "", True)
 
 # change color with an invalid value
-netedit.modifyAttribute(6, "dummyColor", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspect.color, "dummyColor", True)
 
 # change color with an valid value
-netedit.modifyAttribute(6, "cyan", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspect.color, "cyan", True)
 
 # change color with a valid value
-netedit.modifyAttribute(6, "12,13,14", True)
+netedit.modifyAttribute(netedit.attrs.routeflow.inspect.color, "12,13,14", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

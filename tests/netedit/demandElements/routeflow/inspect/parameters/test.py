@@ -45,7 +45,7 @@ netedit.typeEnter()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# change vehicle
+# select flow over route
 netedit.changeElement("flow (over route)")
 
 # create vehicle
@@ -54,11 +54,11 @@ netedit.leftClick(referencePosition, 274, 392)
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect vehicle
+# inspect flow over route
 netedit.leftClick(referencePosition, 91, 392)
 
 # check parameters
-netedit.checkParameters(referencePosition, 25, True)
+netedit.checkParameters(referencePosition, netedit.attrs.routeflow.inspect.parameters, True)
 
 # save routes
 netedit.saveRoutes(referencePosition)
