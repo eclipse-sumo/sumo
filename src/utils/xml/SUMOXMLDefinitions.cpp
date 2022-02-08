@@ -1076,6 +1076,19 @@ StringBijection<TrafficLightLayout>::Entry SUMOXMLDefinitions::trafficLightLayou
     { "",                TrafficLightLayout::DEFAULT } //< must be the last one
 };
 
+StringBijection<InsertionCheck>::Entry SUMOXMLDefinitions::insertionCheckValues[] = {
+    { "none",          InsertionCheck::NONE },
+    { "collision",     InsertionCheck::COLLISION },
+    { "leaderGap",     InsertionCheck::LEADER_GAP },
+    { "followerGap",   InsertionCheck::FOLLOWER_GAP },
+    { "junction",      InsertionCheck::JUNCTION },
+    { "stop",          InsertionCheck::STOP },
+    { "arrivalSpeed",  InsertionCheck::ARRIVAL_SPEED },
+    { "oncomingTrain", InsertionCheck::ONCOMING_TRAIN },
+    { "speedLimit",    InsertionCheck::SPEED_LIMIT },
+    { "pedestrian",    InsertionCheck::PEDESTRIAN },
+    { "all",           InsertionCheck::ALL } //< must be the last one
+};
 
 StringBijection<LaneChangeModel>::Entry SUMOXMLDefinitions::laneChangeModelValues[] = {
     { "DK2008",     LaneChangeModel::DK2008 },
@@ -1174,6 +1187,9 @@ StringBijection<TrafficLightType> SUMOXMLDefinitions::TrafficLightTypes(
 
 StringBijection<TrafficLightLayout> SUMOXMLDefinitions::TrafficLightLayouts(
     SUMOXMLDefinitions::trafficLightLayoutValues, TrafficLightLayout::DEFAULT);
+
+StringBijection<InsertionCheck> SUMOXMLDefinitions::InsertionChecks(
+    SUMOXMLDefinitions::insertionCheckValues, InsertionCheck::ALL);
 
 StringBijection<LaneChangeModel> SUMOXMLDefinitions::LaneChangeModels(
     SUMOXMLDefinitions::laneChangeModelValues, LaneChangeModel::DEFAULT);

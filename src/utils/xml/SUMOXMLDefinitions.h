@@ -1549,6 +1549,22 @@ enum class TrafficLightLayout {
 };
 
 
+/// @brief different checking levels for vehicle insertion
+enum class InsertionCheck {
+    NONE = 0,
+    COLLISION = 1 << 0,
+    LEADER_GAP = 1 << 1,
+    FOLLOWER_GAP = 1 << 2,
+    JUNCTION = 1 << 3,
+    STOP = 1 << 4,
+    ARRIVAL_SPEED = 1 << 5,
+    ONCOMING_TRAIN = 1 << 6,
+    SPEED_LIMIT = 1 << 7,
+    PEDESTRIAN = 1 << 8,
+    ALL = ((1 << 9) - 1) // <- must be the last one
+};
+
+
 /** @enum LaneChangeAction
  * @brief The state of a vehicle's lane-change behavior
  */
@@ -1711,6 +1727,9 @@ public:
     /// @brief traffic light layouts
     static StringBijection<TrafficLightLayout> TrafficLightLayouts;
 
+    /// @brief traffic light layouts
+    static StringBijection<InsertionCheck> InsertionChecks;
+
     /// @brief lane change models
     static StringBijection<LaneChangeModel> LaneChangeModels;
 
@@ -1808,6 +1827,9 @@ private:
 
     /// @brief traffic light layout values
     static StringBijection<TrafficLightLayout>::Entry trafficLightLayoutValues[];
+
+    /// @brief traffic light layout values
+    static StringBijection<InsertionCheck>::Entry insertionCheckValues[];
 
     /// @brief lane change model values
     static StringBijection<LaneChangeModel>::Entry laneChangeModelValues[];
