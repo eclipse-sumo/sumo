@@ -44,19 +44,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 330, 150)
 
 # change arrivalSpeed with an invalid value
-netedit.modifyAttribute(8, "", True)
+netedit.modifyAttribute(netedit.attrs.vehicle.inspectSelection.arrivalSpeed, "", True)
 
 # change arrivalSpeed with an invalid value
-netedit.modifyAttribute(8, "dummySpeed", True)
+netedit.modifyAttribute(netedit.attrs.vehicle.inspectSelection.arrivalSpeed, "dummySpeed", True)
 
 # change departColor with a valid value
-netedit.modifyAttribute(8, "500", True)
+netedit.modifyAttribute(netedit.attrs.vehicle.inspectSelection.arrivalSpeed, "500", True)
 
 # change arrivalSpeed with an invalid value
-netedit.modifyAttribute(8, "-10", True)
+netedit.modifyAttribute(netedit.attrs.vehicle.inspectSelection.arrivalSpeed, "-10", True)
 
 # change arrivalSpeed with a valid value
-netedit.modifyAttribute(8, "15.5", True)
+netedit.modifyAttribute(netedit.attrs.vehicle.inspectSelection.arrivalSpeed, "15.5", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

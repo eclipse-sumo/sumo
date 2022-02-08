@@ -56,8 +56,9 @@ netedit.inspectMode()
 
 # inspect vehicle
 netedit.leftClick(referencePosition, 91, 392)
+
 # check parameters
-netedit.checkParameters(referencePosition, 18, True)
+netedit.checkParameters(referencePosition, netedit.attrs.vehicle.inspect.parameters, True)
 
 # save routes
 netedit.saveRoutes(referencePosition)
