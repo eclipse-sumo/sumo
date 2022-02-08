@@ -1233,12 +1233,16 @@ TraCIServer::processSingleSubscription(const libsumo::Subscription& s, tcpip::St
             }
         }
     }
-    int length = (1 + 4) + 1 + (4 + (int)(s.id.length())) + 1 + (int)outputStorage.size();
+    int length = (1 + 4) + 1 + (4 + (int)s.id.length()) + 1 + (int)outputStorage.size();
     if (s.contextDomain > 0) {
-        length += 4;
+        length += 1 + 4;  // context domain and number of objects
     }
-    writeInto.writeUnsignedByte(0); // command length -> extended
-    writeInto.writeInt(length);
+    if (length > 255) {
+        writeInto.writeUnsignedByte(0); // command length -> extended
+        writeInto.writeInt(length);
+    } else {
+        writeInto.writeUnsignedByte(length);
+    }
     writeInto.writeUnsignedByte(s.commandId + 0x10);
     writeInto.writeString(s.id);
     if (s.contextDomain > 0) {
