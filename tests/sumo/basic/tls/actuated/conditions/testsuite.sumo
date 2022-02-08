@@ -36,3 +36,6 @@ runtime_error
 
 # override minDur, maxDur, earliestEnd, latestEnd with conditions
 override_phaseAttrs
+
+# override minDur with functions that rely on linkGreenTimes (should not crash)
+override_phaseAttrs2
