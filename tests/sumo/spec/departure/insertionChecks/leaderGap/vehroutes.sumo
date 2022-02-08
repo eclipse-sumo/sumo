@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-08 09:37:11 by Eclipse SUMO sumo Version v1_12_0+0347-d7156dc
+<!-- generated on 2022-02-08 10:15:15 by Eclipse SUMO sumo Version v1_12_0+0350-b1d1d98
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,7 +41,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="WC CE"/>
     </vehicle>
 
-    <vehicle id="ego" type="car" depart="1.00" departSpeed="13.89" speedFactor="1.00" insertionChecks="none" arrival="16.00">
+    <vehicle id="ego" type="car" depart="0.00" departSpeed="13.89" speedFactor="1.00" insertionChecks="none" arrival="15.00">
         <route edges="WC CE"/>
     </vehicle>
 
