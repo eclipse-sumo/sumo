@@ -662,12 +662,15 @@ MSLane::insertVehicle(MSVehicle& veh) {
 
 
 bool
-MSLane::checkFailure(const MSVehicle* aVehicle, double& speed, double& dist, const double nspeed, const bool patchSpeed, const std::string errorMsg) const {
+MSLane::checkFailure(const MSVehicle* aVehicle, double& speed, double& dist, const double nspeed, const bool patchSpeed, const std::string errorMsg, InsertionCheck check) const {
     if (nspeed < speed) {
         if (patchSpeed) {
             speed = MIN2(nspeed, speed);
             dist = aVehicle->getCarFollowModel().brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
         } else if (speed > 0) {
+            if ((aVehicle->getParameter().insertionChecks & (int)check) == 0) {
+                return false;
+            }
             if (!MSGlobals::gCheckRoutes) {
                 // Check whether vehicle can stop at the given distance when applying emergency braking
                 double emergencyBrakeGap = 0.5 * speed * speed / aVehicle->getCarFollowModel().getEmergencyDecel();
@@ -720,7 +723,9 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     double dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
     // do not insert if the bidirectional edge is occupied
     if (myEdge->getBidiEdge() != nullptr && getBidiLane()->getVehicleNumberWithPartials() > 0) {
-        return false;
+        if (aVehicle->getParameter().insertionChecks != (int)InsertionCheck::NONE) {
+            return false;
+        }
     }
     bool hadRailSignal = false;
     const bool isRail = isRailway(aVehicle->getVClass());
@@ -734,7 +739,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             msg << "scheduled stop on lane '" << myID << "' too close";
             const double distToStop = nextStop.pars.endPos - pos;
             if (checkFailure(aVehicle, speed, dist, MAX2(0.0, cfModel.stopSpeed(aVehicle, speed, distToStop)),
-                             patchSpeed, msg.str())) {
+                             patchSpeed, msg.str(), InsertionCheck::STOP)) {
                 // we may not drive with the given velocity - we cannot stop at the stop
                 return false;
             }
@@ -757,7 +762,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                     const double remaining = seen + aVehicle->getArrivalPos() - currentLane->getLength();
                     const double nspeed = cfModel.freeSpeed(aVehicle, speed, remaining, aVehicle->getParameter().arrivalSpeed, true);
                     if (checkFailure(aVehicle, speed, dist, nspeed,
-                                     patchSpeed, "arrival speed too low")) {
+                                     patchSpeed, "arrival speed too low", InsertionCheck::ARRIVAL_SPEED)) {
                         // we may not drive with the given velocity - we cannot match the specified arrival speed
                         return false;
                     }
@@ -765,7 +770,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             } else {
                 // lane does not continue
                 if (checkFailure(aVehicle, speed, dist, cfModel.insertionStopSpeed(aVehicle, speed, seen),
-                                 patchSpeed, "junction '" + currentLane->getEdge().getToJunction()->getID() + "' too close")) {
+                                 patchSpeed, "junction '" + currentLane->getEdge().getToJunction()->getID() + "' too close", InsertionCheck::JUNCTION)) {
                     // we may not drive with the given velocity - we cannot stop at the junction
                     return false;
                 }
@@ -804,7 +809,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             }
             const double remaining = seen - currentLane->getVehicleStopOffset(aVehicle);
             if (checkFailure(aVehicle, speed, dist, cfModel.insertionStopSpeed(aVehicle, speed, remaining),
-                             patchSpeed, errorMsg)) {
+                             patchSpeed, errorMsg, InsertionCheck::JUNCTION)) {
                 // we may not drive with the given velocity - we cannot stop at the junction in time
                 return false;
             }
@@ -822,7 +827,9 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                     std::cout << " oncoming rail traffic at link " << (*link)->getDescription() << "\n";
                 }
 #endif
-                return false;
+                if ((aVehicle->getParameter().insertionChecks & (int)InsertionCheck::ONCOMING_TRAIN) != 0) {
+                    return false;
+                }
             }
             break;
         }
@@ -833,7 +840,9 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
 
             // do not insert if the bidirectional edge is occupied before a railSignal has been encountered
             if (!hadRailSignal && nextLane->getEdge().getBidiEdge() != nullptr && nextLane->getBidiLane()->getVehicleNumberWithPartials() > 0) {
-                return false;
+                if ((aVehicle->getParameter().insertionChecks & (int)InsertionCheck::ONCOMING_TRAIN) != 0) {
+                    return false;
+                }
             }
 
             // check if there are stops on the next lane that should be regarded
@@ -845,7 +854,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                     msg << "scheduled stop on lane '" << nextStop.lane->getID() << "' too close";
                     const double distToStop = seen + nextStop.pars.endPos;
                     if (checkFailure(aVehicle, speed, dist, cfModel.insertionStopSpeed(aVehicle, speed, distToStop),
-                                     patchSpeed, msg.str())) {
+                                     patchSpeed, msg.str(), InsertionCheck::STOP)) {
                         // we may not drive with the given velocity - we cannot stop at the stop
                         return false;
                     }
@@ -860,7 +869,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
                                                          << " leader on lane '" << nextLane->getID() << "': " << leaders.toString() << " nspeed=" << nspeed << "\n";
 #endif
-                if (nspeed == INVALID_SPEED || checkFailure(aVehicle, speed, dist, nspeed, patchSpeed, "")) {
+                if (nspeed == INVALID_SPEED || checkFailure(aVehicle, speed, dist, nspeed, patchSpeed, "", InsertionCheck::LEADER_GAP)) {
                     // we may not drive with the given velocity - we crash into the leader
 #ifdef DEBUG_INSERTION
                     if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
@@ -889,14 +898,16 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                     speed = nspeed;
                     dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
                 } else {
-                    if (!MSGlobals::gCheckRoutes) {
-                        WRITE_WARNINGF("Vehicle '%' is inserted too fast and will violate the speed limit on a lane '%'.",
-                                       aVehicle->getID(), nextLane->getID());
-                    } else {
-                        // we may not drive with the given velocity - we would be too fast on the next lane
-                        WRITE_ERROR("Vehicle '" + aVehicle->getID() + "' will not be able to depart using the given velocity (slow lane ahead)!");
-                        MSNet::getInstance()->getInsertionControl().descheduleDeparture(aVehicle);
-                        return false;
+                    if ((aVehicle->getParameter().insertionChecks & (int)InsertionCheck::SPEED_LIMIT) != 0) {
+                        if (!MSGlobals::gCheckRoutes) {
+                            WRITE_WARNINGF("Vehicle '%' is inserted too fast and will violate the speed limit on a lane '%'.",
+                                    aVehicle->getID(), nextLane->getID());
+                        } else {
+                            // we may not drive with the given velocity - we would be too fast on the next lane
+                            WRITE_ERROR("Vehicle '" + aVehicle->getID() + "' will not be able to depart using the given velocity (slow lane ahead)!");
+                            MSNet::getInstance()->getInsertionControl().descheduleDeparture(aVehicle);
+                            return false;
+                        }
                     }
                 }
             }
@@ -905,7 +916,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             // may already be comitted to blocking the link and unable to stop
             const SUMOTime leaveTime = (*link)->getLeaveTime(arrivalTime, speed, speed, aVehicle->getVehicleType().getLength());
             if ((*link)->hasApproachingFoe(arrivalTime, leaveTime, speed, cfModel.getMaxDecel())) {
-                if (checkFailure(aVehicle, speed, dist, cfModel.insertionStopSpeed(aVehicle, speed, seen), patchSpeed, "")) {
+                if (checkFailure(aVehicle, speed, dist, cfModel.insertionStopSpeed(aVehicle, speed, seen), patchSpeed, "", InsertionCheck::JUNCTION)) {
                     // we may not drive with the given velocity - we crash at the junction
                     return false;
                 }
@@ -925,7 +936,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     MSLeaderInfo leaders = getLastVehicleInformation(aVehicle, 0, pos);
     //if (aVehicle->getID() == "disabled") std::cout << " leaders=" << leaders.toString() << "\n";
     const double nspeed = safeInsertionSpeed(aVehicle, -pos, leaders, speed);
-    if (nspeed == INVALID_SPEED || checkFailure(aVehicle, speed, dist, nspeed, patchSpeed, "")) {
+    if (nspeed == INVALID_SPEED || checkFailure(aVehicle, speed, dist, nspeed, patchSpeed, "", InsertionCheck::LEADER_GAP)) {
         // we may not drive with the given velocity - we crash into the leader
 #ifdef DEBUG_INSERTION
         if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
@@ -954,7 +965,9 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         const MSVehicle* follower = followers[i].first;
         if (follower != nullptr) {
             const double backGapNeeded = follower->getCarFollowModel().getSecureGap(follower, aVehicle, follower->getSpeed(), speed, cfModel.getMaxDecel());
-            if (followers[i].second < backGapNeeded) {
+            if (followers[i].second < backGapNeeded
+                    && ((aVehicle->getParameter().insertionChecks & (int)InsertionCheck::FOLLOWER_GAP) != 0
+                        || (followers[i].second < 0 && (aVehicle->getParameter().insertionChecks & (int)InsertionCheck::COLLISION) != 0))) {
                 // too close to the follower on this lane
 #ifdef DEBUG_INSERTION
                 if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
@@ -991,7 +1004,9 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             const MSVehicle* follower = shadowFollowers[i].first;
             if (follower != nullptr) {
                 const double backGapNeeded = follower->getCarFollowModel().getSecureGap(follower, aVehicle, follower->getSpeed(), speed, cfModel.getMaxDecel());
-                if (shadowFollowers[i].second < backGapNeeded) {
+                if (shadowFollowers[i].second < backGapNeeded
+                    && ((aVehicle->getParameter().insertionChecks & (int)InsertionCheck::FOLLOWER_GAP) != 0
+                        || (shadowFollowers[i].second < 0 && (aVehicle->getParameter().insertionChecks & (int)InsertionCheck::COLLISION) != 0))) {
                     // too close to the follower on this lane
 #ifdef DEBUG_INSERTION
                     if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
@@ -1017,7 +1032,9 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             if (veh != nullptr) {
                 const double gap = veh->getBackPositionOnLane(shadowLane) - aVehicle->getPositionOnLane() - aVehicle->getVehicleType().getMinGap();
                 const double gapNeeded = aVehicle->getCarFollowModel().getSecureGap(aVehicle, veh, speed, veh->getSpeed(), veh->getCarFollowModel().getMaxDecel());
-                if (gap <  gapNeeded) {
+                if (gap <  gapNeeded
+                    && ((aVehicle->getParameter().insertionChecks & (int)InsertionCheck::LEADER_GAP) != 0
+                        || (gap < 0 && (aVehicle->getParameter().insertionChecks & (int)InsertionCheck::COLLISION) != 0))) {
                     // too close to the shadow leader
 #ifdef DEBUG_INSERTION
                     if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
@@ -1042,7 +1059,8 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         // check approaching vehicles to prevent rear-end collisions
         const double backOffset = pos - aVehicle->getVehicleType().getLength();
         const double missingRearGap = getMissingRearGap(aVehicle, backOffset, speed);
-        if (missingRearGap > 0) {
+        if (missingRearGap > 0
+                && (aVehicle->getParameter().insertionChecks & (int)InsertionCheck::LEADER_GAP) != 0) {
             // too close to a follower
 #ifdef DEBUG_INSERTION
             if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
@@ -1058,6 +1076,9 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
 #endif
             return false;
         }
+    }
+    if (aVehicle->getParameter().insertionChecks == (int)InsertionCheck::NONE) {
+        speed = MAX2(0.0, speed);
     }
     // may got negative while adaptation
     if (speed < 0) {
@@ -1124,7 +1145,11 @@ MSLane::safeInsertionSpeed(const MSVehicle* veh, double seen, const MSLeaderInfo
         if (leader != nullptr) {
             const double gap = leader->getBackPositionOnLane(this) + seen - veh->getVehicleType().getMinGap();
             if (gap < 0) {
-                return INVALID_SPEED;
+                if ((veh->getParameter().insertionChecks & (int)InsertionCheck::COLLISION) != 0) {
+                    return INVALID_SPEED;
+                } else {
+                    return 0;
+                }
             }
             nspeed = MIN2(nspeed,
                           veh->getCarFollowModel().insertionFollowSpeed(veh, speed, gap, leader->getSpeed(), leader->getCarFollowModel().getMaxDecel(), leader));
@@ -3995,7 +4020,8 @@ MSLane::checkForPedestrians(const MSVehicle* aVehicle, double& speed, double& di
         if (leader.first != 0) {
             const double gap = leader.second - aVehicle->getVehicleType().getLengthWithGap();
             const double stopSpeed = aVehicle->getCarFollowModel().stopSpeed(aVehicle, speed, gap);
-            if (gap < 0 || checkFailure(aVehicle, speed, dist, stopSpeed, patchSpeed, "")) {
+            if ((gap < 0 && (aVehicle->getParameter().insertionChecks & ((int)InsertionCheck::COLLISION | (int)InsertionCheck::PEDESTRIAN)) != 0)
+                    || checkFailure(aVehicle, speed, dist, stopSpeed, patchSpeed, "", InsertionCheck::PEDESTRIAN)) {
                 // we may not drive with the given velocity - we crash into the pedestrian
 #ifdef DEBUG_INSERTION
                 if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME

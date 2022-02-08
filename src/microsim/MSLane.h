@@ -316,7 +316,7 @@ public:
                             MSMoveReminder::Notification notification);
 
     // XXX: Documentation?
-    bool checkFailure(const MSVehicle* aVehicle, double& speed, double& dist, const double nspeed, const bool patchSpeed, const std::string errorMsg) const;
+    bool checkFailure(const MSVehicle* aVehicle, double& speed, double& dist, const double nspeed, const bool patchSpeed, const std::string errorMsg, InsertionCheck check) const;
 
     /** @brief inserts vehicle as close as possible to the last vehicle on this
      * lane (or at the end of the lane if there is no leader)
