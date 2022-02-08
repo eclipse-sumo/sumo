@@ -48,6 +48,9 @@ circle_reroute
 # vehicles are moving in circles and write intended depart
 circle_reroute_intended_depart
 
+# verify extended precision for randomized input values
+one_vehicle_random
+
 # vehicles are moving in circles and write intended depart sorted
 circle_reroute_intended_depart_sorted
 
