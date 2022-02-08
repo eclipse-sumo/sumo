@@ -1,2 +1,2 @@
--n input_net.net.xml -d input_taz.taz.xml -z input_od.xml -o routes.rou.xml
+-n input_net.net.xml -a input_taz.taz.xml -z input_od.xml -o routes.rou.xml
 --netload-output aggregated.xml
