@@ -642,6 +642,22 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, S
             handleVehicleError(true, ret, toString(SUMO_ATTR_SPEEDFACTOR) + " must be positive");
         }
     }
+    // parse insertion checks
+    if (attrs.hasAttribute(SUMO_ATTR_INSERTIONCHECKS)) {
+        ret->insertionChecks = 0;
+        bool ok = true;
+        std::vector<std::string> checks = attrs.get<std::vector<std::string> >(SUMO_ATTR_INSERTIONCHECKS, ret->id.c_str(), ok);
+        if (!ok) {
+            handleVehicleError(true, ret);
+        } else { 
+            for (std::string check : checks) {
+                if (!SUMOXMLDefinitions::InsertionChecks.hasString(check)) {
+                    handleVehicleError(true, ret, "Unknown value '" + check + "' in " + toString(SUMO_ATTR_INSERTIONCHECKS));
+                }
+                ret->insertionChecks |= (int)SUMOXMLDefinitions::InsertionChecks.get(check);
+            }
+        }
+    }
     // parse speed (only used by calibrators flow)
     // also used by vehicle in saved state but this is parsed elsewhere
     if (tag == SUMO_TAG_FLOW && attrs.hasAttribute(SUMO_ATTR_SPEED)) {

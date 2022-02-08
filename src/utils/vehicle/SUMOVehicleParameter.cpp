@@ -50,6 +50,7 @@ SUMOVehicleParameter::SUMOVehicleParameter()
       line(), fromTaz(), toTaz(), personNumber(0), containerNumber(0),
       speedFactor(-1),
       calibratorSpeed(-1),
+      insertionChecks((int)InsertionCheck::ALL),
       parametersSet(0)
 { }
 
@@ -172,6 +173,20 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
     // speed (only used by calibrators)
     if (wasSet(VEHPARS_CALIBRATORSPEED_SET)) {
         dev.writeAttr(SUMO_ATTR_SPEED, calibratorSpeed);
+    }
+    // speed (only used by calibrators)
+    if (insertionChecks != (int)InsertionCheck::ALL) {
+        std::vector<std::string> checks;
+        if (insertionChecks == (int)InsertionCheck::NONE) {
+            checks.push_back(toString(InsertionCheck::NONE));
+        } else {
+            for (auto it : SUMOXMLDefinitions::InsertionChecks.getValues()) {
+                if (((int)it & insertionChecks) != 0) {
+                    checks.push_back(toString(it));
+                }
+            }
+        }
+        dev.writeAttr(SUMO_ATTR_INSERTIONCHECKS, checks);
     }
 }
 

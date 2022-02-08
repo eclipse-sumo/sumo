@@ -749,6 +749,9 @@ public:
     /// @brief speed (used by calibrator flows
     double calibratorSpeed;
 
+    /// @brief bitset of InsertionCheck
+    int insertionChecks;
+
     /// @brief Information for the router which parameter were set, TraCI may modify this (when changing color)
     mutable int parametersSet;
 
