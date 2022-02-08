@@ -20,6 +20,7 @@
 #pragma once
 #include <vector>
 #include <libsumo/TraCIDefs.h>
+#include <utils/geom/PositionVector.h>
 
 
 // ===========================================================================
@@ -156,6 +157,8 @@ public:
 
 #ifndef LIBTRACI
 #ifndef SWIG
+    static void storeShape(PositionVector& shape);
+
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
