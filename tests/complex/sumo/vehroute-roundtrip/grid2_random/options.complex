@@ -6,7 +6,6 @@
  --vehroute-output.intended-depart false
  --vehroute-output.speedfactor
  --device.rerouting.period 60
- --precision 15
  -t
  --statistic-output statistics.xml
 :
