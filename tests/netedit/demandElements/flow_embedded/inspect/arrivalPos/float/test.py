@@ -37,7 +37,7 @@ netedit.vehicleMode()
 # change vehicle
 netedit.changeElement("flow (embedded route)")
 
-# create flow using two edges
+# create flow with embedded route using two edges
 netedit.leftClick(referencePosition, 274, 392)
 netedit.leftClick(referencePosition, 280, 55)
 
@@ -51,19 +51,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change arrivalPos with an invalid value
-netedit.modifyAttribute(10, "", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.arrivalPos, "", False)
 
 # change arrivalPos with an invalid value
-netedit.modifyAttribute(10, "dummyPos", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.arrivalPos, "dummyPos", False)
 
 # change departColor with a valid value
-netedit.modifyAttribute(10, "500", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.arrivalPos, "500", False)
 
 # change arrivalPos with an invalid value
-netedit.modifyAttribute(10, "-10", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.arrivalPos, "-10", False)
 
 # change arrivalPos with a valid value
-netedit.modifyAttribute(10, "15.5", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.arrivalPos, "15.5", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

@@ -44,16 +44,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 330, 150)
 
 # change arrivalPosLat with an invalid value
-netedit.modifyAttribute(13, "", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.arrivalPosLat, "", False)
 
 # change arrivalPosLat with an invalid value
-netedit.modifyAttribute(13, "dummyPosLat", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.arrivalPosLat, "dummyPosLat", False)
 
 # change arrivalPosLat with an invalid valid value
-netedit.modifyAttribute(13, "-12", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.arrivalPosLat, "-12", False)
 
 # change arrivalPosLat with an valid value
-netedit.modifyAttribute(13, "4.2", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspectSelection.arrivalPosLat, "4.2", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

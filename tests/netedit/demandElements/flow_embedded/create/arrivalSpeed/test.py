@@ -34,47 +34,47 @@ netedit.supermodeDemand()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# select flow
+# select flow with embedded route
 netedit.changeElement("flow (embedded route)")
 
 # set invalid arrival lane
-netedit.changeDefaultValue(12, "dummySpeed")
+netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.arrivalSpeed, "dummySpeed")
 
-# try to create flow
+# try to create flow with embedded route
 netedit.leftClick(referencePosition, 274, 392)
 netedit.leftClick(referencePosition, 280, 55)
 
-# press enter to create flow
+# press enter to create flow with embedded route
 netedit.typeEnter()
 
 # set invalid arrival speed
-netedit.changeDefaultValue(12, "-12")
+netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.arrivalSpeed, "-12")
 
-# create flow
+# create flow with embedded route
 netedit.leftClick(referencePosition, 274, 392)
 netedit.leftClick(referencePosition, 280, 55)
 
-# press enter to create flow
+# press enter to create flow with embedded route
 netedit.typeEnter()
 
 # set valid arrival speed
-netedit.changeDefaultValue(12, "max")
+netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.arrivalSpeed, "max")
 
-# create flow
+# create flow with embedded route
 netedit.leftClick(referencePosition, 274, 392)
 netedit.leftClick(referencePosition, 280, 55)
 
-# press enter to create flow
+# press enter to create flow with embedded route
 netedit.typeEnter()
 
 # set valid arrival speed
-netedit.changeDefaultValue(12, "20")
+netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.arrivalSpeed, "20")
 
-# create flow
+# create flow with embedded route
 netedit.leftClick(referencePosition, 274, 392)
 netedit.leftClick(referencePosition, 280, 55)
 
-# press enter to create flow
+# press enter to create flow with embedded route
 netedit.typeEnter()
 # Check undo redo
 netedit.undo(referencePosition, 3)

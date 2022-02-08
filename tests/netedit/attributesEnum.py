@@ -1172,7 +1172,7 @@ class flowEmbedded:
         containerNumber = 15
         departPosLat = 16
         arrivalPosLat = 17
-        begin = 18
+        begin = 18          # missing
         # flow attributes missing
         parameters = 29
     class inspectSelection:
@@ -1190,7 +1190,7 @@ class flowEmbedded:
         containerNumber = 12
         departPosLat = 13
         arrivalPosLat = 14
-        begin = 15
+        begin = 15          # missing
         # flow attributes missing
         parameters = 26
 

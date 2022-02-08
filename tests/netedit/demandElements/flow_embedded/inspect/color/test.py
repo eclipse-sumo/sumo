@@ -37,7 +37,7 @@ netedit.vehicleMode()
 # change vehicle
 netedit.changeElement("flow (embedded route)")
 
-# create flow using two edges
+# create flow with embedded route using two edges
 netedit.leftClick(referencePosition, 274, 392)
 netedit.leftClick(referencePosition, 280, 55)
 
@@ -51,16 +51,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change color with an invalid value
-netedit.modifyAttribute(5, "", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.color, "", False)
 
 # change color with an invalid value
-netedit.modifyAttribute(5, "dummyColor", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.color, "dummyColor", False)
 
 # change color with an valid value
-netedit.modifyAttribute(5, "cyan", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.color, "cyan", False)
 
 # change color with a valid value
-netedit.modifyAttribute(5, "12,13,14", False)
+netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.color, "12,13,14", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

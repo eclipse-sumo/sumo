@@ -34,47 +34,47 @@ netedit.supermodeDemand()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# select flow
+# select flow with embedded route
 netedit.changeElement("flow (embedded route)")
 
 # set invalid containerNumber
-netedit.changeDefaultValue(15, "dummyContainerNumber")
+netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.containerNumber, "dummyContainerNumber")
 
-# try to create flow
+# try to create flow with embedded route
 netedit.leftClick(referencePosition, 274, 392)
 netedit.leftClick(referencePosition, 280, 55)
 
-# press enter to create flow
+# press enter to create flow with embedded route
 netedit.typeEnter()
 
 # set invalid containerNumber
-netedit.changeDefaultValue(15, "-12")
+netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.containerNumber, "-12")
 
-# try to create flow
+# try to create flow with embedded route
 netedit.leftClick(referencePosition, 274, 392)
 netedit.leftClick(referencePosition, 280, 55)
 
-# press enter to create flow
+# press enter to create flow with embedded route
 netedit.typeEnter()
 
 # set invalid containerNumber
-netedit.changeDefaultValue(15, "3.5")
+netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.containerNumber, "3.5")
 
-# try to create flow
+# try to create flow with embedded route
 netedit.leftClick(referencePosition, 274, 392)
 netedit.leftClick(referencePosition, 280, 55)
 
-# press enter to create flow
+# press enter to create flow with embedded route
 netedit.typeEnter()
 
 # set valid containerNumber
-netedit.changeDefaultValue(15, "13")
+netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.containerNumber, "13")
 
-# create flow
+# create flow with embedded route
 netedit.leftClick(referencePosition, 274, 392)
 netedit.leftClick(referencePosition, 280, 55)
 
-# press enter to create flow
+# press enter to create flow with embedded route
 netedit.typeEnter()
 
 # Check undo redo
