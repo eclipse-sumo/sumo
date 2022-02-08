@@ -500,6 +500,7 @@
         <xsd:attribute name="personNumber" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="containerNumber" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="speedFactor" type="positiveFloatType"/>
+        <xsd:attribute name="insertionChecks" type="xsd:string"/>
     </xsd:complexType>
 
     <xsd:complexType name="flowWithoutIDType">
@@ -539,6 +540,7 @@
         <xsd:attribute name="personNumber" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="containerNumber" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="speedFactor" type="positiveFloatType"/>
+        <xsd:attribute name="insertionChecks" type="xsd:string"/>
     </xsd:complexType>
 
     <xsd:complexType name="flowIntervalType">
@@ -607,6 +609,7 @@
         <xsd:attribute name="personNumber" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="containerNumber" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="speedFactor" type="positiveFloatType"/>
+        <xsd:attribute name="insertionChecks" type="xsd:string"/>
     </xsd:complexType>
 
     <xsd:complexType name="routeType">
