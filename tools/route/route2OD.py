@@ -47,8 +47,8 @@ def get_options(args=None):
     optParser.add_argument("--id", default="DEFAULT_VEHTYPE", dest="intervalID",
                            help="define the output aggregation interval")
     optParser.add_argument("-s", "--seed", type=int, default=42, help="random seed")
-    optParser.add_argument("-e", "--edge-od", action="store_true", dest="edgeod", default=False,
-                           help="generate the repsective edge-based od file as well")
+    optParser.add_argument("--edge-relations", action="store_true", dest="edgeod", default=False,
+                           help="generate edgeRelations instead of tazRelations")
 
     options = optParser.parse_args(args=args)
     if not options.routefile or not options.tazfiles or not options.outfile:
