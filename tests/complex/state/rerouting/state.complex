@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-10-21 10:06:53 by Eclipse SUMO sumo Version v1_10_0+1572-1e370db
+<!-- generated on 2022-02-08 11:24:19 by Eclipse SUMO sumo Version v1_12_0+0353-0cd4bcd
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -22,7 +22,7 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_10_0+1572-1e370db" time="500.00" type="micro">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_12_0+0353-0cd4bcd" time="500.00" type="micro">
     <route id="!veh130" state="0" edges="gneE0 gneE3"/>
     <route id="!veh130!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh131" state="0" edges="gneE0 gneE3"/>
@@ -951,7 +951,7 @@
         <device id="vehroute_veh142" state="0 0.00 0.00 1.00 1 !NULL 142000 !veh142 device.rerouting -1 0"/>
         <device id="routing_veh142" state="0"/>
     </vehicle>
-    <vehicle id="veh143" type="default" depart="143.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh143!var#1" distance="105.55 1" speedFactor="0.94" reroute="1" state="143370 449000 1 1.00 0 38.85 499000 0 0" pos="40.54 35.54 4.89" speed="4.89 3.51" angle="111.80" posLat="0.00" waitingTime="100000 0">
+    <vehicle id="veh143" type="default" depart="143.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh143!var#1" distance="105.55 1" speedFactor="0.94" reroute="1" state="143370 449000 1 1.00 0 38.84 499000 0 0" pos="40.54 35.54 4.89" speed="4.89 3.51" angle="111.80" posLat="0.00" waitingTime="100000 0">
         <device id="vehroute_veh143" state="0 0.00 0.00 1.00 1 !NULL 143000 !veh143 device.rerouting -1 0"/>
         <device id="routing_veh143" state="0"/>
     </vehicle>
@@ -1191,7 +1191,7 @@
         <device id="vehroute_veh202" state="-1 0.00 -1.00 -1.00 1 !NULL 202000 !veh202 device.rerouting -1 0"/>
         <device id="routing_veh202" state="0"/>
     </vehicle>
-    <vehicle id="veh203" type="default" depart="203.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh203!var#1" distance="0 1" speedFactor="1.04" reroute="1" state="143370 9223372036854775807 0 -1.00 0 0.00 0 0 0" pos="0.00 0.00 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0">
+    <vehicle id="veh203" type="default" depart="203.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh203!var#1" distance="0 1" speedFactor="1.03" reroute="1" state="143370 9223372036854775807 0 -1.00 0 0.00 0 0 0" pos="0.00 0.00 0.00" speed="0.00 0.00" angle="90.00" posLat="0.00" waitingTime="100000 0">
         <device id="vehroute_veh203" state="-1 0.00 -1.00 -1.00 1 !NULL 203000 !veh203 device.rerouting -1 0"/>
         <device id="routing_veh203" state="0"/>
     </vehicle>
@@ -2815,7 +2815,7 @@
         <device id="vehroute_veh71" state="0 0.00 0.00 1.00 2 !NULL 71000 !veh71 device.rerouting -1 0 gneE0 214000 !veh71!var#1 device.rerouting 0 0"/>
         <device id="routing_veh71" state="0"/>
     </vehicle>
-    <vehicle id="veh72" type="default" depart="72.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh72!var#2" distance="154.41 2" speedFactor="0.97" reroute="1" state="143370 217000 2 1.00 226000 269.35 499000 0 0" pos="17.60 12.60 0.00" speed="0.00 0.00" angle="111.80" posLat="0.00" waitingTime="100000 1 0 226000">
+    <vehicle id="veh72" type="default" depart="72.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh72!var#2" distance="154.41 2" speedFactor="0.97" reroute="1" state="143370 217000 2 1.00 226000 269.34 499000 0 0" pos="17.60 12.60 0.00" speed="0.00 0.00" angle="111.80" posLat="0.00" waitingTime="100000 1 0 226000">
         <device id="vehroute_veh72" state="0 0.00 0.00 1.00 2 !NULL 72000 !veh72 device.rerouting -1 0 gneE0 217000 !veh72!var#1 device.rerouting 0 0"/>
         <device id="routing_veh72" state="0"/>
     </vehicle>
