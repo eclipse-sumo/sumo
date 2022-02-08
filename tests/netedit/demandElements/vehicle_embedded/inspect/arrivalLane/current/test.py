@@ -51,13 +51,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 91, 392)
 
 # change arrivalLane with an invalid value
-netedit.modifyAttribute(9, "", False)
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspect.arrivalLane, "", False)
 
 # change arrivalLane with an invalid value
-netedit.modifyAttribute(9, "dummyLane", False)
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspect.arrivalLane, "dummyLane", False)
 
 # change arrivalLane with a valid value
-netedit.modifyAttribute(9, "current", False)
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspect.arrivalLane, "current", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

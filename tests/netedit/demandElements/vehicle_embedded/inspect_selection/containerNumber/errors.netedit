@@ -15,19 +15,13 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary 0.00,48.40,80.00,70.0
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
-Debug: Inserting generic parameter 'KeyA1|valueA1' into 
 Debug: Inserting generic parameter 'KeyA1|valueA1' into vehicle
-Debug: Inserting generic parameter 'KeyA3|valueA2' into 
 Debug: Inserting generic parameter 'KeyA3|valueA2' into vehicle
-Debug: Inserting generic parameter 'KeyA2|valueA3' into 
 Debug: Inserting generic parameter 'KeyA2|valueA3' into vehicle
 Debug: Adding vehicleWithRoute 'vehicle_embeddedA' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'vehicle_embeddedA' in GNEChange_DemandElement
-Debug: Inserting generic parameter 'KeyB1|valueB1' into 
 Debug: Inserting generic parameter 'KeyB1|valueB1' into vehicle
-Debug: Inserting generic parameter 'KeyB3|valueB2' into 
 Debug: Inserting generic parameter 'KeyB3|valueB2' into vehicle
-Debug: Inserting generic parameter 'KeyB2|valueB3' into 
 Debug: Inserting generic parameter 'KeyB2|valueB3' into vehicle
 Debug: Adding vehicleWithRoute 'vehicle_embeddedB' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'vehicle_embeddedB' in GNEChange_DemandElement

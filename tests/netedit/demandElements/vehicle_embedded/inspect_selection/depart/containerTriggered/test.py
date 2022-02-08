@@ -41,19 +41,19 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 114, 396)
+netedit.leftClick(referencePosition, 330, 150)
 
 # change depart with an invalid value
-netedit.modifyAttribute(14, "", False)
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspectSelection.depart, "", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(14, "dummyDepart", False)
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspectSelection.depart, "dummyDepart", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(14, "-3", False)
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspectSelection.depart, "-3", False)
 
 # change depart with an valid value
-netedit.modifyAttribute(14, "containerTriggered", False)
+netedit.modifyAttribute(netedit.attrs.vehicleEmbedded.inspectSelection.depart, "containerTriggered", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

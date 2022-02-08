@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-20 15:57:48 by Eclipse SUMO netedit Version v1_11_0+1305-0448234e9dc
+<!-- generated on 2022-02-08 15:47:51 by Eclipse SUMO netedit Version v1_12_0+0377-6919bded5c6
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="v_0" depart="0.00" line="3">
+    <vehicle id="v_0" depart="0.00" containerNumber="3">
         <route edges="gneE2 gneE4 gneE5"/>
     </vehicle>
 </routes>

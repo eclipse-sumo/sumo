@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("vehicle (embedded route)")
 
 # set invalid depart lane
-netedit.changeDefaultValue(7, "dummyLane")
+netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.departLane, "dummyLane")
 
 # try to create trip
 netedit.leftClick(referencePosition, 274, 392)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set invalid depart lane
-netedit.changeDefaultValue(7, "-12")
+netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.departLane, "-12")
 
 # try to create trip
 netedit.leftClick(referencePosition, 274, 392)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid depart lane
-netedit.changeDefaultValue(7, "random")
+netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.departLane, "random")
 
 # create trip
 netedit.leftClick(referencePosition, 274, 392)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 280, 55)
 netedit.typeEnter()
 
 # set valid depart lane
-netedit.changeDefaultValue(7, "20")
+netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.departLane, "20")
 
 # create trip
 netedit.leftClick(referencePosition, 274, 392)
