@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-02 12:24:14 by Eclipse SUMO netedit Version v1_12_0+0185-324357a1d93
+<!-- generated on 2022-02-08 12:44:00 by Eclipse SUMO netedit Version v1_12_0+0346-b19768f19ca
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.4_from_02Feb114229.5556\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb123545.3168\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.4_from_02Feb114229.5556\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb123545.3168\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light\net.net.xml"/>
     </output>
 
     <processing>
@@ -31,27 +31,27 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.4_from_02Feb114229.5556\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light\additionals.xml"/>
-        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.4_from_02Feb114229.5556\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light\additionals.xml"/>
-        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.4_from_02Feb114229.5556\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light\routes.xml"/>
-        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.4_from_02Feb114229.5556\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light\routes.xml"/>
-        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.4_from_02Feb114229.5556\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light\datas.xml"/>
-        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.4_from_02Feb114229.5556\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light\datas.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb123545.3168\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb123545.3168\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb123545.3168\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb123545.3168\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb123545.3168\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb123545.3168\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.4_from_02Feb114229.5556\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb123545.3168\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.4_from_02Feb114229.5556\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb123545.3168\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.4_from_02Feb114229.5556\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Feb123545.3168\netedit.gui\netElements\junctions\inspect_selected\type\traffic_light\log.txt"/>
     </report>
 
 </configuration>
@@ -216,6 +216,11 @@
         <lane id="8_1" index="1" speed="13.90" length="39.60" shape="100.00,51.60 60.40,51.60"/>
     </edge>
 
+    <tlLogic id="C" type="static" programID="0" offset="0">
+        <phase duration="82" state="G"/>
+        <phase duration="3"  state="y"/>
+        <phase duration="5"  state="r"/>
+    </tlLogic>
     <tlLogic id="Center" type="static" programID="0" offset="0">
         <phase duration="37" state="gGGggrrrrrgGGggrrrrrGG"/>
         <phase duration="5"  state="gGGggrrrrrgGGggrrrrrrr"/>
@@ -230,10 +235,10 @@
     <junction id="B" type="priority" x="50.00" y="100.00" incLanes="2_0 2_1" intLanes=":B_0_0" shape="50.00,100.00 56.40,100.00 50.00,100.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="C" type="priority" x="0.00" y="50.00" incLanes="3_0 3_1" intLanes=":C_0_0" shape="0.00,50.00 0.00,56.40 0.00,50.00" name="traffic_light">
+    <junction id="C" type="traffic_light" x="0.00" y="50.00" incLanes="3_0 3_1" intLanes=":C_0_0" shape="0.00,50.00 0.00,56.40 0.00,50.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="Center" type="traffic_light" x="50.00" y="50.00" incLanes="6_0 6_1 8_0 8_1 5_0 5_1 7_0 7_1 :Center_w2_0 :Center_w1_0" intLanes=":Center_20_0 :Center_1_0 :Center_1_1 :Center_21_0 :Center_22_0 :Center_5_0 :Center_6_0 :Center_6_1 :Center_23_0 :Center_24_0 :Center_25_0 :Center_11_0 :Center_11_1 :Center_26_0 :Center_27_0 :Center_15_0 :Center_16_0 :Center_16_1 :Center_28_0 :Center_29_0 :Center_c0_0 :Center_c1_0" shape="43.60,60.40 56.40,60.40 56.84,58.18 57.40,57.40 58.18,56.84 59.18,56.51 60.40,56.40 60.40,43.60 58.18,43.16 57.40,42.60 56.84,41.82 56.51,40.82 56.40,39.60 43.60,39.60 43.16,41.82 42.60,42.60 41.82,43.16 40.82,43.49 39.60,43.60 39.60,56.40 41.82,56.84 42.60,57.40 43.16,58.18 43.49,59.18" name="traffic_light">
+    <junction id="Center" type="traffic_light" x="50.00" y="50.00" incLanes="6_0 6_1 8_0 8_1 5_0 5_1 7_0 7_1 :Center_w2_0 :Center_w1_0" intLanes=":Center_20_0 :Center_1_0 :Center_1_1 :Center_21_0 :Center_22_0 :Center_5_0 :Center_6_0 :Center_6_1 :Center_23_0 :Center_24_0 :Center_25_0 :Center_11_0 :Center_11_1 :Center_26_0 :Center_27_0 :Center_15_0 :Center_16_0 :Center_16_1 :Center_28_0 :Center_29_0 :Center_c0_0 :Center_c1_0" shape="43.60,60.40 56.40,60.40 56.84,58.18 57.40,57.40 58.18,56.84 59.18,56.51 60.40,56.40 60.40,43.60 58.18,43.16 57.40,42.60 56.84,41.82 56.51,40.82 56.40,39.60 43.60,39.60 43.16,41.82 42.60,42.60 41.82,43.16 40.82,43.49 39.60,43.60 39.60,56.40 41.82,56.84 42.60,57.40 43.16,58.18 43.49,59.18">
         <request index="0"  response="1000000000000000000000" foes="1000000000000011000000" cont="1"/>
         <request index="1"  response="0001000000000100000000" foes="0001111110000111000000" cont="0"/>
         <request index="2"  response="0001000000000100000000" foes="0001111110000111000000" cont="0"/>
@@ -274,7 +279,7 @@
 
     <connection from="1" to="5" fromLane="1" toLane="1" via=":A_0_0" dir="t" state="M"/>
     <connection from="2" to="6" fromLane="1" toLane="1" via=":B_0_0" dir="t" state="M"/>
-    <connection from="3" to="7" fromLane="1" toLane="1" via=":C_0_0" dir="t" state="M"/>
+    <connection from="3" to="7" fromLane="1" toLane="1" via=":C_0_0" tl="C" linkIndex="0" dir="t" state="O"/>
     <connection from="4" to="8" fromLane="1" toLane="1" via=":D_0_0" dir="t" state="M"/>
     <connection from="5" to="4" fromLane="0" toLane="0" via=":Center_10_0" tl="Center" linkIndex="10" dir="r" state="o"/>
     <connection from="5" to="2" fromLane="0" toLane="0" via=":Center_11_0" tl="Center" linkIndex="11" dir="s" state="O"/>
