@@ -1153,11 +1153,15 @@ MSActuatedTrafficLightLogic::getDetectorStates() const {
 std::map<std::string, double>
 MSActuatedTrafficLightLogic::getConditions() const {
     std::map<std::string, double> result;
-    for (auto item : myConditions) {
-        if (myListedConditions.count(item.first) != 0) {
-            result[item.first] = evalExpression(item.second);
+        for (auto item : myConditions) {
+            if (myListedConditions.count(item.first) != 0) {
+                try {
+                    result[item.first] = evalExpression(item.second);
+                } catch (ProcessError& e) {
+                    WRITE_ERROR("Error when retrieving conditions '" + item.first + "' for tlLogic '" + getID() + " (" + e.what() + ")");
+                }
+            }
         }
-    }
     return result;
 }
 
