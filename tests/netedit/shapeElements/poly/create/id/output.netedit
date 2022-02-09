@@ -7,18 +7,13 @@ TestFunctions: Clicked over position 486 - 198.0
 TestFunctions: Clicked over position 386.0 - 198.0
 TestFunctions: Clicked over position 386.0 - 298
 TestFunctions: Clicked over position 486 - 298
-TestFunctions: Clicked over position 586 - 298
-TestFunctions: Clicked over position 586 - 198.0
-TestFunctions: Clicked over position 486.0 - 198.0
-TestFunctions: Clicked over position 486.0 - 298
-TestFunctions: Clicked over position 586 - 298
 ;;;;;;
 TestFunctions: Clicked over position 686 - 298
 TestFunctions: Clicked over position 686 - 198.0
 TestFunctions: Clicked over position 586.0 - 198.0
 TestFunctions: Clicked over position 586.0 - 298
 TestFunctions: Clicked over position 686 - 298
-poly_0
+po_0
 TestFunctions: Clicked over position 686 - 298
 TestFunctions: Clicked over position 686 - 198.0
 TestFunctions: Clicked over position 586.0 - 198.0

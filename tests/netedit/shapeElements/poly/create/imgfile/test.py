@@ -35,25 +35,25 @@ netedit.shapeMode()
 netedit.changeElement("poly")
 
 # change color manually
-netedit.changeDefaultValue(6, "white")
+netedit.changeDefaultValue(netedit.attrs.Poly.create.color, "white")
 
 # change fill
-netedit.changeDefaultBoolValue(7)
+netedit.changeDefaultBoolValue(netedit.attrs.Poly.create.fill)
 
 # change imgfile (invalid)
-netedit.changeDefaultValue(12, "%%$%$&$%$%$")
+netedit.changeDefaultValue(netedit.attrs.Poly.create.imgFile, "%%$%$&$%$%$")
 
 # try to create polygon
 netedit.createSquaredTAZ(referencePosition, 182, 130, 200, True)
 
 # change imgfile (inexistent)
-netedit.changeDefaultValue(12, "paris.ico")
+netedit.changeDefaultValue(netedit.attrs.Poly.create.imgFile, "paris.ico")
 
 # try to create polygon
 netedit.createSquaredPoly(referencePosition, 282, 130, 200, True)
 
 # change imgfile (valid)
-netedit.changeDefaultValue(12, "berlin_icon.ico")
+netedit.changeDefaultValue(netedit.attrs.Poly.create.imgFile, "berlin_icon.ico")
 
 # create polygon
 netedit.createSquaredPoly(referencePosition, 382, 130, 200, True)
