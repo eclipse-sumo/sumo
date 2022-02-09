@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-02 12:22:43 by Eclipse SUMO sumo Version v1_12_0+0212-f27fcdc
+<!-- generated on 2022-02-09 17:49:28 by Eclipse SUMO sumo Version v1_12_0+0407-89d3a2c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -62,13 +62,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="f.2" depart="5.00" arrival="60.00">
-        <routeDistribution>
-            <route replacedOnEdge="left0A0" reason="device.rerouting" replacedAtTime="10.00" probability="0" edges="left0A0 A0A1 A1A2 A2B2 B2C2 C2right2"/>
-            <route edges="left0A0 A0B0 B0B1 B1B2 B2C2 C2right2"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="f.7" depart="17.00" arrival="63.00">
         <routeDistribution>
             <route replacedOnEdge="left0A0" reason="device.rerouting" replacedAtTime="22.00" probability="0" edges="left0A0 A0B0 B0B1 B1B2 B2C2 C2right2"/>
@@ -119,24 +112,31 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route edges="left0A0 A0B0 B0C0 C0C1 C1C2 C2right2"/>
     </vehicle>
 
-    <vehicle id="f.1" depart="2.00" arrival="95.00">
+    <vehicle id="f.2" depart="5.00" arrival="95.00">
+        <routeDistribution>
+            <route replacedOnEdge="left0A0" reason="device.rerouting" replacedAtTime="10.00" probability="0" edges="left0A0 A0A1 A1A2 A2B2 B2C2 C2right2"/>
+            <route edges="left0A0 A0B0 B0B1 B1B2 B2C2 C2right2"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="f.6" depart="15.00" arrival="96.00">
+        <route edges="left0A0 A0B0 B0B1 B1B2 B2C2 C2right2"/>
+    </vehicle>
+
+    <vehicle id="f.8" depart="20.00" arrival="98.00">
+        <route edges="left0A0 A0B0 B0B1 B1B2 B2C2 C2right2"/>
+    </vehicle>
+
+    <vehicle id="f.9" depart="22.00" arrival="100.00">
+        <route edges="left0A0 A0B0 B0B1 B1B2 B2C2 C2right2"/>
+    </vehicle>
+
+    <vehicle id="f.1" depart="2.00" arrival="102.00">
         <route edges="left0A0 A0A1 A1A2 A2B2 B2C2 C2right2"/>
     </vehicle>
 
-    <vehicle id="f.4" depart="10.00" arrival="96.00">
+    <vehicle id="f.4" depart="10.00" arrival="104.00">
         <route edges="left0A0 A0A1 A1A2 A2B2 B2C2 C2right2"/>
-    </vehicle>
-
-    <vehicle id="f.6" depart="15.00" arrival="98.00">
-        <route edges="left0A0 A0B0 B0B1 B1B2 B2C2 C2right2"/>
-    </vehicle>
-
-    <vehicle id="f.8" depart="20.00" arrival="100.00">
-        <route edges="left0A0 A0B0 B0B1 B1B2 B2C2 C2right2"/>
-    </vehicle>
-
-    <vehicle id="f.9" depart="22.00" arrival="102.00">
-        <route edges="left0A0 A0B0 B0B1 B1B2 B2C2 C2right2"/>
     </vehicle>
 
 </routes>

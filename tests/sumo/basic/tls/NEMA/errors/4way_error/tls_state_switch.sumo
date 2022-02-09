@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-01-21 09:33:53 by Eclipse SUMO sumo Version v1_11_0+1333-9dc444c7d1f
+<!-- generated on 2022-02-09 17:48:42 by Eclipse SUMO sumo Version v1_12_0+0407-89d3a2c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -87,15 +92,14 @@ SPDX-License-Identifier: EPL-2.0
     <tlsState time="402.00" id="0" programID="01" phase="1" state="rrrrrrrrrrrr" name="4+8"/>
     <tlsState time="404.00" id="0" programID="01" phase="0" state="srrsrGsrrsrG" name="1+5"/>
     <tlsState time="414.00" id="0" programID="01" phase="1" state="srrsrGsrrsry" name="1+5"/>
-    <tlsState time="415.00" id="0" programID="01" phase="0" state="srrsrysrrsry" name="1+5"/>
+    <tlsState time="416.00" id="0" programID="01" phase="0" state="srrsrysrrsry" name="1+5"/>
     <tlsState time="418.00" id="0" programID="01" phase="1" state="srrsrysrrsrr" name="1+5"/>
-    <tlsState time="419.00" id="0" programID="01" phase="0" state="rrrrrrrrrrrr" name="1+5"/>
-    <tlsState time="420.00" id="0" programID="01" phase="1" state="srrGGrsrrsrg" name="2+5"/>
-    <tlsState time="421.00" id="0" programID="01" phase="0" state="srrGGgsrrGGg" name="2+6"/>
-    <tlsState time="446.00" id="0" programID="01" phase="1" state="srrsyysrrsyy" name="2+6"/>
-    <tlsState time="450.00" id="0" programID="01" phase="0" state="rrrrrrrrrrrr" name="2+6"/>
-    <tlsState time="452.00" id="0" programID="01" phase="1" state="GGGsrrsrgsrr" name="3+8"/>
-    <tlsState time="471.00" id="0" programID="01" phase="0" state="syysrrsrysrr" name="3+8"/>
-    <tlsState time="475.00" id="0" programID="01" phase="1" state="rrrrrrrrrrrr" name="3+8"/>
-    <tlsState time="477.00" id="0" programID="01" phase="0" state="srrGGgsrrGGg" name="2+6"/>
+    <tlsState time="420.00" id="0" programID="01" phase="0" state="srrGGrsrrsrg" name="2+5"/>
+    <tlsState time="422.00" id="0" programID="01" phase="1" state="srrGGgsrrGGg" name="2+6"/>
+    <tlsState time="447.00" id="0" programID="01" phase="0" state="srrsyysrrsyy" name="2+6"/>
+    <tlsState time="451.00" id="0" programID="01" phase="1" state="rrrrrrrrrrrr" name="2+6"/>
+    <tlsState time="453.00" id="0" programID="01" phase="0" state="GGGsrrsrgsrr" name="3+8"/>
+    <tlsState time="472.00" id="0" programID="01" phase="1" state="syysrrsrysrr" name="3+8"/>
+    <tlsState time="476.00" id="0" programID="01" phase="0" state="rrrrrrrrrrrr" name="3+8"/>
+    <tlsState time="478.00" id="0" programID="01" phase="1" state="srrGGgsrrGGg" name="2+6"/>
 </tlsStates>
