@@ -32,6 +32,7 @@ from .exceptions import TraCIException, FatalTraCIError
 from .domain import _defaultDomains
 from .storage import Storage
 
+_DEBUG = False
 _RESULTS = {0x00: "OK", 0x01: "Not implemented", 0xFF: "Error"}
 
 
@@ -82,9 +83,12 @@ class Connection:
         if self._socket is None:
             raise FatalTraCIError("Connection already closed.")
         length = struct.pack("!i", len(self._string) + 4)
-        # print("python_sendExact: '%s'" % ' '.join(map(lambda x : "%X" % ord(x), self._string)))
+        if _DEBUG:
+            print("sending", Storage(length + self._string).getDebugString())
         self._socket.send(length + self._string)
         result = self._recvExact()
+        if _DEBUG:
+            print("receiving", result.getDebugString())
         if not result:
             self._socket.close()
             del self._socket
@@ -181,8 +185,8 @@ class Connection:
         return self._sendExact()
 
     def _readSubscription(self, result):
-        # to enable this you also need to set _DEBUG to True in storage.py
-        # result.printDebug()
+        if _DEBUG:
+            print("reading subscription", result.getDebugString())
         result.readLength()
         response = result.read("!B")[0]
         isVariableSubscription = ((response >= tc.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE and

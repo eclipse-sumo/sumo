@@ -25,8 +25,6 @@ import struct
 
 from . import constants as tc
 
-_DEBUG = False
-
 
 class Storage:
 
@@ -97,7 +95,5 @@ class Storage:
     def ready(self):
         return self._pos < len(self._content)
 
-    def printDebug(self):
-        if _DEBUG:
-            for char in self._content[self._pos:]:
-                print("%03i %02x %s" % (ord(char), ord(char), char))
+    def getDebugString(self):
+        return " ".join(["%02x" % (c if type(c) is int else ord(c)) for c in self._content[self._pos:]])
