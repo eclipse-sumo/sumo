@@ -41,28 +41,28 @@ netedit.stopMode()
 netedit.changeStopType("stopBusStop")
 
 # change triggered
-netedit.changeDefaultBoolValue(8)
+netedit.changeDefaultValue(netedit.attrs.stop.create.triggered, "container")
 
 # set invalid value
-netedit.changeDefaultValue(9, ";;;;;;;;;;")
+netedit.changeDefaultValue(netedit.attrs.stop.create.expected, ";;;;;;;;;;")
 
 # try to create stop
 netedit.leftClick(referencePosition, 290, 175)
 
 # set invalid value
-netedit.changeDefaultValue(9, "")
+netedit.changeDefaultValue(netedit.attrs.stop.create.expected, "")
 
 # try to create stop
 netedit.leftClick(referencePosition, 290, 175)
 
 # set valid value
-netedit.changeDefaultValue(9, "ID1")
+netedit.changeDefaultValue(netedit.attrs.stop.create.expected, "ID1")
 
 # create stop
 netedit.leftClick(referencePosition, 290, 175)
 
 # set valid value
-netedit.changeDefaultValue(9, "ID1 ID2 ID3")
+netedit.changeDefaultValue(netedit.attrs.stop.create.expected, "ID1 ID2 ID3")
 
 # create stop
 netedit.leftClick(referencePosition, 290, 175)

@@ -1321,7 +1321,19 @@ class flowEmbedded:
 # stop (over additionals)
 class stop:
     class create:
-        until = 0
+        triggered = 12
+        expected = 14
+        parking = 15
+        actType = 16
+    class createDuration:
+        durationEnable = 7
+        until = 8
+    class createUntil:
+        untilEnable = 8
+        until = 9
+    class createExtension:
+        extensionEnable = 3
+        extension = 4
     class inspect:
         durationEnable = 1
         duration = 2
