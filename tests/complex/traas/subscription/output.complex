@@ -2,87 +2,87 @@ Step: 0
 Subscription Departed vehicles: v0
 Step: 1
 Subscription Departed vehicles: v1
-Position of vehicle v0: x = 14.723087073160213 y = -4.8
-Speed of vehicle v0: 14.723087073160213
+Position of vehicle v0: x = 14.723400000000002 y = -4.8
+Speed of vehicle v0: 14.723400000000002
 Step: 2
 Subscription Departed vehicles: v2
-Position of vehicle v0: x = 29.446174146320427 y = -4.8
-Speed of vehicle v0: 14.723087073160213
-Position of vehicle v1: x = 13.033068701216276 y = -4.8
-Speed of vehicle v1: 13.033068701216276
+Position of vehicle v0: x = 29.446800000000003 y = -4.8
+Speed of vehicle v0: 14.723400000000002
+Position of vehicle v1: x = 13.032987 y = -4.8
+Speed of vehicle v1: 13.032987
 Step: 3
 Subscription Departed vehicles: v3
-Position of vehicle v0: x = 44.16926121948064 y = -4.8
-Speed of vehicle v0: 14.723087073160213
-Position of vehicle v1: x = 26.066137402432553 y = -4.8
-Speed of vehicle v1: 13.033068701216276
-Position of vehicle v2: x = 11.791085876520345 y = -4.8
-Speed of vehicle v2: 11.791085876520345
+Position of vehicle v0: x = 44.17020000000001 y = -4.8
+Speed of vehicle v0: 14.723400000000002
+Position of vehicle v1: x = 26.065974 y = -4.8
+Speed of vehicle v1: 13.032987
+Position of vehicle v2: x = 11.790983749999999 y = -4.8
+Speed of vehicle v2: 11.790983749999999
 Step: 4
 Subscription Departed vehicles: v4
-Position of vehicle v0: x = 58.892348292640854 y = -4.8
-Speed of vehicle v0: 14.723087073160213
-Position of vehicle v1: x = 39.099206103648825 y = -4.8
-Speed of vehicle v1: 13.033068701216276
-Position of vehicle v2: x = 23.872351142675807 y = -1.6
-Speed of vehicle v2: 12.081265266155462
-Position of vehicle v3: x = 10.290835876520346 y = -4.8
-Speed of vehicle v3: 10.290835876520346
+Position of vehicle v0: x = 58.893600000000006 y = -4.8
+Speed of vehicle v0: 14.723400000000002
+Position of vehicle v1: x = 39.098961 y = -4.8
+Speed of vehicle v1: 13.032987
+Position of vehicle v2: x = 23.8721714 y = -1.6
+Speed of vehicle v2: 12.08118765
+Position of vehicle v3: x = 10.29073375 y = -4.8
+Speed of vehicle v3: 10.29073375
 Step: 5
 Subscription Departed vehicles: v5
-Position of vehicle v0: x = 73.61543536580106 y = -4.8
-Speed of vehicle v0: 14.723087073160213
-Position of vehicle v1: x = 52.132274804865105 y = -4.8
-Speed of vehicle v1: 13.033068701216276
-Position of vehicle v2: x = 37.75361640883127 y = -1.6
-Speed of vehicle v2: 13.881265266155463
-Position of vehicle v3: x = 22.381671753040692 y = -4.8
-Speed of vehicle v3: 12.090835876520346
-Position of vehicle v4: x = 8.720781168693794 y = -4.8
-Speed of vehicle v4: 8.720781168693794
+Position of vehicle v0: x = 73.617 y = -4.8
+Speed of vehicle v0: 14.723400000000002
+Position of vehicle v1: x = 52.131948 y = -4.8
+Speed of vehicle v1: 13.032987
+Position of vehicle v2: x = 37.75335905 y = -1.6
+Speed of vehicle v2: 13.881187650000001
+Position of vehicle v3: x = 22.3814675 y = -4.8
+Speed of vehicle v3: 12.09073375
+Position of vehicle v4: x = 8.720645 y = -4.8
+Speed of vehicle v4: 8.720645
 Step: 6
 Subscription Departed vehicles: v6
-Position of vehicle v0: x = 88.33852243896128 y = -4.8
-Speed of vehicle v0: 14.723087073160213
-Position of vehicle v1: x = 65.16534350608138 y = -4.8
-Speed of vehicle v1: 13.033068701216276
-Position of vehicle v2: x = 51.787973393589 y = -1.6
-Speed of vehicle v2: 14.034356984757727
-Position of vehicle v3: x = 36.27250762956104 y = -4.8
-Speed of vehicle v3: 13.890835876520347
-Position of vehicle v4: x = 19.241562337387588 y = -4.8
-Speed of vehicle v4: 10.520781168693794
-Position of vehicle v5: x = 6.720447835360461 y = -4.8
-Speed of vehicle v5: 6.720447835360461
+Position of vehicle v0: x = 88.3404 y = -4.8
+Speed of vehicle v0: 14.723400000000002
+Position of vehicle v1: x = 65.164935 y = -4.8
+Speed of vehicle v1: 13.032987
+Position of vehicle v2: x = 51.78781505 y = -1.6
+Speed of vehicle v2: 14.034456
+Position of vehicle v3: x = 36.27220125 y = -4.8
+Speed of vehicle v3: 13.89073375
+Position of vehicle v4: x = 19.24129 y = -4.8
+Speed of vehicle v4: 10.520645
+Position of vehicle v5: x = 6.7203116666666665 y = -4.8
+Speed of vehicle v5: 6.7203116666666665
 Step: 7
-Position of vehicle v0: x = 103.06160951212149 y = -4.8
-Speed of vehicle v0: 14.723087073160213
-Position of vehicle v1: x = 78.19841220729766 y = -4.8
-Speed of vehicle v1: 13.033068701216276
-Position of vehicle v2: x = 65.82233037834672 y = -1.6
-Speed of vehicle v2: 14.034356984757727
-Position of vehicle v3: x = 51.276526076458616 y = -4.8
-Speed of vehicle v3: 15.004018446897575
-Position of vehicle v4: x = 31.56234350608138 y = -4.8
-Speed of vehicle v4: 12.320781168693795
-Position of vehicle v5: x = 15.24089567072092 y = -4.8
-Speed of vehicle v5: 8.52044783536046
-Position of vehicle v6: x = 4.080171753040691 y = -4.8
-Speed of vehicle v6: 4.080171753040691
+Position of vehicle v0: x = 103.0638 y = -4.8
+Speed of vehicle v0: 14.723400000000002
+Position of vehicle v1: x = 78.197922 y = -4.8
+Speed of vehicle v1: 13.032987
+Position of vehicle v2: x = 65.82227105 y = -1.6
+Speed of vehicle v2: 14.034456
+Position of vehicle v3: x = 51.27614820833334 y = -4.8
+Speed of vehicle v3: 15.003946958333334
+Position of vehicle v4: x = 31.561935 y = -4.8
+Speed of vehicle v4: 12.320645
+Position of vehicle v5: x = 15.240623333333332 y = -4.8
+Speed of vehicle v5: 8.520311666666666
+Position of vehicle v6: x = 4.0799674999999995 y = -4.8
+Speed of vehicle v6: 4.0799674999999995
 Step: 8
 Subscription Departed vehicles: v7
-Position of vehicle v0: x = 117.78469658528171 y = -4.8
-Speed of vehicle v0: 14.723087073160213
-Position of vehicle v1: x = 91.23148090851394 y = -4.8
-Speed of vehicle v1: 13.033068701216276
-Position of vehicle v2: x = 79.85668736310444 y = -1.6
-Speed of vehicle v2: 14.034356984757727
-Position of vehicle v3: x = 65.88715826359945 y = -4.8
-Speed of vehicle v3: 14.610632187140832
-Position of vehicle v4: x = 45.68312467477518 y = -4.8
-Speed of vehicle v4: 14.120781168693796
-Position of vehicle v5: x = 25.561343506081382 y = -4.8
-Speed of vehicle v5: 10.320447835360461
-Position of vehicle v6: x = 9.960343506081383 y = -4.8
-Speed of vehicle v6: 5.880171753040691
+Position of vehicle v0: x = 117.7872 y = -4.8
+Speed of vehicle v0: 14.723400000000002
+Position of vehicle v1: x = 91.23090900000001 y = -4.8
+Speed of vehicle v1: 13.032987
+Position of vehicle v2: x = 79.85672705 y = -1.6
+Speed of vehicle v2: 14.034456
+Position of vehicle v3: x = 65.88669256666667 y = -4.8
+Speed of vehicle v3: 14.610544358333334
+Position of vehicle v4: x = 45.68258 y = -4.8
+Speed of vehicle v4: 14.120645000000001
+Position of vehicle v5: x = 25.560935 y = -4.8
+Speed of vehicle v5: 10.320311666666667
+Position of vehicle v6: x = 9.959934999999998 y = -4.8
+Speed of vehicle v6: 5.879967499999999
 Step: 9
