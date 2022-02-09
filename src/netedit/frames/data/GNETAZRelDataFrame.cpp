@@ -118,7 +118,7 @@ GNETAZRelDataFrame::buildTAZRelationData() {
             WRITE_WARNING("There is already a " + toString(SUMO_TAG_TAZREL) + " defined in TAZ'" + myFirstTAZ->getID() + "'.");
         } else if ((myFirstTAZ != mySecondTAZ) && myIntervalSelector->getDataInterval()->TAZRelExists(myFirstTAZ, mySecondTAZ)) {
             WRITE_WARNING("There is already a " + toString(SUMO_TAG_TAZREL) + " defined between TAZ'" + myFirstTAZ->getID() + "' and '" + mySecondTAZ->getID() + "'.");
-        } else {
+        } else if (Parameterised::areParametersValid(myGenericDataAttributes->getParametersStr())) {
             // declare data handler
             GNEDataHandler dataHandler(myViewNet->getNet(), "", true);
             // build data interval object and fill it
