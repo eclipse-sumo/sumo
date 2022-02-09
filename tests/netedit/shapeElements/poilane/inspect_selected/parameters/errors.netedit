@@ -1,16 +1,10 @@
 Debug: Inserting generic parameter 'keyA1|valueA1' into poi
-Debug: Inserting generic parameter 'keyA1|valueA1' into 
 Debug: Inserting generic parameter 'keyA2|valueA2' into poi
-Debug: Inserting generic parameter 'keyA2|valueA2' into 
 Debug: Inserting generic parameter 'keyA3|valueA3' into poi
-Debug: Inserting generic parameter 'keyA3|valueA3' into 
 Debug: Adding poiLane 'POI_1' into viewNet
 Debug: Inserting generic parameter 'keyB1|valueB1' into poi
-Debug: Inserting generic parameter 'keyB1|valueB1' into 
 Debug: Inserting generic parameter 'keyB2|valueB2' into poi
-Debug: Inserting generic parameter 'keyB2|valueB2' into 
 Debug: Inserting generic parameter 'keyB3|valueB3' into poi
-Debug: Inserting generic parameter 'keyB3|valueB3' into 
 Debug: Adding poiLane 'POI_2' into viewNet
 Debug: Setting new attribute
 Debug: Setting new attribute

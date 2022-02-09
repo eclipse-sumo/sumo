@@ -38,25 +38,22 @@ netedit.changeElement("poiLane")
 netedit.leftClick(referencePosition, 150, 210)
 
 # enable ID
-netedit.changeDefaultBoolValue(2)
-
-# create poi
-netedit.leftClick(referencePosition, 170, 210)
+netedit.changeDefaultBoolValue(netedit.attrs.POILane.create.idEnable)
 
 # set invalid ID
-netedit.changeDefaultValue(3, ";;;;;;")
+netedit.changeDefaultValue(netedit.attrs.POILane.create.id, ";;;;;;")
 
 # try to create poi
 netedit.leftClick(referencePosition, 190, 210)
 
 # set invalid ID
-netedit.changeDefaultValue(3, "POI_0")
+netedit.changeDefaultValue(netedit.attrs.POILane.create.id, "poi_0")
 
 # try to create poi
 netedit.leftClick(referencePosition, 220, 210)
 
 # set invalid ID
-netedit.changeDefaultValue(3, "customID")
+netedit.changeDefaultValue(netedit.attrs.POILane.create.id, "customID")
 
 # create POI
 netedit.leftClick(referencePosition, 240, 210)

@@ -56,7 +56,6 @@ netedit.changeDefaultValue(netedit.attrs.POIGEO.create.id, "poi_0")
 netedit.leftClick(referencePosition, 160, 50)
 
 # set invalid ID
-netedit.changeDefaultBoolValue(netedit.attrs.POIGEO.create.idEnable)
 netedit.changeDefaultValue(netedit.attrs.POIGEO.create.id, "customID")
 
 # create POI

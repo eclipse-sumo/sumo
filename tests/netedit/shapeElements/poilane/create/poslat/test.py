@@ -41,13 +41,13 @@ netedit.changeDefaultValue(4, "dummyPosLat")
 netedit.leftClick(referencePosition, 150, 210)
 
 # change pos lat (valid, negative)
-netedit.changeDefaultValue(4, "-5")
+netedit.changeDefaultValue(netedit.attrs.POILane.create.posLat, "-5")
 
 # create poi
 netedit.leftClick(referencePosition, 200, 210)
 
 # change pos lat (valid)
-netedit.changeDefaultValue(4, "7.5")
+netedit.changeDefaultValue(netedit.attrs.POILane.create.posLat, "7.5")
 
 # create poi
 netedit.leftClick(referencePosition, 250, 210)

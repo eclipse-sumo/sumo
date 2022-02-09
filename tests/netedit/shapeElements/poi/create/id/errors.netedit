@@ -7,7 +7,7 @@ Debug: Selected item 'poi' in TagSelector
 Debug: Adding poi 'poi_0' into viewNet
 GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -8.50,7.50,12.50,28.50
 Debug: Invalid input parameter of poi
-Error: Could not build poi with ID 'poi_0' in netedit; declared twice.
+Debug: Invalid input parameter of poi
 Debug: Adding poi 'customID' into viewNet
 GLDebug: 	Inserted poi:customID into SUMORTree with boundary -0.50,7.50,20.50,28.50
 Debug: Keys Ctrl+Z (Undo) pressed

@@ -56,7 +56,6 @@ netedit.changeDefaultValue(netedit.attrs.POI.create.id, "poi_0")
 netedit.leftClick(referencePosition, 160, 50)
 
 # set invalid ID
-netedit.changeDefaultBoolValue(netedit.attrs.POI.create.idEnable)
 netedit.changeDefaultValue(netedit.attrs.POI.create.id, "customID")
 
 # create POI

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-08 09:00:34 by Eclipse SUMO netedit Version v1_12_0+0345-dcbcefed94a
+<!-- generated on 2022-02-09 10:54:29 by Eclipse SUMO netedit Version v1_12_0+0390-6ccad2aacb0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <route id="r_0" edges="gneE2 gneE4 gneE5"/>
-    <vehicle id="v_0" depart="0.00" departSpeed="random" arrivalLane="20" route="r_0"/>
+    <vehicle id="v_0" depart="0.00" arrivalLane="random" route="r_0"/>
+    <vehicle id="v_1" depart="0.00" arrivalLane="20" route="r_0"/>
 </routes>

@@ -857,6 +857,55 @@ class POIGEO:
         angle = 10
         parameters = 13
 
+# POILane
+class POILane:
+    class create:
+        idEnable = 5
+        id = 6
+        friendlyPos = 6
+        posLat = 7
+        colorButton = 8
+        color = 9
+        type = 10
+        name = 11
+        layer = 12
+        width = 13
+        height = 14
+        imgFile = 15
+        relativePath = 16
+        angle = 14
+    class inspect:
+        id = 1
+        lane = 2
+        pos = 3
+        friendlyPos = 4
+        posLat = 5
+        colorButton = 6     # missing
+        color = 7
+        type = 8
+        name = 9
+        layer = 10
+        width = 11
+        height = 12
+        imgFile = 13
+        relativePath = 14
+        angle = 15
+        parameters = 18
+    class inspectSelection:
+        friendlyPos = 1
+        posLat = 2
+        colorButton = 3     # missing
+        color = 4
+        type = 5
+        name = 6
+        layer = 7
+        width = 8
+        height = 9
+        imgFile = 10
+        relativePath = 11
+        angle = 12
+        parameters = 15
+
 #--------------------------------
 # TAZ ELEMENTS
 #--------------------------------

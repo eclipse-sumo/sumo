@@ -8,7 +8,7 @@ Debug: Adding poiGeo 'poi_0' into viewNet
 GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -8.50,7.50,12.50,28.50
 Debug: Adding poiGeo 'poi_1' into viewNet
 GLDebug: 	Inserted poi:poi_1 into SUMORTree with boundary -4.50,7.50,16.50,28.50
-Debug: Setting new attribute
+Debug: Value 'poi_1' for attribute id of poiGeo isn't valid
 Debug: Value '' for attribute id of poiGeo isn't valid
 Debug: Value 'ID with spaces' for attribute id of poiGeo isn't valid
 Debug: Setting new attribute
@@ -17,18 +17,20 @@ Debug: Calling GNEUndoList::undo()
 Debug: Restoring previous attribute
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Restoring previous attribute
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
 Debug: Removing poiGeo 'poi_1' from viewNet
 GLDebug: 	Removed object poi:poi_1 from SUMORTree with boundary -4.50,7.50,16.50,28.50
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Removing poiGeo 'poi_0' from viewNet
+GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -8.50,7.50,12.50,28.50
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Adding poiGeo 'poi_0' into viewNet
+GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -8.50,7.50,12.50,28.50
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding poiGeo 'poi_1' into viewNet
 GLDebug: 	Inserted poi:poi_1 into SUMORTree with boundary -4.50,7.50,16.50,28.50
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute

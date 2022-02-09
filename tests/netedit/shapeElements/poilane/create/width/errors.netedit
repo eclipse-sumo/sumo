@@ -1,7 +1,6 @@
-Debug: Selected item 'poly' in TagSelector
 Debug: Selected item 'poiLane' in TagSelector
-Debug: Invalid input parameter of poiLane: 'width' doesn't have a valid 'float' format
-Debug: Invalid input parameter of poiLane: 'width' cannot be negative
+Debug: Invalid input parameter of poiLane
+Debug: Invalid input parameter of poiLane
 Debug: Adding poiLane 'poi_0' into viewNet
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
