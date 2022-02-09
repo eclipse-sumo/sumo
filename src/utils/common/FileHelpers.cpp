@@ -188,7 +188,7 @@ std::vector<std::string>
 FileHelpers::splitDirs(const std::string& filename) {
     std::vector<std::string> result;
     for (const std::string& d : StringTokenizer(filename, "\\/", true).getVector()) {
-        if (d == ".." && !result.empty()) {
+        if (d == ".." && !result.empty() && result.back() != "..") {
             result.pop_back();
         } else if ((d == "" && result.empty()) || (d != "" && d != ".")) {
             result.push_back(d);

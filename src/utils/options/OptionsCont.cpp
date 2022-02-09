@@ -793,7 +793,7 @@ OptionsCont::printHelpOnTopic(const std::string& topic, int tooLarge, int maxSiz
 void
 OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
                                 const bool complete, const bool addComments, const std::string& relativeTo,
-                                const bool inComment) const {
+                                const bool forceRelative, const bool inComment) const {
     if (!inComment) {
         writeXMLHeader(os, false);
     }
@@ -836,7 +836,8 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
                 if (o->isFileName() && relativeTo != "") {
                     StringVector fileList = StringVector(o->getStringVector());
                     for (std::string& f : fileList) {
-                        f = FileHelpers::fixRelative(StringUtils::urlEncode(f, " ;%"), relativeTo, getBool("save-configuration.relative"));
+                        f = FileHelpers::fixRelative(StringUtils::urlEncode(f, " ;%"), relativeTo,
+                                                     forceRelative || getBool("save-configuration.relative"));
                     }
                     os << StringUtils::escapeXML(joinToString(fileList, ','), inComment);
                 } else {
@@ -944,7 +945,7 @@ OptionsCont::writeXMLHeader(std::ostream& os, const bool includeConfig) const {
               "SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later\n";
     }
     if (includeConfig) {
-        writeConfiguration(os, true, false, false, "", true);
+        writeConfiguration(os, true, false, false, "", false, true);
     }
     os << "-->\n\n";
 }
