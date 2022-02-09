@@ -994,17 +994,29 @@ MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) const 
         const std::string inBracket = condition.substr(bracketOpen + 1, bracketClose - bracketOpen - 1);
         double bracketVal = evalExpression(inBracket);
         cond2.replace(bracketOpen, bracketClose - bracketOpen + 1, toString(bracketVal));
-        return evalExpression(cond2);
+        try {
+            return evalExpression(cond2);
+        } catch (ProcessError& e) {
+            throw ProcessError("Error when evaluating expression '" + condition + "':\n  " + e.what());
+        }
     }
     std::vector<std::string> tokens = StringTokenizer(condition).getVector();
     //std::cout << SIMTIME << " tokens(" << tokens.size() << ")=" << toString(tokens) << "\n";
     if (tokens.size() == 0) {
         throw ProcessError("Invalid empty condition '" + condition + "'");
     } else if (tokens.size() == 1) {
-        return evalAtomicExpression(tokens[0]);
+        try {
+            return evalAtomicExpression(tokens[0]);
+        } catch (ProcessError& e) {
+            throw ProcessError("Error when evaluating expression '" + condition + "':\n  " + e.what());
+        }
     } else if (tokens.size() == 2) {
         if (tokens[0] == "not") {
-            return !(bool)(evalAtomicExpression(tokens[1]));
+            try {
+                return !(bool)(evalAtomicExpression(tokens[1]));
+            } catch (ProcessError& e) {
+                throw ProcessError("Error when evaluating expression '" + condition + "':\n  " + e.what());
+            }
         } else {
             throw ProcessError("Unsupported condition '" + condition + "'");
         }
@@ -1014,19 +1026,27 @@ MSActuatedTrafficLightLogic::evalExpression(const std::string& condition) const 
         const double b = evalAtomicExpression(tokens[2]);
         const std::string& o = tokens[1];
         //std::cout << SIMTIME << " o=" << o << " a=" << a << " b=" << b << "\n";
-        return evalTernaryExpression(a, o, b, condition);
+        try {
+            return evalTernaryExpression(a, o, b, condition);
+        } catch (ProcessError& e) {
+            throw ProcessError("Error when evaluating expression '" + condition + "':\n  " + e.what());
+        }
     } else {
         const int iEnd = (int)tokens.size() - 1;
         for (const std::string& o : OPERATOR_PRECEDENCE) {
             for (int i = 1; i < iEnd; i++) {
                 if (tokens[i] == o) {
-                    const double val = evalTernaryExpression(
-                                           evalAtomicExpression(tokens[i - 1]), o,
-                                           evalAtomicExpression(tokens[i + 1]), condition);
-                    std::vector<std::string> newTokens(tokens.begin(), tokens.begin() + (i - 1));
-                    newTokens.push_back(toString(val));
-                    newTokens.insert(newTokens.end(), tokens.begin() + (i + 2), tokens.end());
-                    return evalExpression(toString(newTokens));
+                    try {
+                        const double val = evalTernaryExpression(
+                                evalAtomicExpression(tokens[i - 1]), o,
+                                evalAtomicExpression(tokens[i + 1]), condition);
+                        std::vector<std::string> newTokens(tokens.begin(), tokens.begin() + (i - 1));
+                        newTokens.push_back(toString(val));
+                        newTokens.insert(newTokens.end(), tokens.begin() + (i + 2), tokens.end());
+                        return evalExpression(toString(newTokens));
+                    } catch (ProcessError& e) {
+                        throw ProcessError("Error when evaluating expression '" + condition + "':\n  " + e.what());
+                    }
                 }
             }
         }
@@ -1158,7 +1178,7 @@ MSActuatedTrafficLightLogic::getConditions() const {
                 try {
                     result[item.first] = evalExpression(item.second);
                 } catch (ProcessError& e) {
-                    WRITE_ERROR("Error when retrieving conditions '" + item.first + "' for tlLogic '" + getID() + " (" + e.what() + ")");
+                    WRITE_ERROR("Error when retrieving conditions '" + item.first + "' for tlLogic '" + getID() + "' (" + e.what() + ")");
                 }
             }
         }
