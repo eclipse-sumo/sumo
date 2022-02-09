@@ -1,0 +1,6 @@
+Warning: Teleporting vehicle '46'; waited too long (yield), lane='WC_0', time=486.00.
+Warning: Vehicle '46' ends teleporting on edge 'CN', time=486.00.
+Warning: Teleporting vehicle '583'; frontal collision with vehicle '669', lane='CN_0', gap=-3.76, time=691.00 stage=move.
+Warning: Vehicle '583' ends teleporting on edge 'CS', time=691.00.
+Warning: Teleporting vehicle '80'; waited too long (yield), lane='EC_0', time=968.00.
+Warning: Vehicle '80' ends teleporting on edge 'CS', time=968.00.

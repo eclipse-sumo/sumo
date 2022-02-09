@@ -1,6 +1,7 @@
-Warning: Teleporting vehicle 'SW.48'; waited too long (yield), lane=':C_10_0', time=838.00.
-Warning: Vehicle 'SW.48' ends teleporting on edge 'CW', time=838.00.
-Warning: Teleporting vehicle 'SW.49'; waited too long (yield), lane=':C_10_0', time=1141.00.
-Warning: Vehicle 'SW.49' ends teleporting on edge 'CW', time=1141.00.
-Warning: Teleporting vehicle 'SW.116'; waited too long (yield), lane='SC_1', time=1569.00.
-Warning: Vehicle 'SW.116' ends teleporting on edge 'CW', time=1569.00.
+Warning: Teleporting vehicle 'SW.46'; waited too long (yield), lane=':C_10_0', time=643.00.
+Warning: Vehicle 'SW.46' ends teleporting on edge 'CW', time=643.00.
+Warning: Teleporting vehicle 'SW.48'; waited too long (yield), lane=':C_10_0', time=946.00.
+Warning: Vehicle 'SW.48' ends teleporting on edge 'CW', time=946.00.
+Warning: Vehicle 'SW.91' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1314.00.
+Warning: Teleporting vehicle 'SW.97'; waited too long (yield), lane='SC_1', time=1564.00.
+Warning: Vehicle 'SW.97' ends teleporting on edge 'CW', time=1564.00.
