@@ -475,6 +475,33 @@ class parkingArea:
         angle = 8
         parameters = 11
 
+# parkingSpace
+class parkingSpace:
+    class create:
+        name = 5
+        width = 6
+        lenght = 7
+        angle = 8
+        slope = 9       # missing       
+        parent = 12
+    class inspect: 
+        pos = 1
+        name = 2
+        width = 3
+        lenght = 4
+        angle = 5
+        slope = 6       # missing
+        parameters = 9
+        parent = 13
+    class inspectSelection:
+        name = 1
+        width = 2
+        lenght = 3
+        angle = 4
+        slope = 5       # missing
+        parameters = 8
+        parent = 11
+
 # E1
 class E1:
     class create:

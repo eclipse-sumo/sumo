@@ -56,7 +56,7 @@ netedit.leftClick(referencePosition, 100, 350)
 netedit.moveMode()
 
 # move first POI to left down
-netedit.moveElement(referencePosition, 108, 94, 375, 151)
+netedit.moveElement(referencePosition, 108, 94, 370, 155)
 
 # move second POI to left up
 netedit.moveElement(referencePosition, 110, 363, 355, 250)
