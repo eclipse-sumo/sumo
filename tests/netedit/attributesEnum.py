@@ -696,6 +696,54 @@ class calibrator:
 # SHAPE ELEMENTS
 #--------------------------------
 
+# Poly
+class Poly:
+    class create:
+        idEnable = 5
+        id = 6
+        colorButton = 6
+        color = 7
+        fill = 8
+        lineWidth = 9
+        layer = 10
+        type = 11
+        name = 12
+        imgFile = 13
+        reativePath = 14
+        angle = 15
+        closeShape = 19
+    class inspect:
+        id = 1
+        shape = 2
+        colorButton = 3     # missing
+        color = 4
+        fill = 5
+        lineWidth = 6
+        layer = 7
+        type = 8
+        name = 9            # missing
+        imgFile = 10
+        reativePath = 11
+        angle = 12
+        geoshape = 15
+        geo = 16
+        parameters = 17
+        closeShape = 21
+    class inspectSelection:
+        colorButton = 1
+        color = 2
+        fill = 3            # missing
+        lineWidth = 4
+        layer = 5
+        type = 6
+        name = 7            # missing
+        imgFile = 8
+        reativePath = 9
+        angle = 10
+        geo = 13
+        parameters = 15
+        closeShape = 18
+
 # POI
 class POI:
     class create:

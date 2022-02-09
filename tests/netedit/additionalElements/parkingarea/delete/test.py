@@ -44,10 +44,10 @@ netedit.deleteMode()
 netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
 
 # delete created parkingArea
-netedit.leftClick(referencePosition, 260, 290)
+netedit.leftClick(referencePosition, 260, 270)
 
 # delete first loaded parkingArea
-netedit.leftClick(referencePosition, 480, 290)
+netedit.leftClick(referencePosition, 480, 270)
 
 # delete lane with the second loaded parkingArea
 netedit.leftClick(referencePosition, 196, 220)
