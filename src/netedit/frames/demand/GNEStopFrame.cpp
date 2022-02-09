@@ -383,33 +383,54 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
     }
     if (stopBaseObject->hasStringAttribute(SUMO_ATTR_TRIGGERED)) {
         if ((stopBaseObject->getStringAttribute(SUMO_ATTR_TRIGGERED) == "true") || (stopBaseObject->getStringAttribute(SUMO_ATTR_TRIGGERED) == "person")) {
-            stop.triggered = true;
+            // set flags
+            stop.parametersSet &= ~STOP_CONTAINER_TRIGGER_SET;
             stop.parametersSet |= STOP_TRIGGER_SET;
-        } else {
+        } else if (stopBaseObject->getStringAttribute(SUMO_ATTR_TRIGGERED) == "container") {
+            // set flags
             stop.parametersSet &= ~STOP_TRIGGER_SET;
+            stop.parametersSet |= STOP_CONTAINER_TRIGGER_SET;
+        } else if (stopBaseObject->getStringAttribute(SUMO_ATTR_TRIGGERED) == "join") {
+            // set flags
+            stop.parametersSet |= STOP_TRIGGER_SET;
+            stop.parametersSet |= STOP_CONTAINER_TRIGGER_SET;
+        } else {
+            // disable all flags
+            stop.parametersSet &= ~STOP_TRIGGER_SET;
+            stop.parametersSet &= ~STOP_CONTAINER_TRIGGER_SET;
         }
     }
-    if (stopBaseObject->hasBoolAttribute(SUMO_ATTR_CONTAINER_TRIGGERED)) {
-        stop.containerTriggered = stopBaseObject->getBoolAttribute(SUMO_ATTR_CONTAINER_TRIGGERED);
-        stop.parametersSet |= STOP_CONTAINER_TRIGGER_SET;
-    }
     if (stopBaseObject->hasBoolAttribute(SUMO_ATTR_PARKING)) {
-        stop.parking = stopBaseObject->getBoolAttribute(SUMO_ATTR_PARKING);
-        stop.parametersSet |= STOP_PARKING_SET;
+        if (stopBaseObject->getBoolAttribute(SUMO_ATTR_PARKING)) {
+            stop.parametersSet |= STOP_PARKING_SET;
+        } else {
+            stop.parametersSet &= ~STOP_PARKING_SET;
+        }
     }
     if (stopBaseObject->hasStringListAttribute(SUMO_ATTR_EXPECTED)) {
         const auto expected = stopBaseObject->getStringListAttribute(SUMO_ATTR_EXPECTED);
-        for (const auto& id : expected) {
-            stop.awaitedPersons.insert(id);
+        if (expected.size() > 0) {
+            if ((stop.parametersSet & STOP_TRIGGER_SET) && (stop.parametersSet & STOP_CONTAINER_TRIGGER_SET)) {
+                for (const auto& id : expected) {
+                    stop.permitted.insert(id);
+                }
+                stop.parametersSet |= STOP_PERMITTED_SET;
+            } else if (stop.parametersSet & STOP_TRIGGER_SET) {
+                for (const auto& id : expected) {
+                    stop.awaitedPersons.insert(id);
+                }
+                stop.parametersSet |= STOP_EXPECTED_SET;
+            } else if (stop.parametersSet & STOP_CONTAINER_TRIGGER_SET) {
+                for (const auto& id : expected) {
+                    stop.awaitedContainers.insert(id);
+                }
+                stop.parametersSet |= STOP_EXPECTED_CONTAINERS_SET;
+            }
+        } else {
+            stop.parametersSet &= ~STOP_PERMITTED_SET;
+            stop.parametersSet &= ~STOP_EXPECTED_SET;
+            stop.parametersSet &= ~STOP_EXPECTED_CONTAINERS_SET;
         }
-        stop.parametersSet |= STOP_EXPECTED_SET;
-    }
-    if (stopBaseObject->hasStringListAttribute(SUMO_ATTR_EXPECTED_CONTAINERS)) {
-        const auto expected = stopBaseObject->getStringListAttribute(SUMO_ATTR_EXPECTED_CONTAINERS);
-        for (const auto& id : expected) {
-            stop.awaitedPersons.insert(id);
-        }
-        stop.parametersSet |= STOP_EXPECTED_CONTAINERS_SET;
     }
     if (stopBaseObject->hasStringAttribute(SUMO_ATTR_TRIP_ID)) {
         stop.tripId = stopBaseObject->getStringAttribute(SUMO_ATTR_TRIP_ID);
