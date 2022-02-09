@@ -285,7 +285,9 @@ GUIRunThread::deleteSim() {
     if (myNet != nullptr) {
         myNet->closeSimulation(mySimStartTime, MSNet::getStateMessage(myNet->simulationState(mySimEndTime)));
     }
-    while (mySimulationInProgress);
+    while (mySimulationInProgress) {
+        sleep(50);
+    }
     delete myNet;
     GUIGlObjectStorage::gIDStorage.clear();
     myNet = nullptr;
