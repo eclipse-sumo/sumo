@@ -627,7 +627,7 @@ private:
     double computeDistToDivergence(const MSLane* lane, const MSLane* sibling, double minDist, bool sameSource) const;
 
     /// @brief compute arrival time if foe vehicle is braking for ego
-    static SUMOTime computeFoeArrivalTimeBraking(SUMOTime arrivalTime, const SUMOVehicle* foe, SUMOTime foeArrivalTime, SUMOTime foeLastBrakeTime, double dist); 
+    static SUMOTime computeFoeArrivalTimeBraking(SUMOTime arrivalTime, const SUMOVehicle* foe, SUMOTime foeArrivalTime, double impatience, double dist, double& fasb);
 
     /// @brief check whether the given vehicle positions overlap laterally
     static bool lateralOverlap(double posLat, double width, double posLat2, double width2);

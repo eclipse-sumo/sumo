@@ -727,16 +727,21 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
         }
     }
     SUMOTime foeArrivalTime = avi.arrivalTime;
+    double foeArrivalSpeedBraking = avi.arrivalSpeedBraking;
     if (impatience > 0 && arrivalTime < avi.arrivalTime) {
-        const SUMOTime fatb = computeFoeArrivalTimeBraking(arrivalTime, veh, avi.arrivalTime, avi.arrivalTimeBraking, avi.dist);
+#ifdef MSLink_DEBUG_OPENED
+        gDebugFlag6 = ((ego == nullptr || ego->isSelected()) && (veh == nullptr || veh->isSelected()));
+#endif
+        const SUMOTime fatb = computeFoeArrivalTimeBraking(arrivalTime, veh, avi.arrivalTime, impatience, avi.dist, foeArrivalSpeedBraking);
         foeArrivalTime = (SUMOTime)((1.0 - impatience) * avi.arrivalTime + impatience * fatb);
 #ifdef MSLink_DEBUG_OPENED
-        if ((ego == nullptr || ego->isSelected()) && (veh == nullptr || veh->isSelected())) {
+        if (gDebugFlag6) {
             std::cout << SIMTIME << " link=" << getDescription() << " ego=" << ego->getID() << " foe=" << veh->getID()
                 << " at=" << STEPS2TIME(arrivalTime)
+                << " fat=" << STEPS2TIME(avi.arrivalTime)
                 << " atb=" << STEPS2TIME(avi.arrivalTimeBraking)
                 << " fatb=" << STEPS2TIME(fatb)
-                << " fat=" << STEPS2TIME(foeArrivalTime)
+                << " fat2=" << STEPS2TIME(foeArrivalTime)
                 << "\n";
         }
 #endif
@@ -750,9 +755,9 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
                                    : TIME2STEPS(ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_TIMEGAP_MINOR, STEPS2TIME(myLookaheadTime)))));
     //if (ego != 0) std::cout << SIMTIME << " ego=" << ego->getID() << " jmTimegapMinor=" << ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_TIMEGAP_MINOR, -1) << " lookAhead=" << lookAhead << "\n";
 #ifdef MSLink_DEBUG_OPENED
-    if (gDebugFlag1) {
+    if (gDebugFlag1 || gDebugFlag6) {
         std::stringstream stream; // to reduce output interleaving from different threads
-        stream << "       imp=" << impatience << " fATb=" << avi.arrivalTimeBraking << " fAT2=" << foeArrivalTime << " lA=" << lookAhead << " egoAT=" << arrivalTime << " egoLT=" << leaveTime << "\n";
+        stream << "       imp=" << impatience << " fATb=" << avi.arrivalTimeBraking << " fAT2=" << foeArrivalTime << " fASb=" << foeArrivalSpeedBraking << " lA=" << lookAhead << " egoAT=" << arrivalTime << " egoLT=" << leaveTime << " egoLS=" << leaveSpeed << "\n";
         std::cout << stream.str();
     }
 #endif
@@ -762,7 +767,7 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
                                || unsafeMergeSpeeds(avi.leaveSpeed, arrivalSpeed,
                                        veh->getVehicleType().getCarFollowModel().getMaxDecel(), decel))) {
 #ifdef MSLink_DEBUG_OPENED
-            if (gDebugFlag1) {
+            if (gDebugFlag1 || gDebugFlag6) {
                 std::cout << "      blocked (cannot follow)\n";
             }
 #endif
@@ -770,10 +775,10 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
         }
     } else if (foeArrivalTime > leaveTime + lookAhead) {
         // ego wants to be leader.
-        if (sameTargetLane && unsafeMergeSpeeds(leaveSpeed, avi.arrivalSpeedBraking,
+        if (sameTargetLane && unsafeMergeSpeeds(leaveSpeed, foeArrivalSpeedBraking,
                                                 decel, veh->getVehicleType().getCarFollowModel().getMaxDecel())) {
 #ifdef MSLink_DEBUG_OPENED
-            if (gDebugFlag1) {
+            if (gDebugFlag1 || gDebugFlag6) {
                 std::cout << "      blocked (cannot lead)\n";
             }
 #endif
@@ -782,7 +787,7 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
     } else {
         // even without considering safeHeadwayTime there is already a conflict
 #ifdef MSLink_DEBUG_OPENED
-        if (gDebugFlag1) {
+        if (gDebugFlag1 || gDebugFlag6) {
             std::cout << "      blocked (hard conflict)\n";
         }
 #endif
@@ -793,15 +798,41 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
 
 
 SUMOTime
-MSLink::computeFoeArrivalTimeBraking(SUMOTime arrivalTime, const SUMOVehicle* foe, SUMOTime foeArrivalTime, SUMOTime foeLastBrakeTime, double dist) {
-    UNUSED_PARAMETER(foe);
-    UNUSED_PARAMETER(dist);
-    if (foeLastBrakeTime > arrivalTime) {
-        // foe can still brake when we enter the junction
+MSLink::computeFoeArrivalTimeBraking(SUMOTime arrivalTime, const SUMOVehicle* foe, SUMOTime foeArrivalTime, double impatience, double dist, double& fasb) {
+    // a: distance saved when foe brakes from arrivalTime to foeArrivalTime
+    // b: distance driven past foeArrivalTime
+    // m: permitted decceleration
+    // d: total deceleration until foeArrivalTime
+    // dist2: distance of foe at arrivalTime
+    // actual arrivalTime must fall on a simulation step
+    //arrivalTime += DELTA_T - arrivalTime % DELTA_T;
+    const double m = foe->getVehicleType().getCarFollowModel().getMaxDecel() * impatience;
+    const double dt = STEPS2TIME(foeArrivalTime - arrivalTime);
+    const double d = dt * m;
+    const double a = dt * d / 2;
+    const double v = dist / STEPS2TIME(foeArrivalTime - SIMSTEP + DELTA_T);
+    const double dist2 = dist - v * STEPS2TIME(arrivalTime - SIMSTEP);
+    if (0.5 * v * v / m <= dist2) {
+        if (gDebugFlag6) {
+            std::cout << "   dist=" << dist << " dist2=" << dist2 << " at=" << STEPS2TIME(arrivalTime) << " m=" << m << " d=" << d << " a=" << a << " canBrakeToStop\n";
+        }
+        fasb = 0;
         return foeArrivalTime + TIME2STEPS(30);
-    } else {
-        return foeArrivalTime;
     }
+    // a = b (foe reaches the original distance to the stop line)
+    // x: time driven past foeArrivalTime
+    // v: foe speed without braking
+    // v2: average foe speed after foeArrivalTime (braking continues for time x)
+    // v2 = (v - d - x * m / 2)
+    // b = v2 * x
+    // solving for x gives:
+    const double x2 = (sqrt(4 * (v - d) * (v - d) - 8 * m * a) * 0.5 - d + v) / m;
+    const double x = (sqrt(4 * (v - d) * (v - d) - 8 * m * a) * -0.5 - d + v) / m;
+    if (gDebugFlag6 || ISNAN(x)) {
+        std::cout << SIMTIME << "   dist=" << dist << " dist2=" << dist2  << " at=" << STEPS2TIME(arrivalTime) << " m=" << m << " d=" << d << " v=" << v << " a=" << a << " x=" << x << " x2=" << x2 << "\n";
+    }
+    fasb = v - (dt + x) * m;
+    return foeArrivalTime + TIME2STEPS(x);
 }
 
 
