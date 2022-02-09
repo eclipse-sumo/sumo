@@ -44,7 +44,7 @@ if(APPLE)
 endif()
 
 # Set the temporary folder name to collect the contents for the ZIP archive
-set(ZIP_BUILD_FOLDER_NAME "sumo-fmi2")
+set(ZIP_BUILD_FOLDER_NAME "sumo-fmi2${BINARY_SUFFIX}")
 
 # The command and parameters for rm / remove_directory change in cmake
 if (${CMAKE_VERSION} VERSION_GREATER 3.17.0)
@@ -69,6 +69,6 @@ add_custom_target(fmi ALL
   COMMAND ${CMAKE_COMMAND} -E make_directory "${ZIP_BUILD_FOLDER_NAME}/binaries/${PLATFORM_FOLDER_NAME}/"
   COMMAND ${CMAKE_COMMAND} -E copy ${SUMO_LIBRARIES_RELEASE_DLL} $<TARGET_FILE:libsumofmi2> $<TARGET_FILE:libsumocpp> "${ZIP_BUILD_FOLDER_NAME}/binaries/${PLATFORM_FOLDER_NAME}/"
   # Build the ZIP archive
-  COMMAND ${CMAKE_COMMAND} -E chdir "${ZIP_BUILD_FOLDER_NAME}" ${CMAKE_COMMAND} -E tar "cf" "${CMAKE_SOURCE_DIR}/bin/sumo-fmi2-${PLATFORM_FOLDER_NAME}.fmu" --format=zip "."
+  COMMAND ${CMAKE_COMMAND} -E chdir "${ZIP_BUILD_FOLDER_NAME}" ${CMAKE_COMMAND} -E tar "cf" "${CMAKE_SOURCE_DIR}/bin/sumo-fmi2-${PLATFORM_FOLDER_NAME}${BINARY_SUFFIX}.fmu" --format=zip "."
 )
 add_dependencies(fmi libsumofmi2)
