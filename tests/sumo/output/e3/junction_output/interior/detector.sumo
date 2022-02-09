@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-09 17:48:51 by Eclipse SUMO sumo Version v1_12_0+0407-89d3a2c
+<!-- generated on 2022-02-10 00:07:05 by Eclipse SUMO sumo Version v1_12_0+0426-579bba2
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -38,8 +38,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <e3Detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e3_file.xsd">
-   <interval begin="0.00" end="1160.00" id="e3_C_E1C" meanTravelTime="66.46" meanOverlapTravelTime="66.99" meanSpeed="5.81" meanHaltsPerVehicle="1.40" meanTimeLoss="48.41" vehicleSum="250" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00" meanTimeLossWithin="-1.00"/>
-   <interval begin="0.00" end="1160.00" id="e3_C_N1C" meanTravelTime="85.04" meanOverlapTravelTime="85.57" meanSpeed="5.24" meanHaltsPerVehicle="2.03" meanTimeLoss="64.83" vehicleSum="250" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00" meanTimeLossWithin="-1.00"/>
-   <interval begin="0.00" end="1160.00" id="e3_C_S1C" meanTravelTime="100.56" meanOverlapTravelTime="101.09" meanSpeed="5.37" meanHaltsPerVehicle="2.18" meanTimeLoss="80.57" vehicleSum="250" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00" meanTimeLossWithin="-1.00"/>
-   <interval begin="0.00" end="1160.00" id="e3_C_W1C" meanTravelTime="158.59" meanOverlapTravelTime="159.11" meanSpeed="3.35" meanHaltsPerVehicle="3.79" meanTimeLoss="139.97" vehicleSum="250" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00" meanTimeLossWithin="-1.00"/>
+   <interval begin="0.00" end="1156.00" id="e3_C_E1C" meanTravelTime="70.24" meanOverlapTravelTime="70.77" meanSpeed="5.81" meanHaltsPerVehicle="1.48" meanTimeLoss="52.19" vehicleSum="250" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00" meanTimeLossWithin="-1.00"/>
+   <interval begin="0.00" end="1156.00" id="e3_C_N1C" meanTravelTime="100.19" meanOverlapTravelTime="100.72" meanSpeed="5.22" meanHaltsPerVehicle="2.22" meanTimeLoss="79.98" vehicleSum="250" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00" meanTimeLossWithin="-1.00"/>
+   <interval begin="0.00" end="1156.00" id="e3_C_S1C" meanTravelTime="98.24" meanOverlapTravelTime="98.78" meanSpeed="5.42" meanHaltsPerVehicle="2.30" meanTimeLoss="78.27" vehicleSum="250" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00" meanTimeLossWithin="-1.00"/>
+   <interval begin="0.00" end="1156.00" id="e3_C_W1C" meanTravelTime="156.54" meanOverlapTravelTime="157.07" meanSpeed="3.36" meanHaltsPerVehicle="3.54" meanTimeLoss="137.94" vehicleSum="250" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00" meanTimeLossWithin="-1.00"/>
 </e3Detector>

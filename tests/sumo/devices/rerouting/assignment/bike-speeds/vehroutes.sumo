@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-02-09 17:49:28 by Eclipse SUMO sumo Version v1_12_0+0407-89d3a2c
+<!-- generated on 2022-02-10 00:07:42 by Eclipse SUMO sumo Version v1_12_0+0426-579bba2
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -72,20 +72,20 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <route cost="173.61" savings="0.00" edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
-    <vehicle id="veh.7" depart="140.00" arrival="271.00">
-        <route cost="175.59" savings="0.00" edges="beg beg2left left left2end end rend"/>
-    </vehicle>
-
-    <vehicle id="veh.0" depart="2.00" arrival="276.00">
+    <vehicle id="veh.0" depart="2.00" arrival="256.00">
         <route cost="89.93" savings="0.00" edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="veh.1" depart="20.00" arrival="278.00">
+    <vehicle id="veh.1" depart="20.00" arrival="258.00">
         <route cost="107.91" savings="0.00" edges="beg middle end rend"/>
     </vehicle>
 
-    <vehicle id="veh.2" depart="40.00" arrival="279.00">
+    <vehicle id="veh.2" depart="40.00" arrival="259.00">
         <route cost="110.21" savings="0.00" edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="veh.7" depart="140.00" arrival="271.00">
+        <route cost="175.59" savings="0.00" edges="beg beg2left left left2end end rend"/>
     </vehicle>
 
     <vehicle id="veh.8" depart="160.00" arrival="291.00">
