@@ -1350,3 +1350,25 @@ class stop:
         parking = 9
         actTypeParking = 9
         actType = 10
+
+#--------------------------------
+# DATA ELEMENTS
+#--------------------------------
+
+# edgeData
+class edgeData:
+    class create:
+        parameters = 12
+    class inspect:
+        parameters = 7
+    class inspectSelection:
+        parameters = 7
+
+# edgeRelData
+class edgeRelData:
+    class create:
+        parameters = 12
+    class inspect:
+        parameters = 7
+    class inspectSelection:
+        parameters = 7

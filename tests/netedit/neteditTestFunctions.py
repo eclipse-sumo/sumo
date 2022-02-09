@@ -2111,7 +2111,8 @@ def createDataSet(dataSetID="newDataSet"):
     # focus current frame
     focusOnFrame()
     # go to create new dataSet
-    typeTab()
+    for _ in range(2):
+        typeTab()
     # enable create dataSet
     typeSpace()
     # go to create new dataSet
@@ -2131,7 +2132,7 @@ def createDataInterval(begin="0", end="3600"):
     # focus current frame
     focusOnFrame()
     # go to create new dataInterval
-    for _ in range(3):
+    for _ in range(5):
         typeTab()
     typeTab()
     # enable create dataInterval
