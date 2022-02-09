@@ -84,7 +84,9 @@ public:
     /// @{
     /// @brief Returns the full name appearing in the tool tip
     /// @return This object's typed id
-    const std::string& getFullName() const;
+    inline const std::string& getFullName() const {
+        return myFullName;
+    }
 
     /// @brief Returns the name of the parent object (if any)
     /// @return This object's parent id
@@ -92,7 +94,9 @@ public:
 
     /// @brief Returns the numerical id of the object
     /// @return This object's gl-id
-    GUIGlID getGlID() const;
+    inline GUIGlID getGlID() const {
+        return myGlID;
+    }
 
     /// @}
 
@@ -126,7 +130,9 @@ public:
     virtual GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
     /// @brief Returns the id of the object as known to microsim
-    virtual const std::string& getMicrosimID() const;
+    inline const std::string& getMicrosimID() const {
+        return myMicrosimID;
+    }
 
     /// @brief Returns the name of the object (default "")
     virtual const std::string getOptionalName() const;
@@ -137,7 +143,19 @@ public:
 
     /// @brief Returns the type of the object as coded in GUIGlObjectType
     /// @see GUIGlObjectType
-    GUIGlObjectType getType() const;
+    inline GUIGlObjectType getType() const {
+        return myGLObjectType;
+    }
+
+    /// @brief get blocking status
+    inline bool isBlocked() const {
+        return myAmBlocked;
+    }
+
+    /// @brief set blocking status
+    inline void setBlocked(const bool state=true) {
+        myAmBlocked = state;
+    }
 
     /// @brief return exaggeration asociated with this GLObject
     virtual double getExaggeration(const GUIVisualizationSettings& s) const = 0;
@@ -250,7 +268,7 @@ protected:
 
 private:
     /// @brief The numerical id of the object
-    GUIGlID myGlID;
+    const GUIGlID myGlID;
 
     /// @brief The type of the object
     const GUIGlObjectType myGLObjectType;
@@ -260,6 +278,9 @@ private:
 
     /// @brief full name of GL Object
     std::string myFullName;
+
+    /// @brief whether the object can be deleted
+    bool myAmBlocked;
 
     /// @brief Parameter table windows which refer to this object
     std::set<GUIParameterTableWindow*> myParamWindows;
@@ -271,9 +292,6 @@ private:
     /// @brief OSG Node of this GL object
     osg::Node* myOSGNode;
 #endif
-
-    /// @brief LinkStates (Currently unused)
-    // static StringBijection<SumoXMLLinkStateValue> LinkStates;
 
     /// @brief vector for TypeNames Initializer
     static StringBijection<GUIGlObjectType>::Entry GUIGlObjectTypeNamesInitializer[];
